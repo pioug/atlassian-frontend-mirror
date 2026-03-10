@@ -14,7 +14,7 @@ import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { selectionPluginKey } from '../types';
 
@@ -66,7 +66,7 @@ const plugin = new SafePlugin({
 		}
 		return {
 			update(view) {
-				if (expValEquals('platform_synced_block', 'isEnabled', true)) {
+				if (editorExperiment('platform_synced_block', true)) {
 					// Caret visibility now handled directly via CSS selector in gapCursorStyles.ts
 					return;
 				}

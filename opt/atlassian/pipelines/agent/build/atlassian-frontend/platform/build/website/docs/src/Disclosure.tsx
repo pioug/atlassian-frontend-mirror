@@ -7,19 +7,15 @@ import { useCallback, useState, type PropsWithChildren } from 'react';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 
-import { cssMap, jsx } from '@compiled/react';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Focusable, Text } from '@atlaskit/primitives/compiled';
 
 const wrapperStyles = cssMap({
 	root: {
 		borderRadius: token('radius.medium'),
-		borderColor: token('color.border'),
-		borderStyle: 'solid',
+		borderStyle: 'none',
 		boxSizing: 'border-box',
-		borderWidth: token('border.width', '1px'),
-
-		color: token('color.text.subtle'),
 		marginBlockStart: token('space.250'),
 		display: 'flex',
 		flexDirection: 'column',
@@ -28,13 +24,16 @@ const wrapperStyles = cssMap({
 
 const headingStyles = cssMap({
 	root: {
+		boxSizing: 'border-box',
+		borderColor: token('color.border'),
+		borderStyle: 'solid',
+		borderWidth: token('border.width', '1px'),
 		backgroundColor: token('color.background.neutral'),
-		borderRadius: token('radius.medium'),
 		cursor: 'pointer',
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
@@ -45,19 +44,27 @@ const headingStyles = cssMap({
 		'&:active': {
 			backgroundColor: token('color.background.neutral.pressed'),
 		},
+		borderRadius: token('radius.medium'),
 	},
 	isOpen: {
-		borderBottomLeftRadius: 0,
-		borderBottomRightRadius: 0,
+		borderEndEndRadius: 0,
+		borderEndStartRadius: 0,
 	},
 });
 
 const detailsStyles = cssMap({
 	root: {
-		paddingTop: token('space.050'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.050'),
+		boxSizing: 'border-box',
+		paddingBlockStart: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+		borderColor: token('color.border'),
+		borderStyle: 'solid',
+		borderBlockStartStyle: 'none',
+		borderWidth: token('border.width', '1px'),
+		borderEndEndRadius: token('radius.medium'),
+		borderEndStartRadius: token('radius.medium'),
 	},
 });
 
@@ -74,14 +81,18 @@ export function Disclosure(props: PropsWithChildren<{ heading: string; isOpen?: 
 
 	return (
 		<details css={wrapperStyles.root} onToggle={handleToggle} open={_isOpen}>
-			<summary css={[headingStyles.root, _isOpen && headingStyles.isOpen]}>
+			<Focusable
+				as="summary"
+				xcss={cx(headingStyles.root, _isOpen && headingStyles.isOpen)}
+				isInset
+			>
 				{_isOpen ? (
-					<ChevronDownIcon label="" size="medium" spacing="spacious" />
+					<ChevronDownIcon label="" size="small" spacing="spacious" />
 				) : (
-					<ChevronRightIcon label="" size="medium" spacing="spacious" />
+					<ChevronRightIcon label="" size="small" spacing="spacious" />
 				)}
 				<Text weight="semibold">{heading}</Text>
-			</summary>
+			</Focusable>
 			<div css={detailsStyles.root}>{children}</div>
 		</details>
 	);

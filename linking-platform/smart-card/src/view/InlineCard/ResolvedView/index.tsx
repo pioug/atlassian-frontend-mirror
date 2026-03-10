@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { type LozengeProps } from '../../../types';
 import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
 import { HoverCard } from '../../HoverCard';
@@ -61,7 +59,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 				testId="inline-card-resolved-view-lozenge"
 				appearance={appearance}
 				style={{ backgroundColor: lozenge?.style?.backgroundColor, color: lozenge?.style?.color }}
-				isBold={fg('platform-component-visual-refresh') ? lozenge.isBold !== false : lozenge.isBold}
+				isBold={lozenge.isBold !== false}
 			>
 				{lozenge.text}
 			</InlineLozenge>

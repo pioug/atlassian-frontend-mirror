@@ -209,7 +209,7 @@ const NativeEmbedChildFrame = (): React.JSX.Element => {
 				NativeEmbedCoreFeature.NotifyHostClick,
 				NativeEmbedCoreFeature.SelectedChange,
 				NativeEmbedCoreFeature.ViewModeChange,
-				NativeEmbedCoreFeature.OpenFullScreen,
+				NativeEmbedCoreFeature.ToggleFullScreen,
 			]);
 
 			const childClient = createNativeEmbedChildClient(
@@ -273,12 +273,12 @@ const NativeEmbedChildFrame = (): React.JSX.Element => {
 		addLog('sent', 'Child command: { type: "test-child-command" }');
 	}, [addLog]);
 
-	const handleSendOpenFullScreen = useCallback(() => {
+	const handleSendToggleFullScreen = useCallback(() => {
 		if (!clientRef.current) {
 			return;
 		}
-		clientRef.current.sendOpenFullScreen();
-		addLog('sent', 'Open full-screen request');
+		clientRef.current.sendToggleFullScreen();
+		addLog('sent', 'Toggle full-screen request');
 	}, [addLog]);
 
 	const statusColor =
@@ -333,14 +333,14 @@ const NativeEmbedChildFrame = (): React.JSX.Element => {
 				</button>
 				<button
 					type="button"
-					onClick={handleSendOpenFullScreen}
+					onClick={handleSendToggleFullScreen}
 					disabled={connectionStatus !== 'connected'}
 					css={[
 						buttonBaseStyles,
 						connectionStatus === 'connected' ? buttonEnabledStyles : buttonDisabledStyles,
 					]}
 				>
-					Request Full Screen
+					Toggle Full Screen
 				</button>
 			</div>
 

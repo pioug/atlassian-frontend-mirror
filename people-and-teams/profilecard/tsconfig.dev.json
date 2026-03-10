@@ -39,9 +39,6 @@
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
 		},
 		{
-			"path": "../../analytics/analytics-next/tsconfig.app.json"
-		},
-		{
 			"path": "../../uip/atlassian-context/tsconfig.app.json"
 		},
 		{

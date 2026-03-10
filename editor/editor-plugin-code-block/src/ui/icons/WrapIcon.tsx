@@ -3,7 +3,6 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const CustomGlyph = () => (
 	<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -19,9 +18,5 @@ const CustomGlyph = () => (
 
 export const WrapIcon = (): React.JSX.Element => {
 	const intl = useIntl();
-	const wrapIconLabel = fg('platform_editor_dec_a11y_fixes')
-		? intl.formatMessage(blockMenuMessages.wrapIcon)
-		: 'wrapIcon';
-
-	return <CustomGlyph aria-label={wrapIconLabel} />;
+	return <CustomGlyph aria-label={intl.formatMessage(blockMenuMessages.wrapIcon)} />;
 };

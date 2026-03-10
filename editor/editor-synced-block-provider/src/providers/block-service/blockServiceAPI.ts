@@ -35,6 +35,7 @@ import { convertContentUpdatedAt } from '../../utils/utils';
 import type {
 	ADFFetchProvider,
 	ADFWriteProvider,
+	BatchFetchConfig,
 	BlockNodeIdentifiers,
 	DeleteSyncBlockResult,
 	SyncBlockInstance,
@@ -213,12 +214,14 @@ export const extractResourceIdFromBlockAri = (blockAri: string): string | undefi
  * @param cloudId - The cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
  * @param parentAri - The ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
  * @param blockNodeIdentifiers - Array of block node identifiers to fetch
+ * @param config - Optional batch fetch configuration
  * @returns Array of SyncBlockInstance results
  */
 export const batchFetchData = async (
 	cloudId: string,
 	parentAri: string | undefined,
 	blockNodeIdentifiers: BlockNodeIdentifiers[],
+	config?: BatchFetchConfig,
 ): Promise<SyncBlockInstance[]> => {
 	const blockIdentifiers = blockNodeIdentifiers.map((blockIdentifier) => ({
 		blockAri: generateBlockAriFromReference({
@@ -249,6 +252,7 @@ export const batchFetchData = async (
 	try {
 		const response = await batchRetrieveSyncedBlocks({
 			blockIdentifiers,
+			config,
 		});
 		const results: SyncBlockInstance[] = [];
 
@@ -560,10 +564,14 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	/**
 	 * Batch fetches multiple synced blocks by their resource IDs.
 	 * @param blockNodeIdentifiers - Array of block node identifiers to fetch
+	 * @param config - Optional batch fetch configuration
 	 * @returns Array of SyncBlockInstance results
 	 */
-	async batchFetchData(blockNodeIdentifiers: BlockNodeIdentifiers[]): Promise<SyncBlockInstance[]> {
-		return await batchFetchData(this.cloudId, this.parentAri, blockNodeIdentifiers);
+	async batchFetchData(
+		blockNodeIdentifiers: BlockNodeIdentifiers[],
+		config?: BatchFetchConfig,
+	): Promise<SyncBlockInstance[]> {
+		return await batchFetchData(this.cloudId, this.parentAri, blockNodeIdentifiers, config);
 	}
 
 	/**

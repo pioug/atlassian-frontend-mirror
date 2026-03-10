@@ -5,11 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider, type MessageDescriptor } from 'react-intl-next';
 
 import { useTeamContainers } from '@atlaskit/teams-public';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import {
-	mockRunItLaterSynchronously,
-	renderWithAnalyticsListener as render,
-} from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { TeamProfileCard, type TeamProfileCardProps } from './main';
 import { mockProfileData } from './mocks';
@@ -51,8 +47,6 @@ const profileLinkClickEvent = {
 	actionSubjectId: 'viewTeamProfileButton',
 	attributes: {},
 };
-
-mockRunItLaterSynchronously();
 
 describe('TeamProfileCard', () => {
 	let originalWindowOpen: typeof window.open;
@@ -160,22 +154,11 @@ describe('TeamProfileCard', () => {
 		expect(action2).toBeInTheDocument();
 	});
 
-	ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-		it('should fire analytics on profile link item click', async () => {
-			const { expectEventToBeFired } = renderComponent();
+	it('should fire analytics on profile link item click', async () => {
+		const { expectEventToBeFired } = renderComponent();
 
-			await userEvent.click(screen.getByTestId('team-profile-card-profile-link-item'));
+		await userEvent.click(screen.getByTestId('team-profile-card-profile-link-item'));
 
-			expectEventToBeFired('ui', profileLinkClickEvent);
-		});
-	});
-	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-		it('should fire analytics on profile link item click', async () => {
-			const { expectEventToBeFired } = renderComponent();
-
-			await userEvent.click(screen.getByTestId('team-profile-card-profile-link-item'));
-
-			expectEventToBeFired('ui', profileLinkClickEvent);
-		});
+		expectEventToBeFired('ui', profileLinkClickEvent);
 	});
 });

@@ -3,10 +3,10 @@
  *
  * Generated prop types for Global component - GlobalSidebar
  *
- * @codegen <<SignedSource::99a3fc631d768e6e6e1355970e07eb99>>
+ * @codegen <<SignedSource::801b8c50439e535a59d02fc552de2ba6>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::ad330a446ee260180d5b510c18b5e1c8>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Global-Sidebar.tsx <<SignedSource::13411f0525b0468463282baeeb342f2b>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::22a8bb81a36bca1a22c7a20a0fdb443f>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Global-Sidebar.tsx <<SignedSource::cdeaedb1f8277703adc781e514cecf61>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -19,7 +19,7 @@ export type GlobalSidebarProps = {
 	 */
 	forYouUrl?: string;
 	/**
-	 * Accepts Global.LinkMenuItem and Global.ExpandMenuItem components.
+	 * Accepts Global.LinkMenuItem, Global.ExpandableMenuItem and Global.FlyOutMenuItem components.
 	 */
 	children?: React.ReactElement | React.ReactElement[];
 };

@@ -9,4 +9,5 @@ export { default as CustomBlock } from './block';
 export { default as InternalFooterBlock } from './footer-block/resolved';
 export { default as AISummaryBlock } from './ai-summary-block';
 export { default as AIFooterBlock } from './ai-footer-block';
+export { default as ResolvedHoverCardFooterBlock } from './hover-card-footer-block';
 export { default as ActionBlock } from './action-block';

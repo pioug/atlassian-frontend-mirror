@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 127.2.1
+
+### Patch Changes
+
+- [`31ee998a097db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31ee998a097db) -
+  Replace expValEquals/expValEqualsNoExposure with editorExperiment for platform_synced_block
+  experiment checks
+- [`1d6c1d6ba61dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d6c1d6ba61dc) -
+  FFCLEANUP-79953 clean up stale experiment platform_editor_editor_width_analytics
+- Updated dependencies
+
+## 127.2.0
+
+### Minor Changes
+
+- [`f444a0d3e2c0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f444a0d3e2c0b) -
+  [FFCLEANUP-79468] clean up platform_editor_dec_a11y_fixes feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 127.1.0
 
 ### Minor Changes

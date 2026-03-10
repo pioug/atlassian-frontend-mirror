@@ -1,5 +1,13 @@
 # @atlaskit/editor-extension-dropbox
 
+## 5.0.12
+
+### Patch Changes
+
+- [`07a6b579ea15d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07a6b579ea15d) -
+  remove unused dependencies
+- Updated dependencies
+
 ## 5.0.11
 
 ### Patch Changes

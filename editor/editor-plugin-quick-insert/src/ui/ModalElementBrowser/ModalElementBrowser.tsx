@@ -16,7 +16,6 @@ import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import Modal, { CloseButton, ModalTransition, useModal } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -170,12 +169,12 @@ const Footer = ({
 						onClick={onInsert}
 						testId="ModalElementBrowser__insert-button"
 					>
-						{fg('platform_editor_dec_a11y_fixes') ? intl.formatMessage(messages.insert) : 'Insert'}
+						{intl.formatMessage(messages.insert)}
 					</Button>
 				</div>
 				<div css={actionItemStyles}>
 					<Button appearance="subtle" onClick={onClose} testId="ModalElementBrowser__close-button">
-						{fg('platform_editor_dec_a11y_fixes') ? intl.formatMessage(messages.close) : 'Close'}
+						{intl.formatMessage(messages.close)}
 					</Button>
 				</div>
 			</div>

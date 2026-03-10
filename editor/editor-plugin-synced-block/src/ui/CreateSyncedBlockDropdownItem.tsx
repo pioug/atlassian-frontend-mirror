@@ -65,7 +65,15 @@ const CreateSyncedBlockDropdownItem = ({
 			onClick={onClick}
 			isDisabled={isOffline}
 			testId={SYNCED_BLOCK_BUTTON_TEST_ID.blockMenuCreate}
-			elemAfter={<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>}
+			elemAfter={
+				<Lozenge
+					appearance={
+						fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
+					}
+				>
+					{formatMessage(blockMenuMessages.newLozenge)}
+				</Lozenge>
+			}
 		>
 			{formatMessage(message)}
 		</ToolbarDropdownItem>
@@ -99,7 +107,15 @@ const CopySyncedBlockDropdownItem = ({
 			elemBefore={<SyncBlocksIcon label="" size={iconSize} />}
 			onClick={onClick}
 			isDisabled={isOfflineMode(mode)}
-			elemAfter={<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>}
+			elemAfter={
+				<Lozenge
+					appearance={
+						fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
+					}
+				>
+					{formatMessage(blockMenuMessages.newLozenge)}
+				</Lozenge>
+			}
 		>
 			{formatMessage(blockMenuMessages.copySyncedBlock)}
 		</ToolbarDropdownItem>

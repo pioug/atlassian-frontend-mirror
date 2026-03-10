@@ -31,6 +31,8 @@ export type AgentProfileCardResourcedProps = {
 	hideMoreActions?: boolean;
 	/** Hide the AI disclaimer. Defaults to false (disclaimer is shown by default). */
 	hideAiDisclaimer?: boolean;
+	/** Hide the conversation starters. Defaults to false (conversation starters are shown by default). */
+	hideConversationStarters?: boolean;
 } & AgentActionsType;
 
 export const AgentProfileCardResourced = (
@@ -164,6 +166,7 @@ export const AgentProfileCardResourced = (
 				onDeleteAgent={props.onDeleteAgent}
 				hideMoreActions={props.hideMoreActions}
 				hideAiDisclaimer={props.hideAiDisclaimer}
+				hideConversationStarters={props.hideConversationStarters}
 			/>
 		</Suspense>
 	);

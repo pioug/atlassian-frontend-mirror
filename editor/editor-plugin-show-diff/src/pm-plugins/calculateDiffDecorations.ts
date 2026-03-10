@@ -20,20 +20,25 @@ import { getMarkChangeRanges } from './markDecorations';
 import type { NodeViewSerializer } from './NodeViewSerializer';
 import { simplifySteps } from './simplifyChanges';
 
-const calculateNodesForBlockDecoration = (
-	doc: EditorState['doc'],
-	from: number,
-	to: number,
-	colorScheme?: 'standard' | 'traditional',
-): Decoration[] => {
+const calculateNodesForBlockDecoration = ({
+	doc,
+	from,
+	to,
+	colorScheme,
+}: {
+	colorScheme?: 'standard' | 'traditional';
+	doc: EditorState['doc'];
+	from: number;
+	to: number;
+}): Decoration[] => {
 	const decorations: Decoration[] = [];
 	// Iterate over the document nodes within the range
 	doc.nodesBetween(from, to, (node, pos) => {
 		if (node.isBlock) {
-			const decoration = createBlockChangedDecoration(
-				{ from: pos, to: pos + node.nodeSize, name: node.type.name },
+			const decoration = createBlockChangedDecoration({
+				change: { from: pos, to: pos + node.nodeSize, name: node.type.name },
 				colorScheme,
-			);
+			});
 			if (decoration) {
 				decorations.push(decoration);
 			}
@@ -132,9 +137,14 @@ const calculateDiffDecorationsInner = ({
 		const isActive =
 			activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
 		if (change.inserted.length > 0) {
-			decorations.push(createInlineChangedDecoration(change, colorScheme, isActive));
+			decorations.push(createInlineChangedDecoration({ change, colorScheme, isActive }));
 			decorations.push(
-				...calculateNodesForBlockDecoration(tr.doc, change.fromB, change.toB, colorScheme),
+				...calculateNodesForBlockDecoration({
+					doc: tr.doc,
+					from: change.fromB,
+					to: change.toB,
+					colorScheme,
+				}),
 			);
 		}
 		if (change.deleted.length > 0) {
@@ -157,11 +167,16 @@ const calculateDiffDecorationsInner = ({
 	getMarkChangeRanges(steps).forEach((change) => {
 		const isActive =
 			activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
-		decorations.push(createInlineChangedDecoration(change, colorScheme, isActive));
+		decorations.push(createInlineChangedDecoration({ change, colorScheme, isActive }));
 	});
 	getAttrChangeRanges(tr.doc, attrSteps).forEach((change) => {
 		decorations.push(
-			...calculateNodesForBlockDecoration(tr.doc, change.fromB, change.toB, colorScheme),
+			...calculateNodesForBlockDecoration({
+				doc: tr.doc,
+				from: change.fromB,
+				to: change.toB,
+				colorScheme,
+			}),
 		);
 	});
 

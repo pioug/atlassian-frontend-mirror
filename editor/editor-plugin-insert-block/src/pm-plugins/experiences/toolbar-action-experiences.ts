@@ -9,6 +9,7 @@ import {
 	ExperienceCheckPopupMutation,
 	type ExperienceCheckPopupMutationConfig,
 	ExperienceCheckTimeout,
+	getSelectionAncestorDOM,
 } from '@atlaskit/editor-common/experiences';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
@@ -16,7 +17,6 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
-	getParentDOMAtSelection,
 	handleEditorNodeInsertDomMutation,
 	isToolbarButtonClick,
 } from './toolbar-experience-utils';
@@ -63,15 +63,21 @@ export const getToolbarActionExperiencesPlugin = ({
 		);
 	};
 
-	const narrowParentObserveConfig = () => ({
-		target: getParentDOMAtSelection(editorView) ?? getEditorDom(),
-		options: { childList: true },
-	});
-
-	const rootObserveConfig = () => ({
-		target: getEditorDom(),
-		options: { childList: true },
-	});
+	const observeConfigs = () => {
+		const narrowTarget = getSelectionAncestorDOM(editorView);
+		const editorDom = getEditorDom();
+		return [
+			...(narrowTarget
+				? [
+					{
+						target: narrowTarget,
+						options: { childList: true, subtree: true },
+					},
+				]
+				: []),
+			...(editorDom ? [{ target: editorDom, options: { childList: true } }] : []),
+		];
+	};
 
 	const createNodeInsertExperience = (action: string) =>
 		new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
@@ -82,11 +88,7 @@ export const getToolbarActionExperiencesPlugin = ({
 				new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
 				new ExperienceCheckDomMutation({
 					onDomMutation: handleEditorNodeInsertDomMutation,
-					observeConfig: narrowParentObserveConfig,
-				}),
-				new ExperienceCheckDomMutation({
-					onDomMutation: handleEditorNodeInsertDomMutation,
-					observeConfig: rootObserveConfig,
+					observeConfig: observeConfigs,
 				}),
 			],
 		});

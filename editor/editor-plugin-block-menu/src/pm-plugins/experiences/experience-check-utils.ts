@@ -3,8 +3,6 @@ import {
 	popupWithNestedElement,
 	type ExperienceCheckResult,
 } from '@atlaskit/editor-common/experiences';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { CellSelection } from '@atlaskit/editor-tables';
 
 /**
  * Checks if the given element or any of its ancestors is a drag handle element.
@@ -27,43 +25,6 @@ export const isBlockMenuVisible = (popupsTarget: HTMLElement | undefined): boole
 		return false;
 	}
 	return popupWithNestedElement(popupsTarget, `[data-testid="${BLOCK_MENU_TEST_ID}"]`) !== null;
-};
-
-/**
- * Gets the parent DOM element at the starting position of the current selection
- * from the provided editor view.
- *
- * @param editorView - The editor view from which to get the parent DOM element
- * @returns The parent HTMLElement of the block at the selection, or null if not found
- */
-export const getParentDOMAtSelection = (editorView?: EditorView): HTMLElement | null => {
-	if (!editorView) {
-		return null;
-	}
-
-	const { selection } = editorView.state;
-
-	if (selection instanceof CellSelection) {
-		// $anchorCell resolves inside the row (before the cell), so
-		// $anchorCell.depth is the row's depth. Table is one level up.
-		const $cell = selection.$anchorCell;
-		const tableDepth = $cell.depth - 1;
-		if (tableDepth > 0) {
-			const dom = editorView.nodeDOM($cell.before(tableDepth));
-			if (dom instanceof HTMLElement && dom.parentElement) {
-				return dom.parentElement;
-			}
-		}
-	}
-
-	const from = selection.from;
-	const nodeDOM = editorView.nodeDOM(from);
-
-	if (nodeDOM instanceof HTMLElement) {
-		return nodeDOM.parentElement;
-	}
-
-	return editorView.dom || null;
 };
 
 const isBlockMenuAddedInMutation = ({ type, addedNodes }: MutationRecord) => {

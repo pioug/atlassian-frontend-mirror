@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.10.3
+
+### Patch Changes
+
+- [`5d27d5dc155ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d27d5dc155ff) -
+  Editor-5020: Fix the column drop hint not visible inside sync block
+- Updated dependencies
+
+## 8.10.2
+
+### Patch Changes
+
+- [`31ee998a097db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31ee998a097db) -
+  Replace expValEquals/expValEqualsNoExposure with editorExperiment for platform_synced_block
+  experiment checks
+- [`07a6b579ea15d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07a6b579ea15d) -
+  remove unused dependencies
+- Updated dependencies
+
 ## 8.10.1
 
 ### Patch Changes

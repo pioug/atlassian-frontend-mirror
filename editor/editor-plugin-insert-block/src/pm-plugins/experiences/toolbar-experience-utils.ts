@@ -1,5 +1,4 @@
 import type { ExperienceCheckResult } from '@atlaskit/editor-common/experiences';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 /**
  * DOM marker selectors for node types inserted via toolbar actions.
@@ -31,64 +30,6 @@ export const isToolbarButtonClick = (target: HTMLElement, testId: string): boole
 };
 
 /**
- * Returns the narrow parent DOM element at the current selection, suitable
- * for observing with `{ childList: true }` (no subtree).
- *
- * Uses the resolved position's depth to find the block node at the cursor
- * via `nodeDOM`, then returns its `parentElement` — the container whose
- * direct children change when content is inserted at this position.
- *
- * Falls back to `domAtPos` if `nodeDOM` is unavailable.
- */
-export const getParentDOMAtSelection = (editorView?: EditorView): HTMLElement | null => {
-	if (!editorView) {
-		return null;
-	}
-
-	try {
-		const { selection } = editorView.state;
-		const $from = selection.$from;
-		const parentDepth = Math.max(1, $from.depth);
-		const parentPos = $from.before(parentDepth);
-		const parentDom = editorView.nodeDOM(parentPos);
-
-		if (parentDom instanceof HTMLElement && parentDom.parentElement) {
-			return parentDom.parentElement;
-		}
-
-		// Fallback: use domAtPos
-		const { node } = editorView.domAtPos(selection.from);
-		let element: HTMLElement | null = null;
-		if (node instanceof HTMLElement) {
-			element = node;
-		} else if (node instanceof Text) {
-			element = node.parentElement;
-		}
-
-		if (!element) {
-			return null;
-		}
-
-		const proseMirrorRoot = editorView.dom;
-		if (!(proseMirrorRoot instanceof HTMLElement)) {
-			return null;
-		}
-
-		if (element === proseMirrorRoot) {
-			return proseMirrorRoot;
-		}
-
-		if (element.parentElement && proseMirrorRoot.contains(element.parentElement)) {
-			return element.parentElement;
-		}
-
-		return proseMirrorRoot;
-	} catch {
-		return null;
-	}
-};
-
-/**
  * Checks whether a DOM node matches any known node insert marker,
  * either directly or via a nested element (e.g. breakout mark wrapper).
  */
@@ -115,7 +56,6 @@ export const handleEditorNodeInsertDomMutation = ({
 	mutations: MutationRecord[];
 }): ExperienceCheckResult | undefined => {
 	let hasAddedElement = false;
-	let hasRemovedElement = false;
 
 	for (const mutation of mutations) {
 		if (mutation.type !== 'childList') {
@@ -130,15 +70,9 @@ export const handleEditorNodeInsertDomMutation = ({
 				hasAddedElement = true;
 			}
 		}
-
-		for (const node of mutation.removedNodes) {
-			if (node instanceof HTMLElement) {
-				hasRemovedElement = true;
-			}
-		}
 	}
 
-	if (hasAddedElement && hasRemovedElement) {
+	if (hasAddedElement) {
 		return { status: 'success' };
 	}
 

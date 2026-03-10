@@ -1,5 +1,12 @@
 # @atlaskit/docs
 
+## 11.6.1
+
+### Patch Changes
+
+- [`e2fa5a5892a7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2fa5a5892a7f) -
+  Visual adjustments to the Disclosure element.
+
 ## 11.6.0
 
 ### Minor Changes

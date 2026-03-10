@@ -1,17 +1,13 @@
 import { renderHook } from '@testing-library/react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { fireEvent } from '../../../../util/analytics';
 import { encodeParamsToUrl } from '../../../../util/url';
 import { useAgentUrlActions } from '../useAgentActions';
 
 const mockFireEvent = jest.fn();
 jest.mock('@atlaskit/rovo-triggers/post-message-to-pubsub');
-jest.mock('@atlaskit/analytics-next');
 jest.mock('@atlaskit/teams-app-config/navigation');
 jest.mock('../../../../util/analytics');
 jest.mock('../../../../util/url');
@@ -27,11 +23,7 @@ const useRovoPostMessageToPubsubMock = useRovoPostMessageToPubsub as jest.Mocked
 	typeof useRovoPostMessageToPubsub
 >;
 
-const useAnalyticsEventsMock = useAnalyticsEvents as jest.MockedFunction<typeof useAnalyticsEvents>;
-
 const navigateToTeamsAppMock = navigateToTeamsApp as jest.MockedFunction<typeof navigateToTeamsApp>;
-
-const fireEventMock = fireEvent as jest.MockedFunction<typeof fireEvent>;
 
 const encodeParamsToUrlMock = encodeParamsToUrl as jest.MockedFunction<typeof encodeParamsToUrl>;
 
@@ -40,7 +32,6 @@ describe('useAgentUrlActions', () => {
 	const source = 'source';
 
 	const publishWithPostMessageMock = jest.fn();
-	const createAnalyticsEventMock = jest.fn();
 	const windowOpenSpy = jest.spyOn(window, 'open').mockImplementation(() => null);
 	const writeTextSpy = jest.fn();
 	const onNavigateMock = jest.fn();
@@ -77,9 +68,6 @@ describe('useAgentUrlActions', () => {
 		useRovoPostMessageToPubsubMock.mockReturnValue({
 			publishWithPostMessage: publishWithPostMessageMock,
 			isWaitingForAck: false,
-		});
-		useAnalyticsEventsMock.mockReturnValue({
-			createAnalyticsEvent: createAnalyticsEventMock,
 		});
 		navigateToTeamsAppMock.mockReturnValue({
 			onNavigate: onNavigateMock,
@@ -148,169 +136,84 @@ describe('useAgentUrlActions', () => {
 		});
 	});
 
-	ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-		describe('onEditAgent', () => {
-			it('should open the correct URL and fire analytics event', () => {
-				const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
-				const { onEditAgent } = result.current;
+	describe('onEditAgent', () => {
+		it('should open the correct URL and fire analytics event', () => {
+			const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
+			const { onEditAgent } = result.current;
 
-				const agentId = 'test-agent-id';
-				onEditAgent(agentId);
+			const agentId = 'test-agent-id';
+			onEditAgent(agentId);
 
-				expect(windowOpenSpy).toHaveBeenCalledWith(
-					'https://atlassian-studio.stg-east.frontend.public.atl-paas.net/s/cloudId/agents/enrich/rovo/agents/test-agent-id?redirect=%2F%3AagentId%2Foverview',
-					'_blank',
-					'noopener, noreferrer',
-				);
-				expect(fireEventMock).toHaveBeenCalledWith(
-					createAnalyticsEventMock,
-					editAgentAnalyticsEvent,
-				);
-			});
-		});
-
-		describe('onDuplicateAgent', () => {
-			it('should open the correct URL and fire analytics event', () => {
-				const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
-				const { onDuplicateAgent } = result.current;
-
-				const agentId = 'test-agent-id';
-				onDuplicateAgent(agentId);
-
-				expect(windowOpenSpy).toHaveBeenCalledWith(
-					'https://atlassian-studio.stg-east.frontend.public.atl-paas.net/s/cloudId/agents/enrich/rovo/agents/test-agent-id?redirect=%2Fcreate',
-					'_blank',
-					'noopener, noreferrer',
-				);
-				expect(fireEventMock).toHaveBeenCalledWith(
-					createAnalyticsEventMock,
-					duplicateAgentAnalyticsEvent,
-				);
-			});
-		});
-
-		describe('onCopyAgent', () => {
-			it('should copy agent URL to clipboard and fire analytics event', () => {
-				const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
-				const { onCopyAgent } = result.current;
-
-				const agentId = 'test-agent-id';
-				onCopyAgent(agentId);
-
-				expect(writeTextSpy).toHaveBeenCalledWith(
-					`${window.location.origin}/people/agent/test-agent-id?encoded=params`,
-				);
-				expect(fireEventMock).toHaveBeenCalledWith(
-					createAnalyticsEventMock,
-					copyAgentAnalyticsEvent,
-				);
-			});
-		});
-
-		describe('onViewFullProfile', () => {
-			it('should navigate to agent profile and fire analytics event', () => {
-				const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
-				const { onViewFullProfile } = result.current;
-
-				const agentId = 'test-agent-id';
-				onViewFullProfile(agentId);
-
-				expect(navigateToTeamsAppMock).toHaveBeenCalledWith({
-					type: 'AGENT',
-					payload: {
-						agentId,
-					},
-					cloudId: 'cloudId',
-					shouldOpenInSameTab: false,
-				});
-				expect(fireEventMock).toHaveBeenCalledWith(
-					createAnalyticsEventMock,
-					viewAgentFullProfileAnalyticsEvent,
-				);
-			});
+			expect(windowOpenSpy).toHaveBeenCalledWith(
+				'https://atlassian-studio.stg-east.frontend.public.atl-paas.net/s/cloudId/agents/enrich/rovo/agents/test-agent-id?redirect=%2F%3AagentId%2Foverview',
+				'_blank',
+				'noopener, noreferrer',
+			);
+			expect(mockFireEvent).toHaveBeenCalledWith(
+				`ui.${editAgentAnalyticsEvent.actionSubject}.${editAgentAnalyticsEvent.action}.${editAgentAnalyticsEvent.actionSubjectId}`,
+				editAgentAnalyticsEvent.attributes,
+			);
 		});
 	});
 
-	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-		describe('onEditAgent', () => {
-			it('should open the correct URL and fire analytics event', () => {
-				const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
-				const { onEditAgent } = result.current;
+	describe('onDuplicateAgent', () => {
+		it('should open the correct URL and fire analytics event', () => {
+			const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
+			const { onDuplicateAgent } = result.current;
 
-				const agentId = 'test-agent-id';
-				onEditAgent(agentId);
+			const agentId = 'test-agent-id';
+			onDuplicateAgent(agentId);
 
-				expect(windowOpenSpy).toHaveBeenCalledWith(
-					'https://atlassian-studio.stg-east.frontend.public.atl-paas.net/s/cloudId/agents/enrich/rovo/agents/test-agent-id?redirect=%2F%3AagentId%2Foverview',
-					'_blank',
-					'noopener, noreferrer',
-				);
-				expect(mockFireEvent).toHaveBeenCalledWith(
-					`ui.${editAgentAnalyticsEvent.actionSubject}.${editAgentAnalyticsEvent.action}.${editAgentAnalyticsEvent.actionSubjectId}`,
-					editAgentAnalyticsEvent.attributes,
-				);
-			});
+			expect(windowOpenSpy).toHaveBeenCalledWith(
+				'https://atlassian-studio.stg-east.frontend.public.atl-paas.net/s/cloudId/agents/enrich/rovo/agents/test-agent-id?redirect=%2Fcreate',
+				'_blank',
+				'noopener, noreferrer',
+			);
+			expect(mockFireEvent).toHaveBeenCalledWith(
+				`ui.${duplicateAgentAnalyticsEvent.actionSubject}.${duplicateAgentAnalyticsEvent.action}.${duplicateAgentAnalyticsEvent.actionSubjectId}`,
+				duplicateAgentAnalyticsEvent.attributes,
+			);
 		});
+	});
 
-		describe('onDuplicateAgent', () => {
-			it('should open the correct URL and fire analytics event', () => {
-				const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
-				const { onDuplicateAgent } = result.current;
+	describe('onCopyAgent', () => {
+		it('should copy agent URL to clipboard and fire analytics event', () => {
+			const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
+			const { onCopyAgent } = result.current;
 
-				const agentId = 'test-agent-id';
-				onDuplicateAgent(agentId);
+			const agentId = 'test-agent-id';
+			onCopyAgent(agentId);
 
-				expect(windowOpenSpy).toHaveBeenCalledWith(
-					'https://atlassian-studio.stg-east.frontend.public.atl-paas.net/s/cloudId/agents/enrich/rovo/agents/test-agent-id?redirect=%2Fcreate',
-					'_blank',
-					'noopener, noreferrer',
-				);
-				expect(mockFireEvent).toHaveBeenCalledWith(
-					`ui.${duplicateAgentAnalyticsEvent.actionSubject}.${duplicateAgentAnalyticsEvent.action}.${duplicateAgentAnalyticsEvent.actionSubjectId}`,
-					duplicateAgentAnalyticsEvent.attributes,
-				);
-			});
+			expect(writeTextSpy).toHaveBeenCalledWith(
+				`${window.location.origin}/people/agent/test-agent-id?encoded=params`,
+			);
+			expect(mockFireEvent).toHaveBeenCalledWith(
+				`ui.${copyAgentAnalyticsEvent.actionSubject}.${copyAgentAnalyticsEvent.action}.${copyAgentAnalyticsEvent.actionSubjectId}`,
+				copyAgentAnalyticsEvent.attributes,
+			);
 		});
+	});
 
-		describe('onCopyAgent', () => {
-			it('should copy agent URL to clipboard and fire analytics event', () => {
-				const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
-				const { onCopyAgent } = result.current;
+	describe('onViewFullProfile', () => {
+		it('should navigate to agent profile and fire analytics event', () => {
+			const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
+			const { onViewFullProfile } = result.current;
 
-				const agentId = 'test-agent-id';
-				onCopyAgent(agentId);
+			const agentId = 'test-agent-id';
+			onViewFullProfile(agentId);
 
-				expect(writeTextSpy).toHaveBeenCalledWith(
-					`${window.location.origin}/people/agent/test-agent-id?encoded=params`,
-				);
-				expect(mockFireEvent).toHaveBeenCalledWith(
-					`ui.${copyAgentAnalyticsEvent.actionSubject}.${copyAgentAnalyticsEvent.action}.${copyAgentAnalyticsEvent.actionSubjectId}`,
-					copyAgentAnalyticsEvent.attributes,
-				);
+			expect(navigateToTeamsAppMock).toHaveBeenCalledWith({
+				type: 'AGENT',
+				payload: {
+					agentId,
+				},
+				cloudId: 'cloudId',
+				shouldOpenInSameTab: false,
 			});
-		});
-
-		describe('onViewFullProfile', () => {
-			it('should navigate to agent profile and fire analytics event', () => {
-				const { result } = renderHook(() => useAgentUrlActions({ cloudId, source }));
-				const { onViewFullProfile } = result.current;
-
-				const agentId = 'test-agent-id';
-				onViewFullProfile(agentId);
-
-				expect(navigateToTeamsAppMock).toHaveBeenCalledWith({
-					type: 'AGENT',
-					payload: {
-						agentId,
-					},
-					cloudId: 'cloudId',
-					shouldOpenInSameTab: false,
-				});
-				expect(mockFireEvent).toHaveBeenCalledWith(
-					`ui.${viewAgentFullProfileAnalyticsEvent.actionSubject}.${viewAgentFullProfileAnalyticsEvent.action}.${viewAgentFullProfileAnalyticsEvent.actionSubjectId}`,
-					viewAgentFullProfileAnalyticsEvent.attributes,
-				);
-			});
+			expect(mockFireEvent).toHaveBeenCalledWith(
+				`ui.${viewAgentFullProfileAnalyticsEvent.actionSubject}.${viewAgentFullProfileAnalyticsEvent.action}.${viewAgentFullProfileAnalyticsEvent.actionSubjectId}`,
+				viewAgentFullProfileAnalyticsEvent.attributes,
+			);
 		});
 	});
 });

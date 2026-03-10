@@ -1053,6 +1053,48 @@ describe('MediaStore', () => {
 					`${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
 				);
 			});
+
+			describe('watermark version param', () => {
+				ffTest(
+					'confluence_watermark_admin_ui',
+					async () => {
+						const collection = 'some-collection';
+						const watermarkPayload = {
+							v: 'WjtFdA',
+							ari: 'ari:cloud:confluence:abc:space/123',
+						};
+						const jwtPayload = {
+							iss: 'test-issuer',
+							watermark: JSON.stringify(watermarkPayload),
+						};
+						const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+						const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+						(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+
+						const url = await mediaStore.getFileImageURL('1234', { collection });
+
+						expect(url).toContain('wmv=WjtFdA');
+					},
+					async () => {
+						const collection = 'some-collection';
+						const watermarkPayload = {
+							v: 'WjtFdA',
+							ari: 'ari:cloud:confluence:abc:space/123',
+						};
+						const jwtPayload = {
+							iss: 'test-issuer',
+							watermark: JSON.stringify(watermarkPayload),
+						};
+						const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+						const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+						(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+
+						const url = await mediaStore.getFileImageURL('1234', { collection });
+
+						expect(url).not.toContain('wmv=');
+					},
+				);
+			});
 		});
 
 		describe('path-based URL functionality', () => {
@@ -1402,6 +1444,60 @@ describe('MediaStore', () => {
 							'X-Client-Id': clientId,
 							Authorization: `Bearer ${token}`,
 						},
+					},
+				);
+			});
+
+			describe('watermark version param', () => {
+				ffTest(
+					'confluence_watermark_admin_ui',
+					async () => {
+						const watermarkPayload = {
+							v: 'WjtFdA',
+							ari: 'ari:cloud:confluence:abc:space/123',
+						};
+						const jwtPayload = {
+							iss: 'test-issuer',
+							watermark: JSON.stringify(watermarkPayload),
+						};
+						const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+						const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+						(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+
+						fetchMock.once(JSON.stringify({ data }), {
+							status: 201,
+							statusText: 'Created',
+						});
+
+						await mediaStore.getImage('123');
+
+						expect(fetchMock).toHaveBeenCalledWith(
+							expect.stringContaining('wmv=WjtFdA'),
+							expect.any(Object),
+						);
+					},
+					async () => {
+						const watermarkPayload = {
+							v: 'WjtFdA',
+							ari: 'ari:cloud:confluence:abc:space/123',
+						};
+						const jwtPayload = {
+							iss: 'test-issuer',
+							watermark: JSON.stringify(watermarkPayload),
+						};
+						const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+						const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+						(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+
+						fetchMock.once(JSON.stringify({ data }), {
+							status: 201,
+							statusText: 'Created',
+						});
+
+						await mediaStore.getImage('123');
+
+						const calledUrl = fetchMock.mock.calls[fetchMock.mock.calls.length - 1][0];
+						expect(calledUrl).not.toContain('wmv=');
 					},
 				);
 			});

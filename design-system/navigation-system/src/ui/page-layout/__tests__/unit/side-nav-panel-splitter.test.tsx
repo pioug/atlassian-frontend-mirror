@@ -278,7 +278,7 @@ describe('SideNavPanelSplitter', () => {
 				render(
 					<Root>
 						<TopNav>
-							<TopNavStart>
+							<TopNavStart sideNavToggleButton={null}>
 								<Popup
 									shouldRenderToParent
 									isOpen
@@ -426,7 +426,7 @@ describe('SideNavPanelSplitter', () => {
 				render(
 					<Root>
 						<TopNav>
-							<TopNavStart>
+							<TopNavStart sideNavToggleButton={null}>
 								<Tooltip content="Tooltip content">
 									<button type="button">Tooltip trigger</button>
 								</Tooltip>

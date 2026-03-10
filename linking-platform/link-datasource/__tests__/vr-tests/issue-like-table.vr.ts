@@ -14,9 +14,6 @@ snapshot(VRIssueLikeTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });
 
 snapshot(IssueLikeTableReadonly, {
@@ -29,9 +26,6 @@ snapshot(IssueLikeTableReadonly, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': true,
-	},
 });
 
 snapshot(IssueLikeTableCustomColumns, {
@@ -44,7 +38,4 @@ snapshot(IssueLikeTableCustomColumns, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 });

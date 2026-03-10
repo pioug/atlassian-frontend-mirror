@@ -17,13 +17,13 @@ import {
 	ExperienceCheckPopupMutation,
 	ExperienceCheckTimeout,
 	getPopupContainerFromEditorView,
+	getSelectionAncestorDOM,
 } from '@atlaskit/editor-common/experiences';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
-	getParentDOMAtSelection,
 	handleDeleteDomMutation,
 	handleMoveDomMutation,
 	handleTransformDomMutation,
@@ -73,6 +73,13 @@ export const getBlockMenuExperiencesPlugin = ({
 		return popupTargetEl;
 	};
 
+	const getEditorDom = (): HTMLElement | null => {
+		if (editorView?.dom instanceof HTMLElement) {
+			return editorView.dom;
+		}
+		return null;
+	};
+
 	const blockMenuOpenExperience = new Experience(EXPERIENCE_ID.MENU_OPEN, {
 		actionSubjectId: ACTION_SUBJECT_ID.BLOCK_MENU,
 		dispatchAnalyticsEvent,
@@ -86,10 +93,21 @@ export const getBlockMenuExperiencesPlugin = ({
 		],
 	});
 
-	const actionObserveConfig = () => ({
-		target: getParentDOMAtSelection(editorView),
-		options: { childList: true },
-	});
+	const observeConfigs = () => {
+		const narrowTarget = getSelectionAncestorDOM(editorView);
+		const editorDom = getEditorDom();
+		return [
+			...(narrowTarget
+				? [
+						{
+							target: narrowTarget,
+							options: { childList: true, subtree: true },
+						},
+					]
+				: []),
+			...(editorDom ? [{ target: editorDom, options: { childList: true } }] : []),
+		];
+	};
 
 	const blockMoveUpExperience = new Experience(EXPERIENCE_ID.MENU_ACTION, {
 		action: ACTION.MOVED,
@@ -99,7 +117,7 @@ export const getBlockMenuExperiencesPlugin = ({
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
 			new ExperienceCheckDomMutation({
 				onDomMutation: handleMoveDomMutation,
-				observeConfig: actionObserveConfig,
+				observeConfig: observeConfigs,
 			}),
 		],
 	});
@@ -112,7 +130,7 @@ export const getBlockMenuExperiencesPlugin = ({
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
 			new ExperienceCheckDomMutation({
 				onDomMutation: handleMoveDomMutation,
-				observeConfig: actionObserveConfig,
+				observeConfig: observeConfigs,
 			}),
 		],
 	});
@@ -125,7 +143,7 @@ export const getBlockMenuExperiencesPlugin = ({
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
 			new ExperienceCheckDomMutation({
 				onDomMutation: handleDeleteDomMutation,
-				observeConfig: actionObserveConfig,
+				observeConfig: observeConfigs,
 			}),
 			new ExperienceCheckPopupMutation({
 				nestedElementQuery: `[data-testid="${PORTAL_TEST_ID.SYNC_BLOCK_DELETE_CONFIRMATION}"]`,
@@ -142,7 +160,7 @@ export const getBlockMenuExperiencesPlugin = ({
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
 			new ExperienceCheckDomMutation({
 				onDomMutation: handleTransformDomMutation,
-				observeConfig: actionObserveConfig,
+				observeConfig: observeConfigs,
 			}),
 		],
 	});

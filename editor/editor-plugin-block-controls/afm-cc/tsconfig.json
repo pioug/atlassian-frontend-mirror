@@ -24,9 +24,6 @@
 	],
 	"references": [
 		{
-			"path": "../../adf-schema/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../../helpers/browser-apis/afm-cc/tsconfig.json"
 		},
 		{

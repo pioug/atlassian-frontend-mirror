@@ -40,17 +40,8 @@ const actions = [
 		link: 'about:blank',
 	},
 ];
-function analytics(gen: (duration: number) => Record<string, any>) {
-	const payload = gen(1000);
-	console.log(
-		payload.action,
-		payload.actionSubject,
-		payload.actionSubjectId || '',
-		payload.attributes,
-	);
-}
 
-function analyticsNext<K extends keyof AnalyticsEventAttributes>(
+function analytics<K extends keyof AnalyticsEventAttributes>(
 	eventKey: K,
 	gen: (duration: number) => AnalyticsEventAttributes[K],
 ) {
@@ -71,7 +62,6 @@ const teams = [
 
 const defaultProps = {
 	analytics,
-	analyticsNext,
 	generateUserLink: () => 'about:blank',
 	onUserClick: (userId: string) => {
 		console.log(`User with id: (${userId}) has been clicked.`);

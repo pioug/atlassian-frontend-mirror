@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 7.0.28
+
+### Patch Changes
+
+- [`31ee998a097db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31ee998a097db) -
+  Replace expValEquals/expValEqualsNoExposure with editorExperiment for platform_synced_block
+  experiment checks
+- Updated dependencies
+
 ## 7.0.27
 
 ### Patch Changes

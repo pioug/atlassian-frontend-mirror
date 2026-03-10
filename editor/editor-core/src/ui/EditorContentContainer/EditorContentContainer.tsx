@@ -20,7 +20,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { expVal, expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
+import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
@@ -45,7 +45,6 @@ import { blockMarksStyles } from './styles/blockMarksStyles';
 import {
 	blockquoteDangerStyles,
 	blockquoteSelectedNodeStyles,
-	blockquoteZeroPadding,
 	blocktypeStyles,
 	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
 	blocktypeStyles_fg_platform_editor_typography_ugc,
@@ -398,10 +397,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						textSelectedNodeStyles,
-					expVal('platform_editor_blockquote_zero_padding', 'isEnabled', false)
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							blockquoteZeroPadding
-						: null,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_typography_ugc')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -462,7 +457,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					telepointerColorAndCommonStyle,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					gapCursorStyles,
-					expValEquals('platform_synced_block', 'isEnabled', true) &&
+					editorExperiment('platform_synced_block', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						gapCursorStylesVisibilityFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

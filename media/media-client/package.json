@@ -96,6 +96,9 @@
 		},
 		"platform_media_auth_provider_analytics": {
 			"type": "boolean"
+		},
+		"confluence_watermark_admin_ui": {
+			"type": "boolean"
 		}
 	}
 }

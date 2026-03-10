@@ -2,7 +2,6 @@ import type React from 'react';
 
 import { type IntlShape } from 'react-intl-next';
 
-import { type AnalyticsEventPayload, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type ConversationStarter } from '@atlaskit/rovo-agent-components/ui/AgentConversationStarters';
 import type {
 	AnalyticsEventAttributes,
@@ -175,6 +174,8 @@ export interface ProfileCardResourcedProps {
 	trigger?: TriggerType;
 	children?: React.ReactNode;
 	addFlag?: (flag: any) => void;
+	/** When true (and feature-gated), skip fetching and hide the reporting lines section */
+	hideReportingLines?: boolean;
 }
 
 export interface ProfileCardResourcedState {
@@ -232,10 +233,25 @@ export interface ProfileCardTriggerProps {
 	agentActions?: AgentActionsType;
 	ariaHideProfileTrigger?: boolean;
 	ssrPlaceholderId?: string;
+	/**
+	 * The delay in milliseconds before the profile card is shown.
+	 * PS: This is ignored when the isVisible is true or the trigger is clicked.
+	 */
 	showDelay?: number;
+	/**
+	 * The delay in milliseconds before the profile card is hidden.
+	 * PS: This is ignored when the isVisible is false or the trigger is clicked.
+	 */
 	hideDelay?: number;
 	hideAgentMoreActions?: boolean;
 	hideAiDisclaimer?: boolean;
+	/** Hide the conversation starters. Defaults to false (conversation starters are shown by default). */
+	hideAgentConversationStarters?: boolean;
+	/**
+	 * When true, skip fetching Townsquare's reporting lines data and hide the reporting lines section
+	 * currentky only working when the flag jira_ai_profilecard_hide_reportinglines is enabled
+	 * */
+	hideReportingLines?: boolean;
 }
 
 export interface ProfileCardTriggerState {
@@ -424,6 +440,8 @@ export type AgentProfileCardProps = {
 	hideMoreActions?: boolean;
 	/** Hide the AI disclaimer. Defaults to false (disclaimer is shown by default). */
 	hideAiDisclaimer?: boolean;
+	/** Hide the conversation starters. Defaults to false (conversation starters are shown by default). */
+	hideConversationStarters?: boolean;
 } & AgentActionsType;
 
 export type StatusType = 'active' | 'inactive' | 'closed';
@@ -515,30 +533,30 @@ export interface ProfilecardProps {
 	disabledAriaAttributes?: boolean;
 	//overriding agent actions
 	agentActions?: AgentActionsType;
+	/** When true (and feature-gated), hide the reporting lines section */
+	hideReportingLines?: boolean;
+	/** When true (and feature-gated), hide the agent conversation starters section */
+	hideAgentConversationStarters?: boolean;
 }
 
-export type AnalyticsFromDuration = (duration: number) => AnalyticsEventPayload;
-export type AnalyticsFromDurationNext = <K extends keyof AnalyticsEventAttributes>(
+export type AnalyticsFromDuration = <K extends keyof AnalyticsEventAttributes>(
 	eventKey: K,
 	duration: number,
 ) => {
 	attributes: AnalyticsEventAttributes[K];
 };
 
-export type AnalyticsFunction = (generator: AnalyticsFromDuration) => void;
-export type AnalyticsFunctionNext = <K extends keyof AnalyticsEventAttributes>(
+export type AnalyticsFunction = <K extends keyof AnalyticsEventAttributes>(
 	eventKey: K,
 	generator: (duration: number) => AnalyticsEventAttributes[K],
 ) => void;
 
 export interface AnalyticsProps {
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	fireEvent?: ReturnType<typeof useAnalyticsEvents>['fireEvent'];
 }
 
 export interface AnalyticsWithDurationProps {
 	fireAnalyticsWithDuration: AnalyticsFunction;
-	fireAnalyticsWithDurationNext: AnalyticsFunctionNext;
 }
 
 export interface TeamProfilecardProps extends TeamProfilecardCoreProps {
@@ -552,10 +570,8 @@ export interface TeamProfilecardProps extends TeamProfilecardCoreProps {
 	team?: Team;
 	/** A callback that will try to re-fetch data in case an error occurred. */
 	clientFetchProfile?: () => void;
-	/** Details relevant to passing around analytics. */
-	analytics: AnalyticsFunction;
 	/** Details relevant to passing around analytics with @atlaskit/teams-app-internal-analytics. */
-	analyticsNext: AnalyticsFunctionNext;
+	analytics: AnalyticsFunction;
 	/** Set auto focus for actionable items */
 	isTriggeredByKeyboard?: boolean;
 }
@@ -635,10 +651,8 @@ export type TeamProfileCardErrorType = {
 	reason: 'default' | 'NotFound' | 'TEAMS_FORBIDDEN';
 } | null;
 
-export interface ProfileClientOptions extends Omit<
-	TeamCentralCardClientOptions,
-	'gatewayGraphqlUrl'
-> {
+export interface ProfileClientOptions
+	extends Omit<TeamCentralCardClientOptions, 'gatewayGraphqlUrl'> {
 	gatewayGraphqlUrl?: string;
 	url?: string;
 	cacheSize?: number;

@@ -28,6 +28,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from './mediaPluginType';
 import { lazyMediaGroupView } from './nodeviews/lazy-media-group';
@@ -203,11 +204,11 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 						reason,
 						external: node.attrs.__external,
 						...(nestedUnder &&
-						expValEquals('platform_synced_block', 'isEnabled', true) &&
+						editorExperiment('platform_synced_block', true) &&
 						fg('platform_synced_block_patch_5')
 							? { nestedUnder }
 							: {}),
-						...(expValEquals('platform_synced_block', 'isEnabled', true) &&
+						...(editorExperiment('platform_synced_block', true) &&
 						fg('platform_synced_block_patch_5')
 							? { isDuplicateError }
 							: {}),

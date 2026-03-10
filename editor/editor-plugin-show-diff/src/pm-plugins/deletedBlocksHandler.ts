@@ -6,49 +6,19 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+
+import {
+	deletedStyleQuoteNode,
+	deletedStyleQuoteNodeWithLozenge,
+	deletedBlockOutline,
+	deletedBlockOutlineRounded,
+} from './colorSchemes/standard';
+import {
+	deletedTraditionalStyleQuoteNode,
+	deletedTraditionalBlockOutline,
+	deletedTraditionalBlockOutlineRounded,
+} from './colorSchemes/traditional';
 import { getDeletedContentStyle } from './decorations';
-
-export const deletedStyleQuoteNode: string = convertToInlineCss({
-	borderLeft: `2px solid ${token('color.border.accent.gray')}`,
-});
-
-export const deletedStyleQuoteNodeWithLozenge: string = convertToInlineCss({
-	marginTop: token('space.150'),
-	paddingTop: token('space.025'),
-	paddingBottom: token('space.025'),
-	paddingLeft: token('space.025'),
-	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
-	borderRadius: token('radius.small'),
-});
-
-export const deletedTraditionalStyleQuoteNode: string = convertToInlineCss({
-	marginTop: token('space.150'),
-	paddingTop: token('space.025'),
-	paddingBottom: token('space.025'),
-	paddingLeft: token('space.025'),
-	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
-	borderRadius: token('radius.small'),
-});
-
-export const deletedBlockOutline: string = convertToInlineCss({
-	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
-	borderRadius: token('radius.small'),
-});
-
-export const deletedTraditionalBlockOutline: string = convertToInlineCss({
-	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
-	borderRadius: token('radius.small'),
-});
-
-export const deletedBlockOutlineRounded: string = convertToInlineCss({
-	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
-	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
-});
-
-export const deletedTraditionalBlockOutlineRounded: string = convertToInlineCss({
-	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
-	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
-});
 
 const lozengeStyle = convertToInlineCss({
 	display: 'inline-flex',
@@ -92,7 +62,7 @@ export const getDeletedStyleNode = (nodeName: string, colorScheme?: 'standard' |
 	}
 };
 
-export const shouldShowRemovedLozenge = (nodeName: string): boolean => {
+const shouldShowRemovedLozenge = (nodeName: string): boolean => {
 	switch (nodeName) {
 		case 'expand':
 		case 'codeBlock':
@@ -108,7 +78,7 @@ export const shouldShowRemovedLozenge = (nodeName: string): boolean => {
 	}
 };
 
-export const shouldAddShowDiffDeletedNodeClass = (nodeName: string): boolean => {
+const shouldAddShowDiffDeletedNodeClass = (nodeName: string): boolean => {
 	switch (nodeName) {
 		case 'mediaSingle':
 		case 'embedCard':
@@ -124,7 +94,7 @@ export const shouldAddShowDiffDeletedNodeClass = (nodeName: string): boolean => 
  * Checks if a node should apply deleted styles directly without wrapper
  * to preserve natural block-level margins
  */
-export const shouldApplyDeletedStylesDirectly = (nodeName: string): boolean => {
+const shouldApplyDeletedStylesDirectly = (nodeName: string): boolean => {
 	return (
 		nodeName === 'heading' ||
 		(nodeName === 'blockquote' && !fg('platform_editor_ai_aifc_patch_ga_blockers'))
@@ -134,7 +104,7 @@ export const shouldApplyDeletedStylesDirectly = (nodeName: string): boolean => {
 /**
  * Creates a "Removed" lozenge to be displayed at the top right corner of deleted block nodes
  */
-export const createRemovedLozenge = (intl: IntlShape, nodeName?: string): HTMLElement => {
+const createRemovedLozenge = (intl: IntlShape, nodeName?: string): HTMLElement => {
 	const container = document.createElement('span');
 
 	let borderTopRightRadius: string | undefined;
@@ -173,7 +143,7 @@ export const createRemovedLozenge = (intl: IntlShape, nodeName?: string): HTMLEl
 /**
  * Wraps a block node in a container with relative positioning to support absolute positioned lozenge
  */
-export const createBlockNodeWrapper = () => {
+const createBlockNodeWrapper = () => {
 	const wrapper = document.createElement('div');
 
 	const baseStyle = convertToInlineCss({
@@ -188,21 +158,9 @@ export const createBlockNodeWrapper = () => {
 };
 
 /**
- * Wraps content with deleted styling without opacity (for use when content is a direct child of dom)
- */
-export const createDeletedStyleWrapperWithoutOpacity = (
-	colorScheme?: 'standard' | 'traditional',
-	isActive?: boolean,
-) => {
-	const wrapper = document.createElement('span');
-	wrapper.setAttribute('style', getDeletedContentStyle(colorScheme, isActive));
-	return wrapper;
-};
-
-/**
  * Applies deleted styles directly to an HTML element by merging with existing styles
  */
-export const applyDeletedStylesToElement = (
+const applyDeletedStylesToElement = (
 	element: HTMLElement,
 	targetNode: PMNode,
 	colorScheme: 'standard' | 'traditional' | undefined,
@@ -217,7 +175,7 @@ export const applyDeletedStylesToElement = (
 /**
  * Creates a content wrapper with deleted styles for a block node
  */
-export const createBlockNodeContentWrapper = (
+const createBlockNodeContentWrapper = (
 	nodeView: Node,
 	targetNode: PMNode,
 	colorScheme: 'standard' | 'traditional' | undefined,
@@ -235,7 +193,7 @@ export const createBlockNodeContentWrapper = (
  * to wait for the rich-media-item to appear before attaching the lozenge.
  * @returns true if embedCard was handled
  */
-export const handleEmbedCardWithLozenge = (
+const handleEmbedCardWithLozenge = (
 	dom: HTMLElement,
 	nodeView: Node,
 	targetNode: PMNode,
@@ -316,7 +274,7 @@ export const handleMediaSingleWithLozenge = (
 /**
  * Appends a block node with wrapper, lozenge, and appropriate styling
  */
-export const appendBlockNodeWithWrapper = (
+const appendBlockNodeWithWrapper = (
 	dom: HTMLElement,
 	nodeView: Node,
 	targetNode: PMNode,

@@ -21,4 +21,19 @@ export const pasteOptionsToolbarMessages = defineMessages({
 		defaultMessage: 'Use rich text',
 		description: 'Converts pasted text into Rich text',
 	},
+	plainTextAction: {
+		id: 'fabric.editor.plainTextAction',
+		defaultMessage: 'Plain text',
+		description: 'Converts pasted text into plain text',
+	},
+	markdownAction: {
+		id: 'fabric.editor.useMarkdownAction',
+		defaultMessage: 'Markdown',
+		description: 'Converts pasted text into Markdown',
+	},
+	richTextAction: {
+		id: 'fabric.editor.richTextAction',
+		defaultMessage: 'Rich text',
+		description: 'Converts pasted text into Rich text',
+	},
 });

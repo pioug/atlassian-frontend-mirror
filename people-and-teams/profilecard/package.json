@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.40.2",
+	"version": "24.42.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,7 +55,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-people-and-teams-profilecard": "root:*",
-		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/avatar-group": "workspace:^",
@@ -72,7 +71,6 @@
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/people-teams-ui-public": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/rovo-agent-components": "workspace:^",
@@ -164,13 +162,13 @@
 		"enable_absolute_positioning_profile_card": {
 			"type": "boolean"
 		},
-		"ptc-enable-profile-card-analytics-refactor": {
-			"type": "boolean"
-		},
 		"cover-header-image-team-profilecard": {
 			"type": "boolean"
 		},
 		"jira_ai_profilecard_hide_agent_actions": {
+			"type": "boolean"
+		},
+		"jira_ai_profilecard_hide_reportinglines": {
 			"type": "boolean"
 		},
 		"rovo_dev_themed_identity_card": {
@@ -186,6 +184,9 @@
 			"type": "boolean"
 		},
 		"rovo_agent_support_a2a_avatar": {
+			"type": "boolean"
+		},
+		"jira_ai_hide_conversation_starters_profilecard": {
 			"type": "boolean"
 		}
 	},

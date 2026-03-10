@@ -32,4 +32,5 @@ export {
 	popupWithNestedElement,
 	getPopupContainerFromEditorView,
 	getNodeQuery,
+	getSelectionAncestorDOM,
 } from './experience-utils';

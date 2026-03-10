@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 9.9.1
+
+### Patch Changes
+
+- [`31ee998a097db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31ee998a097db) -
+  Replace expValEquals/expValEqualsNoExposure with editorExperiment for platform_synced_block
+  experiment checks
+- Updated dependencies
+
 ## 9.9.0
 
 ### Minor Changes

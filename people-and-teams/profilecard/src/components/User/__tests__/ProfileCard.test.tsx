@@ -4,11 +4,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import {
-	mockRunItLaterSynchronously,
-	renderWithAnalyticsListener,
-} from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
 
 import { type ProfilecardProps } from '../../../types';
 import ProfileCard from '../ProfileCard';
@@ -122,7 +118,6 @@ describe('ProfileCard analytics', () => {
 
 	beforeEach(() => {
 		jest.clearAllMocks();
-		mockRunItLaterSynchronously();
 		jest.spyOn(performance, 'now').mockReturnValue(1000);
 	});
 
@@ -134,253 +129,126 @@ describe('ProfileCard analytics', () => {
 		);
 	};
 
-	ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-		it('should fire profile card rendered event for content', async () => {
-			const { expectEventToBeFired } = renderProfileCard();
-			expectEventToBeFired('ui', expectedEvent);
-		});
-
-		it('should fire profile card rendered event for spinner when loading', async () => {
-			const { expectEventToBeFired } = renderProfileCard({
-				isLoading: true,
-				fullName: undefined,
-			});
-			expectEventToBeFired('ui', expectedLoadingEvent);
-		});
-
-		it('should fire action clicked event when action button is clicked', async () => {
-			const user = userEvent.setup();
-			const { expectEventToBeFired } = renderProfileCard();
-
-			const actionButton = screen.getByText('Test Action');
-			await user.click(actionButton);
-
-			expectEventToBeFired('ui', expectedActionClickedEvent);
-		});
-
-		it('should fire reporting lines clicked event when manager is clicked', async () => {
-			const user = userEvent.setup();
-			const { expectEventToBeFired } = renderProfileCard({
-				reportingLines: {
-					managers: [
-						{
-							accountIdentifier: 'manager-id',
-							identifierType: 'ATLASSIAN_ID',
-							pii: {
-								name: 'Manager Name',
-								picture: 'https://example.com/manager.jpg',
-							},
-						},
-					],
-					reports: [],
-				},
-				onReportingLinesClick: jest.fn(),
-			});
-
-			const managerButton = screen.getByText('Manager Name');
-			await user.click(managerButton);
-
-			expectEventToBeFired('ui', expectedReportingLinesClickedEvent);
-		});
-
-		it('should fire reporting lines clicked event when direct report is clicked', async () => {
-			const user = userEvent.setup();
-			const onReportingLinesClickMock = jest.fn();
-			const { expectEventToBeFired } = renderProfileCard({
-				reportingLines: {
-					managers: [],
-					reports: [
-						{
-							accountIdentifier: 'report-id',
-							identifierType: 'ATLASSIAN_ID',
-							pii: {
-								name: 'Direct Report Name',
-								picture: 'https://example.com/report.jpg',
-							},
-						},
-					],
-				},
-				onReportingLinesClick: onReportingLinesClickMock,
-			});
-
-			const reportButton = screen.getByTestId('profilecard-reports-avatar-group--avatar-0--inner');
-			await user.click(reportButton);
-
-			expectEventToBeFired('ui', expectedDirectReportClickedEvent);
-		});
-
-		it('should fire profile card rendered event for error when hasError is true', async () => {
-			const { expectEventToBeFired } = renderProfileCard({
-				hasError: true,
-				errorType: { reason: 'default' },
-			});
-
-			expectEventToBeFired('ui', expectedErrorEvent);
-		});
-
-		it('should fire profile card rendered event for error with retry when clientFetchProfile is provided', async () => {
-			const { expectEventToBeFired } = renderProfileCard({
-				hasError: true,
-				errorType: { reason: 'NotFound' },
-				clientFetchProfile: jest.fn(),
-			});
-
-			expectEventToBeFired('ui', expectedErrorWithRetryEvent);
-		});
-
-		it('should capture and report a11y violations', async () => {
-			const { container } = renderProfileCard();
-			await expect(container).toBeAccessible();
-		});
-
-		it('should capture and report a11y violations in error state', async () => {
-			const { container } = renderProfileCard({
-				hasError: true,
-				errorType: { reason: 'default' },
-			});
-			await expect(container).toBeAccessible();
-		});
-
-		it('should capture and report a11y violations in error state with NotFound', async () => {
-			const { container } = renderProfileCard({
-				hasError: true,
-				errorType: { reason: 'NotFound' },
-				clientFetchProfile: jest.fn(),
-			});
-			await expect(container).toBeAccessible();
-		});
-
-		it('should capture and report a11y violations in loading state', async () => {
-			const { container } = renderProfileCard({
-				isLoading: true,
-				fullName: undefined,
-			});
-			await expect(container).toBeAccessible();
-		});
+	it('should fire profile card rendered event for content', async () => {
+		const { expectEventToBeFired } = renderProfileCard();
+		expectEventToBeFired('ui', expectedEvent);
 	});
 
-	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-		it('should fire profile card rendered event for content', async () => {
-			const { expectEventToBeFired } = renderProfileCard();
-			expectEventToBeFired('ui', expectedEvent);
+	it('should fire profile card rendered event for spinner when loading', async () => {
+		const { expectEventToBeFired } = renderProfileCard({
+			isLoading: true,
+			fullName: undefined,
 		});
+		expectEventToBeFired('ui', expectedLoadingEvent);
+	});
 
-		it('should fire profile card rendered event for spinner when loading', async () => {
-			const { expectEventToBeFired } = renderProfileCard({
-				isLoading: true,
-				fullName: undefined,
-			});
-			expectEventToBeFired('ui', expectedLoadingEvent);
-		});
+	it('should fire action clicked event when action button is clicked', async () => {
+		const user = userEvent.setup();
+		const { expectEventToBeFired } = renderProfileCard();
 
-		it('should fire action clicked event when action button is clicked', async () => {
-			const user = userEvent.setup();
-			const { expectEventToBeFired } = renderProfileCard();
+		const actionButton = screen.getByText('Test Action');
+		await user.click(actionButton);
 
-			const actionButton = screen.getByText('Test Action');
-			await user.click(actionButton);
+		expectEventToBeFired('ui', expectedActionClickedEvent);
+	});
 
-			expectEventToBeFired('ui', expectedActionClickedEvent);
-		});
-
-		it('should fire reporting lines clicked event when manager is clicked', async () => {
-			const user = userEvent.setup();
-			const { expectEventToBeFired } = renderProfileCard({
-				reportingLines: {
-					managers: [
-						{
-							accountIdentifier: 'manager-id',
-							identifierType: 'ATLASSIAN_ID',
-							pii: {
-								name: 'Manager Name',
-								picture: 'https://example.com/manager.jpg',
-							},
+	it('should fire reporting lines clicked event when manager is clicked', async () => {
+		const user = userEvent.setup();
+		const { expectEventToBeFired } = renderProfileCard({
+			reportingLines: {
+				managers: [
+					{
+						accountIdentifier: 'manager-id',
+						identifierType: 'ATLASSIAN_ID',
+						pii: {
+							name: 'Manager Name',
+							picture: 'https://example.com/manager.jpg',
 						},
-					],
-					reports: [],
-				},
-				onReportingLinesClick: jest.fn(),
-			});
-
-			const managerButton = screen.getByText('Manager Name');
-			await user.click(managerButton);
-
-			expectEventToBeFired('ui', expectedReportingLinesClickedEvent);
+					},
+				],
+				reports: [],
+			},
+			onReportingLinesClick: jest.fn(),
 		});
 
-		it('should fire reporting lines clicked event when direct report is clicked', async () => {
-			const user = userEvent.setup();
-			const onReportingLinesClickMock = jest.fn();
-			const { expectEventToBeFired } = renderProfileCard({
-				reportingLines: {
-					managers: [],
-					reports: [
-						{
-							accountIdentifier: 'report-id',
-							identifierType: 'ATLASSIAN_ID',
-							pii: {
-								name: 'Direct Report Name',
-								picture: 'https://example.com/report.jpg',
-							},
+		const managerButton = screen.getByText('Manager Name');
+		await user.click(managerButton);
+
+		expectEventToBeFired('ui', expectedReportingLinesClickedEvent);
+	});
+
+	it('should fire reporting lines clicked event when direct report is clicked', async () => {
+		const user = userEvent.setup();
+		const onReportingLinesClickMock = jest.fn();
+		const { expectEventToBeFired } = renderProfileCard({
+			reportingLines: {
+				managers: [],
+				reports: [
+					{
+						accountIdentifier: 'report-id',
+						identifierType: 'ATLASSIAN_ID',
+						pii: {
+							name: 'Direct Report Name',
+							picture: 'https://example.com/report.jpg',
 						},
-					],
-				},
-				onReportingLinesClick: onReportingLinesClickMock,
-			});
-
-			const reportButton = screen.getByTestId('profilecard-reports-avatar-group--avatar-0--inner');
-			await user.click(reportButton);
-
-			expectEventToBeFired('ui', expectedDirectReportClickedEvent);
+					},
+				],
+			},
+			onReportingLinesClick: onReportingLinesClickMock,
 		});
 
-		it('should fire profile card rendered event for error when hasError is true', async () => {
-			const { expectEventToBeFired } = renderProfileCard({
-				hasError: true,
-				errorType: { reason: 'default' },
-			});
+		const reportButton = screen.getByTestId('profilecard-reports-avatar-group--avatar-0--inner');
+		await user.click(reportButton);
 
-			expectEventToBeFired('ui', expectedErrorEvent);
+		expectEventToBeFired('ui', expectedDirectReportClickedEvent);
+	});
+
+	it('should fire profile card rendered event for error when hasError is true', async () => {
+		const { expectEventToBeFired } = renderProfileCard({
+			hasError: true,
+			errorType: { reason: 'default' },
 		});
 
-		it('should fire profile card rendered event for error with retry when clientFetchProfile is provided', async () => {
-			const { expectEventToBeFired } = renderProfileCard({
-				hasError: true,
-				errorType: { reason: 'NotFound' },
-				clientFetchProfile: jest.fn(),
-			});
+		expectEventToBeFired('ui', expectedErrorEvent);
+	});
 
-			expectEventToBeFired('ui', expectedErrorWithRetryEvent);
+	it('should fire profile card rendered event for error with retry when clientFetchProfile is provided', async () => {
+		const { expectEventToBeFired } = renderProfileCard({
+			hasError: true,
+			errorType: { reason: 'NotFound' },
+			clientFetchProfile: jest.fn(),
 		});
 
-		it('should capture and report a11y violations', async () => {
-			const { container } = renderProfileCard();
-			await expect(container).toBeAccessible();
-		});
+		expectEventToBeFired('ui', expectedErrorWithRetryEvent);
+	});
 
-		it('should capture and report a11y violations in error state', async () => {
-			const { container } = renderProfileCard({
-				hasError: true,
-				errorType: { reason: 'default' },
-			});
-			await expect(container).toBeAccessible();
-		});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderProfileCard();
+		await expect(container).toBeAccessible();
+	});
 
-		it('should capture and report a11y violations in error state with NotFound', async () => {
-			const { container } = renderProfileCard({
-				hasError: true,
-				errorType: { reason: 'NotFound' },
-				clientFetchProfile: jest.fn(),
-			});
-			await expect(container).toBeAccessible();
+	it('should capture and report a11y violations in error state', async () => {
+		const { container } = renderProfileCard({
+			hasError: true,
+			errorType: { reason: 'default' },
 		});
+		await expect(container).toBeAccessible();
+	});
 
-		it('should capture and report a11y violations in loading state', async () => {
-			const { container } = renderProfileCard({
-				isLoading: true,
-				fullName: undefined,
-			});
-			await expect(container).toBeAccessible();
+	it('should capture and report a11y violations in error state with NotFound', async () => {
+		const { container } = renderProfileCard({
+			hasError: true,
+			errorType: { reason: 'NotFound' },
+			clientFetchProfile: jest.fn(),
 		});
+		await expect(container).toBeAccessible();
+	});
+
+	it('should capture and report a11y violations in loading state', async () => {
+		const { container } = renderProfileCard({
+			isLoading: true,
+			fullName: undefined,
+		});
+		await expect(container).toBeAccessible();
 	});
 });

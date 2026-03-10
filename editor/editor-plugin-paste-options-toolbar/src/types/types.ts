@@ -27,3 +27,5 @@ export interface Position {
 	left?: number;
 	top?: number;
 }
+
+export type PasteType = 'rich-text' | 'markdown' | 'plain-text';

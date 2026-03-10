@@ -277,21 +277,25 @@ export const getRenderSucceededEventPayload = (
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
 	samplingRate?: number,
-): RenderSucceededEventPayload => ({
-	eventType: 'operational',
-	action: 'succeeded',
-	actionSubject: 'mediaCardRender',
-	attributes: {
-		fileMimetype: fileAttributes.fileMimetype,
-		fileAttributes,
-		performanceAttributes,
-		status: 'success',
-		ssrReliability,
-		traceContext,
-		metadataTraceContext,
-		...(samplingRate !== undefined && { samplingRate }),
-	},
-});
+): RenderSucceededEventPayload => {
+	const isSamplingEnabled = samplingRate !== undefined && samplingRate < 1;
+	return {
+		eventType: 'operational',
+		action: 'succeeded',
+		actionSubject: 'mediaCardRender',
+		attributes: {
+			fileMimetype: fileAttributes.fileMimetype,
+			fileAttributes,
+			performanceAttributes,
+			status: 'success',
+			ssrReliability,
+			traceContext,
+			metadataTraceContext,
+			...(isSamplingEnabled && { isSamplingEnabled }),
+			...(samplingRate !== undefined && { samplingRate }),
+		},
+	};
+};
 
 export const getDownloadSucceededEventPayload = (
 	fileAttributes: FileAttributes,

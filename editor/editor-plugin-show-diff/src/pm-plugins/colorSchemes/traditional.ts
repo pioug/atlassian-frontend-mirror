@@ -34,62 +34,50 @@ export const deletedTraditionalContentStyleUnbounded = convertToInlineCss({
 	zIndex: 1,
 });
 
-const traditionalStyleQuoteNode = convertToInlineCss({
+export const deletedTraditionalStyleQuoteNode: string = convertToInlineCss({
+	marginTop: token('space.150'),
+	paddingTop: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
+	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+	borderRadius: token('radius.small'),
+});
+
+export const deletedTraditionalBlockOutline: string = convertToInlineCss({
+	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+	borderRadius: token('radius.small'),
+});
+
+export const deletedTraditionalBlockOutlineRounded: string = convertToInlineCss({
+	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
+});
+
+export const deletedTraditionalRowStyle = convertToInlineCss({
+	textDecorationColor: token('color.border.accent.red'),
+	textDecoration: 'line-through',
+	opacity: 0.6,
+	display: 'table-row',
+});
+
+export const traditionalStyleQuoteNode = convertToInlineCss({
 	borderLeft: `2px solid ${token('color.border.accent.green')}`,
 });
 
-const traditionalStyleRuleNode = convertToInlineCss({
+export const traditionalStyleRuleNode = convertToInlineCss({
 	backgroundColor: token('color.border.accent.green'),
 });
 
-const traditionalStyleNode = convertToInlineCss({
+export const traditionalStyleNode = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.green')}`,
 	borderRadius: token('radius.small'),
 });
 
-const traditionalStyleCardBlockNode = convertToInlineCss({
+export const traditionalStyleCardBlockNode = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.green')}`,
 	borderRadius: token('radius.medium'),
 });
 
-const traditionalDecorationMarkerVariable = convertToInlineCss({
+export const traditionalDecorationMarkerVariable = convertToInlineCss({
 	'--diff-decoration-marker-color': token('color.border.accent.green'),
 });
-
-export const getTraditionalNodeStyle = (nodeName: string) => {
-	if (
-		[
-			'mediaSingle',
-			'mediaGroup',
-			'table', // Handle table separately to avoid border issues
-			'tableRow',
-			'tableCell',
-			'tableHeader',
-			'paragraph', // Paragraph and heading nodes do not need special styling
-			'heading',
-			'hardBreak',
-			'decisionList',
-			'taskList',
-			'taskItem',
-			'bulletList',
-			'orderedList',
-			'layoutSection',
-		].includes(nodeName)
-	) {
-		// Layout nodes do not need special styling
-		return undefined;
-	}
-	if (['extension', 'embedCard', 'listItem'].includes(nodeName)) {
-		return traditionalDecorationMarkerVariable;
-	}
-	if (nodeName === 'blockquote') {
-		return traditionalStyleQuoteNode;
-	}
-	if (nodeName === 'rule') {
-		return traditionalStyleRuleNode;
-	}
-	if (nodeName === 'blockCard') {
-		return traditionalStyleCardBlockNode;
-	}
-	return traditionalStyleNode;
-};

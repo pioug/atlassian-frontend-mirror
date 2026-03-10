@@ -372,9 +372,7 @@ function Expand({
 								<Suspense
 									fallback={
 										<div>
-											{fg('platform_editor_dec_a11y_fixes')
-												? intl.formatMessage(expandMessages.loading)
-												: 'Loading...'}
+											{intl.formatMessage(expandMessages.loading)}
 										</div>
 									}
 								>

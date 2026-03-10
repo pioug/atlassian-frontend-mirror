@@ -1,5 +1,51 @@
 # @atlaskit/editor-statsig-tmp
 
+## 35.3.0
+
+### Minor Changes
+
+- [`83792cc1d590e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83792cc1d590e) -
+  Abort UFO measurements when user interacts with the editor during VC90 load tracking, gated behind
+  platform_editor_abort_ufo_on_user_interaction experiment
+
+## 35.2.0
+
+### Minor Changes
+
+- [`9e9a406ad71a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e9a406ad71a9) -
+  [EDITOR-1682] add new experiment `platform_editor_analyse_table_with_merged_cells` to config file
+- [`5d27d5dc155ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d27d5dc155ff) -
+  Editor-5020: Fix the column drop hint not visible inside sync block
+
+## 35.1.0
+
+### Minor Changes
+
+- [`f9c6cc572b6cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9c6cc572b6cd) -
+  EDITOR-5829: Set up experiment in config
+
+## 35.0.0
+
+### Major Changes
+
+- [`1d6c1d6ba61dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d6c1d6ba61dc) -
+  FFCLEANUP-79953 clean up stale experiment platform_editor_editor_width_analytics
+
+### Minor Changes
+
+- [`94dbc76370522`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94dbc76370522) -
+  [ux] remove unnecessary decoration for last cell element in table
+- [`38112478a1d8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38112478a1d8a) -
+  Cleanup platform_editor_blockquote_zero_padding flag
+
+## 34.4.0
+
+### Minor Changes
+
+- [`1d6c102310afb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d6c102310afb) -
+  [ux] Use editor-smart-link-draggable package ti implement React-based drag preview, and design
+  system compliance. Updated editor-plugin-card to reference the new package.
+
 ## 34.3.0
 
 ### Minor Changes

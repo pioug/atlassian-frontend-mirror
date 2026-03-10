@@ -11,9 +11,6 @@ snapshot(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'platform-component-visual-refresh': true,
-	},
 });
 
 snapshot(JiraIssuesTableDaterange, {
@@ -26,7 +23,6 @@ snapshot(JiraIssuesTableDaterange, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': true,
 		jpd_confluence_date_fields_improvements: true,
 	},
 });

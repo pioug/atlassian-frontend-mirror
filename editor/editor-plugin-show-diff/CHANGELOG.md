@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 5.0.5
+
+### Patch Changes
+
+- [`8865b5e8a708a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8865b5e8a708a) -
+  EDITOR-5632: Refactor diff plugin to make functions more generic.
+- Updated dependencies
+
+## 5.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.3
+
+### Patch Changes
+
+- [`8bddf4c001143`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bddf4c001143) -
+  Improve scrolling to diffs on the page by focusing before scroll
+- Updated dependencies
+
 ## 5.0.2
 
 ### Patch Changes

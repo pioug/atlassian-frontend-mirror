@@ -33,9 +33,6 @@ snapshotInformational(VRIssueLikeTableStatus, {
 		await page.getByRole('listbox').getByText('Backlog').waitFor({ state: 'visible' });
 	},
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -55,9 +52,6 @@ snapshotInformational(VRIssueLikeTableStatus, {
 		await page.getByRole('listbox').getByText('Some').hover();
 	},
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-	},
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,

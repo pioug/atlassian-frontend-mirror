@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-local-id
 
+## 5.1.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.20
 
 ### Patch Changes

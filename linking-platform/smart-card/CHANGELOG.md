@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 43.25.16
+
+### Patch Changes
+
+- [`8a319950932e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a319950932e8) -
+  Remove platform-component-visual-refresh-true feature flag from lozenges.
+- [`07cc7e77cac38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07cc7e77cac38) -
+  [ux] New component for footer in the hovercard.
+- Updated dependencies
+
 ## 43.25.15
 
 ### Patch Changes

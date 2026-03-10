@@ -5,11 +5,8 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	PluginKey,
-	NodeSelection,
-	TextSelection,
 	type EditorState,
 	type ReadonlyTransaction,
-	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
@@ -20,6 +17,7 @@ import { type DiffParams } from '../showDiffPluginType';
 
 import { calculateDiffDecorations } from './calculateDiffDecorations';
 import { NodeViewSerializer } from './NodeViewSerializer';
+import { scrollToActiveDecoration } from './scrollToActiveDecoration';
 
 export const showDiffPluginKey = new PluginKey<ShowDiffPluginState>('showDiffPlugin');
 
@@ -49,50 +47,6 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 
 	return new SafePlugin<ShowDiffPluginState>({
 		key: showDiffPluginKey,
-		appendTransaction(
-			transactions: readonly Transaction[],
-			oldState: EditorState,
-			newState: EditorState,
-		) {
-			if (!fg('platform_editor_show_diff_scroll_navigation')) {
-				return;
-			}
-			// Check if any transaction contains scroll actions
-			const scrollTransaction = transactions.find(
-				(tr) =>
-					tr.getMeta(showDiffPluginKey)?.action === 'SCROLL_TO_NEXT' ||
-					tr.getMeta(showDiffPluginKey)?.action === 'SCROLL_TO_PREVIOUS',
-			);
-
-			if (!scrollTransaction) {
-				return;
-			}
-
-			const pluginState = showDiffPluginKey.getState(newState);
-			if (!pluginState || pluginState.decorations.find().length === 0) {
-				return;
-			}
-
-			const decorations = getScrollableDecorations(pluginState.decorations);
-
-			const decoration = decorations[pluginState.activeIndex ?? 0];
-			if (!decoration) {
-				return;
-			}
-
-			const { from, to } = decoration;
-			const $pos = newState.doc.resolve(from);
-			const isNodeSelection =
-				$pos.nodeAfter && $pos.nodeAfter.nodeSize === to - from && !$pos.nodeAfter.isInline;
-
-			const tr = newState.tr;
-			if (isNodeSelection) {
-				tr.setSelection(NodeSelection.create(newState.doc, from));
-			} else {
-				tr.setSelection(TextSelection.create(newState.doc, from));
-			}
-			return tr.scrollIntoView();
-		},
 		state: {
 			init(_: EditorStateConfig, _state: EditorState) {
 				// We do initial setup after we setup the editor view
@@ -189,6 +143,7 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 		view(editorView: EditorView) {
 			setNodeViewSerializer(editorView);
 			let isFirst = true;
+			let previousActiveIndex: number | undefined;
 			return {
 				update(view: EditorView) {
 					// If we're using configuration to show diffs we initialise here once we setup the editor view
@@ -204,6 +159,23 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 								originalDoc: processRawValue(view.state.schema, config.originalDoc),
 							}),
 						);
+					}
+
+					// Check for any potential scroll side-effects
+					if (fg('platform_editor_show_diff_scroll_navigation')) {
+						const pluginState = showDiffPluginKey.getState(view.state);
+						const activeIndexChanged =
+							pluginState?.activeIndex !== undefined &&
+							pluginState.activeIndex !== previousActiveIndex;
+						previousActiveIndex = pluginState?.activeIndex;
+
+						if (pluginState?.activeIndex && activeIndexChanged) {
+							scrollToActiveDecoration(
+								view,
+								getScrollableDecorations(pluginState.decorations),
+								pluginState.activeIndex,
+							);
+						}
 					}
 				},
 			};

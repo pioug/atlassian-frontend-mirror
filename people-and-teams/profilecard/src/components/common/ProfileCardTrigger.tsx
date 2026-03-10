@@ -7,11 +7,10 @@ import React, {
 	useState,
 } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
-import { cardTriggered, getActionSubject, PACKAGE_META_DATA } from '../../util/analytics';
+import { getActionSubject, PACKAGE_META_DATA } from '../../util/analytics';
 import { getPageTime } from '../../util/performance';
 import { useProfileInfo } from '../../util/useProfileInfo';
 
@@ -38,7 +37,6 @@ function ProfileCardTriggerInner<T>(
 		profileCardType,
 		testId,
 		fireAnalytics,
-		fireAnalyticsNext,
 		...popupProps
 	}: ProfileCardTriggerProps<T>,
 	ref: React.Ref<ProfileCardHandle>,
@@ -84,30 +82,16 @@ function ProfileCardTriggerInner<T>(
 			if (!visible) {
 				getProfileData?.();
 				setVisible(true);
-				if (fg('ptc-enable-profile-card-analytics-refactor')) {
-					if (fireAnalyticsNext) {
-						fireAnalyticsNext(`ui.${getActionSubject(profileCardType)}.triggered`, {
-							method: trigger,
-							...PACKAGE_META_DATA,
-							firedAt: Math.round(getPageTime()),
-						});
-					}
-				} else {
-					if (fireAnalytics) {
-						fireAnalytics(cardTriggered(profileCardType, trigger));
-					}
+				if (fireAnalytics) {
+					fireAnalytics(`ui.${getActionSubject(profileCardType)}.triggered`, {
+						method: trigger,
+						...PACKAGE_META_DATA,
+						firedAt: Math.round(getPageTime()),
+					});
 				}
 			}
 		}, showDelay);
-	}, [
-		showDelay,
-		visible,
-		getProfileData,
-		fireAnalytics,
-		profileCardType,
-		trigger,
-		fireAnalyticsNext,
-	]);
+	}, [showDelay, visible, getProfileData, fireAnalytics, profileCardType, trigger]);
 
 	const onMouseEnter = useCallback(() => {
 		showProfilecard();
@@ -147,7 +131,7 @@ function ProfileCardTriggerInner<T>(
 				>
 					{isLoading ? (
 						<ProfileCardWrapper testId="profilecard.profilecardtrigger.loading">
-							<LoadingState fireAnalytics={fireAnalyticsNext} profileType={profileCardType} />
+							<LoadingState fireAnalytics={fireAnalytics} profileType={profileCardType} />
 						</ProfileCardWrapper>
 					) : (
 						renderProfileCard({ profileData, error })

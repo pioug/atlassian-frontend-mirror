@@ -8,7 +8,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -134,10 +133,7 @@ export const InlineCardForbiddenView = ({
 					style={{ font: `inherit` }}
 					testId="button-connect-other-account"
 				>
-					<InlineLozenge
-						appearance="moved"
-						{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
-					>
+					<InlineLozenge appearance="moved" isBold>
 						{renderForbiddenAccessMessage()}
 					</InlineLozenge>
 				</Pressable>

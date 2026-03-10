@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste
 
+## 8.6.0
+
+### Minor Changes
+
+- [`ad3f33096c4c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad3f33096c4c2) -
+  [[EDITOR-5761](https://hello.jira.atlassian.cloud/browse/EDITOR-5761) - clean up
+  platform_editor_date_to_text feature flag
+
+## 8.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.5.0
 
 ### Minor Changes

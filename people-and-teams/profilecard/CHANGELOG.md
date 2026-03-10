@@ -1,5 +1,28 @@
 # @atlaskit/profilecard
 
+## 24.42.0
+
+### Minor Changes
+
+- [`43c802715f6b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43c802715f6b7) -
+  Removed legacy analyics instrumentation
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.41.0
+
+### Minor Changes
+
+- [`9df21504d9f03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9df21504d9f03) -
+  [ux] add a props to hide reporting lines (hideReportingLines) and conversation starter on
+  profilecard (hideConversationStarters) from profilecard
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.40.2
 
 ### Patch Changes

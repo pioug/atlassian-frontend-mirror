@@ -14,7 +14,7 @@ export const _DocsTabs: DocsTabs = [
 	},
 	{
 		content: DragAndDropTab,
-		name: 'Drag and Drop',
+		name: 'Drag and drop',
 	},
 	{
 		content: CodeTab,

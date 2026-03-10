@@ -10,7 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import messages from '../../messages';
 import { OverflowActionButtonsWrapper } from '../../styled/Card';
 import { type AnalyticsWithDurationProps, type ProfileCardAction } from '../../types';
-import { moreActionsClicked, PACKAGE_META_DATA } from '../../util/analytics';
+import { PACKAGE_META_DATA } from '../../util/analytics';
 import { getPageTime } from '../../util/performance';
 
 type OverflowButtonsProps = {
@@ -31,7 +31,7 @@ export const OverflowProfileCardButtons = (props: OverflowButtonsProps): React.J
 
 	const [, setOpen] = useState(false);
 
-	const { actions, onItemClick, fireAnalyticsWithDuration, fireAnalyticsWithDurationNext } = props;
+	const { actions, onItemClick, fireAnalyticsWithDuration } = props;
 
 	const numActions = actions.length + ACTION_OVERFLOW_THRESHOLD;
 
@@ -39,27 +39,18 @@ export const OverflowProfileCardButtons = (props: OverflowButtonsProps): React.J
 		({ isOpen: nextOpen }: { isOpen: boolean }) => {
 			setOpen((prevOpen) => {
 				if (nextOpen && !prevOpen) {
-					if (fg('ptc-enable-profile-card-analytics-refactor')) {
-						fireAnalyticsWithDurationNext('ui.profilecard.clicked.moreActions', (duration) => ({
-							duration,
-							numActions,
-							firedAt: Math.round(getPageTime()),
-							...PACKAGE_META_DATA,
-						}));
-					} else {
-						fireAnalyticsWithDuration((duration) =>
-							moreActionsClicked('user', {
-								duration,
-								numActions,
-							}),
-						);
-					}
+					fireAnalyticsWithDuration('ui.profilecard.clicked.moreActions', (duration) => ({
+						duration,
+						numActions,
+						firedAt: Math.round(getPageTime()),
+						...PACKAGE_META_DATA,
+					}));
 				}
 
 				return nextOpen;
 			});
 		},
-		[numActions, fireAnalyticsWithDuration, fireAnalyticsWithDurationNext],
+		[numActions, fireAnalyticsWithDuration],
 	);
 
 	return (

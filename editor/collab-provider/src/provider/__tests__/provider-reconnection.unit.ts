@@ -566,4 +566,174 @@ describe('reconnection analytics', () => {
 				emitterCallback.mockClear();
 			});
 		});
+
+	describe('platform_editor_early_exit_return_draft relevance-based catchup', () => {
+		eeTest
+			.describe('platform_editor_early_exit_return_draft', 'experiment enabled')
+			.variant(true, () => {
+				it('Should trigger catchup when relevance is STALE', async () => {
+					const provider = createSocketIOCollabProvider(testProviderConfig);
+
+					const analyticsHelper = new AnalyticsHelper(testProviderConfig.documentAri);
+
+					const emitterCallback = jest.fn();
+
+					const throttledCatchupv2Spy = jest.fn();
+
+					await provider.setup({
+						getState: () => editorState,
+					});
+
+					provider.initialize(() => editorState);
+
+					provider.on('connected', emitterCallback);
+
+					(provider as any).channel = channel;
+					(provider as any).analyticsHelper = analyticsHelper;
+					(provider as any).documentService.throttledCatchupv2 = throttledCatchupv2Spy;
+
+					const initialDraft = {
+						document: { type: 'doc', content: [] },
+						version: 1,
+						metadata: { relevance: 'STALE', title: 'Test' },
+					};
+
+					(provider as any).initialDraft = initialDraft;
+
+					channel.emit('connected', {
+						sid: 'test-sid',
+						initialized: true,
+					});
+
+					expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.PROCESS_STEPS);
+
+					provider.destroy();
+					emitterCallback.mockClear();
+				});
+
+				it('Should skip catchup when relevance is LATEST', async () => {
+					const provider = createSocketIOCollabProvider(testProviderConfig);
+
+					const analyticsHelper = new AnalyticsHelper(testProviderConfig.documentAri);
+
+					const emitterCallback = jest.fn();
+
+					const throttledCatchupv2Spy = jest.fn();
+
+					await provider.setup({
+						getState: () => editorState,
+					});
+
+					provider.initialize(() => editorState);
+
+					provider.on('connected', emitterCallback);
+
+					(provider as any).channel = channel;
+					(provider as any).analyticsHelper = analyticsHelper;
+					(provider as any).documentService.throttledCatchupv2 = throttledCatchupv2Spy;
+
+					const initialDraft = {
+						document: { type: 'doc', content: [] },
+						version: 1,
+						metadata: { relevance: 'LATEST', title: 'Test' },
+					};
+
+					(provider as any).initialDraft = initialDraft;
+
+					channel.emit('connected', {
+						sid: 'test-sid',
+						initialized: true,
+					});
+
+					expect(throttledCatchupv2Spy).not.toHaveBeenCalled();
+
+					provider.destroy();
+					emitterCallback.mockClear();
+				});
+
+				it('Should trigger catchup when relevance is undefined', async () => {
+					const provider = createSocketIOCollabProvider(testProviderConfig);
+
+					const analyticsHelper = new AnalyticsHelper(testProviderConfig.documentAri);
+
+					const emitterCallback = jest.fn();
+
+					const throttledCatchupv2Spy = jest.fn();
+
+					await provider.setup({
+						getState: () => editorState,
+					});
+
+					provider.initialize(() => editorState);
+
+					provider.on('connected', emitterCallback);
+
+					(provider as any).channel = channel;
+					(provider as any).analyticsHelper = analyticsHelper;
+					(provider as any).documentService.throttledCatchupv2 = throttledCatchupv2Spy;
+
+					const initialDraft = {
+						document: { type: 'doc', content: [] },
+						version: 1,
+						metadata: { title: 'Test' },
+					};
+
+					(provider as any).initialDraft = initialDraft;
+
+					channel.emit('connected', {
+						sid: 'test-sid',
+						initialized: true,
+					});
+
+					expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.PROCESS_STEPS);
+
+					provider.destroy();
+					emitterCallback.mockClear();
+				});
+			});
+
+		eeTest
+			.describe('platform_editor_early_exit_return_draft', 'experiment disabled')
+			.variant(false, () => {
+				it('Should not trigger catchup when experiment is disabled regardless of relevance', async () => {
+					const provider = createSocketIOCollabProvider(testProviderConfig);
+
+					const analyticsHelper = new AnalyticsHelper(testProviderConfig.documentAri);
+
+					const emitterCallback = jest.fn();
+
+					const throttledCatchupv2Spy = jest.fn();
+
+					await provider.setup({
+						getState: () => editorState,
+					});
+
+					provider.initialize(() => editorState);
+
+					provider.on('connected', emitterCallback);
+
+					(provider as any).channel = channel;
+					(provider as any).analyticsHelper = analyticsHelper;
+					(provider as any).documentService.throttledCatchupv2 = throttledCatchupv2Spy;
+
+					const initialDraft = {
+						document: { type: 'doc', content: [] },
+						version: 1,
+						metadata: { relevance: 'STALE', title: 'Test' },
+					};
+
+					(provider as any).initialDraft = initialDraft;
+
+					channel.emit('connected', {
+						sid: 'test-sid',
+						initialized: true,
+					});
+
+					expect(throttledCatchupv2Spy).not.toHaveBeenCalled();
+
+					provider.destroy();
+					emitterCallback.mockClear();
+				});
+			});
+	});
 });

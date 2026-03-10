@@ -20,6 +20,7 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, getCellsInRow, getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { Cell, CellColumnPositioning } from '../../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../../types';
@@ -361,7 +362,7 @@ export const createResizeHandleDecoration = (
 				key: `${
 					TableDecorations.COLUMN_RESIZING_HANDLE_WIDGET
 				}_${rowIndex}_${columnIndex}_${includeTooltip ? 'with' : 'no'}-tooltip`,
-				destroy: (node) => {
+				destroy: (_node) => {
 					nodeViewPortalProviderAPI.remove(decorationRenderKey);
 				},
 			},
@@ -373,6 +374,12 @@ export const createResizeHandleDecoration = (
 		cellPos: number,
 		cellNode: PmNode,
 	): Decoration | null => {
+		if (expValEquals('platform_editor_table_remove_last_cell_decoration', 'isEnabled', true)) {
+			// no longer need to add the last cell decoration to override marginBottom as media wrapper doesn't have margin bottom. This will avoid unnecessary decoration computation/mutation and improve performance
+			// consider clean up ClassName.LAST_ITEM_IN_CELL with platform_editor_table_remove_last_cell_decoration experiment
+			return null;
+		}
+
 		let lastItemPositions: { from: number; to: number } | undefined;
 		cellNode.forEach((childNode, offset, index) => {
 			if (index === cellNode.childCount - 1) {

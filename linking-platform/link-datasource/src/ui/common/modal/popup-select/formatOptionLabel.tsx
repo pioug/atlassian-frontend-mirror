@@ -4,7 +4,6 @@ import Avatar from '@atlaskit/avatar';
 import { cssMap, cx } from '@atlaskit/css';
 import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -51,11 +50,7 @@ const IconOptionLabel = ({ data }: { data: IconLabelOption }) => {
 
 const LozengeOptionLabel = ({ data }: { data: LozengeLabelOption }) => {
 	return (
-		<Lozenge
-			appearance={data.appearance}
-			isBold={fg('platform-component-visual-refresh') ? true : false}
-			testId="basic-filter-popup-select-option--lozenge"
-		>
+		<Lozenge appearance={data.appearance} isBold testId="basic-filter-popup-select-option--lozenge">
 			<Box xcss={styles.commonLabelStyles}>{data.label}</Box>
 		</Lozenge>
 	);

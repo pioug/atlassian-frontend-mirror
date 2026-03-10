@@ -11,7 +11,7 @@ import { pasteOptionsPluginKey, ToolbarDropdownOption } from '../types/types';
 import { PASTE_HIGHLIGHT_DECORATION_KEY, TEXT_HIGHLIGHT_CLASS } from './constants';
 import { createPluginState } from './plugin-factory';
 
-export function createPlugin(dispatch: Dispatch) {
+export function createPlugin(dispatch: Dispatch, options?: { useNewPasteMenu?: boolean }) {
 	return new SafePlugin({
 		key: pasteOptionsPluginKey,
 		state: createPluginState(dispatch, {
@@ -26,7 +26,7 @@ export function createPlugin(dispatch: Dispatch) {
 			selectedOption: ToolbarDropdownOption.None,
 		}),
 
-		view(editorView: EditorView) {
+		view(_editorView: EditorView) {
 			return {
 				update(view: EditorView, prevState: EditorState) {
 					return prevState;
@@ -35,8 +35,13 @@ export function createPlugin(dispatch: Dispatch) {
 		},
 		props: {
 			handleDOMEvents: {
-				// Hide toolbar when clicked outside the editor
-				blur: checkAndHideToolbar,
+				blur: (view: EditorView) => {
+					if (options?.useNewPasteMenu) {
+						return false;
+					}
+					checkAndHideToolbar(view);
+					return false;
+				},
 				// Hide toolbar when clicked anywhere within the editor, tr.getMeta('pointer') does not work if clicked on the same line after pasting so relying on mousedown event
 				mousedown: checkAndHideToolbar,
 			},

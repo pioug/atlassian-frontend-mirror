@@ -45,6 +45,9 @@
 			"path": "../../editor-shared-styles/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-toolbar/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-ui-control-model/afm-cc/tsconfig.json"
 		},
 		{

@@ -322,12 +322,9 @@ type TopNavStartProps = {
 	 *
 	 * You should only render `<SideNavToggleButton>` inside this slot, not as a child.
 	 *
-	 * After `platform_dst_nav4_side_nav_toggle_button_slot` rolls out,
-	 * this prop will become required.
-	 *
 	 * Consumers that do not need a toggle button can explicitly pass `null`.
 	 */
-	sideNavToggleButton?: React.ReactNode;
+	sideNavToggleButton: React.ReactNode;
 };
 
 const TopNavStartInnerOld = forwardRef(function TopNavStartInner(

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 17.7.1
+
+### Patch Changes
+
+- [`94dbc76370522`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94dbc76370522) -
+  [ux] remove unnecessary decoration for last cell element in table
+- [`1d6c1d6ba61dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d6c1d6ba61dc) -
+  FFCLEANUP-79953 clean up stale experiment platform_editor_editor_width_analytics
+- Updated dependencies
+
 ## 17.7.0
 
 ### Minor Changes

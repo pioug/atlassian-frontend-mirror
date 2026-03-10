@@ -3,11 +3,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import {
-	mockRunItLaterSynchronously,
-	renderWithAnalyticsListener,
-} from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
 
 import type { RovoAgentProfileCardInfo } from '../../../types';
 import { AgentActions } from '../Actions';
@@ -21,7 +17,6 @@ Object.defineProperty(performance, 'now', {
 	value: jest.fn().mockReturnValue(1000),
 });
 
-mockRunItLaterSynchronously();
 describe('ErrorMessage', () => {
 	const agent: RovoAgentProfileCardInfo = {
 		id: '965df475-d134-43ac-8ec4-f4aafd0025c6',
@@ -86,22 +81,11 @@ describe('ErrorMessage', () => {
 		);
 	};
 
-	ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-		it('should fire the delete agent button event', async () => {
-			const { user, expectEventToBeFired } = renderAgentActions();
-			await user.click(screen.getByTestId('agent-dropdown-menu--trigger'));
-			await user.click(screen.getByText('Delete Agent'));
-			expectEventToBeFired('ui', event);
-		});
-	});
-
-	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-		it('should fire the delete agent button event', async () => {
-			const { user, expectEventToBeFired } = renderAgentActions();
-			await user.click(screen.getByTestId('agent-dropdown-menu--trigger'));
-			await user.click(screen.getByText('Delete Agent'));
-			expectEventToBeFired('ui', event);
-		});
+	it('should fire the delete agent button event', async () => {
+		const { user, expectEventToBeFired } = renderAgentActions();
+		await user.click(screen.getByTestId('agent-dropdown-menu--trigger'));
+		await user.click(screen.getByText('Delete Agent'));
+		expectEventToBeFired('ui', event);
 	});
 
 	it('should capture and report a11y violations', async () => {

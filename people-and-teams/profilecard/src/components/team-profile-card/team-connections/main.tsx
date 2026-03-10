@@ -1,18 +1,14 @@
 import React, { useCallback } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
 import { LinkItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import {
 	ContainerIcon,
 	getContainerProperties,
 	type LinkedContainerCardProps,
 } from '@atlaskit/teams-public';
-
-import { fireEvent } from '../../../util/analytics';
 
 const styles = cssMap({
 	containerTypeIconButtonStyles: {
@@ -33,23 +29,13 @@ export const TeamConnections = ({
 		iconSize: 'medium',
 		isDisplayedOnProfileCard: true,
 	});
-	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEvents();
 
 	const onClick = useCallback(() => {
-		if (fg('ptc-enable-profile-card-analytics-refactor')) {
-			fireEventNext('ui.teamConnectionItem.clicked.teamProfileCard', {
-				container: containerType,
-			});
-		} else {
-			fireEvent(createAnalyticsEvent, {
-				action: 'clicked',
-				actionSubject: 'teamConnectionItem',
-				actionSubjectId: 'teamProfileCard',
-				attributes: { container: containerType },
-			});
-		}
-	}, [containerType, createAnalyticsEvent, fireEventNext]);
+		fireEvent('ui.teamConnectionItem.clicked.teamProfileCard', {
+			container: containerType,
+		});
+	}, [containerType, fireEvent]);
 
 	return (
 		<LinkItem

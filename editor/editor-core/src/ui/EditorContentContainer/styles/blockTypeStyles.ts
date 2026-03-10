@@ -4,19 +4,6 @@ import { css, type SerializedStyles } from '@emotion/react';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
-// This style is needed to avoid Confluence's batch.css overrides that expand blockquote with extra padding after SSR.
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const blockquoteZeroPadding: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'& blockquote': {
-			paddingTop: 0,
-			paddingBottom: 0,
-		},
-	},
-});
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const blocktypeStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -28,6 +15,11 @@ export const blocktypeStyles: SerializedStyles = css({
 			color: 'inherit',
 			width: '100%',
 			display: 'inline-block',
+
+			// These 2 styles are needed to avoid Confluence's batch.css overrides that expand blockquote with extra padding after SSR.
+			paddingTop: 0,
+			paddingBottom: 0,
+
 			paddingLeft: token('space.200', '16px'),
 			borderLeftWidth: token('border.width.selected'),
 			borderLeftStyle: 'solid',

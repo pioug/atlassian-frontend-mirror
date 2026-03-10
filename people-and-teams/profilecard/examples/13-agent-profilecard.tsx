@@ -13,7 +13,15 @@ import { type RovoAgentProfileCardInfo } from '../src/types';
 import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient } from './helper/util';
 
-const styles = cssMap({ wrapper: { marginBlock: token('space.200') } });
+const styles = cssMap({
+	wrapper: { marginBlock: token('space.200') },
+	wrapperBox: {
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+	},
+});
 
 const Section = ({ children }: { children: React.ReactNode }) => {
 	return (
@@ -73,12 +81,9 @@ const agent: RovoAgentProfileCardInfo = {
 export default function Example(): React.JSX.Element {
 	return (
 		<ExampleWrapper>
-			<div>
+			<Box xcss={styles.wrapperBox}>
 				<Section>
 					<AgentProfileCardExample />
-				</Section>
-				<Section>
-					<Text>Agent profile card loading state</Text>
 				</Section>
 				<Section>
 					<Text>Profilecard triggered by hover</Text>
@@ -104,7 +109,7 @@ export default function Example(): React.JSX.Element {
 						</ProfileCardTrigger>
 					</span>
 				</Section>
-			</div>
+			</Box>
 		</ExampleWrapper>
 	);
 }

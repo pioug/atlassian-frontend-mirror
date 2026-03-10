@@ -72,6 +72,9 @@
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-smart-link-draggable/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../helpers/frontend-utilities/afm-products/tsconfig.json"
 		},
 		{

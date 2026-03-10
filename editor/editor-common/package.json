@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "111.29.1",
+	"version": "111.30.3",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -366,9 +366,6 @@
 			"type": "boolean"
 		},
 		"platform_fix_macro_renders_in_layouts": {
-			"type": "boolean"
-		},
-		"platform_editor_dec_a11y_fixes": {
 			"type": "boolean"
 		},
 		"platform_editor_ally_remove_role_tabpanel": {

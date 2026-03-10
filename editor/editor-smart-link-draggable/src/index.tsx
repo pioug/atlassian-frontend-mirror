@@ -32,14 +32,14 @@ export enum SMART_LINK_DRAG_TYPES {
 
 export type SmartLinkDragType = SMART_LINK_DRAG_TYPES;
 
-export enum SmartLinkAppearance {
+export enum SMART_LINK_APPERANCE {
 	INLINE = 'inline',
 	BLOCK = 'block',
 	EMBED = 'embed',
 }
 
 export interface SmartLinkDragData {
-	appearance: SmartLinkAppearance;
+	appearance: SMART_LINK_APPERANCE;
 	iconUrl: string | undefined;
 	title: string | undefined;
 	type: SmartLinkDragType;
@@ -54,7 +54,7 @@ export function isSmartLinkDrag(type: unknown): boolean {
 }
 
 export interface SmartLinkDraggableProps {
-	appearance: SmartLinkAppearance;
+	appearance: SMART_LINK_APPERANCE;
 	/** Which context the smart link is being dragged from */
 	source: SMART_LINK_DRAG_TYPES;
 	title?: string;
@@ -155,10 +155,10 @@ function getIconUrl(details?: SmartLinkResponse): string | undefined {
 }
 
 /**
- * Wraps a smart link card to make it draggable into the content tree.
- * Extracts the resolved title and icon from the smart link data store at drag start time.
+ * Inner component that handles the actual drag behavior.
+ * Must be rendered within a SmartCardProvider context.
  */
-export function SmartLinkDraggable({
+function SmartLinkDraggableInner({
 	url,
 	title: propTitle,
 	appearance,
@@ -212,10 +212,6 @@ export function SmartLinkDraggable({
 		});
 	}, [url, propTitle, appearance, source, store]);
 
-	if (!url || !fg('confluence_dnd_smart_link_from_content')) {
-		return <>{children}</>;
-	}
-
 	const preview =
 		state.type === 'preview'
 			? ReactDOM.createPortal(
@@ -224,7 +220,8 @@ export function SmartLinkDraggable({
 				)
 			: null;
 
-	if (appearance === SmartLinkAppearance.INLINE) {
+	// Use span with inline display for inline cards to preserve text flow
+	if (appearance === SMART_LINK_APPERANCE.INLINE) {
 		return (
 			<>
 				<Box as="span" ref={ref} xcss={styles.draggableInline}>
@@ -242,5 +239,28 @@ export function SmartLinkDraggable({
 			</Box>
 			{preview}
 		</>
+	);
+}
+
+/**
+ * Wraps a smart link card to make it draggable into the content tree.
+ * Extracts the resolved title and icon from the smart link data store at drag start time.
+ * Falls back to rendering children directly when the feature flag is off or url is missing.
+ */
+export function SmartLinkDraggable({
+	url,
+	title,
+	appearance,
+	source,
+	children,
+}: PropsWithChildren<SmartLinkDraggableProps>) {
+	if (!url || !fg('cc_drag_and_drop_smart_link_from_content_to_tree')) {
+		return <>{children}</>;
+	}
+
+	return (
+		<SmartLinkDraggableInner url={url} title={title} appearance={appearance} source={source}>
+			{children}
+		</SmartLinkDraggableInner>
 	);
 }

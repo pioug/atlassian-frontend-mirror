@@ -325,6 +325,26 @@ export const mockUnauthorisedResponse: JsonLd.Response = {
 	},
 };
 
+export const mockGoogleDriveResponse = {
+	meta: {
+		...mockBaseResponse.meta,
+		key: 'google-object-provider',
+		resourceType: 'file',
+	},
+	data: {
+		...mockBaseResponse.data,
+		generator: {
+			'@type': 'Application',
+			name: 'Google',
+			icon: {
+				'@type': 'Image',
+				url: iconGoogleDrive,
+			},
+			image: 'https://links.atlassian.com/images/google_drive.svg',
+		},
+	},
+};
+
 export const getMockForbiddenDirectAccessResponse = (
 	accessType = 'DIRECT_ACCESS',
 	visibility: JsonLd.Primitives.Visibility = 'not_found',

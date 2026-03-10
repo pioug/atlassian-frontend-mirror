@@ -26,6 +26,8 @@ import AlignTextRightIcon from '@atlaskit/icon/core/align-text-right';
 import BorderIcon from '@atlaskit/icon/core/border';
 import ContentWrapLeftIcon from '@atlaskit/icon/core/content-wrap-left';
 import ContentWrapRightIcon from '@atlaskit/icon/core/content-wrap-right';
+import CopyIcon from '@atlaskit/icon/core/copy';
+import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import RefreshIcon from '@atlaskit/icon/core/refresh';
@@ -44,6 +46,8 @@ import type {
 } from '../../nativeEmbedsPluginType';
 import { showUrlToolbar } from '../actions';
 import {
+	createCopyLinkCommand,
+	createDeleteCommand,
 	createOpenInNewWindowCommand,
 	createUpdateAlignmentCommand,
 	getNativeEmbedUrl,
@@ -208,6 +212,24 @@ function createBuiltinToolbarRegistry(
 			title: 'Edit',
 			icon: EditIcon,
 			onClick: createHandlerCommand(handlers?.onEditClick),
+		},
+		[BUILTIN_TOOLBAR_KEYS.COPY_LINK]: {
+			id: 'native-embed-copy-link-button',
+			type: 'button',
+			title: 'Copy link',
+			icon: CopyIcon,
+			onClick: createCopyLinkCommand(selectedNativeEmbed.node),
+			focusEditoronEnter: true,
+			tabIndex: null,
+		},
+		[BUILTIN_TOOLBAR_KEYS.DELETE]: {
+			id: 'native-embed-delete-button',
+			type: 'button',
+			title: 'Delete',
+			icon: DeleteIcon,
+			onClick: createDeleteCommand(selectedNativeEmbed),
+			focusEditoronEnter: true,
+			tabIndex: null,
 		},
 	};
 }

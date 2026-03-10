@@ -156,7 +156,13 @@ export const SelectionExtensionDropdownItem = ({
 						</Box>
 						{dropdownItem.lozenge ? (
 							<Box as="span" xcss={styles.lozenge}>
-								<Lozenge appearance="new">{dropdownItem.lozenge.label}</Lozenge>
+								<Lozenge
+									appearance={
+										fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
+									}
+								>
+									{dropdownItem.lozenge.label}
+								</Lozenge>
 							</Box>
 						) : undefined}
 					</Box>
@@ -175,7 +181,13 @@ export const SelectionExtensionDropdownItem = ({
 			{dropdownItem.label}
 			{dropdownItem.lozenge ? (
 				<Box as="span" xcss={styles.lozenge}>
-					<Lozenge appearance="new">{dropdownItem.lozenge.label}</Lozenge>
+					<Lozenge
+						appearance={
+							fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
+						}
+					>
+						{dropdownItem.lozenge.label}
+					</Lozenge>
 				</Box>
 			) : undefined}
 		</ToolbarDropdownItem>

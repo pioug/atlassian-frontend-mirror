@@ -3,20 +3,14 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
 	type AnalyticsEventAttributes,
-	useAnalyticsEvents as useAnalyticsEventsNext,
+	useAnalyticsEvents,
 } from '@atlaskit/teams-app-internal-analytics';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import {
-	mockRunItLaterSynchronously,
-	renderWithAnalyticsListener as render,
-} from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { flexiTime } from '../../../__tests__/unit/helper/_mock-analytics';
-import type { AnalyticsFromDuration } from '../../../types';
-import { fireEvent, profileCardRendered } from '../../../util/analytics';
+import { profileCardRendered } from '../../../util/analytics';
 import TeamProfileCard from '../TeamProfileCard';
 
 const createMembers = (count: number) => {
@@ -46,7 +40,6 @@ const actions = [
 	},
 ];
 
-mockRunItLaterSynchronously();
 jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
 	VerifiedTeamIcon: () => <div>VerifiedTeamIcon</div>,
 }));
@@ -69,26 +62,20 @@ jest.mock('@atlaskit/feature-gate-js-client', () => ({
 }));
 
 const TeamProfileCardTestWrapper = (props = {}) => {
-	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
-	const fireAnalyticsWithDuration = (generator: AnalyticsFromDuration) => {
-		const event = generator(0);
-		fireEvent(createAnalyticsEvent, event);
-	};
+	const { fireEvent } = useAnalyticsEvents();
 
-	const fireAnalyticsWithDurationNext = <K extends keyof AnalyticsEventAttributes>(
+	const fireAnalyticsWithDuration = <K extends keyof AnalyticsEventAttributes>(
 		eventKey: K,
 		generator: (duration: number) => AnalyticsEventAttributes[K],
 	) => {
 		const attributes = generator(0);
-		fireEventNext(eventKey, attributes);
+		fireEvent(eventKey, attributes);
 	};
 
 	return (
 		<IntlProvider locale="en">
 			<TeamProfileCard
 				analytics={fireAnalyticsWithDuration}
-				analyticsNext={fireAnalyticsWithDurationNext}
 				team={createTeam()}
 				viewingUserId="1"
 				generateUserLink={jest.fn()}
@@ -197,18 +184,9 @@ describe('TeamProfileCard', () => {
 		// Payload to GASv3 does not contain eventType
 		const { eventType: _eventType, ...eventWithoutType } = event;
 
-		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			test('fires the analytics events', () => {
-				const { expectEventToBeFired } = renderComponent();
-				expectEventToBeFired('ui', eventWithoutType);
-			});
-		});
-
-		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			test('fires the analytics events', () => {
-				const { expectEventToBeFired } = renderComponent();
-				expectEventToBeFired('ui', eventWithoutType);
-			});
+		test('fires the analytics events', () => {
+			const { expectEventToBeFired } = renderComponent();
+			expectEventToBeFired('ui', eventWithoutType);
 		});
 	});
 });

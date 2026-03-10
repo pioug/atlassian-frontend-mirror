@@ -1,32 +1,21 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 
-import { useIntl } from 'react-intl-next';
-
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { pasteOptionsToolbarMessages as messages } from '@atlaskit/editor-common/messages';
-import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar';
+import { EditorToolbarProvider, PASTE_MENU } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { ToolbarDropdownMenuProvider } from '@atlaskit/editor-toolbar';
 
-import {
-	changeToMarkdownWithAnalytics,
-	changeToPlainTextWithAnalytics,
-	changeToRichTextWithAnalytics,
-	hideToolbar,
-	highlightContent,
-} from '../../editor-commands/commands';
+import { hideToolbar, highlightContent } from '../../editor-commands/commands';
 import type {
 	PasteOptionsToolbarPlugin,
 	PasteOptionsToolbarSharedState,
 } from '../../pasteOptionsToolbarPluginType';
-import { ToolbarDropdownOption } from '../../types/types';
 
-import type { MenuOption } from './PasteActionsMenuContent';
 import { PasteActionsMenuContent } from './PasteActionsMenuContent';
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
@@ -34,7 +23,6 @@ const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 interface PasteActionsMenuProps {
 	api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined;
 	boundariesElement?: HTMLElement;
-	editorAnalyticsAPI?: EditorAnalyticsAPI;
 	editorView: EditorView;
 	mountTo?: HTMLElement;
 	scrollableElement?: HTMLElement;
@@ -67,22 +55,19 @@ export const PasteActionsMenu = ({
 	mountTo,
 	boundariesElement,
 	scrollableElement,
-	editorAnalyticsAPI,
 }: PasteActionsMenuProps) => {
-	const intl = useIntl();
-
-	const { showToolbar, isPlainText, selectedOption, plaintextLength } =
-		useSharedPluginStateWithSelector(api, ['pasteOptionsToolbarPlugin'], (states) => {
+	const { showToolbar } = useSharedPluginStateWithSelector(
+		api,
+		['pasteOptionsToolbarPlugin'],
+		(states) => {
 			const pluginState = states.pasteOptionsToolbarPluginState as
 				| PasteOptionsToolbarSharedState
 				| undefined;
 			return {
 				showToolbar: pluginState?.showToolbar ?? false,
-				isPlainText: pluginState?.isPlainText ?? false,
-				selectedOption: pluginState?.selectedOption ?? ToolbarDropdownOption.None,
-				plaintextLength: pluginState?.plaintextLength ?? 0,
 			};
-		});
+		},
+	);
 
 	const preventEditorFocusLoss = useCallback((e: React.MouseEvent) => {
 		e.preventDefault();
@@ -96,64 +81,27 @@ export const PasteActionsMenu = ({
 		highlightContent()(editorView.state, editorView.dispatch);
 	}, [editorView]);
 
-	const handleRichText = useCallback(
-		(e: React.MouseEvent) => {
-			e.preventDefault();
-			changeToRichTextWithAnalytics(editorAnalyticsAPI)()(editorView.state, editorView.dispatch);
+	const handleClickOutside = useCallback(
+		(evt: MouseEvent) => {
+			if (evt.target instanceof Element) {
+				const isInsideNestedDropdown = evt.target.closest('[data-toolbar-nested-dropdown-menu]');
+				if (isInsideNestedDropdown) {
+					return;
+				}
+			}
+			handleDismiss();
 		},
-		[editorView, editorAnalyticsAPI],
+		[handleDismiss],
 	);
 
-	const handleMarkdown = useCallback(
-		(e: React.MouseEvent) => {
-			e.preventDefault();
-			changeToMarkdownWithAnalytics(editorAnalyticsAPI, plaintextLength)()(
-				editorView.state,
-				editorView.dispatch,
-			);
+	const handleSetIsOpen = useCallback(
+		(isOpen: boolean) => {
+			if (!isOpen) {
+				handleDismiss();
+			}
 		},
-		[editorView, editorAnalyticsAPI, plaintextLength],
+		[handleDismiss],
 	);
-
-	const handlePlainText = useCallback(
-		(e: React.MouseEvent) => {
-			e.preventDefault();
-			changeToPlainTextWithAnalytics(editorAnalyticsAPI, plaintextLength)()(
-				editorView.state,
-				editorView.dispatch,
-			);
-		},
-		[editorView, editorAnalyticsAPI, plaintextLength],
-	);
-
-	const options = useMemo(() => {
-		const items: MenuOption[] = [];
-
-		if (!isPlainText) {
-			items.push({
-				id: 'editor.paste.richText',
-				label: intl.formatMessage(messages.richText),
-				selected: selectedOption === ToolbarDropdownOption.RichText,
-				onClick: handleRichText,
-			});
-		}
-
-		items.push({
-			id: 'editor.paste.markdown',
-			label: intl.formatMessage(messages.markdown),
-			selected: selectedOption === ToolbarDropdownOption.Markdown,
-			onClick: handleMarkdown,
-		});
-
-		items.push({
-			id: 'editor.paste.plainText',
-			label: intl.formatMessage(messages.plainText),
-			selected: selectedOption === ToolbarDropdownOption.PlainText,
-			onClick: handlePlainText,
-		});
-
-		return items;
-	}, [isPlainText, selectedOption, intl, handleRichText, handleMarkdown, handlePlainText]);
 
 	if (!showToolbar) {
 		return null;
@@ -167,6 +115,9 @@ export const PasteActionsMenu = ({
 	const aiSurface = { type: 'menu' as const, key: 'ai-paste-menu' };
 	const aiSurfaceComponents = api?.uiControlRegistry?.actions.getComponents(aiSurface.key) ?? [];
 
+	const pasteSurfaceComponents =
+		api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
+
 	return (
 		<PopupWithListeners
 			target={target}
@@ -177,17 +128,19 @@ export const PasteActionsMenu = ({
 			zIndex={akEditorFloatingPanelZIndex}
 			alignX="right"
 			alignY="bottom"
-			handleClickOutside={handleDismiss}
+			handleClickOutside={handleClickOutside}
 			handleEscapeKeydown={handleDismiss}
 		>
 			<EditorToolbarProvider editorView={editorView}>
-				<PasteActionsMenuContent
-					options={options}
-					onMouseDown={preventEditorFocusLoss}
-					onMouseEnter={handleMouseEnter}
-					aiSurface={aiSurface}
-					aiSurfaceComponents={aiSurfaceComponents}
-				/>
+				<ToolbarDropdownMenuProvider isOpen={showToolbar} setIsOpen={handleSetIsOpen}>
+					<PasteActionsMenuContent
+						onMouseDown={preventEditorFocusLoss}
+						onMouseEnter={handleMouseEnter}
+						aiSurface={aiSurface}
+						aiSurfaceComponents={aiSurfaceComponents}
+						pasteSurfaceComponents={pasteSurfaceComponents}
+					/>
+				</ToolbarDropdownMenuProvider>
 			</EditorToolbarProvider>
 		</PopupWithListeners>
 	);

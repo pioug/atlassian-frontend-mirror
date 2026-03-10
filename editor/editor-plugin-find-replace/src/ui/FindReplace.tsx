@@ -12,7 +12,6 @@ import type { IntlShape } from 'react-intl-next';
 
 import type { DispatchAnalyticsEvent, TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MatchCaseProps } from '../types';
@@ -119,11 +118,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 		return (
 			<div
 				role={'dialog'}
-				aria-label={
-					fg('platform_editor_dec_a11y_fixes')
-						? intl?.formatMessage(messages.findReplaceDialogAriaLabel)
-						: 'Find and Replace'
-				}
+				aria-label={intl?.formatMessage(messages.findReplaceDialogAriaLabel)}
 				aria-modal={false}
 				ref={this.modalRef}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

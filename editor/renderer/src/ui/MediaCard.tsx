@@ -28,6 +28,7 @@ import type { RendererAppearance } from './Renderer/types';
 import type { RendererContext } from '../react/types';
 import type { MediaSSR } from '../types/mediaOptions';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import AnalyticsContext from '../analytics/analyticsContext';
 import type { AnalyticsEventPayload } from '../analytics/events';
 import {
@@ -193,7 +194,7 @@ export class MediaCardView extends Component<
 					fileState,
 				});
 			}
-		} catch (error) {
+		} catch {
 			// do not set state on error
 		}
 	};
@@ -210,12 +211,12 @@ export class MediaCardView extends Component<
 				reason,
 				external: false,
 				...(nestedUnder &&
-				expValEquals('platform_synced_block', 'isEnabled', true) &&
+				editorExperiment('platform_synced_block', true) &&
 				fg('platform_synced_block_patch_5')
 					? { nestedUnder }
 					: {}),
 				...(rendererContext?.nestedRendererType &&
-				expValEquals('platform_synced_block', 'isEnabled', true) &&
+				editorExperiment('platform_synced_block', true) &&
 				fg('platform_synced_block_patch_5')
 					? { nestedRendererType: rendererContext.nestedRendererType }
 					: {}),

@@ -3,10 +3,10 @@
  *
  * Generated prop types for Global component - GlobalLinkMenuItem
  *
- * @codegen <<SignedSource::ec42467e1d5bf99efc2748fb4387c7db>>
+ * @codegen <<SignedSource::aed33634d0608a30b844a54d220a86b9>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::ad330a446ee260180d5b510c18b5e1c8>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Global-LinkMenuItem.tsx <<SignedSource::714aeaa577c5b83035e8db86a0791f12>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::22a8bb81a36bca1a22c7a20a0fdb443f>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Global-LinkMenuItem.tsx <<SignedSource::f77a57d889edea059bd3359fb8ae99d6>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

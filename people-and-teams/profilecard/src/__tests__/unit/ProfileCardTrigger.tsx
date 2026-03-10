@@ -3,6 +3,8 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import ProfileCardTrigger from '../../components/User/ProfileCardTrigger';
 import { type ProfileClient } from '../../types';
 
@@ -344,4 +346,208 @@ it('should render based on trigger when isVisibleProp is undefined', async () =>
 	expect(screen.queryByTestId('profilecard')).toBeDefined();
 
 	await expect(document.body).toBeAccessible();
+});
+
+describe('prop drilling', () => {
+	const mockGetReportingLines = jest.fn().mockResolvedValue({});
+
+	const createMockClient = (profileOverrides = {}) =>
+		({
+			getProfile: jest.fn().mockResolvedValue({ ...sampleProfile, ...profileOverrides }),
+			shouldShowGiveKudos: jest.fn().mockResolvedValue(false),
+			getTeamCentralBaseUrl: jest.fn().mockResolvedValue('http://dummy-url'),
+			getReportingLines: mockGetReportingLines,
+			getRovoAgentProfile: jest.fn().mockResolvedValue({
+				restData: {
+					id: 'agent-id',
+					name: 'Test Agent',
+					description: 'An agent',
+					named_id: 'agent-id',
+					creator_type: 'SYSTEM',
+					favourite: false,
+					is_default: false,
+					actor_type: 'AGENT',
+					favourite_count: 0,
+					user_defined_conversation_starters: ['Hello starter', 'Another starter'],
+				},
+				aggData: null,
+			}),
+			getRovoAgentPermissions: jest.fn().mockResolvedValue({
+				permissions: {
+					AGENT_CREATE: { permitted: true },
+					AGENT_UPDATE: { permitted: true },
+					AGENT_DEACTIVATE: { permitted: true },
+				},
+			}),
+			setFavouriteAgent: jest.fn().mockResolvedValue(undefined),
+			deleteAgent: jest.fn().mockResolvedValue(undefined),
+		}) as unknown as ProfileClient;
+
+	beforeEach(() => {
+		jest.useFakeTimers({ legacyFakeTimers: true });
+		mockGetReportingLines.mockClear();
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
+	});
+
+	const triggerCard = (testId: string) => {
+		act(() => {
+			fireEvent.click(screen.getByTestId(testId));
+			jest.runAllTimers();
+		});
+	};
+
+	const flushAsyncAndTimers = async () => {
+		for (let i = 0; i < 5; i++) {
+			await act(async () => {
+				await Promise.resolve();
+			});
+			act(() => {
+				jest.runAllTimers();
+			});
+		}
+	};
+
+	describe('hideReportingLines', () => {
+		ffTest.on('jira_ai_profilecard_hide_reportinglines', 'feature gate enabled', () => {
+			it('should NOT call getReportingLines when hideReportingLines is true', () => {
+				const client = createMockClient();
+				renderWithIntl(
+					<ProfileCardTrigger
+						{...defaultProps}
+						resourceClient={client}
+						trigger="click"
+						testId="profilecard-trigger"
+						hideReportingLines
+					>
+						<span data-testid="test-inner-trigger">trigger</span>
+					</ProfileCardTrigger>,
+				);
+
+				triggerCard('test-inner-trigger');
+
+				expect(client.getProfile).toHaveBeenCalled();
+				expect(mockGetReportingLines).not.toHaveBeenCalled();
+			});
+
+			it('should still call getReportingLines when hideReportingLines is false', () => {
+				const client = createMockClient();
+				renderWithIntl(
+					<ProfileCardTrigger
+						{...defaultProps}
+						resourceClient={client}
+						trigger="click"
+						testId="profilecard-trigger"
+						hideReportingLines={false}
+					>
+						<span data-testid="test-inner-trigger">trigger</span>
+					</ProfileCardTrigger>,
+				);
+
+				triggerCard('test-inner-trigger');
+
+				expect(mockGetReportingLines).toHaveBeenCalledWith(defaultProps.userId);
+			});
+		});
+
+		ffTest.off('jira_ai_profilecard_hide_reportinglines', 'feature gate disabled', () => {
+			it('should always call getReportingLines even when hideReportingLines is true', () => {
+				const client = createMockClient();
+				renderWithIntl(
+					<ProfileCardTrigger
+						{...defaultProps}
+						resourceClient={client}
+						trigger="click"
+						testId="profilecard-trigger"
+						hideReportingLines
+					>
+						<span data-testid="test-inner-trigger">trigger</span>
+					</ProfileCardTrigger>,
+				);
+
+				triggerCard('test-inner-trigger');
+
+				expect(mockGetReportingLines).toHaveBeenCalledWith(defaultProps.userId);
+			});
+		});
+	});
+
+	describe('hideAgentConversationStarters', () => {
+		ffTest.on(
+			'jira_ai_hide_conversation_starters_profilecard',
+			'feature gate enabled',
+			() => {
+				it('should drill hideAgentConversationStarters to agent card when profile is agent', async () => {
+					const client = createMockClient({ isAgent: true });
+					renderWithIntl(
+						<ProfileCardTrigger
+							{...defaultProps}
+							resourceClient={client}
+							trigger="click"
+							testId="profilecard-trigger"
+							hideAgentConversationStarters
+						>
+							<span data-testid="test-inner-trigger">trigger</span>
+						</ProfileCardTrigger>,
+					);
+
+					triggerCard('test-inner-trigger');
+
+					await flushAsyncAndTimers();
+
+					expect(screen.queryByText('Hello starter')).not.toBeInTheDocument();
+				});
+
+				it('should show conversation starters when hideAgentConversationStarters is false', async () => {
+					const client = createMockClient({ isAgent: true });
+					renderWithIntl(
+						<ProfileCardTrigger
+							{...defaultProps}
+							resourceClient={client}
+							trigger="click"
+							testId="profilecard-trigger"
+							hideAgentConversationStarters={false}
+						>
+							<span data-testid="test-inner-trigger">trigger</span>
+						</ProfileCardTrigger>,
+					);
+
+					triggerCard('test-inner-trigger');
+
+					await flushAsyncAndTimers();
+
+					expect(screen.getByText('Hello starter')).toBeInTheDocument();
+				});
+			},
+		);
+
+		ffTest.off(
+			'jira_ai_hide_conversation_starters_profilecard',
+			'feature gate disabled',
+			() => {
+				it('should show conversation starters even when hideAgentConversationStarters is true', async () => {
+					const client = createMockClient({ isAgent: true });
+					renderWithIntl(
+						<ProfileCardTrigger
+							{...defaultProps}
+							resourceClient={client}
+							trigger="click"
+							testId="profilecard-trigger"
+							hideAgentConversationStarters
+						>
+							<span data-testid="test-inner-trigger">trigger</span>
+						</ProfileCardTrigger>,
+					);
+
+					triggerCard('test-inner-trigger');
+
+					await flushAsyncAndTimers();
+
+					expect(screen.getByText('Hello starter')).toBeInTheDocument();
+				});
+			},
+		);
+	});
 });

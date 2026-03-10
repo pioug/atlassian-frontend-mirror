@@ -1,0 +1,21 @@
+{
+	"name": "@atlaskit/ufo-experience-key",
+	"version": "0.2.0",
+	"description": "Utility for generating UFO experience key headers for GraphQL and HTTP requests across AFM",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlaskit:src": "src/index.tsx",
+	"exports": {
+		".": "./src/index.tsx"
+	},
+	"scripts": {
+		"test": "npx jest"
+	},
+	"atlassian": {
+		"team": "AGG-Platform"
+	},
+	"dependencies": {
+		"@atlaskit/react-ufo": "workspace:^"
+	}
+}

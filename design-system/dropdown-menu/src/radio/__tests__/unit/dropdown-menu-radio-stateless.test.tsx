@@ -70,3 +70,22 @@ describe('DropdownMenu with RadioGroup and Radio', () => {
 		});
 	});
 });
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+describe('DropdownItemRadio accessibility', () => {
+	it('should not have aria-current attribute when selected (A11Y-37930)', async () => {
+		render(<DropdownMenuWithRadio />);
+
+		const trigger = await screen.findByText('Choices');
+		fireEvent.click(trigger);
+
+		const london = await screen.findByText('London');
+		fireEvent.click(london);
+
+		const radios = await screen.findAllByRole('menuitemradio');
+		// aria-current is inappropriate for menuitemradio elements; aria-checked is used instead
+		radios.forEach((radio) => {
+			expect(radio).not.toHaveAttribute('aria-current');
+		});
+	});
+});

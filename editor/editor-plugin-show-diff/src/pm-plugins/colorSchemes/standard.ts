@@ -57,62 +57,54 @@ export const deletedContentStyleUnbounded = convertToInlineCss({
 	zIndex: 1,
 });
 
-const editingStyleQuoteNode = convertToInlineCss({
+export const deletedStyleQuoteNode: string = convertToInlineCss({
+	borderLeft: `2px solid ${token('color.border.accent.gray')}`,
+});
+
+export const deletedStyleQuoteNodeWithLozenge: string = convertToInlineCss({
+	marginTop: token('space.150'),
+	paddingTop: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
+	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
+	borderRadius: token('radius.small'),
+});
+
+export const deletedBlockOutline: string = convertToInlineCss({
+	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
+	borderRadius: token('radius.small'),
+});
+
+export const deletedBlockOutlineRounded: string = convertToInlineCss({
+	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
+	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
+});
+
+export const deletedRowStyle = convertToInlineCss({
+	color: token('color.text.accent.gray'),
+	textDecoration: 'line-through',
+	opacity: 0.6,
+	display: 'table-row',
+});
+
+export const editingStyleQuoteNode = convertToInlineCss({
 	borderLeft: `2px solid ${token('color.border.accent.purple')}`,
 });
 
-const editingStyleRuleNode = convertToInlineCss({
+export const editingStyleRuleNode = convertToInlineCss({
 	backgroundColor: token('color.border.accent.purple'),
 });
 
-const editingStyleNode = convertToInlineCss({
+export const editingStyleNode = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.purple')}`,
 	borderRadius: token('radius.small'),
 });
 
-const editingStyleCardBlockNode = convertToInlineCss({
+export const editingStyleCardBlockNode = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.purple')}`,
 	borderRadius: token('radius.medium'),
 });
 
-const standardDecorationMarkerVariableName = convertToInlineCss({
+export const standardDecorationMarkerVariable = convertToInlineCss({
 	'--diff-decoration-marker-color': token('color.border.accent.purple'),
 });
-
-export const getStandardNodeStyle = (nodeName: string) => {
-	if (
-		[
-			'mediaSingle',
-			'mediaGroup',
-			'table', // Handle table separately to avoid border issues
-			'tableRow',
-			'tableCell',
-			'tableHeader',
-			'paragraph', // Paragraph and heading nodes do not need special styling
-			'heading',
-			'hardBreak',
-			'decisionList',
-			'taskList',
-			'taskItem',
-			'bulletList',
-			'orderedList',
-			'layoutSection',
-		].includes(nodeName)
-	) {
-		// Layout nodes do not need special styling
-		return undefined;
-	}
-	if (['extension', 'embedCard', 'listItem'].includes(nodeName)) {
-		return standardDecorationMarkerVariableName;
-	}
-	if (nodeName === 'blockquote') {
-		return editingStyleQuoteNode;
-	}
-	if (nodeName === 'rule') {
-		return editingStyleRuleNode;
-	}
-	if (nodeName === 'blockCard') {
-		return editingStyleCardBlockNode;
-	}
-	return editingStyleNode;
-};

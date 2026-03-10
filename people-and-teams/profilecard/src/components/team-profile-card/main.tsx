@@ -6,20 +6,17 @@ import { useCallback, useMemo } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import AvatarGroup, { type AvatarProps } from '@atlaskit/avatar-group';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import LinkItem from '@atlaskit/menu/link-item';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import TeamAvatar from '@atlaskit/teams-avatar';
 import { type TeamContainer, TeamContainers, useTeamContainers } from '@atlaskit/teams-public';
 import { token } from '@atlaskit/tokens';
 
-import { fireEvent } from '../../util/analytics';
 import TeamAppTile from '../common/assets/TeamAppTile.svg';
 
 import { TeamActions, type TeamActionsProps } from './team-actions';
@@ -112,8 +109,7 @@ export const TeamProfileCard = ({
 	...props
 }: TeamProfileCardProps) => {
 	const { teamContainers, loading } = useTeamContainers(teamId);
-	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEvents();
 	// Ensure that the current container is not the only connection for this team before showing the "Where we work" section
 	const hasOtherTeamConnections = useMemo(
 		() =>
@@ -123,19 +119,8 @@ export const TeamProfileCard = ({
 	);
 
 	const onClick = useCallback(() => {
-		if (fg('ptc-enable-profile-card-analytics-refactor')) {
-			fireEventNext('ui.button.clicked.viewTeamProfileButton', {});
-		} else {
-			if (createAnalyticsEvent) {
-				fireEvent(createAnalyticsEvent, {
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'viewTeamProfileButton',
-					attributes: {},
-				});
-			}
-		}
-	}, [createAnalyticsEvent, fireEventNext]);
+		fireEvent('ui.button.clicked.viewTeamProfileButton', {});
+	}, [fireEvent]);
 
 	return (
 		<Box xcss={styles.wrapperStyles} testId={`team-card-${teamId}`}>

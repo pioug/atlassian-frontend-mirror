@@ -620,11 +620,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
 		const hyperlinkElement = (
 			<div
-				aria-label={
-					fg('platform_editor_dec_a11y_fixes')
-						? formatMessage(messages.hyperlinkAriaLabel)
-						: 'Hyperlink Edit'
-				}
+				aria-label={formatMessage(messages.hyperlinkAriaLabel)}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="recent-list"
 				data-testid="hyperlink-add-toolbar"

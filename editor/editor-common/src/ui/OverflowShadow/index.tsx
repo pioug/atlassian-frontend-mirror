@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { ShadowObserver, shadowObserverClassNames } from './shadowObserver';
 
 export const shadowClassNames = {
@@ -210,7 +208,7 @@ export default function overflowShadow<P>(
 			return (
 				<Component
 					handleRef={this.handleContainer}
-					tabIndex={hasOverflowScroll && fg('platform_editor_dec_a11y_fixes') ? 0 : undefined}
+					tabIndex={hasOverflowScroll ? 0 : undefined}
 					shadowClassNames={classNames}
 					// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass all component props through to wrapped generic component
 					{...this.props}

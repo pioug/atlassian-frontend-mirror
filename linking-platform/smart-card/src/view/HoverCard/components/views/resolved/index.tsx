@@ -22,6 +22,7 @@ import {
 	ActionBlock,
 	AIFooterBlock,
 	AISummaryBlock,
+	ResolvedHoverCardFooterBlock,
 	MetadataBlock,
 	SnippetBlock,
 	TitleBlock,
@@ -157,7 +158,11 @@ const HoverCardResolvedView = ({
 				css={[actionBlockCss]}
 				hideAISummaryAction={isRovoSummaryEnabled}
 			/>
-			<AIFooterBlock />
+			{isRovoSummaryEnabled ? (
+				<ResolvedHoverCardFooterBlock onActionClick={onActionClick} />
+			) : (
+				<AIFooterBlock />
+			)}
 		</FlexibleCard>
 	);
 };

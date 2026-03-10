@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { B100 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -194,9 +193,7 @@ const TableSelectorPopup = ({
 				})}
 			</div>
 			<span css={selectionSizeTextStyles} aria-hidden={true}>
-				{fg('platform_editor_dec_a11y_fixes')
-					? `${selectedCol} ${MULTIPLICATION_SYMBOL} ${selectedRow}`
-					: `${selectedCol} x ${selectedRow}`}
+				{`${selectedCol} ${MULTIPLICATION_SYMBOL} ${selectedRow}`}
 			</span>
 		</Stack>
 	);

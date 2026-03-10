@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 16.5.2
+
+### Patch Changes
+
+- [`2c4cac9c7d714`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c4cac9c7d714) -
+  Removed inappropriate `aria-current` attribute from DropdownItemRadio. The `aria-checked`
+  attribute already provides the correct semantics for radio-style menu items.
+
 ## 16.5.1
 
 ### Patch Changes

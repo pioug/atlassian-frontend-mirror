@@ -767,58 +767,30 @@ export class TableContainer extends React.Component<
 							{[children && children[0]]}
 						</StickyTable>
 					)}
-					{fg('platform_editor_dec_a11y_fixes') ? (
-						<TableWrapper
-							wrapperRef={this.wrapperRef}
-							onScroll={this.props.stickyHeaders ? this.onWrapperScrolled : undefined}
-							stickyHeaders={stickyHeaders}
-							tabIndex={this.props.tabIndex}
+					<TableWrapper
+						wrapperRef={this.wrapperRef}
+						onScroll={this.props.stickyHeaders ? this.onWrapperScrolled : undefined}
+						stickyHeaders={stickyHeaders}
+						tabIndex={this.props.tabIndex}
+					>
+						<Table
+							innerRef={this.tableRef}
+							columnWidths={columnWidths}
+							layout={layout}
+							isNumberColumnEnabled={isNumberColumnEnabled}
+							renderWidth={renderWidth}
+							tableNode={tableNode}
+							rendererAppearance={rendererAppearance}
+							isInsideOfBlockNode={isInsideOfBlockNode}
+							isInsideOfTable={isInsideOfTable}
+							isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
+							allowTableResizing={allowTableResizing}
+							isPresentational={isPresentational}
+							allowFixedColumnWidthOption={allowFixedColumnWidthOption}
 						>
-							<Table
-								innerRef={this.tableRef}
-								columnWidths={columnWidths}
-								layout={layout}
-								isNumberColumnEnabled={isNumberColumnEnabled}
-								renderWidth={renderWidth}
-								tableNode={tableNode}
-								rendererAppearance={rendererAppearance}
-								isInsideOfBlockNode={isInsideOfBlockNode}
-								isInsideOfTable={isInsideOfTable}
-								isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
-								allowTableResizing={allowTableResizing}
-								isPresentational={isPresentational}
-								allowFixedColumnWidthOption={allowFixedColumnWidthOption}
-							>
-								{this.grabFirstRowRef(children)}
-							</Table>
-						</TableWrapper>
-					) : (
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={TableSharedCssClassName.TABLE_NODE_WRAPPER}
-							ref={this.wrapperRef}
-							onScroll={this.props.stickyHeaders && this.onWrapperScrolled}
-						>
-							<Table
-								innerRef={this.tableRef}
-								columnWidths={columnWidths}
-								layout={layout}
-								isNumberColumnEnabled={isNumberColumnEnabled}
-								renderWidth={renderWidth}
-								tableNode={tableNode}
-								rendererAppearance={rendererAppearance}
-								isInsideOfBlockNode={isInsideOfBlockNode}
-								isInsideOfTable={isInsideOfTable}
-								isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
-								allowTableResizing={allowTableResizing}
-								isPresentational={isPresentational}
-								allowFixedColumnWidthOption={allowFixedColumnWidthOption}
-							>
-								{this.grabFirstRowRef(children)}
-							</Table>
-						</div>
-					)}
-
+							{this.grabFirstRowRef(children)}
+						</Table>
+					</TableWrapper>
 					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

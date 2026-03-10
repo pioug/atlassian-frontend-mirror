@@ -75,7 +75,7 @@ const BaseLozengeElement = ({
 	) : (
 		<AtlaskitLozenge
 			appearance={appearance}
-			{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
+			isBold
 			{...(fg('platform_navx_sl_lozenge_max_width') ? { maxWidth } : undefined)}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}

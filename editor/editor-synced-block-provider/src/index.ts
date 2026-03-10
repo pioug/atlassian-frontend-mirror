@@ -65,6 +65,7 @@ export { SyncedBlockProvider, useMemoizedSyncedBlockProvider } from './providers
 export type {
 	ADFFetchProvider,
 	ADFWriteProvider,
+	BatchFetchConfig,
 	BlockNodeIdentifiers,
 	BlockSubscriptionErrorCallback,
 	BlockUpdateCallback,

@@ -3,6 +3,7 @@ import React from 'react';
 import { act, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import ProfileClient from '../../client/ProfileCardClient';
@@ -42,6 +43,10 @@ beforeEach(() => {
 	jest.spyOn(client, 'getReportingLines').mockResolvedValue({});
 });
 
+afterEach(() => {
+	jest.restoreAllMocks();
+});
+
 describe('Fetching data', () => {
 	it('should start to fetch data when mounting', async () => {
 		renderComponent();
@@ -73,6 +78,7 @@ describe('Fetching data', () => {
 			url: clientUrl,
 		});
 		jest.spyOn(newClient, 'getProfile').mockResolvedValue({});
+		jest.spyOn(newClient, 'getReportingLines').mockResolvedValue({});
 		renderComponent({ resourceClient: newClient });
 		await act(async () => {
 			await waitForPromises();
@@ -83,7 +89,61 @@ describe('Fetching data', () => {
 			'test-user-id',
 			expect.any(Function),
 		);
-		expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith('test-user-id');
+		expect(newClient.getReportingLines).toHaveBeenCalledWith('test-user-id');
+	});
+});
+
+describe('hideReportingLines', () => {
+	ffTest.on('jira_ai_profilecard_hide_reportinglines', 'feature gate enabled', () => {
+		it('should NOT call getReportingLines when hideReportingLines is true', async () => {
+			renderComponent({ hideReportingLines: true });
+
+			expect(defaultProps.resourceClient.getProfile).toHaveBeenCalled();
+			expect(defaultProps.resourceClient.getReportingLines).not.toHaveBeenCalled();
+		});
+
+		it('should still call getReportingLines when hideReportingLines is false', async () => {
+			renderComponent({ hideReportingLines: false });
+
+			expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(
+				defaultProps.userId,
+			);
+		});
+
+		it('should still call getReportingLines when hideReportingLines is not set', async () => {
+			renderComponent();
+
+			expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(
+				defaultProps.userId,
+			);
+		});
+
+		it('should not render reporting lines section when hideReportingLines is true', async () => {
+			jest.spyOn(client, 'getProfile').mockResolvedValue({
+				status: 'active',
+				isBot: false,
+				fullName: 'Test User',
+			});
+
+			renderComponent({ hideReportingLines: true });
+
+			await waitFor(() => {
+				expect(screen.getByTestId('profilecard')).toBeInTheDocument();
+			});
+
+			expect(screen.queryByText('Manager')).not.toBeInTheDocument();
+			expect(screen.queryByText('Direct reports')).not.toBeInTheDocument();
+		});
+	});
+
+	ffTest.off('jira_ai_profilecard_hide_reportinglines', 'feature gate disabled', () => {
+		it('should always call getReportingLines even when hideReportingLines is true', async () => {
+			renderComponent({ hideReportingLines: true });
+
+			expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(
+				defaultProps.userId,
+			);
+		});
 	});
 });
 

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 8.3.0
+
+### Minor Changes
+
+- [`d7675f084fe05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7675f084fe05) -
+  [ux] [EDITOR-5669] refactored existing paste actions menu to use control registry and platform
+  toolbars
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.3
 
 ### Patch Changes

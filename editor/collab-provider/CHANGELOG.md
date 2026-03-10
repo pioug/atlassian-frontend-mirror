@@ -1,5 +1,19 @@
 # @atlaskit/collab-provider
 
+## 15.3.24
+
+### Patch Changes
+
+- [`f29e3578dc7d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f29e3578dc7d1) -
+  Use CollabDraftMetadata.relevance to conditionally run frontend catchup on ncs connected
+- Updated dependencies
+
+## 15.3.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.3.22
 
 ### Patch Changes

@@ -11,8 +11,12 @@ const SideNavToggleButtonExample = ({
 }) => (
 	<Root isSideNavShortcutEnabled={isSideNavShortcutEnabled}>
 		<TopNav>
-			<TopNavStart>
-				<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
+				{null}
 			</TopNavStart>
 		</TopNav>
 	</Root>

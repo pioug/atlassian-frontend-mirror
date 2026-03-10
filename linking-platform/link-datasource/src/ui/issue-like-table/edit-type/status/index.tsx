@@ -74,11 +74,7 @@ const StatusEditType = (props: StatusEditTypeProps): React.JSX.Element => {
 						<Lozenge
 							testId={`inline-edit-status-option-${option.text}`}
 							{...option.style}
-							isBold={
-								fg('platform-component-visual-refresh')
-									? option.style?.isBold !== false
-									: option.style?.isBold
-							}
+							isBold={option.style?.isBold !== false}
 						>
 							{option.text}
 						</Lozenge>

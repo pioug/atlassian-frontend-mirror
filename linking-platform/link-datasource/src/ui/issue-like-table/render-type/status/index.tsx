@@ -2,7 +2,6 @@ import React from 'react';
 
 import { type Status } from '@atlaskit/linking-types';
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 interface StatusProps extends Status {
 	testId?: string;
@@ -21,7 +20,7 @@ const StatusRenderType = ({
 	return (
 		<Lozenge
 			appearance={style?.appearance}
-			isBold={fg('platform-component-visual-refresh') ? style?.isBold !== false : style?.isBold}
+			isBold={style?.isBold !== false}
 			testId={testId}
 		>
 			{text}

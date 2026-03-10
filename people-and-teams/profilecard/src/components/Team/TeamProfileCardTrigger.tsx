@@ -350,8 +350,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		const newProps: TeamProfilecardProps = {
 			clientFetchProfile: this.clientFetchProfile,
 			actions: this.filterActions(),
-			analytics: () => {},
-			analyticsNext: this.fireAnalyticsWithDuration,
+			analytics: this.fireAnalyticsWithDuration,
 			team: data || undefined,
 			generateUserLink,
 			onUserClick,
@@ -363,14 +362,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		return (
 			<div {...this.cardListeners}>
 				{this.state.visible && (
-					<Suspense
-						fallback={
-							<TeamLoadingState
-								analytics={() => {}}
-								analyticsNext={this.fireAnalyticsWithDuration}
-							/>
-						}
-					>
+					<Suspense fallback={<TeamLoadingState analytics={this.fireAnalyticsWithDuration} />}>
 						<TeamProfileCardLazy
 							{...newProps}
 							isLoading={isLoading}

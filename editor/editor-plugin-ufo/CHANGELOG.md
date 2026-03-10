@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-ufo
 
+## 7.0.2
+
+### Patch Changes
+
+- [`83792cc1d590e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83792cc1d590e) -
+  Abort UFO measurements when user interacts with the editor during VC90 load tracking, gated behind
+  platform_editor_abort_ufo_on_user_interaction experiment
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

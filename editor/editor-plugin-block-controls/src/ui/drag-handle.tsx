@@ -791,9 +791,8 @@ export const DragHandle = ({
 					const rootPos = editorExperiment('platform_synced_block', true)
 						? tr.doc.resolve(startPos).before(1)
 						: undefined;
-					const triggerByNode: TriggerByNode | undefined = expValEqualsNoExposure(
+					const triggerByNode: TriggerByNode | undefined = editorExperiment(
 						'platform_synced_block',
-						'isEnabled',
 						true,
 					)
 						? { nodeType, pos: startPos, rootPos }

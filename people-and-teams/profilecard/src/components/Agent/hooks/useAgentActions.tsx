@@ -1,13 +1,11 @@
 import { useCallback } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { getATLContextUrl } from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 
-import { fireEvent } from '../../../util/analytics';
 import { encodeParamsToUrl } from '../../../util/url';
 import { getAtlassianStudioAgentDuplicateUrl, getAtlassianStudioAgentEditUrl } from '../utils';
 
@@ -29,8 +27,7 @@ const createRovoParams = (params: {
 
 export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; source: string }) => {
 	const { publishWithPostMessage } = useRovoPostMessageToPubsub();
-	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEvents();
 
 	const onEditAgent = useCallback(
 		(agentId: string): void => {
@@ -38,21 +35,12 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 
 			window.open(url, '_blank', 'noopener, noreferrer');
 
-			if (fg('ptc-enable-profile-card-analytics-refactor')) {
-				fireEventNext('ui.button.clicked.editAgentButton', {
-					agentId,
-					source,
-				});
-			} else {
-				fireEvent(createAnalyticsEvent, {
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'editAgentButton',
-					attributes: { agentId, source },
-				});
-			}
+			fireEvent('ui.button.clicked.editAgentButton', {
+				agentId,
+				source,
+			});
 		},
-		[cloudId, createAnalyticsEvent, fireEventNext, source],
+		[cloudId, fireEvent, source],
 	);
 
 	const onCopyAgent = (agentId: string): void => {
@@ -62,19 +50,10 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 		});
 		navigator.clipboard.writeText(urlWithParams);
 
-		if (fg('ptc-enable-profile-card-analytics-refactor')) {
-			fireEventNext('ui.button.clicked.copyAgentLinkButton', {
-				agentId,
-				source,
-			});
-		} else {
-			fireEvent(createAnalyticsEvent, {
-				action: 'clicked',
-				actionSubject: 'button',
-				actionSubjectId: 'copyAgentLinkButton',
-				attributes: { agentId, source },
-			});
-		}
+		fireEvent('ui.button.clicked.copyAgentLinkButton', {
+			agentId,
+			source,
+		});
 	};
 
 	const onDuplicateAgent = useCallback(
@@ -82,21 +61,12 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 			const url = getAtlassianStudioAgentDuplicateUrl(cloudId, agentId);
 			window.open(url, '_blank', 'noopener, noreferrer');
 
-			if (fg('ptc-enable-profile-card-analytics-refactor')) {
-				fireEventNext('ui.button.clicked.duplicateAgentButton', {
-					agentId,
-					source,
-				});
-			} else {
-				fireEvent(createAnalyticsEvent, {
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'duplicateAgentButton',
-					attributes: { agentId, source },
-				});
-			}
+			fireEvent('ui.button.clicked.duplicateAgentButton', {
+				agentId,
+				source,
+			});
 		},
-		[cloudId, createAnalyticsEvent, fireEventNext, source],
+		[cloudId, fireEvent, source],
 	);
 
 	const onConversationStarter = ({
@@ -180,19 +150,10 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 			);
 		}
 
-		if (fg('ptc-enable-profile-card-analytics-refactor')) {
-			fireEventNext('ui.button.clicked.viewAgentFullProfileButton', {
-				agentId,
-				source,
-			});
-		} else {
-			fireEvent(createAnalyticsEvent, {
-				action: 'clicked',
-				actionSubject: 'button',
-				actionSubjectId: 'viewAgentFullProfileButton',
-				attributes: { agentId, source },
-			});
-		}
+		fireEvent('ui.button.clicked.viewAgentFullProfileButton', {
+			agentId,
+			source,
+		});
 	};
 
 	return {

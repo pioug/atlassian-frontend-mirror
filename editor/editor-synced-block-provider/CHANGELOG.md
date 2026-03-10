@@ -1,5 +1,16 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.32.0
+
+### Minor Changes
+
+- [`81f25f25198cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81f25f25198cc) -
+  EDITOR-5802 Define BatchFetchConfig type & update core batch APIs
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.31.3
 
 ### Patch Changes

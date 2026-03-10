@@ -86,12 +86,28 @@ export type BlockNodeIdentifiers = {
 	blockInstanceId: string;
 	resourceId: string;
 };
+
+/**
+ * Configuration options for batch fetch operations
+ */
+export type BatchFetchConfig = {
+	/** Whether the batch fetch is being performed in a server-side rendering context */
+	isSSR?: boolean;
+	/** Maximum number of blocks to fetch in a single batch request */
+	maxBatchSize?: number;
+	/** Timeout in milliseconds for batch fetch requests */
+	timeoutMs?: number;
+};
+
 export type BlockUpdateCallback = (data: SyncBlockInstance) => void;
 export type BlockSubscriptionErrorCallback = (error: Error) => void;
 export type Unsubscribe = () => void;
 
 export interface ADFFetchProvider {
-	batchFetchData: (blockNodeIdentifiers: BlockNodeIdentifiers[]) => Promise<SyncBlockInstance[]>;
+	batchFetchData: (
+		blockNodeIdentifiers: BlockNodeIdentifiers[],
+		config?: BatchFetchConfig,
+	) => Promise<SyncBlockInstance[]>;
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
 	fetchReferences: (referenceResourceId: string) => Promise<ReferenceSyncBlockData>;
 	/**

@@ -351,6 +351,18 @@ describe('HoverCardResolvedView', () => {
 				);
 			});
 
+			ffTest.off('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
+				it('should render AIFooterBlock when Rovo feature flag is off', async () => {
+					const { findByTestId, queryByTestId } = setup({ mockResponse: GoogleDoc });
+
+					const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
+					expect(footerBlock).toBeInTheDocument();
+					expect(
+						queryByTestId('smart-hover-card-footer-block-resolved-view'),
+					).not.toBeInTheDocument();
+				});
+			});
+
 			ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
 				it('should renders Rovo AI summary', async () => {
 					jest.mocked(useAISummary).mockReturnValue({
@@ -362,6 +374,33 @@ describe('HoverCardResolvedView', () => {
 
 					const aiSummaryBlock = await findByTestId('smart-ai-summary-block-resolved-view');
 					expect(aiSummaryBlock).toBeInTheDocument();
+				});
+
+				it('should render ResolvedHoverCardFooterBlock instead of AIFooterBlock when Rovo is enabled', async () => {
+					const { findByTestId, queryByTestId } = setup({ mockResponse: GoogleDoc });
+
+					const footerBlock = await findByTestId(
+						'smart-hover-card-footer-block-resolved-view',
+					);
+					expect(footerBlock).toBeInTheDocument();
+					expect(queryByTestId('smart-ai-footer-block-resolved-view')).not.toBeInTheDocument();
+				});
+
+				it('should pass onActionClick to ResolvedHoverCardFooterBlock', async () => {
+					const { findByTestId } = setup({ mockResponse: GoogleDoc });
+
+					const footerBlock = await findByTestId(
+						'smart-hover-card-footer-block-resolved-view',
+					);
+					expect(footerBlock).toBeInTheDocument();
+				});
+
+				it('should hide AI summary action in ActionBlock when Rovo is enabled', async () => {
+					const { queryByTestId } = setup({ mockResponse: GoogleDoc });
+
+					expect(
+						queryByTestId('smart-action-ai-summary-action-summarise-action'),
+					).not.toBeInTheDocument();
 				});
 			});
 		});

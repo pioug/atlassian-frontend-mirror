@@ -14,6 +14,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createSyncedBlock } from '../editor-commands';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -60,7 +61,13 @@ export const getQuickInsertConfig = (
 				keyshortcut: '',
 				lozenge: (
 					<span css={lozengeWrapperStyles}>
-						<Lozenge appearance="new">{formatMessage(blockTypeMessages.newLozenge)}</Lozenge>
+						<Lozenge
+							appearance={
+								fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
+							}
+						>
+							{formatMessage(blockTypeMessages.newLozenge)}
+						</Lozenge>
 					</span>
 				),
 				icon: () => <IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlock)} />,

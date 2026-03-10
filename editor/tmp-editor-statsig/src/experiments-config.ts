@@ -73,12 +73,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_blockquote_zero_padding: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-18
 	editor_a11y_7152_profile_card_tab_order: {
 		defaultValue: boolean;
@@ -317,6 +311,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-05
+	platform_editor_abort_ufo_on_user_interaction: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-09-11
 	platform_editor_add_aria_checked_to_inline_img_btn: {
 		defaultValue: boolean;
@@ -479,13 +480,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-09-08
-	platform_editor_editor_width_analytics: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_toolbar_hide_overflow_menu: {
 		defaultValue: boolean;
 		param: string;
@@ -514,6 +508,13 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	}; // Added 2025-10-10
 	platform_editor_experience_tracking: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-05 - gates DOM mutation observer for experience tracking (toolbar + block menu)
+	platform_editor_experience_tracking_observer: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1404,6 +1405,34 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-05
+	cc_drag_and_drop_smart_link_from_content_to_tree: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-07
+	platform_editor_table_remove_last_cell_decoration: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-10
+	platform_editor_diff_plugin_extended: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-10
+	platform_editor_analyse_table_with_merged_cells: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1654,6 +1683,15 @@ export const editorExperimentsConfig: {
 	platform_editor_experience_tracking: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_experience_tracking',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-05 - gates DOM mutation observer for experience tracking (toolbar + block menu)
+	platform_editor_experience_tracking_observer: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_experience_tracking_observer',
+			jira: 'platform_editor_experience_tracking_observer',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2259,15 +2297,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-09-08
-	platform_editor_editor_width_analytics: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_editor_width_analytics',
-			jira: 'platform_editor_editor_width_analytics',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-09-10
 	platform_editor_fix_button_name_violation_in_table: createBooleanExperiment({
 		productKeys: {
@@ -2280,6 +2309,14 @@ export const editorExperimentsConfig: {
 	platform_editor_quick_insert_image_wrap_right_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_quick_insert_image_wrap_right_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-05
+	platform_editor_abort_ufo_on_user_interaction: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_abort_ufo_on_user_interaction',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2396,15 +2433,6 @@ export const editorExperimentsConfig: {
 	platform_editor_flex_based_centering: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_flex_based_centering',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
-	// Added 2025-12-18
-	platform_editor_blockquote_zero_padding: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_blockquote_zero_padding',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3011,6 +3039,38 @@ export const editorExperimentsConfig: {
 	platform_editor_table_resizer_extended_zone: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_table_resizer_extended_zone',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-05
+	cc_drag_and_drop_smart_link_from_content_to_tree: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_drag_and_drop_smart_link_from_content_to_tree',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-07
+	platform_editor_table_remove_last_cell_decoration: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_remove_last_cell_decoration',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-10
+	platform_editor_diff_plugin_extended: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_diff_plugin_extended',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-10
+	platform_editor_analyse_table_with_merged_cells: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_analyse_table_with_merged_cells',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

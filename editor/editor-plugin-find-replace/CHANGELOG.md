@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 7.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.0
+
+### Minor Changes
+
+- [`f444a0d3e2c0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f444a0d3e2c0b) -
+  [FFCLEANUP-79468] clean up platform_editor_dec_a11y_fixes feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.26
 
 ### Patch Changes

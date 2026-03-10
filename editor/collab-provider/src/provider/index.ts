@@ -279,8 +279,13 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 						this.sessionId,
 					);
 				} else if (expValEquals('platform_editor_early_exit_return_draft', 'isEnabled', true)) {
-					// need to the proactively catch up because CollabDraftQuery would return confluence draft which could be lacking behind the latest document state in NCS, and without this, the editor would be initialized with an outdated draft
-					this.documentService.throttledCatchupv2(CatchupEventReason.PROCESS_STEPS);
+					// Conditionally run catchup based on CollabDraftMetadata.relevance
+					// Only catch up when relevance is 'STALE' or absent
+					// Skip catchup when relevance is 'LATEST' (draft is up-to-date)
+					const relevance = this.initialDraft?.metadata?.relevance;
+					if (relevance === 'STALE' || relevance === undefined) {
+						this.documentService.throttledCatchupv2(CatchupEventReason.PROCESS_STEPS);
+					}
 				}
 
 				this.participantsService.startInactiveRemover(this.sessionId);

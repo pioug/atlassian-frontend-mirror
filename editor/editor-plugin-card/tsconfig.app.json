@@ -89,6 +89,9 @@
 			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-smart-link-draggable/tsconfig.app.json"
+		},
+		{
 			"path": "../../helpers/frontend-utilities/tsconfig.app.json"
 		},
 		{

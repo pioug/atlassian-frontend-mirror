@@ -1,7 +1,6 @@
 import React, { forwardRef, useCallback, useEffect, useState, type Ref } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -104,11 +103,7 @@ const FloatingToolbarButton = (
 	 * If it's a radio button, we need to reflect false values too, hence
 	 * we cast it as a Boolean
 	 */
-	const ariaChecked = isRadioButton
-		? fg('platform_editor_dec_a11y_fixes')
-			? Boolean(isButtonPressed)
-			: isButtonPressed
-		: undefined;
+	const ariaChecked = isRadioButton ? Boolean(isButtonPressed) : undefined;
 	const ariaPressed = isRadioButton ? undefined : isButtonPressed;
 	const [spotlightReferenceElement, setSpotlightReferenceElement] = useState<HTMLElement | null>(
 		null,

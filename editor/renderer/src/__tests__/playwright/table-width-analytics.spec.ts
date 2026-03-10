@@ -25,7 +25,6 @@ test.describe('table width information analytics', () => {
 			appearance: 'full-page',
 		},
 		platformFeatureFlags: {
-			platform_editor_editor_width_analytics: true,
 			platform_editor_dec_a11y_fixes: true,
 		},
 		editorExperiments: {

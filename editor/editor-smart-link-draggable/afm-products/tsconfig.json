@@ -1,0 +1,50 @@
+{
+	"extends": "../../../../tsconfig.local-consumption.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__editor-smart-link-draggable/app",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/mocks/*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-extractors/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-provider/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/linking-types/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/core/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/smart-card/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		}
+	]
+}

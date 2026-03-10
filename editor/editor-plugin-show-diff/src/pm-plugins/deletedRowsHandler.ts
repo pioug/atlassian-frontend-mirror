@@ -1,29 +1,15 @@
 import type { Change } from 'prosemirror-changeset';
 
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { token } from '@atlaskit/tokens';
 
+import { deletedRowStyle } from './colorSchemes/standard';
+import { deletedTraditionalRowStyle } from './colorSchemes/traditional';
 import { findSafeInsertPos } from './findSafeInsertPos';
 import type { NodeViewSerializer } from './NodeViewSerializer';
-
-const deletedRowStyle = convertToInlineCss({
-	color: token('color.text.accent.gray'),
-	textDecoration: 'line-through',
-	opacity: 0.6,
-	display: 'table-row',
-});
-
-const deletedTraditionalRowStyle = convertToInlineCss({
-	textDecorationColor: token('color.border.accent.red'),
-	textDecoration: 'line-through',
-	opacity: 0.6,
-	display: 'table-row',
-});
 
 interface DeletedRowInfo {
 	fromA: number;
@@ -242,13 +228,19 @@ export const createDeletedRowsDecorations = ({
 /**
  * Main function to handle deleted rows - computes diff and creates decorations
  */
-export const handleDeletedRows = (
-	changes: SimpleChange[],
-	originalDoc: PMNode,
-	newDoc: PMNode,
-	nodeViewSerializer: NodeViewSerializer,
-	colorScheme?: 'standard' | 'traditional',
-): { decorations: Decoration[] } => {
+export const handleDeletedRows = ({
+	changes,
+	originalDoc,
+	newDoc,
+	nodeViewSerializer,
+	colorScheme,
+}: {
+	changes: SimpleChange[];
+	colorScheme?: 'standard' | 'traditional';
+	newDoc: PMNode;
+	nodeViewSerializer: NodeViewSerializer;
+	originalDoc: PMNode;
+}): { decorations: Decoration[] } => {
 	// First, expand the changes to include complete deleted rows
 	const deletedRows = expandDiffForDeletedRows(
 		changes.filter((change) => change.deleted.length > 0),

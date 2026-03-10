@@ -68,7 +68,6 @@ export function returnDocumentRequest<GenericTransformer extends Transformer<any
 		: InferTransformerResultCallback<GenericTransformer>,
 	transformer?: GenericTransformer,
 	fireAnalyticsEvent?: FireAnalyticsCallback,
-	// eslint-disable-next-line no-unused-vars
 	_alwaysFire?: boolean,
 ) {
 	const { doc, schema } = editorView?.state ?? {};
@@ -124,8 +123,7 @@ export function returnDocumentRequestNoThrowError<
 			fireAnalyticsEvent,
 			_alwaysFire,
 		);
-		// eslint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		callback(undefined);
 	}
 }

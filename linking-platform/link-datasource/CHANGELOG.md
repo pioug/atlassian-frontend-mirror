@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.33.12
+
+### Patch Changes
+
+- [`8a319950932e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a319950932e8) -
+  Remove platform-component-visual-refresh-true feature flag from lozenges.
+- Updated dependencies
+
 ## 4.33.11
 
 ### Patch Changes

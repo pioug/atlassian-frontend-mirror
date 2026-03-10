@@ -90,7 +90,6 @@ const LozengeActionTrigger = ({
 	...props
 }: LozengeActionTriggerProps) => {
 	const intl = useIntl();
-	const [isHovering, setIsHovering] = useState(false);
 	const [isPressing, setIsPressing] = useState(false);
 	const [lozengeBackgroundColor, setLozengeBackgroundColor] = useState<string | undefined>(
 		undefined,
@@ -99,8 +98,6 @@ const LozengeActionTrigger = ({
 		undefined,
 	);
 
-	const onMouseEnter = useCallback(() => setIsHovering(true), []);
-	const onMouseLeave = useCallback(() => setIsHovering(false), []);
 	const onMouseOrKeyDown = useCallback(() => setIsPressing(true), []);
 	const onMouseOrKeyUp = useCallback(() => setIsPressing(false), []);
 
@@ -109,17 +106,14 @@ const LozengeActionTrigger = ({
 			setLozengeBackgroundColor(token('color.background.selected.pressed'));
 			setLozengeForegroundColor(token('color.text.selected'));
 		} else if (isOpen) {
-			if (isHovering) {
-				setLozengeBackgroundColor(token('color.background.selected.hovered'));
-			} else {
-				setLozengeBackgroundColor(token('color.background.selected'));
-			}
+			setLozengeBackgroundColor(token('color.background.selected'));
+
 			setLozengeForegroundColor(token('color.text.selected'));
 		} else {
 			setLozengeBackgroundColor(undefined);
 			setLozengeForegroundColor(undefined);
 		}
-	}, [isPressing, isOpen, isHovering]);
+	}, [isPressing, isOpen]);
 
 	const lozenge = useMemo(() => {
 		return (
@@ -132,7 +126,7 @@ const LozengeActionTrigger = ({
 			>
 				<Lozenge
 					appearance={appearance}
-					isBold={fg('platform-component-visual-refresh') ? true : isHovering}
+					isBold
 					{...(fg('platform_navx_sl_lozenge_max_width') ? { maxWidth } : undefined)}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					style={{
@@ -158,7 +152,6 @@ const LozengeActionTrigger = ({
 		);
 	}, [
 		appearance,
-		isHovering,
 		isPressing,
 		text,
 		isOpen,
@@ -176,10 +169,6 @@ const LozengeActionTrigger = ({
 			data-action-open={isOpen}
 			data-testid={`${testId}--trigger`}
 			style={{ maxWidth: fg('platform_navx_sl_lozenge_max_width') ? maxWidth : undefined }}
-			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-			onMouseEnter={onMouseEnter}
-			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-			onMouseLeave={onMouseLeave}
 			onMouseDown={onMouseOrKeyDown}
 			onMouseUp={onMouseOrKeyUp}
 			onKeyDown={onMouseOrKeyDown}

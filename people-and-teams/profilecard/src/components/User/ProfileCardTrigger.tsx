@@ -82,6 +82,10 @@ function ProfileCardContent({
 				onConversationStartersClick={agentActions?.onConversationStartersClick}
 				addFlag={addFlag}
 				hideMoreActions={fg('jira_ai_profilecard_hide_agent_actions') && !!hideAgentMoreActions}
+				hideConversationStarters={
+					fg('jira_ai_hide_conversation_starters_profilecard') &&
+					!!profilecardProps.hideAgentConversationStarters
+				}
 				hideAiDisclaimer={hideAiDisclaimer}
 			/>
 		);
@@ -123,6 +127,8 @@ export default function ProfilecardTriggerNext({
 	agentActions,
 	hideAgentMoreActions,
 	hideAiDisclaimer,
+	hideAgentConversationStarters,
+	hideReportingLines,
 	ariaHideProfileTrigger = false,
 	isVisible: propsIsVisible,
 	isRenderedInPortal,
@@ -264,9 +270,14 @@ export default function ProfilecardTriggerNext({
 		setData(null);
 
 		try {
+			const shouldHideReportingLines =
+				fg('jira_ai_profilecard_hide_reportinglines') && hideReportingLines;
+
 			const requests = Promise.all([
 				resourceClient.getProfile(cloudId || '', userId, fireAnalytics),
-				resourceClient.getReportingLines(userId),
+				shouldHideReportingLines
+					? Promise.resolve({ managers: [], reports: [] })
+					: resourceClient.getReportingLines(userId),
 				resourceClient.shouldShowGiveKudos(),
 				resourceClient.getTeamCentralBaseUrl({
 					withOrgContext: true,
@@ -287,6 +298,7 @@ export default function ProfilecardTriggerNext({
 		userId,
 		handleClientSuccess,
 		handleClientError,
+		hideReportingLines,
 	]);
 
 	const showProfilecard = useCallback(() => {
@@ -426,6 +438,9 @@ export default function ProfilecardTriggerNext({
 		openKudosDrawer: openKudosDrawer,
 		isTriggeredUsingKeyboard: isTriggeredUsingKeyboard,
 		disabledAriaAttributes: disabledAriaAttributes,
+		hideReportingLines: fg('jira_ai_profilecard_hide_reportinglines') && hideReportingLines,
+		hideAgentConversationStarters:
+			fg('jira_ai_hide_conversation_starters_profilecard') && hideAgentConversationStarters,
 	};
 
 	const ssrPlaceholderProp = ssrPlaceholderId

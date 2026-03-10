@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 9.4.5
+
+### Patch Changes
+
+- [`07a6b579ea15d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07a6b579ea15d) -
+  remove unused dependencies
+- Updated dependencies
+
 ## 9.4.4
 
 ### Patch Changes

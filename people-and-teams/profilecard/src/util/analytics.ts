@@ -1,61 +1,15 @@
-import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-
-import { type ErrorAttributes } from '../client/types';
 import { type ProfileType } from '../types';
 
 import { getPageTime } from './performance';
 
-/** Below lines are copied from teams common analytics */
-const ANALYTICS_CHANNEL = 'peopleTeams';
+type AnalyticsEventPayload = Record<string, any>;
 
 export const PACKAGE_META_DATA = {
 	packageName: process.env._PACKAGE_NAME_,
 	packageVersion: process.env._PACKAGE_VERSION_,
 };
 
-const runItLater = (cb: (arg: any) => void) => {
-	const requestIdleCallback = (window as any).requestIdleCallback;
-	if (typeof requestIdleCallback === 'function') {
-		return requestIdleCallback(cb);
-	}
-
-	if (typeof window.requestAnimationFrame === 'function') {
-		return window.requestAnimationFrame(cb);
-	}
-
-	return () => setTimeout(cb);
-};
-
-type GenericAttributes =
-	| Record<string, string | number | boolean | undefined | string[]>
-	| ErrorAttributes;
-interface AnalyticsEvent {
-	action?: string;
-	actionSubject?: string;
-	actionSubjectId?: string;
-	attributes?: GenericAttributes;
-	name?: string;
-	source?: string;
-}
-
-/**
- * @private
- * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
- */
-export const fireEvent = (
-	createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
-	body: AnalyticsEvent,
-): void => {
-	if (!createAnalyticsEvent) {
-		return;
-	}
-
-	runItLater(() => {
-		createAnalyticsEvent(body).fire(ANALYTICS_CHANNEL);
-	});
-};
-/** Above lines are copied from teams common analytics */
+type GenericAttributes = Record<string, string | number | boolean | undefined | string[]>;
 
 const TEAM_SUBJECT = 'teamProfileCard';
 const USER_SUBJECT = 'profilecard';

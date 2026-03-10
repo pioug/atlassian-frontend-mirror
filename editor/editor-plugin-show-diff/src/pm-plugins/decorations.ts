@@ -8,7 +8,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
-	getStandardNodeStyle,
 	deletedContentStyle,
 	deletedContentStyleActive,
 	deletedContentStyleNew,
@@ -16,18 +15,24 @@ import {
 	editingStyle,
 	editingStyleActive,
 	deletedContentStyleUnbounded,
+	standardDecorationMarkerVariable,
+	editingStyleQuoteNode,
+	editingStyleRuleNode,
+	editingStyleCardBlockNode,
+	editingStyleNode,
 } from './colorSchemes/standard';
 import {
-	getTraditionalNodeStyle,
 	deletedTraditionalContentStyle,
 	deletedTraditionalContentStyleUnbounded,
 	traditionalInsertStyle,
 	traditionalInsertStyleActive,
+	traditionalDecorationMarkerVariable,
+	traditionalStyleQuoteNode,
+	traditionalStyleRuleNode,
+	traditionalStyleCardBlockNode,
+	traditionalStyleNode,
 } from './colorSchemes/traditional';
-import {
-	createDeletedStyleWrapperWithoutOpacity,
-	handleBlockNodeView,
-} from './deletedBlocksHandler';
+import { handleBlockNodeView } from './deletedBlocksHandler';
 import { handleDeletedRows } from './deletedRowsHandler';
 import { findSafeInsertPos } from './findSafeInsertPos';
 import type { NodeViewSerializer } from './NodeViewSerializer';
@@ -38,11 +43,15 @@ import type { NodeViewSerializer } from './NodeViewSerializer';
  * @param change Changeset "change" containing information about the change content + range
  * @returns Prosemirror inline decoration
  */
-export const createInlineChangedDecoration = (
-	change: { fromB: number; toB: number },
-	colorScheme?: 'standard' | 'traditional',
-	isActive: boolean = false,
-) => {
+export const createInlineChangedDecoration = ({
+	change,
+	colorScheme,
+	isActive = false,
+}: {
+	change: { fromB: number; toB: number };
+	colorScheme?: 'standard' | 'traditional';
+	isActive?: boolean;
+}) => {
 	let style: string;
 	if (colorScheme === 'traditional') {
 		style = isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
@@ -93,8 +102,55 @@ const getNodeClass = (name: string) => {
 	}
 };
 
-const getBlockNodeStyle = (name: string, colorScheme?: 'standard' | 'traditional') => {
-	return colorScheme === 'traditional' ? getTraditionalNodeStyle(name) : getStandardNodeStyle(name);
+const getBlockNodeStyle = (nodeName: string, colorScheme?: 'standard' | 'traditional') => {
+	const isTraditional = colorScheme === 'traditional';
+	if (
+		[
+			'mediaSingle',
+			'mediaGroup',
+			'table', // Handle table separately to avoid border issues
+			'tableRow',
+			'tableCell',
+			'tableHeader',
+			'paragraph', // Paragraph and heading nodes do not need special styling
+			'heading',
+			'hardBreak',
+			'decisionList',
+			'taskList',
+			'taskItem',
+			'bulletList',
+			'orderedList',
+			'layoutSection',
+		].includes(nodeName)
+	) {
+		// Layout nodes do not need special styling
+		return undefined;
+	}
+	if (['extension', 'embedCard', 'listItem'].includes(nodeName)) {
+		return isTraditional ? traditionalDecorationMarkerVariable : standardDecorationMarkerVariable;
+	}
+	if (nodeName === 'blockquote') {
+		return isTraditional ? traditionalStyleQuoteNode : editingStyleQuoteNode;
+	}
+	if (nodeName === 'rule') {
+		return isTraditional ? traditionalStyleRuleNode : editingStyleRuleNode;
+	}
+	if (nodeName === 'blockCard') {
+		return isTraditional ? traditionalStyleCardBlockNode : editingStyleCardBlockNode;
+	}
+	return isTraditional ? traditionalStyleNode : editingStyleNode;
+};
+
+/**
+ * Wraps content with deleted styling without opacity (for use when content is a direct child of dom)
+ */
+const createDeletedStyleWrapperWithoutOpacity = (
+	colorScheme?: 'standard' | 'traditional',
+	isActive?: boolean,
+) => {
+	const wrapper = document.createElement('span');
+	wrapper.setAttribute('style', getDeletedContentStyle(colorScheme, isActive));
+	return wrapper;
 };
 
 /**
@@ -103,10 +159,13 @@ const getBlockNodeStyle = (name: string, colorScheme?: 'standard' | 'traditional
  * @param change Changeset "change" containing information about the change content + range
  * @returns Prosemirror inline decoration
  */
-export const createBlockChangedDecoration = (
-	change: { from: number; name: string; to: number },
-	colorScheme?: 'standard' | 'traditional',
-) => {
+export const createBlockChangedDecoration = ({
+	change,
+	colorScheme,
+}: {
+	change: { from: number; name: string; to: number };
+	colorScheme?: 'standard' | 'traditional';
+}) => {
 	if (fg('platform_editor_show_diff_scroll_navigation')) {
 		const style = getBlockNodeStyle(change.name, colorScheme);
 		const className = getNodeClass(change.name);
@@ -198,13 +257,13 @@ export const createDeletedContentDecoration = ({
 			return;
 		}
 
-		const { decorations } = handleDeletedRows(
-			[change],
-			doc,
+		const { decorations } = handleDeletedRows({
+			changes: [change],
+			originalDoc: doc,
 			newDoc,
 			nodeViewSerializer,
 			colorScheme,
-		);
+		});
 		return decorations;
 	}
 

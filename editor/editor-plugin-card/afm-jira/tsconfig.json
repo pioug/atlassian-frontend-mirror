@@ -72,6 +72,9 @@
 			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-smart-link-draggable/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../helpers/frontend-utilities/afm-jira/tsconfig.json"
 		},
 		{

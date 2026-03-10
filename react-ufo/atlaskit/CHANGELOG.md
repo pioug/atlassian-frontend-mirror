@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.4.5
+
+### Patch Changes
+
+- [`0f2580ac07d48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f2580ac07d48) -
+  Clean up ufo_update_and_enforce_ttvc_v4_default_version feature gate (always true)
+
 ## 5.4.4
 
 ### Patch Changes

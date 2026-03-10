@@ -823,6 +823,44 @@ export const EXTERNAL_EXTENSIONS_MENU_ITEM = {
 	type: 'menu-item',
 } as const;
 
+/**
+ * Paste options section
+ */
+export const PASTE_MENU = {
+	key: 'paste-menu',
+	type: 'menu',
+} as const;
+
+export const PASTE_MENU_SECTION = {
+	key: 'paste-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const PASTE_NESTED_MENU = {
+	key: 'paste-nested-menu',
+	type: 'nested-menu',
+} as const;
+
+export const PASTE_MENU_NESTED_SECTION = {
+	key: 'paste-menu-nested-section',
+	type: 'menu-section',
+} as const;
+
+export const PASTE_RICH_TEXT_MENU_ITEM = {
+	key: 'rich-text-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const PASTE_MARKDOWN_MENU_ITEM = {
+	key: 'markdown-menu-item',
+	type: 'menu-item',
+} as const;
+
+export const PASTE_PLAIN_TEXT_MENU_ITEM = {
+	key: 'plain-text-menu-item',
+	type: 'menu-item',
+} as const;
+
 export const TOOLBAR_BUTTON_TEST_ID = {
 	INSERT: 'editor-toolbar-insert-button',
 	EMOJI: 'editor-toolbar-emoji-button',

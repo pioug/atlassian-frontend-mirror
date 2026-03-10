@@ -147,7 +147,7 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 				trigger="hover"
 				renderProfileCard={renderProfileCard}
 				fetchProfile={fetchAgentProfile}
-				fireAnalyticsNext={fireEvent}
+				fireAnalytics={fireEvent}
 				profileCardType="agent"
 			/>
 		);

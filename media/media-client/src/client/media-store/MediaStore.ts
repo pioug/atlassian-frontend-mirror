@@ -52,6 +52,8 @@ import {
 	type GetDocumentContentOptions,
 } from '../../models/document';
 import { isPathBasedEnabled, mapToPathBasedUrl } from '../../utils/pathBasedUrl';
+import { getWatermarkVersionFromToken } from '../../utils/watermarkVersion';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const MEDIA_API_REGION = 'media-api-region';
 const MEDIA_API_ENVIRONMENT = 'media-api-environment';
@@ -294,8 +296,14 @@ export class MediaStore implements MediaApi {
 		auth: Auth,
 		params?: MediaStoreGetFileImageParams,
 	): string {
+		const wmv = fg('confluence_watermark_admin_ui')
+			? getWatermarkVersionFromToken(auth.token)
+			: undefined;
 		const options: CreateUrlOptions = {
-			params: extendImageParams(params),
+			params: {
+				...extendImageParams(params),
+				...(wmv ? { wmv } : {}),
+			},
 			auth,
 		};
 
@@ -523,10 +531,27 @@ export class MediaStore implements MediaApi {
 			endpoint: `/file/{fileId}/${imageEndpoint}`,
 		};
 
+		let wmvParams = {};
+		let authOptions: Pick<MediaStoreRequestOptions, 'authContext' | 'resolvedAuth'> = {
+			authContext: { collectionName: params && params.collection },
+		};
+
+		if (fg('confluence_watermark_admin_ui')) {
+			const auth = await this.resolveAuth(authOptions.authContext);
+			const wmv = getWatermarkVersionFromToken(auth.token);
+			if (wmv) {
+				wmvParams = { wmv };
+			}
+			authOptions = { resolvedAuth: auth };
+		}
+
 		const options: MediaStoreRequestOptions = {
 			...metadata,
-			authContext: { collectionName: params && params.collection },
-			params: extendImageParams(params, fetchMaxRes),
+			...authOptions,
+			params: {
+				...extendImageParams(params, fetchMaxRes),
+				...wmvParams,
+			},
 			headers,
 			traceContext,
 			addMediaClientParam: true,

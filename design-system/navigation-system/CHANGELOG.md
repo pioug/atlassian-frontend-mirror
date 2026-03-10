@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 6.1.0
+
+### Minor Changes
+
+- [`7ae800ebd066d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ae800ebd066d) -
+  Cleans up the `platform_dst_nav4_side_nav_toggle_button_slot` feature gate. The
+  `sideNavToggleButton` prop on `TopNavStart` is now required, but can be explicitly set to `null`.
+
 ## 6.0.0
 
 ### Major Changes

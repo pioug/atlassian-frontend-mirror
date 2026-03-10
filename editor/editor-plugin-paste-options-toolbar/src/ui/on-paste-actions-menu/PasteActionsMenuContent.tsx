@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
-import { cssMap, cx } from '@atlaskit/css';
+import { cssMap } from '@atlaskit/css';
 import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
 import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
 import type { RegisterComponent, SurfaceIdentifier } from '@atlaskit/editor-ui-control-model';
-import { Box, Pressable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -14,41 +14,22 @@ const styles = cssMap({
 		borderRadius: token('radius.small'),
 		paddingBlock: token('space.050'),
 	},
-	option: {
-		paddingBlock: token('space.100'),
-		paddingInline: token('space.200'),
-		color: token('color.text'),
-		backgroundColor: token('color.background.neutral.subtle'),
-		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered'),
-		},
-	},
-	selectedOption: {
-		fontWeight: token('font.weight.bold'),
-	},
 });
-
-export interface MenuOption {
-	id: string;
-	label: string;
-	onClick: (e: React.MouseEvent) => void;
-	selected: boolean;
-}
 
 interface PasteActionsMenuContentProps {
 	aiSurface?: SurfaceIdentifier;
 	aiSurfaceComponents?: RegisterComponent[];
 	onMouseDown: (e: React.MouseEvent) => void;
 	onMouseEnter: () => void;
-	options: MenuOption[];
+	pasteSurfaceComponents?: RegisterComponent[];
 }
 
 export const PasteActionsMenuContent = ({
-	options,
 	onMouseDown,
 	onMouseEnter,
 	aiSurface,
 	aiSurfaceComponents,
+	pasteSurfaceComponents,
 }: PasteActionsMenuContentProps) => {
 	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
 
@@ -62,15 +43,12 @@ export const PasteActionsMenuContent = ({
 			{aiSurface && aiSurfaceComponents && aiSurfaceComponents.length > 0 && (
 				<SurfaceRenderer surface={aiSurface} components={aiSurfaceComponents} />
 			)}
-			{options.map((option) => (
-				<Pressable
-					key={option.id}
-					xcss={cx(styles.option, option.selected && styles.selectedOption)}
-					onClick={option.onClick}
-				>
-					{option.label}
-				</Pressable>
-			))}
+			{pasteSurfaceComponents && pasteSurfaceComponents.length > 0 && (
+				<SurfaceRenderer
+					surface={{ type: 'menu', key: 'paste-menu' }}
+					components={pasteSurfaceComponents}
+				/>
+			)}
 		</Box>
 	);
 };

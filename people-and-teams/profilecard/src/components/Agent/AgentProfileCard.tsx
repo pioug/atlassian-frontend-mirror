@@ -74,6 +74,7 @@ const AgentProfileCard = ({
 	onDeleteAgent,
 	hideMoreActions,
 	hideAiDisclaimer = false,
+	hideConversationStarters = false,
 }: AgentProfileCardProps): React.JSX.Element => {
 	const {
 		onEditAgent,
@@ -176,6 +177,10 @@ const AgentProfileCard = ({
 
 	const isRovoDev = agent.creator_type === 'ROVO_DEV';
 
+	const shouldShowConversationStarters =
+		!(isRovoDev && fg('rovo_dev_themed_identity_card')) &&
+		!(fg('jira_ai_hide_conversation_starters_profilecard') && hideConversationStarters);
+
 	return (
 		<AgentProfileCardWrapper>
 			<Box xcss={styles.cardContainerStyles}>
@@ -248,7 +253,7 @@ const AgentProfileCard = ({
 							</Link>
 						</Flex>
 					)}
-					{!(isRovoDev && fg('rovo_dev_themed_identity_card')) && (
+					{shouldShowConversationStarters && (
 						<Box xcss={styles.conversationStartersWrapper}>
 							<ConversationStarters
 								isAgentDefault={agent.is_default}

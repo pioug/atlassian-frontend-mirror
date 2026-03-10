@@ -18,6 +18,11 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { UnsupportedInline, findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
+import {
+	SmartLinkDraggable,
+	SMART_LINK_DRAG_TYPES,
+	SMART_LINK_APPERANCE,
+} from '@atlaskit/editor-smart-link-draggable';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -276,7 +281,7 @@ export function InlineCardNodeView(
 	const CompetitorPromptComponent =
 		CompetitorPrompt && url ? <CompetitorPrompt sourceUrl={url} linkType="inline" /> : null;
 
-	return (
+	const inlineCardContent = (
 		<>
 			<WrappedInlineCardWithAwareness
 				node={node}
@@ -296,6 +301,18 @@ export function InlineCardNodeView(
 			/>
 			{CompetitorPromptComponent}
 		</>
+	);
+
+	return expValEquals('cc_drag_and_drop_smart_link_from_content_to_tree', 'isEnabled', true) ? (
+		<SmartLinkDraggable
+			url={url}
+			appearance={SMART_LINK_APPERANCE.INLINE}
+			source={SMART_LINK_DRAG_TYPES.EDITOR}
+		>
+			{inlineCardContent}
+		</SmartLinkDraggable>
+	) : (
+		inlineCardContent
 	);
 }
 

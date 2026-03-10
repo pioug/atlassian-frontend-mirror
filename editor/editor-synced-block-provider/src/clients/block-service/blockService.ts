@@ -4,6 +4,7 @@ import type {
 	SyncBlockStatus,
 	DeletionReason,
 } from '../../common/types';
+import type { BatchFetchConfig } from '../../providers/types';
 import { fetchWithRetry } from '../../utils/retry';
 
 export type BlockContentResponse = {
@@ -242,6 +243,7 @@ type UpdateReferenceSyncedBlockOnDocumentRequest = {
 
 export type BatchRetrieveSyncedBlocksRequest = {
 	blockIdentifiers: BlockIdentifier[]; // array of block identifiers to retrieve
+	config?: BatchFetchConfig; // optional batch fetch configuration
 };
 
 type BlockIdentifier = {
@@ -593,6 +595,7 @@ export const getSyncedBlockContent = async ({
  * Calls the Block Service GraphQL API: `blockService_batchRetrieveBlocks`
  *
  * @param blockIdentifiers - Array of block identifiers to retrieve
+ * @param config - Optional batch fetch configuration (e.g. timeout)
  * @returns A promise containing arrays of successfully fetched blocks and any errors encountered
  */
 export const batchRetrieveSyncedBlocks = async ({

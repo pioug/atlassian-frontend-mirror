@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "127.1.0",
+	"version": "127.2.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -224,9 +224,6 @@
 			"type": "boolean"
 		},
 		"platform_fix_macro_renders_in_layouts": {
-			"type": "boolean"
-		},
-		"platform_editor_dec_a11y_fixes": {
 			"type": "boolean"
 		},
 		"platform_editor_fix_missing_task_id": {

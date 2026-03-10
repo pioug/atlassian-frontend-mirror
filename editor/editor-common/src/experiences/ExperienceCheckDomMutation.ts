@@ -21,12 +21,13 @@ export type ExperienceCheckDomMutationObserveConfig = {
 	 *
 	 * These include:
 	 * - childList: adding/removing child nodes directly under the target node
+	 * - subtree: extends observation to the entire subtree of nodes rooted at target
 	 * - attributes: changes to attributes on the target node
 	 * - attributeFilter: defines the specific attributes to monitor for changes
 	 *
 	 * @see https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver/observe
 	 */
-	options?: Pick<MutationObserverInit, 'childList' | 'attributes' | 'attributeFilter'>;
+	options?: Pick<MutationObserverInit, 'childList' | 'subtree' | 'attributes' | 'attributeFilter'>;
 
 	/**
 	 * Target element to observe for mutations
@@ -38,17 +39,22 @@ export type ExperienceCheckDomMutationObserveConfig = {
 
 export type ExperienceCheckDomMutationConfig = {
 	/**
-	 * Callback that returns the MutationObserver configuration
+	 * Callback that returns one or more MutationObserver configurations.
+	 *
+	 * Can return:
+	 * - A single config for one target to observe
+	 * - An array of configs to observe multiple targets with one MutationObserver
+	 * - null if no valid target is available (e.g., when selection node is not found)
 	 *
 	 * This is a callback to ensure consumers make explicit, conscious decisions about:
-	 * - What element to observe (performance: smaller scope = better performance)
+	 * - What elements to observe (performance: smaller scope = better performance)
 	 * - What mutations to monitor (performance: fewer types = better performance)
 	 *
 	 * !!IMPORTANT!!
 	 * Return null if the target element cannot be found.
 	 * This will immediately fail the experience with experienceFailureReason 'domMutationTargetNotFound'.
-	 */
-	observeConfig: () => ExperienceCheckDomMutationObserveConfig | null;
+	  */
+	observeConfig: () => (ExperienceCheckDomMutationObserveConfig | ExperienceCheckDomMutationObserveConfig[] | null);
 
 	/**
 	 * Callback invoked when DOM mutations are detected
@@ -71,7 +77,7 @@ export class ExperienceCheckDomMutation implements ExperienceCheck {
 	private onDomMutation: (
 		options: ExperienceDomMutationCheckOptions,
 	) => ExperienceCheckResult | undefined;
-	private observeConfig: () => ExperienceCheckDomMutationObserveConfig | null;
+	private observeConfig: ExperienceCheckDomMutationConfig['observeConfig'];
 
 	constructor({ onDomMutation, observeConfig }: ExperienceCheckDomMutationConfig) {
 		this.onDomMutation = onDomMutation;
@@ -81,9 +87,14 @@ export class ExperienceCheckDomMutation implements ExperienceCheck {
 	start(callback: ExperienceCheckCallback): void {
 		this.stop();
 
-		const config = this.observeConfig();
+		const configResult = this.observeConfig();
+		const configs = Array.isArray(configResult) ? configResult : [configResult];
+		const validConfigs = configs.filter(
+			(config): config is ExperienceCheckDomMutationObserveConfig =>
+				!!config?.target,
+		);
 
-		if (!config?.target) {
+		if (validConfigs.length === 0) {
 			callback({
 				status: 'failure',
 				reason: EXPERIENCE_FAILURE_REASON.DOM_MUTATION_TARGET_NOT_FOUND,
@@ -105,8 +116,12 @@ export class ExperienceCheckDomMutation implements ExperienceCheck {
 			}
 		});
 
-		const { target, options } = config;
-		this.mutationObserver.observe(target, options);
+		for (const config of validConfigs) {
+			const { target, options } = config;
+			if (target) {
+				this.mutationObserver.observe(target, options ?? { childList: true });
+			}
+		}
 	}
 
 	stop(): void {

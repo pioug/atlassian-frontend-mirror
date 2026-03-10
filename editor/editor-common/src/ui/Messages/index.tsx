@@ -10,7 +10,6 @@ import { useIntl } from 'react-intl-next';
 
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import commonMessages from '../../messages';
@@ -60,14 +59,7 @@ export const ErrorMessage = ({ children }: Props) => {
 			}}
 		>
 			<span css={iconWrapperStyle}>
-				<ErrorIcon
-					label={
-						fg('platform_editor_dec_a11y_fixes')
-							? intl.formatMessage(commonMessages.error)
-							: 'error'
-					}
-					aria-label={fg('platform_editor_dec_a11y_fixes') ? undefined : 'error'}
-				/>
+				<ErrorIcon label={intl.formatMessage(commonMessages.error)} />
 			</span>
 			{children}
 		</div>
@@ -83,11 +75,7 @@ export const ValidMessage = ({ children }: Props) => {
 			}}
 		>
 			<span css={iconWrapperStyle}>
-				{fg('platform_editor_dec_a11y_fixes') ? (
-					<SuccessIcon label={intl.formatMessage(commonMessages.success)} />
-				) : (
-					<SuccessIcon label="success" />
-				)}
+				<SuccessIcon label={intl.formatMessage(commonMessages.success)} />
 			</span>
 			{children}
 		</div>

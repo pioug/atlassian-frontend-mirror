@@ -205,8 +205,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 
 	if (shouldBreakout) {
 		// type is destructured so that breakout styles does not include it
-		// eslint-disable-next-line no-unused-vars
-		const { type, ...breakoutStyles } = calculateBreakoutStyles({
+		const { type: _type, ...breakoutStyles } = calculateBreakoutStyles({
 			mode: node.attrs.layout,
 			widthStateWidth: widthState.width,
 			widthStateLineLength: widthState.lineLength,

@@ -3,11 +3,7 @@ import React from 'react';
 import { act, createEvent, fireEvent } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import {
-	mockRunItLaterSynchronously,
-	renderWithAnalyticsListener as render,
-} from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { getMockTeamClient } from '../../../examples/helper/util';
 import ProfileClient from '../../client/ProfileCardClient';
@@ -549,103 +545,100 @@ describe('TeamProfileCardTrigger', () => {
 	describe('Profile client analytics', () => {
 		beforeEach(() => {
 			jest.useFakeTimers();
-			mockRunItLaterSynchronously();
 		});
 
-		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			it('Request success analytics', async () => {
-				const MockTeamClient = getMockTeamClient({
-					team: sampleProfile,
-					timeout: 0,
-					error: undefined,
-					errorRate: 0,
-					traceId: '123',
-				});
-
-				const clientArgs = {
-					cacheSize: 10,
-					cacheMaxAge: 0,
-					url: 'DUMMY',
-				};
-
-				const profileClient = new ProfileClient(clientArgs, {
-					teamClient: new MockTeamClient(clientArgs),
-				});
-
-				const { getByTestId, expectEventToBeFired } = renderWithIntl(
-					<TeamProfileCardTrigger {...defaultProps} resourceClient={profileClient} trigger="click">
-						<span data-testid="test-inner-trigger">This is the trigger</span>
-					</TeamProfileCardTrigger>,
-				);
-
-				act(() => {
-					fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
-					jest.runAllTimers();
-				});
-
-				await new Promise(setImmediate);
-
-				const { eventType, ...event } = teamRequestAnalyticsTriggeredEvent;
-				expectEventToBeFired(eventType, event);
-				const { eventType: eventType2, ...event2 } = teamRequestAnalyticsSucceededEvent;
-				expectEventToBeFired(eventType2, event2);
+		it('Request success analytics', async () => {
+			const MockTeamClient = getMockTeamClient({
+				team: sampleProfile,
+				timeout: 0,
+				error: undefined,
+				errorRate: 0,
+				traceId: '123',
 			});
 
-			it('Request failure analytics', async () => {
-				const error = [
-					{
-						message: 'Bad request',
-						extensions: {
-							statusCode: 400,
-							errorType: 'UNDERLYING_SERVICE',
-						},
+			const clientArgs = {
+				cacheSize: 10,
+				cacheMaxAge: 0,
+				url: 'DUMMY',
+			};
+
+			const profileClient = new ProfileClient(clientArgs, {
+				teamClient: new MockTeamClient(clientArgs),
+			});
+
+			const { getByTestId, expectEventToBeFired } = renderWithIntl(
+				<TeamProfileCardTrigger {...defaultProps} resourceClient={profileClient} trigger="click">
+					<span data-testid="test-inner-trigger">This is the trigger</span>
+				</TeamProfileCardTrigger>,
+			);
+
+			act(() => {
+				fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
+				jest.runAllTimers();
+			});
+
+			await new Promise(setImmediate);
+
+			const { eventType, ...event } = teamRequestAnalyticsTriggeredEvent;
+			expectEventToBeFired(eventType, event);
+			const { eventType: eventType2, ...event2 } = teamRequestAnalyticsSucceededEvent;
+			expectEventToBeFired(eventType2, event2);
+		});
+
+		it('Request failure analytics', async () => {
+			const error = [
+				{
+					message: 'Bad request',
+					extensions: {
+						statusCode: 400,
+						errorType: 'UNDERLYING_SERVICE',
 					},
-				];
-				const MockTeamClient = getMockTeamClient({
-					team: sampleProfile,
-					timeout: 0,
-					error,
-					errorRate: 1,
-					traceId: '123',
-				});
+				},
+			];
+			const MockTeamClient = getMockTeamClient({
+				team: sampleProfile,
+				timeout: 0,
+				error,
+				errorRate: 1,
+				traceId: '123',
+			});
 
-				const clientArgs = {
-					cacheSize: 10,
-					cacheMaxAge: 0,
-					url: 'DUMMY',
-				};
+			const clientArgs = {
+				cacheSize: 10,
+				cacheMaxAge: 0,
+				url: 'DUMMY',
+			};
 
-				const profileClient = new ProfileClient(clientArgs, {
-					teamClient: new MockTeamClient(clientArgs),
-				});
+			const profileClient = new ProfileClient(clientArgs, {
+				teamClient: new MockTeamClient(clientArgs),
+			});
 
-				const { getByTestId, expectEventToBeFired } = renderWithIntl(
-					<TeamProfileCardTrigger {...defaultProps} resourceClient={profileClient} trigger="click">
-						<span data-testid="test-inner-trigger">This is the trigger</span>
-					</TeamProfileCardTrigger>,
-				);
+			const { getByTestId, expectEventToBeFired } = renderWithIntl(
+				<TeamProfileCardTrigger {...defaultProps} resourceClient={profileClient} trigger="click">
+					<span data-testid="test-inner-trigger">This is the trigger</span>
+				</TeamProfileCardTrigger>,
+			);
 
-				act(() => {
-					fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
-					jest.runAllTimers();
-				});
+			act(() => {
+				fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
+				jest.runAllTimers();
+			});
 
-				await new Promise(setImmediate);
+			await new Promise(setImmediate);
 
-				const { eventType, ...event } = teamRequestAnalyticsTriggeredEvent;
-				expectEventToBeFired(eventType, event);
-				const { eventType: eventType2, ...event2 } = teamRequestAnalyticsFailedEvent;
-				expectEventToBeFired(eventType2, {
-					...event2,
-					attributes: {
-						...event2.attributes,
-						errorDetails: expect.arrayContaining([
-							expect.objectContaining({
-								...event2.attributes.errorDetails[0],
-							}),
-						]),
-					},
-				});
+			const { eventType, ...event } = teamRequestAnalyticsTriggeredEvent;
+			expectEventToBeFired(eventType, event);
+			const { eventType: eventType2, ...event2 } = teamRequestAnalyticsFailedEvent;
+			expectEventToBeFired(eventType2, {
+				...event2,
+				attributes: {
+					...event2.attributes,
+					errorDetails: expect.arrayContaining([
+						expect.objectContaining({
+							...event2.attributes.errorDetails[0],
+						}),
+					]),
+				},
 			});
 		});
 	});

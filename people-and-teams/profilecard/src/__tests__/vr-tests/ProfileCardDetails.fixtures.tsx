@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+
 import ProfileCard from '../../../src/components/User/ProfileCard';
 import { type TeamCentralReportingLinesData } from '../../../src/types';
 
@@ -71,6 +73,34 @@ export const ProfileCardExampleWithoutReportingLines = (): React.JSX.Element => 
 		onReportingLinesClick={() => {}}
 	/>
 );
+
+export const ProfileCardExampleWithHideReportingLines = (): React.JSX.Element => {
+	setBooleanFeatureFlagResolver(
+		(flagName) => flagName === 'jira_ai_profilecard_hide_reportinglines',
+	);
+	return (
+		<ProfileCard
+			avatarUrl={avatarImage}
+			fullName="Rosalyn Franklin"
+			meta="Manager"
+			nickname="rfranklin"
+			email="rfranklin@acme.com"
+			timestring="18:45"
+			location="Somewhere, World"
+			actions={[
+				{
+					label: 'View profile',
+					id: 'view-profile',
+					callback: () => {},
+				},
+			]}
+			reportingLines={reportingLinesData}
+			reportingLinesProfileUrl="/"
+			onReportingLinesClick={() => {}}
+			hideReportingLines
+		/>
+	);
+};
 
 export const ProfileCardExampleWithMetaAndLozenges = (): React.JSX.Element => (
 	<ProfileCard

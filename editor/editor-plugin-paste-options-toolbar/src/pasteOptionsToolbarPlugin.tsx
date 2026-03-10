@@ -14,10 +14,16 @@ import { createPlugin } from './pm-plugins/main';
 import type { PasteOptionsPluginState } from './types/types';
 import { pasteOptionsPluginKey, ToolbarDropdownOption } from './types/types';
 import { PasteActionsMenu } from './ui/on-paste-actions-menu/PasteActionsMenu';
+import { getPasteMenuComponents } from './ui/on-paste-actions-menu/PasteMenuComponents';
 import { buildToolbar, isToolbarVisible } from './ui/toolbar';
 
 export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
+
+	if (expValEquals('platform_editor_paste_actions_menu', 'isEnabled', true)) {
+		api?.uiControlRegistry?.actions.register(getPasteMenuComponents({ api, editorAnalyticsAPI }));
+	}
+
 	const getSharedState = (editorState: EditorState | undefined): PasteOptionsToolbarSharedState => {
 		if (!editorState) {
 			return {
@@ -48,7 +54,14 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ api }) =>
 			return [
 				{
 					name: 'pasteOptionsToolbarPlugin',
-					plugin: ({ dispatch }) => createPlugin(dispatch),
+					plugin: ({ dispatch }) =>
+						createPlugin(dispatch, {
+							useNewPasteMenu: expValEquals(
+								'platform_editor_paste_actions_menu',
+								'isEnabled',
+								true,
+							),
+						}),
 				},
 			];
 		},
@@ -88,7 +101,6 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ api }) =>
 					mountTo={popupsMountPoint}
 					boundariesElement={popupsBoundariesElement}
 					scrollableElement={popupsScrollableElement}
-					editorAnalyticsAPI={editorAnalyticsAPI}
 				/>
 			);
 		},

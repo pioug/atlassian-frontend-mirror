@@ -62,7 +62,7 @@ const exampleLozenges: LozengeProps[] = [
 	{ text: <div>Another Role</div>, appearance: 'inprogress', isBold: true },
 ];
 
-type Props = {};
+type Props = Record<string, never>;
 
 type State = {
 	avatarUrl: string;
@@ -98,6 +98,7 @@ type State = {
 	hasErrorState: boolean;
 	hasDisabledAccountMessage: boolean;
 	hasDisabledAccountLozenge: boolean;
+	hasHideReportingLines: boolean;
 
 	showCustomLozenge1: boolean;
 	showCustomLozenge2: boolean;
@@ -139,6 +140,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 		hasErrorState: false,
 		hasDisabledAccountMessage: false,
 		hasDisabledAccountLozenge: false,
+		hasHideReportingLines: false,
 
 		showCustomLozenge1: false,
 		showCustomLozenge2: false,
@@ -330,6 +332,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 							) : undefined
 						}
 						hasDisabledAccountLozenge={this.state.hasDisabledAccountLozenge}
+						hideReportingLines={this.state.hasHideReportingLines}
 						customLozenges={this.createCustomLozengeArray()}
 					/>
 				</ProfileCardWrapper>
@@ -362,6 +365,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 						<li>{this.createCheckboxBooleanAttribute('hasDirectReports')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasReportingLineProfileUrl')}</li>
 						<li>{this.createCheckboxBooleanAttribute('hasReportingLineClickHandler')}</li>
+						<li>{this.createCheckboxBooleanAttribute('hasHideReportingLines')}</li>
 					</List>
 
 					<List>

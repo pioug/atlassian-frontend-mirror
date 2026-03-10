@@ -1,4 +1,3 @@
-import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { type PopupProps } from '@atlaskit/popup';
 import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics';
 
@@ -19,8 +18,7 @@ export type ProfileCardTriggerProps<T> = {
 	fetchProfile?: () => Promise<T>;
 	profileCardType: ProfileType;
 	testId?: string;
-	fireAnalytics?: (payload: AnalyticsEventPayload) => void;
-	fireAnalyticsNext?: <K extends keyof AnalyticsEventAttributes>(
+	fireAnalytics?: <K extends keyof AnalyticsEventAttributes>(
 		eventKey: K,
 		attributes: AnalyticsEventAttributes[K],
 	) => void;

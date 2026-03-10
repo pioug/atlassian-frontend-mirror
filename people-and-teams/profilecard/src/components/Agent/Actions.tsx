@@ -2,17 +2,14 @@ import React, { useCallback, useState } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu';
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import { token } from '@atlaskit/tokens';
 
 import { type ProfileClient, type RovoAgentProfileCardInfo } from '../../types';
-import { fireEvent } from '../../util/analytics';
 
 import { AgentDeleteConfirmationModal } from './AgentDeleteConfirmationModal';
 
@@ -64,8 +61,7 @@ export const AgentActions = ({
 	hideMoreActions,
 }: AgentActionsProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
-	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEvents();
 
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const isForgeAgent = agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY';
@@ -83,25 +79,13 @@ export const AgentActions = ({
 	}, [agent.id, resourceClient]);
 
 	const handleDeleteAgent = useCallback(() => {
-		if (fg('ptc-enable-profile-card-analytics-refactor')) {
-			fireEventNext('ui.button.clicked.deleteAgentButton', {
-				agentId: agent.id,
-				source: 'agentProfileCard',
-			});
-		} else {
-			fireEvent(createAnalyticsEvent, {
-				action: 'clicked',
-				actionSubject: 'button',
-				actionSubjectId: 'deleteAgentButton',
-				attributes: {
-					agentId: agent.id,
-					source: 'agentProfileCard',
-				},
-			});
-		}
+		fireEvent('ui.button.clicked.deleteAgentButton', {
+			agentId: agent.id,
+			source: 'agentProfileCard',
+		});
 
 		setIsDeleteModalOpen(true);
-	}, [agent.id, createAnalyticsEvent, fireEventNext]);
+	}, [agent.id, fireEvent]);
 
 	return (
 		<>

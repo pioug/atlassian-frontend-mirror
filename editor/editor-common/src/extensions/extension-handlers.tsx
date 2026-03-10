@@ -4,8 +4,6 @@ import { useIntl } from 'react-intl-next';
 import type { LoadingComponentProps } from 'react-loadable';
 import Loadable from 'react-loadable';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { getExtensionKeyAndNodeKey, resolveImport, resolveImportSync } from './manifest-helpers';
 import { messages } from './messages';
 import type {
@@ -123,9 +121,7 @@ function ExtensionLoading(props: LoadingComponentProps) {
 		console.error('Error rendering extension', props.error);
 		return (
 			<div>
-				{fg('platform_editor_dec_a11y_fixes')
-					? intl.formatMessage(messages.extensionLoadingError)
-					: 'Error loading the extension!'}
+				{intl.formatMessage(messages.extensionLoadingError)}
 			</div>
 		);
 	} else {

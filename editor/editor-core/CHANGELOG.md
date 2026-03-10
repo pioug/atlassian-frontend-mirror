@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 216.15.0
+
+### Minor Changes
+
+- [`38112478a1d8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38112478a1d8a) -
+  Cleanup platform_editor_blockquote_zero_padding flag
+
+### Patch Changes
+
+- [`31ee998a097db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31ee998a097db) -
+  Replace expValEquals/expValEqualsNoExposure with editorExperiment for platform_synced_block
+  experiment checks
+- Updated dependencies
+
 ## 216.14.2
 
 ### Patch Changes

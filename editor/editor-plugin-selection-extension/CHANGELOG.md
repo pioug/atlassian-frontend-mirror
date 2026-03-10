@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 10.3.27
+
+### Patch Changes
+
+- [`ef315dbd33cd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef315dbd33cd4) -
+  EDITOR-5603 update lozenge and tag usage in editor for Team 26 ADS changes
+- Updated dependencies
+
 ## 10.3.26
 
 ### Patch Changes

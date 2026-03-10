@@ -86,6 +86,8 @@ const DropdownItemRadio = ({
 				interactionName={interactionName}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
+				// Override ButtonItem's default aria-current, as aria-checked is the correct attribute for menuitemradio (A11Y-37930)
+				aria-current={undefined}
 			>
 				{children}
 			</ButtonItem>

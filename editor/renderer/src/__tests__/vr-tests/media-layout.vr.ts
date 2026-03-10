@@ -22,9 +22,6 @@ snapshot(MediaWrappedLayoutShiftUp, {
 });
 
 snapshot(MediaWrappedComplexLayout, {
-	featureFlags: {
-		platform_editor_dec_a11y_fixes: true,
-	},
 	description: 'should render complex layout',
 	variants: [
 		{

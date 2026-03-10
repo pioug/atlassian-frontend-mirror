@@ -14,11 +14,7 @@ snapshot(ExtensionAwesomeList);
 snapshot(ExtensionBlockEh);
 snapshot(ExtensionsWithLayout);
 snapshot(ExtensionsWithinTable);
-snapshot(ExtensionIframeNested, {
-	featureFlags: {
-		platform_editor_dec_a11y_fixes: true,
-	},
-});
+snapshot(ExtensionIframeNested);
 snapshot(ExtensionInlineEh);
 snapshot(ExtensionInlineEhPlainTextMacro);
 snapshot(ExtensionInlineEhPlainTextMacroLongText);

@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import Modal, {
 	ModalBody,
@@ -52,7 +51,7 @@ export const AgentDeleteConfirmationModal = ({
 							</Button>
 							<Button
 								appearance="danger"
-								onClick={(_e, _event: UIAnalyticsEvent) => {
+								onClick={(_e, _event) => {
 									handleDeleteAgent();
 								}}
 							>

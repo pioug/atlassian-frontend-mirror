@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockMenuPlugin, RegisterBlockMenuComponent } from './blockMenuPluginType';
 import { createBlockMenuRegistry } from './editor-actions';
@@ -35,15 +36,23 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 					name: 'blockMenuKeymap',
 					plugin: () => keymapPlugin(api, config),
 				},
-				{
-					name: 'blockMenuExperiences',
-					plugin: () =>
-						getBlockMenuExperiencesPlugin({
-							refs,
-							dispatchAnalyticsEvent: (payload) =>
-								api?.analytics?.actions?.fireAnalyticsEvent(payload),
-						}),
-				},
+				...(expValEqualsNoExposure(
+					'platform_editor_experience_tracking_observer',
+					'isEnabled',
+					true,
+				)
+					? [
+							{
+								name: 'blockMenuExperiences',
+								plugin: () =>
+									getBlockMenuExperiencesPlugin({
+										refs,
+										dispatchAnalyticsEvent: (payload) =>
+											api?.analytics?.actions?.fireAnalyticsEvent(payload),
+									}),
+							},
+						]
+					: []),
 			];
 		},
 		actions: {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-extension",
-	"version": "10.3.26",
+	"version": "10.3.27",
 	"description": "editor-plugin-selection-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -123,6 +123,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_block_menu_v2_patch_3": {
+			"type": "boolean"
+		},
+		"confluence_fronend_labels_categorization_migration": {
 			"type": "boolean"
 		}
 	}

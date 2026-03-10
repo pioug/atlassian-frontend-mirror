@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 111.30.3
+
+### Patch Changes
+
+- [`1eccf8acebd58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eccf8acebd58) -
+  ED-5052 Remove unnecessary eslint-disable comments for no-unused-vars violations in
+  requestDocument.ts and Extension/index.tsx.
+
+## 111.30.2
+
+### Patch Changes
+
+- [`d7675f084fe05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7675f084fe05) -
+  [ux] [EDITOR-5669] refactored existing paste actions menu to use control registry and platform
+  toolbars
+- Updated dependencies
+
+## 111.30.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.30.0
+
+### Minor Changes
+
+- [`f444a0d3e2c0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f444a0d3e2c0b) -
+  [FFCLEANUP-79468] clean up platform_editor_dec_a11y_fixes feature gate
+
 ## 111.29.1
 
 ### Patch Changes

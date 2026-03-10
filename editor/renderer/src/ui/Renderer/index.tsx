@@ -295,8 +295,8 @@ export const RendererFunctionalComponent = (
 			const { annotationProvider } = props;
 			const allowAnnotationsDraftMode = Boolean(
 				annotationProvider &&
-				annotationProvider.inlineComment &&
-				annotationProvider.inlineComment.allowDraftMode,
+					annotationProvider.inlineComment &&
+					annotationProvider.inlineComment.allowDraftMode,
 			);
 			const { featureFlags } = createRendererContext(props.featureFlags, props.isTopLevelRenderer);
 			return {
@@ -485,36 +485,34 @@ export const RendererFunctionalComponent = (
 				anchorLinkAnalytics();
 			});
 
-			if (expValEquals('platform_editor_editor_width_analytics', 'isEnabled', true)) {
-				// send statistics about the heights/widths of the tables on the page for alerting
-				heightWidthAnalyticsSetTimeoutID = setTimeout(() => {
-					const requestIdleCallbackFn = () => {
-						const renderer =
-							props.innerRef?.current?.querySelector<HTMLElement>('.ak-renderer-document');
+			// send statistics about the heights/widths of the tables on the page for alerting
+			heightWidthAnalyticsSetTimeoutID = setTimeout(() => {
+				const requestIdleCallbackFn = () => {
+					const renderer =
+						props.innerRef?.current?.querySelector<HTMLElement>('.ak-renderer-document');
 
-						if (renderer) {
-							const payload = getWidthInfoPayload(renderer);
-							if (payload) {
-								fireAnalyticsEvent(payload);
-							}
+					if (renderer) {
+						const payload = getWidthInfoPayload(renderer);
+						if (payload) {
+							fireAnalyticsEvent(payload);
+						}
 
-							if (fg('platform_editor_table_height_analytics_event')) {
-								const payloadHeight = getHeightInfoPayload(renderer);
-								if (payloadHeight) {
-									fireAnalyticsEvent(payloadHeight);
-								}
+						if (fg('platform_editor_table_height_analytics_event')) {
+							const payloadHeight = getHeightInfoPayload(renderer);
+							if (payloadHeight) {
+								fireAnalyticsEvent(payloadHeight);
 							}
 						}
-					};
-
-					if (window && typeof window.requestIdleCallback === 'function') {
-						heightWidthAnalyticsRicID = window.requestIdleCallback(requestIdleCallbackFn);
-					} else if (window && typeof window.requestAnimationFrame === 'function') {
-						// requestIdleCallback is not supported in safari, fallback to requestAnimationFrame
-						heightWidthAnalyticsRafID = window.requestAnimationFrame(requestIdleCallbackFn);
 					}
-				}, TABLE_INFO_TIMEOUT);
-			}
+				};
+
+				if (window && typeof window.requestIdleCallback === 'function') {
+					heightWidthAnalyticsRicID = window.requestIdleCallback(requestIdleCallbackFn);
+				} else if (window && typeof window.requestAnimationFrame === 'function') {
+					// requestIdleCallback is not supported in safari, fallback to requestAnimationFrame
+					heightWidthAnalyticsRafID = window.requestAnimationFrame(requestIdleCallbackFn);
+				}
+			}, TABLE_INFO_TIMEOUT);
 		};
 
 		handleAnalytics();

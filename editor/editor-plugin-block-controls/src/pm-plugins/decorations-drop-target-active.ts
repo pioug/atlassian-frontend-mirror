@@ -6,7 +6,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { type NodeWithPos, findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import { type Decoration } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -338,17 +338,45 @@ export const getActiveDropTargetDecorations = (
 		};
 	}
 
+	let anchorEmitNodeWithPos: NodeWithPos = rootNodeWithPos;
+
 	if (editorExperiment('advanced_layouts', true)) {
+		if (
+			expValEquals('platform_synced_block', 'isEnabled', true) &&
+			expValEquals('platform_synced_block_patch_6', 'isEnabled', true)
+		) {
+			const schema = rootNodeWithPos.node.type.schema;
+			const { layoutSection } = schema.nodes;
+			const isLayoutSectionChildOfRoot =
+				findChildrenByType(rootNodeWithPos.node, layoutSection, false).length > 0;
+			if (isLayoutSectionChildOfRoot) {
+				// if node has layoutSection as a child, get the layoutSection node and pos
+				for (let ancestorDepth = $toPos.depth; ancestorDepth >= 1; ancestorDepth--) {
+					if ($toPos.node(ancestorDepth).type.name === 'layoutSection') {
+						anchorEmitNodeWithPos = {
+							node: $toPos.node(ancestorDepth),
+							pos: $toPos.before(ancestorDepth),
+						};
+						break;
+					}
+				}
+			} else {
+				anchorEmitNodeWithPos = rootNodeWithPos;
+			}
+		} else {
+			anchorEmitNodeWithPos = rootNodeWithPos;
+		}
+
 		const isSameLayout =
-			$activeNodePos && isInSameLayout($activeNodePos, state.doc.resolve(rootNodeWithPos.pos));
+			$activeNodePos &&
+			isInSameLayout($activeNodePos, state.doc.resolve(anchorEmitNodeWithPos.pos));
 
 		const hasUnsupportedContent =
 			UNSUPPORTED_LAYOUT_CONTENT.includes(activeNode?.nodeType || '') &&
 			editorExperiment('platform_synced_block', true);
 
-		if (rootNodeWithPos.node.type.name === 'layoutSection' && !hasUnsupportedContent) {
-			const layoutSectionNode = rootNodeWithPos.node;
-
+		if (anchorEmitNodeWithPos.node.type.name === 'layoutSection' && !hasUnsupportedContent) {
+			const layoutSectionNode = anchorEmitNodeWithPos.node;
 			if (layoutSectionNode.childCount < maxLayoutColumnSupported() || isSameLayout) {
 				layoutSectionNode.descendants((childNode, childPos, parent, index) => {
 					if (
@@ -356,7 +384,7 @@ export const getActiveDropTargetDecorations = (
 						parent?.type.name === 'layoutSection' &&
 						index !== 0 // Not the first node
 					) {
-						const currentPos = rootNodeWithPos.pos + childPos + 1;
+						const currentPos = anchorEmitNodeWithPos.pos + childPos + 1;
 
 						if (existingDecsPos.includes(currentPos)) {
 							// if the decoration already exists, we don't add it again.
@@ -364,7 +392,7 @@ export const getActiveDropTargetDecorations = (
 						} else {
 							decsToAdd.push(
 								createLayoutDropTargetDecoration(
-									rootNodeWithPos.pos + childPos + 1,
+									anchorEmitNodeWithPos.pos + childPos + 1,
 									{
 										api,
 										parent,
@@ -385,8 +413,11 @@ export const getActiveDropTargetDecorations = (
 
 	defaultActiveAnchorTracker.emit(
 		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-			? api.core.actions.getAnchorIdForNode(rootNodeWithPos.node, rootNodeWithPos.pos) || ''
-			: getNodeAnchor(rootNodeWithPos.node),
+			? api.core.actions.getAnchorIdForNode(
+					anchorEmitNodeWithPos.node,
+					anchorEmitNodeWithPos.pos,
+				) || ''
+			: getNodeAnchor(anchorEmitNodeWithPos.node),
 	);
 
 	return { decsToAdd, decsToRemove };

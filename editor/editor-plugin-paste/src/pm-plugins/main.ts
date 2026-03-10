@@ -82,10 +82,7 @@ import {
 	handleSelectedTableWithAnalytics,
 	sendPasteAnalyticsEvent,
 } from './analytics';
-import {
-	createClipboardTextSerializer,
-	clipboardTextSerializer,
-} from './clipboard-text-serializer';
+import { createClipboardTextSerializer } from './create-clipboard-text-serializer';
 import { createPluginState, pluginKey as stateKey } from './plugin-factory';
 import {
 	escapeBackslashAndLinksExceptCodeBlock,
@@ -207,9 +204,7 @@ export function createPlugin(
 		}),
 		props: {
 			// For serialising to plain text
-			clipboardTextSerializer: fg('platform_editor_date_to_text')
-				? createClipboardTextSerializer(getIntl())
-				: clipboardTextSerializer,
+			clipboardTextSerializer: createClipboardTextSerializer(getIntl()),
 			handleDOMEvents: {
 				// note
 				paste: (view, event) => {

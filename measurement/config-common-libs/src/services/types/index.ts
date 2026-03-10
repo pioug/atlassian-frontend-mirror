@@ -15,15 +15,16 @@ export interface ParseOptions {
 	throw?: boolean;
 }
 
-export enum ConfigError {
-	NotFound = 'not_found',
-	InvalidState = 'state_invalid',
-	IncorrectType = 'incorrect_type',
-}
+export const ConfigError = {
+	NotFound: 'not_found',
+	InvalidState: 'state_invalid',
+	IncorrectType: 'incorrect_type',
+} as const;
+export type ConfigError = (typeof ConfigError)[keyof typeof ConfigError];
 
 export type ConfigResult<T> =
 	| { value: T }
-	| { error: ConfigError.IncorrectType; received: unknown }
+	| { error: typeof ConfigError.IncorrectType; received: unknown }
 	| { error: ConfigError };
 
 export const StandardConfigSchema: z.ZodRecord<

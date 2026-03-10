@@ -132,11 +132,7 @@ function ElementSearch({
 					</div>
 				}
 				placeholder={formatMessage(commonMessages.placeHolderMessage)}
-				aria-label={
-					fg('platform_editor_dec_a11y_fixes')
-						? formatMessage(commonMessages.searchAriaLabel)
-						: 'search'
-				}
+				aria-label={formatMessage(commonMessages.searchAriaLabel)}
 				aria-labelledby={
 					fg('platform_editor_ally_remove_role_tabpanel') ? undefined : 'search-assistive'
 				}

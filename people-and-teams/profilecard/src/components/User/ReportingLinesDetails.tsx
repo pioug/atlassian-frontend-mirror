@@ -5,7 +5,6 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -21,7 +20,7 @@ import {
 	type ProfilecardProps,
 	type ReportingLinesUser,
 } from '../../types';
-import { PACKAGE_META_DATA, reportingLinesClicked } from '../../util/analytics';
+import { PACKAGE_META_DATA } from '../../util/analytics';
 import { getPageTime } from '../../util/performance';
 
 export type ReportingLinesDetailsProps = Pick<
@@ -62,7 +61,6 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps): React.JSX.Ele
 	const { formatMessage } = useIntl();
 	const {
 		fireAnalyticsWithDuration,
-		fireAnalyticsWithDurationNext,
 		reportingLines = {},
 		reportingLinesProfileUrl,
 		onReportingLinesClick,
@@ -78,21 +76,12 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps): React.JSX.Ele
 	) =>
 		onReportingLinesClick
 			? () => {
-					if (fg('ptc-enable-profile-card-analytics-refactor')) {
-						fireAnalyticsWithDurationNext('ui.profilecard.clicked.reportingLines', (duration) => ({
-							duration,
-							userType,
-							firedAt: Math.round(getPageTime()),
-							...PACKAGE_META_DATA,
-						}));
-					} else {
-						fireAnalyticsWithDuration((duration) =>
-							reportingLinesClicked({
-								duration,
-								userType,
-							}),
-						);
-					}
+					fireAnalyticsWithDuration('ui.profilecard.clicked.reportingLines', (duration) => ({
+						duration,
+						userType,
+						firedAt: Math.round(getPageTime()),
+						...PACKAGE_META_DATA,
+					}));
 
 					onReportingLinesClick(user);
 				}
@@ -108,21 +97,13 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps): React.JSX.Ele
 			shouldPreventDefault = onReportingLinesClick(user) === false;
 		}
 
-		if (fg('ptc-enable-profile-card-analytics-refactor')) {
-			fireAnalyticsWithDurationNext('ui.profilecard.clicked.reportingLines', (duration) => ({
-				duration,
-				userType,
-				firedAt: Math.round(getPageTime()),
-				...PACKAGE_META_DATA,
-			}));
-		} else {
-			fireAnalyticsWithDuration((duration) =>
-				reportingLinesClicked({
-					duration,
-					userType,
-				}),
-			);
-		}
+		fireAnalyticsWithDuration('ui.profilecard.clicked.reportingLines', (duration) => ({
+			duration,
+			userType,
+			firedAt: Math.round(getPageTime()),
+			...PACKAGE_META_DATA,
+		}));
+
 		if (shouldPreventDefault) {
 			return;
 		}

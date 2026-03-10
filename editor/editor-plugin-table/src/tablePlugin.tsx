@@ -586,41 +586,38 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 							view: (editorView) => {
 								editorViewRef.current = editorView;
 
-								let setTimeoutID: ReturnType<typeof setTimeout>;
 								let rafID: number;
 								let ricID: number;
 
-								if (expValEquals('platform_editor_editor_width_analytics', 'isEnabled', true)) {
-									// send statistics about the widths of the tables on the page for alerting
-									// only send this event once, after the editorView is first initialised
-									setTimeoutID = setTimeout(() => {
-										const requestIdleCallbackFn = () => {
-											const editorWidth = api?.width.sharedState.currentState()?.width;
+								// send statistics about the widths of the tables on the page for alerting
+								// only send this event once, after the editorView is first initialised
+								const setTimeoutID = setTimeout(() => {
+									const requestIdleCallbackFn = () => {
+										const editorWidth = api?.width.sharedState.currentState()?.width;
 
-											if (editorViewRef.current) {
-												if (editorWidth) {
-													const payload = getWidthInfoPayload(editorViewRef.current, editorWidth);
-													if (payload) {
-														dispatchAnalyticsEvent(payload);
-													}
-												}
-												if (fg('platform_editor_table_height_analytics_event')) {
-													const payloadHeight = getHeightInfoPayload(editorViewRef.current);
-													if (payloadHeight) {
-														dispatchAnalyticsEvent(payloadHeight);
-													}
+										if (editorViewRef.current) {
+											if (editorWidth) {
+												const payload = getWidthInfoPayload(editorViewRef.current, editorWidth);
+												if (payload) {
+													dispatchAnalyticsEvent(payload);
 												}
 											}
-										};
-
-										if (window && typeof window.requestIdleCallback === 'function') {
-											ricID = window.requestIdleCallback(requestIdleCallbackFn);
-										} else if (window && typeof window.requestAnimationFrame === 'function') {
-											// requestIdleCallback is not supported in safari, fallback to requestAnimationFrame
-											rafID = window.requestAnimationFrame(requestIdleCallbackFn);
+											if (fg('platform_editor_table_height_analytics_event')) {
+												const payloadHeight = getHeightInfoPayload(editorViewRef.current);
+												if (payloadHeight) {
+													dispatchAnalyticsEvent(payloadHeight);
+												}
+											}
 										}
-									}, TABLE_WIDTH_INFO_TIMEOUT);
-								}
+									};
+
+									if (window && typeof window.requestIdleCallback === 'function') {
+										ricID = window.requestIdleCallback(requestIdleCallbackFn);
+									} else if (window && typeof window.requestAnimationFrame === 'function') {
+										// requestIdleCallback is not supported in safari, fallback to requestAnimationFrame
+										rafID = window.requestAnimationFrame(requestIdleCallbackFn);
+									}
+								}, TABLE_WIDTH_INFO_TIMEOUT);
 
 								return {
 									destroy: () => {

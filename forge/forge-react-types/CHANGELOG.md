@@ -1,5 +1,23 @@
 # @atlaskit/forge-react-types
 
+## 0.64.0
+
+### Minor Changes
+
+- [`74ca1750dd048`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74ca1750dd048) -
+  Added FlyOutMenuItem
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.63.2
+
+### Patch Changes
+
+- [`a7b61a83fc974`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7b61a83fc974) -
+  Added CreateButton to Global UI Kit component
+
 ## 0.63.1
 
 ### Patch Changes

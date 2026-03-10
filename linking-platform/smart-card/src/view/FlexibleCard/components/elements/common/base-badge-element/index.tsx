@@ -8,12 +8,16 @@ import React, { forwardRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { IconType } from '../../../../../../constants';
+import { IconType, InternalActionName } from '../../../../../../constants';
 import { messages } from '../../../../../../messages';
-import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
+import {
+	useFlexibleUiContext,
+	useFlexibleUiOptionContext,
+} from '../../../../../../state/flexible-ui-context';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
 import ImageIcon from '../../../common/image-icon';
 import { withOverrideCss } from '../../../common/with-override-css';
@@ -27,6 +31,12 @@ const styles = cssMap({
 		minWidth: 'fit-content',
 		gap: token('space.050'),
 	},
+	containerLarge: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		minWidth: 'fit-content',
+		gap: token('space.100'),
+	},
 	icon: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&, span, svg, img': {
@@ -38,6 +48,13 @@ const styles = cssMap({
 			paddingLeft: token('space.0'),
 			width: '16px',
 			verticalAlign: 'middle',
+		},
+	},
+	iconLarge: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&, span, svg, img': {
+			height: '24px',
+			width: '24px',
 		},
 	},
 	text: {
@@ -118,6 +135,10 @@ export type BaseBadgeElementProps = ElementProps & {
 	 */
 	icon?: IconType;
 	/**
+	 * The size of the icon to display.
+	 */
+	iconSize?: 'default' | 'large';
+	/**
 	 * The text to display for the badge.
 	 */
 	label?: string;
@@ -151,6 +172,7 @@ const BaseBadgeRefreshNew = forwardRef(
 			testId = 'smart-element-badge',
 			url,
 			color,
+			iconSize = 'default',
 		}: BaseBadgeElementProps,
 		ref: React.Ref<HTMLElement>,
 	) => {
@@ -161,6 +183,37 @@ const BaseBadgeRefreshNew = forwardRef(
 			renderAtlaskitIcon(icon, testId) || renderImageIcon(url, testId, ui?.hideLoadingSkeleton);
 		if (!formattedMessageOrLabel || !badgeIcon) {
 			return null;
+		}
+
+		if (iconSize === 'large' && fg('platform_sl_3p_auth_rovo_action_kill_switch')) {
+			// eslint-disable-next-line react-hooks/rules-of-hooks
+			const context = useFlexibleUiContext();
+
+			if (context?.actions?.[InternalActionName.RovoChatAction] === true) {
+				return (
+					<span
+						data-smart-element={name}
+						data-smart-element-badge
+						data-testid={testId}
+						css={[styles.containerLarge, colorMap[appearance]]}
+						ref={ref}
+						style={{ color }}
+					>
+						{!hideIcon && (
+							<Box
+								as="span"
+								testId={`${testId}-large-icon-wrapper`}
+								xcss={styles.icon && styles.iconLarge}
+							>
+								{badgeIcon}
+							</Box>
+						)}
+						<Box as="span" testId={`${testId}-label`} xcss={styles.text}>
+							{formattedMessageOrLabel}
+						</Box>
+					</span>
+				);
+			}
 		}
 
 		return (

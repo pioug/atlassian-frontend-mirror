@@ -1,5 +1,12 @@
 # @atlaskit/simple-xdm
 
+## 1.2.1
+
+### Patch Changes
+
+- [`29ab57db0034f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29ab57db0034f) -
+  Remove platform_deprecate_lp_cc_embed checks
+
 ## 1.2.0
 
 ### Minor Changes

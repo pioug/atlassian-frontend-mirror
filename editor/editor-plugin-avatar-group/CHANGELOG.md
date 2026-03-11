@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 8.1.0
+
+### Minor Changes
+
+- [`7e46dcf81d78a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e46dcf81d78a) -
+  Ensure aria-label for avatar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.6
 
 ### Patch Changes

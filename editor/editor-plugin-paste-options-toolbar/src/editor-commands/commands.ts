@@ -29,6 +29,8 @@ import { pasteOptionsPluginKey, ToolbarDropdownOption } from '../types/types';
 export const showToolbar = (
 	lastContentPasted: LastContentPasted,
 	selectedOption: ToolbarDropdownOption,
+	showLegacyOptions: boolean = true,
+	pasteAncestorNodeNames: string[] = [],
 ): Command => {
 	const commandAction = (_editorState: EditorState) => {
 		return {
@@ -40,6 +42,8 @@ export const showToolbar = (
 				richTextSlice: lastContentPasted.pastedSlice,
 				pasteStartPos: lastContentPasted.pasteStartPos,
 				pasteEndPos: lastContentPasted.pasteEndPos,
+				showLegacyOptions,
+				pasteAncestorNodeNames,
 			},
 		} satisfies ShowPasteOptions;
 	};

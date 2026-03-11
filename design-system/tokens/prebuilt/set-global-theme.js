@@ -31,6 +31,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
  * @param {string} themeState.contrastMode The contrast mode theme to be applied. If set to `auto`, the theme applied will be determined by the OS setting.set to `auto`, the theme applied will be determined by the OS setting.
  * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
  * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
+ * @param {string} themeState.motion The motion theme to be applied.
  * @param {string} themeState.shape The shape theme to be applied.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
@@ -63,6 +64,8 @@ var setGlobalTheme = /*#__PURE__*/function () {
       spacing,
       _ref2$typography,
       typography,
+      _ref2$motion,
+      motion,
       _ref2$UNSAFE_themeOpt,
       UNSAFE_themeOptions,
       themeState,
@@ -84,8 +87,9 @@ var setGlobalTheme = /*#__PURE__*/function () {
           themeLoader = _args3.length > 1 ? _args3[1] : undefined;
           _ref2 = typeof nextThemeState === 'function' ? nextThemeState(_objectSpread(_objectSpread({}, _themeConfig.themeStateDefaults), {}, {
             typography: _themeConfig.themeStateDefaults['typography'],
-            shape: _themeConfig.themeStateDefaults['shape']()
-          }, (0, _getGlobalTheme.default)())) : nextThemeState, _ref2$colorMode = _ref2.colorMode, colorMode = _ref2$colorMode === void 0 ? _themeConfig.themeStateDefaults['colorMode'] : _ref2$colorMode, _ref2$contrastMode = _ref2.contrastMode, contrastMode = _ref2$contrastMode === void 0 ? _themeConfig.themeStateDefaults['contrastMode'] : _ref2$contrastMode, _ref2$dark = _ref2.dark, dark = _ref2$dark === void 0 ? _themeConfig.themeStateDefaults['dark'] : _ref2$dark, _ref2$light = _ref2.light, light = _ref2$light === void 0 ? _themeConfig.themeStateDefaults['light'] : _ref2$light, _ref2$shape = _ref2.shape, shape = _ref2$shape === void 0 ? _themeConfig.themeStateDefaults['shape']() : _ref2$shape, _ref2$spacing = _ref2.spacing, spacing = _ref2$spacing === void 0 ? _themeConfig.themeStateDefaults['spacing'] : _ref2$spacing, _ref2$typography = _ref2.typography, typography = _ref2$typography === void 0 ? _themeConfig.themeStateDefaults['typography'] : _ref2$typography, _ref2$UNSAFE_themeOpt = _ref2.UNSAFE_themeOptions, UNSAFE_themeOptions = _ref2$UNSAFE_themeOpt === void 0 ? _themeConfig.themeStateDefaults['UNSAFE_themeOptions'] : _ref2$UNSAFE_themeOpt; // CLEANUP: Remove. This blocks application of increased contrast themes
+            shape: _themeConfig.themeStateDefaults['shape'](),
+            motion: _themeConfig.themeStateDefaults['motion']()
+          }, (0, _getGlobalTheme.default)())) : nextThemeState, _ref2$colorMode = _ref2.colorMode, colorMode = _ref2$colorMode === void 0 ? _themeConfig.themeStateDefaults['colorMode'] : _ref2$colorMode, _ref2$contrastMode = _ref2.contrastMode, contrastMode = _ref2$contrastMode === void 0 ? _themeConfig.themeStateDefaults['contrastMode'] : _ref2$contrastMode, _ref2$dark = _ref2.dark, dark = _ref2$dark === void 0 ? _themeConfig.themeStateDefaults['dark'] : _ref2$dark, _ref2$light = _ref2.light, light = _ref2$light === void 0 ? _themeConfig.themeStateDefaults['light'] : _ref2$light, _ref2$shape = _ref2.shape, shape = _ref2$shape === void 0 ? _themeConfig.themeStateDefaults['shape']() : _ref2$shape, _ref2$spacing = _ref2.spacing, spacing = _ref2$spacing === void 0 ? _themeConfig.themeStateDefaults['spacing'] : _ref2$spacing, _ref2$typography = _ref2.typography, typography = _ref2$typography === void 0 ? _themeConfig.themeStateDefaults['typography'] : _ref2$typography, _ref2$motion = _ref2.motion, motion = _ref2$motion === void 0 ? _themeConfig.themeStateDefaults['motion']() : _ref2$motion, _ref2$UNSAFE_themeOpt = _ref2.UNSAFE_themeOptions, UNSAFE_themeOptions = _ref2$UNSAFE_themeOpt === void 0 ? _themeConfig.themeStateDefaults['UNSAFE_themeOptions'] : _ref2$UNSAFE_themeOpt; // CLEANUP: Remove. This blocks application of increased contrast themes
           // without the feature flag enabled.
           if (!(0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
             if (light === 'light-increased-contrast') {
@@ -103,6 +107,7 @@ var setGlobalTheme = /*#__PURE__*/function () {
             shape: shape,
             spacing: spacing,
             typography: typography,
+            motion: motion,
             UNSAFE_themeOptions: themeLoader ? undefined : UNSAFE_themeOptions
           }; // Determine what to load and loading strategy
           themePreferences = (0, _getThemePreferences.getThemePreferences)(themeState);

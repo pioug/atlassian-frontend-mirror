@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-breakout
 
+## 7.1.0
+
+### Minor Changes
+
+- [`9398ad3ad409c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9398ad3ad409c) -
+  [ux] [EDITOR-5376] change single player expands feature gate to the new
+  `platform_editor_single_player_expand` experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.27
 
 ### Patch Changes

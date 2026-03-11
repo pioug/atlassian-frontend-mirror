@@ -22,6 +22,9 @@ const CardExample = ({
 }) => {
 	const fallback = useMemo(() => <span>😭Something went wrong.</span>, []);
 	const onError = useCallback((err: Error) => console.error(err.message), []);
+	const actionOptions = fg('platform_sl_3p_auth_rovo_action_kill_switch')
+		? { hide: false, rovoChatAction: { optIn: true } }
+		: undefined;
 
 	return (
 		<Stack space="space.100">
@@ -31,7 +34,12 @@ const CardExample = ({
 				Jolly Roger wench sloop Shiver me timbers rope's end chandler. Admiral of the Black cackle
 				fruit deck{' '}
 				<ErrorBoundary fallback={fallback} onError={onError}>
-					<Card appearance="inline" url={url} showHoverPreview={true} />
+					<Card
+						actionOptions={actionOptions}
+						appearance="inline"
+						url={url}
+						showHoverPreview={true}
+					/>
 				</ErrorBoundary>{' '}
 				wench bounty rope's end bilge water scourge of the seven seas hardtack come about execution
 				dock Nelsons folly handsomely rigging splice the main brace.

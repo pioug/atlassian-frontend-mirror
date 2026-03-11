@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { EditorToolbarProvider, PASTE_MENU } from '@atlaskit/editor-common/toolbar';
@@ -10,12 +10,15 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { ToolbarDropdownMenuProvider } from '@atlaskit/editor-toolbar';
 
-import { hideToolbar, highlightContent } from '../../editor-commands/commands';
+import { hideToolbar, highlightContent, showToolbar } from '../../editor-commands/commands';
 import type {
 	PasteOptionsToolbarPlugin,
 	PasteOptionsToolbarSharedState,
 } from '../../pasteOptionsToolbarPluginType';
+import { ToolbarDropdownOption } from '../../types/types';
+import { isToolbarVisible } from '../toolbar';
 
+import { hasVisibleButton } from './hasVisibleButton';
 import { PasteActionsMenuContent } from './PasteActionsMenuContent';
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
@@ -49,6 +52,7 @@ function getPopupOffset(dom: HTMLElement | null): [number, number] {
 	return [-(window.innerWidth - rightEdge - 50), 20];
 }
 
+
 export const PasteActionsMenu = ({
 	api,
 	editorView,
@@ -56,7 +60,42 @@ export const PasteActionsMenu = ({
 	boundariesElement,
 	scrollableElement,
 }: PasteActionsMenuProps) => {
-	const { showToolbar } = useSharedPluginStateWithSelector(
+	const { lastContentPasted } = useSharedPluginStateWithSelector(api, ['paste'], (states) => ({
+		lastContentPasted: states.pasteState?.lastContentPasted,
+	}));
+
+	useEffect(() => {
+		if (!lastContentPasted) {
+			hideToolbar()(editorView.state, editorView.dispatch);
+			return;
+		}
+
+		let selectedOption = ToolbarDropdownOption.None;
+		if (!lastContentPasted.isPlainText) {
+			selectedOption = ToolbarDropdownOption.RichText;
+		} else if (lastContentPasted.isShiftPressed) {
+			selectedOption = ToolbarDropdownOption.PlainText;
+		} else {
+			selectedOption = ToolbarDropdownOption.Markdown;
+		}
+
+		const $pos = editorView.state.doc.resolve(lastContentPasted.pasteStartPos);
+		const pasteAncestorNodeNames: string[] = [];
+		for (let depth = $pos.depth; depth > 0; depth--) {
+			pasteAncestorNodeNames.push($pos.node(depth).type.name);
+		}
+
+		const legacyVisible = isToolbarVisible(editorView.state, lastContentPasted);
+
+		showToolbar(
+			lastContentPasted,
+			selectedOption,
+			legacyVisible,
+			pasteAncestorNodeNames,
+		)(editorView.state, editorView.dispatch);
+	}, [lastContentPasted, editorView]);
+
+	const { showToolbar: isToolbarShown } = useSharedPluginStateWithSelector(
 		api,
 		['pasteOptionsToolbarPlugin'],
 		(states) => {
@@ -103,7 +142,16 @@ export const PasteActionsMenu = ({
 		[handleDismiss],
 	);
 
-	if (!showToolbar) {
+	const pasteMenuComponents =
+		api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
+
+	const anyComponentVisible = hasVisibleButton(pasteMenuComponents);
+
+	if (!isToolbarShown) {
+		return null;
+	}
+
+	if (!anyComponentVisible) {
 		return null;
 	}
 
@@ -111,12 +159,6 @@ export const PasteActionsMenu = ({
 	if (!target) {
 		return null;
 	}
-
-	const aiSurface = { type: 'menu' as const, key: 'ai-paste-menu' };
-	const aiSurfaceComponents = api?.uiControlRegistry?.actions.getComponents(aiSurface.key) ?? [];
-
-	const pasteSurfaceComponents =
-		api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
 
 	return (
 		<PopupWithListeners
@@ -132,13 +174,11 @@ export const PasteActionsMenu = ({
 			handleEscapeKeydown={handleDismiss}
 		>
 			<EditorToolbarProvider editorView={editorView}>
-				<ToolbarDropdownMenuProvider isOpen={showToolbar} setIsOpen={handleSetIsOpen}>
+				<ToolbarDropdownMenuProvider isOpen={isToolbarShown} setIsOpen={handleSetIsOpen}>
 					<PasteActionsMenuContent
 						onMouseDown={preventEditorFocusLoss}
 						onMouseEnter={handleMouseEnter}
-						aiSurface={aiSurface}
-						aiSurfaceComponents={aiSurfaceComponents}
-						pasteSurfaceComponents={pasteSurfaceComponents}
+						components={pasteMenuComponents}
 					/>
 				</ToolbarDropdownMenuProvider>
 			</EditorToolbarProvider>

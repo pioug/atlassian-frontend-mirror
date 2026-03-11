@@ -20,7 +20,6 @@ function traceUFOInteraction(
 	interactionType: InteractionType,
 	startTime?: DOMHighResTimeStamp,
 ): void {
-	// Skip if UFO is disabled (gated behind platform_ufo_enable_killswitch_config)
 	if (!isUFOEnabled()) {
 		return;
 	}

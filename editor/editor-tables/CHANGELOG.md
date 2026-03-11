@@ -1,5 +1,14 @@
 # @atlaskit/editor-tables
 
+## 2.9.43
+
+### Patch Changes
+
+- [`1d245f9d74df5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d245f9d74df5) -
+  [ux] [EDITOR-1682] modify the logic in determineTableHeaderStateFromTableNode to read the 1st and
+  n_th cells instead of 1st and 2nd behind `platform_editor_analyse_table_with_merged_cells`
+- Updated dependencies
+
 ## 2.9.42
 
 ### Patch Changes

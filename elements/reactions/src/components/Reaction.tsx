@@ -4,6 +4,7 @@
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl-next';
+import { cx } from '@atlaskit/css';
 import { css, cssMap, jsx } from '@compiled/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
@@ -34,24 +35,28 @@ const styles = cssMap({
 	container: {
 		position: 'relative',
 	},
+	listItem: {
+		marginInline: token('space.0'),
+		marginBlock: token('space.0'),
+		paddingInline: token('space.0'),
+		paddingBlock: token('space.0'),
+	},
 });
 
 const emojiStyle = css({
 	transformOrigin: 'center center 0',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '12px',
-	paddingTop: token('space.050', '4px'),
-	paddingRight: token('space.050', '4px'),
-	paddingBottom: token('space.050', '4px'),
-	paddingLeft: token('space.100', '8px'),
+	paddingBlock: token('space.050'),
+	paddingInlineStart: token('space.100'),
+	paddingInlineEnd: token('space.050'),
 });
 
 const emojiNoReactionStyle = css({
-	paddingTop: token('space.050', '4px'),
-	paddingRight: token('space.025', '2px'),
-	paddingBottom: token('space.050', '4px'),
+	paddingBlock: token('space.050'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	paddingLeft: '10px',
+	paddingInlineStart: '10px',
+	paddingInlineEnd: token('space.025'),
 });
 
 /**
@@ -217,7 +222,10 @@ export const Reaction = ({
 
 	return (
 		<Box
-			xcss={styles.container}
+			xcss={cx(
+				styles.container,
+				fg('jfp_a11y_team_comment_actions_semantic') ? styles.listItem : undefined,
+			)}
 			as={fg('jfp_a11y_team_comment_actions_semantic') ? 'li' : undefined}
 		>
 			{showParticleEffect && (

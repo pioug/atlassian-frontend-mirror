@@ -1,5 +1,34 @@
 # @atlaskit/rovo-agent-components
 
+## 3.40.0
+
+### Minor Changes
+
+- [`e4034958fc116`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4034958fc116) -
+  Adjust event tracking for agent analytics to use new trackAgentEvent() method. Remove deprecated
+  trackAgentAction() export and exported action const enums
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.39.0
+
+### Minor Changes
+
+- [`e72179b379afd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e72179b379afd) -
+  Update isForgeAgentByCreatorType import
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.38.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.38.0
 
 ### Minor Changes

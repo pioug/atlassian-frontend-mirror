@@ -3,9 +3,6 @@
  *
  * These tests verify that UFO can be completely disabled via config.enabled = false,
  * controlled by the ?ufo_disabled=true query parameter.
- *
- * The kill switch functionality is gated behind the platform_ufo_enable_killswitch_config
- * feature flag.
  */
 
 /* eslint-disable compat/compat */
@@ -22,7 +19,7 @@ const test = base.extend<{
 		const context = await browser.newContext();
 		const page = await context.newPage();
 
-		// Build URL with ufo_disabled=true and the required feature flag
+		// Build URL with ufo_disabled=true
 		const searchParams = new URLSearchParams({
 			groupId: 'react-ufo',
 			packageId: 'atlaskit',
@@ -32,8 +29,7 @@ const test = base.extend<{
 			ufo_disabled: 'true',
 		});
 
-		// The feature flag is required for the kill switch to take effect
-		const url = `${baseURL}/examples.html?${searchParams.toString()}&featureFlag=platform_ufo_enable_killswitch_config`;
+		const url = `${baseURL}/examples.html?${searchParams.toString()}`;
 
 		await page.setViewportSize({ width: 1920, height: 1080 });
 		await page.goto(url, { waitUntil: 'domcontentloaded' });

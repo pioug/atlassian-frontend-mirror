@@ -1,5 +1,23 @@
 # @atlaskit/reactions
 
+## 33.8.19
+
+### Patch Changes
+
+- [`5e648de49f54d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e648de49f54d) -
+  All mouse events must also have key events for accessibility
+- Updated dependencies
+
+## 33.8.18
+
+### Patch Changes
+
+- [`e16fa4dbfb0d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e16fa4dbfb0d6) -
+  Remove missing content from anchor a11y suppression from docs
+- [`368204368d995`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/368204368d995) -
+  Remove redundant inaccessible tabIndex
+- Updated dependencies
+
 ## 33.8.17
 
 ### Patch Changes

@@ -5,8 +5,6 @@
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { getIframeSandboxAttribute } from '../../../../utils';
 import { IFrame } from '../../../EmbedCard/components/IFrame';
 
@@ -31,7 +29,7 @@ const EmbedContent = ({ isTrusted, name, src, testId, ariaLabel, extensionKey }:
 		<IFrame
 			css={iframeCss}
 			aria-label={ariaLabel ?? `${testId}-embed`}
-			{...(fg('platform_deprecate_lp_cc_embed') ? { extensionKey } : {})}
+			extensionKey={extensionKey}
 			{...props}
 		/>
 	);

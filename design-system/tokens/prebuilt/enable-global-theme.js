@@ -16,6 +16,7 @@ var _getThemePreferences = require("./utils/get-theme-preferences");
  * @param {string} themeState.colorMode Determines which color theme is applied. If set to `auto`, the theme applied will be determined by the OS setting.
  * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
  * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
+ * @param {string} themeState.motion The motion theme to be applied.
  * @param {string} themeState.shape The shape theme to be applied.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
@@ -39,6 +40,8 @@ var enableGlobalTheme = function enableGlobalTheme() {
     dark = _ref$dark === void 0 ? _themeConfig.themeStateDefaults['dark'] : _ref$dark,
     _ref$light = _ref.light,
     light = _ref$light === void 0 ? _themeConfig.themeStateDefaults['light'] : _ref$light,
+    _ref$motion = _ref.motion,
+    motion = _ref$motion === void 0 ? _themeConfig.themeStateDefaults['motion']() : _ref$motion,
     _ref$shape = _ref.shape,
     shape = _ref$shape === void 0 ? _themeConfig.themeStateDefaults['shape']() : _ref$shape,
     _ref$spacing = _ref.spacing,
@@ -53,6 +56,7 @@ var enableGlobalTheme = function enableGlobalTheme() {
     contrastMode: contrastMode,
     dark: dark,
     light: light,
+    motion: motion,
     shape: shape,
     spacing: spacing,
     typography: typography,

@@ -22,6 +22,12 @@
 			"path": "../../adf-schema/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-collab-edit/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-composition/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-limited-mode/afm-products/tsconfig.json"
 		},
 		{

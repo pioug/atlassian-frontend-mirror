@@ -4,10 +4,6 @@ import { render } from '@testing-library/react';
 
 import { IFrame } from '../../IFrame';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(() => true),
-}));
-
 jest.mock('../../../../../hooks/useConfluencePageData', () => ({
 	useConfluencePageData: jest.fn(),
 }));
@@ -62,7 +58,7 @@ describe('IFrame', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it('should render Page with expected props when platform_deprecate_lp_cc_embed on', async () => {
+	it('should render Page with expected props when confluence page data is available', async () => {
 		renderComponent();
 
 		expect(mockPage).toHaveBeenCalledTimes(1);

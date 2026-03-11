@@ -2,7 +2,7 @@ import { expandedState, getNextNodeExpandPos } from '@atlaskit/editor-common/exp
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 /*
@@ -21,7 +21,7 @@ const isCollapsedExpand = (
 	{ __livePage }: { __livePage: boolean },
 ): boolean => {
 	let currentExpandedState;
-	if (__livePage && fg('platform-editor-single-player-expand')) {
+	if (__livePage && expValEquals('platform_editor_single_player_expand', 'isEnabled', true)) {
 		currentExpandedState = node ? !expandedState.get(node) : undefined;
 	} else if (__livePage) {
 		currentExpandedState = node?.attrs.__expanded;

@@ -14,6 +14,7 @@ import { IconButton } from '@atlaskit/button/new';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Heading from '@atlaskit/heading';
 import { useModal } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
@@ -271,10 +272,12 @@ export const ReactionsDialogHeader = ({
 									className="reaction-elements"
 									key={reaction.emojiId}
 									data-testid={emojiId?.id}
-									// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 									onMouseEnter={() => {
 										handleMouseEnter(reaction);
 									}}
+									onFocus={fg('platform_suppression_removal_fix_reactions') ? () => {
+										handleMouseEnter(reaction);
+									} : undefined}
 								>
 									<Tab>
 										<Tooltip

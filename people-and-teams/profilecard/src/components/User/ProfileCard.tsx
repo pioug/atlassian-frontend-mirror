@@ -273,11 +273,7 @@ const Actions = ({
 						target={action.target}
 						autoFocus={index === 0 && isTriggeredUsingKeyboard && !isRenderedInPortal}
 						id={`action-button-${action.id}`}
-						aria-labelledby={
-							fg('enable_userprofilecard_arialabelfix')
-								? `action-button-${action.id} profilecard-name-label`
-								: ''
-						}
+						aria-labelledby={`action-button-${action.id} profilecard-name-label`}
 					>
 						{action.label}
 						{isKudos && (

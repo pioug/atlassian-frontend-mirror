@@ -4,6 +4,7 @@
  */
 import { Fragment, useState, useRef, memo, useLayoutEffect, useCallback } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { N30A } from '@atlaskit/theme/colors';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
@@ -263,8 +264,7 @@ export const EmojiActions = (props: EmojiActionsProps) => {
 	}
 
 	return (
-		// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-		<div data-testid={emojiActionsTestId} css={previewFooter} onMouseLeave={onMouseLeaveHandler}>
+		<div data-testid={emojiActionsTestId} css={previewFooter} onMouseLeave={onMouseLeaveHandler} onBlur={fg('platform_suppression_removal_fix_reactions') ? onMouseLeaveHandler : undefined}>
 			<div css={emojiActionsWrapper}>
 				<EmojiPickerListSearch
 					onChange={onChange}

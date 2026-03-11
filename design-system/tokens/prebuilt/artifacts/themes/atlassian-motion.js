@@ -1,0 +1,12 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::d9cba7f2a25f65f78c6ad172ff6364ce>>
+ * @codegenCommand yarn build tokens
+ */
+var _default = exports.default = "\n@keyframes ScaleIn80 {\n  0% {\n    transform: scale(0.8);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@keyframes ScaleIn85 {\n  0% {\n    transform: scale(0.85);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@keyframes ScaleIn90 {\n  0% {\n    transform: scale(0.9);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@keyframes ScaleIn95 {\n  0% {\n    transform: scale(0.95);\n  }\n  100% {\n    transform: scale(1);\n  }\n}\n@keyframes ScaleOut80 {\n  0% {\n    transform: scale(1);\n  }\n  100% {\n    transform: scale(0.8);\n  }\n}\n@keyframes ScaleOut85 {\n  0% {\n    transform: scale(1);\n  }\n  100% {\n    transform: scale(0.85);\n  }\n}\n@keyframes ScaleOut90 {\n  0% {\n    transform: scale(1);\n  }\n  100% {\n    transform: scale(0.9);\n  }\n}\n@keyframes ScaleOut95 {\n  0% {\n    transform: scale(1);\n  }\n  100% {\n    transform: scale(0.95);\n  }\n}\n@keyframes FadeIn {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes FadeOut {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0;\n  }\n}\n@keyframes RotateIn {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(5deg);\n  }\n}\n@keyframes RotateOut {\n  0% {\n    transform: rotate(5deg);\n  }\n  100% {\n    transform: rotate(0deg);\n  }\n}\nhtml[data-theme~=\"motion:motion\"], [data-subtree-theme][data-theme~=\"motion:motion\"] {\n  --ds-content-enter-long: 400ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn;\n  --ds-content-enter-medium: 200ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn;\n  --ds-content-enter-short: 100ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn;\n  --ds-content-exit-long: 200ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut;\n  --ds-content-exit-medium: 100ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut;\n  --ds-content-exit-short: 50ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut;\n  --ds-dialog-enter: 350ms cubic-bezier(0.66, 0, 0.34, 1) ScaleIn80, 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn;\n  --ds-dialog-exit: 350ms cubic-bezier(0.66, 0, 0.34, 1) ScaleOut80, 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut;\n}\n";

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "69.10.30",
+	"version": "69.10.31",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -137,6 +137,9 @@
 			"type": "boolean"
 		},
 		"platform_emoji_prevent_img_src_changing": {
+			"type": "boolean"
+		},
+		"platform_suppression_removal_fix_reactions": {
 			"type": "boolean"
 		}
 	},

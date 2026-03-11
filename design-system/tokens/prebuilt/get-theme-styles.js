@@ -23,6 +23,7 @@ function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r
  * @param {string} themeState.colorMode Determines which color theme is applied. If set to `auto`, the theme applied will be determined by the OS setting.
  * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
  * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
+ * @param {string} themeState.motion The motion theme to be applied.
  * @param {string} themeState.shape The shape theme to be applied.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
@@ -53,6 +54,7 @@ var getThemeStyles = /*#__PURE__*/function () {
               contrastMode: (preferences === null || preferences === void 0 ? void 0 : preferences.contrastMode) || _themeConfig.themeStateDefaults['contrastMode'],
               dark: (preferences === null || preferences === void 0 ? void 0 : preferences.dark) || _themeConfig.themeStateDefaults['dark'],
               light: (preferences === null || preferences === void 0 ? void 0 : preferences.light) || _themeConfig.themeStateDefaults['light'],
+              motion: (preferences === null || preferences === void 0 ? void 0 : preferences.motion) || _themeConfig.themeStateDefaults['motion'](),
               shape: (preferences === null || preferences === void 0 ? void 0 : preferences.shape) || _themeConfig.themeStateDefaults['shape'](),
               spacing: (preferences === null || preferences === void 0 ? void 0 : preferences.spacing) || _themeConfig.themeStateDefaults['spacing'],
               typography: (preferences === null || preferences === void 0 ? void 0 : preferences.typography) || _themeConfig.themeStateDefaults['typography']

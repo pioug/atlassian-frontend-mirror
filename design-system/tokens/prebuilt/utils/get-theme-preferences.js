@@ -15,7 +15,8 @@ var getThemePreferences = exports.getThemePreferences = function getThemePrefere
     light = themeState.light,
     shape = themeState.shape,
     spacing = themeState.spacing,
-    typography = themeState.typography;
+    typography = themeState.typography,
+    motion = themeState.motion;
   var autoColorModeThemes = [light, dark];
   var themePreferences = [];
   if (colorMode === 'auto') {
@@ -37,7 +38,7 @@ var getThemePreferences = exports.getThemePreferences = function getThemePrefere
       }
     }
   }
-  [shape, spacing, typography].forEach(function (themeId) {
+  [shape, spacing, typography, motion].forEach(function (themeId) {
     if (themeId) {
       themePreferences.push(themeId);
     }

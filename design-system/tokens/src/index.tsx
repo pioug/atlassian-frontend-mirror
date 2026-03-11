@@ -36,6 +36,7 @@ export type {
 	SpacingToken,
 	ShapeToken,
 	TypographyToken,
+	MotionToken,
 } from './types';
 export {
 	COLOR_MODE_ATTRIBUTE,

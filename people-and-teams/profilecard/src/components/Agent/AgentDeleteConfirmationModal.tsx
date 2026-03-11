@@ -69,10 +69,12 @@ const messages = defineMessages({
 	cancelText: {
 		id: 'profilecard.agent-profile.agent-delete-confirm.cancel-text',
 		defaultMessage: 'Cancel',
+		description: 'Cancel button text in the agent delete confirmation modal',
 	},
 	confirmText: {
 		id: 'profilecard.agent-profile.agent-delete-confirm.confirm-text',
 		defaultMessage: 'Delete',
+		description: 'Confirm delete button text in the agent delete confirmation modal',
 	},
 	title: {
 		id: 'profilecard.agent-profile.delete-agent-confirm-title',

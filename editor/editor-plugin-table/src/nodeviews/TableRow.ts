@@ -8,7 +8,6 @@ import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
@@ -98,22 +97,17 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		const pos = this.getPos();
 		this.isInNestedTable = false;
 
-		if (fg('platform_editor_ai_aifc_patch_ga')) {
-			try {
-				// We cannot trust that the value from getPos will be defined
-				// https://discuss.prosemirror.net/t/getpos-is-undefined-in-nodeview-constructor/1246/4
-				// There are also scenarios where the value it brings back does not tally with the current doc
-				// E.g. when AI streaming brings in new content, this position brings back incorrect values that cannot be resolved
-				if (pos) {
-					this.isInNestedTable =
-						getParentOfTypeCount(view.state.schema.nodes.table)(view.state.doc.resolve(pos)) > 1;
-				}
-			} catch (e) {}
-		} else {
+		try {
+			// We cannot trust that the value from getPos will be defined
+			// https://discuss.prosemirror.net/t/getpos-is-undefined-in-nodeview-constructor/1246/4
+			// There are also scenarios where the value it brings back does not tally with the current doc
+			// E.g. when AI streaming brings in new content, this position brings back incorrect values that cannot be resolved
 			if (pos) {
 				this.isInNestedTable =
 					getParentOfTypeCount(view.state.schema.nodes.table)(view.state.doc.resolve(pos)) > 1;
 			}
+		} catch {
+			// Intentionally swallowed — getPos can return stale positions during AI streaming
 		}
 
 		if (this.isHeaderRow) {

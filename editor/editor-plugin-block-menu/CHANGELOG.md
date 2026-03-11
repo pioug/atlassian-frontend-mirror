@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.1.13
+
+### Patch Changes
+
+- [`7951795610960`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7951795610960) -
+  Add a divider above the "copy link to selection" option in block menu
+- Updated dependencies
+
 ## 6.1.12
 
 ### Patch Changes

@@ -3,6 +3,7 @@ import path from 'path';
 
 import { type Config, type Core } from 'style-dictionary';
 
+import motionPalette from '../../schema/palettes/motion-palette';
 import defaultPalette from '../../schema/palettes/palette';
 import shapePalette from '../../schema/palettes/shape-palette';
 import spacingScale from '../../schema/palettes/spacing-scale';
@@ -20,6 +21,7 @@ import formatterCSSVariablesAsModule from './formatters/css-variables-as-module'
 import formatterFigma from './formatters/figma';
 import formatterRaw from './formatters/raw';
 import formatterTSTokenValueForContrastCheck from './formatters/typescript-token-value-for-contrast-check';
+import motionTransform from './transformers/animation';
 import boxShadowTransform from './transformers/box-shadow';
 import dotSyntax from './transformers/dot-syntax';
 import numberPixelTransform from './transformers/number-pixel';
@@ -35,6 +37,8 @@ const getPalette = (paletteId: Palettes) => {
 			return typographyPalette;
 		case 'shapePalette':
 			return shapePalette;
+		case 'motionPalette':
+			return motionPalette;
 		case 'defaultPalette':
 		default:
 			return defaultPalette;
@@ -102,6 +106,7 @@ const createThemeConfig = (
 			'pixel/rem': pixelRemTransform,
 			'raw/pixel': numberPixelTransform,
 			'font/web': fontTransform,
+			'motion/animation': motionTransform,
 		},
 		source: [path.join(THEME_INPUT_DIR, themeName, '**', '*.tsx')],
 		include: [
@@ -147,7 +152,13 @@ const createThemeConfig = (
 				],
 			},
 			cssAsModule: {
-				transforms: ['name/dot', 'color/palette', 'pixel/rem', 'box-shadow/figma'],
+				transforms: [
+					'name/dot',
+					'color/palette',
+					'pixel/rem',
+					'box-shadow/figma',
+					'motion/animation',
+				],
 				buildPath: path.join(ARTIFACT_OUTPUT_DIR, 'themes/'),
 				options: {
 					themeName,

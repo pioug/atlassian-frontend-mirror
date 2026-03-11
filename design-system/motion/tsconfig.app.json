@@ -32,7 +32,16 @@
 	},
 	"references": [
 		{
+			"path": "../../helpers/browser-apis/tsconfig.app.json"
+		},
+		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
 			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
 		}
 	],
 	"files": []

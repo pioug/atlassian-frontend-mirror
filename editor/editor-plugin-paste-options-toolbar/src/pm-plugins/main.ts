@@ -16,6 +16,8 @@ export function createPlugin(dispatch: Dispatch, options?: { useNewPasteMenu?: b
 		key: pasteOptionsPluginKey,
 		state: createPluginState(dispatch, {
 			showToolbar: false,
+			showLegacyOptions: false,
+			pasteAncestorNodeNames: [],
 			pasteStartPos: 0,
 			pasteEndPos: 0,
 			plaintext: '',
@@ -28,7 +30,7 @@ export function createPlugin(dispatch: Dispatch, options?: { useNewPasteMenu?: b
 
 		view(_editorView: EditorView) {
 			return {
-				update(view: EditorView, prevState: EditorState) {
+				update(_view: EditorView, prevState: EditorState) {
 					return prevState;
 				},
 			};

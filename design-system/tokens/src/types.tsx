@@ -13,7 +13,9 @@ export type Groups =
 	| 'fontWeight'
 	| 'fontFamily'
 	| 'lineHeight'
-	| 'letterSpacing';
+	| 'letterSpacing'
+	| 'motion'
+	| 'keyframe';
 
 type ActiveTokenState = 'active';
 type DeprecatedTokenState = 'deprecated';
@@ -165,6 +167,7 @@ export type SpacingToken<BaseToken> = DesignToken<BaseToken, 'spacing'>;
 export type ShapeToken<BaseToken> = DesignToken<BaseToken, 'shape'>;
 export type FontWeightToken<BaseToken> = DesignToken<BaseToken, 'fontWeight'>;
 export type FontFamilyToken<BaseToken> = DesignToken<BaseToken, 'fontFamily'>;
+export type MotionToken<BaseToken> = DesignToken<BaseToken, 'motion'>;
 
 export type DeprecatedTypographyToken<BaseToken> = DesignToken<
 	BaseToken,
@@ -199,6 +202,16 @@ export interface ShapeScaleTokenSchema<
 		width: Record<SizeScaleValues, ShapeSchemaValue>;
 	};
 	radius: Record<RadiusScaleValues, ShapeSchemaValue>;
+}
+
+export interface MotionScaleTokenSchema<
+	DurationScaleValues extends string,
+	BezierCurveScaleValues extends string,
+	KeyframeScaleValues extends string,
+> {
+	duration: Record<DurationScaleValues, BaseToken<number, 'motion'>>;
+	curve: Record<BezierCurveScaleValues, BaseToken<string, 'motion'>>;
+	keyframe: Record<KeyframeScaleValues, BaseToken<Record<string, object>, 'keyframe'>>;
 }
 
 export interface FontSizeScaleTokenSchema<ScaleValues extends string> {
@@ -1212,6 +1225,30 @@ export interface FontFamilyTokenSchema<BaseToken> {
 				body: FontFamilyToken<BaseToken>;
 			};
 			code: FontFamilyToken<BaseToken>;
+		};
+	};
+}
+
+/**
+ * The semantic interface for motion tokens
+ */
+export interface MotionTokenSchema<BaseToken> {
+	motion: {
+		dialog: {
+			enter: MotionToken<BaseToken>;
+			exit: MotionToken<BaseToken>;
+		};
+		content: {
+			enter: {
+				short: MotionToken<BaseToken>;
+				medium: MotionToken<BaseToken>;
+				long: MotionToken<BaseToken>;
+			};
+			exit: {
+				short: MotionToken<BaseToken>;
+				medium: MotionToken<BaseToken>;
+				long: MotionToken<BaseToken>;
+			};
 		};
 	};
 }

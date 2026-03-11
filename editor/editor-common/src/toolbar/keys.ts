@@ -861,6 +861,11 @@ export const PASTE_PLAIN_TEXT_MENU_ITEM = {
 	type: 'menu-item',
 } as const;
 
+export const AI_PASTE_MENU_SECTION = {
+	key: 'ai-paste-menu-section',
+	type: 'menu-section',
+} as const;
+
 export const TOOLBAR_BUTTON_TEST_ID = {
 	INSERT: 'editor-toolbar-insert-button',
 	EMOJI: 'editor-toolbar-emoji-button',

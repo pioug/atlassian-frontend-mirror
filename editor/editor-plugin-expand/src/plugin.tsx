@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { expandPlugin as legacyExpandPlugin } from './legacyExpand/plugin';
 import { expandPlugin as singlePlayerExpandPlugin } from './singlePlayerExpand/plugin';
@@ -10,7 +10,7 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 	if (options?.__livePage) {
 		return singlePlayerExpandPlugin({ config: options, api });
 	} else {
-		if (fg('platform-editor-single-player-expand')) {
+		if (expValEquals('platform_editor_single_player_expand', 'isEnabled', true)) {
 			return singlePlayerExpandPlugin({ config: options, api });
 		} else {
 			return legacyExpandPlugin({ config: options, api });

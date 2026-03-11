@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "5.3.11",
+	"version": "5.4.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,7 +46,10 @@
 		}
 	},
 	"dependencies": {
+		"@atlaskit/browser-apis": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"bind-event-listener": "root:*"
@@ -61,8 +64,8 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"raf-stub": "root:*",
 		"react-dom": "root:*"

@@ -115,6 +115,27 @@ export const tableNodeSpecWithFixedToDOM = (
 						'data-testid': 'sticky-sentinel-bottom',
 					},
 				],
+				...(expValEquals('platform_editor_vc90_transition_table_border', 'isEnabled', true)
+					? [
+							[
+								'div',
+								{
+									contenteditable: 'false',
+									class: 'pm-table-left-border',
+									'data-with-numbered-table': node.attrs.isNumberColumnEnabled,
+									'data-testid': 'table-left-border'
+								},
+							],
+							[
+								'div',
+								{
+									contenteditable: 'false',
+									class: 'pm-table-right-border',
+									'data-testid': 'table-right-border'
+								},
+							],
+						]
+					: []),
 			];
 
 			if (!config.tableResizingEnabled || config.isNested) {

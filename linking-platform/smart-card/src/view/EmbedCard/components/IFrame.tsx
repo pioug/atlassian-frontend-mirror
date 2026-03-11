@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Page } from '@atlaskit/embedded-confluence';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useConfluencePageData } from '../../../hooks/useConfluencePageData';
 
@@ -20,13 +19,10 @@ export const IFrame = ({
 	extensionKey,
 	...props
 }: React.ComponentProps<'iframe'> & IFrameProps): React.JSX.Element => {
-	const confluencePageData = fg('platform_deprecate_lp_cc_embed')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useConfluencePageData(props.src || '', extensionKey || '')
-		: undefined;
+	const confluencePageData = useConfluencePageData(props.src || '', extensionKey || '');
 
 	// Conditional rendering: Page component for lp-cc-embed URLs, iframe for everything else
-	return confluencePageData && fg('platform_deprecate_lp_cc_embed') ? (
+	return confluencePageData ? (
 		<Page
 			hostname={confluencePageData.hostname}
 			spaceKey={confluencePageData.spaceKey}

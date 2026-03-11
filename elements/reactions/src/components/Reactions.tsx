@@ -50,9 +50,9 @@ const wrapperStyle = css({
 	flexWrap: 'wrap',
 	position: 'relative',
 	alignItems: 'center',
-	marginTop: token('space.negative.050', '-4px'),
+	marginBlockStart: token('space.negative.050'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'> :first-of-type > :first-of-type': { marginLeft: 0 },
+	'> :first-of-type > :first-of-type': { marginInlineStart: 0 },
 });
 
 const noFlexWrapStyles = css({
@@ -65,7 +65,7 @@ const noContainerPositionStyles = css({
 
 const reactionPickerStyle = css({
 	display: 'inline-block',
-	marginTop: token('space.050', '4px'),
+	marginBlockStart: token('space.050'),
 });
 
 const listContainerStyles = css({
@@ -76,14 +76,16 @@ const listContainerStyles = css({
 	listStyle: 'none',
 	margin: 0,
 	padding: 0,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'> li': { margin: 0, padding: 0 },
 });
 
 const pickerListItemStyles = cssMap({
 	picker: {
 		display: 'inline-block',
-		marginTop: token('space.050', '4px'),
+		marginInline: token('space.0'),
+		marginBlockStart: token('space.050'),
+		marginBlockEnd: token('space.0'),
+		paddingInline: token('space.0'),
+		paddingBlock: token('space.0'),
 	},
 });
 
@@ -116,8 +118,7 @@ export const RENDER_VIEWALL_REACTED_USERS_DIALOG = 'viewall-reacted-users-dialog
 export const RENDER_REACTIONS_SUMMARY_TESTID = 'reaction-summary-view';
 
 export interface ReactionsProps
-	extends
-		Pick<
+	extends Pick<
 			ReactionPickerProps,
 			| 'allowAllEmojis'
 			| 'emojiProvider'

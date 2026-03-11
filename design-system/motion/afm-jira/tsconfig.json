@@ -8,7 +8,10 @@
 		"noCheck": true,
 		"isolatedDeclarations": true
 	},
-	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -22,7 +25,16 @@
 	],
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-jira/tsconfig.json"
 		}
 	]
 }

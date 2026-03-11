@@ -91,10 +91,7 @@ export default function createPlugin(
 						!!meta.placeholderText && expVal('cwr_blank_object_experiment', 'isEnabled', false);
 					// Only update defaultPlaceholderText from meta if we're not using ADF placeholder
 					// OR when the create-with-rovo experiment is active to allow intentional non-empty placeholder overrides
-					if (
-						!(fg('platform_editor_ai_aifc_patch_ga') && placeholderADF) ||
-						isCreateWithRovoOverride
-					) {
+					if (!placeholderADF || isCreateWithRovoOverride) {
 						defaultPlaceholderText = meta.placeholderText;
 					}
 				}

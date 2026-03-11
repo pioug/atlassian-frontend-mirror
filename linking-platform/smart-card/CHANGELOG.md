@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 43.26.0
+
+### Minor Changes
+
+- [`848f2503b1c81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/848f2503b1c81) -
+  Add rovoChatAction to Smart Links actionOptions
+
+### Patch Changes
+
+- [`85bb0e4e578ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85bb0e4e578ed) -
+  NAVX-3610 cleaning up navx-3264-refactoring-unauth-provider-images-fe
+- [`29ab57db0034f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29ab57db0034f) -
+  Remove platform_deprecate_lp_cc_embed checks
+
 ## 43.25.16
 
 ### Patch Changes

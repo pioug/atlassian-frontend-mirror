@@ -55,6 +55,7 @@
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:^",
@@ -131,6 +132,9 @@
 			"type": "boolean"
 		},
 		"platform_dst_nav4_flyoutmenuitem_render_to_parent": {
+			"type": "boolean"
+		},
+		"navx-4169-improve-gsn-code": {
 			"type": "boolean"
 		}
 	}

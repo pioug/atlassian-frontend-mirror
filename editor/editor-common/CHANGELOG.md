@@ -1,5 +1,40 @@
 # @atlaskit/editor-common
 
+## 111.32.1
+
+### Patch Changes
+
+- [`1a9b3a0f8a1c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a9b3a0f8a1c1) -
+  [ux] EDITOR-5892 Refactor Paste actions menu to use a single ui controls registry entry and single
+  SurfaceRenderer. Tweaked visibility rules and increased test coverage.
+
+## 111.32.0
+
+### Minor Changes
+
+- [`7e46dcf81d78a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e46dcf81d78a) -
+  Ensure aria-label for avatar
+
+### Patch Changes
+
+- [`ac4a428022f83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac4a428022f83) -
+  [EDITOR-5480] Removes data-borders-ready fix from table and adds border to prosemirror toDOM
+  instead
+- Updated dependencies
+
+## 111.31.0
+
+### Minor Changes
+
+- [`848f2503b1c81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/848f2503b1c81) -
+  Add rovoChatAction to Smart Links actionOptions
+
+### Patch Changes
+
+- [`7951795610960`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7951795610960) -
+  Add a divider above the "copy link to selection" option in block menu
+- Updated dependencies
+
 ## 111.30.3
 
 ### Patch Changes

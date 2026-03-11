@@ -1,5 +1,13 @@
 # @atlaskit/adf-utils
 
+## 19.27.7
+
+### Patch Changes
+
+- [`1fd2b267eb592`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fd2b267eb592) -
+  Cleanup `platform_editor_ai_aifc_patch_ga` flag
+- Updated dependencies
+
 ## 19.27.6
 
 ### Patch Changes

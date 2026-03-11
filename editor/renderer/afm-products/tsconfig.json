@@ -60,6 +60,9 @@
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-smart-link-draggable/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/emoji/afm-products/tsconfig.json"
 		},
 		{
@@ -106,6 +109,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags-react/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/core/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../react-ufo/atlaskit/afm-products/tsconfig.json"

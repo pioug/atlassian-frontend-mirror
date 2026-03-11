@@ -1,5 +1,12 @@
 # @atlaskit/prosemirror-history
 
+## 0.2.7
+
+### Patch Changes
+
+- [`1fd2b267eb592`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fd2b267eb592) -
+  Cleanup `platform_editor_ai_aifc_patch_ga` flag
+
 ## 0.2.6
 
 ### Patch Changes

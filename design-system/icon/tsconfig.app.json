@@ -34,7 +34,6 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__icon/app",
-		"isolatedDeclarations": true
 	},
 	"references": [
 		{

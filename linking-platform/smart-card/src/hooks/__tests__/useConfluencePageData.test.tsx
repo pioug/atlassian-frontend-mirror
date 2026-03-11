@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react';
 
 import { setGlobalTheme } from '@atlaskit/tokens';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { CONFLUENCE_EXTENSION_KEYS, useConfluencePageData } from '../useConfluencePageData';
 
@@ -15,31 +14,7 @@ describe('useConfluencePageData', () => {
 		jest.clearAllMocks();
 	});
 
-	ffTest.off('platform_deprecate_lp_cc_embed', 'feature flag is off', () => {
-		it('should return undefined when feature flag is disabled', () => {
-			const lpCcEmbedUrl =
-				'https://lp-cc-embed.prod-east.frontend.public.atl-paas.net/?hostname=hello.atlassian.net&contentId=1604155950&spaceKey=GDAY';
 
-			const { result } = renderHook(() =>
-				useConfluencePageData(lpCcEmbedUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
-			);
-
-			expect(result.current).toBeUndefined();
-		});
-
-		it('should return undefined for any URL when feature flag is disabled', () => {
-			const directConfluenceUrl =
-				'https://hello.atlassian.net/wiki/spaces/ABC123/pages/12345/Page-Title?parentProduct=confluence&userId=user123&userInfo=atlassianUser&enableInlineComments=true&enablePageComments=false&themeState=colorMode:light';
-
-			const { result } = renderHook(() =>
-				useConfluencePageData(directConfluenceUrl, CONFLUENCE_EXTENSION_KEYS.PAGE),
-			);
-
-			expect(result.current).toBeUndefined();
-		});
-	});
-
-	ffTest.on('platform_deprecate_lp_cc_embed', 'feature flag is on', () => {
 		it('should return undefined for non-lp-cc-embed URLs', () => {
 			const directConfluenceUrl =
 				'https://hello.atlassian.net/wiki/spaces/ABC123/pages/12345/Page-Title?parentProduct=confluence&userId=user123&userInfo=atlassianUser&enableInlineComments=true&enablePageComments=false&themeState=colorMode:light';
@@ -264,5 +239,4 @@ describe('useConfluencePageData', () => {
 			expect(result.current).toBeDefined();
 			expect(result.current?.contentId).toBe('1604155950');
 		});
-	});
 });

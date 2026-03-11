@@ -27,6 +27,7 @@ const defaultContrastMode: DataContrastModes = 'no-preference';
  * @param {string} themeState.colorMode Determines which color theme is applied. If set to `auto`, the theme applied will be determined by the OS setting.
  * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
  * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
+ * @param {string} themeState.motion The motion theme to be applied.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
  * @param {Object} themeState.UNSAFE_themeOptions The custom branding options to be used for custom theme generation
@@ -38,6 +39,7 @@ const getThemeHtmlAttrs = ({
 	dark = themeStateDefaults['dark'],
 	light = themeStateDefaults['light'],
 	contrastMode = themeStateDefaults['contrastMode'],
+	motion = themeStateDefaults['motion'](),
 	shape = themeStateDefaults['shape'](),
 	spacing = themeStateDefaults['spacing'],
 	typography = themeStateDefaults['typography'],
@@ -46,6 +48,7 @@ const getThemeHtmlAttrs = ({
 	const themeAttribute = themeObjectToString({
 		dark,
 		light,
+		motion,
 		shape,
 		spacing,
 		typography,

@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 11.1.0
+
+### Minor Changes
+
+- [`07b8035be9593`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07b8035be9593) -
+  Added an experimental set of motion design tokens.
+
 ## 11.0.2
 
 ### Patch Changes

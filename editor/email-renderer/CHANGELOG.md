@@ -1,5 +1,12 @@
 # @atlaskit/email-renderer
 
+## 9.11.7
+
+### Patch Changes
+
+- [`70c7cd51a2800`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70c7cd51a2800) -
+  The iframe for the demo must have a title
+
 ## 9.11.6
 
 ### Patch Changes

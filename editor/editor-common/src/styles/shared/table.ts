@@ -160,12 +160,7 @@ const tableSharedStyle = () => {
 			border: ${token('border.width', '1px')} solid ${token('color.border', '#d9dbea')};
 		}`
 			: ''}
-		/* display right border to avoid visual layout shift when table-right-border is not ready since it's waiting for table to render */
-		${expValEquals('platform_editor_vc90_transition_table_border', 'isEnabled', true)
-			? `.${TableSharedCssClassName.TABLE_CONTAINER}:not([data-borders-ready='true']) table {
-				border-right-color: ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
-			}`
-			: ''}
+			
 		/* avoid applying styles to nested tables (possible via extensions) */
 	.${TableSharedCssClassName.TABLE_CONTAINER} > table,
 	.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,

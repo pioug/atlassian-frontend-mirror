@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.11.0
+
+### Minor Changes
+
+- [`b5390019c2609`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5390019c2609) -
+  Optimizations for node visibility for remix button checks
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.10.3
 
 ### Patch Changes

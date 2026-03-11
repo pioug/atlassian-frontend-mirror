@@ -10,7 +10,6 @@ test.use({
 	adf: tableWith30rows5ColsWithNestedTable,
 	platformFeatureFlags: {
 		platform_editor_querySelector_fix_table_renderer: true,
-		platform_editor_dec_a11y_fixes: true,
 	},
 	rendererProps: {
 		appearance: 'full-page',

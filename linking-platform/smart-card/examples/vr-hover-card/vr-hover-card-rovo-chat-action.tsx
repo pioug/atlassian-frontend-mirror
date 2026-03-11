@@ -53,6 +53,7 @@ export default (): React.JSX.Element => (
 				rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
 			>
 				<CardSSR
+					actionOptions={{ hide: false, rovoChatAction: { optIn: true } }}
 					appearance="inline"
 					hideIconLoadingSkeleton={true}
 					showHoverPreview={true}

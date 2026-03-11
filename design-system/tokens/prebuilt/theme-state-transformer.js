@@ -8,7 +8,7 @@ exports.themeStringToObject = exports.themeObjectToString = void 0;
 var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 var _themeConfig = require("./theme-config");
-var themeKinds = ['light', 'dark', 'spacing', 'typography', 'shape'];
+var themeKinds = ['light', 'dark', 'spacing', 'typography', 'shape', 'motion'];
 var customThemeOptions = 'UNSAFE_themeOptions';
 var isThemeKind = function isThemeKind(themeKind) {
   return themeKinds.find(function (kind) {

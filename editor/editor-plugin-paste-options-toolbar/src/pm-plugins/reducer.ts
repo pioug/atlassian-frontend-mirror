@@ -8,6 +8,8 @@ export const reducer = (state: State, action: Action): State => {
 			return {
 				...state,
 				showToolbar: true,
+				showLegacyOptions: action.data.showLegacyOptions,
+				pasteAncestorNodeNames: action.data.pasteAncestorNodeNames,
 				highlightContent: false,
 				isPlainText: action.data.isPlainText,
 				plaintext: action.data.plaintext,

@@ -1,4 +1,5 @@
 import {
+	AI_PASTE_MENU_SECTION,
 	AI_SECTION,
 	APPS_SECTION,
 	COLLAB_SECTION,
@@ -543,7 +544,8 @@ export const LOOM_MENU_SECTION_RANK = {
 /**
  * Paste options section
  */
-export const PASTE_MENU_RANK = {
+export const PASTE_MENU_RANK: Record<string, number> = {
+	[AI_PASTE_MENU_SECTION.key]: 50,
 	[PASTE_MENU_SECTION.key]: 100,
 };
 

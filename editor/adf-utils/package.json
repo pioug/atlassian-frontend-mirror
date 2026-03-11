@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-utils",
-	"version": "19.27.6",
+	"version": "19.27.7",
 	"description": "Set of utilities to traverse, modify and create ADF documents.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -62,9 +62,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_adf-utils_fix-dummy-text-index-oob": {
-			"type": "boolean"
-		},
-		"platform_editor_ai_aifc_patch_ga": {
 			"type": "boolean"
 		}
 	}

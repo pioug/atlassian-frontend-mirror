@@ -8,7 +8,6 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -16,7 +15,7 @@ import { useAnalyticsEvents } from '../../../common/analytics/generated/use-anal
 import { ElementName, SmartLinkDirection, SmartLinkSize, SmartLinkWidth } from '../../../constants';
 import { messages } from '../../../messages';
 import { useFlexibleCardContext } from '../../../state/flexible-ui-context';
-import { getExtensionKey, hasAuthScopeOverrides } from '../../../state/helpers';
+import { hasAuthScopeOverrides } from '../../../state/helpers';
 import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../../utils/experiments';
 import UnauthorisedViewContent from '../../common/UnauthorisedViewContent';
 import FlexibleCard from '../../FlexibleCard';
@@ -28,11 +27,7 @@ import { renderElementItems } from '../../FlexibleCard/components/blocks/utils';
 import { LinkIcon, Title } from '../../FlexibleCard/components/elements';
 import { AuthorizeAction } from '../actions/AuthorizeAction';
 
-import unauthIllustrationFigma from './assets/figma@2x.png';
 import unauthIllustrationGeneral from './assets/general@2x.png';
-import unauthIllustrationGdrive from './assets/google-drive@2x.png';
-import unauthIllustrationOnedrive from './assets/onedrive@2x.png';
-import unauthIllustrationSlack from './assets/slack@2x.png';
 import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import type { UnresolvedViewProps } from './unresolved-view/types';
@@ -177,7 +172,6 @@ const NewUnauthorisedBlock = ({
 	url,
 	CompetitorPrompt,
 	testId,
-	cardState,
 }: Pick<
 	UnresolvedViewProps,
 	'actions' | 'children' | 'url' | 'CompetitorPrompt' | 'testId' | 'cardState'
@@ -206,33 +200,7 @@ const NewUnauthorisedBlock = ({
 
 	const { position } = titleBlockOptions;
 
-	const extensionKey = getExtensionKey(cardState?.details) ?? '';
-
-	let overrideUrl = data?.preview?.url;
-	let isHardcodedImage = !overrideUrl;
-	if (isHardcodedImage) {
-		if (fg('navx-3264-refactoring-unauth-provider-images-fe')) {
-			overrideUrl = unauthIllustrationGeneral;
-		} else {
-			switch (extensionKey) {
-				case 'figma-object-provider':
-					overrideUrl = unauthIllustrationFigma;
-					break;
-				case 'google-object-provider':
-					overrideUrl = unauthIllustrationGdrive;
-					break;
-				case 'onedrive-object-provider':
-					overrideUrl = unauthIllustrationOnedrive;
-					break;
-				case 'slack-object-provider':
-					overrideUrl = unauthIllustrationSlack;
-					break;
-				default:
-					overrideUrl = unauthIllustrationGeneral;
-					break;
-			}
-		}
-	}
+	let overrideUrl = data?.preview?.url ?? unauthIllustrationGeneral;
 
 	return (
 		<Block {...titleBlockOptions} testId={`${testId}-errored-view`} css={containerStyles}>
@@ -277,9 +245,7 @@ const NewUnauthorisedBlock = ({
 				<div
 					css={[
 						previewBlockStyle,
-						isHardcodedImage || fg('navx-3264-refactoring-unauth-provider-images-fe')
-							? previewBlockStyleWithOverlap
-							: undefined,
+						previewBlockStyleWithOverlap
 					]}
 				>
 					<div css={previewBlockImageStyle} style={{ backgroundImage: `url(${overrideUrl})` }} />

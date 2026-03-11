@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 127.4.0
+
+### Minor Changes
+
+- [`9f0d822dc201f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f0d822dc201f) -
+  [ux] Wraps block, embed, and inline card nodeviews in the renderer with SmartLinkDraggable. Enable
+  dragging smart links from the editor to the content tree.
+
+## 127.3.0
+
+### Minor Changes
+
+- [`848f2503b1c81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/848f2503b1c81) -
+  Add rovoChatAction to Smart Links actionOptions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 127.2.1
 
 ### Patch Changes

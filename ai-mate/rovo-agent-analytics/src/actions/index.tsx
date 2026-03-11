@@ -7,24 +7,8 @@ import {
 } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../common/constants';
-import type { RemainingRequired } from '../common/types';
+import { LIBRARY_ATTRIBUTE, type EventPayload } from '../common/types';
 import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
-
-import { AgentInteractionActions } from './groups/agent-interactions';
-import { AgentDebugActions as AgentDebugActionsEnum } from './groups/debug';
-import { AgentEditingActions } from './groups/editing';
-import type { ActionAttributes } from './registry';
-import { ACTION_TO_GROUP } from './registry';
-
-// Backward-compatible aliases
-// TODO: migrate consumers to use group-specific imports, then remove
-export const AgentCommonActions = {
-	...AgentInteractionActions,
-	...AgentEditingActions,
-} as const;
-
-// TODO: Remove the alias, will be breaking change, this is just for backward compatibility
-export const AgentDebugActions = AgentDebugActionsEnum;
 
 const globalEventConfig = getDefaultTrackEventConfig();
 
@@ -38,6 +22,7 @@ export const useRovoAgentActionAnalytics = <T extends {}>(commonAttributes: T) =
 			const attributes = {
 				...getAttributesFromContexts(analyticsContext.getAtlaskitAnalyticsContext()),
 				...commonAttributesRef.current,
+				library: LIBRARY_ATTRIBUTE,
 				...event.attributes,
 			};
 
@@ -50,46 +35,25 @@ export const useRovoAgentActionAnalytics = <T extends {}>(commonAttributes: T) =
 		[createAnalyticsEvent, analyticsContext], // keep number of dependencies minimal to prevent re-rendering
 	);
 
-	const trackAgentAction = useCallback(
-		<A extends keyof ActionAttributes>(
-			action: A,
-			attributes: RemainingRequired<ActionAttributes[A], T>,
-		): void => {
-			fireAnalyticsEvent({
-				actionSubject: 'rovoAgent',
-				action,
-				attributes: {
-					...attributes,
-					actionGroup: ACTION_TO_GROUP[action as string],
-				},
-			});
-		},
-		[fireAnalyticsEvent],
-	);
+	/**
+	 * Fully-typed event tracking using discriminated union payload types.
+	 * The payload type enforces correct action, actionSubject, and attributes.
+	 */
+	const trackAgentEvent = useCallback(
+		(payload: EventPayload): void => {
+			const { action, actionSubject, attributes, ...eventProps } = payload;
 
-	const trackAgentActionError = useCallback(
-		<A extends keyof ActionAttributes>(
-			action: A,
-			error: Error,
-			attributes?: RemainingRequired<ActionAttributes[A], T>,
-		): void => {
 			fireAnalyticsEvent({
-				actionSubject: 'rovoAgentError',
+				actionSubject,
 				action,
-				attributes: {
-					...attributes,
-					actionGroup: ACTION_TO_GROUP[action as string],
-					error: {
-						message: error.message,
-					},
-				},
+				...eventProps,
+				attributes,
 			});
 		},
 		[fireAnalyticsEvent],
 	);
 
 	return {
-		trackAgentAction,
-		trackAgentActionError,
+		trackAgentEvent,
 	};
 };

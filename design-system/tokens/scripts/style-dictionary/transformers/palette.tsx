@@ -2,6 +2,7 @@ import type { Transform } from 'style-dictionary';
 
 import type {
 	DeprecatedTypographyToken,
+	MotionToken,
 	OpacityToken,
 	PaintToken,
 	RawToken,
@@ -30,6 +31,7 @@ const transform = (palette: Record<string, any>): Transform => {
 				| ShapeToken<any>
 				| TypographyToken<any>
 				| DeprecatedTypographyToken<any>
+				| MotionToken<any>
 				| OpacityToken
 				| RawToken;
 
@@ -136,6 +138,16 @@ const transform = (palette: Record<string, any>): Transform => {
 			if (originalToken.attributes.group === 'letterSpacing') {
 				const value = originalToken.value;
 				return palette.typography.letterSpacing[value].value;
+			}
+
+			if (originalToken.attributes.group === 'motion') {
+				const value = originalToken.value;
+				return {
+					duration: palette.motion.duration?.[value.duration]?.value,
+					curve: palette.motion.curve?.[value.curve]?.value,
+					keyframes: value.keyframes,
+					delay: palette.motion.duration?.[value.delay]?.value,
+				};
 			}
 		},
 	};

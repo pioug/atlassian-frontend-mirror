@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 5.0.7
+
+### Patch Changes
+
+- [`1fd2b267eb592`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fd2b267eb592) -
+  Cleanup `platform_editor_ai_aifc_patch_ga` flag
+- Updated dependencies
+
+## 5.0.6
+
+### Patch Changes
+
+- [`2e27b70a136ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e27b70a136ed) -
+  EDITOR-5632: Further refactors to block / row handling - mainly renaming + param change to object
+  param to make it more extensible for future work.
+- Updated dependencies
+
 ## 5.0.5
 
 ### Patch Changes

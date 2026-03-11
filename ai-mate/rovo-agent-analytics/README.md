@@ -1,166 +1,175 @@
 # RovoAgentAnalytics
 
-Rovo Agents analytics
+Rovo Agents analytics library for composing and sending typed analytics events.
 
 ## Usage
 
-`import RovoAgentAnalytics from '@atlaskit/rovo-agent-analytics';`
+```typescript
+import { useRovoAgentActionAnalytics } from '@atlaskit/rovo-agent-analytics/actions';
+
+const { trackAgentEvent } = useRovoAgentActionAnalytics({});
+
+// Full control over event properties — all fields are type-checked
+trackAgentEvent({
+  action: 'view',
+  actionSubject: 'rovoAgent',
+  attributes: { 
+    agentId: 'agent-123',
+    touchPoint: 'browse-agent-list',
+  },
+});
+```
 
 Detailed docs and example usage can be found
 [here](https://atlaskit.atlassian.com/packages/ai-mate/rovo-agent-analytics).
 
 ## Examples
 
-### Basic usage with common attributes
+### Basic Event Tracking
+
+For fully-typed events with explicit `action`, `actionSubject`, and `attributes`:
 
 ```typescript
-import { useRovoAgentActionAnalytics, AgentCommonActions } from '@atlaskit/rovo-agent-analytics';
+import { useRovoAgentActionAnalytics } from '@atlaskit/rovo-agent-analytics/actions';
 
-const { trackAgentAction } = useRovoAgentActionAnalytics({
-	agentId,
-	touchPoint: 'browse-agent-list',
+const { trackAgentEvent } = useRovoAgentActionAnalytics({
+  agentId,
+  touchPoint: 'browse-agent-list',
 });
 
-// No additional attributes needed - agentId and touchPoint already provided
-trackAgentAction(AgentCommonActions.DUPLICATE, {});
+// Track a user interaction
+trackAgentEvent({
+  action: 'duplicate',
+  actionSubject: 'rovoAgent',
+  attributes: {},
+});
 ```
 
-### Usage with debug actions (no attributes required)
+### Event Tracking with Custom Attributes
 
 ```typescript
-import { useRovoAgentActionAnalytics, AgentDebugActions } from '@atlaskit/rovo-agent-analytics';
+import { useRovoAgentActionAnalytics } from '@atlaskit/rovo-agent-analytics/actions';
 
-const { trackAgentAction } = useRovoAgentActionAnalytics({});
+const { trackAgentEvent } = useRovoAgentActionAnalytics({});
 
-// Debug actions don't require any attributes
-trackAgentAction(AgentDebugActions.VIEW, {});
-trackAgentAction(AgentDebugActions.COPY, {});
+// Full control over event properties — all fields are type-checked
+trackAgentEvent({
+  action: 'created',
+  actionSubject: 'batchEvaluationDataset',
+  attributes: { 
+    totalQuestions: 5 
+  },
+  objectType: 'batchEvaluationDataset',
+  objectId: 'dataset-123',
+});
 ```
 
-## Action Groups
+## Payload Types
 
-Actions are organized into **groups** — self-contained files that define their actions, attribute
-types, and a group name that gets automatically sent as `attributes.actionGroup` in every fired event.
+Each group file in `src/actions/groups/` exports a **discriminated union payload type** that defines all valid event shapes for that group.
 
-All groups live in **one place**: `src/actions/groups/`.
+| File | Payload Type | Description |
+| --- | --- | --- |
+| `agent-interactions.ts` | `AgentInteractionsEventPayload` | User-initiated interactions (view, edit, delete, duplicate, star, chat, verify…) |
+| `editing.ts` | `EditingEventPayload` | Agent save/mutation events (updated) |
+| `debug.ts` | `DebugEventPayload` | Debug modal actions (view, copy, toggle skill info) |
+| `tools.ts` | `ToolsEventPayload` | Tool execution actions (confirm, stream stop, result viewed, error) |
+| `evaluation.ts` | `EvaluationEventPayload` | Batch evaluation events (dataset CRUD, job lifecycle, results viewed) |
+| `create-flow.ts` | `CreateFlowEventPayload` | Create agent funnel steps |
+| `add-tools-prompt.ts` | `AddToolsPromptEventPayload` | Add tools prompt modal events |
 
-| Group | File | Hook | Description |
-| --- | --- | --- | --- |
-| `agentInteractions` | `agent-interactions.ts` | actions | User-initiated interactions from overflow menu / profile (view, edit, delete, duplicate, star, chat, verify…) |
-| `editing` | `editing.ts` | actions | Agent save/mutation events (updated) |
-| `debug` | `debug.ts` | actions | Debug modal actions (view, copy, toggle skill info) |
-| `tools` | `tools.ts` | actions | Tool execution actions (confirm, stream stop, result viewed, error) |
-| `createFlow` | `create-flow.ts` | create | Create agent funnel steps (start, skip NL, review, activate, restart, error, land, discard) |
-| `addToolsPrompt` | `add-tools-prompt.ts` | create | Add tools prompt modal shown when activating an agent with no tools (shown, browse, dismiss) |
-
-The `actionGroup` value is visible in Databricks via `attributes.actionGroup`.
+The combined `EventPayload` type (exported from `types.ts`) is a union of all these payload types.
 
 ## Adding a New Action
 
-### To an existing group
+### To an existing payload type
 
-1. Open the group file (e.g. `src/actions/groups/agent-interactions.ts` or `src/actions/groups/create-flow.ts`)
-2. Add the action to the enum with a data-portal registry link:
-
-```typescript
-export enum AgentInteractionActions {
-	// ... existing actions
-	/* My new action - https://data-portal.internal.atlassian.com/analytics/registry/XXXXX */
-	MY_NEW_ACTION = 'myNewAction',
-}
-```
-
-3. Add the attribute type in the same file:
+1. Open the group file (e.g. `src/actions/groups/agent-interactions.ts`)
+2. Add a new variant to the payload union type with a data-portal registry link:
 
 ```typescript
-export type AgentInteractionAttributes = {
-	// ... existing actions
-	[AgentInteractionActions.MY_NEW_ACTION]: BaseAgentAnalyticsAttributes;
-};
+export type AgentInteractionsEventPayload =
+  | {
+      // https://data-portal.internal.atlassian.com/analytics/registry/XXXXX
+      actionSubject: 'rovoAgent';
+      action: 'myNewAction';
+      attributes: BaseAgentAnalyticsAttributes & {
+        myCustomField: string;
+      };
+    }
+  | // ... existing variants
 ```
 
-That's it — the action is automatically registered and will fire with `actionGroup: 'agentInteractions'`.
+That's it — TypeScript will enforce the correct shape when calling `trackAgentEvent()`.
 
 ### To a new group
 
 If your action doesn't fit any existing group, create a new one:
 
-1. Create a new file in `src/actions/groups/`. Use any existing group file as a template — each one
-   has a header comment explaining the structure.
-
-2. Register the group in `src/actions/registry.ts`:
+1. Create a new file in `src/actions/groups/` following the existing template
+2. Export a discriminated union payload type (e.g. `MyFeatureEventPayload`)
+3. Add the new type to the `EventPayload` union in `src/common/types.ts`:
 
 ```typescript
-// 1. Import the group
-import {
-	MyFeatureActions,
-	type MyFeatureActionAttributes,
-	ACTION_GROUP as MY_FEATURE_GROUP,
-} from './groups/my-feature';
+import type { MyFeatureEventPayload } from '../actions/groups/my-feature';
 
-// 2. Add to the combined type
-export type ActionAttributes = AgentInteractionAttributes &
-	EditingActionAttributes &
-	DebugActionAttributes &
-	ToolsActionAttributes &
-	MyFeatureActionAttributes;
-
-// 3. Add to the runtime group map
-export const ACTION_TO_GROUP: Record<string, string> = {
-	...mapActionsToGroup(AgentInteractionActions, AGENT_INTERACTIONS_GROUP),
-	...mapActionsToGroup(AgentEditingActions, EDITING_GROUP),
-	...mapActionsToGroup(AgentDebugActions, DEBUG_GROUP),
-	...mapActionsToGroup(AgentToolActions, TOOLS_GROUP),
-	...mapActionsToGroup(MyFeatureActions, MY_FEATURE_GROUP),
-};
+export type EventPayload =
+  | EditingEventPayload
+  | AgentInteractionsEventPayload
+  // ... existing types
+  | MyFeatureEventPayload;
 ```
 
-## Defining Custom Attributes Per Action
+## Defining Custom Attributes
 
-Each action can have its own specific attributes. The `trackAgentAction` function is generic and
-will enforce the correct attributes based on the action you pass.
+Each action variant in a payload type can have its own specific attributes:
 
 ### Using BaseAgentAnalyticsAttributes
 
-For actions that only need `touchPoint` and `agentId`:
+For actions that need `touchPoint` and `agentId`:
 
 ```typescript
-export type AgentInteractionAttributes = {
-	[AgentInteractionActions.VIEW]: BaseAgentAnalyticsAttributes;
-};
+{
+  actionSubject: 'rovoAgent';
+  action: 'view';
+  attributes: BaseAgentAnalyticsAttributes;
+}
 ```
 
 ### Using Custom Attributes
 
-For actions that need additional attributes beyond the base ones:
+For actions that need additional attributes:
 
 ```typescript
-export type EditingActionAttributes = {
-	[AgentEditingActions.UPDATED]: BaseAgentAnalyticsAttributes & { agentType: string; field: string };
-};
+{
+  actionSubject: 'rovoAgent';
+  action: 'updated';
+  attributes: BaseAgentAnalyticsAttributes & { 
+    agentType: string; 
+    field: string; 
+  };
+}
 ```
 
-When calling `trackAgentAction`, TypeScript will enforce the custom attributes:
+## Entry Points
+
+| Entry Point | Description |
+| --- | --- |
+| `@atlaskit/rovo-agent-analytics/actions` | Main entry point — exports `useRovoAgentActionAnalytics` hook |
+| `@atlaskit/rovo-agent-analytics/create` | Create agent flow analytics — exports `useRovoAgentCreateAnalytics` hook and `AgentCreateAction` type |
+
+### Create Flow Analytics
+
+The `useRovoAgentCreateAnalytics` hook is used for tracking the agent creation funnel:
 
 ```typescript
-trackAgentAction(AgentEditingActions.UPDATED, { agentType: 'custom', field: 'name' });
-```
+import { useRovoAgentCreateAnalytics } from '@atlaskit/rovo-agent-analytics/create';
 
-### How Type Inference Works
+const [csid, { trackCreateSession, trackCreateSessionStart }] = useRovoAgentCreateAnalytics({
+  touchPoint: 'agent-studio',
+});
 
-The `trackAgentAction` function uses generics to infer required attributes:
-
-1. When you call `trackAgentAction(action, attributes)`, TypeScript infers the action type
-2. It looks up `ActionAttributes[action]` to get the required attributes for that action
-3. It subtracts any attributes already provided in `commonAttributes` (via `RemainingRequired`)
-4. The remaining attributes must be provided in the `attributes` parameter
-
-Example:
-
-```typescript
-// If commonAttributes already includes agentId
-const { trackAgentAction } = useRovoAgentActionAnalytics({ agentId: '123' });
-
-// Only touchPoint is required since agentId was already provided
-trackAgentAction(AgentCommonActions.VIEW, { touchPoint: 'my-touchpoint' });
+// Track funnel steps using string literal actions
+trackCreateSession('createFlowStart');
+trackCreateSession('createFlowActivate', { agentType: 'custom' });
 ```

@@ -34,6 +34,11 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { CardErrorBoundary } from './fallback';
+import {
+	SmartLinkDraggable,
+	SMART_LINK_DRAG_TYPES,
+	SMART_LINK_APPERANCE,
+} from '@atlaskit/editor-smart-link-draggable';
 import { RendererCssClassName } from '../../consts';
 
 import type { RendererAppearance } from '../../ui/Renderer/types';
@@ -262,68 +267,74 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 
 					return (
 						// Ignored via go/ees005
-						<CardErrorBoundary
-							unsupportedComponent={UnsupportedBlock}
-							onSetLinkTarget={onSetLinkTarget}
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							{...cardProps}
+						<SmartLinkDraggable
+							url={url || ''}
+							appearance={SMART_LINK_APPERANCE.EMBED}
+							source={SMART_LINK_DRAG_TYPES.RENDERER}
 						>
-							<EmbedResizeMessageListener
-								embedIframeRef={embedIframeRef}
-								onHeightUpdate={setLiveHeight}
+							<CardErrorBoundary
+								unsupportedComponent={UnsupportedBlock}
+								onSetLinkTarget={onSetLinkTarget}
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...cardProps}
 							>
-								{(() => {
-									const useCenterWrapper =
-										(layout === 'full-width' || layout === 'wide') &&
-										expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
-									const mediaSingle = (
-										<UIMediaSingle
-											css={uiMediaSingleStyles}
-											layout={layout}
-											width={originalWidth}
-											containerWidth={containerWidth}
-											pctWidth={width}
-											height={originalHeight}
-											fullWidthMode={isFullWidth}
-											nodeType="embedCard"
-											lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
-											hasFallbackContainer={hasPreview}
-											isInsideOfInlineExtension={isInsideOfInlineExtension}
-										>
-											<div css={embedCardWrapperStyles}>
-												<div
-													// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-													className="embedCardView-content-wrap"
-													data-embed-card
-													data-layout={layout}
-													data-width={width}
-													data-card-data={data ? JSON.stringify(data) : undefined}
-													data-card-url={url}
-													data-card-original-height={originalHeight}
-												>
-													{cardComponent}
+								<EmbedResizeMessageListener
+									embedIframeRef={embedIframeRef}
+									onHeightUpdate={setLiveHeight}
+								>
+									{(() => {
+										const useCenterWrapper =
+											(layout === 'full-width' || layout === 'wide') &&
+											expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
+										const mediaSingle = (
+											<UIMediaSingle
+												css={uiMediaSingleStyles}
+												layout={layout}
+												width={originalWidth}
+												containerWidth={containerWidth}
+												pctWidth={width}
+												height={originalHeight}
+												fullWidthMode={isFullWidth}
+												nodeType="embedCard"
+												lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
+												hasFallbackContainer={hasPreview}
+												isInsideOfInlineExtension={isInsideOfInlineExtension}
+											>
+												<div css={embedCardWrapperStyles}>
+													<div
+														// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+														className="embedCardView-content-wrap"
+														data-embed-card
+														data-layout={layout}
+														data-width={width}
+														data-card-data={data ? JSON.stringify(data) : undefined}
+														data-card-url={url}
+														data-card-original-height={originalHeight}
+													>
+														{cardComponent}
+													</div>
 												</div>
+											</UIMediaSingle>
+										);
+										return useCenterWrapper ? (
+											<div
+												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+												className={
+													RendererCssClassName.EMBED_CARD_CENTER_WRAPPER +
+													' ' +
+													RendererCssClassName.FLEX_CENTER_WRAPPER
+												}
+												css={embedCardCenterWrapperStyles}
+											>
+												{mediaSingle}
 											</div>
-										</UIMediaSingle>
-									);
-									return useCenterWrapper ? (
-										<div
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-											className={
-												RendererCssClassName.EMBED_CARD_CENTER_WRAPPER +
-												' ' +
-												RendererCssClassName.FLEX_CENTER_WRAPPER
-											}
-											css={embedCardCenterWrapperStyles}
-										>
-											{mediaSingle}
-										</div>
-									) : (
-										mediaSingle
-									);
-								})()}
-							</EmbedResizeMessageListener>
-						</CardErrorBoundary>
+										) : (
+											mediaSingle
+										);
+									})()}
+								</EmbedResizeMessageListener>
+							</CardErrorBoundary>
+						</SmartLinkDraggable>
 					);
 				}}
 			</WidthConsumer>

@@ -28,7 +28,6 @@ test.describe('table height information analytics', () => {
 		},
 		platformFeatureFlags: {
 			platform_editor_table_height_analytics_event: true,
-			platform_editor_dec_a11y_fixes: true,
 		},
 		editorExperiments: {
 			platform_editor_a11y_table_wrapper_fix: true,

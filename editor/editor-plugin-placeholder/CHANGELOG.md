@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 7.4.3
+
+### Patch Changes
+
+- [`1fd2b267eb592`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fd2b267eb592) -
+  Cleanup `platform_editor_ai_aifc_patch_ga` flag
+- Updated dependencies
+
 ## 7.4.2
 
 ### Patch Changes

@@ -1,9 +1,17 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::71ab6af4453c6807be4d4249ca7614bc>>
+ * @codegen <<SignedSource::f76d5451a0ccdab4ce74bc3e952aec8c>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
+	'motion.content.enter.long': '--ds-content-enter-long',
+	'motion.content.enter.medium': '--ds-content-enter-medium',
+	'motion.content.enter.short': '--ds-content-enter-short',
+	'motion.content.exit.long': '--ds-content-exit-long',
+	'motion.content.exit.medium': '--ds-content-exit-medium',
+	'motion.content.exit.short': '--ds-content-exit-short',
+	'motion.dialog.enter': '--ds-dialog-enter',
+	'motion.dialog.exit': '--ds-dialog-exit',
 	'color.text': '--ds-text',
 	'color.text.accent.lime': '--ds-text-accent-lime',
 	'color.text.accent.lime.bolder': '--ds-text-accent-lime-bolder',
@@ -485,6 +493,14 @@ const tokens = {
 } as const;
 
 export type CSSTokenMap = {
+	'motion.content.enter.long': 'var(--ds-content-enter-long)';
+	'motion.content.enter.medium': 'var(--ds-content-enter-medium)';
+	'motion.content.enter.short': 'var(--ds-content-enter-short)';
+	'motion.content.exit.long': 'var(--ds-content-exit-long)';
+	'motion.content.exit.medium': 'var(--ds-content-exit-medium)';
+	'motion.content.exit.short': 'var(--ds-content-exit-short)';
+	'motion.dialog.enter': 'var(--ds-dialog-enter)';
+	'motion.dialog.exit': 'var(--ds-dialog-exit)';
 	'color.text': 'var(--ds-text)';
 	'color.text.accent.lime': 'var(--ds-text-accent-lime)';
 	'color.text.accent.lime.bolder': 'var(--ds-text-accent-lime-bolder)';

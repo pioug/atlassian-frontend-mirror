@@ -2,6 +2,7 @@ import type { Format } from 'style-dictionary';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
+import motionPalette from '../../../schema/palettes/motion-palette';
 import {
 	COLOR_MODE_ATTRIBUTE,
 	CONTRAST_MODE_ATTRIBUTE,
@@ -90,6 +91,26 @@ export const cssVariableFormatter: Format['formatter'] = ({ dictionary, options 
 		outputLine(`${selectors.join(',\n')} {`);
 		indent += 2;
 		outputLine(`color-scheme: ${theme.attributes.mode};`);
+	} else if (theme.attributes.type === 'motion') {
+		Object.entries(motionPalette.motion.keyframe).forEach(([tokenName, tokenValue]) => {
+			outputLine(`@keyframes ${tokenName} {`);
+			indent += 2;
+			Object.entries(tokenValue.value).forEach(([keyframeName, keyframeValue]) => {
+				outputLine(`${keyframeName} {`);
+				indent += 2;
+				Object.entries(keyframeValue).forEach(([property, value]) => {
+					outputLine(`${property}: ${value};`);
+				});
+				indent -= 2;
+				outputLine('}');
+			});
+			indent -= 2;
+			outputLine('}');
+		});
+		outputLine(
+			`html[${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${themeId}"], [${SUBTREE_THEME_ATTRIBUTE}][${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${themeId}"] {`,
+		);
+		indent += 2;
 	} else {
 		outputLine(
 			`html[${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${themeId}"], [${SUBTREE_THEME_ATTRIBUTE}][${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${themeId}"] {`,

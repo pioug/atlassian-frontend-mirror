@@ -87,6 +87,7 @@ describe('tokens', () => {
 					result.name !== 'atlassian-spacing' &&
 					result.name !== 'atlassian-typography' &&
 					result.name !== 'atlassian-shape' &&
+					result.name !== 'atlassian-motion' &&
 					result.name !== 'default' &&
 					!extensionThemes.includes(result.name) &&
 					!themeOverrides.includes(result.name),

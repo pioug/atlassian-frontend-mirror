@@ -103,11 +103,11 @@ export const AgentAvatar = ({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				...(fg('rovo_chat_bugfix_agent_avatar_squish')
 					? {
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							minHeight: AVATAR_SIZES[size],
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							minWidth: AVATAR_SIZES[size],
-						}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						minHeight: AVATAR_SIZES[size],
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						minWidth: AVATAR_SIZES[size],
+					}
 					: {}),
 			}}
 		>
@@ -134,15 +134,3 @@ export const AgentAvatar = ({
 		</Box>
 	);
 };
-
-export type AgentCreatorType =
-	| 'SYSTEM'
-	| 'CUSTOMER'
-	| 'THIRD_PARTY'
-	| 'FORGE'
-	| 'OOTB'
-	| 'REMOTE_A2A';
-
-// BE will deprecate THIRD_PARTY and use FORGE instead
-export const isForgeAgentByCreatorType = (creatorType: AgentCreatorType): boolean =>
-	creatorType === 'THIRD_PARTY' || creatorType === 'FORGE' || creatorType === 'REMOTE_A2A';

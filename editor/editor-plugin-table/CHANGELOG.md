@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-table
 
+## 17.7.2
+
+### Patch Changes
+
+- [`1fd2b267eb592`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fd2b267eb592) -
+  Cleanup `platform_editor_ai_aifc_patch_ga` flag
+- [`ac4a428022f83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac4a428022f83) -
+  [EDITOR-5480] Removes data-borders-ready fix from table and adds border to prosemirror toDOM
+  instead
+- Updated dependencies
+
 ## 17.7.1
 
 ### Patch Changes

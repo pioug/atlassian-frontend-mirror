@@ -683,15 +683,18 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 			 */}
 
 			{/**
-			 * Wrapping `LazyDragHandle` in it's own `Suspense` boundary, so that it's loading won't block
-			 * the rendering of the rest of the menu item.
-			 * We put the `Suspense` in the conditional branch to avoid putting a `Suspense` in the react
-			 * tree for consumers who don't need it
+			 * `LazyDragHandle` internally defers rendering until after mount to avoid
+			 * hydration mismatches. It also wraps the lazy component in its own `Suspense`
+			 * boundary, so its loading won't block the rendering of the rest of the menu item.
 			 */}
 			{hasDragIndicator ? (
-				<Suspense fallback={null}>
+				fg('navx-4169-improve-gsn-code') ? (
 					<LazyDragHandle />
-				</Suspense>
+				) : (
+					<Suspense fallback={null}>
+						<LazyDragHandle />
+					</Suspense>
+				)
 			) : null}
 
 			{dropIndicator}

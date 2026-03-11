@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { setGlobalTheme, type ThemeColorModes, themeStringToObject } from '@atlaskit/tokens';
 
 export enum userType {
@@ -30,9 +29,6 @@ export enum CONFLUENCE_EXTENSION_KEYS {
 
 export const useConfluencePageData = (url: string, extensionKey: string) => {
 	const parsedData = useMemo(() => {
-		if (!fg('platform_deprecate_lp_cc_embed')) {
-			return undefined;
-		}
 		if (
 			!url ||
 			typeof url !== 'string' ||

@@ -24,30 +24,6 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ api }) =>
 		api?.uiControlRegistry?.actions.register(getPasteMenuComponents({ api, editorAnalyticsAPI }));
 	}
 
-	const getSharedState = (editorState: EditorState | undefined): PasteOptionsToolbarSharedState => {
-		if (!editorState) {
-			return {
-				isPlainText: false,
-				pasteEndPos: 0,
-				pasteStartPos: 0,
-				plaintextLength: 0,
-				selectedOption: ToolbarDropdownOption.None,
-				showToolbar: false,
-			};
-		}
-		const pluginState = pasteOptionsPluginKey.getState(editorState) as
-			| PasteOptionsPluginState
-			| undefined;
-		return {
-			isPlainText: pluginState?.isPlainText ?? false,
-			pasteEndPos: pluginState?.pasteEndPos ?? 0,
-			pasteStartPos: pluginState?.pasteStartPos ?? 0,
-			plaintextLength: pluginState?.plaintext.length ?? 0,
-			selectedOption: pluginState?.selectedOption ?? ToolbarDropdownOption.None,
-			showToolbar: pluginState?.showToolbar ?? false,
-		};
-	};
-
 	return {
 		name: 'pasteOptionsToolbarPlugin',
 		pmPlugins() {
@@ -66,9 +42,33 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ api }) =>
 			];
 		},
 
-		...(expValEquals('platform_editor_paste_actions_menu', 'isEnabled', true)
-			? { getSharedState }
-			: {}),
+		getSharedState(editorState: EditorState | undefined): PasteOptionsToolbarSharedState {
+			if (!editorState) {
+				return {
+					isPlainText: false,
+					pasteAncestorNodeNames: [],
+					pasteEndPos: 0,
+					pasteStartPos: 0,
+					plaintextLength: 0,
+					selectedOption: ToolbarDropdownOption.None,
+					showLegacyOptions: false,
+					showToolbar: false,
+				};
+			}
+			const pluginState = pasteOptionsPluginKey.getState(editorState) as
+				| PasteOptionsPluginState
+				| undefined;
+			return {
+				isPlainText: pluginState?.isPlainText ?? false,
+				pasteAncestorNodeNames: pluginState?.pasteAncestorNodeNames ?? [],
+				pasteEndPos: pluginState?.pasteEndPos ?? 0,
+				pasteStartPos: pluginState?.pasteStartPos ?? 0,
+				plaintextLength: pluginState?.plaintext.length ?? 0,
+				selectedOption: pluginState?.selectedOption ?? ToolbarDropdownOption.None,
+				showLegacyOptions: pluginState?.showLegacyOptions ?? false,
+				showToolbar: pluginState?.showToolbar ?? false,
+			};
+		},
 
 		pluginsOptions: {
 			floatingToolbar(state, intl): FloatingToolbarConfig | undefined {
@@ -111,6 +111,10 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ api }) =>
 			}));
 
 			useEffect(() => {
+				if (expValEquals('platform_editor_paste_actions_menu', 'isEnabled', true)) {
+					return;
+				}
+
 				if (!lastContentPasted) {
 					hideToolbar()(editorView.state, editorView.dispatch);
 					return;

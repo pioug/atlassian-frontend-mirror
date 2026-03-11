@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::1a2d573fb8c14220f04597b1b0376420>>
+ * @codegen <<SignedSource::a329b54d1bff55f1079838f935d27b43>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -419,6 +419,15 @@ export type FontFamily =
 	| 'var(--ds-font-family-code)'
 	| 'var(--ds-font-family-brand-heading)'
 	| 'var(--ds-font-family-brand-body)';
+export type Motion =
+	| 'var(--ds-content-enter-long)'
+	| 'var(--ds-content-enter-medium)'
+	| 'var(--ds-content-enter-short)'
+	| 'var(--ds-content-exit-long)'
+	| 'var(--ds-content-exit-medium)'
+	| 'var(--ds-content-exit-short)'
+	| 'var(--ds-dialog-enter)'
+	| 'var(--ds-dialog-exit)';
 
 export interface CSSPropertiesHovered {
 	backgroundColor: BackgroundColorHovered;

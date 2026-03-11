@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 69.10.31
+
+### Patch Changes
+
+- [`5e648de49f54d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e648de49f54d) -
+  All mouse events must also have key events for accessibility
+
 ## 69.10.30
 
 ### Patch Changes

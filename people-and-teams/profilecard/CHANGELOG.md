@@ -1,5 +1,18 @@
 # @atlaskit/profilecard
 
+## 24.43.0
+
+### Minor Changes
+
+- [`e72179b379afd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e72179b379afd) -
+  Update isForgeAgentByCreatorType import
+
+### Patch Changes
+
+- [`049bd80d89b8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/049bd80d89b8f) -
+  Add missing description to translations
+- Updated dependencies
+
 ## 24.42.0
 
 ### Minor Changes

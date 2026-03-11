@@ -1,6 +1,6 @@
 import { type ThemeColorModes, type ThemeIds, themeIds, type ThemeState } from './theme-config';
 
-const themeKinds = ['light', 'dark', 'spacing', 'typography', 'shape'] as const;
+const themeKinds = ['light', 'dark', 'spacing', 'typography', 'shape', 'motion'] as const;
 type ThemeKind = (typeof themeKinds)[number];
 
 const customThemeOptions = 'UNSAFE_themeOptions';

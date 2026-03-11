@@ -3,18 +3,23 @@ export {
 	ALIGNMENT_VALUES,
 	DEFAULT_ALIGNMENT,
 	BUILTIN_TOOLBAR_KEYS,
+	EDITOR_TOOLBAR_HANDLER_KEYS,
 	NATIVE_EMBED_PARAMETER_DEFAULTS,
 } from './utils/constants';
 
 // Re-export types
 export type {
 	AlignmentValue,
+	EditorToolbarButtonAction,
+	EditorToolbarAction,
+	EditorToolbarHandler,
+	EditorToolbarHandlerKey,
+	EditorToolbarHandlers,
+	NativeEmbedAppearance,
 	NativeEmbedParameterKey,
 	NativeEmbedParameterValues,
 	NativeEmbedParameterValue,
 	NativeEmbedParameters,
-	EditorToolbarButtonAction,
-	EditorToolbarAction,
 	BuiltinToolbarKey,
 	ManifestEditorToolbarActions,
 } from './utils/types';

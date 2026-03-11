@@ -47,9 +47,6 @@
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
-	"devDependencies": {
-		"@testing-library/react": "root:*"
-	},
 	"platform-feature-flags": {
 		"cc_drag_and_drop_smart_link_from_content_to_tree": {
 			"type": "boolean"

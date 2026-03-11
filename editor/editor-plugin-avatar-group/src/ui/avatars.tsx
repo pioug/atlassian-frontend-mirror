@@ -7,6 +7,7 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+import { useIntl } from 'react-intl-next';
 
 import type { AnalyticsEvent } from '@atlaskit/analytics-next';
 import AvatarGroup from '@atlaskit/avatar-group';
@@ -63,6 +64,7 @@ const scrollToCollabCursor = (
 
 export const Avatars = React.memo((props: AvatarsProps) => {
 	const { sessionId, featureFlags, editorAPI } = props;
+	const intl = useIntl();
 	// .slice() turns ReadonlyArray<CollabParticipant> into a mutable CollabParticipant[]
 	const participants = props.participants?.toArray()?.slice();
 	if (!participants) {
@@ -71,7 +73,7 @@ export const Avatars = React.memo((props: AvatarsProps) => {
 
 	const avatars = participants
 		.sort((p) => (p.sessionId === sessionId ? -1 : 1))
-		.map((participant) => toAvatar(participant, editorAPI));
+		.map((participant) => toAvatar(participant, editorAPI, intl.formatMessage));
 
 	if (!avatars.length) {
 		return null;

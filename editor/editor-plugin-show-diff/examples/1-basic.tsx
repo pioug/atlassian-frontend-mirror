@@ -46,6 +46,8 @@ import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 
+import type { ColorScheme } from '../src/showDiffPluginType';
+
 const step1 = {
 	userId: 'ari:cloud:identity::user/123',
 	clientId: 123,
@@ -60,7 +62,7 @@ const step1 = {
 };
 
 export default function Editor(): React.JSX.Element {
-	const [colorScheme, setColorScheme] = useState<'standard' | 'traditional'>('traditional');
+	const [colorScheme, setColorScheme] = useState<ColorScheme>('traditional');
 	const { preset } = usePreset(
 		(builder) =>
 			builder

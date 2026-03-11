@@ -2,16 +2,16 @@ import type { ComponentType } from 'react';
 
 import type { NewCoreIconProps } from '@atlaskit/icon';
 
-import type { ALIGNMENT_VALUES, BUILTIN_TOOLBAR_KEYS } from './constants';
+import type { BUILTIN_TOOLBAR_KEYS, EDITOR_TOOLBAR_HANDLER_KEYS } from './constants';
 
-export type AlignmentValue = (typeof ALIGNMENT_VALUES)[number];
-
+export type AlignmentValue = 'left' | 'center' | 'right' | 'wrap-left' | 'wrap-right';
+export type NativeEmbedAppearance = 'url' | 'inline' | 'block' | 'embed';
 export type NativeEmbedParameterValues = {
 	alignment: AlignmentValue;
 	alwaysShowTitle: boolean;
 	height: number;
-	url: string | undefined;
-	width: number | undefined;
+	url?: string;
+	width?: number;
 };
 
 export type NativeEmbedParameterValue = {
@@ -77,6 +77,35 @@ export type EditorToolbarButtonAction = {
  */
 export type EditorToolbarAction = EditorToolbarButtonAction;
 
+
+
+/**
+ * Handlers for built-in native embed floating toolbar actions.
+ * Can be defined in the manifest (editorToolbarHandlers) and are invoked
+ * by the editor plugin when the corresponding toolbar buttons are clicked.
+ * Handlers with context (e.g. onAlignmentClick, onAppearanceClick) receive
+ * an optional second parameter for the action-specific value.
+ */
+export type EditorToolbarHandlerKey = (typeof EDITOR_TOOLBAR_HANDLER_KEYS)[number];
+
+export type EditorToolbarHandlers = Partial<{
+	onAlignmentClick: (parameters: NativeEmbedParameterValues, alignment: AlignmentValue) => void;
+	onAppearanceClick: (parameters: NativeEmbedParameterValues, appearance: NativeEmbedAppearance) => void;
+	onAskRovoClick: EditorToolbarHandler;
+	onChangeBorderClick: EditorToolbarHandler;
+	onCopyLinkClick: EditorToolbarHandler;
+	onDeleteClick: EditorToolbarHandler;
+	onEditClick: EditorToolbarHandler;
+	onEditUrlClick: EditorToolbarHandler;
+	onOpenInNewWindowClick: EditorToolbarHandler;
+	onRefreshClick: EditorToolbarHandler;
+	onSetEmbedTypeClick: EditorToolbarHandler;
+	onShowTitleClick: EditorToolbarHandler;
+}>;
+
+/** Base handler signature for contexts that don't have action-specific context. */
+export type EditorToolbarHandler = (parameters: NativeEmbedParameterValues) => void;
+
 export type BuiltinToolbarKey = (typeof BUILTIN_TOOLBAR_KEYS)[keyof typeof BUILTIN_TOOLBAR_KEYS];
 
 /**
@@ -95,6 +124,13 @@ export type ManifestEditorToolbarActions<
 	 * These can be referenced in the `items` array alongside built-in keys.
 	 */
 	customActions?: TCustomActions;
+
+	/**
+	 * Handlers for built-in toolbar buttons.
+	 * When a built-in button (e.g. ASK_ROVO, REFRESH) is clicked, the corresponding
+	 * handler is invoked by the editor plugin.
+	 */
+	editorToolbarHandlers?: EditorToolbarHandlers;
 
 	/**
 	 * Ordered array of keys specifying which toolbar items to show and in what order.

@@ -18,6 +18,7 @@ import { loadAndAppendThemeCss } from './utils/theme-loading';
  * @param {string} themeState.contrastMode The contrast mode theme to be applied. If set to `auto`, the theme applied will be determined by the OS setting.set to `auto`, the theme applied will be determined by the OS setting.
  * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
  * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
+ * @param {string} themeState.motion The motion theme to be applied.
  * @param {string} themeState.shape The shape theme to be applied.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
@@ -43,12 +44,14 @@ const setGlobalTheme = async (
 		shape = themeStateDefaults['shape'](),
 		spacing = themeStateDefaults['spacing'],
 		typography = themeStateDefaults['typography'],
+		motion = themeStateDefaults['motion'](),
 		UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
 	} = typeof nextThemeState === 'function'
 		? nextThemeState({
 				...themeStateDefaults,
 				typography: themeStateDefaults['typography'],
 				shape: themeStateDefaults['shape'](),
+				motion: themeStateDefaults['motion'](),
 				...getGlobalTheme(),
 			})
 		: nextThemeState;
@@ -72,6 +75,7 @@ const setGlobalTheme = async (
 		shape,
 		spacing,
 		typography,
+		motion,
 		UNSAFE_themeOptions: themeLoader ? undefined : UNSAFE_themeOptions,
 	};
 

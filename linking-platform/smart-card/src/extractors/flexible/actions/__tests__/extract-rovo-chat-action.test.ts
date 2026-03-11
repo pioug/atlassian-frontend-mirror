@@ -16,7 +16,7 @@ describe('extractRovoChatAction', () => {
 		},
 	};
 	const rovoConfig = { isRovoEnabled: true, isRovoLLMEnabled: true };
-	const actionOptions = { hide: false, rovoChatAction: true };
+	const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
 
 	it('returns Rovo Chat action', () => {
 		const action = extractRovoChatAction(response, rovoConfig, actionOptions);

@@ -15,11 +15,13 @@ export interface PasteOptionsPluginState {
 	highlightContent: boolean;
 	highlightDecorationSet: DecorationSet;
 	isPlainText: boolean;
+	pasteAncestorNodeNames: string[];
 	pasteEndPos: number;
 	pasteStartPos: number;
 	plaintext: string;
 	richTextSlice: Slice;
 	selectedOption: ToolbarDropdownOption;
+	showLegacyOptions: boolean;
 	showToolbar: boolean;
 }
 

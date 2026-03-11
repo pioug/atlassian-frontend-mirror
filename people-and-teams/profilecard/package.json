@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.42.0",
+	"version": "24.43.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -145,9 +145,6 @@
 			"type": "boolean"
 		},
 		"fix_profilecard_trigger_isvisible": {
-			"type": "boolean"
-		},
-		"enable_userprofilecard_arialabelfix": {
 			"type": "boolean"
 		},
 		"pt-deprecate-assistance-service": {

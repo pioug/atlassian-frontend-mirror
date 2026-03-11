@@ -1,5 +1,20 @@
 # @atlaskit/motion
 
+## 5.4.0
+
+### Minor Changes
+
+- [`07b8035be9593`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07b8035be9593) -
+  Introduced a new motion primitive to be used in conjunction with new motion design tokens. This is
+  currently experimental and subject to change.
+
+  Includes two props, `enteringAnimation` and `exitingAnimation` that specify the entering and
+  exiting animations via semantic motion design tokens.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.11
 
 ### Patch Changes

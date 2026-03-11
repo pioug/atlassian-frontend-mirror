@@ -6,19 +6,45 @@ import {
 	useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 
-import { AddToolsPromptActions } from '../actions/groups/add-tools-prompt';
-import { CreateFlowActions } from '../actions/groups/create-flow';
-import { ACTION_TO_GROUP } from '../actions/registry';
 import { ANALYTICS_CHANNEL } from '../common/constants';
 import { useRovoAgentCSID } from '../common/csid';
 import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
 
-// Backward-compatible alias
-// TODO: migrate consumers to use CreateFlowActions / AddToolsPromptActions directly, then remove
-export const AgentCreateActions = {
-	...CreateFlowActions,
-	...AddToolsPromptActions,
-} as const;
+const DefaultActionSubject = 'rovoAgent';
+
+/**
+ * Union type of all valid create agent flow actions.
+ * Includes both CreateFlow and AddToolsPrompt actions.
+ *
+ * Data portal registry links:
+ * - createFlowStart: https://data-portal.internal.atlassian.com/analytics/registry/97089
+ * - createFlowSkipNL: https://data-portal.internal.atlassian.com/analytics/registry/97127
+ * - createFlowReviewNL: https://data-portal.internal.atlassian.com/analytics/registry/97124
+ * - createFlowActivate: https://data-portal.internal.atlassian.com/analytics/registry/97123
+ * - createFlowRestart: https://data-portal.internal.atlassian.com/analytics/registry/97131
+ * - createFlowError: https://data-portal.internal.atlassian.com/analytics/registry/97132
+ * - createLandInStudio: https://data-portal.internal.atlassian.com/analytics/registry/97136
+ * - createDiscard: https://data-portal.internal.atlassian.com/analytics/registry/97137
+ * - saDraft: https://data-portal.internal.atlassian.com/analytics/registry/97924
+ * - addToolsPromptShown: https://data-portal.internal.atlassian.com/analytics/registry/98106
+ * - addToolsPromptBrowse: https://data-portal.internal.atlassian.com/analytics/registry/98107
+ * - addToolsPromptDismiss: https://data-portal.internal.atlassian.com/analytics/registry/98108
+ */
+type AgentCreateAction =
+	// CreateFlow actions
+	| 'createFlowStart'
+	| 'createFlowSkipNL'
+	| 'createFlowReviewNL'
+	| 'createFlowActivate'
+	| 'createFlowRestart'
+	| 'createFlowError'
+	| 'createLandInStudio'
+	| 'createDiscard'
+	| 'saDraft'
+	// AddToolsPrompt actions
+	| 'addToolsPromptShown'
+	| 'addToolsPromptBrowse'
+	| 'addToolsPromptDismiss';
 
 type CommonAnalyticsAttributes = {
 	touchPoint?: string;
@@ -36,12 +62,11 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 	const fireAnalyticsEvent = useCallback(
 		(event: AnalyticsEventPayload) => {
 			const referrer = typeof window !== 'undefined' ? window.document.referrer : 'unknown';
-			const action = event.action as string;
 			const attributes = {
 				...getAttributesFromContexts(analyticsContext.getAtlaskitAnalyticsContext()),
 				...commonAttributesRef.current,
 				...event.attributes,
-				actionGroup: ACTION_TO_GROUP[action],
+				actionGroup: 'createFlow',
 				csid,
 				referrer,
 			};
@@ -60,12 +85,9 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 	 * To start the create agent flow, use trackCreateSessionStart
 	 */
 	const trackCreateSession = useCallback(
-		(
-			action: (typeof AgentCreateActions)[keyof typeof AgentCreateActions],
-			attributes?: CommonAnalyticsAttributes,
-		) => {
+		(action: AgentCreateAction, attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
-				actionSubject: 'rovoAgent',
+				actionSubject: DefaultActionSubject,
 				action,
 				attributes,
 			});
@@ -79,8 +101,8 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 	const trackCreateSessionStart = useCallback(
 		(attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
-				actionSubject: 'rovoAgent',
-				action: CreateFlowActions.START,
+				actionSubject: DefaultActionSubject,
+				action: 'createFlowStart',
 				attributes,
 			});
 			refreshCSID();
@@ -91,8 +113,8 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 	const trackCreateSessionError = useCallback(
 		(error: Error, attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
-				actionSubject: 'rovoAgent',
-				action: CreateFlowActions.ERROR,
+				actionSubject: DefaultActionSubject,
+				action: 'createFlowError',
 				attributes: {
 					error: {
 						message: error.message,

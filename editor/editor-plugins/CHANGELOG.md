@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugins
 
+## 12.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.1
+
+### Patch Changes
+
+- [`9398ad3ad409c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9398ad3ad409c) -
+  [ux] [EDITOR-5376] change single player expands feature gate to the new
+  `platform_editor_single_player_expand` experiment
+- Updated dependencies
+
+## 12.3.0
+
+### Minor Changes
+
+- [`8cb8a3e42b2c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cb8a3e42b2c2) -
+  [ux] EDITOR-5668 Introducing configurable visibility rules to determine which AI actions should
+  display in on-paste menu
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.48
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.47
 
 ### Patch Changes

@@ -32,6 +32,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/editor-plugin-collab-edit": "workspace:^",
+		"@atlaskit/editor-plugin-composition": "workspace:^",
 		"@atlaskit/editor-plugin-limited-mode": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",

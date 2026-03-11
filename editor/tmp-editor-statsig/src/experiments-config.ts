@@ -119,6 +119,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 05-03-2026
+	platform_editor_ai_headingautocomplete: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 20-01-2026
 	cc_editor_lcm_readonly_initial: {
 		defaultValue: boolean;
@@ -1433,6 +1440,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-06
+	platform_editor_single_player_expand: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1492,6 +1506,14 @@ export const editorExperimentsConfig: {
 	editor_tinymce_full_width_mode: createBooleanExperiment({
 		productKeys: {
 			confluence: 'editor_tinymce_full_width_mode',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 05-03-2026
+	platform_editor_ai_headingautocomplete: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_headingautocomplete',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3071,6 +3093,14 @@ export const editorExperimentsConfig: {
 	platform_editor_analyse_table_with_merged_cells: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_analyse_table_with_merged_cells',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-06
+	platform_editor_single_player_expand: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_single_player_expand',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

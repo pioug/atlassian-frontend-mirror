@@ -63,10 +63,16 @@
 			"path": "../../editor-plugin-context-panel/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-copy-button/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-decorations/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-mentions/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-toolbar/afm-jira/tsconfig.json"

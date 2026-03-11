@@ -124,7 +124,6 @@ export type HandleOptions = { isFocused: boolean } | undefined;
 
 /**
  * Props passed to custom right-edge button components (e.g. config.rightEdgeButton).
- * Used by malleable-ui for BlockRemixButton when rendered via node decoration.
  */
 export type RightEdgeButtonProps = {
 	api: PublicPluginAPI<[BlockControlsPlugin]>;
@@ -147,13 +146,13 @@ export type NodeDecorationFactoryParams = {
  */
 export type NodeDecorationFactory = {
 	create: (params: NodeDecorationFactoryParams) => Decoration;
-	/** Show this decoration in view mode when hovering over a block */
-	showInViewMode?: boolean;
 	/**
 	 * Optional filter: when false, the decoration is not created.
 	 * Use for node-type-specific visibility (e.g. Remix button only on remixable blocks).
 	 */
 	shouldCreate?: (params: NodeDecorationFactoryParams) => boolean;
+	/** Show this decoration in view mode when hovering over a block */
+	showInViewMode?: boolean;
 	type: string;
 };
 

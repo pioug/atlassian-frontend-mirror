@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-placeholder",
-	"version": "7.4.2",
+	"version": "7.4.3",
 	"description": "Placeholder plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,9 +54,6 @@
 		"@testing-library/react": "root:*"
 	},
 	"platform-feature-flags": {
-		"platform_editor_ai_aifc_patch_ga": {
-			"type": "boolean"
-		},
 		"platform_editor_ai_aifc_patch_ga_blockers": {
 			"type": "boolean"
 		},

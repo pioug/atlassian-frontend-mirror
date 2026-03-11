@@ -18,7 +18,8 @@ export type Themes =
 	| 'atlassian-dark-increased-contrast'
 	| 'atlassian-shape'
 	| 'atlassian-spacing'
-	| 'atlassian-typography';
+	| 'atlassian-typography'
+	| 'atlassian-motion';
 export type ThemeFileNames = Themes;
 
 /**
@@ -34,7 +35,7 @@ export type ThemeOverrides = Themes;
  * Some themes are entirely focused on Color, whilst others are purely focused on spacing.
  * In the future other types may be introduced such as typography.
  */
-type ThemeKinds = 'color' | 'spacing' | 'typography' | 'shape';
+type ThemeKinds = 'color' | 'spacing' | 'typography' | 'shape' | 'motion';
 
 /**
  * Theme modes: The general purpose of a theme.
@@ -69,6 +70,7 @@ export const themeIds = [
 	'spacing',
 	'shape',
 	'typography',
+	'motion',
 ] as const;
 
 export type ThemeIds = (typeof themeIds)[number];
@@ -91,6 +93,7 @@ export const themeIdsWithOverrides: readonly [
 	'spacing',
 	'shape',
 	'typography',
+	'motion',
 ] = [...themeIds, ...themeOverrideIds] as const;
 
 export type ThemeIdsWithOverrides = (typeof themeIdsWithOverrides)[number];
@@ -107,7 +110,7 @@ type ExtensionThemeId = ThemeIds;
  * For example: legacy light & dark themes use the "legacyPalette" containing colors from our
  * previous color set.
  */
-export type Palettes = 'defaultPalette' | 'spacingScale' | 'shapePalette' | 'typographyPalette';
+export type Palettes = 'defaultPalette' | 'spacingScale' | 'shapePalette' | 'typographyPalette' | 'motionPalette';
 
 /**
  * ThemeConfig: the source of truth for all theme meta-data.
@@ -124,7 +127,7 @@ interface ThemeConfig {
 				mode: DataColorModes;
 		  }
 		| {
-				type: Extract<ThemeKinds, 'spacing' | 'typography' | 'shape'>;
+				type: Extract<ThemeKinds, 'spacing' | 'typography' | 'shape' | 'motion'>;
 		  }
 	) & {
 		/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required */
@@ -239,6 +242,14 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 			type: 'shape',
 		},
 	},
+	'atlassian-motion': {
+		id: 'motion',
+		displayName: 'Motion',
+		palette: 'motionPalette',
+		attributes: {
+			type: 'motion',
+		},
+	},
 };
 
 type HEX = `#${string}`;
@@ -278,6 +289,7 @@ export interface ThemeState {
 	shape?: Extract<ThemeIds, 'shape'>;
 	spacing: Extract<ThemeIds, 'spacing'>;
 	typography: Extract<ThemeIds, 'typography'>;
+	motion?: Extract<ThemeIds, 'motion'>;
 	UNSAFE_themeOptions?: ThemeOptionsSchema;
 }
 
@@ -285,8 +297,9 @@ export interface ThemeState {
  * Can't evaluate typography feature flags at the module level,
  * it will always resolve to false when server side rendered or when flags are loaded async.
  */
-interface ThemeStateDefaults extends Omit<ThemeState, 'shape'> {
+interface ThemeStateDefaults extends Omit<ThemeState, 'shape' | 'motion'> {
 	shape: () => ThemeState['shape'];
+	motion: () => ThemeState['motion'];
 }
 
 /**
@@ -305,6 +318,12 @@ export const themeStateDefaults: ThemeStateDefaults = {
 	},
 	spacing: 'spacing',
 	typography: 'typography',
+	motion: () => {
+		if (fg('platform-dst-motion-theme-default')) {
+			return 'motion';
+		}
+		return undefined;
+	},
 	UNSAFE_themeOptions: undefined,
 };
 

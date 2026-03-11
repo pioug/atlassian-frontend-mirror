@@ -91,7 +91,7 @@ describe('HoverCardResolvedView', () => {
 	}) => {
 		return (
 			<HoverCardResolvedView
-				actionOptions={{ hide: false, rovoChatAction: true }}
+				actionOptions={{ hide: false, rovoChatAction: { optIn: true } }}
 				extensionKey={mockResponse.meta.key}
 				id="123"
 				flexibleCardProps={{ cardState, children: null, ui: flexibleUiOptions, url }}

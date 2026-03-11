@@ -1,5 +1,12 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.7.9
+
+### Patch Changes
+
+- [`3b330857e464b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b330857e464b) -
+  Clean up the ptc-enable-people-teams-ui-analytics-refactor feature gate
+
 ## 3.7.8
 
 ### Patch Changes

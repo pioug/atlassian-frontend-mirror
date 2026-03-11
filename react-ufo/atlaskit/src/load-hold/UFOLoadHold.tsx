@@ -86,7 +86,7 @@ export default function UFOLoadHold({
 	hold = true,
 	experimental = false,
 }: Props): React.JSX.Element | null {
-	// Check if UFO is enabled (gated behind platform_ufo_enable_killswitch_config feature flag)
+	// Check if UFO is enabled
 	// Note: isUFOEnabled() returns a stable value based on config, so it's safe to call before hooks
 	const ufoEnabled = isUFOEnabled();
 

@@ -106,7 +106,7 @@ export function find(
 			(r) => typeof r.item.key === 'string' && r.item.key.endsWith(':jira'),
 		);
 
-		// the jira work items macro is found before the legacy jira macrothen swap the two
+		// the jira legcy macro is found before the jira work items macro then swap the two
 		if (
 			datasourceIndex > 0 &&
 			legacyIndex >= 0 &&

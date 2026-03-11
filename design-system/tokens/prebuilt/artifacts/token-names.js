@@ -6,10 +6,18 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::71ab6af4453c6807be4d4249ca7614bc>>
+ * @codegen <<SignedSource::f76d5451a0ccdab4ce74bc3e952aec8c>>
  * @codegenCommand yarn build tokens
  */
 var tokens = {
+  'motion.content.enter.long': '--ds-content-enter-long',
+  'motion.content.enter.medium': '--ds-content-enter-medium',
+  'motion.content.enter.short': '--ds-content-enter-short',
+  'motion.content.exit.long': '--ds-content-exit-long',
+  'motion.content.exit.medium': '--ds-content-exit-medium',
+  'motion.content.exit.short': '--ds-content-exit-short',
+  'motion.dialog.enter': '--ds-dialog-enter',
+  'motion.dialog.exit': '--ds-dialog-exit',
   'color.text': '--ds-text',
   'color.text.accent.lime': '--ds-text-accent-lime',
   'color.text.accent.lime.bolder': '--ds-text-accent-lime-bolder',

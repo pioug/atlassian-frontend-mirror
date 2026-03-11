@@ -26,14 +26,15 @@ export type OnResolveCallback = (data: {
 }) => void;
 
 export enum CardAction {
-	DownloadAction = 'DownloadAction',
-	PreviewAction = 'PreviewAction',
-	ViewAction = 'ViewAction',
-	ChangeStatusAction = 'ChangeStatusAction',
-	FollowAction = 'FollowAction',
-	CopyLinkAction = 'CopyLinkAction',
 	AISummaryAction = 'AISummaryAction',
 	AutomationAction = 'AutomationAction',
+	ChangeStatusAction = 'ChangeStatusAction',
+	CopyLinkAction = 'CopyLinkAction',
+	DownloadAction = 'DownloadAction',
+	FollowAction = 'FollowAction',
+	PreviewAction = 'PreviewAction',
+	RovoChatAction = 'RovoChatAction',
+	ViewAction = 'ViewAction',
 }
 
 /**
@@ -53,6 +54,15 @@ export type CardActionOptions = CardActionVisibilityOptions & {
 		 */
 		size?: EmbedModalSize;
 	};
+	/**
+	 * Rovo Chat action sends prompt messages to Rovo Chat.
+	 * It requires setting rovoOptions on SmartCardProvider and opt-in via this prop to surface.
+	 *
+	 * This is an experiment feature and maybe removed any given time.
+	 */
+	rovoChatAction?: {
+		optIn: boolean;
+	};
 };
 
 /**
@@ -70,9 +80,7 @@ export type CardActionVisibilityOptions =
  * Warning: Internal prop can be changed/refactored anytime without notice.
  */
 export type InternalCardActionOptions = CardActionOptions & {
-	// Contain configuration for rovo chat action for 3P experiment
-	// Decision to be made after experiment whether this action will be an opt-in, an opt-out, or abandoned.
-	rovoChatAction?: boolean;
+	// Add temporary CardActionOptions here
 };
 
 interface ActionProps {
@@ -232,8 +240,7 @@ export interface FlexibleProps extends ActionProps, HoverPreviewProps {
 }
 
 export interface CardProps
-	extends
-		BaseCardProps,
+	extends BaseCardProps,
 		InlineProps,
 		BlockProps,
 		EmbedProps,

@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 35.5.0
+
+### Minor Changes
+
+- [`9398ad3ad409c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9398ad3ad409c) -
+  [EDITOR-5376] add new `platform_editor_single_player_expand` experiment to statsig config file
+
+## 35.4.0
+
+### Minor Changes
+
+- [`c1134966d9b87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1134966d9b87) -
+  [ux] Add AI Autocomplete Editor plugin
+
 ## 35.3.0
 
 ### Minor Changes

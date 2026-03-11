@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 8.4.1
+
+### Patch Changes
+
+- [`1a9b3a0f8a1c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a9b3a0f8a1c1) -
+  [ux] EDITOR-5892 Refactor Paste actions menu to use a single ui controls registry entry and single
+  SurfaceRenderer. Tweaked visibility rules and increased test coverage.
+- Updated dependencies
+
+## 8.4.0
+
+### Minor Changes
+
+- [`8cb8a3e42b2c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cb8a3e42b2c2) -
+  [ux] EDITOR-5668 Introducing configurable visibility rules to determine which AI actions should
+  display in on-paste menu
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.0
 
 ### Minor Changes

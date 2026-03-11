@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { ADFEntity, ADFEntityMark } from '../types';
@@ -450,7 +449,7 @@ export function validator(
 
 	const { mode = 'strict', allowPrivateAttributes = false } = options || {};
 	const validate: Validate = (entity, errorCallback, allowed, parentSpec) => {
-		if (!allowed && fg('platform_editor_ai_aifc_patch_ga')) {
+		if (!allowed) {
 			for (const allowed of extractAllowedContent(validatorSpecs, entity)) {
 				const validationResult = validateNode(entity, errorCallback, allowed, parentSpec);
 				if (validationResult.valid) {

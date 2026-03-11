@@ -7,12 +7,12 @@ import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
-import { AgentBanner } from '@atlaskit/rovo-agent-components/ui/agent-avatar/GeneratedAvatar';
 import {
-	AgentAvatar,
 	type AgentCreatorType,
 	isForgeAgentByCreatorType,
-} from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
+} from '@atlaskit/rovo-agent-components/common/utils/is-forge-agent';
+import { AgentBanner } from '@atlaskit/rovo-agent-components/ui/agent-avatar/GeneratedAvatar';
+import { AgentAvatar } from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
 import { type ConversationStarter } from '@atlaskit/rovo-agent-components/ui/AgentConversationStarters';
 import {
 	AgentProfileCreator,

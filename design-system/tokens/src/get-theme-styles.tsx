@@ -24,6 +24,7 @@ export interface ThemeStyles {
  * @param {string} themeState.colorMode Determines which color theme is applied. If set to `auto`, the theme applied will be determined by the OS setting.
  * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
  * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
+ * @param {string} themeState.motion The motion theme to be applied.
  * @param {string} themeState.shape The shape theme to be applied.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
@@ -53,6 +54,7 @@ const getThemeStyles = async (
 			contrastMode: preferences?.contrastMode || themeStateDefaults['contrastMode'],
 			dark: preferences?.dark || themeStateDefaults['dark'],
 			light: preferences?.light || themeStateDefaults['light'],
+			motion: preferences?.motion || themeStateDefaults['motion'](),
 			shape: preferences?.shape || themeStateDefaults['shape'](),
 			spacing: preferences?.spacing || themeStateDefaults['spacing'],
 			typography: preferences?.typography || themeStateDefaults['typography'],

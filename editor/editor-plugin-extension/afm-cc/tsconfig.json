@@ -63,10 +63,16 @@
 			"path": "../../editor-plugin-context-panel/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-copy-button/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-decorations/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-mentions/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-toolbar/afm-cc/tsconfig.json"

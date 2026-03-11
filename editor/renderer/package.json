@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "127.2.1",
+	"version": "127.4.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
 		"@atlaskit/editor-palette": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
+		"@atlaskit/editor-smart-link-draggable": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -52,6 +53,7 @@
 		"@atlaskit/media-viewer": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
+		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/smart-card": "workspace:^",
 		"@atlaskit/status": "workspace:^",

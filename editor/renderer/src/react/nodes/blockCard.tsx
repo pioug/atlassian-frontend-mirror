@@ -9,6 +9,7 @@ import { UnsupportedBlock, UnsupportedInline, WidthConsumer } from '@atlaskit/ed
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 import { CardErrorBoundary } from './fallback';
+import { SmartLinkDraggable, SMART_LINK_DRAG_TYPES, SMART_LINK_APPERANCE } from '@atlaskit/editor-smart-link-draggable';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
@@ -236,25 +237,27 @@ export default function BlockCard(props: {
 	}
 
 	return (
-		<AnalyticsContext data={analyticsData}>
-			<div
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className="blockCardView-content-wrap"
-				data-block-card
-				data-card-data={data ? JSON.stringify(data) : undefined}
-				data-card-url={url}
-				data-local-id={localId}
-			>
-				<CardErrorBoundary
-					unsupportedComponent={UnsupportedBlock}
-					onSetLinkTarget={onSetLinkTarget}
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...cardProps}
+		<SmartLinkDraggable url={url || ''} appearance={SMART_LINK_APPERANCE.BLOCK} source={SMART_LINK_DRAG_TYPES.RENDERER}>
+			<AnalyticsContext data={analyticsData}>
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className="blockCardView-content-wrap"
+					data-block-card
+					data-card-data={data ? JSON.stringify(data) : undefined}
+					data-card-url={url}
+					data-local-id={localId}
 				>
-					{cardComponent}
-				</CardErrorBoundary>
-			</div>
-		</AnalyticsContext>
+					<CardErrorBoundary
+						unsupportedComponent={UnsupportedBlock}
+						onSetLinkTarget={onSetLinkTarget}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...cardProps}
+					>
+						{cardComponent}
+					</CardErrorBoundary>
+				</div>
+			</AnalyticsContext>
+		</SmartLinkDraggable>
 	);
 }

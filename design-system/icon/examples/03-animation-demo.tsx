@@ -61,6 +61,4 @@ const AnimationDemo = (): React.JSX.Element => {
 	);
 };
 
-AnimationDemo.displayName = 'AnimationDemo';
-
 export default AnimationDemo;

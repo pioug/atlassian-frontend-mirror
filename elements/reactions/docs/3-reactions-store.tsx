@@ -4,8 +4,7 @@ import { md, code, Props } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 import { Text } from '@atlaskit/primitives/compiled';
 
-// eslint-disable-next-line @atlassian/a11y/anchor-has-content
-const LinkComponent = (props: any) => <Link {...props} />;
+const LinkComponent = (props: any) => <Link {...props}>{props.children}</Link>;
 
 const _default_1: any = md`
 

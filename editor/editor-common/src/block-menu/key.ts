@@ -122,6 +122,10 @@ export const BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM = {
 	key: 'block-actions-copy-link-to-block-menu-item',
 };
 
+export const BLOCK_ACTIONS_COPY_MENU_SECTION = {
+	key: 'block-actions-copy-menu-section',
+};
+
 // Position
 
 export const POSITION_MENU_SECTION = {

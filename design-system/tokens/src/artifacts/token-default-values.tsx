@@ -7,10 +7,20 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::e6225c65d5d4ce72381110479f6b4968>>
+ * @codegen <<SignedSource::a18a0cf6bb63fbd882dcfe06ef046047>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
+	'motion.content.enter.long': '400ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn',
+	'motion.content.enter.medium': '200ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn',
+	'motion.content.enter.short': '100ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn',
+	'motion.content.exit.long': '200ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut',
+	'motion.content.exit.medium': '100ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut',
+	'motion.content.exit.short': '50ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut',
+	'motion.dialog.enter':
+		'350ms cubic-bezier(0.66, 0, 0.34, 1) ScaleIn80, 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn',
+	'motion.dialog.exit':
+		'350ms cubic-bezier(0.66, 0, 0.34, 1) ScaleOut80, 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut',
 	'color.text': '#292A2E',
 	'color.text.accent.lime': '#4C6B1F',
 	'color.text.accent.lime.bolder': '#37471F',

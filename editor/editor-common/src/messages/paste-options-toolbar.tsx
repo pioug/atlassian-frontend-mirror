@@ -36,4 +36,9 @@ export const pasteOptionsToolbarMessages = defineMessages({
 		defaultMessage: 'Rich text',
 		description: 'Converts pasted text into Rich text',
 	},
+	pasteMenuActionsTitle: {
+		id: 'fabric.editor.pasteMenuActionsTitle',
+		defaultMessage: 'Actions',
+		description: 'Section title for actions in the paste options menu',
+	},
 });

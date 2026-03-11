@@ -7,10 +7,7 @@ import { DropdownItem } from '@atlaskit/dropdown-menu';
 import { useFlags } from '@atlaskit/flag';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
-import {
-	AgentCommonActions,
-	useRovoAgentActionAnalytics,
-} from '@atlaskit/rovo-agent-analytics/actions';
+import { useRovoAgentActionAnalytics } from '@atlaskit/rovo-agent-analytics/actions';
 
 import type { agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef$key } from './__generated__/agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef.graphql';
 import type { agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation } from './__generated__/agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation.graphql';
@@ -84,7 +81,7 @@ export const AgentVerificationDropdownItem = ({
 	const isVerified = agentData?.isVerified ?? false;
 	const agentId = agentData?.id;
 
-	const { trackAgentAction, trackAgentActionError } = useRovoAgentActionAnalytics({
+	const { trackAgentEvent } = useRovoAgentActionAnalytics({
 		touchPoint: 'agent-verification-dropdown-item',
 		agentId,
 		isAbleToGovernAgents,
@@ -141,10 +138,11 @@ export const AgentVerificationDropdownItem = ({
 					const payload = response?.agentStudio_updateAgentVerification;
 					if (payload?.success) {
 						onVerificationSuccess?.(verified);
-						trackAgentAction(
-							verified ? AgentCommonActions.VERIFY : AgentCommonActions.UNVERIFY,
-							{},
-						);
+						trackAgentEvent({
+							action: verified ? 'verify' : 'unverify',
+							actionSubject: 'rovoAgent',
+							attributes: {},
+						});
 						showFlag({
 							title: formatMessage(
 								verified ? messages.verifySuccessTitle : messages.unverifySuccessTitle,
@@ -156,23 +154,27 @@ export const AgentVerificationDropdownItem = ({
 					} else {
 						const errorMessage = payload?.errors?.[0]?.message;
 						if (errorMessage) {
-							trackAgentActionError(
-								verified ? AgentCommonActions.VERIFY : AgentCommonActions.UNVERIFY,
-								new Error(errorMessage),
-								{ agentId },
-							);
+							trackAgentEvent({
+								action: verified ? 'verify' : 'unverify',
+								actionSubject: 'rovoAgentError',
+								attributes: {
+									agentId,
+									error: { message: errorMessage },
+								},
+							});
 							handleError(verified, errorMessage);
 						}
 					}
 				},
 				onError: (error) => {
-					trackAgentActionError(
-						verified ? AgentCommonActions.VERIFY : AgentCommonActions.UNVERIFY,
-						error,
-						{
+					trackAgentEvent({
+						action: verified ? 'verify' : 'unverify',
+						actionSubject: 'rovoAgentError',
+						attributes: {
 							agentId,
+							error: { message: error.message },
 						},
-					);
+					});
 					handleError(verified, error.message);
 				},
 			});
@@ -185,8 +187,7 @@ export const AgentVerificationDropdownItem = ({
 			onClick,
 			onVerificationSuccess,
 			showFlag,
-			trackAgentAction,
-			trackAgentActionError,
+			trackAgentEvent,
 		],
 	);
 

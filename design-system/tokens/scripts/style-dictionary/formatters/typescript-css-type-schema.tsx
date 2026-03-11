@@ -15,7 +15,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 	const tokens = dictionary.allTokens.filter((token) => {
 		const attributes = token.attributes || {};
 		const isToken = attributes.group !== 'palette';
-		const isPublicToken = attributes.state !== 'experimental' && attributes.state !== 'deleted';
+		const isPublicToken = attributes.state !== 'deleted';
 
 		return isToken && isPublicToken;
 	});
@@ -36,15 +36,12 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 	const fontShorthand: TransformedToken[] = [];
 	const fontWeight: TransformedToken[] = [];
 	const fontFamily: TransformedToken[] = [];
+	const motion: TransformedToken[] = [];
 
 	for (let i = 0; i < tokens.length; i++) {
 		const token = tokens[i];
 
-		if (
-			token.attributes?.group === 'palette' ||
-			token.attributes?.state === 'experimental' ||
-			token.attributes?.state === 'deleted'
-		) {
+		if (token.attributes?.group === 'palette' || token.attributes?.state === 'deleted') {
 			// Skip palette / experimental / deleted tokens.
 			continue;
 		}
@@ -118,6 +115,10 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 			fontFamily.push(token);
 		}
 
+		if (token.path.includes('motion')) {
+			motion.push(token);
+		}
+
 		if (fontShorthandTokenMatcher.test(token.name)) {
 			fontShorthand.push(token);
 		}
@@ -146,6 +147,7 @@ export type TextColor = 'transparent' | TextColorPressed | ${mapToCssVar(textCol
 export type Opacity = ${mapToCssVar(opacity)} | 0 | 1 | '0' | '1';
 export type FontWeight = ${mapToCssVar(fontWeight)} | 'inherit' | 'initial' | 'unset';
 export type FontFamily = ${mapToCssVar(fontFamily)};
+export type Motion = ${mapToCssVar(motion)};
 
 export interface CSSPropertiesHovered {
 	backgroundColor: BackgroundColorHovered;

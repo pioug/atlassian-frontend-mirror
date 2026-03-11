@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.4.6
+
+### Patch Changes
+
+- [`7dbaf7d23f178`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7dbaf7d23f178) -
+  Clean up platform_ufo_enable_killswitch_config feature gate (assume always true)
+
 ## 5.4.5
 
 ### Patch Changes

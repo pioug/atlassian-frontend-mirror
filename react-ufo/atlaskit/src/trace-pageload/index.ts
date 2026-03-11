@@ -21,7 +21,6 @@ function traceUFOPageLoad(
 	ufoName?: string | null | undefined,
 	routeName: string | null | undefined = ufoName,
 ): void {
-	// Skip if UFO is disabled (gated behind platform_ufo_enable_killswitch_config)
 	if (!isUFOEnabled()) {
 		return;
 	}
@@ -75,7 +74,6 @@ export function updatePageloadName(
 	ufoName: string,
 	routeName: string | null | undefined = ufoName,
 ): void {
-	// Skip if UFO is disabled (gated behind platform_ufo_enable_killswitch_config)
 	if (!isUFOEnabled()) {
 		return;
 	}

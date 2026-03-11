@@ -1,9 +1,13 @@
 import React, { useContext } from 'react';
 
+import { useIntl } from 'react-intl-next';
+
 import { cssMap } from '@atlaskit/css';
+import { pasteOptionsToolbarMessages as messages } from '@atlaskit/editor-common/messages';
 import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
-import type { RegisterComponent, SurfaceIdentifier } from '@atlaskit/editor-ui-control-model';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -17,21 +21,18 @@ const styles = cssMap({
 });
 
 interface PasteActionsMenuContentProps {
-	aiSurface?: SurfaceIdentifier;
-	aiSurfaceComponents?: RegisterComponent[];
+	components: RegisterComponent[];
 	onMouseDown: (e: React.MouseEvent) => void;
 	onMouseEnter: () => void;
-	pasteSurfaceComponents?: RegisterComponent[];
 }
 
 export const PasteActionsMenuContent = ({
 	onMouseDown,
 	onMouseEnter,
-	aiSurface,
-	aiSurfaceComponents,
-	pasteSurfaceComponents,
+	components,
 }: PasteActionsMenuContentProps) => {
 	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
+	const intl = useIntl();
 
 	return (
 		<Box
@@ -40,15 +41,9 @@ export const PasteActionsMenuContent = ({
 			onMouseDown={onMouseDown}
 			onMouseEnter={onMouseEnter}
 		>
-			{aiSurface && aiSurfaceComponents && aiSurfaceComponents.length > 0 && (
-				<SurfaceRenderer surface={aiSurface} components={aiSurfaceComponents} />
-			)}
-			{pasteSurfaceComponents && pasteSurfaceComponents.length > 0 && (
-				<SurfaceRenderer
-					surface={{ type: 'menu', key: 'paste-menu' }}
-					components={pasteSurfaceComponents}
-				/>
-			)}
+			<ToolbarDropdownItemSection title={intl.formatMessage(messages.pasteMenuActionsTitle)}>
+				<SurfaceRenderer surface={{ type: 'menu', key: 'paste-menu' }} components={components} />
+			</ToolbarDropdownItemSection>
 		</Box>
 	);
 };

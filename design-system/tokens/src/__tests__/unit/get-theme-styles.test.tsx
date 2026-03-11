@@ -13,7 +13,7 @@ const UNSAFE_themeOptions: ThemeOptionsSchema = {
 const customStyleHashId = hash(JSON.stringify(UNSAFE_themeOptions));
 
 function getThemeData(themes: ThemeStyles[]) {
-	return themes.reduce((acc: Omit<ThemeStyles, 'css'>[], { css, ...rest }) => {
+	return themes.reduce((acc: Omit<ThemeStyles, 'css'>[], { css: _css , ...rest }) => {
 		acc.push({ ...rest });
 		return acc;
 	}, []);
@@ -382,6 +382,7 @@ describe('getThemeStyles', () => {
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 			() => {

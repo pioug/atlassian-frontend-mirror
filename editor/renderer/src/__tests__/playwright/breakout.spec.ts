@@ -3,9 +3,6 @@ import { adf } from './breakout.spec.ts-fixtures';
 
 test.use({
 	adf,
-	platformFeatureFlags: {
-		platform_editor_dec_a11y_fixes: true,
-	},
 	editorExperiments: {
 		platform_editor_a11y_table_wrapper_fix: true,
 	},

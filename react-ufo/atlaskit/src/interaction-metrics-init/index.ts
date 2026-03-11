@@ -224,7 +224,6 @@ export function init(
 	setUFOConfig(config);
 
 	// If UFO is disabled via config, skip all initialization
-	// This is gated behind platform_ufo_enable_killswitch_config feature flag
 	if (!isUFOEnabled()) {
 		initialized = true;
 		return;

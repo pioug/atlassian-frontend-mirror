@@ -13,10 +13,12 @@ export type PasteOptionsToolbarPluginDependencies = [
 
 export interface PasteOptionsToolbarSharedState {
 	isPlainText: boolean;
+	pasteAncestorNodeNames: string[];
 	pasteEndPos: number;
 	pasteStartPos: number;
 	plaintextLength: number;
 	selectedOption: ToolbarDropdownOption;
+	showLegacyOptions: boolean;
 	showToolbar: boolean;
 }
 
@@ -24,5 +26,6 @@ export type PasteOptionsToolbarPlugin = NextEditorPlugin<
 	'pasteOptionsToolbarPlugin',
 	{
 		dependencies: PasteOptionsToolbarPluginDependencies;
+		sharedState: PasteOptionsToolbarSharedState;
 	}
 >;

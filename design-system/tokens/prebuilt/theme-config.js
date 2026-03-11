@@ -45,7 +45,7 @@ var themeContrastModes = ['more', 'no-preference', 'auto'];
  *
  * These ids must be kebab case
  */
-var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'dark', 'dark-future', 'dark-increased-contrast', 'spacing', 'shape', 'typography'];
+var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'dark', 'dark-future', 'dark-increased-contrast', 'spacing', 'shape', 'typography', 'motion'];
 /**
  * Theme override ids: the equivalent of themeIds for theme overrides.
  * Theme overrides are temporary and there may not be any defined at times.
@@ -154,6 +154,14 @@ var themeConfig = {
     attributes: {
       type: 'shape'
     }
+  },
+  'atlassian-motion': {
+    id: 'motion',
+    displayName: 'Motion',
+    palette: 'motionPalette',
+    attributes: {
+      type: 'motion'
+    }
   }
 };
 
@@ -186,6 +194,12 @@ var themeStateDefaults = exports.themeStateDefaults = {
   },
   spacing: 'spacing',
   typography: 'typography',
+  motion: function motion() {
+    if ((0, _platformFeatureFlags.fg)('platform-dst-motion-theme-default')) {
+      return 'motion';
+    }
+    return undefined;
+  },
   UNSAFE_themeOptions: undefined
 };
 

@@ -44,6 +44,9 @@
 			"path": "../button/tsconfig.app.json"
 		},
 		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
@@ -59,6 +62,9 @@
 			"path": "../logo/tsconfig.app.json"
 		},
 		{
+			"path": "../primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
@@ -69,6 +75,9 @@
 		},
 		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]
 }

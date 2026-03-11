@@ -3,7 +3,6 @@ import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * Attempts to merge two consecutive ReplaceStep operations.
@@ -35,9 +34,7 @@ function mergeReplaceSteps(step1: ProseMirrorStep, step2: ProseMirrorStep): Pros
 
 // Simplifies the steps to improve performance and reduce fragmentation in diffs
 export function simplifySteps(steps: ProseMirrorStep[], originalDoc: PMNode): ProseMirrorStep[] {
-	const stepsToFilter = fg('platform_editor_ai_aifc_patch_ga')
-		? removeUnusedSteps(steps, originalDoc)
-		: steps;
+	const stepsToFilter = removeUnusedSteps(steps, originalDoc);
 	return (
 		stepsToFilter
 			// Remove steps that don't affect document structure or content
@@ -45,9 +42,7 @@ export function simplifySteps(steps: ProseMirrorStep[], originalDoc: PMNode): Pr
 			// Merge consecutive steps where possible
 			.reduce<ProseMirrorStep[]>((acc, step) => {
 				const lastStep = acc[acc.length - 1];
-				const merged = fg('platform_editor_ai_aifc_patch_ga')
-					? (lastStep?.merge?.(step) ?? mergeReplaceSteps(lastStep, step))
-					: lastStep?.merge?.(step);
+				const merged = lastStep?.merge?.(step) ?? mergeReplaceSteps(lastStep, step);
 				if (merged) {
 					acc[acc.length - 1] = merged;
 				} else {

@@ -5,7 +5,6 @@ import { Plugin, PluginKey, type SelectionBookmark } from '@atlaskit/editor-pros
 import type { Step, StepMap, Transform } from '@atlaskit/editor-prosemirror/transform';
 import { Mapping } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	createTransformFromSteps,
@@ -401,9 +400,7 @@ function applyTransaction(
 		(tr.getMeta('startHistorySlice') === true || history?.historySliceActive) &&
 		tr.getMeta('endHistorySlice') !== true
 	) {
-		const shouldIgnoreChange = fg('platform_editor_ai_aifc_patch_ga')
-			? tr.getMeta('isRemote')
-			: tr.getMeta('addToHistory') === false;
+		const shouldIgnoreChange = tr.getMeta('isRemote');
 		if (shouldIgnoreChange) {
 			// For addToHistory=false transactions during a slice, we need to:
 			// 1. Update the mapping for done/undone branches

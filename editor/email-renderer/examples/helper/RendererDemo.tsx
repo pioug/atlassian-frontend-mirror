@@ -185,13 +185,13 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 			return (
 				<div>
 					<h1>E-mail HTML</h1>
-					{/* eslint-disable-next-line @atlassian/a11y/iframe-has-title */}
 					<iframe
 						ref={this.onEmailRef}
 						frameBorder="0"
 						src="about:blank"
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={{ width: '100%', height: '800px' }}
+						title="Email HTML Preview"
 					/>
 				</div>
 			);

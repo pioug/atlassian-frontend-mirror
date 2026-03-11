@@ -194,6 +194,12 @@ export const getPasteMenuComponents = ({
 		parents: [
 			{ type: PASTE_MENU.type, key: PASTE_MENU.key, rank: PASTE_MENU_RANK[PASTE_MENU_SECTION.key] },
 		],
+		isHidden: () => {
+			const pluginState = api?.pasteOptionsToolbarPlugin?.sharedState.currentState() as
+				| PasteOptionsToolbarSharedState
+				| undefined;
+			return !(pluginState?.showLegacyOptions ?? false);
+		},
 		component: (props: Record<string, unknown>) => (
 			<ToolbarDropdownItemSection hasSeparator>
 				{props.children as React.ReactNode}

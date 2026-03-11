@@ -15,6 +15,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import { type OnEmojiEvent, type PickerSize } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	Manager,
 	Popper,
@@ -617,7 +618,7 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 						}}
 						css={popupWrapperStyle}
 						// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
-						tabIndex={0}
+						tabIndex={fg('platform_suppression_removal_fix_reactions') ? undefined : 0}
 					>
 						<RepositionOnUpdate update={update} settings={settings}>
 							<div css={[popupStyle]}>{children}</div>

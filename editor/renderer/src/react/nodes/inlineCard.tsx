@@ -34,6 +34,11 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import {
+	SmartLinkDraggable,
+	SMART_LINK_DRAG_TYPES,
+	SMART_LINK_APPERANCE,
+} from '@atlaskit/editor-smart-link-draggable';
 
 import { CardErrorBoundary } from './fallback';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
@@ -384,60 +389,66 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	}
 
 	return (
-		<AnalyticsContext data={analyticsData}>
-			<span
-				data-inline-card
-				data-card-data={data ? JSON.stringify(data) : undefined}
-				data-card-url={url}
-				// Ignored via go/ees005
-				// eslint-disable-next-line react/jsx-props-no-spreading
-				{...inlineAnnotationProps}
-			>
-				<CardErrorBoundary
-					unsupportedComponent={UnsupportedInline}
+		<SmartLinkDraggable
+			url={url || ''}
+			appearance={SMART_LINK_APPERANCE.INLINE}
+			source={SMART_LINK_DRAG_TYPES.RENDERER}
+		>
+			<AnalyticsContext data={analyticsData}>
+				<span
+					data-inline-card
+					data-card-data={data ? JSON.stringify(data) : undefined}
+					data-card-url={url}
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...cardProps}
-					onSetLinkTarget={onSetLinkTarget}
+					{...inlineAnnotationProps}
 				>
-					<MaybeOverlay
-						url={url || ''}
-						rendererAppearance={rendererAppearance}
-						isResolvedViewRendered={isResolvedViewRendered}
-						fireAnalyticsEvent={fireAnalyticsEvent}
+					<CardErrorBoundary
+						unsupportedComponent={UnsupportedInline}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...cardProps}
+						onSetLinkTarget={onSetLinkTarget}
 					>
-						{wrapWithSuspense(
-							<Card
-								appearance="inline"
-								showHoverPreview={!hideHoverPreview}
-								actionOptions={actionOptions}
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/jsx-props-no-spreading
-								{...cardProps}
-								onResolve={(data) => {
-									if (!data.url || !data.title) {
-										return;
-									}
+						<MaybeOverlay
+							url={url || ''}
+							rendererAppearance={rendererAppearance}
+							isResolvedViewRendered={isResolvedViewRendered}
+							fireAnalyticsEvent={fireAnalyticsEvent}
+						>
+							{wrapWithSuspense(
+								<Card
+									appearance="inline"
+									showHoverPreview={!hideHoverPreview}
+									actionOptions={actionOptions}
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/jsx-props-no-spreading
+									{...cardProps}
+									onResolve={(data) => {
+										if (!data.url || !data.title) {
+											return;
+										}
 
-									props.smartCardStorage.set(data.url, data.title);
+										props.smartCardStorage.set(data.url, data.title);
 
-									if (data.title) {
-										setIsResolvedViewRendered(true);
-									}
-								}}
-								onError={onError}
-								disablePreviewPanel={editorExperiment(
-									'platform_editor_preview_panel_linking_exp',
-									true,
-									{ exposure: true },
-								)}
-							/>,
-						)}
-					</MaybeOverlay>
-					{CompetitorPromptComponent}
-				</CardErrorBoundary>
-			</span>
-		</AnalyticsContext>
+										if (data.title) {
+											setIsResolvedViewRendered(true);
+										}
+									}}
+									onError={onError}
+									disablePreviewPanel={editorExperiment(
+										'platform_editor_preview_panel_linking_exp',
+										true,
+										{ exposure: true },
+									)}
+								/>,
+							)}
+						</MaybeOverlay>
+						{CompetitorPromptComponent}
+					</CardErrorBoundary>
+				</span>
+			</AnalyticsContext>
+		</SmartLinkDraggable>
 	);
 };
 
@@ -496,7 +507,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
+			| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,
@@ -601,7 +612,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
+			| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,

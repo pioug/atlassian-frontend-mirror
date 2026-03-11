@@ -14,11 +14,13 @@ export enum PastePluginActionTypes {
 export interface ShowPasteOptions {
 	data: {
 		isPlainText: boolean;
+		pasteAncestorNodeNames: string[];
 		pasteEndPos: number;
 		pasteStartPos: number;
 		plaintext: string;
 		richTextSlice: Slice;
 		selectedOption: ToolbarDropdownOption;
+		showLegacyOptions: boolean;
 	};
 	type: PastePluginActionTypes.SHOW_PASTE_OPTIONS;
 }

@@ -268,10 +268,12 @@ describe('HoverCard', () => {
 				meta: { ...mockBaseResponse.meta, key: 'google-object-provider' },
 			};
 			const rovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
+			const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
 
 			ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
-				it('should enable rovoChat experiment via experiment prop', async () => {
+				it('should enable rovoChat experiment via actionOptions prop', async () => {
 					await setup({
+						extraCardProps: { actionOptions },
 						mock,
 						rovoOptions,
 					});
@@ -283,9 +285,16 @@ describe('HoverCard', () => {
 					expect(rovoChatAction).toBeInTheDocument();
 				});
 
-				it('should enable rovoChat experiment via experiment prop with CardSSR', async () => {
+				it('should enable rovoChat experiment via actionOptions prop with CardSSR', async () => {
 					await setup({
-						component: <CardSSR appearance="inline" url={mockUrl} showHoverPreview={true} />,
+						component: (
+							<CardSSR
+								actionOptions={actionOptions}
+								appearance="inline"
+								url={mockUrl}
+								showHoverPreview={true}
+							/>
+						),
 						mock,
 						rovoOptions,
 					});
@@ -299,6 +308,7 @@ describe('HoverCard', () => {
 
 				it('should render Rovo AI summary on google-object-provider link', async () => {
 					await setup({
+						extraCardProps: { actionOptions },
 						mock,
 						rovoOptions,
 					});
@@ -309,10 +319,12 @@ describe('HoverCard', () => {
 
 				it('should not render Rovo AI summary on none google-object-provider link ', async () => {
 					await setup({
+						extraCardProps: { actionOptions },
 						mock: mockConfluenceResponse,
 						rovoOptions,
 					});
 
+					await screen.findByTestId('smart-block-title-resolved-view');
 					const aiSummaryBlock = screen.queryByTestId('smart-ai-summary-block-placeholder');
 					expect(aiSummaryBlock).not.toBeInTheDocument();
 				});

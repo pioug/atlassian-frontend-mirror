@@ -81,7 +81,6 @@ const UFOSegment: {
 	type = 'first-party',
 }: Props): React.JSX.Element => {
 	// If UFO is disabled, render children without any tracking overhead
-	// This is gated behind platform_ufo_enable_killswitch_config feature flag
 	// Note: isUFOEnabled() returns a stable value based on config, so it's safe to call before hooks
 	const ufoEnabled = isUFOEnabled();
 

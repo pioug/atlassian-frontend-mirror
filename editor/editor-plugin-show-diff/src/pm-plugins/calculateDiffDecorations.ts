@@ -9,16 +9,20 @@ import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import { getAttrChangeRanges, stepIsValidAttrChange } from './attributeDecorations';
+import type { ColorScheme } from '../showDiffPluginType';
+
+import { createBlockChangedDecoration } from './decorations/createBlockChangedDecoration';
+import { createInlineChangedDecoration } from './decorations/createInlineChangedDecoration';
+import { createNodeChangedDecorationWidget } from './decorations/createNodeChangedDecorationWidget';
 import {
-	createInlineChangedDecoration,
-	createDeletedContentDecoration,
-	createBlockChangedDecoration,
-} from './decorations';
+	getAttrChangeRanges,
+	stepIsValidAttrChange,
+} from './decorations/utils/getAttrChangeRanges';
+import { getMarkChangeRanges } from './decorations/utils/getMarkChangeRanges';
 import type { ShowDiffPluginState } from './main';
-import { getMarkChangeRanges } from './markDecorations';
 import type { NodeViewSerializer } from './NodeViewSerializer';
 import { simplifySteps } from './simplifyChanges';
+
 
 const calculateNodesForBlockDecoration = ({
 	doc,
@@ -26,7 +30,7 @@ const calculateNodesForBlockDecoration = ({
 	to,
 	colorScheme,
 }: {
-	colorScheme?: 'standard' | 'traditional';
+	colorScheme?: ColorScheme;
 	doc: EditorState['doc'];
 	from: number;
 	to: number;
@@ -94,7 +98,7 @@ const calculateDiffDecorationsInner = ({
 	activeIndexPos,
 }: {
 	activeIndexPos?: { from: number; to: number };
-	colorScheme?: 'standard' | 'traditional';
+	colorScheme?: ColorScheme;
 	intl: IntlShape;
 	nodeViewSerializer: NodeViewSerializer;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
@@ -150,7 +154,7 @@ const calculateDiffDecorationsInner = ({
 		if (change.deleted.length > 0) {
 			const isActive =
 				activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
-			const decoration = createDeletedContentDecoration({
+			const decoration = createNodeChangedDecorationWidget({
 				change,
 				doc: originalDoc,
 				nodeViewSerializer,

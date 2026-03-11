@@ -247,12 +247,8 @@ export function createPlaceHolderStateFrom({
 			const isFirstCell = table?.node.firstChild?.content.firstChild === parentNode;
 			if (isFirstCell) {
 				return setPlaceHolderState({
-					placeholderText: !fg('platform_editor_ai_aifc_patch_ga')
-						? intl.formatMessage(messages.shortEmptyNodePlaceholderText)
-						: undefined,
-					contextPlaceholderADF: fg('platform_editor_ai_aifc_patch_ga')
-						? createShortEmptyNodePlaceholderADF(intl)
-						: undefined,
+					placeholderText: undefined,
+					contextPlaceholderADF: createShortEmptyNodePlaceholderADF(intl),
 					pos: $from.pos,
 					placeholderPrompts,
 					typedAndDeleted,
@@ -263,12 +259,8 @@ export function createPlaceHolderStateFrom({
 
 		if (nodeTypesWithLongPlaceholderText.includes(parentType) && isEmptyNode) {
 			return setPlaceHolderState({
-				placeholderText: !fg('platform_editor_ai_aifc_patch_ga')
-					? intl.formatMessage(messages.longEmptyNodePlaceholderText)
-					: undefined,
-				contextPlaceholderADF: fg('platform_editor_ai_aifc_patch_ga')
-					? createLongEmptyNodePlaceholderADF(intl)
-					: undefined,
+				placeholderText: undefined,
+				contextPlaceholderADF: createLongEmptyNodePlaceholderADF(intl),
 				pos: $from.pos,
 				placeholderPrompts,
 				typedAndDeleted,

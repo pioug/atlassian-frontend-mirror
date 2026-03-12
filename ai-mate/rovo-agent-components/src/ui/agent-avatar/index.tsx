@@ -103,11 +103,11 @@ export const AgentAvatar = ({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				...(fg('rovo_chat_bugfix_agent_avatar_squish')
 					? {
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						minHeight: AVATAR_SIZES[size],
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						minWidth: AVATAR_SIZES[size],
-					}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							minHeight: AVATAR_SIZES[size],
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							minWidth: AVATAR_SIZES[size],
+						}
 					: {}),
 			}}
 		>

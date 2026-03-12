@@ -1,5 +1,16 @@
 # @atlaskit/profilecard
 
+## 24.44.0
+
+### Minor Changes
+
+- [`dcc45a2290b59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcc45a2290b59) -
+  Cleaned up enable_absolute_positioning_profile_card feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.43.0
 
 ### Minor Changes

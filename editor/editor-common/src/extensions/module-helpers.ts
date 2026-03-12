@@ -86,9 +86,7 @@ export async function getAutoConvertPatternsFromModule<T extends Parameters>(
 	extensions: ExtensionManifest<T>[],
 ): Promise<ExtensionAutoConvertHandler[]> {
 	const items = await Promise.all(
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-await
-		extensions.map(async (manifest) => {
+		extensions.map((manifest) => {
 			if (manifest.modules.autoConvert && manifest.modules.autoConvert.url) {
 				return manifest.modules.autoConvert.url;
 			}

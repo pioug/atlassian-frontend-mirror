@@ -61,6 +61,7 @@ const extractFlexibleUiContext = ({
 	id,
 	onClick,
 	origin,
+	product,
 	resolve,
 	rovoConfig,
 	actionOptions,
@@ -87,7 +88,7 @@ const extractFlexibleUiContext = ({
 			fireEvent,
 			id,
 			origin,
-			...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { rovoConfig } : undefined),
+			...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { product, rovoConfig } : undefined),
 			response,
 			url: props.url, // Use the original URL in edge cases, such as short links for AI summary and copy link actions.
 			isPreviewPanelAvailable,

@@ -25,7 +25,7 @@ export function createPlaceholderDecoration(
 	let placeholderNodeWithText = placeholderDecoration;
 
 	placeholderDecoration.setAttribute('data-testid', placeholderTestId);
-	const shouldFadeIn = showOnEmptyParagraph && fg('platform_editor_ai_aifc_patch_ga_blockers');
+	const shouldFadeIn = showOnEmptyParagraph;
 	placeholderDecoration.className = shouldFadeIn
 		? 'placeholder-decoration placeholder-decoration-fade-in'
 		: 'placeholder-decoration';

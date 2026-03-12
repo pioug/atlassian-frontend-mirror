@@ -975,6 +975,5 @@ export const defaultInitialVisibleColumnKeys: string[] = [
 	'created',
 	'description',
 	'priority',
-	// TODO: Uncomment this when cleaning up jpd_confluence_date_fields_improvements
-	// 'daterange',
+	'daterange',
 ];

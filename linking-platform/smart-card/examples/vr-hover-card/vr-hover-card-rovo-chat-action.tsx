@@ -6,9 +6,9 @@ import type { JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { GoogleDoc, GoogleDocUrl, iconGoogleDrive } from '@atlaskit/link-test-helpers';
 
-import { CardSSR } from '../../src/ssr.tsx';
+import { CardSSR } from '../../src/ssr';
 import useAISummaryAction from '../../src/state/hooks/use-ai-summary-action';
-import type { AISummaryState } from '../../src/state/hooks/use-ai-summary/ai-summary-service/types.ts';
+import type { AISummaryState } from '../../src/state/hooks/use-ai-summary/ai-summary-service/types';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const googleDocResponse = {

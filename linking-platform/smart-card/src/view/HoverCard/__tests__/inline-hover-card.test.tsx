@@ -22,7 +22,7 @@ import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-p
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { CardSSR } from '../../../ssr.tsx';
+import { CardSSR } from '../../../ssr';
 import * as useSmartCardActions from '../../../state/actions';
 import { fakeFactory } from '../../../utils/mocks';
 import { Card } from '../../Card';

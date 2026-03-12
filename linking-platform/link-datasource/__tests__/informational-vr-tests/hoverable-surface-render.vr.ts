@@ -37,7 +37,6 @@ snapshotInformational(VRJiraIssueTableHoverable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {},
 	waitForHold: true,
 });
 
@@ -54,9 +53,6 @@ snapshotInformational(VRJiraIssueTableDaterangeHoverable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		jpd_confluence_date_fields_improvements: true,
-	},
 	waitForHold: true,
 });
 
@@ -66,6 +62,5 @@ snapshotInformational(VREmptyStateHoverable, {
 		await page.hover(hoverableContainerSelector);
 	},
 	description: 'empty state table on a hoverable surface',
-	featureFlags: {},
 	waitForHold: true,
 });

@@ -7,7 +7,13 @@ import React, { useRef, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { ExitingPersistence, Motion, type MotionRef, Reanimate, StaggeredEntrance } from '@atlaskit/motion';
+import {
+	ExitingPersistence,
+	Motion,
+	type MotionRef,
+	Reanimate,
+	StaggeredEntrance,
+} from '@atlaskit/motion';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -88,8 +94,10 @@ export default (): React.JSX.Element => {
 			<Box xcss={styles.box}>
 				<Inline>
 					<Stack space="space.100">
-							<Button onClick={() => handleReanimate(Reanimate.enter)}>Enter</Button>
-						<Button onClick={() => handleReanimate(Reanimate.exit_then_enter)}>Exit and Enter</Button>
+						<Button onClick={() => handleReanimate(Reanimate.enter)}>Enter</Button>
+						<Button onClick={() => handleReanimate(Reanimate.exit_then_enter)}>
+							Exit and Enter
+						</Button>
 					</Stack>
 					<ExitingPersistence appear>
 						{isIn && (
@@ -109,7 +117,9 @@ export default (): React.JSX.Element => {
 			<Heading size="medium">Pausing animations</Heading>
 			<Box xcss={styles.box}>
 				<Stack space="space.100">
-					<Button onClick={() => setIsPaused((val) => !val)}>{isPaused ? 'Resume' : 'Pause'}</Button>
+					<Button onClick={() => setIsPaused((val) => !val)}>
+						{isPaused ? 'Resume' : 'Pause'}
+					</Button>
 					<ExitingPersistence appear>
 						{isIn && (
 							<React.Fragment>

@@ -86,10 +86,5 @@
 				"no-deprecated-imports"
 			]
 		}
-	},
-	"platform-feature-flags": {
-		"jpd_confluence_date_fields_improvements": {
-			"type": "boolean"
-		}
 	}
 }

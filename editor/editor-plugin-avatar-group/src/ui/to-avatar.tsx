@@ -18,7 +18,11 @@ const toAvatar = (
 	api: ExtractInjectionAPI<AvatarGroupPlugin> | undefined,
 	formatMessage: IntlShape['formatMessage'],
 ): AvatarProps => ({
-	name: participant.name || (fg('platform_ally_avatar_button_fix') ? formatMessage(avatarGroupMessages.anonymousCollaborator) : ''),
+	name:
+		participant.name ||
+		(fg('platform_ally_avatar_button_fix')
+			? formatMessage(avatarGroupMessages.anonymousCollaborator)
+			: ''),
 	src: participant.avatar,
 	size: 'medium',
 	presence: (

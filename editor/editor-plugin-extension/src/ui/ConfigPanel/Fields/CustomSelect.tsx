@@ -75,7 +75,7 @@ function CustomSelect({
 			setLoading(true);
 
 			try {
-				const resolver = await getCustomFieldResolver(extensionManifest, field.options.resolver);
+				const resolver = getCustomFieldResolver(extensionManifest, field.options.resolver);
 
 				if (cancel) {
 					return;

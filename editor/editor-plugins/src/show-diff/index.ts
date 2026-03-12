@@ -2,4 +2,4 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
-export type { ShowDiffPlugin, DiffParams, PMDiffParams } from '@atlaskit/editor-plugin-show-diff';
+export type { DiffParams, PMDiffParams, ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';

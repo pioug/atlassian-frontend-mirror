@@ -30,6 +30,11 @@ import noSparseCheckout from './rules/no-sparse-checkout';
 import noDirectDocumentUsage from './rules/no-direct-document-usage';
 import noSetImmediate from './rules/no-set-immediate';
 import preferCryptoRandomUuid from './rules/prefer-crypto-random-uuid';
+import noBarrelEntryImports from './rules/import/no-barrel-entry-imports';
+import noBarrelEntryJestMock from './rules/import/no-barrel-entry-jest-mock';
+import noJestMockBarrelFiles from './rules/import/no-jest-mock-barrel-files';
+import noRelativeBarrelFileImports from './rules/import/no-relative-barrel-file-imports';
+import noConversationAssistantBarrelImports from './rules/import/no-conversation-assistant-barrel-imports';
 import { join, normalize } from 'node:path';
 import { readFileSync } from 'node:fs';
 
@@ -89,6 +94,11 @@ const rules = {
 	'no-direct-document-usage': noDirectDocumentUsage,
 	'no-set-immediate': noSetImmediate,
 	'prefer-crypto-random-uuid': preferCryptoRandomUuid,
+	'no-barrel-entry-imports': noBarrelEntryImports,
+	'no-barrel-entry-jest-mock': noBarrelEntryJestMock,
+	'no-jest-mock-barrel-files': noJestMockBarrelFiles,
+	'no-relative-barrel-file-imports': noRelativeBarrelFileImports,
+	'no-conversation-assistant-barrel-imports': noConversationAssistantBarrelImports,
 };
 
 const commonConfig = {

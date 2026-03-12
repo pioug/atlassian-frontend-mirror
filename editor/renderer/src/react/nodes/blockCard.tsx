@@ -9,7 +9,11 @@ import { UnsupportedBlock, UnsupportedInline, WidthConsumer } from '@atlaskit/ed
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 import { CardErrorBoundary } from './fallback';
-import { SmartLinkDraggable, SMART_LINK_DRAG_TYPES, SMART_LINK_APPERANCE } from '@atlaskit/editor-smart-link-draggable';
+import {
+	SmartLinkDraggable,
+	SMART_LINK_DRAG_TYPES,
+	SMART_LINK_APPERANCE,
+} from '@atlaskit/editor-smart-link-draggable';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
@@ -237,7 +241,11 @@ export default function BlockCard(props: {
 	}
 
 	return (
-		<SmartLinkDraggable url={url || ''} appearance={SMART_LINK_APPERANCE.BLOCK} source={SMART_LINK_DRAG_TYPES.RENDERER}>
+		<SmartLinkDraggable
+			url={url || ''}
+			appearance={SMART_LINK_APPERANCE.BLOCK}
+			source={SMART_LINK_DRAG_TYPES.RENDERER}
+		>
 			<AnalyticsContext data={analyticsData}>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

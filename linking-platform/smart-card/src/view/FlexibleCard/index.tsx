@@ -45,7 +45,7 @@ const FlexibleCard = ({
 }: FlexibleCardProps): React.JSX.Element => {
 	const aiSummaryConfig = useAISummaryConfig();
 	const resolve = useResolve();
-	const { isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
+	const { isPreviewPanelAvailable, openPreviewPanel, product } = useSmartLinkContext();
 
 	const rovoConfig = fg('platform_sl_3p_auth_rovo_action_kill_switch')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -83,7 +83,9 @@ const FlexibleCard = ({
 				origin,
 				renderers,
 				resolve,
-				...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { rovoConfig } : undefined),
+				...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+					? { product, rovoConfig }
+					: undefined),
 				actionOptions,
 				status: placeholderCardState ? placeHolderStatus : status,
 				url,
@@ -103,6 +105,7 @@ const FlexibleCard = ({
 			origin,
 			placeholderCardState,
 			placeHolderStatus,
+			product,
 			renderers,
 			resolve,
 			rovoConfig,

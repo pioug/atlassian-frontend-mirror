@@ -277,4 +277,11 @@ export const aiMessages = defineMessages({
 		defaultMessage: 'Actions',
 		description: 'Section title for AI actions in the paste options menu',
 	},
+
+	// Block menu messages
+	blockMenuNestedMenuTitle: {
+		id: 'fabric.editor.ai.config.item.blockMenuNestedMenu.title',
+		defaultMessage: 'Show more',
+		description: 'Title for the nested menu in the block menu',
+	},
 });

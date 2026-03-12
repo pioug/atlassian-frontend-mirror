@@ -34,11 +34,7 @@ export const stringifyType = (
 		case 'datetime':
 			return getFormattedDate(value, 'datetime', formatDate);
 		case 'daterange': {
-			if (fg('jpd_confluence_date_fields_improvements')) {
-				return getFormattedDateRange(value.start, value.end, formatDate, formatMessage);
-			}
-
-			return '';
+			return getFormattedDateRange(value.start, value.end, formatDate, formatMessage);
 		}
 		case 'time':
 			return getFormattedDate(value, 'time', formatDate);
@@ -78,11 +74,7 @@ export const renderType: TableViewPropsRenderType = (item) => {
 				<DateTimeRenderType value={datTimeValue} display="datetime" />
 			));
 		case 'daterange': {
-			if (fg('jpd_confluence_date_fields_improvements')) {
-				return item.values.map((dateRangeValue) => <DateRangeRenderType value={dateRangeValue} />);
-			}
-
-			return <></>;
+			return item.values.map((dateRangeValue) => <DateRangeRenderType value={dateRangeValue} />);
 		}
 		case 'icon':
 			return item.values.map((iconValue) => <IconRenderType {...iconValue} />);

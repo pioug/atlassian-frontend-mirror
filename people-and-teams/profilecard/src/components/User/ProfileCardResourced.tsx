@@ -206,8 +206,7 @@ class ProfileCardResourced extends React.PureComponent<
 			isKudosEnabled,
 			teamCentralBaseUrl,
 			openKudosDrawer: this.openKudosDrawer,
-			hideReportingLines:
-				fg('jira_ai_profilecard_hide_reportinglines') && hideReportingLines,
+			hideReportingLines: fg('jira_ai_profilecard_hide_reportinglines') && hideReportingLines,
 		};
 
 		return (

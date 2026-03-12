@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library';
 
 import { ErrorBoundary } from '../../ErrorBoundary';
 import type { ComponentCaughtDomErrorAEP } from '../../../../analytics/events';
@@ -30,7 +30,7 @@ describe('When error boundary for dom errors flag is enabled it should call fire
 			// the ErrorBoundary would either render a fallback component or the broken component
 			// would be re-rendered without the error. In this test, we just want to check that
 			// the correct analytics event is fired. To do this, we're suppressing this error.
-		} catch (e) {}
+		} catch {}
 
 		const expectedAnalyticsEvent: ComponentCaughtDomErrorAEP = {
 			action: ACTION.CAUGHT_DOM_ERROR,

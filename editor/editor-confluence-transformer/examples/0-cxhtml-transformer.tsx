@@ -8,7 +8,9 @@ import { Component, createRef } from 'react';
 import { pd } from 'pretty-data';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import type { EditorProps, EditorActions } from '@atlaskit/editor-core';
+// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import { EditorContext, WithEditorActions } from '@atlaskit/editor-core';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
@@ -45,6 +47,24 @@ export const content: SerializedStyles = css({
 	height: '100%',
 	background: '#fff',
 	boxSizing: 'border-box',
+});
+
+const clickableSpan: SerializedStyles = css({
+	cursor: 'pointer',
+});
+
+const fieldsetStyle: SerializedStyles = css({
+	marginTop: token('space.250', '20px'),
+	marginBottom: token('space.250', '20px'),
+});
+
+const textareaStyle: SerializedStyles = css({
+	boxSizing: 'border-box',
+	border: `${token('border.width')} solid lightgray`,
+	fontFamily: 'monospace',
+	padding: token('space.150', '12px'),
+	width: '100%',
+	height: 100,
 });
 
 const SaveAndCancelButtons = (props: any) => (
@@ -87,12 +107,70 @@ type ExampleState = {
 	output: string;
 };
 
-const Editor = ({ ...props }: EditorProps) => {
+const Editor = (props: EditorProps) => {
 	const universalPreset = useUniversalPreset({ props });
 	const { preset } = usePreset(() => {
 		return universalPreset.add(highlightPlugin);
 	}, [universalPreset]);
-	return <ComposableEditor preset={preset} {...props} />;
+	return (
+		<ComposableEditor
+			preset={preset}
+			appearance={props.appearance}
+			contentMode={props.contentMode}
+			contentComponents={props.contentComponents}
+			primaryToolbarIconBefore={props.primaryToolbarIconBefore}
+			secondaryToolbarComponents={props.secondaryToolbarComponents}
+			persistScrollGutter={props.persistScrollGutter}
+			quickInsert={props.quickInsert}
+			shouldFocus={props.shouldFocus}
+			disabled={props.disabled}
+			contextPanel={props.contextPanel}
+			errorReporterHandler={props.errorReporterHandler}
+			contentTransformerProvider={props.contentTransformerProvider}
+			maxHeight={props.maxHeight}
+			minHeight={props.minHeight}
+			defaultValue={props.defaultValue}
+			assistiveLabel={props.assistiveLabel}
+			assistiveDescribedBy={props.assistiveDescribedBy}
+			popupsMountPoint={props.popupsMountPoint}
+			popupsBoundariesElement={props.popupsBoundariesElement}
+			popupsScrollableElement={props.popupsScrollableElement}
+			editorActions={props.editorActions}
+			onEditorReady={props.onEditorReady}
+			onDestroy={props.onDestroy}
+			onChange={props.onChange}
+			onCancel={props.onCancel}
+			extensionProviders={props.extensionProviders}
+			UNSAFE_useAnalyticsContext={props.UNSAFE_useAnalyticsContext}
+			useStickyToolbar={props.useStickyToolbar}
+			featureFlags={props.featureFlags}
+			onSave={props.onSave}
+			sanitizePrivateContent={props.sanitizePrivateContent}
+			media={props.media}
+			collabEdit={props.collabEdit}
+			primaryToolbarComponents={props.primaryToolbarComponents}
+			performanceTracking={props.performanceTracking}
+			inputSamplingLimit={props.inputSamplingLimit}
+			allowUndoRedoButtons={props.allowUndoRedoButtons}
+			linking={props.linking}
+			activityProvider={props.activityProvider}
+			searchProvider={props.searchProvider}
+			annotationProviders={props.annotationProviders}
+			collabEditProvider={props.collabEditProvider}
+			presenceProvider={props.presenceProvider}
+			emojiProvider={props.emojiProvider}
+			taskDecisionProvider={props.taskDecisionProvider}
+			legacyImageUploadProvider={props.legacyImageUploadProvider}
+			mentionProvider={props.mentionProvider}
+			autoformattingProvider={props.autoformattingProvider}
+			macroProvider={props.macroProvider}
+			contextIdentifierProvider={props.contextIdentifierProvider}
+			onSSRMeasure={props.onSSRMeasure}
+			__livePage={props.__livePage}
+			skipValidation={props.skipValidation}
+			syncedBlockProvider={props.syncedBlockProvider}
+		/>
+	);
 };
 
 // Ignored via go/ees005
@@ -112,33 +190,10 @@ class Example extends Component<ExampleProps, ExampleState> {
 	render() {
 		return (
 			<div>
-				<fieldset
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						marginTop: token('space.250', '20px'),
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						marginBottom: token('space.250', '20px'),
-					}}
-				>
+				<fieldset css={fieldsetStyle}>
 					<legend>Input</legend>
 					{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
-					<textarea
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							boxSizing: 'border-box',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							border: `${token('border.width')} solid lightgray`,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							fontFamily: 'monospace',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							padding: token('space.150', '12px'),
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							width: '100%',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							height: 100,
-						}}
-						ref={this.inputRef}
-					/>
+					<textarea css={textareaStyle} ref={this.inputRef} />
 					<button onClick={this.handleImportClick}>Import</button>
 					<button onClick={this.handleInsertCodeClick}>Code</button>
 					<button onClick={this.handleInsertPanelClick}>Panel</button>
@@ -167,7 +222,12 @@ class Example extends Component<ExampleProps, ExampleState> {
 									allowExtension={true}
 									allowConfluenceInlineComment={true}
 									allowDate={true}
-									{...providers}
+									emojiProvider={providers.emojiProvider}
+									mentionProvider={providers.mentionProvider}
+									activityProvider={providers.activityProvider}
+									macroProvider={providers.macroProvider}
+									taskDecisionProvider={providers.taskDecisionProvider}
+									contextIdentifierProvider={providers.contextIdentifierProvider}
 									media={{ provider: mediaProvider, allowMediaSingle: true }}
 									contentTransformerProvider={(schema) => new ConfluenceTransformer(schema)}
 									placeholder="Write something..."
@@ -221,6 +281,19 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 		isMediaReady: true,
 	};
 
+	fieldsetStyle: SerializedStyles = css({
+		marginTop: token('space.250', '20px'),
+	});
+
+	preStyle: SerializedStyles = css({
+		whiteSpace: 'pre-wrap',
+		wordBreak: 'break-all',
+	});
+
+	spinnerContainerStyle: SerializedStyles = css({
+		padding: token('space.250', '20px'),
+	});
+
 	handleChange = (editorActions: EditorActions): void => {
 		this.setState({ isMediaReady: false });
 
@@ -247,24 +320,21 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 		return (
 			<div>
 				<Example onChange={this.handleChange} />
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<fieldset style={{ marginTop: token('space.250', '20px') }}>
+				<fieldset css={fieldsetStyle}>
 					<legend>
 						CXHTML output ({/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input type="checkbox" checked={this.state.prettify} onChange={this.togglePrettify} />
-						{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766  */}
-						<span onClick={this.togglePrettify} style={{ cursor: 'pointer' }}>
+						{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions -- Ignored via go/DSP-18766  */}
+						<span onClick={this.togglePrettify} onKeyDown={this.togglePrettify} css={clickableSpan}>
 							{' '}
 							prettify
 						</span>
 						)
 					</legend>
 					{this.state.isMediaReady ? (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						<pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{xml}</pre>
+						<pre css={this.preStyle}>{xml}</pre>
 					) : (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						<div style={{ padding: token('space.250', '20px') }}>
+						<div css={this.spinnerContainerStyle}>
 							<Spinner size="large" />
 						</div>
 					)}

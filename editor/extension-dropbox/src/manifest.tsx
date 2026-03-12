@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createRoot, type Root } from 'react-dom/client';
 
 import { type ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import { inlineCard } from '@atlaskit/adf-utils/builders';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import enableDropbox from './enable-dropbox';
 import { type DropboxFile } from './types';
@@ -28,10 +30,11 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 	await enableDropbox(appKey);
 
 	let popupMountPoint;
+	let root: Root | null = null;
 
 	// BC - as of 2020-01-21 this does not work, as no dropbox app we have is authorised
 	// to iframe in the picker - we are currently waiting for permissions.
-	// To test the picker, comment out the ReactDOM render call, and the `iframe` and `winowName` options
+	// To test the picker, comment out the render call, and the `iframe` and `winowName` options
 	if (canMountinIframe) {
 		const Modal = await import('./modal');
 
@@ -46,7 +49,12 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 			popupMountPoint.id = POPUP_MOUNTPOINT;
 			document.body.appendChild(popupMountPoint);
 		}
-		ReactDOM.render(<Modal.default onClose={() => {}} />, popupMountPoint);
+		if (expValEquals('platform_editor_react19_migration', 'isEnabled', true)) {
+			root = createRoot(popupMountPoint);
+			root.render(<Modal.default onClose={() => {}} />);
+		} else {
+			ReactDOM.render(<Modal.default onClose={() => {}} />, popupMountPoint);
+		}
 	}
 
 	let files: DropboxFile[];
@@ -60,8 +68,13 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 				cancel: reject,
 			});
 		});
+		// eslint-disable-next-line no-unused-vars
 	} catch (e) {
-		if (popupMountPoint) {
+		if (expValEquals('platform_editor_react19_migration', 'isEnabled', true)) {
+			if (root) {
+				root.unmount();
+			}
+		} else if (popupMountPoint) {
 			ReactDOM.unmountComponentAtNode(popupMountPoint);
 		}
 		return;
@@ -69,7 +82,11 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 	let node;
 
 	if (!files.length) {
-		if (popupMountPoint) {
+		if (expValEquals('platform_editor_react19_migration', 'isEnabled', true)) {
+			if (root) {
+				root.unmount();
+			}
+		} else if (popupMountPoint) {
 			ReactDOM.unmountComponentAtNode(popupMountPoint);
 		}
 		return;
@@ -88,7 +105,11 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 		};
 	}
 
-	if (popupMountPoint) {
+	if (expValEquals('platform_editor_react19_migration', 'isEnabled', true)) {
+		if (root) {
+			root.unmount();
+		}
+	} else if (popupMountPoint) {
 		ReactDOM.unmountComponentAtNode(popupMountPoint);
 	}
 	return node;

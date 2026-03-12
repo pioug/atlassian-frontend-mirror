@@ -189,7 +189,7 @@ const BaseBadgeRefreshNew = forwardRef(
 			// eslint-disable-next-line react-hooks/rules-of-hooks
 			const context = useFlexibleUiContext();
 
-			if (context?.actions?.[InternalActionName.RovoChatAction] === true) {
+			if (context?.actions?.[InternalActionName.RovoChatAction]) {
 				return (
 					<span
 						data-smart-element={name}

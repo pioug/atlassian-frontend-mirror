@@ -242,12 +242,7 @@ const NewUnauthorisedBlock = ({
 			</ElementGroup>
 
 			{hasActions ? (
-				<div
-					css={[
-						previewBlockStyle,
-						previewBlockStyleWithOverlap
-					]}
-				>
+				<div css={[previewBlockStyle, previewBlockStyleWithOverlap]}>
 					<div css={previewBlockImageStyle} style={{ backgroundImage: `url(${overrideUrl})` }} />
 				</div>
 			) : null}

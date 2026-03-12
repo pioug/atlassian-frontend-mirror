@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 216.15.2
+
+### Patch Changes
+
+- [`1813c0774ee29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1813c0774ee29) -
+  cleanup platform_editor_context_context_types_migration
+- Updated dependencies
+
 ## 216.15.1
 
 ### Patch Changes

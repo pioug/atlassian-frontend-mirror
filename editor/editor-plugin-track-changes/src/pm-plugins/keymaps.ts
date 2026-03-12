@@ -8,7 +8,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TrackChangesPlugin } from '../trackChangesPluginType';
 
@@ -17,7 +16,7 @@ export function keymapPlugin(api?: ExtractInjectionAPI<TrackChangesPlugin>): Saf
 	const browser = getBrowserInfo();
 
 	// Exclude Firefox browser from keyboard shortcut
-	if (!browser.gecko && fg('platform_editor_ai_aifc_patch_ga_blockers')) {
+	if (!browser.gecko) {
 		bindKeymapWithCommand(
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			toggleViewChanges.common!,

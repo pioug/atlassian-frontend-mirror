@@ -229,6 +229,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.addEventListener('resize', this.handleWindowResizeNewDebounced);
 		}
+
+		this.dispatchTableRefUpdate();
 	}
 
 	initialiseEventListenersAfterMount() {
@@ -677,6 +679,23 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 			this.handleTableResizingDebounced();
 		}
+
+		this.dispatchTableRefUpdate();
+	}
+
+	private lastSetTableRef: HTMLTableElement | null = null;
+	private dispatchTableRefUpdate() {
+		if (
+			this.table &&
+			this.table !== this.lastSetTableRef &&
+			this.props.view &&
+			expValEquals('platform_editor_fix_editor_unhandled_type_errors', 'isEnabled', true) &&
+			(expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) ||
+				fg('platform_editor_enable_table_update_ref_atlas'))
+		) {
+			this.lastSetTableRef = this.table;
+			setTableRef(this.table)(this.props.view.state, this.props.view.dispatch);
+		}
 	}
 
 	private observeTable(table: HTMLTableElement | null) {
@@ -887,6 +906,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 								if (
 									this.table &&
 									this.props.view &&
+									!expValEquals(
+										'platform_editor_fix_editor_unhandled_type_errors',
+										'isEnabled',
+										true,
+									) &&
 									(expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) ||
 										fg('platform_editor_enable_table_update_ref_atlas'))
 								) {

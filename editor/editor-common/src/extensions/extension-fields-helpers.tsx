@@ -8,9 +8,7 @@ import {
 } from './types/extension-manifest';
 import { type FieldHandlerLink } from './types/field-definitions';
 
-// Ignored via go/ees005
-// eslint-disable-next-line require-await
-async function getExtensionModuleField<K extends keyof ExtensionModuleFields>(
+function getExtensionModuleField<K extends keyof ExtensionModuleFields>(
 	manifest: ExtensionManifest,
 	fieldType: K,
 	handlerLink: FieldHandlerLink,
@@ -46,37 +44,37 @@ async function getExtensionModuleField<K extends keyof ExtensionModuleFields>(
 }
 
 /** attempt to get the custom resolver for this field, or throw */
-export async function getCustomFieldResolver(
+export function getCustomFieldResolver(
 	manifest: ExtensionManifest,
 	handlerLink: FieldHandlerLink,
-): Promise<CustomFieldResolver> {
-	const handler = await getExtensionModuleField(manifest, 'custom', handlerLink);
+): CustomFieldResolver {
+	const handler = getExtensionModuleField(manifest, 'custom', handlerLink);
 	return handler.resolver;
 }
 
 /** attempt to get the serializer for this field, or throw */
-export async function getFieldSerializer(
+export function getFieldSerializer(
 	manifest: ExtensionManifest,
 	handlerLink: FieldHandlerLink,
-): Promise<Serializer | undefined> {
-	const handler = await getExtensionModuleField(manifest, 'fieldset', handlerLink);
+): Serializer | undefined {
+	const handler = getExtensionModuleField(manifest, 'fieldset', handlerLink);
 	return handler.serializer;
 }
 
 /** attempt to get the deserializer for this field, or throw */
-export async function getFieldDeserializer(
+export function getFieldDeserializer(
 	manifest: ExtensionManifest,
 	handlerLink: FieldHandlerLink,
-): Promise<Deserializer | undefined> {
-	const handler = await getExtensionModuleField(manifest, 'fieldset', handlerLink);
+): Deserializer | undefined {
+	const handler = getExtensionModuleField(manifest, 'fieldset', handlerLink);
 	return handler.deserializer;
 }
 
 /** attempt to get the user field context provider for this field, or throw */
-export async function getUserFieldContextProvider(
+export function getUserFieldContextProvider(
 	manifest: ExtensionManifest,
 	handlerLink: FieldHandlerLink,
-): Promise<UserFieldContextProvider> {
-	const handler = await getExtensionModuleField(manifest, 'user', handlerLink);
+): UserFieldContextProvider {
+	const handler = getExtensionModuleField(manifest, 'user', handlerLink);
 	return handler.provider;
 }

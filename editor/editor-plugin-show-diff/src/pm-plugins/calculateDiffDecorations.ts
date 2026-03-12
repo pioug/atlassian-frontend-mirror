@@ -4,12 +4,14 @@ import memoizeOne from 'memoize-one';
 import { ChangeSet, simplifyChanges, type Change } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl-next';
 
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { ColorScheme } from '../showDiffPluginType';
+import type { ColorScheme, ShowDiffPlugin } from '../showDiffPluginType';
 
 import { createBlockChangedDecoration } from './decorations/createBlockChangedDecoration';
 import { createInlineChangedDecoration } from './decorations/createInlineChangedDecoration';
@@ -22,7 +24,6 @@ import { getMarkChangeRanges } from './decorations/utils/getMarkChangeRanges';
 import type { ShowDiffPluginState } from './main';
 import type { NodeViewSerializer } from './NodeViewSerializer';
 import { simplifySteps } from './simplifyChanges';
-
 
 const calculateNodesForBlockDecoration = ({
 	doc,
@@ -89,6 +90,16 @@ function optimizeChanges(changes: Change[]): Change[] {
 	return optimized;
 }
 
+type NodesEqualEvent = {
+	action: 'nodesNotEqual';
+	actionSubject: 'showDiff';
+	attributes: {
+		colorScheme: ColorScheme | undefined;
+		docSizeEqual: boolean;
+	};
+	eventType: 'track';
+};
+
 const calculateDiffDecorationsInner = ({
 	state,
 	pluginState,
@@ -96,8 +107,10 @@ const calculateDiffDecorationsInner = ({
 	colorScheme,
 	intl,
 	activeIndexPos,
+	api,
 }: {
 	activeIndexPos?: { from: number; to: number };
+	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
 	colorScheme?: ColorScheme;
 	intl: IntlShape;
 	nodeViewSerializer: NodeViewSerializer;
@@ -130,6 +143,17 @@ const calculateDiffDecorationsInner = ({
 	// Rather than using .eq() we use a custom function that only checks for structural
 	// changes and ignores differences in attributes which don't affect decoration positions
 	if (!areNodesEqualIgnoreAttrs(steppedDoc, tr.doc)) {
+		if (expValEquals('platform_editor_are_nodes_equal_ignore_mark_order', 'isEnabled', true)) {
+			api?.analytics?.actions.fireAnalyticsEvent<NodesEqualEvent, 'customEventType'>({
+				eventType: 'track',
+				action: 'nodesNotEqual',
+				actionSubject: 'showDiff',
+				attributes: {
+					docSizeEqual: steppedDoc.nodeSize === tr.doc.nodeSize,
+					colorScheme,
+				},
+			});
+		}
 		return DecorationSet.empty;
 	}
 	const changeset = ChangeSet.create(originalDoc).addSteps(steppedDoc, stepMaps, tr.doc);

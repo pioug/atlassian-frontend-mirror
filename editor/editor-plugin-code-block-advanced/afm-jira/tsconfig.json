@@ -27,6 +27,9 @@
 			"path": "../../adf-schema/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/code/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-code-block/afm-jira/tsconfig.json"
 		},
 		{

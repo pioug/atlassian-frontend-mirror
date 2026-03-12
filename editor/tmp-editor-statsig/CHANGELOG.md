@@ -1,5 +1,49 @@
 # @atlaskit/editor-statsig-tmp
 
+## 35.9.0
+
+### Minor Changes
+
+- [`5c1f0e3fb0a3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c1f0e3fb0a3f) -
+  EDITO-5622 Update errorboundary key to reduce rerenders from new key being generated
+
+### Patch Changes
+
+- [`1813c0774ee29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1813c0774ee29) -
+  cleanup platform_editor_context_context_types_migration
+- Updated dependencies
+
+## 35.8.0
+
+### Minor Changes
+
+- [`477d48a3021a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/477d48a3021a5) -
+  EDITOR-5818 fix to not send dispatch during render or in ref callback
+
+## 35.7.0
+
+### Minor Changes
+
+- [`f91f6be9566a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f91f6be9566a5) -
+  Don't show the grid container if not visible to avoid reflow experiment.
+- [`0a65ee9a1c299`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a65ee9a1c299) -
+  Replace ReactDOM.render in editor-extesion-dropbox
+- [`29e8db48dc55b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29e8db48dc55b) -
+  [ux] EDITOR-5622 Remove sentinels when shadowObserver is cleaned up
+- [`dd5154ad0dec5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd5154ad0dec5) -
+  [A11Y-10416] Add experiment editor-a11y-10416-codeblock-entry for code block accessibility
+- [`1e58c64552ef8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e58c64552ef8) -
+  Add new 'allowFontSize' plugin option to blockTypePlugin which enables new 'small' text feature to
+  be added, it's behind an experiment platform_editor_small_font_size.
+
+## 35.6.0
+
+### Minor Changes
+
+- [`e7825d1698274`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7825d1698274) -
+  Improve areNodesEqualIgnoreAttrs by adding option ignoreMarkOrder which ensures the order of the
+  marks does not result in a "false" which can break some cases of diffs.
+
 ## 35.5.0
 
 ### Minor Changes

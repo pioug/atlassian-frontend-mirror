@@ -18,7 +18,10 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { HiddenIcon } from '../../common/ui/hidden-icon';
 import { StarIconButton } from '../../common/ui/star-icon-button';
-import { type AgentCreatorType, isForgeAgentByCreatorType } from '../../common/utils/is-forge-agent';
+import {
+	type AgentCreatorType,
+	isForgeAgentByCreatorType,
+} from '../../common/utils/is-forge-agent';
 
 import { messages } from './messages';
 

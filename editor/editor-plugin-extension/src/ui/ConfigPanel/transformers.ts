@@ -150,7 +150,7 @@ const serializeFieldset = async (
 	let fieldSerializer;
 
 	try {
-		fieldSerializer = await getFieldSerializer(manifest, field.options.transformer);
+		fieldSerializer = getFieldSerializer(manifest, field.options.transformer);
 	} catch (ex) {
 		// We only throw if there is data that may be lost
 		if (data[field.name] !== undefined) {
@@ -412,7 +412,7 @@ export const deserialize = async (
 		// WARNING: don't recursively serialize, limit to depth < 1
 		// deserializable?
 		if (isFieldset(field) && depth === 0) {
-			const fieldDeserializer = await getFieldDeserializer(manifest, field.options.transformer);
+			const fieldDeserializer = getFieldDeserializer(manifest, field.options.transformer);
 
 			if (fieldDeserializer) {
 				try {

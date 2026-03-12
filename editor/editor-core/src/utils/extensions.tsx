@@ -169,11 +169,9 @@ export async function extensionProviderToQuickInsertProvider(
 	};
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line require-await
-export async function combineQuickInsertProviders(
+export function combineQuickInsertProviders(
 	quickInsertProviders: Array<QuickInsertProvider | Promise<QuickInsertProvider>>,
-): Promise<QuickInsertProvider> {
+): QuickInsertProvider {
 	const { invokeList } = combineProviders<QuickInsertProvider>(quickInsertProviders);
 
 	return {

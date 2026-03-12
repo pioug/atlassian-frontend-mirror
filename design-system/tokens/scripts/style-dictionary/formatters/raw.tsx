@@ -54,9 +54,7 @@ const toTokenValueString = (
 		delay?: ${original ? 'string' : 'number'};
 	}`
 			: undefined,
-		types.keyframe
-			? `	${prefix}Record<string, any>`
-			: undefined,
+		types.keyframe ? `	${prefix}Record<string, any>` : undefined,
 	].filter(Boolean) as string[];
 
 	return `type ${original ? 'TokenValueOriginal' : 'TokenValue'} =${

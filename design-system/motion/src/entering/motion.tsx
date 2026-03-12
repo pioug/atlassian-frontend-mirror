@@ -35,13 +35,13 @@ const styles = cssMap({
 });
 
 /**
- * Supported reanimate values. 
+ * Supported reanimate values.
  * 'enter' will re-enter the animation.
- * 'exit-then-enter' will exit the animation and then enter it again. 
+ * 'exit-then-enter' will exit the animation and then enter it again.
  */
 export enum Reanimate {
-	enter = "enter",
-	exit_then_enter = "exit_then_enter",
+	enter = 'enter',
+	exit_then_enter = 'exit_then_enter',
 }
 
 export interface MotionRef {
@@ -52,7 +52,7 @@ export interface MotionRef {
 	reanimate: (value: Reanimate) => void;
 }
 
-type MotionState = "entering" | "exiting" | "idle" | "reanimating";
+type MotionState = 'entering' | 'exiting' | 'idle' | 'reanimating';
 
 interface MotionProps {
 	/**
@@ -109,7 +109,7 @@ const Motion: React.ForwardRefExoticComponent<
 			isPaused,
 			onFinish: onFinishMotion,
 			xcss,
-			testId
+			testId,
 		},
 		ref: Ref<any>,
 	): React.JSX.Element => {
@@ -118,53 +118,56 @@ const Motion: React.ForwardRefExoticComponent<
 		const paused = isPaused || !staggered.isReady;
 		const delay = isExiting ? 0 : staggered.delay;
 
-		const [state, setState] = useState<MotionState>(appear ? "entering" : "idle");
+		const [state, setState] = useState<MotionState>(appear ? 'entering' : 'idle');
 
 		const reanimateRef = useRef<Reanimate>();
 		const animationRef = useRef<NodeJS.Timeout>();
 
 		useEffect(() => {
-			if(isExiting) {
-				setState("exiting");
+			if (isExiting) {
+				setState('exiting');
 			}
-		}, [isExiting])
+		}, [isExiting]);
 
 		/**
 		 * Updates relevant state.
 		 * Called when the animation is finished, or immediately with reduced motion.
 		 */
-		const onAnimationEnd = useCallback((state: MotionState, cancelled: boolean) => {
-			// We are done animating, so we set the state to idle
-			let newState: MotionState = "idle";
-			if (state === 'exiting') {
-				if(!reanimateRef.current) {
-				// Updates the `ExitingPersistence` to remove this child
-					onExitFinished?.();
+		const onAnimationEnd = useCallback(
+			(state: MotionState, cancelled: boolean) => {
+				// We are done animating, so we set the state to idle
+				let newState: MotionState = 'idle';
+				if (state === 'exiting') {
+					if (!reanimateRef.current) {
+						// Updates the `ExitingPersistence` to remove this child
+						onExitFinished?.();
+					}
+					onFinishMotion?.('exiting');
 				}
-				onFinishMotion?.('exiting');
-			}
-			if (state === "entering") {
-				onFinishMotion?.('entering');
-			}
+				if (state === 'entering') {
+					onFinishMotion?.('entering');
+				}
 
-			if(reanimateRef.current === Reanimate.exit_then_enter) {
-				// We are done exiting, so we set the state to entering
-				reanimateRef.current = Reanimate.enter;
-				newState = "entering";
-			} else if(reanimateRef.current) {
-				// We are done reanimating, so we clear the reanimate state
-				reanimateRef.current = undefined;
-			}
+				if (reanimateRef.current === Reanimate.exit_then_enter) {
+					// We are done exiting, so we set the state to entering
+					reanimateRef.current = Reanimate.enter;
+					newState = 'entering';
+				} else if (reanimateRef.current) {
+					// We are done reanimating, so we clear the reanimate state
+					reanimateRef.current = undefined;
+				}
 
-			if(!cancelled) {
-				setState(newState);
-			}
+				if (!cancelled) {
+					setState(newState);
+				}
 
-			// We ignore this for onFinishMotion as consumers could potentially inline the function
-			// which would then trigger this effect every re-render.
-			// We want to make it easier for consumers so we go down this path unfortunately.
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, [onExitFinished]);
+				// We ignore this for onFinishMotion as consumers could potentially inline the function
+				// which would then trigger this effect every re-render.
+				// We want to make it easier for consumers so we go down this path unfortunately.
+				// eslint-disable-next-line react-hooks/exhaustive-deps
+			},
+			[onExitFinished],
+		);
 
 		useEffect(() => {
 			// Tracking this to prevent changing state on an unmounted component
@@ -177,28 +180,31 @@ const Motion: React.ForwardRefExoticComponent<
 			// On initial mount if elements aren't set to animate on appear, we return early and callback
 			// This only occurs on initial mount, as appear will be true once the component is mounted
 			if (!appear) {
-				onFinishMotion && onFinishMotion("entering");
+				onFinishMotion && onFinishMotion('entering');
 				return;
 			}
 
 			// If the state is idle, we don't need to do anything
-			if (state === "idle") {
+			if (state === 'idle') {
 				return;
 			}
 
 			// If there is reduced motion or no exit animation, we call the onAnimationEnd function immediately
 			if (isReducedMotion() || !exitingAnimation) {
-				onAnimationEnd(state,isCancelled);
+				onAnimationEnd(state, isCancelled);
 				return;
 			}
 
 			// Queue `onAnimationEnd` for after the animation has finished
-			if (state === "exiting" && exitingAnimation) {
+			if (state === 'exiting' && exitingAnimation) {
 				const duration = getDurationMs(resolveMotionToken(exitingAnimation));
 				animationRef.current = setTimeout(() => onAnimationEnd(state, isCancelled), duration);
-			} else if (state === "entering" && enteringAnimation) {
+			} else if (state === 'entering' && enteringAnimation) {
 				const duration = getDurationMs(resolveMotionToken(enteringAnimation));
-				animationRef.current = setTimeout(() => onAnimationEnd(state, isCancelled), duration + delay);
+				animationRef.current = setTimeout(
+					() => onAnimationEnd(state, isCancelled),
+					duration + delay,
+				);
 			}
 
 			return () => {
@@ -211,39 +217,34 @@ const Motion: React.ForwardRefExoticComponent<
 			// which would then trigger this effect every re-render.
 			// We want to make it easier for consumers so we go down this path unfortunately.
 			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, [
-			onAnimationEnd,
-			state,
-			exitingAnimation,
-			enteringAnimation,
-			delay,
-			paused,
-		]);
+		}, [onAnimationEnd, state, exitingAnimation, enteringAnimation, delay, paused]);
 
 		useImperativeHandle(ref, () => ({
 			reanimate: (value: Reanimate) => {
 				animationRef.current && clearTimeout(animationRef.current);
 				reanimateRef.current = value;
-				if(value === Reanimate.exit_then_enter) {
-					setState("exiting");
-				} else if(value === Reanimate.enter) {
-					setState("entering");
+				if (value === Reanimate.exit_then_enter) {
+					setState('exiting');
+				} else if (value === Reanimate.enter) {
+					setState('entering');
 				}
 			},
 		}));
 
 		const style: React.CSSProperties = {
 			animation:
-				state === "exiting"
-					? `${exitingAnimation} forwards ${paused ? "paused" : ""}` : state === "entering"
-					? `${enteringAnimation} backwards ${paused ? "paused" : ""}` : undefined
+				state === 'exiting'
+					? `${exitingAnimation} forwards ${paused ? 'paused' : ''}`
+					: state === 'entering'
+						? `${enteringAnimation} backwards ${paused ? 'paused' : ''}`
+						: undefined,
 		};
 		if (delay) {
 			style.animationDelay = `${delay}ms`;
 		}
 
-		const hasAnimationStyles = state !== "idle";
-		
+		const hasAnimationStyles = state !== 'idle';
+
 		return (
 			<div
 				className={xcss}

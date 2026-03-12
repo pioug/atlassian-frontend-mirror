@@ -1,5 +1,6 @@
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 type SurroundingNodes = {
 	after: PMNode | null; // node after the current node
@@ -14,6 +15,8 @@ type SurroundingNodes = {
 const IGNORE_NODES = ['tableRow', 'listItem', 'caption', 'media'];
 
 const blockLeafNodes = ['blockCard', 'rule', 'extension'];
+
+const blockLeafNodeNext = ['blockCard', 'rule', 'extension', 'syncBlock'];
 
 const DISABLE_CHILD_DROP_TARGET = ['orderedList', 'bulletList'];
 
@@ -32,7 +35,11 @@ export const findSurroundingNodes = (
 	nodeType?: string | null,
 ): SurroundingNodes => {
 	const depth = $pos.depth;
-	const blockLeafNodeList = blockLeafNodes;
+	const blockLeafNodeList = editorExperiment('platform_synced_block_patch_6', true, {
+		exposure: true,
+	})
+		? blockLeafNodeNext
+		: blockLeafNodes;
 
 	// special cases like hr rule here
 	if (blockLeafNodeList.includes(nodeType || '') || $pos.pos === 0) {

@@ -38,7 +38,9 @@ export const getItemCounterDigitsSize = (options: GetItemCounterDigitsSize): num
 	return String(largestCounter)?.split('.')?.[0]?.length;
 };
 
-export function isListNode(node: Node | null | undefined): boolean {
+export function isListNode(
+	node: Node | null | undefined,
+): node is Node & { type: { name: 'orderedList' | 'bulletList' } } {
 	return Boolean(node && node.type && ['orderedList', 'bulletList'].includes(node.type.name));
 }
 

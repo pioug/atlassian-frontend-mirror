@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.8.20
+
+### Patch Changes
+
+- [`0f66751ec3512`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f66751ec3512) -
+  Click events should also have key events for accessibility
+
 ## 33.8.19
 
 ### Patch Changes

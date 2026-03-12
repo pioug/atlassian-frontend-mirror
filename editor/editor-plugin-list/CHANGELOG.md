@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-list
 
+## 9.0.28
+
+### Patch Changes
+
+- [`c15b7a3426c66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c15b7a3426c66) -
+  [ux] EDITOR-5626 Flexible list behaviour
+- Updated dependencies
+
 ## 9.0.27
 
 ### Patch Changes

@@ -1,3 +1,5 @@
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 export enum ShadowKeys {
 	SHOW_LEFT_SHADOW = 'showLeftShadow',
 	SHOW_RIGHT_SHADOW = 'showRightShadow',
@@ -104,6 +106,12 @@ export class ShadowObserver {
 			this.intersectionObserver.disconnect();
 			this.intersectionObserver = undefined;
 			this.requestCallbackId && cancelIdleCallback(this.requestCallbackId);
+		}
+
+		if (expValEquals('platform_editor_renderer_shadow_observer_cleanup', 'isEnabled', true)) {
+			this.sentinels.left?.remove();
+			this.sentinels.right?.remove();
+			this.sentinels = {};
 		}
 	}
 }

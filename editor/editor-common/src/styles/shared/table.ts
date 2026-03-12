@@ -160,7 +160,7 @@ const tableSharedStyle = () => {
 			border: ${token('border.width', '1px')} solid ${token('color.border', '#d9dbea')};
 		}`
 			: ''}
-			
+
 		/* avoid applying styles to nested tables (possible via extensions) */
 	.${TableSharedCssClassName.TABLE_CONTAINER} > table,
 	.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,

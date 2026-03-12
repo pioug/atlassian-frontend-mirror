@@ -170,8 +170,9 @@ export default function UserSelect({
 
 		async function fetchContext() {
 			try {
-				const context = await (
-					await getUserFieldContextProvider(extensionManifest, field.options.provider)
+				const context = await getUserFieldContextProvider(
+					extensionManifest,
+					field.options.provider,
 				)();
 
 				if (cancel) {

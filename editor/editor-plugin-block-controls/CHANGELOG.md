@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.12.0
+
+### Minor Changes
+
+- [`c78234abd2778`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c78234abd2778) -
+  EDITOR-5792 fix drop target for sync blocks
+
 ## 8.11.0
 
 ### Minor Changes

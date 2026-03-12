@@ -5,6 +5,7 @@ import { type IntlShape } from 'react-intl-next';
 import {
 	extendedBlockquote,
 	extendedBlockquoteWithLocalId,
+	fontSize,
 	hardBreak,
 	heading,
 } from '@atlaskit/adf-schema';
@@ -33,6 +34,7 @@ import type {
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -208,6 +210,16 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 			}
 
 			return nodes;
+		},
+
+		marks() {
+			if (
+				options?.allowFontSize &&
+				expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+			) {
+				return [{ name: 'fontSize', mark: fontSize }];
+			}
+			return [];
 		},
 
 		pmPlugins() {

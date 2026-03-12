@@ -1,5 +1,16 @@
 # @atlaskit/editor-extension-dropbox
 
+## 5.1.0
+
+### Minor Changes
+
+- [`0a65ee9a1c299`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a65ee9a1c299) -
+  Replace ReactDOM.render in editor-extesion-dropbox
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.12
 
 ### Patch Changes

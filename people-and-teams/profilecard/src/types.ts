@@ -651,8 +651,10 @@ export type TeamProfileCardErrorType = {
 	reason: 'default' | 'NotFound' | 'TEAMS_FORBIDDEN';
 } | null;
 
-export interface ProfileClientOptions
-	extends Omit<TeamCentralCardClientOptions, 'gatewayGraphqlUrl'> {
+export interface ProfileClientOptions extends Omit<
+	TeamCentralCardClientOptions,
+	'gatewayGraphqlUrl'
+> {
 	gatewayGraphqlUrl?: string;
 	url?: string;
 	cacheSize?: number;

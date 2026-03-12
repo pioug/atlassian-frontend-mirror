@@ -7,7 +7,6 @@ import {
 	type StatusType,
 	type User,
 } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { YouTubeVideoUrl } from '../../index';
 import { type GenerateDataResponse } from '../types';
@@ -15,12 +14,6 @@ import { type GenerateDataResponse } from '../types';
 import { defaultInitialVisibleColumnKeys, mockJiraData } from './data';
 
 export { defaultInitialVisibleColumnKeys };
-
-export const daterangeColumn: DatasourceResponseSchemaProperty = {
-	key: 'daterange',
-	title: 'Date range',
-	type: 'daterange',
-};
 
 const columns: DatasourceResponseSchemaProperty[] = [
 	{
@@ -90,9 +83,11 @@ const columns: DatasourceResponseSchemaProperty[] = [
 		title: 'Due Date',
 		type: 'date',
 	},
-	// TODO: Uncomment this when cleaning up jpd_confluence_date_fields_improvements
-	// or include it in the `defaultDetailsResponse` when cleaning up jpd_confluence_date_fields_improvements
-	// daterangeColumn,
+	{
+		key: 'daterange',
+		title: 'Date range',
+		type: 'daterange',
+	},
 	...new Array<DatasourceResponseSchemaProperty>(100)
 		.fill({
 			key: 'due',
@@ -229,24 +224,11 @@ export const generateDetailsResponse = (
 	...defaultDetailsResponse,
 	meta: {
 		...defaultDetailsResponse.meta,
-		...(fg('jpd_confluence_date_fields_improvements')
-			? // meta does not have `schema` property, currently it does nothing
-				undefined
-			: {
-					schema: {
-						...defaultDetailsResponse.meta.schema,
-						defaultProperties: initialColumnKeys,
-					},
-				}),
 	},
 	data: {
 		...defaultDetailsResponse.data,
 		schema: {
 			...defaultDetailsResponse.data.schema,
-			// Remove `properties` here and uncomment the line in the `columns` array when cleaning up jpd_confluence_date_fields_improvements
-			properties: fg('jpd_confluence_date_fields_improvements')
-				? [...defaultDetailsResponse.data.schema.properties, daterangeColumn]
-				: defaultDetailsResponse.data.schema.properties,
 			defaultProperties: initialColumnKeys,
 		},
 	},
@@ -267,15 +249,8 @@ const buildDataResponse = ({
 	isUnauthorized?: boolean;
 	maxItems?: number;
 }): ReturnType<GenerateDataResponse> => {
-	// Remove `schemaProperties` here and uncomment the line in the `defaultDetailsResponse` when cleaning up jpd_confluence_date_fields_improvements
-	const schemaProperties: DatasourceResponseSchemaProperty[] = fg(
-		'jpd_confluence_date_fields_improvements',
-	)
-		? [...defaultDetailsResponse.data.schema.properties, daterangeColumn]
-		: defaultDetailsResponse.data.schema.properties;
-
 	const schema = {
-		properties: schemaProperties.filter(({ key }) => {
+		properties: defaultDetailsResponse.data.schema.properties.filter(({ key }) => {
 			return initialVisibleColumnKeys.includes(key);
 		}),
 	};
@@ -386,11 +361,9 @@ const buildDataResponse = ({
 							data: item.labels.map((label) => ({ text: label })),
 						},
 					}),
-					...(fg('jpd_confluence_date_fields_improvements') && {
-						daterange: {
-							data: getDaterangeMock(idx),
-						},
-					}),
+					daterange: {
+						data: getDaterangeMock(idx),
+					},
 				};
 			}),
 			totalCount: maxItems === 0 || maxItems === 1 ? maxItems : mockJiraData.totalIssues,

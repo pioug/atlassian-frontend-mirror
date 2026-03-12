@@ -22,7 +22,4 @@ snapshot(JiraIssuesTableDaterange, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		jpd_confluence_date_fields_improvements: true,
-	},
 });

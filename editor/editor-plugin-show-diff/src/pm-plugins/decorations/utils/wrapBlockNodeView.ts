@@ -3,26 +3,24 @@ import type { IntlShape } from 'react-intl-next';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { trackChangesMessages } from '@atlaskit/editor-common/messages';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { ColorScheme } from '../../../showDiffPluginType';
 import {
-	deletedStyleQuoteNode,
-	deletedStyleQuoteNodeWithLozenge,
 	deletedBlockOutline,
 	deletedBlockOutlineRounded,
 	deletedContentStyle,
 	deletedContentStyleActive,
 	deletedContentStyleNew,
 	deletedContentStyleNewActive,
+	deletedStyleQuoteNodeWithLozenge,
 } from '../colorSchemes/standard';
 import {
-	deletedTraditionalStyleQuoteNode,
 	deletedTraditionalBlockOutline,
 	deletedTraditionalBlockOutlineRounded,
 	deletedTraditionalContentStyle,
+	deletedTraditionalStyleQuoteNode,
 } from '../colorSchemes/traditional';
 
 const lozengeStyle = convertToInlineCss({
@@ -61,21 +59,13 @@ const getDeletedStyleNode = (nodeName: string, colorScheme?: ColorScheme) => {
 
 	switch (nodeName) {
 		case 'blockquote':
-			return fg('platform_editor_ai_aifc_patch_ga_blockers')
-				? isTraditional
-					? deletedTraditionalStyleQuoteNode
-					: deletedStyleQuoteNodeWithLozenge
-				: deletedStyleQuoteNode;
+			return isTraditional ? deletedTraditionalStyleQuoteNode : deletedStyleQuoteNodeWithLozenge;
 		case 'expand':
 		case 'decisionList':
-			return isTraditional && fg('platform_editor_ai_aifc_patch_ga_blockers')
-				? deletedTraditionalBlockOutline
-				: deletedBlockOutline;
+			return isTraditional ? deletedTraditionalBlockOutline : deletedBlockOutline;
 		case 'panel':
 		case 'codeBlock':
-			return isTraditional && fg('platform_editor_ai_aifc_patch_ga_blockers')
-				? deletedTraditionalBlockOutlineRounded
-				: deletedBlockOutlineRounded;
+			return isTraditional ? deletedTraditionalBlockOutlineRounded : deletedBlockOutlineRounded;
 		default:
 			return undefined;
 	}
@@ -91,7 +81,7 @@ const shouldShowRemovedLozenge = (nodeName: string): boolean => {
 			return true;
 		case 'embedCard':
 		case 'blockquote':
-			return fg('platform_editor_ai_aifc_patch_ga_blockers');
+			return true;
 		default:
 			return false;
 	}
@@ -103,7 +93,7 @@ const shouldAddShowDiffDeletedNodeClass = (nodeName: string): boolean => {
 		case 'embedCard':
 			return true;
 		case 'blockquote':
-			return fg('platform_editor_ai_aifc_patch_ga_blockers');
+			return true;
 		default:
 			return false;
 	}
@@ -114,35 +104,22 @@ const shouldAddShowDiffDeletedNodeClass = (nodeName: string): boolean => {
  * to preserve natural block-level margins
  */
 const shouldApplyStylesDirectly = (nodeName: string): boolean => {
-	return (
-		nodeName === 'heading' ||
-		(nodeName === 'blockquote' && !fg('platform_editor_ai_aifc_patch_ga_blockers'))
-	);
+	return nodeName === 'heading';
 };
 
 /**
  * Creates a "Removed" lozenge to be displayed at the top right corner of deleted block nodes
  */
-const createRemovedLozenge = (intl: IntlShape, nodeName?: string): HTMLElement => {
+const createRemovedLozenge = (intl: IntlShape): HTMLElement => {
 	const container = document.createElement('span');
-
-	let borderTopRightRadius: string | undefined;
-	if (['expand', 'decisionList'].includes(nodeName || '')) {
-		borderTopRightRadius = token('radius.small');
-	} else if (['panel', 'codeBlock', 'mediaSingle'].includes(nodeName || '')) {
-		borderTopRightRadius = `calc(${token('radius.xsmall')} + 1px)`;
-	}
 
 	const containerStyle = convertToInlineCss({
 		position: 'absolute',
-		top: fg('platform_editor_ai_aifc_patch_ga_blockers') ? token('space.075') : token('space.0'),
-		right: fg('platform_editor_ai_aifc_patch_ga_blockers') ? token('space.075') : token('space.0'),
+		top: token('space.075'),
+		right: token('space.075'),
 		zIndex: 2,
 		pointerEvents: 'none',
 		display: 'flex',
-		...(!fg('platform_editor_ai_aifc_patch_ga_blockers')
-			? { overflow: 'hidden', borderTopRightRadius }
-			: {}),
 	});
 
 	container.setAttribute('style', containerStyle);
@@ -300,7 +277,7 @@ const handleMediaSingleWithLozenge = ({
 	// Add deleted node class if needed
 	if (shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
 		const showDiffDeletedNodeClass =
-			colorScheme === 'traditional' && fg('platform_editor_ai_aifc_patch_ga_blockers')
+			colorScheme === 'traditional'
 				? 'show-diff-deleted-node-traditional'
 				: 'show-diff-deleted-node';
 		nodeView.classList.add(showDiffDeletedNodeClass);
@@ -331,10 +308,7 @@ const wrapBlockNode = ({
 	if (shouldShowRemovedLozenge(targetNode.type.name)) {
 		const lozenge = createRemovedLozenge(intl);
 
-		if (
-			handleEmbedCardWithLozenge({ dom, nodeView, targetNode, lozenge, colorScheme }) &&
-			fg('platform_editor_ai_aifc_patch_ga_blockers')
-		) {
+		if (handleEmbedCardWithLozenge({ dom, nodeView, targetNode, lozenge, colorScheme })) {
 			return;
 		}
 
@@ -350,7 +324,7 @@ const wrapBlockNode = ({
 
 	if (nodeView instanceof HTMLElement && shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
 		const showDiffDeletedNodeClass =
-			colorScheme === 'traditional' && fg('platform_editor_ai_aifc_patch_ga_blockers')
+			colorScheme === 'traditional'
 				? 'show-diff-deleted-node-traditional'
 				: 'show-diff-deleted-node';
 		nodeView.classList.add(showDiffDeletedNodeClass);

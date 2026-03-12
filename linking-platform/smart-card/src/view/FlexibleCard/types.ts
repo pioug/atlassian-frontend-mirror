@@ -1,7 +1,7 @@
 import { type MessageDescriptor } from 'react-intl-next';
 
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
-import { type CardState } from '@atlaskit/linking-common';
+import { type CardState, type ProductType } from '@atlaskit/linking-common';
 import { type SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { type FireEventFunction } from '../../common/analytics/types';
@@ -222,6 +222,7 @@ export type ExtractFlexibleUiDataContextParams = Pick<
 		panelData: { embedUrl?: string };
 		url: string;
 	}) => void;
+	product?: ProductType;
 	resolve?: ResolveFunction;
 	response?: SmartLinkResponse;
 	rovoConfig?: RovoConfig;

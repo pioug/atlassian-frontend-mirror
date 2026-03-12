@@ -41,7 +41,13 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../adf-schema/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/css/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
@@ -53,7 +59,28 @@
 			"path": "../editor-core/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-json-transformer/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-date/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugins/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/form/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/textarea/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

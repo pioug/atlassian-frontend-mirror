@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 127.5.0
+
+### Minor Changes
+
+- [`dcc45a2290b59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcc45a2290b59) -
+  Cleaned up enable_absolute_positioning_profile_card feature gate
+
+### Patch Changes
+
+- [`5c1f0e3fb0a3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c1f0e3fb0a3f) -
+  EDITO-5622 Update errorboundary key to reduce rerenders from new key being generated
+- Updated dependencies
+
 ## 127.4.0
 
 ### Minor Changes

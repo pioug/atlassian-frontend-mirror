@@ -188,6 +188,12 @@ export const messages = defineMessages({
 		defaultMessage: 'Panel',
 		description: 'Visually distinguishes your text by adding a panel',
 	},
+	textBoxAriaLabel: {
+		id: 'fabric.editor.aria.textbox',
+		defaultMessage: 'textbox',
+		description:
+			'This is the definition of the HTML role textbox, it needs to be translated in the same way that a textbox with a HTML role of textbox',
+	},
 	other: {
 		id: 'fabric.editor.other',
 		defaultMessage: 'Others...',

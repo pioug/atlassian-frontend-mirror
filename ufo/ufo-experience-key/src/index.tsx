@@ -1,6 +1,5 @@
 import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 
-
 // Constants
 const FRONTEND_LAYER = 'fe' as const;
 const ABSENT_FEATURE_TYPE = 'feature-type-absent' as const;
@@ -14,7 +13,8 @@ export const EXPERIENCE_KEY_HEADER_NAME = 'atl-paas-cnsmr-ctx-experience-key' as
 /**
  * Header name for missing experience keys (when no active interaction)
  */
-export const MISSING_EXPERIENCE_KEY_HEADER_NAME = 'atl-paas-missing-experience-key-product' as const;
+export const MISSING_EXPERIENCE_KEY_HEADER_NAME =
+	'atl-paas-missing-experience-key-product' as const;
 
 /**
  * Feature flag name for controlling which products should inject UFO experience key headers.
@@ -35,7 +35,8 @@ export const MISSING_EXPERIENCE_KEY_HEADER_NAME = 'atl-paas-missing-experience-k
  * Note: Platform packages cannot directly use experiments due to architectural constraints.
  * Products should handle the feature flag check themselves before using this function.
  */
-export const ALLOWED_PRODUCTS_EXPERIMENT_NAME = 'platform_ufo_experience_key_allowed_products' as const;
+export const ALLOWED_PRODUCTS_EXPERIMENT_NAME =
+	'platform_ufo_experience_key_allowed_products' as const;
 
 /**
  * Derives the load type from UFO interaction type.
@@ -48,11 +49,11 @@ function deriveLoadType(ufoInteractionType: string | undefined): string {
 	if (ufoInteractionType === 'page_load' || ufoInteractionType === 'transition') {
 		return 'page-load';
 	}
-	
+
 	if (ufoInteractionType === 'segment') {
 		return 'page-segment-load';
 	}
-	
+
 	return 'inline-result';
 }
 
@@ -76,11 +77,7 @@ function buildAbsentExperienceKey(product: string): string {
  * @param loadType - The derived load type
  * @returns The experience key string
  */
-function buildActiveExperienceKey(
-	product: string,
-	featureName: string,
-	loadType: string,
-): string {
+function buildActiveExperienceKey(product: string, featureName: string, loadType: string): string {
 	return `${product}.${FRONTEND_LAYER}.${loadType}.${featureName}`;
 }
 
@@ -98,7 +95,7 @@ function buildActiveExperienceKey(
  *
  * @example
  * import { getUfoExperienceKey, PRODUCT_NAMES } from '@atlaskit/ufo-experience-key';
- * 
+ *
  * const key = getUfoExperienceKey(PRODUCT_NAMES.JIRA);
  * // With active interaction: "jira.fe.page-load.issueView"
  * // Without interaction: "jira.fe.feature-type-absent.feature-name-absent"
@@ -136,7 +133,7 @@ export function getUfoExperienceKey(product: string): string {
  *
  * @example
  * import { getUfoExperienceKeyHeader, PRODUCT_NAMES } from '@atlaskit/ufo-experience-key';
- * 
+ *
  * const headers = {
  *   'Content-Type': 'application/json',
  *   ...getUfoExperienceKeyHeader(PRODUCT_NAMES.JIRA),
@@ -146,9 +143,7 @@ export function getUfoExperienceKey(product: string): string {
  */
 export const getUfoExperienceKeyHeader = (
 	product: string,
-):
-	| { [EXPERIENCE_KEY_HEADER_NAME]: string }
-	| { [MISSING_EXPERIENCE_KEY_HEADER_NAME]: string } => {
+): { [EXPERIENCE_KEY_HEADER_NAME]: string } | { [MISSING_EXPERIENCE_KEY_HEADER_NAME]: string } => {
 	const activeInteraction = getActiveInteraction();
 
 	// No interaction exists - return simplified missing header with just product name
@@ -178,7 +173,7 @@ export const getUfoExperienceKeyHeader = (
  * @example
  * ```typescript
  * import { mergeUfoExperienceKeyHeaders, PRODUCT_NAMES } from '@atlaskit/ufo-experience-key';
- * 
+ *
  * const headers = mergeUfoExperienceKeyHeaders(PRODUCT_NAMES.JIRA, {
  *   'Content-Type': 'application/json',
  *   'Authorization': 'Bearer token'

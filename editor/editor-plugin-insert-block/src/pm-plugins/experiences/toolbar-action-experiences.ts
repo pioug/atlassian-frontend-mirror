@@ -69,11 +69,11 @@ export const getToolbarActionExperiencesPlugin = ({
 		return [
 			...(narrowTarget
 				? [
-					{
-						target: narrowTarget,
-						options: { childList: true, subtree: true },
-					},
-				]
+						{
+							target: narrowTarget,
+							options: { childList: true, subtree: true },
+						},
+					]
 				: []),
 			...(editorDom ? [{ target: editorDom, options: { childList: true } }] : []),
 		];

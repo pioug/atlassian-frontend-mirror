@@ -1,5 +1,12 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 9.6.1
+
+### Patch Changes
+
+- [`c15b7a3426c66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c15b7a3426c66) -
+  [ux] EDITOR-5626 Flexible list behaviour
+
 ## 9.6.0
 
 ### Minor Changes

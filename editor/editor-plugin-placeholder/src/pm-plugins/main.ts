@@ -4,11 +4,10 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
-import { pluginKey, EMPTY_PARAGRAPH_TIMEOUT_DELAY } from '../placeholderPlugin';
+import { EMPTY_PARAGRAPH_TIMEOUT_DELAY, pluginKey } from '../placeholderPlugin';
 import type { PlaceholderPlugin } from '../placeholderPluginType';
 
 import { TYPEWRITER_TYPED_AND_DELETED_DELAY } from './constants';
@@ -79,9 +78,7 @@ export default function createPlugin(
 				});
 
 				let isPlaceholderHidden = placeholderState?.isPlaceholderHidden ?? false;
-				const shouldUpdatePlaceholderHidden = fg('platform_editor_ai_aifc_patch_ga_blockers')
-					? meta?.isPlaceholderHidden !== undefined
-					: meta?.isPlaceholderHidden !== undefined && withEmptyParagraph;
+				const shouldUpdatePlaceholderHidden = meta?.isPlaceholderHidden !== undefined;
 				if (shouldUpdatePlaceholderHidden) {
 					isPlaceholderHidden = meta.isPlaceholderHidden;
 				}

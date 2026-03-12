@@ -8,8 +8,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { toggleViewChanges, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { trackChangesMessages } from '@atlaskit/editor-common/messages';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarButton, ToolbarTooltip, HistoryIcon } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { HistoryIcon, ToolbarButton, ToolbarTooltip } from '@atlaskit/editor-toolbar';
 
 import { type TrackChangesPlugin } from '../trackChangesPluginType';
 
@@ -46,7 +45,7 @@ export const TrackChangesToolbarButton = ({
 
 	const browser = getBrowserInfo();
 	// Exclude Firefox browser from showing keyboard shortcut in tooltip
-	const showShortcut = !browser.gecko && fg('platform_editor_ai_aifc_patch_ga_blockers');
+	const showShortcut = !browser.gecko;
 
 	const tooltipContent = showShortcut ? (
 		<ToolTipContent

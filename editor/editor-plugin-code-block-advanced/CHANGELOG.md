@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 7.1.26
+
+### Patch Changes
+
+- [`dd5154ad0dec5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd5154ad0dec5) -
+  [A11Y-10416] Add ARIA role and roledescription to code blocks with experiment gate
+- Updated dependencies
+
 ## 7.1.25
 
 ### Patch Changes

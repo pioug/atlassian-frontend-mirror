@@ -18,11 +18,7 @@ const StatusRenderType = ({
 	}
 
 	return (
-		<Lozenge
-			appearance={style?.appearance}
-			isBold={style?.isBold !== false}
-			testId={testId}
-		>
+		<Lozenge appearance={style?.appearance} isBold={style?.isBold !== false} testId={testId}>
 			{text}
 		</Lozenge>
 	);

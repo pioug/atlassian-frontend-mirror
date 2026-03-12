@@ -118,7 +118,8 @@ export const RENDER_VIEWALL_REACTED_USERS_DIALOG = 'viewall-reacted-users-dialog
 export const RENDER_REACTIONS_SUMMARY_TESTID = 'reaction-summary-view';
 
 export interface ReactionsProps
-	extends Pick<
+	extends
+		Pick<
 			ReactionPickerProps,
 			| 'allowAllEmojis'
 			| 'emojiProvider'

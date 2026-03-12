@@ -1,4 +1,5 @@
 import { type LinkPerson } from '@atlaskit/link-extractors';
+import type { ProductType } from '@atlaskit/linking-common';
 
 import {
 	type ActionName,
@@ -309,7 +310,7 @@ export type FlexibleUiActions = {
 	/* Contains data needed to show a preview action that open embed modal.*/
 	[ActionName.PreviewAction]?: PreviewActionData;
 	[InternalActionName.AISummaryAction]?: AISummaryActionData;
-	[InternalActionName.RovoChatAction]?: boolean;
+	[InternalActionName.RovoChatAction]?: RovoChatActionData;
 	[InternalActionName.UnresolvedAction]?: UnresolvedActionData;
 	[InternalActionName.ViewRelatedLinksAction]?: ViewRelatedLinksActionData;
 };
@@ -344,6 +345,11 @@ export type AutomationActionData = {
 	product: string;
 	resourceType: string;
 	siteAri: any;
+};
+
+export type RovoChatActionData = {
+	product?: ProductType;
+	url?: string;
 };
 
 export type UnresolvedActionData = RetryOptions;

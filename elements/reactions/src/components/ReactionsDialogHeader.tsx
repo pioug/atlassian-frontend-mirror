@@ -275,9 +275,13 @@ export const ReactionsDialogHeader = ({
 									onMouseEnter={() => {
 										handleMouseEnter(reaction);
 									}}
-									onFocus={fg('platform_suppression_removal_fix_reactions') ? () => {
-										handleMouseEnter(reaction);
-									} : undefined}
+									onFocus={
+										fg('platform_suppression_removal_fix_reactions')
+											? () => {
+													handleMouseEnter(reaction);
+												}
+											: undefined
+									}
 								>
 									<Tab>
 										<Tooltip

@@ -60,28 +60,7 @@ describe('ADS MCP Server E2E', () => {
 		);
 	});
 
-	it('Lists the ads_get_tokens tool with feature flags enabled', async () => {
-		const listedTools = (await client.listTools()).tools;
-		expect(listedTools).toEqual(
-			expect.arrayContaining([expect.objectContaining({ name: 'ads_get_tokens' })]),
-		);
-	});
-
-	it('Does not list the ads_get_all_tokens tool with feature flags enabled', async () => {
-		const listedTools = (await client.listTools()).tools;
-		expect(listedTools).not.toEqual(
-			expect.arrayContaining([expect.objectContaining({ name: 'ads_get_all_tokens' })]),
-		);
-	});
-
-	it('Does not list the ads_get_all_icons tool with feature flags enabled', async () => {
-		const listedTools = (await client.listTools()).tools;
-		expect(listedTools).not.toEqual(
-			expect.arrayContaining([expect.objectContaining({ name: 'ads_get_all_icons' })]),
-		);
-	});
-
-	it('Lists the ads_get_lint_rules tool with feature flags enabled', async () => {
+	it('lists the ads_get_lint_rules tool with feature flags enabled', async () => {
 		const listedTools = (await client.listTools()).tools;
 		expect(listedTools).toEqual(
 			expect.arrayContaining([expect.objectContaining({ name: 'ads_get_lint_rules' })]),
@@ -135,29 +114,6 @@ describe('ADS MCP Server E2E', () => {
 			expect(JSON.parse(result[0].text)).toEqual(expectedFirstResult);
 		},
 	);
-
-	it('Returns markdown content for ads_get_tokens tool with feature flags enabled', async () => {
-		const result = (
-			await client.callTool({
-				name: 'ads_get_tokens',
-				arguments: {
-					terms: ['color.text'],
-					limit: 1,
-					exactName: true,
-				},
-			})
-		).content as { text: string }[];
-
-		expect(result).toHaveLength(1);
-		const text = result[0].text;
-
-		// With feature flags enabled, returns JSON (structured content; may be double-stringified)
-		const parsed = JSON.parse(text);
-		const token = typeof parsed === 'string' ? JSON.parse(parsed) : parsed;
-		expect(token).toHaveProperty('name', 'color.text');
-		expect(token).toHaveProperty('description');
-		expect(token.description).toContain('primary text');
-	});
 
 	it('Returns markdown content for ads_get_lint_rules tool with feature flags enabled', async () => {
 		const result = (

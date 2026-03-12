@@ -10,8 +10,14 @@ import {
 import { EditorView as CodeMirror, lineNumbers, type ViewUpdate, gutters } from '@codemirror/view';
 import type { IntlShape } from 'react-intl-next';
 
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
+import { messages as floatingToolbarMessages } from '@atlaskit/editor-common/floating-toolbar';
+import {
+	blockTypeMessages,
+	codeBlockMessages,
+	roleDescriptionMessages,
+} from '@atlaskit/editor-common/messages';
 import { type RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type {
 	getPosHandler,
@@ -47,6 +53,7 @@ import { lineSeparatorExtension } from './extensions/lineSeparator';
 import { manageSelectionMarker } from './extensions/manageSelectionMarker';
 import { prosemirrorDecorationPlugin } from './extensions/prosemirrorDecorations';
 import { tripleClickSelectAllExtension } from './extensions/tripleClickExtension';
+import getLanguageName from './languages/getLanguageName';
 import { LanguageLoader } from './languages/loader';
 
 // Store last observed heights of code blocks
@@ -80,6 +87,8 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private pmFacet = Facet.define<DecorationSource>();
 	private ro?: ResizeObserver;
 	private unsubscribeContentFormat: (() => void) | undefined;
+	private invisibleAriaDescription?: HTMLSpanElement;
+	private config: ConfigProps;
 
 	constructor(
 		node: PMNode,
@@ -88,7 +97,9 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		innerDecorations: DecorationSource,
 		config: ConfigProps,
 	) {
+		this.config = config;
 		this.node = node;
+
 		this.view = view;
 		this.getPos = getPos;
 		const contentFormatSharedState = expValEquals(
@@ -123,6 +134,8 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			this.selectCodeBlockNode(undefined);
 			this.view.focus();
 		};
+
+		const isMacOS = getBrowserInfo().mac;
 
 		this.cm = new CodeMirror({
 			doc: this.node.textContent,
@@ -179,7 +192,24 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				prosemirrorDecorationPlugin(this.pmFacet, view, getPos),
 				tripleClickSelectAllExtension(),
 				firstCodeBlockInDocument(getPos),
-				CodeMirror.contentAttributes.of({ 'aria-label': formattedAriaLabel }),
+				CodeMirror.contentAttributes.of({
+					...(!expValEquals('editor_a11y_role_textbox', 'isEnabled', true) && {
+						'aria-label': `${formattedAriaLabel}`,
+					}),
+					...(isMacOS &&
+						expValEquals('editor_a11y_role_textbox', 'isEnabled', true) && {
+							role: 'textbox',
+							'aria-roledescription': formatMessage(roleDescriptionMessages.codeSnippetTextBox),
+							'aria-describedby': `codesnippet-${this.node.attrs.localId}`,
+							'aria-multiline': 'true',
+							'aria-label': formattedAriaLabel,
+						}),
+					...(!isMacOS &&
+						expValEquals('editor_a11y_role_textbox', 'isEnabled', true) && {
+							'aria-label': formattedAriaLabel,
+							'aria-describedby': `codesnippet-${this.node.attrs.localId}`,
+						}),
+				}),
 				config.allowCodeFolding
 					? [foldGutterExtension({ selectNode, getNode: () => this.node })]
 					: [],
@@ -249,6 +279,18 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.dom = this.cm.dom;
 		this.dom.appendChild(spaceContainer);
 
+		if (
+			expValEquals('editor_a11y_role_textbox', 'isEnabled', true) &&
+			fg('platform_editor_adf_with_localid')
+		) {
+			this.invisibleAriaDescription = document.createElement('span');
+			this.invisibleAriaDescription.hidden = true;
+			this.invisibleAriaDescription.id = `codesnippet-${this.node.attrs.localId}`;
+			this.updateAriaDescription();
+
+			this.dom.appendChild(this.invisibleAriaDescription);
+		}
+
 		// This flag is used to avoid an update loop between the outer and
 		// inner editor
 		this.updating = false;
@@ -315,6 +357,34 @@ class CodeBlockAdvancedNodeView implements NodeView {
 
 	private updateLanguage() {
 		this.languageLoader.updateLanguage(this.node.attrs.language);
+		if (
+			expValEquals('editor_a11y_role_textbox', 'isEnabled', true) &&
+			fg('platform_editor_adf_with_localid')
+		) {
+			this.updateAriaDescription();
+		}
+	}
+
+	private updateAriaDescription() {
+		if (!this.invisibleAriaDescription) {
+			return;
+		}
+
+		const { formatMessage } = this.config.getIntl();
+		const languageName = getLanguageName(this.node.attrs.language);
+		if (languageName) {
+			this.invisibleAriaDescription.textContent = `${formatMessage(
+				codeBlockMessages.codeblockLanguageAriaDescription,
+				{
+					language: languageName,
+				},
+			)} ${formatMessage(floatingToolbarMessages.floatingToolbarAnnouncer)}`;
+		} else {
+			// If the lanuage is undefined provide a more human readable message
+			this.invisibleAriaDescription.textContent = `${formatMessage(
+				codeBlockMessages.codeBlockLanguageNotSet,
+			)} ${formatMessage(floatingToolbarMessages.floatingToolbarAnnouncer)}`;
+		}
 	}
 
 	private updateLocalIdAttribute() {

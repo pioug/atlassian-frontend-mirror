@@ -18,7 +18,6 @@ import { type ReactionSummary } from '../types';
 
 import { type OpenReactionsDialogOptions } from './Reactions';
 
-
 export const verticalMargin = 5;
 const tooltipStyle = css({
 	maxWidth: '150px',
@@ -117,7 +116,10 @@ export const ReactionTooltip = ({
 	const content =
 		!users || users.length === 0 || !isEnabled ? null : (
 			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
-				<div css={tooltipStyle} tabIndex={fg('platform_suppression_removal_fix_reactions') ? undefined : 0}>
+			<div
+				css={tooltipStyle}
+				tabIndex={fg('platform_suppression_removal_fix_reactions') ? undefined : 0}
+			>
 				<ul>
 					{emojiName ? <li css={emojiNameStyle}>{emojiName}</li> : null}
 					{users.slice(0, maxReactions).map((user) => {
@@ -130,6 +132,7 @@ export const ReactionTooltip = ({
 						css={[footerStyle, allowUserDialog && underlineStyle]}
 						onMouseDown={handleClick}
 						onClick={handleClick}
+						onKeyDown={fg('platform_suppression_removal_fix_reactions') ? handleClick : undefined}
 					>
 						{users.length > maxReactions && (
 							<FormattedMessage

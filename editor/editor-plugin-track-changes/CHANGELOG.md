@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 6.0.35
+
+### Patch Changes
+
+- [`db37927f35395`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db37927f35395) -
+  Cleanup platform_editor_ai_aifc_patch_ga_blockers flag.
+- Updated dependencies
+
+## 6.0.34
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.33
 
 ### Patch Changes

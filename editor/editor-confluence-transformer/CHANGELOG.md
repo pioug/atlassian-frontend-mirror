@@ -1,5 +1,13 @@
 # @atlaskit/editor-cq-transformer
 
+## 14.0.2
+
+### Patch Changes
+
+- [`0f66751ec3512`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f66751ec3512) -
+  Click events should also have key events for accessibility
+- Updated dependencies
+
 ## 14.0.1
 
 ### Patch Changes

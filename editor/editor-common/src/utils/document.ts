@@ -1,6 +1,6 @@
 import clamp from 'lodash/clamp';
 
-import type { Node, ResolvedPos, Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Node, ResolvedPos, Fragment, Mark } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,
 	ReadonlyTransaction,
@@ -8,6 +8,7 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isEmptyParagraph } from './editor-core-utils';
 
@@ -191,6 +192,25 @@ export const isReplaceDocOperation = (
 	});
 };
 
+function marksEqualInOrder(m1: readonly Mark[], m2: readonly Mark[]): boolean {
+	if (m1.length !== m2.length) return false;
+	return m1.every((m, i) => m.eq(m2[i]));
+}
+
+function marksEqualIgnoringOrder(m1: readonly Mark[], m2: readonly Mark[]): boolean {
+	if (m1.length !== m2.length) {
+		return false;
+	}
+	const m2Used = new Set<number>();
+	for (const mark1 of m1) {
+		const idx = m2.findIndex((mark2, i) => !m2Used.has(i) && mark1.eq(mark2));
+		if (idx === -1) {
+			return false;
+		}
+		m2Used.add(idx);
+	}
+	return true;
+}
 /**
  * Compares two ProseMirror documents for equality, ignoring attributes
  * which don't affect the document structure.
@@ -200,24 +220,49 @@ export const isReplaceDocOperation = (
  * @param doc1 PMNode
  * @param doc2 PMNode
  * @param attributesToIgnore Specific array of attribute keys to ignore - defaults to ignoring all
+ * @param opts.ignoreMarkOrder If mark order should be ignored to still be equal (e.g. reversed annotation marks). When not provided, controlled by platform_editor_are_nodes_equal_ignore_mark_order feature gate (defaults to true when gate is on).
  * @returns boolean
  */
+
 export function areNodesEqualIgnoreAttrs(
 	node1: Node,
 	node2: Node,
 	attributesToIgnore?: string[],
+	opts?: {
+		ignoreMarkOrder?: boolean;
+	},
 ): boolean {
+	const ignoreMarkOrder =
+		opts?.ignoreMarkOrder ??
+		expValEquals('platform_editor_are_nodes_equal_ignore_mark_order', 'isEnabled', true);
+
 	if (node1.isText) {
+		if (ignoreMarkOrder) {
+			return node1.text === node2.text && marksEqualIgnoringOrder(node1.marks, node2.marks);
+		}
 		return node1.eq(node2);
 	}
 
+	const marksEqual = ignoreMarkOrder
+		? marksEqualIgnoringOrder(node1.marks, node2.marks)
+		: marksEqualInOrder(node1.marks, node2.marks);
+
 	// If no attributes to ignore, compare all attributes
 	if (!attributesToIgnore || attributesToIgnore.length === 0) {
-		return (
-			node1 === node2 ||
-			(node1.hasMarkup(node2.type, node1.attrs, node2.marks) &&
-				areFragmentsEqual(node1.content, node2.content))
-		);
+		if (expValEquals('platform_editor_are_nodes_equal_ignore_mark_order', 'isEnabled', true)) {
+			return (
+				node1 === node2 ||
+				(node1.hasMarkup(node2.type, node1.attrs, node1.marks) &&
+					marksEqual &&
+					areFragmentsEqual(node1.content, node2.content, undefined, opts))
+			);
+		} else {
+			return (
+				node1 === node2 ||
+				(node1.hasMarkup(node2.type, node1.attrs, node2.marks) &&
+					areFragmentsEqual(node1.content, node2.content))
+			);
+		}
 	}
 
 	// Build attrs to compare by excluding ignored attributes
@@ -228,18 +273,28 @@ export function areNodesEqualIgnoreAttrs(
 			attrsToCompare[key] = node1.attrs[key];
 		}
 	}
-
-	return (
-		node1 === node2 ||
-		(node1.hasMarkup(node2.type, attrsToCompare, node2.marks) &&
-			areFragmentsEqual(node1.content, node2.content, attributesToIgnore))
-	);
+	if (expValEquals('platform_editor_are_nodes_equal_ignore_mark_order', 'isEnabled', true)) {
+		return (
+			node1 === node2 ||
+			(node1.type === node2.type &&
+				node1.hasMarkup(node2.type, attrsToCompare, node1.marks) &&
+				marksEqual &&
+				areFragmentsEqual(node1.content, node2.content, attributesToIgnore, opts))
+		);
+	} else {
+		return (
+			node1 === node2 ||
+			(node1.hasMarkup(node2.type, attrsToCompare, node2.marks) &&
+				areFragmentsEqual(node1.content, node2.content, attributesToIgnore))
+		);
+	}
 }
 
 function areFragmentsEqual(
 	frag1: Fragment,
 	frag2: Fragment,
 	attributesToIgnore?: string[],
+	opts?: { ignoreMarkOrder?: boolean },
 ): boolean {
 	if (frag1.content.length !== frag2.content.length) {
 		return false;
@@ -249,7 +304,7 @@ function areFragmentsEqual(
 		const otherChild = frag2.child(i);
 		if (
 			child === otherChild ||
-			(otherChild && areNodesEqualIgnoreAttrs(child, otherChild, attributesToIgnore))
+			(otherChild && areNodesEqualIgnoreAttrs(child, otherChild, attributesToIgnore, opts))
 		) {
 			return;
 		}

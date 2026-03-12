@@ -771,6 +771,15 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 		return event.altKey && (event.key === 'F10' || event.keyCode === 121);
 	};
 
+	private doesNodeRequireAssitiveMessage = (node: Node): boolean => {
+		// Code blocks have an assistive message to announce the content of the code block to screen readers, so we don't need to announce the floating toolbar for those nodes
+		const nodesWithAlternativeRoles = ['codeBlock'];
+		if (nodesWithAlternativeRoles.includes(node.type.name)) {
+			return false;
+		}
+		return true;
+	};
+
 	render() {
 		const { items, className, node, intl, scrollable, mediaAssistiveMessage } = this.props;
 		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(this.props.api?.toolbar));
@@ -782,6 +791,14 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 		// Select has left padding of 4px to the border, everything else 8px
 		const firstElementIsSelect = items[0].type === 'select';
 		const hasSelect = items.find((item) => item.type === 'select' && item.selectType === 'list');
+
+		const shouldRenderAssistiveAnnouncer = expValEquals(
+			'editor_a11y_role_textbox',
+			'isEnabled',
+			true,
+		)
+			? this.doesNodeRequireAssitiveMessage(node)
+			: true;
 
 		return (
 			<React.Fragment>
@@ -810,16 +827,18 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 						className={className}
 						onMouseDown={areAnyNewToolbarFlagsEnabled ? this.captureMouseEvent : undefined}
 					>
-						<Announcer
-							text={
-								mediaAssistiveMessage
-									? `${mediaAssistiveMessage}, ${intl.formatMessage(
-											messages.floatingToolbarAnnouncer,
-										)}`
-									: intl.formatMessage(messages.floatingToolbarAnnouncer)
-							}
-							delay={250}
-						/>
+						{shouldRenderAssistiveAnnouncer && (
+							<Announcer
+								text={
+									mediaAssistiveMessage
+										? `${mediaAssistiveMessage}, ${intl.formatMessage(
+												messages.floatingToolbarAnnouncer,
+											)}`
+										: intl.formatMessage(messages.floatingToolbarAnnouncer)
+								}
+								delay={250}
+							/>
+						)}
 						{scrollable && areAnyNewToolbarFlagsEnabled && (
 							<ScrollButton
 								intl={intl}

@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 13.5.0
+
+### Minor Changes
+
+- [`1090b6ca92c60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1090b6ca92c60) -
+  Added `aria-label` prop support to LozengeDropdownTrigger for providing custom accessible labels
+  to the trigger button element.
+
 ## 13.4.5
 
 ### Patch Changes

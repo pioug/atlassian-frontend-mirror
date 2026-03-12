@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { pluginKey } from '../placeholderPlugin';
@@ -22,7 +21,7 @@ import {
 	nodeTypesWithShortPlaceholderText,
 	nodeTypesWithSyncBlockPlaceholderText,
 } from './constants';
-import type { PlaceHolderState, CreatePlaceholderStateProps, UserInteractionState } from './types';
+import type { CreatePlaceholderStateProps, PlaceHolderState, UserInteractionState } from './types';
 
 export function getPlaceholderState(editorState: EditorState): PlaceHolderState {
 	return pluginKey.getState(editorState);
@@ -102,9 +101,7 @@ export function createPlaceHolderStateFrom({
 	withEmptyParagraph,
 	showOnEmptyParagraph,
 }: CreatePlaceholderStateProps): PlaceHolderState {
-	const shouldHidePlaceholder = fg('platform_editor_ai_aifc_patch_ga_blockers')
-		? isPlaceholderHidden
-		: isPlaceholderHidden && withEmptyParagraph;
+	const shouldHidePlaceholder = isPlaceholderHidden;
 
 	if (shouldHidePlaceholder) {
 		return {
@@ -150,51 +147,29 @@ export function createPlaceHolderStateFrom({
 			hasDocAsParent($to);
 
 		if (isOnEmptyParagraphInNonEmptyDoc) {
-			if (fg('platform_editor_ai_aifc_patch_ga_blockers')) {
-				// If placeholder was already shown, keep it visible even without focus
-				// This prevents the placeholder from disappearing when switching browser tabs
-				if (showOnEmptyParagraph) {
-					return setPlaceHolderState({
-						placeholderText: defaultPlaceholderText,
-						pos: to,
-						placeholderPrompts,
-						typedAndDeleted,
-						userHadTyped,
-						canShowOnEmptyParagraph: true,
-						showOnEmptyParagraph: true,
-					});
-				}
-				// Focus is required to start the timeout for showing placeholder
-				if (isEditorFocused) {
-					return emptyPlaceholder({
-						placeholderText: defaultPlaceholderText,
-						placeholderPrompts,
-						userHadTyped,
-						canShowOnEmptyParagraph: true,
-						showOnEmptyParagraph: false,
-						pos: to,
-					});
-				}
-			} else if (isEditorFocused) {
-				// Original behavior: focus is required for both showing and keeping placeholder visible
-				return showOnEmptyParagraph
-					? setPlaceHolderState({
-							placeholderText: defaultPlaceholderText,
-							pos: to,
-							placeholderPrompts,
-							typedAndDeleted,
-							userHadTyped,
-							canShowOnEmptyParagraph: true,
-							showOnEmptyParagraph: true,
-						})
-					: emptyPlaceholder({
-							placeholderText: defaultPlaceholderText,
-							placeholderPrompts,
-							userHadTyped,
-							canShowOnEmptyParagraph: true,
-							showOnEmptyParagraph: false,
-							pos: to,
-						});
+			// If placeholder was already shown, keep it visible even without focus
+			// This prevents the placeholder from disappearing when switching browser tabs
+			if (showOnEmptyParagraph) {
+				return setPlaceHolderState({
+					placeholderText: defaultPlaceholderText,
+					pos: to,
+					placeholderPrompts,
+					typedAndDeleted,
+					userHadTyped,
+					canShowOnEmptyParagraph: true,
+					showOnEmptyParagraph: true,
+				});
+			}
+			// Focus is required to start the timeout for showing placeholder
+			if (isEditorFocused) {
+				return emptyPlaceholder({
+					placeholderText: defaultPlaceholderText,
+					placeholderPrompts,
+					userHadTyped,
+					canShowOnEmptyParagraph: true,
+					showOnEmptyParagraph: false,
+					pos: to,
+				});
 			}
 		}
 	}

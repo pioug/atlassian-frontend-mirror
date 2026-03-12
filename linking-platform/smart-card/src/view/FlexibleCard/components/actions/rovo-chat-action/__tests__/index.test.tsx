@@ -17,6 +17,8 @@ import RovoChatAction, { RovoChatPromptKey } from '../index';
 
 describe('RovoChatAction', () => {
 	const sendPromptMessageMock = jest.fn();
+	const btnAction1Text = 'Recommend other sources';
+	const btnAction2Text = 'Show other mentions';
 
 	const setup = (props?: Partial<React.ComponentProps<typeof RovoChatAction>>) => {
 		const onEvent = jest.fn();
@@ -52,15 +54,15 @@ describe('RovoChatAction', () => {
 	it('renders default stack item action', async () => {
 		setup();
 		const elements = await screen.findAllByRole('button');
-		expect(elements.length).toBe(2);
-		expect(elements[0]).toHaveTextContent('Action title 1');
+		expect(elements.length).toBe(3);
+		expect(elements[0]).toHaveTextContent(btnAction1Text);
 	});
 
 	it('renders defined stack item action', async () => {
-		setup({ prompts: [RovoChatPromptKey.MESSAGE_2] });
+		setup({ prompts: [RovoChatPromptKey.SHOW_OTHER_MENTIONS] });
 		const elements = await screen.findAllByRole('button');
 		expect(elements.length).toBe(1);
-		expect(elements[0]).toHaveTextContent('Action title 2');
+		expect(elements[0]).toHaveTextContent(btnAction2Text);
 	});
 
 	it('does not renders item action', () => {
@@ -73,16 +75,14 @@ describe('RovoChatAction', () => {
 		const user = userEvent.setup();
 		setup();
 
-		const element = await screen.findByRole('button', {
-			name: 'Action title 1',
-		});
+		const element = await screen.findByText(btnAction1Text);
 		await user.click(element);
 
 		expect(sendPromptMessageMock).toHaveBeenCalledTimes(1);
 		expect(sendPromptMessageMock).toHaveBeenCalledWith({
-			name: 'Chat title 1',
+			name: btnAction1Text,
 			dialogues: [],
-			prompt: expect.any(Object),
+			prompt: expect.any(String),
 		});
 	});
 
@@ -91,9 +91,7 @@ describe('RovoChatAction', () => {
 		const user = userEvent.setup();
 		setup({ onClick: onClickMock });
 
-		const element = await screen.findByRole('button', {
-			name: 'Action title 1',
-		});
+		const element = await screen.findByText(btnAction1Text);
 		await user.click(element);
 
 		expect(onClickMock).toHaveBeenCalledTimes(1);
@@ -114,26 +112,22 @@ describe('RovoChatAction', () => {
 			const user = userEvent.setup();
 			setup();
 
-			const element = await screen.findByRole('button', {
-				name: 'Action title 1',
-			});
+			const element = await screen.findByText(btnAction1Text);
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip).toHaveTextContent('Action tooltip 1');
+			expect(tooltip).toHaveTextContent(btnAction1Text);
 		});
 
 		it('renders stack item tooltip', async () => {
 			const user = userEvent.setup();
 			setup({ as: 'stack-item' });
 
-			const element = await screen.findByRole('button', {
-				name: 'Action title 1',
-			});
+			const element = await screen.findByText(btnAction1Text);
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip).toHaveTextContent('Action tooltip 1');
+			expect(tooltip).toHaveTextContent(btnAction1Text);
 		});
 	});
 });

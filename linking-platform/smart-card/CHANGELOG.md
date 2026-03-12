@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.26.1
+
+### Patch Changes
+
+- [`e011a4c296616`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e011a4c296616) -
+  [ux] Add RovoChatAction prompt message on HoverCard (plaintext)
+
 ## 43.26.0
 
 ### Minor Changes

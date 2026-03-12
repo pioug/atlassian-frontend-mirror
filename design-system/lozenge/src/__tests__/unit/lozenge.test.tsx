@@ -586,6 +586,39 @@ describe('LozengeDropdownTrigger', () => {
 			expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
 		});
 
+		it('should accept and pass through aria-label prop', () => {
+			render(
+				<LozengeDropdownTrigger
+					appearance="success"
+					isSelected={false}
+					aria-label="Select status"
+					testId="aria-label-trigger"
+				>
+					Status
+				</LozengeDropdownTrigger>,
+			);
+
+			const trigger = screen.getByTestId('aria-label-trigger');
+			expect(trigger).toHaveAttribute('aria-label', 'Select status');
+		});
+
+		it('should override aria-label with Loading when isLoading is true', () => {
+			render(
+				<LozengeDropdownTrigger
+					appearance="success"
+					isSelected={false}
+					isLoading={true}
+					aria-label="Select status"
+					testId="aria-label-loading-trigger"
+				>
+					Status
+				</LozengeDropdownTrigger>,
+			);
+
+			const trigger = screen.getByTestId('aria-label-loading-trigger');
+			expect(trigger).toHaveAttribute('aria-label', 'Loading');
+		});
+
 		it('should accept multiple aria props simultaneously', () => {
 			render(
 				<LozengeDropdownTrigger
@@ -594,6 +627,7 @@ describe('LozengeDropdownTrigger', () => {
 					aria-controls="dropdown-menu-456"
 					aria-expanded={true}
 					aria-haspopup={true}
+					aria-label="Select status"
 					testId="multiple-aria-trigger"
 				>
 					Status
@@ -604,6 +638,7 @@ describe('LozengeDropdownTrigger', () => {
 			expect(trigger).toHaveAttribute('aria-controls', 'dropdown-menu-456');
 			expect(trigger).toHaveAttribute('aria-expanded', 'true');
 			expect(trigger).toHaveAttribute('aria-haspopup', 'true');
+			expect(trigger).toHaveAttribute('aria-label', 'Select status');
 		});
 
 		it('should work without any aria props (backward compatibility)', () => {
@@ -618,6 +653,7 @@ describe('LozengeDropdownTrigger', () => {
 			expect(trigger).not.toHaveAttribute('aria-controls');
 			expect(trigger).not.toHaveAttribute('aria-expanded');
 			expect(trigger).not.toHaveAttribute('aria-haspopup');
+			expect(trigger).not.toHaveAttribute('aria-label');
 		});
 	});
 });

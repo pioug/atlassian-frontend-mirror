@@ -86,7 +86,7 @@ const ActionBlock = ({
 	const ui = useFlexibleUiOptionContext();
 
 	const isRovoChatActionAvailable = fg('platform_sl_3p_auth_rovo_action_kill_switch')
-		? context?.actions?.[InternalActionName.RovoChatAction] === true
+		? context?.actions?.[InternalActionName.RovoChatAction] !== undefined
 		: undefined;
 
 	const [message, setMessage] = useState<ActionMessage>();

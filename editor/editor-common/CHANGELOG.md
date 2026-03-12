@@ -1,5 +1,52 @@
 # @atlaskit/editor-common
 
+## 111.35.0
+
+### Minor Changes
+
+- [`b5d357be83d54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5d357be83d54) -
+  EDITOR-5728 Tab to Improve Writing: Update nudge decoration widget and i18n messages and only
+  support paragraph
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.34.1
+
+### Patch Changes
+
+- [`96856118e5007`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96856118e5007) -
+  [EDITOR-5685] Added overflow menu in block menu for ai section.
+- Updated dependencies
+
+## 111.34.0
+
+### Minor Changes
+
+- [`dd5154ad0dec5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd5154ad0dec5) -
+  [A11Y-10416] Add new i18n message for codeblock aria descriptions around textboc roles
+
+### Patch Changes
+
+- [`c15b7a3426c66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c15b7a3426c66) -
+  [ux] EDITOR-5626 Flexible list behaviour
+- [`29e8db48dc55b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29e8db48dc55b) -
+  [ux] EDITOR-5622 Remove sentinels when shadowObserver is cleaned up
+- Updated dependencies
+
+## 111.33.0
+
+### Minor Changes
+
+- [`e7825d1698274`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7825d1698274) -
+  Improve areNodesEqualIgnoreAttrs by adding option ignoreMarkOrder which ensures the order of the
+  marks does not result in a "false" which can break some cases of diffs.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.32.1
 
 ### Patch Changes

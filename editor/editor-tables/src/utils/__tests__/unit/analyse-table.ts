@@ -77,32 +77,32 @@ describe('analyseTable', () => {
 			true: () => {
 				// cell (0,0) and cell (1,0) are merged
 				const tableNode = table()(
-					tr(th({"rowspan": 2})(p()), th({})(p()), th({})(p()), th({})(p()), th({})(p())),
+					tr(th({ rowspan: 2 })(p()), th({})(p()), th({})(p()), th({})(p()), th({})(p())),
 					tr(td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 					tr(td({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 					tr(td({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
-					tr(td({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p()))
+					tr(td({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 				)(defaultSchema);
-	
+
 				const tableMap = TableMap.get(tableNode);
 				const result = determineTableHeaderStateFromTableNode(tableNode, tableMap, types);
-	
+
 				expect(result).toEqual({ rowHeaderEnabled: true, columnHeaderEnabled: false });
 			},
 			// returns (true, true) when there is a header row and no header column
 			false: () => {
 				// cell (0,0) and cell (1,0) are merged
 				const tableNode = table()(
-					tr(th({"rowspan": 2})(p()), th({})(p()), th({})(p()), th({})(p()), th({})(p())),
+					tr(th({ rowspan: 2 })(p()), th({})(p()), th({})(p()), th({})(p()), th({})(p())),
 					tr(td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 					tr(td({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 					tr(td({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
-					tr(td({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p()))
+					tr(td({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 				)(defaultSchema);
-	
+
 				const tableMap = TableMap.get(tableNode);
 				const result = determineTableHeaderStateFromTableNode(tableNode, tableMap, types);
-	
+
 				expect(result).toEqual({ rowHeaderEnabled: true, columnHeaderEnabled: true });
 			},
 		});
@@ -112,32 +112,32 @@ describe('analyseTable', () => {
 			true: () => {
 				// cell (0,0) and cell (0,1) are merged
 				const tableNode = table()(
-					tr(th({"colspan": 2})(p()), td({})(p()), td({})(p()), td({})(p())),
+					tr(th({ colspan: 2 })(p()), td({})(p()), td({})(p()), td({})(p())),
 					tr(th({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 					tr(th({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 					tr(th({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
-					tr(th({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p()))
+					tr(th({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 				)(defaultSchema);
-	
+
 				const tableMap = TableMap.get(tableNode);
 				const result = determineTableHeaderStateFromTableNode(tableNode, tableMap, types);
-	
+
 				expect(result).toEqual({ rowHeaderEnabled: false, columnHeaderEnabled: true });
 			},
 			// returns (true, true) when there is no header row and a header column
 			false: () => {
 				// cell (0,0) and cell (0,1) are merged
 				const tableNode = table()(
-					tr(th({"colspan": 2})(p()), td({})(p()), td({})(p()), td({})(p())),
+					tr(th({ colspan: 2 })(p()), td({})(p()), td({})(p()), td({})(p())),
 					tr(th({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 					tr(th({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 					tr(th({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
-					tr(th({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p()))
+					tr(th({})(p()), td({})(p()), td({})(p()), td({})(p()), td({})(p())),
 				)(defaultSchema);
-	
+
 				const tableMap = TableMap.get(tableNode);
 				const result = determineTableHeaderStateFromTableNode(tableNode, tableMap, types);
-	
+
 				expect(result).toEqual({ rowHeaderEnabled: true, columnHeaderEnabled: true });
 			},
 		});

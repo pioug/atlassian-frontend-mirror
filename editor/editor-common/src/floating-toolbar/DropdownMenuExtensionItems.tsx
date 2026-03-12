@@ -72,9 +72,7 @@ const convertExtensionToDropdownMenuItem = ({
 }): DropdownOptionT<Function> => {
 	const ButtonIcon = item.icon
 		? Loadable<{ label: string }, never>({
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-await
-				loader: async () => resolveExtensionIcon(item.icon),
+				loader: () => resolveExtensionIcon(item.icon),
 				loading: noop,
 			})
 		: undefined;
@@ -138,9 +136,7 @@ const DropdownMenuExtensionItem = ({
 		expValEquals('platform_editor_table_toolbar_icon_ext_fix_exp', 'isEnabled', true)
 	) {
 		iconRef.current = Loadable<{ label: string }, never>({
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-await
-			loader: async () => resolveExtensionIcon(item.icon),
+			loader: () => resolveExtensionIcon(item.icon),
 			loading: noop,
 		});
 	}

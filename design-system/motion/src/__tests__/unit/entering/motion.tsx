@@ -3,7 +3,6 @@ import React from 'react';
 import { token } from '@atlaskit/tokens';
 import { act, render, screen, waitFor } from '@atlassian/testing-library';
 
-
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import Motion, { Reanimate } from '../../../entering/motion';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
@@ -13,8 +12,12 @@ const MOTION_DURATION = 350;
 
 jest.mock('@atlaskit/tokens', () => ({
 	token: (path: string) => {
-		if (path === 'motion.test.enter') {return 'var(--ds-test-enter)';}
-		if (path === 'motion.test.exit') {return 'var(--ds-test-exit)';}
+		if (path === 'motion.test.enter') {
+			return 'var(--ds-test-enter)';
+		}
+		if (path === 'motion.test.exit') {
+			return 'var(--ds-test-exit)';
+		}
 		return path;
 	},
 }));
@@ -47,9 +50,8 @@ const TestMotionWrapper = ({ children }: { children: React.ReactNode }) => (
 	</>
 );
 
-const renderWithMotionStyles = (
-	ui: React.ReactElement,
-) => render(ui, { wrapper: TestMotionWrapper });
+const renderWithMotionStyles = (ui: React.ReactElement) =>
+	render(ui, { wrapper: TestMotionWrapper });
 
 beforeEach(() => {
 	(isReducedMotion as jest.Mock).mockReturnValue(false);
@@ -72,7 +74,7 @@ describe('<Motion />', () => {
 				testId="target"
 			>
 				<div />
-			</Motion>
+			</Motion>,
 		);
 
 		expect(screen.getByTestId('target')).toHaveCompiledCss('animation', 'none', {
@@ -197,7 +199,6 @@ describe('<Motion />', () => {
 		});
 
 		it('should call onFinish correctly when appear is true', () => {
-
 			const onFinish = jest.fn();
 
 			const { rerender } = renderWithMotionStyles(
@@ -364,7 +365,7 @@ describe('<Motion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(screen.getByTestId('target')).toHaveStyle({animationDelay:""});
+			expect(screen.getByTestId('target')).toHaveStyle({ animationDelay: '' });
 		});
 
 		it('should fill the animation forwards to prevent a frame of the element already being exited', () => {
@@ -419,10 +420,13 @@ describe('<Motion />', () => {
 						>
 							<div />
 						</Motion>
-					</ExitingPersistence>
+					</ExitingPersistence>,
 				);
 
-				expect(screen.getByTestId('target')).not.toHaveCompiledCss('animation-play-state', 'running');
+				expect(screen.getByTestId('target')).not.toHaveCompiledCss(
+					'animation-play-state',
+					'running',
+				);
 
 				act(() => {
 					ref.current?.reanimate(Reanimate.enter);
@@ -446,7 +450,7 @@ describe('<Motion />', () => {
 						>
 							<div />
 						</Motion>
-					</ExitingPersistence>
+					</ExitingPersistence>,
 				);
 
 				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
@@ -455,7 +459,10 @@ describe('<Motion />', () => {
 					jest.advanceTimersByTime(MOTION_DURATION);
 				});
 
-				expect(screen.getByTestId('target')).not.toHaveCompiledCss('animation-play-state', 'running');
+				expect(screen.getByTestId('target')).not.toHaveCompiledCss(
+					'animation-play-state',
+					'running',
+				);
 
 				act(() => {
 					ref.current?.reanimate(Reanimate.enter);
@@ -480,25 +487,31 @@ describe('<Motion />', () => {
 						>
 							<div />
 						</Motion>
-					</ExitingPersistence>
+					</ExitingPersistence>,
 				);
 
-				expect(screen.getByTestId('target')).not.toHaveCompiledCss('animation-play-state', 'running');
+				expect(screen.getByTestId('target')).not.toHaveCompiledCss(
+					'animation-play-state',
+					'running',
+				);
 
 				act(() => {
 					ref.current?.reanimate(Reanimate.exit_then_enter);
 				});
 
 				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
-				expect(screen.getByTestId('target')).toHaveStyle({animation:'var(--ds-test-exit) forwards'});
-
+				expect(screen.getByTestId('target')).toHaveStyle({
+					animation: 'var(--ds-test-exit) forwards',
+				});
 
 				act(() => {
 					jest.advanceTimersByTime(MOTION_DURATION);
 				});
 
 				await waitFor(() => {
-					expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter) backwards');
+					expect(screen.getByTestId('target').style.animation).toContain(
+						'var(--ds-test-enter) backwards',
+					);
 				});
 			});
 			it('should animate out then in when appear is true', async () => {
@@ -514,7 +527,7 @@ describe('<Motion />', () => {
 						>
 							<div />
 						</Motion>
-					</ExitingPersistence>
+					</ExitingPersistence>,
 				);
 
 				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
@@ -523,31 +536,36 @@ describe('<Motion />', () => {
 					jest.advanceTimersByTime(MOTION_DURATION);
 				});
 
-				expect(screen.getByTestId('target')).not.toHaveCompiledCss('animation-play-state', 'running');
+				expect(screen.getByTestId('target')).not.toHaveCompiledCss(
+					'animation-play-state',
+					'running',
+				);
 
 				act(() => {
 					ref.current?.reanimate(Reanimate.exit_then_enter);
 				});
 
 				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
-				expect(screen.getByTestId('target')).toHaveStyle({animation:'var(--ds-test-exit) forwards'});
-
+				expect(screen.getByTestId('target')).toHaveStyle({
+					animation: 'var(--ds-test-exit) forwards',
+				});
 
 				act(() => {
 					jest.advanceTimersByTime(MOTION_DURATION);
 				});
 
 				await waitFor(() => {
-					expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter) backwards');
+					expect(screen.getByTestId('target').style.animation).toContain(
+						'var(--ds-test-enter) backwards',
+					);
 				});
 			});
 		});
-
 	});
 
 	it('should call onFinish correctly if reduced motion is preferred', () => {
 		jest.useRealTimers();
-		
+
 		(isReducedMotion as jest.Mock).mockReturnValue(true);
 
 		const onFinish = jest.fn();

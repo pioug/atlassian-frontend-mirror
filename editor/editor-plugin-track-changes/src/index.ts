@@ -2,5 +2,4 @@
 // Entry file in package.json
 
 export { trackChangesPlugin } from './trackChangesPlugin';
-export type { TrackChangesPlugin } from './trackChangesPluginType';
-export type { TrackChangesPluginOptions } from './trackChangesPluginType';
+export type { TrackChangesPlugin, TrackChangesPluginOptions } from './trackChangesPluginType';

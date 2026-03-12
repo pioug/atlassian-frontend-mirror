@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 9.2.0
+
+### Minor Changes
+
+- [`dd5154ad0dec5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd5154ad0dec5) -
+  [A11Y-10416] Don't render announcer for floating toolbar when a component has another method of
+  announcing (codeclocks only)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.28
 
 ### Patch Changes

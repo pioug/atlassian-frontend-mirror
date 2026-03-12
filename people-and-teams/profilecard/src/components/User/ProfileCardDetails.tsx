@@ -47,16 +47,6 @@ const styles = cssMap({
 		font: token('font.body.large'),
 	},
 	noMetaLabel: {
-		// Using `&` twice to increase specificity
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'&&': {
-			marginTop: token('space.400'),
-			marginBottom: token('space.150'),
-		},
-		marginRight: '0',
-		marginLeft: '0',
-	},
-	noMetaLabelWithHighSpecificity: {
 		// Using `&` and id attribute to increase specificity
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&#profilecard-name-label': {
@@ -66,16 +56,6 @@ const styles = cssMap({
 		},
 	},
 	metaLabel: {
-		// Using `&` twice to increase specificity
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'&&': {
-			marginTop: token('space.150'),
-		},
-		marginRight: '0',
-		marginBottom: '0',
-		marginLeft: '0',
-	},
-	metaLabelWithHighSpecificity: {
 		// Using `&` and id attribute to increase specificity
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&#profilecard-name-label': {
@@ -130,13 +110,7 @@ const renderName = (
 				xcss={cx(
 					styles.fullNameLabel,
 					styles.activeAccount,
-					meta
-						? fg('enable_absolute_positioning_profile_card')
-							? styles.metaLabelWithHighSpecificity
-							: styles.metaLabel
-						: fg('enable_absolute_positioning_profile_card')
-							? styles.noMetaLabelWithHighSpecificity
-							: styles.noMetaLabel,
+					meta ? styles.metaLabel : styles.noMetaLabel,
 				)}
 				testId="profilecard-name"
 				id="profilecard-name-label"
@@ -158,13 +132,7 @@ const renderName = (
 			xcss={cx(
 				styles.fullNameLabel,
 				styles.activeAccount,
-				meta
-					? fg('enable_absolute_positioning_profile_card')
-						? styles.metaLabelWithHighSpecificity
-						: styles.metaLabel
-					: fg('enable_absolute_positioning_profile_card')
-						? styles.noMetaLabelWithHighSpecificity
-						: styles.noMetaLabel,
+				meta ? styles.metaLabel : styles.noMetaLabel,
 			)}
 			testId="profilecard-name"
 			id="profilecard-name-label"
@@ -368,7 +336,6 @@ export const ProfileCardDetails = (
 					reportingLinesProfileUrl={props.reportingLinesProfileUrl}
 					onReportingLinesClick={props.onReportingLinesClick}
 					fireAnalyticsWithDuration={props.fireAnalyticsWithDuration}
-
 				/>
 			)}
 		</DetailsGroup>

@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.8.0
+
+### Minor Changes
+
+- [`390e72480c2f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/390e72480c2f2) -
+  Updated references to de-barreling eslint rules to point to new @atlaskit/platform rule prefix.
+
 ## 2.7.2
 
 ### Patch Changes

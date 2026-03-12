@@ -53,8 +53,11 @@ export type ExperienceCheckDomMutationConfig = {
 	 * !!IMPORTANT!!
 	 * Return null if the target element cannot be found.
 	 * This will immediately fail the experience with experienceFailureReason 'domMutationTargetNotFound'.
-	  */
-	observeConfig: () => (ExperienceCheckDomMutationObserveConfig | ExperienceCheckDomMutationObserveConfig[] | null);
+	 */
+	observeConfig: () =>
+		| ExperienceCheckDomMutationObserveConfig
+		| ExperienceCheckDomMutationObserveConfig[]
+		| null;
 
 	/**
 	 * Callback invoked when DOM mutations are detected
@@ -90,8 +93,7 @@ export class ExperienceCheckDomMutation implements ExperienceCheck {
 		const configResult = this.observeConfig();
 		const configs = Array.isArray(configResult) ? configResult : [configResult];
 		const validConfigs = configs.filter(
-			(config): config is ExperienceCheckDomMutationObserveConfig =>
-				!!config?.target,
+			(config): config is ExperienceCheckDomMutationObserveConfig => !!config?.target,
 		);
 
 		if (validConfigs.length === 0) {

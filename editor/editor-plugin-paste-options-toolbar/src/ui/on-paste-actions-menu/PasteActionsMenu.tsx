@@ -52,7 +52,6 @@ function getPopupOffset(dom: HTMLElement | null): [number, number] {
 	return [-(window.innerWidth - rightEdge - 50), 20];
 }
 
-
 export const PasteActionsMenu = ({
 	api,
 	editorView,
@@ -142,8 +141,7 @@ export const PasteActionsMenu = ({
 		[handleDismiss],
 	);
 
-	const pasteMenuComponents =
-		api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
+	const pasteMenuComponents = api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
 
 	const anyComponentVisible = hasVisibleButton(pasteMenuComponents);
 

@@ -40,7 +40,6 @@ import {
 	getLintRulesTool,
 	listGetLintRulesTool,
 } from './tools/get-lint-rules';
-import { getTokensInputSchema, getTokensTool, listGetTokensTool } from './tools/get-tokens';
 import {
 	i18nConversionInputSchema,
 	i18nConversionTool,
@@ -160,15 +159,20 @@ export const getToolRegistry = (): Record<
 			inputSchema: i18nConversionInputSchema,
 			tool: listI18nConversionTool,
 		},
+		[listGetAllTokensTool.name]: {
+			handler: getAllTokensTool,
+			inputSchema: null,
+			tool: listGetAllTokensTool,
+		},
+		[listGetAllIconsTool.name]: {
+			handler: getAllIconsTool,
+			inputSchema: null,
+			tool: listGetAllIconsTool,
+		},
 	};
 
 	// Conditionally add token and icon tools based on feature flag
 	if (fg('design_system_mcp_structured_content')) {
-		baseTools[listGetTokensTool.name] = {
-			handler: getTokensTool,
-			inputSchema: getTokensInputSchema,
-			tool: listGetTokensTool,
-		} as (typeof baseTools)[string];
 		baseTools[listGetLintRulesTool.name] = {
 			handler: getLintRulesTool,
 			inputSchema: getLintRulesInputSchema,
@@ -178,17 +182,6 @@ export const getToolRegistry = (): Record<
 			handler: getGuidelinesTool,
 			inputSchema: getGuidelinesInputSchema,
 			tool: listGetGuidelinesTool,
-		} as (typeof baseTools)[string];
-	} else {
-		baseTools[listGetAllTokensTool.name] = {
-			handler: getAllTokensTool,
-			inputSchema: null,
-			tool: listGetAllTokensTool,
-		} as (typeof baseTools)[string];
-		baseTools[listGetAllIconsTool.name] = {
-			handler: getAllIconsTool,
-			inputSchema: null,
-			tool: listGetAllIconsTool,
 		} as (typeof baseTools)[string];
 	}
 

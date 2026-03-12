@@ -123,7 +123,7 @@ export const tableNodeSpecWithFixedToDOM = (
 									contenteditable: 'false',
 									class: 'pm-table-left-border',
 									'data-with-numbered-table': node.attrs.isNumberColumnEnabled,
-									'data-testid': 'table-left-border'
+									'data-testid': 'table-left-border',
 								},
 							],
 							[
@@ -131,7 +131,7 @@ export const tableNodeSpecWithFixedToDOM = (
 								{
 									contenteditable: 'false',
 									class: 'pm-table-right-border',
-									'data-testid': 'table-right-border'
+									'data-testid': 'table-right-border',
 								},
 							],
 						]

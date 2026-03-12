@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-type
 
+## 11.3.0
+
+### Minor Changes
+
+- [`1e58c64552ef8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e58c64552ef8) -
+  Add new 'allowFontSize' plugin option to blockTypePlugin which enables new 'small' text feature to
+  be added, it's behind an experiment platform_editor_small_font_size.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.31
 
 ### Patch Changes

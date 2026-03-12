@@ -1,4 +1,4 @@
-import { getIsRovoChatEnabled } from '../rovo.ts';
+import { getIsRovoChatEnabled } from '../rovo';
 
 describe('getIsRovoChatEnabled', () => {
 	it('should return false if rovo config is not provided', () => {

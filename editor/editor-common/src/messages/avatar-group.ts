@@ -9,6 +9,7 @@ export const avatarGroupMessages = defineMessages({
 	anonymousCollaborator: {
 		id: 'fabric.editor.anonymous-collaborator',
 		defaultMessage: 'Anonymous collaborator',
-		description: 'The name of an anonymous collaborator, used when the participant name is not specified',
+		description:
+			'The name of an anonymous collaborator, used when the participant name is not specified',
 	},
 });

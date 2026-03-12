@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-grid
 
+## 7.0.20
+
+### Patch Changes
+
+- [`f91f6be9566a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f91f6be9566a5) -
+  Don't show the grid container if not visible to avoid reflow experiment.
+- Updated dependencies
+
 ## 7.0.19
 
 ### Patch Changes

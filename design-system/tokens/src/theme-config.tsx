@@ -110,7 +110,12 @@ type ExtensionThemeId = ThemeIds;
  * For example: legacy light & dark themes use the "legacyPalette" containing colors from our
  * previous color set.
  */
-export type Palettes = 'defaultPalette' | 'spacingScale' | 'shapePalette' | 'typographyPalette' | 'motionPalette';
+export type Palettes =
+	| 'defaultPalette'
+	| 'spacingScale'
+	| 'shapePalette'
+	| 'typographyPalette'
+	| 'motionPalette';
 
 /**
  * ThemeConfig: the source of truth for all theme meta-data.

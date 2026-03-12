@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 17.7.3
+
+### Patch Changes
+
+- [`477d48a3021a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/477d48a3021a5) -
+  EDITOR-5818 fix to not send dispatch during render or in ref callback
+- Updated dependencies
+
 ## 17.7.2
 
 ### Patch Changes

@@ -13,7 +13,7 @@ const UNSAFE_themeOptions: ThemeOptionsSchema = {
 const customStyleHashId = hash(JSON.stringify(UNSAFE_themeOptions));
 
 function getThemeData(themes: ThemeStyles[]) {
-	return themes.reduce((acc: Omit<ThemeStyles, 'css'>[], { css: _css , ...rest }) => {
+	return themes.reduce((acc: Omit<ThemeStyles, 'css'>[], { css: _css, ...rest }) => {
 		acc.push({ ...rest });
 		return acc;
 	}, []);

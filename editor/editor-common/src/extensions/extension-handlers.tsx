@@ -119,11 +119,7 @@ function ExtensionLoading(props: LoadingComponentProps) {
 	if (props.error || props.timedOut) {
 		// eslint-disable-next-line no-console
 		console.error('Error rendering extension', props.error);
-		return (
-			<div>
-				{intl.formatMessage(messages.extensionLoadingError)}
-			</div>
-		);
+		return <div>{intl.formatMessage(messages.extensionLoadingError)}</div>;
 	} else {
 		return null;
 	}

@@ -131,10 +131,12 @@ describe('Element: Badge', () => {
 
 	describe('large icon (platform_sl_3p_auth_rovo_action_kill_switch)', () => {
 		const rovoActionAvailableData: FlexibleUiDataContext = {
-			actions: { [InternalActionName.RovoChatAction]: true },
+			actions: {
+				[InternalActionName.RovoChatAction]: { product: 'CONFLUENCE', url: 'https://url' },
+			},
 		};
 		const rovoActionUnavailableData: FlexibleUiDataContext = {
-			actions: { [InternalActionName.RovoChatAction]: false },
+			actions: { [InternalActionName.RovoChatAction]: undefined },
 		};
 
 		ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', 'when FF is ON', () => {

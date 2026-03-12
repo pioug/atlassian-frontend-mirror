@@ -264,7 +264,12 @@ export const EmojiActions = (props: EmojiActionsProps) => {
 	}
 
 	return (
-		<div data-testid={emojiActionsTestId} css={previewFooter} onMouseLeave={onMouseLeaveHandler} onBlur={fg('platform_suppression_removal_fix_reactions') ? onMouseLeaveHandler : undefined}>
+		<div
+			data-testid={emojiActionsTestId}
+			css={previewFooter}
+			onMouseLeave={onMouseLeaveHandler}
+			onBlur={fg('platform_suppression_removal_fix_reactions') ? onMouseLeaveHandler : undefined}
+		>
 			<div css={emojiActionsWrapper}>
 				<EmojiPickerListSearch
 					onChange={onChange}

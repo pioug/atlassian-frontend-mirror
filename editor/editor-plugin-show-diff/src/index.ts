@@ -2,4 +2,4 @@
 // Entry file in package.json
 
 export { showDiffPlugin } from './showDiffPlugin';
-export type { ShowDiffPlugin, DiffParams, PMDiffParams } from './showDiffPluginType';
+export type { DiffParams, PMDiffParams, ShowDiffPlugin } from './showDiffPluginType';

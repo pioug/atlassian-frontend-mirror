@@ -77,8 +77,6 @@ export type EditorToolbarButtonAction = {
  */
 export type EditorToolbarAction = EditorToolbarButtonAction;
 
-
-
 /**
  * Handlers for built-in native embed floating toolbar actions.
  * Can be defined in the manifest (editorToolbarHandlers) and are invoked
@@ -90,7 +88,10 @@ export type EditorToolbarHandlerKey = (typeof EDITOR_TOOLBAR_HANDLER_KEYS)[numbe
 
 export type EditorToolbarHandlers = Partial<{
 	onAlignmentClick: (parameters: NativeEmbedParameterValues, alignment: AlignmentValue) => void;
-	onAppearanceClick: (parameters: NativeEmbedParameterValues, appearance: NativeEmbedAppearance) => void;
+	onAppearanceClick: (
+		parameters: NativeEmbedParameterValues,
+		appearance: NativeEmbedAppearance,
+	) => void;
 	onAskRovoClick: EditorToolbarHandler;
 	onChangeBorderClick: EditorToolbarHandler;
 	onCopyLinkClick: EditorToolbarHandler;

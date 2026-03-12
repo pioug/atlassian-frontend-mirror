@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.4.7
+
+### Patch Changes
+
+- [`f1cd4240db95c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1cd4240db95c) -
+  Make scheduleOnPaint SSR aware
+
 ## 5.4.6
 
 ### Patch Changes

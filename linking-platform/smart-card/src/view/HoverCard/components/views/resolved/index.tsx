@@ -81,7 +81,8 @@ const HoverCardResolvedView = ({
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useMemo(
 				() =>
-					cardState?.details && extractRovoChatAction(cardState.details, rovoConfig, actionOptions),
+					cardState?.details &&
+					extractRovoChatAction(cardState.details, rovoConfig, actionOptions) !== undefined,
 				[actionOptions, cardState?.details, rovoConfig],
 			)
 		: false;

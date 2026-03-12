@@ -6,6 +6,7 @@ import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ComponentCaughtDomErrorAEP, ComponentCrashErrorAEP } from '../../analytics/events';
 import { PLATFORM } from '../../analytics/events';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
@@ -21,12 +22,13 @@ interface ErrorBoundaryProps {
 
 interface ErrorBoundaryState {
 	domError: boolean;
+	domErrorCount: number;
 	errorCaptured: boolean;
 }
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
-	state = { errorCaptured: false, domError: false };
+	state = { errorCaptured: false, domError: false, domErrorCount: 0 };
 
 	private fireAnalyticsEvent(event: ComponentCrashErrorAEP | ComponentCaughtDomErrorAEP) {
 		const { createAnalyticsEvent } = this.props;
@@ -77,8 +79,9 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 					errorMessage: `${additionalInfo}${error?.message}`,
 				},
 			});
-			this.setState(() => ({
+			this.setState((prevState) => ({
 				domError: true,
+				domErrorCount: prevState.domErrorCount + 1,
 			}));
 		}
 		if (this.hasFallback()) {
@@ -92,8 +95,16 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 
 	render() {
 		if (this.state.domError) {
-			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-			return <React.Fragment key={uuid()}>{this.props.children}</React.Fragment>;
+			const key = expValEquals(
+				'platform_editor_renderer_error_boundary_stable_key',
+				'isEnabled',
+				true,
+			)
+				? this.state.domErrorCount
+				: // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+					uuid();
+
+			return <React.Fragment key={key}>{this.props.children}</React.Fragment>;
 		}
 		if (this.shouldRecover()) {
 			return this.props.fallbackComponent;

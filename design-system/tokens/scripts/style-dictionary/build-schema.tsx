@@ -96,7 +96,14 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
 			],
 		},
 		ts: {
-			transforms: ['name/dot', 'color/palette', 'pixel/rem', 'font/web', 'box-shadow/figma', 'motion/animation'],
+			transforms: [
+				'name/dot',
+				'color/palette',
+				'pixel/rem',
+				'font/web',
+				'box-shadow/figma',
+				'motion/animation',
+			],
 			buildPath: ARTIFACT_OUTPUT_DIR,
 			files: [
 				{

@@ -1,4 +1,5 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { ProductType } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FireEventFunction } from '../../../common/analytics/types';
@@ -36,6 +37,7 @@ export type ExtractActionsParam = {
 		url: string;
 	}) => void;
 	origin?: AnalyticsOrigin;
+	product?: ProductType;
 	response: JsonLd.Response;
 	rovoConfig?: RovoConfig;
 	url?: string;
@@ -48,6 +50,7 @@ export const extractFlexibleCardActions = ({
 	fireEvent,
 	id,
 	origin,
+	product,
 	response,
 	rovoConfig,
 	url,
@@ -91,6 +94,7 @@ export const extractFlexibleCardActions = ({
 						response,
 						rovoConfig,
 						actionOptions,
+						product,
 					),
 				}
 			: undefined),

@@ -147,6 +147,7 @@ export type LozengeBaseProps = NewLozengeBaseProps & {
 	'aria-controls'?: string;
 	'aria-expanded'?: boolean;
 	'aria-haspopup'?: boolean | 'dialog';
+	'aria-label'?: string;
 };
 
 /**
@@ -194,4 +195,9 @@ export type LozengeDropdownTriggerProps = NewLozengeProps & {
 	 * Informs assistive technology that this element triggers a popup.
 	 */
 	'aria-haspopup'?: boolean | 'dialog';
+
+	/**
+	 * Defines a string value that labels the trigger element for assistive technology.
+	 */
+	'aria-label'?: string;
 };

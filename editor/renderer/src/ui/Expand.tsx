@@ -369,13 +369,7 @@ function Expand({
 						<div css={clearNextSiblingMarginTopStyle} />
 						{fg('hot-121622_lazy_load_expand_content') ? (
 							hasLoadedChildren || loadBodyContent ? (
-								<Suspense
-									fallback={
-										<div>
-											{intl.formatMessage(expandMessages.loading)}
-										</div>
-									}
-								>
+								<Suspense fallback={<div>{intl.formatMessage(expandMessages.loading)}</div>}>
 									<LazyChildren>{children}</LazyChildren>
 								</Suspense>
 							) : null

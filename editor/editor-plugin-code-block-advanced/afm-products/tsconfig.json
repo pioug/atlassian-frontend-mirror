@@ -27,6 +27,9 @@
 			"path": "../../adf-schema/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/code/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-code-block/afm-products/tsconfig.json"
 		},
 		{

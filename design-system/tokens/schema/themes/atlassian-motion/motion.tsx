@@ -13,7 +13,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					// This can be whatever I want
 					duration: 'Duration350',
 					curve: 'CubicEaseInOut',
-					keyframes: ['ScaleIn80', 'FadeIn']
+					keyframes: ['ScaleIn80', 'FadeIn'],
 				},
 			},
 			exit: {

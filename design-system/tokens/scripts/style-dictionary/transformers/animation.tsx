@@ -1,7 +1,14 @@
 import type { Transform, TransformedToken } from 'style-dictionary';
 
-export const rawObjectToAnimation = ({ duration, curve, keyframes, delay }: TransformedToken): string => {
-	return keyframes.map((keyframe: string) => `${duration}ms ${curve} ${keyframe}${delay ? ` ${delay}ms` : ''}`).join(', ');
+export const rawObjectToAnimation = ({
+	duration,
+	curve,
+	keyframes,
+	delay,
+}: TransformedToken): string => {
+	return keyframes
+		.map((keyframe: string) => `${duration}ms ${curve} ${keyframe}${delay ? ` ${delay}ms` : ''}`)
+		.join(', ');
 };
 
 /**

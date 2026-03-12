@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 5.0.9
+
+### Patch Changes
+
+- [`db37927f35395`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db37927f35395) -
+  Cleanup platform_editor_ai_aifc_patch_ga_blockers flag.
+
+## 5.0.8
+
+### Patch Changes
+
+- [`e7825d1698274`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7825d1698274) -
+  Improve areNodesEqualIgnoreAttrs by adding option ignoreMarkOrder which ensures the order of the
+  marks does not result in a "false" which can break some cases of diffs.
+- Updated dependencies
+
 ## 5.0.7
 
 ### Patch Changes

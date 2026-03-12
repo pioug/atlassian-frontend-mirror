@@ -660,8 +660,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		const isChildOfMediaSingle = path.some((n) => n.type?.name === 'mediaSingle');
 		// Only check path for bodiedSyncBlock; syncBlock uses RendererContext
 		const nestedUnder =
-			editorExperiment('platform_synced_block', true) &&
-			fg('platform_synced_block_patch_5')
+			editorExperiment('platform_synced_block', true) && fg('platform_synced_block_patch_5')
 				? getNestedUnderNodes(path, ['bodiedSyncBlock'])
 				: undefined;
 

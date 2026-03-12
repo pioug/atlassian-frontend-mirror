@@ -1,12 +1,18 @@
 import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import getManifest from '../manifest';
 import { type DropboxFile } from '../types';
 import { POPUP_MOUNTPOINT } from '../constants';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 jest.mock('react-dom');
+jest.mock('react-dom/client', () => ({
+	createRoot: jest.fn(),
+}));
 
 const asMock = (fn: Function): jest.Mock => fn as jest.Mock;
+const mockCreateRoot = asMock(createRoot);
 
 const fakeDropboxFile: DropboxFile = {
 	link: 'https://atlaskit.atlassian.com/',
@@ -23,8 +29,15 @@ const callAction = (appKey: string, canMountinIframe: boolean = false) =>
 	)();
 
 describe('dropbox extension manifest', () => {
-	beforeEach(async () => {
-		await jest.resetAllMocks();
+	const mockRootRender = jest.fn();
+	const mockRootUnmount = jest.fn();
+
+	beforeEach(() => {
+		jest.clearAllMocks();
+		mockCreateRoot.mockReturnValue({
+			render: mockRootRender,
+			unmount: mockRootUnmount,
+		});
 	});
 
 	afterEach(() => {
@@ -76,38 +89,72 @@ describe('dropbox extension manifest', () => {
 			},
 		});
 	});
-	it('should load modal if canMountInIframe check returns true', async () => {
-		const mockRender = asMock(ReactDOM.render);
 
-		const mockUnmount = asMock(ReactDOM.unmountComponentAtNode);
+	eeTest.describe('platform_editor_react19_migration', 'isEnabled').variant(false, () => {
+		it('should load modal if canMountInIframe check returns true (legacy)', async () => {
+			const mockRender = asMock(ReactDOM.render);
+			const mockUnmount = asMock(ReactDOM.unmountComponentAtNode);
 
-		window.Dropbox = {
-			choose: ({ success }) => {
-				success([fakeDropboxFile]);
-			},
-		};
+			window.Dropbox = {
+				choose: ({ success }) => {
+					success([fakeDropboxFile]);
+				},
+			};
 
-		const inlineCard = await callAction('FAKE_KEY', true);
+			const inlineCard = await callAction('FAKE_KEY', true);
 
-		expect(mockRender.mock.calls.length).toEqual(1);
-		expect(mockUnmount.mock.calls.length).toEqual(1);
+			expect(mockRender.mock.calls.length).toEqual(1);
+			expect(mockUnmount.mock.calls.length).toEqual(1);
 
-		const [component, mountPoint] = mockRender.mock.calls[0];
-		const [unMountPoint] = mockUnmount.mock.calls[0];
+			const [component, mountPoint] = mockRender.mock.calls[0];
+			const [unMountPoint] = mockUnmount.mock.calls[0];
 
-		const id = mountPoint! && mountPoint!.id;
-		const unmountId = unMountPoint! && unMountPoint!.id;
-		const componentName = component && component.type && component.type.name;
+			const id = mountPoint! && mountPoint!.id;
+			const unmountId = unMountPoint! && unMountPoint!.id;
+			const componentName = component && component.type && component.type.name;
 
-		expect(componentName).toEqual('Modal');
-		expect(id).toEqual(POPUP_MOUNTPOINT);
-		expect(unmountId).toEqual(POPUP_MOUNTPOINT);
+			expect(componentName).toEqual('Modal');
+			expect(id).toEqual(POPUP_MOUNTPOINT);
+			expect(unmountId).toEqual(POPUP_MOUNTPOINT);
 
-		expect(inlineCard).toEqual({
-			type: 'inlineCard',
-			attrs: {
-				url: 'https://atlaskit.atlassian.com/',
-			},
+			expect(inlineCard).toEqual({
+				type: 'inlineCard',
+				attrs: {
+					url: 'https://atlaskit.atlassian.com/',
+				},
+			});
+		});
+	});
+
+	eeTest.describe('platform_editor_react19_migration', 'isEnabled').variant(true, () => {
+		it('should load modal if canMountInIframe check returns true (createRoot)', async () => {
+			window.Dropbox = {
+				choose: ({ success }) => {
+					success([fakeDropboxFile]);
+				},
+			};
+
+			const inlineCard = await callAction('FAKE_KEY', true);
+
+			expect(mockCreateRoot).toHaveBeenCalledTimes(1);
+			expect(mockRootRender).toHaveBeenCalledTimes(1);
+			expect(mockRootUnmount).toHaveBeenCalledTimes(1);
+
+			const [mountPoint] = mockCreateRoot.mock.calls[0];
+			const [component] = mockRootRender.mock.calls[0];
+
+			const id = mountPoint! && mountPoint!.id;
+			const componentName = component && component.type && component.type.name;
+
+			expect(componentName).toEqual('Modal');
+			expect(id).toEqual(POPUP_MOUNTPOINT);
+
+			expect(inlineCard).toEqual({
+				type: 'inlineCard',
+				attrs: {
+					url: 'https://atlaskit.atlassian.com/',
+				},
+			});
 		});
 	});
 });

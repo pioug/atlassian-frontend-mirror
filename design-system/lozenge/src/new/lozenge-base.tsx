@@ -557,6 +557,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 				'aria-controls': ariaControls,
 				'aria-expanded': ariaExpanded,
 				'aria-haspopup': ariaHaspopup,
+				'aria-label': ariaLabel,
 			},
 			ref,
 		) => {
@@ -670,7 +671,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 							hasTrailingMetric && styles[metricStyleKey],
 						)}
 						{...(isLoading && { 'aria-busy': true, 'aria-disabled': true, isDisabled: true })}
-						aria-label={isLoading ? 'Loading' : undefined}
+						aria-label={isLoading ? 'Loading' : ariaLabel}
 						aria-controls={ariaControls}
 						aria-expanded={ariaExpanded}
 						aria-haspopup={ariaHaspopup}

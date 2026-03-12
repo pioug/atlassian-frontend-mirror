@@ -46,17 +46,6 @@ const styles = cssMap({
 	animatedKudosButton: {
 		marginLeft: token('space.100'),
 	},
-	actionButtonGroup: {
-		userSelect: 'none',
-		marginTop: token('space.200'),
-		marginRight: token('space.0'),
-		marginLeft: token('space.0'),
-		marginBottom: token('space.0'),
-		textAlign: 'right',
-		justifyContent: 'flex-end',
-		gap: token('space.075'),
-		display: 'flex',
-	},
 	overflowActionButtonsWrapper: {
 		display: 'inline-block',
 		width: '32px',
@@ -170,12 +159,6 @@ const styles = cssMap({
 			'color.background.discovery.pressed',
 		)} 25%, transparent 50%)`,
 	},
-	jobTitleLabel: {
-		marginTop: token('space.0'),
-		marginBottom: token('space.0'),
-		marginLeft: token('space.0'),
-		marginRight: token('space.0'),
-	},
 	appTitleLabel: {
 		color: token('color.text'),
 		borderRadius: token('radius.small'),
@@ -250,11 +233,7 @@ export const ActionButtonGroup = ({
 }): React.JSX.Element => (
 	<Box
 		testId={testId}
-		xcss={cx(
-			fg('enable_absolute_positioning_profile_card')
-				? stylesCompiled.actionButtonGroup
-				: styles.actionButtonGroup,
-		)}
+		xcss={cx(stylesCompiled.actionButtonGroup)}
 		id="profile-card-action-button-group"
 	>
 		{children}
@@ -299,13 +278,7 @@ export const JobTitleLabel = ({ children }: { children: ReactNode }): React.JSX.
 	const textRef = useRef<HTMLElement>(null);
 
 	return (
-		<Box
-			xcss={cx(
-				fg('enable_absolute_positioning_profile_card')
-					? stylesCompiled.jobTitleLabel
-					: styles.jobTitleLabel,
-			)}
-		>
+		<Box xcss={cx(stylesCompiled.jobTitleLabel)}>
 			{fg('enable_profilecard_text_truncation_tooltip') ? (
 				<Tooltip
 					content={children}

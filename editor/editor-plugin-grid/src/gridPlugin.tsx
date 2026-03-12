@@ -212,6 +212,16 @@ const ContentComponent = ({ api, editorView, options }: ContentComponentProps) =
 		return null;
 	}
 
+	if (expValEquals('platform_editor_remove_grid_init_reflow', 'isEnabled', true)) {
+		if (!visible || !highlight) {
+			return null;
+		}
+	} else {
+		if (visible === undefined || !highlight) {
+			return null;
+		}
+	}
+
 	return (
 		<ThemedGrid
 			shouldCalcBreakoutGridLines={options && options.shouldCalcBreakoutGridLines}

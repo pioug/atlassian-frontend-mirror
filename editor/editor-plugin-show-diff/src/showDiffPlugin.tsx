@@ -4,7 +4,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { createPlugin, showDiffPluginKey, getScrollableDecorations } from './pm-plugins/main';
 import type { ShowDiffPlugin, PMDiffParams } from './showDiffPluginType';
 
-export const showDiffPlugin: ShowDiffPlugin = ({ api: _api, config }) => ({
+export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
 	name: 'showDiff',
 	commands: {
 		showDiff:
@@ -26,7 +26,7 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api: _api, config }) => ({
 		return [
 			{
 				name: 'showDiffPlugin',
-				plugin: ({ getIntl }) => createPlugin(config, getIntl),
+				plugin: ({ getIntl }) => createPlugin(config, getIntl, api),
 			},
 		];
 	},

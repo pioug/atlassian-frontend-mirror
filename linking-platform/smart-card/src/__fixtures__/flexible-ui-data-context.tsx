@@ -46,6 +46,10 @@ const context: FlexibleUiDataContext = {
 			product: 'confluence',
 			resourceType: 'page',
 		},
+		RovoChatAction: {
+			product: 'CONFLUENCE',
+			url: 'https://www.link-url.com',
+		},
 		ViewRelatedLinksAction: {
 			ari: 'ari:cloud:link:1234:example:abcd',
 		},

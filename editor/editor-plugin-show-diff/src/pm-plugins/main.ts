@@ -2,6 +2,7 @@ import type { IntlShape } from 'react-intl-next';
 
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	PluginKey,
@@ -13,7 +14,7 @@ import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { type DiffParams } from '../showDiffPluginType';
+import { type DiffParams, type ShowDiffPlugin } from '../showDiffPluginType';
 
 import { calculateDiffDecorations } from './calculateDiffDecorations';
 import { NodeViewSerializer } from './NodeViewSerializer';
@@ -39,7 +40,11 @@ export const getScrollableDecorations = (set: DecorationSet | undefined): Decora
 		(spec) => spec.key === 'diff-inline' || spec.key === 'diff-widget' || spec.key === 'diff-block',
 	) ?? [];
 
-export const createPlugin = (config: DiffParams | undefined, getIntl: () => IntlShape) => {
+export const createPlugin = (
+	config: DiffParams | undefined,
+	getIntl: () => IntlShape,
+	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined,
+) => {
 	const nodeViewSerializer = new NodeViewSerializer({});
 	const setNodeViewSerializer = (editorView: EditorView) => {
 		nodeViewSerializer.init({ editorView });
@@ -85,6 +90,7 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 							activeIndexPos: fg('platform_editor_show_diff_scroll_navigation')
 								? newPluginState.activeIndexPos
 								: undefined,
+							api,
 						});
 						// Update the decorations
 						newPluginState.decorations = decorations;
@@ -126,6 +132,7 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 								colorScheme: config?.colorScheme,
 								intl: getIntl(),
 								activeIndexPos: newPluginState.activeIndexPos,
+								api,
 							});
 							newPluginState.decorations = updatedDecorations;
 						}

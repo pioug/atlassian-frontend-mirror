@@ -219,7 +219,6 @@ describe('getUfoExperienceKeyHeader', () => {
 	});
 });
 
-
 describe('mergeUfoExperienceKeyHeaders', () => {
 	test('should merge UFO headers with existing headers', () => {
 		mockGetActiveInteraction.mockReturnValue({
@@ -229,14 +228,14 @@ describe('mergeUfoExperienceKeyHeaders', () => {
 
 		const existing = {
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer token',
+			Authorization: 'Bearer token',
 		};
 
 		const merged = mergeUfoExperienceKeyHeaders('jira', existing);
 
 		expect(merged).toEqual({
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer token',
+			Authorization: 'Bearer token',
 			'atl-paas-cnsmr-ctx-experience-key': 'jira.fe.page-load.issueView',
 		});
 	});

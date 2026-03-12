@@ -38,6 +38,8 @@ export default function prepareQuickInsertProvider(
 		);
 
 	return quickInsertProvider && extensionQuickInsertProvider
-		? combineQuickInsertProviders([quickInsertProvider, extensionQuickInsertProvider])
+		? Promise.resolve(
+				combineQuickInsertProviders([quickInsertProvider, extensionQuickInsertProvider]),
+			)
 		: quickInsertProvider || extensionQuickInsertProvider;
 }

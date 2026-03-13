@@ -56,7 +56,8 @@ import {
  * https://hello.atlassian.net/wiki/spaces/egcuc/pages/6170822503/Block+Menu+Solution+for+multi-select+and+selection+preservation
  */
 export const createSelectionPreservationPlugin =
-	(api?: ExtractInjectionAPI<BlockControlsPlugin>) => () => {
+	(api?: ExtractInjectionAPI<BlockControlsPlugin>) =>
+	(): SafePlugin<SelectionPreservationPluginState> => {
 		return new SafePlugin<SelectionPreservationPluginState>({
 			key: selectionPreservationPluginKey,
 			state: {

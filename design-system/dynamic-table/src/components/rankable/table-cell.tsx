@@ -1,6 +1,6 @@
 import React from 'react';
 
-import withDimensions, { type WithDimensionsProps } from '../../hoc/with-dimensions';
+import withDimensions, { type State, type WithDimensionsProps } from '../../hoc/with-dimensions';
 import { inlineStylesIfRanking } from '../../internal/helpers';
 import { RankableTableBodyCell } from '../../styled/rankable/table-cell';
 import { type HeadCellType, type RowCellType } from '../../types';
@@ -40,4 +40,8 @@ export class RankableTableCell extends React.Component<RankableTableCellProps, {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default withDimensions<RankableTableCellProps>(RankableTableCell);
+const _default_1: React.ComponentClass<
+	Omit<RankableTableCellProps, 'refWidth' | 'refHeight' | 'innerRef'>,
+	State
+> = withDimensions<RankableTableCellProps>(RankableTableCell);
+export default _default_1;

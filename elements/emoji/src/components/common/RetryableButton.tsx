@@ -79,7 +79,7 @@ const UploadButton = (props: Props) => {
 	);
 };
 
-const RetryableButton = (props: Props) => {
+const RetryableButton = (props: Props): JSX.Element => {
 	const { loading, error } = props;
 
 	if (loading) {

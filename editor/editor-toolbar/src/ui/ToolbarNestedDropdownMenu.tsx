@@ -52,7 +52,7 @@ export const ToolbarNestedDropdownMenu = ({
 	shouldFitContainer = false,
 	shouldTitleWrap,
 	tooltipContent,
-}: ToolbarNestedDropdownMenuProps) => {
+}: ToolbarNestedDropdownMenuProps): JSX.Element => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			shouldFitContainer={shouldFitContainer}

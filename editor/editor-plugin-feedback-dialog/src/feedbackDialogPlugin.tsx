@@ -24,7 +24,7 @@ const hashFeedbackInfo = (feedbackInfo: FeedbackInfo): string => {
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-await
-export const openFeedbackDialog = async (feedbackInfo?: FeedbackInfo) =>
+export const openFeedbackDialog = async (feedbackInfo?: FeedbackInfo): Promise<number> =>
 	// eslint-disable-next-line no-async-promise-executor
 	new Promise(async (resolve, reject) => {
 		const combinedFeedbackInfo = {

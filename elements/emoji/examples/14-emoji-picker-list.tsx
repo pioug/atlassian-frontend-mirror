@@ -51,7 +51,7 @@ const withoutPreviewHeight = cssMap({
 	},
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [query, setQuery] = React.useState('');
 	const [emojis, setEmojis] = React.useState(allEmojis);
 

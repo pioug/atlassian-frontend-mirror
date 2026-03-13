@@ -5,7 +5,7 @@
 
 import { type PropsWithChildren } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
@@ -49,7 +49,7 @@ export const InlineDialogFormWrapper = ({
 	integrationMode?: IntegrationMode;
 	isExtendedShareDialogEnabled?: boolean;
 	isMenuItemSelected?: boolean;
-}>) => {
+}>): jsx.JSX.Element => {
 	const styles = {
 		width: calculateFormWrapperWidth({
 			integrationMode,
@@ -86,7 +86,10 @@ export const InlineDialogContentWrapper = ({
 	children,
 	label,
 	isExtendedShareDialogEnabled,
-}: PropsWithChildren<{ isExtendedShareDialogEnabled?: boolean; label?: string }>) => {
+}: PropsWithChildren<{
+	isExtendedShareDialogEnabled?: boolean;
+	label?: string;
+}>): jsx.JSX.Element => {
 	return (
 		<div
 			css={

@@ -24,7 +24,7 @@ type EventMetadata = {
  * returned
  */
 const withHistoryMethod = (fn: (metadata: EventMetadata) => string | undefined) => {
-	return (metadata: EventMetadata) => {
+	return (metadata: EventMetadata): string | undefined => {
 		const { isUndo, isRedo } = metadata;
 		if (isUndo) {
 			return 'undo';
@@ -36,46 +36,53 @@ const withHistoryMethod = (fn: (metadata: EventMetadata) => string | undefined) 
 	};
 };
 
-export const getMethod = withHistoryMethod(({ inputMethod, sourceEvent }: EventMetadata) => {
-	inputMethod = inputMethod ?? (sourceEvent as UIAnalyticsEvent)?.payload?.attributes?.inputMethod;
+export const getMethod: (metadata: EventMetadata) => string | undefined = withHistoryMethod(
+	({ inputMethod, sourceEvent }: EventMetadata) => {
+		inputMethod =
+			inputMethod ?? (sourceEvent as UIAnalyticsEvent)?.payload?.attributes?.inputMethod;
 
-	switch (inputMethod) {
-		case INPUT_METHOD.CLIPBOARD:
-			return 'editor_paste';
-		case INPUT_METHOD.FLOATING_TB:
-			return 'editor_floatingToolbar';
-		case INPUT_METHOD.AUTO_DETECT:
-		case INPUT_METHOD.FORMATTING:
-			return 'editor_type';
-		case INPUT_METHOD.TYPEAHEAD:
-			return 'linkpicker_searchResult';
-		case INPUT_METHOD.MANUAL:
-			return 'linkpicker_manual';
-		case INPUT_METHOD.DATASOURCE:
-			return 'datasource_config';
-		default:
-			return 'unknown';
-	}
-});
+		switch (inputMethod) {
+			case INPUT_METHOD.CLIPBOARD:
+				return 'editor_paste';
+			case INPUT_METHOD.FLOATING_TB:
+				return 'editor_floatingToolbar';
+			case INPUT_METHOD.AUTO_DETECT:
+			case INPUT_METHOD.FORMATTING:
+				return 'editor_type';
+			case INPUT_METHOD.TYPEAHEAD:
+				return 'linkpicker_searchResult';
+			case INPUT_METHOD.MANUAL:
+				return 'linkpicker_manual';
+			case INPUT_METHOD.DATASOURCE:
+				return 'datasource_config';
+			default:
+				return 'unknown';
+		}
+	},
+);
 
-export const getUpdateType = withHistoryMethod(({ action }: EventMetadata) => {
-	switch (action) {
-		case ACTION.CHANGED_TYPE:
-			return 'display_update';
-		case ACTION.UPDATED:
-			return 'link_update';
-		default:
-			return 'unknown';
-	}
-});
+export const getUpdateType: (metadata: EventMetadata) => string | undefined = withHistoryMethod(
+	({ action }: EventMetadata) => {
+		switch (action) {
+			case ACTION.CHANGED_TYPE:
+				return 'display_update';
+			case ACTION.UPDATED:
+				return 'link_update';
+			default:
+				return 'unknown';
+		}
+	},
+);
 
-export const getDeleteType = withHistoryMethod(({ action }: EventMetadata) => {
-	if (action === ACTION.UNLINK) {
-		return 'unlink';
-	}
-	return 'delete';
-});
+export const getDeleteType: (metadata: EventMetadata) => string | undefined = withHistoryMethod(
+	({ action }: EventMetadata) => {
+		if (action === ACTION.UNLINK) {
+			return 'unlink';
+		}
+		return 'delete';
+	},
+);
 
-export const getSourceEventFromMetadata = (metadata: EventMetadata) => {
+export const getSourceEventFromMetadata = (metadata: EventMetadata): UIAnalyticsEvent | null => {
 	return metadata.sourceEvent instanceof UIAnalyticsEvent ? metadata.sourceEvent : null;
 };

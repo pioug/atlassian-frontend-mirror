@@ -146,7 +146,7 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 		});
 	};
 
-	render() {
+	render(): JSX.Element {
 		const { item, render, transitionDelay, transitionSpeed, transitionEasing, testId } = this.props;
 
 		const ariaCurrent = item.status === 'current' ? 'step' : 'false';

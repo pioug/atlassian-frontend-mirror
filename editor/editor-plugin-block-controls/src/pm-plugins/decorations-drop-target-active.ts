@@ -65,7 +65,7 @@ export const canMoveNodeOrSliceToPos = (
 	index: number,
 	$toPos: ResolvedPos,
 	activeNode?: ActiveNode,
-) => {
+): boolean | null => {
 	// For deciding to show drop targets or not when multiple nodes are selected
 	const selection = state.selection;
 	const { $anchor: expandedAnchor, $head: expandedHead } = expandSelectionBounds(
@@ -123,7 +123,10 @@ export const getActiveDropTargetDecorations = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	activeNode?: ActiveNode,
 	anchorRectCache?: AnchorRectCache,
-) => {
+): {
+	decsToAdd: Decoration[];
+	decsToRemove: Decoration[];
+} => {
 	const decsToAdd: Decoration[] = [];
 	let decsToRemove: Decoration[] = existingDecs.filter((dec) => !!dec);
 

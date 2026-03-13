@@ -75,7 +75,9 @@ const FocusManager: FC<{
 		[refresh],
 	);
 
-	const { isLayerDisabled } = useLayering();
+	const { isLayerDisabled, currentLevel } = useLayering();
+	// Root menu (from a button) is at level 1; first submenu is at level 2. ARIA: Left only closes submenus.
+	const isNestedMenu = currentLevel > 1;
 	// Intentionally rebinding on each render
 	useEffect(() => {
 		if (registerMode.current === 'ordered') {
@@ -88,9 +90,9 @@ const FocusManager: FC<{
 		() =>
 			bind(window, {
 				type: 'keydown',
-				listener: handleFocus(menuItemRefs, isLayerDisabled, onClose),
+				listener: handleFocus(menuItemRefs, isLayerDisabled, onClose, isNestedMenu),
 			}),
-		[isLayerDisabled, onClose],
+		[isLayerDisabled, onClose, isNestedMenu],
 	);
 
 	const contextValue = {

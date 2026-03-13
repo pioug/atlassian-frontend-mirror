@@ -16,7 +16,7 @@ const styles = cssMap({
 	},
 });
 
-export const AgentChatIcon = () => {
+export const AgentChatIcon = (): React.JSX.Element => {
 	return (
 		<Flex xcss={styles.agentChatIcon} alignItems="center" justifyContent="center">
 			<RovoChatIcon label="" color={token('color.icon.subtlest')} />

@@ -16,7 +16,7 @@ import { inSameTable } from '../utils/tables';
 
 import { tableEditingKey } from './plugin-key';
 
-export const handleKeyDown = keydownHandler({
+export const handleKeyDown: (view: EditorView, event: KeyboardEvent) => boolean = keydownHandler({
 	ArrowLeft: arrow('horiz', -1),
 	ArrowRight: arrow('horiz', 1),
 	ArrowUp: arrow('vert', -1),

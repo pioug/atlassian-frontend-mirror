@@ -118,7 +118,7 @@ export const OTHER: BlockType = {
 	nodeName: '',
 };
 
-export const TEXT_BLOCK_TYPES = [
+export const TEXT_BLOCK_TYPES: BlockType[] = [
 	NORMAL_TEXT,
 	HEADING_1,
 	HEADING_2,
@@ -211,10 +211,12 @@ export const FORMATTING_MARK_TYPES: string[] = [
 	'backgroundColor',
 ];
 
-export const WRAPPER_BLOCK_TYPES = [BLOCK_QUOTE, CODE_BLOCK, PANEL];
-export const ALL_BLOCK_TYPES = TEXT_BLOCK_TYPES.concat(WRAPPER_BLOCK_TYPES);
+export const WRAPPER_BLOCK_TYPES: BlockType[] = [BLOCK_QUOTE, CODE_BLOCK, PANEL];
+export const ALL_BLOCK_TYPES: BlockType[] = TEXT_BLOCK_TYPES.concat(WRAPPER_BLOCK_TYPES);
 
-export const getBlockTypesInDropdown = (includeBlockQuoteAsTextstyleOption?: boolean) => {
+export const getBlockTypesInDropdown = (
+	includeBlockQuoteAsTextstyleOption?: boolean,
+): BlockType[] => {
 	return editorExperiment('platform_editor_blockquote_in_text_formatting_menu', true, {
 		exposure: true,
 	}) && includeBlockQuoteAsTextstyleOption
@@ -222,18 +224,19 @@ export const getBlockTypesInDropdown = (includeBlockQuoteAsTextstyleOption?: boo
 		: TEXT_BLOCK_TYPES;
 };
 
-export const HEADINGS_BY_LEVEL = TEXT_BLOCK_TYPES.reduce<Record<number, BlockType>>(
-	(acc, blockType) => {
-		if (blockType.level && blockType.nodeName === 'heading') {
-			acc[blockType.level] = blockType;
-		}
+export const HEADINGS_BY_LEVEL: Record<number, BlockType> = TEXT_BLOCK_TYPES.reduce<
+	Record<number, BlockType>
+>((acc, blockType) => {
+	if (blockType.level && blockType.nodeName === 'heading') {
+		acc[blockType.level] = blockType;
+	}
 
-		return acc;
-	},
-	{},
-);
+	return acc;
+}, {});
 
-export const HEADINGS_BY_NAME = TEXT_BLOCK_TYPES.reduce(
+export const HEADINGS_BY_NAME: {
+	[blockType: string]: BlockType;
+} = TEXT_BLOCK_TYPES.reduce(
 	(acc, blockType) => {
 		if (blockType.level && blockType.nodeName === 'heading') {
 			acc[blockType.name] = blockType;

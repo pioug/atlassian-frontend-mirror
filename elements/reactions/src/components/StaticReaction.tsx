@@ -45,7 +45,7 @@ export const StaticReaction = ({
 	children,
 	testId,
 	dataAttributes = {},
-}: StaticReactionProps) => {
+}: StaticReactionProps): JSX.Element => {
 	return (
 		<Pressable
 			onMouseEnter={onMouseEnter}

@@ -4,15 +4,15 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 import { type ContentProps } from '../types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
-export const formWrapperStyle = css`
+export const formWrapperStyle: SerializedStyles = css`
 	[class^='FormHeader__FormHeaderWrapper'] {
 		h1:first-child {
 			font: ${token('font.heading.small')};
@@ -52,7 +52,7 @@ export const IntegrationForm = ({
 	Content,
 	onIntegrationClose = () => undefined,
 	changeTab = () => undefined,
-}: IntegrationFormProps) => (
+}: IntegrationFormProps): jsx.JSX.Element => (
 	<div css={formWrapperStyle}>
 		{Content && <Content onClose={onIntegrationClose} changeTab={changeTab} />}
 	</div>

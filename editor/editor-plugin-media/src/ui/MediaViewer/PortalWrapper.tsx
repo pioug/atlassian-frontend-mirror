@@ -36,7 +36,7 @@ export const RenderMediaViewer = ({
 	onClose,
 	selectedNodeAttrs,
 	items = [],
-}: RenderMediaViewerProps) => {
+}: RenderMediaViewerProps): React.ReactPortal => {
 	const identifier = getIdentifier(selectedNodeAttrs);
 	const collectionName = isExternalMedia(selectedNodeAttrs) ? '' : selectedNodeAttrs.collection;
 

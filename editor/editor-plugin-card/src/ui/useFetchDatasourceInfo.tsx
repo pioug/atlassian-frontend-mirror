@@ -21,7 +21,12 @@ export const useFetchDatasourceInfo = ({
 	url,
 	cardContext,
 	nodeParameters,
-}: useFetchDatasourceInfoProps) => {
+}: useFetchDatasourceInfoProps): {
+	datasourceId: string | undefined;
+	parameters: DatasourceParameters | undefined;
+	ready: boolean;
+	extensionKey: string | undefined;
+} => {
 	const [datasourceId, setDatasourceId] = useState<string | undefined>(undefined);
 	const [parameters, setParameters] = useState<DatasourceParameters | undefined>(nodeParameters);
 	// Since fetchData() is async, using this ready check to see if we have the parameters before passing it to the modal.

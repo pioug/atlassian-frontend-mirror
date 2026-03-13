@@ -61,7 +61,7 @@ export function liftFollowingList(
 	return tr;
 }
 
-export function liftNodeSelectionList(selection: Selection, tr: Transaction) {
+export function liftNodeSelectionList(selection: Selection, tr: Transaction): Transaction {
 	const { from } = selection;
 	const { listItem } = tr.doc.type.schema.nodes;
 	const mappedPosition = tr.mapping.map(from);

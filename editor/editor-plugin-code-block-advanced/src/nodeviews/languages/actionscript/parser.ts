@@ -2,7 +2,7 @@
 import { LRParser } from '@lezer/lr';
 
 const spec_Identifier = { __proto__: null, var: 8, function: 14 };
-export const parser = LRParser.deserialize({
+export const parser: LRParser = LRParser.deserialize({
 	version: 14,
 	states:
 		"$tQYQPOOOOQO'#Cl'#ClOOQO'#Ci'#CiOOQO'#Cd'#CdQYQPOOOkQPO'#CjOpQPO'#CnOuQPO'#CiOOQO-E6b-E6bOzQPO,59UO!SQPO,59YOOQO,59T,59TOOQO1G.p1G.pO!XQPO1G.pO!dQPO1G.tO!iQPO7+$[O!nQPO'#CpO!vQPO7+$`OOQO<<Gv<<GvO!{QPO'#CeO#QQPO,59[O#YQPO<<GzOOQO,59P,59POOQO-E6c-E6cO#_QPO'#CsOOQOAN=fAN=fOOQO,59_,59_O#fQPO,59_OOQO1G.y1G.y",

@@ -69,7 +69,17 @@ const defaultOptions: SyncedBlockRendererOptions = {
 	},
 };
 
-export const AKRendererWrapper = memo(
+export const AKRendererWrapper: React.MemoExoticComponent<
+	({
+		doc,
+		dataProviders,
+		options,
+	}: {
+		dataProviders: ProviderFactory | undefined;
+		doc: DocNode;
+		options: SyncedBlockRendererOptions | undefined;
+	}) => React.JSX.Element
+> = memo(
 	({
 		doc,
 		dataProviders,

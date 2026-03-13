@@ -1,5 +1,18 @@
 # @atlaskit/editor-cq-transformer
 
+## 15.0.1
+
+### Patch Changes
+
+- [`cca57049325b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cca57049325b8) -
+  Static elements should not be interactable, or be non-static
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.2
 
 ### Patch Changes

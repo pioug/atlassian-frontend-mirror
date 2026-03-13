@@ -182,6 +182,9 @@ export class EditorPerformanceMetrics {
 	}
 }
 
-export function createCalculator(timeline: Timeline, viewport?: ViewportDimension) {
+export function createCalculator(
+	timeline: Timeline,
+	viewport?: ViewportDimension,
+): EditorPerformanceMetrics {
 	return new EditorPerformanceMetrics(timeline, viewport);
 }

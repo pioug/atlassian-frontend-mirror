@@ -5,7 +5,7 @@
 import type { KeyboardEvent } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
@@ -117,7 +117,11 @@ export type AltTextEditComponentState = {
 export class AltTextEditComponent extends React.Component<Props, AltTextEditComponentState> {
 	private fireCustomAnalytics?: FireAnalyticsCallback;
 	private errorsListRef;
-	state = {
+	state: {
+		showClearTextButton: boolean;
+		validationErrors: string[];
+		lastValue: string | undefined;
+	} = {
 		showClearTextButton: Boolean(this.props.value),
 		validationErrors: this.props.value ? this.getValidationErrors(this.props.value) : [],
 		lastValue: this.props.value,
@@ -158,7 +162,7 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 		return [];
 	}
 
-	render() {
+	render(): jsx.JSX.Element {
 		const {
 			intl: { formatMessage },
 		} = this.props;
@@ -325,4 +329,15 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 	};
 }
 
-export default withAnalyticsEvents()(injectIntl(AltTextEditComponent));
+const _default_1: React.ForwardRefExoticComponent<
+	Omit<
+		Omit<Props, 'intl'> & {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			forwardedRef?: React.Ref<any>;
+		},
+		keyof WithAnalyticsEventsProps
+	> &
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		React.RefAttributes<any>
+> = withAnalyticsEvents()(injectIntl(AltTextEditComponent));
+export default _default_1;

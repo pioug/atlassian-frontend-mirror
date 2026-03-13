@@ -13,7 +13,12 @@ import { findOverflowScrollParent, UnsupportedBlock } from '@atlaskit/editor-com
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
+	Decoration,
+	DecorationSource,
+	EditorView,
+	NodeView,
+} from '@atlaskit/editor-prosemirror/view';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -83,7 +88,7 @@ export class BlockCardComponent extends React.PureComponent<
 		this.props.view.dispatch(tr);
 	}
 
-	gapCursorSpan = () => {
+	gapCursorSpan = (): React.JSX.Element | undefined => {
 		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
 			? getBrowserInfo()
 			: browserLegacy;
@@ -277,7 +282,7 @@ export const blockCardNodeView =
 		view: EditorView,
 		getPos: () => number | undefined,
 		decorations: readonly Decoration[],
-	) => {
+	): BlockCard | Datasource | NodeView => {
 		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
 		const reactComponentProps: BlockCardNodeViewProps = {
 			actionOptions,

@@ -22,7 +22,7 @@ export const useResponsiveIconTypeButtons = ({
 }: {
 	responsivenessEnabled: boolean;
 	toolbarSize: ToolbarSize;
-}) => {
+}): IconTypes[] => {
 	let ResponsiveCustomButtonToolbar: Record<ToolbarSize, IconTypes[]> =
 		ResponsiveCustomButtonToolbarCompact;
 	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
@@ -51,7 +51,7 @@ export const useResponsiveIconTypeMenu = ({
 }: {
 	responsivenessEnabled: boolean;
 	toolbarSize: ToolbarSize;
-}) => {
+}): IconTypes[] => {
 	let ResponsiveCustomMenu: Record<ToolbarSize, IconTypes[]> = ResponsiveCustomMenuCompact;
 	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
 		ResponsiveCustomMenu = ResponsiveCustomMenuMinimal;

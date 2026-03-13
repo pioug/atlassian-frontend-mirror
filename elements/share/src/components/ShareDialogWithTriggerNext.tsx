@@ -478,7 +478,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 		});
 	};
 
-	renderShareTriggerButton = (triggerProps: TriggerProps) => {
+	renderShareTriggerButton = (triggerProps: TriggerProps): React.ReactNode => {
 		const { isDialogOpen, isUsingSplitButton } = this.state;
 		const {
 			intl: { formatMessage },

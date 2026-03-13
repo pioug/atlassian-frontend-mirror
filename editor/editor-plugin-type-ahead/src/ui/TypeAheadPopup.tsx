@@ -4,7 +4,7 @@
  */
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
 
@@ -112,7 +112,9 @@ const Highlight = ({ state, triggerHandler }: HighlightProps) => {
 
 const OFFSET = [0, 8];
 
-export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
+export const TypeAheadPopup: React.MemoExoticComponent<
+	(props: TypeAheadPopupProps) => jsx.JSX.Element
+> = React.memo((props: TypeAheadPopupProps): jsx.JSX.Element => {
 	const {
 		editorView,
 		triggerHandler,

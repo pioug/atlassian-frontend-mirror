@@ -30,7 +30,7 @@ function getCurrentBrowserAndVersion(
 	return undefined;
 }
 
-export default (featureFlags: FeatureFlags) =>
+export default (featureFlags: FeatureFlags): SafePlugin =>
 	new SafePlugin({
 		key: new PluginKey('disableSpellchecking'),
 		props: {

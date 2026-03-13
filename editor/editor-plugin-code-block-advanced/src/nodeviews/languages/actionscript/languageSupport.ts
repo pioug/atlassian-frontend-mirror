@@ -11,7 +11,7 @@ import { parser } from './parser';
  * import { actionscriptLanguageSupport } from './languageSupport';
  * const support = actionscriptLanguageSupport();
  */
-export function actionscriptLanguageSupport() {
+export function actionscriptLanguageSupport(): LanguageSupport {
 	// --- Syntax highlighting rules for ActionScript ---
 	const actionScriptHighlight = styleTags({
 		'var function': tags.controlKeyword,

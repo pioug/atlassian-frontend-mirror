@@ -90,7 +90,7 @@ export class ParticipantsService {
 		private getPresenceData: () => PresenceData,
 		private setUserId: (id: string) => void,
 		private getAIProviderActiveIds?: () => string[],
-		private fetchAnonymousAsset?: FetchAnonymousAsset,
+		private fetchAnonymousAsset?: FetchAnonymousAsset | undefined,
 	) {}
 
 	sendPresenceActivityChanged = (): void => {
@@ -677,23 +677,23 @@ export class ParticipantsService {
 		}
 	};
 
-	getParticipants = () => {
+	getParticipants = (): ProviderParticipant[] => {
 		return this.participantsState.getParticipants();
 	};
 
-	getUniqueParticipantSize = () => {
+	getUniqueParticipantSize = (): number => {
 		return this.participantsState.getUniqueParticipantSize();
 	};
 
-	getUniqueParticipants = (filter: ParticipantFilter) => {
+	getUniqueParticipants = (filter: ParticipantFilter): ProviderParticipant[] => {
 		return this.participantsState.getUniqueParticipants(filter);
 	};
 
-	getAIProviderParticipants = () => {
+	getAIProviderParticipants = (): ProviderParticipant[] => {
 		return this.participantsState.getAIProviderParticipants();
 	};
 
-	getCollabMode = () => {
+	getCollabMode = (): 'collab' | 'single' => {
 		return this.participantsState.size() > 1 ? MULTI_COLLAB_MODE : SINGLE_COLLAB_MODE;
 	};
 }

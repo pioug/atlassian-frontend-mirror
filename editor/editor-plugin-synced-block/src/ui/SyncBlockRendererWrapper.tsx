@@ -60,4 +60,12 @@ const SyncBlockRendererWrapperComponent = ({
 	);
 };
 
-export const SyncBlockRendererWrapper = React.memo(SyncBlockRendererWrapperComponent);
+export const SyncBlockRendererWrapper: React.MemoExoticComponent<
+	({
+		syncedBlockRenderer,
+		useFetchSyncBlockData,
+		useFetchSyncBlockTitle,
+		localId,
+		api,
+	}: Props) => React.JSX.Element
+> = React.memo(SyncBlockRendererWrapperComponent);

@@ -4,7 +4,7 @@
  */
 import React, { type ReactElement } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
 import { FormattedMessage } from 'react-intl-next';
@@ -50,7 +50,7 @@ export interface BlockTypeButtonProps {
 	title: MessageDescriptor;
 }
 
-export const BlockTypeButton = (props: BlockTypeButtonProps) => {
+export const BlockTypeButton = (props: BlockTypeButtonProps): jsx.JSX.Element => {
 	const blockTypeName = props.blockTypeName || '';
 	const labelTextStyles = props.formatMessage(toolbarMessages.textStyles, {
 		blockTypeName,

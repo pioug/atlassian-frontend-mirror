@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl, useIntl } from 'react-intl-next';
 
 import {
@@ -114,4 +114,7 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 	);
 };
 
-export const CopyLinkDropdownItem = injectIntl(CopyLinkDropdownItemContent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const CopyLinkDropdownItem: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(CopyLinkDropdownItemContent);

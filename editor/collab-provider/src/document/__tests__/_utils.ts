@@ -2,12 +2,15 @@ import { type DocBuilder } from '@atlaskit/editor-common/types';
 import { EditorState, type Transaction, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type Step } from '@atlaskit/editor-prosemirror/transform';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { Node, defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
 	collab,
 	sendableSteps,
 	receiveTransaction,
 	getCollabState,
+	Rebaseable,
 } from '@atlaskit/prosemirror-collab';
 import type { ConflictChanges } from '@atlaskit/editor-common/collab';
 
@@ -55,19 +58,19 @@ export class Editor {
 		}
 	}
 
-	setSelection(pos: number) {
+	setSelection(pos: number): this {
 		const tr = this.view.state.tr.setSelection(TextSelection.create(this.view.state.doc, pos));
 		this.sync(tr);
 		return this;
 	}
 
-	insert(text: string) {
+	insert(text: string): this {
 		const tr = this.view.state.tr.insertText(text);
 		this.sync(tr);
 		return this;
 	}
 
-	insertEmoji() {
+	insertEmoji(): this {
 		const {
 			tr,
 			schema,
@@ -84,14 +87,14 @@ export class Editor {
 		return this;
 	}
 
-	insertAsChars(text: string) {
+	insertAsChars(text: string): this {
 		for (const char of text) {
 			this.insert(char);
 		}
 		return this;
 	}
 
-	delete({ repeat }: { repeat: number } = { repeat: 1 }) {
+	delete({ repeat }: { repeat: number } = { repeat: 1 }): this {
 		for (let i = 0; i <= repeat; i++) {
 			const { tr, selection } = this.view.state;
 			this.sync(tr.delete(selection.from - 1, selection.from));
@@ -119,24 +122,24 @@ export class Editor {
 		return sendableSteps(this.view.state)?.steps;
 	}
 
-	getUnconfirmed() {
+	getUnconfirmed(): readonly Rebaseable[] {
 		// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
 		return getCollabState(this.view.state)?.unconfirmed!;
 	}
 
-	getDoc() {
+	getDoc(): Node {
 		return this.view.state.doc;
 	}
 
-	getTr() {
+	getTr(): Transaction {
 		return this.view.state.tr;
 	}
 
-	applyDeleted(deleted: ConflictChanges['deleted'][number]) {
+	applyDeleted(deleted: ConflictChanges['deleted'][number]): Node {
 		const tr = this.view.state.tr.replace(deleted.from, deleted.from, deleted.local);
 		return tr.doc;
 	}
-	applyInserted(inserted: ConflictChanges['inserted'][number]) {
+	applyInserted(inserted: ConflictChanges['inserted'][number]): Node {
 		const tr = this.view.state.tr.replace(inserted.from, inserted.to, inserted.local);
 		return tr.doc;
 	}

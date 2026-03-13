@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
@@ -210,7 +210,48 @@ type MediaGroupProps = {
 	view: EditorView;
 } & WrappedComponentProps;
 
-export const MediaGroupNext = injectIntl(
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const MediaGroupNext: React.FC<
+	WithIntlProps<
+		{
+			allowLazyLoading?: boolean;
+			// These two numbers have to be passed separately. They can technically be derived from the view, but
+			// because the view is *reference* then `shouldComponentUpdate` can't identify changes from incoming props
+			anchorPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
+			contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+			disabled?: boolean;
+			editorViewMode?: boolean;
+			forwardRef?: (ref: HTMLElement) => void;
+			getPos: () => number | undefined;
+			headPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
+			isCopyPasteEnabled?: boolean;
+			mediaOptions: MediaOptions;
+			mediaProvider?: Promise<MediaProvider>;
+			node: PMNode;
+			view: EditorView;
+		} & WrappedComponentProps
+	>
+> & {
+	WrappedComponent: React.ComponentType<
+		{
+			allowLazyLoading?: boolean;
+			// These two numbers have to be passed separately. They can technically be derived from the view, but
+			// because the view is *reference* then `shouldComponentUpdate` can't identify changes from incoming props
+			anchorPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
+			contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+			disabled?: boolean;
+			editorViewMode?: boolean;
+			forwardRef?: (ref: HTMLElement) => void;
+			getPos: () => number | undefined;
+			headPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
+			isCopyPasteEnabled?: boolean;
+			mediaOptions: MediaOptions;
+			mediaProvider?: Promise<MediaProvider>;
+			node: PMNode;
+			view: EditorView;
+		} & WrappedComponentProps
+	>;
+} = injectIntl(
 	React.memo((props: MediaGroupProps) => {
 		const {
 			mediaOptions: {

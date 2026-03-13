@@ -73,6 +73,6 @@ export class MediaNodeUpdater {
 	async handleExternalMedia(): Promise<void> {}
 }
 
-export function createMediaNodeUpdater() {
+export function createMediaNodeUpdater(): MediaNodeUpdater {
 	return new MediaNodeUpdater();
 }

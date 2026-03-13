@@ -128,7 +128,7 @@ function Row<Item extends { id: string }>({
 	itemId,
 	children,
 	isExpanded: isProvidedExpanded,
-}: RowProps<Item>) {
+}: RowProps<Item>): JSX.Element {
 	const [isExpandedState, setIsExpandedState] = useState(isDefaultExpanded || false);
 
 	useEffect(() => {

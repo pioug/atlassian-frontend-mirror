@@ -92,7 +92,7 @@ export class ReactionConsumer<PropsFromState, PropsFromActions> extends React.Pu
 		this.forceUpdate();
 	};
 
-	render() {
+	render(): React.ReactNode {
 		if (!this.state.store) {
 			return null;
 		}

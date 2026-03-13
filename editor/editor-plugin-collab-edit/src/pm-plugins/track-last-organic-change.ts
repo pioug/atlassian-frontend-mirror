@@ -9,11 +9,10 @@ import type { LastOrganicChangeMetadata } from '../types';
 
 import { isOrganicChange } from './utils';
 
-export const trackLastOrganicChangePluginKey = new PluginKey<LastOrganicChangeMetadata>(
-	'collabTrackLastOrganicChangePlugin',
-);
+export const trackLastOrganicChangePluginKey: PluginKey<LastOrganicChangeMetadata> =
+	new PluginKey<LastOrganicChangeMetadata>('collabTrackLastOrganicChangePlugin');
 
-export const createPlugin = () => {
+export const createPlugin = (): SafePlugin<LastOrganicChangeMetadata> => {
 	return new SafePlugin<LastOrganicChangeMetadata>({
 		key: trackLastOrganicChangePluginKey,
 		state: {

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { isVerticalPosition } from '@atlaskit/editor-common/guideline';
@@ -81,7 +81,7 @@ const horizontalCapStyles = css({
 	},
 });
 
-export const Guideline = (props: Omit<GuidelineConfig, 'key'>) => {
+export const Guideline = (props: Omit<GuidelineConfig, 'key'>): jsx.JSX.Element => {
 	const { position, active, show = true, styles = {} } = props;
 	const isVerticalPos = isVerticalPosition(position);
 

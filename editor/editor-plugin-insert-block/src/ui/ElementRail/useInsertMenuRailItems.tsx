@@ -11,7 +11,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { insertBlockPlugin } from '../../insertBlockPlugin';
 import type { InsertBlockOptions } from '../../types';
-import { createItems } from '../ToolbarInsertBlock/create-items';
+import { createItems, type BlockMenuItem } from '../ToolbarInsertBlock/create-items';
 
 const selector = (
 	states: NamedPluginStatesFromInjectionAPI<
@@ -46,7 +46,7 @@ export const useInsertMenuRailItems = (
 	editorView: EditorView,
 	options: InsertBlockOptions,
 	api?: ExtractInjectionAPI<typeof insertBlockPlugin>,
-) => {
+): BlockMenuItem[] => {
 	const { formatMessage } = useIntl();
 	const {
 		dateEnabled,

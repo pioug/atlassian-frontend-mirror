@@ -2,7 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { PureComponent, type MouseEvent, type KeyboardEvent, type FocusEvent } from 'react';
+import {
+	PureComponent,
+	type MouseEvent,
+	type KeyboardEvent,
+	type FocusEvent,
+	type ForwardRefExoticComponent,
+	type RefAttributes,
+} from 'react';
 import { css, jsx } from '@compiled/react';
 import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -162,7 +169,9 @@ class StatusInternal extends PureComponent<Props, any> {
 	}
 }
 
-export const Status = withAnalyticsEvents({
+export const Status: ForwardRefExoticComponent<
+	Omit<OwnProps, keyof WithAnalyticsEventsProps> & RefAttributes<any>
+> = withAnalyticsEvents({
 	onClick: (createEvent: CreateUIAnalyticsEvent, props: Props): UIAnalyticsEvent => {
 		const { localId } = props;
 		return createStatusAnalyticsAndFire(createEvent)({

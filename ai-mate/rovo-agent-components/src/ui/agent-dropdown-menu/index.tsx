@@ -52,7 +52,7 @@ type ChatToAgentButtonProps = {
 	onClick: ButtonProps['onClick'];
 };
 
-export const ChatToAgentButton = ({ onClick }: ChatToAgentButtonProps) => {
+export const ChatToAgentButton = ({ onClick }: ChatToAgentButtonProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	return (
@@ -147,7 +147,7 @@ export const AgentDropdownMenu = ({
 	agentRef,
 	userPermissionsRef,
 	onVerificationSuccess,
-}: AgentDropdownMenuProps) => {
+}: AgentDropdownMenuProps): JSX.Element => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { formatMessage } = useIntl();
 	const [hasBeenCopied, setHasBeenCopied] = useState(false);

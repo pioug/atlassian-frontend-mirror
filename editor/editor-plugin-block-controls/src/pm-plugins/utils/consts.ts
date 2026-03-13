@@ -1,6 +1,6 @@
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-export const maxLayoutColumnSupported = () => {
+export const maxLayoutColumnSupported = (): 3 | 5 => {
 	return editorExperiment('advanced_layouts', true) ? 5 : 3;
 };
 

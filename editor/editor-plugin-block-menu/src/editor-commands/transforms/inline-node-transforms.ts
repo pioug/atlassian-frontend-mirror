@@ -32,7 +32,7 @@ export const getInlineNodeTextContent = (
 	return { inlineTextContent: validTransformedContent, invalidContent };
 };
 
-export const getInlineNodeTextNode = (sourceContent: Fragment, schema: Schema) => {
+export const getInlineNodeTextNode = (sourceContent: Fragment, schema: Schema): PMNode => {
 	const text = getInlineNodeTextContent(sourceContent).inlineTextContent;
 	return schema.text(text);
 };

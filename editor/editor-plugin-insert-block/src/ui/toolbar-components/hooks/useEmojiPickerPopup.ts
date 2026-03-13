@@ -7,7 +7,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 import type { EmojiId } from '@atlaskit/emoji/types';
 
 import type { InsertBlockPlugin } from '../../../insertBlockPluginType';
@@ -19,7 +19,20 @@ interface UseEmojiPickerPopupProps {
 	buttonRef: React.RefObject<HTMLElement>;
 }
 
-export const useEmojiPickerPopup = ({ api, buttonRef }: UseEmojiPickerPopupProps) => {
+export const useEmojiPickerPopup = ({
+	api,
+	buttonRef,
+}: UseEmojiPickerPopupProps): {
+	handleSelectedEmoji: (emojiId: EmojiId) => true;
+	onPopupUnmount: () => void;
+	isOpen: boolean;
+	isOpenedByKeyboard: boolean;
+	toggle: (inputMethod?: TOOLBAR_MENU_TYPE | INPUT_METHOD) => void;
+	close: () => void;
+	handleEscapeKeydown: () => void;
+	handleClickOutside: (e: MouseEvent) => void;
+	handleKeyboardOpen: (event: React.KeyboardEvent) => void;
+} => {
 	const popupManager = usePopupManager({
 		focusTarget: buttonRef,
 		analytics: {
@@ -38,7 +51,7 @@ export const useEmojiPickerPopup = ({ api, buttonRef }: UseEmojiPickerPopupProps
 	});
 
 	const handleSelectedEmoji = useCallback(
-		(emojiId: EmojiId) => {
+		(emojiId: EmojiId): true => {
 			api?.core.actions.focus();
 			api?.core.actions.execute(api?.emoji?.commands.insertEmoji(emojiId, INPUT_METHOD.PICKER));
 			popupManager.close();

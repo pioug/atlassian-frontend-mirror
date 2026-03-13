@@ -5,7 +5,7 @@
 import type { CSSProperties, DragEvent, KeyboardEvent, MouseEvent } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 import { type IntlShape } from 'react-intl-next';
@@ -549,7 +549,7 @@ export const DragHandle = ({
 	handleOptions,
 	isTopLevelNode = true,
 	anchorRectCache,
-}: DragHandleProps) => {
+}: DragHandleProps): jsx.JSX.Element => {
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 	const [dragHandleDisabled, setDragHandleDisabled] = useState(false);
@@ -1630,7 +1630,7 @@ export const DragHandleWithVisibility = ({
 	handleOptions,
 	isTopLevelNode,
 	anchorRectCache,
-}: DragHandleProps) => {
+}: DragHandleProps): jsx.JSX.Element => {
 	const rightSideControlsEnabled = useSharedPluginStateWithSelector(
 		api,
 		['blockControls'],

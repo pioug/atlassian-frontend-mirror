@@ -8,7 +8,7 @@ import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 
-export const selectionPluginKey = new PluginKey('selection');
+export const selectionPluginKey: PluginKey = new PluginKey('selection');
 
 export { RelativeSelectionPos };
 

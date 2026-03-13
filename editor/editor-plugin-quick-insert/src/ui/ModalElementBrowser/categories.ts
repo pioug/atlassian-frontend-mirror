@@ -2,7 +2,10 @@ import type { IntlShape } from 'react-intl-next';
 
 import { messages } from '@atlaskit/editor-common/quick-insert';
 
-export function getCategories(intl: IntlShape) {
+export function getCategories(intl: IntlShape): {
+	title: string;
+	name: string;
+}[] {
 	return [
 		{
 			title: intl.formatMessage(messages.all),

@@ -1,6 +1,7 @@
 import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { Mark, Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 
 import { getInlineNodeTextContent } from './inline-node-transforms';
@@ -45,7 +46,7 @@ export const transformToContainer = ({
 	sourceNode,
 	targetNodeType,
 	targetAttrs,
-}: TransformContext) => {
+}: TransformContext): Transaction | null => {
 	const selection = tr.selection;
 	const schema = tr.doc.type.schema;
 	const content = selection.content().content;
@@ -135,7 +136,7 @@ export const transformContainerNode: TransformFunction = ({
 /**
  * Unwrap container node and convert content to block type
  */
-export const unwrapAndConvertToBlockType = (context: TransformContext) => {
+export const unwrapAndConvertToBlockType = (context: TransformContext): Transaction => {
 	const { tr, targetNodeType, targetAttrs, sourceNode, sourcePos } = context;
 	const { selection } = tr;
 	const schema = selection.$from.doc.type.schema;
@@ -199,7 +200,7 @@ export const unwrapAndConvertToList = ({
 	sourcePos,
 	targetNodeType,
 	targetAttrs,
-}: TransformContext) => {
+}: TransformContext): Transaction | null => {
 	const { schema } = tr.doc.type;
 	const { listItem, paragraph, taskList, taskItem, heading } = schema.nodes;
 
@@ -292,7 +293,7 @@ export const unwrapAndConvertToList = ({
 	return tr.replaceWith(sourcePos, sourcePos + sourceNode.nodeSize, Fragment.from(resultContent));
 };
 
-export const transformBetweenContainerTypes = (context: TransformContext) => {
+export const transformBetweenContainerTypes = (context: TransformContext): Transaction => {
 	const { tr, sourceNode, sourcePos, targetNodeType, targetAttrs } = context;
 
 	// Special handling for codeBlock target

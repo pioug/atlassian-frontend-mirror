@@ -5,4 +5,4 @@ import { type MockEmojiResourceConfig } from '../emoji/types';
 export const getTestEmojiResourceFromRepository = (
 	repo: EmojiRepository,
 	config?: MockEmojiResourceConfig,
-) => mockEmojiResourceFactory(repo, config);
+): Promise<any> => mockEmojiResourceFactory(repo, config);

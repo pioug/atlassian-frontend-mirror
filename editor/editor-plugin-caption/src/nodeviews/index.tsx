@@ -49,13 +49,15 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 		this.handleEditorDisabledChanged();
 	}
 
-	createDomRef() {
+	createDomRef(): HTMLElement {
 		const domRef = document.createElement('figcaption');
 		domRef.setAttribute('data-caption', 'true');
 		return domRef;
 	}
 
-	getContentDOM() {
+	getContentDOM(): {
+		dom: HTMLDivElement;
+	} {
 		const dom = document.createElement('div');
 		// setting a className prevents PM/Chrome mutation observer from
 		// incorrectly deleting nodes
@@ -125,7 +127,7 @@ export default function captionNodeView(
 	eventDispatcher: EventDispatcher,
 	pluginInjectionApi: ExtractInjectionAPI<CaptionPlugin> | undefined,
 ) {
-	return (node: PMNode, view: EditorView, getPos: getPosHandler) => {
+	return (node: PMNode, view: EditorView, getPos: getPosHandler): CaptionNodeView => {
 		return new CaptionNodeView(
 			node,
 			view,

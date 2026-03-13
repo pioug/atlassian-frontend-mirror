@@ -130,7 +130,7 @@ const getNewActiveUpload = (tr: ReadonlyTransaction, pluginState: ImageUploadPlu
 
 export const createPlugin =
 	(uploadHandlerReference: UploadHandlerReference) =>
-	({ dispatch, providerFactory }: PMPluginFactoryParams) => {
+	({ dispatch, providerFactory }: PMPluginFactoryParams): SafePlugin<ImageUploadPluginState> => {
 		return new SafePlugin({
 			state: {
 				init(_config, state: EditorState): ImageUploadPluginState {

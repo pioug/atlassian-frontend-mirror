@@ -1186,7 +1186,7 @@ function getTopLevelMarkTypesInSlice(slice: Slice) {
 	return markTypes;
 }
 
-export function handleParagraphBlockMarks(state: EditorState, slice: Slice) {
+export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Slice {
 	if (slice.content.size === 0) {
 		return slice;
 	}
@@ -1277,7 +1277,7 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice) {
  *   ┗━ li
  *     ┗━p -> "two"
  */
-export function flattenNestedListInSlice(slice: Slice) {
+export function flattenNestedListInSlice(slice: Slice): Slice {
 	if (!slice.content.firstChild) {
 		return slice;
 	}

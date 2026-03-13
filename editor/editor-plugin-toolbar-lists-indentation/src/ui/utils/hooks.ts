@@ -3,7 +3,10 @@ import type { EditorState } from 'prosemirror-state';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import { getIndentationButtonsState } from '../../pm-plugins/indentation-buttons';
+import {
+	getIndentationButtonsState,
+	type IndentationButtons,
+} from '../../pm-plugins/indentation-buttons';
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 
 type UseIndentationStateProps = {
@@ -16,7 +19,7 @@ export const useIndentationState = ({
 	api,
 	allowHeadingAndParagraphIndentation,
 	state,
-}: UseIndentationStateProps) => {
+}: UseIndentationStateProps): IndentationButtons | undefined => {
 	const { isIndentationAllowed, indentDisabled, outdentDisabled } =
 		useSharedPluginStateWithSelector(api, ['indentation'], (states) => ({
 			isIndentationAllowed: states.indentationState?.isIndentationAllowed,

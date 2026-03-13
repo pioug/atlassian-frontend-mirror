@@ -13,7 +13,7 @@ const localeMap: Record<string, string> = {
 
 const intlCacheMap = new Map<string, IntlShape>();
 
-export const getIntl = async () => {
+export const getIntl = async (): Promise<IntlShape> => {
 	const key = getDocument()?.documentElement?.lang || 'en-US';
 
 	if (!intlCacheMap.has(key)) {

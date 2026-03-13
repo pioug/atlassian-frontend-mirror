@@ -47,7 +47,7 @@ const toolbarWrapperStyles = css({
  * Example demonstrating the different breakpoint presets available in ResponsiveContainer.
  * Each preset is optimized for different use cases with specific breakpoint values.
  */
-export default function ResponsiveContainerPresetsExample() {
+export default function ResponsiveContainerPresetsExample(): JSX.Element {
 	return (
 		<div css={wrapperStyles}>
 			<h1>ResponsiveContainer Breakpoint Presets</h1>

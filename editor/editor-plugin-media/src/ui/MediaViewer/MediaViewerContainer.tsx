@@ -4,7 +4,7 @@
  */
 import React, { Fragment, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -39,7 +39,7 @@ export const MediaViewerContainer = ({
 	isSelected = true,
 	isInline = false,
 	children,
-}: MediaViewerContainerProps) => {
+}: MediaViewerContainerProps): jsx.JSX.Element => {
 	const [showViewer, setShowMediaViewer] = useState(false);
 
 	useEffect(() => {

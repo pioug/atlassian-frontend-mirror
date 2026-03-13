@@ -25,7 +25,7 @@ export const createPMPlugin = (
 	{ providerFactory }: PMPluginFactoryParams,
 	options: CustomAutoformatPluginOptions,
 	api?: ExtractInjectionAPI<CustomAutoformatPlugin>,
-) => {
+): SafePlugin<CustomAutoformatState> => {
 	const rules: Array<InputRule> = [];
 
 	return new SafePlugin({
@@ -131,9 +131,11 @@ export const createPMPlugin = (
 	});
 };
 
-export const setProvider = (provider?: AutoformattingProvider) => (tr: Transaction) => {
-	return autoformatAction(tr, { action: 'setProvider', provider });
-};
+export const setProvider =
+	(provider?: AutoformattingProvider) =>
+	(tr: Transaction): Transaction => {
+		return autoformatAction(tr, { action: 'setProvider', provider });
+	};
 
 export const customAutoformatPlugin: CustomAutoformatPlugin = ({ api, config: options }) => {
 	let previousProvider: AutoformattingProvider | undefined;

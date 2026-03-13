@@ -1,3 +1,4 @@
 // @ts-nocheck
 import Connect from './connect';
-export default new Connect();
+const _default_1: Connect = new Connect();
+export default _default_1;

@@ -95,7 +95,7 @@ export const EmojiButton = ({
 	onClick,
 	emojiProvider,
 	hoverableReactionPickerSelectorEmoji,
-}: EmojiButtonProps) => {
+}: EmojiButtonProps): JSX.Element => {
 	const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		if (onClick && isLeftClick(event)) {

@@ -48,7 +48,7 @@ function sum<T>(arr: Array<T>, f: (val: T) => number) {
  * Finds the marks in the nodes to the left and right.
  * @param $pos Position to center search around
  */
-export const surroundingMarks = ($pos: ResolvedPos) => {
+export const surroundingMarks = ($pos: ResolvedPos): (readonly Mark[])[] => {
 	const { nodeBefore, nodeAfter } = $pos;
 	const markNodeBefore =
 		nodeBefore && $pos.doc.nodeAt(Math.max(0, $pos.pos - nodeBefore.nodeSize - 1));
@@ -142,7 +142,7 @@ export const addDraftDecoration = (
 	start: number,
 	end: number,
 	targetType: TargetType = 'inline',
-) => {
+): Decoration => {
 	if (targetType === 'block') {
 		return Decoration.node(
 			start,
@@ -277,11 +277,10 @@ export function getSelectionPositions(
 	return editorState.selection;
 }
 
-export const inlineCommentPluginKey = new PluginKey<InlineCommentPluginState>(
-	'inlineCommentPluginKey',
-);
+export const inlineCommentPluginKey: PluginKey<InlineCommentPluginState> =
+	new PluginKey<InlineCommentPluginState>('inlineCommentPluginKey');
 
-export const getPluginState = (state: EditorState) => {
+export const getPluginState = (state: EditorState): InlineCommentPluginState | undefined => {
 	return inlineCommentPluginKey.getState(state);
 };
 
@@ -300,7 +299,7 @@ const getAnnotationsInSelectionCount = (state: EditorState): number => {
 export const getDraftCommandAnalyticsPayload = (
 	drafting: boolean,
 	inputMethod: InlineCommentInputMethod,
-) => {
+): AnalyticsEventPayloadCallback => {
 	const payload: AnalyticsEventPayloadCallback = (state: EditorState): AnalyticsEventPayload => {
 		let attributes: Partial<AnnotationDraftAEPAttributes> = {};
 
@@ -480,7 +479,7 @@ export function annotationExists(annotationId: string, state: EditorState): bool
 /*
  * remove annotations that dont exsist in plugin state from slice
  */
-export function stripNonExistingAnnotations(slice: Slice, state: EditorState) {
+export function stripNonExistingAnnotations(slice: Slice, state: EditorState): false | undefined {
 	if (!slice.content.size) {
 		return false;
 	}

@@ -2,11 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, lazy, Suspense, useMemo } from 'react';
+import { Fragment, lazy, Suspense, useMemo, type ComponentType, type FC } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
@@ -211,4 +211,7 @@ const Header = ({
 	);
 };
 
-export default injectIntl(Header);
+const _default_1: FC<WithIntlProps<Props>> & {
+	WrappedComponent: ComponentType<Props>;
+} = injectIntl(Header);
+export default _default_1;

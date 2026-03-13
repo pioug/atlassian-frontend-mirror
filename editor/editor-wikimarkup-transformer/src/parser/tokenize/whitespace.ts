@@ -12,7 +12,7 @@ export function parseWhitespaceAndNewLine(input: string): number {
 	return 0;
 }
 
-export function parseWhitespaceOnly(input: string) {
+export function parseWhitespaceOnly(input: string): number {
 	let index = 0;
 	const char = input.charAt(index);
 	if (char === '\t' || char === ' ') {

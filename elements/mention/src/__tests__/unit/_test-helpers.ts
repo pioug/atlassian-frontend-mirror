@@ -16,7 +16,7 @@ export const mockMentionData = {
 	text: '@Oscar Wallhult',
 };
 
-export const mentionResource = () =>
+export const mentionResource = (): MentionResource =>
 	new MentionResource({
 		url: 'dummyurl',
 
@@ -24,19 +24,26 @@ export const mentionResource = () =>
 			return mention.id === 'oscar';
 		},
 	});
-export const mockMentionProvider = () => Promise.resolve(mentionResource());
+export const mockMentionProvider = (): Promise<MentionResource> =>
+	Promise.resolve(mentionResource());
 
-export function getMentionItemById(component: ReactWrapper<any, any>, itemId: string) {
+export function getMentionItemById(
+	component: ReactWrapper<any, any>,
+	itemId: string,
+): ReactWrapper<any, any> {
 	return component.findWhere(
 		(n) => !!n.length && n.is(MentionItem) && n.prop('mention').id === itemId,
 	);
 }
 
-export function getSelectedMentionItem(component: ReactWrapper<any, any>) {
+export function getSelectedMentionItem(component: ReactWrapper<any, any>): ReactWrapper<any, any> {
 	return component.findWhere((n) => !!n.length && n.is(MentionItem) && n.prop('selected'));
 }
 
-export function isMentionItemSelected(component: ReactWrapper<any, any>, itemId: string) {
+export function isMentionItemSelected(
+	component: ReactWrapper<any, any>,
+	itemId: string,
+): boolean | 0 {
 	const selectedItem = getSelectedMentionItem(component);
 	return selectedItem.length && selectedItem.prop('mention').id === itemId;
 }
@@ -56,4 +63,4 @@ export function checkOrder(expected: MentionDescription[][], actual: MentionDesc
 }
 
 // eslint-disable-next-line @atlaskit/platform/no-set-immediate
-export const flushPromises = () => new Promise((resolve) => setImmediate(resolve));
+export const flushPromises = (): Promise<void> => new Promise((resolve) => setImmediate(resolve));

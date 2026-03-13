@@ -4,7 +4,7 @@
  * @jsxFrag React.Fragment
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { css, cssMap, jsx } from '@compiled/react';
+import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
@@ -17,7 +17,6 @@ import { type Placement } from '@atlaskit/popper';
 import UFOSegment from '@atlaskit/react-ufo/segment';
 import { token } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box } from '@atlaskit/primitives/compiled';
 
 import {
 	createAndFireSafe,
@@ -44,6 +43,7 @@ import { ReactionsDialog } from './ReactionsDialog';
 import { ReactionPicker, type ReactionPickerProps } from './ReactionPicker';
 import { type SelectorProps } from './Selector';
 import { ReactionSummaryView } from './ReactionSummaryView';
+import type { UFOExperience } from '@atlaskit/ufo';
 
 const wrapperStyle = css({
 	display: 'flex',
@@ -78,21 +78,19 @@ const listContainerStyles = css({
 	padding: 0,
 });
 
-const pickerListItemStyles = cssMap({
-	picker: {
-		display: 'inline-block',
-		marginInline: token('space.0'),
-		marginBlockStart: token('space.050'),
-		marginBlockEnd: token('space.0'),
-		paddingInline: token('space.0'),
-		paddingBlock: token('space.0'),
-	},
-});
-
 /**
  * Set of all available UFO experiences relating to Reactions Dialog
  */
-export const ufoExperiences = {
+export const ufoExperiences: {
+	/**
+	 * Experience when a reaction dialog is opened
+	 */
+	openDialog: UFOExperience;
+	/**
+	 * Experience when a reaction changed/fetched from inside the modal dialog
+	 */
+	selectedReactionChangeInsideDialog: UFOExperience;
+} = {
 	/**
 	 * Experience when a reaction dialog is opened
 	 */
@@ -294,7 +292,11 @@ export interface OpenReactionsDialogOptions {
 /**
  * Get content of the tooltip
  */
-export function getTooltip(status: ReactionStatus, errorMessage?: string, tooltipContent?: string) {
+export function getTooltip(
+	status: ReactionStatus,
+	errorMessage?: string,
+	tooltipContent?: string,
+): string | JSX.Element | null {
 	switch (status) {
 		case ReactionStatus.error:
 			return errorMessage || <FormattedMessage {...messages.unexpectedError} />;
@@ -312,7 +314,55 @@ export function getTooltip(status: ReactionStatus, errorMessage?: string, toolti
 /**
  * Renders list of reactions
  */
-export const Reactions = React.memo(
+export const Reactions: React.MemoExoticComponent<
+	({
+		flash,
+		particleEffectByEmoji,
+		status,
+		errorMessage,
+		loadReaction,
+		quickReactionEmojis,
+		pickerQuickReactionEmojiIds,
+		getReactionDetails,
+		onSelection,
+		reactions,
+		emojiProvider,
+		allowAllEmojis,
+		onReactionClick,
+		allowUserDialog,
+		onDialogOpenCallback,
+		onDialogCloseCallback,
+		onDialogSelectReactionCallback,
+		onDialogPageChangeCallback,
+		emojiPickerSize,
+		miniMode,
+		summaryViewEnabled,
+		summaryViewThreshold,
+		summaryViewPlacement,
+		showOpaqueBackground,
+		subtleReactionsSummaryAndPicker,
+		showAddReactionText,
+		hideDefaultReactions,
+		ProfileCardWrapper,
+		onlyRenderPicker,
+		isViewOnly,
+		noWrap,
+		noRelativeContainer,
+		showSubtleDefaultReactions,
+		reactionPickerTriggerTooltipContent,
+		reactionPickerTriggerIcon,
+		allowSelectFromSummaryView,
+		useButtonAlignmentStyling,
+		reactionPickerTriggerText,
+		hoverableSummaryView,
+		isListItem,
+		summaryGetOptimisticImageURL,
+		reactionPickerPlacement,
+		summaryButtonIconAfter,
+		renderParticleEffectOnSummaryView,
+		reactionPickerPopperZIndex,
+	}: ReactionsProps) => JSX.Element
+> = React.memo(
 	({
 		flash = {},
 		particleEffectByEmoji = {},
@@ -359,7 +409,7 @@ export const Reactions = React.memo(
 		summaryButtonIconAfter,
 		renderParticleEffectOnSummaryView = false,
 		reactionPickerPopperZIndex,
-	}: ReactionsProps) => {
+	}: ReactionsProps): JSX.Element => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>('');
 		const [summaryViewParticleEffectEmojiId, setSummaryViewParticleEffectEmojiId] = useState<{
 			id: string;
@@ -547,9 +597,6 @@ export const Reactions = React.memo(
 
 		const shouldShowPicker =
 			!isViewOnly && !(!onlyRenderPicker && shouldShowSummaryView && allowSelectFromSummaryView);
-		const semanticListEnabled = fg('jfp_a11y_team_comment_actions_semantic');
-		const addReactionButtonAsListItem = fg('platform-a11y-add-reactions-button-ul-item');
-		const pickerInsideList = semanticListEnabled && addReactionButtonAsListItem && shouldShowPicker;
 
 		const sortedReactions = useMemo(() => {
 			return [...memorizedReactions].sort((a, b) => b?.count - a?.count);
@@ -648,37 +695,6 @@ export const Reactions = React.memo(
 										showSubtleStyle={showSubtleDefaultReactions && reactions.length === 0}
 									/>
 								))}
-								{pickerInsideList && (
-									<Box as="li" xcss={pickerListItemStyles.picker}>
-										<ReactionPicker
-											emojiProvider={emojiProvider}
-											allowAllEmojis={allowAllEmojis}
-											pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
-											disabled={status !== ReactionStatus.ready}
-											onSelection={handleOnSelection}
-											onOpen={handlePickerOpen}
-											onCancel={handleOnCancel}
-											onShowMore={handleOnMore}
-											tooltipContent={
-												hoverableSummaryView
-													? null
-													: getTooltip(status, errorMessage, reactionPickerTriggerTooltipContent)
-											}
-											emojiPickerSize={emojiPickerSize}
-											miniMode={miniMode}
-											showOpaqueBackground={showOpaqueBackground}
-											showAddReactionText={showAddReactionText}
-											subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
-											reactionPickerTriggerIcon={reactionPickerTriggerIcon}
-											reactionPickerTriggerText={reactionPickerTriggerText}
-											isListItem={isListItem}
-											hoverableReactionPicker={hoverableSummaryView}
-											hoverableReactionPickerDelay={hoverableSummaryView ? 300 : 0}
-											reactionPickerPlacement={reactionPickerPlacement}
-											reactionPickerPopperZIndex={reactionPickerPopperZIndex}
-										/>
-									</Box>
-								)}
 							</ul>
 						) : (
 							<>
@@ -702,12 +718,11 @@ export const Reactions = React.memo(
 							</>
 						))}
 					{/* Don't render the picker if:
-					   1. Component is view only, thus disabling adding reactions
-					   2. Summary view is being rendered and the picker is shown inside the summary view tray
-					   via allowSelectFromSummaryView, preventing us needing to render it again outside the tray
-					   3. Picker is rendered inside the semantic <ul> as a list item (platform-a11y-add-reactions-button-ul-item)
-					*/}
-					{shouldShowPicker && !pickerInsideList && (
+				   1. Component is view only, thus disabling adding reactions
+				   2. Summary view is being rendered and the picker is shown inside the summary view tray
+				   via allowSelectFromSummaryView, preventing us needing to render it again outside the tray
+				*/}
+					{shouldShowPicker && (
 						<ReactionPicker
 							css={reactionPickerStyle}
 							emojiProvider={emojiProvider}

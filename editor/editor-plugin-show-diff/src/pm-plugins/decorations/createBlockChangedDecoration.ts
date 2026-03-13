@@ -78,7 +78,7 @@ export const createBlockChangedDecoration = ({
 }: {
 	change: { from: number; name: string; to: number };
 	colorScheme?: ColorScheme;
-}) => {
+}): Decoration | undefined => {
 	if (fg('platform_editor_show_diff_scroll_navigation')) {
 		const style = getBlockNodeStyle(change.name, colorScheme);
 		const className = getNodeClass(change.name);

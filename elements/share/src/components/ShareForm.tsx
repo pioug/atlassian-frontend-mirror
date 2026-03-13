@@ -5,7 +5,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -57,7 +57,7 @@ const centerAlignedIconWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const formWrapperStyles = css({
+export const formWrapperStyles: SerializedStyles = css({
 	marginTop: token('space.100', '8px'),
 	width: '100%',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -67,7 +67,7 @@ export const formWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const formFooterStyles = css({
+export const formFooterStyles: SerializedStyles = css({
 	display: 'flex',
 	justifyContent: 'flex-start',
 });

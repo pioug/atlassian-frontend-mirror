@@ -13,7 +13,7 @@ import createPlugin from './pm-plugins/main';
 
 export const EMPTY_PARAGRAPH_TIMEOUT_DELAY = 2000; // Delay before showing placeholder on empty paragraph
 
-export const pluginKey = new PluginKey('placeholderPlugin');
+export const pluginKey: PluginKey = new PluginKey('placeholderPlugin');
 
 export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) => {
 	let currentPlaceholder = options?.placeholder;

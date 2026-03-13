@@ -1,3 +1,5 @@
+import type { MessageDescriptor } from 'react-intl-next';
+
 import { messages } from '../../messages';
 import {
 	Apple,
@@ -107,7 +109,683 @@ import {
 	Wolf,
 } from '../assets';
 
-export const ANONYMOUS_ASSETS = [
+export const ANONYMOUS_ASSETS: readonly [
+	{
+		readonly id: 'alligator';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'alpaca';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'ape';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'apple';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'avocado';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'baboon';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'badger';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'bat';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'bear';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'beaver';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'bee';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'bird';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'bison';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'blobfish';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'blossom';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'blowfish';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'blueberries';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'boar';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'broccoli';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'buffalo';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'bug';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'bull';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'bunny';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'butterfly';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'cactus';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'camel';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'candy';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'cantaloupe';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'capsicum';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'carrot';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'cat';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'caterpiller';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'chameleon';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'cherry';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'chili';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'chimp';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'chimpanzee';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'clover';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'clownfish';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'cobra';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'coconut';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'cod';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'cookie';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'corn';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'cow';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'crab';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'crocodile';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'deer';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'dinosaur';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'dodo';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'dog';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'dolphin';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'donut';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'dragon';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'duck';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'elephant';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'elk';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'fish';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'flamingo';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'fox';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'frog';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'gecko';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'giraffe';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'gorilla';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'grape';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'hammerhead';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'hedgehog';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'hippo';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'kangaroo';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'kitten';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'kiwi';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'koala';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'lemon';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'leopard';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'lettuce';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'lion';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'lizard';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'llama';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'lobster';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'macaque';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'mango';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'melon';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'millipede';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'monkey';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'mouse';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'octopus';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'olive';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'orange';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'orangutan';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'otter';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'owl';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'ox';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'oyster';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'panda';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'parrot';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'peacock';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'pear';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'penguin';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'pig';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'pineapple';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'poodle';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'puppy';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'python';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'rabbit';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'raccoon';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'rat';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'rhino';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'robot';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'rose';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'seal';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'seedling';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'shark';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'shrimp';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'skunk';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'sloth';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'snail';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'snake';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'snowman';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'squid';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'squirrel';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'strawberry';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'sunfish';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'sunflower';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'tiger';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'tomato';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'tortoise';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'tree';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'trex';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'trout';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'turkey';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'turtle';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'wasp';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'watermelon';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'whale';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+	{
+		readonly id: 'wolf';
+		readonly messageDescriptor: MessageDescriptor;
+		readonly src: string;
+	},
+] = [
 	{ id: 'alligator', src: Crocodile, messageDescriptor: messages.alligator },
 	{ id: 'alpaca', src: Llama, messageDescriptor: messages.alpaca },
 	{ id: 'ape', src: Orangutan, messageDescriptor: messages.ape },

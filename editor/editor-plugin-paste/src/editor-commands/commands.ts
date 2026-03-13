@@ -1,3 +1,4 @@
+import type { Command } from '@atlaskit/editor-common/types';
 import { isListNode, mapChildren, mapSlice } from '@atlaskit/editor-common/utils';
 import { autoJoin } from '@atlaskit/editor-prosemirror/commands';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
@@ -22,7 +23,7 @@ import { createCommand } from '../pm-plugins/plugin-factory';
  */
 export const startTrackingPastedMacroPositions = (pastedMacroPositions: {
 	[key: string]: number;
-}) =>
+}): Command =>
 	createCommand(() => {
 		return {
 			type: ActionTypes.START_TRACKING_PASTED_MACRO_POSITIONS,
@@ -30,7 +31,7 @@ export const startTrackingPastedMacroPositions = (pastedMacroPositions: {
 		};
 	});
 
-export const stopTrackingPastedMacroPositions = (pastedMacroPositionKeys: string[]) =>
+export const stopTrackingPastedMacroPositions = (pastedMacroPositionKeys: string[]): Command =>
 	createCommand(() => {
 		return {
 			type: ActionTypes.STOP_TRACKING_PASTED_MACRO_POSITIONS,

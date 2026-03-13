@@ -12,7 +12,7 @@ export default class PrimitiveSchemaNode<T extends Indexed> extends SchemaNodeWi
 		return keys.length ? this.mergeValidationInfo(keys, obj) : obj;
 	}
 
-	toSpec() {
+	toSpec(): object {
 		return this.toJSON();
 	}
 }

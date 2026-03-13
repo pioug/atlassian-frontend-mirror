@@ -5,7 +5,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo, useEffect, useMemo, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef, type MemoExoticComponent } from 'react';
 
 import {
 	createCalculator,
@@ -145,50 +145,50 @@ const useTTAI = ({ observer, onTTAI }: UseTTAIProps) => {
 	}, [observer, onTTAI]);
 };
 
-export const PerformanceMetrics = memo(
-	({ onTTVC, onUserLatency, onTTAI }: PerformanceMetricsProps) => {
-		const observer = useMemo(() => {
-			const isSSR = Boolean(process.env.REACT_SSR);
-			if (isSSR) {
-				return null;
+export const PerformanceMetrics: MemoExoticComponent<
+	({ onTTVC, onUserLatency, onTTAI }: PerformanceMetricsProps) => null
+> = memo(({ onTTVC, onUserLatency, onTTAI }: PerformanceMetricsProps): null => {
+	const observer = useMemo(() => {
+		const isSSR = Boolean(process.env.REACT_SSR);
+		if (isSSR) {
+			return null;
+		}
+
+		const observer = getGlobalEditorMetricsObserver();
+
+		if (observer) {
+			observer.start({ startTime: performance.now() });
+		}
+
+		return observer;
+	}, []);
+
+	useEffect(() => {
+		return () => {
+			if (!observer) {
+				return;
 			}
 
-			const observer = getGlobalEditorMetricsObserver();
+			observer.stop();
+		};
+	}, [observer]);
 
-			if (observer) {
-				observer.start({ startTime: performance.now() });
-			}
+	useTTVC({
+		observer,
+		onTTVC,
+	});
 
-			return observer;
-		}, []);
+	useLatency({
+		observer,
+		onUserLatency,
+	});
 
-		useEffect(() => {
-			return () => {
-				if (!observer) {
-					return;
-				}
+	useTTAI({
+		observer,
+		onTTAI,
+	});
 
-				observer.stop();
-			};
-		}, [observer]);
-
-		useTTVC({
-			observer,
-			onTTVC,
-		});
-
-		useLatency({
-			observer,
-			onUserLatency,
-		});
-
-		useTTAI({
-			observer,
-			onTTAI,
-		});
-
-		return null;
-	},
-);
+	return null;
+});
 
 PerformanceMetrics.displayName = 'PerformanceMetrics';

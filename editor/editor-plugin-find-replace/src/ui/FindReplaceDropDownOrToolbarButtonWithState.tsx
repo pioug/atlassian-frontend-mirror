@@ -209,4 +209,19 @@ const FindReplaceToolbarButtonWithState = ({
 	);
 };
 
-export default React.memo(FindReplaceToolbarButtonWithState);
+const _default_1: React.MemoExoticComponent<
+	({
+		popupsBoundariesElement,
+		popupsMountPoint,
+		popupsScrollableElement,
+		isToolbarReducedSpacing,
+		editorView,
+		containerElement,
+		dispatchAnalyticsEvent,
+		takeFullWidth,
+		api,
+		isButtonHidden,
+		doesNotHaveButton,
+	}: FindReplaceToolbarButtonWithStateProps) => React.JSX.Element | null
+> = React.memo(FindReplaceToolbarButtonWithState);
+export default _default_1;

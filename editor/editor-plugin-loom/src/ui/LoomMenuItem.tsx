@@ -32,7 +32,7 @@ export const LoomMenuItem = ({
 	renderButton,
 }: {
 	api: ExtractInjectionAPI<LoomPlugin> | undefined;
-} & Pick<LoomPluginOptions, 'renderButton'>) => {
+} & Pick<LoomPluginOptions, 'renderButton'>): React.JSX.Element | null | undefined => {
 	const loomEnabled = useLoomEnabled(api);
 	const { editorViewMode } = useEditorToolbar();
 
@@ -47,7 +47,9 @@ export const LoomMenuItem = ({
 	}
 };
 
-export const CustomisableLoomMenuItem = (api: ExtractInjectionAPI<LoomPlugin> | undefined) =>
+export const CustomisableLoomMenuItem = (
+	api: ExtractInjectionAPI<LoomPlugin> | undefined,
+): React.ForwardRefExoticComponent<ButtonComponentProps & React.RefAttributes<HTMLElement>> =>
 	React.forwardRef<HTMLElement, ButtonComponentProps>(
 		({ isDisabled = false, onClickBeforeInit, href, target, rel }, ref) => {
 			const loomEnabled = !!useLoomEnabled(api);

@@ -524,7 +524,9 @@ const setProvider: ((provider?: EmojiProvider) => Command) | undefined =
 		return true;
 	};
 
-export const emojiPluginKey = new PluginKey<EmojiPluginState>('emojiPlugin');
+export const emojiPluginKey: PluginKey<EmojiPluginState> = new PluginKey<EmojiPluginState>(
+	'emojiPlugin',
+);
 
 function getEmojiPluginState(state: EditorState) {
 	return (emojiPluginKey.getState(state) || {}) as EmojiPluginState;

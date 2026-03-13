@@ -6,7 +6,7 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { clearFormatting, findKeymapByDescription, tooltip } from '@atlaskit/editor-common/keymaps';
@@ -361,4 +361,8 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 	};
 }
 
-export default injectIntl(ToolbarBlockType);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ToolbarBlockType);
+export default _default_1;

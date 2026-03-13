@@ -17,7 +17,7 @@ export const BlockMenuComponent = ({
 	registeredComponent,
 	childrenMap,
 	fallbacks,
-}: BlockMenuComponentProps) => {
+}: BlockMenuComponentProps): React.JSX.Element | null => {
 	if (!willComponentRender(registeredComponent, childrenMap)) {
 		return null;
 	}

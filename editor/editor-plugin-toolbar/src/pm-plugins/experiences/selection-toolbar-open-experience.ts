@@ -43,7 +43,8 @@ type SelectionToolbarOpenExperienceOptions = {
 export const getSelectionToolbarOpenExperiencePlugin = ({
 	refs,
 	dispatchAnalyticsEvent,
-}: SelectionToolbarOpenExperienceOptions) => {
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+}: SelectionToolbarOpenExperienceOptions): SafePlugin<{}> => {
 	let editorView: EditorView | undefined;
 	let targetEl: HTMLElement | undefined;
 	let shiftArrowKeyPressed = false;

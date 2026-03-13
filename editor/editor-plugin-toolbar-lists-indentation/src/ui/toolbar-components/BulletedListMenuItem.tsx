@@ -24,7 +24,16 @@ type BulletedListType = {
 	parents: ToolbarComponentTypes;
 };
 
-export const useBulletedListInfo = ({ api, parents }: BulletedListType) => {
+export const useBulletedListInfo = ({
+	api,
+	parents,
+}: BulletedListType): {
+	bulletMessage: string;
+	onClick: () => void;
+	isDisabled: boolean | undefined;
+	isSelected: boolean | undefined;
+	shortcut: string | undefined;
+} => {
 	const { formatMessage } = useIntl();
 	const bulletMessage = formatMessage(listMessages.bulletedList);
 	const { bulletListActive, bulletListDisabled, taskListActive } = useSharedPluginStateWithSelector(

@@ -27,7 +27,7 @@ export const createHorizontalRule = (
 		| INPUT_METHOD.FORMATTING
 		| INPUT_METHOD.SHORTCUT,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) => {
+): Transaction | null => {
 	if (!state.selection.empty) {
 		return null;
 	}

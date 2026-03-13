@@ -3,7 +3,15 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { memo, useEffect, useMemo, useRef } from 'react';
+import {
+	memo,
+	useEffect,
+	useMemo,
+	useRef,
+	type ForwardRefExoticComponent,
+	type MemoExoticComponent,
+	type RefAttributes,
+} from 'react';
 import type {
 	EmojiDescription,
 	EmojiDescriptionWithVariations,
@@ -50,7 +58,7 @@ const extractAllTones = (emoji: EmojiDescriptionWithVariations): EmojiDescriptio
 };
 
 type PropsWithAnalyticsEventsPropsType = Props & WithAnalyticsEventsProps;
-export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType) => {
+export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): JSX.Element => {
 	const { createAnalyticsEvent, emoji, onToneSelected, onToneClose, selectedTone, isVisible } =
 		props;
 	const isMounted = useRef(false);
@@ -141,4 +149,7 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType) =
 
 const ToneSelector = withAnalyticsEvents()(ToneSelectorInternal);
 
-export default memo(ToneSelector);
+const _default_1: MemoExoticComponent<
+	ForwardRefExoticComponent<Omit<Props, keyof WithAnalyticsEventsProps> & RefAttributes<any>>
+> = memo(ToneSelector);
+export default _default_1;

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo } from 'react';
+import { memo, type MemoExoticComponent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { useIntl } from 'react-intl-next';
@@ -93,7 +93,7 @@ const EmojiPickerEmojiRow = ({
 	showDelete,
 	onDelete,
 	virtualItemContext,
-}: Props) => {
+}: Props): JSX.Element => {
 	const { currentEmojisFocus, setEmojisFocus } = useEmojiPickerListContext();
 	const rowIndex = virtualItemContext?.index || 0;
 	const { formatMessage } = useIntl();
@@ -140,4 +140,16 @@ const EmojiPickerEmojiRow = ({
 	);
 };
 
-export default memo(EmojiPickerEmojiRow);
+const _default_1: MemoExoticComponent<
+	({
+		emojis,
+		onSelected,
+		onMouseMove,
+		onFocus,
+		title,
+		showDelete,
+		onDelete,
+		virtualItemContext,
+	}: Props) => JSX.Element
+> = memo(EmojiPickerEmojiRow);
+export default _default_1;

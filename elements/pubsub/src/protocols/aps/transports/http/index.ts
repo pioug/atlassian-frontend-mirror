@@ -20,7 +20,7 @@ export default class HttpTransport extends AbstractApsTransport {
 		super(params);
 	}
 
-	transportType() {
+	transportType(): APSTransportType {
 		return APSTransportType.HTTP;
 	}
 

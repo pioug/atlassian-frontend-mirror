@@ -19,7 +19,11 @@ type MinHeightContainerProps = React.HTMLAttributes<HTMLDivElement> & {
 	minHeight: string;
 };
 
-export const MinHeightContainer = forwardRef<HTMLDivElement, MinHeightContainerProps>(
+export const MinHeightContainer: React.ForwardRefExoticComponent<
+	React.HTMLAttributes<HTMLDivElement> & {
+		minHeight: string;
+	} & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, MinHeightContainerProps>(
 	({ minHeight, ...props }: MinHeightContainerProps, ref) => {
 		return (
 			<div

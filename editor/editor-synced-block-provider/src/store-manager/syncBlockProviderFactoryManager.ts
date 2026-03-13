@@ -1,6 +1,6 @@
 import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory, type MediaProvider } from '@atlaskit/editor-common/provider-factory';
 
 import type { ResourceId } from '../common/types';
 import type {
@@ -81,7 +81,9 @@ export class SyncBlockProviderFactoryManager {
 		return providerFactory;
 	}
 
-	public getSSRProviders(resourceId: ResourceId) {
+	public getSSRProviders(resourceId: ResourceId): {
+		media: MediaProvider;
+	} | null {
 		const dataProvider = this.deps.getDataProvider();
 		if (!dataProvider) {
 			return null;

@@ -64,7 +64,7 @@ import type { NcsSessionStepEventAEP } from './ncs-session-step-events';
 import type { NestedTableActionsEventPayload } from './nested-table-events';
 import type { NodeEventPayload } from './node-events';
 import type { OfflineEditingEventPayload } from './offline-editing-event';
-import type { PasteEventPayload } from './paste-events';
+import type { PasteActionsMenuEventPayload, PasteEventPayload } from './paste-events';
 import type { ReferentialityEventPayload } from './referentiality-events';
 import type { SelectionEventPayload } from './selection-events';
 import type { SelectionExtensionEventPayload } from './selection-extension-events';
@@ -101,6 +101,7 @@ export type AnalyticsEventPayload<T = void> =
 	| MediaEventPayload
 	| TableEventPayload
 	| PasteEventPayload
+	| PasteActionsMenuEventPayload
 	| CutCopyEventPayload
 	| ErrorEventPayload
 	| TextColorEventPayload

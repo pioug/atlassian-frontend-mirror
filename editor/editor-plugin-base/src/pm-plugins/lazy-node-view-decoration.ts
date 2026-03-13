@@ -25,7 +25,7 @@ type LazyNodeViewPluginActions =
  * It's a blessed way that Marijn suggested multiple times in ProseMirror Discuss:
  * – https://discuss.prosemirror.net/t/force-nodes-of-specific-type-to-re-render/2480
  */
-export function createLazyNodeViewDecorationPlugin() {
+export function createLazyNodeViewDecorationPlugin(): SafePlugin<LazyNodeViewPluginState> {
 	return new SafePlugin<LazyNodeViewPluginState>({
 		key: lazyNodeViewDecorationPluginKey,
 		state: {

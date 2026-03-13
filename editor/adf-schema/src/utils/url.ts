@@ -5,7 +5,6 @@
  * Ticket for fixing linkification of filename-like urls: https://product-fabric.atlassian.net/browse/EDM-7190
  */
 import LinkifyIt from 'linkify-it';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const whitelistedURLPatterns = [
 	/^https?:\/\//imu,
@@ -59,18 +58,14 @@ const whitelistedURLPatterns = [
 export const isSafeUrl = (url: string | undefined): boolean => {
 	const urlTrimmed = url?.trim();
 
-	if (
-		urlTrimmed === undefined &&
-		expValEquals('platform_editor_safe_url_trim_fix', 'isEnabled', true)
-	) {
+	if (urlTrimmed === undefined) {
 		return true;
 	}
 
-	// remove cast to string once we remove the experiment, as urlTrimmed will never be undefined at that point
-	if ((urlTrimmed as string).length === 0) {
+	if (urlTrimmed.length === 0) {
 		return true;
 	}
-	return whitelistedURLPatterns.some((p) => p.test(urlTrimmed as string));
+	return whitelistedURLPatterns.some((p) => p.test(urlTrimmed));
 };
 
 export interface Match {

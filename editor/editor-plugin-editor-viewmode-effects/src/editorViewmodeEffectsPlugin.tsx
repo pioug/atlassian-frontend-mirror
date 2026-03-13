@@ -14,6 +14,7 @@ import {
 	RemoveNodeMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type EditorViewModeEffectsPlugin } from './editorViewmodeEffectsPluginType';
 import { ViewModeNodeStep, ViewModeStep } from './pm-plugins/viewModeStep';
@@ -28,12 +29,23 @@ const createFilterStepsPlugin =
 					return true;
 				}
 
-				if (
-					tr.getMeta('isRemote') ||
-					(tr.getMeta('allowViewModeTransaction') &&
-						fg('platform_editor_allow_viewmode_transaction'))
-				) {
-					return true;
+				if (expValEquals('platform_editor_are_nodes_equal_ignore_mark_order', 'isEnabled', true)) {
+					if (
+						tr.getMeta('isRemote') ||
+						tr.getMeta('replaceDocument') ||
+						(tr.getMeta('allowViewModeTransaction') &&
+							fg('platform_editor_allow_viewmode_transaction'))
+					) {
+						return true;
+					}
+				} else {
+					if (
+						tr.getMeta('isRemote') ||
+						(tr.getMeta('allowViewModeTransaction') &&
+							fg('platform_editor_allow_viewmode_transaction'))
+					) {
+						return true;
+					}
 				}
 
 				const viewModeSteps = tr.steps.reduce<(ViewModeStep | ViewModeNodeStep)[]>((acc, s) => {

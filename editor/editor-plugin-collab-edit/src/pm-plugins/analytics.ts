@@ -11,7 +11,7 @@ export const addSynchronyErrorAnalytics = (
 	featureFlags: FeatureFlags,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
-	return (error: Error) => {
+	return (error: Error): Transaction => {
 		const browserExtensions = sniffUserBrowserExtensions({
 			extensions: ['grammarly'],
 		});
@@ -39,7 +39,10 @@ export const addSynchronyErrorAnalytics = (
 export type EntityEventType = 'error' | 'disconnected';
 
 export const addSynchronyEntityAnalytics = (state: EditorState, tr: Transaction) => {
-	return (type: EntityEventType, editorAnalyticsApi: EditorAnalyticsAPI | undefined) => {
+	return (
+		type: EntityEventType,
+		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	): Transaction => {
 		editorAnalyticsApi?.attachAnalyticsEvent({
 			action: type === 'error' ? ACTION.SYNCHRONY_ENTITY_ERROR : ACTION.SYNCHRONY_DISCONNECTED,
 			actionSubject: ACTION_SUBJECT.EDITOR,

@@ -1,6 +1,6 @@
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import isEqual from 'lodash/isEqual';
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { ChangeSet, simplifyChanges, type Change } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl-next';
 
@@ -211,7 +211,28 @@ const calculateDiffDecorationsInner = ({
 	return DecorationSet.empty.add(tr.doc, decorations);
 };
 
-export const calculateDiffDecorations = memoizeOne(
+export const calculateDiffDecorations: MemoizedFn<
+	({
+		state,
+		pluginState,
+		nodeViewSerializer,
+		colorScheme,
+		intl,
+		activeIndexPos,
+		api,
+	}: {
+		activeIndexPos?: {
+			from: number;
+			to: number;
+		};
+		api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
+		colorScheme?: ColorScheme;
+		intl: IntlShape;
+		nodeViewSerializer: NodeViewSerializer;
+		pluginState: Omit<ShowDiffPluginState, 'decorations'>;
+		state: EditorState;
+	}) => DecorationSet
+> = memoizeOne(
 	calculateDiffDecorationsInner,
 	// Cache results unless relevant inputs change
 	(

@@ -8,7 +8,7 @@ import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosem
 
 import { findFirstParentListItemNode } from '../utils/find';
 
-export const indentListItemsSelected = (tr: Transaction) => {
+export const indentListItemsSelected = (tr: Transaction): false | null | undefined => {
 	const originalSelection = tr.selection;
 	const normalizedSelection = normalizeListItemsSelection({
 		selection: originalSelection,

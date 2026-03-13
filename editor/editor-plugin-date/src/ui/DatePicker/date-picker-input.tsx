@@ -5,7 +5,7 @@
 import React from 'react';
 import type { FormEvent } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { css, jsx } from '@atlaskit/css';
@@ -287,4 +287,8 @@ class DatePickerInput extends React.Component<InputProps & WrappedComponentProps
 	};
 }
 
-export default injectIntl(DatePickerInput);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<InputProps & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<InputProps & WrappedComponentProps>;
+} = injectIntl(DatePickerInput);
+export default _default_1;

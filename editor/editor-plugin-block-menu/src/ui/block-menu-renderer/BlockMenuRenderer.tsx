@@ -18,7 +18,7 @@ type BlockMenuProps = {
 export const BlockMenuRenderer = ({
 	allRegisteredComponents,
 	fallbacks = BLOCK_MENU_FALLBACKS,
-}: BlockMenuProps) => {
+}: BlockMenuProps): React.JSX.Element => {
 	const { childrenMap, topLevelSections } = useMemo(
 		() => ({
 			childrenMap: buildChildrenMap(allRegisteredComponents),

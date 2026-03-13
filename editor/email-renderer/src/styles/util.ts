@@ -45,7 +45,12 @@ const headerMap = new Map<number | undefined, { shift: number; size: number }>([
 	[6, { size: headingSizes.h300.size, shift: 2 }],
 ]);
 
-export const getInlineImageSizeFromParentNode = (node: NodeSerializerOpts) => {
+export const getInlineImageSizeFromParentNode = (
+	node: NodeSerializerOpts,
+): {
+	size: number;
+	shift: number;
+} => {
 	if (node.parent?.type.name === 'heading') {
 		return headerMap.get(node.parent?.attrs.level) || DEFAULT_PARAGRAPH_SIZE;
 	}

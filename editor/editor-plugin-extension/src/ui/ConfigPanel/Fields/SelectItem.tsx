@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
@@ -43,7 +43,7 @@ const getIconSize = (context: 'menu' | 'value', description?: string) => {
 export const formatOptionLabel = (
 	{ label, icon, description }: Option,
 	{ context }: FormatOptionLabelMeta<Option>,
-) => {
+): jsx.JSX.Element => {
 	return (
 		<div css={itemWrapperStyles}>
 			<span css={[iconWrapperStyles, context === 'menu' && iconWrapperMenuStyles]}>

@@ -82,4 +82,5 @@ export class SyncBlockInMemorySessionCache {
 	}
 }
 
-export const syncBlockInMemorySessionCache = new SyncBlockInMemorySessionCache();
+export const syncBlockInMemorySessionCache: SyncBlockInMemorySessionCache =
+	new SyncBlockInMemorySessionCache();

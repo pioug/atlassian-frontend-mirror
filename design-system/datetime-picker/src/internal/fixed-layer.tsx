@@ -59,7 +59,7 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
 		}
 	}
 
-	render() {
+	render(): JSX.Element {
 		const { containerRef, content, testId } = this.props;
 
 		// Wait for containerRef callback to cause a re-render

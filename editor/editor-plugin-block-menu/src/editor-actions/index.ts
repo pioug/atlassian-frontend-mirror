@@ -47,7 +47,10 @@ import type { RegisterBlockMenuComponent } from '../blockMenuPluginType';
  * ```
  *
  */
-export const createBlockMenuRegistry = () => {
+export const createBlockMenuRegistry = (): {
+	register: (blockMenuComponents: RegisterBlockMenuComponent[]) => void;
+	components: RegisterBlockMenuComponent[];
+} => {
 	const components: RegisterBlockMenuComponent[] = [];
 
 	const register = (blockMenuComponents: RegisterBlockMenuComponent[]): void => {

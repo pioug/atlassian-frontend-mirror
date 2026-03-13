@@ -111,7 +111,11 @@ const oldGetSelection = (tr: Transaction, start: number) => {
  * @param start The start position of the node.
  * @returns The appropriate selection for the node.
  */
-export const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: number) => {
+export const newGetSelection = (
+	doc: PMNode,
+	selectionEmpty: boolean,
+	start: number,
+): false | TextSelection | NodeSelection => {
 	const node = doc.nodeAt(start);
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
 	const nodeSize = node ? node.nodeSize : 1;
@@ -180,7 +184,7 @@ export const getSelection = (
 	tr: Transaction,
 	start: number,
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
-) => {
+): false | TextSelection | NodeSelection => {
 	if (
 		areToolbarFlagsEnabled(Boolean(api?.toolbar)) ||
 		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
@@ -289,7 +293,7 @@ export const isHandleCorrelatedToSelection = (
 	return Boolean(handlePos < selection.$to.pos && handlePos >= nodeStart);
 };
 
-export const rootListDepth = (itemPos: ResolvedPos) => {
+export const rootListDepth = (itemPos: ResolvedPos): number | undefined => {
 	let depth;
 	for (let i = itemPos.depth; i > 1; i -= 2) {
 		const node = itemPos.node(i);
@@ -302,7 +306,7 @@ export const rootListDepth = (itemPos: ResolvedPos) => {
 	return depth;
 };
 
-export const rootTaskListDepth = (taskListPos: ResolvedPos) => {
+export const rootTaskListDepth = (taskListPos: ResolvedPos): number | undefined => {
 	let depth;
 	for (let i = taskListPos.depth; i > 0; i--) {
 		const node = taskListPos.node(i);

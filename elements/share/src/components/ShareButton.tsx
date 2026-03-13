@@ -15,7 +15,9 @@ export type Props = {
 	text?: React.ReactNode;
 };
 
-export const ShareButton = React.forwardRef<HTMLElement, Props>(
+export const ShareButton: React.ForwardRefExoticComponent<
+	Props & React.RefAttributes<HTMLElement>
+> = React.forwardRef<HTMLElement, Props>(
 	// Discard aria-haspopup
 	function ShareButton({ text, 'aria-haspopup': _ariaHasPopup, ...props }: Props, ref) {
 		return (

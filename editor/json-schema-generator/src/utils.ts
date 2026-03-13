@@ -71,7 +71,7 @@ export function extractLiteralValue(type: LiteralType): PrimitiveType {
 	throw new Error(`Couldn't parse in extractLiteralValue`);
 }
 
-export function getTypeFromSymbol(checker: TypeChecker, symbol: Symbol) {
+export function getTypeFromSymbol(checker: TypeChecker, symbol: Symbol): Type {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	return checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!);

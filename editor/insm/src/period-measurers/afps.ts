@@ -8,12 +8,24 @@ export class AnimationFPSIM implements PeriodMeasurer {
 
 	monitor: AnimationFPSMonitor = new AnimationFPSMonitor();
 
-	start(paused: boolean) {
+	start(paused: boolean): {
+		numerator: number;
+		denominator: number;
+		max: number;
+		min: number;
+		average: number;
+	} {
 		const result = this.monitor.startNewWindow(paused);
 		return result;
 	}
 
-	end() {
+	end(): {
+		numerator: number;
+		denominator: number;
+		max: number;
+		min: number;
+		average: number;
+	} {
 		const result = this.monitor.end();
 		return result;
 	}
@@ -104,7 +116,13 @@ class AnimationFPSMonitor {
 		measureFrame();
 	}
 
-	startNewWindow(paused: boolean) {
+	startNewWindow(paused: boolean): {
+		numerator: number;
+		denominator: number;
+		max: number;
+		min: number;
+		average: number;
+	} {
 		const lastWindowResult = {
 			numerator: this.currentState.numerator,
 			denominator: this.currentState.denominator,
@@ -138,7 +156,13 @@ class AnimationFPSMonitor {
 		this.currentState = { numerator: 0, denominator: 0, max: 0, min: 0, average: 0 };
 	}
 
-	end() {
+	end(): {
+		numerator: number;
+		denominator: number;
+		max: number;
+		min: number;
+		average: number;
+	} {
 		try {
 			this.measureWindowFPS();
 			return this.currentState;

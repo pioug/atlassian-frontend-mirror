@@ -2,12 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import { resizableMediaMigrationNotificationStyle } from './styles';
 
-export const ResizableMediaMigrationNotification = () => {
+export const ResizableMediaMigrationNotification = (): jsx.JSX.Element => {
 	return (
 		<div
 			data-testid="resizable-media-migration-notification"

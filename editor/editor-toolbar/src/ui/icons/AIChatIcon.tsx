@@ -42,6 +42,6 @@ const RovoLogoSVG = ({ label, testId }: { label: string; testId?: string }) => (
 	/>
 );
 
-export const AIChatIcon = ({ label, testId }: AIChatIconProps) => (
+export const AIChatIcon = ({ label, testId }: AIChatIconProps): JSX.Element => (
 	<RovoLogoSVG label={label} testId={testId} />
 );

@@ -386,7 +386,7 @@ export const getToolbarItems = (
 export const getToolbarConfig = (
 	state: EditorState,
 	intl: IntlShape,
-	options: PanelPluginOptions = {},
+	options: PanelPluginOptions | undefined = {},
 	providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<PanelPlugin> | undefined,
 ): FloatingToolbarConfig | undefined => {

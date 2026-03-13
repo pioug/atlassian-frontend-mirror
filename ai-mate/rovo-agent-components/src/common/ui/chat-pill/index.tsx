@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef } from 'react';
+import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 import { cssMap as cssMapCompiled } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
@@ -67,7 +67,12 @@ export type ChatPillProps = Omit<ButtonProps, 'iconBefore'> & {
 	renderIcon?: boolean;
 };
 
-export const ChatPill = forwardRef<HTMLButtonElement, ChatPillProps>(
+export const ChatPill: ForwardRefExoticComponent<
+	Omit<ButtonProps, 'iconBefore'> & {
+		whiteSpacePreWrap?: boolean;
+		renderIcon?: boolean;
+	} & RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, ChatPillProps>(
 	({ children, whiteSpacePreWrap = true, renderIcon = true, ...props }, ref) => (
 		<Pressable ref={ref} {...props} xcss={styles.button}>
 			<div css={stylesCompiled.pillLineHeight}>
@@ -84,19 +89,19 @@ export const ChatPill = forwardRef<HTMLButtonElement, ChatPillProps>(
 
 export type BrowseAgentsPillProps = Omit<ButtonProps, 'iconBefore' | 'children'>;
 
-export const BrowseAgentsPill = forwardRef<HTMLButtonElement, BrowseAgentsPillProps>(
-	(props, ref) => {
-		const { formatMessage } = useIntl();
+export const BrowseAgentsPill: ForwardRefExoticComponent<
+	BrowseAgentsPillProps & RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, BrowseAgentsPillProps>((props, ref) => {
+	const { formatMessage } = useIntl();
 
-		return (
-			<Pressable ref={ref} {...props} xcss={styles.button}>
-				<div css={stylesCompiled.pillLineHeight}>
-					<Inline space="space.050" xcss={styles.buttonInline}>
-						<AgentIcon color="currentColor" label="" />
-						<Box xcss={styles.queryText}>{formatMessage(messages.browseAgentsPillLabel)}</Box>
-					</Inline>
-				</div>
-			</Pressable>
-		);
-	},
-);
+	return (
+		<Pressable ref={ref} {...props} xcss={styles.button}>
+			<div css={stylesCompiled.pillLineHeight}>
+				<Inline space="space.050" xcss={styles.buttonInline}>
+					<AgentIcon color="currentColor" label="" />
+					<Box xcss={styles.queryText}>{formatMessage(messages.browseAgentsPillLabel)}</Box>
+				</Inline>
+			</div>
+		</Pressable>
+	);
+});

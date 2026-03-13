@@ -1,5 +1,13 @@
 # @atlaskit/adf-schema
 
+## 52.2.3
+
+### Patch Changes
+
+- [`bf1bed54d14bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf1bed54d14bd) -
+  Remove platform_editor_safe_url_trim_fix feature flag
+- Updated dependencies
+
 ## 52.2.2
 
 ### Patch Changes

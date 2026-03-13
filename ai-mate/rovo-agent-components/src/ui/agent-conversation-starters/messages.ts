@@ -1,6 +1,37 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+	emptyStateSuggestion1: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	emptyStateSuggestion2: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	emptyStateSuggestion3: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	agentEmptyStateSuggestion1: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	agentEmptyStateSuggestion2: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	agentEmptyStateSuggestion3: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	emptyStateSuggestion1: {
 		id: 'ai-mate.chat-history.empty-state.suggestion1',
 		defaultMessage: 'Are any of my tickets overdue?',

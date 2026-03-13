@@ -62,7 +62,7 @@ type ExperienceOptions = {
 export const getBlockMenuExperiencesPlugin = ({
 	refs,
 	dispatchAnalyticsEvent,
-}: ExperienceOptions) => {
+}: ExperienceOptions): SafePlugin => {
 	let popupTargetEl: HTMLElement | undefined;
 	let editorView: EditorView | undefined;
 

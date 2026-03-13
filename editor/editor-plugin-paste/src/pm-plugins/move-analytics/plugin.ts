@@ -12,7 +12,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { resetContentMoved, resetContentMovedTransform, updateContentMoved } from './commands';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
-import { type ContentMoved, defaultState } from './types';
+import { type ContentMoved, defaultState, type MoveAnalyticsPluginState } from './types';
 import {
 	containsExcludedNode,
 	getMultipleSelectionAttributes,
@@ -32,7 +32,7 @@ import {
 export const createPlugin = (
 	dispatch: Dispatch,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) => {
+): SafePlugin<MoveAnalyticsPluginState> => {
 	// This variable is used to distinguish between copy and cut events in transformCopied.
 	let isCutEvent: boolean = false;
 

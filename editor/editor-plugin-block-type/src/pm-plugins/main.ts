@@ -120,14 +120,16 @@ const autoformatHeading = (
 	);
 };
 
-export const pluginKey = new PluginKey<BlockTypeState>('blockTypePlugin');
+export const pluginKey: PluginKey<BlockTypeState> = new PluginKey<BlockTypeState>(
+	'blockTypePlugin',
+);
 export const createPlugin = (
 	editorAPI: ExtractInjectionAPI<BlockTypePlugin> | undefined,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	dispatch: (eventName: string | PluginKey, data: any) => void,
 	lastNodeMustBeParagraph?: boolean,
 	includeBlockQuoteAsTextstyleOption?: boolean,
-) => {
+): SafePlugin<BlockTypeState> => {
 	const editorAnalyticsApi = editorAPI?.analytics?.actions;
 	let altKeyLocation = 0;
 

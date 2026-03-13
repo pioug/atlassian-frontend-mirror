@@ -1,4 +1,300 @@
-export const defaultValue = {
+export const defaultValue: {
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					level: number;
+					title?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					localId?: undefined;
+					width?: undefined;
+					order?: undefined;
+					panelType?: undefined;
+					extensionType?: undefined;
+					extensionKey?: undefined;
+					parameters?: undefined;
+				};
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					title: string;
+					level?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					localId?: undefined;
+					width?: undefined;
+					order?: undefined;
+					panelType?: undefined;
+					extensionType?: undefined;
+					extensionKey?: undefined;
+					parameters?: undefined;
+				};
+				content: {
+					type: string;
+					content: never[];
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+					localId: string;
+					width: number;
+					level?: undefined;
+					title?: undefined;
+					order?: undefined;
+					panelType?: undefined;
+					extensionType?: undefined;
+					extensionKey?: undefined;
+					parameters?: undefined;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						attrs: {};
+						content: {
+							type: string;
+							content: never[];
+						}[];
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					content: {
+						type: string;
+						content: {
+							type: string;
+							text: string;
+						}[];
+					}[];
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					order: number;
+					level?: undefined;
+					title?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					localId?: undefined;
+					width?: undefined;
+					panelType?: undefined;
+					extensionType?: undefined;
+					extensionKey?: undefined;
+					parameters?: undefined;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						content: {
+							type: string;
+							text: string;
+						}[];
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					level?: undefined;
+					title?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					localId?: undefined;
+					width?: undefined;
+					order?: undefined;
+					panelType?: undefined;
+					extensionType?: undefined;
+					extensionKey?: undefined;
+					parameters?: undefined;
+				};
+				content: {
+					type: string;
+					text: string;
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					panelType: string;
+					level?: undefined;
+					title?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					localId?: undefined;
+					width?: undefined;
+					order?: undefined;
+					extensionType?: undefined;
+					extensionKey?: undefined;
+					parameters?: undefined;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						text: string;
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					content: {
+						type: string;
+						text: string;
+					}[];
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					localId: string;
+					level?: undefined;
+					title?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					width?: undefined;
+					order?: undefined;
+					panelType?: undefined;
+					extensionType?: undefined;
+					extensionKey?: undefined;
+					parameters?: undefined;
+				};
+				content: {
+					type: string;
+					attrs: {
+						localId: string;
+						state: string;
+					};
+					content: {
+						type: string;
+						text: string;
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				attrs?: undefined;
+				content?: undefined;
+		  }
+		| {
+				type: string;
+				content: {
+					type: string;
+					attrs: {
+						width: number;
+					};
+					content: {
+						type: string;
+						content: never[];
+					}[];
+				}[];
+				attrs?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					extensionType: string;
+					extensionKey: string;
+					parameters: {
+						items: string[];
+						macroParams?: undefined;
+						macroMetadata?: undefined;
+					};
+					layout: string;
+					level?: undefined;
+					title?: undefined;
+					isNumberColumnEnabled?: undefined;
+					localId?: undefined;
+					width?: undefined;
+					order?: undefined;
+					panelType?: undefined;
+				};
+				content?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					extensionType: string;
+					extensionKey: string;
+					parameters: {
+						macroParams: {};
+						macroMetadata: {
+							placeholder: {
+								data: {
+									url: string;
+								};
+								type: string;
+							}[];
+						};
+						items?: undefined;
+					};
+					layout: string;
+					localId: string;
+					level?: undefined;
+					title?: undefined;
+					isNumberColumnEnabled?: undefined;
+					width?: undefined;
+					order?: undefined;
+					panelType?: undefined;
+				};
+				content: {
+					type: string;
+					content: never[];
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					width: number;
+					layout: string;
+					level?: undefined;
+					title?: undefined;
+					isNumberColumnEnabled?: undefined;
+					localId?: undefined;
+					order?: undefined;
+					panelType?: undefined;
+					extensionType?: undefined;
+					extensionKey?: undefined;
+					parameters?: undefined;
+				};
+				content: {
+					type: string;
+					attrs: {
+						id: string;
+						type: string;
+						collection: string;
+					};
+				}[];
+		  }
+	)[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

@@ -4,7 +4,7 @@
  */
 import React, { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import { panelTextInput } from '@atlaskit/editor-common/ui';
@@ -21,7 +21,7 @@ export interface Props {
 export interface State {
 	text: string;
 }
-export const Input = (props: Props) => {
+export const Input = (props: Props): jsx.JSX.Element => {
 	const { defaultValue, onBlur, onSubmit, placeholder } = props;
 	const [text, setText] = useState(defaultValue || '');
 

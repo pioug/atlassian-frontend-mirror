@@ -7,9 +7,9 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent, WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { getDocument } from '@atlaskit/browser-apis';
 import { statusMessages as messages } from '@atlaskit/editor-common/messages';
@@ -382,6 +382,20 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		event.nativeEvent.stopImmediatePropagation();
 }
 
-export const StatusPickerWithoutAnalytcs = injectIntl(StatusPickerWithIntl);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const StatusPickerWithoutAnalytcs: React.FC<WithIntlProps<Props>> & {
+	WrappedComponent: React.ComponentType<Props>;
+} = injectIntl(StatusPickerWithIntl);
 
-export default withAnalyticsEvents()(StatusPickerWithoutAnalytcs);
+const _default_1: React.ForwardRefExoticComponent<
+	Omit<
+		Omit<Props, 'intl'> & {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			forwardedRef?: React.Ref<any>;
+		},
+		keyof WithAnalyticsEventsProps
+	> &
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		React.RefAttributes<any>
+> = withAnalyticsEvents()(StatusPickerWithoutAnalytcs);
+export default _default_1;

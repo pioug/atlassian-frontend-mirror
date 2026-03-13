@@ -33,9 +33,8 @@ export type InteractionTrackingPluginState = {
 	isMouseOut?: boolean;
 };
 
-export const interactionTrackingPluginKey = new PluginKey<InteractionTrackingPluginState>(
-	'interactionTrackingPlugin',
-);
+export const interactionTrackingPluginKey: PluginKey<InteractionTrackingPluginState> =
+	new PluginKey<InteractionTrackingPluginState>('interactionTrackingPlugin');
 
 type StartEditingMeta = {
 	type: 'startEditing';
@@ -70,7 +69,9 @@ type InteractionTrackingMeta =
 	| SetHoverSideMeta
 	| ClearHoverSideMeta;
 
-export const createInteractionTrackingPlugin = (rightSideControlsEnabled = false) => {
+export const createInteractionTrackingPlugin = (
+	rightSideControlsEnabled = false,
+): SafePlugin<InteractionTrackingPluginState> => {
 	return new SafePlugin<InteractionTrackingPluginState>({
 		key: interactionTrackingPluginKey,
 		state: {
@@ -231,6 +232,8 @@ export const createInteractionTrackingPlugin = (rightSideControlsEnabled = false
 	});
 };
 
-export const getInteractionTrackingState = (state: EditorState) => {
+export const getInteractionTrackingState = (
+	state: EditorState,
+): InteractionTrackingPluginState | undefined => {
 	return interactionTrackingPluginKey.getState(state);
 };

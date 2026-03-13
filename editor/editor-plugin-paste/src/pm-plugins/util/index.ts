@@ -226,7 +226,7 @@ export function applyTextMarksToSlice(
 	};
 }
 
-export function isEmptyNode(node: PMNode | null | undefined) {
+export function isEmptyNode(node: PMNode | null | undefined): boolean | null {
 	if (!node) {
 		return false;
 	}
@@ -240,7 +240,7 @@ export function isEmptyNode(node: PMNode | null | undefined) {
 	);
 }
 
-export function isCursorSelectionAtTextStartOrEnd(selection: Selection) {
+export function isCursorSelectionAtTextStartOrEnd(selection: Selection): boolean | null {
 	return (
 		selection instanceof TextSelection &&
 		selection.empty &&

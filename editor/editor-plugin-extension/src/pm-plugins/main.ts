@@ -31,7 +31,11 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { clearEditingContext, updateState } from '../editor-commands/commands';
-import type { ExtensionPlugin, ExtensionPluginOptions } from '../extensionPluginType';
+import type {
+	ExtensionPlugin,
+	ExtensionPluginOptions,
+	ExtensionState,
+} from '../extensionPluginType';
 import { lazyExtensionNodeView } from '../nodeviews/lazyExtension';
 
 import { createPluginState, getPluginState } from './plugin-factory';
@@ -101,7 +105,7 @@ export const handleUpdate = ({
 	extensionHandlers: ExtensionHandlers;
 	prevState: EditorState;
 	view: EditorView;
-}) => {
+}): true | undefined => {
 	const { state, dispatch } = view;
 	const { element, localId, extensionProvider, showContextPanel, showEditButton } =
 		getPluginState(state);
@@ -184,7 +188,7 @@ export const createPlugin = (
 	} = {},
 	featureFlags?: FeatureFlags,
 	__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'],
-) => {
+): SafePlugin<ExtensionState> => {
 	const state = createPluginState(dispatch, {
 		showEditButton: false,
 		showContextPanel: false,

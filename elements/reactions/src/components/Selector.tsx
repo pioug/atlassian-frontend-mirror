@@ -129,7 +129,7 @@ export const Selector = ({
 	showMore,
 	pickerQuickReactionEmojiIds = DefaultReactions,
 	hoverableReactionPickerSelector = false,
-}: SelectorProps) => {
+}: SelectorProps): JSX.Element => {
 	/**
 	 * Render the default emoji icon
 	 * @param emoji emoji item

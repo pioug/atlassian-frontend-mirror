@@ -63,7 +63,7 @@ export default class MentionList extends React.PureComponent<Props, State> {
 		this.setDefaultSelectionState();
 	}
 
-	createItemRef(key: string) {
+	createItemRef(key: string): React.RefObject<HTMLDivElement> {
 		const itemRef = React.createRef<HTMLDivElement>();
 		this.itemsRefs.set(key, itemRef);
 		return itemRef;

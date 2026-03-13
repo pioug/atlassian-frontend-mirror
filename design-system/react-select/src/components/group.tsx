@@ -69,7 +69,7 @@ export const groupCSS: () => {} = () => ({});
 
 const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupProps<Option, IsMulti, Group>,
-) => {
+): JSX.Element => {
 	const {
 		children,
 		cx: builtinCX,

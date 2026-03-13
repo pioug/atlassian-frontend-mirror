@@ -19,4 +19,5 @@ export const createStatusAnalyticsAndFire =
 		}
 	};
 
-export const analyticsState = (isNew: boolean | undefined) => (isNew ? 'new' : 'update');
+export const analyticsState = (isNew: boolean | undefined): 'new' | 'update' =>
+	isNew ? 'new' : 'update';

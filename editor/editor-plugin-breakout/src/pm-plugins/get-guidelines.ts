@@ -1,4 +1,4 @@
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import {
@@ -43,13 +43,20 @@ const AK_NESTED_DND_GUTTER_OFFSET = 8;
 const roundToNearest = (value: number, interval: number = 0.5): number =>
 	Math.round(value / interval) * interval;
 
-export const getGuidelines = memoizeOne(
+export const getGuidelines: MemoizedFn<
 	(
 		isResizing: boolean,
 		newWidth: number,
 		getEditorWidth: () => EditorContainerWidth | undefined,
 		nodeType?: NodeType | undefined,
-	) => {
+	) => GuidelineConfig[]
+> = memoizeOne(
+	(
+		isResizing: boolean,
+		newWidth: number,
+		getEditorWidth: () => EditorContainerWidth | undefined,
+		nodeType?: NodeType | undefined,
+	): GuidelineConfig[] => {
 		const guidelines: GuidelineConfig[] = [];
 		if (!isResizing) {
 			return guidelines;

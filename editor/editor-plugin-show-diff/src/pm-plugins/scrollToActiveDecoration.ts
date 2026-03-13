@@ -18,7 +18,7 @@ export const scrollToActiveDecoration = (
 	view: EditorView,
 	decorations: Decoration[],
 	activeIndex: number,
-) => {
+): void => {
 	const decoration = decorations[activeIndex];
 	if (!decoration) {
 		return;

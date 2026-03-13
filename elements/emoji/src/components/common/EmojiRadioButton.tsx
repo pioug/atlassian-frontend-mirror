@@ -106,7 +106,9 @@ const handleKeyPress = (props: Props, event: React.KeyboardEvent<HTMLLabelElemen
 	}
 };
 
-export const EmojiRadioButton = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
+export const EmojiRadioButton: React.ForwardRefExoticComponent<
+	Props & React.RefAttributes<HTMLInputElement>
+> = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
 	const { emoji, selectOnHover, ariaLabelText, defaultChecked } = props;
 
 	return (
@@ -136,4 +138,7 @@ export const EmojiRadioButton = forwardRef<HTMLInputElement, Props>((props: Prop
 	);
 });
 
-export default memo(EmojiRadioButton);
+const _default_1: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLInputElement>>
+> = memo(EmojiRadioButton);
+export default _default_1;

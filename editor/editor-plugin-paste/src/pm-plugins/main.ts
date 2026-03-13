@@ -55,7 +55,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { PastePluginActionTypes } from '../editor-actions/actions';
 import { splitParagraphs, upgradeTextToLists } from '../editor-commands/commands';
 import type { PastePlugin } from '../index';
-import type { LastContentPasted } from '../pastePluginType';
+import type { LastContentPasted, PastePluginState } from '../pastePluginType';
 import {
 	transformSliceForMedia,
 	transformSliceToCorrectMediaWrapper,
@@ -155,7 +155,7 @@ export function createPlugin(
 	sanitizePrivateContent?: boolean,
 	providerFactory?: ProviderFactory,
 	pasteWarningOptions?: PasteWarningOptions,
-) {
+): SafePlugin<PastePluginState> {
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions;
 	const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
 

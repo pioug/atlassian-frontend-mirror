@@ -10,15 +10,16 @@ type SuggestedMenuItemsProps = {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
 };
 
-export const SuggestedMenuItems = React.memo<SuggestedMenuItemsProps>(({ api }) => {
-	const suggestedItems = useSuggestedItems(api);
+export const SuggestedMenuItems: React.NamedExoticComponent<SuggestedMenuItemsProps> =
+	React.memo<SuggestedMenuItemsProps>(({ api }) => {
+		const suggestedItems = useSuggestedItems(api);
 
-	return (
-		<>
-			{suggestedItems.map((item) => {
-				const ItemComponent = item.component;
-				return ItemComponent ? <ItemComponent key={item.key} /> : null;
-			})}
-		</>
-	);
-});
+		return (
+			<>
+				{suggestedItems.map((item) => {
+					const ItemComponent = item.component;
+					return ItemComponent ? <ItemComponent key={item.key} /> : null;
+				})}
+			</>
+		);
+	});

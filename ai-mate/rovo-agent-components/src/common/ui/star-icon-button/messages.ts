@@ -1,6 +1,17 @@
 import { defineMessages } from 'react-intl-next';
 
-export default defineMessages({
+const _default_1: {
+	removeFromFavouritesLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	clickToFavouriteLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	removeFromFavouritesLabel: {
 		id: 'rovo-chat.browse-agents.remove-from-favourites-label',
 		defaultMessage: 'Remove from favourites',
@@ -14,3 +25,4 @@ export default defineMessages({
 			'Button label/aria label indicating agent is not favorited. Instructions to click the star button to add agent to favorites.',
 	},
 });
+export default _default_1;

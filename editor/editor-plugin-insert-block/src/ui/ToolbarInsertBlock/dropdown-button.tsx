@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
@@ -41,19 +41,23 @@ const DropDownButtonIcon = React.memo((props: { label: string }) => (
 	</span>
 ));
 
-export const DropDownButton = React.memo((props: DropDownButtonProps) => (
-	<ToolbarButton
-		ref={props.handleRef}
-		selected={props.selected}
-		disabled={props.disabled}
-		onClick={props.onClick}
-		onKeyDown={props.onKeyDown}
-		spacing={props.spacing}
-		aria-expanded={props['aria-expanded']}
-		aria-haspopup={props['aria-haspopup']}
-		aria-keyshortcuts={props['aria-keyshortcuts']}
-		aria-label={`${props.label}`}
-		iconBefore={<DropDownButtonIcon label="" />}
-		title={<ToolTipContent description={props.label} shortcutOverride="/" />}
-	/>
-));
+export const DropDownButton: React.MemoExoticComponent<
+	(props: DropDownButtonProps) => jsx.JSX.Element
+> = React.memo(
+	(props: DropDownButtonProps): jsx.JSX.Element => (
+		<ToolbarButton
+			ref={props.handleRef}
+			selected={props.selected}
+			disabled={props.disabled}
+			onClick={props.onClick}
+			onKeyDown={props.onKeyDown}
+			spacing={props.spacing}
+			aria-expanded={props['aria-expanded']}
+			aria-haspopup={props['aria-haspopup']}
+			aria-keyshortcuts={props['aria-keyshortcuts']}
+			aria-label={`${props.label}`}
+			iconBefore={<DropDownButtonIcon label="" />}
+			title={<ToolTipContent description={props.label} shortcutOverride="/" />}
+		/>
+	),
+);

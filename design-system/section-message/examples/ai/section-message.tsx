@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
-export default [
+const _default_1: React.JSX.Element[] = [
 	<SectionMessage appearance="information" title="Information">
 		<Text>This is an informational message to help users understand something important.</Text>
 	</SectionMessage>,
@@ -21,3 +21,4 @@ export default [
 		<Text>Your changes have been saved successfully!</Text>
 	</SectionMessage>,
 ];
+export default _default_1;

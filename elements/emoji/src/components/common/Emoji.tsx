@@ -301,7 +301,7 @@ const handleImageError = (
 // Pure functional components are used in favour of class based components, due to the performance!
 // When rendering 1500+ emoji using class based components had a significant impact.
 // TODO: add UFO tracking for sprite emoji
-export const SpriteEmoji = (props: Props) => {
+export const SpriteEmoji = (props: Props): JSX.Element => {
 	const { emoji, fitToHeight, selected, selectOnHover, className } = props;
 
 	const representation = emoji.representation as SpriteRepresentation;
@@ -347,7 +347,7 @@ export const SpriteEmoji = (props: Props) => {
 };
 
 // Keep as pure functional component, see renderAsSprite.
-export const ImageEmoji = (props: Props) => {
+export const ImageEmoji = (props: Props): JSX.Element => {
 	const {
 		emoji,
 		fitToHeight,
@@ -515,10 +515,11 @@ interface EmojiNodeWrapperProps extends Props {
 	type: 'sprite' | 'image';
 }
 
-export const EmojiNodeWrapper = forwardRef<
-	HTMLSpanElement,
-	PropsWithChildren<EmojiNodeWrapperProps>
->((props, ref) => {
+export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
+	EmojiNodeWrapperProps & {
+		children?: React.ReactNode | undefined;
+	} & React.RefAttributes<HTMLSpanElement>
+> = forwardRef<HTMLSpanElement, PropsWithChildren<EmojiNodeWrapperProps>>((props, ref) => {
 	const {
 		emoji,
 		fitToHeight,
@@ -543,20 +544,10 @@ export const EmojiNodeWrapper = forwardRef<
 		...other
 	} = props;
 
-	let accessibilityProps;
-
-	if (editorEmoji) {
-		accessibilityProps = { role: undefined };
-	} else if (shouldBeInteractive) {
-		accessibilityProps = { role: 'button', 'aria-label': emoji.shortName };
-	} else {
-		accessibilityProps = { role: 'img', 'aria-label': emoji.shortName };
-	}
-
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<span
-			{...accessibilityProps}
+			role={editorEmoji ? undefined : shouldBeInteractive ? 'button' : 'img'}
+			aria-label={editorEmoji ? undefined : emoji.shortName}
 			ref={ref}
 			data-testid={`${type}-emoji-${emoji.shortName}`}
 			data-emoji-type={type}
@@ -582,7 +573,7 @@ export const EmojiNodeWrapper = forwardRef<
 	);
 });
 
-export const Emoji = (props: Props) => {
+export const Emoji = (props: Props): JSX.Element => {
 	const { emoji } = props;
 	// start emoji rendered experience, it may have already started earlier in ResourcedEmoji or CachingEmoji
 	useSampledUFOComponentExperience(

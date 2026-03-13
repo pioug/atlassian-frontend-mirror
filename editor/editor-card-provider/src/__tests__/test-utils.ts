@@ -113,14 +113,29 @@ export const getMockProvidersResponse = ({
 		: {}),
 });
 
-export const expectedInlineAdf = (url: string) => ({
+export const expectedInlineAdf = (
+	url: string,
+): {
+	type: string;
+	attrs: {
+		url: string;
+	};
+} => ({
 	type: 'inlineCard',
 	attrs: {
 		url,
 	},
 });
 
-export const expectedEmbedAdf = (url: string) => ({
+export const expectedEmbedAdf = (
+	url: string,
+): {
+	type: string;
+	attrs: {
+		url: string;
+		layout: string;
+	};
+} => ({
 	type: 'embedCard',
 	attrs: {
 		url,
@@ -128,14 +143,30 @@ export const expectedEmbedAdf = (url: string) => ({
 	},
 });
 
-export const expectedBlockAdf = (url: string) => ({
+export const expectedBlockAdf = (
+	url: string,
+): {
+	type: string;
+	attrs: {
+		url: string;
+	};
+} => ({
 	type: 'blockCard',
 	attrs: {
 		url,
 	},
 });
 
-export const expectedDatasourceAdf = (datasource: Datasource, url?: string) => ({
+export const expectedDatasourceAdf = (
+	datasource: Datasource,
+	url?: string,
+): {
+	type: string;
+	attrs: {
+		datasource: Datasource<Record<string, unknown>>;
+		url: string | undefined;
+	};
+} => ({
 	type: 'blockCard',
 	attrs: {
 		datasource,

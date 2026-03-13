@@ -4,7 +4,7 @@
  */
 import React, { Fragment } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 
@@ -76,7 +76,9 @@ const buttonWrapper = css({
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> {
-	state = {
+	state: {
+		validationErrors: never[];
+	} = {
 		validationErrors: [],
 	};
 
@@ -244,7 +246,7 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 		);
 	};
 
-	render() {
+	render(): jsx.JSX.Element {
 		const { providerFactory, displayUrl } = this.props;
 
 		return (

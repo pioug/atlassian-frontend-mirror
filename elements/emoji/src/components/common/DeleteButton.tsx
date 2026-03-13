@@ -38,7 +38,7 @@ const deleteButton = css({
  */
 export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
 
-const DeleteButton = (props: ButtonProps) => (
+const DeleteButton = (props: ButtonProps): JSX.Element => (
 	<span
 		css={deleteButton}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

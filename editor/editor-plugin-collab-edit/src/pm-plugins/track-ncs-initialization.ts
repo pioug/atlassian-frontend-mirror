@@ -9,11 +9,10 @@ import type { CollabInitializedMetadata } from '../types';
 
 import { originalTransactionHasMeta } from './utils';
 
-export const trackNCSInitializationPluginKey = new PluginKey<CollabInitializedMetadata>(
-	'collabTrackNCSInitializationPlugin',
-);
+export const trackNCSInitializationPluginKey: PluginKey<CollabInitializedMetadata> =
+	new PluginKey<CollabInitializedMetadata>('collabTrackNCSInitializationPlugin');
 
-export const createPlugin = () => {
+export const createPlugin = (): SafePlugin<CollabInitializedMetadata> => {
 	return new SafePlugin<CollabInitializedMetadata>({
 		key: trackNCSInitializationPluginKey,
 		state: {

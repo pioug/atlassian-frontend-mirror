@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
@@ -81,4 +81,8 @@ const FindReplaceDropdown = (props: FindReplaceDropdownProps & WrappedComponentP
 	);
 };
 
-export default injectIntl(FindReplaceDropdown);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<FindReplaceDropdownProps & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<FindReplaceDropdownProps & WrappedComponentProps>;
+} = injectIntl(FindReplaceDropdown);
+export default _default_1;

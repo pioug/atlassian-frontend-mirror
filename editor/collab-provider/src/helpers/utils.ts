@@ -33,7 +33,8 @@ export const createLogger =
 		}
 	};
 
-export function sleep(ms: number) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function sleep(ms: number): Promise<any> {
 	return new Promise((resolve) => {
 		setTimeout(resolve, ms);
 	});
@@ -148,7 +149,12 @@ const stepWithSlice = (stepJson: StepJson): stepJson is ReplaceAroundStepPM | Re
 };
 
 // Get as step info which is known not to contain user generated content.
-export const getStepTypes = (stepJson: StepJson) => {
+export const getStepTypes = (
+	stepJson: StepJson,
+): {
+	type: string;
+	contentTypes: string | null;
+} => {
 	let contentTypes: string | null = null;
 
 	if (stepWithSlice(stepJson)) {
@@ -197,7 +203,16 @@ export const getDocAdfWithObfuscationFromJSON = (docJson: JSONDocNode): ADFEntit
 	return scrubbedDoc;
 };
 
-export const getStepPositions = (stepJson: StepJson) => {
+export const getStepPositions = (
+	stepJson: StepJson,
+): {
+	pos?: number | undefined;
+	insert?: number | undefined;
+	gapFrom?: number | undefined;
+	gapTo?: number | undefined;
+	from?: number | undefined;
+	to?: number | undefined;
+} => {
 	return {
 		...(stepWithFromTo(stepJson) && { from: stepJson.from, to: stepJson.to }),
 		...(stepWithGapFromTo(stepJson) && { gapFrom: stepJson.gapFrom, gapTo: stepJson.gapTo }),
@@ -214,7 +229,37 @@ const getStepMetadata = (stepJson: StepJson): StepMetadata['metadata'] | undefin
 	return stepJson.metadata;
 };
 
-export const getObfuscatedSteps = (steps: StepJson[], endIndex: number | undefined = undefined) => {
+export const getObfuscatedSteps = (
+	steps: StepJson[],
+	endIndex: number | undefined = undefined,
+): {
+	stepType: {
+		type: string;
+		contentTypes: string | null;
+	};
+	stepContent: ADFEntity[] | null;
+	stepPositions: {
+		pos?: number | undefined;
+		insert?: number | undefined;
+		gapFrom?: number | undefined;
+		gapTo?: number | undefined;
+		from?: number | undefined;
+		to?: number | undefined;
+	};
+	stepMetadata:
+		| {
+				createdOffline?: boolean;
+				prevStepId?: string;
+				rebased?: boolean;
+				reqId?: string;
+				schemaVersion?: string;
+				source?: string;
+				stepId?: string;
+				traceId?: string;
+				unconfirmedStepAfterRecovery?: boolean;
+		  }
+		| undefined;
+}[] => {
 	return steps.slice(0, endIndex).map((step) => {
 		return {
 			stepType: getStepTypes(step),
@@ -270,7 +315,16 @@ const stepToAdf = (step: StepJson): ADFEntity[] | null => {
 	return [];
 };
 
-export async function logObfuscatedSteps(oldState: EditorState | null, newState: EditorState) {
+export async function logObfuscatedSteps(
+	oldState: EditorState | null,
+	newState: EditorState,
+): Promise<
+	| CustomError
+	| {
+			stepsFromOldState: string;
+			stepsFromNewState: string;
+	  }
+> {
 	try {
 		let stepsFromOldState = '',
 			stepsFromNewState = '';
@@ -297,7 +351,7 @@ export async function logObfuscatedSteps(oldState: EditorState | null, newState:
 	}
 }
 
-export async function toObfuscatedSteps(steps: readonly ProseMirrorStep[]) {
+export async function toObfuscatedSteps(steps: readonly ProseMirrorStep[]): Promise<string> {
 	const _steps = await Promise.resolve(steps.slice().map<StepJson>((s) => s.toJSON()));
 	return JSON.stringify(getObfuscatedSteps(_steps));
 }

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -20,7 +20,7 @@ interface ColoredAvatarItemProps {
 	sessionId: string;
 }
 
-export const ColoredAvatarItem = (props: ColoredAvatarItemProps) => {
+export const ColoredAvatarItem = (props: ColoredAvatarItemProps): jsx.JSX.Element => {
 	const participantColor = props.api?.collabEdit?.actions?.getAvatarColor(
 		props.presenceId ?? props.sessionId,
 	) ?? {

@@ -64,7 +64,7 @@ export interface ColorProps {
 export default class Color extends PureComponent<ColorProps> {
 	private hoverStartTime: number = 0;
 
-	render() {
+	render(): JSX.Element {
 		const {
 			tabIndex,
 			backgroundColor,

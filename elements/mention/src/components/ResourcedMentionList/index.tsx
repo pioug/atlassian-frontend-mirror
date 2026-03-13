@@ -244,7 +244,9 @@ export class ResourcedMentionListWithoutAnalytics extends React.PureComponent<
 	}
 }
 
-const ResourcedMentionList = withAnalyticsEvents({})(ResourcedMentionListWithoutAnalytics);
+const ResourcedMentionList: React.ForwardRefExoticComponent<
+	Omit<Props, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
+> = withAnalyticsEvents({})(ResourcedMentionListWithoutAnalytics);
 
 type ResourcedMentionList = ResourcedMentionListWithoutAnalytics;
 

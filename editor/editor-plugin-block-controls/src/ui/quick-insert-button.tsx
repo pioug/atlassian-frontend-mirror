@@ -5,7 +5,7 @@
 
 import React, { type CSSProperties, useCallback, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 import { type IntlShape } from 'react-intl-next';
@@ -209,7 +209,7 @@ export const TypeAheadControl = ({
 	rootAnchorName,
 	rootNodeType,
 	anchorRectCache,
-}: Props) => {
+}: Props): jsx.JSX.Element => {
 	const { macroInteractionUpdates } = useSharedPluginStateWithSelector(
 		api,
 		['featureFlags'],
@@ -483,7 +483,7 @@ export const QuickInsertWithVisibility = ({
 	rootAnchorName,
 	rootNodeType,
 	anchorRectCache,
-}: Props) => {
+}: Props): jsx.JSX.Element => {
 	const rightSideControlsEnabled = useSharedPluginStateWithSelector(
 		api,
 		['blockControls'],

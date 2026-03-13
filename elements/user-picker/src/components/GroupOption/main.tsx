@@ -4,8 +4,8 @@
  */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { N20, B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -18,7 +18,7 @@ import { messages } from '../i18n';
 import { HighlightText } from '../HighlightText';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const groupOptionIconWrapper = css({
+export const groupOptionIconWrapper: SerializedStyles = css({
 	padding: token('space.025', '2px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> span': {
@@ -98,7 +98,7 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
 				}
 			: this.props.group.lozenge;
 
-	render() {
+	render(): jsx.JSX.Element {
 		return (
 			<AvatarItemOption
 				avatar={this.renderAvatar()}

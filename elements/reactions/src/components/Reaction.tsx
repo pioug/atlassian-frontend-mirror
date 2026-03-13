@@ -131,7 +131,7 @@ export const Reaction = ({
 	handleOpenReactionsDialog,
 	isViewOnly = false,
 	showSubtleStyle,
-}: ReactionProps) => {
+}: ReactionProps): JSX.Element => {
 	const intl = useIntl();
 	const hoverStart = useRef<number>();
 	const focusStart = useRef<number>();

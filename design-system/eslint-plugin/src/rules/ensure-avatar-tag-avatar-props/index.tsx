@@ -5,7 +5,7 @@ import { createLintRule } from '../utils/create-rule';
 
 const CONTROLLED_PROPS = ['size', 'borderColor', 'appearance'];
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'ensure-avatar-tag-avatar-props',
 		type: 'problem',

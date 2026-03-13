@@ -29,7 +29,7 @@ export function EmojiTypeAheadListContainer(props: {
 	children: React.ReactNode;
 	hasEmoji: boolean;
 	loading?: boolean;
-}) {
+}): JSX.Element {
 	const { hasEmoji, loading } = props;
 
 	return (

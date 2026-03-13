@@ -46,7 +46,7 @@ export const createPlugin = ({
 	decorations?: DecorationSet;
 	getIntl: () => IntlShape;
 	useLongPressSelection?: boolean;
-}) => {
+}): SafePlugin<CodeBlockState> => {
 	const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {
 		click: () => {
 			// Set hasHadInteraction to true on any click of code blocks, as clicks

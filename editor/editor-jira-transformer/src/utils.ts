@@ -63,7 +63,11 @@ export function ensureBlocks(fragment: Fragment, schema: Schema, nodeType?: Node
 /**
  * This function will convert all content to inline nodes
  */
-export const ensureInline = (schema: Schema, content: Fragment, supportedMarks: Mark[]) => {
+export const ensureInline = (
+	schema: Schema,
+	content: Fragment,
+	supportedMarks: Mark[],
+): Fragment => {
 	const result: PMNode[] = [];
 	content.forEach((node: PMNode) => {
 		if (node.isInline) {

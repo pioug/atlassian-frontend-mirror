@@ -121,7 +121,7 @@ export const AgentConversationStarters = ({
 	userDefinedConversationStarters,
 	isAgentDefault,
 	...props
-}: AgentConversationStartersProps) => {
+}: AgentConversationStartersProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { combinedConversationStarters } = useMemo(
 		() => getConversationStarters({ userDefinedConversationStarters, isAgentDefault }),
@@ -155,7 +155,7 @@ export const ConversationStarters = ({
 	showReloadButton = false,
 	onReloadButtonClick = () => {},
 	onBrowseAgentsClick,
-}: ConversationStartersProps) => {
+}: ConversationStartersProps): React.JSX.Element => {
 	return (
 		<Stack as="ul" space="space.050" xcss={styles.conversationStartersList}>
 			{starters.map((starter, index) => {

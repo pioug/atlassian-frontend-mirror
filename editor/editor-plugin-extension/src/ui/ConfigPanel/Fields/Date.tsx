@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
@@ -65,4 +65,26 @@ function Date({
 	);
 }
 
-export default injectIntl(Date);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<
+	WithIntlProps<
+		{
+			autoFocus?: boolean;
+			field: DateField;
+			name: string;
+			onFieldChange: OnFieldChange;
+			placeholder?: string;
+		} & WrappedComponentProps
+	>
+> & {
+	WrappedComponent: React.ComponentType<
+		{
+			autoFocus?: boolean;
+			field: DateField;
+			name: string;
+			onFieldChange: OnFieldChange;
+			placeholder?: string;
+		} & WrappedComponentProps
+	>;
+} = injectIntl(Date);
+export default _default_1;

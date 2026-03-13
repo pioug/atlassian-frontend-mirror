@@ -2,11 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useState } from 'react';
+import { useCallback, useState, type ComponentType, type FC } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
@@ -194,4 +194,7 @@ const HelpLink = (url: string, helpText: string) => (
 	</Button>
 );
 
-export default injectIntl(ModalElementBrowser);
+const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ModalElementBrowser);
+export default _default_1;

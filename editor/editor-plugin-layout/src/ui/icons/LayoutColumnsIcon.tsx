@@ -4,7 +4,7 @@
  */
 import type { FC, ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import LayoutFiveColumnsIcon from '@atlaskit/icon-lab/core/layout-five-columns';
@@ -18,7 +18,7 @@ const Wrapper: FC<{ children: ReactNode }> = ({ children }) => {
 	return <div css={wrapperStyle}>{children}</div>;
 };
 
-export const EditorLayoutFiveColumnsIcon = () => {
+export const EditorLayoutFiveColumnsIcon = (): jsx.JSX.Element => {
 	return (
 		<Wrapper>
 			<LayoutFiveColumnsIcon label="" />
@@ -26,7 +26,7 @@ export const EditorLayoutFiveColumnsIcon = () => {
 	);
 };
 
-export const EditorLayoutFourColumnsIcon = () => {
+export const EditorLayoutFourColumnsIcon = (): jsx.JSX.Element => {
 	return (
 		<Wrapper>
 			<LayoutFourColumnsIcon label="" />

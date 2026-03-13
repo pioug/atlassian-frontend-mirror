@@ -8,7 +8,10 @@ export const updateColumnWidths = (
 	layoutNode: PMNode,
 	layoutNodePos: number,
 	childCount: number,
-) => {
+): {
+	newColumnWidth: number;
+	tr: Transaction;
+} => {
 	const newColumnWidth = DEFAULT_COLUMN_DISTRIBUTIONS[childCount];
 
 	if (newColumnWidth) {

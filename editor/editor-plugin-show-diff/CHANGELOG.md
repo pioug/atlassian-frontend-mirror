@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.10
+
+### Patch Changes
+
+- [`8acefc80a7a89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8acefc80a7a89) -
+  Fixed initial activeIndex to be undefined instead of 0, preventing auto-selection on diff
+  initialization. Also update tests accordingly
+
 ## 5.0.9
 
 ### Patch Changes

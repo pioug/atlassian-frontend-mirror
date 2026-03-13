@@ -1,13 +1,25 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	FloatingToolbarItem,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { MarkType } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import { processCopyButtonItems } from './ui/toolbar';
 
 const editorAnalyticsApi: EditorAnalyticsAPI | undefined = undefined;
-const processCopyButtonItemsWithAnalytics = processCopyButtonItems(editorAnalyticsApi);
+const processCopyButtonItemsWithAnalytics: (
+	state: EditorState,
+) => (
+	items: Array<FloatingToolbarItem<Command>>,
+	hoverDecoration: HoverDecorationHandler | undefined,
+) => Array<FloatingToolbarItem<Command>> = processCopyButtonItems(editorAnalyticsApi);
 
 export type CopyButtonPlugin = NextEditorPlugin<
 	'copyButton',

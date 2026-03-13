@@ -96,7 +96,13 @@ const traverseTree = (
 	return output;
 };
 
-export const commonStyle = {
+export const commonStyle: {
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	'font-family': string;
+	'font-size': string;
+	'font-weight': number;
+	'line-height': string;
+} = {
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	'font-family': fontFamily,
 	'font-size': fontSize,

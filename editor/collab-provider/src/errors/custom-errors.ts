@@ -19,14 +19,21 @@ export class CustomError extends Error {
 		}
 	}
 
-	toJSON() {
+	toJSON(): {
+		name: string;
+		message: string;
+	} {
 		return {
 			name: this.name,
 			message: this.message,
 		};
 	}
 
-	getExtraErrorEventAttributes = () => this.extraEventAttributes;
+	getExtraErrorEventAttributes = ():
+		| {
+				[key: string]: ValidEventAttributeType;
+		  }
+		| undefined => this.extraEventAttributes;
 }
 
 export class NotConnectedError extends CustomError {

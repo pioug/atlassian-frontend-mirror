@@ -1,6 +1,42 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+	agentCreatedBy: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	agentDeactivated: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	starredCount: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	hiddenIcon: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	hiddenTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	starAgentTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	creatorLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	agentCreatedBy: {
 		id: 'ai-mate.agent-profile-info.created-by',
 		defaultMessage: 'Rovo Agent by {creatorNameWithLink}',

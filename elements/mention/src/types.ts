@@ -305,15 +305,15 @@ export function isSpecialMention(mention: MentionDescription): boolean {
 	return !!mention.userType && mention.userType === UserType[UserType.SPECIAL];
 }
 
-export function isAppMention(mention: MentionDescription) {
+export function isAppMention(mention: MentionDescription): boolean | '' | undefined {
 	return mention.userType && mention.userType === UserType[UserType.APP];
 }
 
-export function isTeamMention(mention: MentionDescription) {
+export function isTeamMention(mention: MentionDescription): boolean | '' | undefined {
 	return mention.userType && mention.userType === UserType[UserType.TEAM];
 }
 
-export function isSpecialMentionText(mentionText: string) {
+export function isSpecialMentionText(mentionText: string): boolean | '' {
 	return mentionText && (mentionText === '@all' || mentionText === '@here');
 }
 

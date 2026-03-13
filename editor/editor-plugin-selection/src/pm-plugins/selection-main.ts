@@ -30,7 +30,7 @@ export const createPlugin = (
 	dispatch: Dispatch,
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 	options: SelectionPluginOptions = {},
-) => {
+): SafePlugin<SelectionPluginState> => {
 	let cursorHidden = false;
 	let blockSelection: Selection | undefined;
 

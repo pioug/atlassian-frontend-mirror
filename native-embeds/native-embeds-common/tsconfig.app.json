@@ -1,9 +1,6 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": [
-		"./src/**/*.ts",
-		"./src/**/*.tsx"
-	],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -41,6 +38,9 @@
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../../editor/editor-common/tsconfig.app.json"
+		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		}

@@ -29,7 +29,7 @@ import type { BasePlugin } from '../index';
 import { setInteractionType } from './utils/frozen-editor';
 import InputLatencyTracker from './utils/input-latency-tracking';
 
-export const frozenEditorPluginKey = new PluginKey('frozenEditor');
+export const frozenEditorPluginKey: PluginKey = new PluginKey('frozenEditor');
 
 const DEFAULT_KEYSTROKE_SAMPLING_LIMIT = 100;
 const DEFAULT_SLOW_THRESHOLD = 300;
@@ -76,7 +76,7 @@ export default (
 		dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 		inputTracking?: InputTracking,
 		browserFreezeTracking?: BrowserFreezetracking,
-	) => {
+	): SafePlugin => {
 		let interactionType: BROWSER_FREEZE_INTERACTION_TYPE;
 		let inputLatencyTracker: InputLatencyTracker | null = null;
 

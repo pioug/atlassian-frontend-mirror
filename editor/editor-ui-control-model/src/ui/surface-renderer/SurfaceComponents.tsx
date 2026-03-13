@@ -18,7 +18,7 @@ export const SurfaceComponents = ({
 	childrenMap,
 	fallbacks,
 	parents,
-}: SurfaceComponentsProps) => {
+}: SurfaceComponentsProps): React.JSX.Element | null => {
 	if (!components?.length) {
 		return null;
 	}

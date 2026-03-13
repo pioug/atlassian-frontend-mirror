@@ -420,7 +420,10 @@ const customMatchers = {
 		this: ReturnType<Expect['getState']>,
 		timestampReceived: DOMHighResTimeStamp | undefined | null,
 		timestampExpected: DOMHighResTimeStamp | undefined | null,
-	) {
+	): {
+		pass: boolean;
+		message: () => any;
+	} {
 		const receivedInSeconds = Math.round(timestampReceived!) / 1000;
 		const expectedInSeconds = Math.round(timestampExpected!) / 1000;
 

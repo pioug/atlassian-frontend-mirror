@@ -86,7 +86,15 @@ export const row: SerializedStyles = css({
 	justifyContent: 'space-between',
 });
 
-export const dialogHeader = {
+export const dialogHeader: {
+	'&': {
+		fontSize: string;
+		fontWeight: 'var(--ds-font-weight-regular)';
+		color: 'var(--ds-text-subtle)';
+		letterSpacing: string;
+		lineHeight: number;
+	};
+} = {
 	'&': {
 		fontSize: relativeFontSizeToBase16(24),
 		fontWeight: token('font.weight.regular'),

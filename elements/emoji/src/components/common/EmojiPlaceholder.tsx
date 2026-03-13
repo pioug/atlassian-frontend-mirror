@@ -33,7 +33,7 @@ export interface Props {
 
 export const emojiPlaceholderTestId = (shortName: string) => `emoji-placeholder-${shortName}`;
 
-const EmojiPlaceholder = (props: Props) => {
+const EmojiPlaceholder = (props: Props): JSX.Element => {
 	const {
 		shortName,
 		size = defaultEmojiHeight,

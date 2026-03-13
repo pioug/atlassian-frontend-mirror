@@ -34,7 +34,7 @@ export interface Props {
 	listId?: string;
 }
 
-const TaskList = ({ listId, children }: Props) => {
+const TaskList = ({ listId, children }: Props): JSX.Element | null => {
 	const listSize = React.Children.count(children);
 
 	const { formatMessage } = useIntl();

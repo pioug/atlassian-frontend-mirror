@@ -438,7 +438,7 @@ export class TimelineController
 		};
 	}
 
-	serialise() {
+	serialise(): EventsGroupedSerialized {
 		const result: EventsGroupedSerialized = [];
 		for (const [key, value] of this.eventsPerType.entries()) {
 			// TODO: ED-26959 - maybe implement a proper clone?

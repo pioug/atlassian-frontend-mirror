@@ -1,6 +1,6 @@
 import { emoji, emojiWithLocalId } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -13,7 +13,7 @@ const isSSR = Boolean(process.env.REACT_SSR);
  * @nodeSpecException:toDOM patch
  * @returns
  */
-export const emojiNodeSpec = () => {
+export const emojiNodeSpec = (): NodeSpec => {
 	const emojiNode = fg('platform_editor_adf_with_localid') ? emojiWithLocalId : emoji;
 	if (isSSR) {
 		return emojiNode;

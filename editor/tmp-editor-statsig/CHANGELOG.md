@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 35.10.0
+
+### Minor Changes
+
+- [`71de71e52182e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71de71e52182e) -
+  Remove @atlaskit/editor-plugin-ncs-metrics
+- [`71de71e52182e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71de71e52182e) -
+  Add experiment platform_editor_remove_collab_step_metrics which removes step metrics writes to
+  local storage from collab edit plugin
+- [`8184c046099e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8184c046099e5) -
+  Fixed bug where it wasn't possible to paste before a block node when the block node was the first
+  node in an editor document.
+
+### Patch Changes
+
+- [`bf1bed54d14bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf1bed54d14bd) -
+  Remove platform_editor_safe_url_trim_fix feature flag
+- Updated dependencies
+
 ## 35.9.0
 
 ### Minor Changes

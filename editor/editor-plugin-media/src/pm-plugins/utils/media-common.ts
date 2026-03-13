@@ -285,7 +285,7 @@ const getMediaInlineNodeFromSelection = (state: EditorState): PMNode | null => {
 	return mediaNode;
 };
 
-export const isMediaSingleOrInlineNodeSelected = (state: EditorState) => {
+export const isMediaSingleOrInlineNodeSelected = (state: EditorState): boolean | undefined => {
 	const { allowInlineImages } = getMediaPluginState(state);
 	return (
 		isSelectionMediaSingleNode(state) || (allowInlineImages && isSelectionMediaInlineNode(state))
@@ -365,7 +365,7 @@ export const getIdentifier = (attrs: MediaADFAttrs): Identifier => {
 	}
 };
 
-export const extractMediaNodes = (doc: ProseMirrorNode) => {
+export const extractMediaNodes = (doc: ProseMirrorNode): PMNode[] => {
 	const mediaNodes: ProseMirrorNode[] = [];
 	doc.descendants((node) => {
 		if (node.type.name === 'media' || node.type.name === 'mediaInline') {

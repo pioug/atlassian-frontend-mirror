@@ -12,11 +12,18 @@ import {
 	useRef,
 	memo,
 	useCallback,
+	type ComponentType,
+	type FC,
 } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { N300 } from '@atlaskit/theme/colors';
-import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import {
+	FormattedMessage,
+	injectIntl,
+	type WithIntlProps,
+	type WrappedComponentProps,
+} from 'react-intl-next';
 import TextField from '@atlaskit/textfield';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import AkButton from '@atlaskit/button/standard-button';
@@ -437,6 +444,9 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 	return disableFocusLock ? content : <FocusLock noFocusGuards>{content}</FocusLock>;
 };
 
-const EmojiUploadPickerComponent = injectIntl(memo(EmojiUploadPicker));
+// eslint-disable-next-line @typescript-eslint/ban-types
+const EmojiUploadPickerComponent: FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(memo(EmojiUploadPicker));
 
 export default EmojiUploadPickerComponent;

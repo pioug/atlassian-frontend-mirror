@@ -17,6 +17,7 @@ const options = [
 export default (): React.JSX.Element => {
 	return (
 		<PopupSelect
+			label="Choose city"
 			isSearchable={false}
 			options={options}
 			menuPlacement="bottom"

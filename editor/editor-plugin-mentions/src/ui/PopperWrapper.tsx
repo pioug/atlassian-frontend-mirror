@@ -21,7 +21,7 @@ interface Props {
 export const RepositionOnUpdate = ({
 	children,
 	update,
-}: PropsWithChildren<{ update: PopperChildrenProps['update'] }>) => {
+}: PropsWithChildren<{ update: PopperChildrenProps['update'] }>): React.ReactNode => {
 	// Ref used here to skip update on first render (when refs haven't been set)
 	const isFirstRenderRef = useRef<boolean>(true);
 

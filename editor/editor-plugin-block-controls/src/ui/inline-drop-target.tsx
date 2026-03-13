@@ -6,7 +6,7 @@
  */
 import { type CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -120,7 +120,7 @@ export const InlineDropTarget = ({
 }: DropTargetProps & {
 	anchorRectCache?: AnchorRectCache;
 	position: 'left' | 'right';
-}) => {
+}): jsx.JSX.Element => {
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 

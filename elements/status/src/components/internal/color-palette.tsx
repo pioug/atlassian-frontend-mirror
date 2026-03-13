@@ -116,7 +116,13 @@ interface ColorPaletteProps {
 	selectedColor?: ColorType;
 }
 
-export default ({ cols = 7, onClick, selectedColor, className, onHover }: ColorPaletteProps) => {
+export default ({
+	cols = 7,
+	onClick,
+	selectedColor,
+	className,
+	onHover,
+}: ColorPaletteProps): JSX.Element => {
 	const palette = getPalette();
 	const colorRefs: React.MutableRefObject<HTMLButtonElement[]> = useRef([]);
 	const [currentFocusedColor, setCurrentFocusedColor] = useState(0);

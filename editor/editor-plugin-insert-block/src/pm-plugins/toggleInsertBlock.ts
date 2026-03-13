@@ -5,11 +5,10 @@ type ToggleInsertBlockPmPluginState = {
 	showElementBrowser: boolean;
 };
 
-export const toggleInsertBlockPmKey = new PluginKey<ToggleInsertBlockPmPluginState>(
-	'toggleInsertBlockPmKey',
-);
+export const toggleInsertBlockPmKey: PluginKey<ToggleInsertBlockPmPluginState> =
+	new PluginKey<ToggleInsertBlockPmPluginState>('toggleInsertBlockPmKey');
 
-export const toggleInsertBlockPmPlugin = () =>
+export const toggleInsertBlockPmPlugin = (): SafePlugin<ToggleInsertBlockPmPluginState> =>
 	new SafePlugin<ToggleInsertBlockPmPluginState>({
 		key: toggleInsertBlockPmKey,
 		state: {

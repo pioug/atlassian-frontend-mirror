@@ -47,7 +47,7 @@ export const ScrollButton = ({
 	node,
 	disabled,
 	side,
-}: ScrollButtonProps) => {
+}: ScrollButtonProps): false | React.JSX.Element => {
 	const [needScroll, setNeedScroll] = useState(false);
 	const [canScrollToSide, setCanScrollToSide] = useState(true);
 

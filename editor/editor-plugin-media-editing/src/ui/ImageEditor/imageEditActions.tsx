@@ -24,7 +24,9 @@ const ASPECT_RATIOS: Record<AspectRatioOption, AspectRatioValue | null> = {
 	wide: { x: 16, y: 9 },
 };
 
-export const useImageAspectRatio = () => {
+export const useImageAspectRatio = (): {
+	getAspectRatioValue: (ratio: AspectRatioOption) => number | undefined;
+} => {
 	// no ratio = undefined = custom cropping selection
 	const getAspectRatioValue = (ratio: AspectRatioOption): number | undefined => {
 		const aspectRatioValue = ASPECT_RATIOS[ratio];
@@ -39,15 +41,20 @@ export const useImageAspectRatio = () => {
 	};
 };
 
-export const useImageFlip = (cropperRef: React.RefObject<CropperRef>) => {
-	const flipHorizontal = () => {
+export const useImageFlip = (
+	cropperRef: React.RefObject<CropperRef>,
+): {
+	flipHorizontal: () => void;
+	flipVertical: () => void;
+} => {
+	const flipHorizontal = (): void => {
 		const image = cropperRef.current?.getImage();
 		if (image?.$scale) {
 			image.$scale(-1, 1);
 		}
 	};
 
-	const flipVertical = () => {
+	const flipVertical = (): void => {
 		const image = cropperRef.current?.getImage();
 		if (image?.$scale) {
 			image.$scale(1, -1);
@@ -60,8 +67,12 @@ export const useImageFlip = (cropperRef: React.RefObject<CropperRef>) => {
 	};
 };
 
-export const useImageRotate = (cropperRef: React.RefObject<CropperRef>) => {
-	const rotateRight = () => {
+export const useImageRotate = (
+	cropperRef: React.RefObject<CropperRef>,
+): {
+	rotateRight: () => void;
+} => {
+	const rotateRight = (): void => {
 		const canvas = cropperRef.current?.getCanvas();
 		const image = cropperRef.current?.getImage();
 		if (!canvas || !image) {

@@ -1,6 +1,6 @@
 import { mention } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -12,7 +12,7 @@ const isSSR = Boolean(process.env.REACT_SSR);
  * @nodeSpecException:toDOM patch
  * @returns
  */
-export const mentionNodeSpec = () => {
+export const mentionNodeSpec = (): NodeSpec => {
 	if (isSSR) {
 		return mention;
 	}

@@ -20,7 +20,18 @@ type Formatting =
 type Pinning = 'none' | 'pinned';
 type ListOrAlignment = 'none' | 'left' | 'center' | 'right' | 'bulleted' | 'numbered';
 
-export const useExampleToolbarState = () => {
+export const useExampleToolbarState = (): {
+	textStyle: TextStyle;
+	onSetTextStyle: (style: TextStyle) => () => void;
+	formatting: Partial<Record<Formatting, boolean>>;
+	onToggleFormatting: (format: Formatting) => () => void;
+	listOrAlignment: ListOrAlignment;
+	onToggleListOrAlignment: (newListOrAlignment: ListOrAlignment) => () => void;
+	pinning: Pinning;
+	onTogglePinning: () => void;
+	onClick: (action: string, callback?: () => void) => () => void;
+	lastAction: string | null;
+} => {
 	const [textStyle, setTextStyle] = useState<TextStyle>('normal');
 	const [formatting, setFormatting] = useState<Partial<Record<Formatting, boolean>>>({});
 	const [listOrAlignment, setListOrAlignment] = useState<ListOrAlignment>('none');

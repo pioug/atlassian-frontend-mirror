@@ -5,7 +5,7 @@
 import type { ComponentClass, HTMLAttributes, ReactElement } from 'react';
 import { useCallback, useContext, useLayoutEffect, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
@@ -116,7 +116,7 @@ const InsertMenu = ({
 	onInsert,
 	toggleVisiblity,
 	pluginInjectionApi,
-}: InsertMenuProps) => {
+}: InsertMenuProps): jsx.JSX.Element => {
 	const [itemCount, setItemCount] = useState(0);
 	const [height, setHeight] = useState(DEFAULT_HEIGHT);
 	const { formatMessage } = useIntl();

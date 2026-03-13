@@ -6,7 +6,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 const pluginKey = new PluginKey('extensionUniqueIdPlugin');
 
-const createPlugin = () =>
+const createPlugin = (): SafePlugin =>
 	new SafePlugin({
 		appendTransaction: (transactions, _oldState, newState) => {
 			const tr = newState.tr;

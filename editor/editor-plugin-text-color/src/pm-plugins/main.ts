@@ -73,7 +73,9 @@ export enum ACTIONS {
 	SET_PALETTE,
 }
 
-export const pluginKey = new PluginKey<TextColorPluginState>('textColorPlugin');
+export const pluginKey: PluginKey<TextColorPluginState> = new PluginKey<TextColorPluginState>(
+	'textColorPlugin',
+);
 
 export function createPlugin(dispatch: Dispatch, pluginConfig?: TextColorPluginConfig): SafePlugin {
 	return new SafePlugin({

@@ -209,7 +209,7 @@ export const getLinkAppearanceDropdown = ({
 }: LinkToolbarAppearanceProps & {
 	allowDatasource?: boolean;
 	settingsConfig: FloatingToolbarItem<Command>;
-}) => {
+}): FloatingToolbarDropdown<Command> => {
 	const alignmentItemOptions: DropdownOptions<Command> = {
 		render: (props) => {
 			return (

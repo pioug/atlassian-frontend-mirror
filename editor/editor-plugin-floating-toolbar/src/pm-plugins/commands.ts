@@ -21,7 +21,7 @@ export const copyNode =
 		editorAnalyticsApi?: EditorAnalyticsAPI | undefined,
 		inputMethod?: INPUT_METHOD,
 	) =>
-	({ tr }: { tr: Transaction }) => {
+	({ tr }: { tr: Transaction }): Transaction => {
 		// const { tr, schema } = state;
 
 		// This command should only be triggered by the Copy button in the floating toolbar

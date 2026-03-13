@@ -285,7 +285,7 @@ export const isSupportedSourceNode = (schema: Schema, selection: Selection): boo
 	);
 };
 
-export const changeInDepth = (before: ResolvedPos, after: ResolvedPos) =>
+export const changeInDepth = (before: ResolvedPos, after: ResolvedPos): number =>
 	after.depth - before.depth;
 
 export const createListAtSelection = (
@@ -393,9 +393,11 @@ export const createListAtSelection = (
 	return safeInsert(emptyList)(tr);
 };
 
-export const setProvider = (provider?: TaskDecisionProvider) => (tr: Transaction) => {
-	return tr.setMeta(stateKey, {
-		action: ACTIONS.SET_PROVIDER,
-		data: provider,
-	});
-};
+export const setProvider =
+	(provider?: TaskDecisionProvider) =>
+	(tr: Transaction): Transaction => {
+		return tr.setMeta(stateKey, {
+			action: ACTIONS.SET_PROVIDER,
+			data: provider,
+		});
+	};

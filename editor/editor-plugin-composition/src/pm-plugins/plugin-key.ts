@@ -5,4 +5,6 @@ export interface CompositionPluginState {
 	zeroWidthSpacePos?: number;
 }
 
-export const pluginKey = new PluginKey<CompositionPluginState>('compositionPlugin');
+export const pluginKey: PluginKey<CompositionPluginState> = new PluginKey<CompositionPluginState>(
+	'compositionPlugin',
+);

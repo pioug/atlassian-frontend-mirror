@@ -43,7 +43,7 @@ const convertedNodes = new WeakMap<Node, Fragment | PMNode>();
 // This reverted mapping is used to map Unsupported Node back to it's original cxhtml
 const convertedNodesReverted = new WeakMap<Fragment | PMNode, Node>();
 
-export default function (cxhtml: string, schema: Schema) {
+export default function (cxhtml: string, schema: Schema): PMNode {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const dom = parseCxhtml(cxhtml).querySelector('body')!;

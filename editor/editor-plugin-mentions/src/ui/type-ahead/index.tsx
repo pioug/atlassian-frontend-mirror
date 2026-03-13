@@ -291,7 +291,7 @@ export const createTypeAheadConfig = ({
 	HighlightComponent,
 	api,
 	handleMentionsChanged,
-}: Props) => {
+}: Props): TypeAheadHandler => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	let sessionId = uuid();
 	let firstQueryWithoutResults: string | null = null;

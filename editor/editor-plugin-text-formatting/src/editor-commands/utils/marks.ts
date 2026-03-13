@@ -85,7 +85,7 @@ export const nextApplyMarkOnRange = (
 	mark: Mark,
 	tr: Transaction,
 	api: ExtractInjectionAPI<TextFormattingPlugin> | undefined,
-) => {
+): Transaction => {
 	const { schema } = tr.doc.type;
 	const { code } = schema.marks;
 

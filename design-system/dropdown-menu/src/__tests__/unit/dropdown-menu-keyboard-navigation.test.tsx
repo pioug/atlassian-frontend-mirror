@@ -3,7 +3,14 @@ import React, { useEffect } from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { replaceRaf, type Stub } from 'raf-stub';
 
-import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
+import {
+	KEY_DOWN,
+	KEY_END,
+	KEY_HOME,
+	KEY_LEFT,
+	KEY_RIGHT,
+	KEY_UP,
+} from '@atlaskit/ds-lib/keycodes';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 
@@ -487,6 +494,124 @@ describe('dropdown menu keyboard navigation', () => {
 		openDropdownWithKeydown(screen.getByTestId(`${testId}--trigger`));
 		expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
 		expect(onOpenChange).not.toHaveBeenCalled();
+	});
+
+	describe('Left and Right arrow navigation (ARIA)', () => {
+		it('should NOT close the root menu when Left arrow is pressed (no navigation within menu)', () => {
+			render(
+				<DropdownMenu trigger={triggerText} testId={testId}>
+					<DropdownItemGroup>
+						{items.map((text) => (
+							<DropdownItem key={text}>{text}</DropdownItem>
+						))}
+					</DropdownItemGroup>
+				</DropdownMenu>,
+			);
+
+			openDropdownWithKeydown(screen.getByTestId(`${testId}--trigger`));
+			expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+
+			const firstMenuItem = screen.getAllByRole('menuitem')[0];
+			fireEvent.keyDown(firstMenuItem, {
+				key: KEY_LEFT,
+				code: KEY_LEFT,
+			});
+			requestAnimationFrame.step();
+
+			// Root menu stays open; Left does not navigate within menu
+			expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+		});
+
+		it('should open nested menu when Right arrow is pressed on nested trigger', () => {
+			const NestedDropdown = ({ level = 0 }: { level?: number }) => (
+				<DropdownMenu
+					shouldRenderToParent
+					placement="right-start"
+					testId={`nested-${level}`}
+					trigger={({ triggerRef, ...triggerProps }) => (
+						<DropdownItem {...triggerProps} ref={triggerRef}>
+							Nested Menu
+						</DropdownItem>
+					)}
+				>
+					<DropdownItemGroup>
+						<NestedDropdown level={level + 1} />
+						<DropdownItem testId={`nested-item-${level + 1}`}>Item</DropdownItem>
+					</DropdownItemGroup>
+				</DropdownMenu>
+			);
+
+			render(
+				<DropdownMenu trigger={triggerText} testId={testId}>
+					<DropdownItemGroup>
+						<NestedDropdown level={1} />
+						<DropdownItem>Regular item</DropdownItem>
+					</DropdownItemGroup>
+				</DropdownMenu>,
+			);
+
+			openDropdownWithKeydown(screen.getByTestId(`${testId}--trigger`));
+			expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+
+			// Focus the nested trigger (first menuitem)
+			const nestedTrigger = screen.getByText('Nested Menu');
+			nestedTrigger.focus();
+			requestAnimationFrame.step();
+
+			fireEvent.keyDown(nestedTrigger, {
+				key: KEY_RIGHT,
+				code: KEY_RIGHT,
+			});
+			requestAnimationFrame.flush();
+
+			expect(screen.getByTestId('nested-1--content')).toBeInTheDocument();
+		});
+
+		it('should close nested menu and return focus to parent trigger when Left arrow is pressed', () => {
+			const NestedDropdown = ({ level = 0 }: { level?: number }) => (
+				<DropdownMenu
+					shouldRenderToParent
+					placement="right-start"
+					testId={`nested-${level}`}
+					trigger={({ triggerRef, ...triggerProps }) => (
+						<DropdownItem {...triggerProps} ref={triggerRef}>
+							Nested Menu
+						</DropdownItem>
+					)}
+				>
+					<DropdownItemGroup>
+						<DropdownItem testId={`nested-item-${level + 1}`}>Nested item</DropdownItem>
+					</DropdownItemGroup>
+				</DropdownMenu>
+			);
+
+			render(
+				<DropdownMenu trigger={triggerText} testId={testId}>
+					<DropdownItemGroup>
+						<NestedDropdown level={1} />
+					</DropdownItemGroup>
+				</DropdownMenu>,
+			);
+
+			openDropdownWithKeydown(screen.getByTestId(`${testId}--trigger`));
+			const parentNestedTrigger = screen.getByText('Nested Menu');
+			fireEvent.click(parentNestedTrigger, { clientX: 1, clientY: 1, detail: 1 });
+			requestAnimationFrame.step();
+
+			expect(screen.getByTestId('nested-1--content')).toBeInTheDocument();
+
+			const nestedMenuItem = screen.getByText('Nested item');
+			nestedMenuItem.focus();
+
+			fireEvent.keyDown(nestedMenuItem, {
+				key: KEY_LEFT,
+				code: KEY_LEFT,
+			});
+			requestAnimationFrame.step();
+
+			expect(screen.queryByTestId('nested-1--content')).not.toBeInTheDocument();
+			expect(screen.getByTestId('nested-1--trigger')).toHaveFocus();
+		});
 	});
 
 	describe('shouldPreventEscapePropagation', () => {

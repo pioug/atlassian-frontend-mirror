@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 /* eslint-disable no-console */
 import React from 'react';
@@ -98,7 +98,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
 	}
 }
 
-export default () => (
+export default (): jsx.JSX.Element => (
 	<EditorContext>
 		<WithEditorActions render={(actions) => <TransformerPanels actions={actions} />} />
 	</EditorContext>

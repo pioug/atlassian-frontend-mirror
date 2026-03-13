@@ -246,4 +246,5 @@ export const codeBlockNodeView = (
 	getPos: getPosHandler,
 	formattedAriaLabel: string,
 	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
-) => new CodeBlockView(node, view, getPos as getPosHandlerNode, formattedAriaLabel, api);
+): CodeBlockView =>
+	new CodeBlockView(node, view, getPos as getPosHandlerNode, formattedAriaLabel, api);

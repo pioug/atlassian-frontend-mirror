@@ -15,7 +15,7 @@ export class StepQueueState {
 		this.queue = orderedQueue;
 	}
 
-	getQueue = () => {
+	getQueue = (): StepsPayload[] => {
 		return this.queue;
 	};
 
@@ -36,7 +36,7 @@ export class StepQueueState {
 		this.queuePaused = false;
 	};
 
-	shift = () => {
+	shift = (): StepsPayload | undefined => {
 		return this.queue.shift();
 	};
 }

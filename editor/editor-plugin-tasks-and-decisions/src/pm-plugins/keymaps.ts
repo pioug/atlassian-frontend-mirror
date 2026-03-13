@@ -157,7 +157,7 @@ const joinTaskDecisionFollowing: Command = (state, dispatch) => {
 
 export const getUnindentCommand =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD) =>
+	(inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD): Command =>
 		filter(isInsideTask, (state, dispatch) => {
 			const normalizedSelection = normalizeTaskItemsSelection(state.selection);
 
@@ -189,7 +189,7 @@ const shouldLetTabThroughInTable = (state: EditorState) => {
 
 export const getIndentCommand =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD) =>
+	(inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD): Command =>
 		filter(isInsideTask, (state, dispatch) => {
 			const normalizedSelection = normalizeTaskItemsSelection(state.selection);
 			const curIndentLevel = getCurrentIndentLevel(normalizedSelection);

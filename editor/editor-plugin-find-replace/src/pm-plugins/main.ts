@@ -26,7 +26,7 @@ export const createPlugin = (
 	dispatch: Dispatch,
 	getIntl: PMPluginFactoryParams['getIntl'],
 	api?: ExtractInjectionAPI<FindReplacePlugin>,
-) => {
+): SafePlugin<FindReplacePluginState> => {
 	return new SafePlugin({
 		key: findReplacePluginKey,
 		state: createPluginState(dispatch, () =>

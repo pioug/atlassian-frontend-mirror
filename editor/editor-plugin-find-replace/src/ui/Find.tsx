@@ -9,7 +9,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import rafSchd from 'raf-schd';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
@@ -305,4 +305,66 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 	}
 }
 
-export default injectIntl(Find);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<
+	WithIntlProps<
+		{
+			count: { index: number; total: number };
+			findText?: string;
+			findTyped: boolean;
+			onArrowDown: () => void;
+			onCancel: ({
+				triggerMethod,
+			}: {
+				triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.BUTTON;
+			}) => void;
+			onFind: (findText?: string) => void;
+			onFindBlur: () => void;
+			onFindNext: ({
+				triggerMethod,
+			}: {
+				triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
+			}) => void;
+			onFindPrev: ({
+				triggerMethod,
+			}: {
+				triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
+			}) => void;
+			onFindTextfieldRefSet: (ref: React.RefObject<HTMLInputElement>) => void;
+			setFindTyped: (value: boolean) => void;
+			shouldFocus: boolean;
+		} & MatchCaseProps &
+			WrappedComponentProps
+	>
+> & {
+	WrappedComponent: React.ComponentType<
+		{
+			count: { index: number; total: number };
+			findText?: string;
+			findTyped: boolean;
+			onArrowDown: () => void;
+			onCancel: ({
+				triggerMethod,
+			}: {
+				triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.BUTTON;
+			}) => void;
+			onFind: (findText?: string) => void;
+			onFindBlur: () => void;
+			onFindNext: ({
+				triggerMethod,
+			}: {
+				triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
+			}) => void;
+			onFindPrev: ({
+				triggerMethod,
+			}: {
+				triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.BUTTON;
+			}) => void;
+			onFindTextfieldRefSet: (ref: React.RefObject<HTMLInputElement>) => void;
+			setFindTyped: (value: boolean) => void;
+			shouldFocus: boolean;
+		} & MatchCaseProps &
+			WrappedComponentProps
+	>;
+} = injectIntl(Find);
+export default _default_1;

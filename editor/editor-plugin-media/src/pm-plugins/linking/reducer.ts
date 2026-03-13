@@ -2,7 +2,7 @@ import type { MediaLinkingActions } from './actions';
 import { MediaLinkingActionsTypes } from './actions';
 import type { MediaLinkingState } from './types';
 
-export default (state: MediaLinkingState, action: MediaLinkingActions) => {
+export default (state: MediaLinkingState, action: MediaLinkingActions): MediaLinkingState => {
 	switch (action.type) {
 		case MediaLinkingActionsTypes.showToolbar: {
 			return {

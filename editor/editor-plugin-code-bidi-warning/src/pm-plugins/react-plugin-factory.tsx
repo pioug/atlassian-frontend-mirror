@@ -5,15 +5,31 @@ import uuid from 'uuid/v4';
 
 import CodeBidiWarning from '@atlaskit/code/bidi-warning';
 import codeBidiWarningDecorator from '@atlaskit/code/bidi-warning-decorator';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { Command } from '@atlaskit/editor-common/types';
 import { pluginFactory, stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState, Transaction, SafeStateField } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { codeBidiWarningPluginKey } from './plugin-key';
 import reducer from './reducer';
+import type { CodeBidiWarningPluginState } from './types';
 
-export const pluginFactoryCreator = (nodeViewPortalProviderAPI: PortalProviderAPI) =>
+export const pluginFactoryCreator = (
+	nodeViewPortalProviderAPI: PortalProviderAPI,
+): {
+	createCommand: <A = unknown>(
+		action: A | ((state: Readonly<EditorState>) => false | A),
+		transform?: (tr: Transaction, state: EditorState) => Transaction,
+	) => Command;
+	createPluginState: (
+		dispatch: Dispatch,
+		initialState: CodeBidiWarningPluginState | ((state: EditorState) => CodeBidiWarningPluginState),
+	) => SafeStateField<CodeBidiWarningPluginState>;
+	getPluginState: (state: EditorState) => CodeBidiWarningPluginState;
+} =>
 	pluginFactory(codeBidiWarningPluginKey, reducer, {
 		onDocChanged: (tr, pluginState) => {
 			if (!tr.steps.find(stepHasSlice)) {
@@ -41,7 +57,7 @@ export function createBidiWarningsDecorationSetFromDoc({
 	doc: PmNode;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
 	tooltipEnabled: boolean;
-}) {
+}): DecorationSet {
 	const bidiCharactersAndTheirPositions: {
 		bidiCharacter: string;
 		position: number;

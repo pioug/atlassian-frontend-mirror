@@ -53,7 +53,7 @@ function MainContentBorderExample({
 	isCustomThemeEnabled?: boolean;
 	isSideNavCollapsed?: boolean;
 	defaultIsFullScreen?: boolean;
-}) {
+}): JSX.Element {
 	const [isCustomThemeEnabled, setIsCustomThemeEnabled] = useState(defaultIsCustomThemeEnabled);
 	const [isFullscreen, setIsFullscreen] = useState(defaultIsFullScreen);
 

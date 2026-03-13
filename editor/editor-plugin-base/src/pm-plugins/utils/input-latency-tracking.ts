@@ -53,7 +53,7 @@ export default class InputLatencyTracker {
 		this.onSlowInput = onSlowInput;
 	}
 
-	start() {
+	start(): () => void {
 		const currentStart = performance.now();
 
 		if (this.samples.length + 1 === this.samplingRate) {

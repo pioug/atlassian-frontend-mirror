@@ -6,7 +6,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { Command } from '../types/command';
 
-export const newlinePreserveMarksKey = new PluginKey('newlinePreserveMarksPlugin');
+export const newlinePreserveMarksKey: PluginKey = new PluginKey('newlinePreserveMarksPlugin');
 
 const isSelectionAligned = (state: EditorState): boolean =>
 	!!state.selection.$to.parent.marks.find((m) => m.type === state.schema.marks.alignment);
@@ -18,7 +18,7 @@ const splitBlockPreservingMarks: Command = (state, dispatch): boolean => {
 	return true;
 };
 
-export default () =>
+export default (): SafePlugin =>
 	new SafePlugin({
 		key: newlinePreserveMarksKey,
 		props: {

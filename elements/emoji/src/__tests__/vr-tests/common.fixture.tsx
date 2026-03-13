@@ -13,7 +13,7 @@ import { type EmojiDescription, type ImageRepresentation } from '../../types';
 
 const wrapperStyles = css({ width: '350px' });
 
-export const EmojiDeletePreview = () => {
+export const EmojiDeletePreview = (): JSX.Element => {
 	const blueStar = testingEmojis.emojis[2] as EmojiDescription;
 	return (
 		<div css={wrapperStyles}>
@@ -26,7 +26,7 @@ export const EmojiDeletePreview = () => {
 	);
 };
 
-export const EmojiUploadPreview = () => {
+export const EmojiUploadPreview = (): JSX.Element => {
 	const blueStar = testingEmojis.emojis[2] as EmojiDescription;
 	const imagePath = (blueStar.representation as ImageRepresentation).imagePath;
 
@@ -42,7 +42,7 @@ export const EmojiUploadPreview = () => {
 	);
 };
 
-export const EmojiUploadPickerWithoutName = () => {
+export const EmojiUploadPickerWithoutName = (): JSX.Element => {
 	return (
 		<div css={wrapperStyles}>
 			<EmojiUploadPicker
@@ -54,7 +54,7 @@ export const EmojiUploadPickerWithoutName = () => {
 	);
 };
 
-export const EmojiUploadPickerWithName = () => {
+export const EmojiUploadPickerWithName = (): JSX.Element => {
 	return (
 		<div css={wrapperStyles}>
 			<EmojiUploadPicker

@@ -57,7 +57,12 @@ const selector = (
 	};
 };
 
-export default function PickerFacadeProvider({ api, analyticsName, children }: Props) {
+export default function PickerFacadeProvider({
+	api,
+	analyticsName,
+	children,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+}: Props): React.ReactElement<any, string | React.JSXElementConstructor<any>> | null {
 	const [state, setState] = useState<State>({
 		pickerFacadeInstance: undefined,
 		config: undefined,

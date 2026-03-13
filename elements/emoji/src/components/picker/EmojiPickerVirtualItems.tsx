@@ -51,7 +51,7 @@ export class EmojisRowItem extends AbstractItem<EmojiRowProps> {
 		super(props, sizes.emojiRowHeight);
 	}
 
-	renderItem = (context?: VirtualItemContext) => (
+	renderItem = (context?: VirtualItemContext): JSX.Element => (
 		<EmojiPickerEmojiRow {...this.props} virtualItemContext={context} />
 	);
 }
@@ -61,7 +61,7 @@ export class LoadingItem extends AbstractItem<{}> {
 		super({}, sizes.loadingRowHeight);
 	}
 
-	renderItem = () => (
+	renderItem = (): JSX.Element => (
 		<div css={emojiPickerSpinner}>
 			<div>
 				<Spinner size="medium" />
@@ -75,13 +75,13 @@ export class CategoryHeadingItem extends AbstractItem<CategoryHeadingProps> {
 		super(props, sizes.categoryHeadingHeight);
 	}
 
-	renderItem = () => <EmojiPickerCategoryHeading {...this.props} />;
+	renderItem = (): JSX.Element => <EmojiPickerCategoryHeading {...this.props} />;
 }
 
 export const virtualItemRenderer = (
 	rows: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>[],
 	context: VirtualItemContext,
-) => {
+): JSX.Element => {
 	const { index, key } = context;
 	const row: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}> = rows[index];
 	return <div key={key}>{row && row.renderItem(context)}</div>;

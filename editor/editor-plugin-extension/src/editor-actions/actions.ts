@@ -40,7 +40,7 @@ export const buildExtensionNode = <S extends Schema>(
 	attrs: object,
 	content?: Fragment,
 	marks?: readonly Mark[],
-) => {
+): PmNode => {
 	switch (type) {
 		case 'extension':
 			return schema.nodes.extension.createChecked(attrs, content, marks);

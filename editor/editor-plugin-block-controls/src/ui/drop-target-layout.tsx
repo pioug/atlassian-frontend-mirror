@@ -4,7 +4,7 @@
  */
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import { type IntlShape } from 'react-intl-next';
 
@@ -57,7 +57,7 @@ export const DropTargetLayout = (
 	props: DropTargetLayoutProps & {
 		anchorRectCache?: AnchorRectCache;
 	},
-) => {
+): jsx.JSX.Element | null => {
 	const { api, getPos, parent, anchorRectCache } = props;
 
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -156,7 +156,7 @@ export const DropTargetLayoutNativeAnchorSupport = (
 	props: DropTargetLayoutProps & {
 		anchorRectCache?: AnchorRectCache;
 	},
-) => {
+): jsx.JSX.Element | null => {
 	const { api, getPos, parent, anchorRectCache } = props;
 
 	const ref = useRef<HTMLDivElement | null>(null);

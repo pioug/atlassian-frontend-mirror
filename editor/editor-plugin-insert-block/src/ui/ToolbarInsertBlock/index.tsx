@@ -5,9 +5,9 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
+import { css, jsx, type SerializedStyles } from '@emotion/react';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import {
@@ -79,7 +79,7 @@ export const tableButtonWrapper = ({
 }: {
 	isButtonDisabled: boolean | undefined;
 	isTableSelectorOpen: boolean;
-}) =>
+}): SerializedStyles =>
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation due to mixins
 	css`
 		display: flex;
@@ -434,7 +434,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		}
 	};
 
-	render() {
+	render(): jsx.JSX.Element | null {
 		const { buttons, dropdownItems, emojiPickerOpen, isTableSelectorOpen } = this.state;
 		const { isDisabled, isReducedSpacing, editorAppearance } = this.props;
 		const isFullPageAppearance = ['full-page', 'full-width'].includes(editorAppearance ?? '');
@@ -870,4 +870,8 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		});
 }
 
-export default injectIntl(ToolbarInsertBlock);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ToolbarInsertBlock);
+export default _default_1;

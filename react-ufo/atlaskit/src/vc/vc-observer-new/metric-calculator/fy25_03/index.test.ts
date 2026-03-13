@@ -4,6 +4,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expVal } from '../../../expVal';
 import type { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../../types';
 import {
+	DARK_READER_BROWSER_EXTENSION_ATTRIBUTES,
 	KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS,
 	NON_VISUAL_ARIA_ATTRIBUTES,
 } from '../utils/constants';
@@ -541,6 +542,115 @@ describe('VCCalculator_FY25_03', () => {
 						rect: new DOMRect(),
 						visible: true,
 					},
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+		});
+	});
+
+	describe('dark reader extension attribute filtering for mutation:attribute entries', () => {
+		describe('when both platform_ufo_exclude_dark_reader_extension and platform_ufo_exclude_3p_extensions_from_ttvc are true', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(
+					(flag: string) =>
+						flag === 'platform_ufo_exclude_dark_reader_extension' ||
+						flag === 'platform_ufo_exclude_3p_extensions_from_ttvc',
+				);
+			});
+
+			describe.each(DARK_READER_BROWSER_EXTENSION_ATTRIBUTES)(
+				'when entry has %s attribute',
+				(att) => {
+					it('should return false', () => {
+						const entry: VCObserverEntry = {
+							time: 0,
+							data: {
+								type: 'mutation:attribute',
+								elementName: 'div',
+								rect: new DOMRect(),
+								visible: true,
+								attributeName: att,
+							} as ViewportEntryData,
+						};
+						expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+					});
+				},
+			);
+
+			it('should still include other mutation:attribute entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'class',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+		});
+
+		describe('when only platform_ufo_exclude_dark_reader_extension is true', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(
+					(flag: string) => flag === 'platform_ufo_exclude_dark_reader_extension',
+				);
+			});
+
+			it('should exclude dark reader attributes independently of platform_ufo_exclude_3p_extensions_from_ttvc', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'data-darkreader-inline-color',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+		});
+
+		describe('when only platform_ufo_exclude_3p_extensions_from_ttvc is true', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(
+					(flag: string) => flag === 'platform_ufo_exclude_3p_extensions_from_ttvc',
+				);
+			});
+
+			it('should include dark reader attributes when platform_ufo_exclude_dark_reader_extension is false', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'data-darkreader-inline-color',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+		});
+
+		describe('when both flags are false', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(() => false);
+			});
+
+			it('should include dark reader attributes', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'data-darkreader-inline-color',
+					} as ViewportEntryData,
 				};
 				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
 			});

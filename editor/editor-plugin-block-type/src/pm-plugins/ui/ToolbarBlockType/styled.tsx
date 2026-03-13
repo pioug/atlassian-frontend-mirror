@@ -21,7 +21,7 @@ export const blockTypeMenuItemStyle = (
 		? `${tagName} { color: ${token('color.text', fg('platform_editor_updated_block_type_colors_a11y') ? '#292A2E' : 'white')} !important; }`
 		: '';
 
-	return () =>
+	return (): SerializedStyles =>
 		css(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			tagName === 'blockquote' ? blockquoteSharedStyles : headingsSharedStyles(typographyTheme),

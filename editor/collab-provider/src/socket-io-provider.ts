@@ -89,6 +89,6 @@ export function createSocketIOSocket(
 	return client;
 }
 
-export function createSocketIOCollabProvider(config: Omit<Config, 'createSocket'>) {
+export function createSocketIOCollabProvider(config: Omit<Config, 'createSocket'>): Provider {
 	return new Provider({ ...config, createSocket: createSocketIOSocket });
 }

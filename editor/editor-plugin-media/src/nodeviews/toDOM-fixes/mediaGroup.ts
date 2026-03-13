@@ -1,5 +1,11 @@
 import { mediaGroup } from '@atlaskit/adf-schema';
-import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
+import type {
+	AttributeSpec,
+	DOMOutputSpec,
+	Node,
+	TagParseRule,
+} from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 /**
  * Duplicate consts from `media-card`.
@@ -57,7 +63,39 @@ export const getDefaultCardDimensions = (
 };
 
 // @nodeSpecException:toDOM patch
-export const mediaGroupSpecWithFixedToDOM = () => {
+export const mediaGroupSpecWithFixedToDOM = (): {
+	toDOM: () => DOMOutputSpec;
+	content?: string;
+	marks?: string;
+	group?: string;
+	inline?: boolean;
+	atom?: boolean;
+	attrs?: {
+		[name: string]: AttributeSpec;
+	};
+	selectable?: boolean;
+	draggable?: boolean;
+	code?: boolean;
+	whitespace?: 'pre' | 'normal';
+	definingAsContext?: boolean;
+	definingForContent?: boolean;
+	defining?: boolean;
+	isolating?: boolean;
+	parseDOM?: readonly TagParseRule[];
+	toDebugString?: (node: Node) => string;
+	leafText?: (node: Node) => string;
+	linebreakReplacement?: boolean;
+	disableDropCursor?:
+		| boolean
+		| ((
+				view: EditorView,
+				pos: {
+					pos: number;
+					inside: number;
+				},
+				event: DragEvent,
+		  ) => boolean);
+} => {
 	return {
 		...mediaGroup,
 		toDOM: (): DOMOutputSpec => {

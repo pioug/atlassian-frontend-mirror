@@ -42,6 +42,9 @@
 			"path": "../../spinner/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../tag/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-products/tsconfig.json"
 		}
 	]

@@ -2,9 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import type { ComponentType, FC } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -45,7 +47,7 @@ export const ToolbarUndoRedo = ({
 	editorView,
 	api,
 	intl: { formatMessage },
-}: Props & WrappedComponentProps) => {
+}: Props & WrappedComponentProps): jsx.JSX.Element => {
 	const { canRedo, canUndo } = useSharedPluginStateWithSelector(api, ['history'], (states) => ({
 		canUndo: states.historyState?.canUndo,
 		canRedo: states.historyState?.canRedo,
@@ -100,4 +102,8 @@ export const ToolbarUndoRedo = ({
 	);
 };
 
-export default injectIntl(ToolbarUndoRedo);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ToolbarUndoRedo);
+export default _default_1;

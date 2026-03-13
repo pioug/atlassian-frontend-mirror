@@ -1,6 +1,12 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+	agentAvatarLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	agentAvatarLabel: {
 		id: 'ai-mate.agent-avatar-label',
 		defaultMessage: 'Agent avatar',

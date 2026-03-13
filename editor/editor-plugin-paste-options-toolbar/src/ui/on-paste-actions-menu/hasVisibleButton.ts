@@ -14,12 +14,24 @@ const isComponentOrAncestorHidden = (
 };
 
 /**
+ * Returns the keys of visible button/menu-item components in the list.
+ * A component is visible when neither it nor any of its ancestors are hidden.
+ */
+export const getVisibleKeys = (
+	components: RegisterComponent[],
+	types: RegisterComponent['type'][] = ['menu-item'],
+): string[] => {
+	const componentsByKey = new Map(components.map((c) => [c.key, c]));
+	return components
+		.filter((c) => types.includes(c.type))
+		.filter((c) => !isComponentOrAncestorHidden(c, componentsByKey))
+		.map((c) => c.key);
+};
+
+/**
  * Returns true when at least one menu-item button in the list is visible.
  * A button is visible when neither it nor any of its ancestors are hidden.
  */
 export const hasVisibleButton = (components: RegisterComponent[]): boolean => {
-	const componentsByKey = new Map(components.map((c) => [c.key, c]));
-	return components
-		.filter((c) => c.type === 'menu-item')
-		.some((c) => !isComponentOrAncestorHidden(c, componentsByKey));
+	return getVisibleKeys(components).length > 0;
 };

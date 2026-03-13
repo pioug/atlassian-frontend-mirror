@@ -8,7 +8,10 @@ import {
 	type DropResult,
 } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
 
-import withSortedPageRows, { type WithSortedPageRowsProps } from '../../hoc/with-sorted-page-rows';
+import withSortedPageRows, {
+	type TableProps,
+	type WithSortedPageRowsProps,
+} from '../../hoc/with-sorted-page-rows';
 import {
 	type HeadType,
 	type RankEnd,
@@ -150,8 +153,13 @@ export class RankableBody extends React.Component<RankableBodyProps, {}> {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default withSortedPageRows<RankableBodyProps>(
+const _default_1: React.ForwardRefExoticComponent<
+	Omit<RankableBodyProps & TableProps, 'pageRows'> & {
+		forwardedRef?: React.Ref<HTMLTableSectionElement> | undefined;
+	} & React.RefAttributes<HTMLTableSectionElement>
+> = withSortedPageRows<RankableBodyProps>(
 	React.forwardRef<HTMLTableSectionElement, RankableBodyProps>((props, ref) => {
 		return <RankableBody {...props} forwardedRef={ref} />;
 	}),
 );
+export default _default_1;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -63,4 +63,21 @@ const SelectionExtensionDropdownMenuComponent = React.memo(
 	},
 );
 
-export const SelectionExtensionDropdownMenu = injectIntl(SelectionExtensionDropdownMenuComponent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const SelectionExtensionDropdownMenu: React.FC<
+	WithIntlProps<
+		{
+			editorAnalyticsAPI?: EditorAnalyticsAPI;
+			items: MenuItemsType;
+			onItemActivated?: (attrs: { item: MenuItem; shouldCloseMenu?: boolean }) => void;
+		} & WrappedComponentProps
+	>
+> & {
+	WrappedComponent: React.ComponentType<
+		{
+			editorAnalyticsAPI?: EditorAnalyticsAPI;
+			items: MenuItemsType;
+			onItemActivated?: (attrs: { item: MenuItem; shouldCloseMenu?: boolean }) => void;
+		} & WrappedComponentProps
+	>;
+} = injectIntl(SelectionExtensionDropdownMenuComponent);

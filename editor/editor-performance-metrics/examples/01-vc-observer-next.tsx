@@ -273,7 +273,7 @@ const SideButton = ({
 	);
 };
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [inputValue, setInputValue] = useState('');
 	const [isLoading, setIsLoading] = useState(true);
 	const onButtonFinished = useCallback((i: number) => {

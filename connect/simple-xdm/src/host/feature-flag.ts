@@ -1,7 +1,7 @@
 // @ts-nocheck
 const allowedPlatformFeatureFlags = [];
 
-export function getPlatformFeatureFlags() {
+export function getPlatformFeatureFlags(): {} {
 	const flags = {};
 	if (window.connectHost && window.connectHost.getBooleanFeatureFlag) {
 		allowedPlatformFeatureFlags.forEach(

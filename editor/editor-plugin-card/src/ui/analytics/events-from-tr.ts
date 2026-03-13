@@ -29,7 +29,23 @@ import {
 /**
  * Find the links, smartLinks, datasources that were changed in a transaction
  */
-export const findChanged = (tr: Transaction | ReadonlyTransaction, state: EditorState) => {
+export const findChanged = (
+	tr: Transaction | ReadonlyTransaction,
+	state: EditorState,
+): {
+	removed: Entity[];
+	inserted: Entity[];
+	updated: (
+		| {
+				inserted: Entity;
+				removed: Entity;
+		  }
+		| {
+				inserted: Entity;
+				previous: { display?: string };
+		  }
+	)[];
+} => {
 	const schema = tr.doc.type.schema;
 	const removed: Entity[] = [];
 	const inserted: Entity[] = [];

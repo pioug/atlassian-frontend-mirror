@@ -25,7 +25,10 @@ export const profileCardRenderer = ({
 	node: PMNode;
 	options?: MentionPluginOptions;
 	portalProviderAPI: PortalProviderAPI;
-}) => {
+}): {
+	destroyProfileCard: () => void;
+	removeProfileCard: () => void;
+} => {
 	let renderingProfileCard = false;
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();

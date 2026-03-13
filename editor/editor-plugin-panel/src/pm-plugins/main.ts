@@ -24,7 +24,7 @@ export const createPlugin = (
 	pluginOptions: PanelPluginOptions,
 	api: ExtractInjectionAPI<PanelPlugin> | undefined,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
-) => {
+): SafePlugin => {
 	const { useLongPressSelection = false } = pluginOptions;
 	return new SafePlugin({
 		key: pluginKey,

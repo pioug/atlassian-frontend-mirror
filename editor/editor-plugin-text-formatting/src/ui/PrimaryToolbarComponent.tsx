@@ -56,7 +56,18 @@ const selector = (
 	};
 };
 
-export const PrimaryToolbarComponent = React.memo(
+export const PrimaryToolbarComponent: React.MemoExoticComponent<
+	({
+		api,
+		popupsMountPoint,
+		popupsScrollableElement,
+		toolbarSize,
+		editorView,
+		disabled,
+		isReducedSpacing,
+		shouldUseResponsiveToolbar,
+	}: PrimaryToolbarComponentProps) => React.JSX.Element
+> = React.memo(
 	({
 		api,
 		popupsMountPoint,

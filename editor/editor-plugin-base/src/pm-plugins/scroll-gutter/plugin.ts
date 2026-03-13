@@ -50,7 +50,8 @@ export type ScrollGutterPluginOptions = {
 	persistScrollGutter?: boolean;
 };
 
-export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export default (pluginOptions: ScrollGutterPluginOptions = {}): SafePlugin<{}> | undefined => {
 	const { getScrollElement, gutterSize = GUTTER_SIZE_IN_PX } = pluginOptions;
 	if (!getScrollElement) {
 		return undefined;

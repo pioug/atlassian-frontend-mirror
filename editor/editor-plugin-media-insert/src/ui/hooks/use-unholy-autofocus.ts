@@ -12,12 +12,15 @@ import type { PopupPosition } from '@atlaskit/editor-common/ui';
  * We want to autofocus after the repositioning to ensure we don't scroll
  * to the top of the editor when the media picker is opened.
  */
-export const useUnholyAutofocus = () => {
+export const useUnholyAutofocus = (): {
+	autofocusRef: React.RefObject<HTMLButtonElement>;
+	onPositionCalculated: (position: PopupPosition) => PopupPosition;
+} => {
 	const autofocusRef = React.useRef<HTMLButtonElement>(null);
 	const positionRef = React.useRef<PopupPosition | null>(null);
 
 	const onPositionCalculated = React.useCallback(
-		(position: PopupPosition) => {
+		(position: PopupPosition): PopupPosition => {
 			if (positionRef.current === null) {
 				// Initial position is _always incorrect, so the first time this is set
 				// we're going to ignore it.

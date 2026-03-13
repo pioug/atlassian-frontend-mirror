@@ -85,7 +85,7 @@ export type CategoryMap = {
 	[id: string]: CategoryDescription;
 };
 
-export const sortCategories = (c1: CategoryGroupKey, c2: CategoryGroupKey) =>
+export const sortCategories = (c1: CategoryGroupKey, c2: CategoryGroupKey): number =>
 	CategoryDescriptionMap[c1].order - CategoryDescriptionMap[c2].order;
 
 const addNewCategories = (
@@ -104,7 +104,7 @@ export const categorySelectorComponentTestId = 'category-selector-component';
 export const categorySelectorCategoryTestId = (categoryId: string) =>
 	`category-selector-${categoryId}`;
 
-const CategorySelector = (props: Props) => {
+const CategorySelector = (props: Props): JSX.Element => {
 	const { disableCategories, dynamicCategories, activeCategoryId, onCategorySelected } = props;
 	const [categories, setCategories] = useState<CategoryId[]>(
 		addNewCategories(defaultCategories, dynamicCategories),

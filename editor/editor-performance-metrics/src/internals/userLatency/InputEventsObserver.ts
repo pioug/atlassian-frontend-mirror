@@ -51,7 +51,9 @@ export const processEntry = (entry: PerformanceEntry): InputEventType | null => 
 	};
 };
 
-export const createPerformanceObserver = (cb: (list: PerformanceObserverEntryList) => void) => {
+export const createPerformanceObserver = (
+	cb: (list: PerformanceObserverEntryList) => void,
+): PerformanceObserver => {
 	return new PerformanceObserver(cb);
 };
 

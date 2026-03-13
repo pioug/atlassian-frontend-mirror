@@ -13,6 +13,7 @@ export type {
 	EditorToolbarButtonAction,
 	EditorToolbarAction,
 	EditorToolbarHandler,
+	EditorToolbarHandlerContext,
 	EditorToolbarHandlerKey,
 	EditorToolbarHandlers,
 	NativeEmbedAppearance,

@@ -1,5 +1,12 @@
 # @atlaskit/icon
 
+## 32.0.1
+
+### Patch Changes
+
+- [`a788a4cabea12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a788a4cabea12) -
+  Add codemod to migrate icon spacing prop to Box primitive
+
 ## 32.0.0
 
 ### Major Changes

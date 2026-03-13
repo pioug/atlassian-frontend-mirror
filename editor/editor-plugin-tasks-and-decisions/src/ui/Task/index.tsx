@@ -1,7 +1,7 @@
 import type { ReactElement, Ref } from 'react';
 import React, { PureComponent } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
@@ -103,4 +103,8 @@ const TaskItemWrapper = (props: TaskProps & WrappedComponentProps) => {
 	return <TaskItem taskDecisionProvider={provider} {...props} />;
 };
 
-export default injectIntl(TaskItemWrapper);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<TaskProps & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<TaskProps & WrappedComponentProps>;
+} = injectIntl(TaskItemWrapper);
+export default _default_1;

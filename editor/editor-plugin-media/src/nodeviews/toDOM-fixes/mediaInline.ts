@@ -1,5 +1,11 @@
 import { mediaInline } from '@atlaskit/adf-schema';
-import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+	AttributeSpec,
+	DOMOutputSpec,
+	Node as PMNode,
+	TagParseRule,
+} from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 
 import { getMediaAttrs } from './toDOMAttrs';
@@ -9,7 +15,39 @@ const skeletonStyling = `background: ${token('color.background.neutral')};`;
 const fallbackAspectRatio = 1.25;
 
 // @nodeSpecException:toDOM patch
-export const mediaInlineSpecWithFixedToDOM = () => {
+export const mediaInlineSpecWithFixedToDOM = (): {
+	atom?: boolean;
+	attrs?: {
+		[name: string]: AttributeSpec;
+	};
+	code?: boolean;
+	content?: string;
+	defining?: boolean;
+	definingAsContext?: boolean;
+	definingForContent?: boolean;
+	disableDropCursor?:
+		| boolean
+		| ((
+				view: EditorView,
+				pos: {
+					inside: number;
+					pos: number;
+				},
+				event: DragEvent,
+		  ) => boolean);
+	draggable?: boolean;
+	group?: string;
+	inline?: boolean;
+	isolating?: boolean;
+	leafText?: (node: PMNode) => string;
+	linebreakReplacement?: boolean;
+	marks?: string;
+	parseDOM?: readonly TagParseRule[];
+	selectable?: boolean;
+	toDebugString?: (node: PMNode) => string;
+	toDOM: (node: PMNode) => DOMOutputSpec;
+	whitespace?: 'pre' | 'normal';
+} => {
 	return {
 		...mediaInline,
 		toDOM: (node: PMNode): DOMOutputSpec => {

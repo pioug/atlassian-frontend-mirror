@@ -6,7 +6,9 @@ import type { LanguageAlias } from '@atlaskit/code';
 type LanguageAliasValue = LanguageAlias[0];
 
 // getLanguageIdentifier defines `language.alias[0]`
-export const mapLanguageToCodeMirror = (language: LanguageAliasValue) => {
+export const mapLanguageToCodeMirror = (
+	language: LanguageAliasValue,
+): LanguageDescription | undefined => {
 	if (!language || language === 'none') {
 		return undefined;
 	}

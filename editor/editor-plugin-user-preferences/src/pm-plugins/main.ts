@@ -9,7 +9,7 @@ import type {
 	UserPreferencesPlugin,
 } from '../userPreferencesPluginType';
 
-export const userPreferencesPluginKey = new PluginKey('userPreferencesPlugin');
+export const userPreferencesPluginKey: PluginKey = new PluginKey('userPreferencesPlugin');
 
 type UserPreferencesPluginState = {
 	preferences: ResolvedUserPreferences;
@@ -18,7 +18,7 @@ type UserPreferencesPluginState = {
 export const createPlugin = (
 	pluginOptions: UserPreferencesPluginOptions,
 	_api: ExtractInjectionAPI<UserPreferencesPlugin> | undefined,
-) => {
+): SafePlugin<UserPreferencesPluginState> => {
 	const { userPreferencesProvider, initialUserPreferences } = pluginOptions;
 
 	const getInitialUserPreferences = (): ResolvedUserPreferences => {

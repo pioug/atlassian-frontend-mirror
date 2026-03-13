@@ -522,7 +522,7 @@ function getLayoutChange(node: Node, pos: number, schema: Schema): Change | unde
 	}
 }
 
-export const fixColumnSizes = (changedTr: Transaction, state: EditorState) => {
+export const fixColumnSizes = (changedTr: Transaction, state: EditorState): Change | undefined => {
 	const { layoutSection } = state.schema.nodes;
 	let change;
 	const range = getStepRange(changedTr);
@@ -558,7 +558,7 @@ export const fixColumnSizes = (changedTr: Transaction, state: EditorState) => {
 	return change;
 };
 
-export const fixColumnStructure = (state: EditorState) => {
+export const fixColumnStructure = (state: EditorState): Transaction | undefined => {
 	const { pos, selectedLayout } = pluginKey.getState(state) as LayoutState;
 
 	if (pos !== null && selectedLayout) {

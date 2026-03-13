@@ -14,7 +14,13 @@ import exampleImage from './img/example-image.png';
 
 type Item = (typeof ROOTS)[number] & { component: ComponentType<any> };
 
-const ROOTS = [
+const ROOTS: {
+	title: string;
+	id: string;
+	page: number;
+	numbering: string;
+	hasChildren: boolean;
+}[] = [
 	{
 		title: 'Chapter 1: Clean code',
 		id: 'chapter-1',

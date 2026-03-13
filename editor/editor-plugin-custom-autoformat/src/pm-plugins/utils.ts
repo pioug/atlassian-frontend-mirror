@@ -3,7 +3,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { CustomAutoformatAction, CustomAutoformatState } from '../types';
 
-export const pluginKey = new PluginKey('customAutoformatPlugin');
+export const pluginKey: PluginKey = new PluginKey('customAutoformatPlugin');
 
 export const getPluginState = (editorState: EditorState) =>
 	pluginKey.getState(editorState) as CustomAutoformatState | undefined;

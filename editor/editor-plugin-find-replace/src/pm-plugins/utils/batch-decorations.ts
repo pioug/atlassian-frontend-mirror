@@ -253,6 +253,6 @@ class BatchDecorations {
 	}
 }
 
-const batchDecorations = new BatchDecorations();
+const batchDecorations: BatchDecorations = new BatchDecorations();
 
 export default batchDecorations;

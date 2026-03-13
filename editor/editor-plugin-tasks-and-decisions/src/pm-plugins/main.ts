@@ -69,7 +69,7 @@ export function createPlugin(
 	hasRequestedEditPermission?: boolean,
 	requestToEditContent?: () => void,
 	taskPlaceholder?: string,
-) {
+): SafePlugin<TaskDecisionPluginState> {
 	return new SafePlugin<TaskDecisionPluginState>({
 		props: {
 			nodeViews: {

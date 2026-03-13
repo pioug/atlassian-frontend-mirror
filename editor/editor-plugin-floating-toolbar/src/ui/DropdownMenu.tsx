@@ -2,12 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo } from 'react';
+import { memo, type ComponentType, type FC } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type { ExtensionAPI, ExtensionProvider } from '@atlaskit/editor-common/extensions';
@@ -146,4 +146,7 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 	);
 });
 
-export default injectIntl(Dropdown);
+const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(Dropdown);
+export default _default_1;

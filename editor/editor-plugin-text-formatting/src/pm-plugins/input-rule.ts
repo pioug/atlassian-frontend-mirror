@@ -220,13 +220,16 @@ const buildRegexNew = (char: ValidAutoformatChars, allowsBackwardMatch: boolean 
 	return new ReverseRegexExp(replacedRegex);
 };
 
-export const strongRegex1 = buildRegex(ValidAutoformatChars.STRONG);
-export const strongRegex2 = buildRegex(ValidAutoformatChars.STRONG_MARKDOWN);
-export const italicRegex1 = buildRegex(ValidAutoformatChars.ITALIC);
-export const italicRegex2 = buildRegex(ValidAutoformatChars.ITALIC_MARKDOWN);
-export const strikeRegex = buildRegex(ValidAutoformatChars.STRIKE);
-export const codeRegex = buildRegex(ValidAutoformatChars.CODE);
-export const codeRegexWithBackwardMatch = buildRegexNew(ValidAutoformatChars.CODE, true);
+export const strongRegex1: ReverseRegexExp = buildRegex(ValidAutoformatChars.STRONG);
+export const strongRegex2: ReverseRegexExp = buildRegex(ValidAutoformatChars.STRONG_MARKDOWN);
+export const italicRegex1: ReverseRegexExp = buildRegex(ValidAutoformatChars.ITALIC);
+export const italicRegex2: ReverseRegexExp = buildRegex(ValidAutoformatChars.ITALIC_MARKDOWN);
+export const strikeRegex: ReverseRegexExp = buildRegex(ValidAutoformatChars.STRIKE);
+export const codeRegex: ReverseRegexExp = buildRegex(ValidAutoformatChars.CODE);
+export const codeRegexWithBackwardMatch: ReverseRegexExp = buildRegexNew(
+	ValidAutoformatChars.CODE,
+	true,
+);
 
 /**
  * Create input rules for strong mark

@@ -97,7 +97,12 @@ const uniqueExactShortNameMatchIndex = (
 };
 
 export default class EmojiTypeAheadComponent extends PureComponent<Props, State> {
-	static defaultProps = {
+	static defaultProps: {
+		onSelection: () => void;
+		onOpen: () => void;
+		onClose: () => void;
+		listLimit: number;
+	} = {
 		onSelection: (): void => {},
 		onOpen: (): void => {},
 		onClose: (): void => {},

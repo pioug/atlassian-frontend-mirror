@@ -83,7 +83,7 @@ export const createNodeChangedDecorationWidget = ({
 	isActive?: boolean;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
-}) => {
+}): Decoration[] | undefined => {
 	const slice = doc.slice(change.fromA, change.toA);
 
 	if (slice.content.content.length === 0) {

@@ -4,7 +4,7 @@
  */
 import React, { useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 
@@ -44,7 +44,7 @@ function withTooltip(Component: React.ElementType) {
 	};
 }
 
-export const ExpandButtonInner = (props: ExpandIconButtonWithLabelProps) => {
+export const ExpandButtonInner = (props: ExpandIconButtonWithLabelProps): jsx.JSX.Element => {
 	const useTheme = useCallback(
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -88,7 +88,7 @@ export const ExpandButtonInner = (props: ExpandIconButtonWithLabelProps) => {
 const ButtonWithTooltip = withTooltip(ExpandButtonInner);
 const ButtonWithoutTooltip = ExpandButtonInner;
 
-export const ExpandButton = (props: ExpandIconButtonProps) => {
+export const ExpandButton = (props: ExpandIconButtonProps): jsx.JSX.Element => {
 	const { expanded, intl } = props;
 	const message = expanded ? expandMessages.collapseNode : expandMessages.expandNode;
 	const label = (intl && intl.formatMessage(message)) || message.defaultMessage;

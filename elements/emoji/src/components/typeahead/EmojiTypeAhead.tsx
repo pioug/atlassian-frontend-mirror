@@ -33,7 +33,9 @@ export default class EmojiTypeahead extends LoadingEmojiComponent<Props, Loading
 	// rerender when the module has already been loaded
 	static AsyncLoadedComponent?: ComponentClass<ComponentProps>;
 	private typeAheadRef = React.createRef<EmojiTypeAheadComponent>();
-	state = {
+	state: {
+		asyncLoadedComponent: React.ComponentClass<ComponentProps, any> | undefined;
+	} = {
 		asyncLoadedComponent: EmojiTypeahead.AsyncLoadedComponent,
 	};
 

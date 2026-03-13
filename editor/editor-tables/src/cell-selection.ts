@@ -149,7 +149,7 @@ export class CellSelection extends Selection {
 		return new Slice(Fragment.from(fragment), 1, 1);
 	}
 
-	public replace(tr: Transaction, content = Slice.empty): void {
+	public replace(tr: Transaction, content: Slice = Slice.empty): void {
 		const mapFrom = tr.steps.length;
 		const { ranges } = this;
 		for (let i = 0; i < ranges.length; i++) {

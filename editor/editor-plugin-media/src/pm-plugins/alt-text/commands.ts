@@ -6,6 +6,7 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
+import type { Command } from '@atlaskit/editor-common/types';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -26,7 +27,7 @@ const createCommandWithAnalytics = (
 	) => false | OpenMediaAltTextMenu | CloseMediaAltTextMenu | UpdateAltText,
 	transform?: (tr: Transaction, state: EditorState) => Transaction,
 ) => {
-	return (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => {
+	return (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command => {
 		return withAnalytics(editorAnalyticsAPI, (state: EditorState) => {
 			const mediaNode = getMediaSingleOrInlineNodeFromSelection(state);
 			const type = getNodeType(state);
@@ -47,7 +48,7 @@ const createCommandWithAnalytics = (
 };
 
 // pass in undefined to close the alt text menu without saving
-export const closeMediaAltTextMenuAndSave = (altText?: string) => {
+export const closeMediaAltTextMenuAndSave = (altText?: string): Command => {
 	const commandTransform =
 		typeof altText === 'string' ? updateAltTextTransform(altText) : undefined;
 	return createCommand((state) => {
@@ -58,18 +59,19 @@ export const closeMediaAltTextMenuAndSave = (altText?: string) => {
 	}, commandTransform);
 };
 
-export const closeMediaAltTextMenu = closeMediaAltTextMenuAndSave();
+export const closeMediaAltTextMenu: Command = closeMediaAltTextMenuAndSave();
 
-export const openMediaAltTextMenu = createCommandWithAnalytics(
-	ACTION.OPENED,
-	(state) => {
-		if (isMediaSingleOrInlineNodeSelected(state)) {
-			return { type: 'openMediaAltTextMenu' };
-		}
-		return false;
-	},
-	(tr: Transaction) => tr.setMeta('scrollIntoView', false),
-);
+export const openMediaAltTextMenu: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => Command =
+	createCommandWithAnalytics(
+		ACTION.OPENED,
+		(state) => {
+			if (isMediaSingleOrInlineNodeSelected(state)) {
+				return { type: 'openMediaAltTextMenu' };
+			}
+			return false;
+		},
+		(tr: Transaction) => tr.setMeta('scrollIntoView', false),
+	);
 
 const updateAltTextTransform =
 	(newAltText: string) =>
@@ -103,7 +105,7 @@ const updateAltTextTransform =
 		return tr;
 	};
 
-export const updateAltText = (newAltText: string) =>
+export const updateAltText = (newAltText: string): Command =>
 	createCommand((state) => {
 		if (isMediaSingleOrInlineNodeSelected(state)) {
 			return { type: 'updateAltText' };

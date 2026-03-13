@@ -56,7 +56,7 @@ export const RENDER_FLASHANIMATION_TESTID = 'flash-animation';
 /**
  * Flash animation background component. See Reaction component for usage.
  */
-export const FlashAnimation = (props: FlashAnimationProps) => (
+export const FlashAnimation = (props: FlashAnimationProps): JSX.Element => (
 	<div
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		className={props.className}

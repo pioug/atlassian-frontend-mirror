@@ -21,7 +21,15 @@ type TypeAheadMenuType = {
 	typeAheadState: Omit<TypeAheadPluginSharedState, 'isOpen' | 'isAllowed' | 'selectedIndex'>;
 };
 
-export const TypeAheadMenu = React.memo(
+export const TypeAheadMenu: React.MemoExoticComponent<
+	({
+		editorView,
+		popupMountRef,
+		typeAheadState,
+		selectedIndex,
+		api,
+	}: TypeAheadMenuType) => React.JSX.Element | null
+> = React.memo(
 	({
 		editorView,
 		popupMountRef,

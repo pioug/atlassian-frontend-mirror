@@ -21,7 +21,7 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ api }) =>
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
 	if (expValEquals('platform_editor_paste_actions_menu', 'isEnabled', true)) {
-		api?.uiControlRegistry?.actions.register(getPasteMenuComponents({ api, editorAnalyticsAPI }));
+		api?.uiControlRegistry?.actions.register(getPasteMenuComponents({ api }));
 	}
 
 	return {

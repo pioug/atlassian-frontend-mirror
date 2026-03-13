@@ -1,6 +1,12 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+	starredCount: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	starredCount: {
 		id: 'ai-mate.agent-profile-info.starred-count',
 		defaultMessage: '{starCount} {starCount, plural, one {user} other {users}}',

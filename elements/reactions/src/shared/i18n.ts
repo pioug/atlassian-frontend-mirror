@@ -1,6 +1,93 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+	addReaction: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addNewReaction: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	loadingReactions: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moreEmoji: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	reactWithEmoji: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	reactWithEmojiAndCount: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	summary: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	unexpectedError: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	otherUsers: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closeReactionsDialog: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	reactionsCount: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	leftNavigateLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rightNavigateLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	emojiName: {
+		id: string;
+		// eslint-disable-next-line @atlassian/i18n/no-useless-message
+		defaultMessage: string;
+		description: string;
+	};
+	seeWhoReacted: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	seeWhoReactedTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	popperWrapperLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	addReaction: {
 		id: 'fabric.reactions.add',
 		defaultMessage: 'Add reaction',

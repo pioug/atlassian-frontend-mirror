@@ -1,6 +1,7 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Plugin, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
@@ -24,7 +25,7 @@ export function rebaseSteps(
 	steps: readonly Rebaseable[],
 	over: readonly ProseMirrorStep[],
 	transform: ProseMirrorTransform,
-) {
+): Rebaseable[] {
 	for (let i = steps.length - 1; i >= 0; i--) {
 		transform.step(steps[i].inverted);
 	}
@@ -170,7 +171,7 @@ export function collab(config: CollabConfig = {}): Plugin {
  * @param state The editor state
  * @returns The document before the unconfirmed steps were applied
  */
-export function getDocBeforeUnconfirmedSteps(state: EditorState) {
+export function getDocBeforeUnconfirmedSteps(state: EditorState): Node {
 	const tr = state.tr;
 	const { version, unconfirmed } = collabKey.getState(state) ?? {};
 
@@ -253,7 +254,7 @@ export function receiveTransaction(
 		/// reasons of backwards compatibility.
 		mapSelectionBackward?: boolean;
 	} = {},
-) {
+): Transaction {
 	// Pushes a set of steps (received from the central authority) into
 	// the editor state (which should have the collab plugin enabled).
 	// Will recognize its own changes, and confirm unconfirmed steps as

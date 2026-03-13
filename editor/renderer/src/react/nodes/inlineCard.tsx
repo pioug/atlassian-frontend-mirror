@@ -22,7 +22,6 @@ import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { HoverLinkOverlay, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { useSmartCardReloadAfterCache } from '@atlaskit/editor-common/hooks';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
@@ -37,7 +36,7 @@ import {
 import {
 	SmartLinkDraggable,
 	SMART_LINK_DRAG_TYPES,
-	SMART_LINK_APPERANCE,
+	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
 
 import { CardErrorBoundary } from './fallback';
@@ -217,8 +216,6 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
 
 	const cardState = getSmartlinkState?.()[url || ''];
-	const cardStatus = cardState?.status;
-	useSmartCardReloadAfterCache(url, cardStatus, smartLinks?.ssr || false);
 
 	const onClick = getCardClickHandler(eventHandlers, url);
 	const cardProps = {
@@ -391,7 +388,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	return (
 		<SmartLinkDraggable
 			url={url || ''}
-			appearance={SMART_LINK_APPERANCE.INLINE}
+			appearance={SMART_LINK_APPEARANCE.INLINE}
 			source={SMART_LINK_DRAG_TYPES.RENDERER}
 		>
 			<AnalyticsContext data={analyticsData}>

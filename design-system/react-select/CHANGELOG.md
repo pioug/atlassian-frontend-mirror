@@ -1,5 +1,12 @@
 # @atlaskit/react-select
 
+## 3.14.0
+
+### Minor Changes
+
+- [`749ca42d5f314`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/749ca42d5f314) -
+  [ux] Updating multiselect to use ADS tags.
+
 ## 3.13.8
 
 ### Patch Changes

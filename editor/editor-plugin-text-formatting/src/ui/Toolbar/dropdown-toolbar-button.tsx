@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import {
@@ -42,7 +42,7 @@ export const DropdownToolbarButton = ({
 	toolbarType,
 	iconBefore,
 	activeIconName,
-}: DropdownButtonProps) => {
+}: DropdownButtonProps): jsx.JSX.Element => {
 	const reducedSpacing = toolbarType === ToolbarType.FLOATING ? 'compact' : 'none';
 
 	return (

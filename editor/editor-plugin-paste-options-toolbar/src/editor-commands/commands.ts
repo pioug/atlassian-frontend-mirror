@@ -72,7 +72,8 @@ export const changeToPlainText = (): Command => {
 };
 
 export const changeToPlainTextWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, sliceSize: number) => (): Command => {
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, sliceSize: number, invokedFrom?: string) =>
+	(): Command => {
 		return withAnalytics(editorAnalyticsAPI, {
 			action: ACTION.PASTED,
 			actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -82,6 +83,7 @@ export const changeToPlainTextWithAnalytics =
 				type: PasteTypes.plain,
 				content: PasteContents.text,
 				pasteSize: sliceSize,
+				invokedFrom,
 			},
 		})(changeToPlainText());
 	};
@@ -111,7 +113,7 @@ export const changeToRichText = (): Command => {
 };
 
 export const changeToRichTextWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => (): Command => {
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, invokedFrom?: string) => (): Command => {
 		const payloadCallback = (state: EditorState): AnalyticsEventPayload | undefined => {
 			const pastePluginState = pasteOptionsPluginKey.getState(state) as PasteOptionsPluginState;
 
@@ -124,6 +126,7 @@ export const changeToRichTextWithAnalytics =
 					type: PasteTypes.richText,
 					content: PasteContents.text,
 					pasteSize: pastePluginState.richTextSlice?.size || 0,
+					invokedFrom,
 				},
 			};
 		};
@@ -153,7 +156,8 @@ export const changeToMarkDown = (): Command => {
 };
 
 export const changeToMarkdownWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, sliceSize: number) => (): Command => {
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, sliceSize: number, invokedFrom?: string) =>
+	(): Command => {
 		return withAnalytics(editorAnalyticsAPI, {
 			action: ACTION.PASTED,
 			actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -163,6 +167,7 @@ export const changeToMarkdownWithAnalytics =
 				type: PasteTypes.markdown,
 				content: PasteContents.text,
 				pasteSize: sliceSize,
+				invokedFrom,
 			},
 		})(changeToMarkDown());
 	};

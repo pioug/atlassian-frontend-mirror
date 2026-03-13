@@ -17,7 +17,7 @@ const styles = {
 	}),
 };
 
-function AvatarContentExample() {
+function AvatarContentExample(): JSX.Element {
 	return (
 		<Avatar size="large" borderColor={token('color.background.brand.bold')}>
 			<AvatarContent>

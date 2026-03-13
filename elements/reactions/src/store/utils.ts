@@ -58,14 +58,16 @@ export const removeOne = (reaction: ReactionSummary): ReactionSummary => ({
 
 export const updateByEmojiId =
 	(emojiId: string, updater: Updater<ReactionSummary> | ReactionSummary) =>
-	(reaction: ReactionSummary) =>
+	(reaction: ReactionSummary): void | ReactionSummary =>
 		reaction.emojiId === emojiId
 			? updater instanceof Function
 				? updater(reaction)
 				: updater
 			: reaction;
 
-export const getReactionsSortFunction = (reactions?: ReactionSummary[]) =>
+export const getReactionsSortFunction = (
+	reactions?: ReactionSummary[],
+): ReactionSummarySortFunction =>
 	reactions && reactions.length ? sortByPreviousPosition(reactions) : sortByRelevance;
 
 export const flattenAris = (a: string[], b: string[]): string[] => a.concat(b);

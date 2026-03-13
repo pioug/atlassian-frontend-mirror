@@ -124,7 +124,7 @@ export const findNodeDecs = (
 	decorations: DecorationSet,
 	from?: number,
 	to?: number,
-) => {
+): Decoration[] => {
 	let newFrom = from;
 
 	if (editorExperiment('platform_editor_block_control_optimise_render', true)) {
@@ -164,7 +164,11 @@ export const findNodeDecs = (
 	}
 };
 
-export const nodeDecorations = (newState: EditorState, from?: number, to?: number) => {
+export const nodeDecorations = (
+	newState: EditorState,
+	from?: number,
+	to?: number,
+): Decoration[] => {
 	const decs: Decoration[] = [];
 
 	if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {

@@ -576,7 +576,8 @@ export function ContentComponent({
  */
 // We throttle update of this plugin with RAF.
 // So from other plugins you will always get the previous state.
-export const pluginKey = new PluginKey<FloatingToolbarPluginState>('floatingToolbarPluginKey');
+export const pluginKey: PluginKey<FloatingToolbarPluginState> =
+	new PluginKey<FloatingToolbarPluginState>('floatingToolbarPluginKey');
 
 /**
  * Clean up floating toolbar configs from undesired properties.
@@ -611,7 +612,9 @@ export function floatingToolbarPluginFactory(options: {
 	floatingToolbarHandlers: Array<FloatingToolbarHandler>;
 	getIntl: () => IntlShape;
 	providerFactory: ProviderFactory;
-}) {
+}): SafePlugin<{
+	getConfigWithNodeInfo: (editorState: EditorState) => ConfigWithNodeInfo | null | undefined;
+}> {
 	const { floatingToolbarHandlers, providerFactory, getIntl, api } = options;
 	const intl = getIntl();
 	const getConfigWithNodeInfo = (

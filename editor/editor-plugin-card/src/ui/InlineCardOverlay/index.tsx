@@ -6,7 +6,7 @@
  */
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import { useIntl } from 'react-intl-next';
@@ -126,7 +126,7 @@ const InlineCardOverlay = ({
 	testId = 'inline-card-overlay',
 	url,
 	...props
-}: React.PropsWithChildren<InlineCardOverlayProps>) => {
+}: React.PropsWithChildren<InlineCardOverlayProps>): jsx.JSX.Element => {
 	const [showOverlay, setShowOverlay] = useState(false);
 	const [showLabel, setShowLabel] = useState(true);
 	const [availableWidth, setAvailableWidth] = useState<number | undefined>(undefined);

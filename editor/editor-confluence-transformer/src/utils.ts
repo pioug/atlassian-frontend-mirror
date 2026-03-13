@@ -92,7 +92,7 @@ export function getNodeMarkOfType(node: PMNode, markType: MarkType): Mark | null
  * nodes do not have their children traversed. Doing this avoids attempting to
  * decode unsupported content descendents into ProseMirror nodes.
  */
-export function findTraversalPath(roots: Node[]) {
+export function findTraversalPath(roots: Node[]): Node[] {
 	const inqueue = [...roots];
 	const outqueue = [] as Node[];
 
@@ -396,7 +396,7 @@ export const encodeMacroParams = (
 	params: {
 		[name: string]: { value: string };
 	},
-) => {
+): DocumentFragment => {
 	const elem = doc.createDocumentFragment();
 	Object.keys(params).forEach((name) => {
 		const el = doc.createElementNS(AC_XMLNS, 'ac:parameter');

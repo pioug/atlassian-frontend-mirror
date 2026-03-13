@@ -18,7 +18,7 @@ const Z_INDEX = layers.modal();
 
 const AUTO_DISMISS_SECONDS = 8;
 
-export const AUTO_DISMISS_MS = AUTO_DISMISS_SECONDS * 1000;
+export const AUTO_DISMISS_MS: number = AUTO_DISMISS_SECONDS * 1000;
 
 const styles = cssMap({
 	messageContainer: {
@@ -49,7 +49,9 @@ type InputProps = {
 	text: string;
 };
 
-export const HiddenInput = React.forwardRef<HTMLInputElement, InputProps>(
+export const HiddenInput: React.ForwardRefExoticComponent<
+	InputProps & React.RefAttributes<HTMLInputElement>
+> = React.forwardRef<HTMLInputElement, InputProps>(
 	// we need a hidden input to reliably copy to clipboard across all browsers.
 	(props, ref) => (
 		<input

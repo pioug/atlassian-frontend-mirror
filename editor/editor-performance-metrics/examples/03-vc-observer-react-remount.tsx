@@ -67,7 +67,7 @@ const Inside = () => {
 	return <div data-testid="inside-div">{child}</div>;
 };
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<main id="app-main" css={mainStyles}>
 			<Inside />

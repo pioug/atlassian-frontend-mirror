@@ -9,7 +9,9 @@ import type {
 	PluginConfiguration,
 } from '../contextIdentifierPluginType';
 
-export const pluginKey = new PluginKey<Configuration | undefined>('contextIdentiferPlugin');
+export const pluginKey: PluginKey<Configuration | undefined> = new PluginKey<
+	Configuration | undefined
+>('contextIdentiferPlugin');
 
 async function updateContextIdentifier(
 	config: PluginConfiguration,
@@ -28,7 +30,7 @@ export const createPlugin =
 		initialConfig: PluginConfiguration | undefined,
 		api: ExtractInjectionAPI<ContextIdentifierPlugin> | undefined,
 	) =>
-	() => {
+	(): SafePlugin => {
 		if (initialConfig) {
 			updateContextIdentifier(initialConfig, api);
 		}

@@ -4,7 +4,7 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -59,7 +59,7 @@ export const AwarenessWrapper = ({
 	setOverlayHoveredStyles,
 	url,
 	appearance,
-}: AwarenessWrapperProps) => {
+}: AwarenessWrapperProps): jsx.JSX.Element => {
 	const [isHovered, setIsHovered] = useState(false);
 
 	const linkPosition = useMemo(() => {

@@ -1,7 +1,9 @@
 import { AnalyticsListener, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import type { ReactWrapper } from 'enzyme';
+import type { HTMLAttributes, ReactWrapper } from 'enzyme';
 import React from 'react';
-import FileChooser from '../../../../components/common/FileChooser';
+import FileChooser, {
+	type Props as FileChooserProps,
+} from '../../../../components/common/FileChooser';
 import type { CategoryGroupKey } from '../../../../components/picker/categories';
 import EmojiPicker, { type Props } from '../../../../components/picker/EmojiPicker';
 import type { EmojiDescription } from '../../../../types';
@@ -51,7 +53,7 @@ export const leftClick = {
 
 export const allEmojis: any = newEmojiRepository().all().emojis;
 
-export const findEmoji = (list: HTMLElement) =>
+export const findEmoji = (list: HTMLElement): HTMLElement[] =>
 	within(list).getAllByRole('button', {
 		name: /:.*:/, // eg. :grinning:
 	});
@@ -59,7 +61,7 @@ export const findEmoji = (list: HTMLElement) =>
 /**
  * @param list child EmojiPickerList
  */
-export const emojisVisible = async (list: HTMLElement) =>
+export const emojisVisible = async (list: HTMLElement): Promise<HTMLElement[]> =>
 	await within(list).findAllByRole('button', {
 		name: /:.*:/, // eg. :grinning:
 	});
@@ -94,10 +96,11 @@ export const findHandEmoji = (emojis: HTMLElement[]): number =>
 		return !!shortName && shortName.indexOf(':raised_hand:') > -1;
 	});
 
-export const findEmojiNameInput = (component: ReactWrapper) =>
+export const findEmojiNameInput = (component: ReactWrapper): ReactWrapper<HTMLAttributes, any> =>
 	component.update() && component.find(`input[aria-label="Enter a name for the new emoji"]`);
 
-export const findEmojiPreview = async () => await screen.findByTestId('emoji-picker-footer');
+export const findEmojiPreview = async (): Promise<HTMLElement> =>
+	await screen.findByTestId('emoji-picker-footer');
 
 export const emojiNameInputVisible = (component: ReactWrapper): boolean =>
 	findEmojiNameInput(component).length > 0;
@@ -105,7 +108,10 @@ export const emojiNameInputVisible = (component: ReactWrapper): boolean =>
 export const emojiNameInputHasAValue = (component: ReactWrapper): boolean =>
 	emojiNameInputVisible(component) && !!findEmojiNameInput(component).prop('value');
 
-export const chooseFile = (component: ReactWrapper, file: any) => {
+export const chooseFile = (
+	component: ReactWrapper,
+	file: any,
+): ReactWrapper<FileChooserProps, never> => {
 	const fileChooser = component.find(FileChooser);
 	const fileOnClick = fileChooser.prop('onClick');
 	if (fileOnClick) {

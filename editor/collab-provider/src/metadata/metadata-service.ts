@@ -12,7 +12,7 @@ export class MetadataService {
 		private broadcastMetadata: (metadata: Metadata) => void,
 	) {}
 
-	getMetaData = () => this.metadata;
+	getMetaData = (): Metadata => this.metadata;
 
 	getTitle = (): string => {
 		return this.metadata.title?.toString();

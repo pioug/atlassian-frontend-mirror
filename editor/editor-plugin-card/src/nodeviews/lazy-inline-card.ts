@@ -1,10 +1,10 @@
-import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
+import { withLazyLoading, type NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { inlineCardNodeView, type InlineCardNodeViewProperties } from './inlineCard';
 
-export const lazyInlineCardView = (props: InlineCardNodeViewProperties) => {
+export const lazyInlineCardView = (props: InlineCardNodeViewProperties): NodeViewConstructor => {
 	const { isPageSSRed = false } = props;
 
 	if (

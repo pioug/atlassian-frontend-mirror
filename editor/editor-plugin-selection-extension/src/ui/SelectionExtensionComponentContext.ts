@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, type Provider } from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -20,17 +20,19 @@ const SelectionExtensionComponentContext = createContext<
 	SelectionExtensionComponentContextValue | undefined
 >(undefined);
 
-export const SelectionExtensionComponentContextProvider =
-	SelectionExtensionComponentContext.Provider;
+export const SelectionExtensionComponentContextProvider: Provider<
+	SelectionExtensionComponentContextValue | undefined
+> = SelectionExtensionComponentContext.Provider;
 
-export const useSelectionExtensionComponentContext = () => {
-	const context = useContext(SelectionExtensionComponentContext);
+export const useSelectionExtensionComponentContext =
+	(): SelectionExtensionComponentContextValue => {
+		const context = useContext(SelectionExtensionComponentContext);
 
-	if (!context) {
-		throw new Error(
-			'useSelectionExtensionComponentContext must be used within SelectionExtensionComponentContextProvider',
-		);
-	}
+		if (!context) {
+			throw new Error(
+				'useSelectionExtensionComponentContext must be used within SelectionExtensionComponentContextProvider',
+			);
+		}
 
-	return context;
-};
+		return context;
+	};

@@ -6,7 +6,7 @@ export default class AllOfSchemaNode extends OfSchemaNode {
 		super('allOf', values);
 	}
 
-	toSpec() {
+	toSpec(): (string | object)[] {
 		return this.values.map((value) => value.toSpec());
 	}
 }

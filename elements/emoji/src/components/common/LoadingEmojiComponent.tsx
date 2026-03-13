@@ -98,7 +98,7 @@ export default abstract class LoadingEmojiComponent<
 		asyncLoadedComponent: ComponentType<React.PropsWithChildren<any>>,
 	): JSX.Element | null;
 
-	render() {
+	render(): JSX.Element | null {
 		if (this.loaded(this.state)) {
 			const { loadedEmojiProvider, asyncLoadedComponent } = this.state;
 			return this.renderLoaded(loadedEmojiProvider, asyncLoadedComponent);

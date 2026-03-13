@@ -204,7 +204,15 @@ const InlineEmojiPopupContent = ({
 	);
 };
 
-export const InlineEmojiPopup = React.memo(
+export const InlineEmojiPopup: React.MemoExoticComponent<
+	({
+		api,
+		popupsMountPoint,
+		popupsBoundariesElement,
+		popupsScrollableElement,
+		editorView,
+	}: InlineEmojiPopupProps) => React.JSX.Element | null
+> = React.memo(
 	({
 		api,
 		popupsMountPoint,

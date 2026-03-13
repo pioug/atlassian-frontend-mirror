@@ -11,7 +11,7 @@ import { isFragmentOfType } from './check-fragment';
 import { MIN_LAYOUT_COLUMN } from './consts';
 import { updateColumnWidths } from './update-column-widths';
 
-export const removeFromSource = (tr: Transaction, $from: ResolvedPos, to?: number) => {
+export const removeFromSource = (tr: Transaction, $from: ResolvedPos, to?: number): Transaction => {
 	let sourceContent: PMNode | Fragment | null = $from.nodeAfter;
 	let isLayoutColumn = sourceContent?.type.name === 'layoutColumn';
 	let sourceNodeEndPos = $from.pos + (sourceContent?.nodeSize || 1);

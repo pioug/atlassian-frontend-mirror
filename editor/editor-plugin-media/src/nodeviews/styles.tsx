@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
@@ -41,7 +41,7 @@ export const MediaCardWrapper = ({
 	selected,
 	borderWidth = 0,
 	onContextMenu,
-}: MediaCardWrapperProps) => {
+}: MediaCardWrapperProps): jsx.JSX.Element => {
 	const calculatedBorderWidth = selected && borderWidth > 0 ? borderWidth + 1 : borderWidth;
 	return (
 		<div

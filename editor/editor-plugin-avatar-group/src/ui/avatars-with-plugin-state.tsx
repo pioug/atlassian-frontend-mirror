@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -70,4 +70,28 @@ const AvatarsWithPluginState = (props: AvatarsWithPluginStateProps & WrappedComp
 	);
 };
 
-export default injectIntl(AvatarsWithPluginState);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<
+	WithIntlProps<
+		{
+			editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+			editorAPI: ExtractInjectionAPI<AvatarGroupPlugin> | undefined;
+			editorView?: EditorView;
+			eventDispatcher?: EventDispatcher;
+			featureFlags: FeatureFlags;
+		} & CollabInviteToEditProps &
+			WrappedComponentProps
+	>
+> & {
+	WrappedComponent: React.ComponentType<
+		{
+			editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+			editorAPI: ExtractInjectionAPI<AvatarGroupPlugin> | undefined;
+			editorView?: EditorView;
+			eventDispatcher?: EventDispatcher;
+			featureFlags: FeatureFlags;
+		} & CollabInviteToEditProps &
+			WrappedComponentProps
+	>;
+} = injectIntl(AvatarsWithPluginState);
+export default _default_1;

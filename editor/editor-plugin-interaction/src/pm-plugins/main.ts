@@ -4,7 +4,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { type InteractionState } from '../types';
 
-export const key = new PluginKey<InteractionState>('interactionPluginHandler');
+export const key: PluginKey<InteractionState> = new PluginKey<InteractionState>(
+	'interactionPluginHandler',
+);
 
 const handleInteraction = (view: EditorView) => {
 	const interactionState = key.getState(view.state);
@@ -14,7 +16,7 @@ const handleInteraction = (view: EditorView) => {
 	return false;
 };
 
-export const createPlugin = () =>
+export const createPlugin = (): SafePlugin<InteractionState> =>
 	new SafePlugin<InteractionState>({
 		key,
 		state: {

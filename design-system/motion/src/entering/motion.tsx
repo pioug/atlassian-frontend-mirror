@@ -164,8 +164,8 @@ const Motion: React.ForwardRefExoticComponent<
 				// We ignore this for onFinishMotion as consumers could potentially inline the function
 				// which would then trigger this effect every re-render.
 				// We want to make it easier for consumers so we go down this path unfortunately.
-				// eslint-disable-next-line react-hooks/exhaustive-deps
 			},
+			// eslint-disable-next-line react-hooks/exhaustive-deps
 			[onExitFinished],
 		);
 

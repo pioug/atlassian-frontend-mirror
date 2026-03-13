@@ -16,7 +16,6 @@ const styles = cssMap({
 		backgroundColor: token('elevation.surface.overlay'),
 		boxShadow: token('elevation.shadow.overlay'),
 		borderRadius: token('radius.small'),
-		paddingBlock: token('space.050'),
 	},
 });
 
@@ -30,7 +29,7 @@ export const PasteActionsMenuContent = ({
 	onMouseDown,
 	onMouseEnter,
 	components,
-}: PasteActionsMenuContentProps) => {
+}: PasteActionsMenuContentProps): React.JSX.Element => {
 	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
 	const intl = useIntl();
 

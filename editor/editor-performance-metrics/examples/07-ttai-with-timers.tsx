@@ -245,7 +245,7 @@ const SectionTen = ({ base, appCreatedAt }: { appCreatedAt: number; base: number
 };
 
 // Main App component
-export default function Example() {
+export default function Example(): JSX.Element {
 	const appCreatedAt = useMemo(() => performance.now(), []);
 	const [isTTAIReady, setIsTTAIReady] = useState(false);
 

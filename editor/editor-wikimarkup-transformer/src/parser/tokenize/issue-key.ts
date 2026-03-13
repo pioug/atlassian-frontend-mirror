@@ -13,7 +13,7 @@ import { isNotBlank } from '../utils/text';
  */
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp
-export const INLINE_CARD_FROM_TEXT_STAMP = /(#icft=)([A-Z][A-Z]+-[0-9]+)/;
+export const INLINE_CARD_FROM_TEXT_STAMP: RegExp = /(#icft=)([A-Z][A-Z]+-[0-9]+)/;
 
 export interface Issue {
 	key: string;

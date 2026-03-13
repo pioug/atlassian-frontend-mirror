@@ -1,3 +1,3 @@
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-export const fakeCursorForToolbarPluginKey = new PluginKey('fakeCursorToolbarPlugin');
+export const fakeCursorForToolbarPluginKey: PluginKey = new PluginKey('fakeCursorToolbarPlugin');

@@ -6,7 +6,7 @@
 
 import React, { type PropsWithChildren, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
@@ -392,7 +392,7 @@ const defaultProps: State = {
 
 const Globe = () => <WorldIcon color="currentColor" spacing="spacious" label="" />;
 
-export default function Example() {
+export default function Example(): jsx.JSX.Element {
 	const [state, setState] = useState<State>(defaultProps);
 
 	const share = (_content: Content, _users: User[], _metaData: MetaData, _comment?: Comment) => {

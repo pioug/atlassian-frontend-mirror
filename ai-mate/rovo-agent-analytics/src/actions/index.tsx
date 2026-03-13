@@ -12,7 +12,11 @@ import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common
 
 const globalEventConfig = getDefaultTrackEventConfig();
 
-export const useRovoAgentActionAnalytics = <T extends {}>(commonAttributes: T) => {
+export const useRovoAgentActionAnalytics = <T extends {}>(
+	commonAttributes: T,
+): {
+	trackAgentEvent: (payload: EventPayload) => void;
+} => {
 	const analyticsContext = useContext(AnalyticsReactContext);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const commonAttributesRef = useRef(commonAttributes);

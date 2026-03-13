@@ -5,7 +5,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 type PosAtDOM = (node: Node) => number | null;
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default new SafePlugin({
+const _default_1: SafePlugin = new SafePlugin({
 	props: {
 		handleClick(view: EditorView, clickPos, event) {
 			// Don't apply in Edge as per ED-4546
@@ -81,3 +81,4 @@ export default new SafePlugin({
 		},
 	},
 });
+export default _default_1;

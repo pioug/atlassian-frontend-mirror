@@ -9,7 +9,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-export const copySelectionPluginKey = new PluginKey('codeBlockCopySelectionPlugin');
+export const copySelectionPluginKey: PluginKey = new PluginKey('codeBlockCopySelectionPlugin');
 
 type CodeBlockCopySelectionPluginState = {
 	codeBlockNode?: PMNode;
@@ -40,7 +40,7 @@ function getSelectionDecorationStartAndEnd({
 	return { decorationStartAndEnd, codeBlockNode: codeBlockNode.node };
 }
 
-export function codeBlockCopySelectionPlugin() {
+export function codeBlockCopySelectionPlugin(): SafePlugin<CodeBlockCopySelectionPluginState> {
 	return new SafePlugin({
 		key: copySelectionPluginKey,
 		state: {

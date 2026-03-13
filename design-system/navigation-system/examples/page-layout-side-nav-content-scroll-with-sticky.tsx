@@ -64,7 +64,7 @@ function SideNavContentScrollWithSticky({
 	shouldTestScroll = false,
 }: {
 	shouldTestScroll?: boolean;
-}) {
+}): JSX.Element {
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
 	useLayoutEffect(() => {
 		if (!shouldTestScroll) {

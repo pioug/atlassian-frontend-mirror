@@ -4,7 +4,7 @@
  */
 import React, { useEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -58,7 +58,11 @@ const hiddenStylesCSS = css({
 	visibility: 'hidden',
 });
 
-export const VisibilityContainer = ({ api, children, controlSide }: VisibilityContainerProps) => {
+export const VisibilityContainer = ({
+	api,
+	children,
+	controlSide,
+}: VisibilityContainerProps): jsx.JSX.Element => {
 	const {
 		isTypeAheadOpen,
 		isEditing,

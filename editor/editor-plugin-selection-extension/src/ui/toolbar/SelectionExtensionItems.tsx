@@ -5,7 +5,7 @@
 
 import React, { useMemo } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
@@ -90,4 +90,7 @@ export const SelectionExtensionItemsComponent = ({
 	);
 };
 
-export const SelectionExtensionItems = injectIntl(SelectionExtensionItemsComponent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const SelectionExtensionItems: React.FC<WithIntlProps<SelectionExtensionItemsProps>> & {
+	WrappedComponent: React.ComponentType<SelectionExtensionItemsProps>;
+} = injectIntl(SelectionExtensionItemsComponent);

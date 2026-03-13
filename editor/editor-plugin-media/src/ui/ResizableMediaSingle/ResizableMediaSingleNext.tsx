@@ -4,7 +4,7 @@
  */
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import classnames from 'classnames';
 import throttle from 'lodash/throttle';
@@ -248,7 +248,9 @@ const updateSizeInPluginState = throttle(
 	MEDIA_SINGLE_RESIZE_THROTTLE_TIME,
 );
 
-export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNextProps) => {
+export const ResizableMediaSingleNextFunctional = (
+	props: ResizableMediaSingleNextProps,
+): jsx.JSX.Element => {
 	const {
 		width: origWidth,
 		children,
@@ -779,7 +781,7 @@ const ResizableMediaSingleToggle = ({
 	viewMediaClientConfig,
 	width,
 	forceHandlePositioning,
-}: ResizableMediaSingleNextProps) => {
+}: ResizableMediaSingleNextProps): jsx.JSX.Element => {
 	return (
 		<ResizableMediaSingleNextFunctional
 			allowBreakoutSnapPoints={allowBreakoutSnapPoints}

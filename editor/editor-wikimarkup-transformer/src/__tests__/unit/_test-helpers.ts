@@ -2,7 +2,7 @@ import { type Node, type Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { WikiMarkupTransformer } from '../../index';
 
-export function parseWithSchema(markup: string, schema: Schema) {
+export function parseWithSchema(markup: string, schema: Schema): Node {
 	const transformer = new WikiMarkupTransformer(schema);
 	return transformer.parse(markup);
 }

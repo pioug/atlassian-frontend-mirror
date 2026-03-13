@@ -1,6 +1,268 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+	formTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	formSend: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	formShare: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	formSendPublic: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	formSharePublic: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	formRetry: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	formNoPermissions: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	commentLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	extendedDialogCommentLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	commentPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	// Email disabled (Jira)
+	userPickerLabelEmailDisabledJira: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerPlaceholderEmailDisabledJira: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerRequiredMessageEmailDisabledJira: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	// Email disabled (Confluence)
+	userPickerLabelEmailDisabledConfluence: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerRequiredMessageEmailDisabledConfluence: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	// Browse users disabled
+	userPickerLabelBrowseUsersDisabled: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerPlaceholderBrowseUsersDisabled: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerRequiredMessageBrowseUsersDisabled: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	// Generic (Jira)
+	userPickerLabelJira: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerPlaceholderJira: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerRequiredMessageJira: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	// Generic (Confluence)
+	userPickerLabelConfluence: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerPlaceholderConfluence: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerRequiredMessageConfluence: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	// Common messages
+	userPickerAddMoreMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerRequiredMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerExistingUserOnlyNoOptionsMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	userPickerGenericNoOptionsMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shareTriggerButtonIconLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shareTriggerButtonText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shareTriggerButtonTooltipText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inviteTriggerButtonText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	copyLinkButtonText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	copyPublicLinkButtonText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	copiedToClipboardMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	infoMessageDefaultConfluence: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	infoMessageDefaultJira: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	infoMessageDefaultJiraIssueTermRefresh: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	requiredFieldSummary: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shareFailureIconLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shareFailureMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shareSuccessMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shareToIntegrationButtonText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shareInIntegrationButtonText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shareMainTabTextJira: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shareMainTabTextConfluence: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inviteToConfluence: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inviteToJira: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	sharePopupLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	slackMenuItemText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	emailMenuItemText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	formTitle: {
 		id: 'fabric.elements.share.form.title',
 		defaultMessage: 'Share',

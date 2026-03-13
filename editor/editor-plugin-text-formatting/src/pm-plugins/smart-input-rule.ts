@@ -248,7 +248,7 @@ function getPunctuationRules(editorAnalyticsAPI: EditorAnalyticsAPI | undefined)
 	];
 }
 
-export default (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+export default (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): SafePlugin =>
 	new SafePlugin(
 		createPlugin('text-formatting:smart-input', [
 			...getProductRules(editorAnalyticsAPI),

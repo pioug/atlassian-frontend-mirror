@@ -2,12 +2,26 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useState, useRef, memo, useLayoutEffect, useCallback } from 'react';
+import {
+	Fragment,
+	useState,
+	useRef,
+	memo,
+	useLayoutEffect,
+	useCallback,
+	type ComponentType,
+	type FC,
+} from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { N30A } from '@atlaskit/theme/colors';
-import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import {
+	FormattedMessage,
+	injectIntl,
+	type WithIntlProps,
+	type WrappedComponentProps,
+} from 'react-intl-next';
 import type {
 	EmojiDescription,
 	EmojiDescriptionWithVariations,
@@ -197,7 +211,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 };
 
 type EmojiActionsProps = PropsWithWrappedComponentPropsType;
-export const EmojiActions = (props: EmojiActionsProps) => {
+export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	const {
 		onToneSelected,
 		onToneSelectorCancelled,
@@ -290,4 +304,8 @@ export const EmojiActions = (props: EmojiActionsProps) => {
 	);
 };
 
-export default injectIntl(memo(EmojiActions));
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(memo(EmojiActions));
+export default _default_1;

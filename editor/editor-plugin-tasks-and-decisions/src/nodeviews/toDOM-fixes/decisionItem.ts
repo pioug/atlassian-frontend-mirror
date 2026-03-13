@@ -1,11 +1,11 @@
 import { decisionItem } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 // @nodeSpecException:toDOM patch
-export const decisionItemSpecWithFixedToDOM = () => {
+export const decisionItemSpecWithFixedToDOM = (): NodeSpec => {
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return decisionItem;
 	}

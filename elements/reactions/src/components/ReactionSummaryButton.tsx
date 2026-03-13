@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 import { useIntl } from 'react-intl-next';
 import { ResourcedEmoji } from '@atlaskit/emoji';
 import { messages } from '../shared/i18n';
@@ -110,7 +110,9 @@ export const RENDER_SUMMARY_BUTTON_TESTID = 'reaction-summary-button';
 export const RENDER_SUMMARY_EMOJI_TESTID = 'summary-emoji-display';
 
 // forwardRef is used here so that the parent popup component can properly interact with the button
-export const ReactionSummaryButton = forwardRef(
+export const ReactionSummaryButton: ForwardRefExoticComponent<
+	ReactionSummaryButtonProps & RefAttributes<HTMLDivElement>
+> = forwardRef(
 	(
 		{
 			emojiProvider,

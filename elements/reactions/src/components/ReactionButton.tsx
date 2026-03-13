@@ -131,7 +131,7 @@ export const ReactionButton = ({
 	children,
 	dataAttributes = {},
 	testId,
-}: ReactionButtonProps) => {
+}: ReactionButtonProps): JSX.Element => {
 	return (
 		<Pressable
 			onClick={onClick}

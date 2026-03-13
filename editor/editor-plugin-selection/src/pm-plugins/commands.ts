@@ -41,7 +41,7 @@ export const selectNearNode: EditorCommandWithMetadata =
 export const setSelectionRelativeToNode = (
 	selectionRelativeToNode?: RelativeSelectionPos,
 	selection?: Selection | null,
-) =>
+): Command =>
 	createCommand(
 		{
 			type: SelectionActionTypes.SET_RELATIVE_SELECTION,

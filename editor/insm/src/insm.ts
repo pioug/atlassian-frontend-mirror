@@ -148,7 +148,7 @@ export class INSM {
 	/**
 	 * Gets the current running session details
 	 */
-	get session() {
+	get session(): INSMSession | undefined {
 		return this.runningSession;
 	}
 }

@@ -13,7 +13,10 @@ const supportsUploadFeature = (
 	);
 };
 
-export const useEmoji = () => {
+export const useEmoji = (): {
+	emojiProvider: EmojiProvider;
+	isUploadSupported: boolean;
+} => {
 	const context = useContext(EmojiContext);
 
 	// Hooks API

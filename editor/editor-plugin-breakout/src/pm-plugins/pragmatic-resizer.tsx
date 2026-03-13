@@ -74,7 +74,11 @@ export const createPragmaticResizer = ({
 	onDragStart: (args: BaseEventPayload<ElementDragType>) => void;
 	onDrop: (args: BaseEventPayload<ElementDragType>) => void;
 	target: HTMLElement;
-}) => {
+}): {
+	rightHandle: HTMLDivElement;
+	leftHandle: HTMLDivElement;
+	destroy: (isChangeToViewMode?: boolean) => void;
+} => {
 	let state: 'default' | 'resizing' = 'default';
 
 	const createHandle = (side: 'left' | 'right') => {

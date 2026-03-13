@@ -15,7 +15,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	findParentNodeClosestToPos,
@@ -40,7 +40,7 @@ import { getSelectedMediaSingle, removeMediaGroupNode } from './utils';
 export const DEFAULT_BORDER_COLOR = '#091e4224';
 export const DEFAULT_BORDER_SIZE = 2;
 
-export const getNodeType = (state: EditorState) => {
+export const getNodeType = (state: EditorState): 'mediaInline' | 'mediaSingle' => {
 	const { mediaSingle, mediaInline } = state.schema.nodes;
 	return isSelectionMediaSingleNode(state)
 		? (mediaSingle.name as 'mediaSingle')
@@ -340,7 +340,7 @@ export const updateMediaSingleWidthTr = (
 	validation: PixelEntryValidation,
 	inputMethod: EventInput,
 	layout: RichMediaLayout,
-) => {
+): Transaction | null => {
 	const selectedMediaSingleNode = getSelectedMediaSingle(state);
 	if (!selectedMediaSingleNode) {
 		return null;

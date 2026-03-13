@@ -3,8 +3,8 @@
  * @jsx jsx
  */
 import React, { type ReactNode } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import Lozenge from '@atlaskit/lozenge';
 import { token } from '@atlaskit/tokens';
 
@@ -100,7 +100,7 @@ const additionalInfo = css({
 	marginLeft: token('space.100', '8px'),
 });
 
-export const textWrapper = (color?: string) => {
+export const textWrapper = (color?: string): SerializedStyles => {
 	if (fg('platform_user_picker_firefox_tab_fix')) {
 		return css({
 			display: 'inline-block',
@@ -137,7 +137,7 @@ export const AvatarItemOption = ({
 	lozenge,
 	primaryText,
 	secondaryText,
-}: AvatarItemOptionProps) => {
+}: AvatarItemOptionProps): jsx.JSX.Element => {
 	const renderLozenge = () => {
 		if (isLozengeText(lozenge)) {
 			if (lozenge?.tooltip) {

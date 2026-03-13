@@ -64,7 +64,7 @@ export class MediaTaskManager {
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	addPendingTask = (task: Promise<any>, id?: string) => {
+	addPendingTask = (task: Promise<any>, id?: string): Promise<MediaState | null> => {
 		let currentTask = task;
 
 		if (id) {

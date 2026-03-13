@@ -4,13 +4,13 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { ContentFormatPluginState, ContentFormatPlugin } from './contentFormatPluginType';
 
-export const contentFormatPluginKey = new PluginKey('contentFormat');
+export const contentFormatPluginKey: PluginKey = new PluginKey('contentFormat');
 
 export const createPlugin = ({
 	initialContentMode,
 }: {
 	initialContentMode?: EditorContentMode;
-}) => {
+}): SafePlugin<ContentFormatPluginState> => {
 	return new SafePlugin<ContentFormatPluginState>({
 		key: contentFormatPluginKey,
 		state: {

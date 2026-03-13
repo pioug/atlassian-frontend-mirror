@@ -3,7 +3,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { UserIntent } from './types';
 
-export const userIntentPluginKey = new PluginKey('userIntentPlugin');
+export const userIntentPluginKey: PluginKey = new PluginKey('userIntentPlugin');
 
 type UserIntentPluginState = {
 	currentUserIntent: UserIntent;
@@ -20,7 +20,7 @@ type SetCurrentUserIntentMeta = {
 	type: 'setCurrentUserIntent';
 };
 
-export const createPlugin = () => {
+export const createPlugin = (): SafePlugin<UserIntentPluginState> => {
 	return new SafePlugin<UserIntentPluginState>({
 		key: userIntentPluginKey,
 		state: {

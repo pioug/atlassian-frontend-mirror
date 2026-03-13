@@ -274,7 +274,7 @@ export type ViewportDimension = {
  * @param {number} heatmapSize - The size of the heatmap (both width and height).
  * @returns {HeatmapEntry[][]} A 2D array representing the heatmap, filled with empty HeatmapEntry.
  */
-export function cleanSquareHeatmap(heatmapSize: number) {
+export function cleanSquareHeatmap(heatmapSize: number): HeatmapEntry[][] {
 	return Array.from({ length: heatmapSize }).map(() =>
 		Array.from({ length: heatmapSize }).map(createEmptyHeatmapEntry),
 	);
@@ -400,7 +400,10 @@ export async function createHeatmapFromEvents(
 	return nextHeatmap;
 }
 
-export function createHeatmapFromTimeline(timeline: Timeline, initialHeatmap: Heatmap) {
+export function createHeatmapFromTimeline(
+	timeline: Timeline,
+	initialHeatmap: Heatmap,
+): Promise<Heatmap> {
 	const events = timeline.getEvents();
 
 	return createHeatmapFromEvents(events, initialHeatmap);

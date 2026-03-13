@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
@@ -24,4 +24,9 @@ const ConfirmationModalImpl = (props: ConfirmationDialogProps & WrappedComponent
 	) : null;
 };
 
-export const ConfirmationModal = injectIntl(ConfirmationModalImpl);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const ConfirmationModal: React.FC<
+	WithIntlProps<ConfirmationDialogProps & WrappedComponentProps>
+> & {
+	WrappedComponent: React.ComponentType<ConfirmationDialogProps & WrappedComponentProps>;
+} = injectIntl(ConfirmationModalImpl);

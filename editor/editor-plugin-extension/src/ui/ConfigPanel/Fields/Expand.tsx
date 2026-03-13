@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
@@ -96,4 +96,8 @@ function Expand({ field, children, isExpanded = false, intl }: Props) {
 	);
 }
 
-export default injectIntl(Expand);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props>> & {
+	WrappedComponent: React.ComponentType<Props>;
+} = injectIntl(Expand);
+export default _default_1;

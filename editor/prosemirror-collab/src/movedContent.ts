@@ -22,7 +22,7 @@ export const mapStep = (
 	transform: ProseMirrorTransform,
 	index: number,
 	mapped: ProseMirrorStep | null,
-) => {
+): ReplaceStep | undefined => {
 	if (index < 1) {
 		return undefined;
 	}
@@ -116,7 +116,7 @@ export const createMoveMapStep = (
 	previousStep: ProseMirrorStep,
 	transform: ProseMirrorTransform,
 	previousStepIndex: number,
-) => {
+): ReplaceStep | undefined => {
 	if (
 		!isReplaceTypeStep(previousStep) ||
 		(mapped && !isReplaceTypeStep(mapped)) ||

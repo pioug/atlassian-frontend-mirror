@@ -15,12 +15,14 @@ const styles = xcss({
 	backgroundColor: 'elevation.surface.overlay',
 });
 
-export const MediaInsertWrapper = forwardRef<HTMLElement, { children?: React.ReactNode }>(
-	({ children }, ref) => {
-		return (
-			<Box ref={ref} xcss={styles}>
-				{children}
-			</Box>
-		);
-	},
-);
+export const MediaInsertWrapper: React.ForwardRefExoticComponent<
+	{
+		children?: React.ReactNode;
+	} & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, { children?: React.ReactNode }>(({ children }, ref) => {
+	return (
+		<Box ref={ref} xcss={styles}>
+			{children}
+		</Box>
+	);
+});

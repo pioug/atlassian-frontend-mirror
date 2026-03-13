@@ -98,7 +98,9 @@ const addBreakoutToResizableNode = ({
 	return { updatedTr, updatedDocChanged };
 };
 
-export const resizingPluginKey = new PluginKey<BreakoutPluginState>('breakout-resizing');
+export const resizingPluginKey: PluginKey<BreakoutPluginState> = new PluginKey<BreakoutPluginState>(
+	'breakout-resizing',
+);
 
 export type ActiveGuidelineKey = Exclude<
 	(typeof GUIDELINE_KEYS)[keyof typeof GUIDELINE_KEYS],
@@ -176,7 +178,13 @@ export const createResizingPlugin = (
 	getIntl: () => IntlShape,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	options?: BreakoutPluginOptions,
-) => {
+): SafePlugin<
+	| BreakoutPluginState
+	| {
+			activeGuidelineLabel: undefined;
+			breakoutNode: undefined;
+	  }
+> => {
 	return new SafePlugin({
 		key: resizingPluginKey,
 		state: pluginState,

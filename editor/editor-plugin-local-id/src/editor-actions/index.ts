@@ -38,7 +38,7 @@ export const replaceNode =
 
 export const getNode =
 	(api: ExtractInjectionAPI<LocalIdPlugin> | undefined) =>
-	({ localId }: EditorActionProps) => {
+	({ localId }: EditorActionProps): NodeWithPos | undefined => {
 		let result: NodeWithPos | undefined;
 		api?.core.actions.execute(({ tr }) => {
 			result = findNodeByLocalId(tr, localId);

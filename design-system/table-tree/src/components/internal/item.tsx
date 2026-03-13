@@ -30,7 +30,10 @@ function Item<Item extends { id: string }>({
 	data,
 	render,
 	loadingLabel,
-}: ItemProps<Item>) {
+}: ItemProps<Item>): React.ReactElement<
+	RowProps<Item> | RowsProps<Item>,
+	string | React.JSXElementConstructor<any>
+> | null {
 	const renderedRow = render(data);
 
 	if (!renderedRow) {

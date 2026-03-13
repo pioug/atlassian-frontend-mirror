@@ -1,8 +1,11 @@
+import type { ComponentType, PropsWithChildren } from 'react';
+
 import Loadable from 'react-loadable';
 
 import type { HelpDialogProps } from './index';
 
-export const HelpDialogLoader = Loadable({
+export const HelpDialogLoader: ComponentType<PropsWithChildren<HelpDialogProps>> &
+	Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_editor-core-helpdialog" */

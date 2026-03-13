@@ -4,7 +4,7 @@
  */
 import { Fragment } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import type { ColorField } from '@atlaskit/editor-common/extensions';
@@ -260,7 +260,7 @@ const ColorPickerField = ({
 	field: ColorField;
 	name: string;
 	onFieldChange: OnFieldChange;
-}) => {
+}): jsx.JSX.Element => {
 	const { label, defaultValue, isRequired, isDisabled } = field;
 
 	return (

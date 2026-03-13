@@ -6,13 +6,13 @@ import type { AnnotationPlugin } from '../annotationPluginType';
 export const setUserIntent = (
 	api: ExtractInjectionAPI<AnnotationPlugin> | undefined,
 	tr: Transaction,
-) => {
+): Transaction | null | undefined => {
 	return api?.userIntent?.commands?.setCurrentUserIntent('commenting')({ tr });
 };
 
 export const resetUserIntent = (
 	api: ExtractInjectionAPI<AnnotationPlugin> | undefined,
 	tr: Transaction,
-) => {
+): Transaction | null | undefined => {
 	return api?.userIntent?.commands?.setCurrentUserIntent('default')({ tr });
 };

@@ -3,7 +3,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 export const NODE_ANCHOR_ATTR_NAME = 'data-node-anchor';
 export const NODE_NODE_TYPE_ATTR_NAME = 'data-prosemirror-node-name';
 
-export const getAnchorAttrName = () => {
+export const getAnchorAttrName = (): 'data-drag-handler-anchor-name' | 'data-node-anchor' => {
 	if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 		return NODE_ANCHOR_ATTR_NAME;
 	}
@@ -11,7 +11,9 @@ export const getAnchorAttrName = () => {
 	return 'data-drag-handler-anchor-name';
 };
 
-export const getTypeNameAttrName = () => {
+export const getTypeNameAttrName = ():
+	| 'data-drag-handler-node-type'
+	| 'data-prosemirror-node-name' => {
 	if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 		return NODE_NODE_TYPE_ATTR_NAME;
 	}

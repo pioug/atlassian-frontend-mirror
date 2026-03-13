@@ -21,7 +21,9 @@ export const useFetchDatasourceDataInfo = ({
 	datasourceId,
 	parameters,
 	visibleColumnKeys,
-}: useFetchDatasourceDataInfoProps) => {
+}: useFetchDatasourceDataInfoProps): {
+	extensionKey: string | undefined;
+} => {
 	const [extensionKey, setExtensionKey] = useState<string | undefined>(undefined);
 	const { getDatasourceData } = useDatasourceClientExtension();
 

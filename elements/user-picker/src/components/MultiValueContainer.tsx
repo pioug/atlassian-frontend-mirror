@@ -44,7 +44,13 @@ const valueContainerStyles = cssMap({
 });
 
 export class MultiValueContainer extends React.PureComponent<Props, State> {
-	static getDerivedStateFromProps(nextProps: Props, prevState: State) {
+	static getDerivedStateFromProps(
+		nextProps: Props,
+		prevState: State,
+	): {
+		valueSize: number;
+		previousValueSize: number;
+	} {
 		return {
 			valueSize: nextProps.getValue ? nextProps.getValue().length : 0,
 			previousValueSize: prevState.valueSize,
@@ -141,7 +147,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 	//@ts-ignore react-select unsupported props
 	onValueContainerClick: any = this.props.selectProps.onValueContainerClick;
 
-	render() {
+	render(): JSX.Element {
 		const { children, innerProps, ...valueContainerProps } = this.props;
 		const props = {
 			...valueContainerProps,

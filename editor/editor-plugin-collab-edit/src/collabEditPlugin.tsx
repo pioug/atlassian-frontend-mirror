@@ -302,20 +302,22 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				addErrorAnalytics,
 			);
 
-			track({
-				api,
-				...props,
-				onTrackDataProcessed: (steps) => {
-					api?.analytics?.actions?.fireAnalyticsEvent({
-						action: ACTION.STEPS_TRACKED,
-						actionSubject: ACTION_SUBJECT.COLLAB,
-						attributes: {
-							steps,
-						},
-						eventType: EVENT_TYPE.OPERATIONAL,
-					});
-				},
-			});
+			if (!expValEquals('platform_editor_remove_collab_step_metrics', 'isEnabled', true)) {
+				track({
+					api,
+					...props,
+					onTrackDataProcessed: (steps) => {
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.STEPS_TRACKED,
+							actionSubject: ACTION_SUBJECT.COLLAB,
+							attributes: {
+								steps,
+							},
+							eventType: EVENT_TYPE.OPERATIONAL,
+						});
+					},
+				});
+			}
 
 			if (fg('platform_editor_collab_organic_change_reporting')) {
 				monitorOrganic({

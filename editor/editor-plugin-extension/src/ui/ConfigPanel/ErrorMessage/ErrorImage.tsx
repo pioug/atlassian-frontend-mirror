@@ -4,7 +4,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
@@ -14,7 +14,7 @@ const imageContainerStyles = css({
 	height: '80px',
 });
 
-const ErrorImage = () => (
+const ErrorImage = (): jsx.JSX.Element => (
 	<div css={imageContainerStyles}>
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.28 218" height="80">
 			<defs>

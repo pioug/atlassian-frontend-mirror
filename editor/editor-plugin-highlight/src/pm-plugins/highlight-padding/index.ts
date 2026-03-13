@@ -16,7 +16,7 @@ type HighlightPaddingPluginState = {
 	decorationSet: DecorationSet;
 };
 
-export const highlightPaddingPluginKey = new PluginKey('highlightPaddingPluginKey');
+export const highlightPaddingPluginKey: PluginKey = new PluginKey('highlightPaddingPluginKey');
 
 /**
  * Plugin to add padding decorations around highlighted text.
@@ -25,7 +25,7 @@ export const highlightPaddingPluginKey = new PluginKey('highlightPaddingPluginKe
  * only when it is at the start or end of a block, or when it is adjacent
  * to whitespace.
  */
-export const createHighlightPaddingPlugin = () => {
+export const createHighlightPaddingPlugin = (): SafePlugin<HighlightPaddingPluginState> => {
 	return new SafePlugin<HighlightPaddingPluginState>({
 		key: highlightPaddingPluginKey,
 		state: {

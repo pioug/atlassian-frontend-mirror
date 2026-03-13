@@ -35,7 +35,22 @@ type WrapperProps = {
 	triggerHandler: TypeAheadHandler;
 };
 
-export const WrapperTypeAhead = React.memo(
+export const WrapperTypeAhead: React.MemoExoticComponent<
+	({
+		triggerHandler,
+		editorView,
+		anchorElement,
+		shouldFocusCursorInsideQuery,
+		popupsMountPoint,
+		popupsBoundariesElement,
+		popupsScrollableElement,
+		inputMethod,
+		getDecorationPosition,
+		reopenQuery,
+		onUndoRedo,
+		api,
+	}: WrapperProps) => React.JSX.Element | null
+> = React.memo(
 	({
 		triggerHandler,
 		editorView,

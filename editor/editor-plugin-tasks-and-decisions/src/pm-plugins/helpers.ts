@@ -69,7 +69,13 @@ export const isTable = (node?: Node | null): boolean => {
  * Creates a NodeRange around the given taskItem and the following
  * ("nested") taskList, if one exists.
  */
-export const getBlockRange = ({ $from, $to }: { $from: ResolvedPos; $to: ResolvedPos }) => {
+export const getBlockRange = ({
+	$from,
+	$to,
+}: {
+	$from: ResolvedPos;
+	$to: ResolvedPos;
+}): NodeRange | null => {
 	const { taskList, taskItem, blockTaskItem, paragraph } = $from.doc.type.schema.nodes;
 
 	if (blockTaskItem) {
@@ -151,7 +157,7 @@ export const getBlockRange = ({ $from, $to }: { $from: ResolvedPos; $to: Resolve
  * const indentLevel = getCurrentIndentLevel(editorState.selection);
  * ```
  */
-export const getCurrentIndentLevel = (selection: Selection) => {
+export const getCurrentIndentLevel = (selection: Selection): number | null => {
 	const { $from } = selection;
 	const { taskList, blockTaskItem } = $from.doc.type.schema.nodes;
 
@@ -178,7 +184,7 @@ export const getCurrentIndentLevel = (selection: Selection) => {
 /**
  * Finds the index of the current task item in relation to the closest taskList
  */
-export const getTaskItemIndex = (state: EditorState) => {
+export const getTaskItemIndex = (state: EditorState): number => {
 	const $pos = state.selection.$from;
 	const isTaskList = (node: Node | undefined) => node?.type.name === 'taskList';
 	const itemAtPos = findParentNodeClosestToPos($pos, isTaskList);
@@ -342,7 +348,13 @@ export function getTaskItemDataAtPos(view: EditorView):
 	}
 }
 
-export function getAllTaskItemsDataInRootTaskList(view: EditorView) {
+export function getAllTaskItemsDataInRootTaskList(view: EditorView):
+	| {
+			index: number;
+			node: Node;
+			pos: number;
+	  }[]
+	| undefined {
 	const { state } = view;
 	const { schema } = state;
 	const $fromPos = state.selection.$from;
@@ -382,7 +394,7 @@ export function getAllTaskItemsDataInRootTaskList(view: EditorView) {
 export function getCurrentTaskItemIndex(
 	view: EditorView,
 	allTaskItems: Array<{ index: number; node: Node; pos: number }>,
-) {
+): number {
 	const { state } = view;
 	const { schema } = state;
 	const { taskItem, blockTaskItem } = schema.nodes;

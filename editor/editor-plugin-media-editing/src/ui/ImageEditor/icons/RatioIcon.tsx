@@ -42,7 +42,7 @@ export const RatioIcon = ({
 	primaryColor = 'currentColor',
 	secondaryColor,
 	isDisabled,
-}: RatioIconProps) => (
+}: RatioIconProps): JSX.Element => (
 	<svg
 		viewBox="0 0 16 16"
 		xmlns="http://www.w3.org/2000/svg"

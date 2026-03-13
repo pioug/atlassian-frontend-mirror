@@ -90,7 +90,7 @@ type Props = {
 	emoji: EmojiDescription;
 };
 
-export const EmojiPreviewComponent = ({ emoji }: Props) => {
+export const EmojiPreviewComponent = ({ emoji }: Props): JSX.Element => {
 	return (
 		<div css={preview}>
 			<span css={previewImg}>

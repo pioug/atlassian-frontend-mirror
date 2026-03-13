@@ -21,7 +21,7 @@ const meta: Meta<ComponentPropsWithoutRef<typeof AgentProfileInfo>> = {
 export default meta;
 
 export const Default = {
-	render: () => (
+	render: (): React.JSX.Element => (
 		<AgentProfileInfo
 			agentName="Code Documentation Writer"
 			agentDescription="Create or modify documentation files in your codebase to ensure that they are up to date"

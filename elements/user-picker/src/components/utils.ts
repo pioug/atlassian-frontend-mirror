@@ -30,7 +30,7 @@ export const isExternalUser = (option: OptionData): option is ExternalUser =>
 export const isUser = (option: OptionData): option is User =>
 	option.type === undefined || option.type === UserType;
 
-export const isTeam = (option: OptionData): option is Team => option.type === TeamType;
+export const isTeam = (option: OptionData): option is Team => option?.type === TeamType;
 
 export const isGroup = (option: OptionData): option is Group => option.type === GroupType;
 

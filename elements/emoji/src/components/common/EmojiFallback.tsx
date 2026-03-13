@@ -16,7 +16,7 @@ const emojiFallbackStyles = css({
 	overflow: 'hidden',
 });
 
-export const EmojiFallback = (props: React.PropsWithChildren<EmojiProps>) => {
+export const EmojiFallback = (props: React.PropsWithChildren<EmojiProps>): JSX.Element => {
 	const { emoji, selected, selectOnHover, className } = props;
 	const { fallback, shortName } = emoji;
 

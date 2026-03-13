@@ -8,7 +8,12 @@ import { jsx, css } from '@emotion/react';
 import { B400, N500, N30A, N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { MentionType } from '../../types';
-import { forwardRef, type HTMLAttributes } from 'react';
+import {
+	forwardRef,
+	type ForwardRefExoticComponent,
+	type HTMLAttributes,
+	type RefAttributes,
+} from 'react';
 
 export interface PrimitiveMentionProps extends HTMLAttributes<HTMLSpanElement> {
 	mentionType: MentionType;
@@ -47,35 +52,35 @@ const getStyle = (
 	return typeof obj === 'string' ? obj : obj;
 };
 
-const PrimitiveMention = forwardRef<HTMLSpanElement, PrimitiveMentionProps>(
-	({ mentionType, ...other }, ref) => {
-		return (
-			<span
-				ref={ref}
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css={css`
-					display: inline;
-					border: ${token('border.width')} solid ${getStyle({ mentionType }, 'borderColor')};
-					background: ${getStyle({ mentionType }, 'background')};
-					color: ${getStyle({ mentionType }, 'text')};
-					border-radius: 20px;
-					cursor: pointer;
-					padding: 0 0.3em 2px 0.23em;
-					line-height: 1.714;
-					font-size: 1em;
-					font-weight: ${token('font.weight.regular')};
-					word-break: break-word;
-					&:hover {
-						background: ${getStyle({ mentionType }, 'hoveredBackground')};
-					}
-					&:active {
-						background: ${getStyle({ mentionType }, 'pressedBackground')};
-					}
-				`}
-				{...other}
-			/>
-		);
-	},
-);
+const PrimitiveMention: ForwardRefExoticComponent<
+	PrimitiveMentionProps & RefAttributes<HTMLSpanElement>
+> = forwardRef<HTMLSpanElement, PrimitiveMentionProps>(({ mentionType, ...other }, ref) => {
+	return (
+		<span
+			ref={ref}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			css={css`
+				display: inline;
+				border: ${token('border.width')} solid ${getStyle({ mentionType }, 'borderColor')};
+				background: ${getStyle({ mentionType }, 'background')};
+				color: ${getStyle({ mentionType }, 'text')};
+				border-radius: 20px;
+				cursor: pointer;
+				padding: 0 0.3em 2px 0.23em;
+				line-height: 1.714;
+				font-size: 1em;
+				font-weight: ${token('font.weight.regular')};
+				word-break: break-word;
+				&:hover {
+					background: ${getStyle({ mentionType }, 'hoveredBackground')};
+				}
+				&:active {
+					background: ${getStyle({ mentionType }, 'pressedBackground')};
+				}
+			`}
+			{...other}
+		/>
+	);
+});
 
 export default PrimitiveMention;

@@ -76,7 +76,10 @@ function getNodesWithDifferingAttributes({
  * @param params.after - The document node after changes
  * @returns Object containing change analysis results with hasChanged boolean and affectedNodes array
  */
-export function getChanges({ before, after }: NodeHistory) {
+export function getChanges({ before, after }: NodeHistory): {
+	hasChanged: boolean;
+	affectedNodes: NodeWithDifferingAttributes[] | undefined;
+} {
 	const hasChanged = !areNodesEqualIgnoreAttrs(after, before);
 
 	const affectedNodes = hasChanged
@@ -91,7 +94,7 @@ export function getChanges({ before, after }: NodeHistory) {
 export const attachInputMetaWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(inputSource: InputSource, action: ACTION.UNDO_PERFORMED | ACTION.REDO_PERFORMED) =>
-	(command: Command) =>
+	(command: Command): Command =>
 		attachInputMeta(inputSource)(
 			withAnalytics(editorAnalyticsAPI, ({ doc: before }, { currentDoc: after }) => ({
 				eventType: EVENT_TYPE.TRACK,

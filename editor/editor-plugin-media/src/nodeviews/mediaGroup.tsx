@@ -15,7 +15,13 @@ import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
-import type { ForwardRef, getPosHandler, getPosHandlerNode, MediaOptions } from '../types';
+import type {
+	ForwardRef,
+	getPosHandler,
+	getPosHandlerNode,
+	MediaOptions,
+	MediaPluginOptions,
+} from '../types';
 import { useMediaProvider } from '../ui/hooks/useMediaProvider';
 
 import { MediaGroupNext } from './mediaGroupNext';
@@ -130,7 +136,7 @@ export const ReactMediaGroupNode =
 		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		providerFactory: ProviderFactory,
-		mediaOptions: MediaOptions = {},
+		mediaOptions: MediaPluginOptions | undefined = {},
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {

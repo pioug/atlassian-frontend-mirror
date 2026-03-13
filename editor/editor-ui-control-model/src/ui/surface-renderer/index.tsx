@@ -20,7 +20,11 @@ import { buildChildrenMap, findSurface, PassThrough } from './utils';
  * />
  * ```
  */
-export const SurfaceRenderer = ({ surface, components, fallbacks }: SurfaceRendererProps) => {
+export const SurfaceRenderer = ({
+	surface,
+	components,
+	fallbacks,
+}: SurfaceRendererProps): React.JSX.Element | null => {
 	const { root, childrenMap, topLevelChildren } = useMemo(() => {
 		const root = findSurface(components, surface);
 		const childrenMap = buildChildrenMap(components);

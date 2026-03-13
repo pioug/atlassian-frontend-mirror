@@ -1,5 +1,16 @@
 # @atlaskit/dropdown-menu
 
+## 16.6.0
+
+### Minor Changes
+
+- [`0b9ac729e9180`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b9ac729e9180) -
+  [ux] Nested dropdown menus can now navigate throguh left and right arrow keys.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.5.2
 
 ### Patch Changes

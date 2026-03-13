@@ -4,7 +4,7 @@
  */
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
@@ -46,7 +46,11 @@ const saveIndicatorTextStyles = xcss({
 	paddingLeft: 'space.075',
 });
 
-export const SaveIndicator = ({ children, duration, visible = true }: SaveIndicatorProps) => {
+export const SaveIndicator = ({
+	children,
+	duration,
+	visible = true,
+}: SaveIndicatorProps): jsx.JSX.Element => {
 	const [saving, setSaving] = useState(false);
 	const shown = useRef(false);
 

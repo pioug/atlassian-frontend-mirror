@@ -5,7 +5,7 @@
 import type { ChangeEvent } from 'react';
 import { Fragment, useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { Checkbox as AKCheckbox } from '@atlaskit/checkbox';
@@ -95,7 +95,7 @@ export default function CheckboxGroup({
 	field: EnumCheckboxField;
 	name: string;
 	onFieldChange: OnFieldChange;
-}) {
+}): jsx.JSX.Element {
 	const {
 		label: labelBase,
 		description,

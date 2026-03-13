@@ -42,7 +42,7 @@ export type DropdownProps = ToolbarProps & {
 	toolbarType: ToolbarType;
 };
 
-export function ToolbarDropdown(props: DropdownProps) {
+export function ToolbarDropdown(props: DropdownProps): JSX.Element {
 	const { formatMessage } = useIntl();
 	const {
 		disabled,

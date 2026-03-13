@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import Calendar from '@atlaskit/calendar';
@@ -225,4 +225,8 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 	};
 }
 
-export default injectIntl(DatePicker);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(DatePicker);
+export default _default_1;

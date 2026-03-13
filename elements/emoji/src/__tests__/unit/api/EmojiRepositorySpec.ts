@@ -166,7 +166,23 @@ const frequentTest: EmojiDescription = {
 	searchable: true,
 };
 
-export const siteEmojiChinese1 = {
+export const siteEmojiChinese1: {
+	id: string;
+	name: string;
+	fallback: string;
+	type: string;
+	category: string;
+	order: number;
+	searchable: boolean;
+	shortName: string;
+	creatorUserId: string;
+	representation: {
+		height: number;
+		width: number;
+		imagePath: string;
+	};
+	skinVariations: never[];
+} = {
 	id: 'chinese1',
 	name: '我想你',
 	fallback: ':chinese1:',
@@ -185,7 +201,23 @@ export const siteEmojiChinese1 = {
 	skinVariations: [],
 };
 
-export const siteEmojiChinese2 = {
+export const siteEmojiChinese2: {
+	id: string;
+	name: string;
+	fallback: string;
+	type: string;
+	category: string;
+	order: number;
+	searchable: boolean;
+	shortName: string;
+	creatorUserId: string;
+	representation: {
+		height: number;
+		width: number;
+		imagePath: string;
+	};
+	skinVariations: never[];
+} = {
 	id: 'chinese2',
 	name: '象形字',
 	fallback: ':chinese2:',
@@ -204,7 +236,23 @@ export const siteEmojiChinese2 = {
 	skinVariations: [],
 };
 
-export const siteEmojiChinese3 = {
+export const siteEmojiChinese3: {
+	id: string;
+	name: string;
+	fallback: string;
+	type: string;
+	category: string;
+	order: number;
+	searchable: boolean;
+	shortName: string;
+	creatorUserId: string;
+	representation: {
+		height: number;
+		width: number;
+		imagePath: string;
+	};
+	skinVariations: never[];
+} = {
 	id: 'chinese3',
 	name: '我字',
 	fallback: ':chinese3:',
@@ -223,7 +271,23 @@ export const siteEmojiChinese3 = {
 	skinVariations: [],
 };
 
-export const siteEmojiGreek1 = {
+export const siteEmojiGreek1: {
+	id: string;
+	name: string;
+	fallback: string;
+	type: string;
+	category: string;
+	order: number;
+	searchable: boolean;
+	shortName: string;
+	creatorUserId: string;
+	representation: {
+		height: number;
+		width: number;
+		imagePath: string;
+	};
+	skinVariations: never[];
+} = {
 	id: 'greek1',
 	name: 'ΦΏϖϘώ',
 	fallback: ':greek1:',
@@ -242,7 +306,23 @@ export const siteEmojiGreek1 = {
 	skinVariations: [],
 };
 
-export const siteEmojiGreek2 = {
+export const siteEmojiGreek2: {
+	id: string;
+	name: string;
+	fallback: string;
+	type: string;
+	category: string;
+	order: number;
+	searchable: boolean;
+	shortName: string;
+	creatorUserId: string;
+	representation: {
+		height: number;
+		width: number;
+		imagePath: string;
+	};
+	skinVariations: never[];
+} = {
 	id: 'greek2',
 	name: 'ϪϮϼϠ',
 	fallback: ':greek2:',
@@ -261,7 +341,23 @@ export const siteEmojiGreek2 = {
 	skinVariations: [],
 };
 
-export const siteEmojiGreek3 = {
+export const siteEmojiGreek3: {
+	id: string;
+	name: string;
+	fallback: string;
+	type: string;
+	category: string;
+	order: number;
+	searchable: boolean;
+	shortName: string;
+	creatorUserId: string;
+	representation: {
+		height: number;
+		width: number;
+		imagePath: string;
+	};
+	skinVariations: never[];
+} = {
 	id: 'greek3',
 	name: 'ϪϮϘώ',
 	fallback: ':greek3:',

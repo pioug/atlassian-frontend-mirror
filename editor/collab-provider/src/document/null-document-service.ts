@@ -5,7 +5,7 @@ import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types
 
 // A Null object for the actual DocumentService class only for the experiment teammate presence  (ATLAS-53155)
 export class NullDocumentService implements DocumentServiceInterface {
-	setup = () => {
+	setup = (): this => {
 		return this;
 	};
 
@@ -23,11 +23,11 @@ export class NullDocumentService implements DocumentServiceInterface {
 
 	throttledCatchupv2(): void {}
 
-	getCurrentState() {
+	getCurrentState(): Promise<ResolvedEditorState> {
 		return Promise.resolve({} as ResolvedEditorState);
 	}
 
-	getFinalAcknowledgedState(reason: GetResolvedEditorStateReason) {
+	getFinalAcknowledgedState(reason: GetResolvedEditorStateReason): Promise<ResolvedEditorState> {
 		return Promise.resolve({} as ResolvedEditorState);
 	}
 

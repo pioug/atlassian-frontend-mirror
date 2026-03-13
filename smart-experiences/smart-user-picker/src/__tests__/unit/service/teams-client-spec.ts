@@ -89,4 +89,30 @@ describe('default-value-hydration-client', () => {
 			avatarUrl: undefined,
 		});
 	});
+
+	it('should include state when API returns state DISBANDED', async () => {
+		const request = { id: ID, siteId: SITE_ID };
+		const urlPattern = new RegExp(`/gateway/api/v4/teams/${ID}\\?siteId=${SITE_ID}`);
+		fetchMock.get(urlPattern, { ...legionResponse, state: 'DISBANDED' });
+
+		const hydratedTransformedTeam = await hydrateTeamFromLegion(request);
+
+		expect(hydratedTransformedTeam).toMatchObject({
+			...hydratedTeam,
+			state: 'DISBANDED',
+		});
+	});
+
+	it('should include state when API returns state ACTIVE', async () => {
+		const request = { id: ID, siteId: SITE_ID };
+		const urlPattern = new RegExp(`/gateway/api/v4/teams/${ID}\\?siteId=${SITE_ID}`);
+		fetchMock.get(urlPattern, { ...legionResponse, state: 'ACTIVE' });
+
+		const hydratedTransformedTeam = await hydrateTeamFromLegion(request);
+
+		expect(hydratedTransformedTeam).toMatchObject({
+			...hydratedTeam,
+			state: 'ACTIVE',
+		});
+	});
 });

@@ -2,11 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useRef } from 'react';
+import { useRef, type ComponentType, type FC } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -169,4 +169,8 @@ const PrimaryToolbarHighlightColor = ({
 	);
 };
 
-export const PrimaryToolbarHighlightColorWithIntl = injectIntl(PrimaryToolbarHighlightColor);
+export const PrimaryToolbarHighlightColorWithIntl: FC<
+	WithIntlProps<PrimaryToolbarHighlightColorProps>
+> & {
+	WrappedComponent: ComponentType<PrimaryToolbarHighlightColorProps>;
+} = injectIntl(PrimaryToolbarHighlightColor);

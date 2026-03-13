@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 const spanStyles = css({
@@ -29,7 +29,7 @@ const svgStyles = css({
  * Similar to DragHandleVerticalIcon but with only 3 dots instead of 6.
  * Hardcoded to medium size with spacious spacing.
  */
-export const DragHandleNestedIcon = () => {
+export const DragHandleNestedIcon = (): jsx.JSX.Element => {
 	return (
 		<span aria-hidden={true} css={spanStyles}>
 			<svg

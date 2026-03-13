@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider, type IntlShape, injectIntl } from 'react-intl-next';
+import { IntlProvider, type IntlShape, type WithIntlProps, injectIntl } from 'react-intl-next';
 
 import { Text } from '@atlaskit/primitives/compiled';
 import withAnalyticsEvents, {
@@ -304,7 +304,24 @@ export class MentionPicker extends React.PureComponent<
 const MentionPickerWithIntl = injectIntl(MentionPicker, { forwardRef: true });
 
 // @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
-export const MentionPickerWithAnalytics = withAnalyticsEvents({})(MentionPickerWithIntl);
+export const MentionPickerWithAnalytics: React.ForwardRefExoticComponent<
+	Omit<
+		Omit<
+			WithIntlProps<
+				React.PropsWithChildren<
+					Props &
+						WithAnalyticsEventsProps & {
+							intl: IntlShape;
+						}
+				>
+			>,
+			'ref'
+		> &
+			React.RefAttributes<any>,
+		keyof WithAnalyticsEventsProps
+	> &
+		React.RefAttributes<any>
+> = withAnalyticsEvents({})(MentionPickerWithIntl);
 
 export type MentionPickerWithAnalytics = MentionPicker;
 

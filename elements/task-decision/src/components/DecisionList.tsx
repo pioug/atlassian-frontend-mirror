@@ -23,7 +23,7 @@ const listStyles = css({
 });
 
 export default class DecisionList extends PureComponent<Props, {}> {
-	render() {
+	render(): JSX.Element | null {
 		const { children } = this.props;
 
 		if (!children) {

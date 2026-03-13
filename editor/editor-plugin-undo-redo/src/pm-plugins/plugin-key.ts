@@ -1,3 +1,3 @@
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-export const pluginKey = new PluginKey('undoRedoPlugin');
+export const pluginKey: PluginKey = new PluginKey('undoRedoPlugin');

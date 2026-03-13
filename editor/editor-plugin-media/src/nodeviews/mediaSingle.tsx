@@ -5,7 +5,7 @@
  */
 import { useCallback, useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
@@ -20,7 +20,8 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { isNodeSelectedOrInRange } from '@atlaskit/editor-common/utils';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { isNodeSelectedOrInRange, SelectedState } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -151,7 +152,9 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		return domRef;
 	}
 
-	getContentDOM() {
+	getContentDOM(): {
+		dom: HTMLDivElement;
+	} {
 		const dom = document.createElement('div');
 		dom.classList.add(MEDIA_CONTENT_WRAP_CLASS_NAME);
 		return { dom };
@@ -178,7 +181,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		return super.viewShouldUpdate(nextNode);
 	}
 
-	subscribeToViewModeChange(domRef: HTMLElement) {
+	subscribeToViewModeChange(domRef: HTMLElement): (() => void) | undefined {
 		return this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.onChange(
 			(viewModeState) => {
 				this.updateDomRefContentEditable(domRef, viewModeState.nextSharedState?.mode);
@@ -201,7 +204,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		}
 	}
 
-	checkAndUpdateSelectionType = () => {
+	checkAndUpdateSelectionType = (): SelectedState | null => {
 		const getPos = this.getPos as getPosHandlerNode;
 		const { selection } = this.view.state;
 
@@ -279,7 +282,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		return super.update(node, decorations, _innerDecorations, isValidUpdate);
 	}
 
-	render(props: MediaSingleNodeViewProps, forwardRef?: ForwardRef) {
+	render(props: MediaSingleNodeViewProps, forwardRef?: ForwardRef): jsx.JSX.Element {
 		const {
 			eventDispatcher,
 			fullWidthMode,
@@ -355,7 +358,7 @@ export const ReactMediaSingleNode =
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 		mediaOptions: MediaOptions = {},
 	) =>
-	(node: PMNode, view: EditorView, getPos: getPosHandler) => {
+	(node: PMNode, view: EditorView, getPos: getPosHandler): MediaSingleNodeView => {
 		return new MediaSingleNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
 			eventDispatcher,
 			fullWidthMode: mediaOptions.fullWidthEnabled,

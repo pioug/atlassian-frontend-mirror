@@ -2,11 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, type ComponentType, type FC } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import {
@@ -103,4 +103,7 @@ const HelpDialog = ({
 	);
 };
 
-export default injectIntl(HelpDialog);
+const _default_1: FC<WithIntlProps<HelpDialogProps & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<HelpDialogProps & WrappedComponentProps>;
+} = injectIntl(HelpDialog);
+export default _default_1;

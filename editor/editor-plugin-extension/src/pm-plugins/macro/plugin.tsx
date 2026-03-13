@@ -7,7 +7,7 @@ import { setMacroProvider } from './actions';
 import { pluginKey } from './plugin-key';
 import type { MacroState } from './types';
 
-export const createPlugin = (dispatch: Dispatch, providerFactory: ProviderFactory) =>
+export const createPlugin = (dispatch: Dispatch, providerFactory: ProviderFactory): SafePlugin =>
 	new SafePlugin({
 		state: {
 			init: () => ({ macroProvider: null }),

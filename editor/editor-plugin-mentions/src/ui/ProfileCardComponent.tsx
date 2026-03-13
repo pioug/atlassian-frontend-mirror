@@ -36,7 +36,17 @@ type WrapperProps = { children: React.ReactNode; isLoading: boolean };
 const LoadingWrapper = ({ children, isLoading }: WrapperProps) =>
 	isLoading ? <div css={styles.loadingStyles}>{children}</div> : children;
 
-export const useProfileCardState = ({ id, provider }: ProfileCardStateProps) => {
+export const useProfileCardState = ({
+	id,
+	provider,
+}: ProfileCardStateProps): {
+	data: ProfileCardClientData | undefined;
+	reportingLinesData: TeamCentralReportingLinesData | undefined;
+	shouldShowGiveKudos: boolean;
+	teamCentralBaseUrl: string | undefined;
+	isLoading: boolean;
+	hasError: boolean;
+} => {
 	const [data, setData] = useState<ProfileCardClientData | undefined>();
 	const [reportingLinesData, setReportingLinesData] = useState<
 		TeamCentralReportingLinesData | undefined
@@ -97,7 +107,7 @@ export function ProfileCardComponent({
 	closeComponent: () => void;
 	dom: HTMLElement;
 	profilecardProvider?: Promise<ProfilecardProvider> | undefined;
-}) {
+}): JSX.Element {
 	const [provider, setProvider] = useState<ProfilecardProvider | undefined>(undefined);
 	useEffect(() => {
 		profilecardProvider?.then((p) => {

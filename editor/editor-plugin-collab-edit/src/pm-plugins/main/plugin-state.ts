@@ -30,7 +30,7 @@ import {
 /**
  * Returns position where it's possible to place a decoration.
  */
-export const getValidPos = (tr: ReadonlyTransaction, pos: number) => {
+export const getValidPos = (tr: ReadonlyTransaction, pos: number): number => {
 	const endOfDocPos = tr.doc.nodeSize - 2;
 	if (pos <= endOfDocPos) {
 		const resolvedPos = tr.doc.resolve(pos);
@@ -54,7 +54,7 @@ export class PluginState {
 	private sid?: string;
 	public isReady: boolean;
 
-	get decorations() {
+	get decorations(): DecorationSet {
 		return this.decorationSet;
 	}
 
@@ -62,7 +62,7 @@ export class PluginState {
 		return this.participants as ReadOnlyParticipants;
 	}
 
-	get sessionId() {
+	get sessionId(): string | undefined {
 		return this.sid;
 	}
 
@@ -97,7 +97,7 @@ export class PluginState {
 		return participant?.presenceId ?? sessionId;
 	}
 
-	apply(tr: ReadonlyTransaction) {
+	apply(tr: ReadonlyTransaction): PluginState {
 		// Ignored via go/ees005
 		// eslint-disable-next-line prefer-const
 		let { participants, sid, isReady } = this;
@@ -323,7 +323,7 @@ export class PluginState {
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	static init(config: any) {
+	static init(config: any): PluginState {
 		const { doc, onError } = config;
 		return new PluginState(
 			DecorationSet.create(doc, []),

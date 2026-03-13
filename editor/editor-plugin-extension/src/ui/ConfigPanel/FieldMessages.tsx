@@ -1,6 +1,6 @@
 import React, { Fragment, useMemo } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
@@ -103,4 +103,20 @@ const FieldMessages = function ({
 	}
 };
 
-export default injectIntl(FieldMessages);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<
+	WithIntlProps<
+		{
+			description?: string;
+			error?: string;
+		} & WrappedComponentProps
+	>
+> & {
+	WrappedComponent: React.ComponentType<
+		{
+			description?: string;
+			error?: string;
+		} & WrappedComponentProps
+	>;
+} = injectIntl(FieldMessages);
+export default _default_1;

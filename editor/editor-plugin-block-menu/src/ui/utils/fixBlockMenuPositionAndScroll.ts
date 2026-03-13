@@ -1,7 +1,7 @@
 import { getDocument } from '@atlaskit/browser-apis';
 import { BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu';
 
-export const fixBlockMenuPositionAndScroll = (firstSelectedNode: Element | undefined) => {
+export const fixBlockMenuPositionAndScroll = (firstSelectedNode: Element | undefined): void => {
 	const doc = getDocument();
 	if (!doc) {
 		return;

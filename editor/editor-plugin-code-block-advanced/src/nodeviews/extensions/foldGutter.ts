@@ -1,5 +1,5 @@
 import { foldGutter, codeFolding, foldState, foldEffect } from '@codemirror/language';
-import { type StateEffect } from '@codemirror/state';
+import { type Extension, type StateEffect } from '@codemirror/state';
 import type { EditorView as CodeMirror } from '@codemirror/view';
 
 import {
@@ -62,7 +62,7 @@ export function foldGutterExtension({
 }: {
 	getNode: () => PMNode;
 	selectNode: () => void;
-}) {
+}): Extension[] {
 	return [
 		foldGutter({
 			foldingChanged: (update) => {

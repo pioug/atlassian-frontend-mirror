@@ -5,7 +5,7 @@
 import type { ReactNode } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
@@ -62,51 +62,52 @@ const scrollToCollabCursor = (
 	}
 };
 
-export const Avatars = React.memo((props: AvatarsProps) => {
-	const { sessionId, featureFlags, editorAPI } = props;
-	const intl = useIntl();
-	// .slice() turns ReadonlyArray<CollabParticipant> into a mutable CollabParticipant[]
-	const participants = props.participants?.toArray()?.slice();
-	if (!participants) {
-		return null;
-	}
+export const Avatars: React.MemoExoticComponent<(props: AvatarsProps) => jsx.JSX.Element | null> =
+	React.memo((props: AvatarsProps): jsx.JSX.Element | null => {
+		const { sessionId, featureFlags, editorAPI } = props;
+		const intl = useIntl();
+		// .slice() turns ReadonlyArray<CollabParticipant> into a mutable CollabParticipant[]
+		const participants = props.participants?.toArray()?.slice();
+		if (!participants) {
+			return null;
+		}
 
-	const avatars = participants
-		.sort((p) => (p.sessionId === sessionId ? -1 : 1))
-		.map((participant) => toAvatar(participant, editorAPI, intl.formatMessage));
+		const avatars = participants
+			.sort((p) => (p.sessionId === sessionId ? -1 : 1))
+			.map((participant) => toAvatar(participant, editorAPI, intl.formatMessage));
 
-	if (!avatars.length) {
-		return null;
-	}
+		if (!avatars.length) {
+			return null;
+		}
 
-	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<div css={avatarContainerStyles}>
-			<AvatarGroup
-				appearance="stack"
-				size="medium"
-				data={avatars}
-				maxCount={3}
-				onAvatarClick={(
-					_event: React.MouseEvent,
-					_analytics: AnalyticsEvent | undefined,
-					index: number,
-				) => {
-					const allowCollabAvatarScroll = featureFlags?.collabAvatarScroll;
+		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			<div css={avatarContainerStyles}>
+				<AvatarGroup
+					appearance="stack"
+					size="medium"
+					data={avatars}
+					maxCount={3}
+					onAvatarClick={(
+						_event: React.MouseEvent,
+						_analytics: AnalyticsEvent | undefined,
+						index: number,
+					) => {
+						const allowCollabAvatarScroll = featureFlags?.collabAvatarScroll;
 
-					// user does not need to scroll to their own position (index 0)
-					if (allowCollabAvatarScroll && index > 0) {
-						scrollToCollabCursor(
-							editorAPI,
-							participants,
-							props.sessionId,
-							index,
-							props.editorAnalyticsAPI,
-						);
-					}
-				}}
-			/>
-			{props.children}
-		</div>
-	);
-});
+						// user does not need to scroll to their own position (index 0)
+						if (allowCollabAvatarScroll && index > 0) {
+							scrollToCollabCursor(
+								editorAPI,
+								participants,
+								props.sessionId,
+								index,
+								props.editorAnalyticsAPI,
+							);
+						}
+					}}
+				/>
+				{props.children}
+			</div>
+		);
+	});

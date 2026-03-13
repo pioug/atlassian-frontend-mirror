@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
@@ -326,4 +326,8 @@ const Replace = ({
 	);
 };
 
-export default injectIntl(Replace);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<ReplaceProps & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<ReplaceProps & WrappedComponentProps>;
+} = injectIntl(Replace);
+export default _default_1;

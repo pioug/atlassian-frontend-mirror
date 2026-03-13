@@ -58,7 +58,11 @@ const InlineToolbarMenuItemComponent = ({
 	);
 };
 
-export const registerInlineToolbar = ({ api, extension, index }: RegisterExtensionProps) => {
+export const registerInlineToolbar = ({
+	api,
+	extension,
+	index,
+}: RegisterExtensionProps): RegisterComponent[] => {
 	const { key, inlineToolbar } = extension;
 
 	const baseKey = `selection-extension-${key}`;

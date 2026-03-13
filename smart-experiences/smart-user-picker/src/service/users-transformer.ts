@@ -38,6 +38,8 @@ interface ServerUser extends ServerItem {
 	nonLicensedUser?: boolean;
 }
 
+type ServerTeamState = 'ACTIVE' | 'DISBANDED' | 'PURGED';
+
 interface ServerTeam extends ServerItem {
 	displayName?: string;
 	entityType: EntityType.TEAM;
@@ -48,6 +50,7 @@ interface ServerTeam extends ServerItem {
 	members?: TeamMember[];
 	includesYou?: boolean;
 	verified?: boolean;
+	state?: ServerTeamState;
 	type?: {
 		name?: string;
 	};
@@ -130,6 +133,7 @@ const transformUser = (
 			tooltip: team.displayName,
 			verified: team.verified,
 			teamTypeName: team.type?.name,
+			state: team.state,
 		};
 	}
 

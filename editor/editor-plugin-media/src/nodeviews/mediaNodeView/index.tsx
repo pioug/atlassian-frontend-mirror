@@ -34,7 +34,12 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { updateCurrentMediaNodeAttrs } from '../../pm-plugins/commands/helpers';
 import { isMediaBlobUrlFromAttrs } from '../../pm-plugins/utils/media-common';
-import type { getPosHandler, getPosHandlerNode, MediaOptions } from '../../types';
+import type {
+	getPosHandler,
+	getPosHandlerNode,
+	MediaOptions,
+	MediaPluginOptions,
+} from '../../types';
 import type { MediaNodeViewProps } from '../types';
 
 // Ignored via go/ees005
@@ -214,7 +219,10 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		}
 	};
 
-	getMaxCardDimensions = () => {
+	getMaxCardDimensions = (): {
+		width: string;
+		height: string;
+	} => {
 		const flexibleDimensions = { width: '100%', height: '100%' };
 
 		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
@@ -245,7 +253,10 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		return flexibleDimensions;
 	};
 
-	getMediaProviderToUse = (mediaOptions: MediaOptions, mediaProvider?: Promise<MediaProvider>) => {
+	getMediaProviderToUse = (
+		mediaOptions: MediaOptions,
+		mediaProvider?: Promise<MediaProvider>,
+	): Promise<MediaProvider> | undefined => {
 		if (mediaProvider) {
 			return mediaProvider;
 		}
@@ -356,10 +367,10 @@ export const ReactMediaNode =
 		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		providerFactory: ProviderFactory,
-		mediaOptions: MediaOptions = {},
+		mediaOptions: MediaPluginOptions | undefined = {},
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	) =>
-	(node: PMNode, view: EditorView, getPos: getPosHandler) => {
+	(node: PMNode, view: EditorView, getPos: getPosHandler): MediaNodeView => {
 		return new MediaNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
 			eventDispatcher,
 			providerFactory,

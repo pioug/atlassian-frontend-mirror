@@ -4,7 +4,7 @@
  */
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -27,7 +27,7 @@ import { getAppearanceForAppType } from '@atlaskit/avatar';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const imageContainer = css({
+export const imageContainer: SerializedStyles = css({
 	height: '16px',
 	width: '16px',
 	paddingRight: token('space.050', '4px'),
@@ -37,7 +37,7 @@ export const imageContainer = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const emailDomainWrapper = css({
+export const emailDomainWrapper: SerializedStyles = css({
 	fontWeight: token('font.weight.bold'),
 });
 
@@ -190,4 +190,14 @@ class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps
 	}
 }
 
-export const ExternalUserOption = withAnalyticsEvents()(ExternalUserOptionImpl);
+export const ExternalUserOption: React.ForwardRefExoticComponent<
+	Omit<
+		{
+			isSelected: boolean;
+			status?: string;
+			user: ExternalUser;
+		},
+		keyof WithAnalyticsEventsProps
+	> &
+		React.RefAttributes<any>
+> = withAnalyticsEvents()(ExternalUserOptionImpl);

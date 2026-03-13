@@ -93,6 +93,6 @@ const InteractiveElements = () => {
 	);
 };
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return <InteractiveElements />;
 }

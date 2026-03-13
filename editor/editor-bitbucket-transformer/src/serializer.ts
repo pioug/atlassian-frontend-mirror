@@ -507,7 +507,32 @@ const editorNodes = {
 	},
 };
 
-export const nodes = { ...editorNodes, ...tableNodes };
+export const nodes: {
+	blockquote: (state: MarkdownSerializerState, node: PMNode) => void;
+	bulletList: (state: MarkdownSerializerState, node: PMNode) => void;
+	caption: (state: MarkdownSerializerState, node: PMNode, parent: PMNode) => void;
+	codeBlock: (state: MarkdownSerializerState, node: PMNode) => void;
+	emoji: (state: MarkdownSerializerState, node: PMNode) => void;
+	empty_line: (state: MarkdownSerializerState, node: PMNode) => void;
+	extension: (state: MarkdownSerializerState, node: PMNode) => void;
+	hardBreak: (state: MarkdownSerializerState) => void;
+	heading: (state: MarkdownSerializerState, node: PMNode) => void;
+	image: (state: MarkdownSerializerState, node: PMNode) => void;
+	inlineCard: (state: MarkdownSerializerState, node: PMNode) => void;
+	listItem: (state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) => void;
+	media: (state: MarkdownSerializerState, node: PMNode, parent: PMNode) => void;
+	mediaGroup: (state: MarkdownSerializerState, node: PMNode) => void;
+	mediaSingle: (state: MarkdownSerializerState, node: PMNode, parent: PMNode) => void;
+	mention: (state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) => void;
+	orderedList: (state: MarkdownSerializerState, node: PMNode) => void;
+	paragraph: (state: MarkdownSerializerState, node: PMNode) => void;
+	rule: (state: MarkdownSerializerState, node: PMNode) => void;
+	table: (state: MarkdownSerializerState, node: PMNode) => void;
+	tableCell: (state: MarkdownSerializerState, node: PMNode) => void;
+	tableHeader: (state: MarkdownSerializerState, node: PMNode) => void;
+	tableRow: (state: MarkdownSerializerState, node: PMNode) => void;
+	text: (state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) => void;
+} = { ...editorNodes, ...tableNodes };
 
 export const marks = {
 	em: { open: '_', close: '_', mixable: true, expelEnclosingWhitespace: true },

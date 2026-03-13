@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 9.0.0
+
+### Minor Changes
+
+- [`71de71e52182e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71de71e52182e) -
+  Remove @atlaskit/editor-plugin-ncs-metrics
+
+### Patch Changes
+
+- [`71de71e52182e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71de71e52182e) -
+  Add experiment platform_editor_remove_collab_step_metrics which removes step metrics writes to
+  local storage from collab edit plugin
+- Updated dependencies
+
 ## 8.0.22
 
 ### Patch Changes

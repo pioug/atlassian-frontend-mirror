@@ -7,19 +7,25 @@ import type { EditorTheme, ParticipantColor } from './types';
 
 export const akEditorFullPageDefaultFontSize = 16;
 export const akEditorFullPageDenseFontSize = 13;
-export const akEditorCodeFontFamily = token('font.family.code');
-export const akEditorSubtleAccent = token('color.background.accent.gray.subtler');
-export const akEditorBlockquoteBorderColor = token('color.border');
-export const akEditorCodeBackground = token('color.background.accent.gray.subtlest');
+export const akEditorCodeFontFamily: 'var(--ds-font-family-code)' = token('font.family.code');
+export const akEditorSubtleAccent: 'var(--ds-background-accent-gray-subtler)' = token(
+	'color.background.accent.gray.subtler',
+);
+export const akEditorBlockquoteBorderColor: 'var(--ds-border)' = token('color.border');
+export const akEditorCodeBackground: 'var(--ds-background-accent-gray-subtlest)' = token(
+	'color.background.accent.gray.subtlest',
+);
 export const akEditorCodeBlockPadding = '12px';
 export const akEditorCodeInlinePadding = '2px 4px';
-export const akEditorDeleteBackground = token('color.background.danger');
+export const akEditorDeleteBackground: 'var(--ds-background-danger)' =
+	token('color.background.danger');
 export const akEditorDeleteBackgroundWithOpacity = 'rgba(255, 189, 173, 0.5)'; // R75 with 50% opacity
-export const akEditorDeleteBorder = token('color.border.danger');
-export const akEditorDeleteIconColor = token('color.icon.danger');
+export const akEditorDeleteBorder: 'var(--ds-border-danger)' = token('color.border.danger');
+export const akEditorDeleteIconColor: 'var(--ds-icon-danger)' = token('color.icon.danger');
 export const akEditorCustomIconSize = 20;
 
-export const akEditorSelectedBorderColor = token('color.border.selected');
+export const akEditorSelectedBorderColor: 'var(--ds-border-selected)' =
+	token('color.border.selected');
 export const akEditorSelectedBorderSize = 1;
 export const akEditorSelectedBorderBoldSize = 2;
 export const akEditorSelectedBorder: string = `${akEditorSelectedBorderSize}px solid ${token(
@@ -34,7 +40,7 @@ export const akEditorSelectedBlanketOpacity = 0.3;
 export const akEditorUnitZIndex = 1;
 export const akEditorShadowZIndex = 2;
 export const akEditorStickyHeaderZIndex = 11; // filmstrip uses 10 for its shadow
-export const akEditorSmallZIndex = akEditorStickyHeaderZIndex + 1;
+export const akEditorSmallZIndex: number = akEditorStickyHeaderZIndex + 1;
 export const akEditorGridLineZIndex = 2;
 
 // z-index for main menu bar -
@@ -43,17 +49,22 @@ export const akEditorMenuZIndex = 500;
 // z-index used for floating toolbars like code block, table etc
 export const akEditorFloatingPanelZIndex = 400;
 // z-index used for pickers (date, emoji, mentions) and type-aheads, hyperlinks
-export const akEditorFloatingDialogZIndex = akEditorMenuZIndex + 10;
+export const akEditorFloatingDialogZIndex: number = akEditorMenuZIndex + 10;
 // z-index used for table cell menu options button on a sticky header
-export const akEditorTableCellOnStickyHeaderZIndex = akEditorFloatingDialogZIndex - 5;
+export const akEditorTableCellOnStickyHeaderZIndex: number = akEditorFloatingDialogZIndex - 5;
 // z-index used for floating toolbars table cell menu which are above block toolbars
-export const akEditorFloatingOverlapPanelZIndex = akEditorFloatingPanelZIndex + 5;
+export const akEditorFloatingOverlapPanelZIndex: number = akEditorFloatingPanelZIndex + 5;
 export const akEditorTableToolbarSize = 11;
-export const akEditorTableBorder = token('color.background.accent.gray.subtler');
-export const akEditorTableToolbar = token('color.background.accent.gray.subtlest');
+export const akEditorTableBorder: 'var(--ds-background-accent-gray-subtler)' = token(
+	'color.background.accent.gray.subtler',
+);
+export const akEditorTableToolbar: 'var(--ds-background-accent-gray-subtlest)' = token(
+	'color.background.accent.gray.subtlest',
+);
 export const akEditorTableHeaderCellBackground = '#F1F2F4';
 export const akEditorTableHeaderCellBackgroundDark = '#2C333A';
-export const akEditorTableBorderSelected = token('color.border.focused');
+export const akEditorTableBorderSelected: 'var(--ds-border-focused)' =
+	token('color.border.focused');
 export const akEditorTableBorderRadius = '3px';
 export const akEditorTableCellBackgroundOpacity = 0.5;
 export const akEditorFullPageMaxWidth = 680;
@@ -66,7 +77,7 @@ export const akEditorMaxLayoutWidth = 4000;
 export const akEditorTableNumberColumnWidth = 42;
 export const akEditorBreakoutPadding = 96;
 export const akEditorGutterPadding = 32;
-export const akEditorGutterPaddingDynamic = () =>
+export const akEditorGutterPaddingDynamic = (): 72 | 52 =>
 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 	fg('platform_editor_controls_increase_full_page_gutter') &&
 	editorExperiment('platform_editor_controls', 'variant1')
@@ -84,7 +95,7 @@ export const gridMediumMaxWidth = 1024;
 export const breakoutWideScaleRatio = 1.33;
 export const akEditorCalculatedWideLayoutWidthSmallViewport = 905; // from breakoutConsts.calcWideWidth, layoutMaxWidth * breakoutConsts.wideScaleRatio = 904.8 ~ 905 This is a resulting width value that is applied to nodes that currently use breakouts (except table) and are set to `wide` when the viewport's width is <= 1266px.
 export const akEditorCalculatedWideLayoutWidth = 1011; // = akEditorDefaultLayoutWidth * breakoutWideScaleRatio = 1010.8 ~ 1011 This is a resulting width value that is applied to nodes that currently use breakouts (except table) and are set to `wide` when the viewport's width is > 1329px.
-export const akRichMediaResizeZIndex = akEditorUnitZIndex * 99;
+export const akRichMediaResizeZIndex: number = akEditorUnitZIndex * 99;
 export const akLayoutGutterOffset = 12;
 export const akEditorLineHeight = 1.714;
 export const akEditorRuleBorderRadius = '1px';
@@ -92,7 +103,7 @@ export const akEditorToolbarKeylineHeight = 2;
 export const akEditorContextPanelWidth = 320;
 export const akEditorTableCellBlanketSelected = 'rgba(179, 212, 255, 0.3)';
 export const akEditorTableCellBlanketDeleted = 'rgba(255, 235, 230, 0.3)';
-export const akEditorWrappedNodeZIndex = akEditorUnitZIndex * 2; //prevent paragraph nodes from rendering above wrapped nodes
+export const akEditorWrappedNodeZIndex: number = akEditorUnitZIndex * 2; //prevent paragraph nodes from rendering above wrapped nodes
 
 export const layoutBreakpointWidth = {
 	SMALL: 550,
@@ -114,7 +125,9 @@ export const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
 
 const DEFAULT_FONT_SIZE = 14;
 
-export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = (isToolbarAIFCEnabled?: boolean) => {
+export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = (
+	isToolbarAIFCEnabled?: boolean,
+): 'var(--ds-space-500)' | '44px' => {
 	if (
 		// if value is undefined assume this is being called outside of editor where the experiment can be checked
 		isToolbarAIFCEnabled === undefined
@@ -134,12 +147,15 @@ export const akEditorFullPageToolbarHeight = 40;
 
 export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
-export const editorFontSize = ({ theme }: { theme: { baseFontSize?: number } | undefined }) =>
-	theme && theme.baseFontSize ? theme.baseFontSize : DEFAULT_FONT_SIZE;
+export const editorFontSize = ({
+	theme,
+}: {
+	theme: { baseFontSize?: number } | undefined;
+}): number => (theme && theme.baseFontSize ? theme.baseFontSize : DEFAULT_FONT_SIZE);
 
 export const relativeSize =
 	(multiplier: number) =>
-	({ theme }: { theme: EditorTheme }) =>
+	({ theme }: { theme: EditorTheme }): number =>
 		editorFontSize({ theme }) * multiplier;
 
 export const relativeFontSizeToBase16 = (px: number | string) => {
@@ -229,7 +245,29 @@ export function getTableCellBackgroundDarkModeColorCSS(
   `;
 }
 
-export const avatarColors = [
+export const avatarColors: (
+	| 'var(--ds-icon-accent-red)'
+	| 'var(--ds-background-accent-red-bolder-hovered)'
+	| 'var(--ds-icon-accent-magenta)'
+	| 'var(--ds-background-accent-magenta-bolder-hovered)'
+	| 'var(--ds-icon-accent-orange)'
+	| 'var(--ds-background-accent-orange-bolder-hovered)'
+	| 'var(--ds-icon-accent-green)'
+	| 'var(--ds-background-accent-green-bolder-hovered)'
+	| 'var(--ds-icon-accent-blue)'
+	| 'var(--ds-background-accent-blue-bolder-hovered)'
+	| 'var(--ds-icon-accent-teal)'
+	| 'var(--ds-background-accent-teal-bolder-hovered)'
+	| 'var(--ds-icon-accent-lime)'
+	| 'var(--ds-background-accent-lime-bolder-hovered)'
+	| 'var(--ds-icon-accent-purple)'
+	| 'var(--ds-background-accent-purple-bolder-hovered)'
+	| 'var(--ds-icon-accent-gray)'
+	| 'var(--ds-background-accent-gray-bolder-hovered)'
+	| 'var(--ds-icon-accent-yellow)'
+	| 'var(--ds-background-accent-yellow-bolder-hovered)'
+	| 'var(--ds-background-accent-yellow-bolder-pressed)'
+)[] = [
 	token('color.icon.accent.red'),
 	token('color.background.accent.red.bolder.hovered'),
 	token('color.icon.accent.magenta'),

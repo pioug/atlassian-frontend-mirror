@@ -8,7 +8,7 @@ export class Emitter<T = any> {
 	/**
 	 * Emit events to subscribers
 	 */
-	protected emit<K extends keyof T>(evt: K, data: T[K]) {
+	protected emit<K extends keyof T>(evt: K, data: T[K]): this {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		this.eventEmitter.emit(evt as any, data);
@@ -18,7 +18,7 @@ export class Emitter<T = any> {
 	/**
 	 * Subscribe to events emitted by this provider
 	 */
-	on<K extends keyof T>(evt: K, handler: (args: T[K]) => void) {
+	on<K extends keyof T>(evt: K, handler: (args: T[K]) => void): this {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		this.eventEmitter.on(evt as any, handler);
@@ -28,7 +28,7 @@ export class Emitter<T = any> {
 	/**
 	 * Unsubscribe from events emitted by this provider
 	 */
-	off<K extends keyof T>(evt: K, handler: (args: T[K]) => void) {
+	off<K extends keyof T>(evt: K, handler: (args: T[K]) => void): this {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		this.eventEmitter.off(evt as any, handler);
@@ -38,7 +38,7 @@ export class Emitter<T = any> {
 	/**
 	 * Unsubscribe from all events emitted by this provider.
 	 */
-	unsubscribeAll<K extends keyof T>(evt?: K) {
+	unsubscribeAll<K extends keyof T>(evt?: K): this {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		this.eventEmitter.removeAllListeners(evt as any);

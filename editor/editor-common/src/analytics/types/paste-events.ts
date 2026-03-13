@@ -1,5 +1,5 @@
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
-import type { OperationalAEP, TrackAEP } from './utils';
+import type { OperationalAEP, TrackAEP, UIAEP } from './utils';
 
 export const PasteTypes: { [type: string]: PasteType } = {
 	richText: 'richText',
@@ -137,6 +137,7 @@ type PasteAEP = PasteBaseAEP<
 	{
 		content: PasteContent;
 		inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+		invokedFrom?: string;
 		pasteSize: number;
 		source?: PasteSource;
 		type: PasteType;
@@ -168,3 +169,13 @@ type PastedTimedAEP = PasteBaseOperationalAEP<
 >;
 
 export type PasteEventPayload = PasteAEP | PasteAsPlainAEP | PastedTimedAEP;
+
+export type PasteActionsMenuOpenedAEP = UIAEP<
+	ACTION.OPENED,
+	ACTION_SUBJECT.PASTE_ACTIONS_MENU,
+	undefined,
+	{ visibleAiActions: string[] },
+	undefined
+>;
+
+export type PasteActionsMenuEventPayload = PasteActionsMenuOpenedAEP;

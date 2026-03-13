@@ -30,7 +30,7 @@ export class UfoErrorBoundary extends React.Component<UfoErrorBoundaryProps> {
 		}
 	}
 
-	render() {
+	render(): React.ReactNode {
 		return this.props.children;
 	}
 }

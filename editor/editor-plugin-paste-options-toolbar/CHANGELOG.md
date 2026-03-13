@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.0.1
+
+### Patch Changes
+
+- [`52d4528d79431`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52d4528d79431) -
+  [ux] EDITOR-5896 Minor paste menu cleanup. Reduce padding and remove separator from legacy paste
+  actions when there's no AI paste actions
+
+## 9.0.0
+
+### Patch Changes
+
+- [`7091cae4a7f26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7091cae4a7f26) -
+  EDITOR-5607 Add analytics for new editor paste menu
+- Updated dependencies
+
 ## 8.4.1
 
 ### Patch Changes

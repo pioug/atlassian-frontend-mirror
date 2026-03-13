@@ -268,7 +268,7 @@ export class ItemStateManager {
 		}
 	}
 
-	getTaskState(keys: ObjectKey[]) {
+	getTaskState(keys: ObjectKey[]): Promise<ServiceTaskState[]> {
 		const options: RequestServiceOptions = {
 			path: 'tasks/state',
 			requestInit: {

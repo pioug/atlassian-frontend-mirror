@@ -28,7 +28,14 @@ type Props = {
  * @example
  */
 // The `CellMeasurer` component from react-virtualized expects that his children is a `forwardRef` component.
-export const ListRow = forwardRef<HTMLDivElement, Props>(
+export const ListRow: React.ForwardRefExoticComponent<
+	{
+		children: ReactNode;
+		measure: () => void;
+		onMouseMove: MouseEventHandler<HTMLDivElement>;
+	} & Pick<ListRowProps, 'index' | 'isScrolling' | 'isVisible' | 'style'> &
+		React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, Props>(
 	({ children, measure, index, style, isVisible, isScrolling, onMouseMove }, ref) => {
 		const childElementRef = useRef<HTMLDivElement | null>(null);
 

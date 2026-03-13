@@ -181,7 +181,22 @@ export const wrapNodesInDoc = (schema: Schema, nodes: PMNode[]): PMNode => {
 	}
 };
 
-export const getSelectionInfoFromSameNode = (selection: TextSelection) => {
+export const getSelectionInfoFromSameNode = (
+	selection: TextSelection,
+): {
+	selectedNode: PMNode;
+	selectionRanges: {
+		start: {
+			pointer: string;
+			position: number;
+		};
+		end: {
+			pointer: string;
+			position: number;
+		};
+	}[];
+	nodePos: number;
+} => {
 	const { $from, $to } = selection;
 
 	return {
@@ -202,7 +217,20 @@ export const getSelectionInfoFromSameNode = (selection: TextSelection) => {
 	};
 };
 
-export const getSelectionInfo = (selection: TextSelection, schema: Schema) => {
+export const getSelectionInfo = (
+	selection: TextSelection,
+	schema: Schema,
+):
+	| {
+			selectedNode: PMNode;
+			nodePos: number;
+			selectionRanges: SelectionRange[] | undefined;
+	  }
+	| {
+			selectedNode: PMNode;
+			nodePos: number;
+			selectionRanges?: undefined;
+	  } => {
 	const { $from, $to } = selection;
 
 	// For same parent selections but not the r, check for parent container

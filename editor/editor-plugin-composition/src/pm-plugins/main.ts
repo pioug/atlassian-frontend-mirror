@@ -7,7 +7,7 @@ import { pluginKey } from './plugin-key';
 
 const isLinux = () => navigator.userAgent.indexOf('Linux') >= 0;
 
-export default () =>
+export default (): SafePlugin<CompositionPluginState> =>
 	new SafePlugin<CompositionPluginState>({
 		key: pluginKey,
 		state: {

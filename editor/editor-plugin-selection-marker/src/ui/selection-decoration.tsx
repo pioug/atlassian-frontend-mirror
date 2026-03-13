@@ -12,7 +12,11 @@ const decorationHighlightStyle = `
     border-bottom: ${token('border.width.selected')} solid ${token('color.background.accent.blue.subtler', '#cce0ff')};
   `;
 
-export const selectionDecoration = (doc: PMNode, selection: Selection, isHighlight: boolean) => {
+export const selectionDecoration = (
+	doc: PMNode,
+	selection: Selection,
+	isHighlight: boolean,
+): Decoration[] => {
 	const selectionDecorations: Decoration[] = [];
 
 	doc.nodesBetween(selection.from, selection.to, (currentNode, nodePos) => {

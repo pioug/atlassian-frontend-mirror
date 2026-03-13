@@ -53,6 +53,17 @@ export const messages = defineMessages({
 		description:
 			'Error message displayed when an extension fails to load in the editor. Indicates a problem occurred during the extension initialization or rendering process.',
 	},
+	unknownMacroPlaceholderAriaLabel: {
+		id: 'fabric.editor.extension.unknownMacroPlaceholderAriaLabel',
+		defaultMessage: 'Unknown macro placeholder',
+		description:
+			'Accessible label for the unknown macro fallback block shown when a Confluence macro cannot be resolved.',
+	},
+	unknownMacroHeader: {
+		id: 'fabric.editor.extension.unknownMacroHeader',
+		defaultMessage: "Unknown macro: ''{macroTitle}''",
+		description: 'Header text for an unresolved Confluence macro placeholder.',
+	},
 });
 
 export const configPanelMessages = defineMessages({

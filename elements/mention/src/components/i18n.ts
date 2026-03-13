@@ -1,6 +1,67 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+	unknownUserError: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	noAccessWarning: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	noAccessLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	defaultHeadline: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	defaultAdvisedAction: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	loginAgain: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	differentText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	memberCountWithoutYou: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	memberCountWithYou: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	plus50MembersWithoutYou: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	plus50MembersWithYou: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	xProductMentionDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	unknownUserError: {
 		id: 'fabric.mention.unknow.user.error',
 		defaultMessage: 'Unknown user {userId}',

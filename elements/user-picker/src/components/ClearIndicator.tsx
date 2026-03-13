@@ -50,7 +50,7 @@ export class ClearIndicator extends React.PureComponent<ClearIndicatorProps<any>
 		}
 	};
 
-	render() {
+	render(): JSX.Element {
 		const {
 			//@ts-ignore react-select unsupported props
 			selectProps: { clearValueLabel },

@@ -1,6 +1,6 @@
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
+import { withLazyLoading, type NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -15,7 +15,7 @@ export const lazyMediaInlineView = (
 	providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-) => {
+): NodeViewConstructor => {
 	return withLazyLoading({
 		nodeName: 'mediaInline',
 		getNodeViewOptions: () => {},

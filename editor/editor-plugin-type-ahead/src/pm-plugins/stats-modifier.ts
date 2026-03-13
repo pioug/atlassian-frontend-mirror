@@ -26,7 +26,14 @@ export class StatsModifier implements TypeAheadStatsModifier {
 		this.keyCount.arrowDown += 1;
 	};
 
-	serialize = () => {
+	serialize = (): {
+		startedAt: number;
+		endedAt: number;
+		keyCount: {
+			arrowUp: number;
+			arrowDown: number;
+		};
+	} => {
 		return {
 			startedAt: this.startedAt,
 			endedAt: performance.now(),

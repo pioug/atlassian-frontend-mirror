@@ -6,10 +6,10 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-export const codeBlockAutoFullStopTransformPluginKey = new PluginKey(
+export const codeBlockAutoFullStopTransformPluginKey: PluginKey = new PluginKey(
 	'codeBlockAutoFullStopTransformPluginKey',
 );
-export function codeBlockAutoFullStopTransformPlugin() {
+export function codeBlockAutoFullStopTransformPlugin(): SafePlugin {
 	return new SafePlugin({
 		key: codeBlockAutoFullStopTransformPluginKey,
 		appendTransaction(

@@ -9,7 +9,7 @@ export class Participants implements ReadOnlyParticipants {
 		this.participants = participants;
 	}
 
-	add(data: CollabParticipant[]) {
+	add(data: CollabParticipant[]): Participants {
 		const newSet = new Map<string, CollabParticipant>(this.participants);
 		data.forEach((participant) => {
 			newSet.set(participant.sessionId, participant);
@@ -17,7 +17,7 @@ export class Participants implements ReadOnlyParticipants {
 		return new Participants(newSet);
 	}
 
-	remove(sessionIds: string[]) {
+	remove(sessionIds: string[]): Participants {
 		const newSet = new Map<string, CollabParticipant>(this.participants);
 		sessionIds.forEach((sessionId) => {
 			newSet.delete(sessionId);
@@ -26,7 +26,7 @@ export class Participants implements ReadOnlyParticipants {
 		return new Participants(newSet);
 	}
 
-	update(sessionId: string, lastActive: number) {
+	update(sessionId: string, lastActive: number): Participants {
 		const newSet = new Map<string, CollabParticipant>(this.participants);
 		const data = newSet.get(sessionId);
 		if (!data) {
@@ -41,7 +41,7 @@ export class Participants implements ReadOnlyParticipants {
 		return new Participants(newSet);
 	}
 
-	updateCursorPos(sessionId: string, cursorPos: number) {
+	updateCursorPos(sessionId: string, cursorPos: number): Participants {
 		const newSet = new Map<string, CollabParticipant>(this.participants);
 		const data = newSet.get(sessionId);
 		if (!data) {
@@ -56,15 +56,15 @@ export class Participants implements ReadOnlyParticipants {
 		return new Participants(newSet);
 	}
 
-	toArray() {
+	toArray(): CollabParticipant[] {
 		return Array.from(this.participants.values());
 	}
 
-	get(sessionId: string) {
+	get(sessionId: string): CollabParticipant | undefined {
 		return this.participants.get(sessionId);
 	}
 
-	size() {
+	size(): number {
 		return this.participants.size;
 	}
 

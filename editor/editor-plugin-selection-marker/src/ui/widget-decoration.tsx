@@ -110,7 +110,7 @@ export const createWidgetDecoration = (
 	type: SelectionType,
 	selection: Selection,
 	isHighlight: boolean,
-) => {
+): Decoration[] => {
 	// We don't want the cursor to show if it's not text selection
 	// ie. if it's on media selection
 	if (

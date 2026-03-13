@@ -5,7 +5,13 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 
 const positionExists = (position: number | undefined): boolean => typeof position === 'number';
 
-export function setSelectionTransform(doc: RefsNode, tr: Transaction) {
+export function setSelectionTransform(
+	doc: RefsNode,
+	tr: Transaction,
+): {
+	tr: Transaction;
+	refs: Refs;
+} {
 	const refs: Refs = doc.refs;
 
 	if (refs) {

@@ -154,7 +154,7 @@ export class TableMap {
 
 	// :: (number) → Rect
 	// Find the dimensions of the cell at the given position.
-	findCell(pos: number) {
+	findCell(pos: number): Rect {
 		for (let i = 0; i < this.map.length; i++) {
 			const curPos = this.map[i];
 			if (curPos !== pos) {
@@ -176,7 +176,7 @@ export class TableMap {
 	}
 
 	// Find the left side of the cell at the given position.
-	colCount(pos: number) {
+	colCount(pos: number): number {
 		for (let i = 0; i < this.map.length; i++) {
 			if (this.map[i] === pos) {
 				return i % this.width;
@@ -230,7 +230,7 @@ export class TableMap {
 	// :: (number, string, number) → ?number
 	// Find the next cell in the given direction, starting from the cell
 	// at `pos`, if any.
-	nextCell(pos: number, axis: Axis, dir: number) {
+	nextCell(pos: number, axis: Axis, dir: number): number | null {
 		const { left, right, top, bottom } = this.findCell(pos);
 		if (axis === 'horiz') {
 			if (dir < 0 ? left === 0 : right === this.width) {
@@ -247,7 +247,7 @@ export class TableMap {
 
 	// :: (number, number) → Rect
 	// Get the rectangle spanning the two given cells.
-	rectBetween(a: number, b: number) {
+	rectBetween(a: number, b: number): Rect {
 		const { left: leftA, right: rightA, top: topA, bottom: bottomA } = this.findCell(a);
 		const { left: leftB, right: rightB, top: topB, bottom: bottomB } = this.findCell(b);
 		return new Rect(
@@ -261,7 +261,7 @@ export class TableMap {
 	// :: (Rect) → [number]
 	// Return the position of all cells that have the top left corner in
 	// the given rectangle.
-	cellsInRect(rect: Rect) {
+	cellsInRect(rect: Rect): number[] {
 		const result: number[] = [];
 		const seen: { [key: number]: boolean } = {};
 		for (let row = rect.top; row < rect.bottom; row++) {
@@ -286,7 +286,7 @@ export class TableMap {
 	// :: (number, number, Node) → number
 	// Return the position at which the cell at the given row and column
 	// starts, or would start, if a cell started there.
-	positionAt(row: number, col: number, table: PMNode) {
+	positionAt(row: number, col: number, table: PMNode): number {
 		for (let i = 0, rowStart = 0; ; i++) {
 			const rowEnd = rowStart + table.child(i).nodeSize;
 			if (i === row) {
@@ -302,7 +302,7 @@ export class TableMap {
 		}
 	}
 
-	getMaxColInRow(pos: ResolvedPos) {
+	getMaxColInRow(pos: ResolvedPos): number | undefined {
 		const parentRowNode = pos.parent;
 		if (parentRowNode.type.name === 'tableRow') {
 			return parentRowNode.childCount;
@@ -316,7 +316,7 @@ export class TableMap {
 
 	// :: (Node) → TableMap
 	// Find the table map for the given table node.
-	static get(table: PMNode) {
+	static get(table: PMNode): TableMap {
 		return readFromCache(table) || addToCache(table, computeMap(table));
 	}
 }

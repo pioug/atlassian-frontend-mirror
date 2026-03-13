@@ -3,11 +3,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback } from 'react';
+import { useCallback, type ComponentType, type FC } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -50,4 +50,6 @@ const PrimaryToolbarComponentWithIntl = ({
 	);
 };
 
-export const PrimaryToolbarComponent = injectIntl(PrimaryToolbarComponentWithIntl);
+export const PrimaryToolbarComponent: FC<WithIntlProps<PrimaryToolbarComponentProps>> & {
+	WrappedComponent: ComponentType<PrimaryToolbarComponentProps>;
+} = injectIntl(PrimaryToolbarComponentWithIntl);

@@ -1,7 +1,11 @@
 // Although actual images are rendered at 16x16, we
 // use 48x48 to account for scaling on high res screens
 
-export default [
+const _default_1: {
+	name: string;
+	input: string;
+	exportSize: string;
+}[] = [
 	// panel
 	{
 		name: 'info',
@@ -88,3 +92,4 @@ export default [
 		exportSize: '24:24',
 	},
 ];
+export default _default_1;

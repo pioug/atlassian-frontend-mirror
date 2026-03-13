@@ -1,4 +1,4 @@
-import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import type { ExtensionProvider, UpdateExtension } from '@atlaskit/editor-common/extensions';
 import { getExtensionModuleNode } from '@atlaskit/editor-common/extensions';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -36,7 +36,11 @@ const maybeGetUpdateMethodFromExtensionProvider = async (
 	}
 };
 
-export const updateEditButton = async (view: EditorView, extensionProvider: ExtensionProvider) => {
+export const updateEditButton = async (
+	view: EditorView,
+	extensionProvider: ExtensionProvider,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<UpdateExtension<any> | undefined> => {
 	try {
 		const updateMethod = await maybeGetUpdateMethodFromExtensionProvider(view, extensionProvider);
 

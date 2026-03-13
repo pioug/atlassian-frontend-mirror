@@ -176,7 +176,7 @@ const Sub = ({ topic }: { topic: Topic }) => {
 	);
 };
 
-export default function () {
+export default function (): JSX.Element {
 	return (
 		<Box xcss={styles.content} backgroundColor="color.background.accent.gray.subtler">
 			<Stack space="space.150" xcss={styles.description}>

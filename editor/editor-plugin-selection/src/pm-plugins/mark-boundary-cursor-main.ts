@@ -6,7 +6,9 @@ import { markBoundaryCursorPluginKey } from './mark-boundary-cursor-plugin-key';
 import { createMarkBoundaryCursorDecoration } from './mark-boundary-cursor/ui/mark-boundary-cursor-decoration';
 import { getActiveMarksSide } from './mark-boundary-cursor/utils/active-marks-side';
 
-export const createMarkBoundaryCursorPlugin = () => {
+export const createMarkBoundaryCursorPlugin = (): SafePlugin<{
+	decorations: DecorationSet;
+}> => {
 	return new SafePlugin({
 		key: markBoundaryCursorPluginKey,
 		state: {

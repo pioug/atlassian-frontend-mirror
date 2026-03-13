@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { cssMap, cx } from '@atlaskit/css';
@@ -231,9 +231,12 @@ const BlockMenu = ({
 
 	const hasFocus =
 		(editorView?.hasFocus() ||
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 			document.activeElement === targetHandleRef ||
 			(popupRef.current &&
+				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 				(popupRef.current.contains(document.activeElement) ||
+					// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 					popupRef.current === document.activeElement))) ??
 		false;
 
@@ -361,4 +364,8 @@ const BlockMenu = ({
 	);
 };
 
-export default injectIntl(BlockMenu);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<BlockMenuProps & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<BlockMenuProps & WrappedComponentProps>;
+} = injectIntl(BlockMenu);
+export default _default_1;

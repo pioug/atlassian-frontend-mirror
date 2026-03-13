@@ -7,7 +7,7 @@ import memoizeOne from 'memoize-one';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { getDocument } from '@atlaskit/browser-apis';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -633,6 +633,36 @@ function ConfigFormIntlWithBoundary({
 	);
 }
 
-const result = withAnalyticsContext({ source: 'ConfigPanel' })(withAnalyticsEvents()(ConfigPanel));
+const result: React.ForwardRefExoticComponent<
+	Omit<
+		Omit<
+			{
+				api: ExtractInjectionAPI<ExtensionPlugin> | undefined;
+				autoSaveReject?: RejectSave;
+				autoSaveTrigger?: () => void;
+				closeOnEsc?: boolean;
+				disableFields?: boolean;
+				errorMessage: string | null;
+				extensionManifest?: ExtensionManifest;
+				featureFlags?: FeatureFlags;
+				fields?: FieldDefinition[];
+				isLoading?: boolean;
+				onCancel: () => void | Promise<void>;
+				onChange: OnSaveCallback | OnSaveCallbackAsync;
+				parameters?: Parameters;
+				showHeader?: boolean;
+				// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
+				usingObjectSidebarPanel?: boolean;
+			},
+			keyof WithAnalyticsEventsProps
+		> &
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			React.RefAttributes<any> &
+			WithContextProps,
+		'ref'
+	> &
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		React.RefAttributes<any>
+> = withAnalyticsContext({ source: 'ConfigPanel' })(withAnalyticsEvents()(ConfigPanel));
 
 export default result;

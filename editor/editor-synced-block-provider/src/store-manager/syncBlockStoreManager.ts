@@ -124,7 +124,9 @@ export class SyncBlockStoreManager {
 		}
 	}
 
-	public setFireAnalyticsEvent(fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void) {
+	public setFireAnalyticsEvent(
+		fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
+	): void {
 		this.fireAnalyticsEvent = fireAnalyticsEvent;
 		this.referenceSyncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
 		this.sourceSyncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
@@ -156,7 +158,7 @@ const createSyncBlockStoreManager = (dataProvider?: SyncBlockDataProviderInterfa
 export const useMemoizedSyncBlockStoreManager = (
 	dataProvider?: SyncBlockDataProviderInterface,
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
-) => {
+): SyncBlockStoreManager => {
 	const syncBlockStoreManager = useMemo(() => {
 		return createSyncBlockStoreManager(dataProvider);
 	}, [dataProvider]);

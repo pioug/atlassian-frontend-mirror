@@ -37,7 +37,7 @@ export default (
 	providerFactory: ProviderFactory,
 	dispatch: Dispatch,
 	pluginInjectionApi: ExtractInjectionAPI<CaptionPlugin> | undefined,
-) => {
+): SafePlugin => {
 	const analyticsApi = pluginInjectionApi?.analytics?.actions;
 	return new SafePlugin({
 		appendTransaction(

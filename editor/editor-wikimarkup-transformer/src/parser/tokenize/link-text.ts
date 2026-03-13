@@ -3,7 +3,7 @@ import { decode } from '../utils/url';
 import { type Token, type TokenParser } from './';
 
 // the regex should exclude the period and exclamation mark as the last character
-export const LINK_TEXT_REGEXP =
+export const LINK_TEXT_REGEXP: RegExp =
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	/^((?:(?:https?|ftps?):\/\/)|irc:\/\/|mailto:)([\w?!~^\/\\#$%&'()*+,\-.\/:;<=@]*[\w~^\/\\#$%&'()*+,\-\/:;<=@])/i;

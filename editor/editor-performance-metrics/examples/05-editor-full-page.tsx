@@ -125,7 +125,7 @@ const adf = {
 	],
 };
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	useLayoutEffect(() => {
 		const perf = getGlobalEditorMetricsObserver();
 

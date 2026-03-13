@@ -165,7 +165,11 @@ const isNavigatingVerticallyWhenCursorIsInsideInlineNode = (
 	return isNavigatingInlineNodeDownward;
 };
 
-export function createOnKeydown({ __livePage = false }: { __livePage?: boolean }) {
+export function createOnKeydown({
+	__livePage = false,
+}: {
+	__livePage?: boolean;
+}): (view: EditorView, event: Event) => boolean {
 	function onKeydown(view: EditorView, event: Event): boolean {
 		/*
 		 * This workaround is needed for some specific situations.

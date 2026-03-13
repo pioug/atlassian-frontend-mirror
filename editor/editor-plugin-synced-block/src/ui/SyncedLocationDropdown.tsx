@@ -246,7 +246,7 @@ const ItemIcon = ({ reference }: { reference: SyncBlockSourceInfo }) => {
 export const processReferenceData = (
 	referenceData: ReferencesSourceInfo['references'],
 	intl: IntlShape,
-) => {
+): SyncBlockSourceInfo[] => {
 	const { formatMessage } = intl;
 	const sourceInfoMap: SourceInfoMap = new Map();
 	referenceData?.forEach((reference) => {

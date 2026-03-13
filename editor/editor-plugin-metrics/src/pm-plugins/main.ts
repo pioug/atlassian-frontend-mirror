@@ -21,7 +21,7 @@ import { getNewPluginState } from './utils/get-new-plugin-state';
 import { isTrWithDocChanges } from './utils/is-tr-with-doc-changes';
 import { shouldSkipTr } from './utils/should-skip-tr';
 
-export const metricsKey = new PluginKey('metricsPlugin');
+export const metricsKey: PluginKey = new PluginKey('metricsPlugin');
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
 export type MetricsState = {
@@ -76,7 +76,7 @@ export const initialPluginState: MetricsState = {
 export const createPlugin = (
 	api: ExtractInjectionAPI<MetricsPlugin> | undefined,
 	userPreferencesProvider?: UserPreferencesProvider,
-) => {
+): SafePlugin<MetricsState> => {
 	const timer = new ActiveSessionTimer(api);
 
 	return new SafePlugin({

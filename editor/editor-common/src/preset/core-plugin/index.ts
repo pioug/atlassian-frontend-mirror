@@ -1,6 +1,7 @@
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Node } from '@atlaskit/editor-prosemirror/model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getNodeIdProvider } from '../../node-anchor/node-anchor-provider';
 import type {
@@ -145,6 +146,11 @@ export const corePlugin: CorePlugin = ({ config }) => {
 
 				if (content) {
 					const tr = state.tr.replaceWith(0, state.doc.nodeSize - 2, content);
+					if (
+						expValEquals('platform_editor_are_nodes_equal_ignore_mark_order', 'isEnabled', true)
+					) {
+						tr.setMeta('replaceDocument', true);
+					}
 
 					if (options?.addToHistory === false) {
 						tr.setMeta('addToHistory', false);

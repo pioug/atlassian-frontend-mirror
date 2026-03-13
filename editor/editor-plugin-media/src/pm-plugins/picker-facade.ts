@@ -19,11 +19,6 @@ import type {
 } from '../types';
 
 type PickerType = 'clipboard' | 'dropzone' | 'customMediaPicker';
-type ExtendedComponentConfigs = {
-	clipboard: null;
-	customMediaPicker: CustomMediaPicker;
-	dropzone: null;
-};
 
 export type PickerFacadeConfig = {
 	errorReporter: ErrorReportingHandler;
@@ -48,7 +43,7 @@ export default class PickerFacade {
 	constructor(
 		pickerType: PickerType,
 		readonly config: PickerFacadeConfig,
-		readonly pickerConfig?: ExtendedComponentConfigs[PickerType],
+		readonly pickerConfig?: CustomMediaPicker | null | undefined,
 		analyticsName?: string,
 	) {
 		this.pickerType = pickerType;
@@ -77,11 +72,11 @@ export default class PickerFacade {
 		return this;
 	}
 
-	get type() {
+	get type(): PickerType {
 		return this.pickerType;
 	}
 
-	get mediaPicker() {
+	get mediaPicker(): CustomMediaPicker | undefined {
 		return this.picker;
 	}
 

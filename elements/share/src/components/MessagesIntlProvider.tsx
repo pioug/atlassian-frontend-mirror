@@ -4,6 +4,7 @@ import {
 	injectIntl,
 	IntlProvider,
 	type MessageFormatElement,
+	type WithIntlProps,
 	type WrappedComponentProps,
 } from 'react-intl-next';
 
@@ -27,4 +28,7 @@ const MessagesIntlProvider = ({ intl, children }: Props & WrappedComponentProps)
 	);
 };
 
-export default injectIntl(MessagesIntlProvider);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(MessagesIntlProvider);
+export default _default_1;

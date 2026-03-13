@@ -6,7 +6,7 @@ import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
-export const decorationStateKey = new PluginKey('decorationPlugin');
+export const decorationStateKey: PluginKey = new PluginKey('decorationPlugin');
 
 export enum ACTIONS {
 	DECORATION_ADD,
@@ -90,7 +90,7 @@ export type DecorationState = {
 type HoverDecorationHandler = typeof hoverDecoration;
 export type { HoverDecorationHandler };
 
-export default () => {
+export default (): SafePlugin<DecorationState> => {
 	return new SafePlugin({
 		key: decorationStateKey,
 		state: {

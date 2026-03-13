@@ -194,104 +194,100 @@ const noMarkerListStyle = css({
 /**
  * Render an emoji button to open the reactions select picker
  */
-export const Trigger = React.forwardRef(
-	(props: TriggerProps, ref: React.Ref<HTMLButtonElement>) => {
-		const { formatMessage } = useIntl();
+export const Trigger: React.ForwardRefExoticComponent<
+	TriggerProps & React.RefAttributes<HTMLButtonElement>
+> = React.forwardRef((props: TriggerProps, ref: React.Ref<HTMLButtonElement>) => {
+	const { formatMessage } = useIntl();
 
-		const {
-			onClick,
-			miniMode,
-			tooltipContent,
-			disabled = false,
-			ariaAttributes = {},
-			showOpaqueBackground = false,
-			showAddReactionText = false,
-			subtleReactionsSummaryAndPicker = false,
-			reactionPickerTriggerIcon,
-			reactionPickerTriggerText = formatMessage(i18n.addReaction),
-			fullWidthSummaryViewReactionPickerTrigger = false,
-			isListItem = false,
-			fullWidthSelectorTrayReactionPickerTrigger = false,
-		} = props;
+	const {
+		onClick,
+		miniMode,
+		tooltipContent,
+		disabled = false,
+		ariaAttributes = {},
+		showOpaqueBackground = false,
+		showAddReactionText = false,
+		subtleReactionsSummaryAndPicker = false,
+		reactionPickerTriggerIcon,
+		reactionPickerTriggerText = formatMessage(i18n.addReaction),
+		fullWidthSummaryViewReactionPickerTrigger = false,
+		isListItem = false,
+		fullWidthSelectorTrayReactionPickerTrigger = false,
+	} = props;
 
-		const handleMouseDown = (
-			e: React.MouseEvent<HTMLElement>,
-			analyticsEvent: UIAnalyticsEvent,
-		) => {
-			if (onClick && !disabled) {
-				onClick(e, analyticsEvent);
-			}
-		};
+	const handleMouseDown = (e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
+		if (onClick && !disabled) {
+			onClick(e, analyticsEvent);
+		}
+	};
 
-		const renderPressableButton = () => (
-			<Pressable
-				testId={RENDER_TRIGGER_BUTTON_TESTID}
-				xcss={cx(
-					styles.trigger,
-					(fullWidthSummaryViewReactionPickerTrigger ||
-						fullWidthSelectorTrayReactionPickerTrigger) &&
-						styles.fullWidth,
-					subtleReactionsSummaryAndPicker && styles.subtleTrigger,
-					showAddReactionText && styles.expandedTrigger,
-					disabled
-						? styles.disabledTrigger
-						: showOpaqueBackground
-							? styles.opaqueEnabledTrigger
-							: styles.transparentEnabledTrigger,
-					miniMode && styles.miniMode,
-					fg('platform-component-visual-refresh') && styles.triggerStylesRefresh,
-				)}
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography
-					lineHeight: '16px',
-				}}
-				onClick={handleMouseDown}
-				isDisabled={disabled}
-				ref={ref}
-				data-subtle={subtleReactionsSummaryAndPicker}
-				data-mini-mode={miniMode}
-				{...ariaAttributes}
+	const renderPressableButton = () => (
+		<Pressable
+			testId={RENDER_TRIGGER_BUTTON_TESTID}
+			xcss={cx(
+				styles.trigger,
+				(fullWidthSummaryViewReactionPickerTrigger || fullWidthSelectorTrayReactionPickerTrigger) &&
+					styles.fullWidth,
+				subtleReactionsSummaryAndPicker && styles.subtleTrigger,
+				showAddReactionText && styles.expandedTrigger,
+				disabled
+					? styles.disabledTrigger
+					: showOpaqueBackground
+						? styles.opaqueEnabledTrigger
+						: styles.transparentEnabledTrigger,
+				miniMode && styles.miniMode,
+				fg('platform-component-visual-refresh') && styles.triggerStylesRefresh,
+			)}
+			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography
+				lineHeight: '16px',
+			}}
+			onClick={handleMouseDown}
+			isDisabled={disabled}
+			ref={ref}
+			data-subtle={subtleReactionsSummaryAndPicker}
+			data-mini-mode={miniMode}
+			{...ariaAttributes}
+		>
+			{!!reactionPickerTriggerIcon ? (
+				reactionPickerTriggerIcon
+			) : (
+				// TODO: https://product-fabric.atlassian.net/browse/DSP-21007
+				<EmojiAddIcon
+					testId="emoji-add-icon"
+					color={disabled ? token('color.icon.disabled') : token('color.icon')}
+					label="Add reaction"
+				/>
+			)}
+			{showAddReactionText && (
+				<Box xcss={cx(addReactionStyles.addReactionMessage)}>{reactionPickerTriggerText}</Box>
+			)}
+		</Pressable>
+	);
+
+	return (
+		<Box
+			xcss={cx(
+				fullWidthSummaryViewReactionPickerTrigger &&
+					styles.fullWidthSummaryViewReactionPickerTrigger,
+				fullWidthSelectorTrayReactionPickerTrigger &&
+					styles.fullWidthSelectorTrayReactionPickerTrigger,
+			)}
+			testId={RENDER_TRIGGER_CONTAINER_TESTID}
+		>
+			<Tooltip
+				testId={RENDER_TOOLTIP_TRIGGER_TESTID}
+				content={tooltipContent}
+				canAppear={() => !showAddReactionText}
 			>
-				{!!reactionPickerTriggerIcon ? (
-					reactionPickerTriggerIcon
+				{isListItem ? (
+					<li data-testid={RENDER_LIST_ITEM_WRAPPER_TESTID} css={noMarkerListStyle}>
+						{renderPressableButton()}
+					</li>
 				) : (
-					// TODO: https://product-fabric.atlassian.net/browse/DSP-21007
-					<EmojiAddIcon
-						testId="emoji-add-icon"
-						color={disabled ? token('color.icon.disabled') : token('color.icon')}
-						label="Add reaction"
-					/>
+					renderPressableButton()
 				)}
-				{showAddReactionText && (
-					<Box xcss={cx(addReactionStyles.addReactionMessage)}>{reactionPickerTriggerText}</Box>
-				)}
-			</Pressable>
-		);
-
-		return (
-			<Box
-				xcss={cx(
-					fullWidthSummaryViewReactionPickerTrigger &&
-						styles.fullWidthSummaryViewReactionPickerTrigger,
-					fullWidthSelectorTrayReactionPickerTrigger &&
-						styles.fullWidthSelectorTrayReactionPickerTrigger,
-				)}
-				testId={RENDER_TRIGGER_CONTAINER_TESTID}
-			>
-				<Tooltip
-					testId={RENDER_TOOLTIP_TRIGGER_TESTID}
-					content={tooltipContent}
-					canAppear={() => !showAddReactionText}
-				>
-					{isListItem ? (
-						<li data-testid={RENDER_LIST_ITEM_WRAPPER_TESTID} css={noMarkerListStyle}>
-							{renderPressableButton()}
-						</li>
-					) : (
-						renderPressableButton()
-					)}
-				</Tooltip>
-			</Box>
-		);
-	},
-);
+			</Tooltip>
+		</Box>
+	);
+});

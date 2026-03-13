@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-export const useMenuState = () => {
+export const useMenuState = (): readonly [boolean, () => void, () => void] => {
 	const [isMenuOpen, setIsMenuOpened] = useState(false);
 	const toggleMenu = useCallback(() => {
 		setIsMenuOpened(!isMenuOpen);

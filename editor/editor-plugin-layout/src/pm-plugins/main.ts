@@ -127,7 +127,7 @@ const handleDeleteLayoutColumn: Command = (state, dispatch) => {
 	return false;
 };
 
-export default (options: LayoutPluginOptions) =>
+export default (options: LayoutPluginOptions): SafePlugin<LayoutState> =>
 	new SafePlugin<LayoutState>({
 		key: pluginKey,
 		state: {

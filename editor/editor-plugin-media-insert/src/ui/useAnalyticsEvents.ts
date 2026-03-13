@@ -10,7 +10,12 @@ import {
 
 type Source = 'local' | 'url';
 
-export function useAnalyticsEvents(dispatchAnalyticsEvent?: DispatchAnalyticsEvent) {
+export function useAnalyticsEvents(dispatchAnalyticsEvent?: DispatchAnalyticsEvent): {
+	onUploadButtonClickedAnalytics: () => void;
+	onUploadCommencedAnalytics: (mediaUploadSource: Source) => void;
+	onUploadSuccessAnalytics: (mediaUploadSource: Source) => void;
+	onUploadFailureAnalytics: (reason: string, mediaUploadSource: Source) => void;
+} {
 	const onUploadButtonClickedAnalytics = React.useCallback(() => {
 		dispatchAnalyticsEvent?.({
 			action: ACTION.CLICKED,

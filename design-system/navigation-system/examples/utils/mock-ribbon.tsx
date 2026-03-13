@@ -111,7 +111,7 @@ const RibbonItem = ({
 	);
 };
 
-export function MockRibbon() {
+export function MockRibbon(): JSX.Element {
 	return (
 		<div css={ribbonStyles.root}>
 			<RibbonItem logo={JiraIcon}>Jira</RibbonItem>

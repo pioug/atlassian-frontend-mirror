@@ -6,7 +6,7 @@ import { type ReactNode } from 'react';
 import { type AppearanceType } from '@atlaskit/avatar';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarSize } from './utils';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 export type AvatarOrIconProps = {
@@ -40,7 +40,7 @@ export const AvatarOrIcon = ({
 	presence,
 	src,
 	type = 'person',
-}: AvatarOrIconProps) => {
+}: AvatarOrIconProps): jsx.JSX.Element => {
 	// If icon is provided, render it instead of avatar
 	if (icon) {
 		const avatarSize = getAvatarSize(appearance);

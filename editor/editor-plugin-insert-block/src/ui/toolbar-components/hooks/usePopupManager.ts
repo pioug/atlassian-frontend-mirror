@@ -15,7 +15,17 @@ interface PopupManagerConfig {
 	onOpen?: (inputMethod?: TOOLBAR_MENU_TYPE | INPUT_METHOD) => void;
 }
 
-export const usePopupManager = (config: PopupManagerConfig = {}) => {
+export const usePopupManager = (
+	config: PopupManagerConfig = {},
+): {
+	isOpen: boolean;
+	isOpenedByKeyboard: boolean;
+	toggle: (inputMethod?: TOOLBAR_MENU_TYPE | INPUT_METHOD) => void;
+	close: () => void;
+	handleEscapeKeydown: () => void;
+	handleClickOutside: (e: MouseEvent) => void;
+	handleKeyboardOpen: (event: React.KeyboardEvent) => void;
+} => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenedByKeyboard, setIsOpenedByKeyboard] = useState(false);
 

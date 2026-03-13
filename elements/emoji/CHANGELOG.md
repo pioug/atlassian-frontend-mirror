@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 69.10.32
+
+### Patch Changes
+
+- [`cca57049325b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cca57049325b8) -
+  Static elements should not be interactable, or be non-static
+
 ## 69.10.31
 
 ### Patch Changes

@@ -20,8 +20,8 @@ type SuggestedItemsMenuSectionProps = {
 	children?: React.ReactNode;
 };
 
-export const SuggestedItemsMenuSection = React.memo<SuggestedItemsMenuSectionProps>(
-	({ api, children }) => {
+export const SuggestedItemsMenuSection: React.NamedExoticComponent<SuggestedItemsMenuSectionProps> =
+	React.memo<SuggestedItemsMenuSectionProps>(({ api, children }) => {
 		const suggestedItems = useSuggestedItems(api);
 		const { formatMessage } = useIntl();
 
@@ -45,5 +45,4 @@ export const SuggestedItemsMenuSection = React.memo<SuggestedItemsMenuSectionPro
 				{children}
 			</ToolbarDropdownItemSection>
 		);
-	},
-);
+	});

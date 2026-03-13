@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
@@ -75,7 +75,9 @@ export type ShareDialogWithTriggerInternalProps = ShareDialogWithTriggerProps &
 	WrappedComponentProps &
 	WithAnalyticsEventsProps;
 
-export const IconShare = () => <ShareIcon spacing="spacious" label="" color="currentColor" />;
+export const IconShare = (): jsx.JSX.Element => (
+	<ShareIcon spacing="spacious" label="" color="currentColor" />
+);
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
@@ -492,7 +494,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 		});
 	};
 
-	renderShareTriggerButton = (triggerProps: TriggerProps) => {
+	renderShareTriggerButton = (triggerProps: TriggerProps): React.ReactNode => {
 		const { isDialogOpen, isUsingSplitButton } = this.state;
 		const {
 			intl: { formatMessage },
@@ -609,7 +611,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 		onUserSelectionChange?.(value);
 	};
 
-	render() {
+	render(): jsx.JSX.Element {
 		const {
 			isDialogOpen,
 			isSharing,
@@ -752,7 +754,9 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 	}
 }
 
-export const ShareDialogWithTriggerInternal = (props: ShareDialogWithTriggerInternalProps) =>
+export const ShareDialogWithTriggerInternal = (
+	props: ShareDialogWithTriggerInternalProps,
+): jsx.JSX.Element =>
 	fg('share-compiled-migration') ? (
 		<ShareDialogWithTriggerInternalNext {...props} />
 	) : (

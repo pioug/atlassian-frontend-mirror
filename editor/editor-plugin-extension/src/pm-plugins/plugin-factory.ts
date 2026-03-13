@@ -1,6 +1,9 @@
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { Command } from '@atlaskit/editor-common/types';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
+import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import type { ExtensionState } from '../extensionPluginType';
+import type { ExtensionAction, ExtensionState } from '../extensionPluginType';
 
 import { pluginKey } from './plugin-key';
 import reducer from './reducer';
@@ -25,6 +28,12 @@ const factory = pluginFactory(pluginKey, reducer, {
 	},
 });
 
-export const createPluginState = factory.createPluginState;
-export const createCommand = factory.createCommand;
-export const getPluginState = factory.getPluginState;
+export const createPluginState: (
+	dispatch: Dispatch,
+	initialState: ExtensionState | ((state: EditorState) => ExtensionState),
+) => SafeStateField<ExtensionState> = factory.createPluginState;
+export const createCommand: <A = ExtensionAction>(
+	action: A | ((state: Readonly<EditorState>) => false | A),
+	transform?: (tr: Transaction, state: EditorState) => Transaction,
+) => Command = factory.createCommand;
+export const getPluginState: (state: EditorState) => ExtensionState = factory.getPluginState;

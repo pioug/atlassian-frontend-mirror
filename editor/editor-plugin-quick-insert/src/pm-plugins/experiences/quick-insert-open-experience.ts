@@ -41,7 +41,7 @@ type QuickInsertOpenExperienceOptions = {
 export const getQuickInsertOpenExperiencePlugin = ({
 	refs,
 	dispatchAnalyticsEvent,
-}: QuickInsertOpenExperienceOptions) => {
+}: QuickInsertOpenExperienceOptions): SafePlugin => {
 	let targetEl: HTMLElement | undefined;
 	let editorViewEl: HTMLElement | undefined;
 	let mouseDownPos: { x: number; y: number } | undefined;

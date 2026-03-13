@@ -67,7 +67,7 @@ const TextColorIconDecorator = ({ label, isSelected }: { isSelected: boolean; la
 	);
 };
 
-export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps) {
+export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps): JSX.Element {
 	const { formatMessage } = useIntl();
 	const activeColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
 	const context = useToolbarDropdownMenu();

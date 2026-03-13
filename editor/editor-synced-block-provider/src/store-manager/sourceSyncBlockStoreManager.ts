@@ -89,7 +89,9 @@ export class SourceSyncBlockStoreManager {
 		this.creationCompletionCallbacks = new Map();
 	}
 
-	public setFireAnalyticsEvent(fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void) {
+	public setFireAnalyticsEvent(
+		fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
+	): void {
 		this.fireAnalyticsEvent = fireAnalyticsEvent;
 
 		this.createExperience = getCreateSourceExperience(fireAnalyticsEvent);

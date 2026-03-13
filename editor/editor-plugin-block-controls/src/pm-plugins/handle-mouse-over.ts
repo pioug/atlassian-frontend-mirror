@@ -71,7 +71,7 @@ export const handleMouseOver = (
 	view: EditorView,
 	event: Event,
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
-) => {
+): false | undefined => {
 	const {
 		isDragging,
 		activeNode,

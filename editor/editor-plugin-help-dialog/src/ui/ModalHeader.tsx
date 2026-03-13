@@ -2,9 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { ComponentType, FC } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css, type SerializedStyles } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { FormattedMessage, injectIntl } from 'react-intl-next';
 
 import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
@@ -31,7 +33,9 @@ interface ModalHeaderProps extends WrappedComponentProps {
 	onClose: OnCloseHandler | undefined;
 }
 
-const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeaderProps) => {
+const ModalHeader: FC<WithIntlProps<ModalHeaderProps>> & {
+	WrappedComponent: ComponentType<ModalHeaderProps>;
+} = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeaderProps) => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={header}>

@@ -1,10 +1,10 @@
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { getAnchorAttrName } from '../../ui/utils/dom-attr-name';
 
-export const isAnchorSupported = memoizeOne((): boolean => {
+export const isAnchorSupported: MemoizedFn<() => boolean> = memoizeOne((): boolean => {
 	// directly use CSS would cause failed SSR tests.
 	if (window.CSS && window.CSS.supports) {
 		return window.CSS.supports('anchor-name: --a');
@@ -68,7 +68,7 @@ export class AnchorRectCache {
 		}
 	}
 
-	public getHeight(anchorName: string) {
+	public getHeight(anchorName: string): number | null {
 		if (this.isAnchorSupported) {
 			return null;
 		}
@@ -77,7 +77,7 @@ export class AnchorRectCache {
 		return rects[anchorName]?.height;
 	}
 
-	public getWidth(anchorName: string) {
+	public getWidth(anchorName: string): number | null {
 		if (this.isAnchorSupported) {
 			return null;
 		}
@@ -86,7 +86,7 @@ export class AnchorRectCache {
 		return rects[anchorName]?.width;
 	}
 
-	public getLeft(anchorName: string) {
+	public getLeft(anchorName: string): number | null {
 		if (this.isAnchorSupported) {
 			return null;
 		}
@@ -95,7 +95,7 @@ export class AnchorRectCache {
 		return rects[anchorName]?.left;
 	}
 
-	public getTop(anchorName: string) {
+	public getTop(anchorName: string): number | null {
 		if (this.isAnchorSupported) {
 			return null;
 		}
@@ -104,7 +104,7 @@ export class AnchorRectCache {
 		return rects[anchorName]?.top;
 	}
 
-	public getRight(anchorName: string) {
+	public getRight(anchorName: string): number | null {
 		if (this.isAnchorSupported) {
 			return null;
 		}
@@ -113,7 +113,7 @@ export class AnchorRectCache {
 		return rects[anchorName]?.right;
 	}
 
-	public getRect(anchorName: string) {
+	public getRect(anchorName: string): RectInfo | null {
 		if (this.isAnchorSupported) {
 			return null;
 		}

@@ -96,7 +96,7 @@ export const handleMouseMove = (
 	view: EditorView,
 	event: Event,
 	rightSideControlsEnabled = false,
-) => {
+): boolean => {
 	const state = getInteractionTrackingState(view.state);
 	// if user has stopped editing and moved their mouse, show block controls again
 	if (state?.isEditing) {

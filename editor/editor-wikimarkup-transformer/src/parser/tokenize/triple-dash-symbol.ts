@@ -1,4 +1,4 @@
-import { type TextToken } from './';
+import { type TextToken, type TokenParser } from './';
 import { createDashTokenParser } from './dash-token-creator';
 
 const token: TextToken = {
@@ -11,4 +11,4 @@ const fallback: TextToken = {
 	text: '---',
 };
 
-export const tripleDashSymbol = createDashTokenParser(token, fallback);
+export const tripleDashSymbol: TokenParser = createDashTokenParser(token, fallback);

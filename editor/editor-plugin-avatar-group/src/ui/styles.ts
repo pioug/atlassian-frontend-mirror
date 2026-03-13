@@ -32,7 +32,7 @@ export const avatarContainerStyles: SerializedStyles = css({
 	},
 });
 
-export const badge = (backgroundColor: string, textColor: string) =>
+export const badge = (backgroundColor: string, textColor: string): SerializedStyles =>
 	css({
 		display: 'block',
 		position: 'absolute',

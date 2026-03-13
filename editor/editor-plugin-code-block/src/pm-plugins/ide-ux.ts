@@ -24,7 +24,9 @@ import {
 import { getAutoClosingQuoteInfo, shouldAutoCloseQuote } from './ide-ux/quote-handling';
 import { getCursor } from './utils';
 
-const ideUX = (pluginInjectionApi: ExtractInjectionAPI<CodeBlockPlugin> | undefined) => {
+const ideUX = (
+	pluginInjectionApi: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
+): SafePlugin => {
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions;
 	return new SafePlugin({
 		props: {

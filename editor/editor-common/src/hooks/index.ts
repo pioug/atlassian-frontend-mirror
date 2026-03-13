@@ -9,5 +9,3 @@ export {
 	useSharedPluginStateWithSelector,
 	type NamedPluginStatesFromInjectionAPI,
 } from './useSharedPluginStateWithSelector';
-
-export { default as useSmartCardReloadAfterCache } from './useSmartCardReloadAfterCache';

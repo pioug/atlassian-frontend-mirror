@@ -141,8 +141,8 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 	}
 }
 
-export const MentionItemWithRef = React.forwardRef<HTMLDivElement, Omit<Props, 'forwardedRef'>>(
-	(props, ref) => {
-		return <MentionItem {...props} forwardedRef={ref} />;
-	},
-);
+export const MentionItemWithRef: React.ForwardRefExoticComponent<
+	Omit<Props, 'forwardedRef'> & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef<HTMLDivElement, Omit<Props, 'forwardedRef'>>((props, ref) => {
+	return <MentionItem {...props} forwardedRef={ref} />;
+});

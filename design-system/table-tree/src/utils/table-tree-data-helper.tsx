@@ -80,12 +80,16 @@ export default class TableTreeDataHelper<T extends any = any> {
 
 	keysCache: any;
 
-	constructor({ key = 'key' as keyof T } = {}) {
+	constructor({
+		key = 'key' as keyof T,
+	}: {
+		key?: keyof T | undefined;
+	} = {}) {
 		this.key = key;
 		this.keysCache = {};
 	}
 
-	updateItems(items: T[], allItems: T[] = [], parentItem?: T | null) {
+	updateItems(items: T[], allItems: T[] = [], parentItem?: T | null): T[] {
 		const options = {
 			key: this.key,
 			keysCache: this.keysCache,
@@ -107,7 +111,7 @@ export default class TableTreeDataHelper<T extends any = any> {
 		return updatedItems;
 	}
 
-	appendItems(items: T[], allItems: T[] = [], parentItem?: T | null) {
+	appendItems(items: T[], allItems: T[] = [], parentItem?: T | null): T[] {
 		const options = {
 			key: this.key,
 			keysCache: this.keysCache,

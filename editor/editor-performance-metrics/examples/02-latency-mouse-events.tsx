@@ -89,7 +89,7 @@ const SectionContentOne = () => {
 	);
 };
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<main id="app-main" css={mainStyles}>
 			<SectionContentOne />

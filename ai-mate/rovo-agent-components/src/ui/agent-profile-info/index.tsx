@@ -136,7 +136,7 @@ export const AgentProfileCreator = ({
 	creator?: AgentCreator;
 	isLoading: boolean;
 	onCreatorLinkClick: () => void;
-}) => {
+}): JSX.Element | null => {
 	const { formatMessage } = useIntl();
 
 	const getCreatorRender = () => {
@@ -228,7 +228,7 @@ export const AgentProfileInfo = ({
 	isHidden: boolean;
 	onStarToggle: () => void;
 	showStarButton?: boolean;
-}) => {
+}): JSX.Element => {
 	const { formatMessage } = useIntl();
 	return (
 		<Stack space="space.100">

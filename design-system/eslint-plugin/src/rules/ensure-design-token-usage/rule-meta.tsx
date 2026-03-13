@@ -4,7 +4,48 @@ import { type Domains } from './types';
 
 const domainsToLint: Domains = ['color', 'spacing', 'shape'];
 
-const ruleMeta = {
+const ruleMeta: {
+	readonly name: 'ensure-design-token-usage';
+	readonly hasSuggestions: true;
+	readonly schema: {
+		readonly type: 'array';
+		readonly items: {
+			readonly type: 'object';
+			readonly properties: {
+				readonly applyImport: {
+					readonly type: 'boolean';
+				};
+				readonly shouldEnforceFallbacks: {
+					readonly type: 'boolean';
+				};
+				readonly domains: {
+					readonly type: 'array';
+					readonly items: {
+						readonly enum: Domains;
+					};
+				};
+				readonly exceptions: {
+					readonly type: 'array';
+				};
+			};
+		};
+	};
+	readonly type: 'problem';
+	readonly fixable: 'code';
+	readonly docs: {
+		readonly description: 'Enforces usage of design tokens rather than hard-coded values.';
+		readonly recommended: true;
+		readonly severity: 'error';
+	};
+	readonly messages: {
+		readonly noRawRadiusValues: 'The use of shape tokens is preferred over the direct application of border properties.\n\n@meta <<{{payload}}>>';
+		readonly noRawSpacingValues: 'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<{{payload}}>>';
+		readonly autofixesPossible: 'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens';
+		readonly noCalcUsage: 'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.';
+		readonly hardCodedColor: 'Colors can be sourced from the global theme using the token function.';
+		readonly legacyElevation: 'Elevations can be sourced from the global theme using the token function made of both a background and shadow. Use "card" for card elevations, and "overlay" for anything else that should appear elevated.';
+	};
+} = {
 	name: 'ensure-design-token-usage',
 	hasSuggestions: true,
 	schema: {

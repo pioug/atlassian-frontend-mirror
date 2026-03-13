@@ -5,7 +5,8 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { MaxContentSizePlugin, MaxContentSizePluginState } from './maxContentSizePluginType';
 
-export const pluginKey = new PluginKey<MaxContentSizePluginState>('maxContentSizePlugin');
+export const pluginKey: PluginKey<MaxContentSizePluginState> =
+	new PluginKey<MaxContentSizePluginState>('maxContentSizePlugin');
 
 export function createPlugin(dispatch: Dispatch, maxContentSize?: number): SafePlugin | undefined {
 	if (!maxContentSize) {

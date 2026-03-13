@@ -39,7 +39,7 @@ export const createExperienceDispatcher = (
  */
 export const getSaveSourceExperience = (
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
-) => {
+): Experience => {
 	return new Experience(EXPERIENCE_ID.ASYNC_OPERATION, {
 		action: ACTION.SYNCED_BLOCK_UPDATE,
 		dispatchAnalyticsEvent: createExperienceDispatcher(fireAnalyticsEvent),
@@ -56,7 +56,7 @@ export const getSaveSourceExperience = (
  */
 export const getSaveReferenceExperience = (
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
-) => {
+): Experience => {
 	return new Experience(EXPERIENCE_ID.ASYNC_OPERATION, {
 		action: ACTION.REFERENCE_SYNCED_BLOCK_UPDATE,
 		dispatchAnalyticsEvent: createExperienceDispatcher(fireAnalyticsEvent),
@@ -73,7 +73,7 @@ export const getSaveReferenceExperience = (
  */
 export const getFetchExperience = (
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
-) => {
+): Experience => {
 	return new Experience(EXPERIENCE_ID.ASYNC_OPERATION, {
 		action: ACTION.SYNCED_BLOCK_FETCH,
 		dispatchAnalyticsEvent: createExperienceDispatcher(fireAnalyticsEvent),
@@ -90,7 +90,7 @@ export const getFetchExperience = (
  */
 export const getFetchSourceInfoExperience = (
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
-) => {
+): Experience => {
 	return new Experience(EXPERIENCE_ID.ASYNC_OPERATION, {
 		action: ACTION.SYNCED_BLOCK_GET_SOURCE_INFO,
 		dispatchAnalyticsEvent: createExperienceDispatcher(fireAnalyticsEvent),
@@ -107,7 +107,7 @@ export const getFetchSourceInfoExperience = (
  */
 export const getDeleteSourceExperience = (
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
-) => {
+): Experience => {
 	return new Experience(EXPERIENCE_ID.ASYNC_OPERATION, {
 		action: ACTION.SYNCED_BLOCK_DELETE,
 		dispatchAnalyticsEvent: createExperienceDispatcher(fireAnalyticsEvent),
@@ -124,7 +124,7 @@ export const getDeleteSourceExperience = (
  */
 export const getCreateSourceExperience = (
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
-) => {
+): Experience => {
 	return new Experience(EXPERIENCE_ID.ASYNC_OPERATION, {
 		action: ACTION.SYNCED_BLOCK_CREATE,
 		dispatchAnalyticsEvent: createExperienceDispatcher(fireAnalyticsEvent),
@@ -141,7 +141,7 @@ export const getCreateSourceExperience = (
  */
 export const getFetchReferencesExperience = (
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
-) => {
+): Experience => {
 	return new Experience(EXPERIENCE_ID.ASYNC_OPERATION, {
 		action: ACTION.SYNCED_BLOCK_FETCH_REFERENCES,
 		dispatchAnalyticsEvent: createExperienceDispatcher(fireAnalyticsEvent),

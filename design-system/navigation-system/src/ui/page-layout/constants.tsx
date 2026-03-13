@@ -41,9 +41,9 @@ export const UNSAFE_panelLayoutVar = '--rightPanelWidth';
 
 // The following UNSAFE variables are used to absolutely position elements that aren't a child of page layout.
 // Known use cases: Legacy pages rendered inside Confluence and Jira.
-export const UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY = `calc(var(${UNSAFE_bannerVar}, 0px) + var(${UNSAFE_topNavVar}, 0px))`;
-export const UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY = `calc(var(${UNSAFE_ribbonVar}, 0px) + var(${UNSAFE_sideNavLayoutVar}, 0px))`;
-export const UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY = `calc(var(${UNSAFE_asideLayoutVar}, 0px) + var(${UNSAFE_panelLayoutVar}, 0px))`;
+export const UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY: 'calc(var(--bannerHeight, 0px) + var(--topNavigationHeight, 0px))' = `calc(var(${UNSAFE_bannerVar}, 0px) + var(${UNSAFE_topNavVar}, 0px))`;
+export const UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY: 'calc(var(--leftPanelWidth, 0px) + var(--leftSidebarWidth, 0px))' = `calc(var(${UNSAFE_ribbonVar}, 0px) + var(${UNSAFE_sideNavLayoutVar}, 0px))`;
+export const UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY: 'calc(var(--rightSidebarWidth, 0px) + var(--rightPanelWidth, 0px))' = `calc(var(${UNSAFE_asideLayoutVar}, 0px) + var(${UNSAFE_panelLayoutVar}, 0px))`;
 
 /**
  * We define the z-indexes here so each page slot can be locally layered against each other.

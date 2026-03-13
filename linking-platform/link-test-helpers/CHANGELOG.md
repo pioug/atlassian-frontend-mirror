@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 9.1.0
+
+### Minor Changes
+
+- [`b41bc78e107d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b41bc78e107d1) -
+  Make support for daterange data type in link-datasource stable to better represents data ranges
+  like day, month or quarter
+
 ## 9.0.2
 
 ### Patch Changes

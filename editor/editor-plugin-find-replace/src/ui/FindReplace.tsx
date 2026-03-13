@@ -6,7 +6,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 
@@ -92,7 +92,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 		}
 	};
 
-	render() {
+	render(): jsx.JSX.Element {
 		const {
 			findText,
 			count,

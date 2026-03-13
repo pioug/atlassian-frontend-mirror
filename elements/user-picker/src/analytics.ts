@@ -1,4 +1,10 @@
-import { createAndFireEvent, type AnalyticsEventPayload } from '@atlaskit/analytics-next';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import {
+	createAndFireEvent,
+	UIAnalyticsEvent,
+	type AnalyticsEventPayload,
+	type CreateUIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
@@ -33,7 +39,10 @@ export const startSession = (): UserPickerSession => ({
 	lastKey: undefined,
 });
 
-export const createAndFireEventInElementsChannel = createAndFireEvent('fabric-elements');
+export const createAndFireEventInElementsChannel: (
+	payload: AnalyticsEventPayload,
+) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent =
+	createAndFireEvent('fabric-elements');
 
 const createEvent = (
 	eventType: 'ui' | 'operational',

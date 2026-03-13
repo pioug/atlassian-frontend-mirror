@@ -16,7 +16,7 @@ export class AnnotationViewWrapper extends React.PureComponent<AnnotationViewWra
 		}
 	}
 
-	render() {
+	render(): React.ReactNode {
 		return this.props.children;
 	}
 }

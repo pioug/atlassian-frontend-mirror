@@ -52,6 +52,9 @@
 			"path": "../spinner/tsconfig.app.json"
 		},
 		{
+			"path": "../tag/tsconfig.app.json"
+		},
+		{
 			"path": "../tokens/tsconfig.app.json"
 		}
 	],

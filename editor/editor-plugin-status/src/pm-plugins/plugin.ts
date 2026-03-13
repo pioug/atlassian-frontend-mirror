@@ -13,7 +13,7 @@ import { isEmptyStatus, mayGetStatusAtSelection } from './utils';
 const createPlugin = (
 	pmPluginFactoryParams: PMPluginFactoryParams,
 	options?: StatusPluginOptions,
-) =>
+): SafePlugin =>
 	new SafePlugin({
 		state: {
 			init: () => ({

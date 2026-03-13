@@ -37,15 +37,17 @@ function isNodeOptions(options: MarkOptions | NodeOptions): options is NodeOptio
  * - Sets the copied state in the editor state
  * - Announces the copied message to the user
  */
-export const afterCopy = (api?: ExtractInjectionAPI<CopyButtonPlugin>) => (message: string) => {
-	api?.core.actions.execute(({ tr }: { tr: Transaction }) => {
-		return tr.setMeta(copyButtonPluginKey, { copied: true }).setMeta('scrollIntoView', false);
-	});
+export const afterCopy =
+	(api?: ExtractInjectionAPI<CopyButtonPlugin>) =>
+	(message: string): void => {
+		api?.core.actions.execute(({ tr }: { tr: Transaction }) => {
+			return tr.setMeta(copyButtonPluginKey, { copied: true }).setMeta('scrollIntoView', false);
+		});
 
-	api?.accessibilityUtils?.actions.ariaNotify(message, {
-		priority: 'important',
-	});
-};
+		api?.accessibilityUtils?.actions.ariaNotify(message, {
+			priority: 'important',
+		});
+	};
 
 export function getCopyButtonConfig(
 	options: MarkOptions | NodeOptions,

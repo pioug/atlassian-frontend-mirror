@@ -4,7 +4,7 @@ import { EmojiResource } from '../../../api/EmojiResource';
  * #initSiteEmojiResource throws error
  */
 export class ErrorEmojiResource extends EmojiResource {
-	getActiveLoaders() {
+	getActiveLoaders(): number {
 		return this.activeLoaders;
 	}
 

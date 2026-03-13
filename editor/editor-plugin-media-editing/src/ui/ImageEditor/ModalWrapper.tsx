@@ -24,7 +24,7 @@ export const RenderImageEditor = ({
 	selectedNodeAttrs,
 	errorReporter,
 	editorView,
-}: RenderImageEditorProps) => {
+}: RenderImageEditorProps): React.JSX.Element => {
 	const [imageUrl, setImageUrl] = useState<string>('');
 	const [isSaving, setIsSaving] = useState<boolean>(false);
 

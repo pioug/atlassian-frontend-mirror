@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-guideline
 
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.3
 
 ### Patch Changes

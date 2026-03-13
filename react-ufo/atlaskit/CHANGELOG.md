@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.4.8
+
+### Patch Changes
+
+- [`d19ae6125b99c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d19ae6125b99c) -
+  Exclude Dark Reader extension attributes from TTVC
+
 ## 5.4.7
 
 ### Patch Changes

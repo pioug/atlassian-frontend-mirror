@@ -1,5 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import styled, { type StyledComponent } from '@emotion/styled';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import type { Theme } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import {
 	mentionListWidth,
@@ -7,13 +9,22 @@ import {
 	noDialogContainerBorderRadius,
 	noDialogContainerBoxShadow,
 } from '../../shared-styles';
+import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export interface MentionListStyleProps {
 	empty?: boolean;
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-export const MentionListStyle = styled.div<MentionListStyleProps>((props) => ({
+export const MentionListStyle: StyledComponent<
+	{
+		theme?: Theme;
+		as?: React.ElementType;
+	} & MentionListStyleProps,
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+> = styled.div<MentionListStyleProps>((props) => ({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	display: props.empty ? 'none' : 'block',
 	/* list style */

@@ -3,7 +3,7 @@ import React from 'react';
 // Allowing existing usage of non Pragmatic drag and drop solution
 import { Draggable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
 
-import withDimensions, { type WithDimensionsProps } from '../../hoc/with-dimensions';
+import withDimensions, { type State, type WithDimensionsProps } from '../../hoc/with-dimensions';
 import { inlineStylesIfRanking } from '../../internal/helpers';
 import { RankableTableBodyRow } from '../../styled/rankable/table-row';
 import { type HeadType, type RowType } from '../../types';
@@ -108,4 +108,8 @@ class RankableTableRow extends React.Component<RankableTableRowProps> {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default withDimensions<RankableTableRowProps>(RankableTableRow);
+const _default_1: React.ComponentClass<
+	Omit<RankableTableRowProps, 'refWidth' | 'refHeight' | 'innerRef'>,
+	State
+> = withDimensions<RankableTableRowProps>(RankableTableRow);
+export default _default_1;

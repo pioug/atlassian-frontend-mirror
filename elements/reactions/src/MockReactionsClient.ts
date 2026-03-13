@@ -23,7 +23,16 @@ export const getReactionSummary: (
 	};
 };
 
-export const getUser = (id: string, displayName: string) => ({
+export const getUser = (
+	id: string,
+	displayName: string,
+): {
+	id: string;
+	displayName: string;
+	profilePicture: {
+		path: string;
+	};
+} => ({
 	id,
 	displayName,
 	profilePicture: {

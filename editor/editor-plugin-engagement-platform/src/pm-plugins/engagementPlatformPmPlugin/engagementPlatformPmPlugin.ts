@@ -6,7 +6,9 @@ import type { EngagementPlatformPluginOptions } from '../../engagementPlatformPl
 import { engagementPlatformPmPluginKey } from './engagementPlatformPmPluginKey';
 import type { EngagementPlatformPmPluginState, EngagementPlatformPmPluginTrMeta } from './types';
 
-export const engagementPlatformPmPlugin = (pluginConfig: EngagementPlatformPluginOptions) => {
+export const engagementPlatformPmPlugin = (
+	pluginConfig: EngagementPlatformPluginOptions,
+): SafePlugin<EngagementPlatformPmPluginState> => {
 	return new SafePlugin<EngagementPlatformPmPluginState>({
 		key: engagementPlatformPmPluginKey,
 

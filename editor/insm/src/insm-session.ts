@@ -73,7 +73,17 @@ export class INSMSession {
 	/**
 	 * Returns details on the current session.
 	 */
-	get details() {
+	get details(): {
+		experienceKey: string;
+		experienceProperties: ExperienceProperties;
+		paused: boolean;
+		periodState: 'inactive' | 'active';
+		/**
+		 * The only scenario where this value should return false is when
+		 * the experience has been stopped early.
+		 */
+		running: boolean;
+	} {
 		return {
 			experienceKey: this.experienceKey,
 			experienceProperties: this.experienceProperties,
@@ -98,7 +108,7 @@ export class INSMSession {
 	 * insm.session.addProperties('custom:lcm', true)
 	 * ```
 	 */
-	setProperty(key: string, value: number | string | boolean) {
+	setProperty(key: string, value: number | string | boolean): void {
 		this.staticProperties[key] = value;
 	}
 

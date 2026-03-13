@@ -230,9 +230,6 @@
 			"path": "../editor-plugin-metrics/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-ncs-step-metrics/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-panel/tsconfig.app.json"
 		},
 		{

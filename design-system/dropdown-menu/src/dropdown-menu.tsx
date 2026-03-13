@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { bind } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/new';
-import { KEY_DOWN, KEY_ENTER, KEY_SPACE, KEY_TAB } from '@atlaskit/ds-lib/keycodes';
+import { KEY_DOWN, KEY_ENTER, KEY_LEFT, KEY_SPACE, KEY_TAB } from '@atlaskit/ds-lib/keycodes';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
@@ -155,17 +155,22 @@ const DropdownMenu = <T extends HTMLElement = any>({
 			event: KeyboardEvent | MouseEvent | React.KeyboardEvent | React.MouseEvent | null,
 			currentLevel?: number,
 		) => {
-			const isTabOrEscapeKey =
-				isKeyboardEvent(event) && (event.key === 'Tab' || event.key === 'Escape');
+			const isTabLeftOrEscapeKey =
+				isKeyboardEvent(event) &&
+				(event.key === 'Tab' || event.key === 'Escape' || event.key === KEY_LEFT);
 
-			// Stop propagation on ESCAPE key if shouldPreventEscapePropagation is true
-			if (shouldPreventEscapePropagation && isKeyboardEvent(event) && event.key === 'Escape') {
+			// Stop propagation on ESCAPE or Left arrow if shouldPreventEscapePropagation is true
+			if (
+				shouldPreventEscapePropagation &&
+				isKeyboardEvent(event) &&
+				(event.key === 'Escape' || event.key === KEY_LEFT)
+			) {
 				event.stopPropagation();
 			}
 
 			if (
 				event !== null &&
-				!isTabOrEscapeKey &&
+				!isTabLeftOrEscapeKey &&
 				event.target instanceof HTMLElement &&
 				event.target.closest?.(`[id^=${PREFIX}] [aria-haspopup]`)
 			) {
@@ -192,7 +197,9 @@ const DropdownMenu = <T extends HTMLElement = any>({
 				});
 			} else if (
 				isKeyboardEvent(event) &&
-				((event.key === 'Tab' && event.shiftKey) || event.key === 'Escape')
+				((event.key === 'Tab' && event.shiftKey) ||
+					event.key === 'Escape' ||
+					event.key === KEY_LEFT)
 			) {
 				requestAnimationFrame(() => {
 					itemRef.current?.focus();

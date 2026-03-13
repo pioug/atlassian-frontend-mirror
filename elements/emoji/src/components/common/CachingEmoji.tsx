@@ -167,4 +167,7 @@ export const CachingMediaEmoji = (
 	);
 };
 
-export default memo(CachingEmoji);
+const _default_1: React.MemoExoticComponent<
+	(props: React.PropsWithChildren<CachingEmojiProps>) => React.JSX.Element
+> = memo(CachingEmoji);
+export default _default_1;

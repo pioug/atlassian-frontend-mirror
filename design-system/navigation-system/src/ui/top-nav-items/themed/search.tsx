@@ -14,7 +14,31 @@ export const themedSearchBorderFocused = '--ds-top-bar-search-border-focused';
  * As nav4 matures we will ideally evolve the theming solution inside Search Platform,
  * at which point this legacy theme object will not be needed.
  */
-const legacySearchTheme = {
+const legacySearchTheme: {
+	default: {
+		backgroundColor: string;
+		color: string;
+		borderColor: string;
+	};
+	focus: {
+		/**
+		 * When expanded the input ignores the custom theme,
+		 * except for its border which is derived from the highlight color.
+		 */
+		color: 'var(--ds-text)';
+		backgroundColor: 'var(--ds-background-input-pressed)';
+		borderColor: string;
+		boxShadow: string;
+	};
+	hover: {
+		/**
+		 * This is not actually used for the search bar input (at least by the Search Platform components).
+		 *
+		 * Instead it's used as the hover background color for a close button when on mobile.
+		 */
+		backgroundColor: string;
+	};
+} = {
 	default: {
 		backgroundColor: 'transparent',
 		color: 'currentColor',

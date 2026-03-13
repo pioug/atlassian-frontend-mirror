@@ -8,7 +8,7 @@ import {
 	type SyncBlockEventPayload,
 } from '@atlaskit/editor-common/analytics';
 
-export const stringifyError = (error: unknown) => {
+export const stringifyError = (error: unknown): string | undefined => {
 	try {
 		return JSON.stringify(error);
 	} catch {

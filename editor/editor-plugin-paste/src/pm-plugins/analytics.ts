@@ -169,7 +169,7 @@ export function getContent({ schema, slice }: GetContentProps): PasteContent {
 	return pasteContent ? pasteContent : PasteContents.uncategorized;
 }
 
-export function getMediaTraceId(slice: Slice) {
+export function getMediaTraceId(slice: Slice): undefined {
 	let traceId;
 	mapSlice(slice, (node) => {
 		if (node.type.name === 'media' || node.type.name === 'mediaInline') {

@@ -70,7 +70,7 @@ export const generateMediaInlineFloatingToolbar = (
 	hoverDecoration: HoverDecorationHandler | undefined,
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	options: MediaFloatingToolbarOptions = {},
-) => {
+): FloatingToolbarItem<Command>[] => {
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions as EditorAnalyticsAPI;
 	const forceFocusSelector = pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector;
 

@@ -72,7 +72,7 @@ export interface ReactionViewProps {
 	reaction: ReactionSummary;
 }
 
-export const ReactionView = ({ reaction, ProfileCardWrapper }: ReactionViewProps) => {
+export const ReactionView = ({ reaction, ProfileCardWrapper }: ReactionViewProps): JSX.Element => {
 	const alphabeticalNames = useMemo(() => {
 		const reactionObj = reaction;
 

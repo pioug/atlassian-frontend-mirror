@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 13.0.0
+
+### Minor Changes
+
+- [`0fda7892b26bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fda7892b26bc) -
+  [ux] Remove useSmartCardReloadAfterCache hook
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.4.3
 
 ### Patch Changes

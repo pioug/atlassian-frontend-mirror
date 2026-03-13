@@ -10,11 +10,13 @@ export type HyperlinkToolbarItemsState = {
 	skipAnalytics?: boolean;
 };
 
-export const toolbarKey = new PluginKey<HyperlinkToolbarItemsState | undefined>(
-	'hyperlinkToolbarItems',
-);
+export const toolbarKey: PluginKey<HyperlinkToolbarItemsState | undefined> = new PluginKey<
+	HyperlinkToolbarItemsState | undefined
+>('hyperlinkToolbarItems');
 
-export const toolbarButtonsPlugin = (initialState?: { skipAnalytics: boolean }) => {
+export const toolbarButtonsPlugin = (initialState?: {
+	skipAnalytics: boolean;
+}): SafePlugin<HyperlinkToolbarItemsState | undefined> => {
 	return new SafePlugin<HyperlinkToolbarItemsState | undefined>({
 		key: toolbarKey,
 		state: {

@@ -75,10 +75,10 @@ export class Channel extends Emitter<ChannelEvent> {
 	getInitialized = (): boolean => this.initialized;
 	getConnected = (): boolean => this.connected;
 	getSocket: () => Socket | null = () => this.socket;
-	getToken = () => this.token;
+	getToken = (): string | undefined => this.token;
 
 	// Used to retrieve the x-token for API requests
-	getChannelToken = async () => {
+	getChannelToken = async (): Promise<string | undefined> => {
 		if (this.token) {
 			return this.token;
 		}
@@ -688,7 +688,7 @@ export class Channel extends Emitter<ChannelEvent> {
 	autoDisconnect = (
 		disconnectTimer: ReturnType<typeof setTimeout> | undefined,
 		disconnectDelay: number,
-	) => {
+	): NodeJS.Timeout | undefined => {
 		if (document.hidden) {
 			logger('visibilitychange: hidden');
 			return setTimeout(

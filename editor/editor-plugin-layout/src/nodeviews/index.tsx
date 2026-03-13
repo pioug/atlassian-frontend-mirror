@@ -237,7 +237,10 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	 * @example
 	 * @returns
 	 */
-	getContentDOM() {
+	getContentDOM(): {
+		dom: HTMLElement;
+		contentDOM: HTMLElement | undefined;
+	} {
 		const { dom: container, contentDOM } = DOMSerializer.renderSpec(document, toDOM(this.node)) as {
 			contentDOM?: HTMLElement;
 			dom: HTMLElement;

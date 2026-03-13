@@ -5,7 +5,7 @@ const PRINT_SETTINGS = {
 	quote: 'single' as const,
 };
 
-function transformer(file: FileInfo, api: API) {
+function transformer(file: FileInfo, api: API): string {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 

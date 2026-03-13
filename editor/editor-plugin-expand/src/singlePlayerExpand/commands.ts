@@ -20,7 +20,7 @@ import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
@@ -67,7 +67,7 @@ export const createExpandNode = (
  * When cleaning up platform_editor_adf_with_localid we can reuse this function
  * in insertExpandWithInputMethod.
  */
-export const wrapSelectionAndSetExpandedState = (state: EditorState, node: PMNode) => {
+export const wrapSelectionAndSetExpandedState = (state: EditorState, node: PMNode): Transaction => {
 	const tr = createWrapSelectionTransaction({
 		state,
 		type: node.type,

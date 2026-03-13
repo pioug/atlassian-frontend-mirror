@@ -27,7 +27,11 @@ export const useUserSource = (
 	accountId: string,
 	shouldFetchSources: boolean,
 	existingSources?: UserSource[],
-) => {
+): {
+	sources: UserSource[];
+	loading: boolean;
+	error: string | null;
+} => {
 	const { fetchUserSource } = useContext(ExusUserSourceContext);
 	const [externalSources, setExternalSources] = useState([] as UserSource[]);
 	const [loading, setLoading] = useState(true);

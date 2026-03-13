@@ -25,7 +25,7 @@ export enum LoomPluginAction {
 	INSERT_VIDEO,
 }
 
-export const loomPluginKey = new PluginKey<LoomPluginState>('loom');
+export const loomPluginKey: PluginKey<LoomPluginState> = new PluginKey<LoomPluginState>('loom');
 
 export const createPlugin = ({
 	config,
@@ -33,7 +33,7 @@ export const createPlugin = ({
 }: {
 	api: ExtractInjectionAPI<LoomPlugin> | undefined;
 	config: LoomPluginOptions;
-}) => {
+}): SafePlugin<LoomPluginState> => {
 	return new SafePlugin({
 		key: loomPluginKey,
 		state: {

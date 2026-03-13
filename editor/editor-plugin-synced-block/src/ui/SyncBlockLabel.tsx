@@ -130,4 +130,12 @@ const SyncBlockLabelComponent = ({
 	);
 };
 
-export const SyncBlockLabel = React.memo(SyncBlockLabelComponent);
+export const SyncBlockLabel: React.MemoExoticComponent<
+	({
+		contentUpdatedAt,
+		isSource,
+		localId,
+		title,
+		isUnsyncedBlock,
+	}: SyncBlockLabelProps) => React.JSX.Element
+> = React.memo(SyncBlockLabelComponent);

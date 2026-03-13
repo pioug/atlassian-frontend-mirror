@@ -2,9 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { FC, ComponentType } from 'react';
+
 import { css as cssUnbounded } from '@compiled/react';
 import { injectIntl } from 'react-intl-next';
-import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
+import type { MessageDescriptor, WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 
 import { css, jsx } from '@atlaskit/css';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
@@ -93,4 +95,7 @@ function Alignment({ onClick, selectedAlignment, className, intl }: Props & Wrap
 	);
 }
 
-export default injectIntl(Alignment);
+const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(Alignment);
+export default _default_1;

@@ -4,7 +4,7 @@
  */
 import React, { useEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
 import type { IntlShape } from 'react-intl-next';
@@ -46,7 +46,7 @@ export const ScrollButtons = ({
 	node,
 	disabled,
 	areAnyNewToolbarFlagsEnabled,
-}: ScrollButtonsProps) => {
+}: ScrollButtonsProps): jsx.JSX.Element | null => {
 	const buttonsContainerRef = useRef<HTMLDivElement>(null);
 	const [needScroll, setNeedScroll] = useState(false);
 	const [canScrollLeft, setCanScrollLeft] = useState(true);

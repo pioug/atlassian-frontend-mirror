@@ -76,7 +76,7 @@ export default class Scrollable extends PureComponent<Props, {}> {
 		this.scrollableDiv = ref;
 	};
 
-	render() {
+	render(): JSX.Element {
 		const { children, className, maxHeight, onMouseLeave } = this.props;
 
 		const style = maxHeight ? { maxHeight } : {};

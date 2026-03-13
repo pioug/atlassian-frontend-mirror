@@ -1,5 +1,12 @@
 # @atlaskit/quick-search
 
+## 10.3.0
+
+### Minor Changes
+
+- [`a12bf5bb5e9e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a12bf5bb5e9e8) -
+  Generate subpath exports for quick-search
+
 ## 10.2.1
 
 ### Patch Changes

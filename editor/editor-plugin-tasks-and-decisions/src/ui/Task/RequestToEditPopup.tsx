@@ -169,7 +169,7 @@ export const RequestToEditPopup = ({
 	mountTo,
 	boundariesElement,
 	scrollableElement,
-}: Props) => {
+}: Props): JSX.Element | null => {
 	const hasRequestedEditPermission = useSharedPluginStateSelector(
 		api,
 		'taskDecision.hasRequestedEditPermission',

@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.41.1
+
+### Patch Changes
+
+- [`af619ffaf19e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af619ffaf19e1) -
+  Add `no-icon-spacing-prop` ESLint rule to flag and suggest migration of deprecated `spacing` prop
+  on icon components.
+- Updated dependencies
+
 ## 13.41.0
 
 ### Minor Changes

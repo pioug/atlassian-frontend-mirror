@@ -65,7 +65,10 @@ export const checkFormattingIsPresent = (state: EditorState): boolean => {
 	return marksArePresent(state) || blockStylingIsPresent(state);
 };
 
-export const compareItemsArrays = (items: MenuIconItem[], prevItems: MenuIconItem[]) => {
+export const compareItemsArrays = (
+	items: MenuIconItem[],
+	prevItems: MenuIconItem[],
+): MenuIconItem[] => {
 	return items && items.filter((item) => !prevItems.includes(item));
 };
 

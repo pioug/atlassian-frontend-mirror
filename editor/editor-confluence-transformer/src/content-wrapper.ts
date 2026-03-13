@@ -12,7 +12,7 @@ export const docContentWrapper = (
 	schema: Schema,
 	content: Fragment,
 	convertedNodesReverted: WeakMap<Fragment | PMNode, Node>,
-) => {
+): Fragment => {
 	const validContent = (node: PMNode) => {
 		if (node.type.spec.group === 'block') {
 			return true;
@@ -48,7 +48,7 @@ export const listContentWrapper = (
 	schema: Schema,
 	content: Fragment,
 	convertedNodesReverted: WeakMap<Fragment | PMNode, Node>,
-) => {
+): Fragment => {
 	const result: PMNode[] = [];
 
 	content.forEach((node: PMNode) => {
@@ -93,7 +93,7 @@ export const listItemContentWrapper = (
 	schema: Schema,
 	content: Fragment,
 	convertedNodesReverted: WeakMap<Fragment | PMNode, Node>,
-) => {
+): Fragment => {
 	const validSpec: NodeType[] = [
 		schema.nodes.paragraph,
 		schema.nodes.bulletList,
@@ -124,7 +124,7 @@ export const blockquoteContentWrapper = (
 	schema: Schema,
 	content: Fragment,
 	convertedNodesReverted: WeakMap<Fragment | PMNode, Node>,
-) => {
+): Fragment => {
 	const validSpec: NodeType[] = [schema.nodes.paragraph];
 	const validContent = (node: PMNode) => {
 		if (
@@ -152,7 +152,7 @@ export const ensureInline = (
 	content: Fragment,
 	convertedNodesReverted: WeakMap<Fragment | PMNode, Node>,
 	supportedMarks?: Mark[],
-) => {
+): Fragment => {
 	const result: PMNode[] = [];
 	content.forEach((node: PMNode) => {
 		if (node.isInline) {

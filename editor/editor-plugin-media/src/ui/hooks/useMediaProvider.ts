@@ -4,6 +4,7 @@ import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
@@ -21,7 +22,7 @@ const selector = (
 
 export const useMediaProvider = (
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
-) => {
+): MediaProvider | undefined => {
 	const { mediaProvider } = useSharedPluginStateWithSelector(
 		pluginInjectionApi,
 		['media'],

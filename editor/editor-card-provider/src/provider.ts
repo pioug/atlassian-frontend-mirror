@@ -189,7 +189,7 @@ export class EditorCardProvider
 	override getData(
 		node: CardNode | PMNode,
 		callback: (payload: CallbackPayload<JsonLd.Response>) => void,
-	) {
+	): void {
 		if (expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true) === false) {
 			// if local cache feature flag is disabled, fall back to the base implementation
 			return super.getData(node, callback);
@@ -618,6 +618,6 @@ export class EditorCardProvider
 	}
 }
 
-export const editorCardProvider = new EditorCardProvider();
+export const editorCardProvider: EditorCardProvider = new EditorCardProvider();
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export type { CardProvider } from './types';

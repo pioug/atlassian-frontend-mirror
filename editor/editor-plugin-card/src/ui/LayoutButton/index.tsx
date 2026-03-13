@@ -2,11 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, type ComponentType, type FC } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import {
@@ -50,7 +50,7 @@ export const LayoutButton = ({
 	scrollableElement,
 	targetElement,
 	testId = 'datasource-table-layout-button',
-}: LayoutButtonProps) => {
+}: LayoutButtonProps): jsx.JSX.Element | null => {
 	const handleClick = useCallback(() => {
 		onLayoutChange && onLayoutChange(getNextBreakoutMode(layout));
 	}, [layout, onLayoutChange]);
@@ -152,4 +152,7 @@ const LayoutButtonWrapper = ({
 	);
 };
 
-export default injectIntl(LayoutButtonWrapper);
+const _default_1: FC<WithIntlProps<LayoutButtonWrapperProps & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<LayoutButtonWrapperProps & WrappedComponentProps>;
+} = injectIntl(LayoutButtonWrapper);
+export default _default_1;

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.36
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.35
 
 ### Patch Changes

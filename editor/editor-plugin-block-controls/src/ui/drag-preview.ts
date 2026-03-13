@@ -146,5 +146,5 @@ export const dragPreview = (
 	// Prevents a scrollbar from showing
 	container.style.overflow = 'visible';
 
-	return () => container;
+	return (): HTMLElement => container;
 };

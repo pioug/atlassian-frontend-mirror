@@ -32,6 +32,7 @@ export type {
 	PopupUserPickerProps,
 	Promisable,
 	Target,
+	TeamState,
 	UserPickerProps,
 	UserPickerState,
 	Value,

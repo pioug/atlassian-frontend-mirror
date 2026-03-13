@@ -91,7 +91,7 @@ export class NodeViewSerializer {
 	 * Returns `null` when there is no `EditorView`, no constructor for the node type,
 	 * or the node type is blocklisted. Otherwise returns the constructed node view instance.
 	 */
-	tryCreateNodeView(targetNode: PMNode) {
+	tryCreateNodeView(targetNode: PMNode): Node | null {
 		if (!this.editorView) {
 			return null;
 		}
@@ -139,7 +139,7 @@ export class NodeViewSerializer {
 	/**
 	 * Serializes a node to a DOM `Node` using the schema's `DOMSerializer`.
 	 */
-	serializeNode(node: PMNode) {
+	serializeNode(node: PMNode): Node | null {
 		if (!this.serializer) {
 			throw new Error('NodeViewSerializer must be initialized with init() before use');
 		}
@@ -153,7 +153,7 @@ export class NodeViewSerializer {
 	/**
 	 * Serializes a fragment to a `DocumentFragment` using the schema's `DOMSerializer`.
 	 */
-	serializeFragment(fragment: Fragment) {
+	serializeFragment(fragment: Fragment): DocumentFragment | HTMLElement | null {
 		if (!this.serializer) {
 			throw new Error('NodeViewSerializer must be initialized with init() before use');
 		}

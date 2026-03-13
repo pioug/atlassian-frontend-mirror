@@ -106,7 +106,7 @@ export const Counter = ({
 	animationDuration = 'medium',
 	useDarkerFont,
 	useUpdatedStyles,
-}: CounterProps) => {
+}: CounterProps): JSX.Element => {
 	const getLabel = (value: number) => {
 		// Check if reached limit
 		if (limit && overLimitLabel && value >= limit) {

@@ -181,7 +181,7 @@ export const handleShowMediaViewer = ({
 }: {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	mediaPluginState: MediaPluginState;
-}) => {
+}): false | undefined => {
 	const selectedNodeAttrs = getSelectedNearestMediaContainerNodeAttrs(mediaPluginState);
 	if (!selectedNodeAttrs) {
 		return false;
@@ -195,7 +195,7 @@ export const handleShowImageEditor = ({
 }: {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	mediaPluginState: MediaPluginState;
-}) => {
+}): false | undefined => {
 	const selectedNodeAttrs = getSelectedNearestMediaContainerNodeAttrs(mediaPluginState);
 	if (!selectedNodeAttrs) {
 		return false;
@@ -986,7 +986,7 @@ const isMediaSelection = (selection: Selection, nodeType: NodeType[]) => {
 export const floatingToolbar = (
 	state: EditorState,
 	intl: IntlShape,
-	options: MediaFloatingToolbarOptions = {},
+	options: MediaFloatingToolbarOptions | undefined = {},
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 ): FloatingToolbarConfig | undefined => {
 	const { media, mediaInline, mediaSingle, mediaGroup } = state.schema.nodes;

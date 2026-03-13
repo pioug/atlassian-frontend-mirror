@@ -154,7 +154,7 @@ export const ReactionSummaryView = ({
 	summaryGetOptimisticImageURL,
 	summaryButtonIconAfter,
 	summaryViewParticleEffectEmojiId,
-}: ReactionSummaryViewProps) => {
+}: ReactionSummaryViewProps): JSX.Element => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useDelayedState<boolean>(
 		false,
 		hoverableSummaryViewDelay,

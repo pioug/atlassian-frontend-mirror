@@ -14,7 +14,7 @@ const createHideCursorWidget = () => {
 	return span;
 };
 
-export const createHideCursorDecoration = () => {
+export const createHideCursorDecoration = (): Decoration => {
 	return Decoration.widget(0, createHideCursorWidget, {
 		key: 'hide-cursor-decoration',
 		side: -1,

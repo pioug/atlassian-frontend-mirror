@@ -60,4 +60,5 @@ export const fetchItems: () => Promise<Item[]> = async (): Promise<Item[]> => {
 	});
 };
 
-export default getDefaultItems();
+const _default_1: Item[] = getDefaultItems();
+export default _default_1;

@@ -4,9 +4,9 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type {
@@ -98,7 +98,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 			getInputMethod(this.props.toolbarType),
 		)(this.props.editorView.state, this.props.editorView.dispatch);
 
-	render() {
+	render(): jsx.JSX.Element {
 		const { isOpen, isOpenedByKeyboard } = this.state;
 		const {
 			popupsMountPoint,
@@ -341,4 +341,8 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 	}
 }
 
-export default injectIntl(ToolbarTextColor);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ToolbarTextColor);
+export default _default_1;

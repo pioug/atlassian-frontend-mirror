@@ -1,9 +1,9 @@
 import React from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
@@ -130,9 +130,28 @@ class FormErrorBoundaryInner extends React.Component<
 	}
 }
 
-export const FormErrorBoundaryImpl = injectIntl(FormErrorBoundaryInner);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const FormErrorBoundaryImpl: React.FC<
+	WithIntlProps<Props & WithAnalyticsEventsProps & WrappedComponentProps>
+> & {
+	WrappedComponent: React.ComponentType<Props & WithAnalyticsEventsProps & WrappedComponentProps>;
+} = injectIntl(FormErrorBoundaryInner);
 
-export const FormErrorBoundary = withAnalyticsContext()(
-	withAnalyticsEvents()(FormErrorBoundaryImpl),
-);
+export const FormErrorBoundary: React.ForwardRefExoticComponent<
+	Omit<
+		Omit<
+			Omit<Props & WithAnalyticsEventsProps & WrappedComponentProps, 'intl'> & {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				forwardedRef?: React.Ref<any>;
+			},
+			keyof WithAnalyticsEventsProps
+		> &
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			React.RefAttributes<any> &
+			WithContextProps,
+		'ref'
+	> &
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		React.RefAttributes<any>
+> = withAnalyticsContext()(withAnalyticsEvents()(FormErrorBoundaryImpl));
 FormErrorBoundary.displayName = 'FormErrorBoundary';

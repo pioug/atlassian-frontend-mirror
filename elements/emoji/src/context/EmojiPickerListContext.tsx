@@ -1,10 +1,11 @@
 import React, { createContext, useState } from 'react';
 import type { EmojiPickerListContextType } from '../components/common/internal-types';
 
-export const EmojiPickerListContext = createContext<EmojiPickerListContextType>({
-	currentEmojisFocus: { rowIndex: 0, columnIndex: 0 },
-	setEmojisFocus: () => {},
-});
+export const EmojiPickerListContext: React.Context<EmojiPickerListContextType> =
+	createContext<EmojiPickerListContextType>({
+		currentEmojisFocus: { rowIndex: 0, columnIndex: 0 },
+		setEmojisFocus: () => {},
+	});
 
 export interface EmojiPickerListContextProviderProps {
 	initialEmojisFocus: {

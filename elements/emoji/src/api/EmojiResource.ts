@@ -238,7 +238,7 @@ export class EmojiResource
 		}
 	}
 
-	public async fetchEmojiProvider(force = false) {
+	public async fetchEmojiProvider(force = false): Promise<EmojiRepository | undefined> {
 		// unless (re-)fetch is being forced, fetching will only
 		// happen if no emojiRepository exists
 		// in case this method is called and emojiRepository has already been populated

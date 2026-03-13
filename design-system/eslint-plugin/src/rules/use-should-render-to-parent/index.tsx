@@ -9,8 +9,8 @@ const PROP_NAME = 'shouldRenderToParent';
 
 const message = `Setting the \`${PROP_NAME}\` prop to anything other than \`true\` causes accessibility issues. Only set to \`false\` as a last resort.`;
 
-export const addProp = `Add \`${PROP_NAME}\` prop.`;
-export const setPropToTrue = `Set \`${PROP_NAME}\` prop to \`true\`.`;
+export const addProp: 'Add `shouldRenderToParent` prop.' = `Add \`${PROP_NAME}\` prop.`;
+export const setPropToTrue: 'Set `shouldRenderToParent` prop to `true`.' = `Set \`${PROP_NAME}\` prop to \`true\`.`;
 
 const components = ['@atlaskit/popup', '@atlaskit/dropdown-menu'];
 

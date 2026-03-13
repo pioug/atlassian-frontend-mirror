@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.41.0
+
+### Minor Changes
+
+- [`8036cb29672c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8036cb29672c7) -
+  Add avatar for Replit agent (OOTB)
+
 ## 3.40.0
 
 ### Minor Changes

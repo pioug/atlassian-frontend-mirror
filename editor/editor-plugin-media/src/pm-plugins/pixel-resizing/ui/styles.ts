@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 const PIXEL_SIZING_WRAPPER_MINIMUM_WIDTH = 120;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const pixelSizingWrapper = css`
+export const pixelSizingWrapper: SerializedStyles = css`
 	display: grid;
 	grid-template-columns: 1fr 1em 1fr 0;
 	grid-template-rows: auto;

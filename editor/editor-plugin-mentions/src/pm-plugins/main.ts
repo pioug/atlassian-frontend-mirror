@@ -68,7 +68,7 @@ export function createMentionPlugin({
 	fireEvent,
 	options,
 	api,
-}: CreateMentionPlugin) {
+}: CreateMentionPlugin): SafePlugin<MentionPluginState> {
 	let mentionProvider: MentionProvider;
 
 	const sendAnalytics = (

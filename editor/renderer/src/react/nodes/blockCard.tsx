@@ -12,7 +12,7 @@ import { CardErrorBoundary } from './fallback';
 import {
 	SmartLinkDraggable,
 	SMART_LINK_DRAG_TYPES,
-	SMART_LINK_APPERANCE,
+	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
@@ -243,7 +243,7 @@ export default function BlockCard(props: {
 	return (
 		<SmartLinkDraggable
 			url={url || ''}
-			appearance={SMART_LINK_APPERANCE.BLOCK}
+			appearance={SMART_LINK_APPEARANCE.BLOCK}
 			source={SMART_LINK_DRAG_TYPES.RENDERER}
 		>
 			<AnalyticsContext data={analyticsData}>

@@ -1,7 +1,7 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { token } from '@atlaskit/tokens';
 
-export const editingStyle = convertToInlineCss({
+export const editingStyle: string = convertToInlineCss({
 	background: token('color.background.accent.purple.subtlest'),
 	textDecoration: 'underline',
 	textDecorationStyle: 'dotted',
@@ -9,7 +9,7 @@ export const editingStyle = convertToInlineCss({
 	textDecorationColor: token('color.border.accent.purple'),
 });
 
-export const editingStyleActive = convertToInlineCss({
+export const editingStyleActive: string = convertToInlineCss({
 	background: token('color.background.accent.purple.subtler'),
 	textDecoration: 'underline',
 	textDecorationStyle: 'dotted',
@@ -17,14 +17,14 @@ export const editingStyleActive = convertToInlineCss({
 	textDecorationColor: token('color.text.accent.purple'),
 });
 
-export const deletedContentStyle = convertToInlineCss({
+export const deletedContentStyle: string = convertToInlineCss({
 	color: token('color.text.accent.gray'),
 	textDecoration: 'line-through',
 	position: 'relative',
 	opacity: 0.6,
 });
 
-export const deletedContentStyleActive = convertToInlineCss({
+export const deletedContentStyleActive: string = convertToInlineCss({
 	color: token('color.text'),
 	textDecoration: 'line-through',
 	textDecorationColor: token('color.text.accent.gray'),
@@ -32,14 +32,14 @@ export const deletedContentStyleActive = convertToInlineCss({
 	opacity: 1,
 });
 
-export const deletedContentStyleNew = convertToInlineCss({
+export const deletedContentStyleNew: string = convertToInlineCss({
 	color: token('color.text.accent.gray'),
 	textDecoration: 'line-through',
 	position: 'relative',
 	opacity: 0.8,
 });
 
-export const deletedContentStyleNewActive = convertToInlineCss({
+export const deletedContentStyleNewActive: string = convertToInlineCss({
 	color: token('color.text'),
 	textDecoration: 'line-through',
 	textDecorationColor: token('color.text.accent.gray'),
@@ -47,7 +47,7 @@ export const deletedContentStyleNewActive = convertToInlineCss({
 	opacity: 1,
 });
 
-export const deletedContentStyleUnbounded = convertToInlineCss({
+export const deletedContentStyleUnbounded: string = convertToInlineCss({
 	position: 'absolute',
 	top: '50%',
 	width: '100%',
@@ -80,31 +80,31 @@ export const deletedBlockOutlineRounded: string = convertToInlineCss({
 	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
 });
 
-export const deletedRowStyle = convertToInlineCss({
+export const deletedRowStyle: string = convertToInlineCss({
 	color: token('color.text.accent.gray'),
 	textDecoration: 'line-through',
 	opacity: 0.6,
 	display: 'table-row',
 });
 
-export const editingStyleQuoteNode = convertToInlineCss({
+export const editingStyleQuoteNode: string = convertToInlineCss({
 	borderLeft: `2px solid ${token('color.border.accent.purple')}`,
 });
 
-export const editingStyleRuleNode = convertToInlineCss({
+export const editingStyleRuleNode: string = convertToInlineCss({
 	backgroundColor: token('color.border.accent.purple'),
 });
 
-export const editingStyleNode = convertToInlineCss({
+export const editingStyleNode: string = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.purple')}`,
 	borderRadius: token('radius.small'),
 });
 
-export const editingStyleCardBlockNode = convertToInlineCss({
+export const editingStyleCardBlockNode: string = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.purple')}`,
 	borderRadius: token('radius.medium'),
 });
 
-export const standardDecorationMarkerVariable = convertToInlineCss({
+export const standardDecorationMarkerVariable: string = convertToInlineCss({
 	'--diff-decoration-marker-color': token('color.border.accent.purple'),
 });

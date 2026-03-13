@@ -6,14 +6,18 @@ import type { ComponentRegistry, PrimaryToolbarPluginState } from '../primaryToo
 
 import { getToolbarComponents } from './toolbar-configuration';
 
-export const primaryToolbarPluginKey = new PluginKey<PrimaryToolbarPluginState>('primaryToolbar');
+export const primaryToolbarPluginKey: PluginKey<PrimaryToolbarPluginState> =
+	new PluginKey<PrimaryToolbarPluginState>('primaryToolbar');
 
 type PluginConfig = {
 	componentRegistry: ComponentRegistry;
 	contextualFormattingEnabled?: boolean;
 };
 
-export const createPlugin = ({ componentRegistry, contextualFormattingEnabled }: PluginConfig) => {
+export const createPlugin = ({
+	componentRegistry,
+	contextualFormattingEnabled,
+}: PluginConfig): SafePlugin<PrimaryToolbarPluginState> => {
 	return new SafePlugin({
 		key: primaryToolbarPluginKey,
 		state: {

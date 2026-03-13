@@ -1,16 +1,23 @@
 import type { LinkAttributes } from '@atlaskit/adf-schema';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { Command } from '@atlaskit/editor-common/types';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { MediaLinkingActions } from './actions';
 import reducer from './reducer';
 import type { InitialState, MediaLinkingState } from './types';
 
-export const mediaLinkingPluginKey = new PluginKey<MediaLinkingState>('mediaLinking');
+export const mediaLinkingPluginKey: PluginKey<MediaLinkingState> = new PluginKey<MediaLinkingState>(
+	'mediaLinking',
+);
 
 const initialState: InitialState = {
 	visible: false,
@@ -69,10 +76,14 @@ const mediaLinkingPluginFactory = pluginFactory<
 	onSelectionChanged,
 });
 
-export const { createCommand: createMediaLinkingCommand, getPluginState: getMediaLinkingState } =
-	mediaLinkingPluginFactory;
+export const createMediaLinkingCommand: <A = MediaLinkingActions>(
+	action: A | ((state: Readonly<EditorState>) => false | A),
+	transform?: (tr: Transaction, state: EditorState) => Transaction,
+) => Command = mediaLinkingPluginFactory.createCommand;
+export const getMediaLinkingState: (state: EditorState) => MediaLinkingState =
+	mediaLinkingPluginFactory.getPluginState;
 
-export default (dispatch: Dispatch) =>
+export default (dispatch: Dispatch): SafePlugin<MediaLinkingState> =>
 	new SafePlugin({
 		key: mediaLinkingPluginKey,
 		state: mediaLinkingPluginFactory.createPluginState(dispatch, initialState),

@@ -19,7 +19,7 @@ export const createInlineChangedDecoration = ({
 	change: { fromB: number; toB: number };
 	colorScheme?: ColorScheme;
 	isActive?: boolean;
-}) => {
+}): Decoration => {
 	let style: string;
 	if (colorScheme === 'traditional') {
 		style = isActive ? traditionalInsertStyleActive : traditionalInsertStyle;

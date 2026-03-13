@@ -4,9 +4,10 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ACTIONS } from './actions';
 import type { MediaEditingPluginState } from './types';
 
-export const mediaEditingPluginKey = new PluginKey<MediaEditingPluginState>('mediaEditingPlugin');
+export const mediaEditingPluginKey: PluginKey<MediaEditingPluginState> =
+	new PluginKey<MediaEditingPluginState>('mediaEditingPlugin');
 
-export const createPlugin = () => {
+export const createPlugin = (): SafePlugin<MediaEditingPluginState> => {
 	return new SafePlugin<MediaEditingPluginState>({
 		key: mediaEditingPluginKey,
 		state: {

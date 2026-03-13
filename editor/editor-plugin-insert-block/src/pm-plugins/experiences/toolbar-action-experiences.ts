@@ -42,7 +42,7 @@ type ExperienceButtonMapping = {
 
 export const getToolbarActionExperiencesPlugin = ({
 	dispatchAnalyticsEvent,
-}: ToolbarActionExperienceOptions) => {
+}: ToolbarActionExperienceOptions): SafePlugin => {
 	let editorView: EditorView | undefined;
 	let lastClickedToolbarButton: HTMLElement | undefined;
 

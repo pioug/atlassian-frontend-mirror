@@ -1,7 +1,7 @@
 import React from 'react';
 
 import memoize from 'lodash/memoize';
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import type { WrappedComponentProps } from 'react-intl-next';
 
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
@@ -391,4 +391,6 @@ const createInsertBlockItems = (
 	return [buttonItems, dropdownItems] as const;
 };
 
-export const createItems = memoizeOne(createInsertBlockItems, shallowEquals);
+export const createItems: MemoizedFn<
+	(config: CreateItemsConfig) => Readonly<[BlockMenuItem[], BlockMenuItem[]]>
+> = memoizeOne(createInsertBlockItems, shallowEquals);

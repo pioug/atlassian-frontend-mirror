@@ -146,7 +146,7 @@ export const ToolbarDropdownMenu = ({
 	enableMaxHeight = false,
 	onClick,
 	tooltipComponent,
-}: ToolbarDropdownMenuProps) => {
+}: ToolbarDropdownMenuProps): JSX.Element => {
 	return (
 		<ToolbarDropdownMenuContent
 			iconBefore={iconBefore}

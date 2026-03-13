@@ -1,5 +1,12 @@
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { Command } from '@atlaskit/editor-common/types';
 import { pluginFactory, stepHasSlice } from '@atlaskit/editor-common/utils';
-import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	SafeStateField,
+	Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
@@ -8,6 +15,7 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 
 import type { FindReplacePluginState, Match } from '../types';
 
+import type { FindReplaceAction } from './actions';
 import { initialState } from './main';
 import { findReplacePluginKey } from './plugin-key';
 import reducer from './reducer';
@@ -146,10 +154,19 @@ const handleDocChanged = (
 	};
 };
 
-export const { createCommand, getPluginState, createPluginState } = pluginFactory(
+const dest = pluginFactory(
 	findReplacePluginKey,
 	reducer(() => initialState),
 	{
 		onDocChanged: handleDocChanged,
 	},
 );
+export const createCommand: <A = FindReplaceAction>(
+	action: A | ((state: Readonly<EditorState>) => false | A),
+	transform?: (tr: Transaction, state: EditorState) => Transaction,
+) => Command = dest.createCommand;
+export const getPluginState: (state: EditorState) => FindReplacePluginState = dest.getPluginState;
+export const createPluginState: (
+	dispatch: Dispatch,
+	initialState: FindReplacePluginState | ((state: EditorState) => FindReplacePluginState),
+) => SafeStateField<FindReplacePluginState> = dest.createPluginState;

@@ -3,7 +3,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { autoExpandSelectionRangeOnInlineNodePluginKey } from './auto-expand-selection-range-on-inline-node-key';
 
-export const createAutoExpandSelectionRangeOnInlineNodePlugin = () => {
+export const createAutoExpandSelectionRangeOnInlineNodePlugin = (): SafePlugin => {
 	let mouseDownElement: HTMLElement | null = null;
 
 	return new SafePlugin({

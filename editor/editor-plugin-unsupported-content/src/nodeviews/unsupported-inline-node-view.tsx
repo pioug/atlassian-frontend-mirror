@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
@@ -18,7 +18,7 @@ export type Props = InlineNodeViewComponentProps & {
 	node?: PMNode;
 };
 
-export const UnsupportedInlineNodeView = (props: Props) => {
+export const UnsupportedInlineNodeView = (props: Props): jsx.JSX.Element => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <UnsupportedInline {...props} />;

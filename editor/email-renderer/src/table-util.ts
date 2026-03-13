@@ -27,7 +27,16 @@ export const styles: string = `
 }
 `;
 
-export const createTableAttrs = (tableAttrs: Attrs = {}, tableStyle: Style = {}) => ({
+export const createTableAttrs = (
+	tableAttrs: Attrs = {},
+	tableStyle: Style = {},
+): {
+	class: string;
+	cellspacing: number;
+	cellpadding: number;
+	border: number;
+	style: string;
+} => ({
 	cellspacing: 0,
 	cellpadding: 0,
 	border: 0,
@@ -56,7 +65,7 @@ export const createTable = (
 	return createTag('table', attrs, tableRows);
 };
 
-export const transformNestedTableExtension = (adf: ADFEntity) => {
+export const transformNestedTableExtension = (adf: ADFEntity): ADFEntity => {
 	try {
 		const { transformedAdf, isTransformed } = transformNestedTablesIncomingDocument(adf);
 		return isTransformed ? transformedAdf : adf;

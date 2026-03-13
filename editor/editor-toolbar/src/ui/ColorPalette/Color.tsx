@@ -49,7 +49,7 @@ const buttonStyles = css({
  * Individual color palette item component
  * Displays a single color swatch with tooltip and selection state
  */
-export const Color = memo<ColorProps>(
+export const Color: React.NamedExoticComponent<ColorProps> = memo<ColorProps>(
 	({
 		autoFocus,
 		tabIndex,

@@ -19,7 +19,7 @@ const containerStyles = css({
 
 const max = 100000;
 
-function MassiveRangeTest() {
+function MassiveRangeTest(): JSX.Element {
 	const [value, setValue] = useState(0);
 
 	const onChange = (value: any) => {

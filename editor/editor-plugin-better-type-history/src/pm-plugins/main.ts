@@ -51,7 +51,7 @@ const isSliceAddingNewlineChar = (slice: Slice, schema: Schema): boolean => {
 	return slice.content.eq(newLine);
 };
 
-export default () => {
+export default (): SafePlugin => {
 	return new SafePlugin({
 		key: pluginKey,
 

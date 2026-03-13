@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e10c3c048d506010c5f20f87bfb1aa06>>
+ * @codegen <<SignedSource::69b963bac3d18247c1cba21a3bca7bb4>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -38,6 +38,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/no-html-select': 'warn',
 		'@atlaskit/design-system/no-html-text-input': 'warn',
 		'@atlaskit/design-system/no-html-textarea': 'warn',
+		'@atlaskit/design-system/no-icon-spacing-prop': 'warn',
 		'@atlaskit/design-system/no-invalid-css-map': [
 			'error',
 			{

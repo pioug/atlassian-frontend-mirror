@@ -12,7 +12,7 @@ export type IconsPositions = {
 	singleItems: Array<MenuIconItem>;
 };
 
-export const useIconList = ({ icons, iconTypeList }: UseIconsParams) => {
+export const useIconList = ({ icons, iconTypeList }: UseIconsParams): IconsPositions => {
 	return useMemo(() => {
 		return icons.reduce<IconsPositions>(
 			(acc, icon) => {

@@ -1,4 +1,5 @@
 import type { Rule } from 'eslint';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
 	callExpression,
 	type CallExpression,
@@ -10,7 +11,9 @@ import {
 	literal,
 	type ObjectExpression,
 	type Property,
+	SimpleCallExpression,
 	type SpreadElement,
+	StringableASTNode,
 	type TaggedTemplateExpression,
 } from 'eslint-codemod-utils';
 
@@ -76,7 +79,7 @@ const spacingValueToToken = Object.fromEntries(
 	spacingScale.map((token) => [token.value, token.cleanName]),
 );
 
-export function insertTokensImport(fixer: Rule.RuleFixer) {
+export function insertTokensImport(fixer: Rule.RuleFixer): Rule.Fix {
 	return insertAtStartOfFile(fixer, `${insertImportDeclaration('@atlaskit/tokens', ['token'])}\n`);
 }
 
@@ -372,7 +375,10 @@ const getValueFromBinaryExpression = (
 const emRegex = /(.*\d+)em$/;
 const percentageRegex = /(%$)/;
 
-export const emToPixels = <T extends unknown>(value: T, fontSize: number | null | undefined) => {
+export const emToPixels = <T extends unknown>(
+	value: T,
+	fontSize: number | null | undefined,
+): number | T | null => {
 	if (typeof value === 'string') {
 		const emMatch = value.match(emRegex);
 		if (emMatch && typeof fontSize === 'number') {
@@ -577,7 +583,10 @@ export function processCssNode(
  * propertyName: fontWeight, value: 400 => token('font.weight.regular', '400')
  * ```
  */
-export function getTokenNodeForValue(propertyName: string, value: string) {
+export function getTokenNodeForValue(
+	propertyName: string,
+	value: string,
+): StringableASTNode<SimpleCallExpression> {
 	const token = findTokenNameByPropertyValue(propertyName, value);
 	const fallbackValue =
 		propertyName === 'fontFamily' ? { value: `${value}`, raw: `\`${value}\`` } : `${value}`;
@@ -697,7 +706,10 @@ export function findTokenNameByPropertyValue(
  * @param propertyName string camelCased css property.
  * @param value The computed value e.g '8px' -> '8'.
  */
-export function getTokenReplacement(propertyName: string, value: string) {
+export function getTokenReplacement(
+	propertyName: string,
+	value: string,
+): StringableASTNode<SimpleCallExpression> | undefined {
 	const tokenName = findTokenNameByPropertyValue(propertyName, value);
 
 	if (!tokenName) {
@@ -712,7 +724,7 @@ export function getTokenReplacement(propertyName: string, value: string) {
 export function getPropertyNodeFromParent(
 	property: string,
 	parentNode: ObjectExpression & Rule.NodeParentExtension,
-) {
+): Property | SpreadElement | undefined {
 	const propertyNode = parentNode.properties.find((node) => {
 		if (!isNodeOfType(node, 'Property')) {
 			return;

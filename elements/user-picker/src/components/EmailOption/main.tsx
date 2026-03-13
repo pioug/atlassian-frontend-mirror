@@ -6,7 +6,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import { type Email } from '../../types';
 import { AddOptionAvatar } from '../AddOptionAvatar';
@@ -76,7 +76,7 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
 		/>
 	);
 
-	render() {
+	render(): jsx.JSX.Element {
 		const { label, emailValidity } = this.props;
 		return label !== undefined ? (
 			this.renderOption(label)

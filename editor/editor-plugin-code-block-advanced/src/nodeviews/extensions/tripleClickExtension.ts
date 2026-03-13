@@ -1,4 +1,4 @@
-import { EditorSelection } from '@codemirror/state';
+import { EditorSelection, type Extension } from '@codemirror/state';
 import { EditorView as CodeMirror } from '@codemirror/view';
 
 /**
@@ -7,7 +7,7 @@ import { EditorView as CodeMirror } from '@codemirror/view';
  *
  * @returns CodeMirror extension
  */
-export const tripleClickSelectAllExtension = () =>
+export const tripleClickSelectAllExtension = (): Extension =>
 	CodeMirror.mouseSelectionStyle.of((view, event) => {
 		// Check for a triple-click and avoid non-main "button" events
 		// https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button

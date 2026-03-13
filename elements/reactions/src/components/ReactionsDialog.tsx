@@ -79,7 +79,7 @@ export const ReactionsDialog = ({
 	handleSelectReaction = () => {},
 	handlePaginationChange = () => {},
 	ProfileCardWrapper,
-}: ReactionsDialogProps) => {
+}: ReactionsDialogProps): JSX.Element => {
 	const [hasNavigatedPages, setHasNavigatedPages] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState(1);
 

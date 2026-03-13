@@ -394,7 +394,7 @@ export const useMemoizedSyncedBlockProvider = ({
 	writeProvider,
 	providerOptions,
 	getSSRData,
-}: UseMemoizedSyncedBlockProviderProps) => {
+}: UseMemoizedSyncedBlockProviderProps): SyncedBlockProvider => {
 	const syncBlockProvider = useMemo(
 		() => createSyncedBlockProvider({ fetchProvider, writeProvider }),
 		[fetchProvider, writeProvider],

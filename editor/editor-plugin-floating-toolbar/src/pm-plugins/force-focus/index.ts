@@ -3,12 +3,14 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-export const forceFocusStateKey = new PluginKey('forceFocusStatePlugin');
+export const forceFocusStateKey: PluginKey = new PluginKey('forceFocusStatePlugin');
 /**
  * Used in cases where a floating toolbar button opens a submenu which destroys
  * the button, but the user has pressed ESC to close the submenu and focus needs
  * to move back to the button. */
-export default () =>
+export default (): SafePlugin<{
+	selector: null;
+}> =>
 	new SafePlugin({
 		key: forceFocusStateKey,
 		state: {
@@ -28,11 +30,13 @@ export default () =>
 /**
  * The provided selector should be the floating toolbar button that needs focus.
  */
-export const forceFocusSelector = (selector: string | null) => (tr: Transaction) => {
-	return tr.setMeta(forceFocusStateKey, {
-		selector,
-	});
-};
+export const forceFocusSelector =
+	(selector: string | null) =>
+	(tr: Transaction): Transaction => {
+		return tr.setMeta(forceFocusStateKey, {
+			selector,
+		});
+	};
 
 /**
  * If a selector is set and the element exists, focus it.

@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 217.0.0
+
+### Patch Changes
+
+- [`ae28f2e6bb741`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae28f2e6bb741) -
+  Editor-5020-fix-inline-drop-hints-not-visible-in-sync-block
+- Updated dependencies
+
 ## 216.15.2
 
 ### Patch Changes

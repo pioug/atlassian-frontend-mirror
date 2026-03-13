@@ -5,5 +5,5 @@ export const customCategory = 'CUSTOM';
 export const selectedToneStorageKey = 'fabric.emoji.selectedTone';
 
 export const mediaBaseUrl = 'https://media.example.com/';
-export const mediaEmojiImagePath = `${mediaBaseUrl}path-to-image.png`;
-export const mediaEmojiAlternateImagePath = `${mediaBaseUrl}alt-path-to-image.png`;
+export const mediaEmojiImagePath: 'https://media.example.com/path-to-image.png' = `${mediaBaseUrl}path-to-image.png`;
+export const mediaEmojiAlternateImagePath: 'https://media.example.com/alt-path-to-image.png' = `${mediaBaseUrl}alt-path-to-image.png`;

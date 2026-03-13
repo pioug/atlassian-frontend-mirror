@@ -1,6 +1,12 @@
 import { bodiedExtension } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+	AttributeSpec,
+	DOMOutputSpec,
+	Node as PMNode,
+	TagParseRule,
+} from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -9,7 +15,39 @@ const capitalizeFirstLetter = (str: string): string => {
 };
 
 // @nodeSpecException:toDOM patch
-export const bodiedExtensionSpecWithFixedToDOM = () => {
+export const bodiedExtensionSpecWithFixedToDOM = (): {
+	atom?: boolean;
+	attrs?: {
+		[name: string]: AttributeSpec;
+	};
+	code?: boolean;
+	content?: string;
+	defining?: boolean;
+	definingAsContext?: boolean;
+	definingForContent?: boolean;
+	disableDropCursor?:
+		| boolean
+		| ((
+				view: EditorView,
+				pos: {
+					inside: number;
+					pos: number;
+				},
+				event: DragEvent,
+		  ) => boolean);
+	draggable?: boolean;
+	group?: string;
+	inline?: boolean;
+	isolating?: boolean;
+	leafText?: (node: PMNode) => string;
+	linebreakReplacement?: boolean;
+	marks?: string;
+	parseDOM?: readonly TagParseRule[];
+	selectable?: boolean;
+	toDebugString?: (node: PMNode) => string;
+	toDOM: (node: PMNode) => DOMOutputSpec;
+	whitespace?: 'pre' | 'normal';
+} => {
 	return {
 		...bodiedExtension,
 		toDOM: (node: PMNode): DOMOutputSpec => {

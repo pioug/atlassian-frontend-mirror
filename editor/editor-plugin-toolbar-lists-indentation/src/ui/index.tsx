@@ -38,7 +38,7 @@ export interface Props {
 	toolbarType: ToolbarType;
 }
 
-export default function ToolbarListsIndentation(props: Props) {
+export default function ToolbarListsIndentation(props: Props): JSX.Element {
 	const {
 		disabled,
 		isSmall,

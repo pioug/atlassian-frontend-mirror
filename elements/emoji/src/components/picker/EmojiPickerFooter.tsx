@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo } from 'react';
+import { memo, type MemoExoticComponent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { N30A } from '@atlaskit/theme/colors';
@@ -24,7 +24,7 @@ export interface Props {
 
 export const emojiPickerFooterTestId = 'emoji-picker-footer';
 
-const EmojiPickerFooter = ({ selectedEmoji }: Props) => (
+const EmojiPickerFooter = ({ selectedEmoji }: Props): JSX.Element => (
 	<div
 		css={[emojiPickerFooter, emojiPickerFooterWithTopShadow]}
 		data-testid={emojiPickerFooterTestId}
@@ -33,4 +33,6 @@ const EmojiPickerFooter = ({ selectedEmoji }: Props) => (
 	</div>
 );
 
-export default memo(EmojiPickerFooter);
+const _default_1: MemoExoticComponent<({ selectedEmoji }: Props) => JSX.Element> =
+	memo(EmojiPickerFooter);
+export default _default_1;

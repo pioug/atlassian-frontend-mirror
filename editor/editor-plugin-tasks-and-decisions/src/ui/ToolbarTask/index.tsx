@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
@@ -57,4 +57,8 @@ const ToolbarTask = ({
 	);
 };
 
-export default injectIntl(ToolbarTask);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ToolbarTask);
+export default _default_1;

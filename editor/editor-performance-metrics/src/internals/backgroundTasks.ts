@@ -1,6 +1,6 @@
 /* eslint-disable compat/compat */
 
-export const TaskAborted = Symbol('BackgroundTaskAborted');
+export const TaskAborted: unique symbol = Symbol('BackgroundTaskAborted');
 export type TaskAbortedSymbol = typeof TaskAborted;
 type BackgroundTask<T> = (maybeYield: () => Promise<void>) => void | Promise<T | TaskAbortedSymbol>;
 

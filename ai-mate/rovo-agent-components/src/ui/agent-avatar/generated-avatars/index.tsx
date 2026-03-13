@@ -206,6 +206,13 @@ const GammaAgentAvatar = lazy(
 	() =>
 		import(/* webpackChunkName: "@atlaskit-rovo-avatar-GammaAgentAvatar"*/ './assets/gamma-agent'),
 );
+
+const ReplitAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-ReplitAgentAvatar"*/ './assets/replit-agent'
+		),
+);
 /**
  * OOTB Agents avatars - end
  */
@@ -249,7 +256,7 @@ const avatarList = [
 	ProductRequirementAvatar,
 ];
 
-export const TOTAL_AVATAR_COMBINATIONS = avatarList.length * colorList.length;
+export const TOTAL_AVATAR_COMBINATIONS: number = avatarList.length * colorList.length;
 
 type GeneratedAvatarProps = {
 	agentNamedId?: string;
@@ -471,6 +478,12 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: blueColor,
 	},
+	mcp_replit_agent: {
+		getRender: (size: SizeType) => (
+			<ReplitAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
 };
 
 /**
@@ -591,7 +604,7 @@ export const AgentBanner = ({
 > & {
 	height?: number;
 	fillSpace?: boolean;
-}) => {
+}): JSX.Element => {
 	const { color } = getAvatarRender({
 		agentNamedId,
 		agentId,
@@ -608,7 +621,7 @@ export const AgentBanner = ({
 	);
 };
 
-export const GeneratedAvatar = (props: GeneratedAvatarProps) => {
+export const GeneratedAvatar = (props: GeneratedAvatarProps): JSX.Element => {
 	const { render, color } = getAvatarRender(props);
 	const { onLoad } = props;
 

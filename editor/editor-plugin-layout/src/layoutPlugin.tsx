@@ -67,7 +67,7 @@ import { buildToolbar } from './ui/toolbar';
  * @param tr - transaction
  * @returns - transaction with the selection set to the first paragraph of the first column
  */
-export const selectIntoLayoutSection = (tr: Transaction) => {
+export const selectIntoLayoutSection = (tr: Transaction): Transaction => {
 	if (!editorExperiment('single_column_layouts', true)) {
 		return tr;
 	}

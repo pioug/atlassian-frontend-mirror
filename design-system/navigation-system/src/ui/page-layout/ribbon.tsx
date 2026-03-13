@@ -43,7 +43,12 @@ type RibbonProps = CommonSlotProps & {
 	children: React.ReactNode;
 };
 
-export function UNSAFE_Ribbon({ children, testId, id: providedId, width = '0px' }: RibbonProps) {
+export function UNSAFE_Ribbon({
+	children,
+	testId,
+	id: providedId,
+	width = '0px',
+}: RibbonProps): JSX.Element | null {
 	const id = useLayoutId({ providedId });
 
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);

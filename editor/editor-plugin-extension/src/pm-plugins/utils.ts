@@ -12,7 +12,7 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { Mark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { DomAtPos, NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { ContentNodeWithPos, DomAtPos, NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import {
 	findDomRefAtPos,
 	findParentNodeOfType,
@@ -20,7 +20,10 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 
-export const getSelectedExtension = (state: EditorState, searchParent: boolean = false) => {
+export const getSelectedExtension = (
+	state: EditorState,
+	searchParent: boolean = false,
+): ContentNodeWithPos | undefined => {
 	const { inlineExtension, extension, bodiedExtension, multiBodiedExtension } = state.schema.nodes;
 	const nodeTypes = [extension, bodiedExtension, inlineExtension, multiBodiedExtension];
 	return (
@@ -30,7 +33,10 @@ export const getSelectedExtension = (state: EditorState, searchParent: boolean =
 	);
 };
 
-export const findExtensionWithLocalId = (state: EditorState, localId?: string) => {
+export const findExtensionWithLocalId = (
+	state: EditorState,
+	localId?: string,
+): NodeWithPos | undefined => {
 	const selectedExtension = getSelectedExtension(state, true);
 
 	if (!localId) {
@@ -58,7 +64,7 @@ export const getSelectedDomElement = (
 	schema: Schema,
 	domAtPos: DomAtPos,
 	selectedExtensionNode: NodeWithPos,
-) => {
+): HTMLElement => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const selectedExtensionDomNode = findDomRefAtPos(
@@ -246,7 +252,7 @@ export const onCopyFailed = ({
 	error: Error;
 	extensionApi?: PublicPluginAPI<[AnalyticsPlugin]>;
 	state: EditorState;
-}) => {
+}): void => {
 	const nodeWithPos = getSelectedExtension(state, true);
 	if (!nodeWithPos) {
 		return;

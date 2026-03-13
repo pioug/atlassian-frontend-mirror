@@ -76,11 +76,15 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 	// rerender when the module has already been loaded
 	static AsyncLoadedComponent?: React.ComponentType<React.PropsWithChildren<ComponentProps>>;
 
-	static defaultProps = {
+	static defaultProps: {
+		size: string;
+	} = {
 		size: defaultEmojiPickerSize,
 	};
 
-	state = {
+	state: {
+		asyncLoadedComponent: React.ComponentType<React.PropsWithChildren<ComponentProps>> | undefined;
+	} = {
 		asyncLoadedComponent: EmojiPickerInternal.AsyncLoadedComponent,
 	};
 
@@ -115,7 +119,7 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 	renderLoaded(
 		loadedEmojiProvider: EmojiProvider,
 		EmojiPickerComponent: ComponentClass<ComponentProps>,
-	) {
+	): JSX.Element {
 		const { emojiProvider, ...otherProps } = this.props;
 		return (
 			<UfoErrorBoundary experiences={[ufoExperiences['emoji-picker-opened']]}>
@@ -127,7 +131,9 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 	}
 }
 
-const EmojiPicker = withAnalyticsEvents()<
+const EmojiPicker: React.ForwardRefExoticComponent<
+	Omit<Props & WithAnalyticsEventsProps, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
+> = withAnalyticsEvents()<
 	Props & WithAnalyticsEventsProps,
 	React.ComponentType<Props & WithAnalyticsEventsProps>
 >(EmojiPickerInternal as any);

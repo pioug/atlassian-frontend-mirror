@@ -85,7 +85,15 @@ export const useComponentInfo = ({
 	shortcut,
 	toggleMarkWithAnalyticsCallback,
 	parents,
-}: Omit<FormatComponentProps, 'icon' | 'ariaLabel' | 'groupLocation'>) => {
+}: Omit<FormatComponentProps, 'icon' | 'ariaLabel' | 'groupLocation'>): {
+	formatTitle: string;
+	shortcutContent: string | undefined;
+	ariaLabel: string;
+	onClick: () => void;
+	isActive: boolean;
+	isDisabled: boolean;
+	isHidden: boolean;
+} => {
 	const { isActive, isDisabled, isHidden, isPluginInitialised } = useSharedPluginStateWithSelector(
 		api,
 		['textFormatting'],

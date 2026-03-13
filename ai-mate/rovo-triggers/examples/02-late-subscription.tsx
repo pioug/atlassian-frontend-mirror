@@ -183,7 +183,7 @@ const Sub = ({ topic, onClose }: { topic: Topic; onClose: () => void }) => {
 	);
 };
 
-export default function () {
+export default function (): JSX.Element {
 	const [mounted, setMounted] = useState(false);
 	const timer = useRef(0);
 

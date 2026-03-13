@@ -63,7 +63,7 @@ const controlStyles = cssMap({
 	},
 });
 
-const Control = (props: ControlProps<any> & UserPickerProps) => {
+const Control = (props: ControlProps<any> & UserPickerProps): JSX.Element => {
 	const isCompact = props.appearance === 'compact';
 	return (
 		<components.Control

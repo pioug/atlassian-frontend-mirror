@@ -4,7 +4,7 @@
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 
@@ -60,7 +60,7 @@ const ImageBorder = ({
 	toggleBorder,
 	borderMark,
 	setBorder,
-}: ImageBorderProps) => {
+}: ImageBorderProps): jsx.JSX.Element => {
 	const popupTarget = useRef<HTMLDivElement>(null);
 	const dropDownColorOptionButton = useRef<HTMLButtonElement>(null);
 	const dropDownSizeOptionButton = useRef<HTMLButtonElement>(null);

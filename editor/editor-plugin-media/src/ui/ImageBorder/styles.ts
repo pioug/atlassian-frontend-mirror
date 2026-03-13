@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation*/
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 // Ignored via go/ees005
@@ -21,7 +21,7 @@ export const menuItemDimensions = {
 export const itemSpacing = 4;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const contextualMenuArrow = css`
+export const contextualMenuArrow: SerializedStyles = css`
 	display: flex;
 	&::after {
 		content: '›';
@@ -31,7 +31,7 @@ export const contextualMenuArrow = css`
 	}
 `;
 
-export const contextualMenuColorIcon = (color?: string) => css`
+export const contextualMenuColorIcon = (color?: string): SerializedStyles => css`
 	${contextualMenuArrow}
 	&::before {
 		content: '';
@@ -44,7 +44,7 @@ export const contextualMenuColorIcon = (color?: string) => css`
 	}
 `;
 
-export const contextualSubMenu = (index: number) => css`
+export const contextualSubMenu = (index: number): SerializedStyles => css`
 	border-radius: ${token('radius.small', '3px')};
 	background: ${token('elevation.surface.overlay', 'white')};
 	box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`)};
@@ -59,7 +59,7 @@ export const contextualSubMenu = (index: number) => css`
 	}
 `;
 
-export const buttonStyle = (selected: boolean) => css`
+export const buttonStyle = (selected: boolean): SerializedStyles => css`
 	height: 26px;
 	width: 26px;
 	padding: 0;
@@ -73,7 +73,7 @@ export const buttonStyle = (selected: boolean) => css`
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const buttonWrapperStyle = css`
+export const buttonWrapperStyle: SerializedStyles = css`
 	border: 1px solid transparent;
 	margin: ${token('space.025', '2px')};
 	font-size: 0;
@@ -88,7 +88,7 @@ export const buttonWrapperStyle = css`
 	}
 `;
 
-export const line = (size: number, selected: boolean) => css`
+export const line = (size: number, selected: boolean): SerializedStyles => css`
 	position: relative;
 	&:before {
 		content: '';
@@ -121,7 +121,7 @@ export const toolbarButtonWrapper = ({
 }: {
 	enabled: boolean;
 	isOpen: boolean;
-}) => css`
+}): SerializedStyles => css`
 	display: flex;
 	.image-border-toolbar-btn {
 		border-top-right-radius: 0;
@@ -153,7 +153,7 @@ export const toolbarButtonWrapper = ({
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const dropdownOptionButton = css`
+export const dropdownOptionButton: SerializedStyles = css`
 	background: transparent;
 	border: 2px solid transparent;
 	display: flex;
@@ -169,7 +169,7 @@ export const dropdownOptionButton = css`
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const dropdownWrapper = css`
+export const dropdownWrapper: SerializedStyles = css`
 	span[role='menuitem'] {
 		padding: 0;
 	}

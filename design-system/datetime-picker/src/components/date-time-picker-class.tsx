@@ -102,7 +102,7 @@ export const timePickerDefaultAriaLabel = 'Time';
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, State> {
-	static defaultProps = dateTimePickerDefaultProps;
+	static defaultProps: DateTimePickerBaseProps = dateTimePickerDefaultProps;
 
 	state: State = {
 		dateValue: this.props.datePickerProps?.defaultValue || '',
@@ -114,7 +114,11 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 
 	// All state needs to be accessed via this function so that the state is mapped from props
 	// correctly to allow controlled/uncontrolled usage.
-	getParsedValues = () =>
+	getParsedValues = (): {
+		dateValue: string;
+		timeValue: string;
+		zoneValue: string;
+	} =>
 		this.parseValue(
 			this.getValue(),
 			this.state.dateValue,
@@ -251,7 +255,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 		}
 	}
 
-	render() {
+	render(): JSX.Element {
 		const {
 			'aria-describedby': ariaDescribedBy,
 			appearance = 'default' as NonNullable<DateTimePickerBaseProps['appearance']>,

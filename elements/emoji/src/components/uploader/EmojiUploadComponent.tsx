@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState, memo, useEffect } from 'react';
+import { useState, memo, useEffect, type MemoExoticComponent } from 'react';
 import { jsx, css } from '@compiled/react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -53,7 +53,7 @@ export interface Props {
 	onUploaderRef?: UploadRefHandler;
 }
 
-const EmojiUploadComponent = (props: Props) => {
+const EmojiUploadComponent = (props: Props): JSX.Element => {
 	const { emojiProvider, createAnalyticsEvent, onUploaderRef, disableFocusLock } = props;
 	const [uploadErrorMessage, setUploadErrorMessage] = useState<MessageDescriptor>();
 
@@ -152,4 +152,5 @@ const EmojiUploadComponent = (props: Props) => {
 	);
 };
 
-export default memo(EmojiUploadComponent);
+const _default_1: MemoExoticComponent<(props: Props) => JSX.Element> = memo(EmojiUploadComponent);
+export default _default_1;

@@ -4,7 +4,7 @@
  */
 import { type CSSProperties, Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import { type IntlShape } from 'react-intl-next';
 
@@ -176,13 +176,21 @@ const HoverZone = ({
 		return node ? getNodeAnchor(node) : '';
 	}, [api, node, pos, position]);
 	const [_isActive, setActiveAnchor] = useActiveAnchorTracker(anchorName);
+	const isInsideBodiedSyncBlock =
+		parent &&
+		parent.type.name === 'bodiedSyncBlock' &&
+		expValEquals('platform_synced_block', 'isEnabled', true) &&
+		expValEquals('platform_synced_block_patch_6', 'isEnabled', true);
 
 	useEffect(() => {
 		if (ref.current) {
 			return dropTargetForElements({
 				element: ref.current,
 				onDragEnter: () => {
-					if (!isNestedDropTarget && editorExperiment('advanced_layouts', true)) {
+					if (
+						(!isNestedDropTarget || isInsideBodiedSyncBlock) &&
+						editorExperiment('advanced_layouts', true)
+					) {
 						setActiveAnchor();
 					}
 					onDragEnter();
@@ -191,7 +199,14 @@ const HoverZone = ({
 				onDrop,
 			});
 		}
-	}, [isNestedDropTarget, onDragEnter, onDragLeave, onDrop, setActiveAnchor]);
+	}, [
+		isNestedDropTarget,
+		isInsideBodiedSyncBlock,
+		onDragEnter,
+		onDragLeave,
+		onDrop,
+		setActiveAnchor,
+	]);
 
 	const hoverZoneUpperStyle = useMemo(() => {
 		const heightStyleOffset = `var(--editor-block-controls-drop-indicator-gap, 0)/2`;
@@ -294,7 +309,7 @@ const HoverZone = ({
 
 export const DropTarget = (
 	props: DropTargetProps & { anchorRectCache?: AnchorRectCache; isSameLayout?: boolean },
-) => {
+): jsx.JSX.Element => {
 	const {
 		api,
 		getPos,
@@ -339,6 +354,14 @@ export const DropTarget = (
 			: '0',
 		[EDITOR_BLOCK_CONTROLS_DROP_TARGET_ZINDEX]: layers.navigation(),
 	} as CSSProperties;
+
+	const isShowInlineDropTarget = shouldAllowInlineDropTarget(
+		isNestedDropTarget,
+		nextNode,
+		isSameLayout,
+		activeNode,
+		parentNode,
+	);
 
 	return (
 		<Fragment>
@@ -385,7 +408,7 @@ export const DropTarget = (
 				/>
 			)}
 
-			{shouldAllowInlineDropTarget(isNestedDropTarget, nextNode, isSameLayout, activeNode) && (
+			{isShowInlineDropTarget && (
 				<Fragment>
 					<InlineDropTarget
 						// Ignored via go/ees005

@@ -91,7 +91,7 @@ export default class Item extends PureComponent<Props, {}> {
 		);
 	}
 
-	renderMessageAppearance() {
+	renderMessageAppearance(): JSX.Element | null {
 		const { contentRef, children, icon, itemType, checkBoxId, dataAttributes } = this.props;
 
 		if (itemType === 'TASK') {
@@ -119,7 +119,7 @@ export default class Item extends PureComponent<Props, {}> {
 		return null;
 	}
 
-	render() {
+	render(): JSX.Element | null {
 		return this.renderMessageAppearance();
 	}
 }

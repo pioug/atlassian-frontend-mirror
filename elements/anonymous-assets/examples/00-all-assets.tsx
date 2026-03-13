@@ -21,7 +21,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	const [assets, setAssets] = useState<AnonymousAsset[]>([]);
 
 	useEffect(() => {

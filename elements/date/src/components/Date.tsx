@@ -34,7 +34,7 @@ export class Date extends React.Component<Props> {
 		}
 	};
 
-	renderContent = () => {
+	renderContent = (): React.ReactNode => {
 		if (this.props.children) {
 			if (typeof this.props.children === 'function') {
 				return (

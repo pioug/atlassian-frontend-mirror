@@ -222,9 +222,6 @@
 			"path": "../../editor-plugin-metrics/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-ncs-step-metrics/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-panel/afm-products/tsconfig.json"
 		},
 		{

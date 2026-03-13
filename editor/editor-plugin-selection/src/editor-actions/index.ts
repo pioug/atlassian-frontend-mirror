@@ -75,7 +75,7 @@ export const getSliceFromSelection = (selection: Selection): Fragment => {
 };
 
 export const getSelectionFragment =
-	(api: ExtractInjectionAPI<SelectionPlugin> | undefined) => () => {
+	(api: ExtractInjectionAPI<SelectionPlugin> | undefined) => (): JSONNode[] | null => {
 		const selection = api?.selection.sharedState?.currentState()?.selection;
 		if (fg('platform_editor_renderer_selection_context')) {
 			return getFragmentsFromSelection(selection);

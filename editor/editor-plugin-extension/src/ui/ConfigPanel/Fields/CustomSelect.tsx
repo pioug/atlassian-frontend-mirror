@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type {
@@ -179,4 +179,30 @@ function CustomSelect({
 	);
 }
 
-export default injectIntl(CustomSelect);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<
+	WithIntlProps<
+		{
+			autoFocus?: boolean;
+			extensionManifest: ExtensionManifest;
+			field: CustomField;
+			name: string;
+			onFieldChange: OnFieldChange;
+			parameters?: Parameters;
+			placeholder?: string;
+		} & WrappedComponentProps
+	>
+> & {
+	WrappedComponent: React.ComponentType<
+		{
+			autoFocus?: boolean;
+			extensionManifest: ExtensionManifest;
+			field: CustomField;
+			name: string;
+			onFieldChange: OnFieldChange;
+			parameters?: Parameters;
+			placeholder?: string;
+		} & WrappedComponentProps
+	>;
+} = injectIntl(CustomSelect);
+export default _default_1;

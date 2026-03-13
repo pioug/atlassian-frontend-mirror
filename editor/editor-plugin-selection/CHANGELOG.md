@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 8.0.0
+
+### Patch Changes
+
+- [`8184c046099e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8184c046099e5) -
+  Fixed bug where it wasn't possible to paste before a block node when the block node was the first
+  node in an editor document.
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

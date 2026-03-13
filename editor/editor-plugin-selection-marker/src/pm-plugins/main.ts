@@ -21,7 +21,7 @@ export interface PluginState {
 	shouldHideDecorations: boolean;
 }
 
-export const key = new PluginKey<PluginState>('selectionMarker');
+export const key: PluginKey<PluginState> = new PluginKey<PluginState>('selectionMarker');
 
 type DecorationType = 'blur' | 'highlight' | 'none';
 
@@ -99,7 +99,9 @@ const debouncedDecorations = debounce((state: EditorState) => {
 	return key.getState(state)?.decorations;
 }, 25);
 
-export const createPlugin = (api: ExtractInjectionAPI<SelectionMarkerPlugin> | undefined) => {
+export const createPlugin = (
+	api: ExtractInjectionAPI<SelectionMarkerPlugin> | undefined,
+): SafePlugin<PluginState> => {
 	return new SafePlugin<PluginState>({
 		key,
 		state: {

@@ -29,7 +29,7 @@ export default class WebsocketTransport extends AbstractApsTransport {
 		this.url = WebsocketTransport.toWssUrl(params.url);
 	}
 
-	transportType() {
+	transportType(): APSTransportType {
 		return APSTransportType.WEBSOCKET;
 	}
 

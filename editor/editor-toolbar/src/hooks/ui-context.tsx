@@ -52,7 +52,7 @@ const ToolbarUIContext = createContext<ToolbarUIContextType>({
 /**
  * Access consumer specific config and state within a toolbar component
  */
-export const useToolbarUI = () => {
+export const useToolbarUI = (): ToolbarUIContextType => {
 	const context = useContext(ToolbarUIContext);
 
 	if (!context) {

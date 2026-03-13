@@ -1,3 +1,4 @@
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import { type Node } from '@atlaskit/editor-prosemirror/model';
 import { type ReadonlyTransaction, type Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -24,7 +25,7 @@ export const isLinkNode = (node: Node): boolean => {
 	return hasLinkMark(node);
 };
 
-export function getNodeSubject(node: Node) {
+export function getNodeSubject(node: Node): EVENT_SUBJECT | null {
 	if (isDatasourceNode(node)) {
 		return EVENT_SUBJECT.DATASOURCE;
 	}
@@ -37,7 +38,7 @@ export function getNodeSubject(node: Node) {
 /**
  * Analytics appearance for link object
  */
-export function appearanceForLink(node: Node) {
+export function appearanceForLink(node: Node): 'url' | CardAppearance {
 	const appearance = appearanceForNodeType(node.type);
 	if (appearance) {
 		return appearance;
@@ -79,7 +80,10 @@ export const getNodeContext = (doc: Node, pos: number): string => {
 	return 'unknown';
 };
 
-export const findAtPositions = (tr: Transaction | ReadonlyTransaction, positions: number[]) => {
+export const findAtPositions = (
+	tr: Transaction | ReadonlyTransaction,
+	positions: number[],
+): Entity[] => {
 	const entities: Entity[] = [];
 
 	for (let i = 0; i < positions.length; i++) {
@@ -107,7 +111,7 @@ export const findInNodeRange = (
 	from: number,
 	to: number,
 	predicate: (node: Node) => boolean,
-) => {
+): Entity[] => {
 	const entities: Entity[] = [];
 
 	doc.nodesBetween(from, to, (node, pos) => {

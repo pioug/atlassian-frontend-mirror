@@ -23,7 +23,10 @@ import {
 	getMaxWidthForNestedNodeNext,
 } from '@atlaskit/editor-common/media-single';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type {
+	ContextIdentifierProvider,
+	MediaProvider,
+} from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	EditorContainerWidth as WidthPluginState,
@@ -223,7 +226,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		this.singletonCreatedAt = (performance || Date).now();
 	}
 
-	clone() {
+	clone(): MediaPluginStateImplementation {
 		const clonedAt = (performance || Date).now();
 
 		// Prevent double wrapping
@@ -354,7 +357,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		}
 	}
 
-	getMediaOptions = () => this.options;
+	getMediaOptions = (): MediaPluginOptions => this.options;
 
 	setIsResizing(isResizing: boolean): void {
 		this.isResizing = isResizing;
@@ -418,7 +421,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		return;
 	}
 
-	get contextIdentifierProvider() {
+	get contextIdentifierProvider(): ContextIdentifierProvider | undefined {
 		return this.pluginInjectionApi?.contextIdentifier?.sharedState.currentState()
 			?.contextIdentifierProvider;
 	}
@@ -622,7 +625,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	 *
 	 * NOTE: The promise will resolve even if some of the media have failed to process.
 	 */
-	waitForPendingTasks = this.taskManager.waitForPendingTasks;
+	waitForPendingTasks: (
+		timeout?: number,
+		lastTask?: Promise<MediaState | null>,
+	) => Promise<MediaState | null> = this.taskManager.waitForPendingTasks;
 
 	setView(view: EditorView): void {
 		this.view = view;
@@ -816,7 +822,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		return;
 	};
 
-	updateMediaSingleNodeAttrs = (id: string, attrs: object) => {
+	updateMediaSingleNodeAttrs = (id: string, attrs: object): boolean | undefined => {
 		const { view } = this;
 		if (!view) {
 			return;
@@ -925,7 +931,7 @@ export const createPlugin = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	dispatch?: Dispatch,
 	mediaOptions?: MediaOptions,
-) => {
+): SafePlugin<MediaPluginState> => {
 	const intl = getIntl();
 
 	return new SafePlugin({

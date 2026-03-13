@@ -14,7 +14,7 @@ export const DECORATION_WRAPPED_BLOCK_NODE_TYPE = 'decorationNodeType';
 /**
  * Generate the initial decorations for the code block.
  */
-export const generateInitialDecorations = (state: EditorState) => {
+export const generateInitialDecorations = (state: EditorState): Decoration[] => {
 	const codeBlockNodes = getAllCodeBlockNodesInDoc(state);
 
 	return codeBlockNodes.flatMap((node) =>
@@ -82,7 +82,7 @@ export const updateDecorationSetWithLineNumberDecorators = (
 	return updatedDecorationSet.add(tr.doc, [...lineNumberDecorators]);
 };
 
-export const generateLineAttributesFromNode = (node: NodeWithPos) => {
+export const generateLineAttributesFromNode = (node: NodeWithPos): CodeBlockLineAttributes[] => {
 	const { node: innerNode, pos } = node;
 	// Get content node
 	const contentNode = innerNode.content;
@@ -119,7 +119,7 @@ export const generateLineAttributesFromNode = (node: NodeWithPos) => {
 
 export const createDecorationSetFromLineAttributes = (
 	lineAttributes: CodeBlockLineAttributes[],
-) => {
+): Decoration[] => {
 	const widgetDecorations = lineAttributes.map((lineAttribute) => {
 		const { lineStart, lineNumber } = lineAttribute;
 
@@ -152,7 +152,7 @@ export const validateWordWrappedDecorators = (
 	tr: ReadonlyTransaction,
 	codeBlockNodes: NodeWithPos[],
 	decorationSet: DecorationSet,
-) => {
+): DecorationSet => {
 	let updatedDecorationSet = decorationSet;
 	codeBlockNodes.forEach((node) => {
 		const isCodeBlockWrappedInState = isCodeBlockWordWrapEnabled(node.node);
@@ -227,7 +227,10 @@ export const updateDecorationSetWithWordWrappedDecorator = (
 /**
  * Get the word wrap decorators for the given node position.
  */
-export const getWordWrapDecoratorsFromNodePos = (pos: number, decorationSet: DecorationSet) => {
+export const getWordWrapDecoratorsFromNodePos = (
+	pos: number,
+	decorationSet: DecorationSet,
+): Decoration[] => {
 	const codeBlockNodePosition = pos + 1; // We need to add 1 to the position to get the start of the node.
 	const currentWrappedBlockDecorationSet = decorationSet.find(
 		codeBlockNodePosition,

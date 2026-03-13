@@ -13,7 +13,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 export const getDomRefFromSelection = (
 	view: EditorView,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-) => {
+): HTMLElement | undefined => {
 	try {
 		const domRef = findDomRefAtPos(view.state.selection.from, view.domAtPos.bind(view));
 

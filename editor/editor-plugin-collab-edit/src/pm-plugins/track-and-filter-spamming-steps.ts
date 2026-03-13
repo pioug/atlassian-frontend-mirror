@@ -180,11 +180,12 @@ export function generateTransactionKey(tr: Transaction): string {
 	return '';
 }
 
-export const trackSpammingStepsPluginKey = new PluginKey<TrackSpammingStepsMetadata>(
-	'trackAndFilterSpammingStepsPluginKey',
-);
+export const trackSpammingStepsPluginKey: PluginKey<TrackSpammingStepsMetadata> =
+	new PluginKey<TrackSpammingStepsMetadata>('trackAndFilterSpammingStepsPluginKey');
 
-export const createPlugin = (trackFilteredTransaction: TrackFilteredTransaction) => {
+export const createPlugin = (
+	trackFilteredTransaction: TrackFilteredTransaction,
+): SafePlugin<TrackSpammingStepsMetadata> => {
 	const recentTransactionsTimestamps = new Map<string, RecentTransactionTimestamp>();
 	return new SafePlugin<TrackSpammingStepsMetadata>({
 		key: trackSpammingStepsPluginKey,

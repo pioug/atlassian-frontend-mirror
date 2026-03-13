@@ -27,7 +27,7 @@ export function transformSliceForMedia(
 	const { mediaSingle, layoutSection, table, bulletList, orderedList, expand, nestedExpand } =
 		schema.nodes;
 
-	return (selection: Selection) => {
+	return (selection: Selection): Slice => {
 		let newSlice = slice;
 		if (
 			hasParentNodeOfType([layoutSection, table, bulletList, orderedList, expand, nestedExpand])(
@@ -71,7 +71,7 @@ export const isImage = (fileType?: string): boolean => {
 	return !!fileType && (fileType.indexOf('image/') > -1 || fileType.indexOf('video/') > -1);
 };
 
-export const transformSliceToCorrectMediaWrapper = (slice: Slice, schema: Schema) => {
+export const transformSliceToCorrectMediaWrapper = (slice: Slice, schema: Schema): Slice => {
 	const { mediaGroup, mediaSingle, media } = schema.nodes;
 	return mapSlice(slice, (node, parent) => {
 		if (!parent && node.type === media) {
@@ -94,7 +94,7 @@ export const transformSliceToMediaSingleWithNewExperience = (
 	slice: Slice,
 	schema: Schema,
 	api: ExtractInjectionAPI<PastePlugin> | undefined,
-) => {
+): Slice => {
 	const { mediaInline, mediaSingle, media } = schema.nodes;
 	const newSlice = mapSlice(slice, (node) => {
 		// This logic is duplicated in editor-plugin-ai where external images can be inserted

@@ -33,7 +33,14 @@ export const shouldAutoCloseQuote = (before: string, after: string): boolean => 
 	return true;
 };
 
-export const getAutoClosingQuoteInfo = (before: string, after: string) => {
+export const getAutoClosingQuoteInfo = (
+	before: string,
+	after: string,
+): {
+	left: "'" | '"' | '`' | undefined;
+	right: string | undefined;
+	hasTrailingMatchingQuote: boolean;
+} => {
 	const left = (Object.keys(QUOTE_MAP) as Array<QuoteMapKey>).find((item) => before.endsWith(item));
 	const right = left ? (QUOTE_MAP[left] as string) : undefined;
 	const hasTrailingMatchingQuote = right ? after.startsWith(right) : false;

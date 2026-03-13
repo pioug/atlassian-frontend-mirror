@@ -12,7 +12,7 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 const hasInvalidSteps = (tr: Transaction) =>
 	((tr.steps || []) as (Step & { from: number; to: number })[]).some((step) => step.from > step.to);
 
-export default (dispatchAnalyticsEvent: DispatchAnalyticsEvent) => {
+export default (dispatchAnalyticsEvent: DispatchAnalyticsEvent): SafePlugin => {
 	return new SafePlugin({
 		filterTransaction(transaction) {
 			if (hasInvalidSteps(transaction)) {

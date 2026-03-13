@@ -83,7 +83,18 @@ const TIMEOUT_WAIT_FOR_ACK = 100;
  * Hook to send a publish event to parent iframe using postMessage
  * Only supports 1 pubsub event at a time and waits for acknowledgment or timed out
  */
-export const useRovoPostMessageToPubsub = () => {
+export const useRovoPostMessageToPubsub = (): {
+	publishWithPostMessage: ({
+		targetWindow,
+		payload,
+		onAcknowledgeTimeout,
+	}: {
+		targetWindow?: Window;
+		payload: Payload;
+		onAcknowledgeTimeout: (params: { payload: Payload }) => void;
+	}) => void;
+	isWaitingForAck: boolean;
+} => {
 	const onAcknowledgeTimeoutTimeoutRef = useRef<{ timeout: number; lastPayloadId: string } | null>(
 		null,
 	);

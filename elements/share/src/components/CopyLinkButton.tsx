@@ -4,8 +4,8 @@
  */
 import React, { type ReactElement } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import LinkFilledIcon from '@atlaskit/icon/core/link';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';
@@ -26,10 +26,10 @@ const Z_INDEX = layers.modal();
 
 const AUTO_DISMISS_SECONDS = 8;
 
-export const AUTO_DISMISS_MS = AUTO_DISMISS_SECONDS * 1000;
+export const AUTO_DISMISS_MS: number = AUTO_DISMISS_SECONDS * 1000;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const messageContainerStyle = css({
+export const messageContainerStyle: SerializedStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	margin: `${token('space.negative.100', '-8px')}
@@ -56,7 +56,9 @@ type InputProps = {
 	text: string;
 };
 
-export const HiddenInput = React.forwardRef<HTMLInputElement, InputProps>(
+export const HiddenInput: React.ForwardRefExoticComponent<
+	InputProps & React.RefAttributes<HTMLInputElement>
+> = React.forwardRef<HTMLInputElement, InputProps>(
 	// we need a hidden input to reliably copy to clipboard across all browsers.
 	(props, ref) => (
 		<input
@@ -129,7 +131,7 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 		this.setState({ shouldShowCopiedMessage: false });
 	};
 
-	renderTriggerButton = (triggerProps: TriggerProps) => {
+	renderTriggerButton = (triggerProps: TriggerProps): jsx.JSX.Element => {
 		const { isDisabled, copyLinkButtonText, children, iconBefore, isExtendedShareDialogEnabled } =
 			this.props;
 		return (
@@ -177,7 +179,7 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 		);
 	};
 
-	render() {
+	render(): jsx.JSX.Element {
 		const { shouldShowCopiedMessage } = this.state;
 		const { copyTooltipText, copiedToClipboardText } = this.props;
 
@@ -234,7 +236,7 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
  * ⚠️ DO NOT USE — This package has been replaced by @atlassian/jira-share-dialog.
  * It will be removed once the switch-over is complete.
  */
-export const CopyLinkButton = (props: Props) =>
+export const CopyLinkButton = (props: Props): jsx.JSX.Element =>
 	fg('share-compiled-migration') ? (
 		<CopyLinkButtonNext {...props} />
 	) : (

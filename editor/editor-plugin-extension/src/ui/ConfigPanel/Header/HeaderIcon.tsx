@@ -1,6 +1,11 @@
 import React, { Suspense, lazy, useMemo } from 'react';
 
-import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
+import type {
+	ExtensionKey,
+	ExtensionManifest,
+	ExtensionProvider,
+	ExtensionType,
+} from '@atlaskit/editor-common/extensions';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -47,4 +52,9 @@ function HeaderIcon({ extensionManifest }: HeaderIconIconProps) {
 	);
 }
 
-export default withExtensionManifest(HeaderIcon);
+const _default_1: (props: {
+	extensionKey: ExtensionKey;
+	extensionProvider: ExtensionProvider;
+	extensionType: ExtensionType;
+}) => React.JSX.Element | null = withExtensionManifest(HeaderIcon);
+export default _default_1;

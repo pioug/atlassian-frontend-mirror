@@ -69,7 +69,7 @@ export class SmartCardLocalCacheClient {
 	 * @param url The url (key) to store the response against
 	 * @param response The SmartLinkResponse to be cached in storage
 	 */
-	public setItem = (url: string, response: SmartLinkResponse) => {
+	public setItem = (url: string, response: SmartLinkResponse): void => {
 		// Add or update the item in the cache with current timestamp
 		this.memoryCache[url] = { data: response, timestamp: Date.now() };
 

@@ -1,6 +1,42 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+	neutralColor: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	purpleColor: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	blueColor: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	redColor: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	yellowColor: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	greenColor: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	statusInputLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	neutralColor: {
 		id: 'fabric.status.color.grey',
 		defaultMessage: 'Grey',

@@ -1,12 +1,20 @@
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { SelectionPluginState } from '@atlaskit/editor-common/selection';
+import type { Command } from '@atlaskit/editor-common/types';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
-import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	SafeStateField,
+	Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import { selectionPluginKey } from '../types';
 
+import type { SelectionAction } from './actions';
 import { reducer } from './reducer';
 import { getDecorations, isSelectableContainerNode } from './utils';
 
@@ -55,11 +63,16 @@ const handleSelectionChanged = (
 	return pluginState;
 };
 
-export const { createCommand, getPluginState, createPluginState } = pluginFactory(
-	selectionPluginKey,
-	reducer,
-	{
-		onDocChanged: handleDocChanged,
-		onSelectionChanged: handleSelectionChanged,
-	},
-);
+const dest = pluginFactory(selectionPluginKey, reducer, {
+	onDocChanged: handleDocChanged,
+	onSelectionChanged: handleSelectionChanged,
+});
+export const createCommand: <A = SelectionAction>(
+	action: A | ((state: Readonly<EditorState>) => false | A),
+	transform?: (tr: Transaction, state: EditorState) => Transaction,
+) => Command = dest.createCommand;
+export const getPluginState: (state: EditorState) => SelectionPluginState = dest.getPluginState;
+export const createPluginState: (
+	dispatch: Dispatch,
+	initialState: SelectionPluginState | ((state: EditorState) => SelectionPluginState),
+) => SafeStateField<SelectionPluginState> = dest.createPluginState;

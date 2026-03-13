@@ -4,7 +4,7 @@ import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export const mentionPlaceholderPluginKey = new PluginKey('mentionPlaceholderPlugin');
+export const mentionPlaceholderPluginKey: PluginKey = new PluginKey('mentionPlaceholderPlugin');
 
 export const MENTION_PLACEHOLDER_ACTIONS = {
 	SHOW_PLACEHOLDER: 'SHOW_PLACEHOLDER',
@@ -15,7 +15,8 @@ export type MentionPlaceholderPluginState = {
 	placeholder?: string;
 };
 
-export function createMentionPlaceholderPlugin() {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export function createMentionPlaceholderPlugin(): SafePlugin<{}> {
 	return new SafePlugin({
 		key: mentionPlaceholderPluginKey,
 		state: {

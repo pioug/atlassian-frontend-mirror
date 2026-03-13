@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import { cssMap, cx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { pasteOptionsToolbarMessages as messages } from '@atlaskit/editor-common/messages';
 import {
@@ -19,6 +18,7 @@ import {
 	PASTE_MENU_SECTION_RANK,
 	PASTE_NESTED_MENU_RANK,
 	PASTE_MENU_NESTED_SECTION_RANK,
+	AI_PASTE_MENU_SECTION,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
@@ -42,6 +42,8 @@ import type {
 } from '../../pasteOptionsToolbarPluginType';
 import { ToolbarDropdownOption, type PasteType } from '../../types/types';
 
+import { getVisibleKeys } from './hasVisibleButton';
+
 const nestedMenuStyles = cssMap({
 	narrowSection: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -53,7 +55,6 @@ const nestedMenuStyles = cssMap({
 
 interface PasteMenuItemProps {
 	api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined;
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	pasteType: PasteType;
 }
 
@@ -73,9 +74,10 @@ export const isPasteOptionSelected = (
 	}
 };
 
-const PasteMenuItem = ({ api, editorAnalyticsAPI, pasteType }: PasteMenuItemProps) => {
+const PasteMenuItem = ({ api, pasteType }: PasteMenuItemProps) => {
 	const intl = useIntl();
 	const { editorView } = useEditorToolbar();
+	const editorAnalyticsAPI = api?.analytics?.actions;
 
 	const { selectedOption, plaintextLength, isPlainText } = useSharedPluginStateWithSelector(
 		api,
@@ -177,13 +179,9 @@ const PasteOptionsNestedMenu = ({ children }: { children: React.ReactNode }) => 
 
 interface PasteMenuComponentsConfig {
 	api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined;
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 }
 
-export const getPasteMenuComponents = ({
-	api,
-	editorAnalyticsAPI,
-}: PasteMenuComponentsConfig): RegisterComponent[] => [
+export const getPasteMenuComponents = ({ api }: PasteMenuComponentsConfig): RegisterComponent[] => [
 	{
 		type: PASTE_MENU.type,
 		key: PASTE_MENU.key,
@@ -200,11 +198,19 @@ export const getPasteMenuComponents = ({
 				| undefined;
 			return !(pluginState?.showLegacyOptions ?? false);
 		},
-		component: (props: Record<string, unknown>) => (
-			<ToolbarDropdownItemSection hasSeparator>
-				{props.children as React.ReactNode}
-			</ToolbarDropdownItemSection>
-		),
+		component: (props: Record<string, unknown>) => {
+			const allComponents = api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
+			const aiMenuItems = allComponents.filter(
+				(c) =>
+					c.type === 'menu-item' && c.parents?.some((p) => p.key === AI_PASTE_MENU_SECTION.key),
+			);
+			const hasVisibleAiActions = getVisibleKeys(aiMenuItems, ['menu-item']).length > 0;
+			return (
+				<ToolbarDropdownItemSection hasSeparator={hasVisibleAiActions}>
+					{props.children as React.ReactNode}
+				</ToolbarDropdownItemSection>
+			);
+		},
 	},
 	{
 		type: PASTE_NESTED_MENU.type,
@@ -239,9 +245,7 @@ export const getPasteMenuComponents = ({
 	{
 		key: PASTE_RICH_TEXT_MENU_ITEM.key,
 		type: PASTE_RICH_TEXT_MENU_ITEM.type,
-		component: () => (
-			<PasteMenuItem api={api} editorAnalyticsAPI={editorAnalyticsAPI} pasteType="rich-text" />
-		),
+		component: () => <PasteMenuItem api={api} pasteType="rich-text" />,
 		parents: [
 			{
 				key: PASTE_MENU_NESTED_SECTION.key,
@@ -253,9 +257,7 @@ export const getPasteMenuComponents = ({
 	{
 		key: PASTE_MARKDOWN_MENU_ITEM.key,
 		type: PASTE_MARKDOWN_MENU_ITEM.type,
-		component: () => (
-			<PasteMenuItem api={api} editorAnalyticsAPI={editorAnalyticsAPI} pasteType="markdown" />
-		),
+		component: () => <PasteMenuItem api={api} pasteType="markdown" />,
 		parents: [
 			{
 				key: PASTE_MENU_NESTED_SECTION.key,
@@ -267,9 +269,7 @@ export const getPasteMenuComponents = ({
 	{
 		key: PASTE_PLAIN_TEXT_MENU_ITEM.key,
 		type: PASTE_PLAIN_TEXT_MENU_ITEM.type,
-		component: () => (
-			<PasteMenuItem api={api} editorAnalyticsAPI={editorAnalyticsAPI} pasteType="plain-text" />
-		),
+		component: () => <PasteMenuItem api={api} pasteType="plain-text" />,
 		parents: [
 			{
 				key: PASTE_MENU_NESTED_SECTION.key,

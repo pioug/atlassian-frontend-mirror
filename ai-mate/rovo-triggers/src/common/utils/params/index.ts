@@ -143,7 +143,11 @@ export const assertOnlySpecificFieldsDefined = (
 	});
 };
 
-export const getListOfRovoParams = ({ resourceRouterQuery = false } = {}): string[] => {
+export const getListOfRovoParams = ({
+	resourceRouterQuery = false,
+}: {
+	resourceRouterQuery?: boolean | undefined;
+} = {}): string[] => {
 	/*
 	For products using react-resource-router (e.g Atlas) to
 	pass as the value of `query` on the route definition. It ensures that our parameters

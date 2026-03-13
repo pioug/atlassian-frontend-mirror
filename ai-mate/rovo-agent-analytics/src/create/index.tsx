@@ -52,7 +52,23 @@ type CommonAnalyticsAttributes = {
 
 const globalEventConfig = getDefaultTrackEventConfig();
 
-export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAttributes) => {
+export const useRovoAgentCreateAnalytics = (
+	commonAttributes: CommonAnalyticsAttributes,
+): readonly [
+	string | null,
+	{
+		readonly trackCreateSession: (
+			action: AgentCreateAction,
+			attributes?: CommonAnalyticsAttributes,
+		) => void;
+		readonly trackCreateSessionStart: (attributes?: CommonAnalyticsAttributes) => void;
+		readonly trackCreateSessionError: (
+			error: Error,
+			attributes?: CommonAnalyticsAttributes,
+		) => void;
+		readonly refreshCSID: () => `${string}-${string}-${string}-${string}-${string}`;
+	},
+] => {
 	const [csid, { refresh: refreshCSID }] = useRovoAgentCSID();
 
 	const analyticsContext = useContext(AnalyticsReactContext);

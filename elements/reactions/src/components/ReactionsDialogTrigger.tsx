@@ -46,7 +46,7 @@ interface ReactionsDialogTriggerProps {
 
 // Currently not in use due to Reactions Dialog trigger being moved to tooltip
 // Similar to platform/packages/elements/reactions/src/components/Trigger/Trigger.tsx
-export const ReactionsDialogTrigger = ({ onClick }: ReactionsDialogTriggerProps) => {
+export const ReactionsDialogTrigger = ({ onClick }: ReactionsDialogTriggerProps): JSX.Element => {
 	const intl = useIntl();
 
 	return (

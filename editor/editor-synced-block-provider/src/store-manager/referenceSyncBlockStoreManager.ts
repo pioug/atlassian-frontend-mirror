@@ -4,7 +4,7 @@ import rafSchedule from 'raf-schd';
 import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory, type MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -281,7 +281,7 @@ export class ReferenceSyncBlockStoreManager {
 
 	public setFireAnalyticsEvent(
 		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
-	) {
+	): void {
 		this.fireAnalyticsEvent = fireAnalyticsEvent;
 
 		this.fetchExperience = getFetchExperience(fireAnalyticsEvent);
@@ -507,7 +507,10 @@ export class ReferenceSyncBlockStoreManager {
 		this.graphqlSubscriptions.clear();
 	}
 
-	public fetchSyncBlockSourceInfoBySourceAri(sourceAri: string, hasAccess: boolean = true) {
+	public fetchSyncBlockSourceInfoBySourceAri(
+		sourceAri: string,
+		hasAccess: boolean = true,
+	): Promise<SyncBlockSourceInfo | undefined> {
 		try {
 			if (!this.dataProvider) {
 				throw new Error('Data provider not set');
@@ -1106,7 +1109,9 @@ export class ReferenceSyncBlockStoreManager {
 		return providerFactory;
 	}
 
-	public getSSRProviders(resourceId: ResourceId) {
+	public getSSRProviders(resourceId: ResourceId): {
+		media: MediaProvider;
+	} | null {
 		if (this._providerFactoryManager && fg('platform_synced_block_patch_5')) {
 			return this._providerFactoryManager.getSSRProviders(resourceId);
 		}
@@ -1226,7 +1231,7 @@ export class ReferenceSyncBlockStoreManager {
 	 *
 	 * @returns true if the reference synced blocks are updated successfully, false otherwise
 	 */
-	public async flush() {
+	public async flush(): Promise<boolean> {
 		if (!this.isCacheDirty) {
 			// we use the isCacheDirty flag as a quick check.
 			return true;

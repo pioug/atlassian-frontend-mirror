@@ -122,7 +122,7 @@ export class MentionEditor extends React.Component<Props, State> {
 	};
 
 	// Create a provider by instantiating an AbstractMentionResource
-	mentionResourceProvider = new ExampleMentionResource({
+	mentionResourceProvider: ExampleMentionResource = new ExampleMentionResource({
 		url: '',
 		mentionNameResolver: {
 			lookupName: async (id: string) => {

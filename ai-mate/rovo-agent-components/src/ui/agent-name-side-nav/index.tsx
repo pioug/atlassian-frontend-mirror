@@ -24,7 +24,7 @@ export const AgentNameSideNav = ({
 }: {
 	children: React.ReactNode;
 	name: string;
-}) => (
+}): JSX.Element => (
 	<div css={agentNameStyles}>
 		<Text maxLines={1}>{name}</Text>
 		{children}

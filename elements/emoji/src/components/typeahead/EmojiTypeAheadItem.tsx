@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import { css, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { N30 } from '@atlaskit/theme/colors';
 
@@ -46,7 +47,7 @@ const typeAheadItemRow = css({
 	verticalAlign: 'middle',
 });
 
-export function EmojiTypeAheadItemInternal(props: Props) {
+export function EmojiTypeAheadItemInternal(props: Props): JSX.Element {
 	const { emoji, onSelection, onMouseMove, selected, emojiProvider, forwardedRef } = props;
 	const onEmojiSelected = React.useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
@@ -69,7 +70,6 @@ export function EmojiTypeAheadItemInternal(props: Props) {
 
 	return (
 		<EmojiCommonProvider emojiProvider={emojiProvider}>
-			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions */}
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={`ak-emoji-typeahead-item ${selected ? typeaheadSelected : ''}`}
@@ -78,6 +78,7 @@ export function EmojiTypeAheadItemInternal(props: Props) {
 				onMouseMove={onEmojiMenuItemMouseMove}
 				data-emoji-id={emoji.shortName}
 				ref={forwardedRef}
+				role={fg('platform_suppression_removal_fix_reactions') ? 'button' : undefined}
 			>
 				<div css={[typeAheadItemRow]}>{emoji && <EmojiPreviewComponent emoji={emoji} />}</div>
 			</div>
@@ -85,7 +86,9 @@ export function EmojiTypeAheadItemInternal(props: Props) {
 	);
 }
 
-const EmojiTypeAheadItem = React.forwardRef<HTMLDivElement, Props>((props, ref) => (
+const EmojiTypeAheadItem: React.ForwardRefExoticComponent<
+	Props & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef<HTMLDivElement, Props>((props, ref) => (
 	<EmojiTypeAheadItemInternal {...props} forwardedRef={ref} />
 ));
 

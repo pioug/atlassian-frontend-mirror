@@ -59,7 +59,7 @@ export const createSingleMentionFragment =
 		localId,
 		accessLevel,
 		isXProductUser,
-	}: InsertMentionParameters) => {
+	}: InsertMentionParameters): Fragment => {
 		const schema = tr.doc.type.schema;
 		const trimmedNickname = nickname && nickname.startsWith('@') ? nickname.slice(1) : nickname;
 		const renderName = mentionInsertDisplayName || !trimmedNickname ? name : trimmedNickname;

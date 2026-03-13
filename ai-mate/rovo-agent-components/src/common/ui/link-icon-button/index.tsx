@@ -27,7 +27,7 @@ export const LinkIconButton = ({
 }: {
 	handleCopy: (e: MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => void;
 	visible?: boolean;
-}) => {
+}): JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	return (

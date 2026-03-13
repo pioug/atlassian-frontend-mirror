@@ -351,7 +351,7 @@ export const removeSyncedBlock =
 export const removeSyncedBlockAtPos = (
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
 	pos: number,
-) => {
+): void => {
 	api?.core.actions.execute(({ tr }) => {
 		const node = tr.doc.nodeAt(pos);
 
@@ -368,7 +368,7 @@ export const unsync = (
 	storeManager: SyncBlockStoreManager,
 	isBodiedSyncBlock: boolean,
 	view?: EditorView,
-) => {
+): boolean => {
 	if (!view) {
 		return false;
 	}

@@ -75,7 +75,7 @@ const flagMap: Record<FLAG_ID, FlagConfig> = {
 	},
 };
 
-export const Flag = ({ api }: Props) => {
+export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 	const { activeFlag, mode } = useSharedPluginStateWithSelector(
 		api,
 		['syncedBlock', 'connectivity'],

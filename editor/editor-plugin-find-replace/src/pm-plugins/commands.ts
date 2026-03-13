@@ -1,3 +1,4 @@
+import type { Command } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -26,7 +27,7 @@ import {
 import batchDecorations from './utils/batch-decorations';
 import { withScrollIntoView } from './utils/commands';
 
-export const activate = () =>
+export const activate = (): Command =>
 	createCommand((state: EditorState) => {
 		const { selection } = state;
 		let findText: string | undefined;
@@ -62,7 +63,7 @@ export const find = (
 	editorView: EditorView,
 	containerElement: HTMLElement | null,
 	keyword?: string,
-) =>
+): Command =>
 	withScrollIntoView(
 		createCommand(
 			(state: EditorState) => {
@@ -143,7 +144,7 @@ export const find = (
 		),
 	);
 
-export const findNext = (editorView: EditorView) =>
+export const findNext = (editorView: EditorView): Command =>
 	withScrollIntoView(
 		createCommand(
 			(state: EditorState) => findInDirection(state, 'next'),
@@ -169,7 +170,7 @@ export const findNext = (editorView: EditorView) =>
 		),
 	);
 
-export const findPrevious = (editorView: EditorView) =>
+export const findPrevious = (editorView: EditorView): Command =>
 	withScrollIntoView(
 		createCommand(
 			(state: EditorState) => findInDirection(state, 'previous'),
@@ -216,7 +217,7 @@ const findInDirection = (state: EditorState, dir: 'next' | 'previous'): FindRepl
 	};
 };
 
-export const replace = (replaceText: string) =>
+export const replace = (replaceText: string): Command =>
 	withScrollIntoView(
 		createCommand(
 			(state: EditorState) => {
@@ -269,7 +270,7 @@ export const replace = (replaceText: string) =>
 		),
 	);
 
-export const replaceAll = (replaceText: string) =>
+export const replaceAll = (replaceText: string): Command =>
 	createCommand(
 		{
 			type: FindReplaceActionTypes.REPLACE_ALL,
@@ -294,7 +295,7 @@ export const replaceAll = (replaceText: string) =>
 		},
 	);
 
-export const addDecorations = (decorations: Decoration[]) =>
+export const addDecorations = (decorations: Decoration[]): Command =>
 	createCommand((state: EditorState) => {
 		const { decorationSet } = getPluginState(state);
 		return {
@@ -303,7 +304,7 @@ export const addDecorations = (decorations: Decoration[]) =>
 		};
 	});
 
-export const removeDecorations = (decorations: Decoration[]) =>
+export const removeDecorations = (decorations: Decoration[]): Command =>
 	createCommand((state: EditorState) => {
 		const { decorationSet } = getPluginState(state);
 		return {
@@ -312,7 +313,7 @@ export const removeDecorations = (decorations: Decoration[]) =>
 		};
 	});
 
-export const cancelSearch = () =>
+export const cancelSearch = (): Command =>
 	createCommand(() => {
 		batchDecorations.stop();
 		return {
@@ -320,12 +321,12 @@ export const cancelSearch = () =>
 		};
 	});
 
-export const blur = () =>
+export const blur = (): Command =>
 	createCommand({
 		type: FindReplaceActionTypes.BLUR,
 	});
 
-export const toggleMatchCase = () =>
+export const toggleMatchCase = (): Command =>
 	createCommand({ type: FindReplaceActionTypes.TOGGLE_MATCH_CASE });
 
 const updateSelectedHighlight = (state: EditorState, nextSelectedIndex: number): DecorationSet => {

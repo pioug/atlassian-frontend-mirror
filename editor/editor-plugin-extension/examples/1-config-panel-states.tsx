@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
@@ -186,7 +186,7 @@ const FakeContextPanelWithoutSummaryAndDescriptionAndDocumentation = createFakeC
 
 const noop = () => {};
 
-export default function Example() {
+export default function Example(): jsx.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<div css={wrapperStyles}>

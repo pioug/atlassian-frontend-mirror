@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-editor-viewmode-effects
 
+## 8.0.0
+
+### Patch Changes
+
+- [`8240c1a7e1875`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8240c1a7e1875) -
+  In view mode allow replace document to override behaviour
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

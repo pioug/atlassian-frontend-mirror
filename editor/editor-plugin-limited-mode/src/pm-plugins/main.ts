@@ -7,7 +7,7 @@ import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { LimitedModePluginState } from '../limitedModePluginType';
 
-export const limitedModePluginKey = new PluginKey('limitedModePlugin');
+export const limitedModePluginKey: PluginKey = new PluginKey('limitedModePlugin');
 
 const LIMITED_MODE_NODE_SIZE_THRESHOLD = 40000;
 
@@ -119,7 +119,7 @@ const shouldEnableLimitedModeExpanded = (doc: PMNode): boolean => {
 	return false;
 };
 
-export const createPlugin = () => {
+export const createPlugin = (): SafePlugin<LimitedModePluginState> => {
 	return new SafePlugin<LimitedModePluginState>({
 		key: limitedModePluginKey,
 		view: (_view: EditorView) => {

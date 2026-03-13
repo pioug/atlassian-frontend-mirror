@@ -42,7 +42,9 @@ type CaptionPlaceholderProps = {
 
 // platform_editor_typography_ugc clean up
 // Remove this component
-export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, CaptionPlaceholderProps>(
+export const CaptionPlaceholder: React.ForwardRefExoticComponent<
+	CaptionPlaceholderProps & React.RefAttributes<HTMLSpanElement>
+> = React.forwardRef<HTMLSpanElement, CaptionPlaceholderProps>(
 	({ onClick, placeholderMessage }, ref) => {
 		const handlePointerDown = useCallback(
 			(e: React.MouseEvent) => {
@@ -86,48 +88,51 @@ export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, CaptionPlace
 	},
 );
 
-export const CaptionPlaceholderButton = React.forwardRef<
-	HTMLButtonElement,
-	CaptionPlaceholderProps
->(({ onClick, placeholderMessage }, ref) => {
-	const intl = useIntl();
-	const handleMouseDown = useCallback((e: React.MouseEvent) => {
-		// In firefox, button is focused when mouse down, which make editor lose focus
-		// Hence we want to disabled it so that user can type in caption directly after click
-		e.preventDefault();
-	}, []);
+export const CaptionPlaceholderButton: React.ForwardRefExoticComponent<
+	CaptionPlaceholderProps & React.RefAttributes<HTMLButtonElement>
+> = React.forwardRef<HTMLButtonElement, CaptionPlaceholderProps>(
+	({ onClick, placeholderMessage }, ref) => {
+		const intl = useIntl();
+		const handleMouseDown = useCallback((e: React.MouseEvent) => {
+			// In firefox, button is focused when mouse down, which make editor lose focus
+			// Hence we want to disabled it so that user can type in caption directly after click
+			e.preventDefault();
+		}, []);
 
-	const computedPlaceholderMessage = placeholderMessage ? placeholderMessage : messages.placeholder;
+		const computedPlaceholderMessage = placeholderMessage
+			? placeholderMessage
+			: messages.placeholder;
 
-	return (
-		<Pressable
-			ref={ref}
-			backgroundColor="color.background.neutral.subtle"
-			onClick={onClick}
-			onMouseDown={handleMouseDown}
-			data-id={CAPTION_PLACEHOLDER_ID}
-			testId="caption-placeholder"
-			padding="space.0"
-			xcss={placeholderButton}
-		>
-			{expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-			(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-				fg('platform_editor_content_mode_button_mvp')) ? (
-				// This id is just used for setting styles at the moment, if it's needed for anything more specific
-				// It may need to be generated to avoid overlap
-				// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
-				<span css={placeholderText} id={CAPTION_PLACEHOLDER_ID}>
-					<FormattedMessage
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						{...computedPlaceholderMessage}
-					/>
-				</span>
-			) : (
-				<Text color="color.text.subtlest" size="large">
-					{intl.formatMessage(computedPlaceholderMessage)}
-				</Text>
-			)}
-		</Pressable>
-	);
-});
+		return (
+			<Pressable
+				ref={ref}
+				backgroundColor="color.background.neutral.subtle"
+				onClick={onClick}
+				onMouseDown={handleMouseDown}
+				data-id={CAPTION_PLACEHOLDER_ID}
+				testId="caption-placeholder"
+				padding="space.0"
+				xcss={placeholderButton}
+			>
+				{expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+				(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+					fg('platform_editor_content_mode_button_mvp')) ? (
+					// This id is just used for setting styles at the moment, if it's needed for anything more specific
+					// It may need to be generated to avoid overlap
+					// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
+					<span css={placeholderText} id={CAPTION_PLACEHOLDER_ID}>
+						<FormattedMessage
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...computedPlaceholderMessage}
+						/>
+					</span>
+				) : (
+					<Text color="color.text.subtlest" size="large">
+						{intl.formatMessage(computedPlaceholderMessage)}
+					</Text>
+				)}
+			</Pressable>
+		);
+	},
+);

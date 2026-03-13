@@ -199,7 +199,7 @@ export const ReactionsDialogHeader = ({
 	currentReactions,
 	emojiProvider,
 	handleCloseReactionsDialog,
-}: ReactionsDialogModalHeaderProps) => {
+}: ReactionsDialogModalHeaderProps): JSX.Element => {
 	const [cache, setCache] = useState<{ [key: string]: string }>({});
 
 	const { titleId } = useModal();

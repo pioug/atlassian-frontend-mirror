@@ -10,7 +10,9 @@ import type { ContextPanelPlugin } from './contextPanelPluginType';
 import { applyChange } from './pm-plugins/transforms';
 import type { ObjectSidebarBehavior, ObjectSidebarPanel } from './types/object-siderbar-types';
 
-export const pluginKey = new PluginKey<ContextPanelPluginState>('contextPanelPluginKey');
+export const pluginKey: PluginKey<ContextPanelPluginState> = new PluginKey<ContextPanelPluginState>(
+	'contextPanelPluginKey',
+);
 
 type ContextPanelPluginState = {
 	contents: React.ReactNode[];

@@ -4,7 +4,7 @@
  */
 import { useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, Global, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
@@ -52,7 +52,7 @@ const getPlaceholderStyle = (message: string) => {
 	});
 };
 
-export const GlobalStylesWrapper = () => {
+export const GlobalStylesWrapper = (): jsx.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const placeholderStyle = useMemo(() => {

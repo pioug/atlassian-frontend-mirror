@@ -11,7 +11,7 @@ export const getOffsetParent = (
 		: // Ignored via go/ees005
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			(editorViewDom.offsetParent as HTMLElement);
-export const getNearestNonTextNode = (node: Node) =>
+export const getNearestNonTextNode = (node: Node): HTMLElement =>
 	// Ignored via go/ees005
 	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	// Ignored via go/ees005
@@ -59,7 +59,17 @@ export const handlePositionCalculatedWith =
 			top?: number;
 		},
 	) =>
-	(position: { bottom?: number; left?: number; right?: number; top?: number }) => {
+	(position: {
+		bottom?: number;
+		left?: number;
+		right?: number;
+		top?: number;
+	}): {
+		bottom?: number;
+		left?: number;
+		right?: number;
+		top?: number;
+	} => {
 		if (!offsetParent) {
 			return position;
 		}

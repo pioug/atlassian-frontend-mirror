@@ -49,6 +49,8 @@ import { StepQueueState } from './step-queue-state';
 import { type DocumentServiceInterface } from './interface-document-service';
 import { getConflictChanges } from './getConflictChanges';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import type { DebouncedFunc } from 'lodash';
 
 const CATCHUP_THROTTLE = 1 * 1000; // 1 second
 
@@ -139,7 +141,13 @@ export class DocumentService implements DocumentServiceInterface {
 	 * To prevent calling catchup to often, use lodash throttle to reduce the frequency
 	 * @param reason - optional reason to attach.
 	 */
-	throttledCatchupv2 = throttle(
+	throttledCatchupv2: DebouncedFunc<
+		(
+			reason?: CatchupEventReason,
+			reconnectionMetadata?: ReconnectionMetadata,
+			sessionId?: string,
+		) => Promise<void>
+	> = throttle(
 		(
 			reason?: CatchupEventReason,
 			reconnectionMetadata?: ReconnectionMetadata,
@@ -270,7 +278,7 @@ export class DocumentService implements DocumentServiceInterface {
 		return collabState.version;
 	}
 
-	getCurrentPmVersion = () => {
+	getCurrentPmVersion = (): number => {
 		const state = this.getState?.();
 		if (!state) {
 			this.analyticsHelper?.sendErrorEvent(
@@ -451,7 +459,7 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 	}
 
-	getUnconfirmedStepsOrigins = () => {
+	getUnconfirmedStepsOrigins = (): readonly Transaction[] | undefined => {
 		const state = this.getState?.();
 		if (!state) {
 			this.analyticsHelper?.sendErrorEvent(
@@ -527,7 +535,39 @@ export class DocumentService implements DocumentServiceInterface {
 	obfuscateStepsAndState = (
 		unconfirmedSteps: readonly ProseMirrorStep[] | undefined,
 		currentState?: ResolvedEditorState<JSONDocNode>,
-	) => {
+	): {
+		obfuscatedSteps:
+			| string
+			| {
+					stepType: {
+						type: string;
+						contentTypes: string | null;
+					};
+					stepContent: ADFEntity[] | null;
+					stepPositions: {
+						pos?: number | undefined;
+						insert?: number | undefined;
+						gapFrom?: number | undefined;
+						gapTo?: number | undefined;
+						from?: number | undefined;
+						to?: number | undefined;
+					};
+					stepMetadata:
+						| {
+								createdOffline?: boolean;
+								prevStepId?: string;
+								rebased?: boolean;
+								reqId?: string;
+								schemaVersion?: string;
+								source?: string;
+								stepId?: string;
+								traceId?: string;
+								unconfirmedStepAfterRecovery?: boolean;
+						  }
+						| undefined;
+			  }[];
+		obfuscatedDoc: string | ADFEntity | null | undefined;
+	} => {
 		let obfuscatedSteps;
 		try {
 			obfuscatedSteps = unconfirmedSteps

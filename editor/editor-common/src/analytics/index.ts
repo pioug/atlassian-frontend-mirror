@@ -72,6 +72,8 @@ export { PasteContents, PasteSources, PasteTypes } from './types/paste-events';
 
 export type {
 	PASTE_ACTION_SUBJECT_ID,
+	PasteActionsMenuEventPayload,
+	PasteActionsMenuOpenedAEP,
 	PasteContent,
 	PasteEventPayload,
 	PasteSource,

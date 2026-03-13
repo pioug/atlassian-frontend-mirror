@@ -29,7 +29,7 @@ export const AgentStarCount = ({
 }: {
 	starCount: number | null | undefined;
 	isLoading: boolean;
-}) => {
+}): JSX.Element | null => {
 	const { formatMessage } = useIntl();
 
 	if ((starCount === null || starCount === undefined) && !isLoading) {

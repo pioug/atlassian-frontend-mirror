@@ -32,7 +32,7 @@ const BlockMenuContext = createContext<BlockMenuContextType>({
 	getFirstSelectedDomNode: () => undefined,
 });
 
-export const useBlockMenu = () => {
+export const useBlockMenu = (): BlockMenuContextType => {
 	const context = useContext(BlockMenuContext);
 
 	if (!context) {

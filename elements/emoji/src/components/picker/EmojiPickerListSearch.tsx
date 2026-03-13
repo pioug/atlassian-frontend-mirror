@@ -66,7 +66,7 @@ export interface Props {
 
 export const emojiPickerSearchTestId = 'emoji-picker-search';
 
-export const EmojiPickerListSearch = (props: Props) => {
+export const EmojiPickerListSearch = (props: Props): JSX.Element => {
 	const { style, query, isVisible = true, resultsCount, onChange } = props;
 	const textRef = useRef<HTMLInputElement>(null);
 	const [dirty, setDirty] = useState(false);

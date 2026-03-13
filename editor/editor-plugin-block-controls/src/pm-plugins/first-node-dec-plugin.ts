@@ -12,7 +12,9 @@ import {
 } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-export const firstNodeDecPluginKey = new PluginKey<DecorationSet>('firstNodeDec');
+export const firstNodeDecPluginKey: PluginKey<DecorationSet> = new PluginKey<DecorationSet>(
+	'firstNodeDec',
+);
 
 const createFirstNodeDecSet = (state: EditorState): DecorationSet => {
 	const firstNode = state.doc.firstChild;
@@ -34,7 +36,7 @@ const createFirstNodeDecSet = (state: EditorState): DecorationSet => {
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
-export const firstNodeDecPlugin = () =>
+export const firstNodeDecPlugin = (): SafePlugin<DecorationSet> =>
 	new SafePlugin({
 		key: firstNodeDecPluginKey,
 		state: {

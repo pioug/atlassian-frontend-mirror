@@ -2,11 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState, type ComponentType, type FC } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
@@ -211,4 +211,25 @@ const DateRange = function ({
 	return element;
 };
 
-export default injectIntl(DateRange);
+const _default_1: FC<
+	WithIntlProps<
+		{
+			autoFocus?: boolean;
+			field: DateRangeField;
+			name: string;
+			onFieldChange: OnFieldChange;
+			placeholder?: string;
+		} & WrappedComponentProps
+	>
+> & {
+	WrappedComponent: ComponentType<
+		{
+			autoFocus?: boolean;
+			field: DateRangeField;
+			name: string;
+			onFieldChange: OnFieldChange;
+			placeholder?: string;
+		} & WrappedComponentProps
+	>;
+} = injectIntl(DateRange);
+export default _default_1;

@@ -5,7 +5,7 @@
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import React, { type FormEvent, PureComponent } from 'react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import { css, jsx } from '@compiled/react';
 import ColorPalette from './internal/color-palette';
 import { type Color } from './Status';
@@ -114,4 +114,7 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
 	}
 }
 
-export const StatusPicker = injectIntl(Picker);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const StatusPicker: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(Picker);

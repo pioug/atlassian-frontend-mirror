@@ -86,7 +86,7 @@ const mutateElementStyle = (element: HTMLElement, style: CSSStyleDeclaration, si
 	}
 };
 
-export const toDOMOld = (view: EditorView, getPos: () => number | undefined) => {
+export const toDOMOld = (view: EditorView, getPos: () => number | undefined): HTMLSpanElement => {
 	const selection = view.state.selection as GapCursorSelection;
 	const { $from, side } = selection;
 	const isRightCursor = side === Side.RIGHT;
@@ -128,7 +128,7 @@ export const toDOMOld = (view: EditorView, getPos: () => number | undefined) => 
 	return element;
 };
 
-export const toDOMNew = (view: EditorView, getPos: () => number | undefined) => {
+export const toDOMNew = (view: EditorView, getPos: () => number | undefined): HTMLSpanElement => {
 	const selection = view.state.selection as GapCursorSelection;
 	const { $from, side } = selection;
 	const isRightCursor = side === Side.RIGHT;
@@ -183,7 +183,7 @@ export const toDOMNew = (view: EditorView, getPos: () => number | undefined) => 
 	return element;
 };
 
-export const toDOM = (view: EditorView, getPos: () => number | undefined) => {
+export const toDOM = (view: EditorView, getPos: () => number | undefined): HTMLSpanElement => {
 	return expValEquals('platform_editor_fix_gapcursor_on_paste', 'isEnabled', true)
 		? toDOMNew(view, getPos)
 		: toDOMOld(view, getPos);

@@ -743,13 +743,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-11-25
-	platform_editor_remove_ncsstepmetrics_plugin: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-11-17
 	platform_editor_renderer_extension_width_fix: {
 		defaultValue: boolean;
@@ -977,6 +970,13 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	platform_editor_toolbar_delay_render_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-12
+	platform_editor_paste_before_first_block_node: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1225,13 +1225,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-12
 	platform_editor_bodiedextension_layoutshift_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-16
-	platform_editor_safe_url_trim_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1490,6 +1483,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-11
 	platform_editor_are_nodes_equal_ignore_mark_order: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-09
+	platform_editor_remove_collab_step_metrics: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2552,14 +2552,6 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		defaultValue: 'control',
 	}),
-	// Added 2025-11-25
-	platform_editor_remove_ncsstepmetrics_plugin: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_remove_ncsstepmetrics_plugin',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-12-03
 	platform_editor_use_pmr_for_collab_presence_non_ic: createBooleanExperiment({
 		productKeys: {
@@ -2909,14 +2901,6 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-02-16
-	platform_editor_safe_url_trim_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_safe_url_trim_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-02-16
 	platform_editor_remove_reactserializer_fromschema: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_remove_reactserializer_fromschema',
@@ -3081,6 +3065,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-12
+	platform_editor_paste_before_first_block_node: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_paste_before_first_block_node',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-04
 	platform_editor_ai_blockmenu_integration: createBooleanExperiment({
 		productKeys: {
@@ -3206,6 +3198,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_are_nodes_equal_ignore_mark_order',
 			jira: 'platform_editor_are_nodes_equal_ignore_mark_order',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-09
+	platform_editor_remove_collab_step_metrics: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_remove_collab_step_metrics',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

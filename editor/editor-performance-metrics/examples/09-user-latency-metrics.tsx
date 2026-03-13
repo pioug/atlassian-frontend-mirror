@@ -81,7 +81,7 @@ const SectionContentOne = () => {
 	);
 };
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	onUserLatency((userLatencyEvents) => {
 		console.log({
 			userLatencyEvents,

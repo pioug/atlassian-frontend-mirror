@@ -32,14 +32,14 @@ export enum SMART_LINK_DRAG_TYPES {
 
 export type SmartLinkDragType = SMART_LINK_DRAG_TYPES;
 
-export enum SMART_LINK_APPERANCE {
+export enum SMART_LINK_APPEARANCE {
 	INLINE = 'inline',
 	BLOCK = 'block',
 	EMBED = 'embed',
 }
 
 export interface SmartLinkDragData {
-	appearance: SMART_LINK_APPERANCE;
+	appearance: SMART_LINK_APPEARANCE;
 	iconUrl: string | undefined;
 	title: string | undefined;
 	type: SmartLinkDragType;
@@ -54,7 +54,7 @@ export function isSmartLinkDrag(type: unknown): boolean {
 }
 
 export interface SmartLinkDraggableProps {
-	appearance: SMART_LINK_APPERANCE;
+	appearance: SMART_LINK_APPEARANCE;
 	/** Which context the smart link is being dragged from */
 	source: SMART_LINK_DRAG_TYPES;
 	title?: string;
@@ -221,7 +221,7 @@ function SmartLinkDraggableInner({
 			: null;
 
 	// Use span with inline display for inline cards to preserve text flow
-	if (appearance === SMART_LINK_APPERANCE.INLINE) {
+	if (appearance === SMART_LINK_APPEARANCE.INLINE) {
 		return (
 			<>
 				<Box as="span" ref={ref} xcss={styles.draggableInline}>
@@ -253,7 +253,7 @@ export function SmartLinkDraggable({
 	appearance,
 	source,
 	children,
-}: PropsWithChildren<SmartLinkDraggableProps>) {
+}: PropsWithChildren<SmartLinkDraggableProps>): JSX.Element {
 	if (!url || !fg('cc_drag_and_drop_smart_link_from_content_to_tree')) {
 		return <>{children}</>;
 	}

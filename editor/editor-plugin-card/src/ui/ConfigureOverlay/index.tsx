@@ -5,7 +5,7 @@
 import { useCallback, useState } from 'react';
 
 // not permitted to migrate atlaskit packages to compiled yet, see https://hello.atlassian.net/wiki/spaces/UAF/pages/3006969423/Migrating+AFM+platform+components+to+Compiled+a+guide
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { OverlayButton } from '@atlaskit/editor-common/link';
@@ -31,7 +31,7 @@ const OverlayWrapper = ({
 	onOpenLinkClick: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 	targetElementPos: number | undefined;
 	view: EditorView;
-}) => {
+}): jsx.JSX.Element => {
 	const [showConfigureButton, setShowConfigureButton] = useState(false);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 

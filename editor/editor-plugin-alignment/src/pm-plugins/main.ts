@@ -18,9 +18,14 @@ function createInitialPluginState(
 	};
 }
 
-export const pluginKey = new PluginKey<AlignmentPluginState>('alignmentPlugin');
+export const pluginKey: PluginKey<AlignmentPluginState> = new PluginKey<AlignmentPluginState>(
+	'alignmentPlugin',
+);
 
-export function createPlugin(dispatch: Dispatch, pluginConfig: AlignmentPluginState) {
+export function createPlugin(
+	dispatch: Dispatch,
+	pluginConfig: AlignmentPluginState,
+): SafePlugin<AlignmentPluginState> {
 	return new SafePlugin<AlignmentPluginState>({
 		key: pluginKey,
 		state: {

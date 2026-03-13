@@ -155,7 +155,7 @@ const useFlushOnUnmount = (active: boolean = false) => {
 	}, [active, flushQueue]);
 };
 
-export const usePublish = (topic: Topic) => {
+export const usePublish = (topic: Topic): ((payload: Payload) => void) => {
 	const { publish } = usePubSub();
 	const publishFn = useCallback((payload: Payload) => publish(topic, payload), [publish, topic]);
 	return publishFn;

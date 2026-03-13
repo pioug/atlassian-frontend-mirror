@@ -30,7 +30,7 @@ export default class CategoryTracker {
 		return this.categoryToRow.get(category);
 	}
 
-	getFirstCategory() {
+	getFirstCategory(): CategoryId | undefined {
 		return this.rowToCategory.get(0);
 	}
 }

@@ -20,10 +20,10 @@ const setPopupMeta = ({
 export const showMediaInsertPopup = (
 	tr: Transaction,
 	mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement },
-) => {
+): Transaction => {
 	return setPopupMeta({ type: ACTION_OPEN_POPUP, mountInfo, tr });
 };
 
-export const closeMediaInsertPicker = (tr: Transaction) => {
+export const closeMediaInsertPicker = (tr: Transaction): Transaction => {
 	return setPopupMeta({ type: ACTION_CLOSE_POPUP, tr });
 };

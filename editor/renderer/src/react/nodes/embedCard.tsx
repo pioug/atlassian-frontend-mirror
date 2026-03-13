@@ -37,7 +37,7 @@ import { CardErrorBoundary } from './fallback';
 import {
 	SmartLinkDraggable,
 	SMART_LINK_DRAG_TYPES,
-	SMART_LINK_APPERANCE,
+	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
 import { RendererCssClassName } from '../../consts';
 
@@ -269,7 +269,7 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 						// Ignored via go/ees005
 						<SmartLinkDraggable
 							url={url || ''}
-							appearance={SMART_LINK_APPERANCE.EMBED}
+							appearance={SMART_LINK_APPEARANCE.EMBED}
 							source={SMART_LINK_DRAG_TYPES.RENDERER}
 						>
 							<CardErrorBoundary

@@ -119,7 +119,8 @@ export const getLoggedParameters = (
 	macroKey: string,
 	currentParams: Parameters,
 	macroFields?: FieldDefinition[],
-) => {
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+): {} => {
 	// Get the parameters only defined in the allowlist of logged macro/parameter keys
 	return Object.keys(currentParams)
 		.filter((paramKey) => ALLOWED_LOGGED_MACRO_PARAMS[macroKey]?.includes(paramKey))

@@ -12,7 +12,7 @@ import type { LocalIdPlugin } from '../localIdPluginType';
 
 import { generateShortUUID, generatedShortUUIDs } from './generateShortUUID';
 
-export const localIdPluginKey = new PluginKey('localIdPlugin');
+export const localIdPluginKey: PluginKey = new PluginKey('localIdPlugin');
 
 const generateUUID = () => {
 	return generateShortUUID();
@@ -28,7 +28,7 @@ const requestIdleCallbackWithFallback = (callback: () => void) => {
 	}
 };
 
-export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined) => {
+export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined): SafePlugin => {
 	// Track if we've initialized existing UUIDs for this plugin instance
 	let hasInitializedExistingUUIDs = false;
 

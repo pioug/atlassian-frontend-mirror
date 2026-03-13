@@ -307,7 +307,7 @@ export const setHeadingWithAnalytics = (
 	inputMethod: InputMethod,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 	fromBlockQuote?: boolean,
-) => {
+): EditorCommand => {
 	return withCurrentHeadingLevel((previousHeadingLevel) => ({ tr }) => {
 		editorAnalyticsApi?.attachAnalyticsEvent({
 			action: ACTION.FORMATTED,
@@ -347,7 +347,7 @@ function insertBlockQuote(): Command {
 export const insertBlockQuoteWithAnalytics = (
 	inputMethod: InputMethod,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-) => {
+): Command => {
 	return withAnalytics(editorAnalyticsApi, {
 		action: ACTION.FORMATTED,
 		actionSubject: ACTION_SUBJECT.TEXT,

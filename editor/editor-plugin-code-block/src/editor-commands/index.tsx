@@ -21,7 +21,7 @@ import {
 import { findCodeBlock } from '@atlaskit/editor-common/transforms';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	findParentNodeOfType,
@@ -234,7 +234,7 @@ export const resetShouldIgnoreFollowingMutations: Command = (state, dispatch) =>
  * if there is text selected it will wrap the current selection if not it will
  * append the codeblock to the end of the document.
  */
-export function createInsertCodeBlockTransaction({ state }: { state: EditorState }) {
+export function createInsertCodeBlockTransaction({ state }: { state: EditorState }): Transaction {
 	let { tr } = state;
 	const { from } = state.selection;
 	const { codeBlock } = state.schema.nodes;

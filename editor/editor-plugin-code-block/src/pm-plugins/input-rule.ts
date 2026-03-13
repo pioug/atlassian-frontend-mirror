@@ -16,7 +16,10 @@ import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirro
 
 import { isConvertableToCodeBlock, transformToCodeBlockAction } from './transform-to-code-block';
 
-export function createCodeBlockInputRule(schema: Schema, editorAnalyticsAPI?: EditorAnalyticsAPI) {
+export function createCodeBlockInputRule(
+	schema: Schema,
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
+): SafePlugin {
 	const rules: Array<InputRuleWrapper> = getCodeBlockRules(editorAnalyticsAPI, schema);
 	return new SafePlugin(
 		createPlugin('code-block-input-rule', rules, {

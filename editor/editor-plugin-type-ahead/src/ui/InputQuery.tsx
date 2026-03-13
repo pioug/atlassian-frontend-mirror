@@ -4,7 +4,7 @@
  */
 import React, { Fragment, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 import { useIntl } from 'react-intl-next';
@@ -123,7 +123,7 @@ type InputQueryProps = {
 	triggerQueryPrefix: string;
 };
 
-export const InputQuery = React.memo(
+export const InputQuery: React.MemoExoticComponent<
 	({
 		triggerQueryPrefix,
 		cancel,
@@ -137,7 +137,22 @@ export const InputQuery = React.memo(
 		onUndoRedo,
 		editorView,
 		items,
-	}: InputQueryProps) => {
+	}: InputQueryProps) => jsx.JSX.Element
+> = React.memo(
+	({
+		triggerQueryPrefix,
+		cancel,
+		onQueryChange,
+		onItemSelect,
+		selectNextItem,
+		selectPreviousItem,
+		forceFocus,
+		reopenQuery,
+		onQueryFocus,
+		onUndoRedo,
+		editorView,
+		items,
+	}: InputQueryProps): jsx.JSX.Element => {
 		const ref = useRef<HTMLSpanElement>(document.createElement('span'));
 		const inputRef = useRef<HTMLInputElement | null>(null);
 		const [query, setQuery] = useState<string | null>(null);

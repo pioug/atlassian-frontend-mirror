@@ -9,7 +9,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-export const inlineCursorTargetStateKey = new PluginKey('inlineCursorTargetPlugin');
+export const inlineCursorTargetStateKey: PluginKey = new PluginKey('inlineCursorTargetPlugin');
 
 const isInlineNodeView = (node: Node | null | undefined) => {
 	/**
@@ -26,7 +26,7 @@ export interface InlineCursorTargetState {
 	};
 }
 
-export default () => {
+export default (): SafePlugin<InlineCursorTargetState> => {
 	return new SafePlugin<InlineCursorTargetState>({
 		key: inlineCursorTargetStateKey,
 

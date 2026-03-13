@@ -122,7 +122,7 @@ const getColorFromCursor = (
 	return mark?.attrs.color ?? null;
 };
 
-export const getActiveColor = (tr: Transaction | ReadonlyTransaction) => {
+export const getActiveColor = (tr: Transaction | ReadonlyTransaction): string | null => {
 	const { selection } = tr;
 	let color: string | null = null;
 

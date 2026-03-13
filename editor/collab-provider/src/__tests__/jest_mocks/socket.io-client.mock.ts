@@ -1,4 +1,6 @@
-export const mockIo = {
+export const mockIo: {
+	io: jest.Mock<any, any, any>;
+} = {
 	io: jest.fn().mockImplementation((_url: string, opt: any) => {
 		const events = new Map<string, (...args: any) => {}>();
 		const managerEvents = new Map<string, (...args: any) => {}>();

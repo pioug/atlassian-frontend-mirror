@@ -1,7 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import styled, { type StyledComponent } from '@emotion/styled';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import type { Theme } from '@emotion/react';
 import { N900, N100, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export interface MentionItemStyleProps {
 	selected?: boolean;
@@ -20,7 +23,15 @@ export interface InfoSectionStyleProps {
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const RowStyle = styled.div({
+export const RowStyle: StyledComponent<
+	{
+		theme?: Theme;
+		as?: React.ElementType;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+> = styled.div({
 	alignItems: 'center',
 	display: 'flex',
 	flexDirection: 'row',
@@ -32,7 +43,15 @@ export const RowStyle = styled.div({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-export const AvatarStyle = styled.span<AvatarSectionStyleProps>((props) => ({
+export const AvatarStyle: StyledComponent<
+	{
+		theme?: Theme;
+		as?: React.ElementType;
+	} & AvatarSectionStyleProps,
+	DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
+	{}
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+> = styled.span<AvatarSectionStyleProps>((props) => ({
 	position: 'relative',
 	flex: 'initial',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -40,7 +59,15 @@ export const AvatarStyle = styled.span<AvatarSectionStyleProps>((props) => ({
 }));
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-export const NameSectionStyle = styled.div<NameSectionStyleProps>((props) => ({
+export const NameSectionStyle: StyledComponent<
+	{
+		theme?: Theme;
+		as?: React.ElementType;
+	} & NameSectionStyleProps,
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+> = styled.div<NameSectionStyleProps>((props) => ({
 	flex: 1,
 	minWidth: 0,
 	marginLeft: token('space.150', '12px'),
@@ -49,7 +76,15 @@ export const NameSectionStyle = styled.div<NameSectionStyleProps>((props) => ({
 }));
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const FullNameStyle = styled.span({
+export const FullNameStyle: StyledComponent<
+	{
+		theme?: Theme;
+		as?: React.ElementType;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
+	{}
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+> = styled.span({
 	display: 'block',
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
@@ -58,7 +93,15 @@ export const FullNameStyle = styled.span({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-export const InfoSectionStyle = styled.div<InfoSectionStyleProps>((props) => ({
+export const InfoSectionStyle: StyledComponent<
+	{
+		theme?: Theme;
+		as?: React.ElementType;
+	} & InfoSectionStyleProps,
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+> = styled.div<InfoSectionStyleProps>((props) => ({
 	display: 'flex',
 	flexDirection: 'column',
 	textAlign: 'right',
@@ -75,7 +118,15 @@ export const InfoSectionStyle = styled.div<InfoSectionStyleProps>((props) => ({
 }));
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const TimeStyle = styled.div({
+export const TimeStyle: StyledComponent<
+	{
+		theme?: Theme;
+		as?: React.ElementType;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+> = styled.div({
 	marginLeft: token('space.250', '20px'),
 	flex: 'none',
 	color: token('color.text.subtlest', N100),
@@ -84,7 +135,15 @@ export const TimeStyle = styled.div({
 
 export const MENTION_ITEM_HEIGHT = 48;
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-export const MentionItemStyle = styled.div<MentionItemStyleProps>((props) => ({
+export const MentionItemStyle: StyledComponent<
+	{
+		theme?: Theme;
+		as?: React.ElementType;
+	} & MentionItemStyleProps,
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+> = styled.div<MentionItemStyleProps>((props) => ({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: props.selected ? token('color.background.selected', N30) : 'transparent',
 	display: 'block',
@@ -97,7 +156,15 @@ export const MentionItemStyle = styled.div<MentionItemStyleProps>((props) => ({
 }));
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const AccessSectionStyle = styled.div({
+export const AccessSectionStyle: StyledComponent<
+	{
+		theme?: Theme;
+		as?: React.ElementType;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+> = styled.div({
 	paddingLeft: token('space.050', '4px'),
 	color: token('color.text.subtle', N500),
 });

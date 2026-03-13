@@ -26,13 +26,13 @@ export const propFormatter: FormatterFactory =
 		return <FormattedMessage values={values} {...messageDescriptor} />;
 	};
 
-export const UnknownUserError = propFormatter(messages.unknownUserError);
-export const NoAccessWarning = propFormatter(messages.noAccessWarning);
-export const NoAccessLabel = propFormatter(messages.noAccessLabel);
-export const DefaultHeadline = propFormatter(messages.defaultHeadline);
-export const DefaultAdvisedAction = propFormatter(messages.defaultAdvisedAction);
-export const LoginAgain = propFormatter(messages.loginAgain);
-export const DifferentText = propFormatter(messages.differentText);
+export const UnknownUserError: Formatter = propFormatter(messages.unknownUserError);
+export const NoAccessWarning: Formatter = propFormatter(messages.noAccessWarning);
+export const NoAccessLabel: Formatter = propFormatter(messages.noAccessLabel);
+export const DefaultHeadline: Formatter = propFormatter(messages.defaultHeadline);
+export const DefaultAdvisedAction: Formatter = propFormatter(messages.defaultAdvisedAction);
+export const LoginAgain: Formatter = propFormatter(messages.loginAgain);
+export const DifferentText: Formatter = propFormatter(messages.differentText);
 
 /**
  * Tries to get the most specific messages bundle for a given locale.

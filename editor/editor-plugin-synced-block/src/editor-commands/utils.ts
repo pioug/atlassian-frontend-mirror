@@ -3,7 +3,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 export const pasteSyncBlockHTMLContent = (
 	contentDOM: HTMLElement | DocumentFragment,
 	view: EditorView,
-) => {
+): boolean => {
 	const tmpDiv = document.createElement('div');
 	tmpDiv.appendChild(contentDOM);
 

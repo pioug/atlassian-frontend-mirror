@@ -40,13 +40,13 @@ export const defaultEmojiPickerSize = 'medium';
 
 export const emojiPickerMinHeight = 260;
 export const emojiPickerHeight = 295;
-export const emojiPickerListHeight = emojiPickerHeight - 58; // picker height - actions height
+export const emojiPickerListHeight: number = emojiPickerHeight - 58; // picker height - actions height
 
 export const emojiPickerPreviewHeight = 54;
-export const emojiPickerHeightWithPreview = emojiPickerHeight + emojiPickerPreviewHeight;
+export const emojiPickerHeightWithPreview: number = emojiPickerHeight + emojiPickerPreviewHeight;
 
 export const localStoragePrefix = 'fabric.emoji';
-export const selectedToneStorageKey = `${localStoragePrefix}.selectedTone`;
+export const selectedToneStorageKey: 'fabric.emoji.selectedTone' = `${localStoragePrefix}.selectedTone`;
 export const defaultCategories: CategoryId[] = [
 	'PEOPLE',
 	'NATURE',

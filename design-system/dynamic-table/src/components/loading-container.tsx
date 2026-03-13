@@ -17,7 +17,12 @@ interface LoadingContainerProps {
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class LoadingContainer extends React.Component<LoadingContainerProps> {
-	static defaultProps = {
+	static defaultProps: {
+		isLoading: boolean;
+		spinnerSize: string;
+		contentsOpacity: number;
+		loadingLabel: string;
+	} = {
 		isLoading: true,
 		spinnerSize: LARGE,
 		contentsOpacity: LOADING_CONTENTS_OPACITY,

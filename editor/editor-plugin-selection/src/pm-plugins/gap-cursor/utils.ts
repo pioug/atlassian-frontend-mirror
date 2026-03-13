@@ -117,7 +117,7 @@ export function getLayoutModeFromTargetNode(node: PMNode): string {
 	return layout;
 }
 
-export const isIgnoredClick = (elem: HTMLElement | null) => {
+export const isIgnoredClick = (elem: HTMLElement | null): boolean | null => {
 	if (elem?.nodeName === 'BUTTON' || elem?.closest('button')) {
 		return true;
 	}
@@ -171,7 +171,7 @@ export const getComputedStyleForLayoutMode = (
 	dom: HTMLElement,
 	node: PMNode | undefined | null,
 	style: CSSStyleDeclaration,
-) => {
+): CSSStyleDeclaration => {
 	if (node && node.type.name === 'table') {
 		const tableContainer = dom.querySelector('.pm-table-container');
 		if (tableContainer) {

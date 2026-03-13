@@ -59,7 +59,7 @@ export class Input extends React.Component<Props & AriaAttributes> {
 		return this.props.selectProps?.['aria-describedby'] ?? this.props['aria-describedby'];
 	}
 
-	render() {
+	render(): JSX.Element {
 		return (
 			<components.Input
 				{...(this.props as any)}

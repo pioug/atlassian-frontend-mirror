@@ -260,7 +260,7 @@ export class EmbedCardComponent extends React.PureComponent<
 		} catch {}
 	};
 
-	updateSize = (pctWidth: number | null, layout: RichMediaLayout) => {
+	updateSize = (pctWidth: number | null, layout: RichMediaLayout): true | undefined => {
 		const { state, dispatch } = this.props.view;
 		const pos = this.getPosSafely();
 		if (pos === undefined) {
@@ -675,7 +675,7 @@ export const embedCardNodeView =
 		isPageSSRed,
 		provider,
 	}: EmbedCardNodeViewProperties) =>
-	(node: PMNode, view: EditorView, getPos: () => number | undefined) => {
+	(node: PMNode, view: EditorView, getPos: () => number | undefined): EmbedCard => {
 		const { portalProviderAPI, eventDispatcher, dispatchAnalyticsEvent } = pmPluginFactoryParams;
 		const reactComponentProps: EmbedCardNodeViewProps = {
 			eventDispatcher,

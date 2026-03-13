@@ -325,7 +325,7 @@ export class MediaNodeUpdater {
 		};
 	}
 
-	shouldNodeBeDeepCopied = async () => {
+	shouldNodeBeDeepCopied = async (): Promise<boolean> => {
 		const scope =
 			this.props.mediaOptions?.mediaShallowCopyScope ??
 			this.mediaPluginState?.mediaOptions?.mediaShallowCopyScope ??
@@ -575,7 +575,7 @@ const hasPrivateAttrsChanged = (
 	);
 };
 
-export const createMediaNodeUpdater = (props: MediaNodeUpdaterProps) => {
+export const createMediaNodeUpdater = (props: MediaNodeUpdaterProps): MediaNodeUpdater => {
 	const updaterProps = {
 		...props,
 	};

@@ -43,7 +43,7 @@ export const AgentAvatarSkeleton = ({
 	color,
 	shimmeringEndColor,
 	testId,
-}: AgentAvatarSkeletonProps) => {
+}: AgentAvatarSkeletonProps): JSX.Element => {
 	return (
 		<Box
 			style={{

@@ -13,7 +13,12 @@ export function getMarkSelectionHelper({
 }: {
 	$pos: ResolvedPos;
 	markType: MarkType;
-}) {
+}):
+	| false
+	| {
+			start: number;
+			end: number;
+	  } {
 	const hasMark = $pos.doc.rangeHasMark(
 		$pos.pos,
 		Math.min($pos.pos + 1, $pos.doc.nodeSize),
@@ -79,7 +84,7 @@ function getMarkSelectionDecorationStartAndEnd({
 	return undefined;
 }
 
-export function copyButtonPlugin() {
+export function copyButtonPlugin(): SafePlugin<CopyButtonPluginState> {
 	return new SafePlugin({
 		key: copyButtonPluginKey,
 		state: {

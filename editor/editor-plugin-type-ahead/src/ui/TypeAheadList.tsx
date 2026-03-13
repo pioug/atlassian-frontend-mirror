@@ -7,7 +7,7 @@ import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from '
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl, useIntl } from 'react-intl-next';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import type { ListRowRenderer } from 'react-virtualized/dist/commonjs/List';
@@ -474,6 +474,39 @@ const TypeAheadListComponent = React.memo(
 	},
 );
 
-export const TypeAheadList = injectIntl(TypeAheadListComponent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const TypeAheadList: React.FC<
+	WithIntlProps<
+		{
+			api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+			decorationElement: HTMLElement;
+			editorView: EditorView;
+			fitHeight: number;
+			items: Array<TypeAheadItem>;
+			moreElementsInQuickInsertViewEnabled?: boolean;
+			onItemClick: (mode: SelectItemMode, index: number, inputMethod?: InputMethodType) => void;
+			onMoreOptionsClicked?: () => void;
+			selectedIndex: number;
+			showMoreOptionsButton?: boolean;
+			triggerHandler?: TypeAheadHandler;
+		} & WrappedComponentProps
+	>
+> & {
+	WrappedComponent: React.ComponentType<
+		{
+			api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+			decorationElement: HTMLElement;
+			editorView: EditorView;
+			fitHeight: number;
+			items: Array<TypeAheadItem>;
+			moreElementsInQuickInsertViewEnabled?: boolean;
+			onItemClick: (mode: SelectItemMode, index: number, inputMethod?: InputMethodType) => void;
+			onMoreOptionsClicked?: () => void;
+			selectedIndex: number;
+			showMoreOptionsButton?: boolean;
+			triggerHandler?: TypeAheadHandler;
+		} & WrappedComponentProps
+	>;
+} = injectIntl(TypeAheadListComponent);
 
 TypeAheadList.displayName = 'TypeAheadList';

@@ -19,7 +19,7 @@ import type { ExpandPlugin } from '../../types';
 // eslint-disable-next-line import/no-named-as-default
 import ExpandNodeView from '../node-views';
 
-export const pluginKey = new PluginKey('expandPlugin');
+export const pluginKey: PluginKey = new PluginKey('expandPlugin');
 
 export function containsClass(element: Element | null, className: string): boolean {
 	return Boolean(element?.classList?.contains(className));
@@ -28,13 +28,13 @@ export function containsClass(element: Element | null, className: string): boole
 export const createPlugin = (
 	dispatch: Dispatch,
 	getIntl: () => IntlShape,
-	appearance: EditorAppearance = 'full-page',
+	appearance: EditorAppearance | undefined = 'full-page',
 	useLongPressSelection: boolean = false,
 	api: ExtractInjectionAPI<ExpandPlugin> | undefined,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	allowInteractiveExpand: boolean = true,
 	__livePage: boolean = false,
-) => {
+): SafePlugin => {
 	const isMobile = false;
 
 	return new SafePlugin({

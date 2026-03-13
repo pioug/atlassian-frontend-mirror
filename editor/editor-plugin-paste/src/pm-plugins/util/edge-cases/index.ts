@@ -23,7 +23,7 @@ export function insertSliceForLists({
 	schema: Schema;
 	slice: PMSlice;
 	tr: Transaction;
-}) {
+}): void | Transaction {
 	const {
 		selection,
 		selection: { $to, $from },
@@ -90,7 +90,7 @@ export function insertSliceInsideBlockquote({
 	tr.replaceSelection(slice);
 }
 
-export function updateSelectionAfterReplace({ tr }: { tr: Transaction }) {
+export function updateSelectionAfterReplace({ tr }: { tr: Transaction }): Transaction | undefined {
 	// ProseMirror doesn't give a proper way to tell us where something was inserted.
 	// However, we can know "how" it inserted something.
 	//

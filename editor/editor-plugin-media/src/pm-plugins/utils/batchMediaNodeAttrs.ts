@@ -43,7 +43,7 @@ function memoizeDebounce<T extends (...args: Parameters<T>) => ReturnType<T>>(
 		return debounce<T>(func, wait, options);
 	}, resolver);
 
-	return function (...args: Parameters<T>) {
+	return function (...args: Parameters<T>): ReturnType<T> | undefined {
 		return mem(...args)(...args);
 	};
 }
@@ -137,7 +137,10 @@ export const runUpdate = (editorView: EditorView, cache: MediaAttributesCache): 
  * 1. Debounces the `runUpdate` function with the specified delay and options.
  * 2. Uses the editor view instance as the key for memoization to ensure that updates are applied correctly.
  */
-export const runUpdateDebounced = memoizeDebounce(
+export const runUpdateDebounced: (
+	editorView: EditorView,
+	cache: MediaAttributesCache,
+) => void | undefined = memoizeDebounce(
 	runUpdate,
 	debouncedTime,
 	/**

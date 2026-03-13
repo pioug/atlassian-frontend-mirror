@@ -1,7 +1,7 @@
 import { type Extension } from '@codemirror/state';
 import type { IntlShape } from 'react-intl-next';
 
-import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
+import { withLazyLoading, type NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, DecorationSource, Decoration } from '@atlaskit/editor-prosemirror/view';
@@ -15,7 +15,7 @@ interface Props {
 	getIntl: () => IntlShape;
 }
 
-export const lazyCodeBlockView = (props: Props) => {
+export const lazyCodeBlockView = (props: Props): NodeViewConstructor => {
 	return withLazyLoading({
 		nodeName: 'codeBlock',
 		getNodeViewOptions: () => {},

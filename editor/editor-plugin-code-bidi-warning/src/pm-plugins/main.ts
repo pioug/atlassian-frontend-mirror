@@ -15,12 +15,13 @@ import {
 	createBidiWarningsDecorationSetFromDoc as reactCreateBidiWarningsDecorationSetFromDoc,
 	pluginFactoryCreator as reactPluginFactoryCreator,
 } from './react-plugin-factory';
+import type { CodeBidiWarningPluginState } from './types';
 
 export const createPlugin = (
 	api: ExtractInjectionAPI<CodeBidiWarningPlugin> | undefined,
 	{ dispatch, getIntl, nodeViewPortalProviderAPI }: PMPluginFactoryParams,
 	{ appearance }: { appearance?: EditorAppearance },
-) => {
+): SafePlugin<CodeBidiWarningPluginState> => {
 	const intl = getIntl();
 
 	const codeBidiWarningLabel = intl.formatMessage(codeBidiWarningMessages.label);

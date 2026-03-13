@@ -6,6 +6,7 @@ import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { NewCoreIconProps } from '@atlaskit/icon';
 import SmartLinkListIcon from '@atlaskit/icon/core/smart-link-list';
 import { buildDatasourceAdf } from '@atlaskit/link-datasource';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
@@ -27,7 +28,21 @@ interface Props {
 	url: string;
 }
 
-export const datasourceDisplayInformation = {
+export const datasourceDisplayInformation: {
+	icon: {
+		(props: NewCoreIconProps): JSX.Element;
+		displayName: string;
+	}; // eslint-disable-next-line @atlaskit/editor/no-re-export
+	iconFallback: {
+		(props: NewCoreIconProps): JSX.Element;
+		displayName: string;
+	};
+	title: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+} = {
 	title: messages.datasourceAppearanceTitle,
 	icon: SmartLinkListIcon,
 	// eslint-disable-next-line @atlaskit/editor/no-re-export

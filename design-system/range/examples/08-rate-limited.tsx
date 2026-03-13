@@ -24,7 +24,7 @@ const styles = cssMap({
 	},
 });
 
-function RateLimitedRange() {
+function RateLimitedRange(): JSX.Element {
 	const [value, setValue] = useState(50);
 	const [onChangeCallCount, setOnChangeCallCount] = useState(0);
 	const [debouncedCallCount, setDebouncedCallCount] = useState(0);

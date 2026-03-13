@@ -47,7 +47,7 @@ export const findAllMediaNodes = (
 	);
 };
 
-export const isMediaNode = (pos: number, state: EditorState) => {
+export const isMediaNode = (pos: number, state: EditorState): boolean | null => {
 	const node = state.doc.nodeAt(pos);
 	return node && ['media', 'mediaInline'].includes(node.type.name);
 };

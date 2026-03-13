@@ -128,11 +128,13 @@ const select =
 
 // Returns a new transaction that selects a column at index `columnIndex`.
 // Use the optional `expand` param to extend from current selection.
-export const selectColumn = select('column');
+export const selectColumn: (index: number, expand?: boolean) => (tr: Transaction) => Transaction =
+	select('column');
 
 // Returns a new transaction that selects a row at index `rowIndex`.
 // Use the optional `expand` param to extend from current selection.
-export const selectRow = select('row');
+export const selectRow: (index: number, expand?: boolean) => (tr: Transaction) => Transaction =
+	select('row');
 
 const selectRowsOrColumns =
 	(type: 'rows' | 'columns') =>
@@ -173,10 +175,12 @@ const selectRowsOrColumns =
 	};
 
 // Returns a new transaction that selects all rows at `indexes`.
-export const selectRows = selectRowsOrColumns('rows');
+export const selectRows: (indexes: number[]) => (tr: Transaction) => Transaction =
+	selectRowsOrColumns('rows');
 
 // Returns a new transaction that selects all columns at `indexes`.
-export const selectColumns = selectRowsOrColumns('columns');
+export const selectColumns: (indexes: number[]) => (tr: Transaction) => Transaction =
+	selectRowsOrColumns('columns');
 
 // Returns a new transaction that selects a table.
 export const selectTable = (tr: Transaction): Transaction => {
@@ -196,7 +200,7 @@ export const selectTable = (tr: Transaction): Transaction => {
 	return tr;
 };
 
-export const getTableSelectionClosesToPos = ($pos: ResolvedPos) => {
+export const getTableSelectionClosesToPos = ($pos: ResolvedPos): CellSelection | undefined => {
 	const table = findTableClosestToPos($pos);
 	if (table) {
 		const { map } = TableMap.get(table.node);

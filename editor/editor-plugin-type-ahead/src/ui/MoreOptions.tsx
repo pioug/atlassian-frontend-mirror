@@ -4,7 +4,7 @@
  */
 import { useEffect, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { ButtonItem, Section } from '@atlaskit/menu';
@@ -32,7 +32,13 @@ type Props = {
 	title: string;
 };
 
-export const MoreOptions = ({ onClick, isFocused, title, ariaLabel, iconBefore }: Props) => {
+export const MoreOptions = ({
+	onClick,
+	isFocused,
+	title,
+	ariaLabel,
+	iconBefore,
+}: Props): jsx.JSX.Element => {
 	const ref = useRef<HTMLElement>(null);
 
 	useEffect(() => {

@@ -8,7 +8,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-	useSmartCardReloadAfterCache,
 } from '@atlaskit/editor-common/hooks';
 import type {
 	InlineNodeViewComponentProps,
@@ -17,11 +16,11 @@ import type {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { UnsupportedInline, findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import {
 	SmartLinkDraggable,
 	SMART_LINK_DRAG_TYPES,
-	SMART_LINK_APPERANCE,
+	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
@@ -40,7 +39,24 @@ import {
 	type InlineCardWithAwarenessProps,
 } from './inlineCardWithAwareness';
 
-export const InlineCard = memo(
+export const InlineCard: React.MemoExoticComponent<
+	({
+		node,
+		cardContext,
+		actionOptions,
+		useAlternativePreloader,
+		view,
+		getPos,
+		onClick,
+		onResolve,
+		isHovered,
+		showHoverPreview,
+		hoverPreviewOptions,
+		isPageSSRed,
+		pluginInjectionApi,
+		disablePreviewPanel,
+	}: SmartCardProps) => React.JSX.Element | null
+> = memo(
 	({
 		node,
 		cardContext,
@@ -62,8 +78,6 @@ export const InlineCard = memo(
 		const refId = useRef(uuid());
 		const { getState: getSmartlinkState } = cardContext?.value?.store || {};
 		const cardState = getSmartlinkState?.()[url || ''];
-		const cardStatus = cardState?.status;
-		useSmartCardReloadAfterCache(url, cardStatus, isPageSSRed || false);
 
 		useEffect(() => {
 			const id = refId.current;
@@ -306,7 +320,7 @@ export function InlineCardNodeView(
 	return expValEquals('cc_drag_and_drop_smart_link_from_content_to_tree', 'isEnabled', true) ? (
 		<SmartLinkDraggable
 			url={url}
-			appearance={SMART_LINK_APPERANCE.INLINE}
+			appearance={SMART_LINK_APPEARANCE.INLINE}
 			source={SMART_LINK_DRAG_TYPES.EDITOR}
 		>
 			{inlineCardContent}
@@ -328,6 +342,6 @@ export const inlineCardNodeView =
 		view: EditorView,
 		getPos: () => number | undefined,
 		decorations: readonly Decoration[],
-	) => {
+	): NodeView => {
 		return inlineCardViewProducer(node, view, getPos, decorations);
 	};

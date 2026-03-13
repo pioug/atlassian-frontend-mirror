@@ -11,6 +11,7 @@ import {
 	useState,
 	createRef,
 	memo,
+	type MemoExoticComponent,
 } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
@@ -156,7 +157,7 @@ const EmojiPickerComponent = ({
 	hideToneSelector,
 	createAnalyticsEvent,
 	size = defaultEmojiPickerSize,
-}: Props) => {
+}: Props): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { emojiProvider, isUploadSupported } = useEmoji();
 	const [filteredEmojis, setFilteredEmojis] = useState<EmojiDescription[]>([]);
@@ -702,4 +703,7 @@ const EmojiPickerComponent = ({
 	);
 };
 
-export default memo(EmojiPickerComponent);
+const _default_1: MemoExoticComponent<
+	({ onSelection, onPickerRef, hideToneSelector, createAnalyticsEvent, size }: Props) => JSX.Element
+> = memo(EmojiPickerComponent);
+export default _default_1;

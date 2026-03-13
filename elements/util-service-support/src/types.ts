@@ -61,7 +61,7 @@ export interface SecurityOptions {
 	params?: KeyValues;
 }
 
-export const buildCredentials = (secOptions?: SecurityOptions) => {
+export const buildCredentials = (secOptions?: SecurityOptions): 'omit' | 'include' => {
 	return secOptions && secOptions.omitCredentials ? 'omit' : 'include';
 };
 

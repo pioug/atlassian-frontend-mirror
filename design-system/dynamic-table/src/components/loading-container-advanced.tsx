@@ -23,10 +23,15 @@ export default class LoadingContainerAdvanced extends React.Component<
 	LoadingContainerAdvancedProps,
 	{}
 > {
-	spinnerRef = React.createRef<HTMLDivElement>();
-	containerRef = React.createRef<HTMLDivElement>();
+	spinnerRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
+	containerRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 
-	static defaultProps = {
+	static defaultProps: {
+		isLoading: boolean;
+		spinnerSize: string;
+		contentsOpacity: 'var(--ds-opacity-loading)';
+		loadingLabel: string;
+	} = {
 		isLoading: true,
 		spinnerSize: LARGE,
 		contentsOpacity: token('opacity.loading', `${LOADING_CONTENTS_OPACITY}`),
@@ -64,7 +69,9 @@ export default class LoadingContainerAdvanced extends React.Component<
 		this.detachListeners();
 	};
 
-	getTargetNode = (nextProps: LoadingContainerAdvancedProps = this.props) => {
+	getTargetNode = (
+		nextProps: LoadingContainerAdvancedProps = this.props,
+	): HTMLDivElement | null => {
 		const { targetRef } = nextProps;
 		const target = targetRef?.();
 		return target || this.containerRef.current;

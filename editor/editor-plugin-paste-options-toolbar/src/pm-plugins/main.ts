@@ -6,12 +6,19 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { checkAndHideToolbar } from '../editor-commands/commands';
-import { pasteOptionsPluginKey, ToolbarDropdownOption } from '../types/types';
+import {
+	pasteOptionsPluginKey,
+	ToolbarDropdownOption,
+	type PasteOptionsPluginState,
+} from '../types/types';
 
 import { PASTE_HIGHLIGHT_DECORATION_KEY, TEXT_HIGHLIGHT_CLASS } from './constants';
 import { createPluginState } from './plugin-factory';
 
-export function createPlugin(dispatch: Dispatch, options?: { useNewPasteMenu?: boolean }) {
+export function createPlugin(
+	dispatch: Dispatch,
+	options?: { useNewPasteMenu?: boolean },
+): SafePlugin<PasteOptionsPluginState> {
 	return new SafePlugin({
 		key: pasteOptionsPluginKey,
 		state: createPluginState(dispatch, {

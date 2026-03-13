@@ -49,7 +49,10 @@ export class FakeTextCursorSelection extends Selection {
 		return other instanceof FakeTextCursorSelection && other.head === this.head;
 	}
 
-	toJSON() {
+	toJSON(): {
+		type: string;
+		pos: number;
+	} {
 		return { type: 'Cursor', pos: this.head };
 	}
 

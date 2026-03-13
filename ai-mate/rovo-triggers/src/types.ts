@@ -100,6 +100,16 @@ export type EditorContextPayloadData =
 			};
 			selectionFragment?: string;
 			selectionLocalIds?: string;
+			contentMauiId?: string;
+			dynamicUiSource?: {
+				contentType: string;
+				startLocalId?: string;
+				endLocalId?: string;
+				startIndex?: number;
+				endIndex?: number;
+				fragmentAdf?: string;
+				fullAdf?: any;
+			};
 			isViewMode?: boolean;
 			useGenericEditorSkill?: boolean;
 			additionalContext?: Record<string, unknown>;

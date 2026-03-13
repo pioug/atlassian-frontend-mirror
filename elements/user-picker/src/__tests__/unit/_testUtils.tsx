@@ -9,7 +9,11 @@ import {
 import { ExusUserSourceProvider } from '../../clients/UserSourceProvider';
 import { type LoadUserSource, type User } from '../../types';
 
-export const renderProp = (wrapper: ShallowWrapper<any>, renderProp: string, ...args: any[]) => {
+export const renderProp = (
+	wrapper: ShallowWrapper<any>,
+	renderProp: string,
+	...args: any[]
+): ShallowWrapper<any, Readonly<{}>> => {
 	const prop = wrapper.prop(renderProp);
 	if (prop && typeof prop === 'function') {
 		const Wrapper = () => prop(...args);
@@ -25,7 +29,7 @@ export const testUser: User = {
 	avatarUrl: 'http://avatars.atlassian.com/jace.png',
 };
 
-export const flushPromises = () => {
+export const flushPromises = (): Promise<void> => {
 	// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 	return new Promise((resolve) => setImmediate(resolve));
 };
@@ -65,21 +69,21 @@ export class MockConcurrentExperienceInstance extends UFOExperience {
 		this.transitions.push(this.state.id);
 	}
 
-	async success() {
+	async success(): Promise<null> {
 		super.success();
 		this.successSpy();
 		this.transitions.push(this.state.id);
 		return null;
 	}
 
-	async failure() {
+	async failure(): Promise<null> {
 		super.failure();
 		this.failureSpy();
 		this.transitions.push(this.state.id);
 		return null;
 	}
 
-	async abort() {
+	async abort(): Promise<null> {
 		super.abort();
 		this.abortSpy();
 		this.transitions.push(this.state.id);

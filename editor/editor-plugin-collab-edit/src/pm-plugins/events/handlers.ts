@@ -7,6 +7,7 @@ import type {
 	CollabEventLocalStepData,
 	CollabEventPresenceData,
 	CollabEventRemoteData,
+	CollabEvents,
 	CollabTelepointerPayload,
 } from '@atlaskit/editor-common/collab';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -60,7 +61,7 @@ const effect = <TArgs extends any[]>(fn: Setup<TArgs>, eq: Eq<TArgs>) => {
 	let previousDeps: TArgs;
 	let cleanup: Cleanup;
 
-	return (...currentDeps: TArgs) => {
+	return (...currentDeps: TArgs): Cleanup => {
 		if (cleanup && eq(previousDeps, currentDeps)) {
 			return cleanup;
 		}
@@ -71,7 +72,14 @@ const effect = <TArgs extends any[]>(fn: Setup<TArgs>, eq: Eq<TArgs>) => {
 	};
 };
 
-export const subscribe = effect<
+export const subscribe: (
+	currentDeps_0: EditorView,
+	currentDeps_1: CollabEditProvider<CollabEvents>,
+	currentDeps_2: PrivateCollabEditOptions,
+	currentDeps_3: FeatureFlags,
+	currentDeps_4?: ProviderFactory | undefined,
+	currentDeps_5?: EditorAnalyticsAPI | undefined,
+) => Cleanup = effect<
 	[
 		EditorView,
 		CollabEditProvider,

@@ -13,7 +13,7 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-export const pluginKey = new PluginKey('panelPlugin');
+export const pluginKey: PluginKey = new PluginKey('panelPlugin');
 
 export interface PanelPluginOptions extends LongPressSelectionPluginOptions, PanelPluginConfig {}
 

@@ -2,10 +2,10 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { pluginKey } from './plugin-key';
 
-export const openHelpAction = (tr: Transaction) => {
+export const openHelpAction = (tr: Transaction): Transaction => {
 	return tr.setMeta(pluginKey, true);
 };
 
-export const closeHelpAction = (tr: Transaction) => {
+export const closeHelpAction = (tr: Transaction): Transaction => {
 	return tr.setMeta(pluginKey, false);
 };

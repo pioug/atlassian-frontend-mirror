@@ -9,7 +9,7 @@ class ConsumerOptions {
 		return $el.attr('data-options');
 	}
 
-	_getConsumerOptions() {
+	_getConsumerOptions(): {} {
 		var options = {},
 			$optionElement = $('#ac-iframe-options'),
 			$scriptElement = $("script[src*='/atlassian-connect/all']"),
@@ -65,4 +65,5 @@ class ConsumerOptions {
 	}
 }
 
-export default new ConsumerOptions();
+const _default_1: ConsumerOptions = new ConsumerOptions();
+export default _default_1;

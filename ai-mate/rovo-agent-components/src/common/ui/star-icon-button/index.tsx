@@ -38,7 +38,7 @@ export const StarIconButton = ({
 	isStarred: boolean;
 	handleToggle: (e: MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => void;
 	visible?: boolean;
-}) => {
+}): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const [isHovered, setIsHovered] = useState(false);
 

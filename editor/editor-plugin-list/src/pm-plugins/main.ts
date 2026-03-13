@@ -25,7 +25,7 @@ import type { ListState } from '../types';
 import { isWrappingPossible } from './utils/selection';
 
 const listPluginKey = new PluginKey<ListState>('listPlugin');
-export const pluginKey = listPluginKey;
+export const pluginKey: PluginKey<ListState> = listPluginKey;
 
 const initialState: ListState = {
 	bulletListActive: false,

@@ -29,7 +29,7 @@ import {
 	nodesBetweenChanged,
 	processRawValue,
 } from '@atlaskit/editor-common/utils';
-import type { Mark, Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Attrs, Mark, Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -735,7 +735,7 @@ export const getAttrsForAppearance = (
 	appearance: CardAppearance,
 	selectedNode: Node,
 	isInsideBodiedSyncBlock: boolean = false,
-) => {
+): Attrs => {
 	if (appearance === 'embed') {
 		return {
 			...selectedNode.attrs,

@@ -25,7 +25,7 @@ const getNodesSupportingFragmentMark = (schema: Schema): NodeType[] => {
 /**
  * Ensures presence of `fragment` mark on certain node types and the uniqueness of their `localId` attributes
  */
-export const createPlugin = (dispatch: Dispatch) =>
+export const createPlugin = (dispatch: Dispatch): SafePlugin =>
 	new SafePlugin({
 		key: pluginKey,
 		appendTransaction: (transactions, _oldState, newState) => {

@@ -20,7 +20,7 @@ const ToolbarDropdownMenuContext = createContext<ToolbarDropdownMenuContextValue
 	undefined,
 );
 
-export const useToolbarDropdownMenu = () => {
+export const useToolbarDropdownMenu = (): ToolbarDropdownMenuContextValue | undefined => {
 	return useContext(ToolbarDropdownMenuContext);
 };
 

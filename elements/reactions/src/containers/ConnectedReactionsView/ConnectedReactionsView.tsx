@@ -15,7 +15,7 @@ import {
 	type OnChangeCallback,
 	type Store,
 } from '../../types';
-import { type ReactionUpdateSuccess } from '../../types/reaction';
+import { type ReactionSummary, type ReactionUpdateSuccess } from '../../types/reaction';
 
 export interface ConnectedReactionsViewProps
 	extends
@@ -83,7 +83,23 @@ export const mapStateToPropsHelper = (
 	ari: string,
 	particleEffectByEmojiEnabled?: boolean,
 	state?: State,
-) => {
+):
+	| {
+			status: ReactionStatus;
+			reactions: never[];
+			flash?: undefined;
+			particleEffectByEmoji?: undefined;
+	  }
+	| {
+			reactions: ReactionSummary[];
+			status: ReactionStatus.ready;
+			flash: {
+				[emojiId: string]: boolean;
+			};
+			particleEffectByEmoji: {
+				[emojiId: string]: boolean;
+			};
+	  } => {
 	const reactionsState = state && state.reactions[`${containerAri}|${ari}`];
 
 	if (!state || !reactionsState) {

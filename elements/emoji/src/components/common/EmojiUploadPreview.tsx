@@ -2,13 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { PureComponent } from 'react';
+import { PureComponent, type ComponentType, type FC } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import AkButton from '@atlaskit/button/standard-button';
 import Heading from '@atlaskit/heading';
 import { Stack } from '@atlaskit/primitives/compiled';
-import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import {
+	FormattedMessage,
+	injectIntl,
+	type WithIntlProps,
+	type WrappedComponentProps,
+} from 'react-intl-next';
 import { customCategory } from '../../util/constants';
 import type { EmojiDescription, Message } from '../../types';
 import { messages } from '../i18n';
@@ -146,4 +151,8 @@ class EmojiUploadPreview extends PureComponent<
 	}
 }
 
-export default injectIntl(EmojiUploadPreview);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: FC<WithIntlProps<EmojiUploadPreviewProps & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<EmojiUploadPreviewProps & WrappedComponentProps>;
+} = injectIntl(EmojiUploadPreview);
+export default _default_1;

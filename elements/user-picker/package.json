@@ -132,6 +132,9 @@
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
+		},
+		"enable-sup-archive-experience": {
+			"type": "boolean"
 		}
 	}
 }

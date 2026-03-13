@@ -204,7 +204,9 @@ export interface CropperRef {
  * />
  * ```
  */
-export const Cropper = forwardRef<CropperRef, CropperProps>(
+export const Cropper: React.ForwardRefExoticComponent<
+	CropperProps & React.RefAttributes<CropperRef>
+> = forwardRef<CropperRef, CropperProps>(
 	(
 		{
 			src,

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
@@ -59,7 +59,7 @@ const getKeyParts = (keymap: Keymap) => {
 
 export const shortcutNamesWithoutKeymap: string[] = ['table', 'emoji', 'mention', 'quickInsert'];
 
-export const getComponentFromKeymap = (keymap: Keymap) => {
+export const getComponentFromKeymap = (keymap: Keymap): jsx.JSX.Element => {
 	const keyParts = getKeyParts(keymap);
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766

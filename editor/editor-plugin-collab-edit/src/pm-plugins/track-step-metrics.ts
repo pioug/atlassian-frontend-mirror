@@ -80,6 +80,7 @@ type UpdateNcsSessionStepMetricProps = {
 	steps: Step[];
 };
 
+// delete this function when cleaning up platform_editor_remove_collab_step_metrics
 /**
  * Updates the step session metrics in local storage for a given session ID.
  * It calculates the metrics based on the provided steps and updates the storage.

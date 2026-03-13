@@ -1,9 +1,15 @@
-import { type IntersectionOptions, useInView as useInViewLib } from 'react-intersection-observer';
+import {
+	type IntersectionOptions,
+	type InViewHookResponse,
+	useInView as useInViewLib,
+} from 'react-intersection-observer';
 import browserSupport from '../util/browser-support';
 
 type InViewHookNotSupportedResponse = [undefined, boolean];
 
-export const useInView = (options?: IntersectionOptions | undefined) => {
+export const useInView = (
+	options?: IntersectionOptions | undefined,
+): InViewHookNotSupportedResponse | InViewHookResponse => {
 	const hookResult = useInViewLib(options);
 	if (!browserSupport.supportsIntersectionObserver) {
 		// Unsupported, return no `ref` and default `inView` true value

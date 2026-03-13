@@ -74,7 +74,12 @@ export const convertPMNodesToSyncBlockNodes = (nodes: PMNode[]): SyncBlockNode[]
  * e.g. confluence-page/5769323474/cdf6a1bc-b241-487a-93e9-e30bde363cbc
  * Extracts the source page content id and source product
  */
-export const getContentIdAndProductFromResourceId = (resourceId: string) => {
+export const getContentIdAndProductFromResourceId = (
+	resourceId: string,
+): {
+	sourceProduct: SyncBlockProduct;
+	sourceContentId: string;
+} => {
 	const match = resourceId.match(/^(confluence-page|jira-work-item)\/([^/]+)/);
 	if (match?.[2]) {
 		return {

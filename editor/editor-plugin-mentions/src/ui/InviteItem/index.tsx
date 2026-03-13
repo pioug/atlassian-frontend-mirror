@@ -5,7 +5,7 @@
 import type { MouseEvent, SyntheticEvent } from 'react';
 import React, { useCallback, useEffect } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { FormattedMessage, injectIntl } from 'react-intl-next';
 
 import { css, jsx } from '@atlaskit/css';
@@ -193,4 +193,8 @@ const InviteItem = ({
 	);
 };
 
-export default injectIntl(InviteItem);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(InviteItem);
+export default _default_1;

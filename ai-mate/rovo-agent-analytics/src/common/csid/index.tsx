@@ -23,7 +23,13 @@ const retrieveCSID = () => {
  * Hook to get Rovo Agent Create Session ID (CSID) from the query parameters or generate a new one if not found.
  * @returns Rovo Agent CSID as a string.
  */
-export const useRovoAgentCSID = () => {
+export const useRovoAgentCSID = (): readonly [
+	string | null,
+	{
+		refresh: () => `${string}-${string}-${string}-${string}-${string}`;
+		clear: () => null;
+	},
+] => {
 	const [CSID, setCSID] = useState<string | null>(retrieveCSID());
 
 	const actions = useMemo(() => {

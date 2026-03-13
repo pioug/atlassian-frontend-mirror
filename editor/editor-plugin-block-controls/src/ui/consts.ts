@@ -7,13 +7,13 @@ import { token } from '@atlaskit/tokens';
 export const DRAG_HANDLE_HEIGHT = 24;
 
 export const DRAG_HANDLE_BORDER_RADIUS = 4;
-export const DRAG_HANDLE_ZINDEX = akRichMediaResizeZIndex + akEditorUnitZIndex; //place above legacy resizer
+export const DRAG_HANDLE_ZINDEX: number = akRichMediaResizeZIndex + akEditorUnitZIndex; //place above legacy resizer
 export const DRAG_HANDLE_DEFAULT_GAP = 8;
 export const DRAG_HANDLE_NARROW_GAP = 4;
 export const DRAG_HANDLE_MAX_GAP = 12;
-export const DRAG_HANDLE_MAX_WIDTH_PLUS_GAP = DRAG_HANDLE_WIDTH + DRAG_HANDLE_MAX_GAP;
+export const DRAG_HANDLE_MAX_WIDTH_PLUS_GAP: number = DRAG_HANDLE_WIDTH + DRAG_HANDLE_MAX_GAP;
 
-export const DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT = 4 + 2; // 4px for the divider vertical padding and 2px for the divider height
+export const DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT: number = 4 + 2; // 4px for the divider vertical padding and 2px for the divider height
 export const DRAG_HANDLE_H1_TOP_ADJUSTMENT = 5;
 export const DRAG_HANDLE_H2_TOP_ADJUSTMENT = 2;
 export const DRAG_HANDLE_H3_TOP_ADJUSTMENT = 1;
@@ -35,13 +35,16 @@ export const STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER = 24;
 
 export const QUICK_INSERT_HEIGHT = 24;
 export const QUICK_INSERT_WIDTH = 24;
-export const QUICK_INSERT_DIMENSIONS = { width: QUICK_INSERT_WIDTH, height: QUICK_INSERT_HEIGHT };
+export const QUICK_INSERT_DIMENSIONS: {
+	width: number;
+	height: number;
+} = { width: QUICK_INSERT_WIDTH, height: QUICK_INSERT_HEIGHT };
 export const QUICK_INSERT_LEFT_OFFSET = 16;
 
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 const breakoutResizableNodes = ['expand', 'layoutSection', 'codeBlock'];
 
-export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
+export const dragHandleGap = (nodeType: string, parentNodeType?: string): number => {
 	if (parentNodeType && parentNodeType !== 'doc') {
 		return DRAG_HANDLE_NARROW_GAP;
 	}
@@ -72,7 +75,7 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
 };
 
 // use for returning hap only for root level elements
-export const rootElementGap = (nodeType: string) => {
+export const rootElementGap = (nodeType: string): number => {
 	const breakoutResizableNodesList = editorExperiment('platform_synced_block', true)
 		? breakoutResizableNodesNew
 		: breakoutResizableNodes;
@@ -96,7 +99,9 @@ export const rootElementGap = (nodeType: string) => {
 	return DRAG_HANDLE_DEFAULT_GAP;
 };
 
-export const getNestedNodeLeftPaddingMargin = (nodeType?: string) => {
+export const getNestedNodeLeftPaddingMargin = (
+	nodeType?: string,
+): '24px' | '8px' | '16px' | '20px' | '28px' | '40px' => {
 	switch (nodeType) {
 		case 'bodiedExtension':
 			return '28px';
@@ -116,7 +121,7 @@ export const getNestedNodeLeftPaddingMargin = (nodeType?: string) => {
 	}
 };
 
-export const topPositionAdjustment = (nodeType: string) => {
+export const topPositionAdjustment = (nodeType: string): number => {
 	if (editorExperiment('advanced_layouts', true)) {
 		switch (nodeType) {
 			case 'layoutSection':
@@ -173,7 +178,9 @@ export const dropTargetMarginMap: { [key: number]: string } = {
  * to the table provided above.
  * For instance, the number 1 will correspond to \{0: token('space.0', '0')\}.
  */
-export const spaceLookupMap = Object.fromEntries(
+export const spaceLookupMap: {
+	[k: string]: string;
+} = Object.fromEntries(
 	// 49 = -24 -> 0 -> 24 totaling 49 entries.
 	Array.from({ length: 49 }, (_, index) => {
 		const currKeyValue = index - 24;

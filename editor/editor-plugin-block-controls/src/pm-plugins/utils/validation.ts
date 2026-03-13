@@ -1,4 +1,4 @@
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 import { getParentOfTypeCount, isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
@@ -88,13 +88,14 @@ export const transformSliceExpandToNestedExpand = (slice: Slice): Slice | null =
 	return new Slice(fragment, slice.openStart, slice.openEnd);
 };
 
-export const memoizedTransformExpandToNestedExpand = memoizeOne((node: PMNode) => {
-	try {
-		return transformExpandToNestedExpand(node);
-	} catch (e) {
-		return null;
-	}
-});
+export const memoizedTransformExpandToNestedExpand: MemoizedFn<(node: PMNode) => PMNode | null> =
+	memoizeOne((node: PMNode): PMNode | null => {
+		try {
+			return transformExpandToNestedExpand(node);
+		} catch (e) {
+			return null;
+		}
+	});
 
 export const canCreateNodeWithContentInsideAnotherNode = (
 	nodeTypesToCreate: NodeType[],

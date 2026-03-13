@@ -30,7 +30,13 @@ export function getSelectedTableInfo(selection: Selection): {
 	};
 }
 
-export function getSelectedCellInfo(selection: Selection) {
+export function getSelectedCellInfo(selection: Selection): {
+	totalRowCount: number;
+	totalColumnCount: number;
+	horizontalCells: number;
+	verticalCells: number;
+	totalCells: number;
+} {
 	let horizontalCells = 1;
 	let verticalCells = 1;
 	let totalCells = 1;

@@ -46,7 +46,24 @@ const selector = (
 	};
 };
 
-export const InlineCardWithAwareness = memo(
+export const InlineCardWithAwareness: React.MemoExoticComponent<
+	({
+		node,
+		cardContext,
+		actionOptions,
+		useAlternativePreloader,
+		view,
+		getPos,
+		pluginInjectionApi,
+		onClick,
+		isPulseEnabled,
+		isOverlayEnabled,
+		isSelected,
+		isPageSSRed,
+		provider,
+		appearance,
+	}: SmartCardProps & InlineCardWithAwarenessProps) => React.JSX.Element
+> = memo(
 	({
 		node,
 		cardContext,

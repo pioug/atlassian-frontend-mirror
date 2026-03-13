@@ -4,6 +4,8 @@ import { useIntl } from 'react-intl-next';
 import type { LoadingComponentProps } from 'react-loadable';
 import Loadable from 'react-loadable';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { getExtensionKeyAndNodeKey, resolveImport, resolveImportSync } from './manifest-helpers';
 import { messages } from './messages';
 import type {
@@ -20,6 +22,7 @@ import type {
 } from './types/extension-manifest';
 import type { Parameters } from './types/extension-parameters';
 import type { ExtensionProvider } from './types/extension-provider';
+import { UnknownMacroPlaceholder } from './UnknownMacroPlaceholder';
 
 function getNodeFromManifest(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -114,11 +117,40 @@ export async function getExtensionModuleNodePrivateProps(
 		);
 }
 
-function ExtensionLoading(props: LoadingComponentProps) {
+function isUnknownConfluenceMacroWithBody(
+	extensionNode: ExtensionParams<Parameters> | null,
+): extensionNode is ExtensionParams<Parameters> {
+	return (
+		extensionNode !== null &&
+		extensionNode.type === 'extension' &&
+		extensionNode.extensionType === 'com.atlassian.confluence.macro.core' &&
+		!!extensionNode.parameters?.macroParams?.__bodyContent?.value
+	);
+}
+
+type ExtensionLoadingProps = LoadingComponentProps & {
+	actions?: MultiBodiedExtensionActions;
+	node: ExtensionParams<Parameters> | null;
+	references?: ReferenceEntity[];
+	showUnknownMacroPlaceholder?: boolean;
+};
+
+function ExtensionLoading(props: ExtensionLoadingProps) {
 	const intl = useIntl();
+	const extensionNode = props.node;
+
 	if (props.error || props.timedOut) {
 		// eslint-disable-next-line no-console
 		console.error('Error rendering extension', props.error);
+		if (
+			props.error &&
+			props.showUnknownMacroPlaceholder &&
+			extensionNode &&
+			isUnknownConfluenceMacroWithBody(extensionNode) &&
+			fg('tinymce_display_unknown_macro_body_content')
+		) {
+			return <UnknownMacroPlaceholder extensionNode={extensionNode} />;
+		}
 		return <div>{intl.formatMessage(messages.extensionLoadingError)}</div>;
 	} else {
 		return null;
@@ -135,6 +167,7 @@ export function getNodeRenderer<T extends Parameters>(
 			actions?: MultiBodiedExtensionActions;
 			node: ExtensionParams<T>;
 			references?: ReferenceEntity[];
+			showUnknownMacroPlaceholder?: boolean;
 		},
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -158,6 +191,10 @@ export function getNodeRenderer<T extends Parameters>(
 					: resolveImport(maybePromise.render());
 			}
 		},
-		loading: ExtensionLoading,
+		// react-loadable passes all props from <NodeRenderer> to the loading component at runtime,
+		// but its TypeScript types only expect LoadingComponentProps. We cast here because
+		// ExtensionLoading accepts additional props (node, showUnknownMacroPlaceholder) that
+		// react-loadable will pass through but doesn't know about in its type definitions.
+		loading: ExtensionLoading as React.ComponentType<LoadingComponentProps>,
 	});
 }

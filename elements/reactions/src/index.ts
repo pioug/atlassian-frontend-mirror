@@ -21,6 +21,8 @@ import {
 } from './ufo';
 
 import { ReactionPicker } from './components/ReactionPicker';
+import type { EmojiId, WithSamplingUFOExperience } from '@atlaskit/emoji';
+import type { UFOExperience, ConcurrentExperience } from '@atlaskit/ufo';
 
 export { ReactionServiceClient } from './client';
 
@@ -43,7 +45,15 @@ export type {
 } from './types';
 export { ReactionUpdateType, ReactionStatus, type ReactionSummary } from './types';
 
-export const constants = {
+export const constants: {
+	DefaultReactions: EmojiId[];
+	DefaultReactionsByShortName: Map<string, EmojiId>;
+	ExtendedReactions: EmojiId[];
+	ExtendedReactionsByShortName: Map<string, EmojiId>;
+	NUMBER_OF_REACTIONS_TO_DISPLAY: number;
+	SAMPLING_RATE_REACTIONS_RENDERED_EXP: number;
+	TOOLTIP_USERS_LIMIT: number;
+} = {
 	DefaultReactions,
 	DefaultReactionsByShortName,
 	ExtendedReactions,
@@ -53,7 +63,18 @@ export const constants = {
 	TOOLTIP_USERS_LIMIT,
 };
 
-export const UFO = {
+export const UFO: {
+	ComponentName: typeof ComponentName;
+	ExperienceName: typeof ExperienceName;
+	PickerRender: UFOExperience;
+	ReactionsAdd: ConcurrentExperience;
+	ReactionDetailsFetch: ConcurrentExperience;
+	ReactionDialogOpened: UFOExperience;
+	ReactionDialogSelectedReactionChanged: UFOExperience;
+	ReactionsRemove: ConcurrentExperience;
+	ReactionsRendered: ConcurrentExperience;
+	sampledReactionsRendered: (instanceId: string) => WithSamplingUFOExperience;
+} = {
 	ComponentName,
 	ExperienceName,
 	PickerRender,

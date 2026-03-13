@@ -100,7 +100,13 @@ const topLevelBlockNodesThatHaveSelectionStyles = [
  * applied natively and also ignore nodes that don't completely
  * sit within the given `Selection`.
  */
-export const getNodesToDecorateFromSelection = (selection: Selection, doc: PmNode) => {
+export const getNodesToDecorateFromSelection = (
+	selection: Selection,
+	doc: PmNode,
+): {
+	node: PmNode;
+	pos: number;
+}[] => {
 	const nodes: { node: PmNode; pos: number }[] = [];
 	if (selection.from !== selection.to) {
 		const { from, to } = selection;

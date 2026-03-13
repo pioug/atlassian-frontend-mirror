@@ -1,9 +1,10 @@
-import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { Node, type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 
 import { TableMap } from '../table-map';
 import { type Axis } from '../types';
 
-export function pointsAtCell($pos: ResolvedPos) {
+export function pointsAtCell($pos: ResolvedPos): false | Node | null {
 	return $pos.parent.type.spec.tableRole === 'row' && $pos.nodeAfter;
 }
 

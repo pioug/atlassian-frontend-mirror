@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { Component, createRef } from 'react';
 import { pd } from 'pretty-data';
@@ -314,7 +314,7 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 		this.setState({ prettify: !this.state.prettify });
 	};
 
-	render() {
+	render(): jsx.JSX.Element {
 		const xml = this.state.prettify ? pd.xml(this.state.cxhtml || '') : this.state.cxhtml || '';
 
 		return (
@@ -324,8 +324,13 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 					<legend>
 						CXHTML output ({/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input type="checkbox" checked={this.state.prettify} onChange={this.togglePrettify} />
-						{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions -- Ignored via go/DSP-18766  */}
-						<span onClick={this.togglePrettify} onKeyDown={this.togglePrettify} css={clickableSpan}>
+						<span
+							onClick={this.togglePrettify}
+							onKeyDown={this.togglePrettify}
+							css={clickableSpan}
+							role="button"
+							tabIndex={0}
+						>
 							{' '}
 							prettify
 						</span>

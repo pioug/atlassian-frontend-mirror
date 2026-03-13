@@ -4,7 +4,7 @@ import { taskItem, blockTaskItem } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -26,7 +26,7 @@ type HTMLInputElementAttrs = {
  * @returns
  * @example
  */
-export const taskItemNodeSpec = () => {
+export const taskItemNodeSpec = (): NodeSpec => {
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return taskItem;
 	}
@@ -44,7 +44,7 @@ export const taskItemNodeSpec = () => {
  * @returns
  * @example
  */
-export const blockTaskItemNodeSpec = () => {
+export const blockTaskItemNodeSpec = (): NodeSpec => {
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return blockTaskItem;
 	}

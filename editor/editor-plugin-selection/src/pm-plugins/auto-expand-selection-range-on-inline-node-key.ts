@@ -1,5 +1,5 @@
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-export const autoExpandSelectionRangeOnInlineNodePluginKey = new PluginKey(
+export const autoExpandSelectionRangeOnInlineNodePluginKey: PluginKey = new PluginKey(
 	'autoExpandSelectionRangeOnInlineNodePlugin',
 );

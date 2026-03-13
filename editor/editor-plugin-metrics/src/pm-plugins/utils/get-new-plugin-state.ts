@@ -1,9 +1,21 @@
-import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	Selection,
+} from '@atlaskit/editor-prosemirror/state';
 
 import { type MetricsState } from '../main';
 
 import { checkTrActionType } from './check-tr-actions/check-tr-action-type';
-import { ActionType, type TrActionType } from './check-tr-actions/types';
+import {
+	ActionType,
+	type AttrChangeAction,
+	type MarkChangeAction,
+	type StatusChangeAction,
+	type TrAction,
+	type TrActionType,
+} from './check-tr-actions/types';
 import { isNonTextUndo } from './is-non-text-undo';
 import { isSafeInsert } from './is-safe-insert';
 
@@ -40,7 +52,67 @@ export const getNewPluginState = ({
 	pluginState: MetricsState;
 	shouldPersistActiveSession: boolean;
 	tr: ReadonlyTransaction;
-}) => {
+}):
+	| {
+			actionTypeCount: {
+				contentDeletedCount: number;
+				contentMovedCount: number;
+				markChangeCount: number;
+				nodeAttributeChangeCount: number;
+				nodeDeletionCount: number;
+				nodeInsertionCount: number;
+				textInputCount: number;
+				undoCount: number;
+			};
+			activeSessionTime: number;
+			contentSizeChanged: number;
+			initialContent?: Fragment;
+			intentToStartEditTime: number;
+			lastSelection?: Selection;
+			previousTrType: undefined;
+			repeatedActionCount: number;
+			safeInsertCount: number;
+			shouldPersistActiveSession: boolean;
+			timeOfLastTextInput: undefined;
+			totalActionCount: number;
+	  }
+	| {
+			actionTypeCount: {
+				contentDeletedCount: number;
+				contentMovedCount: number;
+				markChangeCount: number;
+				nodeAttributeChangeCount: number;
+				nodeDeletionCount: number;
+				nodeInsertionCount: number;
+				textInputCount: number;
+				undoCount: number;
+			};
+			activeSessionTime: number;
+			contentSizeChanged: number;
+			initialContent?: Fragment;
+			intentToStartEditTime: number;
+			lastSelection?: Selection;
+			previousTrType:
+				| AttrChangeAction
+				| MarkChangeAction
+				| StatusChangeAction
+				| TrAction<ActionType.TEXT_INPUT>
+				| TrAction<ActionType.EMPTY_LINE_ADDED_OR_DELETED>
+				| TrAction<ActionType.INSERTED_FROM_TYPE_AHEAD>
+				| TrAction<ActionType.INSERTING_NEW_LIST_TYPE_NODE>
+				| TrAction<ActionType.UPDATING_NEW_LIST_TYPE_ITEM>
+				| TrAction<ActionType.ADDING_LINK>
+				| TrAction<ActionType.MOVING_CONTENT>
+				| TrAction<ActionType.PASTING_CONTENT>
+				| TrAction<ActionType.DELETING_CONTENT>
+				| TrAction<ActionType.SAFE_INSERT>
+				| TrAction<ActionType.UNDO>;
+			repeatedActionCount: number;
+			safeInsertCount: number;
+			shouldPersistActiveSession: boolean;
+			timeOfLastTextInput: number | undefined;
+			totalActionCount: number;
+	  } => {
 	const {
 		actionTypeCount,
 		timeOfLastTextInput,

@@ -91,7 +91,7 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		);
 	}
 
-	render({ getPos }: SyncBlockNodeViewProps) {
+	render({ getPos }: SyncBlockNodeViewProps): React.JSX.Element | null {
 		if (!this.options?.syncedBlockRenderer) {
 			return null;
 		}
@@ -146,7 +146,7 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		);
 	}
 
-	destroy() {
+	destroy(): void {
 		this.unsubscribe?.();
 		super.destroy();
 	}

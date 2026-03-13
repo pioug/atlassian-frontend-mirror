@@ -3,6 +3,8 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { BreakoutPluginState } from '../breakoutPluginType';
 
-export const pluginKey = new PluginKey<BreakoutPluginState>('breakoutPlugin');
+export const pluginKey: PluginKey<BreakoutPluginState> = new PluginKey<BreakoutPluginState>(
+	'breakoutPlugin',
+);
 export const getPluginState = (state: EditorState): BreakoutPluginState | undefined =>
 	pluginKey.getState(state) || undefined;

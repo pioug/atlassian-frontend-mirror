@@ -17,7 +17,8 @@ import { filterSteps } from './filterSteps';
 import { InvertableStep } from './invertableStep';
 import { TOGGLE_TRACK_CHANGES_ACTION as ACTION } from './types';
 
-export const trackChangesPluginKey = new PluginKey<TrackChangesPluginState>('trackChangesPlugin');
+export const trackChangesPluginKey: PluginKey<TrackChangesPluginState> =
+	new PluginKey<TrackChangesPluginState>('trackChangesPlugin');
 
 type TrackChangesPluginState = {
 	allocations: Set<number>;
@@ -27,7 +28,7 @@ type TrackChangesPluginState = {
 };
 
 // Exported for test purposes
-export const getBaselineFromSteps = (doc: PMNode, steps: InvertableStep[]) => {
+export const getBaselineFromSteps = (doc: PMNode, steps: InvertableStep[]): PMNode | undefined => {
 	try {
 		// Filter out AttrStep's since attribute changes shouldn't affect baseline content comparison
 		const contentSteps = steps.filter((step) => !(step.step instanceof AttrStep));
@@ -47,7 +48,7 @@ export const getBaselineFromSteps = (doc: PMNode, steps: InvertableStep[]) => {
 
 export const createTrackChangesPlugin = (
 	api: ExtractInjectionAPI<TrackChangesPlugin> | undefined,
-) => {
+): SafePlugin<TrackChangesPluginState> => {
 	// Mark the state to be reset on next time the document has a meaningful change
 	let resetBaseline = false;
 

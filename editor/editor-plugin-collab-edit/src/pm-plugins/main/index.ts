@@ -71,7 +71,7 @@ export const createPlugin = (
 	options: PrivateCollabEditOptions,
 	featureFlags: FeatureFlags,
 	pluginInjectionApi: ExtractInjectionAPI<CollabEditPlugin> | undefined,
-) => {
+): SafePlugin<PluginState> => {
 	enforceCustomStepRegisters();
 
 	return new SafePlugin({

@@ -52,7 +52,7 @@ export const initialize =
 		editorAnalyticsApi,
 		pluginInjectionApi,
 	}: Props) =>
-	(provider: CollabEditProvider) => {
+	(provider: CollabEditProvider): Cleanup => {
 		// eslint-disable-next-line prefer-const
 		let cleanup: Cleanup | undefined;
 		const pluginState = pluginKey.getState(view.state);

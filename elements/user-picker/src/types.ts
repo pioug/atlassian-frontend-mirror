@@ -351,6 +351,8 @@ export interface LozengeProps {
 }
 export const TeamType = 'team';
 
+export type TeamState = 'ACTIVE' | 'DISBANDED' | 'PURGED';
+
 export interface TeamMember {
 	id: string;
 	name: string;
@@ -366,6 +368,7 @@ export interface Team extends OptionData {
 	includeTeamsUpdates?: boolean;
 	memberCount?: number;
 	members?: TeamMember[];
+	state?: TeamState;
 	teamTypeName?: string;
 	type: 'team';
 	verified?: boolean;

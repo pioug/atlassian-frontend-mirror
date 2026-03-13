@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
 
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { NewCoreIconProps } from '@atlaskit/icon';
 
 import type { BUILTIN_TOOLBAR_KEYS, EDITOR_TOOLBAR_HANDLER_KEYS } from './constants';
@@ -29,6 +30,10 @@ export type NativeEmbedParameters = {
 };
 
 export type NativeEmbedParameterKey = keyof NonNullable<NativeEmbedParameters['macroParams']>;
+
+export type EditorToolbarHandlerContext = {
+	editorApi?: PublicPluginAPI<[]>;
+};
 
 // Editor toolbar action types
 /**
@@ -87,12 +92,20 @@ export type EditorToolbarAction = EditorToolbarButtonAction;
 export type EditorToolbarHandlerKey = (typeof EDITOR_TOOLBAR_HANDLER_KEYS)[number];
 
 export type EditorToolbarHandlers = Partial<{
-	onAlignmentClick: (parameters: NativeEmbedParameterValues, alignment: AlignmentValue) => void;
+	onAlignmentClick: (
+		parameters: NativeEmbedParameterValues,
+		alignment: AlignmentValue,
+		context?: EditorToolbarHandlerContext,
+	) => void;
 	onAppearanceClick: (
 		parameters: NativeEmbedParameterValues,
 		appearance: NativeEmbedAppearance,
+		context?: EditorToolbarHandlerContext,
 	) => void;
-	onAskRovoClick: EditorToolbarHandler;
+	onAskRovoClick: (
+		parameters: NativeEmbedParameterValues,
+		context?: EditorToolbarHandlerContext,
+	) => void;
 	onChangeBorderClick: EditorToolbarHandler;
 	onCopyLinkClick: EditorToolbarHandler;
 	onDeleteClick: EditorToolbarHandler;
@@ -105,7 +118,10 @@ export type EditorToolbarHandlers = Partial<{
 }>;
 
 /** Base handler signature for contexts that don't have action-specific context. */
-export type EditorToolbarHandler = (parameters: NativeEmbedParameterValues) => void;
+export type EditorToolbarHandler = (
+	parameters: NativeEmbedParameterValues,
+	context?: EditorToolbarHandlerContext,
+) => void;
 
 export type BuiltinToolbarKey = (typeof BUILTIN_TOOLBAR_KEYS)[keyof typeof BUILTIN_TOOLBAR_KEYS];
 

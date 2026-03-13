@@ -1,9 +1,12 @@
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { Command } from '@atlaskit/editor-common/types';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
 	NodeSelection,
 	type ReadonlyTransaction,
+	type SafeStateField,
 	type SelectionBookmark,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
@@ -11,7 +14,7 @@ import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import reducer from './reducer';
-import type { InlineCommentPluginState, InlineCommentMap } from './types';
+import type { InlineCommentPluginState, InlineCommentMap, InlineCommentAction } from './types';
 import {
 	decorationKey,
 	findAnnotationsInSelection,
@@ -257,7 +260,7 @@ const getDocChangedHandler = (
 	return handleDocChanged(tr, prevPluginState);
 };
 
-export const { createPluginState, createCommand } = pluginFactory(inlineCommentPluginKey, reducer, {
+const dest = pluginFactory(inlineCommentPluginKey, reducer, {
 	onSelectionChanged: getSelectionChangedHandler(true),
 	onDocChanged: getDocChangedHandler,
 
@@ -303,3 +306,11 @@ export const { createPluginState, createCommand } = pluginFactory(inlineCommentP
 		};
 	},
 });
+export const createPluginState: (
+	dispatch: Dispatch,
+	initialState: InlineCommentPluginState | ((state: EditorState) => InlineCommentPluginState),
+) => SafeStateField<InlineCommentPluginState> = dest.createPluginState;
+export const createCommand: <A = InlineCommentAction>(
+	action: A | ((state: Readonly<EditorState>) => false | A),
+	transform?: (tr: Transaction, state: EditorState) => Transaction,
+) => Command = dest.createCommand;

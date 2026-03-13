@@ -55,7 +55,7 @@ import {
 	sliceFullyContainsNode,
 } from './utils/utils';
 
-export const syncedBlockPluginKey = new PluginKey('syncedBlockPlugin');
+export const syncedBlockPluginKey: PluginKey = new PluginKey('syncedBlockPlugin');
 
 type SyncedBlockPluginState = {
 	activeFlag: ActiveFlag;
@@ -306,7 +306,7 @@ export const createPlugin = (
 	pmPluginFactoryParams: PMPluginFactoryParams,
 	syncBlockStore: SyncBlockStoreManager,
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
-) => {
+): SafePlugin<SyncedBlockPluginState> => {
 	const { useLongPressSelection = false } = options || {};
 
 	const ctx = fg('platform_synced_block_patch_5') ? new SyncedBlockPluginContext() : undefined;

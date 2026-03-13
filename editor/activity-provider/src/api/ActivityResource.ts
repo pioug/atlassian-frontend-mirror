@@ -4,10 +4,24 @@ import {
 	type ActivityResponse,
 	type ActivityProvider,
 	type ActivityContainer,
+	type ActivityObjectType,
 } from '../types';
 import { ActivityError } from './error';
 
-export const makeGetRecentItemBody = (cloudId: string) => ({
+export const makeGetRecentItemBody = (
+	cloudId: string,
+): {
+	query: string;
+	variables: {
+		first: number;
+		filter: {
+			type: string;
+			arguments: {
+				cloudIds: string[];
+			};
+		}[];
+	};
+} => ({
 	query: `
     query editor_recentActivities($filter: [ActivitiesFilter!], $first: Int) {
       activities {
@@ -60,7 +74,17 @@ export default class ActivityResource implements ActivityProvider {
 		this.options = options;
 	}
 
-	public async getRecentItems() {
+	public async getRecentItems(): Promise<
+		{
+			objectId: string;
+			name: string;
+			container: string;
+			url: string;
+			iconUrl: string;
+			type: ActivityObjectType;
+			viewedTimestamp: string;
+		}[]
+	> {
 		if (!this.recentPromise) {
 			const options: RequestInit = {
 				mode: 'cors',
@@ -97,7 +121,7 @@ export default class ActivityResource implements ActivityProvider {
 		}
 	}
 
-	public async searchRecent(query: string) {
+	public async searchRecent(query: string): Promise<ActivityItem[]> {
 		const items = await this.getRecentItems();
 		return this.filterItems(items, query);
 	}

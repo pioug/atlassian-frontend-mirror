@@ -7,13 +7,15 @@ import type { BlockMenuPlugin, FLAG_ID } from '../blockMenuPluginType';
 
 import { shouldSuppressKeyboardEvent } from './utils/shouldSuppressKeyboardEvent';
 
-export const blockMenuPluginKey = new PluginKey('blockMenuPlugin');
+export const blockMenuPluginKey: PluginKey = new PluginKey('blockMenuPlugin');
 
 type BlockMenuPluginState = {
 	showFlag: FLAG_ID | false;
 };
 
-export const createPlugin = (api: ExtractInjectionAPI<BlockMenuPlugin> | undefined) => {
+export const createPlugin = (
+	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
+): SafePlugin<BlockMenuPluginState> => {
 	return new SafePlugin<BlockMenuPluginState>({
 		key: blockMenuPluginKey,
 		state: {

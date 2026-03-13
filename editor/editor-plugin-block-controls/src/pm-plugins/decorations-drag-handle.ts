@@ -21,7 +21,7 @@ import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decoration
 import { type AnchorRectCache } from './utils/anchor-utils';
 import { getActiveBlockMarks } from './utils/marks';
 
-export const emptyParagraphNodeDecorations = () => {
+export const emptyParagraphNodeDecorations = (): Decoration => {
 	const anchorName = `--node-anchor-paragraph-0`;
 	const style = `anchor-name: ${anchorName}; margin-top: 0px;`;
 	return Decoration.node(
@@ -37,7 +37,11 @@ export const emptyParagraphNodeDecorations = () => {
 	);
 };
 
-export const findHandleDec = (decorations: DecorationSet, from?: number, to?: number) => {
+export const findHandleDec = (
+	decorations: DecorationSet,
+	from?: number,
+	to?: number,
+): Decoration[] => {
 	return decorations.find(from, to, (spec) => spec.type === TYPE_HANDLE_DEC);
 };
 
@@ -63,7 +67,7 @@ export const dragHandleDecoration = ({
 	handleOptions,
 	anchorRectCache,
 	editorState,
-}: DragHandleDecorationParams) => {
+}: DragHandleDecorationParams): Decoration => {
 	if (
 		!editorExperiment('platform_editor_block_control_optimise_render', true, {
 			exposure: true,

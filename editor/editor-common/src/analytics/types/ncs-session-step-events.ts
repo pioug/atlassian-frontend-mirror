@@ -1,3 +1,4 @@
+// Delete this file when cleaning up platform_editor_remove_collab_step_metrics
 import { type ACTION, type ACTION_SUBJECT } from './enums';
 import type { OperationalAEP } from './utils';
 

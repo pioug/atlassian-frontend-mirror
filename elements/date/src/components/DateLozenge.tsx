@@ -76,7 +76,7 @@ const colorStyles = cssMap({
 	},
 });
 
-export const DateLozenge = (props: Props) => {
+export const DateLozenge = (props: Props): JSX.Element => {
 	const { className, color = 'grey', children, ...rest } = props;
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/no-html-button

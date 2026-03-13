@@ -7,7 +7,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type TypeAheadPlugin } from '../typeAheadPluginType';
-import type { TypeAheadHandler } from '../types';
+import type { TypeAheadHandler, TypeAheadPluginState } from '../types';
 
 import { updateSelectedIndex } from './commands/update-selected-index';
 import { itemIsDisabled } from './item-is-disabled';
@@ -32,15 +32,15 @@ export const isTypeAheadOpen = (editorState: EditorState): boolean => {
 	return !!typeAheadPluginKey?.getState(editorState)?.decorationSet?.find().length;
 };
 
-export const getPluginState = (editorState: EditorState) => {
+export const getPluginState = (editorState: EditorState): TypeAheadPluginState | undefined => {
 	return typeAheadPluginKey.getState(editorState);
 };
 
-export const getTypeAheadHandler = (editorState: EditorState) => {
+export const getTypeAheadHandler = (editorState: EditorState): TypeAheadHandler | undefined => {
 	return typeAheadPluginKey.getState(editorState)?.triggerHandler;
 };
 
-export const getTypeAheadQuery = (editorState: EditorState) => {
+export const getTypeAheadQuery = (editorState: EditorState): string | undefined => {
 	return typeAheadPluginKey.getState(editorState)?.query;
 };
 

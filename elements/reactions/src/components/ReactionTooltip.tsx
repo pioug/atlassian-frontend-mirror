@@ -105,7 +105,7 @@ export const ReactionTooltip = ({
 	allowUserDialog,
 	handleOpenReactionsDialog,
 	dismissTooltip,
-}: ReactionTooltipProps) => {
+}: ReactionTooltipProps): JSX.Element => {
 	const handleClick = () => {
 		if (allowUserDialog && handleOpenReactionsDialog) {
 			dismissTooltip();

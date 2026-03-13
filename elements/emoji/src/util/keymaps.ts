@@ -4,7 +4,7 @@
 
 import browserSupport from './browser-support';
 
-export const backspace = makeKeyMapWithCommon('Backspace', 'Backspace');
+export const backspace: Keymap = makeKeyMapWithCommon('Backspace', 'Backspace');
 
 export interface Keymap {
 	common?: string;

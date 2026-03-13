@@ -9,7 +9,7 @@ export const nativeCollabProviderPlugin = ({
 	providerPromise,
 }: {
 	providerPromise: Promise<CollabEditProvider>;
-}) => {
+}): SafePlugin<CollabEditProvider<CollabEvents> | null> => {
 	return new SafePlugin<CollabEditProvider | null>({
 		key: nativeCollabProviderPluginKey,
 		state: {

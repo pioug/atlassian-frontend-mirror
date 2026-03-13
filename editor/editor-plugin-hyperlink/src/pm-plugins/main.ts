@@ -143,7 +143,7 @@ const getActiveText = (selection: Selection): string | undefined => {
 	return;
 };
 
-export const stateKey = new PluginKey<HyperlinkState>('hyperlinkPlugin');
+export const stateKey: PluginKey<HyperlinkState> = new PluginKey<HyperlinkState>('hyperlinkPlugin');
 
 export const plugin = (
 	dispatch: Dispatch,
@@ -152,7 +152,7 @@ export const plugin = (
 	pluginInjectionApi?: ExtractInjectionAPI<HyperlinkPlugin> | undefined,
 	onClickCallback?: OnClickCallback,
 	__livePage?: boolean,
-) =>
+): SafePlugin<HyperlinkState> =>
 	new SafePlugin({
 		state: {
 			init(_, state: EditorState): HyperlinkState {

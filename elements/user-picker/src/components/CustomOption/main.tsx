@@ -4,7 +4,7 @@
  */
 import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import React from 'react';
 import { type Custom } from '../../types';
@@ -75,7 +75,7 @@ export class CustomOption extends React.PureComponent<CustomOptionProps> {
 				}
 			: this.props.data.lozenge;
 
-	render() {
+	render(): jsx.JSX.Element {
 		return (
 			<AvatarItemOption
 				avatar={this.renderAvatar()}

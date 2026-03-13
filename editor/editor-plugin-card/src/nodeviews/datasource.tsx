@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -189,7 +189,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 		return { visibleColumnKeys, columnCustomSizes, wrappedColumnKeys };
 	}
 
-	render() {
+	render(): jsx.JSX.Element | null {
 		const datasource = this.getDatasource();
 		const attrs = this.props.node.attrs as DatasourceAdf['attrs'];
 		const tableView = this.getTableView();
@@ -295,7 +295,7 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 		return false;
 	}
 
-	render() {
+	render(): jsx.JSX.Element {
 		const { attrs } = this.node;
 		// EDM-10607: Workaround to remove datasource table draggable attribute
 		// @ts-ignore TS2341: Property domRef is private

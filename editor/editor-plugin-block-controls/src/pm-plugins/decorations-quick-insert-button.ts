@@ -25,7 +25,7 @@ export const findQuickInsertInsertButtonDecoration = (
 	decorations: DecorationSet,
 	from?: number,
 	to?: number,
-) => {
+): Decoration[] => {
 	return decorations.find(from, to, (spec) => spec.type === TYPE_QUICK_INSERT);
 };
 
@@ -53,7 +53,7 @@ export const quickInsertButtonDecoration = ({
 	rootNodeType,
 	anchorRectCache,
 	editorState,
-}: QuickInsertButtonDecorationParams) => {
+}: QuickInsertButtonDecorationParams): Decoration => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();
 	const cleanupCallbacks: (() => void)[] = [];

@@ -1,15 +1,20 @@
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
-import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { ReplaceStep, Step } from '@atlaskit/editor-prosemirror/transform';
 
-export const getInsertLayoutStep = (tr: Transaction) =>
+export const getInsertLayoutStep = (tr: Transaction): Step | undefined =>
 	tr.steps.find(
 		(step) =>
 			step instanceof ReplaceStep &&
 			['layoutSection', 'layoutColumn'].includes(step.slice.content.firstChild?.type.name || ''),
 	);
 
-export const updateSelection = (tr: Transaction, to: number, insertAtRight?: boolean) => {
+export const updateSelection = (
+	tr: Transaction,
+	to: number,
+	insertAtRight?: boolean,
+): Transaction => {
 	const $to = tr.doc.resolve(to);
 	const toNode = $to.nodeAfter;
 	let lastNode = toNode?.content.lastChild;

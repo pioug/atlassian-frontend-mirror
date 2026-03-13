@@ -18,7 +18,7 @@ export const updatePaddingDecorations = ({
 	state,
 	start,
 	end,
-}: UpdatePaddingDecorationsOptions) => {
+}: UpdatePaddingDecorationsOptions): DecorationSet => {
 	// First remove any decorations within the range
 	// Note that it finds all decorations in the set which touch the given range (including decorations that start or end directly at the boundaries)
 	const toRemove = prevDecorationSet.find(start, end);

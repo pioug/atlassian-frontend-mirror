@@ -4,7 +4,7 @@ import { uuid } from '@atlaskit/adf-schema';
  * Global Set to track currently generated and existing short UUIDs in the document.
  * Used to prevent duplicate short IDs when using crypto.randomUUID().
  */
-export const generatedShortUUIDs = new Set<string>();
+export const generatedShortUUIDs: Set<string> = new Set<string>();
 
 /**
  * Generates a short UUID and checks for duplicates against both

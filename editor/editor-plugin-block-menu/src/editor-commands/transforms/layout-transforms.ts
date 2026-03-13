@@ -2,6 +2,7 @@ import { DEFAULT_TWO_COLUMN_LAYOUT_COLUMN_WIDTH } from '@atlaskit/editor-common/
 import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, type Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { convertUnwrappedLayoutContent, unwrapLayoutNodesToTextNodes } from './layout/utils';
 import { getMarksWithBreakout, isHeadingOrParagraphNode } from './utils';
@@ -31,7 +32,7 @@ export const createDefaultLayoutSection = (
 	return layoutSection.createChecked(undefined, layoutContent, marks);
 };
 
-export const convertToLayout = (context: TransformContext) => {
+export const convertToLayout = (context: TransformContext): Transaction => {
 	const { tr, sourceNode, sourcePos } = context;
 	const content: PMNode = sourceNode.mark(
 		sourceNode.marks.filter((mark) => mark.type.name !== 'breakout'),
@@ -56,7 +57,7 @@ export const convertToLayout = (context: TransformContext) => {
 	return tr;
 };
 
-export const transformLayoutNode = (context: TransformContext) => {
+export const transformLayoutNode = (context: TransformContext): Transaction => {
 	const { tr, sourceNode, targetNodeType, sourcePos, targetAttrs } = context;
 	const schema = tr.doc.type.schema || {};
 	const { layoutSection, layoutColumn, paragraph, heading } = schema.nodes || {};

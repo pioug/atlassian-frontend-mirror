@@ -18,6 +18,7 @@ import type {
 	CollabActivityAIProviderChangedPayload,
 	UserPermitType,
 	PresenceActivity,
+	ProviderParticipant,
 } from '@atlaskit/editor-common/collab';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -445,7 +446,7 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 	}
 
 	// Only used for the presence - opts out of the document service and api service
-	setupForPresenceOnly(clientId: string) {
+	setupForPresenceOnly(clientId: string): this {
 		this.clientId = clientId;
 		this.checkForCookies();
 		try {
@@ -622,7 +623,7 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 	 * Used by Jira products (JWM, JPD) to disable the provider
 	 * @throws {DestroyError} Something went wrong while shutting down the collab provider
 	 */
-	destroy() {
+	destroy(): this {
 		return this.unsubscribeAll();
 	}
 
@@ -633,7 +634,7 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 	 * @deprecated use destroy instead, it does the same thing
 	 * @throws {DestroyError} Something went wrong while shutting down the collab provider
 	 */
-	disconnect() {
+	disconnect(): this {
 		return this.unsubscribeAll();
 	}
 
@@ -717,7 +718,7 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 	/**
 	 * Returns the documents metadata
 	 */
-	getMetadata = () => {
+	getMetadata = (): Metadata => {
 		return this.metadataService.getMetaData();
 	};
 
@@ -791,23 +792,23 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 		this.participantsService.clearTimers();
 	};
 
-	getParticipants = () => {
+	getParticipants = (): ProviderParticipant[] => {
 		return this.participantsService.getParticipants();
 	};
 
-	getUniqueParticipantSize = () => {
+	getUniqueParticipantSize = (): number => {
 		return this.participantsService.getUniqueParticipantSize();
 	};
 
-	getUniqueParticipants = () => {
+	getUniqueParticipants = (): ProviderParticipant[] => {
 		return this.participantsService.getUniqueParticipants({ isHydrated: false });
 	};
 
-	getUniqueHydratedParticipants = () => {
+	getUniqueHydratedParticipants = (): ProviderParticipant[] => {
 		return this.participantsService.getUniqueParticipants({ isHydrated: true });
 	};
 
-	getAIProviderParticipants = () => {
+	getAIProviderParticipants = (): ProviderParticipant[] => {
 		return this.participantsService.getAIProviderParticipants();
 	};
 
@@ -822,7 +823,7 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 		}
 	};
 
-	getSessionId = () => {
+	getSessionId = (): string | undefined => {
 		return this.sessionId;
 	};
 

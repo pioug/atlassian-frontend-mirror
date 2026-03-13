@@ -15,7 +15,7 @@ const svgStyles = css({
 	height: '24px',
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<span data-vc={'icon-editor-dropbox'} aria-hidden={true}>
 			{/* This colour is not ADG - it is the dropbox brand color */}

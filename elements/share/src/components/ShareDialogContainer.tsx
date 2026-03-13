@@ -1,7 +1,7 @@
 import React from 'react';
 
 import deepEqual from 'fast-deep-equal';
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { FormattedMessage } from 'react-intl-next';
 import assert from 'tiny-invariant';
 
@@ -252,13 +252,15 @@ export class ShareDialogContainerInternal extends React.Component<
 
 	// ensure origin is re-generated if the link or the factory changes
 	// separate memoization is needed since copy != form
-	getUniqueCopyLinkOriginTracing = memoizeOne(
-		(link: string, originTracingFactory: OriginTracingFactory): OriginTracing => {
-			return originTracingFactory();
-		},
-	);
+	getUniqueCopyLinkOriginTracing: MemoizedFn<
+		(link: string, originTracingFactory: OriginTracingFactory) => OriginTracing
+	> = memoizeOne((link: string, originTracingFactory: OriginTracingFactory): OriginTracing => {
+		return originTracingFactory();
+	});
 	// form origin must furthermore be regenerated after each form share
-	getUniqueFormShareOriginTracing = memoizeOne(
+	getUniqueFormShareOriginTracing: MemoizedFn<
+		(link: string, originTracingFactory: OriginTracingFactory, shareCount: number) => OriginTracing
+	> = memoizeOne(
 		(
 			link: string,
 			originTracingFactory: OriginTracingFactory,

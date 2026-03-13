@@ -57,7 +57,11 @@ const ToolbarSeparator = () => {
 	);
 };
 
-export const ToolbarSection = ({ children, testId, hasSeparator }: ToolbarSectionProps) => {
+export const ToolbarSection = ({
+	children,
+	testId,
+	hasSeparator,
+}: ToolbarSectionProps): JSX.Element => {
 	return (
 		<Box xcss={cx(styles.container)} testId={testId} data-toolbar-component="section">
 			{hasSeparator === SeparatorPosition.START && <ToolbarSeparator />}

@@ -4,7 +4,7 @@
  */
 import { useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 
@@ -57,7 +57,7 @@ export const PixelEntry = ({
 	hoverDecoration,
 	isEditorFullWidthEnabled,
 	triggerButtonSelector,
-}: Props) => {
+}: Props): jsx.JSX.Element | null => {
 	const { state, dispatch } = editorView;
 	const { mediaSingle } = state.schema.nodes;
 
@@ -174,7 +174,11 @@ export const PixelEntry = ({
 	);
 };
 
-export const FullWidthDisplay = ({ intl: { formatMessage } }: { intl: IntlShape }) => {
+export const FullWidthDisplay = ({
+	intl: { formatMessage },
+}: {
+	intl: IntlShape;
+}): jsx.JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={pixelSizingFullWidthLabelStyles}>

@@ -43,55 +43,68 @@ export const CHANNEL_ID = 'fabric-elements';
 export const ANALYTICS_SOURCE = 'shareModal';
 export const INTEGRATION_MODAL_SOURCE = 'integrationShareDialog';
 
-export const screenEvent = ({ isPublicLink = false }) =>
+export const screenEvent = ({
+	isPublicLink = false,
+}: {
+	isPublicLink?: boolean | undefined;
+}): AnalyticsEventPayload =>
 	createScreenEvent(ANALYTICS_SOURCE, {
 		isPublicLink,
 	});
 
-export const shareSplitButtonEvent = () =>
+export const shareSplitButtonEvent = (): AnalyticsEventPayload =>
 	createEvent('ui', INTEGRATION_MODAL_SOURCE, 'clicked', 'button', 'shareSplitButton');
 
-export const shareIntegrationButtonEvent = (type: string = '') =>
+export const shareIntegrationButtonEvent = (type: string = ''): AnalyticsEventPayload =>
 	createEvent('ui', INTEGRATION_MODAL_SOURCE, 'clicked', 'button', 'shareToIntegration', {
 		integrationType: type.toLowerCase(),
 	});
 
-export const errorEncountered = (actionSubjectId: string | undefined, attributes: any = {}) =>
+export const errorEncountered = (
+	actionSubjectId: string | undefined,
+	attributes: any = {},
+): AnalyticsEventPayload =>
 	createEvent('operational', ANALYTICS_SOURCE, 'encountered', 'error', actionSubjectId, {
 		...attributes,
 		source: ANALYTICS_SOURCE,
 	});
 
 // = share dialog invoked. Not to be confused with "share submitted"
-export const shareTriggerButtonClicked = () =>
+export const shareTriggerButtonClicked = (): AnalyticsEventPayload =>
 	createEvent('ui', ANALYTICS_SOURCE, 'clicked', 'button', 'share');
 
 export type TabSubjectIdType = 'shareTab' | 'shareToSlackTab';
 
 export type MenuItemSubjectIdType = 'shareMenuItem' | 'shareToSlackMenuItem';
 
-export const shareTabClicked = (subjectId: TabSubjectIdType, shareContentType?: string) =>
+export const shareTabClicked = (
+	subjectId: TabSubjectIdType,
+	shareContentType?: string,
+): AnalyticsEventPayload =>
 	createEvent('ui', ANALYTICS_SOURCE, 'clicked', 'tab', subjectId || 'shareTab', {
 		shareContentType,
 	});
 
-export const shareMenuItemClicked = (subjectId: MenuItemSubjectIdType, shareContentType?: string) =>
+export const shareMenuItemClicked = (
+	subjectId: MenuItemSubjectIdType,
+	shareContentType?: string,
+): AnalyticsEventPayload =>
 	createEvent('ui', ANALYTICS_SOURCE, 'clicked', 'menuItem', subjectId || 'shareMenuItem', {
 		shareContentType,
 	});
 
-export const cancelShare = (start: number) =>
+export const cancelShare = (start: number): AnalyticsEventPayload =>
 	createEvent('ui', ANALYTICS_SOURCE, 'pressed', 'keyboardShortcut', 'cancelShare', {
 		source: ANALYTICS_SOURCE,
 		duration: duration(start),
 	});
 
-export const shortUrlRequested = () =>
+export const shortUrlRequested = (): AnalyticsEventPayload =>
 	createEvent('operational', ANALYTICS_SOURCE, 'requested', 'shortUrl', undefined, {
 		source: ANALYTICS_SOURCE,
 	});
 
-export const shortUrlGenerated = (start: number, tooSlow: boolean) =>
+export const shortUrlGenerated = (start: number, tooSlow: boolean): AnalyticsEventPayload =>
 	createEvent('operational', ANALYTICS_SOURCE, 'generated', 'shortUrl', undefined, {
 		source: ANALYTICS_SOURCE,
 		duration: duration(start),
@@ -114,7 +127,7 @@ export const copyLinkButtonClicked = ({
 	shareContentType?: string;
 	shareOrigin?: OriginTracing;
 	start: number;
-}) =>
+}): AnalyticsEventPayload =>
 	createEvent('ui', ANALYTICS_SOURCE, 'clicked', 'button', 'copyShareLink', {
 		source: ANALYTICS_SOURCE,
 		duration: duration(start),
@@ -145,7 +158,7 @@ export const formShareSubmitted = ({
 	shareContentType?: string;
 	shareOrigin?: OriginTracing;
 	start: number;
-}) => {
+}): AnalyticsEventPayload => {
 	const users = extractIdsByType(data, isUser);
 	const externalUsers = extractIdsByType(data, isExternalUser);
 	const groups = extractIdsByType(data, isGroup);

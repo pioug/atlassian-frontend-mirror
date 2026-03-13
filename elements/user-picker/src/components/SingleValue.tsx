@@ -5,6 +5,7 @@
 import { cssMap, jsx } from '@compiled/react';
 import { type Option, type OptionData } from '../types';
 import { components, type SingleValueProps } from '@atlaskit/select';
+import Lozenge from '@atlaskit/lozenge';
 import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl, isTeam, isGroup } from './utils';
@@ -12,7 +13,10 @@ import { getAppearanceForAppType } from '@atlaskit/avatar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
+import { FormattedMessage } from 'react-intl-next';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+
+import { messages } from './i18n';
 
 const styles = cssMap({
 	avatarItem: {
@@ -33,6 +37,10 @@ const styles = cssMap({
 		overflowX: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
+	},
+	archivedLozengeWrapper: {
+		display: 'flex',
+		paddingLeft: token('space.050'),
 	},
 });
 
@@ -63,6 +71,8 @@ export const SingleValue = (props: Props) => {
 		//@ts-ignore react-select unsupported props
 		selectProps: { appearance, isFocused },
 	} = props;
+	const canShowArchivedLozenge =
+		isTeam(data) && data?.state === 'DISBANDED' && fg('enable-sup-archive-experience');
 
 	return !isFocused ? (
 		<components.SingleValue {...(props as any)}>
@@ -98,6 +108,13 @@ export const SingleValue = (props: Props) => {
 							{
 								<Inline alignBlock="center">
 									{label}
+									{canShowArchivedLozenge ? (
+										<Box xcss={styles.archivedLozengeWrapper}>
+											<Lozenge appearance="default">
+												<FormattedMessage {...messages.archivedLozenge} />
+											</Lozenge>
+										</Box>
+									) : null}
 									<ElementAfter {...props} />
 								</Inline>
 							}

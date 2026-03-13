@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.0.0
+
+### Patch Changes
+
+- [`ae28f2e6bb741`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae28f2e6bb741) -
+  Editor-4477: Removed the heading with alignment patch in the newGetSelection
+- [`ae28f2e6bb741`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae28f2e6bb741) -
+  Editor-5020-fix-inline-drop-hints-not-visible-in-sync-block
+- Updated dependencies
+
 ## 8.12.0
 
 ### Minor Changes

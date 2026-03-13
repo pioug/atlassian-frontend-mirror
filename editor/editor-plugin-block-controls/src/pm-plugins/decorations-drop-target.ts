@@ -141,7 +141,11 @@ const getGapAndOffset = (prevNode?: PMNode, nextNode?: PMNode, parentNode?: PMNo
  * @param to
  * @returns
  */
-export const findDropTargetDecs = (decorations: DecorationSet, from?: number, to?: number) => {
+export const findDropTargetDecs = (
+	decorations: DecorationSet,
+	from?: number,
+	to?: number,
+): Decoration[] => {
 	return decorations.find(from, to, (spec) => spec.type === TYPE_DROP_TARGET_DEC);
 };
 
@@ -152,7 +156,7 @@ export const createDropTargetDecoration = (
 	side?: number,
 	anchorRectCache?: AnchorRectCache,
 	isSameLayout?: boolean,
-) => {
+): Decoration => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();
 	return Decoration.widget(
@@ -200,7 +204,7 @@ export const createLayoutDropTargetDecoration = (
 	props: Omit<DropTargetLayoutProps, 'getPos'>,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
-) => {
+): Decoration => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();
 	return Decoration.widget(
@@ -253,7 +257,7 @@ export const dropTargetDecorations = (
 	anchorRectCache?: AnchorRectCache,
 	from?: number,
 	to?: number,
-) => {
+): Decoration[] => {
 	const decs: Decoration[] = [];
 	const POS_END_OF_DOC = newState.doc.nodeSize - 2;
 	const docFrom = from === undefined || from < 0 ? 0 : from;

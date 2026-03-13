@@ -1,6 +1,13 @@
 import type { MediaType } from './interfaces';
 
-export const getIconFromMediaType = (mediaType: MediaType) => {
+export const getIconFromMediaType = (
+	mediaType: MediaType,
+):
+	| 'archiveAttachment'
+	| 'audioAttachment'
+	| 'documentAttachment'
+	| 'videoAttachment'
+	| 'genericAttachment' => {
 	switch (mediaType) {
 		case 'archive':
 			return 'archiveAttachment';

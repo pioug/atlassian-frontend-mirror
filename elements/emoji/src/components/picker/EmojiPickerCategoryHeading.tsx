@@ -37,7 +37,7 @@ export interface Props {
 	title: string;
 }
 
-const EmojiPickerCategoryHeading = ({ id, title, className }: Props) => (
+const EmojiPickerCategoryHeading = ({ id, title, className }: Props): JSX.Element => (
 	<div
 		id={id}
 		data-category-id={id}

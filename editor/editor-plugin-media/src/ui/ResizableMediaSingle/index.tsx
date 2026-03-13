@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
@@ -22,6 +22,7 @@ import {
 } from '@atlaskit/editor-common/ui';
 import { calculateSnapPoints } from '@atlaskit/editor-common/utils';
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
 	findParentNodeOfTypeClosestToPos,
 	hasParentNodeOfType,
@@ -146,7 +147,13 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 		}
 	}
 
-	calcNewSize = (newWidth: number, stop: boolean) => {
+	calcNewSize = (
+		newWidth: number,
+		stop: boolean,
+	): {
+		layout: MediaSingleLayout;
+		width: number | null;
+	} => {
 		const {
 			layout,
 			view: { state },
@@ -196,7 +203,7 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 		return 'full-width';
 	};
 
-	get $pos() {
+	get $pos(): ResolvedPos | null {
 		if (typeof this.props.getPos !== 'function') {
 			return null;
 		}
@@ -214,13 +221,13 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 	/**
 	 * The maxmimum number of grid columns this node can resize to.
 	 */
-	get gridWidth() {
+	get gridWidth(): number {
 		const { gridSize } = this.props;
 
 		return !(this.wrappedLayout || this.insideInlineLike) ? gridSize / 2 : gridSize;
 	}
 
-	calcColumnLeftOffset = () => {
+	calcColumnLeftOffset = (): number => {
 		const { offsetLeft } = this.state;
 		return this.insideInlineLike
 			? calcColumnsFromPx(offsetLeft, this.props.lineLength, this.props.gridSize)
@@ -278,7 +285,7 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 		return !!findParentNodeOfTypeClosestToPos($pos, [layoutColumn]);
 	}
 
-	highlights = (newWidth: number, snapPoints: number[]) => {
+	highlights = (newWidth: number, snapPoints: number[]): string[] | number[] => {
 		const snapWidth = snapTo(newWidth, snapPoints);
 		const { layoutColumn, table, expand, nestedExpand, panel } = this.props.view.state.schema.nodes;
 
@@ -319,7 +326,7 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 
 	private saveWrapper = (wrapper: HTMLDivElement) => (this.wrapper = wrapper);
 
-	render() {
+	render(): jsx.JSX.Element {
 		const {
 			width: origWidth,
 			height: origHeight,

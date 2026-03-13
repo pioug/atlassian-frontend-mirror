@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import React, { useState } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx, css } from '@emotion/react';
 
 import ModalDialog, {
@@ -79,7 +79,7 @@ const Modal = ({
 	onClose: () => any;
 	showModal?: boolean;
 	TEST_ONLY_src?: string;
-}) => {
+}): jsx.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(true);
 
 	if (typeof showModal === 'boolean' && isOpen !== showModal) {

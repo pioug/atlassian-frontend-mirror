@@ -103,7 +103,7 @@ export const ImageEditor = ({
 	onClose,
 	onSave,
 	errorReporter,
-}: ImageEditModalProps) => {
+}: ImageEditModalProps): JSX.Element => {
 	const {
 		cropperRef,
 		doneButtonRef,

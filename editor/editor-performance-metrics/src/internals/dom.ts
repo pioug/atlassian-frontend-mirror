@@ -13,7 +13,7 @@ export function getViewportDimensions(): ViewportDimension {
 export function searchAncestors(
 	element: HTMLElement | null | undefined,
 	validate: (e: HTMLElement) => 'found' | 'abort' | 'continue',
-) {
+): false | HTMLElement {
 	if (!element) {
 		return false;
 	}

@@ -41,4 +41,13 @@ class ErrorBoundary extends React.Component<Props, State> {
 	}
 }
 
-export default withAnalyticsEvents()(ErrorBoundary);
+const _default_1: React.ForwardRefExoticComponent<
+	Omit<
+		{
+			children?: React.ReactNode | undefined;
+		},
+		keyof WithAnalyticsEventsProps
+	> &
+		React.RefAttributes<any>
+> = withAnalyticsEvents()(ErrorBoundary);
+export default _default_1;

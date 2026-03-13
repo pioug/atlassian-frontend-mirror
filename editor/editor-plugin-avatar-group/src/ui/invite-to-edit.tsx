@@ -4,7 +4,7 @@
  */
 import React, { Fragment, type PropsWithChildren } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import type { InviteToEditComponentProps } from '@atlaskit/editor-common/collab';
@@ -22,7 +22,7 @@ type InviteToEditButtonProps = PropsWithChildren<{
 	title: string;
 }>;
 
-export const InviteToEditButton = (props: InviteToEditButtonProps) => {
+export const InviteToEditButton = (props: InviteToEditButtonProps): jsx.JSX.Element | null => {
 	const { Component, onClick, selected, title } = props;
 
 	const iconBefore = React.useMemo(() => <AddIcon label={title} />, [title]);

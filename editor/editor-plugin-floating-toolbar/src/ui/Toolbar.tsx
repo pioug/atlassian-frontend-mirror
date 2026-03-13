@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
+import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -743,7 +743,9 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 		// focus the editorview.
 		// Event can't be stopped as they are not childnodes of floating toolbar
 
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 		const isDropdownOpen = !!document.querySelector('[data-role="droplistContent"]');
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 		const isSelectMenuOpen = !!document.querySelector('.floating-toolbar-select__menu');
 
 		if (isDropdownOpen || isSelectMenuOpen) {
@@ -894,4 +896,8 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 	}
 }
 
-export default injectIntl(Toolbar);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(Toolbar);
+export default _default_1;

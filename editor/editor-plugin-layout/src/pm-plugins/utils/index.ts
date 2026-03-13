@@ -1,5 +1,6 @@
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { type EditorState, TextSelection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
 	type ContentNodeWithPos,
 	findParentNodeOfType,
@@ -38,7 +39,11 @@ const LAYOUT_COLUMN_DEPTH = 1;
  * @param childIndex the index of the child node in the layout section
  * @returns Transaction or undefined
  */
-export const selectIntoLayout = (view: EditorView, posOfLayout: number, childIndex: number = 0) => {
+export const selectIntoLayout = (
+	view: EditorView,
+	posOfLayout: number,
+	childIndex: number = 0,
+): Transaction | undefined => {
 	const $maybeLayoutSection = view.state.doc.resolve(posOfLayout);
 	if ($maybeLayoutSection.nodeAfter?.type.name === 'layoutSection') {
 		const layoutSectionNode = $maybeLayoutSection.nodeAfter;

@@ -19,7 +19,7 @@ type Props = {
 	api?: ExtractInjectionAPI<PastePlugin>;
 };
 
-export const Flag = ({ api }: Props) => {
+export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 	const { activeFlag } = useSharedPluginStateWithSelector(api, ['paste'], (states) => ({
 		activeFlag: states.pasteState?.activeFlag,
 	}));

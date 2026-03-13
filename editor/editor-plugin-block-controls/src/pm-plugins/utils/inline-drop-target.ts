@@ -1,5 +1,6 @@
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type ActiveNode } from '../../blockControlsPluginType';
@@ -17,8 +18,19 @@ export const shouldAllowInlineDropTarget = (
 	 */
 	isSameLayout: boolean = false,
 	activeNode?: ActiveNode,
+	parentNode?: PMNode,
 ): boolean => {
+	const isInsideBodiedSyncBlock = parentNode?.type.name === 'bodiedSyncBlock';
+
 	if (editorExperiment('advanced_layouts', false) || isNested) {
+		// If nested inside bodiedSyncBlock, enable inline drop target so user can drop to create a layout inside it
+		if (
+			isInsideBodiedSyncBlock &&
+			expValEquals('platform_synced_block', 'isEnabled', true) &&
+			expValEquals('platform_synced_block_patch_6', 'isEnabled', true)
+		) {
+			return true;
+		}
 		return false;
 	}
 
@@ -32,7 +44,8 @@ export const shouldAllowInlineDropTarget = (
 	if (
 		(syncedBlockTypes.includes(activeNode?.nodeType || '') ||
 			syncedBlockTypes.includes(node?.type.name || '')) &&
-		editorExperiment('platform_synced_block', true)
+		editorExperiment('platform_synced_block', true) &&
+		!expValEquals('platform_synced_block_patch_6', 'isEnabled', true)
 	) {
 		return false;
 	}

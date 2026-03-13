@@ -15,7 +15,7 @@ import { type Slice } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { ExpandPlugin } from '../../types';
+import type { ExpandPlugin, ExpandPluginState } from '../../types';
 import { setExpandRef } from '../commands';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
@@ -30,13 +30,13 @@ export function containsClass(element: Element | null, className: string): boole
 export const createPlugin = (
 	dispatch: Dispatch,
 	getIntl: () => IntlShape,
-	appearance: EditorAppearance = 'full-page',
+	appearance: EditorAppearance | undefined = 'full-page',
 	useLongPressSelection: boolean = false,
 	api: ExtractInjectionAPI<ExpandPlugin> | undefined,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	allowInteractiveExpand: boolean = true,
 	__livePage: boolean = false,
-) => {
+): SafePlugin<ExpandPluginState> => {
 	const state = createPluginState(dispatch, {});
 	const isMobile = false;
 

@@ -4,7 +4,7 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
@@ -115,7 +115,7 @@ export const handleNewNode = (props: MediaInlineProps): void => {
 	handleMediaNodeMount(node, () => getPos());
 };
 
-export const MediaInline = (props: MediaInlineProps) => {
+export const MediaInline = (props: MediaInlineProps): jsx.JSX.Element => {
 	const [viewMediaClientConfig, setViewMediaClientConfig] = useState<
 		MediaClientConfig | undefined
 	>();
@@ -294,7 +294,7 @@ interface MediaInlineNodeViewProps {
 	providerFactory: ProviderFactory;
 }
 export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeViewProps> {
-	createDomRef() {
+	createDomRef(): HTMLSpanElement {
 		const domRef = document.createElement('span');
 		domRef.contentEditable = 'false';
 		return domRef;
@@ -312,7 +312,7 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeV
 		return super.viewShouldUpdate(nextNode);
 	}
 
-	render(props: MediaInlineNodeViewProps) {
+	render(props: MediaInlineNodeViewProps): jsx.JSX.Element {
 		const { providerFactory, api } = props;
 		const { view } = this;
 		const getPos = this.getPos as getPosHandlerNode;

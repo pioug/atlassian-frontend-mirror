@@ -78,7 +78,103 @@ const entityDataResponse = {
 	},
 };
 
-export const mocks = {
+export const mocks: {
+	success: JsonLd.Response;
+	datasourceSuccess: {
+		datasources: {
+			key: string;
+			parameters: {
+				jql: string;
+				cloudId: string;
+			};
+			id: string;
+			ari: string;
+			description: string;
+			name: string;
+		}[];
+		meta: {
+			visibility: string;
+			access: string;
+			auth: never[];
+			definitionId: string;
+			key: string;
+		};
+		data: {
+			'@context': {
+				'@vocab': string;
+				atlassian: string;
+				schema: string;
+			};
+			'@type': string;
+			name: string;
+			summary: string;
+			'schema:potentialAction': {
+				'@id': string;
+				'@type': string;
+				identifier: string;
+				name: string;
+			};
+			preview: {
+				href: string;
+			};
+			url: string;
+		};
+	};
+	entityDataSuccess: SmartLinkResponse;
+	searchSuccess: JsonLd.Response;
+	notFound: JsonLd.Response;
+	forbidden: JsonLd.Response;
+	unauthorized: JsonLd.Response;
+	notSupported: ErrorResponseBody;
+	invokeSearchUnsupportedError: {
+		error: {
+			type: string;
+			message: string;
+			status: number;
+		};
+		status: number;
+	};
+	invokeSearchTimeoutError: {
+		error: {
+			type: string;
+			message: string;
+			status: number;
+		};
+		status: number;
+	};
+	invokeSearchFailedError: {
+		error: {
+			type: string;
+			message: string;
+			status: number;
+		};
+		status: number;
+	};
+	invokeSearchAuthError: {
+		error: {
+			type: string;
+			message: string;
+			status: number;
+		};
+		status: number;
+	};
+	invokeSearchRateLimitError: {
+		error: {
+			type: string;
+			message: string;
+			status: number;
+		};
+		status: number;
+	};
+	invokeInternalServerError: {
+		error: {
+			type: string;
+			message: string;
+			status: number;
+		};
+		status: number;
+	};
+} = {
 	success: jsonLdResponse as JsonLd.Response,
 	datasourceSuccess: {
 		...jsonLdResponse,

@@ -35,12 +35,12 @@ export class INPTracker implements PeriodMeasurer {
 		this.monitor = new InteractionTracker(this.includedInteractions);
 	}
 
-	start(paused: boolean) {
+	start(paused: boolean): Measure {
 		const result = this.monitor.start(paused);
 		return result;
 	}
 
-	end() {
+	end(): Measure {
 		const result = this.monitor.end();
 		return result;
 	}
@@ -157,7 +157,7 @@ class InteractionTracker {
 		this.interactionResult = new InteractionResult();
 	}
 
-	start(paused: boolean) {
+	start(paused: boolean): Measure {
 		const lastResult = this.interactionResult.toMeasure();
 		this.reset();
 		this.paused = paused;
@@ -167,7 +167,7 @@ class InteractionTracker {
 		return lastResult;
 	}
 
-	end() {
+	end(): Measure {
 		try {
 			return this.interactionResult.toMeasure();
 		} finally {

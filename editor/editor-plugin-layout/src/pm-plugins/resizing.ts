@@ -8,14 +8,14 @@ import { type LayoutPlugin } from '../layoutPluginType';
 import { LayoutSectionView } from '../nodeviews';
 import type { LayoutPluginOptions } from '../types';
 
-export const pluginKey = new PluginKey('layoutResizingPlugin');
+export const pluginKey: PluginKey = new PluginKey('layoutResizingPlugin');
 
 export default (
 	options: LayoutPluginOptions,
 	pluginInjectionApi: ExtractInjectionAPI<LayoutPlugin>,
 	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
-) =>
+): SafePlugin<undefined> =>
 	new SafePlugin<undefined>({
 		key: pluginKey,
 		props: {

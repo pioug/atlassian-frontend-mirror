@@ -157,4 +157,10 @@ const SyncedBlockRendererComponent = ({
 	);
 };
 
-export const SyncedBlockRenderer = memo(SyncedBlockRendererComponent);
+export const SyncedBlockRenderer: React.MemoExoticComponent<
+	({
+		syncBlockRendererOptions,
+		syncBlockFetchResult,
+		api,
+	}: SyncedBlockRendererProps) => React.JSX.Element
+> = memo(SyncedBlockRendererComponent);

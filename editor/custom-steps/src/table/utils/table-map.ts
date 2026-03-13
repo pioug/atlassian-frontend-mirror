@@ -1,6 +1,6 @@
 import type { TableMap } from '@atlaskit/editor-tables/table-map';
 
-export const getCellIndex = (map: TableMap, row: number, col: number) => {
+export const getCellIndex = (map: TableMap, row: number, col: number): number => {
 	return row * map.width + col;
 };
 

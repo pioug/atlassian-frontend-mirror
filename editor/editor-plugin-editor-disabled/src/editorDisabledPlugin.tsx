@@ -9,7 +9,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EditorDisabledPlugin, EditorDisabledPluginState } from './editorDisabledPluginType';
 import { ACTION, reducer } from './pm-plugins/reducer';
 
-export const pluginKey = new PluginKey<EditorDisabledPluginState>('editorDisabledPlugin');
+export const pluginKey: PluginKey<EditorDisabledPluginState> =
+	new PluginKey<EditorDisabledPluginState>('editorDisabledPlugin');
 
 const { getPluginState } = pluginFactory(pluginKey, reducer);
 

@@ -30,7 +30,7 @@ const flagMap: Record<FLAG_ID, FlagConfig> = {
 	},
 };
 
-export const Flag = ({ api }: Props) => {
+export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 	const { showFlag } = useSharedPluginStateWithSelector(api, ['blockMenu'], (states) => {
 		return {
 			showFlag: states.blockMenuState?.showFlag,

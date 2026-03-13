@@ -6,6 +6,7 @@ import {
 	KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS,
 	NON_VISUAL_ARIA_ATTRIBUTES,
 	THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
+	DARK_READER_BROWSER_EXTENSION_ATTRIBUTES,
 } from '../utils/constants';
 
 const getConsideredEntryTypes = () => {
@@ -63,13 +64,17 @@ export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 			return false;
 		}
 
+		const thirdPartyAttributes = fg('platform_ufo_exclude_dark_reader_extension')
+			? [...THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES, ...DARK_READER_BROWSER_EXTENSION_ATTRIBUTES]
+			: THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES;
+
 		if (entryData.type === 'mutation:display-contents-children-attribute') {
 			if (
 				!attributeName ||
 				attributeName.startsWith('data-test') ||
 				KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS.includes(attributeName) ||
 				NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName) ||
-				THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES.includes(attributeName)
+				thirdPartyAttributes.includes(attributeName)
 			) {
 				return false;
 			}

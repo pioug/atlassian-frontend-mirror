@@ -104,7 +104,7 @@ export class AsciiMatchComparator implements EmojiComparator {
 		this.query = query;
 	}
 
-	compare(e1: EmojiDescription, e2: EmojiDescription) {
+	compare(e1: EmojiDescription, e2: EmojiDescription): 0 | 1 | -1 {
 		const e1HasAscii = e1.ascii && e1.ascii.indexOf(this.query) !== -1;
 		const e2HasAscii = e2.ascii && e2.ascii.indexOf(this.query) !== -1;
 
@@ -131,7 +131,7 @@ export class ExactShortNameMatchComparator implements EmojiComparator {
 		this.typeComparator = new EmojiTypeComparator(true);
 	}
 
-	compare(e1: EmojiDescription, e2: EmojiDescription) {
+	compare(e1: EmojiDescription, e2: EmojiDescription): number {
 		if (e1.shortName === this.colonQuery && e2.shortName === this.colonQuery) {
 			return this.typeComparator.compare(e1, e2);
 		} else if (e1.shortName === this.colonQuery) {
@@ -169,7 +169,7 @@ export class EmojiTypeComparator implements EmojiComparator {
 		}
 	}
 
-	compare(e1: EmojiDescription, e2: EmojiDescription) {
+	compare(e1: EmojiDescription, e2: EmojiDescription): number {
 		return this.emojiTypeToOrdinal(e1) - this.emojiTypeToOrdinal(e2);
 	}
 
@@ -197,7 +197,7 @@ export class UsageFrequencyComparator implements EmojiComparator {
 		orderedIds.map((id, index) => this.positionLookup.set(id, index + 1));
 	}
 
-	compare(e1: EmojiDescription, e2: EmojiDescription) {
+	compare(e1: EmojiDescription, e2: EmojiDescription): number {
 		if (!e1.id || !e2.id) {
 			return 0; // this shouldn't occur. Leave position unchanged if there is any missing id.
 		}
@@ -260,7 +260,7 @@ export class QueryStringPositionMatchComparator implements EmojiComparator {
 		return score === -1 ? MAX_ORDINAL : score;
 	}
 
-	compare(e1: EmojiDescription, e2: EmojiDescription) {
+	compare(e1: EmojiDescription, e2: EmojiDescription): number {
 		return this.getScore(e1) - this.getScore(e2);
 	}
 }
@@ -269,11 +269,11 @@ export class OrderComparator implements EmojiComparator {
 	private static INSTANCE: OrderComparator;
 	private constructor() {}
 
-	public static get Instance() {
+	public static get Instance(): OrderComparator {
 		return this.INSTANCE || (this.INSTANCE = new this());
 	}
 
-	compare(e1: EmojiDescription, e2: EmojiDescription) {
+	compare(e1: EmojiDescription, e2: EmojiDescription): number {
 		let o1 = e1.order ? e1.order : MAX_ORDINAL;
 		let o2 = e2.order ? e2.order : MAX_ORDINAL;
 
@@ -285,11 +285,11 @@ export class AlphabeticalShortnameComparator implements EmojiComparator {
 	private static INSTANCE: AlphabeticalShortnameComparator;
 	private constructor() {}
 
-	public static get Instance() {
+	public static get Instance(): AlphabeticalShortnameComparator {
 		return this.INSTANCE || (this.INSTANCE = new this());
 	}
 
-	compare(e1: EmojiDescription, e2: EmojiDescription) {
+	compare(e1: EmojiDescription, e2: EmojiDescription): number {
 		return e1.shortName.localeCompare(e2.shortName);
 	}
 }

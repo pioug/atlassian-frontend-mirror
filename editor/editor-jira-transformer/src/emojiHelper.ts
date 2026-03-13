@@ -23,7 +23,7 @@ const emojiMap: { [key: string]: string } = {
 	'flag_gray.png': '🏳',
 };
 
-export function mapImageToEmoji(imageElement: HTMLImageElement) {
+export function mapImageToEmoji(imageElement: HTMLImageElement): string | null {
 	let src = imageElement.src;
 	const slashIndex = src.lastIndexOf('/');
 	src = src.substr(slashIndex + 1);

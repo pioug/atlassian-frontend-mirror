@@ -78,7 +78,9 @@ export function createToolbarCopyCommandForMark(
 	return command;
 }
 
-export function getProvideMarkVisualFeedbackForCopyButtonCommand(markType: MarkType) {
+export function getProvideMarkVisualFeedbackForCopyButtonCommand(
+	markType: MarkType,
+): (state: EditorState, dispatch: CommandDispatch | undefined) => boolean {
 	function provideMarkVisualFeedbackForCopyButtonCommand(
 		state: EditorState,
 		dispatch: CommandDispatch | undefined,

@@ -24,7 +24,14 @@ export const shouldAutoCloseBracket = (before: string, after: string): boolean =
 	return true;
 };
 
-export const getAutoClosingBracketInfo = (before: string, after: string) => {
+export const getAutoClosingBracketInfo = (
+	before: string,
+	after: string,
+): {
+	left: '{' | '[' | '(' | undefined;
+	right: string | undefined;
+	hasTrailingMatchingBracket: boolean;
+} => {
 	const left = (Object.keys(BRACKET_MAP) as Array<BracketMapKey>).find((item) =>
 		before.endsWith(item),
 	);

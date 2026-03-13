@@ -16,7 +16,10 @@ export type AgentVerifiedProps = AgentVerifiedIconProps & {
 	agentRef: agentVerified_AtlaskitRovoAgentComponents$key | null;
 };
 
-export const AgentVerified = ({ agentRef, adjacentTextSize }: AgentVerifiedProps) => {
+export const AgentVerified = ({
+	agentRef,
+	adjacentTextSize,
+}: AgentVerifiedProps): React.JSX.Element | null => {
 	const data = useFragment(
 		graphql`
 			fragment agentVerified_AtlaskitRovoAgentComponents on AgentStudioAssistant {
@@ -48,7 +51,9 @@ const styles = cssMap({
 	headingLarge: { height: '28px' },
 });
 
-export const AgentVerifiedIcon = ({ adjacentTextSize = 'body' }: AgentVerifiedIconProps) => {
+export const AgentVerifiedIcon = ({
+	adjacentTextSize = 'body',
+}: AgentVerifiedIconProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	return (

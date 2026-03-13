@@ -1,5 +1,12 @@
 # @atlaskit/ds-lib
 
+## 5.4.0
+
+### Minor Changes
+
+- [`0b9ac729e9180`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b9ac729e9180) -
+  [ux] Nested dropdown menus can now navigate throguh left and right arrow keys.
+
 ## 5.3.1
 
 ### Patch Changes

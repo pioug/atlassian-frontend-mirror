@@ -16,7 +16,10 @@ export enum ClipboardEventType {
 }
 let lastEventType: ClipboardEventType | null = null;
 
-export const createPlugin = ({ dispatchAnalyticsEvent, schema }: PMPluginFactoryParams) => {
+export const createPlugin = ({
+	dispatchAnalyticsEvent,
+	schema,
+}: PMPluginFactoryParams): SafePlugin => {
 	let editorView: EditorView;
 	const getEditorView = () => editorView;
 
@@ -154,4 +157,5 @@ export const sendClipboardAnalytics = (
 	return false;
 };
 
-export const setLastEventType = (eventType: ClipboardEventType) => (lastEventType = eventType);
+export const setLastEventType = (eventType: ClipboardEventType): ClipboardEventType =>
+	(lastEventType = eventType);

@@ -36,7 +36,7 @@ export function insertSliceIntoRangeSelectionInsideList({
 }: {
 	slice: Slice;
 	tr: Transaction;
-}) {
+}): Transaction | undefined {
 	const {
 		selection: { $to, $from, to, from },
 	} = tr;

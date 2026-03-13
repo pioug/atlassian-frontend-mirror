@@ -33,7 +33,10 @@ type RemoveColorMenuItemButtonProps = {
 	parents: ToolbarComponentTypes;
 };
 
-export const RemoveColorMenuItem = ({ api, parents }: RemoveColorMenuItemButtonProps) => {
+export const RemoveColorMenuItem = ({
+	api,
+	parents,
+}: RemoveColorMenuItemButtonProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const context = useToolbarDropdownMenu();
 	const closeMenu = context?.closeMenu;

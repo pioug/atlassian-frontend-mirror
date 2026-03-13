@@ -3,11 +3,10 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
-export const trackLastRemoteConflictPluginKey = new PluginKey<CollabEventConflictPayload>(
-	'trackLastRemoteConflict',
-);
+export const trackLastRemoteConflictPluginKey: PluginKey<CollabEventConflictPayload> =
+	new PluginKey<CollabEventConflictPayload>('trackLastRemoteConflict');
 
-export const createPlugin = () => {
+export const createPlugin = (): SafePlugin<CollabEventConflictPayload | undefined> => {
 	return new SafePlugin<CollabEventConflictPayload | undefined>({
 		key: trackLastRemoteConflictPluginKey,
 		state: {

@@ -4,7 +4,7 @@
  */
 import React, { Fragment } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { Checkbox as AKCheckbox } from '@atlaskit/checkbox';
@@ -157,7 +157,7 @@ export default function Boolean({
 	field: BooleanField;
 	name: string;
 	onFieldChange: OnFieldChange;
-}) {
+}): jsx.JSX.Element {
 	if (field.style === 'toggle') {
 		return <Toggle name={name} field={field} onFieldChange={onFieldChange} />;
 	}

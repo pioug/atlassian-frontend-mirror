@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl, useIntl } from 'react-intl-next';
 
 import { getDocument } from '@atlaskit/browser-apis';
@@ -96,4 +96,7 @@ const MoveDownDropdownItemContent = ({ api }: Props & WrappedComponentProps) => 
 	);
 };
 
-export const MoveDownDropdownItem = injectIntl(MoveDownDropdownItemContent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const MoveDownDropdownItem: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(MoveDownDropdownItemContent);

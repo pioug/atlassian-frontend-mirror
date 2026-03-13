@@ -96,7 +96,13 @@ export const shouldSuppressFloatingToolbar = ({
 	return isSelectionMatchingBookmark;
 };
 
-export const buildSuppressedToolbar = (state: EditorState) => {
+export const buildSuppressedToolbar = (
+	state: EditorState,
+): {
+	items: never[];
+	nodeType: NodeType[];
+	title: string;
+} => {
 	return {
 		items: [],
 		nodeType: getValidNodes(state),

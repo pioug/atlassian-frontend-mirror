@@ -37,7 +37,11 @@ function style(options: { color: string }) {
 	return `border-right: ${borderWidth} solid ${color}; margin-right: calc(-1 * ${borderWidth}); z-index: 1`;
 }
 
-export function getAvatarColor(str: string) {
+export function getAvatarColor(str: string): {
+	index: number;
+	backgroundColor: string;
+	textColor: string;
+} {
 	const participantColor = getParticipantColor(str);
 
 	return {
@@ -56,7 +60,7 @@ export const createTelepointers = (
 	presenceId: string,
 	fullName: string,
 	isNudged: boolean,
-) => {
+): Decoration[] => {
 	const decorations: Decoration[] = [];
 	const avatarColor = getAvatarColor(presenceId);
 	const color = avatarColor.index.toString();
@@ -133,7 +137,7 @@ export const replaceDocument = (
 	options?: CollabEditOptions,
 	reserveCursor?: boolean,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
-) => {
+): Transaction => {
 	const { schema, tr } = state;
 
 	const parsedDoc = processRawValueWithoutValidation(
@@ -219,7 +223,7 @@ export const getPositionOfTelepointer = (
 	return scrollPosition;
 };
 
-export const isReplaceStep = (step: Step) => step instanceof ReplaceStep;
+export const isReplaceStep = (step: Step): step is ReplaceStep => step instanceof ReplaceStep;
 
 export const originalTransactionHasMeta = (
 	transaction: Transaction | ReadonlyTransaction,

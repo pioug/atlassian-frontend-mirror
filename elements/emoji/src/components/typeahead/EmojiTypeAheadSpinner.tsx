@@ -20,7 +20,7 @@ const emojiTypeAheadSpinnerContainer = css({
 	boxSizing: 'border-box',
 });
 
-export function EmojiTypeAheadSpinner() {
+export function EmojiTypeAheadSpinner(): JSX.Element {
 	return (
 		<div css={emojiTypeAheadSpinnerContainer}>
 			<div css={emojiTypeAheadSpinner}>

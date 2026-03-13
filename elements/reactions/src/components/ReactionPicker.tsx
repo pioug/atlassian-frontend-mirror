@@ -181,7 +181,9 @@ export interface ReactionPickerProps
 /**
  * Picker component for adding reactions
  */
-export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
+export const ReactionPicker: React.MemoExoticComponent<
+	(props: ReactionPickerProps) => JSX.Element
+> = React.memo((props: ReactionPickerProps): JSX.Element => {
 	const {
 		miniMode,
 		className,
@@ -568,7 +570,7 @@ export interface PopperWrapperProps {
 	zIndex?: number;
 }
 
-export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
+export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>): JSX.Element => {
 	const { triggerRef, settings, isOpen, onClose, children, popperModifiers, zIndex } = props;
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	const { formatMessage } = useIntl();

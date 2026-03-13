@@ -20,7 +20,7 @@ export const ButtonWrapper = ({
 	onOpenLinkClick: (event: MouseEvent<HTMLAnchorElement>) => void;
 	pos?: number;
 	stateKey: PluginKey<HyperlinkState>;
-}) => {
+}): HTMLSpanElement => {
 	const wrapper = document.createElement('span');
 	wrapper.style.position = 'relative';
 	const nonBreakingCharacter = '\u2060';

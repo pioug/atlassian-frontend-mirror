@@ -17,7 +17,7 @@ interface Props {
 	getIntl: () => IntlShape;
 }
 
-export const createPlugin = (props: Props) => {
+export const createPlugin = (props: Props): SafePlugin => {
 	return new SafePlugin({
 		props: {
 			nodeViews: {

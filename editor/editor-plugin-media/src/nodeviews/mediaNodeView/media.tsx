@@ -75,7 +75,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	private mediaPluginState: MediaPluginState | undefined;
 
 	state: MediaNodeState = {};
-	videoControlsWrapperRef = React.createRef<HTMLDivElement>();
+	videoControlsWrapperRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 	unbindKeyDown: UnbindFn | null = null;
 
 	constructor(props: MediaNodeProps) {
@@ -433,4 +433,6 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	};
 }
 
-export default withImageLoader<MediaNodeProps>(MediaNode);
+const _default_1: React.ComponentClass<MediaNodeProps & ImageLoaderProps> =
+	withImageLoader<MediaNodeProps>(MediaNode);
+export default _default_1;

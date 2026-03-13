@@ -62,7 +62,7 @@ type ToolbarButtonGroupProps = {
 	children?: ReactNode;
 };
 
-export const ToolbarButtonGroup = ({ children }: ToolbarButtonGroupProps) => {
+export const ToolbarButtonGroup = ({ children }: ToolbarButtonGroupProps): JSX.Element => {
 	const items = Children.toArray(children);
 	const FirstChild = items.at(0);
 	const LastChild = items.at(-1);

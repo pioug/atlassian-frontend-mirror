@@ -45,7 +45,7 @@ const isElement = (nodeType?: string) =>
 const isExpandTitle = (match: Match) =>
 	['expand', 'nestedExpand'].includes(match.nodeType || '') && !match.canReplace;
 
-export const createDecoration = (match: Match, isSelected?: Boolean) => {
+export const createDecoration = (match: Match, isSelected?: Boolean): Decoration => {
 	const { start, end, nodeType } = match;
 	if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
 		const { colorMode } = getGlobalTheme();
@@ -320,9 +320,10 @@ export function findSearchIndex(selectionPos: number, matches: Match[], backward
 	);
 }
 
-export const nextIndex = (currentIndex: number, total: number) => (currentIndex + 1) % total;
+export const nextIndex = (currentIndex: number, total: number): number =>
+	(currentIndex + 1) % total;
 
-export const prevIndex = (currentIndex: number, total: number) =>
+export const prevIndex = (currentIndex: number, total: number): number =>
 	(currentIndex - 1 + total) % total;
 
 export const getSelectionForMatch = (
@@ -399,7 +400,7 @@ export const removeMatchesFromSet = (
 	decorationSet: DecorationSet,
 	matches: Match[],
 	doc: PmNode,
-) => {
+): DecorationSet => {
 	const decorationsToRemove = matches
 		.filter((match) => !!match)
 		.map((match) => findDecorationFromMatch(decorationSet, match));
@@ -492,7 +493,7 @@ export const findLostAdjacentDecorations = (
  * Searches through array in bumps of 100 to return the index of the first
  * decoration whose 'from' value is before or equal to the position
  */
-export const findIndexBeforePosition = (items: Decoration[], position: number) => {
+export const findIndexBeforePosition = (items: Decoration[], position: number): number => {
 	// jump in batches to cope with arrays with thousands of decorations
 	const increment = 100;
 	let index = 0;

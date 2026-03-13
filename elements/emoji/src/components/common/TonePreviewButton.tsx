@@ -2,7 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, memo } from 'react';
+import {
+	forwardRef,
+	memo,
+	type ForwardRefExoticComponent,
+	type MemoExoticComponent,
+	type RefAttributes,
+} from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { B100 } from '@atlaskit/theme/colors';
@@ -71,7 +77,9 @@ export interface Props {
 	selectOnHover?: boolean;
 }
 
-export const TonePreviewButton = forwardRef<HTMLButtonElement, Props>((props: Props, ref) => {
+export const TonePreviewButton: ForwardRefExoticComponent<
+	Props & RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, Props>((props: Props, ref) => {
 	const { emoji, selectOnHover, ariaLabelText, ariaExpanded, onSelected, isVisible = true } = props;
 
 	return (
@@ -97,4 +105,7 @@ export const TonePreviewButton = forwardRef<HTMLButtonElement, Props>((props: Pr
 	);
 });
 
-export default memo(TonePreviewButton);
+const _default_1: MemoExoticComponent<
+	ForwardRefExoticComponent<Props & RefAttributes<HTMLButtonElement>>
+> = memo(TonePreviewButton);
+export default _default_1;

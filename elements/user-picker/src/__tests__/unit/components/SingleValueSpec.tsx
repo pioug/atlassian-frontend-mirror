@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import { render, screen } from '@testing-library/react';
 import noop from 'lodash/noop';
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { type Props } from '../../../components/SingleValue';
 import { SingleValue } from '../../../components/SingleValue';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
@@ -152,6 +153,98 @@ describe('SingleValue', () => {
 			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
 
 			await expect(document.body).toBeAccessible();
+		});
+	});
+
+	describe('archived team lozenge (enable-sup-archive-experience)', () => {
+		const renderWithIntl = (props: Partial<Props> = {}) =>
+			render(
+				<IntlProvider locale="en">
+					<SingleValue {...defaultSingleValueProps} {...props} />
+				</IntlProvider>,
+			);
+
+		ffTest.on('enable-sup-archive-experience', 'on', () => {
+			it('should render Archived lozenge when team state is DISBANDED', async () => {
+				const disbandedTeam: Team = {
+					name: 'Archived Team',
+					type: 'team',
+					id: 'team-disbanded',
+					state: 'DISBANDED',
+				};
+
+				renderWithIntl({
+					data: {
+						label: disbandedTeam.name,
+						value: disbandedTeam.id,
+						data: disbandedTeam,
+					},
+				});
+
+				expect(screen.getByText('Archived')).toBeInTheDocument();
+				await expect(document.body).toBeAccessible();
+			});
+
+			it('should not render Archived lozenge when team state is ACTIVE', async () => {
+				const activeTeam: Team = {
+					name: 'Active Team',
+					type: 'team',
+					id: 'team-active',
+					state: 'ACTIVE',
+				};
+
+				renderWithIntl({
+					data: {
+						label: activeTeam.name,
+						value: activeTeam.id,
+						data: activeTeam,
+					},
+				});
+
+				expect(screen.queryByText('Archived')).not.toBeInTheDocument();
+				await expect(document.body).toBeAccessible();
+			});
+
+			it('should not render Archived lozenge for user (non-team) option', async () => {
+				const user = {
+					name: 'John Doe',
+					type: 'user' as const,
+					id: 'user-1',
+				};
+
+				renderWithIntl({
+					data: {
+						label: user.name,
+						value: user.id,
+						data: user,
+					},
+				});
+
+				expect(screen.queryByText('Archived')).not.toBeInTheDocument();
+				await expect(document.body).toBeAccessible();
+			});
+		});
+
+		ffTest.off('enable-sup-archive-experience', 'off', () => {
+			it('should not render Archived lozenge when feature flag is off even if team is DISBANDED', async () => {
+				const disbandedTeam: Team = {
+					name: 'Archived Team',
+					type: 'team',
+					id: 'team-disbanded',
+					state: 'DISBANDED',
+				};
+
+				renderWithIntl({
+					data: {
+						label: disbandedTeam.name,
+						value: disbandedTeam.id,
+						data: disbandedTeam,
+					},
+				});
+
+				expect(screen.queryByText('Archived')).not.toBeInTheDocument();
+				await expect(document.body).toBeAccessible();
+			});
 		});
 	});
 

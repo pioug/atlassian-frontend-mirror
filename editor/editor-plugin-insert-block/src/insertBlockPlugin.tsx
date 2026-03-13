@@ -34,7 +34,10 @@ import { getToolbarComponents } from './ui/toolbar-components';
 // eslint-disable-next-line import/no-named-as-default
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 
-export const toolbarSizeToButtons = (toolbarSize: ToolbarSize, appearance?: EditorAppearance) => {
+export const toolbarSizeToButtons = (
+	toolbarSize: ToolbarSize,
+	appearance?: EditorAppearance,
+): 0 | 2 | 3 | 5 | 7 => {
 	// Different button numbers for full-page to better match full page toolbar breakpoints
 	if (appearance === 'full-page' && fg('platform_editor_toolbar_responsive_fixes')) {
 		switch (toolbarSize) {

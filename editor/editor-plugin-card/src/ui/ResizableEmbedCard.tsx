@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
@@ -21,6 +21,7 @@ import {
 	wrappedLayouts,
 	wrapperStyle,
 } from '@atlaskit/editor-common/ui';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
 	findParentNodeOfTypeClosestToPos,
 	hasParentNodeOfType,
@@ -51,7 +52,9 @@ export type Props = Omit<ResizerProps, 'height' | 'width'> & {
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ResizableEmbedCard extends React.Component<Props, State> {
-	static defaultProps = {
+	static defaultProps: {
+		aspectRatio: number;
+	} = {
 		aspectRatio: DEFAULT_EMBED_CARD_WIDTH / DEFAULT_EMBED_CARD_HEIGHT,
 	};
 
@@ -85,7 +88,13 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		}
 	}
 
-	calcNewSize = (newWidth: number, stop: boolean) => {
+	calcNewSize = (
+		newWidth: number,
+		stop: boolean,
+	): {
+		layout: RichMediaLayout;
+		width: number | null;
+	} => {
 		const {
 			layout,
 			view: { state },
@@ -123,7 +132,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		return 'full-width';
 	};
 
-	get $pos() {
+	get $pos(): ResolvedPos | null {
 		if (typeof this.props.getPos !== 'function') {
 			return null;
 		}
@@ -139,12 +148,12 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 	/**
 	 * The maxmimum number of grid columns this node can resize to.
 	 */
-	get gridWidth() {
+	get gridWidth(): number {
 		const { gridSize } = this.props;
 		return !(this.wrappedLayout || this.insideInlineLike) ? gridSize / 2 : gridSize;
 	}
 
-	calcOffsetLeft() {
+	calcOffsetLeft(): number {
 		let offsetLeft = 0;
 		if (this.wrapper && this.insideInlineLike) {
 			const currentNode: HTMLElement = this.wrapper;
@@ -155,7 +164,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		return offsetLeft;
 	}
 
-	calcColumnLeftOffset = () => {
+	calcColumnLeftOffset = (): number => {
 		const { offsetLeft } = this.state;
 		return this.insideInlineLike
 			? calcColumnsFromPx(offsetLeft, this.props.lineLength, this.props.gridSize)
@@ -164,7 +173,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
 	wrapper?: HTMLElement;
 
-	get wideLayoutWidth() {
+	get wideLayoutWidth(): number {
 		const { lineLength } = this.props;
 		if (lineLength) {
 			return Math.ceil(lineLength * breakoutWideScaleRatio);
@@ -182,7 +191,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		return !!findParentNodeOfTypeClosestToPos(this.$pos, table);
 	}
 
-	calcSnapPoints() {
+	calcSnapPoints(): number[] {
 		const { offsetLeft } = this.state;
 
 		const { containerWidth, lineLength } = this.props;
@@ -253,7 +262,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		return !!findParentNodeOfTypeClosestToPos($pos, [listItem]);
 	}
 
-	highlights = (newWidth: number, snapPoints: number[]) => {
+	highlights = (newWidth: number, snapPoints: number[]): string[] | number[] => {
 		const snapWidth = snapTo(newWidth, snapPoints);
 		const { layoutColumn, table, expand, nestedExpand, bodiedSyncBlock } =
 			this.props.view.state.schema.nodes;
@@ -354,7 +363,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		);
 	}
 
-	render() {
+	render(): jsx.JSX.Element {
 		const { layout, pctWidth, containerWidth, fullWidthMode, isResizeDisabled, children } =
 			this.props;
 

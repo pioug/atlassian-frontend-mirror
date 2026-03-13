@@ -66,7 +66,9 @@ type ToolbarButtonProps = Partial<TriggerProps> & {
 	testId?: string;
 };
 
-export const ToolbarButton = forwardRef(
+export const ToolbarButton: React.ForwardRefExoticComponent<
+	Omit<ToolbarButtonProps, 'ref'> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef(
 	(
 		{
 			iconBefore,

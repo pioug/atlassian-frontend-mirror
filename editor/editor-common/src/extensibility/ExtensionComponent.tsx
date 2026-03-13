@@ -7,6 +7,7 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { EventDispatcher } from '../event-dispatcher';
@@ -393,9 +394,14 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 				const NodeRenderer = extensionHandlerFromProvider;
 				if (node.type === 'multiBodiedExtension') {
 					return <NodeRenderer node={node} references={this.props.references} actions={actions} />;
-				} else {
-					return <NodeRenderer node={node} references={this.props.references} />;
 				}
+				return (
+					<NodeRenderer
+						node={node}
+						references={this.props.references}
+						showUnknownMacroPlaceholder={fg('tinymce_display_unknown_macro_body_content')}
+					/>
+				);
 			}
 		}
 

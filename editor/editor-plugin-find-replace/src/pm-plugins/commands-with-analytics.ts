@@ -51,7 +51,7 @@ export const findWithAnalytics =
 		containerElement: HTMLElement | null;
 		editorView: EditorView;
 		keyword?: string;
-	}) =>
+	}): Command =>
 		withAnalytics(editorAnalyticsAPI, {
 			eventType: EVENT_TYPE.TRACK,
 			action: ACTION.FIND_PERFORMED,

@@ -96,7 +96,9 @@ const keywordTokenMap: { [key: string]: TokenType } = {
 
 const keywordTokenMapKeys = Object.keys(keywordTokenMap);
 
-export function parseMacroKeyword(input: string) {
+export function parseMacroKeyword(input: string): {
+	type: TokenType;
+} | null {
 	for (let i = 0; i < macroKeywordTokenMap.length; i++) {
 		const keyword = macroKeywordTokenMap[i];
 		if (keyword.regex.test(input)) {
@@ -182,7 +184,9 @@ const leadingKeywordTokenMap: KeywordToken[] = [
 	},
 ];
 
-export function parseLeadingKeyword(input: string) {
+export function parseLeadingKeyword(input: string): {
+	type: TokenType;
+} | null {
 	for (let i = 0; i < leadingKeywordTokenMap.length; i++) {
 		const keyword = leadingKeywordTokenMap[i];
 		if (keyword.regex.test(input)) {
@@ -195,7 +199,12 @@ export function parseLeadingKeyword(input: string) {
 	return null;
 }
 
-export function parseIssueKeyword(input: string, issueKeyRegex?: RegExp) {
+export function parseIssueKeyword(
+	input: string,
+	issueKeyRegex?: RegExp,
+): {
+	type: TokenType;
+} | null {
 	if (issueKeyRegex && issueKeyRegex.test(input)) {
 		return {
 			type: TokenType.ISSUE_KEY,

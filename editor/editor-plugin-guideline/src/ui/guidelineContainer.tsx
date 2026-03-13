@@ -4,7 +4,7 @@
  */
 import { useLayoutEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import type { GuidelineConfig, GuidelineContainerRect } from '@atlaskit/editor-common/guideline';
@@ -32,7 +32,7 @@ type ContainerProps = {
 	width: number;
 };
 
-export const GuidelineContainer = (props: ContainerProps) => {
+export const GuidelineContainer = (props: ContainerProps): jsx.JSX.Element => {
 	const { guidelines, height, updateRect } = props;
 	const [offset, setOffset] = useState(0);
 

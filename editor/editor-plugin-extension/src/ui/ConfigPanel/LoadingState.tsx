@@ -2,7 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import type { ReactNode } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import { type IntlShape, injectIntl } from 'react-intl-next';
 import type { LoadingComponentProps } from 'react-loadable';
@@ -48,7 +50,9 @@ const LoadingStateWithoutErrorHandling = () => (
 	</div>
 );
 
-const LoadingState = (props: Partial<LoadingComponentProps>) =>
+const LoadingState = (
+	props: Partial<LoadingComponentProps>,
+): string | number | boolean | jsx.JSX.Element | Iterable<ReactNode> | null | undefined =>
 	editorExperiment('platform_editor_offline_editing_web', true)
 		? LoadingStateWithErrorHandling(props)
 		: LoadingStateWithoutErrorHandling();

@@ -48,6 +48,6 @@ const toDOM = () => {
 	return container;
 };
 
-export const createMarkBoundaryCursorDecoration = (pos: number, side: number) => {
+export const createMarkBoundaryCursorDecoration = (pos: number, side: number): Decoration => {
 	return Decoration.widget(pos, toDOM, { key: 'mark-boundary-cursor', side });
 };

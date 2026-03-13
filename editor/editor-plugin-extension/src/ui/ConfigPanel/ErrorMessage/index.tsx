@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
@@ -25,4 +25,8 @@ const ConfigPanelErrorMessage = ({ errorMessage, intl }: Props) => {
 	);
 };
 
-export default injectIntl(ConfigPanelErrorMessage);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props>> & {
+	WrappedComponent: React.ComponentType<Props>;
+} = injectIntl(ConfigPanelErrorMessage);
+export default _default_1;

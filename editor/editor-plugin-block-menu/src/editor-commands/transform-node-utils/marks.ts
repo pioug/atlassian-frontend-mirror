@@ -7,6 +7,6 @@ import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/mode
  * @param targetNode - The target node type to check against.
  * @returns The nodes with the marks removed.
  */
-export const removeDisallowedMarks = (nodes: PMNode[], targetNode: NodeType) => {
+export const removeDisallowedMarks = (nodes: PMNode[], targetNode: NodeType): PMNode[] => {
 	return nodes.map((node) => node.mark(targetNode.allowedMarks(node.marks)));
 };

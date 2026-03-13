@@ -26,7 +26,7 @@ const getRandomHexColor = () => {
 	return `#${hex.padStart(6, '0')}`;
 };
 
-export default () => {
+export default (): JSX.Element => {
 	const [asset, setAsset] = useState<AnonymousAsset>();
 	const [index, setIndex] = useState(0);
 	const [bgColor, setBgColor] = useState<string>('orange');

@@ -67,7 +67,9 @@ const isImagePreview = (preview: Preview): preview is ImagePreview => {
 	return 'dimensions' in preview;
 };
 
-export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
+export const LocalMedia: React.ForwardRefExoticComponent<
+	Props & React.RefAttributes<HTMLButtonElement>
+> = React.forwardRef<HTMLButtonElement, Props>(
 	({ mediaProvider, dispatchAnalyticsEvent, closeMediaInsertPicker, insertFile }: Props, ref) => {
 		const intl = useIntl();
 		const strings = {

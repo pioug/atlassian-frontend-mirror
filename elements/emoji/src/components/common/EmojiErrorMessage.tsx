@@ -50,7 +50,7 @@ export const emojiErrorMessageTestId = 'emoji-error-message';
 export const emojiErrorMessageTooltipTestId = 'emoji-error-message-tooltip';
 export const emojiErrorIconTestId = 'emoji-error-icon';
 
-const EmojiErrorMessage = (props: Props) => {
+const EmojiErrorMessage = (props: Props): JSX.Element => {
 	const { errorStyle, message, tooltip } = props;
 
 	const { formatMessage } = useIntl();

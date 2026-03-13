@@ -44,7 +44,54 @@ export const dateToDOM = (
 	state: EditorState,
 	getPos: getPosHandlerNode,
 	intl: IntlShape,
-) => {
+): [
+	string,
+	Record<string, string>,
+	(
+		| string
+		| {
+				class: string;
+		  }
+		| (
+				| string
+				| {
+						class: string;
+				  }
+		  )[]
+	)[],
+	(
+		| string
+		| Record<string, string>
+		| (
+				| string
+				| {
+						class: string;
+						style: string;
+				  }
+		  )[]
+	)[],
+	(
+		| (
+				| string
+				| {
+						class: string;
+						contentEditable: string;
+				  }
+				| (
+						| string
+						| {
+								class: string;
+						  }
+				  )[]
+		  )[]
+		| (
+				| string
+				| {
+						class: string;
+				  }
+		  )[]
+	),
+] => {
 	const timestamp = node.attrs.timestamp;
 	const pos = getPos?.();
 	const { displayString, color } = getDateInformation(timestamp, intl, state, pos);

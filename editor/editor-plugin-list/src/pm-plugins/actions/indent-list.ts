@@ -4,7 +4,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
 
 // adapted from https://github.com/ProseMirror/prosemirror-schema-list/blob/master/src/schema-list.js#L206:L231
-export const indentList = (tr: Transaction) => {
+export const indentList = (tr: Transaction): false | undefined => {
 	const { $from, $to } = tr.selection;
 	const { listItem } = tr.doc.type.schema.nodes;
 	const range = $from.blockRange(

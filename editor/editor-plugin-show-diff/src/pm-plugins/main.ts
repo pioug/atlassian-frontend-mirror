@@ -20,7 +20,9 @@ import { calculateDiffDecorations } from './calculateDiffDecorations';
 import { NodeViewSerializer } from './NodeViewSerializer';
 import { scrollToActiveDecoration } from './scrollToActiveDecoration';
 
-export const showDiffPluginKey = new PluginKey<ShowDiffPluginState>('showDiffPlugin');
+export const showDiffPluginKey: PluginKey<ShowDiffPluginState> = new PluginKey<ShowDiffPluginState>(
+	'showDiffPlugin',
+);
 
 export type ShowDiffPluginState = {
 	activeIndex?: number;
@@ -44,7 +46,7 @@ export const createPlugin = (
 	config: DiffParams | undefined,
 	getIntl: () => IntlShape,
 	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined,
-) => {
+): SafePlugin<ShowDiffPluginState> => {
 	const nodeViewSerializer = new NodeViewSerializer({});
 	const setNodeViewSerializer = (editorView: EditorView) => {
 		nodeViewSerializer.init({ editorView });
@@ -78,7 +80,7 @@ export const createPlugin = (
 							...currentPluginState,
 							...meta,
 							isDisplayingChanges: true,
-							activeIndex: 0,
+							activeIndex: undefined,
 						};
 						// Calculate and store decorations in state
 						const decorations = calculateDiffDecorations({
@@ -110,11 +112,19 @@ export const createPlugin = (
 						const decorations = getScrollableDecorations(currentPluginState.decorations);
 
 						if (decorations.length > 0) {
-							let nextIndex = currentPluginState.activeIndex ?? 0;
+							// Initialize to -1 if undefined so that the first "next" scroll takes us to index 0 (first change).
+							// This allows the UI to start with no selection and only highlight on first user interaction.
+							let nextIndex = currentPluginState.activeIndex ?? -1;
 							if (meta.action === 'SCROLL_TO_NEXT') {
 								nextIndex = (nextIndex + 1) % decorations.length;
 							} else {
-								nextIndex = (nextIndex - 1 + decorations.length) % decorations.length;
+								// Handle scrolling backwards from the uninitialized state.
+								// If at -1 (no selection), wrap to the last decoration.
+								if (nextIndex === -1) {
+									nextIndex = decorations.length - 1;
+								} else {
+									nextIndex = (nextIndex - 1 + decorations.length) % decorations.length;
+								}
 							}
 							const activeDecoration = decorations[nextIndex];
 							newPluginState = {
@@ -176,7 +186,7 @@ export const createPlugin = (
 							pluginState.activeIndex !== previousActiveIndex;
 						previousActiveIndex = pluginState?.activeIndex;
 
-						if (pluginState?.activeIndex && activeIndexChanged) {
+						if (pluginState?.activeIndex !== undefined && activeIndexChanged) {
 							scrollToActiveDecoration(
 								view,
 								getScrollableDecorations(pluginState.decorations),

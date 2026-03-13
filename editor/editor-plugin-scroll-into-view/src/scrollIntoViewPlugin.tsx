@@ -16,7 +16,7 @@ import type { ScrollIntoViewPlugin } from './scrollIntoViewPluginType';
  * transactions with addToHistory=false meta and typeahead trigger transactions
  */
 
-export const scrollIntoViewPluginKey = new PluginKey('scrollIntoViewPlugin');
+export const scrollIntoViewPluginKey: PluginKey = new PluginKey('scrollIntoViewPlugin');
 
 type TransactionWithScroll = Transaction & { scrolledIntoView: boolean };
 

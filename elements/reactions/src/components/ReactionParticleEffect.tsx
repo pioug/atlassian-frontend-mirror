@@ -87,7 +87,10 @@ interface ReactionParticleEffectProps {
 	emojiProvider: Promise<EmojiProvider>;
 }
 
-export const ReactionParticleEffect = ({ emojiProvider, emojiId }: ReactionParticleEffectProps) => (
+export const ReactionParticleEffect = ({
+	emojiProvider,
+	emojiId,
+}: ReactionParticleEffectProps): JSX.Element => (
 	<div css={containerStyle}>
 		{[...Array(PARTICLE_COUNT)].map((_, index) => {
 			return (

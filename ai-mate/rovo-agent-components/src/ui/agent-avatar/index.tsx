@@ -84,7 +84,7 @@ export const AgentAvatar = ({
 	isRovoDev,
 	isForgeAgent,
 	forgeAgentIconUrl,
-}: AgentAvatarProps) => {
+}: AgentAvatarProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const imgUrl = isForgeAgent && forgeAgentIconUrl ? forgeAgentIconUrl : imageUrl;

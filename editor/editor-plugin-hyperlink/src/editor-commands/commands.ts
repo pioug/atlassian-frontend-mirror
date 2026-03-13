@@ -236,7 +236,7 @@ export const insertLinkWithAnalytics = (
 	cardsAvailable: boolean = false,
 	sourceEvent: UIAnalyticsEvent | null | undefined = undefined,
 	appearance?: CardAppearance,
-) => {
+): Command => {
 	// If smart cards are available, we send analytics for hyperlinks when a smart link is rejected.
 	if (cardsAvailable && !title && !displayText) {
 		return insertLink(

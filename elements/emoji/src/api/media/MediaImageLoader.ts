@@ -63,11 +63,11 @@ export default class MediaImageLoader {
 		return pending;
 	}
 
-	getQueueSize() {
+	getQueueSize(): number {
 		return this.mediaImageQueue.length;
 	}
 
-	getActiveDownloads() {
+	getActiveDownloads(): number {
 		return this.activeProcessing;
 	}
 

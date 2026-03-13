@@ -2,10 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Component } from 'react';
+import { Component, type ComponentType, type FC } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import {
+	FormattedMessage,
+	injectIntl,
+	type WithIntlProps,
+	type WrappedComponentProps,
+} from 'react-intl-next';
 import AkButton from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import { Text } from '@atlaskit/primitives/compiled';
@@ -165,4 +170,8 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 	}
 }
 
-export default injectIntl(EmojiDeletePreview);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(EmojiDeletePreview);
+export default _default_1;

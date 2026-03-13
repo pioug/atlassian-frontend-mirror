@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { mentionMessages as messages } from '@atlaskit/editor-common/messages';
@@ -44,4 +44,8 @@ class ToolbarMention extends PureComponent<Props & WrappedComponentProps> {
 	};
 }
 
-export default injectIntl(ToolbarMention);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ToolbarMention);
+export default _default_1;

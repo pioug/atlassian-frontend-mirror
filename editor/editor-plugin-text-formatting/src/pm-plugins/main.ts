@@ -132,7 +132,10 @@ const getTextFormattingState = (
 	return state;
 };
 
-export const plugin = (dispatch: Dispatch, editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+export const plugin = (
+	dispatch: Dispatch,
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): SafePlugin<TextFormattingState> =>
 	new SafePlugin({
 		state: {
 			init(_config, state: EditorState): TextFormattingState {

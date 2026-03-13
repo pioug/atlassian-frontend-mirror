@@ -116,19 +116,19 @@ const valueContainerStyles = cssMap({
 		WebkitOverflowScrolling: 'touch',
 		position: 'relative',
 		overflow: 'hidden',
-		paddingTop: token('space.025'),
-		paddingRight: token('space.075'),
-		paddingBottom: token('space.025'),
-		paddingLeft: token('space.075'),
+		paddingBlockStart: token('space.025'),
+		paddingInlineEnd: token('space.075'),
+		paddingBlockEnd: token('space.025'),
+		paddingInlineStart: token('space.075'),
 	},
 	flex: {
 		display: 'flex',
 	},
 	compact: {
-		paddingTop: token('space.0'),
-		paddingRight: token('space.075'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.075'),
+		paddingBlockStart: token('space.0'),
+		paddingInlineEnd: token('space.075'),
+		paddingBlockEnd: token('space.0'),
+		paddingInlineStart: token('space.075'),
 	},
 });
 
@@ -153,6 +153,7 @@ export const ValueContainer: <Option, IsMulti extends boolean, Group extends Gro
 		'value-container--is-multi': isMulti,
 		'value-container--has-value': hasValue,
 	});
+
 	return (
 		<div
 			css={[

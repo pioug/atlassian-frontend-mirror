@@ -5,7 +5,7 @@
  * (packages/editor/editor-plugin-table/src/pm-plugins/utils/analytics.ts)
  */
 
-export const reduceResizeFrameRateSamples = (frameRateSamples: number[]) => {
+export const reduceResizeFrameRateSamples = (frameRateSamples: number[]): number[] => {
 	if (frameRateSamples.length > 1) {
 		const frameRateSum = frameRateSamples.reduce((sum, frameRate, index) => {
 			if (index === 0) {
@@ -39,7 +39,13 @@ type MeasureFramerateConfig = {
  * // ... animation loop with countFrames() calls
  * const samples = endMeasure(); // [60, 58, 62]
  */
-export const measureFramerate = (config?: MeasureFramerateConfig) => {
+export const measureFramerate = (
+	config?: MeasureFramerateConfig,
+): {
+	startMeasure: () => void;
+	endMeasure: () => number[];
+	countFrames: () => void;
+} => {
 	const {
 		maxSamples = 10,
 		minFrames = 5,
@@ -64,7 +70,7 @@ export const measureFramerate = (config?: MeasureFramerateConfig) => {
 	 * @example
 	 * const samples = endMeasure(); // [60, 58, 62]
 	 */
-	const endMeasure = () => {
+	const endMeasure = (): number[] => {
 		const samples = frameRateSamples;
 		frameRateSamples = [];
 		return samples;

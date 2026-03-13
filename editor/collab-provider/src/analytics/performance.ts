@@ -23,7 +23,7 @@ export const isPerformanceAPIAvailable = (): boolean => {
 	);
 };
 
-export const measureMap = new Map<string, number>();
+export const measureMap: Map<string, number> = new Map<string, number>();
 
 export function startMeasure(
 	measureName: MEASURE_NAME,

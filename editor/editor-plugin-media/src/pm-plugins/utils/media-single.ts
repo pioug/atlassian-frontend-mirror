@@ -1,4 +1,4 @@
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import type {
@@ -543,6 +543,8 @@ const replaceWithMediaSingleNode =
 		return mediaSingle.createChecked(extendedMediaSingleAttrs, copiedMediaNode);
 	};
 
-export const isVideo = memoizeOne((fileType?: string): boolean => {
-	return !!fileType && fileType.includes('video');
-});
+export const isVideo: MemoizedFn<(fileType?: string) => boolean> = memoizeOne(
+	(fileType?: string): boolean => {
+		return !!fileType && fileType.includes('video');
+	},
+);

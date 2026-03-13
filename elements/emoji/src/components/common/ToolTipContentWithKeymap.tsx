@@ -21,7 +21,7 @@ const tooltipShortcutStyle = css({
 	label: 'tooltip-shortcut',
 });
 
-export const ToolTipContentWithKeymap = React.memo(
+export const ToolTipContentWithKeymap: React.MemoExoticComponent<
 	({
 		description,
 		shortcutOverride,
@@ -30,7 +30,17 @@ export const ToolTipContentWithKeymap = React.memo(
 		description?: string | React.ReactNode;
 		keymap?: Keymap;
 		shortcutOverride?: string;
-	}) => {
+	}) => JSX.Element | null
+> = React.memo(
+	({
+		description,
+		shortcutOverride,
+		keymap,
+	}: {
+		description?: string | React.ReactNode;
+		keymap?: Keymap;
+		shortcutOverride?: string;
+	}): JSX.Element | null => {
 		const shortcut = shortcutOverride || (keymap && formatShortcut(keymap));
 		return shortcut || description ? (
 			<Fragment>

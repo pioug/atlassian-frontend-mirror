@@ -670,7 +670,7 @@ function mustPreserveItems(state: EditorState) {
 /// Set a flag on the given transaction that will prevent further steps
 /// from being appended to an existing history event (so that they
 /// require a separate undo command to undo).
-export function closeHistory(tr: Transaction) {
+export function closeHistory(tr: Transaction): Transaction {
 	return tr.setMeta(closeHistoryKey, true);
 }
 
@@ -750,18 +750,18 @@ function buildCommand(redo: boolean, scroll: boolean): Command {
 }
 
 /// A command function that undoes the last change, if any.
-export const undo = buildCommand(false, true);
+export const undo: Command = buildCommand(false, true);
 
 /// A command function that redoes the last undone change, if any.
-export const redo = buildCommand(true, true);
+export const redo: Command = buildCommand(true, true);
 
 /// A command function that undoes the last change. Don't scroll the
 /// selection into view.
-export const undoNoScroll = buildCommand(false, false);
+export const undoNoScroll: Command = buildCommand(false, false);
 
 /// A command function that redoes the last undone change. Don't
 /// scroll the selection into view.
-export const redoNoScroll = buildCommand(true, false);
+export const redoNoScroll: Command = buildCommand(true, false);
 
 /// The amount of undoable events available in a given state.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

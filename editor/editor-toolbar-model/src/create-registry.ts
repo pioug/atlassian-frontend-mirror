@@ -31,7 +31,11 @@ import type { RegisterComponent } from './types';
  *  },
  * ]);
  */
-export const createComponentRegistry = () => {
+export const createComponentRegistry = (): {
+	register: (newComponents: RegisterComponent[]) => void;
+	safeRegister: (newComponents: RegisterComponent[]) => void;
+	components: RegisterComponent[];
+} => {
 	const components: RegisterComponent[] = [];
 
 	const register = (newComponents: RegisterComponent[]): void => {

@@ -30,4 +30,5 @@ class ConfigurationOptions {
 	}
 }
 
-export default new ConfigurationOptions();
+const _default_1: ConfigurationOptions = new ConfigurationOptions();
+export default _default_1;

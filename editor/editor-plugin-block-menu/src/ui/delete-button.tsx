@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl, useIntl } from 'react-intl-next';
 
 import type { BlockMenuEventPayload, NodeDeletedAEP } from '@atlaskit/editor-common/analytics';
@@ -125,4 +125,7 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 	);
 };
 
-export const DeleteDropdownItem = injectIntl(DeleteDropdownItemContent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const DeleteDropdownItem: React.FC<WithIntlProps<Props>> & {
+	WrappedComponent: React.ComponentType<Props>;
+} = injectIntl(DeleteDropdownItemContent);

@@ -9,6 +9,7 @@
 import {
 	type ComponentType,
 	Fragment,
+	type MouseEvent as ReactMouseEvent,
 	type ReactNode,
 	useCallback,
 	useMemo,
@@ -148,7 +149,11 @@ export function useButtonInteraction(): {
 		() => ({
 			onMouseEnter: (): void => setIsOverButton(true),
 			onMouseLeave: (): void => setIsOverButton(false),
-			onMouseDown: (): void => {
+			onMouseDown: (e?: ReactMouseEvent<HTMLButtonElement>): void => {
+				// Prevent the browser from moving focus to the remove button on mousedown.
+				// Without this, parent composite widgets (e.g. Select) lose input focus when
+				// the user clicks remove, triggering unwanted blur side-effects.
+				e?.preventDefault();
 				hadMouseDownRef.current = true;
 			},
 			onFocus: (): void => {
@@ -209,7 +214,7 @@ interface UseRemoveButtonProps {
 	buttonHandlers?: {
 		onMouseEnter: () => void;
 		onMouseLeave: () => void;
-		onMouseDown: () => void;
+		onMouseDown: (e?: ReactMouseEvent<HTMLButtonElement>) => void;
 		onFocus: () => void;
 		onBlur: () => void;
 	};

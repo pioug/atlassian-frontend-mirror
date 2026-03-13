@@ -1,3 +1,4 @@
+import type { Extension } from '@codemirror/state';
 import { EditorView as CodeMirror } from '@codemirror/view';
 
 import type { EditorContentMode } from '@atlaskit/editor-common/types';
@@ -20,7 +21,7 @@ type ThemeOptions = {
 	contentMode?: EditorContentMode;
 };
 
-export const cmTheme = (options?: ThemeOptions) =>
+export const cmTheme = (options?: ThemeOptions): Extension =>
 	CodeMirror.theme({
 		'&': {
 			backgroundColor: token('color.background.neutral'),
@@ -90,7 +91,7 @@ export const cmTheme = (options?: ThemeOptions) =>
 		},
 	});
 
-export const codeFoldingTheme = CodeMirror.theme({
+export const codeFoldingTheme: Extension = CodeMirror.theme({
 	'.cm-gutter': {
 		paddingLeft: token('space.075'),
 		paddingTop: token('space.100'),

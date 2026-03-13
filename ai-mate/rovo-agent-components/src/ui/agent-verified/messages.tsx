@@ -1,6 +1,17 @@
 import { defineMessages } from 'react-intl-next';
 
-export default defineMessages({
+const _default_1: {
+	verifiedAgentTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	verifiedIconLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	verifiedAgentTooltip: {
 		id: 'agent-studio-ui-components.agent-verified.tooltip',
 		defaultMessage: 'This agent has been verified by your organization.',
@@ -12,3 +23,4 @@ export default defineMessages({
 		description: 'Verified icon label for the agent studio side navigation',
 	},
 });
+export default _default_1;

@@ -4,7 +4,7 @@ import {
 	ExperiencePerformanceTypes,
 	ExperienceTypes,
 } from '@atlaskit/ufo';
-import { withSampling } from '@atlaskit/emoji';
+import { withSampling, type WithSamplingUFOExperience } from '@atlaskit/emoji';
 
 /**
  * Initial experience config object (deferred from @atlaskit/ufo inner types)
@@ -59,7 +59,7 @@ export enum ComponentName {
 /**
  * Experience when the emoji picker is opened
  */
-export const PickerRender = new UFOExperience(
+export const PickerRender: UFOExperience = new UFOExperience(
 	ExperienceName.PICKER_OPENED,
 	createExperienceConfig(
 		ComponentName.PICKER_RENDERED,
@@ -71,7 +71,7 @@ export const PickerRender = new UFOExperience(
 /**
  * Experience when the list of reactions gets rendered
  */
-export const ReactionsRendered = new ConcurrentExperience(
+export const ReactionsRendered: ConcurrentExperience = new ConcurrentExperience(
 	ExperienceName.REACTIONS_RENDERED,
 	createExperienceConfig(
 		ComponentName.REACTIONS,
@@ -83,7 +83,7 @@ export const ReactionsRendered = new ConcurrentExperience(
 /**
  * Experience when a reaction emoji gets added
  */
-export const ReactionsAdd = new ConcurrentExperience(
+export const ReactionsAdd: ConcurrentExperience = new ConcurrentExperience(
 	ExperienceName.REACTION_ADDED,
 	createExperienceConfig(
 		ComponentName.REACTIONS,
@@ -95,7 +95,7 @@ export const ReactionsAdd = new ConcurrentExperience(
 /**
  * Expeirence when a reaction dialog is opened
  */
-export const ReactionDialogOpened = new UFOExperience(
+export const ReactionDialogOpened: UFOExperience = new UFOExperience(
 	ExperienceName.REACTION_DIALOG_OPENED,
 	createExperienceConfig(
 		ComponentName.REACTION_DIALOG,
@@ -107,7 +107,7 @@ export const ReactionDialogOpened = new UFOExperience(
 /**
  * Experience when a reaction changed/fetched from inside the modal dialog
  */
-export const ReactionDialogSelectedReactionChanged = new UFOExperience(
+export const ReactionDialogSelectedReactionChanged: UFOExperience = new UFOExperience(
 	ExperienceName.REACTION_DIALOG_SELECTED_REACTION_CHANGED,
 	createExperienceConfig(
 		ComponentName.REACTION_DIALOG,
@@ -119,7 +119,7 @@ export const ReactionDialogSelectedReactionChanged = new UFOExperience(
 /**
  * Experience when a reaction details gets fetched
  */
-export const ReactionDetailsFetch = new ConcurrentExperience(
+export const ReactionDetailsFetch: ConcurrentExperience = new ConcurrentExperience(
 	ExperienceName.REACTION_DETAILS_FETCHED,
 	createExperienceConfig(
 		ComponentName.REACTION_ITEM,
@@ -131,7 +131,7 @@ export const ReactionDetailsFetch = new ConcurrentExperience(
 /**
  * Experience when a reaction emoji gets removed/decrement
  */
-export const ReactionsRemove = new ConcurrentExperience(
+export const ReactionsRemove: ConcurrentExperience = new ConcurrentExperience(
 	ExperienceName.REACTION_REMOVED,
 	createExperienceConfig(
 		ComponentName.REACTIONS,
@@ -140,5 +140,5 @@ export const ReactionsRemove = new ConcurrentExperience(
 	),
 );
 
-export const sampledReactionsRendered = (instanceId: string) =>
+export const sampledReactionsRendered = (instanceId: string): WithSamplingUFOExperience =>
 	withSampling(ReactionsRendered.getInstance(instanceId));

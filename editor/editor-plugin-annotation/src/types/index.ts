@@ -175,7 +175,13 @@ export enum AnnotationSelectionType {
 }
 
 const prefix = 'ak-editor-annotation';
-export const AnnotationTestIds = {
+export const AnnotationTestIds: {
+	prefix: string;
+	floatingComponent: string;
+	floatingToolbarCreateButton: string;
+	componentSave: string;
+	componentClose: string;
+} = {
 	prefix,
 	floatingComponent: `${prefix}-floating-component`,
 	floatingToolbarCreateButton: `${prefix}-toolbar-create-button`,

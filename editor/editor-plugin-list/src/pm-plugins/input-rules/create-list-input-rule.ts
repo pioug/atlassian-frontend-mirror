@@ -7,6 +7,7 @@ import {
 	INPUT_METHOD,
 	JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
 } from '@atlaskit/editor-common/analytics';
+import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
 import { inputRuleWithAnalytics as ruleWithAnalytics } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -21,7 +22,11 @@ type Props = {
 
 const getOrder = (matchResult: RegExpExecArray) => Number(matchResult[1]);
 
-export function createRuleForListType({ listType, expression, editorAnalyticsApi }: Props) {
+export function createRuleForListType({
+	listType,
+	expression,
+	editorAnalyticsApi,
+}: Props): InputRuleWrapper {
 	let joinScenario: JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST =
 		JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST.NO_JOIN;
 

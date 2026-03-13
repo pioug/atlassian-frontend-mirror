@@ -22,7 +22,12 @@ const useLinkUpgradeDiscoverability = ({
 	pluginInjectionApi,
 	isPulseEnabled,
 	isOverlayEnabled,
-}: LinkUpgradeDiscoverabilityProps) => {
+}: LinkUpgradeDiscoverabilityProps): {
+	shouldShowToolbarPulse: boolean | undefined;
+	shouldShowLinkPulse: boolean | undefined;
+	shouldShowLinkOverlay: boolean | undefined;
+	isLinkMostRecentlyInserted: boolean;
+} => {
 	const [urlState, setUrlState] = useState(cardContext?.store?.getState()[url]);
 	const { overlayCandidatePosition, inlineCardAwarenessCandidatePosition } =
 		pluginInjectionApi?.card?.sharedState?.currentState() || {};

@@ -190,7 +190,9 @@ const MentionWithAnalytics = withAnalyticsEvents({
 	},
 })(MentionInternal);
 
-const Mention = MentionWithAnalytics;
+const Mention: React.ForwardRefExoticComponent<
+	Omit<OwnProps, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
+> = MentionWithAnalytics;
 type Mention = MentionInternal;
 
 export default Mention;

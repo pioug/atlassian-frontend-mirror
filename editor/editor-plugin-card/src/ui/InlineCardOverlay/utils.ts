@@ -3,14 +3,17 @@ import type { Size } from '@atlaskit/icon';
 /**
  * Find a child element inside a ref.
  */
-export const getChildElement = (ref: React.RefObject<HTMLElement>, selector: string) =>
+export const getChildElement = (
+	ref: React.RefObject<HTMLElement>,
+	selector: string,
+): HTMLElement | null | undefined =>
 	ref.current ? ref.current.querySelector<HTMLElement>(selector) : undefined;
 
 /**
  * Get the available width of the inline card.
  * (Mainly here to make the component unit testable.)
  */
-export const getInlineCardAvailableWidth = (startEl: HTMLElement, endEl: HTMLElement) => {
+export const getInlineCardAvailableWidth = (startEl: HTMLElement, endEl: HTMLElement): number => {
 	const start = startEl.getBoundingClientRect().left;
 	const end = endEl.getBoundingClientRect().left;
 
@@ -28,7 +31,13 @@ export const isOneLine = (startEl: HTMLElement, endEl: HTMLElement): boolean => 
  * Get max and min width of an overlay.
  * (Mainly here to make the component unit testable.)
  */
-export const getOverlayWidths = (overlayEl: HTMLElement, labelEl: HTMLElement) => {
+export const getOverlayWidths = (
+	overlayEl: HTMLElement,
+	labelEl: HTMLElement,
+): {
+	max: number;
+	min: number;
+} => {
 	const max = overlayEl.getBoundingClientRect().width;
 	const min = max - labelEl.getBoundingClientRect().width;
 

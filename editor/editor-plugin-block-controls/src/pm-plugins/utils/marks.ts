@@ -1,3 +1,4 @@
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -16,7 +17,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
  * // [indent, alignment]
  * ```
  */
-export const getActiveBlockMarks = (state: EditorState, pos: number) => {
+export const getActiveBlockMarks = (state: EditorState, pos: number): Mark[] => {
 	const { alignment } = state.schema.marks;
 	const resolvedPos = state.doc.resolve(pos);
 

@@ -9,8 +9,10 @@ const imageUploadAction = (tr: Transaction, action: ImageUploadPluginAction): Tr
 	return tr.setMeta(stateKey, action);
 };
 
-export const startUpload = (event?: ImageUploadPluginReferenceEvent) => (tr: Transaction) =>
-	imageUploadAction(tr, {
-		name: 'START_UPLOAD',
-		event,
-	});
+export const startUpload =
+	(event?: ImageUploadPluginReferenceEvent) =>
+	(tr: Transaction): Transaction =>
+		imageUploadAction(tr, {
+			name: 'START_UPLOAD',
+			event,
+		});

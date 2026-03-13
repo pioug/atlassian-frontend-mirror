@@ -49,7 +49,7 @@ export class PeriodTracking {
 	private latestHeavyTasks: Set<string>;
 
 	state: 'inactive' | 'active' = 'inactive';
-	pauses = new Set<string>();
+	pauses: Set<string> = new Set<string>();
 	/**
 	 * Warning: this can be reset mid period when pausing/resuming.
 	 * It's intended use is to build the `periodMeasurements` duration.
@@ -138,7 +138,43 @@ export class PeriodTracking {
 		}
 	}
 
-	get endResults() {
+	get endResults():
+		| {
+				active: {
+					count: number;
+					duration: number;
+					features: Set<string>;
+					heavyTasks: Set<string>;
+					measurements: { [key: string]: Measure };
+				};
+				inactive: {
+					count: number;
+					duration: number;
+					features: Set<string>;
+					heavyTasks: Set<string>;
+					measurements: { [key: string]: Measure };
+				};
+		  }
+		| {
+				active: {
+					features: string[];
+					heavyTasks: string[];
+					measurements: {
+						[key: string]: Measure;
+					};
+					duration: number;
+					count: number;
+				};
+				inactive: {
+					features: string[];
+					heavyTasks: string[];
+					measurements: {
+						[key: string]: Measure;
+					};
+					duration: number;
+					count: number;
+				};
+		  } {
 		this.changePeriodAndTrackLast(this.state);
 		if (fg('cc_editor_insm_fix_attributes')) {
 			return {

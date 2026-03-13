@@ -8,6 +8,7 @@ import {
 	type Selection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import type { CellSelection } from '@atlaskit/editor-tables';
 import { getTableSelectionClosesToPos } from '@atlaskit/editor-tables/utils';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
@@ -50,7 +51,10 @@ export const getSelectedSlicePosition = (
 	handlePos: number,
 	tr: Transaction,
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
-) => {
+): {
+	from: number;
+	to: number;
+} => {
 	const { anchor, head } = getMultiSelectionIfPosInside(api, handlePos, tr);
 	const inSelection = anchor !== undefined && head !== undefined;
 	const from = inSelection ? Math.min(anchor || 0, head || 0) : handlePos;
@@ -188,7 +192,10 @@ export const adjustSelectionBoundsForEdgePositions = (
  * @param $to The resolved position of the end of the selection
  * @returns A Selection or undefined if selection is invalid
  */
-export const createPreservedSelection = ($from: ResolvedPos, $to: ResolvedPos) => {
+export const createPreservedSelection = (
+	$from: ResolvedPos,
+	$to: ResolvedPos,
+): TextSelection | CellSelection | NodeSelection | undefined => {
 	const { doc } = $from;
 
 	const isCollapsed = $from.pos === $to.pos;

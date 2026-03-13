@@ -19,7 +19,7 @@ export const isSelectionInNode = (start: number, view: EditorView): boolean => {
 };
 
 // checks if the selection is in a text node
-export const isInTextSelection = (view: EditorView) => {
+export const isInTextSelection = (view: EditorView): boolean | undefined => {
 	const selection = view.state.selection;
 
 	if (selection instanceof TextSelection) {

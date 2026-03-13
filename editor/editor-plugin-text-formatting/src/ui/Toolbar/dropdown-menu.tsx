@@ -29,7 +29,22 @@ type DropdownMenuProps = {
 	toolbarType: ToolbarType;
 } & WrappedComponentProps;
 
-export const FormattingTextDropdownMenu = React.memo(
+export const FormattingTextDropdownMenu: React.MemoExoticComponent<
+	({
+		editorView,
+		moreButtonLabel,
+		isReducedSpacing,
+		items,
+		hasFormattingActive,
+		popupsBoundariesElement,
+		popupsMountPoint,
+		popupsScrollableElement,
+		hasMoreButton,
+		intl,
+		toolbarType,
+		isDisabled,
+	}: DropdownMenuProps) => React.JSX.Element
+> = React.memo(
 	({
 		editorView,
 		moreButtonLabel,

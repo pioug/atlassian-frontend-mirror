@@ -205,7 +205,37 @@ const currentQuery =
  * @deprecated
  *
  */
-export const createTypeAheadTools = (editorView: EditorView) => {
+export const createTypeAheadTools = (
+	editorView: EditorView,
+): {
+	isOpen: () => TypeAheadHandler | false;
+	currentQuery: () => string | undefined;
+	close: (options?: CloseOptions) => boolean;
+	openMention: (inputMethod: TypeAheadInputMethod) => boolean;
+	searchMention: (query?: string) => {
+		type: (appendValue: string) => Promise<TypeAheadItem[]> | undefined;
+		result: () => Promise<TypeAheadItem[] | undefined>;
+		close: (options?: CloseOptions) => boolean;
+		insert: ({ index, mode }: { index: number; mode?: SelectItemMode }) => Promise<void>;
+	};
+	openQuickInsert: (inputMethod: TypeAheadInputMethod) => boolean;
+	searchQuickInsert: (query?: string) => {
+		type: (appendValue: string) => Promise<TypeAheadItem[]> | undefined;
+		result: () => Promise<TypeAheadItem[] | undefined>;
+		close: (options?: CloseOptions) => boolean;
+		insert: ({ index, mode }: { index: number; mode?: SelectItemMode }) => Promise<void>;
+	};
+	openEmoji: (inputMethod: TypeAheadInputMethod) => boolean;
+	searchEmoji: (query?: string) => {
+		type: (appendValue: string) => Promise<TypeAheadItem[]> | undefined;
+		result: () => Promise<TypeAheadItem[] | undefined>;
+		close: (options?: CloseOptions) => boolean;
+		insert: ({ index, mode }: { index: number; mode?: SelectItemMode }) => Promise<void>;
+	};
+	insertItemMention: ({ contentItem, query, sourceListItem }: InsertItemProps) => boolean;
+	insertItemEmoji: ({ contentItem, query, sourceListItem }: InsertItemProps) => boolean;
+	insertItemQuickInsert: ({ contentItem, query, sourceListItem }: InsertItemProps) => boolean;
+} => {
 	const props: CommonProps = {
 		editorView,
 	};

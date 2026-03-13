@@ -3,13 +3,16 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 
-import type { SyncBlockAttrs, SyncBlockMap } from '../../types';
+import type { SyncBlockAttrs, SyncBlockInfo, SyncBlockMap } from '../../types';
 
 export const trackSyncBlocks = (
 	predicate: (node: PMNode) => boolean,
 	tr: Transaction,
 	state: EditorState,
-) => {
+): {
+	removed: SyncBlockInfo[];
+	added: SyncBlockInfo[];
+} => {
 	const removed: SyncBlockMap = {};
 	const added: SyncBlockMap = {};
 

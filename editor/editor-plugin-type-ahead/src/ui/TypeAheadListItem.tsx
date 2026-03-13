@@ -4,7 +4,7 @@
  */
 import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
@@ -219,7 +219,7 @@ const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapper
 	);
 });
 
-export const TypeAheadListItem = React.memo(
+export const TypeAheadListItem: React.MemoExoticComponent<
 	({
 		item,
 		itemsLength,
@@ -230,7 +230,19 @@ export const TypeAheadListItem = React.memo(
 		moreElementsInQuickInsertViewEnabled,
 		api,
 		firstOnlineSupportedIndex,
-	}: TypeAheadListItemProps) => {
+	}: TypeAheadListItemProps) => jsx.JSX.Element
+> = React.memo(
+	({
+		item,
+		itemsLength,
+		selectedIndex,
+		onItemClick,
+		itemIndex,
+		ariaLabel,
+		moreElementsInQuickInsertViewEnabled,
+		api,
+		firstOnlineSupportedIndex,
+	}: TypeAheadListItemProps): jsx.JSX.Element => {
 		const { connectivityMode } = useSharedPluginStateWithSelector(
 			api,
 			['connectivity'],

@@ -1,6 +1,15 @@
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 
-export const codeBlockClassNames = {
+export const codeBlockClassNames: {
+	container: string;
+	start: string;
+	end: string;
+	contentWrapper: string;
+	contentWrapped: string;
+	gutter: string;
+	content: string;
+	lineNumberWidget: string;
+} = {
 	container: CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER,
 	start: CodeBlockSharedCssClassName.CODEBLOCK_START,
 	end: CodeBlockSharedCssClassName.CODEBLOCK_END,

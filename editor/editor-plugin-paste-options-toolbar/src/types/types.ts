@@ -2,7 +2,7 @@ import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-export const pasteOptionsPluginKey = new PluginKey('paste-options');
+export const pasteOptionsPluginKey: PluginKey = new PluginKey('paste-options');
 
 export enum ToolbarDropdownOption {
 	Markdown,

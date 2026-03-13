@@ -6,7 +6,7 @@
 import type { SyntheticEvent } from 'react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { FormattedMessage, injectIntl } from 'react-intl-next';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
@@ -272,4 +272,8 @@ const InviteItemWithEmailDomain = ({
 	);
 };
 
-export default injectIntl(InviteItemWithEmailDomain);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(InviteItemWithEmailDomain);
+export default _default_1;

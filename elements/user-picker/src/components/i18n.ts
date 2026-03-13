@@ -182,6 +182,11 @@ export const messages = defineMessages({
 			'Guest groups can only access certain spaces and have limited access to user info.',
 		description: 'Tooltip text for lozenge showing that a group is for guests in Confluence',
 	},
+	archivedLozenge: {
+		id: 'fabric.elements.user-picker.archived.lozenge.text',
+		defaultMessage: 'Archived',
+		description: 'Text within the lozenge when the selected team has been archived/disbanded',
+	},
 	userTypeLabel: {
 		id: 'fabric.elements.user-picker.user.type.label',
 		defaultMessage: 'People',

@@ -1,5 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
 	createAndFireEvent,
+	UIAnalyticsEvent,
 	type AnalyticsEventPayload,
 	type CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
@@ -34,7 +36,10 @@ export const isSampled = (rate: number): boolean => {
 	return Math.random() * rate <= 1;
 };
 
-export const createAndFireEventInElementsChannel = createAndFireEvent('fabric-elements');
+export const createAndFireEventInElementsChannel: (
+	payload: AnalyticsEventPayload,
+) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent =
+	createAndFireEvent('fabric-elements');
 
 export const createAndFireSafe = <U extends any[], T extends (...args: U) => AnalyticsEventPayload>(
 	createAnalyticsEvent: CreateUIAnalyticsEvent | void,
@@ -72,10 +77,32 @@ const getPreviousState = (reaction?: ReactionSummary): PreviousState => {
 	return 'new';
 };
 
-export const createRestSucceededEvent = (actionSubject: string) =>
-	createPayload('succeeded', actionSubject, OPERATIONAL_EVENT_TYPE)();
+export const createRestSucceededEvent = (
+	actionSubject: string,
+): {
+	action: string;
+	actionSubject: string;
+	eventType: EventType;
+	actionSubjectId: string | undefined;
+	attributes: {
+		packageName: string;
+		packageVersion: string;
+	};
+} => createPayload('succeeded', actionSubject, OPERATIONAL_EVENT_TYPE)();
 
-export const createRestFailedEvent = (actionSubject: string, errorCode?: number) =>
+export const createRestFailedEvent = (
+	actionSubject: string,
+	errorCode?: number,
+): {
+	action: string;
+	actionSubject: string;
+	eventType: EventType;
+	actionSubjectId: string | undefined;
+	attributes: {
+		packageName: string;
+		packageVersion: string;
+	};
+} =>
 	createPayload(
 		'failed',
 		actionSubject,
@@ -84,7 +111,18 @@ export const createRestFailedEvent = (actionSubject: string, errorCode?: number)
 		errorCode,
 	});
 
-export const createReactionsRenderedEvent = (startTime: number) =>
+export const createReactionsRenderedEvent = (
+	startTime: number,
+): {
+	action: string;
+	actionSubject: string;
+	eventType: EventType;
+	actionSubjectId: string | undefined;
+	attributes: {
+		packageName: string;
+		packageVersion: string;
+	};
+} =>
 	createPayload(
 		'rendered',
 		'reactionView',
@@ -93,7 +131,18 @@ export const createReactionsRenderedEvent = (startTime: number) =>
 		duration: calculateDuration(startTime),
 	});
 
-export const createPickerButtonClickedEvent = (reactionEmojiCount: number) =>
+export const createPickerButtonClickedEvent = (
+	reactionEmojiCount: number,
+): {
+	action: string;
+	actionSubject: string;
+	eventType: EventType;
+	actionSubjectId: string | undefined;
+	attributes: {
+		packageName: string;
+		packageVersion: string;
+	};
+} =>
 	createPayload(
 		'clicked',
 		'reactionPickerButton',
@@ -102,7 +151,18 @@ export const createPickerButtonClickedEvent = (reactionEmojiCount: number) =>
 		reactionEmojiCount,
 	});
 
-export const createPickerCancelledEvent = (startTime?: number) =>
+export const createPickerCancelledEvent = (
+	startTime?: number,
+): {
+	action: string;
+	actionSubject: string;
+	eventType: EventType;
+	actionSubjectId: string | undefined;
+	attributes: {
+		packageName: string;
+		packageVersion: string;
+	};
+} =>
 	createPayload(
 		'cancelled',
 		'reactionPicker',
@@ -111,7 +171,18 @@ export const createPickerCancelledEvent = (startTime?: number) =>
 		duration: calculateDuration(startTime),
 	});
 
-export const createPickerMoreClickedEvent = (startTime?: number) =>
+export const createPickerMoreClickedEvent = (
+	startTime?: number,
+): {
+	action: string;
+	actionSubject: string;
+	eventType: EventType;
+	actionSubjectId: string | undefined;
+	attributes: {
+		packageName: string;
+		packageVersion: string;
+	};
+} =>
 	createPayload(
 		'clicked',
 		'reactionPicker',
@@ -126,7 +197,16 @@ export const createReactionSelectionEvent = (
 	emojiId: string,
 	reaction?: ReactionSummary,
 	startTime?: number,
-) =>
+): {
+	action: string;
+	actionSubject: string;
+	eventType: EventType;
+	actionSubjectId: string | undefined;
+	attributes: {
+		packageName: string;
+		packageVersion: string;
+	};
+} =>
 	createPayload(
 		'clicked',
 		'reactionPicker',
@@ -139,7 +219,18 @@ export const createReactionSelectionEvent = (
 		emojiId,
 	});
 
-export const createReactionHoveredEvent = (startTime?: number) =>
+export const createReactionHoveredEvent = (
+	startTime?: number,
+): {
+	action: string;
+	actionSubject: string;
+	eventType: EventType;
+	actionSubjectId: string | undefined;
+	attributes: {
+		packageName: string;
+		packageVersion: string;
+	};
+} =>
 	createPayload(
 		'hovered',
 		'existingReaction',
@@ -148,7 +239,18 @@ export const createReactionHoveredEvent = (startTime?: number) =>
 		duration: calculateDuration(startTime),
 	});
 
-export const createReactionFocusedEvent = (startTime?: number) =>
+export const createReactionFocusedEvent = (
+	startTime?: number,
+): {
+	action: string;
+	actionSubject: string;
+	eventType: EventType;
+	actionSubjectId: string | undefined;
+	attributes: {
+		packageName: string;
+		packageVersion: string;
+	};
+} =>
 	createPayload(
 		'focused',
 		'existingReaction',
@@ -157,7 +259,19 @@ export const createReactionFocusedEvent = (startTime?: number) =>
 		duration: calculateDuration(startTime),
 	});
 
-export const createReactionClickedEvent = (added: boolean, emojiId: string) =>
+export const createReactionClickedEvent = (
+	added: boolean,
+	emojiId: string,
+): {
+	action: string;
+	actionSubject: string;
+	eventType: EventType;
+	actionSubjectId: string | undefined;
+	attributes: {
+		packageName: string;
+		packageVersion: string;
+	};
+} =>
 	createPayload(
 		'clicked',
 		'existingReaction',

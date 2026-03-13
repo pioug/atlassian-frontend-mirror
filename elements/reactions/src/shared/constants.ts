@@ -35,7 +35,7 @@ export const ExtendedReactions: EmojiId[] = [
 /**
  * ES6 Map object from default emoji reactions (with key => shortName, value => entire emoji item)
  */
-export const DefaultReactionsByShortName = new Map<string, EmojiId>(
+export const DefaultReactionsByShortName: Map<string, EmojiId> = new Map<string, EmojiId>(
 	DefaultReactions.map((reaction) => [reaction.shortName, reaction]),
 );
 
@@ -43,7 +43,7 @@ export const DefaultReactionsByShortName = new Map<string, EmojiId>(
  * ES6 Map object from default emoji reactions (with key => shortName, value => entire emoji item)
  * Only for use in extended reaction examples
  */
-export const ExtendedReactionsByShortName = new Map<string, EmojiId>(
+export const ExtendedReactionsByShortName: Map<string, EmojiId> = new Map<string, EmojiId>(
 	ExtendedReactions.map((reaction) => [reaction.shortName, reaction]),
 );
 

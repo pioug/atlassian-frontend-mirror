@@ -22,7 +22,7 @@ export type TFilter = {
 	name: string;
 };
 
-const filterKey = Symbol('filter');
+const filterKey: unique symbol = Symbol('filter');
 
 export type TFilterData = {
 	[filterKey]: true;
@@ -47,7 +47,7 @@ export type TProject = {
 	name: string;
 };
 
-const projectKey = Symbol('project');
+const projectKey: unique symbol = Symbol('project');
 
 export type TProjectData = {
 	groupName: 'recent' | 'starred';
@@ -299,7 +299,7 @@ export function getInitialData(): TData {
 	};
 }
 
-const topLevelItemKey = Symbol('top-level');
+const topLevelItemKey: unique symbol = Symbol('top-level');
 
 type TTopLevelItemData = {
 	[topLevelItemKey]: true;

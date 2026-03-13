@@ -24,7 +24,7 @@ export function createMutationObserver({
 	onAttributeMutation,
 	onChildListMutation,
 	onMutationFinished,
-}: CreateMutationObserverProps) {
+}: CreateMutationObserverProps): MutationObserver | null {
 	if (!isBrowserSupported) {
 		return null;
 	}
@@ -156,7 +156,7 @@ export function createIntersectionObserver(props: {
 }
 
 // The LayoutShiftAttribution API is returning the numbers on physical dimension
-export function convertPhysicalToLogicalResolution(rect: DOMRect) {
+export function convertPhysicalToLogicalResolution(rect: DOMRect): DOMRect {
 	if (typeof window.devicePixelRatio !== 'number') {
 		return rect;
 	}
@@ -190,7 +190,9 @@ type CreatePerformanceObserverProps = {
 	onLayoutShift: (props: { changedRects: ChangedRect; startTime: DOMHighResTimeStamp }) => void;
 	onLongTask: (props: { duration: number; startTime: DOMHighResTimeStamp }) => void;
 };
-export function createPerformanceObserver(props: CreatePerformanceObserverProps) {
+export function createPerformanceObserver(
+	props: CreatePerformanceObserverProps,
+): PerformanceObserver | null {
 	if (typeof window.PerformanceObserver !== 'function') {
 		return null;
 	}

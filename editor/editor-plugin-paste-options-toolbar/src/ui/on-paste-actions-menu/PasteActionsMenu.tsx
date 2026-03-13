@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { EditorToolbarProvider, PASTE_MENU } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -18,7 +19,7 @@ import type {
 import { ToolbarDropdownOption } from '../../types/types';
 import { isToolbarVisible } from '../toolbar';
 
-import { hasVisibleButton } from './hasVisibleButton';
+import { getVisibleKeys, hasVisibleButton } from './hasVisibleButton';
 import { PasteActionsMenuContent } from './PasteActionsMenuContent';
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
@@ -58,10 +59,12 @@ export const PasteActionsMenu = ({
 	mountTo,
 	boundariesElement,
 	scrollableElement,
-}: PasteActionsMenuProps) => {
+}: PasteActionsMenuProps): React.JSX.Element | null => {
+	const editorAnalyticsAPI = api?.analytics?.actions;
 	const { lastContentPasted } = useSharedPluginStateWithSelector(api, ['paste'], (states) => ({
 		lastContentPasted: states.pasteState?.lastContentPasted,
 	}));
+	const prevShowToolbarRef = useRef(false);
 
 	useEffect(() => {
 		if (!lastContentPasted) {
@@ -106,6 +109,24 @@ export const PasteActionsMenu = ({
 			};
 		},
 	);
+
+	const aiSurfaceComponents = api?.uiControlRegistry?.actions.getComponents('ai-paste-menu') ?? [];
+	const visibleAiActionKeys = getVisibleKeys(aiSurfaceComponents, ['button', 'menu-item']);
+
+	useEffect(() => {
+		if (!prevShowToolbarRef.current && isToolbarShown) {
+			editorAnalyticsAPI?.fireAnalyticsEvent({
+				action: ACTION.OPENED,
+				actionSubject: ACTION_SUBJECT.PASTE_ACTIONS_MENU,
+				eventType: EVENT_TYPE.UI,
+				attributes: {
+					visibleAiActions: visibleAiActionKeys,
+				},
+			});
+		}
+		prevShowToolbarRef.current = isToolbarShown;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isToolbarShown, editorAnalyticsAPI]);
 
 	const preventEditorFocusLoss = useCallback((e: React.MouseEvent) => {
 		e.preventDefault();

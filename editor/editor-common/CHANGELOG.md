@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 112.0.0
+
+### Major Changes
+
+- [`0fda7892b26bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fda7892b26bc) -
+  [ux] Remove useSmartCardReloadAfterCache hook
+
+### Minor Changes
+
+- [`71de71e52182e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71de71e52182e) -
+  Remove @atlaskit/editor-plugin-ncs-metrics
+
+### Patch Changes
+
+- [`7091cae4a7f26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7091cae4a7f26) -
+  EDITOR-5607 Add analytics for new editor paste menu
+- [`71de71e52182e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71de71e52182e) -
+  Add experiment platform_editor_remove_collab_step_metrics which removes step metrics writes to
+  local storage from collab edit plugin
+- [`8240c1a7e1875`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8240c1a7e1875) -
+  In view mode allow replace document to override behaviour
+- Updated dependencies
+
+## 111.35.1
+
+### Patch Changes
+
+- [`db3c50fa8f5c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db3c50fa8f5c3) -
+  [ux] Display unknown macro body content when an extension fails to load in the editor, showing the
+  macro title, parameters, and body content instead of a generic error message.
+
 ## 111.35.0
 
 ### Minor Changes

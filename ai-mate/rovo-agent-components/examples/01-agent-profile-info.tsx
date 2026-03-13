@@ -24,7 +24,7 @@ const styles = cssMap({
 	},
 });
 
-export default function () {
+export default function (): JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<Grid xcss={styles.gridWrapper} gap="space.200">

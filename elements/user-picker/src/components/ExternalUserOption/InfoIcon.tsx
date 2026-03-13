@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { useCallback, useState } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
 import { N50, N200 } from '@atlaskit/theme/colors';
@@ -14,7 +14,7 @@ const wrapper = css({
 	marginRight: token('space.050', '4px'),
 });
 
-export default () => {
+export default (): jsx.JSX.Element => {
 	const [isMouseHovered, setHoverState] = useState(false);
 	const onMouseEnter = useCallback(() => setHoverState(true), [setHoverState]);
 	const onMouseLeave = useCallback(() => setHoverState(false), [setHoverState]);

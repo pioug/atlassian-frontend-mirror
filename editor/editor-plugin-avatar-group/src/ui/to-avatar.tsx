@@ -1,6 +1,6 @@
 import React from 'react';
 
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import type { IntlShape } from 'react-intl-next';
 
 import type { AvatarProps } from '@atlaskit/avatar-group';
@@ -35,6 +35,13 @@ const toAvatar = (
 	),
 });
 
-export default memoizeOne(toAvatar, function participantEquals([a], [b]) {
+const _default_1: MemoizedFn<
+	(
+		participant: CollabParticipant,
+		api: ExtractInjectionAPI<AvatarGroupPlugin> | undefined,
+		formatMessage: IntlShape['formatMessage'],
+	) => AvatarProps
+> = memoizeOne(toAvatar, function participantEquals([a], [b]) {
 	return a.name === b.name && a.avatar === b.avatar && a.sessionId === b.sessionId;
 });
+export default _default_1;

@@ -26,7 +26,7 @@ import { getMediaPluginState } from '../main';
 import { checkMediaType } from '../utils/check-media-type';
 import { currentMediaInlineNode, currentMediaNode } from '../utils/current-media-node';
 
-export const showLinkingToolbar = createMediaLinkingCommand((state) => {
+export const showLinkingToolbar: Command = createMediaLinkingCommand((state) => {
 	const mediaLinkingState = getMediaLinkingState(state);
 	if (mediaLinkingState && mediaLinkingState.mediaPos !== null) {
 		const node = state.doc.nodeAt(mediaLinkingState.mediaPos);
@@ -239,7 +239,7 @@ const fireAnalyticForMediaLink = <T extends MediaLinkAEP>(
 	return tr;
 };
 
-export const unlink = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+export const unlink = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
 	createMediaLinkingCommand(
 		{
 			type: MediaLinkingActionsTypes.unlink,
@@ -295,7 +295,7 @@ export const setUrlToMedia = (
 	url: string,
 	inputMethod: INPUT_METHOD.TYPEAHEAD | INPUT_METHOD.MANUAL,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) =>
+): Command =>
 	createMediaLinkingCommand(
 		{
 			type: MediaLinkingActionsTypes.setUrl,

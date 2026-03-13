@@ -28,7 +28,7 @@ export const appearanceForNodeType = (spec: NodeType): CardAppearance | undefine
 	return;
 };
 
-export const selectedCardAppearance = (state: EditorState) => {
+export const selectedCardAppearance = (state: EditorState): CardAppearance | undefined => {
 	if (state.selection instanceof NodeSelection) {
 		return appearanceForNodeType(state.selection.node.type);
 	}
@@ -57,10 +57,10 @@ export const mergeCardInfo = (titleUrlPair: TitleUrlPair, info?: CardInfo): Titl
 	};
 };
 
-export const displayInfoForCard = (node: Node, info?: CardInfo) =>
+export const displayInfoForCard = (node: Node, info?: CardInfo): TitleUrlPair =>
 	mergeCardInfo(titleUrlPairFromNode(node), info);
 
-export const findCardInfo = (state: EditorState) => {
+export const findCardInfo = (state: EditorState): CardInfo | undefined => {
 	const pluginState: CardPluginState | undefined = pluginKey.getState(state);
 	if (!pluginState) {
 		return undefined;
@@ -111,7 +111,8 @@ export const getResolvedAttributesFromStore = (
 	url: string,
 	display: string | null,
 	store?: CardContext['store'],
-) => {
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+): {} => {
 	if (!store) {
 		return {};
 	}
@@ -192,7 +193,11 @@ export const getAwarenessProps = (
 	allowEmbeds?: boolean,
 	allowBlockCards?: boolean,
 	disableOverlay = false,
-) => {
+): {
+	isPulseEnabled: boolean;
+	isOverlayEnabled: boolean;
+	isSelected: boolean;
+} => {
 	const getPosFunction = typeof getPos !== 'boolean' ? getPos : undefined;
 	const linkPosition = getPosFunction?.();
 

@@ -1,6 +1,32 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+	fieldsetLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	markTaskAsCompleted: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	markTaskAsNotCompleted: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	decisionAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	undefinedDecisionAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+} = defineMessages({
 	fieldsetLabel: {
 		id: 'fabric.editor.fieldsetLabel',
 		defaultMessage: 'Action Item List',

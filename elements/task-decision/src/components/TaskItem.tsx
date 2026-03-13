@@ -290,4 +290,7 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 	);
 };
 
-export default withAnalyticsEvents()(TaskItem);
+const _default_1: React.ForwardRefExoticComponent<
+	Omit<Props, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
+> = withAnalyticsEvents()(TaskItem);
+export default _default_1;

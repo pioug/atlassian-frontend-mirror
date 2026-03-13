@@ -2,10 +2,23 @@ import { findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { isDatasourceNode } from '../../pm-plugins/utils';
+import type { DatasourceNode } from '../../types';
 
 import { DATASOURCE_TABLE_LAYOUTS, type DatasourceTableLayout } from './types';
 
-export const getDatasource = (editorView: EditorView | undefined) => {
+export const getDatasource = (
+	editorView: EditorView | undefined,
+):
+	| {
+			depth: number;
+			node: DatasourceNode;
+			pos: number;
+			start: number;
+	  }
+	| {
+			node: undefined;
+			pos: undefined;
+	  } => {
 	if (editorView) {
 		const { selection, schema } = editorView.state;
 		const { blockCard } = schema.nodes;

@@ -162,7 +162,9 @@ const onSetVisibility = (view: EditorView) => (isVisible: boolean) => {
 	}
 };
 
-export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
+export const inlineCommentPlugin = (
+	options: InlineCommentPluginOptions,
+): SafePlugin<InlineCommentPluginState> => {
 	const { provider, featureFlagsPluginState, annotationManager } = options;
 
 	return new SafePlugin({

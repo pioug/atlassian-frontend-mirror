@@ -123,7 +123,10 @@ function createExportStatementsForExport(importName: string, filePath: string) {
 	return exportStatements.join('\n');
 }
 
-export function findExportedVariablesAndTypes(fileName: string) {
+export function findExportedVariablesAndTypes(fileName: string): {
+	variableExports: string[];
+	typeExports: string[];
+} {
 	const exportNames = getFileExportNames(fileName);
 	const statements = getFileTopLevelStatements(fileName);
 	const variableExports: string[] = [];

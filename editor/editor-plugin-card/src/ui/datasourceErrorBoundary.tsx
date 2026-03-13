@@ -25,7 +25,10 @@ export class DatasourceErrorBoundary extends React.Component<DatasourceErrorBoun
 		error: null,
 	};
 
-	static getDerivedStateFromError(error: Error | APIError) {
+	static getDerivedStateFromError(error: Error | APIError): {
+		isError: boolean;
+		error: Error | APIError;
+	} {
 		return { isError: true, error };
 	}
 
@@ -39,7 +42,14 @@ export class DatasourceErrorBoundary extends React.Component<DatasourceErrorBoun
 		}
 	}
 
-	render() {
+	render():
+		| string
+		| number
+		| boolean
+		| Iterable<React.ReactNode>
+		| React.JSX.Element
+		| null
+		| undefined {
 		const {
 			url,
 			unsupportedComponent: UnsupportedComponent,

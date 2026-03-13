@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugins
 
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Major Changes
+
+- [`71de71e52182e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71de71e52182e) -
+  Remove @atlaskit/editor-plugin-ncs-metrics
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.6
 
 ### Patch Changes

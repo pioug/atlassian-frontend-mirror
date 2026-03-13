@@ -3,7 +3,11 @@ import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemir
 
 import { pluginKey } from './plugin-key';
 
-export function createPlugin(dispatch: Function, imageEnabled: boolean, aiEnabled: boolean) {
+export function createPlugin(
+	dispatch: Function,
+	imageEnabled: boolean,
+	aiEnabled: boolean,
+): SafePlugin {
 	return new SafePlugin({
 		key: pluginKey,
 		state: {

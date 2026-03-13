@@ -108,7 +108,11 @@ export const prosemirrorDecorationPlugin = (
 	updateDecorationsEffect: Facet<DecorationSource>,
 	editorView: EditorView,
 	getPos: () => number | undefined,
-) =>
+): ViewPlugin<{
+	decorations: DecorationSet;
+	update: (update: ViewUpdate) => void;
+	updateDecorations: (view: CodeMirror) => DecorationSet;
+}> =>
 	ViewPlugin.fromClass(
 		class {
 			decorations: DecorationSet;

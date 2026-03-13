@@ -42,7 +42,7 @@ type TokenisedEmojiRepresentation = {
 };
 
 // Assume media is 95% of total upload time.
-export const mediaProportionOfProgress = 95 / 100;
+export const mediaProportionOfProgress: number = 95 / 100;
 
 export default class SiteEmojiResource {
 	private siteServiceConfig: ServiceConfig;

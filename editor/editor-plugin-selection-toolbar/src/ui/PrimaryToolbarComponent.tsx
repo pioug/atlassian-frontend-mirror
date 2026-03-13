@@ -33,7 +33,10 @@ type PrimaryToolbarComponentProps = {
  * A component used to renderer a pin/unpin
  * button to the toolbar to the or make it in-line.
  */
-export const PrimaryToolbarComponent = ({ api, disabled }: PrimaryToolbarComponentProps) => {
+export const PrimaryToolbarComponent = ({
+	api,
+	disabled,
+}: PrimaryToolbarComponentProps): JSX.Element => {
 	const intl = useIntl();
 	const mode = useSharedPluginStateSelector(api, 'connectivity.mode');
 	const isOffline = isOfflineMode(mode);

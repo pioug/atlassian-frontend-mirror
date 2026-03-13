@@ -1,6 +1,8 @@
 import React from 'react';
 
-const AsyncNoAccessTooltip = React.lazy(() =>
+const AsyncNoAccessTooltip: React.LazyExoticComponent<
+	({ name, children }: { children: React.ReactNode; name: string }) => React.JSX.Element
+> = React.lazy(() =>
 	import(
 		/* webpackChunkName: "@atlaskit-internal_@atlaskit/mention/no-access-tooltip" */ './main'
 	).then((module) => {

@@ -203,7 +203,7 @@ const canMoveToLayout = (
 		return;
 	}
 
-	const { layoutSection, layoutColumn, doc } = tr.doc.type.schema.nodes || {};
+	const { layoutSection, layoutColumn, doc, bodiedSyncBlock } = tr.doc.type.schema.nodes || {};
 
 	// layout plugin does not exist
 	if (!layoutSection || !layoutColumn) {
@@ -211,9 +211,17 @@ const canMoveToLayout = (
 	}
 
 	const $to = tr.doc.resolve(to);
+	const allowedParentTypes = [doc, layoutSection];
+	if (
+		bodiedSyncBlock &&
+		expValEquals('platform_synced_block', 'isEnabled', true) &&
+		expValEquals('platform_synced_block_patch_6', 'isEnabled', true)
+	) {
+		allowedParentTypes.push(bodiedSyncBlock);
+	}
 
 	// drop at invalid position, not top level, or not a layout column
-	if (!$to.nodeAfter || ![doc, layoutSection].includes($to.parent.type)) {
+	if (!$to.nodeAfter || !allowedParentTypes.includes($to.parent.type)) {
 		return;
 	}
 

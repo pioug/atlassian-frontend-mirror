@@ -3,7 +3,7 @@ import { PanelType } from '@atlaskit/adf-schema';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	findParentNode,
@@ -96,7 +96,10 @@ export const panelAttrsToDom = (
 	}
 };
 
-export const handleCut = (newState: EditorState, oldState: EditorState) => {
+export const handleCut = (
+	newState: EditorState,
+	oldState: EditorState,
+): Transaction | undefined => {
 	const newTr = newState.tr;
 	const { schema } = newState.doc.type;
 	if (panelContentCheck(newState, oldState)) {

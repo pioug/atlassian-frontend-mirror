@@ -85,7 +85,7 @@ export const handleBodiedSyncBlockCreation = (
 	bodiedSyncBlockAdded: SyncBlockInfo[],
 	editorState: EditorState,
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
-) => {
+): void => {
 	const syncBlockStore = syncedBlockPluginKey.getState(editorState).syncBlockStore;
 
 	bodiedSyncBlockAdded.forEach((node) => {

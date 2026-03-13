@@ -22,7 +22,7 @@ export const attachMoveNodeAnalytics = (
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 	fromNodeTypes?: string,
 	hasSelectedMultipleNodes?: boolean,
-) => {
+): boolean | undefined => {
 	return api?.analytics?.actions?.attachAnalyticsEvent({
 		eventType: EVENT_TYPE.TRACK,
 		action: ACTION.MOVED,
@@ -69,7 +69,10 @@ export const getMultiSelectAnalyticsAttributes = (
 	tr: Transaction,
 	anchor: number,
 	head: number,
-) => {
+): {
+	nodeTypes: string | undefined;
+	hasSelectedMultipleNodes: boolean;
+} => {
 	const nodeTypes: string[] = [];
 	const from = Math.min(anchor, head);
 	const to = Math.max(anchor, head);

@@ -60,7 +60,14 @@ const customEmojiTimings = [
 	},
 ];
 
-export const ufoExperiences = {
+export const ufoExperiences: {
+	'emoji-rendered': ConcurrentExperience;
+	'emoji-resource-fetched': ConcurrentExperience;
+	'emoji-picker-opened': UFOExperience;
+	'emoji-selection-recorded': UFOExperience;
+	'emoji-uploaded': UFOExperience;
+	'emoji-searched': UFOExperience;
+} = {
 	'emoji-rendered': new ConcurrentExperience(UfoExperienceName.EMOJI_RENDERED, {
 		platform: { component: UfoComponentName.EMOJI },
 		type: ExperienceTypes.Operation,
@@ -89,7 +96,7 @@ export const ufoExperiences = {
 	),
 };
 
-export const sampledUfoRenderedEmoji = (emojiId: EmojiId) => {
+export const sampledUfoRenderedEmoji = (emojiId: EmojiId): WithSamplingUFOExperience => {
 	return withSampling(
 		ufoExperiences['emoji-rendered'].getInstance(emojiId.id || emojiId.shortName),
 	);
@@ -102,6 +109,8 @@ export const hasUfoMarked = (
 	return ufoExperience.metrics.marks.some((mask) => mask.name === name);
 };
 
-export const sampledUfoEmojiResourceFetched = (providerType: ProviderTypes) => {
+export const sampledUfoEmojiResourceFetched = (
+	providerType: ProviderTypes,
+): WithSamplingUFOExperience => {
 	return withSampling(ufoExperiences['emoji-resource-fetched'].getInstance(providerType));
 };

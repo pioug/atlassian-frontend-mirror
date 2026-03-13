@@ -13,7 +13,7 @@ export const taskView = (
 	intl: IntlShape,
 	placeholder?: string,
 ) => {
-	return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
+	return (node: PMNode, view: EditorView, getPos: () => number | undefined): TaskItemNodeView => {
 		return new TaskItemNodeView(node, view, getPos, {
 			placeholder,
 			api,

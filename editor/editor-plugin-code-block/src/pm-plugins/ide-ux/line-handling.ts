@@ -9,7 +9,14 @@ export const isSelectionEntirelyInsideCodeBlock = (state: EditorState): boolean 
 export const isCursorInsideCodeBlock = (state: EditorState): boolean =>
 	!!getCursor(state.selection) && isSelectionEntirelyInsideCodeBlock(state);
 
-export const getStartOfCurrentLine = (state: EditorState) => {
+export const getStartOfCurrentLine = (
+	state: EditorState,
+): {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	text: string;
+	pos: number;
+} => {
 	const { $from } = state.selection;
 	if ($from.nodeBefore && $from.nodeBefore.isText) {
 		// Ignored via go/ees005
@@ -25,7 +32,14 @@ export const getStartOfCurrentLine = (state: EditorState) => {
 	return { text: '', pos: $from.pos };
 };
 
-export const getEndOfCurrentLine = (state: EditorState) => {
+export const getEndOfCurrentLine = (
+	state: EditorState,
+): {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	text: string;
+	pos: number;
+} => {
 	const { $to } = state.selection;
 	if ($to.nodeAfter && $to.nodeAfter.isText) {
 		// Ignored via go/ees005
@@ -41,7 +55,11 @@ export const getEndOfCurrentLine = (state: EditorState) => {
 	return { text: '', pos: $to.pos };
 };
 
-export function getLinesFromSelection(state: EditorState) {
+export function getLinesFromSelection(state: EditorState): {
+	text: string;
+	start: number;
+	end: number;
+} {
 	const { pos: start } = getStartOfCurrentLine(state);
 	const { pos: end } = getEndOfCurrentLine(state);
 	const text = state.doc.textBetween(start, end);
@@ -65,7 +83,16 @@ const SPACE = { token: ' ', size: 2, regex: /[^ ]/ };
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp
 const TAB = { token: '\t', size: 1, regex: /[^\t]/ };
-export const getLineInfo = (line: string) => {
+export const getLineInfo = (
+	line: string,
+): {
+	indentToken: {
+		token: string;
+		size: number;
+		regex: RegExp;
+	};
+	indentText: string;
+} => {
 	const indentToken = line.startsWith('\t') ? TAB : SPACE;
 	const indentLength = line.search(indentToken.regex);
 	const indentText = line.substring(0, indentLength >= 0 ? indentLength : line.length);

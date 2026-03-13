@@ -85,7 +85,7 @@ export const isNestedInTable = (state: EditorState): boolean => {
 	return true;
 };
 
-export const getParentNodeDepth = (selection: Selection) => {
+export const getParentNodeDepth = (selection: Selection): number => {
 	const parentNode = findParentNodeClosestToPos(selection.$from, () => true);
 	if (!parentNode) {
 		return 0;
@@ -112,7 +112,12 @@ export const containsExcludedNode = (content: Fragment): boolean => {
 	return false;
 };
 
-export const getMultipleSelectionAttributes = (content: Fragment) => {
+export const getMultipleSelectionAttributes = (
+	content: Fragment,
+): {
+	nodeTypes: string | undefined;
+	hasSelectedMultipleNodes: boolean;
+} => {
 	const nodeTypes: string[] = [];
 
 	if (content.size) {

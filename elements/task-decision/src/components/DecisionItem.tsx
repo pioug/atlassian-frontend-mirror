@@ -48,7 +48,7 @@ const DecisionItem = ({
 	placeholder,
 	showPlaceholder,
 	dataAttributes,
-}: Props) => {
+}: Props): JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const icon = (

@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.42.0
+
+### Minor Changes
+
+- [`f502fb4f37f79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f502fb4f37f79) -
+  [ux] add rovo agent logo
+
 ## 3.41.0
 
 ### Minor Changes

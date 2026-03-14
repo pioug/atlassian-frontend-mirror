@@ -627,3 +627,48 @@ describe('no-relative-barrel-file-imports', () => {
 		});
 	});
 });
+
+describe('named exports should not be converted to default exports', () => {
+	const PKG = `${BASE}/pkg-named-exports`;
+	const CONSUMER = `${PKG}/src/consumer.ts`;
+	const fs = createMockFs({
+		[`${W}/.git/config`]: '',
+		[`${PKG}/src/services/graphql/search-page/index.tsx`]: outdent`
+				export const searchPageQuery = { query: 'search' };
+				export const searchDialogQuery = { query: 'dialog' };
+			`,
+		[`${PKG}/src/services/graphql/search-page/config/index.ts`]: outdent`
+				export const getCombinedSearchConfig = () => ({ config: true });
+				export const updateCombinedConfigCacheEntry = () => {};
+			`,
+		[`${PKG}/src/services/index.tsx`]: outdent`
+				export { searchPageQuery, searchDialogQuery } from './graphql/search-page';
+				export { getCombinedSearchConfig, updateCombinedConfigCacheEntry } from './graphql/search-page/config';
+			`,
+		[CONSUMER]: '',
+	});
+
+	runWithFs('named-exports-not-converted-to-default', fs, {
+		valid: [],
+		invalid: [
+			{
+				code: `import { searchPageQuery, searchDialogQuery } from './services';`,
+				filename: CONSUMER,
+				errors: [{ messageId: 'barrelImport' }],
+				output: `import { searchPageQuery, searchDialogQuery } from './services/graphql/search-page';`,
+			},
+			{
+				code: `export { searchPageQuery, searchDialogQuery } from './services';`,
+				filename: CONSUMER,
+				errors: [{ messageId: 'barrelImport' }],
+				output: `export { searchPageQuery, searchDialogQuery } from './services/graphql/search-page';`,
+			},
+			{
+				code: `export { getCombinedSearchConfig, updateCombinedConfigCacheEntry } from './services';`,
+				filename: CONSUMER,
+				errors: [{ messageId: 'barrelImport' }],
+				output: `export { getCombinedSearchConfig, updateCombinedConfigCacheEntry } from './services/graphql/search-page/config';`,
+			},
+		],
+	});
+});

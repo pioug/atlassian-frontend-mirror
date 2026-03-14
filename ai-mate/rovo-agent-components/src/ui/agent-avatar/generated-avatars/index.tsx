@@ -213,6 +213,11 @@ const ReplitAgentAvatar = lazy(
 			/* webpackChunkName: "@atlaskit-rovo-avatar-ReplitAgentAvatar"*/ './assets/replit-agent'
 		),
 );
+
+const RovoAgentAvatar = lazy(
+	() =>
+		import(/* webpackChunkName: "@atlaskit-rovo-avatar-RovoAgentAvatar"*/ './assets/rovo-agent'),
+);
 /**
  * OOTB Agents avatars - end
  */
@@ -481,6 +486,12 @@ const outOfTheBoxAgentAvatar: {
 	mcp_replit_agent: {
 		getRender: (size: SizeType) => (
 			<ReplitAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
+	rovo_agent: {
+		getRender: (size: SizeType) => (
+			<RovoAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
 		color: blueColor,
 	},

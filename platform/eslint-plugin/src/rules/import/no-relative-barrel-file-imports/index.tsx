@@ -523,7 +523,7 @@ function transformExportSpecifiers({
 	specsWithOriginal: SpecifierWithOriginal[];
 }): { nameInSource: string; nameInLocal: string; kind?: 'type' | 'value' }[] {
 	return specsWithOriginal.map(({ originalName, nameInLocal, kind }) => ({
-		nameInSource: originalName || 'default',
+		nameInSource: originalName || nameInLocal,
 		nameInLocal,
 		kind,
 	}));

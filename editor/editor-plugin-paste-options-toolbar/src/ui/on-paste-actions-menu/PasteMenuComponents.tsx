@@ -119,19 +119,19 @@ const PasteMenuItem = ({ api, pasteType }: PasteMenuItemProps) => {
 
 			switch (pasteType) {
 				case 'rich-text':
-					changeToRichTextWithAnalytics(editorAnalyticsAPI)()(
+					changeToRichTextWithAnalytics(editorAnalyticsAPI, 'pasteMenu')()(
 						editorView.state,
 						editorView.dispatch,
 					);
 					break;
 				case 'markdown':
-					changeToMarkdownWithAnalytics(editorAnalyticsAPI, plaintextLength)()(
+					changeToMarkdownWithAnalytics(editorAnalyticsAPI, plaintextLength, 'pasteMenu')()(
 						editorView.state,
 						editorView.dispatch,
 					);
 					break;
 				case 'plain-text':
-					changeToPlainTextWithAnalytics(editorAnalyticsAPI, plaintextLength)()(
+					changeToPlainTextWithAnalytics(editorAnalyticsAPI, plaintextLength, 'pasteMenu')()(
 						editorView.state,
 						editorView.dispatch,
 					);

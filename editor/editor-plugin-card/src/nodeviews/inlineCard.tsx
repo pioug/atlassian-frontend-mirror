@@ -76,12 +76,22 @@ export const InlineCard: React.MemoExoticComponent<
 		const { url, data } = node.attrs;
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const refId = useRef(uuid());
+		const removeCardDispatched = useRef(false);
+
 		const { getState: getSmartlinkState } = cardContext?.value?.store || {};
 		const cardState = getSmartlinkState?.()[url || ''];
 
 		useEffect(() => {
 			const id = refId.current;
+			removeCardDispatched.current = false;
 			return () => {
+				if (
+					expValEquals('platform_editor_inline_card_dispatch_guard', 'isEnabled', true) &&
+					removeCardDispatched.current
+				) {
+					return;
+				}
+				removeCardDispatched.current = true;
 				const { tr } = view.state;
 				removeCard({ id })(tr);
 				view.dispatch(tr);
@@ -262,6 +272,7 @@ const selector = (
 };
 
 /**
+ * Inline card node view component that renders a Smart Link inline card within the editor.
  *
  * @param props
  * @example

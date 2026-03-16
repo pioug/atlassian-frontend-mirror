@@ -10,7 +10,6 @@ import { cssMap } from '@atlaskit/css';
 import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/experimental/open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -63,13 +62,6 @@ const containerStyles = cssMap({
 	},
 	fullHeightSidebar: {
 		paddingInlineEnd: token('space.150'),
-		// Pointer events are disabled on the top nav
-		// So we need to restore them for the slot
-		pointerEvents: 'auto',
-	},
-	fullHeightSidebarWithLayeringFixes: {
-		// No longer need to restore pointer events when layering fixes are enabled
-		paddingInlineEnd: token('space.150'),
 	},
 });
 
@@ -93,20 +85,6 @@ const listStyles = cssMap({
 		padding: token('space.100'),
 	},
 });
-
-function OpenLayerObserverNamespaceProviderBehindFG({
-	children,
-}: {
-	children: React.ReactNode;
-}): React.ReactNode {
-	return fg('platform-dst-side-nav-layering-fixes') ? (
-		<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
-			{children}
-		</OpenLayerObserverNamespaceProvider>
-	) : (
-		children
-	);
-}
 
 /**
  * __TopNavEnd__
@@ -159,12 +137,7 @@ export function TopNavEnd({
 			aria-label={label}
 			css={[
 				containerStyles.root,
-				isFhsEnabled &&
-					!fg('platform-dst-side-nav-layering-fixes') &&
-					containerStyles.fullHeightSidebar,
-				isFhsEnabled &&
-					fg('platform-dst-side-nav-layering-fixes') &&
-					containerStyles.fullHeightSidebarWithLayeringFixes,
+				isFhsEnabled && containerStyles.fullHeightSidebar,
 			]}
 		>
 			{isMobile ? (
@@ -176,9 +149,9 @@ export function TopNavEnd({
 					content={() => (
 						<HasCustomThemeContext.Provider value={false}>
 							<List xcss={cx(listStyles.root, listStyles.popupContainer)}>
-								<OpenLayerObserverNamespaceProviderBehindFG>
+								<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
 									{children}
-								</OpenLayerObserverNamespaceProviderBehindFG>
+								</OpenLayerObserverNamespaceProvider>
 							</List>
 						</HasCustomThemeContext.Provider>
 					)}
@@ -195,9 +168,9 @@ export function TopNavEnd({
 				/>
 			) : (
 				<List xcss={cx(listStyles.root, listStyles.hideOnSmallViewport)}>
-					<OpenLayerObserverNamespaceProviderBehindFG>
+					<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
 						{children}
-					</OpenLayerObserverNamespaceProviderBehindFG>
+					</OpenLayerObserverNamespaceProvider>
 				</List>
 			)}
 		</nav>

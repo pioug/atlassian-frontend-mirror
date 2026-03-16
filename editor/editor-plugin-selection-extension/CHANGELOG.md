@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 11.0.2
+
+### Patch Changes
+
+- [`a163b0b600d64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a163b0b600d64) -
+  [ux] Justify space between for dropdown item to always space lozange on right
+- Updated dependencies
+
+## 11.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.0
 
 ### Patch Changes

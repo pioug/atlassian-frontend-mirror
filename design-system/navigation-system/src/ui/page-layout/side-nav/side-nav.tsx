@@ -43,7 +43,6 @@ import {
 	sideNavLiveWidthVar,
 	sideNavPanelSplitterId,
 	sideNavVar,
-	topNavMountedVar,
 	UNSAFE_sideNavLayoutVar,
 } from '../constants';
 import { DangerouslyHoistSlotSizes } from '../hoist-slot-sizes-context';
@@ -344,25 +343,6 @@ const styles = cssMap({
 			gridArea: 'main',
 			transitionTimingFunction: 'cubic-bezier(0, 0.4, 0, 1)',
 			transform: 'translateX(calc(-100% * var(--animation-direction)))',
-		},
-	},
-	fullHeightSidebar: {
-		'@media (min-width: 64rem)': {
-			// We want it to overlap the top nav
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			height: `calc(100vh - var(${bannerMountedVar}, 0px))`,
-
-			// This is the stick point for the sticky positioning, only relevant if the whole page scrolls for some reason
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			insetBlockStart: `calc(var(${bannerMountedVar}, 0px))`,
-
-			// Push the side nav items down, creating room for the top nav start items
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			paddingBlockStart: `calc(var(${topNavMountedVar}, 0px))`,
-
-			// Bleed for the side nav to overlap the top nav, relevant for the initial positioning / when the whole page is not scrolled
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			marginBlockStart: `calc(-1 * var(${topNavMountedVar}, 0px))`,
 		},
 	},
 });
@@ -1101,8 +1081,6 @@ function SideNavInternal({
 		panelId: sideNavPanelSplitterId,
 	});
 
-	const isFlyoutClosed = sideNavState?.flyout === 'closed' || sideNavState?.flyout === undefined;
-
 	const isExpandedStateDifferentFromInitial =
 		isExpandedOnMobile || isExpandedOnDesktop !== initialIsExpandedOnDesktop;
 
@@ -1221,11 +1199,7 @@ function SideNavInternal({
 						!isFirefox &&
 						isFhsEnabled &&
 						styles.flyoutAnimateClosedFullHeightSidebar,
-					// Flyout is not using full height styles
-					isFlyoutClosed &&
-						isFhsEnabled &&
-						!fg('platform-dst-side-nav-layering-fixes') &&
-						styles.fullHeightSidebar,
+
 				]}
 				data-testid={testId}
 			>
@@ -1254,29 +1228,19 @@ function SideNavInternal({
 				<PanelSplitterProvider
 					panelId={sideNavPanelSplitterId}
 					panelRef={navRef}
-					portalRef={
-						isFhsEnabled && fg('platform-dst-side-nav-layering-fixes')
-							? panelSplitterPortalTargetRef
-							: undefined
-					}
+					portalRef={isFhsEnabled ? panelSplitterPortalTargetRef : undefined}
 					panelWidth={width}
 					onCompleteResize={setWidth}
 					getResizeBounds={getResizeBounds}
 					resizingCssVar={panelSplitterResizingVar}
 					// Not resizable when in peek (flyout) mode.
-					isEnabled={
-						fg('platform-dst-side-nav-layering-fixes')
-							? !isFlyoutVisible
-							: // Old behaviour has a bug: the panel splitter would only be visible on sm screens (between 48rem and 64rem)
-								// if the side nav was expanded on desktop.
-								isExpandedOnDesktop && !isFlyoutVisible
-					}
+					isEnabled={!isFlyoutVisible}
 					shortcut={isShortcutEnabled ? sideNavToggleTooltipKeyboardShortcut : undefined}
 				>
 					<div css={styles.flexContainer}>{children}</div>
 				</PanelSplitterProvider>
 			</nav>
-			{isFhsEnabled && fg('platform-dst-side-nav-layering-fixes') && (
+			{isFhsEnabled && (
 				// The side nav panel splitter is rendered outside of the side nav, so it can be layered above the top nav,
 				// while the actual side nav is layered below the top nav.
 				<div

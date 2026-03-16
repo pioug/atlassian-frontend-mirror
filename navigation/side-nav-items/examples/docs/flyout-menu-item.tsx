@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
-import Heading from '@atlaskit/heading';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import BoardIcon from '@atlaskit/icon/core/board';
 import ClockIcon from '@atlaskit/icon/core/clock';
@@ -13,13 +12,16 @@ import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import {
 	COLLAPSE_ELEM_BEFORE,
+	FlyoutBody,
+	FlyoutFooter,
+	FlyoutHeader,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
-import { Divider, MenuSection, MenuSectionHeading } from '@atlaskit/side-nav-items/menu-section';
+import { MenuSection, MenuSectionHeading } from '@atlaskit/side-nav-items/menu-section';
 import Textfield from '@atlaskit/textfield';
 
 import CDProjectIcon from '../images/cd.svg';
@@ -32,12 +34,7 @@ const exampleHref = '#example-href';
 function MyFlyoutMenuItemContent() {
 	return (
 		<FlyoutMenuItemContent>
-			<Box paddingInlineStart="space.075" paddingBlock="space.100">
-				<Heading size="xsmall" as="span">
-					Recent
-				</Heading>
-			</Box>
-			<Box paddingInline="space.050" paddingBlock="space.075">
+			<FlyoutHeader title="Recent" closeButtonLabel="Close menu">
 				<Inline space="space.100">
 					<Textfield
 						isCompact
@@ -54,46 +51,48 @@ function MyFlyoutMenuItemContent() {
 					/>
 					<IconButton icon={FilterIcon} label="" />
 				</Inline>
-			</Box>
-			<MenuSection>
-				<MenuSectionHeading>This week</MenuSectionHeading>
+			</FlyoutHeader>
+			<FlyoutBody>
+				<MenuSection>
+					<MenuSectionHeading>This week</MenuSectionHeading>
+					<MenuList>
+						<LinkMenuItem
+							href={exampleHref}
+							elemBefore={<BoardIcon label="" spacing="spacious" />}
+							description="5 days ago"
+						>
+							My Kanban Project
+						</LinkMenuItem>
+						<LinkMenuItem
+							href={exampleHref}
+							elemBefore={<ContainerAvatar src={CDProjectIcon} />}
+							description="6 days ago"
+						>
+							Business projects
+						</LinkMenuItem>
+					</MenuList>
+				</MenuSection>
+
+				<MenuSection>
+					<MenuSectionHeading>This month</MenuSectionHeading>
+					<MenuList>
+						<LinkMenuItem
+							href={exampleHref}
+							elemBefore={<BoardIcon label="" spacing="spacious" />}
+							description="5 days ago"
+						>
+							KO Board
+						</LinkMenuItem>
+					</MenuList>
+				</MenuSection>
+			</FlyoutBody>
+			<FlyoutFooter>
 				<MenuList>
-					<LinkMenuItem
-						href={exampleHref}
-						elemBefore={<BoardIcon label="" spacing="spacious" />}
-						description="5 days ago"
-					>
-						My Kanban Project
-					</LinkMenuItem>
-					<LinkMenuItem
-						href={exampleHref}
-						elemBefore={<ContainerAvatar src={CDProjectIcon} />}
-						description="6 days ago"
-					>
-						Business projects
+					<LinkMenuItem href={exampleHref} elemBefore={<AlignTextLeftIcon label="" />}>
+						View all recent items
 					</LinkMenuItem>
 				</MenuList>
-			</MenuSection>
-
-			<MenuSection>
-				<MenuSectionHeading>This month</MenuSectionHeading>
-				<MenuList>
-					<LinkMenuItem
-						href={exampleHref}
-						elemBefore={<BoardIcon label="" spacing="spacious" />}
-						description="5 days ago"
-					>
-						KO Board
-					</LinkMenuItem>
-				</MenuList>
-			</MenuSection>
-
-			<Divider />
-			<MenuList>
-				<LinkMenuItem href={exampleHref} elemBefore={<AlignTextLeftIcon label="" />}>
-					View all recent items
-				</LinkMenuItem>
-			</MenuList>
+			</FlyoutFooter>
 		</FlyoutMenuItemContent>
 	);
 }

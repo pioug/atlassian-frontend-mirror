@@ -7,7 +7,6 @@ import { useContext } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useSkipLinkInternal } from '../../context/skip-links/skip-links-context';
 import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';
@@ -29,7 +28,7 @@ const styles = cssMap({
 		zIndex: localSlotLayers.banner,
 		overflow: 'hidden',
 	},
-	fullHeightSidebarWithLayeringFixes: {
+	fullHeightSidebar: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		zIndex: localSlotLayers.bannerFHS,
 	},
@@ -88,9 +87,7 @@ export function Banner({
 			data-layout-slot
 			css={[
 				styles.root,
-				isFhsEnabled &&
-					fg('platform-dst-side-nav-layering-fixes') &&
-					styles.fullHeightSidebarWithLayeringFixes,
+				isFhsEnabled && styles.fullHeightSidebar,
 			]}
 			className={xcss}
 			data-testid={testId}

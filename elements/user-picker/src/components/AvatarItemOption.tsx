@@ -6,9 +6,10 @@ import React, { type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import Lozenge from '@atlaskit/lozenge';
+import Tag, { type TagColor } from '@atlaskit/tag';
 import { token } from '@atlaskit/tokens';
 
-import { type LozengeProps } from '../types';
+import { type LozengeColor, type LozengeProps } from '../types';
 import { isLozengeText } from './utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -123,6 +124,15 @@ export const textWrapper = (color?: string): SerializedStyles => {
 	});
 };
 
+const lozengeAppearanceToTagColor: Record<LozengeColor, TagColor> = {
+	default: 'standard',
+	success: 'lime',
+	removed: 'red',
+	inprogress: 'blue',
+	new: 'purple',
+	moved: 'orange',
+};
+
 export type AvatarItemOptionProps = {
 	avatar: ReactNode;
 	isDisabled?: boolean;
@@ -138,7 +148,30 @@ export const AvatarItemOption = ({
 	primaryText,
 	secondaryText,
 }: AvatarItemOptionProps): jsx.JSX.Element => {
-	const renderLozenge = () => {
+	const renderTag = (): ReactNode => {
+		if (isLozengeText(lozenge) && !lozenge.isBold) {
+			const color = lozenge.appearance
+				? lozengeAppearanceToTagColor[lozenge.appearance]
+				: 'standard';
+			const tag = (
+				<Tag text={lozenge.text} color={color} isRemovable={false} migration_fallback="lozenge" />
+			);
+
+			if (lozenge.tooltip) {
+				return (
+					<React.Suspense fallback={tag}>
+						<AsyncTooltip content={lozenge.tooltip}>{tag}</AsyncTooltip>
+					</React.Suspense>
+				);
+			}
+
+			return tag;
+		}
+
+		return renderLozenge();
+	};
+
+	const renderLozenge = (): ReactNode => {
 		if (isLozengeText(lozenge)) {
 			if (lozenge?.tooltip) {
 				// Note that entire Lozenge must be wrapped in the Tooltip (rather than just the
@@ -170,7 +203,11 @@ export const AvatarItemOption = ({
 					{secondaryText && <div css={getTextStyle(true)}>{secondaryText}</div>}
 				</div>
 			</div>
-			{lozenge && <div css={additionalInfo}>{renderLozenge()}</div>}
+			{lozenge && (
+				<div css={additionalInfo}>
+					{fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? renderTag() : renderLozenge()}
+				</div>
+			)}
 		</span>
 	);
 };

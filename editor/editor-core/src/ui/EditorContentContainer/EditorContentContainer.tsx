@@ -121,6 +121,7 @@ import { hyperLinkFloatingToolbarStyles, linkStyles } from './styles/link';
 import {
 	diffListStyles,
 	getDenseListStyles,
+	listItemHiddenMarkerStyles,
 	listsStyles,
 	listsStylesMarginLayoutShiftFix,
 	listsStylesSafariFix,
@@ -416,6 +417,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					textHighlightPaddingStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					listsStyles,
+					expValEqualsNoExposure('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						listItemHiddenMarkerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					diffListStyles,
 					// Condense vertical spacing between list items when content mode dense is active

@@ -22,27 +22,6 @@ test.describe('skip links', () => {
 		expect(`#${activeElementId}`).toEqual(skipLinkHref);
 	});
 
-	test('should move focus after clicking the skip link (with React 18 useId)', async ({ page }) => {
-		/**
-		 * This test case exists because the `useId()` hook in React 18 has ids with `:` characters.
-		 *
-		 * This previously broke our skip links.
-		 */
-		await page.visitExample('design-system', 'navigation-system', 'composition', {
-			featureFlag: 'platform-dst-react-18-use-id',
-		});
-
-		const bannerSkipLink = page.getByRole('link', { name: 'Banner', includeHidden: true });
-
-		await bannerSkipLink.focus();
-		await bannerSkipLink.click();
-
-		const skipLinkHref = await bannerSkipLink.getAttribute('href');
-		const activeElementId = await page.evaluate(() => document.activeElement?.id);
-
-		expect(`#${activeElementId}`).toEqual(skipLinkHref);
-	});
-
 	test('should not be visible until it has focus', async ({ page }) => {
 		await page.visitExample('design-system', 'navigation-system', 'composition');
 

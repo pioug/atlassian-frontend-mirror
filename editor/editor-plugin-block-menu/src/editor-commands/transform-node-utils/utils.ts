@@ -3,7 +3,6 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type ContentNodeWithPos, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { NodeTypeName } from './types';
 import { NODE_CATEGORY_BY_TYPE } from './types';
@@ -90,14 +89,10 @@ export const convertNestedExpandToExpand = (node: PMNode, schema: Schema): PMNod
 		return null;
 	}
 
-	// [FEATURE FLAG: platform_editor_block_menu_expand_localid_fix]
-	// Pre-assigns a localId so the localId plugin's appendTransaction does not replace the node
-	// object, preserving the expandedState WeakMap entry set in transformNode.ts.
-	// To clean up: remove the if-else, always include localId in attrs.
-	const localIdAttr = fg('platform_editor_block_menu_expand_localid_fix')
-		? { localId: crypto.randomUUID() }
-		: {};
-	return expandType.createAndFill({ title: node.attrs?.title || '', ...localIdAttr }, node.content);
+	return expandType.createAndFill(
+		{ title: node.attrs?.title || '', localId: crypto.randomUUID() },
+		node.content,
+	);
 };
 
 /**
@@ -111,14 +106,8 @@ export const convertExpandToNestedExpand = (node: PMNode, schema: Schema): PMNod
 		return null;
 	}
 
-	// [FEATURE FLAG: platform_editor_block_menu_expand_localid_fix]
-	// Same localId pre-assignment rationale as convertNestedExpandToExpand above.
-	// To clean up: remove the if-else, always include localId in attrs.
-	const localIdAttr = fg('platform_editor_block_menu_expand_localid_fix')
-		? { localId: crypto.randomUUID() }
-		: {};
 	return nestedExpandType.createAndFill(
-		{ title: node.attrs?.title || '', ...localIdAttr },
+		{ title: node.attrs?.title || '', localId: crypto.randomUUID() },
 		node.content,
 	);
 };

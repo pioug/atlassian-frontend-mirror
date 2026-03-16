@@ -1,5 +1,12 @@
 # @atlaskit/ds-lib
 
+## 6.0.0
+
+### Major Changes
+
+- [`ff38389affe15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff38389affe15) -
+  Tidies the react-uid => react.useId() feature gates to use concurrent safe ids n
+
 ## 5.4.0
 
 ### Minor Changes

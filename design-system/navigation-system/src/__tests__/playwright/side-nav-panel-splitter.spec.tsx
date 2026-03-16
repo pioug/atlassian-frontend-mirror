@@ -14,7 +14,7 @@ test.describe('side nav panel splitter', () => {
 		await page.visitExample('design-system', 'navigation-system', 'resizable-slots', {
 			// Enabling both feature flags by setting the featureFlag query parameter twice
 			featureFlag:
-				'navx-full-height-sidebar&featureFlag=platform-dst-side-nav-layering-fixes&featureFlag=platform_dst_nav4_side_nav_resize_tooltip_feedback',
+				'navx-full-height-sidebar&featureFlag=platform_dst_nav4_side_nav_resize_tooltip_feedback',
 		});
 	});
 
@@ -104,7 +104,7 @@ test.describe('side nav panel splitter', () => {
 			await expect(sideNavPanelSplitter).toBeVisible();
 		});
 
-		// Explicitly testing this scenario as it was a previous bug. It is fixed in fg('platform-dst-side-nav-layering-fixes').
+		// Explicitly testing this scenario as it was a previous bug.
 		test('side nav panel splitter should be visible [mobile=expanded, desktop=collapsed]', async ({
 			page,
 		}) => {

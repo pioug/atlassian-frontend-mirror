@@ -33,6 +33,7 @@ import {
 	TEXT_BLOCK_TYPES,
 	WRAPPER_BLOCK_TYPES,
 	getBlockTypesInDropdown,
+	SMALL_TEXT,
 } from './block-types';
 import { setHeadingWithAnalytics, setNormalTextWithAnalytics } from './commands/block-type';
 import { HEADING_KEYS, HEADING_NUMPAD_KEYS } from './consts';
@@ -54,6 +55,11 @@ const blockTypeForNode = (node: Node, schema: Schema): BlockType => {
 		if (maybeNode) {
 			return maybeNode;
 		}
+	} else if (
+		node.marks.some((m) => m.type.name === 'fontSize' && m.attrs.fontSize === 'small') &&
+		expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+	) {
+		return SMALL_TEXT;
 	} else if (node.type === schema.nodes.paragraph) {
 		return NORMAL_TEXT;
 	} else if (node.type === schema.nodes.blockquote) {
@@ -73,6 +79,11 @@ const isBlockTypeSchemaSupported = (blockType: BlockType, state: EditorState) =>
 		case HEADING_5:
 		case HEADING_6:
 			return !!state.schema.nodes.heading;
+		case SMALL_TEXT:
+			return (
+				!!state.schema.marks.fontSize &&
+				expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+			);
 		case BLOCK_QUOTE:
 			return !!state.schema.nodes.blockquote;
 		case CODE_BLOCK:

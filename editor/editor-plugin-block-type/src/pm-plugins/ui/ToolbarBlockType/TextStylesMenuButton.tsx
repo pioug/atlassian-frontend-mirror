@@ -13,6 +13,7 @@ import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import { toolbarBlockTypesWithRank } from '../../block-types';
 
 type TextStylesMenuButtonProps = {
+	allowFontSize?: boolean;
 	api?: ExtractInjectionAPI<BlockTypePlugin>;
 	children: React.ReactNode;
 };
@@ -25,13 +26,14 @@ const usePluginState = (api?: ExtractInjectionAPI<BlockTypePlugin>) => {
 };
 
 export const TextStylesMenuButton = ({
+	allowFontSize,
 	api,
 	children,
 }: TextStylesMenuButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const { blockTypesDisabled, currentBlockType } = usePluginState(api);
-	const blockTypes = toolbarBlockTypesWithRank();
+	const blockTypes = toolbarBlockTypesWithRank({ allowFontSize });
 	const { editorAppearance } = useEditorToolbar();
 
 	const CurrentIcon = Object.values(blockTypes).find(
@@ -72,6 +74,9 @@ export const TextStylesMenuButton = ({
 				tooltipComponent={
 					<ToolbarTooltip content={formatMessage(toolbarMessages.textStylesTooltip)} />
 				}
+				label={formatMessage(toolbarMessages.textStyles, {
+					blockTypeName: currentBlockType?.name,
+				})}
 			>
 				{children}
 			</ToolbarDropdownMenu>
@@ -80,7 +85,13 @@ export const TextStylesMenuButton = ({
 
 	return (
 		<ToolbarTooltip content={formatMessage(toolbarMessages.textStylesTooltip)}>
-			<ToolbarDropdownMenu isDisabled={blockTypesDisabled} iconBefore={TriggerIcon}>
+			<ToolbarDropdownMenu
+				isDisabled={blockTypesDisabled}
+				iconBefore={TriggerIcon}
+				label={formatMessage(toolbarMessages.textStyles, {
+					blockTypeName: currentBlockType?.name,
+				})}
+			>
 				{children}
 			</ToolbarDropdownMenu>
 		</ToolbarTooltip>

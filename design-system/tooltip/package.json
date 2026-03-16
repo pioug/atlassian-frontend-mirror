@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "20.14.6",
+	"version": "20.14.7",
 	"description": "A tooltip briefly describes an interactive element on mouse hover or keyboard focus.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

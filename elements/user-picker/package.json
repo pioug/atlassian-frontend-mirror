@@ -135,6 +135,9 @@
 		},
 		"enable-sup-archive-experience": {
 			"type": "boolean"
+		},
+		"jsm-wfo-assignee-recommendation-on-queues": {
+			"type": "boolean"
 		}
 	}
 }

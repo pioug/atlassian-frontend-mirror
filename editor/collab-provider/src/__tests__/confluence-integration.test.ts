@@ -20,6 +20,7 @@ import SocketIOClient from 'socket.io-client';
 import type { Provider } from '../provider';
 import { mockIo } from './jest_mocks/socket.io-client.mock';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 describe('Collab Provider Integration Tests - Confluence', () => {
 	let provider: Provider;
@@ -508,13 +509,41 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			);
 		});
 
+		eeTest.describe('platform_editor_ignore_metadata_connection_errors', '').variant(false, () => {
+			it('should throw SetMetadataError when setMetadata is called before initialization', () => {
+				expect(() => {
+					provider.setMetadata({ title: 'abc' });
+				}).toThrowErrorMatchingInlineSnapshot(`"Cannot send metadata, not initialized yet"`);
+			});
+		});
+
+		eeTest.describe('platform_editor_ignore_metadata_connection_errors', '').variant(true, () => {
+			it('should not throw when setMetadata is called before initialization', () => {
+				expect(() => {
+					provider.setMetadata({ title: 'abc' });
+				}).not.toThrow();
+			});
+
+			it('should still report error via sendErrorEvent for observability', () => {
+				const analyticsHelperSpy = jest.spyOn(
+					// @ts-ignore accessing private method for testing purposes
+					provider.analyticsHelper,
+					'sendErrorEvent',
+				);
+				provider.setMetadata({ title: 'abc' });
+				expect(analyticsHelperSpy).toHaveBeenCalledWith(
+					expect.objectContaining({
+						message: 'Cannot send metadata, not initialized yet',
+					}),
+					'Error while setting metadata',
+				);
+			});
+		});
+
 		it('should be unusable before calling setup, and usable after', async () => {
 			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
 				`"this.getState is not a function"`,
 			);
-			expect(() => {
-				provider.setMetadata({ title: 'abc' });
-			}).toThrowErrorMatchingInlineSnapshot(`"Cannot send metadata, not initialized yet"`);
 			provider.setup({ getState: getStateMock });
 			await provider.setMetadata({ title: 'abc' });
 			const currentDocumentState = await provider.getCurrentState();
@@ -547,9 +576,6 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
 				`"this.getState is not a function"`,
 			);
-			expect(() => {
-				provider.setMetadata({ title: 'abc' });
-			}).toThrowErrorMatchingInlineSnapshot(`"Cannot send metadata, not initialized yet"`);
 
 			provider.initialize(getStateMock);
 			await provider.setMetadata({ title: 'abc' });

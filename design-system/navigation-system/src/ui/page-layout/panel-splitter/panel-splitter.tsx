@@ -151,10 +151,8 @@ const tooltipStyles = cssMap({
 		// The panel splitter is 17px wide, but the visual representation is 3px wide, so there's an extra 7px of space between the tooltip and the splitter.
 		// We use a negative margin to offset this extra space, resulting in only an extra 1px of space between the tooltip and the splitter.
 		marginInlineStart: token('space.negative.075'),
-	},
-	fullHeightSidebarWithLayeringFixes: {
 		// With UNSAFE_shouldRenderToParent, the tooltip is rendered alongside the panel splitter in the DOM.
-		// With fg('platform-dst-side-nav-layering-fixes'), the side nav's panel splitter is rendered outside of the side nav element.
+		// The side nav's panel splitter is rendered outside of the side nav element.
 		// The side nav panel splitter's container (portal target) uses `transform` for positioning, which makes it the containing block
 		// (https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Display/Containing_block) for the tooltip.
 		// This means its width will constrain the tooltip's width, causing the tooltip label to wrap.
@@ -254,11 +252,7 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides
 				className={className}
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-				css={[
-					tooltipStyles.root,
-					fg('platform-dst-side-nav-layering-fixes') &&
-						tooltipStyles.fullHeightSidebarWithLayeringFixes,
-				]}
+				css={tooltipStyles.root}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={style}
 			>
@@ -326,15 +320,15 @@ const PortaledPanelSplitter = ({
 	tooltipContent,
 	shortcut,
 }: PanelSplitterProps & { panel: HTMLElement; portal: HTMLElement } & Pick<
-		PanelSplitterContextType,
-		| 'panelId'
-		| 'panelWidth'
-		| 'onCompleteResize'
-		| 'getResizeBounds'
-		| 'resizingCssVar'
-		| 'position'
-		| 'shortcut'
-	>): ReactNode => {
+	PanelSplitterContextType,
+	| 'panelId'
+	| 'panelWidth'
+	| 'onCompleteResize'
+	| 'getResizeBounds'
+	| 'resizingCssVar'
+	| 'position'
+	| 'shortcut'
+>): ReactNode => {
 	const isFhsEnabled = useIsFhsEnabled();
 	const splitterRef = useRef<HTMLDivElement | null>(null);
 	const labelId = useId();

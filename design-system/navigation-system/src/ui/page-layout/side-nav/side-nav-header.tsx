@@ -54,7 +54,7 @@ export const SideNavHeader: ({
 			 * - If SideNavHeader does not exist, the scroll indicator line is applied to TopNavStart. This ensures
 			 * the scroll indicator line is visible even when the top nav has a z-index higher than the side nav.
 			 */
-			data-private-side-nav-header={fg('platform-dst-side-nav-layering-fixes') ? 'true' : undefined}
+			data-private-side-nav-header={fg('platform_dst_nav4_fhs_feedback_1') ? undefined : 'true'}
 		>
 			{children}
 		</div>

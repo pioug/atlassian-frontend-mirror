@@ -236,6 +236,11 @@ export const NORMAL_TEXT_MENU_ITEM = {
 	type: 'menu-item',
 } as const;
 
+export const SMALL_TEXT_MENU_ITEM = {
+	key: 'small-text-menu-item',
+	type: 'menu-item',
+} as const;
+
 export const HEADING_1_MENU_ITEM = {
 	key: 'heading-1-menu-item',
 	type: 'menu-item',

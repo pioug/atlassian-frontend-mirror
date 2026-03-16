@@ -16,6 +16,7 @@ import type {
 	PasteOptionsToolbarPlugin,
 	PasteOptionsToolbarSharedState,
 } from '../../pasteOptionsToolbarPluginType';
+import { PASTE_MENU_GAP } from '../../pm-plugins/constants';
 import { ToolbarDropdownOption } from '../../types/types';
 import { isToolbarVisible } from '../toolbar';
 
@@ -32,10 +33,9 @@ interface PasteActionsMenuProps {
 	scrollableElement?: HTMLElement;
 }
 
-function getTargetElement(editorView: EditorView): HTMLElement | null {
-	const { from } = editorView.state.selection;
+function getTargetElement(editorView: EditorView, pos: number): HTMLElement | null {
 	try {
-		const domRef = findDomRefAtPos(from, editorView.domAtPos.bind(editorView));
+		const domRef = findDomRefAtPos(pos, editorView.domAtPos.bind(editorView));
 		if (domRef instanceof HTMLElement) {
 			return domRef;
 		}
@@ -45,12 +45,40 @@ function getTargetElement(editorView: EditorView): HTMLElement | null {
 	}
 }
 
-function getPopupOffset(dom: HTMLElement | null): [number, number] {
-	if (!dom) {
-		return [0, 20];
-	}
-	const rightEdge = dom.getBoundingClientRect().right;
-	return [-(window.innerWidth - rightEdge - 50), 20];
+/**
+ * Adjusts the vertical position of the paste menu to align with the top of the
+ * pasted content using the exact coordinates at the paste start position.
+ *
+ * The Popup's vertical placement may place the popup below the target element
+ * (alignY="bottom"). This override computes the correct top position using
+ * coordsAtPos for the paste start, then converts to the Popup's coordinate
+ * system by calculating the delta from the target element's bottom (where the
+ * Popup positions by default) to the paste start coordinates.
+ */
+export function onPositionCalculated(
+	editorView: EditorView,
+	pasteStartPos: number,
+	targetElement: HTMLElement,
+): (position: { bottom?: number; left?: number; right?: number; top?: number }) => {
+	bottom?: number;
+	left?: number;
+	right?: number;
+	top: number;
+} {
+	return (position: { bottom?: number; left?: number; right?: number; top?: number }) => {
+		const startCoords = editorView.coordsAtPos(pasteStartPos);
+		const targetRect = targetElement.getBoundingClientRect();
+
+		// The Popup places the menu at the target's bottom edge by default.
+		// We need to shift it up so it aligns with the paste start position.
+		// Both coordinates are in viewport space, so the delta is offset-parent agnostic.
+		const topDelta = startCoords.top - (targetRect.top + targetRect.height);
+
+		return {
+			...position,
+			top: (position.top ?? 0) + topDelta,
+		};
+	};
 }
 
 export const PasteActionsMenu = ({
@@ -97,7 +125,7 @@ export const PasteActionsMenu = ({
 		)(editorView.state, editorView.dispatch);
 	}, [lastContentPasted, editorView]);
 
-	const { showToolbar: isToolbarShown } = useSharedPluginStateWithSelector(
+	const { showToolbar: isToolbarShown, pasteStartPos } = useSharedPluginStateWithSelector(
 		api,
 		['pasteOptionsToolbarPlugin'],
 		(states) => {
@@ -106,6 +134,7 @@ export const PasteActionsMenu = ({
 				| undefined;
 			return {
 				showToolbar: pluginState?.showToolbar ?? false,
+				pasteStartPos: pluginState?.pasteStartPos ?? 0,
 			};
 		},
 	);
@@ -174,7 +203,7 @@ export const PasteActionsMenu = ({
 		return null;
 	}
 
-	const target = getTargetElement(editorView);
+	const target = getTargetElement(editorView, pasteStartPos);
 	if (!target) {
 		return null;
 	}
@@ -185,10 +214,11 @@ export const PasteActionsMenu = ({
 			mountTo={mountTo}
 			boundariesElement={boundariesElement}
 			scrollableElement={scrollableElement}
-			offset={getPopupOffset(target)}
 			zIndex={akEditorFloatingPanelZIndex}
-			alignX="right"
+			alignX="end"
 			alignY="bottom"
+			offset={[PASTE_MENU_GAP, 0]}
+			onPositionCalculated={onPositionCalculated(editorView, pasteStartPos, target)}
 			handleClickOutside={handleClickOutside}
 			handleEscapeKeydown={handleDismiss}
 		>

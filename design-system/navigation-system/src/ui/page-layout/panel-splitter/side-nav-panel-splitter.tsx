@@ -3,7 +3,6 @@ import React, { type ReactNode, useContext, useEffect, useState } from 'react';
 import invariant from 'tiny-invariant';
 
 import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import {
@@ -42,7 +41,7 @@ function useHasOpenPopupsInSideNavOrTopNav(): boolean {
 	const [hasOpenPopups, setHasOpenPopups] = useState(false);
 
 	useEffect(() => {
-		if (!openLayerObserver || !isFhsEnabled || !fg('platform-dst-side-nav-layering-fixes')) {
+		if (!openLayerObserver || !isFhsEnabled) {
 			return;
 		}
 
@@ -134,11 +133,7 @@ export const SideNavPanelSplitter = ({
 	// re-rendering the side nav anytime the number of open popups changes.
 	const hasOpenLayersInSideNavOrTopNav = useHasOpenPopupsInSideNavOrTopNav();
 
-	if (
-		hasOpenLayersInSideNavOrTopNav &&
-		isFhsEnabled &&
-		fg('platform-dst-side-nav-layering-fixes')
-	) {
+	if (hasOpenLayersInSideNavOrTopNav && isFhsEnabled) {
 		return null;
 	}
 

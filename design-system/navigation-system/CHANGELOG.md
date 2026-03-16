@@ -1,5 +1,28 @@
 # @atlassian/navigation-system
 
+## 6.2.1
+
+### Patch Changes
+
+- [`394b61e0b5b80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/394b61e0b5b80) -
+  delay browser detection to when component is actually rendered
+
+## 6.2.0
+
+### Minor Changes
+
+- [`7719c436631e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7719c436631e8) -
+  The feature gate `platform-dst-side-nav-layering-fixes` has been cleaned up.
+  - Layers inside the side nav that are rendered to parent (`shouldRenderToParent`) will be layered
+    below the top nav and banner.
+  - Refactors have been made to the positioning and render location of the side nav panel splitter.
+
+### Patch Changes
+
+- [`ff38389affe15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff38389affe15) -
+  Tidies the react-uid => react.useId() feature gates to use concurrent safe ids n
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

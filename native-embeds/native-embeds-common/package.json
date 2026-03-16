@@ -28,6 +28,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"

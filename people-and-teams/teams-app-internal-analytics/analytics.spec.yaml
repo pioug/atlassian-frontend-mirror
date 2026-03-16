@@ -3374,6 +3374,10 @@ events:
           type: string
           required: false
           description: Specific type of error encountered
+        classification:
+          type: string
+          required: false
+          description: Classification of the error encountered
   - teamProfileHierarchyTab viewed:
       type: screen
       description: fired when the team profile hierarchy tab is viewed

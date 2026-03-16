@@ -1,5 +1,12 @@
 # @atlassian/give-kudos
 
+## 4.16.1
+
+### Patch Changes
+
+- [`280bad8989ff3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/280bad8989ff3) -
+  Clean up people-teams-kudos-launcher-z-index feature gate
+
 ## 4.16.0
 
 ### Minor Changes

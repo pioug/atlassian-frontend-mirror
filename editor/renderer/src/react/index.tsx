@@ -1046,22 +1046,4 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			}),
 		) as Mark[];
 	}
-
-	// TODO: ED-9004 - Remove unused ReactSerializer.fromSchema in renderer
-	// https://sourcegraph-frontend.internal.shared-prod.us-west-2.kitt-inf.net/search?q=ReactSerializer.fromSchema&patternType=literal
-	static fromSchema(_: unknown, init: ReactSerializerInit) {
-		if (expValEquals('platform_editor_remove_reactserializer_fromschema', 'isEnabled', true)) {
-			throw new Error(
-				'ReactSerializer.fromSchema has been removed. Please use the constructor instead: new ReactSerializer()',
-			);
-		}
-
-		if (process.env.NODE_ENV !== 'production') {
-			// eslint-disable-next-line no-console
-			console.warn(
-				'ReactSerializer.fromSchema is deprecated. Please use the constructor instead via new ReactSerializer()',
-			);
-		}
-		return new ReactSerializer(init);
-	}
 }

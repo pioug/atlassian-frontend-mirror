@@ -1,5 +1,45 @@
 # @atlaskit/editor-statsig-tmp
 
+## 36.3.0
+
+### Minor Changes
+
+- [`3e12453af02dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e12453af02dd) -
+  EDITOR-5922: Fix space shortcut activating opt in flow
+
+## 36.2.0
+
+### Minor Changes
+
+- [`b941a7ee841df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b941a7ee841df) -
+  EDITOR-5683 update outdated browser list to exclude browser versions before March 2024
+- [`224048d036344`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/224048d036344) -
+  EDITOR-5683 do not rethrow setMetadataError: Cannot send metadata, currently offline and
+  setMetadataError: Cannot send metadata, not initialized yet as they are intermittent connection
+  errors
+
+## 36.1.0
+
+### Minor Changes
+
+- [`14aa7871be0b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14aa7871be0b7) -
+  [ux] EDITOR-5513: fix(editor-plugin-card): guard inline card cleanup to dispatch removeCard at
+  most once per effect cycle
+
+## 36.0.1
+
+### Patch Changes
+
+- [`77e8559d882d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77e8559d882d3) -
+  cleanup platform_editor_remove_reactserializer_fromschema removing ReactSerializer.fromSchema
+
+## 36.0.0
+
+### Major Changes
+
+- [`617d79798517c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/617d79798517c) -
+  Cleanup platform_editor_table_toolbar_icon_ext_fix_exp gate
+
 ## 35.10.0
 
 ### Minor Changes

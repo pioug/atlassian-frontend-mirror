@@ -181,9 +181,7 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 				 * Not using the UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY variable from `@atlaskit/navigation-system`
 				 * to avoid a circular dependency, as that package imports this one for re-exporting components.
 				 */
-				fg('platform-dst-side-nav-layering-fixes')
-					? `min(calc(100vh - ${FLYOUT_MENU_VERTICAL_OFFSET_PX}px - var(--n_tNvM, 0px) - var(--n_bnrM, 0px)), ${maxHeight}px)`
-					: `min(calc(100vh - ${FLYOUT_MENU_VERTICAL_OFFSET_PX}px), ${maxHeight}px)`,
+				`min(calc(100vh - ${FLYOUT_MENU_VERTICAL_OFFSET_PX}px - var(--n_tNvM, 0px) - var(--n_bnrM, 0px)), ${maxHeight}px)`,
 			[maxHeight],
 		);
 

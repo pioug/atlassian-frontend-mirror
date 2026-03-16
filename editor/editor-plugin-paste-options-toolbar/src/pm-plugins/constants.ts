@@ -6,3 +6,6 @@ export const PASTE_TOOLBAR_ITEM_CLASS = 'ak-editor-paste-toolbar-item';
 export const EDITOR_WRAPPER_CLASS = 'akEditor';
 export const PASTE_OPTIONS_TEST_ID = 'paste-options-testid';
 export const PASTE_OPTIONS_META_ID = 'paste-options$';
+
+// Gap (in px) between the right edge of the pasted content and the left edge of the paste menu.
+export const PASTE_MENU_GAP = 12;

@@ -44,6 +44,7 @@ export enum ACTION {
 	/** used in @atlassian/editor-referentiality */
 	DISCONNECTED_TARGET = 'disconnectedTarget',
 	DISMISSED = 'dismissed',
+	DISPLAYED = 'displayed',
 	DISPATCHED_INVALID_TRANSACTION = 'dispatchedInvalidTransaction',
 	DISPATCHED_VALID_TRANSACTION = 'dispatchedValidTransaction',
 	DOUBLE_CLICKED = 'doubleClicked',
@@ -133,6 +134,7 @@ export enum ACTION {
 	SYNCHRONY_ERROR = 'synchronyError',
 	TEXT_LINK_MARK_TRANSFORMED = 'textLinkMarkTransformed',
 	TOGGLED = 'toggled',
+	TRIGGERED = 'triggered',
 	DEDUPE_MARKS_TRANSFORMED_V2 = 'dedupeMarksTransformedV2',
 	NODES_MISSING_CONTENT_TRANSFORMED = 'nodesMissingContentTransformed',
 	INDENTATION_MARKS_TRANSFORMED = 'indentationMarksTransformed',
@@ -352,6 +354,7 @@ export enum ACTION_SUBJECT {
 	EDITOR_PLUGIN_AI = 'editorPluginAI',
 	EDITOR_PLUGIN_SELECTION_EXTENSION = 'editorPluginSelectionExtension',
 	AI_DEFINITIONS = 'aiDefinitions',
+	AI_QUICK_PROMPT = 'aiQuickPrompt',
 	USER_PREFERENCES = 'userPreferences',
 	ALIGNMENT = 'alignment',
 	OFFLINE_EDITING = 'offlineEditing',

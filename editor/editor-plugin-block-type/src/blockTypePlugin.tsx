@@ -177,7 +177,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 	};
 
 	if (isToolbarAIFCEnabled) {
-		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
+		api?.toolbar?.actions.registerComponents(getToolbarComponents(api, options?.allowFontSize));
 	} else {
 		api?.primaryToolbar?.actions.registerComponent({
 			name: 'blockType',

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-card
 
+## 13.0.2
+
+### Patch Changes
+
+- [`14aa7871be0b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14aa7871be0b7) -
+  [ux] EDITOR-5513: fix(editor-plugin-card): guard inline card cleanup to dispatch removeCard at
+  most once per effect cycle
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.0
 
 ### Minor Changes

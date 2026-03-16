@@ -1,5 +1,39 @@
 # @atlaskit/editor-core
 
+## 217.1.1
+
+### Patch Changes
+
+- [`b941a7ee841df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b941a7ee841df) -
+  EDITOR-5683 update outdated browser list to exclude browser versions before March 2024
+- Updated dependencies
+
+## 217.1.0
+
+### Minor Changes
+
+- [`bf1f23f4a76d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf1f23f4a76d0) -
+  Add 'small text' as a menu dropdown item in the editor, non functional. Also adds a new universal
+  preset config option to support feature.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.0.2
+
+### Patch Changes
+
+- [`898d1ef39bc2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/898d1ef39bc2a) -
+  [ux] EDITOR-5419 Styles to hide markers for wrapper only list items
+- Updated dependencies
+
+## 217.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 217.0.0
 
 ### Patch Changes

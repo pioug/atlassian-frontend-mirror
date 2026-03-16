@@ -583,6 +583,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-02
+	platform_editor_inline_card_dispatch_guard: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-08-18
 	platform_editor_locale_datepicker: {
 		defaultValue: boolean;
@@ -633,6 +640,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-11-12
 	platform_editor_media_vc_fixes: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-11
+	platform_editor_native_embeds: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1050,8 +1064,8 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-01-15
-	platform_editor_table_toolbar_icon_ext_fix_exp: {
+	// Added 2026-01-14
+	platform_editor_context_context_types_migration: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1094,6 +1108,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-23
 	collab_bypass_out_of_sync_period_experiment: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-16
+	platform_editor_ignore_metadata_connection_errors: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1180,6 +1201,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-16-05
+	platform_editor_outdated_browser_update: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-05
 	cc_fd_db_top_editor_toolbar: {
 		defaultValue: 'control' | 'new-description' | 'orig-description';
@@ -1225,13 +1253,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-12
 	platform_editor_bodiedextension_layoutshift_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-16
-	platform_editor_remove_reactserializer_fromschema: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1370,6 +1391,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_ai_aifc_space_shortcut_patch: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-05
 	platform_editor_media_reliability_observability: {
 		defaultValue: boolean;
@@ -1490,6 +1517,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-09
 	platform_editor_remove_collab_step_metrics: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-13
+	platform_editor_misaligned_ai_screens_firefox_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1904,6 +1938,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-02
+	platform_editor_inline_card_dispatch_guard: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_editor_inline_card_dispatch_guard',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-04-14
 	// https://switcheroo.atlassian.com/ui/gates/b159b45a-86d9-4f4b-b482-f9aca5b615d6/key/platform_editor_offline_editing_web
 	platform_editor_offline_editing_web: createBooleanExperiment({
@@ -2246,6 +2288,14 @@ export const editorExperimentsConfig: {
 	cc_editor_limited_mode_expanded: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_limited_mode_expanded',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-11
+	platform_editor_native_embeds: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_native_embeds',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2698,10 +2748,11 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-01-15
-	platform_editor_table_toolbar_icon_ext_fix_exp: createBooleanExperiment({
+	// Added 2026-01-14
+	platform_editor_context_context_types_migration: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_table_toolbar_icon_ext_fix_exp',
+			confluence: 'platform_editor_context_context_types_migration',
+			jira: 'platform_editor_context_context_types_migration',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2752,6 +2803,14 @@ export const editorExperimentsConfig: {
 	collab_bypass_out_of_sync_period_experiment: createBooleanExperiment({
 		productKeys: {
 			confluence: 'collab_bypass_out_of_sync_period_experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-16
+	platform_editor_ignore_metadata_connection_errors: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_collab_provider_suppress_metadata_errors',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2843,6 +2902,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-16-05
+	platform_editor_outdated_browser_update: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_outdated_browser_update',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-02-05
 	cc_fd_db_top_editor_toolbar: createMultivariateExperiment({
 		productKeys: {
@@ -2896,14 +2963,6 @@ export const editorExperimentsConfig: {
 	platform_editor_bodiedextension_layoutshift_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_bodiedextension_layoutshift_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-02-16
-	platform_editor_remove_reactserializer_fromschema: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_remove_reactserializer_fromschema',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3081,6 +3140,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added for space shortcut plugin: when on, space shortcut is not added if AI opt-in is not enabled
+	platform_editor_ai_aifc_space_shortcut_patch: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_aifc_space_shortcut_patch',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-05
 	platform_editor_eslint_suppression_fix: createBooleanExperiment({
 		productKeys: {
@@ -3206,6 +3273,15 @@ export const editorExperimentsConfig: {
 	platform_editor_remove_collab_step_metrics: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_remove_collab_step_metrics',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-13
+	platform_editor_misaligned_ai_screens_firefox_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_misaligned_ai_screens_firefox_fix',
+			jira: 'platform_editor_misaligned_ai_screens_firefox_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

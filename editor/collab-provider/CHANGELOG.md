@@ -1,5 +1,21 @@
 # @atlaskit/collab-provider
 
+## 16.0.2
+
+### Patch Changes
+
+- [`224048d036344`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/224048d036344) -
+  EDITOR-5683 do not rethrow setMetadataError: Cannot send metadata, currently offline and
+  setMetadataError: Cannot send metadata, not initialized yet as they are intermittent connection
+  errors
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.0
 
 ### Patch Changes

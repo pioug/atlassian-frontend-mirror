@@ -72,6 +72,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	forwardedRef?: React.ForwardedRef<UserPickerRef>;
 	/** group the options by type */
 	groupByTypeOrder?: NonNullable<OptionData['type']>[];
+	/** Custom labels for grouped option types. Overrides default labels when groupByTypeOrder is used. */
+	customGroupLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>;
 	/** Header to be displayed in MenuList */
 	header?: React.ReactNode;
 	/** Sets the height of the user picker. If not set, the height settings will be based on the "compact" or "normal" appearance. */

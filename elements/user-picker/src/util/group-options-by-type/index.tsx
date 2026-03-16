@@ -1,10 +1,17 @@
 import React from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { FormattedMessage } from 'react-intl-next';
 import memoizeOne from 'memoize-one';
 import { messages } from '../../components/i18n';
 import type { OptionData, Option, GroupedOptions } from '../../types';
 
-const getLabelForType = (type: NonNullable<OptionData['type']>) => {
+const getLabelForType = (
+	type: NonNullable<OptionData['type']>,
+	customLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>,
+) => {
+	if (customLabels && type in customLabels && fg('jsm-wfo-assignee-recommendation-on-queues')) {
+		return <>{customLabels[type]}</>;
+	}
 	switch (type) {
 		case 'user':
 			return <FormattedMessage {...messages.userTypeLabel} />;
@@ -22,7 +29,11 @@ const getLabelForType = (type: NonNullable<OptionData['type']>) => {
 };
 
 export const groupOptionsByType = memoizeOne(
-	(options: Option[], groupByTypeOrder: NonNullable<OptionData['type']>[]) => {
+	(
+		options: Option[],
+		groupByTypeOrder: NonNullable<OptionData['type']>[],
+		customGroupLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>,
+	) => {
 		// If groupByTypeOrder is empty, just return the original options
 		if (groupByTypeOrder.length === 0) {
 			return options;
@@ -46,7 +57,7 @@ export const groupOptionsByType = memoizeOne(
 		groupByTypeOrder.forEach((type) => {
 			if (groupedMap.has(type)) {
 				result.push({
-					label: getLabelForType(type),
+					label: getLabelForType(type, customGroupLabels),
 					options: groupedMap.get(type)!,
 				});
 

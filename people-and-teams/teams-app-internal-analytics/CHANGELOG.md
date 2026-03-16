@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.27.3
+
+### Patch Changes
+
+- [`7de638877e6ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7de638877e6ae) -
+  Add classification to failed star team
+
 ## 1.27.2
 
 ### Patch Changes

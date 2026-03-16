@@ -1,9 +1,21 @@
-# Editor plugin annotation
+# Editor Plugin Annotation
 
 Annotation plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Annotation plugin provides comprehensive inline commenting and annotation capabilities for the Atlassian Editor. It enables users to add, resolve, and manage annotations directly within the editor, with support for various annotation types including inline comments on text and block-level content.
+
+## Key features
+
+- **Inline comments** - Add comments to text selections and block-level content
+- **Annotation marks** - Mark and track annotations within the editor document
+- **Comment state management** - Manage draft and resolved comment states
+- **Multiple annotation types** - Support for different annotation providers and types
+- **Toolbar integration** - Seamless integration with the editor toolbar for comment actions
 
 ## Install
 ---

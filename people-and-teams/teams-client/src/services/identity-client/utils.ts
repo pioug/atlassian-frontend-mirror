@@ -8,7 +8,7 @@ type ProfileMapKey = keyof ProfileMapKeys;
 
 type ExtendedProfileMapKeys = Pick<
 	UserDetails,
-	'title' | 'department' | 'companyName' | 'location' | 'phoneNumber'
+	'title' | 'department' | 'companyName' | 'location' | 'phoneNumber' | 'aboutMe'
 >;
 type ExtendedProfileMapKey = keyof ExtendedProfileMapKeys;
 
@@ -36,6 +36,7 @@ const EXTENDED_PROFILE_PROPS_MAP: Map<
 	['companyName', 'organization'],
 	['location', 'location'],
 	['phoneNumber', 'phone_number'],
+	['aboutMe', 'about_me'],
 ]);
 
 interface IdentityProfileData {
@@ -53,6 +54,7 @@ interface IdentityProfileData {
 		department: string;
 		location: string;
 		phone_number: string;
+		about_me: string;
 	};
 }
 
@@ -74,6 +76,7 @@ export interface UserDetails {
 	department: string;
 	location: string;
 	phoneNumber: string;
+	aboutMe: string;
 
 	localTime: ({ format }: { format: string }) => string | null;
 }

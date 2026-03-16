@@ -6,6 +6,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Normal text',
 		description: 'This is the default text style',
 	},
+	smallText: {
+		id: 'fabric.editor.smallText',
+		defaultMessage: 'Small text',
+		description: 'This is a smaller variant of the normal text style',
+	},
 	heading1: {
 		id: 'fabric.editor.heading1',
 		defaultMessage: 'Heading 1',

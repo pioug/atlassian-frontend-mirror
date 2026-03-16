@@ -83,6 +83,9 @@ export type UniversalPresetProps = DefaultPresetPluginOptions &
  * Note: not all plugins are configurable via this mechanism, and for plugins configured -- it is only doing a subset of the configuration.
  */
 export type InitialPluginConfiguration = {
+	blockTypePlugin?: {
+		allowFontSize?: boolean;
+	};
 	emojiPlugin?: {
 		disableAutoformat?: boolean;
 	};
@@ -164,6 +167,10 @@ export default function createUniversalPresetInternal({
 
 	const defaultPreset = createDefaultPreset({
 		...props,
+		blockType: {
+			...props.blockType,
+			...initialPluginConfiguration?.blockTypePlugin,
+		},
 		appearance,
 		createAnalyticsEvent,
 		hyperlinkOptions: {
@@ -223,8 +230,8 @@ export default function createUniversalPresetInternal({
 			guidelinePlugin,
 			Boolean(
 				(!isComment && !isChromeless && (props.media || props.allowTables)) ||
-				(editorExperiment('platform_editor_breakout_resizing', true, { exposure: true }) &&
-					(props.allowExpand || props.allowLayouts || props.codeBlock)),
+					(editorExperiment('platform_editor_breakout_resizing', true, { exposure: true }) &&
+						(props.allowExpand || props.allowLayouts || props.codeBlock)),
 			),
 		)
 		.maybeAdd([gridPlugin, { shouldCalcBreakoutGridLines: isFullPage }], Boolean(props.media))
@@ -519,7 +526,7 @@ export default function createUniversalPresetInternal({
 			],
 			Boolean(
 				hasBeforePrimaryToolbar(props.primaryToolbarComponents) &&
-				!featureFlags.twoLineEditorToolbar,
+					!featureFlags.twoLineEditorToolbar,
 			),
 		)
 		.add([

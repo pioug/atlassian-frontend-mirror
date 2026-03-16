@@ -1,44 +1,21 @@
 import React, { forwardRef, type ReactNode, useEffect } from 'react';
 
-import { useUID as react16UseId, useUIDSeed as react16UseIdSeed } from 'react-uid';
-
-/**
- * I suggest using this as a reference for the feature gate tidy:
- * @see https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/211376
- */
-import { fg } from '@atlaskit/platform-feature-flags';
-
-// Type copied from https://github.com/thearnica/react-uid/blob/0f507fbbdb1ab84acf477ec32698afe3d2191e49/src/hooks.ts#L12
-// Copied rather than inferred to make the type transparent
 type SeedGenerator = (id: any) => string;
 
-// @ts-ignore - useId is not accessible in React 16
-const react18UseId: (() => string) | undefined = React.useId ?? undefined;
-
 /**
- * Based on a feature gate, returns a unique id using `react-uid` or `React.useId()`
- * or `React.useId()` with a string replace to match React 19 functionality
+ * Returns a unique id using `React.useId()` with a selector-safe replacement to match
+ * React 19 functionality.
  * @see https://github.com/facebook/react/pull/33422
  *
- * Generally, you should just use `React.useId()` directly as we're on React 18.
- * You can use this function if you need to use the generated id in a HTML selector
- * as `React.useId()` currently does not generate HTML selector safe ids.
- * However, using these identifiers in selectors should be avoided, even in tests,
- * so `React.useId()` is heavily encouraged.
+ * Generally, you should just use `React.useId()` directly. Use this function if you
+ * need the generated id in an HTML selector, as `React.useId()` does not generate
+ * selector-safe ids. Using these identifiers in selectors should be avoided, even
+ * in tests.
  */
 export function useId(): string {
-	if (react18UseId && fg('platform-dst-react-18-use-id')) {
-		if (fg('platform-dst-react-18-use-id-selector-safe')) {
-			// tl;dr: React uses `:` or `«»` in selectors which breaks `document.querySelector(…)`
-			// in hundreds of tests. So we replace it with a safe string of `_` to match future
-			// React 19 functionality: https://github.com/facebook/react/pull/33422
-			return react18UseId().replace(/[:«»]/g, '_');
-		}
-
-		return react18UseId();
-	}
-
-	return `uid${react16UseId()}`;
+	// React uses `:` or `«»` in selectors which breaks `document.querySelector(…)`.
+	// Replace with `_` to match future React 19 functionality.
+	return React.useId().replace(/[:«»]/g, '_');
 }
 
 export interface IdProviderProps {
@@ -97,11 +74,6 @@ export const IdProvider: React.ForwardRefExoticComponent<
  * @deprecated This import shouldn't be used, suggested to use `React.useId()` directly.
  */
 export function useIdSeed(): SeedGenerator {
-	if (react18UseId && fg('platform-dst-react-18-use-id')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks -- cleanup with feature gating
-		const uid = useId();
-		return (id: any) => `${uid}-${id.toString()}`;
-	}
-
-	return react16UseIdSeed();
+	const uid = useId();
+	return (id: any) => `${uid}-${id.toString()}`;
 }

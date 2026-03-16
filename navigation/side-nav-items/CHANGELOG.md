@@ -1,5 +1,19 @@
 # @atlaskit/side-nav-items
 
+## 1.10.0
+
+### Minor Changes
+
+- [`7719c436631e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7719c436631e8) -
+  The feature gate `platform-dst-side-nav-layering-fixes` has been cleaned up.
+  - Layers inside the side nav that are rendered to parent (`shouldRenderToParent`) will be layered
+    below the top nav and banner.
+  - Refactors have been made to the positioning and render location of the side nav panel splitter.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.0
 
 ### Minor Changes

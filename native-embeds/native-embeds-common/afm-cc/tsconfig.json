@@ -23,6 +23,9 @@
 			"path": "../../../editor/editor-common/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/editor-prosemirror/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
 		}
 	]

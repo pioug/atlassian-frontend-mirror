@@ -708,7 +708,7 @@ describe('FlyoutMenuItem', () => {
 
 					// Remove all whitespace (newlines, tabs, spaces) for comparison
 					const normalisedMaxHeight = computedMaxHeight.replace(/\s+/g, '');
-					const expectedMaxHeight = `min(calc(100vh - 26px), ${customMaxHeight}px)`.replace(
+					const expectedMaxHeight = `min(calc(100vh - 26px - var(--n_tNvM,0px) - var(--n_bnrM,0px)), ${customMaxHeight}px)`.replace(
 						/\s+/g,
 						'',
 					);
@@ -737,7 +737,7 @@ describe('FlyoutMenuItem', () => {
 
 					// Remove all whitespace (newlines, tabs, spaces) for comparison
 					const normalisedMaxHeight = computedMaxHeight.replace(/\s+/g, '');
-					const expectedMaxHeight = `min(calc(100vh - 26px), ${defaultMaxHeight}px)`.replace(
+					const expectedMaxHeight = `min(calc(100vh - 26px - var(--n_tNvM,0px) - var(--n_bnrM,0px)), ${defaultMaxHeight}px)`.replace(
 						/\s+/g,
 						'',
 					);

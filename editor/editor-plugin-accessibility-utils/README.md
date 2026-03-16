@@ -1,26 +1,37 @@
-# Editor plugin accessibility utils
+# Editor Plugin Accessibility Utils
 
 Accessibility utils for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
 
+## Overview
+
+The Accessibility Utils plugin provides utilities and helpers for building accessible editor experiences. It enables screen reader announcements and manages ARIA live regions to communicate editor state changes and user actions to assistive technologies.
+
+## Key features
+
+- **Screen reader announcements** - Announce messages to screen readers via ARIA live regions
+- **Configurable announcement priority** - Support both standard status updates and urgent alerts
+- **Editor integration** - Seamless integration with @atlaskit/editor-core
+- **Transaction-based updates** - Leverage ProseMirror transactions for state management
+
 ## Install
 ---
-- **Install** - *yarn add @atlaskit/editor-plugin-accesibility-utils*
-- **npm** - [@atlaskit/editor-plugin-accesibility-utils](https://www.npmjs.com/package/@atlaskit/editor-plugin-accesibility-utils)
-- **Source** - [Bitbucket](https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/editor/editor-plugin-accesibility-utils)
-- **Bundle** - [unpkg.com](https://unpkg.com/@atlaskit/editor-plugin-accesibility-utils/dist/)
+- **Install** - *yarn add @atlaskit/editor-plugin-accessibility-utils*
+- **npm** - [@atlaskit/editor-plugin-accessibility-utils](https://www.npmjs.com/package/@atlaskit/editor-plugin-accessibility-utils)
+- **Source** - [Bitbucket](https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/editor/editor-plugin-accessibility-utils)
+- **Bundle** - [unpkg.com](https://unpkg.com/@atlaskit/editor-plugin-accessibility-utils/dist/)
 
 ## Usage
 ---
 **Internal use only**
 
-@atlaskit/editor-plugin-accesibility-utils is intended for internal use by the @atlaskit/editor-core and as a plugin dependency of the Editor within your product.
+@atlaskit/editor-plugin-accessibility-utils is intended for internal use by the @atlaskit/editor-core and as a plugin dependency of the Editor within your product.
 
 Direct use of this component is not supported.
 
-Please see [Atlaskit - Editor plugin annotation](https://atlaskit.atlassian.com/packages/editor/editor-plugin-accesibility-utils) for documentation and examples for this package.
+Please see [Atlaskit - Editor plugin accessibility utils](https://atlaskit.atlassian.com/packages/editor/editor-plugin-accessibility-utils) for documentation and examples for this package.
 
 ## Support
 ---

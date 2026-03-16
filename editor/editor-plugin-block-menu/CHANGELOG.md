@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 7.0.2
+
+### Patch Changes
+
+- [`1b1c6f7936019`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b1c6f7936019) -
+  Cleanup fg: platform_editor_block_menu_expand_localid_fix
+- Updated dependencies
+
+## 7.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

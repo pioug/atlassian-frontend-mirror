@@ -10,6 +10,7 @@ import {
 	HEADING_5_MENU_ITEM,
 	HEADING_6_MENU_ITEM,
 	NORMAL_TEXT_MENU_ITEM,
+	SMALL_TEXT_MENU_ITEM,
 	TEXT_STYLES_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import {
@@ -29,7 +30,7 @@ import TextHeadingSixIcon from '@atlaskit/icon-lab/core/text-heading-six';
 import TextHeadingThreeIcon from '@atlaskit/icon-lab/core/text-heading-three';
 import TextHeadingTwoIcon from '@atlaskit/icon-lab/core/text-heading-two';
 import TextIcon from '@atlaskit/icon/core/text';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockType, BlockTypeWithRank } from './types';
 import { Text, H1, H2, H3, H4, H5, H6 } from './ui/ToolbarBlockType/icons';
@@ -39,6 +40,14 @@ export const NORMAL_TEXT: BlockType = {
 	title: messages.normal,
 	nodeName: 'paragraph',
 	tagName: 'p',
+	icon: <TextIcon label="" />,
+	LEGACY_icon: <Text />,
+};
+export const SMALL_TEXT: BlockType = {
+	name: 'smallText',
+	title: messages.smallText,
+	nodeName: 'paragraph',
+	markName: 'fontSize',
 	icon: <TextIcon label="" />,
 	LEGACY_icon: <Text />,
 };
@@ -120,6 +129,7 @@ export const OTHER: BlockType = {
 
 export const TEXT_BLOCK_TYPES: BlockType[] = [
 	NORMAL_TEXT,
+	SMALL_TEXT,
 	HEADING_1,
 	HEADING_2,
 	HEADING_3,
@@ -139,13 +149,26 @@ enum ToolbarBlockTypes {
 	blockquote = 'blockquote',
 }
 
-export const toolbarBlockTypesWithRank = (): Record<ToolbarBlockTypes, BlockTypeWithRank> => ({
+export const toolbarBlockTypesWithRank = ({
+	allowFontSize,
+}: {
+	allowFontSize?: boolean;
+}): Record<ToolbarBlockTypes, BlockTypeWithRank> => ({
 	normal: {
 		...NORMAL_TEXT,
 		icon: <EditorToolbarTextIcon size="small" label="" />,
 		toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[NORMAL_TEXT_MENU_ITEM.key],
 		toolbarKey: NORMAL_TEXT_MENU_ITEM.key,
 	},
+	...(allowFontSize &&
+		expValEquals('platform_editor_small_font_size', 'isEnabled', true) && {
+			smallText: {
+				...SMALL_TEXT,
+				icon: <TextIcon size="small" label="" />,
+				toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[SMALL_TEXT_MENU_ITEM.key],
+				toolbarKey: SMALL_TEXT_MENU_ITEM.key,
+			},
+		}),
 	heading1: {
 		...HEADING_1,
 		icon: <HeadingOneIcon size="small" label="" />,
@@ -192,6 +215,7 @@ export const toolbarBlockTypesWithRank = (): Record<ToolbarBlockTypes, BlockType
 
 export type TextBlockTypes =
 	| 'normal'
+	| 'smallText'
 	| 'heading1'
 	| 'heading2'
 	| 'heading3'
@@ -217,11 +241,7 @@ export const ALL_BLOCK_TYPES: BlockType[] = TEXT_BLOCK_TYPES.concat(WRAPPER_BLOC
 export const getBlockTypesInDropdown = (
 	includeBlockQuoteAsTextstyleOption?: boolean,
 ): BlockType[] => {
-	return editorExperiment('platform_editor_blockquote_in_text_formatting_menu', true, {
-		exposure: true,
-	}) && includeBlockQuoteAsTextstyleOption
-		? [...TEXT_BLOCK_TYPES, BLOCK_QUOTE]
-		: TEXT_BLOCK_TYPES;
+	return includeBlockQuoteAsTextstyleOption ? [...TEXT_BLOCK_TYPES, BLOCK_QUOTE] : TEXT_BLOCK_TYPES;
 };
 
 export const HEADINGS_BY_LEVEL: Record<number, BlockType> = TEXT_BLOCK_TYPES.reduce<

@@ -17,7 +17,6 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { CellSelection } from '@atlaskit/editor-tables';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { isNestedNode } from '../ui/utils/isNestedNode';
@@ -77,21 +76,12 @@ export const transformNode: (
 			const content = resultNodes.length > 0 ? resultNodes : sourceNodes;
 			const sliceStart = isList ? $from.pos - 1 : $from.pos;
 
-			// [FEATURE FLAG: platform_editor_block_menu_expand_localid_fix]
-			// Pre-populates the expandedState WeakMap so ExpandNodeView initializes newly created
-			// expand/nestedExpand nodes as expanded rather than collapsed. Works in conjunction with
-			// the localId pre-assignment in the transform steps — without a pre-assigned localId the
-			// localId plugin's appendTransaction replaces the node object (via setNodeAttribute),
-			// invalidating this WeakMap entry. The else branch preserves the previous behaviour.
-			// To clean up: remove the if-else block and keep only the flag-on body.
-			if (fg('platform_editor_block_menu_expand_localid_fix')) {
-				const { expand, nestedExpand } = nodes;
-				content.forEach((node) => {
-					if (node.type === expand || node.type === nestedExpand) {
-						expandedState.set(node, true);
-					}
-				});
-			}
+			const { expand, nestedExpand } = nodes;
+			content.forEach((node) => {
+				if (node.type === expand || node.type === nestedExpand) {
+					expandedState.set(node, true);
+				}
+			});
 
 			if (
 				preservedSelection instanceof NodeSelection &&

@@ -23,7 +23,6 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
@@ -73,8 +72,6 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 		isActionsEnabled,
 		zIndex = layers.modal(),
 	} = props;
-
-	const zIndexNext = fg('people-teams-kudos-launcher-z-index') ? zIndex : layers.modal();
 
 	const shouldBlockTransition = useCallback(
 		(e: Event & { returnValue: any }) => {
@@ -308,12 +305,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 			sendAnalytic('opened', {});
 		}
 		return (
-			<Drawer
-				width="full"
-				isOpen={props.isOpen}
-				zIndex={zIndexNext}
-				onClose={handleCloseDrawerClicked}
-			>
+			<Drawer width="full" isOpen={props.isOpen} zIndex={zIndex} onClose={handleCloseDrawerClicked}>
 				<div css={styles.drawerCloseButtonContainer}>
 					<IconButton
 						onClick={handleCloseDrawerClicked}
@@ -339,7 +331,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	}, [props.recipient?.recipientId, props.isOpen]);
 
 	return (
-		<Portal zIndex={zIndexNext}>
+		<Portal zIndex={zIndex}>
 			<div data-testid={testId}>
 				<ModalTransition>
 					{isCloseConfirmModalOpen && (

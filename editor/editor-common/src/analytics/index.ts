@@ -210,6 +210,7 @@ export type { RequestToEditAEP } from './types/general-events';
 export type { AIEventPayload, AIMarkdownConversionErrorCaughtAttributes } from './types/ai-events';
 
 export type { AIProactiveEventPayload } from './types/ai-proactive-events';
+export type { AIQuickPromptEventPayload } from './types/ai-quick-prompt-events';
 
 export type { AIDefinitionsEventPayload } from './types/ai-definitions-events';
 

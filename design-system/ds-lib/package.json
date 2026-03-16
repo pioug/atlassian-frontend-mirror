@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ds-lib",
-	"version": "5.4.0",
+	"version": "6.0.0",
 	"description": "Reusable utilities and hooks specific to design system.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -56,10 +56,8 @@
 		"./use-auto-focus": "./src/hooks/use-auto-focus.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*",
-		"react-uid": "root:*",
 		"tiny-invariant": "root:*"
 	},
 	"peerDependencies": {
@@ -104,13 +102,5 @@
 			]
 		}
 	},
-	"homepage": "https://atlaskit.atlassian.com/packages/design-system/ds-lib",
-	"platform-feature-flags": {
-		"platform-dst-react-18-use-id": {
-			"type": "boolean"
-		},
-		"platform-dst-react-18-use-id-selector-safe": {
-			"type": "boolean"
-		}
-	}
+	"homepage": "https://atlaskit.atlassian.com/packages/design-system/ds-lib"
 }

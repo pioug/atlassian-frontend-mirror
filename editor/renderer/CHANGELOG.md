@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 128.0.3
+
+### Patch Changes
+
+- [`898d1ef39bc2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/898d1ef39bc2a) -
+  [ux] EDITOR-5419 Styles to hide markers for wrapper only list items
+- Updated dependencies
+
+## 128.0.2
+
+### Patch Changes
+
+- [`77e8559d882d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77e8559d882d3) -
+  cleanup platform_editor_remove_reactserializer_fromschema removing ReactSerializer.fromSchema
+- Updated dependencies
+
+## 128.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 128.0.0
 
 ### Minor Changes

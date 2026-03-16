@@ -1,7 +1,5 @@
 import React, { Fragment, type MutableRefObject, useMemo, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { PanelSplitterContext, type PanelSplitterContextType } from './context';
 
 export type PanelSplitterProviderProps = Omit<
@@ -21,8 +19,6 @@ export type PanelSplitterProviderProps = Omit<
 
 	/**
 	 * A ref to the portal element where the panel splitter will be rendered.
-	 * It can optionally be provided by consumers of <PanelSplitterProvider> (when the feature gate
-	 * `platform-dst-side-nav-layering-fixes` is enabled).
 	 * If not provided, it will be internally set by the PanelSplitterProvider.
 	 *
 	 * This prop is useful for:
@@ -62,10 +58,7 @@ export const PanelSplitterProvider = ({
 			position,
 			panelRef,
 			isEnabled,
-			portalRef:
-				typeof providedPortalRef !== 'undefined' && fg('platform-dst-side-nav-layering-fixes')
-					? providedPortalRef
-					: portalRef,
+			portalRef: typeof providedPortalRef !== 'undefined' ? providedPortalRef : portalRef,
 			shortcut,
 		}),
 		[
@@ -89,10 +82,7 @@ export const PanelSplitterProvider = ({
 			 * Portal target for rendering the PanelSplitter.
 			 * Rendered within a separate div so it doesn't impact the rest of the side nav layout.
 			 */}
-			{typeof providedPortalRef !== 'undefined' &&
-			fg('platform-dst-side-nav-layering-fixes') ? null : (
-				<div ref={portalRef} />
-			)}
+			{typeof providedPortalRef !== 'undefined' ? null : <div ref={portalRef} />}
 		</Fragment>
 	);
 };

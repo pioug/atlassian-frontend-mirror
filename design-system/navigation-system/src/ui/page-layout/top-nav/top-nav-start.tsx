@@ -28,7 +28,7 @@ import { SideNavVisibilityState } from '../side-nav/visibility-context';
  * CSS at-rules when at-rules are nested: https://github.com/atlassian-labs/compiled/blob/e04a325915e1d13010205089e4915de0e53bc2d4/packages/css/src/plugins/merge-duplicate-at-rules.ts#L5
  * Avoiding nesting the `@supports` at-rule inside of `@media` means Compiled can remove duplicate styles from the generated CSS.
  */
-const isFirefox: boolean =
+let isFirefox: boolean =
 	typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 // Placed in a variable, as the value is used in the translateX value for the children wrapper animation.
@@ -70,12 +70,6 @@ const innerStyles = cssMap({
 			boxSizing: 'border-box',
 		},
 	},
-	fullHeightSidebar: {
-		// Note: no longer applied when fg('platform-dst-side-nav-layering-fixes') is enabled.
-		// Pointer events are disabled on the top nav
-		// So we need to restore them for the slot
-		pointerEvents: 'auto',
-	},
 	fullHeightSidebarExpanded: {
 		'@media (min-width: 64rem)': {
 			// When the full height sidebar is visible, the regular min width should not be applied
@@ -115,14 +109,6 @@ const wrapperStyles = cssMap({
 		paddingInlineStart: token('space.150'),
 		// Taking up the full height of top bar to allow for monitoring mouse events, for improving the side nav flyout experience
 		height: '100%',
-	},
-	fullHeightSidebarExpanded: {
-		'@media (min-width: 64rem)': {
-			width: `var(--n_sNvlw, 100%)`,
-			paddingInlineEnd: token('space.200'),
-		},
-	},
-	fullHeightSidebarWithLayeringFixes: {
 		'@media (min-width: 64rem)': {
 			position: 'relative',
 			// We are using a pseudo-element to add a border, instead of doing it on the TopNavStart wrapper
@@ -142,8 +128,10 @@ const wrapperStyles = cssMap({
 			},
 		},
 	},
-	fullHeightSidebarExpandedWithLayeringFixes: {
+	fullHeightSidebarExpanded: {
 		'@media (min-width: 64rem)': {
+			width: `var(--n_sNvlw, 100%)`,
+			paddingInlineEnd: token('space.200'),
 			// Set the background color to the same as the side nav, to make it appear full height.
 			backgroundColor: token('elevation.surface'),
 			// When expanded, show the pseudo element (vertical border that makes the sidebar appear full height).
@@ -152,7 +140,7 @@ const wrapperStyles = cssMap({
 			},
 		},
 	},
-	fullHeightSidebarExpandedWithLayeringFixesScrollTimeline: {
+	fullHeightSidebarExpandedScrollTimeline: {
 		// Only apply the scroll indicator styles if supported. Otherwise, the shadow would always be applied, even when not scrolled.
 		'@supports (scroll-timeline-axis: block)': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -350,10 +338,6 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 
 	const isFirstRenderRef = useRef(true);
 	useEffect(() => {
-		if (!fg('platform-dst-side-nav-layering-fixes')) {
-			return;
-		}
-
 		// Ignore renders until the side nav state is initialized
 		// So that apps using the legacy API for setting side nav default state do not see
 		// animations when they shouldn't
@@ -372,40 +356,24 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 				wrapperStyles.root,
 				isExpandedOnDesktop && wrapperStyles.fullHeightSidebarExpanded,
 				isExpandedOnDesktop &&
-					fg('platform_dst_nav4_fhs_feedback_1') &&
-					wrapperStyles.fullHeightSidebarExpandedWithFeedback,
-				fg('platform-dst-side-nav-layering-fixes') &&
-					wrapperStyles.fullHeightSidebarWithLayeringFixes,
+				fg('platform_dst_nav4_fhs_feedback_1') &&
+				wrapperStyles.fullHeightSidebarExpandedWithFeedback,
 				!isFirstRenderRef.current &&
-					isExpandedOnDesktop &&
-					fg('platform-dst-side-nav-layering-fixes') &&
-					wrapperStyles.fullHeightSidebarBorderTransition,
 				isExpandedOnDesktop &&
-					fg('platform-dst-side-nav-layering-fixes') &&
-					wrapperStyles.fullHeightSidebarExpandedWithLayeringFixes,
-				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+				wrapperStyles.fullHeightSidebarBorderTransition,
 				isExpandedOnDesktop &&
-					fg('platform-dst-side-nav-layering-fixes') &&
-					!fg('platform_dst_nav4_fhs_feedback_1') &&
-					wrapperStyles.fullHeightSidebarExpandedWithLayeringFixesScrollTimeline,
+				!fg('platform_dst_nav4_fhs_feedback_1') &&
+				wrapperStyles.fullHeightSidebarExpandedScrollTimeline,
 			]}
 		>
 			<div
 				ref={ref}
 				data-testid={testId}
-				css={[
-					innerStyles.root,
-					!fg('platform-dst-side-nav-layering-fixes') && innerStyles.fullHeightSidebar,
-					isExpandedOnDesktop && innerStyles.fullHeightSidebarExpanded,
-				]}
+				css={[innerStyles.root, isExpandedOnDesktop && innerStyles.fullHeightSidebarExpanded]}
 			>
-				{fg('platform-dst-side-nav-layering-fixes') ? (
-					<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavStartNamespace}>
-						{children}
-					</OpenLayerObserverNamespaceProvider>
-				) : (
-					children
-				)}
+				<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavStartNamespace}>
+					{children}
+				</OpenLayerObserverNamespaceProvider>
 			</div>
 		</div>
 	);
@@ -421,6 +389,11 @@ export function TopNavStart({
 	testId,
 	sideNavToggleButton,
 }: TopNavStartProps): JSX.Element {
+	if (fg('platform_editor_topnavstart_delay_browser_check')) {
+		isFirefox =
+			typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+	}
+
 	const isFhsEnabled = useIsFhsEnabled();
 	const ref = useContext(TopNavStartAttachRef);
 	const elementRef = useRef(null);
@@ -544,12 +517,12 @@ export function TopNavStart({
 						!isFirefox && toggleButtonWrapperStyles.root,
 						!isFirefox && animationState.type === 'idle' && toggleButtonWrapperStyles.finalPosition,
 						!isFirefox &&
-							// Timing function is applied when the browser animates to the idle position.
-							animationState.type === 'idle' &&
-							toggleButtonWrapperStyles.collapseAnimationTimingFunction,
+						// Timing function is applied when the browser animates to the idle position.
+						animationState.type === 'idle' &&
+						toggleButtonWrapperStyles.collapseAnimationTimingFunction,
 						!isFirefox &&
-							animationState.type === 'collapse' &&
-							toggleButtonWrapperStyles.collapseAnimationStartPosition,
+						animationState.type === 'collapse' &&
+						toggleButtonWrapperStyles.collapseAnimationStartPosition,
 					]}
 				>
 					{sideNavToggleButton}
@@ -564,11 +537,11 @@ export function TopNavStart({
 						!isFirefox && childrenWrapperStyles.animationBaseStyles,
 						!isFirefox && animationState.type === 'idle' && childrenWrapperStyles.finalPosition,
 						!isFirefox &&
-							animationState.type === 'expand' &&
-							childrenWrapperStyles.expandAnimationStartPosition,
+						animationState.type === 'expand' &&
+						childrenWrapperStyles.expandAnimationStartPosition,
 						!isFirefox &&
-							animationState.type === 'collapse' &&
-							childrenWrapperStyles.collapseAnimationStartPosition,
+						animationState.type === 'collapse' &&
+						childrenWrapperStyles.collapseAnimationStartPosition,
 					]}
 				>
 					{children}
@@ -585,12 +558,12 @@ export function TopNavStart({
 						toggleButtonWrapperStyles.alignEnd,
 						!isFirefox && animationState.type === 'idle' && toggleButtonWrapperStyles.finalPosition,
 						!isFirefox &&
-							// Timing function is applied when the browser animates to the idle position.
-							animationState.type === 'idle' &&
-							toggleButtonWrapperStyles.expandAnimationTimingFunction,
+						// Timing function is applied when the browser animates to the idle position.
+						animationState.type === 'idle' &&
+						toggleButtonWrapperStyles.expandAnimationTimingFunction,
 						!isFirefox &&
-							animationState.type === 'expand' &&
-							toggleButtonWrapperStyles.expandAnimationStartPosition,
+						animationState.type === 'expand' &&
+						toggleButtonWrapperStyles.expandAnimationStartPosition,
 					]}
 				>
 					{sideNavToggleButton}

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 9.0.1
+
+### Patch Changes
+
+- [`92f6f3650479b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92f6f3650479b) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
 ## 9.0.0
 
 ### Patch Changes

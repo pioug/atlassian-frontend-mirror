@@ -283,7 +283,6 @@ export type { UseComponentRenderTrackingArgs } from './performance/hooks/use-com
  *
  * Private API do not use
  */
-export { isOutdatedBrowser } from './outdated-browsers';
 export { autoJoinTr } from './prosemirror/autojoin';
 
 export {

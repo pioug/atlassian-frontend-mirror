@@ -5,12 +5,6 @@ import { IntlProvider } from 'react-intl-next';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Text } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn(),
-}));
-const expValEqualsMock = expValEquals as jest.Mock;
 
 // Track Loadable component instances created
 const loadableInstances: React.ComponentType<{ label: string }>[] = [];
@@ -118,144 +112,74 @@ describe('DropdownMenuExtensionItems', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	describe('when platform_editor_table_toolbar_icon_ext_fix_exp is enabled', () => {
-		beforeEach(() => {
-			expValEqualsMock.mockImplementation(
-				(experimentName: string, param: string, expectedValue: boolean) => {
-					return (
-						experimentName === 'platform_editor_table_toolbar_icon_ext_fix_exp' &&
-						param === 'isEnabled' &&
-						expectedValue === true
-					);
-				},
-			);
-		});
+	it('should cache icon component using useRef for stable reference', async () => {
+		const extensionItem = createMockExtensionItem('test-1');
+		getContextualToolbarItemsFromModuleMock.mockReturnValue([extensionItem]);
 
-		it('should cache icon component using useRef for stable reference', async () => {
-			const extensionItem = createMockExtensionItem('test-1');
-			getContextualToolbarItemsFromModuleMock.mockReturnValue([extensionItem]);
+		// Use the same extension props instance for both renders
+		const extensionProps = createExtensionProps();
 
-			// Use the same extension props instance for both renders
-			const extensionProps = createExtensionProps();
+		const { rerender } = render(
+			<IntlProvider locale="en">
+				<DropdownMenuExtensionItems
+					areAnyNewToolbarFlagsEnabled={false}
+					editorView={mockEditorView}
+					extension={extensionProps}
+					node={mockNode}
+					dropdownOptions={mockDropdownOptions}
+				/>
+			</IntlProvider>,
+		);
 
-			const { rerender } = render(
-				<IntlProvider locale="en">
-					<DropdownMenuExtensionItems
-						areAnyNewToolbarFlagsEnabled={false}
-						editorView={mockEditorView}
-						extension={extensionProps}
-						node={mockNode}
-						dropdownOptions={mockDropdownOptions}
-					/>
-				</IntlProvider>,
-			);
+		// Wait for the component to fully render with extension items
+		await screen.findByTestId('dropdown-menu-item');
 
-			// Wait for the component to fully render with extension items
-			await screen.findByTestId('dropdown-menu-item');
+		// Get the icon element from the first render
+		const firstRenderIcon = dropdownMenuItemIconCalls[
+			dropdownMenuItemIconCalls.length - 1
+		] as React.ReactElement;
 
-			// Get the icon element from the first render
-			const firstRenderIcon = dropdownMenuItemIconCalls[
-				dropdownMenuItemIconCalls.length - 1
-			] as React.ReactElement;
+		// Re-render the component with the same extension props
+		rerender(
+			<IntlProvider locale="en">
+				<DropdownMenuExtensionItems
+					areAnyNewToolbarFlagsEnabled={false}
+					editorView={mockEditorView}
+					extension={extensionProps}
+					node={mockNode}
+					dropdownOptions={mockDropdownOptions}
+				/>
+			</IntlProvider>,
+		);
 
-			// Re-render the component with the same extension props
-			rerender(
-				<IntlProvider locale="en">
-					<DropdownMenuExtensionItems
-						areAnyNewToolbarFlagsEnabled={false}
-						editorView={mockEditorView}
-						extension={extensionProps}
-						node={mockNode}
-						dropdownOptions={mockDropdownOptions}
-					/>
-				</IntlProvider>,
-			);
+		// Get the icon element from the second render
+		const secondRenderIcon = dropdownMenuItemIconCalls[
+			dropdownMenuItemIconCalls.length - 1
+		] as React.ReactElement;
 
-			// Get the icon element from the second render
-			const secondRenderIcon = dropdownMenuItemIconCalls[
-				dropdownMenuItemIconCalls.length - 1
-			] as React.ReactElement;
-
-			// With the fix enabled, the icon component TYPE should be the same reference
-			// because the underlying Loadable component is cached via useRef
-			// (even though the React element objects are different, the component type is the same)
-			expect(firstRenderIcon.type).toBe(secondRenderIcon.type);
-		});
-
-		it('should render icon with correct label', async () => {
-			const extensionItem = createMockExtensionItem('test-1');
-			getContextualToolbarItemsFromModuleMock.mockReturnValue([extensionItem]);
-
-			render(
-				<IntlProvider locale="en">
-					<DropdownMenuExtensionItems
-						areAnyNewToolbarFlagsEnabled={false}
-						editorView={mockEditorView}
-						extension={createExtensionProps()}
-						node={mockNode}
-						dropdownOptions={mockDropdownOptions}
-					/>
-				</IntlProvider>,
-			);
-
-			const icon = await screen.findByTestId('loadable-icon');
-			expect(icon).toHaveTextContent('Test Item test-1');
-		});
+		// With the fix enabled, the icon component TYPE should be the same reference
+		// because the underlying Loadable component is cached via useRef
+		// (even though the React element objects are different, the component type is the same)
+		expect(firstRenderIcon.type).toBe(secondRenderIcon.type);
 	});
 
-	describe('when platform_editor_table_toolbar_icon_ext_fix_exp is disabled', () => {
-		beforeEach(() => {
-			expValEqualsMock.mockReturnValue(false);
-		});
+	it('should render icon with correct label', async () => {
+		const extensionItem = createMockExtensionItem('test-1');
+		getContextualToolbarItemsFromModuleMock.mockReturnValue([extensionItem]);
 
-		it('should create new Loadable component on each render (pre-fix behavior)', async () => {
-			const extensionItem = createMockExtensionItem('test-1');
-			getContextualToolbarItemsFromModuleMock.mockReturnValue([extensionItem]);
+		render(
+			<IntlProvider locale="en">
+				<DropdownMenuExtensionItems
+					areAnyNewToolbarFlagsEnabled={false}
+					editorView={mockEditorView}
+					extension={createExtensionProps()}
+					node={mockNode}
+					dropdownOptions={mockDropdownOptions}
+				/>
+			</IntlProvider>,
+		);
 
-			// Use the same extension props instance for both renders
-			const extensionProps = createExtensionProps();
-
-			const { rerender } = render(
-				<IntlProvider locale="en">
-					<DropdownMenuExtensionItems
-						areAnyNewToolbarFlagsEnabled={false}
-						editorView={mockEditorView}
-						extension={extensionProps}
-						node={mockNode}
-						dropdownOptions={mockDropdownOptions}
-					/>
-				</IntlProvider>,
-			);
-
-			// Wait for the component to fully render with extension items
-			await screen.findByTestId('dropdown-menu-item');
-
-			// Get the icon element from the first render
-			const firstRenderIcon = dropdownMenuItemIconCalls[
-				dropdownMenuItemIconCalls.length - 1
-			] as React.ReactElement;
-
-			// Re-render the component
-			rerender(
-				<IntlProvider locale="en">
-					<DropdownMenuExtensionItems
-						areAnyNewToolbarFlagsEnabled={false}
-						editorView={mockEditorView}
-						extension={extensionProps}
-						node={mockNode}
-						dropdownOptions={mockDropdownOptions}
-					/>
-				</IntlProvider>,
-			);
-
-			// Get the icon element from the second render
-			const secondRenderIcon = dropdownMenuItemIconCalls[
-				dropdownMenuItemIconCalls.length - 1
-			] as React.ReactElement;
-
-			// Without the fix, the icon component TYPE should be different
-			// because a new Loadable component is created on each render
-			expect(firstRenderIcon.type).not.toBe(secondRenderIcon.type);
-		});
+		const icon = await screen.findByTestId('loadable-icon');
+		expect(icon).toHaveTextContent('Test Item test-1');
 	});
 });

@@ -31,9 +31,36 @@ This package includes the table plugin used by \`@atlaskit/editor-core\`.
 This api is based on the proposed imperative notification API [ariaNotify](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/Accessibility/AriaNotify/explainer.md).
 
 ${code`
-  pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify(
-    formatMessage(messages.insertedTableColumnToTheRight),
-  );
+// Type definitions
+export interface AriaLiveElementAttributes {
+ priority?: 'important' | 'none';
+}
+
+export interface AccessibilityUtilsPluginState {
+ ariaLiveElementAttributes?: AriaLiveElementAttributes;
+ key?: string;
+ message: string;
+}
+
+export type AccessibilityUtilsPlugin = NextEditorPlugin<
+ 'accessibilityUtils',
+ {
+   actions: {
+     ariaNotify: (
+       message: string,
+       ariaLiveElementAttributes?: AriaLiveElementAttributes
+     ) => void;
+   };
+   dependencies: [];
+   sharedState: AccessibilityUtilsPluginState;
+ }
+>;
+
+// Usage example
+pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify(
+ formatMessage(messages.insertedTableColumnToTheRight),
+ { priority: 'important' }
+);
 `}
 
 ---

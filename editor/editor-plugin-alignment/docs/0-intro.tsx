@@ -31,7 +31,23 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type AlignmentPlugin = NextEditorPlugin<'alignment'>;
+type AlignmentPluginDependencies = [
+  OptionalPlugin<PrimaryToolbarPlugin>,
+  OptionalPlugin<SelectionToolbarPlugin>,
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<UserPreferencesPlugin>,
+  OptionalPlugin<ToolbarPlugin>,
+];
+
+type AlignmentPlugin = NextEditorPlugin<
+  'alignment',
+  {
+    dependencies: AlignmentPluginDependencies;
+    sharedState: AlignmentPluginState | undefined;
+  }
+>;
+
+type InputMethod = INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB | INPUT_METHOD.SHORTCUT;
 `}
 
 

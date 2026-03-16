@@ -15,13 +15,27 @@ props:
     - SpotlightHeadline
     - SpotlightMedia
     - SpotlightPrimaryAction
+    - SpotlightPrimaryLink
     - SpotlightSecondaryAction
+    - SpotlightSecondaryLink
     - SpotlightShowMoreControl
     - SpotlightStepCount
     - PopoverContent
     - PopoverProvider
     - PopoverTarget
 ---
+
+## PopoverContent props
+
+<TSMorphProps exportName="PopoverContent" packageName="@atlaskit/spotlight" />
+
+## PopoverProvider props
+
+<TSMorphProps exportName="PopoverProvider" packageName="@atlaskit/spotlight" />
+
+## PopoverTarget props
+
+<TSMorphProps exportName="PopoverTarget" packageName="@atlaskit/spotlight" />
 
 ## SpotlightCard props
 
@@ -63,9 +77,17 @@ props:
 
 <TSMorphProps exportName="SpotlightPrimaryAction" packageName="@atlaskit/spotlight" />
 
+## SpotlightPrimaryLink props
+
+<TSMorphProps exportName="SpotlightPrimaryLink" packageName="@atlaskit/spotlight" />
+
 ## SpotlightSecondaryAction props
 
 <TSMorphProps exportName="SpotlightSecondaryAction" packageName="@atlaskit/spotlight" />
+
+## SpotlightSecondaryLink props
+
+<TSMorphProps exportName="SpotlightSecondaryLink" packageName="@atlaskit/spotlight" />
 
 ## SpotlightShowMoreControl props
 
@@ -75,14 +97,39 @@ props:
 
 <TSMorphProps exportName="SpotlightStepCount" packageName="@atlaskit/spotlight" />
 
-## PopoverContent props
+## usePreloadMedia
 
-<TSMorphProps exportName="PopoverContent" packageName="@atlaskit/spotlight" />
+A hook that preloads media (video or image) files so they are cached by the browser before being
+rendered. Once loaded, the browser cache will be used when the actual media element is displayed.
+This improves perceived performance when showing spotlight cards with media.
 
-## PopoverProvider props
+### Supported MIME types
 
-<TSMorphProps exportName="PopoverProvider" packageName="@atlaskit/spotlight" />
+- `video/mp4`
+- `video/webm`
+- `video/ogg`
+- `video/mpeg`
+- `video/x-matroska`
+- `image/jpeg`
+- `image/png`
+- `image/gif`
+- `image/webp`
+- `image/svg+xml`
 
-## PopoverTarget props
+### Example
 
-<TSMorphProps exportName="PopoverTarget" packageName="@atlaskit/spotlight" />
+```tsx
+import { SpotlightMedia, usePreloadMedia } from '@atlaskit/spotlight';
+import Image from '@atlaskit/image';
+import imageSrc from './assets/image.png'
+
+//...
+
+usePreloadMedia(imageSrc, { mimetype: 'video/mp4' });
+
+// ...
+
+</SpotlightMedia>
+	<Image src={imageSrc} alt='description' />
+</SpotlightMedia>
+```

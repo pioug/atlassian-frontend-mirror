@@ -1,5 +1,11 @@
 # @atlaskit/range
 
+## 9.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.3.6
 
 ### Patch Changes

@@ -1,5 +1,40 @@
 # @atlaskit/editor-common
 
+## 112.2.1
+
+### Patch Changes
+
+- [`b941a7ee841df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b941a7ee841df) -
+  EDITOR-5683 remove unused isOutdatedBrowser function from editor-common
+- Updated dependencies
+
+## 112.2.0
+
+### Minor Changes
+
+- [`bf1f23f4a76d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf1f23f4a76d0) -
+  Add 'small text' as a menu dropdown item in the editor, non functional. Also adds a new universal
+  preset config option to support feature.
+
+## 112.1.0
+
+### Minor Changes
+
+- [`3261a68797c81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3261a68797c81) -
+  EDITOR-5725 Add analytics event types and wiring for ai-quick-prompt
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.0.1
+
+### Patch Changes
+
+- [`617d79798517c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/617d79798517c) -
+  Cleanup platform_editor_table_toolbar_icon_ext_fix_exp gate
+- Updated dependencies
+
 ## 112.0.0
 
 ### Major Changes

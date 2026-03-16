@@ -25,7 +25,7 @@ test('pointer events on top nav items', async ({ page }) => {
 
 test('pointer events on top nav items [layering improvements enabled]', async ({ page }) => {
 	await page.visitExample('design-system', 'navigation-system', 'composition', {
-		featureFlag: 'navx-full-height-sidebar&featureFlag=platform-dst-side-nav-layering-fixes',
+		featureFlag: 'navx-full-height-sidebar',
 	});
 
 	const log: string[] = [];

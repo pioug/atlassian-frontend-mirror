@@ -1,3 +1,4 @@
+import { fg } from '@atlaskit/platform-feature-flags';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import debounce from 'lodash/debounce';
@@ -536,7 +537,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		this.setState({ hoveringClearIndicator });
 	};
 
-	private getOptions = (): Option[] | GroupedOptions[] => {
+	private getOptionsOld = (): Option[] | GroupedOptions[] => {
 		const options = getOptions(this.state.options) || [];
 		const { maxOptions, isMulti, groupByTypeOrder } = this.props;
 		if (maxOptions === 0) {
@@ -556,6 +557,40 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		}
 
 		return groupByTypeOrder ? groupOptionsByType(options, groupByTypeOrder) : options;
+	};
+
+	private getOptionsNew = (): Option[] | GroupedOptions[] => {
+		const options = getOptions(this.state.options) || [];
+		const { maxOptions, isMulti, groupByTypeOrder, customGroupLabels } = this.props;
+		if (maxOptions === 0) {
+			return [];
+		}
+		if (maxOptions && maxOptions > 0 && maxOptions < options.length) {
+			const { value } = this.state;
+			let filteredOptions = options;
+			// Filter out previously selected options
+			if (isMulti && Array.isArray(value)) {
+				const valueIds: string[] = value.map((item) => item.data.id);
+				filteredOptions = options.filter((option) => valueIds.indexOf(option.data.id) === -1);
+			}
+			return groupByTypeOrder
+				? groupOptionsByType(
+						filteredOptions.slice(0, maxOptions),
+						groupByTypeOrder,
+						customGroupLabels,
+					)
+				: filteredOptions.slice(0, maxOptions);
+		}
+
+		return groupByTypeOrder
+			? groupOptionsByType(options, groupByTypeOrder, customGroupLabels)
+			: options;
+	};
+
+	private getOptions = (): Option[] | GroupedOptions[] => {
+		return fg('jsm-wfo-assignee-recommendation-on-queues')
+			? this.getOptionsNew()
+			: this.getOptionsOld();
 	};
 
 	private getAppearance = (): Appearance =>
@@ -745,6 +780,7 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<
 				footer?: React.ReactNode;
 				forwardedRef?: React.ForwardedRef<UserPickerRef>;
 				groupByTypeOrder?: NonNullable<OptionData['type']>[];
+				customGroupLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>;
 				header?: React.ReactNode;
 				height?: number | string;
 				includeTeamsUpdates?: boolean;
@@ -841,6 +877,7 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<
 		| 'footer'
 		| 'forwardedRef'
 		| 'groupByTypeOrder'
+		| 'customGroupLabels'
 		| 'header'
 		| 'height'
 		| 'includeTeamsUpdates'

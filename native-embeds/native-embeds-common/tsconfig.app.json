@@ -42,6 +42,9 @@
 			"path": "../../editor/editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../../editor/editor-prosemirror/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		}
 	],

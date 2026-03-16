@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.0.3
+
+### Patch Changes
+
+- [`bba4ad9eec00a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bba4ad9eec00a) -
+  Ensure `invokedFrom` is passed to on-paste actions legacy paste events
+- Updated dependencies
+
+## 9.0.2
+
+### Patch Changes
+
+- [`6ebc53b2b151d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ebc53b2b151d) -
+  [ux] [EDITOR-5821] updated paste menu position so that its the same as the inline comment editor'
+- Updated dependencies
+
 ## 9.0.1
 
 ### Patch Changes

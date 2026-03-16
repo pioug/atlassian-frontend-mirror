@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-type
 
+## 12.0.2
+
+### Patch Changes
+
+- [`bf1f23f4a76d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf1f23f4a76d0) -
+  Add 'small text' as a menu dropdown item in the editor, non functional. Also adds a new universal
+  preset config option to support feature.
+- Updated dependencies
+
+## 12.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.0
 
 ### Patch Changes

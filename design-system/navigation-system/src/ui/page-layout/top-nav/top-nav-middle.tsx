@@ -7,10 +7,8 @@ import React from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/experimental/open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { openLayerObserverTopNavMiddleNamespace } from '../constants';
 
 const styles = cssMap({
@@ -67,12 +65,7 @@ const styles = cssMap({
 			justifyItems: 'end',
 		},
 	},
-	fullHeightSidebar: {
-		// Note: no longer applied when fg('platform-dst-side-nav-layering-fixes') is enabled.
-		// Pointer events are disabled on the top nav
-		// So we need to restore them for the slot
-		pointerEvents: 'auto',
-	},
+
 });
 
 /**
@@ -96,22 +89,11 @@ export function TopNavMiddle({
 	 */
 	children: React.ReactNode;
 }): JSX.Element {
-	const isFhsEnabled = useIsFhsEnabled();
-
 	return (
-		<div
-			css={[
-				styles.root,
-				isFhsEnabled && !fg('platform-dst-side-nav-layering-fixes') && styles.fullHeightSidebar,
-			]}
-		>
-			{fg('platform-dst-side-nav-layering-fixes') ? (
+			<div css={styles.root}>
 				<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavMiddleNamespace}>
 					{children}
 				</OpenLayerObserverNamespaceProvider>
-			) : (
-				children
-			)}
 		</div>
 	);
 }

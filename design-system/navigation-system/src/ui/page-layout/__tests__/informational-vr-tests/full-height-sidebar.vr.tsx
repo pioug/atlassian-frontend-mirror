@@ -58,7 +58,6 @@ snapshotInformational(CompanyHubMockExample, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -83,7 +82,6 @@ snapshotInformational(CompanyHubMockExample, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -108,7 +106,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -132,7 +129,6 @@ snapshotInformational(CompositionVR, {
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
 	featureFlags: {
-		'platform-dst-side-nav-layering-fixes': true,
 		'navx-full-height-sidebar': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
@@ -162,7 +158,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -200,7 +195,6 @@ snapshotInformational(CompositionExample, {
 	variants: [variants.mobile],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -222,7 +216,6 @@ snapshotInformational(CompositionVR, {
 	drawsOutsideBounds: true,
 	variants: [variants.mobile],
 	featureFlags: {
-		'platform-dst-side-nav-layering-fixes': true,
 		'navx-full-height-sidebar': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
@@ -254,7 +247,6 @@ snapshotInformational(TopNavigationThemingWithPickerExample, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -269,7 +261,6 @@ snapshotInformational(NavigationShellExample, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -284,7 +275,6 @@ snapshotInformational(NavigationShellWithToggleButtonOnboarding, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -309,7 +299,6 @@ snapshotInformational(NavigationShellExample, {
 	variants: [variants.desktopXL],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -327,7 +316,6 @@ snapshotInformational(NavigationShellWithWideSideNav, {
 	variants: [variants.desktopXL],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -339,7 +327,6 @@ snapshotInformational(TopNavigationCustomLogoImageWithSideNavExample, {
 	variants: [variants.desktop, variants.mobile],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -351,8 +338,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		// Testing both variants as there's no existing test coverage for this when just FHS is enabled.
-		'platform-dst-side-nav-layering-fixes': [true, false],
 		platform_dst_nav4_side_nav_resize_tooltip_feedback: true,
 	},
 	prepare: async (page) => {
@@ -369,8 +354,6 @@ snapshotInformational(CompositionNoBannerVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		// Testing both variants as there's no existing test coverage for this when just FHS is enabled.
-		'platform-dst-side-nav-layering-fixes': [true, false],
 		platform_dst_nav4_side_nav_resize_tooltip_feedback: true,
 	},
 	prepare: async (page) => {
@@ -388,8 +371,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		// Testing both variants as there's no existing test coverage for this when just FHS is enabled.
-		'platform-dst-side-nav-layering-fixes': [true, false],
 		platform_dst_nav4_side_nav_resize_tooltip_feedback: true,
 	},
 	prepare: async (page) => {
@@ -412,7 +393,6 @@ snapshotInformational(SideNavLayering, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
@@ -429,7 +409,6 @@ snapshotInformational(CompositionVR, {
 	variants: [variants.desktop],
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},
@@ -443,7 +422,6 @@ snapshotInformational(CompositionVR, {
 	description: 'top nav layer above side nav - resize to mobile',
 	featureFlags: {
 		'navx-full-height-sidebar': true,
-		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
 	},

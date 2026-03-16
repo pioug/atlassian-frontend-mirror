@@ -446,71 +446,7 @@ describe('Resizing layout slots', () => {
 			});
 		});
 
-		ffTest.on('navx-full-height-sidebar', 'full height sidebar enabled', () => {
-			ffTest.both('platform-dst-side-nav-layering-fixes', 'side nav layering fixes', () => {
-				it('should update width when resized', () => {
-					render(
-						<Root>
-							<SideNav testId="sidenav" defaultWidth={360}>
-								sidenav
-								<PanelSplitter label="Resize Side Nav" testId="panel-splitter" />
-							</SideNav>
-							<Main>main</Main>
-						</Root>,
-					);
-
-					const splitter = screen.getByTestId('panel-splitter');
-
-					fireEvent.dragStart(splitter, { clientX: 360 });
-					fireEvent.dragEnter(splitter, { clientX: 420 });
-					// Mocking computed width to be the dragged width, as it would in a browser.
-					getPixelWidthMock.mockReturnValue(420);
-					fireEvent.drop(splitter);
-
-					expect(screen.getByTestId('sidenav')).toHaveStyle({
-						'--n_sNvw': 'clamp(240px, 420px, 50vw)',
-					});
-				});
-
-				it('should hoist the CSS width variable when resized', async () => {
-					getPixelWidthMock.mockReturnValue(360);
-
-					render(
-						<Root UNSAFE_dangerouslyHoistSlotSizes>
-							<SideNav testId="sidenav" defaultWidth={360}>
-								sidenav
-								<PanelSplitter label="Resize Side Nav" testId="panel-splitter" />
-							</SideNav>
-							<Main>main</Main>
-						</Root>,
-					);
-
-					expect(screen.getByTestId('sidenav')).toHaveTextContent(
-						':root { --leftSidebarWidth: var(--n_sNvlw) }',
-					);
-					expect(screen.getByTestId('sidenav')).toHaveTextContent(':root { --n_sNvlw: 0px }');
-					expect(screen.getByTestId('sidenav')).toHaveTextContent(
-						'@media (min-width: 64rem) { :root { --n_sNvlw: var(--n_snvRsz, clamp(240px, 360px, 50vw)) } }',
-					);
-
-					const splitter = screen.getByTestId('panel-splitter');
-
-					fireEvent.dragStart(splitter, { clientX: 360 });
-					fireEvent.dragEnter(splitter, { clientX: 420 });
-					// Mocking computed width to be the dragged width, as it would in a browser.
-					getPixelWidthMock.mockReturnValue(420);
-					fireEvent.drop(splitter);
-
-					expect(screen.getByTestId('sidenav')).toHaveTextContent(
-						'@media (min-width: 64rem) { :root { --n_sNvlw: var(--n_snvRsz, clamp(240px, 420px, 50vw)) } }',
-					);
-				});
-			});
-		});
-
-		// This needs to be in a separate test suite. We can't use ffTest.both for the FHS flag, as the layering fixes
-		// flag is only checked when FHS is enabled, so the tests would fail as they won't evaluate the mocked flag.
-		ffTest.off('navx-full-height-sidebar', 'full height sidebar disabled', () => {
+		ffTest.both('navx-full-height-sidebar', 'full height sidebar', () => {
 			it('should update width when resized', () => {
 				render(
 					<Root>

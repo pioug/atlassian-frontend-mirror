@@ -37,15 +37,6 @@ type HeadingButtonProps = {
 	blockType: BlockTypeWithRank;
 };
 
-type HeadingName =
-	| 'normal'
-	| 'heading1'
-	| 'heading2'
-	| 'heading3'
-	| 'heading4'
-	| 'heading5'
-	| 'heading6';
-
 const normalStyle = css({
 	font: editorUGCToken('editor.font.body'),
 });
@@ -76,7 +67,7 @@ const heading6Style = css({
 
 type HeadingTextProps = {
 	children: React.ReactNode;
-	headingType: HeadingName;
+	headingType: TextBlockTypes;
 };
 
 const HeadingText = ({ children, headingType }: HeadingTextProps): React.JSX.Element => {
@@ -103,6 +94,9 @@ const headingSizeStylesMap = cssMap({
 	normal: {
 		font: token('font.body'),
 	},
+	smallText: {
+		font: token('font.body'),
+	},
 	heading1: {
 		font: token('font.heading.xlarge'),
 	},
@@ -123,8 +117,13 @@ const headingSizeStylesMap = cssMap({
 	},
 });
 
-const shortcuts: Record<HeadingName, Keymap> = {
+const shortcuts: Record<TextBlockTypes, Keymap> = {
 	normal: setNormalText,
+	smallText: {
+		description: '',
+		mac: '',
+		windows: '',
+	},
 	heading1: toggleHeading1,
 	heading2: toggleHeading2,
 	heading3: toggleHeading3,
@@ -159,7 +158,7 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 			),
 		);
 	};
-	const shortcut = formatShortcut(shortcuts[blockType.name as HeadingName]);
+	const shortcut = formatShortcut(shortcuts[blockType.name as TextBlockTypes]);
 	const isSelected = currentBlockType?.name === blockType.name;
 
 	return (
@@ -171,11 +170,11 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 			ariaKeyshortcuts={shortcut}
 		>
 			{expValEquals('platform_editor_toolbar_aifc_use_editor_typography', 'isEnabled', true) ? (
-				<HeadingText headingType={blockType.name as HeadingName}>
+				<HeadingText headingType={blockType.name as TextBlockTypes}>
 					{formatMessage(blockType.title)}
 				</HeadingText>
 			) : (
-				<Box xcss={headingSizeStylesMap[blockType.name as HeadingName]}>
+				<Box xcss={headingSizeStylesMap[blockType.name as TextBlockTypes]}>
 					{formatMessage(blockType.title)}
 				</Box>
 			)}

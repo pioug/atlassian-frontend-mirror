@@ -963,6 +963,30 @@ const listsSharedStylesForGekko = css({
 	},
 });
 
+/**
+ * Hides list markers for "wrapper items" - list items that only contain nested lists with no other content.
+ * These wrapper items have no meaningful content themselves, only nested lists below.
+ * Applied when platform_editor_flexible_list_indentation experiment is enabled.
+ */
+const listItemHiddenMarkerStyles = css({
+	// Hide markers for bullet list wrapper items (li containing only ul)
+	'li:has(> ul:only-child)': {
+		listStyleType: 'none',
+	},
+	// Hide markers for ordered list wrapper items (li containing only ol)
+	'li:has(> ol:only-child)': {
+		listStyleType: 'none',
+	},
+	// Hide markers for task list wrapper items (li containing only action list div)
+	'li:has(> div[data-node-type="actionList"]:only-child)': {
+		listStyleType: 'none',
+	},
+	// Hide checkbox for wrapper task list items
+	'li:has(> div[data-node-type="actionList"]:only-child) input[type="checkbox"]': {
+		display: 'none',
+	},
+});
+
 const indentationSharedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.fabric-editor-indentation-mark': {
@@ -2983,6 +3007,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
+				expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
+					listItemHiddenMarkerStyles,
 				indentationSharedStyles,
 				fg('platform_editor__renderer_indentation_text_margin') &&
 					indentationSharedStylesWithMarginFix,

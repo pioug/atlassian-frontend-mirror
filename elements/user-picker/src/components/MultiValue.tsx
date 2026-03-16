@@ -19,10 +19,13 @@ import { getAvatarUrl, isEmail, isGroup, isTeam } from './utils';
 import type { ComponentType } from 'react';
 import type { Email } from '../types';
 import { type Option, type UserPickerProps } from '../types';
+import Lozenge from '@atlaskit/lozenge';
 import PeopleIcon from '@atlaskit/icon/core/people-group';
 import { type MultiValueProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
+import { FormattedMessage } from 'react-intl-next';
+import { messages } from './i18n';
 
 export const scrollToValue = (valueContainer: HTMLDivElement, control: HTMLElement): void => {
 	const { top, height } = valueContainer.getBoundingClientRect();
@@ -43,6 +46,11 @@ const groupTagContainerOld = xcss({
 });
 
 const groupTagContainer = xcss({
+	paddingLeft: 'space.050',
+});
+
+const archivedLozengeWrapper = xcss({
+	display: 'flex',
 	paddingLeft: 'space.050',
 });
 
@@ -163,8 +171,18 @@ export class MultiValue extends React.Component<Props> {
 		const {
 			data: { data },
 		} = this.props;
+		const canShowArchivedLozenge = isTeam(data) && data?.state === 'DISBANDED' && fg('enable-sup-archive-experience');
 		if ((isGroup(data) && data.includeTeamsUpdates) || (isTeam(data) && data.verified)) {
 			return <VerifiedTeamIcon size={data.includeTeamsUpdates ? 'small' : 'medium'} />;
+		}
+		if (canShowArchivedLozenge) {
+			return (
+				<Box xcss={archivedLozengeWrapper}>
+					<Lozenge appearance="default">
+						<FormattedMessage {...messages.archivedLozenge} />
+					</Lozenge>
+				</Box>
+			);
 		}
 		return null;
 	};
@@ -179,7 +197,7 @@ export class MultiValue extends React.Component<Props> {
 			const isEmailOption = isEmail(data);
 			const avatarUrl = getAvatarUrl(data);
 			const isDisabled = Boolean((this.props.selectProps as UserPickerProps)?.isDisabled);
-
+			const canShowArchivedLozenge = isTeam(data) && data?.state === 'DISBANDED' && fg('enable-sup-archive-experience');
 			const avatarProps = avatarUrl ? { name: data.name, src: avatarUrl } : { name: data.name };
 
 			const removeAction = () => {
@@ -264,14 +282,23 @@ export class MultiValue extends React.Component<Props> {
 			return (
 				<span ref={this.containerRef} css={avatarTagWrapperStyle} data-user-picker-multi-value>
 					{isTeamOption ? (
-						<AvatarTag
-							type="other"
-							text={label}
-							isVerified={isTeamOption ? data.verified : undefined}
-							isRemovable={!isDisabled}
-							onBeforeRemoveAction={removeAction}
-							avatar={(props: AvatarPropTypes) => <TeamAvatar {...props} {...avatarProps} />}
-						/>
+						<React.Fragment>
+							<AvatarTag
+								type="other"
+								text={label}
+								isVerified={isTeamOption ? data.verified : undefined}
+								isRemovable={!isDisabled}
+								onBeforeRemoveAction={removeAction}
+								avatar={(props: AvatarPropTypes) => <TeamAvatar {...props} {...avatarProps} />}
+							/>
+							{canShowArchivedLozenge ? (
+								<Box xcss={archivedLozengeWrapper}>
+									<Lozenge appearance="default">
+										<FormattedMessage {...messages.archivedLozenge} />
+									</Lozenge>
+								</Box>
+							) : null}
+						</React.Fragment>
 					) : (
 						<AvatarTag
 							type="user"

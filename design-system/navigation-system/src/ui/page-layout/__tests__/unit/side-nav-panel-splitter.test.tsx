@@ -251,11 +251,33 @@ describe('SideNavPanelSplitter', () => {
 			).toBeInTheDocument();
 		});
 
-		ffTest.on('platform-dst-side-nav-layering-fixes', 'with layering fixes enabled', () => {
-			it('should not render the panel splitter when there is an open popup in the side nav', () => {
-				render(
-					<Root>
-						<SideNav testId="sidenav">
+		it('should not render the panel splitter when there is an open popup in the side nav', () => {
+			render(
+				<Root>
+					<SideNav testId="sidenav">
+						<Popup
+							shouldRenderToParent
+							isOpen
+							content={() => <div>Content</div>}
+							trigger={({ ref }) => (
+								<button type="button" ref={ref}>
+									Popup trigger
+								</button>
+							)}
+						/>
+						<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+					</SideNav>
+				</Root>,
+			);
+
+			expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
+		});
+
+		it('should not render the panel splitter when there are open popups in top nav start', () => {
+			render(
+				<Root>
+					<TopNav>
+						<TopNavStart sideNavToggleButton={null}>
 							<Popup
 								shouldRenderToParent
 								isOpen
@@ -266,187 +288,163 @@ describe('SideNavPanelSplitter', () => {
 									</button>
 								)}
 							/>
-							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
-						</SideNav>
-					</Root>,
-				);
+						</TopNavStart>
+					</TopNav>
+					<SideNav testId="sidenav">
+						<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+					</SideNav>
+				</Root>,
+			);
 
-				expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
-			});
+			expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
+		});
 
-			it('should not render the panel splitter when there are open popups in top nav start', () => {
-				render(
-					<Root>
-						<TopNav>
-							<TopNavStart sideNavToggleButton={null}>
-								<Popup
-									shouldRenderToParent
-									isOpen
-									content={() => <div>Content</div>}
-									trigger={({ ref }) => (
-										<button type="button" ref={ref}>
-											Popup trigger
-										</button>
-									)}
-								/>
-							</TopNavStart>
-						</TopNav>
-						<SideNav testId="sidenav">
-							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
-						</SideNav>
-					</Root>,
-				);
+		it('should not render the panel splitter when there are open popups in top nav middle', () => {
+			render(
+				<Root>
+					<TopNav>
+						<TopNavMiddle>
+							<Popup
+								shouldRenderToParent
+								isOpen
+								content={() => <div>Content</div>}
+								trigger={({ ref }) => (
+									<button type="button" ref={ref}>
+										Popup trigger
+									</button>
+								)}
+							/>
+						</TopNavMiddle>
+					</TopNav>
+					<SideNav testId="sidenav">
+						<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+					</SideNav>
+				</Root>,
+			);
 
-				expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
-			});
+			expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
+		});
 
-			it('should not render the panel splitter when there are open popups in top nav middle', () => {
-				render(
-					<Root>
-						<TopNav>
-							<TopNavMiddle>
-								<Popup
-									shouldRenderToParent
-									isOpen
-									content={() => <div>Content</div>}
-									trigger={({ ref }) => (
-										<button type="button" ref={ref}>
-											Popup trigger
-										</button>
-									)}
-								/>
-							</TopNavMiddle>
-						</TopNav>
-						<SideNav testId="sidenav">
-							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
-						</SideNav>
-					</Root>,
-				);
+		it('should not render the panel splitter when there are open popups in top nav end', () => {
+			render(
+				<Root>
+					<TopNav>
+						<TopNavEnd>
+							<Popup
+								shouldRenderToParent
+								isOpen
+								content={() => <div>Content</div>}
+								trigger={({ ref }) => (
+									<button type="button" ref={ref}>
+										Popup trigger
+									</button>
+								)}
+							/>
+						</TopNavEnd>
+					</TopNav>
+					<SideNav testId="sidenav">
+						<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+					</SideNav>
+				</Root>,
+			);
 
-				expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
-			});
+			expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
+		});
 
-			it('should not render the panel splitter when there are open popups in top nav end', () => {
-				render(
-					<Root>
-						<TopNav>
-							<TopNavEnd>
-								<Popup
-									shouldRenderToParent
-									isOpen
-									content={() => <div>Content</div>}
-									trigger={({ ref }) => (
-										<button type="button" ref={ref}>
-											Popup trigger
-										</button>
-									)}
-								/>
-							</TopNavEnd>
-						</TopNav>
-						<SideNav testId="sidenav">
-							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
-						</SideNav>
-					</Root>,
-				);
+		it('should correctly enable and disable the panel splitter when popups are opened and then closed', async () => {
+			const user = createUser();
 
-				expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
-			});
+			function TestComponent() {
+				const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-			it('should correctly enable and disable the panel splitter when popups are opened and then closed', async () => {
-				const user = createUser();
-
-				function TestComponent() {
-					const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-					return (
-						<Root>
-							<SideNav testId="sidenav">
-								<Popup
-									shouldRenderToParent
-									isOpen={isPopupOpen}
-									onClose={() => setIsPopupOpen(false)}
-									content={() => <div>Content</div>}
-									trigger={({ ref }) => (
-										<button type="button" ref={ref} onClick={() => setIsPopupOpen((prev) => !prev)}>
-											Popup trigger
-										</button>
-									)}
-								/>
-								<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
-							</SideNav>
-						</Root>
-					);
-				}
-
-				render(<TestComponent />);
-
-				// Panel splitter should not rendered initially as the popup is closed
-				expect(screen.getByTestId('panel-splitter')).toBeInTheDocument();
-
-				// Click on the popup trigger to open the popup
-				await user.click(screen.getByText('Popup trigger'));
-
-				// Panel splitter should not be rendered
-				expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
-
-				// Click on the popup trigger to close the popup
-				await user.click(screen.getByText('Popup trigger'));
-
-				// Panel splitter should be rendered
-				expect(screen.getByTestId('panel-splitter')).toBeInTheDocument();
-			});
-
-			it('should still render the panel splitter when there are open tooltips in the side nav', async () => {
-				const user = createUser();
-
-				render(
+				return (
 					<Root>
 						<SideNav testId="sidenav">
+							<Popup
+								shouldRenderToParent
+								isOpen={isPopupOpen}
+								onClose={() => setIsPopupOpen(false)}
+								content={() => <div>Content</div>}
+								trigger={({ ref }) => (
+									<button type="button" ref={ref} onClick={() => setIsPopupOpen((prev) => !prev)}>
+										Popup trigger
+									</button>
+								)}
+							/>
+							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+						</SideNav>
+					</Root>
+				);
+			}
+
+			render(<TestComponent />);
+
+			// Panel splitter should not rendered initially as the popup is closed
+			expect(screen.getByTestId('panel-splitter')).toBeInTheDocument();
+
+			// Click on the popup trigger to open the popup
+			await user.click(screen.getByText('Popup trigger'));
+
+			// Panel splitter should not be rendered
+			expect(screen.queryByTestId('panel-splitter')).not.toBeInTheDocument();
+
+			// Click on the popup trigger to close the popup
+			await user.click(screen.getByText('Popup trigger'));
+
+			// Panel splitter should be rendered
+			expect(screen.getByTestId('panel-splitter')).toBeInTheDocument();
+		});
+
+		it('should still render the panel splitter when there are open tooltips in the side nav', async () => {
+			const user = createUser();
+
+			render(
+				<Root>
+					<SideNav testId="sidenav">
+						<Tooltip content="Tooltip content">
+							<button type="button">Tooltip trigger</button>
+						</Tooltip>
+						<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+					</SideNav>
+				</Root>,
+			);
+
+			await user.hover(screen.getByText('Tooltip trigger'));
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			expect(await screen.findByRole('tooltip', { name: 'Tooltip content' })).toBeInTheDocument();
+
+			expect(screen.getByTestId('panel-splitter')).toBeInTheDocument();
+		});
+
+		it('should still render the panel splitter when there are open tooltips in the top nav', async () => {
+			const user = createUser();
+
+			render(
+				<Root>
+					<TopNav>
+						<TopNavStart sideNavToggleButton={null}>
 							<Tooltip content="Tooltip content">
 								<button type="button">Tooltip trigger</button>
 							</Tooltip>
-							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
-						</SideNav>
-					</Root>,
-				);
+						</TopNavStart>
+					</TopNav>
+					<SideNav testId="sidenav">
+						<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+					</SideNav>
+				</Root>,
+			);
 
-				await user.hover(screen.getByText('Tooltip trigger'));
-				act(() => {
-					jest.runAllTimers();
-				});
-
-				expect(await screen.findByRole('tooltip', { name: 'Tooltip content' })).toBeInTheDocument();
-
-				expect(screen.getByTestId('panel-splitter')).toBeInTheDocument();
+			await user.hover(screen.getByText('Tooltip trigger'));
+			act(() => {
+				jest.runAllTimers();
 			});
 
-			it('should still render the panel splitter when there are open tooltips in the top nav', async () => {
-				const user = createUser();
+			expect(await screen.findByRole('tooltip', { name: 'Tooltip content' })).toBeInTheDocument();
 
-				render(
-					<Root>
-						<TopNav>
-							<TopNavStart sideNavToggleButton={null}>
-								<Tooltip content="Tooltip content">
-									<button type="button">Tooltip trigger</button>
-								</Tooltip>
-							</TopNavStart>
-						</TopNav>
-						<SideNav testId="sidenav">
-							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
-						</SideNav>
-					</Root>,
-				);
-
-				await user.hover(screen.getByText('Tooltip trigger'));
-				act(() => {
-					jest.runAllTimers();
-				});
-
-				expect(await screen.findByRole('tooltip', { name: 'Tooltip content' })).toBeInTheDocument();
-
-				expect(screen.getByTestId('panel-splitter')).toBeInTheDocument();
-			});
+			expect(screen.getByTestId('panel-splitter')).toBeInTheDocument();
 		});
 	});
 });

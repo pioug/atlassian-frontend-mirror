@@ -1,12 +1,21 @@
-# Editor plugin avatar group
+# Editor Plugin Avatar Group
 
 Avatar Group plugin for @atlaskit/editor-core
 
-The avatar-group plugin is just a placeholder for the AvatarsWithPluginState component so that it is properly integrated into the toolbar.
-The avatar-group plugin itself doesn't do anything so all the pm-plugin related code has been removed.
-
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Avatar Group plugin displays active collaborators in the editor toolbar. It integrates with the collaboration editing system to show real-time participant avatars and provides an optional "Invite to Edit" button for sharing the document with others.
+
+## Key features
+
+- **Real-time participant display** - Shows avatars of active collaborators in the current editing session
+- **Toolbar integration** - Seamlessly integrates into the primary toolbar through the editor plugin system
+- **Invite to edit** - Provides optional invite-to-edit functionality with customizable components and handlers
+- **Collaboration state tracking** - Monitors collaboration edit plugin state to display active participants
+- **Analytics integration** - Tracks avatar group interactions and visibility events
 
 ## Install
 ---
@@ -30,4 +39,4 @@ Please see [Atlaskit - Editor plugin avatar group](https://atlaskit.atlassian.co
 For internal Atlassian, visit the slack channel [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) for support or visit [go/editor-help](https://go/editor-help) to submit a bug.
 ## License
 ---
- Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#Platform-License) for more licensing information.
+ Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.

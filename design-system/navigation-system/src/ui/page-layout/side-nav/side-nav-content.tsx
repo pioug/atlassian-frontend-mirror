@@ -60,16 +60,8 @@ const scrolledBorder = keyframes({
 	},
 });
 
-const scrollTimelineVar = '--sNcst';
 const fullHeightSidebarStyles = cssMap({
 	scrollContainer: {
-		// Creates the scroll timeline bound to the var
-		scrollTimeline: `${scrollTimelineVar} block`,
-		// Consumes the scroll timeline for the animation
-		animationTimeline: scrollTimelineVar,
-		animationName: scrolledBorder,
-	},
-	scrollContainerWithLayeringFixes: {
 		// Only needed when the side nav is full height, which only happens on desktop.
 		'@media (min-width: 64rem)': {
 			'@supports (scroll-timeline-axis: block)': {
@@ -110,15 +102,9 @@ function _SideNavContent(
 			css={[
 				styles.scrollContainer,
 				isFhsEnabled &&
-					!fg('platform-dst-side-nav-layering-fixes') &&
+					isExpandedOnDesktop &&
 					!fg('platform_dst_nav4_fhs_feedback_1') &&
 					fullHeightSidebarStyles.scrollContainer,
-				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-				isFhsEnabled &&
-					isExpandedOnDesktop &&
-					fg('platform-dst-side-nav-layering-fixes') &&
-					!fg('platform_dst_nav4_fhs_feedback_1') &&
-					fullHeightSidebarStyles.scrollContainerWithLayeringFixes,
 			]}
 			ref={isFhsEnabled ? mergedRef : forwardedRef}
 			data-testid={testId}

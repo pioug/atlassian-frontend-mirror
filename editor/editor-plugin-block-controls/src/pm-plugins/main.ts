@@ -1077,12 +1077,12 @@ export const createPlugin = (
 
 				const isDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled;
 				if (isDisabled) {
-					const remixRightSideEnabled =
-						rightSideControlsEnabled &&
-						expValEquals('confluence_remix_icon_right_side', 'isEnabled', true);
 					// Hide decorations when disabled, except in view mode when right-side controls are enabled
 					if (
-						!remixRightSideEnabled ||
+						!(
+							rightSideControlsEnabled &&
+							expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
+						) ||
 						api?.editorViewMode?.sharedState.currentState()?.mode !== 'view'
 					) {
 						return;

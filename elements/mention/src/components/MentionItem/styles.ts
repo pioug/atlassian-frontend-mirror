@@ -2,6 +2,7 @@
 import styled, { type StyledComponent } from '@emotion/styled';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { Theme } from '@emotion/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N900, N100, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import type { DetailedHTMLProps, HTMLAttributes } from 'react';
@@ -25,8 +26,8 @@ export interface InfoSectionStyleProps {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const RowStyle: StyledComponent<
 	{
-		theme?: Theme;
 		as?: React.ElementType;
+		theme?: Theme;
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
@@ -45,8 +46,8 @@ export const RowStyle: StyledComponent<
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const AvatarStyle: StyledComponent<
 	{
-		theme?: Theme;
 		as?: React.ElementType;
+		theme?: Theme;
 	} & AvatarSectionStyleProps,
 	DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
 	{}
@@ -61,8 +62,8 @@ export const AvatarStyle: StyledComponent<
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const NameSectionStyle: StyledComponent<
 	{
-		theme?: Theme;
 		as?: React.ElementType;
+		theme?: Theme;
 	} & NameSectionStyleProps,
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
@@ -78,8 +79,8 @@ export const NameSectionStyle: StyledComponent<
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const FullNameStyle: StyledComponent<
 	{
-		theme?: Theme;
 		as?: React.ElementType;
+		theme?: Theme;
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
 	{}
@@ -95,8 +96,8 @@ export const FullNameStyle: StyledComponent<
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const InfoSectionStyle: StyledComponent<
 	{
-		theme?: Theme;
 		as?: React.ElementType;
+		theme?: Theme;
 	} & InfoSectionStyleProps,
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
@@ -109,19 +110,24 @@ export const InfoSectionStyle: StyledComponent<
 	opacity: props.restricted ? '0.5' : 'inherit',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&': {
-		/* Lozenge */
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'& > span': {
-			marginBottom: token('space.025', '2px'),
-		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		'& > span': fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+			? {
+					marginRight: token('space.negative.025'),
+					marginBottom: token('space.025'),
+					marginTop: token('space.025'),
+				}
+			: {
+					marginBottom: token('space.025', '2px'),
+				},
 	},
 }));
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const TimeStyle: StyledComponent<
 	{
-		theme?: Theme;
 		as?: React.ElementType;
+		theme?: Theme;
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
@@ -130,15 +136,15 @@ export const TimeStyle: StyledComponent<
 	marginLeft: token('space.250', '20px'),
 	flex: 'none',
 	color: token('color.text.subtlest', N100),
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 });
 
 export const MENTION_ITEM_HEIGHT = 48;
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const MentionItemStyle: StyledComponent<
 	{
-		theme?: Theme;
 		as?: React.ElementType;
+		theme?: Theme;
 	} & MentionItemStyleProps,
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
@@ -158,8 +164,8 @@ export const MentionItemStyle: StyledComponent<
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const AccessSectionStyle: StyledComponent<
 	{
-		theme?: Theme;
 		as?: React.ElementType;
+		theme?: Theme;
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}

@@ -30,15 +30,48 @@ ${code`
 type DatePlugin = NextEditorPlugin<
   'date',
   {
-    pluginConfiguration: DatePluginOptions | undefined;
-    dependencies: [typeof analyticsPlugin, EditorDisabledPlugin];
-    sharedState: DatePluginSharedState;
     commands: {
-      insertDate: InsertDate;
       deleteDate: DeleteDate;
+      insertDate: InsertDate;
     };
+    dependencies: [
+      typeof analyticsPlugin,
+      EditorDisabledPlugin,
+      OptionalPlugin<AnnotationPlugin>,
+      OptionalPlugin<EditorViewModePlugin>,
+    ];
+    pluginConfiguration: DatePluginOptions | undefined;
+    sharedState: DatePluginSharedState;
   }
 >;
+
+type DateSegment = 'day' | 'month' | 'year';
+
+type DateType = {
+  day?: number;
+  month: number;
+  year: number;
+};
+
+interface DatePluginOptions {
+  weekStartDay?: WeekDay;
+}
+
+type DatePluginSharedState = {
+  focusDateInput: boolean;
+  isInitialised: boolean;
+  isNew: boolean;
+  showDatePickerAt?: number | null;
+};
+
+type InsertDate = (props: {
+  commitMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD;
+  date?: DateType;
+  enterPressed?: boolean;
+  inputMethod?: TOOLBAR_MENU_TYPE;
+}) => EditorCommand;
+
+type DeleteDate = EditorCommand;
 `}
 
 ## Support

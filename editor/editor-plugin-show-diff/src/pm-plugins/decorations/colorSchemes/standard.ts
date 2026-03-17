@@ -108,3 +108,27 @@ export const editingStyleCardBlockNode: string = convertToInlineCss({
 export const standardDecorationMarkerVariable: string = convertToInlineCss({
 	'--diff-decoration-marker-color': token('color.border.accent.purple'),
 });
+
+export const addedCellOverlayStyle = convertToInlineCss({
+	position: 'absolute',
+	top: 0,
+	left: 0,
+	width: '100%',
+	height: '100%',
+	backgroundColor: `rgba(from ${token('color.background.accent.purple.subtlest')} r g b / 0.5)`,
+	zIndex: 1,
+	outline: `1px solid ${token('color.border.accent.purple')}`,
+	pointerEvents: 'none',
+});
+
+export const deletedCellOverlayStyle = convertToInlineCss({
+	position: 'absolute',
+	top: 0,
+	left: 0,
+	width: '100%',
+	height: '100%',
+	backgroundColor: `rgba(from ${token('color.background.accent.gray.subtlest')} r g b / 0.5)`,
+	zIndex: 1,
+	outline: `1px solid ${token('color.border.accent.gray')}`,
+	pointerEvents: 'none',
+});

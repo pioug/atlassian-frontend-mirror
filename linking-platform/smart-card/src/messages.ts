@@ -21,14 +21,15 @@ export type RovoChatActionMessageKey =
 	| 'rovo_prompt_context_generic'
 	| 'rovo_prompt_context_generic_plural'
 	| 'rovo_prompt_context_confluence_page'
-	| 'rovo_prompt_context_confluence_page_plural'
 	| 'rovo_prompt_context_confluence_page_short'
 	| 'rovo_prompt_context_jira_work_item'
-	| 'rovo_prompt_context_jira_work_item_plural'
 	| 'rovo_prompt_context_jira_work_item_short'
 	| 'rovo_prompt_button_recommend_other_sources'
+	| 'rovo_prompt_message_recommend_other_sources'
 	| 'rovo_prompt_button_show_other_mentions'
-	| 'rovo_prompt_button_suggest_improvement';
+	| 'rovo_prompt_message_show_other_mentions'
+	| 'rovo_prompt_button_suggest_improvement'
+	| 'rovo_prompt_message_suggest_improvement';
 export type MessageKey =
 	| 'assigned_to'
 	| 'ai_summarize'
@@ -1111,12 +1112,6 @@ export const messages: Messages = defineMessages({
 		description:
 			'The Confluence page the user see Smart Link in, to be used as the {context} for Rovo prompt message',
 	},
-	rovo_prompt_context_confluence_page_plural: {
-		id: 'fabric.linking.rovo_prompt_context_confluence_page_plural.non-final',
-		defaultMessage: 'Confluence pages',
-		description:
-			'The Confluence page the user see Smart Link in, to be used as the {context} for Rovo prompt message',
-	},
 	rovo_prompt_context_confluence_page_short: {
 		id: 'fabric.linking.rovo_prompt_context_confluence_page_short.non-final',
 		defaultMessage: 'page',
@@ -1126,12 +1121,6 @@ export const messages: Messages = defineMessages({
 	rovo_prompt_context_jira_work_item: {
 		id: 'fabric.linking.rovo_prompt_context_jira_work_item.non-final',
 		defaultMessage: 'Jira work item',
-		description:
-			'The Jira work item the user see Smart Link in, to be used as the {context} for Rovo prompt message',
-	},
-	rovo_prompt_context_jira_work_item_plural: {
-		id: 'fabric.linking.rovo_prompt_context_jira_work_item_plural.non-final',
-		defaultMessage: 'Jira work items',
 		description:
 			'The Jira work item the user see Smart Link in, to be used as the {context} for Rovo prompt message',
 	},
@@ -1147,16 +1136,37 @@ export const messages: Messages = defineMessages({
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
+	rovo_prompt_message_recommend_other_sources: {
+		id: 'fabric.linking.rovo_prompt_message_recommend_other_sources.non-final',
+		defaultMessage:
+			'<p>From this <a>{url}</a> and the {context} I’m viewing now as context:</p><ul><li><p>Search across all sources I can access for items that discuss <b>similar concepts, themes, or problems</b>, or that <b>reference similar or closely related sources</b> (including links to the same or related pages, issues, or docs).</p></li><li><p>Return the results as a list or table with columns: <code>Item</code>, <code>Type</code>, <code>Short summary</code>, and <code>Why it’s similar</code>.</p></li><li><p>For each result, give a one‑sentence <b>Short summary</b> of what the item is about.</p></li><li><p>In <b>Why it’s similar</b>, briefly explain (in a phrase or short sentence) what makes it related to this Smart Link and/or the item I’m viewing (for example: same project, similar decision, shared requirements, overlapping stakeholders, similar metrics, or referencing related docs).</p></li><li><p>Order the list from <b>most to least relevant</b> based on Rovo’s assessment of semantic similarity to both the Smart Link target and the current item.  Prioritize items that I do not own or have not contributed to.</p></li><li><p>If there are more than 5 results, show the <b>5 most relevant</b> and state how many additional items you found.</p></li></ul>',
+		description:
+			'The prompt message to send to Rovo Chat. {context} refers to the content the user triggered from, e.g. Confluence page or Jira work item. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
+	},
 	rovo_prompt_button_show_other_mentions: {
 		id: 'fabric.linking.rovo_prompt_button_show_other_mentions.non-final',
 		defaultMessage: 'Show other mentions',
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
+	rovo_prompt_message_show_other_mentions: {
+		id: 'fabric.linking.rovo_prompt_message_show_other_mentions.non-final',
+		defaultMessage:
+			'<p>From <a>{url}</a> and the {context} I’m viewing now:</p><ul><li><p>Search across all Confluence pages and Jira work items I can access for other items that contain this exact Smart Link (same underlying URL/resource).</p></li><li><p>List all matching items in a table with columns: <code>Item</code>, <code>Type</code>, <code>Short summary</code>, <code>How this item uses the link</code>, and <code>Relevance to current item</code>.</p></li><li><p>For <code>Short summary</code>, give a one‑sentence description of what the {context} is about.</p></li><li><p>For <code>How this item uses the link</code>, briefly explain the role this link plays there (e.g., decision doc, background context, implementation details, status update).</p></li><li><p>For <code>Relevance to current item</code>, compare each item to the {context} I’m viewing now and label it <code>High</code>, <code>Medium</code>, or <code>Low</code> relevance, with a short reason (a phrase or single clause).</p></li><li><p>If there are more than 15 matches, show the 15 most relevant and tell me how many additional matches exist.</p></li></ul>',
+		description:
+			'The prompt message to send to Rovo Chat. {context} refers to the content the user triggered from, e.g. Confluence page or Jira work item. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
+	},
 	rovo_prompt_button_suggest_improvement: {
 		id: 'fabric.linking.rovo_prompt_button_suggest_improvement.non-final',
 		defaultMessage: 'Suggest {context} improvement',
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_suggest_improvement: {
+		id: 'fabric.linking.rovo_prompt_message_suggest_improvement.non-final',
+		defaultMessage:
+			'<p>Using the {context} I’m viewing now, plus all files and links referenced in it (including <a>{url}</a>):</p><ul><li><p>Identify unclear reasoning, missing context, or contradictions between the item and its linked files.</p></li><li><p>Call out any places where assumptions are not backed up by data or prior docs.</p></li><li><p>Stay concise: summarize your findings in <b>no more than three short paragraphs of content listed as bullets</b> of no more than a couple of sentences long focused only on the two points above.</p></li><li><p>After presenting that summary, <b>ask me explicitly</b> if I want you to go deeper. Only if I say yes, then:</p><ul><li><p>Suggest concrete rewrites (bullets or short paragraphs) to make the argument clearer, more concise, and better aligned with the supporting files.</p></li><li><p>Propose 3–5 follow‑up edits or additions that would make this item and its linked docs “share‑ready” for stakeholders.</p></li></ul></li></ul>',
+		description:
+			'The prompt message to send to Rovo Chat. {context} refers to the content the user triggered from, e.g. Confluence page or Jira work item. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
 });

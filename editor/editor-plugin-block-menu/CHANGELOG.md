@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 7.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.3
+
+### Patch Changes
+
+- [`d84e100ff2136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d84e100ff2136) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
 ## 7.0.2
 
 ### Patch Changes

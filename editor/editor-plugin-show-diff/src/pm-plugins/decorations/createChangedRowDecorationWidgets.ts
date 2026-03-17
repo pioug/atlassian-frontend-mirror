@@ -5,12 +5,21 @@ import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ColorScheme } from '../../showDiffPluginType';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 
-import { deletedRowStyle } from './colorSchemes/standard';
-import { deletedTraditionalRowStyle } from './colorSchemes/traditional';
+import {
+	addedCellOverlayStyle,
+	deletedRowStyle,
+	deletedCellOverlayStyle,
+} from './colorSchemes/standard';
+import {
+	deletedTraditionalRowStyle,
+	deletedTraditionalCellOverlayStyle,
+	traditionalAddedCellOverlayStyle,
+} from './colorSchemes/traditional';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 
 interface RowInfo {
@@ -147,12 +156,23 @@ const createChangedRowDOM = (
 	rowNode: PMNode,
 	nodeViewSerializer: NodeViewSerializer,
 	colorScheme?: ColorScheme,
+	isInserted?: boolean,
 ): HTMLTableRowElement => {
 	const tr = document.createElement('tr');
-	tr.setAttribute(
-		'style',
-		colorScheme === 'traditional' ? deletedTraditionalRowStyle : deletedRowStyle,
-	);
+
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (!isInserted) {
+			tr.setAttribute(
+				'style',
+				colorScheme === 'traditional' ? deletedTraditionalRowStyle : deletedRowStyle,
+			);
+		}
+	} else {
+		tr.setAttribute(
+			'style',
+			colorScheme === 'traditional' ? deletedTraditionalRowStyle : deletedRowStyle,
+		);
+	}
 	tr.setAttribute('data-testid', 'show-diff-deleted-row');
 
 	// Serialize each cell in the row
@@ -160,6 +180,24 @@ const createChangedRowDOM = (
 		if (cellNode.type.name === 'tableCell' || cellNode.type.name === 'tableHeader') {
 			const nodeView = nodeViewSerializer.tryCreateNodeView(cellNode);
 			if (nodeView) {
+				if (
+					isInserted &&
+					nodeView instanceof HTMLElement &&
+					expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+				) {
+					const overlay = document.createElement('span');
+					const overlayStyle =
+						colorScheme === 'traditional'
+							? isInserted
+								? traditionalAddedCellOverlayStyle
+								: deletedTraditionalCellOverlayStyle
+							: isInserted
+								? addedCellOverlayStyle
+								: deletedCellOverlayStyle;
+
+					overlay.setAttribute('style', overlayStyle);
+					nodeView.appendChild(overlay);
+				}
 				tr.appendChild(nodeView);
 			} else {
 				// Fallback to fragment serialization
@@ -204,9 +242,11 @@ export const createChangedRowDecorationWidgets = ({
 	newDoc,
 	nodeViewSerializer,
 	colorScheme,
+	isInserted = false,
 }: {
 	changes: SimpleChange[];
 	colorScheme?: ColorScheme;
+	isInserted?: boolean;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 	originalDoc: PMNode;
@@ -219,7 +259,12 @@ export const createChangedRowDecorationWidgets = ({
 	);
 
 	return changedRows.map((changedRow) => {
-		const rowDOM = createChangedRowDOM(changedRow.rowNode, nodeViewSerializer, colorScheme);
+		const rowDOM = createChangedRowDOM(
+			changedRow.rowNode,
+			nodeViewSerializer,
+			colorScheme,
+			isInserted,
+		);
 
 		// Find safe insertion position for the deleted row
 		const safeInsertPos = findSafeInsertPos(

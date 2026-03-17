@@ -250,7 +250,7 @@ const datePlugin: DatePlugin = ({ config = {}, api }) => ({
 				keywords: ['calendar', 'day', 'time', 'today', '/'],
 				keyshortcut: '//',
 				icon: () => <IconDate />,
-				action(insert, state) {
+				action(insert, state, source) {
 					const tr = createDate(true)(state);
 
 					api?.analytics?.actions?.attachAnalyticsEvent?.({
@@ -258,7 +258,7 @@ const datePlugin: DatePlugin = ({ config = {}, api }) => ({
 						actionSubject: ACTION_SUBJECT.DOCUMENT,
 						actionSubjectId: ACTION_SUBJECT_ID.DATE,
 						eventType: EVENT_TYPE.TRACK,
-						attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+						attributes: { inputMethod: source ?? INPUT_METHOD.QUICK_INSERT },
 					})(tr);
 
 					return tr;

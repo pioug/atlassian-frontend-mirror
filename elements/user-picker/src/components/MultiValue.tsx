@@ -171,7 +171,8 @@ export class MultiValue extends React.Component<Props> {
 		const {
 			data: { data },
 		} = this.props;
-		const canShowArchivedLozenge = isTeam(data) && data?.state === 'DISBANDED' && fg('enable-sup-archive-experience');
+		const canShowArchivedLozenge =
+			isTeam(data) && data?.state === 'DISBANDED' && fg('enable-sup-archive-experience');
 		if ((isGroup(data) && data.includeTeamsUpdates) || (isTeam(data) && data.verified)) {
 			return <VerifiedTeamIcon size={data.includeTeamsUpdates ? 'small' : 'medium'} />;
 		}
@@ -197,7 +198,8 @@ export class MultiValue extends React.Component<Props> {
 			const isEmailOption = isEmail(data);
 			const avatarUrl = getAvatarUrl(data);
 			const isDisabled = Boolean((this.props.selectProps as UserPickerProps)?.isDisabled);
-			const canShowArchivedLozenge = isTeam(data) && data?.state === 'DISBANDED' && fg('enable-sup-archive-experience');
+			const canShowArchivedLozenge =
+				isTeam(data) && data?.state === 'DISBANDED' && fg('enable-sup-archive-experience');
 			const avatarProps = avatarUrl ? { name: data.name, src: avatarUrl } : { name: data.name };
 
 			const removeAction = () => {

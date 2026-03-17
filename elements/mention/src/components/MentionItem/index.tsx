@@ -1,4 +1,6 @@
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
+import Tag, { type TagColor } from '@atlaskit/tag';
 import React from 'react';
 import { token } from '@atlaskit/tokens';
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
@@ -8,6 +10,7 @@ import {
 	type OnMentionEvent,
 	type Presence,
 	type LozengeProps,
+	type LozengeColor,
 } from '../../types';
 import { NoAccessLabel } from '../../util/i18n';
 import { leftClick } from '../../util/mouse';
@@ -29,6 +32,29 @@ import MessagesIntlProvider from '../MessagesIntlProvider';
 import { MentionAvatar } from '../MentionAvatar';
 
 export { MENTION_ITEM_HEIGHT } from './styles';
+
+const lozengeAppearanceToTagColor: Record<LozengeColor, TagColor> = {
+	default: 'standard',
+	success: 'lime',
+	removed: 'red',
+	inprogress: 'blue',
+	new: 'purple',
+	moved: 'orange',
+};
+
+function renderTag(lozenge?: string | LozengeProps) {
+	if (typeof lozenge === 'string') {
+		return <Tag text={lozenge} color="standard" isRemovable={false} migration_fallback="lozenge" />;
+	}
+	if (typeof lozenge === 'object') {
+		const { appearance, text } = lozenge;
+		const color = appearance ? lozengeAppearanceToTagColor[appearance] : 'standard';
+		return (
+			<Tag text={text as string} color={color} isRemovable={false} migration_fallback="lozenge" />
+		);
+	}
+	return null;
+}
 
 function renderLozenge(lozenge?: string | LozengeProps) {
 	if (typeof lozenge === 'string') {
@@ -115,7 +141,9 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 							<MentionDescriptionByline mention={mention} />
 						</NameSectionStyle>
 						<InfoSectionStyle restricted={restricted}>
-							{renderLozenge(lozenge)}
+							{fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+								? renderTag(lozenge)
+								: renderLozenge(lozenge)}
 							{renderTime(time)}
 						</InfoSectionStyle>
 						{restricted ? (

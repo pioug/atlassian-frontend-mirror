@@ -31,14 +31,25 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type HoverDecorationProps = {
+  add: boolean;
+  className?: string;
+};
+
+type HoverDecorationCommand = ({ add, className }: HoverDecorationProps) => EditorCommand;
+
 type DecorationsPlugin = NextEditorPlugin<
   'decorations',
   {
-    sharedState: DecorationState;
     actions: {
       hoverDecoration: HoverDecorationHandler;
       removeDecoration: typeof removeDecoration;
     };
+    commands: {
+      hoverDecoration?: HoverDecorationCommand;
+      removeDecoration?: () => EditorCommand;
+    };
+    sharedState: DecorationState;
   }
 >;
 `}

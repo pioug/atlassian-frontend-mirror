@@ -81,6 +81,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_editor_element_browser_analytic": {
+			"type": "boolean"
+		},
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		}

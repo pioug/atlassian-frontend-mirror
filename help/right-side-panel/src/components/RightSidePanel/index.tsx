@@ -1,5 +1,4 @@
-import React from 'react';
-import { Component, type ReactNode } from 'react';
+import React, { Component, type ReactNode } from 'react';
 import { canUseDOM } from 'exenv';
 import { createPortal } from 'react-dom';
 import { Transition } from 'react-transition-group';
@@ -40,6 +39,7 @@ export interface State {
 
 export class RightSidePanel extends Component<Props, State> {
 	attachPanelTo: string = this.props.attachPanelTo;
+	private drawerRef = React.createRef<HTMLDivElement>();
 
 	state = {
 		entered: false,
@@ -69,6 +69,7 @@ export class RightSidePanel extends Component<Props, State> {
 			<Transition
 				in={isOpen}
 				timeout={transitionDurationMs}
+				nodeRef={this.drawerRef}
 				mountOnEnter={mountOnEnter}
 				unmountOnExit={unmountOnExit}
 				appear={!skipAnimationOnMount}
@@ -78,7 +79,11 @@ export class RightSidePanel extends Component<Props, State> {
 				onExited={onCloseAnimationFinished}
 			>
 				{(state: TransitionStatus) => (
-					<RightSidePanelDrawer transitionState={state} width={this.props.width}>
+					<RightSidePanelDrawer
+						ref={this.drawerRef}
+						transitionState={state}
+						width={this.props.width}
+					>
 						<RightSidePanelDrawerContent width={this.props.width}>
 							{children}
 						</RightSidePanelDrawerContent>

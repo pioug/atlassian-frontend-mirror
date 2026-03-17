@@ -25,8 +25,7 @@ const highlight = keyframes({
 	},
 });
 
-// Disable type-checking as pretty-props > @emotion/core is changing the type of the css-prop
-const styles: any = cssMap({
+const styles = cssMap({
 	required: {
 		color: token('color.text.danger'),
 	},

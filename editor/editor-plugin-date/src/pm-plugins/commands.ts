@@ -3,12 +3,14 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { todayTimestampInUTC } from '@atlaskit/editor-common/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DatePlugin, DeleteDate, InsertDate } from '../types';
 import { isToday } from '../ui/DatePicker/utils/internal';
@@ -53,12 +55,16 @@ export const insertDateCommand: InsertDateCommand =
 		}
 
 		if (inputMethod) {
+			const resolvedInputMethod = fg('platform_editor_element_browser_analytic')
+				? inputMethod
+				: INPUT_METHOD.QUICK_INSERT;
+
 			pluginInjectionApi?.analytics?.actions?.attachAnalyticsEvent({
 				action: ACTION.INSERTED,
 				actionSubject: ACTION_SUBJECT.DOCUMENT,
 				actionSubjectId: ACTION_SUBJECT_ID.DATE,
 				eventType: EVENT_TYPE.TRACK,
-				attributes: { inputMethod },
+				attributes: { inputMethod: resolvedInputMethod },
 			})(tr);
 		}
 

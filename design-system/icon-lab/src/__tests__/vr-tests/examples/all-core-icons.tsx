@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::8de969bc038076d859462bc114ef9ded>>
+ * @codegen <<SignedSource::d8953a4273978fe0a7a70e2f32371823>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -16,7 +16,7 @@ import React from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives';
 
 import AiBotIcon from '../../../../core/ai-bot';
 import AiComputeIcon from '../../../../core/ai-compute';
@@ -38,6 +38,7 @@ import AlignContentTopIcon from '../../../../core/align-content-top';
 import AlignPositionBottomIcon from '../../../../core/align-position-bottom';
 import AlignPositionCenterVerticalIcon from '../../../../core/align-position-center-vertical';
 import AlignPositionTopIcon from '../../../../core/align-position-top';
+import ApprovalStartIcon from '../../../../core/approval-start';
 import ArrowCurvedDownLeftIcon from '../../../../core/arrow-curved-down-left';
 import ArrowCurvedDownRightIcon from '../../../../core/arrow-curved-down-right';
 import ArrowCurvedLeftDownIcon from '../../../../core/arrow-curved-left-down';
@@ -234,7 +235,10 @@ import DirectoryIcon from '../../../../core/directory';
 import DistributeSpacingHorizontalIcon from '../../../../core/distribute-spacing-horizontal';
 import DistributeSpacingVerticalIcon from '../../../../core/distribute-spacing-vertical';
 import DividerElementIcon from '../../../../core/divider-element';
+import DockToolbarBottomIcon from '../../../../core/dock-toolbar-bottom';
 import DockToolbarTopIcon from '../../../../core/dock-toolbar-top';
+import DockWindowBottomLeftIcon from '../../../../core/dock-window-bottom-left';
+import DockWindowBottomRightIcon from '../../../../core/dock-window-bottom-right';
 import DrawIcon from '../../../../core/draw';
 import DropShadowIcon from '../../../../core/drop-shadow';
 import DuplicateIcon from '../../../../core/duplicate';
@@ -255,6 +259,18 @@ import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection'
 import HandClosedIcon from '../../../../core/hand-closed';
 import HandOpenIcon from '../../../../core/hand-open';
 import HandRaisedIcon from '../../../../core/hand-raised';
+import HardwareAuditIcon from '../../../../core/hardware-audit';
+import HardwareConfigurationIcon from '../../../../core/hardware-configuration';
+import HardwareDefectIcon from '../../../../core/hardware-defect';
+import HardwareDisposeIcon from '../../../../core/hardware-dispose';
+import HardwareFulfilIcon from '../../../../core/hardware-fulfil';
+import HardwareNewIcon from '../../../../core/hardware-new';
+import HardwareProcureIcon from '../../../../core/hardware-procure';
+import HardwareRefreshIcon from '../../../../core/hardware-refresh';
+import HardwareRepairIcon from '../../../../core/hardware-repair';
+import HardwareReturnIcon from '../../../../core/hardware-return';
+import HardwareShipIcon from '../../../../core/hardware-ship';
+import HardwareTransferIcon from '../../../../core/hardware-transfer';
 import HistoryIcon from '../../../../core/history';
 import HourglassIcon from '../../../../core/hourglass';
 import IfElseIcon from '../../../../core/if-else';
@@ -295,6 +311,8 @@ import PaintRollerIcon from '../../../../core/paint-roller';
 import PanelIcon from '../../../../core/panel';
 import PartyPopperIcon from '../../../../core/party-popper';
 import PencilIcon from '../../../../core/pencil';
+import PersonLockLockedIcon from '../../../../core/person-lock-locked';
+import PersonLockUnlockedIcon from '../../../../core/person-lock-unlocked';
 import PersonVoiceoverIcon from '../../../../core/person-voiceover';
 import PinStrikethroughIcon from '../../../../core/pin-strikethrough';
 import PipelineIcon from '../../../../core/pipeline';
@@ -310,6 +328,7 @@ import QrCodeIcon from '../../../../core/qr-code';
 import QueuePopInIcon from '../../../../core/queue-pop-in';
 import QueuePopOutIcon from '../../../../core/queue-pop-out';
 import RandomizeIcon from '../../../../core/randomize';
+import RegistryServiceIcon from '../../../../core/registry-service';
 import RepeatIcon from '../../../../core/repeat';
 import ReplyLeftIcon from '../../../../core/reply-left';
 import ReplyRightIcon from '../../../../core/reply-right';
@@ -883,6 +902,25 @@ const Icons = [
 	FlowerIcon,
 	SurveyIcon,
 	AskIcon,
+	ApprovalStartIcon,
+	DockToolbarBottomIcon,
+	DockWindowBottomLeftIcon,
+	DockWindowBottomRightIcon,
+	HardwareAuditIcon,
+	HardwareConfigurationIcon,
+	HardwareDefectIcon,
+	HardwareDisposeIcon,
+	HardwareFulfilIcon,
+	HardwareNewIcon,
+	HardwareProcureIcon,
+	HardwareRefreshIcon,
+	HardwareRepairIcon,
+	HardwareReturnIcon,
+	HardwareShipIcon,
+	HardwareTransferIcon,
+	PersonLockLockedIcon,
+	PersonLockUnlockedIcon,
+	RegistryServiceIcon,
 ];
 
 const groupSize = 50;

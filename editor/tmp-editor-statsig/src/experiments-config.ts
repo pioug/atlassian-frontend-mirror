@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? true // Boolean: only 'true' is allowed as expected value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? true // Boolean: only 'true' is allowed as expected value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? false // Boolean: only 'false' is allowed as default value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? false // Boolean: only 'false' is allowed as default value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -319,13 +319,7 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_deduplicate_mark_diff: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-05
+		// Added 2026-03-05
 	platform_editor_abort_ufo_on_user_interaction: {
 		defaultValue: boolean;
 		param: string;
@@ -1134,13 +1128,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-01-29
-	platform_editor_send_client_platform_header: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-01-29
 	platform_editor_renderer_toolbar_updates: {
 		defaultValue: boolean;
@@ -1441,6 +1428,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-04
 	confluence_fe_renderer_inline_node_mark_color_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-10
+	platform_editor_insert_location_check: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1919,13 +1913,6 @@ export const editorExperimentsConfig: {
 	platform_editor_controls_block_controls_state_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_controls_block_controls_state_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	platform_editor_deduplicate_mark_diff: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_deduplicate_mark_diff',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2831,14 +2818,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-01-29
-	platform_editor_send_client_platform_header: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_send_client_platform_header',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-01-29
 	platform_editor_renderer_toolbar_updates: createBooleanExperiment({
 		productKeys: {
@@ -3201,6 +3180,15 @@ export const editorExperimentsConfig: {
 	platform_editor_table_resizer_extended_zone: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_table_resizer_extended_zone',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-10
+	platform_editor_insert_location_check: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_editor_insert_location_check',
+			confluence: 'platform_editor_insert_location_check',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

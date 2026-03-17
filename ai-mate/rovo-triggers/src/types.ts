@@ -101,6 +101,7 @@ export type EditorContextPayloadData =
 			selectionFragment?: string;
 			selectionLocalIds?: string;
 			contentMauiId?: string;
+			mediaFileId?: string;
 			dynamicUiSource?: {
 				contentType: string;
 				startLocalId?: string;
@@ -224,6 +225,11 @@ export type ChatOpenPayload = PayloadCore<
 		channelId: string;
 		// @deprecated this is not being used, please use `chat-new` if you want to open a new chat with an agent
 		agentId?: string;
+		// Optimistic agent metadata for immediate header rendering - allows showing agent name
+		// and avatar immediately from session data while full agent details are fetched in the background
+		agentName?: string;
+		agentIdentityAccountId?: string;
+		avatarUrl?: string;
 		// Reset to default chat view from previously selected view, e.g. Browse agents
 		resetActiveMenu?: boolean;
 	}

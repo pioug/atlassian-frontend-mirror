@@ -3,7 +3,6 @@ import {
 	AddMarkStep,
 	RemoveMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type StepRange = {
 	fromB: number;
@@ -11,8 +10,6 @@ type StepRange = {
 };
 
 type MarkStep = { from: number; markName: string; to: number; type: 'add' | 'remove' };
-
-const filterUndefined = (x: StepRange | undefined): x is StepRange => !!x;
 
 const extractMarkStep = (step: ProseMirrorStep): MarkStep | undefined => {
 	if (step instanceof AddMarkStep) {
@@ -25,17 +22,6 @@ const extractMarkStep = (step: ProseMirrorStep): MarkStep | undefined => {
 };
 
 export const getMarkChangeRanges = (steps: ProseMirrorStep[]): StepRange[] => {
-	if (!expValEquals('platform_editor_deduplicate_mark_diff', 'isEnabled', true)) {
-		return steps
-			.map((step) => {
-				if (step instanceof AddMarkStep || step instanceof RemoveMarkStep) {
-					return { fromB: step.from, toB: step.to };
-				}
-				return undefined;
-			})
-			.filter(filterUndefined);
-	}
-
 	const resultRanges: StepRange[] = [];
 	let lastOp: MarkStep | undefined;
 

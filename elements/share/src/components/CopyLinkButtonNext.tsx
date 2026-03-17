@@ -154,14 +154,14 @@ export class CopyLinkButton extends React.Component<Props, State> {
 				theme={
 					isExtendedShareDialogEnabled
 						? (current, themeProps) => ({
-								buttonStyles: {
-									...current(themeProps).buttonStyles,
-									color: token('color.text'),
-									font: token('font.body'),
-									alignItems: 'center',
-								},
-								spinnerStyles: current(themeProps).spinnerStyles,
-							})
+							buttonStyles: {
+								...current(themeProps).buttonStyles,
+								color: token('color.text'),
+								font: token('font.body'),
+								alignItems: 'center',
+							},
+							spinnerStyles: current(themeProps).spinnerStyles,
+						})
 						: undefined
 				}
 			>
@@ -173,10 +173,8 @@ export class CopyLinkButton extends React.Component<Props, State> {
 	render(): React.JSX.Element {
 		const { shouldShowCopiedMessage } = this.state;
 		const { copyTooltipText, copiedToClipboardText } = this.props;
-		const shouldUpdateTooltipCssConfluence = fg('jfind-copy-link-modal-invite-tooltip');
-		const shouldUpdateTooltipCssJira = fg('jfind-copy-link-modal-invite-tooltip-jira');
+		const shouldUpdateTooltipCss = fg('jfind-copy-link-modal-invite-tooltip-jira');
 
-		const shouldUpdateTooltipCss = shouldUpdateTooltipCssConfluence || shouldUpdateTooltipCssJira;
 		return (
 			<React.Fragment>
 				{/* Added ARIA live region specifically for VoiceOver + Safari since the status */}

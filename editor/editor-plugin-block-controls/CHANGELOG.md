@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.2
+
+### Patch Changes
+
+- [`da18116d80cad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da18116d80cad) -
+  Refactor to inline experiment checks
+- [`d84e100ff2136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d84e100ff2136) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
 ## 9.0.1
 
 ### Patch Changes

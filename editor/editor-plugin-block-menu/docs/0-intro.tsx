@@ -30,7 +30,85 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type BlockMenuPlugin = NextEditorPlugin<'blockMenu'>
+enum FLAG_ID {
+  LINK_COPIED_TO_CLIPBOARD = 'link-copied-to-clipboard',
+}
+
+type BlockMenuPlugin = NextEditorPlugin<
+  'blockMenu',
+  {
+    actions: {
+      getBlockMenuComponents: () => Array<RegisterBlockMenuComponent>;
+      isTransformOptionDisabled: (
+        optionNodeTypeName: string,
+        optionNodeTypeAttrs?: Record<string, unknown>,
+      ) => boolean;
+      registerBlockMenuComponents: (blockMenuComponents: Array<RegisterBlockMenuComponent>) => void;
+    };
+    commands: {
+      transformNode: TransformNodeCommand;
+    };
+    dependencies: [
+      OptionalPlugin<BlockControlsPlugin>,
+      OptionalPlugin<UserIntentPlugin>,
+      OptionalPlugin<SelectionPlugin>,
+      OptionalPlugin<DecorationsPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
+    pluginConfiguration?: BlockMenuPluginOptions;
+    sharedState: BlockMenuSharedState;
+  }
+>;
+
+type BlockMenuPluginOptions = {
+  blockLinkHashPrefix?: string;
+  getLinkPath?: () => string | null;
+};
+
+type BlockMenuSharedState =
+  | {
+      currentSelectedNodeName: string | undefined;
+      showFlag: FLAG_ID | false;
+    }
+  | undefined;
+
+type Parent<T> = T & { rank: number };
+
+type ComponentTypes = Array<BlockMenuSection | BlockMenuItem | BlockMenuNested>;
+
+type BlockMenuNestedComponent = (props: { children: React.ReactNode }) => React.ReactNode;
+
+type BlockMenuSectionComponent = (props: { children: React.ReactNode }) => React.ReactNode;
+
+type BlockMenuNestedSectionComponent = (props: {
+  children: React.ReactNode;
+}) => React.ReactNode;
+
+type BlockMenuItemComponent = () => React.ReactNode;
+
+type RegisterBlockMenuNested = BlockMenuNested & {
+  component?: BlockMenuNestedComponent;
+  parent: Parent<BlockMenuSection>;
+};
+
+type RegisterBlockMenuSection = BlockMenuSection & {
+  component?: BlockMenuSectionComponent;
+  parent?: Parent<BlockMenuNested>;
+  rank?: number;
+};
+
+type RegisterBlockMenuItem = BlockMenuItem & {
+  component?: BlockMenuItemComponent;
+  isHidden?: () => boolean;
+  parent: Parent<BlockMenuSection>;
+};
+
+type RegisterBlockMenuComponent =
+  | RegisterBlockMenuNested
+  | RegisterBlockMenuSection
+  | RegisterBlockMenuItem;
+
+type RegisterBlockMenuComponentType = RegisterBlockMenuComponent['type'];
 `}
 
 

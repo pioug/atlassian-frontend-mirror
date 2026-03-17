@@ -31,11 +31,32 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+interface BreakoutPluginState {
+  activeGuidelineKey: ActiveGuidelineKey | undefined;
+  breakoutNode: ContentNodeWithPos | undefined;
+}
+
+interface BreakoutPluginOptions {
+  allowBreakoutButton?: boolean;
+  appearance?: EditorAppearance;
+}
+
+type BreakoutPluginDependencies = [
+  WidthPlugin,
+  OptionalPlugin<EditorViewModePlugin>,
+  OptionalPlugin<EditorDisabledPlugin>,
+  OptionalPlugin<BlockControlsPlugin>,
+  OptionalPlugin<InteractionPlugin>,
+  OptionalPlugin<UserIntentPlugin>,
+  OptionalPlugin<GuidelinePlugin>,
+  OptionalPlugin<AnalyticsPlugin>,
+];
+
 type BreakoutPlugin = NextEditorPlugin<
   'breakout',
   {
+    dependencies: BreakoutPluginDependencies;
     pluginConfiguration: BreakoutPluginOptions | undefined;
-    dependencies: [WidthPlugin];
     sharedState: Partial<BreakoutPluginState>;
   }
 >;

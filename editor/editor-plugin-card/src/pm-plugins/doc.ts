@@ -18,7 +18,11 @@ import {
 	unlinkPayload,
 } from '@atlaskit/editor-common/analytics';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
-import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
+import type {
+	CardReplacementInputMethod,
+	EmbedCardNodeTransformer,
+	EmbedCardTransformAttrs,
+} from '@atlaskit/editor-common/card';
 import { getActiveLinkMark } from '@atlaskit/editor-common/link';
 import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import type { Command } from '@atlaskit/editor-common/types';
@@ -120,6 +124,7 @@ export const replaceQueuedUrlWithCard =
 		analyticsAction?: ACTION,
 		editorAnalyticsApi?: EditorAnalyticsAPI,
 		createAnalyticsEvent?: CreateUIAnalyticsEvent,
+		embedCardNodeTransformer?: EmbedCardNodeTransformer,
 	): Command =>
 	(editorState, dispatch) => {
 		const state = pluginKey.getState(editorState) as CardPluginState | undefined;
@@ -132,7 +137,21 @@ export const replaceQueuedUrlWithCard =
 
 		// try to transform response to ADF
 		const schema: Schema = editorState.schema;
-		const cardAdf = processRawValue(schema, cardData);
+		let cardAdf: Node | null = null;
+
+		// If an embed card transformer is provided and the resolved card is an embedCard,
+		// attempt to transform it into an alternative node representation first.
+		if (cardData.type === 'embedCard' && embedCardNodeTransformer) {
+			cardAdf =
+				embedCardNodeTransformer(
+					schema,
+					cardData.attrs as EmbedCardTransformAttrs,
+				) ?? null;
+		}
+
+		if (!cardAdf) {
+			cardAdf = processRawValue(schema, cardData) ?? null;
+		}
 
 		const tr = editorState.tr;
 
@@ -567,6 +586,38 @@ export const setSelectedCardAppearance: (
 	const { from, to } = state.selection;
 	const nodeType = getLinkNodeType(appearance, state.schema.nodes as LinkNodes);
 	const tr = state.tr.setNodeMarkup(from, nodeType, attrs, selectedNode.marks);
+
+	// If switching to embed appearance, attempt to use a registered transform command
+	// to create an alternative node representation (e.g. a native embed).
+	if (
+		appearance === 'embed' &&
+		(selectedNode.attrs.url || selectedNode.attrs.data?.url)
+	) {
+		const cardState = pluginKey.getState(state) as CardPluginState | undefined;
+		const createEmbedCardTransformCommand = cardState?.embedCardTransformers?.createEmbedCardTransformCommand;
+		if (createEmbedCardTransformCommand) {
+			const transformCommand = createEmbedCardTransformCommand({
+				augmentTransaction: (augmentTr: Transaction) => {
+					updateDatasourceStash(augmentTr, selectedNode);
+					editorAnalyticsApi?.attachAnalyticsEvent({
+						action: ACTION.CHANGED_TYPE,
+						actionSubject: ACTION_SUBJECT.SMART_LINK,
+						eventType: EVENT_TYPE.TRACK,
+						attributes: {
+							newType: appearance as SMART_LINK_TYPE,
+							previousType: appearanceForNodeType(selectedNode.type),
+						},
+					} as AnalyticsEventPayload)(augmentTr);
+					addLinkMetadata(state.selection, augmentTr, {
+						action: ACTION.CHANGED_TYPE,
+					});
+				},
+			});
+			if (transformCommand(state, dispatch)) {
+				return true;
+			}
+		}
+	}
 
 	updateDatasourceStash(tr, selectedNode);
 

@@ -41,7 +41,7 @@ export default (): JSX.Element => (
 					<Text>Target</Text>
 				</div>
 			</PopoverTarget>
-			<PopoverContent isVisible={true} placement='right-end' dismiss={() => { }}>
+			<PopoverContent isVisible={true} placement="right-end" dismiss={() => {}}>
 				<SpotlightCard>
 					<SpotlightHeader>
 						<SpotlightHeadline>Try the new experience</SpotlightHeadline>
@@ -51,8 +51,8 @@ export default (): JSX.Element => (
 					</SpotlightHeader>
 					<SpotlightBody>
 						<Text>
-							When your primary or secondary control should navigate to a URL instead of performing an
-							action, use SpotlightPrimaryLink and SpotlightSecondaryLink.
+							When your primary or secondary control should navigate to a URL instead of performing
+							an action, use SpotlightPrimaryLink and SpotlightSecondaryLink.
 						</Text>
 					</SpotlightBody>
 					<SpotlightFooter>
@@ -64,9 +64,7 @@ export default (): JSX.Element => (
 							>
 								Learn more
 							</SpotlightSecondaryLink>
-							<SpotlightPrimaryAction>
-								Done
-							</SpotlightPrimaryAction>
+							<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>
 						</SpotlightActions>
 					</SpotlightFooter>
 				</SpotlightCard>

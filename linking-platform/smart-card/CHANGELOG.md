@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 43.26.4
+
+### Patch Changes
+
+- [`4cf4d334bc493`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cf4d334bc493) -
+  Covert Rovo Chat prompt message to ADF
+- [`0359d27aff3b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0359d27aff3b0) -
+  NAVX-3698: removed redundant screen reader announcements by marking decorative link icons as
+  aria-hidden
+- Updated dependencies
+
+## 43.26.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.26.2
 
 ### Patch Changes

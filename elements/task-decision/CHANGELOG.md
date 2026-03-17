@@ -1,5 +1,17 @@
 # @atlaskit/task-decision
 
+## 19.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.3.4
 
 ### Patch Changes

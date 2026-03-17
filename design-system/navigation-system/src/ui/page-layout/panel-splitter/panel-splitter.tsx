@@ -320,15 +320,15 @@ const PortaledPanelSplitter = ({
 	tooltipContent,
 	shortcut,
 }: PanelSplitterProps & { panel: HTMLElement; portal: HTMLElement } & Pick<
-	PanelSplitterContextType,
-	| 'panelId'
-	| 'panelWidth'
-	| 'onCompleteResize'
-	| 'getResizeBounds'
-	| 'resizingCssVar'
-	| 'position'
-	| 'shortcut'
->): ReactNode => {
+		PanelSplitterContextType,
+		| 'panelId'
+		| 'panelWidth'
+		| 'onCompleteResize'
+		| 'getResizeBounds'
+		| 'resizingCssVar'
+		| 'position'
+		| 'shortcut'
+	>): ReactNode => {
 	const isFhsEnabled = useIsFhsEnabled();
 	const splitterRef = useRef<HTMLDivElement | null>(null);
 	const labelId = useId();

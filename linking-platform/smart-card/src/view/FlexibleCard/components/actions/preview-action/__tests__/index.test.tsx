@@ -7,6 +7,7 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import * as flexibleUiContextModule from '../../../../../../state/flexible-ui-context';
@@ -39,6 +40,19 @@ describe('PreviewAction', () => {
 			</AnalyticsListener>,
 		);
 	};
+
+	const setContextWithPreviewPanel = (hasPreviewPanel: boolean) => {
+		(flexibleUiContextModule.useFlexibleUiContext as jest.Mock).mockReturnValue({
+		...mockContext,
+		actions: {
+		...(mockContext as any).actions,
+		PreviewAction: {
+			...(mockContext as any).actions.PreviewAction,
+			hasPreviewPanel,
+		},
+		},
+	});
+};
 
 	beforeEach(() => {
 		// Reset the mock to default behavior (experiment disabled)
@@ -92,17 +106,7 @@ describe('PreviewAction', () => {
 	});
 
 	it('should render modal variant when hasPreviewPanel is false', async () => {
-		(flexibleUiContextModule.useFlexibleUiContext as jest.Mock).mockReturnValue({
-			...mockContext,
-			actions: {
-				...(mockContext as any).actions,
-				PreviewAction: {
-					...(mockContext as any).actions.PreviewAction,
-					hasPreviewPanel: false,
-				},
-			},
-		});
-
+		setContextWithPreviewPanel(false);
 		setup();
 
 		const element = await screen.findByTestId(testId);
@@ -115,18 +119,7 @@ describe('PreviewAction', () => {
 		// Enable the experiment for this test
 		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 		expValEquals.mockReturnValue(true);
-
-		(flexibleUiContextModule.useFlexibleUiContext as jest.Mock).mockReturnValue({
-			...mockContext,
-			actions: {
-				...(mockContext as any).actions,
-				PreviewAction: {
-					...(mockContext as any).actions.PreviewAction,
-					hasPreviewPanel: true,
-				},
-			},
-		});
-
+		setContextWithPreviewPanel(true);
 		setup();
 
 		const element = await screen.findByTestId(testId);
@@ -143,14 +136,57 @@ describe('PreviewAction', () => {
 				PreviewAction: undefined,
 			},
 		});
-
 		setup();
 
 		expect(screen.queryByTestId(testId)).toBeNull();
 	});
 
-	it('should capture and report a11y violations', async () => {
-		const { container } = setup({ as: 'stack-item' });
-		await expect(container).toBeAccessible();
+
+	ffTest.on('navx-3698-flexible-card-a11y-fix', '', () => {
+		it('should render modal icon without aria-label when flag is enabled', async () => {
+			setContextWithPreviewPanel(false);
+			setup();
+			const element = await screen.findByTestId(testId);
+			expect(element).toBeInTheDocument();
+			expect(element).toHaveTextContent('Open preview');
+			expect(screen.queryByLabelText('Open preview')).not.toBeInTheDocument();
+		});
+
+		it('should pass a11y check when icon label is empty', async () => {
+			setContextWithPreviewPanel(false);
+			
+			const { container } = setup();
+			await expect(container).toBeAccessible();
+		});
 	});
+
+	ffTest.off('navx-3698-flexible-card-a11y-fix', '', () => {
+		it('should render panel icon with aria-label when flag is disabled', async () => {
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+			setContextWithPreviewPanel(true);
+			setup();
+
+			const iconWithLabel = screen.getByLabelText('Open preview panel');
+			expect(iconWithLabel).toBeInTheDocument();
+		});
+
+		it('should render modal message icon with aria-label when flag is disabled', async () => {
+			setContextWithPreviewPanel(false);
+			setup();
+
+			const iconWithLabel = screen.getByLabelText('Open preview');
+			expect(iconWithLabel).toBeInTheDocument();
+		});
+
+		it('should pass a11y check when panel icon has descriptive label', async () => {
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+			setContextWithPreviewPanel(true);
+			
+			const { container } = setup();
+			await expect(container).toBeAccessible();
+		});
+	});
+
 });

@@ -43,7 +43,10 @@ import { getToolbarConfig } from './ui/toolbar';
 
 const PANEL_NODE_NAME = 'panel';
 
-const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => {
+const panelPlugin: PanelPlugin = ({
+	config: { allowCustomPanel = false, allowCustomPanelEdit = false } = {},
+	api,
+}) => {
 	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
 		api?.blockMenu?.actions.registerBlockMenuComponents([
 			{
@@ -69,13 +72,13 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => {
 					{
 						name: 'panel',
 						node: {
-							...extendedPanelWithLocalId(!!options.allowCustomPanel),
+							...extendedPanelWithLocalId(!!allowCustomPanel),
 							definingAsContext: true,
 						},
 					},
 				];
 			}
-			return [{ name: 'panel', node: extendedPanel(!!options.allowCustomPanel) }];
+			return [{ name: 'panel', node: extendedPanel(!!allowCustomPanel) }];
 		},
 
 		pmPlugins() {
@@ -83,7 +86,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => {
 				{
 					name: 'panel',
 					plugin: ({ providerFactory, dispatch, nodeViewPortalProviderAPI }) =>
-						createPlugin(dispatch, providerFactory, options, api, nodeViewPortalProviderAPI),
+						createPlugin(dispatch, providerFactory, { allowCustomPanel, allowCustomPanelEdit }, api, nodeViewPortalProviderAPI),
 				},
 				{
 					name: 'panelKeyMap',
@@ -198,7 +201,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => {
 						},
 					},
 				];
-				if (options.allowCustomPanel && options.allowCustomPanelEdit) {
+				if (allowCustomPanel && allowCustomPanelEdit) {
 					quickInsertOptions.push({
 						id: 'custompanel',
 						title: formatMessage(blockTypeMessages.customPanel),
@@ -228,7 +231,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => {
 				return quickInsertOptions;
 			},
 			floatingToolbar: (state, intl, providerFactory) =>
-				getToolbarConfig(state, intl, options, providerFactory, api),
+				getToolbarConfig(state, intl, { allowCustomPanel, allowCustomPanelEdit }, providerFactory, api),
 		},
 	};
 };

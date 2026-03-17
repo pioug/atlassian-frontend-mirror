@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-data-consumer
 
+## 8.0.1
+
+### Patch Changes
+
+- [`5985f38f7104e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5985f38f7104e) -
+  Update README.md and 0-intro.tsx
+
 ## 8.0.0
 
 ### Patch Changes

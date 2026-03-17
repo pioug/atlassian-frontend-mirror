@@ -1,5 +1,6 @@
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ColorScheme } from '../../showDiffPluginType';
 
@@ -9,6 +10,8 @@ import {
 	editingStyleRuleNode,
 	editingStyleCardBlockNode,
 	editingStyleNode,
+	deletedContentStyleNew,
+	deletedStyleQuoteNode,
 } from './colorSchemes/standard';
 import {
 	traditionalDecorationMarkerVariable,
@@ -16,6 +19,8 @@ import {
 	traditionalStyleRuleNode,
 	traditionalStyleCardBlockNode,
 	traditionalStyleNode,
+	deletedTraditionalContentStyle,
+	deletedTraditionalStyleQuoteNode,
 } from './colorSchemes/traditional';
 
 const getNodeClass = (name: string) => {
@@ -27,7 +32,15 @@ const getNodeClass = (name: string) => {
 	}
 };
 
-const getBlockNodeStyle = (nodeName: string, colorScheme?: ColorScheme) => {
+const getBlockNodeStyle = ({
+	nodeName,
+	colorScheme,
+	isInserted = true,
+}: {
+	colorScheme?: ColorScheme;
+	isInserted?: boolean;
+	nodeName: string;
+}) => {
 	const isTraditional = colorScheme === 'traditional';
 	if (
 		[
@@ -52,16 +65,53 @@ const getBlockNodeStyle = (nodeName: string, colorScheme?: ColorScheme) => {
 		return undefined;
 	}
 	if (['extension', 'embedCard', 'listItem'].includes(nodeName)) {
+		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+			if (isInserted) {
+				return isTraditional
+					? traditionalDecorationMarkerVariable
+					: standardDecorationMarkerVariable;
+			} else {
+				return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
+			}
+		}
 		return isTraditional ? traditionalDecorationMarkerVariable : standardDecorationMarkerVariable;
 	}
 	if (nodeName === 'blockquote') {
+		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+			if (isInserted) {
+				return isTraditional ? traditionalStyleQuoteNode : editingStyleQuoteNode;
+			} else {
+				return isTraditional ? deletedTraditionalStyleQuoteNode : deletedStyleQuoteNode;
+			}
+		}
 		return isTraditional ? traditionalStyleQuoteNode : editingStyleQuoteNode;
 	}
 	if (nodeName === 'rule') {
+		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+			if (isInserted) {
+				return isTraditional ? traditionalStyleRuleNode : editingStyleRuleNode;
+			} else {
+				return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
+			}
+		}
 		return isTraditional ? traditionalStyleRuleNode : editingStyleRuleNode;
 	}
 	if (nodeName === 'blockCard') {
+		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+			if (isInserted) {
+				return isTraditional ? traditionalStyleCardBlockNode : editingStyleCardBlockNode;
+			} else {
+				return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
+			}
+		}
 		return isTraditional ? traditionalStyleCardBlockNode : editingStyleCardBlockNode;
+	}
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (isInserted) {
+			return isTraditional ? traditionalStyleNode : editingStyleNode;
+		} else {
+			return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
+		}
 	}
 	return isTraditional ? traditionalStyleNode : editingStyleNode;
 };
@@ -75,13 +125,19 @@ const getBlockNodeStyle = (nodeName: string, colorScheme?: ColorScheme) => {
 export const createBlockChangedDecoration = ({
 	change,
 	colorScheme,
+	isInserted = true,
 }: {
 	change: { from: number; name: string; to: number };
 	colorScheme?: ColorScheme;
+	isInserted: boolean;
 }): Decoration | undefined => {
+	let style = getBlockNodeStyle({ nodeName: change.name, colorScheme });
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isInserted });
+	}
+	const className = getNodeClass(change.name);
+
 	if (fg('platform_editor_show_diff_scroll_navigation')) {
-		const style = getBlockNodeStyle(change.name, colorScheme);
-		const className = getNodeClass(change.name);
 		if (style || className) {
 			return Decoration.node(
 				change.from,
@@ -100,9 +156,9 @@ export const createBlockChangedDecoration = ({
 			change.from,
 			change.to,
 			{
-				style: getBlockNodeStyle(change.name, colorScheme),
+				style,
 				'data-testid': 'show-diff-changed-decoration-node',
-				class: getNodeClass(change.name),
+				class: className,
 			},
 			{ key: 'diff-block' },
 		);

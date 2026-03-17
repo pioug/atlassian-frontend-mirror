@@ -1,5 +1,12 @@
 # @atlaskit/editor-smart-link-draggable
 
+## 0.1.2
+
+### Patch Changes
+
+- [`37535da8b722e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37535da8b722e) -
+  Fix typo in export name: SMART_LINK_APPERANCE → SMART_LINK_APPEARANCE
+
 ## 0.1.1
 
 ### Patch Changes

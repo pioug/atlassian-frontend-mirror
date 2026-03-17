@@ -82,7 +82,7 @@ describe('RovoChatAction', () => {
 		expect(sendPromptMessageMock).toHaveBeenCalledWith({
 			name: btnAction1Text,
 			dialogues: [],
-			prompt: expect.any(String),
+			prompt: expect.any(Object),
 		});
 	});
 

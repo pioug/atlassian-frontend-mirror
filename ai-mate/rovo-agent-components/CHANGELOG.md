@@ -1,5 +1,21 @@
 # @atlaskit/rovo-agent-components
 
+## 3.44.0
+
+### Minor Changes
+
+- [`b9ad62060f899`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9ad62060f899) -
+  Add avatar for Lovable agent (OOTB)
+
+## 3.43.0
+
+### Minor Changes
+
+- [`687a8de6184c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/687a8de6184c3) -
+  [ux] This change adds additional optional options to the dropdown menu on agent cards for the
+  browse agents modal. It also removes the showCreateAgentButtonInHeader prop from the browse agents
+  modal.
+
 ## 3.42.0
 
 ### Minor Changes

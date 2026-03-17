@@ -4,10 +4,9 @@
  */
 import { type FC, type ReactNode, useCallback, useState } from 'react';
 
-import { cssMap, cx, jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type PopupProps } from '@atlaskit/popup';
 import { Box, Inline, Pressable, Text } from '@atlaskit/primitives/compiled';
 import { B300, G200, P200, R300, Y200 } from '@atlaskit/theme/colors';
@@ -66,8 +65,6 @@ const styles = cssMap({
 		paddingInlineEnd: token('space.300'),
 		paddingBlockStart: token('space.200'),
 		paddingBlockEnd: token('space.200'),
-	},
-	heightAndWidthConstraints: {
 		maxWidth: `${8 * 56}px`,
 		maxHeight: `${8 * 56}px`,
 		overflow: 'auto',
@@ -169,16 +166,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
 		<div css={[styles.rootStyles, iconColor[appearance]]} data-testid={testId}>
 			<Popup
 				onClose={onCloseDialog}
-				content={() => (
-					<Box
-						xcss={cx(
-							styles.contentStyles,
-							fg('add-max-width-and-height-to-inline-message') && styles.heightAndWidthConstraints,
-						)}
-					>
-						{children}
-					</Box>
-				)}
+				content={() => <Box xcss={styles.contentStyles}>{children}</Box>}
 				isOpen={isOpen}
 				placement={placement}
 				testId={testId && `${testId}--popup`}

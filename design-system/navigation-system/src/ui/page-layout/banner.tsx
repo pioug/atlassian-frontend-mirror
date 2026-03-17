@@ -85,10 +85,7 @@ export function Banner({
 		<div
 			id={id}
 			data-layout-slot
-			css={[
-				styles.root,
-				isFhsEnabled && styles.fullHeightSidebar,
-			]}
+			css={[styles.root, isFhsEnabled && styles.fullHeightSidebar]}
 			className={xcss}
 			data-testid={testId}
 		>

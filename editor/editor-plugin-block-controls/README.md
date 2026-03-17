@@ -1,9 +1,23 @@
-# Editor plugin block controls
+# Editor Plugin Block Controls
 
 Block controls plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Block Controls plugin provides comprehensive UI controls for managing blocks in the Atlassian Editor. It enables drag-and-drop functionality, block selection, quick insert capabilities, and visual decorations for interactive block management. This plugin integrates with the editor's core system to provide an intuitive interface for manipulating content blocks.
+
+## Key features
+
+- **Drag and drop** - Move blocks around the editor with intuitive drag-and-drop gestures
+- **Block selection** - Select and manage individual or multiple blocks
+- **Quick insert** - Quick access to insert new content blocks
+- **Visual decorations** - Hover states, drag handles, and drop target indicators
+- **Block menu** - Context menu for block-level operations
+- **Selection preservation** - Preserve text selection during block operations
+- **Right-side controls** - Configurable right-edge button controls for block actions
 
 ## Install
 

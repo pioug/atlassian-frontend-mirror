@@ -1,5 +1,17 @@
 # @atlaskit/inline-message
 
+## 15.6.0
+
+### Minor Changes
+
+- [`8a0f486ff624f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a0f486ff624f) -
+  [ux] Cleans up add-max-width-and-height-to-inline-message as this feature gate is fully rolled out
+  now.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.5.8
 
 ### Patch Changes

@@ -4,6 +4,7 @@ import type { ACTION } from '@atlaskit/editor-common/analytics';
 import type {
 	CardOptions,
 	CardReplacementInputMethod,
+	EmbedCardTransformers,
 	OnClickCallback,
 } from '@atlaskit/editor-common/card';
 import type { CardAppearance, CardProvider } from '@atlaskit/editor-common/provider-factory';
@@ -101,6 +102,7 @@ export type CardPluginState = {
 	datasourceStash: DatasourceStash;
 	datasourceTableRef?: HTMLElement;
 	editorAppearance?: EditorAppearance;
+	embedCardTransformers?: EmbedCardTransformers;
 	inlineCardAwarenessCandidatePosition?: number;
 	layout?: DatasourceTableLayout;
 	overlayCandidatePosition?: number;
@@ -118,6 +120,7 @@ export type CardPluginOptions = CardOptions & {
 	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
 	disableFloatingToolbar?: boolean;
 	editorAppearance?: EditorAppearance;
+	embedCardTransformers?: EmbedCardTransformers;
 	fullWidthMode?: boolean;
 	isPageSSRed?: boolean;
 	linkPicker?: LinkPickerOptions;

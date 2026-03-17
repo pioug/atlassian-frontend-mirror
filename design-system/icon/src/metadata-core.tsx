@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::eb2aff60a1ad64d7d4ee816170401efd>>
+ * @codegen <<SignedSource::75a10fac3fe1f9f4b8110a6252449ece>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -2826,7 +2826,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for adding a user to an object.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'ready-to-publish',
 	},
 	'person-added': {
 		keywords: ['person-added', 'personadded', 'icon', 'user', 'customer', 'check', 'tick'],
@@ -2836,7 +2836,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for a user added to an object.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'ready-to-publish',
 	},
 	'person-avatar': {
 		keywords: ['person-avatar', 'personavatar', 'icon', 'user', 'customer'],

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 6.1.0
+
+### Minor Changes
+
+- [`40c53e0b66a8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40c53e0b66a8a) -
+  EDITOR-5829: Allow showing inverse of diffs
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

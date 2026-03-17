@@ -1,5 +1,22 @@
 # @atlaskit/collab-provider
 
+## 16.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`e6fbfbf141ff3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6fbfbf141ff3) -
+  Cleanup feature exp cleanup-platform_editor_send_client_platform_header
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.2
 
 ### Patch Changes

@@ -33,14 +33,16 @@ ${code`
   'expand',
   {
     pluginConfiguration: ExpandPluginOptions | undefined;
-    dependencies: [
-      DecorationsPlugin,
-      SelectionPlugin,
-      OptionalPlugin<AnalyticsPlugin>,
-    ];
+    dependencies: ExpandPluginDependencies;
     actions: {
       insertExpand: ReturnType<typeof insertExpand>;
+      insertExpandWithInputMethod: ReturnType<typeof insertExpandWithInputMethod>;
     };
+    commands: {
+      toggleExpandRange: (from?: number, to?: number, open?: boolean) => EditorCommand;
+      toggleExpandWithMatch: (selection: Selection) => EditorCommand;
+    };
+    sharedState: ExpandPluginSharedState;
   }
 >;
 `}

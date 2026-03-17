@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import MediaServicesActualSizeIcon from '@atlaskit/icon/core/grow-diagonal';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ActionName } from '../../../../../constants';
@@ -37,10 +38,10 @@ const PreviewAction = ({
 	const actionIcon = useCallback(() => {
 		// Only use panel icon if experiment is enabled and hasPreviewPanel is true
 		if (expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') && hasPreviewPanel) {
-			return <PanelRightIcon color="currentColor" spacing="spacious" label="Open preview panel" />;
+			return <PanelRightIcon color="currentColor" spacing="spacious" label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview panel'} />;
 		}
 		return (
-			<MediaServicesActualSizeIcon color="currentColor" spacing="spacious" label="Open preview" />
+			<MediaServicesActualSizeIcon color="currentColor" spacing="spacious" label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview'} />
 		);
 	}, [hasPreviewPanel]);
 

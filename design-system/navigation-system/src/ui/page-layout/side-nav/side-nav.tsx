@@ -1199,7 +1199,6 @@ function SideNavInternal({
 						!isFirefox &&
 						isFhsEnabled &&
 						styles.flyoutAnimateClosedFullHeightSidebar,
-
 				]}
 				data-testid={testId}
 			>

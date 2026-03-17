@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-batch-attribute-updates
 
+## 8.0.1
+
+### Patch Changes
+
+- [`d84e100ff2136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d84e100ff2136) -
+  Update README.md and 0-intro.tsx
+
 ## 8.0.0
 
 ### Patch Changes

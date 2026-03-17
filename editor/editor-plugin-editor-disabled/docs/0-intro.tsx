@@ -31,9 +31,21 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type EditorDisabledPluginState = { disabledByPlugin: boolean; editorDisabled: boolean };
+
+interface EditorDisabledPluginOptions {
+  initialDisabledState?: boolean;
+}
+
 type EditorDisabledPlugin = NextEditorPlugin<
   'editorDisabled',
-  { sharedState: EditorDisabledPluginState }
+  {
+    commands: {
+      toggleDisabled: (disabled: boolean) => EditorCommand;
+    };
+    pluginConfiguration: EditorDisabledPluginOptions | undefined;
+    sharedState: Pick<EditorDisabledPluginState, 'editorDisabled'>;
+  }
 >;
 `}
 

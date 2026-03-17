@@ -1,9 +1,20 @@
-# Editor plugin before primary toolbar
+# Editor Plugin Before Primary Toolbar
 
 Before primary toolbar plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Before Primary Toolbar plugin provides a customizable area for rendering React components before the primary toolbar in the Atlassian Editor. It integrates with the Primary Toolbar plugin to register and display custom UI elements.
+
+## Key features
+
+- **Custom component rendering** - Render custom React components before the primary toolbar
+- **Primary toolbar integration** - Seamlessly registers components with the Primary Toolbar plugin
+- **Flexible configuration** - Accept single or multiple React elements for display
+- **Consistent styling** - Provides flexbox layout with proper spacing and alignment
 
 ## Install
 ---

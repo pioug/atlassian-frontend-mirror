@@ -24,6 +24,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../editor/adf-utils/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../analytics/analytics-gas-types/afm-products/tsconfig.json"
 		},
 		{

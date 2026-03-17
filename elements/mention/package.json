@@ -29,6 +29,7 @@
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/tag": "workspace:^",
 		"@atlaskit/teams-avatar": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -99,6 +100,9 @@
 			"type": "boolean"
 		},
 		"mentions_custom_headers": {
+			"type": "boolean"
+		},
+		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
 		}
 	},

@@ -708,10 +708,11 @@ describe('FlyoutMenuItem', () => {
 
 					// Remove all whitespace (newlines, tabs, spaces) for comparison
 					const normalisedMaxHeight = computedMaxHeight.replace(/\s+/g, '');
-					const expectedMaxHeight = `min(calc(100vh - 26px - var(--n_tNvM,0px) - var(--n_bnrM,0px)), ${customMaxHeight}px)`.replace(
-						/\s+/g,
-						'',
-					);
+					const expectedMaxHeight =
+						`min(calc(100vh - 26px - var(--n_tNvM,0px) - var(--n_bnrM,0px)), ${customMaxHeight}px)`.replace(
+							/\s+/g,
+							'',
+						);
 
 					expect(normalisedMaxHeight).toBe(expectedMaxHeight);
 				});
@@ -737,10 +738,11 @@ describe('FlyoutMenuItem', () => {
 
 					// Remove all whitespace (newlines, tabs, spaces) for comparison
 					const normalisedMaxHeight = computedMaxHeight.replace(/\s+/g, '');
-					const expectedMaxHeight = `min(calc(100vh - 26px - var(--n_tNvM,0px) - var(--n_bnrM,0px)), ${defaultMaxHeight}px)`.replace(
-						/\s+/g,
-						'',
-					);
+					const expectedMaxHeight =
+						`min(calc(100vh - 26px - var(--n_tNvM,0px) - var(--n_bnrM,0px)), ${defaultMaxHeight}px)`.replace(
+							/\s+/g,
+							'',
+						);
 
 					expect(normalisedMaxHeight).toBe(expectedMaxHeight);
 				});

@@ -48,13 +48,13 @@ const titleStyles = css({
 
 const textStyles = css({
 	minWidth: 0,
-
 	/**
 	 * This ensures that the element fills the whole header space
 	 * and its content does not overflow (since flex items don't
 	 * shrink past its content size by default).
 	 */
 	flex: '1 1 auto',
+	font: token('font.heading.medium'),
 	wordWrap: 'break-word',
 });
 

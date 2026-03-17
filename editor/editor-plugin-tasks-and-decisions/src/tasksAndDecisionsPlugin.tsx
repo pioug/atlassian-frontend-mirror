@@ -358,11 +358,11 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					keywords: ['checkbox', 'task', 'todo'],
 					keyshortcut: '[]',
 					icon: () => <IconAction />,
-					action(insert, state) {
+					action(insert, state, source) {
 						return insertTaskDecisionAction(api?.analytics?.actions, getIdentifierProvider)(
 							state,
 							'taskList',
-							INPUT_METHOD.QUICK_INSERT,
+							source ?? INPUT_METHOD.QUICK_INSERT,
 							addItem(insert, 'taskList', state.schema),
 						);
 					},
@@ -374,11 +374,11 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					priority: 900,
 					keyshortcut: '<>',
 					icon: () => <IconDecision />,
-					action(insert, state) {
+					action(insert, state, source) {
 						return insertTaskDecisionAction(api?.analytics?.actions, getIdentifierProvider)(
 							state,
 							'decisionList',
-							INPUT_METHOD.QUICK_INSERT,
+							source ?? INPUT_METHOD.QUICK_INSERT,
 							addItem(insert, 'decisionList', state.schema),
 						);
 					},

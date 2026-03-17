@@ -34,28 +34,33 @@ const rightSidePanelDrawerTransitionStyles = (
 	},
 });
 
-export const RightSidePanelDrawer = ({
-	transitionState,
-	children,
-	width = PANEL_WIDTH,
-}: {
+type RightSidePanelDrawerProps = {
 	children: React.ReactNode;
 	transitionState: TransitionStatus;
 	width?: number;
-}): JSX.Element => (
-	<div
-		css={rightSidePanelDrawerStyles}
-		style={{
-			width: `${width}px`,
-			flex: `0 0 ${width}px`,
-			transition: `width ${0.6 * width}ms, flex ${0.6 * width}ms`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			...rightSidePanelDrawerTransitionStyles(width)[transitionState],
-		}}
-	>
-		{children}
-	</div>
+};
+
+export const RightSidePanelDrawer: React.ForwardRefExoticComponent<
+	RightSidePanelDrawerProps & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef<HTMLDivElement, RightSidePanelDrawerProps>(
+	({ transitionState, children, width = PANEL_WIDTH }, ref): JSX.Element => (
+		<div
+			ref={ref}
+			css={rightSidePanelDrawerStyles}
+			style={{
+				width: `${width}px`,
+				flex: `0 0 ${width}px`,
+				transition: `width ${0.6 * width}ms, flex ${0.6 * width}ms`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				...rightSidePanelDrawerTransitionStyles(width)[transitionState],
+			}}
+		>
+			{children}
+		</div>
+	),
 );
+
+RightSidePanelDrawer.displayName = 'RightSidePanelDrawer';
 
 const rightSidePanelDrawerContentStyles = css({
 	backgroundColor: token('elevation.surface.overlay', 'white'),

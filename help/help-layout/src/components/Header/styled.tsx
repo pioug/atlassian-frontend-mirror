@@ -53,18 +53,27 @@ const backButtonContainerTransitionStyles: { [id: string]: React.CSSProperties }
 	exited: { left: token('space.100', '8px'), opacity: 0 },
 };
 
-export const BackButtonContainer = ({
-	transitionState,
-	children,
-}: {
+type BackButtonContainerProps = {
 	children: React.ReactNode;
 	transitionState: TransitionStatus;
-}): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-	<div css={backButtonContainerStyles} style={backButtonContainerTransitionStyles[transitionState]}>
-		{children}
-	</div>
+};
+
+export const BackButtonContainer: React.ForwardRefExoticComponent<
+	BackButtonContainerProps & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef<HTMLDivElement, BackButtonContainerProps>(
+	({ transitionState, children }, ref) => (
+		<div
+			ref={ref}
+			css={backButtonContainerStyles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={backButtonContainerTransitionStyles[transitionState]}
+		>
+			{children}
+		</div>
+	),
 );
+
+BackButtonContainer.displayName = 'BackButtonContainer';
 
 const headerTitleStyles = css({
 	color: token('color.text.subtle', N500),

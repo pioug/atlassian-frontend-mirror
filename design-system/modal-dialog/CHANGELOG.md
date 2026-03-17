@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 14.11.4
+
+### Patch Changes
+
+- [`6e5dce6aa20ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e5dce6aa20ee) -
+  Fixed an issue where the modal title may have incorrect font styles.
+- Updated dependencies
+
 ## 14.11.3
 
 ### Patch Changes

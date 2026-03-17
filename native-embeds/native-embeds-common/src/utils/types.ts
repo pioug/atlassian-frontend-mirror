@@ -10,6 +10,7 @@ export type NativeEmbedAppearance = 'url' | 'inline' | 'block' | 'embed';
 export type NativeEmbedParameterValues = {
 	alignment: AlignmentValue;
 	alwaysShowTitle: boolean;
+	displayText?: string;
 	height: number;
 	url?: string;
 	width?: number;
@@ -23,6 +24,7 @@ export type NativeEmbedParameters = {
 	macroParams?: {
 		alignment?: NativeEmbedParameterValue;
 		alwaysShowTitle?: NativeEmbedParameterValue;
+		displayText?: NativeEmbedParameterValue;
 		height?: NativeEmbedParameterValue;
 		url?: NativeEmbedParameterValue;
 		width?: NativeEmbedParameterValue;

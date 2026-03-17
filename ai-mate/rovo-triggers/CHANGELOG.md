@@ -1,5 +1,30 @@
 # @atlaskit/rovo-triggers
 
+## 5.25.0
+
+### Minor Changes
+
+- [`a60115b55c868`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a60115b55c868) -
+  Adding agent metadata fields to ChatOpenPayload for optimistic agent header rendering
+
+## 5.24.0
+
+### Minor Changes
+
+- [`02ab65c5c9755`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02ab65c5c9755) -
+  MAX-120 pass mediaFileId to creationContext for inline rovo maui edit
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.23.0
+
+### Minor Changes
+
+- [`6d7db8fdc2400`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d7db8fdc2400) -
+  MAX-122 Edit MAUI App via Rovo
+
 ## 5.22.0
 
 ### Minor Changes

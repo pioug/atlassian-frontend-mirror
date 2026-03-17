@@ -26,6 +26,7 @@ export type DiffParams = {
 };
 
 export type PMDiffParams = {
+	isInverted?: boolean;
 	originalDoc: Node;
 	/**
 	 * Prosemirror steps. This is used to calculate and show the diff in the editor

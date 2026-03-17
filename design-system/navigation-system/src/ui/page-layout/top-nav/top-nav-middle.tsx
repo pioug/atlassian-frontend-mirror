@@ -65,7 +65,6 @@ const styles = cssMap({
 			justifyItems: 'end',
 		},
 	},
-
 });
 
 /**
@@ -90,10 +89,10 @@ export function TopNavMiddle({
 	children: React.ReactNode;
 }): JSX.Element {
 	return (
-			<div css={styles.root}>
-				<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavMiddleNamespace}>
-					{children}
-				</OpenLayerObserverNamespaceProvider>
+		<div css={styles.root}>
+			<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavMiddleNamespace}>
+				{children}
+			</OpenLayerObserverNamespaceProvider>
 		</div>
 	);
 }

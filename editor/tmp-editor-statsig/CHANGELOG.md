@@ -1,5 +1,25 @@
 # @atlaskit/editor-statsig-tmp
 
+## 38.0.0
+
+### Major Changes
+
+- [`815712ef26255`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/815712ef26255) -
+  Removed `platform_editor_deduplicate_mark_diff` experiment. The deduplication behavior is now
+  always enabled.
+
+### Minor Changes
+
+- [`ddcd9f9430dfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddcd9f9430dfe) -
+  EDITOR-5602 Add position check when insertLocation is fired
+
+## 37.0.0
+
+### Major Changes
+
+- [`e6fbfbf141ff3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6fbfbf141ff3) -
+  Cleanup feature exp cleanup-platform_editor_send_client_platform_header
+
 ## 36.3.0
 
 ### Minor Changes

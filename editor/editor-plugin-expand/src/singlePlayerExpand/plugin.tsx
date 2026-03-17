@@ -131,7 +131,7 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 						keywords: ['accordion', 'collapse'],
 						priority: 600,
 						icon: () => <IconExpand />,
-						action(insert, state) {
+						action(insert, state, source) {
 							const node = createExpandNode(state, undefined, !!api?.localId);
 							if (!node) {
 								return false;
@@ -153,7 +153,7 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 									node.type === state.schema.nodes.nestedExpand
 										? ACTION_SUBJECT_ID.NESTED_EXPAND
 										: ACTION_SUBJECT_ID.EXPAND,
-								attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+								attributes: { inputMethod: source ?? INPUT_METHOD.QUICK_INSERT },
 								eventType: EVENT_TYPE.TRACK,
 							})(tr);
 

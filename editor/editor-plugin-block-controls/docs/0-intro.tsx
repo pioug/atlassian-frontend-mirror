@@ -34,9 +34,150 @@ ${code`
 type BlockControlsPlugin = NextEditorPlugin<
   'blockControls',
   {
-    dependencies: [FocusPlugin];
+    actions: {
+      registerNodeDecoration: (factory: NodeDecorationFactory) => void;
+      unregisterNodeDecoration: (type: string) => void;
+    };
+    commands: {
+      handleKeyDownWithPreservedSelection: (event: KeyboardEvent) => EditorCommand;
+      mapPreservedSelection: (mapping: Mapping) => EditorCommand;
+      moveNode: MoveNode;
+      moveNodeWithBlockMenu: (direction: DIRECTION.UP | DIRECTION.DOWN) => EditorCommand;
+      moveToLayout: (
+        start: number,
+        to: number,
+        options?: { moveNodeAtCursorPos?: boolean; moveToEnd?: boolean; selectMovedNode?: boolean },
+      ) => EditorCommand;
+      setMultiSelectPositions: (anchor?: number, head?: number) => EditorCommand;
+      setNodeDragged: (
+        getPos: () => number | undefined,
+        anchorName: string,
+        nodeType: string,
+      ) => EditorCommand;
+      setSelectedViaDragHandle: (isSelectedViaDragHandle?: boolean) => EditorCommand;
+      showDragHandleAt: (
+        pos: number,
+        anchorName: string,
+        nodeType: string,
+        handleOptions?: HandleOptions,
+        rootPos?: number,
+        rootAnchorName?: string,
+        rootNodeType?: string,
+      ) => EditorCommand;
+      startPreservingSelection: () => EditorCommand;
+      stopPreservingSelection: () => EditorCommand;
+      toggleBlockMenu: (options?: {
+        anchorName?: string;
+        closeMenu?: boolean;
+        openedViaKeyboard?: boolean;
+        triggerByNode?: TriggerByNode;
+      }) => EditorCommand;
+    };
+    dependencies: BlockControlsPluginDependencies;
+    pluginConfiguration?: BlockControlsPluginConfig;
+    sharedState: BlockControlsSharedState;
   }
 >;
+
+type BlockControlsPluginConfig = {
+  rightSideControlsEnabled?: boolean;
+};
+
+type BlockControlsSharedState = {
+  activeDropTargetNode?: ActiveDropTargetNode;
+  activeNode?: ActiveNode;
+  blockMenuOptions?: {
+    canMoveDown?: boolean;
+    canMoveUp?: boolean;
+    openedViaKeyboard?: boolean;
+  };
+  hoverSide?: 'left' | 'right';
+  isDragging: boolean;
+  isEditing?: boolean;
+  isMenuOpen: boolean;
+  isMouseOut?: boolean;
+  isPMDragging: boolean;
+  isSelectedViaDragHandle?: boolean;
+  isShiftDown?: boolean;
+  lastDragCancelled: boolean;
+  menuTriggerBy?: string;
+  menuTriggerByNode?: TriggerByNode;
+  multiSelectDnD?: MultiSelectDnD;
+  preservedSelection?: Selection;
+  rightSideControlsEnabled?: boolean;
+} | undefined;
+
+type HandleOptions = { isFocused: boolean } | undefined;
+
+type MoveNodeMethod = INPUT_METHOD.DRAG_AND_DROP | INPUT_METHOD.SHORTCUT | INPUT_METHOD.BLOCK_MENU;
+
+type BlockControlsPluginDependencies = [
+  OptionalPlugin<LimitedModePlugin>,
+  OptionalPlugin<EditorDisabledPlugin>,
+  OptionalPlugin<EditorViewModePlugin>,
+  OptionalPlugin<WidthPlugin>,
+  OptionalPlugin<FeatureFlagsPlugin>,
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<AccessibilityUtilsPlugin>,
+  OptionalPlugin<QuickInsertPlugin>,
+  OptionalPlugin<TypeAheadPlugin>,
+  OptionalPlugin<SelectionPlugin>,
+  OptionalPlugin<MetricsPlugin>,
+  OptionalPlugin<InteractionPlugin>,
+  OptionalPlugin<UserIntentPlugin>,
+  OptionalPlugin<ToolbarPlugin>,
+];
+
+type NodeDecorationFactory = {
+  create: (params: NodeDecorationFactoryParams) => Decoration;
+  shouldCreate?: (params: NodeDecorationFactoryParams) => boolean;
+  showInViewMode?: boolean;
+  type: string;
+};
+
+type NodeDecorationFactoryParams = {
+  anchorName: string;
+  editorState: EditorState;
+  nodeType: string;
+  nodeViewPortalProviderAPI: PortalProviderAPI;
+  rootAnchorName?: string;
+  rootNodeType?: string;
+  rootPos: number;
+};
+
+type PluginState = {
+  activeDropTargetNode?: ActiveDropTargetNode;
+  activeNode?: ActiveNode;
+  blockMenuOptions?: { canMoveDown?: boolean; canMoveUp?: boolean; openedViaKeyboard?: boolean };
+  decorations: DecorationSet;
+  editorHeight: number;
+  editorWidthLeft: number;
+  editorWidthRight: number;
+  isDocSizeLimitEnabled: boolean | null;
+  isDragging: boolean;
+  isMenuOpen?: boolean;
+  isPMDragging: boolean;
+  isResizerResizing: boolean;
+  isSelectedViaDragHandle?: boolean;
+  isShiftDown?: boolean;
+  lastDragCancelled: boolean;
+  menuTriggerBy?: string;
+  menuTriggerByNode?: TriggerByNode;
+  multiSelectDnD?: MultiSelectDnD;
+  preservedSelection?: Selection;
+};
+
+type RightEdgeButtonProps = {
+  api: PublicPluginAPI<[BlockControlsPlugin]>;
+  getPos: () => number | undefined;
+};
+
+type MoveNode = (
+  start: number,
+  to: number,
+  inputMethod?: MoveNodeMethod,
+  formatMessage?: IntlShape['formatMessage'],
+) => EditorCommand;
 `}
 
 

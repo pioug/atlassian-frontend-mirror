@@ -356,14 +356,14 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 				wrapperStyles.root,
 				isExpandedOnDesktop && wrapperStyles.fullHeightSidebarExpanded,
 				isExpandedOnDesktop &&
-				fg('platform_dst_nav4_fhs_feedback_1') &&
-				wrapperStyles.fullHeightSidebarExpandedWithFeedback,
+					fg('platform_dst_nav4_fhs_feedback_1') &&
+					wrapperStyles.fullHeightSidebarExpandedWithFeedback,
 				!isFirstRenderRef.current &&
+					isExpandedOnDesktop &&
+					wrapperStyles.fullHeightSidebarBorderTransition,
 				isExpandedOnDesktop &&
-				wrapperStyles.fullHeightSidebarBorderTransition,
-				isExpandedOnDesktop &&
-				!fg('platform_dst_nav4_fhs_feedback_1') &&
-				wrapperStyles.fullHeightSidebarExpandedScrollTimeline,
+					!fg('platform_dst_nav4_fhs_feedback_1') &&
+					wrapperStyles.fullHeightSidebarExpandedScrollTimeline,
 			]}
 		>
 			<div
@@ -517,12 +517,12 @@ export function TopNavStart({
 						!isFirefox && toggleButtonWrapperStyles.root,
 						!isFirefox && animationState.type === 'idle' && toggleButtonWrapperStyles.finalPosition,
 						!isFirefox &&
-						// Timing function is applied when the browser animates to the idle position.
-						animationState.type === 'idle' &&
-						toggleButtonWrapperStyles.collapseAnimationTimingFunction,
+							// Timing function is applied when the browser animates to the idle position.
+							animationState.type === 'idle' &&
+							toggleButtonWrapperStyles.collapseAnimationTimingFunction,
 						!isFirefox &&
-						animationState.type === 'collapse' &&
-						toggleButtonWrapperStyles.collapseAnimationStartPosition,
+							animationState.type === 'collapse' &&
+							toggleButtonWrapperStyles.collapseAnimationStartPosition,
 					]}
 				>
 					{sideNavToggleButton}
@@ -537,11 +537,11 @@ export function TopNavStart({
 						!isFirefox && childrenWrapperStyles.animationBaseStyles,
 						!isFirefox && animationState.type === 'idle' && childrenWrapperStyles.finalPosition,
 						!isFirefox &&
-						animationState.type === 'expand' &&
-						childrenWrapperStyles.expandAnimationStartPosition,
+							animationState.type === 'expand' &&
+							childrenWrapperStyles.expandAnimationStartPosition,
 						!isFirefox &&
-						animationState.type === 'collapse' &&
-						childrenWrapperStyles.collapseAnimationStartPosition,
+							animationState.type === 'collapse' &&
+							childrenWrapperStyles.collapseAnimationStartPosition,
 					]}
 				>
 					{children}
@@ -558,12 +558,12 @@ export function TopNavStart({
 						toggleButtonWrapperStyles.alignEnd,
 						!isFirefox && animationState.type === 'idle' && toggleButtonWrapperStyles.finalPosition,
 						!isFirefox &&
-						// Timing function is applied when the browser animates to the idle position.
-						animationState.type === 'idle' &&
-						toggleButtonWrapperStyles.expandAnimationTimingFunction,
+							// Timing function is applied when the browser animates to the idle position.
+							animationState.type === 'idle' &&
+							toggleButtonWrapperStyles.expandAnimationTimingFunction,
 						!isFirefox &&
-						animationState.type === 'expand' &&
-						toggleButtonWrapperStyles.expandAnimationStartPosition,
+							animationState.type === 'expand' &&
+							toggleButtonWrapperStyles.expandAnimationStartPosition,
 					]}
 				>
 					{sideNavToggleButton}

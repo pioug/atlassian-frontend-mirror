@@ -1,9 +1,22 @@
-# Editor plugin decorations
+# Editor Plugin Decorations
 
 Decorations plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Decorations plugin provides visual styling capabilities for editor nodes through ProseMirror decorations. It enables hover effects and danger state styling on nodes, such as layouts, tables, and other container elements. The plugin integrates seamlessly with `@atlaskit/editor-core` to manage decoration state and lifecycle.
+
+## Key features
+
+- **Node decorations** - Apply visual decorations to specific nodes in the editor
+- **Hover effects** - Add hover-based styling to nodes and their contents
+- **Danger state styling** - Highlight nodes with danger styling (e.g., for destructive actions)
+- **Table support** - Apply decorations to tables and their individual cells
+- **Layout support** - Apply decorations to layout sections and columns with nested content handling
+- **State management** - Automatic decoration state tracking and cleanup
 
 ## Install
 ---
@@ -25,6 +38,7 @@ Please see [Atlaskit - Editor plugin decorations](https://atlaskit.atlassian.com
 ## Support
 ---
 For internal Atlassian, visit the slack channel [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) for support or visit [go/editor-help](https://go/editor-help) to submit a bug.
+
 ## License
 ---
- Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.
+Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.

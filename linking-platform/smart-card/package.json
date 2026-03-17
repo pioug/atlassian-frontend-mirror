@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.26.2",
+	"version": "43.26.4",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,6 +27,7 @@
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
 	},
 	"dependencies": {
+		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/afm-i18n-platform-linking-platform-smart-card": "root:*",
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
@@ -203,6 +204,9 @@
 			"type": "boolean"
 		},
 		"navx-1895-new-logo-design": {
+			"type": "boolean"
+		},
+		"navx-3698-flexible-card-a11y-fix": {
 			"type": "boolean"
 		},
 		"jfp-magma-platform-lozenge-jump-fix": {

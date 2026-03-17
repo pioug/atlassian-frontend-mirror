@@ -62,14 +62,14 @@ export const rulePlugin: RulePlugin = ({ api }) => {
 					priority: 1200,
 					keyshortcut: '---',
 					icon: () => <IconDivider />,
-					action(insert, state) {
+					action(insert, state, source) {
 						const tr: Transaction | null = insert(state.schema.nodes.rule.createChecked());
 
 						api?.analytics?.actions.attachAnalyticsEvent({
 							action: ACTION.INSERTED,
 							actionSubject: ACTION_SUBJECT.DOCUMENT,
 							actionSubjectId: ACTION_SUBJECT_ID.DIVIDER,
-							attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+							attributes: { inputMethod: source ?? INPUT_METHOD.QUICK_INSERT },
 							eventType: EVENT_TYPE.TRACK,
 						})(tr);
 						return tr;

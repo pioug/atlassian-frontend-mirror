@@ -1,5 +1,16 @@
 # @atlaskit/docs
 
+## 11.7.0
+
+### Minor Changes
+
+- [`b55e7f8d210cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b55e7f8d210cb) -
+  Remove usage of styled-components and @emotion/styled
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.6.1
 
 ### Patch Changes

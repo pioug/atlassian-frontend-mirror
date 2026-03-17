@@ -1,7 +1,7 @@
 import { type IntlShape } from 'react-intl-next';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { ACTION, EditorAnalyticsAPI, INPUT_METHOD } from '../analytics';
@@ -63,10 +63,62 @@ export type GetEndingToolbarItems = (
 	link: string,
 ) => FloatingToolbarItem<Command>[];
 
+/**
+ * Attributes passed to an embed card node transformer.
+ * Contains the URL and layout information needed to transform
+ * an embedCard into an alternative node representation.
+ */
+export type EmbedCardTransformAttrs = {
+	layout?: string;
+	originalHeight?: number | null;
+	originalWidth?: number | null;
+	url: string;
+	width?: number;
+};
+
+/**
+ * A generic transformer function that converts embed card attributes into
+ * an alternative ProseMirror Node (e.g. a native embed extension node).
+ *
+ * Returns undefined if the URL is not supported or transformation is not possible.
+ */
+export type EmbedCardNodeTransformer = (
+	schema: Schema,
+	attrs: EmbedCardTransformAttrs,
+) => Node | undefined;
+
+/**
+ * Options for creating a transform command that replaces a selected card node
+ * with an alternative node representation.
+ */
+export type EmbedCardTransformCommandOptions = {
+	/**
+	 * Callback to augment the transaction with additional concerns
+	 * (e.g. analytics events, datasource stash updates, link metadata).
+	 */
+	augmentTransaction?: (tr: Transaction, state: EditorState) => void;
+};
+
+/**
+ * A factory function that creates a Command to replace the currently selected
+ * card node with an alternative node representation (e.g. a native embed).
+ *
+ * The returned command should return false if transformation is not possible.
+ */
+export type CreateEmbedCardTransformCommand = (
+	options?: EmbedCardTransformCommandOptions,
+) => Command;
+
+export interface EmbedCardTransformers {
+	createEmbedCardTransformCommand: CreateEmbedCardTransformCommand;
+	embedCardNodeTransformer: EmbedCardNodeTransformer;
+}
+
 export type CardPluginActions = {
 	getEndingToolbarItems: GetEndingToolbarItems;
 	getStartingToolbarItems: GetStartingToolbarItems;
 	hideLinkToolbar: HideLinkToolbarAction;
 	queueCardsFromChangedTr: QueueCardsFromTransactionAction;
+	registerEmbedCardTransformer: (transformers: EmbedCardTransformers) => void;
 	setProvider: (provider: Promise<CardProvider>) => Promise<boolean>;
 };

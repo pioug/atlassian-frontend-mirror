@@ -1,9 +1,21 @@
-# Editor plugin emoji
+# Editor Plugin Emoji
 
 Emoji plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Emoji plugin provides emoji insertion and selection capabilities for the Atlassian Editor. It integrates with `@atlaskit/emoji` to offer type-ahead emoji search, ASCII shortcode conversion, and inline emoji popup support.
+
+## Key features
+
+- **Type-ahead emoji search** - Search and insert emojis using the `:` trigger with type-ahead filtering
+- **ASCII emoji shortcodes** - Automatic conversion of ASCII emoji codes to emoji characters
+- **Inline emoji popup** - Quick emoji selection via popup interface
+- **Emoji analytics** - Track emoji selection events and usage metrics
+- **Provider integration** - Flexible emoji provider configuration for custom emoji sources
 
 ## Install
 ---

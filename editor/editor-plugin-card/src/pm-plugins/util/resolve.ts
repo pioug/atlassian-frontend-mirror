@@ -1,6 +1,6 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { CardOptions, EmbedCardNodeTransformer } from '@atlaskit/editor-common/card';
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { canRenderDatasource, hasDocAsParent } from '@atlaskit/editor-common/utils';
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -53,6 +53,7 @@ export const resolveWithProvider = (
 	options: CardOptions,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 	createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
+	embedCardNodeTransformer?: EmbedCardNodeTransformer,
 ): Promise<
 	void | DatasourceAdf<Record<string, unknown>> | InlineCardAdf | BlockCardAdf | EmbedCardAdf
 > => {
@@ -68,7 +69,7 @@ export const resolveWithProvider = (
 	const handleResolve = provider
 		.resolve(request.url, request.appearance, shouldForceAppearance, isEmbedFriendlyLocation)
 		.then(
-			handleResolved(view, request, editorAnalyticsApi, createAnalyticsEvent, options),
+			handleResolved(view, request, editorAnalyticsApi, createAnalyticsEvent, options, embedCardNodeTransformer),
 			handleRejected(view, request, editorAnalyticsApi),
 		);
 
@@ -106,6 +107,7 @@ const handleResolved =
 		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 		createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
 		options: CardOptions,
+		embedCardNodeTransformer?: EmbedCardNodeTransformer,
 	) =>
 	(resolvedCard: CardAdf | DatasourceAdf) => {
 		updateCardType(resolvedCard, options);
@@ -115,6 +117,7 @@ const handleResolved =
 			request.analyticsAction,
 			editorAnalyticsApi,
 			createAnalyticsEvent,
+			embedCardNodeTransformer,
 		)(view.state, view.dispatch);
 		return resolvedCard;
 	};

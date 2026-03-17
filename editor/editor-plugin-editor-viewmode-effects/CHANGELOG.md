@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-editor-viewmode-effects
 
+## 8.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.2
+
+### Patch Changes
+
+- [`5985f38f7104e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5985f38f7104e) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

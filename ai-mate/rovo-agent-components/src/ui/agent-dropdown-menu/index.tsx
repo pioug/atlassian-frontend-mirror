@@ -52,6 +52,12 @@ type ChatToAgentButtonProps = {
 	onClick: ButtonProps['onClick'];
 };
 
+type CustomDropdownOption = {
+	id: string;
+	label: string;
+	onClick: () => void;
+};
+
 export const ChatToAgentButton = ({ onClick }: ChatToAgentButtonProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 
@@ -115,6 +121,7 @@ type AgentDropdownMenuProps = {
 		isEditEnabled: boolean;
 		isDeleteEnabled: boolean;
 	}>;
+	customDropdownOptions?: CustomDropdownOption[];
 } & ViewAgentOptionProps &
 	ViewAgentFullProfileProps &
 	Partial<
@@ -147,6 +154,7 @@ export const AgentDropdownMenu = ({
 	agentRef,
 	userPermissionsRef,
 	onVerificationSuccess,
+	customDropdownOptions,
 }: AgentDropdownMenuProps): JSX.Element => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { formatMessage } = useIntl();
@@ -238,6 +246,12 @@ export const AgentDropdownMenu = ({
 			}}
 		>
 			<DropdownItemGroup>
+				{fg('jira_browse_agents_modal') &&
+					customDropdownOptions?.map((option: CustomDropdownOption) => (
+						<DropdownItem key={option.id} onClick={option.onClick}>
+							{option.label}
+						</DropdownItem>
+					))}
 				{showViewAgentOption && (
 					<DropdownItem onClick={onViewAgentClick}>
 						{formatMessage(messages.viewAgent)}

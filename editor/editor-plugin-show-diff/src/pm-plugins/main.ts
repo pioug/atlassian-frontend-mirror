@@ -13,6 +13,7 @@ import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform'
 import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type DiffParams, type ShowDiffPlugin } from '../showDiffPluginType';
 
@@ -29,6 +30,7 @@ export type ShowDiffPluginState = {
 	activeIndexPos?: { from: number; to: number };
 	decorations: DecorationSet;
 	isDisplayingChanges: boolean;
+	isInverted?: boolean;
 	originalDoc: PMNode | undefined;
 	steps: ProseMirrorStep[];
 };
@@ -62,6 +64,11 @@ export const createPlugin = (
 					originalDoc: undefined,
 					decorations: DecorationSet.empty,
 					isDisplayingChanges: false,
+					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+						? {
+								isInverted: false,
+							}
+						: {}),
 				};
 			},
 			apply: (
@@ -93,6 +100,9 @@ export const createPlugin = (
 								? newPluginState.activeIndexPos
 								: undefined,
 							api,
+							...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+								? { isInverted: newPluginState?.isInverted }
+								: {}),
 						});
 						// Update the decorations
 						newPluginState.decorations = decorations;
@@ -103,6 +113,13 @@ export const createPlugin = (
 							decorations: DecorationSet.empty,
 							isDisplayingChanges: false,
 							activeIndex: undefined,
+							/**
+							 * Reset isInverted state when hiding diffs
+							 * Otherwise this should persist for the diff-showing session
+							 */
+							...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+								? { isInverted: false }
+								: {}),
 						};
 					} else if (
 						(meta?.action === 'SCROLL_TO_NEXT' || meta?.action === 'SCROLL_TO_PREVIOUS') &&
@@ -143,6 +160,9 @@ export const createPlugin = (
 								intl: getIntl(),
 								activeIndexPos: newPluginState.activeIndexPos,
 								api,
+								...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+									? { isInverted: newPluginState.isInverted }
+									: {}),
 							});
 							newPluginState.decorations = updatedDecorations;
 						}

@@ -31,7 +31,7 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type DataConsumerPlugin = NextEditorPlugin<'dataConsumer'>;
+export type DataConsumerPlugin = NextEditorPlugin<'dataConsumer'>;
 `}
 
 

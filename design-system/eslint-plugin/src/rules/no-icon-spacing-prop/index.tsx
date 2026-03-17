@@ -12,9 +12,9 @@ import {
 	getStaticAttributeValue,
 	hasSpreadProps,
 	SPACING_TO_PADDING,
-	upsertBoxImport,
 	upsertCssMapImport,
 	upsertCssMapVariable,
+	upsertFlexImport,
 	upsertTokenImport,
 } from './helpers';
 
@@ -25,24 +25,24 @@ const rule: Rule.RuleModule = createLintRule({
 		type: 'suggestion',
 		docs: {
 			description:
-				'Disallows usage of the deprecated spacing prop on new icons. Use Box with cssMap for spacing instead.',
+				'Disallows usage of the deprecated spacing prop on new icons. Use Flex with cssMap for spacing instead.',
 			recommended: true,
 			severity: 'warn',
 		},
 		messages: {
 			noSpacingProp:
-				"The `spacing` prop on icon component '{{iconName}}' is deprecated. Wrap the icon in a `<Box xcss={iconSpacingStyles.spaceXXX}>` using `cssMap` from `@atlaskit/css` instead.",
+				"The `spacing` prop on icon component '{{iconName}}' is deprecated. Wrap the icon in a `<Flex xcss={iconSpacingStyles.spaceXXX}>` using `cssMap` from `@atlaskit/css` instead.",
 			noSpacingPropManual:
-				"The `spacing` prop on icon component '{{iconName}}' is deprecated but cannot be auto-fixed ({{reason}}). Manually wrap the icon in a `<Box xcss={...}>` using `cssMap` from `@atlaskit/css`.",
+				"The `spacing` prop on icon component '{{iconName}}' is deprecated but cannot be auto-fixed ({{reason}}). Manually wrap the icon in a `<Flex xcss={...}>` using `cssMap` from `@atlaskit/css`.",
 			suggestRemoveSpacing: 'Remove the `spacing` prop.',
-			suggestWrapInBox:
-				'Wrap in `<Box xcss={{{cssMapVarName}}.{{cssMapKey}}}>` and remove the `spacing` prop.',
+			suggestWrapInFlex:
+				'Wrap in `<Flex xcss={{{cssMapVarName}}.{{cssMapKey}}}>` and remove the `spacing` prop.',
 		},
 	},
 
 	create(context) {
 		const isNewIcon = createIsFromImportSourceFor(
-			/^@(atlaskit\/icon|atlaskit\/icon-lab|atlassian\/icon-private)\/core\//,
+			/^@(atlaskit\/icon|atlaskit\/icon-lab)\/core\//,
 		);
 
 		return errorBoundary({
@@ -113,7 +113,7 @@ const rule: Rule.RuleModule = createLintRule({
 					data: { iconName },
 					suggest: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							data: { cssMapVarName: CSSMAP_VARIABLE_NAME, cssMapKey },
 							fix(fixer) {
 								const fixes: Rule.Fix[] = [];
@@ -121,14 +121,14 @@ const rule: Rule.RuleModule = createLintRule({
 								// 1. Remove spacing prop
 								fixes.push(fixer.remove(spacingAttr as unknown as Rule.Node));
 
-								// 2. Wrap in Box with cssMap reference
+								// 2. Wrap in Flex with cssMap reference
 								fixes.push(
 									fixer.insertTextBefore(
 										node as unknown as Rule.Node,
-										`<Box xcss={${CSSMAP_VARIABLE_NAME}.${cssMapKey}}>`,
+										`<Flex xcss={${CSSMAP_VARIABLE_NAME}.${cssMapKey}}>`,
 									),
 								);
-								fixes.push(fixer.insertTextAfter(node as unknown as Rule.Node, `</Box>`));
+								fixes.push(fixer.insertTextAfter(node as unknown as Rule.Node, `</Flex>`));
 
 								// 3. Insert/update cssMap variable after last import
 								const cssMapFix = upsertCssMapVariable(context, fixer, paddingToken);
@@ -142,10 +142,10 @@ const rule: Rule.RuleModule = createLintRule({
 									fixes.push(cssFix);
 								}
 
-								// 5. Add Box to @atlaskit/primitives/compiled
-								const boxFix = upsertBoxImport(context, fixer);
-								if (boxFix) {
-									fixes.push(boxFix);
+								// 5. Add Flex to @atlaskit/primitives/compiled
+								const flexFix = upsertFlexImport(context, fixer);
+								if (flexFix) {
+									fixes.push(flexFix);
 								}
 
 								// 6. Add token from @atlaskit/tokens

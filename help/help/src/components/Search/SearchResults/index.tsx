@@ -60,6 +60,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ isAiEnabled = fals
 
 	const [suggestionsCount, setSuggestionsCount] = useState(0);
 	const liveRegionRef = useRef<HTMLDivElement>(null);
+	const searchResultsAiRef = useRef<HTMLDivElement>(null);
+	const searchResultsRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (searchResult) {
@@ -73,9 +75,10 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ isAiEnabled = fals
 		<Transition
 			in={view === VIEW.SEARCH && isSearchResultVisible}
 			timeout={FADEIN_OVERLAY_TRANSITION_DURATION_MS}
+			nodeRef={searchResultsAiRef}
 		>
 			{(state: TransitionStatus) => (
-				<SearchResultsContainerAi transitionState={state}>
+				<SearchResultsContainerAi ref={searchResultsAiRef} transitionState={state}>
 					{/* Live Region for Announcements */}
 					<div
 						ref={liveRegionRef}
@@ -137,9 +140,10 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ isAiEnabled = fals
 		<Transition
 			in={view === VIEW.SEARCH && isSearchResultVisible}
 			timeout={FADEIN_OVERLAY_TRANSITION_DURATION_MS}
+			nodeRef={searchResultsRef}
 		>
 			{(state: TransitionStatus) => (
-				<SearchResultsContainer transitionState={state}>
+				<SearchResultsContainer ref={searchResultsRef} transitionState={state}>
 					{/* Live Region for Announcements */}
 					<div
 						ref={liveRegionRef}

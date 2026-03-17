@@ -24,6 +24,7 @@ import {
 	safeInsert,
 	setTextSelection,
 } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 import type {
@@ -67,6 +68,10 @@ const generateAnalyticsPayload = (
 		({ containerId, objectId, userContext } = contextData);
 	}
 
+	const resolvedInputMethod = fg('platform_editor_element_browser_analytic')
+		? inputMethod
+		: INPUT_METHOD.QUICK_INSERT;
+
 	return {
 		action: ACTION.INSERTED,
 		actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -74,7 +79,7 @@ const generateAnalyticsPayload = (
 			listType === 'taskList' ? ACTION_SUBJECT_ID.ACTION : ACTION_SUBJECT_ID.DECISION,
 		eventType: EVENT_TYPE.TRACK,
 		attributes: {
-			inputMethod,
+			inputMethod: resolvedInputMethod,
 			containerAri: containerId,
 			objectAri: objectId,
 			userContext,
@@ -115,7 +120,8 @@ export const insertTaskDecisionAction =
 		inputMethod:
 			| INPUT_METHOD.FORMATTING
 			| INPUT_METHOD.QUICK_INSERT
-			| TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
+			| INPUT_METHOD.ELEMENT_BROWSER
+			| TaskDecisionInputMethod = INPUT_METHOD.TOOLBAR,
 		addItem?: AddItemTransactionCreator,
 		listLocalId?: string,
 		itemLocalId?: string,
@@ -185,6 +191,7 @@ export const insertTaskDecisionCommand =
 		inputMethod:
 			| INPUT_METHOD.FORMATTING
 			| INPUT_METHOD.QUICK_INSERT
+			| INPUT_METHOD.ELEMENT_BROWSER
 			| TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
 		addItem?: AddItemTransactionCreator,
 		listLocalId?: string,

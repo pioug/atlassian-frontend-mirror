@@ -207,6 +207,12 @@ const GammaAgentAvatar = lazy(
 		import(/* webpackChunkName: "@atlaskit-rovo-avatar-GammaAgentAvatar"*/ './assets/gamma-agent'),
 );
 
+const LovableAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-LovableAgentAvatar"*/ './assets/lovable-agent'),
+);
+
 const ReplitAgentAvatar = lazy(
 	() =>
 		import(
@@ -480,6 +486,12 @@ const outOfTheBoxAgentAvatar: {
 	mcp_gamma_agent: {
 		getRender: (size: SizeType) => (
 			<GammaAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
+	mcp_lovable_agent: {
+		getRender: (size: SizeType) => (
+			<LovableAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
 		color: blueColor,
 	},

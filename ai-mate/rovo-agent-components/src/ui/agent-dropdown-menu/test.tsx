@@ -394,4 +394,39 @@ describe('AgentDropdownMenu', () => {
 		);
 		await expect(container).toBeAccessible();
 	});
+
+	ffTest.on('jira_browse_agents_modal', 'with jira_browse_agents_modal on', () => {
+		it('should render custom dropdown options if provided', async () => {
+			const user = userEvent.setup();
+			const customDropdownOptions = [
+				{ id: '1', label: 'Custom Option 1', onClick: jest.fn() },
+				{ id: '2', label: 'Custom Option 2', onClick: jest.fn() },
+			];
+
+			renderComponent({ customDropdownOptions });
+
+			await user.click(moreActions());
+			screen.debug();
+
+			expect(screen.queryByRole('menuitem', { name: 'Custom Option 1' })).toBeVisible();
+			expect(screen.queryByRole('menuitem', { name: 'Custom Option 2' })).toBeVisible();
+		});
+	});
+
+	ffTest.off('jira_browse_agents_modal', 'with jira_browse_agents_modal off', () => {
+		it('should not render custom dropdown options if provided', async () => {
+			const user = userEvent.setup();
+			const customDropdownOptions = [
+				{ id: '1', label: 'Custom Option 1', onClick: jest.fn() },
+				{ id: '2', label: 'Custom Option 2', onClick: jest.fn() },
+			];
+
+			renderComponent({ customDropdownOptions });
+
+			await user.click(moreActions());
+
+			expect(screen.queryByRole('menuitem', { name: 'Custom Option 1' })).not.toBeInTheDocument();
+			expect(screen.queryByRole('menuitem', { name: 'Custom Option 2' })).not.toBeInTheDocument();
+		});
+	});
 });

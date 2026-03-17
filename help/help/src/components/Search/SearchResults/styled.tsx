@@ -39,18 +39,21 @@ const transitionStyles: { [id: string]: React.CSSProperties } = {
 	exited: { opacity: 0, visibility: 'hidden' },
 };
 
-export const SearchResultsContainer = ({
-	children,
-	transitionState,
-}: {
+type SearchResultsContainerProps = {
 	children: React.ReactNode;
 	transitionState: TransitionStatus;
-}): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-	<div css={searchResultsContainerStyles} style={transitionStyles[transitionState]}>
-		{children}
-	</div>
+};
+
+export const SearchResultsContainer = React.forwardRef<HTMLDivElement, SearchResultsContainerProps>(
+	({ children, transitionState }, ref): JSX.Element => (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+		<div ref={ref} css={searchResultsContainerStyles} style={transitionStyles[transitionState]}>
+			{children}
+		</div>
+	),
 );
+
+SearchResultsContainer.displayName = 'SearchResultsContainer';
 
 const searchResultsContainerAiStyles = css({
 	position: 'absolute',
@@ -73,18 +76,19 @@ const searchResultsContainerAiStyles = css({
 	visibility: 'hidden',
 });
 
-export const SearchResultsContainerAi = ({
-	children,
-	transitionState,
-}: {
-	children: React.ReactNode;
-	transitionState: TransitionStatus;
-}): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-	<div css={searchResultsContainerAiStyles} style={transitionStyles[transitionState]}>
-		{children}
-	</div>
+export const SearchResultsContainerAi = React.forwardRef<
+	HTMLDivElement,
+	SearchResultsContainerProps
+>(
+	({ children, transitionState }, ref): JSX.Element => (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+		<div ref={ref} css={searchResultsContainerAiStyles} style={transitionStyles[transitionState]}>
+			{children}
+		</div>
+	),
 );
+
+SearchResultsContainerAi.displayName = 'SearchResultsContainerAi';
 
 const searchResultEmptyMessageImageStyles = css({
 	paddingTop: token('space.300', '24px'),

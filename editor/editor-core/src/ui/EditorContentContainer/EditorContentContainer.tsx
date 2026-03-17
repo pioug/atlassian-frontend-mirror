@@ -83,7 +83,6 @@ import {
 import { extensionDiffStyles, getExtensionStyles } from './styles/extensionStyles';
 import {
 	findReplaceStyles,
-	findReplaceStylesNew,
 	findReplaceStylesNewWithA11Y,
 	findReplaceStylesNewWithCodeblockColorContrastFix,
 	findReplaceStylesWithCodeblockColorContrastFix,
@@ -513,11 +512,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					expandStylesMixin_fg_platform_visual_refresh_icons,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							fg('platform_editor_a11y_find_replace_focus_ring')
-							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								findReplaceStylesNewWithA11Y
-							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								findReplaceStylesNew
+							findReplaceStylesNewWithA11Y
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							findReplaceStyles,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&

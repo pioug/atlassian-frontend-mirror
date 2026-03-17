@@ -19,6 +19,11 @@ export type {
 	ChangeSelectedCardToLink,
 	SetSelectedCardAppearance,
 	CardReplacementInputMethod,
+	EmbedCardTransformAttrs,
+	EmbedCardNodeTransformer,
+	EmbedCardTransformCommandOptions,
+	CreateEmbedCardTransformCommand,
+	EmbedCardTransformers,
 } from './types';
 export { LinkToolbarButtonGroup } from './LinkToolbarButtonGroup';
 export { appearancePropsMap, getButtonGroupOption } from './link-toolbar-button-group-options';

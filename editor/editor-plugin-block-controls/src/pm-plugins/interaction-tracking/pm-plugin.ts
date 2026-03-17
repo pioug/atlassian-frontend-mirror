@@ -134,7 +134,6 @@ export const createInteractionTrackingPlugin = (
 			? (view: EditorView) => {
 					const editorContentArea = view.dom.closest('.ak-editor-content-area');
 					// rightSideControlsEnabled is the single source of truth (confluence_remix_icon_right_side from preset)
-					const remixRightSideEnabled = rightSideControlsEnabled;
 
 					let unbindMouseEnter: UnbindFn;
 					let unbindMouseLeave: UnbindFn;
@@ -174,7 +173,7 @@ export const createInteractionTrackingPlugin = (
 					};
 
 					if (editorContentArea) {
-						if (remixRightSideEnabled && typeof document !== 'undefined') {
+						if (rightSideControlsEnabled && typeof document !== 'undefined') {
 							unbindDocumentMouseMove = bind(document, {
 								type: 'mousemove',
 								listener: (event: MouseEvent) => {
@@ -196,7 +195,7 @@ export const createInteractionTrackingPlugin = (
 						unbindMouseEnter = bind(editorContentArea, {
 							type: 'mouseenter',
 							listener: () => {
-								if (remixRightSideEnabled) {
+								if (rightSideControlsEnabled) {
 									cancelScheduledMouseLeave();
 								}
 								handleMouseEnter(view);
@@ -208,7 +207,7 @@ export const createInteractionTrackingPlugin = (
 							listener: (event: Event) => {
 								const e = event as MouseEvent;
 								lastMousePosition = { x: e.clientX, y: e.clientY };
-								if (remixRightSideEnabled) {
+								if (rightSideControlsEnabled) {
 									scheduleMouseLeave(e);
 								} else {
 									handleMouseLeave(view, false);
@@ -219,7 +218,7 @@ export const createInteractionTrackingPlugin = (
 
 					return {
 						destroy: () => {
-							if (remixRightSideEnabled) {
+							if (rightSideControlsEnabled) {
 								cancelScheduledMouseLeave();
 								unbindDocumentMouseMove?.();
 							}

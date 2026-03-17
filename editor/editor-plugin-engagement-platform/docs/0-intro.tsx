@@ -34,34 +34,43 @@ ${code`
 type EngagementPlatformPlugin = NextEditorPlugin<
 	'engagementPlatform',
 	{
+		actions: {
+			startMessage: (messageId: string, variationId?: string) => Promise<boolean>;
+			stopMessage: (messageId: string) => Promise<boolean>;
+		};
+		dependencies: [OptionalPlugin<AnalyticsPlugin>];
 		pluginConfiguration: EngagementPlatformPluginOptions;
-		dependencies: [];
 		sharedState: EngagementPlatformPluginState;
 	}
 >;
 
-type EngagementPlatformPluginState = {
-	epComponents: EpComponents;
-	epHooks: EpHooks;
-	coordinationClient: CoordinationClient;
-} | undefined;
-
-type EngagementPlatformPluginOptions = {
-	epComponents: EpComponents;
-	epHooks: EpHooks;
-	coordinationClient: CoordinationClient;
+interface CoordinationClient {
+	start(messageId: string, variationId?: string): Promise<boolean>;
+	stop(messageId: string): Promise<boolean>;
 }
 
+type EngagementPlatformPluginOptions = {
+	coordinationClient: CoordinationClient;
+	epComponents: EpComponents;
+	epHooks: EpHooks;
+};
+
 type EpComponents = {
-	EngagementProvider: React.ComponentType<PropsWithChildren<{}>>;
-	EngagementSpotlight: React.ComponentType<{ engagementId: string }>;
-	EngagementInlineDialog: React.ComponentType<PropsWithChildren<{ engagementId: string }>>;
-	Coordination: React.ComponentType<PropsWithChildren<{ client: CoordinationClient; messageId: string; fallback: ReactNode }>>;
+	Coordination: ComponentType<{
+		children: JSX.Element;
+		client: CoordinationClient;
+		fallback: ReactNode;
+		messageId: string;
+	}>;
+	EngagementInlineDialog: ComponentType<PropsWithChildren<{ engagementId: string }>>;
+	EngagementSpotlight: ComponentType<{ engagementId: string }>;
 };
 
 type EpHooks = {
 	useCoordination: (client: CoordinationClient, messageId: string) => [boolean, (force?: boolean) => Promise<void>];
 };
+
+type EngagementPlatformPluginState = EngagementPlatformPmPluginState | undefined;
 `}
 
 

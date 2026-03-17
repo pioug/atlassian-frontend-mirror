@@ -1,5 +1,44 @@
 # @atlaskit/icon-lab
 
+## 5.18.0
+
+### Minor Changes
+
+- [`99726ea06a76c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99726ea06a76c) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `approval-start`
+  - `dock-toolbar-bottom`
+  - `dock-window-bottom-left`
+  - `dock-window-bottom-right`
+  - `hardware-audit`
+  - `hardware-configuration`
+  - `hardware-defect`
+  - `hardware-dispose`
+  - `hardware-fulfil`
+  - `hardware-new`
+  - `hardware-procure`
+  - `hardware-refresh`
+  - `hardware-repair`
+  - `hardware-return`
+  - `hardware-ship`
+  - `hardware-transfer`
+  - `person-lock-locked`
+  - `person-lock-unlocked`
+  - `registry-service`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `person-voiceover`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.17.0
 
 ### Minor Changes

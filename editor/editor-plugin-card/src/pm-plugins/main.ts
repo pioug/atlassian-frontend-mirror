@@ -64,6 +64,7 @@ export const createPlugin =
 			isPageSSRed,
 			provider,
 			CompetitorPrompt,
+			embedCardTransformers,
 		} = options;
 
 		const enableInlineUpgradeFeatures = !!showUpgradeDiscoverability;
@@ -96,6 +97,7 @@ export const createPlugin =
 						showLinkingToolbar: false,
 						smartLinkEvents: undefined,
 						editorAppearance,
+						embedCardTransformers,
 						showDatasourceModal: false,
 						datasourceModalType: undefined,
 						datasourceTableRef: undefined,
@@ -264,6 +266,7 @@ export const createPlugin =
 										pluginInjectionApi?.analytics?.actions,
 										pluginInjectionApi?.analytics?.sharedState.currentState()
 											?.createAnalyticsEvent ?? undefined,
+										currentState?.embedCardTransformers?.embedCardNodeTransformer,
 									),
 								);
 								rafCancellationCallbacks.push(invoke.cancel);

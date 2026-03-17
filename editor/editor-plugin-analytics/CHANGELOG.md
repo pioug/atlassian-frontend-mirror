@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-analytics
 
+## 8.0.3
+
+### Patch Changes
+
+- [`ddcd9f9430dfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddcd9f9430dfe) -
+  EDITOR-5602 Add position check when insertLocation is fired
+- Updated dependencies
+
+## 8.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

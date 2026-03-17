@@ -32,16 +32,16 @@ tester.run('no-icon-spacing-prop', rule, {
 					messageId: 'noSpacingProp',
 					suggestions: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							output: `
 				import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import AddIcon from '@atlaskit/icon/core/add';
 const iconSpacingStyles = cssMap({
-  space050: { paddingTop: token('space.050'), paddingRight: token('space.050'), paddingBottom: token('space.050'), paddingLeft: token('space.050') },
+  space050: { paddingBlock: token('space.050'), paddingInline: token('space.050') },
 });
-				<Box xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Box>
+				<Flex xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Flex>
 			`,
 						},
 					],
@@ -59,16 +59,16 @@ const iconSpacingStyles = cssMap({
 					messageId: 'noSpacingProp',
 					suggestions: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							output: `
 				import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import AddIcon from '@atlaskit/icon/core/add';
 const iconSpacingStyles = cssMap({
-  space050: { paddingTop: token('space.050'), paddingRight: token('space.050'), paddingBottom: token('space.050'), paddingLeft: token('space.050') },
+  space050: { paddingBlock: token('space.050'), paddingInline: token('space.050') },
 });
-				<Box xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Box>
+				<Flex xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Flex>
 			`,
 						},
 					],
@@ -107,16 +107,16 @@ const iconSpacingStyles = cssMap({
 					messageId: 'noSpacingProp',
 					suggestions: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							output: `
 				import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import ChevronIcon from '@atlaskit/icon/core/chevron-right';
 const iconSpacingStyles = cssMap({
-  space075: { paddingTop: token('space.075'), paddingRight: token('space.075'), paddingBottom: token('space.075'), paddingLeft: token('space.075') },
+  space075: { paddingBlock: token('space.075'), paddingInline: token('space.075') },
 });
-				<Box xcss={iconSpacingStyles.space075}><ChevronIcon label=""  size="small" color="currentColor" /></Box>
+				<Flex xcss={iconSpacingStyles.space075}><ChevronIcon label=""  size="small" color="currentColor" /></Flex>
 			`,
 						},
 					],
@@ -134,16 +134,16 @@ const iconSpacingStyles = cssMap({
 					messageId: 'noSpacingProp',
 					suggestions: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							output: `
 				import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import ChevronIcon from '@atlaskit/icon/core/chevron-right';
 const iconSpacingStyles = cssMap({
-  space025: { paddingTop: token('space.025'), paddingRight: token('space.025'), paddingBottom: token('space.025'), paddingLeft: token('space.025') },
+  space025: { paddingBlock: token('space.025'), paddingInline: token('space.025') },
 });
-				<Box xcss={iconSpacingStyles.space025}><ChevronIcon label=""  size="small" color="currentColor" /></Box>
+				<Flex xcss={iconSpacingStyles.space025}><ChevronIcon label=""  size="small" color="currentColor" /></Flex>
 			`,
 						},
 					],
@@ -161,53 +161,26 @@ const iconSpacingStyles = cssMap({
 					messageId: 'noSpacingProp',
 					suggestions: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							output: `
 				import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import LabIcon from '@atlaskit/icon-lab/core/test';
 const iconSpacingStyles = cssMap({
-  space050: { paddingTop: token('space.050'), paddingRight: token('space.050'), paddingBottom: token('space.050'), paddingLeft: token('space.050') },
+  space050: { paddingBlock: token('space.050'), paddingInline: token('space.050') },
 });
-				<Box xcss={iconSpacingStyles.space050}><LabIcon label="Lab"  color="currentColor" /></Box>
+				<Flex xcss={iconSpacingStyles.space050}><LabIcon label="Lab"  color="currentColor" /></Flex>
 			`,
 						},
 					],
 				},
 			],
 		},
-		// private icon
+		// Existing Flex from compiled — add cssMap/jsx, keep Flex, add token + pragma
 		{
 			code: `
-				import PrivateIcon from '@atlassian/icon-private/core/test';
-				<PrivateIcon label="Private" spacing="compact" color="currentColor" />
-			`,
-			errors: [
-				{
-					messageId: 'noSpacingProp',
-					suggestions: [
-						{
-							messageId: 'suggestWrapInBox',
-							output: `
-				import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
-import PrivateIcon from '@atlassian/icon-private/core/test';
-const iconSpacingStyles = cssMap({
-  space050: { paddingTop: token('space.050'), paddingRight: token('space.050'), paddingBottom: token('space.050'), paddingLeft: token('space.050') },
-});
-				<Box xcss={iconSpacingStyles.space050}><PrivateIcon label="Private"  color="currentColor" /></Box>
-			`,
-						},
-					],
-				},
-			],
-		},
-		// Existing Box from compiled — add cssMap/jsx, keep Box, add token + pragma
-		{
-			code: `
-				import { Box } from '@atlaskit/primitives/compiled';
+				import { Flex } from '@atlaskit/primitives/compiled';
 				import AddIcon from '@atlaskit/icon/core/add';
 				<AddIcon label="Add" spacing="spacious" color="currentColor" />
 			`,
@@ -216,26 +189,26 @@ const iconSpacingStyles = cssMap({
 					messageId: 'noSpacingProp',
 					suggestions: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							output: `
 				import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled';
 				import AddIcon from '@atlaskit/icon/core/add';
 const iconSpacingStyles = cssMap({
-  space050: { paddingTop: token('space.050'), paddingRight: token('space.050'), paddingBottom: token('space.050'), paddingLeft: token('space.050') },
+  space050: { paddingBlock: token('space.050'), paddingInline: token('space.050') },
 });
-				<Box xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Box>
+				<Flex xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Flex>
 			`,
 						},
 					],
 				},
 			],
 		},
-		// Box from non-compiled — migrate path to /compiled
+		// Flex from non-compiled — migrate path to /compiled
 		{
 			code: `
-				import { Box } from '@atlaskit/primitives';
+				import { Flex } from '@atlaskit/primitives';
 				import AddIcon from '@atlaskit/icon/core/add';
 				<AddIcon label="Add" spacing="spacious" color="currentColor" />
 			`,
@@ -244,23 +217,23 @@ const iconSpacingStyles = cssMap({
 					messageId: 'noSpacingProp',
 					suggestions: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							output: `
 				import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled';
 				import AddIcon from '@atlaskit/icon/core/add';
 const iconSpacingStyles = cssMap({
-  space050: { paddingTop: token('space.050'), paddingRight: token('space.050'), paddingBottom: token('space.050'), paddingLeft: token('space.050') },
+  space050: { paddingBlock: token('space.050'), paddingInline: token('space.050') },
 });
-				<Box xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Box>
+				<Flex xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Flex>
 			`,
 						},
 					],
 				},
 			],
 		},
-		// Stack from @atlaskit/primitives — add Box, migrate path to /compiled
+		// Stack from @atlaskit/primitives — add Flex, migrate path to /compiled
 		{
 			code: `
 				import { Stack } from '@atlaskit/primitives';
@@ -272,16 +245,16 @@ const iconSpacingStyles = cssMap({
 					messageId: 'noSpacingProp',
 					suggestions: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							output: `
 				import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Stack, Box } from '@atlaskit/primitives/compiled';
+import { Stack, Flex } from '@atlaskit/primitives/compiled';
 				import AddIcon from '@atlaskit/icon/core/add';
 const iconSpacingStyles = cssMap({
-  space050: { paddingTop: token('space.050'), paddingRight: token('space.050'), paddingBottom: token('space.050'), paddingLeft: token('space.050') },
+  space050: { paddingBlock: token('space.050'), paddingInline: token('space.050') },
 });
-				<Box xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Box>
+				<Flex xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Flex>
 			`,
 						},
 					],
@@ -319,18 +292,18 @@ const iconSpacingStyles = cssMap({
 					messageId: 'noSpacingProp',
 					suggestions: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							output: `
 				import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import AddIcon from '@atlaskit/icon/core/add';
 				import EditIcon from '@atlaskit/icon/core/edit';
 const iconSpacingStyles = cssMap({
-  space050: { paddingTop: token('space.050'), paddingRight: token('space.050'), paddingBottom: token('space.050'), paddingLeft: token('space.050') },
+  space050: { paddingBlock: token('space.050'), paddingInline: token('space.050') },
 });
 				<>
-					<Box xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Box>
+					<Flex xcss={iconSpacingStyles.space050}><AddIcon label="Add"  color="currentColor" /></Flex>
 					<EditIcon label="Edit" spacing="compact" color="currentColor" />
 				</>
 			`,
@@ -341,19 +314,19 @@ const iconSpacingStyles = cssMap({
 					messageId: 'noSpacingProp',
 					suggestions: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							output: `
 				import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import AddIcon from '@atlaskit/icon/core/add';
 				import EditIcon from '@atlaskit/icon/core/edit';
 const iconSpacingStyles = cssMap({
-  space050: { paddingTop: token('space.050'), paddingRight: token('space.050'), paddingBottom: token('space.050'), paddingLeft: token('space.050') },
+  space050: { paddingBlock: token('space.050'), paddingInline: token('space.050') },
 });
 				<>
 					<AddIcon label="Add" spacing="spacious" color="currentColor" />
-					<Box xcss={iconSpacingStyles.space050}><EditIcon label="Edit"  color="currentColor" /></Box>
+					<Flex xcss={iconSpacingStyles.space050}><EditIcon label="Edit"  color="currentColor" /></Flex>
 				</>
 			`,
 						},
@@ -373,17 +346,17 @@ const iconSpacingStyles = cssMap({
 					messageId: 'noSpacingProp',
 					suggestions: [
 						{
-							messageId: 'suggestWrapInBox',
+							messageId: 'suggestWrapInFlex',
 							output: `
 				import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import AddIcon from '@atlaskit/icon/core/add';
 				import Button from '@atlaskit/button/new';
 const iconSpacingStyles = cssMap({
-  space050: { paddingTop: token('space.050'), paddingRight: token('space.050'), paddingBottom: token('space.050'), paddingLeft: token('space.050') },
+  space050: { paddingBlock: token('space.050'), paddingInline: token('space.050') },
 });
-				<Button iconBefore={() => <Box xcss={iconSpacingStyles.space050}><AddIcon label=""  /></Box>} />
+				<Button iconBefore={() => <Flex xcss={iconSpacingStyles.space050}><AddIcon label=""  /></Flex>} />
 			`,
 						},
 					],

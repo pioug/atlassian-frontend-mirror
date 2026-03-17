@@ -1,10 +1,11 @@
-import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	LAYOUT_TYPE,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type { Command, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
@@ -203,7 +204,9 @@ export const insertLayoutColumnsWithAnalytics =
 			actionSubject: ACTION_SUBJECT.DOCUMENT,
 			actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
 			attributes: {
-				inputMethod,
+				inputMethod: fg('platform_editor_element_browser_analytic')
+					? inputMethod
+					: INPUT_METHOD.QUICK_INSERT,
 				columnCount: fg('platform_editor_column_count_analytics') ? 2 : undefined,
 			},
 			eventType: EVENT_TYPE.TRACK,

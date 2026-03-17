@@ -1,6 +1,7 @@
 import React from 'react';
+import { IntlProvider as ReactIntlProvider } from 'react-intl';
 import {
-	IntlProvider,
+	IntlProvider as ReactIntlNextProvider,
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
@@ -15,9 +16,11 @@ export const MessagesIntlProvider: React.FC<Props & WrappedComponentProps> = ({
 	locale = 'en',
 	children,
 }) => (
-	<IntlProvider key={locale} locale={locale}>
-		{children}
-	</IntlProvider>
+	<ReactIntlProvider key={`v6-${locale}`} locale={locale}>
+		<ReactIntlNextProvider key={`v5-${locale}`} locale={locale}>
+			{children}
+		</ReactIntlNextProvider>
+	</ReactIntlProvider>
 );
 
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {

@@ -235,18 +235,8 @@ describe('Socket io provider', () => {
 			expValEqualsMock.mockReturnValue(false);
 		});
 
-		it('should omit x-client-platform header when platform_editor_send_client_platform_header is OFF', () => {
+		it('should set x-client-platform header', () => {
 			const socket = createSocketIOSocket(url);
-			expect(socket?.io?.opts.extraHeaders).not.toHaveProperty('x-client-platform');
-		});
-
-		it('should set x-client-platform header when platform_editor_send_client_platform_header is ON', () => {
-			expValEqualsMock.mockImplementation(
-				(experimentName: string, param: string) =>
-					experimentName === 'platform_editor_send_client_platform_header',
-			);
-			const socket = createSocketIOSocket(url);
-
 			expect(socket?.io?.opts.extraHeaders).toHaveProperty('x-client-platform', 'web');
 		});
 
@@ -258,6 +248,7 @@ describe('Socket io provider', () => {
 			});
 
 			expect(socket?.io?.opts.extraHeaders).toEqual({
+				'x-client-platform': 'web',
 				'x-product': 'confluence',
 				'x-subproduct': 'none',
 			});
@@ -270,6 +261,7 @@ describe('Socket io provider', () => {
 			});
 
 			expect(socket?.io?.opts.extraHeaders).toEqual({
+				'x-client-platform': 'web',
 				'x-product': 'embeddedConfluence',
 				'x-subproduct': 'JSM',
 			});

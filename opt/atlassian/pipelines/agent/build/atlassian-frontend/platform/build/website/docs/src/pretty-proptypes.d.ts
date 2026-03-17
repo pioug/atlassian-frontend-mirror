@@ -5,4 +5,7 @@ declare module 'pretty-proptypes' {
 	export const PropsTable: any;
 	export const components: any;
 	export const LayoutRenderer: any;
+
+	const PrettyProps: any;
+	export default PrettyProps;
 }

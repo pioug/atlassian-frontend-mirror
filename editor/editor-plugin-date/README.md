@@ -1,8 +1,21 @@
-# Editor plugin date
+# Editor Plugin Date
 
 Date plugin for @atlaskit/editor-core
+
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Date plugin provides date insertion and editing capabilities for the Atlassian Editor. It integrates with `@atlaskit/calendar` to enable users to select and insert dates into editor content with a visual date picker interface.
+
+## Key features
+
+- **Date insertion** - Insert dates into editor content with a calendar-based date picker
+- **Date editing** - Edit existing dates inline with the same date picker interface
+- **Configurable week start** - Configure the first day of the week in the date picker
+- **Date analytics** - Track date insertion and editing actions through the analytics plugin
+- **Inline date display** - Dates are displayed inline within the document content
 
 ## Install
 ---
@@ -15,9 +28,12 @@ External contributors will be able to use this component but will not be able to
 ---
 
 **Internal use only**
+
 @atlaskit/editor-plugin-date is intended for internal use by the @atlaskit/editor-core and as a plugin dependency of the Editor within your product.
+
 Direct use of this component is not supported.
-Please see [Atlaskit - Editor plugin Date Dialog](https://atlaskit.atlassian.com/packages/editor/editor-plugin-date) for documentation and examples for this package.
+
+Please see [Atlaskit - Editor plugin Date](https://atlaskit.atlassian.com/packages/editor/editor-plugin-date) for documentation and examples for this package.
 
 ## Support
 ---

@@ -19,6 +19,7 @@ import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { InsertMethod } from '../types';
@@ -224,6 +225,10 @@ export const insertExpandWithInputMethod =
 					state,
 					type: expandNode.type,
 				});
+		const resolvedInputMethod = fg('platform_editor_element_browser_analytic')
+			? inputMethod
+			: INPUT_METHOD.QUICK_INSERT;
+
 		const payload: AnalyticsEventPayload = {
 			action: ACTION.INSERTED,
 			actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -231,7 +236,7 @@ export const insertExpandWithInputMethod =
 				expandNode?.type === state.schema.nodes.expand
 					? ACTION_SUBJECT_ID.EXPAND
 					: ACTION_SUBJECT_ID.NESTED_EXPAND,
-			attributes: { inputMethod },
+			attributes: { inputMethod: resolvedInputMethod },
 			eventType: EVENT_TYPE.TRACK,
 		};
 

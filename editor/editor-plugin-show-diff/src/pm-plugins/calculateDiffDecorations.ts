@@ -30,19 +30,26 @@ const calculateNodesForBlockDecoration = ({
 	from,
 	to,
 	colorScheme,
+	isInserted = true,
 }: {
 	colorScheme?: ColorScheme;
 	doc: EditorState['doc'];
 	from: number;
+	isInserted?: boolean;
 	to: number;
 }): Decoration[] => {
 	const decorations: Decoration[] = [];
 	// Iterate over the document nodes within the range
 	doc.nodesBetween(from, to, (node, pos) => {
-		if (node.isBlock) {
+		if (
+			node.isBlock &&
+			(!expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) ||
+				pos + node.nodeSize <= to)
+		) {
 			const decoration = createBlockChangedDecoration({
 				change: { from: pos, to: pos + node.nodeSize, name: node.type.name },
 				colorScheme,
+				isInserted,
 			});
 			if (decoration) {
 				decorations.push(decoration);
@@ -108,11 +115,13 @@ const calculateDiffDecorationsInner = ({
 	intl,
 	activeIndexPos,
 	api,
+	isInverted = false,
 }: {
 	activeIndexPos?: { from: number; to: number };
 	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
 	colorScheme?: ColorScheme;
 	intl: IntlShape;
+	isInverted?: boolean;
 	nodeViewSerializer: NodeViewSerializer;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
 	state: EditorState;
@@ -164,14 +173,28 @@ const calculateDiffDecorationsInner = ({
 	optimizedChanges.forEach((change) => {
 		const isActive =
 			activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
+		// Our default operations are insertions, so it should match the opposite of isInverted.
+		const isInserted = !isInverted;
 		if (change.inserted.length > 0) {
-			decorations.push(createInlineChangedDecoration({ change, colorScheme, isActive }));
+			decorations.push(
+				createInlineChangedDecoration({
+					change,
+					colorScheme,
+					isActive,
+					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
+						isInserted,
+					}),
+				}),
+			);
 			decorations.push(
 				...calculateNodesForBlockDecoration({
 					doc: tr.doc,
 					from: change.fromB,
 					to: change.toB,
 					colorScheme,
+					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
+						isInserted,
+					}),
 				}),
 			);
 		}
@@ -186,6 +209,9 @@ const calculateDiffDecorationsInner = ({
 				newDoc: tr.doc,
 				intl,
 				isActive,
+				...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
+					isInserted: !isInserted,
+				}),
 			});
 			if (decoration) {
 				decorations.push(...decoration);
@@ -195,7 +221,9 @@ const calculateDiffDecorationsInner = ({
 	getMarkChangeRanges(steps).forEach((change) => {
 		const isActive =
 			activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
-		decorations.push(createInlineChangedDecoration({ change, colorScheme, isActive }));
+		decorations.push(
+			createInlineChangedDecoration({ change, colorScheme, isActive, isInserted: true }),
+		);
 	});
 	getAttrChangeRanges(tr.doc, attrSteps).forEach((change) => {
 		decorations.push(
@@ -204,6 +232,7 @@ const calculateDiffDecorationsInner = ({
 				from: change.fromB,
 				to: change.toB,
 				colorScheme,
+				isInserted: true,
 			}),
 		);
 	});
@@ -236,7 +265,7 @@ export const calculateDiffDecorations: MemoizedFn<
 	calculateDiffDecorationsInner,
 	// Cache results unless relevant inputs change
 	(
-		[{ pluginState, state, colorScheme, intl, activeIndexPos }],
+		[{ pluginState, state, colorScheme, intl, activeIndexPos, isInverted }],
 		[
 			{
 				pluginState: lastPluginState,
@@ -244,6 +273,7 @@ export const calculateDiffDecorations: MemoizedFn<
 				colorScheme: lastColorScheme,
 				intl: lastIntl,
 				activeIndexPos: lastActiveIndexPos,
+				isInverted: lastIsInverted,
 			},
 		],
 	) => {
@@ -251,6 +281,19 @@ export const calculateDiffDecorations: MemoizedFn<
 			lastPluginState.originalDoc &&
 			pluginState.originalDoc &&
 			pluginState.originalDoc.eq(lastPluginState.originalDoc);
+
+		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+			return (
+				(colorScheme === lastColorScheme &&
+					intl.locale === lastIntl.locale &&
+					isInverted === lastIsInverted &&
+					isEqual(activeIndexPos, lastActiveIndexPos) &&
+					originalDocIsSame &&
+					isEqual(pluginState.steps, lastPluginState.steps) &&
+					state.doc.eq(lastState.doc)) ??
+				false
+			);
+		}
 		return (
 			(originalDocIsSame &&
 				isEqual(pluginState.steps, lastPluginState.steps) &&

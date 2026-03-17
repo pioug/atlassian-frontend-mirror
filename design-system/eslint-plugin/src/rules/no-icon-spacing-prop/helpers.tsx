@@ -6,8 +6,8 @@ import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import * as ast from '../../ast-nodes';
 import { Import } from '../../ast-nodes/import';
 
-export const BOX_IMPORT_MODULE = '@atlaskit/primitives/compiled';
-export const BOX_IMPORT_MODULE_NON_COMPILED = '@atlaskit/primitives';
+export const FLEX_IMPORT_MODULE = '@atlaskit/primitives/compiled';
+export const FLEX_IMPORT_MODULE_NON_COMPILED = '@atlaskit/primitives';
 export const TOKEN_IMPORT_MODULE = '@atlaskit/tokens';
 export const CSS_IMPORT_MODULE = '@atlaskit/css';
 export const CSSMAP_VARIABLE_NAME = 'iconSpacingStyles';
@@ -78,12 +78,12 @@ export function hasSpreadProps(node: JSXElement): boolean {
 }
 
 /**
- * Upserts `Box` from `@atlaskit/primitives/compiled`, handling:
- * 1. Already imported from `/compiled` → add Box if missing
- * 2. Import from `@atlaskit/primitives` (non-compiled) → migrate path + add Box
- * 3. No import → insert new `import { Box } from '@atlaskit/primitives/compiled'`
+ * Upserts `Flex` from `@atlaskit/primitives/compiled`, handling:
+ * 1. Already imported from `/compiled` → add Flex if missing
+ * 2. Import from `@atlaskit/primitives` (non-compiled) → migrate path + add Flex
+ * 3. No import → insert new `import { Flex } from '@atlaskit/primitives/compiled'`
  */
-export function upsertBoxImport(
+export function upsertFlexImport(
 	context: Rule.RuleContext,
 	fixer: Rule.RuleFixer,
 ): Rule.Fix | undefined {
@@ -95,37 +95,39 @@ export function upsertBoxImport(
 				node.type === 'ImportDeclaration' && node.source.value === module,
 		);
 
-	const compiledImports = findExactImports(BOX_IMPORT_MODULE);
+	const compiledImports = findExactImports(FLEX_IMPORT_MODULE);
 	if (compiledImports.length > 0) {
 		const decl = compiledImports[0];
-		if (Import.containsNamedSpecifier(decl, 'Box')) {
+		if (Import.containsNamedSpecifier(decl, 'Flex')) {
 			return undefined;
 		}
 		const specifiers = decl.specifiers
 			.filter((s) => s.type === 'ImportSpecifier')
 			.map((s) => s.local.name);
-		specifiers.push('Box');
+		specifiers.push('Flex');
 		return fixer.replaceText(
 			decl,
-			`import { ${specifiers.join(', ')} } from '${BOX_IMPORT_MODULE}';`,
+			`import { ${specifiers.join(', ')} } from '${FLEX_IMPORT_MODULE}';`,
 		);
 	}
 
-	const nonCompiledImports = findExactImports(BOX_IMPORT_MODULE_NON_COMPILED);
+	const nonCompiledImports = findExactImports(FLEX_IMPORT_MODULE_NON_COMPILED);
 	if (nonCompiledImports.length > 0) {
 		const decl = nonCompiledImports[0];
 		const specifiers = decl.specifiers
 			.filter((s) => s.type === 'ImportSpecifier')
 			.map((s) => s.local.name);
-		if (!specifiers.includes('Box')) specifiers.push('Box');
+		if (!specifiers.includes('Flex')) {
+			specifiers.push('Flex');
+		}
 		return fixer.replaceText(
 			decl,
-			`import { ${specifiers.join(', ')} } from '${BOX_IMPORT_MODULE}';`,
+			`import { ${specifiers.join(', ')} } from '${FLEX_IMPORT_MODULE}';`,
 		);
 	}
 
 	return ast.Root.upsertNamedImportDeclaration(
-		{ module: BOX_IMPORT_MODULE, specifiers: ['Box'] },
+		{ module: FLEX_IMPORT_MODULE, specifiers: ['Flex'] },
 		context,
 		fixer,
 	);
@@ -159,7 +161,9 @@ export function upsertCssMapImport(
 		const specifiers = decl.specifiers
 			.filter((s) => s.type === 'ImportSpecifier')
 			.map((s) => s.local.name);
-		if (!hasCssMap) specifiers.push('cssMap');
+		if (!hasCssMap) {
+			specifiers.push('cssMap');
+		}
 
 		return fixer.replaceText(
 			decl,
@@ -228,7 +232,7 @@ export function upsertCssMapVariable(
 	const sourceCode = getSourceCode(context);
 	const body = sourceCode.ast.body;
 	const key = getCssMapKey(paddingToken);
-	const keyValuePair = `  ${key}: { paddingTop: token('${paddingToken}'), paddingRight: token('${paddingToken}'), paddingBottom: token('${paddingToken}'), paddingLeft: token('${paddingToken}') }`;
+	const keyValuePair = `  ${key}: { paddingBlock: token('${paddingToken}'), paddingInline: token('${paddingToken}') }`;
 
 	// Check if iconSpacingStyles cssMap variable already exists
 	const existingVar = body.find(

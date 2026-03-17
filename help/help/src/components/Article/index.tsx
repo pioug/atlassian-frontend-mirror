@@ -167,6 +167,7 @@ export const Article: React.FC<ArticleProps> = ({ isAiEnabled }) => {
 			in={showArticle}
 			timeout={SLIDEIN_OVERLAY_TRANSITION_DURATION_MS}
 			enter={!skipArticleSlideInAnimation}
+			nodeRef={articleContainerRef}
 			onEntered={onArticleEntered}
 			onExit={onArticleExit}
 			unmountOnExit
@@ -203,6 +204,7 @@ export const Article: React.FC<ArticleProps> = ({ isAiEnabled }) => {
 			in={showArticle}
 			timeout={SLIDEIN_OVERLAY_TRANSITION_DURATION_MS}
 			enter={!skipArticleSlideInAnimation}
+			nodeRef={articleContainerRef}
 			onEntered={onArticleEntered}
 			onExit={onArticleExit}
 			unmountOnExit

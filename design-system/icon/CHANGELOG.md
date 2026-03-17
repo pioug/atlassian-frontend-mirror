@@ -1,5 +1,32 @@
 # @atlaskit/icon
 
+## 32.1.0
+
+### Minor Changes
+
+- [`99726ea06a76c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99726ea06a76c) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+  - `chart-pie`
+  - `person-add`
+  - `person-added`
+  - `person-offboard`
+  - `person-remove`
+  - `person-warning`
+  - `screen-plus`
+
+## 32.0.2
+
+### Patch Changes
+
+- [`5e06fddfce409`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e06fddfce409) -
+  Rename codemod to `next-icon-spacing-to-flex-primitive` (now discoverable via
+  `npx @atlaskit/codemod-cli`) and update `no-icon-spacing-prop` ESLint rule to generate `Flex`
+  wrapper instead of `Box`.
+
 ## 32.0.1
 
 ### Patch Changes

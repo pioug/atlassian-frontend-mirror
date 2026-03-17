@@ -38,6 +38,7 @@ import { floatingToolbar, getEndingToolbarItems, getStartingToolbarItems } from 
 export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptions, api }) => {
 	let previousCardProvider: CardProvider | undefined;
 	const cardPluginEvents = createEventsQueue<CardPluginEvent>();
+	let instanceEmbedCardTransformers = options.embedCardTransformers;
 
 	api?.base?.actions.registerMarks(({ tr, node, pos }) => {
 		const { doc } = tr;
@@ -99,6 +100,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 							allowAlignment,
 							allowDatasource,
 							cardPluginEvents,
+							embedCardTransformers: instanceEmbedCardTransformers,
 							showUpgradeDiscoverability,
 						},
 						api,
@@ -160,6 +162,9 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 			},
 			hideLinkToolbar,
 			queueCardsFromChangedTr,
+			registerEmbedCardTransformer: (transformers) => {
+				instanceEmbedCardTransformers = transformers;
+			},
 			getStartingToolbarItems: getStartingToolbarItems(options, api),
 			getEndingToolbarItems: getEndingToolbarItems(options, api),
 		},

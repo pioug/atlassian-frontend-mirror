@@ -1,5 +1,17 @@
 # @atlaskit/right-side-panel
 
+## 3.0.16
+
+### Patch Changes
+
+- [`d8333dbe8ad56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8333dbe8ad56) -
+  Upgrade help packages for React 19 compatibility (react-next wrapper)
+  - Upgraded `react` and `react-dom` peer dependencies to support `^18.2.0 || ^19.0.0`
+  - Added `react-intl` as a peer dependency where needed for internationalization
+  - Integrated `useRef` for transition handling in BackButton, SearchResults, and RightSidePanel
+  - Updated transition components to use `nodeRef` for better performance and animation control
+  - Refactored components to use forward refs for improved flexibility with animations
+
 ## 3.0.15
 
 ### Patch Changes

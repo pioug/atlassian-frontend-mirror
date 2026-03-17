@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.41.2
+
+### Patch Changes
+
+- [`5e06fddfce409`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e06fddfce409) -
+  Rename codemod to `next-icon-spacing-to-flex-primitive` (now discoverable via
+  `npx @atlaskit/codemod-cli`) and update `no-icon-spacing-prop` ESLint rule to generate `Flex`
+  wrapper instead of `Box`.
+- Updated dependencies
+
 ## 13.41.1
 
 ### Patch Changes

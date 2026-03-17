@@ -10,6 +10,8 @@ import type { ColorScheme } from '../../showDiffPluginType';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 
 import {
+	editingStyle,
+	editingStyleActive,
 	deletedContentStyle,
 	deletedContentStyleActive,
 	deletedContentStyleNew,
@@ -17,6 +19,8 @@ import {
 	deletedContentStyleUnbounded,
 } from './colorSchemes/standard';
 import {
+	traditionalInsertStyle,
+	traditionalInsertStyleActive,
 	deletedTraditionalContentStyle,
 	deletedTraditionalContentStyleUnbounded,
 } from './colorSchemes/traditional';
@@ -29,6 +33,18 @@ const getDeletedContentStyleUnbounded = (colorScheme?: ColorScheme): string =>
 		? deletedTraditionalContentStyleUnbounded
 		: deletedContentStyleUnbounded;
 
+const getInsertedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = false): string => {
+	if (colorScheme === 'traditional') {
+		if (isActive) {
+			return traditionalInsertStyleActive;
+		}
+		return traditionalInsertStyle;
+	}
+	if (isActive) {
+		return editingStyleActive;
+	}
+	return editingStyle;
+};
 const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = false): string => {
 	if (colorScheme === 'traditional') {
 		return deletedTraditionalContentStyle;
@@ -52,21 +68,74 @@ const createDeletedStyleWrapperWithoutOpacity = (colorScheme?: ColorScheme, isAc
 	return wrapper;
 };
 
-const createContentWrapper = (colorScheme?: ColorScheme, isActive: boolean = false) => {
+/**
+ * CSS backgrounds don't work when applied to a wrapper around a paragraph, so
+ * the wrapper needs to be injected inside the node around the child content
+ */
+const injectInnerWrapper = ({
+	node,
+	colorScheme,
+	isActive,
+	isInserted,
+}: {
+	colorScheme?: 'standard' | 'traditional';
+	isActive?: boolean;
+	isInserted?: boolean;
+	node: Node;
+}) => {
+	const wrapper = document.createElement('span');
+	wrapper.setAttribute(
+		'style',
+		isInserted
+			? getInsertedContentStyle(colorScheme, isActive)
+			: getDeletedContentStyle(colorScheme, isActive),
+	);
+
+	[...node.childNodes].forEach((child) => {
+		const removedChild = node.removeChild(child);
+		wrapper.append(removedChild);
+	});
+
+	node.appendChild(wrapper);
+	return node;
+};
+
+const createContentWrapper = (
+	colorScheme?: ColorScheme,
+	isActive: boolean = false,
+	isInserted: boolean = false,
+) => {
 	const wrapper = document.createElement('span');
 	const baseStyle = convertToInlineCss({
 		position: 'relative',
 		width: 'fit-content',
 	});
-	wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colorScheme, isActive)}`);
-
-	const strikethrough = document.createElement('span');
-	strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme));
-	wrapper.append(strikethrough);
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (isInserted) {
+			wrapper.setAttribute(
+				'style',
+				`${baseStyle}${getInsertedContentStyle(colorScheme, isActive)}`,
+			);
+		} else {
+			wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colorScheme, isActive)}`);
+			const strikethrough = document.createElement('span');
+			strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme));
+			wrapper.append(strikethrough);
+		}
+	} else {
+		wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colorScheme, isActive)}`);
+		const strikethrough = document.createElement('span');
+		strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme));
+		wrapper.append(strikethrough);
+	}
 
 	return wrapper;
 };
 
+/**
+ * This function is used to create a decoration widget to show content
+ * that is not in the current document.
+ */
 export const createNodeChangedDecorationWidget = ({
 	change,
 	doc,
@@ -75,12 +144,15 @@ export const createNodeChangedDecorationWidget = ({
 	newDoc,
 	intl,
 	isActive = false,
+	// This is false by default as this is generally used to show deleted content
+	isInserted = false,
 }: {
 	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted'>;
 	colorScheme?: ColorScheme;
 	doc: PMNode;
 	intl: IntlShape;
 	isActive?: boolean;
+	isInserted?: boolean;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 }): Decoration[] | undefined => {
@@ -110,6 +182,7 @@ export const createNodeChangedDecorationWidget = ({
 			newDoc,
 			nodeViewSerializer,
 			colorScheme,
+			isInserted,
 		});
 	}
 
@@ -132,14 +205,14 @@ export const createNodeChangedDecorationWidget = ({
 					if (childNodeView) {
 						const lineBreak = document.createElement('br');
 						dom.append(lineBreak);
-						const wrapper = createContentWrapper(colorScheme, isActive);
+						const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
 						wrapper.append(childNodeView);
 						dom.append(wrapper);
 					} else {
 						// Fallback to serializing the individual child node
 						const serializedChild = serializer.serializeNode(childNode);
 						if (serializedChild) {
-							const wrapper = createContentWrapper(colorScheme, isActive);
+							const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
 							wrapper.append(serializedChild);
 							dom.append(wrapper);
 						}
@@ -185,12 +258,12 @@ export const createNodeChangedDecorationWidget = ({
 		const nodeView = serializer.tryCreateNodeView(node);
 		if (nodeView) {
 			if (node.isInline) {
-				const wrapper = createContentWrapper(colorScheme, isActive);
+				const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
 				wrapper.append(nodeView);
 				dom.append(wrapper);
 			} else {
 				// Handle all block nodes with unified function
-				wrapBlockNodeView({ dom, nodeView, targetNode: node, colorScheme, intl });
+				wrapBlockNodeView({ dom, nodeView, targetNode: node, colorScheme, intl, isInserted });
 			}
 		} else if (
 			nodeViewSerializer.getFilteredNodeViewBlocklist(['paragraph', 'tableRow']).has(node.type.name)
@@ -200,9 +273,25 @@ export const createNodeChangedDecorationWidget = ({
 		} else {
 			const fallbackNode = fallbackSerialization();
 			if (fallbackNode) {
-				const wrapper = createDeletedStyleWrapperWithoutOpacity(colorScheme, isActive);
-				wrapper.append(fallbackNode);
-				dom.append(wrapper);
+				if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+					if (fallbackNode instanceof HTMLElement) {
+						const injectedNode = injectInnerWrapper({
+							node: fallbackNode,
+							colorScheme,
+							isActive,
+							isInserted,
+						});
+						dom.append(injectedNode);
+					} else {
+						const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
+						wrapper.append(fallbackNode);
+						dom.append(wrapper);
+					}
+				} else {
+					const wrapper = createDeletedStyleWrapperWithoutOpacity(colorScheme, isActive);
+					wrapper.append(fallbackNode);
+					dom.append(wrapper);
+				}
 			}
 		}
 	});

@@ -31,10 +31,14 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type BetterTypeHistoryAPI = {
+  flagPasteEvent: (transaction: Transaction) => Transaction;
+};
+
 type BetterTypeHistoryPlugin = NextEditorPlugin<
-  'better-type-history',
+  'betterTypeHistory',
   {
-    actions: EditorBetterTypeHistoryAPI;
+    actions: BetterTypeHistoryAPI;
   }
 >;
 `}

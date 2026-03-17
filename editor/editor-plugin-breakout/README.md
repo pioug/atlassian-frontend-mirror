@@ -1,9 +1,22 @@
-# Editor plugin breakout
+# Editor Plugin Breakout
 
 Breakout plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Breakout plugin enables content within the Atlassian Editor to break out of the standard layout constraints. It provides interactive resizing and layout mode controls for supported nodes like code blocks, expansions, and other block-level content, allowing them to extend beyond their normal container boundaries.
+
+## Key features
+
+- **Layout modes** - Support for wide and full-width breakout modes
+- **Interactive resizing** - Drag-based resizing of breakout nodes with visual guidelines
+- **Multi-node support** - Breakout functionality for code blocks, expansions, and other configurable nodes
+- **Guidelines and measurements** - Visual layout guidelines to assist with content positioning
+- **Block control integration** - Seamless integration with editor block controls for easy mode switching
+- **Responsive layout handling** - Proper layout adjustments across different editor appearances
 
 ## Install
 ---

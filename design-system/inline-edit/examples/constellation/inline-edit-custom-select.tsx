@@ -31,17 +31,15 @@ const readViewContainerStyles = cssMap({
 const editViewContainerStyles = cssMap({
 	root: {
 		position: 'relative',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		zIndex: 'dialog' as any,
 	},
 });
 
 const tagGroupContainerStyles = cssMap({
 	root: {
-		paddingTop: token('space.050'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingBlockEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
 	},
 });
 const selectOptions = [

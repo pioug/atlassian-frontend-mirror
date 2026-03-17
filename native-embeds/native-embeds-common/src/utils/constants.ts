@@ -9,6 +9,7 @@ export const NATIVE_EMBED_PARAMETER_DEFAULTS: NativeEmbedParameterValues = {
 	url: undefined,
 	alwaysShowTitle: false,
 	alignment: DEFAULT_ALIGNMENT,
+	displayText: undefined,
 	height: 600,
 	width: undefined,
 };

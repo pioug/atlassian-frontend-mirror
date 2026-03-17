@@ -1,35 +1,29 @@
-import transformer from '../icon-spacing-to-box-primitive';
+import transformer from '../32.0.2-icon-spacing-to-flex-primitive';
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 const space050Block = `const iconSpacingStyles = cssMap({
   space050: {
-    paddingTop: token("space.050"),
-    paddingRight: token("space.050"),
-    paddingBottom: token("space.050"),
-    paddingLeft: token("space.050")
+    paddingBlock: token("space.050"),
+    paddingInline: token("space.050")
   }
 });`;
 
 const space075Block = `const iconSpacingStyles = cssMap({
   space075: {
-    paddingTop: token("space.075"),
-    paddingRight: token("space.075"),
-    paddingBottom: token("space.075"),
-    paddingLeft: token("space.075")
+    paddingBlock: token("space.075"),
+    paddingInline: token("space.075")
   }
 });`;
 
 const space025Block = `const iconSpacingStyles = cssMap({
   space025: {
-    paddingTop: token("space.025"),
-    paddingRight: token("space.025"),
-    paddingBottom: token("space.025"),
-    paddingLeft: token("space.025")
+    paddingBlock: token("space.025"),
+    paddingInline: token("space.025")
   }
 });`;
 
-describe('Migrate spacing prop to Box primitive', () => {
+describe('Migrate spacing prop to Flex primitive', () => {
 	defineInlineTest(
 		{ default: transformer, parser: 'tsx' },
 		{},
@@ -37,7 +31,7 @@ describe('Migrate spacing prop to Box primitive', () => {
 const App = () => <AddIcon label="" spacing="none" />;`,
 		`import AddIcon from '@atlaskit/icon/core/add';
 const App = () => <AddIcon label="" />;`,
-		'should remove spacing="none" with no Box wrap',
+		'should remove spacing="none" with no Flex wrap',
 	);
 
 	defineInlineTest(
@@ -46,14 +40,14 @@ const App = () => <AddIcon label="" />;`,
 		`import AddIcon from '@atlaskit/icon/core/add';
 const App = () => <AddIcon label="" spacing="spacious" />;`,
 		`import { cssMap } from "@atlaskit/css";
-import { Box } from "@atlaskit/primitives/compiled";
+import { Flex } from "@atlaskit/primitives/compiled";
 import { token } from "@atlaskit/tokens";
 import AddIcon from '@atlaskit/icon/core/add';
 
 ${space050Block}
 
-const App = () => <Box xcss={iconSpacingStyles.space050}><AddIcon label="" /></Box>;`,
-		'should wrap medium icon with spacing="spacious" in Box with space050',
+const App = () => <Flex xcss={iconSpacingStyles.space050}><AddIcon label="" /></Flex>;`,
+		'should wrap medium icon with spacing="spacious" in Flex with space050',
 	);
 
 	defineInlineTest(
@@ -62,14 +56,14 @@ const App = () => <Box xcss={iconSpacingStyles.space050}><AddIcon label="" /></B
 		`import AddIcon from '@atlaskit/icon/core/add';
 const App = () => <AddIcon label="" spacing="compact" />;`,
 		`import { cssMap } from "@atlaskit/css";
-import { Box } from "@atlaskit/primitives/compiled";
+import { Flex } from "@atlaskit/primitives/compiled";
 import { token } from "@atlaskit/tokens";
 import AddIcon from '@atlaskit/icon/core/add';
 
 ${space050Block}
 
-const App = () => <Box xcss={iconSpacingStyles.space050}><AddIcon label="" /></Box>;`,
-		'should wrap medium icon with spacing="compact" in Box with space050',
+const App = () => <Flex xcss={iconSpacingStyles.space050}><AddIcon label="" /></Flex>;`,
+		'should wrap medium icon with spacing="compact" in Flex with space050',
 	);
 
 	defineInlineTest(
@@ -78,14 +72,14 @@ const App = () => <Box xcss={iconSpacingStyles.space050}><AddIcon label="" /></B
 		`import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 const App = () => <ChevronRightIcon label="" size="small" spacing="spacious" />;`,
 		`import { cssMap } from "@atlaskit/css";
-import { Box } from "@atlaskit/primitives/compiled";
+import { Flex } from "@atlaskit/primitives/compiled";
 import { token } from "@atlaskit/tokens";
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 
 ${space075Block}
 
-const App = () => <Box xcss={iconSpacingStyles.space075}><ChevronRightIcon label="" size="small" /></Box>;`,
-		'should wrap small icon with spacing="spacious" in Box with space075',
+const App = () => <Flex xcss={iconSpacingStyles.space075}><ChevronRightIcon label="" size="small" /></Flex>;`,
+		'should wrap small icon with spacing="spacious" in Flex with space075',
 	);
 
 	defineInlineTest(
@@ -94,14 +88,14 @@ const App = () => <Box xcss={iconSpacingStyles.space075}><ChevronRightIcon label
 		`import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 const App = () => <ChevronRightIcon label="" size="small" spacing="compact" />;`,
 		`import { cssMap } from "@atlaskit/css";
-import { Box } from "@atlaskit/primitives/compiled";
+import { Flex } from "@atlaskit/primitives/compiled";
 import { token } from "@atlaskit/tokens";
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 
 ${space025Block}
 
-const App = () => <Box xcss={iconSpacingStyles.space025}><ChevronRightIcon label="" size="small" /></Box>;`,
-		'should wrap small icon with spacing="compact" in Box with space025',
+const App = () => <Flex xcss={iconSpacingStyles.space025}><ChevronRightIcon label="" size="small" /></Flex>;`,
+		'should wrap small icon with spacing="compact" in Flex with space025',
 	);
 
 	defineInlineTest(
@@ -110,13 +104,13 @@ const App = () => <Box xcss={iconSpacingStyles.space025}><ChevronRightIcon label
 		`import MoreIcon from '@atlaskit/icon/core/more';
 const App = () => <Button iconBefore={<MoreIcon label="" spacing="spacious" />} />;`,
 		`import { cssMap } from "@atlaskit/css";
-import { Box } from "@atlaskit/primitives/compiled";
+import { Flex } from "@atlaskit/primitives/compiled";
 import { token } from "@atlaskit/tokens";
 import MoreIcon from '@atlaskit/icon/core/more';
 
 ${space050Block}
 
-const App = () => <Button iconBefore={<Box xcss={iconSpacingStyles.space050}><MoreIcon label="" /></Box>} />;`,
+const App = () => <Button iconBefore={<Flex xcss={iconSpacingStyles.space050}><MoreIcon label="" /></Flex>} />;`,
 		'should wrap icon with spacing prop inside a component slot',
 	);
 
@@ -126,13 +120,13 @@ const App = () => <Button iconBefore={<Box xcss={iconSpacingStyles.space050}><Mo
 		`import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 const App = () => <DropdownMenu iconAfter={<ChevronDownIcon label="" size="small" spacing="spacious" />} />;`,
 		`import { cssMap } from "@atlaskit/css";
-import { Box } from "@atlaskit/primitives/compiled";
+import { Flex } from "@atlaskit/primitives/compiled";
 import { token } from "@atlaskit/tokens";
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 
 ${space075Block}
 
-const App = () => <DropdownMenu iconAfter={<Box xcss={iconSpacingStyles.space075}><ChevronDownIcon label="" size="small" /></Box>} />;`,
+const App = () => <DropdownMenu iconAfter={<Flex xcss={iconSpacingStyles.space075}><ChevronDownIcon label="" size="small" /></Flex>} />;`,
 		'should wrap small icon with spacing prop inside a component slot',
 	);
 
@@ -142,7 +136,7 @@ const App = () => <DropdownMenu iconAfter={<Box xcss={iconSpacingStyles.space075
 		`import AddIcon from '@atlaskit/icon/core/add';
 const App = (props: any) => <AddIcon {...props} spacing="spacious" label="" />;`,
 		`import AddIcon from '@atlaskit/icon/core/add';
-const App = (props: any) => // eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Box primitive (spread props detected)
+const App = (props: any) => // eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Flex primitive (spread props detected)
 <AddIcon {...props} spacing="spacious" label="" />;`,
 		'should add eslint-disable comment inline and skip when spread props are present',
 	);
@@ -153,7 +147,7 @@ const App = (props: any) => // eslint-disable-next-line @atlaskit/design-system/
 		`import AddIcon from '@atlaskit/icon/core/add';
 const App = ({ spacing }: any) => <AddIcon label="" spacing={spacing} />;`,
 		`import AddIcon from '@atlaskit/icon/core/add';
-const App = ({ spacing }: any) => // eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Box primitive (dynamic spacing value detected)
+const App = ({ spacing }: any) => // eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Flex primitive (dynamic spacing value detected)
 <AddIcon label="" spacing={spacing} />;`,
 		'should add eslint-disable comment inline and skip when spacing is a dynamic expression',
 	);
@@ -182,31 +176,27 @@ const App = () => (
   </>
 );`,
 		`import { cssMap } from "@atlaskit/css";
-import { Box } from "@atlaskit/primitives/compiled";
+import { Flex } from "@atlaskit/primitives/compiled";
 import { token } from "@atlaskit/tokens";
 import AddIcon from '@atlaskit/icon/core/add';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 
 const iconSpacingStyles = cssMap({
   space050: {
-    paddingTop: token("space.050"),
-    paddingRight: token("space.050"),
-    paddingBottom: token("space.050"),
-    paddingLeft: token("space.050")
+    paddingBlock: token("space.050"),
+    paddingInline: token("space.050")
   },
 
   space075: {
-    paddingTop: token("space.075"),
-    paddingRight: token("space.075"),
-    paddingBottom: token("space.075"),
-    paddingLeft: token("space.075")
+    paddingBlock: token("space.075"),
+    paddingInline: token("space.075")
   }
 });
 
 const App = () => (
   <>
-    <Box xcss={iconSpacingStyles.space050}><AddIcon label="" /></Box>
-    <Box xcss={iconSpacingStyles.space075}><ChevronRightIcon label="" size="small" /></Box>
+    <Flex xcss={iconSpacingStyles.space050}><AddIcon label="" /></Flex>
+    <Flex xcss={iconSpacingStyles.space075}><ChevronRightIcon label="" size="small" /></Flex>
     <AddIcon label="" />
   </>
 );`,
@@ -221,47 +211,47 @@ import AddIcon from '@atlaskit/icon/core/add';
 const App = () => <AddIcon label="" spacing="spacious" />;`,
 		`import { cssMap } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
-import { Inline, Box } from '@atlaskit/primitives/compiled';
+import { Inline, Flex } from '@atlaskit/primitives/compiled';
 import AddIcon from '@atlaskit/icon/core/add';
 
 ${space050Block}
 
-const App = () => <Box xcss={iconSpacingStyles.space050}><AddIcon label="" /></Box>;`,
-		'should add Box to existing @atlaskit/primitives/compiled import',
+const App = () => <Flex xcss={iconSpacingStyles.space050}><AddIcon label="" /></Flex>;`,
+		'should add Flex to existing @atlaskit/primitives/compiled import',
 	);
 
 	defineInlineTest(
 		{ default: transformer, parser: 'tsx' },
 		{},
-		`import { Box } from '@atlaskit/primitives';
+		`import { Flex } from '@atlaskit/primitives';
 import AddIcon from '@atlaskit/icon/core/add';
 const App = () => <AddIcon label="" spacing="spacious" />;`,
 		`import { cssMap } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
-import { Box } from "@atlaskit/primitives/compiled";
+import { Flex } from "@atlaskit/primitives/compiled";
 import AddIcon from '@atlaskit/icon/core/add';
 
 ${space050Block}
 
-const App = () => <Box xcss={iconSpacingStyles.space050}><AddIcon label="" /></Box>;`,
+const App = () => <Flex xcss={iconSpacingStyles.space050}><AddIcon label="" /></Flex>;`,
 		'should update @atlaskit/primitives to @atlaskit/primitives/compiled',
 	);
 
 	defineInlineTest(
 		{ default: transformer, parser: 'tsx' },
 		{},
-		`import { Box } from '@atlaskit/primitives/compiled';
+		`import { Flex } from '@atlaskit/primitives/compiled';
 import AddIcon from '@atlaskit/icon/core/add';
 const App = () => <AddIcon label="" spacing="spacious" />;`,
 		`import { cssMap } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
-import { Box } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled';
 import AddIcon from '@atlaskit/icon/core/add';
 
 ${space050Block}
 
-const App = () => <Box xcss={iconSpacingStyles.space050}><AddIcon label="" /></Box>;`,
-		'should keep existing Box import from compiled unchanged',
+const App = () => <Flex xcss={iconSpacingStyles.space050}><AddIcon label="" /></Flex>;`,
+		'should keep existing Flex import from compiled unchanged',
 	);
 
 	defineInlineTest(
@@ -272,13 +262,13 @@ import AddIcon from '@atlaskit/icon/core/add';
 const App = () => <AddIcon label="" spacing="spacious" />;`,
 		`import { cssMap } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
-import { Inline, Box } from "@atlaskit/primitives/compiled";
+import { Inline, Flex } from "@atlaskit/primitives/compiled";
 import AddIcon from '@atlaskit/icon/core/add';
 
 ${space050Block}
 
-const App = () => <Box xcss={iconSpacingStyles.space050}><AddIcon label="" /></Box>;`,
-		'should add Box and update @atlaskit/primitives to @atlaskit/primitives/compiled',
+const App = () => <Flex xcss={iconSpacingStyles.space050}><AddIcon label="" /></Flex>;`,
+		'should add Flex and update @atlaskit/primitives to @atlaskit/primitives/compiled',
 	);
 
 	defineInlineTest(
@@ -290,16 +280,16 @@ const IconBefore = (
   <MoreIcon spacing="spacious" label="More" />
 );`,
 		`import { cssMap } from "@atlaskit/css";
-import { Box } from "@atlaskit/primitives/compiled";
+import { Flex } from "@atlaskit/primitives/compiled";
 import { token } from "@atlaskit/tokens";
 import MoreIcon from '@atlaskit/icon/core/more';
 
 ${space050Block}
 
 const IconBefore = (
-  <Box xcss={iconSpacingStyles.space050}><MoreIcon label="More" /></Box>
+  <Flex xcss={iconSpacingStyles.space050}><MoreIcon label="More" /></Flex>
 );`,
-		'should not produce extra parentheses inside Box when icon is in a parenthesized expression',
+		'should not produce extra parentheses inside Flex when icon is in a parenthesized expression',
 	);
 
 	defineInlineTest(
@@ -308,13 +298,13 @@ const IconBefore = (
 		`import BitbucketBranchIcon from '@atlaskit/icon-lab/core/bitbucket-branch';
 const App = () => <BitbucketBranchIcon label="" spacing="spacious" />;`,
 		`import { cssMap } from "@atlaskit/css";
-import { Box } from "@atlaskit/primitives/compiled";
+import { Flex } from "@atlaskit/primitives/compiled";
 import { token } from "@atlaskit/tokens";
 import BitbucketBranchIcon from '@atlaskit/icon-lab/core/bitbucket-branch';
 
 ${space050Block}
 
-const App = () => <Box xcss={iconSpacingStyles.space050}><BitbucketBranchIcon label="" /></Box>;`,
+const App = () => <Flex xcss={iconSpacingStyles.space050}><BitbucketBranchIcon label="" /></Flex>;`,
 		'should migrate icon-lab icons',
 	);
 });

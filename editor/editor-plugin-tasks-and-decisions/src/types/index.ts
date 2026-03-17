@@ -18,7 +18,8 @@ export type TaskDecisionInputMethod =
 	| INPUT_METHOD.INSERT_MENU
 	| INPUT_METHOD.QUICK_INSERT
 	| INPUT_METHOD.FORMATTING
-	| INPUT_METHOD.KEYBOARD;
+	| INPUT_METHOD.KEYBOARD
+	| INPUT_METHOD.ELEMENT_BROWSER;
 
 export type ContextData = {
 	containerId: string;

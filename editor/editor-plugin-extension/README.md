@@ -1,9 +1,22 @@
-# Editor plugin extension
+# Editor Plugin Extension
 
 Extension plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Extension plugin provides comprehensive support for managing extensions and macros within the Atlassian Editor. It enables editing, configuration, and rendering of extension nodes with support for multiple extension types and dynamic parameter configuration through an intuitive configuration panel.
+
+## Key features
+
+- **Extension node support** - Handle multiple extension types including standard extensions, inline extensions, bodied extensions, and multi-bodied extensions
+- **Configuration panel** - Dynamic form-based UI for editing extension parameters with support for various field types
+- **Macro integration** - Support for macro browser integration and macro auto-conversion
+- **Context panel** - Seamless context panel integration for extension editing workflows
+- **Auto-save and auto-convert** - Automatic saving and conversion of extension content
+- **Analytics integration** - Built-in analytics event tracking for extension operations
 
 ## Install
 ---

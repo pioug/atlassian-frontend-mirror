@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import {
 	useAnalyticsEvents,
@@ -29,6 +29,7 @@ export const BackButton: React.FC<Props & WrappedComponentProps> = ({
 	intl: { formatMessage },
 }) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const transitionRef = useRef<HTMLDivElement>(null);
 
 	const handleOnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
 		if (onClick) {
@@ -40,9 +41,15 @@ export const BackButton: React.FC<Props & WrappedComponentProps> = ({
 	};
 
 	return (
-		<Transition in={isVisible} timeout={TRANSITION_DURATION_MS} mountOnEnter unmountOnExit>
+		<Transition
+			in={isVisible}
+			timeout={TRANSITION_DURATION_MS}
+			nodeRef={transitionRef}
+			mountOnEnter
+			unmountOnExit
+		>
 			{(state: TransitionStatus) => (
-				<BackButtonContainer transitionState={state}>
+				<BackButtonContainer ref={transitionRef} transitionState={state}>
 					<Button
 						onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 							if (state === 'entered') {

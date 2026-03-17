@@ -167,7 +167,6 @@ export function TopNav({
 
 	return (
 		<HasCustomThemeContext.Provider value={customTheme.isEnabled}>
-
 			<header
 				id={id}
 				data-layout-slot

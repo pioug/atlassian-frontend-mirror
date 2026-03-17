@@ -15,12 +15,22 @@ import {
 	deletedContentStyleNew,
 	deletedContentStyleNewActive,
 	deletedStyleQuoteNodeWithLozenge,
+	editingStyle,
+	editingStyleActive,
+	editingStyleNode,
+	addedCellOverlayStyle,
+	deletedCellOverlayStyle,
 } from '../colorSchemes/standard';
 import {
 	deletedTraditionalBlockOutline,
 	deletedTraditionalBlockOutlineRounded,
 	deletedTraditionalContentStyle,
 	deletedTraditionalStyleQuoteNode,
+	traditionalInsertStyle,
+	traditionalInsertStyleActive,
+	traditionalStyleNode,
+	traditionalAddedCellOverlayStyle,
+	deletedTraditionalCellOverlayStyle,
 } from '../colorSchemes/traditional';
 
 const lozengeStyle = convertToInlineCss({
@@ -40,7 +50,17 @@ const lozengeStyle = convertToInlineCss({
 	color: token('color.text.warning.inverse'),
 });
 
-const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = false): string => {
+const getChangedContentStyle = (
+	colorScheme?: ColorScheme,
+	isActive: boolean = false,
+	isInserted: boolean = false,
+): string => {
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && isInserted) {
+		if (colorScheme === 'traditional') {
+			return isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
+		}
+		return isActive ? editingStyleActive : editingStyle;
+	}
 	if (colorScheme === 'traditional') {
 		return deletedTraditionalContentStyle;
 	}
@@ -54,8 +74,22 @@ const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = f
 		: deletedContentStyle;
 };
 
-const getDeletedStyleNode = (nodeName: string, colorScheme?: ColorScheme) => {
+const getChangedNodeStyle = (
+	nodeName: string,
+	colorScheme?: ColorScheme,
+	isInserted: boolean = false,
+) => {
 	const isTraditional = colorScheme === 'traditional';
+
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && isInserted) {
+		if (shouldApplyStylesDirectly(nodeName)) {
+			return undefined;
+		}
+		if (isTraditional) {
+			return traditionalStyleNode;
+		}
+		return editingStyleNode;
+	}
 
 	switch (nodeName) {
 		case 'blockquote':
@@ -78,7 +112,6 @@ const shouldShowRemovedLozenge = (nodeName: string): boolean => {
 		case 'mediaSingle':
 		case 'panel':
 		case 'decisionList':
-			return true;
 		case 'embedCard':
 		case 'blockquote':
 			return true;
@@ -91,7 +124,6 @@ const shouldAddShowDiffDeletedNodeClass = (nodeName: string): boolean => {
 	switch (nodeName) {
 		case 'mediaSingle':
 		case 'embedCard':
-			return true;
 		case 'blockquote':
 			return true;
 		default:
@@ -105,6 +137,30 @@ const shouldAddShowDiffDeletedNodeClass = (nodeName: string): boolean => {
  */
 const shouldApplyStylesDirectly = (nodeName: string): boolean => {
 	return nodeName === 'heading';
+};
+
+const applyCellOverlayStyles = ({
+	element,
+	colorScheme,
+	isInserted,
+}: {
+	colorScheme?: ColorScheme;
+	element: HTMLElement;
+	isInserted: boolean;
+}) => {
+	element.querySelectorAll('td, th').forEach((cell) => {
+		const overlay = document.createElement('span');
+		const overlayStyle =
+			colorScheme === 'traditional'
+				? isInserted
+					? traditionalAddedCellOverlayStyle
+					: deletedTraditionalCellOverlayStyle
+				: isInserted
+					? addedCellOverlayStyle
+					: deletedCellOverlayStyle;
+		overlay.setAttribute('style', overlayStyle);
+		cell.appendChild(overlay);
+	});
 };
 
 /**
@@ -160,16 +216,19 @@ const applyStylesToElement = ({
 	element,
 	targetNode,
 	colorScheme,
+	isInserted,
 }: {
 	colorScheme?: ColorScheme;
 	element: HTMLElement;
+	isInserted: boolean;
 	targetNode: PMNode;
 }): void => {
 	const currentStyle = element.getAttribute('style') || '';
-	const deletedContentStyle = getDeletedContentStyle(colorScheme);
-	const nodeSpecificStyle = getDeletedStyleNode(targetNode.type.name, colorScheme) || '';
+	const contentStyle = getChangedContentStyle(colorScheme, false, isInserted);
+	const nodeSpecificStyle =
+		getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted) || '';
 
-	element.setAttribute('style', `${currentStyle}${deletedContentStyle}${nodeSpecificStyle}`);
+	element.setAttribute('style', `${currentStyle}${contentStyle}${nodeSpecificStyle}`);
 };
 
 /**
@@ -179,14 +238,19 @@ const createBlockNodeContentWrapper = ({
 	nodeView,
 	targetNode,
 	colorScheme,
+	isInserted,
 }: {
 	colorScheme?: ColorScheme;
+	isInserted: boolean;
 	nodeView: Node;
 	targetNode: PMNode;
 }): HTMLElement => {
 	const contentWrapper = document.createElement('div');
-	const nodeStyle = getDeletedStyleNode(targetNode.type.name, colorScheme);
-	contentWrapper.setAttribute('style', `${getDeletedContentStyle(colorScheme)}${nodeStyle || ''}`);
+	const nodeStyle = getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted);
+	contentWrapper.setAttribute(
+		'style',
+		`${getChangedContentStyle(colorScheme, false, isInserted)}${nodeStyle || ''}`,
+	);
 	contentWrapper.append(nodeView);
 	return contentWrapper;
 };
@@ -296,16 +360,21 @@ const wrapBlockNode = ({
 	targetNode,
 	colorScheme,
 	intl,
+	isInserted = false,
 }: {
 	colorScheme?: ColorScheme;
 	dom: HTMLElement;
 	intl: IntlShape;
+	isInserted: boolean;
 	nodeView: Node;
 	targetNode: PMNode;
 }): void => {
 	const blockWrapper = createBlockNodeWrapper();
 
-	if (shouldShowRemovedLozenge(targetNode.type.name)) {
+	if (
+		shouldShowRemovedLozenge(targetNode.type.name) &&
+		(!expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) || !isInserted)
+	) {
 		const lozenge = createRemovedLozenge(intl);
 
 		if (handleEmbedCardWithLozenge({ dom, nodeView, targetNode, lozenge, colorScheme })) {
@@ -319,7 +388,12 @@ const wrapBlockNode = ({
 		blockWrapper.append(lozenge);
 	}
 
-	const contentWrapper = createBlockNodeContentWrapper({ nodeView, targetNode, colorScheme });
+	const contentWrapper = createBlockNodeContentWrapper({
+		nodeView,
+		targetNode,
+		colorScheme,
+		isInserted,
+	});
 	blockWrapper.append(contentWrapper);
 
 	if (nodeView instanceof HTMLElement && shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
@@ -344,19 +418,28 @@ export const wrapBlockNodeView = ({
 	targetNode,
 	colorScheme,
 	intl,
+	isInserted = false,
 }: {
 	colorScheme?: ColorScheme;
 	dom: HTMLElement;
 	intl: IntlShape;
+	isInserted: boolean;
 	nodeView: Node;
 	targetNode: PMNode;
 }): void => {
 	if (shouldApplyStylesDirectly(targetNode.type.name) && nodeView instanceof HTMLElement) {
 		// Apply deleted styles directly to preserve natural block-level margins
-		applyStylesToElement({ element: nodeView, targetNode, colorScheme });
+		applyStylesToElement({ element: nodeView, targetNode, colorScheme, isInserted });
+		dom.append(nodeView);
+	} else if (
+		targetNode.type.name === 'table' &&
+		nodeView instanceof HTMLElement &&
+		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+	) {
+		applyCellOverlayStyles({ element: nodeView, colorScheme, isInserted });
 		dom.append(nodeView);
 	} else {
 		// Use wrapper approach for other block nodes
-		wrapBlockNode({ dom, nodeView, targetNode, colorScheme, intl });
+		wrapBlockNode({ dom, nodeView, targetNode, colorScheme, intl, isInserted });
 	}
 };

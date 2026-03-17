@@ -135,10 +135,7 @@ export function TopNavEnd({
 	return (
 		<nav
 			aria-label={label}
-			css={[
-				containerStyles.root,
-				isFhsEnabled && containerStyles.fullHeightSidebar,
-			]}
+			css={[containerStyles.root, isFhsEnabled && containerStyles.fullHeightSidebar]}
 		>
 			{isMobile ? (
 				<Popup

@@ -65,11 +65,8 @@ export function createSocketIOSocket(
 	const extraHeaders: Record<string, string> = {
 		'x-product': getProduct(productInfo),
 		'x-subproduct': getSubProduct(productInfo),
+		'x-client-platform': 'web',
 	};
-
-	if (expValEquals('platform_editor_send_client_platform_header', 'isEnabled', true, false)) {
-		extraHeaders['x-client-platform'] = 'web';
-	}
 
 	const client = io(url, {
 		reconnectionDelayMax: socketIOOptions.RECONNECTION_DELAY_MAX,

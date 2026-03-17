@@ -31,15 +31,13 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type BeforePrimaryToolbarPluginDependencies = [OptionalPlugin<PrimaryToolbarPlugin>];
+
 type BeforePrimaryToolbarPlugin = NextEditorPlugin<
   'beforePrimaryToolbar',
   {
+    dependencies: BeforePrimaryToolbarPluginDependencies;
     pluginConfiguration: Config;
-    actions: {
-      getToolbarWrapper: (
-        beforePrimaryToolbarComponents: ReactComponents,
-      ) => ReactComponents;
-    };
   }
 >;
 `}

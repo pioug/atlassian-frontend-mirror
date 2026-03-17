@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 217.2.0
+
+### Minor Changes
+
+- [`39cac666e4f3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39cac666e4f3f) -
+  [FFCLEANUP-89078] clean up feature gate platform_editor_a11y_find_replace_focus_ring with the
+  accessible find & replace styles
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 217.1.1
 
 ### Patch Changes

@@ -14,6 +14,7 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 
 export const createHorizontalRule = (
@@ -51,11 +52,15 @@ export const createHorizontalRule = (
 		);
 	}
 
+	const resolvedInputMethod = fg('platform_editor_element_browser_analytic')
+		? inputMethod
+		: INPUT_METHOD.QUICK_INSERT;
+
 	editorAnalyticsAPI?.attachAnalyticsEvent({
 		action: ACTION.INSERTED,
 		actionSubject: ACTION_SUBJECT.DOCUMENT,
 		actionSubjectId: ACTION_SUBJECT_ID.DIVIDER,
-		attributes: { inputMethod },
+		attributes: { inputMethod: resolvedInputMethod },
 		eventType: EVENT_TYPE.TRACK,
 	})(tr);
 

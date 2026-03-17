@@ -5,7 +5,8 @@ import {
 	withAnalyticsContext,
 	type WithContextProps,
 } from '@atlaskit/analytics-next';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider as ReactIntlProvider } from 'react-intl';
+import { IntlProvider as ReactIntlNextProvider } from 'react-intl-next';
 import { defaultAnalyticsAttributes } from '../analytics';
 import { type Help as HelpInterface } from '../model/Help';
 
@@ -29,9 +30,11 @@ const LocaleIntlProvider = ({
 	children: React.ReactNode;
 	locale?: string;
 }) => (
-	<IntlProvider key={locale} locale={locale}>
-		{children}
-	</IntlProvider>
+	<ReactIntlProvider key={`v6-${locale}`} locale={locale}>
+		<ReactIntlNextProvider key={`v5-${locale}`} locale={locale}>
+			{children}
+		</ReactIntlNextProvider>
+	</ReactIntlProvider>
 );
 
 export class Help extends React.PureComponent<Props> {

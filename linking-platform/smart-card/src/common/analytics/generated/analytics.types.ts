@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::a9e05f4749fe4c5f7aaded5bdf6a8822>>
+ * @codegen <<SignedSource::ba09a8b50ef409ef59594023566396c8>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -119,6 +119,22 @@ export type ButtonClickedIssueStatusUpdateAttributesType = {
 	resourceType: string | null;
 };
 export type ButtonClickedAiSummaryAttributesType = {};
+export type ButtonClickedRovoChatPromptAttributesType = {
+	actionType: string | null;
+	id: string | null;
+	definitionId: string | null;
+	display:
+		| 'inline'
+		| 'block'
+		| 'embed'
+		| 'embedPreview'
+		| 'flexible'
+		| 'hoverCardPreview'
+		| 'url'
+		| null;
+	resourceType: string | null;
+	prompt: string | null;
+};
 export type ButtonClickedCopySummaryAttributesType = {};
 export type SummaryViewedAttributesType = {
 	fromCache: boolean | null;
@@ -371,6 +387,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when an ai summary is clicked */
 	'ui.button.clicked.aiSummary': ButtonClickedAiSummaryAttributesType;
+	/**
+	 * Fired when sending prompt to RovoChat via click */
+	'ui.button.clicked.rovoChatPrompt': ButtonClickedRovoChatPromptAttributesType;
 	/**
 	 * fired when the copy ai summary button is clicked */
 	'ui.button.clicked.copySummary': ButtonClickedCopySummaryAttributesType;

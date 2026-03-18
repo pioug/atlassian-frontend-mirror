@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 6.1.3
+
+### Patch Changes
+
+- [`8c860e8e9e774`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c860e8e9e774) -
+  Make active decorations more distinct
+
+## 6.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @atlassian/navigation-system
 
+## 6.3.0
+
+### Minor Changes
+
+- [`1db8c4b3de440`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1db8c4b3de440) -
+  Allows an optional sideNavContentRef to be passed into GSN from the usage parent.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.1
 
 ### Patch Changes

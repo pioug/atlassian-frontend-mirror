@@ -790,9 +790,9 @@ const enter = (
 					if (
 						$from.pos === $to.pos &&
 						$from.parentOffset === 0 &&
-						(fg('platform_editor_blocktaskitem_patch_2')
-							? !$from.parent.isTextblock || isInFirstTextblockOfBlockTaskItem(state)
-							: true)
+						(nodeType !== blockTaskItem ||
+							!$from.parent.isTextblock ||
+							isInFirstTextblockOfBlockTaskItem(state))
 					) {
 						const newTask = nodeType.createAndFill({ localId: itemLocalId });
 						if (newTask) {
@@ -827,9 +827,7 @@ const enter = (
 						// If the selection is a gap cursor at the end of the blockTaskItem,
 						// we should insert a new taskItem.
 						if (
-							(fg('platform_editor_blocktaskitem_patch_2')
-								? !$from.parent.isTextblock || isInLastTextblockOfBlockTaskItem(state)
-								: true) &&
+							(!$from.parent.isTextblock || isInLastTextblockOfBlockTaskItem(state)) &&
 							$from.parentOffset === $from.parent.nodeSize - 2
 						) {
 							const newTaskItem = taskItem.createAndFill({
@@ -852,11 +850,7 @@ const enter = (
 						// Split near the depth of the current selection
 						return tr.split(
 							$from.pos,
-							fg('platform_editor_blocktaskitem_patch_2')
-								? $from?.parent?.isTextblock
-									? 2
-									: 1
-								: $from.depth - 1,
+							$from?.parent?.isTextblock ? 2 : 1,
 							[{ type: blockTaskItem, attrs: { localId: itemLocalId } }],
 						);
 					}

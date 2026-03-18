@@ -1,5 +1,26 @@
 # @atlaskit/avatar
 
+## 25.9.0
+
+### Minor Changes
+
+- [`a3d111d3b5a28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3d111d3b5a28) -
+  [ux] Cleans up platform_dst_avatar_tile and platform_dst_avatar_tile_stage2 feature gates as they
+  are fully rolled out now.
+
+### Patch Changes
+
+- [`0511c5b5930bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0511c5b5930bb) -
+  Adjust the hexagonal appearance Avatar's width and height to be aligned with other Avatars behind
+  fg platform_dst_hexagon_avatar_unified_size
+
+## 25.8.4
+
+### Patch Changes
+
+- [`eb30d533bbb0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb30d533bbb0f) -
+  Added hexagon appearance support for avatargroup view more dropdown button
+
 ## 25.8.3
 
 ### Patch Changes

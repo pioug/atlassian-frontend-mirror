@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 217.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.4.0
+
+### Minor Changes
+
+- [`abc8407f36ad1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abc8407f36ad1) -
+  cleanup platform_editor_no_state_plugin_injection_api
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.3.0
+
+### Minor Changes
+
+- [`71fb8b5aa2558`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71fb8b5aa2558) -
+  [FFCLEANUP-79003] clean up feature flag platform_editor_blocktaskitem_patch_2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 217.2.0
 
 ### Minor Changes

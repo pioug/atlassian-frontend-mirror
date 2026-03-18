@@ -61,7 +61,7 @@ describe(`${packageName}/schema mediaSingle node`, () => {
 					},
 					content: 'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
 					group: 'block',
-					marks: 'unsupportedMark unsupportedNodeAttribute annotation border link',
+					marks: 'unsupportedMark unsupportedNodeAttribute annotation border dataConsumer link',
 					parseDOM: [
 						{
 							getAttrs: expect.anything(),
@@ -97,7 +97,7 @@ describe(`${packageName}/schema mediaSingle node`, () => {
 					},
 					content: 'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
 					group: 'block',
-					marks: 'unsupportedMark unsupportedNodeAttribute annotation border link',
+					marks: 'unsupportedMark unsupportedNodeAttribute annotation border dataConsumer link',
 					parseDOM: [
 						{
 							getAttrs: expect.anything(),
@@ -133,7 +133,7 @@ describe(`${packageName}/schema mediaSingle node`, () => {
 					},
 					content: 'media|unsupportedBlock+|media unsupportedBlock+',
 					group: 'block',
-					marks: 'unsupportedMark unsupportedNodeAttribute annotation border link',
+					marks: 'unsupportedMark unsupportedNodeAttribute annotation border dataConsumer link',
 					parseDOM: [
 						{
 							getAttrs: expect.anything(),

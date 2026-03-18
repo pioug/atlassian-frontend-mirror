@@ -3,9 +3,10 @@ import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types.js';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
 
+
 import { cleanQuery, zodToJsonSchema } from '../../helpers';
-import { components } from '../get-components/components';
-import { type Component } from '../get-components/types';
+import { loadAllComponents } from '../get-components/load-all-components';
+import type { ComponentMcpPayload } from '../get-components/types';
 
 export const searchComponentsInputSchema: z.ZodObject<
 	{
@@ -59,7 +60,7 @@ export const listSearchComponentsTool: Tool = {
 };
 
 // Clean component result to only return name, package name, example, and props
-const cleanComponentResult = (result: Component) => {
+const cleanComponentResult = (result: ComponentMcpPayload) => {
 	return {
 		name: result.name,
 		package: result.package,
@@ -86,13 +87,15 @@ export const searchComponentsTool = async (
 		};
 	}
 
+	const components: ComponentMcpPayload[] = loadAllComponents();
+
 	if (exactName) {
 		// for each search term, search for the exact match
-		const exactNameMatches = searchTerms
+		const exactNameMatches: ComponentMcpPayload[] = searchTerms
 			.map((term) => {
 				return components.find((component) => component.name.toLowerCase() === term.toLowerCase());
 			})
-			.filter(Boolean) as Component[];
+			.filter(Boolean) as ComponentMcpPayload[];
 
 		if (exactNameMatches.length > 0) {
 			return {

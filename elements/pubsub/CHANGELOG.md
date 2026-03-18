@@ -1,5 +1,13 @@
 # @atlaskit/pubsub
 
+## 7.0.3
+
+### Patch Changes
+
+- [`e375255fefb3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e375255fefb3a) -
+  Improve accessibility in the client example by associating labels with form controls and remove
+  a11y ESLint suppressions. Fix unused catch binding lint in the same example.
+
 ## 7.0.2
 
 ### Patch Changes
@@ -320,7 +328,6 @@
 
   Remove 'export \*' for improved tree shaking- Updated dependencies
   [8c9e4f1ec6](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c9e4f1ec6):
-
   - @atlaskit/docs@8.5.0
 
 ## 5.0.10
@@ -331,7 +338,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
   - @atlaskit/field-text@10.0.1
@@ -404,7 +410,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -424,14 +429,12 @@
 ## 5.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 4.0.5
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 4.0.4
@@ -456,19 +459,16 @@
 ## 4.0.2
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 4.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 4.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 3.0.8

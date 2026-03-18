@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 43.26.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.26.5
+
+### Patch Changes
+
+- [`3b6aa90b87394`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b6aa90b87394) -
+  Send analytics event on RovoChatAction clicked
+- Updated dependencies
+
 ## 43.26.4
 
 ### Patch Changes

@@ -8,12 +8,13 @@ import React, {
 
 import { bind, type UnbindFn } from 'bind-event-listener';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar, { type AppearanceType } from '@atlaskit/avatar';
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import noop from '@atlaskit/ds-lib/noop';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { Section } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import Tooltip, { type PositionType } from '@atlaskit/tooltip';
 
@@ -45,6 +46,12 @@ export interface AvatarGroupProps {
 	 * Defaults to "stack".
 	 */
 	appearance?: 'grid' | 'stack';
+
+	/**
+	 * Indicates the shape of the more indicator. Most more indicators are circular, but square more indicators
+	 * can be used for 'container' objects.
+	 */
+	moreIndicatorAppearance?: AppearanceType;
 
 	/**
 	 * Component used to render each avatar.
@@ -198,6 +205,7 @@ function getOverrides(overrides?: AvatarGroupOverrides): DeepRequired<AvatarGrou
  */
 const AvatarGroup = ({
 	appearance = 'stack',
+	moreIndicatorAppearance,
 	avatar = Avatar,
 	borderColor,
 	boundariesElement,
@@ -306,6 +314,7 @@ const AvatarGroup = ({
 				'aria-haspopup': ariaHasPopup,
 				onClick,
 				...props,
+				...(fg('jira-ai-agent-stack') && { appearance: moreIndicatorAppearance }),
 			});
 
 		// bail if the consumer wants to handle onClick

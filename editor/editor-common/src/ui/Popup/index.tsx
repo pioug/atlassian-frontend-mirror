@@ -32,6 +32,10 @@ export interface Props {
 	/** Enable focus trap to contain the user's focus within the popup */
 	focusTrap?: boolean | FocusTrapOptions;
 	forcePlacement?: boolean;
+	// Minimum distance (in px) the popup can be from the edge of its offset
+	// parent. Defaults to 1. Increase to add breathing room between the popup
+	// and the viewport/scrollbar on narrow viewports.
+	minPopupMargin?: number;
 	mountTo?: HTMLElement;
 	// horizontal offset, vertical offset
 	offset?: number[];
@@ -87,6 +91,7 @@ export default class Popup extends React.Component<Props, State> {
 			fitHeight,
 			fitWidth,
 			boundariesElement,
+			minPopupMargin,
 			offset,
 			onPositionCalculated,
 			onPlacementChanged,
@@ -133,6 +138,7 @@ export default class Popup extends React.Component<Props, State> {
 			boundariesElement: fg('platform_editor_link_popup_position_fix_aifc')
 				? boundariesElement || document.body
 				: undefined,
+			minPopupMargin,
 		});
 		position = onPositionCalculated ? onPositionCalculated(position) : position;
 

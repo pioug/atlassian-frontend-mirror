@@ -31,10 +31,13 @@ const calculateNodesForBlockDecoration = ({
 	to,
 	colorScheme,
 	isInserted = true,
+	activeIndexPos,
 }: {
+	activeIndexPos?: { from: number; to: number };
 	colorScheme?: ColorScheme;
 	doc: EditorState['doc'];
 	from: number;
+	intl: IntlShape;
 	isInserted?: boolean;
 	to: number;
 }): Decoration[] => {
@@ -46,10 +49,16 @@ const calculateNodesForBlockDecoration = ({
 			(!expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) ||
 				pos + node.nodeSize <= to)
 		) {
+			const nodeEnd = pos + node.nodeSize;
+			const isActive =
+				activeIndexPos &&
+				pos === activeIndexPos.from &&
+				nodeEnd === activeIndexPos.to;
 			const decoration = createBlockChangedDecoration({
-				change: { from: pos, to: pos + node.nodeSize, name: node.type.name },
+				change: { from: pos, to: nodeEnd, name: node.type.name },
 				colorScheme,
 				isInserted,
+				isActive,
 			});
 			if (decoration) {
 				decorations.push(decoration);
@@ -172,9 +181,12 @@ const calculateDiffDecorationsInner = ({
 	const decorations: Decoration[] = [];
 	optimizedChanges.forEach((change) => {
 		const isActive =
-			activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
+			activeIndexPos &&
+			change.fromB === activeIndexPos.from &&
+			change.toB === activeIndexPos.to;
 		// Our default operations are insertions, so it should match the opposite of isInverted.
 		const isInserted = !isInverted;
+
 		if (change.inserted.length > 0) {
 			decorations.push(
 				createInlineChangedDecoration({
@@ -195,12 +207,17 @@ const calculateDiffDecorationsInner = ({
 					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
 						isInserted,
 					}),
+					activeIndexPos,
+					intl,
 				}),
 			);
 		}
 		if (change.deleted.length > 0) {
 			const isActive =
-				activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
+			activeIndexPos &&
+			change.fromB === activeIndexPos.from &&
+			change.fromB === activeIndexPos.to;
+
 			const decoration = createNodeChangedDecorationWidget({
 				change,
 				doc: originalDoc,
@@ -220,7 +237,9 @@ const calculateDiffDecorationsInner = ({
 	});
 	getMarkChangeRanges(steps).forEach((change) => {
 		const isActive =
-			activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
+			activeIndexPos &&
+			change.fromB === activeIndexPos.from &&
+			change.toB === activeIndexPos.to;
 		decorations.push(
 			createInlineChangedDecoration({ change, colorScheme, isActive, isInserted: true }),
 		);
@@ -233,6 +252,8 @@ const calculateDiffDecorationsInner = ({
 				to: change.toB,
 				colorScheme,
 				isInserted: true,
+				activeIndexPos,
+				intl,
 			}),
 		);
 	});

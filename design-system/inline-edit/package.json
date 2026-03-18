@@ -64,6 +64,7 @@
 		"@atlaskit/tag-group": "workspace:^",
 		"@atlaskit/textarea": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*",
 		"react-select-event": "root:*"

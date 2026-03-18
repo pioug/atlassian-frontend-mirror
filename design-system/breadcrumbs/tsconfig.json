@@ -11,5 +11,6 @@
     "./examples/**/*.tsx",
     "./example-helpers/**/*.ts",
     "./example-helpers/**/*.tsx",
+    "./breadcrumbs.docs.tsx"
   ]
 }

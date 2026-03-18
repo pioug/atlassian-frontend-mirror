@@ -355,7 +355,7 @@ export const isEmptySelectionAtStart = (state: EditorState): boolean => {
 
 	// If blockTaskItem is in the schema,
 	// we need to check if the selection is inside a blockTaskItem
-	if (blockTaskItem && empty && fg('platform_editor_blocktaskitem_patch_2')) {
+	if (blockTaskItem && empty) {
 		// If the parent is in a textblock,
 		// check if it's nested inside a blockTaskItem
 		if ($from.parent.isTextblock) {
@@ -379,18 +379,8 @@ export const isEmptySelectionAtStart = (state: EditorState): boolean => {
 		// Else, check if the parent is a blockTaskItem
 		else if ($from.parent.type === blockTaskItem) {
 			// Check if the selection is at the start of the blockTaskItem
-			let firstPosInBlockTaskItem = 0;
-			if (fg('platform_editor_blocktaskitem_patch_2')) {
-				const blockTaskItemDepth = $from.depth;
-
-				// When cleaning up platform_editor_blocktaskitem_patch_2, set firstPosInBlockTaskItem as const
-				firstPosInBlockTaskItem = $from.start(blockTaskItemDepth);
-			} else {
-				const blockTaskItemDepth = $from.depth - 1;
-				const DISTANCE_FROM_PARENT_FOR_GAP_CURSOR = 1;
-				firstPosInBlockTaskItem =
-					$from.start(blockTaskItemDepth) + DISTANCE_FROM_PARENT_FOR_GAP_CURSOR;
-			}
+			const blockTaskItemDepth = $from.depth;
+			const firstPosInBlockTaskItem = $from.start(blockTaskItemDepth);
 
 			// Is the selection at the first possible position inside the blockTaskItem
 			return $from.pos === firstPosInBlockTaskItem;

@@ -1,5 +1,28 @@
 # @atlaskit/adf-schema
 
+## 52.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.3.0
+
+### Minor Changes
+
+- [`b9eb3030562a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9eb3030562a9) -
+  Add 'dataConsumer' mark to media and mediaInline. This change is made directly to the full schema.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.2.6
 
 ### Patch Changes

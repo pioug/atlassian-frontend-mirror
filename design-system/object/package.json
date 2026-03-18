@@ -96,6 +96,7 @@
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"fs-extra": "root:*",
 		"lodash": "root:*",

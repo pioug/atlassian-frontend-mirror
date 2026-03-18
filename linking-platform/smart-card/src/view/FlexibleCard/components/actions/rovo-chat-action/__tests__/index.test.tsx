@@ -11,6 +11,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkStatus } from '../../../../../../constants';
 import { FlexibleCardContext } from '../../../../../../state/flexible-ui-context';
+import * as useInvokeClientAction from '../../../../../../state/hooks/use-invoke-client-action';
 import * as useRovoChat from '../../../../../../state/hooks/use-rovo-chat';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import RovoChatAction, { RovoChatPromptKey } from '../index';
@@ -105,6 +106,32 @@ describe('RovoChatAction', () => {
 		setup();
 		const elements = screen.queryAllByRole('button');
 		expect(elements.length).toBe(0);
+	});
+
+	it('invokes action', async () => {
+		const user = userEvent.setup();
+		const invoke = jest.fn();
+		const spy = jest.spyOn(useInvokeClientAction, 'default').mockReturnValue(invoke);
+
+		setup();
+
+		const element = await screen.findByText(btnAction1Text);
+		await user.click(element);
+
+		expect(invoke).toHaveBeenCalledTimes(1);
+		expect(invoke).toHaveBeenNthCalledWith(1, {
+			actionFn: expect.any(Function),
+			actionSubjectId: 'rovoChatPrompt',
+			actionType: 'RovoChatAction',
+			definitionId: 'd1',
+			display: 'hoverCardPreview',
+			extensionKey: 'google-object-provider',
+			id: 'uid',
+			prompt: 'recommend-other-sources',
+			resourceType: 'r1',
+		});
+
+		spy.mockRestore();
 	});
 
 	describe('with tooltip', () => {

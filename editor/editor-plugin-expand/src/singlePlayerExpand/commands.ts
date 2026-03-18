@@ -318,10 +318,7 @@ export const toggleExpandWithMatch =
 		const { expand, nestedExpand } = tr.doc.type.schema.nodes;
 		// if match is inside a nested expand, open the nested expand
 		const nestedExpandNode = findParentNodeOfType(nestedExpand)(selection);
-		if (
-			nestedExpandNode &&
-			expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)
-		) {
+		if (nestedExpandNode) {
 			const expanded = expandedState.get(nestedExpandNode.node) ?? false;
 			if (!expanded) {
 				expandedState.set(nestedExpandNode.node, true);
@@ -329,10 +326,7 @@ export const toggleExpandWithMatch =
 		}
 		// if match is (also) inside an expand, open the expand
 		const expandNode = findParentNodeOfType(expand)(selection);
-		if (
-			expandNode &&
-			expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)
-		) {
+		if (expandNode) {
 			const expanded = expandedState.get(expandNode.node) ?? false;
 			if (!expanded) {
 				expandedState.set(expandNode.node, true);

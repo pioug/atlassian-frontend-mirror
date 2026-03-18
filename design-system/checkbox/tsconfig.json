@@ -13,7 +13,8 @@
     "**/stories.tsx",
     "**/stories/*.ts",
     "**/stories/*.tsx",
-    "**/stories/**/*.ts",
-    "**/stories/**/*.tsx"
-  ]
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
+		"./checkbox.docs.tsx"
+	]
 }

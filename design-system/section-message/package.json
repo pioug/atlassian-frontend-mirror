@@ -63,6 +63,7 @@
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/range": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*"

@@ -38,7 +38,7 @@ export const pasteOptionsToolbarMessages = defineMessages({
 	},
 	pasteMenuActionsTitle: {
 		id: 'fabric.editor.pasteMenuActionsTitle',
-		defaultMessage: 'Actions',
+		defaultMessage: 'Paste actions',
 		description: 'Section title for actions in the paste options menu',
 	},
 });

@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? true // Boolean: only 'true' is allowed as expected value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? true // Boolean: only 'true' is allowed as expected value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? false // Boolean: only 'false' is allowed as default value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? false // Boolean: only 'false' is allowed as default value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -222,6 +222,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	ccpi_fix_broken_uploaded_img: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-05
 	'editor-a11y-fy26-keyboard-move-row-column': {
 		defaultValue: boolean;
@@ -319,7 +325,7 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-		// Added 2026-03-05
+	// Added 2026-03-05
 	platform_editor_abort_ufo_on_user_interaction: {
 		defaultValue: boolean;
 		param: string;
@@ -667,13 +673,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-12-01
-	platform_editor_no_state_plugin_injection_api: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-04-14
 	// https://switcheroo.atlassian.com/ui/gates/b159b45a-86d9-4f4b-b482-f9aca5b615d6/key/platform_editor_offline_editing_web
 	platform_editor_offline_editing_web: {
@@ -790,13 +789,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-04-17
 	platform_editor_tables_table_selector: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-07-07
-	platform_editor_toggle_expand_on_match_found: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1058,13 +1050,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-14
-	platform_editor_context_context_types_migration: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-01-16
 	platform_editor_ai_edit_unsupported_content: {
 		defaultValue: boolean;
@@ -1162,13 +1147,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	confluence_ttvc_inline_extensions: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-02
-	platform_editor_hide_toolbar_tooltips_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1518,6 +1496,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-13
 	platform_editor_misaligned_ai_screens_firefox_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-11
+	platform_editor_disable_last_node_para: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1983,14 +1968,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-12-01
-	platform_editor_no_state_plugin_injection_api: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_no_state_plugin_injection_api',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-06-10
 	platform_editor_no_cursor_on_edit_page_init: createBooleanExperiment({
 		productKeys: {
@@ -2108,14 +2085,6 @@ export const editorExperimentsConfig: {
 	platform_editor_feedback_mandatory_rating: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_feedback_mandatory_rating',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-07-07
-	platform_editor_toggle_expand_on_match_found: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toggle_expand_on_match_found',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2299,6 +2268,14 @@ export const editorExperimentsConfig: {
 	'cc_perf-insights-cards_extension_a11y_list': createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_perf-insights-cards_extension_a11y_list',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-12
+	ccpi_fix_broken_uploaded_img: createBooleanExperiment({
+		productKeys: {
+			confluence: 'ccpi_fix_broken_uploaded_img',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2735,15 +2712,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-01-14
-	platform_editor_context_context_types_migration: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_context_context_types_migration',
-			jira: 'platform_editor_context_context_types_migration',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-01-16
 	platform_editor_ai_edit_unsupported_content: createBooleanExperiment({
 		productKeys: {
@@ -2853,14 +2821,6 @@ export const editorExperimentsConfig: {
 	confluence_ttvc_inline_extensions: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_ttvc_inline_extensions',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-02-02
-	platform_editor_hide_toolbar_tooltips_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_hide_toolbar_tooltips_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3253,6 +3213,15 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_are_nodes_equal_ignore_mark_order',
 			jira: 'platform_editor_are_nodes_equal_ignore_mark_order',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-11
+	platform_editor_disable_last_node_para: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_disable_last_node_para',
+			jira: 'platform_editor_disable_last_node_para',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

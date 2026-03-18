@@ -66,6 +66,7 @@
 		"@atlaskit/icon-object": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"ast-types": "root:*",
 		"jscodeshift": "root:*"

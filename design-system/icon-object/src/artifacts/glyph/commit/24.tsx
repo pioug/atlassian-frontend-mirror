@@ -1,15 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f68338c4ace84a12b405763fc12e918b>>
+ * @codegen <<SignedSource::3807e6e035cd727d83465133648098b5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
 
-import { IconTile } from '@atlaskit/icon';
-import NewIcon from '@atlaskit/icon/core/commit';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/tile/commit';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * __24px `commit` icon object__
@@ -25,15 +22,8 @@ const Commit24Icon: {
 	}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>): React.JSX.Element;
 	displayName: string;
 } = ({ label, testId }) => {
-	// Feature flag to migrate to new object package
-	if (fg('platform_dst_icon_object_to_object') || fg('platform_dst_icon_object_to_object_stage2')) {
-		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
-		return <NewObjectComponent label={label} testId={testId} size="small" />;
-	}
-
-	return (
-		<IconTile icon={NewIcon} appearance="orangeBold" size="24" label={label} testId={testId} />
-	);
+	// Map props based on size: 16px -> object (medium), 24px -> tile (small)
+	return <NewObjectComponent label={label} testId={testId} size="small" />;
 };
 
 Commit24Icon.displayName = 'Commit24Icon';

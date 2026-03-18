@@ -17,7 +17,7 @@ describe(`${packageName}/schema mediaGroup node`, () => {
 				attrs: {},
 				content: '(media | unsupportedBlock)+',
 				group: 'block',
-				marks: 'unsupportedMark unsupportedNodeAttribute annotation border link',
+				marks: 'unsupportedMark unsupportedNodeAttribute annotation border dataConsumer link',
 				parseDOM: [
 					{
 						tag: 'div[data-node-type="mediaGroup"]',

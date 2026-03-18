@@ -1,6 +1,7 @@
 import { nativeEmbedsFallbackTransform } from '../../../transforms/native-embeds-fallback-transform';
 import type { ADFEntity } from '../../../types';
 
+
 describe('nativeEmbedsFallbackTransform', () => {
 	it('returns unchanged ADF when extension is not a native embed', () => {
 		const adf: ADFEntity = {
@@ -20,7 +21,7 @@ describe('nativeEmbedsFallbackTransform', () => {
 
 		const result = nativeEmbedsFallbackTransform(adf);
 
-		expect(result.isTransformed).toBe(false);
+		expect(result.hasValidTransform).toBe(false);
 		expect(result.transformedAdf).toEqual(adf);
 	});
 
@@ -34,7 +35,7 @@ describe('nativeEmbedsFallbackTransform', () => {
 					attrs: {
 						extensionType: 'com.atlassian.some-other-extension-type',
 						extensionKey: 'native-embed:whiteboard',
-						parameters: { url: 'https://example.atlassian.net/wiki/spaces/DEMO/whiteboard/12345' },
+						parameters: { macroParams: { url: { value: 'https://example.atlassian.net/wiki/spaces/DEMO/whiteboard/12345' } } },
 					},
 				},
 			],
@@ -43,7 +44,7 @@ describe('nativeEmbedsFallbackTransform', () => {
 		const result = nativeEmbedsFallbackTransform(adf);
 		const transformedAdf = result.transformedAdf as ADFEntity;
 
-		expect(result.isTransformed).toBe(true);
+		expect(result.hasValidTransform).toBe(true);
 		expect(transformedAdf.content?.[0]).toEqual({
 			type: 'paragraph',
 			content: [
@@ -76,7 +77,75 @@ describe('nativeEmbedsFallbackTransform', () => {
 		const result = nativeEmbedsFallbackTransform(adf);
 		const transformedAdf = result.transformedAdf as ADFEntity;
 
-		expect(result.isTransformed).toBe(true);
+		expect(result.hasValidTransform).toBe(true);
 		expect(transformedAdf.content).toEqual([]);
+	});
+
+	it('returns original ADF when transformed output fails ADF schema validation', () => {
+		const originalAdf: ADFEntity = {
+			type: 'doc',
+			version: 1,
+			content: [
+				{
+					type: 'extension',
+					attrs: {
+						extensionType: 'com.atlassian.some-other-extension-type',
+						extensionKey: 'native-embed:whiteboard',
+						parameters: { macroParams: { url: { value: 'https://example.com' } } },
+					},
+				},
+			],
+		};
+
+		jest.isolateModules(() => {
+			const mockValidate = jest.fn().mockReturnValue({ valid: false });
+			jest.mock('../../../validator/validator', () => ({
+				validator: () => mockValidate,
+			}));
+
+			const {
+				nativeEmbedsFallbackTransform: isolatedTransform,
+			} = require('../../../transforms/native-embeds-fallback-transform');
+
+			const result = isolatedTransform(originalAdf);
+
+			// Because the transformed ADF is invalid, it should fall back to the original
+			expect(result.hasValidTransform).toBe(false);
+			expect(result.transformedAdf).toEqual(originalAdf);
+		});
+	});
+
+	it('returns transformed ADF when it passes ADF schema validation', () => {
+		const adf: ADFEntity = {
+			type: 'doc',
+			version: 1,
+			content: [
+				{
+					type: 'extension',
+					attrs: {
+						extensionType: 'com.atlassian.some-other-extension-type',
+						extensionKey: 'native-embed:whiteboard',
+						parameters: { macroParams: { url: { value: 'https://example.atlassian.net/wiki/spaces/DEMO/whiteboard/12345' } } },
+					},
+				},
+			],
+		};
+
+		const result = nativeEmbedsFallbackTransform(adf);
+		const transformedAdf = result.transformedAdf as ADFEntity;
+
+		// The transform should succeed and the result should pass validation
+		expect(result.hasValidTransform).toBe(true);
+		expect(transformedAdf.content?.[0]).toEqual({
+			type: 'paragraph',
+			content: [
+				{
+					type: 'inlineCard',
+					attrs: {
+						url: 'https://example.atlassian.net/wiki/spaces/DEMO/whiteboard/12345',
+					},
+				},
+			],
+		});
 	});
 });

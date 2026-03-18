@@ -82,7 +82,8 @@ const HoverCardResolvedView = ({
 			useMemo(
 				() =>
 					cardState?.details &&
-					extractRovoChatAction(cardState.details, rovoConfig, actionOptions) !== undefined,
+					extractRovoChatAction({ response: cardState.details, rovoConfig, actionOptions }) !==
+						undefined,
 				[actionOptions, cardState?.details, rovoConfig],
 			)
 		: false;

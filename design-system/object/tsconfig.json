@@ -22,6 +22,7 @@
 		"build/*.ts",
 		"build/*.tsx",
 		"build/**/*.ts",
-		"build/**/*.tsx"
+		"build/**/*.tsx",
+		"./object.docs.tsx"
 	]
 }

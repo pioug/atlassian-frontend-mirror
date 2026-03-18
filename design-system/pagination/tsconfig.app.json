@@ -1,9 +1,6 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": [
-		"./src/**/*.ts",
-		"./src/**/*.tsx"
-	],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -57,6 +54,9 @@
 		},
 		{
 			"path": "../visually-hidden/tsconfig.app.json"
+		},
+		{
+			"path": "../structured-docs-types/tsconfig.app.json"
 		}
 	],
 	"files": []

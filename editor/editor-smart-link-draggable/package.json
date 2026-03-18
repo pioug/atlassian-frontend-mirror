@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-smart-link-draggable",
-	"version": "0.1.2",
+	"version": "0.1.4",
 	"description": "Drag-and-drop support for smart link cards. Provides a draggable wrapper component, shared constants, types, and utilities for smart link DnD between editor/renderer (drag sources) and the content tree (drop target).",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,7 +41,8 @@
 		"@atlaskit/smart-card": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
-		"@compiled/react": "root:*"
+		"@compiled/react": "root:*",
+		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",

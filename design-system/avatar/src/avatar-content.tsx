@@ -97,12 +97,19 @@ const unboundStyles = unboundCssMap({
 		// The goal here is emulating a 2px "outline"
 		paddingBlock: `calc(${token('border.width.selected')} * 1.25)`,
 		paddingInline: token('border.width.selected'),
-		// NOTE: `marginInline` is set in `marginInlineMap[size]`
+
+		// NOTE: `marginInline` is set in `marginAdjustmentMap[size]` without fg
+		// TODO: Move hexagonFocusContainerMarginFg styles in here if successful
 		marginBlock: `calc(${token('border.width.selected')} * 1.25 * -1)`,
+
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- We have to hack the focus together with this hexagon `clip-path`
 		'&:has(:focus-visible)': {
 			backgroundColor: token('color.border.focused'),
 		},
+	},
+	hexagonFocusContainerMarginFg: {
+		// NOTE: move into `hexagonFocusContainer` if fg is successful
+		marginInline: `calc(${token('border.width.selected')} * -1)`,
 	},
 	hexagonBorderContainer: {
 		backgroundColor: `var(${bgColorCssVar})`,
@@ -112,6 +119,7 @@ const unboundStyles = unboundCssMap({
 		// The goal here is emulating a 2px "border"
 		paddingBlock: `calc(${token('border.width.selected')} * 0.5)`,
 		paddingInline: `calc(${token('border.width.selected')} * 0.4)`,
+		// TODO: Move hexagonBorderContainerMarginFg styles in here if successful
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- We have to hack the focus together with this hexagon `clip-path`
 		'&:has(:focus-visible)': {
 			// NOTE: For `circle` and `square` this is different. This would be border:none` and
@@ -121,6 +129,11 @@ const unboundStyles = unboundCssMap({
 			// as seen in `circle` and `square` appearances.
 			backgroundColor: token('elevation.surface'),
 		},
+	},
+	hexagonBorderContainerMarginFg: {
+		// TODO: Move into `hexagonBorderContainer` when fg is removed
+		marginBlock: `calc(${token('border.width.selected')} * 0.5 * -1)`,
+		marginInline: `calc(${token('border.width.selected')} * 0.4 * -1)`,
 	},
 	hexagon: {
 		clipPath: 'inherit',
@@ -177,33 +190,6 @@ const marginAdjustmentMap = unboundCssMap({
 	xxlarge: { marginInline: `calc(${token('border.width.selected')} * -1 - 8px)` },
 });
 
-const borderRadiusMap = unboundCssMap({
-	xsmall: {
-		borderRadius: token('radius.xsmall'),
-		'&::after': { borderRadius: token('radius.xsmall') },
-	},
-	small: {
-		borderRadius: token('radius.xsmall'),
-		'&::after': { borderRadius: token('radius.xsmall') },
-	},
-	medium: {
-		borderRadius: token('radius.small'),
-		'&::after': { borderRadius: token('radius.small') },
-	},
-	large: {
-		borderRadius: token('radius.small'),
-		'&::after': { borderRadius: token('radius.small') },
-	},
-	xlarge: {
-		borderRadius: token('radius.medium'),
-		'&::after': { borderRadius: token('radius.medium') },
-	},
-	xxlarge: {
-		borderRadius: token('radius.xlarge'),
-		'&::after': { borderRadius: token('radius.xlarge') },
-	},
-});
-
 type AvatarContentProps = {
 	children?: ReactNode;
 };
@@ -249,12 +235,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 			css={[
 				unboundStyles.root,
 				styles.root,
-				!fg('platform_dst_avatar_tile') &&
-					!fg('platform_dst_avatar_tile_stage2') &&
-					borderRadiusMap[size],
-				appearance === 'square' &&
-					(fg('platform_dst_avatar_tile') || fg('platform_dst_avatar_tile_stage2')) &&
-					styles.square,
+				appearance === 'square' && styles.square,
 				appearance === 'circle' && styles.circle,
 				appearance === 'hexagon' && unboundStyles.hexagon,
 				widthHeightMap[size],
@@ -298,7 +279,12 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 	// layer multiple elements and use their background colors to create the different layers.
 	return (
 		<div
-			css={[unboundStyles.hexagonFocusContainer, marginAdjustmentMap[size]]}
+			css={[
+				unboundStyles.hexagonFocusContainer,
+				!fg('platform_dst_hexagon_avatar_unified_size') && marginAdjustmentMap[size],
+				fg('platform_dst_hexagon_avatar_unified_size') &&
+					unboundStyles.hexagonFocusContainerMarginFg,
+			]}
 			style={
 				{
 					[bgColorCssVar]: borderColor,
@@ -308,7 +294,11 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 			data-testid={testId ? `${testId}-hexagon-focus-container` : 'hexagon-focus-container'}
 		>
 			<div
-				css={unboundStyles.hexagonBorderContainer}
+				css={[
+					unboundStyles.hexagonBorderContainer,
+					fg('platform_dst_hexagon_avatar_unified_size') &&
+						unboundStyles.hexagonBorderContainerMarginFg,
+				]}
 				data-testid={testId ? `${testId}-hexagon-border-container` : 'hexagon-border-container'}
 			>
 				{renderedContent}

@@ -12,7 +12,12 @@ export type InvokeClientActionSubjectId =
 	| 'copyLink'
 	| 'downloadDocument'
 	| 'invokePreviewScreen'
+	| 'rovoChatPrompt'
 	| 'shortcutGoToLink';
+
+type InvokeRovoChatClientActionProps = {
+	prompt?: string;
+};
 
 export type InvokeClientActionProps = {
 	/**
@@ -57,6 +62,6 @@ export type InvokeClientActionProps = {
 	 * Resource type for analytics purposes.
 	 */
 	resourceType?: string;
-};
+} & InvokeRovoChatClientActionProps;
 
 export type InvokeClientActionHandler = (opts: InvokeClientActionProps) => Promise<void>;

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import Button from '@atlaskit/button/standard-button';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 import { type DropdownMenuProps } from '../../types';
@@ -195,32 +194,16 @@ describe('dropdown menu', () => {
 			jest.useRealTimers();
 		});
 
-		ffTest.on('platform-dst-nested-dropdown-menu-role', 'when role group is enabled', () => {
-			it('should have a role of group when nested under another menu', () => {
-				render(<NestedDropdown />);
+		it('should have a role of group when nested under another menu', () => {
+			render(<NestedDropdown />);
 
-				const topLevelDropdownTrigger = screen.getByTestId('nested-0--trigger');
+			const topLevelDropdownTrigger = screen.getByTestId('nested-0--trigger');
 
-				fireEvent.click(topLevelDropdownTrigger);
-				expect(screen.getByTestId('nested-0--content')).not.toHaveAttribute('role', 'group');
+			fireEvent.click(topLevelDropdownTrigger);
+			expect(screen.getByTestId('nested-0--content')).not.toHaveAttribute('role', 'group');
 
-				fireEvent.click(screen.getByTestId(`nested-1--trigger`));
-				expect(screen.getByTestId('nested-1--content')).toHaveAttribute('role', 'group');
-			});
-		});
-
-		ffTest.off('platform-dst-nested-dropdown-menu-role', 'when role group is disabled', () => {
-			it('should not have a role of group when nested under another menu', () => {
-				render(<NestedDropdown />);
-
-				const topLevelDropdownTrigger = screen.getByTestId('nested-0--trigger');
-
-				fireEvent.click(topLevelDropdownTrigger);
-				expect(screen.getByTestId('nested-0--content')).not.toHaveAttribute('role', 'group');
-
-				fireEvent.click(screen.getByTestId(`nested-1--trigger`));
-				expect(screen.getByTestId('nested-1--content')).not.toHaveAttribute('role', 'group');
-			});
+			fireEvent.click(screen.getByTestId(`nested-1--trigger`));
+			expect(screen.getByTestId('nested-1--content')).toHaveAttribute('role', 'group');
 		});
 	});
 

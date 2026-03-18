@@ -26,6 +26,9 @@ export type PasteOptionsToolbarPlugin = NextEditorPlugin<
 	'pasteOptionsToolbarPlugin',
 	{
 		dependencies: PasteOptionsToolbarPluginDependencies;
+		pluginConfiguration?: {
+			usePopupBasedPasteActionsMenu?: boolean;
+		};
 		sharedState: PasteOptionsToolbarSharedState;
 	}
 >;

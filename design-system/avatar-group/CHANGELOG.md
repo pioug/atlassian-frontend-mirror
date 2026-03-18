@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 12.4.12
+
+### Patch Changes
+
+- [`eb30d533bbb0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb30d533bbb0f) -
+  Added hexagon appearance support for avatargroup view more dropdown button
+- Updated dependencies
+
 ## 12.4.11
 
 ### Patch Changes

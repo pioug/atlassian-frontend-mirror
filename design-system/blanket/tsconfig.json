@@ -13,6 +13,7 @@
     "**/stories/*.ts",
     "**/stories/*.tsx",
     "**/stories/**/*.ts",
-    "**/stories/**/*.tsx"
+    "**/stories/**/*.tsx",
+    "./blanket.docs.tsx"
   ]
 }

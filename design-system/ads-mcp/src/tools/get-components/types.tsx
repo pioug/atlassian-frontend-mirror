@@ -1,20 +1,37 @@
-interface Prop {
-	name: string;
-	description: string;
-	type: string;
-	exampleValue?: string;
-}
+/* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
+export type ComponentStatus =
+	| 'release-candidate'
+	| 'early-access'
+	| 'open-beta'
+	| 'general-availability'
+	| 'intent-to-deprecate'
+	| 'deprecated'
+	| 'unmaintained';
 
-export interface Component {
+export type ComponentProps = {
 	name: string;
-	package: `@${'atlaskit' | 'atlassian'}/${string}`;
-	keywords: string[];
-	category: string;
+	type: string;
+	description?: string;
+	isRequired?: boolean;
+	isDeprecated?: boolean;
+	defaultValue?: string;
+};
+
+export type ComponentMcpPayload = {
+	name: string;
 	description: string;
-	status: string;
-	examples: string[];
-	accessibilityGuidelines?: string[];
+	status: ComponentStatus;
 	usageGuidelines?: string[];
 	contentGuidelines?: string[];
-	props?: Prop[];
-}
+	accessibilityGuidelines?: string[];
+	keywords: string[];
+	package: string;
+	examples: string[];
+	props: ComponentProps[] | undefined;
+	category: string;
+};
+
+/**
+ * Re-exported to save rebuilding existing codegen.
+ */
+export type Component = ComponentMcpPayload;

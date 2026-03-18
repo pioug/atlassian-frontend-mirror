@@ -159,15 +159,10 @@ export const getToolRegistry = (): Record<
 			inputSchema: i18nConversionInputSchema,
 			tool: listI18nConversionTool,
 		},
-		[listGetAllTokensTool.name]: {
-			handler: getAllTokensTool,
-			inputSchema: null,
-			tool: listGetAllTokensTool,
-		},
-		[listGetAllIconsTool.name]: {
-			handler: getAllIconsTool,
-			inputSchema: null,
-			tool: listGetAllIconsTool,
+		[listGetGuidelinesTool.name]: {
+			handler: getGuidelinesTool,
+			inputSchema: getGuidelinesInputSchema,
+			tool: listGetGuidelinesTool,
 		},
 	};
 
@@ -178,10 +173,16 @@ export const getToolRegistry = (): Record<
 			inputSchema: getLintRulesInputSchema,
 			tool: listGetLintRulesTool,
 		} as (typeof baseTools)[string];
-		baseTools[listGetGuidelinesTool.name] = {
-			handler: getGuidelinesTool,
-			inputSchema: getGuidelinesInputSchema,
-			tool: listGetGuidelinesTool,
+	} else {
+		baseTools[listGetAllTokensTool.name] = {
+			handler: getAllTokensTool,
+			inputSchema: null,
+			tool: listGetAllTokensTool,
+		} as (typeof baseTools)[string];
+		baseTools[listGetAllIconsTool.name] = {
+			handler: getAllIconsTool,
+			inputSchema: null,
+			tool: listGetAllIconsTool,
 		} as (typeof baseTools)[string];
 	}
 

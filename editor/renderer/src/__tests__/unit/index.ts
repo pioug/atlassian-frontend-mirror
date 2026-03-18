@@ -27,7 +27,7 @@ jest.mock('@atlaskit/adf-utils/transforms', () => ({
 	...jest.requireActual<Object>('@atlaskit/adf-utils/transforms'),
 	nativeEmbedsFallbackTransform: jest.fn((adf) => ({
 		transformedAdf: adf,
-		isTransformed: false,
+		hasValidTransform: false,
 	})),
 	transformNestedTablesIncomingDocument: jest.fn((adf) => ({
 		transformedAdf: adf,
@@ -41,9 +41,14 @@ jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn(() => false),
 }));
 
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn(() => false),
+}));
+
 import * as common from '@atlaskit/editor-common/validator';
 import { type Serializer } from '../../serializer';
 import { renderDocument } from '../../render-document';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 
@@ -419,6 +424,20 @@ describe('Renderer', () => {
 				],
 			};
 
+			const nativeEmbedsEnabledDocument = {
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						attrs: {
+							localId: null,
+						},
+						type: 'paragraph',
+						content: [{ type: 'text', text: 'native embeds enabled test' }],
+					},
+				],
+			};
+
 			const gateOnDocument = {
 				type: 'doc',
 				version: 1,
@@ -438,11 +457,12 @@ describe('Renderer', () => {
 			beforeEach(() => {
 				jest.clearAllMocks();
 				(fg as jest.Mock).mockImplementation(() => false);
+				(expValEquals as jest.Mock).mockImplementation(() => false);
 				(
 					nativeEmbedsFallbackTransform as jest.MockedFunction<typeof nativeEmbedsFallbackTransform>
 				).mockImplementation((adf) => ({
 					transformedAdf: adf,
-					isTransformed: false,
+					hasValidTransform: false,
 				}));
 			});
 
@@ -460,15 +480,40 @@ describe('Renderer', () => {
 				expect(nativeEmbedsFallbackTransform).not.toHaveBeenCalled();
 			});
 
-			it('should run nativeEmbedsFallbackTransform and fire analytics when gate is on', () => {
+			it('should not run nativeEmbedsFallbackTransform when native embeds are enabled', () => {
 				(fg as jest.Mock).mockImplementation(
 					(flagName: string) => flagName === 'platform_editor_native_embeds_fallback_transform',
 				);
+				(expValEquals as jest.Mock).mockImplementation(
+					(experimentName: string, param: string, expectedValue: boolean) =>
+						experimentName === 'cc-maui-experiment' &&
+						param === 'isEnabled' &&
+						expectedValue === true,
+				);
+
+				renderDocument(
+					nativeEmbedsEnabledDocument,
+					serializer,
+					schema,
+					undefined,
+					true,
+					undefined,
+					mockDispatchAnalyticsEvent,
+				);
+
+				expect(nativeEmbedsFallbackTransform).not.toHaveBeenCalled();
+			});
+
+			it('should run nativeEmbedsFallbackTransform and fire analytics when gate is on and native embeds are not enabled', () => {
+				(fg as jest.Mock).mockImplementation(
+					(flagName: string) => flagName === 'platform_editor_native_embeds_fallback_transform',
+				);
+				(expValEquals as jest.Mock).mockImplementation(() => false);
 				(
 					nativeEmbedsFallbackTransform as jest.MockedFunction<typeof nativeEmbedsFallbackTransform>
 				).mockImplementation((adf) => ({
 					transformedAdf: adf,
-					isTransformed: true,
+					hasValidTransform: true,
 				}));
 
 				renderDocument(

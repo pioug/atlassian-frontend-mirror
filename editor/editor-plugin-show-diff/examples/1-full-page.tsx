@@ -68,6 +68,12 @@ const headerStyles = cssMap({
 		borderBottomStyle: 'solid',
 		borderBottomColor: token('color.border'),
 	},
+	toolbar: {
+		position: 'sticky',
+		top: token('space.100'),
+		zIndex: 800,
+		backgroundColor: token('elevation.surface'),
+	}
 });
 
 const DEFAULT_ORIGINAL_DOC: DocNode = {
@@ -333,7 +339,7 @@ export default function FullPageDiffEditor(): React.JSX.Element {
 				</Inline>
 			</Box>
 
-			<Box paddingInline="space.200">
+			<Box paddingInline="space.200" xcss={headerStyles.toolbar}>
 				<Inline space="space.100" alignBlock="center">
 					<Button appearance="primary" onClick={handleComputeDiff}>
 						Compute Diff

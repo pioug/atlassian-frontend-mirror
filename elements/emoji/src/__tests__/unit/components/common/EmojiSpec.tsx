@@ -7,7 +7,6 @@ import { spriteEmoji, imageEmoji } from '../../_test-data';
 import { commonSelectedStyles } from '../../../../components/common/styles';
 import browserSupport from '../../../../util/browser-support';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import * as isSSRModule from '../../../../util/is-ssr';
 
 import '@testing-library/jest-dom';
@@ -119,34 +118,17 @@ describe('<Emoji />', () => {
 			expect(result.queryByTestId(RENDER_EMOJI_DELETE_BUTTON_TESTID)).toBeNull();
 		});
 
-		describe('should automatically set width to auto if autoWidth is true during SSR', () => {
-			ffTest(
-				'platform_emoji_ssr_width_auto_allowed',
-				async () => {
-					const isSSRSpy = jest.spyOn(isSSRModule, 'isSSR').mockReturnValue(true);
+		it('should automatically set width to auto if autoWidth is true during SSR', async () => {
+			const isSSRSpy = jest.spyOn(isSSRModule, 'isSSR').mockReturnValue(true);
 
-					const result = await renderWithIntl(
-						<Emoji emoji={imageEmoji} fitToHeight={25} autoWidth />,
-					);
-					const image = result.getByAltText(imageEmoji.name);
-					expect(image).toHaveAttribute('width', 'auto');
-					expect(image).toHaveAttribute('height', '25');
-
-					isSSRSpy.mockRestore();
-				},
-				async () => {
-					const isSSRSpy = jest.spyOn(isSSRModule, 'isSSR').mockReturnValue(true);
-
-					const result = await renderWithIntl(
-						<Emoji emoji={imageEmoji} fitToHeight={25} autoWidth />,
-					);
-					const image = result.getByAltText(imageEmoji.name);
-					expect(image).toHaveAttribute('width', '25');
-					expect(image).toHaveAttribute('height', '25');
-
-					isSSRSpy.mockRestore();
-				},
+			const result = await renderWithIntl(
+				<Emoji emoji={imageEmoji} fitToHeight={25} autoWidth />,
 			);
+			const image = result.getByAltText(imageEmoji.name);
+			expect(image).toHaveAttribute('width', 'auto');
+			expect(image).toHaveAttribute('height', '25');
+
+			isSSRSpy.mockRestore();
 		});
 
 		it('should disable lazy load if disableLazyLoad is true', async () => {

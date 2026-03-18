@@ -61,6 +61,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",

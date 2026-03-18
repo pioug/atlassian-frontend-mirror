@@ -72,4 +72,39 @@ export const aiSuggestionsMessages = defineMessages({
 		defaultMessage: 'Suggestions',
 		description: 'Label for the suggestions section in the AI suggestions staging area',
 	},
+	cardCloseButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.closeButtonLabel.non-final',
+		defaultMessage: 'Close',
+		description: 'Label for the close button on the AI suggestions card',
+	},
+	cardExpandButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.expandButtonLabel.non-final',
+		defaultMessage: 'Expand',
+		description: 'Label for the expand button on the AI suggestions card',
+	},
+	cardCollapseButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.collapseButtonLabel.non-final',
+		defaultMessage: 'Collapse',
+		description: 'Label for the collapse button on the AI suggestions card',
+	},
+	cardRovoTitle: {
+		id: 'fabric.editor.ai.suggestions.card.rovoTitle.non-final',
+		defaultMessage: 'Rovo',
+		description: 'Title for Rovo branding on the AI suggestions card',
+	},
+	cardPrivateLabel: {
+		id: 'fabric.editor.ai.suggestions.card.privateLabel.non-final',
+		defaultMessage: 'Private',
+		description: 'Label for the private/lock indicator on the AI suggestions card',
+	},
+	cardAcceptButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.acceptButtonLabel.non-final',
+		defaultMessage: 'Accept',
+		description: 'Label for the accept button on the AI suggestions card',
+	},
+	cardDiscardButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.discardButtonLabel.non-final',
+		defaultMessage: 'Discard',
+		description: 'Label for the discard button on the AI suggestions card',
+	},
 });

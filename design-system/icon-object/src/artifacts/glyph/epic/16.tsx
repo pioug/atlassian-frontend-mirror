@@ -1,15 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::edcb0183b51858c26595fdad386b92d2>>
+ * @codegen <<SignedSource::2a682158682d0b0710d7bc1dfd0db6ab>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
 
-import { IconTile } from '@atlaskit/icon';
-import NewIcon from '@atlaskit/icon/core/epic';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/epic';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * __16px `epic` icon object__
@@ -25,15 +22,8 @@ const Epic16Icon: {
 	}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>): React.JSX.Element;
 	displayName: string;
 } = ({ label, testId }) => {
-	// Feature flag to migrate to new object package
-	if (fg('platform_dst_icon_object_to_object') || fg('platform_dst_icon_object_to_object_stage2')) {
-		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
-		return <NewObjectComponent label={label} testId={testId} size="medium" />;
-	}
-
-	return (
-		<IconTile icon={NewIcon} appearance="purpleBold" size="16" label={label} testId={testId} />
-	);
+	// Map props based on size: 16px -> object (medium), 24px -> tile (small)
+	return <NewObjectComponent label={label} testId={testId} size="medium" />;
 };
 
 Epic16Icon.displayName = 'Epic16Icon';

@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 11.25.0
+
+### Minor Changes
+
+- [`e40e50d76e29c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e40e50d76e29c) -
+  [ux] Updates user picker to use ADS tags in cases where we see icons in tags, insead of using ADS
+  Avatar tags.
+
 ## 11.24.0
 
 ### Minor Changes

@@ -10,7 +10,7 @@ export const traditionalInsertStyle: string = convertToInlineCss({
 });
 
 export const traditionalInsertStyleActive: string = convertToInlineCss({
-	background: token('color.background.accent.green.subtler'),
+	background: token('color.background.accent.green.subtler.pressed'),
 	textDecoration: 'underline',
 	textDecorationStyle: 'solid',
 	textDecorationThickness: token('space.025'),
@@ -24,12 +24,32 @@ export const deletedTraditionalContentStyle: string = convertToInlineCss({
 	opacity: 1,
 });
 
+/** Emphasised (pressed) strikethrough for traditional removed text when active */
+export const deletedTraditionalContentStyleActive: string = convertToInlineCss({
+	textDecorationColor: token('color.text.accent.red'),
+	textDecoration: 'line-through',
+	backgroundColor: token('color.background.accent.red.subtlest.pressed'),
+	position: 'relative',
+	opacity: 1,
+});
+
 export const deletedTraditionalContentStyleUnbounded: string = convertToInlineCss({
 	position: 'absolute',
 	top: '50%',
 	width: '100%',
 	display: 'inline-block',
 	borderTop: `1px solid ${token('color.border.accent.red')}`,
+	pointerEvents: 'none',
+	zIndex: 1,
+});
+
+/** Emphasised (pressed) strikethrough line for traditional when active */
+export const deletedTraditionalContentStyleUnboundedActive: string = convertToInlineCss({
+	position: 'absolute',
+	top: '50%',
+	width: '100%',
+	display: 'inline-block',
+	borderTop: `1px solid ${token('color.text.accent.red.bolder')}`,
 	pointerEvents: 'none',
 	zIndex: 1,
 });
@@ -64,12 +84,25 @@ export const traditionalStyleQuoteNode: string = convertToInlineCss({
 	borderLeft: `2px solid ${token('color.border.accent.green')}`,
 });
 
+export const traditionalStyleQuoteNodeActive: string = convertToInlineCss({
+	borderLeft: `2px solid ${token('color.background.accent.green.subtler.pressed')}`,
+});
+
 export const traditionalStyleRuleNode: string = convertToInlineCss({
 	backgroundColor: token('color.border.accent.green'),
 });
 
+export const traditionalStyleRuleNodeActive: string = convertToInlineCss({
+	backgroundColor: token('color.background.accent.green.subtler.pressed'),
+});
+
 export const traditionalStyleNode: string = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.green')}`,
+	borderRadius: token('radius.small'),
+});
+
+export const traditionalStyleNodeActive: string = convertToInlineCss({
+	boxShadow: `0 0 0 2px ${token('color.background.accent.green.subtler.pressed')}`,
 	borderRadius: token('radius.small'),
 });
 
@@ -78,8 +111,17 @@ export const traditionalStyleCardBlockNode: string = convertToInlineCss({
 	borderRadius: token('radius.medium'),
 });
 
+export const traditionalStyleCardBlockNodeActive: string = convertToInlineCss({
+	boxShadow: `0 0 0 1px ${token('color.background.accent.green.subtler.pressed')}`,
+	borderRadius: token('radius.medium'),
+});
+
 export const traditionalDecorationMarkerVariable: string = convertToInlineCss({
 	'--diff-decoration-marker-color': token('color.border.accent.green'),
+});
+
+export const traditionalDecorationMarkerVariableActive: string = convertToInlineCss({
+	'--diff-decoration-marker-color': token('color.text.accent.green'),
 });
 
 export const traditionalAddedCellOverlayStyle = convertToInlineCss({

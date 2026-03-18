@@ -1,15 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::999d82171d02a2e3779216b856d7920a>>
+ * @codegen <<SignedSource::84ca6d6140a2b14182506ef271364619>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
 
-import { IconTile } from '@atlaskit/icon';
-import NewIcon from '@atlaskit/icon/core/arrow-up';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/improvement';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * __16px `improvement` icon object__
@@ -25,13 +22,8 @@ const Improvement16Icon: {
 	}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>): React.JSX.Element;
 	displayName: string;
 } = ({ label, testId }) => {
-	// Feature flag to migrate to new object package
-	if (fg('platform_dst_icon_object_to_object') || fg('platform_dst_icon_object_to_object_stage2')) {
-		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
-		return <NewObjectComponent label={label} testId={testId} size="medium" />;
-	}
-
-	return <IconTile icon={NewIcon} appearance="greenBold" size="16" label={label} testId={testId} />;
+	// Map props based on size: 16px -> object (medium), 24px -> tile (small)
+	return <NewObjectComponent label={label} testId={testId} size="medium" />;
 };
 
 Improvement16Icon.displayName = 'Improvement16Icon';

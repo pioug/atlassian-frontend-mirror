@@ -27,13 +27,7 @@
 			"path": "../../icon/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../icon-lab/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../object/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../tokens/afm-cc/tsconfig.json"

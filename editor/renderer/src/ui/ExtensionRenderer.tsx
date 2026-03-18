@@ -22,7 +22,7 @@ import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
-import { fg } from '@atlaskit/platform-feature-flags';
+
 
 interface Props {
 	actions?: MultiBodiedExtensionActions;
@@ -143,19 +143,11 @@ export default function ExtensionRenderer(props: Props) {
 					if (node.type === 'multiBodiedExtension') {
 						result = <NodeRenderer node={node} actions={actions} />;
 					} else if (node.type === 'inlineExtension') {
-						if (fg('platform_editor_renderer_inline_extension_improve')) {
-							result = (
-								<InlineNodeRendererWrapper isPlainTextMacro={isPlainTextMacro}>
-									<NodeRenderer node={node} />
-								</InlineNodeRendererWrapper>
-							);
-						} else {
-							result = (
-								<InlineNodeRendererWrapper>
-									<NodeRenderer node={node} />
-								</InlineNodeRendererWrapper>
-							);
-						}
+						result = (
+							<InlineNodeRendererWrapper isPlainTextMacro={isPlainTextMacro}>
+								<NodeRenderer node={node} />
+							</InlineNodeRendererWrapper>
+						);
 					} else {
 						result = <NodeRenderer node={node} />;
 					}

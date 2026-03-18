@@ -64,15 +64,18 @@ describe('useFilePreview', () => {
 
 	describe('Cross-client copy with auth', () => {
 		ffTest.on('platform_media_cross_client_copy_with_auth', 'when feature flag is enabled', () => {
-			it('should fetch clientId and include it in preview blob URL', async () => {
+			it('should include clientId in remote preview blob URL via enrichAttrsWithClientId', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
 					initialItems: fileItem,
 				});
 
-				// Add getClientId to mediaApi mock
+				// Mock getClientId on mediaApi (MediaStore) — enrichAttrsWithClientId
+				// calls mediaClient.getClientId() which delegates to mediaStore.getClientId()
 				const mockGetClientId = jest.fn().mockResolvedValue('test-client-id');
 				(mediaApi as any).getClientId = mockGetClientId;
+				// getClientIdSync returns undefined (no initialAuth in test), so async fallback is used
+				(mediaApi as any).getClientIdSync = jest.fn().mockReturnValue(undefined);
 
 				const { result } = renderHook(useFilePreview, {
 					wrapper: ({ children }) => (
@@ -83,54 +86,39 @@ describe('useFilePreview', () => {
 					},
 				});
 
-				// Wait for clientId to be fetched
+				// Wait for preview to be complete — clientId is enriched during preview generation
+				await waitFor(() => expect(result?.current.status).toBe('complete'));
+
+				// Verify clientId is embedded in the blob URL by enrichAttrsWithClientId
 				await waitFor(() =>
-					expect(mockGetClientId).toHaveBeenCalledWith(identifier.collectionName),
+					expect(result?.current.preview?.dataURI).toContain('clientId=test-client-id'),
 				);
+			});
+
+			it('should include clientId in remote preview when getClientIdSync is available', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+					initialItems: fileItem,
+				});
+
+				// Mock getClientIdSync to return clientId synchronously (simulates initialAuth being available)
+				(mediaApi as any).getClientIdSync = jest.fn().mockReturnValue('sync-client-id');
+
+				const { result } = renderHook(useFilePreview, {
+					wrapper: ({ children }) => (
+						<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+					),
+					initialProps: {
+						identifier,
+					},
+				});
 
 				// Wait for preview to be complete
 				await waitFor(() => expect(result?.current.status).toBe('complete'));
 
-				// Verify clientId is in the blob URL
-				expect(result?.current.preview?.dataURI).toContain('clientId=test-client-id');
-			});
-
-			it('should update preview with clientId when clientId becomes available after preview', async () => {
-				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
-				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
-					initialItems: fileItem,
-				});
-
-				let resolveClientId: (value: string) => void = () => {};
-				const clientIdPromise = new Promise<string>((resolve) => {
-					resolveClientId = resolve;
-				});
-
-				// Add getClientId to mediaApi mock
-				const mockGetClientId = jest.fn().mockReturnValue(clientIdPromise);
-				(mediaApi as any).getClientId = mockGetClientId;
-
-				const { result } = renderHook(useFilePreview, {
-					wrapper: ({ children }) => (
-						<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
-					),
-					initialProps: {
-						identifier,
-					},
-				});
-
-				// Wait for preview to be complete (before clientId is available)
-				await waitFor(() => expect(result?.current.status).toBe('complete'));
-
-				// Verify preview exists but doesn't have clientId yet
-				expect(result?.current.preview?.dataURI).not.toContain('clientId=');
-
-				// Now resolve the clientId
-				resolveClientId('delayed-client-id');
-
-				// Wait for preview to be updated with clientId
+				// Verify clientId is embedded via the sync path
 				await waitFor(() =>
-					expect(result?.current.preview?.dataURI).toContain('clientId=delayed-client-id'),
+					expect(result?.current.preview?.dataURI).toContain('clientId=sync-client-id'),
 				);
 			});
 
@@ -140,7 +128,8 @@ describe('useFilePreview', () => {
 					initialItems: fileItem,
 				});
 
-				// Return undefined instead of rejecting to simulate clientId not being available
+				// Both sync and async return undefined
+				(mediaApi as any).getClientIdSync = jest.fn().mockReturnValue(undefined);
 				const mockGetClientId = jest.fn().mockResolvedValue(undefined);
 				(mediaApi as any).getClientId = mockGetClientId;
 
@@ -152,9 +141,6 @@ describe('useFilePreview', () => {
 						identifier,
 					},
 				});
-
-				// Wait for clientId fetch to complete
-				await waitFor(() => expect(mockGetClientId).toHaveBeenCalled());
 
 				// Wait for preview to be complete
 				await waitFor(() => expect(result?.current.status).toBe('complete'));
@@ -169,15 +155,16 @@ describe('useFilePreview', () => {
 			'platform_media_cross_client_copy_with_auth',
 			'when feature flag is disabled',
 			() => {
-				it('should not fetch clientId', async () => {
+				it('should not enrich preview with clientId', async () => {
 					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
 						initialItems: fileItem,
 					});
 
-					// Add getClientId to mediaApi mock
+					// Add mocks — they should NOT be called when flag is off
 					const mockGetClientId = jest.fn().mockResolvedValue('test-client-id');
 					(mediaApi as any).getClientId = mockGetClientId;
+					(mediaApi as any).getClientIdSync = jest.fn().mockReturnValue('test-client-id');
 
 					const { result } = renderHook(useFilePreview, {
 						wrapper: ({ children }) => (
@@ -191,10 +178,7 @@ describe('useFilePreview', () => {
 					// Wait for preview to be complete
 					await waitFor(() => expect(result?.current.status).toBe('complete'));
 
-					// clientId should not be fetched when flag is off
-					expect(mockGetClientId).not.toHaveBeenCalled();
-
-					// Preview should not contain clientId
+					// Preview should not contain clientId when flag is off
 					expect(result?.current.preview?.dataURI).not.toContain('clientId=');
 				});
 			},

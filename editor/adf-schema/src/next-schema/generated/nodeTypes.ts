@@ -1250,6 +1250,7 @@ export interface MediaDefinition {
   marks: Array<
     | AnnotationMark
     | BorderMark
+    | DataConsumerMark
     | LinkMark
     | UnsupportedMarkMark
     | UnsupportedNodeAttributeMark
@@ -1291,7 +1292,8 @@ export type MediaGroupNode = PMNode & MediaGroupDefinition;
 
 export const mediaGroup = createPMNodeSpecFactory<MediaGroupNode>({
   content: '(media | unsupportedBlock)+',
-  marks: 'link annotation border unsupportedMark unsupportedNodeAttribute',
+  marks:
+    'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
   group: 'block',
   attrs: {},
   selectable: false,
@@ -1302,6 +1304,7 @@ export interface MediaInlineDefinition {
   marks: Array<
     | AnnotationMark
     | BorderMark
+    | DataConsumerMark
     | LinkMark
     | UnsupportedMarkMark
     | UnsupportedNodeAttributeMark
@@ -1443,7 +1446,8 @@ export const mediaSingleCaption =
   createPMNodeSpecFactory<MediaSingleCaptionNode>({
     content:
       'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
-    marks: 'link annotation border unsupportedMark unsupportedNodeAttribute',
+    marks:
+      'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
     group: 'block',
     atom: false,
     attrs: { layout: { default: 'center' }, width: { default: null } },
@@ -1489,7 +1493,8 @@ export type MediaSingleFullNode = PMNode & MediaSingleFullDefinition;
 export const mediaSingleFull = createPMNodeSpecFactory<MediaSingleFullNode>({
   content:
     'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
-  marks: 'link annotation border unsupportedMark unsupportedNodeAttribute',
+  marks:
+    'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
   group: 'block',
   atom: false,
   attrs: {
@@ -1542,7 +1547,8 @@ export type MediaSingleWidthTypeNode = PMNode & MediaSingleWidthTypeDefinition;
 export const mediaSingleWidthType =
   createPMNodeSpecFactory<MediaSingleWidthTypeNode>({
     content: 'media|unsupportedBlock+|media unsupportedBlock+',
-    marks: 'link annotation border unsupportedMark unsupportedNodeAttribute',
+    marks:
+      'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
     group: 'block',
     atom: true,
     attrs: {

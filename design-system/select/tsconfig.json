@@ -15,6 +15,7 @@
     "**/stories/*.ts",
     "**/stories/*.tsx",
     "**/stories/**/*.ts",
-    "**/stories/**/*.tsx"
+    "**/stories/**/*.tsx",
+    "./select.docs.tsx"
   ]
 }

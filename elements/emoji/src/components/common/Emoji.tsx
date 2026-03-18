@@ -58,10 +58,7 @@ import {
 	DeletableEmojiTooltipContent,
 	DeletableEmojiTooltipContentForScreenReader,
 } from './DeletableEmojiTooltipContent';
-import { isSSR } from '../../util/is-ssr';
-
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const emojiSpriteContainer = css({
 	display: 'inline-block',
@@ -391,10 +388,7 @@ export const ImageEmoji = (props: Props): JSX.Element => {
 
 	let sizing = {};
 	if (fitToHeight && width && height) {
-		const sizingWidth =
-			autoWidth && (!isSSR() || fg('platform_emoji_ssr_width_auto_allowed'))
-				? 'auto'
-				: (fitToHeight / height) * width;
+		const sizingWidth = autoWidth ? 'auto' : (fitToHeight / height) * width;
 		// Presize image, to prevent reflow due to size changes after loading
 		sizing = {
 			width: sizingWidth,

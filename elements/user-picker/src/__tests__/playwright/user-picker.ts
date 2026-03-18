@@ -1,5 +1,5 @@
 import { test as baseTest, type Locator, type Page } from '@af/integration-testing';
-import { PageRequestController } from '@af/search-test-utils';
+import { PageRequestController } from '@af/search-test-utils/PageRequestController';
 
 const Selectors = {
 	SELECTED_SINGLE_VALUE: '[class*="singleValue"]',

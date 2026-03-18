@@ -12,8 +12,5 @@ snapshot(IconExplorer, {
 			},
 		},
 	],
-	featureFlags: {
-		platform_dst_icon_object_to_object: [true, false],
-	},
 	waitForNetworkIdle: true,
 });

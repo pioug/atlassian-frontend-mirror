@@ -132,7 +132,14 @@ describe('Element: Badge', () => {
 	describe('large icon (platform_sl_3p_auth_rovo_action_kill_switch)', () => {
 		const rovoActionAvailableData: FlexibleUiDataContext = {
 			actions: {
-				[InternalActionName.RovoChatAction]: { product: 'CONFLUENCE', url: 'https://url' },
+				[InternalActionName.RovoChatAction]: {
+					invokeAction: {
+						actionSubjectId: 'rovoChatPrompt',
+						actionType: 'RovoChatAction',
+					},
+					product: 'CONFLUENCE',
+					url: 'https://url',
+				},
 			},
 		};
 		const rovoActionUnavailableData: FlexibleUiDataContext = {

@@ -11,4 +11,9 @@ export const trackChangesMessages = defineMessages({
 		defaultMessage: 'Removed',
 		description: 'Label for content that has been removed in track changes',
 	},
+	added: {
+		id: 'editor.trackChanges.added',
+		defaultMessage: 'Added',
+		description: 'Label for content that has been added in track changes',
+	},
 });

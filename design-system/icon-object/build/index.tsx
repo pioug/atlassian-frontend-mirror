@@ -12,17 +12,11 @@ const root = pkgDir.sync();
 
 // For each size (16px and 24px) and each iconObjectMapping, create a new JSX file
 // based on the function getIconObjectJSX and write it to the format ./glyph/{name}/{size}.jsx
-Object.entries(iconObjectMapping).forEach(([name, iconObject]) => {
+Object.keys(iconObjectMapping).forEach((name) => {
 	// empty existing folder
 	fs.emptyDirSync(path.resolve(root!, 'src', 'artifacts', 'glyph', name));
 	(['16', '24'] as const).forEach((size) => {
-		const iconObjectJSX = getIconObjectJSX(
-			name,
-			iconObject.icon,
-			iconObject.appearance,
-			size,
-			iconObject.packageName,
-		);
+		const iconObjectJSX = getIconObjectJSX(name, size);
 		// create file if it doesn't exist
 		fs.ensureFileSync(path.resolve(root!, 'src', 'artifacts', 'glyph', name, `${size}.tsx`));
 		// write new content

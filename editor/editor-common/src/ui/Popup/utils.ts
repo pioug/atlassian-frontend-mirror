@@ -8,6 +8,9 @@ export interface Position {
 export interface CalculatePositionParams {
 	allowOutOfBounds?: boolean;
 	boundariesElement?: HTMLElement;
+	// Minimum distance (in px) the popup can be from the edge of its offset
+	// parent. Defaults to 1.
+	minPopupMargin?: number;
 	offset: number[];
 	placement: [string, string];
 	popup?: HTMLElement;
@@ -157,9 +160,11 @@ const calculateHorizontalPlacement = ({
 	offset,
 
 	allowOutOfBounds = false,
+	minPopupMargin,
 }: {
 	allowOutOfBounds: boolean;
 	isPopupParentBody: boolean;
+	minPopupMargin?: number;
 	offset: Array<number>;
 	placement: string;
 
@@ -214,6 +219,7 @@ const calculateHorizontalPlacement = ({
 				position.left,
 				popupClientWidth,
 				popupOffsetParentClientWidth,
+				minPopupMargin,
 			);
 		}
 		if (position.right !== undefined) {
@@ -221,6 +227,7 @@ const calculateHorizontalPlacement = ({
 				position.right,
 				popupClientWidth,
 				popupOffsetParentClientWidth,
+				minPopupMargin,
 			);
 		}
 	}
@@ -232,15 +239,14 @@ const getPopupXInsideParent = (
 	x: number,
 	popupClientWidth: number,
 	popupOffsetParentClientWidth: number,
+	minMargin: number = 1,
 ): number => {
-	// minimum distance the popup can be from the edge of its parent
-	const minPopupMargin = 1;
 	// prevent going too far right
 	if (popupOffsetParentClientWidth < x + popupClientWidth) {
-		x = popupOffsetParentClientWidth - popupClientWidth - minPopupMargin;
+		x = popupOffsetParentClientWidth - popupClientWidth - minMargin;
 	}
 	// prevent going too far left
-	return Math.max(minPopupMargin, x);
+	return Math.max(minMargin, x);
 };
 
 const calculateVerticalStickBottom = ({
@@ -413,6 +419,7 @@ export function calculatePosition({
 	allowOutOfBounds = false,
 	rect,
 	boundariesElement,
+	minPopupMargin,
 }: CalculatePositionParams): Position {
 	let position: Position = {};
 
@@ -511,6 +518,7 @@ export function calculatePosition({
 		popupClientWidth: popup.clientWidth || 0,
 		offset,
 		allowOutOfBounds,
+		minPopupMargin,
 	});
 
 	position = { ...position, ...horizontalPosition };

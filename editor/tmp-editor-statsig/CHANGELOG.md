@@ -1,5 +1,44 @@
 # @atlaskit/editor-statsig-tmp
 
+## 40.0.0
+
+### Major Changes
+
+- [`5a8d797e50210`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a8d797e50210) -
+  [FFCLEANUP-91669] clean up platform_editor_hide_toolbar_tooltips_fix experiment to hide dropdown
+  menu item tooltips on hover of the dropdown menu button
+
+## 39.0.0
+
+### Major Changes
+
+- [`0efca55740b36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0efca55740b36) -
+  [FFCLEANUP-71458] clean up experiment platform_editor_toggle_expand_on_match_found
+
+### Minor Changes
+
+- [`abc8407f36ad1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abc8407f36ad1) -
+  cleanup platform_editor_no_state_plugin_injection_api
+
+### Patch Changes
+
+- [`83fabdbe13830`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83fabdbe13830) -
+  cleanup platform_editor_context_context_types_migration
+
+## 38.1.1
+
+### Patch Changes
+
+- [`7386e335aa805`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7386e335aa805) -
+  EDITOR-3953: Fix unwanted paragraph insertion when adding lists at end of document
+
+## 38.1.0
+
+### Minor Changes
+
+- [`1a8d8eb4f0dcb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a8d8eb4f0dcb) -
+  Adds experiment to fix broken uploaded images in card macro
+
 ## 38.0.0
 
 ### Major Changes

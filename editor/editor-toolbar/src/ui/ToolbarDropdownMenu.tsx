@@ -116,10 +116,7 @@ const ToolbarDropdownMenuContent = ({
 					/>
 				);
 
-				if (
-					tooltipComponent &&
-					expValEquals('platform_editor_hide_toolbar_tooltips_fix', 'isEnabled', true)
-				) {
+				if (tooltipComponent) {
 					return React.cloneElement(tooltipComponent as React.ReactElement, {
 						children: toolbarButton,
 					});
@@ -157,11 +154,7 @@ export const ToolbarDropdownMenu = ({
 			testId={testId}
 			label={label}
 			onClick={onClick}
-			tooltipComponent={
-				expValEquals('platform_editor_hide_toolbar_tooltips_fix', 'isEnabled', true)
-					? tooltipComponent
-					: undefined
-			}
+			tooltipComponent={tooltipComponent}
 		>
 			<Box
 				xcss={cx(

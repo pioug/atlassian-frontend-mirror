@@ -10,7 +10,6 @@ import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import { useLayering } from '@atlaskit/layering';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { layers } from '@atlaskit/theme/constants';
@@ -302,11 +301,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 				onClose={handleOnClose}
 				zIndex={zIndex}
 				placement={placement}
-				role={
-					shouldRenderToParent && currentLevel > 0 && fg('platform-dst-nested-dropdown-menu-role')
-						? 'group'
-						: undefined
-				}
+				role={shouldRenderToParent && currentLevel > 0 ? 'group' : undefined}
 				fallbackPlacements={fallbackPlacements}
 				testId={testId && `${testId}--content`}
 				shouldUseCaptureOnOutsideClick

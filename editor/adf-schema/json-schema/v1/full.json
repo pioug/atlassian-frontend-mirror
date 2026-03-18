@@ -1743,6 +1743,9 @@
           "items": {
             "anyOf": [
               {
+                "$ref": "#/definitions/dataConsumer_mark"
+              },
+              {
                 "$ref": "#/definitions/link_mark"
               },
               {
@@ -1847,6 +1850,9 @@
           "type": "array",
           "items": {
             "anyOf": [
+              {
+                "$ref": "#/definitions/dataConsumer_mark"
+              },
               {
                 "$ref": "#/definitions/link_mark"
               },

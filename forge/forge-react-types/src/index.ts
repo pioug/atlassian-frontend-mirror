@@ -170,6 +170,8 @@ export type {
 	TGlobalLinkMenuItem,
 	GlobalExpandableMenuItemProps,
 	TGlobalExpandableMenuItem,
+	GlobalFlyOutMenuItemProps,
+	TGlobalFlyOutMenuItem,
 	GlobalProps,
 	TGlobal,
 	GlobalMainProps,

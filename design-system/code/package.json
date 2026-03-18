@@ -55,6 +55,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/jscodeshift": "root:*",
 		"@types/refractor": "root:*",

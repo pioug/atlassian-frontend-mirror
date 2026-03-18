@@ -30,6 +30,10 @@
 		"outDir": "../../../tsDist/@atlaskit__visually-hidden/app",
 		"isolatedDeclarations": true
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../structured-docs-types/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

@@ -4,7 +4,7 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/anal
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { EditorToolbarProvider, PASTE_MENU } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
+import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -16,7 +16,7 @@ import type {
 	PasteOptionsToolbarPlugin,
 	PasteOptionsToolbarSharedState,
 } from '../../pasteOptionsToolbarPluginType';
-import { PASTE_MENU_GAP } from '../../pm-plugins/constants';
+import { PASTE_MENU_GAP_HORIZONTAL, PASTE_MENU_GAP_TOP } from '../../pm-plugins/constants';
 import { ToolbarDropdownOption } from '../../types/types';
 import { isToolbarVisible } from '../toolbar';
 
@@ -47,18 +47,26 @@ function getTargetElement(editorView: EditorView, pos: number): HTMLElement | nu
 
 /**
  * Adjusts the vertical position of the paste menu to align with the top of the
- * pasted content using the exact coordinates at the paste start position.
+ * pasted content using the exact coordinates at the paste start position,
+ * and sticks the menu to the top of the scroll container when the pasted
+ * content scrolls above the visible area.
  *
- * The Popup's vertical placement may place the popup below the target element
- * (alignY="bottom"). This override computes the correct top position using
- * coordsAtPos for the paste start, then converts to the Popup's coordinate
- * system by calculating the delta from the target element's bottom (where the
- * Popup positions by default) to the paste start coordinates.
+ * The Popup uses alignY="bottom", which positions the popup below the target
+ * element's bottom edge. This override:
+ *
+ * 1. Shifts the popup from the target's bottom edge to align with the paste
+ *    start position.
+ * 2. When the paste start scrolls above the scroll container, clamps the menu
+ *    to the scroll container's top edge (sticky-top).
+ * 3. Stops sticking once the entire pasted range (pasteEndPos) has scrolled
+ *    above the visible area.
  */
 export function onPositionCalculated(
 	editorView: EditorView,
 	pasteStartPos: number,
+	pasteEndPos: number,
 	targetElement: HTMLElement,
+	scrollableElement?: HTMLElement | false,
 ): (position: { bottom?: number; left?: number; right?: number; top?: number }) => {
 	bottom?: number;
 	left?: number;
@@ -67,16 +75,28 @@ export function onPositionCalculated(
 } {
 	return (position: { bottom?: number; left?: number; right?: number; top?: number }) => {
 		const startCoords = editorView.coordsAtPos(pasteStartPos);
+		const endCoords = editorView.coordsAtPos(pasteEndPos);
 		const targetRect = targetElement.getBoundingClientRect();
 
 		// The Popup places the menu at the target's bottom edge by default.
-		// We need to shift it up so it aligns with the paste start position.
+		// We shift it up so it aligns with the paste start position.
 		// Both coordinates are in viewport space, so the delta is offset-parent agnostic.
 		const topDelta = startCoords.top - (targetRect.top + targetRect.height);
+		let adjustedTop = (position.top ?? 0) + topDelta;
+
+		// Sticky-top: clamp to the scroll container's top edge when the paste
+		// start has scrolled above the visible area, but only while some pasted
+		// content is still visible.
+		if (scrollableElement) {
+			const scrollContainerTop = scrollableElement.getBoundingClientRect().top;
+			if (startCoords.top < scrollContainerTop && endCoords.bottom > scrollContainerTop) {
+				adjustedTop += scrollContainerTop - startCoords.top + PASTE_MENU_GAP_TOP;
+			}
+		}
 
 		return {
 			...position,
-			top: (position.top ?? 0) + topDelta,
+			top: adjustedTop,
 		};
 	};
 }
@@ -125,19 +145,20 @@ export const PasteActionsMenu = ({
 		)(editorView.state, editorView.dispatch);
 	}, [lastContentPasted, editorView]);
 
-	const { showToolbar: isToolbarShown, pasteStartPos } = useSharedPluginStateWithSelector(
-		api,
-		['pasteOptionsToolbarPlugin'],
-		(states) => {
-			const pluginState = states.pasteOptionsToolbarPluginState as
-				| PasteOptionsToolbarSharedState
-				| undefined;
-			return {
-				showToolbar: pluginState?.showToolbar ?? false,
-				pasteStartPos: pluginState?.pasteStartPos ?? 0,
-			};
-		},
-	);
+	const {
+		showToolbar: isToolbarShown,
+		pasteStartPos,
+		pasteEndPos,
+	} = useSharedPluginStateWithSelector(api, ['pasteOptionsToolbarPlugin'], (states) => {
+		const pluginState = states.pasteOptionsToolbarPluginState as
+			| PasteOptionsToolbarSharedState
+			| undefined;
+		return {
+			showToolbar: pluginState?.showToolbar ?? false,
+			pasteStartPos: pluginState?.pasteStartPos ?? 0,
+			pasteEndPos: pluginState?.pasteEndPos ?? 0,
+		};
+	});
 
 	const aiSurfaceComponents = api?.uiControlRegistry?.actions.getComponents('ai-paste-menu') ?? [];
 	const visibleAiActionKeys = getVisibleKeys(aiSurfaceComponents, ['button', 'menu-item']);
@@ -191,6 +212,15 @@ export const PasteActionsMenu = ({
 		[handleDismiss],
 	);
 
+	// Find the actual scroll container using the same utility the Popup's
+	// stick prop uses internally. We pass this as the scrollableElement prop
+	// so the Popup attaches its built-in scroll listener, which calls
+	// scheduledUpdatePosition (RAF-throttled) on each scroll event — triggering
+	// onPositionCalculated with fresh viewport coordinates.
+	const targetForScroll = isToolbarShown ? getTargetElement(editorView, pasteStartPos) : null;
+	const overflowScrollParent = targetForScroll ? findOverflowScrollParent(targetForScroll) : false;
+	const effectiveScrollableElement = overflowScrollParent || scrollableElement;
+
 	const pasteMenuComponents = api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
 
 	const anyComponentVisible = hasVisibleButton(pasteMenuComponents);
@@ -213,12 +243,19 @@ export const PasteActionsMenu = ({
 			target={target}
 			mountTo={mountTo}
 			boundariesElement={boundariesElement}
-			scrollableElement={scrollableElement}
+			scrollableElement={effectiveScrollableElement}
+			minPopupMargin={PASTE_MENU_GAP_HORIZONTAL}
 			zIndex={akEditorFloatingPanelZIndex}
 			alignX="end"
 			alignY="bottom"
-			offset={[PASTE_MENU_GAP, 0]}
-			onPositionCalculated={onPositionCalculated(editorView, pasteStartPos, target)}
+			offset={[PASTE_MENU_GAP_HORIZONTAL, 0]}
+			onPositionCalculated={onPositionCalculated(
+				editorView,
+				pasteStartPos,
+				pasteEndPos,
+				target,
+				effectiveScrollableElement,
+			)}
 			handleClickOutside={handleClickOutside}
 			handleEscapeKeydown={handleDismiss}
 		>

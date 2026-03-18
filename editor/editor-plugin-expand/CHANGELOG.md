@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-expand
 
+## 9.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.0
+
+### Minor Changes
+
+- [`0efca55740b36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0efca55740b36) -
+  [FFCLEANUP-71458] clean up experiment platform_editor_toggle_expand_on_match_found
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.4
 
 ### Patch Changes

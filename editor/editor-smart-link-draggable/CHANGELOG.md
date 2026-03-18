@@ -1,5 +1,22 @@
 # @atlaskit/editor-smart-link-draggable
 
+## 0.1.4
+
+### Patch Changes
+
+- [`3d428e4d1167c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d428e4d1167c) -
+  [ux] All inline smart card branches are wrapped with draggable (from pragmatic-drag-and-drop). The
+  draggable logic has been improved to have better native support.
+- Updated dependencies
+
+## 0.1.3
+
+### Patch Changes
+
+- [`c7f3222502ba2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7f3222502ba2) -
+  [ux] Fix inline cards rendering without titles by replacing Box wrapper with a plain <span> to
+  avoid CSS insertion-order conflicts.
+
 ## 0.1.2
 
 ### Patch Changes

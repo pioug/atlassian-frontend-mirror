@@ -29,6 +29,10 @@
 		"outDir": "../../../tsDist/@atlaskit__popper/app",
 		"isolatedDeclarations": true
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../structured-docs-types/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

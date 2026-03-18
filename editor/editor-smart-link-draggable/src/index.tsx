@@ -3,8 +3,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type PropsWithChildren, useEffect, useRef, useState } from 'react';
+import React, { type PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
 
+import { bind } from 'bind-event-listener';
 import { css } from '@compiled/react';
 import ReactDOM from 'react-dom';
 
@@ -91,10 +92,6 @@ const styles = cssMap({
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
 	},
-	draggableInline: {
-		cursor: 'grab',
-		display: 'inline',
-	},
 	draggableBlock: {
 		cursor: 'grab',
 	},
@@ -104,6 +101,11 @@ const previewIconStyles = css({
 	width: token('space.200'),
 	height: token('space.200'),
 	flexShrink: 0,
+});
+
+const draggableInlineStyles = css({
+	cursor: 'grab',
+	display: 'inline',
 });
 
 function SmartLinkDragPreview({
@@ -169,30 +171,28 @@ function SmartLinkDraggableInner({
 	const { store } = useSmartLinkContext();
 	const [state, setState] = useState<DraggableState>(idleState);
 
-	useEffect(() => {
-		const el = ref.current;
-		if (!el) {
-			return;
-		}
+	const cleanupDraggableRef = useRef<(() => void) | null>(null);
 
-		return draggable({
-			element: el,
+	const getDraggableConfig = useCallback(
+		(element: HTMLElement) => ({
+			element,
 			getInitialData: () => {
 				const cardState = store.getState()[url];
 				const details = cardState?.details;
-
 				const title = propTitle || extractSmartLinkTitle(details);
 				const iconUrl = getIconUrl(details);
 
-				return {
-					type: source,
-					url,
-					title,
-					iconUrl,
-					appearance,
-				};
+				return { type: source, url, title, iconUrl, appearance };
 			},
-			onGenerateDragPreview: ({ nativeSetDragImage }) => {
+			getInitialDataForExternal: () => ({
+				'text/uri-list': url,
+				'text/plain': url,
+			}),
+			onGenerateDragPreview: ({
+				nativeSetDragImage,
+			}: {
+				nativeSetDragImage: DataTransfer['setDragImage'] | null;
+			}) => {
 				const cardState = store.getState()[url];
 				const details = cardState?.details;
 				const title = propTitle || extractSmartLinkTitle(details);
@@ -209,8 +209,47 @@ function SmartLinkDraggableInner({
 			},
 			onDragStart: () => setState(draggingState),
 			onDrop: () => setState(idleState),
+		}),
+		[url, propTitle, appearance, source, store],
+	);
+
+	// On pointerdown, determine the drag element and register it with Pragmatic DnD.
+	// For block/embed: disables native drag on nested anchors, registers the wrapper.
+	// For inline: registers the anchor itself since an inline <span> can't be a drag source.
+	// Uses pointerdown because the anchor may not exist at mount time (smart card resolves asynchronously).
+	useEffect(() => {
+		const el = ref.current;
+		if (!el) {
+			return;
+		}
+
+		const unbind = bind(el, {
+			type: 'pointerdown',
+			listener: () => {
+				if (appearance === SMART_LINK_APPEARANCE.INLINE) {
+					const anchor = el.querySelector('a[href]') as HTMLElement | null;
+					if (!anchor || cleanupDraggableRef.current) {
+						return;
+					}
+					cleanupDraggableRef.current = draggable(getDraggableConfig(anchor));
+				} else if (!cleanupDraggableRef.current) {
+					el.querySelectorAll('a[href]').forEach((anchor) => {
+						anchor.setAttribute('draggable', 'false');
+					});
+					cleanupDraggableRef.current = draggable(getDraggableConfig(el));
+				}
+			},
 		});
-	}, [url, propTitle, appearance, source, store]);
+
+		return () => {
+			unbind();
+			cleanupDraggableRef.current?.();
+			cleanupDraggableRef.current = null;
+			el.querySelectorAll('a[href]').forEach((anchor) => {
+				anchor.removeAttribute('draggable');
+			});
+		};
+	}, [appearance, getDraggableConfig]);
 
 	const preview =
 		state.type === 'preview'
@@ -224,9 +263,9 @@ function SmartLinkDraggableInner({
 	if (appearance === SMART_LINK_APPEARANCE.INLINE) {
 		return (
 			<>
-				<Box as="span" ref={ref} xcss={styles.draggableInline}>
+				<span ref={ref} css={draggableInlineStyles}>
 					{children}
-				</Box>
+				</span>
 				{preview}
 			</>
 		);
@@ -243,6 +282,19 @@ function SmartLinkDraggableInner({
 }
 
 /**
+ * Validates that a URL uses a safe protocol (http or https).
+ * Rejects dangerous protocols like javascript:, data:, vbscript:, etc.
+ */
+function isSafeUrl(url: string): boolean {
+	try {
+		const parsed = new URL(url);
+		return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+	} catch {
+		return false;
+	}
+}
+
+/**
  * Wraps a smart link card to make it draggable into the content tree.
  * Extracts the resolved title and icon from the smart link data store at drag start time.
  * Falls back to rendering children directly when the feature flag is off or url is missing.
@@ -254,7 +306,7 @@ export function SmartLinkDraggable({
 	source,
 	children,
 }: PropsWithChildren<SmartLinkDraggableProps>): JSX.Element {
-	if (!url || !fg('cc_drag_and_drop_smart_link_from_content_to_tree')) {
+	if (!url || !isSafeUrl(url) || !fg('cc_drag_and_drop_smart_link_from_content_to_tree')) {
 		return <>{children}</>;
 	}
 

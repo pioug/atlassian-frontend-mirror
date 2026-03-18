@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/avatar-group",
-	"version": "12.4.11",
+	"version": "12.4.12",
 	"description": "An avatar group displays a number of avatars grouped together in a stack or grid.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -54,6 +54,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"lodash": "root:*",
@@ -98,6 +99,9 @@
 	"homepage": "https://atlassian.design/components/avatar-group/",
 	"platform-feature-flags": {
 		"platform-avatar-group-spacing-fix": {
+			"type": "boolean"
+		},
+		"jira-ai-agent-stack": {
 			"type": "boolean"
 		}
 	}

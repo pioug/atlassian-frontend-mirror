@@ -124,13 +124,7 @@ export const iconObjectMapping: Record<
 	},
 };
 
-export const getIconObjectJSX = (
-	name: string,
-	icon: string,
-	appearance: string,
-	size: '16' | '24',
-	packageName: string,
-) => {
+export const getIconObjectJSX = (name: string, size: '16' | '24') => {
 	// convert name to PascalCase from kebab-case
 	const componentName = `${name
 		.split('-')
@@ -145,11 +139,8 @@ export const getIconObjectJSX = (
 
 	return `import React from 'react';
 
-import { IconTile } from '@atlaskit/icon';
-import NewIcon from '@atlaskit/${packageName}/core/${icon}';
 import type { GlyphProps } from '@atlaskit/icon/types';
-import NewObjectComponent from '${newComponentPath}';
-import { fg } from '@atlaskit/platform-feature-flags';
+import ObjectComponent from '${newComponentPath}';
 
 /**
  * __${size}px \`${name}\` icon object__
@@ -165,25 +156,12 @@ const ${componentName}: {
 	label,
 	testId,
 }) => {
-	// Feature flag to migrate to new object package
-	if (fg('platform_dst_icon_object_to_object') || fg('platform_dst_icon_object_to_object_stage2')) {
-		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
-		return ${
-			size === '16'
-				? '<NewObjectComponent label={label} testId={testId} size="medium" />'
-				: '<NewObjectComponent label={label} testId={testId} size="small" />'
-		}
+	// Map props based on size: 16px -> object (medium), 24px -> tile (small)
+	return ${
+		size === '16'
+			? '<ObjectComponent label={label} testId={testId} size="medium" />'
+			: '<ObjectComponent label={label} testId={testId} size="small" />'
 	}
-
-	return (
-		<IconTile
-			icon={NewIcon}
-			appearance="${appearance}"
-			size="${size}"
-			label={label}
-			testId={testId}
-		/>
-	);
 };
 
 ${componentName}.displayName = '${componentName}';

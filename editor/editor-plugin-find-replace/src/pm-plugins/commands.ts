@@ -4,7 +4,6 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { Match } from '../types';
 
@@ -127,16 +126,7 @@ export const find = (
 						? findClosestMatch(selection.from, matches)
 						: findSearchIndex(selection.from, matches);
 					const newSelection = getSelectionForMatch(tr.selection, tr.doc, index, matches);
-					if (
-						expValEqualsNoExposure(
-							'platform_editor_toggle_expand_on_match_found',
-							'isEnabled',
-							true,
-						)
-					) {
-						// the exposure is fired inside toggleExpandWithMatch when user is exposed to the experiment
-						api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
-					}
+					api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
 					return tr.setSelection(newSelection);
 				}
 				return tr;
@@ -159,12 +149,7 @@ export const findNext = (editorView: EditorView): Command =>
 					searchIndex = nextIndex(searchIndex, matches.length);
 				}
 				const newSelection = getSelectionForMatch(tr.selection, tr.doc, searchIndex, matches);
-				if (
-					expValEqualsNoExposure('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)
-				) {
-					// the exposure is fired inside toggleExpandWithMatch when user is exposed to the experiment
-					api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
-				}
+				api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
 				return tr.setSelection(newSelection);
 			},
 		),
@@ -181,12 +166,7 @@ export const findPrevious = (editorView: EditorView): Command =>
 				// from the current cursor position)
 				const searchIndex = findSearchIndex(state.selection.from, matches, true);
 				const newSelection = getSelectionForMatch(tr.selection, tr.doc, searchIndex, matches);
-				if (
-					expValEqualsNoExposure('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)
-				) {
-					// the exposure is fired inside toggleExpandWithMatch when user is exposed to the experiment
-					api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
-				}
+				api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
 				return tr.setSelection(newSelection);
 			},
 		),

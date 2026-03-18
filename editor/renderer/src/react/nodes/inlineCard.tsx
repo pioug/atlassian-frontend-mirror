@@ -258,41 +258,53 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 			fg('editor_inline_comments_on_inline_nodes')
 		) {
 			return (
-				<span
-					data-inline-card
-					data-card-data={data ? JSON.stringify(data) : undefined}
-					data-card-url={url}
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...inlineAnnotationProps}
+				<SmartLinkDraggable
+					url={url}
+					appearance={SMART_LINK_APPEARANCE.INLINE}
+					source={SMART_LINK_DRAG_TYPES.RENDERER}
 				>
-					<AnalyticsContext data={analyticsData}>
-						{wrapWithSuspense(
-							<CardSSR
-								appearance="inline"
-								url={url}
-								showHoverPreview={!hideHoverPreview}
-								actionOptions={actionOptions}
-								onClick={onClick}
-							/>,
-						)}
-					</AnalyticsContext>
-				</span>
+					<span
+						data-inline-card
+						data-card-data={data ? JSON.stringify(data) : undefined}
+						data-card-url={url}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...inlineAnnotationProps}
+					>
+						<AnalyticsContext data={analyticsData}>
+							{wrapWithSuspense(
+								<CardSSR
+									appearance="inline"
+									url={url}
+									showHoverPreview={!hideHoverPreview}
+									actionOptions={actionOptions}
+									onClick={onClick}
+								/>,
+							)}
+						</AnalyticsContext>
+					</span>
+				</SmartLinkDraggable>
 			);
 		}
 		return (
-			<AnalyticsContext data={analyticsData}>
-				{wrapWithSuspense(
-					<CardSSR
-						appearance="inline"
-						url={url}
-						showHoverPreview={!hideHoverPreview}
-						actionOptions={actionOptions}
-						onClick={onClick}
-					/>,
-				)}
-				{CompetitorPromptComponent}
-			</AnalyticsContext>
+			<SmartLinkDraggable
+				url={url}
+				appearance={SMART_LINK_APPEARANCE.INLINE}
+				source={SMART_LINK_DRAG_TYPES.RENDERER}
+			>
+				<AnalyticsContext data={analyticsData}>
+					{wrapWithSuspense(
+						<CardSSR
+							appearance="inline"
+							url={url}
+							showHoverPreview={!hideHoverPreview}
+							actionOptions={actionOptions}
+							onClick={onClick}
+						/>,
+					)}
+					{CompetitorPromptComponent}
+				</AnalyticsContext>
+			</SmartLinkDraggable>
 		);
 	} else if (
 		(ssr ||
@@ -305,83 +317,95 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 			fg('editor_inline_comments_on_inline_nodes')
 		) {
 			return (
-				<span
-					data-inline-card
-					data-card-data={data ? JSON.stringify(data) : undefined}
-					data-card-url={url}
-					data-renderer-mark={inlineAnnotationProps['data-renderer-mark']}
-					data-annotation-draft-mark={inlineAnnotationProps['data-annotation-draft-mark']}
-					data-annotation-inline-node={inlineAnnotationProps['data-annotation-inline-node']}
-					data-renderer-start-pos={inlineAnnotationProps['data-renderer-start-pos']}
-					data-annotation-mark={inlineAnnotationProps['data-annotation-mark']}
+				<SmartLinkDraggable
+					url={url}
+					appearance={SMART_LINK_APPEARANCE.INLINE}
+					source={SMART_LINK_DRAG_TYPES.RENDERER}
 				>
-					<AnalyticsContext data={analyticsData}>
-						<MaybeOverlay
-							url={url || ''}
-							rendererAppearance={rendererAppearance}
-							isResolvedViewRendered={isResolvedViewRendered}
-							fireAnalyticsEvent={fireAnalyticsEvent}
-						>
-							{wrapWithSuspense(
-								<CardSSR
-									appearance="inline"
-									url={url}
-									showHoverPreview={!hideHoverPreview}
-									actionOptions={actionOptions}
-									onClick={onClick}
-									onResolve={(data) => {
-										if (!data.url || !data.title) {
-											return;
-										}
+					<span
+						data-inline-card
+						data-card-data={data ? JSON.stringify(data) : undefined}
+						data-card-url={url}
+						data-renderer-mark={inlineAnnotationProps['data-renderer-mark']}
+						data-annotation-draft-mark={inlineAnnotationProps['data-annotation-draft-mark']}
+						data-annotation-inline-node={inlineAnnotationProps['data-annotation-inline-node']}
+						data-renderer-start-pos={inlineAnnotationProps['data-renderer-start-pos']}
+						data-annotation-mark={inlineAnnotationProps['data-annotation-mark']}
+					>
+						<AnalyticsContext data={analyticsData}>
+							<MaybeOverlay
+								url={url || ''}
+								rendererAppearance={rendererAppearance}
+								isResolvedViewRendered={isResolvedViewRendered}
+								fireAnalyticsEvent={fireAnalyticsEvent}
+							>
+								{wrapWithSuspense(
+									<CardSSR
+										appearance="inline"
+										url={url}
+										showHoverPreview={!hideHoverPreview}
+										actionOptions={actionOptions}
+										onClick={onClick}
+										onResolve={(data) => {
+											if (!data.url || !data.title) {
+												return;
+											}
 
-										props.smartCardStorage.set(data.url, data.title);
+											props.smartCardStorage.set(data.url, data.title);
 
-										if (data.title) {
-											setIsResolvedViewRendered(true);
-										}
-									}}
-									onError={onError}
-									disablePreviewPanel={true}
-								/>,
-							)}
-						</MaybeOverlay>
-					</AnalyticsContext>
-				</span>
+											if (data.title) {
+												setIsResolvedViewRendered(true);
+											}
+										}}
+										onError={onError}
+										disablePreviewPanel={true}
+									/>,
+								)}
+							</MaybeOverlay>
+						</AnalyticsContext>
+					</span>
+				</SmartLinkDraggable>
 			);
 		}
 		return (
-			<AnalyticsContext data={analyticsData}>
-				<MaybeOverlay
-					url={url || ''}
-					rendererAppearance={rendererAppearance}
-					isResolvedViewRendered={isResolvedViewRendered}
-					fireAnalyticsEvent={fireAnalyticsEvent}
-				>
-					{wrapWithSuspense(
-						<CardSSR
-							appearance="inline"
-							url={url}
-							showHoverPreview={!hideHoverPreview}
-							actionOptions={actionOptions}
-							onClick={onClick}
-							onResolve={(data) => {
-								if (!data.url || !data.title) {
-									return;
-								}
+			<SmartLinkDraggable
+				url={url}
+				appearance={SMART_LINK_APPEARANCE.INLINE}
+				source={SMART_LINK_DRAG_TYPES.RENDERER}
+			>
+				<AnalyticsContext data={analyticsData}>
+					<MaybeOverlay
+						url={url || ''}
+						rendererAppearance={rendererAppearance}
+						isResolvedViewRendered={isResolvedViewRendered}
+						fireAnalyticsEvent={fireAnalyticsEvent}
+					>
+						{wrapWithSuspense(
+							<CardSSR
+								appearance="inline"
+								url={url}
+								showHoverPreview={!hideHoverPreview}
+								actionOptions={actionOptions}
+								onClick={onClick}
+								onResolve={(data) => {
+									if (!data.url || !data.title) {
+										return;
+									}
 
-								props.smartCardStorage.set(data.url, data.title);
+									props.smartCardStorage.set(data.url, data.title);
 
-								if (data.title) {
-									setIsResolvedViewRendered(true);
-								}
-							}}
-							onError={onError}
-							disablePreviewPanel={true}
-						/>,
-					)}
-				</MaybeOverlay>
-				{CompetitorPromptComponent}
-			</AnalyticsContext>
+									if (data.title) {
+										setIsResolvedViewRendered(true);
+									}
+								}}
+								onError={onError}
+								disablePreviewPanel={true}
+							/>,
+						)}
+					</MaybeOverlay>
+					{CompetitorPromptComponent}
+				</AnalyticsContext>
+			</SmartLinkDraggable>
 		);
 	}
 

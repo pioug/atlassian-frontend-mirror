@@ -53,6 +53,9 @@
 		},
 		{
 			"path": "../tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../structured-docs-types/tsconfig.app.json"
 		}
 	],
 	"files": []

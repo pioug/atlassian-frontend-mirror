@@ -85,6 +85,7 @@
 		"@atlaskit/tag-group": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*"
 	},

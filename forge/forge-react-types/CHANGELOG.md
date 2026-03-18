@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.65.0
+
+### Minor Changes
+
+- [`88558df4c7482`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88558df4c7482) -
+  Exported FlyOutMenuItem
+
 ## 0.64.0
 
 ### Minor Changes

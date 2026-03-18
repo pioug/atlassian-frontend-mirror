@@ -96,17 +96,31 @@ export class MediaStore implements MediaApi {
 
 	async getClientId(collectionName?: string): Promise<string | undefined> {
 		const auth = await this.resolveAuth({ collectionName });
-		if (!isClientBasedAuth(auth)) {
-			// decode JWT token and get clientId from payload
-			try {
-				const jwtPayload = decodeJwtToken(auth.token);
-				return jwtPayload.clientId;
-			} catch {
-				// leave clientId as undefined
-			}
-		}
+		return MediaStore.extractClientIdFromAuth(auth);
+	}
 
-		return isClientBasedAuth(auth) ? auth.clientId : undefined;
+	getClientIdSync(): string | undefined {
+		try {
+			const auth = this.resolveInitialAuth();
+			return MediaStore.extractClientIdFromAuth(auth);
+		} catch {
+			// initialAuth may not be available, return undefined
+			return undefined;
+		}
+	}
+
+	private static extractClientIdFromAuth(auth: Auth): string | undefined {
+		if (isClientBasedAuth(auth)) {
+			return auth.clientId;
+		}
+		// decode JWT token and get clientId (or iss) from payload
+		try {
+			const jwtPayload = decodeJwtToken(auth.token);
+			return jwtPayload.clientId;
+		} catch {
+			// leave clientId as undefined
+		}
+		return undefined;
 	}
 
 	async removeCollectionFile(

@@ -15,10 +15,15 @@ import {
 } from './colorSchemes/standard';
 import {
 	traditionalDecorationMarkerVariable,
+	traditionalDecorationMarkerVariableActive,
 	traditionalStyleQuoteNode,
+	traditionalStyleQuoteNodeActive,
 	traditionalStyleRuleNode,
+	traditionalStyleRuleNodeActive,
 	traditionalStyleCardBlockNode,
+	traditionalStyleCardBlockNodeActive,
 	traditionalStyleNode,
+	traditionalStyleNodeActive,
 	deletedTraditionalContentStyle,
 	deletedTraditionalStyleQuoteNode,
 } from './colorSchemes/traditional';
@@ -36,8 +41,10 @@ const getBlockNodeStyle = ({
 	nodeName,
 	colorScheme,
 	isInserted = true,
+	isActive = false,
 }: {
 	colorScheme?: ColorScheme;
+	isActive?: boolean;
 	isInserted?: boolean;
 	nodeName: string;
 }) => {
@@ -67,76 +74,101 @@ const getBlockNodeStyle = ({
 	if (['extension', 'embedCard', 'listItem'].includes(nodeName)) {
 		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 			if (isInserted) {
-				return isTraditional
-					? traditionalDecorationMarkerVariable
-					: standardDecorationMarkerVariable;
+				return isTraditional && isActive
+					? traditionalDecorationMarkerVariableActive
+					: isTraditional
+						? traditionalDecorationMarkerVariable
+						: standardDecorationMarkerVariable;
 			} else {
 				return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
 			}
 		}
-		return isTraditional ? traditionalDecorationMarkerVariable : standardDecorationMarkerVariable;
+		return isTraditional && isActive
+			? traditionalDecorationMarkerVariableActive
+			: isTraditional
+				? traditionalDecorationMarkerVariable
+				: standardDecorationMarkerVariable;
 	}
 	if (nodeName === 'blockquote') {
 		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 			if (isInserted) {
-				return isTraditional ? traditionalStyleQuoteNode : editingStyleQuoteNode;
+				return isTraditional
+					? (isActive ? traditionalStyleQuoteNodeActive : traditionalStyleQuoteNode)
+					: editingStyleQuoteNode;
 			} else {
 				return isTraditional ? deletedTraditionalStyleQuoteNode : deletedStyleQuoteNode;
 			}
 		}
-		return isTraditional ? traditionalStyleQuoteNode : editingStyleQuoteNode;
+		return isTraditional
+			? (isActive ? traditionalStyleQuoteNodeActive : traditionalStyleQuoteNode)
+			: editingStyleQuoteNode;
 	}
 	if (nodeName === 'rule') {
 		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 			if (isInserted) {
-				return isTraditional ? traditionalStyleRuleNode : editingStyleRuleNode;
+				return isTraditional
+					? (isActive ? traditionalStyleRuleNodeActive : traditionalStyleRuleNode)
+					: editingStyleRuleNode;
 			} else {
 				return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
 			}
 		}
-		return isTraditional ? traditionalStyleRuleNode : editingStyleRuleNode;
+		return isTraditional
+			? (isActive ? traditionalStyleRuleNodeActive : traditionalStyleRuleNode)
+			: editingStyleRuleNode;
 	}
 	if (nodeName === 'blockCard') {
 		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 			if (isInserted) {
-				return isTraditional ? traditionalStyleCardBlockNode : editingStyleCardBlockNode;
+				return isTraditional
+					? (isActive ? traditionalStyleCardBlockNodeActive : traditionalStyleCardBlockNode)
+					: editingStyleCardBlockNode;
 			} else {
 				return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
 			}
 		}
-		return isTraditional ? traditionalStyleCardBlockNode : editingStyleCardBlockNode;
+		return isTraditional
+			? (isActive ? traditionalStyleCardBlockNodeActive : traditionalStyleCardBlockNode)
+			: editingStyleCardBlockNode;
 	}
 	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 		if (isInserted) {
-			return isTraditional ? traditionalStyleNode : editingStyleNode;
+			return isTraditional
+				? (isActive ? traditionalStyleNodeActive : traditionalStyleNode)
+				: editingStyleNode;
 		} else {
 			return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
 		}
 	}
-	return isTraditional ? traditionalStyleNode : editingStyleNode;
+	return isTraditional
+		? (isActive ? traditionalStyleNodeActive : traditionalStyleNode)
+		: editingStyleNode;
 };
 
 /**
- * Inline decoration used for insertions as the content already exists in the document
+ * Node decoration used for block-level insertions. When isActive, uses emphasised (pressed) styling.
  *
- * @param change Changeset "change" containing information about the change content + range
- * @returns Prosemirror inline decoration
+ * @param change Node range and name
+ * @param colorScheme Optional color scheme
+ * @param isActive Whether this node is part of the currently active/focused change
+ * @returns Prosemirror node decoration or undefined
  */
 export const createBlockChangedDecoration = ({
 	change,
 	colorScheme,
 	isInserted = true,
+	isActive = false,
 }: {
 	change: { from: number; name: string; to: number };
 	colorScheme?: ColorScheme;
-	isInserted: boolean;
+	isActive?: boolean;
+	isInserted?: boolean;
 }): Decoration | undefined => {
-	let style = getBlockNodeStyle({ nodeName: change.name, colorScheme });
+	let style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isActive });
 	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
-		style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isInserted });
+		style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isInserted, isActive });
 	}
 	const className = getNodeClass(change.name);
-
 	if (fg('platform_editor_show_diff_scroll_navigation')) {
 		if (style || className) {
 			return Decoration.node(
@@ -149,18 +181,18 @@ export const createBlockChangedDecoration = ({
 				},
 				{ key: 'diff-block' },
 			);
+		} else {
+			return undefined;
 		}
-		return undefined;
-	} else {
-		return Decoration.node(
-			change.from,
-			change.to,
-			{
-				style,
-				'data-testid': 'show-diff-changed-decoration-node',
-				class: className,
-			},
-			{ key: 'diff-block' },
-		);
 	}
+	return Decoration.node(
+		change.from,
+		change.to,
+		{
+			style,
+			'data-testid': 'show-diff-changed-decoration-node',
+			class: className,
+		},
+		{ key: 'diff-block' },
+	)
 };

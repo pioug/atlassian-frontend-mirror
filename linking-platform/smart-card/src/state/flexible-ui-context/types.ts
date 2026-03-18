@@ -348,6 +348,7 @@ export type AutomationActionData = {
 };
 
 export type RovoChatActionData = {
+	invokeAction: Omit<InvokeClientActionProps, 'actionFn' | 'prompt'>;
 	product?: ProductType;
 	url?: string;
 };

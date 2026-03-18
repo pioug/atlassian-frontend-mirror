@@ -1,5 +1,16 @@
 # @atlaskit/dropdown-menu
 
+## 16.7.0
+
+### Minor Changes
+
+- [`35e953efa932c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35e953efa932c) -
+  Clean up flag to improve accessibility of dropdown menu.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.6.1
 
 ### Patch Changes

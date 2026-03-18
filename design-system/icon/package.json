@@ -68,6 +68,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@babel/core": "root:*",
 		"@babel/register": "root:*",
 		"@codeshift/utils": "root:*",

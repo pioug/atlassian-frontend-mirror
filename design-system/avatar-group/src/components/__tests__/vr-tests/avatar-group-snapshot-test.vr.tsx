@@ -8,6 +8,9 @@ import AvatarGroupSizeExample from '../../../../examples/vr-avatar-group-sizes';
 import VRStackingContextExample from '../../../../examples/vr-stacking-context';
 
 snapshot(BasicAvatarGroup, {
+	featureFlags: {
+		platform_dst_hexagon_avatar_unified_size: [true, false],
+	},
 	states: [
 		{
 			state: 'focused',

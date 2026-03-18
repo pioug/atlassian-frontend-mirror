@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import {
-	addFileAttrsToUrl,
 	type FileIdentifier,
 	isImageRepresentationReady,
 	type MediaBlobUrlAttrs,
@@ -91,39 +90,6 @@ export const useFilePreview = ({
 }: UseFilePreviewParams) => {
 	const mediaClient = useMediaClient();
 	const [status, setStatus] = useState<MediaFilePreviewStatus>('loading');
-	const [clientId, setClientId] = useState<string | undefined>();
-
-	// Fetch clientId on mount for cross-client copy
-	useEffect(() => {
-		if (fg('platform_media_cross_client_copy_with_auth')) {
-			mediaClient
-				.getClientId(identifier.collectionName)
-				.then(setClientId)
-				.catch(() => {
-					// ClientId is optional, silently fail
-				});
-		}
-	}, [mediaClient, identifier.collectionName]);
-
-	// Merge clientId into mediaBlobUrlAttrs for embedding in blob URLs
-	// If mediaBlobUrlAttrs is not provided, construct minimal attrs from identifier
-	const mediaBlobUrlAttrsWithClientId = useMemo(() => {
-		if (!fg('platform_media_cross_client_copy_with_auth') || !clientId) {
-			return mediaBlobUrlAttrs;
-		}
-
-		if (mediaBlobUrlAttrs) {
-			return { ...mediaBlobUrlAttrs, clientId };
-		}
-
-		// Construct minimal attrs when none provided (e.g., MediaImage)
-		return {
-			id: identifier.id,
-			clientId,
-			contextId: identifier.collectionName || '',
-			collection: identifier.collectionName,
-		};
-	}, [mediaBlobUrlAttrs, clientId, identifier.id, identifier.collectionName]);
 
 	const [error, setError] = useState<MediaFilePreviewError | undefined>();
 	const [nonCriticalError, setNonCriticalError] = useState<MediaFilePreviewError | undefined>();
@@ -192,7 +158,7 @@ export const useFilePreview = ({
 							mediaClient,
 							identifier.id,
 							imageURLParams,
-							mediaBlobUrlAttrsWithClientId,
+							mediaBlobUrlAttrs,
 						);
 					} catch (e: any) {
 						ssrReliabilityRef.current = {
@@ -287,30 +253,6 @@ export const useFilePreview = ({
 	}, [preview, identifier, resizeMode]);
 
 	//----------------------------------------------------------------
-	// Update preview with clientId when it becomes available
-	//----------------------------------------------------------------
-	const previewUpdatedWithClientIdRef = useRef<string | null>(null);
-
-	useEffect(() => {
-		// Only update if we have a preview, clientId is available, URL doesn't already have clientId, and feature flag is enabled.
-		// Also skip if we've already updated this preview (prevents re-render loops)
-		if (
-			preview &&
-			clientId &&
-			mediaBlobUrlAttrsWithClientId &&
-			!preview.dataURI.includes('clientId=') &&
-			previewUpdatedWithClientIdRef.current !== identifier.id &&
-			fg('platform_media_cross_client_copy_with_auth')
-		) {
-			// Mark this preview as updated
-			previewUpdatedWithClientIdRef.current = identifier.id;
-			const baseUrl = preview.dataURI.split('#')[0]; // Remove any existing hash
-			const updatedDataURI = addFileAttrsToUrl(baseUrl, mediaBlobUrlAttrsWithClientId);
-			setPreview({ ...preview, dataURI: updatedDataURI });
-		}
-	}, [clientId, mediaBlobUrlAttrsWithClientId, preview, identifier.id]);
-
-	//----------------------------------------------------------------
 	// Preview Fetch Helper
 	//----------------------------------------------------------------
 	const getAndCacheRemotePreviewRef = useCurrentValueRef(() => {
@@ -319,7 +261,7 @@ export const useFilePreview = ({
 			identifier.id,
 			requestDimensions || {},
 			imageURLParams,
-			mediaBlobUrlAttrsWithClientId,
+			mediaBlobUrlAttrs,
 			traceContext,
 		);
 	});
@@ -367,7 +309,7 @@ export const useFilePreview = ({
 	// Cache, Local & Remote Preview
 	//----------------------------------------------------------------
 
-	const mediaBlobUrlAttrsRef = useCurrentValueRef(mediaBlobUrlAttrsWithClientId);
+	const mediaBlobUrlAttrsRef = useCurrentValueRef(mediaBlobUrlAttrs);
 	useEffect(() => {
 		const cachedPreview = mediaFilePreviewCache.get(identifier.id, resizeMode);
 
@@ -388,11 +330,13 @@ export const useFilePreview = ({
 			// Then, local Preview NOT available
 			setIsLoading(true);
 			getAndCacheLocalPreview(
+				mediaClient,
 				identifier.id,
 				localBinary,
 				requestDimensions || {},
 				resizeMode,
 				mediaBlobUrlAttrsRef.current,
+				identifier.collectionName,
 			)
 				.then(setPreview)
 				.catch((e) => {
@@ -449,9 +393,11 @@ export const useFilePreview = ({
 		nonCriticalError,
 		getAndCacheRemotePreviewRef,
 		identifier.id,
+		identifier.collectionName,
 		resizeMode,
 		isBannedLocalPreview,
 		mediaBlobUrlAttrsRef,
+		mediaClient,
 		preview,
 		requestDimensions,
 		skipRemote,
@@ -601,6 +547,5 @@ export const useFilePreview = ({
 		onImageLoad,
 		getSsrScriptProps,
 		copyNodeRef,
-		clientId,
 	};
 };

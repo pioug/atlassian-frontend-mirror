@@ -951,7 +951,7 @@ export const media = {
     marks: {
       type: 'array',
       optional: true,
-      items: [['link', 'annotation', 'border']],
+      items: [['dataConsumer', 'link', 'annotation', 'border']],
     },
   },
   required: ['attrs'],
@@ -993,7 +993,7 @@ export const mediaInline = {
     marks: {
       type: 'array',
       optional: true,
-      items: [['link', 'annotation', 'border']],
+      items: [['dataConsumer', 'link', 'annotation', 'border']],
     },
   },
 };

@@ -48,18 +48,13 @@ import type {
 	ContextIdentifierProvider,
 	ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import type { OptionalPlugin, PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
 import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
 import {
 	analyticsEventKey,
 	getAnalyticsEventSeverity,
 } from '@atlaskit/editor-common/utils/analytics';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils/document';
-import type { CardPlugin } from '@atlaskit/editor-plugins/card';
-import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
-import { type CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
-import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
-import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -70,7 +65,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { getInteractionId } from '@atlaskit/react-ufo/interaction-id-context';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { useProviders } from '../composable-editor/hooks/useProviders';
 import type { EditorConfig, EditorProps } from '../types';
@@ -151,14 +145,6 @@ interface CreateEditorStateOptions {
 	selectionAtStart?: boolean;
 }
 
-type ReactEditorViewPlugins = [
-	OptionalPlugin<ContextIdentifierPlugin>,
-	OptionalPlugin<MediaPlugin>,
-	OptionalPlugin<CardPlugin>,
-	OptionalPlugin<EmojiPlugin>,
-	OptionalPlugin<CustomAutoformatPlugin>,
-];
-
 export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	// Should be always the first statement in the component
 	const firstRenderStartTimestampRef = useRef(performance.now());
@@ -179,9 +165,6 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		onEditorDestroyed,
 	} = props;
 
-	const [editorAPI, setEditorAPI] = useState<PublicPluginAPI<ReactEditorViewPlugins> | undefined>(
-		undefined,
-	);
 	const ssrEditorStateRef = useRef<EditorState | undefined>(undefined);
 	const editorRef = useRef<HTMLDivElement | null>(null);
 	const viewRef = useRef<EditorView | undefined>();
@@ -305,9 +288,6 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				);
 
 				schema = createSchema(config.current);
-				if (!expVal('platform_editor_no_state_plugin_injection_api', 'isEnabled', false)) {
-					setEditorAPI(pluginInjectionAPI.current.api());
-				}
 			}
 
 			const { contentTransformerProvider } = options.props.editorProps;
@@ -600,9 +580,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 	// Temporary to replace provider factory while migration to `ComposableEditor` occurs
 	useProviders({
-		editorApi: expVal('platform_editor_no_state_plugin_injection_api', 'isEnabled', false)
-			? pluginInjectionAPI.current.api()
-			: editorAPI,
+		editorApi: pluginInjectionAPI.current.api(),
 		contextIdentifierProvider: props.editorProps.contextIdentifierProvider,
 		mediaProvider: (props.editorProps as EditorProps).media?.provider,
 		mentionProvider: props.editorProps.mentionProvider,
@@ -1259,9 +1237,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 							transformer: contentTransformer.current,
 							dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 							editorRef: editorRef,
-							editorAPI: expVal('platform_editor_no_state_plugin_injection_api', 'isEnabled', false)
-								? pluginInjectionAPI.current.api()
-								: editorAPI,
+							editorAPI: pluginInjectionAPI.current.api(),
 						}) ?? editor)
 					: editor}
 			</ReactEditorViewContext.Provider>

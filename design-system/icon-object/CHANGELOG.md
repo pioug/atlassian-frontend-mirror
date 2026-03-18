@@ -1,5 +1,13 @@
 # @atlaskit/icon-object
 
+## 7.5.0
+
+### Minor Changes
+
+- [`382cbc1c25876`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/382cbc1c25876) -
+  [ux] Cleans up platform_dst_icon_object_to_object and platform_dst_icon_object_to_object_stage2
+  feature gates as they are fully rolled out now.
+
 ## 7.4.3
 
 ### Patch Changes

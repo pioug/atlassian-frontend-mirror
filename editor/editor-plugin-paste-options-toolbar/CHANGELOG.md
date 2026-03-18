@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.1.0
+
+### Minor Changes
+
+- [`496231f48cbde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/496231f48cbde) -
+  [ux] EDITOR-5907 Ensure experiment is only enabled for full page editor and AI actions only
+  visible if Editor AI streaming enabled
+
+## 9.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.6
+
+### Patch Changes
+
+- [`2b33e02e33a67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b33e02e33a67) -
+  [ux] [EDITOR-5880] paste menu position fix so it sticks on screen when pasting large content
+- Updated dependencies
+
 ## 9.0.5
 
 ### Patch Changes

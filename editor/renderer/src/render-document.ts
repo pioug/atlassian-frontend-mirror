@@ -17,6 +17,7 @@ import type { ADFStage } from '@atlaskit/editor-common/validator';
 import { getValidDocument } from '@atlaskit/editor-common/validator';
 import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import memoizeOne from 'memoize-one';
 import { PLATFORM, type AnalyticsEventPayload } from './analytics/events';
 import { trackUnsupportedContentLevels } from './analytics/unsupported-content';
@@ -140,17 +141,17 @@ const _validation = (
 		});
 	}
 
-	if (result && fg('platform_editor_native_embeds_fallback_transform')) {
-		const { transformedAdf, isTransformed } = nativeEmbedsFallbackTransform(result);
+	if (result && !expValEquals('cc-maui-experiment', 'isEnabled', true) && fg('platform_editor_native_embeds_fallback_transform')) {
+		const { transformedAdf, hasValidTransform } = nativeEmbedsFallbackTransform(result);
 
-		if (isTransformed) {
+		if (hasValidTransform && transformedAdf) {
 			dispatchAnalyticsEvent?.({
 				action: ACTION.NATIVE_EMBEDS_TRANSFORMED,
 				actionSubject: ACTION_SUBJECT.RENDERER,
 				eventType: EVENT_TYPE.OPERATIONAL,
 			});
 
-			result = transformedAdf || result;
+			result = transformedAdf;
 		}
 	}
 

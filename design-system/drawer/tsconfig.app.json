@@ -56,6 +56,9 @@
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../structured-docs-types/tsconfig.app.json"
 		}
 	]
 }

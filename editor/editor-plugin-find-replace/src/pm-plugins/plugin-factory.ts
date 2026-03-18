@@ -11,7 +11,6 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { FindReplacePluginState, Match } from '../types';
 
@@ -140,11 +139,8 @@ const handleDocChanged = (
 		decorationSet = decorationSet.add(tr.doc, createDecorations(0, [newSelectedMatch]));
 	}
 
-	if (expValEqualsNoExposure('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)) {
-		const newSelection = getSelectionForMatch(tr.selection, tr.doc, newIndex, newMatches);
-		// the exposure is fired inside toggleExpandWithMatch when user is exposed to the experiment
-		api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr: tr as unknown as Transaction });
-	}
+	const newSelection = getSelectionForMatch(tr.selection, tr.doc, newIndex, newMatches);
+	api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr: tr as unknown as Transaction });
 
 	return {
 		...pluginState,

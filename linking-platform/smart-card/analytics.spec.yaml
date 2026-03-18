@@ -202,6 +202,15 @@ events:
       description: fired when an ai summary is clicked
       attributes:
         <<: [*PackageMetaDataContext, *ResolvedContext]
+  - button clicked (rovoChatPrompt):
+      type: ui
+      description: Fired when sending prompt to RovoChat via click
+      attributes:
+        <<: [ *PackageMetaDataContext, *ResolvedContext, *ClientActionAttributes ]
+        prompt:
+          required: false
+          type: string
+          description: Key for RovoChat prompts
 
   - button clicked (copySummary):
       type: ui

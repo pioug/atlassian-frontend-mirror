@@ -29,6 +29,7 @@ const useInvokeClientAction = ({
 			extensionKey,
 			display,
 			id,
+			prompt,
 			resourceType = null,
 		}) => {
 			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -55,6 +56,7 @@ const useInvokeClientAction = ({
 						display: display ?? null,
 						id: id ?? experienceId,
 						resourceType,
+						prompt,
 					});
 				}
 				// Invoke action

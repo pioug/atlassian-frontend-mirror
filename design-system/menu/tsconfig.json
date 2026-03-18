@@ -13,7 +13,9 @@
     "**/stories.tsx",
     "**/stories/*.ts",
     "**/stories/*.tsx",
-    "**/stories/**/*.ts",
-    "**/stories/**/*.tsx"
-  ]
+	"**/stories/**/*.ts",
+	"**/stories/**/*.tsx",
+	"./menu.docs.tsx"
+  ],
+  "compilerOptions": {}
 }

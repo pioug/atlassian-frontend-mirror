@@ -63,6 +63,7 @@
 		"@atlassiansox/analytics-node-client": "root:*"
 	},
 	"devDependencies": {
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"ts-node": "root:*"
 	}
 }

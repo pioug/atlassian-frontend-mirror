@@ -48,6 +48,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"lodash": "root:*",
 		"react-dom": "root:*"

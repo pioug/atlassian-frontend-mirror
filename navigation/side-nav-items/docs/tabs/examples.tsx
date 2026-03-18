@@ -1,8 +1,12 @@
 import React from 'react';
 
 import { Example, md } from '@atlaskit/docs';
+import Image from '@atlaskit/image';
 import Link from '@atlaskit/link';
 import { Text } from '@atlaskit/primitives/compiled';
+
+import sideNavItemsExamplesDark from './images/sideNavItems-examples-dark.png';
+import sideNavItemsExamplesLight from './images/sideNavItems-examples-light.png';
 
 export const ExamplesTab: JSX.Element = md`
 These components are intended to be used within
@@ -94,7 +98,7 @@ An expandable menu item that is also a link location.
 
 - You are responsible for specifying when the expandable link menu item is selected. For example, by checking if the \`href\` matches the current URL.
 - In this variant, the [\`elemBefore\`](/packages/navigation/side-nav-items#elembefore) chevron is an icon button so the menu can be opened and closed without navigating to the link location.
-- If changing the default chevron icon to another icon, don\`t override the color prop (it should be set to \`currentColor\`)
+- If changing the default chevron icon to another icon, don't override the color prop (it should be set to \`currentColor\`)
 
 ${(
 	<Example
@@ -133,24 +137,30 @@ The flyout menu popup has 3 slot components that should be used for creating con
 - \`FlyoutBody\`. The middle part of the flyout menu popup. It acts as a scroll container. It will grow to take up the available space.
 - \`FlyoutFooter\` (optional). The bottom part of the flyout menu popup. Use to display a persistent 'view all' option.
 
-<!-- TODO: add image -->
+${(
+	<Image
+		src={sideNavItemsExamplesLight}
+		srcDark={sideNavItemsExamplesDark}
+		alt="Diagram of the flyout menu popup slots: FlyoutHeader, FlyoutBody, and FlyoutFooter."
+	/>
+)}
 
 #### Responsive flyout menu
 
-At [breakpoints](https://atlassian.design/foundations/grid-beta/#breakpoints) \`s\` and below (less than 1024px), the flyout
-menu content converts to a modal.
+At [breakpoints](https://atlassian.design/foundations/grid-beta/#breakpoints) \`xs\` and below (less than 768px), the flyout menu popup converts to a modal.
 
-The modal max height is 50% of the viewport height. The modal has a 4px margin.
+The modal height is determined by its content, and its width is based on the viewport. There is a 4px margin between the modal and the blanket (viewport edge).
 
 ${(
 	<Text>
 		To see an example of this, open the{' '}
 		<Link target="_blank" href="/examples/navigation/side-nav-items/flyout-menu-item">
-			flyout menu item example
+			interactive example
 		</Link>{' '}
 		and resize your browser.
 	</Text>
 )}
+
 ## Menu item customization
 
 ### elemBefore

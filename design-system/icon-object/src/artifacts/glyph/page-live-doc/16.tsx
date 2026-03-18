@@ -1,15 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fbc5772dc2d42359e805fe8fc938dc5f>>
+ * @codegen <<SignedSource::ec065638ab2526cdabfe54bb0c0e4221>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
 
-import { IconTile } from '@atlaskit/icon';
-import NewIcon from '@atlaskit/icon-lab/core/page-live-doc';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/page-live-doc';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * __16px `page-live-doc` icon object__
@@ -25,15 +22,8 @@ const PageLiveDoc16Icon: {
 	}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>): React.JSX.Element;
 	displayName: string;
 } = ({ label, testId }) => {
-	// Feature flag to migrate to new object package
-	if (fg('platform_dst_icon_object_to_object') || fg('platform_dst_icon_object_to_object_stage2')) {
-		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
-		return <NewObjectComponent label={label} testId={testId} size="medium" />;
-	}
-
-	return (
-		<IconTile icon={NewIcon} appearance="magentaBold" size="16" label={label} testId={testId} />
-	);
+	// Map props based on size: 16px -> object (medium), 24px -> tile (small)
+	return <NewObjectComponent label={label} testId={testId} size="medium" />;
 };
 
 PageLiveDoc16Icon.displayName = 'PageLiveDoc16Icon';

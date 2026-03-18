@@ -18,7 +18,6 @@ import {
 	ToolbarTooltip,
 	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import { type IconColor } from '@atlaskit/tokens/css-type-schema';
 
@@ -84,80 +83,41 @@ export const TextColorHighlightMenu = ({
 
 	const iconColor = getIconColor(textColor, defaultColor, highlightColor);
 
-	if (expValEquals('platform_editor_hide_toolbar_tooltips_fix', 'isEnabled', true)) {
-		return (
-			<ToolbarDropdownMenuProvider isOpen={isPaletteOpen} setIsOpen={setIsPaletteOpen}>
-				<ToolbarDropdownMenu
-					iconBefore={
-						<ToolbarColorSwatch highlightColor={getHighlightColorIcon(highlightColor)}>
-							<TextColorIcon
-								label={formatMessage(messages.textColorTooltip)}
-								iconColor={iconColor as IconColor}
-								shouldRecommendSmallIcon
-								size={'small'}
-								isDisabled={isDisabled}
-								spacing={'compact'}
-							/>
-						</ToolbarColorSwatch>
-					}
-					isDisabled={isDisabled}
-					testId="text-color-highlight-menu"
-					hasSectionMargin={false}
-					tooltipComponent={
-						<ToolbarTooltip
-							content={
-								<ToolTipContent
-									description={formatMessage(
-										isHighlightPluginExisted
-											? messages.textColorHighlightTooltip
-											: messages.textColorTooltip,
-									)}
-									keymap={toggleHighlightPalette}
-								/>
-							}
-						/>
-					}
-				>
-					{children}
-				</ToolbarDropdownMenu>
-			</ToolbarDropdownMenuProvider>
-		);
-	}
-
 	return (
-		<ToolbarTooltip
-			content={
-				<ToolTipContent
-					description={formatMessage(
-						isHighlightPluginExisted
-							? messages.textColorHighlightTooltip
-							: messages.textColorTooltip,
-					)}
-					keymap={toggleHighlightPalette}
-				/>
-			}
-		>
-			<ToolbarDropdownMenuProvider isOpen={isPaletteOpen} setIsOpen={setIsPaletteOpen}>
-				<ToolbarDropdownMenu
-					iconBefore={
-						<ToolbarColorSwatch highlightColor={getHighlightColorIcon(highlightColor)}>
-							<TextColorIcon
-								label={formatMessage(messages.textColorTooltip)}
-								iconColor={iconColor as IconColor}
-								shouldRecommendSmallIcon
-								size={'small'}
-								isDisabled={isDisabled}
-								spacing={'compact'}
+		<ToolbarDropdownMenuProvider isOpen={isPaletteOpen} setIsOpen={setIsPaletteOpen}>
+			<ToolbarDropdownMenu
+				iconBefore={
+					<ToolbarColorSwatch highlightColor={getHighlightColorIcon(highlightColor)}>
+						<TextColorIcon
+							label={formatMessage(messages.textColorTooltip)}
+							iconColor={iconColor as IconColor}
+							shouldRecommendSmallIcon
+							size={'small'}
+							isDisabled={isDisabled}
+							spacing={'compact'}
+						/>
+					</ToolbarColorSwatch>
+				}
+				isDisabled={isDisabled}
+				testId="text-color-highlight-menu"
+				hasSectionMargin={false}
+				tooltipComponent={
+					<ToolbarTooltip
+						content={
+							<ToolTipContent
+								description={formatMessage(
+									isHighlightPluginExisted
+										? messages.textColorHighlightTooltip
+										: messages.textColorTooltip,
+								)}
+								keymap={toggleHighlightPalette}
 							/>
-						</ToolbarColorSwatch>
-					}
-					isDisabled={isDisabled}
-					testId="text-color-highlight-menu"
-					hasSectionMargin={false}
-				>
-					{children}
-				</ToolbarDropdownMenu>
-			</ToolbarDropdownMenuProvider>
-		</ToolbarTooltip>
+						}
+					/>
+				}
+			>
+				{children}
+			</ToolbarDropdownMenu>
+		</ToolbarDropdownMenuProvider>
 	);
 };

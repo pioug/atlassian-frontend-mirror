@@ -22,7 +22,7 @@ try {
 	}
 	defaultApsUrl = localConfig.apsParams.url;
 	preferredApsTransport = localConfig.apsParams.preferredTransport;
-} catch (e) {
+} catch {
 	// eslint-disable-next-line @repo/internal/import/no-unresolved
 	const localConfig = require('../local-config-example');
 	clientConfig = localConfig['default'];
@@ -161,56 +161,65 @@ class PubSubEventComponent extends Component<{}, State> {
 			<div>
 				<h2>Config</h2>
 
-				{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
-				<label>Service</label>
-				<Textfield
-					id="serviceUrl"
-					label="Service"
-					onChange={this.onUrlChange}
-					value={this.state.fpsUrl}
-				/>
-				{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
-				<label>Protocols</label>
-				<div>
-					<ButtonGroup>
-						<Button
-							id="apsProtocol"
-							onClick={() => this.toggleProtocol('APS')}
-							appearance={this.usesProtocol('APS') ? 'primary' : undefined}
-						>
-							APS
-						</Button>
-					</ButtonGroup>
-					{this.usesProtocol('APS') && (
-						<div>
-							{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
-							<label>APS URL</label>
-							<Textfield id="apsURL" label="APS URL" value={this.state.apsUrl} />
-						</div>
-					)}
-				</div>
-				{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
-				<label>Channel</label>
-				<Textfield
-					id="channel"
-					label="Channel"
-					onChange={this.onChannelChange}
-					value={this.state.channelInput}
-				/>
+				<label>
+					Service
+					<Textfield
+						id="serviceUrl"
+						label="Service"
+						onChange={this.onUrlChange}
+						value={this.state.fpsUrl}
+					/>
+				</label>
+
+				<label>
+					Protocols
+					<div>
+						<ButtonGroup>
+							<Button
+								id="apsProtocol"
+								onClick={() => this.toggleProtocol('APS')}
+								appearance={this.usesProtocol('APS') ? 'primary' : undefined}
+							>
+								APS
+							</Button>
+						</ButtonGroup>
+						{this.usesProtocol('APS') && (
+							<div>
+
+								<label>
+									APS URL
+									<Textfield id="apsURL" label="APS URL" value={this.state.apsUrl} />
+								</label>
+							</div>
+						)}
+					</div>
+				</label>
+
+				<label>
+					Channel
+					<Textfield
+						id="channel"
+						label="Channel"
+						onChange={this.onChannelChange}
+						value={this.state.channelInput}
+					/>
+				</label>
 				<ButtonGroup>
 					<Button onClick={this.onJoin}>Join</Button>
 					<Button onClick={this.onLeave}>Leave</Button>
 					<Lozenge appearance="success">{this.state.status}</Lozenge>
 				</ButtonGroup>
 				<div>
-					{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
-					<label>Event type</label>
-					<Textfield
-						id="eventType"
-						label="Event type"
-						onChange={this.onEventTypeChange}
-						value={this.state.eventType}
-					/>
+
+					<label>
+						Event type
+						<Textfield
+							id="eventType"
+							label="Event type"
+							onChange={this.onEventTypeChange}
+							value={this.state.eventType}
+						/>
+					</label>
 				</div>
 				<ButtonGroup>
 					<Button id="subscribe" onClick={this.onSubscribe}>

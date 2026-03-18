@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 128.0.7
+
+### Patch Changes
+
+- [`3d428e4d1167c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d428e4d1167c) -
+  [ux] All inline smart card branches are wrapped with draggable (from pragmatic-drag-and-drop). The
+  draggable logic has been improved to have better native support.
+- Updated dependencies
+
+## 128.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 128.0.5
 
 ### Patch Changes

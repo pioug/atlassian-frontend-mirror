@@ -12,6 +12,7 @@
     "**/stories/*.ts",
     "**/stories/*.tsx",
     "**/stories/**/*.ts",
-    "**/stories/**/*.tsx"
+    "**/stories/**/*.tsx",
+    "./radio.docs.tsx"
   ]
 }

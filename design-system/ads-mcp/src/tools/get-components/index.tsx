@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { zodToJsonSchema } from '../../helpers';
 
-import { components } from './components';
+import { loadAllComponents } from './load-all-components';
 
 export const listGetComponentsTool: Tool = {
 	name: 'ads_get_components',
@@ -26,11 +26,13 @@ export const getComponentsTool = async (): Promise<{
 		type: string;
 		text: string;
 	}[];
-}> => ({
-	content: components.map((component) => ({
-		// NOTE: Ideally one day the MCP would support structured content…
-		// eg. `type: 'object', data: component`
-		type: 'text',
-		text: JSON.stringify(component, null, 2),
-	})),
-});
+}> => {
+	return {
+		content: loadAllComponents().map((component) => ({
+			// NOTE: Ideally one day the MCP would support structured content…
+			// eg. `type: 'object', data: component`
+			type: 'text',
+			text: JSON.stringify(component, null, 2),
+		})),
+	};
+};

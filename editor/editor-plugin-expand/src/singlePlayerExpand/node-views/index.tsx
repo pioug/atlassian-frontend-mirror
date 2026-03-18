@@ -605,23 +605,18 @@ export class ExpandNodeView implements NodeView {
 				}
 			}
 
-			if (expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)) {
-				this.node = node;
-				const currentExpanded = expandedState.get(node) ?? false;
-				const hasChanged =
-					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
-					fg('platform_editor_block_menu_v2_patch_3')
-						? this.isExpanded.expanded !== currentExpanded &&
-							this.isExpanded.localId === node.attrs.localId
-						: this.isExpanded.expanded !== currentExpanded;
-				if (hasChanged) {
-					this.updateExpandToggleIcon(node);
-					this.updateDisplayStyle(node);
-				}
-			} else {
-				this.node = node;
+			this.node = node;
+			const currentExpanded = expandedState.get(node) ?? false;
+			const hasChanged =
+				expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+				fg('platform_editor_block_menu_v2_patch_3')
+					? this.isExpanded.expanded !== currentExpanded &&
+						this.isExpanded.localId === node.attrs.localId
+					: this.isExpanded.expanded !== currentExpanded;
+			if (hasChanged) {
+				this.updateExpandToggleIcon(node);
+				this.updateDisplayStyle(node);
 			}
-
 			return true;
 		}
 		return false;
@@ -650,13 +645,11 @@ export class ExpandNodeView implements NodeView {
 			}
 		}
 		this.updateExpandBodyContentEditable();
-		if (expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)) {
-			this.isExpanded =
-				expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
-				fg('platform_editor_block_menu_v2_patch_3')
-					? { expanded: expanded ?? false, localId: node.attrs.localId }
-					: { expanded: expanded ?? false };
-		}
+		this.isExpanded =
+			expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+			fg('platform_editor_block_menu_v2_patch_3')
+				? { expanded: expanded ?? false, localId: node.attrs.localId }
+				: { expanded: expanded ?? false };
 	}
 
 	private updateDisplayStyle(node: PmNode): void {

@@ -1,5 +1,20 @@
 # @atlaskit/emoji
 
+## 69.10.37
+
+### Patch Changes
+
+- [`da938a43a7aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da938a43a7aac) -
+  Clean up feature gate platform_emoji_ssr_width_auto_allowed, permanently enabling auto width
+  during SSR
+- Updated dependencies
+
+## 69.10.36
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 69.10.35
 
 ### Patch Changes

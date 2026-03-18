@@ -71,6 +71,10 @@ export class MediaClient {
 		return this.mediaStore.getClientId(collectionName);
 	}
 
+	public getClientIdSync(): string | undefined {
+		return this.mediaStore.getClientIdSync();
+	}
+
 	public async getImageMetadata(
 		id: string,
 		params?: MediaStoreGetFileImageParams,

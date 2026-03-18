@@ -7,7 +7,6 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownMenu, ToolbarTooltip, TextIcon } from '@atlaskit/editor-toolbar';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import { toolbarBlockTypesWithRank } from '../../block-types';
@@ -66,34 +65,18 @@ export const TextStylesMenuButton = ({
 		);
 	}, [editorAppearance, currentBlockType, CurrentIcon, normalText, formatMessage]);
 
-	if (expValEquals('platform_editor_hide_toolbar_tooltips_fix', 'isEnabled', true)) {
-		return (
-			<ToolbarDropdownMenu
-				isDisabled={blockTypesDisabled}
-				iconBefore={TriggerIcon}
-				tooltipComponent={
-					<ToolbarTooltip content={formatMessage(toolbarMessages.textStylesTooltip)} />
-				}
-				label={formatMessage(toolbarMessages.textStyles, {
-					blockTypeName: currentBlockType?.name,
-				})}
-			>
-				{children}
-			</ToolbarDropdownMenu>
-		);
-	}
-
 	return (
-		<ToolbarTooltip content={formatMessage(toolbarMessages.textStylesTooltip)}>
-			<ToolbarDropdownMenu
-				isDisabled={blockTypesDisabled}
-				iconBefore={TriggerIcon}
-				label={formatMessage(toolbarMessages.textStyles, {
-					blockTypeName: currentBlockType?.name,
-				})}
-			>
-				{children}
-			</ToolbarDropdownMenu>
-		</ToolbarTooltip>
+		<ToolbarDropdownMenu
+			isDisabled={blockTypesDisabled}
+			iconBefore={TriggerIcon}
+			tooltipComponent={
+				<ToolbarTooltip content={formatMessage(toolbarMessages.textStylesTooltip)} />
+			}
+			label={formatMessage(toolbarMessages.textStyles, {
+				blockTypeName: currentBlockType?.name,
+			})}
+		>
+			{children}
+		</ToolbarDropdownMenu>
 	);
 };

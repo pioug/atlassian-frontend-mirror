@@ -9,5 +9,6 @@
     "./examples/**/*.tsx",
     "./codemods/**/*.ts",
     "./codemods/**/*.tsx",
+    "./table-tree.docs.tsx",
   ]
 }

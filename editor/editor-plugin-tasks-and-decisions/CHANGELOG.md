@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 11.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.0
+
+### Minor Changes
+
+- [`71fb8b5aa2558`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71fb8b5aa2558) -
+  [FFCLEANUP-79003] clean up feature flag platform_editor_blocktaskitem_patch_2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.3
 
 ### Patch Changes

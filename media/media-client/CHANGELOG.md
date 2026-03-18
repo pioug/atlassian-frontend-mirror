@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 36.0.2
+
+### Patch Changes
+
+- [`fa50dabb4be8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa50dabb4be8f) -
+  Retrieve clientId synchronously during Media SSR blob URL construction.
+
 ## 36.0.1
 
 ### Patch Changes

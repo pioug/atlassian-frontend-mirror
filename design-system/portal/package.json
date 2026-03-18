@@ -65,6 +65,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@compiled/react": "root:*",
 		"@testing-library/react": "root:*",
 		"bind-event-listener": "root:*",

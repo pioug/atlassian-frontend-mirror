@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 8.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.0
+
+### Minor Changes
+
+- [`0efca55740b36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0efca55740b36) -
+  [FFCLEANUP-71458] clean up experiment platform_editor_toggle_expand_on_match_found
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.3
 
 ### Patch Changes

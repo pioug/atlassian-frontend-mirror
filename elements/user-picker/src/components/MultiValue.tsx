@@ -10,13 +10,12 @@ import { components, type OptionType } from '@atlaskit/select';
 import { css, jsx } from '@emotion/react';
 import Avatar, { type AvatarPropTypes } from '@atlaskit/avatar';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { AvatarTag } from '@atlaskit/tag';
+import { AvatarTag, default as Tag } from '@atlaskit/tag';
 import TeamAvatar from '@atlaskit/teams-avatar';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl, isEmail, isGroup, isTeam } from './utils';
-import type { ComponentType } from 'react';
 import type { Email } from '../types';
 import { type Option, type UserPickerProps } from '../types';
 import Lozenge from '@atlaskit/lozenge';
@@ -208,20 +207,13 @@ export class MultiValue extends React.Component<Props> {
 			};
 
 			if (isEmailOption) {
-				const emailAvatar: ComponentType<AvatarPropTypes> = (props) => (
-					<Avatar
-						{...props}
-						children={
-							<AddOptionAvatar isLozenge isPendingAction={(data as Email).isPendingAction} />
-						}
-					/>
-				);
 				return (
 					<span ref={this.containerRef} css={avatarTagWrapperStyle} data-user-picker-multi-value>
-						<AvatarTag
+						<Tag
 							text={label}
-							type="other"
-							avatar={emailAvatar}
+							elemBefore={
+								<AddOptionAvatar isLozenge isPendingAction={(data as Email).isPendingAction} />
+							}
 							isRemovable={!isDisabled}
 							onBeforeRemoveAction={removeAction}
 						/>
@@ -230,51 +222,36 @@ export class MultiValue extends React.Component<Props> {
 			}
 
 			if (isGroupOption) {
-				const groupAvatar: ComponentType<AvatarPropTypes> = (props) => (
-					<Avatar
-						{...props}
-						children={
-							<Box xcss={groupTagContainer}>
-								<PeopleIcon
-									color="currentColor"
-									label="" // This element is a decorative icon and does not require a label
-									size="small"
-								/>
-							</Box>
-						}
-					/>
-				);
 				return (
 					<span ref={this.containerRef} css={avatarTagWrapperStyle} data-user-picker-multi-value>
-						<AvatarTag
-							type="other"
+						<Tag
 							text={label}
-							isVerified={data.includeTeamsUpdates}
+							elemBefore={
+								<Box xcss={groupTagContainer}>
+									<PeopleIcon
+										color="currentColor"
+										label="" // This element is a decorative icon and does not require a label
+										size="small"
+									/>
+								</Box>
+							}
 							isRemovable={!isDisabled}
 							onBeforeRemoveAction={removeAction}
-							avatar={groupAvatar}
 						/>
 					</span>
 				);
 			}
 
 			if (data.icon) {
-				const iconAvatar: ComponentType<AvatarPropTypes> = (props) => (
-					<Avatar
-						{...props}
-						children={
-							<div css={iconStyle} style={{ color: data.iconColor }}>
-								{data.icon}
-							</div>
-						}
-					/>
-				);
 				return (
-					<span css={avatarTagWrapperStyle} data-user-picker-multi-value>
-						<AvatarTag
+					<span ref={this.containerRef} css={avatarTagWrapperStyle} data-user-picker-multi-value>
+						<Tag
 							text={label}
-							type={isTeamOption ? 'other' : 'user'}
-							avatar={iconAvatar}
+							elemBefore={
+								<div css={iconStyle} style={{ color: data.iconColor }}>
+									{data.icon}
+								</div>
+							}
 							isRemovable={!isDisabled}
 							onBeforeRemoveAction={removeAction}
 						/>

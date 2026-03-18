@@ -1,15 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fa937fd0136703ac39f5e57600b7c2b8>>
+ * @codegen <<SignedSource::3c7a1f59835d1842fb859e1f679f32d5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
 
-import { IconTile } from '@atlaskit/icon';
-import NewIcon from '@atlaskit/icon/core/branch';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/tile/branch';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * __24px `branch` icon object__
@@ -25,13 +22,8 @@ const Branch24Icon: {
 	}: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>): React.JSX.Element;
 	displayName: string;
 } = ({ label, testId }) => {
-	// Feature flag to migrate to new object package
-	if (fg('platform_dst_icon_object_to_object') || fg('platform_dst_icon_object_to_object_stage2')) {
-		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
-		return <NewObjectComponent label={label} testId={testId} size="small" />;
-	}
-
-	return <IconTile icon={NewIcon} appearance="blueBold" size="24" label={label} testId={testId} />;
+	// Map props based on size: 16px -> object (medium), 24px -> tile (small)
+	return <NewObjectComponent label={label} testId={testId} size="small" />;
 };
 
 Branch24Icon.displayName = 'Branch24Icon';

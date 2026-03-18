@@ -6,7 +6,6 @@ import { type CSSProperties, type FC } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type AppearanceType, type SizeType } from './types';
@@ -63,15 +62,6 @@ const sizeStyles = cssMap({
 	xxlarge: { width: '128px', height: '128px' },
 });
 
-const borderRadiusMap = cssMap({
-	xsmall: { borderRadius: token('radius.xsmall') },
-	small: { borderRadius: token('radius.xsmall') },
-	medium: { borderRadius: token('radius.small') },
-	large: { borderRadius: token('radius.small') },
-	xlarge: { borderRadius: token('radius.medium') },
-	xxlarge: { borderRadius: token('radius.xlarge') },
-});
-
 /**
  * __Skeleton__
  *
@@ -85,13 +75,7 @@ const Skeleton: FC<SkeletonProps> = ({ size, appearance, color, weight }: Skelet
 		css={[
 			styles.root,
 			sizeStyles[size ?? 'medium'],
-			appearance === 'square' &&
-				!fg('platform_dst_avatar_tile') &&
-				!fg('platform_dst_avatar_tile_stage2') &&
-				borderRadiusMap[size ?? 'medium'],
-			appearance === 'square' &&
-				(fg('platform_dst_avatar_tile') || fg('platform_dst_avatar_tile_stage2')) &&
-				styles.square,
+			appearance === 'square' && styles.square,
 			appearance === 'hexagon' && styles.hexagon,
 			weight === 'strong' && styles.strongOpacity,
 		]}

@@ -3,9 +3,10 @@
  *
  * Generates TypeScript components data for AI tooling from offerings.json files
  *
- * @codegen <<SignedSource::1d781f4539138bf6cabcd8c01b207b06>>
+ * @codegen <<SignedSource::8e120a2eb2205e4c89f4bdddbf4e436f>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:prototyping
  */
+/* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
 import type { Component } from './types';
 
 export const components: Component[] = [
@@ -45,6 +46,24 @@ export const components: Component[] = [
 				description:
 					"Indicates the shape of the avatar. Most avatars are circular, but square avatars\ncan be used for 'container' objects.",
 				type: '"circle" | "square" | "hexagon"',
+			},
+			{
+				name: 'aria-controls',
+				description:
+					'Identifies the popup element that the avatar controls.\nUsed when Avatar is a trigger for a popup.',
+				type: 'string',
+			},
+			{
+				name: 'aria-expanded',
+				description:
+					'Announces to assistive technology whether the controlled popup is currently open or closed.',
+				type: 'boolean',
+			},
+			{
+				name: 'aria-haspopup',
+				description:
+					'Informs assistive technology that this element triggers a popup.\nWhen set, Avatar will render as a `<button>` element even without `onClick`.',
+				type: 'boolean | "dialog"',
 			},
 			{
 				name: 'as',
@@ -174,11 +193,13 @@ export const components: Component[] = [
 				description:
 					'Indicates the layout of the avatar group.\nAvatars will either be overlapped in a stack, or\nlaid out in an even grid formation.\nDefaults to "stack".',
 				type: '"grid" | "stack"',
+				defaultValue: '"stack"',
 			},
 			{
 				name: 'avatar',
 				description: 'Component used to render each avatar.',
-				type: 'React.ForwardRefExoticComponent<AvatarPropTypes & React.RefAttributes<HTMLElement>> | React.ElementType<AvatarProps>',
+				type: 'React.ForwardRefExoticComponent<AvatarPropTypes & React.RefAttributes<HTMLElement>> | React.ElementType<AvatarProps, keyof React.JSX.IntrinsicElements>',
+				defaultValue: 'Avatar',
 			},
 			{
 				name: 'borderColor',
@@ -196,6 +217,7 @@ export const components: Component[] = [
 				description:
 					"An array of avatar prop data, that are spread onto each `avatar` component.\n\nFor further usage information on AvatarPropTypes, the supported props for `avatar`, refer to [Avatar's prop documentation](https://atlassian.design/components/avatar/code).",
 				type: '(AvatarPropTypes & { name: string; key?: string | number; })[]',
+				isRequired: true,
 			},
 			{
 				name: 'isTooltipDisabled',
@@ -207,6 +229,7 @@ export const components: Component[] = [
 				description:
 					'Text to be used as aria-label for the list of avatars.\nScreen reader announcement with default label, which is `avatar group`, is `list, avatar group, X items`.\n\nThe label should describe the `AvatarGroup`\'s entities, for instance:\n- `label="team members"`, screen reader announcement would be `list team members, X items`\n- `label="reviewers"` screen reader announcement would be `list reviewers, X items`\n\nWhen there are several AvatarGroups on the page you should use a unique label to let users distinguish different lists.',
 				type: 'string',
+				defaultValue: '"avatar group"',
 			},
 			{
 				name: 'maxCount',
@@ -241,24 +264,28 @@ export const components: Component[] = [
 				name: 'shouldPopupRenderToParent',
 				description: "Determines whether the 'show more' popup has `shouldRenderToParent` applied.",
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'showMoreButtonProps',
 				description:
 					'Provide additional props to the MoreButton.\nExample use cases: altering tab order by providing tabIndex;\nadding onClick behaviour without losing the default dropdown',
-				type: '{ defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; suppressHydrationWarning?: boolean; accessKey?: string; autoFocus?: boolean; ... 258 more ...; onTransitionEndCapture?: React.TransitionEventHandler<...>; }',
+				type: '{ defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; suppressHydrationWarning?: boolean; accessKey?: string; autoCapitalize?: (string & {}) | ... 5 more ... | "characters"; ... 257 more ...; onTransitionEndCapture?: React.TransitionEventHandler<......',
+				defaultValue: '{}',
 			},
 			{
 				name: 'size',
 				description:
 					'Defines the size of the avatar.\nDefaults to "medium".\n\nNote: The "xsmall" size that exists on Avatar is not supported here because elements such as the more indicator cannot be displayed in an accessible manner at that size.',
 				type: '"small" | "medium" | "large" | "xlarge" | "xxlarge"',
+				defaultValue: '"medium"',
 			},
 			{
 				name: 'tooltipPosition',
 				description:
 					'Where the tooltip should appear relative to its target.\nDefaults to tooltip position "bottom".',
 				type: '"top" | "bottom"',
+				defaultValue: '"bottom"',
 			},
 		],
 	},
@@ -321,7 +348,7 @@ export const components: Component[] = [
 			'A banner displays a prominent message at the top of the screen to communicate important information to users.',
 		status: 'general-availability',
 		examples: [
-			'import Banner from \'@atlaskit/banner\';\nimport WarningIcon from \'@atlaskit/icon/core/status-warning\';\nimport Box from \'@atlaskit/primitives/box\';\nexport default (): React.JSX.Element => (\n\t<Box>\n\t\t<Banner\n\t\t\ticon={<WarningIcon label="Warning"   spacing="spacious" />}\n\t\t\ttestId="basicTestId"\n\t\t>\n\t\t\tYour license is about to expire. Please renew your license within the next week.\n\t\t</Banner>\n\t</Box>\n);',
+			'import Banner from \'@atlaskit/banner\';\nimport WarningIcon from \'@atlaskit/icon/core/status-warning\';\nimport Box from \'@atlaskit/primitives/box\';\nexport default (): React.JSX.Element => (\n\t<Box>\n\t\t<Banner icon={<WarningIcon label="Warning" spacing="spacious" />} testId="basicTestId">\n\t\t\tYour license is about to expire. Please renew your license within the next week.\n\t\t</Banner>\n\t</Box>\n);',
 		],
 		accessibilityGuidelines: [
 			'Ensure banner content is announced by screen readers',
@@ -541,6 +568,7 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Text content to be rendered in the button.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'iconAfter',
@@ -604,7 +632,7 @@ export const components: Component[] = [
 			'A button that displays only an icon with an optional tooltip. Perfect for toolbar actions, compact interfaces, and when space is limited.',
 		status: 'general-availability',
 		examples: [
-			'import { IconButton } from \'@atlaskit/button/new\';\nimport AddIcon from \'@atlaskit/icon/core/add\';\nimport DeleteIcon from \'@atlaskit/icon/core/delete\';\nimport InfoIcon from \'@atlaskit/icon/core/status-information\';\nexport default [\n\t<IconButton icon={AddIcon} label="Add new item" appearance="primary" />,\n\t<IconButton icon={InfoIcon} label="Show information" appearance="subtle" spacing="compact" />,\n\t<IconButton icon={DeleteIcon} label="Delete permanently" appearance="discovery" shape="circle" />,\n];',
+			'import { IconButton } from \'@atlaskit/button/new\';\nimport AddIcon from \'@atlaskit/icon/core/add\';\nimport DeleteIcon from \'@atlaskit/icon/core/delete\';\nimport InfoIcon from \'@atlaskit/icon/core/status-information\';\nconst _default_1: React.JSX.Element[] = [\n\t<IconButton icon={AddIcon} label="Add new item" appearance="primary" />,\n\t<IconButton icon={InfoIcon} label="Show information" appearance="subtle" spacing="compact" />,\n\t<IconButton icon={DeleteIcon} label="Delete permanently" appearance="discovery" shape="circle" />,\n];\nexport default _default_1;',
 		],
 		usageGuidelines: [
 			'Use for toolbar actions and compact interfaces',
@@ -636,6 +664,7 @@ export const components: Component[] = [
 				name: 'icon',
 				description: 'Places an icon within the button.',
 				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "spacing" | "size">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				isRequired: true,
 			},
 			{
 				name: 'isDisabled',
@@ -662,6 +691,7 @@ export const components: Component[] = [
 				name: 'label',
 				description: 'Provide an accessible label, often used by screen readers.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'onBlur',
@@ -692,7 +722,7 @@ export const components: Component[] = [
 			{
 				name: 'tooltip',
 				description: 'Props passed down to the Tooltip component.',
-				type: '{ testId?: string; analyticsContext?: Record<string, any>; content?: ReactNode | (({ update }: { update?: () => void; }) => ReactNode); component?: ComponentType<TooltipPrimitiveProps> | ForwardRefExoticComponent<...>; ... 13 more ...; shortcut?: string[]; }',
+				type: '{ testId?: string; analyticsContext?: Record<string, any>; content?: ReactNode | (({ update }: { update?: () => void; }) => ReactNode); component?: ComponentType<TooltipPrimitiveProps> | ForwardRefExoticComponent<...>; ... 15 more ...; UNSAFE_shouldRenderToParent?: boolean; }',
 			},
 		],
 	},
@@ -705,7 +735,7 @@ export const components: Component[] = [
 			'A button that splits into a primary action and a dropdown menu. The main button performs the primary action, while the dropdown arrow reveals additional related actions.',
 		status: 'general-availability',
 		examples: [
-			"import Button, { IconButton, SplitButton } from '@atlaskit/button/new';\nimport DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';\nimport ChevronDownIcon from '@atlaskit/icon/core/chevron-down';\nexport default (\n\t<SplitButton spacing=\"compact\">\n\t\t<Button>Link work item</Button>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...triggerProps }) => (\n\t\t\t\t<IconButton\n\t\t\t\t\tref={triggerRef}\n\t\t\t\t\t{...triggerProps}\n\t\t\t\t\ticon={ChevronDownIcon}\n\t\t\t\t\tlabel=\"More link work item options\"\n\t\t\t\t/>\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Create new link</DropdownItem>\n\t\t\t\t<DropdownItem>Link existing item</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</SplitButton>\n);",
+			"import Button, { IconButton, SplitButton } from '@atlaskit/button/new';\nimport DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';\nimport ChevronDownIcon from '@atlaskit/icon/core/chevron-down';\nconst _default_1: React.JSX.Element = (\n\t<SplitButton spacing=\"compact\">\n\t\t<Button>Link work item</Button>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...triggerProps }) => (\n\t\t\t\t<IconButton\n\t\t\t\t\tref={triggerRef}\n\t\t\t\t\t{...triggerProps}\n\t\t\t\t\ticon={ChevronDownIcon}\n\t\t\t\t\tlabel=\"More link work item options\"\n\t\t\t\t/>\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Create new link</DropdownItem>\n\t\t\t\t<DropdownItem>Link existing item</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</SplitButton>\n);\nexport default _default_1;",
 		],
 		accessibilityGuidelines: ['Provide descriptive labels for the IconButton trigger'],
 		usageGuidelines: [
@@ -725,22 +755,26 @@ export const components: Component[] = [
 				description:
 					'The style variation for child buttons. Will override any appearance set on a child button.',
 				type: '"default" | "primary"',
+				defaultValue: '"default"',
 			},
 			{
 				name: 'children',
 				description:
 					'Only two children are allowed.\nFirst child is the primary action, second child is the secondary action.\nThe assumption is that for both children trees there is a button reading the context.',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'isDisabled',
 				description: 'Whether all child buttons should be disabled.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'spacing',
 				description: 'Controls the amount of padding in the child buttons.',
 				type: '"default" | "compact"',
+				defaultValue: '"default"',
 			},
 		],
 	},
@@ -753,7 +787,7 @@ export const components: Component[] = [
 			'A button that renders as an anchor tag for navigation. Combines the visual appearance of a button with the semantic behavior of a link.',
 		status: 'general-availability',
 		examples: [
-			'import { LinkButton } from \'@atlaskit/button/new\';\nexport default [\n\t<LinkButton href="https://atlassian.com" target="_blank" appearance="subtle">\n\t\tExternal Link\n\t</LinkButton>,\n\t// With a Router (requires `<AppProvider routerLinkComponent={Link} />` setup at the root)\n\t<LinkButton href={{ to: \'/about\', replace: true }}>About Page</LinkButton>,\n];',
+			'import { LinkButton } from \'@atlaskit/button/new\';\nconst _default_1: React.JSX.Element[] = [\n\t<LinkButton href="https://atlassian.com" target="_blank" appearance="subtle">\n\t\tExternal Link\n\t</LinkButton>,\n\t// With a Router (requires `<AppProvider routerLinkComponent={Link} />` setup at the root)\n\t<LinkButton href={{ to: \'/about\', replace: true }}>About Page</LinkButton>,\n];\nexport default _default_1;',
 		],
 		usageGuidelines: [
 			'Use for navigation actions that change the URL',
@@ -785,12 +819,14 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Text content to be rendered in the button.',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'href',
 				description:
 					'Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](/components/button/examples#routing) for more details.',
 				type: 'string | RouterLinkConfig',
+				isRequired: true,
 			},
 			{
 				name: 'iconAfter',
@@ -849,7 +885,7 @@ export const components: Component[] = [
 			'A component for grouping related buttons together with consistent spacing and alignment.',
 		status: 'general-availability',
 		examples: [
-			'import { ButtonGroup } from \'@atlaskit/button\';\nimport Button from \'@atlaskit/button/new\';\nexport default [\n\t<ButtonGroup titleId="heading-options">\n\t\t<Button appearance="primary">Save</Button>\n\t\t<Button appearance="danger">Delete</Button>\n\t\t<Button appearance="subtle">Cancel</Button>\n\t</ButtonGroup>,\n];',
+			'import { ButtonGroup } from \'@atlaskit/button\';\nimport Button from \'@atlaskit/button/new\';\nconst _default_1: React.JSX.Element[] = [\n\t<ButtonGroup titleId="heading-options">\n\t\t<Button appearance="primary">Save</Button>\n\t\t<Button appearance="danger">Delete</Button>\n\t\t<Button appearance="subtle">Cancel</Button>\n\t</ButtonGroup>,\n];\nexport default _default_1;',
 		],
 		usageGuidelines: [
 			'Use for related actions that belong together',
@@ -915,7 +951,7 @@ export const components: Component[] = [
 			{
 				name: 'appearance',
 				description: 'The base styling to apply to the button.',
-				type: '"link" | "default" | "danger" | "primary" | "subtle" | "subtle-link" | "warning"',
+				type: '"default" | "danger" | "link" | "primary" | "subtle" | "subtle-link" | "warning"',
 			},
 			{
 				name: 'autoFocus',
@@ -930,7 +966,7 @@ export const components: Component[] = [
 			{
 				name: 'component',
 				description: '',
-				type: 'ComponentType<AllHTMLAttributes<HTMLElement>> | ElementType<any>',
+				type: 'ComponentType<AllHTMLAttributes<HTMLElement>> | ElementType<any, keyof JSX.IntrinsicElements>',
 			},
 			{
 				name: 'href',
@@ -1283,7 +1319,7 @@ export const components: Component[] = [
 		description: 'A component for displaying code snippets.',
 		status: 'general-availability',
 		examples: [
-			"import { Code } from '@atlaskit/code';\nexport default [<Code>{`<Code />`}</Code>];",
+			"import { Code } from '@atlaskit/code';\nconst _default_1: React.JSX.Element[] = [<Code>{`<Code />`}</Code>];\nexport default _default_1;",
 		],
 		accessibilityGuidelines: [
 			'Ensure code content is announced properly by screen readers',
@@ -1336,7 +1372,7 @@ export const components: Component[] = [
 		description: 'A component for displaying multi-line code blocks with syntax highlighting.',
 		status: 'general-availability',
 		examples: [
-			'import { CodeBlock } from \'@atlaskit/code\';\nconst exampleCodeBlock = `export default ({ name }: { name: string }) => <div>Hello {name}</div>;`;\nexport default [<CodeBlock highlight="15" language="tsx" text={exampleCodeBlock} />];',
+			'import { CodeBlock } from \'@atlaskit/code\';\nconst exampleCodeBlock = `export default ({ name }: { name: string }) => <div>Hello {name}</div>;`;\nconst _default_1: React.JSX.Element[] = [\n\t<CodeBlock highlight="15" language="tsx" text={exampleCodeBlock} />,\n];\nexport default _default_1;',
 		],
 		accessibilityGuidelines: [
 			'Ensure code blocks are announced properly by screen readers',
@@ -1361,16 +1397,20 @@ export const components: Component[] = [
 				name: 'codeBidiWarningLabel',
 				description: 'Label for the bidi warning tooltip.',
 				type: 'string',
+				defaultValue:
+					"'Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.'",
 			},
 			{
 				name: 'firstLineNumber',
 				description: 'Sets the number of the first line, if showLineNumbers is set to true.',
 				type: 'number',
+				defaultValue: '1',
 			},
 			{
 				name: 'hasBidiWarnings',
 				description: 'When set to `false`, disables code decorating with bidi warnings.',
 				type: 'boolean',
+				defaultValue: 'true',
 			},
 			{
 				name: 'highlight',
@@ -1393,6 +1433,7 @@ export const components: Component[] = [
 				description:
 					'Sets whether to render tooltip with the warning or not.\nIntended to be disabled when used in a mobile view, such as in the editor via mobile bridge,\nwhere the tooltip could end up being cut off or otherwise not work as expected.',
 				type: 'boolean',
+				defaultValue: 'true',
 			},
 			{
 				name: 'label',
@@ -1404,23 +1445,27 @@ export const components: Component[] = [
 				name: 'language',
 				description:
 					'Language reference designed to be populated from `SUPPORTED_LANGUAGES` in\n`design-system/code`. Run against language grammars from PrismJS (full list\navailable at [PrismJS documentation](https://prismjs.com/#supported-languages)).\n\nWhen set to "text" will not perform highlighting. If unsupported language\nprovided - code will be treated as "text" with no highlighting.',
-				type: '"text" | "PHP" | "php" | "php3" | "php4" | "php5" | "Java" | "java" | "CSharp" | "csharp" | "c#" | "Python" | "python" | "py" | "JavaScript" | "javascript" | "js" | "Html" | "html" | ... 234 more ... | "markdown"',
+				type: '"PHP" | "php" | "php3" | "php4" | "php5" | "Java" | "java" | "CSharp" | "csharp" | "c#" | "Python" | "python" | "py" | "JavaScript" | "javascript" | "js" | "Html" | "html" | "xml" | ... 234 more ... | "markdown"',
+				defaultValue: "'text'",
 			},
 			{
 				name: 'shouldShowLineNumbers',
 				description: 'Sets whether to display code line numbers or not.',
 				type: 'boolean',
+				defaultValue: 'true',
 			},
 			{
 				name: 'shouldWrapLongLines',
 				description:
 					'Sets whether long lines will create a horizontally scrolling container.\nWhen set to `true`, these lines will visually wrap instead.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'text',
 				description: 'The code to be formatted.',
 				type: 'string',
+				isRequired: true,
 			},
 		],
 	},
@@ -1457,60 +1502,66 @@ export const components: Component[] = [
 				name: 'actions',
 				description:
 					'A list of `CommentAction` items rendered as a row of buttons below the content.',
-				type: 'ReactNode[]',
+				type: 'React.ReactNode[]',
+				defaultValue: '[]',
 			},
 			{
 				name: 'afterContent',
 				description: "Content that is rendered after the comment's content.",
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 			},
 			{
 				name: 'author',
 				description: 'A `CommentAuthor` element containing the name of the author.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 			},
 			{
 				name: 'avatar',
 				description: "The element to display as the avatar. It's best to use `@atlaskit/avatar`.",
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'children',
 				description: 'Provide nested comments as children.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 			},
 			{
 				name: 'content',
 				description: 'The main content for the comment.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 			},
 			{
 				name: 'edited',
 				description:
 					'A `CommentEdited` element which displays next to the time. Indicates whether the comment has been edited.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 			},
 			{
 				name: 'errorActions',
 				description:
 					'A list of `CommentAction` items rendered with a warning icon instead of the actions.',
-				type: 'ReactNode[]',
+				type: 'React.ReactNode[]',
+				defaultValue: '[]',
 			},
 			{
 				name: 'errorIconLabel',
 				description: 'Text to show in the error icon label.',
 				type: 'string',
+				defaultValue: '""',
 			},
 			{
 				name: 'headingLevel',
 				description:
 					'Use this to set the semantic heading level of the comment. The default comment heading has an `h3` tag. Make sure that headings are in the correct order and don’t skip levels.',
-				type: '"1" | "2" | "3" | "4" | "5" | "6"',
+				type: '"3" | "1" | "2" | "4" | "5" | "6"',
+				defaultValue: '"3"',
 			},
 			{
 				name: 'highlighted',
 				description: 'Sets whether this comment should be highlighted.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'id',
@@ -1522,23 +1573,27 @@ export const components: Component[] = [
 				description:
 					'Indicates whether the component is in an error state. Hides actions and time.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'isSaving',
 				description:
 					'Enables "optimistic saving" mode which removes actions and displays text from the `savingText` prop.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'restrictedTo',
 				description:
 					'Text for the "restricted to" label. This will display in the top items, before the main content.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				defaultValue: '""',
 			},
 			{
 				name: 'savingText',
 				description: 'Text to show when in "optimistic saving" mode.',
 				type: 'string',
+				defaultValue: '"Sending..."',
 			},
 			{
 				name: 'shouldHeaderWrap',
@@ -1554,7 +1609,7 @@ export const components: Component[] = [
 			{
 				name: 'time',
 				description: 'A `CommentTime` element containing the time to display.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 			},
 			{
 				name: 'type',
@@ -1572,7 +1627,7 @@ export const components: Component[] = [
 		description: 'A component for selecting date values with calendar support.',
 		status: 'general-availability',
 		examples: [
-			'import { DatePicker } from \'@atlaskit/datetime-picker\';\nconst Example = (): React.JSX.Element => (\n\t<DatePicker\n\t\tclearControlLabel="Clear select date"\n\t\tonChange={() => {}}\n\t\tshouldShowCalendarButton\n\t\topenCalendarLabel="open calendar"\n\t/>\n);\nexport default Example;',
+			'import { DatePicker } from \'@atlaskit/datetime-picker\';\nimport __noop from \'@atlaskit/ds-lib/noop\';\nconst Example = (): React.JSX.Element => (\n\t<DatePicker\n\t\tclearControlLabel="Clear select date"\n\t\tonChange={__noop}\n\t\tshouldShowCalendarButton\n\t\topenCalendarLabel="open calendar"\n\t/>\n);\nexport default Example;',
 		],
 		accessibilityGuidelines: [
 			'Ensure proper keyboard navigation',
@@ -1648,6 +1703,7 @@ export const components: Component[] = [
 				description:
 					'The name of the input, used when `shouldShowCalendarButton` is true. See `shouldShowCalendarButton` description for more details.',
 				type: 'string',
+				defaultValue: "'Date picker'",
 			},
 			{
 				name: 'inputLabelId',
@@ -1736,6 +1792,7 @@ export const components: Component[] = [
 				description:
 					'The label associated with the button to open the calendar, rendered via the\n`shouldShowCalendarButton` prop. If a `label` prop is provided, this\ncalendar button label will be prefixed by the value of `label`. If no\n`label` prop is provided, this prefix should be manually added. For\nexample,\n\n```tsx\n<label id="label" htmlFor="datepicker">Desired Appointment Date</label>\n<DatePicker\n\tid="datepicker"\n\tshouldShowCalendarButton\n\tinputLabel="Desired Appointment Date"\n\topenCalendarLabel="open calendar"\n/>\n```',
 				type: 'string',
+				defaultValue: "'open calendar'",
 			},
 			{
 				name: 'parseInputValue',
@@ -1756,13 +1813,14 @@ export const components: Component[] = [
 			{
 				name: 'selectProps',
 				description: '',
-				type: 'Omit<SelectProps<OptionType, false>, "aria-describedby" | "placeholder" | "aria-label" | "inputId"> & { \'aria-describedby\'?: never; \'aria-label\'?: never; inputId?: never; placeholder?: never; }',
+				type: 'Omit<SelectProps<OptionType, false>, "aria-label" | "aria-describedby" | "inputId" | "placeholder"> & { \'aria-describedby\'?: never; \'aria-label\'?: never; inputId?: never; placeholder?: never; } & { ...; }',
 			},
 			{
 				name: 'shouldShowCalendarButton',
 				description:
 					'Provides a functional calendar button that opens the calendar picker that\nlives on the right side of the date picker.\n\nThe accessible name for this button is caculated using either the `label`,\n`inputLabel`, or `inputLabelId` props, along with the `openCalendarLabel`\nprop.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'spacing',
@@ -1791,7 +1849,7 @@ export const components: Component[] = [
 		description: 'A component for selecting time values with clock interface.',
 		status: 'general-availability',
 		examples: [
-			'import { TimePicker } from \'@atlaskit/datetime-picker\';\nconst Example = (): React.JSX.Element => (\n\t<TimePicker\n\t\tclearControlLabel="Clear select time (editable)"\n\t\tdefaultValue="14:30"\n\t\tonChange={() => {}}\n\t\ttimeFormat="HH:mm:ss A"\n\t\ttimeIsEditable\n\t\tselectProps={{\n\t\t\tclassNamePrefix: \'timepicker-select\',\n\t\t}}\n\t/>\n);\nexport default Example;',
+			'import { TimePicker } from \'@atlaskit/datetime-picker\';\nimport __noop from \'@atlaskit/ds-lib/noop\';\nconst Example = (): React.JSX.Element => (\n\t<TimePicker\n\t\tclearControlLabel="Clear select time (editable)"\n\t\tdefaultValue="14:30"\n\t\tonChange={__noop}\n\t\ttimeFormat="HH:mm:ss A"\n\t\ttimeIsEditable\n\t\tselectProps={{\n\t\t\tclassNamePrefix: \'timepicker-select\',\n\t\t}}\n\t/>\n);\nexport default Example;',
 		],
 		accessibilityGuidelines: [
 			'Ensure proper keyboard navigation',
@@ -1955,7 +2013,7 @@ export const components: Component[] = [
 		description: 'A component for selecting both date and time values.',
 		status: 'general-availability',
 		examples: [
-			"import { DateTimePicker } from '@atlaskit/datetime-picker';\nconst Example = (): React.JSX.Element => (\n\t<DateTimePicker\n\t\tclearControlLabel=\"Clear date / time picker (editable times)\"\n\t\tdefaultValue=\"2018-01-02T14:30+10:00\"\n\t\tonChange={() => {}}\n\t\ttimePickerProps={{\n\t\t\ttimeIsEditable: true,\n\t\t\tlabel: 'Time picker (editable)',\n\t\t}}\n\t\tdatePickerProps={{\n\t\t\tlabel: 'Date picker (editable times)',\n\t\t\tshouldShowCalendarButton: true,\n\t\t\topenCalendarLabel: 'open calendar',\n\t\t}}\n\t/>\n);\nexport default Example;",
+			"import { DateTimePicker } from '@atlaskit/datetime-picker';\nimport __noop from '@atlaskit/ds-lib/noop';\nconst Example = (): React.JSX.Element => (\n\t<DateTimePicker\n\t\tclearControlLabel=\"Clear date / time picker (editable times)\"\n\t\tdefaultValue=\"2018-01-02T14:30+10:00\"\n\t\tonChange={__noop}\n\t\ttimePickerProps={{\n\t\t\ttimeIsEditable: true,\n\t\t\tlabel: 'Time picker (editable)',\n\t\t}}\n\t\tdatePickerProps={{\n\t\t\tlabel: 'Date picker (editable times)',\n\t\t\tshouldShowCalendarButton: true,\n\t\t\topenCalendarLabel: 'open calendar',\n\t\t}}\n\t/>\n);\nexport default Example;",
 		],
 		accessibilityGuidelines: [
 			'Ensure proper keyboard navigation',
@@ -1979,99 +2037,97 @@ export const components: Component[] = [
 			{
 				name: 'aria-describedby',
 				description:
-					'Used to associate accessible descriptions to both the date and time\npicker. If you want to associate individual accessible descriptions, this\nshould be done through the `aria-describedby` props on the\n`datePickerProps` and `timePickerProps`.\nUsed to associate accessible descriptions to both the date and time\npicker. If you want to associate individual accessible descriptions, this\nshould be done through the `aria-describedby` props on the\n`datePickerProps` and `timePickerProps`.',
+					'Used to associate accessible descriptions to both the date and time\npicker. If you want to associate individual accessible descriptions, this\nshould be done through the `aria-describedby` props on the\n`datePickerProps` and `timePickerProps`.',
 				type: 'string',
 			},
 			{
 				name: 'autoFocus',
-				description: 'Set the picker to autofocus on mount.\nSet the picker to autofocus on mount.',
+				description: 'Set the picker to autofocus on mount.',
 				type: 'boolean',
 			},
 			{
 				name: 'clearControlLabel',
 				description:
-					'Set the `aria-label` for the clear button.\nAdd the word "Clear" at the beginning of the clearControlLabel.\nFor instance, for a field to set an appointment, use "Clear appointment date and time".\nSet the `aria-label` for the clear button.\nAdd the word "Clear" at the beginning of the clearControlLabel.\nFor instance, for a field to set an appointment, use "Clear appointment date and time".',
+					'Set the `aria-label` for the clear button.\nAdd the word "Clear" at the beginning of the clearControlLabel.\nFor instance, for a field to set an appointment, use "Clear appointment date and time".',
 				type: 'string',
 			},
 			{
 				name: 'datePickerProps',
-				description: 'Props applied to the `DatePicker`.\nProps applied to the `DatePicker`.',
+				description: 'Props applied to the `DatePicker`.',
 				type: 'DatePickerBaseProps',
 			},
 			{
 				name: 'defaultValue',
-				description: 'The default for `value`.\nThe default for `value`.',
+				description: 'The default for `value`.',
 				type: 'string',
 			},
 			{
 				name: 'id',
-				description: 'Set the id of the field.\nSet the id of the field.',
+				description: 'Set the id of the field.',
 				type: 'string',
 			},
 			{
 				name: 'isDisabled',
-				description: 'Set if the field is disabled.\nSet if the field is disabled.',
+				description: 'Set if the field is disabled.',
 				type: 'boolean',
 			},
 			{
 				name: 'isInvalid',
-				description:
-					'Set if the picker has an invalid value.\nSet if the picker has an invalid value.',
+				description: 'Set if the picker has an invalid value.',
 				type: 'boolean',
 			},
 			{
 				name: 'isRequired',
-				description: 'Set the field as required.\nSet the field as required.',
+				description: 'Set the field as required.',
 				type: 'boolean',
 			},
 			{
 				name: 'locale',
 				description:
-					'Locale used for formatting dates and times. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).\nLocale used for formatting dates and times. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).',
+					'Locale used for formatting dates and times. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).',
 				type: 'string',
 			},
 			{
 				name: 'name',
-				description: 'The name of the field.\nThe name of the field.',
+				description: 'The name of the field.',
 				type: 'string',
 			},
 			{
 				name: 'onBlur',
-				description: 'Called when the field is blurred.\nCalled when the field is blurred.',
+				description: 'Called when the field is blurred.',
 				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
 			},
 			{
 				name: 'onChange',
 				description:
-					'Called when the value changes and the date / time is a complete value, or empty. The only value is an ISO string or empty string.\nCalled when the value changes and the date / time is a complete value, or empty. The only value is an ISO string or empty string.',
-				type: '(value: string) => void',
+					'Called when the value changes and the date / time is a complete value, or empty. The only value is an ISO string or empty string.',
+				type: '((value: string) => void) & ((value: string) => void)',
 			},
 			{
 				name: 'onFocus',
-				description: 'Called when the field is focused.\nCalled when the field is focused.',
+				description: 'Called when the field is focused.',
 				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
 			},
 			{
 				name: 'parseValue',
 				description:
-					'Function used to parse datetime values into their date, time and timezone sub-values. *\nFunction used to parse datetime values into their date, time and timezone sub-values. *',
-				type: '(dateTimeValue: string, date: string, time: string, timezone: string) => { dateValue: string; timeValue: string; zoneValue: string; }',
+					'Function used to parse datetime values into their date, time and timezone sub-values. *',
+				type: '((dateTimeValue: string, date: string, time: string, timezone: string) => { dateValue: string; timeValue: string; zoneValue: string; }) & ((dateTimeValue: string, date: string, time: string, timezone: string) => { ...; })',
 			},
 			{
 				name: 'spacing',
 				description:
-					'The spacing for the select control.\n\nCompact is `gridSize() * 4`, default is `gridSize() * 5`.\nThe spacing for the select control.\n\nCompact is `gridSize() * 4`, default is `gridSize() * 5`.',
+					'The spacing for the select control.\n\nCompact is `gridSize() * 4`, default is `gridSize() * 5`.',
 				type: '"default" | "compact"',
 			},
 			{
 				name: 'timePickerProps',
-				description: 'Props applied to the `TimePicker`.\nProps applied to the `TimePicker`.',
+				description: 'Props applied to the `TimePicker`.',
 				type: 'TimePickerBaseProps',
 			},
 			{
 				name: 'value',
-				description:
-					'The ISO time that should be used as the input value.\nThe ISO time that should be used as the input value.',
+				description: 'The ISO time that should be used as the input value.',
 				type: 'string',
 			},
 		],
@@ -2113,6 +2169,7 @@ export const components: Component[] = [
 				description:
 					'Controls whether to focus the first tabbable element inside the focus lock. Set to `true` by default.',
 				type: 'boolean',
+				defaultValue: 'true',
 			},
 			{
 				name: 'children',
@@ -2129,11 +2186,13 @@ export const components: Component[] = [
 				description:
 					'Enable this to keep focus inside the component until it’s closed. This is strongly recommended, as it prevents people who use assistive technology from accidentally navigating out of the drawer using the tab key.',
 				type: 'boolean',
+				defaultValue: 'true',
 			},
 			{
 				name: 'isOpen',
 				description: 'Controls if the drawer is open or closed.',
 				type: 'boolean',
+				isRequired: true,
 			},
 			{
 				name: 'label',
@@ -2169,6 +2228,7 @@ export const components: Component[] = [
 				description:
 					'ReturnFocus controls what happens when the user exits focus lock mode.\nIf true, focus returns to the trigger element . If false, focus remains where it was when the FocusLock was deactivated.\nIf ref is passed, focus returns to that specific ref element.',
 				type: 'boolean | React.RefObject<HTMLElement>',
+				defaultValue: 'true',
 			},
 			{
 				name: 'titleId',
@@ -2180,12 +2240,14 @@ export const components: Component[] = [
 				name: 'width',
 				description: 'Sets the width of the drawer.',
 				type: '"extended" | "full" | "medium" | "narrow" | "wide"',
+				defaultValue: '"narrow"',
 			},
 			{
 				name: 'zIndex',
 				description:
 					'Z-index that the popup should be displayed in.\nThis is passed to the portal component.\nDefaults to `unset`.',
 				type: 'number | "unset"',
+				defaultValue: '"unset"',
 			},
 		],
 	},
@@ -2224,7 +2286,7 @@ export const components: Component[] = [
 			{
 				name: 'xcss',
 				description: '',
-				type: 'false | (XCSSValue<"backgroundColor" | "marginTop" | "paddingBottom" | "paddingLeft" | "paddingRight" | "paddingTop" | "padding", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"backgroundColor" | "marginBlockStart" | "marginTop" | "paddingBlockEnd" | "paddingBlockStart" | "paddingBottom" | "paddingInlineEnd" | "paddingInlineStart" | "paddingLeft" | "paddingRight" | "paddingTop" | "padding", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -2293,6 +2355,7 @@ export const components: Component[] = [
 				description:
 					'This is the accessible name for the close/back control of the drawer. The default is "Close drawer".',
 				type: 'string',
+				defaultValue: '"Close drawer"',
 			},
 		],
 	},
@@ -2338,6 +2401,7 @@ export const components: Component[] = [
 				description:
 					'Controls if the first menu item receives focus when menu is opened. Note that the menu has a focus lock\nwhich traps the focus within the menu. The first item gets focus automatically\nif the menu is triggered using the keyboard.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'children',
@@ -2350,11 +2414,13 @@ export const components: Component[] = [
 				description:
 					'Controls the initial open state of the dropdown. If provided, the component is considered to be controlled\nwhich means that the user is responsible for managing the open and close state of the menu.\nUsing `defaultOpen` may cause accessiblity issues because it will automatically shift focus to the first menu item; which can be disorienting.\nOnly use this if action on the menu is required to proceed.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'isLoading',
 				description: 'If true, a spinner is rendered instead of the items.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'isOpen',
@@ -2376,11 +2442,13 @@ export const components: Component[] = [
 				description:
 					'Called when the menu should be open/closed. Receives an object with `isOpen` state.\n\nIf the dropdown was closed programatically, the `event` parameter will be `null`.',
 				type: '(args: OnOpenChangeArgs) => void',
+				defaultValue: 'noop',
 			},
 			{
 				name: 'placement',
 				description: 'Position of the menu.',
 				type: '"auto-start" | "auto" | "auto-end" | "top-start" | "top" | "top-end" | "right-start" | "right" | "right-end" | "bottom-end" | "bottom" | "bottom-start" | "left-end" | "left" | "left-start"',
+				defaultValue: '"bottom-start"',
 			},
 			{
 				name: 'returnFocusRef',
@@ -2393,18 +2461,28 @@ export const components: Component[] = [
 				description:
 					"This fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.\n\nThis fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.",
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'shouldFlip',
 				description:
 					'Allows the dropdown menu to be placed on the opposite side of its trigger if it does not\nfit in the viewport.',
 				type: 'boolean',
+				defaultValue: 'true',
+			},
+			{
+				name: 'shouldPreventEscapePropagation',
+				description:
+					'When set to true, will call stopPropagation on the ESCAPE key event.\nThis prevents the ESCAPE event from bubbling up to parent elements.',
+				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'shouldRenderToParent',
 				description:
 					'Controls whether the popup is rendered inline within its parent component or in a portal at the document root.\n`true` renders the dropdown menu in the DOM node closest to the trigger; focus is not trapped inside the element.\n`false` renders the dropdown menu in React.Portal and focus is trapped inside the element.\nDefaults to `false`.\nControls whether the popup is rendered inline within its parent component or in a portal at the document root.\n`true` renders the dropdown menu in the DOM node closest to the trigger; focus is not trapped inside the element.\n`false` renders the dropdown menu in React.Portal and focus is trapped inside the element.\nDefaults to `false`.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'spacing',
@@ -2433,6 +2511,7 @@ export const components: Component[] = [
 				description:
 					'Z-index that the popup should be displayed in.\nThis is passed to the portal component.\nDefaults to `layers.modal()` from `@atlaskit/theme` which is 510.',
 				type: 'number',
+				defaultValue: '510',
 			},
 		],
 	},
@@ -2481,18 +2560,21 @@ export const components: Component[] = [
 				name: 'header',
 				description: 'Title that briefly describes the page to the user.',
 				type: 'string',
+				isRequired: true,
 			},
 			{
 				name: 'headingLevel',
 				description:
 					'The value used to set the heading level of the header element.\nMust be in the range of 1 to 6. Defaults to 4.',
 				type: 'number',
+				defaultValue: '4',
 			},
 			{
 				name: 'headingSize',
 				description:
 					'The keyword used to set the visual appearance of the header element.\nDefaults to "medium". "xsmall" can be used for empty states in smaller contexts such as popups.',
 				type: '"xsmall" | "medium"',
+				defaultValue: '"medium"',
 			},
 			{
 				name: 'imageHeight',
@@ -2522,11 +2604,13 @@ export const components: Component[] = [
 				name: 'maxImageHeight',
 				description: 'Maximum height (in pixels) of the image, default value is 160.',
 				type: 'number',
+				defaultValue: '160',
 			},
 			{
 				name: 'maxImageWidth',
 				description: 'Maximum width (in pixels) of the image, default value is 160.',
 				type: 'number',
+				defaultValue: '160',
 			},
 			{
 				name: 'primaryAction',
@@ -2617,7 +2701,7 @@ export const components: Component[] = [
 			{
 				name: 'description',
 				description: 'The secondary content shown below the flag title.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 			},
 			{
 				name: 'headingLevel',
@@ -2629,23 +2713,24 @@ export const components: Component[] = [
 				name: 'icon',
 				description:
 					'The icon displayed in the top-left of the flag. Should be an instance of `@atlaskit/icon`.\nYour icon will receive the appropriate default color, which you can override by setting\nthe `color` prop on the icon to your preferred icon color.\nIf no icon is provided, a default icon will be used based on the appearance prop.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 			},
 			{
 				name: 'id',
 				description: 'A unique identifier used for rendering and onDismissed callbacks.',
 				type: 'string | number',
+				isRequired: true,
 			},
 			{
 				name: 'linkComponent',
 				description:
 					'A link component that is passed down to the `@atlaskit/button` used by actions,\nto allow custom routers to be used. See the\n[button with router](https://atlaskit.atlassian.com/packages/design-system/button/example/ButtonWithRouter)\nexample of what this component should look like.',
-				type: 'ComponentClass<CustomThemeButtonProps, any> | FunctionComponent<CustomThemeButtonProps>',
+				type: 'React.ComponentClass<CustomThemeButtonProps, any> | React.FunctionComponent<CustomThemeButtonProps>',
 			},
 			{
 				name: 'onBlur',
 				description: 'Standard onBlur event, applied to Flag by AutoDismissFlag.',
-				type: '(e: FocusEvent<HTMLElement, Element>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '(e: React.FocusEvent<HTMLElement, Element>, analyticsEvent: UIAnalyticsEvent) => void',
 			},
 			{
 				name: 'onDismissed',
@@ -2656,22 +2741,23 @@ export const components: Component[] = [
 			{
 				name: 'onFocus',
 				description: 'Standard onFocus event, applied to Flag by AutoDismissFlag.',
-				type: '(e: FocusEvent<HTMLElement, Element>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '(e: React.FocusEvent<HTMLElement, Element>, analyticsEvent: UIAnalyticsEvent) => void',
 			},
 			{
 				name: 'onMouseOut',
 				description: 'Standard onMouseOut event, applied to Flag by AutoDismissFlag.',
-				type: '(event: MouseEvent<Element, globalThis.MouseEvent>) => void',
+				type: '(event: React.MouseEvent<Element, MouseEvent>) => void',
 			},
 			{
 				name: 'onMouseOver',
 				description: 'Standard onMouseOver event, applied to Flag by AutoDismissFlag.',
-				type: '(event: MouseEvent<Element, globalThis.MouseEvent>) => void',
+				type: '(event: React.MouseEvent<Element, MouseEvent>) => void',
 			},
 			{
 				name: 'title',
 				description: 'The bold text shown at the top of the flag.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
 			},
 		],
 	},
@@ -2719,6 +2805,7 @@ export const components: Component[] = [
 				description:
 					'The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.\nYou can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).\n\nIf you are only spreading `formProps` onto the HTML `<form>` element and not using any of the other props (like `submitting`, etc.), `children` can be plain JSX. All of the children will be wrapped within an HTML `<form>` element that includes all necessary props, including those provided on the form component.',
 				type: '(() => void) | React.ReactNode | ((args: FormChildrenArgs<FormValues>) => React.ReactNode)',
+				isRequired: true,
 			},
 			{
 				name: 'formProps',
@@ -2765,6 +2852,7 @@ export const components: Component[] = [
 				description:
 					'Event handler called when the form is submitted. Fields must be free of validation errors.',
 				type: '(values: FormValues, form: FormApi<FormValues>, callback?: (errors?: Record<string, string>) => void) => void | Object | Promise<...>',
+				isRequired: true,
 			},
 			{
 				name: 'xcss',
@@ -2795,7 +2883,7 @@ export const components: Component[] = [
 			'A component for creating accessible, consistently styled headings with proper hierarchy. Headings are sized to contrast with content, increase visual hierarchy, and help readers easily understand the structure of content.',
 		status: 'general-availability',
 		examples: [
-			'import Heading from \'@atlaskit/heading\';\nexport default [\n\t<Heading size="xxlarge">Page Title</Heading>,\n\t<Heading size="large" color="color.text.inverse">\n\t\tInverted section title\n\t</Heading>,\n];',
+			'import Heading from \'@atlaskit/heading\';\nconst _default_1: React.JSX.Element[] = [\n\t<Heading size="xxlarge">Page Title</Heading>,\n\t<Heading size="large" color="color.text.inverse">\n\t\tInverted section title\n\t</Heading>,\n];\nexport default _default_1;',
 		],
 		accessibilityGuidelines: [
 			'Maintain proper heading hierarchy (h1 to h6)',
@@ -2822,13 +2910,14 @@ export const components: Component[] = [
 			{
 				name: 'as',
 				description:
-					'Allows the component to be rendered as the specified DOM element, overriding a default element set by `level` prop.',
+					'Allows the component to be rendered as the specified HTML element, overriding a default element set by the `size` prop.',
 				type: '"h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div" | "span"',
 			},
 			{
 				name: 'children',
 				description: 'The text of the heading.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'color',
@@ -2838,14 +2927,15 @@ export const components: Component[] = [
 			},
 			{
 				name: 'id',
-				description: 'Unique identifier for the heading DOM element.',
+				description: 'Unique identifier for the heading HTML element.',
 				type: 'string',
 			},
 			{
 				name: 'size',
 				description:
-					'Heading size. This value is detached from the specific heading level applied to allow for more flexibility.\nUse instead of the deprecated `level` prop.',
+					'Determines which text styles are applied. A corresponding HTML element is automatically applied from h1 to h6 based on the size.\nThis can be overriden using the `as` prop to allow for more flexibility.',
 				type: '"xxlarge" | "xlarge" | "large" | "medium" | "small" | "xsmall" | "xxsmall"',
+				isRequired: true,
 			},
 		],
 	},
@@ -2858,7 +2948,7 @@ export const components: Component[] = [
 			'A context provider that allows you to configure the default HTML heading level for all headings within its subtree. Useful for maintaining proper heading hierarchy in complex layouts.',
 		status: 'general-availability',
 		examples: [
-			'import Heading, { HeadingContextProvider } from \'@atlaskit/heading\';\nexport default [\n\t<HeadingContextProvider>\n\t\t<Heading size="xxlarge">h1</Heading>\n\t\t<Heading size="medium">h2</Heading>\n\t\t<Heading size="large">h3</Heading>\n\t</HeadingContextProvider>,\n];',
+			'import Heading, { HeadingContextProvider } from \'@atlaskit/heading\';\nconst _default_1: React.JSX.Element[] = [\n\t<HeadingContextProvider>\n\t\t<Heading size="xxlarge">h1</Heading>\n\t\t<Heading size="medium">h2</Heading>\n\t\t<Heading size="large">h3</Heading>\n\t</HeadingContextProvider>,\n];\nexport default _default_1;',
 		],
 		usageGuidelines: [
 			'Wrap sections that need different heading hierarchy',
@@ -2874,6 +2964,7 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Semantic hierarchy of content below the heading context.',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'value',
@@ -2891,7 +2982,7 @@ export const components: Component[] = [
 		description: 'An icon is a symbol representing a command, device, directory, or common action.',
 		status: 'general-availability',
 		examples: [
-			"import AddIcon from '@atlaskit/icon/core/add';\nimport DeleteIcon from '@atlaskit/icon/core/delete';\nimport StarIcon from '@atlaskit/icon/core/star-starred';\nimport { token } from '@atlaskit/tokens';\nexport default [\n\t<AddIcon label=\"Add\" />,\n\t<StarIcon label=\"Star\" color=\"currentColor\" />,\n\t<DeleteIcon label=\"Delete\" color={token('color.icon.danger')} />,\n];",
+			"import AddIcon from '@atlaskit/icon/core/add';\nimport DeleteIcon from '@atlaskit/icon/core/delete';\nimport StarIcon from '@atlaskit/icon/core/star-starred';\nimport { token } from '@atlaskit/tokens';\nconst _default_1: React.JSX.Element[] = [\n\t<AddIcon label=\"Add\" />,\n\t<StarIcon label=\"Star\" color=\"currentColor\" />,\n\t<DeleteIcon label=\"Delete\" color={token('color.icon.danger')} />,\n];\nexport default _default_1;",
 		],
 		accessibilityGuidelines: [
 			'Provide appropriate alt text or labels for icons',
@@ -2935,6 +3026,7 @@ export const components: Component[] = [
 				name: 'label',
 				description: 'Text used to describe what the icon is in context.',
 				type: 'string',
+				isRequired: true,
 			},
 			{
 				name: 'primaryColor',
@@ -2964,7 +3056,7 @@ export const components: Component[] = [
 			'A tile component that displays an icon with customizable background, shape, and appearance.',
 		status: 'release-candidate',
 		examples: [
-			'import { IconTile } from \'@atlaskit/icon\';\nimport AddIcon from \'@atlaskit/icon/core/add\';\nexport default [\n\t<IconTile icon={AddIcon} label="Add" appearance="redBold" />,\n\t<IconTile icon={AddIcon} label="Add" shape="circle" appearance="blue" />,\n];',
+			'import { IconTile } from \'@atlaskit/icon\';\nimport AddIcon from \'@atlaskit/icon/core/add\';\nconst _default_1: React.JSX.Element[] = [\n\t<IconTile icon={AddIcon} label="Add" appearance="redBold" />,\n\t<IconTile icon={AddIcon} label="Add" shape="circle" appearance="blue" />,\n];\nexport default _default_1;',
 		],
 		accessibilityGuidelines: [
 			'Provide appropriate labels for icon tiles',
@@ -2988,16 +3080,19 @@ export const components: Component[] = [
 				name: 'appearance',
 				description: 'The appearance of the tile',
 				type: '"gray" | "blue" | "teal" | "green" | "lime" | "yellow" | "orange" | "red" | "magenta" | "purple" | "grayBold" | "blueBold" | "tealBold" | "greenBold" | "limeBold" | "yellowBold" | "orangeBold" | "redBold" | "magentaBold" | "purpleBold"',
+				isRequired: true,
 			},
 			{
 				name: 'icon',
 				description: 'The icon to display',
 				type: 'React.ComponentClass<NewCoreIconProps, any> | React.FunctionComponent<NewCoreIconProps>',
+				isRequired: true,
 			},
 			{
 				name: 'label',
 				description: 'The label for the icon',
 				type: 'string',
+				isRequired: true,
 			},
 			{
 				name: 'size',
@@ -3083,11 +3178,13 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'The elements that the InlineDialog will be positioned relative to.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'content',
 				description: 'The elements to be displayed within the InlineDialog.',
 				type: 'ReactNode | (() => ReactNode)',
+				isRequired: true,
 			},
 			{
 				name: 'fallbackPlacements',
@@ -3178,6 +3275,7 @@ export const components: Component[] = [
 				description:
 					'The user input entered into the field during `editView`. This value is updated and saved by `onConfirm`.',
 				type: 'any',
+				isRequired: true,
 			},
 			{
 				name: 'editButtonLabel',
@@ -3196,6 +3294,7 @@ export const components: Component[] = [
 				description:
 					'The component shown when user is editing (when the inline edit is not in `readView`).',
 				type: '(fieldProps: ExtendedFieldProps<FieldValue>, ref: React.RefObject<any>) => React.ReactNode',
+				isRequired: true,
 			},
 			{
 				name: 'hideActionButtons',
@@ -3236,6 +3335,7 @@ export const components: Component[] = [
 				description:
 					'Saves and confirms the value entered into the field. It exits `editView` and returns to `readView`.',
 				type: '(value: any, analyticsEvent: UIAnalyticsEvent) => void',
+				isRequired: true,
 			},
 			{
 				name: 'onEdit',
@@ -3247,6 +3347,7 @@ export const components: Component[] = [
 				description:
 					'The component shown when not in `editView`. This is when the inline edit is read-only and not being edited.',
 				type: '() => React.ReactNode',
+				isRequired: true,
 			},
 			{
 				name: 'readViewFitContainerWidth',
@@ -3302,17 +3403,18 @@ export const components: Component[] = [
 				description:
 					'Set the icon to be used before the title. Options are: connectivity,\nconfirmation, info, warning, and error.',
 				type: '"connectivity" | "confirmation" | "info" | "warning" | "error"',
+				defaultValue: '"connectivity"',
 			},
 			{
 				name: 'children',
 				description: 'The elements to be displayed by the popup.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
 			},
 			{
 				name: 'fallbackPlacements',
 				description:
 					"This is a list of backup placements for the popup to try.\nWhen the preferred placement doesn't have enough space,\nthe modifier will test the ones provided in the list, and use the first suitable one.\nIf no fallback placements are suitable, it reverts back to the original placement.",
-				type: 'Placement[]',
+				type: 'PopupPlacement[]',
 			},
 			{
 				name: 'iconLabel',
@@ -3325,22 +3427,26 @@ export const components: Component[] = [
 				description:
 					'The placement to be passed to the popup. Determines where around\nthe text the dialog is displayed.',
 				type: 'AutoPlacement | BasePlacement | VariationPlacement',
+				defaultValue: '"bottom-start"',
 			},
 			{
 				name: 'secondaryText',
 				description: 'Text to display second.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				defaultValue: '""',
 			},
 			{
 				name: 'spacing',
 				description:
 					'The spacing of the underlying icon button. Options are: spacious and compact.',
 				type: '"spacious" | "compact"',
+				defaultValue: '"spacious"',
 			},
 			{
 				name: 'title',
 				description: 'Text to display first, bolded for emphasis.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				defaultValue: '""',
 			},
 		],
 	},
@@ -3352,7 +3458,7 @@ export const components: Component[] = [
 		description: 'A component for navigation links.',
 		status: 'general-availability',
 		examples: [
-			'import Link from \'@atlaskit/link\';\nexport default [\n\t<Link href="/dashboard">Go to Dashboard</Link>,\n\t<Link href="https://atlassian.design" target="_blank">\n\t\tAtlassian Design System\n\t</Link>,\n];',
+			'import Link from \'@atlaskit/link\';\nconst _default_1: React.JSX.Element[] = [\n\t<Link href="/dashboard">Go to Dashboard</Link>,\n\t<Link href="https://atlassian.design" target="_blank">\n\t\tAtlassian Design System\n\t</Link>,\n];\nexport default _default_1;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear link text that describes the destination',
@@ -3389,6 +3495,7 @@ export const components: Component[] = [
 				description:
 					'Standard links can be provided as a string, which should be mapped to the\nunderlying router link component.\n\nAlternatively, you can provide an object for advanced link configurations\nby supplying the expected object type to the generic.\n\n@example\n```\nconst MyRouterLink = forwardRef(\n(\n  {\n    href,\n    children,\n    ...rest\n  }: RouterLinkComponentProps<{\n    href: string;\n    replace: boolean;\n  }>,\n  ref: Ref<HTMLAnchorElement>,\n) => { ...\n```',
 				type: 'string | RouterLinkConfig',
+				isRequired: true,
 			},
 			{
 				name: 'newWindowLabel',
@@ -3412,7 +3519,7 @@ export const components: Component[] = [
 		description: 'A component for displaying the Atlassian icon.',
 		status: 'general-availability',
 		examples: [
-			'import { AtlassianIcon } from \'@atlaskit/logo\';\nexport default [\n\t<AtlassianIcon appearance="brand" shouldUseNewLogoDesign />,\n\t<AtlassianIcon appearance="neutral" shouldUseNewLogoDesign />,\n];',
+			'import { AtlassianIcon } from \'@atlaskit/logo\';\nconst _default_1: React.JSX.Element[] = [\n\t<AtlassianIcon appearance="brand" shouldUseNewLogoDesign />,\n\t<AtlassianIcon appearance="neutral" shouldUseNewLogoDesign />,\n];\nexport default _default_1;',
 		],
 		accessibilityGuidelines: [
 			'Provide appropriate alt text for the icon',
@@ -3438,6 +3545,7 @@ export const components: Component[] = [
 				description:
 					"Accessible text to be used for screen readers (it's optional since the default props provide a label that matches the logo).",
 				type: 'string',
+				defaultValue: '"Atlassian"',
 			},
 			{
 				name: 'shouldUseNewLogoDesign',
@@ -3449,6 +3557,7 @@ export const components: Component[] = [
 				name: 'size',
 				description: 'The size of the icon.',
 				type: '"xxsmall" | "xsmall" | "small" | "medium" | "large" | "xlarge"',
+				defaultValue: 'defaultLogoParams.size',
 			},
 		],
 	},
@@ -3486,8 +3595,8 @@ export const components: Component[] = [
 			{
 				name: 'appearance',
 				description:
-					'The appearance type.\nThe appearance of the lozenge. Supports both legacy semantic appearances and new accent/semantic colors.\nLegacy appearances (default, success, removed, inprogress, new, moved) are automatically mapped to the new semantic colors.',
-				type: 'ThemeAppearance | "warning" | "danger" | "information" | "neutral" | "discovery" | "accent-red" | "accent-orange" | "accent-yellow" | "accent-lime" | "accent-green" | ... 4 more ... | "accent-gray"',
+					'The appearance type.\nThe appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.\nAccent appearance values.',
+				type: 'ThemeAppearance | "warning" | "danger" | "information" | "neutral" | "discovery" | AccentColor',
 			},
 			{
 				name: 'children',
@@ -3536,6 +3645,7 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Children of the menu group.\nThis should generally be `Section` components.',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'isLoading',
@@ -3583,7 +3693,8 @@ export const components: Component[] = [
 			{
 				name: 'spacing',
 				description: 'Configure the density of the menu group content.',
-				type: '"compact" | "cozy"',
+				type: '"cozy" | "compact"',
+				defaultValue: '"cozy"',
 			},
 		],
 	},
@@ -3758,6 +3869,7 @@ export const components: Component[] = [
 				name: 'disableTitleStyles',
 				description: 'Content of the page title. The text wraps by default.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'id',
@@ -3776,6 +3888,7 @@ export const components: Component[] = [
 				description:
 					'Prevent the title from wrapping across lines. Avoid using this wherever possible, as truncation can make page headings inaccessible.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 		],
 	},
@@ -3811,7 +3924,7 @@ export const components: Component[] = [
 			{
 				name: 'components',
 				description: 'Replace the built-in page, previous, next and/ or ellipsis component',
-				type: '{ Page?: React.ElementType<any>; Previous?: React.ElementType<any>; Next?: React.ElementType<any>; }',
+				type: '{ Page?: React.ElementType<any, keyof React.JSX.IntrinsicElements>; Previous?: React.ElementType<any, keyof React.JSX.IntrinsicElements>; Next?: React.ElementType<...>; }',
 			},
 			{
 				name: 'defaultSelectedIndex',
@@ -3860,6 +3973,7 @@ export const components: Component[] = [
 				name: 'pages',
 				description: 'Array of the pages to display.',
 				type: 'T[]',
+				isRequired: true,
 			},
 			{
 				name: 'previousLabel',
@@ -3911,6 +4025,7 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Returns the element to be positioned.',
 				type: '(childrenProps: PopperChildrenProps) => React.ReactNode',
+				defaultValue: 'defaultChildrenFn',
 			},
 			{
 				name: 'modifiers',
@@ -3922,27 +4037,32 @@ export const components: Component[] = [
 				description:
 					'Distance the popup should be offset from the reference in the format of [along, away] (units in px).\nDefaults to [0, 8] - which means the popup will be 8px away from the edge of the reference specified\nby the `placement` prop.',
 				type: '[number, number]',
+				defaultValue: 'defaultOffset',
 			},
 			{
 				name: 'placement',
 				description: 'Which side of the Reference to show on.',
 				type: 'AutoPlacement | BasePlacement | VariationPlacement',
+				defaultValue: '"bottom-start"',
 			},
 			{
 				name: 'referenceElement',
 				description: 'Replacement reference element to position popper relative to.',
 				type: 'HTMLElement | VirtualElement',
+				defaultValue: 'undefined',
 			},
 			{
 				name: 'shouldFitViewport',
 				description:
 					'Determines if the popper will have a `max-width` and `max-height` set to\nconstrain it to the viewport.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'strategy',
 				description: "Placement strategy used. Can be 'fixed' or 'absolute'",
 				type: '"fixed" | "absolute"',
+				defaultValue: '"fixed"',
 			},
 		],
 	},
@@ -3997,6 +4117,7 @@ export const components: Component[] = [
 				name: 'content',
 				description: 'Render props for content that is displayed inside the popup.',
 				type: '(props: ContentProps) => ReactNode',
+				isRequired: true,
 			},
 			{
 				name: 'fallbackPlacements',
@@ -4014,6 +4135,7 @@ export const components: Component[] = [
 				description:
 					'Use this to either show or hide the popup.\nWhen set to `false` the popup will not render anything to the DOM.',
 				type: 'boolean',
+				isRequired: true,
 			},
 			{
 				name: 'label',
@@ -4122,6 +4244,7 @@ export const components: Component[] = [
 				description:
 					'Render props used to anchor the popup to your content.\nMake this an interactive element,\nsuch as an `@atlaskit/button` component.',
 				type: '(props: TriggerProps) => ReactNode',
+				isRequired: true,
 			},
 			{
 				name: 'xcss',
@@ -4168,17 +4291,20 @@ export const components: Component[] = [
 				name: 'children',
 				description: '',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'mountStrategy',
 				description:
 					'Specify the mount strategy: useEffect or useLayoutEffect.\nNote: UseLayoutEffect can lead to performance issues and is discouraged.',
 				type: '"effect" | "layoutEffect"',
+				defaultValue: '"effect"',
 			},
 			{
 				name: 'zIndex',
 				description: '',
 				type: 'string | number',
+				defaultValue: '0',
 			},
 		],
 	},
@@ -4190,7 +4316,7 @@ export const components: Component[] = [
 		description: 'A primitive Anchor component for navigation links with compiled styling support.',
 		status: 'general-availability',
 		examples: [
-			'import { Anchor } from \'@atlaskit/primitives/compiled\';\nexport default [\n\t<Anchor href="https://atlassian.design">Atlassian Design System</Anchor>,\n\t<Anchor href="/docs" target="_blank">\n\t\tOpen docs\n\t</Anchor>,\n];',
+			'import { Anchor } from \'@atlaskit/primitives/compiled\';\nconst _default_1: React.JSX.Element[] = [\n\t<Anchor href="https://atlassian.design">Atlassian Design System</Anchor>,\n\t<Anchor href="/docs" target="_blank">\n\t\tOpen docs\n\t</Anchor>,\n];\nexport default _default_1;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear link text that describes the destination',
@@ -4221,6 +4347,7 @@ export const components: Component[] = [
 				description:
 					'Standard links can be provided as a string, which should be mapped to the\nunderlying router link component.\n\nAlternatively, you can provide an object for advanced link configurations\nby supplying the expected object type to the generic.\n\n@example\n```\nconst MyRouterLink = forwardRef(\n(\n  {\n    href,\n    children,\n    ...rest\n  }: RouterLinkComponentProps<{\n    href: string;\n    replace: boolean;\n  }>,\n  ref: Ref<HTMLAnchorElement>,\n) => { ...\n```',
 				type: 'string | RouterLinkConfig',
+				isRequired: true,
 			},
 			{
 				name: 'newWindowLabel',
@@ -4251,7 +4378,7 @@ export const components: Component[] = [
 			'A primitive Bleed component for extending content beyond container boundaries with compiled styling support.',
 		status: 'general-availability',
 		examples: [
-			'import { Bleed, Box } from \'@atlaskit/primitives/compiled\';\nexport default [\n\t<Box padding="space.200" backgroundColor="color.background.neutral.subtle">\n\t\t<Bleed inline="space.100">\n\t\t\t<Box backgroundColor="color.background.brand.bold" padding="space.100">\n\t\t\t\tBleed content\n\t\t\t</Box>\n\t\t</Bleed>\n\t</Box>,\n];',
+			'import { Bleed, Box } from \'@atlaskit/primitives/compiled\';\nconst _default_1: React.JSX.Element[] = [\n\t<Box padding="space.200" backgroundColor="color.background.neutral.subtle">\n\t\t<Bleed inline="space.100">\n\t\t\t<Box backgroundColor="color.background.brand.bold" padding="space.100">\n\t\t\t\tBleed content\n\t\t\t</Box>\n\t\t</Bleed>\n\t</Box>,\n];\nexport default _default_1;',
 		],
 		usageGuidelines: [
 			'Use for extending content beyond container margins',
@@ -4279,6 +4406,7 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Elements to be rendered inside the Flex.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'inline',
@@ -4307,7 +4435,7 @@ export const components: Component[] = [
 			'A primitive Box component for layout and container purposes with compiled styling support.',
 		status: 'general-availability',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tbox: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tbackgroundColor: token('color.background.neutral.subtle'),\n\t},\n});\nexport default [\n\t<Box padding=\"space.200\" backgroundColor=\"color.background.neutral.subtle\">\n\t\tBasic box\n\t</Box>,\n\t<Box xcss={styles.box}>Styled box</Box>,\n];",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tbox: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tbackgroundColor: token('color.background.neutral.subtle'),\n\t},\n});\nconst _default_1: JSX.Element[] = [\n\t<Box padding=\"space.200\" backgroundColor=\"color.background.neutral.subtle\">\n\t\tBasic box\n\t</Box>,\n\t<Box xcss={styles.box}>Styled box</Box>,\n];\nexport default _default_1;",
 		],
 		usageGuidelines: [
 			'Use for basic layout and container needs',
@@ -4325,7 +4453,8 @@ export const components: Component[] = [
 				name: 'as',
 				description:
 					"The DOM element to render as the Box.\n- This cannot be any SVG-related element such as `'svg'`, `'animate', `'circle'`, and many more\n- This cannot be a `'a'` (use the `Anchor` primitive instead)\n- This cannot be a `'button'` (use the `Anchor` primitive instead)",
-				type: '"object" | "style" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | "center" | ... 97 more ... | "webview"',
+				type: '"object" | "style" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | "center" | ... 98 more ... | "set"',
+				defaultValue: "'div'",
 			},
 			{
 				name: 'backgroundColor',
@@ -4336,7 +4465,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					"Apply a subset of permitted styles powered by Atlassian Design System design tokens.\nIt's preferred you do not use `background` in `xcss` or `cssMap()` and instead use `props.backgroundColor` for surface awareness.",
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "height" | "width" | "translate" | "content" | "color" | "border" | "grid" | "page" | "all" | "backgroundColor" | "accentColor" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "height" | "width" | "translate" | "content" | "color" | "border" | "alignmentBaseline" | "baselineShift" | "clip" | ... 487 more ... | "viewTimeline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4348,7 +4477,7 @@ export const components: Component[] = [
 		description: 'A primitive Flex component for flexbox layout with compiled styling support.',
 		status: 'general-availability',
 		examples: [
-			'import { Box, Flex } from \'@atlaskit/primitives/compiled\';\nexport default [\n\t<Flex gap="space.100" alignItems="center">\n\t\t<Box backgroundColor="color.background.accent.blue.subtle" padding="space.100">\n\t\t\tItem 1\n\t\t</Box>\n\t\t<Box backgroundColor="color.background.accent.green.subtle" padding="space.100">\n\t\t\tItem 2\n\t\t</Box>\n\t</Flex>,\n];',
+			'import { Box, Flex } from \'@atlaskit/primitives/compiled\';\nconst _default_1: React.JSX.Element[] = [\n\t<Flex gap="space.100" alignItems="center">\n\t\t<Box backgroundColor="color.background.accent.blue.subtle" padding="space.100">\n\t\t\tItem 1\n\t\t</Box>\n\t\t<Box backgroundColor="color.background.accent.green.subtle" padding="space.100">\n\t\t\tItem 2\n\t\t</Box>\n\t</Flex>,\n];\nexport default _default_1;',
 		],
 		usageGuidelines: [
 			'Use for flexbox layout needs',
@@ -4376,6 +4505,7 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Elements to be rendered inside the Flex.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'columnGap',
@@ -4416,7 +4546,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "alignItems" | "justifyContent" | "gap" | "columnGap" | "rowGap" | "direction" | "flex" | "grid" | "fill" | "stroke" | ... 487 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "justifyContent" | "alignItems" | "columnGap" | "gap" | "rowGap" | "direction" | "flex" | "grid" | "fill" | "stroke" | ... 487 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4437,7 +4567,7 @@ export const components: Component[] = [
 			'A primitive Focusable component for keyboard navigation and focus management with compiled styling support.',
 		status: 'general-availability',
 		examples: [
-			'import { Box, Focusable } from \'@atlaskit/primitives/compiled\';\nexport default [\n\t<Focusable>\n\t\t<Box padding="space.200" backgroundColor="color.background.neutral.subtle">\n\t\t\tFocusable content\n\t\t</Box>\n\t</Focusable>,\n];',
+			'import { Box, Focusable } from \'@atlaskit/primitives/compiled\';\nconst _default_1: React.JSX.Element[] = [\n\t<Focusable>\n\t\t<Box padding="space.200" backgroundColor="color.background.neutral.subtle">\n\t\t\tFocusable content\n\t\t</Box>\n\t</Focusable>,\n];\nexport default _default_1;',
 		],
 		accessibilityGuidelines: [
 			'Provide clear focus indicators',
@@ -4461,7 +4591,8 @@ export const components: Component[] = [
 			{
 				name: 'as',
 				description: 'The DOM element to render as the Focusable element.',
-				type: '"symbol" | "object" | "style" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | ... 155 more ... | "view"',
+				type: '"symbol" | "object" | "style" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | ... 156 more ... | "view"',
+				defaultValue: "'button'",
 			},
 			{
 				name: 'children',
@@ -4490,7 +4621,7 @@ export const components: Component[] = [
 		description: 'A primitive Grid component for CSS Grid layout with compiled styling support.',
 		status: 'general-availability',
 		examples: [
-			'import { cssMap } from \'@atlaskit/css\';\nimport { Box, Grid } from \'@atlaskit/primitives/compiled\';\nconst styles = cssMap({\n\tgrid: {\n\t\tgridTemplateColumns: \'1fr 1fr\',\n\t},\n});\nexport default [\n\t<Grid gap="space.200" xcss={styles.grid}>\n\t\t<Box backgroundColor="color.background.accent.blue.subtle" padding="space.200">\n\t\t\tGrid item 1\n\t\t</Box>\n\t\t<Box backgroundColor="color.background.accent.green.subtle" padding="space.200">\n\t\t\tGrid item 2\n\t\t</Box>\n\t</Grid>,\n];',
+			'import { cssMap } from \'@atlaskit/css\';\nimport { Box, Grid } from \'@atlaskit/primitives/compiled\';\nconst styles = cssMap({\n\tgrid: {\n\t\tgridTemplateColumns: \'1fr 1fr\',\n\t},\n});\nconst _default_1: React.JSX.Element[] = [\n\t<Grid gap="space.200" xcss={styles.grid}>\n\t\t<Box backgroundColor="color.background.accent.blue.subtle" padding="space.200">\n\t\t\tGrid item 1\n\t\t</Box>\n\t\t<Box backgroundColor="color.background.accent.green.subtle" padding="space.200">\n\t\t\tGrid item 2\n\t\t</Box>\n\t</Grid>,\n];\nexport default _default_1;',
 		],
 		usageGuidelines: [
 			'Use for CSS Grid layout needs',
@@ -4530,6 +4661,7 @@ export const components: Component[] = [
 				description:
 					'Elements to be rendered inside the grid. Required as a grid without children should not be a grid.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'columnGap',
@@ -4565,7 +4697,7 @@ export const components: Component[] = [
 				name: 'xcss',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
-				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "alignItems" | "alignContent" | "justifyContent" | "gap" | "columnGap" | "rowGap" | "flex" | "grid" | "fill" | "stroke" | ... 487 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"clipPath" | "filter" | "marker" | "mask" | "justifyContent" | "justifyItems" | "alignItems" | "alignContent" | "columnGap" | "gap" | "rowGap" | "flex" | "grid" | ... 488 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 			},
 		],
 	},
@@ -4577,7 +4709,7 @@ export const components: Component[] = [
 		description: 'A primitive Inline component for horizontal layout with consistent spacing.',
 		status: 'general-availability',
 		examples: [
-			'import AddIcon from \'@atlaskit/icon/core/add\';\nimport { Inline, Text } from \'@atlaskit/primitives/compiled\';\nexport default [\n\t<Inline space="space.100">\n\t\t<AddIcon label="Add item" />\n\t\t<Text>Add item</Text>\n\t</Inline>,\n];',
+			'import AddIcon from \'@atlaskit/icon/core/add\';\nimport { Inline, Text } from \'@atlaskit/primitives/compiled\';\nconst _default_1: React.JSX.Element[] = [\n\t<Inline space="space.100">\n\t\t<AddIcon label="Add item" />\n\t\t<Text>Add item</Text>\n\t</Inline>,\n];\nexport default _default_1;',
 		],
 		usageGuidelines: [
 			'Use for horizontal layout needs',
@@ -4610,6 +4742,7 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Elements to be rendered inside the Inline.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'grow',
@@ -4665,7 +4798,7 @@ export const components: Component[] = [
 		description: 'A primitive Text component for typography with compiled styling support.',
 		status: 'general-availability',
 		examples: [
-			'import { MetricText } from \'@atlaskit/primitives/compiled\';\nexport default [\n\t<MetricText size="small">42</MetricText>,\n\t<MetricText size="large">1,234</MetricText>,\n];',
+			'import { MetricText } from \'@atlaskit/primitives/compiled\';\nconst _default_1: React.JSX.Element[] = [\n\t<MetricText size="small">42</MetricText>,\n\t<MetricText size="large">1,234</MetricText>,\n];\nexport default _default_1;',
 		],
 		usageGuidelines: [
 			'Use for text content with consistent typography',
@@ -4693,6 +4826,7 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Elements rendered within the Text element.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'id',
@@ -4709,6 +4843,7 @@ export const components: Component[] = [
 				name: 'size',
 				description: 'Text size.',
 				type: '"small" | "medium" | "large"',
+				isRequired: true,
 			},
 		],
 	},
@@ -4721,7 +4856,7 @@ export const components: Component[] = [
 			'A primitive Pressable component for handling touch and click interactions with compiled styling support.',
 		status: 'general-availability',
 		examples: [
-			"import { Pressable } from '@atlaskit/primitives/compiled';\nexport default [<Pressable onClick={() => alert('Pressed!')}>Custom button</Pressable>];",
+			"import { Pressable } from '@atlaskit/primitives/compiled';\nconst _default_1: React.JSX.Element[] = [\n\t<Pressable onClick={() => alert('Pressed!')}>Custom button</Pressable>,\n];\nexport default _default_1;",
 		],
 		accessibilityGuidelines: [
 			'Provide clear visual feedback for press states',
@@ -4769,7 +4904,7 @@ export const components: Component[] = [
 			'A primitive Stack component for vertical and horizontal layout with consistent spacing.',
 		status: 'general-availability',
 		examples: [
-			'import Heading from \'@atlaskit/heading\';\nimport { Stack, Text } from \'@atlaskit/primitives/compiled\';\nexport default [\n\t<Stack space="space.100">\n\t\t<Heading size="medium">User name</Heading>\n\t\t<Text>Description</Text>\n\t</Stack>,\n];',
+			'import Heading from \'@atlaskit/heading\';\nimport { Stack, Text } from \'@atlaskit/primitives/compiled\';\nconst _default_1: React.JSX.Element[] = [\n\t<Stack space="space.100">\n\t\t<Heading size="medium">User name</Heading>\n\t\t<Text>Description</Text>\n\t</Stack>,\n];\nexport default _default_1;',
 		],
 		usageGuidelines: [
 			'Use for consistent vertical or horizontal layouts',
@@ -4802,6 +4937,7 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Elements to be rendered inside the Stack.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'grow',
@@ -4839,7 +4975,7 @@ export const components: Component[] = [
 		description: 'A primitive Text component for typography with compiled styling support.',
 		status: 'general-availability',
 		examples: [
-			'import { Text } from \'@atlaskit/primitives/compiled\';\nexport default [\n\t<Text>Default text</Text>,\n\t<Text size="large" weight="bold">\n\t\tLarge bold text\n\t</Text>,\n];',
+			'import { Text } from \'@atlaskit/primitives/compiled\';\nconst _default_1: React.JSX.Element[] = [\n\t<Text>Default text</Text>,\n\t<Text size="large" weight="bold">\n\t\tLarge bold text\n\t</Text>,\n];\nexport default _default_1;',
 		],
 		usageGuidelines: [
 			'Use for text content with consistent typography',
@@ -4867,6 +5003,7 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Elements rendered within the Text element.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'color',
@@ -4944,6 +5081,7 @@ export const components: Component[] = [
 				name: 'appearance',
 				description: 'The visual style of the progress bar.',
 				type: '"default" | "success" | "inverse"',
+				defaultValue: '"default"',
 			},
 			{
 				name: 'ariaLabel',
@@ -4955,11 +5093,13 @@ export const components: Component[] = [
 				name: 'isIndeterminate',
 				description: 'Shows the progress bar in an indeterminate state when `true`.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'value',
 				description: 'Sets the value of the progress bar, between `0` and `1` inclusive.',
 				type: 'number',
+				defaultValue: '0',
 			},
 		],
 	},
@@ -4995,11 +5135,13 @@ export const components: Component[] = [
 				name: 'isIndeterminate',
 				description: 'Shows the progress bar in an indeterminate state when `true`.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'value',
 				description: 'Sets the value of the progress bar, between `0` and `1` inclusive.',
 				type: 'number',
+				defaultValue: '0',
 			},
 		],
 	},
@@ -5035,11 +5177,13 @@ export const components: Component[] = [
 				name: 'isIndeterminate',
 				description: 'Shows the progress bar in an indeterminate state when `true`.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'value',
 				description: 'Sets the value of the progress bar, between `0` and `1` inclusive.',
 				type: 'number',
+				defaultValue: '0',
 			},
 		],
 	},
@@ -5076,33 +5220,38 @@ export const components: Component[] = [
 				name: 'appearance',
 				description: 'Sets the color of the indicators.',
 				type: '"default" | "help" | "inverted" | "primary"',
+				defaultValue: '"default"',
 			},
 			{
 				name: 'ariaControls',
 				description:
 					'If interaction is enabled, use `ariaControls` to tell assistive technology what elements are controlled by the progress indicator.',
 				type: 'string',
+				defaultValue: '"panel"',
 			},
 			{
 				name: 'ariaLabel',
 				description:
 					'Describes what the indicator represents to assistive technology. The selected index number will be appended to the label.',
 				type: 'string',
+				defaultValue: '"tab"',
 			},
 			{
 				name: 'onSelect',
 				description: 'Function called when an indicator is selected.',
-				type: '(eventData: { event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>; index: number; }, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '(eventData: { event: React.MouseEvent<HTMLButtonElement, MouseEvent>; index: number; }, analyticsEvent: UIAnalyticsEvent) => void',
 			},
 			{
 				name: 'selectedIndex',
 				description: 'Which indicator is currently selected.',
 				type: 'number',
+				isRequired: true,
 			},
 			{
 				name: 'size',
 				description: 'Sets the width and height of each indicator.',
 				type: '"default" | "large"',
+				defaultValue: '"default"',
 			},
 			{
 				name: 'spacing',
@@ -5113,6 +5262,7 @@ export const components: Component[] = [
 				name: 'values',
 				description: 'An array of values mapped over to create the indicators.',
 				type: 'any[]',
+				isRequired: true,
 			},
 		],
 	},
@@ -5149,22 +5299,27 @@ export const components: Component[] = [
 				name: 'animated',
 				description: 'Turns off transition animations if set to false.',
 				type: 'boolean',
+				defaultValue: 'true',
 			},
 			{
 				name: 'items',
 				description: 'Ordered list of stage data.',
 				type: 'Stage[]',
+				isRequired: true,
+				defaultValue: '[]',
 			},
 			{
 				name: 'label',
 				description:
 					'Use this to provide an aria-label for the overall progress tracker, so that people who use assistive technology get an overview of the tracker\'s purpose. For example, "Sign up progress".',
 				type: 'string',
+				defaultValue: '"Progress"',
 			},
 			{
 				name: 'spacing',
 				description: 'Sets the amount of spacing between the steps.',
-				type: '"comfortable" | "cozy" | "compact"',
+				type: '"cozy" | "comfortable" | "compact"',
+				defaultValue: '"cozy"',
 			},
 		],
 	},
@@ -5337,6 +5492,7 @@ export const components: Component[] = [
 				description:
 					'An array of objects, each object is mapped onto a `Radio` element within the group. Name must be unique to the group.',
 				type: 'OptionPropType[]',
+				isRequired: true,
 			},
 			{
 				name: 'value',
@@ -5457,12 +5613,13 @@ export const components: Component[] = [
 				description:
 					'The main content of the section message. This accepts a react node, although\nwe recommend that this should be a paragraph.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'icon',
 				description:
 					'An Icon component to be rendered instead of the default icon for the component.\nThis should only be an `@atlaskit/icon` icon. You can check out [this example](/packages/design-system/section-message/example/custom-icon)\nto see how to provide this icon.',
-				type: '"symbol" | "object" | "title" | "a" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "button" | ... 158 more ... | ComponentType<...>',
+				type: '"symbol" | "object" | "title" | "a" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "button" | ... 159 more ... | ComponentType<...>',
 			},
 			{
 				name: 'isDismissible',
@@ -5910,7 +6067,7 @@ export const components: Component[] = [
 		description: 'A skeleton acts as a placeholder for content, usually while the content loads.',
 		status: 'early-access',
 		examples: [
-			'import Skeleton from \'@atlaskit/skeleton\';\nexport default [<Skeleton width="200px" height="100px" isShimmering />];',
+			'import Skeleton from \'@atlaskit/skeleton\';\nconst _default_1: React.JSX.Element[] = [<Skeleton width="200px" height="100px" isShimmering />];\nexport default _default_1;',
 		],
 		accessibilityGuidelines: [
 			'Provide appropriate loading announcements',
@@ -5936,6 +6093,7 @@ export const components: Component[] = [
 				name: 'borderRadius',
 				description: "Controls the border radius, or rounding of the skeleton's corners.",
 				type: 'string | number',
+				defaultValue: '"var(--ds-radius-small)"',
 			},
 			{
 				name: 'color',
@@ -5953,11 +6111,13 @@ export const components: Component[] = [
 				name: 'height',
 				description: '',
 				type: 'string | number',
+				isRequired: true,
 			},
 			{
 				name: 'isShimmering',
 				description: 'Enables the shimmering animation.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'ShimmeringEndColor',
@@ -5968,6 +6128,7 @@ export const components: Component[] = [
 				name: 'width',
 				description: '',
 				type: 'string | number',
+				isRequired: true,
 			},
 		],
 	},
@@ -5979,7 +6140,7 @@ export const components: Component[] = [
 		description: 'A loading spinner component.',
 		status: 'general-availability',
 		examples: [
-			'import Spinner from \'@atlaskit/spinner\';\nexport default [<Spinner size="small" />, <Spinner size="medium" />, <Spinner size="large" />];',
+			'import Spinner from \'@atlaskit/spinner\';\nconst _default_1: React.JSX.Element[] = [\n\t<Spinner size="small" />,\n\t<Spinner size="medium" />,\n\t<Spinner size="large" />,\n];\nexport default _default_1;',
 		],
 		accessibilityGuidelines: [
 			'Provide appropriate loading announcements',
@@ -6062,6 +6223,7 @@ export const components: Component[] = [
 				description:
 					"The children of Tabs. The first child should be a `TabList` filled with `Tab`'s.\nSubsequent children should be `TabPanel`'s. There should be a `Tab` for each `TabPanel`.\nIf you want to customize `Tab` or `TabPanel`, refer to the examples in the documentation.",
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'defaultSelected',
@@ -6074,6 +6236,7 @@ export const components: Component[] = [
 				description:
 					'A unique ID that will be used to generate IDs for tabs and tab panels.\nThis is required for accessibility purposes.',
 				type: 'string',
+				isRequired: true,
 			},
 			{
 				name: 'onChange',
@@ -6157,6 +6320,18 @@ export const components: Component[] = [
 				type: 'ComponentClass<any, any> | FunctionComponent<any>',
 			},
 			{
+				name: 'maxWidth',
+				description:
+					"Maximum width of the tag text. When exceeded, text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
+				type: 'string | number',
+			},
+			{
+				name: 'migration_fallback',
+				description:
+					"@internal\n**Temporary / Internal only for migration.**\n\nWhen set to `'lozenge'` and the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts`\nis OFF, renders as a Lozenge component instead of Tag. This enables safe, staged migration\nfrom Lozenge to Tag for large consumers.\n\nThis prop will be removed via codemod after migration is complete.",
+				type: 'string',
+			},
+			{
 				name: 'onAfterRemoveAction',
 				description:
 					"Handler to be called after tag is removed. Called with the string 'Post\nRemoval Hook'.",
@@ -6177,6 +6352,7 @@ export const components: Component[] = [
 				name: 'text',
 				description: 'Text to be displayed in the tag.',
 				type: 'string',
+				isRequired: true,
 			},
 		],
 	},
@@ -6219,6 +6395,7 @@ export const components: Component[] = [
 				name: 'children',
 				description: 'Tags to render within the tag group.',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'label',
@@ -6621,6 +6798,7 @@ export const components: Component[] = [
 				description:
 					'Elements to be wrapped by the tooltip.\nIt can be either a:\n1. `ReactNode`\n2. Function which returns a `ReactNode`',
 				type: 'React.ReactNode | ((props: TriggerProps) => React.ReactNode)',
+				isRequired: true,
 			},
 			{
 				name: 'component',
@@ -6633,60 +6811,70 @@ export const components: Component[] = [
 				description:
 					'The content of the tooltip. It can be either a:\n1. `ReactNode`\n2. Function which returns a `ReactNode`\nThe benefit of the second approach is that it allows you to consume the `update` render prop.\nThis `update` function can be called to manually recalculate the position of the tooltip.\n\nThis content will be rendered into two places:\n1. Into the tooltip\n2. Into a hidden element for screen readers (unless `isScreenReaderAnnouncementDisabled` is set to `true`)',
 				type: 'React.ReactNode | (({ update }: { update?: () => void; }) => React.ReactNode)',
+				isRequired: true,
 			},
 			{
 				name: 'delay',
 				description:
 					'Time in milliseconds to wait before showing and hiding the tooltip. Defaults to 300.',
 				type: 'number',
+				defaultValue: '300',
 			},
 			{
 				name: 'hideTooltipOnClick',
 				description:
 					'Hide the tooltip when the click event is triggered. Use this when the tooltip should be hidden if `onClick` react synthetic event\nis triggered, which happens after `onMouseDown` event.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'hideTooltipOnMouseDown',
 				description:
 					'Hide the tooltip when the mousedown event is triggered. This should be\nused when tooltip should be hidden if `onMouseDown` react synthetic event\nis triggered, which happens before `onClick` event.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'ignoreTooltipPointerEvents',
 				description:
 					'Adds `pointer-events: none` to the tooltip itself. Setting this to true will also prevent the tooltip from persisting when hovered.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'isScreenReaderAnnouncementDisabled',
 				description:
 					'By default tooltip content will be duplicated into a hidden element so\nit can be read out by a screen reader. Sometimes this is not ideal as\nit can result in the same content be announced twice. For those situations,\nyou can leverage this prop to disable the duplicate hidden text.',
 				type: 'boolean',
+				defaultValue: 'false',
 			},
 			{
 				name: 'mousePosition',
 				description:
-					'Where the tooltip should appear relative to the mouse pointer.\nOnly use this when the `position` prop is set to `"mouse"`.\nWhen interacting with the target element using a keyboard, it will use this position against the target element instead.',
+					'Where the tooltip should appear relative to the mouse pointer.\nOnly use this when the `position` prop is set to `"mouse"`, `"mouse-y"`, or `"mouse-x"`.\nWhen interacting with the target element using a keyboard, it will use this position against the target element instead.',
 				type: 'AutoPlacement | BasePlacement | VariationPlacement',
+				defaultValue: '"bottom"',
 			},
 			{
 				name: 'onHide',
 				description:
 					"Function to be called when the tooltip will be hidden. It's called after the\ndelay, when the tooltip begins to animate out.",
 				type: '(analyticsEvent: UIAnalyticsEvent) => void',
+				defaultValue: 'noop',
 			},
 			{
 				name: 'onShow',
 				description:
 					"Function to be called when the tooltip will be shown. It's called when the\ntooltip begins to animate in.",
 				type: '(analyticsEvent: UIAnalyticsEvent) => void',
+				defaultValue: 'noop',
 			},
 			{
 				name: 'position',
 				description:
-					'Where the tooltip should appear relative to its target.\nIf set to `"mouse"`, the tooltip will display next to the mouse pointer instead.\nMake sure to utilize the `mousePosition` if you want to customize where the tooltip will show in relation to the mouse.',
-				type: 'Placement | "mouse"',
+					'Where the tooltip should appear relative to its target.\nIf set to `"mouse"`, the tooltip will display next to the mouse pointer instead.\nIf set to `"mouse-y"`, the tooltip will use the mouse Y coordinate but the target X coordinate.\nIf set to `"mouse-x"`, the tooltip will use the mouse X coordinate but the target Y coordinate.\nMake sure to utilize the `mousePosition` if you want to customize where the tooltip will show in relation to the mouse.',
+				type: 'Placement | "mouse" | "mouse-y" | "mouse-x"',
+				defaultValue: '"bottom"',
 			},
 			{
 				name: 'shortcut',
@@ -6698,12 +6886,26 @@ export const components: Component[] = [
 				name: 'strategy',
 				description: 'Use this to define the strategy of popper.',
 				type: '"fixed" | "absolute"',
+				defaultValue: '"fixed"',
 			},
 			{
 				name: 'tag',
 				description:
 					'Replace the wrapping element. This accepts the name of a html tag which will\nbe used to wrap the element.\nIf you provide a component, it needs to support a ref prop which is used by popper for positioning.',
 				type: 'keyof JSX.IntrinsicElements | React.ComponentType<React.AllHTMLAttributes<HTMLElement> & { ref: React.Ref<HTMLElement>; }> | React.ForwardRefExoticComponent<...>',
+			},
+			{
+				name: 'UNSAFE_shouldAlwaysFadeIn',
+				description:
+					'When set to true, the tooltip will always use the fade-in animation\nand never use the show-immediate behavior, even when another tooltip\nis already visible.',
+				type: 'boolean',
+			},
+			{
+				name: 'UNSAFE_shouldRenderToParent',
+				description:
+					'When enabled, the tooltip will be rendered as a sibling to the trigger element instead of being portaled to the document body.\n\nThis is an experimental prop and may be removed at any time. It is not yet intended for public use.',
+				type: 'boolean',
+				defaultValue: 'false',
 			},
 		],
 	},
@@ -6739,7 +6941,8 @@ export const components: Component[] = [
 			{
 				name: 'children',
 				description: 'The element or elements that should be hidden.',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
 			},
 			{
 				name: 'id',

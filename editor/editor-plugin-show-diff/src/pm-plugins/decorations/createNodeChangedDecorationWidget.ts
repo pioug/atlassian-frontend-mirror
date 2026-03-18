@@ -22,16 +22,25 @@ import {
 	traditionalInsertStyle,
 	traditionalInsertStyleActive,
 	deletedTraditionalContentStyle,
+	deletedTraditionalContentStyleActive,
 	deletedTraditionalContentStyleUnbounded,
+	deletedTraditionalContentStyleUnboundedActive,
 } from './colorSchemes/traditional';
 import { createChangedRowDecorationWidgets } from './createChangedRowDecorationWidgets';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 import { wrapBlockNodeView } from './utils/wrapBlockNodeView';
 
-const getDeletedContentStyleUnbounded = (colorScheme?: ColorScheme): string =>
-	colorScheme === 'traditional'
+const getDeletedContentStyleUnbounded = (
+	colorScheme?: ColorScheme,
+	isActive: boolean = false,
+): string => {
+	if (colorScheme === 'traditional' && isActive) {
+		return deletedTraditionalContentStyleUnboundedActive;
+	}
+	return colorScheme === 'traditional'
 		? deletedTraditionalContentStyleUnbounded
 		: deletedContentStyleUnbounded;
+};
 
 const getInsertedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = false): string => {
 	if (colorScheme === 'traditional') {
@@ -47,7 +56,7 @@ const getInsertedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = 
 };
 const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = false): string => {
 	if (colorScheme === 'traditional') {
-		return deletedTraditionalContentStyle;
+		return isActive ? deletedTraditionalContentStyleActive : deletedTraditionalContentStyle;
 	}
 	if (isActive) {
 		return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
@@ -147,7 +156,7 @@ export const createNodeChangedDecorationWidget = ({
 	// This is false by default as this is generally used to show deleted content
 	isInserted = false,
 }: {
-	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted'>;
+	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted' | 'toB'>;
 	colorScheme?: ColorScheme;
 	doc: PMNode;
 	intl: IntlShape;
@@ -301,5 +310,7 @@ export const createNodeChangedDecorationWidget = ({
 	// Widget decoration used for deletions as the content is not in the document
 	// and we want to display the deleted content with a style.
 	const safeInsertPos = findSafeInsertPos(newDoc, change.fromB, slice);
-	return [Decoration.widget(safeInsertPos, dom, { key: 'diff-widget' })];
+	const decorations: Decoration[] = [];
+	decorations.push(Decoration.widget(safeInsertPos, dom, { key: `diff-widget-${isActive ? 'active' : 'inactive'}` }));
+	return decorations;
 };

@@ -41,8 +41,8 @@ export const getScrollableDecorations = (set: DecorationSet | undefined): Decora
 	set?.find(
 		undefined,
 		undefined,
-		(spec) => spec.key === 'diff-inline' || spec.key === 'diff-widget' || spec.key === 'diff-block',
-	) ?? [];
+		(spec) => spec.key === 'diff-inline' || spec.key?.startsWith('diff-widget') || spec.key === 'diff-block',
+	).sort((a, b) => a.from - b.from) ?? [];
 
 export const createPlugin = (
 	config: DiffParams | undefined,

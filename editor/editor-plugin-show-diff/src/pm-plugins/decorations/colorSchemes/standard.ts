@@ -10,7 +10,7 @@ export const editingStyle: string = convertToInlineCss({
 });
 
 export const editingStyleActive: string = convertToInlineCss({
-	background: token('color.background.accent.purple.subtler'),
+	background: token('color.background.accent.purple.subtler.pressed'),
 	textDecoration: 'underline',
 	textDecorationStyle: 'dotted',
 	textDecorationThickness: token('space.025'),

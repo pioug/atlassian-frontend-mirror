@@ -10,5 +10,6 @@
     "./example-helpers/**/*.ts",
     "./example-helpers/**/*.tsx",
     "./codemods/**/*.tsx",
+    "./lozenge.docs.tsx",
   ]
 }

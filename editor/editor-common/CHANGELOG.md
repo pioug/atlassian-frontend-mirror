@@ -1,5 +1,44 @@
 # @atlaskit/editor-common
 
+## 112.4.0
+
+### Minor Changes
+
+- [`588523a53a783`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/588523a53a783) -
+  EDITOR-5634: Add AI suggestion card component
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.3.2
+
+### Patch Changes
+
+- [`644dd3e13dd7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/644dd3e13dd7b) -
+  Add analytics for remix button block click
+- Updated dependencies
+
+## 112.3.1
+
+### Patch Changes
+
+- [`2b33e02e33a67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b33e02e33a67) -
+  [ux] [EDITOR-5880] paste menu position fix so it sticks on screen when pasting large content
+- Updated dependencies
+
+## 112.3.0
+
+### Minor Changes
+
+- [`71fb8b5aa2558`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71fb8b5aa2558) -
+  [FFCLEANUP-79003] clean up feature flag platform_editor_blocktaskitem_patch_2
+
+### Patch Changes
+
+- [`e8c15530a001b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8c15530a001b) -
+  NO-ISSUE Updated menu labelling for on-paste actions menu
+
 ## 112.2.3
 
 ### Patch Changes

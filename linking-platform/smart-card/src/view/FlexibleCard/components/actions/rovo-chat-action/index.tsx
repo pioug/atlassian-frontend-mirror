@@ -7,6 +7,7 @@ import type { ProductType } from '@atlaskit/linking-common';
 import { InternalActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import useRovoChat, { type SendPromptMessageData } from '../../../../../state/hooks/use-rovo-chat';
 import AiChapterIcon from '../../../assets/ai-chapter-icon';
 import AIEditIcon from '../../../assets/ai-edit-icon';
@@ -139,18 +140,21 @@ const RovoChatAction = ({
 	const { isRovoChatEnabled, sendPromptMessage } = useRovoChat();
 	const context = useFlexibleUiContext();
 	const data = context?.actions?.[InternalActionName.RovoChatAction];
+	const invoke = useInvokeClientAction({});
 
 	const onClick = useCallback(
-		(promptData: SendPromptMessageData) => {
-			if (promptData) {
-				sendPromptMessage(promptData);
-
-				// NAVX-3599: Add analytics event, possibly as useInvokeClientAction()
+		(promptData: SendPromptMessageData, promptKey: RovoChatPromptKey) => {
+			if (promptData && data?.invokeAction) {
+				invoke({
+					...data?.invokeAction,
+					actionFn: async () => sendPromptMessage(promptData),
+					prompt: promptKey,
+				});
 
 				onClickCallback?.();
 			}
 		},
-		[onClickCallback, sendPromptMessage],
+		[data?.invokeAction, invoke, onClickCallback, sendPromptMessage],
 	);
 
 	const promptActions = useMemo(() => {
@@ -167,7 +171,7 @@ const RovoChatAction = ({
 					content={content}
 					icon={icon}
 					key={promptKey}
-					onClick={() => onClick(promptData)}
+					onClick={() => onClick(promptData, promptKey)}
 					testId={`${testId}-${idx + 1}`}
 					tooltipMessage={tooltipMessage}
 					{...props}

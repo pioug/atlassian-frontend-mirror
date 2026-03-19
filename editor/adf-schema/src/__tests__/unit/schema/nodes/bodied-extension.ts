@@ -37,7 +37,7 @@ describe(`${packageName}/schema bodiedExtension node`, () => {
 			defining: true,
 			group: 'block',
 			isolating: true,
-			marks: 'dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+			marks: 'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
 			parseDOM: [
 				{
 					context: 'bodiedExtension//',

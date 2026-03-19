@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { akEditorWrappedNodeZIndex } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
@@ -8,7 +8,7 @@ const richMediaClassName = 'rich-media-item';
 
 const wrappedMediaBreakoutPoint = 410;
 
-const mediaSingleSharedStyle = css({
+const mediaSingleSharedStyle: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`li .${richMediaClassName}`]: {
 		margin: 0,
@@ -71,7 +71,7 @@ const mediaSingleSharedStyle = css({
 	},
 });
 
-const mediaSingleSharedStyleNew = css({
+const mediaSingleSharedStyleNew: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`li .${richMediaClassName}`]: {
 		margin: 0,

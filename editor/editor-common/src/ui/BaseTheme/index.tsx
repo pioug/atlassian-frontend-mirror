@@ -8,7 +8,7 @@ import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import type { Breakpoints } from '../WidthProvider';
 import { WidthConsumer } from '../WidthProvider';
 
-export function mapBreakpointToLayoutMaxWidth(breakpoint: Breakpoints) {
+export function mapBreakpointToLayoutMaxWidth(breakpoint: Breakpoints): 680 | 760 {
 	switch (breakpoint) {
 		case 'M':
 		case 'L':

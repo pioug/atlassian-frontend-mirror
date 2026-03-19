@@ -12,7 +12,7 @@ import DropdownComponent from '../Dropdown';
 import type { DropdownPropsWithOutsideClickProps } from '../Dropdown';
 import { KeyDownHandlerContext } from '../ToolbarArrowKeyNavigationProvider';
 
-export const DropdownContainer = React.memo(function DropdownContainer(
+export const DropdownContainer: React.NamedExoticComponent<DropdownPropsWithOutsideClickProps> = React.memo(function DropdownContainer(
 	props: DropdownPropsWithOutsideClickProps,
 ) {
 	const keyDownHandlerContext = useContext(KeyDownHandlerContext);

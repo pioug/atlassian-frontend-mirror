@@ -420,7 +420,10 @@ const UFOSegment: {
 
 	if (fg('platform_ufo_ssr_render_profiler')) {
 		return (
-			<SsrRenderProfiler labelStack={labelStack} onRender={interactionContext.onRender}>
+			<SsrRenderProfiler
+				labelStack={labelStack}
+				onRender={(...args) => interactionContext.onRender.apply(interactionContext, args)}
+			>
 				{ufoSegment}
 			</SsrRenderProfiler>
 		);

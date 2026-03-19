@@ -1,5 +1,6 @@
 export type EditorUGCTokens = {
 	'editor.font.body': string;
+	'editor.font.body.small'?: string;
 	'editor.font.heading.h1': string;
 	'editor.font.heading.h2': string;
 	'editor.font.heading.h3': string;
@@ -78,6 +79,8 @@ export const editorUGCTokensRefreshed: EditorUGCTokens = {
 		'normal 600 0.785714em/1.45455 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	'editor.font.body':
 		'normal 400 1em/1.714 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	'editor.font.body.small':
+		'normal 400 0.875em/1.714 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	'editor.font.weight.heading.h1.bold': '700',
 	'editor.font.weight.heading.h2.bold': '700',
 	'editor.font.weight.heading.h3.bold': '700',

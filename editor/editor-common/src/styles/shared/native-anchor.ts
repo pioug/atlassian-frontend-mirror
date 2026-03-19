@@ -1,6 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
-import memoizeOne from 'memoize-one';
+import { css, type SerializedStyles } from '@emotion/react';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 export const ANCHOR_VARIABLE_NAME = '--ed-pm-node-anchor';
 
@@ -11,21 +11,21 @@ const hasCssSupport = memoizeOne(() => {
 	return false;
 });
 
-export const isCSSAttrAnchorSupported = memoizeOne((): boolean => {
+export const isCSSAttrAnchorSupported: MemoizedFn<() => boolean> = memoizeOne((): boolean => {
 	if (hasCssSupport()) {
 		return CSS.supports('anchor-name', 'attr(data-anchor-name type(<custom-ident>))');
 	}
 	return false;
 });
 
-export const isCSSAnchorSupported = memoizeOne(() => {
+export const isCSSAnchorSupported: MemoizedFn<() => boolean | undefined> = memoizeOne((): boolean | undefined => {
 	if (hasCssSupport()) {
 		return CSS.supports('anchor-name', '--anchor');
 	}
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const nativeAnchorStyles = css({
+export const nativeAnchorStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

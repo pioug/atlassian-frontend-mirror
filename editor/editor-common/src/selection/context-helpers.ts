@@ -5,7 +5,7 @@ import { TextSelection, NodeSelection, type Selection } from '@atlaskit/editor-p
 
 const listDepth = 3;
 
-export const selectionCoversAllListItems = ($from: ResolvedPos, $to: ResolvedPos) => {
+export const selectionCoversAllListItems = ($from: ResolvedPos, $to: ResolvedPos): boolean => {
 	// Block level lists
 	const listParents = ['bulletList', 'orderedList'];
 	if ($from.depth >= listDepth && $to.depth >= listDepth && $from.depth === $to.depth) {

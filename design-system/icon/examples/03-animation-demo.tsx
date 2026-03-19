@@ -3,11 +3,11 @@ import React, { type ChangeEvent, useCallback, useEffect, useRef, useState } fro
 import sample from 'lodash/sample';
 import nullthrows from 'nullthrows';
 
-import ArrowDownIcon from '../glyph/arrow-down';
-import ArrowLeftIcon from '../glyph/arrow-left';
-import ArrowRightIcon from '../glyph/arrow-right';
-import ArrowUpIcon from '../glyph/arrow-up';
-import BookIcon from '../glyph/book';
+import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
+import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
+import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
+import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
+import BookIcon from '@atlaskit/icon/core/book-with-bookmark';
 
 const sampleComponents = [ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon, BookIcon];
 

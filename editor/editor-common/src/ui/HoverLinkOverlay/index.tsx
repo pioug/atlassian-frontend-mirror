@@ -6,6 +6,7 @@
  */
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports -- jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
 import { useIntl } from 'react-intl-next';
 
@@ -142,7 +143,7 @@ const HoverLinkOverlay = ({
 	onClick,
 	showPanelButton = false,
 	showPanelButtonIcon,
-}: React.PropsWithChildren<HoverLinkOverlayProps>) => {
+}: React.PropsWithChildren<HoverLinkOverlayProps>): jsx.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const containerRef = useRef<HTMLSpanElement>(null);
 	const hoverLinkButtonRef = useRef<HTMLAnchorElement>(null);

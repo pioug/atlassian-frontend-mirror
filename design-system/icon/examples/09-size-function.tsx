@@ -10,7 +10,11 @@ export default function SizeFunctionExample(): React.JSX.Element {
 	return (
 		<Stack space="space.200" alignInline="start">
 			{icons.map((Icon) => (
-				<Icon label="" size={(iconName) => (iconName.startsWith('Chevron') ? 'small' : 'medium')} />
+				<Icon
+					key={Icon.name}
+					label=""
+					size={(iconName) => (iconName.startsWith('Chevron') ? 'small' : 'medium')}
+				/>
 			))}
 		</Stack>
 	);

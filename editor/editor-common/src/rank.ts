@@ -1,7 +1,11 @@
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 // @deprecated
 // @private This rank is not stable and should not be trusted. If you need to change this file, please let the Editor lego team know about it
-export const rankEditorPlugins = {
+export const rankEditorPlugins: {
+    plugins: string[];
+    nodes: string[];
+    marks: string[];
+} = {
 	plugins: [
 		'featureFlagsContextPlugin',
 		'compositionPlugin',

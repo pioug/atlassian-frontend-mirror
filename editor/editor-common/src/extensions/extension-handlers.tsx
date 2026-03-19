@@ -54,7 +54,8 @@ export function getExtensionManifest(
 	extensionProvider: ExtensionProvider,
 	extensionType: ExtensionType,
 	extensionKey: ExtensionKey,
-) {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Generic extension types; any required for provider compatibility
+): Promise<ExtensionManifest<any> | undefined> {
 	const [extKey] = getExtensionKeyAndNodeKey(extensionKey, extensionType);
 	return extensionProvider.getExtension(extensionType, extKey);
 }
@@ -63,7 +64,8 @@ export async function getExtensionModuleNode(
 	extensionProvider: ExtensionProvider,
 	extensionType: ExtensionType,
 	extensionKey: ExtensionKey,
-) {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Generic extension types; any required for provider compatibility
+): Promise<ExtensionModuleNode<any>> {
 	const [extKey, nodeKey] = getExtensionKeyAndNodeKey(extensionKey, extensionType);
 	const manifest = await extensionProvider.getExtension(extensionType, extKey);
 	return getNodeFromManifest(manifest, extKey, nodeKey, extensionType, extensionKey);
@@ -161,7 +163,12 @@ export function getNodeRenderer<T extends Parameters>(
 	extensionProvider: ExtensionProvider,
 	extensionType: ExtensionType,
 	extensionKey: ExtensionKey,
-) {
+): React.ComponentType<{
+    actions?: MultiBodiedExtensionActions;
+    node: ExtensionParams<T>;
+    references?: ReferenceEntity[];
+    showUnknownMacroPlaceholder?: boolean;
+}> & Loadable.LoadableComponent {
 	return Loadable<
 		{
 			actions?: MultiBodiedExtensionActions;

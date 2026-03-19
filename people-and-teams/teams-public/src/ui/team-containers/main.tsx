@@ -18,6 +18,7 @@ import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes, type TeamContainer } from '../../common/types';
 import { TeamContainersSkeleton } from '../../common/ui/team-containers-skeleton';
+import { spaceInviteScheduler } from '../../common/utils/spaceInviteScheduler';
 import { hasProductPermission as hasProductPermissionOld } from '../../controllers';
 import { useCreateContainers } from '../../controllers/hooks/use-create-containers';
 import { useProductPermissions as useProductPermissionsOld } from '../../controllers/hooks/use-product-permission';
@@ -225,6 +226,9 @@ export const TeamContainers = ({
 			if (unlinkError) {
 				fireEvent('track.teamContainerUnlinked.failed', {});
 			} else {
+				if (fg('space-team_linking_invites_fg')) {
+					spaceInviteScheduler.cancelInvite(teamId, containerId);
+				}
 				fireEvent('track.teamContainerUnlinked.succeeded', {
 					containerRemoved: {
 						containerId: removedContainer?.id,

@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.1.3
+
+### Patch Changes
+
+- [`0fe3de6aa5e9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fe3de6aa5e9c) -
+  [ux] EDITOR-5978 Add additional buttons and update thresholds for Editor AI paste actions. Only
+  show existing paste actions if pasting greater than 100 characters.
+
+## 9.1.2
+
+### Patch Changes
+
+- [`0386f83e8c2b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0386f83e8c2b8) -
+  Fix paste actions menu dismissing when pressing modifier keys (Ctrl, Shift, Alt, Meta/Cmd).
+  Modifier-only key presses no longer hide the toolbar, gated behind
+  platform_editor_paste_actions_keypress_fix feature flag.
+- Updated dependencies
+
+## 9.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.0
 
 ### Minor Changes

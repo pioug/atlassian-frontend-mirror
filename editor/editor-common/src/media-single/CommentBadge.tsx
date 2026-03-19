@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, useEffect, useMemo, useState } from 'react';
+import { forwardRef, useEffect, useMemo, useState, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -35,7 +35,7 @@ const commentBadgeEditorOverrides = (badgeOffsetRight?: string) =>
 		zIndex: 100,
 	});
 
-export const getBadgeSize = (width?: number, height?: number) => {
+export const getBadgeSize = (width?: number, height?: number): "medium" | "small" => {
 	// width is the original width of image, not resized or currently rendered to user. Defaulting to medium for now
 	return (width && width < 70) || (height && height < 70) ? 'small' : 'medium';
 };
@@ -54,7 +54,7 @@ export type CommentBadgeProps = {
 	width?: number;
 };
 
-export const CommentBadge = forwardRef<HTMLDivElement, CommentBadgeProps>(
+export const CommentBadge: ForwardRefExoticComponent<CommentBadgeProps & RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, CommentBadgeProps>(
 	(
 		{
 			intl,

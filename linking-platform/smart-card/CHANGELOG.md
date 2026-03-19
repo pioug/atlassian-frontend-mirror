@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 43.26.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.26.7
+
+### Patch Changes
+
+- [`236ae1160f1a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/236ae1160f1a0) -
+  Clean up platform-button-icon-spacing-cleanup FG
+- Updated dependencies
+
 ## 43.26.6
 
 ### Patch Changes

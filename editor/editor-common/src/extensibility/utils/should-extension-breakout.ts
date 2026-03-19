@@ -28,7 +28,7 @@ export const shouldExtensionBreakout = ({
 	layout,
 	isTopLevelNode = true,
 	editorAppearance,
-}: ShouldExtensionBreakoutArgs) => {
+}: ShouldExtensionBreakoutArgs): boolean => {
 	if (!layout || !breakoutLayouts.has(layout)) {
 		return false;
 	}

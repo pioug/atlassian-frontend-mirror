@@ -16,15 +16,15 @@ export function unwrapContentFromLayout(maybeLayoutSection: Node): Node | Node[]
 	return nodes;
 }
 
-export function removeLayoutFromFirstChild(node: Node, i: number) {
+export function removeLayoutFromFirstChild(node: Node, i: number): Node | Node[] {
 	return i === 0 ? unwrapContentFromLayout(node) : node;
 }
 
-export function removeLayoutFromLastChild(node: Node, i: number, fragment: Fragment) {
+export function removeLayoutFromLastChild(node: Node, i: number, fragment: Fragment): Node | Node[] {
 	return i === fragment.childCount - 1 ? unwrapContentFromLayout(node) : node;
 }
 
-export const transformSingleColumnLayout = (slice: Slice, schema: Schema) => {
+export const transformSingleColumnLayout = (slice: Slice, schema: Schema): Slice => {
 	if (slice.content.childCount === 1 && slice.openStart === 0 && slice.openEnd === 0) {
 		if (slice.content.firstChild?.type === schema.nodes.layoutColumn) {
 			const newSlice = new Slice(slice.content.firstChild.content, 0, 0);
@@ -52,7 +52,7 @@ export const transformSingleColumnLayout = (slice: Slice, schema: Schema) => {
  * We only care about slices with non-zero openStart / openEnd's here
  * as we're totally fine for people to copy/paste a full layoutSection
  */
-export function transformSliceToRemoveOpenLayoutNodes(slice: Slice, schema: Schema) {
+export function transformSliceToRemoveOpenLayoutNodes(slice: Slice, schema: Schema): Slice {
 	// Case 1: A slice entirely within a single layoutSection
 	if (slice.openStart && slice.openEnd && slice.content.childCount === 1) {
 		// Ignored via go/ees005

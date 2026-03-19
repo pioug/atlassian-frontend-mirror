@@ -1,3 +1,3 @@
 export const EXTENSION_PADDING = 8;
-export const BODIED_EXT_PADDING = EXTENSION_PADDING * 2;
+export const BODIED_EXT_PADDING: number = EXTENSION_PADDING * 2;
 export const BODIED_EXT_MBE_MARGIN_TOP = 12;

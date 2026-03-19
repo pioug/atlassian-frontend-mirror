@@ -1,6 +1,16 @@
 import { emojiImage, emojiNode, emojiPlaceholder, emojiSprite } from '@atlaskit/emoji';
 
-export const EmojiSharedCssClassName = {
+export const EmojiSharedCssClassName: {
+    EMOJI_CONTAINER: string;
+    // eslint-disable-next-line @atlaskit/editor/no-re-export
+    EMOJI_NODE: string;
+    // eslint-disable-next-line @atlaskit/editor/no-re-export
+    EMOJI_SPRITE: string;
+    // eslint-disable-next-line @atlaskit/editor/no-re-export
+    EMOJI_IMAGE: string;
+    // eslint-disable-next-line @atlaskit/editor/no-re-export
+    EMOJI_PLACEHOLDER: string;
+} = {
 	EMOJI_CONTAINER: 'emojiView-content-wrap',
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	EMOJI_NODE: emojiNode,

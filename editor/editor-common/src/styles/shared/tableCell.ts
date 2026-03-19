@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { tableBackgroundColorNames } from '@atlaskit/adf-schema';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
@@ -25,4 +25,4 @@ const mapBackgroundColors = () => {
 	return cssString;
 };
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const tableCellBackgroundStyleOverride = () => css(mapBackgroundColors());
+export const tableCellBackgroundStyleOverride = (): SerializedStyles => css(mapBackgroundColors());

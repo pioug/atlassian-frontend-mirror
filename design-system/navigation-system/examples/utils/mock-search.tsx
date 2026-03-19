@@ -1,13 +1,12 @@
 import React, { useCallback, useState } from 'react';
 
 import { useLegacySearchTheme } from '@atlaskit/navigation-system/experimental/use-legacy-search-theme';
-import {
-	EnlargedSearchInput,
-	SearchAnchor,
-	SearchInput,
-	type SearchTheme,
-	ThemeProvider as SearchThemeProvider,
-} from '@atlassian/search-dialog';
+import { Text } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports -- These components require theme context and must be imported from barrel
+import { SearchInput, EnlargedSearchInput } from '@atlassian/search-dialog';
+import { SearchAnchor } from '@atlassian/search-dialog/search-anchor';
+import type { SearchTheme } from '@atlassian/search-dialog/theme';
+import { ThemeProvider as SearchThemeProvider } from '@atlassian/search-dialog/theme';
 
 export const MockSearch = ({
 	theme,
@@ -50,14 +49,14 @@ export const MockSearch = ({
 					<EnlargedSearchInput
 						isExpanded={isExpanded}
 						shouldFillContainer
-						tooltipContent={<span>Search</span>}
+						tooltipContent={<Text>Search</Text>}
 						placeholder="Search"
 					/>
 				) : (
 					<SearchInput
 						isExpanded={isExpanded}
 						shouldFillContainer
-						tooltipContent={<span>Search</span>}
+						tooltipContent={<Text>Search</Text>}
 						placeholder="Search"
 					/>
 				)}

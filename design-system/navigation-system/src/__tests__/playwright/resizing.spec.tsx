@@ -8,7 +8,7 @@ const extraWideViewport = { width: 1500, height: 768 };
 
 test.describe('resizing', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample('design-system', 'navigation-system', 'resizable-slots');
+		await page.visitExample<typeof import('../../../examples/resizable-slots.tsx')>('design-system', 'navigation-system', 'resizable-slots');
 	});
 
 	test.describe('side nav - mouse resizing', () => {

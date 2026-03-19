@@ -16,3 +16,4 @@ export { getContainerProperties } from './common/utils/get-container-properties'
 export { ConfluenceIcon, JiraIcon, LoomIcon } from './common/assets';
 export { Separator } from './common/ui/separator';
 export { getIsExperimentEnabled } from './common/utils/get-is-experiment-enabled';
+export { spaceInviteScheduler } from './common/utils/spaceInviteScheduler';

@@ -26,7 +26,7 @@ export { LazyNodeView };
  *
  * Communication channel between LazyNodeView loader and LazyNodeViewDecorationPlugin.
  */
-export const lazyNodeViewDecorationPluginKey = new PluginKey('lazyNodeViewDecoration');
+export const lazyNodeViewDecorationPluginKey: PluginKey = new PluginKey('lazyNodeViewDecoration');
 
 /**
  * 📢 Public Type

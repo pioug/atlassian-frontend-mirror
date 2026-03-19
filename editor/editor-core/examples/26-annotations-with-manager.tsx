@@ -456,7 +456,7 @@ function ComposableEditorPage(editorProps: Partial<EditorProps>) {
 	);
 }
 
-export function ComposableEditorWrapper() {
+export function ComposableEditorWrapper(): JSX.Element {
 	const annotationProviders = useEditorAnnotationProviders();
 	const [annotationStates, setAnnotationStates] = useState<{ id: string; resolved: boolean }[]>([]);
 
@@ -573,7 +573,7 @@ export function ComposableEditorWrapper() {
 	);
 }
 
-export default function ExampleAnnotationWithManager() {
+export default function ExampleAnnotationWithManager(): JSX.Element {
 	return (
 		<EditorContext>
 			<CommentsContentProvider>

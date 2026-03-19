@@ -30,7 +30,7 @@ export const getAnalyticsEventSeverity = (
 	duration: number,
 	normalThreshold: number,
 	degradedThreshold: number,
-) => {
+): SEVERITY => {
 	if (duration > normalThreshold && duration <= degradedThreshold) {
 		return SEVERITY.DEGRADED;
 	}
@@ -65,7 +65,11 @@ export enum SEVERITY {
 
 export const analyticsEventKey = 'EDITOR_ANALYTICS_EVENT';
 
-const EDITOR_BREAKPOINT_WIDTH = {
+const EDITOR_BREAKPOINT_WIDTH: {
+    S: number;
+    M: number;
+    L: number;
+} = {
 	S: 760,
 	M: 1600,
 	L: Infinity,

@@ -112,7 +112,7 @@ export const createAutoConverterRunner =
 
 export async function getExtensionAutoConvertersFromProvider(
 	extensionProviderPromise: Promise<ExtensionProvider>,
-) {
+): Promise<ExtensionAutoConvertHandler> {
 	const extensionProvider = await extensionProviderPromise;
 
 	const extensionAutoConverters = await extensionProvider.getAutoConverter();

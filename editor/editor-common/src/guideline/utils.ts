@@ -67,7 +67,7 @@ export const getGuidelineTypeFromKey = (
  * Calculates container or full editor width taking in account editor full width layout
  * width and editor gutter padding.
  */
-export const getContainerWidthOrFullEditorWidth = (containerWidth: number) => {
+export const getContainerWidthOrFullEditorWidth = (containerWidth: number): number => {
 	const padding =
 		containerWidth <= akEditorFullPageNarrowBreakout &&
 		editorExperiment('platform_editor_preview_panel_responsiveness', true, {

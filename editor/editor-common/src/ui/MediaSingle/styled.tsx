@@ -5,8 +5,8 @@
 import type { RefObject } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
@@ -280,7 +280,7 @@ export const MediaSingleDimensionHelper = ({
 	isNestedNode = false,
 	isInsideOfInlineExtension = false,
 	isInRenderer = false,
-}: MediaSingleWrapperProps) => {
+}: MediaSingleWrapperProps): SerializedStyles => {
 	const calculatedWidth = roundToClosestEvenPxValue(
 		isExtendedResizeExperienceOn
 			? `${mediaSingleWidth || width}px`
@@ -404,7 +404,7 @@ const RenderFallbackContainer = ({
 	`;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
-export const mediaWrapperStyle = (props: MediaWrapperProps) => css`
+export const mediaWrapperStyle = (props: MediaWrapperProps): SerializedStyles => css`
 	position: relative;
 
 	${RenderFallbackContainer(props)}
@@ -445,10 +445,13 @@ export const mediaWrapperStyle = (props: MediaWrapperProps) => css`
 	}
 `;
 
-export const MediaWrapper = ({
+export const MediaWrapper: {
+    ({ children, ...rest }: React.HTMLAttributes<HTMLDivElement> & MediaWrapperProps): jsx.JSX.Element;
+    displayName: string;
+} = ({
 	children,
 	...rest
-}: React.HTMLAttributes<HTMLDivElement> & MediaWrapperProps) => (
+}: React.HTMLAttributes<HTMLDivElement> & MediaWrapperProps): jsx.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<div css={mediaWrapperStyle(rest)}>{children}</div>
 );
@@ -466,7 +469,7 @@ type MediaBorderGapFillerProps = {
 	borderColor: string;
 };
 
-export const MediaBorderGapFiller = ({ borderColor }: MediaBorderGapFillerProps) => {
+export const MediaBorderGapFiller = ({ borderColor }: MediaBorderGapFillerProps): jsx.JSX.Element => {
 	return (
 		<div
 			style={{

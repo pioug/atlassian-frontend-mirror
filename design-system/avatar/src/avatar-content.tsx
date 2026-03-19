@@ -3,7 +3,7 @@
  * @jsx jsx
  * @jsxFrag
  */
-import { type CSSProperties, forwardRef, type ReactNode } from 'react';
+import { type CSSProperties, forwardRef, type ReactNode, useContext } from 'react';
 
 import { cssMap as unboundCssMap } from '@compiled/react';
 
@@ -11,7 +11,8 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { useAvatarContent, useEnsureIsInsideAvatar } from './context';
+import { AvatarContentContext } from './internal/content-context';
+import { useEnsureIsInsideAvatar } from './internal/ensure-is-inside-avatar-context';
 
 const boxShadowCssVar = '--avatar-box-shadow';
 const bgColorCssVar = '--avatar-bg-color';
@@ -82,8 +83,13 @@ const styles = cssMap({
 });
 
 const unboundStyles = unboundCssMap({
+	rootCustomBorder: {
+		// eslint-disable-next-line @compiled/shorthand-property-sorting -- Intentional: `background` shorthand must override `backgroundColor` in `root` when avatar-custom-border is enabled
+		background: `var(${bgColorCssVar})`,
+	},
 	root: {
 		boxSizing: 'content-box',
+		// eslint-disable-next-line @compiled/shorthand-property-sorting -- Intentional: `backgroundColor` in root, overridden by `background` in rootCustomBorder when avatar-custom-border is enabled
 		backgroundColor: `var(${bgColorCssVar})`,
 		boxShadow: `var(${boxShadowCssVar})`,
 	},
@@ -111,7 +117,12 @@ const unboundStyles = unboundCssMap({
 		// NOTE: move into `hexagonFocusContainer` if fg is successful
 		marginInline: `calc(${token('border.width.selected')} * -1)`,
 	},
+	hexagonBorderContainerCustomBorder: {
+		// eslint-disable-next-line @compiled/shorthand-property-sorting -- Intentional: `background` shorthand must override `backgroundColor` in `hexagonBorderContainer` when avatar-custom-border is enabled
+		background: `var(${bgColorCssVar})`,
+	},
 	hexagonBorderContainer: {
+		// eslint-disable-next-line @compiled/shorthand-property-sorting -- Intentional: `backgroundColor` in hexagonBorderContainer, overridden by `background` in hexagonBorderContainerCustomBorder when avatar-custom-border is enabled
 		backgroundColor: `var(${bgColorCssVar})`,
 		clipPath: 'inherit',
 		// NOTE: The `clip-path` and `background` overflows padding in an unexpected way, so
@@ -226,7 +237,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 		'aria-controls': ariaControls,
 		'aria-expanded': ariaExpanded,
 		'aria-haspopup': ariaHasPopup,
-	} = useAvatarContent();
+	} = useContext(AvatarContentContext);
 
 	const isInteractive = Boolean(onClick || href || isDisabled || ariaHasPopup);
 
@@ -234,6 +245,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 		<Container
 			css={[
 				unboundStyles.root,
+				fg('avatar-custom-border') && unboundStyles.rootCustomBorder,
 				styles.root,
 				appearance === 'square' && styles.square,
 				appearance === 'circle' && styles.circle,
@@ -283,7 +295,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				unboundStyles.hexagonFocusContainer,
 				!fg('platform_dst_hexagon_avatar_unified_size') && marginAdjustmentMap[size],
 				fg('platform_dst_hexagon_avatar_unified_size') &&
-					unboundStyles.hexagonFocusContainerMarginFg,
+				unboundStyles.hexagonFocusContainerMarginFg,
 			]}
 			style={
 				{
@@ -296,8 +308,9 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 			<div
 				css={[
 					unboundStyles.hexagonBorderContainer,
+					fg('avatar-custom-border') && unboundStyles.hexagonBorderContainerCustomBorder,
 					fg('platform_dst_hexagon_avatar_unified_size') &&
-						unboundStyles.hexagonBorderContainerMarginFg,
+					unboundStyles.hexagonBorderContainerMarginFg,
 				]}
 				data-testid={testId ? `${testId}-hexagon-border-container` : 'hexagon-border-container'}
 			>

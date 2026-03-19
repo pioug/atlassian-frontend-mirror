@@ -315,7 +315,6 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						appearance="subtle"
 					/>
 				</div>
-				{/* eslint-disable-next-line @atlassian/a11y/iframe-has-title */}
 				<iframe
 					src={giveKudosUrl}
 					ref={iframeEl}
@@ -324,6 +323,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 					frameBorder="0"
 					allow="camera;microphone"
 					css={styles.iframe}
+					title={intl.formatMessage(messages.giveKudosButton)}
 				/>
 			</Drawer>
 		);

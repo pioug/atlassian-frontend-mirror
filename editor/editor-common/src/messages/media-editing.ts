@@ -1,5 +1,67 @@
 import { defineMessages } from 'react-intl-next';
-export const mediaEditingMessages = defineMessages({
+export const mediaEditingMessages: {
+    aspectRatioSelectionOriginal: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aspectRatioSelectionCustom: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aspectRatioSelectionSquare: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aspectRatioSelectionCircle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aspectRatioSelectionLandscape: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aspectRatioSelectionPortrait: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aspectRatioSelectionWide: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; squareButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; circleButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; landscapeButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; portraitButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; wideButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; cancelButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; doneButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; savingButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	aspectRatioSelectionOriginal: {
 		id: 'editor.imageEditor.aspectRatio.original',
 		defaultMessage: 'Original',

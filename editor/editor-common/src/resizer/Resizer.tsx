@@ -421,4 +421,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 	);
 };
 
-export default forwardRef(ResizerNext);
+const _default_1: React.ForwardRefExoticComponent<ResizerProps & {
+    children?: React.ReactNode | undefined;
+} & React.RefAttributes<forwardRefType>> = forwardRef(ResizerNext);
+export default _default_1;

@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type MutableRefObject } from 'react';
 
 export const useEscapeClickaway = <T extends HTMLElement>(
 	/** Callback to fire when the user presses the escape key */
 	onEscape: () => void,
 	/** Callback to fire when the user clicks an element not contained by the ref */
 	onClickAway: () => void,
-) => {
+): MutableRefObject<T | null> => {
 	const ref: React.MutableRefObject<T | null> = useRef<T>(null);
 
 	useEffect(() => {

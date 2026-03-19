@@ -2,8 +2,6 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import AddIconNew from '../../../../core/add';
-import AddIcon from '../../../../glyph/add';
 import Icon, { type CustomGlyphProps, IconNew, type IconProps, size } from '../../../index';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
@@ -132,32 +130,6 @@ describe('@atlaskit/icon', () => {
 			});
 		});
 	});
-	describe('Glyph', () => {
-		afterEach(() => {
-			jest.resetAllMocks();
-		});
-
-		const name = 'test-label';
-		const glyph = <AddIcon label={name} />;
-
-		it('should match desired construction', () => {
-			render(glyph);
-
-			const img = screen.getByRole('img');
-			expect(img.tagName).toBe('SPAN');
-			expect(img).toHaveAttribute('data-vc', 'icon-undefined');
-			expect(img).toHaveAttribute('style');
-			const innerSvg = screen.getByRole('presentation');
-			expect(innerSvg).toHaveAttribute('height');
-			expect(innerSvg).toHaveAttribute('viewBox');
-			expect(innerSvg).toHaveAttribute('width');
-		});
-
-		it('should have the correct label', () => {
-			render(glyph);
-			expect(screen.getByRole('img')).toHaveAccessibleName(name);
-		});
-	});
 });
 
 describe('@atlaskit/icon/base-new', () => {
@@ -190,30 +162,5 @@ describe('@atlaskit/icon/base-new', () => {
 			expect(element).not.toHaveAttribute('aria-label');
 			expect(element).toHaveAttribute('aria-hidden', 'true');
 		});
-	});
-});
-
-describe('Glyph', () => {
-	afterEach(() => {
-		jest.resetAllMocks();
-	});
-
-	const label = 'test-label';
-	const glyph = <AddIconNew label={label} />;
-
-	it('should match snapshot', () => {
-		render(glyph);
-
-		const img = screen.getByRole('img');
-		expect(img.tagName).toBe('SPAN');
-		expect(img).toHaveAttribute('style');
-		const innerSvg = screen.getByRole('presentation');
-		expect(innerSvg).toHaveAttribute('fill');
-		expect(innerSvg).toHaveAttribute('viewBox');
-	});
-
-	it('should have the correct label', () => {
-		render(glyph);
-		expect(screen.getByRole('img')).toHaveAccessibleName(label);
 	});
 });

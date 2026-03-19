@@ -5,7 +5,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 
 import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
@@ -54,6 +54,23 @@ export interface ImageBorderProps {
 	setBorder: (attrs: Partial<BorderMarkAttributes>) => void;
 	toggleBorder: () => void;
 }
+
+// New padding for border options drop down
+const dropdownOptionButtonNew = css({
+	background: 'transparent',
+	borderWidth: token('border.width.selected'),
+	borderStyle: 'solid',
+	borderColor: 'transparent',
+	display: 'flex',
+	width: '100%',
+	alignItems: 'center',
+	justifyContent: 'space-between',
+	padding: 0,
+	'&:focus': {
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
+		borderColor: token('color.border.focused'),
+	},
+});
 
 const ImageBorder = ({
 	intl: { formatMessage },
@@ -158,8 +175,15 @@ const ImageBorder = ({
 						type="button"
 						aria-label={formatMessage(messages.borderColorDropdownAriaLabel)}
 						data-testid="image-border-dropdown-button-color"
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						css={[dropdownOptionButton]}
+						css={expValEquals(
+								'platform_editor_fix_media_toolbar_border_dropdown',
+								'isEnabled',
+								true,
+								false,
+							)
+							? dropdownOptionButtonNew
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+							: dropdownOptionButton}
 						aria-expanded={isColorSubmenuOpen}
 						onKeyDown={(e) =>
 							handleTriggerByKeyboard(e, () => setIsColorSubmenuOpen(!isColorSubmenuOpen))
@@ -226,8 +250,15 @@ const ImageBorder = ({
 						type="button"
 						aria-label={formatMessage(messages.borderSizeDropdownAriaLabel)}
 						data-testid="image-border-dropdown-button-size"
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						css={[dropdownOptionButton]}
+						css={expValEquals(
+								'platform_editor_fix_media_toolbar_border_dropdown',
+								'isEnabled',
+								true,
+								false,
+							)
+							? dropdownOptionButtonNew
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+							: dropdownOptionButton}
 						aria-expanded={isSizeSubmenuOpen}
 						ref={dropDownSizeOptionButton}
 						onKeyDown={(e) =>

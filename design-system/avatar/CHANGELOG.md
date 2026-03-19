@@ -1,5 +1,26 @@
 # @atlaskit/avatar
 
+## 25.10.0
+
+### Minor Changes
+
+- [`bab17fe0fd7cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bab17fe0fd7cf) -
+  Allow avatar border to accept non colour values like css calculated values
+
+## 25.9.2
+
+### Patch Changes
+
+- [`1ba6ced5fedb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ba6ced5fedb9) -
+  Move some internal API into dedicated files to avoid them being inadvertently exported via
+  entrypoints.
+
+## 25.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.9.0
 
 ### Minor Changes

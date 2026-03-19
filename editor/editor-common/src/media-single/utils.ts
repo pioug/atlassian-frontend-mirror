@@ -134,7 +134,7 @@ const calcLegacyWideWidth = (containerWidth: number, origWidth: number, contentW
 export const calcMediaSingleMaxWidth = (
 	containerWidth: number,
 	editorAppearance?: EditorAppearance,
-) => {
+): number => {
 	const fullPagePadding =
 		editorAppearance === 'full-page' &&
 		containerWidth <= akEditorFullPageNarrowBreakout &&
@@ -160,7 +160,7 @@ export const getMediaSingleInitialWidth = (
 	origWidth: number = DEFAULT_IMAGE_WIDTH,
 	maxWidth: number = akEditorDefaultLayoutWidth,
 	minWidth: number = MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
-) => {
+): number => {
 	return Math.max(Math.min(origWidth, maxWidth), minWidth);
 };
 
@@ -169,7 +169,7 @@ export function calculateOffsetLeft(
 	insideLayout: boolean,
 	pmViewDom: Element,
 	wrapper?: HTMLElement,
-) {
+): number {
 	let offsetLeft = 0;
 	if (wrapper && insideInlineLike && !insideLayout) {
 		const currentNode: HTMLElement = wrapper;
@@ -195,7 +195,7 @@ export const roundToNearest = (
  * @param isVideoFile is child media of video type
  * @param contentWidth parent content width
  */
-export const calcMinWidth = (isVideoFile: boolean, contentWidth: number) => {
+export const calcMinWidth = (isVideoFile: boolean, contentWidth: number): number => {
 	return Math.min(
 		contentWidth,
 		isVideoFile ? MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH : MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,

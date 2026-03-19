@@ -13,7 +13,7 @@ import { SafePlugin } from '../safe-plugin';
  */
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function keymap(bindings: { [key: string]: any }) {
+export function keymap(bindings: { [key: string]: any }): SafePlugin {
 	return new SafePlugin({
 		props: {
 			handleKeyDown(view, event) {

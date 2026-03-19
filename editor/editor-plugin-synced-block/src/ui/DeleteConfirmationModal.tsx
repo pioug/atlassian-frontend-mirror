@@ -34,8 +34,15 @@ type ModalContent = {
 	titleSingle: MessageDescriptor;
 };
 
-const modalContentMap: Record<'source-block-deleted' | 'source-block-unsynced', ModalContent> = {
+const modalContentMap: Record<'source-block-deleted' | 'source-block-unsynced' | 'source-block-unpublished', ModalContent> = {
 	'source-block-deleted': {
+		titleMultiple: messages.deleteConfirmationModalTitleMultiple,
+		titleSingle: messages.deletionConfirmationModalTitleSingle,
+		descriptionSingle: messages.deletionConfirmationModalDescriptionNoRef,
+		descriptionMultiple: messages.deletionConfirmationModalDescription,
+		confirmButtonLabel: messages.deleteConfirmationModalDeleteButton,
+	},
+	'source-block-unpublished': {
 		titleMultiple: messages.deleteConfirmationModalTitleMultiple,
 		titleSingle: messages.deletionConfirmationModalTitleSingle,
 		descriptionSingle: messages.deletionConfirmationModalDescriptionNoRef,

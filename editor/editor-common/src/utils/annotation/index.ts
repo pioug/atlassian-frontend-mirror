@@ -133,7 +133,7 @@ export function getRangeInlineNodeNames({
 }: {
 	doc: PMNode;
 	pos: { from: number; to: number };
-}) {
+}): string[] | undefined {
 	if (!fg('editor_inline_comments_on_inline_nodes')) {
 		return undefined;
 	}
@@ -168,7 +168,7 @@ export function getRangeAncestorNodeNames({
 }: {
 	doc: PMNode;
 	pos: { from: number; to: number };
-}) {
+}): string[] | undefined {
 	if (!fg('cc_comments_log_draft_annotation_ancestor_nodes')) {
 		return undefined;
 	}

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 
 import { wrapperStyle } from './wrapper';
@@ -14,7 +14,7 @@ interface FrameViewProps {
 	testId?: string;
 }
 
-export const Frame = ({ children, testId }: React.PropsWithChildren<FrameViewProps>) => (
+export const Frame = ({ children, testId }: React.PropsWithChildren<FrameViewProps>): jsx.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<span css={wrapperStyle} data-testid={testId}>
 		{children}

@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 128.1.0
+
+### Minor Changes
+
+- [`8b781b3b3f9ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b781b3b3f9ca) -
+  Add setSmallText and setSmallTextWithAnalytics commands, modify setNormalText to remove fontSize
+  mark, add FORMAT_SMALL_TEXT analytics enum.
+
+  Add support to the renderer to render 'small text'.
+
+  Add 'fontSize' to stage0 default schema.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 128.0.7
 
 ### Patch Changes

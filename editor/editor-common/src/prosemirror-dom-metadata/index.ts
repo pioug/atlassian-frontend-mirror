@@ -29,7 +29,7 @@ export const createProseMirrorMetadata = (
 	options?: {
 		anchrorId?: string;
 	},
-) => {
+): Record<string, string> => {
 	const name = nodeOrMark.type.name;
 	const isNode = isPMNode(nodeOrMark);
 	const commonAttributes: Record<string, string> = {

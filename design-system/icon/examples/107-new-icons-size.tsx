@@ -10,7 +10,6 @@ const iconContainerStyles = xcss({
 	borderStyle: 'dashed',
 	borderWidth: 'border.width',
 	borderRadius: 'radius.small',
-	lineHeight: '0',
 	borderColor: 'color.border.accent.magenta',
 });
 const IconContainer = ({ children }: { children: React.ReactChild }) => (
@@ -26,7 +25,7 @@ const IconSizeExample = (): React.JSX.Element => {
 
 			<Inline space="space.100">
 				<IconContainer>
-					<AppIcon label="" size="small" />
+					<AppIcon testId="icon-1" label="" size="small" />
 				</IconContainer>
 				<IconContainer>
 					<AppIcon label="" />

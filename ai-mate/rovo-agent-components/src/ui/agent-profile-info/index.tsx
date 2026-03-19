@@ -246,7 +246,9 @@ export const AgentProfileInfo = ({
 						</Box>
 					)}
 				</Inline>
-				{showStarButton && <StarIconButton isStarred={isStarred} handleToggle={onStarToggle} />}
+				{showStarButton && (
+					<StarIconButton isStarred={isStarred} handleToggle={onStarToggle} agentName={agentName} />
+				)}
 			</Inline>
 			{creatorRender}
 			{!!agentDescription && (

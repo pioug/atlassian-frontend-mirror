@@ -18,7 +18,6 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import ChevronDown from '@atlaskit/icon/core/chevron-down';
 import ChevronUp from '@atlaskit/icon/core/chevron-up';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	attachClosestEdge,
 	type Edge,
@@ -112,24 +111,6 @@ type DraggableState =
 			initialWidth: number;
 			type: 'resizing';
 	  };
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const DropdownParentOld = styled.div({
-	display: 'flex',
-	alignItems: 'center',
-	whiteSpace: 'nowrap',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& button': {
-		textAlign: 'left' /* By default button center in the middle without props to control it */,
-		height: 'auto' /* By default button is not happy with tall (up to lines in our case) content */,
-		paddingBlock: token('space.0'),
-		paddingLeft: token(
-			'space.0',
-			'0px',
-		) /* By default button's padding left and right is 8 + 4. We control that 8, so left with 4 that we need.  */,
-		paddingRight: token('space.0', '0px'),
-	},
-});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const DropdownParent = styled.div({
@@ -476,7 +457,7 @@ export const DraggableTableHeading = ({
 					data-testid="column-resize-handle"
 				></div>
 			) : null}
-			{onIsWrappedChange && fg('platform-button-icon-spacing-cleanup') ? (
+			{onIsWrappedChange ? (
 				<DropdownParent>
 					<DropdownMenu<HTMLButtonElement>
 						trigger={getTriggerButton}
@@ -496,26 +477,6 @@ export const DraggableTableHeading = ({
 						</DropdownItem>
 					</DropdownMenu>
 				</DropdownParent>
-			) : onIsWrappedChange ? (
-				<DropdownParentOld>
-					<DropdownMenu<HTMLButtonElement>
-						trigger={getTriggerButton}
-						onOpenChange={onDropdownOpenChange}
-						placement={'bottom'}
-					>
-						<DropdownItem
-							elemBefore={isWrapped ? <UnwrapTextIcon /> : <WrapTextIcon />}
-							testId={`${id}-column-dropdown-item-toggle-wrapping`}
-							onClick={toggleWrap}
-						>
-							{isWrapped ? (
-								<FormattedMessage {...issueLikeTableMessages.unwrapText} />
-							) : (
-								<FormattedMessage {...issueLikeTableMessages.wrapText} />
-							)}
-						</DropdownItem>
-					</DropdownMenu>
-				</DropdownParentOld>
 			) : (
 				children
 			)}

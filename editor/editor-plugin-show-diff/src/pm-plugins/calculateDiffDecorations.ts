@@ -9,10 +9,12 @@ import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ColorScheme, ShowDiffPlugin } from '../showDiffPluginType';
 
+import { areDocsEqualByBlockStructureAndText } from './areDocsEqualByBlockStructureAndText';
 import { createBlockChangedDecoration } from './decorations/createBlockChangedDecoration';
 import { createInlineChangedDecoration } from './decorations/createInlineChangedDecoration';
 import { createNodeChangedDecorationWidget } from './decorations/createNodeChangedDecorationWidget';
@@ -112,6 +114,7 @@ type NodesEqualEvent = {
 	attributes: {
 		colorScheme: ColorScheme | undefined;
 		docSizeEqual: boolean;
+		recoveredViaContentEquality?: boolean;
 	};
 	eventType: 'track';
 };
@@ -161,6 +164,10 @@ const calculateDiffDecorationsInner = ({
 	// Rather than using .eq() we use a custom function that only checks for structural
 	// changes and ignores differences in attributes which don't affect decoration positions
 	if (!areNodesEqualIgnoreAttrs(steppedDoc, tr.doc)) {
+		const recoveredViaContentEquality = fg('platform_editor_show_diff_equality_fallback')
+			? areDocsEqualByBlockStructureAndText(steppedDoc, tr.doc)
+			: undefined;
+
 		if (expValEquals('platform_editor_are_nodes_equal_ignore_mark_order', 'isEnabled', true)) {
 			api?.analytics?.actions.fireAnalyticsEvent<NodesEqualEvent, 'customEventType'>({
 				eventType: 'track',
@@ -169,10 +176,18 @@ const calculateDiffDecorationsInner = ({
 				attributes: {
 					docSizeEqual: steppedDoc.nodeSize === tr.doc.nodeSize,
 					colorScheme,
+					recoveredViaContentEquality,
 				},
 			});
 		}
-		return DecorationSet.empty;
+
+		if (fg('platform_editor_show_diff_equality_fallback')) {
+			if (!recoveredViaContentEquality) {
+				return DecorationSet.empty;
+			}
+		} else {
+			return DecorationSet.empty;
+		}
 	}
 	const changeset = ChangeSet.create(originalDoc).addSteps(steppedDoc, stepMaps, tr.doc);
 	const changes = simplifyChanges(changeset.changes, tr.doc);

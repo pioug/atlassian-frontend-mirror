@@ -1,4 +1,249 @@
-export const exampleDocument = {
+export const exampleDocument: {
+    version: number; type: string; content: ({
+        type: string;
+        attrs: {
+            level: number;
+            layout?: undefined;
+            width?: undefined;
+            isNumberColumnEnabled?: undefined;
+        };
+        content: {
+            type: string;
+            text: string;
+        }[];
+    } | {
+        type: string;
+        attrs: {
+            layout: string;
+            width: number;
+            level?: undefined;
+            isNumberColumnEnabled?: undefined;
+        };
+        content: {
+            type: string;
+            attrs: {
+                type: string;
+                url: string;
+            };
+        }[];
+    } | {
+        type: string;
+        attrs: {
+            layout: string;
+            width: number;
+            level?: undefined;
+            isNumberColumnEnabled?: undefined;
+        };
+        content: {
+            type: string;
+            attrs: {
+                id: string;
+                type: string;
+                collection: string;
+                width: number;
+                height: number;
+            };
+        }[];
+    } | {
+        type: string;
+        content: {
+            type: string;
+            text: string;
+        }[];
+        attrs?: undefined;
+    } | {
+        type: string;
+        content: {
+            type: string;
+            content: ({
+                type: string;
+                content: {
+                    type: string;
+                    text: string;
+                }[];
+            } | {
+                type: string;
+                content: {
+                    type: string;
+                    content: ({
+                        type: string;
+                        content: {
+                            type: string;
+                            text: string;
+                        }[];
+                    } | {
+                        type: string;
+                        content: {
+                            type: string;
+                            content: ({
+                                type: string;
+                                content: {
+                                    type: string;
+                                    text: string;
+                                }[];
+                            } | {
+                                type: string;
+                                content: {
+                                    type: string;
+                                    content: {
+                                        type: string;
+                                        attrs: {
+                                            width: number;
+                                        };
+                                        content: {
+                                            type: string;
+                                            attrs: {
+                                                id: string;
+                                                type: string;
+                                                collection: string;
+                                                width: number;
+                                                height: number;
+                                            };
+                                        }[];
+                                    }[];
+                                }[];
+                            })[];
+                        }[];
+                    })[];
+                }[];
+            })[];
+        }[];
+        attrs?: undefined;
+    } | {
+        type: string;
+        content: {
+            type: string;
+            attrs: {
+                width: number;
+            };
+            content: ({
+                type: string;
+                content: {
+                    type: string;
+                    text: string;
+                }[];
+                attrs?: undefined;
+            } | {
+                type: string;
+                attrs: {
+                    layout: string;
+                    width: number;
+                };
+                content: {
+                    type: string;
+                    attrs: {
+                        id: string;
+                        type: string;
+                        collection: string;
+                        width: number;
+                        height: number;
+                    };
+                }[];
+            })[];
+        }[];
+        attrs?: undefined;
+    } | {
+        type: string;
+        attrs: {
+            isNumberColumnEnabled: boolean;
+            layout: string;
+            level?: undefined;
+            width?: undefined;
+        };
+        content: ({
+            type: string;
+            content: ({
+                type: string;
+                attrs: {
+                    colwidth: number[];
+                };
+                content: {
+                    type: string;
+                    content: {
+                        type: string;
+                        text: string;
+                    }[];
+                }[];
+            } | {
+                type: string;
+                attrs: {
+                    colwidth?: undefined;
+                };
+                content: {
+                    type: string;
+                    content: {
+                        type: string;
+                        text: string;
+                    }[];
+                }[];
+            })[];
+        } | {
+            type: string;
+            content: ({
+                type: string;
+                attrs: {
+                    colwidth: number[];
+                };
+                content: {
+                    type: string;
+                    content: {
+                        type: string;
+                        text: string;
+                    }[];
+                }[];
+            } | {
+                type: string;
+                attrs: {
+                    colwidth: number[];
+                };
+                content: {
+                    type: string;
+                    attrs: {
+                        layout: string;
+                        width: number;
+                    };
+                    content: {
+                        type: string;
+                        attrs: {
+                            id: string;
+                            type: string;
+                            collection: string;
+                            width: number;
+                            height: number;
+                        };
+                    }[];
+                }[];
+            } | {
+                type: string;
+                attrs: {
+                    colwidth?: undefined;
+                };
+                content: {
+                    type: string;
+                    content: never[];
+                }[];
+            })[];
+        })[];
+    } | {
+        type: string;
+        attrs: {
+            layout: string;
+            level?: undefined;
+            width?: undefined;
+            isNumberColumnEnabled?: undefined;
+        };
+        content: {
+            type: string;
+            attrs: {
+                id: string;
+                type: string;
+                collection: string;
+                width: number;
+                height: number;
+            };
+        }[];
+    })[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

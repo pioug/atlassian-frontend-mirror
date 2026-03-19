@@ -8,7 +8,7 @@ import React, { forwardRef, Fragment, useCallback, type KeyboardEvent } from 're
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
@@ -196,7 +196,10 @@ const ForwardedLinkSearchListItem = forwardRef<HTMLDivElement, Props & WrappedCo
 	LinkSearchListItem,
 );
 
-export const ForwardedLinkSearchListItemWithIntl = injectIntl(ForwardedLinkSearchListItem, {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- injectIntl ref typing incompatible with explicit RefAttributes<HTMLDivElement>
+export const ForwardedLinkSearchListItemWithIntl: React.ForwardRefExoticComponent<Omit<WithIntlProps<React.PropsWithChildren<Props & WrappedComponentProps & React.RefAttributes<HTMLDivElement>>>, "ref"> & React.RefAttributes<any>> & {
+    WrappedComponent: React.ComponentType<Props & WrappedComponentProps & React.RefAttributes<HTMLDivElement>>;
+} = injectIntl(ForwardedLinkSearchListItem, {
 	forwardRef: true,
 });
 

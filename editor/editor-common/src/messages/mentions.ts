@@ -1,6 +1,36 @@
 import { defineMessages } from 'react-intl-next';
 
-export const mentionMessages = defineMessages({
+export const mentionMessages: {
+    inviteItemTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; mentionsAddLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; mentionsIconLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; mentionsNodeLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; unknownLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inviteTeammateInvalidEmail: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; sendInvite: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	inviteItemTitle: {
 		id: 'fabric.editor.inviteItem.title',
 		defaultMessage:

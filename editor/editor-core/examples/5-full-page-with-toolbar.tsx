@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
@@ -64,7 +64,7 @@ const quickInsert = {
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ExampleEditor extends React.Component<Props> {
-	render() {
+	render(): jsx.JSX.Element {
 		return (
 			<IntlProvider locale="en">
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
@@ -146,7 +146,7 @@ export class ExampleEditor extends React.Component<Props> {
 	}
 }
 
-export default function Example(defaultValue: string | object) {
+export default function Example(defaultValue: string | object): jsx.JSX.Element {
 	return (
 		<EditorContext>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}

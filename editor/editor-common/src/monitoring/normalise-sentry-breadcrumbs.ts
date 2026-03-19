@@ -16,7 +16,7 @@ const sanitiseUiBreadcrumbMessage = (message: string): string =>
  * appropriately cleaned before being logged by Sentry. This helps in maintaining
  * privacy and security by preventing sensitive data exposure.
  */
-export const normaliseSentryBreadcrumbs = (breadcrumb: Breadcrumb) => {
+export const normaliseSentryBreadcrumbs = (breadcrumb: Breadcrumb): Breadcrumb => {
 	const { category } = breadcrumb || {};
 
 	// allow "ui*"" category breadcrumbs, that include clicks and inputs on DOM elements

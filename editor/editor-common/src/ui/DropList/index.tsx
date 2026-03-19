@@ -2,13 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { ReactNode } from 'react';
+import type { ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 import { Component } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, keyframes } from '@emotion/react';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
@@ -221,21 +221,22 @@ class DropList extends Component<Props> {
 
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-export default withAnalyticsContext({
-	componentName: 'droplist',
-	packageName,
-	packageVersion,
+const _default_1: ForwardRefExoticComponent<Omit<Omit<Props, keyof WithAnalyticsEventsProps> & RefAttributes<unknown> & WithContextProps, "ref"> & RefAttributes<unknown>> = withAnalyticsContext({
+    componentName: 'droplist',
+    packageName,
+    packageVersion,
 })(
-	withAnalyticsEvents({
-		onOpenChange: createAndFireEventOnAtlaskit({
-			action: 'toggled',
-			actionSubject: 'droplist',
+    withAnalyticsEvents({
+        onOpenChange: createAndFireEventOnAtlaskit({
+            action: 'toggled',
+            actionSubject: 'droplist',
 
-			attributes: {
-				componentName: 'droplist',
-				packageName,
-				packageVersion,
-			},
-		}),
-	})(DropList),
+            attributes: {
+                componentName: 'droplist',
+                packageName,
+                packageVersion,
+            },
+        }),
+    })(DropList)
 );
+export default _default_1;

@@ -10,7 +10,7 @@ const expandIconContainerStyle = css({
 	alignItems: 'center',
 });
 
-export function ToolbarExpandIcon() {
+export function ToolbarExpandIcon(): JSX.Element {
 	return (
 		<span css={expandIconContainerStyle}>
 			<ChevronDownIcon label="" color="currentColor" size="small" />

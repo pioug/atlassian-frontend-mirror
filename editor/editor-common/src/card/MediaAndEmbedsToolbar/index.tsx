@@ -353,7 +353,7 @@ const buildLayoutButtons = (
 	allowAlignment = true,
 	isChangingLayoutDisabled?: boolean,
 	allowPixelResizing?: boolean,
-) => {
+): FloatingToolbarItem<Command>[] => {
 	const { selection } = state;
 
 	if (

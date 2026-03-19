@@ -59,7 +59,7 @@ describe(`${packageName}/schema multiBodiedExtension node`, () => {
 			content:
 				'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | extension | bodiedExtension | unsupportedBlock | blockCard | embedCard)+',
 			isolating: true,
-			marks: 'dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+			marks: 'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
 			definingAsContext: false,
 			definingForContent: true,
 			selectable: false,

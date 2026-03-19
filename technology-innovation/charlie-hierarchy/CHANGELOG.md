@@ -1,5 +1,11 @@
 # @atlaskit/charlie-hierarchy
 
+## 0.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.14
 
 ### Patch Changes

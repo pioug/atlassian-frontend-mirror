@@ -5,7 +5,7 @@
 import type { CSSProperties, KeyboardEvent } from 'react';
 import { useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import { defineMessages, useIntl } from 'react-intl-next';
 
@@ -84,7 +84,7 @@ export const EditToggle = ({
 	setIsNodeHovered,
 	showBodiedExtensionRendererView,
 	setShowBodiedExtensionRendererView,
-}: EditToggleProps) => {
+}: EditToggleProps): jsx.JSX.Element => {
 	const intl = useIntl();
 
 	const text = showBodiedExtensionRendererView

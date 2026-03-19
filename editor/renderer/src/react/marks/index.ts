@@ -20,6 +20,7 @@ import DataConsumer from './data-consumer';
 import FragmentMark from './fragment';
 import Annotation, { isAnnotationMark } from './annotation';
 import Border from './border';
+import FontSize from './fontSize';
 
 // Stage0
 import ConfluenceInlineComment from './confluence-inline-comment';
@@ -40,6 +41,7 @@ export const markToReact: {
 	underline: Underline,
 	annotation: Annotation,
 	border: Border,
+	fontSize: FontSize,
 
 	// Stage0
 	confluenceInlineComment: ConfluenceInlineComment,
@@ -71,6 +73,7 @@ export {
 	Breakout,
 	Annotation,
 	Border,
+	FontSize,
 	UnsupportedMark,
 	isAnnotationMark,
 	UnsupportedNodeAttribute,

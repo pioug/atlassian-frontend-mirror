@@ -73,7 +73,7 @@ function SSRRenderMeasureImpl({
 	segmentName,
 	startTimestampRef,
 	children,
-}: SSRRenderMeasureProps) {
+}: SSRRenderMeasureProps): React.JSX.Element {
 	const wasMeasured = useRef(false);
 
 	const handleOnRender = useCallback(() => {
@@ -99,7 +99,7 @@ function SSRRenderMeasureImpl({
 	);
 }
 
-const SSRRenderMeasureNoOp = memo(({ children }: SSRRenderMeasureProps) => {
+const SSRRenderMeasureNoOp = memo(({ children }: SSRRenderMeasureProps): React.ReactNode => {
 	return children;
 });
 
@@ -151,4 +151,4 @@ const SSRRenderMeasureNoOp = memo(({ children }: SSRRenderMeasureProps) => {
  * };
  * ```
  */
-export const SSRRenderMeasure = isSSR() ? SSRRenderMeasureImpl : SSRRenderMeasureNoOp;
+export const SSRRenderMeasure: React.MemoExoticComponent<({ children }: SSRRenderMeasureProps) => React.ReactNode> | typeof SSRRenderMeasureImpl = isSSR() ? SSRRenderMeasureImpl : SSRRenderMeasureNoOp;

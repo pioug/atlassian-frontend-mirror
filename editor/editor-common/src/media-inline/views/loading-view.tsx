@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 
 import Spinner from '@atlaskit/spinner';
@@ -21,7 +21,7 @@ type Props = {
 export const InlineImageCardLoadingView = ({
 	testId = 'media-inline-image-card-loading-view',
 	height = ICON_SIZE_THRESOLD,
-}: Props) => {
+}: Props): jsx.JSX.Element => {
 	return (
 		<Frame testId={testId}>
 			<Spinner

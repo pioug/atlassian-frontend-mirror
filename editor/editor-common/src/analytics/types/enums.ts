@@ -440,6 +440,7 @@ export enum ACTION_SUBJECT_ID {
 	FORMAT_CODE = 'code',
 	FORMAT_COLOR = 'color',
 	FORMAT_HEADING = 'heading',
+	FORMAT_SMALL_TEXT = 'smallText',
 	FORMAT_INDENT = 'indentation',
 	FORMAT_ITALIC = 'italic',
 	FORMAT_LIST_BULLET = 'bulletedList',

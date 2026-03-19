@@ -1,4 +1,4 @@
-import { type AvatarSizeMap, type IndicatorSizeType } from './types';
+import { type AvatarSizeMap } from './types';
 
 export const AVATAR_SIZES: AvatarSizeMap = {
 	xsmall: 16,
@@ -21,19 +21,3 @@ export const AVATAR_RADIUS: AvatarSizeMap = {
 
 export const BORDER_WIDTH = 2;
 export const ACTIVE_SCALE_FACTOR = 0.9;
-
-export const CSS_VAR_AVATAR_BGCOLOR = '--avatar-background-color';
-
-export const ICON_SIZES: Record<IndicatorSizeType, number> = {
-	small: 12,
-	medium: 14,
-	large: 15,
-	xlarge: 18,
-};
-
-export const ICON_OFFSET: Record<IndicatorSizeType, number> = {
-	small: 0,
-	medium: 0,
-	large: 1,
-	xlarge: 7,
-};

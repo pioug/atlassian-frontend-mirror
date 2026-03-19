@@ -20,12 +20,14 @@ import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/el
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { getObjectIconUrl } from '@atlaskit/smart-card';
 import { token } from '@atlaskit/tokens';
+import { PopoverProvider, PopoverTarget } from '@atlaskit/spotlight';
+
+import { SmartLinkDraggableChangeboardPopover } from './SmartLinkDraggableChangeboardPopover';
 
 /**
  * Shared constants, types, and utilities for smart link drag-and-drop
  * between editor/renderer (drag sources) and the content tree (drop target).
  */
-
 export enum SMART_LINK_DRAG_TYPES {
 	EDITOR = 'smart-link-from-editor',
 	RENDERER = 'smart-link-from-renderer',
@@ -170,6 +172,8 @@ function SmartLinkDraggableInner({
 	const ref = useRef<HTMLDivElement>(null);
 	const { store } = useSmartLinkContext();
 	const [state, setState] = useState<DraggableState>(idleState);
+	// Changeboarding popover will always be hidden until visibility/targeting logic is implemented
+	const [showChangeboard, setShowChangeboard] = useState(false);
 
 	const cleanupDraggableRef = useRef<(() => void) | null>(null);
 
@@ -251,33 +255,47 @@ function SmartLinkDraggableInner({
 		};
 	}, [appearance, getDraggableConfig]);
 
+	const handleDismissChangeboard = () => setShowChangeboard(false);
+
 	const preview =
 		state.type === 'preview'
 			? ReactDOM.createPortal(
 					<SmartLinkDragPreview title={state.title} url={url} iconUrl={state.iconUrl} />,
 					state.container,
-				)
+			  )
 			: null;
 
 	// Use span with inline display for inline cards to preserve text flow
 	if (appearance === SMART_LINK_APPEARANCE.INLINE) {
 		return (
-			<>
-				<span ref={ref} css={draggableInlineStyles}>
-					{children}
-				</span>
+			<PopoverProvider>
+				<PopoverTarget>
+					<span ref={ref} css={draggableInlineStyles} data-testid="smart-link-draggable-inline">
+						{children}
+					</span>
+				</PopoverTarget>
 				{preview}
-			</>
+				<SmartLinkDraggableChangeboardPopover
+					isVisible={showChangeboard}
+					dismiss={handleDismissChangeboard}
+				/>
+			</PopoverProvider>
 		);
 	}
 
 	return (
-		<>
-			<Box ref={ref} xcss={styles.draggableBlock}>
-				{children}
-			</Box>
+		<PopoverProvider>
+			<PopoverTarget>
+				<Box ref={ref} xcss={styles.draggableBlock} testId="smart-link-draggable-block">
+					{children}
+				</Box>
+			</PopoverTarget>
 			{preview}
-		</>
+			<SmartLinkDraggableChangeboardPopover
+				isVisible={showChangeboard}
+				dismiss={handleDismissChangeboard}
+			/>
+		</PopoverProvider>
 	);
 }
 

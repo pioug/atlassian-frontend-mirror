@@ -5,7 +5,7 @@
 import { Component } from 'react';
 import type { CSSProperties } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -41,7 +41,7 @@ export interface LozengeData {
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 export default class ExtensionLozenge extends Component<Props, any> {
-	render() {
+	render(): jsx.JSX.Element {
 		const { node, showMacroInteractionDesignUpdates } = this.props;
 
 		const imageData = getExtensionLozengeData({ node, type: 'image' });

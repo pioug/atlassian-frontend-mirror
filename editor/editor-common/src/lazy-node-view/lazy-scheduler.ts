@@ -1,6 +1,6 @@
 const hasIdleCallback = 'requestIdleCallback' in window;
 
-export const scheduleCallback = (cb: () => unknown, options?: IdleRequestOptions) => {
+export const scheduleCallback = (cb: () => unknown, options?: IdleRequestOptions): number => {
 	return hasIdleCallback
 		? requestIdleCallback(cb, { timeout: 5000, ...options })
 		: requestAnimationFrame(cb);

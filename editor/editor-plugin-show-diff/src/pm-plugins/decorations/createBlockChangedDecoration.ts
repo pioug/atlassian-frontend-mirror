@@ -179,7 +179,7 @@ export const createBlockChangedDecoration = ({
 					'data-testid': 'show-diff-changed-decoration-node',
 					class: className,
 				},
-				{ key: 'diff-block' },
+				{ key: 'diff-block', nodeName: change.name },
 			);
 		} else {
 			return undefined;
@@ -193,6 +193,6 @@ export const createBlockChangedDecoration = ({
 			'data-testid': 'show-diff-changed-decoration-node',
 			class: className,
 		},
-		{ key: 'diff-block' },
+		{ key: 'diff-block', nodeName: change.name },
 	)
 };

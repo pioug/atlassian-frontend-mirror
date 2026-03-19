@@ -294,7 +294,7 @@ export const expandAllParentsThenScroll = (
 	return cleanup;
 };
 
-export const getLocalIdSelector = (localId: string, container: HTMLElement) => {
+export const getLocalIdSelector = (localId: string, container: HTMLElement): HTMLElement | null => {
 	// Check if the element with data-local-id exists
 	let element = container.querySelector(`[data-local-id="${localId}"]`) as HTMLElement | null;
 

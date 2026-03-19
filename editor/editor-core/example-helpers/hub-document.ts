@@ -1,4 +1,116 @@
-export const exampleHubDoc = {
+export const exampleHubDoc: {
+    version: number; type: string; content: ({
+        type: string;
+        attrs: {
+            localId: null;
+            extensionKey?: undefined;
+            extensionType?: undefined;
+            parameters?: undefined;
+            text?: undefined;
+            layout?: undefined;
+        };
+        content?: undefined;
+    } | {
+        type: string;
+        attrs: {
+            extensionKey: string;
+            extensionType: string;
+            parameters: {
+                extensionTitle: string;
+                backgroundColor: string;
+                activeTabIndex?: undefined;
+                macroMetadata?: undefined;
+                macroParams?: undefined;
+            };
+            text: null;
+            layout: string;
+            localId: string;
+        };
+        content: {
+            type: string;
+            content: {
+                type: string;
+                attrs: {
+                    localId: null;
+                };
+                content: {
+                    type: string;
+                    text: string;
+                }[];
+            }[];
+        }[];
+    } | {
+        type: string;
+        attrs: {
+            extensionKey: string;
+            extensionType: string;
+            parameters: {
+                activeTabIndex: number;
+                backgroundColor: string;
+                extensionTitle: string;
+                macroMetadata: {
+                    placeholder: {
+                        data: {
+                            url: string;
+                        };
+                        type: string;
+                    }[];
+                };
+                macroParams: Record<string, never>;
+            };
+            text: null;
+            layout: string;
+            localId: string;
+        };
+        content: ({
+            type: string;
+            content: ({
+                type: string;
+                attrs: {
+                    localId: null;
+                    extensionKey?: undefined;
+                    extensionType?: undefined;
+                    parameters?: undefined;
+                    text?: undefined;
+                    layout?: undefined;
+                };
+                content: {
+                    type: string;
+                    text: string;
+                }[];
+            } | {
+                type: string;
+                attrs: {
+                    extensionKey: string;
+                    extensionType: string;
+                    parameters: {
+                        macroMetadata: {
+                            placeholder: {
+                                data: {
+                                    url: string;
+                                };
+                                type: string;
+                            }[];
+                        };
+                        macroParams: Record<string, never>;
+                    };
+                    text: string;
+                    layout: string;
+                    localId: string;
+                };
+                content?: undefined;
+            })[];
+        } | {
+            type: string;
+            content: {
+                type: string;
+                attrs: {
+                    localId: null;
+                };
+            }[];
+        })[];
+    })[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

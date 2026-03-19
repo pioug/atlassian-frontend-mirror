@@ -2060,10 +2060,10 @@ export default class Select<
 			...(menuIsOpen && {
 				'aria-controls': this.getElementId('listbox'),
 			}),
-			// TODO: Might need to remove this
-			...(!isSearchable && {
-				'aria-readonly': true,
-			}),
+			...(!isSearchable &&
+				!fg('select_issearchable_aria-readonly_fix') && {
+					'aria-readonly': true,
+				}),
 			...this.calculateDescription(),
 		};
 

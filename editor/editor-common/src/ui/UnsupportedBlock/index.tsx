@@ -6,7 +6,7 @@ import React, { useCallback, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -95,4 +95,8 @@ const UnsupportedBlockNode = ({
 	);
 };
 
-export default injectIntl(UnsupportedBlockNode);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(UnsupportedBlockNode);
+export default _default_1;

@@ -1,5 +1,19 @@
 # @atlaskit/react-select
 
+## 3.14.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.14.2
+
+### Patch Changes
+
+- [`fd726869d6207`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd726869d6207) -
+  Fix incorrect aria-readonly attribute when isSearchable={false}. Behind feature gate
+  'select_issearchable_aria-readonly_fix'.
+
 ## 3.14.1
 
 ### Patch Changes

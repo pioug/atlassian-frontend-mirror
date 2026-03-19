@@ -6,7 +6,7 @@
 export function walkUpTreeUntil(
 	element: HTMLElement,
 	shouldStop: (element: HTMLElement) => boolean,
-) {
+): HTMLElement {
 	let rootElement = element;
 	while (rootElement && rootElement.parentElement && !shouldStop(rootElement)) {
 		rootElement = rootElement.parentElement;

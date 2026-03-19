@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, type MutableRefObject } from 'react';
 
 /**
  * A custom hook that handles focus on a DOM element.
@@ -34,7 +34,7 @@ import { useLayoutEffect, useRef } from 'react';
 
 type RefType = null | HTMLInputElement | HTMLDivElement;
 
-export default function useFocus(focus: boolean) {
+export default function useFocus(focus: boolean): MutableRefObject<RefType> {
 	const ref = useRef<RefType>(null);
 
 	useLayoutEffect(() => {

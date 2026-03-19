@@ -17,7 +17,7 @@ const compiledTextClass = css({
  *
  * @returns example component
  */
-const BasicCompiledHydration = () => {
+const BasicCompiledHydration = (): JSX.Element => {
 	return (
 		<div
 			// @ts-ignore @ts-expect-error

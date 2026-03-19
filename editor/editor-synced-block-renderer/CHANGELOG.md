@@ -1,5 +1,19 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 6.0.2
+
+### Patch Changes
+
+- [`b8082ae893289`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8082ae893289) -
+  Account for new deletionReason: source-block-unpublished
+- Updated dependencies
+
+## 6.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

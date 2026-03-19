@@ -1,4 +1,14 @@
-export const blockquoteAdf = {
+export const blockquoteAdf: {
+    version: number;
+    type: string;
+    content: {
+        type: string;
+        content: {
+            type: string;
+            content: never[];
+        }[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -14,7 +24,30 @@ export const blockquoteAdf = {
 	],
 };
 
-export const blockquoteInsideTableAdf = {
+export const blockquoteInsideTableAdf: {
+    version: number; type: string; content: {
+        type: string;
+        attrs: {
+            isNumberColumnEnabled: boolean;
+            layout: string;
+            localId: string;
+        };
+        content: {
+            type: string;
+            content: {
+                type: string;
+                attrs: {};
+                content: {
+                    type: string;
+                    content: {
+                        type: string;
+                        content: never[];
+                    }[];
+                }[];
+            }[];
+        }[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -61,7 +94,24 @@ export const blockquoteInsideTableAdf = {
 	],
 };
 
-export const blockquoteInsideExpandAdf = {
+export const blockquoteInsideExpandAdf: {
+    version: number; type: string; content: {
+        type: string;
+        attrs: {
+            title: string;
+        };
+        content: {
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    text: string;
+                }[];
+            }[];
+        }[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

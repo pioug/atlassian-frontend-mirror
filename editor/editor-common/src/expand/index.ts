@@ -4,7 +4,7 @@ import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 // Used to store the state of the new single player expand node
-export const expandedState = new WeakMap<PmNode, boolean>();
+export const expandedState: WeakMap<PmNode, boolean> = new WeakMap<PmNode, boolean>();
 
 // used to determine if the expand is expanded or collapsed
 export const isExpandCollapsed = (node: PmNode): boolean => {

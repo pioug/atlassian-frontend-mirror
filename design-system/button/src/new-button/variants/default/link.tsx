@@ -92,15 +92,6 @@ const styles = cssMap({
 		paddingInlineStart: token('space.150'),
 		verticalAlign: 'middle',
 	},
-	// -- Remove these platform-button-icon-spacing-cleanup is removed
-	buttonIconBeforeWithHack: {
-		paddingInlineStart: token('space.100'),
-	},
-	buttonIconAfterWithHack: {
-		paddingInlineEnd: token('space.100'),
-	},
-	// ----------
-	// -- Keep these platform-button-icon-spacing-cleanup is removed
 	buttonIconBefore: {
 		paddingInlineStart: token('space.150'),
 		columnGap: token('space.075'),
@@ -413,14 +404,8 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 				isSelected && appearance === 'discovery' && selectedStyles.discovery,
 				isDisabled && styles.disabled,
 				spacing === 'compact' && styles.spacingCompact,
-				hasIconBefore &&
-					!fg('platform-button-icon-spacing-cleanup') &&
-					styles.buttonIconBeforeWithHack, //to remove when platform-button-icon-spacing-cleanup is removed
-				hasIconAfter &&
-					!fg('platform-button-icon-spacing-cleanup') &&
-					styles.buttonIconAfterWithHack, //to remove when platform-button-icon-spacing-cleanup is removed
-				hasIconBefore && fg('platform-button-icon-spacing-cleanup') && styles.buttonIconBefore, //to keep when platform-button-icon-spacing-cleanup is removed
-				hasIconAfter && fg('platform-button-icon-spacing-cleanup') && styles.buttonIconAfter, //to keep when platform-button-icon-spacing-cleanup is removed
+				hasIconBefore && styles.buttonIconBefore,
+				hasIconAfter && styles.buttonIconAfter,
 				shouldFitContainer && styles.fullWidth,
 			)}
 		>

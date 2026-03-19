@@ -1,7 +1,89 @@
 // eslint-disable-next-line no-restricted-imports
 import { defineMessages } from 'react-intl-next';
 
-export const aiFailedStateMessages = defineMessages({
+export const aiFailedStateMessages: {
+    aupViolationMessage: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; documentInsertError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; tokenLimitExceeded: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; rateLimitEnforced: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; apiError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; elevateDisabledGenerateError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; internalServerError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inputTooShortError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; hipaaContentError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; adfStreamingError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aifcAupViolationMessage: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aifcApiError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aifcApiErrorRetry: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aifcTokenLimitExceeded: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aifcInputTooShortError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aifcHipaaContentError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aifcRateLimitEnforced: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aifcInternalServerError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; aifcAdfStreamingError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; noTextualContentError: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	aupViolationMessage: {
 		id: 'fabric.editor.ai.experience.aupViolationMessage',
 		defaultMessage:

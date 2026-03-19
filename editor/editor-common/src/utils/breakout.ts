@@ -1,5 +1,5 @@
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorBreakoutPadding,
 	akEditorDefaultLayoutWidth,
@@ -24,7 +24,7 @@ export const breakoutResizableNodes: string[] = [
 	'bodiedSyncBlock',
 ];
 
-export const getBreakoutResizableNodeTypes = (schema: Schema) => {
+export const getBreakoutResizableNodeTypes = (schema: Schema): Set<NodeType> => {
 	const { expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock } = schema.nodes;
 
 	return new Set([expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock]);
@@ -128,7 +128,7 @@ const breakoutConsts: BreakoutConstsType = {
 export const absoluteBreakoutWidth = (
 	layout: 'full-width' | 'wide' | string,
 	containerWidth: number,
-) => {
+): number => {
 	const breakoutWidth = breakoutConsts.calcBreakoutWidth(breakoutConsts)(layout, containerWidth);
 
 	// If it's percent, map to max layout size
@@ -149,10 +149,10 @@ export const absoluteBreakoutWidth = (
 };
 
 export { breakoutConsts };
-export const calcWideWidth = breakoutConsts.calcWideWidth(breakoutConsts);
+export const calcWideWidth: (containerWidth?: number, maxWidth?: number, fallback?: string, padding?: number) => string = breakoutConsts.calcWideWidth(breakoutConsts);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const calcBreakoutWidth: any = breakoutConsts.calcBreakoutWidth(breakoutConsts);
-export const calcBreakoutWithCustomWidth =
+export const calcBreakoutWithCustomWidth: (mode: "full-width" | "wide", width: number | null, editorContainerWidth: number) => string =
 	breakoutConsts.calcBreakoutWithCustomWidth(breakoutConsts);
 
 export function calculateBreakoutStyles({
@@ -239,7 +239,7 @@ export function calcBreakoutWidthPx(
 	mode: BreakoutMarkAttrs['mode'],
 	widthStateWidth?: number,
 	padding?: number,
-) {
+): number {
 	return parsePx(calcBreakoutWidth(mode, widthStateWidth, padding));
 }
 
@@ -253,7 +253,11 @@ export const getNextBreakoutMode = (currentMode?: BreakoutMode): Exclude<Breakou
 	return 'wide';
 };
 
-export const getTitle = (layout?: BreakoutMode) => {
+export const getTitle = (layout?: BreakoutMode): {
+    id: string;
+    defaultMessage: string;
+    description: string;
+} => {
 	switch (layout) {
 		case 'full-width':
 			return commonMessages.layoutFixedWidth;

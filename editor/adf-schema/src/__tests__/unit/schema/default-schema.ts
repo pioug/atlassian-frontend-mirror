@@ -1,4 +1,7 @@
-import { defaultSchema, getSchemaBasedOnStage } from '../../../schema/default-schema';
+import {
+	defaultSchema,
+	getSchemaBasedOnStage,
+} from '../../../schema/default-schema';
 
 describe('Default Schema', () => {
 	describe('Nodes', () => {
@@ -186,6 +189,7 @@ describe('Get Schema Based On Stage', () => {
 				'__fontStyleGroupDeclaration',
 				'__searchQueryGroupDeclaration',
 				'__linkGroupDeclaration',
+				'fontSize',
 				'breakout',
 				'dataConsumer',
 				'fragment',

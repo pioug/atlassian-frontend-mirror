@@ -5,11 +5,11 @@
  */
 {
   "testExamples": [
-    "02-size-example.tsx",
-    "08-using-custom-glyph.tsx",
-    "13-ssr-icons.tsx",
+    "09-size-function.tsx",
     "14-svg.tsx",
-    "99-invalid-custom-glyphs.tsx"
+    "101-new-icon-explorer.tsx",
+    "107-new-icons-size.tsx",
+    "vr/vr-new-icon-button.tsx"
   ],
   "exampleDependencies": [
     "lodash",

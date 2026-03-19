@@ -67,7 +67,7 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 		});
 	};
 
-	render() {
+	render(): JSX.Element | null {
 		const { state, props } = this;
 		const { renderNode } = props;
 

@@ -81,6 +81,20 @@ type FormatHeadingAEP = FormatAEP<
 	}
 >;
 
+type FormatSmallTextAEP = FormatAEP<
+	ACTION_SUBJECT_ID.FORMAT_SMALL_TEXT,
+	{
+		inputMethod:
+			| INPUT_METHOD.TOOLBAR
+			| INPUT_METHOD.INSERT_MENU
+			| INPUT_METHOD.KEYBOARD
+			| INPUT_METHOD.FORMATTING
+			| INPUT_METHOD.SHORTCUT
+			| INPUT_METHOD.FLOATING_TB;
+		previousBlockType?: string;
+	}
+>;
+
 type FormatBlockQuoteAEP = FormatAEP<
 	ACTION_SUBJECT_ID.FORMAT_BLOCK_QUOTE,
 	{
@@ -130,6 +144,7 @@ export type FormatEventPayload =
 	| FormatSuperSubAEP
 	| FormatIndentationAEP
 	| FormatHeadingAEP
+	| FormatSmallTextAEP
 	| FormatBlockQuoteAEP
 	| FormatClearAEP
 	| FormatColorAEP

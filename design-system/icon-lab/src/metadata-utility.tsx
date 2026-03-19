@@ -56,11 +56,6 @@ interface metadata {
 	slackChannel?: string;
 
 	/**
-	 * A list of keys for old icons that have been replaced by this icon
-	 */
-	oldName?: string[];
-
-	/**
 	 * A replacement icon if this icon has been deprecated
 	 */
 	replacement?: {

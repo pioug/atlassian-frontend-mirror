@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@atlaskit/icon Icon should match the DOM Snapshot 1`] = `
+<span
+  aria-label="My icon"
+  class="REDACTED"
+  data-vc="icon-undefined"
+  role="img"
+  style="REDACTED"
+>
+  <svg
+    role="presentation"
+  >
+    Icon
+  </svg>
+</span>
+`;

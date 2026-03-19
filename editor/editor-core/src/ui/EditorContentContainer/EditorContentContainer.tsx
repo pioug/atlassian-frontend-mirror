@@ -5,7 +5,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx, useTheme } from '@emotion/react';
 
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
@@ -64,7 +64,11 @@ import { codeMarkStyles } from './styles/codeMarkStyles';
 import { commentEditorStyles } from './styles/commentEditorStyles';
 import { cursorStyles } from './styles/cursorStyles';
 import { dangerDateStyles, dateStyles, dateVanillaStyles } from './styles/dateStyles';
-import { editorUGCTokensDefault, editorUGCTokensRefreshed } from './styles/editorUGCTokenStyles';
+import {
+	editorUGCSmallText,
+	editorUGCTokensDefault,
+	editorUGCTokensRefreshed,
+} from './styles/editorUGCTokenStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
 import {
 	emojiDangerStyles,
@@ -89,6 +93,7 @@ import {
 } from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
+import { fontSizeStyles } from './styles/fontSizeStyles';
 import { fullPageEditorStyles } from './styles/fullPageEditorStyles';
 import { gapCursorStyles, gapCursorStylesVisibilityFix } from './styles/gapCursorStyles';
 import { gridStyles } from './styles/gridStyles';
@@ -348,6 +353,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					indentationStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					expValEquals('platform_editor_small_font_size', 'isEnabled', true) && fontSizeStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					shadowStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					InlineNodeViewSharedStyles,
@@ -386,6 +393,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('platform_editor_typography_ugc') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						editorUGCTokensRefreshed,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					expValEquals('platform_editor_small_font_size', 'isEnabled', true) && editorUGCSmallText,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					blocktypeStyles,
 					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&

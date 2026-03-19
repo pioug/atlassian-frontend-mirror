@@ -190,7 +190,15 @@ const EditorWithRealNodeView = memo(
  * This component simulates the SSR environment using the LNV fallback rendering
  * to show the APPROXIMATE HTML rendered through Tesseract.
  */
-export const SSRSimulator = memo(
+export const SSRSimulator: React.MemoExoticComponent<({ name, appearance, adf, props, featureFlags, experiments, initialPluginConfiguration, }: {
+    adf: Object | undefined;
+    appearance: EditorAppearance;
+    experiments?: Record<string, boolean>;
+    featureFlags?: EditorProps["featureFlags"];
+    initialPluginConfiguration?: InitialPluginConfiguration;
+    name: string;
+    props?: UniversalPresetProps;
+}) => React.JSX.Element> = memo(
 	({
 		name,
 		appearance,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "23.10.1",
+	"version": "23.10.3",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -138,9 +138,6 @@
 			"type": "boolean"
 		},
 		"platform-dst_fix_not_focusable_loading_button": {
-			"type": "boolean"
-		},
-		"platform-button-icon-spacing-cleanup": {
 			"type": "boolean"
 		}
 	}

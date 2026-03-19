@@ -8,7 +8,8 @@ import {
 	DrawerSidebar,
 	type DrawerWidth,
 } from '@atlaskit/drawer';
-import { widths } from '@atlaskit/drawer/constants';
+
+const widths: DrawerWidth[] = ['narrow', 'medium', 'wide', 'extended', 'full'];
 
 const DrawerWidths = (): React.JSX.Element => {
 	const [open, setOpen] = useState<boolean>(false);

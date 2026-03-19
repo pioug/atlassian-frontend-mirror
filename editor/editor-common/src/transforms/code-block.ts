@@ -44,7 +44,7 @@ export function transformSliceToJoinAdjacentCodeBlocks(slice: Slice): Slice {
 	return new Slice(mergeAdjacentCodeBlocks(slice.content), slice.openStart, slice.openEnd);
 }
 
-export const transformSingleLineCodeBlockToCodeMark = (slice: Slice, schema: Schema) => {
+export const transformSingleLineCodeBlockToCodeMark = (slice: Slice, schema: Schema): Slice => {
 	if (slice.content.childCount === 1 && (slice.openStart || slice.openEnd)) {
 		const maybeCodeBlock = slice.content.firstChild;
 		if (maybeCodeBlock && maybeCodeBlock.type === schema.nodes.codeBlock) {

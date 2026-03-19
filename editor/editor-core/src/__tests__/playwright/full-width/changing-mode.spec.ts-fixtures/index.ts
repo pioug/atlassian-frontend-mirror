@@ -1,4 +1,29 @@
-export const mediumSizeDoc = {
+export const mediumSizeDoc: {
+    version: number; type: string; content: ({
+        type: string;
+        content: {
+            type: string;
+            text: string;
+        }[];
+        attrs?: undefined;
+    } | {
+        type: string;
+        attrs: {
+            localId: string;
+        };
+        content: {
+            type: string;
+            attrs: {
+                localId: string;
+                state: string;
+            };
+            content: {
+                type: string;
+                text: string;
+            }[];
+        }[];
+    })[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

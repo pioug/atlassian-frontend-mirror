@@ -6,7 +6,7 @@ import { INPUT_METHOD } from '../analytics';
 import { TOOLBARS } from './keys';
 import type { ContextualFormattingEnabledOptions } from './types';
 
-export const getInputMethodFromParentKeys = (parents: ToolbarComponentTypes) =>
+export const getInputMethodFromParentKeys = (parents: ToolbarComponentTypes): INPUT_METHOD.FLOATING_TB | INPUT_METHOD.TOOLBAR =>
 	parents.at(0)?.key === TOOLBARS.INLINE_TEXT_TOOLBAR
 		? INPUT_METHOD.FLOATING_TB
 		: INPUT_METHOD.TOOLBAR;

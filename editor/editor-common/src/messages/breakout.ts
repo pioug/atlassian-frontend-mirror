@@ -1,6 +1,40 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+    maxWidthLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; fullWidthLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; wideWidthLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; resizeHandle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; resizeExpand: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; resizeCodeBlock: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; resizeLayout: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; resizeElement: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	maxWidthLabel: {
 		id: 'fabric.editor.breakoutMaxWidthLabel',
 		defaultMessage: 'Max-width',

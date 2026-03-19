@@ -135,7 +135,9 @@ export const PasteActionsMenu = ({
 			pasteAncestorNodeNames.push($pos.node(depth).type.name);
 		}
 
-		const legacyVisible = isToolbarVisible(editorView.state, lastContentPasted);
+		const legacyVisible =
+			isToolbarVisible(editorView.state, lastContentPasted) &&
+			(lastContentPasted.text?.length ?? 0) >= 100;
 
 		showToolbar(
 			lastContentPasted,

@@ -126,10 +126,11 @@ export default function overflowShadow<P>(
 
 			let width = 0;
 			for (let i = 0; i < this.scrollable.length; i++) {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				const scrollableElement = this.scrollable[i] as HTMLElement;
-				width += scrollableElement.scrollWidth;
+				const scrollableElement = this.scrollable[i];
+
+				if (isElementNode(scrollableElement)) {
+					width += scrollableElement.scrollWidth;
+				}
 			}
 
 			return width;
@@ -139,13 +140,11 @@ export default function overflowShadow<P>(
 			if (!container || this.container) {
 				return;
 			}
+
 			this.container = container;
+			this.overflowContainer = container.querySelector(options.overflowSelector);
 
-			// Ignored via go/ees005
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			this.overflowContainer = container.querySelector(options.overflowSelector) as HTMLElement;
-
-			if (!this.overflowContainer) {
+            if (!this.overflowContainer) {
 				this.overflowContainer = container;
 			}
 
@@ -217,3 +216,9 @@ export default function overflowShadow<P>(
 		}
 	};
 }
+
+// Helper function to check if the passed node is of Element class
+function isElementNode(node: Node): node is Element {
+    return node.nodeType === 1;
+}
+

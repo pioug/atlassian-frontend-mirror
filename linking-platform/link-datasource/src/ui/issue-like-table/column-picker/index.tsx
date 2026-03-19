@@ -7,7 +7,6 @@ import Button from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { createFilter, type ModifierList, type OptionType, PopupSelect } from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
@@ -20,10 +19,6 @@ import { columnPickerMessages } from './messages';
 import { type ColumnPickerProps } from './types';
 
 const styles = cssMap({
-	chevronIconStyles: {
-		display: 'flex',
-		alignItems: 'center',
-	},
 	customizeIcon: {
 		verticalAlign: 'middle',
 	},
@@ -142,40 +137,21 @@ export const ColumnPicker = ({
 			isLoading={allOptions.length === 0}
 			target={({ isOpen, ...triggerProps }) => (
 				<Tooltip content={intl.formatMessage(columnPickerMessages.tooltip)}>
-					{(tooltipProps) =>
-						fg('platform-button-icon-spacing-cleanup') ? (
-							<Button
-								{...tooltipProps}
-								{...triggerProps}
-								isSelected={isOpen}
-								spacing="compact"
-								appearance={'default'}
-								testId="column-picker-trigger-button"
-								iconAfter={() => <ChevronDownIcon label="down" size="small" />}
-							>
-								<Box as="span" xcss={styles.customizeIcon}>
-									<CustomizeIcon label="customize" />
-								</Box>
-							</Button>
-						) : (
-							<Button
-								{...tooltipProps}
-								{...triggerProps}
-								isSelected={isOpen}
-								spacing="compact"
-								appearance={'default'}
-								testId="column-picker-trigger-button"
-								iconBefore={() => (
-									<Box as="span" xcss={styles.chevronIconStyles}>
-										<CustomizeIcon label="customize" />
-										<ChevronDownIcon label="down" size="small" />
-									</Box>
-								)}
-							>
-								{''}
-							</Button>
-						)
-					}
+					{(tooltipProps) => (
+						<Button
+							{...tooltipProps}
+							{...triggerProps}
+							isSelected={isOpen}
+							spacing="compact"
+							appearance={'default'}
+							testId="column-picker-trigger-button"
+							iconAfter={() => <ChevronDownIcon label="down" size="small" />}
+						>
+							<Box as="span" xcss={styles.customizeIcon}>
+								<CustomizeIcon label="customize" />
+							</Box>
+						</Button>
+					)}
 				</Tooltip>
 			)}
 		/>

@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 217.4.3
+
+### Patch Changes
+
+- [`8b781b3b3f9ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b781b3b3f9ca) -
+  Add setSmallText and setSmallTextWithAnalytics commands, modify setNormalText to remove fontSize
+  mark, add FORMAT_SMALL_TEXT analytics enum.
+
+  Add support to the renderer to render 'small text'.
+
+  Add 'fontSize' to stage0 default schema.
+
+- Updated dependencies
+
+## 217.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 217.4.1
 
 ### Patch Changes

@@ -116,9 +116,6 @@
 		"platform-logo-rebrand": {
 			"type": "boolean"
 		},
-		"platform-logo-rebrand-servco": {
-			"type": "boolean"
-		},
 		"platform-logo-rebrand-team-eu": {
 			"type": "boolean"
 		},

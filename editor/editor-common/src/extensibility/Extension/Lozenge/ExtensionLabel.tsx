@@ -4,7 +4,7 @@
  */
 import type { CSSProperties } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
 import { FormattedMessage, defineMessages } from 'react-intl-next';
@@ -125,7 +125,7 @@ export const getShouldShowBodiedMacroLabel = (
 	showLivePagesBodiedMacrosRendererView: boolean | undefined,
 	showBodiedExtensionRendererView: boolean | undefined,
 	showUpdatedLivePages1PBodiedExtensionUI: boolean | undefined,
-) => {
+): boolean | undefined => {
 	// Bodied macros show the label by default except for the new live pages 1P bodied macro experience where we only show it on hover
 	if (!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) {
 		return isNodeHovered;
@@ -162,7 +162,7 @@ export const ExtensionLabel = ({
 	showLivePagesBodiedMacrosRendererView,
 	showBodiedExtensionRendererView,
 	pluginInjectionApi: _pluginInjectionApi,
-}: ExtensionLabelProps) => {
+}: ExtensionLabelProps): jsx.JSX.Element => {
 	const isInlineExtension = extensionName === 'inlineExtension';
 	const showDefaultBodiedStyles = expValEquals(
 		'cc_editor_ttvc_release_bundle_one',

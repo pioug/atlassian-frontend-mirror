@@ -2,11 +2,13 @@
 import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { generateBlockAri, generateBlockAriFromReference } from '../../clients/block-service/ari';
 import {
 	batchRetrieveSyncedBlocks,
 	BlockError,
+	BlockTimeoutError,
 	createSyncedBlock,
 	deleteSyncedBlock,
 	getReferenceSyncedBlocks,
@@ -347,6 +349,19 @@ export const batchFetchData = async (
 
 		return results;
 	} catch (error) {
+		if (
+			error instanceof BlockTimeoutError &&
+			expValEquals('platform_editor_sync_block_ssr_config', 'isEnabled', true)
+		) {
+			return blockNodeIdentifiers.map((blockNodeIdentifier) => ({
+				error: {
+					type: SyncBlockError.Aborted,
+					reason: (error as Error).message,
+				},
+				resourceId: blockNodeIdentifier.resourceId,
+			}));
+		}
+
 		// If batch request fails, return error for all resourceIds
 		return blockNodeIdentifiers.map((blockNodeIdentifier) => ({
 			error: {

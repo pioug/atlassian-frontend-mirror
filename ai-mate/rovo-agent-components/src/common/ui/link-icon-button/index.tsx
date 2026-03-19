@@ -24,9 +24,11 @@ const styles = cssMap({
 export const LinkIconButton = ({
 	handleCopy,
 	visible = true,
+	agentName,
 }: {
 	handleCopy: (e: MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => void;
 	visible?: boolean;
+	agentName: string;
 }): JSX.Element => {
 	const { formatMessage } = useIntl();
 
@@ -39,7 +41,7 @@ export const LinkIconButton = ({
 					icon={(iconProps) => <LinkIcon {...iconProps} color={token('color.icon')} />}
 					appearance="subtle"
 					spacing="compact"
-					label={formatMessage(messages.copyAgentLinkLabel)}
+					label={formatMessage(messages.copyAgentLinkLabel, { agentName })}
 				/>
 			</Box>
 		</>

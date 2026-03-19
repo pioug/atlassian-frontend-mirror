@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media
 
+## 10.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.6
+
+### Patch Changes
+
+- [`be5f64b1c1011`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be5f64b1c1011) -
+  [ux] Patch for image editor tool bar border drop downUI size
+- Updated dependencies
+
 ## 10.0.5
 
 ### Patch Changes

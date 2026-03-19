@@ -1,7 +1,6 @@
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PopupPosition as Position } from '../ui';
 
@@ -83,69 +82,7 @@ export const calculateToolbarPositionAboveSelection =
 		};
 	};
 
-const findContainingElement = (editorView: EditorView) => {
-	if (expValEquals('platform_editor_sel_toolbar_scroll_pos_fix_exp', 'isEnabled', true)) {
-		// Traverse DOM Tree upwards looking for scroll parents with "overflow: scroll"
-		// or fixed/absolute positioned containers.
-		let parent: Element | null = editorView.dom;
-
-		// Ignored via go/ees005
-		// eslint-disable-next-line no-cond-assign
-		while ((parent = parent.parentElement)) {
-			const style = window.getComputedStyle(parent);
-
-			// Check for explicit scroll parent class
-			if (parent.classList.contains('fabric-editor-popup-scroll-parent')) {
-				return { container: parent, isFixed: false };
-			}
-
-			// Check for overflow scroll containers
-			if (
-				style.overflow === 'scroll' ||
-				style.overflowX === 'scroll' ||
-				style.overflowY === 'scroll' ||
-				style.overflow === 'auto' ||
-				style.overflowX === 'auto' ||
-				style.overflowY === 'auto'
-			) {
-				return { container: parent, isFixed: false };
-			}
-
-			// Check for fixed or absolute positioned containers (modal wrappers, sidebars)
-			if (style.position === 'fixed' || style.position === 'absolute') {
-				return { container: parent, isFixed: style.position === 'fixed' };
-			}
-
-			// Stop at body
-			if (parent === document.body) {
-				break;
-			}
-		}
-
-		// Fall back to document.body if no suitable container found
-		return { container: document.body, isFixed: false };
-	}
-
-	// Original logic
-	const scrollParent = editorView.dom.closest('.fabric-editor-popup-scroll-parent');
-	if (scrollParent) {
-		return { container: scrollParent, isFixed: false };
-	} else {
-		let fixedParent: Element | null = editorView.dom.parentElement;
-		while (fixedParent && fixedParent !== document.body) {
-			const computedStyle = window.getComputedStyle(fixedParent);
-			if (computedStyle.position === 'fixed') {
-				return { container: fixedParent, isFixed: true };
-			}
-			fixedParent = fixedParent.parentElement;
-		}
-	}
-
-	// Fall back to document.body if no fixed parent found
-	return { container: document.body, isFixed: false };
-};
-
-export const calculateToolbarPositionTrackHeadOld =
+export const calculateToolbarPositionTrackHead =
 	(toolbarTitle: string) =>
 	(editorView: EditorView, nextPos: Position): Position => {
 		const toolbar = document.querySelector(`div[aria-label="${toolbarTitle}"]`);
@@ -222,137 +159,6 @@ export const calculateToolbarPositionTrackHeadOld =
 			left: leftCoord,
 		};
 	};
-
-/**
- * Same logic as calculateToolbarPositionTrackHeadOld, but with the following changes:
- * - Uses a cached container to avoid repeated DOM traversal and getComputedStyle calls
- * - Works when editor is nested within a fixed positioned parent, such as within a modal or sidebar
- */
-export const calculateToolbarPositionTrackHeadNew = (toolbarTitle: string) => {
-	// Cache the container to avoid repeated DOM traversal and getComputedStyle calls
-	let cachedContainer: Element | null = null;
-	let isFixedContainer = false;
-	let cachedEditorDom: Element | null = null;
-
-	return (editorView: EditorView, nextPos: Position): Position => {
-		const toolbar = document.querySelector(`div[aria-label="${toolbarTitle}"]`);
-		if (!toolbar) {
-			return nextPos;
-		}
-
-		// Find and cache the container (only recalculates if editor DOM changed)
-		if (cachedEditorDom !== editorView.dom) {
-			cachedEditorDom = editorView.dom;
-			const { container, isFixed } = findContainingElement(editorView);
-
-			cachedContainer = container;
-			isFixedContainer = isFixed;
-		}
-
-		if (!cachedContainer) {
-			return nextPos;
-		}
-
-		const container = cachedContainer;
-		const containerBounds = container.getBoundingClientRect();
-		const selection = window && window.getSelection();
-
-		const moreRovoOptionsButton = document.querySelector(
-			'button[aria-label="More Rovo options"], [aria-label="More Rovo options"]',
-		);
-		const isMoreRovoOptionsButtonVisible =
-			!!moreRovoOptionsButton &&
-			moreRovoOptionsButton instanceof HTMLElement &&
-			!!moreRovoOptionsButton.offsetParent;
-
-		let range: Range | null = null;
-		if (isMoreRovoOptionsButtonVisible) {
-			if (selection && selection.getRangeAt && selection.rangeCount > 0) {
-				const maybeRange = selection.getRangeAt(0);
-				if (maybeRange instanceof Range) {
-					range = maybeRange;
-				}
-			}
-		} else {
-			if (selection && !selection.isCollapsed && selection.getRangeAt && selection.rangeCount > 0) {
-				const maybeRange = selection.getRangeAt(0);
-				if (maybeRange instanceof Range) {
-					range = maybeRange;
-				}
-			}
-		}
-
-		if (!range) {
-			return nextPos;
-		}
-		const toolbarRect = toolbar.getBoundingClientRect();
-		const { head, anchor } = editorView.state.selection;
-
-		let top;
-		let left;
-
-		const topCoords = editorView.coordsAtPos(Math.min(head, anchor));
-		const bottomCoords = editorView.coordsAtPos(
-			Math.max(head, anchor) - Math.min(range.endOffset, 1),
-		);
-		// If not the same line AND we are selecting downwards, display toolbar below.
-		if (head > anchor && topCoords.top !== bottomCoords.top) {
-			// We are taking the previous pos to the maxium, so avoid end of line positions
-			// returning the next line's rect.
-			top = (bottomCoords.top || 0) + toolbarRect.height / 1.15;
-		} else {
-			top = (topCoords.top || 0) - toolbarRect.height * 1.5;
-		}
-		left = (head > anchor ? bottomCoords.right : topCoords.left) - toolbarRect.width / 2;
-
-		// Place toolbar below selection if not sufficient space above
-		if (top < containerBounds.top) {
-			({ top, left } = getCoordsBelowSelection(bottomCoords, toolbarRect));
-		}
-
-		let leftCoord = Math.max(0, left - containerBounds.left);
-		if (leftCoord + toolbarRect.width > containerBounds.width) {
-			const scrollbarWidth = MAXIMUM_BROWSER_SCROLLBAR_WIDTH;
-			leftCoord = Math.max(0, containerBounds.width - (toolbarRect.width + scrollbarWidth));
-		}
-
-		// Apply scroll offset only for non-fixed containers
-		// Fixed positioned elements don't scroll with the page
-		const scrollOffset = isFixedContainer ? 0 : container.scrollTop;
-
-		return {
-			top: top - containerBounds.top + scrollOffset,
-			left: leftCoord,
-		};
-	};
-};
-
-/*
-  Calculates the position of the floating toolbar relative to the selection.
-  This implementation works in multiple scenarios:
-  - Standard scrollable containers with .fabric-editor-popup-scroll-parent
-  - Fixed positioned parent containers
-  - Falls back to document.body
-
-  The function automatically detects the container type and applies the appropriate
-  positioning logic and scroll offset handling.
-
-  Things to consider:
-  - stick as close to the head X release coordinates as possible
-  - coordinates of head X and getBoundingClientRect() are absolute in client viewport
-  - popup may appear in '.fabric-editor-popup-scroll-parent', fixed parent, or body
-  - we use the toolbarRect to center align toolbar
-  - use container bounds to clamp values
-  - for fixed positioning, no scroll offsets are applied
-  - for scrollable containers, scroll offsets are included
-*/
-export const calculateToolbarPositionTrackHead = (toolbarTitle: string) => {
-	const isSelToolbarFixEnabled = expValEquals('platform_editor_sel_toolbar_fix', 'isEnabled', true);
-
-	return isSelToolbarFixEnabled
-		? calculateToolbarPositionTrackHeadNew(toolbarTitle)
-		: calculateToolbarPositionTrackHeadOld(toolbarTitle);
-};
 
 /**
  * Returns the coordintes at the bottom the selection.

@@ -154,7 +154,7 @@ export const getRelativeGuidelines = (
 	editorWidth: number,
 	topOffset: number,
 	size: { height: number; width: number },
-) => {
+): GuidelineConfig[] => {
 	const matchWidth = relativeGuides.width ? relativeGuides.width[Math.round(size.width)] : [];
 	const matchHeight = relativeGuides.height ? relativeGuides.height[Math.round(size.height)] : [];
 	const matches = matchWidth || matchHeight;

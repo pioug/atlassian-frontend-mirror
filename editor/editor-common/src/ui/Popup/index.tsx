@@ -67,7 +67,10 @@ export default class Popup extends React.Component<Props, State> {
 	scrollElement: undefined | false | HTMLElement;
 	scrollParentElement: undefined | false | HTMLElement;
 	rafIds: Set<number> = new Set();
-	static defaultProps = {
+	static defaultProps: {
+        offset: number[];
+        allowOutOfBound: boolean;
+    } = {
 		offset: [0, 0],
 		allowOutOfBound: false,
 	};
@@ -259,7 +262,7 @@ export default class Popup extends React.Component<Props, State> {
 
 	onResize = (): void => this.scheduledUpdatePosition(this.props);
 
-	resizeObserver = window?.ResizeObserver
+	resizeObserver: ResizeObserver | undefined = window?.ResizeObserver
 		? new ResizeObserver(() => {
 				this.scheduledUpdatePosition(this.props);
 			})

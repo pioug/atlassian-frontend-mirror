@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.26.6",
+	"version": "43.26.8",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -234,9 +234,6 @@
 			"type": "boolean"
 		},
 		"platform_navx_send_context_to_ugs_for_rel_links": {
-			"type": "boolean"
-		},
-		"platform-button-icon-spacing-cleanup": {
 			"type": "boolean"
 		},
 		"platform_sl_3p_auth_rovo_action_kill_switch": {

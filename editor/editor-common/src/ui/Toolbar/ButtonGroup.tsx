@@ -34,6 +34,6 @@ const buttonGroupStyleUnbounded = cssUnbounded({
 	},
 });
 
-export function ToolbarButtonGroup({ children }: { children?: React.ReactNode }) {
+export function ToolbarButtonGroup({ children }: { children?: React.ReactNode }): JSX.Element {
 	return <span css={[buttonGroupStyle, buttonGroupStyleUnbounded]}>{children}</span>;
 }

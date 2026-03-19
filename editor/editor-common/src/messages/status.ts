@@ -1,6 +1,28 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+    statusEditorLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; placeholder: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; editText: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; editColor: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; statusPickerOpenedAlert: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	statusEditorLabel: {
 		id: 'fabric.editor.statusEditorLabel',
 		defaultMessage: 'Status editor',

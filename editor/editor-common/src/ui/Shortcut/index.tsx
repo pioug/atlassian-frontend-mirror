@@ -39,6 +39,6 @@ const shortcutStyleUnbounded = cssUnbounded({
 	fontSize: `${11.67 / 16}rem`,
 });
 
-export function Shortcut({ children }: { children?: React.ReactNode }) {
+export function Shortcut({ children }: { children?: React.ReactNode }): JSX.Element {
 	return <div css={[shortcutStyle, shortcutStyleUnbounded]}>{children}</div>;
 }

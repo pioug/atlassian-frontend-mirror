@@ -8,7 +8,7 @@ interface WrapProps {
 
 const useCheckIntlContext = () => useContext(IntlContext) === null;
 
-export default function IntlProviderIfMissingWrapper({ children }: WrapProps) {
+export default function IntlProviderIfMissingWrapper({ children }: WrapProps): JSX.Element {
 	const missingIntlContext = useCheckIntlContext();
 
 	if (missingIntlContext) {

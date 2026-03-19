@@ -626,6 +626,139 @@ describe('no-relative-barrel-file-imports', () => {
 			],
 		});
 	});
+
+	describe('TREX-1002: re-exports with aliases (export statements)', () => {
+		const PKG = `${BASE}/pkg-export-alias`;
+		const CONSUMER = `${PKG}/src/index.ts`;
+		const fs = createMockFs({
+			[`${W}/.git/config`]: '',
+			// Source file with original exports
+			[`${PKG}/src/services/graphql/search-page/index.tsx`]: outdent`
+				export const cache = { data: 'cache' };
+				export const generateCacheKey = (id: string) => id;
+			`,
+			// Barrel that re-exports with aliases (what makes it a barrel file)
+			[`${PKG}/src/services/index.ts`]: outdent`
+				export { cache as searchPageQueryCache, generateCacheKey as generateSearchPageCacheKey } from './graphql/search-page';
+			`,
+			// Main index that re-exports from the barrel
+			[CONSUMER]: '',
+		});
+
+		runWithFs('export-with-aliases', fs, {
+			valid: [],
+			invalid: [
+				// Test that consumer importing from barrel gets fixed to use original names
+				{
+					code: `export { searchPageQueryCache, generateSearchPageCacheKey } from './services';`,
+					filename: CONSUMER,
+					errors: [{ messageId: 'barrelImport' }],
+					// Should resolve through barrel to source and use original names with consumer's aliases
+					output: `export { cache as searchPageQueryCache, generateCacheKey as generateSearchPageCacheKey } from './services/graphql/search-page';`,
+				},
+			],
+		});
+	});
+
+	describe('TREX-1002: barrel re-exports with aliases to other barrels', () => {
+		const PKG = `${BASE}/pkg-barrel-chain-alias`;
+		const CONSUMER = `${PKG}/src/index.ts`;
+		const fs = createMockFs({
+			[`${W}/.git/config`]: '',
+			// Source file
+			[`${PKG}/src/services/source.ts`]: outdent`
+				export const cache = { data: 'cache' };
+				export const generateCacheKey = (id: string) => id;
+			`,
+			// Intermediate barrel that re-exports from source
+			[`${PKG}/src/services/index.ts`]: outdent`
+				export { cache, generateCacheKey } from './source';
+			`,
+			// Main index
+			[CONSUMER]: '',
+		});
+
+		runWithFs('barrel-chain-with-aliases', fs, {
+			valid: [],
+			invalid: [
+				// Consumer imports from intermediate barrel with aliases
+				{
+					code: outdent`
+						export { 
+							cache as searchPageQueryCache, 
+							generateCacheKey as generateSearchPageCacheKey 
+						} from './services';
+					`,
+					filename: CONSUMER,
+					errors: [{ messageId: 'barrelImport' }],
+					// Should trace through the barrel to the actual source and preserve aliases
+					// Note: Since both exports come from same source, they're combined into one statement
+					output: `export { cache as searchPageQueryCache, generateCacheKey as generateSearchPageCacheKey } from './services/source';`,
+				},
+			],
+		});
+	});
+
+	describe('TREX-1002: mixed direct and aliased re-exports', () => {
+		const PKG = `${BASE}/pkg-mixed-alias`;
+		const CONSUMER = `${PKG}/src/index.ts`;
+		const fs = createMockFs({
+			[`${W}/.git/config`]: '',
+			// Source file
+			[`${PKG}/src/utils/source.ts`]: outdent`
+				export const directExport = 'direct';
+				export const aliasedExport = 'aliased';
+			`,
+			// Barrel that re-exports
+			[`${PKG}/src/utils/index.ts`]: outdent`
+				export { directExport, aliasedExport } from './source';
+			`,
+			[CONSUMER]: '',
+		});
+
+		runWithFs('mixed-direct-and-aliased', fs, {
+			valid: [],
+			invalid: [
+				{
+					code: `export { directExport, aliasedExport as renamed } from './utils';`,
+					filename: CONSUMER,
+					errors: [{ messageId: 'barrelImport' }],
+					// Both exports from same source, so they're combined into one statement
+					output: `export { directExport, aliasedExport as renamed } from './utils/source';`,
+				},
+			],
+		});
+	});
+
+	describe('TREX-1002: barrel with original aliases, consumer adds more aliases', () => {
+		const PKG = `${BASE}/pkg-double-alias`;
+		const CONSUMER = `${PKG}/src/index.ts`;
+		const fs = createMockFs({
+			[`${W}/.git/config`]: '',
+			// Source file
+			[`${PKG}/src/source.ts`]: outdent`
+				export const original = 'value';
+			`,
+			// Barrel that re-exports with alias
+			[`${PKG}/src/barrel/index.ts`]: outdent`
+				export { original as firstAlias } from '../source';
+			`,
+			[CONSUMER]: '',
+		});
+
+		runWithFs('double-alias-chain', fs, {
+			valid: [],
+			invalid: [
+				{
+					code: `export { firstAlias as secondAlias } from './barrel';`,
+					filename: CONSUMER,
+					errors: [{ messageId: 'barrelImport' }],
+					// Should use the original name from source and consumer's final alias
+					output: `export { original as secondAlias } from './source';`,
+				},
+			],
+		});
+	});
 });
 
 describe('named exports should not be converted to default exports', () => {

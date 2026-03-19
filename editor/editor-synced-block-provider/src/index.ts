@@ -36,6 +36,7 @@ export type {
 	BatchRetrieveSyncedBlocksResponse,
 	ErrorResponse,
 } from './clients/block-service/blockService';
+
 export { BlockError, updateSyncedBlocks } from './clients/block-service/blockService';
 export {
 	getConfluencePageAri,

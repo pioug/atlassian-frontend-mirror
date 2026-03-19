@@ -1,5 +1,16 @@
 # @atlaskit/icon-lab
 
+## 6.0.0
+
+### Major Changes
+
+- [`f1ef2305b8862`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1ef2305b8862) -
+  Remove legacy icon glyphs and oldName prop support from metadata core.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.18.0
 
 ### Minor Changes

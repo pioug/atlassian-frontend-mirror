@@ -1,2 +1,2 @@
 /* eslint-disable */
-export { webpack } from './dist/esm/preset.js';
+export const webpack = async (config) => config;

@@ -15,7 +15,9 @@ export const useNoteSelectionExtension = (
 	editorApi: PublicPluginAPI<
 		[ToolbarPlugin, EditorViewModePlugin, SelectionExtensionPlugin]
 	> | null,
-) => {
+): {
+        extensionList: ExtensionConfiguration[];
+    } => {
 	const editorApiRef = useRef(editorApi);
 	editorApiRef.current = editorApi;
 

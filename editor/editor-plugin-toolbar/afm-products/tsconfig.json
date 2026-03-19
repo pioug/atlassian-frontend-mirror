@@ -43,6 +43,9 @@
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-toolbar/afm-products/tsconfig.json"
 		},
 		{

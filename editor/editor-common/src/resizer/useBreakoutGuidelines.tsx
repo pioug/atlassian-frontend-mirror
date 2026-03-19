@@ -46,7 +46,12 @@ export function useBreakoutGuidelines(
 	getEditorWidth: () => EditorContainerWidth | undefined,
 	isResizing: boolean,
 	dynamicFullWidthGuidelineOffset: number = 0,
-) {
+): {
+    snaps: Snap | null;
+    currentLayout: BreakoutMode | null;
+    guidelines: GuidelineConfig[];
+    setCurrentWidth: (newWidth: number | null) => void;
+} {
 	const widthState = getEditorWidth();
 
 	const { lineLength, wide, fullWidth } = useMemo(() => {

@@ -137,7 +137,7 @@ export const transformListRecursively = (
 /**
  * Transform list structure between different list types
  */
-export const transformListStructure = (context: TransformContext) => {
+export const transformListStructure = (context: TransformContext): Transaction => {
 	const { tr, sourceNode, sourcePos, targetNodeType } = context;
 	const nodes = tr.doc.type.schema.nodes;
 	const unsupportedContent: PMNode[] = [];
@@ -182,7 +182,7 @@ export const transformListStructure = (context: TransformContext) => {
 /**
  * Transform between different list types
  */
-export const transformBetweenListTypes = (context: TransformContext) => {
+export const transformBetweenListTypes = (context: TransformContext): Transaction | null => {
 	const { tr, sourceNode, sourcePos, targetNodeType } = context;
 	const { nodes } = tr.doc.type.schema;
 

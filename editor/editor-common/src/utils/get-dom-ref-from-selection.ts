@@ -11,7 +11,7 @@ export const getDomRefFromSelection = (
 		| ACTION_SUBJECT_ID.PICKER_TABLE_SIZE
 		| ACTION_SUBJECT_ID.PICKER_EMOJI,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
-) => {
+): HTMLElement | undefined => {
 	try {
 		const domRef = findDomRefAtPos(view.state.selection.from, view.domAtPos.bind(view));
 		if (domRef instanceof HTMLElement) {

@@ -7,7 +7,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import chromatism from 'chromatism';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { token, useThemeObserver } from '@atlaskit/tokens';
@@ -142,4 +142,8 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 	);
 };
 
-export default injectIntl(ColorPalette);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(ColorPalette);
+export default _default_1;

@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 5.26.0
+
+### Minor Changes
+
+- [`ab89ee97c67c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab89ee97c67c5) -
+  Updates the ChatNewPayload data object to take in mode information since it is already supported
+  in the pubsub listener but was never added to the type definition which means typecheck failed for
+  consumers that wanted to set mode information.
+
 ## 5.25.0
 
 ### Minor Changes

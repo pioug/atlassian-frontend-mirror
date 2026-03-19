@@ -1,6 +1,12 @@
 import { defineMessages } from 'react-intl-next';
 
-export const roleDescriptionMessages = defineMessages({
+export const roleDescriptionMessages: {
+    codeSnippetTextBox: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	codeSnippetTextBox: {
 		id: 'fabric.editor.ariaRoleDescription.codeSnippetTextBox',
 		defaultMessage: 'codesnippet textbox',

@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 4.34.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.34.1
+
+### Patch Changes
+
+- [`236ae1160f1a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/236ae1160f1a0) -
+  Clean up platform-button-icon-spacing-cleanup FG
+- Updated dependencies
+
 ## 4.34.0
 
 ### Minor Changes

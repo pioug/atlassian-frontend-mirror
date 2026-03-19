@@ -5,6 +5,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { toggleBlockMarkNext } from '@atlaskit/editor-common/commands';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type {
 	Command,
@@ -16,6 +17,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
 import { CellSelection } from '@atlaskit/editor-tables';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TextBlockTypes } from '../block-types';
 import { HEADINGS_BY_NAME, NORMAL_TEXT } from '../block-types';
@@ -47,6 +49,13 @@ export function setBlockType(name: TextBlockTypes): EditorCommand {
 		const { nodes } = tr.doc.type.schema;
 		if (name === NORMAL_TEXT.name && nodes.paragraph) {
 			return setNormalText()({ tr });
+		}
+
+		if (
+			name === 'smallText' &&
+			expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+		) {
+			return setSmallText()({ tr });
 		}
 
 		const headingBlockType = HEADINGS_BY_NAME[name];
@@ -97,6 +106,11 @@ export function setHeading(
 			}
 		});
 
+		const { fontSize } = schema.marks;
+		if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+			toggleBlockMarkNext(fontSize, () => false, [schema.nodes.heading])(tr);
+		}
+
 		return tr;
 	};
 }
@@ -113,6 +127,13 @@ export function setBlockTypeWithAnalytics(
 			return setNormalTextWithAnalytics(inputMethod, editorAnalyticsApi, fromBlockQuote)({ tr });
 		}
 
+		if (
+			name === 'smallText' &&
+			expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+		) {
+			return setSmallTextWithAnalytics(inputMethod, editorAnalyticsApi)({ tr });
+		}
+
 		const headingBlockType = HEADINGS_BY_NAME[name];
 		if (headingBlockType && nodes.heading && headingBlockType.level) {
 			return setHeadingWithAnalytics(
@@ -125,6 +146,47 @@ export function setBlockTypeWithAnalytics(
 
 		return null;
 	};
+}
+
+export function setSmallText(): EditorCommand {
+	return function ({ tr }) {
+		const {
+			marks: { fontSize },
+			nodes: { paragraph },
+		} = tr.doc.type.schema;
+		if (!fontSize) {
+			return null;
+		}
+
+		const { selection } = tr;
+		const ranges = selection instanceof CellSelection ? selection.ranges : [selection];
+		ranges.forEach(({ $from, $to }) => {
+			tr.setBlockType($from.pos, $to.pos, paragraph);
+		});
+
+		toggleBlockMarkNext(fontSize, () => ({ fontSize: 'small' }), [paragraph])(tr);
+		return tr;
+	};
+}
+
+export function setSmallTextWithAnalytics(
+	inputMethod: InputMethod,
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+): EditorCommand {
+	return withCurrentHeadingLevel((previousHeadingLevel) => ({ tr }) => {
+		editorAnalyticsApi?.attachAnalyticsEvent({
+			action: ACTION.FORMATTED,
+			actionSubject: ACTION_SUBJECT.TEXT,
+			eventType: EVENT_TYPE.TRACK,
+			actionSubjectId: ACTION_SUBJECT_ID.FORMAT_SMALL_TEXT,
+			attributes: {
+				inputMethod,
+				previousBlockType:
+					previousHeadingLevel !== undefined ? String(previousHeadingLevel) : undefined,
+			},
+		})(tr);
+		return setSmallText()({ tr });
+	});
 }
 
 export function setNormalText(fromBlockQuote?: boolean): EditorCommand {
@@ -156,6 +218,12 @@ export function setNormalText(fromBlockQuote?: boolean): EditorCommand {
 				tr.setBlockType($from.pos, $to.pos, schema.nodes.paragraph);
 			}
 		});
+
+		// Remove fontSize mark if present in schema
+		const { fontSize } = schema.marks;
+		if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+			toggleBlockMarkNext(fontSize, () => false, [schema.nodes.paragraph])(tr);
+		}
 
 		return tr;
 	};
@@ -363,7 +431,7 @@ export function insertBlockQuoteWithAnalyticsCommand(
 	inputMethod: InputMethod,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): EditorCommand {
-	return withCurrentHeadingLevel((previousHeadingLevel) => ({ tr }) => {
+	return withCurrentHeadingLevel(() => ({ tr }) => {
 		const { nodes } = tr.doc.type.schema;
 		editorAnalyticsApi?.attachAnalyticsEvent({
 			action: ACTION.FORMATTED,

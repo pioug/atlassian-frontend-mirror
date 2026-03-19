@@ -7,7 +7,7 @@ test.describe('scroll into view', () => {
 		test('should scroll the newly selected menu item into view', async ({ page }) => {
 			await page.setViewportSize(viewportSize);
 
-			await page.visitExample('navigation', 'side-nav-items', 'menu-item-scroll-into-view');
+			await page.visitExample<typeof import('../../../../../examples/menu-item-scroll-into-view.tsx')>('navigation', 'side-nav-items', 'menu-item-scroll-into-view');
 
 			// The "Your work" menu item is selected by default, and should be in view
 			// We are intentionally starting on "Your work" to avoid flake with initial scroll position
@@ -34,7 +34,7 @@ test.describe('scroll into view', () => {
 		}) => {
 			await page.setViewportSize(viewportSize);
 
-			await page.visitExample('navigation', 'side-nav-items', 'menu-item-scroll-into-view');
+			await page.visitExample<typeof import('../../../../../examples/menu-item-scroll-into-view.tsx')>('navigation', 'side-nav-items', 'menu-item-scroll-into-view');
 
 			// Collapse the "Teams" expandable menu item
 			// We need to click on the collapse chevron icon button (instead of the menu item), so we only toggle the menu item and
@@ -63,7 +63,7 @@ test.describe('scroll into view', () => {
 		test('should scroll the newly selected menu item into view', async ({ page }) => {
 			await page.setViewportSize(viewportSize);
 
-			await page.visitExample('navigation', 'side-nav-items', 'menu-item-scroll-into-view');
+			await page.visitExample<typeof import('../../../../../examples/menu-item-scroll-into-view.tsx')>('navigation', 'side-nav-items', 'menu-item-scroll-into-view');
 
 			// The "Your work" menu item is selected by default, and should be in view
 			// We are intentionally starting on "Your work" to avoid flake with initial scroll position

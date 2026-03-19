@@ -98,7 +98,7 @@ const getHighlightedComment = () => {
 export class AbstractConversationResource implements ResourceProvider {
 	private _store: Store<State | undefined>;
 
-	get store() {
+	get store(): Store<State | undefined> {
 		return this._store;
 	}
 
@@ -272,7 +272,7 @@ export class ConversationResource extends AbstractConversationResource {
 	/**
 	 * Retrieve the IDs (and meta-data) for all conversations associated with the container ID.
 	 */
-	async getConversations(objectId: string, containerId?: string) {
+	async getConversations(objectId: string, containerId?: string): Promise<Conversation[]> {
 		const { dispatch } = this;
 		dispatch({ type: FETCH_CONVERSATIONS_REQUEST });
 

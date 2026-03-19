@@ -25,6 +25,7 @@ import {
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { AllSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import {
 	ToolbarSection,
 	ToolbarButtonGroup,
@@ -33,6 +34,7 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -40,7 +42,7 @@ import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { SELECTION_TOOLBAR_LABEL } from '../consts';
 
 import { getKeyboardNavigationConfig } from './keyboard-config';
-import type { CalculateToolbarPosition, Position } from './types';
+import type { Position } from './types';
 import { getDomRefFromSelection } from './utils';
 
 const isToolbarComponent = (component: RegisterComponent): component is RegisterToolbar => {
@@ -49,7 +51,6 @@ const isToolbarComponent = (component: RegisterComponent): component is Register
 
 type SelectionToolbarProps = {
 	api?: ExtractInjectionAPI<ToolbarPlugin>;
-	calculateToolbarPosition?: CalculateToolbarPosition;
 	disableSelectionToolbarWhenPinned: boolean;
 	editorView: EditorView;
 	mountPoint: HTMLElement | undefined;
@@ -74,10 +75,7 @@ const usePluginState = (api?: ExtractInjectionAPI<ToolbarPlugin>) => {
 	);
 };
 
-const useOnPositionCalculated = (
-	editorView: EditorView,
-	cachedCalculateToolbarPosition?: CalculateToolbarPosition,
-) => {
+const useOnPositionCalculated = (editorView: EditorView) => {
 	const onPositionCalculated = useCallback(
 		(position: Position) => {
 			try {
@@ -95,15 +93,13 @@ const useOnPositionCalculated = (
 					);
 				}
 
-				return cachedCalculateToolbarPosition
-					? cachedCalculateToolbarPosition(editorView, position)
-					: calculateToolbarPositionTrackHead(SELECTION_TOOLBAR_LABEL)(editorView, position);
+				return calculateToolbarPositionTrackHead(SELECTION_TOOLBAR_LABEL)(editorView, position);
 			} catch (error: unknown) {
 				logException(error as Error, { location: 'editor-plugin-toolbar/selectionToolbar' });
 				return position;
 			}
 		},
-		[editorView, cachedCalculateToolbarPosition],
+		[editorView],
 	);
 
 	return onPositionCalculated;
@@ -181,6 +177,9 @@ export const SelectionToolbar = ({
 			target={getDomRefFromSelection(editorView)}
 			onPositionCalculated={onPositionCalculated}
 			mountTo={mountPoint}
+			zIndex={
+				fg('platform_editor_sel_toolbar_stacking_fix') ? akEditorFloatingDialogZIndex : undefined
+			}
 		>
 			<EditorToolbarProvider
 				editorView={editorView}
@@ -216,7 +215,6 @@ export const SelectionToolbarWithErrorBoundary = ({
 	editorView,
 	mountPoint,
 	disableSelectionToolbarWhenPinned,
-	calculateToolbarPosition,
 }: SelectionToolbarProps): React.JSX.Element => {
 	return (
 		<ErrorBoundary
@@ -230,7 +228,6 @@ export const SelectionToolbarWithErrorBoundary = ({
 				editorView={editorView}
 				mountPoint={mountPoint}
 				disableSelectionToolbarWhenPinned={disableSelectionToolbarWhenPinned}
-				calculateToolbarPosition={calculateToolbarPosition}
 			/>
 		</ErrorBoundary>
 	);

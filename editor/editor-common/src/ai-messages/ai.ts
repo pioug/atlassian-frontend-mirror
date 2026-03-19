@@ -1,6 +1,223 @@
 import { defineMessages } from 'react-intl-next';
 
-export const aiMessages = defineMessages({
+export const aiMessages: {
+    // Event hub messages
+    eventHubfallbackSuggestedTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; eventHubfallbackSuggestedTitlePrefix: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+    // Toolbar messages
+    aiToolbarTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; improveWritingToolbarIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; improveWritingToolbarIconTooltip: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; askAIToolbarIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; askRovoToolbarIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; moreRovoOptionsMenuLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; askRovoAiSplitButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; askAIToolbarIconTooltip: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; askAIToolbarIconTooltipQuickCommand: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; askRovoToolbarIconTooltipQuickCommand: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; tryAIToolbarIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; tryAIToolbarIconTooltip: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; simplifiedAIToolbarIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; summarizeToolbarDropdownIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; translateToolbarDropdownIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; translateOptionsIconLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; spellingAndGrammarToolbarDropdownIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; makeLongerToolbarDropdownIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; makeShorterToolbarDropdownIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; changeToneToolbarDropdownIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; changeToneOptionsIconLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; moreProfessionalToneToolbarDropdownIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; moreCasualToneToolbarDropdownIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; moreEmpatheticToneToolbarDropdownIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; adjustLengthToolbarDropdownIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; DefineDropdownIconTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+    // Prebuilt messages
+    atlasGenerateContentConfigItemDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; atlasSummarizePageConfigItemDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; confluenceChangeToneSelectionToolbarDropdownMenuTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; confluenceRewriteSelectionToolbarDropdownMenuTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; confluenceTranslateSelectionToolbarDropdownMenuTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+    // AI Panel Action items messages
+    actionItemsPageTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; actionItemsPageDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+    // AI Panel Summarise page messages
+    summarizePageTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; summarisePageDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+    // Agent messages
+    agentsDropdownTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; agentsViewAgentsLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+    // Error messages
+    unhandledErrorMessage: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; cmdPaletteUnhandledErrorMessage: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; markdownErrorMessage: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+    // Prompt Builder messages
+    promptbuilderAriaLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; promptBuilderFromButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+    // AI Smart button messages
+    aiSmartButtonDynamicSurfaceSelectedContent: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+    // Telepointer
+    aiRovoTelepointer: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+    // On-paste menu messages
+    pasteMenuActionsTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+    // Block menu messages
+    blockMenuNestedMenuTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	// Event hub messages
 	eventHubfallbackSuggestedTitle: {
 		id: 'fabric.editor.ai.eventHub.fallbackSuggestedTitle',
@@ -281,7 +498,7 @@ export const aiMessages = defineMessages({
 	// Block menu messages
 	blockMenuNestedMenuTitle: {
 		id: 'fabric.editor.ai.config.item.blockMenuNestedMenu.title',
-		defaultMessage: 'Show more',
+		defaultMessage: 'View more actions',
 		description: 'Title for the nested menu in the block menu',
 	},
 });

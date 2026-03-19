@@ -16,9 +16,21 @@ const excludesIndentationNodes = ['tableHeader', 'tableCell'];
 
 // @DSLCompatibilityException
 const NODES_MARKS_OVERRIDES = {
-	bodiedExtension: ['dataConsumer', 'fragment', 'unsupportedMark', 'unsupportedNodeAttribute'],
+	bodiedExtension: [
+		'dataConsumer',
+		'fontSize',
+		'fragment',
+		'unsupportedMark',
+		'unsupportedNodeAttribute',
+	],
 	codeBlock: ['unsupportedMark', 'unsupportedNodeAttribute'],
-	extensionFrame: ['dataConsumer', 'fragment', 'unsupportedMark', 'unsupportedNodeAttribute'],
+	extensionFrame: [
+		'dataConsumer',
+		'fontSize',
+		'fragment',
+		'unsupportedMark',
+		'unsupportedNodeAttribute',
+	],
 	multiBodiedExtension: ['unsupportedNodeAttribute', 'unsupportedMark'],
 };
 

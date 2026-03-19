@@ -56,15 +56,15 @@ export const validateNodes = (nodes: PMNode[]): boolean => nodes.every(validNode
 
 type PMEntities = PMNode | PMMark | null | undefined;
 
-export const isType = (node: PMEntities, type: NodeType | MarkType | undefined) =>
+export const isType = (node: PMEntities, type: NodeType | MarkType | undefined): boolean | null | undefined =>
 	type && node && node.type === type;
 
-export const isParagraph = (node: PMEntities, schema: Schema) =>
+export const isParagraph = (node: PMEntities, schema: Schema): boolean | null | undefined =>
 	isType(node, schema.nodes.paragraph);
 
-export const isText = (node: PMEntities, schema: Schema) => isType(node, schema.nodes.text);
+export const isText = (node: PMEntities, schema: Schema): boolean | null | undefined => isType(node, schema.nodes.text);
 
-export const isLinkMark = (node: PMEntities, schema: Schema) => isType(node, schema.marks.link);
+export const isLinkMark = (node: PMEntities, schema: Schema): boolean | null | undefined => isType(node, schema.marks.link);
 
 export enum SelectedState {
 	selectedInRange,

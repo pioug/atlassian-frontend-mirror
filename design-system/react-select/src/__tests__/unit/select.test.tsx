@@ -3268,3 +3268,37 @@ describe('accessibility > aria-autocomplete with platform_fix_autocomplete_aria_
 		});
 	});
 });
+
+describe('accessibility > aria-readonly with select_issearchable_aria-readonly_fix feature flag', () => {
+	ffTest.on('select_issearchable_aria-readonly_fix', 'with flag enabled', () => {
+		it('does not set aria-readonly when isSearchable is false (single select)', () => {
+			render(<Select {...BASIC_PROPS} isSearchable={false} />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			expect(input).not.toHaveAttribute('aria-readonly');
+		});
+
+		it('does not set aria-readonly when isSearchable is true (single select)', () => {
+			render(<Select {...BASIC_PROPS} isSearchable={true} />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			expect(input).not.toHaveAttribute('aria-readonly');
+		});
+	});
+
+	ffTest.off('select_issearchable_aria-readonly_fix', 'with flag disabled', () => {
+		it('sets aria-readonly to true when isSearchable is false (single select)', () => {
+			render(<Select {...BASIC_PROPS} isSearchable={false} />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			expect(input).toHaveAttribute('aria-readonly', 'true');
+		});
+
+		it('does not set aria-readonly when isSearchable is true (single select)', () => {
+			render(<Select {...BASIC_PROPS} isSearchable={true} />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			expect(input).not.toHaveAttribute('aria-readonly');
+		});
+	});
+});

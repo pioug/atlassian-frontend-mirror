@@ -1,39 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import metadata from '@atlaskit/icon/metadata';
+import { metaDataWithPackageLoader as objectIconMetadata } from '@atlaskit/icon-object/metadata';
 
-const icons16 = Object.keys(metadata)
-	.map((name) => {
-		if (name.includes('16')) {
-			return require(`../src/artifacts/glyph/${name}`).default;
-		}
+type IconEntry = {
+	name: string;
+	Component: React.ComponentType<any>;
+};
 
-		return null;
-	})
-	.filter(Boolean);
-
-const icons24 = Object.keys(metadata)
-	.map((name) => {
-		if (name.includes('24')) {
-			return require(`../src/artifacts/glyph/${name}`).default;
-		}
-
-		return null;
-	})
-	.filter(Boolean);
-
+// NOTE: `@atlaskit/icon-object` is deprecated and will be replaced by `design-system/object`.
+// This example renders a subset of object icons using the package loader metadata.
 export default function IconExamples(): React.JSX.Element {
+	const [icons, setIcons] = useState<IconEntry[]>([]);
+
+	useEffect(() => {
+		let mounted = true;
+		(async () => {
+			const entries = Object.entries(objectIconMetadata).slice(0, 100);
+			const loaded = await Promise.all(
+				entries.map(async ([name, { packageLoader }]) => {
+					const mod = await packageLoader();
+					return { name, Component: mod.default };
+				}),
+			);
+			if (mounted) {
+				setIcons(loaded);
+			}
+		})();
+		return () => {
+			mounted = false;
+		};
+	}, []);
+
 	return (
 		<div data-testid="root">
 			<div data-testid="light-root">
 				<div>
-					{icons16.map((Icon, index) => (
-						<Icon key={index} />
-					))}
-				</div>
-				<div>
-					{icons24.map((Icon, index) => (
-						<Icon key={index} />
+					{icons.map(({ name, Component }) => (
+						<Component key={name} label={name} />
 					))}
 				</div>
 			</div>

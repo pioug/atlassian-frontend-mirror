@@ -10,7 +10,7 @@ export class DynamicBitArray {
 	private chunkTotalBitSize: number;
 	private bitArrays: Uint8Array[];
 
-	constructor(chunkSize = DEFAULT_CHUNK_SIZE) {
+	constructor(chunkSize: number = DEFAULT_CHUNK_SIZE) {
 		this.chunkSize = chunkSize;
 		this.chunkTotalBitSize = this.chunkSize * 8;
 		this.bitArrays = [];

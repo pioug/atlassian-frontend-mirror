@@ -22,14 +22,6 @@ snapshot(Appearance, {
 snapshot(Sizes, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
 snapshot(DefensiveStyling, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
 
-// Test basic and appearance examples with the platform-logo-rebrand-servco feature flag
-snapshot(Basic, {
-	featureFlags: {
-		'platform-logo-rebrand': [false, true],
-		'platform-logo-rebrand-servco': [false, true],
-	},
-});
-
 const FlaggedPlatformLogos = Basic;
 snapshot(FlaggedPlatformLogos, {
 	featureFlags: {
@@ -38,26 +30,10 @@ snapshot(FlaggedPlatformLogos, {
 });
 
 const BasicWithRovoHex = Basic;
-// Test basic and appearance examples with the platform-logo-rebrand-servco feature flag
+
 snapshot(BasicWithRovoHex, {
 	featureFlags: {
 		'platform-logo-rebrand': [true],
-		'platform-logo-rebrand-servco': [true],
 		'platform-logo-rebrand-rovo-hex': [true],
 	},
-});
-
-snapshot(Appearance, {
-	featureFlags: {
-		'platform-logo-rebrand': [false, true],
-		'platform-logo-rebrand-servco': [false, true],
-	},
-	variants: [
-		{
-			name: 'Light',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
 });

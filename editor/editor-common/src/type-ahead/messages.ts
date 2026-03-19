@@ -1,6 +1,88 @@
 import { defineMessages } from 'react-intl-next';
 
-export const typeAheadListMessages = defineMessages({
+export const typeAheadListMessages: {
+    typeAheadPopupLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; quickInsertPopupLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; quickInsertInputLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; quickInsertInputPlaceholderLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; emojiPopupLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; emojiInputLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; mentionPopupLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; mentionInputLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; metionListItemLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; emojiListItemLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; inputQueryAssistiveLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; searchResultsLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; noSearchResultsLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; descriptionLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; shortcutLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; typeAheadErrorFallbackHeading: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; typeAheadErrorFallbackDesc: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; viewAllInserts: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; emptySearchResults: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; emptySearchResultsSuggestion: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	typeAheadPopupLabel: {
 		id: 'fabric.editor.typeAhead.popupLabel',
 		defaultMessage: 'Typeahead results',

@@ -68,7 +68,7 @@ export function processRawValueWithoutValidation(
 	schema: Schema,
 	value?: ReplaceRawValue,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-) {
+): Node | undefined {
 	if (!value) {
 		return;
 	}

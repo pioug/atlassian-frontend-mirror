@@ -4,7 +4,7 @@
  */
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl-next';
@@ -60,7 +60,7 @@ export const MediaInlineImageCardInternal = ({
 	serializeDataAttrs,
 	shouldOpenMediaViewer,
 	isViewOnly,
-}: MediaInlineImageCardProps & WrappedComponentProps & MediaInlineAttrs) => {
+}: MediaInlineImageCardProps & WrappedComponentProps & MediaInlineAttrs): jsx.JSX.Element => {
 	const [fileState, setFileState] = useState<FileState | undefined>();
 	const [subscribeError, setSubscribeError] = useState<Error>();
 	const [isFailedEventSent, setIsFailedEventSent] = useState(false);

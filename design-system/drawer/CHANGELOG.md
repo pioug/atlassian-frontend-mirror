@@ -1,5 +1,17 @@
 # @atlaskit/drawer
 
+## 12.0.0
+
+### Major Changes
+
+- [`d2ad22e31f982`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2ad22e31f982) -
+  Removes unused entrypoint @ak/drawer/constants from public API given it is unused by package
+  source code.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.29
 
 ### Patch Changes

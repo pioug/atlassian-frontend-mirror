@@ -36,7 +36,7 @@ const sanitiseSentryEvents = (
 	return data;
 };
 
-export const logException = async (error: Error, tags?: { [key: string]: Primitive }) => {
+export const logException = async (error: Error, tags?: { [key: string]: Primitive }): Promise<boolean | undefined> => {
 	try {
 		// We don't want to log exceptions for branch deploys or in development / test scenarios
 		if (process.env.NODE_ENV !== 'production' || process.env.CLOUD_ENV === 'branch') {

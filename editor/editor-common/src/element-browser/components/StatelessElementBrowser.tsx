@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import type { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -584,7 +584,26 @@ function DesktopBrowser({
 	);
 }
 
-const MemoizedElementBrowser = memo(
+const MemoizedElementBrowser: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<Omit<{
+    /**
+     * If search field should be focused on the initial load
+     */
+    autoFocusSearch?: boolean;
+    cache?: CellMeasurerCache;
+    categories?: Category[];
+    emptyStateHandler?: EmptyStateHandler;
+    items: QuickInsertItem[];
+    mode: keyof typeof Modes;
+    onInsertItem: (item: QuickInsertItem) => void;
+    onSearch: (searchTerm: string) => void;
+    onSelectCategory: (category: Category) => void;
+    onSelectItem?: (item: QuickInsertItem) => void;
+    onViewMore?: () => void;
+    searchTerm?: string;
+    selectedCategory?: string;
+    showCategories: boolean;
+    showSearch: boolean;
+}, keyof WithAnalyticsEventsProps> & React.RefAttributes<unknown> & WithContextProps, "ref"> & React.RefAttributes<unknown>>> = memo(
 	withAnalyticsContext({
 		source: 'ElementBrowser',
 	})(withAnalyticsEvents()(StatelessElementBrowser)),

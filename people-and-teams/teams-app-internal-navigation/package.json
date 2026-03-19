@@ -61,7 +61,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-internal-navigation",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Headless navigation utilities for consistent internal link behaviour across the Teams app.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -23,7 +23,7 @@ export const getCommonListAnalyticsAttributes = (
 	};
 };
 
-export const countListItemsInSelection = (tr: Transaction) => {
+export const countListItemsInSelection = (tr: Transaction): number => {
 	const { from, to } = tr.selection;
 	if (from === to) {
 		return 1;

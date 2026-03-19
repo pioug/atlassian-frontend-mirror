@@ -1,6 +1,6 @@
 import type { FragmentAttributes } from '@atlaskit/adf-schema/schema';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { ConfirmDialogChildInfo } from '../types';
 
@@ -54,7 +54,7 @@ export const isReferencedSource = (state: EditorState, node?: PMNode): boolean =
 	return found;
 };
 
-export const getConnections = (state: EditorState) => {
+export const getConnections = (state: EditorState): Record<string, NodeAndTargetLinkages> => {
 	const result: Record<LocalId, NodeAndTargetLinkages> = {};
 
 	const { doc, schema } = state;
@@ -138,7 +138,7 @@ export const getConnections = (state: EditorState) => {
 	return result;
 };
 
-export const removeConnectedNodes = (state: EditorState, node?: PMNode) => {
+export const removeConnectedNodes = (state: EditorState, node?: PMNode): Transaction => {
 	if (!node) {
 		return state.tr;
 	}

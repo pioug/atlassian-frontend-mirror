@@ -37,12 +37,29 @@ export type ShowDiffPluginState = {
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
-export const getScrollableDecorations = (set: DecorationSet | undefined): Decoration[] =>
-	set?.find(
+export const getScrollableDecorations = (set: DecorationSet | undefined): Decoration[] => {
+	const seenBlockKeys = new Set<string>();
+	return (set?.find(
 		undefined,
 		undefined,
-		(spec) => spec.key === 'diff-inline' || spec.key?.startsWith('diff-widget') || spec.key === 'diff-block',
-	).sort((a, b) => a.from - b.from) ?? [];
+		(spec) =>
+			spec.key === 'diff-inline' ||
+			spec.key?.startsWith('diff-widget') ||
+			spec.key === 'diff-block',
+	) ?? [])
+		.filter((dec) => {
+			if (dec.spec?.key === 'diff-block') {
+				// Skip listItem blocks as they are not scrollable
+				if (dec.spec?.nodeName === 'listItem') return false;
+				const key = `${dec.from}-${dec.to}-${dec.spec?.nodeName ?? ''}`;
+				// Skip blocks that have already been seen
+				if (seenBlockKeys.has(key)) return false;
+				seenBlockKeys.add(key);
+			}
+			return true;
+		})
+		.sort((a, b) => (a.from === b.from ? a.to - b.to : a.from - b.from));
+};
 
 export const createPlugin = (
 	config: DiffParams | undefined,

@@ -5,7 +5,7 @@
 import type { FocusEvent, KeyboardEvent } from 'react';
 import { PureComponent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -94,7 +94,7 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 		}
 	};
 
-	render() {
+	render(): jsx.JSX.Element {
 		const {
 			placeholder,
 			width,

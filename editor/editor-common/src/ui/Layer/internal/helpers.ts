@@ -1,4 +1,4 @@
-import { type Placement } from 'popper.js';
+import type { Placement } from 'popper.js';
 
 type PositionMap = {
 	[key: string]: {
@@ -22,7 +22,10 @@ const positionMap: PositionMap = {
 	'left bottom': { position: 'left-end', animation: 'left' },
 };
 
-export const POSITION_ATTRIBUTE_ENUM = {
+export const POSITION_ATTRIBUTE_ENUM: {
+    values: string[];
+    default: string;
+} = {
 	values: [
 		'top left',
 		'top center',
@@ -44,6 +47,6 @@ function positionToPopper(position: string) {
 	return position && positionMap[position] ? positionMap[position].position : null;
 }
 
-export function positionPropToPopperPosition(position: string) {
+export function positionPropToPopperPosition(position: string): Placement {
 	return positionToPopper(position) || positionMap[POSITION_ATTRIBUTE_ENUM.default].position;
 }

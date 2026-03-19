@@ -51,7 +51,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 		}
 	}
 
-	render() {
+	render(): React.ReactNode {
 		if (this.shouldRecover()) {
 			return this.props.fallbackComponent;
 		}

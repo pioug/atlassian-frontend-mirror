@@ -94,7 +94,13 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 		return event.target instanceof HTMLInputElement;
 	}
 
-	getContentDOM() {
+	getContentDOM(): {
+        dom: HTMLDivElement;
+        contentDOM: HTMLDivElement;
+    } | {
+        dom: HTMLDivElement;
+        contentDOM?: undefined;
+    } | undefined {
 		if (this.node.isInline) {
 			return;
 		}

@@ -1,4 +1,25 @@
-export const exampleDocument = {
+export const exampleDocument: {
+    type: string; version: number; content: {
+        type: string;
+        content: ({
+            type: string;
+            text: string;
+            marks?: undefined;
+        } | {
+            type: string;
+            text: string;
+            marks: ({
+                type: string;
+                attrs?: undefined;
+            } | {
+                type: string;
+                attrs: {
+                    href: string;
+                };
+            })[];
+        })[];
+    }[];
+} = {
 	type: 'doc',
 	version: 1,
 	content: [

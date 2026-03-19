@@ -124,7 +124,7 @@ export interface ADFWriteProvider {
 	/**
 	 * Delete source block.
 	 * @param resourceId the resourceId of the block to be deleted
-	 * @param deleteReason the reason for the deletion, e.g. 'source-block-unsynced', 'source-block-deleted'
+	 * @param deleteReason the reason for the deletion, e.g. 'source-block-unsynced', 'source-block-deleted', 'source-block-unpublished'
 	 * @returns Object representing the result of the deletion. {resourceId: string, success: boolean, error?: string}.
 	 * User should not be blocked by not_found error when deleting, so successful result should be returned for 404 error
 	 */

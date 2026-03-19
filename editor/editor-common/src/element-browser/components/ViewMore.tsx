@@ -39,7 +39,7 @@ const styles = cssMap({
 	},
 });
 
-export const ViewMore = ({ onViewMore, focus }: { focus: boolean; onViewMore: () => void }) => {
+export const ViewMore = ({ onViewMore, focus }: { focus: boolean; onViewMore: () => void }): JSX.Element => {
 	const ref = useRef<HTMLElement>(null);
 	const { formatMessage } = useIntl();
 	useEffect(() => {

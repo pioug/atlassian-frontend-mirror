@@ -3,12 +3,12 @@
  * @jsx jsx
  */
 import { useContext, useEffect, useMemo, useRef } from 'react';
-import type { KeyboardEventHandler, SyntheticEvent } from 'react';
+import type { ComponentType, FC, KeyboardEventHandler, SyntheticEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { injectIntl } from 'react-intl-next';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 
 import { Stack } from '@atlaskit/primitives/compiled';
 import { B100 } from '@atlaskit/theme/colors';
@@ -199,4 +199,7 @@ const TableSelectorPopup = ({
 	);
 };
 
-export default injectIntl(TableSelectorPopup);
+const _default_1: FC<WithIntlProps<TableSelectorPopupProps & WrappedComponentProps>> & {
+    WrappedComponent: ComponentType<TableSelectorPopupProps & WrappedComponentProps>;
+} = injectIntl(TableSelectorPopup);
+export default _default_1;

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 
 import WarningIcon from '@atlaskit/icon/core/status-warning';
@@ -24,7 +24,7 @@ export const InlineImageCardErrorView = ({
 	testId = 'media-inline-image-card-error-view',
 	message,
 	icon,
-}: Props) => {
+}: Props): jsx.JSX.Element => {
 	return (
 		<Frame testId={testId}>
 			<Tooltip content={message} position="top" tag="span" hideTooltipOnClick>

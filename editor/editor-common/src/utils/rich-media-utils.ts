@@ -11,7 +11,7 @@ export const shouldAddDefaultWrappedWidth = (
 	layout: RichMediaLayout,
 	width?: number,
 	lineLength?: number,
-) => {
+): boolean | 0 | undefined => {
 	return wrappedLayouts.indexOf(layout) > -1 && lineLength && width && width > 0.5 * lineLength;
 };
 
@@ -115,7 +115,7 @@ export function calculateSnapPoints({
 	lineLength,
 	offsetLeft,
 	wrappedLayout,
-}: SnapPointsProps) {
+}: SnapPointsProps): number[] {
 	const snapTargets: number[] = [];
 
 	for (let i = 0; i < gridWidth; i++) {

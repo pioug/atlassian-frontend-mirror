@@ -10,7 +10,7 @@ type SimpleEventHandler<T> = (event: T) => void;
 
 // Use this context to pass in the reference of the element that should be considered as the outside click target
 // The outside click target is the element that should be clicked outside of to trigger the `handleClickOutside` event
-export const OutsideClickTargetRefContext = React.createContext<(el: HTMLElement | null) => void>(
+export const OutsideClickTargetRefContext: React.Context<(el: HTMLElement | null) => void> = React.createContext<(el: HTMLElement | null) => void>(
 	() => Object,
 );
 

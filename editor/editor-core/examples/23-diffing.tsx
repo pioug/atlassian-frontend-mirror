@@ -5,7 +5,7 @@
 import type { ReactNode } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import type { Change } from 'diff';
 import { diffLines } from 'diff';
@@ -94,7 +94,12 @@ type State = {
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class DiffingExample extends React.Component<null, State> {
-	state = {
+	state: {
+        editMode: boolean;
+        diffs: never[];
+        documentOne: string;
+        documentTwo: string;
+    } = {
 		editMode: true,
 		diffs: [],
 		documentOne: '',
@@ -134,7 +139,7 @@ export default class DiffingExample extends React.Component<null, State> {
 			return <LineComponent key={idx}>{diff.value}</LineComponent>;
 		});
 
-	render() {
+	render(): jsx.JSX.Element {
 		const { editMode, diffs, documentOne, documentTwo } = this.state;
 		return (
 			<div css={container}>

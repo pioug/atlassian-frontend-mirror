@@ -1,5 +1,15 @@
 import { defineMessages } from 'react-intl-next';
-export const contextPanelMessages = defineMessages({
+export const contextPanelMessages: {
+    panelLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; panelContentLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	panelLabel: {
 		id: 'fabric.editor.contextPanel.panelLabel',
 		defaultMessage: 'Context panel',

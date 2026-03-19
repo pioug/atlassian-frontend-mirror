@@ -34,6 +34,6 @@ const wrapperStylesUnbounded = cssUnbounded({
 	},
 });
 
-export function ToolbarDropdownWrapper({ children }: { children?: React.ReactNode }) {
+export function ToolbarDropdownWrapper({ children }: { children?: React.ReactNode }): JSX.Element {
 	return <span css={[wrapperStyle, wrapperStylesUnbounded]}>{children}</span>;
 }

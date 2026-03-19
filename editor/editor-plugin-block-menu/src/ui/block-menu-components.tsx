@@ -94,7 +94,7 @@ const getMoveUpMoveDownMenuComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: POSITION_MENU_SECTION.key,
-				rank: POSITION_MENU_SECTION_RANK[POSITION_MOVE_UP_MENU_ITEM.key],
+				rank: (POSITION_MENU_SECTION_RANK as Record<string, number>)[POSITION_MOVE_UP_MENU_ITEM.key],
 			},
 			component: () => <MoveUpDropdownItem api={api} />,
 		},
@@ -104,7 +104,7 @@ const getMoveUpMoveDownMenuComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: POSITION_MENU_SECTION.key,
-				rank: POSITION_MENU_SECTION_RANK[POSITION_MOVE_DOWN_MENU_ITEM.key],
+				rank: (POSITION_MENU_SECTION_RANK as Record<string, number>)[POSITION_MOVE_DOWN_MENU_ITEM.key],
 			},
 			component: () => <MoveDownDropdownItem api={api} />,
 		},
@@ -121,7 +121,7 @@ const getTurnIntoMenuComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_MENU_SECTION.key,
-				rank: TRANSFORM_MENU_SECTION_RANK[TRANSFORM_MENU_ITEM.key],
+				rank: (TRANSFORM_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_MENU_ITEM.key],
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
 				return <FormatMenuComponent api={api}>{children}</FormatMenuComponent>;
@@ -133,7 +133,7 @@ const getTurnIntoMenuComponents = (
 			parent: {
 				type: 'block-menu-nested' as const,
 				key: TRANSFORM_MENU_ITEM.key,
-				rank: TRANSFORM_MENU_ITEM_RANK[TRANSFORM_SUGGESTED_MENU_SECTION.key],
+				rank: (TRANSFORM_MENU_ITEM_RANK as Record<string, number>)[TRANSFORM_SUGGESTED_MENU_SECTION.key],
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => (
 				<SuggestedItemsMenuSection api={api}>{children}</SuggestedItemsMenuSection>
@@ -145,7 +145,7 @@ const getTurnIntoMenuComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_SUGGESTED_MENU_SECTION.key,
-				rank: TRANSFORM_SUGGESTED_MENU_SECTION_RANK[TRANSFORM_SUGGESTED_MENU_ITEM.key],
+				rank: (TRANSFORM_SUGGESTED_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_SUGGESTED_MENU_ITEM.key],
 			},
 			component: () => <SuggestedMenuItems api={api} />,
 			isHidden: () => {
@@ -172,7 +172,7 @@ const getTurnIntoMenuComponents = (
 			parent: {
 				type: 'block-menu-nested' as const,
 				key: TRANSFORM_MENU_ITEM.key,
-				rank: TRANSFORM_MENU_ITEM_RANK[TRANSFORM_CREATE_MENU_SECTION.key],
+				rank: (TRANSFORM_MENU_ITEM_RANK as Record<string, number>)[TRANSFORM_CREATE_MENU_SECTION.key],
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
 				return (
@@ -188,7 +188,7 @@ const getTurnIntoMenuComponents = (
 			parent: {
 				type: 'block-menu-nested' as const,
 				key: TRANSFORM_MENU_ITEM.key,
-				rank: TRANSFORM_MENU_ITEM_RANK[TRANSFORM_STRUCTURE_MENU_SECTION.key],
+				rank: (TRANSFORM_MENU_ITEM_RANK as Record<string, number>)[TRANSFORM_STRUCTURE_MENU_SECTION.key],
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
 				return (
@@ -207,7 +207,7 @@ const getTurnIntoMenuComponents = (
 			parent: {
 				type: 'block-menu-nested' as const,
 				key: TRANSFORM_MENU_ITEM.key,
-				rank: TRANSFORM_MENU_ITEM_RANK[TRANSFORM_HEADINGS_MENU_SECTION.key],
+				rank: (TRANSFORM_MENU_ITEM_RANK as Record<string, number>)[TRANSFORM_HEADINGS_MENU_SECTION.key],
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
 				return (
@@ -223,7 +223,7 @@ const getTurnIntoMenuComponents = (
 		{
 			type: 'block-menu-section' as const,
 			key: TRANSFORM_MENU_SECTION.key,
-			rank: MAIN_BLOCK_MENU_SECTION_RANK[TRANSFORM_MENU_SECTION.key],
+			rank: (MAIN_BLOCK_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_MENU_SECTION.key],
 			component: ({ children }: { children: React.ReactNode }) => {
 				return <FormatMenuSection api={api}>{children}</FormatMenuSection>;
 			},
@@ -243,7 +243,7 @@ export const getBlockMenuComponents = ({
 		{
 			type: 'block-menu-section',
 			key: BLOCK_ACTIONS_MENU_SECTION.key,
-			rank: MAIN_BLOCK_MENU_SECTION_RANK[BLOCK_ACTIONS_MENU_SECTION.key],
+			rank: (MAIN_BLOCK_MENU_SECTION_RANK as Record<string, number>)[BLOCK_ACTIONS_MENU_SECTION.key],
 			component: ({ children }: { children: React.ReactNode }) => (
 				<CopySection api={api}>{children}</CopySection>
 			),
@@ -253,7 +253,7 @@ export const getBlockMenuComponents = ({
 					{
 						type: 'block-menu-section' as const,
 						key: BLOCK_ACTIONS_COPY_MENU_SECTION.key,
-						rank: MAIN_BLOCK_MENU_SECTION_RANK[BLOCK_ACTIONS_COPY_MENU_SECTION.key],
+						rank: (MAIN_BLOCK_MENU_SECTION_RANK as Record<string, number>)[BLOCK_ACTIONS_COPY_MENU_SECTION.key],
 						component: ({ children }: { children: React.ReactNode }) => (
 							<ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>
 						),
@@ -264,7 +264,7 @@ export const getBlockMenuComponents = ({
 						parent: {
 							type: 'block-menu-section' as const,
 							key: BLOCK_ACTIONS_COPY_MENU_SECTION.key,
-							rank: BLOCK_ACTIONS_COPY_MENU_SECTION_RANK[
+							rank: (BLOCK_ACTIONS_COPY_MENU_SECTION_RANK as Record<string, number>)[
 								BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM.key
 							],
 						},
@@ -278,7 +278,7 @@ export const getBlockMenuComponents = ({
 						parent: {
 							type: 'block-menu-section' as const,
 							key: BLOCK_ACTIONS_MENU_SECTION.key,
-							rank: BLOCK_ACTIONS_MENU_SECTION_RANK[BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM.key],
+							rank: (BLOCK_ACTIONS_MENU_SECTION_RANK as Record<string, number>)[BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM.key],
 						},
 						component: () => <CopyLinkDropdownItem api={api} config={config} />,
 					},
@@ -286,7 +286,7 @@ export const getBlockMenuComponents = ({
 		{
 			type: 'block-menu-section' as const,
 			key: POSITION_MENU_SECTION.key,
-			rank: MAIN_BLOCK_MENU_SECTION_RANK[POSITION_MENU_SECTION.key],
+			rank: (MAIN_BLOCK_MENU_SECTION_RANK as Record<string, number>)[POSITION_MENU_SECTION.key],
 			component: ({ children }: { children: React.ReactNode }) => {
 				return <ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>;
 			},
@@ -295,7 +295,7 @@ export const getBlockMenuComponents = ({
 		{
 			type: 'block-menu-section' as const,
 			key: DELETE_MENU_SECTION.key,
-			rank: MAIN_BLOCK_MENU_SECTION_RANK[DELETE_MENU_SECTION.key],
+			rank: (MAIN_BLOCK_MENU_SECTION_RANK as Record<string, number>)[DELETE_MENU_SECTION.key],
 			component: ({ children }: { children: React.ReactNode }) => {
 				return <DeleteSection>{children}</DeleteSection>;
 			},
@@ -306,7 +306,7 @@ export const getBlockMenuComponents = ({
 			parent: {
 				type: 'block-menu-section' as const,
 				key: DELETE_MENU_SECTION.key,
-				rank: DELETE_MENU_SECTION_RANK[DELETE_MENU_ITEM.key],
+				rank: (DELETE_MENU_SECTION_RANK as Record<string, number>)[DELETE_MENU_ITEM.key],
 			},
 			component: () => <DeleteDropdownItem api={api} />,
 		},

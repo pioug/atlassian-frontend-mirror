@@ -1,6 +1,28 @@
 import { defineMessages } from 'react-intl-next';
 
-export const toolbarMessages = defineMessages({
+export const toolbarMessages: {
+    wrapLeft: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; wrapRight: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; changeToMediaSingle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; changeToMediaInlineImage: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; changeToMediaInlineImageCaptionWarning: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	wrapLeft: {
 		id: 'fabric.editor.wrapLeft',
 		defaultMessage: 'Wrap left',

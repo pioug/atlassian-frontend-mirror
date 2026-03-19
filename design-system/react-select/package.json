@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "3.14.1",
+	"version": "3.14.3",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -66,6 +66,9 @@
 			"type": "boolean"
 		},
 		"platform_fix_autocomplete_aria_for_select": {
+			"type": "boolean"
+		},
+		"select_issearchable_aria-readonly_fix": {
 			"type": "boolean"
 		},
 		"platform-dst-shape-theme-default": {

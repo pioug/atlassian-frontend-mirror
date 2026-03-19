@@ -19,7 +19,10 @@ export function getColorsPerRowFromPalette(
 export function getSelectedRowAndColumn(
 	colorsPerRow: PaletteColor[][],
 	selectedColor: string | null,
-) {
+): {
+    selectedRowIndex: number;
+    selectedColumnIndex: number;
+} {
 	let selectedRowIndex = -1;
 	let selectedColumnIndex = -1;
 
@@ -42,7 +45,10 @@ export function getSelectedRowAndColumnFromPalette(
 	palette: PaletteColor[],
 	selectedColor: string | null,
 	cols: number = DEFAULT_COLOR_PICKER_COLUMNS,
-) {
+): {
+    selectedRowIndex: number;
+    selectedColumnIndex: number;
+} {
 	const colorsPerRow = getColorsPerRowFromPalette(palette, cols);
 	return getSelectedRowAndColumn(colorsPerRow, selectedColor);
 }

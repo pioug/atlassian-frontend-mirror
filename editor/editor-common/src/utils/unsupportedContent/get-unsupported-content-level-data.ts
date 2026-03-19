@@ -128,7 +128,13 @@ const mapUnsupportedContentLevelToSeverity = (
 export const getUnsupportedContentLevelData = (
 	validDocument: ADFEntity,
 	customThresholds: UnsupportedContentLevelsTracking['thresholds'],
-) => {
+): {
+        severity: UNSUPPORTED_CONTENT_LEVEL_SEVERITY; percentage: number; counts: {
+            supportedNodes: number;
+            unsupportedNodes: number;
+            unsupportedNodeTypeCount: Record<string, number>;
+        };
+    } => {
 	const { unsupportedNodes, supportedNodes, unsupportedNodeTypeCount } =
 		countSupportedUnsupportedNodes(validDocument);
 	const thresholds = buildUnsupportedContentLevelThresholds(customThresholds);

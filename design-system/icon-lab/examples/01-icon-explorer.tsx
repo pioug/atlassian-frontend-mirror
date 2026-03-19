@@ -11,8 +11,6 @@ import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import { IconTile } from '@atlaskit/icon';
 import metadata from '@atlaskit/icon-lab/metadata';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points -- We can use this entrypoint here
-import migrationMap from '@atlaskit/icon-lab/migration-map';
 import FlaskIcon from '@atlaskit/icon/core/flask';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
@@ -22,20 +20,6 @@ import { token } from '@atlaskit/tokens';
 import IconExplorerCell, { type IconExplorerCellProps } from './utils/new-icon-explorer-cell';
 
 type IconsList = Record<string, IconExplorerCellProps>;
-
-const legacyIconPackageMap = Object.keys(migrationMap).reduce(
-	(acc, iconName) => {
-		// Search for the icon key in metadata that has the matching componentName to the migration map keys
-		const metadataKey = Object.keys(metadata).find(
-			(key) => metadata[key].componentName === iconName,
-		);
-		if (metadataKey) {
-			acc[iconName] = metadata[metadataKey].package;
-		}
-		return acc;
-	},
-	{} as Record<string, string>,
-);
 
 // WARNING
 // It is going to be very tempting to move these into some higher level abstraction
@@ -82,10 +66,6 @@ const filterIcons = (icons: IconsList, query: string) => {
 		.filter((icon) =>
 			[
 				...icon.keywords,
-				...(icon.oldName || []),
-				...(icon?.oldName && typeof icon?.oldName !== 'string'
-					? icon.oldName.map((icon) => legacyIconPackageMap[icon])
-					: []),
 			]
 				.map((keyword) => (regex.test(keyword) ? 1 : 0))
 				.reduce((allMatches: number, match: number) => allMatches + match, 0),

@@ -1,5 +1,13 @@
 # @atlaskit/icon-object
 
+## 7.5.1
+
+### Patch Changes
+
+- [`f1ef2305b8862`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1ef2305b8862) -
+  Remove legacy icon glyphs and oldName prop support from metadata core.
+- Updated dependencies
+
 ## 7.5.0
 
 ### Minor Changes

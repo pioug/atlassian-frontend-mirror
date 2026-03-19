@@ -1,20 +1,28 @@
 export const GRID_SIZE = 8;
 
-export const DEVICE_BREAKPOINT_NUMBERS = {
+export const DEVICE_BREAKPOINT_NUMBERS: {
+    small: number;
+    medium: number;
+    large: number;
+} = {
 	small: GRID_SIZE * 40,
 	medium: GRID_SIZE * 75,
 	large: GRID_SIZE * 128,
 };
 
-export const FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS = {
+export const FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS: {
+    small: number;
+    medium: number;
+    large: number;
+} = {
 	small: GRID_SIZE * 50,
 	medium: DEVICE_BREAKPOINT_NUMBERS.medium,
 	large: DEVICE_BREAKPOINT_NUMBERS.large,
 };
 
-export const SIDEBAR_WIDTH = `${GRID_SIZE * 25}px`;
+export const SIDEBAR_WIDTH: "200px" = `${GRID_SIZE * 25}px`;
 
-export const SIDEBAR_HEADING_WRAPPER_HEIGHT = `${GRID_SIZE * 6}px`;
+export const SIDEBAR_HEADING_WRAPPER_HEIGHT: "48px" = `${GRID_SIZE * 6}px`;
 export const SIDEBAR_HEADING_PADDING_LEFT = '12px';
 
 export const INLINE_SIDEBAR_HEIGHT = '54px';

@@ -48,7 +48,7 @@ export function registerBlockMenuItems({
 				parent: {
 					type: 'block-menu-section' as const,
 					key: BLOCK_ACTIONS_MENU_SECTION.key,
-					rank: BLOCK_ACTIONS_MENU_SECTION_RANK[
+					rank: (BLOCK_ACTIONS_MENU_SECTION_RANK as Record<string, number>)[
 						BLOCK_ACTIONS_FEATURED_EXTENSION_SLOT_MENU_ITEM.key
 					],
 				},
@@ -82,7 +82,7 @@ export function registerBlockMenuItems({
 				parent: {
 					type: 'block-menu-section' as const,
 					key: TRANSFORM_CREATE_MENU_SECTION.key,
-					rank: TRANSFORM_CREATE_MENU_SECTION_RANK[TRANSFORM_DEFAULT_EXTENSION_SLOT_MENU_ITEM.key],
+					rank: (TRANSFORM_CREATE_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_DEFAULT_EXTENSION_SLOT_MENU_ITEM.key],
 				},
 				component: () => {
 					const editorView = editorViewRef?.current;

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-breakout
 
+## 8.0.8
+
+### Patch Changes
+
+- [`616aca9a21eec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/616aca9a21eec) -
+  Clean up platform_editor_fix_resize_selected_node
+
+## 8.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.6
 
 ### Patch Changes

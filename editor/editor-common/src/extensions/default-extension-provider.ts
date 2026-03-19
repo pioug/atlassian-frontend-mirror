@@ -30,7 +30,7 @@ export default class DefaultExtensionProvider<
 		this.autoConvertHandlers = autoConvertHandlers;
 	}
 
-	getExtensions() {
+	getExtensions(): Promise<ExtensionManifest<T>[]> {
 		return this.manifestsPromise;
 	}
 
@@ -48,14 +48,14 @@ export default class DefaultExtensionProvider<
 		await Promise.allSettled(preloadCalls);
 	}
 
-	getPreloadedExtension(type: ExtensionType, key: ExtensionKey) {
+	getPreloadedExtension(type: ExtensionType, key: ExtensionKey): ExtensionManifest<T> | undefined {
 		if (!this.manifestsCache) {
 			return;
 		}
 		return this.getExtensionFromManifest(this.manifestsCache, type, key);
 	}
 
-	async getExtension(type: ExtensionType, key: ExtensionKey) {
+	async getExtension(type: ExtensionType, key: ExtensionKey): Promise<ExtensionManifest<T>> {
 		return this.getExtensionFromManifest(await this.manifestsPromise, type, key);
 	}
 
@@ -71,14 +71,14 @@ export default class DefaultExtensionProvider<
 		return extension;
 	}
 
-	async search(keyword: string) {
+	async search(keyword: string): Promise<ExtensionManifest<T>[]> {
 		const extensions = (await this.manifestsPromise).filter((manifest) =>
 			manifest.title.toLowerCase().includes(keyword.toLowerCase()),
 		);
 		return extensions;
 	}
 
-	async getAutoConverter() {
+	async getAutoConverter(): Promise<ExtensionAutoConvertHandler[]> {
 		if (this.autoConvertHandlers) {
 			return this.autoConvertHandlers;
 		}

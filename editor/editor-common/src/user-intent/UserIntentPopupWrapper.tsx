@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, type ReactNode } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -19,7 +19,7 @@ export const UserIntentPopupWrapper = ({
 	api: ExtractInjectionAPI<NextEditorPlugin<any, any>> | undefined | null;
 	children: React.ReactNode;
 	userIntent?: PopupUserIntent;
-}) => {
+}): ReactNode => {
 	useEffect(() => {
 		api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent(userIntent));
 

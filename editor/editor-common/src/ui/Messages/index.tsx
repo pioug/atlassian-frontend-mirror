@@ -4,7 +4,7 @@
  */
 import type { ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
@@ -48,9 +48,9 @@ interface Props {
 	children: ReactNode;
 }
 
-export const HelperMessage = ({ children }: Props) => <div css={messageStyle}>{children}</div>;
+export const HelperMessage = ({ children }: Props): jsx.JSX.Element => <div css={messageStyle}>{children}</div>;
 
-export const ErrorMessage = ({ children }: Props) => {
+export const ErrorMessage = ({ children }: Props): jsx.JSX.Element => {
 	const intl = useIntl();
 	return (
 		<div
@@ -66,7 +66,7 @@ export const ErrorMessage = ({ children }: Props) => {
 	);
 };
 
-export const ValidMessage = ({ children }: Props) => {
+export const ValidMessage = ({ children }: Props): jsx.JSX.Element => {
 	const intl = useIntl();
 	return (
 		<div

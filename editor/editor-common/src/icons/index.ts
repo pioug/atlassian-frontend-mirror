@@ -20,7 +20,7 @@ export {
 } from './shared/SteppedRainbowIconDecoration';
 export { DynamicStrokeIconDecoration } from './shared/DynamicStrokeIconDecoration';
 
-export const IconTable = Loadable({
+export const IconTable: React.ComponentType<React.PropsWithChildren<IconProps>> & Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_editor-icon-table" */ '../icons/shared/table'

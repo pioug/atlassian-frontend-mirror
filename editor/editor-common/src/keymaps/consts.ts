@@ -9,4 +9,4 @@ export const KEY_3 = 51;
 export const KEY_4 = 52;
 export const KEY_5 = 53;
 export const KEY_6 = 54;
-export const HEADING_KEYS = [KEY_0, KEY_1, KEY_2, KEY_3, KEY_4, KEY_5, KEY_6];
+export const HEADING_KEYS: number[] = [KEY_0, KEY_1, KEY_2, KEY_3, KEY_4, KEY_5, KEY_6];

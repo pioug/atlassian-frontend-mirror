@@ -1,5 +1,19 @@
 # @atlaskit/editor-smart-link-draggable
 
+## 0.2.0
+
+### Minor Changes
+
+- [`8b0c77d86d97f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b0c77d86d97f) - -
+  Created SmartLinkDraggableChangeboardPopover component
+  - Define i18n message text in editor-common
+  - Added skeleton code to SmartLinkDraggableInner component to easily incorportate new
+    changeboarding
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.4
 
 ### Patch Changes

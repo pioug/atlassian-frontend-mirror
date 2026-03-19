@@ -194,7 +194,7 @@ export type GetSyncedBlockContentRequest = {
 
 export type DeleteSyncedBlockRequest = {
 	blockAri: string; // the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
-	deleteReason: string | undefined; // the reason for the deletion, e.g. 'source-block-unsynced', 'source-block-deleted'
+	deleteReason: string | undefined; // the reason for the deletion, e.g. 'source-block-unsynced', 'source-block-deleted', 'source-block-unpublished'
 };
 
 export type UpdateSyncedBlockRequest = {
@@ -557,6 +557,13 @@ export class BlockError extends Error {
 	}
 }
 
+export class BlockTimeoutError extends Error {
+	constructor() {
+		super('Block request timed out');
+		this.name = 'BlockTimeoutError';
+	}
+}
+
 export const getSyncedBlockContent = async ({
 	blockAri,
 }: GetSyncedBlockContentRequest): Promise<BlockContentResponse> => {
@@ -600,6 +607,7 @@ export const getSyncedBlockContent = async ({
  */
 export const batchRetrieveSyncedBlocks = async ({
 	blockIdentifiers,
+	config,
 }: BatchRetrieveSyncedBlocksRequest): Promise<BatchRetrieveSyncedBlocksResponse> => {
 	const blockAris = blockIdentifiers.map((blockIdentifier) => blockIdentifier.blockAri);
 	const bodyData = {
@@ -608,11 +616,25 @@ export const batchRetrieveSyncedBlocks = async ({
 	};
 
 	const url = `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockBatchRetrieveBlocks`;
-	const response = await fetchWithRetry(url, {
+
+	// undefined or 0 or negative means no timeout,
+	// We don't enforce a minimum timeout for simplicity
+
+	const fetchPromise = fetchWithRetry(url, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
 		body: JSON.stringify(bodyData),
 	});
+
+	const timeoutMs = config?.timeoutMs ?? 0;
+	const response = await (timeoutMs > 0
+		? Promise.race([
+				fetchPromise,
+				new Promise<never>((_, reject) =>
+					setTimeout(() => reject(new BlockTimeoutError()), timeoutMs),
+				),
+			])
+		: fetchPromise);
 
 	if (!response.ok) {
 		throw new BlockError(response.status);

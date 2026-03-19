@@ -221,3 +221,7 @@ export const AI_CHANGE_TONE_EMPATHETIC_MENU_ITEM = {
 export const AI_TRANSLATE_MENU_ITEM = {
 	key: 'block-menu-ai-translate-menu-item',
 };
+
+export const AI_DEFINE_MENU_ITEM = {
+	key: 'block-menu-ai-define-menu-item',
+};

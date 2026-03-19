@@ -6,7 +6,7 @@ const myBadgeImportant = "[data-testid='myBadgeImportant']";
 const myBadgePrimary = "[data-testid='myBadgePrimary']";
 
 test('Badge should be identified and visible by data-testid', async ({ page }) => {
-	await page.visitExample('design-system', 'badge', 'testing');
+	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>('design-system', 'badge', 'testing');
 	await expect(page.locator(myBadgeAdded).first()).toBeVisible();
 	await expect(page.locator(myBadgeDefault).first()).toBeVisible();
 	await expect(page.locator(myBadgeImportant).first()).toBeVisible();

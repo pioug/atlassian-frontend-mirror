@@ -522,8 +522,10 @@ function transformExportSpecifiers({
 }: {
 	specsWithOriginal: SpecifierWithOriginal[];
 }): { nameInSource: string; nameInLocal: string; kind?: 'type' | 'value' }[] {
-	return specsWithOriginal.map(({ originalName, nameInLocal, kind }) => ({
-		nameInSource: originalName || nameInLocal,
+	return specsWithOriginal.map(({ originalName, nameInSource, nameInLocal, kind }) => ({
+		// Use originalName if available (means there was an alias in the barrel),
+		// otherwise use nameInSource (the direct export name from the barrel)
+		nameInSource: originalName ?? nameInSource,
 		nameInLocal,
 		kind,
 	}));

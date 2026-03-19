@@ -7,7 +7,7 @@ import React, { Fragment, memo, useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import Button, { type ThemeProps, type ThemeTokens } from '@atlaskit/button/custom-theme-button';
 import { token } from '@atlaskit/tokens';
@@ -259,7 +259,7 @@ const buttonWrapper = css({
 	},
 });
 
-const MemoizedCategoryListWithAnalytics = memo(
+const MemoizedCategoryListWithAnalytics: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<Props & WithAnalyticsEventsProps & WithContextProps, "ref"> & React.RefAttributes<unknown>>> = memo(
 	withAnalyticsContext({
 		component: 'CategoryList',
 	})(CategoryList),

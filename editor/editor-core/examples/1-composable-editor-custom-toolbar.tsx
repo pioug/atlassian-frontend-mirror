@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
@@ -171,7 +171,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
 	);
 }
 
-export function ComposableEditorWithToolbar() {
+export function ComposableEditorWithToolbar(): jsx.JSX.Element {
 	const { preset, editorApi } = usePreset(createPreset);
 	const [editorView, setEditorView] = React.useState<EditorView>();
 	const onReady = React.useCallback((editorActions: EditorActions<any>) => {
@@ -189,7 +189,7 @@ export function ComposableEditorWithToolbar() {
 	);
 }
 
-export default function ComposableEditorExample() {
+export default function ComposableEditorExample(): jsx.JSX.Element {
 	return (
 		<EditorContext>
 			<SmartCardProvider client={smartCardClient}>

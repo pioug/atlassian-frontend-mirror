@@ -1,6 +1,113 @@
 import { defineMessages } from 'react-intl-next';
 
-export const aiProactiveTransformMessages = defineMessages({
+export const aiProactiveTransformMessages: {
+    recommendationDefaultTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationDefaultDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToTableTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToTableDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToNotePanelTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToNotePanelDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToInfoPanelTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToInfoPanelDescription: {
+        id: string;
+        // eslint-disable-next-line @atlassian/i18n/no-multiple-whitespaces
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToWarnPanelTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToWarnPanelDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToErrorPanelTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToErrorPanelDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToSuccessPanelTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationConvertToSuccessPanelDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationSplitParagraphTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationSplitParagraphDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationFormatParagraphTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationFormatParagraphDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationFormatParagraphClarityTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationFormatParagraphClarityDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationFormatParagraphListTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationFormatParagraphListDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationFormatParagraphStructureTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationFormatParagraphStructureDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationFormatParagraphSpellcheckTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; recommendationFormatParagraphSpellcheckDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	recommendationDefaultTitle: {
 		id: 'fabric.editor.ai.proactive.recommendation.default.title.non-final',
 		defaultMessage: 'Suggestion',

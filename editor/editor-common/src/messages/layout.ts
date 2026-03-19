@@ -1,6 +1,80 @@
 import { defineMessages } from 'react-intl-next';
 
-export const toolbarMessages = defineMessages({
+export const toolbarMessages: {
+    singleColumn: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; twoColumns: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; singleColumnAdvancedLayout: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; twoColumnsAdvancedLayout: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; threeColumns: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; threeColumnsAdvancedLayout: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; fourColumns: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; fiveColumns: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; rightSidebar: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; leftSidebar: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; threeColumnsWithSidebars: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; threeColumnsWithLeftSidebars: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; threeColumnsWithRightSidebars: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; floatingToolbarRadioGroupAriaLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; layoutPlaceholder: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; controlslayoutPlaceholder: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; columnOption: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; resizeLayout: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	singleColumn: {
 		id: 'fabric.editor.single',
 		defaultMessage: 'Single column layout',

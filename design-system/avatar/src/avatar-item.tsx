@@ -10,8 +10,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
+import getCustomElement from './internal/get-custom-element';
 import { type AvatarClickEventHandler } from './types';
-import { getCustomElement } from './utilities';
 
 const bgColorCssVar = '--avatar-item-bg-color';
 

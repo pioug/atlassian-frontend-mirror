@@ -100,7 +100,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	 * constructor, which leads to some methods being undefined during the
 	 * first render.
 	 */
-	init() {
+	init(): this {
 		this.domRef = this.createDomRef();
 		this.setDomAttrs(this.node, this.domRef);
 
@@ -310,10 +310,16 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	}
 
 	get dom() {
+		// Only return reference if domRef is defined
+		if (this.domRef === undefined) {
+			//raise an error
+			throw new Error(
+			'domRef is not defined or may have been destroyed',
+			);
+		}
+
 		// Spreading props to pass through dynamic component props
-		// Ignored via go/ees005
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting
-		return this.domRef as HTMLElement;
+		return this.domRef;
 	}
 
 	destroy(): void {
@@ -345,7 +351,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		props?: ReactComponentProps,
 		viewShouldUpdate?: (nextNode: PMNode) => boolean,
 	) {
-		return (node: PMNode, view: EditorView, getPos: getPosHandler) =>
+		return (node: PMNode, view: EditorView, getPos: getPosHandler): ReactNodeView =>
 			new ReactNodeView(
 				node,
 				view,

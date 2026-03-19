@@ -1,5 +1,18 @@
 # @atlassian/give-kudos
 
+## 4.17.0
+
+### Minor Changes
+
+- [`3ad3d7dd8b4bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ad3d7dd8b4bf) -
+  [ux] Adds title text to 2 iframes
+
+## 4.16.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.16.1
 
 ### Patch Changes

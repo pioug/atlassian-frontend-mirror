@@ -423,7 +423,7 @@ export function calculatePosition({
 }: CalculatePositionParams): Position {
 	let position: Position = {};
 
-	if (!target || !popup || !popup.offsetParent) {
+	if (!target || !popup || !popup.offsetParent || !isHTMLElementNode(popup.offsetParent)) {
 		return position;
 	}
 
@@ -433,9 +433,7 @@ export function calculatePosition({
 		target = target.parentElement!;
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @atlaskit/editor/no-as-casting
-	const popupOffsetParent = popup.offsetParent as HTMLElement;
+	const popupOffsetParent = popup.offsetParent;
 	const offsetParentStyle = popupOffsetParent.style;
 	let borderBottomWidth = 0;
 	if (offsetParentStyle && offsetParentStyle.borderBottomWidth) {
@@ -478,6 +476,7 @@ export function calculatePosition({
 	});
 
 	position = { ...position, ...verticalPosition };
+
 	if ((verticalPlacement === 'top' || verticalPlacement === 'start') && stick) {
 		position = calculateVerticalStickTop({
 			target,
@@ -562,3 +561,14 @@ export function findOverflowScrollParent(popup: HTMLElement | null): HTMLElement
 
 	return false;
 }
+
+// Helper function to check if the passed node is of Element class
+function isElementNode(node: Node): node is Element {
+    return node.nodeType === 1;
+}
+
+// Helper function to check if the passed node is of HTMLElement class
+function isHTMLElementNode(node: Node): node is HTMLElement {
+    return isElementNode(node) && node.namespaceURI === 'http://www.w3.org/1999/xhtml';
+}
+

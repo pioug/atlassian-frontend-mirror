@@ -81,4 +81,5 @@ const Announcer = forwardRef<HTMLDivElement, React.PropsWithChildren<AnnouncerPr
 	},
 );
 
-export default memo(Announcer);
+const _default_1: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<React.PropsWithChildren<AnnouncerProps>, "ref"> & React.RefAttributes<HTMLDivElement>>> = memo(Announcer);
+export default _default_1;

@@ -30,7 +30,11 @@ export type ShallowPropsDifference<T> = {
 
 export const getKeys = Object.keys as <T>(obj: T) => Array<keyof T>;
 
-export const getKeysAddedRemovedCommon = <T>(object1: T, object2: T) => {
+export const getKeysAddedRemovedCommon = <T>(object1: T, object2: T): {
+    added: (keyof T & keyof (T & {}))[];
+    common: (keyof T & keyof (T & {}))[];
+    removed: (keyof T & keyof (T & {}))[];
+} => {
 	const oldKeys = object1 !== null ? getKeys(object1) : [];
 	const newKeys = object2 !== null ? getKeys(object2) : [];
 
@@ -45,7 +49,10 @@ export const getKeysAddedRemovedCommon = <T>(object1: T, object2: T) => {
 	};
 };
 
-export const serializeValue = <T>(value: T[keyof T]) => {
+export const serializeValue = <T>(value: T[keyof T]): string | (T[keyof T] & {}) | {
+    type: string;
+    keys: string[];
+} | undefined => {
 	const valueType = typeof value;
 	if (value === null) {
 		return 'null';

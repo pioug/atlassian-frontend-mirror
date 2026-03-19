@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -22,5 +23,15 @@ export const FormatMenuSection = ({
 		return null;
 	}
 
-	return <ToolbarDropdownItemSection>{children}</ToolbarDropdownItemSection>;
+	return (
+		<ToolbarDropdownItemSection
+			hasSeparator={expValEqualsNoExposure(
+				'platform_editor_ai_blockmenu_integration',
+				'isEnabled',
+				true,
+			)}
+		>
+			{children}
+		</ToolbarDropdownItemSection>
+	);
 };

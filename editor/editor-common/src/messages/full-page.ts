@@ -1,6 +1,20 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+    toolbarLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; pageActionsLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; editableContentLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	toolbarLabel: {
 		id: 'fabric.editor.toolbarLabel',
 		defaultMessage: 'Editor',

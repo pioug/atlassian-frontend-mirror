@@ -4,9 +4,9 @@
  */
 import React, { Fragment, useContext, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import rafSchedule from 'raf-schd';
 
 import { WidthObserver } from '@atlaskit/width-detector';
@@ -44,9 +44,10 @@ export function createWidthContext(width: number = 0): WidthConsumerContext {
 	return { width, breakpoint: getBreakpoint(width) };
 }
 
-export const WidthContext = React.createContext(createWidthContext());
+export const WidthContext: React.Context<WidthConsumerContext> = React.createContext(createWidthContext());
 
-const { Provider, Consumer } = WidthContext;
+const Provider: React.Provider<WidthConsumerContext> = WidthContext.Provider;
+const Consumer: React.Consumer<WidthConsumerContext> = WidthContext.Consumer;
 
 export type WidthProviderState = {
 	width?: number;
@@ -70,7 +71,7 @@ type WidthProviderProps = {
  *
  * @returns {number} The width of the document body or 0 if the document is undefined.
  */
-export const getBodyWidth = memoizeOne(() => {
+export const getBodyWidth: MemoizedFn<() => number> = memoizeOne((): number => {
 	return isSSR() ? 0 : (document.body?.offsetWidth ?? 0);
 });
 
@@ -78,7 +79,7 @@ export const WidthProvider = ({
 	className,
 	shouldCheckExistingValue,
 	children,
-}: WidthProviderProps) => {
+}: WidthProviderProps): jsx.JSX.Element => {
 	const existingContextValue: WidthConsumerContext = useContext(WidthContext);
 	const [width, setWidth] = useState<number>(getBodyWidth);
 	const widthRef = useRef(width);

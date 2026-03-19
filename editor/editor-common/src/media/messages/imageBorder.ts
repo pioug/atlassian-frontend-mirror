@@ -1,6 +1,48 @@
 import { defineMessages } from 'react-intl-next';
 
-export const imageBorderMessages = defineMessages({
+export const imageBorderMessages: {
+    borderColor: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; borderColorDropdownAriaLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; borderSize: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; borderSizeDropdownAriaLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; addBorder: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; removeBorder: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; borderOptions: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; borderSizeSubtle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; borderSizeMedium: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; borderSizeBold: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	borderColor: {
 		id: 'fabric.editor.imageBorderColor',
 		defaultMessage: 'Color',

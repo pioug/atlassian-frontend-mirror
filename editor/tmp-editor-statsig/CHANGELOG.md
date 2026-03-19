@@ -1,5 +1,28 @@
 # @atlaskit/editor-statsig-tmp
 
+## 40.3.0
+
+### Minor Changes
+
+- [`b6830be30e686`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6830be30e686) -
+  Removed platform_editor_sel_toolbar_fix and platform_editor_sel_toolbar_scroll_pos_fix_exp
+  experiments from experiments config
+
+## 40.2.0
+
+### Minor Changes
+
+- [`d7dec29b99a58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7dec29b99a58) -
+  [ux] [EDITOR-5118] his change modifies scrolling behaviour to centre selected content when using
+  find and replace, behind exp platform_editor_editor_centre_content_on_find
+
+## 40.1.0
+
+### Minor Changes
+
+- [`be5f64b1c1011`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be5f64b1c1011) -
+  [ux] Patch for image editor tool bar border drop downUI size
+
 ## 40.0.0
 
 ### Major Changes

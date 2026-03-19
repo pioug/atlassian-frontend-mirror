@@ -9,6 +9,7 @@ import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { messages } from '../../common/utils/get-container-properties';
+import { spaceInviteScheduler } from '../../common/utils/spaceInviteScheduler';
 import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
 import { useTeamContainers } from '../../controllers/hooks/use-team-containers';
 import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
@@ -17,6 +18,13 @@ import { TeamContainers } from './main';
 import type { TeamContainersComponent } from './types';
 
 jest.mock('@atlaskit/platform-feature-flags');
+
+jest.mock('../../common/utils/spaceInviteScheduler', () => ({
+	spaceInviteScheduler: {
+		scheduleInvite: jest.fn(),
+		cancelInvite: jest.fn(),
+	},
+}));
 
 jest.mock('../../controllers/hooks/use-team-containers', () => ({
 	...jest.requireActual('../../controllers/hooks/use-team-containers'),
@@ -425,6 +433,54 @@ describe('TeamContainers', () => {
 		await userEvent.click(disconnectButton);
 
 		expectEventToBeFired('track', teamContainerUnlinkedFailedEvent);
+	});
+
+	it('should call cancelInvite on successful disconnect when feature gate is enabled', async () => {
+		mockFg.mockImplementation((flag: string) => flag === 'space-team_linking_invites_fg');
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject],
+			removeTeamLink: jest.fn(),
+		});
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			unlinkError: null,
+		});
+
+		renderTeamContainers(teamId);
+
+		await userEvent.hover(screen.getByText(JiraProject.name));
+		const crossIconButton = screen.getByRole('button', {
+			name: 'disconnect the container Jira Project Name',
+		});
+		await userEvent.click(crossIconButton);
+
+		const disconnectButton = screen.getByRole('button', { name: 'Remove' });
+		await userEvent.click(disconnectButton);
+
+		expect(spaceInviteScheduler.cancelInvite).toHaveBeenCalledWith(teamId, JiraProject.id);
+	});
+
+	it('should not call cancelInvite on disconnect when feature gate is disabled', async () => {
+		mockFg.mockImplementation(() => false);
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject],
+			removeTeamLink: jest.fn(),
+		});
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			unlinkError: null,
+		});
+
+		renderTeamContainers(teamId);
+
+		await userEvent.hover(screen.getByText(JiraProject.name));
+		const crossIconButton = screen.getByRole('button', {
+			name: 'disconnect the container Jira Project Name',
+		});
+		await userEvent.click(crossIconButton);
+
+		const disconnectButton = screen.getByRole('button', { name: 'Remove' });
+		await userEvent.click(disconnectButton);
+
+		expect(spaceInviteScheduler.cancelInvite).not.toHaveBeenCalled();
 	});
 
 	it('should have no accessibility violations', async () => {

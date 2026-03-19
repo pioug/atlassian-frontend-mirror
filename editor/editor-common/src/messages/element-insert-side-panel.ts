@@ -1,6 +1,12 @@
 import { defineMessages } from 'react-intl-next';
 
-export const elementInsertSidePanel = defineMessages({
+export const elementInsertSidePanel: {
+    title: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	title: {
 		id: 'fabric.editor.elementInsertSidePanel.title',
 		defaultMessage: 'Insert',

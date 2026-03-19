@@ -1,3 +1,4 @@
+import type { MemoizedFunction } from 'lodash';
 import memoize from 'lodash/memoize';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -17,7 +18,7 @@ const INTERSECTION_OBSERVER_OPTIONS: IntersectionObserverInit = {
 };
 
 // Parameterized singleton
-export const getOrCreateOnVisibleObserver = memoize((view: EditorView): OnVisibleObserver => {
+export const getOrCreateOnVisibleObserver: ((view: EditorView) => OnVisibleObserver) & MemoizedFunction = memoize((view: EditorView): OnVisibleObserver => {
 	const intersectionObserverOptions: IntersectionObserverInit = {
 		root: view.dom.closest(INTERSECTION_OBSERVER_ROOT_SELECTOR),
 		...INTERSECTION_OBSERVER_OPTIONS,

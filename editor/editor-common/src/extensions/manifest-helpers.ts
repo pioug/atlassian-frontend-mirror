@@ -4,6 +4,7 @@ import type {
 	ExtensionKey,
 	ExtensionManifest,
 	ExtensionModuleAction,
+	ExtensionModuleActionHandler,
 	ExtensionModuleActionObject,
 	ExtensionModuleKey,
 	ExtensionType,
@@ -46,7 +47,7 @@ export const buildExtensionKeyAndNodeKey = (
 export function buildAction<T extends Parameters>(
 	action: ExtensionModuleAction<T>,
 	manifest: ExtensionManifest<T>,
-) {
+): ADFEntity | ExtensionModuleActionHandler | undefined {
 	if (typeof action === 'function') {
 		return action;
 	}
@@ -66,7 +67,7 @@ type Extension = {
 	type: ExtensionType;
 };
 
-export const resolveImportSync = <T extends Parameters>(importedModule: Module<T>) => {
+export const resolveImportSync = <T extends Parameters>(importedModule: Module<T>): T => {
 	return importedModule && (importedModule as ESModule<T>).__esModule
 		? (importedModule as ESModule<T>).default
 		: (importedModule as T);
@@ -74,7 +75,7 @@ export const resolveImportSync = <T extends Parameters>(importedModule: Module<T
 
 export const resolveImport = async <T extends Parameters>(
 	importPromise: Promise<Module<T>> | Module<T>,
-) => {
+): Promise<T> => {
 	return resolveImportSync(await importPromise);
 };
 

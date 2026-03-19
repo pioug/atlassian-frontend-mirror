@@ -25,7 +25,7 @@ const triggerWrapperStylesUnbounded = cssUnbounded({
 	},
 });
 
-export function ToolbarDropdownTriggerWrapper({ children }: { children?: React.ReactNode }) {
+export function ToolbarDropdownTriggerWrapper({ children }: { children?: React.ReactNode }): JSX.Element {
 	return (
 		<div css={[triggerWrapperStylesWithPadding, triggerWrapperStylesUnbounded]}>{children}</div>
 	);

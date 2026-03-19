@@ -5,7 +5,22 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../analytics';
 
-export const useLinkOverlayAnalyticsEvents = () => {
+export const useLinkOverlayAnalyticsEvents = (): {
+    /**
+     * When a user clicks go to link or configure link buttons.
+     *
+     * When a link is "wide" the overlay button is the configure button.
+     * When a link is "narrow" the configure button is inside the dropdown.
+     *
+     * @param linkAction 'goToLink' when somebody clicks on the Go to link button
+     * in the chevron menu; 'configureLink' when somebody clicks on the Configure button (whether it's the overlay or in the dropdown)
+     */
+    fireActionClickEvent: (linkAction: "goToLink" | "configureLink") => void;
+    /**
+     * When a user clicks on the dropdown for a short link, or when a user clicks on the configure button for a wide link.
+     */
+    fireLinkClickEvent: () => void; fireToolbarViewEvent: () => void;
+} => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	return useMemo(

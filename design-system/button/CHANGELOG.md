@@ -1,5 +1,18 @@
 # @atlaskit/button
 
+## 23.10.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.10.2
+
+### Patch Changes
+
+- [`236ae1160f1a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/236ae1160f1a0) -
+  Clean up platform-button-icon-spacing-cleanup FG
+
 ## 23.10.1
 
 ### Patch Changes

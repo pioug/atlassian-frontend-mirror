@@ -1,6 +1,20 @@
 import { defineMessages } from 'react-intl-next';
 
-export const unsupportedContentMessages = defineMessages({
+export const unsupportedContentMessages: {
+    unsupportedInlineContent: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; unsupportedBlockContent: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; unsupportedContentTooltip: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	unsupportedInlineContent: {
 		id: 'fabric.editor.unsupportedInlineContent',
 		defaultMessage: 'Unsupported content',

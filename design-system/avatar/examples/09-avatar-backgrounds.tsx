@@ -3,10 +3,13 @@
  * @jsx jsx
  */
 
+import React from 'react';
+
 import Avatar, { type AppearanceType, type PresenceType, type StatusType } from '@atlaskit/avatar';
 import { Code } from '@atlaskit/code';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Grid, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -15,6 +18,11 @@ import loomCircleImage from '../examples-util/loom-circle.svg';
 import ExampleImg from '../examples-util/nucleus.png';
 
 const exampleColors = [token('color.background.neutral'), token('color.background.input.pressed')];
+
+const gradientBorders = [
+	'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+	'conic-gradient(from 0deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #ff6b6b)',
+];
 
 const presences: PresenceType[] = ['focus', 'online', 'offline', 'busy'];
 const statuses: StatusType[] = ['approved', 'locked', 'declined'];
@@ -31,6 +39,14 @@ const styles = cssMap({
 	},
 	grid: {
 		gridTemplateColumns: '1fr 1fr',
+	},
+	gradientCircle: {
+		borderRadius: token('radius.full', '50%'),
+		display: 'inline-flex',
+	},
+	gradientSquare: {
+		borderRadius: token('radius.small', '26px'),
+		display: 'inline-flex',
 	},
 });
 interface ColorColumn {
@@ -127,6 +143,46 @@ const _default: () => JSX.Element = () => (
 				))}
 			</Grid>
 		</Grid>
+
+		{fg('avatar-custom-border') && (
+			<React.Fragment>
+				<Heading as="h2" size="large">
+					Custom Borders
+				</Heading>
+
+				<Text size="large" color="color.text.subtlest">
+					<Text as="p">
+						For borders beyond a single colour (e.g. gradients, patterns, or images), wrap the
+						Avatar in a container with the desired <Code>background</Code> and set{' '}
+						<Code>{'borderColor="transparent"'}</Code> to remove the default border.
+					</Text>
+				</Text>
+
+				<Grid testId="grid-gradient" gap="space.200" xcss={styles.grid} alignItems="center">
+					{gradientBorders.map((gradient, index) => (
+						<Stack key={index} alignBlock="center" alignInline="center" space="space.200">
+							<div css={styles.gradientCircle} style={{ background: gradient }}>
+								<Avatar
+									src={ExampleImg}
+									borderColor="transparent"
+									size="xlarge"
+									name="Gradient border circle"
+								/>
+							</div>
+							<div css={styles.gradientSquare} style={{ background: gradient }}>
+								<Avatar
+									src={ExampleImg}
+									borderColor="transparent"
+									appearance="square"
+									size="xlarge"
+									name="Gradient border square"
+								/>
+							</div>
+						</Stack>
+					))}
+				</Grid>
+			</React.Fragment>
+		)}
 	</Stack>
 );
 export default _default;

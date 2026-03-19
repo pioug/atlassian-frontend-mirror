@@ -56,7 +56,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 		});
 	}
 
-	getCategories = (items: QuickInsertItem[] = this.fetchItems()) =>
+	getCategories = (items: QuickInsertItem[] = this.fetchItems()): Category[] =>
 		// NOTE: we fetch all items to determine available categories.
 		this.filterCategories(items, this.props.categories);
 
@@ -72,7 +72,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 		);
 	};
 
-	fetchItems = (query?: string, category?: string) => {
+	fetchItems = (query?: string, category?: string): QuickInsertItem[] => {
 		return this.props.getItems(query, category);
 	};
 

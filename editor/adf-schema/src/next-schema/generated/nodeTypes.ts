@@ -200,7 +200,8 @@ export type BodiedExtensionNode = PMNode & BodiedExtensionDefinition;
 export const bodiedExtension = createPMNodeSpecFactory<BodiedExtensionNode>({
   content:
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock)+',
-  marks: 'dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+  marks:
+    'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
   group: 'block',
   attrs: {
     extensionKey: { default: '' },
@@ -238,7 +239,8 @@ export type BodiedExtensionWithMarksNode = PMNode &
 
 export const bodiedExtensionWithMarks =
   createPMNodeSpecFactory<BodiedExtensionWithMarksNode>({
-    marks: 'dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+    marks:
+      'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
     group: 'block',
     attrs: {
       extensionKey: { default: '' },
@@ -827,7 +829,8 @@ export const extensionFrameStage0 =
   createPMNodeSpecFactory<ExtensionFrameStage0Node>({
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | extension | bodiedExtension | unsupportedBlock | blockCard | embedCard)+',
-    marks: 'dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+    marks:
+      'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
     attrs: {},
     selectable: false,
     definingAsContext: false,

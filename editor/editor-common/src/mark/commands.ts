@@ -27,7 +27,10 @@ export function filterChildrenBetween(
 	from: number,
 	to: number,
 	predicate: (node: PMNode, pos: number, parent: PMNode | null) => boolean | undefined,
-) {
+): {
+    node: PMNode;
+    pos: number;
+}[] {
 	const results = [] as { node: PMNode; pos: number }[];
 	doc.nodesBetween(from, to, (node, pos, parent) => {
 		if (predicate(node, pos, parent)) {
@@ -90,7 +93,7 @@ export const applyMarkOnRange = (
 	removeMark: boolean,
 	mark: Mark,
 	tr: Transaction,
-) => {
+): Transaction => {
 	const { schema } = tr.doc.type;
 	const { code } = schema.marks;
 	if (mark.type === code) {

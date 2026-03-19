@@ -37,6 +37,10 @@ type HeadingButtonProps = {
 	blockType: BlockTypeWithRank;
 };
 
+const smallTextStyle = css({
+	font: editorUGCToken('editor.font.body.small'),
+});
+
 const normalStyle = css({
 	font: editorUGCToken('editor.font.body'),
 });
@@ -84,6 +88,8 @@ const HeadingText = ({ children, headingType }: HeadingTextProps): React.JSX.Ele
 			return <div css={heading5Style}>{children}</div>;
 		case 'heading6':
 			return <div css={heading6Style}>{children}</div>;
+		case 'smallText':
+			return <div css={smallTextStyle}>{children}</div>;
 		case 'normal':
 		default:
 			return <div css={normalStyle}>{children}</div>;

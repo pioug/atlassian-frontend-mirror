@@ -1,5 +1,24 @@
 # @atlaskit/editor-synced-block-provider
 
+## 4.1.0
+
+### Minor Changes
+
+- [`beb2f030213b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beb2f030213b1) -
+  EDITOR-5735 Make SSR bulk request configurable
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.1
+
+### Patch Changes
+
+- [`b8082ae893289`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8082ae893289) -
+  Account for new deletionReason: source-block-unpublished
+- Updated dependencies
+
 ## 4.0.0
 
 ### Patch Changes

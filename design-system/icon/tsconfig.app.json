@@ -3,7 +3,6 @@
 	"include": [
 		"./src/**/*.ts",
 		"./src/**/*.tsx",
-		"./glyph/**/*.ts",
 		"./core/**/*.ts",
 		"./utility/**/*.ts"
 	],

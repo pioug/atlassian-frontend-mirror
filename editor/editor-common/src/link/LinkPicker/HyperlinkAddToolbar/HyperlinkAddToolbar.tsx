@@ -5,12 +5,12 @@
 import type { KeyboardEvent, RefObject } from 'react';
 import React, { PureComponent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import { flushSync } from 'react-dom';
 import FocusLock from 'react-focus-lock';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { defineMessages, injectIntl } from 'react-intl-next';
 
 import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
@@ -101,7 +101,41 @@ const inputWrapperPosition = css({
 	position: 'relative',
 });
 
-export const messages = defineMessages({
+export const messages: {
+    clearLink: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; clearText: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; displayText: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; hyperlinkAriaLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; linkVisibleLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; searchLinkAriaDescription: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; searchLinkResults: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    }; textVisibleLabel: {
+        defaultMessage: string;
+        description: string;
+        id: string;
+    };
+} = defineMessages({
 	displayText: {
 		id: 'fabric.editor.displayText',
 		defaultMessage: 'Text to display',
@@ -267,7 +301,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		const { timesViewed, inputMethod, searchSessionId } = this.props;
 
 		// Ignored via go/ees005
-		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners, @atlaskit/platform/no-direct-document-usage
 		document.addEventListener('mousedown', this.handleClickOutside);
 
 		this.fireAnalytics({
@@ -296,7 +330,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		const { searchSessionId } = this.props;
 
 		// Ignored via go/ees005
-		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners, @atlaskit/platform/no-direct-document-usage
 		document.removeEventListener('mousedown', this.handleClickOutside);
 
 		if (!this.submitted) {
@@ -593,7 +627,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		}
 	};
 
-	render() {
+	render(): jsx.JSX.Element {
 		const { items, isLoading, selectedIndex, displayUrl, displayText } = this.state;
 		const {
 			intl: { formatMessage },
@@ -975,7 +1009,13 @@ function limit<T>(items: Array<T>) {
 	return items.slice(0, RECENT_SEARCH_LIST_SIZE);
 }
 
-export const HyperlinkLinkAddToolbarWithIntl = injectIntl(
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const HyperlinkLinkAddToolbarWithIntl: React.FC<WithIntlProps<HyperlinkLinkAddToolbarProps>> & {
+    WrappedComponent: React.ComponentType<HyperlinkLinkAddToolbarProps>;
+} = injectIntl(
 	HyperlinkLinkAddToolbar as React.ComponentClass<HyperlinkLinkAddToolbarProps>,
 );
-export default withAnalyticsEvents()(HyperlinkLinkAddToolbarWithIntl);
+const _default_1: React.ForwardRefExoticComponent<Omit<Omit<HyperlinkLinkAddToolbarProps, "intl"> & {
+    forwardedRef?: React.Ref<unknown>;
+}, keyof WithAnalyticsEventsProps> & React.RefAttributes<unknown>> = withAnalyticsEvents()(HyperlinkLinkAddToolbarWithIntl);
+export default _default_1;

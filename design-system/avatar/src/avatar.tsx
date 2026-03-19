@@ -17,10 +17,13 @@ import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
 
 import { AvatarContent } from './avatar-content';
-import { AvatarContentContext, EnsureIsInsideAvatarContext, useAvatarContext } from './context';
+import { useAvatarContext } from './context';
 import AvatarImage from './internal/avatar-image';
-import { PresenceWrapper } from './presence';
-import { StatusWrapper } from './status';
+import { AvatarContentContext } from './internal/content-context';
+import { EnsureIsInsideAvatarContext } from './internal/ensure-is-inside-avatar-context';
+import getCustomElement from './internal/get-custom-element';
+import PresenceWrapper from './internal/presence-wrapper';
+import StatusWrapper from './internal/status-wrapper';
 import {
 	type AppearanceType,
 	type AvatarClickEventHandler,
@@ -28,7 +31,6 @@ import {
 	type SizeType,
 	type Status,
 } from './types';
-import { getCustomElement } from './utilities';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

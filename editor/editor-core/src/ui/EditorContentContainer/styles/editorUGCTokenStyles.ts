@@ -68,3 +68,9 @@ export const editorUGCTokensRefreshed: SerializedStyles = css({
 		'normal 400 1em/1.714 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	'--editor-font-ugc-token-weight-heading-bold': '700',
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const editorUGCSmallText: SerializedStyles = css({
+	'--editor-font-ugc-token-body-small':
+		'normal 400 0.875em/1.714 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+});

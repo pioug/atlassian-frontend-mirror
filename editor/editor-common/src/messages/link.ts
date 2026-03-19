@@ -1,6 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
-export const linkMessages = defineMessages({
+export const linkMessages: {
+    openLink: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; openPreviewPanel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	openLink: {
 		id: 'fabric.editor.openLink',
 		defaultMessage: 'Open link in a new tab',

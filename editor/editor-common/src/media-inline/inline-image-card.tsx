@@ -34,7 +34,7 @@ export const InlineImageCard = ({
 	renderError: (props: { error: Error }) => JSX.Element | null;
 	ssr?: SSR;
 	stretch?: boolean;
-}) => {
+}): JSX.Element | null => {
 	// Generate unique traceId for file
 	const traceContext = useMemo(
 		() => ({

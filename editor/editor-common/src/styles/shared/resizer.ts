@@ -7,9 +7,9 @@ export const resizerHoverZoneClassName = 'resizer-hover-zone';
 export const resizerExtendedZone = 'resizer-is-extended';
 
 export const resizerHandleClassName = 'resizer-handle';
-export const resizerHandleTrackClassName = `${resizerHandleClassName}-track`;
-export const resizerHandleThumbClassName = `${resizerHandleClassName}-thumb`;
-export const resizerDangerClassName = `${resizerHandleClassName}-danger`;
+export const resizerHandleTrackClassName: "resizer-handle-track" = `${resizerHandleClassName}-track`;
+export const resizerHandleThumbClassName: "resizer-handle-thumb" = `${resizerHandleClassName}-thumb`;
+export const resizerDangerClassName: "resizer-handle-danger" = `${resizerHandleClassName}-danger`;
 
 export const handleWrapperClass = 'resizer-handle-wrapper';
 

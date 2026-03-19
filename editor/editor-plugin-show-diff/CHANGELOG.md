@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 6.1.4
+
+### Patch Changes
+
+- [`9df4b10b5f0f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9df4b10b5f0f8) -
+  Improve edge cases when showing diff by using a looser equality structure for steps.
+- Updated dependencies
+
 ## 6.1.3
 
 ### Patch Changes

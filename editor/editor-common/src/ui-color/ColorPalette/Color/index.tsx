@@ -4,7 +4,7 @@
  */
 import React, { type ReactElement } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
@@ -27,7 +27,7 @@ export interface Props {
 	value: string;
 }
 
-const Color = (props: Props) => {
+const Color = (props: Props): jsx.JSX.Element => {
 	const {
 		autoFocus,
 		tabIndex,

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 8.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.0
+
+### Minor Changes
+
+- [`d7dec29b99a58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7dec29b99a58) -
+  [ux] [EDITOR-5118] his change modifies scrolling behaviour to centre selected content when using
+  find and replace, behind exp platform_editor_editor_centre_content_on_find
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.1
 
 ### Patch Changes

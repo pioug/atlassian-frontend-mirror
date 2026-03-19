@@ -82,7 +82,16 @@ declare global {
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class CommentEditorWithFeedback extends React.Component<Props, State> {
-	state = {
+	state: {
+        hasJquery: boolean; isExpanded: boolean; intlState: {
+            locale: string;
+            messages: {
+                'fabric.editor.chromeCollapsedPlaceholder': string;
+                'fabric.editor.editorAssistiveLabel': string;
+                'fabric.editor.headingLink.toolbarHelpTitle': string;
+            };
+        };
+    } = {
 		hasJquery: false,
 		isExpanded: false,
 		intlState: { locale: 'en', messages: enMessages },

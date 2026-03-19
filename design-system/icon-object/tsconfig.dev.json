@@ -31,11 +31,7 @@
 		"**/stories/**/*.tsx",
 		"./build/*.tsx"
 	],
-	"exclude": [
-		"./dist/**/*",
-		"./build/**/*",
-		"./node_modules/**/*"
-	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__icon-object/dev",
@@ -56,9 +52,6 @@
 		},
 		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
-		},
-		{
-			"path": "../icon/tsconfig.app.json"
 		},
 		{
 			"path": "../link/tsconfig.app.json"

@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.4.9
+
+### Patch Changes
+
+- [`700384b28507a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/700384b28507a) -
+  Fix this complete is not a function error SSR render profiler
+
 ## 5.4.8
 
 ### Patch Changes

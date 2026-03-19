@@ -80,7 +80,7 @@ const FindReplaceToolbarButtonWithState = ({
 
 	const dispatchCommand = (cmd: Command) => {
 		const { state, dispatch } = editorView;
-		cmd(state, dispatch);
+		cmd(state, dispatch, editorView);
 	};
 
 	const handleActivate = () => {

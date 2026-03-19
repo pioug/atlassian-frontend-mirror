@@ -76,7 +76,7 @@ export const containsPopupWithNestedElement = (
 export const popupWithNestedElement = (
 	node: Node | null | undefined,
 	nestedElementQuery: string,
-) => {
+): Element | null | undefined => {
 	if (!(node instanceof HTMLElement)) {
 		return undefined;
 	}
@@ -96,7 +96,7 @@ export const popupWithNestedElement = (
  * @param editorViewEl - The editor view HTMLElement.
  * @returns The popup container HTMLElement if found, otherwise undefined.
  */
-export const getPopupContainerFromEditorView = (editorViewEl?: HTMLElement | null) => {
+export const getPopupContainerFromEditorView = (editorViewEl?: HTMLElement | null): HTMLElement | undefined => {
 	const editorContentArea = editorViewEl?.closest('.ak-editor-content-area');
 	const pluginsComponentsWrapper = editorContentArea?.querySelector(
 		':scope > [data-testid="plugins-components-wrapper"]',
@@ -110,7 +110,7 @@ export const getPopupContainerFromEditorView = (editorViewEl?: HTMLElement | nul
  * @param query - CSS selector string
  * @returns true if node matches or contains query or false otherwise
  */
-export const getNodeQuery = (query: string) => (node?: Node | null) => {
+export const getNodeQuery = (query: string) => (node?: Node | null): boolean => {
 	if (!node || !(node instanceof Element)) {
 		return false;
 	}

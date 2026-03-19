@@ -235,12 +235,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_sel_toolbar_scroll_pos_fix_exp: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-08-28
 	editor_enable_image_alignment_in_expand: {
 		defaultValue: boolean;
@@ -989,12 +983,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_sel_toolbar_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_toolbar_aifc_use_editor_typography: {
 		defaultValue: boolean;
 		param: string;
@@ -1467,6 +1455,13 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-03-10
+	platform_editor_fix_media_toolbar_border_dropdown: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-10
 	platform_editor_analyse_table_with_merged_cells: {
 		defaultValue: boolean;
 		param: string;
@@ -1495,6 +1490,13 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-03-13
+	platform_editor_editor_centre_content_on_find: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-13
 	platform_editor_misaligned_ai_screens_firefox_fix: {
 		defaultValue: boolean;
 		param: string;
@@ -1503,6 +1505,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-11
 	platform_editor_disable_last_node_para: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-15
+	platform_editor_sync_block_ssr_config: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2192,14 +2201,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_sel_toolbar_scroll_pos_fix_exp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_sel_toolbar_scroll_pos_fix_exp',
-			jira: 'platform_editor_sel_toolbar_scroll_pos_fix_exp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-31
 	platform_editor_breakout_interaction_rerender: createBooleanExperiment({
 		productKeys: {
@@ -2612,14 +2613,6 @@ export const editorExperimentsConfig: {
 	platform_editor_add_image_editing: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_add_image_editing',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	platform_editor_sel_toolbar_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_sel_toolbar_fix',
-			jira: 'platform_editor_sel_toolbar_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3193,6 +3186,14 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-03-10
+	platform_editor_fix_media_toolbar_border_dropdown: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_media_toolbar_border_dropdown',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-10
 	platform_editor_analyse_table_with_merged_cells: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_analyse_table_with_merged_cells',
@@ -3235,10 +3236,26 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-03-13
+	platform_editor_editor_centre_content_on_find: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_editor_centre_content_on_find',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-13
 	platform_editor_misaligned_ai_screens_firefox_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_misaligned_ai_screens_firefox_fix',
 			jira: 'platform_editor_misaligned_ai_screens_firefox_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-15
+	platform_editor_sync_block_ssr_config: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_sync_block_ssr_config',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

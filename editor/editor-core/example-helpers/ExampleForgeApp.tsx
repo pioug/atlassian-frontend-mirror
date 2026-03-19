@@ -29,7 +29,7 @@ const EXAMPLE_LIVE_PAGE_PAGE_PADDING_TOP = 105;
 export const ExampleForgeApp = ({
 	closeExtension,
 	selection,
-}: SelectionExtensionComponentProps) => {
+}: SelectionExtensionComponentProps): JSX.Element => {
 	return (
 		<Popup
 			content={() => {

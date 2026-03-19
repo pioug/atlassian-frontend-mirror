@@ -4,7 +4,7 @@
  */
 import { useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
@@ -92,7 +92,7 @@ const column = css({
 	flex: '1 1 0',
 });
 
-export default function CollabMultipleProvider() {
+export default function CollabMultipleProvider(): jsx.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<div>

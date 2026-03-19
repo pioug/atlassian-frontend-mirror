@@ -23,6 +23,9 @@
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/image/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/link-extractors/afm-products/tsconfig.json"
 		},
 		{
@@ -44,7 +47,13 @@
 			"path": "../../../linking-platform/smart-card/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/spotlight/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-products/tsconfig.json"
 		}
 	]
 }

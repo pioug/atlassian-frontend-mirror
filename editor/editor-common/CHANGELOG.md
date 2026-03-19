@@ -1,5 +1,64 @@
 # @atlaskit/editor-common
 
+## 112.5.0
+
+### Minor Changes
+
+- [`8b0c77d86d97f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b0c77d86d97f) - -
+  Created SmartLinkDraggableChangeboardPopover component
+  - Define i18n message text in editor-common
+  - Added skeleton code to SmartLinkDraggableInner component to easily incorportate new
+    changeboarding
+
+### Patch Changes
+
+- [`38a861ed1d4b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38a861ed1d4b7) -
+  [NO-ISSUE] Update text and icon in nested menu for ai section in blockmenu
+- [`d59ae43080757`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d59ae43080757) -
+  Fixed all ESlint no-casting-violations in editor common
+- [`8b781b3b3f9ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b781b3b3f9ca) -
+  Add setSmallText and setSmallTextWithAnalytics commands, modify setNormalText to remove fontSize
+  mark, add FORMAT_SMALL_TEXT analytics enum.
+
+  Add support to the renderer to render 'small text'.
+
+  Add 'fontSize' to stage0 default schema.
+
+- Updated dependencies
+
+## 112.4.4
+
+### Patch Changes
+
+- [`b6830be30e686`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6830be30e686) -
+  Cleaned up selection toolbar positioning code behind platform_editor_sel_toolbar_fix and
+  platform_editor_sel_toolbar_scroll_pos_fix_exp experiments
+- Updated dependencies
+
+## 112.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.4.2
+
+### Patch Changes
+
+- [`28c21aafd1dc3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28c21aafd1dc3) -
+  [NO-ISSUE] Added define into block menu with conditions
+- Updated dependencies
+
+## 112.4.1
+
+### Patch Changes
+
+- [`c66b769c701fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c66b769c701fa) -
+  [EDITOR-5935] Fix up requriements and design changes
+- [`be5f64b1c1011`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be5f64b1c1011) -
+  [ux] Patch for image editor tool bar border drop downUI size
+- Updated dependencies
+
 ## 112.4.0
 
 ### Minor Changes

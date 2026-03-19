@@ -30,7 +30,7 @@ export const useMultiBodiedExtensionActions = ({
 	eventDispatcher,
 	allowBodiedOverride,
 	childrenContainer,
-}: ActionsProps) => {
+}: ActionsProps): MultiBodiedExtensionActions => {
 	const actions: MultiBodiedExtensionActions = React.useMemo(() => {
 		return {
 			changeActive(index: number): boolean {

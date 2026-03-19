@@ -1,6 +1,32 @@
 import { defineMessages } from 'react-intl-next';
 
-export const selectionToolbarMessages = defineMessages({
+export const selectionToolbarMessages: {
+    toolbarAppears: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; toolbarPositionInline: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; toolbarPositionFixedAtTop: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; toolbarPositionUnpined: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; toolbarPositionPinedAtTop: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; toolbarPositionUnpinnedConcise: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	toolbarAppears: {
 		id: 'fabric.editor.toolbarAppears',
 		defaultMessage: 'Toolbar appears',

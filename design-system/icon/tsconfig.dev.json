@@ -35,7 +35,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__icon/dev",
+		"outDir": "../../../tsDist/@atlaskit__icon/dev"
 	},
 	"references": [
 		{
@@ -66,19 +66,10 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../form/tsconfig.app.json"
-		},
-		{
 			"path": "../heading/tsconfig.app.json"
 		},
 		{
-			"path": "../../media/icon-file-type/tsconfig.app.json"
-		},
-		{
 			"path": "../icon-lab/tsconfig.app.json"
-		},
-		{
-			"path": "../icon-object/tsconfig.app.json"
 		},
 		{
 			"path": "../link/tsconfig.app.json"
@@ -106,9 +97,6 @@
 		},
 		{
 			"path": "../theme/tsconfig.app.json"
-		},
-		{
-			"path": "../toggle/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

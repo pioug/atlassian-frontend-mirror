@@ -17,7 +17,7 @@ export function addLinkMetadata(
 	initialSelection: Selection,
 	tr: Transaction,
 	metadata: LinkStepMetadata,
-) {
+): Transaction {
 	const { storedMarks } = tr;
 	const pos = tr.mapping.map(initialSelection.$from.pos);
 	tr.step(new LinkMetaStep(pos, metadata));
@@ -30,7 +30,7 @@ export function addLinkMetadata(
 	return tr;
 }
 
-export function getLinkMetadataFromTransaction(tr: Transaction | ReadonlyTransaction) {
+export function getLinkMetadataFromTransaction(tr: Transaction | ReadonlyTransaction): LinkStepMetadata {
 	return tr.steps.reduce<LinkStepMetadata>((metadata, step) => {
 		if (!(step instanceof LinkMetaStep)) {
 			return metadata;

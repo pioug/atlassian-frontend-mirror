@@ -91,4 +91,5 @@ const EmojiNode = ({
 	);
 };
 
-export default React.memo(EmojiNode);
+const _default_1: React.MemoExoticComponent<({ allowTextFallback, shortName, id, fallback, fitToHeight, showTooltip, resourceConfig, emojiProvider, providers, }: EmojiProps) => React.JSX.Element> = React.memo(EmojiNode);
+export default _default_1;

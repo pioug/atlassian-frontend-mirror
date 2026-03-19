@@ -6,8 +6,9 @@ export default function Basic() {
 	const context = {
 		cloudId: 'example-cloud-id',
 		orgId: 'example-org-id',
-		openLinksInNewTab: true,
-		push: () => {},
+		forceExternalIntent: true,
+		navigate: () => {},
+		openPreviewPanel: () => {}
 	};
 
 	return (

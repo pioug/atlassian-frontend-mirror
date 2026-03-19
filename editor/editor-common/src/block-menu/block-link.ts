@@ -45,7 +45,7 @@ export const isBlockLinkHash = (
 export const extractBlockIdFromLinkHash = (
 	hash: string,
 	prefix: string = DEFAULT_BLOCK_LINK_HASH_PREFIX,
-) => {
+): string | null => {
 	if (!isBlockLinkHash(hash, prefix)) {
 		return null;
 	}

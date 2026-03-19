@@ -1,6 +1,24 @@
 import { defineMessages } from 'react-intl-next';
 
-export const highlightMessages = defineMessages({
+export const highlightMessages: {
+    highlight: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; highlightFloatingToolbar: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; removeColor: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; removeHighlight: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	highlight: {
 		id: 'fabric.editor.highlight',
 		defaultMessage: 'Highlight color',

@@ -57,7 +57,7 @@ export const generateDefaultGuidelines = (
 	editorWidth: number,
 	containerWidth: number,
 	isFullWidthMode: boolean | undefined = false,
-) => {
+): GuidelineConfig[] => {
 	const innerGrids = getDefaultGuidelines(editorWidth);
 	const wideGuidelines = !isFullWidthMode ? getWideGuidelines(editorWidth) : [];
 	const fullWidthGuidelines = !isFullWidthMode ? getFullWidthGuidelines(containerWidth) : [];

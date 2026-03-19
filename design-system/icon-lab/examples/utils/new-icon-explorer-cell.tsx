@@ -2,7 +2,7 @@ import React, { type ComponentType, type FC, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { IconTile } from '@atlaskit/icon';
-import legacyIconMetadata, { type coreIconMetadata } from '@atlaskit/icon/metadata';
+import { type coreIconMetadata } from '@atlaskit/icon/metadata';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -45,7 +45,6 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 	componentName,
 	package: packageName,
 	isNamedImport,
-	oldName,
 	categorization,
 	team,
 	usage,
@@ -81,25 +80,6 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 		'Owning team': team || 'TBD',
 		'Recommended usage': usage || '',
 	};
-
-	if (oldName && typeof oldName === 'string') {
-		((metadata['Legacy Icon name'] = oldName),
-			(metadata['Legacy Icon import'] =
-				Object.entries(legacyIconMetadata).find(
-					([_, value]) => value.componentName === oldName,
-				)?.[1].package || ''));
-	} else if (Array.isArray(oldName)) {
-		metadata['Legacy Icon names'] = oldName.join(', ');
-		metadata['Legacy Icon imports'] = oldName.reduce((acc, name) => {
-			const legacyIconImport =
-				Object.values(legacyIconMetadata).find((value) => value.componentName === name)?.package ||
-				undefined;
-			if (!acc && legacyIconImport) {
-				return legacyIconImport;
-			}
-			return legacyIconImport ? `${acc}, ${legacyIconImport}` : acc;
-		}, '');
-	}
 
 	const modal = (
 		<Modal onClose={closeModal}>

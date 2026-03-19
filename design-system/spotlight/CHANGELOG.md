@@ -1,5 +1,11 @@
 # @atlaskit/spotlight
 
+## 0.10.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.10.9
 
 ### Patch Changes

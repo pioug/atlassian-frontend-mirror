@@ -27,14 +27,13 @@ export const createFeatureFlaggedComponent: (
 			// Size defaults need to be set, as the temp library had different defaults
 			return <NewComponent size={size || 'medium'} {...props} />;
 		}
-
 		return <LegacyComponent size={size} {...props} />;
 	};
 };
 
 /**
  * Creates a feature flagged component that renders the legacy logo or the new logo
- * based on the platform-logo-rebrand-servco or platform-logo-rebrand feature flag.
+ * based on the platform-logo-rebrand feature flag.
  *
  * @param LegacyComponent - The legacy logo component.
  * @param NewComponent - The new logo component.
@@ -51,7 +50,6 @@ export const createFeatureFlaggedServiceCollectionComponent: (
 	// These props will be deprecated in the future
 	return ({ size, shouldUseNewLogoDesign, ...props }: LogoProps): React.JSX.Element => {
 		if (
-			fg('platform-logo-rebrand-servco') ||
 			fg('platform-logo-rebrand') ||
 			shouldUseNewLogoDesign
 		) {

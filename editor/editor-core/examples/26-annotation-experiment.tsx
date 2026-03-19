@@ -71,7 +71,11 @@ type State = {
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 export default class ExampleAnnotationExperiment extends React.Component<any, State> {
-	state = {
+	state: {
+        isInlineCommentsEnabled: boolean;
+        isDisallowOnWhiteSpaceEnabled: boolean;
+        annotationStates: Map<string, boolean>;
+    } = {
 		isInlineCommentsEnabled: true,
 		isDisallowOnWhiteSpaceEnabled: false,
 		annotationStates: new Map([
@@ -94,7 +98,13 @@ export default class ExampleAnnotationExperiment extends React.Component<any, St
 		]),
 	};
 
-	inlineCommentGetState = async (annotationsIds: string[]) => {
+	inlineCommentGetState = async (annotationsIds: string[]): Promise<{
+        id: string;
+        annotationType: AnnotationTypes;
+        state: {
+            resolved: boolean;
+        };
+    }[]> => {
 		const { annotationStates } = this.state;
 		return annotationsIds.map((id) => ({
 			id,

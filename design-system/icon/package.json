@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "32.1.0",
+	"version": "33.0.0",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -120,11 +120,6 @@
 		"./metadata": "./src/entry-points/metadata.tsx",
 		"./svg": "./src/entry-points/svg.tsx",
 		"./types": "./src/entry-points/types.tsx",
-		"./glyph": "./glyph",
-		"./glyph/*": {
-			"types": "./glyph/*.d.ts",
-			"default": "./glyph/*.js"
-		},
 		"./core": "./core",
 		"./core/*": {
 			"types": "./core/*.d.ts",

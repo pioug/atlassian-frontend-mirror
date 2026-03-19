@@ -11,6 +11,6 @@
 export const mediaInlineImagesEnabled = (
 	allowMediaInline?: boolean,
 	allowMediaInlineImages?: boolean,
-) => {
+): boolean | undefined => {
 	return allowMediaInline && allowMediaInlineImages;
 };

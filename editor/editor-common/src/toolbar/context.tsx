@@ -23,7 +23,7 @@ const EditorToolbarContext = createContext<EditorToolbarContextType>({
 /**
  * Access editor specific config and state within a toolbar component
  */
-export const useEditorToolbar = () => {
+export const useEditorToolbar = (): EditorToolbarContextType => {
 	const context = useContext(EditorToolbarContext);
 
 	if (!context) {

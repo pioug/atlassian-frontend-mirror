@@ -1,6 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
-export const avatarGroupMessages = defineMessages({
+export const avatarGroupMessages: {
+    editors: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; anonymousCollaborator: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	editors: {
 		id: 'fabric.editor.editors',
 		defaultMessage: 'Editors',

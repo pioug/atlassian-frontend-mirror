@@ -32,6 +32,8 @@ export enum SyncBlockError {
 	InvalidContent = 'invalid_content', // content is not a valid JSON
 	Offline = 'offline',
 	Unpublished = 'unpublished',
+	// request was aborted, typically due to client timeout
+	Aborted = 'aborted',
 }
 
 export interface SyncBlockData {
@@ -83,7 +85,7 @@ export type ReferencesSourceInfo = {
 	references?: Array<SyncBlockSourceInfo | undefined>;
 };
 
-export type DeletionReason = 'source-block-deleted' | 'source-block-unsynced';
+export type DeletionReason = 'source-block-deleted' | 'source-block-unsynced' | 'source-block-unpublished';
 export type DeletionReasonResponse = DeletionReason | 'source-document-deleted';
 
 export type SyncBlockPrefetchData = {

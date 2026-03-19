@@ -5,14 +5,40 @@
 import type { Ref } from 'react';
 import React, { forwardRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { defineMessages } from 'react-intl-next';
 
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
-export const messages = defineMessages({
+export const messages: {
+    loading: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; collapseNode: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; expandDefaultTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; expandNode: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; expandPlaceholderText: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; expandArialabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	loading: {
 		id: 'fabric.editor.expand.loading',
 		defaultMessage: 'Loading...',
@@ -50,7 +76,7 @@ export const messages = defineMessages({
 export const ExpandIconWrapper = ({
 	children,
 	expanded,
-}: React.HTMLAttributes<HTMLDivElement> & { expanded: boolean }) => {
+}: React.HTMLAttributes<HTMLDivElement> & { expanded: boolean }): jsx.JSX.Element => {
 	return (
 		<div
 			css={() =>
@@ -95,7 +121,7 @@ export const expandLayoutWrapperStyle: SerializedStyles = css({
 	height: token('space.300', '24px'),
 });
 
-export const ExpandLayoutWrapperWithRef = forwardRef(
+export const ExpandLayoutWrapperWithRef: React.ForwardRefExoticComponent<React.HTMLAttributes<HTMLDivElement> & React.RefAttributes<unknown>> = forwardRef(
 	(
 		{ children, ...otherProps }: React.HTMLAttributes<HTMLDivElement>,
 		// Ignored via go/ees005

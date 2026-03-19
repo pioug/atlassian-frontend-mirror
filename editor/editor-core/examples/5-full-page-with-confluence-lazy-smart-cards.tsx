@@ -1,3 +1,5 @@
+import type { JSX } from 'react';
+
 import { Example } from './5-full-page-with-confluence-smart-cards';
 
 const exampleDocument = {
@@ -72,4 +74,4 @@ const exampleDocument = {
 		]),
 };
 
-export default () => Example(exampleDocument);
+export default (): JSX.Element => Example(exampleDocument);

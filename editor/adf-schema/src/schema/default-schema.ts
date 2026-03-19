@@ -16,6 +16,7 @@ import {
 import type { SchemaConfig } from './create-schema';
 import { createSchema } from './create-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { fontSize } from './marks/font-size';
 
 type DefaultSchemaNodes =
 	| 'doc'
@@ -85,14 +86,21 @@ type DefaultSchemaMarks =
 	| 'indentation'
 	| 'annotation'
 	| 'border'
+	| 'fontSize'
 	| 'unsupportedMark'
 	| 'unsupportedNodeAttribute'
 	| 'typeAheadQuery'
 	| 'dataConsumer'
 	| 'fragment';
 
-const getDefaultSchemaConfig = (): SchemaConfig<DefaultSchemaNodes, DefaultSchemaMarks> => {
-	const defaultSchemaConfig: SchemaConfig<DefaultSchemaNodes, DefaultSchemaMarks> = {
+const getDefaultSchemaConfig = (): SchemaConfig<
+	DefaultSchemaNodes,
+	DefaultSchemaMarks
+> => {
+	const defaultSchemaConfig: SchemaConfig<
+		DefaultSchemaNodes,
+		DefaultSchemaMarks
+	> = {
 		nodes: [
 			'doc',
 			'paragraph',
@@ -171,8 +179,10 @@ const getDefaultSchemaConfig = (): SchemaConfig<DefaultSchemaNodes, DefaultSchem
 	return defaultSchemaConfig;
 };
 
-export const defaultSchemaConfig: SchemaConfig<DefaultSchemaNodes, DefaultSchemaMarks> =
-	getDefaultSchemaConfig();
+export const defaultSchemaConfig: SchemaConfig<
+	DefaultSchemaNodes,
+	DefaultSchemaMarks
+> = getDefaultSchemaConfig();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getSchemaBasedOnStage: MemoizedFn<
@@ -194,6 +204,9 @@ export const getSchemaBasedOnStage: MemoizedFn<
 				tableRow: tableRowWithNestedTable,
 				tableCell: tableCellWithNestedTable,
 				tableHeader: tableHeaderWithNestedTable,
+			};
+			defaultSchemaConfig.customMarkSpecs = {
+				fontSize: fontSize,
 			};
 		}
 

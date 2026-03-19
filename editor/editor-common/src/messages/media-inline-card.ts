@@ -1,5 +1,15 @@
 import { defineMessages } from 'react-intl-next';
-export const messages = defineMessages({
+export const messages: {
+    unableToLoadContent: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; failedToUpload: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	unableToLoadContent: {
 		id: 'fabric.editor.unableToLoadContent',
 		defaultMessage: "We couldn't load this content",

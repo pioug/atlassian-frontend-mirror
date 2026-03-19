@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import type { TableLayout } from '@atlaskit/adf-schema';
 import {
@@ -37,9 +37,17 @@ export const tableCellBorderWidth = 1;
 export const tableCellPadding = 8;
 export const tableResizeHandleWidth = 6;
 export const tablePadding = 8;
-export const tableControlsSpacing = tableMarginTop + tablePadding - tableCellBorderWidth;
+export const tableControlsSpacing: number = tableMarginTop + tablePadding - tableCellBorderWidth;
 
-export const TableSharedCssClassName = {
+export const TableSharedCssClassName: {
+    readonly TABLE_CONTAINER: "pm-table-container"; readonly TABLE_NODE_WRAPPER: "pm-table-wrapper"; readonly TABLE_NODE_WRAPPER_NO_OVERFLOW: "pm-table-wrapper-no-overflow"; readonly TABLE_SCROLL_INLINE_SHADOW: "pm-table-scroll-inline-shadow"; readonly TABLE_RIGHT_BORDER: "pm-table-right-border"; readonly TABLE_LEFT_BORDER: "pm-table-left-border"; readonly TABLE_LEFT_SHADOW: "pm-table-with-left-shadow"; readonly TABLE_RIGHT_SHADOW: "pm-table-with-right-shadow"; readonly TABLE_STICKY_SHADOW: "pm-table-sticky-shadow"; readonly TABLE_STICKY_WRAPPER: "pm-table-sticky-wrapper"; readonly TABLE_STICKY_SCROLLBAR_CONTAINER: "pm-table-sticky-scrollbar-container"; readonly TABLE_STICKY_SENTINEL_TOP: "pm-table-sticky-sentinel-top"; readonly TABLE_STICKY_SENTINEL_BOTTOM: "pm-table-sticky-sentinel-bottom"; readonly TABLE_STICKY_SCROLLBAR_SENTINEL_TOP: "pm-table-sticky-scrollbar-sentinel-top"; readonly TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM: "pm-table-sticky-scrollbar-sentinel-bottom"; readonly TABLE_SHADOW_SENTINEL_LEFT: "pm-table-shadow-sentinel-left"; readonly TABLE_SHADOW_SENTINEL_RIGHT: "pm-table-shadow-sentinel-right";
+    // eslint-disable-next-line @atlaskit/editor/no-re-export
+    readonly TABLE_CELL_NODEVIEW_CONTENT_DOM: "pm-table-cell-nodeview-content-dom";
+    // eslint-disable-next-line @atlaskit/editor/no-re-export
+    readonly TABLE_CELL_WRAPPER: "pm-table-cell-content-wrap";
+    // eslint-disable-next-line @atlaskit/editor/no-re-export
+    readonly TABLE_HEADER_CELL_WRAPPER: "pm-table-header-content-wrap"; readonly TABLE_ROW_CONTROLS_WRAPPER: "pm-table-row-controls-wrapper"; readonly TABLE_COLUMN_CONTROLS_DECORATIONS: "pm-table-column-controls-decoration"; readonly TABLE_RESIZER_CONTAINER: "pm-table-resizer-container";
+} = {
 	TABLE_CONTAINER: `${tablePrefixSelector}-container`,
 	TABLE_NODE_WRAPPER: `${tablePrefixSelector}-wrapper`,
 	TABLE_NODE_WRAPPER_NO_OVERFLOW: `${tablePrefixSelector}-wrapper-no-overflow`,
@@ -95,7 +103,7 @@ const firstNodeWithNotMarginTop = () =>
 				}
 			`;
 
-const tableSharedStyle = () => {
+const tableSharedStyle = (): SerializedStyles => {
 	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
 		? getBrowserInfo()
 		: browserLegacy;

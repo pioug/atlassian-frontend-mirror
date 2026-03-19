@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 5.1.2
+
+### Patch Changes
+
+- [`b6830be30e686`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6830be30e686) -
+  Removed experiment-gated calculateToolbarPosition prop and simplified selection toolbar position
+  calculation
+- Updated dependencies
+
+## 5.1.1
+
+### Patch Changes
+
+- [`11f2dadbd0b51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11f2dadbd0b51) -
+  Adjust z-index of selection toolbar, making it inline with menus and other high priority elements.
+- Updated dependencies
+
 ## 5.1.0
 
 ### Minor Changes

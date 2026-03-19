@@ -1,4 +1,197 @@
-export const exampleDocumentWithComments = {
+export const exampleDocumentWithComments: {
+    version: number; type: string; content: ({
+        type: string;
+        attrs: {
+            level: number;
+            isNumberColumnEnabled?: undefined;
+            layout?: undefined;
+        };
+        content: {
+            type: string;
+            text: string;
+        }[];
+    } | {
+        type: string;
+        content: {
+            type: string;
+            text: string;
+            marks: ({
+                type: string;
+                attrs?: undefined;
+            } | {
+                type: string;
+                attrs: {
+                    id: string;
+                    annotationType: string;
+                };
+            })[];
+        }[];
+        attrs?: undefined;
+    } | {
+        type: string;
+        content: ({
+            type: string;
+            content: {
+                type: string;
+                text: string;
+                marks: ({
+                    type: string;
+                    attrs?: undefined;
+                } | {
+                    type: string;
+                    attrs: {
+                        id: string;
+                        annotationType: string;
+                    };
+                })[];
+            }[];
+        } | {
+            type: string;
+            content: {
+                type: string;
+                text: string;
+            }[];
+        })[];
+        attrs?: undefined;
+    } | {
+        type: string;
+        content: ({
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    text: string;
+                    marks: ({
+                        type: string;
+                        attrs?: undefined;
+                    } | {
+                        type: string;
+                        attrs: {
+                            id: string;
+                            annotationType: string;
+                        };
+                    })[];
+                }[];
+            }[];
+        } | {
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    text: string;
+                }[];
+            }[];
+        })[];
+        attrs?: undefined;
+    } | {
+        type: string;
+        attrs: {
+            isNumberColumnEnabled: boolean;
+            layout: string;
+            level?: undefined;
+        };
+        content: ({
+            type: string;
+            content: {
+                type: string;
+                attrs: Record<string, never>;
+                content: {
+                    type: string;
+                    content: {
+                        type: string;
+                        text: string;
+                        marks: ({
+                            type: string;
+                            attrs?: undefined;
+                        } | {
+                            type: string;
+                            attrs: {
+                                id: string;
+                                annotationType: string;
+                            };
+                        })[];
+                    }[];
+                }[];
+            }[];
+        } | {
+            type: string;
+            content: {
+                type: string;
+                attrs: Record<string, never>;
+                content: {
+                    type: string;
+                    content: {
+                        type: string;
+                        text: string;
+                    }[];
+                }[];
+            }[];
+        })[];
+    } | {
+        type: string;
+        attrs: {
+            isNumberColumnEnabled: boolean;
+            layout: string;
+            level?: undefined;
+        };
+        content: {
+            type: string;
+            content: ({
+                type: string;
+                attrs: {
+                    colwidth: number[];
+                };
+                content: {
+                    type: string;
+                    content: {
+                        type: string;
+                        text: string;
+                        marks: {
+                            type: string;
+                        }[];
+                    }[];
+                }[];
+            } | {
+                type: string;
+                attrs: {
+                    colwidth: number[];
+                };
+                content: {
+                    type: string;
+                    content: {
+                        type: string;
+                        text: string;
+                        marks: {
+                            type: string;
+                            attrs: {
+                                id: string;
+                                annotationType: string;
+                            };
+                        }[];
+                    }[];
+                }[];
+            })[];
+        }[];
+    } | {
+        type: string;
+        content: ({
+            type: string;
+            text: string;
+            attrs?: undefined;
+        } | {
+            type: string;
+            attrs: {
+                shortName: string;
+                id: string;
+                text: string;
+            };
+            text?: undefined;
+        })[];
+        attrs?: undefined;
+    })[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

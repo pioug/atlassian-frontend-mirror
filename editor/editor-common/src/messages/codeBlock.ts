@@ -1,6 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
-export const codeBlockMessages = defineMessages({
+export const codeBlockMessages: {
+    codeblockLanguageAriaDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; codeBlockLanguageNotSet: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	codeblockLanguageAriaDescription: {
 		id: 'fabric.editor.codeBlock.languageAriaDescription',
 		defaultMessage: 'Code snippet language: {language}.',

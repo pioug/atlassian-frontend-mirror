@@ -5,7 +5,7 @@
  */
 import { PureComponent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
 import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers';
@@ -241,7 +241,7 @@ const SAVE_ACTION = () => console.log('Save');
 const mentionProvider = new Promise<any>((resolve) => resolve(mentionResourceProvider));
 const emojiProvider = getEmojiProvider();
 
-export default function Example() {
+export default function Example(): jsx.JSX.Element {
 	return (
 		<div>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}

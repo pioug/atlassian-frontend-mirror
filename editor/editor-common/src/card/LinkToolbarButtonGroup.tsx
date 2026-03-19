@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -56,7 +56,7 @@ export interface LinkToolbarButtonGroupProps {
 	options: ButtonOptionProps[];
 }
 
-export const LinkToolbarButtonGroup = ({ options }: LinkToolbarButtonGroupProps) => {
+export const LinkToolbarButtonGroup = ({ options }: LinkToolbarButtonGroupProps): jsx.JSX.Element => {
 	return (
 		<ButtonGroup>
 			{options.map(

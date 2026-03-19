@@ -8,6 +8,6 @@ type ReactEditorViewContextProps = {
 	popupsMountPoint?: HTMLElement | undefined;
 };
 
-const ReactEditorViewContext = React.createContext<ReactEditorViewContextProps>({});
+const ReactEditorViewContext: React.Context<ReactEditorViewContextProps> = React.createContext<ReactEditorViewContextProps>({});
 
 export default ReactEditorViewContext;

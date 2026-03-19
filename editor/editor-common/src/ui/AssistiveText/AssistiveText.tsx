@@ -5,7 +5,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 
@@ -35,7 +35,7 @@ export const AssistiveText = ({
 	isInFocus = false,
 	id = '',
 	statusDebounceMillis: _statusDebounceMillis = 1400,
-}: AssistiveTextProps) => {
+}: AssistiveTextProps): jsx.JSX.Element => {
 	const [bump, setBump] = useState(false);
 	const [debounced, setDebounced] = useState(false);
 	const [silenced, setSilenced] = useState(false);

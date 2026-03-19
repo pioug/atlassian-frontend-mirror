@@ -4,9 +4,9 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -41,7 +41,7 @@ type Props = {
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class CaptionComponent extends React.Component<Props & WrappedComponentProps> {
-	render() {
+	render(): jsx.JSX.Element {
 		const {
 			selected,
 			hasContent,
@@ -72,4 +72,8 @@ export class CaptionComponent extends React.Component<Props & WrappedComponentPr
 	}
 }
 
-export default injectIntl(CaptionComponent);
+// eslint-disable-next-line @typescript-eslint/ban-types
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(CaptionComponent);
+export default _default_1;

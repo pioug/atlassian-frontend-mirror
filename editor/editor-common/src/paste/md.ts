@@ -7,7 +7,7 @@ import linkify from './md-plugins/linkify-md-plugin';
 import newline from './md-plugins/newline-md-plugin';
 import paragraph from './md-plugins/paragraph-md-plugin';
 
-export const md = MarkdownIt('zero', { html: false });
+export const md: MarkdownIt = MarkdownIt('zero', { html: false });
 
 md.enable([
 	// Process html entity - &#123;, &#xAF;, &quot;, ...

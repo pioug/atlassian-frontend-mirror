@@ -32,6 +32,7 @@
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/node-data-provider": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"graphql-ws": "root:*",
@@ -83,7 +84,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "4.0.0",
+	"version": "4.1.0",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

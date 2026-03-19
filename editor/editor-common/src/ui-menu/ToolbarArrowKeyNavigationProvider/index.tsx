@@ -5,7 +5,7 @@
 import type { ReactNode } from 'react';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next/src/types';
 
@@ -29,7 +29,7 @@ export interface KeyDownHandlerContext {
  **  Because the keyboard navigation is explicitly managed for main toolbar items
  **  Few key presses such as Tab,Arrow Right/Left need ot be handled here via context
  */
-export const KeyDownHandlerContext = React.createContext<KeyDownHandlerContext>({
+export const KeyDownHandlerContext: React.Context<KeyDownHandlerContext> = React.createContext<KeyDownHandlerContext>({
 	handleArrowLeft: () => {},
 	handleArrowRight: () => {},
 	handleTab: () => {},
@@ -68,7 +68,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
 	intl: IntlShape;
 	isShortcutToFocusToolbar?: (event: KeyboardEvent) => boolean;
 	useStickyToolbar?: UseStickyToolbarType;
-}) => {
+}): jsx.JSX.Element => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const selectedItemIndex = useRef(0);
 

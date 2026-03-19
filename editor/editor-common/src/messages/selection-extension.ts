@@ -1,5 +1,15 @@
 import { defineMessages } from 'react-intl-next';
-export const selectionExtensionMessages = defineMessages({
+export const selectionExtensionMessages: {
+    selectionExtensionDropdownButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; externalExtensionsHeading: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	selectionExtensionDropdownButtonLabel: {
 		id: 'fabric.editor.selectionExtensionDropdownButtonLabel',
 		defaultMessage: 'Select app',

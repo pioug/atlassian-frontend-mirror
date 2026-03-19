@@ -10,7 +10,6 @@ import ChevronDownIcon from '../core/chevron-down';
 const iconContainerStyles = xcss({
 	border: '1px dashed',
 	borderRadius: 'radius.small',
-	lineHeight: '0',
 	borderColor: 'color.border.accent.magenta',
 });
 const IconContainer = ({ children }: { children: React.ReactChild }) => (
@@ -22,7 +21,7 @@ const styles = xcss({ padding: 'space.200' });
 const IconSizeExample = (): React.JSX.Element => {
 	return (
 		<Stack space="space.200" alignInline="start" xcss={styles}>
-			<Heading size="small">Icon spacing, and fallbacks</Heading>
+			<Heading size="small">Icon spacing</Heading>
 
 			<Inline space="space.100">
 				<IconContainer>
@@ -44,19 +43,6 @@ const IconSizeExample = (): React.JSX.Element => {
 					<AppIcon label="" spacing="spacious" />
 				</IconContainer>
 				New icons
-			</Inline>
-
-			<Inline space="space.100">
-				<IconContainer>
-					<ChevronDownIcon label="" size="small" />
-				</IconContainer>
-				<IconContainer>
-					<AppIcon label="" spacing="none" />
-				</IconContainer>
-				<IconContainer>
-					<AppIcon label="" spacing="spacious" />
-				</IconContainer>
-				New icons with legacy fallback (feature flagged)
 			</Inline>
 		</Stack>
 	);

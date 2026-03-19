@@ -71,7 +71,7 @@ export class AnnotationUpdateEmitter {
 		return this.emitter.removeListener(event, listener);
 	}
 
-	listeners(event: AnnotationUpdateEvent) {
+	listeners(event: AnnotationUpdateEvent): Function[] {
 		return this.emitter.listeners(event);
 	}
 }

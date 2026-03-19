@@ -46,6 +46,10 @@ const errorMap: Record<string, ErrorInfo> = {
 		description: messages.sourceDeletedDescription,
 		icon: LinkBrokenIcon,
 	},
+	'source-block-unpublished': {
+		description: messages.sourceDeletedDescription,
+		icon: LinkBrokenIcon,
+	},
 	'source-document-deleted': {
 		description: messages.notFoundDescription,
 		icon: EyeOpenStrikethroughIcon,
@@ -98,8 +102,8 @@ export const SyncedBlockNotFoundError = ({
 	useEffect(() => {
 		if (
 			!sourceAri ||
-			// Only fetch source info for these 2 cases
-			!['source-block-deleted', 'source-block-unsynced'].includes(reason)
+			// Only fetch source info for these 3 cases
+			!['source-block-deleted', 'source-block-unsynced', 'source-block-unpublished'].includes(reason)
 		) {
 			setSourceInfo({});
 			return;

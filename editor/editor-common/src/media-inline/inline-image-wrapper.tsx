@@ -4,7 +4,7 @@
  */
 import type { CSSProperties, ReactElement } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
@@ -47,7 +47,7 @@ export const InlineImageWrapper = ({
 	borderColor,
 	htmlAttrs = {},
 	onClick,
-}: React.PropsWithChildren<Props>) => {
+}: React.PropsWithChildren<Props>): jsx.JSX.Element => {
 	const borderStyleVars =
 		borderSize && borderColor
 			? ({

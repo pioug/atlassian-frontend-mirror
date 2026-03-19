@@ -1,6 +1,25 @@
 import { defineMessages } from 'react-intl-next';
 
-export const sortingIconMessages = defineMessages({
+export const sortingIconMessages: {
+    noOrderLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; ascOrderLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; descOrderLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; invalidLabel: {
+        id: string;
+        // eslint-disable-next-line @atlassian/i18n/no-multiple-whitespaces
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	noOrderLabel: {
 		id: 'fabric.editor.headingLink.noOrderLabel',
 		defaultMessage: 'Sort column A to Z',
@@ -24,7 +43,29 @@ export const sortingIconMessages = defineMessages({
 	},
 });
 
-export const sortingAriaLabelMessages = defineMessages({
+export const sortingAriaLabelMessages: {
+    noOrderLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; ascOrderLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; descOrderLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; invalidLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; defaultLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	noOrderLabel: {
 		id: 'fabric.editor.tableHeader.sorting.no',
 		defaultMessage: 'No sort applied to the column',

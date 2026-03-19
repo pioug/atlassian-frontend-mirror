@@ -6,7 +6,21 @@ import { defineMessages } from 'react-intl-next';
  * @private
  * @deprecated
  */
-export const messages = defineMessages({
+export const messages: {
+    copyBlock: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; deleteBlock: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; turnInto: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	copyBlock: {
 		id: 'fabric.editor.block.menu.copy.block',
 		defaultMessage: 'Copy block',

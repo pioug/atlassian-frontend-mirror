@@ -188,15 +188,6 @@ const styles = cssMap({
 		height: '1.5rem',
 		width: '1.5rem',
 	},
-	// -- Remove these platform-button-icon-spacing-cleanup is removed
-	buttonIconBeforeWithHack: {
-		paddingInlineStart: token('space.100'),
-	},
-	buttonIconAfterWithHack: {
-		paddingInlineEnd: token('space.100'),
-	},
-	// ----------
-	// -- Keep these platform-button-icon-spacing-cleanup is removed
 	buttonIconBefore: {
 		paddingInlineStart: token('space.150'),
 		columnGap: token('space.075'),
@@ -205,7 +196,6 @@ const styles = cssMap({
 		paddingInlineEnd: token('space.150'),
 		columnGap: token('space.075'),
 	},
-	// ----------
 	splitButton: {
 		'&:focus-visible': {
 			zIndex: 100,
@@ -666,14 +656,8 @@ const ButtonBase: React.ForwardRefExoticComponent<
 						fg('platform-dst-shape-theme-default') &&
 						styles.spacingCompactT26Shape,
 					shouldFitContainer && styles.fullWidth,
-					hasIconBefore &&
-						!fg('platform-button-icon-spacing-cleanup') &&
-						styles.buttonIconBeforeWithHack, //TODO Remove when platform-button-icon-spacing-cleanup is removed
-					hasIconAfter &&
-						!fg('platform-button-icon-spacing-cleanup') &&
-						styles.buttonIconAfterWithHack, //TODO Remove when platform-button-icon-spacing-cleanup is removed
-					hasIconBefore && fg('platform-button-icon-spacing-cleanup') && styles.buttonIconBefore, //to keep when platform-button-icon-spacing-cleanup is removed
-					hasIconAfter && fg('platform-button-icon-spacing-cleanup') && styles.buttonIconAfter, //to keep when platform-button-icon-spacing-cleanup is removed
+					hasIconBefore && styles.buttonIconBefore,
+					hasIconAfter && styles.buttonIconAfter,
 					isIconButton && styles.iconButton,
 					isIconButton && spacing === 'compact' && styles.iconButtonCompact,
 					isLoading && styles.loading,

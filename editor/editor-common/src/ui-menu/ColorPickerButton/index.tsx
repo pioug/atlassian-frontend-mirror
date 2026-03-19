@@ -8,7 +8,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import Button from '@atlaskit/button/new';
@@ -311,6 +311,31 @@ const ColorPickerButton = (props: Props) => {
 	);
 };
 
-export default withAnalyticsContext({ source: 'ConfigPanel' })(
-	withAnalyticsEvents()(ColorPickerButton),
+const _default_1: React.ForwardRefExoticComponent<Omit<Omit<{
+    absoluteOffset?: PopupPosition;
+    alignX?: "left" | "right" | "center" | "end";
+    colorPalette: PaletteColor[];
+    cols?: number;
+    currentColor?: string;
+    hexToPaletteColor?: (hexColor: string) => string | undefined;
+    isAriaExpanded?: boolean;
+    mountPoint?: HTMLElement;
+    onChange?: (color: PaletteColor) => void;
+    paletteColorTooltipMessages?: PaletteTooltipMessages;
+    placement: string;
+    returnEscToButton?: boolean;
+    setDisableParentScroll?: (disable: boolean) => void;
+    size?: {
+        height: string;
+        width: string;
+    };
+    /**
+     * After picking the color the default behaviour is to focus the color picker button.
+     * To prevent this use skipFocusButtonAfterPick.
+     */
+    skipFocusButtonAfterPick?: boolean;
+    title?: string;
+}, keyof WithAnalyticsEventsProps> & React.RefAttributes<unknown> & WithContextProps, "ref"> & React.RefAttributes<unknown>> = withAnalyticsContext({ source: 'ConfigPanel' })(
+    withAnalyticsEvents()(ColorPickerButton)
 );
+export default _default_1;

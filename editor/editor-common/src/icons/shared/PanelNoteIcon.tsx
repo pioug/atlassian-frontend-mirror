@@ -38,7 +38,7 @@ const PanelNoteGlyph = ({ role }: PanelNoteGlyphProps) => {
 	);
 };
 
-export const PanelNoteIcon = (props: GlyphProps) => {
+export const PanelNoteIcon = (props: GlyphProps): JSX.Element => {
 	return (
 		<span
 			role={props.label ? 'img' : undefined}

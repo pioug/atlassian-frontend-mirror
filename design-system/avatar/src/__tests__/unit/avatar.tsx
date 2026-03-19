@@ -1,7 +1,5 @@
 import React, { type FC } from 'react';
 
-import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
@@ -11,6 +9,8 @@ import {
 	UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import Avatar, { AvatarContent, AvatarContext, type SizeType } from '../../index';
 
@@ -564,6 +564,19 @@ describe('Avatar', () => {
 			});
 		});
 	});
+
+	ffTest.on(
+		'avatar-custom-border',
+		'should apply borderColor as background (not backgroundColor) to support gradients',
+		() => {
+			it('should use background shorthand when avatar-custom-border is enabled', () => {
+				render(<Avatar testId={testId} borderColor="foo-bar" />);
+				const element = screen.getByTestId(`${testId}--inner`);
+
+				expect(element).toHaveCompiledCss({ background: 'foo-bar' });
+			});
+		},
+	);
 
 	describe('AvatarContent composition', () => {
 		it('should render custom avatar content when composed with AvatarContent', () => {

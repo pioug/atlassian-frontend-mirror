@@ -1,6 +1,92 @@
 import { defineMessages } from 'react-intl-next';
 
-export const aiSuggestionsMessages = defineMessages({
+export const aiSuggestionsMessages: {
+    suggestionsToolbarButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; suggestionsToolbarButtonLoadingLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; suggestionsToolbarButtonReadyLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; suggestionsToolbarButtonErrorLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; previewLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; viewLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; titleLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; reviewNote: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; applyChangesButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; fetchSuggestionsButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; fetchSuggestionsButtonLoadingLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; originalViewLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; suggestedLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; suggestionsLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; cardExpandButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; cardCollapseButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; cardCloseButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; cardRovoTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; cardPrivateLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; cardAcceptButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; cardDiscardButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	suggestionsToolbarButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.toolbarButton.label.non-final',
 		defaultMessage: 'Suggestions',

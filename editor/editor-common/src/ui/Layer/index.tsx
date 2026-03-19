@@ -104,7 +104,7 @@ export default class Layer extends Component<Props, State> {
 		currentHeight: number,
 		positionTop: number,
 		cssPosition: string,
-	) {
+	): number | null {
 		let DocumentElementClientHeight = 0;
 
 		if (document.documentElement) {

@@ -3,7 +3,6 @@ import React from 'react';
 import { bind } from 'bind-event-listener';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { calculateToolbarPositionTrackHead } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -14,7 +13,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { getSelectionToolbarOpenExperiencePlugin } from './pm-plugins/experiences/selection-toolbar-open-experience';
 import { editorToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { EditorToolbarPluginState, ToolbarPlugin } from './toolbarPluginType';
-import { DEFAULT_POPUP_SELECTORS, SELECTION_TOOLBAR_LABEL } from './ui/consts';
+import { DEFAULT_POPUP_SELECTORS } from './ui/consts';
 import { SelectionToolbarWithErrorBoundary } from './ui/SelectionToolbar';
 import { getToolbarComponents } from './ui/toolbar-components';
 import { isEventInContainer } from './ui/utils/toolbar';
@@ -96,14 +95,6 @@ export const toolbarPlugin: ToolbarPlugin = ({
 	const registry = createComponentRegistry();
 
 	registry.register(getToolbarComponents(contextualFormattingEnabled, api, breakpointPreset));
-
-	const cachedCalculateToolbarPosition = expValEquals(
-		'platform_editor_sel_toolbar_fix',
-		'isEnabled',
-		true,
-	)
-		? calculateToolbarPositionTrackHead(SELECTION_TOOLBAR_LABEL)
-		: undefined;
 
 	return {
 		name: 'toolbar',
@@ -270,7 +261,6 @@ export const toolbarPlugin: ToolbarPlugin = ({
 							editorView={editorView}
 							mountPoint={popupsMountPoint}
 							disableSelectionToolbarWhenPinned={disableSelectionToolbarWhenPinned ?? false}
-							calculateToolbarPosition={cachedCalculateToolbarPosition}
 						/>
 					);
 				}

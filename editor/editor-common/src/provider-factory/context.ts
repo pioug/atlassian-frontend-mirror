@@ -5,9 +5,9 @@ import { type ProviderType } from './types';
 
 const ProviderFactoryContext = React.createContext<ProviderFactory>(new ProviderFactory());
 
-export const ProviderFactoryProvider = ProviderFactoryContext.Provider;
+export const ProviderFactoryProvider: React.Provider<ProviderFactory> = ProviderFactoryContext.Provider;
 
-export const useProviderFactory = () => React.useContext(ProviderFactoryContext);
+export const useProviderFactory = (): ProviderFactory => React.useContext(ProviderFactoryContext);
 
 export const useProvider = <T extends string>(name: T): ProviderType<typeof name> | undefined => {
 	const [provider, setProvider] = React.useState<ProviderType<typeof name>>();

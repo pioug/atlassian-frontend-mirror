@@ -176,11 +176,13 @@ const getCommentFromConversation = (
 	return comment;
 };
 
-export const initialState = {
+export const initialState: {
+    conversations: never[];
+} = {
 	conversations: [],
 };
 
-export const reducers = createReducer(initialState, {
+export const reducers: (state: State | undefined, action: Action) => State = createReducer(initialState, {
 	[FETCH_CONVERSATIONS_REQUEST](state: State) {
 		return {
 			...state,

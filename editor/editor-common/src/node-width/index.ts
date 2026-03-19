@@ -23,7 +23,14 @@ const GRID_SIZE = 8;
 const NESTED_DND_GUTTER_OFFSET = 8;
 const NESTED_DND_MARGIN_OFFSET = 12;
 
-export const layoutToWidth = {
+export const layoutToWidth: {
+    // eslint-disable-next-line @atlaskit/editor/no-re-export
+    default: number;
+    // eslint-disable-next-line @atlaskit/editor/no-re-export
+    wide: number;
+    // eslint-disable-next-line @atlaskit/editor/no-re-export
+    'full-width': number;
+} = {
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	default: akEditorDefaultLayoutWidth,
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
@@ -41,7 +48,7 @@ export const getParentNodeWidth = (
 	state: EditorState,
 	containerWidth: EditorContainerWidth,
 	isFullWidthModeEnabled?: boolean,
-) => {
+): number | undefined => {
 	if (!pos) {
 		return;
 	}

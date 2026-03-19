@@ -5,23 +5,12 @@ import { render } from '@testing-library/react';
 import { autoA11yCheck } from '@af/accessibility-testing';
 
 import AddIcon from '../../../../core/add';
-import LikeIcon from '../../../../glyph/like';
 import SVG from '../../../entry-points/svg';
 import Icon from '../../../index';
 import type { CustomGlyphProps, SVGProps } from '../../../types';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Old icons', () => {
-	it('Basic icon with empty label string should not fail aXe audit', async () => {
-		render(<LikeIcon label="" />);
-		await autoA11yCheck();
-	});
-
-	it('Basic icon with label string should not fail aXe audit', async () => {
-		render(<LikeIcon label="Like" />);
-		await autoA11yCheck();
-	});
-
 	it('Custom icon should not fail aXe audit', async () => {
 		const CustomGlyph = (props: CustomGlyphProps) => (
 			<svg

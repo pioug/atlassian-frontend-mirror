@@ -50,11 +50,6 @@ interface metadata {
 	slackChannel?: string;
 
 	/**
-	 * A list of keys for old icons that have been replaced by this icon
-	 */
-	oldName?: string[];
-
-	/**
 	 * A replacement icon if this icon has been deprecated
 	 */
 	replacement?: {
@@ -5248,7 +5243,6 @@ const metadata: Record<string, metadata> = {
 		keywords: ['roadmaps-plan', 'roadmapsplan', 'icon', 'icon-lab', 'roadmaps', 'plan'],
 		componentName: 'RoadmapsPlanIcon',
 		package: '@atlaskit/icon-lab/core/roadmaps-plan',
-		oldName: ['bitbucket/builds'],
 		replacement: { name: 'plan', location: '@atlaskit/icon-lab' },
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing plans.',
@@ -5267,7 +5261,6 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'RoadmapsServiceIcon',
 		package: '@atlaskit/icon-lab/core/roadmaps-service',
-		oldName: ['bitbucket/forks'],
 		replacement: { name: 'service', location: '@atlaskit/icon-lab' },
 		categorization: 'single-purpose',
 		usage: 'Reserved for roadmaps service.',

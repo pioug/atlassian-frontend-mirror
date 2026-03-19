@@ -1,7 +1,10 @@
 import type { IntlShape } from 'react-intl-next';
 import { defineMessages } from 'react-intl-next';
 
-export function getCategories(intl: IntlShape) {
+export function getCategories(intl: IntlShape): {
+    title: string;
+    name: string;
+}[] {
 	return [
 		{
 			title: intl.formatMessage(messages.all),

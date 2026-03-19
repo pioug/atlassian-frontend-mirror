@@ -5,7 +5,7 @@
 
 import { useCallback, useEffect, useRef, useState, type SyntheticEvent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
@@ -74,7 +74,7 @@ export interface TableSelectorPopupProps {
 	target?: HTMLElement;
 }
 
-export const TableSelectorPopup = (props: TableSelectorPopupProps) => {
+export const TableSelectorPopup = (props: TableSelectorPopupProps): jsx.JSX.Element => {
 	const [size, setSize] = useState({ ...initialSizeState, ...props.defaultSize });
 
 	const tablePopupRef = useRef(null);

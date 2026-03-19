@@ -13,15 +13,15 @@ import type { InputMethodInsertLink } from '../analytics/types/insert-events';
 import { shouldAutoLinkifyMatch } from './should-auto-linkify-tld';
 import { mapSlice } from './slice';
 
+/* eslint-disable require-unicode-regexp -- Omit `u` so emitDeclarationOnly build (pre-ES2015 lib) does not error TS1501; patterns are ASCII-only paths and $/{ prefix. */
 // Regular expression for a windows filepath in the format <DRIVE LETTER>:\<folder name>\
 // Ignored via go/ees005
-// eslint-disable-next-line require-unicode-regexp
-export const FILEPATH_REGEXP = /([a-zA-Z]:|\\)([^\/:*?<>"|]+\\)?([^\/:*?<>"| ]+(?=\s?))?/gim;
+export const FILEPATH_REGEXP: RegExp = /([a-zA-Z]:|\\)([^\/:*?<>"|]+\\)?([^\/:*?<>"| ]+(?=\s?))?/gim;
 
 // Don't linkify if starts with $ or {
 // Ignored via go/ees005
-// eslint-disable-next-line require-unicode-regexp
-export const DONTLINKIFY_REGEXP = /^(\$|{)/;
+export const DONTLINKIFY_REGEXP: RegExp = /^(\$|\{)/;
+/* eslint-enable require-unicode-regexp */
 
 /**
  * Instance of class LinkMatcher are used in autoformatting in place of Regex.
@@ -122,6 +122,7 @@ export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
 		});
 }
 
+// eslint-disable-next-line jsdoc/require-jsdoc
 export function getLinkDomain(url: string): string {
 	// Remove protocol and www., if either exists
 	// Ignored via go/ees005
@@ -137,6 +138,7 @@ export function getLinkDomain(url: string): string {
 	return withoutWWW.replace(/[:\/?#](.*)$/, '');
 }
 
+// eslint-disable-next-line jsdoc/require-jsdoc
 export function isFromCurrentDomain(url: string): boolean {
 	if (!window || !window.location) {
 		return false;
@@ -166,7 +168,7 @@ interface filepathMatch {
 export const findFilepaths = (text: string, offset: number = 0): Array<filepathMatch> => {
 	// Creation of a copy of the RegExp is necessary as lastIndex is stored on it when we run .exec()
 	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
+	// eslint-disable-next-line require-unicode-regexp -- Ignored via go/ees005
 	const localRegExp = new RegExp(FILEPATH_REGEXP);
 	let match;
 	const matchesList: filepathMatch[] = [];
@@ -196,6 +198,7 @@ export const isLinkInMatches = (linkStart: number, matchesList: Array<filepathMa
 	return false;
 };
 
+// eslint-disable-next-line jsdoc/require-jsdoc
 export function getLinkCreationAnalyticsEvent(
 	inputMethod: InputMethodInsertLink,
 	url: string,

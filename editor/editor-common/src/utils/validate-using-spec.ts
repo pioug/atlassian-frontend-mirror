@@ -44,7 +44,12 @@ export const validationErrorHandler = (
 	marks: string[],
 	validate: Validate,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-) => {
+): ADFEntity | {
+        type: string;
+        attrs: {
+            originalValue: ADFEntity;
+        };
+    } | undefined => {
 	if (entity && entity.type === UNSUPPORTED_NODE_ATTRIBUTE) {
 		return entity;
 	}
@@ -211,7 +216,12 @@ export const validateADFEntity = (
 export function wrapWithUnsupported(
 	originalValue: ADFEntity,
 	type: 'block' | 'inline' | 'mark' = 'block',
-) {
+): {
+    type: string;
+    attrs: {
+        originalValue: ADFEntity;
+    };
+} {
 	let unsupportedNodeType: string;
 	switch (type) {
 		case 'inline':

@@ -1,5 +1,23 @@
 # @atlaskit/rovo-agent-components
 
+## 3.46.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.46.0
+
+### Minor Changes
+
+- [`d4c66fd8ab94f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4c66fd8ab94f) -
+  Add agentName to LinkIconButton and StarIconButton labels for unique accessible names across agent
+  cards
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.45.0
 
 ### Minor Changes

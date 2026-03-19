@@ -116,15 +116,19 @@ export class GapCursorSelection extends Selection {
 		return other instanceof GapCursorSelection && other.head === this.head;
 	}
 
-	content() {
+	content(): Slice {
 		return Slice.empty;
 	}
 
-	getBookmark() {
+	getBookmark(): GapBookmark {
 		return new GapBookmark(this.anchor);
 	}
 
-	toJSON() {
+	toJSON(): {
+        pos: number;
+        type: string;
+        side: Side;
+    } {
 		return { pos: this.head, type: JSON_ID, side: this.side };
 	}
 }
@@ -136,7 +140,7 @@ export class GapBookmark {
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	map(mapping: any) {
+	map(mapping: any): GapBookmark {
 		return new GapBookmark(mapping.map(this.pos));
 	}
 

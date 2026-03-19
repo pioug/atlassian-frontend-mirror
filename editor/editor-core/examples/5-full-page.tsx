@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 
 import { FullPageBase } from '@af/editor-examples-helpers/example-presets';
@@ -24,7 +24,7 @@ export {
 	PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
 } from '@af/editor-examples-helpers/example-presets';
 
-const FullPageExample = (props: ExampleProps) => {
+const FullPageExample = (props: ExampleProps): jsx.JSX.Element => {
 	return <FullPageBase {...props} />;
 };
 

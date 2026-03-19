@@ -1,4 +1,32 @@
-export const statusADF = {
+export const statusADF: {
+    version: number; type: string; content: {
+        type: string;
+        content: ({
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    attrs: {
+                        text: string;
+                        color: string;
+                        localId: string;
+                        style: string;
+                    };
+                }[];
+            }[];
+        } | {
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    text: string;
+                }[];
+            }[];
+        })[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -43,7 +71,32 @@ export const statusADF = {
 	],
 };
 
-export const dateADF = {
+export const dateADF: {
+    version: number; type: string; content: {
+        type: string;
+        content: ({
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    attrs: {
+                        timestamp: string;
+                    };
+                }[];
+            }[];
+        } | {
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    text: string;
+                }[];
+            }[];
+        })[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -85,7 +138,34 @@ export const dateADF = {
 	],
 };
 
-export const emojiADF = {
+export const emojiADF: {
+    version: number; type: string; content: {
+        type: string;
+        content: ({
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    attrs: {
+                        shortName: string;
+                        id: string;
+                        text: string;
+                    };
+                }[];
+            }[];
+        } | {
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    text: string;
+                }[];
+            }[];
+        })[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -129,7 +209,45 @@ export const emojiADF = {
 	],
 };
 
-export const inlineExtensionADF = {
+export const inlineExtensionADF: {
+    version: number; type: string; content: {
+        type: string;
+        content: ({
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    attrs: {
+                        extensionType: string;
+                        extensionKey: string;
+                        parameters: {
+                            macroParams: {};
+                            macroMetadata: {
+                                placeholder: {
+                                    data: {
+                                        url: string;
+                                    };
+                                    type: string;
+                                }[];
+                            };
+                        };
+                        text: string;
+                    };
+                }[];
+            }[];
+        } | {
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    text: string;
+                }[];
+            }[];
+        })[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -186,7 +304,35 @@ export const inlineExtensionADF = {
 	],
 };
 
-export const mentionADF = {
+export const mentionADF: {
+    version: number; type: string; content: {
+        type: string;
+        content: ({
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    attrs: {
+                        id: string;
+                        text: string;
+                        accessLevel: string;
+                        userType: null;
+                    };
+                }[];
+            }[];
+        } | {
+            type: string;
+            content: {
+                type: string;
+                content: {
+                    type: string;
+                    text: string;
+                }[];
+            }[];
+        })[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -231,7 +377,19 @@ export const mentionADF = {
 	],
 };
 
-export const multipleMentionsADF = {
+export const multipleMentionsADF: {
+    version: number; type: string; content: {
+        type: string;
+        content: {
+            type: string;
+            attrs: {
+                id: string;
+                text: string;
+                accessLevel: string;
+            };
+        }[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

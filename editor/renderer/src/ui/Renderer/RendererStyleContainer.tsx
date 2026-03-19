@@ -115,6 +115,21 @@ const baseFontStyle = css({
 	font: editorUGCToken('editor.font.body'),
 });
 
+const smallTextStyle = css({
+	'--ak-renderer-editor-font-small-text': editorUGCToken('editor.font.body.small'),
+});
+
+const fontSizeStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.fabric-editor-font-size': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		"&[data-font-size='small']": {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			font: 'var(--ak-renderer-editor-font-small-text)',
+		},
+	},
+});
+
 const originalBaseFontLineHeight = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '1.5rem',
@@ -2961,6 +2976,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					? baseFontStyle
 					: originalBaseFontLineHeight,
 				baseStyles,
+				expValEquals('platform_editor_small_font_size', 'isEnabled', true) && smallTextStyle,
+				expValEquals('platform_editor_small_font_size', 'isEnabled', true) && fontSizeStyles,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? headingAnchorStyles
 					: headingAnchorStylesDuplicateAnchor,

@@ -23,7 +23,7 @@ export enum LookDirection {
 export const normaliseNestedLayout = (
 	{ selection, doc }: EditorState | Transaction,
 	node: Node,
-) => {
+): Node => {
 	if (selection.$from.depth > 1) {
 		if (node.attrs.layout && node.attrs.layout !== 'default') {
 			return node.type.createChecked(
@@ -112,7 +112,7 @@ const shouldSplit = (nodeType: NodeType, schemaNodes: any) => {
 	return [schemaNodes.bulletList, schemaNodes.orderedList, schemaNodes.panel].includes(nodeType);
 };
 
-export const safeInsert = (content: InsertableContent, position?: number) => (tr: Transaction) => {
+export const safeInsert = (content: InsertableContent, position?: number) => (tr: Transaction): Transaction | null => {
 	const { nodes } = tr.doc.type.schema;
 	const whitelist = [nodes.rule, nodes.mediaSingle];
 

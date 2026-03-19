@@ -60,6 +60,9 @@
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
+	"scripts": {
+		"ak-postbuild": "echo \"/* eslint-disable */\nimport './dist/esm/manager.js';\" > manager.js && echo \"/* eslint-disable */\nexport { default } from './dist/esm/preview.js';\" > preview.js && echo \"/* eslint-disable */\nexport { webpack } from './dist/esm/preset.js';\" > preset.js"
+	},
 	"bundler": {
 		"exportEntries": [
 			"src/index.tsx"

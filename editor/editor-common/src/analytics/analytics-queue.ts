@@ -1,4 +1,4 @@
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 type Deadline = {
 	didTimeout: boolean;
@@ -9,7 +9,7 @@ export class AnalyticsQueue {
 	private readonly tasks: Function[] = [];
 	private running = false;
 
-	public static get = memoizeOne(() => new AnalyticsQueue());
+	public static get: MemoizedFn<() => AnalyticsQueue> = memoizeOne((): AnalyticsQueue => new AnalyticsQueue());
 
 	private constructor() {}
 

@@ -14,7 +14,7 @@ export function mapFragment(
 	content: Fragment,
 	callback: (node: Node, parent: Node | null, index: number) => Node | Node[] | Fragment | null,
 	parent: Node | null = null,
-) {
+): Fragment {
 	const children = [] as Node[];
 	for (let i = 0, size = content.childCount; i < size; i++) {
 		const node = content.child(i);

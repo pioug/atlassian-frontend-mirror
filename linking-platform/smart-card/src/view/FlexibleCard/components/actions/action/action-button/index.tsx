@@ -15,7 +15,6 @@ import Button, {
 	LinkButton,
 	LinkIconButton,
 } from '@atlaskit/button/new';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -119,33 +118,16 @@ const ActionButtonRefresh = forwardRef(
 			const spacing =
 				size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'default' : 'compact';
 
-			if (fg('platform-button-icon-spacing-cleanup')) {
-				const icon = iconBefore || iconAfter;
-				const iconFn = icon ? ((() => icon) as IconProp) : undefined;
-				if (iconOnly && iconFn) {
-					if (isLinkButton && iconFn) {
-						return (
-							<LinkIconButton
-								appearance={IconButtonAppearanceMap[appearance]}
-								icon={iconFn}
-								href={href}
-								isDisabled={isDisabled}
-								isTooltipDisabled={false}
-								label={tooltipMessage}
-								onClick={onButtonClick(onClick)}
-								spacing={spacing}
-								testId={testId}
-								tooltip={tooltipOptions}
-							/>
-						);
-					}
-
+			const icon = iconBefore || iconAfter;
+			const iconFn = icon ? ((() => icon) as IconProp) : undefined;
+			if (iconOnly && iconFn) {
+				if (isLinkButton && iconFn) {
 					return (
-						<IconButton
+						<LinkIconButton
 							appearance={IconButtonAppearanceMap[appearance]}
 							icon={iconFn}
+							href={href}
 							isDisabled={isDisabled}
-							isLoading={isLoading}
 							isTooltipDisabled={false}
 							label={tooltipMessage}
 							onClick={onButtonClick(onClick)}
@@ -155,135 +137,63 @@ const ActionButtonRefresh = forwardRef(
 						/>
 					);
 				}
-			} else {
-				if (iconOnly) {
-					const icon = iconBefore || iconAfter;
-					const iconFn = (() => icon || null) as IconProp;
-
-					if (isLinkButton) {
-						return (
-							<LinkIconButton
-								appearance={IconButtonAppearanceMap[appearance]}
-								icon={iconFn}
-								href={href}
-								isDisabled={isDisabled}
-								isTooltipDisabled={false}
-								label={tooltipMessage}
-								onClick={onButtonClick(onClick)}
-								spacing={spacing}
-								testId={testId}
-								tooltip={tooltipOptions}
-							/>
-						);
-					}
-
-					return (
-						<IconButton
-							appearance={IconButtonAppearanceMap[appearance]}
-							icon={iconFn}
-							isDisabled={isDisabled}
-							isLoading={isLoading}
-							isTooltipDisabled={false}
-							label={tooltipMessage}
-							onClick={onButtonClick(onClick)}
-							spacing={spacing}
-							testId={testId}
-							tooltip={tooltipOptions}
-						/>
-					);
-				}
-			}
-
-			if (fg('platform-button-icon-spacing-cleanup')) {
-				const iconBeforeFn = iconBefore ? () => iconBefore : undefined;
-				const iconAfterFn = iconAfter ? () => iconAfter : undefined;
-
-				if (isLinkButton) {
-					return (
-						<Tooltip
-							content={tooltipMessage}
-							hideTooltipOnClick={true}
-							testId={`${testId}-tooltip`}
-						>
-							<LinkButton
-								appearance={ButtonAppearanceMap[appearance]}
-								aria-label={ariaLabel}
-								iconAfter={iconAfterFn}
-								iconBefore={iconBeforeFn}
-								isDisabled={isDisabled}
-								href={href}
-								onClick={onButtonClick(onClick)}
-								spacing={spacing}
-								testId={testId}
-							>
-								{content}
-							</LinkButton>
-						</Tooltip>
-					);
-				}
 
 				return (
+					<IconButton
+						appearance={IconButtonAppearanceMap[appearance]}
+						icon={iconFn}
+						isDisabled={isDisabled}
+						isLoading={isLoading}
+						isTooltipDisabled={false}
+						label={tooltipMessage}
+						onClick={onButtonClick(onClick)}
+						spacing={spacing}
+						testId={testId}
+						tooltip={tooltipOptions}
+					/>
+				);
+			}
+
+			const iconBeforeFn = iconBefore ? () => iconBefore : undefined;
+			const iconAfterFn = iconAfter ? () => iconAfter : undefined;
+
+			if (isLinkButton) {
+				return (
 					<Tooltip content={tooltipMessage} hideTooltipOnClick={true} testId={`${testId}-tooltip`}>
-						<Button
+						<LinkButton
 							appearance={ButtonAppearanceMap[appearance]}
 							aria-label={ariaLabel}
 							iconAfter={iconAfterFn}
 							iconBefore={iconBeforeFn}
 							isDisabled={isDisabled}
-							isLoading={isLoading}
+							href={href}
 							onClick={onButtonClick(onClick)}
 							spacing={spacing}
 							testId={testId}
 						>
 							{content}
-						</Button>
-					</Tooltip>
-				);
-			} else {
-				const iconBeforeFn = (() => iconBefore || null) as IconProp;
-				const iconAfterFn = (() => iconAfter || null) as IconProp;
-				if (isLinkButton) {
-					return (
-						<Tooltip
-							content={tooltipMessage}
-							hideTooltipOnClick={true}
-							testId={`${testId}-tooltip`}
-						>
-							<LinkButton
-								appearance={ButtonAppearanceMap[appearance]}
-								aria-label={ariaLabel}
-								iconAfter={iconAfterFn}
-								iconBefore={iconBeforeFn}
-								isDisabled={isDisabled}
-								href={href}
-								onClick={onButtonClick(onClick)}
-								spacing={spacing}
-								testId={testId}
-							>
-								{content}
-							</LinkButton>
-						</Tooltip>
-					);
-				}
-
-				return (
-					<Tooltip content={tooltipMessage} hideTooltipOnClick={true} testId={`${testId}-tooltip`}>
-						<Button
-							appearance={ButtonAppearanceMap[appearance]}
-							aria-label={ariaLabel}
-							iconAfter={iconAfterFn}
-							iconBefore={iconBeforeFn}
-							isDisabled={isDisabled}
-							isLoading={isLoading}
-							onClick={onButtonClick(onClick)}
-							spacing={spacing}
-							testId={testId}
-						>
-							{content}
-						</Button>
+						</LinkButton>
 					</Tooltip>
 				);
 			}
+
+			return (
+				<Tooltip content={tooltipMessage} hideTooltipOnClick={true} testId={`${testId}-tooltip`}>
+					<Button
+						appearance={ButtonAppearanceMap[appearance]}
+						aria-label={ariaLabel}
+						iconAfter={iconAfterFn}
+						iconBefore={iconBeforeFn}
+						isDisabled={isDisabled}
+						isLoading={isLoading}
+						onClick={onButtonClick(onClick)}
+						spacing={spacing}
+						testId={testId}
+					>
+						{content}
+					</Button>
+				</Tooltip>
+			);
 		}, [
 			appearance,
 			ariaLabel,

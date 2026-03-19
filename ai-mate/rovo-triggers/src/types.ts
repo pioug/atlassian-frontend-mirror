@@ -57,6 +57,15 @@ type PlaceholderParam = {
 	placeholderType?: 'person' | 'link' | 'generic' | 'skill';
 };
 
+type ChatModeParam = {
+	deepResearchEnabled?: boolean;
+	thinkDeeperEnabled?: boolean;
+	fastModeEnabled?: boolean;
+	webSearchEnabled?: boolean;
+	useCurrentPageContext?: boolean;
+	appFilters?: unknown[];
+}
+
 export type ChatNewPayload = PayloadCore<
 	'chat-new',
 	{
@@ -84,6 +93,8 @@ export type ChatNewPayload = PayloadCore<
 		skipCreatingSeededConversation?: boolean;
 		// Reset to default chat view from previously selected view, e.g. Browse agents
 		resetActiveMenu?: boolean;
+		// Chat mode options to configure the conversation behavior
+		mode?: ChatModeParam;
 	} & Partial<TargetAgentParam> &
 		PlaceholderParam
 >;

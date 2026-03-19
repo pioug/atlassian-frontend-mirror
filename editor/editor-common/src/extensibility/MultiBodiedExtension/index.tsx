@@ -6,7 +6,7 @@
 
 import React, { Fragment, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
 
@@ -367,7 +367,7 @@ const MultiBodiedExtensionWithWidth = ({
 	);
 };
 
-const MultiBodiedExtension = (props: Props & OverflowShadowProps) => {
+const MultiBodiedExtension = (props: Props & OverflowShadowProps): jsx.JSX.Element => {
 	const { pluginInjectionApi } = props;
 	const { width, lineLength } = useSharedPluginStateWithSelector(
 		pluginInjectionApi,

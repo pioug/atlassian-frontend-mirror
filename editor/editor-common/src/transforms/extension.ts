@@ -8,7 +8,7 @@ import { mapFragment, mapSlice } from '../utils/slice';
  * Lift content out of "open" top-level bodiedExtensions.
  * Will not work if bodiedExtensions are nested, or when bodiedExtensions are not in the top level
  */
-export const transformSliceToRemoveOpenBodiedExtension = (slice: Slice, schema: Schema) => {
+export const transformSliceToRemoveOpenBodiedExtension = (slice: Slice, schema: Schema): Slice => {
 	const { bodiedExtension } = schema.nodes;
 
 	const fragment = mapFragment(slice.content, (node, parent, index) => {
@@ -43,7 +43,7 @@ export const transformSliceToRemoveOpenBodiedExtension = (slice: Slice, schema: 
  * Lift content out of "open" top-level multiBodiedExtensions.
  * Will not work if multiBodiedExtensions are nested, or when multiBodiedExtensions are not in the top level, which should never happen
  */
-export const transformSliceToRemoveOpenMultiBodiedExtension = (slice: Slice, schema: Schema) => {
+export const transformSliceToRemoveOpenMultiBodiedExtension = (slice: Slice, schema: Schema): Slice => {
 	const { multiBodiedExtension, extensionFrame } = schema.nodes;
 
 	let depthToReduce = 2; // Removing MBE and extensionFrame
@@ -100,7 +100,7 @@ const isLegacyContentMacroExtension = (extensionNode: PMNode) =>
 	extensionNode.attrs?.extensionType === LEGACY_CONTENT_MACRO_EXTENSION_TYPE &&
 	extensionNode.attrs?.extensionKey === LEGACY_CONTENT_MACRO_EXTENSION_KEY;
 
-export const transformSliceToRemoveLegacyContentMacro = (slice: Slice, schema: Schema) => {
+export const transformSliceToRemoveLegacyContentMacro = (slice: Slice, schema: Schema): Slice => {
 	const { extension } = schema.nodes;
 
 	return mapSlice(slice, (node: PMNode) => {
@@ -112,7 +112,7 @@ export const transformSliceToRemoveLegacyContentMacro = (slice: Slice, schema: S
 	});
 };
 
-export const transformSliceToRemoveMacroId = (slice: Slice, schema: Schema) => {
+export const transformSliceToRemoveMacroId = (slice: Slice, schema: Schema): Slice => {
 	const { extension, inlineExtension } = schema.nodes;
 
 	return mapSlice(slice, (node: PMNode) => {

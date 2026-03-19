@@ -36,7 +36,7 @@ const PanelInfoGlyph = ({ role }: Pick<ComponentProps<'svg'>, 'role'>) => {
 	);
 };
 
-export const PanelInfoIcon = ({ label }: { label: string }) => {
+export const PanelInfoIcon = ({ label }: { label: string }): JSX.Element => {
 	return (
 		<span
 			role={label ? 'img' : undefined}

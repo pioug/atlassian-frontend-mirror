@@ -1,5 +1,16 @@
 # @atlaskit/range
 
+## 10.0.0
+
+### Major Changes
+
+- [`f272ab0e435b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f272ab0e435b3) -
+  Removes ak/range/theme entrypoint because this file was not used as part of the core package.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.3.7
 
 ### Patch Changes

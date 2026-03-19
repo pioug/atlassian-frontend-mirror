@@ -5,7 +5,7 @@
  */
 import React, { Fragment, useEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 import URLSearchParams from 'url-search-params';
@@ -49,7 +49,17 @@ export class CustomReplaceStep extends ReplaceStep {
 		super(0, 0, Slice.empty);
 	}
 
-	toJSON() {
+	toJSON(): {
+        stepType: string;
+        from: number;
+        to: number;
+        slice: {
+            content: {
+                type: string;
+                text: string;
+            }[];
+        };
+    } {
 		return {
 			stepType: 'replace',
 			from: this.doc.nodeSize / 2,
@@ -281,7 +291,7 @@ export default class Example extends React.Component<Props, State> {
 		this.setState({ hasError: true });
 	}
 
-	renderErrorFlag() {
+	renderErrorFlag(): jsx.JSX.Element | undefined {
 		if (this.state.hasError) {
 			return (
 				<div
@@ -301,7 +311,7 @@ export default class Example extends React.Component<Props, State> {
 		return;
 	}
 
-	renderDocumentId() {
+	renderDocumentId(): jsx.JSX.Element {
 		return (
 			<div
 				style={{
@@ -353,7 +363,7 @@ export default class Example extends React.Component<Props, State> {
 		);
 	}
 
-	renderEditor() {
+	renderEditor(): jsx.JSX.Element {
 		const { documentId, collabUrl, need404 } = this.state;
 		// Enable the debug log
 		(window as any).COLLAB_PROVIDER_LOGGER = true;
@@ -569,7 +579,7 @@ export default class Example extends React.Component<Props, State> {
 		}
 	};
 
-	render() {
+	render(): jsx.JSX.Element {
 		if (this.state.documentId) {
 			return <IntlProvider locale="en">{this.renderEditor()}</IntlProvider>;
 		}

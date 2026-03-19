@@ -34,10 +34,12 @@ export const StarIconButton = ({
 	isStarred,
 	handleToggle,
 	visible = true,
+	agentName,
 }: {
 	isStarred: boolean;
 	handleToggle: (e: MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => void;
 	visible?: boolean;
+	agentName: string;
 }): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const [isHovered, setIsHovered] = useState(false);
@@ -52,13 +54,13 @@ export const StarIconButton = ({
 			{isStarred || isHovered ? (
 				<StarIconMigration
 					spacing="spacious"
-					label={formatMessage(messages.removeFromFavouritesLabel)}
+					label={formatMessage(messages.removeFromFavouritesLabel, { agentName })}
 					color={token('color.icon.accent.orange')}
 				/>
 			) : (
 				<StarUnstarredIconMigration
 					spacing="spacious"
-					label={formatMessage(messages.clickToFavouriteLabel)}
+					label={formatMessage(messages.clickToFavouriteLabel, { agentName })}
 					color={token('color.icon')}
 				/>
 			)}

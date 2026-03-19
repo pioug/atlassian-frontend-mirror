@@ -1,4 +1,22 @@
-export const simpleActionList = {
+export const simpleActionList: {
+    version: number; type: string; content: {
+        type: string;
+        attrs: {
+            localId: string;
+        };
+        content: {
+            type: string;
+            attrs: {
+                localId: string;
+                state: string;
+            };
+            content: {
+                text: string;
+                type: string;
+            }[];
+        }[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -52,7 +70,25 @@ export const simpleActionList = {
 	],
 };
 
-export const simpleActionListWithShortText = {
+export const simpleActionListWithShortText: {
+    version: number; type: string; content: {
+        type: string;
+        attrs: {
+            localId: string;
+        };
+        content: {
+            type: string;
+            attrs: {
+                localId: string;
+                state: string;
+            };
+            content: {
+                text: string;
+                type: string;
+            }[];
+        }[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [
@@ -106,7 +142,42 @@ export const simpleActionListWithShortText = {
 	],
 };
 
-export const simpleActionListWithShortTextAndNestedItemsList = {
+export const simpleActionListWithShortTextAndNestedItemsList: {
+    version: number; type: string; content: {
+        type: string;
+        attrs: {
+            localId: string;
+        };
+        content: ({
+            type: string;
+            attrs: {
+                localId: string;
+                state: string;
+            };
+            content: {
+                text: string;
+                type: string;
+            }[];
+        } | {
+            type: string;
+            attrs: {
+                localId: string;
+                state?: undefined;
+            };
+            content: {
+                type: string;
+                attrs: {
+                    localId: string;
+                    state: string;
+                };
+                content: {
+                    text: string;
+                    type: string;
+                }[];
+            }[];
+        })[];
+    }[];
+} = {
 	version: 1,
 	type: 'doc',
 	content: [

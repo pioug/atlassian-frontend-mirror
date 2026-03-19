@@ -4,7 +4,7 @@
  */
 import React, { Fragment } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import { base, keyName } from 'w3c-keyname';
 
@@ -16,171 +16,171 @@ import type { Command } from '../types/command';
 import type { EditorCommand } from '../types/editor-command';
 import { browser as browserLegacy, getBrowserInfo } from '../utils/browser';
 
-export const addAltText = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
-export const toggleViewChanges = makeKeyMapWithCommon('View changes', 'Mod-Alt-z');
-export const navToEditorToolbar = makeKeyMapWithCommon('Navigate to editor toolbar', 'Alt-F9');
-export const navToFloatingToolbar = makeKeyMapWithCommon('Navigate to floating toolbar', 'Alt-F10');
-export const askAIQuickInsert = makeKeyMapWithCommon('Ask AI', "Mod-'");
-export const toggleBold = makeKeyMapWithCommon('Bold', 'Mod-b');
-export const toggleItalic = makeKeyMapWithCommon('Italic', 'Mod-i');
-export const toggleUnderline = makeKeyMapWithCommon('Underline', 'Mod-u');
-export const toggleStrikethrough = makeKeyMapWithCommon('Strikethrough', 'Mod-Shift-s');
-export const toggleSubscript = makeKeyMapWithCommon('Subscript', 'Mod-Shift-,');
-export const toggleSuperscript = makeKeyMapWithCommon('Superscript', 'Mod-Shift-.');
-export const toggleCode = makeKeyMapWithCommon('Code', 'Mod-Shift-m');
-export const pastePlainText = makeKeyMapWithCommon('Paste Plain Text', 'Mod-Shift-v');
-export const clearFormatting = makeKeyMapWithCommon('Clear formatting', 'Mod-\\');
-export const setNormalText = makeKeyMapWithCommon('Normal text', 'Mod-Alt-0');
-export const toggleHeading1 = makeKeyMapWithCommon('Heading 1', 'Mod-Alt-1');
-export const toggleHeading2 = makeKeyMapWithCommon('Heading 2', 'Mod-Alt-2');
-export const toggleHeading3 = makeKeyMapWithCommon('Heading 3', 'Mod-Alt-3');
-export const toggleHeading4 = makeKeyMapWithCommon('Heading 4', 'Mod-Alt-4');
-export const toggleHeading5 = makeKeyMapWithCommon('Heading 5', 'Mod-Alt-5');
-export const toggleHeading6 = makeKeyMapWithCommon('Heading 6', 'Mod-Alt-6');
-export const toggleOrderedList = makeKeyMapWithCommon('Numbered list', 'Mod-Shift-7');
-export const ctrlBackSpace = makeKeyMapWithCommon('Cmd + Backspace', 'Mod-Backspace');
-export const toggleBulletList = makeKeyMapWithCommon('Bullet list', 'Mod-Shift-8');
-export const toggleBlockQuote = makeKeyMapWithCommon('Quote', 'Mod-Shift-9');
-export const insertNewLine = makeKeyMapWithCommon('Insert new line', 'Shift-Enter');
-export const shiftBackspace = makeKeyMapWithCommon('Shift Backspace', 'Shift-Backspace');
-export const splitCodeBlock = makeKeyMapWithCommon('Split code block', 'Enter');
-export const splitListItem = makeKeyMapWithCommon('Split list item', 'Enter');
-export const insertRule = makeKeyMapWithCommon('Insert horizontal rule', 'Mod-Shift--');
-export const undo = makeKeyMapWithCommon('Undo', 'Mod-z');
-export const moveUp = makeKeyMapWithCommon('Move up', 'ArrowUp');
-export const moveDown = makeKeyMapWithCommon('Move down', 'ArrowDown');
-export const moveLeft = makeKeyMapWithCommon('Move left', 'ArrowLeft');
-export const moveRight = makeKeyMapWithCommon('Move right', 'ArrowRight');
-export const indentList = makeKeyMapWithCommon('Indent List', 'Tab');
-export const outdentList = makeKeyMapWithCommon('Outdent List', 'Shift-Tab');
-export const redoAlt = makeKeyMapWithCommon('Redo', 'Mod-y');
-export const redo = makeKeymap('Redo', 'Ctrl-y', 'Mod-Shift-z');
-export const openHelp = makeKeyMapWithCommon('Open Help', 'Mod-/');
-export const addLink = makeKeyMapWithCommon('Link', 'Mod-k');
-export const addInlineComment = makeKeyMapWithCommon('Annotate', 'Mod-Alt-c');
+export const addAltText: Keymap = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
+export const toggleViewChanges: Keymap = makeKeyMapWithCommon('View changes', 'Mod-Alt-z');
+export const navToEditorToolbar: Keymap = makeKeyMapWithCommon('Navigate to editor toolbar', 'Alt-F9');
+export const navToFloatingToolbar: Keymap = makeKeyMapWithCommon('Navigate to floating toolbar', 'Alt-F10');
+export const askAIQuickInsert: Keymap = makeKeyMapWithCommon('Ask AI', "Mod-'");
+export const toggleBold: Keymap = makeKeyMapWithCommon('Bold', 'Mod-b');
+export const toggleItalic: Keymap = makeKeyMapWithCommon('Italic', 'Mod-i');
+export const toggleUnderline: Keymap = makeKeyMapWithCommon('Underline', 'Mod-u');
+export const toggleStrikethrough: Keymap = makeKeyMapWithCommon('Strikethrough', 'Mod-Shift-s');
+export const toggleSubscript: Keymap = makeKeyMapWithCommon('Subscript', 'Mod-Shift-,');
+export const toggleSuperscript: Keymap = makeKeyMapWithCommon('Superscript', 'Mod-Shift-.');
+export const toggleCode: Keymap = makeKeyMapWithCommon('Code', 'Mod-Shift-m');
+export const pastePlainText: Keymap = makeKeyMapWithCommon('Paste Plain Text', 'Mod-Shift-v');
+export const clearFormatting: Keymap = makeKeyMapWithCommon('Clear formatting', 'Mod-\\');
+export const setNormalText: Keymap = makeKeyMapWithCommon('Normal text', 'Mod-Alt-0');
+export const toggleHeading1: Keymap = makeKeyMapWithCommon('Heading 1', 'Mod-Alt-1');
+export const toggleHeading2: Keymap = makeKeyMapWithCommon('Heading 2', 'Mod-Alt-2');
+export const toggleHeading3: Keymap = makeKeyMapWithCommon('Heading 3', 'Mod-Alt-3');
+export const toggleHeading4: Keymap = makeKeyMapWithCommon('Heading 4', 'Mod-Alt-4');
+export const toggleHeading5: Keymap = makeKeyMapWithCommon('Heading 5', 'Mod-Alt-5');
+export const toggleHeading6: Keymap = makeKeyMapWithCommon('Heading 6', 'Mod-Alt-6');
+export const toggleOrderedList: Keymap = makeKeyMapWithCommon('Numbered list', 'Mod-Shift-7');
+export const ctrlBackSpace: Keymap = makeKeyMapWithCommon('Cmd + Backspace', 'Mod-Backspace');
+export const toggleBulletList: Keymap = makeKeyMapWithCommon('Bullet list', 'Mod-Shift-8');
+export const toggleBlockQuote: Keymap = makeKeyMapWithCommon('Quote', 'Mod-Shift-9');
+export const insertNewLine: Keymap = makeKeyMapWithCommon('Insert new line', 'Shift-Enter');
+export const shiftBackspace: Keymap = makeKeyMapWithCommon('Shift Backspace', 'Shift-Backspace');
+export const splitCodeBlock: Keymap = makeKeyMapWithCommon('Split code block', 'Enter');
+export const splitListItem: Keymap = makeKeyMapWithCommon('Split list item', 'Enter');
+export const insertRule: Keymap = makeKeyMapWithCommon('Insert horizontal rule', 'Mod-Shift--');
+export const undo: Keymap = makeKeyMapWithCommon('Undo', 'Mod-z');
+export const moveUp: Keymap = makeKeyMapWithCommon('Move up', 'ArrowUp');
+export const moveDown: Keymap = makeKeyMapWithCommon('Move down', 'ArrowDown');
+export const moveLeft: Keymap = makeKeyMapWithCommon('Move left', 'ArrowLeft');
+export const moveRight: Keymap = makeKeyMapWithCommon('Move right', 'ArrowRight');
+export const indentList: Keymap = makeKeyMapWithCommon('Indent List', 'Tab');
+export const outdentList: Keymap = makeKeyMapWithCommon('Outdent List', 'Shift-Tab');
+export const redoAlt: Keymap = makeKeyMapWithCommon('Redo', 'Mod-y');
+export const redo: Keymap = makeKeymap('Redo', 'Ctrl-y', 'Mod-Shift-z');
+export const openHelp: Keymap = makeKeyMapWithCommon('Open Help', 'Mod-/');
+export const addLink: Keymap = makeKeyMapWithCommon('Link', 'Mod-k');
+export const addInlineComment: Keymap = makeKeyMapWithCommon('Annotate', 'Mod-Alt-c');
 // [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
 // Updated wording from "Copy link to block" to "Copy link to selection" for better UX clarity.
 // The actual displayed text is conditionally shown in the UI component based on the flag.
 // To clean up: This can remain as-is since it's the canonical name for the action.
-export const copyLinkToBlock = makeKeyMapWithCommon('Copy link to selection', 'Mod-Alt-a');
-export const submit = makeKeyMapWithCommon('Submit Content', 'Mod-Enter');
-export const enter = makeKeyMapWithCommon('Enter', 'Enter');
-export const shiftEnter = makeKeyMapWithCommon('Shift Enter', 'Shift-Enter');
-export const tab = makeKeyMapWithCommon('Tab', 'Tab');
-export const indent = makeKeyMapWithCommon('Indent', 'Tab');
-export const outdent = makeKeyMapWithCommon('Outdent', 'Shift-Tab');
-export const backspace = makeKeyMapWithCommon('Backspace', 'Backspace');
-export const deleteKey = makeKeyMapWithCommon('Delete', 'Delete');
-export const forwardDelete = makeKeymap('Forward Delete', '', 'Ctrl-d');
-export const space = makeKeyMapWithCommon('Space', 'Space');
-export const escape = makeKeyMapWithCommon('Escape', 'Escape');
-export const nextCell = makeKeyMapWithCommon('Next cell', 'Tab');
-export const previousCell = makeKeyMapWithCommon('Previous cell', 'Shift-Tab');
-export const shiftArrowUp = makeKeyMapWithCommon('Shift ArrowUp', 'Shift-ArrowUp');
-export const shiftTab = makeKeyMapWithCommon('Shift Tab', 'Shift-Tab');
-export const toggleTable = makeKeyMapWithCommon('Table', 'Shift-Alt-t');
-export const focusTableResizer = makeKeyMapWithCommon('Focus Table Resizer', 'Mod-Alt-Shift-r');
-export const addRowBefore = makeKeyMapWithCommon('Add Row Above', 'Ctrl-Alt-ArrowUp');
-export const addRowAfter = makeKeyMapWithCommon('Add Row Below', 'Ctrl-Alt-ArrowDown');
-export const addColumnAfter = makeKeyMapWithCommon('Add Column After', 'Ctrl-Alt-ArrowRight');
-export const addColumnBefore = makeKeyMapWithCommon('Add Column Before', 'Ctrl-Alt-ArrowLeft');
+export const copyLinkToBlock: Keymap = makeKeyMapWithCommon('Copy link to selection', 'Mod-Alt-a');
+export const submit: Keymap = makeKeyMapWithCommon('Submit Content', 'Mod-Enter');
+export const enter: Keymap = makeKeyMapWithCommon('Enter', 'Enter');
+export const shiftEnter: Keymap = makeKeyMapWithCommon('Shift Enter', 'Shift-Enter');
+export const tab: Keymap = makeKeyMapWithCommon('Tab', 'Tab');
+export const indent: Keymap = makeKeyMapWithCommon('Indent', 'Tab');
+export const outdent: Keymap = makeKeyMapWithCommon('Outdent', 'Shift-Tab');
+export const backspace: Keymap = makeKeyMapWithCommon('Backspace', 'Backspace');
+export const deleteKey: Keymap = makeKeyMapWithCommon('Delete', 'Delete');
+export const forwardDelete: Keymap = makeKeymap('Forward Delete', '', 'Ctrl-d');
+export const space: Keymap = makeKeyMapWithCommon('Space', 'Space');
+export const escape: Keymap = makeKeyMapWithCommon('Escape', 'Escape');
+export const nextCell: Keymap = makeKeyMapWithCommon('Next cell', 'Tab');
+export const previousCell: Keymap = makeKeyMapWithCommon('Previous cell', 'Shift-Tab');
+export const shiftArrowUp: Keymap = makeKeyMapWithCommon('Shift ArrowUp', 'Shift-ArrowUp');
+export const shiftTab: Keymap = makeKeyMapWithCommon('Shift Tab', 'Shift-Tab');
+export const toggleTable: Keymap = makeKeyMapWithCommon('Table', 'Shift-Alt-t');
+export const focusTableResizer: Keymap = makeKeyMapWithCommon('Focus Table Resizer', 'Mod-Alt-Shift-r');
+export const addRowBefore: Keymap = makeKeyMapWithCommon('Add Row Above', 'Ctrl-Alt-ArrowUp');
+export const addRowAfter: Keymap = makeKeyMapWithCommon('Add Row Below', 'Ctrl-Alt-ArrowDown');
+export const addColumnAfter: Keymap = makeKeyMapWithCommon('Add Column After', 'Ctrl-Alt-ArrowRight');
+export const addColumnBefore: Keymap = makeKeyMapWithCommon('Add Column Before', 'Ctrl-Alt-ArrowLeft');
 // The following few shortcuts that end in VO are added specifically for Voice Over users, as shortcuts that perform the same role when using Voice Over don't work because they conflict with default shortcuts in Voice Over
-export const addRowBeforeVO = makeKeyMapWithCommon('Add Row Above', 'Mod-Alt-[');
-export const addRowAfterVO = makeKeyMapWithCommon('Add Row Below', 'Mod-Alt-]');
-export const addColumnAfterVO = makeKeyMapWithCommon('Add Column After', 'Mod-Alt-=');
-export const addColumnBeforeVO = makeKeyMapWithCommon('Add Column Before', 'Mod-Alt--');
+export const addRowBeforeVO: Keymap = makeKeyMapWithCommon('Add Row Above', 'Mod-Alt-[');
+export const addRowAfterVO: Keymap = makeKeyMapWithCommon('Add Row Below', 'Mod-Alt-]');
+export const addColumnAfterVO: Keymap = makeKeyMapWithCommon('Add Column After', 'Mod-Alt-=');
+export const addColumnBeforeVO: Keymap = makeKeyMapWithCommon('Add Column Before', 'Mod-Alt--');
 
 // When cleaning up editor-a11y-fy26-keyboard-move-row-column experiment
 // Remove moveColumn<Left/Right>Old and moveRow<Up/Down>Old
-export const moveColumnLeftOld = makeKeyMapWithCommon(
+export const moveColumnLeftOld: Keymap = makeKeyMapWithCommon(
 	'Move Column Left',
 	'Ctrl-Alt-Shift-ArrowLeft',
 );
-export const moveColumnLeft = makeKeyMapWithCommon('Move Column Left', 'Mod-Alt-Shift--');
-export const moveColumnRightOld = makeKeyMapWithCommon(
+export const moveColumnLeft: Keymap = makeKeyMapWithCommon('Move Column Left', 'Mod-Alt-Shift--');
+export const moveColumnRightOld: Keymap = makeKeyMapWithCommon(
 	'Move Column Right',
 	'Ctrl-Alt-Shift-ArrowRight',
 );
-export const moveColumnRight = makeKeyMapWithCommon('Move Column Right', 'Mod-Alt-Shift-=');
-export const moveRowDownOld = makeKeyMapWithCommon('Move Row Down', 'Ctrl-Alt-Shift-ArrowDown');
-export const moveRowDown = makeKeyMapWithCommon('Move Row Down', 'Mod-Alt-Shift-]');
-export const moveRowUpOld = makeKeyMapWithCommon('Move Row Up', 'Ctrl-Alt-Shift-ArrowUp');
-export const moveRowUp = makeKeyMapWithCommon('Move Row Up', 'Mod-Alt-Shift-[');
+export const moveColumnRight: Keymap = makeKeyMapWithCommon('Move Column Right', 'Mod-Alt-Shift-=');
+export const moveRowDownOld: Keymap = makeKeyMapWithCommon('Move Row Down', 'Ctrl-Alt-Shift-ArrowDown');
+export const moveRowDown: Keymap = makeKeyMapWithCommon('Move Row Down', 'Mod-Alt-Shift-]');
+export const moveRowUpOld: Keymap = makeKeyMapWithCommon('Move Row Up', 'Ctrl-Alt-Shift-ArrowUp');
+export const moveRowUp: Keymap = makeKeyMapWithCommon('Move Row Up', 'Mod-Alt-Shift-[');
 
-export const deleteColumn = makeKeyMapWithCommon('Delete Column', 'Ctrl-Backspace');
-export const deleteRow = makeKeyMapWithCommon('Delete Row', 'Ctrl-Backspace');
+export const deleteColumn: Keymap = makeKeyMapWithCommon('Delete Column', 'Ctrl-Backspace');
+export const deleteRow: Keymap = makeKeyMapWithCommon('Delete Row', 'Ctrl-Backspace');
 
-export const startColumnResizing = makeKeyMapWithCommon(
+export const startColumnResizing: Keymap = makeKeyMapWithCommon(
 	'Activate Column Resize',
 	'Mod-Alt-Shift-c',
 );
-export const cut = makeKeyMapWithCommon('Cut', 'Mod-x');
-export const copy = makeKeyMapWithCommon('Copy', 'Mod-c');
-export const paste = makeKeyMapWithCommon('Paste', 'Mod-v');
-export const altPaste = makeKeyMapWithCommon('Paste', 'Mod-Shift-v');
+export const cut: Keymap = makeKeyMapWithCommon('Cut', 'Mod-x');
+export const copy: Keymap = makeKeyMapWithCommon('Copy', 'Mod-c');
+export const paste: Keymap = makeKeyMapWithCommon('Paste', 'Mod-v');
+export const altPaste: Keymap = makeKeyMapWithCommon('Paste', 'Mod-Shift-v');
 
-export const find = makeKeyMapWithCommon('Find', 'Mod-f');
+export const find: Keymap = makeKeyMapWithCommon('Find', 'Mod-f');
 
-export const alignLeft = makeKeyMapWithCommon('Align Left', 'Mod-Shift-l');
-export const alignCenter = makeKeyMapWithCommon('Align Center', 'Mod-Alt-e');
-export const alignRight = makeKeyMapWithCommon('Align Right', 'Mod-Alt-t');
+export const alignLeft: Keymap = makeKeyMapWithCommon('Align Left', 'Mod-Shift-l');
+export const alignCenter: Keymap = makeKeyMapWithCommon('Align Center', 'Mod-Alt-e');
+export const alignRight: Keymap = makeKeyMapWithCommon('Align Right', 'Mod-Alt-t');
 
-export const toggleTaskItemCheckbox = makeKeyMapWithCommon('Toggles task item', 'Mod-Alt-Enter');
-export const toggleTaskList = makeKeyMapWithCommon('Toggle task list', 'Mod-Shift-6');
-export const selectRow = makeKeyMapArrayWithCommon('Select row', [
+export const toggleTaskItemCheckbox: Keymap = makeKeyMapWithCommon('Toggles task item', 'Mod-Alt-Enter');
+export const toggleTaskList: Keymap = makeKeyMapWithCommon('Toggle task list', 'Mod-Shift-6');
+export const selectRow: Keymap[] = makeKeyMapArrayWithCommon('Select row', [
 	'Mod-Alt-Shift-ArrowLeft',
 	'Mod-Alt-Shift-ArrowRight',
 ]);
-export const selectColumn = makeKeyMapArrayWithCommon('Select column', [
+export const selectColumn: Keymap[] = makeKeyMapArrayWithCommon('Select column', [
 	'Mod-Alt-Shift-ArrowDown',
 	'Mod-Alt-Shift-ArrowUp',
 ]);
-export const selectTable = makeKeyMapWithCommon('Select table', 'Mod-a');
+export const selectTable: Keymap = makeKeyMapWithCommon('Select table', 'Mod-a');
 
-export const increaseMediaSize = makeKeyMapWithCommon('increase image size', 'Mod-Alt-]');
-export const decreaseMediaSize = makeKeyMapWithCommon('increase image size', 'Mod-Alt-[');
+export const increaseMediaSize: Keymap = makeKeyMapWithCommon('increase image size', 'Mod-Alt-]');
+export const decreaseMediaSize: Keymap = makeKeyMapWithCommon('increase image size', 'Mod-Alt-[');
 
-export const activateVideoControls = makeKeyMapWithCommon(
+export const activateVideoControls: Keymap = makeKeyMapWithCommon(
 	'Activate controls panel on video',
 	'Shift-F10',
 );
 
-export const toggleHighlightPalette = makeKeyMapWithCommon('Toggle Highlight Palette', 'Mod-Alt-b');
-export const applyYellowHighlight = makeKeyMapWithCommon('Apply Yellow Highlight', 'Mod-Alt-y');
-export const focusToContextMenuTrigger = makeKeyMapWithCommon(
+export const toggleHighlightPalette: Keymap = makeKeyMapWithCommon('Toggle Highlight Palette', 'Mod-Alt-b');
+export const applyYellowHighlight: Keymap = makeKeyMapWithCommon('Apply Yellow Highlight', 'Mod-Alt-y');
+export const focusToContextMenuTrigger: Keymap = makeKeyMapWithCommon(
 	'Focus table context menu trigger',
 	'Shift-F10',
 );
 
-export const dragToMoveUp = makeKeyMapWithCommon(
+export const dragToMoveUp: Keymap = makeKeyMapWithCommon(
 	'Move node up in the document',
 	'Ctrl-Shift-ArrowUp',
 );
-export const dragToMoveDown = makeKeyMapWithCommon(
+export const dragToMoveDown: Keymap = makeKeyMapWithCommon(
 	'Move node down in the document',
 	'Ctrl-Shift-ArrowDown',
 );
-export const dragToMoveLeft = makeKeyMapWithCommon(
+export const dragToMoveLeft: Keymap = makeKeyMapWithCommon(
 	'Move node to the left column in the document',
 	'Ctrl-Shift-Alt-ArrowLeft',
 );
-export const dragToMoveRight = makeKeyMapWithCommon(
+export const dragToMoveRight: Keymap = makeKeyMapWithCommon(
 	'Move node to the right column in the document',
 	'Ctrl-Shift-Alt-ArrowRight',
 );
 
-export const showElementDragHandle = makeKeyMapWithCommon(
+export const showElementDragHandle: Keymap = makeKeyMapWithCommon(
 	'Show drag handle for editor element',
 	'Ctrl-Shift-h',
 );
 
-export const toggleCodeBlock = makeKeyMapWithCommon('Toggle Code Block', '```');
-export const insertEmoji = makeKeyMapWithCommon('Insert Emoji', ':');
-export const insertMention = makeKeyMapWithCommon('Insert Mention', '@');
-export const insertTaskList = makeKeyMapWithCommon('Insert Action Item', '[]');
-export const insertElements = makeKeyMapWithCommon('Insert Elements', '/');
+export const toggleCodeBlock: Keymap = makeKeyMapWithCommon('Toggle Code Block', '```');
+export const insertEmoji: Keymap = makeKeyMapWithCommon('Insert Emoji', ':');
+export const insertMention: Keymap = makeKeyMapWithCommon('Insert Mention', '@');
+export const insertTaskList: Keymap = makeKeyMapWithCommon('Insert Action Item', '[]');
+export const insertElements: Keymap = makeKeyMapWithCommon('Insert Elements', '/');
 
-export const continueInRovoChat = makeKeyMapWithCommon('Continue in Rovo chat', 'Alt-Enter');
+export const continueInRovoChat: Keymap = makeKeyMapWithCommon('Continue in Rovo chat', 'Alt-Enter');
 
 const arrowKeysMap: Record<string, string> = {
 	// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
@@ -257,7 +257,11 @@ export function tooltip(keymap?: Keymap, description?: string): string | undefin
 	return;
 }
 
-export const ToolTipContent = React.memo(
+export const ToolTipContent: React.MemoExoticComponent<({ description, shortcutOverride, keymap, }: {
+    description?: string | React.ReactNode;
+    keymap?: Keymap;
+    shortcutOverride?: string;
+}) => jsx.JSX.Element | null> = React.memo(
 	({
 		description,
 		shortcutOverride,
@@ -266,7 +270,7 @@ export const ToolTipContent = React.memo(
 		description?: string | React.ReactNode;
 		keymap?: Keymap;
 		shortcutOverride?: string;
-	}) => {
+	}): jsx.JSX.Element | null => {
 		const shortcut = shortcutOverride || (keymap && formatShortcut(keymap));
 		return shortcut || description ? (
 			<Fragment>
@@ -278,12 +282,14 @@ export const ToolTipContent = React.memo(
 	},
 );
 
-export const TooltipContentWithMultipleShortcuts = React.memo(
+export const TooltipContentWithMultipleShortcuts: React.MemoExoticComponent<({ helpDescriptors, }: {
+    helpDescriptors: { description?: string | React.ReactNode; keymap?: Keymap; }[];
+}) => jsx.JSX.Element> = React.memo(
 	({
 		helpDescriptors,
 	}: {
 		helpDescriptors: { description?: string | React.ReactNode; keymap?: Keymap }[];
-	}) => {
+	}): jsx.JSX.Element => {
 		const keymapCount = helpDescriptors.length;
 		return (
 			<Fragment>
@@ -507,7 +513,7 @@ export function findKeyMapForBrowser(keyMap: Keymap): string | undefined {
  * which creates a command (Ctrl-B) and all the keymap bindings are in lower case (Ctrl-b).
  *
  */
-export function isCapsLockOnAndModifyKeyboardEvent(event: KeyboardEvent) {
+export function isCapsLockOnAndModifyKeyboardEvent(event: KeyboardEvent): KeyboardEvent {
 	let keyboardEvent = event;
 	const name = keyName(event);
 	if (

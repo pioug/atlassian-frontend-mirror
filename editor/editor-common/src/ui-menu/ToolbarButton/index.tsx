@@ -74,7 +74,37 @@ const buttonWrapper = css({
 });
 
 export type ToolbarButtonRef = HTMLElement;
-const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>((props, ref) => {
+const ToolbarButton: React.ForwardRefExoticComponent<{
+    'aria-expanded'?: React.AriaAttributes["aria-expanded"];
+    'aria-haspopup'?: React.AriaAttributes["aria-haspopup"];
+    'aria-keyshortcuts'?: React.AriaAttributes["aria-keyshortcuts"];
+    'aria-label'?: React.AriaAttributes["aria-label"];
+    'aria-pressed'?: React.AriaAttributes["aria-pressed"];
+    // Used for analytics only
+    buttonId?: TOOLBAR_ACTION_SUBJECT_ID;
+    className?: string;
+    'data-ds--level'?: string;
+    disabled?: boolean;
+    hideTooltip?: boolean;
+    href?: string;
+    // Ignored via go/ees005
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    iconAfter?: React.ReactElement<any>;
+    // Ignored via go/ees005
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    iconBefore?: React.ReactElement<any>;
+    item?: MenuItem;
+    keymap?: Keymap;
+    onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+    onItemClick?: (item: MenuItem) => void;
+    onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
+    selected?: boolean;
+    spacing?: "default" | "compact" | "none";
+    target?: string;
+    testId?: string;
+    title?: React.ReactNode;
+    titlePosition?: PositionType;
+} & Pick<ButtonProps, "children" | "rel" | "aria-controls" | "aria-label" | "onFocus" | "onBlur" | "onMouseEnter" | "onMouseLeave"> & React.RefAttributes<HTMLElement>> = React.forwardRef<ToolbarButtonRef, Props>((props, ref) => {
 	const {
 		buttonId,
 		testId,

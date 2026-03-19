@@ -1,4 +1,4 @@
-export function median(array: number[]) {
+export function median(array: number[]): number {
 	const middle = Math.floor(array.length / 2);
 	const sortedArray = [...array].sort((a, b) => a - b);
 

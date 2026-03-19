@@ -1307,7 +1307,6 @@ export const TrelloLogo: ({
  *
  * Finally, for backwards compatibility, if the prop `shouldUseNewLogoDesign` is set to true, or the following feature flags are set,
  * a tile will be rendered:
- * - `platform-logo-rebrand-servco`
  * - `platform-logo-rebrand`
  *
  * - [Examples](https://atlassian.design/components/logo/examples)

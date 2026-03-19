@@ -36,7 +36,7 @@ const PanelSuccessGlyph = ({ role }: Pick<ComponentProps<'svg'>, 'role'>) => {
 	);
 };
 
-export const PanelSuccessIcon = ({ label }: { label: string }) => {
+export const PanelSuccessIcon = ({ label }: { label: string }): JSX.Element => {
 	return (
 		<span
 			role={label ? 'img' : undefined}

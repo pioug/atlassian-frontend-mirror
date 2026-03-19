@@ -6,7 +6,7 @@
 import type { MouseEventHandler, PointerEvent } from 'react';
 import React, { PureComponent, useContext } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
@@ -289,7 +289,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 		);
 	}
 
-	render() {
+	render(): jsx.JSX.Element {
 		const { children, isOpen } = this.props;
 
 		return (
@@ -364,7 +364,7 @@ export function DropdownMenuItem({
 	onMouseLeave,
 }: {
 	item: MenuItem;
-} & Pick<Props, 'onItemActivated' | 'shouldUseDefaultRole' | 'onMouseEnter' | 'onMouseLeave'>) {
+} & Pick<Props, 'onItemActivated' | 'shouldUseDefaultRole' | 'onMouseEnter' | 'onMouseLeave'>): jsx.JSX.Element {
 	const [submenuActive, setSubmenuActive] = React.useState(false);
 
 	// onClick and value.name are the action indicators in the handlers
@@ -458,10 +458,11 @@ export function DropdownMenuItem({
 	return dropListItem;
 }
 
-export const DropdownMenuWithKeyboardNavigation = React.memo(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Ignored via go/ees005
+export const DropdownMenuWithKeyboardNavigation: React.MemoExoticComponent<({ ...props }: React.PropsWithChildren<any>) => jsx.JSX.Element> = React.memo(
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	({ ...props }: React.PropsWithChildren<any>) => {
+	({ ...props }: React.PropsWithChildren<any>): jsx.JSX.Element => {
 		const keyDownHandlerContext = useContext(KeyDownHandlerContext);
 
 		// This context is to handle the tab, Arrow Right/Left key events for dropdown.

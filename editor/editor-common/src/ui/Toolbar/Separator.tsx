@@ -17,6 +17,6 @@ const separatorStyles = css({
 	backgroundColor: token('color.background.neutral.hovered'),
 });
 
-export function ToolbarSeparator() {
+export function ToolbarSeparator(): JSX.Element {
 	return <span css={separatorStyles} data-testid="editor-toolbar-seperator" />;
 }

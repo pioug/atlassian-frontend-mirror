@@ -82,10 +82,10 @@ export class PortalManager {
 	private throttleActivationRAFId: number | undefined;
 
 	constructor(
-		initialBuckets = DEFAULT_INITIAL_BUCKETS,
-		maxBucketCapacity = DEFAULT_MAX_BUCKET_CAPACITY,
-		scaleRatio = DEFAULT_SCALE_RATIO,
-		throttleDelay = DEFAULT_THROTTLE_DELAY,
+		initialBuckets: number = DEFAULT_INITIAL_BUCKETS,
+		maxBucketCapacity: number = DEFAULT_MAX_BUCKET_CAPACITY,
+		scaleRatio: number = DEFAULT_SCALE_RATIO,
+		throttleDelay: number = DEFAULT_THROTTLE_DELAY,
 	) {
 		this.maxBucketCapacity = maxBucketCapacity;
 		this.scaleRatio = scaleRatio;
@@ -151,7 +151,7 @@ export class PortalManager {
 		return this.throttledBucketUpdaters.get(id);
 	}
 
-	getBuckets() {
+	getBuckets(): PortalBucketType[] {
 		return this.buckets;
 	}
 

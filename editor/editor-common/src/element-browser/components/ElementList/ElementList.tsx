@@ -4,14 +4,14 @@
  */
 import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { Grid, List } from 'react-virtualized';
 import type { Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
@@ -528,7 +528,7 @@ export function ElementItem({
 	focus,
 	setFocusedItemIndex,
 	role,
-}: ElementItemType) {
+}: ElementItemType): jsx.JSX.Element {
 	const ref = useFocus(focus);
 
 	/**
@@ -800,7 +800,7 @@ const itemIconStyle = css({
 	},
 });
 
-const MemoizedElementListWithAnalytics = memo(
+const MemoizedElementListWithAnalytics: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<Props & SelectedItemProps & WithAnalyticsEventsProps & WithContextProps, "ref"> & React.RefAttributes<unknown>>> = memo(
 	withAnalyticsContext({ component: 'ElementList' })(ElementList),
 );
 

@@ -1,5 +1,5 @@
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { type EditorState, NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
@@ -24,7 +24,7 @@ export function createWrapSelectionTransaction({
 	nodeAttributes?: Record<string, any>;
 	state: EditorState;
 	type: NodeType;
-}) {
+}): Transaction {
 	let { tr } = state;
 	const { alignment, indentation } = state.schema.marks;
 

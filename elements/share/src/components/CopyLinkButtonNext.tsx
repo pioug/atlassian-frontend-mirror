@@ -154,14 +154,14 @@ export class CopyLinkButton extends React.Component<Props, State> {
 				theme={
 					isExtendedShareDialogEnabled
 						? (current, themeProps) => ({
-							buttonStyles: {
-								...current(themeProps).buttonStyles,
-								color: token('color.text'),
-								font: token('font.body'),
-								alignItems: 'center',
-							},
-							spinnerStyles: current(themeProps).spinnerStyles,
-						})
+								buttonStyles: {
+									...current(themeProps).buttonStyles,
+									color: token('color.text'),
+									font: token('font.body'),
+									alignItems: 'center',
+								},
+								spinnerStyles: current(themeProps).spinnerStyles,
+							})
 						: undefined
 				}
 			>

@@ -446,8 +446,11 @@ export const mediaWrapperStyle = (props: MediaWrapperProps): SerializedStyles =>
 `;
 
 export const MediaWrapper: {
-    ({ children, ...rest }: React.HTMLAttributes<HTMLDivElement> & MediaWrapperProps): jsx.JSX.Element;
-    displayName: string;
+	({
+		children,
+		...rest
+	}: React.HTMLAttributes<HTMLDivElement> & MediaWrapperProps): jsx.JSX.Element;
+	displayName: string;
 } = ({
 	children,
 	...rest
@@ -469,7 +472,9 @@ type MediaBorderGapFillerProps = {
 	borderColor: string;
 };
 
-export const MediaBorderGapFiller = ({ borderColor }: MediaBorderGapFillerProps): jsx.JSX.Element => {
+export const MediaBorderGapFiller = ({
+	borderColor,
+}: MediaBorderGapFillerProps): jsx.JSX.Element => {
 	return (
 		<div
 			style={{

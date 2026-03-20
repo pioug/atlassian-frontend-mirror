@@ -60,7 +60,7 @@ export class ExampleWrapper extends React.PureComponent<Props, { options: Option
 		console.log('@atlaskit/user-picker onSelection:', selection, sessionId);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { children } = this.props;
 		const { options } = this.state;
 

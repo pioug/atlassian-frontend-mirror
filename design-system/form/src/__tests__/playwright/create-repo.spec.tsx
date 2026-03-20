@@ -9,7 +9,11 @@ const createRepoBtn = 'button[type="submit"]#create-repo-button';
 const cancelBtn = 'button[type="button"]#create-repo-cancel';
 
 test('Create repository form should render without errors', async ({ page }) => {
-	await page.visitExample('design-system', 'form', 'create-repository');
+	await page.visitExample<typeof import('../../../examples/06-create-repository.tsx')>(
+		'design-system',
+		'form',
+		'create-repository',
+	);
 	await expect(page.locator(owner).first()).toBeVisible();
 	await expect(page.locator(project).first()).toBeVisible();
 	await expect(page.locator(repoName).first()).toBeVisible();

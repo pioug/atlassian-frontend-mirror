@@ -125,8 +125,8 @@ export function filterChildrenBetween(
 	to: number,
 	predicate: (node: Node, pos: number, parent: Node | null) => boolean | undefined,
 ): {
-    node: Node;
-    pos: number;
+	node: Node;
+	pos: number;
 }[] {
 	const results = [] as { node: Node; pos: number }[];
 	doc.nodesBetween(from, to, (node, pos, parent) => {

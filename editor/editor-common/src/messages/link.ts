@@ -1,15 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
 export const linkMessages: {
-    openLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; openPreviewPanel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	openLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	openPreviewPanel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	openLink: {
 		id: 'fabric.editor.openLink',

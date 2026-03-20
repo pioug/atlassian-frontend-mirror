@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, Example, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
   ## Jira Issues Configuration Modal Props
@@ -37,3 +37,4 @@ filter?: string
 		/>
 	)}
 `;
+export default _default_1;

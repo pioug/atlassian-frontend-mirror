@@ -6,7 +6,7 @@ import { skipA11yAudit } from '@af/accessibility-testing';
 import noop from '@atlaskit/ds-lib/noop';
 
 import Tabs, { Tab, TabList, TabPanel, useTab } from '../../index';
-import { TabContext } from '../../internal/context';
+import { TabContext } from '../../internal/tab-context';
 
 const CustomTab = ({ label }: { label: string }) => {
 	const tabAttributes = useTab();

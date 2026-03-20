@@ -234,30 +234,31 @@ export const getDenseListStyles = (baseFontSize?: number): SerializedStyles => {
 export const listItemHiddenMarkerStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
-		// Hide list markers for wrapper list items (items containing only nested lists)
-		// Wrapper items for bullet lists: li with only ul child
+		// Hide markers and remove spacing for wrapper list items (items containing only nested lists)
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'li:has(> ul:only-child)': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			listStyleType: 'none !important',
-		},
-		// Wrapper items for ordered lists: li with only ol child
+		'li:has(> ul:only-child), li:has(> ol:only-child), li:has(> div[data-node-type="actionList"]:only-child)':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				listStyleType: 'none !important',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginTop: '0 !important',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginBottom: '0 !important',
+			},
+		// Remove margin from nested lists inside wrapper list items to avoid double spacing
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'li:has(> ol:only-child)': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			listStyleType: 'none !important',
-		},
-		// Wrapper items for task lists: li with only div[data-node-type="actionList"] child
+		'li:has(> ul:only-child) > ul, li:has(> ol:only-child) > ol, li:has(> div[data-node-type="actionList"]:only-child) > div[data-node-type="actionList"]':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginTop: '0 !important',
+			},
+		// Collapse wrapper task items (empty task items followed by a sibling nested task list)
+		// Only hides empty task items that are actual wrappers, not regular empty task items being edited
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'li:has(> div[data-node-type="actionList"]:only-child)': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			listStyleType: 'none !important',
-		},
-		// Hide checkbox for wrapper task list items
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'li:has(> div[data-node-type="actionList"]:only-child) input[type="checkbox"]': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			display: 'none !important',
-		},
+		'[data-prosemirror-node-name="taskItem"]:has([data-empty="true"]):has(+ [data-node-type="actionList"])':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				display: 'none !important',
+			},
 	},
 });

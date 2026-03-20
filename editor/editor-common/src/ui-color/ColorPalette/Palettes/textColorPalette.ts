@@ -7,11 +7,14 @@ import getColorMessage from './getColorMessage';
 import paletteMessages from './paletteMessages';
 import type { PaletteColor } from './type';
 
-export const mapPaletteColor = (label: string, color: string): {
-    border: "var(--ds-border)";
-    label: string;
-    message: MessageDescriptor | undefined;
-    value: string;
+export const mapPaletteColor = (
+	label: string,
+	color: string,
+): {
+	border: 'var(--ds-border)';
+	label: string;
+	message: MessageDescriptor | undefined;
+	value: string;
 } => {
 	const key = label.toLowerCase().replace(' ', '-');
 	const message = getColorMessage(paletteMessages, key);

@@ -4,7 +4,8 @@ import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 import { token } from '@atlaskit/tokens';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- md template from @atlaskit/docs
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
 # Editor Palettes:
@@ -126,3 +127,4 @@ ${code`
 `}
 
 `;
+export default _default_1;

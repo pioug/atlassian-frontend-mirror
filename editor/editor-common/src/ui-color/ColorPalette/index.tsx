@@ -144,6 +144,6 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(ColorPalette);
 export default _default_1;

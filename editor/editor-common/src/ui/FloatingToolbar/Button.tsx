@@ -219,9 +219,11 @@ const FloatingToolbarButton = (
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-const _default_1: React.FC<Omit<Props & React.RefAttributes<HTMLElement>, "ref"> & Props & React.RefAttributes<HTMLElement>> = componentWithCondition(
-    () => editorExperiment('platform_synced_block', true),
-    forwardRef<HTMLElement, Props>(FloatingToolbarButton),
-    FloatingToolbarButton
+const _default_1: React.FC<
+	Omit<Props & React.RefAttributes<HTMLElement>, 'ref'> & Props & React.RefAttributes<HTMLElement>
+> = componentWithCondition(
+	() => editorExperiment('platform_synced_block', true),
+	forwardRef<HTMLElement, Props>(FloatingToolbarButton),
+	FloatingToolbarButton,
 );
 export default _default_1;

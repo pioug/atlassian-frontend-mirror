@@ -79,15 +79,17 @@ const ActionBlock = ({
 	spaceInline,
 	className,
 	testId = 'smart-block-action',
+	is3PAuthRovoActionsExperimentOn,
 }: ActionBlockProps) => {
 	di(ActionFooter);
 
 	const context = useFlexibleUiContext();
 	const ui = useFlexibleUiOptionContext();
 
-	const isRovoChatActionAvailable = fg('platform_sl_3p_auth_rovo_action_kill_switch')
-		? context?.actions?.[InternalActionName.RovoChatAction] !== undefined
-		: undefined;
+	const isRovoChatActionAvailable =
+		is3PAuthRovoActionsExperimentOn && fg('platform_sl_3p_auth_rovo_action_kill_switch')
+			? context?.actions?.[InternalActionName.RovoChatAction] !== undefined
+			: undefined;
 
 	const [message, setMessage] = useState<ActionMessage>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -121,7 +123,7 @@ const ActionBlock = ({
 		}
 
 		const arr = fg('platform_sl_3p_auth_rovo_action_kill_switch')
-			? isRovoChatActionAvailable
+			? is3PAuthRovoActionsExperimentOn && isRovoChatActionAvailable
 				? [InternalActionName.RovoChatAction]
 				: (Object.keys(context.actions) as FlexibleUiActionName[]).filter(
 						(name) => name !== InternalActionName.RovoChatAction,
@@ -159,6 +161,7 @@ const ActionBlock = ({
 		padding,
 		isLoading,
 		onClick,
+		is3PAuthRovoActionsExperimentOn,
 	]);
 
 	return actions ? (

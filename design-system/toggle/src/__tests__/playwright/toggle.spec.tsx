@@ -13,7 +13,11 @@ const toggleStatelessInput = "[data-testid='my-toggle-stateless--input']";
 const toggleLargeInput = "[data-testid='my-large-stateful-toggle--input']";
 
 test('Toggle should be able to be identified and checked by data-testid', async ({ page }) => {
-	await page.visitExample('design-system', 'toggle', 'testing');
+	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+		'design-system',
+		'toggle',
+		'testing',
+	);
 	await expect(page.locator(toggleStateless).first()).toBeVisible();
 	await expect(page.locator(toggleRegular).first()).toBeVisible();
 	await expect(page.locator(toggleLarge).first()).toBeVisible();

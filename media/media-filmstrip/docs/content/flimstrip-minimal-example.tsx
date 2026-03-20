@@ -34,4 +34,4 @@ const Example = () => {
 	);
 };
 
-export default () => <Example />;
+export default (): React.JSX.Element => <Example />;

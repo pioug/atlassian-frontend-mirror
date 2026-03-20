@@ -9,7 +9,6 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 /**
@@ -17,11 +16,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
  * Used to avoid re-entrant ProseMirror dispatch cycles.
  */
 export const deferDispatch = (fn: () => void): void => {
-	if (fg('platform_synced_block_patch_5')) {
-		queueMicrotask(fn);
-	} else {
-		setTimeout(fn, 0);
-	}
+	queueMicrotask(fn);
 };
 
 export const findSyncBlock = (

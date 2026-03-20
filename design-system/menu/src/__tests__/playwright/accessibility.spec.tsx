@@ -1,7 +1,11 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Menu should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'menu', 'skeleton-items');
+	await page.visitExample<typeof import('../../../examples/06-skeleton-items.tsx')>(
+		'design-system',
+		'menu',
+		'skeleton-items',
+	);
 	const toggleLoading = page.getByTestId('toggle-loading');
 	const elementWhileLoading = page.locator('span:has-text("John Smith")').first();
 

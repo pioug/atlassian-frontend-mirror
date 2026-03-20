@@ -263,6 +263,7 @@ export enum INPUT_METHOD {
 	BLOCK_MENU = 'blockMenu',
 	SMART_LINK = 'smartLink',
 	ELEMENT_BROWSER = 'elementBrowser',
+	REMIX = 'remix',
 }
 
 export enum INSERT_MEDIA_VIA {

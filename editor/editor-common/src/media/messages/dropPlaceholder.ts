@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const dropPlaceholderMessages: {
-    dropPlaceholderLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	dropPlaceholderLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	dropPlaceholderLabel: {
 		id: 'fabric.editor.dropPlaceholderLabel',

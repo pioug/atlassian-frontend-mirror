@@ -15,6 +15,12 @@ export type ExperienceState = 'pending' | 'started' | 'aborted' | 'failed' | 'su
 /*
  * ID for the the experience. These are broad experiences used for SLOs for all of editor, not at individual feature level.
  */
-const EXPERIENCE_IDS: ("asyncOperation" | "menuAction" | "menuOpen" | "toolbarAction" | "toolbarOpen")[] = Object.values(EXPERIENCE_ID);
+const EXPERIENCE_IDS: (
+	| 'asyncOperation'
+	| 'menuAction'
+	| 'menuOpen'
+	| 'toolbarAction'
+	| 'toolbarOpen'
+)[] = Object.values(EXPERIENCE_ID);
 
 export type ExperienceId = (typeof EXPERIENCE_IDS)[number];

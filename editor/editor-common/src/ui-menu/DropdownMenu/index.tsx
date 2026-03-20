@@ -364,7 +364,10 @@ export function DropdownMenuItem({
 	onMouseLeave,
 }: {
 	item: MenuItem;
-} & Pick<Props, 'onItemActivated' | 'shouldUseDefaultRole' | 'onMouseEnter' | 'onMouseLeave'>): jsx.JSX.Element {
+} & Pick<
+	Props,
+	'onItemActivated' | 'shouldUseDefaultRole' | 'onMouseEnter' | 'onMouseLeave'
+>): jsx.JSX.Element {
 	const [submenuActive, setSubmenuActive] = React.useState(false);
 
 	// onClick and value.name are the action indicators in the handlers
@@ -458,8 +461,10 @@ export function DropdownMenuItem({
 	return dropListItem;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Ignored via go/ees005
-export const DropdownMenuWithKeyboardNavigation: React.MemoExoticComponent<({ ...props }: React.PropsWithChildren<any>) => jsx.JSX.Element> = React.memo(
+export const DropdownMenuWithKeyboardNavigation: React.MemoExoticComponent<
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Ignored via go/ees005
+	({ ...props }: React.PropsWithChildren<any>) => jsx.JSX.Element
+> = React.memo(
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	({ ...props }: React.PropsWithChildren<any>): jsx.JSX.Element => {

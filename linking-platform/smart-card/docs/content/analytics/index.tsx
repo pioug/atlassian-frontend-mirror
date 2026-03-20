@@ -259,7 +259,7 @@ const JiraLocations = () => {
 	);
 };
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 ${(<WarningMessage />)}
 
 ## Smart Link Events
@@ -348,3 +348,4 @@ ${(<ConfluenceLocations />)}
 
 ${(<JiraLocations />)}
 `;
+export default _default_1;

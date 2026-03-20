@@ -11,7 +11,7 @@ const ContentTabs = ({
 }: {
 	showQuickLinks?: boolean;
 	tabs: { content: any; name: string }[];
-}) => (
+}): React.JSX.Element => (
 	<Tabs id="content-tab">
 		<TabList>
 			{tabs.map(({ name }, idx: number) => (

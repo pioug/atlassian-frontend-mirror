@@ -53,9 +53,7 @@ const calculateNodesForBlockDecoration = ({
 		) {
 			const nodeEnd = pos + node.nodeSize;
 			const isActive =
-				activeIndexPos &&
-				pos === activeIndexPos.from &&
-				nodeEnd === activeIndexPos.to;
+				activeIndexPos && pos === activeIndexPos.from && nodeEnd === activeIndexPos.to;
 			const decoration = createBlockChangedDecoration({
 				change: { from: pos, to: nodeEnd, name: node.type.name },
 				colorScheme,
@@ -196,9 +194,7 @@ const calculateDiffDecorationsInner = ({
 	const decorations: Decoration[] = [];
 	optimizedChanges.forEach((change) => {
 		const isActive =
-			activeIndexPos &&
-			change.fromB === activeIndexPos.from &&
-			change.toB === activeIndexPos.to;
+			activeIndexPos && change.fromB === activeIndexPos.from && change.toB === activeIndexPos.to;
 		// Our default operations are insertions, so it should match the opposite of isInverted.
 		const isInserted = !isInverted;
 
@@ -229,9 +225,9 @@ const calculateDiffDecorationsInner = ({
 		}
 		if (change.deleted.length > 0) {
 			const isActive =
-			activeIndexPos &&
-			change.fromB === activeIndexPos.from &&
-			change.fromB === activeIndexPos.to;
+				activeIndexPos &&
+				change.fromB === activeIndexPos.from &&
+				change.fromB === activeIndexPos.to;
 
 			const decoration = createNodeChangedDecorationWidget({
 				change,
@@ -252,9 +248,7 @@ const calculateDiffDecorationsInner = ({
 	});
 	getMarkChangeRanges(steps).forEach((change) => {
 		const isActive =
-			activeIndexPos &&
-			change.fromB === activeIndexPos.from &&
-			change.toB === activeIndexPos.to;
+			activeIndexPos && change.fromB === activeIndexPos.from && change.toB === activeIndexPos.to;
 		decorations.push(
 			createInlineChangedDecoration({ change, colorScheme, isActive, isInserted: true }),
 		);

@@ -2,7 +2,7 @@ import type { VirtualElement } from '@popperjs/core';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { FakeMouseElement } from '../utilities';
+import type { FakeMouseElement } from '../types';
 
 import { clearScheduled, scheduleTimeout } from './shared-schedule';
 

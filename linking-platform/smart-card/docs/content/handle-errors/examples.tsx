@@ -4,7 +4,7 @@ import { Example } from '@atlaskit/docs';
 
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 ### Unexpected and Unhandled Errors
 
 Unexpected and unhandled error when attempting to render a **SmartCard** component.
@@ -31,3 +31,4 @@ ${(
 	/>
 )}
 `;
+export default _default_1;

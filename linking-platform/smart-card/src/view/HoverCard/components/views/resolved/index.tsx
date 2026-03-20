@@ -9,6 +9,7 @@ import { di } from 'react-magnetic-di';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
@@ -88,6 +89,11 @@ const HoverCardResolvedView = ({
 			)
 		: false;
 
+	// We want to fire exposure event only for those cases when user otherwise can see the experiment which would be controlled
+	// by all the other condition defined above as a result of what was defined in actionOptions as well as in CardContext.
+	const is3PAuthRovoActionsExperimentOn =
+		isRovoSummaryEnabled && expValEquals('platform_sl_3p_auth_rovo_action', 'isEnabled', true);
+
 	useEffect(() => {
 		// Since this hover view is only rendered on resolved status,
 		// there is no need to check for statuses.
@@ -140,7 +146,7 @@ const HoverCardResolvedView = ({
 				maxLines={1}
 				size={SmartLinkSize.Medium}
 			/>
-			{isRovoSummaryEnabled ? (
+			{is3PAuthRovoActionsExperimentOn ? (
 				<RovoSummaryBlock aiSummaryMinHeight={aiSummaryMinHeight} url={url} />
 			) : isAISummaryEnabled ? (
 				<AISummaryBlock aiSummaryMinHeight={aiSummaryMinHeight} placeholder={snippet} />
@@ -158,9 +164,9 @@ const HoverCardResolvedView = ({
 				onClick={onActionClick}
 				spaceInline="space.100"
 				css={[actionBlockCss]}
-				hideAISummaryAction={isRovoSummaryEnabled}
+				is3PAuthRovoActionsExperimentOn={is3PAuthRovoActionsExperimentOn}
 			/>
-			{isRovoSummaryEnabled ? (
+			{is3PAuthRovoActionsExperimentOn ? (
 				<ResolvedHoverCardFooterBlock onActionClick={onActionClick} />
 			) : (
 				<AIFooterBlock />

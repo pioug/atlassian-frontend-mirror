@@ -19,21 +19,23 @@ type State = {
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class AppWithFlag extends React.PureComponent<Props, State> {
-	state = {
+	state: {
+		flags: never[];
+	} = {
 		flags: [],
 	};
 
-	handleDismiss = () => {
+	handleDismiss = (): void => {
 		this.setState((prevState: State) => ({
 			flags: prevState.flags.slice(1),
 		}));
 	};
 
-	addFlag = (flags: Array<Flag>) => {
+	addFlag = (flags: Array<Flag>): void => {
 		this.setState({ flags: [...this.state.flags, ...flags] });
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<div style={{ padding: token('space.200', '16px') }}>

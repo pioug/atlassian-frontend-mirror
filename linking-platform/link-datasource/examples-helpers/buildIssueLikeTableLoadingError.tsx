@@ -29,7 +29,7 @@ const ExampleBody = () => {
 	);
 };
 
-export const ExampleIssueLikeTableLoadingErrorExample = () => {
+export const ExampleIssueLikeTableLoadingErrorExample = (): JSX.Element => {
 	return (
 		<DatasourceExperienceIdProvider>
 			<IntlMessagesProvider loaderFn={fetchMessagesForLocale}>

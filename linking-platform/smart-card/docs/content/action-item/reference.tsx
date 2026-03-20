@@ -2,7 +2,7 @@ import React from 'react';
 
 import { md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
 ### BaseActionItem Props
 
@@ -25,3 +25,4 @@ Current available named actions are \`PreviewAction\`, \`DownloadAction\`, \`Cop
 See [card actions](./card-actions) for more details.
 
 `;
+export default _default_1;

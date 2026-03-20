@@ -20,9 +20,11 @@ import {
 	toggleHeading5,
 	toggleHeading6,
 } from '@atlaskit/editor-common/keymaps';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { editorUGCToken } from '@atlaskit/editor-common/ugc-tokens';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -30,7 +32,8 @@ import { token } from '@atlaskit/tokens';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import type { TextBlockTypes } from '../../block-types';
-import type { BlockTypeWithRank } from '../../types';
+import type { BlockType, BlockTypeWithRank } from '../../types';
+import { isSelectionInsideListNode } from '../../utils';
 
 type HeadingButtonProps = {
 	api?: ExtractInjectionAPI<BlockTypePlugin>;
@@ -138,6 +141,18 @@ const shortcuts: Record<TextBlockTypes, Keymap> = {
 	heading6: toggleHeading6,
 };
 
+const shouldDisableHeadingButton = (state: EditorState | undefined, blockType: BlockType) => {
+	if (!state) {
+		return false;
+	}
+
+	return (
+		isSelectionInsideListNode(state) &&
+		blockType.name !== 'normal' &&
+		blockType.name !== 'smallText'
+	);
+};
+
 export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const currentBlockType = useSharedPluginStateSelector(api, 'blockType.currentBlockType');
@@ -145,6 +160,7 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 		api,
 		'blockType.availableBlockTypesInDropdown',
 	);
+	const { editorView } = useEditorToolbar();
 
 	if (
 		!availableBlockTypesInDropdown?.some(
@@ -154,8 +170,15 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 		return null;
 	}
 
+	const isDisabled = expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+		? shouldDisableHeadingButton(editorView?.state, blockType)
+		: false;
+
 	const fromBlockQuote = currentBlockType?.name === 'blockquote';
 	const onClick = () => {
+		if (isDisabled) {
+			return;
+		}
 		api?.core?.actions.execute(
 			api?.blockType?.commands?.setTextLevel(
 				blockType.name as TextBlockTypes,
@@ -173,6 +196,7 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 			elemAfter={shortcut ? <ToolbarKeyboardShortcutHint shortcut={shortcut} /> : undefined}
 			onClick={onClick}
 			isSelected={isSelected}
+			isDisabled={isDisabled}
 			ariaKeyshortcuts={shortcut}
 		>
 			{expValEquals('platform_editor_toolbar_aifc_use_editor_typography', 'isEnabled', true) ? (

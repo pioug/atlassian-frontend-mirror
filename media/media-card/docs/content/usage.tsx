@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, code, Example } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${code`
   import { Card } from '@atlaskit/media-card';
   import { MediaClientConfig } from '@atlaskit/media-core';
@@ -36,3 +36,4 @@ ${(
 	/>
 )}
 `;
+export default _default_1;

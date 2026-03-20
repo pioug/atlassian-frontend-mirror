@@ -69,7 +69,11 @@ test.describe('resizing', () => {
 	test.beforeEach(async ({ page, skipAxeCheck }) => {
 		skipAxeCheck();
 
-		await page.visitExample('design-system', 'navigation-system', 'resizable-slots');
+		await page.visitExample<typeof import('../../../examples/resizable-slots.tsx')>(
+			'design-system',
+			'navigation-system',
+			'resizable-slots',
+		);
 	});
 
 	test('should maintain proportional width as the side nav grows', async ({ page }) => {

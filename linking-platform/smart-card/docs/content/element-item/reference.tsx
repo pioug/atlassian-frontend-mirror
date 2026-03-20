@@ -2,7 +2,7 @@ import React from 'react';
 
 import { md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
 ### Props
 
@@ -14,3 +14,4 @@ ${(
 )}
 
 `;
+export default _default_1;

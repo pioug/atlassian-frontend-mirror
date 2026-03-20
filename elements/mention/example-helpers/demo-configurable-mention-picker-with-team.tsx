@@ -27,11 +27,11 @@ export default class ConfigurableTeamMentionPicker extends React.Component<Props
 		userMentionConfig: this.props.userMentionConfig,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.refreshMentions();
 	}
 
-	refreshMentions() {
+	refreshMentions(): void {
 		const resourceProvider = new TeamMentionResource(
 			this.state.userMentionConfig,
 			this.state.teamMentionConfig,
@@ -52,7 +52,7 @@ export default class ConfigurableTeamMentionPicker extends React.Component<Props
 		}
 	}
 
-	configTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+	configTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
 		try {
 			const config = JSON.parse(event.target.value.trim()) as MentionResourceConfig;
 			const stateName = event.target.name;
@@ -67,7 +67,7 @@ export default class ConfigurableTeamMentionPicker extends React.Component<Props
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { userMentionConfig, teamMentionConfig } = this.props;
 		const { resourceProvider } = this.state;
 

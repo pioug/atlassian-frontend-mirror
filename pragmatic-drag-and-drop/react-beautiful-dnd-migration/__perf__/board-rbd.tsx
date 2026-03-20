@@ -15,7 +15,17 @@ const rbdApi: RbdApi = {
 	Droppable,
 };
 
-const boardRbd = () => <Board rbdApi={rbdApi} />;
+const boardRbd: {
+	(): React.JSX.Element;
+	story: {
+		name: string;
+		parameters: {
+			performance: {
+				interactions: PublicInteractionTask[];
+			};
+		};
+	};
+} = (): React.JSX.Element => <Board rbdApi={rbdApi} />;
 
 const interactions: PublicInteractionTask[] = [
 	{

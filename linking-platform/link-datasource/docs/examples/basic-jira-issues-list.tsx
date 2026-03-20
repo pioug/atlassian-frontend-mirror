@@ -10,7 +10,7 @@ import { DatasourceTableView } from '../../src';
 
 mockDatasourceFetchRequests();
 
-export default () => {
+export default (): React.JSX.Element => {
 	const {
 		visibleColumnKeys,
 		onVisibleColumnKeysChange,

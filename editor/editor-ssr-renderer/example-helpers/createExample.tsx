@@ -44,7 +44,7 @@ function SSREditor({ adf }: { adf: DocNode }) {
 }
 
 export function createExample(adf: DocNode) {
-	return () => {
+	return (): React.JSX.Element => {
 		const smartCardClient = useMemo(() => new CardClient('staging'), []);
 
 		return (

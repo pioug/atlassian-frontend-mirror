@@ -20,7 +20,8 @@ const spinnerContainer = css({
 	width: '100%',
 });
 
-const ElementBrowserLoader: React.ComponentType<React.PropsWithChildren<ElementBrowserProps>> & Loadable.LoadableComponent = Loadable({
+const ElementBrowserLoader: React.ComponentType<React.PropsWithChildren<ElementBrowserProps>> &
+	Loadable.LoadableComponent = Loadable({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_editor-element-browser" */ '../ElementBrowser'

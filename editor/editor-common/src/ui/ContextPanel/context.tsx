@@ -22,12 +22,13 @@ export type ContextPanelContext = {
 	width: number;
 };
 
-export const ContextPanel: React.Context<ContextPanelContext> = React.createContext<ContextPanelContext>({
-	width: 0,
-	positionedOverEditor: false,
-	broadcastWidth: () => {},
-	broadcastPosition: () => {},
-});
+export const ContextPanel: React.Context<ContextPanelContext> =
+	React.createContext<ContextPanelContext>({
+		width: 0,
+		positionedOverEditor: false,
+		broadcastWidth: () => {},
+		broadcastPosition: () => {},
+	});
 
 export type ContextPanelProviderState = {
 	positionedOverEditor?: boolean;

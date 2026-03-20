@@ -1,55 +1,66 @@
 import { defineMessages } from 'react-intl-next';
 
 export const pixelEntryMessages: {
-    validationFailedMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inputWidthTooltip: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inputWidthAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inputWidthLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inputHeightTooltip: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inputHeightAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; submitButtonText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; fullWidthLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; migrationButtonText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; migrationButtonTooltip: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closePixelEntry: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; resizeOption: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	validationFailedMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inputWidthTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inputWidthAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inputWidthLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inputHeightTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inputHeightAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	submitButtonText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	fullWidthLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	migrationButtonText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	migrationButtonTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closePixelEntry: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	resizeOption: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	validationFailedMessage: {
 		id: 'fabric.editor.media.pixelEntry.validationFailedMessage',

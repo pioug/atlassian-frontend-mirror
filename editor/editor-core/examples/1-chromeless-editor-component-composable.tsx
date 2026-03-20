@@ -16,6 +16,7 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-inserti
 import { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';
 import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugins/editor-disabled';
+import { expandPlugin } from '@atlaskit/editor-plugins/expand';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
 import { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
@@ -91,6 +92,15 @@ export default function Editor(): React.JSX.Element {
 					.add(guidelinePlugin)
 					.add(tablesPlugin)
 					.add(textFormattingPlugin)
+					.add([
+						expandPlugin,
+						{
+							allowInsertion: true,
+							allowInteractiveExpand: true,
+							appearance: 'chromeless',
+							__livePage: false,
+						},
+					])
 			);
 		},
 		[isToolbarEnabled],

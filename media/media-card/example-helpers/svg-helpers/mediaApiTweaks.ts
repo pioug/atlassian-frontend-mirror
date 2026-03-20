@@ -7,7 +7,7 @@ type Endpoints = Partial<Record<keyof MediaApi, number>>;
 export const delayApiResponses = (
 	mediaApi: MediaApi,
 	{ getImage, getItems, getFileBinary }: Endpoints,
-) => {
+): void => {
 	const baseGetImage = mediaApi.getImage;
 	mediaApi.getImage = async (...params) => {
 		await sleep(getImage);
@@ -28,7 +28,7 @@ export const delayApiResponses = (
 };
 
 export const errorApiResponses = {
-	getFileBinary: (mediaApi: MediaApi, error?: Error) => {
+	getFileBinary: (mediaApi: MediaApi, error?: Error): void => {
 		mediaApi.getFileBinary = async () => {
 			throw (
 				error ||
@@ -39,7 +39,7 @@ export const errorApiResponses = {
 			);
 		};
 	},
-	getFileImage: (mediaApi: MediaApi, error?: Error) => {
+	getFileImage: (mediaApi: MediaApi, error?: Error): void => {
 		mediaApi.getImage = async () => {
 			throw (
 				error ||
@@ -50,7 +50,7 @@ export const errorApiResponses = {
 			);
 		};
 	},
-	getArtifactBinary: (mediaApi: MediaApi, error?: Error) => {
+	getArtifactBinary: (mediaApi: MediaApi, error?: Error): void => {
 		mediaApi.getArtifactBinary = async (...params) => {
 			throw (
 				error ||
@@ -61,7 +61,7 @@ export const errorApiResponses = {
 			);
 		};
 	},
-	uploadArtifact: (mediaApi: MediaApi, error?: Error) => {
+	uploadArtifact: (mediaApi: MediaApi, error?: Error): void => {
 		mediaApi.uploadArtifact = async (...params) => {
 			throw (
 				error ||
@@ -72,7 +72,7 @@ export const errorApiResponses = {
 			);
 		};
 	},
-	deleteArtifact: (mediaApi: MediaApi, error?: Error) => {
+	deleteArtifact: (mediaApi: MediaApi, error?: Error): void => {
 		mediaApi.deleteArtifact = async (...params) => {
 			throw (
 				error ||

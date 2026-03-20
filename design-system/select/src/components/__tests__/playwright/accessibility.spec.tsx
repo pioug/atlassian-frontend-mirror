@@ -8,7 +8,11 @@ const noOptions = '[id="react-select-2-listbox"]';
 const createSelectInput = '[id="async-creatable-example"]';
 
 test(`Creatable-select should pass basic aXe audit`, async ({ page, skipAxeCheck }) => {
-	await page.visitExample('design-system', 'select', 'creatable-select');
+	await page.visitExample<typeof import('../../../../examples/08-async-creatable-select.tsx')>(
+		'design-system',
+		'select',
+		'creatable-select',
+	);
 	await page.locator(creatableSelectContainer).first().click();
 
 	await expect(page.locator(creatableSelectMenu)).toBeVisible();
@@ -26,7 +30,11 @@ test(`Creatable-select should pass basic aXe audit`, async ({ page, skipAxeCheck
 });
 
 test(`Async-creatable-select should pass basic aXe audit`, async ({ page, skipAxeCheck }) => {
-	await page.visitExample('design-system', 'select', 'async-creatable-select');
+	await page.visitExample<typeof import('../../../../examples/08-async-creatable-select.tsx')>(
+		'design-system',
+		'select',
+		'async-creatable-select',
+	);
 
 	await page.locator(creatableSelectContainer).first().click();
 

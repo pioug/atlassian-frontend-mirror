@@ -1,81 +1,94 @@
 export const exampleDocument: {
-    version: number; type: string; content: ({
-        type: string;
-        attrs: {
-            panelType: string;
-            panelColor: string;
-            panelIcon?: undefined;
-        };
-        content: {
-            type: string;
-            content: {
-                type: string;
-                text: string;
-            }[];
-        }[];
-    } | {
-        type: string;
-        attrs: {
-            panelType: string;
-            panelIcon: string;
-            panelColor?: undefined;
-        };
-        content: {
-            type: string;
-            content: {
-                type: string;
-                text: string;
-            }[];
-        }[];
-    } | {
-        type: string;
-        attrs: {
-            panelType: string;
-            panelColor?: undefined;
-            panelIcon?: undefined;
-        };
-        content: {
-            type: string;
-            content: ({
-                type: string;
-                text: string;
-                marks?: undefined;
-            } | {
-                type: string;
-                text: string;
-                marks: {
-                    type: string;
-                    attrs: {
-                        color: string;
-                    };
-                }[];
-            })[];
-        }[];
-    } | {
-        type: string;
-        attrs: {
-            panelType: string;
-            panelColor: string;
-            panelIcon: string;
-        };
-        content: {
-            type: string;
-            content: ({
-                type: string;
-                text: string;
-                marks?: undefined;
-            } | {
-                type: string;
-                text: string;
-                marks: {
-                    type: string;
-                    attrs: {
-                        color: string;
-                    };
-                }[];
-            })[];
-        }[];
-    })[];
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					panelType: string;
+					panelColor: string;
+					panelIcon?: undefined;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						text: string;
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					panelType: string;
+					panelIcon: string;
+					panelColor?: undefined;
+				};
+				content: {
+					type: string;
+					content: {
+						type: string;
+						text: string;
+					}[];
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					panelType: string;
+					panelColor?: undefined;
+					panelIcon?: undefined;
+				};
+				content: {
+					type: string;
+					content: (
+						| {
+								type: string;
+								text: string;
+								marks?: undefined;
+						  }
+						| {
+								type: string;
+								text: string;
+								marks: {
+									type: string;
+									attrs: {
+										color: string;
+									};
+								}[];
+						  }
+					)[];
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					panelType: string;
+					panelColor: string;
+					panelIcon: string;
+				};
+				content: {
+					type: string;
+					content: (
+						| {
+								type: string;
+								text: string;
+								marks?: undefined;
+						  }
+						| {
+								type: string;
+								text: string;
+								marks: {
+									type: string;
+									attrs: {
+										color: string;
+									};
+								}[];
+						  }
+					)[];
+				}[];
+		  }
+	)[];
 } = {
 	version: 1,
 	type: 'doc',

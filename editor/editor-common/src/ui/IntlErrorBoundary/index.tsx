@@ -32,7 +32,14 @@ export class IntlErrorBoundary extends React.Component<ErrorBoundaryProps, Error
 		}
 	}
 
-	render(): string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined {
+	render():
+		| string
+		| number
+		| boolean
+		| Iterable<React.ReactNode>
+		| React.JSX.Element
+		| null
+		| undefined {
 		if (this.state.missingIntlProviderInAncestry) {
 			return <IntlProvider locale="en">{this.props.children}</IntlProvider>;
 		}

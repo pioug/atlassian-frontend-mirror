@@ -1,6 +1,6 @@
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 This action allows users to copy the URL of the smart link to their clipboard.
 It's useful for quickly sharing the link with others without needing to navigate away from the current page
@@ -10,3 +10,4 @@ It's useful for quickly sharing the link with others without needing to navigate
 **Availability:**  All Smart Links
 
 `;
+export default _default_1;

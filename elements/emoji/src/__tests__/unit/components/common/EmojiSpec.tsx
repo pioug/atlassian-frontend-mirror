@@ -121,9 +121,7 @@ describe('<Emoji />', () => {
 		it('should automatically set width to auto if autoWidth is true during SSR', async () => {
 			const isSSRSpy = jest.spyOn(isSSRModule, 'isSSR').mockReturnValue(true);
 
-			const result = await renderWithIntl(
-				<Emoji emoji={imageEmoji} fitToHeight={25} autoWidth />,
-			);
+			const result = await renderWithIntl(<Emoji emoji={imageEmoji} fitToHeight={25} autoWidth />);
 			const image = result.getByAltText(imageEmoji.name);
 			expect(image).toHaveAttribute('width', 'auto');
 			expect(image).toHaveAttribute('height', '25');

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
   ${(<AtlassianInternalWarning />)}
 
@@ -14,3 +14,4 @@ export default md`
   We will monitor the forums and redirect topics to the appropriate maintainers.
 
 `;
+export default _default_1;

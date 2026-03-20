@@ -295,7 +295,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				unboundStyles.hexagonFocusContainer,
 				!fg('platform_dst_hexagon_avatar_unified_size') && marginAdjustmentMap[size],
 				fg('platform_dst_hexagon_avatar_unified_size') &&
-				unboundStyles.hexagonFocusContainerMarginFg,
+					unboundStyles.hexagonFocusContainerMarginFg,
 			]}
 			style={
 				{
@@ -310,7 +310,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 					unboundStyles.hexagonBorderContainer,
 					fg('avatar-custom-border') && unboundStyles.hexagonBorderContainerCustomBorder,
 					fg('platform_dst_hexagon_avatar_unified_size') &&
-					unboundStyles.hexagonBorderContainerMarginFg,
+						unboundStyles.hexagonBorderContainerMarginFg,
 				]}
 				data-testid={testId ? `${testId}-hexagon-border-container` : 'hexagon-border-container'}
 			>

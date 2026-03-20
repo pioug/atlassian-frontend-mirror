@@ -2,35 +2,41 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    unorderedList: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; unorderedListDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; bulletedList: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; orderedList: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; orderedListDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; lists: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; listsFormat: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	unorderedList: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	unorderedListDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	bulletedList: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	orderedList: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	orderedListDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	lists: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	listsFormat: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	unorderedList: {
 		id: 'fabric.editor.unorderedList',

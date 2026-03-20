@@ -1,19 +1,21 @@
 import { defineMessages } from 'react-intl-next';
 
 export const commentMessages: {
-    addCommentOnMedia: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; viewCommentsOnMedia: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; viewAndAddCommentsOnMedia: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	addCommentOnMedia: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	viewCommentsOnMedia: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	viewAndAddCommentsOnMedia: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	addCommentOnMedia: {
 		id: 'fabric.editor.addCommentOnMedia',

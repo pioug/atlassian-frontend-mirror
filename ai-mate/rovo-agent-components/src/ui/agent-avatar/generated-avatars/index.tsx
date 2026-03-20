@@ -210,7 +210,8 @@ const GammaAgentAvatar = lazy(
 const LovableAgentAvatar = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "@atlaskit-rovo-avatar-LovableAgentAvatar"*/ './assets/lovable-agent'),
+			/* webpackChunkName: "@atlaskit-rovo-avatar-LovableAgentAvatar"*/ './assets/lovable-agent'
+		),
 );
 
 const ReplitAgentAvatar = lazy(

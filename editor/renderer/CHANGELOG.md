@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 128.2.0
+
+### Minor Changes
+
+- [`ae5fac6f9f299`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae5fac6f9f299) -
+  Added support for Smart Link draggable changeboarding in Confluence ADF renderer. This change adds
+  an optional smartLinkDraggableChangeboardConfig prop and passes shouldShow/onClose into Smart
+  Links, with no breaking API changes.
+
+### Patch Changes
+
+- [`7428d9bf3aa13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7428d9bf3aa13) -
+  Clean up platform_synced_block_patch_5 feature gate
+- [`af385c410f9b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af385c410f9b1) -
+  [ux] EDITOR-5909 Hide markers for wrapper task list items
+- Updated dependencies
+
 ## 128.1.0
 
 ### Minor Changes

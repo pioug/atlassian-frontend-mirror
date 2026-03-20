@@ -1,5 +1,30 @@
 # @atlaskit/rovo-triggers
 
+## 5.29.0
+
+### Minor Changes
+
+- [`c1c4cd3f79b0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1c4cd3f79b0d) -
+  [ux] This change is exposing a new piece of context for Rovo Chat, and is conditional on slide
+  context existing. As a whole, this is only supplied in a slide deck being viewed, which is also
+  only possible if you're in the slides experiment. It simply exposes the slide deck, selections on
+  the slide deck, active viewing slide in the `Context: ` bit of rovo chat.
+
+## 5.28.0
+
+### Minor Changes
+
+- [`3107f7675ae5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3107f7675ae5f) -
+  MAUI-80 Infographics insert as media node
+
+## 5.27.0
+
+### Minor Changes
+
+- [`c64cf3b384b98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c64cf3b384b98) -
+  Adds query param `rovoChatPromptLibraryOpen` which can be `true | false` for opening the prompt
+  library in full page chat when the query param is set to true.
+
 ## 5.26.0
 
 ### Minor Changes

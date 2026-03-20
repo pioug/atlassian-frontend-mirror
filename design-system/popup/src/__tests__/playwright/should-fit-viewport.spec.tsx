@@ -4,9 +4,14 @@ test('should be scrollable when shouldFitViewport is true', async ({ page, skipA
 	// The example is just for tests
 	skipAxeCheck();
 
-	await page.visitExample('design-system', 'popup', 'should-fit-viewport', {
-		featureFlag: 'platform_dst_nav4_flyoutmenuitem_render_to_parent',
-	});
+	await page.visitExample<typeof import('../../../examples/should-fit-viewport.tsx')>(
+		'design-system',
+		'popup',
+		'should-fit-viewport',
+		{
+			featureFlag: 'platform_dst_nav4_flyoutmenuitem_render_to_parent',
+		},
+	);
 
 	// Open popup
 	await page.getByRole('button', { name: 'Popup trigger' }).click();
@@ -20,9 +25,14 @@ test('should not be scrollable when shouldFitViewport is false', async ({ page, 
 	// The example is just for tests
 	skipAxeCheck();
 
-	await page.visitExample('design-system', 'popup', 'should-fit-viewport', {
-		featureFlag: 'platform_dst_nav4_flyoutmenuitem_render_to_parent',
-	});
+	await page.visitExample<typeof import('../../../examples/should-fit-viewport.tsx')>(
+		'design-system',
+		'popup',
+		'should-fit-viewport',
+		{
+			featureFlag: 'platform_dst_nav4_flyoutmenuitem_render_to_parent',
+		},
+	);
 
 	// Toggle should fit viewport to false
 	await page.getByRole('button', { name: 'Toggle should fit viewport' }).click();

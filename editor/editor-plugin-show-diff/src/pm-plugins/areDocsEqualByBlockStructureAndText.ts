@@ -21,5 +21,9 @@ function isBlockStructureEqual(node1: PMNode, node2: PMNode): boolean {
  * This is safe because we ensure decorations get applied to valid positions.
  */
 export function areDocsEqualByBlockStructureAndText(doc1: PMNode, doc2: PMNode): boolean {
-	return doc1.textContent === doc2.textContent && doc1.nodeSize === doc2.nodeSize && isBlockStructureEqual(doc1, doc2);
+	return (
+		doc1.textContent === doc2.textContent &&
+		doc1.nodeSize === doc2.nodeSize &&
+		isBlockStructureEqual(doc1, doc2)
+	);
 }

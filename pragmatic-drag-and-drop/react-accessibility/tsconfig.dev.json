@@ -29,7 +29,8 @@
 		"**/stories/*.ts",
 		"**/stories/*.tsx",
 		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx"
+		"**/stories/**/*.tsx",
+		"./extract-react-types/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {

@@ -16,24 +16,43 @@ type Token = {
 };
 
 // NB: Fallback CSS variables can be deleted when tokens are no longer behind a feature flag
-const tokenStyles = {
+const tokenStyles: {
+	readonly opacity: {
+		readonly objectName: 'opacity';
+		readonly prefix: 'opacity.';
+		readonly cssProperty: 'opacity';
+		readonly filterFn: <T extends Token>(t: T) => boolean;
+	};
+	readonly shadow: {
+		readonly objectName: 'shadow';
+		readonly prefix: 'elevation.shadow.';
+		readonly cssProperty: 'boxShadow';
+		readonly filterFn: <T extends Token>(t: T) => boolean;
+	};
+	readonly surface: {
+		readonly objectName: 'surfaceColor';
+		readonly prefix: 'elevation.surface.';
+		readonly cssProperty: '--ds-elevation-surface-current';
+		readonly filterFn: <T extends Token>(t: T) => boolean;
+	};
+} = {
 	opacity: {
 		objectName: 'opacity',
 		prefix: 'opacity.',
 		cssProperty: 'opacity',
-		filterFn: <T extends Token>(t: T) => t.token.startsWith(tokenStyles.opacity.prefix),
+		filterFn: <T extends Token>(t: T): boolean => t.token.startsWith(tokenStyles.opacity.prefix),
 	},
 	shadow: {
 		objectName: 'shadow',
 		prefix: 'elevation.shadow.',
 		cssProperty: 'boxShadow',
-		filterFn: <T extends Token>(t: T) => t.token.startsWith(tokenStyles.shadow.prefix),
+		filterFn: <T extends Token>(t: T): boolean => t.token.startsWith(tokenStyles.shadow.prefix),
 	},
 	surface: {
 		objectName: 'surfaceColor',
 		prefix: 'elevation.surface.',
 		cssProperty: CURRENT_SURFACE_CSS_VAR,
-		filterFn: <T extends Token>(t: T) => t.token.startsWith(tokenStyles.surface.prefix),
+		filterFn: <T extends Token>(t: T): boolean => t.token.startsWith(tokenStyles.surface.prefix),
 	},
 } as const;
 

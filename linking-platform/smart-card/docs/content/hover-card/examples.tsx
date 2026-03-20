@@ -3,7 +3,7 @@ import React from 'react';
 import CustomExample from '../../utils/custom-example';
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ### Default
 The default hover card will appear when hovering on children and disappear upon exiting the card boundary.
@@ -73,3 +73,4 @@ ${(
 	/>
 )}
 `;
+export default _default_1;

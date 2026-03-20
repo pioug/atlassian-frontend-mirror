@@ -95,11 +95,11 @@ type State = {
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class DiffingExample extends React.Component<null, State> {
 	state: {
-        editMode: boolean;
-        diffs: never[];
-        documentOne: string;
-        documentTwo: string;
-    } = {
+		editMode: boolean;
+		diffs: never[];
+		documentOne: string;
+		documentTwo: string;
+	} = {
 		editMode: true,
 		diffs: [],
 		documentOne: '',

@@ -1,300 +1,331 @@
 export const hydrateAdf: {
-    version: number; type: string; content: ({
-        type: string;
-        attrs: {
-            level: number;
-            localId: string;
-            url?: undefined;
-            isNumberColumnEnabled?: undefined;
-            layout?: undefined;
-            width?: undefined;
-            title?: undefined;
-            language?: undefined;
-        };
-        content: {
-            type: string;
-            text: string;
-        }[];
-        marks?: undefined;
-    } | {
-        type: string;
-        attrs: {
-            localId: string;
-            level?: undefined;
-            url?: undefined;
-            isNumberColumnEnabled?: undefined;
-            layout?: undefined;
-            width?: undefined;
-            title?: undefined;
-            language?: undefined;
-        };
-        content: {
-            type: string;
-            attrs: {
-                localId: string;
-                state: string;
-            };
-            content: ({
-                type: string;
-                attrs: {
-                    timestamp: string;
-                };
-                text?: undefined;
-            } | {
-                type: string;
-                text: string;
-                attrs?: undefined;
-            })[];
-        }[];
-        marks?: undefined;
-    } | {
-        type: string;
-        attrs: {
-            localId: string;
-            level?: undefined;
-            url?: undefined;
-            isNumberColumnEnabled?: undefined;
-            layout?: undefined;
-            width?: undefined;
-            title?: undefined;
-            language?: undefined;
-        };
-        content: ({
-            type: string;
-            attrs: {
-                localId: string;
-            };
-            content: {
-                type: string;
-                attrs: {
-                    localId: string;
-                };
-                content: ({
-                    type: string;
-                    text: string;
-                    attrs?: undefined;
-                } | {
-                    type: string;
-                    attrs: {
-                        timestamp: string;
-                        localId: string;
-                    };
-                    text?: undefined;
-                })[];
-            }[];
-        } | {
-            type: string;
-            attrs: {
-                localId: string;
-            };
-            content: {
-                type: string;
-                attrs: {
-                    localId: string;
-                };
-                content: ({
-                    type: string;
-                    attrs: {
-                        id: string;
-                        localId: string;
-                        text: string;
-                        accessLevel: string;
-                    };
-                    text?: undefined;
-                } | {
-                    type: string;
-                    text: string;
-                    attrs?: undefined;
-                })[];
-            }[];
-        })[];
-        marks?: undefined;
-    } | {
-        type: string;
-        attrs: {
-            localId: string;
-            url: string;
-            level?: undefined;
-            isNumberColumnEnabled?: undefined;
-            layout?: undefined;
-            width?: undefined;
-            title?: undefined;
-            language?: undefined;
-        };
-        content?: undefined;
-        marks?: undefined;
-    } | {
-        type: string;
-        attrs: {
-            localId: string;
-            level?: undefined;
-            url?: undefined;
-            isNumberColumnEnabled?: undefined;
-            layout?: undefined;
-            width?: undefined;
-            title?: undefined;
-            language?: undefined;
-        };
-        content: ({
-            type: string;
-            text: string;
-            attrs?: undefined;
-        } | {
-            type: string;
-            attrs: {
-                shortName: string;
-                id: string;
-                text: string;
-                localId: string;
-            };
-            text?: undefined;
-        })[];
-        marks?: undefined;
-    } | {
-        type: string;
-        attrs: {
-            isNumberColumnEnabled: boolean;
-            layout: string;
-            localId: string;
-            width: number;
-            level?: undefined;
-            url?: undefined;
-            title?: undefined;
-            language?: undefined;
-        };
-        content: ({
-            type: string;
-            attrs: {
-                localId: string;
-            };
-            content: {
-                type: string;
-                attrs: {
-                    localId: string;
-                };
-                content: {
-                    type: string;
-                    attrs: {
-                        localId: string;
-                    };
-                    content: {
-                        type: string;
-                        text: string;
-                        marks: {
-                            type: string;
-                        }[];
-                    }[];
-                }[];
-            }[];
-        } | {
-            type: string;
-            attrs: {
-                localId: string;
-            };
-            content: {
-                type: string;
-                attrs: {
-                    localId: string;
-                };
-                content: {
-                    type: string;
-                    attrs: {
-                        localId: string;
-                    };
-                    content: {
-                        type: string;
-                        text: string;
-                    }[];
-                }[];
-            }[];
-        })[];
-        marks?: undefined;
-    } | {
-        type: string;
-        attrs: {
-            layout: string;
-            level?: undefined;
-            localId?: undefined;
-            url?: undefined;
-            isNumberColumnEnabled?: undefined;
-            width?: undefined;
-            title?: undefined;
-            language?: undefined;
-        };
-        content: {
-            type: string;
-            attrs: {
-                type: string;
-                localId: string;
-                id: string;
-                alt: string;
-                collection: string;
-                height: number;
-                width: number;
-            };
-        }[];
-        marks?: undefined;
-    } | {
-        type: string;
-        attrs: {
-            title: string;
-            localId: string;
-            level?: undefined;
-            url?: undefined;
-            isNumberColumnEnabled?: undefined;
-            layout?: undefined;
-            width?: undefined;
-            language?: undefined;
-        };
-        content: {
-            type: string;
-            attrs: {
-                localId: string;
-            };
-            content: {
-                type: string;
-                text: string;
-            }[];
-        }[];
-        marks: {
-            type: string;
-            attrs: {
-                mode: string;
-                width: null;
-            };
-        }[];
-    } | {
-        type: string;
-        attrs: {
-            language: string;
-            localId: string;
-            level?: undefined;
-            url?: undefined;
-            isNumberColumnEnabled?: undefined;
-            layout?: undefined;
-            width?: undefined;
-            title?: undefined;
-        };
-        content: {
-            type: string;
-            text: string;
-        }[];
-        marks?: undefined;
-    } | {
-        type: string;
-        attrs: {
-            url: string;
-            layout: string;
-            level?: undefined;
-            localId?: undefined;
-            isNumberColumnEnabled?: undefined;
-            width?: undefined;
-            title?: undefined;
-            language?: undefined;
-        };
-        content?: undefined;
-        marks?: undefined;
-    })[];
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					level: number;
+					localId: string;
+					url?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					width?: undefined;
+					title?: undefined;
+					language?: undefined;
+				};
+				content: {
+					type: string;
+					text: string;
+				}[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					localId: string;
+					level?: undefined;
+					url?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					width?: undefined;
+					title?: undefined;
+					language?: undefined;
+				};
+				content: {
+					type: string;
+					attrs: {
+						localId: string;
+						state: string;
+					};
+					content: (
+						| {
+								type: string;
+								attrs: {
+									timestamp: string;
+								};
+								text?: undefined;
+						  }
+						| {
+								type: string;
+								text: string;
+								attrs?: undefined;
+						  }
+					)[];
+				}[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					localId: string;
+					level?: undefined;
+					url?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					width?: undefined;
+					title?: undefined;
+					language?: undefined;
+				};
+				content: (
+					| {
+							type: string;
+							attrs: {
+								localId: string;
+							};
+							content: {
+								type: string;
+								attrs: {
+									localId: string;
+								};
+								content: (
+									| {
+											type: string;
+											text: string;
+											attrs?: undefined;
+									  }
+									| {
+											type: string;
+											attrs: {
+												timestamp: string;
+												localId: string;
+											};
+											text?: undefined;
+									  }
+								)[];
+							}[];
+					  }
+					| {
+							type: string;
+							attrs: {
+								localId: string;
+							};
+							content: {
+								type: string;
+								attrs: {
+									localId: string;
+								};
+								content: (
+									| {
+											type: string;
+											attrs: {
+												id: string;
+												localId: string;
+												text: string;
+												accessLevel: string;
+											};
+											text?: undefined;
+									  }
+									| {
+											type: string;
+											text: string;
+											attrs?: undefined;
+									  }
+								)[];
+							}[];
+					  }
+				)[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					localId: string;
+					url: string;
+					level?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					width?: undefined;
+					title?: undefined;
+					language?: undefined;
+				};
+				content?: undefined;
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					localId: string;
+					level?: undefined;
+					url?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					width?: undefined;
+					title?: undefined;
+					language?: undefined;
+				};
+				content: (
+					| {
+							type: string;
+							text: string;
+							attrs?: undefined;
+					  }
+					| {
+							type: string;
+							attrs: {
+								shortName: string;
+								id: string;
+								text: string;
+								localId: string;
+							};
+							text?: undefined;
+					  }
+				)[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					isNumberColumnEnabled: boolean;
+					layout: string;
+					localId: string;
+					width: number;
+					level?: undefined;
+					url?: undefined;
+					title?: undefined;
+					language?: undefined;
+				};
+				content: (
+					| {
+							type: string;
+							attrs: {
+								localId: string;
+							};
+							content: {
+								type: string;
+								attrs: {
+									localId: string;
+								};
+								content: {
+									type: string;
+									attrs: {
+										localId: string;
+									};
+									content: {
+										type: string;
+										text: string;
+										marks: {
+											type: string;
+										}[];
+									}[];
+								}[];
+							}[];
+					  }
+					| {
+							type: string;
+							attrs: {
+								localId: string;
+							};
+							content: {
+								type: string;
+								attrs: {
+									localId: string;
+								};
+								content: {
+									type: string;
+									attrs: {
+										localId: string;
+									};
+									content: {
+										type: string;
+										text: string;
+									}[];
+								}[];
+							}[];
+					  }
+				)[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					layout: string;
+					level?: undefined;
+					localId?: undefined;
+					url?: undefined;
+					isNumberColumnEnabled?: undefined;
+					width?: undefined;
+					title?: undefined;
+					language?: undefined;
+				};
+				content: {
+					type: string;
+					attrs: {
+						type: string;
+						localId: string;
+						id: string;
+						alt: string;
+						collection: string;
+						height: number;
+						width: number;
+					};
+				}[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					title: string;
+					localId: string;
+					level?: undefined;
+					url?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					width?: undefined;
+					language?: undefined;
+				};
+				content: {
+					type: string;
+					attrs: {
+						localId: string;
+					};
+					content: {
+						type: string;
+						text: string;
+					}[];
+				}[];
+				marks: {
+					type: string;
+					attrs: {
+						mode: string;
+						width: null;
+					};
+				}[];
+		  }
+		| {
+				type: string;
+				attrs: {
+					language: string;
+					localId: string;
+					level?: undefined;
+					url?: undefined;
+					isNumberColumnEnabled?: undefined;
+					layout?: undefined;
+					width?: undefined;
+					title?: undefined;
+				};
+				content: {
+					type: string;
+					text: string;
+				}[];
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					url: string;
+					layout: string;
+					level?: undefined;
+					localId?: undefined;
+					isNumberColumnEnabled?: undefined;
+					width?: undefined;
+					title?: undefined;
+					language?: undefined;
+				};
+				content?: undefined;
+				marks?: undefined;
+		  }
+	)[];
 } = {
 	version: 1,
 	type: 'doc',

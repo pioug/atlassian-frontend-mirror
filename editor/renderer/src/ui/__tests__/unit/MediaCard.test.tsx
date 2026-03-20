@@ -1,5 +1,4 @@
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import type { MediaCardProps } from '../../MediaCard';
 import { MediaCardView } from '../../MediaCard';
@@ -27,82 +26,80 @@ describe('MediaCard onError analytics', () => {
 	});
 
 	eeTest.describe('platform_synced_block', 'when experiment is enabled').variant(true, () => {
-		ffTest.on('platform_synced_block_patch_5', 'when feature flag is enabled', () => {
-			it('should include nestedUnder in analytics attributes when nestedUnder prop is provided', () => {
-				const props = createMediaCardProps({ nestedUnder: 'bodiedSyncBlock' });
-				const component = new MediaCardView({
-					...props,
-					fireAnalyticsEvent: mockFireAnalyticsEvent,
-				});
-
-				// Call the private onError method
-				(component as any).onError('test-error-reason');
-
-				expect(mockFireAnalyticsEvent).toHaveBeenCalledWith({
-					action: 'errored',
-					actionSubject: 'renderer',
-					actionSubjectId: 'media',
-					eventType: 'ui',
-					attributes: {
-						reason: 'test-error-reason',
-						external: false,
-						nestedUnder: 'bodiedSyncBlock',
-					},
-				});
+		it('should include nestedUnder in analytics attributes when nestedUnder prop is provided', () => {
+			const props = createMediaCardProps({ nestedUnder: 'bodiedSyncBlock' });
+			const component = new MediaCardView({
+				...props,
+				fireAnalyticsEvent: mockFireAnalyticsEvent,
 			});
 
-			it('should include nestedRendererType in analytics attributes when rendererContext.nestedRendererType is provided', () => {
-				const props = createMediaCardProps({
-					rendererContext: {
-						nestedRendererType: 'syncedBlock',
-					} as any,
-				});
-				const component = new MediaCardView({
-					...props,
-					fireAnalyticsEvent: mockFireAnalyticsEvent,
-				});
+			// Call the private onError method
+			(component as any).onError('test-error-reason');
 
-				(component as any).onError('test-error-reason');
-
-				expect(mockFireAnalyticsEvent).toHaveBeenCalledWith({
-					action: 'errored',
-					actionSubject: 'renderer',
-					actionSubjectId: 'media',
-					eventType: 'ui',
-					attributes: {
-						reason: 'test-error-reason',
-						external: false,
-						nestedRendererType: 'syncedBlock',
-					},
-				});
-			});
-
-			it('should include both nestedUnder and nestedRendererType when both are provided', () => {
-				const props = createMediaCardProps({
+			expect(mockFireAnalyticsEvent).toHaveBeenCalledWith({
+				action: 'errored',
+				actionSubject: 'renderer',
+				actionSubjectId: 'media',
+				eventType: 'ui',
+				attributes: {
+					reason: 'test-error-reason',
+					external: false,
 					nestedUnder: 'bodiedSyncBlock',
-					rendererContext: {
-						nestedRendererType: 'syncedBlock',
-					} as any,
-				});
-				const component = new MediaCardView({
-					...props,
-					fireAnalyticsEvent: mockFireAnalyticsEvent,
-				});
+				},
+			});
+		});
 
-				(component as any).onError('test-error-reason');
+		it('should include nestedRendererType in analytics attributes when rendererContext.nestedRendererType is provided', () => {
+			const props = createMediaCardProps({
+				rendererContext: {
+					nestedRendererType: 'syncedBlock',
+				} as any,
+			});
+			const component = new MediaCardView({
+				...props,
+				fireAnalyticsEvent: mockFireAnalyticsEvent,
+			});
 
-				expect(mockFireAnalyticsEvent).toHaveBeenCalledWith({
-					action: 'errored',
-					actionSubject: 'renderer',
-					actionSubjectId: 'media',
-					eventType: 'ui',
-					attributes: {
-						reason: 'test-error-reason',
-						external: false,
-						nestedUnder: 'bodiedSyncBlock',
-						nestedRendererType: 'syncedBlock',
-					},
-				});
+			(component as any).onError('test-error-reason');
+
+			expect(mockFireAnalyticsEvent).toHaveBeenCalledWith({
+				action: 'errored',
+				actionSubject: 'renderer',
+				actionSubjectId: 'media',
+				eventType: 'ui',
+				attributes: {
+					reason: 'test-error-reason',
+					external: false,
+					nestedRendererType: 'syncedBlock',
+				},
+			});
+		});
+
+		it('should include both nestedUnder and nestedRendererType when both are provided', () => {
+			const props = createMediaCardProps({
+				nestedUnder: 'bodiedSyncBlock',
+				rendererContext: {
+					nestedRendererType: 'syncedBlock',
+				} as any,
+			});
+			const component = new MediaCardView({
+				...props,
+				fireAnalyticsEvent: mockFireAnalyticsEvent,
+			});
+
+			(component as any).onError('test-error-reason');
+
+			expect(mockFireAnalyticsEvent).toHaveBeenCalledWith({
+				action: 'errored',
+				actionSubject: 'renderer',
+				actionSubjectId: 'media',
+				eventType: 'ui',
+				attributes: {
+					reason: 'test-error-reason',
+					external: false,
+					nestedUnder: 'bodiedSyncBlock',
+					nestedRendererType: 'syncedBlock',
+				},
 			});
 		});
 	});

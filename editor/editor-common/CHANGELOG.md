@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 112.6.0
+
+### Minor Changes
+
+- [`3107f7675ae5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3107f7675ae5f) -
+  MAUI-80 Infographics insert as media node
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.5.2
+
+### Patch Changes
+
+- [`70e3625a8ae3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70e3625a8ae3f) -
+  [EDITOR-5880] updated prop name for consistency and used view.dom for stable editor reference
+
+## 112.5.1
+
+### Patch Changes
+
+- [`9576329360955`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9576329360955) -
+  [ux] [EDITOR-5974] fix link picker scroll bug behind platform_editor_a11y_escape_link_dialog
+- Updated dependencies
+
 ## 112.5.0
 
 ### Minor Changes

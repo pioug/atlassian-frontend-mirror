@@ -4,7 +4,7 @@ import { Text } from '@atlaskit/primitives/compiled';
 
 import { EmojiResource, type EmojiProvider, type EmojiResourceConfig } from '../src/resource';
 
-export function getEmojiConfig(allowUpload = true) {
+export function getEmojiConfig(allowUpload = true): any {
 	let emojiConfig;
 	try {
 		// eslint-disable-next-line @repo/internal/import/no-unresolved
@@ -23,13 +23,13 @@ export function getEmojiConfig(allowUpload = true) {
 }
 
 // get emojiProvider
-export function getRealEmojiResource() {
+export function getRealEmojiResource(): any {
 	const resource = new EmojiResource(getEmojiConfig());
 	return resource;
 }
 
 // get promise emojiProvider for dataProviders in editor/renderer
-export function getRealEmojiProvider() {
+export function getRealEmojiProvider(): any {
 	const resource = getRealEmojiResource();
 	return resource.getEmojiProvider();
 }
@@ -41,7 +41,7 @@ export interface Props {
 	emojiConfig: EmojiResourceConfig;
 }
 
-export const ResourcedEmojiControl = (props: React.PropsWithChildren<Props>) => {
+export const ResourcedEmojiControl = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 	const { customEmojiProvider, children, emojiConfig, customPadding } = props;
 	const paddingBottom = customPadding ? `${customPadding}px` : '30px';
 

@@ -3,9 +3,14 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('PopupSelect', () => {
 	test('Popup Select should open and close when interacted with', async ({ page }) => {
-		await page.visitExample('design-system', 'select', 'popup-select', {
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../../examples/18-popup-select.tsx')>(
+			'design-system',
+			'select',
+			'popup-select',
+			{
+				'react-18-mode': 'legacy',
+			},
+		);
 		const button = page.getByTestId('button-for-testing');
 		await button.click();
 		const select = page.getByTestId('select-for-testing--menu');
@@ -16,9 +21,14 @@ test.describe('PopupSelect', () => {
 	});
 
 	test('Popup Select should open with down arrow', async ({ page, skipAxeCheck }) => {
-		await page.visitExample('design-system', 'select', 'popup-select', {
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../../examples/18-popup-select.tsx')>(
+			'design-system',
+			'select',
+			'popup-select',
+			{
+				'react-18-mode': 'legacy',
+			},
+		);
 		const button = page.getByTestId('button-for-testing');
 		await page.keyboard.press('Tab');
 		await expect(button).toBeFocused();

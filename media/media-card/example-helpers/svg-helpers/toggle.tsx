@@ -23,7 +23,7 @@ export const ToggleBox = ({
 }: Omit<React.ComponentProps<typeof Toggle>, 'onChange'> & {
 	label: string;
 	onChange: (val: boolean) => void;
-}) => {
+}): React.JSX.Element => {
 	const [id] = useState(makeid());
 
 	return (

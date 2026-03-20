@@ -7,9 +7,14 @@ const mobileViewport = { width: 360, height: 800 };
 test.describe('side nav flyout', () => {
 	test.describe('when useIsFhsEnabled is true', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample('design-system', 'navigation-system', 'side-nav-flyout', {
-				featureFlag: 'navx-full-height-sidebar',
-			});
+			await page.visitExample<typeof import('../../../examples/side-nav-flyout.tsx')>(
+				'design-system',
+				'navigation-system',
+				'side-nav-flyout',
+				{
+					featureFlag: 'navx-full-height-sidebar',
+				},
+			);
 		});
 
 		test('should show flyout after mousing out of and then back into toggle button after collapsing', async ({
@@ -295,7 +300,11 @@ test.describe('side nav flyout', () => {
 
 	test.describe('when useIsFhsEnabled is false', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample('design-system', 'navigation-system', 'side-nav-flyout');
+			await page.visitExample<typeof import('../../../examples/side-nav-flyout.tsx')>(
+				'design-system',
+				'navigation-system',
+				'side-nav-flyout',
+			);
 		});
 
 		test('should not show flyout when hovering on toggle button right after collapsing', async ({

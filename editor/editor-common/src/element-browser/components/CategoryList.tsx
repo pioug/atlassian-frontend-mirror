@@ -259,7 +259,11 @@ const buttonWrapper = css({
 	},
 });
 
-const MemoizedCategoryListWithAnalytics: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<Props & WithAnalyticsEventsProps & WithContextProps, "ref"> & React.RefAttributes<unknown>>> = memo(
+const MemoizedCategoryListWithAnalytics: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<
+		Omit<Props & WithAnalyticsEventsProps & WithContextProps, 'ref'> & React.RefAttributes<unknown>
+	>
+> = memo(
 	withAnalyticsContext({
 		component: 'CategoryList',
 	})(CategoryList),

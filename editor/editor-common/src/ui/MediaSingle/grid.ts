@@ -129,9 +129,9 @@ export const snapToGrid = (
 	lineLength: number,
 	gridSize: number,
 ): {
-        height: number;
-        width: number;
-    } => {
+	height: number;
+	width: number;
+} => {
 	const pxWidth = calcPxFromPct(gridWidth / 100, lineLength);
 
 	const columnSpan = Math.round(calcColumnsFromPx(pxWidth, lineLength, gridSize));

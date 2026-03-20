@@ -641,7 +641,7 @@ export const apply = (
 			if (
 				rightSideControlsEnabled &&
 				isViewMode &&
-				expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
+				expValEqualsNoExposure('confluence_remix_icon_right_side', 'isEnabled', true)
 			) {
 				for (const factory of nodeDecorationRegistry) {
 					if (factory.showInViewMode) {
@@ -792,7 +792,7 @@ export const apply = (
 		} else if (
 			isViewMode &&
 			rightSideControlsEnabled &&
-			expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
+			expValEqualsNoExposure('confluence_remix_icon_right_side', 'isEnabled', true)
 		) {
 			// Remove view-mode right-side decorations when no active node
 			for (const factory of nodeDecorationRegistry) {
@@ -1077,12 +1077,12 @@ export const createPlugin = (
 
 				const isDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled;
 				if (isDisabled) {
+					const remixRightSideEnabled =
+						rightSideControlsEnabled &&
+						expValEqualsNoExposure('confluence_remix_icon_right_side', 'isEnabled', true);
 					// Hide decorations when disabled, except in view mode when right-side controls are enabled
 					if (
-						!(
-							rightSideControlsEnabled &&
-							expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
-						) ||
+						!remixRightSideEnabled ||
 						api?.editorViewMode?.sharedState.currentState()?.mode !== 'view'
 					) {
 						return;
@@ -1149,6 +1149,16 @@ export const createPlugin = (
 				},
 				dragenter(view: EditorView, event: DragEvent) {
 					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+						return;
+					}
+
+					// Only process dragenter for block control drags.
+					// Other drag types (e.g. table row) should not create
+					// drop target decorations or emit active anchors.
+					if (
+						!key.getState(view.state)?.isDragging &&
+						expValEquals('platform_editor_fix_table_row_drag_drop_target', 'isEnabled', true)
+					) {
 						return;
 					}
 

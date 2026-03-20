@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const mediaLinkToolbarMessages: {
-    backLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	backLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	backLink: {
 		id: 'fabric.editor.backLink',

@@ -160,7 +160,7 @@ export const LinkItemGroups: {
 	{ items: externalLinks },
 ];
 
-const DocQuickLinks = () => (
+const DocQuickLinks = (): React.JSX.Element => (
 	<Box paddingBlock="space.100">
 		<DropdownMenu<HTMLButtonElement>
 			shouldFlip

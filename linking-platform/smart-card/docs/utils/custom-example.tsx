@@ -6,7 +6,11 @@ type FlexibleUiExampleProps = {
 	background?: boolean;
 } & ComponentProps<typeof Example>;
 
-const CustomExample = ({ background: _background, source, ...props }: FlexibleUiExampleProps) => {
+const CustomExample = ({
+	background: _background,
+	source,
+	...props
+}: FlexibleUiExampleProps): React.JSX.Element => {
 	// Fix hover card entrypoint
 	const replaceCode = source.replace('../src/hoverCard', '../src/hover-card');
 

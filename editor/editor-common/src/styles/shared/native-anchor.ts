@@ -18,11 +18,13 @@ export const isCSSAttrAnchorSupported: MemoizedFn<() => boolean> = memoizeOne(()
 	return false;
 });
 
-export const isCSSAnchorSupported: MemoizedFn<() => boolean | undefined> = memoizeOne((): boolean | undefined => {
-	if (hasCssSupport()) {
-		return CSS.supports('anchor-name', '--anchor');
-	}
-});
+export const isCSSAnchorSupported: MemoizedFn<() => boolean | undefined> = memoizeOne(
+	(): boolean | undefined => {
+		if (hasCssSupport()) {
+			return CSS.supports('anchor-name', '--anchor');
+		}
+	},
+);
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const nativeAnchorStyles: SerializedStyles = css({

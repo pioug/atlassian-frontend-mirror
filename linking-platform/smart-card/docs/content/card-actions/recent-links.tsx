@@ -2,7 +2,7 @@ import { code } from '@atlaskit/docs';
 
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 This action provides users with links to related content or resources.
 It helps in exploring additional information that is contextually connected to the current link
@@ -23,3 +23,4 @@ ${code`
 }
 `}
 `;
+export default _default_1;

@@ -35,7 +35,6 @@ import {
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -124,7 +123,10 @@ const editorContentAreaNew = css({
 	'.ak-editor-content-area-no-toolbar &': {
 		// When the toolbar is hidden, we don't want content to jump up
 		// the extra 1px is to account for the border on the toolbar
-		paddingTop: `calc(${token('space.600', '48px')} + var(--ak-editor-fullpage-toolbar-height) + 1px)`,
+		paddingTop: `calc(${token(
+			'space.600',
+			'48px',
+		)} + var(--ak-editor-fullpage-toolbar-height) + 1px)`,
 	},
 	paddingBottom: token('space.600', '48px'),
 	height: 'calc( 100% - 105px )',
@@ -283,6 +285,13 @@ const Content = React.forwardRef<
 	const contentAreaRef = useRef(null);
 	const containerRef = useRef(null);
 	const allowScrollGutter = props.editorAPI?.base?.sharedState.currentState()?.allowScrollGutter;
+	const contentAreaMaxWidth =
+		getTotalPadding() +
+		(!fullWidthMode
+			? maxWidthMode
+				? akEditorUltraWideLayoutWidth
+				: theme.layoutMaxWidth
+			: akEditorFullWidthLayoutWidth);
 
 	useImperativeHandle(
 		ref,
@@ -347,15 +356,7 @@ const Content = React.forwardRef<
 							]}
 							style={
 								{
-									'--ak-editor-content-area-max-width': !fullWidthMode
-										? Boolean(maxWidthMode) &&
-											(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-												expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
-											? // @ts-ignore
-												`${akEditorUltraWideLayoutWidth + getTotalPadding()}px`
-											: // @ts-ignore
-												`${theme.layoutMaxWidth + getTotalPadding()}px`
-										: `${akEditorFullWidthLayoutWidth + getTotalPadding()}px`,
+									'--ak-editor-content-area-max-width': `${contentAreaMaxWidth}px`,
 								} as React.CSSProperties
 							}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
@@ -364,6 +365,7 @@ const Content = React.forwardRef<
 							role="region"
 							aria-label={props.intl.formatMessage(messages.editableContentLabel)}
 							ref={contentAreaRef}
+							data-vc="editor-content-area-region"
 						>
 							<div
 								css={[

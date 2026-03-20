@@ -32,7 +32,7 @@ export const ToggleBox = ({
 	label: string;
 	centered?: boolean;
 	onChange: (val: boolean) => void;
-}) => {
+}): React.JSX.Element => {
 	const [id] = useState(makeid());
 
 	return (

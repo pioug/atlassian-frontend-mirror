@@ -102,39 +102,46 @@ const inputWrapperPosition = css({
 });
 
 export const messages: {
-    clearLink: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; clearText: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; displayText: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; hyperlinkAriaLabel: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; linkVisibleLabel: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; searchLinkAriaDescription: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; searchLinkResults: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; textVisibleLabel: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    };
+	clearLink: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	clearText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	displayText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	hyperlinkAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	linkVisibleLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	searchLinkAriaDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	searchLinkResults: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	textVisibleLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 } = defineMessages({
 	displayText: {
 		id: 'fabric.editor.displayText',
@@ -781,7 +788,11 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		);
 
 		if (expValEquals('platform_editor_a11y_escape_link_dialog', 'isEnabled', true)) {
-			return <FocusLock returnFocus={true}>{hyperlinkElement}</FocusLock>;
+			return (
+				<FocusLock returnFocus={{ preventScroll: true }} focusOptions={{ preventScroll: true }}>
+					{hyperlinkElement}
+				</FocusLock>
+			);
 		}
 
 		return hyperlinkElement;
@@ -1010,12 +1021,18 @@ function limit<T>(items: Array<T>) {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const HyperlinkLinkAddToolbarWithIntl: React.FC<WithIntlProps<HyperlinkLinkAddToolbarProps>> & {
-    WrappedComponent: React.ComponentType<HyperlinkLinkAddToolbarProps>;
-} = injectIntl(
-	HyperlinkLinkAddToolbar as React.ComponentClass<HyperlinkLinkAddToolbarProps>,
-);
-const _default_1: React.ForwardRefExoticComponent<Omit<Omit<HyperlinkLinkAddToolbarProps, "intl"> & {
-    forwardedRef?: React.Ref<unknown>;
-}, keyof WithAnalyticsEventsProps> & React.RefAttributes<unknown>> = withAnalyticsEvents()(HyperlinkLinkAddToolbarWithIntl);
+export const HyperlinkLinkAddToolbarWithIntl: React.FC<
+	WithIntlProps<HyperlinkLinkAddToolbarProps>
+> & {
+	WrappedComponent: React.ComponentType<HyperlinkLinkAddToolbarProps>;
+} = injectIntl(HyperlinkLinkAddToolbar as React.ComponentClass<HyperlinkLinkAddToolbarProps>);
+const _default_1: React.ForwardRefExoticComponent<
+	Omit<
+		Omit<HyperlinkLinkAddToolbarProps, 'intl'> & {
+			forwardedRef?: React.Ref<unknown>;
+		},
+		keyof WithAnalyticsEventsProps
+	> &
+		React.RefAttributes<unknown>
+> = withAnalyticsEvents()(HyperlinkLinkAddToolbarWithIntl);
 export default _default_1;

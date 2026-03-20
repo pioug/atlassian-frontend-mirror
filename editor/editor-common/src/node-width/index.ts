@@ -24,12 +24,12 @@ const NESTED_DND_GUTTER_OFFSET = 8;
 const NESTED_DND_MARGIN_OFFSET = 12;
 
 export const layoutToWidth: {
-    // eslint-disable-next-line @atlaskit/editor/no-re-export
-    default: number;
-    // eslint-disable-next-line @atlaskit/editor/no-re-export
-    wide: number;
-    // eslint-disable-next-line @atlaskit/editor/no-re-export
-    'full-width': number;
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
+	default: number;
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
+	wide: number;
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
+	'full-width': number;
 } = {
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	default: akEditorDefaultLayoutWidth,

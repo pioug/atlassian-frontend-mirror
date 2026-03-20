@@ -20,7 +20,7 @@ const pressableStyles = xcss({
 	},
 });
 
-const Menu = () => (
+const Menu = (): React.JSX.Element => (
 	<Stack space="space.100">
 		{LinkItemGroups.map((group, groupIdx) => (
 			<Grid

@@ -73,7 +73,7 @@ const headerStyles = cssMap({
 		top: token('space.100'),
 		zIndex: 800,
 		backgroundColor: token('elevation.surface'),
-	}
+	},
 });
 
 const DEFAULT_ORIGINAL_DOC: DocNode = {

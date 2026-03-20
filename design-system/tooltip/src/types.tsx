@@ -22,6 +22,19 @@ export interface TriggerProps {
 	'aria-describedby'?: string | undefined;
 }
 
+export interface FakeMouseElement {
+	getBoundingClientRect: () => {
+		top: number;
+		left: number;
+		bottom: number;
+		right: number;
+		width: number;
+		height: number;
+	};
+	clientWidth: number;
+	clientHeight: number;
+}
+
 export interface TooltipProps {
 	/**
 	 * The content of the tooltip. It can be either a:

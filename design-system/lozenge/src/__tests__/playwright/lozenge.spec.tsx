@@ -1,7 +1,11 @@
 import { expect, test } from '@af/integration-testing';
 
 test(`Lozenge should be able to be identified by data-testid`, async ({ page }) => {
-	await page.visitExample('design-system', 'lozenge', 'testing');
+	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+		'design-system',
+		'lozenge',
+		'testing',
+	);
 
 	const defaultLozenge = page.locator("[data-testid='default-lozenge']").first();
 	const newLozenge = page.locator("[data-testid='new-lozenge']").first();

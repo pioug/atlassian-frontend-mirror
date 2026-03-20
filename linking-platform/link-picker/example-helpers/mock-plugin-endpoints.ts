@@ -6,7 +6,7 @@ const XP_SEARCH_ENDPOINT = /\/gateway\/api\/xpsearch-aggregator/;
 const OBJECT_RESOLVER_SERVICE_ENDPOINT = /\/gateway\/api\/object-resolver/;
 const PROVIDERS = 'providers';
 
-export const mockPluginEndpoints = () => {
+export const mockPluginEndpoints = (): void => {
 	const { MOCKED_DATA, MOCKED_PROVIDERS, MOCKED_SEARCH } = MOCK_DATA;
 
 	fetchMock.post(
@@ -29,7 +29,7 @@ export const mockPluginEndpoints = () => {
 	);
 };
 
-export const mockPluginEndpointsNoData = () => {
+export const mockPluginEndpointsNoData = (): void => {
 	const { MOCKED_DATA, MOCKED_PROVIDERS } = MOCK_DATA;
 
 	fetchMock.post(

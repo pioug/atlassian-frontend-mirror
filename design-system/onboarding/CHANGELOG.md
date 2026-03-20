@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 14.5.7
+
+### Patch Changes
+
+- [`122f05b37d695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/122f05b37d695) -
+  Clean up platform_fix_component_state_update_for_suspense feature gate - the fix for Suspense
+  boundary updates is now always enabled
+
 ## 14.5.6
 
 ### Patch Changes

@@ -16,7 +16,10 @@ export default {
 	},
 };
 
-export const apsParams = {
+export const apsParams: {
+	preferredTransport: any;
+	url: string;
+} = {
 	url: 'wss://atlassian-pubsub.us-east-1.staging.atl-paas.net/endpoints/$ENDPOINT_ID/connect',
 	preferredTransport: APSTransportType.HTTP,
 };

@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 40.6.0
+
+### Minor Changes
+
+- [`244ca4ec80372`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/244ca4ec80372) -
+  Add platform_editor_chromeless_expand_fix experiment
+- [`029e47b456b89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/029e47b456b89) -
+  Fixing a bug where we expect the selection toolbar to show when selecting text and releasing on
+  the block controls handle.
+
+## 40.5.0
+
+### Minor Changes
+
+- [`3bc16a4221f74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bc16a4221f74) -
+  [ux] EDITOR-5746 fix bug where drop targets appeared (and never cleared) after table row drag
+
+## 40.4.0
+
+### Minor Changes
+
+- [`bf8678936e092`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf8678936e092) -
+  Add platform_sl_3p_auth_rovo_action experiment
+
 ## 40.3.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
   The \`@atlaskit/jql-ast\` package currently exposes 2 API’s consumers can use to traverse the AST, the listener and visitor API’s.
 
@@ -77,3 +77,4 @@ const countFields = (jast: Jast): number => {
   define explicit return types for your functions.
 
 `;
+export default _default_1;

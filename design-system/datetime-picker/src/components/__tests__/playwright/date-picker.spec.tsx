@@ -24,7 +24,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When DatePicker is focused & backspace pressed, the input should be cleared and defaulted to the place holder date`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/10-date-picker-states.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-states',
@@ -52,7 +52,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When choosing another day in a Datetime picker focused, the date should be updated to the new value`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/10-date-picker-states.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-states',
@@ -80,7 +80,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) Clicking a disabled datepicker should not toggle its internal open state, resulting in it being open once enabled`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/999-disable-toggle.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'disable-toggle',
@@ -110,7 +110,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) Should tab through all interactive elements inside datepicker`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/14-date-picker-tabcheck.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-tabcheck',
@@ -136,7 +136,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) Should tab from input component to datepicker to next input in popup`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/14-date-picker-tabcheck.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-tabcheck',
@@ -175,7 +175,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When DatePicker is focused & another element is focused outside of DatePicker, the calendar should close`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/14-date-picker-tabcheck.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-tabcheck',
@@ -203,7 +203,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When DatePicker is focused & another element is focused inside of DatePicker, the calendar should not close when calendar button is present`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/14-date-picker-tabcheck.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-tabcheck',
@@ -231,7 +231,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When DatePicker is opened should set focus to current date on ArrowDown keypress`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/10-date-picker-states.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-states',
@@ -253,7 +253,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When DatePicker is opened should set focus to current date on ArrowUp keypress`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/10-date-picker-states.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-states',
@@ -273,7 +273,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	});
 
 	test(`(ff ${ffValue}) should open calendar when focused via mouse`, async ({ page }) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/10-date-picker-states.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-states',
@@ -294,7 +294,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When focusing on input via mouse, calendar picker should open`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/14-date-picker-tabcheck.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-tabcheck',
@@ -314,7 +314,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When focusing on input via keyboard, calendar picker should open`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/14-date-picker-tabcheck.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-tabcheck',
@@ -336,7 +336,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When clicking the open calendar button, focus should stay on trigger`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/14-date-picker-tabcheck.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-tabcheck',
@@ -357,7 +357,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When activating the open calendar button using the keyboard, focus should move to previous month button`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/14-date-picker-tabcheck.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-tabcheck',
@@ -386,7 +386,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When activating the open calendar button using the keyboard and the calendar is closed using escape, focus should move back to trigger`, async ({
 		page,
 	}) => {
-		await page.visitExample(
+		await page.visitExample<typeof import('../../../../examples/14-date-picker-tabcheck.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-tabcheck',

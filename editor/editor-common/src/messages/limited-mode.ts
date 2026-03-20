@@ -4,19 +4,21 @@
 import { defineMessages } from 'react-intl-next';
 
 export const limitedModeMessages: {
-    limitedModeTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; limitedModeDescriptionWithLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; limitedModeDescriptionWithoutLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	limitedModeTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	limitedModeDescriptionWithLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	limitedModeDescriptionWithoutLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	limitedModeTitle: {
 		id: 'fabric.editor.limitedModeTitle',

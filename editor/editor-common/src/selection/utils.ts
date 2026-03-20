@@ -217,15 +217,17 @@ export const expandToBlockRange = (
 	$from: ResolvedPos,
 	$to: ResolvedPos,
 	predicate: (node: PMNode) => boolean = getDefaultPredicate($from.doc.type.schema),
-): {
-        $from: ResolvedPos;
-        $to: ResolvedPos;
-        range?: undefined;
-    } | {
-        $from: ResolvedPos;
-        $to: ResolvedPos;
-        range: NodeRange;
-    } => {
+):
+	| {
+			$from: ResolvedPos;
+			$to: ResolvedPos;
+			range?: undefined;
+	  }
+	| {
+			$from: ResolvedPos;
+			$to: ResolvedPos;
+			range: NodeRange;
+	  } => {
 	const range = $from.blockRange($to, predicate);
 
 	if (!range) {
@@ -251,15 +253,20 @@ export const expandToBlockRange = (
  * @param selection The selection to expand
  * @returns The expanded selection
  */
-export const expandSelectionToBlockRange = ({ $from, $to }: Selection): {
-    $from: ResolvedPos;
-    $to: ResolvedPos;
-    range?: undefined;
-} | {
-    $from: ResolvedPos;
-    $to: ResolvedPos;
-    range: NodeRange;
-} => {
+export const expandSelectionToBlockRange = ({
+	$from,
+	$to,
+}: Selection):
+	| {
+			$from: ResolvedPos;
+			$to: ResolvedPos;
+			range?: undefined;
+	  }
+	| {
+			$from: ResolvedPos;
+			$to: ResolvedPos;
+			range: NodeRange;
+	  } => {
 	return expandToBlockRange($from, $to);
 };
 

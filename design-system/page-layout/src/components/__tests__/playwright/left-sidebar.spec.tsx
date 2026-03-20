@@ -6,7 +6,11 @@ test('Left sidebar should be collapsed on click of grab area via keyboard', asyn
 	page,
 	skipAxeCheck,
 }) => {
-	await page.visitExample('design-system', 'page-layout', 'integration-example');
+	await page.visitExample<typeof import('../../../../examples/03-integration-example.tsx')>(
+		'design-system',
+		'page-layout',
+		'integration-example',
+	);
 
 	// Initially, the sidebar is open
 	await expect(page.locator(resizeControl).first()).toHaveAttribute('aria-expanded', 'true');

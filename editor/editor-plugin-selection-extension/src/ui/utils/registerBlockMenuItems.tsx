@@ -82,7 +82,9 @@ export function registerBlockMenuItems({
 				parent: {
 					type: 'block-menu-section' as const,
 					key: TRANSFORM_CREATE_MENU_SECTION.key,
-					rank: (TRANSFORM_CREATE_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_DEFAULT_EXTENSION_SLOT_MENU_ITEM.key],
+					rank: (TRANSFORM_CREATE_MENU_SECTION_RANK as Record<string, number>)[
+						TRANSFORM_DEFAULT_EXTENSION_SLOT_MENU_ITEM.key
+					],
 				},
 				component: () => {
 					const editorView = editorViewRef?.current;

@@ -12,25 +12,24 @@ import DropdownComponent from '../Dropdown';
 import type { DropdownPropsWithOutsideClickProps } from '../Dropdown';
 import { KeyDownHandlerContext } from '../ToolbarArrowKeyNavigationProvider';
 
-export const DropdownContainer: React.NamedExoticComponent<DropdownPropsWithOutsideClickProps> = React.memo(function DropdownContainer(
-	props: DropdownPropsWithOutsideClickProps,
-) {
-	const keyDownHandlerContext = useContext(KeyDownHandlerContext);
-	let newArrowKeyNavigationProviderOptions = props.arrowKeyNavigationProviderOptions;
-	// if the dropdown is of type menu, use this keyDownHandlerContext
-	if (props.arrowKeyNavigationProviderOptions.type === ArrowKeyNavigationType.MENU) {
-		newArrowKeyNavigationProviderOptions = {
-			...props.arrowKeyNavigationProviderOptions,
-			keyDownHandlerContext,
-		};
-	}
-	return (
-		//This context is to handle the tab, Arrow Right/Left key events for dropdown.
-		//Default context has the void callbacks for above key events
-		<DropdownComponent
-			// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass through dynamic component props
-			{...props}
-			arrowKeyNavigationProviderOptions={newArrowKeyNavigationProviderOptions}
-		/>
-	);
-});
+export const DropdownContainer: React.NamedExoticComponent<DropdownPropsWithOutsideClickProps> =
+	React.memo(function DropdownContainer(props: DropdownPropsWithOutsideClickProps) {
+		const keyDownHandlerContext = useContext(KeyDownHandlerContext);
+		let newArrowKeyNavigationProviderOptions = props.arrowKeyNavigationProviderOptions;
+		// if the dropdown is of type menu, use this keyDownHandlerContext
+		if (props.arrowKeyNavigationProviderOptions.type === ArrowKeyNavigationType.MENU) {
+			newArrowKeyNavigationProviderOptions = {
+				...props.arrowKeyNavigationProviderOptions,
+				keyDownHandlerContext,
+			};
+		}
+		return (
+			//This context is to handle the tab, Arrow Right/Left key events for dropdown.
+			//Default context has the void callbacks for above key events
+			<DropdownComponent
+				// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass through dynamic component props
+				{...props}
+				arrowKeyNavigationProviderOptions={newArrowKeyNavigationProviderOptions}
+			/>
+		);
+	});

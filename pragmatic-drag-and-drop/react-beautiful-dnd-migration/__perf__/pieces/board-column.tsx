@@ -2,9 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo } from 'react';
+import { memo, type MemoExoticComponent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { easeInOut } from '@atlaskit/motion/curves';
@@ -77,7 +77,9 @@ type ColumnProps = {
 	rbdApi: RbdApi;
 };
 
-export const Column = memo(({ column, droppableId, index, rbdApi }: ColumnProps) => {
+export const Column: MemoExoticComponent<
+	({ column, droppableId, index, rbdApi }: ColumnProps) => jsx.JSX.Element
+> = memo(({ column, droppableId, index, rbdApi }: ColumnProps): jsx.JSX.Element => {
 	const { Draggable, Droppable } = rbdApi;
 
 	const columnId = column.columnId;

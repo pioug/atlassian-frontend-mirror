@@ -4,7 +4,11 @@ import Heading from '@atlaskit/heading';
 import Link from '@atlaskit/link';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 
-const ContentTable = ({ items = [] }: { items: { content: any; name: string }[] }) => {
+const ContentTable = ({
+	items = [],
+}: {
+	items: { content: any; name: string }[];
+}): React.JSX.Element => {
 	return (
 		<Stack space="space.150">
 			<Stack as="ul">

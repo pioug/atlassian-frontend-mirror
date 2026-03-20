@@ -1,76 +1,94 @@
 export const exampleDocument: {
-    version: number; type: string; content: ({
-        type: string;
-        content: ({
-            type: string;
-            text: string;
-            marks?: undefined;
-        } | {
-            type: string;
-            text: string;
-            marks: ({
-                type: string;
-                attrs?: undefined;
-            } | {
-                type: string;
-                attrs: {
-                    color: string;
-                };
-            })[];
-        })[];
-        attrs?: undefined;
-        marks?: undefined;
-    } | {
-        type: string;
-        attrs: {
-            extensionType: string;
-            extensionKey: string;
-            parameters: Record<string, never>;
-            layout: string;
-            localId: string;
-        };
-        marks: ({
-            type: string;
-            attrs: {
-                localId: string;
-                name: string;
-                sources?: undefined;
-            };
-        } | {
-            type: string;
-            attrs: {
-                sources: string[];
-                localId?: undefined;
-                name?: undefined;
-            };
-        })[];
-        content?: undefined;
-    } | {
-        type: string;
-        attrs: {
-            extensionType: string;
-            extensionKey: string;
-            parameters: Record<string, never>;
-            layout: string;
-            localId?: undefined;
-        };
-        marks: ({
-            type: string;
-            attrs: {
-                localId: string;
-                name: string;
-                sources?: undefined;
-            };
-        } | {
-            type: string;
-            attrs: {
-                sources: string[];
-                localId?: undefined;
-                name?: undefined;
-            };
-        })[];
-        content?: undefined;
-    })[];
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: (
+					| {
+							type: string;
+							text: string;
+							marks?: undefined;
+					  }
+					| {
+							type: string;
+							text: string;
+							marks: (
+								| {
+										type: string;
+										attrs?: undefined;
+								  }
+								| {
+										type: string;
+										attrs: {
+											color: string;
+										};
+								  }
+							)[];
+					  }
+				)[];
+				attrs?: undefined;
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					extensionType: string;
+					extensionKey: string;
+					parameters: Record<string, never>;
+					layout: string;
+					localId: string;
+				};
+				marks: (
+					| {
+							type: string;
+							attrs: {
+								localId: string;
+								name: string;
+								sources?: undefined;
+							};
+					  }
+					| {
+							type: string;
+							attrs: {
+								sources: string[];
+								localId?: undefined;
+								name?: undefined;
+							};
+					  }
+				)[];
+				content?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					extensionType: string;
+					extensionKey: string;
+					parameters: Record<string, never>;
+					layout: string;
+					localId?: undefined;
+				};
+				marks: (
+					| {
+							type: string;
+							attrs: {
+								localId: string;
+								name: string;
+								sources?: undefined;
+							};
+					  }
+					| {
+							type: string;
+							attrs: {
+								sources: string[];
+								localId?: undefined;
+								name?: undefined;
+							};
+					  }
+				)[];
+				content?: undefined;
+		  }
+	)[];
 } = {
 	version: 1,
 	type: 'doc',

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-type
 
+## 12.1.3
+
+### Patch Changes
+
+- [`4cac24cfac09d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cac24cfac09d) -
+  Add support for text styles menu inside lists (bullet, ordered) when
+  platform_editor_small_font_size experiment is enabled. Enables Normal text and Small text options
+  while disabling other items (headings, quote). Applies fontSize mark to entire list when toggling
+  small/normal text.
+- Updated dependencies
+
 ## 12.1.2
 
 ### Patch Changes

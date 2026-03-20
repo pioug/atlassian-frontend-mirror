@@ -1,6 +1,8 @@
-Disallows usage of the deprecated `spacing` prop on icon components from `@atlaskit/icon/core` and `@atlaskit/icon-lab/core`.
+Disallows usage of the deprecated `spacing` prop on icon components from `@atlaskit/icon/core` and
+`@atlaskit/icon-lab/core`.
 
-The `spacing` prop is deprecated. Wrap the icon in a `Flex` from `@atlaskit/primitives/compiled` with `cssMap` padding from `@atlaskit/css` instead.
+The `spacing` prop is deprecated. Wrap the icon in a `Flex` from `@atlaskit/primitives/compiled`
+with `cssMap` padding from `@atlaskit/css` instead.
 
 ## Examples
 
@@ -42,14 +44,15 @@ const iconSpacingStyles = cssMap({
 
 ## Migration
 
-Use the `next-icon-spacing-to-flex-primitive` codemod via `npx @atlaskit/codemod-cli` to migrate automatically, or use the 💡 IDE quick-fix suggestion from this ESLint rule.
+Use the `next-icon-spacing-to-flex-primitive` codemod via `npx @atlaskit/codemod-cli` to migrate
+automatically, or use the 💡 IDE quick-fix suggestion from this ESLint rule.
 
 Spacing token reference:
 
-| `spacing` value | Icon size    | Token        | Result                   |
-| --------------- | ------------ | ------------ | ------------------------ |
-| `spacious`      | medium (16px) | `space.050` | 4px padding → 24px total |
-| `compact`       | medium (16px) | `space.050` | 4px padding → 24px total |
-| `spacious`      | small (12px)  | `space.075` | 6px padding → 24px total |
-| `compact`       | small (12px)  | `space.025` | 2px padding → 16px total |
+| `spacing` value | Icon size     | Token       | Result                      |
+| --------------- | ------------- | ----------- | --------------------------- |
+| `spacious`      | medium (16px) | `space.050` | 4px padding → 24px total    |
+| `compact`       | medium (16px) | `space.050` | 4px padding → 24px total    |
+| `spacious`      | small (12px)  | `space.075` | 6px padding → 24px total    |
+| `compact`       | small (12px)  | `space.025` | 2px padding → 16px total    |
 | `none`          | any           | —           | Remove prop, no Flex needed |

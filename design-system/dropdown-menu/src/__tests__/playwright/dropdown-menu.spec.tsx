@@ -5,17 +5,27 @@ const trigger = '[data-testid="lite-mode-ddm--trigger"]';
 const dropdownMenu = '[data-testid="lite-mode-ddm--content"]';
 
 test('Verify that Dropdown Menu is able to open', async ({ page }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-ddm-default', {
-		'react-18-mode': 'legacy',
-	});
+	await page.visitExample<typeof import('../../../examples/98-testing-ddm-default.tsx')>(
+		'design-system',
+		'dropdown-menu',
+		'testing-ddm-default',
+		{
+			'react-18-mode': 'legacy',
+		},
+	);
 	await page.locator(trigger).first().click();
 	expect(await page.webdriverCompatUtils.isAttached(dropdownMenu)).toBe(true);
 });
 
 test('Verify that Dropdown Menu is able to open - stateless', async ({ page }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-ddm-stateless', {
-		'react-18-mode': 'legacy',
-	});
+	await page.visitExample<typeof import('../../../examples/97-testing-ddm-stateless.tsx')>(
+		'design-system',
+		'dropdown-menu',
+		'testing-ddm-stateless',
+		{
+			'react-18-mode': 'legacy',
+		},
+	);
 	await page.locator(trigger).first().click();
 
 	await expect(page.locator(dropdownMenu).first()).toBeVisible();
@@ -31,9 +41,14 @@ test.describe('Keyboard navigation', () => {
 	test('Verify that Dropdown Menu is closing on Tab press and focus on the next interactive element', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../examples/92-testing-keyboard-navigation.tsx')>(
+			'design-system',
+			'dropdown-menu',
+			'testing-keyboard-navigation',
+			{
+				'react-18-mode': 'legacy',
+			},
+		);
 
 		await page.getByTestId(triggerTestId).press('Enter');
 		await expect(page.getByTestId(contentTestId)).toBeVisible();
@@ -46,9 +61,14 @@ test.describe('Keyboard navigation', () => {
 	test('Verify that Dropdown Menu is closing on Shift+Tab press and focus on trigger', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../examples/92-testing-keyboard-navigation.tsx')>(
+			'design-system',
+			'dropdown-menu',
+			'testing-keyboard-navigation',
+			{
+				'react-18-mode': 'legacy',
+			},
+		);
 
 		await page.getByTestId(triggerTestId).press('Enter');
 		await page.getByTestId(contentTestId).press('Shift+Tab');
@@ -60,9 +80,14 @@ test.describe('Keyboard navigation', () => {
 	test('Verify that Dropdown Menu items navigation works on keyUp and keyDown', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../examples/92-testing-keyboard-navigation.tsx')>(
+			'design-system',
+			'dropdown-menu',
+			'testing-keyboard-navigation',
+			{
+				'react-18-mode': 'legacy',
+			},
+		);
 
 		await page.getByTestId(triggerTestId).press('Enter');
 		// Should set focus on the first element
@@ -84,14 +109,11 @@ test.describe('Keyboard navigation', () => {
 	test('Verify that Dropdown Menu items navigation works on keyUp and keyDown with disabled options', async ({
 		page,
 	}) => {
-		await page.visitExample(
-			'design-system',
-			'dropdown-menu',
-			'testing-keyboard-navigation-disabled-items',
-			{
-				'react-18-mode': 'legacy',
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../examples/89-testing-keyboard-navigation-disabled-items.tsx')
+		>('design-system', 'dropdown-menu', 'testing-keyboard-navigation-disabled-items', {
+			'react-18-mode': 'legacy',
+		});
 		await page.getByTestId(triggerTestId).press('Enter');
 		// Should set focus on the first non-disabled element (second element)
 		await expect(page.getByRole('menuitem', { name: 'Move' })).toBeFocused();
@@ -113,14 +135,11 @@ test.describe('Nested keyboard navigation', () => {
 	const getItemTestId = (level: number, id: number) => `nested-item${id}-${level}`;
 
 	test('Verify that navigation works correctly', async ({ page }) => {
-		await page.visitExample(
-			'design-system',
-			'dropdown-menu',
-			'testing-nested-keyboard-navigation',
-			{
-				'react-18-mode': 'legacy',
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../examples/91-testing-nested-keyboard-navigation.tsx')
+		>('design-system', 'dropdown-menu', 'testing-nested-keyboard-navigation', {
+			'react-18-mode': 'legacy',
+		});
 
 		// Should open a nested dropdown level 0
 		await page.getByTestId(getTriggerTestId(0)).focus();
@@ -168,10 +187,15 @@ test.describe('Nested keyboard navigation', () => {
 	test('Navigation should work when using multiple nested triggers with DropdownItem', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'dropdown-menu', 'nested-dropdown', {
-			featureFlag: 'select-avoid-duplicated-registered-ref',
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../examples/12-nested-dropdown.tsx')>(
+			'design-system',
+			'dropdown-menu',
+			'nested-dropdown',
+			{
+				featureFlag: 'select-avoid-duplicated-registered-ref',
+				'react-18-mode': 'legacy',
+			},
+		);
 		// Should open a nested dropdown level 0
 		await page
 			.getByRole('button', {
@@ -204,14 +228,11 @@ test.describe('returnFocusRef', () => {
 
 	test.describe('when rendered in parent', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample(
-				'design-system',
-				'dropdown-menu',
-				'testing-return-focus-ref-rendered-in-parent',
-				{
-					'react-18-mode': 'legacy',
-				},
-			);
+			await page.visitExample<
+				typeof import('../../../examples/90-testing-return-focus-ref-rendered-in-parent.tsx')
+			>('design-system', 'dropdown-menu', 'testing-return-focus-ref-rendered-in-parent', {
+				'react-18-mode': 'legacy',
+			});
 		});
 
 		test('Dropdown menu should close on Tab press and focus on the element specified by returnFocusRef', async ({
@@ -296,11 +317,9 @@ test.describe('returnFocusRef', () => {
 
 	test.describe('when rendered in portal', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample(
-				'design-system',
-				'dropdown-menu',
-				'testing-return-focus-ref-rendered-in-portal',
-			);
+			await page.visitExample<
+				typeof import('../../../examples/90-testing-return-focus-ref-rendered-in-portal.tsx')
+			>('design-system', 'dropdown-menu', 'testing-return-focus-ref-rendered-in-portal');
 		});
 
 		test('Dropdown menu should close on Esc press and focus on the element specified by returnFocusRef', async ({
@@ -365,11 +384,9 @@ test.describe('returnFocusRef', () => {
 test.describe('Returns focus to trigger', () => {
 	test.describe('Dropdown focus when clicking outside', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample(
-				'design-system',
-				'dropdown-menu',
-				'dropdown-trigger-focus-click-outside',
-			);
+			await page.visitExample<
+				typeof import('../../../examples/30-dropdown-trigger-focus-click-outside.tsx')
+			>('design-system', 'dropdown-menu', 'dropdown-trigger-focus-click-outside');
 		});
 
 		test('should not return focus to trigger when clicking on another button', async ({ page }) => {
@@ -416,11 +433,9 @@ test.describe('Returns focus to trigger', () => {
 
 	test.describe('shouldPreventEscapePropagation', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample(
-				'design-system',
-				'dropdown-menu',
-				'testing-should-prevent-escape-propagation',
-			);
+			await page.visitExample<
+				typeof import('../../../examples/88-testing-should-prevent-escape-propagation.tsx')
+			>('design-system', 'dropdown-menu', 'testing-should-prevent-escape-propagation');
 		});
 
 		test('should close dropdown but keep popup open when Escape is pressed', async ({ page }) => {

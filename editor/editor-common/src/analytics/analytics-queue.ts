@@ -9,7 +9,9 @@ export class AnalyticsQueue {
 	private readonly tasks: Function[] = [];
 	private running = false;
 
-	public static get: MemoizedFn<() => AnalyticsQueue> = memoizeOne((): AnalyticsQueue => new AnalyticsQueue());
+	public static get: MemoizedFn<() => AnalyticsQueue> = memoizeOne(
+		(): AnalyticsQueue => new AnalyticsQueue(),
+	);
 
 	private constructor() {}
 

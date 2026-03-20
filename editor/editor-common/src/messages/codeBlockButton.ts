@@ -1,27 +1,31 @@
 import { defineMessages } from 'react-intl-next';
 
 export const codeBlockButtonMessages: {
-    copyCodeToClipboard: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; copiedCodeToClipboard: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; wrapCode: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; unwrapCode: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; selectLanguage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	copyCodeToClipboard: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	copiedCodeToClipboard: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	wrapCode: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	unwrapCode: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	selectLanguage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	copyCodeToClipboard: {
 		id: 'fabric.editor.codeBlockCopyButton.copyToClipboard',

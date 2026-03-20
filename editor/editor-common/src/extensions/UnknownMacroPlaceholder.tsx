@@ -58,7 +58,9 @@ interface UnknownMacroPlaceholderProps {
 	extensionNode: ExtensionParams<Parameters>;
 }
 
-export function UnknownMacroPlaceholder({ extensionNode }: UnknownMacroPlaceholderProps): JSX.Element {
+export function UnknownMacroPlaceholder({
+	extensionNode,
+}: UnknownMacroPlaceholderProps): JSX.Element {
 	const intl = useIntl();
 
 	const macroTitle = extensionNode.parameters?.macroMetadata?.title || extensionNode.extensionKey;

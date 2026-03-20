@@ -6,7 +6,7 @@ import CustomExample from '../../utils/custom-example';
 import customMd from '../../utils/custom-md';
 import prerequisites from '../prerequisites';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 Flexible Smart Links, also known as FlexibleCard, Flexible UI, and Flex UI, is a composable system made up of data elements inside UI blocks,
 built by Bandicoots to aid Atlassian product teams in creating their own contextually appropriate Smart Link views.
@@ -91,3 +91,4 @@ ${(
 )}
 
 `;
+export default _default_1;

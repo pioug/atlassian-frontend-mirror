@@ -1,18 +1,23 @@
 export const adfDate: {
-    version: number; type: string; content: {
-        type: string;
-        content: ({
-            type: string;
-            attrs: {
-                timestamp: string;
-            };
-            text?: undefined;
-        } | {
-            type: string;
-            text: string;
-            attrs?: undefined;
-        })[];
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		content: (
+			| {
+					type: string;
+					attrs: {
+						timestamp: string;
+					};
+					text?: undefined;
+			  }
+			| {
+					type: string;
+					text: string;
+					attrs?: undefined;
+			  }
+		)[];
+	}[];
 } = {
 	version: 1,
 	type: 'doc',
@@ -40,15 +45,15 @@ export const adfDate: {
 };
 
 export const emptyDocument: {
-    version: number;
-    type: string;
-    content: {
-        type: string;
-        content: {
-            type: string;
-            text: string;
-        }[];
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			text: string;
+		}[];
+	}[];
 } = {
 	version: 1,
 	type: 'doc',

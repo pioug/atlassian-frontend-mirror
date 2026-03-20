@@ -20,9 +20,14 @@ test.describe('side nav tab order', () => {
 		page,
 		browserName,
 	}) => {
-		await page.visitExample('design-system', 'navigation-system', 'side-nav-layering', {
-			featureFlag: 'navx-full-height-sidebar',
-		});
+		await page.visitExample<typeof import('../../../examples/side-nav-layering.tsx')>(
+			'design-system',
+			'navigation-system',
+			'side-nav-layering',
+			{
+				featureFlag: 'navx-full-height-sidebar',
+			},
+		);
 
 		// Focus on the last menu item
 		await page.getByRole('button', { name: 'Expandable menu item with long content' }).focus();

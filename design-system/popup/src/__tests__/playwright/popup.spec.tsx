@@ -3,7 +3,9 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Popup focus behavior', () => {
 	test('Focus trap is always active, FF off', async ({ page }) => {
-		await page.visitExample('design-system', 'popup', 'popup-should-render-to-parent', {
+		await page.visitExample<
+			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
+		>('design-system', 'popup', 'popup-should-render-to-parent', {
 			'react-18-mode': 'legacy',
 		});
 
@@ -27,7 +29,9 @@ test.describe('Popup focus behavior', () => {
 	});
 
 	test('No focus trap by default, FF on', async ({ page }) => {
-		await page.visitExample('design-system', 'popup', 'popup-should-render-to-parent', {
+		await page.visitExample<
+			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
+		>('design-system', 'popup', 'popup-should-render-to-parent', {
 			featureFlag: 'platform_dst_popup-disable-focuslock',
 			'react-18-mode': 'legacy',
 		});
@@ -73,10 +77,15 @@ test.describe('Popup focus behavior', () => {
 	});
 
 	test('Focus trap active in dialog popup, FF on', async ({ page }) => {
-		await page.visitExample('design-system', 'popup', 'popup-role-dialog', {
-			featureFlag: 'platform_dst_popup-disable-focuslock',
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../examples/19-popup-role-dialog.tsx')>(
+			'design-system',
+			'popup',
+			'popup-role-dialog',
+			{
+				featureFlag: 'platform_dst_popup-disable-focuslock',
+				'react-18-mode': 'legacy',
+			},
+		);
 
 		const trigger = page.getByTestId('popup-trigger');
 
@@ -100,9 +109,14 @@ test.describe('Popup focus behavior', () => {
 	test('Tab should close popup when shouldDisableFocusLock and shouldRenderToParent are true, FF off', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'popup', 'popup-should-close-on-tab', {
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../examples/20-popup-should-close-on-tab.tsx')>(
+			'design-system',
+			'popup',
+			'popup-should-close-on-tab',
+			{
+				'react-18-mode': 'legacy',
+			},
+		);
 
 		const trigger = page.getByTestId('popup-trigger');
 
@@ -126,9 +140,14 @@ test.describe('Popup focus behavior', () => {
 	test('Tab should close popup when shouldDisableFocusLock and shouldRenderToParent are true, FF on', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'popup', 'popup-should-close-on-tab', {
-			featureFlag: 'platform_dst_popup-disable-focuslock',
-		});
+		await page.visitExample<typeof import('../../../examples/20-popup-should-close-on-tab.tsx')>(
+			'design-system',
+			'popup',
+			'popup-should-close-on-tab',
+			{
+				featureFlag: 'platform_dst_popup-disable-focuslock',
+			},
+		);
 
 		const trigger = page.getByTestId('popup-trigger');
 
@@ -152,9 +171,14 @@ test.describe('Popup focus behavior', () => {
 	test('Focus should remain on the previous element when autoFocus is false, FF off', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'popup', 'popup-disable-autofocus', {
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../examples/popup-disable-autofocus.tsx')>(
+			'design-system',
+			'popup',
+			'popup-disable-autofocus',
+			{
+				'react-18-mode': 'legacy',
+			},
+		);
 
 		const trigger = page.getByTestId('popup-trigger');
 		const focusedInput = page.getByTestId('focused-input');
@@ -189,9 +213,14 @@ test.describe('Popup focus behavior', () => {
 	test('Focus should remain on the previous element when autoFocus is false, FF on', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'popup', 'popup-disable-autofocus', {
-			featureFlag: 'platform_dst_popup-disable-focuslock',
-		});
+		await page.visitExample<typeof import('../../../examples/popup-disable-autofocus.tsx')>(
+			'design-system',
+			'popup',
+			'popup-disable-autofocus',
+			{
+				featureFlag: 'platform_dst_popup-disable-focuslock',
+			},
+		);
 
 		const trigger = page.getByTestId('popup-trigger');
 		const focusedInput = page.getByTestId('focused-input');
@@ -218,7 +247,12 @@ test.describe('Popup focus behavior', () => {
 	});
 
 	test('Focus should be trapped in nested popups, FF off', async ({ page }) => {
-		await page.visitExample('design-system', 'popup', 'nested', { 'react-18-mode': 'legacy' });
+		await page.visitExample<typeof import('../../../examples/nested.tsx')>(
+			'design-system',
+			'popup',
+			'nested',
+			{ 'react-18-mode': 'legacy' },
+		);
 
 		const trigger = page.getByTestId('popup-trigger');
 		const nestedTrigger = page.getByTestId('nested-popup-trigger');
@@ -256,10 +290,15 @@ test.describe('Popup focus behavior', () => {
 	});
 
 	test('Focus should not be trapped in nested popups, FF on', async ({ page }) => {
-		await page.visitExample('design-system', 'popup', 'nested', {
-			featureFlag: 'platform_dst_popup-disable-focuslock',
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../examples/nested.tsx')>(
+			'design-system',
+			'popup',
+			'nested',
+			{
+				featureFlag: 'platform_dst_popup-disable-focuslock',
+				'react-18-mode': 'legacy',
+			},
+		);
 
 		const trigger = page.getByTestId('popup-trigger');
 		const nestedTrigger = page.getByTestId('nested-popup-trigger');
@@ -327,9 +366,14 @@ test.describe('Popup focus behavior', () => {
 	});
 
 	test('Should not return focus to trigger with should not return focus', async ({ page }) => {
-		await page.visitExample('design-system', 'popup', 'should-not-return-focus', {
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../examples/should-not-return-focus.tsx')>(
+			'design-system',
+			'popup',
+			'should-not-return-focus',
+			{
+				'react-18-mode': 'legacy',
+			},
+		);
 
 		const trigger = page.getByText('Trigger');
 
@@ -355,12 +399,11 @@ test.describe('Popup focus behavior', () => {
 	test('Should open popup inside dropdown menu and then open modal from popup, FF off', async ({
 		page,
 	}) => {
-		await page.visitExample(
-			'design-system',
-			'popup',
-			'testing-modal-inside-popup-inside-dropdown',
-			{ 'react-18-mode': 'legacy' },
-		);
+		await page.visitExample<
+			typeof import('../../../examples/testing-modal-inside-popup-inside-dropdown.tsx')
+		>('design-system', 'popup', 'testing-modal-inside-popup-inside-dropdown', {
+			'react-18-mode': 'legacy',
+		});
 
 		const dropdownTrigger = page.getByTestId('dropdown--trigger');
 		const modalDialogTrigger = page.getByTestId('modal-trigger');
@@ -385,15 +428,12 @@ test.describe('Popup focus behavior', () => {
 	test('Should open popup inside dropdown menu and then open modal from popup, FF on', async ({
 		page,
 	}) => {
-		await page.visitExample(
-			'design-system',
-			'popup',
-			'testing-modal-inside-popup-inside-dropdown',
-			{
-				featureFlag: 'platform_dst_popup-disable-focuslock',
-				'react-18-mode': 'legacy',
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../examples/testing-modal-inside-popup-inside-dropdown.tsx')
+		>('design-system', 'popup', 'testing-modal-inside-popup-inside-dropdown', {
+			featureFlag: 'platform_dst_popup-disable-focuslock',
+			'react-18-mode': 'legacy',
+		});
 
 		const dropdownTrigger = page.getByTestId('dropdown--trigger');
 		const modalDialogTrigger = page.getByTestId('modal-trigger');
@@ -421,15 +461,12 @@ test.describe('Popup focus behavior', () => {
 	test('The trigger button should be focusable and not have a negative tabindex after closing with the Tab key, FF on', async ({
 		page,
 	}) => {
-		await page.visitExample(
-			'design-system',
-			'popup',
-			'testing-modal-inside-popup-inside-dropdown',
-			{
-				featureFlag: 'platform_dst_popup-disable-focuslock',
-				'react-18-mode': 'legacy',
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../examples/testing-modal-inside-popup-inside-dropdown.tsx')
+		>('design-system', 'popup', 'testing-modal-inside-popup-inside-dropdown', {
+			featureFlag: 'platform_dst_popup-disable-focuslock',
+			'react-18-mode': 'legacy',
+		});
 
 		const dropdownTrigger = page.getByTestId('dropdown--trigger');
 		const dropdownContent = page.getByTestId('dropdown--content');
@@ -456,9 +493,14 @@ test.describe('Popup focus behavior', () => {
 	});
 
 	test('Should open dropdown menu inside popup and close on Escape, FF off', async ({ page }) => {
-		await page.visitExample('design-system', 'popup', 'testing-dropdown-inside-popup', {
-			'react-18-mode': 'legacy',
-		});
+		await page.visitExample<typeof import('../../../examples/testing-dropdown-inside-popup.tsx')>(
+			'design-system',
+			'popup',
+			'testing-dropdown-inside-popup',
+			{
+				'react-18-mode': 'legacy',
+			},
+		);
 
 		const dropdownTrigger = page.getByTestId('dropdown--trigger');
 		const dropdownContent = page.getByTestId('dropdown--content');
@@ -485,9 +527,14 @@ test.describe('Popup focus behavior', () => {
 	});
 
 	test('Should open dropdown menu inside popup and close on Escape, FF on', async ({ page }) => {
-		await page.visitExample('design-system', 'popup', 'testing-dropdown-inside-popup', {
-			featureFlag: 'platform_dst_popup-disable-focuslock',
-		});
+		await page.visitExample<typeof import('../../../examples/testing-dropdown-inside-popup.tsx')>(
+			'design-system',
+			'popup',
+			'testing-dropdown-inside-popup',
+			{
+				featureFlag: 'platform_dst_popup-disable-focuslock',
+			},
+		);
 
 		const dropdownTrigger = page.getByTestId('dropdown--trigger');
 		const dropdownContent = page.getByTestId('dropdown--content');
@@ -516,7 +563,9 @@ test.describe('Popup focus behavior', () => {
 	test('Popup with dropdown: first Escape closes dropdown and returns focus to dropdown trigger, second Escape closes popup', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'popup', 'testing-popup-with-dropdown-escape', {
+		await page.visitExample<
+			typeof import('../../../examples/testing-popup-with-dropdown-escape.tsx')
+		>('design-system', 'popup', 'testing-popup-with-dropdown-escape', {
 			featureFlag: 'platform_dst_nested_escape',
 		});
 
@@ -549,7 +598,9 @@ test.describe('Popup focus behavior', () => {
 	test('Popup with nested dropdown: Escape at each level closes that level and returns focus to its trigger', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'popup', 'testing-popup-with-dropdown-escape', {
+		await page.visitExample<
+			typeof import('../../../examples/testing-popup-with-dropdown-escape.tsx')
+		>('design-system', 'popup', 'testing-popup-with-dropdown-escape', {
 			featureFlag: 'platform_dst_nested_escape',
 		});
 
@@ -590,7 +641,11 @@ test.describe('Popup focus behavior', () => {
 	});
 
 	test('should respect initial focus ref for setting initial focus', async ({ page }) => {
-		await page.visitExample('design-system', 'popup', 'setting-focus');
+		await page.visitExample<typeof import('../../../examples/13-setting-focus.tsx')>(
+			'design-system',
+			'popup',
+			'setting-focus',
+		);
 
 		// Select the Button 1 radio option, which determines the initial focus ref
 		await page.getByRole('radio', { name: 'Button 1' }).check();
@@ -602,7 +657,11 @@ test.describe('Popup focus behavior', () => {
 	});
 
 	test('should respect disabling autoFocus', async ({ page }) => {
-		await page.visitExample('design-system', 'popup', 'popup-disable-autofocus-vr');
+		await page.visitExample<typeof import('../../../examples/popup-disable-autofocus-vr.tsx')>(
+			'design-system',
+			'popup',
+			'popup-disable-autofocus-vr',
+		);
 
 		await page.getByRole('button', { name: 'Open Popup' }).click();
 

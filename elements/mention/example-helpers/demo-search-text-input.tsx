@@ -63,7 +63,7 @@ class SearchTextInput extends Component<Props, {}> {
 		}
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		// /* eslint no-unused-vars: 0 */
 		// const { onUp, onDown, onEnter, onEscape, label, inputRef, inputId, ...other } = this.props;
 		const { label, inputId, onBlur, onChange, onFocus } = this.props;

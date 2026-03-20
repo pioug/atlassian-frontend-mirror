@@ -31,21 +31,21 @@ import {
  * @deprecated
  */
 export const FORMAT_NESTED_MENU_RANK: {
-    [FORMAT_PARAGRAPH_MENU_ITEM.key]: number;
-    [FORMAT_QUOTE_MENU_ITEM.key]: number;
-    [FORMAT_EXPAND_MENU_ITEM.key]: number;
-    [FORMAT_LAYOUT_MENU_ITEM.key]: number;
-    [FORMAT_PANEL_MENU_ITEM.key]: number;
-    [FORMAT_CODE_BLOCK_MENU_ITEM.key]: number;
-    [FORMAT_BULLETED_LIST_MENU_ITEM.key]: number;
-    [FORMAT_NUMBERED_LIST_MENU_ITEM.key]: number;
-    [FORMAT_TASK_LIST_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_1_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_2_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_3_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_4_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_5_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_6_MENU_ITEM.key]: number;
+	[FORMAT_PARAGRAPH_MENU_ITEM.key]: number;
+	[FORMAT_QUOTE_MENU_ITEM.key]: number;
+	[FORMAT_EXPAND_MENU_ITEM.key]: number;
+	[FORMAT_LAYOUT_MENU_ITEM.key]: number;
+	[FORMAT_PANEL_MENU_ITEM.key]: number;
+	[FORMAT_CODE_BLOCK_MENU_ITEM.key]: number;
+	[FORMAT_BULLETED_LIST_MENU_ITEM.key]: number;
+	[FORMAT_NUMBERED_LIST_MENU_ITEM.key]: number;
+	[FORMAT_TASK_LIST_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_1_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_2_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_3_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_4_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_5_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_6_MENU_ITEM.key]: number;
 } = {
 	[FORMAT_PARAGRAPH_MENU_ITEM.key]: 50,
 	[FORMAT_QUOTE_MENU_ITEM.key]: 100,
@@ -69,21 +69,21 @@ export const FORMAT_NESTED_MENU_RANK: {
  * @deprecated
  */
 export const FORMAT_NESTED_MENU_RANK_REVISED: {
-    [FORMAT_PARAGRAPH_MENU_ITEM.key]: number;
-    [FORMAT_QUOTE_MENU_ITEM.key]: number;
-    [FORMAT_EXPAND_MENU_ITEM.key]: number;
-    [FORMAT_LAYOUT_MENU_ITEM.key]: number;
-    [FORMAT_PANEL_MENU_ITEM.key]: number;
-    [FORMAT_CODE_BLOCK_MENU_ITEM.key]: number;
-    [FORMAT_BULLETED_LIST_MENU_ITEM.key]: number;
-    [FORMAT_NUMBERED_LIST_MENU_ITEM.key]: number;
-    [FORMAT_TASK_LIST_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_1_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_2_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_3_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_4_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_5_MENU_ITEM.key]: number;
-    [FORMAT_HEADING_6_MENU_ITEM.key]: number;
+	[FORMAT_PARAGRAPH_MENU_ITEM.key]: number;
+	[FORMAT_QUOTE_MENU_ITEM.key]: number;
+	[FORMAT_EXPAND_MENU_ITEM.key]: number;
+	[FORMAT_LAYOUT_MENU_ITEM.key]: number;
+	[FORMAT_PANEL_MENU_ITEM.key]: number;
+	[FORMAT_CODE_BLOCK_MENU_ITEM.key]: number;
+	[FORMAT_BULLETED_LIST_MENU_ITEM.key]: number;
+	[FORMAT_NUMBERED_LIST_MENU_ITEM.key]: number;
+	[FORMAT_TASK_LIST_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_1_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_2_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_3_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_4_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_5_MENU_ITEM.key]: number;
+	[FORMAT_HEADING_6_MENU_ITEM.key]: number;
 } = {
 	[FORMAT_PARAGRAPH_MENU_ITEM.key]: 50,
 	[FORMAT_QUOTE_MENU_ITEM.key]: 100,
@@ -107,11 +107,11 @@ export const FORMAT_NESTED_MENU_RANK_REVISED: {
  * @deprecated
  */
 export const BLOCK_MENU_SECTION_RANK: {
-    [PRIMARY_MENU_SECTION.key]: number;
-    [ADD_BLOCKS_MENU_SECTION.key]: number;
-    [COPY_MENU_SECTION.key]: number;
-    [MOVE_UP_DOWN_MENU_SECTION.key]: number;
-    [DELETE_MENU_SECTION.key]: number;
+	[PRIMARY_MENU_SECTION.key]: number;
+	[ADD_BLOCKS_MENU_SECTION.key]: number;
+	[COPY_MENU_SECTION.key]: number;
+	[MOVE_UP_DOWN_MENU_SECTION.key]: number;
+	[DELETE_MENU_SECTION.key]: number;
 } = {
 	[PRIMARY_MENU_SECTION.key]: 100,
 	[ADD_BLOCKS_MENU_SECTION.key]: 200,
@@ -125,8 +125,8 @@ export const BLOCK_MENU_SECTION_RANK: {
  * @deprecated
  */
 export const PRIMARY_MENU_SECTION_RANK: {
-    [FORMAT_MENU_ITEM.key]: number;
-    [TRANSFORM_MENU_ITEM.key]: number;
+	[FORMAT_MENU_ITEM.key]: number;
+	[TRANSFORM_MENU_ITEM.key]: number;
 } = {
 	[FORMAT_MENU_ITEM.key]: 50,
 	[TRANSFORM_MENU_ITEM.key]: 50,
@@ -137,7 +137,7 @@ export const PRIMARY_MENU_SECTION_RANK: {
  * @deprecated
  */
 export const ADD_BLOCKS_MENU_SECTION_RANK: {
-    [CREATE_SYNCED_BLOCK_MENU_ITEM.key]: number;
+	[CREATE_SYNCED_BLOCK_MENU_ITEM.key]: number;
 } = {
 	[CREATE_SYNCED_BLOCK_MENU_ITEM.key]: 50,
 };
@@ -147,7 +147,7 @@ export const ADD_BLOCKS_MENU_SECTION_RANK: {
  * @deprecated
  */
 export const COPY_MENU_SECTION_RANK: {
-    [COPY_LINK_MENU_ITEM.key]: number;
+	[COPY_LINK_MENU_ITEM.key]: number;
 } = {
 	[COPY_LINK_MENU_ITEM.key]: 50,
 };
@@ -157,8 +157,8 @@ export const COPY_MENU_SECTION_RANK: {
  * @deprecated
  */
 export const MOVE_BLOCK_SECTION_RANK: {
-    [MOVE_UP_MENU_ITEM.key]: number;
-    [MOVE_DOWN_MENU_ITEM.key]: number;
+	[MOVE_UP_MENU_ITEM.key]: number;
+	[MOVE_DOWN_MENU_ITEM.key]: number;
 } = {
 	[MOVE_UP_MENU_ITEM.key]: 50,
 	[MOVE_DOWN_MENU_ITEM.key]: 100,
@@ -169,7 +169,7 @@ export const MOVE_BLOCK_SECTION_RANK: {
  * @deprecated
  */
 export const DELETE_SECTION_RANK: {
-    [DELETE_MENU_ITEM.key]: number;
+	[DELETE_MENU_ITEM.key]: number;
 } = {
 	[DELETE_MENU_ITEM.key]: 50,
 };

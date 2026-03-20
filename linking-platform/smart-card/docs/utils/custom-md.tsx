@@ -31,8 +31,10 @@ const styles = css({
 
 const withCustomStyles =
 	(tag: Function) =>
-	(strings: TemplateStringsArray, ...args: React.ReactNode[]) => (
+	(strings: TemplateStringsArray, ...args: React.ReactNode[]): JSX.Element => (
 		<div css={styles}>{tag(strings, ...args)}</div>
 	);
 
-export default withCustomStyles(md);
+const _default_1: (strings: TemplateStringsArray, ...args: React.ReactNode[]) => JSX.Element =
+	withCustomStyles(md);
+export default _default_1;

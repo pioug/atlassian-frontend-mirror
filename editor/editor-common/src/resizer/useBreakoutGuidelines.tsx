@@ -47,10 +47,10 @@ export function useBreakoutGuidelines(
 	isResizing: boolean,
 	dynamicFullWidthGuidelineOffset: number = 0,
 ): {
-    snaps: Snap | null;
-    currentLayout: BreakoutMode | null;
-    guidelines: GuidelineConfig[];
-    setCurrentWidth: (newWidth: number | null) => void;
+	snaps: Snap | null;
+	currentLayout: BreakoutMode | null;
+	guidelines: GuidelineConfig[];
+	setCurrentWidth: (newWidth: number | null) => void;
 } {
 	const widthState = getEditorWidth();
 

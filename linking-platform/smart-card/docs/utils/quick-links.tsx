@@ -12,7 +12,7 @@ const quickLinkStyles = xcss({
 	textAlign: 'right',
 });
 
-const QuickLinks = () => (
+const QuickLinks = (): React.JSX.Element => (
 	<Box xcss={quickLinkStyles}>
 		<Inline alignInline="end" space="space.100">
 			<DocQuickLinks />

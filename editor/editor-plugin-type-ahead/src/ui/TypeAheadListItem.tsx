@@ -8,6 +8,7 @@ import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { IconFallback } from '@atlaskit/editor-common/quick-insert';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
@@ -21,6 +22,7 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
 import { B400, N30, N800 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -154,6 +156,7 @@ type TypeAheadListItemProps = {
 	item: TypeAheadItem;
 	itemIndex: number;
 	itemsLength: number;
+	lastInputMethodRef?: React.MutableRefObject<'mouse' | 'keyboard'>;
 	moreElementsInQuickInsertViewEnabled?: boolean;
 	onItemClick: (mode: SelectItemMode, index: number) => void;
 	selectedIndex: number;
@@ -230,6 +233,7 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 		moreElementsInQuickInsertViewEnabled,
 		api,
 		firstOnlineSupportedIndex,
+		lastInputMethodRef,
 	}: TypeAheadListItemProps) => jsx.JSX.Element
 > = React.memo(
 	({
@@ -242,7 +246,10 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 		moreElementsInQuickInsertViewEnabled,
 		api,
 		firstOnlineSupportedIndex,
+		lastInputMethodRef,
 	}: TypeAheadListItemProps): jsx.JSX.Element => {
+		const isSafari = getBrowserInfo().safari;
+
 		const { connectivityMode } = useSharedPluginStateWithSelector(
 			api,
 			['connectivity'],
@@ -307,15 +314,29 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 
 		useLayoutEffect(() => {
 			if (shouldUpdateFocus) {
-				customItemRef?.current?.focus();
+				const skipFocusOnSafariHover =
+					isSafari &&
+					lastInputMethodRef?.current === 'mouse' &&
+					expValEquals('platform_safari_cursor_typeahead_fix', 'isEnabled', true);
+
+				if (!skipFocusOnSafariHover) {
+					customItemRef?.current?.focus();
+				}
 			}
-		}, [customItemRef, shouldUpdateFocus]);
+		}, [customItemRef, shouldUpdateFocus, lastInputMethodRef, isSafari]);
 
 		useLayoutEffect(() => {
 			if (shouldUpdateFocus) {
-				buttonItemRef?.current?.focus();
+				const skipFocusOnSafariHover =
+					isSafari &&
+					lastInputMethodRef?.current === 'mouse' &&
+					expValEquals('platform_safari_cursor_typeahead_fix', 'isEnabled', true);
+
+				if (!skipFocusOnSafariHover) {
+					buttonItemRef?.current?.focus();
+				}
 			}
-		}, [buttonItemRef, shouldUpdateFocus]);
+		}, [buttonItemRef, shouldUpdateFocus, lastInputMethodRef, isSafari]);
 
 		if (customRenderItem) {
 			return (

@@ -9,9 +9,14 @@ const value = `${timePicker} > div > div > div > div:first-child`;
 test('When entering a new time in Timepicker, the time should be updated to the new value', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'datetime-picker', 'times', {
-		featureFlag: 'platform_dst_popup-disable-focuslock',
-	});
+	await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+		'design-system',
+		'datetime-picker',
+		'times',
+		{
+			featureFlag: 'platform_dst_popup-disable-focuslock',
+		},
+	);
 	await page.locator(timePicker).first().click();
 	const previousTime = await page.locator(value).first().textContent();
 	await page.locator(input).first().fill('10:15');
@@ -22,9 +27,14 @@ test('When entering a new time in Timepicker, the time should be updated to the 
 });
 
 test('Invalid times in TimePicker should be ignored', async ({ page }) => {
-	await page.visitExample('design-system', 'datetime-picker', 'times', {
-		featureFlag: 'platform_dst_popup-disable-focuslock',
-	});
+	await page.visitExample<typeof import('../../../../../../examples/100-times.tsx')>(
+		'design-system',
+		'datetime-picker',
+		'times',
+		{
+			featureFlag: 'platform_dst_popup-disable-focuslock',
+		},
+	);
 	await page.locator(timePicker).first().click();
 	await page.webdriverCompatUtils.fillMultiple(input, ['a', 's', 'd']);
 	await page.keyboard.press('Tab');

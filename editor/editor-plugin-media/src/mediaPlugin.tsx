@@ -171,17 +171,6 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 		actions: {
 			handleMediaNodeRenderError: (node: PMNode, reason: string, nestedUnder?: string) => {
-				if (
-					!fg('platform_synced_block_patch_5') &&
-					!expValEquals('platform_editor_media_reliability_observability', 'isEnabled', true)
-				) {
-					// Only fire the errored event once per media node
-					if (mediaErrorLocalIds.has(node.attrs.localId)) {
-						return;
-					}
-					mediaErrorLocalIds.add(node.attrs.localId);
-				}
-
 				let isDuplicateError = false;
 
 				if (expValEquals('platform_editor_media_reliability_observability', 'isEnabled', true)) {
@@ -203,15 +192,10 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 					attributes: {
 						reason,
 						external: node.attrs.__external,
-						...(nestedUnder &&
-						editorExperiment('platform_synced_block', true) &&
-						fg('platform_synced_block_patch_5')
+						...(nestedUnder && editorExperiment('platform_synced_block', true)
 							? { nestedUnder }
 							: {}),
-						...(editorExperiment('platform_synced_block', true) &&
-						fg('platform_synced_block_patch_5')
-							? { isDuplicateError }
-							: {}),
+						...(editorExperiment('platform_synced_block', true) ? { isDuplicateError } : {}),
 					},
 				});
 			},

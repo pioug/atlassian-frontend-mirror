@@ -20,14 +20,14 @@ const tokenStyles = {
 		objectName: 'textColor',
 		prefix: 'color.text.',
 		cssProperty: 'color',
-		filterFn: <T extends Token>(t: T) =>
+		filterFn: <T extends Token>(t: T): boolean =>
 			t.token.startsWith(tokenStyles.text.prefix) || t.token.startsWith('color.link'),
 	},
 	background: {
 		objectName: 'backgroundColor',
 		prefix: 'color.background.',
 		cssProperty: 'backgroundColor',
-		filterFn: <T extends Token>(t: T) =>
+		filterFn: <T extends Token>(t: T): boolean =>
 			t.token.startsWith(tokenStyles.background.prefix) ||
 			t.token.startsWith('elevation.surface') ||
 			t.token.startsWith('utility.elevation.surface') ||
@@ -38,13 +38,13 @@ const tokenStyles = {
 		objectName: 'borderColor',
 		prefix: 'color.border.',
 		cssProperty: 'borderColor',
-		filterFn: <T extends Token>(t: T) => t.token.startsWith(tokenStyles.border.prefix),
+		filterFn: <T extends Token>(t: T): boolean => t.token.startsWith(tokenStyles.border.prefix),
 	},
 	fill: {
 		objectName: 'fill',
 		prefix: 'color.icon.',
 		cssProperty: 'fill',
-		filterFn: <T extends Token>(t: T) => t.token.startsWith(tokenStyles.fill.prefix),
+		filterFn: <T extends Token>(t: T): boolean => t.token.startsWith(tokenStyles.fill.prefix),
 	},
 } as const;
 

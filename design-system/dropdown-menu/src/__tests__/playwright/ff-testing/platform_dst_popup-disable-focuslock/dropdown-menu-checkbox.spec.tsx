@@ -9,9 +9,14 @@ const dropdownMenu = '[data-testid="lite-mode-ddm--content"]';
 test('Verify that checkbox in dropdown menu transitions from unchecked to checked - using defaultSelected', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-checkbox', {
-		featureFlag: 'platform_dst_popup-disable-focuslock',
-	});
+	await page.visitExample<typeof import('../../../../../examples/95-testing-checkbox.tsx')>(
+		'design-system',
+		'dropdown-menu',
+		'testing-checkbox',
+		{
+			featureFlag: 'platform_dst_popup-disable-focuslock',
+		},
+	);
 	await page.locator(trigger).first().click();
 
 	await expect(page.locator(dropdownMenu).first()).toBeVisible();
@@ -27,7 +32,9 @@ test('Verify that checkbox in dropdown menu transitions from unchecked to checke
 test('Verify that checkbox in dropdown menu transitions from unchecked to checked - using isSelected', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-checkbox-stateless', {
+	await page.visitExample<
+		typeof import('../../../../../examples/94-testing-checkbox-stateless.tsx')
+	>('design-system', 'dropdown-menu', 'testing-checkbox-stateless', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
 	});
 	await page.locator(trigger).first().click();

@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 # CSS Selectors to help integration testing
 
 \`<Filmstrip />\` component has optional \`testId: string\` property that will be assigned to the
@@ -15,3 +15,4 @@ Only one of these three can be found as a top DOM element:
 - \`[data-testid="media-filmstrip"]\`: Root Filmstrip component
 - \`[data-testid="media-filmstrip-list-item"]\`: Filmstrip item component
 `;
+export default _default_1;

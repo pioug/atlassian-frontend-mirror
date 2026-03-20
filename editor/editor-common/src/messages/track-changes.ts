@@ -1,15 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
 export const trackChangesMessages: {
-    toolbarIconLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; removed: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	toolbarIconLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	removed: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	toolbarIconLabel: {
 		id: 'editor.trackChanges.toolbarIconLabel',

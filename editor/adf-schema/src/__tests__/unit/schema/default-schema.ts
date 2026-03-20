@@ -1,7 +1,4 @@
-import {
-	defaultSchema,
-	getSchemaBasedOnStage,
-} from '../../../schema/default-schema';
+import { defaultSchema, getSchemaBasedOnStage } from '../../../schema/default-schema';
 
 describe('Default Schema', () => {
 	describe('Nodes', () => {

@@ -64,9 +64,7 @@ const filterIcons = (icons: IconsList, query: string) => {
 	return Object.keys(icons)
 		.map((index) => icons[index])
 		.filter((icon) =>
-			[
-				...icon.keywords,
-			]
+			[...icon.keywords]
 				.map((keyword) => (regex.test(keyword) ? 1 : 0))
 				.reduce((allMatches: number, match: number) => allMatches + match, 0),
 		);

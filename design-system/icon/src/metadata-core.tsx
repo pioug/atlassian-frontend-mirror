@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::75a10fac3fe1f9f4b8110a6252449ece>>
+ * @codegen <<SignedSource::89369dad254e55137adbee199ee40d7d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {

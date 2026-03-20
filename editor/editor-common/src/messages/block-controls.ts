@@ -1,51 +1,61 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    dragToMove: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dragToMoveClickToOpen: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dragToRearrange: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; insert: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveUp: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveDown: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; movedup: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; movedDown: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveLeft: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveRight: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; delete: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	dragToMove: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dragToMoveClickToOpen: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dragToRearrange: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	insert: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveUp: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveDown: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	movedup: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	movedDown: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveLeft: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveRight: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	delete: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	dragToMove: {
 		id: 'fabric.editor.blockControlDragHandleMove',

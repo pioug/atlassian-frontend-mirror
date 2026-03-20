@@ -1,7 +1,11 @@
 import { expect, test } from '@af/integration-testing';
 
 test('should allow interaction with radio buttons and pass aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'radio', 'form-example');
+	await page.visitExample<typeof import('../../../examples/02-form-example.tsx')>(
+		'design-system',
+		'radio',
+		'form-example',
+	);
 
 	await page.locator('input[name="color"][value="red"]').check();
 	await expect(page.locator('input[name="color"][value="red"]')).toBeChecked();

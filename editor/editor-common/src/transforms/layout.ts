@@ -20,7 +20,11 @@ export function removeLayoutFromFirstChild(node: Node, i: number): Node | Node[]
 	return i === 0 ? unwrapContentFromLayout(node) : node;
 }
 
-export function removeLayoutFromLastChild(node: Node, i: number, fragment: Fragment): Node | Node[] {
+export function removeLayoutFromLastChild(
+	node: Node,
+	i: number,
+	fragment: Fragment,
+): Node | Node[] {
 	return i === fragment.childCount - 1 ? unwrapContentFromLayout(node) : node;
 }
 

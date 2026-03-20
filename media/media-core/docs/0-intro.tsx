@@ -8,7 +8,7 @@ import {
 
 const packageName = 'Media Core';
 
-export default md`
+const _default_1: any = md`
 ${createSingletonNotice(packageName)}
 
 ${createMediaUseOnlyNotice(packageName, [
@@ -29,3 +29,4 @@ ${createRxjsNotice(packageName)}
   * providers
   * interfaces
 `;
+export default _default_1;

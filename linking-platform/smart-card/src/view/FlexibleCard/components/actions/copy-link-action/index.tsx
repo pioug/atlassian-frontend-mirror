@@ -39,7 +39,13 @@ const CopyLinkAction = ({
 	return data ? (
 		<Action
 			content={<FormattedMessage {...messages.copy_url_to_clipboard} />}
-			icon={<LinkIcon color="currentColor" label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'copy url'} spacing="spacious" />}
+			icon={
+				<LinkIcon
+					color="currentColor"
+					label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'copy url'}
+					spacing="spacious"
+				/>
+			}
 			onClick={onClick}
 			testId="smart-action-copy-link-action"
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}

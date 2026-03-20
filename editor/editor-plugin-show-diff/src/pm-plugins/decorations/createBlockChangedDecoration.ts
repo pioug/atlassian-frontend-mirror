@@ -93,55 +93,71 @@ const getBlockNodeStyle = ({
 		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 			if (isInserted) {
 				return isTraditional
-					? (isActive ? traditionalStyleQuoteNodeActive : traditionalStyleQuoteNode)
+					? isActive
+						? traditionalStyleQuoteNodeActive
+						: traditionalStyleQuoteNode
 					: editingStyleQuoteNode;
 			} else {
 				return isTraditional ? deletedTraditionalStyleQuoteNode : deletedStyleQuoteNode;
 			}
 		}
 		return isTraditional
-			? (isActive ? traditionalStyleQuoteNodeActive : traditionalStyleQuoteNode)
+			? isActive
+				? traditionalStyleQuoteNodeActive
+				: traditionalStyleQuoteNode
 			: editingStyleQuoteNode;
 	}
 	if (nodeName === 'rule') {
 		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 			if (isInserted) {
 				return isTraditional
-					? (isActive ? traditionalStyleRuleNodeActive : traditionalStyleRuleNode)
+					? isActive
+						? traditionalStyleRuleNodeActive
+						: traditionalStyleRuleNode
 					: editingStyleRuleNode;
 			} else {
 				return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
 			}
 		}
 		return isTraditional
-			? (isActive ? traditionalStyleRuleNodeActive : traditionalStyleRuleNode)
+			? isActive
+				? traditionalStyleRuleNodeActive
+				: traditionalStyleRuleNode
 			: editingStyleRuleNode;
 	}
 	if (nodeName === 'blockCard') {
 		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 			if (isInserted) {
 				return isTraditional
-					? (isActive ? traditionalStyleCardBlockNodeActive : traditionalStyleCardBlockNode)
+					? isActive
+						? traditionalStyleCardBlockNodeActive
+						: traditionalStyleCardBlockNode
 					: editingStyleCardBlockNode;
 			} else {
 				return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
 			}
 		}
 		return isTraditional
-			? (isActive ? traditionalStyleCardBlockNodeActive : traditionalStyleCardBlockNode)
+			? isActive
+				? traditionalStyleCardBlockNodeActive
+				: traditionalStyleCardBlockNode
 			: editingStyleCardBlockNode;
 	}
 	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 		if (isInserted) {
 			return isTraditional
-				? (isActive ? traditionalStyleNodeActive : traditionalStyleNode)
+				? isActive
+					? traditionalStyleNodeActive
+					: traditionalStyleNode
 				: editingStyleNode;
 		} else {
 			return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
 		}
 	}
 	return isTraditional
-		? (isActive ? traditionalStyleNodeActive : traditionalStyleNode)
+		? isActive
+			? traditionalStyleNodeActive
+			: traditionalStyleNode
 		: editingStyleNode;
 };
 
@@ -194,5 +210,5 @@ export const createBlockChangedDecoration = ({
 			class: className,
 		},
 		{ key: 'diff-block', nodeName: change.name },
-	)
+	);
 };

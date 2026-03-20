@@ -93,7 +93,12 @@ export const getSSRPreview = (
 		const clientId = fg('platform_media_cross_client_copy_with_auth')
 			? mediaClient.getClientIdSync()
 			: undefined;
-		const attrsWithClientId = mergeClientIdIntoAttrs(clientId, id, mediaBlobUrlAttrs, params.collection);
+		const attrsWithClientId = mergeClientIdIntoAttrs(
+			clientId,
+			id,
+			mediaBlobUrlAttrs,
+			params.collection,
+		);
 
 		const dataURI = getDataUri(mediaClient, id, params, attrsWithClientId);
 		let srcSet = `${dataURI} 1x`;
@@ -177,12 +182,7 @@ export const getAndCacheRemotePreview = async (
 		enrichAttrsWithClientId(mediaClient, id, mediaBlobUrlAttrs, params.collection),
 	]);
 
-	return extendAndCachePreview(
-		id,
-		params.mode,
-		{ ...remotePreview, dimensions },
-		enrichedAttrs,
-	);
+	return extendAndCachePreview(id, params.mode, { ...remotePreview, dimensions }, enrichedAttrs);
 };
 
 export const getAndCacheLocalPreview = async (

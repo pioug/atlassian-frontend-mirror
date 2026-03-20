@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 217.4.5
+
+### Patch Changes
+
+- [`7428d9bf3aa13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7428d9bf3aa13) -
+  Clean up platform_synced_block_patch_5 feature gate
+- [`af385c410f9b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af385c410f9b1) -
+  [ux] EDITOR-5909 Hide markers for wrapper task list items
+- [`abdb4d8431601`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abdb4d8431601) -
+  Clean up/platform_editor_table_container_y_overflow_fix
+- Updated dependencies
+
+## 217.4.4
+
+### Patch Changes
+
+- [`244ca4ec80372`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/244ca4ec80372) -
+  Fix expand node clipping in chromeless editor by resetting negative margins behind
+  platform_editor_chromeless_expand_fix experiment
+- [`6bdae1aef42cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bdae1aef42cd) -
+  Cleaning up Editor Content Area maxwidth style code due to the
+  confluence_max_width_content_appearance experiment being rolled out completly since january and
+  never cleaned up
+- Updated dependencies
+
 ## 217.4.3
 
 ### Patch Changes

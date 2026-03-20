@@ -29,11 +29,12 @@ export interface KeyDownHandlerContext {
  **  Because the keyboard navigation is explicitly managed for main toolbar items
  **  Few key presses such as Tab,Arrow Right/Left need ot be handled here via context
  */
-export const KeyDownHandlerContext: React.Context<KeyDownHandlerContext> = React.createContext<KeyDownHandlerContext>({
-	handleArrowLeft: () => {},
-	handleArrowRight: () => {},
-	handleTab: () => {},
-});
+export const KeyDownHandlerContext: React.Context<KeyDownHandlerContext> =
+	React.createContext<KeyDownHandlerContext>({
+		handleArrowLeft: () => {},
+		handleArrowRight: () => {},
+		handleTab: () => {},
+	});
 
 const centeredToolbarContainer = css({
 	display: 'flex',

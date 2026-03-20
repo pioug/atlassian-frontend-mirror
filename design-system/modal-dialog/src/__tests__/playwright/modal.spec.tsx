@@ -11,7 +11,11 @@ const closeModalBtn = /--close-button/;
 
 test.describe('Default Modal', () => {
 	test('Modal should move focus based on reading order, and be closed', async ({ page }) => {
-		await page.visitExample('design-system', 'modal-dialog', 'default-modal');
+		await page.visitExample<typeof import('../../../examples/00-default-modal.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'default-modal',
+		);
 
 		const open = page.getByTestId(openModalBtn);
 		const primary = page.getByTestId(primaryBtn);
@@ -45,7 +49,11 @@ test.describe('Default Modal', () => {
 	test.skip('Modal should not close when click event starts on modal and finishes outside of modal', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'modal-dialog', 'default-modal');
+		await page.visitExample<typeof import('../../../examples/00-default-modal.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'default-modal',
+		);
 
 		const open = page.getByTestId(openModalBtn);
 		const modal = page.getByTestId(modalDialog);
@@ -65,7 +73,11 @@ test.describe('Default Modal', () => {
 
 test.describe('Modal Dialog Scroll', () => {
 	test('Scrollable modal should have focus on its content', async ({ page }) => {
-		await page.visitExample('design-system', 'modal-dialog', 'scroll');
+		await page.visitExample<typeof import('../../../examples/55-scroll.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'scroll',
+		);
 
 		const open = page.getByTestId(openModalBtn);
 		const primary = page.getByTestId(primaryBtn);
@@ -102,7 +114,11 @@ test.describe('Modal Dialog Scroll', () => {
 	});
 
 	test('Empty modals (no focusable children) should still lock focus', async ({ page }) => {
-		await page.visitExample('design-system', 'modal-dialog', 'scroll');
+		await page.visitExample<typeof import('../../../examples/55-scroll.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'scroll',
+		);
 
 		// Ensure shouldScrollInViewport is enabled.
 		await page.getByTestId('scroll--checkbox-label').click();
@@ -122,7 +138,11 @@ test.describe('Modal Dialog Scroll', () => {
 
 	// Tests for accessibility properties only testable via integration tests
 	test('Scrollable modal should be accessible to keyboard and AT', async ({ page }) => {
-		await page.visitExample('design-system', 'modal-dialog', 'scroll');
+		await page.visitExample<typeof import('../../../examples/55-scroll.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'scroll',
+		);
 
 		const open = page.getByTestId(openModalBtn);
 		await expect(open).toBeVisible();
@@ -141,7 +161,11 @@ test.describe('Modal Dialog Scroll', () => {
 });
 
 test('Empty modals (no focusable children) should still lock focus', async ({ page }) => {
-	await page.visitExample('design-system', 'modal-dialog', 'custom-child');
+	await page.visitExample<typeof import('../../../examples/95-custom-child.tsx')>(
+		'design-system',
+		'modal-dialog',
+		'custom-child',
+	);
 
 	const open = page.getByTestId(openModalBtn);
 	const modal = page.getByTestId(modalDialog);
@@ -171,7 +195,11 @@ test.describe('Autofocus', () => {
 		const open = page.getByTestId('boolean-trigger');
 		const modal = page.getByTestId(modalDialog);
 
-		await page.visitExample('design-system', 'modal-dialog', 'autofocus');
+		await page.visitExample<typeof import('../../../examples/20-autofocus.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'autofocus',
+		);
 
 		await expect(open).toBeVisible();
 		await open.click();
@@ -183,7 +211,11 @@ test.describe('Autofocus', () => {
 		const open = page.getByTestId('autofocus-trigger');
 		const modal = page.getByTestId(modalDialog);
 
-		await page.visitExample('design-system', 'modal-dialog', 'autofocus');
+		await page.visitExample<typeof import('../../../examples/20-autofocus.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'autofocus',
+		);
 
 		await expect(open).toBeVisible();
 		await open.click();
@@ -197,7 +229,11 @@ test('Modal with no focusable children should gain focus on its container', asyn
 	const modal = page.getByTestId(modalDialog);
 	const close = page.getByTestId(closeModalBtn);
 
-	await page.visitExample('design-system', 'modal-dialog', 'custom-child');
+	await page.visitExample<typeof import('../../../examples/95-custom-child.tsx')>(
+		'design-system',
+		'modal-dialog',
+		'custom-child',
+	);
 	await expect(open).toBeVisible();
 	await open.click();
 	await expect(modal).toBeVisible();
@@ -210,7 +246,11 @@ test.describe('Focus', () => {
 		const closeModal = page.getByTestId('close-modal');
 		const focusOnModalClose = page.getByTestId('return-focus-element');
 
-		await page.visitExample('design-system', 'modal-dialog', 'focus-to-ref-on-modal-close');
+		await page.visitExample<typeof import('../../../examples/focus-to-ref-on-modal-close.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'focus-to-ref-on-modal-close',
+		);
 		await expect(openModal).toBeVisible();
 		await expect(focusOnModalClose).toBeVisible();
 		await openModal.click();
@@ -225,7 +265,11 @@ test.describe('Focus', () => {
 		const nestedModalSmallTrigger = page.getByTestId(`${sizes[1]}-modal-trigger`);
 		const closeModalSmallButton = page.getByTestId(`${sizes[2]}-modal-close-button`);
 
-		await page.visitExample('design-system', 'modal-dialog', 'multiple');
+		await page.visitExample<typeof import('../../../examples/40-multiple.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'multiple',
+		);
 		await expect(nestedModalLargeTrigger).toBeVisible();
 		await nestedModalLargeTrigger.click();
 
@@ -249,7 +293,11 @@ test.describe('Focus', () => {
 
 test.describe('Modal over a popup', () => {
 	test('Should not close modal nor popup when interact with Modal', async ({ page }) => {
-		await page.visitExample('design-system', 'modal-dialog', 'modal-over-popup');
+		await page.visitExample<typeof import('../../../examples/01-modal-over-popup.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'modal-over-popup',
+		);
 		const popupTrigger = page.getByRole('button');
 		await popupTrigger.click();
 		const open = page.getByTestId(openModalBtn);
@@ -273,7 +321,11 @@ test.describe('Modal over a popup', () => {
 	test(`Aui dialog's inner elements should be available for focus interaction while opened from AK modal`, async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'modal-dialog', 'open-aui-from-popup-in-modal');
+		await page.visitExample<typeof import('../../../examples/open-aui-from-popup-in-modal.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'open-aui-from-popup-in-modal',
+		);
 		const atlaskitDialogTrigger = page.getByTestId('ak-modal-trigger');
 		await atlaskitDialogTrigger.focus();
 		await atlaskitDialogTrigger.click();

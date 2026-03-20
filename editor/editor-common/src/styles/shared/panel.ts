@@ -12,10 +12,10 @@ const lightPanelColors = {
 
 const prefix = 'ak-editor-panel';
 export const PanelSharedCssClassName: {
-    prefix: string;
-    content: string;
-    icon: string;
-    noIcon: string;
+	prefix: string;
+	content: string;
+	icon: string;
+	noIcon: string;
 } = {
 	prefix,
 	content: `${prefix}__content`,

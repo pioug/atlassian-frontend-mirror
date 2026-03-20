@@ -2,7 +2,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Size', () => {
 	test('size calculates 100% width by default', async ({ page }) => {
-		await page.visitExample('connect', 'simple-xdm', 'size');
+		await page.visitExample<typeof import('../../examples/size.tsx')>(
+			'connect',
+			'simple-xdm',
+			'size',
+		);
 		await page.click('[id="size-calc-100-width-by-default"]');
 
 		const results = page.getByTestId('results');
@@ -11,7 +15,11 @@ test.describe('Size', () => {
 	});
 
 	test('size calculates the correct height', async ({ page }) => {
-		await page.visitExample('connect', 'simple-xdm', 'size');
+		await page.visitExample<typeof import('../../examples/size.tsx')>(
+			'connect',
+			'simple-xdm',
+			'size',
+		);
 
 		await page.setViewportSize({
 			width: 1024,
@@ -27,7 +35,11 @@ test.describe('Size', () => {
 	});
 
 	test('size calculates the correct height with margin', async ({ page }) => {
-		await page.visitExample('connect', 'simple-xdm', 'size');
+		await page.visitExample<typeof import('../../examples/size.tsx')>(
+			'connect',
+			'simple-xdm',
+			'size',
+		);
 
 		await page.setViewportSize({
 			width: 1024,
@@ -43,7 +55,11 @@ test.describe('Size', () => {
 	});
 
 	test('size calculates the correct height with border', async ({ page }) => {
-		await page.visitExample('connect', 'simple-xdm', 'size');
+		await page.visitExample<typeof import('../../examples/size.tsx')>(
+			'connect',
+			'simple-xdm',
+			'size',
+		);
 
 		await page.setViewportSize({
 			width: 1024,
@@ -59,7 +75,11 @@ test.describe('Size', () => {
 	});
 
 	test('size calculates the correct height with padding', async ({ page }) => {
-		await page.visitExample('connect', 'simple-xdm', 'size');
+		await page.visitExample<typeof import('../../examples/size.tsx')>(
+			'connect',
+			'simple-xdm',
+			'size',
+		);
 
 		await page.setViewportSize({
 			width: 1024,
@@ -75,7 +95,11 @@ test.describe('Size', () => {
 	});
 
 	test('size calculates the correct height with padding and margin', async ({ page }) => {
-		await page.visitExample('connect', 'simple-xdm', 'size');
+		await page.visitExample<typeof import('../../examples/size.tsx')>(
+			'connect',
+			'simple-xdm',
+			'size',
+		);
 
 		await page.setViewportSize({
 			width: 1024,
@@ -91,7 +115,11 @@ test.describe('Size', () => {
 	});
 
 	test('size gives the correct width with widthinpx', async ({ page }) => {
-		await page.visitExample('connect', 'simple-xdm', 'size');
+		await page.visitExample<typeof import('../../examples/size.tsx')>(
+			'connect',
+			'simple-xdm',
+			'size',
+		);
 
 		await page.setViewportSize({
 			width: 1024,
@@ -113,7 +141,11 @@ test.describe('Size', () => {
 	});
 
 	test('should capture and report a11y violations', async ({ page }) => {
-		await page.visitExample('connect', 'simple-xdm', 'size');
+		await page.visitExample<typeof import('../../examples/size.tsx')>(
+			'connect',
+			'simple-xdm',
+			'size',
+		);
 
 		await expect(page).toBeAccessible();
 	});

@@ -51,7 +51,10 @@ const useDefaultQuickInsertProvider = (providers: ExtensionProvider) => {
 	return quickInsertProvider;
 };
 
-export const useDefaultQuickInsertGetItems = (): (query?: string, category?: string) => QuickInsertItem[] => {
+export const useDefaultQuickInsertGetItems = (): ((
+	query?: string,
+	category?: string,
+) => QuickInsertItem[]) => {
 	const editorApi = usePresetContext<StackPlugins>();
 	const providers = React.useMemo(() => getExampleExtensionProviders(editorApi), [editorApi]);
 	const quickInsertProvider = useDefaultQuickInsertProvider(providers);

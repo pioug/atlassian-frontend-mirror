@@ -328,19 +328,21 @@ export const ruleNodeAdf: DocNode = {
 };
 
 export const expandAdf: {
-    version: number; type: string; content: {
-        type: string;
-        attrs: {
-            title: string;
-        };
-        content: {
-            type: string;
-            content: {
-                type: string;
-                text: string;
-            }[];
-        }[];
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			title: string;
+		};
+		content: {
+			type: string;
+			content: {
+				type: string;
+				text: string;
+			}[];
+		}[];
+	}[];
 } = {
 	version: 1,
 	type: 'doc',
@@ -359,22 +361,24 @@ export const expandAdf: {
 };
 
 export const layoutAndBigParagraphs: {
-    version: number; type: string; content: {
-        type: string;
-        content: {
-            type: string;
-            attrs: {
-                width: number;
-            };
-            content: {
-                type: string;
-                content: {
-                    type: string;
-                    text: string;
-                }[];
-            }[];
-        }[];
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			attrs: {
+				width: number;
+			};
+			content: {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+			}[];
+		}[];
+	}[];
 } = {
 	version: 1,
 	type: 'doc',
@@ -451,16 +455,16 @@ export const layoutAndBigParagraphs: {
 };
 
 export const embedCardAdf: {
-    version: number;
-    type: string;
-    content: {
-        type: string;
-        attrs: {
-            url: string;
-            layout: string;
-            width: number;
-        };
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			url: string;
+			layout: string;
+			width: number;
+		};
+	}[];
 } = {
 	version: 1,
 	type: 'doc',
@@ -485,20 +489,22 @@ export const embedCardAdf: {
 };
 
 export const blockCardAdf: {
-    version: number; type: string; content: {
-        type: string;
-        attrs: {
-            data: {
-                '@context': string;
-                '@type': string;
-                name: string;
-                url: string;
-                generator: {
-                    icon: string;
-                };
-            };
-        };
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			data: {
+				'@context': string;
+				'@type': string;
+				name: string;
+				url: string;
+				generator: {
+					icon: string;
+				};
+			};
+		};
+	}[];
 } = {
 	version: 1,
 	type: 'doc',
@@ -535,23 +541,25 @@ export const blockCardAdf: {
 };
 
 export const mediaSingleAdf: {
-    version: number; type: string; content: {
-        type: string;
-        attrs: {
-            width: null;
-            layout: string;
-        };
-        content: {
-            type: string;
-            attrs: {
-                type: string;
-                collection: string;
-                id: string;
-                width: number;
-                height: number;
-            };
-        }[];
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			width: null;
+			layout: string;
+		};
+		content: {
+			type: string;
+			attrs: {
+				type: string;
+				collection: string;
+				id: string;
+				width: number;
+				height: number;
+			};
+		}[];
+	}[];
 } = {
 	version: 1,
 	type: 'doc',
@@ -598,17 +606,19 @@ export const mediaSingleAdf: {
 };
 
 export const mediaGroupAdf: {
-    type: string; version: number; content: {
-        type: string;
-        content: {
-            type: string;
-            attrs: {
-                id: string;
-                type: string;
-                collection: string;
-            };
-        }[];
-    }[];
+	type: string;
+	version: number;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			attrs: {
+				id: string;
+				type: string;
+				collection: string;
+			};
+		}[];
+	}[];
 } = {
 	type: 'doc',
 	version: 1,
@@ -737,25 +747,27 @@ export const extensionAdf: DocNode = {
 };
 
 export const tableAdf: {
-    version: number; type: string; content: {
-        type: string;
-        attrs: {
-            isNumberColumnEnabled: boolean;
-            layout: string;
-            localId: string;
-        };
-        content: {
-            type: string;
-            content: {
-                type: string;
-                attrs: {};
-                content: {
-                    type: string;
-                    content: never[];
-                }[];
-            }[];
-        }[];
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			isNumberColumnEnabled: boolean;
+			layout: string;
+			localId: string;
+		};
+		content: {
+			type: string;
+			content: {
+				type: string;
+				attrs: {};
+				content: {
+					type: string;
+					content: never[];
+				}[];
+			}[];
+		}[];
+	}[];
 } = {
 	version: 1,
 	type: 'doc',

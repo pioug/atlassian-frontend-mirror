@@ -112,125 +112,127 @@ const shouldSplit = (nodeType: NodeType, schemaNodes: any) => {
 	return [schemaNodes.bulletList, schemaNodes.orderedList, schemaNodes.panel].includes(nodeType);
 };
 
-export const safeInsert = (content: InsertableContent, position?: number) => (tr: Transaction): Transaction | null => {
-	const { nodes } = tr.doc.type.schema;
-	const whitelist = [nodes.rule, nodes.mediaSingle];
+export const safeInsert =
+	(content: InsertableContent, position?: number) =>
+	(tr: Transaction): Transaction | null => {
+		const { nodes } = tr.doc.type.schema;
+		const whitelist = [nodes.rule, nodes.mediaSingle];
 
-	if (content instanceof Fragment || !whitelist.includes(content.type)) {
-		return null;
-	}
-
-	// Check for selection
-	if (!tr.selection.empty || isNodeSelection(tr.selection)) {
-		// NOT IMPLEMENTED
-		return null;
-	}
-
-	const { $from } = tr.selection;
-	const $insertPos = position
-		? tr.doc.resolve(position)
-		: isNodeSelection(tr.selection)
-			? tr.doc.resolve($from.pos + 1)
-			: $from;
-
-	let lookDirection: LookDirection | undefined;
-	const insertPosEnd = $insertPos.end();
-	const insertPosStart = $insertPos.start();
-
-	// When parent node is an empty paragraph,
-	// check the empty paragraph is the first or last node of its parent.
-	if (isEmptyParagraph($insertPos.parent)) {
-		if (isLastChild($insertPos, tr.doc)) {
-			lookDirection = LookDirection.After;
-		} else if (isFirstChild($insertPos, tr.doc)) {
-			lookDirection = LookDirection.Before;
-		}
-	} else {
-		if ($insertPos.pos === insertPosEnd) {
-			lookDirection = LookDirection.After;
-		} else if ($insertPos.pos === insertPosStart) {
-			lookDirection = LookDirection.Before;
-		}
-	}
-
-	const grandParentNodeType = tr.selection.$from.node(-1)?.type;
-	const parentNodeType = tr.selection.$from.parent.type;
-
-	// if there is no direction, and cannot split for this particular node
-	const noDirectionAndShouldNotSplit =
-		!lookDirection &&
-		!shouldSplitSelectedNodeOnNodeInsertion({
-			parentNodeType,
-			grandParentNodeType,
-			content,
-		});
-
-	const ruleNodeInANestedListNode = content.type === nodes.rule && selectionIsInNestedList(tr);
-
-	const nonRuleNodeInListNode = !(content.type === nodes.rule) && nodeIsInsideAList(tr);
-
-	if (
-		ruleNodeInANestedListNode ||
-		(noDirectionAndShouldNotSplit && nonRuleNodeInListNode) ||
-		(noDirectionAndShouldNotSplit && !nodeIsInsideAList(tr))
-	) {
-		// node to be inserted is an invalid child of selection so insert below selected node
-		return pmSafeInsert(content, tr.selection.from)(tr);
-	}
-
-	// if node is a rule and that is a flat list splitting and not at the end of a list
-	const { from, to } = tr.selection;
-	const ruleTypeInAList = content.type === nodes.rule && nodeIsInsideAList(tr);
-	if (ruleTypeInAList && !($insertPos.pos === insertPosEnd)) {
-		return tr.replaceRange(from, to, new Slice(Fragment.from(nodes.rule.createChecked()), 0, 0));
-	}
-
-	if (!lookDirection) {
-		// fallback to consumer for now
-		return null;
-	}
-
-	// Replace empty paragraph
-	if (
-		isEmptyParagraph($insertPos.parent) &&
-		canInsert(tr.doc.resolve($insertPos[lookDirection]()), content)
-	) {
-		return finaliseInsert(tr.replaceWith($insertPos.before(), $insertPos.after(), content), -1);
-	}
-
-	let $proposedPosition = $insertPos;
-	while ($proposedPosition.depth > 0) {
-		const $parentPos = tr.doc.resolve($proposedPosition[lookDirection]());
-		const parentNode = $parentPos.node();
-
-		// Insert at position (before or after target pos)
-		if (canInsert($proposedPosition, content)) {
-			return finaliseInsert(tr.insert($proposedPosition.pos, content), content.nodeSize);
+		if (content instanceof Fragment || !whitelist.includes(content.type)) {
+			return null;
 		}
 
-		// If we can't insert, and we think we should split, we fallback to consumer for now
-		if (shouldSplit(parentNode.type, tr.doc.type.schema.nodes)) {
-			const nextTr = finaliseInsert(
-				insertBeforeOrAfter(tr, lookDirection, $parentPos, $proposedPosition, content),
-				content.nodeSize,
-			);
+		// Check for selection
+		if (!tr.selection.empty || isNodeSelection(tr.selection)) {
+			// NOT IMPLEMENTED
+			return null;
+		}
 
-			// Move selection to the closest text node, otherwise it defaults to the whatever the lookDirection is set to above
-			if ([nodes.orderedList, nodes.bulletList].includes(parentNode.type) && nextTr) {
-				return nextTr.setSelection(
-					TextSelection.between(nextTr.selection.$from, nextTr.selection.$from),
-				);
-			} else {
-				return nextTr;
+		const { $from } = tr.selection;
+		const $insertPos = position
+			? tr.doc.resolve(position)
+			: isNodeSelection(tr.selection)
+				? tr.doc.resolve($from.pos + 1)
+				: $from;
+
+		let lookDirection: LookDirection | undefined;
+		const insertPosEnd = $insertPos.end();
+		const insertPosStart = $insertPos.start();
+
+		// When parent node is an empty paragraph,
+		// check the empty paragraph is the first or last node of its parent.
+		if (isEmptyParagraph($insertPos.parent)) {
+			if (isLastChild($insertPos, tr.doc)) {
+				lookDirection = LookDirection.After;
+			} else if (isFirstChild($insertPos, tr.doc)) {
+				lookDirection = LookDirection.Before;
+			}
+		} else {
+			if ($insertPos.pos === insertPosEnd) {
+				lookDirection = LookDirection.After;
+			} else if ($insertPos.pos === insertPosStart) {
+				lookDirection = LookDirection.Before;
 			}
 		}
 
-		// Can not insert into current parent, step up one parent
-		$proposedPosition = $parentPos;
-	}
+		const grandParentNodeType = tr.selection.$from.node(-1)?.type;
+		const parentNodeType = tr.selection.$from.parent.type;
 
-	return finaliseInsert(tr.insert($proposedPosition.pos, content), content.nodeSize);
-};
+		// if there is no direction, and cannot split for this particular node
+		const noDirectionAndShouldNotSplit =
+			!lookDirection &&
+			!shouldSplitSelectedNodeOnNodeInsertion({
+				parentNodeType,
+				grandParentNodeType,
+				content,
+			});
+
+		const ruleNodeInANestedListNode = content.type === nodes.rule && selectionIsInNestedList(tr);
+
+		const nonRuleNodeInListNode = !(content.type === nodes.rule) && nodeIsInsideAList(tr);
+
+		if (
+			ruleNodeInANestedListNode ||
+			(noDirectionAndShouldNotSplit && nonRuleNodeInListNode) ||
+			(noDirectionAndShouldNotSplit && !nodeIsInsideAList(tr))
+		) {
+			// node to be inserted is an invalid child of selection so insert below selected node
+			return pmSafeInsert(content, tr.selection.from)(tr);
+		}
+
+		// if node is a rule and that is a flat list splitting and not at the end of a list
+		const { from, to } = tr.selection;
+		const ruleTypeInAList = content.type === nodes.rule && nodeIsInsideAList(tr);
+		if (ruleTypeInAList && !($insertPos.pos === insertPosEnd)) {
+			return tr.replaceRange(from, to, new Slice(Fragment.from(nodes.rule.createChecked()), 0, 0));
+		}
+
+		if (!lookDirection) {
+			// fallback to consumer for now
+			return null;
+		}
+
+		// Replace empty paragraph
+		if (
+			isEmptyParagraph($insertPos.parent) &&
+			canInsert(tr.doc.resolve($insertPos[lookDirection]()), content)
+		) {
+			return finaliseInsert(tr.replaceWith($insertPos.before(), $insertPos.after(), content), -1);
+		}
+
+		let $proposedPosition = $insertPos;
+		while ($proposedPosition.depth > 0) {
+			const $parentPos = tr.doc.resolve($proposedPosition[lookDirection]());
+			const parentNode = $parentPos.node();
+
+			// Insert at position (before or after target pos)
+			if (canInsert($proposedPosition, content)) {
+				return finaliseInsert(tr.insert($proposedPosition.pos, content), content.nodeSize);
+			}
+
+			// If we can't insert, and we think we should split, we fallback to consumer for now
+			if (shouldSplit(parentNode.type, tr.doc.type.schema.nodes)) {
+				const nextTr = finaliseInsert(
+					insertBeforeOrAfter(tr, lookDirection, $parentPos, $proposedPosition, content),
+					content.nodeSize,
+				);
+
+				// Move selection to the closest text node, otherwise it defaults to the whatever the lookDirection is set to above
+				if ([nodes.orderedList, nodes.bulletList].includes(parentNode.type) && nextTr) {
+					return nextTr.setSelection(
+						TextSelection.between(nextTr.selection.$from, nextTr.selection.$from),
+					);
+				} else {
+					return nextTr;
+				}
+			}
+
+			// Can not insert into current parent, step up one parent
+			$proposedPosition = $parentPos;
+		}
+
+		return finaliseInsert(tr.insert($proposedPosition.pos, content), content.nodeSize);
+	};
 
 type __ReplaceStep = (ReplaceStep | ReplaceAroundStep) & {
 	slice: Slice;

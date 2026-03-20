@@ -57,6 +57,7 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 							options?.withEmptyParagraph,
 							options?.isPlaceholderHidden,
 							options && options.placeholderADF,
+							options?.isRovoLLMEnabled,
 							api,
 						),
 				},

@@ -2,7 +2,7 @@ import { code } from '@atlaskit/docs';
 
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ### Editor (@atlaskit/editor-core)
 
@@ -113,3 +113,4 @@ import { Renderer } from '@atlaskit/renderer';
 * [@atlaskit/renderer](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/edc5ac5ccd46946bb17e59d01260dd5002580206/editor/renderer)
 
 `;
+export default _default_1;

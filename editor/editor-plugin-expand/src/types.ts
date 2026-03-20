@@ -36,7 +36,11 @@ export type ExpandPluginSharedState =
 	  }
 	| undefined;
 
-export type InsertMethod = INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.INSERT_MENU | INPUT_METHOD.ELEMENT_BROWSER | INPUT_METHOD.TOOLBAR;
+export type InsertMethod =
+	| INPUT_METHOD.QUICK_INSERT
+	| INPUT_METHOD.INSERT_MENU
+	| INPUT_METHOD.ELEMENT_BROWSER
+	| INPUT_METHOD.TOOLBAR;
 
 export interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
 	/**

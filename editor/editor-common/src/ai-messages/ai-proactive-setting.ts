@@ -1,87 +1,106 @@
 import { defineMessages } from 'react-intl-next';
 
 export const aiProactiveSettingMessages: {
-    toggleAllSuggestionsTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleAllSuggestionsDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleAllPanelSuggestionsTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleAllPanelSuggestionsDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleErrorPanelTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleErrorPanelDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleInfoPanelTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleInfoPanelDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleNotePanelTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleNotePanelDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleSuccessPanelTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleSuccessPanelDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleWarningPanelTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleWarningPanelDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleTableTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleTableDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleSplitParagraphTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleSplitParagraphDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleFormatParagraphTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toggleFormatParagraphDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	toggleAllSuggestionsTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleAllSuggestionsDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleAllPanelSuggestionsTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleAllPanelSuggestionsDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleErrorPanelTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleErrorPanelDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleInfoPanelTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleInfoPanelDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleNotePanelTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleNotePanelDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleSuccessPanelTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleSuccessPanelDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleWarningPanelTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleWarningPanelDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleTableTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleTableDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleSplitParagraphTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleSplitParagraphDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleFormatParagraphTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toggleFormatParagraphDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	toggleAllSuggestionsTitle: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleAllSuggestionsTitle.non-final',

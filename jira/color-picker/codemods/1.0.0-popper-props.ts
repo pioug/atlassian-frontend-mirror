@@ -71,7 +71,11 @@ function updatePopperProps(j: core.JSCodeshift, source: Collection<any>, specifi
 	});
 }
 
-export default function transformer(file: FileInfo, { jscodeshift: j }: API, options: Options) {
+export default function transformer(
+	file: FileInfo,
+	{ jscodeshift: j }: API,
+	options: Options,
+): string {
 	const source = j(file.source);
 
 	// Exit early if not relevant

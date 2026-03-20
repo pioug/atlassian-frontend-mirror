@@ -29,7 +29,7 @@ export const TemplateReadOnly = ({
 	query,
 	isSearch = controls.isSearch.defaultValue,
 	isCompact = controls.isCompact.defaultValue,
-}: TemplateReadOnlyArgs) => (
+}: TemplateReadOnlyArgs): React.JSX.Element => (
 	<Container>
 		<JQLEditorReadOnly isSearch={isSearch} isCompact={isCompact} query={query} />
 	</Container>

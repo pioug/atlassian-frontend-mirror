@@ -21,11 +21,11 @@ export default class ConfigurableMentionPicker extends React.Component<Props, St
 		};
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
+	UNSAFE_componentWillReceiveProps(nextProps: Props): void {
 		this.refreshMentions(nextProps.config);
 	}
 
-	refreshMentions(config: MentionResourceConfig) {
+	refreshMentions(config: MentionResourceConfig): void {
 		this.setState({
 			resourceProvider: new MentionResource(config),
 		});
@@ -37,7 +37,7 @@ export default class ConfigurableMentionPicker extends React.Component<Props, St
 		this.refreshMentions(config);
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { resourceProvider } = this.state;
 
 		return (

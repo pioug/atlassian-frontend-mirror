@@ -5,7 +5,7 @@ import UsageTab from './content/usage';
 import PropsDefinitionTab from './content/props-definition';
 import BabelNotice from './content/babel-notice';
 
-export default md`
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
 ${(<BabelNotice />)}
@@ -32,3 +32,4 @@ Additionaly it also takes care of displaying the upload status of the file.
   The list of the error UI design can be referenced [here](https://product-fabric.atlassian.net/wiki/spaces/MEX/pages/3070230558/New+Error+UI+design+for+Media+Card+new+experience).
 
 `;
+export default _default_1;

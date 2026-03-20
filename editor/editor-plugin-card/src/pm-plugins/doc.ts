@@ -142,11 +142,7 @@ export const replaceQueuedUrlWithCard =
 		// If an embed card transformer is provided and the resolved card is an embedCard,
 		// attempt to transform it into an alternative node representation first.
 		if (cardData.type === 'embedCard' && embedCardNodeTransformer) {
-			cardAdf =
-				embedCardNodeTransformer(
-					schema,
-					cardData.attrs as EmbedCardTransformAttrs,
-				) ?? null;
+			cardAdf = embedCardNodeTransformer(schema, cardData.attrs as EmbedCardTransformAttrs) ?? null;
 		}
 
 		if (!cardAdf) {
@@ -589,12 +585,10 @@ export const setSelectedCardAppearance: (
 
 	// If switching to embed appearance, attempt to use a registered transform command
 	// to create an alternative node representation (e.g. a native embed).
-	if (
-		appearance === 'embed' &&
-		(selectedNode.attrs.url || selectedNode.attrs.data?.url)
-	) {
+	if (appearance === 'embed' && (selectedNode.attrs.url || selectedNode.attrs.data?.url)) {
 		const cardState = pluginKey.getState(state) as CardPluginState | undefined;
-		const createEmbedCardTransformCommand = cardState?.embedCardTransformers?.createEmbedCardTransformCommand;
+		const createEmbedCardTransformCommand =
+			cardState?.embedCardTransformers?.createEmbedCardTransformCommand;
 		if (createEmbedCardTransformCommand) {
 			const transformCommand = createEmbedCardTransformCommand({
 				augmentTransaction: (augmentTr: Transaction) => {

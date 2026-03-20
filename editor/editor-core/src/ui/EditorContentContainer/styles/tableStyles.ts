@@ -61,15 +61,6 @@ export const tableContainerStyles: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const tableContainerOverflowY: SerializedStyles = css({
-	/* Fix for HOT-119925: Ensure table containers have proper width constraints and overflow handling */
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror .pm-table-wrapper': {
-		overflowY: 'visible',
-	},
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const tableEmptyRowStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror .pm-table-wrapper': {

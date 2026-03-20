@@ -49,10 +49,7 @@ export const createFeatureFlaggedServiceCollectionComponent: (
 	// Note: textColor and iconColor aren't supported on all new logos
 	// These props will be deprecated in the future
 	return ({ size, shouldUseNewLogoDesign, ...props }: LogoProps): React.JSX.Element => {
-		if (
-			fg('platform-logo-rebrand') ||
-			shouldUseNewLogoDesign
-		) {
+		if (fg('platform-logo-rebrand') || shouldUseNewLogoDesign) {
 			// Size defaults need to be set, as the temp library had different defaults
 			return <NewComponent size={size || 'medium'} {...props} />;
 		}

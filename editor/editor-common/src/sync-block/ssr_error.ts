@@ -131,7 +131,9 @@ const getSyncedBlocksSSRError = (): SyncedBlocksSSRErrorMetadata | undefined => 
  *
  * @param fireAnalyticsEvent - Function to fire analytics events
  */
-export const handleSSRErrorsAnalytics: (fireAnalyticsEvent?: (event: SyncedBlockSSRErrorAEP) => void) => void = (() => {
+export const handleSSRErrorsAnalytics: (
+	fireAnalyticsEvent?: (event: SyncedBlockSSRErrorAEP) => void,
+) => void = (() => {
 	let called = false;
 	// I want this fireAnalyticsEvent only takes in SyncedBlockSSRErrorAEP
 	return (fireAnalyticsEvent?: (event: SyncedBlockSSRErrorAEP) => void): void => {

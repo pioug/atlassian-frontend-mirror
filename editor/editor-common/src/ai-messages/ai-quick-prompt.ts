@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const aiQuickPromptMessages: {
-    nudgeText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	nudgeText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	nudgeText: {
 		id: 'fabric.editor.ai.quickPrompt.nudge',

@@ -313,9 +313,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		// Only return reference if domRef is defined
 		if (this.domRef === undefined) {
 			//raise an error
-			throw new Error(
-			'domRef is not defined or may have been destroyed',
-			);
+			throw new Error('domRef is not defined or may have been destroyed');
 		}
 
 		// Spreading props to pass through dynamic component props

@@ -7,7 +7,11 @@ const breadcrumbsEllipsisTestId = "[data-testid='MyBreadcrumbsTestId--breadcrumb
 const breadcrumbsItemTestId = "[data-testid='myBreadcrumbsItemTestId']";
 
 test('Breadcrumbs should be able to be clicked by data-testid', async ({ page }) => {
-	await page.visitExample('design-system', 'breadcrumbs', 'testing');
+	await page.visitExample<typeof import('../../../../examples/99-testing.tsx')>(
+		'design-system',
+		'breadcrumbs',
+		'testing',
+	);
 	await expect(page.locator(breadcrumbsTestId).first()).toBeVisible();
 	await expect(page.locator(breadcrumbsEllipsisTestId).first()).toBeVisible();
 

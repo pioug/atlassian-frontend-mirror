@@ -10,7 +10,11 @@ const messageHeading = 'h2';
 test('InlineMessage should be able to be identified and clicked by data-testid', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'inline-message', 'testing');
+	await page.visitExample<typeof import('../../../../examples/99-testing.tsx')>(
+		'design-system',
+		'inline-message',
+		'testing',
+	);
 
 	// Check for visibility.
 	await expect(page.locator(inlineMessageBtn).first()).toBeVisible();

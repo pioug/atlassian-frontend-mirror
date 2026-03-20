@@ -800,8 +800,11 @@ const itemIconStyle = css({
 	},
 });
 
-const MemoizedElementListWithAnalytics: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<Props & SelectedItemProps & WithAnalyticsEventsProps & WithContextProps, "ref"> & React.RefAttributes<unknown>>> = memo(
-	withAnalyticsContext({ component: 'ElementList' })(ElementList),
-);
+const MemoizedElementListWithAnalytics: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<
+		Omit<Props & SelectedItemProps & WithAnalyticsEventsProps & WithContextProps, 'ref'> &
+			React.RefAttributes<unknown>
+	>
+> = memo(withAnalyticsContext({ component: 'ElementList' })(ElementList));
 
 export default MemoizedElementListWithAnalytics;

@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 33.0.1
+
+### Patch Changes
+
+- [`a61a3677df8a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a61a3677df8a5) -
+  Remove `core/migration/*` entries from deprecated icon docs. The `core/migration/*` icon
+  components no longer exist following the removal of `@atlaskit/icon/glyph` legacy icons.
+
 ## 33.0.0
 
 ### Major Changes

@@ -20,13 +20,14 @@ import {
 } from '../../src';
 import creators, { internalCreators } from '../../src/creators';
 
-export const getStoryValueOperand = () => creators.valueOperand('story');
-export const getEmptyKeywordOperand = () => creators.keywordOperand();
-export const getAllFunctionOperand = () => creators.functionOperand(creators.functionString('all'));
+export const getStoryValueOperand = (): any => creators.valueOperand('story');
+export const getEmptyKeywordOperand = (): any => creators.keywordOperand();
+export const getAllFunctionOperand = (): any =>
+	creators.functionOperand(creators.functionString('all'));
 
-export const getInOperator = () => creators.operator(OPERATOR_IN);
+export const getInOperator = (): any => creators.operator(OPERATOR_IN);
 
-export const getEpicAndTaskListOperand = () =>
+export const getEpicAndTaskListOperand = (): any =>
 	creators.listOperand([creators.valueOperand('epic'), creators.valueOperand('task')]);
 
 export const getMockAstNode = (): AstNode => ({
@@ -38,7 +39,7 @@ export const getMockAstNode = (): AstNode => ({
 	parent: null,
 });
 
-export const getTypeEqualsBugClause = () =>
+export const getTypeEqualsBugClause = (): any =>
 	creators.terminalClause(
 		creators.field('issuetype'),
 		creators.operator(OPERATOR_EQUALS),
@@ -46,7 +47,7 @@ export const getTypeEqualsBugClause = () =>
 		[],
 	);
 
-export const getStatusEqualsOpenClause = () =>
+export const getStatusEqualsOpenClause = (): any =>
 	creators.terminalClause(
 		creators.field('status'),
 		creators.operator(OPERATOR_EQUALS),
@@ -54,7 +55,7 @@ export const getStatusEqualsOpenClause = () =>
 		[],
 	);
 
-export const getAssigneeIsEmptyClause = () =>
+export const getAssigneeIsEmptyClause = (): any =>
 	creators.terminalClause(
 		creators.field('assignee'),
 		creators.operator(OPERATOR_IS),
@@ -62,7 +63,7 @@ export const getAssigneeIsEmptyClause = () =>
 		[],
 	);
 
-export const getEmptyTerminalClause = () =>
+export const getEmptyTerminalClause = (): any =>
 	creators.terminalClause(
 		creators.field('issuetype'),
 		creators.operator(OPERATOR_EQUALS),
@@ -70,7 +71,7 @@ export const getEmptyTerminalClause = () =>
 		[],
 	);
 
-export const getCreatedRecentlyClause = () =>
+export const getCreatedRecentlyClause = (): any =>
 	creators.terminalClause(
 		creators.field('created'),
 		creators.operator(OPERATOR_GT),
@@ -78,25 +79,25 @@ export const getCreatedRecentlyClause = () =>
 		[],
 	);
 
-export const getOrderByTypeField = () =>
+export const getOrderByTypeField = (): any =>
 	creators.orderByField(
 		creators.field('issuetype'),
 		creators.orderByDirection(ORDER_BY_DIRECTION_ASC),
 	);
-export const getOrderByStatusField = () =>
+export const getOrderByStatusField = (): any =>
 	creators.orderByField(
 		creators.field('status'),
 		creators.orderByDirection(ORDER_BY_DIRECTION_DESC),
 	);
-export const getOrderByAssigneeField = () => creators.orderByField(creators.field('assignee'));
+export const getOrderByAssigneeField = (): any => creators.orderByField(creators.field('assignee'));
 
-export const getCompoundAndClause = () =>
+export const getCompoundAndClause = (): any =>
 	creators.compoundClause(creators.compoundOperator(COMPOUND_OPERATOR_AND), [
 		getTypeEqualsBugClause(),
 		getStatusEqualsOpenClause(),
 	]);
 
-export const getCompoundOrClause = () =>
+export const getCompoundOrClause = (): any =>
 	creators.compoundClause(creators.compoundOperator(COMPOUND_OPERATOR_OR), [
 		getAssigneeIsEmptyClause(),
 		getCreatedRecentlyClause(),
@@ -104,7 +105,7 @@ export const getCompoundOrClause = () =>
 
 export const jqlSimple = 'issuetype = bug';
 
-export const jqlSimpleQuery = internalCreators.query(
+export const jqlSimpleQuery: any = internalCreators.query(
 	internalCreators.terminalClause(
 		internalCreators.field('issuetype', 'issuetype', [], [0, 9]),
 		internalCreators.operator(OPERATOR_EQUALS, '=', [10, 11]),
@@ -118,7 +119,7 @@ export const jqlSimpleQuery = internalCreators.query(
 
 export const jqlListOperand = 'resolution in (Duplicate, "Cannot Reproduce")';
 
-export const jqlListOperandQuery = internalCreators.query(
+export const jqlListOperandQuery: any = internalCreators.query(
 	internalCreators.terminalClause(
 		internalCreators.field('resolution', 'resolution', [], [0, 10]),
 		internalCreators.operator(OPERATOR_IN, 'in', [11, 13]),
@@ -138,7 +139,7 @@ export const jqlListOperandQuery = internalCreators.query(
 
 export const jqlKeywordOperand = 'resolution is EMPTY';
 
-export const jqlKeywordOperandQuery = internalCreators.query(
+export const jqlKeywordOperandQuery: any = internalCreators.query(
 	internalCreators.terminalClause(
 		internalCreators.field('resolution', 'resolution', [], [0, 10]),
 		internalCreators.operator(OPERATOR_IS, 'is', [11, 13]),
@@ -152,7 +153,7 @@ export const jqlKeywordOperandQuery = internalCreators.query(
 
 export const jqlFunctionOperand = 'createdDate > startOfMonth(-1m)';
 
-export const jqlFunctionOperandQuery = internalCreators.query(
+export const jqlFunctionOperandQuery: any = internalCreators.query(
 	internalCreators.terminalClause(
 		internalCreators.field('createdDate', 'createdDate', [], [0, 11]),
 		internalCreators.operator(OPERATOR_GT, '>', [12, 13]),
@@ -170,7 +171,7 @@ export const jqlFunctionOperandQuery = internalCreators.query(
 
 export const jqlCompoundClause = 'project = T1 and issuetype = bug or project = T2';
 
-export const jqlCompoundClauseQuery = internalCreators.query(
+export const jqlCompoundClauseQuery: any = internalCreators.query(
 	internalCreators.compoundClause(
 		internalCreators.compoundOperator(COMPOUND_OPERATOR_OR, [[33, 35]]),
 		[
@@ -210,7 +211,7 @@ export const jqlCompoundClauseQuery = internalCreators.query(
 
 export const jqlChangedClause = 'status changed from "To do" to "In progress" after -1w';
 
-export const jqlChangedClauseQuery = internalCreators.query(
+export const jqlChangedClauseQuery: any = internalCreators.query(
 	internalCreators.terminalClause(
 		internalCreators.field('status', 'status', [], [0, 6]),
 		internalCreators.operator(OPERATOR_CHANGED, 'changed', [7, 14]),
@@ -240,7 +241,7 @@ export const jqlChangedClauseQuery = internalCreators.query(
 
 export const jqlWasClause = 'status was "To Do" during (-1w, now())';
 
-export const jqlWasClauseQuery = internalCreators.query(
+export const jqlWasClauseQuery: any = internalCreators.query(
 	internalCreators.terminalClause(
 		internalCreators.field('status', 'status', [], [0, 6]),
 		internalCreators.operator(OPERATOR_WAS, 'was', [7, 10]),
@@ -270,7 +271,7 @@ export const jqlWasClauseQuery = internalCreators.query(
 
 export const jqlOrderBy = 'order by createdDate desc, updatedDate asc, status';
 
-export const jqlOrderByQuery = internalCreators.query(
+export const jqlOrderByQuery: any = internalCreators.query(
 	undefined,
 	internalCreators.orderBy(
 		[
@@ -299,7 +300,7 @@ export const jqlOrderByQuery = internalCreators.query(
 export const jqlMixedCasing =
 	'RESOLUTION In (Duplicate, "Cannot Reproduce", eMPTy) aND sTatus Changed aFtEr -1w';
 
-export const jqlMixedCasingQuery = internalCreators.query(
+export const jqlMixedCasingQuery: any = internalCreators.query(
 	internalCreators.compoundClause(
 		internalCreators.compoundOperator(COMPOUND_OPERATOR_AND, [[53, 56]]),
 		[
@@ -340,7 +341,7 @@ export const jqlMixedCasingQuery = internalCreators.query(
 export const jqlMixedSpacing = `status was
 not "To Do" and issuetype is   not empty`;
 
-export const jqlMixedSpacingQuery = internalCreators.query(
+export const jqlMixedSpacingQuery: any = internalCreators.query(
 	internalCreators.compoundClause(
 		internalCreators.compoundOperator(COMPOUND_OPERATOR_AND, [[23, 26]]),
 		[
@@ -367,7 +368,7 @@ export const jqlMixedSpacingQuery = internalCreators.query(
 
 export const jqlNotClause = `NOT ! (status = open AND NOT issuetype = bug)`;
 
-export const jqlNotClauseQuery = internalCreators.query(
+export const jqlNotClauseQuery: any = internalCreators.query(
 	internalCreators.notClause(
 		internalCreators.notClause(
 			internalCreators.compoundClause(
@@ -406,7 +407,7 @@ export const jqlNotClauseQuery = internalCreators.query(
 
 export const jqlEntityProperty = 'issue.property[tasks].completed = 1';
 
-export const jqlEntityPropertyQuery = internalCreators.query(
+export const jqlEntityPropertyQuery: any = internalCreators.query(
 	internalCreators.terminalClause(
 		internalCreators.field(
 			'issue.property',
@@ -431,7 +432,7 @@ export const jqlEntityPropertyQuery = internalCreators.query(
 
 export const jqlQuotedStrings = `"Quoted \\"field\\"" in ('Value with \\'spaces\\'', "quotedFunction"("quotedArg")) order by "Another quoted" desc`;
 
-export const jqlQuotedStringsQuery = internalCreators.query(
+export const jqlQuotedStringsQuery: any = internalCreators.query(
 	internalCreators.terminalClause(
 		internalCreators.field('Quoted "field"', '"Quoted \\"field\\""', [], [0, 18]),
 		internalCreators.operator(OPERATOR_IN, 'in', [19, 21]),

@@ -15,14 +15,14 @@ export interface NavigationContext {
 	cloudId: string;
 	orgId: string;
 	/**
-	 * Use this when TeamsLinks are consumed inside a preview panel. Navigation links in this context do not 
-	 * receive openPreviewPanel props (they are plain navigation links), so this flag is the only way for 
+	 * Use this when TeamsLinks are consumed inside a preview panel. Navigation links in this context do not
+	 * receive openPreviewPanel props (they are plain navigation links), so this flag is the only way for
 	 * the link to know it is being rendered inside a preview panel and should open in a new tab.
 	 */
 	forceExternalIntent: boolean;
 	navigate: (url: string) => void;
 	openPreviewPanel?: (props: previewPanelProps) => void;
-};
+}
 
 export type NavigationIntentProps =
 	| { intent: 'action'; previewPanelProps: previewPanelProps }
@@ -42,26 +42,24 @@ type BaseNavigationResults = {
 	href: string;
 	onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 };
-  
+
 type NavigationByIntent<I extends NavigationIntent> = BaseNavigationResults &
 	(I extends 'external'
-	? {
-		intent: 'external';
-		target: '_blank';
-		rel: 'noopener noreferrer';
-		}
-	: {
-		intent: Exclude<NavigationIntent, 'external'>;
-		target: '_self';
-		rel?: string;
-	});
+		? {
+				intent: 'external';
+				target: '_blank';
+				rel: 'noopener noreferrer';
+			}
+		: {
+				intent: Exclude<NavigationIntent, 'external'>;
+				target: '_self';
+				rel?: string;
+			});
 
 /**
  * Headless, pure function that determines how a link should behave.
  */
-export function getNavigationProps(
-	input: NavigationInput,
-): NavigationByIntent<NavigationIntent> {
+export function getNavigationProps(input: NavigationInput): NavigationByIntent<NavigationIntent> {
 	const { href, intent, context } = input;
 	const previewPanelProps = 'previewPanelProps' in input ? input.previewPanelProps : undefined;
 	const resolvedIntent = intent !== 'unknown' ? intent : classifyNavigationIntent(href);
@@ -72,13 +70,13 @@ export function getNavigationProps(
 			intent: 'external',
 			target: '_blank',
 			rel: 'noopener noreferrer',
-			onClick: (e: React.MouseEvent<HTMLAnchorElement>) => { 
+			onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
 				e.preventDefault();
 				window.open(href, '_blank', 'noopener noreferrer');
 				return;
 			},
 		};
-	};
+	}
 
 	return {
 		href,
@@ -94,7 +92,7 @@ export function getNavigationProps(
 				e.preventDefault();
 				context.openPreviewPanel(previewPanelProps);
 				return;
-			};
+			}
 
 			// Handle left-clicks without modifier keys
 			if (
@@ -106,7 +104,7 @@ export function getNavigationProps(
 				const routePath = getRoutePathFromUrl(href);
 				context.navigate(routePath);
 				return;
-			};
+			}
 		},
 	};
-};
+}

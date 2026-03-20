@@ -71,7 +71,7 @@ export const handleMouseOver = (
 	view: EditorView,
 	event: Event,
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
-): false | undefined => {
+) => {
 	const {
 		isDragging,
 		activeNode,
@@ -95,7 +95,7 @@ export const handleMouseOver = (
 		(!isViewMode ||
 			!(
 				rightSideControlsEnabled &&
-				expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
+				expValEqualsNoExposure('confluence_remix_icon_right_side', 'isEnabled', true)
 			))
 	) {
 		return false;
@@ -138,7 +138,7 @@ export const handleMouseOver = (
 	if (
 		!rootElement &&
 		rightSideControlsEnabled &&
-		expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
+		expValEqualsNoExposure('confluence_remix_icon_right_side', 'isEnabled', true)
 	) {
 		const rightEdgeContainer = target?.closest('[data-blocks-right-edge-button-container]');
 		if (rightEdgeContainer) {

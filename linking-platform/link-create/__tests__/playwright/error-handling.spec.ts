@@ -12,9 +12,14 @@ test.describe('Link Create', () => {
 			}),
 		);
 
-		await page.visitExample('linking-platform', 'link-create', 'basic', {
-			disableFetchMock: true,
-		});
+		await page.visitExample<typeof import('../../examples/00-basic.tsx')>(
+			'linking-platform',
+			'link-create',
+			'basic',
+			{
+				disableFetchMock: true,
+			},
+		);
 
 		const trigger = page.getByRole('button', { name: 'Create' });
 
@@ -33,9 +38,14 @@ test.describe('Link Create', () => {
 				body: JSON.stringify({ errors: [] }),
 			}),
 		);
-		await page.visitExample('linking-platform', 'link-create', 'basic', {
-			disableFetchMock: true,
-		});
+		await page.visitExample<typeof import('../../examples/00-basic.tsx')>(
+			'linking-platform',
+			'link-create',
+			'basic',
+			{
+				disableFetchMock: true,
+			},
+		);
 		const trigger = page.getByRole('button', { name: 'Create' });
 		await expect(trigger).toBeVisible();
 

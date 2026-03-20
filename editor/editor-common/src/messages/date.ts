@@ -1,23 +1,26 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    editText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; invalidDateError: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; onKeyUpDownText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; datePickerOpenedAlert: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	editText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	invalidDateError: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	onKeyUpDownText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	datePickerOpenedAlert: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	editText: {
 		id: 'fabric.editor.editDateText',

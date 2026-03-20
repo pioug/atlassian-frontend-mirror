@@ -232,6 +232,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 							dispatch,
 							options && options.lastNodeMustBeParagraph,
 							options?.includeBlockQuoteAsTextstyleOption,
+							options?.allowFontSize,
 						),
 				},
 				{

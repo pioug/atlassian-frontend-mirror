@@ -1,7 +1,11 @@
 import { expect, type Locator, test } from '@af/integration-testing';
 
 test('TextArea should be able to be clicked by data-testid', async ({ page }) => {
-	await page.visitExample('design-system', 'textarea', 'testing');
+	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+		'design-system',
+		'textarea',
+		'testing',
+	);
 	const textArea = page.locator('[data-testid="MyTextAreaTestId"]').first();
 	await expect(textArea).toBeVisible();
 	await expect(textArea).toHaveValue('I have a data-testid');
@@ -16,7 +20,11 @@ test.describe('Resize', () => {
 		'The default export of @atlaskit/textarea is a hybrid uncontrolled/controlled component; it is uncontrolled by default, but can be optionally controlled by setting the value prop. To set a default value for TextArea while leaving component uncontrolled, specify a defaultValue prop.';
 
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample('design-system', 'textarea', 'resize');
+		await page.visitExample<typeof import('../../../examples/2-resize.tsx')>(
+			'design-system',
+			'textarea',
+			'resize',
+		);
 	});
 
 	test('should not auto increase/decrease height of resize:auto textarea based on content', async ({

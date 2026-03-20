@@ -1,34 +1,36 @@
 import { defineMessages } from 'react-intl-next';
 
 export const annotationMessages: {
-    createComment: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
-    // Ignored via go/ees007
-    // eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-    // TODO: Remove this message when the editor_inline_comments_on_inline_nodes FF is removed
-    createCommentInvalid: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; createCommentDisabled: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
-    // Duplicated by Confluence's
-    // highlight-actions.inline-comments.comment.no.permission
-    noPermissionToAddComment: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; toolbar: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	createComment: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
+	// TODO: Remove this message when the editor_inline_comments_on_inline_nodes FF is removed
+	createCommentInvalid: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	createCommentDisabled: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	// Duplicated by Confluence's
+	// highlight-actions.inline-comments.comment.no.permission
+	noPermissionToAddComment: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	toolbar: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	createComment: {
 		id: 'fabric.editor.createComment',

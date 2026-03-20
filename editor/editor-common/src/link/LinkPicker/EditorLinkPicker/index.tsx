@@ -92,7 +92,7 @@ export const EditorLinkPicker = ({
 		return (
 			<div ref={ref}>
 				<AnalyticsContext data={analyticsData}>
-					<FocusLock returnFocus={true}>
+					<FocusLock returnFocus={{ preventScroll: true }} focusOptions={{ preventScroll: true }}>
 						<LazyLinkPicker
 							// Ignored via go/ees005
 							// eslint-disable-next-line react/jsx-props-no-spreading

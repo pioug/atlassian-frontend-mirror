@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const toolbarMediaMessages: {
-    toolbarMediaTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	toolbarMediaTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	toolbarMediaTitle: {
 		id: 'fabric.editor.toolbarMediaTitle',

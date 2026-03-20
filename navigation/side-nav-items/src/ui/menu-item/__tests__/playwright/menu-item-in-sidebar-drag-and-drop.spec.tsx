@@ -4,7 +4,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('menu item drag and drop in the sidebar', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/drag-and-drop-jira.tsx')>('navigation', 'side-nav-items', 'drag-and-drop-jira');
+		await page.visitExample<typeof import('../../../../../examples/drag-and-drop-jira.tsx')>(
+			'navigation',
+			'side-nav-items',
+			'drag-and-drop-jira',
+		);
 	});
 
 	// This test helps give us confidence that our end to end story is working correctly

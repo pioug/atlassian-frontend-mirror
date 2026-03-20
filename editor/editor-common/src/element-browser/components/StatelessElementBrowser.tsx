@@ -584,26 +584,39 @@ function DesktopBrowser({
 	);
 }
 
-const MemoizedElementBrowser: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<Omit<{
-    /**
-     * If search field should be focused on the initial load
-     */
-    autoFocusSearch?: boolean;
-    cache?: CellMeasurerCache;
-    categories?: Category[];
-    emptyStateHandler?: EmptyStateHandler;
-    items: QuickInsertItem[];
-    mode: keyof typeof Modes;
-    onInsertItem: (item: QuickInsertItem) => void;
-    onSearch: (searchTerm: string) => void;
-    onSelectCategory: (category: Category) => void;
-    onSelectItem?: (item: QuickInsertItem) => void;
-    onViewMore?: () => void;
-    searchTerm?: string;
-    selectedCategory?: string;
-    showCategories: boolean;
-    showSearch: boolean;
-}, keyof WithAnalyticsEventsProps> & React.RefAttributes<unknown> & WithContextProps, "ref"> & React.RefAttributes<unknown>>> = memo(
+const MemoizedElementBrowser: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<
+		Omit<
+			Omit<
+				{
+					/**
+					 * If search field should be focused on the initial load
+					 */
+					autoFocusSearch?: boolean;
+					cache?: CellMeasurerCache;
+					categories?: Category[];
+					emptyStateHandler?: EmptyStateHandler;
+					items: QuickInsertItem[];
+					mode: keyof typeof Modes;
+					onInsertItem: (item: QuickInsertItem) => void;
+					onSearch: (searchTerm: string) => void;
+					onSelectCategory: (category: Category) => void;
+					onSelectItem?: (item: QuickInsertItem) => void;
+					onViewMore?: () => void;
+					searchTerm?: string;
+					selectedCategory?: string;
+					showCategories: boolean;
+					showSearch: boolean;
+				},
+				keyof WithAnalyticsEventsProps
+			> &
+				React.RefAttributes<unknown> &
+				WithContextProps,
+			'ref'
+		> &
+			React.RefAttributes<unknown>
+	>
+> = memo(
 	withAnalyticsContext({
 		source: 'ElementBrowser',
 	})(withAnalyticsEvents()(StatelessElementBrowser)),

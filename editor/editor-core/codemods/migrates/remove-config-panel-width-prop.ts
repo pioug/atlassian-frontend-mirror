@@ -4,7 +4,7 @@ import type { Collection } from 'jscodeshift/src/Collection';
 import { findImportFromPackage } from '../utils';
 
 const createRemoveComponentPropTransform = (pkg: string, component: string, propName: string) => {
-	return (j: core.JSCodeshift, source: Collection<unknown>) => {
+	return (j: core.JSCodeshift, source: Collection<unknown>): void => {
 		// Find regular or renamed imports
 		const importedNames: string[] = findImportFromPackage(j, source, pkg, component);
 
@@ -23,8 +23,7 @@ const createRemoveComponentPropTransform = (pkg: string, component: string, prop
 	};
 };
 
-export const removeConfigPanelWidthProp = createRemoveComponentPropTransform(
-	'@atlaskit/editor-core',
-	'ContextPanel',
-	'width',
-);
+export const removeConfigPanelWidthProp: (
+	j: core.JSCodeshift,
+	source: Collection<unknown>,
+) => void = createRemoveComponentPropTransform('@atlaskit/editor-core', 'ContextPanel', 'width');

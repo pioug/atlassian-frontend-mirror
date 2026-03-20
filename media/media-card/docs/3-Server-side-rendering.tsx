@@ -1,5 +1,5 @@
 import { md, code } from '@atlaskit/docs';
-export default md`
+const _default_1: any = md`
 **Server-side rendering (SSR)** is a performance optimization for modern web apps.
 
 It enables us to fetch the file metadata and render the thumbnail to raw HTML and CSS on the server before serving it to a browser. This means users will see the thumbnail right at page load.
@@ -145,3 +145,4 @@ const mediaClientConfig = {
 />;
 `}
 `;
+export default _default_1;

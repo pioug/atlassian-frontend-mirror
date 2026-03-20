@@ -10,7 +10,11 @@ const dismissFlag = "[data-testid='MyFlagTestId--2-dismiss']";
 test('Flag and Flag actions should be able to be identified and clicked by data-testid', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'flag', 'testing');
+	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+		'design-system',
+		'flag',
+		'testing',
+	);
 	await page.locator(addFlagBtn).first().click();
 	await expect(page.locator(flagTestId1).first()).toBeVisible();
 	await expect(page.locator(flagActionTestId1).first()).toBeVisible();

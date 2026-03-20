@@ -96,10 +96,16 @@ export const buildOpenedSettingsPayload = (type: LinkType): AnalyticsEventPayloa
 	};
 };
 
-export const unlinkPayload = (type: LinkType): {
-    action: ACTION; actionSubject: ACTION_SUBJECT; actionSubjectId: ACTION_SUBJECT_ID.CARD_INLINE | undefined; attributes: {
-        inputMethod: INPUT_METHOD;
-    }; eventType: EVENT_TYPE;
+export const unlinkPayload = (
+	type: LinkType,
+): {
+	action: ACTION;
+	actionSubject: ACTION_SUBJECT;
+	actionSubjectId: ACTION_SUBJECT_ID.CARD_INLINE | undefined;
+	attributes: {
+		inputMethod: INPUT_METHOD;
+	};
+	eventType: EVENT_TYPE;
 } => {
 	return {
 		action: ACTION.UNLINK,

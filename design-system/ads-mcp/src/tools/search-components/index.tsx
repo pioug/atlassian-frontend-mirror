@@ -3,7 +3,6 @@ import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types.js';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
 
-
 import { cleanQuery, zodToJsonSchema } from '../../helpers';
 import { loadAllComponents } from '../get-components/load-all-components';
 import type { ComponentMcpPayload } from '../get-components/types';

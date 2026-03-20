@@ -1,6 +1,9 @@
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock('react-transition-group/Transition', () => (data: any) => data.children);
 jest.doMock('../../../utils/analytics/analytics');
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn().mockReturnValue(false),
+}));
 jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 	switch (src) {
 		case 'src-error':
@@ -271,6 +274,11 @@ describe('HoverCard', () => {
 			const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
 
 			ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
+				beforeEach(() => {
+					const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+					(expValEquals as jest.Mock).mockReturnValue(true);
+				});
+
 				it('should enable rovoChat experiment via actionOptions prop', async () => {
 					await setup({
 						extraCardProps: { actionOptions },

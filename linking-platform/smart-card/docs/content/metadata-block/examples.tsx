@@ -3,7 +3,7 @@ import React from 'react';
 import CustomExample from '../../utils/custom-example';
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 A metadata block is an empty block that can host metadata elements on the left
 side of the block, on the right side of the block, or both.
@@ -84,3 +84,4 @@ ${(
 )}
 
 `;
+export default _default_1;

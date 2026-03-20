@@ -13,31 +13,36 @@ import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 export const messages: {
-    loading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; collapseNode: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; expandDefaultTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; expandNode: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; expandPlaceholderText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; expandArialabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	loading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	collapseNode: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	expandDefaultTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	expandNode: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	expandPlaceholderText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	expandArialabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	loading: {
 		id: 'fabric.editor.expand.loading',
@@ -121,7 +126,9 @@ export const expandLayoutWrapperStyle: SerializedStyles = css({
 	height: token('space.300', '24px'),
 });
 
-export const ExpandLayoutWrapperWithRef: React.ForwardRefExoticComponent<React.HTMLAttributes<HTMLDivElement> & React.RefAttributes<unknown>> = forwardRef(
+export const ExpandLayoutWrapperWithRef: React.ForwardRefExoticComponent<
+	React.HTMLAttributes<HTMLDivElement> & React.RefAttributes<unknown>
+> = forwardRef(
 	(
 		{ children, ...otherProps }: React.HTMLAttributes<HTMLDivElement>,
 		// Ignored via go/ees005

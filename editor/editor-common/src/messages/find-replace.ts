@@ -1,59 +1,71 @@
 import { defineMessages } from 'react-intl-next';
 
 export const findReplaceMessages: {
-    find: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; matchCase: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; findNext: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; findPrevious: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; findReplaceDialogAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closeFindReplaceDialog: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; noResultsFound: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; resultsCount: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; findReplaceToolbarButton: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; replaceWith: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; replace: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; replaceAll: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; replaceSuccess: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	find: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	matchCase: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	findNext: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	findPrevious: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	findReplaceDialogAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closeFindReplaceDialog: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	noResultsFound: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	resultsCount: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	findReplaceToolbarButton: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	replaceWith: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	replace: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	replaceAll: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	replaceSuccess: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	find: {
 		id: 'fabric.editor.find',

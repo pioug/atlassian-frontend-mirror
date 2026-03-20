@@ -18,8 +18,14 @@ import { browser as browserLegacy, getBrowserInfo } from '../utils/browser';
 
 export const addAltText: Keymap = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
 export const toggleViewChanges: Keymap = makeKeyMapWithCommon('View changes', 'Mod-Alt-z');
-export const navToEditorToolbar: Keymap = makeKeyMapWithCommon('Navigate to editor toolbar', 'Alt-F9');
-export const navToFloatingToolbar: Keymap = makeKeyMapWithCommon('Navigate to floating toolbar', 'Alt-F10');
+export const navToEditorToolbar: Keymap = makeKeyMapWithCommon(
+	'Navigate to editor toolbar',
+	'Alt-F9',
+);
+export const navToFloatingToolbar: Keymap = makeKeyMapWithCommon(
+	'Navigate to floating toolbar',
+	'Alt-F10',
+);
 export const askAIQuickInsert: Keymap = makeKeyMapWithCommon('Ask AI', "Mod-'");
 export const toggleBold: Keymap = makeKeyMapWithCommon('Bold', 'Mod-b');
 export const toggleItalic: Keymap = makeKeyMapWithCommon('Italic', 'Mod-i');
@@ -79,11 +85,20 @@ export const previousCell: Keymap = makeKeyMapWithCommon('Previous cell', 'Shift
 export const shiftArrowUp: Keymap = makeKeyMapWithCommon('Shift ArrowUp', 'Shift-ArrowUp');
 export const shiftTab: Keymap = makeKeyMapWithCommon('Shift Tab', 'Shift-Tab');
 export const toggleTable: Keymap = makeKeyMapWithCommon('Table', 'Shift-Alt-t');
-export const focusTableResizer: Keymap = makeKeyMapWithCommon('Focus Table Resizer', 'Mod-Alt-Shift-r');
+export const focusTableResizer: Keymap = makeKeyMapWithCommon(
+	'Focus Table Resizer',
+	'Mod-Alt-Shift-r',
+);
 export const addRowBefore: Keymap = makeKeyMapWithCommon('Add Row Above', 'Ctrl-Alt-ArrowUp');
 export const addRowAfter: Keymap = makeKeyMapWithCommon('Add Row Below', 'Ctrl-Alt-ArrowDown');
-export const addColumnAfter: Keymap = makeKeyMapWithCommon('Add Column After', 'Ctrl-Alt-ArrowRight');
-export const addColumnBefore: Keymap = makeKeyMapWithCommon('Add Column Before', 'Ctrl-Alt-ArrowLeft');
+export const addColumnAfter: Keymap = makeKeyMapWithCommon(
+	'Add Column After',
+	'Ctrl-Alt-ArrowRight',
+);
+export const addColumnBefore: Keymap = makeKeyMapWithCommon(
+	'Add Column Before',
+	'Ctrl-Alt-ArrowLeft',
+);
 // The following few shortcuts that end in VO are added specifically for Voice Over users, as shortcuts that perform the same role when using Voice Over don't work because they conflict with default shortcuts in Voice Over
 export const addRowBeforeVO: Keymap = makeKeyMapWithCommon('Add Row Above', 'Mod-Alt-[');
 export const addRowAfterVO: Keymap = makeKeyMapWithCommon('Add Row Below', 'Mod-Alt-]');
@@ -102,7 +117,10 @@ export const moveColumnRightOld: Keymap = makeKeyMapWithCommon(
 	'Ctrl-Alt-Shift-ArrowRight',
 );
 export const moveColumnRight: Keymap = makeKeyMapWithCommon('Move Column Right', 'Mod-Alt-Shift-=');
-export const moveRowDownOld: Keymap = makeKeyMapWithCommon('Move Row Down', 'Ctrl-Alt-Shift-ArrowDown');
+export const moveRowDownOld: Keymap = makeKeyMapWithCommon(
+	'Move Row Down',
+	'Ctrl-Alt-Shift-ArrowDown',
+);
 export const moveRowDown: Keymap = makeKeyMapWithCommon('Move Row Down', 'Mod-Alt-Shift-]');
 export const moveRowUpOld: Keymap = makeKeyMapWithCommon('Move Row Up', 'Ctrl-Alt-Shift-ArrowUp');
 export const moveRowUp: Keymap = makeKeyMapWithCommon('Move Row Up', 'Mod-Alt-Shift-[');
@@ -125,7 +143,10 @@ export const alignLeft: Keymap = makeKeyMapWithCommon('Align Left', 'Mod-Shift-l
 export const alignCenter: Keymap = makeKeyMapWithCommon('Align Center', 'Mod-Alt-e');
 export const alignRight: Keymap = makeKeyMapWithCommon('Align Right', 'Mod-Alt-t');
 
-export const toggleTaskItemCheckbox: Keymap = makeKeyMapWithCommon('Toggles task item', 'Mod-Alt-Enter');
+export const toggleTaskItemCheckbox: Keymap = makeKeyMapWithCommon(
+	'Toggles task item',
+	'Mod-Alt-Enter',
+);
 export const toggleTaskList: Keymap = makeKeyMapWithCommon('Toggle task list', 'Mod-Shift-6');
 export const selectRow: Keymap[] = makeKeyMapArrayWithCommon('Select row', [
 	'Mod-Alt-Shift-ArrowLeft',
@@ -145,8 +166,14 @@ export const activateVideoControls: Keymap = makeKeyMapWithCommon(
 	'Shift-F10',
 );
 
-export const toggleHighlightPalette: Keymap = makeKeyMapWithCommon('Toggle Highlight Palette', 'Mod-Alt-b');
-export const applyYellowHighlight: Keymap = makeKeyMapWithCommon('Apply Yellow Highlight', 'Mod-Alt-y');
+export const toggleHighlightPalette: Keymap = makeKeyMapWithCommon(
+	'Toggle Highlight Palette',
+	'Mod-Alt-b',
+);
+export const applyYellowHighlight: Keymap = makeKeyMapWithCommon(
+	'Apply Yellow Highlight',
+	'Mod-Alt-y',
+);
 export const focusToContextMenuTrigger: Keymap = makeKeyMapWithCommon(
 	'Focus table context menu trigger',
 	'Shift-F10',
@@ -180,7 +207,10 @@ export const insertMention: Keymap = makeKeyMapWithCommon('Insert Mention', '@')
 export const insertTaskList: Keymap = makeKeyMapWithCommon('Insert Action Item', '[]');
 export const insertElements: Keymap = makeKeyMapWithCommon('Insert Elements', '/');
 
-export const continueInRovoChat: Keymap = makeKeyMapWithCommon('Continue in Rovo chat', 'Alt-Enter');
+export const continueInRovoChat: Keymap = makeKeyMapWithCommon(
+	'Continue in Rovo chat',
+	'Alt-Enter',
+);
 
 const arrowKeysMap: Record<string, string> = {
 	// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
@@ -257,11 +287,17 @@ export function tooltip(keymap?: Keymap, description?: string): string | undefin
 	return;
 }
 
-export const ToolTipContent: React.MemoExoticComponent<({ description, shortcutOverride, keymap, }: {
-    description?: string | React.ReactNode;
-    keymap?: Keymap;
-    shortcutOverride?: string;
-}) => jsx.JSX.Element | null> = React.memo(
+export const ToolTipContent: React.MemoExoticComponent<
+	({
+		description,
+		shortcutOverride,
+		keymap,
+	}: {
+		description?: string | React.ReactNode;
+		keymap?: Keymap;
+		shortcutOverride?: string;
+	}) => jsx.JSX.Element | null
+> = React.memo(
 	({
 		description,
 		shortcutOverride,
@@ -282,9 +318,13 @@ export const ToolTipContent: React.MemoExoticComponent<({ description, shortcutO
 	},
 );
 
-export const TooltipContentWithMultipleShortcuts: React.MemoExoticComponent<({ helpDescriptors, }: {
-    helpDescriptors: { description?: string | React.ReactNode; keymap?: Keymap; }[];
-}) => jsx.JSX.Element> = React.memo(
+export const TooltipContentWithMultipleShortcuts: React.MemoExoticComponent<
+	({
+		helpDescriptors,
+	}: {
+		helpDescriptors: { description?: string | React.ReactNode; keymap?: Keymap }[];
+	}) => jsx.JSX.Element
+> = React.memo(
 	({
 		helpDescriptors,
 	}: {

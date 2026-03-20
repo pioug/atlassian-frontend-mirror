@@ -1,15 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
 export const captionMessages: {
-    placeholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; placeholderWithDoubleClickPrompt: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	placeholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	placeholderWithDoubleClickPrompt: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	placeholder: {
 		id: 'fabric.editor.captionPlaceholder',

@@ -34,7 +34,10 @@ type ModalContent = {
 	titleSingle: MessageDescriptor;
 };
 
-const modalContentMap: Record<'source-block-deleted' | 'source-block-unsynced' | 'source-block-unpublished', ModalContent> = {
+const modalContentMap: Record<
+	'source-block-deleted' | 'source-block-unsynced' | 'source-block-unpublished',
+	ModalContent
+> = {
 	'source-block-deleted': {
 		titleMultiple: messages.deleteConfirmationModalTitleMultiple,
 		titleSingle: messages.deletionConfirmationModalTitleSingle,

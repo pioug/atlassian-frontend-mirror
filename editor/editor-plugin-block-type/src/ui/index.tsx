@@ -42,7 +42,9 @@ export const getBlockTypeComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_HEADINGS_MENU_SECTION.key,
-				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_HEADINGS_H1_MENU_ITEM.key],
+				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_HEADINGS_H1_MENU_ITEM.key
+				],
 			},
 			component: createHeadingBlockMenuItem({ level: 1, api }),
 			isHidden: () => isTransformHeadingDisabled(1),
@@ -53,7 +55,9 @@ export const getBlockTypeComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_HEADINGS_MENU_SECTION.key,
-				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_HEADINGS_H2_MENU_ITEM.key],
+				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_HEADINGS_H2_MENU_ITEM.key
+				],
 			},
 			component: createHeadingBlockMenuItem({ level: 2, api }),
 			isHidden: () => isTransformHeadingDisabled(2),
@@ -65,7 +69,9 @@ export const getBlockTypeComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_HEADINGS_MENU_SECTION.key,
-				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_HEADINGS_H3_MENU_ITEM.key],
+				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_HEADINGS_H3_MENU_ITEM.key
+				],
 			},
 			component: createHeadingBlockMenuItem({ level: 3, api }),
 			isHidden: () => isTransformHeadingDisabled(3),
@@ -76,7 +82,9 @@ export const getBlockTypeComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_HEADINGS_MENU_SECTION.key,
-				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_HEADINGS_H4_MENU_ITEM.key],
+				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_HEADINGS_H4_MENU_ITEM.key
+				],
 			},
 			component: createHeadingBlockMenuItem({ level: 4, api }),
 			isHidden: () => isTransformHeadingDisabled(4),
@@ -87,7 +95,9 @@ export const getBlockTypeComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_HEADINGS_MENU_SECTION.key,
-				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_HEADINGS_H5_MENU_ITEM.key],
+				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_HEADINGS_H5_MENU_ITEM.key
+				],
 			},
 			component: createHeadingBlockMenuItem({ level: 5, api }),
 			isHidden: () => isTransformHeadingDisabled(5),
@@ -98,7 +108,9 @@ export const getBlockTypeComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_HEADINGS_MENU_SECTION.key,
-				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_HEADINGS_H6_MENU_ITEM.key],
+				rank: (TRANSFORM_HEADINGS_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_HEADINGS_H6_MENU_ITEM.key
+				],
 			},
 			component: createHeadingBlockMenuItem({ level: 6, api }),
 			isHidden: () => isTransformHeadingDisabled(6),
@@ -109,7 +121,9 @@ export const getBlockTypeComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-				rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_STRUCTURE_QUOTE_MENU_ITEM.key],
+				rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_STRUCTURE_QUOTE_MENU_ITEM.key
+				],
 			},
 			component: createQuoteBlockMenuItem({ api }),
 			isHidden: () => Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(QUOTE_NODE_NAME)),
@@ -120,7 +134,9 @@ export const getBlockTypeComponents = (
 			parent: {
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-				rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_STRUCTURE_PARAGRAPH_MENU_ITEM.key],
+				rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+					TRANSFORM_STRUCTURE_PARAGRAPH_MENU_ITEM.key
+				],
 			},
 			component: createParagraphBlockMenuItem({ api }),
 			isHidden: () =>

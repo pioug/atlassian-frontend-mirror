@@ -1,51 +1,61 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    edit: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; deleteElementTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; unnamedSource: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; confirmDeleteLinkedModalOKButton: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; confirmDeleteLinkedModalMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; confirmModalCheckboxLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; saveIndicator: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; panelLoadingError: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; extensionLoadingError: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; unknownMacroPlaceholderAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; unknownMacroHeader: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	edit: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	deleteElementTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	unnamedSource: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	confirmDeleteLinkedModalOKButton: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	confirmDeleteLinkedModalMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	confirmModalCheckboxLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	saveIndicator: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	panelLoadingError: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	extensionLoadingError: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	unknownMacroPlaceholderAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	unknownMacroHeader: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	edit: {
 		id: 'fabric.editor.edit',
@@ -113,83 +123,101 @@ export const messages: {
 });
 
 export const configPanelMessages: {
-    configFailedToLoad: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; submit: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; cancel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; close: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; required: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; invalid: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; isMultipleAndRadio: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addField: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; removeField: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; createOption: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; documentation: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; help: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; custom: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; from: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; to: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; expand: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; collapse: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; errorBoundaryTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; errorBoundaryNote: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	configFailedToLoad: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	submit: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	cancel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	close: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	required: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	invalid: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	isMultipleAndRadio: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addField: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	removeField: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	createOption: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	documentation: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	help: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	custom: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	from: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	to: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	expand: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	collapse: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	errorBoundaryTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	errorBoundaryNote: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	configFailedToLoad: {
 		id: 'fabric.editor.configFailedToLoad',

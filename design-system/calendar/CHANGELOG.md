@@ -1,5 +1,13 @@
 # @atlaskit/calendar
 
+## 17.2.13
+
+### Patch Changes
+
+- [`38f89455de21d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38f89455de21d) -
+  Removes redundant utility files, split-out multi-export files and restructures internal files.
+- Updated dependencies
+
 ## 17.2.12
 
 ### Patch Changes

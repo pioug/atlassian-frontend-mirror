@@ -1,39 +1,46 @@
 import { defineMessages } from 'react-intl-next';
 
 export const altTextMessages: {
-    altText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addAltText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; editAltText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; back: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; clear: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; placeholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; supportText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; validationMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	altText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addAltText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	editAltText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	back: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	clear: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	placeholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	supportText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	validationMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	altText: {
 		id: 'fabric.editor.addAltText',

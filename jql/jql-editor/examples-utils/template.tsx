@@ -56,7 +56,7 @@ export const Template = ({
 	Editor = JQLEditor,
 	deps = [],
 	defaultRows,
-}: TemplateArgs) => {
+}: TemplateArgs): React.JSX.Element => {
 	// @ts-ignore
 	stateDefaults.batchUpdates = batchUpdates;
 

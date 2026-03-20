@@ -3,7 +3,7 @@ import React from 'react';
 import { AtlassianInternalWarning, DevPreviewWarning, md } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
 
-export default md`
+const _default_1: any = md`
 ${(
 	<>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
@@ -16,3 +16,4 @@ ${(
 		</div>
 	</>
 )}`;
+export default _default_1;

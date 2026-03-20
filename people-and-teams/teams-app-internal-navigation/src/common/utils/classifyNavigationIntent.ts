@@ -33,8 +33,8 @@ const REFERENCE_DOMAINS = [
 ];
 
 function isReferenceDomain(hostname: string): boolean {
-  const lower = hostname.toLowerCase();
-  return REFERENCE_DOMAINS.some((domain) => lower === domain || lower.endsWith('.' + domain));
+	const lower = hostname.toLowerCase();
+	return REFERENCE_DOMAINS.some((domain) => lower === domain || lower.endsWith('.' + domain));
 }
 
 /**

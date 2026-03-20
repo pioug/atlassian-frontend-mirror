@@ -125,10 +125,10 @@ export class GapCursorSelection extends Selection {
 	}
 
 	toJSON(): {
-        pos: number;
-        type: string;
-        side: Side;
-    } {
+		pos: number;
+		type: string;
+		side: Side;
+	} {
 		return { pos: this.head, type: JSON_ID, side: this.side };
 	}
 }

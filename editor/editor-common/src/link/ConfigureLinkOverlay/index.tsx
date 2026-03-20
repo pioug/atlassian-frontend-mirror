@@ -2,13 +2,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ForwardRefExoticComponent, type MouseEvent, type RefAttributes, useCallback, useLayoutEffect, useState } from 'react';
+import {
+	type ForwardRefExoticComponent,
+	type MouseEvent,
+	type RefAttributes,
+	useCallback,
+	useLayoutEffect,
+	useState,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import withAnalyticsContext, { type WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsContext, {
+	type WithContextProps,
+} from '@atlaskit/analytics-next/withAnalyticsContext';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import PreferencesIcon from '@atlaskit/icon/core/customize';
@@ -47,7 +56,9 @@ export interface OverlayButtonProps {
 
 const showDropdownThresholdPx = 50;
 
-export const OverlayButton: ForwardRefExoticComponent<OverlayButtonProps & WithContextProps & RefAttributes<unknown>> = withAnalyticsContext()(({
+export const OverlayButton: ForwardRefExoticComponent<
+	OverlayButtonProps & WithContextProps & RefAttributes<unknown>
+> = withAnalyticsContext()(({
 	editorView,
 	testId = 'link-configure-overlay-button',
 	targetElementPos = 0,

@@ -130,7 +130,7 @@ describe('ViewRelatedLinksAction', () => {
 
 		it('should pass a11y check with empty icon label', async () => {
 			const onClick = jest.fn();
-			const { container } = setup({onClick});
+			const { container } = setup({ onClick });
 			await expect(container).toBeAccessible();
 		});
 	});
@@ -144,9 +144,8 @@ describe('ViewRelatedLinksAction', () => {
 
 		it('should pass a11y check with icon aria-label', async () => {
 			const onClick = jest.fn();
-			const { container } = setup({onClick});			
+			const { container } = setup({ onClick });
 			await expect(container).toBeAccessible();
 		});
 	});
-
 });

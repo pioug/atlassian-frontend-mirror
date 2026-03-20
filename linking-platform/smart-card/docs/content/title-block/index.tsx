@@ -7,7 +7,7 @@ import customMd from '../../utils/custom-md';
 import examples from './examples';
 import reference from './reference';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ## TitleBlock
 
@@ -28,3 +28,4 @@ ${(
 	/>
 )}
 `;
+export default _default_1;

@@ -16,11 +16,11 @@ export const findClosestSnap = (
 	guidelineSnaps: GuidelineSnap[],
 	snapGap: number = 0,
 ): {
-        gap: number;
-        // only highlight default guidelines
-        // when there are both default and dynamic guidelines to be highlighted
-        keys: string[];
-    } => {
+	gap: number;
+	// only highlight default guidelines
+	// when there are both default and dynamic guidelines to be highlighted
+	keys: string[];
+} => {
 	const closestGapIndex = snapArray.reduce(
 		(prev, curr, index) =>
 			Math.abs(curr - mediaSingleWidth) < Math.abs(snapArray[prev] - mediaSingleWidth)
@@ -57,24 +57,34 @@ export const findClosestSnap = (
 	return { gap, keys: [] };
 };
 
-export const getGuidelineSnaps: MemoizedFn<(guidelines: GuidelineConfig[], editorWidth: number, layout?: RichMediaLayout) => {
-    guidelineReference: {
-        guidelineKey: string;
-        width: number;
-    }[];
-    snaps: {
-        x: number[] | undefined;
-    };
-}> = memoizeOne(
-	(guidelines: GuidelineConfig[], editorWidth: number, layout: RichMediaLayout = 'center'): {
-        guidelineReference: {
-            guidelineKey: string;
-            width: number;
-        }[];
-        snaps: {
-            x: number[] | undefined;
-        };
-    } => {
+export const getGuidelineSnaps: MemoizedFn<
+	(
+		guidelines: GuidelineConfig[],
+		editorWidth: number,
+		layout?: RichMediaLayout,
+	) => {
+		guidelineReference: {
+			guidelineKey: string;
+			width: number;
+		}[];
+		snaps: {
+			x: number[] | undefined;
+		};
+	}
+> = memoizeOne(
+	(
+		guidelines: GuidelineConfig[],
+		editorWidth: number,
+		layout: RichMediaLayout = 'center',
+	): {
+		guidelineReference: {
+			guidelineKey: string;
+			width: number;
+		}[];
+		snaps: {
+			x: number[] | undefined;
+		};
+	} => {
 		const offset = editorWidth / 2;
 		const getPositionX = (position: GuidelineConfig['position']) => {
 			return isVerticalPosition(position) ? position.x : 0;

@@ -4,7 +4,7 @@ import { DocsContentTabs } from '@atlaskit/media-test-helpers';
 import UsageTab from './content/usage';
 import PropsDefinitionTab from './content/props-definitions';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   ### Description
@@ -19,3 +19,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

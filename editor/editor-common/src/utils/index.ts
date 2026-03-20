@@ -478,7 +478,7 @@ export function checkNodeDown(
 	return res.nodeAfter ? filter(res.nodeAfter) : false;
 }
 
-export const isEmptyNode = (schema: Schema): (node: PMNode) => boolean => {
+export const isEmptyNode = (schema: Schema): ((node: PMNode) => boolean) => {
 	const {
 		doc,
 		paragraph,

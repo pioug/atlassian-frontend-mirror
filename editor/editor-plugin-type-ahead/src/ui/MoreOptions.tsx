@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { ButtonItem, Section } from '@atlaskit/menu';
 import { N30 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -28,6 +29,7 @@ type Props = {
 	ariaLabel?: string;
 	iconBefore?: React.ReactNode;
 	isFocused: boolean;
+	lastInputMethodRef?: React.MutableRefObject<'mouse' | 'keyboard'>;
 	onClick: () => void;
 	title: string;
 };
@@ -38,14 +40,23 @@ export const MoreOptions = ({
 	title,
 	ariaLabel,
 	iconBefore,
+	lastInputMethodRef,
 }: Props): jsx.JSX.Element => {
 	const ref = useRef<HTMLElement>(null);
+	const isSafari = getBrowserInfo().safari;
 
 	useEffect(() => {
 		if (isFocused && ref.current) {
-			ref.current.focus();
+			const skipFocusOnSafariHover =
+				isSafari &&
+				lastInputMethodRef?.current === 'mouse' &&
+				expValEquals('platform_safari_cursor_typeahead_fix', 'isEnabled', true);
+
+			if (!skipFocusOnSafariHover) {
+				ref.current.focus();
+			}
 		}
-	}, [isFocused]);
+	}, [isFocused, lastInputMethodRef, isSafari]);
 
 	useEffect(() => {
 		if (!ref.current) {
@@ -84,6 +95,11 @@ export const MoreOptions = ({
 			<span css={buttonStyles}>
 				<ButtonItem
 					ref={ref}
+					onMouseDown={(e: React.MouseEvent) => {
+						if (isSafari && expValEquals('platform_safari_cursor_typeahead_fix', 'isEnabled', true)) {
+							e.preventDefault();
+						}
+					}}
 					onClick={onClick}
 					iconBefore={iconBefore}
 					aria-label={ariaLabel}

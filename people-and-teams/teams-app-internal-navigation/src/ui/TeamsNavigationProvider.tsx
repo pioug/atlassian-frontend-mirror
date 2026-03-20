@@ -15,7 +15,9 @@ export interface TeamsNavigationProviderProps {
  * This is a thin wrapper around the headless {@link NavigationContext}. It should not implement any logic beyond providing values to hooks.
  */
 export function TeamsNavigationProvider({ value, children }: TeamsNavigationProviderProps) {
-	return <NavigationContextReact.Provider value={value}>{children}</NavigationContextReact.Provider>;
+	return (
+		<NavigationContextReact.Provider value={value}>{children}</NavigationContextReact.Provider>
+	);
 }
 
 /**

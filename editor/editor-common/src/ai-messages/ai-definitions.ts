@@ -1,15 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
 export const aiDefinitionsMessages: {
-    aiDefineToolbarButtonTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; aiDefineToolbarButtonDisabledTooltip: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	aiDefineToolbarButtonTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	aiDefineToolbarButtonDisabledTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	aiDefineToolbarButtonTitle: {
 		id: 'fabric.editor.ai.selectionToolbar.define.title',

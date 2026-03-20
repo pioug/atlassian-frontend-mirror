@@ -23,8 +23,8 @@ const positionMap: PositionMap = {
 };
 
 export const POSITION_ATTRIBUTE_ENUM: {
-    values: string[];
-    default: string;
+	values: string[];
+	default: string;
 } = {
 	values: [
 		'top left',

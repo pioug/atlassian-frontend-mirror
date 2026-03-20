@@ -85,7 +85,10 @@ export type ReferencesSourceInfo = {
 	references?: Array<SyncBlockSourceInfo | undefined>;
 };
 
-export type DeletionReason = 'source-block-deleted' | 'source-block-unsynced' | 'source-block-unpublished';
+export type DeletionReason =
+	| 'source-block-deleted'
+	| 'source-block-unsynced'
+	| 'source-block-unpublished';
 export type DeletionReasonResponse = DeletionReason | 'source-document-deleted';
 
 export type SyncBlockPrefetchData = {

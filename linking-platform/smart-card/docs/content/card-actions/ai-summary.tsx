@@ -5,7 +5,7 @@ import { code } from '@atlaskit/docs';
 import StagingCardExample from '../../../examples/content/staging-card-example';
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 The AI summary action generates a concise summary of the linked content using artificial intelligence.
 This helps users quickly understand the content without needing to open the link, thus reducing cognitive load and context switching
@@ -41,3 +41,4 @@ ${code`
 `}
 
 `;
+export default _default_1;

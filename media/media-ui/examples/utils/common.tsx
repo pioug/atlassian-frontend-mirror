@@ -8,7 +8,7 @@ interface VRTestCaseOpts {
 	children: () => JSX.Element;
 }
 
-export const VRTestCase = ({ title, children }: VRTestCaseOpts) => {
+export const VRTestCase = ({ title, children }: VRTestCaseOpts): React.JSX.Element => {
 	return (
 		<IntlProvider locale={'en'}>
 			<Page>

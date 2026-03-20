@@ -1,95 +1,114 @@
 import { defineMessages } from 'react-intl-next';
 
 export const helpDialogMessages: {
-    editorHelp: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; helpDialogTips: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; keyboardShortcuts: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; markdown: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; pastePlainText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; CheckUncheckActionItem: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; InsertTableColumn: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; InsertTableRow: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; altText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; selectTableRow: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; selectTableColumn: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; selectColumnResize: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; increaseSize: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; increaseElementSize: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; decreaseSize: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; decreaseElementSize: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; openCellOptions: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; focusTableResizeHandle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closeHelpDialog: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
-    // Ignored via go/ees007
-    // eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-    // TODO: Move it inside quick insert plugin
-    quickInsert: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; highlightColor: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	editorHelp: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	helpDialogTips: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	keyboardShortcuts: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	markdown: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	pastePlainText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	CheckUncheckActionItem: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	InsertTableColumn: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	InsertTableRow: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	altText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	selectTableRow: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	selectTableColumn: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	selectColumnResize: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	increaseSize: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	increaseElementSize: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	decreaseSize: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	decreaseElementSize: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	openCellOptions: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	focusTableResizeHandle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closeHelpDialog: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
+	// TODO: Move it inside quick insert plugin
+	quickInsert: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	highlightColor: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	editorHelp: {
 		id: 'fabric.editor.editorHelp',

@@ -43,7 +43,10 @@ export const transformSliceToRemoveOpenBodiedExtension = (slice: Slice, schema: 
  * Lift content out of "open" top-level multiBodiedExtensions.
  * Will not work if multiBodiedExtensions are nested, or when multiBodiedExtensions are not in the top level, which should never happen
  */
-export const transformSliceToRemoveOpenMultiBodiedExtension = (slice: Slice, schema: Schema): Slice => {
+export const transformSliceToRemoveOpenMultiBodiedExtension = (
+	slice: Slice,
+	schema: Schema,
+): Slice => {
 	const { multiBodiedExtension, extensionFrame } = schema.nodes;
 
 	let depthToReduce = 2; // Removing MBE and extensionFrame

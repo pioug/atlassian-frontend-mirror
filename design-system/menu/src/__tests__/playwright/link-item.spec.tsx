@@ -6,7 +6,11 @@ test('Selected nav items should have aria-current="page" attribute', async ({
 	page,
 	skipAxeCheck,
 }) => {
-	await page.visitExample('design-system', 'menu', 'link-item');
+	await page.visitExample<typeof import('../../../examples/link-item.tsx')>(
+		'design-system',
+		'menu',
+		'link-item',
+	);
 
 	const [linkItem1, linkItem2, linkItem3, linkItem4] = [
 		getLinkSelector(1),

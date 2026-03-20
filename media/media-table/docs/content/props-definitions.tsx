@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, PropsTable } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(
 		<PropsTable
 			heading="Props"
@@ -9,3 +9,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

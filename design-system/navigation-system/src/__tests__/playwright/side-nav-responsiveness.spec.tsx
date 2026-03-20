@@ -6,9 +6,14 @@ const mobileViewport = { width: 360, height: 800 };
 test.describe('side nav responsive behaviour', () => {
 	test.describe('when useIsFhsEnabled is true', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample('design-system', 'navigation-system', 'menu-item-integration', {
-				featureFlag: 'navx-full-height-sidebar',
-			});
+			await page.visitExample<typeof import('../../../examples/menu-item-integration.tsx')>(
+				'design-system',
+				'navigation-system',
+				'menu-item-integration',
+				{
+					featureFlag: 'navx-full-height-sidebar',
+				},
+			);
 		});
 
 		test('should collapse side nav when resizing viewport from desktop to mobile', async ({
@@ -181,7 +186,11 @@ test.describe('side nav responsive behaviour', () => {
 
 	test.describe('when useIsFhsEnabled is false', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample('design-system', 'navigation-system', 'menu-item-integration');
+			await page.visitExample<typeof import('../../../examples/menu-item-integration.tsx')>(
+				'design-system',
+				'navigation-system',
+				'menu-item-integration',
+			);
 		});
 
 		test('should collapse side nav when resizing viewport from desktop to mobile', async ({
@@ -304,7 +313,11 @@ test.describe('side nav responsive behaviour', () => {
 
 	test.describe('click outside to close', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample('design-system', 'navigation-system', 'menu-item-integration');
+			await page.visitExample<typeof import('../../../examples/menu-item-integration.tsx')>(
+				'design-system',
+				'navigation-system',
+				'menu-item-integration',
+			);
 		});
 
 		test('should not close when clicking outside on desktop', async ({ page }) => {

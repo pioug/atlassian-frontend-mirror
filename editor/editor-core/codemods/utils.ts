@@ -25,7 +25,7 @@ export const createTransformer =
 		packageName: string,
 		migrations: { (j: core.JSCodeshift, source: Collection<unknown>): void }[],
 	) =>
-	(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) => {
+	(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options): string => {
 		const source = j(fileInfo.source);
 
 		if (!hasImportDeclaration(j, source, packageName)) {
@@ -96,7 +96,7 @@ export const findImportFromPackage = (
  * @param toName String
  */
 export const createRenameVariableTransform = (from: string, toName: string) => {
-	return (j: core.JSCodeshift, source: Collection<unknown>) => {
+	return (j: core.JSCodeshift, source: Collection<unknown>): void => {
 		source.find(j.Identifier, { name: from }).forEach((x) => {
 			x.replace(j.identifier(toName));
 		});

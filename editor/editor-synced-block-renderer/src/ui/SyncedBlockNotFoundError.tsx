@@ -103,7 +103,9 @@ export const SyncedBlockNotFoundError = ({
 		if (
 			!sourceAri ||
 			// Only fetch source info for these 3 cases
-			!['source-block-deleted', 'source-block-unsynced', 'source-block-unpublished'].includes(reason)
+			!['source-block-deleted', 'source-block-unsynced', 'source-block-unpublished'].includes(
+				reason,
+			)
 		) {
 			setSourceInfo({});
 			return;

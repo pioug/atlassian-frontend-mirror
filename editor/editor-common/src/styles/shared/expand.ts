@@ -20,7 +20,20 @@ export const expandIconContainerStyle: SerializedStyles = css({
 
 const prefix = 'ak-editor-expand';
 
-export const expandClassNames: { prefix: string; expanded: string; titleContainer: string; inputContainer: string; iconContainer: string; icon: string; iconButton: string; iconSvg: string; titleInput: string; content: string; contentCollapsed: string; type: (type: string) => string; } = {
+export const expandClassNames: {
+	prefix: string;
+	expanded: string;
+	titleContainer: string;
+	inputContainer: string;
+	iconContainer: string;
+	icon: string;
+	iconButton: string;
+	iconSvg: string;
+	titleInput: string;
+	content: string;
+	contentCollapsed: string;
+	type: (type: string) => string;
+} = {
 	prefix,
 	expanded: `${prefix}__expanded`,
 	titleContainer: `${prefix}__title-container`,

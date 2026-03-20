@@ -12,7 +12,9 @@ const referencedLabelSpotlight = '[data-testid="referenced-label--dialog-contain
 const explicitLabelSpotlight = '[data-testid="explicit-label--dialog-container"]';
 
 test('Spotlight tour should not break if a target is not rendered', async ({ page }) => {
-	await page.visitExample('design-system', 'onboarding', 'spotlight-with-conditional-targets');
+	await page.visitExample<
+		typeof import('../../../../examples/102-spotlight-with-conditional-targets.tsx')
+	>('design-system', 'onboarding', 'spotlight-with-conditional-targets');
 
 	// start the spotlight tour
 	await page.locator(dynamicTargetStartBtn).first().click();
@@ -42,7 +44,11 @@ test('Spotlight tour should not break if a target is not rendered', async ({ pag
 });
 
 test(`Focus should not go beyond spotlight dialog`, async ({ page }) => {
-	await page.visitExample('design-system', 'onboarding', 'spotlight-dialog-width');
+	await page.visitExample<typeof import('../../../../examples/40-spotlight-dialog-width.tsx')>(
+		'design-system',
+		'onboarding',
+		'spotlight-dialog-width',
+	);
 	const spotlightDialogTrigger = page.getByTestId('spotlight-dialog-trigger');
 	await spotlightDialogTrigger.click();
 	await spotlightDialogTrigger.focus();
@@ -54,7 +60,11 @@ test('Spotlight dialog should match a11y dialog pattern', async ({ page }) => {
 	 * a11y dialog pattern includes existence of such attributes as aria-modal="true" role="dialog"
 	 * and either explicit label set with aria-label or referenced label set by aria-labelledby
 	 */
-	await page.visitExample('design-system', 'onboarding', 'spotlight-basic-with-label');
+	await page.visitExample<typeof import('../../../../examples/107-spotlight-basic-with-label.tsx')>(
+		'design-system',
+		'onboarding',
+		'spotlight-basic-with-label',
+	);
 
 	// check for referenced label
 	await expect(page.locator(referencedLabelSpotlightTrigger)).toBeVisible();

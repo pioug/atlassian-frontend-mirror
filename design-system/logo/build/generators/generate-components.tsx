@@ -28,7 +28,7 @@ export default function generateComponents(
 	root: string | undefined,
 	rawDirectory: string,
 	targetDirectory: string,
-) {
+): Assets {
 	const assets: Assets = {};
 
 	fs.emptyDirSync(path.resolve(root!, 'src', targetDirectory));
@@ -116,23 +116,24 @@ export default function generateComponents(
  * Generates index files for each folder in the target directory
  * @param targetDirectory Target directory under where logo components are generated
  */
-const getIndexJSX = (targetDirectory: string, logoName: string) => {
+const getIndexJSX = (targetDirectory: string, logoName: string): string => {
 	const name = logoName
 		.split('-')
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join('');
 	// Detect which logos are available in each folder (logo, logo-cs, icon)
 	const logoFiles = fs.readdirSync(path.resolve(targetDirectory, logoName));
-	const logoTypes = ['logo', 'logo-cs', 'icon'];
-	const supportedLogoTypes = logoTypes.filter((logoType) =>
-		logoFiles.some((logoFile) => logoFile === `${logoType}.tsx`),
-	);
 
 	const logoTypeMap = {
 		logo: `${name}Logo`,
 		'logo-cs': `${name}LogoCS`,
 		icon: `${name}Icon`,
 	};
+	type LogoTypeKey = keyof typeof logoTypeMap;
+	const logoTypes: LogoTypeKey[] = ['logo', 'logo-cs', 'icon'];
+	const supportedLogoTypes = logoTypes.filter((logoType) =>
+		logoFiles.some((logoFile) => logoFile === `${logoType}.tsx`),
+	);
 
 	return `
 		${supportedLogoTypes.map((logoType) => `export { ${logoTypeMap[logoType]} } from './${logoType}';`).join('\n')}

@@ -8,16 +8,12 @@ export default function Basic() {
 		orgId: 'example-org-id',
 		forceExternalIntent: true,
 		navigate: () => {},
-		openPreviewPanel: () => {}
+		openPreviewPanel: () => {},
 	};
 
 	return (
 		<TeamsNavigationProvider value={context}>
-			<TeamsAnchor
-				href="/teams/my-team"
-				intent="navigation"
-				testId="teams-app-internal-navigation"
-			>
+			<TeamsAnchor href="/teams/my-team" intent="navigation" testId="teams-app-internal-navigation">
 				Go to My Team
 			</TeamsAnchor>
 		</TeamsNavigationProvider>

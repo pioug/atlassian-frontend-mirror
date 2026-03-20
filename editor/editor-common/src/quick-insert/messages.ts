@@ -1,75 +1,91 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    help: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; insert: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; close: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; all: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; formatting: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; 'confluence-content': {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; media: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; visuals: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; navigation: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; 'external-content': {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; communication: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; reporting: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; admin: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; development: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; AI: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; featuredWhiteboardDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; browse: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	help: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	insert: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	close: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	all: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	formatting: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	'confluence-content': {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	media: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	visuals: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	navigation: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	'external-content': {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	communication: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	reporting: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	admin: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	development: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	AI: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	featuredWhiteboardDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	browse: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	help: {
 		id: 'fabric.editor.elementBrowser.help',

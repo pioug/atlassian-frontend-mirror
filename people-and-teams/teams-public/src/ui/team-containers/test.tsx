@@ -553,13 +553,6 @@ describe('TeamLinks', () => {
 			},
 			error: null,
 		});
-
-		mockFg.mockImplementation((flag) => {
-			if (flag === 'enable_web_links_in_team_containers') {
-				return true;
-			}
-			return false;
-		});
 	});
 
 	it('should render add Jira, Confluence, Web link card when the team has no Jira project, Confluence space and Web links and has product access', () => {

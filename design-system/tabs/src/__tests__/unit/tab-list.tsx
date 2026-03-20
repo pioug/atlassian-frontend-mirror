@@ -6,7 +6,7 @@ import { skipA11yAudit } from '@af/accessibility-testing';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { Tab, TabList } from '../../index';
-import { TabListContext } from '../../internal/context';
+import { TabListContext } from '../../internal/tab-list-context';
 import { type TabListAttributesType } from '../../types';
 
 const tabList = (

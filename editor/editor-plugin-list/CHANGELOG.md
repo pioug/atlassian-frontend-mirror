@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-list
 
+## 10.0.7
+
+### Patch Changes
+
+- [`66fc14c10e82b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66fc14c10e82b) -
+  EDITOR-5862: Preserve list attributes (order, localId) during flatten-rebuild indentation
+  operations
+- Updated dependencies
+
 ## 10.0.6
 
 ### Patch Changes

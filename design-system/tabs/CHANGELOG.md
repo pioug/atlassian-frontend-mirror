@@ -1,5 +1,19 @@
 # @atlaskit/tabs
 
+## 19.0.0
+
+### Major Changes
+
+- [`38f89455de21d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38f89455de21d) -
+  Removes `@atlaskit/tabs/hooks` entrypoint from public API. Use the hook exports from
+  `@atlaskit/tabs` directly.
+
+  Removes redundant utility files, split-out multi-export modules and restructures internal files.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.3.5
 
 ### Patch Changes

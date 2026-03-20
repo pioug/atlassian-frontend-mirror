@@ -1,4 +1,15 @@
-export const users = [
+export const users: (
+	| {
+			displayName: string;
+			value: string;
+			appType: null;
+	  }
+	| {
+			displayName: string;
+			value: string;
+			appType: string;
+	  }
+)[] = [
 	{
 		displayName: 'Cristian Casais',
 		value: 'rjuedbergtlfrde',
@@ -21,7 +32,10 @@ export const users = [
 	},
 ];
 
-export const teams = [
+export const teams: {
+	displayName: string;
+	value: string;
+}[] = [
 	{
 		displayName: 'Trello Tacos',
 		value: 'tarjuedbergtlfrde',
@@ -36,7 +50,20 @@ export const teams = [
 	},
 ];
 
-export const projects = [
+export const projects: (
+	| {
+			displayName: string;
+			value: string;
+			iconName: string;
+			privateProject?: undefined;
+	  }
+	| {
+			displayName: string;
+			value: string;
+			privateProject: boolean;
+			iconName?: undefined;
+	  }
+)[] = [
 	{
 		displayName: 'Fancy project',
 		value: 'ari:cloud:townsquare:1111:project\/1111',
@@ -54,7 +81,10 @@ export const mockAvatarUrl =
 export const mockTeamAvatarUrl =
 	"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='33' height='33' viewBox='0 0 33 33' fill='none'%3E%3Cg clip-path='url(%23clip0_2031_17850)'%3E%3Crect x='0.484619' y='0.155029' width='32' height='32' fill='%23F5E989'/%3E%3Cpath d='M37.9715 28.9083V12.0886C37.9715 12.0886 18.3355 7.60002 8.22251 15.5201C-1.89593 23.4401 -1.35995 31.2328 -1.35995 42.8223H20.9233C20.9233 35.6938 18.8823 25.1835 37.9715 28.9083Z' fill='%23DDB30E'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11.1513 12.8217C12.2559 12.8217 13.1513 11.9262 13.1513 10.8217C13.1513 9.71709 12.2559 8.82166 11.1513 8.82166C10.0468 8.82166 9.15133 9.71709 9.15133 10.8217C9.15133 11.9262 10.0468 12.8217 11.1513 12.8217ZM11.1513 14.8217C13.3605 14.8217 15.1513 13.0308 15.1513 10.8217C15.1513 8.61252 13.3605 6.82166 11.1513 6.82166C8.94219 6.82166 7.15133 8.61252 7.15133 10.8217C7.15133 13.0308 8.94219 14.8217 11.1513 14.8217Z' fill='%231E1F21'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M21.818 12.8217C22.9226 12.8217 23.818 11.9262 23.818 10.8217C23.818 9.71709 22.9226 8.82166 21.818 8.82166C20.7134 8.82166 19.818 9.71709 19.818 10.8217C19.818 11.9262 20.7134 12.8217 21.818 12.8217ZM21.818 14.8217C24.0271 14.8217 25.818 13.0308 25.818 10.8217C25.818 8.61252 24.0271 6.82166 21.818 6.82166C19.6089 6.82166 17.818 8.61252 17.818 10.8217C17.818 13.0308 19.6089 14.8217 21.818 14.8217Z' fill='%231E1F21'/%3E%3Cpath d='M22.1513 16.155C24.9121 16.1555 27.1513 18.3936 27.1513 21.155V22.8217C27.1513 24.2944 25.9574 25.4883 24.4847 25.4883H20.6197C18.5172 25.4883 16.6393 24.173 15.9207 22.197L15.169 20.1298C14.7379 18.9442 13.6111 18.155 12.3496 18.155H10.818C9.16114 18.155 7.81799 19.4981 7.81799 21.155V22.8217C7.81799 23.1899 8.11647 23.4883 8.48466 23.4883H13.818V25.4883H8.48466C7.0119 25.4883 5.81799 24.2944 5.81799 22.8217V21.155C5.81799 18.3936 8.05657 16.155 10.818 16.155H12.3496C14.4521 16.155 16.3301 17.4703 17.0486 19.4463L17.8003 21.5136C18.2314 22.6991 19.3582 23.4883 20.6197 23.4883H24.4847C24.8528 23.4883 25.1513 23.1899 25.1513 22.8217V21.155C25.1513 19.4987 23.8081 18.1555 22.1513 18.155H20.6197V16.155H22.1513Z' fill='%231E1F21'/%3E%3Cpath d='M20.6197 16.155C20.082 16.155 19.2031 16.2957 18.5365 16.6115L19.3927 18.4189C19.5488 18.345 19.7728 18.2756 20.0218 18.2254C20.2697 18.1754 20.4893 18.155 20.6197 18.155V16.155Z' fill='%231E1F21'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_2031_17850'%3E%3Crect x='0.484619' y='0.155029' width='32' height='32' fill='white'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E";
 
-export const jqlValuesMock = [
+export const jqlValuesMock: {
+	displayName: string;
+	value: string;
+}[] = [
 	{ displayName: 'JSW', value: 'JSW' },
 	{ displayName: 'JSD', value: 'JSD' },
 	{ displayName: 'Classic', value: 'CLS' },
@@ -167,7 +197,68 @@ const customFields = [
 	},
 ];
 
-export const jqlFieldsMock = [
+export const jqlFieldsMock: (
+	| {
+			value: string;
+			displayName: string;
+			operators: string[];
+			searchable: string;
+			auto: string;
+			orderable: string;
+			types: string[];
+			deprecated?: undefined;
+			deprecatedSearcherKey?: undefined;
+			cfid?: undefined;
+	  }
+	| {
+			value: string;
+			displayName: string;
+			operators: string[];
+			searchable: string;
+			deprecated: string;
+			deprecatedSearcherKey: string;
+			auto: string;
+			orderable: string;
+			types: string[];
+			cfid?: undefined;
+	  }
+	| {
+			value: string;
+			displayName: string;
+			cfid: string;
+			operators: string[];
+			searchable: string;
+			deprecated: string;
+			deprecatedSearcherKey: string;
+			auto: string;
+			orderable: string;
+			types: string[];
+	  }
+	| {
+			value: string;
+			displayName: string;
+			operators: string[];
+			types: string[];
+			searchable?: undefined;
+			auto?: undefined;
+			orderable?: undefined;
+			deprecated?: undefined;
+			deprecatedSearcherKey?: undefined;
+			cfid?: undefined;
+	  }
+	| {
+			value: string;
+			displayName: string;
+			auto: string;
+			searchable: string;
+			operators: string[];
+			types: string[];
+			orderable?: undefined;
+			deprecated?: undefined;
+			deprecatedSearcherKey?: undefined;
+			cfid?: undefined;
+	  }
+)[] = [
 	{
 		value: 'Approvers',
 		displayName: 'Approvers - cf[10112]',
@@ -1291,7 +1382,29 @@ export const jqlFieldsMock = [
 	},
 ];
 
-export const jqlFunctionsMock = [
+export const jqlFunctionsMock: (
+	| {
+			value: string;
+			displayName: string;
+			types: string[];
+			isList?: undefined;
+			supportsListAndSingleValueOperators?: undefined;
+	  }
+	| {
+			value: string;
+			displayName: string;
+			isList: string;
+			types: string[];
+			supportsListAndSingleValueOperators?: undefined;
+	  }
+	| {
+			value: string;
+			displayName: string;
+			supportsListAndSingleValueOperators: string;
+			types: string[];
+			isList?: undefined;
+	  }
+)[] = [
 	{
 		value: 'approved()',
 		displayName: 'approved()',

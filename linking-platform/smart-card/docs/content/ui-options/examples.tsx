@@ -4,7 +4,7 @@ import { md } from '@atlaskit/docs';
 
 import CustomExample from '../../utils/custom-example';
 
-export default md`
+const _default_1: any = md`
 
 ### Sizing
 
@@ -141,3 +141,4 @@ ${(
 )}
 
 `;
+export default _default_1;

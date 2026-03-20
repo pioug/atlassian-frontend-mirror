@@ -26,7 +26,7 @@ export const assertValid = (queries: string[]): void => {
 	});
 };
 
-export const assertInvalid = (invalid: string[]) => {
+export const assertInvalid = (invalid: string[]): void => {
 	invalid.forEach((query) => {
 		it(`🟥 ${query}`, () => {
 			mockSyntaxError.mockReset();

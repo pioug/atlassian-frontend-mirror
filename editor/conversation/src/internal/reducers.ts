@@ -177,271 +177,274 @@ const getCommentFromConversation = (
 };
 
 export const initialState: {
-    conversations: never[];
+	conversations: never[];
 } = {
 	conversations: [],
 };
 
-export const reducers: (state: State | undefined, action: Action) => State = createReducer(initialState, {
-	[FETCH_CONVERSATIONS_REQUEST](state: State) {
-		return {
-			...state,
-		};
-	},
+export const reducers: (state: State | undefined, action: Action) => State = createReducer(
+	initialState,
+	{
+		[FETCH_CONVERSATIONS_REQUEST](state: State) {
+			return {
+				...state,
+			};
+		},
 
-	[FETCH_CONVERSATIONS_SUCCESS](state: State, action: Action) {
-		const leveledConversations: Conversation[] = action.payload.map(
-			(conversation: Conversation) => {
-				if (!conversation.comments) {
-					return {
-						...conversation,
-					};
-				}
+		[FETCH_CONVERSATIONS_SUCCESS](state: State, action: Action) {
+			const leveledConversations: Conversation[] = action.payload.map(
+				(conversation: Conversation) => {
+					if (!conversation.comments) {
+						return {
+							...conversation,
+						};
+					}
 
-				conversation.comments = conversation.comments.map((comment) => ({
-					...comment,
-					nestedDepth: getNestedDepth(conversation, comment.parentId),
-				}));
+					conversation.comments = conversation.comments.map((comment) => ({
+						...comment,
+						nestedDepth: getNestedDepth(conversation, comment.parentId),
+					}));
 
-				return conversation;
-			},
-		);
+					return conversation;
+				},
+			);
 
-		const conversations: Conversation[] = [...leveledConversations];
+			const conversations: Conversation[] = [...leveledConversations];
 
-		return {
-			...state,
-			conversations,
-		};
-	},
+			return {
+				...state,
+				conversations,
+			};
+		},
 
-	[ADD_COMMENT_REQUEST](state: State, action: Action) {
-		const { payload } = action;
-		const conversations = addOrUpdateCommentInConversation(state.conversations, {
-			...payload,
-			isPlaceholder: true,
-			state: 'SAVING',
-		});
-
-		return {
-			...state,
-			conversations,
-		};
-	},
-
-	[ADD_COMMENT_SUCCESS](state: State, action: Action) {
-		const { payload } = action;
-
-		const conversations: Conversation[] = addOrUpdateCommentInConversation(state.conversations, {
-			...payload,
-			state: undefined,
-			oldDocument: undefined,
-			isPlaceholder: false,
-		});
-
-		return {
-			...state,
-			conversations,
-		};
-	},
-
-	[ADD_COMMENT_ERROR](state: State, action: Action) {
-		const { payload } = action;
-
-		const conversations = updateCommentInConversation(state.conversations, {
-			...payload,
-			state: 'ERROR',
-		});
-
-		return {
-			...state,
-			conversations,
-		};
-	},
-
-	[UPDATE_COMMENT_REQUEST](state: State, action: Action) {
-		const { payload } = action;
-
-		const conversations = updateCommentInConversation(state.conversations, {
-			...payload,
-			state: 'SAVING',
-		});
-
-		return {
-			...state,
-			conversations,
-		};
-	},
-
-	[UPDATE_COMMENT_SUCCESS](state: State, action: Action) {
-		const { payload } = action;
-
-		const conversations = updateCommentInConversation(state.conversations, {
-			...payload,
-			state: undefined,
-			oldDocument: undefined,
-		});
-
-		return {
-			...state,
-			conversations,
-		};
-	},
-
-	[UPDATE_COMMENT_ERROR](state: State, action: Action) {
-		const { payload } = action;
-
-		const conversations = updateCommentInConversation(state.conversations, {
-			...payload,
-			state: 'ERROR',
-		});
-
-		return {
-			...state,
-			conversations,
-		};
-	},
-
-	[DELETE_COMMENT_REQUEST](state: State, action: Action) {
-		const { payload } = action;
-		const conversations = updateCommentInConversation(state.conversations, {
-			...payload,
-			state: 'SAVING',
-		});
-
-		return {
-			...state,
-			conversations,
-		};
-	},
-
-	[DELETE_COMMENT_SUCCESS](state: State, action: Action) {
-		const { payload } = action;
-		const conversations = updateCommentInConversation(state.conversations, {
-			...payload,
-			state: undefined,
-			deleted: true,
-			oldDocument: undefined,
-		});
-
-		return {
-			...state,
-			conversations,
-		};
-	},
-
-	[DELETE_COMMENT_ERROR](state: State, action: Action) {
-		const { payload } = action;
-
-		const conversations = updateCommentInConversation(state.conversations, {
-			...payload,
-			state: 'ERROR',
-		});
-
-		return {
-			...state,
-			conversations,
-		};
-	},
-
-	[REVERT_COMMENT](state: State, action: Action) {
-		const { payload } = action;
-		const comment = getCommentFromConversation(state.conversations, payload);
-		let conversations: Conversation[];
-
-		if (!comment) {
-			return state;
-		}
-
-		if (comment.isPlaceholder) {
-			conversations = removeCommentFromConversation(state.conversations, {
+		[ADD_COMMENT_REQUEST](state: State, action: Action) {
+			const { payload } = action;
+			const conversations = addOrUpdateCommentInConversation(state.conversations, {
 				...payload,
+				isPlaceholder: true,
+				state: 'SAVING',
 			});
-		} else {
-			conversations = updateCommentInConversation(state.conversations, {
+
+			return {
+				...state,
+				conversations,
+			};
+		},
+
+		[ADD_COMMENT_SUCCESS](state: State, action: Action) {
+			const { payload } = action;
+
+			const conversations: Conversation[] = addOrUpdateCommentInConversation(state.conversations, {
 				...payload,
 				state: undefined,
-				document: comment.oldDocument,
-				deleted: false,
+				oldDocument: undefined,
+				isPlaceholder: false,
+			});
+
+			return {
+				...state,
+				conversations,
+			};
+		},
+
+		[ADD_COMMENT_ERROR](state: State, action: Action) {
+			const { payload } = action;
+
+			const conversations = updateCommentInConversation(state.conversations, {
+				...payload,
+				state: 'ERROR',
+			});
+
+			return {
+				...state,
+				conversations,
+			};
+		},
+
+		[UPDATE_COMMENT_REQUEST](state: State, action: Action) {
+			const { payload } = action;
+
+			const conversations = updateCommentInConversation(state.conversations, {
+				...payload,
+				state: 'SAVING',
+			});
+
+			return {
+				...state,
+				conversations,
+			};
+		},
+
+		[UPDATE_COMMENT_SUCCESS](state: State, action: Action) {
+			const { payload } = action;
+
+			const conversations = updateCommentInConversation(state.conversations, {
+				...payload,
+				state: undefined,
 				oldDocument: undefined,
 			});
-		}
 
-		return {
-			...state,
-			conversations,
-		};
-	},
+			return {
+				...state,
+				conversations,
+			};
+		},
 
-	[HIGHLIGHT_COMMENT](state: State, action: Action) {
-		const { payload } = action;
-		const highlighted = payload.commentId.toString();
+		[UPDATE_COMMENT_ERROR](state: State, action: Action) {
+			const { payload } = action;
 
-		return {
-			...state,
-			highlighted,
-		};
-	},
-
-	[UPDATE_USER_SUCCESS](state: State, action: Action) {
-		return {
-			...state,
-			user: action.payload.user as User,
-		};
-	},
-
-	[CREATE_CONVERSATION_REQUEST](state: State, action: Action) {
-		const { payload } = action;
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		const [comment] = payload.comments!;
-		const conversations = [
-			...state.conversations,
-			{
+			const conversations = updateCommentInConversation(state.conversations, {
 				...payload,
-				comments: [
-					{
-						...comment,
-						state: 'SAVING',
-						isPlaceholder: true,
-					},
-				],
-			},
-		];
+				state: 'ERROR',
+			});
 
-		return {
-			...state,
-			conversations,
-		};
-	},
+			return {
+				...state,
+				conversations,
+			};
+		},
 
-	[CREATE_CONVERSATION_SUCCESS](state: State, action: Action) {
-		const { payload } = action;
-		const conversations = updateConversation(state.conversations, payload);
+		[DELETE_COMMENT_REQUEST](state: State, action: Action) {
+			const { payload } = action;
+			const conversations = updateCommentInConversation(state.conversations, {
+				...payload,
+				state: 'SAVING',
+			});
 
-		return {
-			...state,
-			conversations,
-		};
-	},
+			return {
+				...state,
+				conversations,
+			};
+		},
 
-	[CREATE_CONVERSATION_ERROR](state: State, action: Action) {
-		const {
-			payload: {
-				comments: [comment],
+		[DELETE_COMMENT_SUCCESS](state: State, action: Action) {
+			const { payload } = action;
+			const conversations = updateCommentInConversation(state.conversations, {
+				...payload,
+				state: undefined,
+				deleted: true,
+				oldDocument: undefined,
+			});
+
+			return {
+				...state,
+				conversations,
+			};
+		},
+
+		[DELETE_COMMENT_ERROR](state: State, action: Action) {
+			const { payload } = action;
+
+			const conversations = updateCommentInConversation(state.conversations, {
+				...payload,
+				state: 'ERROR',
+			});
+
+			return {
+				...state,
+				conversations,
+			};
+		},
+
+		[REVERT_COMMENT](state: State, action: Action) {
+			const { payload } = action;
+			const comment = getCommentFromConversation(state.conversations, payload);
+			let conversations: Conversation[];
+
+			if (!comment) {
+				return state;
+			}
+
+			if (comment.isPlaceholder) {
+				conversations = removeCommentFromConversation(state.conversations, {
+					...payload,
+				});
+			} else {
+				conversations = updateCommentInConversation(state.conversations, {
+					...payload,
+					state: undefined,
+					document: comment.oldDocument,
+					deleted: false,
+					oldDocument: undefined,
+				});
+			}
+
+			return {
+				...state,
+				conversations,
+			};
+		},
+
+		[HIGHLIGHT_COMMENT](state: State, action: Action) {
+			const { payload } = action;
+			const highlighted = payload.commentId.toString();
+
+			return {
+				...state,
+				highlighted,
+			};
+		},
+
+		[UPDATE_USER_SUCCESS](state: State, action: Action) {
+			return {
+				...state,
+				user: action.payload.user as User,
+			};
+		},
+
+		[CREATE_CONVERSATION_REQUEST](state: State, action: Action) {
+			const { payload } = action;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const [comment] = payload.comments!;
+			const conversations = [
+				...state.conversations,
+				{
+					...payload,
+					comments: [
+						{
+							...comment,
+							state: 'SAVING',
+							isPlaceholder: true,
+						},
+					],
+				},
+			];
+
+			return {
+				...state,
+				conversations,
+			};
+		},
+
+		[CREATE_CONVERSATION_SUCCESS](state: State, action: Action) {
+			const { payload } = action;
+			const conversations = updateConversation(state.conversations, payload);
+
+			return {
+				...state,
+				conversations,
+			};
+		},
+
+		[CREATE_CONVERSATION_ERROR](state: State, action: Action) {
+			const {
+				payload: {
+					comments: [comment],
+					error,
+				},
+			} = action;
+
+			const conversations = updateCommentInConversation(state.conversations, {
+				...comment,
+				state: 'ERROR',
 				error,
-			},
-		} = action;
+			});
 
-		const conversations = updateCommentInConversation(state.conversations, {
-			...comment,
-			state: 'ERROR',
-			error,
-		});
-
-		return {
-			...state,
-			conversations,
-		};
+			return {
+				...state,
+				conversations,
+			};
+		},
 	},
-});
+);

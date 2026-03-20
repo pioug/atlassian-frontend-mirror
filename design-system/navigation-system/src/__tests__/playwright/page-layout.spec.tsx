@@ -2,11 +2,9 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('page layout', () => {
 	test('should use slots for scroll', async ({ page }) => {
-		await page.visitExample(
-			'design-system',
-			'navigation-system',
-			'page-layout-all-slots-scrollable',
-		);
+		await page.visitExample<
+			typeof import('../../../examples/page-layout-all-slots-scrollable.tsx')
+		>('design-system', 'navigation-system', 'page-layout-all-slots-scrollable');
 
 		const main = page.getByTestId('main');
 		const aside = page.getByTestId('aside');

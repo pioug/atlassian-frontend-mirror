@@ -46,7 +46,9 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 				parent: {
 					type: 'block-menu-section' as const,
 					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_STRUCTURE_EXPAND_MENU_ITEM.key],
+					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+						TRANSFORM_STRUCTURE_EXPAND_MENU_ITEM.key
+					],
 				},
 				component: createExpandBlockMenuItem(api),
 				isHidden: () =>

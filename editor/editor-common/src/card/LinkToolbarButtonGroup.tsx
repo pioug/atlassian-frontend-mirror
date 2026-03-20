@@ -56,7 +56,9 @@ export interface LinkToolbarButtonGroupProps {
 	options: ButtonOptionProps[];
 }
 
-export const LinkToolbarButtonGroup = ({ options }: LinkToolbarButtonGroupProps): jsx.JSX.Element => {
+export const LinkToolbarButtonGroup = ({
+	options,
+}: LinkToolbarButtonGroupProps): jsx.JSX.Element => {
 	return (
 		<ButtonGroup>
 			{options.map(

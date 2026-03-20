@@ -15,7 +15,11 @@ const selectCheckboxMenu = `${testId}-select--listbox-container`;
 test(`Single-select should display a menu once clicked and select a menu item`, async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'select', 'single-select');
+	await page.visitExample<typeof import('../../../../examples/00-single-select.tsx')>(
+		'design-system',
+		'select',
+		'single-select',
+	);
 	await page.getByTestId(selectValueContainer).first().click();
 	await expect(page.getByTestId(selectMenu)).toBeVisible();
 	await page.getByRole('option', { name: 'Darwin' }).click();
@@ -25,7 +29,11 @@ test(`Single-select should display a menu once clicked and select a menu item`, 
 test(`Multi-select should display a menu once clicked and not throwing errors`, async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'select', 'multi-select');
+	await page.visitExample<typeof import('../../../../examples/01-multi-select.tsx')>(
+		'design-system',
+		'select',
+		'multi-select',
+	);
 	await page.getByTestId(selectValueContainer).first().click();
 	await expect(page.getByTestId(selectMenu)).toBeVisible();
 	await page.getByTestId(selectAdelaide).first().click();
@@ -37,7 +45,11 @@ test(`Multi-select should display a menu once clicked and not throwing errors`, 
 test(`Radio-select should display a menu once clicked and not throwing errors`, async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'select', 'radio-select');
+	await page.visitExample<typeof import('../../../../examples/02-radio-select.tsx')>(
+		'design-system',
+		'select',
+		'radio-select',
+	);
 	await page.getByTestId(selectValueContainer).first().click();
 	await expect(page.getByTestId(selectMenu)).toBeVisible();
 	await page.getByTestId(selectAdelaide).first().click();
@@ -47,7 +59,11 @@ test(`Radio-select should display a menu once clicked and not throwing errors`, 
 test(`Async-select should display a menu once clicked and not throwing errors`, async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'select', 'async-select-with-callback');
+	await page.visitExample<typeof import('../../../../examples/06-async-select-with-callback.tsx')>(
+		'design-system',
+		'select',
+		'async-select-with-callback',
+	);
 	// Async example waits 1000ms before setting options.
 	// eslint-disable-next-line playwright/no-wait-for-timeout
 	await page.waitForTimeout(1000);
@@ -60,7 +76,11 @@ test(`Async-select should display a menu once clicked and not throwing errors`, 
 test(`Checkbox-select should display a menu once clicked and not throwing errors`, async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'select', 'checkbox-select');
+	await page.visitExample<typeof import('../../../../examples/03-checkbox-select.tsx')>(
+		'design-system',
+		'select',
+		'checkbox-select',
+	);
 	await page.getByTestId(selectCheckbox).first().click();
 	await expect(page.getByTestId(selectCheckboxMenu).first()).toBeVisible();
 	await page.getByTestId(selectAdelaide).first().click();
@@ -69,7 +89,11 @@ test(`Checkbox-select should display a menu once clicked and not throwing errors
 });
 
 test('A11yTexts can be provided through ariaLiveMessages prop', async ({ page }) => {
-	await page.visitExample('design-system', 'select', 'with-isSearchable-false');
+	await page.visitExample<typeof import('../../../../examples/07-with-isSearchable-false.tsx')>(
+		'design-system',
+		'select',
+		'with-isSearchable-false',
+	);
 	await page.getByTestId(selectValueContainer).first().click();
 	await expect(page.getByTestId(selectMenu)).toBeVisible();
 	await page.getByTestId(selectAdelaide).first().click();

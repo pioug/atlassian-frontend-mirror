@@ -1,67 +1,81 @@
 import { defineMessages } from 'react-intl-next';
 
 export const linkToolbarMessages: {
-    addLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; unableToOpenLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; unlink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; editDatasourceStandalone: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; editDatasourceStandaloneTooltip: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; editLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; placeholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkPlaceholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkAddress: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; invalidLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; emptyLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; settingsLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; preferencesLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; editDatasource: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; searchInput: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	addLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	unableToOpenLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	unlink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	editDatasourceStandalone: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	editDatasourceStandaloneTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	editLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	placeholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkAddress: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	invalidLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	emptyLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	settingsLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	preferencesLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	editDatasource: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	searchInput: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	addLink: {
 		id: 'fabric.editor.mediaAddLink',

@@ -12,7 +12,7 @@ export const isModified = (event: React.MouseEvent<HTMLElement>) =>
 export const isTeamsAppRoute = (url: string) => {
 	const path = getRoutePathFromUrl(url);
 	const hostname = new URL(url).hostname;
-	return (hostname.includes('home.atlassian') && path.includes('/people'));
+	return hostname.includes('home.atlassian') && path.includes('/people');
 };
 
 /**

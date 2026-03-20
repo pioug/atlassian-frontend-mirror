@@ -6,9 +6,14 @@ import { expect, test } from '@af/integration-testing';
  * This test checks our top nav items are actually interactive.
  */
 test('pointer events on top nav items', async ({ page }) => {
-	await page.visitExample('design-system', 'navigation-system', 'composition', {
-		featureFlag: 'navx-full-height-sidebar',
-	});
+	await page.visitExample<typeof import('../../../examples/composition.tsx')>(
+		'design-system',
+		'navigation-system',
+		'composition',
+		{
+			featureFlag: 'navx-full-height-sidebar',
+		},
+	);
 
 	const log: string[] = [];
 	page.on('console', (msg) => log.push(msg.text()));
@@ -24,9 +29,14 @@ test('pointer events on top nav items', async ({ page }) => {
 });
 
 test('pointer events on top nav items [layering improvements enabled]', async ({ page }) => {
-	await page.visitExample('design-system', 'navigation-system', 'composition', {
-		featureFlag: 'navx-full-height-sidebar',
-	});
+	await page.visitExample<typeof import('../../../examples/composition.tsx')>(
+		'design-system',
+		'navigation-system',
+		'composition',
+		{
+			featureFlag: 'navx-full-height-sidebar',
+		},
+	);
 
 	const log: string[] = [];
 	page.on('console', (msg) => log.push(msg.text()));

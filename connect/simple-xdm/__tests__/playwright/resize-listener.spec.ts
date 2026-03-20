@@ -3,7 +3,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Resize Listener', () => {
 	test('triggers the callback on dimension change', async ({ page }) => {
-		await page.visitExample('connect', 'simple-xdm', 'resize');
+		await page.visitExample<typeof import('../../examples/resize.tsx')>(
+			'connect',
+			'simple-xdm',
+			'resize',
+		);
 
 		await expect(page.getByText('Appended after resize')).toBeHidden();
 
@@ -16,7 +20,11 @@ test.describe('Resize Listener', () => {
 	});
 
 	test('should capture and report a11y violations', async ({ page }) => {
-		await page.visitExample('connect', 'simple-xdm', 'resize');
+		await page.visitExample<typeof import('../../examples/resize.tsx')>(
+			'connect',
+			'simple-xdm',
+			'resize',
+		);
 
 		await expect(page).toBeAccessible();
 	});

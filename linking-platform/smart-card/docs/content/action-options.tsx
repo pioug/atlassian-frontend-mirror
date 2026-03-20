@@ -1,6 +1,6 @@
 import customMd from '../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 Actions can be customized using the \`actionOptions\` prop.
 By default, Smart Links displays all available actions for the link, based on the view component.
 
@@ -9,3 +9,4 @@ By default, Smart Links displays all available actions for the link, based on th
 
 For further information on specific actions, refer to the [card actions](./card-actions).
 `;
+export default _default_1;

@@ -69,7 +69,14 @@ export const resolveWithProvider = (
 	const handleResolve = provider
 		.resolve(request.url, request.appearance, shouldForceAppearance, isEmbedFriendlyLocation)
 		.then(
-			handleResolved(view, request, editorAnalyticsApi, createAnalyticsEvent, options, embedCardNodeTransformer),
+			handleResolved(
+				view,
+				request,
+				editorAnalyticsApi,
+				createAnalyticsEvent,
+				options,
+				embedCardNodeTransformer,
+			),
 			handleRejected(view, request, editorAnalyticsApi),
 		);
 

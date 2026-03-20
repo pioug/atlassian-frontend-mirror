@@ -144,7 +144,7 @@ export default function overflowShadow<P>(
 			this.container = container;
 			this.overflowContainer = container.querySelector(options.overflowSelector);
 
-            if (!this.overflowContainer) {
+			if (!this.overflowContainer) {
 				this.overflowContainer = container;
 			}
 
@@ -219,6 +219,5 @@ export default function overflowShadow<P>(
 
 // Helper function to check if the passed node is of Element class
 function isElementNode(node: Node): node is Element {
-    return node.nodeType === 1;
+	return node.nodeType === 1;
 }
-

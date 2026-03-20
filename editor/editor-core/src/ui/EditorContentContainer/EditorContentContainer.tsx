@@ -79,6 +79,7 @@ import {
 } from './styles/emoji';
 import {
 	expandStyles,
+	expandStylesMixin_experiment_platform_editor_chromeless_expand_fix,
 	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
 	expandStylesMixin_fg_platform_visual_refresh_icons,
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
@@ -207,11 +208,9 @@ import {
 	syncBlockStyles,
 	syncBlockFirstNodeStyles,
 	syncBlockOverflowStyles,
-	syncBlockDraggingStyles,
 } from './styles/syncBlockStyles';
 import {
 	tableCommentEditorStyles,
-	tableContainerOverflowY,
 	tableContainerStyles,
 	tableEmptyRowStyles,
 	tableLayoutFixes,
@@ -302,6 +301,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 				expValEqualsNoExposure('confluence_max_width_content_appearance', 'isEnabled', true)) &&
 				appearance === 'max');
 		const isComment = appearance === 'comment';
+		const isChromeless = appearance === 'chromeless';
 
 		const baseFontSize = getBaseFontSize(appearance, contentMode);
 
@@ -519,6 +519,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expandStylesMixin_fg_platform_visual_refresh_icons,
+					isChromeless &&
+						expValEquals('platform_editor_chromeless_expand_fix', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						expandStylesMixin_experiment_platform_editor_chromeless_expand_fix,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							findReplaceStylesNewWithA11Y
@@ -615,10 +619,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					editorExperiment('platform_synced_block', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						syncBlockFirstNodeStyles,
-					editorExperiment('platform_synced_block', true) &&
-						fg('platform_synced_block_patch_5') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						syncBlockDraggingStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true) && layoutBaseStylesAdvanced,
 					editorExperiment('advanced_layouts', true)
@@ -786,8 +786,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					tableLayoutFixes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					tableContainerStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					!fg('platform_editor_table_container_y_overflow_fix') && tableContainerOverflowY,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					tableSharedStyle(),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -21,9 +21,14 @@ test.describe('full height sidebar', () => {
 			return;
 		}
 
-		await page.visitExample('design-system', 'navigation-system', 'confluence-mock', {
-			featureFlag: 'navx-full-height-sidebar',
-		});
+		await page.visitExample<typeof import('../../../examples/confluence-mock.tsx')>(
+			'design-system',
+			'navigation-system',
+			'confluence-mock',
+			{
+				featureFlag: 'navx-full-height-sidebar',
+			},
+		);
 
 		// This example does not have a SideNavHeader, so the scrolled indicator border is applied to TopNavStart.
 		const topNavStartInner = page.getByTestId('top-nav-start');
@@ -74,10 +79,15 @@ test.describe('full height sidebar', () => {
 			return;
 		}
 
-		await page.visitExample('design-system', 'navigation-system', 'page-layout-side-nav-slots', {
-			// Enabling both feature flags by setting the featureFlag query parameter twice
-			featureFlag: 'navx-full-height-sidebar',
-		});
+		await page.visitExample<typeof import('../../../examples/page-layout-side-nav-slots.tsx')>(
+			'design-system',
+			'navigation-system',
+			'page-layout-side-nav-slots',
+			{
+				// Enabling both feature flags by setting the featureFlag query parameter twice
+				featureFlag: 'navx-full-height-sidebar',
+			},
+		);
 
 		// This example does have a SideNavHeader, so the scrolled indicator border is applied to SideNavContent.
 
@@ -115,9 +125,14 @@ test.describe('full height sidebar', () => {
 	});
 
 	test('side nav should be layered above top nav', async ({ page }) => {
-		await page.visitExample('design-system', 'navigation-system', 'side-nav-layering', {
-			featureFlag: 'navx-full-height-sidebar',
-		});
+		await page.visitExample<typeof import('../../../examples/side-nav-layering.tsx')>(
+			'design-system',
+			'navigation-system',
+			'side-nav-layering',
+			{
+				featureFlag: 'navx-full-height-sidebar',
+			},
+		);
 
 		const sideNav = page.getByTestId('side-nav');
 		const topNav = page.getByTestId('top-nav');

@@ -14,7 +14,11 @@ test('InlineDialog should be able to be identified and clicked by data-testid', 
 	page,
 	skipAxeCheck,
 }) => {
-	await page.visitExample('design-system', 'inline-dialog', 'testing');
+	await page.visitExample<typeof import('../../../../examples/99-testing.tsx')>(
+		'design-system',
+		'inline-dialog',
+		'testing',
+	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 	await expect(page.locator(inlineDialogTestId).first()).toHaveText('Hello!');
@@ -25,7 +29,11 @@ test('InlineDialog should be able to be identified and clicked by data-testid', 
 });
 
 test('InlineDialog with Open Modal button should open modal', async ({ page }) => {
-	await page.visitExample('design-system', 'inline-dialog', 'modal');
+	await page.visitExample<typeof import('../../../../examples/06-modal.tsx')>(
+		'design-system',
+		'inline-dialog',
+		'modal',
+	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 	await page.locator(openModalBtn).first().click();
@@ -35,7 +43,11 @@ test('InlineDialog with Open Modal button should open modal', async ({ page }) =
 test('InlineDialog should stay open when modal is closed through button click', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'inline-dialog', 'modal');
+	await page.visitExample<typeof import('../../../../examples/06-modal.tsx')>(
+		'design-system',
+		'inline-dialog',
+		'modal',
+	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 	await page.locator(openModalBtn).first().click();
@@ -48,7 +60,11 @@ test('InlineDialog should stay open when modal is closed through button click', 
 });
 
 test('InlineDialog should stay open when user clicks modal blanket', async ({ page }) => {
-	await page.visitExample('design-system', 'inline-dialog', 'modal');
+	await page.visitExample<typeof import('../../../../examples/06-modal.tsx')>(
+		'design-system',
+		'inline-dialog',
+		'modal',
+	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 	await page.locator(openModalBtn).first().click();
@@ -61,7 +77,11 @@ test('InlineDialog should stay open when user clicks modal blanket', async ({ pa
 });
 
 test('InlineDialog should close correctly after modal is closed', async ({ page }) => {
-	await page.visitExample('design-system', 'inline-dialog', 'modal');
+	await page.visitExample<typeof import('../../../../examples/06-modal.tsx')>(
+		'design-system',
+		'inline-dialog',
+		'modal',
+	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 	await page.locator(openModalBtn).first().click();
@@ -74,7 +94,11 @@ test('InlineDialog should close correctly after modal is closed', async ({ page 
 });
 
 test('InlineDialog should work with Select and set value correctly', async ({ page }) => {
-	await page.visitExample('design-system', 'inline-dialog', 'select-datepicker');
+	await page.visitExample<typeof import('../../../../examples/04-select-datepicker.tsx')>(
+		'design-system',
+		'inline-dialog',
+		'select-datepicker',
+	);
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 	await expect(page.locator('.react-select__control').first()).toBeVisible();
 	await page.locator('.react-select__control').first().click();
@@ -85,14 +109,22 @@ test('InlineDialog should work with Select and set value correctly', async ({ pa
 });
 
 test('InlineDialog should work correctly with DatePicker component', async ({ page }) => {
-	await page.visitExample('design-system', 'inline-dialog', 'select-datepicker');
+	await page.visitExample<typeof import('../../../../examples/04-select-datepicker.tsx')>(
+		'design-system',
+		'inline-dialog',
+		'select-datepicker',
+	);
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 	await expect(page.locator(datePickerContainer).first()).toBeVisible();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 });
 
 test('InlineDialog should stay open when interacting dropdown in modal', async ({ page }) => {
-	await page.visitExample('design-system', 'inline-dialog', 'popup');
+	await page.visitExample<typeof import('../../../../examples/09-popup.tsx')>(
+		'design-system',
+		'inline-dialog',
+		'popup',
+	);
 	await page.locator(inlineDialogBtn).click();
 	const inlineDialog = page.locator(inlineDialogTestId);
 	await expect(inlineDialog).toBeVisible();

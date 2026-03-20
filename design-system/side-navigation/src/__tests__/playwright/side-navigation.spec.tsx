@@ -9,9 +9,14 @@ const goBackButton = "[data-testid='nestable-navigation-content--go-back-item']"
 test('Focus should be on the Go back button after triggered an element in the side navigation, while navigating via keyboard, FF on', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'side-navigation', 'nested-side-navigation', {
-		featureFlag: 'platform-side-navigation-keyboard-focus',
-	});
+	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.tsx')>(
+		'design-system',
+		'side-navigation',
+		'nested-side-navigation',
+		{
+			featureFlag: 'platform-side-navigation-keyboard-focus',
+		},
+	);
 	await page.locator(nestableNavigation).first().click();
 	await page.keyboard.press('Tab');
 	await page.keyboard.press('Enter');
@@ -21,9 +26,14 @@ test('Focus should be on the Go back button after triggered an element in the si
 test('When pressing the "Go back" button, the focus should return to the triggered element, while navigating via keyboard, FF on', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'side-navigation', 'nested-side-navigation', {
-		featureFlag: 'platform-side-navigation-keyboard-focus',
-	});
+	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.tsx')>(
+		'design-system',
+		'side-navigation',
+		'nested-side-navigation',
+		{
+			featureFlag: 'platform-side-navigation-keyboard-focus',
+		},
+	);
 	await expect(page.locator(nestableNavigation).first()).not.toBeFocused();
 	await page.locator(nestableNavigation).first().click();
 	await page.keyboard.press('Tab');
@@ -35,7 +45,11 @@ test('When pressing the "Go back" button, the focus should return to the trigger
 test('Focus should be on nested container while navigating via keyboard, FF off', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'side-navigation', 'nested-side-navigation');
+	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.tsx')>(
+		'design-system',
+		'side-navigation',
+		'nested-side-navigation',
+	);
 	await expect(page.locator(nestableNavigation).first()).not.toBeFocused();
 	await page.locator(nestableNavigation).first().click();
 	await page.keyboard.press('Tab');
@@ -46,7 +60,11 @@ test('Focus should be on nested container while navigating via keyboard, FF off'
 test('Nested container should not be focused while navigating via mouse, FF off', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'side-navigation', 'nested-side-navigation');
+	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.tsx')>(
+		'design-system',
+		'side-navigation',
+		'nested-side-navigation',
+	);
 	await expect(page.locator(nestableNavigation).first()).not.toBeFocused();
 	await page.locator(filterNestingItem).first().click();
 	await expect(page.locator(nestableNavigation).first()).not.toBeFocused();

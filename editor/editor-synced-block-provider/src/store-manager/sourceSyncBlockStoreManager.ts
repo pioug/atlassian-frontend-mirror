@@ -4,7 +4,6 @@ import { type SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type ResourceId,
@@ -122,11 +121,9 @@ export class SourceSyncBlockStoreManager {
 
 			const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
 
-			if (fg('platform_synced_block_patch_5')) {
-				const cachedBlock = this.syncBlockCache.get(resourceId);
-				if (cachedBlock && !isEqual(syncBlockData.content, cachedBlock.content)) {
-					this.hasReceivedContentChange = true;
-				}
+			const cachedBlock = this.syncBlockCache.get(resourceId);
+			if (cachedBlock && !isEqual(syncBlockData.content, cachedBlock.content)) {
+				this.hasReceivedContentChange = true;
 			}
 
 			this.syncBlockCache.set(resourceId, {

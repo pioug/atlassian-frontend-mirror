@@ -1,9 +1,11 @@
 import * as i18nMessages from '../src/i18n';
 
-export const locales = {
-	...i18nMessages,
+type LocaleMessages = Record<string, string>;
+
+export const locales: Record<string, LocaleMessages> = {
+	...(i18nMessages as Record<string, LocaleMessages>),
 	// Append the 'en' locale, so it is selectable in our picker
 	en: {},
 };
 
-export type Locale = keyof typeof locales;
+export type Locale = keyof typeof locales & string;

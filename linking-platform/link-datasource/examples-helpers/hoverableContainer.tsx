@@ -23,7 +23,7 @@ const styles = cssMap({
 });
 
 // To simulate Jira description's hover background wrapper
-export const HoverableContainer = ({ children }: React.PropsWithChildren<{}>) => {
+export const HoverableContainer = ({ children }: React.PropsWithChildren<{}>): JSX.Element => {
 	return (
 		<div data-testid="examples-hoverable-container" css={styles.containerStyles}>
 			{children}

@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 43.26.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.26.9
+
+### Patch Changes
+
+- [`bf8678936e092`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf8678936e092) -
+  Use platform_sl_3p_auth_rovo_action experiment to control experience previously controlled only by
+  platform_sl_3p_auth_rovo_action_kill_switch
+- Updated dependencies
+
 ## 43.26.8
 
 ### Patch Changes

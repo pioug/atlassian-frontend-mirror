@@ -14,7 +14,10 @@ interface FrameViewProps {
 	testId?: string;
 }
 
-export const Frame = ({ children, testId }: React.PropsWithChildren<FrameViewProps>): jsx.JSX.Element => (
+export const Frame = ({
+	children,
+	testId,
+}: React.PropsWithChildren<FrameViewProps>): jsx.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<span css={wrapperStyle} data-testid={testId}>
 		{children}

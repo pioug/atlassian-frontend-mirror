@@ -6,7 +6,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import Tabs, { Tab, TabList, TabPanel, useTabPanel } from '../../index';
-import { TabPanelContext } from '../../internal/context';
+import { TabPanelContext } from '../../internal/tab-panel-context';
 
 const CustomTabPanel = ({ children }: { children: ReactNode }) => {
 	const context = useTabPanel();

@@ -21,7 +21,7 @@ const GRID_XCSS_PROPS = ['templateRows', 'templateColumns', 'templateAreas'];
 
 const PRIMITIVES_IMPORT_SOURCES = ['@atlaskit/primitives', '@atlaskit/primitives/compiled'];
 
-function transform(file: FileInfo, { jscodeshift: j }: API) {
+function transform(file: FileInfo, { jscodeshift: j }: API): string {
 	const root = j(file.source);
 	let needsCssMapImport = false;
 

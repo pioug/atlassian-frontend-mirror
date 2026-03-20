@@ -43,16 +43,16 @@ describe('PreviewAction', () => {
 
 	const setContextWithPreviewPanel = (hasPreviewPanel: boolean) => {
 		(flexibleUiContextModule.useFlexibleUiContext as jest.Mock).mockReturnValue({
-		...mockContext,
-		actions: {
-		...(mockContext as any).actions,
-		PreviewAction: {
-			...(mockContext as any).actions.PreviewAction,
-			hasPreviewPanel,
-		},
-		},
-	});
-};
+			...mockContext,
+			actions: {
+				...(mockContext as any).actions,
+				PreviewAction: {
+					...(mockContext as any).actions.PreviewAction,
+					hasPreviewPanel,
+				},
+			},
+		});
+	};
 
 	beforeEach(() => {
 		// Reset the mock to default behavior (experiment disabled)
@@ -141,7 +141,6 @@ describe('PreviewAction', () => {
 		expect(screen.queryByTestId(testId)).toBeNull();
 	});
 
-
 	ffTest.on('navx-3698-flexible-card-a11y-fix', '', () => {
 		it('should render modal icon without aria-label when flag is enabled', async () => {
 			setContextWithPreviewPanel(false);
@@ -154,7 +153,7 @@ describe('PreviewAction', () => {
 
 		it('should pass a11y check when icon label is empty', async () => {
 			setContextWithPreviewPanel(false);
-			
+
 			const { container } = setup();
 			await expect(container).toBeAccessible();
 		});
@@ -183,10 +182,9 @@ describe('PreviewAction', () => {
 			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 			expValEquals.mockReturnValue(true);
 			setContextWithPreviewPanel(true);
-			
+
 			const { container } = setup();
 			await expect(container).toBeAccessible();
 		});
 	});
-
 });

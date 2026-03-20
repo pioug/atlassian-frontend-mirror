@@ -23,7 +23,9 @@ export const getBlockMenuComponents = (
 			parent: {
 				type: 'block-menu-section',
 				key: BLOCK_ACTIONS_MENU_SECTION.key,
-				rank: (BLOCK_ACTIONS_MENU_SECTION_RANK as Record<string, number>)[BLOCK_ACTIONS_CREATE_SYNCED_BLOCK_MENU_ITEM.key],
+				rank: (BLOCK_ACTIONS_MENU_SECTION_RANK as Record<string, number>)[
+					BLOCK_ACTIONS_CREATE_SYNCED_BLOCK_MENU_ITEM.key
+				],
 			},
 			component: () => (
 				<CreateOrCopySyncedBlockDropdownItem

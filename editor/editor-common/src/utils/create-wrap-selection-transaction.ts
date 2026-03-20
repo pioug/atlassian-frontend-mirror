@@ -1,5 +1,9 @@
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState, NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import {
+	type EditorState,
+	NodeSelection,
+	type Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 

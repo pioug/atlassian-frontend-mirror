@@ -29,7 +29,7 @@ const columns: HeadType = {
 
 const mediaClientConfig = createUploadMediaClientConfig();
 
-export default () => (
+export default (): React.JSX.Element => (
 	<MediaTable
 		items={items}
 		mediaClientConfig={mediaClientConfig}

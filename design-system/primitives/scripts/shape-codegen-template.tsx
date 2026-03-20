@@ -14,14 +14,15 @@ const tokenStyles = {
 		objectName: 'borderWidth',
 		filterPrefix: 'border.width',
 		cssProperty: 'borderWidth',
-		filterFn: <T extends Token>(t: T) =>
+		filterFn: <T extends Token>(t: T): boolean =>
 			t.token.startsWith(tokenStyles.width.filterPrefix) && !t.isDeprecated,
 	},
 	radius: {
 		objectName: 'borderRadius',
 		filterPrefix: 'radius',
 		cssProperty: 'borderRadius',
-		filterFn: <T extends Token>(t: T) => t.token.startsWith(tokenStyles.radius.filterPrefix),
+		filterFn: <T extends Token>(t: T): boolean =>
+			t.token.startsWith(tokenStyles.radius.filterPrefix),
 	},
 } as const;
 

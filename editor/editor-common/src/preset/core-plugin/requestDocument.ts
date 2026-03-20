@@ -22,7 +22,17 @@ export function createThrottleSchedule<
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>,
->(callback: typeof returnDocumentRequest<GenericTransformer>): (editorView: EditorView | null, callback: GenericTransformer extends undefined ? DefaultTransformerResultCallback : InferTransformerResultCallback<GenericTransformer>, transformer?: GenericTransformer | undefined, fireAnalyticsEvent?: FireAnalyticsCallback | undefined, _alwaysFire?: boolean | undefined) => void {
+>(
+	callback: typeof returnDocumentRequest<GenericTransformer>,
+): (
+	editorView: EditorView | null,
+	callback: GenericTransformer extends undefined
+		? DefaultTransformerResultCallback
+		: InferTransformerResultCallback<GenericTransformer>,
+	transformer?: GenericTransformer | undefined,
+	fireAnalyticsEvent?: FireAnalyticsCallback | undefined,
+	_alwaysFire?: boolean | undefined,
+) => void {
 	let frameId: number | undefined;
 	let lastArgs: Parameters<typeof returnDocumentRequest<GenericTransformer>> | undefined;
 	const delayedCallbacks: Parameters<typeof returnDocumentRequest<GenericTransformer>>[] = [];

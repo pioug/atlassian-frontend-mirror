@@ -185,7 +185,6 @@ class PubSubEventComponent extends Component<{}, State> {
 						</ButtonGroup>
 						{this.usesProtocol('APS') && (
 							<div>
-
 								<label>
 									APS URL
 									<Textfield id="apsURL" label="APS URL" value={this.state.apsUrl} />
@@ -210,7 +209,6 @@ class PubSubEventComponent extends Component<{}, State> {
 					<Lozenge appearance="success">{this.state.status}</Lozenge>
 				</ButtonGroup>
 				<div>
-
 					<label>
 						Event type
 						<Textfield

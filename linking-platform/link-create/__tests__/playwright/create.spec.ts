@@ -2,7 +2,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Link Create', () => {
 	test('should be able to use a basic create form to create an object', async ({ page }) => {
-		await page.visitExample('linking-platform', 'link-create', 'basic');
+		await page.visitExample<typeof import('../../examples/00-basic.tsx')>(
+			'linking-platform',
+			'link-create',
+			'basic',
+		);
 
 		const trigger = page.getByRole('button', { name: 'Create' });
 
@@ -35,7 +39,11 @@ test.describe('Link Create', () => {
 	});
 
 	test('should capture and report a11y violations', async ({ page }) => {
-		await page.visitExample('linking-platform', 'link-create', 'basic');
+		await page.visitExample<typeof import('../../examples/00-basic.tsx')>(
+			'linking-platform',
+			'link-create',
+			'basic',
+		);
 		const trigger = page.getByRole('button', { name: 'Create' });
 		await expect(trigger).toBeVisible();
 

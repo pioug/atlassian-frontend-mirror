@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
   Consumers can generate a formatted JQL string from an AST object using the print API. This is particularly useful in
   conjunction with the [transformation API](https://atlaskit.atlassian.com/packages/jql/jql-ast/docs/transforming-the-ast)
@@ -45,3 +45,4 @@ console.log(print(jast, { operatorCase: 'upper' }));
 // Outputs: status IN (open, closed) AND assignee = currentUser() ORDER BY created DESC
   `}
 `;
+export default _default_1;

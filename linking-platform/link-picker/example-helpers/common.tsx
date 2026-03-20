@@ -49,7 +49,7 @@ const useSafeIntl = () => {
 	return context;
 };
 
-export function PageWrapper({ children }: WrapperProps) {
+export function PageWrapper({ children }: WrapperProps): JSX.Element {
 	ufologger.enable();
 	const intl = useSafeIntl();
 
@@ -62,6 +62,6 @@ export function PageWrapper({ children }: WrapperProps) {
 	);
 }
 
-export function PageHeader(wrapperProps: WrapperProps) {
+export function PageHeader(wrapperProps: WrapperProps): JSX.Element {
 	return <Box xcss={styles.pageWrapper}>{wrapperProps.children}</Box>;
 }

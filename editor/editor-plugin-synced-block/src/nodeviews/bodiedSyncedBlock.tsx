@@ -20,7 +20,6 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
@@ -143,7 +142,7 @@ class BodiedSyncBlockOld extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 	getContentDOM() {
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOMOld());
 		// In SSR, the first check won't work, so fallback to nodeType check
-		if (dom instanceof HTMLElement || (dom.nodeType === 1 && fg('platform_synced_block_patch_5'))) {
+		if (dom instanceof HTMLElement || dom.nodeType === 1) {
 			this.updateContentEditable({ contentDOM });
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			return { dom: dom as HTMLElement, contentDOM };

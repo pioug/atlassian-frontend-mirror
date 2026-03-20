@@ -8,7 +8,11 @@ const editInput = 'edit-view';
 test.describe('Inline Edit Validation', () => {
 	const readViewContentWrapper = 'button[data-testid="validation--edit-button"] + div';
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample('design-system', 'inline-edit', 'validation');
+		await page.visitExample<typeof import('../../../examples/03-validation.tsx')>(
+			'design-system',
+			'inline-edit',
+			'validation',
+		);
 	});
 	test('Displays error message', async ({ page }) => {
 		const readView = page.locator(readViewContentWrapper);
@@ -45,7 +49,11 @@ test.describe('Inline Edit Validation', () => {
 test.describe('Default Inline Edit', () => {
 	const readViewContentWrapper = 'button[data-testid="inline-edit--edit-button"] + div';
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample('design-system', 'inline-edit', 'basic-usage');
+		await page.visitExample<typeof import('../../../examples/00-basic-usage.tsx')>(
+			'design-system',
+			'inline-edit',
+			'basic-usage',
+		);
 	});
 	test('Should hide edit button after confirmation', async ({ page }) => {
 		const readView = page.locator(readViewContentWrapper);
@@ -106,7 +114,11 @@ test.describe('Inline Edit with Datepicker', () => {
 	test('Selecting a date in a datepicker using keyboard should return to edit view', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'inline-edit', 'inline-edit-with-datepicker');
+		await page.visitExample<typeof import('../../../examples/13-inline-edit-with-datepicker.tsx')>(
+			'design-system',
+			'inline-edit',
+			'inline-edit-with-datepicker',
+		);
 		const edit = page.getByRole('button', { name: /Select date and time/ });
 		await edit.focus();
 		const dtpEditView = page.locator('[data-testid="datetimepicker"]');

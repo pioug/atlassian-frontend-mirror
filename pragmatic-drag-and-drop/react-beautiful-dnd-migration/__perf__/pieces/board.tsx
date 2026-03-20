@@ -5,7 +5,7 @@
 
 import { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import type { DropResult } from 'react-beautiful-dnd';
 
@@ -25,7 +25,7 @@ type BoardProps = {
 	rbdApi: RbdApi;
 };
 
-export default function Board({ rbdApi }: BoardProps) {
+export default function Board({ rbdApi }: BoardProps): jsx.JSX.Element {
 	const { DragDropContext, Droppable } = rbdApi;
 
 	const [data, setData] = useState(() => getInitialData());

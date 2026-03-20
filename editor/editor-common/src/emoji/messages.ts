@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    emojiNodeLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	emojiNodeLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	emojiNodeLabel: {
 		id: 'fabric.emoji.label',

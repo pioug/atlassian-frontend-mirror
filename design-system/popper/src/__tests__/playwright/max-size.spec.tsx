@@ -1,7 +1,11 @@
 import { expect, test } from '@af/integration-testing';
 
 test('max size is not applied if the viewport is large enough', async ({ page }) => {
-	await page.visitExample('design-system', 'popper', 'basic-positioning');
+	await page.visitExample<typeof import('../../../examples/00-basic-positioning.tsx')>(
+		'design-system',
+		'popper',
+		'basic-positioning',
+	);
 
 	const popper = page.locator('[data-testid="popper"]');
 
@@ -13,7 +17,11 @@ test('max size is not applied if the viewport is large enough', async ({ page })
 });
 
 test('max size is correctly applied', async ({ page }) => {
-	await page.visitExample('design-system', 'popper', 'max-size');
+	await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
+		'design-system',
+		'popper',
+		'max-size',
+	);
 
 	const popper = page.locator('[data-testid="placement--right"]');
 
@@ -25,7 +33,11 @@ test('max size is correctly applied', async ({ page }) => {
 });
 
 test('max size updates when page gets smaller', async ({ page }) => {
-	await page.visitExample('design-system', 'popper', 'max-size');
+	await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
+		'design-system',
+		'popper',
+		'max-size',
+	);
 
 	const popper = page.locator('[data-testid="placement--right"]');
 
@@ -48,7 +60,11 @@ test('max size updates when page gets smaller', async ({ page }) => {
 });
 
 test('max size updates when page gets bigger', async ({ page }) => {
-	await page.visitExample('design-system', 'popper', 'max-size');
+	await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
+		'design-system',
+		'popper',
+		'max-size',
+	);
 
 	const popper = page.locator('[data-testid="placement--right"]');
 

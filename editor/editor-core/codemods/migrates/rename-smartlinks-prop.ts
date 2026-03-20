@@ -14,7 +14,7 @@ export const createJSXRenameVariableToNestedKeyTransform = (
 	toObjectName: string,
 	toObjectKey: string,
 ) => {
-	return (j: core.JSCodeshift, source: Collection<unknown>) => {
+	return (j: core.JSCodeshift, source: Collection<unknown>): void => {
 		source
 			.find(j.JSXAttribute, { name: { type: 'JSXIdentifier', name: from } })
 			.forEach((fromAttribute) => {
@@ -41,8 +41,5 @@ export const createJSXRenameVariableToNestedKeyTransform = (
 	};
 };
 
-export const renameSmartLinksProp = createJSXRenameVariableToNestedKeyTransform(
-	'smartLinks',
-	'linking',
-	'smartLinks',
-);
+export const renameSmartLinksProp: (j: core.JSCodeshift, source: Collection<unknown>) => void =
+	createJSXRenameVariableToNestedKeyTransform('smartLinks', 'linking', 'smartLinks');

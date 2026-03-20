@@ -12,4 +12,5 @@ export type {
 	TabPanelAttributesType,
 	TabData,
 } from './types';
-export { useTab, useTabPanel } from './hooks';
+export { default as useTab } from './use-tab';
+export { default as useTabPanel } from './use-tab-panel';

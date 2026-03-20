@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const companyHubTextColorMessages: {
-    colorPickerTitle: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	colorPickerTitle: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	colorPickerTitle: {
 		id: 'company-hub-text-color.color-picker-dropdown.picker-title',

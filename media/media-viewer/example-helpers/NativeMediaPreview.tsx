@@ -22,7 +22,7 @@ export const NativeMediaPreview = ({
 	identifier,
 	mediaClient,
 	onClick,
-}: NativeMediaViewerProps) => {
+}: NativeMediaViewerProps): React.JSX.Element => {
 	const [url, setUrl] = useState('dataURI' in identifier ? identifier.dataURI : '');
 	const [isPreviewUnavailable, setIsPreviewUnavailable] = useState(false);
 

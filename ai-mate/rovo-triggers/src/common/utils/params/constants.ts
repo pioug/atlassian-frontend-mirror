@@ -9,4 +9,5 @@ export const ROVO_VALID_PARAMS: ValidParam[] = [
 	'cloudId',
 	'triggerOpen',
 	'insertPrompt',
+	'promptLibraryOpen',
 ];

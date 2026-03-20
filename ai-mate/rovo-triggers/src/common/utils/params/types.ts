@@ -11,6 +11,7 @@ export interface BaseRovoChatParams {
 	insertPrompt: 'highlight-action';
 	stagingAreaOpen: boolean;
 	messageIdSelectedForPreview: string;
+	promptLibraryOpen: boolean;
 }
 
 export type ValidPrefix = 'rovoChat';

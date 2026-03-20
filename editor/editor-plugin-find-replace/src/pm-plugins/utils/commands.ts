@@ -7,7 +7,10 @@ export const withScrollIntoView: HigherOrderCommand =
 		command(
 			state,
 			(tr) => {
-				if (expValEquals('platform_editor_editor_centre_content_on_find', 'isEnabled', true) && view) {
+				if (
+					expValEquals('platform_editor_editor_centre_content_on_find', 'isEnabled', true) &&
+					view
+				) {
 					let targetPos = tr.selection.anchor;
 					let coords = view.coordsAtPos(targetPos);
 
@@ -30,8 +33,13 @@ export const withScrollIntoView: HigherOrderCommand =
 						const overflowY = style.overflowY;
 						const overflowX = style.overflowX;
 
-						const isScrollable = (overflowY === 'auto' || overflowY === 'scroll' || overflowX === 'auto' || overflowX === 'scroll') &&
-							(scrollParent.scrollHeight > scrollParent.clientHeight || scrollParent.scrollWidth > scrollParent.clientWidth);
+						const isScrollable =
+							(overflowY === 'auto' ||
+								overflowY === 'scroll' ||
+								overflowX === 'auto' ||
+								overflowX === 'scroll') &&
+							(scrollParent.scrollHeight > scrollParent.clientHeight ||
+								scrollParent.scrollWidth > scrollParent.clientWidth);
 
 						if (isScrollable) {
 							break;
@@ -42,7 +50,12 @@ export const withScrollIntoView: HigherOrderCommand =
 					// Scroll to center the content
 					if (scrollParent && scrollParent !== document.documentElement) {
 						const parentRect = scrollParent.getBoundingClientRect();
-						const scrollTop = scrollParent.scrollTop + coords.top - parentRect.top - (parentRect.height / 2) + ((coords.bottom - coords.top) / 2);
+						const scrollTop =
+							scrollParent.scrollTop +
+							coords.top -
+							parentRect.top -
+							parentRect.height / 2 +
+							(coords.bottom - coords.top) / 2;
 						scrollParent.scrollTo({ top: scrollTop, behavior: 'smooth' });
 					}
 				} else {

@@ -277,7 +277,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	);
 
 	private onError = (reason: string) => {
-		const nestedUnder = fg('platform_synced_block_patch_5') ? this.getNestedUnder() : undefined;
+		const nestedUnder = this.getNestedUnder();
 		this.props.api?.media.actions.handleMediaNodeRenderError(this.props.node, reason, nestedUnder);
 	};
 

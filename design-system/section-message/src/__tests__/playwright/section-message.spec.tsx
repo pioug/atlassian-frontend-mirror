@@ -13,7 +13,11 @@ const sectionMessageGoogleAction = `${sectionMessageError} [data-testid='google'
 test('SectionMessage and SectionMessage actions should be able to be identified and clicked by data-testid', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'section-message', 'testing');
+	await page.visitExample<typeof import('../../../examples/100-ssr-testing.tsx')>(
+		'design-system',
+		'section-message',
+		'testing',
+	);
 	await expect(page.locator(sectionMessageInfo).first()).toBeVisible();
 	await expect(page.locator(sectionMessageError).first()).toBeVisible();
 	await expect(page.locator(sectionMessageJiraAction).first()).toBeVisible();

@@ -15,7 +15,11 @@ test.describe('EmojiPicker In Form', () => {
 	test('Pressing Enter on input inside emoji picker should NOT trigger form submit, but Enter on form input should trigger form submit', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../examples/27-emoji-picker-in-form.tsx')>('elements', 'emoji', 'emoji-picker-in-form');
+		await page.visitExample<typeof import('../../../examples/27-emoji-picker-in-form.tsx')>(
+			'elements',
+			'emoji',
+			'emoji-picker-in-form',
+		);
 		await page.waitForSelector(submitForm);
 		await page.type(submitFormTextfield, 'smile', { delay: 200 });
 		page.getByText('Search results');
@@ -40,7 +44,11 @@ test.describe('EmojiPicker In Form', () => {
 	test('Pressing Ctrl+Enter on input inside emoji picker should NOT trigger form submit, but Ctrl+Enter on form input should trigger form submit', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../examples/27-emoji-picker-in-form.tsx')>('elements', 'emoji', 'emoji-picker-in-form');
+		await page.visitExample<typeof import('../../../examples/27-emoji-picker-in-form.tsx')>(
+			'elements',
+			'emoji',
+			'emoji-picker-in-form',
+		);
 		await page.waitForSelector(submitForm);
 		await page.type(submitFormTextfield, 'smile', { delay: 200 });
 		page.getByText('Search results');
@@ -65,7 +73,11 @@ test.describe('EmojiPicker In Form', () => {
 	test('Pressing Enter on input inside emoji picker POPUP should NOT trigger form submit, Enter on form text input should trigger form submit', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../examples/27-emoji-picker-in-form.tsx')>('elements', 'emoji', 'emoji-picker-in-form');
+		await page.visitExample<typeof import('../../../examples/27-emoji-picker-in-form.tsx')>(
+			'elements',
+			'emoji',
+			'emoji-picker-in-form',
+		);
 		await page.waitForSelector(submitForm);
 		// enable emoji picker popup mode
 		await page.getByText('emoji picker with no popup').click();
@@ -96,7 +108,11 @@ test.describe('EmojiPicker In Form', () => {
 	test('Pressing Ctrl+Enter on input inside emoji picker POPUP should NOT trigger form submit, Ctrl+Enter on form text input should trigger form submit', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../examples/27-emoji-picker-in-form.tsx')>('elements', 'emoji', 'emoji-picker-in-form');
+		await page.visitExample<typeof import('../../../examples/27-emoji-picker-in-form.tsx')>(
+			'elements',
+			'emoji',
+			'emoji-picker-in-form',
+		);
 		await page.waitForSelector(submitForm);
 		// enable emoji picker popup mode
 		await page.getByText('emoji picker with no popup').click();
@@ -125,7 +141,11 @@ test.describe('EmojiPicker In Form', () => {
 	});
 
 	test('should capture and report a11y violations', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/27-emoji-picker-in-form.tsx')>('elements', 'emoji', 'emoji-picker-in-form');
+		await page.visitExample<typeof import('../../../examples/27-emoji-picker-in-form.tsx')>(
+			'elements',
+			'emoji',
+			'emoji-picker-in-form',
+		);
 		await page.waitForSelector(submitForm);
 		await page.type(submitFormTextfield, 'smile', { delay: 200 });
 		page.getByText('Search results');

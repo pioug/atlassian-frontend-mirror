@@ -151,4 +151,6 @@ const SSRRenderMeasureNoOp = memo(({ children }: SSRRenderMeasureProps): React.R
  * };
  * ```
  */
-export const SSRRenderMeasure: React.MemoExoticComponent<({ children }: SSRRenderMeasureProps) => React.ReactNode> | typeof SSRRenderMeasureImpl = isSSR() ? SSRRenderMeasureImpl : SSRRenderMeasureNoOp;
+export const SSRRenderMeasure:
+	| React.MemoExoticComponent<({ children }: SSRRenderMeasureProps) => React.ReactNode>
+	| typeof SSRRenderMeasureImpl = isSSR() ? SSRRenderMeasureImpl : SSRRenderMeasureNoOp;

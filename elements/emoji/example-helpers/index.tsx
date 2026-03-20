@@ -18,7 +18,7 @@ export const onToneSelected: OnToneSelected = (variation: number) =>
 export const onUploadEmoji: OnUploadEmoji = (upload: EmojiUpload) =>
 	debug('uploaded emoji', upload);
 
-export const onUploadCancelled = () => debug('upload cancelled');
+export const onUploadCancelled = (): any => debug('upload cancelled');
 
 export const lorem = `
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tincidunt,

@@ -1,7 +1,11 @@
 import { expect, test } from '@af/integration-testing';
 
 test('InlineMessage should pass base aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'inline-message', 'basic');
+	await page.visitExample<typeof import('../../../../examples/01-basic.tsx')>(
+		'design-system',
+		'inline-message',
+		'basic',
+	);
 
 	const inlineMessage = page.getByTestId('inline-message--button');
 

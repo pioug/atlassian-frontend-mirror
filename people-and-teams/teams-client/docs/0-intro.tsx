@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
 ${(<AtlassianInternalWarning />)}
 
@@ -48,3 +48,4 @@ TeamsClient provides several key functionalities:
 - User Management (user profiles, permissions)
 - Media Management (team and user avatars/headers)
 `;
+export default _default_1;

@@ -129,7 +129,7 @@ const ExampleBody = ({
 	);
 };
 
-export const ExampleIssueLikeTableExample = (props: Props) => {
+export const ExampleIssueLikeTableExample = (props: Props): JSX.Element => {
 	return (
 		<DatasourceExperienceIdProvider>
 			<IntlMessagesProvider loaderFn={fetchMessagesForLocale}>

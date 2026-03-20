@@ -140,6 +140,7 @@ export const createPlugin = (
 	dispatch: (eventName: string | PluginKey, data: any) => void,
 	lastNodeMustBeParagraph?: boolean,
 	includeBlockQuoteAsTextstyleOption?: boolean,
+	allowFontSize?: boolean,
 ): SafePlugin<BlockTypeState> => {
 	const editorAnalyticsApi = editorAPI?.analytics?.actions;
 	let altKeyLocation = 0;
@@ -188,7 +189,7 @@ export const createPlugin = (
 
 				return {
 					currentBlockType: detectBlockType(availableBlockTypesInDropdown, state),
-					blockTypesDisabled: areBlockTypesDisabled(state),
+					blockTypesDisabled: areBlockTypesDisabled(state, allowFontSize),
 					availableBlockTypes,
 					availableWrapperBlockTypes,
 					availableBlockTypesInDropdown,
@@ -200,7 +201,7 @@ export const createPlugin = (
 				const newPluginState = {
 					...oldPluginState,
 					currentBlockType: detectBlockType(oldPluginState.availableBlockTypesInDropdown, newState),
-					blockTypesDisabled: areBlockTypesDisabled(newState),
+					blockTypesDisabled: areBlockTypesDisabled(newState, allowFontSize),
 					formattingIsPresent: hasBlockQuoteInOptions(oldPluginState.availableBlockTypesInDropdown)
 						? checkFormattingIsPresent(newState)
 						: undefined,

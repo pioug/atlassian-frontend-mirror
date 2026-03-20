@@ -2,119 +2,146 @@
 import { defineMessages } from 'react-intl-next';
 
 export const aiExperienceApplicationMessages: {
-    dialogAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; responseTooSimilarMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; generatingAiResponse: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; discardMessagePrompt: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; discardMessageResponse: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; discardStreamingInDocumennt: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; loadingTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; messageTemplateAnalysingQuery: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; messageTemplateContentSearch: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; messageTemplatePageHydration: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; messageTemplateNextBestTask: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; convoAIBeta: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; useRovoOrganisationKnowledgeRightText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; useGeneralAiKnowledgeRightText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; actionsGroupHeading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; atlassianIntelligenceGroupHeading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; knowledgeSourceGroupHeading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; agentsSuggestionGroupHeading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; rovoAgentsCountSuggestionGroupHeading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; useRovoAgentsCountSuggestionGroupHeading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; rovoAgentsSuggestionGroupHeading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; useGeneralAiKnowledgeLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; useRovoOrganisationKnowledgeLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; agentsFooterRightText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; agentsBrowseMore: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; showMoreButton: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; noResultsSuggestion: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; engagementBannerLinksText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	dialogAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	responseTooSimilarMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	generatingAiResponse: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	discardMessagePrompt: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	discardMessageResponse: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	discardStreamingInDocumennt: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	loadingTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	messageTemplateAnalysingQuery: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	messageTemplateContentSearch: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	messageTemplatePageHydration: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	messageTemplateNextBestTask: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	convoAIBeta: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	useRovoOrganisationKnowledgeRightText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	useGeneralAiKnowledgeRightText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	actionsGroupHeading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	atlassianIntelligenceGroupHeading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	knowledgeSourceGroupHeading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	agentsSuggestionGroupHeading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rovoAgentsCountSuggestionGroupHeading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	useRovoAgentsCountSuggestionGroupHeading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rovoAgentsSuggestionGroupHeading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	useGeneralAiKnowledgeLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	useRovoOrganisationKnowledgeLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	agentsFooterRightText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	agentsBrowseMore: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	showMoreButton: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	noResultsSuggestion: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	engagementBannerLinksText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	dialogAriaLabel: {
 		id: 'fabric.editor.ai.experience.dialogAriaLabel',

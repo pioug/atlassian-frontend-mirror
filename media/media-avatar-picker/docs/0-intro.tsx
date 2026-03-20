@@ -5,7 +5,7 @@ import { DocsContentTabs } from '@atlaskit/media-test-helpers';
 import example from './content/example';
 import props from './content/props';
 
-export default md`
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
   ### Local Image Upload and Cropping
@@ -69,6 +69,7 @@ ${(
 	/>
 )}
 `;
+export default _default_1;
 
 // TODO: Image Cropper, Navigator, Placer have issues to propage their Props.
 // There is an issue with react prop types and it will be solved in the coming weeks.

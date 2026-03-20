@@ -37,7 +37,6 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export type MediaProvider = {
 	viewMediaClientConfig: MediaClientConfig;
@@ -210,14 +209,8 @@ export class MediaCardView extends Component<
 			attributes: {
 				reason,
 				external: false,
-				...(nestedUnder &&
-				editorExperiment('platform_synced_block', true) &&
-				fg('platform_synced_block_patch_5')
-					? { nestedUnder }
-					: {}),
-				...(rendererContext?.nestedRendererType &&
-				editorExperiment('platform_synced_block', true) &&
-				fg('platform_synced_block_patch_5')
+				...(nestedUnder && editorExperiment('platform_synced_block', true) ? { nestedUnder } : {}),
+				...(rendererContext?.nestedRendererType && editorExperiment('platform_synced_block', true)
 					? { nestedRendererType: rendererContext.nestedRendererType }
 					: {}),
 			},

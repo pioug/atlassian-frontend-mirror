@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
   We define a collection of transformation functions on various node types within the AST. This can be used in conjunction
   with the \`creators\` API to add, remove and update nodes within the tree. The modified tree can be printed to a JQL
@@ -410,3 +410,4 @@ enterOrderByField: (orderByField: OrderByField) => {
 }
   `}
 `;
+export default _default_1;

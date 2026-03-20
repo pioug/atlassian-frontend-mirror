@@ -1,7 +1,6 @@
 import { nativeEmbedsFallbackTransform } from '../../../transforms/native-embeds-fallback-transform';
 import type { ADFEntity } from '../../../types';
 
-
 describe('nativeEmbedsFallbackTransform', () => {
 	it('returns unchanged ADF when extension is not a native embed', () => {
 		const adf: ADFEntity = {
@@ -35,7 +34,11 @@ describe('nativeEmbedsFallbackTransform', () => {
 					attrs: {
 						extensionType: 'com.atlassian.some-other-extension-type',
 						extensionKey: 'native-embed:whiteboard',
-						parameters: { macroParams: { url: { value: 'https://example.atlassian.net/wiki/spaces/DEMO/whiteboard/12345' } } },
+						parameters: {
+							macroParams: {
+								url: { value: 'https://example.atlassian.net/wiki/spaces/DEMO/whiteboard/12345' },
+							},
+						},
 					},
 				},
 			],
@@ -125,7 +128,11 @@ describe('nativeEmbedsFallbackTransform', () => {
 					attrs: {
 						extensionType: 'com.atlassian.some-other-extension-type',
 						extensionKey: 'native-embed:whiteboard',
-						parameters: { macroParams: { url: { value: 'https://example.atlassian.net/wiki/spaces/DEMO/whiteboard/12345' } } },
+						parameters: {
+							macroParams: {
+								url: { value: 'https://example.atlassian.net/wiki/spaces/DEMO/whiteboard/12345' },
+							},
+						},
 					},
 				},
 			],

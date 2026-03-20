@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    placeholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	placeholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	placeholder: {
 		id: 'fabric.editor.captionPlaceholder',

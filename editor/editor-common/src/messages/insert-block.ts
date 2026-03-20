@@ -1,203 +1,251 @@
 import { defineMessages } from 'react-intl-next';
 
 export const toolbarInsertBlockMessages: {
-    action: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; actionDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closeInsertRightRail: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; link: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; mediaFiles: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addMediaFiles: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; insertRightRailTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; mediaFilesDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; image: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; mention: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; mentionDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; emoji: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; emojiDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; table: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; tableDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; tableSelector: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; tableSelectorDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; tableSizeSelectorButton: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; tableSizeSelectorPopup: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; expand: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; expandDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; decision: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; decisionDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; feedbackDialog: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; feedbackDialogDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; horizontalRule: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; horizontalRuleDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; date: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; placeholderText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; placeholderTextDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columns: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columnsDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columnsDescriptionAdvancedLayout: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; singleColumnsDescriptionAdvancedLayout: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; status: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; statusDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; viewMore: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; viewMoreAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; insertMenu: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; help: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; helpDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; recordVideo: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addLoomVideo: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addLoomVideoComment: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; recordVideoDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; recordLoomShortTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; turnInto: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	action: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	actionDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closeInsertRightRail: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	link: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	mediaFiles: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addMediaFiles: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	insertRightRailTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	mediaFilesDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	image: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	mention: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	mentionDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	emoji: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	emojiDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	table: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	tableDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	tableSelector: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	tableSelectorDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	tableSizeSelectorButton: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	tableSizeSelectorPopup: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	expand: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	expandDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	decision: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	decisionDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	feedbackDialog: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	feedbackDialogDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	horizontalRule: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	horizontalRuleDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	date: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	placeholderText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	placeholderTextDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columns: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columnsDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columnsDescriptionAdvancedLayout: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	singleColumnsDescriptionAdvancedLayout: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	status: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	statusDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	viewMore: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	viewMoreAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	insertMenu: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	help: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	helpDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	recordVideo: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addLoomVideo: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addLoomVideoComment: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	recordVideoDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	recordLoomShortTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	turnInto: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	action: {
 		id: 'fabric.editor.action',

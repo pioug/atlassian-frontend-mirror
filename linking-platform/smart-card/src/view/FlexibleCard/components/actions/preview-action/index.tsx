@@ -38,10 +38,20 @@ const PreviewAction = ({
 	const actionIcon = useCallback(() => {
 		// Only use panel icon if experiment is enabled and hasPreviewPanel is true
 		if (expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') && hasPreviewPanel) {
-			return <PanelRightIcon color="currentColor" spacing="spacious" label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview panel'} />;
+			return (
+				<PanelRightIcon
+					color="currentColor"
+					spacing="spacious"
+					label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview panel'}
+				/>
+			);
 		}
 		return (
-			<MediaServicesActualSizeIcon color="currentColor" spacing="spacious" label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview'} />
+			<MediaServicesActualSizeIcon
+				color="currentColor"
+				spacing="spacious"
+				label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview'}
+			/>
 		);
 	}, [hasPreviewPanel]);
 

@@ -2,9 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo } from 'react';
+import { memo, type MemoExoticComponent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import type { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 
@@ -96,7 +96,7 @@ export function CardInner({
 	provided: DraggableProvided;
 	snapshot: DraggableStateSnapshot;
 	item: Item;
-}) {
+}): jsx.JSX.Element {
 	const state = snapshot.isDragging ? 'dragging' : 'idle';
 
 	return (
@@ -115,7 +115,9 @@ export function CardInner({
 	);
 }
 
-export const Card = memo(({ item, index, draggableId, rbdApi }: CardProps) => {
+export const Card: MemoExoticComponent<
+	({ item, index, draggableId, rbdApi }: CardProps) => jsx.JSX.Element
+> = memo(({ item, index, draggableId, rbdApi }: CardProps): jsx.JSX.Element => {
 	const { Draggable } = rbdApi;
 	return (
 		<Draggable index={index} draggableId={draggableId}>

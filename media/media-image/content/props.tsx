@@ -1,7 +1,157 @@
 import React from 'react';
 import { md, PropsTable } from '@atlaskit/docs';
 
-export const mediaImageProps = {
+export const mediaImageProps: {
+	kind: string;
+	component: {
+		kind: string;
+		value: {
+			kind: string;
+			members: (
+				| {
+						kind: string;
+						optional: boolean;
+						key: {
+							kind: string;
+							name: string;
+						};
+						value: {
+							kind: string;
+							value: {
+								kind: string;
+								importKind: string;
+								name: string;
+								moduleSpecifier: string;
+								returnType?: undefined;
+								parameters?: undefined;
+							};
+						};
+						leadingComments: {
+							type: string;
+							value: string;
+							raw: string;
+						}[];
+						trailingComments: {
+							type: string;
+							value: string;
+							raw: string;
+						}[];
+						default?: undefined;
+				  }
+				| {
+						kind: string;
+						optional: boolean;
+						key: {
+							kind: string;
+							name: string;
+						};
+						value: {
+							kind: string;
+							value: {
+								kind: string;
+								importKind: string;
+								name: string;
+								moduleSpecifier: string;
+								returnType?: undefined;
+								parameters?: undefined;
+							};
+						};
+						leadingComments: {
+							type: string;
+							value: string;
+							raw: string;
+						}[];
+						trailingComments: {
+							type: string;
+							value: string;
+							raw: string;
+						}[];
+						default: {
+							kind: string;
+							members: never[];
+						};
+				  }
+				| {
+						kind: string;
+						optional: boolean;
+						key: {
+							kind: string;
+							name: string;
+						};
+						value: {
+							kind: string;
+							value: {
+								kind: string;
+								returnType: {
+									kind: string;
+									value: {
+										kind: string;
+										importKind: string;
+										name: string;
+										moduleSpecifier: string;
+									};
+								};
+								parameters: {
+									kind: string;
+									value: {
+										kind: string;
+										name: string;
+									};
+									type: null;
+								}[];
+								importKind?: undefined;
+								name?: undefined;
+								moduleSpecifier?: undefined;
+							};
+						};
+						leadingComments: {
+							type: string;
+							value: string;
+							raw: string;
+						}[];
+						trailingComments: {
+							type: string;
+							value: string;
+							raw: string;
+						}[];
+						default?: undefined;
+				  }
+				| {
+						kind: string;
+						optional: boolean;
+						key: {
+							kind: string;
+							name: string;
+						};
+						value: {
+							kind: string;
+							value: {
+								kind: string;
+								importKind: string;
+								name: string;
+								moduleSpecifier: string;
+								returnType?: undefined;
+								parameters?: undefined;
+							};
+						};
+						leadingComments: {
+							type: string;
+							value: string;
+							raw: string;
+						}[];
+						trailingComments?: undefined;
+						default?: undefined;
+				  }
+			)[];
+			referenceIdName: string;
+		};
+		name: {
+			kind: string;
+			name: string;
+			type: null;
+		};
+	};
+} = {
 	kind: 'program',
 	component: {
 		kind: 'generic',
@@ -187,6 +337,7 @@ export const mediaImageProps = {
 	},
 };
 
-export default md`
+const _default_1: any = md`
   ${(<PropsTable heading="MediaImage Props" props={mediaImageProps} />)}
 `;
+export default _default_1;

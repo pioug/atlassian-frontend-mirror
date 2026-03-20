@@ -16,13 +16,13 @@ export const DEFAULT_INLINE_IMAGE_BORDER_SIZE = 0;
  * and have been copied here to remove this package.
  */
 export const referenceHeights: {
-    p: number;
-    h1: number;
-    h2: number;
-    h3: number;
-    h4: number;
-    h5: number;
-    h6: number;
+	p: number;
+	h1: number;
+	h2: number;
+	h3: number;
+	h4: number;
+	h5: number;
+	h6: number;
 } = {
 	p: 24 - 2,
 	h1: 32 + 4,

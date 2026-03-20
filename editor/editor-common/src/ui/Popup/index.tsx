@@ -68,9 +68,9 @@ export default class Popup extends React.Component<Props, State> {
 	scrollParentElement: undefined | false | HTMLElement;
 	rafIds: Set<number> = new Set();
 	static defaultProps: {
-        offset: number[];
-        allowOutOfBound: boolean;
-    } = {
+		offset: number[];
+		allowOutOfBound: boolean;
+	} = {
 		offset: [0, 0],
 		allowOutOfBound: false,
 	};

@@ -23,10 +23,8 @@ import {
 	type SyncBlockStoreManager,
 	type DeletionReason,
 } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { lazyBodiedSyncBlockView } from '../nodeviews/bodiedLazySyncedBlock';
 import {
 	bodiedSyncBlockNodeView,
 	bodiedSyncBlockNodeViewOld,
@@ -309,13 +307,10 @@ export const createPlugin = (
 ): SafePlugin<SyncedBlockPluginState> => {
 	const { useLongPressSelection = false } = options || {};
 
-	const ctx = fg('platform_synced_block_patch_5') ? new SyncedBlockPluginContext() : undefined;
-	const confirmationTransactionRef: TransactionRef = ctx?.confirmationTransactionRef ?? {
-		current: undefined,
-	};
-	let isCopyEvent: boolean = false;
-	const unpublishedFlagShown = ctx?.unpublishedFlagShown ?? new Set<string>();
-	const extensionFlagShown = ctx?.extensionFlagShown ?? new Set<string>();
+	const ctx = new SyncedBlockPluginContext();
+	const confirmationTransactionRef = ctx.confirmationTransactionRef;
+	const unpublishedFlagShown = ctx.unpublishedFlagShown;
+	const extensionFlagShown = ctx.extensionFlagShown;
 
 	// Set up callback to detect unpublished sync blocks when they're fetched
 	syncBlockStore.referenceManager.setOnUnpublishedSyncBlockDetected((resourceId: string) => {
@@ -351,9 +346,7 @@ export const createPlugin = (
 					activeFlag: false,
 					syncBlockStore: syncBlockStore,
 					retryCreationPosMap: new Map(),
-					hasUnsavedBodiedSyncBlockChanges: fg('platform_synced_block_patch_5')
-						? syncBlockStore.sourceManager.hasUnsavedChanges()
-						: undefined,
+					hasUnsavedBodiedSyncBlockChanges: syncBlockStore.sourceManager.hasUnsavedChanges(),
 				};
 			},
 			apply: (tr, currentPluginState, oldEditorState) => {
@@ -366,15 +359,13 @@ export const createPlugin = (
 					retryCreationPosMap,
 				} = currentPluginState;
 
-				let newDecorationSet = fg('platform_synced_block_patch_5')
-					? tr.docChanged
-						? selectionDecorationSet.map(tr.mapping, tr.doc) // only map if document changed
-						: selectionDecorationSet
-					: selectionDecorationSet.map(tr.mapping, tr.doc);
+				let newDecorationSet = tr.docChanged
+					? selectionDecorationSet.map(tr.mapping, tr.doc) // only map if document changed
+					: selectionDecorationSet;
 
 				if (!tr.selection.eq(oldEditorState.selection)) {
 					newDecorationSet = calculateDecorations(tr.doc, tr.selection, tr.doc.type.schema);
-				} else if (tr.docChanged && fg('platform_synced_block_patch_5')) {
+				} else if (tr.docChanged) {
 					const existingDecorationsLength = selectionDecorationSet.find().length;
 					const newDecorationsLength = newDecorationSet.find().length;
 
@@ -399,9 +390,7 @@ export const createPlugin = (
 					retryCreationPosMap: newRetryCreationPosMap,
 					bodiedSyncBlockDeletionStatus:
 						meta?.bodiedSyncBlockDeletionStatus ?? bodiedSyncBlockDeletionStatus,
-					hasUnsavedBodiedSyncBlockChanges: fg('platform_synced_block_patch_5')
-						? syncBlockStore.sourceManager.hasUnsavedChanges()
-						: undefined,
+					hasUnsavedBodiedSyncBlockChanges: syncBlockStore.sourceManager.hasUnsavedChanges(),
 				};
 			},
 		},
@@ -422,26 +411,20 @@ export const createPlugin = (
 						eventDispatcher: pmPluginFactoryParams.eventDispatcher,
 						syncBlockStore: syncBlockStore,
 					}).init(),
-				bodiedSyncBlock: fg('platform_synced_block_patch_5')
-					? editorExperiment('platform_synced_block_use_new_source_nodeview', true, {
-							exposure: true,
-						})
-						? bodiedSyncBlockNodeView({
-								pluginOptions: options,
-								pmPluginFactoryParams,
-								api,
-								syncBlockStore,
-							})
-						: bodiedSyncBlockNodeViewOld({
-								pluginOptions: options,
-								pmPluginFactoryParams,
-								api,
-								syncBlockStore,
-							})
-					: lazyBodiedSyncBlockView({
+				bodiedSyncBlock: editorExperiment('platform_synced_block_use_new_source_nodeview', true, {
+					exposure: true,
+				})
+					? bodiedSyncBlockNodeView({
 							pluginOptions: options,
 							pmPluginFactoryParams,
 							api,
+							syncBlockStore,
+						})
+					: bodiedSyncBlockNodeViewOld({
+							pluginOptions: options,
+							pmPluginFactoryParams,
+							api,
+							syncBlockStore,
 						}),
 			},
 			decorations: (state) => {
@@ -453,9 +436,8 @@ export const createPlugin = (
 
 				const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
 				const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-				const isDragging = fg('platform_synced_block_patch_5')
-					? api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging'
-					: undefined;
+				const isDragging =
+					api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging';
 
 				const offlineDecorations: Decoration[] = [];
 				const viewModeDecorations: Decoration[] = [];
@@ -496,8 +478,7 @@ export const createPlugin = (
 					// Show sync block border while the user is dragging
 					if (
 						isDragging &&
-						(node.type.name === 'bodiedSyncBlock' || node.type.name === 'syncBlock') &&
-						fg('platform_synced_block_patch_5')
+						(node.type.name === 'bodiedSyncBlock' || node.type.name === 'syncBlock')
 					) {
 						dragDecorations.push(
 							Decoration.node(pos, pos + node.nodeSize, {
@@ -538,11 +519,7 @@ export const createPlugin = (
 					return shouldIgnoreDomEvent(view, event, api);
 				},
 				copy: () => {
-					if (ctx) {
-						ctx.markCopyEvent();
-					} else {
-						isCopyEvent = true;
-					}
+					ctx.markCopyEvent();
 					return false;
 				},
 			},
@@ -550,10 +527,7 @@ export const createPlugin = (
 				const pluginState = syncedBlockPluginKey.getState(state);
 				const syncBlockStore = pluginState?.syncBlockStore;
 				const { schema } = state;
-				const isCopy = ctx ? ctx.consumeCopyEvent() : isCopyEvent;
-				if (!ctx) {
-					isCopyEvent = false;
-				}
+				const isCopy = ctx.consumeCopyEvent();
 
 				if (!syncBlockStore || !isCopy) {
 					return slice;
@@ -619,118 +593,25 @@ export const createPlugin = (
 				state,
 			);
 
-			if (fg('platform_synced_block_patch_5')) {
-				return isOffline
-					? filterTransactionOffline({
-							tr,
-							state,
-							api,
-							isConfirmedSyncBlockDeletion,
-							bodiedSyncBlockRemoved,
-							bodiedSyncBlockAdded,
-						})
-					: filterTransactionOnline({
-							tr,
-							state,
-							syncBlockStore,
-							api,
-							confirmationTransactionRef,
-							bodiedSyncBlockRemoved,
-							bodiedSyncBlockAdded,
-							extensionFlagShown,
-						});
-			}
-
-			if (!isOffline) {
-				const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
-					(node) => node.type.name === 'syncBlock',
-					tr,
-					state,
-				);
-
-				syncBlockRemoved.forEach((syncBlock) => {
-					api?.analytics?.actions?.fireAnalyticsEvent({
-						action: ACTION.DELETED,
-						actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-						actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_DELETE,
-						attributes: {
-							resourceId: syncBlock.attrs.resourceId,
-							blockInstanceId: syncBlock.attrs.localId,
-						},
-						eventType: EVENT_TYPE.OPERATIONAL,
-					});
-				});
-
-				syncBlockAdded.forEach((syncBlock) => {
-					api?.analytics?.actions?.fireAnalyticsEvent({
-						action: ACTION.INSERTED,
-						actionSubject: ACTION_SUBJECT.DOCUMENT,
-						actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK,
-						attributes: {
-							resourceId: syncBlock.attrs.resourceId,
-							blockInstanceId: syncBlock.attrs.localId,
-						},
-						eventType: EVENT_TYPE.TRACK,
-					});
-				});
-
-				if (bodiedSyncBlockRemoved.length > 0) {
-					confirmationTransactionRef.current = tr;
-					return handleBodiedSyncBlockRemoval(
+			return isOffline
+				? filterTransactionOffline({
+						tr,
+						state,
+						api,
+						isConfirmedSyncBlockDeletion,
 						bodiedSyncBlockRemoved,
+						bodiedSyncBlockAdded,
+					})
+				: filterTransactionOnline({
+						tr,
+						state,
 						syncBlockStore,
 						api,
 						confirmationTransactionRef,
-						getDeleteReason(tr),
-					);
-				}
-
-				if (bodiedSyncBlockAdded.length > 0) {
-					if (tr.getMeta(pmHistoryPluginKey)) {
-						// We don't allow bodiedSyncBlock creation via redo, however, we need to return true here to let transaction through so history can be updated properly.
-						// If we simply returns false, creation from redo is blocked as desired, but this results in editor showing redo as possible even though it's not.
-						// After true is returned here and the node is created, we delete the node in the filterTransaction immediately, which cancels out the creation
-						return true;
-					}
-					handleBodiedSyncBlockCreation(bodiedSyncBlockAdded, state, api);
-					return true;
-				}
-
-				showExtensionInSyncBlockWarningIfNeeded(tr, state, api, extensionFlagShown);
-				return true;
-			}
-			const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
-				(node) => node.type.name === 'syncBlock',
-				tr,
-				state,
-			);
-			let errorFlag: FLAG_ID | false = false;
-
-			// Disable (bodied)syncBlock node deletion/creation/edition in offline mode and trigger an error flag instead
-			if (
-				isConfirmedSyncBlockDeletion ||
-				bodiedSyncBlockRemoved.length > 0 ||
-				syncBlockRemoved.length > 0
-			) {
-				errorFlag = FLAG_ID.CANNOT_DELETE_WHEN_OFFLINE;
-			} else if (bodiedSyncBlockAdded.length > 0 || syncBlockAdded.length > 0) {
-				errorFlag = FLAG_ID.CANNOT_CREATE_WHEN_OFFLINE;
-			} else if (hasEditInSyncBlock(tr, state)) {
-				errorFlag = FLAG_ID.CANNOT_EDIT_WHEN_OFFLINE;
-			}
-
-			if (errorFlag) {
-				deferDispatch(() => {
-					api?.core.actions.execute(({ tr }) =>
-						tr.setMeta(syncedBlockPluginKey, {
-							activeFlag: { id: errorFlag },
-						}),
-					);
-				});
-				return false;
-			}
-
-			return true;
+						bodiedSyncBlockRemoved,
+						bodiedSyncBlockAdded,
+						extensionFlagShown,
+					});
 		},
 		appendTransaction: (trs, oldState, newState) => {
 			trs

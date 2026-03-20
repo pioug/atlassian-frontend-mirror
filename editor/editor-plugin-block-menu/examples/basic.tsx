@@ -28,7 +28,7 @@ const allComponents = [
  *
  * @returns A basic example of a block menu using the registry.
  */
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	const registry = createBlockMenuRegistry();
 
 	registry.register(allComponents);

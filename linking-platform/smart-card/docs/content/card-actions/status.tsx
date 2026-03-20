@@ -3,7 +3,7 @@ import React from 'react';
 import StagingCardExample from '../../../examples/content/staging-card-example';
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 This action allows users to change the status of a Jira issue directly from the Smart Link.
 It is designed to reduce context switching by enabling quick updates to issue statuses without needing to open the full Jira interface
@@ -17,3 +17,4 @@ ${(<StagingCardExample url="https://spitz.jira-dev.com/browse/PAW-13" />)}
 **Availability:**  Jira ([jira-object-provider](https://bitbucket.org/atlassian/jira-object-provider))
 
 `;
+export default _default_1;

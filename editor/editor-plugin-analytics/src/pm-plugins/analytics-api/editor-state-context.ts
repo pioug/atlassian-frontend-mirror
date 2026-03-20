@@ -67,19 +67,16 @@ function findInsertedLocation(
 	const newDoc = newSelection.$from.doc;
 	const insertLocationInfo = findParentNode((node) => node.type !== paragraph)(oldSelection);
 
-	let pos = insertLocationInfo?.start || 0;;
+	let pos = insertLocationInfo?.start || 0;
 	if (expValEquals('platform_editor_insert_location_check', 'isEnabled', true)) {
 		// Map the old document position through the transaction's steps
 		pos = tr.mapping.map(pos);
-
 	}
 	let parentNodePos = newDoc.resolve(pos);
 
 	// Keep going one level above the attempted insert position till we find a node that contains the current cursor position in it's range
 	while (parentNodePos.end() < newSelection.$from.pos) {
-		parentNodePos = newDoc.resolve(
-			parentNodePos.start(Math.max(parentNodePos.depth - 1, 0)),
-		);
+		parentNodePos = newDoc.resolve(parentNodePos.start(Math.max(parentNodePos.depth - 1, 0)));
 	}
 	return parentNodePos.node().type.name;
 }

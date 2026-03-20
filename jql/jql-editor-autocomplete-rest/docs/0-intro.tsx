@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
   ${(<AtlassianInternalWarning />)}
 
@@ -49,3 +49,4 @@ const useMyAutocompleteProvider = () => {
   We will monitor the forums and redirect topics to the appropriate maintainers.
 
 `;
+export default _default_1;

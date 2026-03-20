@@ -1,51 +1,61 @@
 import { defineMessages } from 'react-intl-next';
 
 export const tasksAndDecisionsMessages: {
-    taskPlaceholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; decisionPlaceholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; editAccessTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; requestToEditDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; requestToEdit: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dismiss: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; markTaskAsCompleted: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; markTaskAsNotCompleted: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; taskList: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; decisionAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; undefinedDecisionAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	taskPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	decisionPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	editAccessTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	requestToEditDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	requestToEdit: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dismiss: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	markTaskAsCompleted: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	markTaskAsNotCompleted: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	taskList: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	decisionAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	undefinedDecisionAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	taskPlaceholder: {
 		id: 'fabric.editor.taskPlaceholder',

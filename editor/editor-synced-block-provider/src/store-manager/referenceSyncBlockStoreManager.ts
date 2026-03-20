@@ -1,16 +1,13 @@
 import isEqual from 'lodash/isEqual';
-import rafSchedule from 'raf-schd';
 
 import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { ProviderFactory, type MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { type ProviderFactory, type MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	SyncBlockError,
-	type BlockInstanceId,
 	type ResourceId,
 	type SyncBlockAttrs,
 	type SyncBlockNode,
@@ -21,9 +18,7 @@ import type {
 	SubscriptionCallback,
 	SyncBlockDataProviderInterface,
 	TitleSubscriptionCallback,
-	SyncBlockRendererProviderCreator,
 	SyncBlockSourceInfo,
-	Unsubscribe,
 } from '../providers/types';
 import {
 	fetchErrorPayload,
@@ -37,7 +32,6 @@ import {
 	getSaveReferenceExperience,
 } from '../utils/experienceTracking';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
-import { parseResourceId } from '../utils/resourceId';
 import { createSyncBlockNode } from '../utils/utils';
 
 import { SyncBlockBatchFetcher } from './syncBlockBatchFetcher';
@@ -58,28 +52,10 @@ export class ReferenceSyncBlockStoreManager {
 	// This starts as true to always flush the cache when document is saved for the first time
 	// to cater the case when a editor session is closed without document being updated right after reference block is deleted
 	private isCacheDirty: boolean = true;
-	private subscriptions: Map<ResourceId, { [localId: BlockInstanceId]: SubscriptionCallback }>;
-	private titleSubscriptions: Map<
-		ResourceId,
-		{ [localId: BlockInstanceId]: TitleSubscriptionCallback }
-	>;
-	private providerFactories: Map<ResourceId, ProviderFactory>;
 	private fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void;
 
 	private syncBlockFetchDataRequests: Map<ResourceId, boolean>;
 	private syncBlockSourceInfoRequests: Map<ResourceId, Promise<SyncBlockSourceInfo | undefined>>;
-	private isRefreshingSubscriptions: boolean = false;
-	// Track pending cache deletions to handle block moves (unmount/remount)
-	// When a block is moved, the old component unmounts before the new one mounts,
-	// causing the cache to be deleted prematurely. We delay deletion to allow
-	// the new component to subscribe and cancel the pending deletion.
-	private pendingCacheDeletions: Map<ResourceId, ReturnType<typeof setTimeout>>;
-	// Track GraphQL subscriptions for real-time block updates
-	private graphqlSubscriptions: Map<ResourceId, Unsubscribe>;
-	// Flag to indicate if real-time subscriptions are enabled
-	private useRealTimeSubscriptions: boolean = false;
-	// Listeners for subscription changes (used by React components to know when to update)
-	private subscriptionChangeListeners: Set<() => void>;
 	// Track newly added sync blocks (resourceIds that were just subscribed to without cached data)
 	private newlyAddedSyncBlocks: Set<ResourceId>;
 	// Keep track of the last flushed subscriptions to optimize cache flushing on document save
@@ -97,71 +73,40 @@ export class ReferenceSyncBlockStoreManager {
 	private fetchSourceInfoExperience: Experience | undefined;
 	private saveExperience: Experience | undefined;
 
-	private _subscriptionManager?: SyncBlockSubscriptionManager;
-	private _providerFactoryManager?: SyncBlockProviderFactoryManager;
-	private _batchFetcher?: SyncBlockBatchFetcher;
-
-	private pendingFetchRequests = new Set<string>();
-	private scheduledBatchFetch = rafSchedule(() => {
-		if (this.pendingFetchRequests.size === 0) {
-			return;
-		}
-
-		const resourceIds = Array.from(this.pendingFetchRequests);
-
-		const syncBlockNodes = resourceIds.map((resId) => {
-			const subscriptions = this.subscriptions.get(resId) || {};
-			const firstLocalId = Object.keys(subscriptions)[0] || '';
-			return createSyncBlockNode(firstLocalId, resId);
-		});
-
-		this.pendingFetchRequests.clear();
-
-		this.fetchSyncBlocksData(syncBlockNodes).catch((error) => {
-			logException(error, {
-				location:
-					'editor-synced-block-provider/referenceSyncBlockStoreManager/batchedFetchSyncBlocks',
-			});
-			resourceIds.forEach((resId) => {
-				this.fireAnalyticsEvent?.(fetchErrorPayload(error.message, resId));
-			});
-		});
-	});
+	private _subscriptionManager: SyncBlockSubscriptionManager;
+	private _providerFactoryManager: SyncBlockProviderFactoryManager;
+	private _batchFetcher: SyncBlockBatchFetcher;
 
 	constructor(dataProvider?: SyncBlockDataProviderInterface) {
-		this.subscriptions = new Map();
-		this.titleSubscriptions = new Map();
 		this.dataProvider = dataProvider;
 		this.syncBlockFetchDataRequests = new Map();
 		this.syncBlockSourceInfoRequests = new Map();
-		this.providerFactories = new Map();
-		this.pendingCacheDeletions = new Map();
-		this.graphqlSubscriptions = new Map();
-		this.subscriptionChangeListeners = new Set();
 		this.newlyAddedSyncBlocks = new Set();
 
-		if (fg('platform_synced_block_patch_5')) {
-			this._subscriptionManager = new SyncBlockSubscriptionManager({
-				getDataProvider: () => this.dataProvider,
-				getSubscriptions: () => this.subscriptions,
-				getFromCache: (rid) => this.getFromCache(rid),
-				updateCache: (inst) => this.updateCache(inst),
-				fetchSyncBlockSourceInfo: (rid) => this.fetchSyncBlockSourceInfo(rid),
-				getFireAnalyticsEvent: () => this.fireAnalyticsEvent,
-			});
+		this._subscriptionManager = new SyncBlockSubscriptionManager({
+			getDataProvider: () => this.dataProvider,
+			getFromCache: (rid) => this.getFromCache(rid),
+			updateCache: (inst) => this.updateCache(inst),
+			deleteFromCache: (rid) => this.deleteFromCache(rid),
+			debouncedBatchedFetchSyncBlocks: (rid) => this.debouncedBatchedFetchSyncBlocks(rid),
+			fetchSyncBlockSourceInfo: (rid) => this.fetchSyncBlockSourceInfo(rid),
+			getFireAnalyticsEvent: () => this.fireAnalyticsEvent,
+			markCacheDirty: () => {
+				this.isCacheDirty = true;
+			},
+		});
 
-			this._providerFactoryManager = new SyncBlockProviderFactoryManager({
-				getDataProvider: () => this.dataProvider,
-				getFromCache: (rid) => this.getFromCache(rid),
-				getFireAnalyticsEvent: () => this.fireAnalyticsEvent,
-			});
+		this._providerFactoryManager = new SyncBlockProviderFactoryManager({
+			getDataProvider: () => this.dataProvider,
+			getFromCache: (rid) => this.getFromCache(rid),
+			getFireAnalyticsEvent: () => this.fireAnalyticsEvent,
+		});
 
-			this._batchFetcher = new SyncBlockBatchFetcher({
-				getSubscriptions: () => this.subscriptions,
-				fetchSyncBlocksData: (nodes) => this.fetchSyncBlocksData(nodes),
-				getFireAnalyticsEvent: () => this.fireAnalyticsEvent,
-			});
-		}
+		this._batchFetcher = new SyncBlockBatchFetcher({
+			getSubscriptions: () => this._subscriptionManager.getSubscriptions(),
+			fetchSyncBlocksData: (nodes) => this.fetchSyncBlocksData(nodes),
+			getFireAnalyticsEvent: () => this.fireAnalyticsEvent,
+		});
 
 		// The provider might have SSR data cache already set, so we need to update the cache in session memory storage
 		this.setSSRDataInSessionCache(this.dataProvider?.getNodeDataCacheKeys());
@@ -174,34 +119,14 @@ export class ReferenceSyncBlockStoreManager {
 	 * @param enabled - Whether to enable real-time subscriptions
 	 */
 	public setRealTimeSubscriptionsEnabled(enabled: boolean): void {
-		if (this._subscriptionManager && fg('platform_synced_block_patch_5')) {
-			this._subscriptionManager.setRealTimeSubscriptionsEnabled(enabled);
-			return;
-		}
-
-		if (this.useRealTimeSubscriptions === enabled) {
-			return;
-		}
-
-		this.useRealTimeSubscriptions = enabled;
-
-		if (enabled) {
-			// Set up subscriptions for all currently subscribed blocks
-			this.setupGraphQLSubscriptionsForAllBlocks();
-		} else {
-			// Clean up all GraphQL subscriptions
-			this.cleanupAllGraphQLSubscriptions();
-		}
+		this._subscriptionManager.setRealTimeSubscriptionsEnabled(enabled);
 	}
 
 	/**
 	 * Checks if real-time subscriptions are currently enabled.
 	 */
 	public isRealTimeSubscriptionsEnabled(): boolean {
-		if (this._subscriptionManager && fg('platform_synced_block_patch_5')) {
-			return this._subscriptionManager.isRealTimeSubscriptionsEnabled();
-		}
-		return this.useRealTimeSubscriptions;
+		return this._subscriptionManager.isRealTimeSubscriptionsEnabled();
 	}
 
 	/**
@@ -209,10 +134,7 @@ export class ReferenceSyncBlockStoreManager {
 	 * Used by React components to render subscription components.
 	 */
 	public getSubscribedResourceIds(): ResourceId[] {
-		if (this._subscriptionManager && fg('platform_synced_block_patch_5')) {
-			return this._subscriptionManager.getSubscribedResourceIds();
-		}
-		return Array.from(this.subscriptions.keys());
+		return this._subscriptionManager.getSubscribedResourceIds();
 	}
 
 	/**
@@ -221,34 +143,7 @@ export class ReferenceSyncBlockStoreManager {
 	 * @returns Unsubscribe function to remove the listener
 	 */
 	public onSubscriptionsChanged(listener: () => void): () => void {
-		if (this._subscriptionManager && fg('platform_synced_block_patch_5')) {
-			return this._subscriptionManager.onSubscriptionsChanged(listener);
-		}
-		this.subscriptionChangeListeners.add(listener);
-		return () => {
-			this.subscriptionChangeListeners.delete(listener);
-		};
-	}
-
-	/**
-	 * Notifies all subscription change listeners.
-	 */
-	private notifySubscriptionChangeListeners(): void {
-		if (this._subscriptionManager && fg('platform_synced_block_patch_5')) {
-			this._subscriptionManager.notifySubscriptionChangeListeners();
-			return;
-		}
-		this.subscriptionChangeListeners.forEach((listener) => {
-			try {
-				listener();
-			} catch (error) {
-				logException(error as Error, {
-					location:
-						'editor-synced-block-provider/referenceSyncBlockStoreManager/notifySubscriptionChangeListeners',
-				});
-				this.fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
-			}
-		});
+		return this._subscriptionManager.onSubscriptionsChanged(listener);
 	}
 
 	/**
@@ -257,26 +152,7 @@ export class ReferenceSyncBlockStoreManager {
 	 * @param syncBlockInstance - The updated sync block instance
 	 */
 	public handleSubscriptionUpdate(syncBlockInstance: SyncBlockInstance): void {
-		if (this._subscriptionManager && fg('platform_synced_block_patch_5')) {
-			this._subscriptionManager.handleSubscriptionUpdate(syncBlockInstance);
-			return;
-		}
-
-		if (!syncBlockInstance.resourceId) {
-			return;
-		}
-
-		const existingSyncBlock = this.getFromCache(syncBlockInstance.resourceId);
-
-		const resolvedSyncBlockInstance = existingSyncBlock
-			? resolveSyncBlockInstance(existingSyncBlock, syncBlockInstance)
-			: syncBlockInstance;
-
-		this.updateCache(resolvedSyncBlockInstance);
-
-		if (!syncBlockInstance.error) {
-			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
-		}
+		this._subscriptionManager.handleSubscriptionUpdate(syncBlockInstance);
 	}
 
 	public setFireAnalyticsEvent(
@@ -347,164 +223,6 @@ export class ReferenceSyncBlockStoreManager {
 			});
 			return undefined;
 		}
-	}
-
-	/**
-	 * Refreshes the subscriptions for all sync blocks.
-	 * This is a fallback polling mechanism when real-time subscriptions are not enabled.
-	 * @returns {Promise<void>}
-	 */
-	public async refreshSubscriptions(): Promise<void> {
-		// Skip polling refresh if real-time subscriptions are enabled
-		if (this.useRealTimeSubscriptions) {
-			return;
-		}
-
-		if (this.isRefreshingSubscriptions) {
-			return;
-		}
-
-		this.isRefreshingSubscriptions = true;
-
-		const syncBlocks: SyncBlockNode[] = [];
-
-		for (const [resourceId, callbacks] of this.subscriptions.entries()) {
-			Object.keys(callbacks).forEach((localId) => {
-				syncBlocks.push(createSyncBlockNode(localId, resourceId));
-			});
-		}
-
-		try {
-			// fetch latest data for all subscribed sync blocks
-			// this function will update the cache and call the subscriptions
-			await this.fetchSyncBlocksData(syncBlocks);
-		} catch (error) {
-			logException(error as Error, {
-				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
-			});
-			this.fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
-		} finally {
-			this.isRefreshingSubscriptions = false;
-		}
-	}
-
-	/**
-	 * Sets up a GraphQL subscription for a specific block.
-	 * @param resourceId - The resource ID of the block to subscribe to
-	 */
-	private setupGraphQLSubscription(resourceId: ResourceId): void {
-		if (this._subscriptionManager && fg('platform_synced_block_patch_5')) {
-			this._subscriptionManager.setupSubscription(resourceId);
-			return;
-		}
-
-		// Don't set up duplicate subscriptions
-		if (this.graphqlSubscriptions.has(resourceId)) {
-			return;
-		}
-
-		if (!this.dataProvider?.subscribeToBlockUpdates) {
-			return;
-		}
-
-		const unsubscribe = this.dataProvider.subscribeToBlockUpdates(
-			resourceId,
-			(syncBlockInstance) => {
-				// Handle the subscription update
-				this.handleGraphQLSubscriptionUpdate(syncBlockInstance);
-			},
-			(error) => {
-				logException(error, {
-					location:
-						'editor-synced-block-provider/referenceSyncBlockStoreManager/graphql-subscription',
-				});
-				this.fireAnalyticsEvent?.(fetchErrorPayload(error.message));
-			},
-		);
-
-		if (unsubscribe) {
-			this.graphqlSubscriptions.set(resourceId, unsubscribe);
-		}
-	}
-
-	/**
-	 * Handles updates received from GraphQL subscriptions.
-	 * @param syncBlockInstance - The updated sync block instance
-	 */
-	private handleGraphQLSubscriptionUpdate(syncBlockInstance: SyncBlockInstance): void {
-		if (!syncBlockInstance.resourceId) {
-			return;
-		}
-
-		const existingSyncBlock = this.getFromCache(syncBlockInstance.resourceId);
-
-		const resolvedSyncBlockInstance = existingSyncBlock
-			? resolveSyncBlockInstance(existingSyncBlock, syncBlockInstance)
-			: syncBlockInstance;
-
-		this.updateCache(resolvedSyncBlockInstance);
-
-		if (!syncBlockInstance.error) {
-			const callbacks = this.subscriptions.get(syncBlockInstance.resourceId);
-			const localIds = callbacks ? Object.keys(callbacks) : [];
-			localIds.forEach((localId) => {
-				this.fireAnalyticsEvent?.(
-					fetchSuccessPayload(
-						syncBlockInstance.resourceId,
-						localId,
-						syncBlockInstance.data?.product,
-					),
-				);
-			});
-			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
-		} else {
-			const errorMessage = syncBlockInstance.error?.reason || syncBlockInstance.error?.type;
-
-			this.fireAnalyticsEvent?.(fetchErrorPayload(errorMessage, syncBlockInstance.resourceId));
-		}
-	}
-
-	/**
-	 * Cleans up the GraphQL subscription for a specific block.
-	 * @param resourceId - The resource ID of the block to unsubscribe from
-	 */
-	private cleanupGraphQLSubscription(resourceId: ResourceId): void {
-		if (this._subscriptionManager && fg('platform_synced_block_patch_5')) {
-			this._subscriptionManager.cleanupSubscription(resourceId);
-			return;
-		}
-		const unsubscribe = this.graphqlSubscriptions.get(resourceId);
-		if (unsubscribe) {
-			unsubscribe();
-			this.graphqlSubscriptions.delete(resourceId);
-		}
-	}
-
-	/**
-	 * Sets up GraphQL subscriptions for all currently subscribed blocks.
-	 */
-	private setupGraphQLSubscriptionsForAllBlocks(): void {
-		if (this._subscriptionManager && fg('platform_synced_block_patch_5')) {
-			this._subscriptionManager.setupSubscriptionsForAllBlocks();
-			return;
-		}
-		for (const resourceId of this.subscriptions.keys()) {
-			this.setupGraphQLSubscription(resourceId);
-		}
-	}
-
-	/**
-	 * Cleans up all GraphQL subscriptions.
-	 */
-	private cleanupAllGraphQLSubscriptions(): void {
-		if (this._subscriptionManager && fg('platform_synced_block_patch_5')) {
-			this._subscriptionManager.cleanupAll();
-			return;
-		}
-		for (const unsubscribe of this.graphqlSubscriptions.values()) {
-			unsubscribe();
-		}
-		this.graphqlSubscriptions.clear();
 	}
 
 	public fetchSyncBlockSourceInfoBySourceAri(
@@ -600,7 +318,7 @@ export class ReferenceSyncBlockStoreManager {
 					this.updateCacheWithSourceInfo(resourceId, sourceInfo);
 
 					if (sourceInfo.title) {
-						this.updateSourceTitleSubscriptions(resourceId, sourceInfo.title);
+						this._subscriptionManager.updateSourceTitleSubscriptions(resourceId, sourceInfo.title);
 					}
 
 					if (sourceInfo.title && sourceInfo.url) {
@@ -675,7 +393,7 @@ export class ReferenceSyncBlockStoreManager {
 				reason: `Prefetch promise rejected: ${(error as Error).message}`,
 			});
 		} finally {
-			// Clean up in-flight markers so subsequent fetches (e.g. refreshSubscriptions) are not blocked
+			// Clean up in-flight markers so subsequent fetches are not blocked
 			prefetchedData.resourceIds.forEach((resourceId) => {
 				this.syncBlockFetchDataRequests.delete(resourceId);
 			});
@@ -798,7 +516,9 @@ export class ReferenceSyncBlockStoreManager {
 				}
 				return;
 			}
-			const callbacks = this.subscriptions.get(syncBlockInstance.resourceId);
+			const callbacks = this._subscriptionManager
+				.getSubscriptions()
+				.get(syncBlockInstance.resourceId);
 			const localIds = callbacks ? Object.keys(callbacks) : [];
 			localIds.forEach((localId) => {
 				this.fireAnalyticsEvent?.(
@@ -839,22 +559,8 @@ export class ReferenceSyncBlockStoreManager {
 				{ [resourceId]: syncBlock },
 				{ strategy: 'merge', source: 'network' },
 			);
-			const callbacks = this.subscriptions.get(resourceId);
-			if (callbacks) {
-				Object.values(callbacks).forEach((callback) => {
-					callback(syncBlock);
-				});
-			}
+			this._subscriptionManager.notifySubscriptionCallbacks(resourceId, syncBlock);
 			this.updateSessionCache(resourceId);
-		}
-	}
-
-	private updateSourceTitleSubscriptions(resourceId: string, title: string) {
-		const callbacks = this.titleSubscriptions.get(resourceId);
-		if (callbacks) {
-			Object.values(callbacks).forEach((callback) => {
-				callback(title);
-			});
 		}
 	}
 
@@ -865,28 +571,11 @@ export class ReferenceSyncBlockStoreManager {
 
 	private deleteFromCache(resourceId: ResourceId) {
 		this.dataProvider?.removeFromCache([resourceId]);
-		if (this._providerFactoryManager && fg('platform_synced_block_patch_5')) {
-			this._providerFactoryManager.deleteFactory(resourceId);
-		} else {
-			this.providerFactories.delete(resourceId);
-		}
+		this._providerFactoryManager.deleteFactory(resourceId);
 	}
 
 	private debouncedBatchedFetchSyncBlocks(resourceId: string): void {
-		if (this._batchFetcher && fg('platform_synced_block_patch_5')) {
-			this._batchFetcher.queueFetch(resourceId);
-			return;
-		}
-		// Only add to pending requests if there are active subscriptions for this resource
-		if (
-			this.subscriptions.has(resourceId) &&
-			Object.keys(this.subscriptions.get(resourceId) || {}).length > 0
-		) {
-			this.pendingFetchRequests.add(resourceId);
-			this.scheduledBatchFetch();
-		} else {
-			this.pendingFetchRequests.delete(resourceId);
-		}
+		this._batchFetcher.queueFetch(resourceId);
 	}
 
 	private setSSRDataInSessionCache(resourceIds: string[] | undefined): void {
@@ -904,115 +593,11 @@ export class ReferenceSyncBlockStoreManager {
 		localId: string,
 		callback: SubscriptionCallback,
 	): () => void {
-		// Cancel any pending cache deletion for this resourceId.
-		// This handles the case where a block is moved - the old component unmounts
-		// (scheduling deletion) but the new component mounts and subscribes before
-		// the deletion timeout fires.
-		const pendingDeletion = this.pendingCacheDeletions.get(resourceId);
-		if (pendingDeletion) {
-			clearTimeout(pendingDeletion);
-			this.pendingCacheDeletions.delete(resourceId);
-		}
-
-		// add to subscriptions map
-		const resourceSubscriptions = this.subscriptions.get(resourceId) || {};
-		const isNewResourceSubscription = Object.keys(resourceSubscriptions).length === 0;
-		this.subscriptions.set(resourceId, { ...resourceSubscriptions, [localId]: callback });
-
-		// New subscription means new reference synced block is added to the document
-		this.isCacheDirty = true;
-
-		// Notify listeners if this is a new resource subscription
-		if (isNewResourceSubscription) {
-			this.notifySubscriptionChangeListeners();
-		}
-
-		const syncBlockNode = createSyncBlockNode(localId, resourceId);
-
-		const cachedData = this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
-
-		if (cachedData) {
-			callback(cachedData);
-		} else {
-			this.debouncedBatchedFetchSyncBlocks(resourceId);
-		}
-
-		// Set up GraphQL subscription if real-time subscriptions are enabled
-		const useRealTime =
-			this._subscriptionManager && fg('platform_synced_block_patch_5')
-				? this._subscriptionManager.shouldUseRealTime()
-				: this.useRealTimeSubscriptions;
-		if (useRealTime) {
-			this.setupGraphQLSubscription(resourceId);
-		}
-
-		return () => {
-			const resourceSubscriptions = this.subscriptions.get(resourceId);
-			if (resourceSubscriptions) {
-				// Unsubscription means a reference synced block is removed from the document
-				this.isCacheDirty = true;
-
-				delete resourceSubscriptions[localId];
-				if (Object.keys(resourceSubscriptions).length === 0) {
-					this.subscriptions.delete(resourceId);
-
-					// Clean up GraphQL subscription when no more local subscribers
-					this.cleanupGraphQLSubscription(resourceId);
-
-					// Notify listeners that subscription was removed
-					this.notifySubscriptionChangeListeners();
-
-					// Delay cache deletion to handle block moves (unmount/remount).
-					// When a block is moved, the old component unmounts before the new one mounts.
-					// By delaying deletion, we give the new component time to subscribe and
-					// cancel this pending deletion, preserving the cached data.
-					// TODO: EDITOR-4152 - Rework this logic
-					const deletionTimeout = setTimeout(() => {
-						// Only delete if still no subscribers (wasn't re-subscribed)
-						if (!this.subscriptions.has(resourceId)) {
-							this.deleteFromCache(resourceId);
-						}
-						this.pendingCacheDeletions.delete(resourceId);
-					}, 1000);
-					this.pendingCacheDeletions.set(resourceId, deletionTimeout);
-				} else {
-					this.subscriptions.set(resourceId, resourceSubscriptions);
-				}
-			}
-		};
+		return this._subscriptionManager.subscribeToSyncBlock(resourceId, localId, callback);
 	}
 
 	public subscribeToSourceTitle(node: PMNode, callback: TitleSubscriptionCallback): () => void {
-		// check node is a sync block, as we only support sync block subscriptions
-		if (node.type.name !== 'syncBlock') {
-			return () => {};
-		}
-		const { resourceId, localId } = node.attrs;
-
-		if (!localId || !resourceId) {
-			return () => {};
-		}
-
-		const cachedData = this.getFromCache(resourceId);
-		if (cachedData?.data?.sourceTitle) {
-			callback(cachedData.data.sourceTitle);
-		}
-
-		// add to subscriptions map
-		const resourceSubscriptions = this.titleSubscriptions.get(resourceId) || {};
-		this.titleSubscriptions.set(resourceId, { ...resourceSubscriptions, [localId]: callback });
-
-		return () => {
-			const resourceSubscriptions = this.titleSubscriptions.get(resourceId);
-			if (resourceSubscriptions) {
-				delete resourceSubscriptions[localId];
-				if (Object.keys(resourceSubscriptions).length === 0) {
-					this.titleSubscriptions.delete(resourceId);
-				} else {
-					this.titleSubscriptions.set(resourceId, resourceSubscriptions);
-				}
-			}
-		};
+		return this._subscriptionManager.subscribeToSourceTitle(node, callback);
 	}
 
 	public subscribe(node: PMNode, callback: SubscriptionCallback): () => void {
@@ -1028,7 +613,7 @@ export class ReferenceSyncBlockStoreManager {
 				throw new Error('Missing local id or resource id');
 			}
 
-			return this.subscribeToSyncBlock(resourceId, localId, callback);
+			return this._subscriptionManager.subscribeToSyncBlock(resourceId, localId, callback);
 		} catch (error) {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
@@ -1054,176 +639,13 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	public getProviderFactory(resourceId: ResourceId): ProviderFactory | undefined {
-		if (this._providerFactoryManager && fg('platform_synced_block_patch_5')) {
-			return this._providerFactoryManager.getProviderFactory(resourceId);
-		}
-
-		if (!this.dataProvider) {
-			const error = new Error('Data provider not set');
-			logException(error, {
-				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
-			});
-			this.fireAnalyticsEvent?.(fetchErrorPayload(error.message));
-			return undefined;
-		}
-
-		const { parentDataProviders, providerCreator } =
-			this.dataProvider.getSyncedBlockRendererProviderOptions();
-
-		let providerFactory: ProviderFactory | undefined = this.providerFactories.get(resourceId);
-		if (!providerFactory) {
-			providerFactory = ProviderFactory.create({
-				mentionProvider: parentDataProviders?.mentionProvider,
-				profilecardProvider: parentDataProviders?.profilecardProvider,
-				taskDecisionProvider: parentDataProviders?.taskDecisionProvider,
-			});
-			this.providerFactories.set(resourceId, providerFactory);
-		} else {
-			if (parentDataProviders?.mentionProvider) {
-				providerFactory.setProvider('mentionProvider', parentDataProviders?.mentionProvider);
-			}
-			if (parentDataProviders?.profilecardProvider) {
-				providerFactory.setProvider(
-					'profilecardProvider',
-					parentDataProviders?.profilecardProvider,
-				);
-			}
-			if (parentDataProviders?.taskDecisionProvider) {
-				providerFactory.setProvider(
-					'taskDecisionProvider',
-					parentDataProviders?.taskDecisionProvider,
-				);
-			}
-		}
-
-		if (providerCreator) {
-			try {
-				this.retrieveDynamicProviders(resourceId, providerFactory, providerCreator);
-			} catch (error) {
-				logException(error as Error, {
-					location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
-				});
-				this.fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message, resourceId));
-			}
-		}
-		return providerFactory;
+		return this._providerFactoryManager.getProviderFactory(resourceId);
 	}
 
 	public getSSRProviders(resourceId: ResourceId): {
 		media: MediaProvider;
 	} | null {
-		if (this._providerFactoryManager && fg('platform_synced_block_patch_5')) {
-			return this._providerFactoryManager.getSSRProviders(resourceId);
-		}
-
-		if (!this.dataProvider) {
-			return null;
-		}
-
-		const { providerCreator } = this.dataProvider.getSyncedBlockRendererProviderOptions();
-
-		if (!providerCreator?.createSSRMediaProvider) {
-			return null;
-		}
-
-		const parsedResourceId = parseResourceId(resourceId);
-
-		if (!parsedResourceId) {
-			return null;
-		}
-
-		const { contentId, product: contentProduct } = parsedResourceId;
-
-		try {
-			const mediaProvider = providerCreator.createSSRMediaProvider({
-				contentId,
-				contentProduct,
-			});
-
-			if (mediaProvider) {
-				return {
-					media: mediaProvider,
-				};
-			}
-		} catch (error) {
-			logException(error as Error, {
-				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
-			});
-		}
-
-		return null;
-	}
-
-	private retrieveDynamicProviders(
-		resourceId: ResourceId,
-		providerFactory: ProviderFactory,
-		providerCreator: SyncBlockRendererProviderCreator,
-	) {
-		if (!this.dataProvider) {
-			throw new Error('Data provider not set');
-		}
-
-		const hasMediaProvider = providerFactory.hasProvider('mediaProvider');
-		const hasEmojiProvider = providerFactory.hasProvider('emojiProvider');
-		const hasCardProvider = providerFactory.hasProvider('cardProvider');
-
-		if (hasMediaProvider && hasEmojiProvider && hasCardProvider) {
-			return;
-		}
-
-		const syncBlock = this.getFromCache(resourceId);
-		if (!syncBlock?.data) {
-			return;
-		}
-
-		if (!syncBlock.data.sourceAri || !syncBlock.data.product) {
-			this.fireAnalyticsEvent?.(fetchErrorPayload('Sync block source ari or product not found'));
-			return;
-		}
-
-		const parentInfo = this.dataProvider.retrieveSyncBlockParentInfo(
-			syncBlock.data?.sourceAri,
-			syncBlock.data?.product,
-		);
-
-		if (!parentInfo) {
-			throw new Error('Unable to retrieve sync block parent info');
-		}
-
-		const { contentId, contentProduct } = parentInfo;
-
-		if (!hasMediaProvider) {
-			if (providerCreator.createMediaProvider && contentId && contentProduct) {
-				const mediaProvider = providerCreator.createMediaProvider({
-					contentProduct,
-					contentId,
-				});
-				if (mediaProvider) {
-					providerFactory.setProvider('mediaProvider', mediaProvider);
-				}
-			}
-		}
-
-		if (!hasEmojiProvider) {
-			if (providerCreator.createEmojiProvider && contentId && contentProduct) {
-				const emojiProvider = providerCreator.createEmojiProvider({
-					contentProduct,
-					contentId,
-				});
-				if (emojiProvider) {
-					providerFactory.setProvider('emojiProvider', emojiProvider);
-				}
-			}
-		}
-
-		if (!hasCardProvider) {
-			if (providerCreator.createSmartLinkProvider) {
-				const smartLinkProvider = providerCreator.createSmartLinkProvider();
-				if (smartLinkProvider) {
-					providerFactory.setProvider('cardProvider', smartLinkProvider);
-				}
-			}
-		}
+		return this._providerFactoryManager.getSSRProviders(resourceId);
 	}
 
 	/**
@@ -1261,7 +683,9 @@ export class ReferenceSyncBlockStoreManager {
 			const blocks: SyncBlockAttrs[] = [];
 
 			// First, build the complete subscription structure
-			for (const [resourceId, callbacks] of this.subscriptions.entries()) {
+			for (const [resourceId, callbacks] of this._subscriptionManager
+				.getSubscriptions()
+				.entries()) {
 				syncedBlocksToFlush[resourceId] = {};
 
 				Object.keys(callbacks).forEach((localId) => {
@@ -1345,38 +769,20 @@ export class ReferenceSyncBlockStoreManager {
 			this.queuedFlushTimeout = undefined;
 		}
 
-		if (fg('platform_synced_block_patch_5')) {
-			this._subscriptionManager?.destroy();
-			this._providerFactoryManager?.destroy();
-			this._batchFetcher?.destroy();
-		}
-
-		// Clean up all GraphQL subscriptions first
-		this.cleanupAllGraphQLSubscriptions();
+		this._subscriptionManager.destroy();
+		this._providerFactoryManager.destroy();
+		this._batchFetcher.destroy();
 
 		this.dataProvider?.resetCache();
-		this.scheduledBatchFetch.cancel();
-		this.pendingFetchRequests.clear();
 
 		this.dataProvider = undefined;
-		this.subscriptions.clear();
-		this.titleSubscriptions.clear();
 		this.syncBlockFetchDataRequests.clear();
 		this.syncBlockSourceInfoRequests.clear();
-		this.isRefreshingSubscriptions = false;
-		this.useRealTimeSubscriptions = false;
-		this.subscriptionChangeListeners.clear();
-		this.providerFactories.forEach((providerFactory) => {
-			providerFactory.destroy();
-		});
-		this.providerFactories.clear();
 		this.saveExperience?.abort({ reason: 'editorDestroyed' });
 		this.fetchExperience?.abort({ reason: 'editorDestroyed' });
 		this.fetchSourceInfoExperience?.abort({ reason: 'editorDestroyed' });
 		this.fireAnalyticsEvent = undefined;
 
-		if (fg('platform_synced_block_patch_5')) {
-			syncBlockInMemorySessionCache.clear();
-		}
+		syncBlockInMemorySessionCache.clear();
 	}
 }

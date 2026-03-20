@@ -9,9 +9,9 @@ import { css, jsx } from '@compiled/react';
 import { B400, B500, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { useTabList } from '../hooks';
-import { TabContext } from '../internal/context';
+import { TabContext } from '../internal/tab-context';
 import { type TabListProps } from '../types';
+import useTabList from '../use-tab-list';
 
 const baseStyles = css({
 	display: 'flex',

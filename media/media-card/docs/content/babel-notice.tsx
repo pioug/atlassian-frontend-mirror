@@ -2,7 +2,7 @@ import Link from '@atlaskit/link';
 import React from 'react';
 import SectionMessage from '@atlaskit/section-message';
 
-export default function BabelNotice() {
+export default function BabelNotice(): React.JSX.Element {
 	return (
 		<SectionMessage title={`Note : `} appearance="warning">
 			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}

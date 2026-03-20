@@ -1,6 +1,6 @@
 import invariant from 'tiny-invariant';
 
-export function getItem(container: HTMLElement, itemId: string) {
+export function getItem(container: HTMLElement, itemId: string): HTMLElement {
 	const item: HTMLElement | null = container.querySelector(`[data-testid="item-${itemId}"]`);
 	if (item == null) {
 		throw new Error(`Could not find item ${itemId}`);
@@ -8,7 +8,13 @@ export function getItem(container: HTMLElement, itemId: string) {
 	return item;
 }
 
-export function getColumn(container: HTMLElement, columnId: string) {
+export function getColumn(
+	container: HTMLElement,
+	columnId: string,
+): {
+	element: HTMLElement;
+	dragHandle: HTMLElement;
+} {
 	const element: HTMLElement | null = container.querySelector(`[data-testid="column-${columnId}"]`);
 	const dragHandle: HTMLElement | null = container.querySelector(
 		`[data-testid="column-${columnId}--header"]`,

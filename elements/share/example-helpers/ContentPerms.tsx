@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import UnlockIcon from '@atlaskit/icon/core/lock-unlocked';
@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 const message = 'Anyone can view';
 
-export default () => (
+export default (): jsx.JSX.Element => (
 	<div
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={{

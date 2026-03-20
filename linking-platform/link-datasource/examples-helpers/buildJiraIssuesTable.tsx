@@ -79,7 +79,7 @@ const JiraIssuesTableView = ({
 export const ExampleJiraIssuesTableView = ({
 	mockDatasourceFetchRequest = true,
 	...props
-}: JiraIssuesTableViewProps) => {
+}: JiraIssuesTableViewProps): React.JSX.Element => {
 	if (mockDatasourceFetchRequest) {
 		mockDatasourceFetchRequests();
 	}

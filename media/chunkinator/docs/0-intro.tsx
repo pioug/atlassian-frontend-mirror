@@ -2,7 +2,7 @@ import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
 import { createRxjsNotice, createMediaUseOnlyNotice } from '@atlaskit/media-common/docs';
 
-export default md`
+const _default_1: any = md`
 ${createMediaUseOnlyNotice('Chunkinator', [
 	{ name: 'Media Picker', link: '/packages/media/media-picker' },
 ])}
@@ -50,3 +50,4 @@ ${createMediaUseOnlyNotice('Chunkinator', [
 		/>
 	)}
 `;
+export default _default_1;

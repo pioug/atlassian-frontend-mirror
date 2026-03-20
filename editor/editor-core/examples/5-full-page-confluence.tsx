@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import Spinner from '@atlaskit/spinner';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import SidebarContainer from '../example-helpers/SidebarContainer';
 import { PresetContextProvider } from '../src/presets/context';
@@ -29,10 +28,6 @@ const disabledBlanket = css({
 		marginTop: '50vh',
 		marginLeft: '50vw',
 	},
-});
-
-setupEditorExperiments('test', {
-	advanced_layouts: true,
 });
 
 /**

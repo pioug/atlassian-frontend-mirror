@@ -8,7 +8,7 @@ const centeredFormStyles = xcss({
 	margin: 'auto',
 });
 
-export const CenteredForm = ({ children }: { children: ReactNode }) => (
+export const CenteredForm = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Stack alignInline="center" alignBlock="center" grow="fill" xcss={centeredFormStyles}>
 		<Box>{children}</Box>
 	</Stack>

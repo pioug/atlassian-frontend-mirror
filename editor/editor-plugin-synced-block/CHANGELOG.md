@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 6.0.14
+
+### Patch Changes
+
+- [`7428d9bf3aa13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7428d9bf3aa13) -
+  Clean up platform_synced_block_patch_5 feature gate
+- Updated dependencies
+
+## 6.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.12
+
+### Patch Changes
+
+- [`10827e937e450`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10827e937e450) -
+  [EDITOR-5750] Fix instrumentation issues with sync block experience tracking
+- Updated dependencies
+
 ## 6.0.11
 
 ### Patch Changes

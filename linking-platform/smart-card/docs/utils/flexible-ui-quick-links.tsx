@@ -23,6 +23,6 @@ const links = customMd`
 • [ActionItem](./action-item)
 `;
 
-const FlexibleUiQuickLinks = () => <section css={styles}>{links}</section>;
+const FlexibleUiQuickLinks = (): JSX.Element => <section css={styles}>{links}</section>;
 
 export default FlexibleUiQuickLinks;

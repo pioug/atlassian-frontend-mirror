@@ -28,7 +28,7 @@ const styles = css({
 	},
 });
 
-const LinkTabs = ({ tabs = [] }: { tabs: { content: any; name: string }[] }) => {
+const LinkTabs = ({ tabs = [] }: { tabs: { content: any; name: string }[] }): JSX.Element => {
 	return (
 		<Stack space="space.100">
 			<Inline alignInline="end" space="space.100">

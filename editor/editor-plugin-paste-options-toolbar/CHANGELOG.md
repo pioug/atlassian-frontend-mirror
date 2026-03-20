@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.1.4
+
+### Patch Changes
+
+- [`cdacbdec78ed6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdacbdec78ed6) -
+  [EDITOR-5980] Fix sticky menu stopping before table when paste selection ends inside cell
+- [`70e3625a8ae3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70e3625a8ae3f) -
+  [EDITOR-5880] updated prop name for consistency and used view.dom for stable editor reference
+- Updated dependencies
+
 ## 9.1.3
 
 ### Patch Changes

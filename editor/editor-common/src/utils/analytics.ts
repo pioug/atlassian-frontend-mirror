@@ -66,9 +66,9 @@ export enum SEVERITY {
 export const analyticsEventKey = 'EDITOR_ANALYTICS_EVENT';
 
 const EDITOR_BREAKPOINT_WIDTH: {
-    S: number;
-    M: number;
-    L: number;
+	S: number;
+	M: number;
+	L: number;
 } = {
 	S: 760,
 	M: 1600,

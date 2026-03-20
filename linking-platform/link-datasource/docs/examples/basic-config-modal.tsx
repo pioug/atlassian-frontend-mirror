@@ -131,7 +131,7 @@ const MyCustomDatasourceModal = createDatasourceModal<MyConfigModalParameters>({
 	component: ModalComponent,
 });
 
-const MyCustomDatasourceModalWithProvider = () => {
+const MyCustomDatasourceModalWithProvider = (): React.JSX.Element => {
 	const [showModal, setShowModal] = useState(false);
 
 	const toggleIsOpen = () => setShowModal((prevOpenState) => !prevOpenState);

@@ -1,38 +1,46 @@
 export const connectedExtensionADF: {
-    version: number; type: string; content: ({
-        type: string;
-        content: {
-            type: string;
-            text: string;
-        }[];
-        attrs?: undefined;
-        marks?: undefined;
-    } | {
-        type: string;
-        attrs: {
-            extensionType: string;
-            extensionKey: string;
-            parameters: {};
-            layout: string;
-            localId: string;
-        };
-        marks: ({
-            type: string;
-            attrs: {
-                localId: string;
-                name: string;
-                sources?: undefined;
-            };
-        } | {
-            type: string;
-            attrs: {
-                sources: string[];
-                localId?: undefined;
-                name?: undefined;
-            };
-        })[];
-        content?: undefined;
-    })[];
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				content: {
+					type: string;
+					text: string;
+				}[];
+				attrs?: undefined;
+				marks?: undefined;
+		  }
+		| {
+				type: string;
+				attrs: {
+					extensionType: string;
+					extensionKey: string;
+					parameters: {};
+					layout: string;
+					localId: string;
+				};
+				marks: (
+					| {
+							type: string;
+							attrs: {
+								localId: string;
+								name: string;
+								sources?: undefined;
+							};
+					  }
+					| {
+							type: string;
+							attrs: {
+								sources: string[];
+								localId?: undefined;
+								name?: undefined;
+							};
+					  }
+				)[];
+				content?: undefined;
+		  }
+	)[];
 } = {
 	version: 1,
 	type: 'doc',
@@ -120,20 +128,25 @@ export const connectedExtensionADF: {
 	],
 };
 export const infoPanelADF: {
-    version: number; type: string; content: ({
-        type: string;
-        attrs: {
-            panelType: string;
-        };
-        content: {
-            type: string;
-            content: never[];
-        }[];
-    } | {
-        type: string;
-        content: never[];
-        attrs?: undefined;
-    })[];
+	version: number;
+	type: string;
+	content: (
+		| {
+				type: string;
+				attrs: {
+					panelType: string;
+				};
+				content: {
+					type: string;
+					content: never[];
+				}[];
+		  }
+		| {
+				type: string;
+				content: never[];
+				attrs?: undefined;
+		  }
+	)[];
 } = {
 	version: 1,
 	type: 'doc',
@@ -157,18 +170,20 @@ export const infoPanelADF: {
 	],
 };
 export const listWithCodeBlockADF: {
-    version: number; type: string; content: {
-        type: string;
-        content: {
-            type: string;
-            content: {
-                type: string;
-                attrs: {
-                    language: string;
-                };
-            }[];
-        }[];
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		content: {
+			type: string;
+			content: {
+				type: string;
+				attrs: {
+					language: string;
+				};
+			}[];
+		}[];
+	}[];
 } = {
 	version: 1,
 	type: 'doc',

@@ -18,7 +18,8 @@ const INTERSECTION_OBSERVER_OPTIONS: IntersectionObserverInit = {
 };
 
 // Parameterized singleton
-export const getOrCreateOnVisibleObserver: ((view: EditorView) => OnVisibleObserver) & MemoizedFunction = memoize((view: EditorView): OnVisibleObserver => {
+export const getOrCreateOnVisibleObserver: ((view: EditorView) => OnVisibleObserver) &
+	MemoizedFunction = memoize((view: EditorView): OnVisibleObserver => {
 	const intersectionObserverOptions: IntersectionObserverInit = {
 		root: view.dom.closest(INTERSECTION_OBSERVER_ROOT_SELECTOR),
 		...INTERSECTION_OBSERVER_OPTIONS,

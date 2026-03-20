@@ -46,6 +46,40 @@ function getTargetElement(editorView: EditorView, pos: number): HTMLElement | nu
 }
 
 /**
+ * Returns the position immediately after a table ancestor of `pos`, or
+ * `undefined` if not inside a table. Safe to cache per document version.
+ */
+export function resolveTableAfterPos(editorView: EditorView, pos: number): number | undefined {
+	const $pos = editorView.state.doc.resolve(pos);
+	for (let depth = $pos.depth; depth > 0; depth--) {
+		if ($pos.node(depth).type.name === 'table') {
+			return $pos.after(depth);
+		}
+	}
+	return undefined;
+}
+
+/**
+ * Returns the visual bottom of the pasted content. For positions inside a
+ * table, uses the pre-computed `tableAfterPos` to get the correct bottom edge.
+ */
+export function getVisualEndBottom(
+	editorView: EditorView,
+	pasteEndPos: number,
+	tableAfterPos?: number,
+): number {
+	const endCoords = editorView.coordsAtPos(pasteEndPos);
+	let bottom = endCoords.bottom;
+
+	if (tableAfterPos !== undefined) {
+		const afterCoords = editorView.coordsAtPos(tableAfterPos);
+		bottom = Math.max(bottom, afterCoords.bottom);
+	}
+
+	return bottom;
+}
+
+/**
  * Adjusts the vertical position of the paste menu to align with the top of the
  * pasted content using the exact coordinates at the paste start position,
  * and sticks the menu to the top of the scroll container when the pasted
@@ -73,9 +107,12 @@ export function onPositionCalculated(
 	right?: number;
 	top: number;
 } {
+	// Pre-compute once per render to avoid doc.resolve() on every scroll frame.
+	const tableAfterPos = resolveTableAfterPos(editorView, pasteEndPos);
+
 	return (position: { bottom?: number; left?: number; right?: number; top?: number }) => {
 		const startCoords = editorView.coordsAtPos(pasteStartPos);
-		const endCoords = editorView.coordsAtPos(pasteEndPos);
+		const endBottom = getVisualEndBottom(editorView, pasteEndPos, tableAfterPos);
 		const targetRect = targetElement.getBoundingClientRect();
 
 		// The Popup places the menu at the target's bottom edge by default.
@@ -89,7 +126,7 @@ export function onPositionCalculated(
 		// content is still visible.
 		if (scrollableElement) {
 			const scrollContainerTop = scrollableElement.getBoundingClientRect().top;
-			if (startCoords.top < scrollContainerTop && endCoords.bottom > scrollContainerTop) {
+			if (startCoords.top < scrollContainerTop && endBottom > scrollContainerTop) {
 				adjustedTop += scrollContainerTop - startCoords.top + PASTE_MENU_GAP_TOP;
 			}
 		}
@@ -219,8 +256,7 @@ export const PasteActionsMenu = ({
 	// so the Popup attaches its built-in scroll listener, which calls
 	// scheduledUpdatePosition (RAF-throttled) on each scroll event — triggering
 	// onPositionCalculated with fresh viewport coordinates.
-	const targetForScroll = isToolbarShown ? getTargetElement(editorView, pasteStartPos) : null;
-	const overflowScrollParent = targetForScroll ? findOverflowScrollParent(targetForScroll) : false;
+	const overflowScrollParent = isToolbarShown ? findOverflowScrollParent(editorView.dom) : false;
 	const effectiveScrollableElement = overflowScrollParent || scrollableElement;
 
 	const pasteMenuComponents = api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];

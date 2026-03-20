@@ -1,43 +1,51 @@
 import { defineMessages } from 'react-intl-next';
 
 export const placeholderTextMessages: {
-    placeholderTextPlaceholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; shortEmptyNodePlaceholderText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; shortEmptyNodePlaceholderADFSlashShortcut: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; shortEmptyNodePlaceholderADFSuffix: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; longEmptyNodePlaceholderText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; longEmptyNodePlaceholderADFPrefix: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; longEmptyNodePlaceholderADFSlashShortcut: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; longEmptyNodePlaceholderADFSuffix: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; sourceSyncBlockPlaceholderText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	placeholderTextPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shortEmptyNodePlaceholderText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shortEmptyNodePlaceholderADFSlashShortcut: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	shortEmptyNodePlaceholderADFSuffix: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	longEmptyNodePlaceholderText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	longEmptyNodePlaceholderADFPrefix: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	longEmptyNodePlaceholderADFSlashShortcut: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	longEmptyNodePlaceholderADFSuffix: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	sourceSyncBlockPlaceholderText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	placeholderTextPlaceholder: {
 		id: 'fabric.editor.placeholderTextPlaceholder',

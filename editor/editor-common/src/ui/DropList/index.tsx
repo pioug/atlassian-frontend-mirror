@@ -221,22 +221,28 @@ class DropList extends Component<Props> {
 
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-const _default_1: ForwardRefExoticComponent<Omit<Omit<Props, keyof WithAnalyticsEventsProps> & RefAttributes<unknown> & WithContextProps, "ref"> & RefAttributes<unknown>> = withAnalyticsContext({
-    componentName: 'droplist',
-    packageName,
-    packageVersion,
+const _default_1: ForwardRefExoticComponent<
+	Omit<
+		Omit<Props, keyof WithAnalyticsEventsProps> & RefAttributes<unknown> & WithContextProps,
+		'ref'
+	> &
+		RefAttributes<unknown>
+> = withAnalyticsContext({
+	componentName: 'droplist',
+	packageName,
+	packageVersion,
 })(
-    withAnalyticsEvents({
-        onOpenChange: createAndFireEventOnAtlaskit({
-            action: 'toggled',
-            actionSubject: 'droplist',
+	withAnalyticsEvents({
+		onOpenChange: createAndFireEventOnAtlaskit({
+			action: 'toggled',
+			actionSubject: 'droplist',
 
-            attributes: {
-                componentName: 'droplist',
-                packageName,
-                packageVersion,
-            },
-        }),
-    })(DropList)
+			attributes: {
+				componentName: 'droplist',
+				packageName,
+				packageVersion,
+			},
+		}),
+	})(DropList),
 );
 export default _default_1;

@@ -4,12 +4,19 @@ import { type FileIdentifier } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import { type MediaClientConfig } from '@atlaskit/media-client';
 
-export const useSvgUploader = (config: MediaClientConfig, collectionName?: string) => {
+export const useSvgUploader = (
+	config: MediaClientConfig,
+	collectionName?: string,
+): {
+	status: string;
+	identifier: FileIdentifier | undefined;
+	uploadFn: (event: SyntheticEvent<HTMLInputElement>) => Promise<void>;
+} => {
 	const mediaClient = getMediaClient(config);
 	const [identifier, setIdentifier] = useState<FileIdentifier>();
 	const [status, setStatus] = useState<string>('');
 
-	const uploadFn = async (event: SyntheticEvent<HTMLInputElement>) => {
+	const uploadFn = async (event: SyntheticEvent<HTMLInputElement>): Promise<void> => {
 		if (!event.currentTarget.files || !event.currentTarget.files.length) {
 			return;
 		}

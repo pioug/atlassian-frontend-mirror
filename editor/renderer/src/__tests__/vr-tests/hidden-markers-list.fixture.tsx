@@ -917,12 +917,12 @@ const wrapperItems = {
 	],
 };
 
-export const WrapperItemsRenderer = generateRendererComponent({
+export const HiddenMarkersListRenderer = generateRendererComponent({
 	document: wrapperItems,
 	appearance: 'full-page',
 });
 
-export const WrapperItemsCommentRenderer = generateRendererComponent({
+export const HiddenMarkersListCommentRenderer = generateRendererComponent({
 	document: wrapperItems,
 	appearance: 'comment',
 });

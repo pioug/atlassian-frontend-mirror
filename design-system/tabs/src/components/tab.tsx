@@ -2,8 +2,8 @@ import React, { forwardRef } from 'react';
 
 import { Focusable, Text } from '@atlaskit/primitives/compiled';
 
-import { useTab } from '../hooks';
 import { type TabAttributesType, type TabProps } from '../types';
+import useTab from '../use-tab';
 
 /**
  * __Tab__

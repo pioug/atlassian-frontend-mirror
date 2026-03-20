@@ -551,6 +551,7 @@ export const DragHandle = ({
 	anchorRectCache,
 }: DragHandleProps): jsx.JSX.Element => {
 	const buttonRef = useRef<HTMLButtonElement>(null);
+	const mouseDownRef = useRef(false);
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 	const [dragHandleDisabled, setDragHandleDisabled] = useState(false);
 	const [blockCardWidth, setBlockCardWidth] = useState(768);
@@ -618,11 +619,38 @@ export const DragHandle = ({
 		}
 	}, [anchorName, nodeType, view.dom]);
 
+	useEffect(() => {
+		if (
+			!expValEqualsNoExposure('platform_editor_selection_toolbar_block_handle', 'isEnabled', true)
+		) {
+			return;
+		}
+
+		const unbind = bind(window, {
+			type: 'mouseUp',
+			listener: () => (mouseDownRef.current = false),
+		});
+		return () => unbind();
+	}, []);
+
+	const handleMouseDown = useCallback(() => {
+		mouseDownRef.current = true;
+	}, []);
+
 	const handleMouseUp = useCallback((e: MouseEvent<HTMLButtonElement>) => {
 		// Stop propagation so that for drag handles in nested scenarios the click is captured
 		// and doesn't propagate to the edge of the element and trigger a node selection
 		// on the parent element
-		e.stopPropagation();
+		if (
+			!expValEqualsNoExposure('platform_editor_selection_toolbar_block_handle', 'isEnabled', true)
+		) {
+			e.stopPropagation();
+		}
+
+		// Fixes bug where selection toolbar is blocked when mouse is released on drag handle
+		if (mouseDownRef.current) {
+			e.stopPropagation();
+		}
 	}, []);
 
 	const handleOnClickNew = useCallback(
@@ -1475,6 +1503,11 @@ export const DragHandle = ({
 						: positionStylesOld
 					: {}
 			}
+			onMouseDown={
+				expValEqualsNoExposure('platform_editor_selection_toolbar_block_handle', 'isEnabled', true)
+					? handleMouseDown
+					: undefined
+			}
 			onMouseUp={
 				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 					? handleMouseUp
@@ -1495,7 +1528,7 @@ export const DragHandle = ({
 			disabled={dragHandleDisabled}
 			data-editor-block-ctrl-drag-handle
 			data-blocks-drag-handle={
-				expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) || undefined
+				expValEqualsNoExposure('confluence_remix_icon_right_side', 'isEnabled', true) || undefined
 			}
 			data-testid="block-ctrl-drag-handle"
 			aria-label={dragHandleAriaLabel}

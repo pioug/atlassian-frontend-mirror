@@ -3,7 +3,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Edge cases', () => {
 	test('should fully reload links after redux store was reset', async ({ page }) => {
-		page.visitExample('linking-platform', 'smart-card', 'vr-edge-case-redux-store-reset');
+		page.visitExample<typeof import('../../../examples/vr-edge-case-redux-store-reset.tsx')>(
+			'linking-platform',
+			'smart-card',
+			'vr-edge-case-redux-store-reset',
+		);
 
 		await expect(page.getByTestId('inline-card-resolved-view')).toBeVisible();
 
@@ -13,7 +17,11 @@ test.describe('Edge cases', () => {
 	});
 
 	test('should capture and report a11y violations', async ({ page }) => {
-		page.visitExample('linking-platform', 'smart-card', 'vr-edge-case-redux-store-reset');
+		page.visitExample<typeof import('../../../examples/vr-edge-case-redux-store-reset.tsx')>(
+			'linking-platform',
+			'smart-card',
+			'vr-edge-case-redux-store-reset',
+		);
 		await expect(page.getByTestId('inline-card-resolved-view')).toBeVisible();
 
 		await expect(page).toBeAccessible();

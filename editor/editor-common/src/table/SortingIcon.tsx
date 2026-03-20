@@ -224,6 +224,6 @@ const SortingIcon = ({
 };
 
 const _default_1: FC<WithIntlProps<SortingIconProps>> & {
-    WrappedComponent: ComponentType<SortingIconProps>;
+	WrappedComponent: ComponentType<SortingIconProps>;
 } = injectIntl(SortingIcon);
 export default _default_1;

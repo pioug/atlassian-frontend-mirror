@@ -15,9 +15,11 @@ export const numberNestedLists = (resolvedPos: ResolvedPos): number => {
 	return count;
 };
 
-export const getListItemAttributes = ($pos: ResolvedPos): {
-    indentLevel: number;
-    itemIndex: number;
+export const getListItemAttributes = (
+	$pos: ResolvedPos,
+): {
+	indentLevel: number;
+	itemIndex: number;
 } => {
 	// Get level for the correct indent of nesting
 	const indentLevel = numberNestedLists($pos) - 1;

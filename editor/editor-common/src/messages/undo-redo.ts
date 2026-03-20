@@ -1,15 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    undo: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; redo: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	undo: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	redo: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	undo: {
 		id: 'fabric.editor.undo',

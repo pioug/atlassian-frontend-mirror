@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   # 7.x - 8.x
 
   ## API Changes
@@ -51,3 +51,4 @@ export default md`
   `}
 
 `;
+export default _default_1;

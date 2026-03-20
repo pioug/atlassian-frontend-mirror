@@ -1,7 +1,11 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Textfield should pass aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'textfield', 'variations');
+	await page.visitExample<typeof import('../../../examples/01-variations.tsx')>(
+		'design-system',
+		'textfield',
+		'variations',
+	);
 
 	const inputWithError = page.getByTestId('invalid');
 	const requiredInput = page.getByTestId('required');

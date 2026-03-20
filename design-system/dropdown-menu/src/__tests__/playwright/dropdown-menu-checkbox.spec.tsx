@@ -7,7 +7,11 @@ const dropdownMenu = '[data-testid="lite-mode-ddm--content"]';
 test('Verify that checkbox in dropdown menu transitions from unchecked to checked - using defaultSelected', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-checkbox');
+	await page.visitExample<typeof import('../../../examples/95-testing-checkbox.tsx')>(
+		'design-system',
+		'dropdown-menu',
+		'testing-checkbox',
+	);
 	await page.locator(trigger).first().click();
 
 	await expect(page.locator(dropdownMenu).first()).toBeVisible();
@@ -23,7 +27,11 @@ test('Verify that checkbox in dropdown menu transitions from unchecked to checke
 test('Verify that checkbox in dropdown menu transitions from unchecked to checked - using isSelected', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-checkbox-stateless');
+	await page.visitExample<typeof import('../../../examples/94-testing-checkbox-stateless.tsx')>(
+		'design-system',
+		'dropdown-menu',
+		'testing-checkbox-stateless',
+	);
 	await page.locator(trigger).first().click();
 
 	await expect(page.locator(dropdownMenu).first()).toBeVisible();

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tabs",
-	"version": "18.3.5",
+	"version": "19.0.0",
 	"description": "Tabs are used to organize content by grouping similar information on the same page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -90,8 +90,7 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./types": "./src/types.tsx",
-		"./hooks": "./src/hooks.tsx"
+		"./types": "./src/types.tsx"
 	},
 	"homepage": "https://atlassian.design/components/tabs/"
 }

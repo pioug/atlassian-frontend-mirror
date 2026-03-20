@@ -1,6 +1,6 @@
 import customMd from '../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 Our components are categorized into different states that dictate their appearance and functionality.
 
@@ -12,3 +12,4 @@ Our components are categorized into different states that dictate their appearan
 * **Error**: This status is displayed when the resolver encounters an error or when the URL is not supported.
 
 `;
+export default _default_1;

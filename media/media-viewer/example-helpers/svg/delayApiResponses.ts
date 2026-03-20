@@ -6,7 +6,7 @@ type Endpoints = Partial<Record<keyof MediaApi, number>>;
 export const delayApiResponses = (
 	mediaApi: MediaApi,
 	{ getImage, getItems, getFileBinary }: Endpoints,
-) => {
+): void => {
 	const baseGetImage = mediaApi.getImage;
 	mediaApi.getImage = async (...params) => {
 		await sleep(getImage);

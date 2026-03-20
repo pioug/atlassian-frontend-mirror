@@ -19,7 +19,17 @@ const rbdApi: RbdApi = {
 	Droppable,
 };
 
-const boardMigration = () => <Board rbdApi={rbdApi} />;
+const boardMigration: {
+	(): React.JSX.Element;
+	story: {
+		name: string;
+		parameters: {
+			performance: {
+				interactions: PublicInteractionTask[];
+			};
+		};
+	};
+} = (): React.JSX.Element => <Board rbdApi={rbdApi} />;
 
 async function waitUntilElementIsDraggable(element: HTMLElement): Promise<void> {
 	return new Promise((resolve) => {

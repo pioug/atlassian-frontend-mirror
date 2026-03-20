@@ -23,7 +23,6 @@ import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
 
-
 interface Props {
 	actions?: MultiBodiedExtensionActions;
 	children: ({

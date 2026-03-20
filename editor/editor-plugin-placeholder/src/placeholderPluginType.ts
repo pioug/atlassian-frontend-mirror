@@ -13,6 +13,7 @@ export interface PlaceholderPluginOptions {
 	emptyLinePlaceholder?: string;
 	enableLoadingSpinner?: boolean;
 	isPlaceholderHidden?: boolean;
+	isRovoLLMEnabled?: boolean;
 	placeholder?: string;
 	placeholderADF?: DocNode;
 	placeholderBracketHint?: string;

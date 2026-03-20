@@ -82,7 +82,7 @@ export function parseMethod(method: MethodDeclaration): ParsedMethod {
 	};
 }
 
-export function parseFile(path: string) {
+export function parseFile(path: string): ParsedInfo {
 	// Add the TypeScript file we want to parse
 	const file = project.addSourceFileAtPath(path);
 
@@ -101,7 +101,7 @@ export function parseFile(path: string) {
 	return parsedInfo;
 }
 
-export function tagToString(tag: JSDocTag<ts.JSDocTag>) {
+export function tagToString(tag: JSDocTag<ts.JSDocTag>): string {
 	const tagName = tag.getTagName().toLowerCase();
 	const tagText = tag.getText(true).replace(/\*/g, '');
 	if (tagName === 'deprecated') {

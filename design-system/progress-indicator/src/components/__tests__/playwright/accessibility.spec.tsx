@@ -3,7 +3,11 @@ import { expect, test } from '@af/integration-testing';
 test('ProgressIndicator, progress-indicator-appearances should pass basic aXe audit', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'progress-indicator', 'progress-indicator-appearances');
+	await page.visitExample<typeof import('../../../../examples/progress-indicator-appearances.tsx')>(
+		'design-system',
+		'progress-indicator',
+		'progress-indicator-appearances',
+	);
 
 	await expect(page.locator('[data-testid="progress-indicator"]')).toBeVisible();
 });
@@ -11,7 +15,11 @@ test('ProgressIndicator, progress-indicator-appearances should pass basic aXe au
 test('ProgressIndicator, progress-indicator-interaction should pass basic aXe audit', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'progress-indicator', 'progress-indicator-interaction');
+	await page.visitExample<typeof import('../../../../examples/progress-indicator-interaction.tsx')>(
+		'design-system',
+		'progress-indicator',
+		'progress-indicator-interaction',
+	);
 	const indicator = page.locator('[data-testid="progress-indicator-ind-0"]');
 
 	await expect(indicator).toBeVisible();

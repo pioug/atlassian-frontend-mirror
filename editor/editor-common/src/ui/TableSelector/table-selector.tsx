@@ -200,6 +200,6 @@ const TableSelectorPopup = ({
 };
 
 const _default_1: FC<WithIntlProps<TableSelectorPopupProps & WrappedComponentProps>> & {
-    WrappedComponent: ComponentType<TableSelectorPopupProps & WrappedComponentProps>;
+	WrappedComponent: ComponentType<TableSelectorPopupProps & WrappedComponentProps>;
 } = injectIntl(TableSelectorPopup);
 export default _default_1;

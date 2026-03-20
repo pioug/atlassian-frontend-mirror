@@ -4,7 +4,7 @@ import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message'
 
 import { toAbsolutePath } from './index';
 
-const FlexibleUiMessage = () => {
+const FlexibleUiMessage = (): React.JSX.Element => {
 	const learnMoreLink = toAbsolutePath('./flexible');
 	return (
 		<SectionMessage

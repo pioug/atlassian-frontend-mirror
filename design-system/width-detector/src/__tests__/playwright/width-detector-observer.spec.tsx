@@ -3,7 +3,11 @@ import { expect, test } from '@af/integration-testing';
 test('width-detector-observer.ts: resizes when sentinel is offscreen for offscreen=true', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'width-detector', 'scrolling');
+	await page.visitExample<typeof import('../../../examples/3-scrolling.tsx')>(
+		'design-system',
+		'width-detector',
+		'scrolling',
+	);
 
 	await page.locator('input[name="offscreen"]').check();
 	await page.keyboard.press('PageDown');

@@ -6,17 +6,27 @@ const trigger = '[data-testid="lite-mode-ddm--trigger"]';
 const dropdownMenu = '[data-testid="lite-mode-ddm--content"]';
 
 test('Verify that Dropdown Menu is able to open', async ({ page }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-ddm-default', {
-		featureFlag: 'platform_dst_popup-disable-focuslock',
-	});
+	await page.visitExample<typeof import('../../../../../examples/98-testing-ddm-default.tsx')>(
+		'design-system',
+		'dropdown-menu',
+		'testing-ddm-default',
+		{
+			featureFlag: 'platform_dst_popup-disable-focuslock',
+		},
+	);
 	await page.locator(trigger).first().click();
 	expect(await page.webdriverCompatUtils.isAttached(dropdownMenu)).toBe(true);
 });
 
 test('Verify that Dropdown Menu is able to open - stateless', async ({ page }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-ddm-stateless', {
-		featureFlag: 'platform_dst_popup-disable-focuslock',
-	});
+	await page.visitExample<typeof import('../../../../../examples/97-testing-ddm-stateless.tsx')>(
+		'design-system',
+		'dropdown-menu',
+		'testing-ddm-stateless',
+		{
+			featureFlag: 'platform_dst_popup-disable-focuslock',
+		},
+	);
 	await page.locator(trigger).first().click();
 
 	await expect(page.locator(dropdownMenu).first()).toBeVisible();
@@ -32,7 +42,9 @@ test.describe('Keyboard navigation', () => {
 	test('Verify that Dropdown Menu is closing on Tab press and focus on the next interactive element', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
+		await page.visitExample<
+			typeof import('../../../../../examples/92-testing-keyboard-navigation.tsx')
+		>('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
 			featureFlag: 'platform_dst_popup-disable-focuslock',
 		});
 
@@ -47,7 +59,9 @@ test.describe('Keyboard navigation', () => {
 	test('Verify that Dropdown Menu is closing on Shift+Tab press and focus on trigger', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
+		await page.visitExample<
+			typeof import('../../../../../examples/92-testing-keyboard-navigation.tsx')
+		>('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
 			featureFlag: 'platform_dst_popup-disable-focuslock',
 		});
 
@@ -61,7 +75,9 @@ test.describe('Keyboard navigation', () => {
 	test('Verify that Dropdown Menu items navigation works on keyUp and keyDown', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
+		await page.visitExample<
+			typeof import('../../../../../examples/92-testing-keyboard-navigation.tsx')
+		>('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
 			featureFlag: 'platform_dst_popup-disable-focuslock',
 		});
 
@@ -89,14 +105,11 @@ test.describe('Nested keyboard navigation', () => {
 	const getItemTestId = (level: number, id: number) => `nested-item${id}-${level}`;
 
 	test('Verify that navigation works correctly', async ({ page }) => {
-		await page.visitExample(
-			'design-system',
-			'dropdown-menu',
-			'testing-nested-keyboard-navigation',
-			{
-				featureFlag: 'platform_dst_popup-disable-focuslock',
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../examples/91-testing-nested-keyboard-navigation.tsx')
+		>('design-system', 'dropdown-menu', 'testing-nested-keyboard-navigation', {
+			featureFlag: 'platform_dst_popup-disable-focuslock',
+		});
 
 		// Should open a nested dropdown level 0
 		await page.getByTestId(getTriggerTestId(0)).focus();

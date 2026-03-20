@@ -7,7 +7,7 @@ import type { Collection } from 'jscodeshift/src/Collection';
  * Ref: ED-16826
  */
 export const createUpdateEditorToMigrationComponent = (pkg: string, component: string) => {
-	return (j: core.JSCodeshift, source: Collection<unknown>) => {
+	return (j: core.JSCodeshift, source: Collection<unknown>): void => {
 		source
 			.find(j.ImportDeclaration, { source: { value: pkg } })
 			.filter(
@@ -24,7 +24,7 @@ export const createUpdateEditorToMigrationComponent = (pkg: string, component: s
 	};
 };
 
-export const renameEditorToMigrationComponent = createUpdateEditorToMigrationComponent(
-	'@atlaskit/editor-core',
-	'Editor',
-);
+export const renameEditorToMigrationComponent: (
+	j: core.JSCodeshift,
+	source: Collection<unknown>,
+) => void = createUpdateEditorToMigrationComponent('@atlaskit/editor-core', 'Editor');

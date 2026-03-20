@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const elementInsertSidePanel: {
-    title: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	title: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	title: {
 		id: 'fabric.editor.elementInsertSidePanel.title',

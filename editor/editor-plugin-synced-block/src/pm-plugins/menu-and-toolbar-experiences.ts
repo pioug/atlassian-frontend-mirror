@@ -13,9 +13,12 @@ import {
 	getNodeQuery,
 	getPopupContainerFromEditorView,
 	popupWithNestedElement,
+	getSelectionAncestorDOM,
 } from '@atlaskit/editor-common/experiences';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
 
@@ -39,20 +42,21 @@ type ExperienceOptions = {
 		wrapperElement?: HTMLElement;
 	};
 };
+type EditorViewRef = Record<'current', EditorView | undefined>;
 
 export const getMenuAndToolbarExperiencesPlugin = ({
 	refs,
 	dispatchAnalyticsEvent,
 }: ExperienceOptions): SafePlugin => {
 	let popupsTargetEl: HTMLElement | undefined;
-	let editorViewEl: HTMLElement | undefined;
+	const editorViewRef: EditorViewRef = { current: undefined };
 
 	const getPopupsTarget = () => {
 		if (!popupsTargetEl) {
 			popupsTargetEl =
 				refs.popupsMountPoint ||
 				refs.wrapperElement ||
-				getPopupContainerFromEditorView(editorViewEl);
+				getPopupContainerFromEditorView(editorViewRef?.current?.dom);
 		}
 		return popupsTargetEl;
 	};
@@ -63,7 +67,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-			syncedBlockAddedToDomCheck(refs),
+			syncedBlockAddedToDomCheck(refs, editorViewRef),
 		],
 	});
 
@@ -73,7 +77,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-			syncedBlockAddedToDomCheck(refs),
+			syncedBlockAddedToDomCheck(refs, editorViewRef),
 		],
 	});
 
@@ -83,7 +87,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-			syncedBlockAddedToDomCheck(refs),
+			syncedBlockAddedToDomCheck(refs, editorViewRef),
 		],
 	});
 
@@ -93,7 +97,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-			referenceSyncBlockRemovedFromDomCheck(refs),
+			referenceSyncBlockRemovedFromDomCheck(refs, editorViewRef),
 		],
 	});
 
@@ -103,7 +107,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-			referenceSyncBlockRemovedFromDomCheck(refs),
+			referenceSyncBlockRemovedFromDomCheck(refs, editorViewRef),
 		],
 	});
 
@@ -113,7 +117,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-			syncBlockDeleteConfirmationModalAddedCheck(refs),
+			syncBlockDeleteConfirmationModalAddedCheck(),
 		],
 	});
 
@@ -123,7 +127,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-			syncBlockDeleteConfirmationModalAddedCheck(refs),
+			syncBlockDeleteConfirmationModalAddedCheck(),
 		],
 	});
 
@@ -133,7 +137,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-			syncedLocationsDropdownOpenedCheck(refs),
+			syncedLocationsDropdownOpenedCheck(),
 		],
 	});
 
@@ -187,12 +191,14 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 					return;
 				}
 
-				const firstItem = typeaheadPopup.querySelector('[role="option"]');
-				if (!firstItem || !(firstItem instanceof HTMLElement)) {
+				const targetElement = fg('platform_synced_block_fix_experience_tracking')
+					? typeaheadPopup.querySelector('[role="option"][aria-selected="true"]')
+					: typeaheadPopup.querySelector('[role="option"]');
+				if (!targetElement || !(targetElement instanceof HTMLElement)) {
 					return;
 				}
 
-				const testId = firstItem.dataset.testid;
+				const testId = targetElement.dataset.testid;
 				if (testId === SYNCED_BLOCK_BUTTON_TEST_ID.quickInsertCreate) {
 					createSourceQuickInsertMenuExperience.start();
 				}
@@ -203,9 +209,8 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 
 	return new SafePlugin({
 		key: pluginKey,
-		view: (editorView) => {
-			editorViewEl = editorView.dom;
-
+		view: (view) => {
+			editorViewRef.current = view;
 			return {
 				destroy: () => {
 					createSourcePrimaryToolbarExperience.abort({ reason: 'editorDestroyed' });
@@ -296,7 +301,6 @@ const isEnterKey = (key: string) => {
 const getTarget = (containerElement: HTMLElement | undefined): HTMLElement | null => {
 	if (!targetEl) {
 		const element = containerElement?.querySelector('.ProseMirror');
-
 		if (!element || !(element instanceof HTMLElement)) {
 			return null;
 		}
@@ -307,11 +311,14 @@ const getTarget = (containerElement: HTMLElement | undefined): HTMLElement | nul
 	return targetEl;
 };
 
-const syncedBlockAddedToDomCheck = (refs: {
-	containerElement?: HTMLElement;
-	popupsMountPoint?: HTMLElement;
-	wrapperElement?: HTMLElement;
-}) =>
+const syncedBlockAddedToDomCheck = (
+	refs: {
+		containerElement?: HTMLElement;
+		popupsMountPoint?: HTMLElement;
+		wrapperElement?: HTMLElement;
+	},
+	editorViewRef?: EditorViewRef,
+) =>
 	new ExperienceCheckDomMutation({
 		onDomMutation: ({ mutations }) => {
 			if (mutations.some(isBodiedSyncBlockAddedInMutation)) {
@@ -320,12 +327,29 @@ const syncedBlockAddedToDomCheck = (refs: {
 			return undefined;
 		},
 		observeConfig: () => {
-			return {
-				target: getTarget(refs.containerElement),
-				options: {
-					childList: true,
+			return [
+				{
+					target: fg('platform_synced_block_fix_experience_tracking')
+						? editorViewRef?.current?.dom
+						: getTarget(refs.containerElement),
+					options: {
+						childList: true,
+					},
 				},
-			};
+				// When wrapping a node with breakout mark with sync block, breakout dom is reused
+				// hence we need to observe subtree to catch sync block mutation
+				...(fg('platform_synced_block_fix_experience_tracking')
+					? [
+							{
+								target: getSelectionAncestorDOM(editorViewRef?.current),
+								options: {
+									childList: true,
+									subtree: true,
+								},
+							},
+						]
+					: []),
+			];
 		},
 	});
 
@@ -336,11 +360,14 @@ const isBodiedSyncBlockAddedInMutation = ({ type, addedNodes }: MutationRecord) 
 const isBodiedSyncBlockWithinNode = (node?: Node | null) =>
 	getNodeQuery('[data-prosemirror-node-name="bodiedSyncBlock"]')(node);
 
-const referenceSyncBlockRemovedFromDomCheck = (refs: {
-	containerElement?: HTMLElement;
-	popupsMountPoint?: HTMLElement;
-	wrapperElement?: HTMLElement;
-}) =>
+const referenceSyncBlockRemovedFromDomCheck = (
+	refs: {
+		containerElement?: HTMLElement;
+		popupsMountPoint?: HTMLElement;
+		wrapperElement?: HTMLElement;
+	},
+	editorViewRef?: EditorViewRef,
+) =>
 	new ExperienceCheckDomMutation({
 		onDomMutation: ({ mutations }) => {
 			if (mutations.some(isSyncBlockRemovedInMutation)) {
@@ -349,12 +376,27 @@ const referenceSyncBlockRemovedFromDomCheck = (refs: {
 			return undefined;
 		},
 		observeConfig: () => {
-			return {
-				target: getTarget(refs.containerElement),
-				options: {
-					childList: true,
+			return [
+				{
+					target: fg('platform_synced_block_fix_experience_tracking')
+						? editorViewRef?.current?.dom
+						: getTarget(refs.containerElement),
+					options: {
+						childList: true,
+					},
 				},
-			};
+				...(fg('platform_synced_block_fix_experience_tracking')
+					? [
+							{
+								target: getSelectionAncestorDOM(editorViewRef?.current),
+								options: {
+									childList: true,
+									subtree: true,
+								},
+							},
+						]
+					: []),
+			];
 		},
 	});
 
@@ -365,11 +407,7 @@ const isSyncBlockRemovedInMutation = ({ type, removedNodes }: MutationRecord) =>
 const isSyncBlockWithinNode = (node?: Node | null) =>
 	getNodeQuery('[data-prosemirror-node-name="syncBlock"]')(node);
 
-const syncBlockDeleteConfirmationModalAddedCheck = (refs: {
-	containerElement?: HTMLElement;
-	popupsMountPoint?: HTMLElement;
-	wrapperElement?: HTMLElement;
-}) =>
+const syncBlockDeleteConfirmationModalAddedCheck = () =>
 	new ExperienceCheckDomMutation({
 		onDomMutation: ({ mutations }) => {
 			if (mutations.some(isDeleteConfirmationModalAddedInMutation)) {
@@ -395,11 +433,7 @@ const isDeleteConfirmationModalAddedInMutation = ({ type, addedNodes }: Mutation
 const isDeleteConfirmationModalWithinNode = (node?: Node | null) =>
 	getNodeQuery('[data-testid="sync-block-delete-confirmation"]')(node);
 
-const syncedLocationsDropdownOpenedCheck = (refs: {
-	containerElement?: HTMLElement;
-	popupsMountPoint?: HTMLElement;
-	wrapperElement?: HTMLElement;
-}) =>
+const syncedLocationsDropdownOpenedCheck = () =>
 	new ExperienceCheckDomMutation({
 		onDomMutation: ({ mutations }) => {
 			if (mutations.some(isSyncedLocationsDropdownErrorInMutation)) {

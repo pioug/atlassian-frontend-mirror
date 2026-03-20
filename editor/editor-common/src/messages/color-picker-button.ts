@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const colorPickerButtonMessages: {
-    colorPickerMenuLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	colorPickerMenuLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	colorPickerMenuLabel: {
 		id: 'fabric.editor.colorPicker.menuLabel',

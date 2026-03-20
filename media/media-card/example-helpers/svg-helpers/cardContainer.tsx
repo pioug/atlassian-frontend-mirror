@@ -4,10 +4,16 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-export const CardBox = ({ title, children }: { title: string; children: React.ReactNode }) => (
+export const CardBox = ({
+	title,
+	children,
+}: {
+	title: string;
+	children: React.ReactNode;
+}): jsx.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	<div style={{ marginBottom: '10px' }}>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-heading -- Ignored via go/DSP-18766 */}
@@ -16,7 +22,7 @@ export const CardBox = ({ title, children }: { title: string; children: React.Re
 	</div>
 );
 
-export const CardRow = ({ children }: { children: React.ReactNode }) => (
+export const CardRow = ({ children }: { children: React.ReactNode }): jsx.JSX.Element => (
 	<div
 		style={{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

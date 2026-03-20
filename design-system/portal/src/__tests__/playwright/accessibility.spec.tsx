@@ -5,7 +5,11 @@ const modalZIndex = 510;
 const modalDialogPortalSelector = `div.atlaskit-portal[style="z-index: ${modalZIndex};"]`;
 
 test('portal should be created when modal is opened and pass basic aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'portal', 'complex-layering');
+	await page.visitExample<typeof import('../../../examples/1-complex-layering.tsx')>(
+		'design-system',
+		'portal',
+		'complex-layering',
+	);
 	await page.getByTestId('dialog-trigger').click();
 
 	const isModalPortalCreated =

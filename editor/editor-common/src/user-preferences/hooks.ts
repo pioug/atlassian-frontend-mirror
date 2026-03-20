@@ -10,7 +10,7 @@ import type { UserPreferencesProvider } from './user-preferences-provider';
  * @returns {ResolvedUserPreferences | null} the latest user preference
  */
 export function useResolvedUserPreferences(userPreferencesProvider?: UserPreferencesProvider): {
-    resolvedUserPreferences: ResolvedUserPreferences | null;
+	resolvedUserPreferences: ResolvedUserPreferences | null;
 } {
 	const [resolvedUserPreferences, setResolvedUserPreferences] =
 		useState<ResolvedUserPreferences | null>(userPreferencesProvider?.getPreferences() || null);

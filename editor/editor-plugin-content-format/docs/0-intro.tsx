@@ -4,7 +4,8 @@ import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
 import { token } from '@atlaskit/tokens';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- md template from @atlaskit/docs
+const _default_1: any = md`
 
 ${createEditorUseOnlyNotice('Editor Plugin Content Format', [
 	{ name: 'Editor Core', link: '/packages/editor/editor-core' },
@@ -115,3 +116,4 @@ api.contentFormat?.commands.updateContentMode('dense');
 ---
 For internal Atlassian, visit the slack channel [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) for support or visit [go/editor-help](https://go/editor-help) to submit a bug.
 `;
+export default _default_1;

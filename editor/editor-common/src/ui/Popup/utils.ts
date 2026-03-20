@@ -239,14 +239,14 @@ const getPopupXInsideParent = (
 	x: number,
 	popupClientWidth: number,
 	popupOffsetParentClientWidth: number,
-	minMargin: number = 1,
+	minPopupMargin: number = 1,
 ): number => {
 	// prevent going too far right
 	if (popupOffsetParentClientWidth < x + popupClientWidth) {
-		x = popupOffsetParentClientWidth - popupClientWidth - minMargin;
+		x = popupOffsetParentClientWidth - popupClientWidth - minPopupMargin;
 	}
 	// prevent going too far left
-	return Math.max(minMargin, x);
+	return Math.max(minPopupMargin, x);
 };
 
 const calculateVerticalStickBottom = ({
@@ -564,11 +564,10 @@ export function findOverflowScrollParent(popup: HTMLElement | null): HTMLElement
 
 // Helper function to check if the passed node is of Element class
 function isElementNode(node: Node): node is Element {
-    return node.nodeType === 1;
+	return node.nodeType === 1;
 }
 
 // Helper function to check if the passed node is of HTMLElement class
 function isHTMLElementNode(node: Node): node is HTMLElement {
-    return isElementNode(node) && node.namespaceURI === 'http://www.w3.org/1999/xhtml';
+	return isElementNode(node) && node.namespaceURI === 'http://www.w3.org/1999/xhtml';
 }
-

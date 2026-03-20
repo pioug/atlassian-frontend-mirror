@@ -1,9 +1,15 @@
 import { type default as React, useCallback, useEffect, useRef } from 'react';
 
 import type { SelectEvent } from '../../types';
-import { arrowKeys } from '../constants';
 import type { ArrowKeys, DateObj } from '../types';
 import dateToString from '../utils/date-to-string';
+
+const arrowKeys: Record<string, ArrowKeys> = {
+	ArrowDown: 'down',
+	ArrowLeft: 'left',
+	ArrowRight: 'right',
+	ArrowUp: 'up',
+};
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default function useHandleDateSelect({

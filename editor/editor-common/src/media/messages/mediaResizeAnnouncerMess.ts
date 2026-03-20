@@ -1,23 +1,26 @@
 import { defineMessages } from 'react-intl-next';
 
 export const mediaResizeAnnouncerMessMessages: {
-    MediaWidthIsMax: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; MediaWidthIsMin: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; DefaultMediaWidthIncreased: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; DefaultMediaWidthDecreased: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	MediaWidthIsMax: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	MediaWidthIsMin: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	DefaultMediaWidthIncreased: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	DefaultMediaWidthDecreased: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	MediaWidthIsMax: {
 		id: 'fabric.editor.media.pixelEntry.MediaWidthIsMax',

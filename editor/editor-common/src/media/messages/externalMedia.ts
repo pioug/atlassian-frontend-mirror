@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const externalMediaMessages: {
-    externalMediaFile: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	externalMediaFile: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	externalMediaFile: {
 		id: 'fabric.editor.externalMediaFile',

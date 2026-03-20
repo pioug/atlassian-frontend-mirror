@@ -48,7 +48,9 @@ interface Props {
 	children: ReactNode;
 }
 
-export const HelperMessage = ({ children }: Props): jsx.JSX.Element => <div css={messageStyle}>{children}</div>;
+export const HelperMessage = ({ children }: Props): jsx.JSX.Element => (
+	<div css={messageStyle}>{children}</div>
+);
 
 export const ErrorMessage = ({ children }: Props): jsx.JSX.Element => {
 	const intl = useIntl();

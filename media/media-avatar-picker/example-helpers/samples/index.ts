@@ -25,7 +25,7 @@ import av24 from './avatar-24.svg';
 import av25 from './avatar-25.svg';
 import av26 from './avatar-26.svg';
 
-export default [
+const _default_1: string[] = [
 	av1,
 	av2,
 	av3,
@@ -53,3 +53,4 @@ export default [
 	av25,
 	av26,
 ];
+export default _default_1;

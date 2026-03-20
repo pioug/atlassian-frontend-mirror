@@ -58,7 +58,7 @@ const ConfluenceSearchTableView = ({ parameters }: ConfluenceSearchTableViewProp
 export const ExampleConfluenceSearchTableView = ({
 	parameters,
 	mockDatasourceFetchRequest = true,
-}: ConfluenceSearchTableViewProps) => {
+}: ConfluenceSearchTableViewProps): React.JSX.Element => {
 	useEffect(() => {
 		if (mockDatasourceFetchRequest) {
 			mockDatasourceFetchRequests();

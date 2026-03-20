@@ -1,63 +1,76 @@
 import { defineMessages } from 'react-intl-next';
 
 export const mediaInsertMessages: {
-    loadPreview: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; insert: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; pasteLinkToUpload: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; cancel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; fromUrlErrorMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; fromUrlWarning: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; localFileNetworkErrorMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; localFileErrorMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; mediaAlt: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; upload: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkTabTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; fileTabTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; mediaPickerPopupAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; invalidUrlErrorMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	loadPreview: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	insert: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	pasteLinkToUpload: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	cancel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	fromUrlErrorMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	fromUrlWarning: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	localFileNetworkErrorMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	localFileErrorMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	mediaAlt: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	upload: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkTabTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	fileTabTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	mediaPickerPopupAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	invalidUrlErrorMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	loadPreview: {
 		id: 'fabric.editor.media.insert.loadPreview',

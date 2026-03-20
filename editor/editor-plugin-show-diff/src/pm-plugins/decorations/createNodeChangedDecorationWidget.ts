@@ -311,6 +311,10 @@ export const createNodeChangedDecorationWidget = ({
 	// and we want to display the deleted content with a style.
 	const safeInsertPos = findSafeInsertPos(newDoc, change.fromB, slice);
 	const decorations: Decoration[] = [];
-	decorations.push(Decoration.widget(safeInsertPos, dom, { key: `diff-widget-${isActive ? 'active' : 'inactive'}` }));
+	decorations.push(
+		Decoration.widget(safeInsertPos, dom, {
+			key: `diff-widget-${isActive ? 'active' : 'inactive'}`,
+		}),
+	);
 	return decorations;
 };

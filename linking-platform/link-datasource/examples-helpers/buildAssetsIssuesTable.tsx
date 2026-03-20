@@ -61,7 +61,7 @@ const AssetsTableView = ({
 export const ExampleAssetsIssuesTableView = ({
 	mockDatasourceFetchRequest = true,
 	...props
-}: AssetsTableViewProps) => {
+}: AssetsTableViewProps): React.JSX.Element => {
 	return (
 		<IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
 			<SmartCardProvider client={new SmartLinkClient()}>

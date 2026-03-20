@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 
 import { Focusable } from '@atlaskit/primitives/compiled';
 
-import { useTabPanel } from '../hooks';
 import { type TabPanelAttributesType, type TabPanelProps } from '../types';
+import useTabPanel from '../use-tab-panel';
 
 // Note this is not being memoized as children is an unstable reference
 /**

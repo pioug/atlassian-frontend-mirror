@@ -71,7 +71,7 @@ export default class MentionTextInput extends React.Component<Props, State> {
 		this.mentionPickerRef = ref;
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		debug('demo-mention-text-input.render');
 		/* eslint no-unused-vars: 0 */
 		const { label, relativePosition, resourceProvider, presenceProvider, zIndex } = this.props;

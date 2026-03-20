@@ -3,7 +3,7 @@ import React from 'react';
 import CustomExample from '../../utils/custom-example';
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ### Default
 
@@ -58,3 +58,4 @@ ${(
 )}
 
 `;
+export default _default_1;

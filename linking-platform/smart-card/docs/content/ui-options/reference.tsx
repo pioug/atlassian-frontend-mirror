@@ -2,7 +2,7 @@ import React from 'react';
 
 import { md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
 ### Props
 
@@ -11,3 +11,4 @@ Smart Link in order to yield some different appearances.
 
 ${(<Props heading="" props={require('!!extract-react-types-loader!../../props/props-ui')} />)}
 `;
+export default _default_1;

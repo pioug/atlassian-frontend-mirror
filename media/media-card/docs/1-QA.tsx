@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 	# Testing
 
 	> This page contains relevant docs on how to "QA demo" media-card component
@@ -29,3 +29,4 @@ export default md`
 	    - issue detail
 	      - within filmstrip
 `;
+export default _default_1;

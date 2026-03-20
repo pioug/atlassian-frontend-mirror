@@ -11,7 +11,7 @@ import { type Collection } from 'jscodeshift/src/Collection';
 
 export const packageName = '@atlaskit/icon-file-type';
 
-export default function transformer(file: FileInfo, api: API, options: Options) {
+export default function transformer(file: FileInfo, api: API, options: Options): string {
 	const j = api.jscodeshift;
 	const root = j(file.source, { quote: 'auto' });
 	if (hasImportDeclaration(j, root, packageName)) {

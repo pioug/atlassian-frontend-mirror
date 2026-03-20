@@ -196,9 +196,19 @@ const ForwardedLinkSearchListItem = forwardRef<HTMLDivElement, Props & WrappedCo
 	LinkSearchListItem,
 );
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- injectIntl ref typing incompatible with explicit RefAttributes<HTMLDivElement>
-export const ForwardedLinkSearchListItemWithIntl: React.ForwardRefExoticComponent<Omit<WithIntlProps<React.PropsWithChildren<Props & WrappedComponentProps & React.RefAttributes<HTMLDivElement>>>, "ref"> & React.RefAttributes<any>> & {
-    WrappedComponent: React.ComponentType<Props & WrappedComponentProps & React.RefAttributes<HTMLDivElement>>;
+export const ForwardedLinkSearchListItemWithIntl: React.ForwardRefExoticComponent<
+	Omit<
+		WithIntlProps<
+			React.PropsWithChildren<Props & WrappedComponentProps & React.RefAttributes<HTMLDivElement>>
+		>,
+		'ref'
+	> &
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any -- injectIntl ref typing incompatible with explicit RefAttributes<HTMLDivElement>
+		React.RefAttributes<any>
+> & {
+	WrappedComponent: React.ComponentType<
+		Props & WrappedComponentProps & React.RefAttributes<HTMLDivElement>
+	>;
 } = injectIntl(ForwardedLinkSearchListItem, {
 	forwardRef: true,
 });

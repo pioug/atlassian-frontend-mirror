@@ -1,7 +1,11 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Dynamic-table should pass base aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'dynamic-table', 'highlighted-row');
+	await page.visitExample<typeof import('../../../../examples/15-highlighted-row.tsx')>(
+		'design-system',
+		'dynamic-table',
+		'highlighted-row',
+	);
 
 	const highlightedRowSelector = '[data-ts--dynamic-table--table-row--highlighted="true"]';
 	const popupTrigger = page.locator(`${highlightedRowSelector} button:has-text("More")`);

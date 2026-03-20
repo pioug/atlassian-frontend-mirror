@@ -50,16 +50,16 @@ export class CustomReplaceStep extends ReplaceStep {
 	}
 
 	toJSON(): {
-        stepType: string;
-        from: number;
-        to: number;
-        slice: {
-            content: {
-                type: string;
-                text: string;
-            }[];
-        };
-    } {
+		stepType: string;
+		from: number;
+		to: number;
+		slice: {
+			content: {
+				type: string;
+				text: string;
+			}[];
+		};
+	} {
 		return {
 			stepType: 'replace',
 			from: this.doc.nodeSize / 2,

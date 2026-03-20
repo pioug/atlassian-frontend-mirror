@@ -6,7 +6,7 @@ import CardExample from '../../../examples/content/card';
 import customMd from '../../utils/custom-md';
 import prerequisites from '../prerequisites';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 Smart Links enhance URLs into interactive previews, offering a contextualized experience within Atlassian products.
 They come in inline, block (card), and embed formats, respecting content permissions and compliance settings.
@@ -44,3 +44,4 @@ Please see [Card in Editor](./card-in-editor).
 Please see [CardSSR](./card-ssr).
 
 `;
+export default _default_1;

@@ -26,8 +26,7 @@ export const getListComponents = (
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
 				rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[
-					TRANSFORM_STRUCTURE_BULLETED_LIST_MENU_ITEM
-						.key as keyof typeof TRANSFORM_STRUCTURE_MENU_SECTION_RANK
+					TRANSFORM_STRUCTURE_BULLETED_LIST_MENU_ITEM.key as keyof typeof TRANSFORM_STRUCTURE_MENU_SECTION_RANK
 				],
 			},
 			component: createBulletedListBlockMenuItem({ api }),
@@ -41,8 +40,7 @@ export const getListComponents = (
 				type: 'block-menu-section' as const,
 				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
 				rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[
-					TRANSFORM_STRUCTURE_NUMBERED_LIST_MENU_ITEM
-						.key as keyof typeof TRANSFORM_STRUCTURE_MENU_SECTION_RANK
+					TRANSFORM_STRUCTURE_NUMBERED_LIST_MENU_ITEM.key as keyof typeof TRANSFORM_STRUCTURE_MENU_SECTION_RANK
 				],
 			},
 			component: createNumberedListBlockMenuItem({ api }),

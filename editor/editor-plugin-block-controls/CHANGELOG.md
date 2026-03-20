@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.11
+
+### Patch Changes
+
+- [`029e47b456b89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/029e47b456b89) -
+  Fixing a bug where we expect the selection toolbar to show when selecting text and releasing on
+  the block controls handle.
+- Updated dependencies
+
+## 9.0.10
+
+### Patch Changes
+
+- [`3bc16a4221f74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bc16a4221f74) -
+  [ux] EDITOR-5746 fix bug where drop targets appeared (and never cleared) after table row drag
+- Updated dependencies
+
+## 9.0.9
+
+### Patch Changes
+
+- [`97fd2b35b4ba3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97fd2b35b4ba3) -
+  Editor-5020: fix inline drop hint outside synced block
+- Updated dependencies
+
+## 9.0.8
+
+### Patch Changes
+
+- [`57160c29bc79d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57160c29bc79d) -
+  Fix exposure for remix button block
+
 ## 9.0.7
 
 ### Patch Changes

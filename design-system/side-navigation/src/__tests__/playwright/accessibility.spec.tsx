@@ -5,7 +5,11 @@ const goBackButton = "[data-testid='nestable-navigation-content--go-back-item']"
 const nestedItem = "[data-testid='filter-nesting-item--item']";
 
 test('Side-navigation, default should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'side-navigation', 'nested-side-navigation');
+	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.tsx')>(
+		'design-system',
+		'side-navigation',
+		'nested-side-navigation',
+	);
 
 	await page.locator(nestedItem).first().click();
 	await expect(page.locator(goBackButton).first()).toBeVisible();

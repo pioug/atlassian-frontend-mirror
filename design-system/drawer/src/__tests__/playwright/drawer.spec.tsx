@@ -2,7 +2,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Drawer with Fixed Contents', () => {
 	test('should render fixed dropdown-menu correctly', async ({ page }) => {
-		await page.visitExample('design-system', 'drawer', 'drawer-with-fixed-contents');
+		await page.visitExample<typeof import('../../../examples/20-drawer-with-fixed-contents.tsx')>(
+			'design-system',
+			'drawer',
+			'drawer-with-fixed-contents',
+		);
 		await page.getByTestId('dropdown--trigger').click();
 		const dropDownMenu = page.getByTestId('dropdown--content');
 		const dropDownMenuBox = await dropDownMenu.boundingBox();
@@ -13,13 +17,21 @@ test.describe('Drawer with Fixed Contents', () => {
 
 test.describe('Default Drawer', () => {
 	test('should have focus on first element when opened', async ({ page }) => {
-		await page.visitExample('design-system', 'drawer', 'drawer-default');
+		await page.visitExample<typeof import('../../../examples/02-drawer-default.tsx')>(
+			'design-system',
+			'drawer',
+			'drawer-default',
+		);
 		await page.getByTestId('drawer-trigger').click();
 		const drawerCloseButton = page.getByTestId('DrawerCloseButton');
 		await expect(drawerCloseButton).toBeFocused();
 	});
 	test('should return focus to trigger element when closed', async ({ page }) => {
-		await page.visitExample('design-system', 'drawer', 'drawer-default');
+		await page.visitExample<typeof import('../../../examples/02-drawer-default.tsx')>(
+			'design-system',
+			'drawer',
+			'drawer-default',
+		);
 		const drawerTrigger = page.getByTestId('drawer-trigger');
 		await drawerTrigger.click();
 		const drawerCloseButton = page.getByTestId('DrawerCloseButton');
@@ -27,7 +39,11 @@ test.describe('Default Drawer', () => {
 		await expect(drawerTrigger).toBeFocused();
 	});
 	test('focus should not go beyond drawer container', async ({ page }) => {
-		await page.visitExample('design-system', 'drawer', 'drawer-default');
+		await page.visitExample<typeof import('../../../examples/02-drawer-default.tsx')>(
+			'design-system',
+			'drawer',
+			'drawer-default',
+		);
 		console.log(await page.evaluate(`document.querySelectorAll('button')`));
 		const drawerTrigger = page.getByTestId('drawer-trigger');
 		await drawerTrigger.click();
@@ -38,7 +54,11 @@ test.describe('Default Drawer', () => {
 
 test.describe('Scrollable Drawer', () => {
 	test('should be focusable', async ({ page }) => {
-		await page.visitExample('design-system', 'drawer', 'scroll');
+		await page.visitExample<typeof import('../../../examples/11-scroll.tsx')>(
+			'design-system',
+			'drawer',
+			'scroll',
+		);
 		await page.setViewportSize({ width: 600, height: 150 });
 		await page.getByTestId('open-drawer').click();
 
@@ -47,7 +67,11 @@ test.describe('Scrollable Drawer', () => {
 	});
 
 	test('should have a role="region"', async ({ page }) => {
-		await page.visitExample('design-system', 'drawer', 'scroll');
+		await page.visitExample<typeof import('../../../examples/11-scroll.tsx')>(
+			'design-system',
+			'drawer',
+			'scroll',
+		);
 		await page.setViewportSize({ width: 600, height: 150 });
 		await page.getByTestId('open-drawer').click();
 

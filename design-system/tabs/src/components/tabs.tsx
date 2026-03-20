@@ -9,7 +9,8 @@ import { css, jsx } from '@compiled/react';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 
-import { TabListContext, TabPanelContext } from '../internal/context';
+import { TabListContext } from '../internal/tab-list-context';
+import { TabPanelContext } from '../internal/tab-panel-context';
 import { type SelectedType, type TabsProps } from '../types';
 
 const baseStyles = css({

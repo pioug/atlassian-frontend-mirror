@@ -11,13 +11,13 @@ const getCustomElement: (
 	onClick?: MouseEventHandler,
 	ariaHasPopup?: boolean | 'dialog',
 ) => {
-		if (href && !isDisabled) {
-			return 'a';
-		}
-		if (onClick || isDisabled || ariaHasPopup) {
-			return 'button';
-		}
-		return 'span';
-	};
+	if (href && !isDisabled) {
+		return 'a';
+	}
+	if (onClick || isDisabled || ariaHasPopup) {
+		return 'button';
+	}
+	return 'span';
+};
 
 export default getCustomElement;

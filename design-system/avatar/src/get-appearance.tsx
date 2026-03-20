@@ -9,6 +9,6 @@ const getAppearanceForAppType = (appType: string | null | undefined): Appearance
 		default:
 			return 'circle';
 	}
-}
+};
 
 export default getAppearanceForAppType;

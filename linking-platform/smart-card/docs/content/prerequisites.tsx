@@ -1,6 +1,6 @@
 import customMd from '../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ### Prerequisites
 
@@ -14,3 +14,4 @@ Please check our [package.json](https://bitbucket.org/atlassian/atlassian-fronte
 * \`@atlaskit/link-provider\`
 
 `;
+export default _default_1;

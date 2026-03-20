@@ -75,8 +75,12 @@ const profileSSROperationNoOp = <T>(
  * // Without callback, executes normally
  * const result = profileSSROperation('operation', () => expensiveCalculation());
  */
-export const profileSSROperation: <T>(segmentName: string, fn: () => T, onSSRMeasure?: (measure: {
-    endTimestamp: number;
-    segmentName: string;
-    startTimestamp: number;
-}) => void) => T = isSSR() ? profileSSROperationImpl : profileSSROperationNoOp;
+export const profileSSROperation: <T>(
+	segmentName: string,
+	fn: () => T,
+	onSSRMeasure?: (measure: {
+		endTimestamp: number;
+		segmentName: string;
+		startTimestamp: number;
+	}) => void,
+) => T = isSSR() ? profileSSROperationImpl : profileSSROperationNoOp;

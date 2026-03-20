@@ -848,11 +848,9 @@ const enter = (
 						}
 
 						// Split near the depth of the current selection
-						return tr.split(
-							$from.pos,
-							$from?.parent?.isTextblock ? 2 : 1,
-							[{ type: blockTaskItem, attrs: { localId: itemLocalId } }],
-						);
+						return tr.split($from.pos, $from?.parent?.isTextblock ? 2 : 1, [
+							{ type: blockTaskItem, attrs: { localId: itemLocalId } },
+						]);
 					}
 					return tr.split($from.pos, 1, [{ type: nodeType, attrs: { localId: itemLocalId } }]);
 				};

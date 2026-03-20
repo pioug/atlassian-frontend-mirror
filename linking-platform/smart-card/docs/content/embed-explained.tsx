@@ -2,7 +2,7 @@ import { code } from '@atlaskit/docs';
 
 import customMd from '../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 Not every link has an embed content.
 To surface the embed content, the resolved link response must contain \`data.preview\`.
@@ -32,3 +32,4 @@ ${code`
 * \`atlassian:aspectRatio\` is the preferred aspect ration of the embed content. This only applies to embed card and has no impact on preview action.
 
 `;
+export default _default_1;

@@ -2,7 +2,7 @@ import { code } from '@atlaskit/docs';
 
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 To avoid an entire application page crashing, the **SmartCard** component doesn't throw an error in case of failure rendering.
 An optional hook \`onError\` callback function can be provided to handle errors.
 
@@ -43,3 +43,4 @@ The invocation of the \`onError\` callback function in this case does not mean t
 
 Refer to [Card](./card) documentation for general props.
 `;
+export default _default_1;

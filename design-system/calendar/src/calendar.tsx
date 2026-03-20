@@ -13,7 +13,6 @@ import { Box, Stack } from '@atlaskit/primitives/compiled';
 import Header from './internal/components/header';
 import WeekDaysComponent from './internal/components/week-days';
 import WeekHeaderComponent from './internal/components/week-header';
-import { blankStringArray } from './internal/constants';
 import useControlledDateState from './internal/hooks/use-controlled-date-state';
 import useFocusing from './internal/hooks/use-focusing';
 import useGetWeeks from './internal/hooks/use-get-weeks';
@@ -42,8 +41,8 @@ const InnerCalendar: React.ForwardRefExoticComponent<
 		day,
 		defaultDay = 0,
 		defaultMonth = 0,
-		defaultPreviouslySelected = blankStringArray,
-		defaultSelected = blankStringArray,
+		defaultPreviouslySelected = [],
+		defaultSelected = [],
 		defaultYear = 0,
 		disabled,
 		disabledDateFilter,

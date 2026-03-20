@@ -121,7 +121,9 @@ export function insertNewLine(): Command {
 	};
 }
 
-export const insertNewLineWithAnalytics = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+export const insertNewLineWithAnalytics = (
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): Command =>
 	withAnalytics(editorAnalyticsAPI, {
 		action: ACTION.INSERTED,
 		actionSubject: ACTION_SUBJECT.TEXT,

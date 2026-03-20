@@ -41,9 +41,7 @@ const rule: Rule.RuleModule = createLintRule({
 	},
 
 	create(context) {
-		const isNewIcon = createIsFromImportSourceFor(
-			/^@(atlaskit\/icon|atlaskit\/icon-lab)\/core\//,
-		);
+		const isNewIcon = createIsFromImportSourceFor(/^@(atlaskit\/icon|atlaskit\/icon-lab)\/core\//);
 
 		return errorBoundary({
 			JSXElement(node: Rule.Node) {

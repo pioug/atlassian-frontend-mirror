@@ -8,7 +8,7 @@ import InlineExample from '../../../examples/content/inline-card';
 import customMd from '../../utils/custom-md';
 import state_description from '../state-description';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 Smart Link with inline appearance shows off the link right in the text, just like a regular hyperlink.
 It's clean and sleek, fitting in smoothly with the rest of the content.
@@ -26,3 +26,4 @@ ${state_description}
 ${(<CardViewExample appearance="inline" showHoverPreview={true} CardComponent={Card} />)}
 
 `;
+export default _default_1;

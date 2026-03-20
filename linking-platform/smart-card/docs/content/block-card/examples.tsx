@@ -4,7 +4,7 @@ import actionOptions from '../../content/action-options';
 import CustomExample from '../../utils/custom-example';
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ### Actions
 
@@ -20,3 +20,4 @@ ${(
 )}
 
 `;
+export default _default_1;

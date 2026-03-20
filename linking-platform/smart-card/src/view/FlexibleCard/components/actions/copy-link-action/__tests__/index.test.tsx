@@ -109,7 +109,7 @@ describe('CopyLinkAction', () => {
 			await expect(container).toBeAccessible();
 		});
 	});
-	
+
 	ffTest.off('navx-3698-flexible-card-a11y-fix', '', () => {
 		it('should render icon with aria-label', async () => {
 			setup();

@@ -64,7 +64,7 @@ type ChatModeParam = {
 	webSearchEnabled?: boolean;
 	useCurrentPageContext?: boolean;
 	appFilters?: unknown[];
-}
+};
 
 export type ChatNewPayload = PayloadCore<
 	'chat-new',
@@ -134,6 +134,17 @@ export type WhiteboardContextPayloadData =
 			content: string;
 			contentId?: string;
 			isViewMode?: boolean;
+	  }
+	| undefined;
+
+export type SlidesContextPayloadData =
+	| {
+			xml: string;
+			contentId: string;
+			title: string;
+			url: string;
+			selectedSlideIndex: number;
+			selectedElementIds: string[];
 	  }
 	| undefined;
 
@@ -216,6 +227,13 @@ export type EditorSuggestionPayload = PayloadCore<
 		mode: 'insert' | 'replace';
 		content: string;
 		agentId?: string;
+	}
+>;
+
+export type UploadAndInsertMediaPayload = PayloadCore<
+	'upload-and-insert-media',
+	{
+		sourceUrl: string;
 	}
 >;
 
@@ -504,7 +522,8 @@ export type Payload =
 	| SolutionDraftAgentUpdatePayload
 	| SolutionArchitectAgentActivationPayload
 	| UpdateAgentConfigurationPayload
-	| StudioLandingPageRedirectPayload;
+	| StudioLandingPageRedirectPayload
+	| UploadAndInsertMediaPayload;
 
 export type Callback = (payload: Payload) => void;
 

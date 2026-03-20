@@ -173,7 +173,9 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				parent: {
 					type: 'block-menu-section' as const,
 					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key],
+					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+						TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key
+					],
 				},
 				component: () => {
 					return <TaskListBlockMenuItem api={api} />;
@@ -187,7 +189,9 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				parent: {
 					type: 'block-menu-section' as const,
 					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_STRUCTURE_DECISION_MENU_ITEM.key],
+					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+						TRANSFORM_STRUCTURE_DECISION_MENU_ITEM.key
+					],
 				},
 				component: () => {
 					return <DecisionListBlockMenuItem api={api} />;

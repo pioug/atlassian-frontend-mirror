@@ -72,7 +72,6 @@ snapshot(SyncBlockLoadingState, {
 
 snapshot(SyncBlockWithParagraphAndPanelRendererCompact, {
 	featureFlags: {
-		platform_synced_block_patch_5: true,
 		cc_editor_ai_content_mode: 'test',
 		confluence_compact_text_format: true,
 	},

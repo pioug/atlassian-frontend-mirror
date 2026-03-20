@@ -9,7 +9,7 @@ import { DocsContentTabs } from '@atlaskit/media-test-helpers';
 import example from '../content/example';
 import props from '../content/props';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   This package exports \`MediaImage\` component using
@@ -32,3 +32,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

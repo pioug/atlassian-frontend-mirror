@@ -149,11 +149,19 @@ export const absoluteBreakoutWidth = (
 };
 
 export { breakoutConsts };
-export const calcWideWidth: (containerWidth?: number, maxWidth?: number, fallback?: string, padding?: number) => string = breakoutConsts.calcWideWidth(breakoutConsts);
+export const calcWideWidth: (
+	containerWidth?: number,
+	maxWidth?: number,
+	fallback?: string,
+	padding?: number,
+) => string = breakoutConsts.calcWideWidth(breakoutConsts);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const calcBreakoutWidth: any = breakoutConsts.calcBreakoutWidth(breakoutConsts);
-export const calcBreakoutWithCustomWidth: (mode: "full-width" | "wide", width: number | null, editorContainerWidth: number) => string =
-	breakoutConsts.calcBreakoutWithCustomWidth(breakoutConsts);
+export const calcBreakoutWithCustomWidth: (
+	mode: 'full-width' | 'wide',
+	width: number | null,
+	editorContainerWidth: number,
+) => string = breakoutConsts.calcBreakoutWithCustomWidth(breakoutConsts);
 
 export function calculateBreakoutStyles({
 	mode,
@@ -253,10 +261,12 @@ export const getNextBreakoutMode = (currentMode?: BreakoutMode): Exclude<Breakou
 	return 'wide';
 };
 
-export const getTitle = (layout?: BreakoutMode): {
-    id: string;
-    defaultMessage: string;
-    description: string;
+export const getTitle = (
+	layout?: BreakoutMode,
+): {
+	id: string;
+	defaultMessage: string;
+	description: string;
 } => {
 	switch (layout) {
 		case 'full-width':

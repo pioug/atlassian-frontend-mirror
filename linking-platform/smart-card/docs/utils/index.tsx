@@ -21,7 +21,7 @@ const sanitizeUrl = (path: string = '') => {
 	}
 };
 
-export const isRelativePath = (path: string = '') => path?.startsWith('./');
+export const isRelativePath = (path: string = ''): boolean => path?.startsWith('./');
 
 export const toAbsolutePath = (path: string = ''): string => {
 	if (isRelativePath(path)) {
@@ -36,7 +36,7 @@ export const toAbsolutePath = (path: string = ''): string => {
 	return sanitizeUrl(path);
 };
 
-export const toExamplePath = (path: string = '') => {
+export const toExamplePath = (path: string = ''): string => {
 	const current = window.location.href;
 	const docsIdx = current.lastIndexOf('/docs');
 	const parent = docsIdx === -1 ? current : current.slice(0, docsIdx);
@@ -44,16 +44,16 @@ export const toExamplePath = (path: string = '') => {
 	return sanitizeUrl(absolutePath);
 };
 
-export const toPackagePath = (group: string, packageName: string) => {
+export const toPackagePath = (group: string, packageName: string): string => {
 	const origin = window.location.origin;
 	return sanitizeUrl(`${origin}/packages/${group}/${packageName}`);
 };
 
-export const navigateToUrl = (url: string) => {
+export const navigateToUrl = (url: string): void => {
 	window.location.href = url;
 };
 
-export const openUrl = (url: string) => {
+export const openUrl = (url: string): void => {
 	window.open(url, '_blank');
 };
 
@@ -68,7 +68,7 @@ const divStyles = css({
 	},
 });
 
-export const overrideActionsProps = (props: Object) => (
+export const overrideActionsProps = (props: object): JSX.Element => (
 	<Prop
 		{...props}
 		shapeComponent={() => (

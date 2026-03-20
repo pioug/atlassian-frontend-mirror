@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 8.1.0
+
+### Minor Changes
+
+- [`403274e761790`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/403274e761790) -
+  Add Rovo enabled check to cwr_blank_object_experiment evaluations
+
 ## 8.0.5
 
 ### Patch Changes

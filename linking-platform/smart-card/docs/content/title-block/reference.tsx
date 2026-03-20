@@ -4,7 +4,7 @@ import { md, Props } from '@atlaskit/docs';
 
 import { overrideActionsProps } from '../../utils';
 
-export default md`
+const _default_1: any = md`
 
 ### Props
 
@@ -19,3 +19,4 @@ ${(
 )}
 
 `;
+export default _default_1;

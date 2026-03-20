@@ -1,19 +1,21 @@
 import { defineMessages } from 'react-intl-next';
 
 export const textColorMessages: {
-    textColor: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; textColorTooltip: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; textColorHighlightTooltip: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	textColor: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	textColorTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	textColorHighlightTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	textColor: {
 		id: 'fabric.editor.textColor',

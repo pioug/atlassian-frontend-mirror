@@ -10,7 +10,7 @@ import { navigateToUrl, toExamplePath } from './index';
 
 const styles = xcss({ textAlign: 'right' });
 
-const ExampleQuickLinks = () => (
+const ExampleQuickLinks = (): React.JSX.Element => (
 	<Box paddingBlock="space.100" xcss={styles}>
 		<DropdownMenu<HTMLButtonElement>
 			shouldFlip

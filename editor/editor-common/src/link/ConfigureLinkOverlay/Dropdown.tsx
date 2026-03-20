@@ -2,13 +2,21 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ForwardRefExoticComponent, type KeyboardEvent, type MouseEvent, type RefAttributes, useCallback } from 'react';
+import {
+	type ForwardRefExoticComponent,
+	type KeyboardEvent,
+	type MouseEvent,
+	type RefAttributes,
+	useCallback,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import withAnalyticsContext, { type WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsContext, {
+	type WithContextProps,
+} from '@atlaskit/analytics-next/withAnalyticsContext';
 import DropdownMenu, {
 	DropdownItem,
 	DropdownItemGroup,
@@ -127,5 +135,7 @@ const Dropdown = ({
 	);
 };
 
-const _default_1: ForwardRefExoticComponent<DropdownProps & WithContextProps & RefAttributes<unknown>> = withAnalyticsContext({ source: SMALL_LINK_TOOLBAR_ANALYTICS_SOURCE })(Dropdown);
+const _default_1: ForwardRefExoticComponent<
+	DropdownProps & WithContextProps & RefAttributes<unknown>
+> = withAnalyticsContext({ source: SMALL_LINK_TOOLBAR_ANALYTICS_SOURCE })(Dropdown);
 export default _default_1;

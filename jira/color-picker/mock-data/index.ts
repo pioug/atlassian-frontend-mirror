@@ -3,7 +3,10 @@
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 
-export const simplePalette = [
+export const simplePalette: {
+	label: string;
+	value: string;
+}[] = [
 	{
 		label: 'Purple',
 		value: colors.P200,
@@ -30,7 +33,10 @@ export const simplePalette = [
 	},
 ];
 
-export const extendedPalette = (
+export const extendedPalette: {
+	label: string;
+	value: string;
+}[] = (
 	simplePalette as {
 		label: string;
 		value: string;

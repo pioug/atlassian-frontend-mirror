@@ -91,6 +91,8 @@ const TypeAheadListComponent = React.memo(
 	}: TypeAheadListProps) => {
 		const listRef = useRef<List>() as React.MutableRefObject<List>;
 		const listContainerRef = useRef<HTMLDivElement>(null);
+		const lastInputMethodRef = useRef<'mouse' | 'keyboard'>('keyboard');
+		const mouseMovedRef = useRef(false);
 		const lastVisibleIndexes = useRef({
 			overscanStartIndex: 0,
 			overscanStopIndex: 0,
@@ -211,8 +213,18 @@ const TypeAheadListComponent = React.memo(
 			if (selectedIndex === index) {
 				return;
 			}
+			mouseMovedRef.current = true;
+			lastInputMethodRef.current = 'mouse';
 			updateSelectedIndex(index, api)(editorView.state, editorView.dispatch);
 		};
+
+		useLayoutEffect(() => {
+			if (mouseMovedRef.current) {
+				mouseMovedRef.current = false;
+			} else {
+				lastInputMethodRef.current = 'keyboard';
+			}
+		}, [selectedIndex]);
 
 		useLayoutEffect(() => {
 			if (!listRef.current) {
@@ -280,6 +292,7 @@ const TypeAheadListComponent = React.memo(
 			 */
 			const handleKeyDown = (event: KeyboardEvent): void => {
 				if (isNavigationKey(event)) {
+					lastInputMethodRef.current = 'keyboard';
 					switch (event.key) {
 						case 'ArrowDown':
 							selectNextItem();
@@ -390,6 +403,7 @@ const TypeAheadListComponent = React.memo(
 								}
 								moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
 								api={api}
+								lastInputMethodRef={lastInputMethodRef}
 							/>
 						</ListRow>
 					)}
@@ -465,6 +479,7 @@ const TypeAheadListComponent = React.memo(
 							onClick={handleClick}
 							isFocused={selectedIndex === itemsLength}
 							iconBefore={config.iconBefore}
+							lastInputMethodRef={lastInputMethodRef}
 						/>
 					)}
 					<TypeaheadAssistiveTextPureComponent numberOfResults={itemsLength.toString()} />

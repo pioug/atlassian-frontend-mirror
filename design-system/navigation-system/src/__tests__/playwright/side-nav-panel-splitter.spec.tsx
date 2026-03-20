@@ -11,11 +11,16 @@ const mobileViewport = { width: 600, height: 768 };
 
 test.describe('side nav panel splitter', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample('design-system', 'navigation-system', 'resizable-slots', {
-			// Enabling both feature flags by setting the featureFlag query parameter twice
-			featureFlag:
-				'navx-full-height-sidebar&featureFlag=platform_dst_nav4_side_nav_resize_tooltip_feedback',
-		});
+		await page.visitExample<typeof import('../../../examples/resizable-slots.tsx')>(
+			'design-system',
+			'navigation-system',
+			'resizable-slots',
+			{
+				// Enabling both feature flags by setting the featureFlag query parameter twice
+				featureFlag:
+					'navx-full-height-sidebar&featureFlag=platform_dst_nav4_side_nav_resize_tooltip_feedback',
+			},
+		);
 	});
 
 	test.describe('when screen size is greater than 64rem', () => {

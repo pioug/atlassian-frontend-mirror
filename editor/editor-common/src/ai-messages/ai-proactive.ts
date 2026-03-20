@@ -1,127 +1,156 @@
 import { defineMessages } from 'react-intl-next';
 
 export const aiProactiveMessages: {
-    loadingIconAltText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; findingSuggestionsLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; findingSuggestionsLoadingLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; findingMoreSuggestionsLoadingLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; unhandledErrorMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; markdownErrorMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; recommendationPreviewButtonLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; recommendationReplaceButtonLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; recommendationDismissButtonLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dismissProactiveRecommendation: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; insertBelowProactiveRecommendation: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; replaceProactiveRecommendation: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; spellingAndGrammarLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; ManageSuggestionTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closeButtonLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; suggestionsTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; betaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moreMenuLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moreMenuManageSuggestions: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moreMenuGiveFeedback: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moreActionsLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; reloadSuggestionsStateTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; reloadSuggestionsStateDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; reloadSuggestionsButtonLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; noSuggestionsStateTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; noSuggestionsStateDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; askAIButtonLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; enableSuggestionsStateTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; enableSuggestionsStateDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; enableSuggestionsButtonLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	loadingIconAltText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	findingSuggestionsLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	findingSuggestionsLoadingLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	findingMoreSuggestionsLoadingLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	unhandledErrorMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	markdownErrorMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	recommendationPreviewButtonLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	recommendationReplaceButtonLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	recommendationDismissButtonLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dismissProactiveRecommendation: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	insertBelowProactiveRecommendation: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	replaceProactiveRecommendation: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	spellingAndGrammarLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	ManageSuggestionTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closeButtonLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	suggestionsTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	betaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moreMenuLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moreMenuManageSuggestions: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moreMenuGiveFeedback: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moreActionsLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	reloadSuggestionsStateTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	reloadSuggestionsStateDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	reloadSuggestionsButtonLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	noSuggestionsStateTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	noSuggestionsStateDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	askAIButtonLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	enableSuggestionsStateTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	enableSuggestionsStateDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	enableSuggestionsButtonLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	loadingIconAltText: {
 		id: 'fabric.editor.ai.proactive.loading.iconAltText.non-final',

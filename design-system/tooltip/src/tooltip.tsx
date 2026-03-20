@@ -15,15 +15,12 @@ import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
 import { register } from './internal/drag-manager';
+import { getMousePosition } from './internal/get-mouse-position';
+import { getVirtualElementFromMousePos } from './internal/get-virtual-element-from-mouse-pos';
 import { type API, type Entry, show, type Source } from './internal/tooltip-manager';
 import useUniqueId from './internal/use-unique-id';
 import TooltipContainer from './tooltip-container';
-import { type TooltipProps, type TriggerProps } from './types';
-import {
-	type FakeMouseElement,
-	getMousePosition,
-	getVirtualElementFromMousePos,
-} from './utilities';
+import { type TooltipProps, type TriggerProps, type FakeMouseElement } from './types';
 
 const tooltipZIndex = layers.tooltip();
 const analyticsAttributes = {

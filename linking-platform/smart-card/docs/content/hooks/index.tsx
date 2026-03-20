@@ -3,7 +3,7 @@ import { code } from '@atlaskit/docs';
 import actionOptions from '../../content/action-options';
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ### useSmartLinkEvents
 
@@ -51,3 +51,4 @@ ${code`
 	reload();
 `}
 `;
+export default _default_1;

@@ -32,7 +32,9 @@ type props = {
 	layout: BreakoutMode;
 };
 
-export const ResizerBreakoutModeLabel = ({ layout: breakoutLayout }: props): "" | React.JSX.Element | null => {
+export const ResizerBreakoutModeLabel = ({
+	layout: breakoutLayout,
+}: props): '' | React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 
 	const message = React.useMemo(() => {

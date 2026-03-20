@@ -1,39 +1,46 @@
 import { defineMessages } from 'react-intl-next';
 
 export const pasteOptionsToolbarMessages: {
-    pasteOptions: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; plainText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; markdown: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; richText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; plainTextAction: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; markdownAction: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; richTextAction: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; pasteMenuActionsTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	pasteOptions: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	plainText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	markdown: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	richText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	plainTextAction: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	markdownAction: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	richTextAction: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	pasteMenuActionsTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	pasteOptions: {
 		id: 'fabric.editor.pasteOptions',

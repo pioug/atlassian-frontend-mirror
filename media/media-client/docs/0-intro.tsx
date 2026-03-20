@@ -2,7 +2,7 @@ import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
 import { createRxjsNotice, createMediaUseOnlyNotice } from '@atlaskit/media-common/docs';
 
-export default md`
+const _default_1: any = md`
   ${createMediaUseOnlyNotice('Media Client', [
 		{ name: 'Media Picker', link: '/packages/media/media-picker' },
 	])}
@@ -54,3 +54,4 @@ const mediaClient = new MediaClient(mediaClientConfig);
 const imageUrl = mediaClient.getImageUrlSync(myFileId, myParams);
   `}
 `;
+export default _default_1;

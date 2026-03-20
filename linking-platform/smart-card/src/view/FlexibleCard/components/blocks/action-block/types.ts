@@ -5,10 +5,9 @@ import type { BlockProps } from '../types';
 
 export type ActionBlockProps = {
 	/**
-	 * Hides the AI Summary action.
-	 * To be replaced after the 3P Auth Rovo experiment with a better solution to determine whether to show the AI Summary action or not.
+	 * Whether platform_sl_3p_auth_rovo_action experiment value is ON for current runtime
 	 */
-	hideAISummaryAction?: boolean;
+	is3PAuthRovoActionsExperimentOn?: boolean;
 	/**
 	 * Callback once action is executed.
 	 */

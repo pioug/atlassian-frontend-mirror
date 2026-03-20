@@ -1,4 +1,263 @@
-export const MOCK_DATA = {
+export const MOCK_DATA: {
+	MOCKED_PROVIDERS: {
+		providers: {
+			key: string;
+			metadata: {
+				name: string;
+				avatarUrl: string;
+				supportedViews: string[];
+				displayName: string;
+				unAuthDescription: string;
+			};
+		}[];
+	};
+	MOCKED_SEARCH: {
+		status: number;
+		body: {
+			scopes: {
+				id: string;
+				results: {
+					content: {
+						id: string;
+						type: string;
+					};
+					container: {
+						title: string;
+						displayUrl: string;
+					};
+					title: string;
+					url: string;
+					baseUrl: string;
+					iconCssClass: string;
+					entityType: string;
+					lastModified: string;
+					excerpt: string;
+				}[];
+			}[];
+		};
+	};
+	MOCKED_DATA: {
+		status: number;
+		body: {
+			data: {
+				'@context': {
+					'@vocab': string;
+					atlassian: string;
+					schema: string;
+				};
+				'@type': string;
+				items: (
+					| {
+							'@context': {
+								'@vocab': string;
+								atlassian: string;
+								schema: string;
+							};
+							'@type': string[];
+							'@id': string;
+							url: string;
+							icon: {
+								'@type': string;
+								url: string;
+							};
+							image: {
+								'@type': string;
+								url: string;
+							};
+							name: string;
+							'atlassian:fileSize': string;
+							'schema:fileFormat': string;
+							'atlassian:dateViewed': string;
+							attributedTo: {
+								'@type': string;
+								name: string;
+								image: string;
+							};
+							'schema:dateCreated': string;
+							updated: string;
+							'atlassian:isDeleted': boolean;
+							'schema:commentCount': number;
+							preview: {
+								'@type': string;
+								href: string;
+								'atlassian:supportedPlatforms': string[];
+							};
+							generator: {
+								'@type': string;
+								name: string;
+								icon: {
+									'@type': string;
+									url: string;
+								};
+							};
+							'atlassian:updatedBy'?: undefined;
+					  }
+					| {
+							'@context': {
+								'@vocab': string;
+								atlassian: string;
+								schema: string;
+							};
+							'@type': string[];
+							'@id': string;
+							url: string;
+							icon: {
+								'@type': string;
+								url: string;
+							};
+							image: {
+								'@type': string;
+								url: string;
+							};
+							name: string;
+							'schema:fileFormat': string;
+							'atlassian:dateViewed': string;
+							attributedTo: {
+								'@type': string;
+								name: string;
+								image?: undefined;
+							};
+							'schema:dateCreated': string;
+							updated: string;
+							'atlassian:updatedBy': {
+								'@type': string;
+								name: string;
+								image?: undefined;
+							};
+							'atlassian:isDeleted': boolean;
+							'schema:commentCount': number;
+							preview: {
+								'@type': string;
+								href: string;
+								'atlassian:supportedPlatforms': string[];
+							};
+							generator: {
+								'@type': string;
+								name: string;
+								icon: {
+									'@type': string;
+									url: string;
+								};
+							};
+							'atlassian:fileSize'?: undefined;
+					  }
+					| {
+							'@context': {
+								'@vocab': string;
+								atlassian: string;
+								schema: string;
+							};
+							'@type': string[];
+							'@id': string;
+							url: string;
+							icon: {
+								'@type': string;
+								url: string;
+							};
+							image: {
+								'@type': string;
+								url: string;
+							};
+							name: string;
+							'schema:fileFormat': string;
+							'atlassian:dateViewed': string;
+							attributedTo: {
+								'@type': string;
+								name: string;
+								image: string;
+							};
+							'schema:dateCreated': string;
+							updated: string;
+							'atlassian:updatedBy': {
+								'@type': string;
+								name: string;
+								image: string;
+							};
+							'atlassian:isDeleted': boolean;
+							'schema:commentCount': number;
+							preview: {
+								'@type': string;
+								href: string;
+								'atlassian:supportedPlatforms': string[];
+							};
+							generator: {
+								'@type': string;
+								name: string;
+								icon: {
+									'@type': string;
+									url: string;
+								};
+							};
+							'atlassian:fileSize'?: undefined;
+					  }
+					| {
+							'@context': {
+								'@vocab': string;
+								atlassian: string;
+								schema: string;
+							};
+							'@type': string;
+							'@id': string;
+							url: string;
+							icon: {
+								'@type': string;
+								url: string;
+							};
+							image: {
+								'@type': string;
+								url: string;
+							};
+							name: string;
+							'atlassian:fileSize': string;
+							'schema:fileFormat': string;
+							'atlassian:dateViewed': string;
+							attributedTo: {
+								'@type': string;
+								name: string;
+								image: string;
+							};
+							'schema:dateCreated': string;
+							updated: string;
+							'atlassian:updatedBy': {
+								'@type': string;
+								name: string;
+								image: string;
+							};
+							'atlassian:isDeleted': boolean;
+							'schema:commentCount': number;
+							preview: {
+								'@type': string;
+								href: string;
+								'atlassian:supportedPlatforms': string[];
+							};
+							generator: {
+								'@type': string;
+								name: string;
+								icon: {
+									'@type': string;
+									url: string;
+								};
+							};
+					  }
+				)[];
+			};
+			meta: {
+				access: string;
+				auth: {
+					displayName: string;
+					key: string;
+					url: string;
+					length: number;
+					version: string;
+					visibility: string;
+				}[];
+				definitionId: string;
+				key: string;
+				visibility: string;
+			};
+		};
+	};
+} = {
 	MOCKED_PROVIDERS: {
 		providers: [
 			{
@@ -391,7 +650,15 @@ export const MOCK_DATA = {
 	},
 };
 
-export const MOCK_NO_RESULTS = {
+export const MOCK_NO_RESULTS: {
+	status: number;
+	body: {
+		scopes: {
+			id: string;
+			results: never[];
+		}[];
+	};
+} = {
 	status: 200,
 	body: {
 		scopes: [

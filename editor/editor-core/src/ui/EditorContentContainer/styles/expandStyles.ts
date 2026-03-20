@@ -333,6 +333,16 @@ export const expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: Ser
 );
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const expandStylesMixin_experiment_platform_editor_chromeless_expand_fix: SerializedStyles =
+	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror > .ak-editor-expand': {
+			marginLeft: 0,
+			marginRight: 0,
+		},
+	});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles =
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

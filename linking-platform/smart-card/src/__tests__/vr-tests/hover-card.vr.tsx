@@ -91,6 +91,7 @@ snapshot(HoverCardRovoChatAction, {
 	],
 	featureFlags: {
 		platform_sl_3p_auth_rovo_action_kill_switch: true,
+		platform_sl_3p_auth_rovo_action: true,
 	},
 	waitForReactLazy: true,
 });

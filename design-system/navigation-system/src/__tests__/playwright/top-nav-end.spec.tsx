@@ -8,7 +8,11 @@ test.describe('top nav end', () => {
 		// Start at large viewport size
 		await page.setViewportSize(desktopViewport);
 
-		await page.visitExample('design-system', 'navigation-system', 'top-navigation');
+		await page.visitExample<typeof import('../../../examples/top-navigation.tsx')>(
+			'design-system',
+			'navigation-system',
+			'top-navigation',
+		);
 
 		const chatButton = page.getByRole('button', { name: /Chat/ });
 		const aiButton = page.getByRole('button', { name: /Atlassian Intelligence/ });
@@ -54,7 +58,11 @@ test.describe('top nav end', () => {
 	}) => {
 		await page.setViewportSize(mobileViewport);
 
-		await page.visitExample('design-system', 'navigation-system', 'top-navigation');
+		await page.visitExample<typeof import('../../../examples/top-navigation.tsx')>(
+			'design-system',
+			'navigation-system',
+			'top-navigation',
+		);
 
 		// Open the "Show more" popup
 		const showMoreButton = page.getByRole('button', { name: /Show more/ });

@@ -40,7 +40,7 @@ export default class ManagedStatusPicker extends React.Component<Props, State> {
 		});
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { selectedColor, text } = this.state;
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/prefer-primitives

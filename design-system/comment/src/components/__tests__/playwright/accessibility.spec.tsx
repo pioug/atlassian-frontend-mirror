@@ -1,7 +1,11 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Comment should pass basic aXe audit', async ({ page }) => {
-	page.visitExample('design-system', 'comment', 'example-comment-highlighted');
+	page.visitExample<typeof import('../../../../examples/10-example-comment-highlighted.tsx')>(
+		'design-system',
+		'comment',
+		'example-comment-highlighted',
+	);
 	const commentActionReply = page.locator('button:has-text("reply")');
 	const replyParentElement = commentActionReply.locator('..');
 	const commentActionEdit = page.locator('button:has-text("edit")');

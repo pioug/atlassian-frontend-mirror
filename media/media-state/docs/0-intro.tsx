@@ -5,7 +5,7 @@ import { createMediaUseOnlyNotice, createSingletonNotice } from '@atlaskit/media
 
 const packageName = 'Media State';
 
-export default md`
+const _default_1: any = md`
 ${createSingletonNotice(packageName)}
 
 ${createMediaUseOnlyNotice(packageName, [
@@ -17,3 +17,4 @@ ${(<AtlassianInternalWarning />)}
 
 This library provides a state management solution for Media frontend, particularly for caching the file states. It is built using [Zustand](https://github.com/pmndrs/zustand) and [Immer](https://immerjs.github.io/immer/), with devtools support for development environments.
 `;
+export default _default_1;

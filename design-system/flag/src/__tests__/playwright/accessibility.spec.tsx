@@ -5,7 +5,11 @@ const flagTestId = "[data-testid='MyFlagTestId--1']";
 const flagActionTestId = "[data-testid='MyFlagTestId--1'] [data-testid='MyFlagAction']";
 
 test('Flag should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'flag', 'testing');
+	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+		'design-system',
+		'flag',
+		'testing',
+	);
 	await page.locator(addFlagBtn).first().click();
 	await expect(page.locator(flagTestId).first()).toBeVisible();
 	await expect(page.locator(flagActionTestId).first()).toBeVisible();

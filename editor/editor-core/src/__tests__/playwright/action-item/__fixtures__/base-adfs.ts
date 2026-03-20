@@ -1,21 +1,23 @@
 export const simpleActionList: {
-    version: number; type: string; content: {
-        type: string;
-        attrs: {
-            localId: string;
-        };
-        content: {
-            type: string;
-            attrs: {
-                localId: string;
-                state: string;
-            };
-            content: {
-                text: string;
-                type: string;
-            }[];
-        }[];
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			localId: string;
+		};
+		content: {
+			type: string;
+			attrs: {
+				localId: string;
+				state: string;
+			};
+			content: {
+				text: string;
+				type: string;
+			}[];
+		}[];
+	}[];
 } = {
 	version: 1,
 	type: 'doc',
@@ -71,23 +73,25 @@ export const simpleActionList: {
 };
 
 export const simpleActionListWithShortText: {
-    version: number; type: string; content: {
-        type: string;
-        attrs: {
-            localId: string;
-        };
-        content: {
-            type: string;
-            attrs: {
-                localId: string;
-                state: string;
-            };
-            content: {
-                text: string;
-                type: string;
-            }[];
-        }[];
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			localId: string;
+		};
+		content: {
+			type: string;
+			attrs: {
+				localId: string;
+				state: string;
+			};
+			content: {
+				text: string;
+				type: string;
+			}[];
+		}[];
+	}[];
 } = {
 	version: 1,
 	type: 'doc',
@@ -143,40 +147,45 @@ export const simpleActionListWithShortText: {
 };
 
 export const simpleActionListWithShortTextAndNestedItemsList: {
-    version: number; type: string; content: {
-        type: string;
-        attrs: {
-            localId: string;
-        };
-        content: ({
-            type: string;
-            attrs: {
-                localId: string;
-                state: string;
-            };
-            content: {
-                text: string;
-                type: string;
-            }[];
-        } | {
-            type: string;
-            attrs: {
-                localId: string;
-                state?: undefined;
-            };
-            content: {
-                type: string;
-                attrs: {
-                    localId: string;
-                    state: string;
-                };
-                content: {
-                    text: string;
-                    type: string;
-                }[];
-            }[];
-        })[];
-    }[];
+	version: number;
+	type: string;
+	content: {
+		type: string;
+		attrs: {
+			localId: string;
+		};
+		content: (
+			| {
+					type: string;
+					attrs: {
+						localId: string;
+						state: string;
+					};
+					content: {
+						text: string;
+						type: string;
+					}[];
+			  }
+			| {
+					type: string;
+					attrs: {
+						localId: string;
+						state?: undefined;
+					};
+					content: {
+						type: string;
+						attrs: {
+							localId: string;
+							state: string;
+						};
+						content: {
+							text: string;
+							type: string;
+						}[];
+					}[];
+			  }
+		)[];
+	}[];
 } = {
 	version: 1,
 	type: 'doc',

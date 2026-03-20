@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 # CSS Selectors to help integration testing
 
 \`<Card />\` component has optional \`testId: string\` property that will be assigned to the top
@@ -53,3 +53,4 @@ Only one of these three can be found as a top DOM element:
   - \`[data-test-is-playing="data-test-is-playing"]\`: Contains 'true' if it media is playing and
     'false' otherwise.
 `;
+export default _default_1;

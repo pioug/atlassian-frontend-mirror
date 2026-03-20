@@ -10,7 +10,7 @@ import customMd from '../../utils/custom-md';
 import embedExplained from '../embed-explained';
 import state_description from '../state-description';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 Smart Links embed enables users to seamlessly integrate and engage with content from different sources directly within Atlassian products.
 This functionality boosts productivity by minimising the necessity to switch between tools, offering a smooth pathway to access and engage with linked content.
@@ -31,3 +31,4 @@ ${state_description}
 
 ${(<CardViewExample appearance="embed" frameStyle="show" url={ResolvedClientEmbedUrl} CardComponent={Card} />)}
 `;
+export default _default_1;

@@ -5,7 +5,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { toggleBlockMarkNext } from '@atlaskit/editor-common/commands';
+import { createToggleBlockMarkOnRangeNext } from '@atlaskit/editor-common/commands';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type {
 	Command,
@@ -21,6 +21,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TextBlockTypes } from '../block-types';
 import { HEADINGS_BY_NAME, NORMAL_TEXT } from '../block-types';
+import { getSelectionRangeExpandedToLists } from '../utils';
 
 import {
 	FORMATTING_NODE_TYPES,
@@ -106,9 +107,28 @@ export function setHeading(
 			}
 		});
 
+		// Remove fontSize mark from transformed content in range
+		// List content stays as paragraphs (headings aren't allowed in list items),
+		// but non-list content has been converted to headings by setBlockType above.
 		const { fontSize } = schema.marks;
 		if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
-			toggleBlockMarkNext(fontSize, () => false, [schema.nodes.heading])(tr);
+			const allowedBlocks = [schema.nodes.paragraph, schema.nodes.heading];
+			if (selection instanceof CellSelection) {
+				selection.forEachCell((cell, pos) => {
+					createToggleBlockMarkOnRangeNext(fontSize, () => false, allowedBlocks)(
+						pos,
+						pos + cell.nodeSize,
+						tr,
+					);
+				});
+			} else {
+				const expandedRange = getSelectionRangeExpandedToLists(tr);
+				createToggleBlockMarkOnRangeNext(fontSize, () => false, allowedBlocks)(
+					expandedRange.from,
+					expandedRange.to,
+					tr,
+				);
+			}
 		}
 
 		return tr;
@@ -122,13 +142,14 @@ export function setBlockTypeWithAnalytics(
 	fromBlockQuote?: boolean,
 ): EditorCommand {
 	return ({ tr }) => {
-		const { nodes } = tr.doc.type.schema;
+		const { nodes, marks } = tr.doc.type.schema;
 		if (name === 'normal' && nodes.paragraph) {
 			return setNormalTextWithAnalytics(inputMethod, editorAnalyticsApi, fromBlockQuote)({ tr });
 		}
 
 		if (
 			name === 'smallText' &&
+			marks.fontSize &&
 			expValEquals('platform_editor_small_font_size', 'isEnabled', true)
 		) {
 			return setSmallTextWithAnalytics(inputMethod, editorAnalyticsApi)({ tr });
@@ -154,17 +175,31 @@ export function setSmallText(): EditorCommand {
 			marks: { fontSize },
 			nodes: { paragraph },
 		} = tr.doc.type.schema;
+
 		if (!fontSize) {
 			return null;
 		}
 
 		const { selection } = tr;
-		const ranges = selection instanceof CellSelection ? selection.ranges : [selection];
-		ranges.forEach(({ $from, $to }) => {
-			tr.setBlockType($from.pos, $to.pos, paragraph);
-		});
 
-		toggleBlockMarkNext(fontSize, () => ({ fontSize: 'small' }), [paragraph])(tr);
+		if (selection instanceof CellSelection) {
+			selection.forEachCell((cell, pos) => {
+				tr.setBlockType(pos, pos + cell.nodeSize, paragraph);
+				createToggleBlockMarkOnRangeNext(fontSize, () => ({ fontSize: 'small' }), [paragraph])(
+					pos,
+					pos + cell.nodeSize,
+					tr,
+				);
+			});
+		} else {
+			tr.setBlockType(selection.from, selection.to, paragraph);
+			const expandedRange = getSelectionRangeExpandedToLists(tr);
+			createToggleBlockMarkOnRangeNext(fontSize, () => ({ fontSize: 'small' }), [paragraph])(
+				expandedRange.from,
+				expandedRange.to,
+				tr,
+			);
+		}
 		return tr;
 	};
 }
@@ -197,6 +232,8 @@ export function setNormalText(fromBlockQuote?: boolean): EditorCommand {
 				type: { schema },
 			},
 		} = tr;
+
+		// Apply normal text to the selection range (handles non-list content)
 		const ranges = selection instanceof CellSelection ? selection.ranges : [selection];
 		ranges.forEach(({ $from, $to }) => {
 			if (fromBlockQuote) {
@@ -219,10 +256,25 @@ export function setNormalText(fromBlockQuote?: boolean): EditorCommand {
 			}
 		});
 
-		// Remove fontSize mark if present in schema
+		// Remove fontSize mark from any lists the selection touches
 		const { fontSize } = schema.marks;
 		if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
-			toggleBlockMarkNext(fontSize, () => false, [schema.nodes.paragraph])(tr);
+			if (selection instanceof CellSelection) {
+				selection.forEachCell((cell, pos) => {
+					createToggleBlockMarkOnRangeNext(fontSize, () => false, [schema.nodes.paragraph])(
+						pos,
+						pos + cell.nodeSize,
+						tr,
+					);
+				});
+			} else {
+				const expandedRange = getSelectionRangeExpandedToLists(tr);
+				createToggleBlockMarkOnRangeNext(fontSize, () => false, [schema.nodes.paragraph])(
+					expandedRange.from,
+					expandedRange.to,
+					tr,
+				);
+			}
 		}
 
 		return tr;

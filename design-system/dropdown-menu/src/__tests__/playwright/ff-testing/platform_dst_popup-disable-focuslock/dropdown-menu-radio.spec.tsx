@@ -8,9 +8,14 @@ const dropdownMenu = '[data-testid="lite-mode-ddm--content"]';
 test('Verify that radio in dropdown menu transitions from unchecked to checked - using defaultSelected', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-radio', {
-		featureFlag: 'platform_dst_popup-disable-focuslock',
-	});
+	await page.visitExample<typeof import('../../../../../examples/96-testing-radio.tsx')>(
+		'design-system',
+		'dropdown-menu',
+		'testing-radio',
+		{
+			featureFlag: 'platform_dst_popup-disable-focuslock',
+		},
+	);
 	await page.locator(trigger).first().click();
 
 	await expect(page.locator(dropdownMenu).first()).toBeVisible();
@@ -26,9 +31,14 @@ test('Verify that radio in dropdown menu transitions from unchecked to checked -
 test('Verify that radio in dropdown menu can only have one selection in a group', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-radio', {
-		featureFlag: 'platform_dst_popup-disable-focuslock',
-	});
+	await page.visitExample<typeof import('../../../../../examples/96-testing-radio.tsx')>(
+		'design-system',
+		'dropdown-menu',
+		'testing-radio',
+		{
+			featureFlag: 'platform_dst_popup-disable-focuslock',
+		},
+	);
 	await page.locator(trigger).first().click();
 
 	await expect(page.locator(dropdownMenu).first()).toBeVisible();

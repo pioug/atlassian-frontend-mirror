@@ -141,7 +141,11 @@ const _validation = (
 		});
 	}
 
-	if (result && !expValEquals('cc-maui-experiment', 'isEnabled', true) && fg('platform_editor_native_embeds_fallback_transform')) {
+	if (
+		result &&
+		!expValEquals('cc-maui-experiment', 'isEnabled', true) &&
+		fg('platform_editor_native_embeds_fallback_transform')
+	) {
 		const { transformedAdf, hasValidTransform } = nativeEmbedsFallbackTransform(result);
 
 		if (hasValidTransform && transformedAdf) {

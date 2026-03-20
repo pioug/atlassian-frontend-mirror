@@ -55,7 +55,9 @@ const panelPlugin: PanelPlugin = ({
 				parent: {
 					type: 'block-menu-section' as const,
 					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_STRUCTURE_PANEL_MENU_ITEM.key],
+					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+						TRANSFORM_STRUCTURE_PANEL_MENU_ITEM.key
+					],
 				},
 				component: createPanelBlockMenuItem(api),
 				isHidden: () => Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(PANEL_NODE_NAME)),
@@ -86,7 +88,13 @@ const panelPlugin: PanelPlugin = ({
 				{
 					name: 'panel',
 					plugin: ({ providerFactory, dispatch, nodeViewPortalProviderAPI }) =>
-						createPlugin(dispatch, providerFactory, { allowCustomPanel, allowCustomPanelEdit }, api, nodeViewPortalProviderAPI),
+						createPlugin(
+							dispatch,
+							providerFactory,
+							{ allowCustomPanel, allowCustomPanelEdit },
+							api,
+							nodeViewPortalProviderAPI,
+						),
 				},
 				{
 					name: 'panelKeyMap',
@@ -231,7 +239,13 @@ const panelPlugin: PanelPlugin = ({
 				return quickInsertOptions;
 			},
 			floatingToolbar: (state, intl, providerFactory) =>
-				getToolbarConfig(state, intl, { allowCustomPanel, allowCustomPanelEdit }, providerFactory, api),
+				getToolbarConfig(
+					state,
+					intl,
+					{ allowCustomPanel, allowCustomPanelEdit },
+					providerFactory,
+					api,
+				),
 		},
 	};
 };

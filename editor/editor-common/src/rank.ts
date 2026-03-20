@@ -2,9 +2,9 @@
 // @deprecated
 // @private This rank is not stable and should not be trusted. If you need to change this file, please let the Editor lego team know about it
 export const rankEditorPlugins: {
-    plugins: string[];
-    nodes: string[];
-    marks: string[];
+	plugins: string[];
+	nodes: string[];
+	marks: string[];
 } = {
 	plugins: [
 		'featureFlagsContextPlugin',

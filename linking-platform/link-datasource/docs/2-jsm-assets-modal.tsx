@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, Example, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
   ## JSM Assets Configuration Modal Props
@@ -39,3 +39,4 @@ aql?: string;
 		/>
 	)}
 `;
+export default _default_1;

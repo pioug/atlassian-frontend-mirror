@@ -9,7 +9,7 @@ type Props = {
 	children: ReactNode;
 };
 
-export const LocaleProvider = ({ children }: Props) => {
+export const LocaleProvider = ({ children }: Props): React.JSX.Element => {
 	const [locale, setLocale] = useState('en');
 	const [messages, setMessages] = useState<{ [key: string]: string }>({});
 

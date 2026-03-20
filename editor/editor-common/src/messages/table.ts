@@ -1,303 +1,376 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    tableScrollRegion: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; tableOptions: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; tableSizeIncreaseScreenReaderInformation: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; tableSizeDecreaseScreenReaderInformation: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; headerRow: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; headerColumn: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; numberedColumn: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; collapseTable: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; resizeTable: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; insertColumn: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addColumnLeft: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addColumnRight: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; insertColumnDrag: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; removeColumns: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; insertRow: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addRowAbove: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addRowBelow: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveColumnLeft: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveColumnLeftHelpDialogLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveColumnRight: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveColumnRightHelpDialogLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveRowUp: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveRowUpHelpDialogLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveRowDown: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; moveRowDownHelpDialogLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; insertRowDrag: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; removeRows: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; rowNumbers: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; numberedRows: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; rowsAreInserted: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; rowsAreRemoved: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; rowSelected: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; rowMovedUp: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; rowMovedDown: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columnsAreInserted: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columnsAreRemoved: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columnSelected: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columnMovedLeft: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columnMovedRight: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; cellOptions: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; confirmDeleteLinkedModalOKButton: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; confirmDeleteLinkedModalMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; confirmDeleteLinkedModalMessagePrefix: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; confirmModalCheckboxLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; deleteElementTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; unnamedSource: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; adjustColumns: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; cornerControl: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; cellBackground: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; backgroundColor: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; mergeCells: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; splitCell: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; clearCells: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; sortColumnASC: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; sortColumnDESC: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; sortColumnIncreasing: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; sortColumnDecreasing: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; canNotSortTable: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; distributeColumns: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; lockColumnWidths: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; rowControl: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; rowDragHandle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dragHandleZone: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columnDragHandle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; fullWidthLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; startedColumnResize: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; focusedOtherResize: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; changedColumnWidth: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columnResizeStop: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columnResizeOverflow: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; columnResizeLast: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; tableAlignmentOptions: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; alignTableCenter: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; alignTableLeft: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	tableScrollRegion: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	tableOptions: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	tableSizeIncreaseScreenReaderInformation: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	tableSizeDecreaseScreenReaderInformation: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	headerRow: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	headerColumn: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	numberedColumn: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	collapseTable: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	resizeTable: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	insertColumn: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addColumnLeft: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addColumnRight: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	insertColumnDrag: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	removeColumns: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	insertRow: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addRowAbove: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addRowBelow: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveColumnLeft: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveColumnLeftHelpDialogLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveColumnRight: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveColumnRightHelpDialogLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveRowUp: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveRowUpHelpDialogLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveRowDown: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	moveRowDownHelpDialogLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	insertRowDrag: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	removeRows: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rowNumbers: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	numberedRows: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rowsAreInserted: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rowsAreRemoved: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rowSelected: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rowMovedUp: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rowMovedDown: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columnsAreInserted: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columnsAreRemoved: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columnSelected: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columnMovedLeft: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columnMovedRight: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	cellOptions: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	confirmDeleteLinkedModalOKButton: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	confirmDeleteLinkedModalMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	confirmDeleteLinkedModalMessagePrefix: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	confirmModalCheckboxLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	deleteElementTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	unnamedSource: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	adjustColumns: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	cornerControl: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	cellBackground: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	backgroundColor: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	mergeCells: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	splitCell: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	clearCells: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	sortColumnASC: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	sortColumnDESC: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	sortColumnIncreasing: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	sortColumnDecreasing: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	canNotSortTable: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	distributeColumns: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	lockColumnWidths: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rowControl: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	rowDragHandle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dragHandleZone: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columnDragHandle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	fullWidthLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	startedColumnResize: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	focusedOtherResize: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	changedColumnWidth: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columnResizeStop: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columnResizeOverflow: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	columnResizeLast: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	tableAlignmentOptions: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	alignTableCenter: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	alignTableLeft: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	tableScrollRegion: {
 		id: 'fabric.editor.tableScrollRegion',

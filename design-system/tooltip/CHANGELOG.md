@@ -1,5 +1,19 @@
 # @atlaskit/tooltip
 
+## 21.0.0
+
+### Major Changes
+
+- [`38f89455de21d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38f89455de21d) -
+  Removes `tooltip/utilities` entrypoint from public API. Use the utility exports from
+  `@atlaskit/tooltip` directly.
+
+  Removes redundant utility files, split-out multi-export modules and restructures internal files.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.14.7
 
 ### Patch Changes

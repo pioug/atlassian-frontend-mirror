@@ -863,6 +863,15 @@ export const editorExperimentsConfig: {
 		) => value is 'control' | 'card_by_default_only' | 'card_by_default_and_new_design';
 		values: ('control' | 'card_by_default_only' | 'card_by_default_and_new_design')[];
 	};
+	// Added 2026-03-17 - Experiment to display Rovo Chat actions on Google Smart Link's HoverCard on
+	// Confluence main page renderer. Boolean experiment: use getExperimentValue(..., "isEnabled", false).
+	// https://switcheroo.atlassian.com/ui/gates/c6e2cac7-a7c6-47d4-ac53-ebed74cac406/key/platform_sl_3p_auth_rovo_action
+	platform_sl_3p_auth_rovo_action: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-08-10
 	platform_synced_block: {
 		defaultValue: boolean;
@@ -1211,6 +1220,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-16
+	platform_safari_cursor_typeahead_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-19
 	platform_editor_comment_editor_border_radius: {
 		defaultValue: boolean;
@@ -1427,6 +1443,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-19
+	platform_editor_fix_table_row_drag_drop_target: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-11
 	platform_editor_remove_grid_init_reflow: {
 		defaultValue: boolean;
@@ -1496,6 +1519,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_chromeless_expand_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-13
 	platform_editor_misaligned_ai_screens_firefox_fix: {
 		defaultValue: boolean;
@@ -1512,6 +1541,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-15
 	platform_editor_sync_block_ssr_config: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-18
+	platform_editor_selection_toolbar_block_handle: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2567,6 +2603,15 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		defaultValue: 'control',
 	}),
+	// Added 2026-03-17 - 3P auth Rovo actions on smart link hover card (boolean: isEnabled)
+	platform_sl_3p_auth_rovo_action: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_sl_3p_auth_rovo_action',
+			jira: 'platform_sl_3p_auth_rovo_action',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-12-03
 	platform_editor_use_pmr_for_collab_presence_non_ic: createBooleanExperiment({
 		productKeys: {
@@ -2899,6 +2944,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-16
+	platform_safari_cursor_typeahead_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_safari_cursor_typeahead_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-02-17
 	confluence_frontend_fix_date_hydration_error: createBooleanExperiment({
 		productKeys: {
@@ -3154,6 +3207,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-19
+	platform_editor_fix_table_row_drag_drop_target: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_table_row_drag_drop_target',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-11
 	platform_editor_remove_grid_init_reflow: createBooleanExperiment({
 		productKeys: {
@@ -3243,6 +3304,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-20
+	platform_editor_chromeless_expand_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_chromeless_expand_fix',
+			jira: 'platform_editor_chromeless_expand_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-13
 	platform_editor_misaligned_ai_screens_firefox_fix: createBooleanExperiment({
 		productKeys: {
@@ -3256,6 +3326,14 @@ export const editorExperimentsConfig: {
 	platform_editor_sync_block_ssr_config: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_sync_block_ssr_config',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-18
+	platform_editor_selection_toolbar_block_handle: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_selection_toolbar_block_handle',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

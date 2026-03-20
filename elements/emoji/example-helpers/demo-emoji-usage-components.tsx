@@ -64,7 +64,7 @@ export class LocalStorageView extends PureComponent<LocalStorageViewProps, any> 
 		super(props);
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		let renderedQueue;
 		if (this.props.emojiQueue.length === 0) {
 			renderedQueue = <Text>None</Text>;
@@ -123,7 +123,7 @@ export abstract class UsageShowAndClearComponent extends PureComponent<
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.refreshFrequentlyUsedList();
 	}
 
@@ -143,7 +143,7 @@ export abstract class UsageShowAndClearComponent extends PureComponent<
 		this.refreshFrequentlyUsedList();
 	};
 
-	protected refreshFrequentlyUsedList() {
+	protected refreshFrequentlyUsedList(): void {
 		this.props.emojiResource.getFrequentlyUsed().then(this.onRefreshedFrequentlyUsedList);
 	}
 
@@ -172,7 +172,7 @@ export abstract class UsageShowAndClearComponent extends PureComponent<
 		return [];
 	}
 
-	render() {
+	render(): React.JSX.Element {
 		const { emojiResource } = this.props;
 		const { emojiList, emojiQueue } = this.state;
 

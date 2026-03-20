@@ -9,7 +9,9 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import withAnalyticsContext, { type WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsContext, {
+	type WithContextProps,
+} from '@atlaskit/analytics-next/withAnalyticsContext';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import SearchIcon from '@atlaskit/icon/core/search';
@@ -217,9 +219,14 @@ const elementAfterInput = css({
 	textAlign: 'center',
 });
 
-const MemoizedElementSearchWithAnalytics: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<Props & WrappedComponentProps, "intl"> & {
-    forwardedRef?: React.Ref<unknown>;
-} & WithContextProps & React.RefAttributes<unknown>>> = memo(
+const MemoizedElementSearchWithAnalytics: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<
+		Omit<Props & WrappedComponentProps, 'intl'> & {
+			forwardedRef?: React.Ref<unknown>;
+		} & WithContextProps &
+			React.RefAttributes<unknown>
+	>
+> = memo(
 	withAnalyticsContext({
 		component: 'Searchbar',
 	})(injectIntl(ElementSearch)),

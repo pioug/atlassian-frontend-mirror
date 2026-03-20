@@ -2,7 +2,9 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('menu item - actions on hover', () => {
 	test('should return focus to dropdown trigger inside actions on hover', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/menu-item-actions-on-hover.tsx')>('navigation', 'side-nav-items', 'menu-item-actions-on-hover');
+		await page.visitExample<
+			typeof import('../../../../../examples/menu-item-actions-on-hover.tsx')
+		>('navigation', 'side-nav-items', 'menu-item-actions-on-hover');
 
 		const buttonMenuItemWithHoverActions = page.getByTestId('button-menu-item-with-hover-actions');
 		await buttonMenuItemWithHoverActions.focus();
@@ -27,7 +29,9 @@ test.describe('menu item - actions on hover', () => {
 	});
 
 	test('should return focus to popup trigger inside actions on hover', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/menu-item-actions-on-hover.tsx')>('navigation', 'side-nav-items', 'menu-item-actions-on-hover');
+		await page.visitExample<
+			typeof import('../../../../../examples/menu-item-actions-on-hover.tsx')
+		>('navigation', 'side-nav-items', 'menu-item-actions-on-hover');
 
 		const buttonMenuItemWithPopup = page.getByTestId('button-menu-item-with-popup');
 		await buttonMenuItemWithPopup.focus();
@@ -54,7 +58,9 @@ test.describe('menu item - actions on hover', () => {
 	test('should focus on interactive elements inside actions on hover when tabbing backwards', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../../examples/menu-item-actions-on-hover.tsx')>('navigation', 'side-nav-items', 'menu-item-actions-on-hover');
+		await page.visitExample<
+			typeof import('../../../../../examples/menu-item-actions-on-hover.tsx')
+		>('navigation', 'side-nav-items', 'menu-item-actions-on-hover');
 
 		// Focus on the last menu item
 		const lastMenuItem = page.getByTestId('button-menu-item-with-popup-portalled-popup');

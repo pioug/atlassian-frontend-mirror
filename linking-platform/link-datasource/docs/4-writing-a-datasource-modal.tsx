@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Example, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ## What is a Datasource Config Modal
 
   Datasource Config Modals provide the capability to create a bespoke UI for configuring a "Datasource".
@@ -19,3 +19,4 @@ export default md`
 		/>
 	)}
   `;
+export default _default_1;

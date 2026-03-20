@@ -11,7 +11,11 @@ const nextPageBtnSelector = '[data-testid="pagination--right-navigator"]';
 const ellipsisSelector = '[data-testid=pagination-ellipsis-text]';
 
 test('A user will be able to change page by clicking page number button', async ({ page }) => {
-	await page.visitExample('design-system', 'pagination', 'basic');
+	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+		'design-system',
+		'pagination',
+		'basic',
+	);
 	for (let index = 1; index < 10; index++) {
 		const pageSelector = `button[data-testid=pagination--page-${index}]`;
 		const button = page.locator(pageSelector).first();
@@ -24,7 +28,11 @@ test('A user will be able to change page by clicking page number button', async 
 });
 
 test('A user will be able to navigate to next page by clicking Next button', async ({ page }) => {
-	await page.visitExample('design-system', 'pagination', 'basic');
+	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+		'design-system',
+		'pagination',
+		'basic',
+	);
 	const nextButton = page.locator(nextPageBtnSelector).first();
 	await nextButton.click();
 	const elm = page.locator(pageTextSelector).first();
@@ -34,7 +42,11 @@ test('A user will be able to navigate to next page by clicking Next button', asy
 test('A user will be able to navigate to previous page by clicking Previous button', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'pagination', 'basic');
+	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+		'design-system',
+		'pagination',
+		'basic',
+	);
 	const page3 = page.locator('button[page="3"]').first();
 	await page3.click();
 	const prevButton = page.locator(previousPageBtnSelector).first();
@@ -44,7 +56,11 @@ test('A user will be able to navigate to previous page by clicking Previous butt
 });
 
 test('A user will be able to see page buttons along with both ellipsis', async ({ page }) => {
-	await page.visitExample('design-system', 'pagination', 'basic');
+	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+		'design-system',
+		'pagination',
+		'basic',
+	);
 	const page5 = page.locator('button[page="5"]').first();
 	await page5.click();
 

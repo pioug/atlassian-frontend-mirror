@@ -11,7 +11,7 @@ interface AvatarAppProps {
 	isOpen: boolean;
 }
 
-const AvatarApp = ({ isOpen }: AvatarAppProps) => {
+const AvatarApp = ({ isOpen }: AvatarAppProps): React.JSX.Element => {
 	const [canDialogOpen, setDialogOpen] = useState(isOpen);
 	const [imageSrc, setImageSrc] = useState('');
 	return (

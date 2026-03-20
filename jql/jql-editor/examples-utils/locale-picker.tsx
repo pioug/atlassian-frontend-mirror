@@ -22,7 +22,7 @@ export interface Props {
 	onChange: (locale: Locale) => void;
 }
 
-export const LocalePicker = ({ currentLocale, locales, onChange }: Props) => (
+export const LocalePicker = ({ currentLocale, locales, onChange }: Props): React.JSX.Element => (
 	<DropdownContainer>
 		<DropdownMenu
 			trigger={currentLocale}

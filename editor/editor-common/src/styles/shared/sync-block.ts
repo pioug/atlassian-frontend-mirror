@@ -1,9 +1,9 @@
 const prefix = 'ak-editor-sync-block';
 export const SyncBlockSharedCssClassName: {
-    prefix: string;
-    renderer: string;
-    error: string;
-    loading: string;
+	prefix: string;
+	renderer: string;
+	error: string;
+	loading: string;
 } = {
 	prefix,
 	renderer: `${prefix}__renderer`,
@@ -15,10 +15,10 @@ export const SyncBlockRendererDataAttributeName = 'data-sync-block-renderer';
 
 const bodiedPrefix = 'ak-editor-bodied-sync-block';
 export const BodiedSyncBlockSharedCssClassName: {
-    prefix: string;
-    renderer: string;
-    content: string;
-    selectionInside: string;
+	prefix: string;
+	renderer: string;
+	content: string;
+	selectionInside: string;
 } = {
 	prefix: bodiedPrefix,
 	renderer: `${bodiedPrefix}__renderer`,
@@ -28,7 +28,7 @@ export const BodiedSyncBlockSharedCssClassName: {
 
 const labelClassName = 'ak-editor-sync-block__label';
 export const SyncBlockLabelSharedCssClassName: {
-    labelClassName: string;
+	labelClassName: string;
 } = {
 	labelClassName,
 };
@@ -38,10 +38,10 @@ export const viewModeClassName = 'view-mode';
 export const creationLoadingClassName = 'creation-loading';
 export const draggingClassName = 'user-is-dragging';
 export const SyncBlockStateCssClassName: {
-    disabledClassName: string;
-    viewModeClassName: string;
-    creationLoadingClassName: string;
-    draggingClassName: string;
+	disabledClassName: string;
+	viewModeClassName: string;
+	creationLoadingClassName: string;
+	draggingClassName: string;
 } = {
 	disabledClassName,
 	viewModeClassName,

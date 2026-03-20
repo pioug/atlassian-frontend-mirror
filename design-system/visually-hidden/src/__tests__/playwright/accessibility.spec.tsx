@@ -1,6 +1,10 @@
 import { expect, test } from '@af/integration-testing';
 test('visually-hidden should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'visually-hidden', 'toggle-hidden-element');
+	await page.visitExample<typeof import('../../../examples/01-toggle-hidden-element.tsx')>(
+		'design-system',
+		'visually-hidden',
+		'toggle-hidden-element',
+	);
 
 	const toggle = page.getByTestId('toggle-visually-hidden');
 	const hiddenElement = page.locator('span:has-text("Hidden text")');

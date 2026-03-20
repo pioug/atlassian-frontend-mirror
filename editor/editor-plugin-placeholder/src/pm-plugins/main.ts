@@ -28,6 +28,7 @@ export default function createPlugin(
 	withEmptyParagraph?: boolean,
 	initialIsPlaceholderHidden?: boolean,
 	placeholderADF?: DocNode,
+	isRovoLLMEnabled?: boolean,
 	api?: ExtractInjectionAPI<PlaceholderPlugin>,
 ): SafePlugin | undefined {
 	if (
@@ -85,7 +86,9 @@ export default function createPlugin(
 
 				if (meta?.placeholderText !== undefined && withEmptyParagraph) {
 					const isCreateWithRovoOverride =
-						!!meta.placeholderText && expVal('cwr_blank_object_experiment', 'isEnabled', false);
+						!!meta.placeholderText &&
+						isRovoLLMEnabled &&
+						expVal('cwr_blank_object_experiment', 'isEnabled', false);
 					// Only update defaultPlaceholderText from meta if we're not using ADF placeholder
 					// OR when the create-with-rovo experiment is active to allow intentional non-empty placeholder overrides
 					if (!placeholderADF || isCreateWithRovoOverride) {

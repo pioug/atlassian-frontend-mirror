@@ -4,7 +4,6 @@ import { syncBlock, bodiedSyncBlock } from '@atlaskit/adf-schema';
 import type { EditorCommand, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { flushBodiedSyncBlocks, flushSyncBlocks } from './editor-actions';
@@ -144,9 +143,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				syncBlockStore: currentSyncBlockStore,
 				bodiedSyncBlockDeletionStatus,
 				retryCreationPosMap,
-				hasUnsavedBodiedSyncBlockChanges: fg('platform_synced_block_patch_5')
-					? hasUnsavedBodiedSyncBlockChanges
-					: undefined,
+				hasUnsavedBodiedSyncBlockChanges,
 			};
 		},
 	};

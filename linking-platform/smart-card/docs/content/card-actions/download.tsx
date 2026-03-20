@@ -2,7 +2,7 @@ import { code } from '@atlaskit/docs';
 
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 This action is available for links that point to downloadable content. It allows users to directly download the file or document.
 
@@ -35,3 +35,4 @@ ${code`
 * \`atlassian:downloadUrl\` is the URL to downloadable content.
 
 `;
+export default _default_1;

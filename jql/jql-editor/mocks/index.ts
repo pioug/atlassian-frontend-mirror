@@ -1,9 +1,9 @@
-import { createIntl } from 'react-intl-next';
+import { createIntl, type IntlShape } from 'react-intl-next';
 
-export const mockIntl = createIntl({ locale: 'en' });
+export const mockIntl: IntlShape = createIntl({ locale: 'en' });
 
 // Mock document.createRange used to manage selections in prosemirror-view
-export const mockCreateRange = () => {
+export const mockCreateRange = (): Range => {
 	const range = new Range();
 
 	range.getBoundingClientRect = () => ({

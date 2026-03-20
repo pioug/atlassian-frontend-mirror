@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl-next';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	ReactRenderer,
 	ValidationContextProvider,
@@ -155,7 +154,7 @@ export const AKRendererWrapper: React.MemoExoticComponent<
 								media={media}
 								smartLinks={smartLinks}
 								stickyHeaders={stickyHeaders}
-								contentMode={fg('platform_synced_block_patch_5') ? contentMode : undefined}
+								contentMode={contentMode}
 							/>
 						</div>
 					</RendererContextProvider>

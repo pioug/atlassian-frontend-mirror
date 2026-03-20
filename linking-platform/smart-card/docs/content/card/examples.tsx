@@ -3,7 +3,7 @@ import React from 'react';
 import CustomExample from '../../utils/custom-example';
 import customMd from '../../utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ### Appearance
 
@@ -68,3 +68,4 @@ ${(
 
 For non lazy-loaded smart card, please see [CardSSR](./card-ssr).
 `;
+export default _default_1;

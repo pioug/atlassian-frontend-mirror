@@ -14,7 +14,11 @@ const collapseSidebarIfOpen = async (page: Page) => {
 };
 
 test('Hovering the sidebar opens the flyout', async ({ page }) => {
-	await page.visitExample('design-system', 'page-layout', 'locked-sidebar');
+	await page.visitExample<typeof import('../../../../examples/35-locked-sidebar.tsx')>(
+		'design-system',
+		'page-layout',
+		'locked-sidebar',
+	);
 
 	await collapseSidebarIfOpen(page);
 	await expect(page.locator(resizeControl)).toHaveAttribute('aria-expanded', 'false');
@@ -26,7 +30,11 @@ test('Hovering the sidebar opens the flyout', async ({ page }) => {
 });
 
 test('The flyout is not locked by default', async ({ page }) => {
-	await page.visitExample('design-system', 'page-layout', 'locked-sidebar');
+	await page.visitExample<typeof import('../../../../examples/35-locked-sidebar.tsx')>(
+		'design-system',
+		'page-layout',
+		'locked-sidebar',
+	);
 
 	await collapseSidebarIfOpen(page);
 	await page.locator(leftSidebar).first().hover();
@@ -44,7 +52,11 @@ test('The flyout is not locked by default', async ({ page }) => {
 });
 
 test('The lock prevents the flyout state from automatically collapsing', async ({ page }) => {
-	await page.visitExample('design-system', 'page-layout', 'locked-sidebar');
+	await page.visitExample<typeof import('../../../../examples/35-locked-sidebar.tsx')>(
+		'design-system',
+		'page-layout',
+		'locked-sidebar',
+	);
 
 	await collapseSidebarIfOpen(page);
 	await page.locator(leftSidebar).first().hover();
@@ -65,7 +77,11 @@ test('The lock prevents the flyout state from automatically collapsing', async (
 test('Releasing the lock while the cursor is outside of the sidebar will make the flyout collapse', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'page-layout', 'locked-sidebar');
+	await page.visitExample<typeof import('../../../../examples/35-locked-sidebar.tsx')>(
+		'design-system',
+		'page-layout',
+		'locked-sidebar',
+	);
 
 	await collapseSidebarIfOpen(page);
 	await page.locator(leftSidebar).first().hover();
@@ -79,7 +95,11 @@ test('Releasing the lock while the cursor is outside of the sidebar will make th
 test('Releasing the lock while the cursor is inside of the sidebar will make the flyout stay open', async ({
 	page,
 }) => {
-	await page.visitExample('design-system', 'page-layout', 'locked-sidebar');
+	await page.visitExample<typeof import('../../../../examples/35-locked-sidebar.tsx')>(
+		'design-system',
+		'page-layout',
+		'locked-sidebar',
+	);
 
 	await collapseSidebarIfOpen(page);
 	await page.locator(leftSidebar).first().hover();

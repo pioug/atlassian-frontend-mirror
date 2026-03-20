@@ -1,6 +1,6 @@
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
-import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Attrs, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -11,10 +11,14 @@ import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosem
  * only items the user can actually see and select are represented.
  */
 export interface ListElement {
-	node: PMNode;
-	pos: number;
 	depth: number;
+	/** Whether this element was within the user's selection (and had its depth adjusted). */
+	isSelected: boolean;
 	listType: 'bulletList' | 'orderedList';
+	node: PMNode;
+	/** Attributes of the immediate parent list node (bulletList/orderedList). */
+	parentListAttrs: Attrs | null;
+	pos: number;
 }
 
 /**
@@ -36,18 +40,18 @@ function contentSize(listItem: PMNode): number {
 
 export interface FlattenListResult {
 	elements: ListElement[];
-	startIndex: number;
 	endIndex: number;
 	maxDepth: number;
+	startIndex: number;
 }
 
 export interface FlattenListOptions {
+	delta: number;
 	doc: PMNode;
-	rootListStart: number;
 	rootListEnd: number;
+	rootListStart: number;
 	selectionFrom: number;
 	selectionTo: number;
-	delta: number;
 }
 
 /**
@@ -83,7 +87,14 @@ export function flattenList({
 		const isSelected = cStart < selectionTo && cEnd > selectionFrom;
 
 		const depth = (doc.resolve(pos).depth - rootDepth - 1) / 2 + (isSelected ? delta : 0);
-		elements.push({ node, pos, depth, listType: parent.type.name });
+		elements.push({
+			node,
+			pos,
+			depth,
+			listType: parent.type.name,
+			parentListAttrs: parent.attrs,
+			isSelected,
+		});
 
 		if (isSelected) {
 			const index = elements.length - 1;
@@ -134,14 +145,15 @@ function rebuildPMList(elements: ListElement[], schema: Schema): PMNode | null {
 	// Each stack frame represents an open list at a given depth.
 	// items[] accumulates the PMNode children (listItem nodes) for that list.
 	interface StackFrame {
-		listType: string;
 		items: PMNode[];
+		listAttrs: Attrs | null;
+		listType: string;
 	}
 
 	const stack: StackFrame[] = [];
 
-	function openList(listType: string): void {
-		stack.push({ listType, items: [] });
+	function openList(listType: string, listAttrs: Attrs | null): void {
+		stack.push({ listType, listAttrs, items: [] });
 	}
 
 	/**
@@ -154,7 +166,7 @@ function rebuildPMList(elements: ListElement[], schema: Schema): PMNode | null {
 			if (!closed) {
 				break;
 			}
-			const listNode = schema.nodes[closed.listType].create(null, closed.items);
+			const listNode = schema.nodes[closed.listType].create(closed.listAttrs, closed.items);
 
 			// Attach the closed list to the last listItem on the parent frame
 			const parentFrame = stack[stack.length - 1];
@@ -177,8 +189,8 @@ function rebuildPMList(elements: ListElement[], schema: Schema): PMNode | null {
 		}
 	}
 
-	// Seed the root list
-	openList(elements[0].listType);
+	// Seed the root list with the first element's parent list attributes
+	openList(elements[0].listType, elements[0].parentListAttrs);
 
 	for (const el of elements) {
 		const targetDepth = el.depth;
@@ -191,8 +203,12 @@ function rebuildPMList(elements: ListElement[], schema: Schema): PMNode | null {
 		// Open lists if we need to go deeper.
 		// We do NOT create wrapper listItems here — closeToDepth handles
 		// creating wrappers that contain only the nested list (no empty paragraph).
+		// For unselected elements, the list structure already existed so we
+		// preserve the parent list's attributes. For selected (moved) elements,
+		// this is a new nesting level so we use null (the localId plugin will
+		// backfill a fresh UUID).
 		while (stack.length < targetDepth + 1) {
-			openList(el.listType);
+			openList(el.listType, el.isSelected ? null : el.parentListAttrs);
 		}
 
 		// Build the listItem for this element using its content children
@@ -205,11 +221,10 @@ function rebuildPMList(elements: ListElement[], schema: Schema): PMNode | null {
 	closeToDepth(0);
 
 	const root = stack[0];
-	return schema.nodes[root.listType].create(null, root.items);
+	return schema.nodes[root.listType].create(root.listAttrs, root.items);
 }
 
 export interface BuildResult {
-	fragment: Fragment;
 	/**
 	 * For each element (by index), the offset within the fragment where the
 	 * element's content begins. For list elements this is the position just
@@ -220,6 +235,7 @@ export interface BuildResult {
 	 * add `rangeStart` to the offset.
 	 */
 	contentStartOffsets: number[];
+	fragment: Fragment;
 }
 
 /**
@@ -283,10 +299,10 @@ export function buildReplacementFragment(elements: ListElement[], schema: Schema
 }
 
 export interface RestoreSelectionOptions {
-	tr: Transaction;
-	originalSelection: Selection;
 	from: number;
+	originalSelection: Selection;
 	to: number;
+	tr: Transaction;
 }
 
 /**

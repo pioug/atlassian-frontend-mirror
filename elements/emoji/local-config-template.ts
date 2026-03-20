@@ -1,6 +1,17 @@
 import type { EmojiId } from './src/types';
 
-export default {
+const _default_1: {
+	allowUpload: boolean;
+	optimisticImageApi: {
+		getUrl: (emojiId: EmojiId) => string;
+	};
+	providers: {
+		url: string;
+	}[];
+	singleEmojiApi: {
+		getUrl: (emojiId: EmojiId) => string;
+	};
+} = {
 	providers: [
 		{
 			url: 'http://localhost:9000/emoji/standard',
@@ -14,9 +25,8 @@ export default {
 	},
 	optimisticImageApi: {
 		getUrl: (emojiId: EmojiId) =>
-			`http://localhost:9000/emoji/DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5/${
-				emojiId.id || emojiId.shortName
-			}/path`,
+			`http://localhost:9000/emoji/DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5/${emojiId.id || emojiId.shortName}/path`,
 	},
 	allowUpload: true,
 };
+export default _default_1;

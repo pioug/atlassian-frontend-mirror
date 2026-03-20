@@ -6,7 +6,11 @@ const submitFormTextarea = 'textarea[name="description"]';
 const submitFormTextfield = 'input[name="name"]';
 
 test('Form component, text-fields should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'form', 'text-fields');
+	await page.visitExample<typeof import('../../../examples/01-text-fields.tsx')>(
+		'design-system',
+		'form',
+		'text-fields',
+	);
 	await page.locator(textFieldsTextarea).first().hover();
 	await expect(page.locator(textFieldsTextarea)).toBeVisible();
 
@@ -23,7 +27,11 @@ test('Form component, text-fields should pass basic aXe audit', async ({ page })
 });
 
 test('Form component, submit-form should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'form', 'submit-form');
+	await page.visitExample<typeof import('../../../examples/09-submit-form.tsx')>(
+		'design-system',
+		'form',
+		'submit-form',
+	);
 	await page.locator(submitFormTextfield).first().hover();
 	await expect(page.locator(submitFormTextfield)).toBeVisible();
 

@@ -1,6 +1,41 @@
 import type { EmojiId } from './src/types';
 
-export default {
+const _default_1: {
+	optimisticImageApi: {
+		getUrl: (emojiId: EmojiId) => string;
+		securityProvider: () => {
+			headers: {
+				Authorization: string;
+				'User-Context': string;
+			};
+		};
+	};
+	providers: (
+		| {
+				url: string;
+		  }
+		| {
+				securityProvider: () => {
+					headers: {
+						Authorization: string;
+					};
+				};
+				url: string;
+		  }
+	)[];
+	recordConfig: {
+		url: string;
+	};
+	singleEmojiApi: {
+		getUrl: (emojiId: EmojiId) => string;
+		securityProvider: () => {
+			headers: {
+				Authorization: string;
+				'User-Context': string;
+			};
+		};
+	};
+} = {
 	recordConfig: {
 		url: 'https://www.example.org/',
 	},
@@ -38,3 +73,4 @@ export default {
 		}),
 	},
 };
+export default _default_1;

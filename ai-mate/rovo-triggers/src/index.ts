@@ -8,6 +8,7 @@ export type {
 	WorkflowContextPayloadData,
 	EditorContextPayloadData,
 	WhiteboardContextPayloadData,
+	SlidesContextPayloadData,
 	BrowserContextPayloadData,
 	DatabaseContextPayloadData,
 	DatabaseContextUpdatePayloadData,

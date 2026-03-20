@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
   <br/>
@@ -127,3 +127,4 @@ export type ConfigModalProps<ADF, Parameters> = {
 		/>
 	)}
 `;
+export default _default_1;

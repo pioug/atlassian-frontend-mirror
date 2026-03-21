@@ -2653,4 +2653,123 @@ describe('no-barrel-entry-jest-mock', () => {
 			},
 		);
 	});
+
+	describe('standalone jest.requireActual violations', () => {
+		const fs = createStandardMockFs();
+
+		runWithFs('no-barrel-entry-jest-mock - jest.requireActual property access', fs, {
+			valid: [
+				// jest.requireActual on a non-barrel subpath is fine
+				{
+					code: outdent`
+						const store = jest.requireActual('@atlassian/conversation-assistant-store/controllers/chat');
+					`,
+					filename: TEST_FILE,
+				},
+				// jest.requireActual on an unknown package is fine
+				{
+					code: outdent`
+						const val = jest.requireActual('@atlaskit/button').Button;
+					`,
+					filename: TEST_FILE,
+				},
+			],
+			invalid: [
+				// Property access on barrel entry: jest.requireActual('barrel').Symbol
+				{
+					code: outdent`
+						const actions = jest.requireActual('@atlassian/conversation-assistant-store').useChatContextStoreActions;
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryRequireActual' }],
+					output: outdent`
+						const actions = jest.requireActual('@atlassian/conversation-assistant-store/controllers/chat-context/store').useChatContextStoreActions;
+					`,
+				},
+			],
+		});
+
+		runWithFs('no-barrel-entry-jest-mock - jest.requireActual with generic type param', fs, {
+			valid: [],
+			invalid: [
+				// Property access with generic type parameter
+				{
+					code: outdent`
+							const actions = jest.requireActual<any>('@atlassian/conversation-assistant-store').useChatContextStoreActions;
+						`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryRequireActual' }],
+					output: outdent`
+							const actions = jest.requireActual<any>('@atlassian/conversation-assistant-store/controllers/chat-context/store').useChatContextStoreActions;
+						`,
+				},
+			],
+		});
+
+		runWithFs('no-barrel-entry-jest-mock - jest.requireActual destructuring', fs, {
+			valid: [],
+			invalid: [
+				// Destructuring from barrel entry - symbols from same subpath
+				{
+					code: outdent`
+							const { useStagingAreaState, useStagingAreaActions } = jest.requireActual('@atlassian/conversation-assistant-store');
+						`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryRequireActual' }],
+					output: outdent`
+							const { useStagingAreaState, useStagingAreaActions } = jest.requireActual('@atlassian/conversation-assistant-store/controllers/staging-area');
+						`,
+				},
+			],
+		});
+
+		runWithFs(
+			'no-barrel-entry-jest-mock - jest.requireActual no fix for unresolvable symbol access',
+			fs,
+			{
+				valid: [],
+				invalid: [
+					// Spread without determinable symbols - report without fix
+					{
+						code: outdent`
+							const obj = { ...jest.requireActual('@atlassian/conversation-assistant-store') };
+						`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryRequireActual' }],
+					},
+				],
+			},
+		);
+
+		// The real-world scenario: jest.requireActual('barrel').Symbol inside a jest.fn()
+		// callback within a jest.mock() factory that targets the same barrel.
+		// The jest.mock handler rewrites the whole mock AND fixes nested requireActual calls.
+		runWithFs('no-barrel-entry-jest-mock - nested jest.requireActual inside barrel jest.mock', fs, {
+			valid: [],
+			invalid: [
+				{
+					code: outdent`
+							jest.mock('@atlassian/conversation-assistant-store', () => ({
+								...jest.requireActual('@atlassian/conversation-assistant-store'),
+								useChatContextStoreActions: jest.fn((...args) => {
+									const real = jest.requireActual('@atlassian/conversation-assistant-store').useChatContextStoreActions;
+									return real(...args);
+								}),
+							}));
+						`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryMock' }],
+					output: tabindent`
+							jest.mock('@atlassian/conversation-assistant-store/controllers/chat-context/store', () => ({
+								...jest.requireActual('@atlassian/conversation-assistant-store/controllers/chat-context/store'),
+								useChatContextStoreActions: jest.fn((...args) => {
+									const real = jest.requireActual('@atlassian/conversation-assistant-store/controllers/chat-context/store').useChatContextStoreActions;
+									return real(...args);
+								}),
+							}));
+						`,
+				},
+			],
+		});
+	});
 });

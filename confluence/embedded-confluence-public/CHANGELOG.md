@@ -1,5 +1,12 @@
 # @atlaskit/embedded-confluence
 
+## 4.5.1
+
+### Patch Changes
+
+- [`a59c0d70262b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a59c0d70262b3) -
+  Remove platform_ep_toc_fix gate and update public docs
+
 ## 4.5.0
 
 ### Minor Changes

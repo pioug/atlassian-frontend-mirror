@@ -281,7 +281,7 @@ const MyComponent = (props) => {
 };
 ```
 
-## `locale`
+## locale
 
 `@atlaskit/embedded-confluence` package currently can accept `locale` from parent products in two
 options:
@@ -438,4 +438,95 @@ const MyComponent = props => (
       />
   </ArticleWrapper>
 );
+```
+
+## scrollToHashHandler
+
+### `scrollToHashHandler` description
+
+`scrollToHashHandler` is an optional callback passed by the parent product to control how hash
+navigation scroll is handled when `isHeightSetFromContent` is enabled.
+
+When `isHeightSetFromContent` is `true`, the iframe expands to its full content height and has no
+internal scrollbar. This means the parent window owns scrolling. When a user clicks a TOC link or
+anchor inside the embedded page, Embedded Confluence sends a message to the parent with the target
+element's offset, and `scrollToHashHandler` is invoked to perform the scroll.
+
+If `scrollToHashHandler` is not provided but `isHeightSetFromContent` is `true`, Embedded Confluence
+will use a default scroll implementation equivalent to the example below.
+
+### `scrollToHashHandler` definition
+
+- `iframe`: The iframe element that sent the hash-scroll message.
+- `offsetTop`: The target element's pixel offset from the top of the iframe document.
+
+```ts
+(iframe: HTMLIFrameElement, offsetTop: number) => void
+```
+
+### `scrollToHashHandler` examples
+
+1. Basic usage with `isHeightSetFromContent`:
+
+```jsx
+import { useCallback } from 'react';
+import { ViewPage } from '@atlaskit/embedded-confluence';
+
+const MyComponent = (props) => {
+	const handleScrollToHash = useCallback((iframe, offsetTop) => {
+		const iframeRect = iframe.getBoundingClientRect();
+		window.scrollTo(0, window.scrollY + iframeRect.top + offsetTop);
+	}, []);
+
+	return (
+		<ViewPage
+			contentId={props.contentId}
+			parentProductContentContainerId={props.parentProductContentContainerId}
+			parentProduct={props.parentProduct}
+			spaceKey={props.spaceKey}
+			isHeightSetFromContent={true}
+			scrollToHashHandler={handleScrollToHash}
+		/>
+	);
+};
+```
+
+2. Custom scroll handler that accounts for a fixed header and a custom scroll container:
+
+```jsx
+import { useCallback, useRef } from 'react';
+import { ViewPage } from '@atlaskit/embedded-confluence';
+
+const FIXED_HEADER_HEIGHT = 64;
+
+const MyComponent = (props) => {
+	const scrollContainerRef = useRef(null);
+
+	const handleScrollToHash = useCallback((iframe, offsetTop) => {
+		const container = scrollContainerRef.current;
+		if (!container) {
+			return;
+		}
+
+		const iframeRect = iframe.getBoundingClientRect();
+		const containerRect = container.getBoundingClientRect();
+		container.scrollTo(
+			0,
+			container.scrollTop + iframeRect.top - containerRect.top + offsetTop - FIXED_HEADER_HEIGHT,
+		);
+	}, []);
+
+	return (
+		<div ref={scrollContainerRef}>
+			<ViewPage
+				contentId={props.contentId}
+				parentProductContentContainerId={props.parentProductContentContainerId}
+				parentProduct={props.parentProduct}
+				spaceKey={props.spaceKey}
+				isHeightSetFromContent={true}
+				scrollToHashHandler={handleScrollToHash}
+			/>
+		</div>
+	);
+};
 ```

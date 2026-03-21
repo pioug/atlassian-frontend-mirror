@@ -96,7 +96,10 @@ export const MoreOptions = ({
 				<ButtonItem
 					ref={ref}
 					onMouseDown={(e: React.MouseEvent) => {
-						if (isSafari && expValEquals('platform_safari_cursor_typeahead_fix', 'isEnabled', true)) {
+						if (
+							isSafari &&
+							expValEquals('platform_safari_cursor_typeahead_fix', 'isEnabled', true)
+						) {
 							e.preventDefault();
 						}
 					}}

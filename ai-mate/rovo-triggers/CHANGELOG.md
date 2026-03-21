@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 5.30.0
+
+### Minor Changes
+
+- [`2f2e947ee382a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f2e947ee382a) -
+  Added new open-smart-creation-modal Rovo trigger event, isEphemeralCreateAction helper function,
+  and onTriggerOpeningSmartCreationModal prop for ChatOpenerSubscriber. These are all for opening
+  the Ephemeral Preview when a MAUI action is received.
+
 ## 5.29.0
 
 ### Minor Changes

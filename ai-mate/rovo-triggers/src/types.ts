@@ -41,6 +41,17 @@ export type MessageSendPayload = PayloadCore<
 
 export type ChatClosePayload = PayloadCore<'chat-close', {}>;
 
+export type SmartCreationModalOpenPayload = PayloadCore<
+	'open-smart-creation-modal',
+	{
+		channelId?: string;
+		entryPoint: string;
+		stagingAreaActive: boolean;
+		isFloating: boolean;
+		shouldShowBackButton: boolean;
+	}
+>;
+
 // Can only specify either `agentId` or `agentExternalConfigReference`, not both
 type TargetAgentParam =
 	| {
@@ -491,6 +502,7 @@ export type OpenChatFeedbackModalPayload = PayloadCore<
 export type Payload =
 	| MessageSendPayload
 	| ChatClosePayload
+	| SmartCreationModalOpenPayload
 	| ChatNewPayload
 	| ChatDraftPayload
 	| EditorContextPayload

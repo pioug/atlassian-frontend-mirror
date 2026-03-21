@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 8.0.6
+
+### Patch Changes
+
+- [`1f132a3204f7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f132a3204f7b) -
+  Fix Safari cursor jumping to start when hovering over typeahead menu items
+- Updated dependencies
+
 ## 8.0.5
 
 ### Patch Changes

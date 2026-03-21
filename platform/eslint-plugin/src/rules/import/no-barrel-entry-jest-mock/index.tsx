@@ -14,6 +14,7 @@ import {
 } from '../shared/file-system';
 import {
 	extractImportPath,
+	findJestRequireActualCalls,
 	findJestRequireMockCalls,
 	isJestMockCall,
 	isJestRequireActual,
@@ -952,6 +953,8 @@ const ruleMeta: Rule.RuleMetaData = {
 	messages: {
 		barrelEntryMock:
 			"jest.mock('{{path}}') is mocking a barrel file entry point. Split into separate mocks for each source file using package.json exports.",
+		barrelEntryRequireActual:
+			"jest.requireActual('{{path}}') references a barrel file entry point. Use a specific package.json export path instead.",
 	},
 };
 
@@ -974,6 +977,135 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 			return {
 				CallExpression(rawNode) {
 					const node = rawNode as TSESTree.CallExpression;
+
+					// Handle standalone jest.requireActual() calls that reference barrel entries.
+					// e.g. jest.requireActual('@atlaskit/pkg').Foo or const { Foo } = jest.requireActual('@atlaskit/pkg')
+					if (isJestRequireActual(node)) {
+						const raImportPath = extractImportPath(node);
+						if (!raImportPath) {
+							return;
+						}
+
+						const raContext = resolveJestMockContext({
+							importPath: raImportPath,
+							workspaceRoot,
+							fs,
+							applyToImportsFrom,
+						});
+						if (!raContext) {
+							return;
+						}
+
+						if (
+							!isBarrelFile({
+								exportMap: raContext.exportMap,
+								entryFilePath: raContext.entryFilePath,
+							})
+						) {
+							return;
+						}
+
+						// Skip if nested inside a jest.mock() factory that itself targets a barrel —
+						// the jest.mock handler already rewrites the entire mock including inner requireActual calls.
+						let ancestor: TSESTree.Node | undefined = (
+							node as TSESTree.Node & { parent?: TSESTree.Node }
+						).parent;
+						while (ancestor) {
+							if (
+								ancestor.type === 'CallExpression' &&
+								isJestMockCall(ancestor as TSESTree.CallExpression)
+							) {
+								const ancestorPath = extractImportPath(ancestor as TSESTree.CallExpression);
+								if (ancestorPath) {
+									const ancestorCtx = resolveJestMockContext({
+										importPath: ancestorPath,
+										workspaceRoot,
+										fs,
+										applyToImportsFrom,
+									});
+									if (
+										ancestorCtx &&
+										isBarrelFile({
+											exportMap: ancestorCtx.exportMap,
+											entryFilePath: ancestorCtx.entryFilePath,
+										})
+									) {
+										return;
+									}
+								}
+							}
+							ancestor = (ancestor as TSESTree.Node & { parent?: TSESTree.Node }).parent;
+						}
+
+						// Determine which symbols are accessed from the barrel
+						const parent = (node as TSESTree.Node & { parent?: TSESTree.Node }).parent;
+						const accessedSymbols: string[] = [];
+
+						if (parent?.type === 'MemberExpression' && parent.property.type === 'Identifier') {
+							accessedSymbols.push(parent.property.name);
+						} else if (
+							parent?.type === 'VariableDeclarator' &&
+							parent.id.type === 'ObjectPattern'
+						) {
+							for (const prop of parent.id.properties) {
+								if (prop.type === 'Property' && prop.key.type === 'Identifier') {
+									accessedSymbols.push(prop.key.name);
+								}
+							}
+						}
+
+						if (accessedSymbols.length === 0) {
+							context.report({
+								node: node as Rule.Node,
+								messageId: 'barrelEntryRequireActual',
+								data: { path: raImportPath },
+							});
+							return;
+						}
+
+						const { groupedByExport, crossPackageGroups } = traceSymbolsToExports({
+							symbolNames: accessedSymbols,
+							exportMap: raContext.exportMap,
+							exportsMap: raContext.exportsMap,
+							currentExportPath: raContext.currentExportPath,
+							fs,
+						});
+
+						let newPath: string | null = null;
+						if (groupedByExport.size === 1 && crossPackageGroups.size === 0) {
+							const [exportPath] = groupedByExport.keys();
+							newPath = `${raContext.packageName}${exportPath.slice(1)}`;
+						} else if (crossPackageGroups.size === 1 && groupedByExport.size === 0) {
+							const [cpImportPath] = crossPackageGroups.keys();
+							newPath = cpImportPath;
+						}
+
+						const sourceCode = context.getSourceCode();
+
+						if (newPath) {
+							const resolvedNewPath = newPath;
+							context.report({
+								node: node as Rule.Node,
+								messageId: 'barrelEntryRequireActual',
+								data: { path: raImportPath },
+								fix(fixer) {
+									const firstArg = node.arguments[0];
+									const quote = sourceCode.getText(firstArg as unknown as Rule.Node)[0];
+									return fixer.replaceText(
+										firstArg as unknown as Rule.Node,
+										`${quote}${resolvedNewPath}${quote}`,
+									);
+								},
+							});
+						} else {
+							context.report({
+								node: node as Rule.Node,
+								messageId: 'barrelEntryRequireActual',
+								data: { path: raImportPath },
+							});
+						}
+						return;
+					}
 
 					if (!isJestMockCall(node)) {
 						return;
@@ -1178,7 +1310,7 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 								}
 							}
 
-							const fixText = generateMockFixes({
+							let fixText = generateMockFixes({
 								groups: mergedGroups,
 								crossPackageGroups: crossPackageMockGroups,
 								packageName: mockContext.packageName,
@@ -1194,6 +1326,22 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 									symbolToNewImportPath.set(propName, group.importPath);
 								}
 							}
+
+							// Post-process fixText to update jest.requireActual('barrel').Symbol
+							// references embedded in property texts (e.g. inside jest.fn callbacks)
+							fixText = fixText.replace(
+								/jest\.requireActual(?:<[^>]*>)?\((['"])([^'"]+)\1\)\.(\w+)/g,
+								(match, _q, path, symbol) => {
+									if (path !== oldImportPath) {
+										return match;
+									}
+									const newPath = symbolToNewImportPath.get(symbol);
+									if (newPath && newPath !== path) {
+										return match.replace(path, newPath);
+									}
+									return match;
+								},
+							);
 
 							// Sort nodes by position
 							const sortedNodesToRemove = nodesToRemove.sort((a, b) => {
@@ -1257,6 +1405,39 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 									fixes.push(
 										fixer.replaceText(requireMockArg as Rule.Node, `${quote}${newPath}${quote}`),
 									);
+								}
+							}
+
+							// Fix jest.requireActual() calls that reference the old barrel path.
+							// Only fix calls OUTSIDE the replaced jest.mock node range
+							// (calls inside it are handled via fixText string replacement below).
+							const replacedRanges = sortedNodesToRemove.map((n) => n.range!);
+							const requireActualCalls = findJestRequireActualCalls({
+								ast,
+								matchPath: (candidatePath) => candidatePath === oldImportPath,
+							});
+
+							for (const raNode of requireActualCalls) {
+								const raArg = raNode.arguments[0];
+								if (!raArg || !raNode.range) {
+									continue;
+								}
+
+								// Skip calls inside any node being replaced (ranges overlap)
+								const insideReplacedNode = replacedRanges.some(
+									([start, end]) => raNode.range![0] >= start && raNode.range![1] <= end,
+								);
+								if (insideReplacedNode) {
+									continue;
+								}
+
+								const newPath = resolveNewPathForRequireMock({
+									requireMockNode: raNode,
+									symbolToNewPath: symbolToNewImportPath,
+								});
+
+								if (newPath) {
+									fixes.push(fixer.replaceText(raArg as Rule.Node, `${quote}${newPath}${quote}`));
 								}
 							}
 

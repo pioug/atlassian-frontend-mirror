@@ -138,6 +138,57 @@ export function findJestRequireMockCalls({
 }
 
 /**
+ * Find all jest.requireActual() calls in the AST whose import path matches a given target.
+ * Works identically to findJestRequireMockCalls but for requireActual.
+ */
+export function findJestRequireActualCalls({
+	ast,
+	matchPath,
+}: {
+	ast: TSESTree.Program;
+	matchPath: (candidatePath: string) => boolean;
+}): TSESTree.CallExpression[] {
+	const results: TSESTree.CallExpression[] = [];
+	const visited = new WeakSet<TSESTree.Node>();
+	const skipKeys = new Set(['parent', 'loc', 'range', 'tokens', 'comments']);
+
+	function visit(node: TSESTree.Node): void {
+		if (visited.has(node)) {
+			return;
+		}
+		visited.add(node);
+
+		if (node.type === 'CallExpression' && isJestRequireActual(node)) {
+			const path = extractImportPath(node);
+			if (path && matchPath(path)) {
+				results.push(node);
+			}
+		}
+
+		for (const key in node) {
+			if (skipKeys.has(key)) {
+				continue;
+			}
+			const value = node[key as keyof typeof node];
+			if (value && typeof value === 'object') {
+				if (Array.isArray(value)) {
+					for (const child of value) {
+						if (child && typeof child === 'object' && 'type' in child) {
+							visit(child as TSESTree.Node);
+						}
+					}
+				} else if ('type' in value) {
+					visit(value as TSESTree.Node);
+				}
+			}
+		}
+	}
+
+	visit(ast);
+	return results;
+}
+
+/**
  * Determine the best new import path for a jest.requireMock() call by inspecting
  * the destructured symbols or property access at the call site.
  *

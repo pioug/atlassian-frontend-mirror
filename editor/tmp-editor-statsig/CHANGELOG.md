@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 40.7.0
+
+### Minor Changes
+
+- [`1f132a3204f7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f132a3204f7b) -
+  Fix Safari cursor jumping to start when hovering over typeahead menu items
+
 ## 40.6.0
 
 ### Minor Changes

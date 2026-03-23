@@ -4,6 +4,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
 import CommentAddIcon from '@atlaskit/icon/core/comment-add';
 import CopyIcon from '@atlaskit/icon/core/copy';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,
 	SpotlightManager,

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import { ButtonItem } from '@atlaskit/menu';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,
 	SpotlightManager,

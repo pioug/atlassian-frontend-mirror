@@ -124,6 +124,7 @@ export type BlockMenuItemComponent = () => React.ReactNode;
 
 export type RegisterBlockMenuNested = BlockMenuNested & {
 	component?: BlockMenuNestedComponent;
+	isHidden?: () => boolean;
 	parent: Parent<BlockMenuSection>;
 };
 

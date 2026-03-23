@@ -1,5 +1,12 @@
 # @atlaskit/mention
 
+## 24.6.0
+
+### Minor Changes
+
+- [`f86d75095ae8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f86d75095ae8e) -
+  Clean up mentions_custom_headers FG
+
 ## 24.5.5
 
 ### Patch Changes

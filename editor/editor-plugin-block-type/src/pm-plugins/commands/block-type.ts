@@ -21,7 +21,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TextBlockTypes } from '../block-types';
 import { HEADINGS_BY_NAME, NORMAL_TEXT } from '../block-types';
-import { getSelectionRangeExpandedToLists } from '../utils';
+import { convertTaskItemsToBlockTaskItems, getSelectionRangeExpandedToLists } from '../utils';
 
 import {
 	FORMATTING_NODE_TYPES,
@@ -183,20 +183,31 @@ export function setSmallText(): EditorCommand {
 		const { selection } = tr;
 
 		if (selection instanceof CellSelection) {
+			const mapFrom = tr.steps.length;
 			selection.forEachCell((cell, pos) => {
-				tr.setBlockType(pos, pos + cell.nodeSize, paragraph);
+				const mappedPos = tr.mapping.slice(mapFrom).map(pos);
+				tr.setBlockType(mappedPos, mappedPos + cell.nodeSize, paragraph);
+				convertTaskItemsToBlockTaskItems(tr, mappedPos, mappedPos + cell.nodeSize);
 				createToggleBlockMarkOnRangeNext(fontSize, () => ({ fontSize: 'small' }), [paragraph])(
-					pos,
-					pos + cell.nodeSize,
+					mappedPos,
+					mappedPos + cell.nodeSize,
 					tr,
 				);
 			});
 		} else {
+			// Step 1. Convert headings to paragraphs (for non-task content)
 			tr.setBlockType(selection.from, selection.to, paragraph);
+
+			// Step 2. Expand the selection range to include full list nodes
 			const expandedRange = getSelectionRangeExpandedToLists(tr);
+
+			// Step 3. Convert taskItems → blockTaskItems so their content can hold the fontSize mark
+			convertTaskItemsToBlockTaskItems(tr, expandedRange.from, expandedRange.to);
+
+			// Step 4. Apply fontSize mark to all paragraphs in range (including those inside new blockTaskItems)
 			createToggleBlockMarkOnRangeNext(fontSize, () => ({ fontSize: 'small' }), [paragraph])(
-				expandedRange.from,
-				expandedRange.to,
+				tr.mapping.map(expandedRange.from, -1),
+				tr.mapping.map(expandedRange.to, 1),
 				tr,
 			);
 		}

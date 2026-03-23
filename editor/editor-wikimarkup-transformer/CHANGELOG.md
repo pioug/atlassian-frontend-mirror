@@ -1,5 +1,21 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.20.9
+
+### Patch Changes
+
+- [`a58ccd06e5753`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a58ccd06e5753) -
+  Added comprehensive task list test coverage for email-renderer and wikimarkup-transformer.
+
+## 11.20.8
+
+### Patch Changes
+
+- [`ab828dcb15928`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab828dcb15928) -
+  Add support for flexible list indentation ADF structures: handle wrapper listItem nodes (list as
+  first child) and taskList children in listItem encoder
+- Updated dependencies
+
 ## 11.20.7
 
 ### Patch Changes

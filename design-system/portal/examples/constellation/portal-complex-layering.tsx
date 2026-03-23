@@ -16,6 +16,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,
 	SpotlightManager,

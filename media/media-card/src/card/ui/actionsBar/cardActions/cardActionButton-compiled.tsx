@@ -7,6 +7,7 @@ import { forwardRef } from 'react';
 import { jsx, css, cssMap } from '@compiled/react';
 import { type CardActionButtonOwnProps } from './styles';
 import { token } from '@atlaskit/tokens';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N500 } from '@atlaskit/theme/colors';
 
 const variantStyleMap = cssMap({
@@ -44,6 +45,7 @@ export const CardActionButton = forwardRef<HTMLButtonElement, CardActionButtonOw
 			// eslint-disable-next-line @atlaskit/design-system/no-html-button
 			<button
 				{...props}
+				{...(fg('platform_media_card_action_button_type_fix') ? { type: 'button' } : {})}
 				id="cardActionButton"
 				data-testid="media-card-primary-action"
 				aria-label={props.label}

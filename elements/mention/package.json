@@ -99,9 +99,6 @@
 		"jira_ai_agent_avatar_issue_view_comment_mentions": {
 			"type": "boolean"
 		},
-		"mentions_custom_headers": {
-			"type": "boolean"
-		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
 		}
@@ -131,5 +128,5 @@
 			]
 		}
 	},
-	"version": "24.5.5"
+	"version": "24.6.0"
 }

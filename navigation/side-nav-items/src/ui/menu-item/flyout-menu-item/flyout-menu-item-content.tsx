@@ -214,7 +214,7 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 				 * need to be repositioned.
 				 */
 				shouldDisableGpuAcceleration
-				shouldRenderToParent={fg('platform_dst_nav4_flyoutmenuitem_render_to_parent')}
+				shouldRenderToParent
 			>
 				{({ update }) => (
 					<UpdatePopperOnContentResize ref={forwardedRef} update={update}>

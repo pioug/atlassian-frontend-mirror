@@ -5,6 +5,7 @@ import Lorem from 'react-lorem-component';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { ExitingPersistence, SlideIn } from '@atlaskit/motion';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { Spotlight, SpotlightManager, SpotlightTransition } from '@atlaskit/onboarding';
 import { Stack } from '@atlaskit/primitives/compiled';
 

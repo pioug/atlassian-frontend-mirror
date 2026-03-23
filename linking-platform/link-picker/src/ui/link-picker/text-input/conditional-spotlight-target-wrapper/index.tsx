@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { SpotlightTarget } from '@atlaskit/onboarding';
 
 export interface ConditionalSpotlightTargetWrapperProps {

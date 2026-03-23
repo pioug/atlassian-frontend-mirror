@@ -8,7 +8,6 @@ import { type MentionDescription } from '../../../types';
 import { checkOrder } from '../_test-helpers';
 import { resultC, resultCr, resultCraig, resultPolly } from '../_mention-search-results';
 import debounce from 'lodash/debounce';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 // 'lodash/debounce' is already spied on via __mocks__/lodash.debounce.ts
 const debounceSpy = debounce as jest.Mock<ReturnType<typeof debounce>>;
@@ -501,81 +500,49 @@ describe('MentionResource', () => {
 		});
 	});
 
-	ffTest.on('mentions_custom_headers', 'custom headers in search requests', () => {
-		it('should include custom headers in search requests when flag is on', async () => {
-			const customHeaders = { 'X-Custom-Header': 'test-value', 'X-Product-Version': '1.0.0' };
-			const resource = new MentionResource({
-				...apiConfig,
-				headers: customHeaders,
-			});
-
-			const resultPromise = new Promise<void>((resolve, reject) => {
-				resource.subscribe('test', () => {
-					try {
-						const calls = fetchMock.calls();
-						const searchCall = calls.filter(
-							(call: unknown[]) => typeof call[0] === 'string' && call[0].includes('/search'),
-						);
-						expect(searchCall.length).toBeGreaterThan(0);
-						const lastCall = searchCall[searchCall.length - 1];
-						expect(lastCall[1]?.headers).toEqual(expect.objectContaining(customHeaders));
-						resolve();
-					} catch (err) {
-						reject(err);
-					}
-				});
-			});
-			resource.filter('craig', FULL_CONTEXT);
-			await resultPromise;
+	it('should include custom headers in search requests when flag is on', async () => {
+		const customHeaders = { 'X-Custom-Header': 'test-value', 'X-Product-Version': '1.0.0' };
+		const resource = new MentionResource({
+			...apiConfig,
+			headers: customHeaders,
 		});
 
-		it('should include custom headers in bootstrap requests when flag is on', async () => {
-			const customHeaders = { 'X-Custom-Header': 'test-value', 'X-Product-Version': '1.0.0' };
-			const resource = new MentionResource({
-				...apiConfig,
-				headers: customHeaders,
+		const resultPromise = new Promise<void>((resolve, reject) => {
+			resource.subscribe('test', () => {
+				try {
+					const calls = fetchMock.calls();
+					const searchCall = calls.filter(
+						(call: unknown[]) => typeof call[0] === 'string' && call[0].includes('/search'),
+					);
+					expect(searchCall.length).toBeGreaterThan(0);
+					const lastCall = searchCall[searchCall.length - 1];
+					expect(lastCall[1]?.headers).toEqual(expect.objectContaining(customHeaders));
+					resolve();
+				} catch (err) {
+					reject(err);
+				}
 			});
-
-			resource.subscribe('test', () => {});
-			await resource.filter('', FULL_CONTEXT);
-
-			const calls = fetchMock.calls();
-			const bootstrapCall = calls.filter(
-				(call: any) => typeof call[0] === 'string' && call[0].includes('/bootstrap'),
-			);
-			expect(bootstrapCall.length).toBeGreaterThan(0);
-			const lastCall = bootstrapCall[bootstrapCall.length - 1];
-			expect(lastCall[1]?.headers).toEqual(expect.objectContaining(customHeaders));
 		});
+		resource.filter('craig', FULL_CONTEXT);
+		await resultPromise;
 	});
 
-	ffTest.off('mentions_custom_headers', 'no custom headers when flag is off', () => {
-		it('should not include custom headers when flag is off', async () => {
-			const customHeaders = { 'X-Custom-Header': 'test-value' };
-			const resource = new MentionResource({
-				...apiConfig,
-				headers: customHeaders,
-			});
-
-			const resultPromise = new Promise<void>((resolve, reject) => {
-				resource.subscribe('test', () => {
-					try {
-						const calls = fetchMock.calls();
-						const searchCall = calls.filter(
-							(call: unknown[]) => typeof call[0] === 'string' && call[0].includes('/search'),
-						);
-						expect(searchCall.length).toBeGreaterThan(0);
-						const lastCall = searchCall[searchCall.length - 1];
-						const headers = lastCall[1]?.headers as Record<string, string>;
-						expect(headers['X-Custom-Header']).toBeUndefined();
-						resolve();
-					} catch (err) {
-						reject(err);
-					}
-				});
-			});
-			resource.filter('craig', FULL_CONTEXT);
-			await resultPromise;
+	it('should include custom headers in bootstrap requests when flag is on', async () => {
+		const customHeaders = { 'X-Custom-Header': 'test-value', 'X-Product-Version': '1.0.0' };
+		const resource = new MentionResource({
+			...apiConfig,
+			headers: customHeaders,
 		});
+
+		resource.subscribe('test', () => {});
+		await resource.filter('', FULL_CONTEXT);
+
+		const calls = fetchMock.calls();
+		const bootstrapCall = calls.filter(
+			(call: any) => typeof call[0] === 'string' && call[0].includes('/bootstrap'),
+		);
+		expect(bootstrapCall.length).toBeGreaterThan(0);
+		const lastCall = bootstrapCall[bootstrapCall.length - 1];
+		expect(lastCall[1]?.headers).toEqual(expect.objectContaining(customHeaders));
 	});
 });

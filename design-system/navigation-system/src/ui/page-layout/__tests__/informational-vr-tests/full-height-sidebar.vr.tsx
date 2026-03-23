@@ -395,7 +395,6 @@ snapshotInformational(SideNavLayering, {
 		'navx-full-height-sidebar': true,
 		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_top_nav_increase_height: true,
-		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
 		platform_dst_nav4_flyout_menu_slots_close_button: true,
 	},
 	prepare: async (page) => {

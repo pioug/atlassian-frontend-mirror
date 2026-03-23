@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/side-nav-items",
-	"version": "1.10.2",
+	"version": "1.11.0",
 	"description": "Menu items and elements for the side nav area.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -126,9 +126,6 @@
 			"type": "boolean"
 		},
 		"platform_dst_nav4_flyout_menu_slots_close_button": {
-			"type": "boolean"
-		},
-		"platform_dst_nav4_flyoutmenuitem_render_to_parent": {
 			"type": "boolean"
 		},
 		"navx-4169-improve-gsn-code": {

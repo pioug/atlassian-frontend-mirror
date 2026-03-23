@@ -345,8 +345,8 @@ export const getActiveDropTargetDecorations = (
 
 	if (editorExperiment('advanced_layouts', true)) {
 		if (
-			expValEquals('platform_synced_block', 'isEnabled', true) &&
-			expValEquals('platform_synced_block_patch_6', 'isEnabled', true)
+			editorExperiment('platform_synced_block', true) &&
+			editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
 		) {
 			const schema = rootNodeWithPos.node.type.schema;
 			const { layoutSection } = schema.nodes;
@@ -419,7 +419,7 @@ export const getActiveDropTargetDecorations = (
 			? api.core.actions.getAnchorIdForNode(
 					anchorEmitNodeWithPos.node,
 					anchorEmitNodeWithPos.pos,
-				) || ''
+			  ) || ''
 			: getNodeAnchor(anchorEmitNodeWithPos.node),
 	);
 

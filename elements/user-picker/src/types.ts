@@ -167,6 +167,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	open?: boolean;
 	/** Override the internal behaviour of default menu open on focus and applicable for single value select  */
 	openMenuOnClick?: boolean;
+	/** Whether to open the menu when the input receives focus. Defaults to true for multi-select. */
+	openMenuOnFocus?: boolean;
 	/** List of users or teams to be used as options by the user picker. */
 	options?: OptionData[];
 	/** Placeholder text to be shown when there is no value in the field. */

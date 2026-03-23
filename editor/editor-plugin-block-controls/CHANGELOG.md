@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.0.15
+
+### Patch Changes
+
+- [`c9d8de9fd5a33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9d8de9fd5a33) -
+  Avoid wrapping block controls in any block mark - fixes issues with font size mark.
+- Updated dependencies
+
+## 9.0.14
+
+### Patch Changes
+
+- [`3895f6d32cc49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3895f6d32cc49) -
+  Replace expValEquals with editorExperiment for platform_synced_block experiment to ensure
+  consistent exposure firing
+- Updated dependencies
+
+## 9.0.13
+
+### Patch Changes
+
+- [`3d01a5983dae9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d01a5983dae9) -
+  [ux] Make quick insert button optional (backward compatible, enabled by default)
+- Updated dependencies
+
 ## 9.0.12
 
 ### Patch Changes

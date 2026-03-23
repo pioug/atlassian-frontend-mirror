@@ -1,5 +1,22 @@
 # @atlaskit/email-renderer
 
+## 9.11.9
+
+### Patch Changes
+
+- [`a58ccd06e5753`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a58ccd06e5753) -
+  Added comprehensive task list test coverage for email-renderer and wikimarkup-transformer.
+
+## 9.11.8
+
+### Patch Changes
+
+- [`44735c0add67f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44735c0add67f) -
+  [ux] EDITOR-5420 Handle wrapper list items in email renderer. Wrapper list items (listItem nodes
+  whose only children are nested lists) no longer produce empty bullet points or numbers. Task lists
+  nested inside list items render with correct indentation.
+- Updated dependencies
+
 ## 9.11.7
 
 ### Patch Changes

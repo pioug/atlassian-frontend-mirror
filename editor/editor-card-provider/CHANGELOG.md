@@ -1,5 +1,28 @@
 # @atlaskit/editor-card-provider
 
+## 6.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.5.0
+
+### Minor Changes
+
+- [`df047c96e4f78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df047c96e4f78) -
+  Refresh cash for a smart card if it's not been fetched before
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.21
 
 ### Patch Changes

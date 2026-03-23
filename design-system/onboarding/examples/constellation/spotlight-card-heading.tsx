@@ -1,6 +1,7 @@
 import React from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { SpotlightCard } from '@atlaskit/onboarding';
 
 const SpotlightCardHeadingExample = (): React.JSX.Element => {

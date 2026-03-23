@@ -4,6 +4,7 @@ import rafSchedule from 'raf-schd';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
+import type { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,
@@ -305,6 +306,15 @@ export function InlineCardNodeView(
 	const url = node.attrs.url;
 	const CompetitorPromptComponent =
 		CompetitorPrompt && url ? <CompetitorPrompt sourceUrl={url} linkType="inline" /> : null;
+
+	useEffect(() => {
+		if (expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true)) {
+			// Refresh cache in the background
+			provider?.then((providerInstance) => {
+				(providerInstance as EditorCardProvider).refreshCache?.(props.node);
+			});
+		}
+	}, [provider, props.node]);
 
 	const inlineCardContent = (
 		<>

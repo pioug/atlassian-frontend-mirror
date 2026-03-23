@@ -179,8 +179,8 @@ const HoverZone = ({
 	const isInsideBodiedSyncBlock =
 		parent &&
 		parent.type.name === 'bodiedSyncBlock' &&
-		expValEquals('platform_synced_block', 'isEnabled', true) &&
-		expValEquals('platform_synced_block_patch_6', 'isEnabled', true);
+		editorExperiment('platform_synced_block', true) &&
+		editorExperiment('platform_synced_block_patch_6', true, { exposure: true });
 
 	useEffect(() => {
 		if (ref.current) {

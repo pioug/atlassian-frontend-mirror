@@ -89,6 +89,8 @@ export interface PluginState {
 export type ReleaseHiddenDecoration = () => boolean | undefined;
 
 export type BlockControlsPluginConfig = {
+	/** Enable the quick insert plus button icon on the left of the drag handle */
+	quickInsertButtonEnabled?: boolean;
 	/** Enable left/right hover split: show left controls when hovering left, right controls when hovering right */
 	rightSideControlsEnabled?: boolean;
 };

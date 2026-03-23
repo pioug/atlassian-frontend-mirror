@@ -9,8 +9,6 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import type { z } from 'zod';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { sendOperationalEvent } from './helpers/analytics';
 import { validateToolArguments } from './helpers/validation';
 import { instructions } from './instructions';
@@ -164,27 +162,22 @@ export const getToolRegistry = (): Record<
 			inputSchema: getGuidelinesInputSchema,
 			tool: listGetGuidelinesTool,
 		},
-	};
-
-	// Conditionally add token and icon tools based on feature flag
-	if (fg('design_system_mcp_structured_content')) {
-		baseTools[listGetLintRulesTool.name] = {
-			handler: getLintRulesTool,
-			inputSchema: getLintRulesInputSchema,
-			tool: listGetLintRulesTool,
-		} as (typeof baseTools)[string];
-	} else {
-		baseTools[listGetAllTokensTool.name] = {
+		[listGetAllTokensTool.name]: {
 			handler: getAllTokensTool,
 			inputSchema: null,
 			tool: listGetAllTokensTool,
-		} as (typeof baseTools)[string];
-		baseTools[listGetAllIconsTool.name] = {
+		},
+		[listGetAllIconsTool.name]: {
 			handler: getAllIconsTool,
 			inputSchema: null,
 			tool: listGetAllIconsTool,
-		} as (typeof baseTools)[string];
-	}
+		},
+		[listGetLintRulesTool.name]: {
+			handler: getLintRulesTool,
+			inputSchema: getLintRulesInputSchema,
+			tool: listGetLintRulesTool,
+		},
+	};
 
 	return baseTools;
 };

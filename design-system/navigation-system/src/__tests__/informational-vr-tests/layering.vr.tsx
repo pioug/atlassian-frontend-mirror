@@ -83,7 +83,6 @@ snapshotInformational(ScrollableVR, {
 		await page.getByRole('button', { name: 'Recent' }).click();
 	},
 	featureFlags: {
-		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
 		platform_design_system_nav4_panel_default_border: true,
 	},
 });
@@ -101,7 +100,6 @@ snapshotInformational(ScrollableVR, {
 		await page.getByRole('button', { name: 'Recent' }).click();
 	},
 	featureFlags: {
-		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
 		platform_design_system_nav4_panel_default_border: true,
 	},
 });
@@ -119,7 +117,6 @@ snapshotInformational(ScrollableNoPanelVR, {
 		await page.getByRole('button', { name: 'Recent' }).click();
 	},
 	featureFlags: {
-		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
 		platform_design_system_nav4_panel_default_border: true,
 	},
 });
@@ -138,7 +135,6 @@ snapshotInformational(ScrollableVR, {
 		await page.getByRole('tooltip').waitFor({ state: 'hidden' });
 	},
 	featureFlags: {
-		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
 		platform_design_system_nav4_panel_default_border: true,
 	},
 });

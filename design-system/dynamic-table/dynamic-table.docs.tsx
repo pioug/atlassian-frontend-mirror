@@ -40,6 +40,32 @@ const documentation: ComponentStructuredContentSource[] = [
 		],
 		categories: ['data display', 'table', 'list'],
 	},
+	{
+		name: 'DynamicTableStateless',
+		description:
+			'A stateless dynamic table for when you need to control pagination, sorting, and data externally. Use when integrating with custom state management.',
+		status: 'general-availability',
+		import: {
+			name: 'DynamicTableStateless',
+			package: '@atlaskit/dynamic-table',
+			type: 'named',
+			packagePath: path.resolve(__dirname),
+			packageJson: require('./package.json'),
+		},
+		usageGuidelines: [
+			'Use when you need to control table state externally (e.g. server-side pagination, custom sort logic)',
+			'Use DynamicTable (stateful) when built-in pagination and sorting are sufficient',
+		],
+		examples: [
+			{
+				name: 'Stateless',
+				description: 'Stateless dynamic table example',
+				source: path.resolve(__dirname, './examples/1-stateless.tsx'),
+			},
+		],
+		keywords: ['table', 'dynamic-table', 'stateless', 'controlled', 'pagination', 'sorting'],
+		categories: ['data display', 'table', 'list'],
+	},
 ];
 
 export default documentation;

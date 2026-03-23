@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-selection
 
+## 8.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.6
+
+### Patch Changes
+
+- [`ba5257de9a045`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba5257de9a045) -
+  Removed feature flag platform_editor_paste_before_first_block_node for solved editor paste bug
+  before certain block nodes.
+- Updated dependencies
+
 ## 8.0.5
 
 ### Patch Changes

@@ -115,7 +115,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 		useEffect(() => {
 			const onBlur = () => {
 				setWindowFocused(false);
-				if (fg('jpx-833-smart-links-graphql-provider')) {
+				if (fg('jpx-1074-smart-links-iframe')) {
 					if (doc?.activeElement === ref.current) {
 						onIframeFocus && onIframeFocus();
 					}
@@ -209,7 +209,7 @@ export const FrameUpdated = React.forwardRef<HTMLIFrameElement, FrameUpdatedProp
 		const [isWindowFocused, setWindowFocused] = useState(
 			// The below will be removed as part of FG cleanup
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
-			fg('jpx-833-smart-links-graphql-provider') ? (doc?.hasFocus() ?? false) : document.hasFocus(),
+			fg('jpx-1074-smart-links-iframe') ? (doc?.hasFocus() ?? false) : document.hasFocus(),
 		);
 
 		// Use prop if provided (from wrapper), otherwise use local state (for backward compatibility)
@@ -252,14 +252,12 @@ export const FrameUpdated = React.forwardRef<HTMLIFrameElement, FrameUpdatedProp
 			// The below will be removed as part of FG cleanup
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 			setWindowFocused(
-				fg('jpx-833-smart-links-graphql-provider')
-					? (doc?.hasFocus() ?? false)
-					: document.hasFocus(),
+				fg('jpx-1074-smart-links-iframe') ? (doc?.hasFocus() ?? false) : document.hasFocus(),
 			);
 
 			const onBlur = () => {
 				setWindowFocused(false);
-				if (fg('jpx-833-smart-links-graphql-provider')) {
+				if (fg('jpx-1074-smart-links-iframe')) {
 					if (doc?.activeElement === ref.current) {
 						onIframeFocus && onIframeFocus();
 					}

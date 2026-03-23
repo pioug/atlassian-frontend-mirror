@@ -53,7 +53,7 @@ export const messages = defineMessages({
 	disconnectDialogCancelButton: {
 		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button',
 		defaultMessage: 'Cancel',
-		description: 'Button to cancel the dialog',
+		description: 'Button label to cancel the disconnect dialog without making changes',
 	},
 	disconnectDialogRemoveButton: {
 		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.remove-button',

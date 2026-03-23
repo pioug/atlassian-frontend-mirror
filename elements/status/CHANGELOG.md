@@ -1,5 +1,25 @@
 # @atlaskit/status
 
+## 3.1.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.22
+
+### Patch Changes
+
+- [`46ff42199054d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46ff42199054d) -
+  Cleans up experiment platform_editor_eslint_suppression_fix
+- Updated dependencies
+
+## 3.1.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.20
 
 ### Patch Changes

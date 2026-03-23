@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Task list nested inside bullet list wrapper at depth 3 (bullet > bullet > task)"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Level 1 bullet item"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "bulletList",
+              "content": [
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "taskList",
+                      "attrs": {
+                        "localId": "tl-deep-in-bullet-1"
+                      },
+                      "content": [
+                        {
+                          "type": "taskItem",
+                          "attrs": {
+                            "localId": "ti-deep-1",
+                            "state": "TODO"
+                          },
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Task at depth 3 via bullet > bullet > task"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "taskItem",
+                          "attrs": {
+                            "localId": "ti-deep-2",
+                            "state": "DONE"
+                          },
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Completed task at depth 3"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Level 1 bullet item after nested task"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Task list nested inside ordered list wrapper at depth 3 (ordered > ordered > task)"
+        }
+      ]
+    },
+    {
+      "type": "orderedList",
+      "attrs": {
+        "order": 1
+      },
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Level 1 ordered item"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "orderedList",
+              "attrs": {
+                "order": 1
+              },
+              "content": [
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "taskList",
+                      "attrs": {
+                        "localId": "tl-deep-in-ordered-1"
+                      },
+                      "content": [
+                        {
+                          "type": "taskItem",
+                          "attrs": {
+                            "localId": "ti-deep-ord-1",
+                            "state": "TODO"
+                          },
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Task at depth 3 via ordered > ordered > task"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "taskItem",
+                          "attrs": {
+                            "localId": "ti-deep-ord-2",
+                            "state": "DONE"
+                          },
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "Completed task at depth 3 in ordered"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Level 1 ordered item after nested task"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Deeply nested: bullet > ordered > bullet > task list"
+        }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "orderedList",
+              "attrs": {
+                "order": 1
+              },
+              "content": [
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "bulletList",
+                      "content": [
+                        {
+                          "type": "listItem",
+                          "content": [
+                            {
+                              "type": "taskList",
+                              "attrs": {
+                                "localId": "tl-triple-nested"
+                              },
+                              "content": [
+                                {
+                                  "type": "taskItem",
+                                  "attrs": {
+                                    "localId": "ti-triple-1",
+                                    "state": "TODO"
+                                  },
+                                  "content": [
+                                    {
+                                      "type": "text",
+                                      "text": "Task deeply nested: bullet > ordered > bullet > task"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -17,12 +17,15 @@ export const styles: string = `
 `;
 
 export default function taskList({ text, parent }: NodeSerializerOpts): string {
+	// Apply nested styling when parent is a taskList (direct nesting).
+	// When parent is a listItem, the list item already provides indentation,
+	// so we don't apply the nested class to avoid double-indentation.
+	const isNested = parent && parent.type.name === 'taskList';
+
 	return createTag(
 		'div',
 		{
-			class: [className, parent && parent.type.name === 'taskList' && nestedClassName]
-				.filter(Boolean)
-				.join(' '),
+			class: [className, isNested && nestedClassName].filter(Boolean).join(' '),
 		},
 		text,
 	);

@@ -1,5 +1,6 @@
 import React, { type ComponentProps } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { SpotlightCard } from '@atlaskit/onboarding';
 import { type Placement, Popper } from '@atlaskit/popper';
 

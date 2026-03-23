@@ -35,6 +35,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*"
 	},
@@ -61,7 +62,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-internal-navigation",
-	"version": "1.1.0",
+	"version": "1.2.1",
 	"description": "Headless navigation utilities for consistent internal link behaviour across the Teams app.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

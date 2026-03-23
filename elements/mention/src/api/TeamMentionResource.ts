@@ -1,5 +1,4 @@
 import { SLI_EVENT_TYPE } from './../util/analytics';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type KeyValues, utils as serviceUtils } from '@atlaskit/util-service-support';
 
 import {
@@ -64,9 +63,7 @@ export default class TeamMentionResource extends MentionResource implements Ment
 		const getUserPromise = super.remoteInitialState(contextIdentifier);
 
 		const queryParams: KeyValues = this.getQueryParamsOfTeamMentionConfig(contextIdentifier);
-		const configHeaders = fg('mentions_custom_headers')
-			? this.teamMentionConfig.headers
-			: undefined;
+		const configHeaders = this.teamMentionConfig.headers;
 		const options = {
 			path: 'bootstrap',
 			queryParams,
@@ -187,9 +184,7 @@ export default class TeamMentionResource extends MentionResource implements Ment
 		query: string,
 		contextIdentifier?: MentionContextIdentifier,
 	): Promise<MentionsResult> {
-		const configHeaders = fg('mentions_custom_headers')
-			? this.teamMentionConfig.headers
-			: undefined;
+		const configHeaders = this.teamMentionConfig.headers;
 		const options = {
 			path: 'search',
 			queryParams: {

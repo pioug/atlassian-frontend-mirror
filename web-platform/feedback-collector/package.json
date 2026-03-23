@@ -98,9 +98,6 @@
 		"product-terminology-refresh": {
 			"type": "boolean"
 		},
-		"feedback-collector-custom-validation": {
-			"type": "boolean"
-		},
 		"jfp_a11y_team_feedback_collector_nested_elements": {
 			"type": "boolean"
 		},

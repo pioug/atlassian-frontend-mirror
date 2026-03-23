@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "6.3.2",
+	"version": "6.4.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -188,9 +188,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_dst_nav4_flyoutmenuitem_render_to_parent": {
-			"type": "boolean"
 		},
 		"navx-full-height-sidebar": {
 			"type": "boolean"

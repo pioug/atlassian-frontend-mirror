@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-ssr-renderer",
-	"version": "3.0.5",
+	"version": "3.1.1",
 	"description": "SSR Renderer based on Editor",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
@@ -40,10 +40,5 @@
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0"
-	},
-	"platform-feature-flags": {
-		"platform_editor_better_editor_ssr_spans": {
-			"type": "boolean"
-		}
 	}
 }

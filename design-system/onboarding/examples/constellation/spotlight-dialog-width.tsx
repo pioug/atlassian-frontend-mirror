@@ -5,6 +5,7 @@ import Button, { IconButton } from '@atlaskit/button/new';
 import CommentAddIcon from '@atlaskit/icon/core/comment-add';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import FullscreenEnterIcon from '@atlaskit/icon/core/fullscreen-enter';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,
 	SpotlightManager,

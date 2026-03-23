@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 3.1.2
+
+### Patch Changes
+
+- [`618d4b42a6fe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/618d4b42a6fe9) -
+  Clean up jira_update_jql_teams feature gate
+
 ## 3.1.1
 
 ### Patch Changes

@@ -6,6 +6,7 @@ import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji/types';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import type { SpotlightCard } from '@atlaskit/onboarding';
 import type { Placement } from '@atlaskit/popper';
 import type { TooltipProps } from '@atlaskit/tooltip';

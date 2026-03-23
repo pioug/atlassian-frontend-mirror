@@ -1,5 +1,15 @@
 # @atlaskit/css-reset
 
+## 7.4.0
+
+### Minor Changes
+
+- [`ab80e21341160`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab80e21341160) -
+  Added support for sub-tree theming by redeclaring token-based styles on `body` for elements with
+  the `[data-subtree-theme]` attribute. This change allows sub-tree themes to work correctly with
+  inherited styles from the CSS reset, preventing issues where components rely on global styles from
+  the body element.
+
 ## 7.3.13
 
 ### Patch Changes

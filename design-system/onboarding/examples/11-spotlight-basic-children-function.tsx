@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import { cssMap, cx } from '@atlaskit/css';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,
 	SpotlightManager,

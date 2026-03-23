@@ -1,5 +1,40 @@
 # @atlaskit/editor-core
 
+## 217.5.2
+
+### Patch Changes
+
+- [`c68bac53b0cdc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c68bac53b0cdc) -
+  Add max appearance support to breakout plugin in universal preset
+- Updated dependencies
+
+## 217.5.1
+
+### Patch Changes
+
+- [`cdc6ff4788df0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdc6ff4788df0) -
+  [EDITOR-5739] Move TwoStageHydration on toolbar down to around toolbar component rather than
+  ToolbarArrowKeyNavigationProvider
+- Updated dependencies
+
+## 217.5.0
+
+### Minor Changes
+
+- [`5b4851e88ab36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b4851e88ab36) -
+  [EDITOR-5797](https://hello.jira.atlassian.cloud/browse/EDITOR-5797) - clean up
+  platform_editor_better_editor_ssr_spans feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 217.4.5
 
 ### Patch Changes

@@ -9,6 +9,7 @@ import { css, jsx } from '@compiled/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { Spotlight, SpotlightManager, SpotlightTarget } from '@atlaskit/onboarding';
 import { token } from '@atlaskit/tokens';
 

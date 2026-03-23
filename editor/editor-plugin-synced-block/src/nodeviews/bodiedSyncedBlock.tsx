@@ -267,6 +267,9 @@ export class BodiedSyncBlock implements NodeView {
 		this.updateContentEditable({});
 		this.handleConnectivityModeChange();
 		this.handleViewModeChange();
+
+		// update sync block data on initial creation
+		this.syncedBlockStore?.sourceManager.updateSyncBlockData(node);
 	}
 
 	private updateContentEditable({
@@ -307,15 +310,17 @@ export class BodiedSyncBlock implements NodeView {
 		}
 	}
 
+	private get syncedBlockStore(): SyncBlockStoreManager | undefined {
+		return this.api?.syncedBlock.sharedState?.currentState()?.syncBlockStore ?? this.syncBlockStore;
+	}
+
 	update(node: PMNode): boolean {
 		if (this.node.type !== node.type) {
 			return false;
 		}
 
 		if (node !== this.node) {
-			const syncBlockStore =
-				this.api?.syncedBlock.sharedState?.currentState()?.syncBlockStore ?? this.syncBlockStore;
-			syncBlockStore?.sourceManager.updateSyncBlockData(node);
+			this.syncedBlockStore?.sourceManager.updateSyncBlockData(node);
 		}
 		this.node = node;
 

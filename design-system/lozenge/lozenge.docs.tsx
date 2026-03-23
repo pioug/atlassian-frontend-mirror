@@ -6,8 +6,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	{
 		name: 'Lozenge',
 		description:
-			'A lozenge is a small visual indicator used to show status, category, or other short text labels.',
-		status: 'general-availability',
+			'A lozenge is a visual indicator used to highlight an item\'s status for quick recognition.',
+		status: 'general-availability', // beta lozenge is feature-flagged
 		import: {
 			name: 'Lozenge',
 			package: '@atlaskit/lozenge',
@@ -42,6 +42,42 @@ const documentation: ComponentStructuredContentSource[] = [
 			},
 		],
 		keywords: ['lozenge', 'badge', 'label', 'status', 'indicator', 'pill'],
+		categories: ['status-indicators'],
+	},
+	{
+		name: 'LozengeDropdownTrigger',
+		description:
+			'Lozenge dropdown trigger displays an item\'s status and enables switching through a menu.',
+		status: 'open-beta',
+		import: {
+			name: 'LozengeDropdownTrigger',
+			package: '@atlaskit/lozenge',
+			type: 'named',
+			packagePath: path.resolve(__dirname),
+			packageJson: require('./package.json'),
+		},
+		usageGuidelines: [
+			'Use for status switching—only open a dropdown or popup to allow quick status changes',
+			'Use spacious sizing when displayed alongside buttons',
+			"Don't use to communicate other information like additional status details; use lozenge instead",
+		],
+		contentGuidelines: [
+			'Use clear, concise status labels',
+			'Keep labels short—max 200px width causes truncation and lozenges are not focusable',
+			"Don't use color alone; use clear labels and supporting icons where relevant",
+		],
+		accessibilityGuidelines: [
+			"Don't use color alone to signify state; use clear labels and icons",
+			"Don't use long labels—truncation isn't accessible as lozenges can't be focused",
+		],
+		examples: [
+			{
+				name: 'Lozenge Dropdown Trigger',
+				description: 'LozengeDropdownTrigger example',
+				source: path.resolve(__dirname, './examples/constellation/lozenge-dropdown-trigger-basic.tsx'),
+			},
+		],
+		keywords: ['lozenge', 'dropdown', 'trigger', 'status', 'menu', 'interactive'],
 		categories: ['status-indicators'],
 	},
 ];

@@ -52,10 +52,11 @@ export interface BlockTypeNode {
 export interface BlockTypePluginOptions {
 	allowBlockType?: { exclude?: Array<AllowedBlockTypes> };
 	/**
-	 * Add ability to enable/disable the font size feature which. Currently only 'small text' is supported.
+	 * Add ability to toggle paragraph size variations.
 	 *
 	 * Note: Feature is in development and logic is under an experiment.
 	 * Note: `fontSize` mark must be supported in the ADF schema for this feature to work.
+	 * Note: To support fontSize variatons in tasks, allowBlockTaskItem must be enabled for tasksAndDecisionsPlugin
 	 */
 	allowFontSize?: boolean;
 	includeBlockQuoteAsTextstyleOption?: boolean;

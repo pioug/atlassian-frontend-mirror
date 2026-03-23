@@ -4,6 +4,7 @@ import { type SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	type ResourceId,
@@ -255,6 +256,16 @@ export class SourceSyncBlockStoreManager {
 		if (onCompletion) {
 			this.creationCompletionCallbacks.delete(resourceId);
 			onCompletion(success);
+			if (
+				success &&
+				editorExperiment('platform_synced_block_patch_6', true, {
+					exposure: true,
+				})
+			) {
+				// If creation is successful, set hasReceivedContentChange to true
+				// to indicate that there are unsaved changes in the cache
+				this.hasReceivedContentChange = true;
+			}
 		} else {
 			this.fireAnalyticsEvent?.(
 				createErrorPayload('creation complete callback missing', resourceId),

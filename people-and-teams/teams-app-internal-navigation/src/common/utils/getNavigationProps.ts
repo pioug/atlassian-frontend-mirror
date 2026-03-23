@@ -25,7 +25,7 @@ export interface NavigationContext {
 }
 
 export type NavigationIntentProps =
-	| { intent: 'action'; previewPanelProps: previewPanelProps }
+	| { intent: 'action'; previewPanelProps?: previewPanelProps }
 	| { intent: Exclude<NavigationIntent, 'action'> };
 
 type NavigationInput = NavigationIntentProps & {

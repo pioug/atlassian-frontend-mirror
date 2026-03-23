@@ -111,7 +111,7 @@ const documentation: ComponentStructuredContentSource[] = [
 	{
 		name: 'Flex',
 		description: 'A primitive Flex component for flexbox layout with compiled styling support.',
-		status: 'general-availability',
+		status: 'open-beta',
 		import: {
 			name: 'Flex',
 			package: '@atlaskit/primitives/compiled',
@@ -191,7 +191,7 @@ const documentation: ComponentStructuredContentSource[] = [
 	{
 		name: 'Grid',
 		description: 'A primitive Grid component for CSS Grid layout with compiled styling support.',
-		status: 'general-availability',
+		status: 'open-beta',
 		import: {
 			name: 'Grid',
 			package: '@atlaskit/primitives/compiled',

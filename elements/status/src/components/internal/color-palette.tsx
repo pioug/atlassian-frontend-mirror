@@ -3,12 +3,11 @@
  * @jsx jsx
  */
 import { token } from '@atlaskit/tokens';
-import React, { useEffect, useRef, useCallback, useState } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { css, jsx } from '@compiled/react';
 import { type Color as ColorType } from '../Status';
 import Color from './color';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const paletteLegacy: [
 	colorValue: ColorType,
@@ -125,7 +124,6 @@ export default ({
 }: ColorPaletteProps): JSX.Element => {
 	const palette = getPalette();
 	const colorRefs: React.MutableRefObject<HTMLButtonElement[]> = useRef([]);
-	const [currentFocusedColor, setCurrentFocusedColor] = useState(0);
 	useEffect(() => {
 		colorRefs.current = colorRefs.current.slice(0, palette.length);
 	}, [palette.length]);
@@ -156,50 +154,12 @@ export default ({
 		[colorRefs, palette.length],
 	);
 
-	const memoizedHandleKeyDown = useCallback(
-		(e: React.KeyboardEvent) => {
-			let newColorIndex: number | null = null;
-			const nextColor = () =>
-				currentFocusedColor + 1 > palette.length - 1 ? 0 : currentFocusedColor + 1;
-			const previousColor = () =>
-				currentFocusedColor - 1 < 0 ? palette.length - 1 : currentFocusedColor - 1;
-
-			switch (e.key) {
-				case 'ArrowRight':
-				case 'ArrowDown':
-					e.preventDefault();
-					newColorIndex = nextColor();
-					break;
-				case 'ArrowLeft':
-				case 'ArrowUp':
-					e.preventDefault();
-					newColorIndex = previousColor();
-					break;
-				case 'Tab':
-					setCurrentFocusedColor(0);
-					break;
-			}
-			if (newColorIndex === null) {
-				return;
-			}
-			setCurrentFocusedColor(newColorIndex);
-			const newRef = colorRefs.current[newColorIndex];
-			newRef?.focus();
-		},
-		[currentFocusedColor, setCurrentFocusedColor, colorRefs, palette.length],
-	);
-
 	return (
 		<ul
 			css={colorPaletteWrapperStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			style={{ maxWidth: cols * 32 }}
-			onKeyDown={
-				expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)
-					? undefined
-					: memoizedHandleKeyDown
-			}
 		>
 			{palette.map(([colorValue, backgroundColor, borderColor, iconColor], i) => (
 				<Color
@@ -213,11 +173,7 @@ export default ({
 					isSelected={colorValue === selectedColor}
 					tabIndex={i === 0 ? 0 : -1}
 					setRef={(el) => (colorRefs.current[i] = el)}
-					onKeyDown={
-						expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)
-							? createKeyDownHandler(i)
-							: undefined
-					}
+					onKeyDown={createKeyDownHandler(i)}
 				/>
 			))}
 		</ul>

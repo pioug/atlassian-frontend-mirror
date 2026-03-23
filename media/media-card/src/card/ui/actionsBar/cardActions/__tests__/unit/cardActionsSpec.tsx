@@ -6,8 +6,10 @@ import AnnotateIcon from '@atlaskit/icon/core/edit';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { AnalyticsListener, type UIAnalyticsEventHandler } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { CardActionsView } from '../..';
+import { CardActionButton } from '../../cardActionButton-compiled';
 import { type CardAction } from '../../../../../actions';
 
 describe('CardActions', () => {
@@ -300,5 +302,55 @@ describe('CardActions', () => {
 				'media',
 			);
 		});
+	});
+
+	describe('card action button within a form', () => {
+		const setupWithForm = () => {
+			const onCardActionClick = jest.fn();
+			const onFormSubmit = jest.fn((e: React.FormEvent) => e.preventDefault());
+
+			render(
+				<form onSubmit={onFormSubmit} data-testid="test-form">
+					<CardActionButton onClick={onCardActionClick} label="Delete">
+						Delete
+					</CardActionButton>
+					<button type="submit" data-testid="submit-button">
+						Submit
+					</button>
+				</form>,
+			);
+
+			return { onCardActionClick, onFormSubmit };
+		};
+
+		ffTest.on(
+			'platform_media_card_action_button_type_fix',
+			'when feature flag is on',
+			() => {
+				it('should not trigger form submission when card action button is clicked', () => {
+					const { onCardActionClick, onFormSubmit } = setupWithForm();
+
+					fireEvent.click(screen.getByTestId('media-card-primary-action'));
+
+					expect(onCardActionClick).toHaveBeenCalledTimes(1);
+					expect(onFormSubmit).not.toHaveBeenCalled();
+				});
+			},
+		);
+
+		ffTest.off(
+			'platform_media_card_action_button_type_fix',
+			'when feature flag is off',
+			() => {
+				it('should trigger form submission when card action button is clicked', () => {
+					const { onCardActionClick, onFormSubmit } = setupWithForm();
+
+					fireEvent.click(screen.getByTestId('media-card-primary-action'));
+
+					expect(onCardActionClick).toHaveBeenCalledTimes(1);
+					expect(onFormSubmit).toHaveBeenCalledTimes(1);
+				});
+			},
+		);
 	});
 });

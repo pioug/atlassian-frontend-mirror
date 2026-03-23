@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-media
 
+## 10.0.11
+
+### Patch Changes
+
+- [`0d04e250bdf4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d04e250bdf4b) -
+  [ux] Making submenus for media (color/size) and table (background color) consistent with ADS and
+  fixing incorrect gate mocking in editor-plugin-ai-tests
+- Updated dependencies
+
+## 10.0.10
+
+### Patch Changes
+
+- [`46ff42199054d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46ff42199054d) -
+  Cleans up experiment platform_editor_eslint_suppression_fix
+- Updated dependencies
+
+## 10.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.8
 
 ### Patch Changes

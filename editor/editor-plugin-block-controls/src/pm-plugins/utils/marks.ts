@@ -4,6 +4,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
+ * Remove this when platform_editor_clean_up_widget_mark_logic is cleaned up.
+ *
  * Returns list of block marks on schema that widgets are allowed to render inside
  * Currently
  * - indent

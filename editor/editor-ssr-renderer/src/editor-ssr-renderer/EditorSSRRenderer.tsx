@@ -12,7 +12,6 @@ import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { EventDispatcher, createDispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	profileSSROperation,
 	SSRRenderMeasure,
@@ -194,13 +193,11 @@ export function EditorSSRRenderer({
 			}, [] as SafePlugin[]);
 		};
 
-		return fg('platform_editor_better_editor_ssr_spans')
-			? profileSSROperation(
-					`${SSR_TRACE_SEGMENT_NAME}/createPMPlugins`,
-					createPMPlugins,
-					onSSRMeasure,
-				)
-			: createPMPlugins();
+		return profileSSROperation(
+			`${SSR_TRACE_SEGMENT_NAME}/createPMPlugins`,
+			createPMPlugins,
+			onSSRMeasure,
+		);
 	}, [plugins, portalProviderAPI, schema, onSSRMeasure]);
 
 	const nodeViews = useMemo(() => {
@@ -224,13 +221,11 @@ export function EditorSSRRenderer({
 			});
 		};
 
-		return fg('platform_editor_better_editor_ssr_spans')
-			? profileSSROperation(
-					`${SSR_TRACE_SEGMENT_NAME}/createEditorState`,
-					createEditorState,
-					onSSRMeasure,
-				)
-			: createEditorState();
+		return profileSSROperation(
+			`${SSR_TRACE_SEGMENT_NAME}/createEditorState`,
+			createEditorState,
+			onSSRMeasure,
+		);
 	}, [doc, pmPlugins, schema, onSSRMeasure]);
 
 	// In React 19 could be replaced by `useEffectEvent` hook.
@@ -373,13 +368,11 @@ export function EditorSSRRenderer({
 			return { serializer, nodePositions };
 		};
 
-		return fg('platform_editor_better_editor_ssr_spans')
-			? profileSSROperation(
-					`${SSR_TRACE_SEGMENT_NAME}/createSerializerAndNodePositions`,
-					createSerializerAndNodePositions,
-					onSSRMeasure,
-				)
-			: createSerializerAndNodePositions();
+		return profileSSROperation(
+			`${SSR_TRACE_SEGMENT_NAME}/createSerializerAndNodePositions`,
+			createSerializerAndNodePositions,
+			onSSRMeasure,
+		);
 	}, [editorView, markViews, nodeViews, schema.marks, schema.nodes, onSSRMeasure]);
 
 	const editorHTML = useMemo(() => {
@@ -396,13 +389,11 @@ export function EditorSSRRenderer({
 		};
 
 		try {
-			return fg('platform_editor_better_editor_ssr_spans')
-				? profileSSROperation(
-						`${SSR_TRACE_SEGMENT_NAME}/serializeFragment`,
-						serializeFragment,
-						onSSRMeasure,
-					)
-				: serializeFragment();
+			return profileSSROperation(
+				`${SSR_TRACE_SEGMENT_NAME}/serializeFragment`,
+				serializeFragment,
+				onSSRMeasure,
+			);
 		} catch {
 			return undefined;
 		}
@@ -421,7 +412,7 @@ export function EditorSSRRenderer({
 		<SSRRenderMeasure
 			segmentName={SSR_TRACE_SEGMENT_NAME}
 			startTimestampRef={firstRenderStartTimestampRef}
-			onSSRMeasure={fg('platform_editor_better_editor_ssr_spans') ? onSSRMeasure : undefined}
+			onSSRMeasure={onSSRMeasure}
 		>
 			<div
 				ref={containerRef}

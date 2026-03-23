@@ -31,7 +31,7 @@ const getValueType = (field: JQLFieldResponse): AutocompleteValueType | void => 
 	if (field.types.includes(USER_FIELD_TYPE)) {
 		return 'user';
 	}
-	if (field.types.includes(TEAM_FIELD_TYPE) && fg('jira_update_jql_teams')) {
+	if (field.types.includes(TEAM_FIELD_TYPE)) {
 		return 'team';
 	}
 	if (field.types.includes(PROJECT_FIELD_TYPE) && fg('projects_in_jira_eap_drop2')) {
@@ -118,7 +118,7 @@ const useOnValues = (
 										});
 									}
 									if (
-										(valueType === 'team' && fg('jira_update_jql_teams')) ||
+										valueType === 'team' ||
 										(valueType === 'project' && fg('projects_in_jira_eap_drop2'))
 									) {
 										values.forEach((value: AutocompleteOption) => {

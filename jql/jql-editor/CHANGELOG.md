@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 5.13.6
+
+### Patch Changes
+
+- [`618d4b42a6fe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/618d4b42a6fe9) -
+  Clean up jira_update_jql_teams feature gate
+- Updated dependencies
+
 ## 5.13.5
 
 ### Patch Changes

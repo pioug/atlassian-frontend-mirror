@@ -186,6 +186,12 @@ export class EditorCardProvider
 		}
 	}
 
+	refreshCache(node: CardNode | PMNode) {
+		if (this.getCacheStatusForNode(node) !== 'network') {
+			this.getData(node, () => {});
+		}
+	}
+
 	override getData(
 		node: CardNode | PMNode,
 		callback: (payload: CallbackPayload<JsonLd.Response>) => void,

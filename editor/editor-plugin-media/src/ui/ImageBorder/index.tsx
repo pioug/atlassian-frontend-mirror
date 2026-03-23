@@ -114,12 +114,24 @@ const ImageBorder = ({
 		}
 	};
 
-	const handleTriggerByKeyboard = (event: React.KeyboardEvent, callback: () => void) => {
-		if (event.key === 'Enter' || event.key === ' ') {
-			event.preventDefault();
-			callback();
-			setIsOpenedByKeyboard(true);
+	const handleTriggerByKeyboard = (event: React.KeyboardEvent, allowedKeys: string[], callback: () => void,) => {
+		if (!allowedKeys.includes(event.key)) {
+			return;
 		}
+		event.preventDefault();
+		callback();
+		setIsOpenedByKeyboard(true);
+	};
+
+	const handleTriggerToolbarByKeyboard = (event: React.KeyboardEvent, callback: () => void) => {
+		handleTriggerByKeyboard(event, ['Enter', ' '], callback);
+	};
+
+	const handleTriggerSubmenuByKeyboard = (event: React.KeyboardEvent, callback: () => void) => {
+		const keys = expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)
+			? ['Enter', 'ArrowRight']
+			: ['Enter', ' '];
+		handleTriggerByKeyboard(event, keys, callback);
 	};
 
 	useEffect(() => {
@@ -188,7 +200,19 @@ const ImageBorder = ({
 						}
 						aria-expanded={isColorSubmenuOpen}
 						onKeyDown={(e) =>
-							handleTriggerByKeyboard(e, () => setIsColorSubmenuOpen(!isColorSubmenuOpen))
+							handleTriggerSubmenuByKeyboard(e, () => {
+								if (expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
+									setIsColorSubmenuOpen((prev) => {
+										const next = !prev;
+										if (next) {
+											setIsSizeSubmenuOpen(false);
+										}
+										return next;
+									});
+								} else {
+									setIsColorSubmenuOpen(!isColorSubmenuOpen);
+								}
+							})
 						}
 					>
 						<Text>{formatMessage(messages.borderColor)}</Text>
@@ -266,7 +290,19 @@ const ImageBorder = ({
 						aria-expanded={isSizeSubmenuOpen}
 						ref={dropDownSizeOptionButton}
 						onKeyDown={(e) =>
-							handleTriggerByKeyboard(e, () => setIsSizeSubmenuOpen(!isSizeSubmenuOpen))
+							handleTriggerSubmenuByKeyboard(e, () => {
+								if (expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
+									setIsSizeSubmenuOpen((prev) => {
+										const next = !prev;
+										if (next) {
+											setIsColorSubmenuOpen(false);
+										}
+										return next;
+									});
+								} else {
+									setIsSizeSubmenuOpen(!isSizeSubmenuOpen);
+								}
+							})
 						}
 					>
 						<Text>{formatMessage(messages.borderSize)}</Text>
@@ -396,7 +432,7 @@ const ImageBorder = ({
 							setIsOpen(!isOpen);
 							setIsOpenedByKeyboard(false);
 						}}
-						onKeyDown={(e) => handleTriggerByKeyboard(e, () => setIsOpen(!isOpen))}
+						onKeyDown={(e) => handleTriggerToolbarByKeyboard(e, () => setIsOpen(!isOpen))}
 					/>
 				</div>
 			</div>
@@ -409,12 +445,12 @@ const ImageBorder = ({
 			>
 				<div
 					onMouseLeave={
-						expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)
-							? undefined
-							: () => {
-									setIsColorSubmenuOpen(false);
-									setIsSizeSubmenuOpen(false);
-								}
+						expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)
+						? undefined
+						: () => {
+								setIsColorSubmenuOpen(false);
+								setIsSizeSubmenuOpen(false);
+							}
 					}
 					/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
 					css={dropdownWrapper}
@@ -448,28 +484,52 @@ const ImageBorder = ({
 						}}
 						onItemActivated={({ item }) => {
 							if (item.value.name === 'color') {
-								setIsColorSubmenuOpen(!isColorSubmenuOpen);
+								if (expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
+									setIsColorSubmenuOpen((prev) => {
+										const next = !prev;
+										if (next) {
+											setIsSizeSubmenuOpen(false);
+										}
+										return next;
+									});
+								} else {
+									setIsColorSubmenuOpen(!isColorSubmenuOpen);
+								}
 							}
 							if (item.value.name === 'size') {
-								setIsSizeSubmenuOpen(!isSizeSubmenuOpen);
+								if (expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
+									setIsSizeSubmenuOpen((prev) => {
+										const next = !prev;
+										if (next) {
+											setIsColorSubmenuOpen(false);
+										}
+										return next;
+									});
+								} else {
+									setIsSizeSubmenuOpen(!isSizeSubmenuOpen);
+								}
 							}
 						}}
 						onMouseEnter={({ item }) => {
-							if (item.value.name === 'color') {
+							if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true,)) {
+								if (item.value.name === 'color') {
 								setIsColorSubmenuOpen(true);
 								setIsOpenedByKeyboard(false);
-							}
-							if (item.value.name === 'size') {
+								}
+								if (item.value.name === 'size') {
 								setIsSizeSubmenuOpen(true);
 								setIsOpenedByKeyboard(false);
+								}
 							}
 						}}
 						onMouseLeave={({ item }) => {
-							if (item.value.name === 'color') {
+							if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true,)) {
+								if (item.value.name === 'color') {
 								setIsColorSubmenuOpen(false);
-							}
-							if (item.value.name === 'size') {
+								}
+								if (item.value.name === 'size') {
 								setIsSizeSubmenuOpen(false);
+								}
 							}
 						}}
 						fitWidth={fitWidth + fitTolerance}

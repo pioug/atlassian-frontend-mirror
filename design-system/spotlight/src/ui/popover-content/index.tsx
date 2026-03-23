@@ -84,8 +84,8 @@ interface BasePopoverContentProps {
 	offset?: Offset;
 
 	/**
-	 * Describes the positioning strategy to use. By default, it is `absolute`, which in the simplest cases does not require
-	 * repositioning of the popper. If your reference element is in a fixed container, use the `fixed` strategy
+	 * Describes the positioning strategy to use. By default, it is `fixed`, which positions the popper correctly when it's in the normal
+	 * flow of the document. If your reference element is in an absolute container, like a modal, use the `absolute` strategy instead.
 	 *
 	 * For more details see: https://popper.js.org/docs/v2/constructors/#strategy
 	 */
@@ -100,32 +100,32 @@ interface BasePopoverContentProps {
 export type PopoverContentProps = BasePopoverContentProps &
 	(
 		| {
-				/**
-				 * Invoked when the user clicks `SpotlightPrimaryAction` in a tour.
-				 * If an `onClick` handler is provided to `SpotlightPrimaryAction` then that takes precedence,
-				 * and `next` will be ignored.
-				 *
-				 * If `next` is passed to `PopoverContent`, then `done` cannot be passed. This will result in a type error.
-				 */
-				next: (event: NextEvent) => void;
+			/**
+			 * Invoked when the user clicks `SpotlightPrimaryAction` in a tour.
+			 * If an `onClick` handler is provided to `SpotlightPrimaryAction` then that takes precedence,
+			 * and `next` will be ignored.
+			 *
+			 * If `next` is passed to `PopoverContent`, then `done` cannot be passed. This will result in a type error.
+			 */
+			next: (event: NextEvent) => void;
 
-				/**
-				 * Invoked when the user clicks `SpotlightPrimaryAction`.
-				 * If an `onClick` handler is provided to SpotlightPrimaryAction then that takes precedence,
-				 * and `done` will be ignored.
-				 *
-				 * If `done` is passed to PopoverContent, then `next` cannot be passed. This will result in a type error.
-				 */
-				done?: never;
-		  }
+			/**
+			 * Invoked when the user clicks `SpotlightPrimaryAction`.
+			 * If an `onClick` handler is provided to SpotlightPrimaryAction then that takes precedence,
+			 * and `done` will be ignored.
+			 *
+			 * If `done` is passed to PopoverContent, then `next` cannot be passed. This will result in a type error.
+			 */
+			done?: never;
+		}
 		| {
-				done: (event: DoneEvent) => void;
-				next?: never;
-		  }
+			done: (event: DoneEvent) => void;
+			next?: never;
+		}
 		| {
-				next?: never;
-				done?: never;
-		  }
+			next?: never;
+			done?: never;
+		}
 	);
 
 /**

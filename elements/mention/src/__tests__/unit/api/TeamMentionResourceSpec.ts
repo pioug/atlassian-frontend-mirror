@@ -8,7 +8,6 @@ import {
 	type MentionResourceConfig,
 	type TeamMentionResourceConfig,
 } from '../../../api/MentionResource';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const baseUserUrl = 'https://bogus/users/mentions';
 const baseTeamUrl = 'https://bogus/teams/mentions';
@@ -342,45 +341,22 @@ describe('TeamMentionResourceSpec', () => {
 		});
 	});
 
-	ffTest.on('mentions_custom_headers', 'custom headers in team search requests', () => {
-		it('should include custom headers in team search requests when flag is on', () => {
-			const customHeaders = { 'X-Custom-Header': 'team-test-value' };
-			const teamResource = new TeamMentionResource(apiUserMentionConfig, {
-				...apiTeamMentionConfig,
-				headers: customHeaders,
-			});
-
-			teamResource.subscribe('test', () => {});
-			teamResource.filter('craig', FULL_CONTEXT);
-
-			// The user search call is immediate (not delayed), so we can check it right away
-			const teamCalls = fetchMock
-				.calls()
-				.filter((call: unknown[]) => typeof call[0] === 'string' && call[0].includes(baseTeamUrl));
-			expect(teamCalls.length).toBeGreaterThan(0);
-			const lastTeamCall = teamCalls[teamCalls.length - 1];
-			expect(lastTeamCall[1]?.headers).toEqual(expect.objectContaining(customHeaders));
+	it('should include custom headers in team search requests when flag is on', () => {
+		const customHeaders = { 'X-Custom-Header': 'team-test-value' };
+		const teamResource = new TeamMentionResource(apiUserMentionConfig, {
+			...apiTeamMentionConfig,
+			headers: customHeaders,
 		});
-	});
 
-	ffTest.off('mentions_custom_headers', 'no custom headers when flag is off', () => {
-		it('should not include custom headers when flag is off', () => {
-			const customHeaders = { 'X-Custom-Header': 'team-test-value' };
-			const teamResource = new TeamMentionResource(apiUserMentionConfig, {
-				...apiTeamMentionConfig,
-				headers: customHeaders,
-			});
+		teamResource.subscribe('test', () => {});
+		teamResource.filter('craig', FULL_CONTEXT);
 
-			teamResource.subscribe('test', () => {});
-			teamResource.filter('craig', FULL_CONTEXT);
-
-			const teamCalls = fetchMock
-				.calls()
-				.filter((call: unknown[]) => typeof call[0] === 'string' && call[0].includes(baseTeamUrl));
-			expect(teamCalls.length).toBeGreaterThan(0);
-			const lastTeamCall = teamCalls[teamCalls.length - 1];
-			const headers = lastTeamCall[1]?.headers as Record<string, string>;
-			expect(headers['X-Custom-Header']).toBeUndefined();
-		});
+		// The user search call is immediate (not delayed), so we can check it right away
+		const teamCalls = fetchMock
+			.calls()
+			.filter((call: unknown[]) => typeof call[0] === 'string' && call[0].includes(baseTeamUrl));
+		expect(teamCalls.length).toBeGreaterThan(0);
+		const lastTeamCall = teamCalls[teamCalls.length - 1];
+		expect(lastTeamCall[1]?.headers).toEqual(expect.objectContaining(customHeaders));
 	});
 });

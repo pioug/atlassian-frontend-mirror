@@ -1,5 +1,29 @@
 # @atlaskit/editor-ssr-renderer
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [`5b4851e88ab36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b4851e88ab36) -
+  [EDITOR-5797](https://hello.jira.atlassian.cloud/browse/EDITOR-5797) - clean up
+  platform_editor_better_editor_ssr_spans feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.5
 
 ### Patch Changes

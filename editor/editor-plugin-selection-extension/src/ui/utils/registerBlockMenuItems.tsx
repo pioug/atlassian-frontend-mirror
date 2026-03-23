@@ -2,14 +2,17 @@ import React from 'react';
 
 import {
 	BLOCK_ACTIONS_MENU_SECTION,
-	BLOCK_ACTIONS_FEATURED_EXTENSION_SLOT_MENU_ITEM,
 	BLOCK_ACTIONS_MENU_SECTION_RANK,
+	TRANSFORM_MENU_SECTION,
+	BLOCK_ACTIONS_FEATURED_EXTENSION_SLOT_MENU_ITEM,
+	TRANSFORM_MENU_SECTION_RANK,
 	TRANSFORM_CREATE_MENU_SECTION,
 	TRANSFORM_CREATE_MENU_SECTION_RANK,
 	TRANSFORM_DEFAULT_EXTENSION_SLOT_MENU_ITEM,
 } from '@atlaskit/editor-common/block-menu';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { ExtensionConfiguration } from '../../types';
@@ -47,10 +50,12 @@ export function registerBlockMenuItems({
 				key: `selection-extension-${key}`,
 				parent: {
 					type: 'block-menu-section' as const,
-					key: BLOCK_ACTIONS_MENU_SECTION.key,
-					rank: (BLOCK_ACTIONS_MENU_SECTION_RANK as Record<string, number>)[
-						BLOCK_ACTIONS_FEATURED_EXTENSION_SLOT_MENU_ITEM.key
-					],
+					key: fg('platform_editor_block_menu_divider_patch')
+						? TRANSFORM_MENU_SECTION.key
+						: BLOCK_ACTIONS_MENU_SECTION.key,
+					rank: fg('platform_editor_block_menu_divider_patch')
+						? TRANSFORM_MENU_SECTION_RANK[BLOCK_ACTIONS_FEATURED_EXTENSION_SLOT_MENU_ITEM.key]
+						: BLOCK_ACTIONS_MENU_SECTION_RANK[BLOCK_ACTIONS_FEATURED_EXTENSION_SLOT_MENU_ITEM.key],
 				},
 				component: () => {
 					const editorView = editorViewRef?.current;

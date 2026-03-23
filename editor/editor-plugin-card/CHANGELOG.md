@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-card
 
+## 13.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [`df047c96e4f78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df047c96e4f78) -
+  Refresh cash for a smart card if it's not been fetched before
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.8
 
 ### Patch Changes

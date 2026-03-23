@@ -6,7 +6,7 @@ const documentation: ComponentStructuredContentSource[] = [
 	{
 		name: 'css',
 		description: 'A typed variant of Compiled CSS-in-JS adhering to the Atlassian Design System.',
-		status: 'general-availability',
+		status: 'open-beta',
 		import: {
 			name: 'css',
 			package: '@atlaskit/css',
@@ -32,7 +32,7 @@ const documentation: ComponentStructuredContentSource[] = [
 	{
 		name: 'cssMap',
 		description: 'A typed variant of Compiled CSS-in-JS adhering to the Atlassian Design System.',
-		status: 'general-availability',
+		status: 'open-beta',
 		import: {
 			name: 'cssMap',
 			package: '@atlaskit/css',
@@ -59,7 +59,7 @@ const documentation: ComponentStructuredContentSource[] = [
 	{
 		name: 'cx',
 		description: 'A function for combining styles in an `xcss` prop to maintain correct typing.',
-		status: 'general-availability',
+		status: 'open-beta',
 		import: {
 			name: 'cx',
 			package: '@atlaskit/css',

@@ -44,6 +44,43 @@ const documentation: ComponentStructuredContentSource[] = [
 		keywords: ['breadcrumbs', 'navigation', 'hierarchy', 'path', 'location'],
 		categories: ['navigation'],
 	},
+	{
+		name: 'BreadcrumbsItem',
+		description:
+			'An individual breadcrumb item within the breadcrumb trail. Each item can be a link (with href) or plain text for the current page.',
+		status: 'general-availability',
+		import: {
+			name: 'BreadcrumbsItem',
+			package: '@atlaskit/breadcrumbs',
+			type: 'named',
+			packagePath: path.resolve(__dirname),
+			packageJson: require('./package.json'),
+		},
+		usageGuidelines: [
+			'Use within Breadcrumbs wrapper to define each step in the hierarchy',
+			'Use href for navigable items; omit href for the current page',
+			'Support iconBefore and iconAfter for contextual indicators',
+			'Use truncationWidth when items may be long to prevent overflow',
+		],
+		contentGuidelines: [
+			'Use page or section titles for the text prop',
+			'Keep labels concise but meaningful',
+			'Use consistent naming conventions across the breadcrumb trail',
+		],
+		accessibilityGuidelines: [
+			'Provide meaningful text for screen readers',
+			'Ensure link targets are descriptive',
+		],
+		examples: [
+			{
+				name: 'Breadcrumbs Item',
+				description: 'BreadcrumbsItem example',
+				source: path.resolve(__dirname, './examples/constellation/breadcrumbs-default.tsx'),
+			},
+		],
+		keywords: ['breadcrumbs', 'item', 'navigation', 'link', 'hierarchy'],
+		categories: ['navigation'],
+	},
 ];
 
 export default documentation;

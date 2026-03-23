@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import CrossIcon from '@atlaskit/icon/core/cross';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,
 	SpotlightManager,

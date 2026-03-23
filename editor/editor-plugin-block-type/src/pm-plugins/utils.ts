@@ -111,14 +111,12 @@ function getSelectedWrapperNodes(state: EditorState): NodeType[] {
  */
 export function areBlockTypesDisabled(state: EditorState, allowFontSize = false): boolean {
 	const nodesTypes: NodeType[] = getSelectedWrapperNodes(state);
-	const { panel, blockquote, bulletList, orderedList, listItem } = state.schema.nodes;
+	const { panel, blockquote, bulletList, orderedList, listItem, taskList, taskItem } =
+		state.schema.nodes;
 
-	// When the small font size experiment is enabled, allow block type changes inside lists
-	// so that users can toggle between Normal text and Small text within list contexts.
-	// Note: taskList/taskItem are not excluded here until blockTaskItem conversion is implemented (WI 4).
 	const excludedTypes: NodeType[] =
 		allowFontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-			? [panel, bulletList, orderedList, listItem]
+			? [panel, bulletList, orderedList, listItem, taskList, taskItem]
 			: [panel];
 
 	if (editorExperiment('platform_editor_blockquote_in_text_formatting_menu', true)) {
@@ -229,11 +227,18 @@ export function getSelectionRangeExpandedToLists(tr: Transaction): {
 	let from = selection.from;
 	let to = selection.to;
 
+	// Walk up from the selection start to find the outermost list node.
+	// We do NOT break at the first list found because task lists nest differently
+	// from bullet/ordered lists:
+	//   - bullet/ordered: bulletList > listItem > bulletList (nested inside listItem)
+	//   - task: taskList > taskList (nested as direct children)
+	// For task lists, breaking at the first list would only capture the innermost
+	// taskList, missing sibling task items in parent lists. By continuing to walk
+	// up, we find the outermost list and include all nested content.
 	for (let depth = selection.$from.depth; depth > 0; depth--) {
 		const node = selection.$from.node(depth);
 		if (listNodeTypes.indexOf(node.type) >= 0) {
 			from = selection.$from.before(depth);
-			break;
 		}
 	}
 
@@ -241,9 +246,49 @@ export function getSelectionRangeExpandedToLists(tr: Transaction): {
 		const node = selection.$to.node(depth);
 		if (listNodeTypes.indexOf(node.type) >= 0) {
 			to = selection.$to.after(depth);
-			break;
 		}
 	}
 
 	return { from, to };
+}
+
+/**
+ * Converts all taskItem nodes within the given range to blockTaskItem nodes.
+ *
+ * taskItem nodes contain inline content directly, which cannot hold block-level
+ * marks like fontSize. blockTaskItem nodes wrap content in paragraphs, which can
+ * hold block marks. This conversion is needed when applying small text formatting
+ * to task lists.
+ *
+ * The inline content of each taskItem is wrapped in a paragraph node, and the
+ * taskItem is replaced with a blockTaskItem that preserves the original attributes
+ * (localId, state).
+ *
+ * Collects taskItem positions in a forward pass over the unmutated document,
+ * then applies replacements in reverse document order so positions remain valid
+ * without needing remapping or doc snapshots.
+ */
+export function convertTaskItemsToBlockTaskItems(tr: Transaction, from: number, to: number): void {
+	const {
+		nodes: { taskItem, blockTaskItem, paragraph },
+	} = tr.doc.type.schema;
+
+	if (!blockTaskItem || !taskItem) {
+		return;
+	}
+
+	// Collect taskItem positions from the current (unmutated) document
+	const taskItemsToConvert: Array<{ node: PMNode; pos: number; }> = [];
+	tr.doc.nodesBetween(from, to, (node, pos) => {
+		if (node.type === taskItem) {
+			taskItemsToConvert.push({ pos, node });
+		}
+	});
+
+	// Replace in reverse document order so earlier positions remain valid
+	for (let i = taskItemsToConvert.length - 1; i >= 0; i--) {
+		const { pos, node } = taskItemsToConvert[i];
+		const blockTaskNode = blockTaskItem.create(node.attrs, paragraph.create(null, node.content));
+		tr.replaceWith(pos, pos + node.nodeSize, blockTaskNode);
+	}
 }

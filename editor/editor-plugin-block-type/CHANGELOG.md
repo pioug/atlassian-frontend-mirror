@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-type
 
+## 12.1.6
+
+### Patch Changes
+
+- [`16f53ab4d1fee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16f53ab4d1fee) -
+  Fix small text conversion for nested/indented task lists and prevent fontSize mark from leaking to
+  sibling lists
+- Updated dependencies
+
+## 12.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.3
 
 ### Patch Changes

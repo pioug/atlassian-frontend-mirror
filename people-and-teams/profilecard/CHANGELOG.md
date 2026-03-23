@@ -1,5 +1,31 @@
 # @atlaskit/profilecard
 
+## 24.44.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.44.10
+
+### Patch Changes
+
+- [`173f7c077b6e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/173f7c077b6e4) -
+  Fix require-description ESLint violation
+- Updated dependencies
+
+## 24.44.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.44.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.44.7
 
 ### Patch Changes

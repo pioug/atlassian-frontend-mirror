@@ -117,7 +117,7 @@ interface State {
 	isOpenAllowed: boolean;
 	isSubmenuOpen: boolean;
 }
-const arrowsList = new Set(['ArrowRight', 'ArrowLeft']);
+const arrowsList = new Set(!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true) ? ['ArrowRight', 'ArrowLeft'] : ['ArrowRight'],);
 
 const elementBeforeIconStyles = xcss({
 	marginRight: 'space.negative.075',
@@ -174,7 +174,11 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			<UserIntentPopupWrapper userIntent="tableContextualMenuPopupOpen" api={api}>
 				<div
 					data-testid="table-cell-contextual-menu"
-					onMouseLeave={this.closeSubmenu}
+					onMouseLeave={
+						expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)
+						? undefined
+						: this.closeSubmenu
+					}
 					onBlur={
 						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
 							? this.closeSubmenu
@@ -837,12 +841,18 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				this.toggleOpen();
 				break;
 			case 'background': {
-				// This is called twice.
-				// 1st time when user chooses the background color item.
-				// 2nd when color has been chosen from color palette.
-				// here we are handling the 1st call relying on the isSubmenuOpen state value
-				if (isCellMenuOpenByKeyboard && !this.state.isSubmenuOpen) {
-					this.setState({ isSubmenuOpen: true });
+				if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
+					// This is called twice.
+					// 1st time when user chooses the background color item.
+					// 2nd when color has been chosen from color palette.
+					// here we are handling the 1st call relying on the isSubmenuOpen state value
+					if (isCellMenuOpenByKeyboard && !this.state.isSubmenuOpen) {
+						this.setState({ isSubmenuOpen: true });
+					}
+				} else {
+					this.setState((prevState) => ({
+						isSubmenuOpen: !prevState.isSubmenuOpen,
+					}));
 				}
 				break;
 			}
@@ -879,6 +889,10 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						// preventing default behavior for avoiding cursor jump to next/previous table column
 						// when left/right arrow pressed.
 						event.preventDefault();
+						if (expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
+							this.setState({ isSubmenuOpen: true });
+							return;
+						}
 					}
 
 					toggleContextualMenu()(state, dispatch);
@@ -905,9 +919,11 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			selectionRect,
 		} = this.props;
 
-		if (item.value.name === 'background') {
-			if (!this.state.isSubmenuOpen) {
-				this.setState({ isSubmenuOpen: true });
+		if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
+			if (item.value.name === 'background') {
+				if (!this.state.isSubmenuOpen) {
+					this.setState({ isSubmenuOpen: true });
+				}
 			}
 		}
 
@@ -931,8 +947,10 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private handleItemMouseLeave = ({ item }: { item: any }) => {
 		const { state, dispatch } = this.props.editorView;
-		if (item.value.name === 'background') {
-			this.closeSubmenu();
+		if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
+			if (item.value.name === 'background') {
+				this.closeSubmenu();
+			}
 		}
 		if (
 			['sort_column_asc', 'sort_column_desc', 'delete_column', 'delete_row'].indexOf(
@@ -950,10 +968,19 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	};
 
 	private setColor = (color: string) => {
-		const { editorView, editorAnalyticsAPI } = this.props;
-		const { state, dispatch } = editorView;
+		const { editorView, editorAnalyticsAPI, isCellMenuOpenByKeyboard } = this.props;
+		const { state, dispatch, dom } = editorView;
 		setColorWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU, color)(state, dispatch);
-		this.toggleOpen();
+		if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
+			this.toggleOpen();
+		} else {
+			toggleContextualMenu()(state, dispatch);
+			this.setState({ isSubmenuOpen: false });
+			if (isCellMenuOpenByKeyboard) {
+				setFocusToCellMenu(false)(state, dispatch);
+				dom.focus();
+			}
+		}
 	};
 }
 

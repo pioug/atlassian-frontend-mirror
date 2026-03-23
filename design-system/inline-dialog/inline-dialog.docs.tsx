@@ -7,7 +7,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		name: 'InlineDialog',
 		description:
 			'A component opened by user action (e.g. click) for further info or actions for a section—not crucial to the whole page.',
-		status: 'general-availability',
+		status: 'intent-to-deprecate',
 		import: {
 			name: 'InlineDialog',
 			package: '@atlaskit/inline-dialog',

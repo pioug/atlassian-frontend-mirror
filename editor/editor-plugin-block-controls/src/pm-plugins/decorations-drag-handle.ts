@@ -96,7 +96,9 @@ export const dragHandleDecoration = ({
 				 * Exclude 'breakout' on purpose, so the widgets render at the top of the document to avoid z-index issues
 				 * Other block marks must be added, otherwise PM will split the DOM elements causing mutations and re-draws
 				 */
-				marks: getActiveBlockMarks(editorState, pos),
+				marks: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
+					? []
+					: getActiveBlockMarks(editorState, pos),
 				destroy: (node: Node) => {
 					unbind && unbind();
 
@@ -113,9 +115,10 @@ export const dragHandleDecoration = ({
 				type: TYPE_HANDLE_DEC,
 				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
-				marks:
-					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-					fg('platform_editor_native_anchor_patch_1')
+				marks: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
+					? []
+					: expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
+						  fg('platform_editor_native_anchor_patch_1')
 						? getActiveBlockMarks(editorState, pos)
 						: undefined,
 				destroy: (node: Node) => {

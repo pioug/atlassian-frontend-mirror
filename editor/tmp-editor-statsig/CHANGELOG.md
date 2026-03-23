@@ -1,5 +1,48 @@
 # @atlaskit/editor-statsig-tmp
 
+## 43.0.0
+
+### Major Changes
+
+- [`60fc4abc3b900`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60fc4abc3b900) -
+  Cleanup platform_editor_fix_cursor_flickering experiment, always using ON path
+
+### Minor Changes
+
+- [`0d04e250bdf4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d04e250bdf4b) -
+  [ux] Making submenus for media (color/size) and table (background color) consistent with ADS and
+  fixing incorrect gate mocking in editor-plugin-ai-tests
+- [`c9d8de9fd5a33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9d8de9fd5a33) -
+  Avoid wrapping block controls in any block mark - fixes issues with font size mark.
+
+## 42.1.0
+
+### Minor Changes
+
+- [`cdc6ff4788df0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdc6ff4788df0) -
+  [EDITOR-5739] Move TwoStageHydration on toolbar down to around toolbar component rather than
+  ToolbarArrowKeyNavigationProvider
+
+## 42.0.0
+
+### Major Changes
+
+- [`46ff42199054d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46ff42199054d) -
+  Cleans up experiment platform_editor_eslint_suppression_fix
+
+## 41.0.0
+
+### Major Changes
+
+- [`ba5257de9a045`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba5257de9a045) -
+  Removed feature flag platform_editor_paste_before_first_block_node for solved editor paste bug
+  before certain block nodes.
+
+### Minor Changes
+
+- [`ea21f2748d986`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea21f2748d986) -
+  feat: set display-mode in table toDOM from node attributes
+
 ## 40.7.0
 
 ### Minor Changes

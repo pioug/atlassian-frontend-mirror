@@ -43,12 +43,12 @@ const messages = defineMessages({
 	editLink: {
 		id: 'ptc-directory.team-containers.edit-link',
 		defaultMessage: 'Edit link',
-		description: 'Edit link option in dropdown',
+		description: 'Dropdown menu option label to edit a team container link',
 	},
 	removeLink: {
 		id: 'ptc-directory.team-containers.remove-link',
 		defaultMessage: 'Remove',
-		description: 'Remove link option in dropdown',
+		description: 'Dropdown menu option label to remove a team container link',
 	},
 });
 

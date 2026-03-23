@@ -1,5 +1,12 @@
 # @atlaskit/dropdown-menu
 
+## 16.7.2
+
+### Patch Changes
+
+- [`f31216f23df61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f31216f23df61) -
+  Removes internally exported API from files which will soon be exported as top-level API
+
 ## 16.7.1
 
 ### Patch Changes

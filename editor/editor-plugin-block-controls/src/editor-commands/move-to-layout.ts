@@ -214,8 +214,8 @@ const canMoveToLayout = (
 	const allowedParentTypes = [doc, layoutSection];
 	if (
 		bodiedSyncBlock &&
-		expValEquals('platform_synced_block', 'isEnabled', true) &&
-		expValEquals('platform_synced_block_patch_6', 'isEnabled', true)
+		editorExperiment('platform_synced_block', true) &&
+		editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
 	) {
 		allowedParentTypes.push(bodiedSyncBlock);
 	}

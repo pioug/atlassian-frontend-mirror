@@ -45,6 +45,7 @@ import { GlobalStylesWrapper } from './ui/global-styles';
 export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 	const nodeDecorationRegistry: NodeDecorationFactory[] = [];
 	const rightSideControlsEnabled = config?.rightSideControlsEnabled ?? false;
+	const quickInsertButtonEnabled = config?.quickInsertButtonEnabled ?? true;
 
 	return {
 		name: 'blockControls',
@@ -72,6 +73,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 							nodeViewPortalProviderAPI,
 							nodeDecorationRegistry,
 							rightSideControlsEnabled,
+							quickInsertButtonEnabled,
 						),
 				},
 			];

@@ -46,7 +46,7 @@ export const tableNodeSpecWithFixedToDOM = (
 
 			const isFullPageEditor = !config.isChromelessEditor && !config.isCommentEditor;
 
-			const attrs = {
+			const attrs: Record<string, string> = {
 				'data-number-column': node.attrs.isNumberColumnEnabled,
 				'data-layout': node.attrs.layout,
 				'data-autosize': node.attrs.__autoSize,
@@ -55,6 +55,10 @@ export const tableNodeSpecWithFixedToDOM = (
 				'data-ssr-placeholder': `table-${node.attrs.localId}`,
 				'data-ssr-placeholder-replace': `table-${node.attrs.localId}`,
 			};
+
+			if (expValEquals('platform_editor_table_display_mode_in_to_dom', 'isEnabled', true)) {
+				attrs['data-table-display-mode'] = node.attrs.displayMode;
+			}
 
 			// This would be used for table scaling in colgroup CSS
 			// cqw, or px is well supported

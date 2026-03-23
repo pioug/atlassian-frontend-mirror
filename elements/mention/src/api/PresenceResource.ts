@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { type Presence } from '../types';
 import { buildAtlAttributionHeaderValue } from '../util/atl-attribution';
 import debug from '../util/logger';
@@ -41,7 +39,6 @@ export interface PresenceResourceConfig {
 
 	/**
 	 * Custom HTTP headers to include in presence service requests.
-	 * Only applied when the `mentions_custom_headers` feature flag is enabled.
 	 */
 	headers?: Record<string, string>;
 
@@ -200,7 +197,6 @@ class PresenceResource extends AbstractPresenceResource {
 			query.variables['productId'] = this.config.productId;
 		}
 
-		const configHeaders = fg('mentions_custom_headers') ? this.config.headers : undefined;
 		const atlAttributionHeader = buildAtlAttributionHeaderValue({
 			cloudId: this.config.cloudId,
 			productId: this.config.productId,
@@ -212,7 +208,7 @@ class PresenceResource extends AbstractPresenceResource {
 			headers: {
 				'Content-Type': 'application/json',
 				...atlAttributionHeader,
-				...configHeaders,
+				...this.config.headers,
 			},
 			credentials: 'include',
 			body: JSON.stringify(query),

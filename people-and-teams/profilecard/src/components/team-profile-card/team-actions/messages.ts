@@ -4,6 +4,6 @@ export const messages = defineMessages({
 	giveKudos: {
 		id: 'team-profile-card.team-actions.give-kudos',
 		defaultMessage: 'Give kudos',
-		description: 'Give kudos button text',
+		description: 'Button label text for giving kudos to a team in the profile actions',
 	},
 });

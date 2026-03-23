@@ -35,21 +35,24 @@
 			"name": "Onboarding (spotlight)",
 			"category": "Messaging",
 			"status": {
-				"type": "deprecated"
+				"type": "deprecated",
+				"description": "This package is deprecated. Use [@atlaskit/spotlight](https://atlassian.design/components/spotlight/examples)."
 			},
 			"subPages": [
 				{
 					"title": "Benefits modal",
 					"id": "benefits-modal",
 					"status": {
-						"type": "deprecated"
+						"type": "deprecated",
+						"description": "This package is deprecated. Use [@atlaskit/modal-dialog](https://atlassian.design/components/modal-dialog/examples)."
 					}
 				},
 				{
 					"title": "Spotlight card",
 					"id": "spotlight-card",
 					"status": {
-						"type": "deprecated"
+						"type": "deprecated",
+						"description": "This package is deprecated. Use [@atlaskit/spotlight](https://atlassian.design/components/spotlight/examples)."
 					}
 				}
 			]

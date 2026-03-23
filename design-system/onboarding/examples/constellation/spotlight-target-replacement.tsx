@@ -7,6 +7,7 @@ import { type ImgHTMLAttributes, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,
 	SpotlightManager,

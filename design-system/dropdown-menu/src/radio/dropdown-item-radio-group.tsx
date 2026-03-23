@@ -1,32 +1,17 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
-import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { Section, type SectionProps } from '@atlaskit/menu';
 
 import GroupTitle from '../internal/components/group-title';
 import { SelectionStoreContext } from '../internal/context/selection-store';
 import resetOptionsInGroup from '../internal/utils/reset-options-in-group';
+
+import { RadioGroupContext } from './radio-group-context';
+
 interface DropdownItemRadioGroupProps extends SectionProps {
 	id: string;
 }
-
-interface RadioGroupContextProps {
-	id: string;
-	radioGroupState: { [key: string]: boolean | undefined };
-	selectRadioItem: (id: string, value: boolean) => void;
-}
-
-/**
- * __Radio group context__
- * Context provider that wraps each DropdownItemRadioGroup
- */
-export const RadioGroupContext: React.Context<RadioGroupContextProps> =
-	createContext<RadioGroupContextProps>({
-		id: '',
-		radioGroupState: {},
-		selectRadioItem: noop,
-	});
 
 /**
  * __Dropdown item radio group__

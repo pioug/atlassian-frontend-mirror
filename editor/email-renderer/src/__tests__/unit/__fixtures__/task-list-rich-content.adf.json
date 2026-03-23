@@ -1,0 +1,297 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Task items with rich inline content (bold, italic, links, code, strikethrough)"
+        }
+      ]
+    },
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "tl-rich-1"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-rich-bold",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Task with "
+            },
+            {
+              "type": "text",
+              "text": "bold text",
+              "marks": [
+                {
+                  "type": "strong"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-rich-italic",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Task with "
+            },
+            {
+              "type": "text",
+              "text": "italic text",
+              "marks": [
+                {
+                  "type": "em"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-rich-link",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Completed task with "
+            },
+            {
+              "type": "text",
+              "text": "a link",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://atlassian.com"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-rich-code",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Task with "
+            },
+            {
+              "type": "text",
+              "text": "inline code",
+              "marks": [
+                {
+                  "type": "code"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "text": " in it"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-rich-strike",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Done task with "
+            },
+            {
+              "type": "text",
+              "text": "strikethrough",
+              "marks": [
+                {
+                  "type": "strike"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-rich-combined",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Task with "
+            },
+            {
+              "type": "text",
+              "text": "bold and italic",
+              "marks": [
+                {
+                  "type": "strong"
+                },
+                {
+                  "type": "em"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "text": " and "
+            },
+            {
+              "type": "text",
+              "text": "linked text",
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://example.com"
+                  }
+                },
+                {
+                  "type": "strong"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Nested task list with rich content in wrapper pattern"
+        }
+      ]
+    },
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "tl-rich-nested"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-rich-n1",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Level 1 task with "
+            },
+            {
+              "type": "text",
+              "text": "bold",
+              "marks": [
+                {
+                  "type": "strong"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-rich-n2-wrapper",
+            "state": "TODO"
+          }
+        },
+        {
+          "type": "taskList",
+          "attrs": {
+            "localId": "tl-rich-nested-2"
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "localId": "ti-rich-n3",
+                "state": "DONE"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Nested completed with "
+                },
+                {
+                  "type": "text",
+                  "text": "link",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "href": "https://atlassian.com/nested"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": " and "
+                },
+                {
+                  "type": "mention",
+                  "attrs": {
+                    "id": "0",
+                    "text": "@User",
+                    "accessLevel": ""
+                  }
+                }
+              ]
+            },
+            {
+              "type": "taskItem",
+              "attrs": {
+                "localId": "ti-rich-n4",
+                "state": "TODO"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Nested open with "
+                },
+                {
+                  "type": "status",
+                  "attrs": {
+                    "text": "In Progress",
+                    "color": "blue",
+                    "localId": "status-1",
+                    "style": ""
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -11,6 +11,7 @@ import Lorem from 'react-lorem-component';
 import { Code } from '@atlaskit/code';
 import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
 import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,
 	SpotlightManager,

@@ -674,7 +674,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 			...(!this.isMenuOpenOnClickForSingleSelect && {
 				menuIsOpen,
 				blurInputOnSelect: !isMulti,
-				openMenuOnFocus: true,
+				openMenuOnFocus: this.props.openMenuOnFocus ?? true,
 			}),
 		};
 
@@ -820,6 +820,7 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<
 				onSelection?: OnOption;
 				open?: boolean;
 				openMenuOnClick?: boolean;
+				openMenuOnFocus?: boolean;
 				options?: OptionData[];
 				placeholder?: React.ReactNode;
 				placeholderAvatar?: 'person' | 'team';
@@ -907,6 +908,7 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<
 		| 'onOpen'
 		| 'onSelection'
 		| 'open'
+		| 'openMenuOnFocus'
 		| 'placeholderAvatar'
 		| 'popupSelectProps'
 		| 'required'
@@ -927,6 +929,7 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<
 		loadOptionsErrorMessage?: ((value: { inputValue: string }) => React.ReactNode) | undefined;
 		noBorder?: boolean | undefined;
 		openMenuOnClick?: boolean | undefined;
+		openMenuOnFocus?: boolean | undefined;
 		subtle?: boolean | undefined;
 		textFieldBackgroundColor?: boolean | undefined;
 	} & {} & React.RefAttributes<any>

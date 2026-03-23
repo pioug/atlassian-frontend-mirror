@@ -154,6 +154,9 @@
 		},
 		"dfo_attachments_late_render_fix": {
 			"type": "boolean"
+		},
+		"platform_media_card_action_button_type_fix": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {

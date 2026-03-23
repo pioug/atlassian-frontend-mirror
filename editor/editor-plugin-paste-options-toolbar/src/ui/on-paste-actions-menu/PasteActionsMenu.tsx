@@ -33,10 +33,21 @@ interface PasteActionsMenuProps {
 	scrollableElement?: HTMLElement;
 }
 
-function getTargetElement(editorView: EditorView, pos: number): HTMLElement | null {
+/**
+ * Returns the DOM element at the given document position for use as a Popup anchor.
+ * For empty blocks (BR elements), returns the parent element to ensure correct positioning.
+ */
+export function getTargetElement(editorView: EditorView, pos: number): HTMLElement | null {
 	try {
 		const domRef = findDomRefAtPos(pos, editorView.domAtPos.bind(editorView));
 		if (domRef instanceof HTMLElement) {
+			// Empty blocks render a <br> placeholder whose bounding rect has no
+			// meaningful dimensions (height ≈ 0). Using it as the Popup anchor
+			// causes the menu to appear at an unexpected position. Walk up to the
+			// parent block element so the Popup anchors correctly.
+			if (domRef.nodeName === 'BR' && domRef.parentElement) {
+				return domRef.parentElement;
+			}
 			return domRef;
 		}
 		return null;
@@ -169,7 +180,12 @@ export const PasteActionsMenu = ({
 		const $pos = editorView.state.doc.resolve(lastContentPasted.pasteStartPos);
 		const pasteAncestorNodeNames: string[] = [];
 		for (let depth = $pos.depth; depth > 0; depth--) {
-			pasteAncestorNodeNames.push($pos.node(depth).type.name);
+			// Only include an ancestor if the entire pasted range is contained within it.
+			// This prevents nodes like 'heading' from being flagged as ancestors when the
+			// pasted content starts in a heading but extends beyond it (e.g. heading + paragraph).
+			if (lastContentPasted.pasteEndPos <= $pos.end(depth)) {
+				pasteAncestorNodeNames.push($pos.node(depth).type.name);
+			}
 		}
 
 		const legacyVisible =

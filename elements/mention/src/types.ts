@@ -53,7 +53,6 @@ export interface MentionResourceConfig extends ServiceConfig {
 
 	/**
 	 * Custom HTTP headers to include in mention service requests.
-	 * Only applied when the `mentions_custom_headers` feature flag is enabled.
 	 */
 	headers?: Record<string, string>;
 
@@ -150,8 +149,7 @@ export type MentionContextIdentifier = {
 };
 
 export interface MentionProvider
-	extends
-		ResourceProvider<MentionDescription[]>,
+	extends ResourceProvider<MentionDescription[]>,
 		InviteFromMentionProvider,
 		XProductInviteMentionProvider {
 	filter(query?: string, contextIdentifier?: MentionContextIdentifier): void;

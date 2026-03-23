@@ -41,6 +41,9 @@
 			"path": "../custom-steps/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-card-provider/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{

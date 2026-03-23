@@ -29,7 +29,8 @@ html {
 	width: 100%;
 }
 
-body {
+body,
+[data-subtree-theme] {
 	background-color: var(--ds-surface, #fff);
 	color: var(--ds-text, #172b4d);
 	font: var(
@@ -45,6 +46,9 @@ body {
 		'Helvetica Neue',
 		sans-serif
 	);
+}
+
+body {
 	-ms-overflow-style: -ms-autohiding-scrollbar;
 	text-decoration-skip-ink: auto;
 }

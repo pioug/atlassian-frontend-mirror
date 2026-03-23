@@ -316,6 +316,7 @@ export const apply = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	nodeDecorationRegistry: NodeDecorationFactory[],
 	rightSideControlsEnabled = false,
+	quickInsertButtonEnabled = true,
 	anchorRectCache?: AnchorRectCache,
 	resizeObserverWidth?: ResizeObserver,
 	pragmaticCleanup?: (() => void) | null,
@@ -621,7 +622,7 @@ export const apply = (
 		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
 		decorations = decorations.remove(oldHandle);
 		// platform_editor_controls note: enables quick insert
-		if (flags.toolbarFlagsEnabled) {
+		if (flags.toolbarFlagsEnabled && quickInsertButtonEnabled) {
 			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
 				decorations,
 				activeNode?.rootPos,
@@ -680,6 +681,7 @@ export const apply = (
 			latestActiveNode?.rootPos !== undefined &&
 			// platform_editor_controls note: enables quick insert
 			flags.toolbarFlagsEnabled &&
+			quickInsertButtonEnabled &&
 			(!rightSideControlsEnabled || !isViewMode)
 		) {
 			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
@@ -976,6 +978,7 @@ export const createPlugin = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	nodeDecorationRegistry: NodeDecorationFactory[],
 	rightSideControlsEnabled = false,
+	quickInsertButtonEnabled = true,
 ): SafePlugin<
 	| PluginState
 	| {
@@ -1063,6 +1066,7 @@ export const createPlugin = (
 					nodeViewPortalProviderAPI,
 					nodeDecorationRegistry,
 					rightSideControlsEnabled,
+					quickInsertButtonEnabled,
 					anchorRectCache,
 					resizeObserverWidth,
 					pragmaticCleanup,

@@ -1,4 +1,4 @@
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import WikiMarkupTransformer from '../../../index';
 
 import {
@@ -10,6 +10,8 @@ import {
 	code_block,
 	media,
 	mediaSingle,
+	taskList,
+	taskItem,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('ADF => WikiMarkup - List', () => {
@@ -78,5 +80,70 @@ describe('ADF => WikiMarkup - List', () => {
 				},
 			}),
 		).toMatchSnapshot();
+	});
+
+	describe('flexible list indentation (wrapper listItem)', () => {
+		const stage0Schema = getSchemaBasedOnStage('stage0');
+
+		test('should convert wrapper listItem with nested orderedList as first child in bulletList', () => {
+			const node = doc(
+				ul(
+					li(p('item 1')),
+					li(ol()(li(p('nested item 1')), li(p('nested item 2')))),
+				),
+			)(stage0Schema);
+			expect(transformer.encode(node)).toMatchSnapshot();
+		});
+
+		test('should convert wrapper listItem with nested bulletList as first child in orderedList', () => {
+			const node = doc(
+				ol()(
+					li(p('item 1')),
+					li(ul(li(p('nested item 1')), li(p('nested item 2')))),
+				),
+			)(stage0Schema);
+			expect(transformer.encode(node)).toMatchSnapshot();
+		});
+
+		test('should convert wrapper listItem with nested bulletList as first child in bulletList', () => {
+			const node = doc(
+				ul(
+					li(p('item 1')),
+					li(ul(li(p('nested item 1')), li(p('nested item 2')))),
+				),
+			)(stage0Schema);
+			expect(transformer.encode(node)).toMatchSnapshot();
+		});
+
+		test('should convert wrapper listItem with taskList as child of bulletList', () => {
+			const node = doc(
+				ul(
+					li(p('item 1')),
+					li(
+						p('item 2'),
+						taskList({ localId: 'task-list-1' })(
+							taskItem({ localId: 'task-1', state: 'TODO' })('task one'),
+							taskItem({ localId: 'task-2', state: 'DONE' })('task two'),
+						),
+					),
+				),
+			)(stage0Schema);
+			expect(transformer.encode(node)).toMatchSnapshot();
+		});
+
+		test('should convert deeply nested wrapper listItems', () => {
+			const node = doc(
+				ul(
+					li(
+						ol()(
+							li(
+								ul(li(p('deep item'))),
+							),
+						),
+					),
+				),
+			)(stage0Schema);
+			expect(transformer.encode(node)).toMatchSnapshot();
+		});
 	});
 });

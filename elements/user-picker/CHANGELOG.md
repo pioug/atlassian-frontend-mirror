@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 11.25.3
+
+### Patch Changes
+
+- [`16328bcd2e7f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16328bcd2e7f8) -
+  Accessibility fix to prevent auto menu open on focus
+
 ## 11.25.2
 
 ### Patch Changes

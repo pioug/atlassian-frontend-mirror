@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import CommentAddIcon from '@atlaskit/icon/core/comment-add';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,
 	SpotlightManager,

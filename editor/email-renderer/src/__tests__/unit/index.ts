@@ -58,6 +58,12 @@ import * as nestedTablesInvalid from './__fixtures__/nested-tables-extension-inv
 import * as redaction from './__fixtures__/redaction-extension.adf.json';
 import * as bodiedSyncBlock from './__fixtures__/bodied-sync-block.adf.json';
 import * as syncBlock from './__fixtures__/sync-block.adf.json';
+import * as hiddenMarkersList from './__fixtures__/hidden-markers-list.adf.json';
+import * as hiddenMarkersMixedList from './__fixtures__/hidden-markers-mixed-list.adf.json';
+import * as hiddenMarkersTaskList from './__fixtures__/hidden-markers-task-list.adf.json';
+import * as taskListDeepNesting from './__fixtures__/task-list-deep-nesting.adf.json';
+import * as taskListMixedStates from './__fixtures__/task-list-mixed-states.adf.json';
+import * as taskListRichContent from './__fixtures__/task-list-rich-content.adf.json';
 
 const defaultTestOpts: EmailSerializerOpts = {
 	isImageStubEnabled: false,
@@ -507,4 +513,40 @@ describe('Renderer - EmailSerializer', () => {
 		const { result } = render(syncBlock);
 		expect(result).toMatchSnapshot('syncBlock');
 	});
+
+	it('should render hidden-markers list (wrapper bullet and ordered list items) correctly', () => {
+		const { result } = render(hiddenMarkersList);
+		expect(result).toMatchSnapshot('hidden markers list');
+	});
+
+	it('should render hidden-markers mixed list (task lists inside bullet/ordered lists) correctly', () => {
+		const { result, embeddedImages } = render(hiddenMarkersMixedList);
+		expect(result).toMatchSnapshot('hidden markers mixed list');
+		expect(embeddedImages).toMatchSnapshot('hidden markers mixed list embeddedImages');
+	});
+
+	it('should render hidden-markers task list (nested task lists with wrappers) correctly', () => {
+		const { result, embeddedImages } = render(hiddenMarkersTaskList);
+		expect(result).toMatchSnapshot('hidden markers task list');
+		expect(embeddedImages).toMatchSnapshot('hidden markers task list embeddedImages');
+	});
+
+	it('should render task list deeply nested inside bullet and ordered list wrappers correctly', () => {
+		const { result, embeddedImages } = render(taskListDeepNesting);
+		expect(result).toMatchSnapshot('task list deep nesting');
+		expect(embeddedImages).toMatchSnapshot('task list deep nesting embeddedImages');
+	});
+
+	it('should render task list with mixed TODO and DONE states across nesting levels correctly', () => {
+		const { result, embeddedImages } = render(taskListMixedStates);
+		expect(result).toMatchSnapshot('task list mixed states');
+		expect(embeddedImages).toMatchSnapshot('task list mixed states embeddedImages');
+	});
+
+	it('should render task list items with rich inline content (bold, italic, links, code) correctly', () => {
+		const { result, embeddedImages } = render(taskListRichContent);
+		expect(result).toMatchSnapshot('task list rich content');
+		expect(embeddedImages).toMatchSnapshot('task list rich content embeddedImages');
+	});
+
 });

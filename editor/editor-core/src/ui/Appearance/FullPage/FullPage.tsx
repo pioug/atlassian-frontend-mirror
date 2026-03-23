@@ -200,7 +200,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 		<SSRRenderMeasure
 			segmentName={SSR_TRACE_SEGMENT_NAME}
 			startTimestampRef={firstRenderStartTimestampRef}
-			onSSRMeasure={fg('platform_editor_better_editor_ssr_spans') ? props.onSSRMeasure : undefined}
+			onSSRMeasure={props.onSSRMeasure}
 		>
 			<ContextPanelWidthProvider>
 				<div

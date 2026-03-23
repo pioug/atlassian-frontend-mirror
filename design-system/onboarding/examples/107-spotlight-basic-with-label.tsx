@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,
 	SpotlightManager,

@@ -8,9 +8,6 @@ test('should be scrollable when shouldFitViewport is true', async ({ page, skipA
 		'design-system',
 		'popup',
 		'should-fit-viewport',
-		{
-			featureFlag: 'platform_dst_nav4_flyoutmenuitem_render_to_parent',
-		},
 	);
 
 	// Open popup
@@ -29,9 +26,6 @@ test('should not be scrollable when shouldFitViewport is false', async ({ page, 
 		'design-system',
 		'popup',
 		'should-fit-viewport',
-		{
-			featureFlag: 'platform_dst_nav4_flyoutmenuitem_render_to_parent',
-		},
 	);
 
 	// Toggle should fit viewport to false

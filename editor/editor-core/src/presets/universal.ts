@@ -54,6 +54,7 @@ import { ufoPlugin } from '@atlaskit/editor-plugins/ufo';
 import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorProps } from '../types';
@@ -204,7 +205,18 @@ export default function createUniversalPresetInternal({
 		.add(batchAttributeUpdatesPlugin)
 		.maybeAdd(
 			[breakoutPlugin, { allowBreakoutButton: appearance === 'full-page', appearance: appearance }],
-			Boolean(props.allowBreakout && isFullPage),
+			Boolean(
+				props.allowBreakout &&
+					(isFullPage ||
+						(appearance === 'max' &&
+							(expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+								expValEqualsNoExposure(
+									'confluence_max_width_content_appearance',
+									'isEnabled',
+									true,
+								)) &&
+							fg('platform_editor_breakout_in_universal_preset'))),
+			),
 		)
 		.maybeAdd(alignmentPlugin, Boolean(props.allowTextAlignment))
 		.maybeAdd([textColorPlugin, props.allowTextColor], Boolean(props.allowTextColor))
@@ -230,8 +242,8 @@ export default function createUniversalPresetInternal({
 			guidelinePlugin,
 			Boolean(
 				(!isComment && !isChromeless && (props.media || props.allowTables)) ||
-				(editorExperiment('platform_editor_breakout_resizing', true, { exposure: true }) &&
-					(props.allowExpand || props.allowLayouts || props.codeBlock)),
+					(editorExperiment('platform_editor_breakout_resizing', true, { exposure: true }) &&
+						(props.allowExpand || props.allowLayouts || props.codeBlock)),
 			),
 		)
 		.maybeAdd([gridPlugin, { shouldCalcBreakoutGridLines: isFullPage }], Boolean(props.media))
@@ -526,7 +538,7 @@ export default function createUniversalPresetInternal({
 			],
 			Boolean(
 				hasBeforePrimaryToolbar(props.primaryToolbarComponents) &&
-				!featureFlags.twoLineEditorToolbar,
+					!featureFlags.twoLineEditorToolbar,
 			),
 		)
 		.add([

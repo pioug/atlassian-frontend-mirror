@@ -116,9 +116,7 @@ const DefaultPopupComponent: React.ForwardRefExoticComponent<
 				// The popup creates its own scroll container when either:
 				// - It is rendered in a portal
 				// - It is constrained to fit into the viewport (behind a FG)
-				(!shouldRenderToParent ||
-					(shouldFitViewport && fg('platform_dst_nav4_flyoutmenuitem_render_to_parent'))) &&
-					scrollableStyles,
+				(!shouldRenderToParent || shouldFitViewport) && scrollableStyles,
 				shouldFitContainer && fullWidthStyles,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

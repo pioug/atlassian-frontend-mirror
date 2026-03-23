@@ -132,13 +132,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 
 	const hasDescription = description || hasDescriptionDefaultValue;
 
-	// Feature flag determines validation behavior
-	const useNewValidation = fg('feedback-collector-custom-validation');
-
-	const isDisabled = useNewValidation
-		? isSubmitting || disableSubmitButton // New: only disable when submitting or explicitly disabled
-		: disableSubmitButton ||
-			(showTypeField ? !isTypeSelected() || !hasDescription : !hasDescription); // Old: disable based on form validation
+	const isDisabled = isSubmitting || disableSubmitButton;
 
 	const getValidationErrors = () => {
 		const errors: { type?: string; description?: string } = {};
@@ -254,18 +248,13 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 			{fg('platform-design_system_team-form_conversion') ? (
 				<Form
 					onSubmit={async () => {
-						if (useNewValidation) {
-							// New validation: validate on submit and show errors
-							const errors = getValidationErrors();
+						const errors = getValidationErrors();
 
-							// If there are validation errors, show them and don't submit
-							if (Object.keys(errors).length > 0) {
-								setValidationErrors(errors);
-								return;
-							}
+						if (Object.keys(errors).length > 0) {
+							setValidationErrors(errors);
+							return;
 						}
 
-						// Submit the form (both old and new validation paths reach here)
 						setIsSubmitting(true);
 						try {
 							await onSubmit({
@@ -305,8 +294,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 													return;
 												}
 												setType(option.value);
-												// Clear validation error when user selects a type (only for new validation)
-												if (useNewValidation && validationErrors.type) {
+												if (validationErrors.type) {
 													setValidationErrors((prev) => ({ ...prev, type: undefined }));
 												}
 											}}
@@ -323,7 +311,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 											placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
 											inputId={id}
 										/>
-										{useNewValidation && validationErrors.type && (
+										{validationErrors.type && (
 											<ErrorMessage>{validationErrors.type}</ErrorMessage>
 										)}
 									</>
@@ -350,14 +338,13 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 												placeholder={summaryPlaceholder || undefined}
 												onChange={(e) => {
 													setDescription(e.target.value);
-													// Clear validation error when user types
-													if (useNewValidation && validationErrors.description) {
+													if (validationErrors.description) {
 														setValidationErrors((prev) => ({ ...prev, description: undefined }));
 													}
 												}}
 												value={description}
 											/>
-											{useNewValidation && validationErrors.description && (
+											{validationErrors.description && (
 												<ErrorMessage>{validationErrors.description}</ErrorMessage>
 											)}
 										</>
@@ -470,18 +457,13 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 			) : (
 				<Form
 					onSubmit={async () => {
-						if (useNewValidation) {
-							// New validation: validate on submit and show errors
-							const errors = getValidationErrors();
+						const errors = getValidationErrors();
 
-							// If there are validation errors, show them and don't submit
-							if (Object.keys(errors).length > 0) {
-								setValidationErrors(errors);
-								return;
-							}
+						if (Object.keys(errors).length > 0) {
+							setValidationErrors(errors);
+							return;
 						}
 
-						// Submit the form (both old and new validation paths reach here)
 						setIsSubmitting(true);
 						try {
 							await onSubmit({
@@ -523,8 +505,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 															return;
 														}
 														setType(option.value);
-														// Clear validation error when user selects a type (only for new validation)
-														if (useNewValidation && validationErrors.type) {
+														if (validationErrors.type) {
 															setValidationErrors((prev) => ({ ...prev, type: undefined }));
 														}
 													}}
@@ -541,7 +522,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 													placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
 													inputId={id}
 												/>
-												{useNewValidation && validationErrors.type && (
+												{validationErrors.type && (
 													<ErrorMessage>{validationErrors.type}</ErrorMessage>
 												)}
 											</>
@@ -569,8 +550,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 														placeholder={summaryPlaceholder || undefined}
 														onChange={(e) => {
 															setDescription(e.target.value);
-															// Clear validation error when user types
-															if (useNewValidation && validationErrors.description) {
+															if (validationErrors.description) {
 																setValidationErrors((prev) => ({
 																	...prev,
 																	description: undefined,
@@ -579,7 +559,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 														}}
 														value={description}
 													/>
-													{useNewValidation && validationErrors.description && (
+													{validationErrors.description && (
 														<ErrorMessage>{validationErrors.description}</ErrorMessage>
 													)}
 												</>

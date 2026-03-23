@@ -34,7 +34,7 @@ export const replaceRichInlineNodes = (
 		values.forEach((value) => {
 			if (
 				value.type === 'user' ||
-				(value.type === 'team' && fg('jira_update_jql_teams')) ||
+				value.type === 'team' ||
 				(value.type === 'project' && fg('projects_in_jira_eap_drop2'))
 			) {
 				// First try to find as direct value operand (e.g., Team[Team] = uuid)

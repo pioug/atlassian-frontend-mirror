@@ -1,5 +1,19 @@
 # @atlaskit/teams-public
 
+## 0.71.1
+
+### Patch Changes
+
+- [`cb9bdb694c88e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb9bdb694c88e) -
+  Fix require-description ESLint violation
+
+## 0.71.0
+
+### Minor Changes
+
+- [`884f8dadc3c94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/884f8dadc3c94) -
+  Cleaned up feature gate related to the after icon sizing in containers
+
 ## 0.70.9
 
 ### Patch Changes

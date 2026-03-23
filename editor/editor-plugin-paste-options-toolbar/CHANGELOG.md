@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.1.5
+
+### Patch Changes
+
+- [`2e030e319c013`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e030e319c013) -
+  [EDITOR-5982] Fix AI paste menu not appearing when pasting heading + text
+- [`e7032ec0e9287`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7032ec0e9287) -
+  [ux] EDITOR-5983 Ensure paste menu is in correct position when first pasted node is empty
+
 ## 9.1.4
 
 ### Patch Changes

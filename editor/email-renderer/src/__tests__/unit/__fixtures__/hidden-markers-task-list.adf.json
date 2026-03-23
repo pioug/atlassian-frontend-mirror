@@ -1,0 +1,350 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Multi-level step up and down (1 → 3 → 1)"
+        }
+      ]
+    },
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "tl-1"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-1",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Level 1 item"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-2-wrapper",
+            "state": "TODO"
+          }
+        },
+        {
+          "type": "taskList",
+          "attrs": {
+            "localId": "tl-2"
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "localId": "ti-3-wrapper",
+                "state": "TODO"
+              }
+            },
+            {
+              "type": "taskList",
+              "attrs": {
+                "localId": "tl-3"
+              },
+              "content": [
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "localId": "ti-4",
+                    "state": "TODO"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Level 3 item (stepped down from 1)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-5",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Level 1 item (stepped up from 3)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "All items at depth 3 (2 wrapper layers above)"
+        }
+      ]
+    },
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "tl-deep-1"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-deep-1-wrapper",
+            "state": "TODO"
+          }
+        },
+        {
+          "type": "taskList",
+          "attrs": {
+            "localId": "tl-deep-2"
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "localId": "ti-deep-2-wrapper",
+                "state": "TODO"
+              }
+            },
+            {
+              "type": "taskList",
+              "attrs": {
+                "localId": "tl-deep-3"
+              },
+              "content": [
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "localId": "ti-deep-3a",
+                    "state": "TODO"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Depth 3 - first item"
+                    }
+                  ]
+                },
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "localId": "ti-deep-3b",
+                    "state": "TODO"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Depth 3 - second item"
+                    }
+                  ]
+                },
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "localId": "ti-deep-3c",
+                    "state": "DONE"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Depth 3 - third item (completed)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Alternating depths (3 → 1 → 3 → 1)"
+        }
+      ]
+    },
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "tl-alt-1"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-alt-1-wrapper",
+            "state": "TODO"
+          }
+        },
+        {
+          "type": "taskList",
+          "attrs": {
+            "localId": "tl-alt-2"
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "localId": "ti-alt-2-wrapper",
+                "state": "TODO"
+              }
+            },
+            {
+              "type": "taskList",
+              "attrs": {
+                "localId": "tl-alt-3"
+              },
+              "content": [
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "localId": "ti-alt-3",
+                    "state": "TODO"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Item 1 at level 3"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-alt-4",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Item 2 at level 1"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-alt-5-wrapper",
+            "state": "TODO"
+          }
+        },
+        {
+          "type": "taskList",
+          "attrs": {
+            "localId": "tl-alt-4"
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "localId": "ti-alt-6-wrapper",
+                "state": "TODO"
+              }
+            },
+            {
+              "type": "taskList",
+              "attrs": {
+                "localId": "tl-alt-5"
+              },
+              "content": [
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "localId": "ti-alt-7",
+                    "state": "DONE"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Item 3 at level 3 (completed)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-alt-8",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Item 4 at level 1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Task items with content should always show checkboxes"
+        }
+      ]
+    },
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "tl-normal"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-normal-1",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Completed task (should show checkbox)"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-normal-2",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Open task (should show checkbox)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

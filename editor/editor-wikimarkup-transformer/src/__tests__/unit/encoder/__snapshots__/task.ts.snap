@@ -15,3 +15,9 @@ exports[`ADF => WikiMarkup - Task should convert complex nested task list 1`] = 
 *** -task 2 completed-
 * -task 2 completed-"
 `;
+
+exports[`ADF => WikiMarkup - Task should convert taskList with sibling taskList as first child (flexible indentation) 1`] = `
+"** nested first
+** -nested second-
+* outer task"
+`;

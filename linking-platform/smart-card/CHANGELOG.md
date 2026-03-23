@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 43.26.13
+
+### Patch Changes
+
+- [`6f1aadb138410`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f1aadb138410) -
+  Migrate to new FG: jpx-1074-smart-links-iframe
+- Updated dependencies
+
+## 43.26.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.26.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.26.10
 
 ### Patch Changes

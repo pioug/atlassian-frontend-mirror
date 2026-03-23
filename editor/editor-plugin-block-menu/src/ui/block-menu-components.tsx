@@ -57,6 +57,7 @@ import {
 	hasContentBeforeStructure,
 	hasContentBeforeHeadings,
 } from './utils/checkHasPreviousSectionContent';
+import { checkIsFormatMenuHidden } from './utils/checkIsFormatMenuHidden';
 import { createMenuItemsMap } from './utils/createMenuItemsMap';
 import { getSuggestedItemsFromSelection } from './utils/getSuggestedItemsFromSelection';
 
@@ -130,6 +131,9 @@ const getTurnIntoMenuComponents = (
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
 				return <FormatMenuComponent api={api}>{children}</FormatMenuComponent>;
 			},
+			isHidden: fg('platform_editor_block_menu_divider_patch')
+				? () => checkIsFormatMenuHidden(api)
+				: undefined,
 		},
 		{
 			type: 'block-menu-section' as const,

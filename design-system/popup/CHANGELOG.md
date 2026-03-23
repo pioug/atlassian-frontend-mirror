@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 4.14.0
+
+### Minor Changes
+
+- [`12424cd3197be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12424cd3197be) -
+  Cleans up the `platform_dst_nav4_flyoutmenuitem_render_to_parent` feature gate. Flyout menu item
+  popups now always use `shouldRenderToParent` and are not rendered in a portal.
+
 ## 4.13.4
 
 ### Patch Changes

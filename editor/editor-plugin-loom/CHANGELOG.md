@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-loom
 
+## 10.0.3
+
+### Patch Changes
+
+- [`35acd60437810`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35acd60437810) -
+  Bump Loom SDK to 4.10.1
+- Updated dependencies
+
 ## 10.0.2
 
 ### Patch Changes

@@ -71,6 +71,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
 		"@babel/core": "root:*",
 		"@compiled/react": "root:*",

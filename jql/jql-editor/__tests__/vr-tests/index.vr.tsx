@@ -13,16 +13,11 @@ snapshot(AiAgentUsersExample, {
 
 snapshot(MembersOfTeamNodesExample, {
 	featureFlags: {
-		jira_update_jql_teams: true,
 		'jira-membersof-team-support': true,
 	},
 });
 
-snapshot(TeamNodesExample, {
-	featureFlags: {
-		jira_update_jql_teams: true,
-	},
-});
+snapshot(TeamNodesExample);
 
 snapshot(ProjectNodesExample, {
 	featureFlags: {

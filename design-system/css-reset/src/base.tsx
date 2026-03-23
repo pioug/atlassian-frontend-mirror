@@ -14,13 +14,17 @@ const _default_1: string = evaluateInner`
     width: 100%;
   }
 
-  body {
-    background-color: ${token('elevation.surface', '#fff')};
-    color: ${token('color.text', colors.N800)};
-    font: ${token('font.body', `normal 400 14px/1.42857142857143 ${fontFamily}`)};
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-    text-decoration-skip-ink: auto;
-  }
+  body,
+	[data-subtree-theme] {
+		background-color: ${token('elevation.surface', '#fff')};
+		color: ${token('color.text', colors.N800)};
+		font: ${token('font.body', `normal 400 14px/1.42857142857143 ${fontFamily}`)};
+	}
+
+	body {
+		-ms-overflow-style: -ms-autohiding-scrollbar;
+		text-decoration-skip-ink: auto;
+	}
 
   /* Default margins */
   p,

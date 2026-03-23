@@ -3,6 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button';
 import __noop from '@atlaskit/ds-lib/noop';
 import CloseIcon from '@atlaskit/icon/core/cross';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { SpotlightCard } from '@atlaskit/onboarding';
 import { token } from '@atlaskit/tokens';
 

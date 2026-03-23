@@ -170,14 +170,6 @@ export const AI_MENU_SECTION = {
 	key: 'ai-menu-section',
 };
 
-export const AI_NESTED_SECTION_KEY = {
-	key: 'ai-nested-section',
-};
-
-export const AI_NESTED_MENU_KEY = {
-	key: 'ai-nested-menu',
-};
-
 export const AI_ASK_ROVO_MENU_ITEM = {
 	key: 'block-menu-ai-ask-rovo-menu-item',
 };
@@ -188,40 +180,4 @@ export const AI_IMPROVE_WRITING_MENU_ITEM = {
 
 export const AI_POLISH_MENU_ITEM = {
 	key: 'block-menu-ai-polish-menu-item',
-};
-
-export const AI_FIX_SPELLING_AND_GRAMMAR_MENU_ITEM = {
-	key: 'block-menu-ai-fix-spelling-and-grammar-menu-item',
-};
-
-export const AI_MAKE_SHORTER_MENU_ITEM = {
-	key: 'block-menu-ai-make-shorter-menu-item',
-};
-
-export const AI_MAKE_LONGER_MENU_ITEM = {
-	key: 'block-menu-ai-make-longer-menu-item',
-};
-
-export const AI_CHANGE_TONE_MENU_ITEM = {
-	key: 'block-menu-ai-change-tone-menu-item',
-};
-
-export const AI_CHANGE_TONE_PROFESSIONAL_MENU_ITEM = {
-	key: 'block-menu-ai-change-tone-professional-menu-item',
-};
-
-export const AI_CHANGE_TONE_CASUAL_MENU_ITEM = {
-	key: 'block-menu-ai-change-tone-casual-menu-item',
-};
-
-export const AI_CHANGE_TONE_EMPATHETIC_MENU_ITEM = {
-	key: 'block-menu-ai-change-tone-empathetic-menu-item',
-};
-
-export const AI_TRANSLATE_MENU_ITEM = {
-	key: 'block-menu-ai-translate-menu-item',
-};
-
-export const AI_DEFINE_MENU_ITEM = {
-	key: 'block-menu-ai-define-menu-item',
 };

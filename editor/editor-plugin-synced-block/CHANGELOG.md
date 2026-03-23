@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 6.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.17
+
+### Patch Changes
+
+- [`3895f6d32cc49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3895f6d32cc49) -
+  Set hasReceivedContentChange on successful sync block creation to ensure unsaved changes are
+  flushed
+- Updated dependencies
+
+## 6.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.14
 
 ### Patch Changes

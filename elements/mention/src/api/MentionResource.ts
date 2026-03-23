@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type KeyValues, utils as serviceUtils } from '@atlaskit/util-service-support';
 
 import {
@@ -394,7 +393,7 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		contextIdentifier?: MentionContextIdentifier,
 	): Promise<MentionsResult> {
 		const queryParams: KeyValues = this.getQueryParams(contextIdentifier);
-		const configHeaders = fg('mentions_custom_headers') ? this.config.headers : undefined;
+		const configHeaders = this.config.headers;
 		const options = {
 			path: 'bootstrap',
 			queryParams,
@@ -420,7 +419,7 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		query: string,
 		contextIdentifier?: MentionContextIdentifier,
 	): Promise<MentionsResult> {
-		const configHeaders = fg('mentions_custom_headers') ? this.config.headers : undefined;
+		const configHeaders = this.config.headers;
 		const options = {
 			path: 'search',
 			queryParams: {

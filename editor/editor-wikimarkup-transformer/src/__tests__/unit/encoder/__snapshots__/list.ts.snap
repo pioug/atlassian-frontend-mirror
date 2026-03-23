@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ADF => WikiMarkup - List flexible list indentation (wrapper listItem) should convert deeply nested wrapper listItems 1`] = `"*#* deep item"`;
+
+exports[`ADF => WikiMarkup - List flexible list indentation (wrapper listItem) should convert wrapper listItem with nested bulletList as first child in bulletList 1`] = `
+"* item 1
+** nested item 1
+** nested item 2"
+`;
+
+exports[`ADF => WikiMarkup - List flexible list indentation (wrapper listItem) should convert wrapper listItem with nested bulletList as first child in orderedList 1`] = `
+"# item 1
+#* nested item 1
+#* nested item 2"
+`;
+
+exports[`ADF => WikiMarkup - List flexible list indentation (wrapper listItem) should convert wrapper listItem with nested orderedList as first child in bulletList 1`] = `
+"* item 1
+*# nested item 1
+*# nested item 2"
+`;
+
+exports[`ADF => WikiMarkup - List flexible list indentation (wrapper listItem) should convert wrapper listItem with taskList as child of bulletList 1`] = `
+"* item 1
+* item 2
+** task one
+** -task two-"
+`;
+
 exports[`ADF => WikiMarkup - List should convert bulletList node 1`] = `
 "* item 1
 * item 2"

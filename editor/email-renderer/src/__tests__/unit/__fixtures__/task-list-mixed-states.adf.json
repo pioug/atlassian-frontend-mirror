@@ -1,0 +1,213 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Mixed TODO and DONE states across nesting levels with wrapper pattern"
+        }
+      ]
+    },
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "tl-mixed-1"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-mixed-1",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Level 1 completed task"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-mixed-2-wrapper",
+            "state": "TODO"
+          }
+        },
+        {
+          "type": "taskList",
+          "attrs": {
+            "localId": "tl-mixed-2"
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "localId": "ti-mixed-3",
+                "state": "TODO"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Level 2 open task"
+                }
+              ]
+            },
+            {
+              "type": "taskItem",
+              "attrs": {
+                "localId": "ti-mixed-4",
+                "state": "DONE"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Level 2 completed task"
+                }
+              ]
+            },
+            {
+              "type": "taskItem",
+              "attrs": {
+                "localId": "ti-mixed-5-wrapper",
+                "state": "TODO"
+              }
+            },
+            {
+              "type": "taskList",
+              "attrs": {
+                "localId": "tl-mixed-3"
+              },
+              "content": [
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "localId": "ti-mixed-6",
+                    "state": "DONE"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Level 3 completed task"
+                    }
+                  ]
+                },
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "localId": "ti-mixed-7",
+                    "state": "TODO"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Level 3 open task"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-mixed-8",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Level 1 open task after nested section"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Multiple sibling task items with alternating states"
+        }
+      ]
+    },
+    {
+      "type": "taskList",
+      "attrs": {
+        "localId": "tl-alt-states"
+      },
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-alt-1",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "First done"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-alt-2",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Second open"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-alt-3",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Third done"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-alt-4",
+            "state": "TODO"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Fourth open"
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": {
+            "localId": "ti-alt-5",
+            "state": "DONE"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Fifth done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 112.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.7.1
+
+### Patch Changes
+
+- [`60ecafccd4968`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60ecafccd4968) -
+  [NO-ISSUE] Get rid of overflow menu in block menu for ai seciton, only leave improve writing,
+  polish and ask rovo"
+- Updated dependencies
+
+## 112.7.0
+
+### Minor Changes
+
+- [`df047c96e4f78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df047c96e4f78) -
+  Refresh cash for a smart card if it's not been fetched before
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 112.6.0
 
 ### Minor Changes

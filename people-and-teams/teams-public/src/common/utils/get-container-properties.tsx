@@ -6,7 +6,6 @@ import { cssMap, cx } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import Image from '@atlaskit/image';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -141,21 +140,16 @@ interface GetJiraContainerPropertiesParams {
 
 const getJiraContainerProperties = ({
 	containerTypeProperties,
-	iconSize = fg('ptc-fix-containers-after-icon-size') ? 'medium' : 'small',
+	iconSize = 'medium',
 }: GetJiraContainerPropertiesParams): ContainerProperties => {
 	const { subType, name } = containerTypeProperties || {};
-	const isAfterIconSizeFixEnabled = fg('ptc-fix-containers-after-icon-size');
 	const baseProperties = {
 		description: <FormattedMessage {...messages.jiraProjectDescription} />,
 		icon: (
 			<Flex
 				xcss={cx(
-					iconSize === 'small' && isAfterIconSizeFixEnabled
-						? styles.smallAvatarWrapper
-						: styles.avatarWrapper,
-					iconSize === 'small' && isAfterIconSizeFixEnabled
-						? styles.smallAvatarMargin
-						: styles.avatarMargin,
+					iconSize === 'small' ? styles.smallAvatarWrapper : styles.avatarWrapper,
+					iconSize === 'small' ? styles.smallAvatarMargin : styles.avatarMargin,
 				)}
 			>
 				<Image src={getJiraIcon(subType)} alt="" testId="jira-project-container-icon" />
@@ -227,12 +221,11 @@ interface GetContainerPropertiesParams {
 
 export const getContainerProperties = ({
 	containerType,
-	iconSize = fg('ptc-fix-containers-after-icon-size') ? 'medium' : 'small',
+	iconSize = 'medium',
 	containerTypeProperties,
 	isEmptyContainer,
 	isDisplayedOnProfileCard,
 }: GetContainerPropertiesParams): ContainerProperties => {
-	const isAfterIconSizeFixEnabled = fg('ptc-fix-containers-after-icon-size');
 	switch (containerType) {
 		case 'ConfluenceSpace':
 			return {
@@ -240,12 +233,8 @@ export const getContainerProperties = ({
 				icon: (
 					<Flex
 						xcss={cx(
-							iconSize === 'small' && isAfterIconSizeFixEnabled
-								? styles.smallAvatarWrapper
-								: styles.avatarWrapper,
-							iconSize === 'small' && isAfterIconSizeFixEnabled
-								? styles.smallAvatarMargin
-								: styles.avatarMargin,
+							iconSize === 'small' ? styles.smallAvatarWrapper : styles.avatarWrapper,
+							iconSize === 'small' ? styles.smallAvatarMargin : styles.avatarMargin,
 						)}
 					>
 						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
@@ -260,12 +249,8 @@ export const getContainerProperties = ({
 				icon: (
 					<Flex
 						xcss={cx(
-							iconSize === 'small' && isAfterIconSizeFixEnabled
-								? styles.smallAvatarWrapper
-								: styles.avatarWrapper,
-							iconSize === 'small' && isAfterIconSizeFixEnabled
-								? styles.smallAvatarMargin
-								: styles.avatarMargin,
+							iconSize === 'small' ? styles.smallAvatarWrapper : styles.avatarWrapper,
+							iconSize === 'small' ? styles.smallAvatarMargin : styles.avatarMargin,
 						)}
 					>
 						<Image src={LoomIcon} alt="" testId="loom-space-container-icon" />

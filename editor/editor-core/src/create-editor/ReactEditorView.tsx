@@ -1115,23 +1115,21 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				{ allowBlockType },
 				pluginInjectionAPI.current,
 			);
-		const plugins = fg('platform_editor_better_editor_ssr_spans')
-			? profileSSROperation(
-					`${SSR_TRACE_SEGMENT_NAME}/createPluginsList`,
-					doCreatePluginList,
-					onSSRMeasure,
-				)
-			: doCreatePluginList();
+		const plugins = profileSSROperation(
+			`${SSR_TRACE_SEGMENT_NAME}/createPluginsList`,
+			doCreatePluginList,
+			onSSRMeasure,
+		);
 
 		const doCreateSchema = () => createSchema(processPluginsList(plugins));
-		const schema = fg('platform_editor_better_editor_ssr_spans')
-			? profileSSROperation(`${SSR_TRACE_SEGMENT_NAME}/createSchema`, doCreateSchema, onSSRMeasure)
-			: doCreateSchema();
+		const schema = profileSSROperation(
+			`${SSR_TRACE_SEGMENT_NAME}/createSchema`,
+			doCreateSchema,
+			onSSRMeasure,
+		);
 
 		const doBuildDoc = () => buildDoc(schema);
-		const doc = fg('platform_editor_better_editor_ssr_spans')
-			? profileSSROperation(`${SSR_TRACE_SEGMENT_NAME}/buildDoc`, doBuildDoc, onSSRMeasure)
-			: doBuildDoc();
+		const doc = profileSSROperation(`${SSR_TRACE_SEGMENT_NAME}/buildDoc`, doBuildDoc, onSSRMeasure);
 
 		return { plugins, schema, doc };
 	}, [allowBlockType, buildDoc, props.preset, onSSRMeasure]);
@@ -1209,7 +1207,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		<SSRRenderMeasure
 			segmentName={SSR_TRACE_SEGMENT_NAME}
 			startTimestampRef={firstRenderStartTimestampRef}
-			onSSRMeasure={fg('platform_editor_better_editor_ssr_spans') ? onSSRMeasure : undefined}
+			onSSRMeasure={onSSRMeasure}
 		>
 			<ReactEditorViewContext.Provider
 				value={{

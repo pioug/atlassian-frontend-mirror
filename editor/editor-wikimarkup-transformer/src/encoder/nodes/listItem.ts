@@ -18,7 +18,8 @@ export const listItem = (node: PMNode, prefix: string, context?: Context): strin
 				break;
 			}
 			case 'bulletList':
-			case 'orderedList': {
+			case 'orderedList':
+			case 'taskList': {
 				if (contentBuffer.length) {
 					result.push(`${prefix} ${contentBuffer.join('\n')}`);
 					contentBuffer = [];

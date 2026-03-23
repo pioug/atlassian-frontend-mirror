@@ -60,6 +60,7 @@
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlassian/structured-docs-types": "workspace:^",
 		"@emotion/react": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/jscodeshift": "root:*",

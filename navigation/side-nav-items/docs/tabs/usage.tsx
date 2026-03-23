@@ -55,22 +55,22 @@ Use side nav items to create different sections, actions, and links in the
 [side nav](https://atlassian.design/components/navigation-system/layout/examples).
 
 ${(
-	<Image
-		src={sideNavItemsAnatomy1Light}
-		srcDark={sideNavItemsAnatomy1Dark}
-		alt="Diagram of side nav with menu items, a menu section, and a menu section heading."
-	/>
-)}
+		<Image
+			src={sideNavItemsAnatomy1Light}
+			srcDark={sideNavItemsAnatomy1Dark}
+			alt="Diagram of side nav with menu items, a menu section, and a menu section heading."
+		/>
+	)}
 
 <br />
 
 ${(
-	<Image
-		src={sideNavItemsAnatomy2Light}
-		srcDark={sideNavItemsAnatomy2Dark}
-		alt="Diagram of the navigation system side nav items."
-	/>
-)}
+		<Image
+			src={sideNavItemsAnatomy2Light}
+			srcDark={sideNavItemsAnatomy2Dark}
+			alt="Diagram of the navigation system side nav items."
+		/>
+	)}
 
 <br />
 
@@ -143,29 +143,29 @@ regular [menu](https://atlassian.design/components/menu) or [dropdown menu](http
 <br />
 
 ${(
-	<DoDontGrid>
-		<DoDont
-			type="do"
-			image={{
-				url: sideNavItemsDo1Light,
-				urlDarkMode: sideNavItemsDo1Dark,
-				alt: 'A side nav with side nav items only.',
-			}}
-		>
-			Use side nav menus directly in the side nav or flyout menu content.
-		</DoDont>
-		<DoDont
-			type="dont"
-			image={{
-				url: sideNavItemsDont1Light,
-				urlDarkMode: sideNavItemsDont1Dark,
-				alt: 'Side nav items incorrectly used in the top nav.',
-			}}
-		>
-			Don't use side nav menus in other parts of the app.
-		</DoDont>
-	</DoDontGrid>
-)}
+		<DoDontGrid>
+			<DoDont
+				type="do"
+				image={{
+					url: sideNavItemsDo1Light,
+					urlDarkMode: sideNavItemsDo1Dark,
+					alt: 'A side nav with side nav items only.',
+				}}
+			>
+				Use side nav menus directly in the side nav or flyout menu popup.
+			</DoDont>
+			<DoDont
+				type="dont"
+				image={{
+					url: sideNavItemsDont1Light,
+					urlDarkMode: sideNavItemsDont1Dark,
+					alt: 'Side nav items incorrectly used in the top nav.',
+				}}
+			>
+				Don't use side nav menus in other parts of the app.
+			</DoDont>
+		</DoDontGrid>
+	)}
 
 
 ### Use dropdown menu for menus triggered from the side nav
@@ -179,64 +179,64 @@ Ensure you follow the general usage guidance for dropdown menu and use the follo
 <br />
 
 ${(
-	<DoDontGrid>
-		<DoDont
-			type="do"
-			image={{
-				url: sideNavItemsDo2Light,
-				urlDarkMode: sideNavItemsDo2Dark,
-				alt: 'An open dropdown menu with a list of items.',
-			}}
-			isFullWidth
-		>
-			Use dropdown menu for menus triggered by actions or actionsOnHover.
-		</DoDont>
-		<DoDont
-			type="dont"
-			image={{
-				url: sideNavItemsDont2Light,
-				urlDarkMode: sideNavItemsDont2Dark,
-				alt: 'A dropdown menu with a list of items.',
-			}}
-		>
-			Don't use side nav menu in dropdown menus.
-		</DoDont>
-		<DoDont
-			type="dont"
-			image={{
-				url: sideNavItemsDont3Light,
-				urlDarkMode: sideNavItemsDont3Dark,
-				alt: 'A dropdown menu with menu item that uses compact density.',
-			}}
-		>
-			Don't use compact density for dropdown menus.
-		</DoDont>
-		<DoDont
-			type="dont"
-			image={{
-				url: sideNavItemsDont4Light,
-				urlDarkMode: sideNavItemsDont4Dark,
-				alt: 'A dropdown menu with menu item that does not have a selected state.',
-			}}
-		>
-			Don't omit the selected state on the dropdown trigger when open.
-		</DoDont>
-		<DoDont
-			type="dont"
-			image={{
-				url: sideNavItemsDont5Light,
-				urlDarkMode: sideNavItemsDont5Dark,
-				alt: 'A dropdown menu with a disabled menu item.',
-			}}
-		>
-			Don't use disabled menu items, see{' '}
-			<Link target="_blank" href="https://atlassian.design/components/menu/usage">
-				menu guidance
-			</Link>
-			.
-		</DoDont>
-	</DoDontGrid>
-)}
+		<DoDontGrid>
+			<DoDont
+				type="do"
+				image={{
+					url: sideNavItemsDo2Light,
+					urlDarkMode: sideNavItemsDo2Dark,
+					alt: 'An open dropdown menu with a list of items.',
+				}}
+				isFullWidth
+			>
+				Use dropdown menu for menus triggered by actions or actionsOnHover.
+			</DoDont>
+			<DoDont
+				type="dont"
+				image={{
+					url: sideNavItemsDont2Light,
+					urlDarkMode: sideNavItemsDont2Dark,
+					alt: 'A dropdown menu with a list of items.',
+				}}
+			>
+				Don't use side nav menu in dropdown menus.
+			</DoDont>
+			<DoDont
+				type="dont"
+				image={{
+					url: sideNavItemsDont3Light,
+					urlDarkMode: sideNavItemsDont3Dark,
+					alt: 'A dropdown menu with menu item that uses compact density.',
+				}}
+			>
+				Don't use compact density for dropdown menus.
+			</DoDont>
+			<DoDont
+				type="dont"
+				image={{
+					url: sideNavItemsDont4Light,
+					urlDarkMode: sideNavItemsDont4Dark,
+					alt: 'A dropdown menu with menu item that does not have a selected state.',
+				}}
+			>
+				Don't omit the selected state on the dropdown trigger when open.
+			</DoDont>
+			<DoDont
+				type="dont"
+				image={{
+					url: sideNavItemsDont5Light,
+					urlDarkMode: sideNavItemsDont5Dark,
+					alt: 'A dropdown menu with a disabled menu item.',
+				}}
+			>
+				Don't use disabled menu items, see{' '}
+				<Link target="_blank" href="https://atlassian.design/components/menu/usage">
+					menu guidance
+				</Link>
+				.
+			</DoDont>
+		</DoDontGrid>
+	)}
 
 ## Best practices
 
@@ -249,29 +249,29 @@ Use [\`elemBefore\`](/packages/navigation/side-nav-items?tab=examples#elembefore
 slots for configuring menu items.
 
 ${(
-	<DoDontGrid>
-		<DoDont
-			type="do"
-			image={{
-				url: sideNavItemsDo3Light,
-				urlDarkMode: sideNavItemsDo3Dark,
-				alt: 'A menu item with "Templates" label and "TRY" text properly placed in a designated slot on the right.',
-			}}
-		>
-			Use the slots in side nav menus as intended.
-		</DoDont>
-		<DoDont
-			type="dont"
-			image={{
-				url: sideNavItemsDont6Light,
-				urlDarkMode: sideNavItemsDont6Dark,
-				alt: 'A menu item with "Templates" label and "TRY" text incorrectly placed within the same text area.',
-			}}
-		>
-			Don't add custom elements where they're not intended, such as within the label.
-		</DoDont>
-	</DoDontGrid>
-)}
+		<DoDontGrid>
+			<DoDont
+				type="do"
+				image={{
+					url: sideNavItemsDo3Light,
+					urlDarkMode: sideNavItemsDo3Dark,
+					alt: 'A menu item with "Templates" label and "TRY" text properly placed in a designated slot on the right.',
+				}}
+			>
+				Use the slots in side nav menus as intended.
+			</DoDont>
+			<DoDont
+				type="dont"
+				image={{
+					url: sideNavItemsDont6Light,
+					urlDarkMode: sideNavItemsDont6Dark,
+					alt: 'A menu item with "Templates" label and "TRY" text incorrectly placed within the same text area.',
+				}}
+			>
+				Don't add custom elements where they're not intended, such as within the label.
+			</DoDont>
+		</DoDontGrid>
+	)}
 
 ### Apply icon sizes correctly
 
@@ -284,30 +284,30 @@ Consider the following when applying icon sizes:
 - All icons in side nav menu items use [spacious padding](https://atlassian.design/components/icon/examples#spacing-props).
 
 ${(
-	<DoDontGrid>
-		<DoDont
-			type="do"
-			image={{
-				url: sideNavItemsDo4Light,
-				urlDarkMode: sideNavItemsDo4Dark,
-				alt: 'A menu item with "Projects" label, 16px rocket icon on the left, and 12px plus and ellipsis icons on the right.',
-			}}
-		>
-			Use small (12px) icons for actions, actionOnHover, and elemAfter. Use default (medium 16px)
-			icons for elemBefore.
-		</DoDont>
-		<DoDont
-			type="dont"
-			image={{
-				url: sideNavItemsDont7Light,
-				urlDarkMode: sideNavItemsDont7Dark,
-				alt: 'A menu item with "Projects" label, rocket icon, and incorrectly sized plus and ellipsis icons on the right.',
-			}}
-		>
-			Don't use incorrect icons sizes in menu items, which can feel unbalanced.
-		</DoDont>
-	</DoDontGrid>
-)}
+		<DoDontGrid>
+			<DoDont
+				type="do"
+				image={{
+					url: sideNavItemsDo4Light,
+					urlDarkMode: sideNavItemsDo4Dark,
+					alt: 'A menu item with "Projects" label, 16px rocket icon on the left, and 12px plus and ellipsis icons on the right.',
+				}}
+			>
+				Use small (12px) icons for actions, actionOnHover, and elemAfter. Use default (medium 16px)
+				icons for elemBefore.
+			</DoDont>
+			<DoDont
+				type="dont"
+				image={{
+					url: sideNavItemsDont7Light,
+					urlDarkMode: sideNavItemsDont7Dark,
+					alt: 'A menu item with "Projects" label, rocket icon, and incorrectly sized plus and ellipsis icons on the right.',
+				}}
+			>
+				Don't use incorrect icons sizes in menu items, which can feel unbalanced.
+			</DoDont>
+		</DoDontGrid>
+	)}
 
 ### Apply icon button correctly
 
@@ -317,64 +317,64 @@ such as in \`actions\` and \`actionsOnHover\`, or \`elemBefore\` in expandable m
 For \`actions\` and \`actionsOnHover\`, when there is more than one icon button, use 4px spacing.
 
 ${(
-	<DoDontGrid>
-		<DoDont
-			type="do"
-			image={{
-				url: sideNavItemsDo5Light,
-				urlDarkMode: sideNavItemsDo5Dark,
-				alt: 'A menu item with "Projects" label, rocket icon, and subtle compact plus and ellipsis icon buttons with hover tooltip.',
-			}}
-		>
-			Use subtle compact icon buttons in side nav menu items.
-		</DoDont>
-		<DoDont
-			type="dont"
-			image={{
-				url: sideNavItemsDont8Light,
-				urlDarkMode: sideNavItemsDont8Dark,
-				alt: 'A menu item with "Projects" label, rocket icon, and default icon buttons instead of subtle compact ones.',
-			}}
-		>
-			Don't use default icon buttons in side nav menu items.
-		</DoDont>
-	</DoDontGrid>
-)}
+		<DoDontGrid>
+			<DoDont
+				type="do"
+				image={{
+					url: sideNavItemsDo5Light,
+					urlDarkMode: sideNavItemsDo5Dark,
+					alt: 'A menu item with "Projects" label, rocket icon, and subtle compact plus and ellipsis icon buttons with hover tooltip.',
+				}}
+			>
+				Use subtle compact icon buttons in side nav menu items.
+			</DoDont>
+			<DoDont
+				type="dont"
+				image={{
+					url: sideNavItemsDont8Light,
+					urlDarkMode: sideNavItemsDont8Dark,
+					alt: 'A menu item with "Projects" label, rocket icon, and default icon buttons instead of subtle compact ones.',
+				}}
+			>
+				Don't use default icon buttons in side nav menu items.
+			</DoDont>
+		</DoDontGrid>
+	)}
 
 ### Use ContainerAvatar
 
 ${(
-	<DoDontGrid>
-		<DoDont
-			type="do"
-			image={{
-				url: sideNavItemsDo6Light,
-				urlDarkMode: sideNavItemsDo6Dark,
-				alt: 'A menu item with "Mobile app" label and ContainerAvatar icon on the left.',
-			}}
-		>
-			Use{' '}
-			<Link href="/packages/navigation/side-nav-items?tab=code#containeravatar">
-				ContainerAvatar
-			</Link>{' '}
-			in side nav menu items, which are designed with the correct size and spacing.
-		</DoDont>
-		<DoDont
-			type="dont"
-			image={{
-				url: sideNavItemsDont9Light,
-				urlDarkMode: sideNavItemsDont9Dark,
-				alt: 'A menu item with "Mobile app" label and regular avatar icon instead of ContainerAvatar.',
-			}}
-		>
-			Don't use{' '}
-			<Link href="https://atlassian.design/components/avatar" target="_blank">
-				regular avatar
-			</Link>{' '}
-			in side nav menu items.
-		</DoDont>
-	</DoDontGrid>
-)}
+		<DoDontGrid>
+			<DoDont
+				type="do"
+				image={{
+					url: sideNavItemsDo6Light,
+					urlDarkMode: sideNavItemsDo6Dark,
+					alt: 'A menu item with "Mobile app" label and ContainerAvatar icon on the left.',
+				}}
+			>
+				Use{' '}
+				<Link href="/packages/navigation/side-nav-items?tab=code#containeravatar">
+					ContainerAvatar
+				</Link>{' '}
+				in side nav menu items, which are designed with the correct size and spacing.
+			</DoDont>
+			<DoDont
+				type="dont"
+				image={{
+					url: sideNavItemsDont9Light,
+					urlDarkMode: sideNavItemsDont9Dark,
+					alt: 'A menu item with "Mobile app" label and regular avatar icon instead of ContainerAvatar.',
+				}}
+			>
+				Don't use{' '}
+				<Link href="https://atlassian.design/components/avatar" target="_blank">
+					regular avatar
+				</Link>{' '}
+				in side nav menu items.
+			</DoDont>
+		</DoDontGrid>
+	)}
 
 ## Use skeletons for loading side nav items
 
@@ -400,29 +400,29 @@ When designing and implementing the loading experience:
 For loading states of other components that may appear in the side navigation, compose your own using [skeleton](https://atlassian.design/components/skeleton/examples).
 
 ${(
-	<DoDontGrid>
-		<DoDont
-			type="do"
-			image={{
-				url: sideNavItemsDo8Light,
-				urlDarkMode: sideNavItemsDo8Dark,
-				alt: 'A side nav with loading menu items, showing a group of skeleton loaders in the content.',
-			}}
-		>
-			Use skeleton loaders as placeholders for side nav items while content is loading
-		</DoDont>
-		<DoDont
-			type="dont"
-			image={{
-				url: sideNavItemsDont11Light,
-				urlDarkMode: sideNavItemsDont11Dark,
-				alt: 'A side nav with loading menu items, showing a mix of skeleton loaders and loaded menu items.',
-			}}
-		>
-			Don't load menu items individually.
-		</DoDont>
-	</DoDontGrid>
-)}
+		<DoDontGrid>
+			<DoDont
+				type="do"
+				image={{
+					url: sideNavItemsDo8Light,
+					urlDarkMode: sideNavItemsDo8Dark,
+					alt: 'A side nav with loading menu items, showing a group of skeleton loaders in the content.',
+				}}
+			>
+				Use skeleton loaders as placeholders for side nav items while content is loading
+			</DoDont>
+			<DoDont
+				type="dont"
+				image={{
+					url: sideNavItemsDont11Light,
+					urlDarkMode: sideNavItemsDont11Dark,
+					alt: 'A side nav with loading menu items, showing a mix of skeleton loaders and loaded menu items.',
+				}}
+			>
+				Don't load menu items individually.
+			</DoDont>
+		</DoDontGrid>
+	)}
 
 ## Content guidelines
 
@@ -434,30 +434,30 @@ or feature name that has been approved by legal.
 If the menu name is user generated, display as is.
 
 ${(
-	<DoDontGrid>
-		<DoDont
-			type="do"
-			image={{
-				url: sideNavItemsDo7Light,
-				urlDarkMode: sideNavItemsDo7Dark,
-				alt: 'A menu item with "For you" label using sentence case.',
-			}}
-		>
-			Only capitalize the first letter of the first word of the label.
-		</DoDont>
-		<DoDont
-			type="dont"
-			image={{
-				url: sideNavItemsDont10Light,
-				urlDarkMode: sideNavItemsDont10Dark,
-				alt: 'A menu item with "For You" label using title case.',
-			}}
-		>
-			Don't capitalize other parts of the label unless it is a trademarked app or feature name (not
-			all features are capitalized).
-		</DoDont>
-	</DoDontGrid>
-)}
+		<DoDontGrid>
+			<DoDont
+				type="do"
+				image={{
+					url: sideNavItemsDo7Light,
+					urlDarkMode: sideNavItemsDo7Dark,
+					alt: 'A menu item with "For you" label using sentence case.',
+				}}
+			>
+				Only capitalize the first letter of the first word of the label.
+			</DoDont>
+			<DoDont
+				type="dont"
+				image={{
+					url: sideNavItemsDont10Light,
+					urlDarkMode: sideNavItemsDont10Dark,
+					alt: 'A menu item with "For You" label using title case.',
+				}}
+			>
+				Don't capitalize other parts of the label unless it is a trademarked app or feature name (not
+				all features are capitalized).
+			</DoDont>
+		</DoDontGrid>
+	)}
 
 ## Accessibility
 
@@ -466,6 +466,8 @@ ${(
 - Avoid disabling [button menu items](/packages/navigation/side-nav-items#button-menu-item). Disabled buttons are skipped in the tab order and don't explain why they can't be used, which can make them inaccessible.
 - Use [menu section](/packages/navigation/side-nav-items#menu-section-and-menu-section-heading) to group related menu items. This grouping helps assistive technologies convey structure and relationships between items.
 - Ensure the menu items uses semantic list markup. Screen readers rely on list semantics to announce the total number of items, each item's position, and any hierarchy.
+- Menu items are list items. Use the \`MenuList\` component to wrap them in a list.
+- When a \`MenuSection\` is placed in a list, use the \`isMenuListItem\` prop to ensure it correctly follows list semantics.
 
 ## Related
 

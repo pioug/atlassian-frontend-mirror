@@ -1,5 +1,6 @@
 import React, { type ReactNode } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { SpotlightPulse } from '@atlaskit/onboarding';
 
 interface Props {

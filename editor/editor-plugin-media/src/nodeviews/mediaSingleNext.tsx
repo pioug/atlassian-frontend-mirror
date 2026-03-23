@@ -584,10 +584,6 @@ export const MediaSingleNodeNext = (
 
 	const onMediaSingleKeyDown = React.useCallback(
 		(event: KeyboardEvent<HTMLElement>) => {
-			if (!expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)) {
-				return;
-			}
-
 			if (mediaSingleWrapperRef.current !== event.target) {
 				return;
 			}
@@ -624,11 +620,7 @@ export const MediaSingleNodeNext = (
 			css={figureWrapperStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={MediaSingleNodeSelector}
-			onClick={
-				notIos && expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)
-					? undefined
-					: onMediaSingleClicked
-			}
+			onClick={notIos ? undefined : onMediaSingleClicked}
 			onKeyDown={notIos ? undefined : onMediaSingleKeyDown}
 		>
 			<MediaBadges

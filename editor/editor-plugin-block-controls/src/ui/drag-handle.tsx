@@ -1339,7 +1339,7 @@ export const DragHandle = ({
 		}
 	}, [api?.blockControls.sharedState, isMultiSelect, isShiftDown, isTopLevelNodeValue, view]);
 
-	const dragHandleMessage = expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+	const dragHandleMessage = editorExperiment('platform_editor_block_menu', true)
 		? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: <br /> })
 		: formatMessage(blockControlsMessages.dragToMove);
 
@@ -1483,12 +1483,10 @@ export const DragHandle = ({
 				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
 					editorExperiment('platform_editor_controls', 'control') &&
 					dragHandleButtonSmallScreenStyles,
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
+				editorExperiment('platform_editor_block_menu', true) &&
 					isFocused &&
 					keyboardFocusedDragHandleStyles,
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-					? focusedStyles
-					: focusedStylesOld,
+				editorExperiment('platform_editor_block_menu', true) ? focusedStyles : focusedStylesOld,
 				(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 						fg('platform_editor_content_mode_button_mvp'))) &&
@@ -1508,20 +1506,12 @@ export const DragHandle = ({
 					? handleMouseDown
 					: undefined
 			}
-			onMouseUp={
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-					? handleMouseUp
-					: undefined
-			}
+			onMouseUp={editorExperiment('platform_editor_block_menu', true) ? handleMouseUp : undefined}
 			onClick={
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-					? handleOnClickNew
-					: handleOnClick
+				editorExperiment('platform_editor_block_menu', true) ? handleOnClickNew : handleOnClick
 			}
 			onKeyDown={
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-					? handleKeyDownNew
-					: handleKeyDown
+				editorExperiment('platform_editor_block_menu', true) ? handleKeyDownNew : handleKeyDown
 			}
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			onDrop={handleOnDrop}
@@ -1533,9 +1523,7 @@ export const DragHandle = ({
 			data-testid="block-ctrl-drag-handle"
 			aria-label={dragHandleAriaLabel}
 			onBlur={
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-					? () => setIsFocused(false)
-					: undefined
+				editorExperiment('platform_editor_block_menu', true) ? () => setIsFocused(false) : undefined
 			}
 		>
 			<Box
@@ -1561,6 +1549,7 @@ export const DragHandle = ({
 					? positionStyles
 					: positionStylesOld
 			}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			xcss={[dragHandleContainerStyles]}
 			as="span"
 			testId="block-ctrl-drag-handle-container"
@@ -1584,6 +1573,7 @@ export const DragHandle = ({
 					content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
 					ignoreTooltipPointerEvents={true}
 					position={'top'}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onShow={() => {
 						api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
 					}}
@@ -1609,6 +1599,7 @@ export const DragHandle = ({
 					? positionStyles
 					: positionStylesOld
 			}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			xcss={[dragHandleContainerStyles]}
 			as="span"
 			testId="block-ctrl-drag-handle-container"
@@ -1638,6 +1629,7 @@ export const DragHandle = ({
 		<Tooltip
 			content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
 			ignoreTooltipPointerEvents={true}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onShow={() => {
 				api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
 			}}

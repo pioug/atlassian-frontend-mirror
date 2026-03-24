@@ -41,9 +41,9 @@ type FullPageToolbarNextProps = {
 const styles = cssMap({
 	// copied from mainToolbarIconBeforeStyle
 	mainToolbarIconBefore: {
-		marginTop: token('space.200', '16px'),
-		marginRight: token('space.200', '16px'),
-		marginBottom: token('space.200', '16px'),
+		marginTop: token('space.200'),
+		marginRight: token('space.200'),
+		marginBottom: token('space.200'),
 	},
 	mainToolbarIconBeforeNew: {
 		alignItems: 'center',

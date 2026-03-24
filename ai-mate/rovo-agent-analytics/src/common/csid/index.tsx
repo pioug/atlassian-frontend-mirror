@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { CSID_QUERY_PARAM } from '../constants';
 
@@ -8,29 +8,19 @@ const generateCSID = () => {
 	return crypto.randomUUID();
 };
 
-const retrieveCSID = () => {
-	if (CACHED_CSID) {
-		return CACHED_CSID;
-	}
-
-	const queryParams = new URLSearchParams(window.location.search);
-
-	const querySessionId = queryParams.get(CSID_QUERY_PARAM);
-	return querySessionId ?? generateCSID();
-};
-
 /**
- * Hook to get Rovo Agent Create Session ID (CSID) from the query parameters or generate a new one if not found.
- * @returns Rovo Agent CSID as a string.
+ * Hook to manage CSID state for entry point components.
+ * The returned csid is used in href attributes and by trackCreateSessionStart.
+ * After trackCreateSessionStart fires, it calls refresh() to generate a new CSID
+ * for the next session — the component re-renders and the href updates.
  */
-export const useRovoAgentCSID = (): readonly [
-	string | null,
-	{
-		refresh: () => `${string}-${string}-${string}-${string}-${string}`;
-		clear: () => null;
-	},
-] => {
-	const [CSID, setCSID] = useState<string | null>(retrieveCSID());
+export const useRovoAgentCSID = () => {
+	const [csid, setCSID] = useState<string | null>(CACHED_CSID || generateCSID());
+
+	const globalCSID = useMemo(() => {
+		const queryParams = new URLSearchParams(window.location.search);
+		return queryParams.get(CSID_QUERY_PARAM);
+	}, []);
 
 	const actions = useMemo(() => {
 		return {
@@ -38,26 +28,17 @@ export const useRovoAgentCSID = (): readonly [
 				const newCSID = generateCSID();
 
 				setCSID(newCSID);
+				CACHED_CSID = newCSID;
 				return newCSID;
-			},
-			clear: () => {
-				// remove CSID query parameter
-				const url = new URL(window.location.href);
-
-				url.searchParams.delete(CSID_QUERY_PARAM);
-				window.history.replaceState({}, '', url.toString());
-
-				// reset state
-				setCSID(null);
-				return null;
 			},
 		};
 	}, []);
 
-	useEffect(() => {
-		// sync cache on state change
-		CACHED_CSID = CSID;
-	}, [CSID]);
-
-	return [CSID, actions] as const;
+	return [
+		{
+			csid, // generated CSID to be used in href and createFlowStart events
+			globalCSID, // CSID from the URL query parameter
+		},
+		actions,
+	] as const;
 };

@@ -421,6 +421,7 @@ const DragMenu = React.memo(
 									type={ArrowKeyNavigationType.COLOR}
 									selectedRowIndex={selectedRowIndex}
 									selectedColumnIndex={selectedColumnIndex}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									handleClose={() => {
 										const keyboardEvent = new KeyboardEvent('keydown', {
 											key: 'ArrowDown',
@@ -437,10 +438,12 @@ const DragMenu = React.memo(
 								>
 									<ColorPalette
 										cols={colorPalletteColumns}
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										onClick={(color) => {
 											setColor(color);
 										}}
 										selectedColor={background}
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										paletteOptions={{
 											palette: cellBackgroundColorPalette,
 											paletteColorTooltipMessages: backgroundPaletteTooltipMessages,
@@ -699,6 +702,7 @@ const DragMenu = React.memo(
 			<UserIntentPopupWrapper api={api} userIntent="tableDragMenuPopupOpen">
 				<DropdownMenu
 					disableKeyboardHandling={isSubmenuOpen}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					section={{ hasSeparator: true }}
 					items={menuItems}
 					onItemActivated={handleMenuItemActivated}

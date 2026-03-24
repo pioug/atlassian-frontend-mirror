@@ -22,8 +22,8 @@ export const syncBlockStyles: SerializedStyles = css({
 			marginRight: `-18px`,
 			marginLeft: `-18px`,
 			marginBottom: 0,
-			marginTop: token('space.075', '6px'),
-			paddingBlock: token('space.150', '12px'),
+			marginTop: token('space.075'),
+			paddingBlock: token('space.150'),
 			color: 'inherit',
 
 			/* Hover state */
@@ -63,8 +63,8 @@ export const syncBlockStyles: SerializedStyles = css({
 					visibility: 'visible',
 					backgroundColor: token('color.background.selected'),
 					top: '-14px',
-					paddingBottom: token('space.050', '4px'),
-					paddingTop: token('space.050', '4px'),
+					paddingBottom: token('space.050'),
+					paddingTop: token('space.050'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 					'> span': {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
@@ -88,8 +88,8 @@ export const syncBlockStyles: SerializedStyles = css({
 				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
 					backgroundColor: token('color.background.danger'),
 					top: '-14px',
-					paddingBottom: token('space.050', '4px'),
-					paddingTop: token('space.050', '4px'),
+					paddingBottom: token('space.050'),
+					paddingTop: token('space.050'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 					'> span': {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
@@ -212,7 +212,7 @@ export const syncBlockStyles: SerializedStyles = css({
 	[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
 		borderRadius: token('radius.small', '3px'),
 		position: 'absolute',
-		gap: token('space.050', '4px'),
+		gap: token('space.050'),
 		justifyContent: 'center',
 		alignItems: 'center',
 		display: 'flex',
@@ -221,11 +221,11 @@ export const syncBlockStyles: SerializedStyles = css({
 		boxShadow: 'none',
 		zIndex: 1,
 
-		paddingLeft: token('space.100', '8px'),
-		paddingRight: token('space.100', '8px'),
+		paddingLeft: token('space.100'),
+		paddingRight: token('space.100'),
 
 		top: '-10px',
-		right: token('space.150', '12px'),
+		right: token('space.150'),
 		backgroundColor: token('elevation.surface'),
 		maxWidth: '140px',
 	},

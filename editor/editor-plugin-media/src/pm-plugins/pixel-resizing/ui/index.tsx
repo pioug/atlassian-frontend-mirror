@@ -128,6 +128,7 @@ export const PixelEntry = ({
 			mediaHeight={mediaHeight || DEFAULT_IMAGE_HEIGHT}
 			minWidth={minWidth}
 			maxWidth={maxWidth}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onChange={(valid: boolean) => {
 				if (valid) {
 					hoverDecoration?.(mediaSingle, true, 'warning')(editorView.state, dispatch, editorView);
@@ -135,12 +136,14 @@ export const PixelEntry = ({
 					hoverDecoration?.(mediaSingle, false)(editorView.state, dispatch, editorView);
 				}
 			}}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onSubmit={({ width, validation }) => {
 				const tr = updateNodeWithTr(width, validation);
 				if (tr) {
 					dispatch(tr);
 				}
 			}}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onMigrate={() => {
 				let tr = state.tr.setNodeMarkup(selectedMediaSingleNode.pos, undefined, {
 					...selectedMediaSingleNode.node.attrs,
@@ -155,6 +158,7 @@ export const PixelEntry = ({
 				}
 				dispatch(tr);
 			}}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onCloseAndSave={({ width, validation }, setFocus) => {
 				let tr = updateNodeWithTr(width, validation);
 

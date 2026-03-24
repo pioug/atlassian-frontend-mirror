@@ -532,11 +532,11 @@ const containerStyles = css({
 
 const optionsStyles = css({
 	flex: '20%',
-	padding: token('space.200', '16px'),
+	padding: token('space.200'),
 });
 
 const flagsStyles = css({
-	padding: `${token('space.250', '20px')} 0`,
+	padding: `${token('space.250')} 0`,
 });
 
 const mainStyles = css({

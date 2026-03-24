@@ -27,7 +27,11 @@ import {
 	getRandomTelemetryId,
 } from '@atlaskit/media-common';
 import { type ProcessingFailedState } from '@atlaskit/media-state';
-import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
+import {
+	MediaViewer,
+	type ViewerOptionsProps,
+	type MediaViewerExtensions,
+} from '@atlaskit/media-viewer';
 import React, { Suspense, useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useMergeRefs } from 'use-callback-ref';
 import { MediaCardError, type MediaCardErrorPrimaryReason } from '../errors';
@@ -137,6 +141,8 @@ export interface FileCardProps extends CardEventProps {
 	readonly onError?: (
 		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason,
 	) => void;
+	/** Extensions for the media viewer (e.g. comment button in header). */
+	readonly mediaViewerExtensions?: MediaViewerExtensions;
 }
 
 const traceContextRetriever = () => {
@@ -182,6 +188,7 @@ export const FileCard = ({
 	includeHashForDuplicateFiles,
 	ssrItemDetails,
 	onError,
+	mediaViewerExtensions,
 }: FileCardProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const [isAbuseModalOpen, setIsAbuseModalOpen] = useState(false);
@@ -1029,6 +1036,7 @@ export const FileCard = ({
 					contextId={contextId}
 					featureFlags={featureFlags}
 					viewerOptions={viewerOptions}
+					extensions={mediaViewerExtensions}
 				/>
 			) : null}
 			{/* Print the SSR result to be used during hydration */}

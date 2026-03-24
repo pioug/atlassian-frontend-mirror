@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::e95f33d4763be141adff38f29074981c>>
+ * @codegen <<SignedSource::2ac59844fbf026b9d6d9f15c15b0635d>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:structured-docs-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -238,6 +238,12 @@ export const components: ComponentMcpPayload[] = [
 					'The maximum number of avatars allowed in the list.\nDefaults to 5 when displayed as a stack,\nand 11 when displayed as a grid.',
 			},
 			{
+				name: 'moreIndicatorAppearance',
+				type: '"circle" | "square" | "hexagon"',
+				description:
+					"Indicates the shape of the more indicator. Most more indicators are circular, but square more indicators\ncan be used for 'container' objects.",
+			},
+			{
 				name: 'moreIndicatorLabel',
 				type: 'string',
 				description:
@@ -302,6 +308,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate appearance variants for different contexts',
 			'Position badges near relevant content',
 			'Consider maximum value display limits',
+			'Add a tooltip when the badge has an icon or needs extra context.',
 			'Use Lozenge for non-numeric status; use Tag for labels',
 		],
 		contentGuidelines: [
@@ -524,6 +531,76 @@ export const components: ComponentMcpPayload[] = [
 				type: '(event: MouseEvent<Element, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
 				description:
 					'A function to be called when you are in the collapsed view and click the ellipsis.',
+			},
+		],
+	},
+	{
+		name: 'BreadcrumbsItem',
+		package: '@atlaskit/breadcrumbs',
+		description:
+			'An individual breadcrumb item within the breadcrumb trail. Each item can be a link (with href) or plain text for the current page.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use within Breadcrumbs wrapper to define each step in the hierarchy',
+			'Use href for navigable items; omit href for the current page',
+			'Support iconBefore and iconAfter for contextual indicators',
+			'Use truncationWidth when items may be long to prevent overflow',
+		],
+		contentGuidelines: [
+			'Use page or section titles for the text prop',
+			'Keep labels concise but meaningful',
+			'Use consistent naming conventions across the breadcrumb trail',
+		],
+		accessibilityGuidelines: [
+			'Provide meaningful text for screen readers',
+			'Ensure link targets are descriptive',
+		],
+		keywords: ['breadcrumbs', 'item', 'navigation', 'link', 'hierarchy'],
+		category: 'navigation',
+		examples: [
+			'import Breadcrumbs, { BreadcrumbsItem } from \'@atlaskit/breadcrumbs\';\nconst BreadcrumbsDefaultExample = (): React.JSX.Element => {\n\treturn (\n\t\t<Breadcrumbs>\n\t\t\t<BreadcrumbsItem href="/item" text="Item 1" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 2" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 3" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 4" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 5" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 6" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 7" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 8" />\n\t\t</Breadcrumbs>\n\t);\n};\nexport default BreadcrumbsDefaultExample;',
+		],
+		props: [
+			{
+				name: 'href',
+				type: 'string',
+				description: 'The url or path which the breadcrumb should act as a link to.',
+			},
+			{
+				name: 'iconAfter',
+				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
+				description: 'An icon to display after the breadcrumb.',
+			},
+			{
+				name: 'iconBefore',
+				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
+				description: 'An icon to display before the breadcrumb.',
+			},
+			{
+				name: 'onClick',
+				type: '(event: MouseEvent<Element, globalThis.MouseEvent>) => void',
+				description: 'Handler to be called on click. *',
+			},
+			{
+				name: 'onTooltipShown',
+				type: '() => void',
+				description: "A function to be called when a truncated breadcrumb item's tooltip is shown.",
+			},
+			{
+				name: 'target',
+				type: '"" | "_blank" | "_parent" | "_self" | "_top"',
+			},
+			{
+				name: 'text',
+				type: 'string',
+				description: 'The text to appear within the breadcrumb as a link.',
+				isRequired: true,
+			},
+			{
+				name: 'truncationWidth',
+				type: 'number',
+				description:
+					'The maximum width in pixels that an item can have before it is truncated.\nIf this is not set, truncation will only occur when it cannot fit alone on a\nline. If there is no truncationWidth, tooltips are not provided on truncation.',
 			},
 		],
 	},
@@ -1880,6 +1957,498 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'DropdownItem',
+		package: '@atlaskit/dropdown-menu',
+		description:
+			'A dropdown item populates the dropdown menu with items. Use for links or actions; every item must be inside a DropdownItemGroup. Can also be used as the trigger for a nested submenu.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use inside DropdownMenu with DropdownItemGroup (required parent)',
+			'Use for links (href) or actions (onClick); verbs for actions, nouns for links; no articles; single line per item',
+			'For a nested submenu: use as the trigger (pass triggerRef and trigger props, use elemAfter e.g. chevron); keep to maximum two layers',
+		],
+		contentGuidelines: [
+			'Use clear, descriptive menu item labels',
+			'Keep menu item text concise',
+			'Use consistent terminology across menu items',
+		],
+		accessibilityGuidelines: [
+			'Avoid truncation—ensure max width does not cut off labels',
+			'Ensure keyboard navigation with arrow keys',
+		],
+		keywords: ['dropdown', 'menu', 'item', 'action', 'link', 'menuitem'],
+		category: 'navigation',
+		examples: [
+			'import { IconButton } from \'@atlaskit/button/new\';\nimport DropdownMenu, { DropdownItem, DropdownItemGroup } from \'@atlaskit/dropdown-menu\';\nimport MoreIcon from \'@atlaskit/icon/core/show-more-horizontal\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label="More" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href="/dashboard">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger="Actions">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;',
+		],
+		props: [
+			{
+				name: 'aria-haspopup',
+				type: 'boolean | "dialog"',
+				description:
+					'An optional boolean value used to indicate if the dropdown item has popup or not.',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Primary content for the item.',
+				isRequired: true,
+			},
+			{
+				name: 'component',
+				type: 'ComponentClass<PropsWithChildren<CustomItemComponentProps>, any> | FunctionComponent<PropsWithChildren<CustomItemComponentProps>>',
+				description:
+					'Custom component to render as an item.\nShould be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.',
+			},
+			{
+				name: 'description',
+				type: 'string | global.JSX.Element',
+				description:
+					'Description of the item.\nThis will render smaller text below the primary text of the item as well as slightly increasing the height of the item.',
+			},
+			{
+				name: 'elemAfter',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Element to render after the item text.\nGenerally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
+			},
+			{
+				name: 'elemBefore',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Element to render before the item text.\nGenerally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
+			},
+			{
+				name: 'href',
+				type: 'string',
+				description: 'Link to another page.',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description:
+					"Makes the element appear disabled. This will remove interactivity and the item won't appear in the focus order.",
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				description: 'Makes the element appear selected.',
+			},
+			{
+				name: 'onClick',
+				type: '(e: MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => void',
+				description: 'Event that is triggered when the element is clicked.',
+			},
+			{
+				name: 'rel',
+				type: 'string',
+				description:
+					'The relationship of the linked URL as space-separated link types.\nGenerally you\'ll want to set this to "noopener noreferrer" when `target` is "_blank".',
+			},
+			{
+				name: 'returnFocusRef',
+				type: 'RefObject<HTMLElement>',
+				description:
+					'If ref is passed, focus returns to that specific ref element after dropdown item clicked.',
+			},
+			{
+				name: 'role',
+				type: 'string',
+				description:
+					'An optional string value that specifies the role of the dropdown item.\nUse this to indicate whether the item is\nor presentational (e.g., \'presentation\') for accessibility purposes.\nIf not specified, it defaults to role="menuitem".',
+			},
+			{
+				name: 'shouldDescriptionWrap',
+				type: 'boolean',
+				description:
+					'When `true` the description of the item will wrap multiple lines if it exceeds the width of the dropdown menu.',
+			},
+			{
+				name: 'shouldTitleWrap',
+				type: 'boolean',
+				description:
+					'When `true` the title of the item will wrap multiple lines if it exceeds the width of the dropdown menu.',
+			},
+			{
+				name: 'target',
+				type: 'string',
+				description:
+					'Where to display the linked URL,\nsee [anchor information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) on mdn for more information.',
+			},
+			{
+				name: 'title',
+				type: 'string',
+				description: 'Adds a title attribute to the root item element.',
+			},
+		],
+	},
+	{
+		name: 'DropdownItemCheckbox',
+		package: '@atlaskit/dropdown-menu',
+		description:
+			'A dropdown menu item with checkbox selection. Use for multiple selection from a list (e.g. status filters, show/hide toggles).',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use with DropdownItemCheckboxGroup; control selection with isSelected and onClick',
+			'Use for multiple selection from a list or toggles (e.g. categories, column visibility)',
+			'Group related checkboxes; use short uppercase title on DropdownItemCheckboxGroup',
+		],
+		contentGuidelines: ['Use clear, descriptive labels', 'Keep menu item text concise'],
+		accessibilityGuidelines: [
+			'Ensure keyboard navigation and clear selection state',
+			'Use appropriate ARIA attributes',
+		],
+		keywords: ['dropdown', 'menu', 'checkbox', 'multi-select', 'toggle'],
+		category: 'navigation',
+		examples: [
+			'import { IconButton } from \'@atlaskit/button/new\';\nimport DropdownMenu, { DropdownItem, DropdownItemGroup } from \'@atlaskit/dropdown-menu\';\nimport MoreIcon from \'@atlaskit/icon/core/show-more-horizontal\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label="More" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href="/dashboard">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger="Actions">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Primary content for the item.',
+				isRequired: true,
+			},
+			{
+				name: 'defaultSelected',
+				type: 'boolean',
+				description: 'Sets whether the checkbox begins selected.',
+			},
+			{
+				name: 'description',
+				type: 'string | JSX.Element',
+				description:
+					'Description of the item.\nThis will render smaller text below the primary text of the item as well as slightly increasing the height of the item.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'Unique id of a checkbox.',
+				isRequired: true,
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: 'Makes the checkbox appear disabled as well as removing interactivity.',
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				description: 'Sets whether the checkbox is checked or unchecked.',
+			},
+			{
+				name: 'onClick',
+				type: '(e: React.MouseEvent<Element, globalThis.MouseEvent> | React.KeyboardEvent<Element>) => void',
+				description: 'Event that is triggered when the checkbox is clicked.',
+			},
+			{
+				name: 'shouldDescriptionWrap',
+				type: 'boolean',
+				description:
+					"When `true` the description of the item will wrap multiple lines if it's long enough.",
+				defaultValue: 'true',
+			},
+			{
+				name: 'shouldTitleWrap',
+				type: 'boolean',
+				description:
+					"When `true` the title of the item will wrap multiple lines if it's long enough.",
+				defaultValue: 'true',
+			},
+			{
+				name: 'title',
+				type: 'string',
+				description: 'Adds a title attribute to the root item element.',
+			},
+		],
+	},
+	{
+		name: 'DropdownItemCheckboxGroup',
+		package: '@atlaskit/dropdown-menu',
+		description:
+			'Groups DropdownItemCheckbox components for multi-select options within a dropdown menu.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use to group related DropdownItemCheckbox items',
+			'Use for multiple selection from a list',
+		],
+		contentGuidelines: ['Group related checkboxes logically', 'Use consistent terminology'],
+		keywords: ['dropdown', 'menu', 'checkbox', 'group', 'multi-select'],
+		category: 'navigation',
+		examples: [
+			"import React, { useState } from 'react';\nimport DropdownMenu, {\n\tDropdownItemCheckbox,\n\tDropdownItemCheckboxGroup,\n} from '@atlaskit/dropdown-menu';\nconst DropdownItemCheckboxExample = (): React.JSX.Element => {\n\tconst [checked, setChecked] = useState<Record<string, boolean>>({\n\t\ttodo: true,\n\t});\n\tconst toggle = (name: string) => {\n\t\tsetChecked((prev) => ({\n\t\t\t...prev,\n\t\t\t[name]: !prev[name],\n\t\t}));\n\t};\n\treturn (\n\t\t<DropdownMenu trigger=\"Status\" shouldRenderToParent>\n\t\t\t<DropdownItemCheckboxGroup title=\"Categories\" id=\"actions\">\n\t\t\t\t<DropdownItemCheckbox id=\"todo\" onClick={() => toggle('todo')} isSelected={checked['todo']}>\n\t\t\t\t\tTo do\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox\n\t\t\t\t\tid=\"inprogress\"\n\t\t\t\t\tonClick={() => toggle('inprogress')}\n\t\t\t\t\tisSelected={checked['inprogress']}\n\t\t\t\t>\n\t\t\t\t\tIn progress\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox id=\"done\" onClick={() => toggle('done')} isSelected={checked['done']}>\n\t\t\t\t\tDone\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t</DropdownItemCheckboxGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemCheckboxExample;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
+				isRequired: true,
+			},
+			{
+				name: 'hasSeparator',
+				type: 'boolean',
+				description: 'Use this to render a border at the top of the section.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'Unique identifier for the checkbox group.',
+				isRequired: true,
+			},
+			{
+				name: 'isList',
+				type: 'boolean',
+				description:
+					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
+			},
+			{
+				name: 'isScrollable',
+				type: 'boolean',
+				description:
+					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'Provide an accessible label for the section via `aria-label` for assistive technology.',
+			},
+			{
+				name: 'title',
+				type: 'string',
+				description:
+					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
+			},
+			{
+				name: 'titleId',
+				type: 'string',
+				description:
+					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
+			},
+		],
+	},
+	{
+		name: 'DropdownItemGroup',
+		package: '@atlaskit/dropdown-menu',
+		description:
+			'Wrapping element for dropdown menu items. Use to group related items; optional short uppercase title (e.g. "Edit page", "Tools") separates sections.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use inside DropdownMenu to group related items',
+			'Use short, uppercase title to describe the group',
+			'Nested menu: maximum two layers',
+		],
+		contentGuidelines: [
+			'Group related actions logically',
+			'Use consistent terminology across menu items',
+		],
+		accessibilityGuidelines: ['Provide clear group titles', 'Nested menu: maximum two layers'],
+		keywords: ['dropdown', 'menu', 'group', 'section', 'title'],
+		category: 'navigation',
+		examples: [
+			'import { IconButton } from \'@atlaskit/button/new\';\nimport DropdownMenu, { DropdownItem, DropdownItemGroup } from \'@atlaskit/dropdown-menu\';\nimport MoreIcon from \'@atlaskit/icon/core/show-more-horizontal\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label="More" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href="/dashboard">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger="Actions">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
+				isRequired: true,
+			},
+			{
+				name: 'hasSeparator',
+				type: 'boolean',
+				description: 'Use this to render a border at the top of the section.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'Unique identifier for the element.',
+			},
+			{
+				name: 'isList',
+				type: 'boolean',
+				description:
+					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
+			},
+			{
+				name: 'isScrollable',
+				type: 'boolean',
+				description:
+					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'Provide an accessible label for the section via `aria-label` for assistive technology.',
+			},
+			{
+				name: 'title',
+				type: 'string',
+				description:
+					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
+			},
+			{
+				name: 'titleId',
+				type: 'string',
+				description:
+					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
+			},
+		],
+	},
+	{
+		name: 'DropdownItemRadio',
+		package: '@atlaskit/dropdown-menu',
+		description:
+			'A dropdown menu item with radio selection. Use for single selection from a short list (e.g. view mode, sort order).',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use with DropdownItemRadioGroup; control selection with isSelected and onClick',
+			'Use for single selection from a short list (e.g. views, density)',
+			'Group related radio items; use short uppercase title on DropdownItemRadioGroup',
+		],
+		contentGuidelines: ['Use clear, descriptive labels', 'Keep menu item text concise'],
+		accessibilityGuidelines: [
+			'Ensure keyboard navigation and clear selection state',
+			'Use appropriate ARIA attributes',
+		],
+		keywords: ['dropdown', 'menu', 'radio', 'single-select', 'choice'],
+		category: 'navigation',
+		examples: [
+			'import { IconButton } from \'@atlaskit/button/new\';\nimport DropdownMenu, { DropdownItem, DropdownItemGroup } from \'@atlaskit/dropdown-menu\';\nimport MoreIcon from \'@atlaskit/icon/core/show-more-horizontal\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label="More" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href="/dashboard">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger="Actions">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Primary content for the item.',
+				isRequired: true,
+			},
+			{
+				name: 'defaultSelected',
+				type: 'boolean',
+				description: 'Sets whether the checkbox begins selected.',
+			},
+			{
+				name: 'description',
+				type: 'string | JSX.Element',
+				description:
+					'Description of the item.\nThis will render smaller text below the primary text of the item as well as slightly increasing the height of the item.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'Unique ID of the checkbox.',
+				isRequired: true,
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: 'Makes the checkbox appear disabled as well as removing interactivity.',
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				description: 'Sets whether the checkbox is checked or unchecked.',
+			},
+			{
+				name: 'onClick',
+				type: '(e: React.MouseEvent<Element, globalThis.MouseEvent> | React.KeyboardEvent<Element>) => void',
+				description: 'Event that is triggered when the checkbox is clicked.',
+			},
+			{
+				name: 'shouldDescriptionWrap',
+				type: 'boolean',
+				description:
+					"When `true` the description of the item will wrap multiple lines if it's long enough.",
+				defaultValue: 'true',
+			},
+			{
+				name: 'shouldTitleWrap',
+				type: 'boolean',
+				description:
+					"When `true` the title of the item will wrap multiple lines if it's long enough.",
+				defaultValue: 'true',
+			},
+			{
+				name: 'title',
+				type: 'string',
+				description: 'Adds a title attribute to the root item element.',
+			},
+		],
+	},
+	{
+		name: 'DropdownItemRadioGroup',
+		package: '@atlaskit/dropdown-menu',
+		description:
+			'Groups DropdownItemRadio components for single-select options within a dropdown menu.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use to group related DropdownItemRadio items',
+			'Use for single selection from a short list',
+		],
+		contentGuidelines: ['Group related radio items logically', 'Use consistent terminology'],
+		keywords: ['dropdown', 'menu', 'radio', 'group', 'single-select'],
+		category: 'navigation',
+		examples: [
+			"import React, { useState } from 'react';\nimport DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';\nconst DropdownItemRadioExample = (): React.JSX.Element => {\n\tconst [selected, setSelected] = useState<string>('detail');\n\treturn (\n\t\t<DropdownMenu trigger=\"Views\" shouldRenderToParent>\n\t\t\t<DropdownItemRadioGroup title=\"Views\" id=\"actions\">\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"detail\"\n\t\t\t\t\tonClick={() => setSelected('detail')}\n\t\t\t\t\tisSelected={selected === 'detail'}\n\t\t\t\t>\n\t\t\t\t\tDetail view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"list\"\n\t\t\t\t\tonClick={() => setSelected('list')}\n\t\t\t\t\tisSelected={selected === 'list'}\n\t\t\t\t>\n\t\t\t\t\tList view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t</DropdownItemRadioGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemRadioExample;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
+				isRequired: true,
+			},
+			{
+				name: 'hasSeparator',
+				type: 'boolean',
+				description: 'Use this to render a border at the top of the section.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'isList',
+				type: 'boolean',
+				description:
+					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
+			},
+			{
+				name: 'isScrollable',
+				type: 'boolean',
+				description:
+					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'Provide an accessible label for the section via `aria-label` for assistive technology.',
+			},
+			{
+				name: 'title',
+				type: 'string',
+				description:
+					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
+			},
+			{
+				name: 'titleId',
+				type: 'string',
+				description:
+					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
+			},
+		],
+	},
+	{
 		name: 'DropdownMenu',
 		package: '@atlaskit/dropdown-menu',
 		description: 'A dropdown menu component for displaying contextual actions and options.',
@@ -2301,6 +2870,404 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'CharacterCounter',
+		package: '@atlaskit/form',
+		description:
+			'Displays character count for text inputs. Can be used standalone or with CharacterCounterField.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when displaying character count for text inputs',
+			'Provide current length and max length',
+			'Use CharacterCounterField for integrated form field experience',
+		],
+		keywords: ['form', 'character', 'counter'],
+		category: 'form',
+		examples: [
+			"import React, { useState } from 'react';\nimport { CharacterCounter, Label } from '@atlaskit/form';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport TextArea from '@atlaskit/textarea';\nimport TextField from '@atlaskit/textfield';\n/**\n * Standalone CharacterCounter example - used outside of Form context\n * This is useful when you need character counting in custom implementations\n * that don't use the Form component or have a specific layout requirements\n * that CharacterCounterField does not provide. Generally speaking, it is\n * recommended to use CharacterCounterField for consistent styling.\n */\nconst StandaloneCharacterCounterExample = (): React.JSX.Element => {\n\tconst [textFieldValue, setTextFieldValue] = useState('');\n\tconst [textAreaValue, setTextAreaValue] = useState('');\n\tconst textFieldId = 'standalone-text-field';\n\tconst textAreaId = 'standalone-text-area';\n\t// Character limits\n\tconst maxCharacters = 50;\n\tconst minCharacters = 10;\n\tconst textAreaMaxCharacters = 200;\n\t// Calculate error states for styling\n\tconst isTextFieldTooLong = textFieldValue.length > maxCharacters;\n\tconst isTextAreaTooShort = textAreaValue.length < minCharacters;\n\tconst isTextAreaTooLong = textAreaValue.length > textAreaMaxCharacters;\n\tconst hasTextAreaError = isTextAreaTooShort || isTextAreaTooLong;\n\treturn (\n\t\t<Stack space=\"space.200\">\n\t\t\t{/* Example 1: TextField with maximum character limit */}\n\t\t\t<Box>\n\t\t\t\t<Label htmlFor={textFieldId}>Display name</Label>\n\t\t\t\t<TextField\n\t\t\t\t\tid={textFieldId}\n\t\t\t\t\tvalue={textFieldValue}\n\t\t\t\t\tonChange={(e) => setTextFieldValue(e.currentTarget.value)}\n\t\t\t\t\taria-describedby={`${textFieldId}-character-counter`}\n\t\t\t\t\tisInvalid={isTextFieldTooLong}\n\t\t\t\t/>\n\t\t\t\t<CharacterCounter\n\t\t\t\t\tcurrentValue={textFieldValue}\n\t\t\t\t\tmaxCharacters={maxCharacters}\n\t\t\t\t\tinputId={textFieldId}\n\t\t\t\t\tshouldShowAsError={isTextFieldTooLong}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t\t{/* Example 2: TextArea with both minimum and maximum limits */}\n\t\t\t<Box>\n\t\t\t\t<Label htmlFor={textAreaId}>Bio</Label>\n\t\t\t\t<TextArea\n\t\t\t\t\tid={textAreaId}\n\t\t\t\t\tvalue={textAreaValue}\n\t\t\t\t\tonChange={(e) => setTextAreaValue(e.currentTarget.value)}\n\t\t\t\t\taria-describedby={`${textAreaId}-character-counter`}\n\t\t\t\t\tresize=\"auto\"\n\t\t\t\t\tminimumRows={3}\n\t\t\t\t\tisInvalid={hasTextAreaError}\n\t\t\t\t\tisRequired\n\t\t\t\t/>\n\t\t\t\t<CharacterCounter\n\t\t\t\t\tcurrentValue={textAreaValue}\n\t\t\t\t\tminCharacters={minCharacters}\n\t\t\t\t\tmaxCharacters={textAreaMaxCharacters}\n\t\t\t\t\tinputId={textAreaId}\n\t\t\t\t\tshouldShowAsError={hasTextAreaError}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</Stack>\n\t);\n};\nexport default StandaloneCharacterCounterExample;",
+		],
+		props: [
+			{
+				name: 'currentValue',
+				type: 'string',
+				description: 'Current value of the input field',
+			},
+			{
+				name: 'inputId',
+				type: 'string',
+				description:
+					"ID of the associated input for accessibility.\nNot needed if the character counter is used within CharacterCounterField.\nWhen provided, the character counter will have an ID of `${inputId}-character-counter`\nwhich should be referenced in the input's `aria-describedby` attribute.\nIf not provided, will attempt to use InputId context from Form.",
+			},
+			{
+				name: 'maxCharacters',
+				type: 'number',
+				description: 'Maximum number of characters allowed (optional)',
+			},
+			{
+				name: 'minCharacters',
+				type: 'number',
+				description: 'Minimum number of characters required (optional)',
+			},
+			{
+				name: 'overMaximumMessage',
+				type: 'string',
+				description: 'Optional custom message to display when character limit is exceeded',
+			},
+			{
+				name: 'shouldShowAsError',
+				type: 'boolean',
+				description:
+					"Whether to style violations as errors (red text + icon).\nBy default, violations are automatically styled as errors.\n\nIn forms, set this to false to suppress error styling when\nthe form hasn't flagged an error yet (e.g., field not touched).\n\n// Standalone: smart default (violations = errors)\n<CharacterCounter currentValue={value} maxCharacters={100} />\n\n// Form: align with final-form error state\n<CharacterCounter\n  currentValue={value}\n  maxCharacters={100}\n  shouldShowAsError={isCharacterCountViolation}\n/>",
+				defaultValue: 'true',
+			},
+			{
+				name: 'underMaximumMessage',
+				type: 'string',
+				description: 'Optional custom message to display when character limit is not exceeded',
+			},
+			{
+				name: 'underMinimumMessage',
+				type: 'string',
+				description:
+					'Optional custom message to display when minimum character requirement is not met',
+			},
+		],
+	},
+	{
+		name: 'CharacterCounterField',
+		package: '@atlaskit/form',
+		description:
+			'A form field that includes character count display. Combines Field with CharacterCounter.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when character limits matter (e.g. descriptions, summaries)',
+			'Provide maxLength for the limit',
+			'Shows current count and limit',
+		],
+		keywords: ['form', 'character', 'counter', 'field'],
+		category: 'form',
+		examples: [
+			'import ButtonGroup from \'@atlaskit/button/button-group\';\nimport Button from \'@atlaskit/button/new\';\nimport Form, {\n\tCharacterCounterField,\n\ttype FieldProps,\n\tFormFooter,\n\tFormHeader,\n\tFormSection,\n\tRequiredAsterisk,\n} from \'@atlaskit/form\';\nimport { Flex } from \'@atlaskit/primitives/compiled\';\nimport TextArea from \'@atlaskit/textarea\';\nimport TextField from \'@atlaskit/textfield\';\n/**\n * Mock i18n setup - in a real app, these would come from your i18n library\n * Example: import { useIntl } from \'react-intl\';\n */\nconst messages = {\n\t\'bio.underMinimum\': \'Enter at least {minimum} characters.\',\n\t\'bio.overMaximum\': \'Your bio exceeds the maximum length of {maximum} characters\',\n};\n// Mock formatMessage - in a real app: const { formatMessage } = useIntl();\nconst formatMessage = (\n\tmessageDescriptor: { id: keyof typeof messages },\n\tvalues?: Record<string, string | number>,\n): string => {\n\tlet message = messages[messageDescriptor.id];\n\tif (values) {\n\t\tObject.entries(values).forEach(([key, value]) => {\n\t\t\tmessage = message.replace(new RegExp(`\\\\{${key}\\\\}`, \'g\'), String(value));\n\t\t});\n\t}\n\treturn message;\n};\nconst FormCharacterCounterExample = (): React.JSX.Element => (\n\t<Flex direction="column">\n\t\t<Form\n\t\t\tnoValidate\n\t\t\tonSubmit={(data) => {\n\t\t\t\tconsole.log(\'form data\', data);\n\t\t\t}}\n\t\t>\n\t\t\t<FormHeader title="Profile">\n\t\t\t\t<p aria-hidden="true">\n\t\t\t\t\tRequired fields are marked with an asterisk <RequiredAsterisk />\n\t\t\t\t</p>\n\t\t\t</FormHeader>\n\t\t\t<FormSection>\n\t\t\t\t{/* Example 1: Maximum characters only with default messages */}\n\t\t\t\t<CharacterCounterField\n\t\t\t\t\tname="displayName"\n\t\t\t\t\tlabel="Display name"\n\t\t\t\t\tisRequired\n\t\t\t\t\tmaxCharacters={50}\n\t\t\t\t\thelperMessage="The name you’d like other people to see."\n\t\t\t\t\tvalidate={(value) =>\n\t\t\t\t\t\tvalue === \'Atlas\' ? \'Atlas is already in use, try something else\' : undefined\n\t\t\t\t\t}\n\t\t\t\t>\n\t\t\t\t\t{({ fieldProps }: { fieldProps: FieldProps<string> }) => (\n\t\t\t\t\t\t<TextField autoComplete="name" {...fieldProps} />\n\t\t\t\t\t)}\n\t\t\t\t</CharacterCounterField>\n\t\t\t\t{/* Example 2: Minimum characters only with default messages */}\n\t\t\t\t<CharacterCounterField<string, HTMLTextAreaElement>\n\t\t\t\t\tname="tagline"\n\t\t\t\t\tlabel="Professional tagline"\n\t\t\t\t\tminCharacters={10}\n\t\t\t\t\thelperMessage="A short headline that describes what you do."\n\t\t\t\t>\n\t\t\t\t\t{({ fieldProps }) => <TextArea {...fieldProps} resize="auto" minimumRows={2} />}\n\t\t\t\t</CharacterCounterField>\n\t\t\t\t{/* Example 3: Using i18n messages with character counter */}\n\t\t\t\t<CharacterCounterField<string, HTMLTextAreaElement>\n\t\t\t\t\tname="bio"\n\t\t\t\t\tlabel="Bio"\n\t\t\t\t\tisRequired\n\t\t\t\t\tminCharacters={10}\n\t\t\t\t\tmaxCharacters={200}\n\t\t\t\t\thelperMessage="Tell us about yourself, your interests, and experience."\n\t\t\t\t\tunderMinimumMessage={formatMessage({ id: \'bio.underMinimum\' }, { minimum: 10 })}\n\t\t\t\t\toverMaximumMessage={formatMessage({ id: \'bio.overMaximum\' }, { maximum: 200 })}\n\t\t\t\t>\n\t\t\t\t\t{({ fieldProps }) => <TextArea {...fieldProps} resize="auto" minimumRows={3} />}\n\t\t\t\t</CharacterCounterField>\n\t\t\t</FormSection>\n\t\t\t<FormFooter align="start">\n\t\t\t\t<ButtonGroup label="Form submit options">\n\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\tSave profile\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button appearance="subtle">Cancel</Button>\n\t\t\t\t</ButtonGroup>\n\t\t\t</FormFooter>\n\t\t</Form>\n\t</Flex>\n);\nexport default FormCharacterCounterExample;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: '(args: { fieldProps: FieldProps<FieldValue, Element>; error?: string; valid: boolean; meta: Meta; }) => ReactNode',
+				description:
+					'The input component to render. Use a render function that receives `fieldProps`, `error`, `valid`, and `meta` state.\nSpread `fieldProps` onto your input element (such as `TextField` or `TextArea`).',
+				isRequired: true,
+			},
+			{
+				name: 'defaultValue',
+				type: 'FieldValue | ((currentDefaultValue?: FieldValue) => FieldValue)',
+				description:
+					'Sets the default value of the field. If a function is provided, it is called with the current default value of the field.',
+			},
+			{
+				name: 'elementAfterLabel',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description:
+					'Element displayed after the label, and after the red asterisk if field is required.',
+			},
+			{
+				name: 'helperMessage',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description:
+					'Helper text displayed above the input to provide additional context or instructions.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description:
+					'Passed to the ID attribute of the field. This is randomly generated if it is not specified.',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description:
+					'Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.',
+			},
+			{
+				name: 'isRequired',
+				type: 'boolean',
+				description:
+					'Sets whether the field is required for submission. Required fields are marked with a red asterisk.',
+			},
+			{
+				name: 'label',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Label displayed above the form field.',
+			},
+			{
+				name: 'maxCharacters',
+				type: 'number',
+				description:
+					'Maximum number of characters allowed. When exceeded, the field displays an error message or the message provided by `overMaximumMessage`.',
+			},
+			{
+				name: 'minCharacters',
+				type: 'number',
+				description:
+					'Minimum number of characters required. When not met, the character counter displays an error message or the message provided by `underMinimumMessage`.',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description:
+					'Specifies the name of the field. This is important for referencing the form data.',
+				isRequired: true,
+			},
+			{
+				name: 'overMaximumMessage',
+				type: 'string',
+				description:
+					'Custom message displayed when input exceeds the maximum character limit. Use this to provide context-specific guidance or localized messages. Overrides the default "X characters too many" message.',
+			},
+			{
+				name: 'underMaximumMessage',
+				type: 'string',
+				description:
+					'Custom message displayed when input is under the maximum limit. Use this to provide context-specific guidance or localized messages. Overrides the default "X characters remaining" message.',
+			},
+			{
+				name: 'underMinimumMessage',
+				type: 'string',
+				description:
+					'Custom message displayed when input is under the minimum requirement. Use this to guide users on how much more they need to type. Overrides the default "Minimum of X characters required" message.',
+			},
+			{
+				name: 'validate',
+				type: '(value: FieldValue, formState: Object, fieldState: Meta) => string | void | Promise<string | void>',
+				description:
+					'Checks whether the field input is valid. This is usually used to display a message relevant to the current value using `ErrorMessage`, `HelperMessage` or `ValidMessage`.',
+			},
+		],
+	},
+	{
+		name: 'CheckboxField',
+		package: '@atlaskit/form',
+		description: 'A form field for checkbox inputs. Wraps Checkbox with form field behavior.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for single or grouped checkbox options',
+			'Provide name and value props',
+			'Works with Checkbox from @atlaskit/checkbox',
+		],
+		keywords: ['form', 'checkbox', 'field'],
+		category: 'form',
+		examples: [
+			'import Button from \'@atlaskit/button/new\';\nimport { Checkbox } from \'@atlaskit/checkbox\';\nimport Form, { CheckboxField, Fieldset, FormFooter } from \'@atlaskit/form\';\nimport { Flex } from \'@atlaskit/primitives/compiled\';\nconst FormCheckboxExample = (): React.JSX.Element => {\n\treturn (\n\t\t<Flex direction="column">\n\t\t\t<Form onSubmit={(data) => console.log(data)}>\n\t\t\t\t<Fieldset legend="Apps">\n\t\t\t\t\t<CheckboxField name="app" value="jira">\n\t\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Jira" />}\n\t\t\t\t\t</CheckboxField>\n\t\t\t\t\t<CheckboxField name="app" value="confluence">\n\t\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Confluence" />}\n\t\t\t\t\t</CheckboxField>\n\t\t\t\t\t<CheckboxField name="app" value="bitbucket">\n\t\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Bitbucket" />}\n\t\t\t\t\t</CheckboxField>\n\t\t\t\t</Fieldset>\n\t\t\t\t<FormFooter align="start">\n\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\tSubmit\n\t\t\t\t\t</Button>\n\t\t\t\t</FormFooter>\n\t\t\t</Form>\n\t\t</Flex>\n\t);\n};\nexport default FormCheckboxExample;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: '(args: { fieldProps: CheckboxFieldProps; error?: string; valid: boolean; meta: Meta; }) => React.ReactNode',
+				description:
+					'Content to render in the checkbox field. This is a function that is called with information about the field.',
+				isRequired: true,
+			},
+			{
+				name: 'defaultIsChecked',
+				type: 'boolean',
+				description: 'Sets the default state of the checkbox as checked.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description:
+					'Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.',
+			},
+			{
+				name: 'isRequired',
+				type: 'boolean',
+				description:
+					'Sets whether the field is required for submission. Required fields are marked with a red asterisk.',
+			},
+			{
+				name: 'label',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Label displayed beside the checkbox.',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description:
+					'Specifies the name of the field. This is important for referencing the form data.',
+				isRequired: true,
+			},
+			{
+				name: 'value',
+				type: 'string',
+				description:
+					'The value of the checkbox. This is the value used in the form state when the checkbox is checked.',
+			},
+		],
+	},
+	{
+		name: 'ErrorMessage',
+		package: '@atlaskit/form',
+		description: 'Displays validation error text for a form field.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use within MessageWrapper when field validation fails',
+			'Show specific, actionable error messages',
+			'Place below the form control',
+		],
+		contentGuidelines: ['Provide specific error messages', 'Explain how to fix the error'],
+		keywords: ['form', 'error', 'message', 'validation'],
+		category: 'form',
+		examples: [
+			"import React, { Fragment } from 'react';\nimport Button from '@atlaskit/button/new';\nimport Form, {\n\tErrorMessage,\n\tField,\n\tFormFooter,\n\tFormHeader,\n\tMessageWrapper,\n\tRequiredAsterisk,\n} from '@atlaskit/form';\nimport { Flex, Text } from '@atlaskit/primitives/compiled';\nimport Select, { type ValueType } from '@atlaskit/select';\nimport TextField from '@atlaskit/textfield';\ninterface Option {\n\tlabel: string;\n\tvalue: string;\n}\nconst members = [\n\t{ label: 'Arni Singh', value: 'asingh' },\n\t{ label: 'Hermione Walters', value: 'hwalters' },\n\t{ label: 'Parvi Karan', value: 'pkaran' },\n\t{ label: 'Charlie Li', value: 'cli' },\n\t{ label: 'Silus Graham', value: 'sgraham' },\n\t{ label: 'Jorge Oroza', value: 'joroza' },\n];\nconst userNameData = ['jsmith', 'mchan'];\nconst errorMessages = {\n\tshortUsername: 'Enter a team name longer than 4 characters.',\n\tusernameInUse: 'This team name is already taken. Use a different name',\n\tusernameIsRequired: 'A team name is required.',\n\tselectError: 'Select at least one team member.',\n};\nconst checkUserName = (value: string | undefined) => {\n\treturn value && userNameData.includes(value);\n};\nexport default function FieldLevelValidationExample(): React.JSX.Element {\n\tconst handleSubmit = (formState: { command: string }) => {\n\t\tconsole.log('form state', formState);\n\t};\n\treturn (\n\t\t<Flex direction=\"column\">\n\t\t\t<Form noValidate onSubmit={handleSubmit}>\n\t\t\t\t<FormHeader title=\"Create team\">\n\t\t\t\t\t<Text as=\"p\" aria-hidden={true}>\n\t\t\t\t\t\tRequired fields are marked with an asterisk <RequiredAsterisk />\n\t\t\t\t\t</Text>\n\t\t\t\t</FormHeader>\n\t\t\t\t<Field\n\t\t\t\t\tname=\"team\"\n\t\t\t\t\tlabel=\"Team name\"\n\t\t\t\t\tdefaultValue=\"\"\n\t\t\t\t\tisRequired\n\t\t\t\t\tvalidate={(value) => {\n\t\t\t\t\t\tif (!value) {\n\t\t\t\t\t\t\treturn errorMessages.usernameIsRequired;\n\t\t\t\t\t\t} else if (value.length <= 5) {\n\t\t\t\t\t\t\treturn errorMessages.shortUsername;\n\t\t\t\t\t\t} else if (checkUserName(value)) {\n\t\t\t\t\t\t\treturn errorMessages.usernameInUse;\n\t\t\t\t\t\t}\n\t\t\t\t\t}}\n\t\t\t\t\tcomponent={({ fieldProps }) => <TextField {...fieldProps} />}\n\t\t\t\t/>\n\t\t\t\t<Field<ValueType<Option, true>>\n\t\t\t\t\tname=\"members\"\n\t\t\t\t\tlabel=\"Team members\"\n\t\t\t\t\tdefaultValue={[]}\n\t\t\t\t\tisRequired\n\t\t\t\t\tvalidate={(value) => {\n\t\t\t\t\t\tif (!value || value.length === 0) {\n\t\t\t\t\t\t\treturn errorMessages.selectError;\n\t\t\t\t\t\t}\n\t\t\t\t\t}}\n\t\t\t\t>\n\t\t\t\t\t{({ fieldProps: { id, ...rest }, error }) => {\n\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t<Select<Option, true>\n\t\t\t\t\t\t\t\t\tplaceholder=\"\"\n\t\t\t\t\t\t\t\t\tinputId={id}\n\t\t\t\t\t\t\t\t\t{...rest}\n\t\t\t\t\t\t\t\t\toptions={members}\n\t\t\t\t\t\t\t\t\tisMulti\n\t\t\t\t\t\t\t\t\tisClearable\n\t\t\t\t\t\t\t\t\tclearControlLabel=\"Clear color\"\n\t\t\t\t\t\t\t\t\tdescriptionId={error ? `${id}-error` : undefined}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t\t<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>\n\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t);\n\t\t\t\t\t}}\n\t\t\t\t</Field>\n\t\t\t\t<FormFooter align=\"start\">\n\t\t\t\t\t<Button type=\"submit\" appearance=\"primary\">\n\t\t\t\t\t\tCreate\n\t\t\t\t\t</Button>\n\t\t\t\t</FormFooter>\n\t\t\t</Form>\n\t\t</Flex>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'The content of the message',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'Field',
+		package: '@atlaskit/form',
+		description:
+			'A form field wrapper that provides label, validation, and error handling. Used with any form control via the component prop.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for each form input; provide name, label, and component',
+			'Use isRequired for required fields',
+			'Use validate for validation logic; use helperMessage for instructions',
+			'Wrap messages in MessageWrapper with HelperMessage, ErrorMessage, ValidMessage',
+		],
+		contentGuidelines: [
+			'Use clear, descriptive labels',
+			'Provide specific error messages',
+			'Use helper text for complex fields',
+		],
+		keywords: ['form', 'field', 'input', 'validation'],
+		category: 'form',
+		examples: [
+			'import ButtonGroup from \'@atlaskit/button/button-group\';\nimport Button from \'@atlaskit/button/new\';\nimport Form, { Field, FormFooter } from \'@atlaskit/form\';\nimport { Flex } from \'@atlaskit/primitives/compiled\';\nimport TextField from \'@atlaskit/textfield\';\nconst FormFieldExample = (): React.JSX.Element => (\n\t<Flex direction="column">\n\t\t<Form onSubmit={(data) => console.log(\'form data\', data)}>\n\t\t\t{({ formProps }) => (\n\t\t\t\t<form {...formProps}>\n\t\t\t\t\t<Field\n\t\t\t\t\t\tname="username"\n\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\tlabel="Username"\n\t\t\t\t\t\tisRequired\n\t\t\t\t\t\thelperMessage="Your username can have up to 16 characters."\n\t\t\t\t\t\tvalidMessage="Username is valid."\n\t\t\t\t\t\tvalidate={(value) => {\n\t\t\t\t\t\t\tif (!value) {\n\t\t\t\t\t\t\t\treturn \'Username is required.\';\n\t\t\t\t\t\t\t} else if (value && value.length > 16) {\n\t\t\t\t\t\t\t\treturn \'Username must be 16 characters or less.\';\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tcomponent={({ fieldProps }) => <TextField {...fieldProps} />}\n\t\t\t\t\t/>\n\t\t\t\t\t<FormFooter align="start">\n\t\t\t\t\t\t<ButtonGroup label="Form submit options">\n\t\t\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\t\t\tSubmit\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="subtle">Cancel</Button>\n\t\t\t\t\t\t</ButtonGroup>\n\t\t\t\t\t</FormFooter>\n\t\t\t\t</form>\n\t\t\t)}\n\t\t</Form>\n\t</Flex>\n);\nexport default FormFieldExample;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: '(args: { fieldProps: FieldProps<FieldValue, Element>; error?: string; valid: boolean; meta: Meta; }) => React.ReactNode',
+				description:
+					'Content to render in the field. This is a function that is called with props for the field component and other information about the field. This cannot be used at the same time as the `component` prop, as the `children` prop will be ignored.',
+			},
+			{
+				name: 'component',
+				type: '(args: { fieldProps: FieldProps<FieldValue, Element>; }) => React.ReactNode',
+				description:
+					'Content to render in the field. This will be rendered with the `*Message` props. This cannot be used at the same time as the `children` prop, as the `children` prop will be ignored.',
+			},
+			{
+				name: 'defaultValue',
+				type: 'FieldValue | ((currentDefaultValue?: FieldValue) => FieldValue)',
+				description:
+					'Sets the default value of the field. If a function is provided, it is called with the current default value of the field.',
+			},
+			{
+				name: 'elementAfterLabel',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Element displayed after the label, and after the red asterisk if field is required.',
+			},
+			{
+				name: 'errorMessage',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Renders an `ErrorMessage` with the provided content when using the `component` prop.',
+			},
+			{
+				name: 'helperMessage',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Renders a `HelperMessage` with the provided content when using the `component` prop.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description:
+					'Passed to the ID attribute of the field. This is randomly generated if it is not specified.',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description:
+					'Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.',
+			},
+			{
+				name: 'isRequired',
+				type: 'boolean',
+				description:
+					'Sets whether the field is required for submission. Required fields are marked with a red asterisk.',
+			},
+			{
+				name: 'label',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Label displayed above the form field.',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description:
+					'Specifies the name of the field. This is important for referencing the form data.',
+				isRequired: true,
+			},
+			{
+				name: 'transform',
+				type: '(event: FieldValue | React.FormEvent<Element>, current: FieldValue) => FieldValue',
+				description:
+					'Access the current field value and transform it to return a different field value.',
+			},
+			{
+				name: 'validate',
+				type: '(value: FieldValue, formState: Object, fieldState: Meta) => string | void | Promise<string | void>',
+				description:
+					'Checks whether the field input is valid. This is usually used to display a message relevant to the current value using `ErrorMessage`, `HelperMessage` or `ValidMessage`.',
+			},
+			{
+				name: 'validMessage',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Renders a `ValidMessage` with the provided content when using the `component` prop.',
+			},
+		],
+	},
+	{
+		name: 'Fieldset',
+		package: '@atlaskit/form',
+		description:
+			'Groups related form fields with a legend. Use for radio groups or logical groupings.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use with Legend to describe the group',
+			'Use for radio groups and logical field groupings',
+			'Improves accessibility',
+		],
+		keywords: ['form', 'fieldset', 'group'],
+		category: 'form',
+		examples: [
+			'import { Checkbox } from \'@atlaskit/checkbox\';\nimport Form, { CheckboxField, Fieldset } from \'@atlaskit/form\';\nimport { Box } from \'@atlaskit/primitives/compiled\';\nconst FormFieldsetExample = (): React.JSX.Element => (\n\t<Box>\n\t\t<Form onSubmit={(data) => console.log(data)}>\n\t\t\t<Fieldset legend="Apps">\n\t\t\t\t<CheckboxField name="app" value="jira">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Jira" />}\n\t\t\t\t</CheckboxField>\n\t\t\t\t<CheckboxField name="app" value="confluence">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Confluence" />}\n\t\t\t\t</CheckboxField>\n\t\t\t\t<CheckboxField name="app" value="bitbucket">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Bitbucket" />}\n\t\t\t\t</CheckboxField>\n\t\t\t</Fieldset>\n\t\t\t<Fieldset legend="Teams">\n\t\t\t\t<CheckboxField name="teams" value="dst">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Design System Team" />}\n\t\t\t\t</CheckboxField>\n\t\t\t\t<CheckboxField name="teams" value="design-ops">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Design Ops" />}\n\t\t\t\t</CheckboxField>\n\t\t\t\t<CheckboxField name="teams" value="content">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Content Ops" />}\n\t\t\t\t</CheckboxField>\n\t\t\t</Fieldset>\n\t\t</Form>\n\t</Box>\n);\nexport default FormFieldsetExample;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Content to render in the fieldset.',
+				isRequired: true,
+			},
+			{
+				name: 'legend',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Label describing the contents of the fieldset.',
+			},
+		],
+	},
+	{
 		name: 'Form',
 		package: '@atlaskit/form',
 		description: 'A component for building forms with validation and state management.',
@@ -2402,6 +3369,381 @@ export const components: ComponentMcpPayload[] = [
 				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
+			},
+		],
+	},
+	{
+		name: 'FormFooter',
+		package: '@atlaskit/form',
+		description: 'The footer section of a form, typically containing submit and cancel buttons.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for primary and secondary actions',
+			'Primary button on the right; include Cancel for dismissal',
+			'Use align prop for left or right alignment',
+		],
+		contentGuidelines: [
+			'Use action verbs in button labels',
+			'Primary button reflects the form action',
+		],
+		keywords: ['form', 'footer', 'actions', 'buttons'],
+		category: 'form',
+		examples: [
+			'import React, { Fragment } from \'react\';\nimport ButtonGroup from \'@atlaskit/button/button-group\';\nimport Button from \'@atlaskit/button/new\';\nimport Form, {\n\tErrorMessage,\n\tField,\n\tFormFooter,\n\tFormHeader,\n\tFormSection,\n\tHelperMessage,\n\tMessageWrapper,\n\tRequiredAsterisk,\n\tValidMessage,\n} from \'@atlaskit/form\';\nimport { Flex } from \'@atlaskit/primitives/compiled\';\nimport { RadioGroup } from \'@atlaskit/radio\';\nimport TextField from \'@atlaskit/textfield\';\nconst FormDefaultExample = (): React.JSX.Element => (\n\t<Flex direction="column">\n\t\t<Form<{ schema: string; key: string; type: string }>\n\t\t\tnoValidate\n\t\t\tonSubmit={(data) => {\n\t\t\t\tconsole.log(\'form data\', data);\n\t\t\t\treturn new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>\n\t\t\t\t\t!data.schema ? { schema: \'A schema name is required\' } : undefined,\n\t\t\t\t);\n\t\t\t}}\n\t\t>\n\t\t\t{({ formProps, submitting }) => (\n\t\t\t\t<form {...formProps} name="create">\n\t\t\t\t\t<FormHeader title="Create schema">\n\t\t\t\t\t\t<p aria-hidden="true">\n\t\t\t\t\t\t\tRequired fields are marked with an asterisk <RequiredAsterisk />\n\t\t\t\t\t\t</p>\n\t\t\t\t\t</FormHeader>\n\t\t\t\t\t<FormSection>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="schema"\n\t\t\t\t\t\t\tlabel="Schema name"\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tvalidate={(value) => (!value ? \'A schema name is required\' : undefined)}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField autoComplete="off" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="key"\n\t\t\t\t\t\t\tlabel="Key"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tvalidate={(value) => {\n\t\t\t\t\t\t\t\tif (!value) {\n\t\t\t\t\t\t\t\t\treturn \'A key is required\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tif (value.length < 8) {\n\t\t\t\t\t\t\t\t\treturn \'Key needs to be at least 8 characters.\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error, valid, meta }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField type="key" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>\n\t\t\t\t\t\t\t\t\t\t\t<HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t\tCreate a unique key, minimum of 8 characters. Example key: IT-infrastructure\n\t\t\t\t\t\t\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t{error && <ErrorMessage>{error}</ErrorMessage>}\n\t\t\t\t\t\t\t\t\t\t\t{valid && meta.dirty ? <ValidMessage>Key is unique</ValidMessage> : null}\n\t\t\t\t\t\t\t\t\t\t</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="type"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tlabel="Schema type"\n\t\t\t\t\t\t\tcomponent={({ fieldProps }) => (\n\t\t\t\t\t\t\t\t<RadioGroup\n\t\t\t\t\t\t\t\t\toptions={[\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'project-admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Public\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Private\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t\t\t\t{...fieldProps}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</FormSection>\n\t\t\t\t\t<FormFooter align="start">\n\t\t\t\t\t\t<ButtonGroup label="Form submit options">\n\t\t\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\t\t\tCreate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="subtle" isLoading={submitting}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ButtonGroup>\n\t\t\t\t\t</FormFooter>\n\t\t\t\t</form>\n\t\t\t)}\n\t\t</Form>\n\t</Flex>\n);\nexport default FormDefaultExample;',
+		],
+		props: [
+			{
+				name: 'align',
+				type: '"end" | "start"',
+				description:
+					'Sets the alignment of the footer contents. This is often a button. This should be left-aligned in single-page forms, flags, cards, and section messages.',
+				defaultValue: '"end"',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Content to render in the footer of the form.',
+			},
+		],
+	},
+	{
+		name: 'FormHeader',
+		package: '@atlaskit/form',
+		description:
+			'The header section of a form, typically containing the title and optional description.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use at the top of a form to provide context',
+			'Include title and optional description or hint text',
+			'Use RequiredAsterisk legend for required field indication',
+		],
+		contentGuidelines: ['Use clear, descriptive form titles', 'Keep descriptions concise'],
+		keywords: ['form', 'header', 'title', 'description'],
+		category: 'form',
+		examples: [
+			'import React, { Fragment } from \'react\';\nimport ButtonGroup from \'@atlaskit/button/button-group\';\nimport Button from \'@atlaskit/button/new\';\nimport Form, {\n\tErrorMessage,\n\tField,\n\tFormFooter,\n\tFormHeader,\n\tFormSection,\n\tHelperMessage,\n\tMessageWrapper,\n\tRequiredAsterisk,\n\tValidMessage,\n} from \'@atlaskit/form\';\nimport { Flex } from \'@atlaskit/primitives/compiled\';\nimport { RadioGroup } from \'@atlaskit/radio\';\nimport TextField from \'@atlaskit/textfield\';\nconst FormDefaultExample = (): React.JSX.Element => (\n\t<Flex direction="column">\n\t\t<Form<{ schema: string; key: string; type: string }>\n\t\t\tnoValidate\n\t\t\tonSubmit={(data) => {\n\t\t\t\tconsole.log(\'form data\', data);\n\t\t\t\treturn new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>\n\t\t\t\t\t!data.schema ? { schema: \'A schema name is required\' } : undefined,\n\t\t\t\t);\n\t\t\t}}\n\t\t>\n\t\t\t{({ formProps, submitting }) => (\n\t\t\t\t<form {...formProps} name="create">\n\t\t\t\t\t<FormHeader title="Create schema">\n\t\t\t\t\t\t<p aria-hidden="true">\n\t\t\t\t\t\t\tRequired fields are marked with an asterisk <RequiredAsterisk />\n\t\t\t\t\t\t</p>\n\t\t\t\t\t</FormHeader>\n\t\t\t\t\t<FormSection>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="schema"\n\t\t\t\t\t\t\tlabel="Schema name"\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tvalidate={(value) => (!value ? \'A schema name is required\' : undefined)}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField autoComplete="off" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="key"\n\t\t\t\t\t\t\tlabel="Key"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tvalidate={(value) => {\n\t\t\t\t\t\t\t\tif (!value) {\n\t\t\t\t\t\t\t\t\treturn \'A key is required\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tif (value.length < 8) {\n\t\t\t\t\t\t\t\t\treturn \'Key needs to be at least 8 characters.\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error, valid, meta }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField type="key" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>\n\t\t\t\t\t\t\t\t\t\t\t<HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t\tCreate a unique key, minimum of 8 characters. Example key: IT-infrastructure\n\t\t\t\t\t\t\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t{error && <ErrorMessage>{error}</ErrorMessage>}\n\t\t\t\t\t\t\t\t\t\t\t{valid && meta.dirty ? <ValidMessage>Key is unique</ValidMessage> : null}\n\t\t\t\t\t\t\t\t\t\t</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="type"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tlabel="Schema type"\n\t\t\t\t\t\t\tcomponent={({ fieldProps }) => (\n\t\t\t\t\t\t\t\t<RadioGroup\n\t\t\t\t\t\t\t\t\toptions={[\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'project-admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Public\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Private\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t\t\t\t{...fieldProps}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</FormSection>\n\t\t\t\t\t<FormFooter align="start">\n\t\t\t\t\t\t<ButtonGroup label="Form submit options">\n\t\t\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\t\t\tCreate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="subtle" isLoading={submitting}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ButtonGroup>\n\t\t\t\t\t</FormFooter>\n\t\t\t\t</form>\n\t\t\t)}\n\t\t</Form>\n\t</Flex>\n);\nexport default FormDefaultExample;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Child content to render in the form below the title and description.',
+			},
+			{
+				name: 'description',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Description or subtitle of the form.',
+			},
+			{
+				name: 'title',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Title of the form. This is a header.',
+			},
+		],
+	},
+	{
+		name: 'FormSection',
+		package: '@atlaskit/form',
+		description: 'A section within a form that groups related fields together.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use to group related fields logically',
+			'Optional title for section heading',
+			'Improves form scannability',
+		],
+		contentGuidelines: ['Use clear section titles when provided', 'Group related fields together'],
+		keywords: ['form', 'section', 'group', 'fields'],
+		category: 'form',
+		examples: [
+			'import React, { Fragment } from \'react\';\nimport ButtonGroup from \'@atlaskit/button/button-group\';\nimport Button from \'@atlaskit/button/new\';\nimport Form, {\n\tErrorMessage,\n\tField,\n\tFormFooter,\n\tFormHeader,\n\tFormSection,\n\tHelperMessage,\n\tMessageWrapper,\n\tRequiredAsterisk,\n\tValidMessage,\n} from \'@atlaskit/form\';\nimport { Flex } from \'@atlaskit/primitives/compiled\';\nimport { RadioGroup } from \'@atlaskit/radio\';\nimport TextField from \'@atlaskit/textfield\';\nconst FormDefaultExample = (): React.JSX.Element => (\n\t<Flex direction="column">\n\t\t<Form<{ schema: string; key: string; type: string }>\n\t\t\tnoValidate\n\t\t\tonSubmit={(data) => {\n\t\t\t\tconsole.log(\'form data\', data);\n\t\t\t\treturn new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>\n\t\t\t\t\t!data.schema ? { schema: \'A schema name is required\' } : undefined,\n\t\t\t\t);\n\t\t\t}}\n\t\t>\n\t\t\t{({ formProps, submitting }) => (\n\t\t\t\t<form {...formProps} name="create">\n\t\t\t\t\t<FormHeader title="Create schema">\n\t\t\t\t\t\t<p aria-hidden="true">\n\t\t\t\t\t\t\tRequired fields are marked with an asterisk <RequiredAsterisk />\n\t\t\t\t\t\t</p>\n\t\t\t\t\t</FormHeader>\n\t\t\t\t\t<FormSection>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="schema"\n\t\t\t\t\t\t\tlabel="Schema name"\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tvalidate={(value) => (!value ? \'A schema name is required\' : undefined)}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField autoComplete="off" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="key"\n\t\t\t\t\t\t\tlabel="Key"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tvalidate={(value) => {\n\t\t\t\t\t\t\t\tif (!value) {\n\t\t\t\t\t\t\t\t\treturn \'A key is required\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tif (value.length < 8) {\n\t\t\t\t\t\t\t\t\treturn \'Key needs to be at least 8 characters.\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error, valid, meta }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField type="key" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>\n\t\t\t\t\t\t\t\t\t\t\t<HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t\tCreate a unique key, minimum of 8 characters. Example key: IT-infrastructure\n\t\t\t\t\t\t\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t{error && <ErrorMessage>{error}</ErrorMessage>}\n\t\t\t\t\t\t\t\t\t\t\t{valid && meta.dirty ? <ValidMessage>Key is unique</ValidMessage> : null}\n\t\t\t\t\t\t\t\t\t\t</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="type"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tlabel="Schema type"\n\t\t\t\t\t\t\tcomponent={({ fieldProps }) => (\n\t\t\t\t\t\t\t\t<RadioGroup\n\t\t\t\t\t\t\t\t\toptions={[\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'project-admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Public\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Private\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t\t\t\t{...fieldProps}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</FormSection>\n\t\t\t\t\t<FormFooter align="start">\n\t\t\t\t\t\t<ButtonGroup label="Form submit options">\n\t\t\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\t\t\tCreate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="subtle" isLoading={submitting}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ButtonGroup>\n\t\t\t\t\t</FormFooter>\n\t\t\t\t</form>\n\t\t\t)}\n\t\t</Form>\n\t</Flex>\n);\nexport default FormDefaultExample;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Content or components to render after the description.',
+			},
+			{
+				name: 'description',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Description of the contents of the section.',
+			},
+			{
+				name: 'title',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Title of the form section.',
+			},
+		],
+	},
+	{
+		name: 'HelperMessage',
+		package: '@atlaskit/form',
+		description: 'Displays helper or hint text for a form field.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use within MessageWrapper to show instructions or hints',
+			'Place below the form control',
+			'Use for critical info—not placeholder alone',
+		],
+		contentGuidelines: ['Provide clear, actionable instructions', 'Keep helper text concise'],
+		keywords: ['form', 'helper', 'message', 'hint'],
+		category: 'form',
+		examples: [
+			'import React, { Fragment } from \'react\';\nimport ButtonGroup from \'@atlaskit/button/button-group\';\nimport Button from \'@atlaskit/button/new\';\nimport Form, {\n\tErrorMessage,\n\tField,\n\tFormFooter,\n\tFormHeader,\n\tFormSection,\n\tHelperMessage,\n\tMessageWrapper,\n\tRequiredAsterisk,\n\tValidMessage,\n} from \'@atlaskit/form\';\nimport { Flex } from \'@atlaskit/primitives/compiled\';\nimport { RadioGroup } from \'@atlaskit/radio\';\nimport TextField from \'@atlaskit/textfield\';\nconst FormDefaultExample = (): React.JSX.Element => (\n\t<Flex direction="column">\n\t\t<Form<{ schema: string; key: string; type: string }>\n\t\t\tnoValidate\n\t\t\tonSubmit={(data) => {\n\t\t\t\tconsole.log(\'form data\', data);\n\t\t\t\treturn new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>\n\t\t\t\t\t!data.schema ? { schema: \'A schema name is required\' } : undefined,\n\t\t\t\t);\n\t\t\t}}\n\t\t>\n\t\t\t{({ formProps, submitting }) => (\n\t\t\t\t<form {...formProps} name="create">\n\t\t\t\t\t<FormHeader title="Create schema">\n\t\t\t\t\t\t<p aria-hidden="true">\n\t\t\t\t\t\t\tRequired fields are marked with an asterisk <RequiredAsterisk />\n\t\t\t\t\t\t</p>\n\t\t\t\t\t</FormHeader>\n\t\t\t\t\t<FormSection>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="schema"\n\t\t\t\t\t\t\tlabel="Schema name"\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tvalidate={(value) => (!value ? \'A schema name is required\' : undefined)}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField autoComplete="off" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="key"\n\t\t\t\t\t\t\tlabel="Key"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tvalidate={(value) => {\n\t\t\t\t\t\t\t\tif (!value) {\n\t\t\t\t\t\t\t\t\treturn \'A key is required\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tif (value.length < 8) {\n\t\t\t\t\t\t\t\t\treturn \'Key needs to be at least 8 characters.\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error, valid, meta }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField type="key" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>\n\t\t\t\t\t\t\t\t\t\t\t<HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t\tCreate a unique key, minimum of 8 characters. Example key: IT-infrastructure\n\t\t\t\t\t\t\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t{error && <ErrorMessage>{error}</ErrorMessage>}\n\t\t\t\t\t\t\t\t\t\t\t{valid && meta.dirty ? <ValidMessage>Key is unique</ValidMessage> : null}\n\t\t\t\t\t\t\t\t\t\t</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="type"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tlabel="Schema type"\n\t\t\t\t\t\t\tcomponent={({ fieldProps }) => (\n\t\t\t\t\t\t\t\t<RadioGroup\n\t\t\t\t\t\t\t\t\toptions={[\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'project-admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Public\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Private\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t\t\t\t{...fieldProps}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</FormSection>\n\t\t\t\t\t<FormFooter align="start">\n\t\t\t\t\t\t<ButtonGroup label="Form submit options">\n\t\t\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\t\t\tCreate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="subtle" isLoading={submitting}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ButtonGroup>\n\t\t\t\t\t</FormFooter>\n\t\t\t\t</form>\n\t\t\t)}\n\t\t</Form>\n\t</Flex>\n);\nexport default FormDefaultExample;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'The content of the message',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'Label',
+		package: '@atlaskit/form',
+		description:
+			'A label component for form fields. Usually used internally by Field, but can be used standalone.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use with Field for field labels',
+			'Associate with form controls via htmlFor',
+		],
+		contentGuidelines: ['Use clear, descriptive labels'],
+		keywords: ['form', 'label'],
+		category: 'form',
+		examples: [
+			'import { Label } from \'@atlaskit/form\';\nimport { Flex } from \'@atlaskit/primitives/compiled\';\nimport TextField from \'@atlaskit/textfield\';\nconst LabelStandaloneExample = (): React.JSX.Element => (\n\t<Flex direction="column">\n\t\t<Label htmlFor="label-standalone-email">Work email</Label>\n\t\t<TextField id="label-standalone-email" name="email" type="email" />\n\t</Flex>\n);\nexport default LabelStandaloneExample;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				isRequired: true,
+			},
+			{
+				name: 'htmlFor',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'id',
+				type: 'string',
+			},
+		],
+	},
+	{
+		name: 'Legend',
+		package: '@atlaskit/form',
+		description:
+			'A legend component for fieldset groups. Used with Fieldset for grouping related fields.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use with Fieldset to describe a group of fields',
+			'Required for accessibility',
+		],
+		contentGuidelines: ['Use clear, descriptive legend text'],
+		keywords: ['form', 'legend', 'fieldset'],
+		category: 'form',
+		examples: [
+			'import { Checkbox } from \'@atlaskit/checkbox\';\nimport Form, { CheckboxField, Fieldset } from \'@atlaskit/form\';\nimport { Box } from \'@atlaskit/primitives/compiled\';\nconst FormFieldsetExample = (): React.JSX.Element => (\n\t<Box>\n\t\t<Form onSubmit={(data) => console.log(data)}>\n\t\t\t<Fieldset legend="Apps">\n\t\t\t\t<CheckboxField name="app" value="jira">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Jira" />}\n\t\t\t\t</CheckboxField>\n\t\t\t\t<CheckboxField name="app" value="confluence">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Confluence" />}\n\t\t\t\t</CheckboxField>\n\t\t\t\t<CheckboxField name="app" value="bitbucket">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Bitbucket" />}\n\t\t\t\t</CheckboxField>\n\t\t\t</Fieldset>\n\t\t\t<Fieldset legend="Teams">\n\t\t\t\t<CheckboxField name="teams" value="dst">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Design System Team" />}\n\t\t\t\t</CheckboxField>\n\t\t\t\t<CheckboxField name="teams" value="design-ops">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Design Ops" />}\n\t\t\t\t</CheckboxField>\n\t\t\t\t<CheckboxField name="teams" value="content">\n\t\t\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="Content Ops" />}\n\t\t\t\t</CheckboxField>\n\t\t\t</Fieldset>\n\t\t</Form>\n\t</Box>\n);\nexport default FormFieldsetExample;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'MessageWrapper',
+		package: '@atlaskit/form',
+		description:
+			'A wrapper for form field messages (HelperMessage, ErrorMessage, ValidMessage). Manages layout and visibility.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Wrap HelperMessage, ErrorMessage, and ValidMessage in MessageWrapper',
+			'Place below the form control within Field',
+		],
+		keywords: ['form', 'message', 'wrapper'],
+		category: 'form',
+		examples: [
+			'import { ErrorMessage, HelperMessage, MessageWrapper, ValidMessage } from \'@atlaskit/form\';\nimport Link from \'@atlaskit/link\';\nimport Lozenge from \'@atlaskit/lozenge\';\nexport default function MessagesExample(): React.JSX.Element {\n\treturn (\n\t\t<div>\n\t\t\t{\n\t\t\t<div  style={{ width: \'max-content\' }}>\n\t\t\t\t<MessageWrapper>\n\t\t\t\t\t<HelperMessage testId="helper">This is a help message.</HelperMessage>\n\t\t\t\t\t<ErrorMessage testId="error">This is an error message.</ErrorMessage>\n\t\t\t\t\t<ValidMessage testId="valid">This is a success message.</ValidMessage>\n\t\t\t\t</MessageWrapper>\n\t\t\t</div>\n\t\t\t{\n\t\t\t<div  style={{ maxWidth: 240 }}>\n\t\t\t\t<MessageWrapper>\n\t\t\t\t\t<HelperMessage testId="helper--long">\n\t\t\t\t\t\tThis is a help message, but it\'s really really really long.\n\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t<ErrorMessage testId="error--long">\n\t\t\t\t\t\tThis is an error message, but it\'s really really really long.\n\t\t\t\t\t</ErrorMessage>\n\t\t\t\t\t<ValidMessage testId="valid--long">\n\t\t\t\t\t\tThis is a validation message, but it\'s really really really long.\n\t\t\t\t\t</ValidMessage>\n\t\t\t\t</MessageWrapper>\n\t\t\t</div>\n\t\t\t{\n\t\t\t<div  style={{ maxWidth: 240 }}>\n\t\t\t\t<MessageWrapper>\n\t\t\t\t\t<HelperMessage testId="helper--long">\n\t\t\t\t\t\tThis message contains <strong>strong</strong> text.\n\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t<ErrorMessage testId="error--long">\n\t\t\t\t\t\tThis message contains a link to{\' \'}\n\t\t\t\t\t\t<Link href="http://www.atlassian.com">the Atlassian website</Link>.\n\t\t\t\t\t</ErrorMessage>\n\t\t\t\t\t<ValidMessage testId="valid--long">\n\t\t\t\t\t\tThis message contains a <Lozenge appearance="success">success</Lozenge> lozenge.\n\t\t\t\t\t</ValidMessage>\n\t\t\t\t</MessageWrapper>\n\t\t\t</div>\n\t\t</div>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'The content of the message',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'RangeField',
+		package: '@atlaskit/form',
+		description: 'A form field for range/slider inputs. Wraps Range with form field behavior.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for numeric range selection',
+			'Provide min, max, and step when needed',
+			'Works with Range from @atlaskit/range',
+		],
+		keywords: ['form', 'range', 'field', 'slider'],
+		category: 'form',
+		examples: [
+			'import Button from \'@atlaskit/button/new\';\nimport Form, { FormFooter, RangeField } from \'@atlaskit/form\';\nimport { Box } from \'@atlaskit/primitives/compiled\';\nimport Range from \'@atlaskit/range\';\nconst FormRangeFieldExample = (): React.JSX.Element => {\n\treturn (\n\t\t<Box>\n\t\t\t<Form onSubmit={(data) => console.log(data)}>\n\t\t\t\t<RangeField name="threshold" defaultValue={50} label="Threshold">\n\t\t\t\t\t{({ fieldProps }) => <Range {...fieldProps} min={0} max={70} />}\n\t\t\t\t</RangeField>\n\t\t\t\t<FormFooter align="start">\n\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\tSubmit\n\t\t\t\t\t</Button>\n\t\t\t\t</FormFooter>\n\t\t\t</Form>\n\t\t</Box>\n\t);\n};\nexport default FormRangeFieldExample;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: '(args: { fieldProps: RangeProps; error?: string; meta: Meta; }) => React.ReactNode',
+				description:
+					'Content to render in the range field. This function is called with props for the field component and other information about the field.',
+				isRequired: true,
+			},
+			{
+				name: 'defaultValue',
+				type: 'number | ((currentDefaultValue?: number) => number)',
+				description:
+					'Sets the default value of the field. If a function is provided, it is called with the current default value of the field.',
+				isRequired: true,
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description:
+					'Value passed to the `id` attribute of the field. This is randomly generated if it is not specified.',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description:
+					'Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.',
+			},
+			{
+				name: 'label',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Displays a label above the range field and identifies the form fields.',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description:
+					'Specifies the name of the field. This is important for referencing the form data.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'RequiredAsterisk',
+		package: '@atlaskit/form',
+		description:
+			'Visual indicator for required fields. Renders an asterisk (*) for form accessibility.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use in FormHeader to indicate required fields legend',
+			'Or use Field isRequired which handles asterisk automatically',
+		],
+		contentGuidelines: ['Pair with "Required fields are marked with an asterisk" text'],
+		keywords: ['form', 'required', 'asterisk'],
+		category: 'form',
+		examples: [
+			'import React, { Fragment } from \'react\';\nimport ButtonGroup from \'@atlaskit/button/button-group\';\nimport Button from \'@atlaskit/button/new\';\nimport Form, {\n\tErrorMessage,\n\tField,\n\tFormFooter,\n\tFormHeader,\n\tFormSection,\n\tHelperMessage,\n\tMessageWrapper,\n\tRequiredAsterisk,\n\tValidMessage,\n} from \'@atlaskit/form\';\nimport { Flex } from \'@atlaskit/primitives/compiled\';\nimport { RadioGroup } from \'@atlaskit/radio\';\nimport TextField from \'@atlaskit/textfield\';\nconst FormDefaultExample = (): React.JSX.Element => (\n\t<Flex direction="column">\n\t\t<Form<{ schema: string; key: string; type: string }>\n\t\t\tnoValidate\n\t\t\tonSubmit={(data) => {\n\t\t\t\tconsole.log(\'form data\', data);\n\t\t\t\treturn new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>\n\t\t\t\t\t!data.schema ? { schema: \'A schema name is required\' } : undefined,\n\t\t\t\t);\n\t\t\t}}\n\t\t>\n\t\t\t{({ formProps, submitting }) => (\n\t\t\t\t<form {...formProps} name="create">\n\t\t\t\t\t<FormHeader title="Create schema">\n\t\t\t\t\t\t<p aria-hidden="true">\n\t\t\t\t\t\t\tRequired fields are marked with an asterisk <RequiredAsterisk />\n\t\t\t\t\t\t</p>\n\t\t\t\t\t</FormHeader>\n\t\t\t\t\t<FormSection>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="schema"\n\t\t\t\t\t\t\tlabel="Schema name"\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tvalidate={(value) => (!value ? \'A schema name is required\' : undefined)}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField autoComplete="off" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="key"\n\t\t\t\t\t\t\tlabel="Key"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tvalidate={(value) => {\n\t\t\t\t\t\t\t\tif (!value) {\n\t\t\t\t\t\t\t\t\treturn \'A key is required\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tif (value.length < 8) {\n\t\t\t\t\t\t\t\t\treturn \'Key needs to be at least 8 characters.\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error, valid, meta }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField type="key" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>\n\t\t\t\t\t\t\t\t\t\t\t<HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t\tCreate a unique key, minimum of 8 characters. Example key: IT-infrastructure\n\t\t\t\t\t\t\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t{error && <ErrorMessage>{error}</ErrorMessage>}\n\t\t\t\t\t\t\t\t\t\t\t{valid && meta.dirty ? <ValidMessage>Key is unique</ValidMessage> : null}\n\t\t\t\t\t\t\t\t\t\t</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="type"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tlabel="Schema type"\n\t\t\t\t\t\t\tcomponent={({ fieldProps }) => (\n\t\t\t\t\t\t\t\t<RadioGroup\n\t\t\t\t\t\t\t\t\toptions={[\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'project-admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Public\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Private\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t\t\t\t{...fieldProps}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</FormSection>\n\t\t\t\t\t<FormFooter align="start">\n\t\t\t\t\t\t<ButtonGroup label="Form submit options">\n\t\t\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\t\t\tCreate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="subtle" isLoading={submitting}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ButtonGroup>\n\t\t\t\t\t</FormFooter>\n\t\t\t\t</form>\n\t\t\t)}\n\t\t</Form>\n\t</Flex>\n);\nexport default FormDefaultExample;',
+		],
+		props: [
+			{
+				name: 'autocomplete',
+				type: '"off" | "on"',
+				description:
+					"Indicates whether the value of the form's controls can be automatically completed by the browser. It is `on` by default.",
+			},
+			{
+				name: 'children',
+				type: '((args: FormChildrenArgs<FormValues>) => ReactNode) | (() => void) | ReactNode',
+				description:
+					'The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.\nYou can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).\n\nIf you are only spreading `formProps` onto the HTML `<form>` element and not using any of the other props (like `submitting`, etc.), `children` can be plain JSX. All of the children will be wrapped within an HTML `<form>` element that includes all necessary props, including those provided on the form component.',
+				isRequired: true,
+			},
+			{
+				name: 'formProps',
+				type: '{ [x: string]: any; } & ExcludeReservedFormProps',
+				description:
+					'When `Form` renders JSX children directly and not using a function to\nspread `formProps` manually, the properties in this `formProps` prop will\nbe spread on an internally rendered  HTML `form` element.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: '`id` attribute applied to the `form` element.',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description:
+					'Sets the form and its fields as disabled. Users cannot edit or focus on the fields.',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'Accessible name to be applied to the form element. Maps to the `aria-label` attribute.',
+			},
+			{
+				name: 'labelId',
+				type: 'string',
+				description:
+					'ID of the element that has the accessible name to be applied to the form element. Maps to the `aria-labelledby` attribute.',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description: '`name` attribute applied to the `form` element.',
+			},
+			{
+				name: 'noValidate',
+				type: 'boolean',
+				description:
+					'Indicates if the inputs within the form will bypass HTML5 constraint\nvalidation when submitted. This is not recommended to be used because it\ncan cause experiences to be inaccessible. It is `false` by default but will\nbe set to `true` in the future to increase accessibility, so it is **not recommended**.',
+			},
+			{
+				name: 'onSubmit',
+				type: '(values: FormValues, form: FormApi<FormValues>, callback?: (errors?: Record<string, string>) => void) => void | Object | Promise<...>',
+				description:
+					'Event handler called when the form is submitted. Fields must be free of validation errors.',
+				isRequired: true,
+			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"flex" | "grid" | "fill" | "stroke" | "all" | "bottom" | "left" | "right" | "top" | "clip" | "overlay" | "accentColor" | "alignContent" | "alignItems" | "alignSelf" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				description:
+					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
+			},
+		],
+	},
+	{
+		name: 'ValidMessage',
+		package: '@atlaskit/form',
+		description: 'Displays success or valid state feedback for a form field.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use within MessageWrapper when field passes validation',
+			'Show positive feedback (e.g. "Username is available")',
+			'Use sparingly to avoid clutter',
+		],
+		contentGuidelines: ['Keep valid messages concise'],
+		keywords: ['form', 'valid', 'message', 'success'],
+		category: 'form',
+		examples: [
+			'import React, { Fragment } from \'react\';\nimport ButtonGroup from \'@atlaskit/button/button-group\';\nimport Button from \'@atlaskit/button/new\';\nimport Form, {\n\tErrorMessage,\n\tField,\n\tFormFooter,\n\tFormHeader,\n\tFormSection,\n\tHelperMessage,\n\tMessageWrapper,\n\tRequiredAsterisk,\n\tValidMessage,\n} from \'@atlaskit/form\';\nimport { Flex } from \'@atlaskit/primitives/compiled\';\nimport { RadioGroup } from \'@atlaskit/radio\';\nimport TextField from \'@atlaskit/textfield\';\nconst FormDefaultExample = (): React.JSX.Element => (\n\t<Flex direction="column">\n\t\t<Form<{ schema: string; key: string; type: string }>\n\t\t\tnoValidate\n\t\t\tonSubmit={(data) => {\n\t\t\t\tconsole.log(\'form data\', data);\n\t\t\t\treturn new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>\n\t\t\t\t\t!data.schema ? { schema: \'A schema name is required\' } : undefined,\n\t\t\t\t);\n\t\t\t}}\n\t\t>\n\t\t\t{({ formProps, submitting }) => (\n\t\t\t\t<form {...formProps} name="create">\n\t\t\t\t\t<FormHeader title="Create schema">\n\t\t\t\t\t\t<p aria-hidden="true">\n\t\t\t\t\t\t\tRequired fields are marked with an asterisk <RequiredAsterisk />\n\t\t\t\t\t\t</p>\n\t\t\t\t\t</FormHeader>\n\t\t\t\t\t<FormSection>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="schema"\n\t\t\t\t\t\t\tlabel="Schema name"\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tvalidate={(value) => (!value ? \'A schema name is required\' : undefined)}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField autoComplete="off" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="key"\n\t\t\t\t\t\t\tlabel="Key"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tisRequired\n\t\t\t\t\t\t\tvalidate={(value) => {\n\t\t\t\t\t\t\t\tif (!value) {\n\t\t\t\t\t\t\t\t\treturn \'A key is required\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tif (value.length < 8) {\n\t\t\t\t\t\t\t\t\treturn \'Key needs to be at least 8 characters.\';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{({ fieldProps, error, valid, meta }) => {\n\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t<Fragment>\n\t\t\t\t\t\t\t\t\t\t<TextField type="key" {...fieldProps} />\n\t\t\t\t\t\t\t\t\t\t<MessageWrapper>\n\t\t\t\t\t\t\t\t\t\t\t<HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t\tCreate a unique key, minimum of 8 characters. Example key: IT-infrastructure\n\t\t\t\t\t\t\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t\t\t\t\t\t\t{error && <ErrorMessage>{error}</ErrorMessage>}\n\t\t\t\t\t\t\t\t\t\t\t{valid && meta.dirty ? <ValidMessage>Key is unique</ValidMessage> : null}\n\t\t\t\t\t\t\t\t\t\t</MessageWrapper>\n\t\t\t\t\t\t\t\t\t</Fragment>\n\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t</Field>\n\t\t\t\t\t\t<Field\n\t\t\t\t\t\t\tname="type"\n\t\t\t\t\t\t\tdefaultValue=""\n\t\t\t\t\t\t\tlabel="Schema type"\n\t\t\t\t\t\t\tcomponent={({ fieldProps }) => (\n\t\t\t\t\t\t\t\t<RadioGroup\n\t\t\t\t\t\t\t\t\toptions={[\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'project-admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Public\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\tname: \'type\',\n\t\t\t\t\t\t\t\t\t\t\tvalue: \'admin\',\n\t\t\t\t\t\t\t\t\t\t\tlabel: \'Private\',\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t\t\t\t{...fieldProps}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</FormSection>\n\t\t\t\t\t<FormFooter align="start">\n\t\t\t\t\t\t<ButtonGroup label="Form submit options">\n\t\t\t\t\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\t\t\t\t\tCreate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="subtle" isLoading={submitting}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ButtonGroup>\n\t\t\t\t\t</FormFooter>\n\t\t\t\t</form>\n\t\t\t)}\n\t\t</Form>\n\t</Flex>\n);\nexport default FormDefaultExample;',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'The content of the message',
+				isRequired: true,
 			},
 		],
 	},
@@ -2683,103 +4025,15 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'InlineDialog',
-		package: '@atlaskit/inline-dialog',
-		description:
-			'A component opened by user action (e.g. click) for further info or actions for a section—not crucial to the whole page.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Trigger by user action (e.g. click); do not open automatically',
-			'Use for section-level info or actions, not page-critical content',
-			'Keep content concise; only one inline dialog open at a time',
-			'Good for feature discovery and contextual controls',
-			'Anatomy: trigger, window, controls (buttons, checkboxes, text fields)',
-			'Use Inline message for alerts; Flag for confirmations; Modal for complex or long content',
-		],
-		contentGuidelines: [
-			'Use clear, concise dialog content',
-			'Provide meaningful dialog titles',
-			'Keep content focused and relevant',
-			'Use appropriate dialog sizing',
-		],
-		accessibilityGuidelines: [
-			'Ensure proper focus management',
-			'Provide clear dialog labels',
-			'Use appropriate ARIA attributes',
-			'Consider keyboard navigation',
-		],
-		keywords: ['dialog', 'inline', 'popup', 'overlay', 'tooltip'],
-		category: 'overlay',
-		examples: [
-			"import Button from '@atlaskit/button/new';\nimport Heading from '@atlaskit/heading';\nimport InlineDialog from '@atlaskit/inline-dialog';\nimport { Text } from '@atlaskit/primitives/compiled';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<InlineDialog content={<div>This is an inline dialog</div>} isOpen={true}>\n\t\t\t<Button>Trigger</Button>\n\t\t</InlineDialog>\n\t\t<InlineDialog\n\t\t\tcontent={\n\t\t\t\t<div>\n\t\t\t\t\t<Heading size=\"large\">Dialog Title</Heading>\n\t\t\t\t\t<Text>Dialog content goes here</Text>\n\t\t\t\t</div>\n\t\t\t}\n\t\t\tisOpen={false}\n\t\t>\n\t\t\t<Button>Open Dialog</Button>\n\t\t</InlineDialog>\n\t</>\n);\nexport default Examples;",
-		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
-				description: 'The elements that the InlineDialog will be positioned relative to.',
-				isRequired: true,
-			},
-			{
-				name: 'content',
-				type: 'ReactNode | (() => ReactNode)',
-				description: 'The elements to be displayed within the InlineDialog.',
-				isRequired: true,
-			},
-			{
-				name: 'fallbackPlacements',
-				type: 'Placement[]',
-				description:
-					"This is a list of backup placements to try.\nWhen the preferred placement doesn't have enough space,\nthe modifier will test the ones provided in the list, and use the first suitable one.\nIf no fallback placements are suitable, it reverts back to the original placement.",
-			},
-			{
-				name: 'isOpen',
-				type: 'boolean',
-				description: 'Sets whether to show or hide the dialog.',
-			},
-			{
-				name: 'onClose',
-				type: '(obj: { isOpen: boolean; event: Event; }) => void',
-				description:
-					'Function called when the dialog is open and a click occurs anywhere outside\nthe dialog.',
-			},
-			{
-				name: 'onContentBlur',
-				type: '() => void',
-				description: 'Function called when you lose focus on the object.',
-			},
-			{
-				name: 'onContentClick',
-				type: '() => void',
-				description: 'Function called when user clicks on the open dialog.',
-			},
-			{
-				name: 'onContentFocus',
-				type: '() => void',
-				description: 'Function called when user focuses on the open dialog.',
-			},
-			{
-				name: 'placement',
-				type: '"auto-start" | "auto" | "auto-end" | "top-start" | "top" | "top-end" | "right-start" | "right" | "right-end" | "bottom-end" | "bottom" | "bottom-start" | "left-end" | "left" | "left-start"',
-				description: 'Where the dialog should appear, relative to the contents of the children.',
-			},
-			{
-				name: 'strategy',
-				type: '"fixed" | "absolute"',
-				description: "Placement strategy used. Can be 'fixed' or 'absolute'. Defaults to 'fixed'.",
-			},
-		],
-	},
-	{
 		name: 'InlineEdit',
 		package: '@atlaskit/inline-edit',
-		description: 'A component for inline editing of text content.',
+		description:
+			'An inline edit displays a custom input component that switches between reading and editing on the same page.',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Use for inline text editing',
+			'Use when you need custom input components or layout',
+			'Use InlineEditableTextfield for standard text field use cases',
 			'Provide clear edit state indicators',
-			'Handle save and cancel actions',
-			'Consider validation requirements',
 		],
 		contentGuidelines: [
 			'Use clear, descriptive text content',
@@ -2887,6 +4141,131 @@ export const components: ComponentMcpPayload[] = [
 				type: '() => React.ReactNode',
 				description:
 					'The component shown when not in `editView`. This is when the inline edit is read-only and not being edited.',
+				isRequired: true,
+			},
+			{
+				name: 'readViewFitContainerWidth',
+				type: 'boolean',
+				description:
+					'Determines whether the `readView` has 100% width within its container, or whether it fits the content.',
+			},
+			{
+				name: 'startWithEditViewOpen',
+				type: 'boolean',
+				description:
+					'Determines whether it begins in `editView` or `readView`. When set to true, `isEditing` begins as true and the inline edit\nstarts in `editView`.',
+			},
+			{
+				name: 'validate',
+				type: '(value: any, formState: {}, fieldState: {}) => string | void | Promise<string | void>',
+				description:
+					'Displays an inline dialog with a message when the field input is invalid. This is handled by `react-final-form`.',
+			},
+		],
+	},
+	{
+		name: 'InlineEditableTextfield',
+		package: '@atlaskit/inline-edit',
+		description:
+			'An inline editable text field displays a text field that switches between reading and editing on the same page.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for existing content in a text field that may need tweaking',
+			'Use where multiple items on a page can be edited at once',
+			"Don't use if the main function of the screen is editing—use a text area instead",
+			'Use InlineEdit when you need custom input components',
+		],
+		contentGuidelines: [
+			'Use concise, sentence case labels',
+			'Customise placeholder text for empty state',
+			'Keep labels descriptive of the field',
+		],
+		accessibilityGuidelines: [
+			'Ensure proper focus management between read and edit states',
+			'Provide clear save/cancel controls',
+			'Use appropriate ARIA attributes',
+		],
+		keywords: ['inline', 'edit', 'editable', 'textfield', 'text', 'input'],
+		category: 'form',
+		examples: [
+			"import React, { useState } from 'react';\nimport { InlineEditableTextfield } from '@atlaskit/inline-edit';\nimport { Box } from '@atlaskit/primitives/compiled';\nconst InlineEditableTextfieldDefault = (): React.JSX.Element => {\n\tconst placeholderLabel = 'Initial description value';\n\tconst [editValue, setEditValue] = useState('Default description value');\n\tconst validate = (value: string) => {\n\t\tif (value.length <= 6) {\n\t\t\treturn 'Please enter a description longer than 6 characters';\n\t\t}\n\t\treturn undefined;\n\t};\n\treturn (\n\t\t<Box paddingInline=\"space.100\" paddingBlockStart=\"space.100\" paddingBlockEnd=\"space.600\">\n\t\t\t<InlineEditableTextfield\n\t\t\t\tdefaultValue={editValue}\n\t\t\t\tlabel=\"Description\"\n\t\t\t\teditButtonLabel={editValue || placeholderLabel}\n\t\t\t\tonConfirm={(value) => setEditValue(value)}\n\t\t\t\tplaceholder={placeholderLabel}\n\t\t\t\tvalidate={validate}\n\t\t\t/>\n\t\t</Box>\n\t);\n};\nexport default InlineEditableTextfieldDefault;",
+		],
+		props: [
+			{
+				name: 'cancelButtonLabel',
+				type: 'string',
+				description: 'Accessibility label for the cancel action button.',
+			},
+			{
+				name: 'confirmButtonLabel',
+				type: 'string',
+				description:
+					'Accessibility label for the confirm action button, which saves the field value into `editValue`.',
+			},
+			{
+				name: 'defaultValue',
+				type: 'any',
+				description:
+					'The user input entered into the field during `editView`. This value is updated and saved by `onConfirm`.',
+				isRequired: true,
+			},
+			{
+				name: 'editButtonLabel',
+				type: 'string',
+				description:
+					'Accessibility label for button, which is used to enter `editView` from keyboard.',
+			},
+			{
+				name: 'editLabel',
+				type: 'string',
+				description:
+					"Append 'edit' to the end of the button label (`editButtonLabel`)which allows\nusers of assistive technologies to understand the purpose of the button",
+			},
+			{
+				name: 'hideActionButtons',
+				type: 'boolean',
+				description:
+					'Sets whether the confirm and cancel action buttons are displayed in the bottom right of the field.',
+			},
+			{
+				name: 'isCompact',
+				type: 'boolean',
+				description:
+					'Sets height of the text field to compact. The top and bottom padding is decreased.',
+			},
+			{
+				name: 'isRequired',
+				type: 'boolean',
+				description: 'Determines whether the input value can be confirmed as empty.',
+			},
+			{
+				name: 'keepEditViewOpenOnBlur',
+				type: 'boolean',
+				description:
+					'Sets the view when the element blurs and loses focus (this can happen when a user clicks away).\nWhen set to true, inline edit stays in `editView` when blurred.',
+			},
+			{
+				name: 'label',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Label above the input field that communicates what value should be entered.',
+			},
+			{
+				name: 'onCancel',
+				type: '() => void',
+				description:
+					'Exits `editView` and switches back to `readView`. This is called when the cancel action button (x) is clicked.',
+			},
+			{
+				name: 'onConfirm',
+				type: '(value: string, analyticsEvent: UIAnalyticsEvent) => void',
+				description:
+					'Calls the `editView` handler. It confirms the changes.\nThe field value is passed as an argument to this function.',
+				isRequired: true,
+			},
+			{
+				name: 'placeholder',
+				type: 'string',
+				description: 'Text shown in `readView` when the field value is an empty string.',
 				isRequired: true,
 			},
 			{
@@ -3112,7 +4491,7 @@ export const components: ComponentMcpPayload[] = [
 		name: 'Lozenge',
 		package: '@atlaskit/lozenge',
 		description:
-			'A lozenge is a small visual indicator used to show status, category, or other short text labels.',
+			"A lozenge is a visual indicator used to highlight an item's status for quick recognition.",
 		status: 'general-availability',
 		usageGuidelines: [
 			'Subtle (default): for long tables and general use',
@@ -3136,7 +4515,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['lozenge', 'badge', 'label', 'status', 'indicator', 'pill'],
 		category: 'status-indicators',
 		examples: [
-			'import Lozenge from \'@atlaskit/lozenge\';\nexport default [\n\t<Lozenge appearance="success">Done</Lozenge>,\n\t<Lozenge appearance="inprogress" isBold>\n\t\tIn Progress\n\t</Lozenge>,\n];',
+			'import Lozenge from \'@atlaskit/lozenge\';\nconst _default_1: React.JSX.Element[] = [\n\t<Lozenge appearance="success">Done</Lozenge>,\n\t<Lozenge appearance="inprogress" isBold>\n\t\tIn Progress\n\t</Lozenge>,\n];\nexport default _default_1;',
 		],
 		props: [
 			{
@@ -3156,6 +4535,426 @@ export const components: ComponentMcpPayload[] = [
 				type: 'string | number',
 				description:
 					'max-width of lozenge container. Default to 200px.\nmax-width of lozenge container. Default to 200px.',
+			},
+		],
+	},
+	{
+		name: 'LozengeDropdownTrigger',
+		package: '@atlaskit/lozenge',
+		description:
+			"Lozenge dropdown trigger displays an item's status and enables switching through a menu.",
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use for status switching—only open a dropdown or popup to allow quick status changes',
+			'Use spacious sizing when displayed alongside buttons',
+			"Don't use to communicate other information like additional status details; use lozenge instead",
+		],
+		contentGuidelines: [
+			'Use clear, concise status labels',
+			'Keep labels short—max 200px width causes truncation and lozenges are not focusable',
+			"Don't use color alone; use clear labels and supporting icons where relevant",
+		],
+		accessibilityGuidelines: [
+			"Don't use color alone to signify state; use clear labels and icons",
+			"Don't use long labels—truncation isn't accessible as lozenges can't be focused",
+		],
+		keywords: ['lozenge', 'dropdown', 'trigger', 'status', 'menu', 'interactive'],
+		category: 'status-indicators',
+		examples: [
+			'import { LozengeDropdownTrigger } from \'@atlaskit/lozenge\';\nexport default (): React.JSX.Element => (\n\t<LozengeDropdownTrigger appearance="success">Success</LozengeDropdownTrigger>\n);',
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"default" | "inprogress" | "moved" | "new" | "removed" | "success" | "warning" | "danger" | "information" | "neutral" | "discovery" | AccentColor',
+				description:
+					'The appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.\nAccent appearance values.',
+			},
+			{
+				name: 'aria-controls',
+				type: 'string',
+				description:
+					'Identifies the popup element that the trigger controls.\nShould match the `id` of the popup content for screen readers to understand the relationship.\nIdentifies the popup element that the trigger controls.\nShould match the `id` of the popup content for screen readers to understand the relationship.',
+			},
+			{
+				name: 'aria-expanded',
+				type: 'boolean',
+				description:
+					'Announces to assistive technology whether the popup is currently open or closed.\nAnnounces to assistive technology whether the popup is currently open or closed.',
+			},
+			{
+				name: 'aria-haspopup',
+				type: 'boolean | "dialog"',
+				description:
+					'Informs assistive technology that this element triggers a popup.\nInforms assistive technology that this element triggers a popup.',
+			},
+			{
+				name: 'aria-label',
+				type: 'string',
+				description:
+					'Defines a string value that labels the trigger element for assistive technology.\nDefines a string value that labels the trigger element for assistive technology.',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Elements to be rendered inside the lozenge. This should ideally be just a word or two.\nElements to be rendered inside the lozenge. This should ideally be just a word or two.',
+			},
+			{
+				name: 'iconBefore',
+				type: 'ComponentClass<Omit<NewIconProps, "spacing">, any> | FunctionComponent<Omit<NewIconProps, "spacing">>',
+				description:
+					'Icon to display before the text content. Should be an ADS icon component.\nIcon to display before the text content. Should be an ADS icon component.',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+				description:
+					'Whether the dropdown trigger is in a loading state.\nWhen true, a spinner is shown and the trigger becomes non-interactive.\nWhether the dropdown trigger is in a loading state.\nWhen true, a spinner is shown and the trigger becomes non-interactive.',
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				description:
+					'Whether the dropdown is currently selected/open.\nWhether the dropdown is currently selected/open.',
+			},
+			{
+				name: 'maxWidth',
+				type: 'string | number',
+				description:
+					'max-width of lozenge container. Default to 200px.\nmax-width of lozenge container. Default to 200px.',
+			},
+			{
+				name: 'onClick',
+				type: '(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				description:
+					'Callback fired when the trigger is clicked. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the [analytics-next documentation](https://atlaskit.atlassian.com/packages/analytics/analytics-next) for more information.\nCallback fired when the trigger is clicked. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the [analytics-next documentation](https://atlaskit.atlassian.com/packages/analytics/analytics-next) for more information.',
+			},
+			{
+				name: 'spacing',
+				type: '"default" | "spacious"',
+				description:
+					'Controls the overall spacing (padding + height) of the lozenge.\n\n- `default` matches the current visual appearance.\n- `spacious` increases padding and sets the lozenge height to 32px.\nControls the overall spacing (padding + height) of the lozenge.\n\n- `default` matches the current visual appearance.\n- `spacious` increases padding and sets the lozenge height to 32px.',
+			},
+			{
+				name: 'trailingMetric',
+				type: 'string',
+				description:
+					'Numeric metric displayed at the end of the lozenge as a badge.\nTrailing metric is not supported for accent lozenges.',
+			},
+			{
+				name: 'trailingMetricAppearance',
+				type: '"default" | "inprogress" | "moved" | "new" | "removed" | "success" | "warning" | "danger" | "information" | "neutral" | "discovery" | "inverse"',
+				description:
+					'Overrides the appearance of the trailing metric badge.\n\nIf not specified, the trailing metric badge inherits the lozenge appearance.\n\nThis prop is not supported for accent lozenges.\nTrailing metric appearance is not supported for accent lozenges.',
+			},
+		],
+	},
+	{
+		name: 'ButtonItem',
+		package: '@atlaskit/menu',
+		description:
+			'A menu item that triggers an action when clicked. Use for actions like Copy, Delete, or Create.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for actions that do not navigate (e.g. Copy, Create article)',
+			'Combine with icons for clarity when they add meaning',
+			'Use secondary text for context when helpful (e.g. project type)',
+		],
+		contentGuidelines: [
+			'Use clear, action-oriented labels',
+			'Use consistent terminology across menus',
+		],
+		keywords: ['menu', 'button', 'item', 'action'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@compiled/react';\nimport { ButtonItem } from '@atlaskit/menu';\nimport { B400, B50, N10, N30, N500 } from '@atlaskit/theme/colors';\nimport { token } from '@atlaskit/tokens';\nimport ImgIcon from '../common/img-icon';\nimport Yeti from '../icons/yeti.png';\n// Mimics overrides in side-navigation\nconst styles = cssMap({\n\troot: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.300'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.300'),\n\t\tborderRadius: token('radius.small'),\n\t\tbackgroundColor: N10,\n\t\tcolor: N500,\n\t\t'&:hover': {\n\t\t\tbackgroundColor: N30,\n\t\t\ttextDecoration: 'none',\n\t\t\tcolor: N500,\n\t\t},\n\t\t'&:active': {\n\t\t\tcolor: B400,\n\t\t\tbackgroundColor: B50,\n\t\t\tboxShadow: 'none',\n\t\t},\n\t\t'[data-item-elem-before]': {\n\t\t\tdisplay: 'flex',\n\t\t\theight: 8 * 1.25,\n\t\t\twidth: 8 * 1.25,\n\t\t\talignItems: 'center',\n\t\t\tjustifyContent: 'center',\n\t\t\tmarginRight: token('space.200'),\n\t\t},\n\t},\n\tdisabled: {\n\t\tcolor: token('color.text.disabled'),\n\t\tbackgroundColor: N10,\n\t\t'&:hover, &:active': {\n\t\t\tbackgroundColor: N10,\n\t\t\tcolor: token('color.text.disabled'),\n\t\t},\n\t},\n});\nconst _default: () => JSX.Element = () => (\n\t<div >\n\t\t<ButtonItem isSelected>Activate</ButtonItem>\n\t\t<ButtonItem isDisabled>Activate</ButtonItem>\n\t\t<ButtonItem>Activate</ButtonItem>\n\t\t<ButtonItem description=\"Next-gen software project\">Activate</ButtonItem>\n\t\t<ButtonItem description=\"Legacy software project\" isDisabled>\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem iconBefore={<ImgIcon src={Yeti} alt=\"\" />} description=\"Next-gen software project\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem css={styles.root} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem isDisabled css={[styles.root, styles.disabled]} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem css={styles.root} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t</div>\n);\nexport default _default;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Primary content for the item.',
+			},
+			{
+				name: 'description',
+				type: 'string | global.JSX.Element',
+				description:
+					'Description of the item.\nThis will render smaller text below the primary text of the item, and slightly increase the height of the item.',
+			},
+			{
+				name: 'iconAfter',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Element to render after the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
+			},
+			{
+				name: 'iconBefore',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Element to render before the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'Unique identifier for the element.',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description:
+					'Makes the element appear disabled as well as removing interactivity. Avoid disabling menu items wherever possible as this isn’t accessible or usable.',
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				description: 'Makes the element appear selected.',
+			},
+			{
+				name: 'onClick',
+				type: '(e: MouseEvent<HTMLElement, globalThis.MouseEvent> | KeyboardEvent<HTMLElement>) => void',
+				description: "Event that's triggered when the element is clicked.",
+			},
+			{
+				name: 'onMouseDown',
+				type: '(event: MouseEvent<Element, globalThis.MouseEvent>) => void',
+				description: "Event that's triggered when the element has been pressed.",
+			},
+			{
+				name: 'role',
+				type: 'string',
+				description: 'Use this to override the accessibility role for the element.',
+			},
+			{
+				name: 'shouldDescriptionWrap',
+				type: 'boolean',
+				description:
+					"When `true`, the description of the item will wrap multiple lines if it's long enough.",
+			},
+			{
+				name: 'shouldTitleWrap',
+				type: 'boolean',
+				description:
+					"When `true`, the title of the item will wrap multiple lines if it's long enough.",
+			},
+		],
+	},
+	{
+		name: 'CustomItem',
+		package: '@atlaskit/menu',
+		description:
+			'A menu item that accepts a custom component for advanced use cases when ButtonItem or LinkItem do not meet your needs.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when ButtonItem or LinkItem cannot fulfill your requirements',
+			'Preserve menu item styling and behavior in custom implementations',
+		],
+		contentGuidelines: [
+			'Ensure custom components maintain accessibility',
+			'Keep custom implementations minimal',
+		],
+		keywords: ['menu', 'custom', 'item', 'component'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@compiled/react';\nimport { CustomItem, type CustomItemComponentProps } from '@atlaskit/menu';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { B100 } from '@atlaskit/theme/colors';\nimport Slack from '../icons/slack';\ntype CustomComponentWithHrefProps = CustomItemComponentProps & {\n\thref: string;\n};\nconst CustomComponent = ({ children, href, ...props }: CustomComponentWithHrefProps) => {\n\treturn (\n\t\t<a href={href} {...props}>\n\t\t\t{children}\n\t\t</a>\n\t);\n};\nconst styles = cssMap({\n\troot: {\n\t\tposition: 'relative',\n\t\toverflow: 'hidden',\n\t\tuserSelect: 'none',\n\t},\n\tinteractive: {\n\t\t'&::before': {\n\t\t\tcontent: '\"\"',\n\t\t\tposition: 'absolute',\n\t\t\tleft: 0,\n\t\t\ttop: 0,\n\t\t\tbottom: 0,\n\t\t\twidth: 3,\n\t\t\ttransform: 'translateX(-1px)',\n\t\t\ttransition: 'transform 70ms ease-in-out',\n\t\t\tbackgroundColor: B100,\n\t\t},\n\t\t'&:hover::before': {\n\t\t\ttransform: 'translateX(0)',\n\t\t},\n\t},\n});\nconst _default: () => JSX.Element = () => (\n\t/**\n\t * It is not normally acceptable to add click handlers to non-interactive elements\n\t * as this is an accessibility anti-pattern. However, because this instance is\n\t * for performance reasons (to avoid multiple click handlers) and not creating an\n\t * inaccessible custom element, we can add role=\"presentation\" so that there is\n\t * no negative impacts to assistive technologies.\n\t */\n\t<Box onClick={(e: React.MouseEvent) => e.preventDefault()} role=\"presentation\">\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system\"\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\tCustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-1\"\n\t\t\tisSelected\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\tisSelected CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-2\"\n\t\t\tisDisabled\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={styles.root}\n\t\t>\n\t\t\tisDisabled CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-3\"\n\t\t\tcomponent={CustomComponent}\n\t\t\ticonBefore={<Slack aria-label=\"\" />}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\ticonBefore CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-4\"\n\t\t\tcomponent={CustomComponent}\n\t\t\ticonBefore={<Slack aria-label=\"\" />}\n\t\t\tdescription=\"Next-gen software project\"\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\ticonBefore and description CustomItem\n\t\t</CustomItem>\n\t</Box>\n);\nexport default _default;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Primary content for the item.',
+			},
+			{
+				name: 'component',
+				type: 'React.ComponentClass<React.PropsWithChildren<TComponentProps>, any> | React.FunctionComponent<React.PropsWithChildren<TComponentProps>>',
+				description:
+					'Custom component to render as an item. This can be both a functional component or a class component.\n\nWill return `null` if no component is defined.\n\nProps passed to `CustomItem` will be passed down to this component. If the props for `component` have TypeScript types,\nCustomItem will extend them, providing type safety for your custom item.\n\nE.g. `<CustomItem to="/link" component={RouterLink} />`.\n\n__NOTE:__ Make sure the reference for this component does not change between renders else undefined behavior may happen.',
+			},
+			{
+				name: 'description',
+				type: 'string | JSX.Element',
+				description:
+					'Description of the item.\nThis will render smaller text below the primary text of the item, and slightly increase the height of the item.',
+			},
+			{
+				name: 'iconAfter',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Element to render after the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
+			},
+			{
+				name: 'iconBefore',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Element to render before the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description:
+					'Makes the element appear disabled as well as removing interactivity. Avoid disabling menu items wherever possible as this isn’t accessible or usable.',
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				description: 'Makes the element appear selected.',
+			},
+			{
+				name: 'onClick',
+				type: '(e: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLElement>) => void',
+				description: "Event that's triggered when the element is clicked.",
+			},
+			{
+				name: 'onMouseDown',
+				type: '(event: React.MouseEvent<Element, MouseEvent>) => void',
+				description: "Event that's triggered when the element has been pressed.",
+			},
+			{
+				name: 'shouldDescriptionWrap',
+				type: 'boolean',
+				description:
+					"When `true`, the description of the item will wrap multiple lines if it's long enough.",
+			},
+			{
+				name: 'shouldTitleWrap',
+				type: 'boolean',
+				description:
+					"When `true`, the title of the item will wrap multiple lines if it's long enough.",
+			},
+		],
+	},
+	{
+		name: 'HeadingItem',
+		package: '@atlaskit/menu',
+		description:
+			'A non-interactive heading within a menu section. Use to label groups of items when Section title is not used.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use to label section groups when a section title is not sufficient',
+			'Do not use for interactive content—headings are display-only',
+		],
+		contentGuidelines: ['Use clear, descriptive headings', 'Keep headings concise'],
+		keywords: ['menu', 'heading', 'item', 'label'],
+		category: 'navigation',
+		examples: [
+			"import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';\nimport MenuGroupContainer from '../common/menu-group-container';\nexport default (): React.JSX.Element => (\n\t<MenuGroupContainer>\n\t\t<MenuGroup>\n\t\t\t<Section title=\"Actions\">\n\t\t\t\t<ButtonItem>Create article</ButtonItem>\n\t\t\t</Section>\n\t\t\t<Section>\n\t\t\t\t<ButtonItem>Create article</ButtonItem>\n\t\t\t</Section>\n\t\t</MenuGroup>\n\t</MenuGroupContainer>\n);",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'The text of the heading.',
+				isRequired: true,
+			},
+			{
+				name: 'headingLevel',
+				type: '1 | 2 | 3 | 4 | 5 | 6',
+				description:
+					'Specifies the heading level in the document structure.\nIf not specified, the default is `h2`.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description:
+					'A unique identifier that can be referenced in the `labelledby` prop of a\nsection to allow assistive technology to announce the name of groups.',
+			},
+		],
+	},
+	{
+		name: 'LinkItem',
+		package: '@atlaskit/menu',
+		description:
+			'A menu item that navigates to a URL when clicked. Use for navigation links like Dashboard or Settings.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for navigation (e.g. Team Spaces, Settings)',
+			'Indicate the current page when relevant',
+			'Combine with icons for context when they add meaning',
+		],
+		contentGuidelines: ['Use clear, descriptive labels for destinations', 'Keep labels concise'],
+		keywords: ['menu', 'link', 'item', 'navigation'],
+		category: 'navigation',
+		examples: [
+			"import React, { type MouseEvent, useState } from 'react';\nimport { LinkItem, type LinkItemProps } from '@atlaskit/menu';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport ImgIcon from '../common/img-icon';\nimport koala from '../icons/koala.png';\nconst useLinkItemComputedProps = (initialSelectedHref?: string) => {\n\tconst [currentHref, setCurrentHref] = useState<string | undefined>(initialSelectedHref);\n\tconst getComputedProps = ({ href, ...restProps }: LinkItemProps) => ({\n\t\thref,\n\t\t...restProps,\n\t\tisSelected: currentHref === href,\n\t\tonClick: () => setCurrentHref(href),\n\t});\n\treturn getComputedProps;\n};\nexport default (): React.JSX.Element => {\n\tconst getComputedProps = useLinkItemComputedProps('#link-item2');\n\treturn (\n\t\t/**\n\t\t * It is not normally acceptable to add click handlers to non-interactive elements\n\t\t * as this is an accessibility anti-pattern. However, because this instance is\n\t\t * for performance reasons (to avoid multiple click handlers) and not creating an\n\t\t * inaccessible custom element, we can add role=\"presentation\" so that there is\n\t\t * no negative impacts to assistive technologies.\n\t\t */\n\t\t<Box onClick={(e: MouseEvent) => e.preventDefault()} role=\"presentation\">\n\t\t\t<LinkItem {...getComputedProps({ href: '#link-item1' })}>Customer Feedback</LinkItem>\n\t\t\t<LinkItem {...getComputedProps({ href: '#link-item2' })}>Customer Feedback</LinkItem>\n\t\t\t<LinkItem {...getComputedProps({ href: '#link-item3' })} isDisabled>\n\t\t\t\tCustomer Feedback\n\t\t\t</LinkItem>\n\t\t\t<LinkItem {...getComputedProps({ href: '#link-item4' })} description=\"Classic service desk\">\n\t\t\t\tCustomer Feedback\n\t\t\t</LinkItem>\n\t\t\t<LinkItem\n\t\t\t\t{...getComputedProps({ href: '#link-item5' })}\n\t\t\t\ticonBefore={<ImgIcon src={koala} alt={'A koala'} />}\n\t\t\t\tdescription=\"Classic service desk\"\n\t\t\t>\n\t\t\t\tCustomer Feedback\n\t\t\t</LinkItem>\n\t\t\t<LinkItem {...getComputedProps({ href: 'https://atlassian.design' })} testId=\"link-item\">\n\t\t\t\tAtlassian Design\n\t\t\t</LinkItem>\n\t\t</Box>\n\t);\n};",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Primary content for the item.',
+			},
+			{
+				name: 'description',
+				type: 'string | global.JSX.Element',
+				description:
+					'Description of the item.\nThis will render smaller text below the primary text of the item, and slightly increase the height of the item.',
+			},
+			{
+				name: 'href',
+				type: 'string',
+				description: 'Link to another page.',
+			},
+			{
+				name: 'iconAfter',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Element to render after the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
+			},
+			{
+				name: 'iconBefore',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Element to render before the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description:
+					'Makes the element appear disabled as well as removing interactivity. Avoid disabling menu items wherever possible as this isn’t accessible or usable.',
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				description: 'Makes the element appear selected.',
+			},
+			{
+				name: 'onClick',
+				type: '(e: MouseEvent<HTMLElement, globalThis.MouseEvent> | KeyboardEvent<HTMLElement>) => void',
+				description: "Event that's triggered when the element is clicked.",
+			},
+			{
+				name: 'onMouseDown',
+				type: '(event: MouseEvent<Element, globalThis.MouseEvent>) => void',
+				description: "Event that's triggered when the element has been pressed.",
+			},
+			{
+				name: 'rel',
+				type: 'string',
+				description:
+					'The relationship of the linked URL as space-separated link types.\nGenerally you\'ll want to set this to "noopener noreferrer" when `target` is "_blank".',
+			},
+			{
+				name: 'role',
+				type: 'string',
+				description: 'Use this to override the accessibility role for the element.',
+			},
+			{
+				name: 'shouldDescriptionWrap',
+				type: 'boolean',
+				description:
+					"When `true`, the description of the item will wrap multiple lines if it's long enough.",
+			},
+			{
+				name: 'shouldTitleWrap',
+				type: 'boolean',
+				description:
+					"When `true`, the title of the item will wrap multiple lines if it's long enough.",
+			},
+			{
+				name: 'target',
+				type: 'string',
+				description:
+					'Where to display the linked URL,\nsee [anchor information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) on mdn for more information.',
 			},
 		],
 	},
@@ -3242,6 +5041,190 @@ export const components: ComponentMcpPayload[] = [
 				type: '"cozy" | "compact"',
 				description: 'Configure the density of the menu group content.',
 				defaultValue: '"cozy"',
+			},
+		],
+	},
+	{
+		name: 'Section',
+		package: '@atlaskit/menu',
+		description: 'Groups related menu items together with an optional title or heading.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use to group related menu items (e.g. Actions, Settings)',
+			'Use clear section titles when grouping',
+			'Use visual separators between sections when helpful',
+		],
+		contentGuidelines: ['Use clear section titles', 'Group items logically'],
+		keywords: ['menu', 'section', 'group', 'items'],
+		category: 'navigation',
+		examples: [
+			'import { ButtonItem, HeadingItem, MenuGroup, Section } from \'@atlaskit/menu\';\nimport MenuGroupContainer from \'../common/menu-group-container\';\nexport default (): React.JSX.Element => (\n\t<MenuGroupContainer>\n\t\t<MenuGroup>\n\t\t\t<Section title="Actions">\n\t\t\t\t<ButtonItem>Create article</ButtonItem>\n\t\t\t</Section>\n\t\t\t<Section aria-labelledby="settings" hasSeparator>\n\t\t\t\t<HeadingItem id="settings">Settings</HeadingItem>\n\t\t\t\t<ButtonItem>Manage account</ButtonItem>\n\t\t\t</Section>\n\t\t</MenuGroup>\n\t</MenuGroupContainer>\n);',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
+				isRequired: true,
+			},
+			{
+				name: 'hasSeparator',
+				type: 'boolean',
+				description: 'Use this to render a border at the top of the section.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'Unique identifier for the element.',
+			},
+			{
+				name: 'isList',
+				type: 'boolean',
+				description:
+					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
+			},
+			{
+				name: 'isScrollable',
+				type: 'boolean',
+				description:
+					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'Provide an accessible label for the section via `aria-label` for assistive technology.',
+			},
+			{
+				name: 'title',
+				type: 'string',
+				description:
+					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
+			},
+			{
+				name: 'titleId',
+				type: 'string',
+				description:
+					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
+			},
+		],
+	},
+	{
+		name: 'SkeletonHeadingItem',
+		package: '@atlaskit/menu',
+		description: 'A skeleton placeholder for a menu heading during loading states.',
+		status: 'general-availability',
+		usageGuidelines: ['Use during loading when a section heading will appear'],
+		keywords: ['menu', 'skeleton', 'heading', 'loading'],
+		category: 'loading',
+		examples: [
+			"import React, { useEffect, useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport StarStarredIcon from '@atlaskit/icon/core/star-starred';\nimport StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';\nimport {\n\tButtonItem,\n\ttype ButtonItemProps,\n\tHeadingItem,\n\tMenuGroup,\n\tSection,\n\tSkeletonHeadingItem,\n\tSkeletonItem,\n} from '@atlaskit/menu';\nimport { Box, Stack, xcss } from '@atlaskit/primitives';\nimport { token } from '@atlaskit/tokens';\nimport MenuGroupContainer from '../common/menu-group-container';\nimport Invision from '../icons/invision';\nimport Portfolio from '../icons/portfolio';\nimport Slack from '../icons/slack';\nimport Tempo from '../icons/tempo';\nconst iconContainerStyles = xcss({\n\theight: 'size.200',\n\twidth: 'size.200',\n\tbackground: 'linear-gradient(180deg, #4E86EE 0%, #3562C1 100%), #4E86EE',\n\tborderRadius: 'radius.small',\n});\nconst buttonContainerStyles = xcss({\n\tdisplay: 'flex',\n\tjustifyContent: 'center',\n});\nconst Item = ({ isLoading, ...props }: ButtonItemProps & { isLoading?: boolean }) => {\n\tif (isLoading) {\n\t\treturn <SkeletonItem hasIcon isShimmering />;\n\t}\n\treturn <ButtonItem {...props} />;\n};\nconst Heading = ({ isLoading, ...props }: any) => {\n\tif (isLoading) {\n\t\treturn <SkeletonHeadingItem isShimmering />;\n\t}\n\treturn <HeadingItem {...props} />;\n};\nexport default (): React.JSX.Element => {\n\tconst [isLoading, setIsLoading] = useState(true);\n\tconst [retryLoading, setRetryLoading] = useState(true);\n\tuseEffect(() => {\n\t\tif (!retryLoading) {\n\t\t\treturn;\n\t\t}\n\t\tsetIsLoading(true);\n\t\tsetTimeout(() => {\n\t\t\tsetRetryLoading(false);\n\t\t\tsetIsLoading(false);\n\t\t}, 1500);\n\t}, [retryLoading]);\n\treturn (\n\t\t<Stack space=\"space.200\">\n\t\t\t<MenuGroupContainer>\n\t\t\t\t<MenuGroup>\n\t\t\t\t\t<Section aria-labelledby={isLoading ? '' : 'apps'}>\n\t\t\t\t\t\t<Heading aria-hidden id=\"apps\" isLoading={isLoading}>\n\t\t\t\t\t\t\tApps\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Item\n\t\t\t\t\t\t\tisLoading={isLoading}\n\t\t\t\t\t\t\ticonBefore={\n\t\t\t\t\t\t\t\t<Box xcss={iconContainerStyles}>\n\t\t\t\t\t\t\t\t\t<Portfolio color={token('color.icon.brand')} aria-label=\"\" />\n\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\ticonAfter={<StarStarredIcon color={token('color.icon.accent.orange')} label=\"\" />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tPortfolio\n\t\t\t\t\t\t</Item>\n\t\t\t\t\t\t<Item\n\t\t\t\t\t\t\tisLoading={isLoading}\n\t\t\t\t\t\t\ticonBefore={<Tempo aria-label=\"\" />}\n\t\t\t\t\t\t\ticonAfter={<StarStarredIcon color={token('color.icon.accent.orange')} label=\"\" />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tTempo timesheets\n\t\t\t\t\t\t</Item>\n\t\t\t\t\t\t<Item\n\t\t\t\t\t\t\tisLoading={isLoading}\n\t\t\t\t\t\t\ticonBefore={<Invision aria-label=\"\" />}\n\t\t\t\t\t\t\ticonAfter={<StarUnstarredIcon label=\"\" />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tInvision\n\t\t\t\t\t\t</Item>\n\t\t\t\t\t\t<Item isLoading={isLoading} iconBefore={<Slack aria-label=\"\" />}>\n\t\t\t\t\t\t\tSlack\n\t\t\t\t\t\t</Item>\n\t\t\t\t\t</Section>\n\t\t\t\t\t<Section hasSeparator>\n\t\t\t\t\t\t<Item>Find new apps</Item>\n\t\t\t\t\t\t<Item>Manage your apps</Item>\n\t\t\t\t\t</Section>\n\t\t\t\t</MenuGroup>\n\t\t\t</MenuGroupContainer>\n\t\t\t<Box xcss={buttonContainerStyles}>\n\t\t\t\t<Button testId=\"toggle-loading\" onClick={() => setRetryLoading(true)}>\n\t\t\t\t\tReload\n\t\t\t\t</Button>\n\t\t\t</Box>\n\t\t</Stack>\n\t);\n};",
+		],
+		props: [
+			{
+				name: 'isShimmering',
+				type: 'boolean',
+				description:
+					'Causes to the skeleton to have a slight horizontal shimmer.\nOnly use this when you want to bring more attention to the loading content.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'width',
+				type: 'string | number',
+				description:
+					"Width of the skeleton heading item.\nYou usually don't need to specify this, as it has a staggered width based on `:nth-child` by default.",
+			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				description: 'Bounded style overrides.',
+			},
+		],
+	},
+	{
+		name: 'SkeletonItem',
+		package: '@atlaskit/menu',
+		description: 'A skeleton placeholder for a menu item during loading states.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use during loading to maintain layout stability',
+			'Match the shape of the loaded item (e.g. with or without icon)',
+		],
+		keywords: ['menu', 'skeleton', 'loading', 'placeholder'],
+		category: 'loading',
+		examples: [
+			"import React, { useEffect, useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport StarStarredIcon from '@atlaskit/icon/core/star-starred';\nimport StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';\nimport {\n\tButtonItem,\n\ttype ButtonItemProps,\n\tHeadingItem,\n\tMenuGroup,\n\tSection,\n\tSkeletonHeadingItem,\n\tSkeletonItem,\n} from '@atlaskit/menu';\nimport { Box, Stack, xcss } from '@atlaskit/primitives';\nimport { token } from '@atlaskit/tokens';\nimport MenuGroupContainer from '../common/menu-group-container';\nimport Invision from '../icons/invision';\nimport Portfolio from '../icons/portfolio';\nimport Slack from '../icons/slack';\nimport Tempo from '../icons/tempo';\nconst iconContainerStyles = xcss({\n\theight: 'size.200',\n\twidth: 'size.200',\n\tbackground: 'linear-gradient(180deg, #4E86EE 0%, #3562C1 100%), #4E86EE',\n\tborderRadius: 'radius.small',\n});\nconst buttonContainerStyles = xcss({\n\tdisplay: 'flex',\n\tjustifyContent: 'center',\n});\nconst Item = ({ isLoading, ...props }: ButtonItemProps & { isLoading?: boolean }) => {\n\tif (isLoading) {\n\t\treturn <SkeletonItem hasIcon isShimmering />;\n\t}\n\treturn <ButtonItem {...props} />;\n};\nconst Heading = ({ isLoading, ...props }: any) => {\n\tif (isLoading) {\n\t\treturn <SkeletonHeadingItem isShimmering />;\n\t}\n\treturn <HeadingItem {...props} />;\n};\nexport default (): React.JSX.Element => {\n\tconst [isLoading, setIsLoading] = useState(true);\n\tconst [retryLoading, setRetryLoading] = useState(true);\n\tuseEffect(() => {\n\t\tif (!retryLoading) {\n\t\t\treturn;\n\t\t}\n\t\tsetIsLoading(true);\n\t\tsetTimeout(() => {\n\t\t\tsetRetryLoading(false);\n\t\t\tsetIsLoading(false);\n\t\t}, 1500);\n\t}, [retryLoading]);\n\treturn (\n\t\t<Stack space=\"space.200\">\n\t\t\t<MenuGroupContainer>\n\t\t\t\t<MenuGroup>\n\t\t\t\t\t<Section aria-labelledby={isLoading ? '' : 'apps'}>\n\t\t\t\t\t\t<Heading aria-hidden id=\"apps\" isLoading={isLoading}>\n\t\t\t\t\t\t\tApps\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Item\n\t\t\t\t\t\t\tisLoading={isLoading}\n\t\t\t\t\t\t\ticonBefore={\n\t\t\t\t\t\t\t\t<Box xcss={iconContainerStyles}>\n\t\t\t\t\t\t\t\t\t<Portfolio color={token('color.icon.brand')} aria-label=\"\" />\n\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\ticonAfter={<StarStarredIcon color={token('color.icon.accent.orange')} label=\"\" />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tPortfolio\n\t\t\t\t\t\t</Item>\n\t\t\t\t\t\t<Item\n\t\t\t\t\t\t\tisLoading={isLoading}\n\t\t\t\t\t\t\ticonBefore={<Tempo aria-label=\"\" />}\n\t\t\t\t\t\t\ticonAfter={<StarStarredIcon color={token('color.icon.accent.orange')} label=\"\" />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tTempo timesheets\n\t\t\t\t\t\t</Item>\n\t\t\t\t\t\t<Item\n\t\t\t\t\t\t\tisLoading={isLoading}\n\t\t\t\t\t\t\ticonBefore={<Invision aria-label=\"\" />}\n\t\t\t\t\t\t\ticonAfter={<StarUnstarredIcon label=\"\" />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tInvision\n\t\t\t\t\t\t</Item>\n\t\t\t\t\t\t<Item isLoading={isLoading} iconBefore={<Slack aria-label=\"\" />}>\n\t\t\t\t\t\t\tSlack\n\t\t\t\t\t\t</Item>\n\t\t\t\t\t</Section>\n\t\t\t\t\t<Section hasSeparator>\n\t\t\t\t\t\t<Item>Find new apps</Item>\n\t\t\t\t\t\t<Item>Manage your apps</Item>\n\t\t\t\t\t</Section>\n\t\t\t\t</MenuGroup>\n\t\t\t</MenuGroupContainer>\n\t\t\t<Box xcss={buttonContainerStyles}>\n\t\t\t\t<Button testId=\"toggle-loading\" onClick={() => setRetryLoading(true)}>\n\t\t\t\t\tReload\n\t\t\t\t</Button>\n\t\t\t</Box>\n\t\t</Stack>\n\t);\n};",
+		],
+		props: [
+			{
+				name: 'hasAvatar',
+				type: 'boolean',
+				description:
+					'Renders a skeleton circle in the `iconBefore` location.\nTakes priority over `hasIcon`.',
+			},
+			{
+				name: 'hasIcon',
+				type: 'boolean',
+				description: 'Renders a skeleton square in the `iconBefore` location.',
+			},
+			{
+				name: 'isShimmering',
+				type: 'boolean',
+				description:
+					'Causes to the skeleton to have a slight horizontal shimmer.\nOnly use this when you want to bring more attention to the loading content.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'width',
+				type: 'string | number',
+				description:
+					"Width of the skeleton item.\nYou usually don't need to specify this, as it has a staggered width based on `:nth-child` by default.",
+			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"minHeight" | "paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				description: 'Bounded style overrides.',
+			},
+		],
+	},
+	{
+		name: 'CloseButton',
+		package: '@atlaskit/modal-dialog',
+		description:
+			'An accessible close button for use in custom modal headers. Ensures users have an obvious way to close the modal.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when customizing ModalHeader without hasCloseButton',
+			'Render CloseButton first in DOM for proper focus order',
+			'Use Flex with row-reverse if close should appear on the right',
+			'Provide label prop for custom accessible name',
+		],
+		accessibilityGuidelines: [
+			'Close button is required for modals (consult a11y team for rare exceptions)',
+			'Ensure close button is keyboard accessible',
+		],
+		keywords: ['modal', 'close', 'button', 'dismiss'],
+		category: 'overlay',
+		examples: [
+			"import React, { Fragment, useCallback, useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading';\nimport Modal, {\n\tCloseButton,\n\tModalBody,\n\tModalFooter,\n\tModalTransition,\n\tuseModal,\n} from '@atlaskit/modal-dialog';\nimport { Box } from '@atlaskit/primitives/compiled';\nconst styles = cssMap({\n\theader: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'space-between',\n\t\tflexDirection: 'row-reverse',\n\t},\n});\nconst CustomHeader = () => {\n\tconst { onClose, titleId } = useModal();\n\treturn (\n\t\t<Box xcss={styles.header} padding=\"space.300\">\n\t\t\t{/* We have the close button first in the DOM and then are reversing it\n\t\t\tusing the flex styles to ensure that it is focused as the first\n\t\t\tinteractive element in the modal, *before* any other relevant content\n\t\t\tinside the modal. This ensures users of assistive technology get all\n\t\t\trelevant content. */}\n\t\t\t<CloseButton onClick={onClose} />\n\t\t\t<Heading as=\"h1\" size=\"medium\" id={titleId}>\n\t\t\t\tCustom modal header\n\t\t\t</Heading>\n\t\t</Box>\n\t);\n};\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup=\"dialog\" appearance=\"primary\" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t// This is fixed in the custom header\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<CustomHeader />\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tIf you wish to customise a modal dialog, it accepts any valid React element as\n\t\t\t\t\t\t\t\tchildren.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal header accepts any valid React element as children, so you can use modal title\n\t\t\t\t\t\t\t\tin conjunction with other elements like an exit button in the top right.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal footer accepts any valid React element as children. For example, you can add\n\t\t\t\t\t\t\t\tan avatar in the footer. For very custom use cases, you can achieve the same thing\n\t\t\t\t\t\t\t\twithout modal footer.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance=\"subtle\">About modals</Button>\n\t\t\t\t\t\t\t<Button appearance=\"primary\" onClick={closeModal}>\n\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'label',
+				type: 'string',
+				description: 'The accessible name to give to the close button.',
+			},
+			{
+				name: 'onBlur',
+				type: '(event: React.FocusEvent<HTMLButtonElement, Element>) => void',
+				description: 'The `onBlur` handler for the close button.',
+			},
+			{
+				name: 'onClick',
+				type: '(e: KeyboardOrMouseEvent, analyticEvent: UIAnalyticsEvent) => void',
+				description: 'The same close handler you give to the top-level modal component.',
+				isRequired: true,
 			},
 		],
 	},
@@ -3362,6 +5345,156 @@ export const components: ComponentMcpPayload[] = [
 				type: 'string | number',
 				description:
 					'Width of the modal dialog.\nThe recommended way to specify modal width is using named size options.',
+			},
+		],
+	},
+	{
+		name: 'ModalBody',
+		package: '@atlaskit/modal-dialog',
+		description: 'The main content area of a modal dialog.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for the primary content between header and footer',
+			'Accepts any valid React element as children',
+			'Handles overflow and scrolling when content exceeds viewport',
+		],
+		contentGuidelines: ['Keep content focused on a single task', 'Use clear, readable content'],
+		keywords: ['modal', 'body', 'content'],
+		category: 'overlay',
+		examples: [
+			'import React, { Fragment, useCallback, useState } from \'react\';\nimport Button from \'@atlaskit/button/new\';\nimport Modal, {\n\tModalBody,\n\tModalFooter,\n\tModalHeader,\n\tModalTitle,\n\tModalTransition,\n} from \'@atlaskit/modal-dialog\';\nimport { Text } from \'@atlaskit/primitives/compiled\';\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Duplicate this page</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\tDuplicating this page will make it a child page of{\' \'}\n\t\t\t\t\t\t\t<Text weight="bold">Search - user exploration</Text>, in the{\' \'}\n\t\t\t\t\t\t\t<Text weight="bold">Search & Smarts</Text> space.\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance="subtle" onClick={closeModal}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\tDuplicate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Children of modal dialog footer.',
+				isRequired: true,
+			},
+			{
+				name: 'hasInlinePadding',
+				type: 'boolean',
+				description: 'Determines whether inline padding will be applied. Defaults to true.',
+			},
+		],
+	},
+	{
+		name: 'ModalFooter',
+		package: '@atlaskit/modal-dialog',
+		description: 'The footer section of a modal dialog, typically containing action buttons.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for primary and secondary actions',
+			'Primary button on the right of secondary',
+			'Include Cancel/Close for dismissal',
+			'Accepts any valid React element for custom layouts',
+		],
+		contentGuidelines: [
+			'Primary button label should reflect the modal title',
+			'Use action verbs in button labels',
+		],
+		keywords: ['modal', 'footer', 'actions', 'buttons'],
+		category: 'overlay',
+		examples: [
+			'/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { Fragment, useCallback, useState } from \'react\';\nimport Avatar from \'@atlaskit/avatar\';\nimport Button from \'@atlaskit/button/new\';\nimport { cssMap, jsx } from \'@atlaskit/css\';\nimport Modal, {\n\tModalBody,\n\tModalFooter,\n\tModalHeader,\n\tModalTitle,\n\tModalTransition,\n} from \'@atlaskit/modal-dialog\';\nimport { Flex, Text } from \'@atlaskit/primitives/compiled\';\nconst styles = cssMap({\n\tfooter: { flex: \'1\' },\n});\nexport default function Example(): JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Default modal footer</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tIf you wish to customise a modal dialog, it accepts any valid React element as\n\t\t\t\t\t\t\t\tchildren.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal header accepts any valid React element as children, so you can use modal title\n\t\t\t\t\t\t\t\tin conjunction with other elements like an exit button in the top right.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal footer accepts any valid React element as children. For example, you can add\n\t\t\t\t\t\t\t\tan avatar in the footer. For very custom use cases, you can achieve the same thing\n\t\t\t\t\t\t\t\twithout modal footer.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Flex xcss={styles.footer} justifyContent="space-between">\n\t\t\t\t\t\t\t\t<Flex alignItems="center" gap="space.100">\n\t\t\t\t\t\t\t\t\t<Avatar\n\t\t\t\t\t\t\t\t\t\tsize="small"\n\t\t\t\t\t\t\t\t\t\tsrc="https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg"\n\t\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t\t\t<Text>Hey there!</Text>\n\t\t\t\t\t\t\t\t</Flex>\n\t\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t</Flex>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Children of modal dialog footer.',
+			},
+		],
+	},
+	{
+		name: 'ModalHeader',
+		package: '@atlaskit/modal-dialog',
+		description:
+			'The header section of a modal dialog, typically containing the title and optional close button.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use as the first child of Modal',
+			'Use hasCloseButton prop for standard close affordance',
+			'Ensure header contains ModalTitle or equivalent for accessibility',
+			'For custom headers, use CloseButton as first element in DOM',
+		],
+		contentGuidelines: ['Use clear, descriptive titles', 'Keep header content focused'],
+		keywords: ['modal', 'header', 'title', 'close'],
+		category: 'overlay',
+		examples: [
+			'import React, { Fragment, useCallback, useState } from \'react\';\nimport Button from \'@atlaskit/button/new\';\nimport Modal, {\n\tModalBody,\n\tModalFooter,\n\tModalHeader,\n\tModalTitle,\n\tModalTransition,\n} from \'@atlaskit/modal-dialog\';\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Default modal header</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tIf you wish to customise a modal dialog, it accepts any valid React element as\n\t\t\t\t\t\t\t\tchildren.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal header accepts any valid React element as children, so you can use modal title\n\t\t\t\t\t\t\t\tin conjunction with other elements like an exit button in the top right.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tModal footer accepts any valid React element as children. For example, you can add\n\t\t\t\t\t\t\t\tan avatar in the footer. For very custom use cases, you can achieve the same thing\n\t\t\t\t\t\t\t\twithout modal footer.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance="subtle">About modals</Button>\n\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Children of modal dialog header.',
+			},
+			{
+				name: 'hasCloseButton',
+				type: 'boolean',
+				description: 'Shows a close button at the end of the header.',
+				defaultValue: 'false',
+			},
+		],
+	},
+	{
+		name: 'ModalTitle',
+		package: '@atlaskit/modal-dialog',
+		description: 'The title element for a modal dialog. Renders as h1 for accessibility.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use inside ModalHeader for the modal title',
+			'Modal must have a title for accessibility',
+			'Supports any valid React element as children',
+		],
+		contentGuidelines: ['Use clear, descriptive titles', 'Use sentence case'],
+		keywords: ['modal', 'title', 'heading'],
+		category: 'overlay',
+		examples: [
+			'import React, { Fragment, useCallback, useState } from \'react\';\nimport Button from \'@atlaskit/button/new\';\nimport Modal, {\n\tModalBody,\n\tModalFooter,\n\tModalHeader,\n\tModalTitle,\n\tModalTransition,\n} from \'@atlaskit/modal-dialog\';\nimport { Text } from \'@atlaskit/primitives/compiled\';\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Duplicate this page</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\tDuplicating this page will make it a child page of{\' \'}\n\t\t\t\t\t\t\t<Text weight="bold">Search - user exploration</Text>, in the{\' \'}\n\t\t\t\t\t\t\t<Text weight="bold">Search & Smarts</Text> space.\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance="subtle" onClick={closeModal}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\tDuplicate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"danger" | "warning"',
+				description:
+					'Appearance of the modal that changes the color of the primary action and adds an icon to the title.',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description: 'Children of modal dialog header.',
+			},
+			{
+				name: 'isMultiline',
+				type: 'boolean',
+				description:
+					'When `true` will allow the title to span multiple lines.\nDefaults to `true`.',
+			},
+		],
+	},
+	{
+		name: 'ModalTransition',
+		package: '@atlaskit/modal-dialog',
+		description: 'A wrapper that provides enter/exit transitions for modal content.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Wrap Modal with ModalTransition for animated open/close',
+			'Use when modal visibility is controlled by state',
+			'Children mount when visible and unmount when closed',
+		],
+		keywords: ['modal', 'transition', 'animation'],
+		category: 'overlay',
+		examples: [
+			'import React, { Fragment, useCallback, useState } from \'react\';\nimport Button from \'@atlaskit/button/new\';\nimport Modal, {\n\tModalBody,\n\tModalFooter,\n\tModalHeader,\n\tModalTitle,\n\tModalTransition,\n} from \'@atlaskit/modal-dialog\';\nimport { Text } from \'@atlaskit/primitives/compiled\';\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Duplicate this page</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\tDuplicating this page will make it a child page of{\' \'}\n\t\t\t\t\t\t\t<Text weight="bold">Search - user exploration</Text>, in the{\' \'}\n\t\t\t\t\t\t\t<Text weight="bold">Search & Smarts</Text> space.\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance="subtle" onClick={closeModal}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance="primary" onClick={closeModal}>\n\t\t\t\t\t\t\t\tDuplicate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Children can be any valid react node.\nEither a single element,\nmultiple elements,\nor multiple elements in an array.',
 			},
 		],
 	},
@@ -4022,7 +6155,7 @@ export const components: ComponentMcpPayload[] = [
 		name: 'Flex',
 		package: '@atlaskit/primitives',
 		description: 'A primitive Flex component for flexbox layout with compiled styling support.',
-		status: 'general-availability',
+		status: 'open-beta',
 		usageGuidelines: [
 			'Use for flexbox layout needs',
 			'Leverage compiled styling for performance',
@@ -4165,7 +6298,7 @@ export const components: ComponentMcpPayload[] = [
 		name: 'Grid',
 		package: '@atlaskit/primitives',
 		description: 'A primitive Grid component for CSS Grid layout with compiled styling support.',
-		status: 'general-availability',
+		status: 'open-beta',
 		usageGuidelines: [
 			'Use for CSS Grid layout needs',
 			'Leverage compiled styling for performance',
@@ -5141,7 +7274,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['section', 'message', 'alert', 'notification', 'contextual', 'information'],
 		category: 'feedback',
 		examples: [
-			'import { Text } from \'@atlaskit/primitives/compiled\';\nimport SectionMessage, { SectionMessageAction } from \'@atlaskit/section-message\';\nexport default [\n\t<SectionMessage appearance="information" title="Information">\n\t\t<Text>This is an informational message to help users understand something important.</Text>\n\t</SectionMessage>,\n\t<SectionMessage appearance="warning" title="Warning">\n\t\t<Text>Please review your settings before proceeding with this action.</Text>\n\t</SectionMessage>,\n\t<SectionMessage\n\t\tappearance="success"\n\t\ttitle="Success"\n\t\tactions={[\n\t\t\t<SectionMessageAction href="#">View Details</SectionMessageAction>,\n\t\t\t<SectionMessageAction href="#">Share Results</SectionMessageAction>,\n\t\t]}\n\t>\n\t\t<Text>Your changes have been saved successfully!</Text>\n\t</SectionMessage>,\n];',
+			'import { Text } from \'@atlaskit/primitives/compiled\';\nimport SectionMessage, { SectionMessageAction } from \'@atlaskit/section-message\';\nconst _default_1: React.JSX.Element[] = [\n\t<SectionMessage appearance="information" title="Information">\n\t\t<Text>This is an informational message to help users understand something important.</Text>\n\t</SectionMessage>,\n\t<SectionMessage appearance="warning" title="Warning">\n\t\t<Text>Please review your settings before proceeding with this action.</Text>\n\t</SectionMessage>,\n\t<SectionMessage\n\t\tappearance="success"\n\t\ttitle="Success"\n\t\tactions={[\n\t\t\t<SectionMessageAction href="#">View Details</SectionMessageAction>,\n\t\t\t<SectionMessageAction href="#">Share Results</SectionMessageAction>,\n\t\t]}\n\t>\n\t\t<Text>Your changes have been saved successfully!</Text>\n\t</SectionMessage>,\n];\nexport default _default_1;',
 		],
 		props: [
 			{
@@ -5187,9 +7320,2195 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'AsyncSelect',
+		package: '@atlaskit/select',
+		description:
+			'A select component that loads options asynchronously. Use when options are fetched from an API or loaded on demand.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for options loaded from API or async data',
+			'Provide clear loading states while fetching',
+			'Cache options when users search repeatedly',
+		],
+		keywords: ['select', 'async', 'dropdown', 'form', 'api'],
+		category: 'form',
+		examples: [
+			"import { Label } from '@atlaskit/form';\nimport Select, { type OptionsType } from '@atlaskit/select';\nimport { cities } from '../common/data';\nconst filterCities = (inputValue: string) =>\n\tcities.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));\nconst promiseOptions = (inputValue: string) =>\n\tnew Promise<OptionsType>((resolve) => {\n\t\tsetTimeout(() => {\n\t\t\tresolve(filterCities(inputValue));\n\t\t}, 1000);\n\t});\nconst WithPromises = () => {\n\treturn (\n\t\t<>\n\t\t\t<Label htmlFor=\"async-select-example\">What city do you live in?</Label>\n\t\t\t<Select\n\t\t\t\tinputId=\"async-select-example\"\n\t\t\t\tcacheOptions\n\t\t\t\tdefaultOptions\n\t\t\t\tloadOptions={promiseOptions}\n\t\t\t/>\n\t\t</>\n\t);\n};\nexport default (): React.JSX.Element => <WithPromises />;",
+		],
+		props: [
+			{
+				name: 'allowCreateWhileLoading',
+				type: 'any',
+				description:
+					'Allow options to be created while the `isLoading` prop is true. Useful to\nprevent the "create new ..." option being displayed while async results are\nstill being loaded.',
+			},
+			{
+				name: 'appearance',
+				type: '"default" | "subtle" | "none"',
+			},
+			{
+				name: 'autoFocus',
+				type: 'boolean',
+				description:
+					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
+			},
+			{
+				name: 'blurInputOnSelect',
+				type: 'boolean',
+				description:
+					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
+			},
+			{
+				name: 'cacheOptions',
+				type: 'any',
+				description:
+					'If cacheOptions is truthy, then the loaded data will be cached. The cache\nwill remain until `cacheOptions` changes value.',
+			},
+			{
+				name: 'classNamePrefix',
+				type: 'string',
+				description:
+					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
+			},
+			{
+				name: 'classNames',
+				type: '{ clearIndicator?: (props: ClearIndicatorProps<Option, IsMulti, GroupBase<Option>>) => string; container?: (props: ContainerProps<Option, IsMulti, GroupBase<...>>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				description: 'Provide classNames based on state for each inner component',
+			},
+			{
+				name: 'clearControlLabel',
+				type: 'string',
+				description: 'Set the `aria-label` for the clear icon button.',
+			},
+			{
+				name: 'closeMenuOnSelect',
+				type: 'boolean',
+				description: 'Close the select menu when the user selects an option',
+			},
+			{
+				name: 'components',
+				type: '{ Option?: React.ComponentType<OptionProps<Option, IsMulti, GroupBase<Option>>>; Group?: React.ComponentType<GroupProps<Option, IsMulti, GroupBase<...>>>; ... 19 more ...; ValueContainer?: React.ComponentType<...>; }',
+				description:
+					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
+			},
+			{
+				name: 'createOptionPosition',
+				type: 'any',
+				description:
+					"Sets the position of the createOption element in your options list. Defaults to 'last'",
+			},
+			{
+				name: 'defaultInputValue',
+				type: 'string',
+			},
+			{
+				name: 'defaultMenuIsOpen',
+				type: 'boolean',
+			},
+			{
+				name: 'defaultOptions',
+				type: 'any',
+				description:
+					"The default set of options to show before the user starts searching. When\nset to `true`, the results for loadOptions('') will be autoloaded.",
+			},
+			{
+				name: 'defaultValue',
+				type: 'Option | MultiValue<Option>',
+			},
+			{
+				name: 'descriptionId',
+				type: 'string',
+				description:
+					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
+			},
+			{
+				name: 'filterOption',
+				type: '(option: FilterOptionOption<Option>, inputValue: string) => boolean',
+				description: 'Custom method to filter whether an option should be displayed in the menu',
+			},
+			{
+				name: 'form',
+				type: 'string',
+				description: 'Sets the form attribute on the input',
+			},
+			{
+				name: 'formatCreateLabel',
+				type: 'any',
+				description:
+					'Gets the label for the "create new ..." option in the menu. Is given the\ncurrent input value.',
+			},
+			{
+				name: 'formatGroupLabel',
+				type: '(group: GroupBase<Option>) => React.ReactNode',
+				description:
+					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'formatOptionLabel',
+				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode)',
+				description: 'Formats option labels in the menu and control as React components',
+			},
+			{
+				name: 'getNewOptionData',
+				type: 'any',
+				description:
+					'Returns the data for the new option when it is created. Used to display the\nvalue, and is passed to `onChange`.',
+			},
+			{
+				name: 'getOptionLabel',
+				type: '(option: Option) => string',
+				description:
+					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
+			},
+			{
+				name: 'getOptionValue',
+				type: '(option: Option) => string',
+				description:
+					'Resolves option data to a string to compare options and specify value attributes',
+			},
+			{
+				name: 'hideSelectedOptions',
+				type: 'boolean',
+				description: 'Hide the selected option from the menu',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'The id to set on the SelectContainer component.',
+			},
+			{
+				name: 'inputId',
+				type: 'string',
+				description: 'The id of the search input',
+			},
+			{
+				name: 'inputValue',
+				type: 'string',
+				description: 'The value of the search input',
+			},
+			{
+				name: 'instanceId',
+				type: 'string | number',
+				description: 'Define an id prefix for the select components e.g. {your-id}-value',
+			},
+			{
+				name: 'isClearable',
+				type: 'boolean',
+				description: 'Is the select value clearable',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: 'Is the select disabled',
+			},
+			{
+				name: 'isInvalid',
+				type: 'boolean',
+				description: 'Is the select invalid',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+				description:
+					'Is the select in a state of loading (async)\nIs the select in a state of loading (async)\nWill cause the select to be displayed in the loading state, even if the\nAsync select is not currently waiting for loadOptions to resolve',
+			},
+			{
+				name: 'isMulti',
+				type: 'boolean',
+				description: 'Support multiple selected options',
+			},
+			{
+				name: 'isOptionDisabled',
+				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				description:
+					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'isOptionSelected',
+				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				description: 'Override the built-in logic to detect whether an option is selected',
+			},
+			{
+				name: 'isRequired',
+				type: 'boolean',
+				description: 'This prop indicates if the component is required.',
+			},
+			{
+				name: 'isSearchable',
+				type: 'boolean',
+				description: 'Whether to enable search functionality',
+			},
+			{
+				name: 'isValidNewOption',
+				type: 'any',
+				description:
+					'Determines whether the "create new ..." option should be displayed based on\nthe current input value, select value and options array.',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
+			},
+			{
+				name: 'labelId',
+				type: 'string',
+				description:
+					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
+			},
+			{
+				name: 'loadingMessage',
+				type: '(obj: { inputValue: string; }) => React.ReactNode',
+				description: 'Async: Text to display when loading options',
+			},
+			{
+				name: 'loadOptions',
+				type: 'any',
+				description:
+					'Function that returns a promise, which is the set of options to be used\nonce the promise resolves.',
+			},
+			{
+				name: 'maxMenuHeight',
+				type: 'number',
+				description: 'Maximum height of the menu before scrolling',
+			},
+			{
+				name: 'menuIsOpen',
+				type: 'boolean',
+				description: 'Whether the menu is open',
+			},
+			{
+				name: 'menuPlacement',
+				type: '"auto" | "bottom" | "top"',
+				description:
+					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
+			},
+			{
+				name: 'menuPortalTarget',
+				type: 'HTMLElement',
+				description:
+					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
+			},
+			{
+				name: 'menuPosition',
+				type: '"absolute" | "fixed"',
+				description:
+					'The CSS position value of the menu, when "fixed" extra layout management is required',
+			},
+			{
+				name: 'menuShouldScrollIntoView',
+				type: 'boolean',
+				description: 'Whether the menu should be scrolled into view when it opens',
+			},
+			{
+				name: 'minMenuHeight',
+				type: 'number',
+				description: 'Minimum height of the menu before flipping',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
+			},
+			{
+				name: 'noOptionsMessage',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | ((obj: { inputValue: string; }) => React.ReactNode)',
+				description: 'Text to display when there are no options',
+			},
+			{
+				name: 'onBlur',
+				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle blur events on the control',
+			},
+			{
+				name: 'onChange',
+				type: '(newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void',
+				description: 'Handle change events on the select',
+			},
+			{
+				name: 'onClickPreventDefault',
+				type: 'boolean',
+			},
+			{
+				name: 'onCreateOption',
+				type: 'any',
+				description:
+					'If provided, this will be called with the input value when a new option is\ncreated, and `onChange` will **not** be called. Use this when you need more\ncontrol over what happens when new options are created.',
+			},
+			{
+				name: 'onFocus',
+				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle focus events on the control',
+			},
+			{
+				name: 'onInputChange',
+				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				description: 'Handle change events on the input',
+			},
+			{
+				name: 'onKeyDown',
+				type: '(event: React.KeyboardEvent<HTMLDivElement>) => void',
+				description: 'Handle key down events on the select',
+			},
+			{
+				name: 'onMenuClose',
+				type: '() => void',
+				description: 'Handle the menu closing',
+			},
+			{
+				name: 'onMenuOpen',
+				type: '() => void',
+				description: 'Handle the menu opening',
+			},
+			{
+				name: 'onMenuScrollToBottom',
+				type: '(event: WheelEvent | TouchEvent) => void',
+				description: 'Fired when the user scrolls to the bottom of the menu',
+			},
+			{
+				name: 'onMenuScrollToTop',
+				type: '(event: WheelEvent | TouchEvent) => void',
+				description: 'Fired when the user scrolls to the top of the menu',
+			},
+			{
+				name: 'options',
+				type: 'readonly (Option | GroupBase<Option>)[]',
+				description: 'Array of options that populate the select menu',
+			},
+			{
+				name: 'pageSize',
+				type: 'number',
+				description: 'Number of options to jump in menu when page{up|down} keys are used',
+			},
+			{
+				name: 'placeholder',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Placeholder for the select value',
+			},
+			{
+				name: 'shouldKeepInputOnSelect',
+				type: 'boolean',
+				description:
+					'If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.',
+			},
+			{
+				name: 'shouldPreventEscapePropagation',
+				type: 'boolean',
+				description: 'Prevents "Escape" keydown event propagation',
+			},
+			{
+				name: 'spacing',
+				type: '"compact" | "default"',
+				description:
+					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
+			},
+			{
+				name: 'tabIndex',
+				type: 'number',
+				description:
+					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
+			},
+			{
+				name: 'value',
+				type: 'Option | MultiValue<Option>',
+				description: 'The value of the select; reflected by the selected option',
+			},
+		],
+	},
+	{
+		name: 'CheckboxSelect',
+		package: '@atlaskit/select',
+		description:
+			'A multi-select with checkbox indicators for each option. Use when multiple selections need explicit visual confirmation.',
+		status: 'general-availability',
+		usageGuidelines: ['Use for multi-select when checkbox affordance improves clarity'],
+		keywords: ['select', 'checkbox', 'multi', 'dropdown', 'form'],
+		category: 'form',
+		examples: [
+			'import { Label } from \'@atlaskit/form\';\nimport { CheckboxSelect } from \'@atlaskit/select\';\nimport { cities } from \'../common/data\';\nconst SelectCheckboxExample = (): React.JSX.Element => (\n\t<>\n\t\t<Label htmlFor="checkbox-select-example">What cities have you lived in?</Label>\n\t\t<CheckboxSelect\n\t\t\tinputId="checkbox-select-example"\n\t\t\ttestId="select"\n\t\t\toptions={[\n\t\t\t\t...cities,\n\t\t\t\t{\n\t\t\t\t\tlabel:\n\t\t\t\t\t\t"Super long name that no one will ever read because it\'s way too long to be a realistic option but it will highlight the flexbox grow and shrink styles",\n\t\t\t\t\tvalue: \'test\',\n\t\t\t\t},\n\t\t\t]}\n\t\t\tplaceholder=""\n\t\t/>\n\t</>\n);\nexport default SelectCheckboxExample;',
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"default" | "subtle" | "none"',
+			},
+			{
+				name: 'autoFocus',
+				type: 'boolean',
+				description:
+					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
+			},
+			{
+				name: 'blurInputOnSelect',
+				type: 'boolean',
+				description:
+					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
+			},
+			{
+				name: 'classNamePrefix',
+				type: 'string',
+				description:
+					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
+			},
+			{
+				name: 'classNames',
+				type: '{ clearIndicator?: (props: ClearIndicatorProps<OptionT, true, GroupBase<OptionT>>) => string; container?: (props: ContainerProps<OptionT, true, GroupBase<...>>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				description: 'Provide classNames based on state for each inner component',
+			},
+			{
+				name: 'clearControlLabel',
+				type: 'string',
+				description: 'Set the `aria-label` for the clear icon button.',
+			},
+			{
+				name: 'closeMenuOnSelect',
+				type: 'boolean',
+				description: 'Close the select menu when the user selects an option',
+			},
+			{
+				name: 'components',
+				type: '{ Option?: React.ComponentType<OptionProps<OptionT, true, GroupBase<OptionT>>>; Group?: React.ComponentType<GroupProps<OptionT, true, GroupBase<OptionT>>>; ... 19 more ...; ValueContainer?: React.ComponentType<...>; }',
+				description:
+					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
+			},
+			{
+				name: 'defaultInputValue',
+				type: 'string',
+			},
+			{
+				name: 'defaultMenuIsOpen',
+				type: 'boolean',
+			},
+			{
+				name: 'defaultValue',
+				type: 'OptionT | MultiValue<OptionT>',
+			},
+			{
+				name: 'descriptionId',
+				type: 'string',
+				description:
+					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
+			},
+			{
+				name: 'filterOption',
+				type: '(option: FilterOptionOption<OptionT>, inputValue: string) => boolean',
+				description: 'Custom method to filter whether an option should be displayed in the menu',
+			},
+			{
+				name: 'form',
+				type: 'string',
+				description: 'Sets the form attribute on the input',
+			},
+			{
+				name: 'formatGroupLabel',
+				type: '(group: GroupBase<OptionT>) => React.ReactNode',
+				description:
+					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'formatOptionLabel',
+				type: '(data: OptionT, formatOptionLabelMeta: FormatOptionLabelMeta<OptionT>) => React.ReactNode',
+			},
+			{
+				name: 'getOptionLabel',
+				type: '(option: OptionT) => string',
+				description:
+					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
+			},
+			{
+				name: 'getOptionValue',
+				type: '(option: OptionT) => string',
+				description:
+					'Resolves option data to a string to compare options and specify value attributes',
+			},
+			{
+				name: 'hideSelectedOptions',
+				type: 'boolean',
+				description: 'Hide the selected option from the menu',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'The id to set on the SelectContainer component.',
+			},
+			{
+				name: 'inputId',
+				type: 'string',
+				description: 'The id of the search input',
+			},
+			{
+				name: 'inputValue',
+				type: 'string',
+				description: 'The value of the search input',
+			},
+			{
+				name: 'instanceId',
+				type: 'string | number',
+				description: 'Define an id prefix for the select components e.g. {your-id}-value',
+			},
+			{
+				name: 'isClearable',
+				type: 'boolean',
+				description: 'Is the select value clearable',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: 'Is the select disabled',
+			},
+			{
+				name: 'isInvalid',
+				type: 'boolean',
+				description: 'Is the select invalid',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+				description: 'Is the select in a state of loading (async)',
+			},
+			{
+				name: 'isMulti',
+				type: 'boolean',
+				description: 'Support multiple selected options',
+			},
+			{
+				name: 'isOptionDisabled',
+				type: '(option: OptionT, selectValue: Options<OptionT>) => boolean',
+				description:
+					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'isOptionSelected',
+				type: '(option: OptionT, selectValue: Options<OptionT>) => boolean',
+				description: 'Override the built-in logic to detect whether an option is selected',
+			},
+			{
+				name: 'isRequired',
+				type: 'boolean',
+				description: 'This prop indicates if the component is required.',
+			},
+			{
+				name: 'isSearchable',
+				type: 'boolean',
+				description: 'Whether to enable search functionality',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
+			},
+			{
+				name: 'labelId',
+				type: 'string',
+				description:
+					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
+			},
+			{
+				name: 'loadingMessage',
+				type: '(obj: { inputValue: string; }) => React.ReactNode',
+				description: 'Async: Text to display when loading options',
+			},
+			{
+				name: 'maxMenuHeight',
+				type: 'number',
+				description: 'Maximum height of the menu before scrolling',
+			},
+			{
+				name: 'menuIsOpen',
+				type: 'boolean',
+				description: 'Whether the menu is open',
+			},
+			{
+				name: 'menuPlacement',
+				type: '"auto" | "bottom" | "top"',
+				description:
+					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
+			},
+			{
+				name: 'menuPortalTarget',
+				type: 'HTMLElement',
+				description:
+					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
+			},
+			{
+				name: 'menuPosition',
+				type: '"absolute" | "fixed"',
+				description:
+					'The CSS position value of the menu, when "fixed" extra layout management is required',
+			},
+			{
+				name: 'menuShouldScrollIntoView',
+				type: 'boolean',
+				description: 'Whether the menu should be scrolled into view when it opens',
+			},
+			{
+				name: 'minMenuHeight',
+				type: 'number',
+				description: 'Minimum height of the menu before flipping',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
+			},
+			{
+				name: 'noOptionsMessage',
+				type: '(obj: { inputValue: string; }) => React.ReactNode',
+			},
+			{
+				name: 'onBlur',
+				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle blur events on the control',
+			},
+			{
+				name: 'onChange',
+				type: '(newValue: MultiValue<OptionT>, actionMeta: ActionMeta<OptionT>) => void',
+				description: 'Handle change events on the select',
+			},
+			{
+				name: 'onClickPreventDefault',
+				type: 'boolean',
+			},
+			{
+				name: 'onFocus',
+				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle focus events on the control',
+			},
+			{
+				name: 'onInputChange',
+				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				description: 'Handle change events on the input',
+			},
+			{
+				name: 'onKeyDown',
+				type: '(event: React.KeyboardEvent<HTMLDivElement>) => void',
+				description: 'Handle key down events on the select',
+			},
+			{
+				name: 'onMenuClose',
+				type: '() => void',
+				description: 'Handle the menu closing',
+			},
+			{
+				name: 'onMenuOpen',
+				type: '() => void',
+				description: 'Handle the menu opening',
+			},
+			{
+				name: 'onMenuScrollToBottom',
+				type: '(event: WheelEvent | TouchEvent) => void',
+				description: 'Fired when the user scrolls to the bottom of the menu',
+			},
+			{
+				name: 'onMenuScrollToTop',
+				type: '(event: WheelEvent | TouchEvent) => void',
+				description: 'Fired when the user scrolls to the top of the menu',
+			},
+			{
+				name: 'options',
+				type: 'readonly (OptionT | GroupBase<OptionT>)[]',
+				description: 'Array of options that populate the select menu',
+			},
+			{
+				name: 'pageSize',
+				type: 'number',
+				description: 'Number of options to jump in menu when page{up|down} keys are used',
+			},
+			{
+				name: 'placeholder',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Placeholder for the select value',
+			},
+			{
+				name: 'shouldKeepInputOnSelect',
+				type: 'boolean',
+				description:
+					'If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.',
+			},
+			{
+				name: 'shouldPreventEscapePropagation',
+				type: 'boolean',
+				description: 'Prevents "Escape" keydown event propagation',
+			},
+			{
+				name: 'spacing',
+				type: '"compact" | "default"',
+				description:
+					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
+			},
+			{
+				name: 'tabIndex',
+				type: 'number',
+				description:
+					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
+			},
+			{
+				name: 'value',
+				type: 'OptionT | MultiValue<OptionT>',
+				description: 'The value of the select; reflected by the selected option',
+			},
+		],
+	},
+	{
+		name: 'CountrySelect',
+		package: '@atlaskit/select',
+		description: 'A select pre-configured for country selection with country data.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for country selection in forms',
+			'Provides built-in country options and search',
+		],
+		keywords: ['select', 'country', 'dropdown', 'form', 'localization'],
+		category: 'form',
+		examples: [
+			'import { Label } from \'@atlaskit/form\';\nimport { CountrySelect } from \'@atlaskit/select\';\nconst CountrySelectExample = (): React.JSX.Element => (\n\t<>\n\t\t<Label htmlFor="country-select-example">What country do you live in?</Label>\n\t\t<CountrySelect inputId="country-select-example" placeholder="" />\n\t</>\n);\nexport default CountrySelectExample;',
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"default" | "subtle" | "none"',
+			},
+			{
+				name: 'autoFocus',
+				type: 'boolean',
+				description:
+					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
+			},
+			{
+				name: 'blurInputOnSelect',
+				type: 'boolean',
+				description:
+					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
+			},
+			{
+				name: 'classNamePrefix',
+				type: 'string',
+				description:
+					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
+			},
+			{
+				name: 'classNames',
+				type: '{ clearIndicator?: (props: ClearIndicatorProps<Country, false, GroupBase<Country>>) => string; container?: (props: ContainerProps<Country, false, GroupBase<...>>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				description: 'Provide classNames based on state for each inner component',
+			},
+			{
+				name: 'clearControlLabel',
+				type: 'string',
+				description: 'Set the `aria-label` for the clear icon button.',
+			},
+			{
+				name: 'closeMenuOnSelect',
+				type: 'boolean',
+				description: 'Close the select menu when the user selects an option',
+			},
+			{
+				name: 'components',
+				type: '{ Option?: React.ComponentType<OptionProps<Country, false, GroupBase<Country>>>; Group?: React.ComponentType<GroupProps<Country, false, GroupBase<Country>>>; ... 19 more ...; ValueContainer?: React.ComponentType<...>; }',
+				description:
+					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
+			},
+			{
+				name: 'defaultInputValue',
+				type: 'string',
+			},
+			{
+				name: 'defaultMenuIsOpen',
+				type: 'boolean',
+			},
+			{
+				name: 'defaultValue',
+				type: 'Country | MultiValue<Country>',
+			},
+			{
+				name: 'descriptionId',
+				type: 'string',
+				description:
+					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
+			},
+			{
+				name: 'filterOption',
+				type: '(option: FilterOptionOption<Country>, inputValue: string) => boolean',
+				description: 'Custom method to filter whether an option should be displayed in the menu',
+			},
+			{
+				name: 'form',
+				type: 'string',
+				description: 'Sets the form attribute on the input',
+			},
+			{
+				name: 'formatGroupLabel',
+				type: '(group: GroupBase<Country>) => React.ReactNode',
+				description:
+					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'formatOptionLabel',
+				type: '(data: Country, formatOptionLabelMeta: FormatOptionLabelMeta<Country>) => React.ReactNode',
+			},
+			{
+				name: 'getOptionLabel',
+				type: '(option: Country) => string',
+				description:
+					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
+			},
+			{
+				name: 'getOptionValue',
+				type: '(option: Country) => string',
+				description:
+					'Resolves option data to a string to compare options and specify value attributes',
+			},
+			{
+				name: 'hideSelectedOptions',
+				type: 'boolean',
+				description: 'Hide the selected option from the menu',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'The id to set on the SelectContainer component.',
+			},
+			{
+				name: 'inputId',
+				type: 'string',
+				description: 'The id of the search input',
+			},
+			{
+				name: 'inputValue',
+				type: 'string',
+				description: 'The value of the search input',
+			},
+			{
+				name: 'instanceId',
+				type: 'string | number',
+				description: 'Define an id prefix for the select components e.g. {your-id}-value',
+			},
+			{
+				name: 'isClearable',
+				type: 'boolean',
+				description: 'Is the select value clearable',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: 'Is the select disabled',
+			},
+			{
+				name: 'isInvalid',
+				type: 'boolean',
+				description: 'Is the select invalid',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+				description: 'Is the select in a state of loading (async)',
+			},
+			{
+				name: 'isMulti',
+				type: 'boolean',
+				description: 'Support multiple selected options',
+			},
+			{
+				name: 'isOptionDisabled',
+				type: '(option: Country, selectValue: Options<Country>) => boolean',
+				description:
+					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'isOptionSelected',
+				type: '(option: Country, selectValue: Options<Country>) => boolean',
+				description: 'Override the built-in logic to detect whether an option is selected',
+			},
+			{
+				name: 'isRequired',
+				type: 'boolean',
+				description: 'This prop indicates if the component is required.',
+			},
+			{
+				name: 'isSearchable',
+				type: 'boolean',
+				description: 'Whether to enable search functionality',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
+			},
+			{
+				name: 'labelId',
+				type: 'string',
+				description:
+					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
+			},
+			{
+				name: 'loadingMessage',
+				type: '(obj: { inputValue: string; }) => React.ReactNode',
+				description: 'Async: Text to display when loading options',
+			},
+			{
+				name: 'maxMenuHeight',
+				type: 'number',
+				description: 'Maximum height of the menu before scrolling',
+			},
+			{
+				name: 'menuIsOpen',
+				type: 'boolean',
+				description: 'Whether the menu is open',
+			},
+			{
+				name: 'menuPlacement',
+				type: '"auto" | "bottom" | "top"',
+				description:
+					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
+			},
+			{
+				name: 'menuPortalTarget',
+				type: 'HTMLElement',
+				description:
+					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
+			},
+			{
+				name: 'menuPosition',
+				type: '"absolute" | "fixed"',
+				description:
+					'The CSS position value of the menu, when "fixed" extra layout management is required',
+			},
+			{
+				name: 'menuShouldScrollIntoView',
+				type: 'boolean',
+				description: 'Whether the menu should be scrolled into view when it opens',
+			},
+			{
+				name: 'minMenuHeight',
+				type: 'number',
+				description: 'Minimum height of the menu before flipping',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
+			},
+			{
+				name: 'noOptionsMessage',
+				type: '(obj: { inputValue: string; }) => React.ReactNode',
+			},
+			{
+				name: 'onBlur',
+				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle blur events on the control',
+			},
+			{
+				name: 'onChange',
+				type: '(newValue: Country, actionMeta: ActionMeta<Country>) => void',
+				description: 'Handle change events on the select',
+			},
+			{
+				name: 'onClickPreventDefault',
+				type: 'boolean',
+			},
+			{
+				name: 'onFocus',
+				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle focus events on the control',
+			},
+			{
+				name: 'onInputChange',
+				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				description: 'Handle change events on the input',
+			},
+			{
+				name: 'onKeyDown',
+				type: '(event: React.KeyboardEvent<HTMLDivElement>) => void',
+				description: 'Handle key down events on the select',
+			},
+			{
+				name: 'onMenuClose',
+				type: '() => void',
+				description: 'Handle the menu closing',
+			},
+			{
+				name: 'onMenuOpen',
+				type: '() => void',
+				description: 'Handle the menu opening',
+			},
+			{
+				name: 'onMenuScrollToBottom',
+				type: '(event: WheelEvent | TouchEvent) => void',
+				description: 'Fired when the user scrolls to the bottom of the menu',
+			},
+			{
+				name: 'onMenuScrollToTop',
+				type: '(event: WheelEvent | TouchEvent) => void',
+				description: 'Fired when the user scrolls to the top of the menu',
+			},
+			{
+				name: 'options',
+				type: 'readonly (Country | GroupBase<Country>)[]',
+				description: 'Array of options that populate the select menu',
+			},
+			{
+				name: 'pageSize',
+				type: 'number',
+				description: 'Number of options to jump in menu when page{up|down} keys are used',
+			},
+			{
+				name: 'placeholder',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Placeholder for the select value',
+			},
+			{
+				name: 'shouldKeepInputOnSelect',
+				type: 'boolean',
+				description:
+					'If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.',
+			},
+			{
+				name: 'shouldPreventEscapePropagation',
+				type: 'boolean',
+				description: 'Prevents "Escape" keydown event propagation',
+			},
+			{
+				name: 'spacing',
+				type: '"compact" | "default"',
+				description:
+					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
+			},
+			{
+				name: 'tabIndex',
+				type: 'number',
+				description:
+					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
+			},
+			{
+				name: 'value',
+				type: 'Country | MultiValue<Country>',
+				description: 'The value of the select; reflected by the selected option',
+			},
+		],
+	},
+	{
+		name: 'CreatableSelect',
+		package: '@atlaskit/select',
+		description:
+			'A select that allows users to create new options. Use when users can add custom values not in the predefined list.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when users need to add custom options',
+			'Validate new values before creation',
+		],
+		keywords: ['select', 'creatable', 'dropdown', 'form', 'custom'],
+		category: 'form',
+		examples: [
+			"import React, { Component } from 'react';\nimport { Label } from '@atlaskit/form';\nimport { CreatableSelect, type OptionType, type ValueType } from '@atlaskit/select';\nconst defaultOptions = [\n\t{ label: 'Adelaide', value: 'adelaide' },\n\t{ label: 'Brisbane', value: 'brisbane' },\n\t{ label: 'Canberra', value: 'canberra' },\n\t{ label: 'Darwin', value: 'darwin' },\n\t{ label: 'Hobart', value: 'hobart' },\n\t{ label: 'Melbourne', value: 'melbourne' },\n\t{ label: 'Perth', value: 'perth' },\n\t{ label: 'Sydney', value: 'sydney' },\n];\nconst createOption = (label: string) => ({\n\tlabel,\n\tvalue: label.toLowerCase().replace(/\\W/g, ''),\n});\ninterface State {\n\tisLoading: boolean;\n\toptions: Array<{ label: string; value: string }>;\n\tvalue?: ValueType<OptionType>;\n}\nclass CreatableAdvanced extends Component<{}, State> {\n\tstate: State = {\n\t\tisLoading: false,\n\t\toptions: defaultOptions,\n\t\tvalue: undefined,\n\t};\n\thandleChange = (newValue: any, actionMeta: any) => {\n\t\tconsole.group('Value Changed');\n\t\tconsole.log(newValue);\n\t\tconsole.log(`action: ${actionMeta.action}`);\n\t\tconsole.groupEnd();\n\t\tthis.setState({ value: newValue });\n\t};\n\thandleCreate = (inputValue: any) => {\n\t\t// We do not assume how users would like to add newly created options to the existing options list.\n\t\t// Instead we pass users through the new value in the onCreate prop\n\t\tthis.setState({ isLoading: true });\n\t\tconsole.group('Option created');\n\t\tconsole.log('Wait a moment...');\n\t\tconst { options } = this.state;\n\t\tconst newOption = createOption(inputValue);\n\t\tconsole.log(newOption);\n\t\tconsole.groupEnd();\n\t\tthis.setState({\n\t\t\tisLoading: false,\n\t\t\toptions: [...options, newOption],\n\t\t\tvalue: newOption,\n\t\t});\n\t};\n\trender() {\n\t\tconst { isLoading, options, value } = this.state;\n\t\treturn (\n\t\t\t<>\n\t\t\t\t<Label htmlFor=\"createable-select-example\">What city do you live in?</Label>\n\t\t\t\t<CreatableSelect\n\t\t\t\t\tinputId=\"createable-select-example\"\n\t\t\t\t\tisClearable\n\t\t\t\t\tclearControlLabel=\"Clear city\"\n\t\t\t\t\tisDisabled={isLoading}\n\t\t\t\t\tisLoading={isLoading}\n\t\t\t\t\tonChange={this.handleChange}\n\t\t\t\t\tonCreateOption={this.handleCreate}\n\t\t\t\t\toptions={options}\n\t\t\t\t\tvalue={value}\n\t\t\t\t/>\n\t\t\t</>\n\t\t);\n\t}\n}\nexport default (): React.JSX.Element => <CreatableAdvanced />;",
+		],
+		props: [
+			{
+				name: 'allowCreateWhileLoading',
+				type: 'any',
+				description:
+					'Allow options to be created while the `isLoading` prop is true. Useful to\nprevent the "create new ..." option being displayed while async results are\nstill being loaded.',
+			},
+			{
+				name: 'appearance',
+				type: '"default" | "subtle" | "none"',
+			},
+			{
+				name: 'autoFocus',
+				type: 'boolean',
+				description:
+					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
+			},
+			{
+				name: 'blurInputOnSelect',
+				type: 'boolean',
+				description:
+					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
+			},
+			{
+				name: 'cacheOptions',
+				type: 'any',
+				description:
+					'If cacheOptions is truthy, then the loaded data will be cached. The cache\nwill remain until `cacheOptions` changes value.',
+			},
+			{
+				name: 'classNamePrefix',
+				type: 'string',
+				description:
+					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
+			},
+			{
+				name: 'classNames',
+				type: '{ clearIndicator?: (props: ClearIndicatorProps<Option, IsMulti, GroupBase<Option>>) => string; container?: (props: ContainerProps<Option, IsMulti, GroupBase<...>>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				description: 'Provide classNames based on state for each inner component',
+			},
+			{
+				name: 'clearControlLabel',
+				type: 'string',
+				description: 'Set the `aria-label` for the clear icon button.',
+			},
+			{
+				name: 'closeMenuOnSelect',
+				type: 'boolean',
+				description: 'Close the select menu when the user selects an option',
+			},
+			{
+				name: 'components',
+				type: '{ Option?: React.ComponentType<OptionProps<Option, IsMulti, GroupBase<Option>>>; Group?: React.ComponentType<GroupProps<Option, IsMulti, GroupBase<...>>>; ... 19 more ...; ValueContainer?: React.ComponentType<...>; }',
+				description:
+					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
+			},
+			{
+				name: 'createOptionPosition',
+				type: 'any',
+				description:
+					"Sets the position of the createOption element in your options list. Defaults to 'last'",
+			},
+			{
+				name: 'defaultInputValue',
+				type: 'string',
+			},
+			{
+				name: 'defaultMenuIsOpen',
+				type: 'boolean',
+			},
+			{
+				name: 'defaultOptions',
+				type: 'any',
+				description:
+					"The default set of options to show before the user starts searching. When\nset to `true`, the results for loadOptions('') will be autoloaded.",
+			},
+			{
+				name: 'defaultValue',
+				type: 'Option | MultiValue<Option>',
+			},
+			{
+				name: 'descriptionId',
+				type: 'string',
+				description:
+					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
+			},
+			{
+				name: 'filterOption',
+				type: '(option: FilterOptionOption<Option>, inputValue: string) => boolean',
+				description: 'Custom method to filter whether an option should be displayed in the menu',
+			},
+			{
+				name: 'form',
+				type: 'string',
+				description: 'Sets the form attribute on the input',
+			},
+			{
+				name: 'formatCreateLabel',
+				type: 'any',
+				description:
+					'Gets the label for the "create new ..." option in the menu. Is given the\ncurrent input value.',
+			},
+			{
+				name: 'formatGroupLabel',
+				type: '(group: GroupBase<Option>) => React.ReactNode',
+				description:
+					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'formatOptionLabel',
+				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode)',
+				description: 'Formats option labels in the menu and control as React components',
+			},
+			{
+				name: 'getNewOptionData',
+				type: 'any',
+				description:
+					'Returns the data for the new option when it is created. Used to display the\nvalue, and is passed to `onChange`.',
+			},
+			{
+				name: 'getOptionLabel',
+				type: '(option: Option) => string',
+				description:
+					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
+			},
+			{
+				name: 'getOptionValue',
+				type: '(option: Option) => string',
+				description:
+					'Resolves option data to a string to compare options and specify value attributes',
+			},
+			{
+				name: 'hideSelectedOptions',
+				type: 'boolean',
+				description: 'Hide the selected option from the menu',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'The id to set on the SelectContainer component.',
+			},
+			{
+				name: 'inputId',
+				type: 'string',
+				description: 'The id of the search input',
+			},
+			{
+				name: 'inputValue',
+				type: 'string',
+				description: 'The value of the search input',
+			},
+			{
+				name: 'instanceId',
+				type: 'string | number',
+				description: 'Define an id prefix for the select components e.g. {your-id}-value',
+			},
+			{
+				name: 'isClearable',
+				type: 'boolean',
+				description: 'Is the select value clearable',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: 'Is the select disabled',
+			},
+			{
+				name: 'isInvalid',
+				type: 'boolean',
+				description: 'Is the select invalid',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+				description:
+					'Is the select in a state of loading (async)\nIs the select in a state of loading (async)\nWill cause the select to be displayed in the loading state, even if the\nAsync select is not currently waiting for loadOptions to resolve',
+			},
+			{
+				name: 'isMulti',
+				type: 'boolean',
+				description: 'Support multiple selected options',
+			},
+			{
+				name: 'isOptionDisabled',
+				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				description:
+					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'isOptionSelected',
+				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				description: 'Override the built-in logic to detect whether an option is selected',
+			},
+			{
+				name: 'isRequired',
+				type: 'boolean',
+				description: 'This prop indicates if the component is required.',
+			},
+			{
+				name: 'isSearchable',
+				type: 'boolean',
+				description: 'Whether to enable search functionality',
+			},
+			{
+				name: 'isValidNewOption',
+				type: 'any',
+				description:
+					'Determines whether the "create new ..." option should be displayed based on\nthe current input value, select value and options array.',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
+			},
+			{
+				name: 'labelId',
+				type: 'string',
+				description:
+					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
+			},
+			{
+				name: 'loadingMessage',
+				type: '(obj: { inputValue: string; }) => React.ReactNode',
+				description: 'Async: Text to display when loading options',
+			},
+			{
+				name: 'loadOptions',
+				type: 'any',
+				description:
+					'Function that returns a promise, which is the set of options to be used\nonce the promise resolves.',
+			},
+			{
+				name: 'maxMenuHeight',
+				type: 'number',
+				description: 'Maximum height of the menu before scrolling',
+			},
+			{
+				name: 'menuIsOpen',
+				type: 'boolean',
+				description: 'Whether the menu is open',
+			},
+			{
+				name: 'menuPlacement',
+				type: '"auto" | "bottom" | "top"',
+				description:
+					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
+			},
+			{
+				name: 'menuPortalTarget',
+				type: 'HTMLElement',
+				description:
+					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
+			},
+			{
+				name: 'menuPosition',
+				type: '"absolute" | "fixed"',
+				description:
+					'The CSS position value of the menu, when "fixed" extra layout management is required',
+			},
+			{
+				name: 'menuShouldScrollIntoView',
+				type: 'boolean',
+				description: 'Whether the menu should be scrolled into view when it opens',
+			},
+			{
+				name: 'minMenuHeight',
+				type: 'number',
+				description: 'Minimum height of the menu before flipping',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
+			},
+			{
+				name: 'noOptionsMessage',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | ((obj: { inputValue: string; }) => React.ReactNode)',
+				description: 'Text to display when there are no options',
+			},
+			{
+				name: 'onBlur',
+				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle blur events on the control',
+			},
+			{
+				name: 'onChange',
+				type: '(newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void',
+				description: 'Handle change events on the select',
+			},
+			{
+				name: 'onClickPreventDefault',
+				type: 'boolean',
+			},
+			{
+				name: 'onCreateOption',
+				type: 'any',
+				description:
+					'If provided, this will be called with the input value when a new option is\ncreated, and `onChange` will **not** be called. Use this when you need more\ncontrol over what happens when new options are created.',
+			},
+			{
+				name: 'onFocus',
+				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle focus events on the control',
+			},
+			{
+				name: 'onInputChange',
+				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				description: 'Handle change events on the input',
+			},
+			{
+				name: 'onKeyDown',
+				type: '(event: React.KeyboardEvent<HTMLDivElement>) => void',
+				description: 'Handle key down events on the select',
+			},
+			{
+				name: 'onMenuClose',
+				type: '() => void',
+				description: 'Handle the menu closing',
+			},
+			{
+				name: 'onMenuOpen',
+				type: '() => void',
+				description: 'Handle the menu opening',
+			},
+			{
+				name: 'onMenuScrollToBottom',
+				type: '(event: WheelEvent | TouchEvent) => void',
+				description: 'Fired when the user scrolls to the bottom of the menu',
+			},
+			{
+				name: 'onMenuScrollToTop',
+				type: '(event: WheelEvent | TouchEvent) => void',
+				description: 'Fired when the user scrolls to the top of the menu',
+			},
+			{
+				name: 'options',
+				type: 'readonly (Option | GroupBase<Option>)[]',
+				description: 'Array of options that populate the select menu',
+			},
+			{
+				name: 'pageSize',
+				type: 'number',
+				description: 'Number of options to jump in menu when page{up|down} keys are used',
+			},
+			{
+				name: 'placeholder',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Placeholder for the select value',
+			},
+			{
+				name: 'shouldKeepInputOnSelect',
+				type: 'boolean',
+				description:
+					'If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.',
+			},
+			{
+				name: 'shouldPreventEscapePropagation',
+				type: 'boolean',
+				description: 'Prevents "Escape" keydown event propagation',
+			},
+			{
+				name: 'spacing',
+				type: '"compact" | "default"',
+				description:
+					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
+			},
+			{
+				name: 'tabIndex',
+				type: 'number',
+				description:
+					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
+			},
+			{
+				name: 'value',
+				type: 'Option | MultiValue<Option>',
+				description: 'The value of the select; reflected by the selected option',
+			},
+		],
+	},
+	{
+		name: 'PopupSelect',
+		package: '@atlaskit/select',
+		description:
+			'A select that opens in a popup overlay. Use when the select needs to render in a portal or overlay context.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when select must render in overlay/portal',
+			'Consider z-index and layering with modals',
+			'Ensure proper focus management',
+		],
+		keywords: ['select', 'popup', 'dropdown', 'overlay', 'portal'],
+		category: 'form',
+		examples: [
+			"import Button from '@atlaskit/button/new';\nimport ChevronDownIcon from '@atlaskit/icon/core/chevron-down';\nimport { PopupSelect } from '@atlaskit/select';\nconst options = [\n\t{ label: 'accessibility', value: 'accessibility' },\n\t{ label: 'analytics', value: 'analytics' },\n\t{ label: 'ktlo', value: 'ktlo' },\n\t{ label: 'testing', value: 'testing' },\n\t{ label: 'regression', value: 'regression' },\n\t{ label: 'layering', value: 'layering' },\n\t{ label: 'innovation', value: 'innovation' },\n\t{ label: 'new-feature', value: 'new' },\n\t{ label: 'existing', value: 'existing' },\n\t{ label: 'wont-do', value: 'wont-do' },\n];\nconst PopupSelectExample = (): React.JSX.Element => {\n\treturn (\n\t\t<PopupSelect\n\t\t\tplaceholder=\"\"\n\t\t\toptions={options}\n\t\t\ttarget={({ isOpen, ...triggerProps }) => (\n\t\t\t\t<Button {...triggerProps} iconAfter={ChevronDownIcon}>\n\t\t\t\t\tLabel\n\t\t\t\t</Button>\n\t\t\t)}\n\t\t/>\n\t);\n};\nexport default PopupSelectExample;",
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"default" | "subtle" | "none"',
+			},
+			{
+				name: 'autoFocus',
+				type: 'boolean',
+				description:
+					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
+			},
+			{
+				name: 'blurInputOnSelect',
+				type: 'boolean',
+				description:
+					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
+			},
+			{
+				name: 'classNamePrefix',
+				type: 'string',
+				description:
+					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
+			},
+			{
+				name: 'classNames',
+				type: '{ clearIndicator?: (props: ClearIndicatorProps<Option, IsMulti, GroupBase<Option>>) => string; container?: (props: ContainerProps<Option, IsMulti, GroupBase<...>>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				description: 'Provide classNames based on state for each inner component',
+			},
+			{
+				name: 'clearControlLabel',
+				type: 'string',
+				description: 'Set the `aria-label` for the clear icon button.',
+			},
+			{
+				name: 'closeMenuOnSelect',
+				type: 'boolean',
+				description: 'Defines whether the menu should close when selected. The default is `true`.',
+			},
+			{
+				name: 'components',
+				type: '{ Option?: ComponentType<OptionProps<Option, IsMulti, GroupBase<Option>>>; Group?: ComponentType<GroupProps<Option, IsMulti, GroupBase<...>>>; ... 19 more ...; ValueContainer?: ComponentType<...>; }',
+				description:
+					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
+			},
+			{
+				name: 'defaultInputValue',
+				type: 'string',
+			},
+			{
+				name: 'defaultIsOpen',
+				type: 'boolean',
+			},
+			{
+				name: 'defaultMenuIsOpen',
+				type: 'boolean',
+			},
+			{
+				name: 'defaultValue',
+				type: 'Option | MultiValue<Option>',
+			},
+			{
+				name: 'descriptionId',
+				type: 'string',
+				description:
+					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
+			},
+			{
+				name: 'filterOption',
+				type: '(option: FilterOptionOption<Option>, inputValue: string) => boolean',
+				description: 'Custom method to filter whether an option should be displayed in the menu',
+			},
+			{
+				name: 'footer',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'The footer content shown at the bottom of the popup, underneath the select options.',
+			},
+			{
+				name: 'form',
+				type: 'string',
+				description: 'Sets the form attribute on the input',
+			},
+			{
+				name: 'formatGroupLabel',
+				type: '(group: GroupBase<Option>) => ReactNode',
+				description:
+					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'formatOptionLabel',
+				type: '(data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => ReactNode',
+				description: 'Formats option labels in the menu and control as React components',
+			},
+			{
+				name: 'getOptionLabel',
+				type: '(option: Option) => string',
+				description:
+					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
+			},
+			{
+				name: 'getOptionValue',
+				type: '(option: Option) => string',
+				description:
+					'Resolves option data to a string to compare options and specify value attributes',
+			},
+			{
+				name: 'hideSelectedOptions',
+				type: 'boolean',
+				description: 'Hide the selected option from the menu',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'The id to set on the SelectContainer component.',
+			},
+			{
+				name: 'inputId',
+				type: 'string',
+				description: 'The id of the search input',
+			},
+			{
+				name: 'inputValue',
+				type: 'string',
+				description: 'The value of the search input',
+			},
+			{
+				name: 'instanceId',
+				type: 'string | number',
+				description: 'Define an id prefix for the select components e.g. {your-id}-value',
+			},
+			{
+				name: 'isClearable',
+				type: 'boolean',
+				description: 'Is the select value clearable',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: 'Is the select disabled',
+			},
+			{
+				name: 'isInvalid',
+				type: 'boolean',
+				description: 'This prop indicates if the component is in an error state.',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+				description: 'Is the select in a state of loading (async)',
+			},
+			{
+				name: 'isMulti',
+				type: 'boolean',
+				description: 'Support multiple selected options',
+			},
+			{
+				name: 'isOpen',
+				type: 'boolean',
+			},
+			{
+				name: 'isOptionDisabled',
+				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				description:
+					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'isOptionSelected',
+				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				description: 'Override the built-in logic to detect whether an option is selected',
+			},
+			{
+				name: 'isRequired',
+				type: 'boolean',
+				description: 'This prop indicates if the component is required.',
+			},
+			{
+				name: 'isSearchable',
+				type: 'boolean',
+				description:
+					'If `false`, renders a select with no search field. If `true`, renders a search field in the select when the\nnumber of options exceeds the `searchThreshold`. The default is `true`.',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'This gives an accessible name to the input for people who use assistive technology.',
+			},
+			{
+				name: 'labelId',
+				type: 'string',
+				description:
+					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
+			},
+			{
+				name: 'loadingMessage',
+				type: '(obj: { inputValue: string; }) => ReactNode',
+				description: 'Async: Text to display when loading options',
+			},
+			{
+				name: 'maxMenuHeight',
+				type: 'number',
+				description: 'Maximum height of the menu before scrolling',
+			},
+			{
+				name: 'maxMenuWidth',
+				type: 'string | number',
+				description:
+					'The maximum width for the popup menu. Can be a number, representing the width in pixels,\nor a string containing a CSS length datatype.',
+			},
+			{
+				name: 'menuIsOpen',
+				type: 'boolean',
+				description: 'Whether the menu is open',
+			},
+			{
+				name: 'menuPlacement',
+				type: '"auto" | "top" | "bottom"',
+				description:
+					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
+			},
+			{
+				name: 'menuPortalTarget',
+				type: 'HTMLElement',
+				description:
+					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
+			},
+			{
+				name: 'menuPosition',
+				type: '"absolute" | "fixed"',
+				description:
+					'The CSS position value of the menu, when "fixed" extra layout management is required',
+			},
+			{
+				name: 'menuShouldScrollIntoView',
+				type: 'boolean',
+				description: 'Whether the menu should be scrolled into view when it opens',
+			},
+			{
+				name: 'minMenuHeight',
+				type: 'number',
+				description: 'Minimum height of the menu before flipping',
+			},
+			{
+				name: 'minMenuWidth',
+				type: 'string | number',
+				description:
+					'The maximum width for the popup menu. Can be a number, representing the width in pixels,\nor a string containing a CSS length datatype.',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
+			},
+			{
+				name: 'noOptionsMessage',
+				type: '(obj: { inputValue: string; }) => ReactNode',
+				description: 'Text to display when there are no options',
+			},
+			{
+				name: 'onBlur',
+				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle blur events on the control',
+			},
+			{
+				name: 'onChange',
+				type: '(newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void',
+				description: 'Handle change events on the select',
+			},
+			{
+				name: 'onFocus',
+				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle focus events on the control',
+			},
+			{
+				name: 'onInputChange',
+				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				description: 'Handle change events on the input',
+			},
+			{
+				name: 'onKeyDown',
+				type: '(event: KeyboardEvent<HTMLDivElement>) => void',
+				description: 'Handle key down events on the select',
+			},
+			{
+				name: 'onMenuClose',
+				type: '() => void',
+				description: 'Handle the menu closing',
+			},
+			{
+				name: 'onMenuOpen',
+				type: '() => void',
+				description: 'Handle the menu opening',
+			},
+			{
+				name: 'onMenuScrollToBottom',
+				type: '(event: globalThis.WheelEvent | globalThis.TouchEvent) => void',
+				description: 'Fired when the user scrolls to the bottom of the menu',
+			},
+			{
+				name: 'onMenuScrollToTop',
+				type: '(event: globalThis.WheelEvent | globalThis.TouchEvent) => void',
+				description: 'Fired when the user scrolls to the top of the menu',
+			},
+			{
+				name: 'options',
+				type: 'readonly (Option | GroupBase<Option>)[]',
+				description: 'Array of options that populate the select menu',
+			},
+			{
+				name: 'pageSize',
+				type: 'number',
+				description: 'Number of options to jump in menu when page{up|down} keys are used',
+			},
+			{
+				name: 'placeholder',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Placeholder for the select value',
+			},
+			{
+				name: 'popperProps',
+				type: '{ innerRef?: Ref<any>; modifiers?: readonly Modifier<Modifiers, object>[]; placement?: Placement; strategy?: PositioningStrategy; referenceElement?: HTMLElement | VirtualElement; onFirstUpdate?: (state: Partial<...>) => void; }',
+				description:
+					'The props passed down to React Popper.\n\nUse these to override the default positioning strategy, behaviour and placement used by this library.\nFor more information, see the Popper Props section below, or [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).',
+			},
+			{
+				name: 'searchThreshold',
+				type: 'number',
+				description:
+					'The maximum number of options the select can contain without rendering the search field. The default is `5`.',
+			},
+			{
+				name: 'shouldCloseMenuOnTab',
+				type: 'boolean',
+				description:
+					'Defines whether the menu should be closed by pressing the Tab key. The default is `true`.',
+			},
+			{
+				name: 'shouldKeepInputOnSelect',
+				type: 'boolean',
+				description:
+					'If `true`, the input value will be kept when an option is selected. The default is `false`.',
+			},
+			{
+				name: 'shouldPreventEscapePropagation',
+				type: 'boolean',
+				description: 'Prevents "Escape" keydown event propagation',
+			},
+			{
+				name: 'spacing',
+				type: '"default" | "compact"',
+				description: 'Use this to set whether the component uses compact or standard spacing.',
+			},
+			{
+				name: 'tabIndex',
+				type: 'number',
+				description:
+					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
+			},
+			{
+				name: 'target',
+				type: '(options: PopupSelectTriggerProps & { isOpen: boolean; }) => ReactNode',
+				description:
+					'Render props used to anchor the popup to your content.\n\nMake this an interactive element, such as an @atlaskit/button component.\n\nThe provided render props in `options` are detailed below:\n- `isOpen`: The current state of the popup.\n\t\tUse this to change the appearance of your target based on the state of your component\n- `ref`: Pass this ref to the element the Popup should be attached to\n- `onKeyDown`: Pass this keydown handler to the element to allow keyboard users to access the element.\n- `aria-haspopup`, `aria-expanded`, `aria-controls`: Spread these onto a target element to\n\t\tensure your experience is accessible',
+			},
+			{
+				name: 'value',
+				type: 'Option | MultiValue<Option>',
+				description: 'The value of the select; reflected by the selected option',
+			},
+		],
+	},
+	{
+		name: 'RadioSelect',
+		package: '@atlaskit/select',
+		description:
+			'A single-select with radio indicators for each option. Use when radio-style selection affordance is needed.',
+		status: 'general-availability',
+		usageGuidelines: ['Use for single-select when radio affordance improves clarity'],
+		keywords: ['select', 'radio', 'single', 'dropdown', 'form'],
+		category: 'form',
+		examples: [
+			'import { Label } from \'@atlaskit/form\';\nimport { RadioSelect } from \'@atlaskit/select\';\nimport { cities } from \'../common/data\';\nconst SelectRadioExample = (): React.JSX.Element => (\n\t<>\n\t\t<Label htmlFor="radio-select-example">What city do you live in?</Label>\n\t\t<RadioSelect\n\t\t\tinputId="radio-select-example"\n\t\t\ttestId="react-select"\n\t\t\toptions={[\n\t\t\t\t...cities,\n\t\t\t\t{\n\t\t\t\t\tlabel: "Super long name that no one will ever read because it\'s way too long",\n\t\t\t\t\tvalue: \'test\',\n\t\t\t\t},\n\t\t\t]}\n\t\t\tplaceholder=""\n\t\t/>\n\t</>\n);\nexport default SelectRadioExample;',
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"default" | "subtle" | "none"',
+			},
+			{
+				name: 'autoFocus',
+				type: 'boolean',
+				description:
+					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
+			},
+			{
+				name: 'blurInputOnSelect',
+				type: 'boolean',
+				description:
+					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
+			},
+			{
+				name: 'classNamePrefix',
+				type: 'string',
+				description:
+					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
+			},
+			{
+				name: 'classNames',
+				type: '{ clearIndicator?: (props: ClearIndicatorProps<OptionType, false, GroupBase<OptionType>>) => string; container?: (props: ContainerProps<...>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				description: 'Provide classNames based on state for each inner component',
+			},
+			{
+				name: 'clearControlLabel',
+				type: 'string',
+				description: 'Set the `aria-label` for the clear icon button.',
+			},
+			{
+				name: 'closeMenuOnSelect',
+				type: 'boolean',
+				description: 'Close the select menu when the user selects an option',
+			},
+			{
+				name: 'components',
+				type: '{ Option?: ComponentType<OptionProps<OptionType, false, GroupBase<OptionType>>>; Group?: ComponentType<GroupProps<OptionType, false, GroupBase<...>>>; ... 19 more ...; ValueContainer?: ComponentType<...>; }',
+				description:
+					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
+			},
+			{
+				name: 'defaultInputValue',
+				type: 'string',
+			},
+			{
+				name: 'defaultMenuIsOpen',
+				type: 'boolean',
+			},
+			{
+				name: 'defaultValue',
+				type: 'OptionType | MultiValue<OptionType>',
+			},
+			{
+				name: 'descriptionId',
+				type: 'string',
+				description:
+					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
+			},
+			{
+				name: 'filterOption',
+				type: '(option: FilterOptionOption<OptionType>, inputValue: string) => boolean',
+				description: 'Custom method to filter whether an option should be displayed in the menu',
+			},
+			{
+				name: 'form',
+				type: 'string',
+				description: 'Sets the form attribute on the input',
+			},
+			{
+				name: 'formatGroupLabel',
+				type: '(group: GroupBase<OptionType>) => ReactNode',
+				description:
+					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'formatOptionLabel',
+				type: '(data: OptionType, formatOptionLabelMeta: FormatOptionLabelMeta<OptionType>) => ReactNode',
+			},
+			{
+				name: 'getOptionLabel',
+				type: '(option: OptionType) => string',
+				description:
+					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
+			},
+			{
+				name: 'getOptionValue',
+				type: '(option: OptionType) => string',
+				description:
+					'Resolves option data to a string to compare options and specify value attributes',
+			},
+			{
+				name: 'hideSelectedOptions',
+				type: 'boolean',
+				description: 'Hide the selected option from the menu',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'The id to set on the SelectContainer component.',
+			},
+			{
+				name: 'inputId',
+				type: 'string',
+				description: 'The id of the search input',
+			},
+			{
+				name: 'inputValue',
+				type: 'string',
+				description: 'The value of the search input',
+			},
+			{
+				name: 'instanceId',
+				type: 'string | number',
+				description: 'Define an id prefix for the select components e.g. {your-id}-value',
+			},
+			{
+				name: 'isClearable',
+				type: 'boolean',
+				description: 'Is the select value clearable',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: 'Is the select disabled',
+			},
+			{
+				name: 'isInvalid',
+				type: 'boolean',
+				description: 'Is the select invalid',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+				description: 'Is the select in a state of loading (async)',
+			},
+			{
+				name: 'isMulti',
+				type: 'boolean',
+				description: 'Support multiple selected options',
+			},
+			{
+				name: 'isOptionDisabled',
+				type: '(option: OptionType, selectValue: Options<OptionType>) => boolean',
+				description:
+					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
+			},
+			{
+				name: 'isOptionSelected',
+				type: '(option: OptionType, selectValue: Options<OptionType>) => boolean',
+				description: 'Override the built-in logic to detect whether an option is selected',
+			},
+			{
+				name: 'isRequired',
+				type: 'boolean',
+				description: 'This prop indicates if the component is required.',
+			},
+			{
+				name: 'isSearchable',
+				type: 'boolean',
+				description: 'Whether to enable search functionality',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
+			},
+			{
+				name: 'labelId',
+				type: 'string',
+				description:
+					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
+			},
+			{
+				name: 'loadingMessage',
+				type: '(obj: { inputValue: string; }) => ReactNode',
+				description: 'Async: Text to display when loading options',
+			},
+			{
+				name: 'maxMenuHeight',
+				type: 'number',
+				description: 'Maximum height of the menu before scrolling',
+			},
+			{
+				name: 'menuIsOpen',
+				type: 'boolean',
+				description: 'Whether the menu is open',
+			},
+			{
+				name: 'menuPlacement',
+				type: '"auto" | "bottom" | "top"',
+				description:
+					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
+			},
+			{
+				name: 'menuPortalTarget',
+				type: 'HTMLElement',
+				description:
+					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
+			},
+			{
+				name: 'menuPosition',
+				type: '"absolute" | "fixed"',
+				description:
+					'The CSS position value of the menu, when "fixed" extra layout management is required',
+			},
+			{
+				name: 'menuShouldScrollIntoView',
+				type: 'boolean',
+				description: 'Whether the menu should be scrolled into view when it opens',
+			},
+			{
+				name: 'minMenuHeight',
+				type: 'number',
+				description: 'Minimum height of the menu before flipping',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
+			},
+			{
+				name: 'noOptionsMessage',
+				type: '(obj: { inputValue: string; }) => ReactNode',
+			},
+			{
+				name: 'onBlur',
+				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle blur events on the control',
+			},
+			{
+				name: 'onChange',
+				type: '(newValue: OptionType, actionMeta: ActionMeta<OptionType>) => void',
+				description: 'Handle change events on the select',
+			},
+			{
+				name: 'onClickPreventDefault',
+				type: 'boolean',
+			},
+			{
+				name: 'onFocus',
+				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				description: 'Handle focus events on the control',
+			},
+			{
+				name: 'onInputChange',
+				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				description: 'Handle change events on the input',
+			},
+			{
+				name: 'onKeyDown',
+				type: '(event: KeyboardEvent<HTMLDivElement>) => void',
+				description: 'Handle key down events on the select',
+			},
+			{
+				name: 'onMenuClose',
+				type: '() => void',
+				description: 'Handle the menu closing',
+			},
+			{
+				name: 'onMenuOpen',
+				type: '() => void',
+				description: 'Handle the menu opening',
+			},
+			{
+				name: 'onMenuScrollToBottom',
+				type: '(event: globalThis.WheelEvent | globalThis.TouchEvent) => void',
+				description: 'Fired when the user scrolls to the bottom of the menu',
+			},
+			{
+				name: 'onMenuScrollToTop',
+				type: '(event: globalThis.WheelEvent | globalThis.TouchEvent) => void',
+				description: 'Fired when the user scrolls to the top of the menu',
+			},
+			{
+				name: 'options',
+				type: 'readonly (OptionType | GroupBase<OptionType>)[]',
+				description: 'Array of options that populate the select menu',
+			},
+			{
+				name: 'pageSize',
+				type: 'number',
+				description: 'Number of options to jump in menu when page{up|down} keys are used',
+			},
+			{
+				name: 'placeholder',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Placeholder for the select value',
+			},
+			{
+				name: 'shouldKeepInputOnSelect',
+				type: 'boolean',
+				description:
+					'If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.',
+			},
+			{
+				name: 'shouldPreventEscapePropagation',
+				type: 'boolean',
+				description: 'Prevents "Escape" keydown event propagation',
+			},
+			{
+				name: 'spacing',
+				type: '"compact" | "default"',
+				description:
+					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
+			},
+			{
+				name: 'tabIndex',
+				type: 'number',
+				description:
+					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
+			},
+			{
+				name: 'value',
+				type: 'OptionType | MultiValue<OptionType>',
+				description: 'The value of the select; reflected by the selected option',
+			},
+		],
+	},
+	{
 		name: 'Select',
 		package: '@atlaskit/select',
-		description: 'A flexible select component for single and multi-selection.',
+		description:
+			'Select allows users to make a single selection or multiple selections from a list of options.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Use for choosing one or more from a list; common in forms and inline edit',
@@ -5797,22 +10116,278 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'Tag',
+		name: 'AvatarTag',
 		package: '@atlaskit/tag',
-		description: 'A tag is a compact element used to categorize, label, or organize content.',
-		status: 'general-availability',
+		description:
+			'An avatar tag represents individuals, agents, teams, projects or spaces for tagging, quick recognition and navigation.',
+		status: 'open-beta',
 		usageGuidelines: [
-			'Use to categorize or label content',
-			'Keep tag text concise and meaningful',
-			'Use appropriate colors and appearances',
-			'Consider tag removal functionality',
-			'Group related tags logically',
+			'Use for people (user), agents (agent), or teams/projects/spaces (other)',
+			'Use isVerified for verified teams only',
+			'Use in moderation—avatar tags add cognitive noise',
+			"Don't use for general object categories—use Tag instead",
+			"Don't use within user-generated text (e.g. editor)",
+			'Use TagGroup to control layout',
+		],
+		contentGuidelines: [
+			'Truncate names with ellipsis if they exceed max width',
+			'Provide tooltip on hover for truncated text',
+			'Use clear, descriptive names',
+		],
+		accessibilityGuidelines: [
+			'Provide meaningful names for avatar representation',
+			'Ensure avatar shapes communicate type (round=user, hexagon=agent, square=other)',
+		],
+		keywords: ['tag', 'avatar', 'user', 'agent', 'team', 'project', 'space'],
+		category: 'data-display',
+		examples: [
+			'import Avatar from \'@atlaskit/avatar\';\nimport { AvatarTag } from \'@atlaskit/tag\';\nconst avatarUrl = \'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg\';\nexport default (): React.JSX.Element => (\n\t<AvatarTag\n\t\ttype="user"\n\t\ttext="Brian Lin"\n\t\tavatar={(props: any) => <Avatar {...props} src={avatarUrl} name="Brian Lin" />}\n\t/>\n);',
+		],
+		props: [
+			{
+				name: 'avatar',
+				type: 'ComponentType<AvatarPropTypes> | ComponentType<TeamAvatarProps>',
+				description:
+					'The avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar or any compatible component.\n@example avatar={Avatar}\n@example avatar={(props) => <Avatar {...props} src="user.png" />}\nThe avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar, TeamAvatar, or any compatible component.\n@example avatar={TeamAvatar}\n@example avatar={(props) => <TeamAvatar {...props} name="Team" />}\nThe avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar or any compatible component.\n@example avatar={Avatar}\n@example avatar={(props) => <Avatar {...props} src="agent.png" />}',
+				isRequired: true,
+			},
+			{
+				name: 'href',
+				type: 'string',
+				description:
+					'URI or path. If provided, the tag will be a link.\nURI or path. If provided, the tag will be a link.\nURI or path. If provided, the tag will be a link.',
+			},
+			{
+				name: 'isRemovable',
+				type: 'boolean',
+				description:
+					'Flag to indicate if a tag is removable. Defaults to true.\nFlag to indicate if a tag is removable. Defaults to true.\nFlag to indicate if a tag is removable. Defaults to true.',
+			},
+			{
+				name: 'isVerified',
+				type: 'boolean',
+				description:
+					'isVerified is not allowed for user tags.\nWhether this entity is verified. Shows a blue verified icon after the text.\nisVerified is not allowed for agent tags.',
+			},
+			{
+				name: 'linkComponent',
+				type: 'ComponentClass<any, any> | FunctionComponent<any>',
+				description:
+					'A link component to be used instead of our standard link. The styling of\nour link item will be applied to the link that is passed in.\nA link component to be used instead of our standard link. The styling of\nour link item will be applied to the link that is passed in.\nA link component to be used instead of our standard link. The styling of\nour link item will be applied to the link that is passed in.',
+			},
+			{
+				name: 'maxWidth',
+				type: 'string | number',
+				description:
+					"Maximum width of the tag. When exceeded, the text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').\nMaximum width of the tag. When exceeded, the text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').\nMaximum width of the tag. When exceeded, the text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
+			},
+			{
+				name: 'onAfterRemoveAction',
+				type: '(text: string) => void',
+				description:
+					'Handler to be called after tag is removed.\nHandler to be called after tag is removed.\nHandler to be called after tag is removed.',
+			},
+			{
+				name: 'onBeforeRemoveAction',
+				type: '() => boolean',
+				description:
+					'Handler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.\nHandler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.\nHandler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.',
+			},
+			{
+				name: 'removeButtonLabel',
+				type: 'string',
+				description:
+					'Text rendered as the aria-label for remove button.\nText rendered as the aria-label for remove button.\nText rendered as the aria-label for remove button.',
+			},
+			{
+				name: 'text',
+				type: 'string',
+				description:
+					"Text to be displayed in the tag (usually a person's name or entity name).\nText to be displayed in the tag (usually a person's name or entity name).\nText to be displayed in the tag (usually a person's name or entity name).",
+				isRequired: true,
+			},
+			{
+				name: 'type',
+				type: '"user" | "other" | "agent"',
+				description:
+					"The type of avatar tag. 'user' uses circular avatars for individuals.\nThe type of avatar tag. 'other' uses square avatars for teams/projects/spaces.\nThe type of avatar tag. 'agent' uses hexagonal avatars for AI agents.",
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'RemovableTag',
+		package: '@atlaskit/tag',
+		description: 'A tag labels UI objects for quick recognition and navigation.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use to categorize or label content with removal capability',
+			'Use for object-related content; for people/teams/projects use AvatarTag',
+			"Don't use for status—use lozenge instead",
+			'Use TagGroup to control layout of multiple tags',
+			"Don't use tags within user-generated text",
+		],
+		contentGuidelines: [
+			'Use clear, descriptive tag labels',
+			'Keep tag text concise; max 200px causes truncation',
+			'Use color intentionally to organize related content',
+			'For people, teams, spaces, or projects use avatar tag',
+		],
+		keywords: ['tag', 'removable', 'label', 'category', 'close'],
+		category: 'data-display',
+		examples: [
+			'import Tag from \'@atlaskit/tag\';\nexport default (): React.JSX.Element => <Tag text="Design" isRemovable={false} />;',
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"default" | "rounded"',
+				description: 'Set whether tags are rounded.',
+			},
+			{
+				name: 'color',
+				type: '"standard" | "green" | "lime" | "blue" | "red" | "purple" | "magenta" | "grey" | "gray" | "teal" | "orange" | "yellow" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
+				description: 'The color theme to apply. This sets both the background and text color.',
+			},
+			{
+				name: 'elemBefore',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'The component to be rendered before the tag.',
+			},
+			{
+				name: 'href',
+				type: 'string',
+				description: 'URI or path. If provided, the tag will be a link.',
+			},
+			{
+				name: 'isRemovable',
+				type: 'boolean',
+				description: 'Flag to indicate if a tag is removable.',
+			},
+			{
+				name: 'linkComponent',
+				type: 'ComponentClass<any, any> | FunctionComponent<any>',
+			},
+			{
+				name: 'maxWidth',
+				type: 'string | number',
+				description:
+					"Maximum width of the tag text. When exceeded, text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
+			},
+			{
+				name: 'migration_fallback',
+				type: 'string',
+				description:
+					"@internal\n**Temporary / Internal only for migration.**\n\nWhen set to `'lozenge'` and the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts`\nis OFF, renders as a Lozenge component instead of Tag. This enables safe, staged migration\nfrom Lozenge to Tag for large consumers.\n\nThis prop will be removed via codemod after migration is complete.",
+			},
+			{
+				name: 'onAfterRemoveAction',
+				type: '(text: string) => void',
+				description:
+					"Handler to be called after tag is removed. Called with the string 'Post\nRemoval Hook'.",
+			},
+			{
+				name: 'onBeforeRemoveAction',
+				type: '() => boolean',
+				description:
+					'Handler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.',
+			},
+			{
+				name: 'removeButtonLabel',
+				type: 'string',
+				description: 'Text rendered as the aria-label for remove button.',
+			},
+			{
+				name: 'text',
+				type: 'string',
+				description: 'Text to be displayed in the tag.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'SimpleTag',
+		package: '@atlaskit/tag',
+		description: 'A tag is a compact label used to classify, organize, and categorize information.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use for non-interactive categorization and labelling',
+			'Use for object-related content; for people/teams use AvatarTag',
+			"Don't use for status—use lozenge instead",
+			'Use TagGroup to control layout of multiple tags',
 		],
 		contentGuidelines: [
 			'Use clear, descriptive tag labels',
 			'Keep tag text concise',
-			'Use consistent terminology across tags',
-			'Consider tag hierarchy and grouping',
+			'Use color intentionally',
+		],
+		keywords: ['tag', 'simple', 'label', 'category', 'non-interactive'],
+		category: 'data-display',
+		examples: [
+			'import { Box } from \'@atlaskit/primitives/compiled\';\nimport { SimpleTag as Tag } from \'@atlaskit/tag\';\nexport default (): React.JSX.Element => (\n\t<Box id="simpleTags" role="group" aria-label="Simple tag examples">\n\t\t<Tag text="standard Tag" color="standard" />\n\t\t<Tag text="blue Tag" color="blue" />\n\t\t<Tag text="green Tag" color="green" />\n\t\t<Tag text="teal Tag" color="teal" />\n\t\t<Tag text="purple Tag" color="purple" />\n\t\t<Tag text="red Tag" color="red" />\n\t\t<Tag text="yellow Tag" color="yellow" />\n\t\t<Tag text="orange Tag" color="orange" />\n\t\t<Tag text="magenta Tag" color="magenta" />\n\t\t<Tag text="lime Tag" color="lime" />\n\t\t<Tag text="grey Tag" color="grey" />\n\t\t<Tag text="greenLight Tag" color="greenLight" />\n\t\t<Tag text="tealLight Tag" color="tealLight" />\n\t\t<Tag text="blueLight Tag" color="blueLight" />\n\t\t<Tag text="purpleLight Tag" color="purpleLight" />\n\t\t<Tag text="redLight Tag" color="redLight" />\n\t\t<Tag text="yellowLight Tag" color="yellowLight" />\n\t\t<Tag text="orangeLight Tag" color="orangeLight" />\n\t\t<Tag text="magentaLight Tag" color="magentaLight" />\n\t\t<Tag text="limeLight Tag" color="limeLight" />\n\t\t<Tag text="greyLight Tag" color="greyLight" />\n\t</Box>\n);',
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"default" | "rounded"',
+				description: 'Set whether tags are rounded.',
+			},
+			{
+				name: 'color',
+				type: '"standard" | "green" | "lime" | "blue" | "red" | "purple" | "magenta" | "grey" | "gray" | "teal" | "orange" | "yellow" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
+				description: 'The color theme to apply. This sets both the background and text color.',
+			},
+			{
+				name: 'elemBefore',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'The component to be rendered before the tag.',
+			},
+			{
+				name: 'href',
+				type: 'string',
+				description: 'URI or path. If provided, the tag will be a link.',
+			},
+			{
+				name: 'linkComponent',
+				type: 'ComponentClass<any, any> | FunctionComponent<any>',
+			},
+			{
+				name: 'maxWidth',
+				type: 'string | number',
+				description:
+					"Maximum width of the tag text. When exceeded, text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
+			},
+			{
+				name: 'migration_fallback',
+				type: 'string',
+				description:
+					"@internal\n**Temporary / Internal only for migration.**\n\nWhen set to `'lozenge'` and the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts`\nis OFF, renders as a Lozenge component instead of Tag. This enables safe, staged migration\nfrom Lozenge to Tag for large consumers.\n\nThis prop will be removed via codemod after migration is complete.",
+			},
+			{
+				name: 'text',
+				type: 'string',
+				description: 'Text to be displayed in the tag.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'Tag',
+		package: '@atlaskit/tag',
+		description: 'A tag is a compact label used to classify, organize, and categorize information.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for object-related content; for people, teams, projects, spaces use AvatarTag',
+			"Don't use for status or state—use lozenge instead",
+			'Use TagGroup to control layout of multiple tags',
+			"Don't use tags within user-generated text (e.g. editor)",
+			'Tags can be non-interactive, links, or removable (isRemovable)',
+		],
+		contentGuidelines: [
+			'Use clear, descriptive tag labels',
+			'Keep tag text concise; max 200px causes truncation',
+			'Use color intentionally to organize related content',
+			'For people, teams, spaces, or projects use avatar tag',
 		],
 		accessibilityGuidelines: [
 			'Provide appropriate labels for tags',

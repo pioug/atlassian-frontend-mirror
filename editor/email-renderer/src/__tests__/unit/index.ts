@@ -548,5 +548,4 @@ describe('Renderer - EmailSerializer', () => {
 		expect(result).toMatchSnapshot('task list rich content');
 		expect(embeddedImages).toMatchSnapshot('task list rich content embeddedImages');
 	});
-
 });

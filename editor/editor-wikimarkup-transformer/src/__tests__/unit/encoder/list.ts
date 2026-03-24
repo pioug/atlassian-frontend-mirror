@@ -87,31 +87,22 @@ describe('ADF => WikiMarkup - List', () => {
 
 		test('should convert wrapper listItem with nested orderedList as first child in bulletList', () => {
 			const node = doc(
-				ul(
-					li(p('item 1')),
-					li(ol()(li(p('nested item 1')), li(p('nested item 2')))),
-				),
+				ul(li(p('item 1')), li(ol()(li(p('nested item 1')), li(p('nested item 2'))))),
 			)(stage0Schema);
 			expect(transformer.encode(node)).toMatchSnapshot();
 		});
 
 		test('should convert wrapper listItem with nested bulletList as first child in orderedList', () => {
 			const node = doc(
-				ol()(
-					li(p('item 1')),
-					li(ul(li(p('nested item 1')), li(p('nested item 2')))),
-				),
+				ol()(li(p('item 1')), li(ul(li(p('nested item 1')), li(p('nested item 2'))))),
 			)(stage0Schema);
 			expect(transformer.encode(node)).toMatchSnapshot();
 		});
 
 		test('should convert wrapper listItem with nested bulletList as first child in bulletList', () => {
-			const node = doc(
-				ul(
-					li(p('item 1')),
-					li(ul(li(p('nested item 1')), li(p('nested item 2')))),
-				),
-			)(stage0Schema);
+			const node = doc(ul(li(p('item 1')), li(ul(li(p('nested item 1')), li(p('nested item 2'))))))(
+				stage0Schema,
+			);
 			expect(transformer.encode(node)).toMatchSnapshot();
 		});
 
@@ -132,17 +123,7 @@ describe('ADF => WikiMarkup - List', () => {
 		});
 
 		test('should convert deeply nested wrapper listItems', () => {
-			const node = doc(
-				ul(
-					li(
-						ol()(
-							li(
-								ul(li(p('deep item'))),
-							),
-						),
-					),
-				),
-			)(stage0Schema);
+			const node = doc(ul(li(ol()(li(ul(li(p('deep item'))))))))(stage0Schema);
 			expect(transformer.encode(node)).toMatchSnapshot();
 		});
 	});

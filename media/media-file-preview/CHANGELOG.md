@@ -1,5 +1,13 @@
 # @atlaskit/media-file-preview
 
+## 0.16.4
+
+### Patch Changes
+
+- [`be94d5f05b8ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be94d5f05b8ae) -
+  Fix media image blob cache to only evict blobs when they are no longer referenced
+- Updated dependencies
+
 ## 0.16.3
 
 ### Patch Changes

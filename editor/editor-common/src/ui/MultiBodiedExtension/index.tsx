@@ -15,11 +15,11 @@ const mbeExtensionContainer = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'padding:': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		left: `${token('space.100', '8px')} !important`,
+		left: `${token('space.100')} !important`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		right: `${token('space.100', '8px')} !important`,
+		right: `${token('space.100')} !important`,
 	},
-	paddingBottom: token('space.100', '8px'),
+	paddingBottom: token('space.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.remove-padding': {
 		paddingBottom: 0,
@@ -29,7 +29,7 @@ const mbeExtensionContainer = css({
 	cursor: 'pointer',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.multiBodiedExtension-handler-result': {
-		marginLeft: token('space.100', '8px'),
+		marginLeft: token('space.100'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	".multiBodiedExtension-content-dom-wrapper > [data-extension-frame='true'], .multiBodiedExtension--frames > [data-extension-frame='true']":
@@ -53,12 +53,12 @@ const mbeNavigation = css({
 	WebkitUserModify: 'read-only',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	borderBottom: 'none !important',
-	background: token('elevation.surface', 'white'),
-	marginLeft: token('space.100', '8px'),
-	marginRight: token('space.100', '8px'),
+	background: token('elevation.surface'),
+	marginLeft: token('space.100'),
+	marginRight: token('space.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.remove-margins': {
-		margin: token('space.negative.100', '-8px'),
+		margin: token('space.negative.100'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.remove-border': {
@@ -68,31 +68,31 @@ const mbeNavigation = css({
 
 const extensionFrameContent = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-	padding: `${token('space.100', '8px')} !important`,
+	padding: `${token('space.100')} !important`,
 	display: 'block',
 	minHeight: '100px',
 	background: 'transparent',
 	borderBottomLeftRadius: token('radius.small', '3px'),
 	borderBottomRightRadius: token('radius.small', '3px'),
-	marginLeft: token('space.100', '8px'),
-	marginRight: token('space.100', '8px'),
+	marginLeft: token('space.100'),
+	marginRight: token('space.100'),
 	cursor: 'initial',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.pm-table-with-controls': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		marginLeft: `${token('space.150', '12px')} !important`,
+		marginLeft: `${token('space.150')} !important`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		paddingRight: `${token('space.150', '12px')} !important`,
+		paddingRight: `${token('space.150')} !important`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.bodiedExtensionView-content-wrap': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		marginTop: `${token('space.150', '12px')} !important`,
+		marginTop: `${token('space.150')} !important`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.extensionView-content-wrap': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		marginTop: `${token('space.100', '8px')} !important`,
+		marginTop: `${token('space.100')} !important`,
 	},
 });
 

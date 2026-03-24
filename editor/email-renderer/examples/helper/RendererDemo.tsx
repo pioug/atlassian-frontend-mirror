@@ -108,10 +108,10 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 		return (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={{ padding: token('space.250', '20px') }}
+				style={{ padding: token('space.250') }}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<fieldset style={{ marginBottom: token('space.250', '20px') }}>
+				<fieldset style={{ marginBottom: token('space.250') }}>
 					<legend>Input</legend>
 					{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 					<textarea
@@ -126,7 +126,7 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							fontSize: 16,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							padding: token('space.150', '12px'),
+							padding: token('space.150'),
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							width: '100%',
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

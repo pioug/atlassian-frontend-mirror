@@ -67,6 +67,7 @@ test.describe('List inside a blockquote', () => {
 			test.use({
 				editorExperiments: {
 					platform_editor_flexible_list_indentation: flexibleListIndentation,
+					platform_editor_flexible_list_schema: flexibleListIndentation,
 				},
 			});
 

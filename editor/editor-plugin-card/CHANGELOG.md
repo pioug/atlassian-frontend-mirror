@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-card
 
+## 13.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.2
+
+### Patch Changes
+
+- [`2116707c51d9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2116707c51d9b) -
+  [ux] Add SmartLinkDraggable wrapping to BlockCard and EmbedCard. Add stopEvent to prevent
+  ProseMirror from intercepting drag events on smart-element-link. Remove double feature gating in
+  inlineCard.
+- Updated dependencies
+
 ## 13.1.1
 
 ### Patch Changes

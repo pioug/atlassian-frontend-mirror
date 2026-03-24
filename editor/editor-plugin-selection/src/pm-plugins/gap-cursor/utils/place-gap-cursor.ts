@@ -1,7 +1,6 @@
 import type { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side } from '@atlaskit/editor-common/selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getComputedStyleForLayoutMode, getLayoutModeFromTargetNode, isLeftCursor } from '../utils';
@@ -112,9 +111,7 @@ export const toDOMOld = (view: EditorView, getPos: () => number | undefined): HT
 		}
 
 		// Tables nested inside other elements such as layouts, expands and other tables do not have fixed width
-		const isNestedTable = fg('platform_editor_nested_tables_gap_cursor')
-			? node?.type.name === 'table' && selection.$to.depth > 0
-			: false;
+		const isNestedTable = node?.type.name === 'table' && selection.$to.depth > 0;
 
 		if (layoutMode && !isNestedTable) {
 			gapCursor.setAttribute('layout', layoutMode);
@@ -165,9 +162,7 @@ export const toDOMNew = (view: EditorView, getPos: () => number | undefined): HT
 					gapCursor.style.marginTop = style.getPropertyValue('margin-top');
 				}
 
-				const isNestedTable = fg('platform_editor_nested_tables_gap_cursor')
-					? node?.type.name === 'table' && selection.$to.depth > 0
-					: false;
+				const isNestedTable = node?.type.name === 'table' && selection.$to.depth > 0;
 
 				if (layoutMode && !isNestedTable) {
 					gapCursor.setAttribute('layout', layoutMode);

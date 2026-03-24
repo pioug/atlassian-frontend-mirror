@@ -1,18 +1,17 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const container = (height?: number): SerializedStyles =>
 	css({
 		borderRadius: token('radius.small', '3px'),
-		boxShadow: token('elevation.shadow.overlay', `0 12px 24px -6px ${N50A}, 0 0 1px ${N60A}`),
+		boxShadow: token('elevation.shadow.overlay'),
 		display: 'flex',
 		alignItems: 'center',
 		boxSizing: 'border-box',
-		padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
-		backgroundColor: token('color.background.input', N0),
+		padding: `${token('space.050')} ${token('space.100')}`,
+		backgroundColor: token('color.background.input'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: height ? `${height}px` : undefined,
 	});

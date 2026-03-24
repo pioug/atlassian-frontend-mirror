@@ -156,6 +156,7 @@ export const DeleteConfirmationModal = ({
 	useEffect(() => {
 		if (bodiedSyncBlockDeletionStatus === 'completed' && isOpen) {
 			// auto close modal once deletion is successful
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			setIsOpen(false);
 			api?.core?.actions.execute(({ tr }) => {
 				return tr.setMeta(syncedBlockPluginKey, {
@@ -190,6 +191,7 @@ export const DeleteConfirmationModal = ({
 				}
 			};
 
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			fetchReferences();
 		}
 	}, [isOpen, syncBlockIds, syncBlockStoreManager.sourceManager]);

@@ -92,6 +92,7 @@ export const EditorLinkPicker = ({
 		return (
 			<div ref={ref}>
 				<AnalyticsContext data={analyticsData}>
+					{/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
 					<FocusLock returnFocus={{ preventScroll: true }} focusOptions={{ preventScroll: true }}>
 						<LazyLinkPicker
 							// Ignored via go/ees005

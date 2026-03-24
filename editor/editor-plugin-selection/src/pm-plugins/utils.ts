@@ -24,7 +24,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { selectionPluginKey } from '../types';
 
@@ -65,7 +65,10 @@ export const getDecorations = (
 
 		// Only apply node decorations when there is an active block selection.
 		// When there is no block selection, text selections should use native browser selection appearance.
-		if (!expValEquals('platform_editor_block_menu', 'isEnabled', true) || blockSelection) {
+		if (
+			!editorExperiment('platform_editor_block_menu', true, { exposure: true }) ||
+			blockSelection
+		) {
 			const selectionDecorations = getNodesToDecorateFromSelection(selection, tr.doc).map(
 				({ node, pos }) => {
 					return Decoration.node(pos, pos + node.nodeSize, {

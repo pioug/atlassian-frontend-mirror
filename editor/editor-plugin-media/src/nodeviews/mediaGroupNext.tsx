@@ -347,6 +347,7 @@ export const MediaGroupNext: React.FC<
 		}, [mediaClientConfig]);
 
 		useEffect(() => {
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			mediaNodesWithOffsets.forEach(({ node, offset }) => {
 				const mediaNodeUpdater = createMediaNodeUpdater({
 					view,

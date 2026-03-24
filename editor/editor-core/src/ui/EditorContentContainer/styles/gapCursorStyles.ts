@@ -122,11 +122,11 @@ export const gapCursorStyles: SerializedStyles = css({
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'&.-left span::after': {
-				left: token('space.negative.050', '-4px'),
+				left: token('space.negative.050'),
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'&.-right span::after': {
-				right: token('space.negative.050', '-4px'),
+				right: token('space.negative.050'),
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'& span[layout="full-width"], & span[layout="wide"], & span[layout="fixed-width"]': {

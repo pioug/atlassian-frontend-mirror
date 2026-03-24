@@ -255,9 +255,11 @@ const getMediaInlineImageToolbar = (
 				const borderMark = currentMediaOrInlineNodeBorderMark(state);
 				return (
 					<ImageBorderItem
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						toggleBorder={() => {
 							toggleBorderMark(pluginInjectionApi?.analytics?.actions)(state, dispatch);
 						}}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						setBorder={(attrs) => {
 							setBorderMark(pluginInjectionApi?.analytics?.actions)(attrs)(state, dispatch);
 						}}

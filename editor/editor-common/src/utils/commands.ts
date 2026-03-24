@@ -10,7 +10,7 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	ACTION,
@@ -239,10 +239,7 @@ function canMoveUp(state: EditorState): boolean {
 		return true;
 	}
 
-	if (
-		selection instanceof TextSelection &&
-		!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-	) {
+	if (selection instanceof TextSelection && !editorExperiment('platform_editor_block_menu', true)) {
 		if (!selection.empty) {
 			return true;
 		}
@@ -261,10 +258,7 @@ function canMoveDown(state: EditorState): boolean {
 		return true;
 	}
 
-	if (
-		selection instanceof TextSelection &&
-		!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-	) {
+	if (selection instanceof TextSelection && !editorExperiment('platform_editor_block_menu', true)) {
 		if (!selection.empty) {
 			return true;
 		}

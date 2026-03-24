@@ -243,6 +243,7 @@ export default class Resizer extends React.Component<ResizerProps, ResizerState>
 		return (
 			<Resizable
 				ref={this.resizable}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				size={{
 					width: nonZeroWidth, // just content itself (no paddings)
 					height: 'auto',

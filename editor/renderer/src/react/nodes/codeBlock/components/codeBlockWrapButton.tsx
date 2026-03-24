@@ -42,6 +42,7 @@ const CodeBlockWrapButton = ({
 							className={`wrap-code ${wrapLongLines ? 'clicked' : ''}`}
 							iconBefore={<TextWrapIcon label="" />}
 							isSelected={wrapLongLines}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onClick={(event) => {
 								fireAnalyticsEvent({
 									// @ts-expect-error - Type 'ACTION.CLICKED' is not assignable to type 'ACTION.CLICKED | ACTION.MEDIA_LINK_TRANSFORMED | ACTION.STARTED | ACTION.TOGGLE_EXPAND | ACTION.UNSUPPORTED_CONTENT_ENCOUNTERED | ACTION.VISITED | ACTION.RENDERED | ACTION.INVALID_PROSEMIRROR_DOCUMENT | ACTION.CRASHED | ... 6 more ... | AnnotationActionType'

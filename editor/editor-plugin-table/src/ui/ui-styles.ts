@@ -9,11 +9,9 @@ import {
 } from '@atlaskit/editor-common/styles';
 import {
 	akEditorShadowZIndex,
-	akEditorTableBorder,
 	akEditorTableNumberColumnWidth,
 	akEditorUnitZIndex,
 } from '@atlaskit/editor-shared-styles';
-import { B300, N0, N300, N40A, N60A, Y200, Y50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../types';
@@ -126,7 +124,7 @@ export const HeaderButton = (cssString?: string) => css`
 	}
 
 	.active .${ClassName.CONTROLS_BUTTON} {
-		color: ${token('color.icon.inverse', N0)};
+		color: ${token('color.icon.inverse')};
 		background-color: ${tableToolbarSelectedColor};
 		border-color: ${tableBorderSelectedColor};
 	}
@@ -134,7 +132,7 @@ export const HeaderButton = (cssString?: string) => css`
 
 export const HeaderButtonHover = () => css`
 	.${ClassName.CONTROLS_BUTTON}:hover {
-		color: ${token('color.icon.inverse', N0)};
+		color: ${token('color.icon.inverse')};
 		background-color: ${tableToolbarSelectedColor};
 		border-color: ${tableBorderSelectedColor};
 		cursor: pointer;
@@ -162,9 +160,9 @@ const InsertButton = () => css`
 	}
 	.${ClassName.CONTROLS_INSERT_BUTTON} {
 		${Button(`
-      background: ${token('elevation.surface.overlay', 'white')};
-      box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`)};
-      color: ${token('color.icon', N300)};
+      background: ${token('elevation.surface.overlay')};
+      box-shadow: ${token('elevation.shadow.overlay')};
+      color: ${token('color.icon')};
     `)}
 	}
 	.${ClassName.CONTROLS_INSERT_LINE} {
@@ -177,8 +175,8 @@ const InsertButton = () => css`
 
 const InsertButtonHover = () => css`
 	.${ClassName.CONTROLS_INSERT_BUTTON}:hover {
-		background: ${token('color.background.brand.bold', B300)};
-		color: ${token('color.icon.inverse', 'white')};
+		background: ${token('color.background.brand.bold')};
+		color: ${token('color.icon.inverse')};
 		cursor: pointer;
 	}
 `;
@@ -205,9 +203,9 @@ export const dragInsertButtonWrapper = () => css`
 
 	.${ClassName.DRAG_CONTROLS_INSERT_BUTTON} {
 		${Button(`
-    background: ${token('elevation.surface.overlay', 'white')};
-    color: ${token('color.icon', N300)};
-    border: 1px solid ${token('color.background.accent.gray.subtler', '#C1C7D0')};
+    background: ${token('elevation.surface.overlay')};
+    color: ${token('color.icon')};
+    border: 1px solid ${token('color.background.accent.gray.subtler')};
     border-radius: 50%;
     height: ${dragTableInsertColumnButtonSize}px;
     width: ${dragTableInsertColumnButtonSize}px;
@@ -215,9 +213,9 @@ export const dragInsertButtonWrapper = () => css`
 	}
 
 	.${ClassName.DRAG_CONTROLS_INSERT_BUTTON}:hover {
-		background: ${token('color.background.brand.bold', B300)};
-		border: 1px solid ${token('color.background.brand.bold', B300)};
-		color: ${token('color.icon.inverse', 'white')};
+		background: ${token('color.background.brand.bold')};
+		border: 1px solid ${token('color.background.brand.bold')};
+		color: ${token('color.icon.inverse')};
 		cursor: pointer;
 	}
 `;
@@ -241,7 +239,7 @@ export const dragCornerControlButton = () => css`
 		z-index: ${akEditorUnitZIndex * 99};
 
 		&.active .${ClassName.DRAG_CORNER_BUTTON_INNER} {
-			background-color: ${token('color.border.selected', '#0C66E4')};
+			background-color: ${token('color.border.selected')};
 			width: 10px;
 			height: 10px;
 			border-width: 2px;
@@ -265,8 +263,8 @@ export const dragCornerControlButton = () => css`
 	}
 
 	.${ClassName.DRAG_CORNER_BUTTON_INNER} {
-		border: 1px solid ${token('color.border.inverse', '#FFF')};
-		background-color: ${token('color.background.accent.gray.subtler', '#DCDFE4')};
+		border: 1px solid ${token('color.border.inverse')};
+		background-color: ${token('color.background.accent.gray.subtler')};
 		border-radius: 2px;
 		width: 5px;
 		height: 5px;
@@ -346,14 +344,10 @@ export const OverflowShadow = (isDragAndDropEnabled: boolean | undefined) => css
 	}
 	.${ClassName.TABLE_LEFT_SHADOW} {
 		background:
-			linear-gradient(
-				to left,
-				transparent 0,
-				${token('elevation.shadow.overflow.spread', N40A)} 140%
-			),
+			linear-gradient(to left, transparent 0, ${token('elevation.shadow.overflow.spread')} 140%),
 			linear-gradient(
 				to right,
-				${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+				${token('elevation.shadow.overflow.perimeter')} 0px,
 				transparent 1px
 			);
 		left: 0px;
@@ -363,16 +357,8 @@ export const OverflowShadow = (isDragAndDropEnabled: boolean | undefined) => css
 	}
 	.${ClassName.TABLE_RIGHT_SHADOW} {
 		background:
-			linear-gradient(
-				to right,
-				transparent 0,
-				${token('elevation.shadow.overflow.spread', N40A)} 140%
-			),
-			linear-gradient(
-				to left,
-				${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
-				transparent 1px
-			);
+			linear-gradient(to right, transparent 0, ${token('elevation.shadow.overflow.spread')} 140%),
+			linear-gradient(to left, ${token('elevation.shadow.overflow.perimeter')} 0px, transparent 1px);
 		left: calc(100% - ${tableOverflowShadowWidthWide}px);
 	}
 	.${ClassName.WITH_CONTROLS} {
@@ -434,7 +420,7 @@ const columnHeaderButton = (cssString?: string) => {
 
 const columnHeaderButtonSelected = () =>
 	css({
-		color: token('color.text.inverse', N0),
+		color: token('color.text.inverse'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		backgroundColor: tableToolbarSelectedColor,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -458,7 +444,7 @@ const getFloatingDotOverrides = () => {
 			width: ${lineMarkerSize}px;
 			border-radius: 50%;
 			pointer-events: none;
-			top: ${token('space.025', '2px')};
+			top: ${token('space.025')};
 			right: 0px;
 		}
 	`;
@@ -529,7 +515,7 @@ export const columnControlsDecoration = () => {
 				border-radius: 50%;
 				pointer-events: none;
 				top: 2px;
-				right: ${token('space.negative.025', '-2px')};
+				right: ${token('space.negative.025')};
 			}
 
 			&::after {
@@ -673,9 +659,8 @@ export const hoveredWarningCell = css`
 		td.${ClassName.HOVERED_CELL_WARNING} {
 			background-color: ${token(
 				'color.background.warning',
-				Y50,
 			)} !important; /* We need to override the background-color added to the cell */
-			border: 1px solid ${token('color.border.warning', Y200)};
+			border: 1px solid ${token('color.border.warning')};
 		}
 	}
 `;
@@ -687,7 +672,7 @@ const resizeLineStyles = () => {
 		th.${ClassName.WITH_DRAG_RESIZE_LINE}::before, td.${ClassName.WITH_DRAG_RESIZE_LINE}::before {
 			content: ' ';
 			position: absolute;
-			left: ${token('space.negative.025', '-2px')};
+			left: ${token('space.negative.025')};
 			top: -1px;
 			width: ${resizeLineWidth}px;
 			height: calc(100% + 2px);
@@ -711,7 +696,7 @@ const resizeLineStyles = () => {
 		td.${ClassName.WITH_RESIZE_LINE}::before {
 			content: ' ';
 			position: absolute;
-			left: ${token('space.negative.025', '-2px')};
+			left: ${token('space.negative.025')};
 			top: -1px;
 			width: ${resizeLineWidth}px;
 			height: calc(100% + 2px);
@@ -721,7 +706,7 @@ const resizeLineStyles = () => {
 
 		th.${ClassName.WITH_RESIZE_LINE}::before {
 			content: ' ';
-			left: ${token('space.negative.025', '-2px')};
+			left: ${token('space.negative.025')};
 			position: absolute;
 			width: ${resizeLineWidth}px;
 			height: calc(100% + ${tableToolbarSize + tableCellBorderWidth}px);
@@ -823,7 +808,7 @@ const tableCellColumnInsertLineStyles = css({
 const tableCellRowInsertLineStyles = css({
 	content: "' '",
 	position: 'absolute',
-	left: token('space.negative.025', '-2px'),
+	left: token('space.negative.025'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: `${insertLineWidth}px`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -839,7 +824,7 @@ const insertLineActiveColor = css({
 
 const insertLineInactiveColor = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	backgroundColor: token('color.background.accent.gray.subtler', akEditorTableBorder),
+	backgroundColor: token('color.background.accent.gray.subtler'),
 });
 
 // Explicit pixel values required here to ensure correct positioning of line that is show on row
@@ -877,28 +862,28 @@ export const insertLine = () => css`
 
 		td.${ClassName.WITH_COLUMN_INSERT_LINE}::before {
 			${tableCellColumnInsertLineStyles}
-			left: ${token('space.negative.025', '-2px')};
+			left: ${token('space.negative.025')};
 			top: -1px;
 			${insertLineActiveColor}
 		}
 
 		td.${ClassName.WITH_COLUMN_INSERT_LINE_INACTIVE}::before {
 			${tableCellColumnInsertLineStyles}
-			left: ${token('space.negative.025', '-2px')};
+			left: ${token('space.negative.025')};
 			top: -1px;
 			${insertLineInactiveColor}
 		}
 
 		th.${ClassName.WITH_COLUMN_INSERT_LINE}::before {
 			${tableCellColumnInsertLineStyles}
-			left: ${token('space.negative.025', '-2px')};
+			left: ${token('space.negative.025')};
 			top: -${tableCellBorderWidth}px;
 			${insertLineActiveColor}
 		}
 
 		th.${ClassName.WITH_COLUMN_INSERT_LINE_INACTIVE}::before {
 			${tableCellColumnInsertLineStyles}
-			left: ${token('space.negative.025', '-2px')};
+			left: ${token('space.negative.025')};
 			top: -${tableCellBorderWidth}px;
 			${insertLineInactiveColor}
 		}

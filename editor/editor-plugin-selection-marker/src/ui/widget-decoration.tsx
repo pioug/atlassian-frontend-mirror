@@ -7,7 +7,6 @@ import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type SelectionType = 'anchor' | 'head';
@@ -17,8 +16,8 @@ const selectionMarkerHighlightStyles = {
 	position: 'absolute',
 	backgroundImage:
 		"url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMyIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDMgMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMSAxSDBMMSAxLjg1NzE0VjE4LjE0MzNMMCAxOS4wMDA0SDNMMiAxOC4xNDMzVjEuODU3MTRMMyAxSDJIMVoiIGZpbGw9IiM1NzlERkYiLz4KPHJlY3QgeT0iMTkiIHdpZHRoPSIzIiBoZWlnaHQ9IjEiIGZpbGw9IiM1NzlERkYiLz4KPHJlY3Qgd2lkdGg9IjMiIGhlaWdodD0iMSIgZmlsbD0iIzU3OURGRiIvPgo8L3N2Zz4K')",
-	top: token('space.0', '0px'),
-	bottom: token('space.negative.025', '-2px'),
+	top: token('space.0'),
+	bottom: token('space.negative.025'),
 	backgroundRepeat: 'no-repeat',
 	backgroundPositionX: 'center',
 	backgroundPositionY: 'center',
@@ -34,11 +33,11 @@ const selectionMarkerHighlightStyles = {
 const selectionMarkerBlockCursorStyles = {
 	content: "''",
 	position: 'absolute',
-	background: token('color.text', N500),
+	background: token('color.text'),
 	width: '1px',
 	display: 'inline-block',
-	top: token('space.0', '0px'),
-	bottom: token('space.negative.025', '-2px'),
+	top: token('space.0'),
+	bottom: token('space.negative.025'),
 	left: '1px',
 	marginLeft: token('space.negative.025'),
 	right: '0px',
@@ -51,7 +50,7 @@ const selectionMarkerInlineCursorStyles = {
 	content: "''",
 	position: 'relative',
 	pointerEvents: 'none',
-	borderLeft: `${token('border.width')} solid ${token('color.text', N500)}`,
+	borderLeft: `${token('border.width')} solid ${token('color.text')}`,
 	marginLeft: '-1px',
 	left: '0.5px',
 };

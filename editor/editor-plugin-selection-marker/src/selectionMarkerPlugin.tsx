@@ -4,6 +4,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createPlugin, dispatchShouldHideDecorations, key } from './pm-plugins/main';
 import type { ReleaseHiddenDecoration, SelectionMarkerPlugin } from './selectionMarkerPluginType';
@@ -115,7 +116,7 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 
 				const isBlockMenuOpen =
 					currentUserIntent === 'blockMenuOpen' &&
-					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true);
+					editorExperiment('platform_editor_block_menu', true);
 
 				/**
 				 * There are a number of conditions we should not show the marker,
@@ -133,8 +134,7 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 					isForcedHidden ||
 					(editorDisabled ?? false) ||
 					(showToolbar ?? false) ||
-					(!!hasDangerDecorations &&
-						expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) ||
+					(!!hasDangerDecorations && editorExperiment('platform_editor_block_menu', true)) ||
 					isBlockMenuOpen;
 
 				requestAnimationFrame(() => dispatchShouldHideDecorations(editorView, shouldHide));

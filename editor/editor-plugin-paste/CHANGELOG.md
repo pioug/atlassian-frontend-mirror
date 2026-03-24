@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-paste
 
+## 9.0.11
+
+### Patch Changes
+
+- [`0f4a08b633f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f4a08b633f6e) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 9.0.10
+
+### Patch Changes
+
+- [`d193def6569f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d193def6569f2) -
+  Fixed mixed HTML/Editor content copy/paste issue on mediaInline node by preventing
+  unwrapNestedMediaElements from hoisting images out of mediaInline wrappers.
+- Updated dependencies
+
 ## 9.0.9
 
 ### Patch Changes

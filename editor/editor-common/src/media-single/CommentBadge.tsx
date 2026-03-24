@@ -103,11 +103,11 @@ export const CommentBadge: ForwardRefExoticComponent<
 		const colourToken = useMemo(() => {
 			switch (status) {
 				case 'active':
-					return token('color.background.accent.yellow.subtlest.pressed', '#F5CD47');
+					return token('color.background.accent.yellow.subtlest.pressed');
 				case 'entered':
-					return token('color.background.accent.yellow.subtlest.hovered', '#F8E6A0');
+					return token('color.background.accent.yellow.subtlest.hovered');
 				default:
-					return token('color.background.accent.yellow.subtlest', '#FFF7D6');
+					return token('color.background.accent.yellow.subtlest');
 			}
 		}, [status]);
 
@@ -130,6 +130,7 @@ export const CommentBadge: ForwardRefExoticComponent<
 				<Tooltip position="top" content={title}>
 					{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
 					<CustomThemeButton
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							height: badgeDimensions,

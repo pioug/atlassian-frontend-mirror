@@ -10,6 +10,7 @@ export const useElementWidth = (
 
 	React.useEffect(() => {
 		if (!skip && ref.current && !fg('platform_editor_prevent_toolbar_width_reflow')) {
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			setWidth(Math.round(ref.current.getBoundingClientRect().width));
 		}
 	}, [skip, setWidth, ref]);

@@ -31,14 +31,11 @@ export const Popup = React.forwardRef<HTMLDivElement, Props>(function Popup(
 
 const buttonContainer = css({
 	transform: `translate(calc(-50% - 5px), calc(-100% - 20px))`,
-	boxShadow: token(
-		'elevation.shadow.overlay',
-		'0px 3px 5px rgba(9, 30, 66, 0.2), 0px 0px 1px rgba(9, 30, 66, 0.31)',
-	),
+	boxShadow: token('elevation.shadow.overlay'),
 	borderRadius: 3,
 	position: 'absolute',
 	top: 0,
-	backgroundColor: token('elevation.surface.overlay', '#fff'),
+	backgroundColor: token('elevation.surface.overlay'),
 	display: 'flex',
 });
 

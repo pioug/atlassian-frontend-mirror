@@ -163,8 +163,9 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 		const hasAbortEvent = filteredEntries.some((entry) => {
 			if (entry.data.type === 'window:event') {
 				const data = entry.data as WindowEventEntryData;
-				if (ABORTING_WINDOW_EVENT.includes(data.eventType)) {
-					dirtyReason = data.eventType === 'keydown' ? 'keypress' : data.eventType;
+				const eventType = data.eventType as (typeof ABORTING_WINDOW_EVENT)[number];
+				if (ABORTING_WINDOW_EVENT.includes(eventType)) {
+					dirtyReason = eventType === 'keydown' ? 'keypress' : eventType;
 					abortTimestamp = Math.round(entry.time);
 					return true;
 				}

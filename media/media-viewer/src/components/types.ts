@@ -18,6 +18,17 @@ export interface MediaViewerExtensions {
 		icon: ReactNode;
 		renderer: (selectedIdentifier: Identifier, actions: MediaViewerExtensionsActions) => ReactNode;
 	};
+	headerActions?: Array<{
+		/** Icon to display in the header button */
+		icon: ReactNode;
+		/** Label for the button (accessibility) */
+		label: string;
+		/** Called when the button is clicked. Receives the currently viewed item's identifier
+		 * and actions (including close) to control the viewer. */
+		onClick: (selectedIdentifier: Identifier, actions: MediaViewerExtensionsActions) => void;
+		/** Optional callback to control per-item visibility. When omitted, button always shows. */
+		isVisible?: (selectedIdentifier: Identifier) => boolean;
+	}>;
 }
 
 export interface MediaViewerProps {

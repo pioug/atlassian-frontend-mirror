@@ -65,6 +65,7 @@ const DateField = ({
 			label={intl.formatMessage(messages[fieldName])}
 			defaultValue={getFromDefaultValue(parentField, fieldName as keyof DateRangeResult)}
 			isRequired={isRequired}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			validate={(value?: string) => {
 				return validateRequired<string | undefined>({ isRequired }, value);
 			}}
@@ -76,6 +77,7 @@ const DateField = ({
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...fieldProps}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onChange={(date: string) => {
 							fieldProps.onChange(date);
 							onFieldChange(parentField.name, true);
@@ -145,6 +147,7 @@ const DateRange = function ({
 				label={field.label}
 				defaultValue={currentValue}
 				isRequired={field.isRequired}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				validate={(value?: string) => validate<string>(field, value || '')}
 				testId={`config-panel-date-range-${name}`}
 				isDisabled={field.isDisabled}
@@ -156,6 +159,7 @@ const DateRange = function ({
 							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...fieldProps}
 							options={items}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onChange={(event) => {
 								fieldProps.onChange(event.target.value);
 								setCurrentValue(event.target.value);

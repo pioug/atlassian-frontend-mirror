@@ -15,14 +15,14 @@ import type { LinkSearchListItemData } from './types';
 
 const listContainer = css({
 	paddingTop: 0,
-	marginTop: token('space.150', '12px'),
+	marginTop: token('space.150'),
 	borderTop: `${token('border.width')} solid ${token('color.border')}`,
 });
 
 const spinnerContainer = css({
 	textAlign: 'center',
 	minHeight: '80px',
-	marginTop: token('space.400', '32px'),
+	marginTop: token('space.400'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -79,6 +79,7 @@ const LinkSearchList = ({
 						id={`link-search-list-item-${index}`}
 						item={item}
 						selected={selectedIndex === index}
+						// eslint-disable-next-line @atlassian/perf-linting/detect-unnecessary-rerenders, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onFocus={() => onFocus?.(index)}
 						onKeyDown={onKeyDown}
 						onMouseMove={onMouseMove}
@@ -86,6 +87,7 @@ const LinkSearchList = ({
 						onMouseLeave={onMouseLeave}
 						onSelect={onSelect}
 						key={item.objectId}
+						// eslint-disable-next-line @atlassian/perf-linting/detect-unnecessary-rerenders, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						ref={(el) => listItemRefCallback?.(el, item.objectId)}
 					/>
 				))}

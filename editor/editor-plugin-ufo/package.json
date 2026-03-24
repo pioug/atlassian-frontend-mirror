@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-ufo",
-	"version": "8.0.8",
+	"version": "8.0.9",
 	"description": "Ufo plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

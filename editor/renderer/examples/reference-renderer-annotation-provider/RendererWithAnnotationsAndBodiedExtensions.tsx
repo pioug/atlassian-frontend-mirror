@@ -38,17 +38,17 @@ const toolbarStyle = css({
 	display: 'flex',
 	flexDirection: 'row',
 	alignItems: 'center',
-	gap: token('space.100', '8px'),
-	paddingTop: token('space.050', '4px'),
-	paddingRight: token('space.050', '4px'),
-	paddingBottom: token('space.050', '4px'),
-	paddingLeft: token('space.050', '4px'),
+	gap: token('space.100'),
+	paddingTop: token('space.050'),
+	paddingRight: token('space.050'),
+	paddingBottom: token('space.050'),
+	paddingLeft: token('space.050'),
 	borderBottom: `${token('border.width')} solid ${token('color.border')}`,
 });
 
 const toolbarSection = css({
 	display: 'flex',
-	gap: token('space.025', '2px'),
+	gap: token('space.025'),
 });
 
 function BodiedExtensionRenderer({

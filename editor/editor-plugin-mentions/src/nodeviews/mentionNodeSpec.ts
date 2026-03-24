@@ -1,7 +1,6 @@
 import { mention } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const isSSR = Boolean(process.env.REACT_SSR);
@@ -31,7 +30,7 @@ export const mentionNodeSpec = (): NodeSpec => {
 				style: convertToInlineCss({
 					display: 'inline',
 					border: `1px solid transparent`,
-					background: token('color.background.neutral', N30A),
+					background: token('color.background.neutral'),
 					color: token('color.text.subtle'),
 					borderRadius: '20px',
 					cursor: 'pointer',

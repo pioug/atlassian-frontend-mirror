@@ -17,7 +17,7 @@ export const createTag = (
 		}
 
 		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
+		// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 		const attrValue = escapeHtmlString(String(value)).replace(/"/g, "'");
 
 		attrsList.push(`${key}="${attrValue}"`);

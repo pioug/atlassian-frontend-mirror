@@ -29,6 +29,7 @@ const SelectionExtensionDropdownMenuComponent = React.memo(
 		const [isMenuOpen, setIsMenuOpen] = useState(false);
 		return (
 			<DropdownMenu
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				section={{ hasSeparator: true }}
 				isOpen={isMenuOpen}
 				items={items}
@@ -40,6 +41,7 @@ const SelectionExtensionDropdownMenuComponent = React.memo(
 				<SelectionExtensionDropdownMenuButton
 					aria-expanded={isMenuOpen}
 					selected={isMenuOpen}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onClick={() =>
 						setIsMenuOpen((prevIsMenuOpen) => {
 							const nextIsMenuOpen = !prevIsMenuOpen;

@@ -153,6 +153,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 					boundariesElement={popupsBoundariesElement}
 					scrollableElement={popupsScrollableElement}
 					isOpen={isActive}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					handleEscapeKeydown={() => {
 						if (isActive) {
 							this.props.onCancel({ triggerMethod: TRIGGER_METHOD.KEYBOARD });
@@ -164,6 +165,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 					}}
 					fitWidth={dropdownWidthNewDesign}
 					zIndex={stackBelowOtherEditorFloatingPanels}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					arrowKeyNavigationProviderOptions={{
 						type: ArrowKeyNavigationType.MENU,
 						disableArrowKeyNavigation: true,
@@ -208,6 +210,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 						<FindReplace
 							findText={findText}
 							replaceText={replaceText}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							count={{ index, total: numMatches, totalReplaceable: numReplaceable }}
 							focusToolbarButton={this.focusToolbarButton}
 							// Ignored via go/ees005

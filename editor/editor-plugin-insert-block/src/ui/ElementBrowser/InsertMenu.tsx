@@ -133,6 +133,7 @@ const InsertMenu = ({
 		// Figure based on visuals to exclude the searchbar, padding/margin, and the ViewMore item.
 		const EXTRA_SPACE_EXCLUDING_ELEMENTLIST = 128;
 		const totalItemHeight =
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 			[...Array(itemCount)].reduce((sum, _, index) => sum + cache.rowHeight({ index }), 0) +
 			EXTRA_SPACE_EXCLUDING_ELEMENTLIST;
 

@@ -49,7 +49,7 @@ const frame = xcss({
 });
 
 const editorWrapper = css({
-	padding: token('space.100', '8px'),
+	padding: token('space.100'),
 	backgroundColor: 'white',
 	border: `${token('border.width')} solid ${token('color.border')}`,
 	borderRadius: token('radius.small'),

@@ -1,6 +1,4 @@
-import {
-	type OptionsOrGroups,
-} from '@atlaskit/react-select';
+import { type OptionsOrGroups } from '@atlaskit/react-select';
 
 import { type GroupType, type OptionType } from '../types';
 
@@ -10,5 +8,5 @@ export const isOptionsGrouped: (
 ) => boolean | undefined = (
 	arr: OptionsOrGroups<OptionType, GroupType<OptionType>> | undefined,
 ) => {
-		return arr?.every((obj) => obj.hasOwnProperty('options'));
-	};
+	return arr?.every((obj) => obj.hasOwnProperty('options'));
+};

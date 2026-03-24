@@ -419,7 +419,7 @@ export const getActiveDropTargetDecorations = (
 			? api.core.actions.getAnchorIdForNode(
 					anchorEmitNodeWithPos.node,
 					anchorEmitNodeWithPos.pos,
-			  ) || ''
+				) || ''
 			: getNodeAnchor(anchorEmitNodeWithPos.node),
 	);
 

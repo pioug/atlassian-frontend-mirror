@@ -70,6 +70,7 @@ class PlaceholderFloatingToolbar extends React.Component<Props & WrappedComponen
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				fitHeight={32}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				offset={[0, 12]}
 			>
 				<PanelTextInput

@@ -32,8 +32,8 @@ export function filterChildrenBetween(
 	pos: number;
 }[] {
 	const results = [] as { node: PMNode; pos: number }[];
-	doc.nodesBetween(from, to, (node, pos, parent) => {
-		if (predicate(node, pos, parent)) {
+	doc.nodesBetween(from, to, (node, pos, _parent) => {
+		if (predicate(node, pos, _parent)) {
 			results.push({ node, pos });
 		}
 	});
@@ -51,7 +51,7 @@ export function transformNonTextNodesToText(from: number, to: number, tr: Transa
 	} = schema.nodes;
 
 	const nodesToChange: { node: PMNode; pos: number }[] = [];
-	doc.nodesBetween(from, to, (node, pos, parent) => {
+	doc.nodesBetween(from, to, (node, pos, _parent) => {
 		if ([mentionNodeType, textNodeType, emojiNodeType, inlineCardNodeType].includes(node.type)) {
 			nodesToChange.push({ node, pos });
 		}
@@ -74,6 +74,7 @@ export function transformNonTextNodesToText(from: number, to: number, tr: Transa
 
 			const textForReplacing = doc.textBetween(startPositionInSelection, endPositionInSelection);
 
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			const newText = textForReplacing.replace(
 				FIND_SMART_CHAR,
 				(match) => SMART_TO_ASCII[match] ?? match,

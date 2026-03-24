@@ -26,6 +26,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -70,6 +71,7 @@ type MediaPickerFunctionalComponentProps = {
 type MediaViewerFunctionalComponentProps = {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	editorView: EditorView;
+	mediaViewerExtensions?: MediaViewerExtensions;
 };
 
 const selector = (
@@ -121,6 +123,7 @@ const mediaViewerStateSelector = (
 const MediaViewerFunctionalComponent = ({
 	api,
 	editorView,
+	mediaViewerExtensions,
 }: MediaViewerFunctionalComponentProps) => {
 	// Only traverse document once when media viewer is visible, media viewer items will not update
 	// when document changes are made while media viewer is open
@@ -151,6 +154,7 @@ const MediaViewerFunctionalComponent = ({
 			onClose={handleOnClose}
 			selectedNodeAttrs={mediaViewerSelectedMedia}
 			items={mediaItems}
+			extensions={mediaViewerExtensions}
 		/>
 	);
 };
@@ -435,7 +439,11 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 			return (
 				<>
-					<MediaViewerFunctionalComponent api={api} editorView={editorView} />
+					<MediaViewerFunctionalComponent
+						api={api}
+						editorView={editorView}
+						mediaViewerExtensions={options?.mediaViewerExtensions}
+					/>
 					<MediaPickerFunctionalComponent
 						editorDomElement={editorView.dom}
 						appearance={appearance}

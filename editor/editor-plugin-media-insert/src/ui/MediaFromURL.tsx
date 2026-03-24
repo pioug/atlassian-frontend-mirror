@@ -99,6 +99,7 @@ export const isValidUrl = (value: string): boolean => {
 		}
 		new URL(value);
 	} catch (e) {
+		// eslint-disable-line no-unused-vars
 		return false;
 	}
 	return isSafeUrl(value);
@@ -190,8 +191,10 @@ export function MediaFromURL({
 						occurrenceKey: uploadableFileUpfrontIds.occurrenceKey,
 						fileMimeType: mimeType,
 					},
+					// eslint-disable-next-line no-unused-vars
 				});
 			} catch (e) {
+				// eslint-disable-line no-unused-vars
 				if (typeof e === 'string' && e === 'Could not download remote file') {
 					// TODO: ED-26962 - Make sure this gets good unit test coverage with the actual media plugin.
 					// This hard coded error message could be changed at any
@@ -308,6 +311,7 @@ export function MediaFromURL({
 
 	return (
 		<Form<{ inputUrl: string }>
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onSubmit={({ inputUrl }, form) => {
 				// This can be triggered from an enter key event on the input even when
 				// the button is disabled, so we explicitly do nothing when in loading
@@ -335,6 +339,7 @@ export function MediaFromURL({
 						<Field
 							isRequired={true}
 							name="inputUrl"
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							validate={(value) =>
 								value && isValidInput(value, customizedUrlValidation)
 									? undefined
@@ -355,11 +360,14 @@ export function MediaFromURL({
 											placeholder={strings.pasteLinkToUpload}
 											maxLength={MAX_URL_LENGTH}
 											onKeyPress={onInputKeyPress}
+											// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 											onPaste={(event) => onPaste(event, value)}
+											// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 											onChange={(value) => {
 												onURLChange(value);
 												onChange(value);
 											}}
+											// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 											onKeyDown={(e) => {
 												if (e.key === 'Enter') {
 													e.preventDefault();
@@ -387,9 +395,11 @@ export function MediaFromURL({
 											<Flex xcss={PreviewBoxStyles} alignItems="center" justifyContent="center">
 												<Button
 													type="button"
+													// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 													onClick={() => formProps.onSubmit()}
 													isLoading={previewState.isLoading}
 													isDisabled={!!error || !meta.dirty}
+													// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 													iconBefore={() => <ExpandIcon label="" />}
 												>
 													{strings.loadPreview}
@@ -430,6 +440,7 @@ export function MediaFromURL({
 											? !input || !isValidInput(input, customizedUrlValidation)
 											: !previewState.previewInfo && !previewState.warning
 									}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onClick={() => formProps.onSubmit()}
 								>
 									{strings.insert}

@@ -10,7 +10,6 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { type Mapping } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -85,7 +84,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 				});
 			}
 
-			if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+			if (editorExperiment('platform_editor_block_menu', true)) {
 				pmPlugins.push({
 					name: 'blockControlsSelectionPreservationPlugin',
 					plugin: createSelectionPreservationPlugin(api),
@@ -141,7 +140,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 					triggerByNode?: TriggerByNode;
 				}) =>
 				({ tr }: { tr: Transaction }) => {
-					if (!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+					if (!editorExperiment('platform_editor_block_menu', true)) {
 						return tr;
 					}
 
@@ -358,7 +357,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 					: undefined;
 			}
 
-			if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+			if (editorExperiment('platform_editor_block_menu', true)) {
 				sharedState.preservedSelection =
 					selectionPreservationPluginKey.getState(editorState)?.preservedSelection;
 			}

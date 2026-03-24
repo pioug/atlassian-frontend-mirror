@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 const buttonGroupStyle = css({
 	display: 'inline-flex',
 	alignItems: 'center',
-	gap: token('space.050', '4px'),
+	gap: token('space.050'),
 });
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- This rule thinks this isn't a `css()` call due to the name mapping
@@ -30,7 +30,7 @@ const buttonGroupStyleUnbounded = cssUnbounded({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'div[role=group]': {
-		gap: token('space.050', '4px'),
+		gap: token('space.050'),
 	},
 });
 

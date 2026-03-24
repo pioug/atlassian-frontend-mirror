@@ -9,19 +9,18 @@ import { css, jsx } from '@emotion/react';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { ButtonItem, Section } from '@atlaskit/menu';
-import { N30 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const buttonStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > button:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > button:focus': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 });
 
@@ -95,6 +94,7 @@ export const MoreOptions = ({
 			<span css={buttonStyles}>
 				<ButtonItem
 					ref={ref}
+					/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */
 					onMouseDown={(e: React.MouseEvent) => {
 						if (
 							isSafari &&

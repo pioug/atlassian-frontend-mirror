@@ -111,10 +111,12 @@ export const getLinkingToolbar = (
 									providerFactory={providerFactory}
 									intl={intl}
 									editing={editing}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onUnlink={(setFocus) => {
 										unlink(pluginInjectionApi?.analytics?.actions)(view.state, view.dispatch, view);
 										setFocusOnFloatingToolbar(setFocus);
 									}}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onBack={(href, meta, setFocus) => {
 										if (href.trim() && meta.inputMethod) {
 											setUrlToMedia(href, meta.inputMethod, pluginInjectionApi?.analytics?.actions)(
@@ -126,6 +128,7 @@ export const getLinkingToolbar = (
 										hideLinkingToolbar(view.state, view.dispatch, view);
 										setFocusOnFloatingToolbar(setFocus);
 									}}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onCancel={() => {
 										hideLinkingToolbar(view.state, view.dispatch, view, true);
 										/** Focus should move to the 'Add link' button when the toolbar closes
@@ -141,6 +144,7 @@ export const getLinkingToolbar = (
 										pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector(selector)(tr);
 										dispatch(tr);
 									}}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onSubmit={(href, meta) => {
 										setUrlToMedia(href, meta.inputMethod, pluginInjectionApi?.analytics?.actions)(
 											view.state,
@@ -150,6 +154,7 @@ export const getLinkingToolbar = (
 										hideLinkingToolbar(view.state, view.dispatch, view);
 										setFocusOnFloatingToolbar(true);
 									}}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onBlur={() => {
 										hideLinkingToolbar(view.state, view.dispatch, view);
 									}}

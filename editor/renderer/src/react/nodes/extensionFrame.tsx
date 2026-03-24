@@ -15,7 +15,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { token } from '@atlaskit/tokens';
 
 const containerCSS = css({
-	padding: `${token('space.100', '8px')}`,
+	padding: `${token('space.100')}`,
 	minHeight: '100px',
 	// by default all frames are hidden, this style is overridden in multiBodiedExtensions for active frame
 	display: 'none',

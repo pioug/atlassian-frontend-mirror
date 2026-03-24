@@ -8,7 +8,7 @@ export const AddRowBelowIcon = (): React.JSX.Element => (
 			width="24"
 			height="24"
 			transform="matrix(-1 0 0 -1 24 24)"
-			fill={token('color.border.inverse', '#FFFFFF')}
+			fill={token('color.border.inverse')}
 			fillOpacity="0.01"
 		/>
 		<rect

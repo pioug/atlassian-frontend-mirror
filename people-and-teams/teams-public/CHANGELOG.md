@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.72.0
+
+### Minor Changes
+
+- [`6705502efc21c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6705502efc21c) -
+  [ux] Updating the disconnect team modal content and delete team modal message for jira project
+
 ## 0.71.1
 
 ### Patch Changes

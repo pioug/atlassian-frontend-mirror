@@ -39,6 +39,7 @@ export const AlignmentMenuItem = ({
 			elemBefore={<Icon size="small" label="" />}
 			elemAfter={shortcut && <ToolbarKeyboardShortcutHint shortcut={shortcut} />}
 			ariaKeyshortcuts={getAriaKeyshortcuts(keymap)}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onClick={() => {
 				api?.core.actions.execute(
 					changeAlignmentTr(api, alignment, getInputMethodFromParentKeys(parents)),

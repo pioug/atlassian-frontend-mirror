@@ -4,6 +4,7 @@ import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
 import { getTokenId } from '../../../src/utils/token-ids';
+import { getTokenUsageGuidelines } from '../../../src/utils/token-usage-guidelines';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
 	const tokens = dictionary.allTokens.filter((token) => {
@@ -20,16 +21,24 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 	path: string[];
 	description: string;
 	exampleValue?: string | number;
+	usageGuidelines: {
+		usage: string;
+		cssProperties: string[];
+	};
 }
 
 export const tokens: Token[] = [
 	${tokens
-		.map((token) => ({
-			name: getTokenId(token.path),
-			path: token.path,
-			description: token.attributes?.description,
-			exampleValue: token.value,
-		}))
+		.map((token) => {
+			const tokenId = getTokenId(token.path);
+			return {
+				name: tokenId,
+				path: token.path,
+				description: token.attributes?.description,
+				exampleValue: token.value,
+				usageGuidelines: getTokenUsageGuidelines(tokenId),
+			};
+		})
 		.map((token) => JSON.stringify(token))
 		.join(',\n')}
 ];
@@ -40,7 +49,7 @@ export const tokens: Token[] = [
 	return createSignedArtifact(
 		source,
 		`yarn build tokens`,
-		`Metadata for generation of of \`@atlaskit/ads-mcp\` and https://atlassian.design/llms-tokens.txt.`,
+		`Metadata for generation of \`@atlaskit/ads-mcp\` and https://atlassian.design/llms-tokens.txt.`,
 	);
 };
 

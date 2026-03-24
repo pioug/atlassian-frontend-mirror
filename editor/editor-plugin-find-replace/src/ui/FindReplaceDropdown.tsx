@@ -53,8 +53,10 @@ const FindReplaceDropdown = (props: FindReplaceDropdownProps & WrappedComponentP
 			forcePlacement={true}
 			alignX={'right'}
 			alignY={'start'}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			offset={[4, 0]}
 			isOpen={isActive}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			handleEscapeKeydown={() => {
 				if (isActive) {
 					onCancel({ triggerMethod: TRIGGER_METHOD.KEYBOARD });
@@ -62,6 +64,7 @@ const FindReplaceDropdown = (props: FindReplaceDropdownProps & WrappedComponentP
 			}}
 			fitWidth={dropdownWidthNewDesign}
 			zIndex={akEditorFloatingPanelZIndex}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			arrowKeyNavigationProviderOptions={{
 				type: ArrowKeyNavigationType.MENU,
 				disableArrowKeyNavigation: true,
@@ -71,6 +74,7 @@ const FindReplaceDropdown = (props: FindReplaceDropdownProps & WrappedComponentP
 				<FindReplace
 					findText={findText}
 					replaceText={replaceText}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					count={{ index, total: numMatches, totalReplaceable: numReplaceable }}
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading

@@ -12,6 +12,7 @@ import ReactDOM from 'react-dom';
 import { cssMap, jsx } from '@atlaskit/css';
 import { extractSmartLinkTitle } from '@atlaskit/link-extractors';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { isSafeUrl } from '@atlaskit/linking-common/url';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -54,6 +55,13 @@ export interface SmartLinkDragData {
  */
 export function isSmartLinkDrag(type: unknown): boolean {
 	return type === SMART_LINK_DRAG_TYPES.EDITOR || type === SMART_LINK_DRAG_TYPES.RENDERER;
+}
+
+/**
+ * Checks if a ProseMirror node type is a smart link card.
+ */
+export function isSmartLinkNodeType(nodeType: string): boolean {
+	return nodeType === 'inlineCard' || nodeType === 'blockCard' || nodeType === 'embedCard';
 }
 
 export interface SmartLinkDraggableProps {
@@ -175,11 +183,11 @@ function SmartLinkDraggableInner({
 	// Changeboarding popover will always be hidden until visibility/targeting logic is implemented
 	const [showChangeboard, setShowChangeboard] = useState(false);
 
-	const cleanupDraggableRef = useRef<(() => void) | null>(null);
-
-	const getDraggableConfig = useCallback(
-		(element: HTMLElement) => ({
-			element,
+	// Store the draggable config so we can re-register on different elements
+	// when the browser picks a child as the drag target.
+	const getDragConfig = useCallback(
+		(targetEl: HTMLElement) => ({
+			element: targetEl,
 			getInitialData: () => {
 				const cardState = store.getState()[url];
 				const details = cardState?.details;
@@ -188,10 +196,6 @@ function SmartLinkDraggableInner({
 
 				return { type: source, url, title, iconUrl, appearance };
 			},
-			getInitialDataForExternal: () => ({
-				'text/uri-list': url,
-				'text/plain': url,
-			}),
 			onGenerateDragPreview: ({
 				nativeSetDragImage,
 			}: {
@@ -227,33 +231,48 @@ function SmartLinkDraggableInner({
 			return;
 		}
 
-		const unbind = bind(el, {
+		// In contentEditable editors (ProseMirror), the browser may pick a child
+		// element (e.g., an <a> tag) as the drag target instead of our element.
+		// On pointerdown, we find the likely drag target and register draggable()
+		// on it so pragmatic-drag-and-drop recognizes the drag.
+		let cleanupDraggable: (() => void) | null = null;
+
+		// In contentEditable="true" contexts (block/embed cards), the browser treats
+		// the smart-element-link as editable text rather than a draggable element.
+		// Not needed for inline cards since the wrapper is already not editable
+		let observer: MutationObserver | null = null;
+		if (appearance !== SMART_LINK_APPEARANCE.INLINE) {
+			const setupSmartElementLink = () => {
+				el.querySelectorAll<HTMLElement>('[data-smart-element-link]').forEach((link) => {
+					link.contentEditable = 'false';
+					link.setAttribute('draggable', 'true');
+				});
+			};
+			setupSmartElementLink();
+
+			observer = new MutationObserver(setupSmartElementLink);
+			observer.observe(el, { childList: true, subtree: true });
+		}
+
+		const unbindPointerDown = bind(el, {
 			type: 'pointerdown',
-			listener: () => {
-				if (appearance === SMART_LINK_APPEARANCE.INLINE) {
-					const anchor = el.querySelector('a[href]') as HTMLElement | null;
-					if (!anchor || cleanupDraggableRef.current) {
-						return;
-					}
-					cleanupDraggableRef.current = draggable(getDraggableConfig(anchor));
-				} else if (!cleanupDraggableRef.current) {
-					el.querySelectorAll('a[href]').forEach((anchor) => {
-						anchor.setAttribute('draggable', 'false');
-					});
-					cleanupDraggableRef.current = draggable(getDraggableConfig(el));
-				}
+			listener: (event: PointerEvent) => {
+				// Clean up previous registration
+				cleanupDraggable?.();
+
+				const target = event.target;
+				const dragTarget = target instanceof HTMLElement && el.contains(target) ? target : el;
+
+				cleanupDraggable = draggable(getDragConfig(dragTarget));
 			},
 		});
 
 		return () => {
-			unbind();
-			cleanupDraggableRef.current?.();
-			cleanupDraggableRef.current = null;
-			el.querySelectorAll('a[href]').forEach((anchor) => {
-				anchor.removeAttribute('draggable');
-			});
+			cleanupDraggable?.();
+			unbindPointerDown();
+			observer?.disconnect();
 		};
-	}, [appearance, getDraggableConfig]);
+	}, [url, propTitle, appearance, source, store, getDragConfig]);
 
 	const handleDismissChangeboard = () => setShowChangeboard(false);
 
@@ -265,21 +284,17 @@ function SmartLinkDraggableInner({
 				)
 			: null;
 
-	// Use span with inline display for inline cards to preserve text flow
+	// Use span with inline display for inline cards to preserve text flow.
+	// Avoid wrapping in PopoverProvider/PopoverTarget to minimize DOM changes
+	// that could affect ProseMirror's inline node selection calculations.
 	if (appearance === SMART_LINK_APPEARANCE.INLINE) {
 		return (
-			<PopoverProvider>
-				<PopoverTarget>
-					<span ref={ref} css={draggableInlineStyles} data-testid="smart-link-draggable-inline">
-						{children}
-					</span>
-				</PopoverTarget>
+			<>
+				<span ref={ref} css={draggableInlineStyles} data-testid="smart-link-draggable-inline">
+					{children}
+				</span>
 				{preview}
-				<SmartLinkDraggableChangeboardPopover
-					isVisible={showChangeboard}
-					dismiss={handleDismissChangeboard}
-				/>
-			</PopoverProvider>
+			</>
 		);
 	}
 
@@ -297,19 +312,6 @@ function SmartLinkDraggableInner({
 			/>
 		</PopoverProvider>
 	);
-}
-
-/**
- * Validates that a URL uses a safe protocol (http or https).
- * Rejects dangerous protocols like javascript:, data:, vbscript:, etc.
- */
-function isSafeUrl(url: string): boolean {
-	try {
-		const parsed = new URL(url);
-		return parsed.protocol === 'http:' || parsed.protocol === 'https:';
-	} catch {
-		return false;
-	}
 }
 
 /**

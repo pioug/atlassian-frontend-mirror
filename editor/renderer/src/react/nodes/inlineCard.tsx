@@ -157,6 +157,7 @@ const OverlayWithCardContext = ({
 			compactPadding={rendererAppearance === 'comment'}
 			showPanelButton={showPanelButton}
 			showPanelButtonIcon={showPanelButtonIcon}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onClick={(event) => {
 				if (isPreviewPanelAvailable) {
 					// Prevent anchor default behaviour(click to open the anchor link)
@@ -265,6 +266,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 				>
 					<span
 						data-inline-card
+						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 						data-card-data={data ? JSON.stringify(data) : undefined}
 						data-card-url={url}
 						// Ignored via go/ees005
@@ -324,6 +326,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 				>
 					<span
 						data-inline-card
+						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 						data-card-data={data ? JSON.stringify(data) : undefined}
 						data-card-url={url}
 						data-renderer-mark={inlineAnnotationProps['data-renderer-mark']}
@@ -346,6 +349,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 										showHoverPreview={!hideHoverPreview}
 										actionOptions={actionOptions}
 										onClick={onClick}
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										onResolve={(data) => {
 											if (!data.url || !data.title) {
 												return;
@@ -387,6 +391,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 								showHoverPreview={!hideHoverPreview}
 								actionOptions={actionOptions}
 								onClick={onClick}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onResolve={(data) => {
 									if (!data.url || !data.title) {
 										return;
@@ -418,6 +423,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 			<AnalyticsContext data={analyticsData}>
 				<span
 					data-inline-card
+					// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 					data-card-data={data ? JSON.stringify(data) : undefined}
 					data-card-url={url}
 					// Ignored via go/ees005
@@ -445,6 +451,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 									// Ignored via go/ees005
 									// eslint-disable-next-line react/jsx-props-no-spreading
 									{...cardProps}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onResolve={(data) => {
 										if (!data.url || !data.title) {
 											return;

@@ -6,7 +6,7 @@ import isModernContextEnabledEnv from '../../utils/isModernContextEnabledEnv';
 
 import LegacyAnalyticsListener from './LegacyAnalyticsListener';
 import ModernAnalyticsListener from './ModernAnalyticsListener';
-import { type AnalyticsListenerFunction } from './types';
+import type { AnalyticsListenerFunction } from './types';
 
 const AnalyticsListener: AnalyticsListenerFunction = (props) => {
 	const isModernContext =

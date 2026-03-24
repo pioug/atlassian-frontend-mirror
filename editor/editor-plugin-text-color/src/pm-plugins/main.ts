@@ -50,7 +50,7 @@ function createInitialPluginState(
 		{
 			value: defaultColor.color,
 			label: defaultColor.label,
-			border: token('color.border', '#091E4224'),
+			border: token('color.border'),
 		},
 		...textColorPalette,
 	];

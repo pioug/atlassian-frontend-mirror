@@ -105,7 +105,9 @@ export const CommentBadgeWrapper = ({
 			onClick={onClick}
 			mediaSingleElement={mediaSingleElement}
 			status={entered ? 'entered' : status}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onMouseEnter={() => setEntered(true)}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onMouseLeave={() => setEntered(false)}
 		/>
 	);

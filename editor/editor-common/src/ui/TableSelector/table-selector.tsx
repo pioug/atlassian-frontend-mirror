@@ -11,7 +11,6 @@ import { injectIntl } from 'react-intl-next';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 
 import { Stack } from '@atlaskit/primitives/compiled';
-import { B100 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -39,26 +38,23 @@ export interface OnTableSizeSelection {
 }
 
 const selectedButtonStyles = css({
-	backgroundColor: token('color.background.accent.blue.subtlest', '#579DFF'),
-	border: `${token('border.width')} solid ${token(
-		'color.background.accent.blue.subtle',
-		'#579DFF',
-	)}`,
+	backgroundColor: token('color.background.accent.blue.subtlest'),
+	border: `${token('border.width')} solid ${token('color.background.accent.blue.subtle')}`,
 });
 
 const buttonStyles = css({
 	height: `${TABLE_SELECTOR_BUTTON_SIZE}px`,
 	width: `${TABLE_SELECTOR_BUTTON_SIZE}px`,
-	border: `${token('border.width')} solid ${token('color.border', '#091e4224')}`,
-	backgroundColor: token('color.background.input', '#ffffff'),
+	border: `${token('border.width')} solid ${token('color.border')}`,
+	backgroundColor: token('color.background.input'),
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
 	display: 'block',
 	'&:focus': {
 		outline: 'none',
-		border: `${token('border.width')} solid ${token('color.border.focused', B100)}`,
-		boxShadow: `0 0 0 0.5px ${token('color.border.focused', B100)}`,
+		border: `${token('border.width')} solid ${token('color.border.focused')}`,
+		boxShadow: `0 0 0 0.5px ${token('color.border.focused')}`,
 	},
 });
 
@@ -67,8 +63,8 @@ const selectionSizeTextStyles = css({
 	lineHeight: '14px',
 	display: 'flex',
 	justifyContent: 'center',
-	marginTop: token('space.075', '5px'),
-	padding: token('space.075', '10px'),
+	marginTop: token('space.075'),
+	padding: token('space.075'),
 });
 
 const TableSelectorButton = ({
@@ -138,7 +134,7 @@ const gridWrapperStyles = ({ maxCols, maxRows }: { maxCols: number; maxRows: num
 		gridTemplateColumns: `repeat(${maxCols}, 1fr)`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		gridTemplateRows: `repeat(${maxRows}, 1fr)`,
-		gap: `${token('space.025', `${TABLE_SELECTOR_BUTTON_GAP}px`)}`,
+		gap: `${token('space.025')}`,
 	});
 
 const TableSelectorPopup = ({

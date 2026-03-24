@@ -241,6 +241,7 @@ export const InsertButton = ({
 					target={insertButtonRef.current}
 					fitHeight={DEFAULT_HEIGHT + FIT_HEIGHT_BUFFER}
 					fitWidth={350}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					offset={[0, 3]}
 					mountTo={popupsMountPoint}
 					boundariesElement={popupsBoundariesElement}

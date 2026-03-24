@@ -1162,6 +1162,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				aria-describedby={assistiveDescribedBy}
 				data-editor-id={editorId.current}
 				onSSRMeasure={onSSRMeasure}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onEditorStateChanged={(state) => {
 					ssrEditorStateRef.current = state;
 					// Notify listeners about the initial SSR state
@@ -1210,6 +1211,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			onSSRMeasure={onSSRMeasure}
 		>
 			<ReactEditorViewContext.Provider
+				// eslint-disable-next-line @atlassian/perf-linting/no-inline-context-value, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				value={{
 					editorRef: editorRef,
 					editorView: viewRef.current,

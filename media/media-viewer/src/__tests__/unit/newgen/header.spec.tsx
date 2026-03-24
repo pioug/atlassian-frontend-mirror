@@ -10,7 +10,7 @@ import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-hel
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 import { Header } from '../../../header';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 
 const externalIdentifierWithName: Identifier = {
 	dataURI: 'some-external-src',
@@ -301,6 +301,158 @@ describe('<Header />', () => {
 
 				expect(screen.getByLabelText('sidebar')).toBeInTheDocument();
 
+				await expect(document.body).toBeAccessible();
+			});
+		});
+
+		describe('Header actions', () => {
+			// Shared file item used across all header action tests
+			const [fileItem, identifier] =
+				generateSampleFileItem.workingImgWithRemotePreviewInRecentsCollection();
+
+			// Helper: build a single header action entry
+			const makeAction = (
+				overrides: Partial<
+					NonNullable<
+						NonNullable<React.ComponentProps<typeof Header>['extensions']>['headerActions']
+					>[number]
+				> = {},
+			) => ({
+				icon: <EditorPanelIcon color="currentColor" spacing="spacious" label="Comment" />,
+				label: 'View comments',
+				onClick: jest.fn(),
+				...overrides,
+			});
+
+			// Helper: render a Header with the given extensions and optional extra props
+			const renderHeaderWithActions = (
+				extensions: React.ComponentProps<typeof Header>['extensions'],
+				extraProps: Partial<React.ComponentProps<typeof Header>> = {},
+			) => {
+				const { mediaApi } = createMockedMediaApi(fileItem);
+				return render(
+					<IntlProvider locale="en">
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<Header
+								intl={fakeIntl}
+								identifier={identifier}
+								onSetArchiveSideBarVisible={jest.fn()}
+								extensions={extensions}
+								traceContext={traceContext}
+								{...extraProps}
+							/>
+						</MockedMediaClientProvider>
+					</IntlProvider>,
+				);
+			};
+
+			it('should render a button with the correct testId and aria-label when headerActions is provided', async () => {
+				renderHeaderWithActions({ headerActions: [makeAction()] });
+
+				await waitFor(() => {
+					expect(screen.getByTestId('media-viewer-header-action-0')).toBeInTheDocument();
+				});
+
+				expect(screen.getByLabelText('View comments')).toBeInTheDocument();
+				await expect(document.body).toBeAccessible();
+			});
+
+			it('should not render action buttons when headerActions is not provided', async () => {
+				renderHeaderWithActions(undefined);
+
+				// Wait for the header to render (download button is always present)
+				await screen.findByLabelText('Download');
+
+				expect(screen.queryByTestId('media-viewer-header-action-0')).not.toBeInTheDocument();
+			});
+
+			it('should call onClick with the identifier and a close action when clicked', async () => {
+				const onClick = jest.fn();
+				const onClose = jest.fn();
+				renderHeaderWithActions({ headerActions: [makeAction({ onClick })] }, { onClose });
+
+				await screen.findByTestId('media-viewer-header-action-0');
+
+				fireEvent.click(screen.getByTestId('media-viewer-header-action-0'));
+
+				expect(onClick).toHaveBeenCalledTimes(1);
+				expect(onClick).toHaveBeenCalledWith(
+					identifier,
+					expect.objectContaining({ close: expect.any(Function) }),
+				);
+				await expect(document.body).toBeAccessible();
+			});
+
+			it('should invoke onClose when actions.close() is called from onClick', async () => {
+				const onClose = jest.fn();
+				renderHeaderWithActions(
+					{ headerActions: [makeAction({ onClick: (_id, actions) => actions.close() })] },
+					{ onClose },
+				);
+
+				await screen.findByTestId('media-viewer-header-action-0');
+
+				fireEvent.click(screen.getByTestId('media-viewer-header-action-0'));
+
+				expect(onClose).toHaveBeenCalledTimes(1);
+			});
+
+			it('should hide the button when isVisible returns false', async () => {
+				renderHeaderWithActions({
+					headerActions: [makeAction({ isVisible: () => false })],
+				});
+
+				await screen.findByLabelText('Download');
+				expect(screen.queryByTestId('media-viewer-header-action-0')).not.toBeInTheDocument();
+			});
+
+			it('should show the button when isVisible returns true', async () => {
+				renderHeaderWithActions({
+					headerActions: [makeAction({ isVisible: () => true })],
+				});
+
+				const button = await screen.findByTestId('media-viewer-header-action-0');
+				expect(button).toBeInTheDocument();
+			});
+
+			it('should pass the identifier to the isVisible callback', async () => {
+				const isVisible = jest.fn().mockReturnValue(true);
+				renderHeaderWithActions({ headerActions: [makeAction({ isVisible })] });
+
+				await waitFor(() => expect(isVisible).toHaveBeenCalledWith(identifier));
+			});
+
+			it('should render multiple buttons with correct testIds when multiple actions provided', async () => {
+				renderHeaderWithActions({
+					headerActions: [makeAction({ label: 'Action one' }), makeAction({ label: 'Action two' })],
+				});
+
+				await screen.findByTestId('media-viewer-header-action-0');
+
+				expect(screen.getByTestId('media-viewer-header-action-0')).toHaveAttribute(
+					'aria-label',
+					'Action one',
+				);
+				expect(screen.getByTestId('media-viewer-header-action-1')).toHaveAttribute(
+					'aria-label',
+					'Action two',
+				);
+				await expect(document.body).toBeAccessible();
+			});
+
+			it('should render action buttons alongside sidebar button when both are provided', async () => {
+				renderHeaderWithActions({
+					sidebar: {
+						icon: <EditorPanelIcon color="currentColor" spacing="spacious" label="sidebar" />,
+						renderer: () => <div />,
+					},
+					headerActions: [makeAction()],
+				});
+
+				await screen.findByTestId('media-viewer-header-action-0');
+
+				expect(screen.getByLabelText('sidebar')).toBeInTheDocument();
+				expect(screen.getByLabelText('View comments')).toBeInTheDocument();
 				await expect(document.body).toBeAccessible();
 			});
 		});

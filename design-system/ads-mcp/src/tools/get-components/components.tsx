@@ -3,7 +3,7 @@
  *
  * Generates TypeScript components data for AI tooling from offerings.json files
  *
- * @codegen <<SignedSource::8e120a2eb2205e4c89f4bdddbf4e436f>>
+ * @codegen <<SignedSource::50f91993dda0440c9008527c32b631dc>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:prototyping
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -3570,7 +3570,7 @@ export const components: Component[] = [
 			'A lozenge is a small visual indicator used to show status, category, or other short text labels.',
 		status: 'general-availability',
 		examples: [
-			'import Lozenge from \'@atlaskit/lozenge\';\nexport default [\n\t<Lozenge appearance="success">Done</Lozenge>,\n\t<Lozenge appearance="inprogress" isBold>\n\t\tIn Progress\n\t</Lozenge>,\n];',
+			'import Lozenge from \'@atlaskit/lozenge\';\nconst _default_1: React.JSX.Element[] = [\n\t<Lozenge appearance="success">Done</Lozenge>,\n\t<Lozenge appearance="inprogress" isBold>\n\t\tIn Progress\n\t</Lozenge>,\n];\nexport default _default_1;',
 		],
 		accessibilityGuidelines: [
 			'Ensure sufficient color contrast for text readability',
@@ -5575,7 +5575,7 @@ export const components: Component[] = [
 		description: 'A component for section-level messages.',
 		status: 'general-availability',
 		examples: [
-			'import { Text } from \'@atlaskit/primitives/compiled\';\nimport SectionMessage, { SectionMessageAction } from \'@atlaskit/section-message\';\nexport default [\n\t<SectionMessage appearance="information" title="Information">\n\t\t<Text>This is an informational message to help users understand something important.</Text>\n\t</SectionMessage>,\n\t<SectionMessage appearance="warning" title="Warning">\n\t\t<Text>Please review your settings before proceeding with this action.</Text>\n\t</SectionMessage>,\n\t<SectionMessage\n\t\tappearance="success"\n\t\ttitle="Success"\n\t\tactions={[\n\t\t\t<SectionMessageAction href="#">View Details</SectionMessageAction>,\n\t\t\t<SectionMessageAction href="#">Share Results</SectionMessageAction>,\n\t\t]}\n\t>\n\t\t<Text>Your changes have been saved successfully!</Text>\n\t</SectionMessage>,\n];',
+			'import { Text } from \'@atlaskit/primitives/compiled\';\nimport SectionMessage, { SectionMessageAction } from \'@atlaskit/section-message\';\nconst _default_1: React.JSX.Element[] = [\n\t<SectionMessage appearance="information" title="Information">\n\t\t<Text>This is an informational message to help users understand something important.</Text>\n\t</SectionMessage>,\n\t<SectionMessage appearance="warning" title="Warning">\n\t\t<Text>Please review your settings before proceeding with this action.</Text>\n\t</SectionMessage>,\n\t<SectionMessage\n\t\tappearance="success"\n\t\ttitle="Success"\n\t\tactions={[\n\t\t\t<SectionMessageAction href="#">View Details</SectionMessageAction>,\n\t\t\t<SectionMessageAction href="#">Share Results</SectionMessageAction>,\n\t\t]}\n\t>\n\t\t<Text>Your changes have been saved successfully!</Text>\n\t</SectionMessage>,\n];\nexport default _default_1;',
 		],
 		accessibilityGuidelines: [
 			'Ensure section message content is announced by screen readers',

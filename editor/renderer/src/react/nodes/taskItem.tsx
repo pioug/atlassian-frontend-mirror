@@ -49,6 +49,7 @@ export default class TaskItem extends PureComponent<NodeProps<Props>, Object> {
 
 		return (
 			<FabricElementsAnalyticsContext
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				data={{
 					userContext: 'document',
 				}}
@@ -66,6 +67,7 @@ export default class TaskItem extends PureComponent<NodeProps<Props>, Object> {
 								taskDecisionProvider={taskDecisionProvider}
 								contextIdentifierProvider={contextIdentifierProvider}
 								dataAttributes={dataAttributes}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onChange={(_, isChecked) => {
 									dispatch(isChecked);
 								}}
@@ -82,6 +84,7 @@ export default class TaskItem extends PureComponent<NodeProps<Props>, Object> {
 	render(): React.JSX.Element {
 		return (
 			<WithProviders
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				providers={['taskDecisionProvider', 'contextIdentifierProvider']}
 				providerFactory={this.providerFactory}
 				renderNode={this.renderWithProvider}

@@ -33,9 +33,7 @@ import {
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N0, N40A, R500 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -114,7 +112,7 @@ const numberedColumnButtonSelectedStyles = `
 	background-color: ${tableToolbarSelectedColor};
 	position: relative;
 	z-index: ${akEditorUnitZIndex};
-	color: ${token('color.text.selected', N0)};
+	color: ${token('color.text.selected')};
 `;
 
 const rangeSelectionStyles = `
@@ -383,7 +381,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 		position: fixed !important;
 		z-index: ${akEditorStickyHeaderZIndex} !important;
-		box-shadow: 0px -${stickyRowOffsetTop}px ${token('elevation.surface', 'white')};
+		box-shadow: 0px -${stickyRowOffsetTop}px ${token('elevation.surface')};
 		border-right: 0 none;
 		/* top set by NumberColumn component */
 	}
@@ -392,7 +390,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		position: fixed !important;
 		/* needs to be above row controls */
 		z-index: ${akEditorSmallZIndex} !important;
-		background: ${token('elevation.surface', 'white')};
+		background: ${token('elevation.surface')};
 
 		width: ${tableToolbarSize}px;
 		height: ${tableToolbarSize}px;
@@ -416,13 +414,13 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		position: fixed !important;
 		z-index: ${akEditorStickyHeaderZIndex} !important;
 		display: flex;
-		border-left: ${tableToolbarSize}px solid ${token('elevation.surface', 'white')};
+		border-left: ${tableToolbarSize}px solid ${token('elevation.surface')};
 		margin-left: -${tableToolbarSize}px;
 	}
 
 	.${ClassName.TABLE_STICKY} col:first-of-type {
 		/* moving rows out of a table layout does weird things in Chrome */
-		border-right: 1px solid ${token('elevation.surface', 'green')};
+		border-right: 1px solid ${token('elevation.surface')};
 	}
 
 	tr.sticky {
@@ -439,9 +437,9 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		grid-auto-flow: column;
 
 		/* background for where controls apply */
-		background: ${token('elevation.surface', 'white')};
+		background: ${token('elevation.surface')};
 		box-sizing: content-box;
-		box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)};
+		box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')};
 
 		margin-left: -1px;
 
@@ -655,8 +653,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	}
 
 	.${ClassName.CORNER_CONTROLS}.sticky {
-		border-top: ${tableControlsSpacing - tableToolbarSize}px solid
-			${token('elevation.surface', 'white')};
+		border-top: ${tableControlsSpacing - tableToolbarSize}px solid ${token('elevation.surface')};
 	}
 
 	${sentinelStyles}
@@ -874,7 +871,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 			position: absolute;
 			bottom: -3px;
 			left: 2px;
-			background-color: ${token('color.background.accent.gray.subtler', '#C1C7D0')};
+			background-color: ${token('color.background.accent.gray.subtler')};
 			height: 4px;
 			width: 4px;
 			border-radius: 50%;
@@ -886,7 +883,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		.${ClassName.DRAG_COLUMN_CONTROLS_INNER} {
 			height: ${tableColumnControlsHeight}px;
 			position: absolute;
-			top: ${token('space.negative.150', '-12px')};
+			top: ${token('space.negative.150')};
 			z-index: ${resizeHandlerZIndex};
 		}
 
@@ -897,7 +894,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		}
 
 		.${ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT} {
-			background-color: ${token('color.background.accent.gray.subtler', '#C1C7D0')};
+			background-color: ${token('color.background.accent.gray.subtler')};
 			height: 4px;
 			width: 4px;
 			border-radius: 50%;
@@ -930,7 +927,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		padding: 0;
 		border-radius: 6px;
 		width: max-content;
-		border: 2px solid ${token('elevation.surface', N0)};
+		border: 2px solid ${token('elevation.surface')};
 
 		display: flex;
 		justify-content: center;
@@ -947,13 +944,13 @@ const baseTableStylesWithoutSharedStyle = (props: {
 			cursor: pointer;
 			& svg {
 				& > rect.${ClassName.DRAG_HANDLE_MINIMISED} {
-					fill: ${token('color.background.accent.gray.subtler', '#DCDFE4')};
+					fill: ${token('color.background.accent.gray.subtler')};
 				}
 				& > rect {
-					fill: ${token('color.background.accent.gray.subtlest', '#F4F5F7')};
+					fill: ${token('color.background.accent.gray.subtlest')};
 				}
 				& > g > rect {
-					fill: ${token('color.icon.disabled', '#BFDBF847')};
+					fill: ${token('color.icon.disabled')};
 				}
 			}
 		}
@@ -961,20 +958,20 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		&:not(.${ClassName.DRAG_HANDLE_DISABLED}) {
 			& svg {
 				rect {
-					fill: ${token('color.background.accent.gray.subtler', '#DCDFE4')};
+					fill: ${token('color.background.accent.gray.subtler')};
 				}
 				g {
-					fill: ${token('color.icon.subtle', '#626f86')};
+					fill: ${token('color.icon.subtle')};
 				}
 			}
 
 			&:hover {
 				svg {
 					rect {
-						fill: ${token('color.background.accent.blue.subtle', '#579DFF')};
+						fill: ${token('color.background.accent.blue.subtle')};
 					}
 					g {
-						fill: ${token('color.icon.inverse', '#FFF')};
+						fill: ${token('color.icon.inverse')};
 					}
 				}
 			}
@@ -985,7 +982,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 			&.selected {
 				:focus {
-					outline: 2px solid ${token('color.border.focused', '#2684FF')};
+					outline: 2px solid ${token('color.border.focused')};
 					outline-offset: 1px;
 				}
 
@@ -995,10 +992,10 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 				svg {
 					rect {
-						fill: ${token('color.background.accent.blue.subtle', '#579dff')};
+						fill: ${token('color.background.accent.blue.subtle')};
 					}
 					g {
-						fill: ${token('color.icon.inverse', '#fff')};
+						fill: ${token('color.icon.inverse')};
 					}
 				}
 			}
@@ -1006,10 +1003,10 @@ const baseTableStylesWithoutSharedStyle = (props: {
 			&.danger {
 				svg {
 					rect {
-						fill: ${token('color.background.accent.red.subtler.pressed', '#F87462')};
+						fill: ${token('color.background.accent.red.subtler.pressed')};
 					}
 					g {
-						fill: ${token('color.border.inverse', '#FFF')};
+						fill: ${token('color.border.inverse')};
 					}
 				}
 			}
@@ -1076,7 +1073,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 			display: block;
 			height: 33px;
 			width: 100%;
-			background-color: ${token('elevation.surface', 'white')};
+			background-color: ${token('elevation.surface')};
 			position: absolute;
 
 			/* the extra pixel is accounting for borders */
@@ -1109,7 +1106,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		}
 	}
 
-	${expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+	${editorExperiment('platform_editor_block_menu', true)
 		? `/* Apply numbered column styling when table is selected via text selection (e.g., block menu) */
 	.${akEditorSelectedNodeClassName} {
 		.${ClassName.NUMBERED_COLUMN} {
@@ -1132,20 +1129,20 @@ const baseTableStylesWithoutSharedStyle = (props: {
 			background-color: ${tableToolbarDeleteColor};
 			border: 1px solid ${tableBorderDeleteColor};
 			border-left: 0;
-			color: ${token('color.text.danger', R500)};
+			color: ${token('color.text.danger')};
 			position: relative;
 			z-index: ${akEditorUnitZIndex};
 		}
 	}
 
-	${expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+	${editorExperiment('platform_editor_block_menu', true)
 		? `.tableView-content-wrap.danger {
 		:not(.${ClassName.IS_RESIZING}) .${ClassName.WITH_CONTROLS} {
 			.${ClassName.NUMBERED_COLUMN_BUTTON} {
 				background-color: ${tableToolbarDeleteColor};
 				border: 1px solid ${tableBorderDeleteColor};
 				border-left: 0;
-				color: ${token('color.text.danger', R500)};
+				color: ${token('color.text.danger')};
 				position: relative;
 				z-index: ${akEditorUnitZIndex};
 			}

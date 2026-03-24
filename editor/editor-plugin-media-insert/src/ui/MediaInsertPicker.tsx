@@ -112,6 +112,7 @@ export const MediaInsertPicker = ({
 	return (
 		<PopupWithListeners
 			ariaLabel={intl.formatMessage(mediaInsertMessages.mediaPickerPopupAriaLabel)}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			offset={[0, 12]}
 			target={targetRef}
 			zIndex={akEditorFloatingDialogZIndex}
@@ -143,6 +144,7 @@ export const MediaInsertPicker = ({
 									<LocalMedia
 										ref={autofocusRef}
 										mediaProvider={mediaProvider}
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										closeMediaInsertPicker={() => {
 											closeMediaInsertPicker();
 											focusEditor();
@@ -156,6 +158,7 @@ export const MediaInsertPicker = ({
 								<MediaFromURL
 									mediaProvider={mediaProvider}
 									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									closeMediaInsertPicker={() => {
 										closeMediaInsertPicker();
 										focusEditor();

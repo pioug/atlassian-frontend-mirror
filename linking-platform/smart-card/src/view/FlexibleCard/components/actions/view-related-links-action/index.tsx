@@ -2,6 +2,8 @@ import React, { lazy, useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
@@ -41,7 +43,16 @@ const ViewRelatedLinksAction = ({
 	return actionData ? (
 		<Action
 			content={<FormattedMessage {...messages.related_links_view_related_links} />}
-			icon={<RelatedLinksActionIcon />}
+			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+				? { tooltipMessage: <FormattedMessage {...messages.related_links_view_related_links} /> }
+				: {})}
+			icon={
+				<RelatedLinksActionIcon
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+						? { iconSize: props.iconSize }
+						: {})}
+				/>
+			}
 			onClick={onClick}
 			testId="smart-action-view-related-links-action"
 			ariaLabel="View most recent pages or content types coming from or found on this link"

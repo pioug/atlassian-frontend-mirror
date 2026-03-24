@@ -1,5 +1,46 @@
 # @atlaskit/editor-core
 
+## 217.5.7
+
+### Patch Changes
+
+- [`aa4e1fcb89ca8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa4e1fcb89ca8) -
+  Added new `platform_editor_flexible_list_schema` experiment that independently enables ADF schema
+  and CSS rendering support for flexible lists, without creation behaviour. Updated schema node
+  selection, CSS rendering, ADF validation, and task list schema to use the new gate. Indent/outdent
+  behaviour remains on the existing `platform_editor_flexible_list_indentation` gate.
+- Updated dependencies
+
+## 217.5.6
+
+### Patch Changes
+
+- [`ce0f65de88f84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce0f65de88f84) -
+  Clean up platform_editor_nested_tables_gap_cursor feature gate
+- Updated dependencies
+
+## 217.5.5
+
+### Patch Changes
+
+- [`d497cbb2d150f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d497cbb2d150f) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 217.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.5.3
+
+### Patch Changes
+
+- [`9ed32aea2c1d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ed32aea2c1d3) -
+  Replace feature experiment util with cross platform alternative for platform_editor_block_menu
+- Updated dependencies
+
 ## 217.5.2
 
 ### Patch Changes

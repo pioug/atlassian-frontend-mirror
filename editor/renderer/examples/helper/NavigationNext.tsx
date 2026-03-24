@@ -56,7 +56,7 @@ const ContainerNavigation = () => (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						...css,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						paddingBottom: token('space.200', '16px'),
+						paddingBottom: token('space.200'),
 					}}
 				>
 					<ContainerHeader
@@ -128,7 +128,7 @@ function NavigationNext({ children }: { children: React.ReactNode }) {
 				containerNavigation={ContainerNavigation}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ padding: token('space.500', '40px') }}>{children}</div>
+				<div style={{ padding: token('space.500') }}>{children}</div>
 			</LayoutManager>
 		</NavigationProvider>
 	);

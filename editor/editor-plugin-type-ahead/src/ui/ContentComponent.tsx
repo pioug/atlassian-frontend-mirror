@@ -52,6 +52,7 @@ export function ContentComponent({
 		<TypeAheadMenu
 			editorView={editorView}
 			popupMountRef={popupMountRef}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			typeAheadState={{
 				triggerHandler,
 				items,

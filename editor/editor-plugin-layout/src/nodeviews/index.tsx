@@ -167,6 +167,7 @@ const LayoutBreakoutResizer = ({
 				editorExperiment('single_column_layouts', true) ? displayGuidelines : undefined
 			}
 			displayGapCursor={displayGapCursor}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onResizeStart={() => {
 				selectIntoCurrentLayout();
 			}}
@@ -264,7 +265,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	 * @param element
 	 * @example
 	 */
-	setDomAttrs(node: PMNode, element: HTMLElement): void {
+	setDomAttrs(node: PMNode, _element: HTMLElement): void {
 		if (this.layoutDOM) {
 			this.layoutDOM.setAttribute('data-column-rule-style', node.attrs.columnRuleStyle);
 		}

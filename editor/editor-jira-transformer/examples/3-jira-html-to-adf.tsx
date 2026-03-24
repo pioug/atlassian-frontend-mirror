@@ -14,8 +14,8 @@ const container = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#source, #output': {
 		boxSizing: 'border-box',
-		margin: token('space.100', '8px'),
-		padding: token('space.100', '8px'),
+		margin: token('space.100'),
+		padding: token('space.100'),
 		whiteSpace: 'pre-wrap',
 		width: '100%',
 		'&:focus': {

@@ -29,7 +29,7 @@ const rightSideContainer = css({
 });
 
 const contentSection = css({
-	paddingTop: token('space.150', '12px'),
+	paddingTop: token('space.150'),
 	gridArea: 'content',
 	display: 'flex',
 	height: '100%',
@@ -48,8 +48,8 @@ const rightSidebarContainer = xcss({
 const headerActionContainer = css({
 	display: 'flex',
 	justifyContent: 'flex-end',
-	gap: token('space.200', '16px'),
-	paddingRight: token('space.100', '8px'),
+	gap: token('space.200'),
+	paddingRight: token('space.100'),
 	position: 'sticky',
 	top: '0px',
 	background: 'white none repeat scroll 0% 0%',
@@ -57,27 +57,27 @@ const headerActionContainer = css({
 });
 
 const statusContainer = css({
-	marginTop: token('space.150', '12px'),
+	marginTop: token('space.150'),
 	display: 'flex',
 	justifyContent: 'flex-start',
-	gap: token('space.200', '16px'),
+	gap: token('space.200'),
 	height: '52px',
 });
 
 const detailsHeaderContainer = css({
 	display: 'flex',
 	justifyContent: 'space-between',
-	padding: `11px ${token('space.150', '12px')} 11px ${token('space.150', '12px')}`,
+	padding: `11px ${token('space.150')} 11px ${token('space.150')}`,
 	border: `solid ${token('border.width')} rgb(235, 236, 240)`,
 	borderRadius: `${token('radius.small')} ${token('radius.small')} 0px 0px`,
 	position: 'sticky',
-	top: token('space.400', '32px'),
+	top: token('space.400'),
 	background: 'white none repeat scroll 0% 0%',
 	zIndex: 99,
 });
 
 const detialsContentContainer = css({
-	padding: `11px ${token('space.150', '12px')} 11px ${token('space.150', '12px')}`,
+	padding: `11px ${token('space.150')} 11px ${token('space.150')}`,
 	border: `solid ${token('border.width')} rgb(235, 236, 240)`,
 	borderRadius: `0px 0px ${token('radius.small', '4px')} ${token('radius.small', '4px')}`,
 	borderTop: '0px',

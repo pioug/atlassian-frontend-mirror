@@ -165,8 +165,8 @@ function ElementSearch({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const styledShortcut = css(shortcutStyle, {
-	padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
-	width: token('space.600', '48px'),
+	padding: `${token('space.050')} ${token('space.100')}`,
+	width: token('space.600'),
 });
 
 const wrapper = css({
@@ -182,10 +182,7 @@ const wrapper = css({
 		'& > [data-ds--text-field--input]': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			fontSize: relativeFontSizeToBase16(14),
-			padding: `${token('space.100', '8px')} ${token('space.075', '6px')} ${token(
-				'space.100',
-				'8px',
-			)} 0`,
+			padding: `${token('space.100')} ${token('space.075')} ${token('space.100')} 0`,
 		},
 	},
 });
@@ -194,17 +191,14 @@ const wrapperInline = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > [data-ds--text-field--container]': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: `${GRID_SIZE * 5}px`,
+		height: `40px`,
 		flex: 'none',
 		overflow: 'revert',
 	},
 });
 
 const elementBeforeInput = css({
-	margin: `${token('space.025', '2px')} ${token('space.075', '6px')} 0 ${token(
-		'space.100',
-		'8px',
-	)}`,
+	margin: `${token('space.025')} ${token('space.075')} 0 ${token('space.100')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'span, svg': {
 		height: '20px',
@@ -213,7 +207,7 @@ const elementBeforeInput = css({
 });
 
 const elementAfterInput = css({
-	margin: `0 ${token('space.100', '8px')}`,
+	margin: `0 ${token('space.100')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: SEARCH_ITEM_HEIGHT_WIDTH,
 	textAlign: 'center',

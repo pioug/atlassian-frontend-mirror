@@ -198,6 +198,7 @@ export function transform(adf: ADFNode<any, any>): {
 		if (!nodeSpecRes.pmNodeSpec.group) {
 			continue;
 		}
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 		nodeSpecRes.pmNodeSpec.group = (nodeSpecRes.pmNodeSpec.group.split(' ') ?? [])
 			.filter((group: string) => !ignoredGroups.has(group))
 			.join(' ');

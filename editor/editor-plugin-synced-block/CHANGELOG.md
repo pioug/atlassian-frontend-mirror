@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 6.0.20
+
+### Patch Changes
+
+- [`0f4a08b633f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f4a08b633f6e) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 6.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.18
 
 ### Patch Changes

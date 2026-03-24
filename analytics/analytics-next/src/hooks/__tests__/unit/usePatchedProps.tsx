@@ -6,7 +6,7 @@ import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stabl
 
 import type UIAnalyticsEvent from '../../../events/UIAnalyticsEvent';
 import { useRenderCounter } from '../../../test-utils/useRenderCounter';
-import { type CreateEventMap, type CreateUIAnalyticsEvent } from '../../../types';
+import type { CreateEventMap, CreateUIAnalyticsEvent } from '../../../types';
 import { usePatchedProps } from '../../usePatchedProps';
 import { useTrackedRef } from '../../useTrackedRef';
 

@@ -12,9 +12,7 @@ import {
 	akEditorBreakoutPadding,
 	akEditorFullWidthLayoutWidth,
 	akEditorSelectedNodeClassName,
-	akEditorTableBorder,
 	akEditorTableNumberColumnWidth,
-	akEditorTableToolbar,
 	akEditorWideLayoutWidth,
 	overflowShadow,
 } from '@atlaskit/editor-shared-styles';
@@ -131,7 +129,7 @@ const tableSharedStyle = (): SerializedStyles => {
 		${tableCellBackgroundStyleOverride()}
 		.${TableSharedCssClassName.TABLE_CONTAINER} {
 			position: relative;
-			margin: 0 auto ${token('space.200', '16px')};
+			margin: 0 auto ${token('space.200')};
 			box-sizing: border-box;
 
 			/**
@@ -144,10 +142,10 @@ const tableSharedStyle = (): SerializedStyles => {
 				.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
 				display: block;
 				width: 1px;
-				height: calc(100% - ${token('space.300', '24px')});
-				background: ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
+				height: calc(100% - ${token('space.300')});
+				background: ${token('color.background.accent.gray.subtler')};
 				position: absolute;
-				top: ${token('space.300', '24px')};
+				top: ${token('space.300')};
 			}
 			.${TableSharedCssClassName.TABLE_RIGHT_BORDER} {
 				right: 0;
@@ -173,18 +171,18 @@ const tableSharedStyle = (): SerializedStyles => {
 		}
 
 		.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table {
-			margin: ${token('space.300', '24px')} 0 0 0;
+			margin: ${token('space.300')} 0 0 0;
 		}
 
 		.${TableSharedCssClassName.TABLE_CONTAINER} > table,
 		.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table {
-			margin: ${token('space.300', '24px')} ${token('space.100', '8px')} 0 0;
+			margin: ${token('space.300')} ${token('space.100')} 0 0;
 		}
 
 		/* support panel nested in table */
 		${fg('platform_editor_bordered_panel_nested_in_table')
 			? `.${TableSharedCssClassName.TABLE_NODE_WRAPPER} .ak-editor-panel {
-			border: ${token('border.width', '1px')} solid ${token('color.border', '#d9dbea')};
+			border: ${token('border.width')} solid ${token('color.border')};
 		}`
 			: ''}
 
@@ -193,8 +191,7 @@ const tableSharedStyle = (): SerializedStyles => {
 	.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
 	.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table {
 			border-collapse: collapse;
-			border: ${tableCellBorderWidth}px solid
-				${token('color.background.accent.gray.subtler', akEditorTableBorder)};
+			border: ${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')};
 			border-left-color: transparent;
 			border-right-color: transparent;
 			table-layout: fixed;
@@ -217,7 +214,7 @@ const tableSharedStyle = (): SerializedStyles => {
 					border-bottom: none;
 				}
 				th td {
-					background-color: ${token('color.background.neutral.subtle', 'white')};
+					background-color: ${token('color.background.neutral.subtle')};
 				}
 
 				> tbody > tr > th,
@@ -225,11 +222,11 @@ const tableSharedStyle = (): SerializedStyles => {
 					min-width: ${tableCellMinWidth}px;
 					font-weight: ${token('font.weight.regular')};
 					vertical-align: top;
-					border: 1px solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
+					border: 1px solid ${token('color.background.accent.gray.subtler')};
 					border-right-width: 0;
 					border-bottom-width: 0;
 
-					padding: ${token('space.100', '8px')};
+					padding: ${token('space.100')};
 					/* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
 					${browser.gecko || browser.ie || (browser.mac && browser.chrome)
 						? 'background-clip: padding-box;'
@@ -239,7 +236,7 @@ const tableSharedStyle = (): SerializedStyles => {
 
 				th p:not(:first-of-type),
 				td p:not(:first-of-type) {
-						margin-top: ${token('space.150', '12px')};
+						margin-top: ${token('space.150')};
 					}
 				}
 
@@ -249,7 +246,7 @@ const tableSharedStyle = (): SerializedStyles => {
 				}
 
 				th {
-					background-color: ${token('color.background.accent.gray.subtlest', akEditorTableToolbar)};
+					background-color: ${token('color.background.accent.gray.subtlest')};
 					text-align: left;
 
 					/* only apply this styling to codeblocks in default background headercells */
@@ -258,40 +255,34 @@ const tableSharedStyle = (): SerializedStyles => {
 						? '&:not(.danger)'
 						: '&:not([style]):not(.danger)'} {
 						.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}:not(.danger) {
-							background-color: ${token('elevation.surface.raised', 'rgb(235, 237, 240)')};
+							background-color: ${token('elevation.surface.raised')};
 
 							:not(.${akEditorSelectedNodeClassName}) {
-								box-shadow: 0px 0px 0px 1px ${token('color.border', 'transparent')};
+								box-shadow: 0px 0px 0px 1px ${token('color.border')};
 							}
 
 							.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} {
 								background-image: ${overflowShadow({
-									leftCoverWidth: token('space.300', '24px'),
+									leftCoverWidth: token('space.300'),
 								})};
 
-								background-color: ${token('color.background.neutral', 'rgb(235, 237, 240)')};
+								background-color: ${token('color.background.neutral')};
 							}
 
 							.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER} {
-								background-color: ${token('color.background.neutral', 'rgb(226, 229, 233)')};
+								background-color: ${token('color.background.neutral')};
 							}
 
 							/* this is only relevant to the element taken care of by renderer */
 							> [data-ds--code--code-block] {
 								background-image: ${overflowShadow({
-									leftCoverWidth: token('space.300', '24px'),
+									leftCoverWidth: token('space.300'),
 								})}!important;
 
-								background-color: ${token(
-									'color.background.neutral',
-									'rgb(235, 237, 240)',
-								)}!important;
+								background-color: ${token('color.background.neutral')}!important;
 
 								/* selector lives inside @atlaskit/code */
-								--ds--code--line-number-bg-color: ${token(
-									'color.background.neutral',
-									'rgb(226, 229, 233)',
-								)};
+								--ds--code--line-number-bg-color: ${token('color.background.neutral')};
 							}
 						}
 					}

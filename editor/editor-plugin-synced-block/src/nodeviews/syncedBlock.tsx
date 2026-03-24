@@ -117,12 +117,14 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 				fallbackComponent={null}
 			>
 				<SyncBlockActionsProvider
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					removeSyncBlock={() => {
 						const pos = getPos();
 						if (pos !== undefined) {
 							removeSyncedBlockAtPos(this.api, pos);
 						}
 					}}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					fetchSyncBlockSourceInfo={(sourceAri: string) =>
 						syncBlockStore.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
 					}
@@ -130,7 +132,9 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 					<SyncBlockRendererWrapper
 						localId={this.node.attrs.localId}
 						syncedBlockRenderer={this.options?.syncedBlockRenderer}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(syncBlockStore, this.node)}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						useFetchSyncBlockData={() =>
 							useFetchSyncBlockData(
 								syncBlockStore,

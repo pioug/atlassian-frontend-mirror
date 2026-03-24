@@ -6,11 +6,12 @@ import { TeamsAnchor } from '../../../src/ui/TeamsAnchor';
 import { TeamsNavigationProvider } from '../../../src/ui/TeamsNavigationProvider';
 import { createMockContext } from '../test-utils';
 
-function renderWithProvider(ui: React.ReactElement, contextOverrides: Parameters<typeof createMockContext>[0] = {}) {
+function renderWithProvider(
+	ui: React.ReactElement,
+	contextOverrides: Parameters<typeof createMockContext>[0] = {},
+) {
 	const context = createMockContext(contextOverrides);
-	return render(
-		<TeamsNavigationProvider value={context}>{ui}</TeamsNavigationProvider>,
-	);
+	return render(<TeamsNavigationProvider value={context}>{ui}</TeamsNavigationProvider>);
 }
 
 const TEAMS_APP_HREF = 'https://home.atlassian.com/o/test-org-id/people/123';

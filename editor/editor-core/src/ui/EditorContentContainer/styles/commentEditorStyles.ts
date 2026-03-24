@@ -15,14 +15,14 @@ export const commentEditorStyles: SerializedStyles = css({
 	lineHeight: '24px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror': {
-		margin: token('space.150', '12px'),
+		margin: token('space.150'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.gridParent': {
-		marginLeft: token('space.025', '2px'),
-		marginRight: token('space.025', '2px'),
+		marginLeft: token('space.025'),
+		marginRight: token('space.025'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `calc(100% + ${CommentEditorMargin - GRID_GUTTER}px)`,
 	},
-	padding: token('space.250', '20px'),
+	padding: token('space.250'),
 });

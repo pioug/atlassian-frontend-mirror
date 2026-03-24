@@ -46,6 +46,7 @@ export function renderSyncedBlockContent({
 
 	if (isOffline && !isSSRMode) {
 		return {
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			element: <SyncedBlockErrorComponent error={{ type: SyncBlockError.Offline }} />,
 			isSuccess: false,
 		};
@@ -90,6 +91,7 @@ export function renderSyncedBlockContent({
 		return {
 			element: (
 				<SyncedBlockErrorComponent
+					/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */
 					error={{ type: SyncBlockError.Unpublished }}
 					resourceId={resourceId}
 					sourceURL={syncBlockInstance.data?.sourceURL}

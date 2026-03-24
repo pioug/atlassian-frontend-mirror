@@ -49,7 +49,7 @@ export const itemIcon: SerializedStyles = css({
 	width: `${ICON_WIDTH}px`,
 	height: `${ICON_HEIGHT}px`,
 	overflow: 'hidden',
-	border: `${token('border.width')} solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: token('radius.small', '3px'),
 	boxSizing: 'border-box',
@@ -114,6 +114,7 @@ function ElementList({
 			const updatedScrollbarWidth = getScrollbarWidth();
 
 			if (updatedScrollbarWidth > 0) {
+				// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 				setScrollbarWidth(updatedScrollbarWidth);
 			}
 		}
@@ -677,11 +678,10 @@ const elementItemsWrapper = css({
 	alignItems: 'flex-start',
 	justifyContent: 'flex-start',
 	overflow: 'hidden',
-	padding: token('space.025', '2px'),
+	padding: token('space.025'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ReactVirtualized__Grid': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-unsafe-design-token-usage -- Ignored via go/DSP-18766
 		borderRadius: token('radius.small', '3px'),
 		outline: 'none',
 		'&:focus': {
@@ -693,7 +693,7 @@ const elementItemsWrapper = css({
 	'.ReactVirtualized__Grid__innerScrollContainer': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		"div[class='element-item-wrapper']:last-child": {
-			paddingBottom: token('space.050', '4px'),
+			paddingBottom: token('space.050'),
 		},
 	},
 });
@@ -705,7 +705,7 @@ const elementItemWrapperSingle = css({
 		button: {
 			minHeight: '60px',
 			alignItems: 'flex-start',
-			padding: `${token('space.150', '12px')} ${token('space.150', '12px')} 11px`,
+			padding: `${token('space.150')} ${token('space.150')} 11px`,
 		},
 	},
 });
@@ -717,7 +717,7 @@ const elementItemWrapper = css({
 		button: {
 			minHeight: '75px',
 			alignItems: 'flex-start',
-			padding: `${token('space.150', '12px')} ${token('space.150', '12px')} 11px`,
+			padding: `${token('space.150')} ${token('space.150')} 11px`,
 		},
 	},
 });
@@ -730,7 +730,7 @@ const itemBody = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1.4,
 	width: '100%',
-	marginTop: token('space.negative.025', '-2px'),
+	marginTop: token('space.negative.025'),
 });
 
 /*
@@ -749,7 +749,7 @@ const itemDescription = css(multilineStyle, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(11.67),
 	color: token('color.text.subtle'),
-	marginTop: token('space.025', '2px'),
+	marginTop: token('space.025'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
@@ -758,7 +758,7 @@ const itemDescriptionDisabled = css(multilineStyle, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(11.67),
 	color: token('color.text.disabled'),
-	marginTop: token('space.025', '2px'),
+	marginTop: token('space.025'),
 });
 
 const itemText = css({
@@ -787,8 +787,8 @@ const itemTitleDisabled = css({
 
 const itemAfter = css({
 	flex: '0 0 auto',
-	paddingTop: token('space.025', '2px'),
-	marginBottom: token('space.negative.025', '-2px'),
+	paddingTop: token('space.025'),
+	marginBottom: token('space.negative.025'),
 });
 
 const itemIconStyle = css({

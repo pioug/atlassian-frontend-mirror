@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-selection
 
+## 8.0.11
+
+### Patch Changes
+
+- [`ce0f65de88f84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce0f65de88f84) -
+  Clean up platform_editor_nested_tables_gap_cursor feature gate
+- Updated dependencies
+
+## 8.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.9
+
+### Patch Changes
+
+- [`9ed32aea2c1d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ed32aea2c1d3) -
+  Replace feature experiment util with cross platform alternative for platform_editor_block_menu
+- Updated dependencies
+
 ## 8.0.8
 
 ### Patch Changes

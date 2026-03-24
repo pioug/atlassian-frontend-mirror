@@ -104,6 +104,7 @@ const updateMediaNodeAttributes = async (
 			addPendingTask(copyNode);
 			await copyNode;
 		} catch (e) {
+			// eslint-disable-line no-unused-vars
 			return;
 		}
 	}
@@ -175,6 +176,7 @@ export const MediaInline = (props: MediaInlineProps): jsx.JSX.Element => {
 				alt={alt}
 				width={width}
 				height={height}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				border={{
 					borderSize: borderMark?.attrs.size,
 					borderColor: borderMark?.attrs.color,
@@ -318,9 +320,11 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeV
 		const getPos = this.getPos as getPosHandlerNode;
 		return (
 			<WithProviders
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				providers={['contextIdentifierProvider']}
 				providerFactory={providerFactory}
-				renderNode={({ mediaProvider, contextIdentifierProvider }) => {
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+				renderNode={({ mediaProvider: _mediaProvider, contextIdentifierProvider }) => {
 					return (
 						<MediaInlineSharedState
 							identifier={this.node.attrs.id}

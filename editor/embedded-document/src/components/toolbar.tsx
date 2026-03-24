@@ -12,8 +12,8 @@ const Toolbar = styled.div({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'flex-end',
-	padding: `0 ${token('space.250', '20px')}`,
-	height: token('space.1000', '80px'),
+	padding: `0 ${token('space.250')}`,
+	height: token('space.1000'),
 });
 
 // Ignored via go/ees005
@@ -23,6 +23,7 @@ export default (props: { editorActions?: any; mode: Mode }): React.JSX.Element =
 
 	return (
 		<WithDocumentActions
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			render={(actions) => {
 				switch (mode) {
 					case 'edit':
@@ -31,6 +32,7 @@ export default (props: { editorActions?: any; mode: Mode }): React.JSX.Element =
 							<ButtonGroup>
 								<Button
 									appearance="primary"
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onClick={async () => {
 										// Ignored via go/ees005
 										// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -39,13 +41,14 @@ export default (props: { editorActions?: any; mode: Mode }): React.JSX.Element =
 											await (mode === 'create'
 												? actions.createDocument(value)
 												: actions.updateDocument(value));
+											// eslint-disable-next-line no-unused-vars
 										} catch (err) {}
 									}}
 									// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 								>
 									Publish
 								</Button>
-								{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
+								{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
 								<Button appearance="subtle" onClick={() => actions.cancelEdit()}>
 									Close
 								</Button>
@@ -56,7 +59,7 @@ export default (props: { editorActions?: any; mode: Mode }): React.JSX.Element =
 						return (
 							<Toolbar>
 								<ButtonGroup>
-									{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
+									{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
 									<Button appearance="primary" onClick={() => actions.editDocument()}>
 										Edit
 									</Button>

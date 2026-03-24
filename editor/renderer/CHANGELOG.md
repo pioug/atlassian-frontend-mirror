@@ -1,5 +1,36 @@
 # @atlaskit/renderer
 
+## 128.3.2
+
+### Patch Changes
+
+- [`aa4e1fcb89ca8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa4e1fcb89ca8) -
+  Added new `platform_editor_flexible_list_schema` experiment that independently enables ADF schema
+  and CSS rendering support for flexible lists, without creation behaviour. Updated schema node
+  selection, CSS rendering, ADF validation, and task list schema to use the new gate. Indent/outdent
+  behaviour remains on the existing `platform_editor_flexible_list_indentation` gate.
+- Updated dependencies
+
+## 128.3.1
+
+### Patch Changes
+
+- [`0f4a08b633f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f4a08b633f6e) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 128.3.0
+
+### Minor Changes
+
+- [`6e25e8bbb01c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e25e8bbb01c3) -
+  [ux] Adds mediaViewerExtensions prop to media-viewer/src/header and threads it through parents.
+  Allows callers to pass in additional buttons to the image / video preview'
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 128.2.3
 
 ### Patch Changes

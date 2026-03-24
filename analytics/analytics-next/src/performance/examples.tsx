@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { fireEvent } from '@testing-library/react';
-import { type InteractionTaskArgs, type PublicInteractionTask } from 'storybook-addon-performance';
+import type { InteractionTaskArgs, PublicInteractionTask } from 'storybook-addon-performance';
 
 import AnalyticsListener from '../components/AnalyticsListener';
 import type UIAnalyticsEvent from '../events/UIAnalyticsEvent';
@@ -125,11 +125,11 @@ const ButtonWithHOCs = withAnalyticsContext({
 );
 
 const createEventHandler = () => {
-	let done = (...args: any[]) => {};
+	let done = (..._args: any[]) => {};
 	let promise: Promise<any[]> | null;
 
-	const onEvent = (...args: any[]) => {
-		done(args);
+	const onEvent = (..._args: any[]) => {
+		done(_args);
 	};
 
 	const create = () => {

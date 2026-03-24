@@ -1,25 +1,13 @@
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import {
+	type BuildResult,
+	buildReplacementFragment as buildReplacementFragmentBase,
+	type FlattenedItem,
+	type FlattenListOptions,
+	type FlattenListResult,
+	flattenList as flattenListBase,
+} from '@atlaskit/editor-common/lists';
 import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 import type { Attrs, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-
-/**
- * A single content-bearing list element extracted from the PM tree.
- * Wrapper `listItem` nodes (those with no non-list children) are discarded;
- * only items the user can actually see and select are represented.
- */
-export interface ListElement {
-	depth: number;
-	/** Whether this element was within the user's selection (and had its depth adjusted). */
-	isSelected: boolean;
-	listType: 'bulletList' | 'orderedList';
-	node: PMNode;
-	/** Attributes of the immediate parent list node (bulletList/orderedList). */
-	parentListAttrs: Attrs | null;
-	pos: number;
-}
 
 /**
  * Returns true if a listItem has at least one non-list child (paragraph, etc.).
@@ -38,81 +26,25 @@ function contentSize(listItem: PMNode): number {
 	}, 0);
 }
 
-export interface FlattenListResult {
-	elements: ListElement[];
-	endIndex: number;
-	maxDepth: number;
-	startIndex: number;
-}
-
-export interface FlattenListOptions {
-	delta: number;
-	doc: PMNode;
-	rootListEnd: number;
-	rootListStart: number;
-	selectionFrom: number;
-	selectionTo: number;
-}
-
 /**
- * Flatten a root list into a flat array of content-bearing `ListElement`
- * objects and simultaneously determine which elements intersect the user's
- * selection.
+ * Flatten a root list into a flat array of content-bearing items
+ * and simultaneously determine which elements intersect the user's selection.
+ *
+ * Delegates to the shared `flattenListLike` with list-specific callbacks.
  * Selection intersection is checked against each item's content-only
  * span (excluding nested lists).
  */
-export function flattenList({
-	doc,
-	rootListStart,
-	rootListEnd,
-	selectionFrom,
-	selectionTo,
-	delta,
-}: FlattenListOptions): FlattenListResult | null {
-	const elements: ListElement[] = [];
-	let startIndex = -1;
-	let endIndex = -1;
-	let maxDepth = 0;
-
-	const rootDepth = doc.resolve(rootListStart).depth;
-
-	doc.nodesBetween(rootListStart, rootListEnd, (node, pos, parent) => {
-		if (!isListItemNode(node) || !hasContentChildren(node) || !isListNode(parent)) {
-			return true;
-		}
-
-		// Check selection intersection using content-only bounds
-		const cStart = pos + 1;
-		const cEnd = cStart + contentSize(node);
-		const isSelected = cStart < selectionTo && cEnd > selectionFrom;
-
-		const depth = (doc.resolve(pos).depth - rootDepth - 1) / 2 + (isSelected ? delta : 0);
-		elements.push({
-			node,
-			pos,
-			depth,
-			listType: parent.type.name,
-			parentListAttrs: parent.attrs,
-			isSelected,
-		});
-
-		if (isSelected) {
-			const index = elements.length - 1;
-			if (startIndex === -1) {
-				startIndex = index;
-			}
-			endIndex = index;
-			maxDepth = Math.max(maxDepth, depth);
-		}
-
-		return true;
+export function flattenList(options: FlattenListOptions): FlattenListResult | null {
+	return flattenListBase(options, {
+		isContentNode: (node, parent) =>
+			isListItemNode(node) && hasContentChildren(node) && isListNode(parent),
+		// +1 shifts from the listItem node boundary to the start of its content children
+		getSelectionBounds: (node, pos) => ({
+			start: pos + 1,
+			end: pos + 1 + contentSize(node),
+		}),
+		getDepth: (resolvedDepth, rootDepth) => (resolvedDepth - rootDepth - 1) / 2,
 	});
-
-	if (elements.length === 0 || startIndex === -1) {
-		return null;
-	}
-
-	return { elements, startIndex, endIndex, maxDepth };
 }
 
 /**
@@ -130,14 +62,17 @@ function extractContentChildren(listItem: PMNode): PMNode[] {
 }
 
 /**
- * Rebuild a ProseMirror list tree from a flat array of `ListElement` objects
+ * Rebuild a ProseMirror list tree from a flat array of `FlattenedItem` objects
  * using a bottom-up stack approach.
  *
  * The algorithm tracks open list/listItem wrappers on a stack. As depth
  * transitions occur between consecutive elements, wrapper nodes are opened
  * (depth increase) or closed (depth decrease).
  */
-function rebuildPMList(elements: ListElement[], schema: Schema): PMNode | null {
+function rebuildPMList(
+	elements: FlattenedItem[],
+	schema: Schema,
+): { contentStartOffsets: number[]; node: PMNode } | null {
 	if (elements.length === 0) {
 		return null;
 	}
@@ -221,113 +156,39 @@ function rebuildPMList(elements: ListElement[], schema: Schema): PMNode | null {
 	closeToDepth(0);
 
 	const root = stack[0];
-	return schema.nodes[root.listType].create(root.listAttrs, root.items);
-}
+	const rebuilt = schema.nodes[root.listType].create(root.listAttrs, root.items);
 
-export interface BuildResult {
-	/**
-	 * For each element (by index), the offset within the fragment where the
-	 * element's content begins. For list elements this is the position just
-	 * inside the listItem (pos + 1); for extracted elements it is the position
-	 * of the first extracted content child.
-	 *
-	 * To get the absolute document position after `tr.replaceWith(rangeStart, …)`,
-	 * add `rangeStart` to the offset.
-	 */
-	contentStartOffsets: number[];
-	fragment: Fragment;
+	// Compute content start offsets by walking the rebuilt tree.
+	const contentStartOffsets: number[] = new Array(elements.length);
+	let segIdx = 0;
+	rebuilt.descendants((node, pos) => {
+		if (isListItemNode(node) && hasContentChildren(node)) {
+			// +1 for rebuilt's opening tag, +1 for listItem's opening tag
+			contentStartOffsets[segIdx] = 1 + pos + 1;
+			segIdx++;
+		}
+		return true;
+	});
+
+	return { node: rebuilt, contentStartOffsets };
 }
 
 /**
- * Build a replacement Fragment from a flat array of `ListElement` objects.
+ * Build a replacement Fragment from a flat array of `FlattenedItem` objects.
  *
  * Elements with depth >= 0 are grouped into consecutive list segments
  * and rebuilt via `rebuildPMList`. Elements with depth < 0 (extracted
  * past the root) are converted to their content children (paragraphs).
  * The result interleaves list nodes and extracted content in document order.
- */
-export function buildReplacementFragment(elements: ListElement[], schema: Schema): BuildResult {
-	let fragment = Fragment.empty;
-	let pendingListSegment: ListElement[] = [];
-	let pendingStartIdx = 0;
-	const contentStartOffsets: number[] = new Array(elements.length);
-
-	const flushListSegment = () => {
-		if (pendingListSegment.length > 0) {
-			const fragmentOffset = fragment.size;
-			const rebuilt = rebuildPMList(pendingListSegment, schema);
-			if (rebuilt) {
-				// Walk the rebuilt tree to find content-bearing listItem positions.
-				// descendants() visits in document order matching the element order.
-				let segIdx = 0;
-				rebuilt.descendants((node, pos) => {
-					if (isListItemNode(node) && hasContentChildren(node)) {
-						// pos is relative to rebuilt's content start;
-						// +1 for rebuilt's opening tag, +1 for listItem's opening tag
-						contentStartOffsets[pendingStartIdx + segIdx] = fragmentOffset + 1 + pos + 1;
-						segIdx++;
-					}
-					return true;
-				});
-				fragment = fragment.addToEnd(rebuilt);
-			}
-			pendingListSegment = [];
-		}
-	};
-
-	let elIdx = 0;
-	for (const el of elements) {
-		if (el.depth < 0) {
-			flushListSegment();
-			// Extracted element — content children become top-level nodes.
-			// Record offset of first content child.
-			contentStartOffsets[elIdx] = fragment.size;
-			for (const node of extractContentChildren(el.node)) {
-				fragment = fragment.addToEnd(node);
-			}
-		} else {
-			if (pendingListSegment.length === 0) {
-				pendingStartIdx = elIdx;
-			}
-			pendingListSegment.push(el);
-		}
-		elIdx++;
-	}
-	flushListSegment();
-
-	return { fragment, contentStartOffsets };
-}
-
-export interface RestoreSelectionOptions {
-	from: number;
-	originalSelection: Selection;
-	to: number;
-	tr: Transaction;
-}
-
-/**
- * Restore the transaction's selection after a list structural change.
  *
- * Uses the content start offsets computed during fragment rebuild to
- * map each selection endpoint to its new absolute position.
+ * Delegates to the shared `buildReplacementFragment` with list-specific
+ * rebuild and extraction functions.
  */
-export function restoreSelection({
-	tr,
-	originalSelection,
-	from,
-	to,
-}: RestoreSelectionOptions): void {
-	const maxPos = tr.doc.content.size;
-
-	if (originalSelection instanceof NodeSelection) {
-		try {
-			tr.setSelection(NodeSelection.create(tr.doc, Math.min(from, maxPos - 1)));
-		} catch {
-			tr.setSelection(Selection.near(tr.doc.resolve(from)));
-		}
-	} else if (originalSelection instanceof GapCursorSelection) {
-		tr.setSelection(new GapCursorSelection(tr.doc.resolve(from), originalSelection.side));
-	} else {
-		tr.setSelection(TextSelection.create(tr.doc, from, to));
-	}
+export function buildReplacementFragment(elements: FlattenedItem[], schema: Schema): BuildResult {
+	return buildReplacementFragmentBase({
+		items: elements,
+		schema,
+		rebuildFn: rebuildPMList,
+		extractContentFn: (item) => extractContentChildren(item.node),
+	});
 }

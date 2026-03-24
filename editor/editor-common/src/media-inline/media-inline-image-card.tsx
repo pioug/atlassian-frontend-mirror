@@ -154,6 +154,7 @@ export const MediaInlineImageCardInternal = ({
 				<InlineImageCard
 					dimensions={dimensions}
 					identifier={identifier}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					renderError={() => (
 						<InlineImageCardErrorView message={formatMessage(messages.unableToLoadContent)} />
 					)}
@@ -238,6 +239,7 @@ export const MediaInlineImageCardInternal = ({
 			return ReactDOM.createPortal(
 				<MediaViewer
 					collectionName={identifier.collectionName || ''}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					items={[identifier]}
 					mediaClientConfig={mediaClient?.mediaClientConfig}
 					selectedItem={identifier}

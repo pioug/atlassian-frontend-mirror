@@ -43,6 +43,7 @@ export const toggleHeading3: Keymap = makeKeyMapWithCommon('Heading 3', 'Mod-Alt
 export const toggleHeading4: Keymap = makeKeyMapWithCommon('Heading 4', 'Mod-Alt-4');
 export const toggleHeading5: Keymap = makeKeyMapWithCommon('Heading 5', 'Mod-Alt-5');
 export const toggleHeading6: Keymap = makeKeyMapWithCommon('Heading 6', 'Mod-Alt-6');
+export const toggleSmallText: Keymap = makeKeyMapWithCommon('Small text', 'Mod-Alt-7');
 export const toggleOrderedList: Keymap = makeKeyMapWithCommon('Numbered list', 'Mod-Shift-7');
 export const ctrlBackSpace: Keymap = makeKeyMapWithCommon('Cmd + Backspace', 'Mod-Backspace');
 export const toggleBulletList: Keymap = makeKeyMapWithCommon('Bullet list', 'Mod-Shift-8');
@@ -223,7 +224,7 @@ const arrowKeysMap: Record<string, string> = {
 const tooltipShortcutStyle = css({
 	borderRadius: token('radius.xsmall'),
 	backgroundColor: token('color.background.inverse.subtle'),
-	padding: `0 ${token('space.025', '2px')}`,
+	padding: `0 ${token('space.025')}`,
 	// NOTE: This might not actually do anything: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E
 	label: 'tooltip-shortcut',
 });
@@ -416,6 +417,7 @@ export function getAriaKeyshortcuts(keymap: Keymap | string | undefined): string
 					case 'arrowdown':
 						return 'Arrow Down';
 					default:
+						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 						return modifier.split('').join(' ');
 				}
 			})
@@ -442,6 +444,7 @@ const ALL = [
 	toggleHeading4,
 	toggleHeading5,
 	toggleHeading6,
+	toggleSmallText,
 	toggleBlockQuote,
 	insertNewLine,
 	insertRule,

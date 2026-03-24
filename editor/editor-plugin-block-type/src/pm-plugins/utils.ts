@@ -278,7 +278,7 @@ export function convertTaskItemsToBlockTaskItems(tr: Transaction, from: number, 
 	}
 
 	// Collect taskItem positions from the current (unmutated) document
-	const taskItemsToConvert: Array<{ node: PMNode; pos: number; }> = [];
+	const taskItemsToConvert: Array<{ node: PMNode; pos: number }> = [];
 	tr.doc.nodesBetween(from, to, (node, pos) => {
 		if (node.type === taskItem) {
 			taskItemsToConvert.push({ pos, node });

@@ -43,10 +43,10 @@ export const buttonGroupStyle: SerializedStyles = css({
 			border: 'none', // remove blue border when an item has been selected
 		},
 	},
-	gap: token('space.050', '4px'),
+	gap: token('space.050'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'div[role=group]': {
-		gap: token('space.050', '4px'),
+		gap: token('space.050'),
 	},
 });
 
@@ -61,7 +61,7 @@ export const separatorStyles: SerializedStyles = css({
 	width: '1px',
 	height: '24px',
 	display: 'inline-block',
-	margin: `0 ${token('space.100', '8px')}`,
+	margin: `0 ${token('space.100')}`,
 	userSelect: 'none',
 });
 
@@ -116,7 +116,7 @@ export const triggerWrapperStyles: SerializedStyles = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const triggerWrapperStylesWithPadding: SerializedStyles = css({
 	display: 'flex',
-	paddingRight: token('space.025', '2px'),
+	paddingRight: token('space.025'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	button: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors

@@ -1,5 +1,39 @@
 # @atlaskit/editor-statsig-tmp
 
+## 44.2.0
+
+### Minor Changes
+
+- [`aa4e1fcb89ca8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa4e1fcb89ca8) -
+  Added new `platform_editor_flexible_list_schema` experiment that independently enables ADF schema
+  and CSS rendering support for flexible lists, without creation behaviour. Updated schema node
+  selection, CSS rendering, ADF validation, and task list schema to use the new gate. Indent/outdent
+  behaviour remains on the existing `platform_editor_flexible_list_indentation` gate.
+- [`bd008993d07cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd008993d07cd) -
+  Reuse the same selectors for determinig hover locations and location to draw drag handle
+
+## 44.1.0
+
+### Minor Changes
+
+- [`d43c8a96e6740`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d43c8a96e6740) -
+  Gate table ref update dispatch behind tableActive check to avoid unnecessary transactions firing
+  for every table on the page
+
+### Patch Changes
+
+- [`4fa16b0f7b7a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fa16b0f7b7a3) -
+  Add dynamic config function for string list and use to turn Rovo placeholder off.
+
+## 44.0.0
+
+### Major Changes
+
+- [`a35f1a8d92461`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a35f1a8d92461) -
+  [FFCLEANUP-84844] Clean up stale feature flag platform_editor_nested_table_refresh_width_fix
+- [`b50791532c24a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b50791532c24a) -
+  [FFCLEANUP-79900] Remove experiment editor_refactor_backspace_task_and_decisions
+
 ## 43.0.0
 
 ### Major Changes

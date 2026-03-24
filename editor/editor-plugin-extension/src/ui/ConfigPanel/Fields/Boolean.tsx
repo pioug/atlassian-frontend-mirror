@@ -74,6 +74,7 @@ function Checkbox({
 		<Field<boolean | string>
 			name={name}
 			isRequired={isRequired}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			validate={(value) => validate(value, isRequired)}
 			defaultValue={defaultValue}
 			isDisabled={isDisabled}
@@ -87,6 +88,7 @@ function Checkbox({
 							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...restFieldProps}
 							label={label}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onChange={(event) => handleOnChange(fieldProps.onChange, onFieldChange, event)}
 							isChecked={parseBoolean(isChecked)}
 						/>
@@ -113,6 +115,7 @@ function Toggle({
 		<Field<boolean | string>
 			name={name}
 			isRequired={isRequired}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			validate={(value) => validate(value, isRequired)}
 			defaultValue={defaultValue}
 			testId={`config-panel-toggle-${name}`}
@@ -136,6 +139,7 @@ function Toggle({
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...restFieldProps}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onChange={(event) => handleOnChange(fieldProps.onChange, onFieldChange, event)}
 								isChecked={parseBoolean(isChecked)}
 								id={id}

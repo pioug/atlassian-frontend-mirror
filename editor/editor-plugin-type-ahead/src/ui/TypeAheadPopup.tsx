@@ -27,7 +27,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
-import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -55,10 +54,10 @@ const DEFAULT_TYPEAHEAD_MENU_HEIGHT_NEW = 480;
 const ITEM_PADDING = 12;
 
 const typeAheadContent = css({
-	background: token('elevation.surface.overlay', N0),
+	background: token('elevation.surface.overlay'),
 	borderRadius: token('radius.small', '3px'),
-	boxShadow: token('elevation.shadow.overlay', `0 0 1px ${N60A}, 0 4px 8px -2px ${N50A}`),
-	padding: `${token('space.050', '4px')} 0`,
+	boxShadow: token('elevation.shadow.overlay'),
+	padding: `${token('space.050')} 0`,
 	width: '320px',
 	maxHeight: '380px' /* ~5.5 visibile items */,
 	overflowY: 'auto',
@@ -177,6 +176,8 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 
 		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 		FeatureGates.getExperimentValue('cc_fd_db_quick_insert_options', 'isEnabled', false);
+		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+		FeatureGates.getExperimentValue('cc_fd_wb_jira_quick_insert_experiment', 'isEnabled', false);
 
 		api?.analytics?.actions?.fireAnalyticsEvent({
 			action: ACTION.RENDERED,
@@ -412,6 +413,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 			offset={OFFSET}
 			ariaLabel={null}
 			preventOverflow={true}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onUnmount={() => {
 				if (selectedIndex > -1 && editorExperiment('platform_editor_controls', 'variant1')) {
 					// if selectedIndex is -1, it means that the user has not selected any item
@@ -451,6 +453,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 						<TypeAheadList
 							items={items}
 							selectedIndex={selectedIndex}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onItemClick={(mode: SelectItemMode, index: number, inputMethod) => {
 								if (editorExperiment('platform_editor_controls', 'variant1')) {
 									activityStateRef.current = {

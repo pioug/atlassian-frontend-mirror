@@ -11,7 +11,7 @@ const separator = css({
 	background: token('color.border'),
 	width: '1px',
 	height: '20px',
-	margin: `0 ${token('space.050', '4px')}`,
+	margin: `0 ${token('space.050')}`,
 	alignSelf: 'center',
 });
 

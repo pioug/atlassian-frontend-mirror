@@ -127,6 +127,7 @@ export const TableComponentWithSharedState = ({
 	try {
 		currentTablePos = getPos ? getPos() : undefined;
 	} catch (e) {
+		// eslint-disable-line no-unused-vars
 		currentTablePos = undefined;
 	}
 
@@ -160,6 +161,7 @@ export const TableComponentWithSharedState = ({
 			ordering={ordering}
 			isResizing={isResizing}
 			getNode={getNode}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			containerWidth={{
 				width: width ?? 0,
 				lineLength,

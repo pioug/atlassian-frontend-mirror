@@ -46,6 +46,7 @@ export const SurfaceRenderer = ({
 				components={topLevelChildren}
 				childrenMap={childrenMap}
 				fallbacks={fallbacks}
+				/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */
 				parents={[{ key: root.key, type: root.type }]}
 			/>
 		</RootComponent>

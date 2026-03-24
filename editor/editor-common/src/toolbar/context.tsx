@@ -47,6 +47,7 @@ export const EditorToolbarProvider = ({
 }: EditorToolbarProviderProps): React.JSX.Element => {
 	return (
 		<EditorToolbarContext.Provider
+			// eslint-disable-next-line @atlassian/perf-linting/no-inline-context-value, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			value={{
 				editorView,
 				editorAppearance,

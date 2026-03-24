@@ -31,9 +31,9 @@ const blockNodeStyle = css({
 	display: 'flex',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(14),
-	margin: `${token('space.100', '8px')} 0`,
+	margin: `${token('space.100')} 0`,
 	minHeight: '24px',
-	padding: token('space.150', '12px'),
+	padding: token('space.150'),
 	textAlign: 'center',
 	verticalAlign: 'text-bottom',
 	minWidth: '120px',

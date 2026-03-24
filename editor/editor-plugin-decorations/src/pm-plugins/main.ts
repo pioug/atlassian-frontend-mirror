@@ -5,6 +5,7 @@ import { type EditorState, NodeSelection, PluginKey } from '@atlaskit/editor-pro
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const decorationStateKey: PluginKey = new PluginKey('decorationPlugin');
 
@@ -106,7 +107,7 @@ export default (): SafePlugin<DecorationState> => {
 				if (
 					pluginState.decoration &&
 					pluginState.decoration instanceof DecorationSet &&
-					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+					editorExperiment('platform_editor_block_menu', true)
 				) {
 					pluginState.decoration = pluginState.decoration.map(tr.mapping, tr.doc);
 				}
@@ -147,7 +148,7 @@ export default (): SafePlugin<DecorationState> => {
 
 				if (
 					decoration instanceof DecorationSet &&
-					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+					editorExperiment('platform_editor_block_menu', true)
 				) {
 					return decoration;
 				}

@@ -7,7 +7,7 @@ import { createPortal, flushSync } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { Position } from './utils';
 import {
@@ -16,6 +16,7 @@ import {
 	findOverflowScrollParent,
 	validatePosition,
 } from './utils';
+
 export interface Props {
 	absoluteOffset?: Position;
 	// The alignments are using the same placements from Popper
@@ -68,8 +69,8 @@ export default class Popup extends React.Component<Props, State> {
 	scrollParentElement: undefined | false | HTMLElement;
 	rafIds: Set<number> = new Set();
 	static defaultProps: {
-		offset: number[];
 		allowOutOfBound: boolean;
+		offset: number[];
 	} = {
 		offset: [0, 0],
 		allowOutOfBound: false,
@@ -292,9 +293,7 @@ export default class Popup extends React.Component<Props, State> {
 
 		this.focusTrap = createFocusTrap(
 			popup,
-			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-				? trapConfig
-				: defaultTrapConfig,
+			editorExperiment('platform_editor_block_menu', true) ? trapConfig : defaultTrapConfig,
 		);
 		this.focusTrap.activate();
 	});

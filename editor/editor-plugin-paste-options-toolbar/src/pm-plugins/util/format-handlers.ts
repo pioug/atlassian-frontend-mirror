@@ -220,7 +220,7 @@ export function getMarkdownSlice(
 		for (let i = 0; i < textSplitByCodeBlock.length; i++) {
 			if (i % 2 === 0) {
 				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
+				// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 				textSplitByCodeBlock[i] = textSplitByCodeBlock[i].replace(/\\/g, '\\\\');
 			}
 		}

@@ -49,13 +49,13 @@ import type {
 
 const resizerLabelStyles = xcss({
 	position: 'absolute',
-	bottom: token('space.0', '0'),
+	bottom: token('space.0'),
 	width: '100%',
 	overflow: 'visible',
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
-	height: token('space.0', '0px'),
+	height: token('space.0'),
 	zIndex: 'layer', // 400 same z-index as the floating toolbar
 });
 
@@ -278,8 +278,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 	};
 
 	const baseHandleStyles: CSSProperties = {
-		width:
-			handlePositioning === 'adjacent' ? token('space.100', '8px') : token('space.300', '24px'),
+		width: handlePositioning === 'adjacent' ? token('space.100') : token('space.300'),
 		zIndex: resizerHandleZIndex,
 		pointerEvents: 'auto',
 		alignItems: handlePositioning === 'adjacent' ? 'center' : undefined,
@@ -290,6 +289,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			? `calc(${baseHandleStyles.width} * -1)`
 			: `calc(${baseHandleStyles.width} * -0.5)`;
 
+	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 	const nextHandleStyles = SUPPORTED_HANDLES.reduce<HandleStyles>(
 		(result, position) => ({
 			...result,
@@ -390,6 +390,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 	return (
 		<Resizable
 			ref={resizable}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			size={{
 				width: width ?? 'auto', // just content itself (no paddings)
 				height: 'auto',

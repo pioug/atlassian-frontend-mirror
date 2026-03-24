@@ -116,6 +116,7 @@ export default function PickerFacadeProvider({
 
 	useEffect(() => {
 		if (mediaProvider) {
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			handleMediaProvider('mediaProvider', Promise.resolve(mediaProvider));
 		}
 	}, [mediaProvider, handleMediaProvider]);

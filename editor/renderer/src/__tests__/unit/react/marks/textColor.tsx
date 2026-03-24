@@ -11,10 +11,7 @@ describe('Renderer - React/Marks/TextColor', () => {
 	let wrapper: RenderResult;
 	beforeEach(() => {
 		wrapper = render(
-			<TextColor
-				dataAttributes={{ 'data-renderer-mark': true }}
-				color={token('color.text.danger', '#bf2600')}
-			>
+			<TextColor dataAttributes={{ 'data-renderer-mark': true }} color={token('color.text.danger')}>
 				This is a red text
 			</TextColor>,
 		);
@@ -29,7 +26,7 @@ describe('Renderer - React/Marks/TextColor', () => {
 		const mark = await wrapper.getByText('This is a red text');
 
 		expect(mark.outerHTML).toEqual(
-			`<span data-renderer-mark=\"true\" data-text-custom-color=\"var(--ds-text-danger, #bf2600)\" class=\"fabric-text-color-mark\" style=\"--custom-palette-color: var(--ds-text-danger, #bf2600);\">This is a red text</span>`,
+			`<span data-renderer-mark=\"true\" data-text-custom-color=\"var(--ds-text-danger)\" class=\"fabric-text-color-mark\" style=\"--custom-palette-color: var(--ds-text-danger);\">This is a red text</span>`,
 		);
 	});
 });

@@ -16,7 +16,6 @@ import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import Modal, { CloseButton, ModalTransition, useModal } from '@atlaskit/modal-dialog';
-import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { getCategories } from './categories';
@@ -36,27 +35,27 @@ export interface Props {
 
 const actionsStyles = css({
 	display: 'inline-flex',
-	margin: `0 ${token('space.negative.050', '-4px')}`,
+	margin: `0 ${token('space.negative.050')}`,
 });
 
 const actionItemStyles = css({
 	flex: '1 0 auto',
-	margin: `0 ${token('space.050', '4px')}`,
+	margin: `0 ${token('space.050')}`,
 });
 
 const wrapperStyles = css({
 	display: 'flex',
 	flex: '1 1 auto',
 	boxSizing: 'border-box',
-	padding: `${token('space.200', '16px')} ${token('space.200', '16px')} 0 10px`,
+	padding: `${token('space.200')} ${token('space.200')} 0 10px`,
 	overflow: 'hidden',
-	backgroundColor: token('elevation.surface.overlay', N0),
+	backgroundColor: token('elevation.surface.overlay'),
 	borderRadius: token('radius.small', '3px'),
 });
 
 const modalFooterStyles = css({
 	display: 'flex',
-	padding: `${token('space.200', '16px')}`,
+	padding: `${token('space.200')}`,
 
 	position: 'relative',
 	alignItems: 'center',
@@ -92,7 +91,7 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 		() => (
 			<Footer
 				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onInsert={() => onInsertItem(selectedItem!)}
 				beforeElement={helpUrl ? HelpLink(helpUrl, intl.formatMessage(messages.help)) : undefined}
 			/>

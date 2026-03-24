@@ -86,6 +86,7 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 	if (areAnyNewToolbarFlagsEnabled) {
 		return (
 			<div css={menuContainerStyles} role="menu">
+				{/* eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed) */}
 				{items
 					// @ts-ignore
 					.filter((item) => item && (!('hidden' in item) || !item.hidden))
@@ -127,6 +128,7 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 
 	return (
 		<div css={menuContainerStyles} role="menu">
+			{/* eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed) */}
 			{(items as Array<DropdownOptionT<Function>>)
 				.filter((item) => !item.hidden)
 				.map((item, idx) => (

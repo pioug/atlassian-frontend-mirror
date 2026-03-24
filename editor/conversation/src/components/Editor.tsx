@@ -332,6 +332,7 @@ export default class Editor extends React.Component<Props, State> {
 				<Container>
 					{this.renderAvatar()}
 					<EditorSection>
+						{/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
 						<WithEditorActions render={(actions) => this.renderEditor(actions)} />
 					</EditorSection>
 				</Container>

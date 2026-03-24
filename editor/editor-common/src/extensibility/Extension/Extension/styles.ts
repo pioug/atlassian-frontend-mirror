@@ -28,8 +28,8 @@ const wrapperStyleWithoutCursor = css(wrapperDefault, {
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
-		margin: `0 ${token('space.negative.250', '-20px')}`,
-		padding: `0 ${token('space.250', '20px')}`,
+		margin: `0 ${token('space.negative.250')}`,
+		padding: `0 ${token('space.250')}`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.legacy-content': {
@@ -51,14 +51,11 @@ export const wrapperStyleInheritedCursor: SerializedStyles = css(wrapperStyleWit
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const header: SerializedStyles = css({
-	padding: `${token('space.050', '4px')} ${token('space.050', '4px')} 0px`,
+	padding: `${token('space.050')} ${token('space.050')} 0px`,
 	verticalAlign: 'middle',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&.with-children:not(.without-frame)': {
-		padding: `${token('space.050', '4px')} ${token('space.100', '8px')} ${token(
-			'space.100',
-			'8px',
-		)}`,
+		padding: `${token('space.050')} ${token('space.100')} ${token('space.100')}`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.without-frame': {
@@ -68,8 +65,8 @@ export const header: SerializedStyles = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const content: SerializedStyles = css({
-	padding: token('space.100', '8px'),
-	background: token('elevation.surface', 'white'),
+	padding: token('space.100'),
+	background: token('elevation.surface'),
 	border: `1px solid ${token('color.border')}`,
 	borderRadius: token('radius.small', '3px'),
 	cursor: 'initial',
@@ -87,9 +84,9 @@ export const content: SerializedStyles = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const extensionContent: SerializedStyles = css({
 	boxSizing: 'border-box',
-	paddingTop: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	background: token('elevation.surface', 'white'),
+	paddingTop: token('space.100'),
+	paddingBottom: token('space.100'),
+	background: token('elevation.surface'),
 	border: `1px solid ${token('color.border')}`,
 	borderRadius: token('radius.small', '3px'),
 	cursor: 'initial',
@@ -106,16 +103,16 @@ export const extensionContent: SerializedStyles = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contentWrapper: SerializedStyles = css({
-	padding: `0 ${token('space.100', '8px')} ${token('space.100', '8px')}`,
+	padding: `0 ${token('space.100')} ${token('space.100')}`,
 	display: 'flex',
 	justifyContent: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-padding-styles': {
-		padding: token('space.100', '8px'),
+		padding: token('space.100'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-bodied-padding-styles': {
-		padding: `${token('space.100', '8px')} ${token('space.250', '20px')}`, // account for upcoming editor elements drag & drop feature
+		padding: `${token('space.100')} ${token('space.250')}`, // account for upcoming editor elements drag & drop feature
 	},
 });
 
@@ -123,10 +120,10 @@ export const contentWrapper: SerializedStyles = css({
 export const overflowWrapperStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
-		margin: `0 ${token('space.negative.250', '-20px')}`,
+		margin: `0 ${token('space.negative.250')}`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-padding-styles': {
-		padding: token('space.100', '8px'),
+		padding: token('space.100'),
 	},
 });

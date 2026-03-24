@@ -4,12 +4,12 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 
 const decorationStyle = `
-    background-color: ${token('color.background.neutral', '#DCDFE4')};
+    background-color: ${token('color.background.neutral')};
   `;
 
 const decorationHighlightStyle = `
-    background-color: ${token('color.background.accent.blue.subtlest', '#E9F2FF')};
-    border-bottom: ${token('border.width.selected')} solid ${token('color.background.accent.blue.subtler', '#cce0ff')};
+    background-color: ${token('color.background.accent.blue.subtlest')};
+    border-bottom: ${token('border.width.selected')} solid ${token('color.background.accent.blue.subtler')};
   `;
 
 export const selectionDecoration = (

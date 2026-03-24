@@ -427,10 +427,7 @@ export const apply = (
 				// Which caused the drag handle onClick event not firing, then block menu wouldn't be opened
 				// This is caused by the mappedPos.deletedAfter sometimes returning true in webkit browsers even though the active node still exists
 				// This is likely a prosemirror and safari integration bug, but to unblock the issue, we are going to use mappedPos.deleted in safari for now
-				if (
-					browser.webkit &&
-					expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-				) {
+				if (browser.webkit && editorExperiment('platform_editor_block_menu', true)) {
 					mappedPos = tr.mapping.mapResult(activeNode.pos);
 					isActiveNodeDeleted = mappedPos.deleted;
 				} else {
@@ -899,7 +896,7 @@ export const apply = (
 	}
 
 	let isMenuOpenNew = isMenuOpen;
-	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+	if (editorExperiment('platform_editor_block_menu', true)) {
 		if (meta?.closeMenu) {
 			isMenuOpenNew = false;
 		} else if (meta?.toggleMenu) {
@@ -936,14 +933,13 @@ export const apply = (
 		isDragging: meta?.isDragging ?? isDragging,
 		isMenuOpen: isMenuOpenNew,
 		menuTriggerBy:
-			flags.toolbarFlagsEnabled ||
-			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+			flags.toolbarFlagsEnabled || editorExperiment('platform_editor_block_menu', true)
 				? meta?.toggleMenu?.anchorName || menuTriggerBy
 				: undefined,
 		menuTriggerByNode: editorExperiment('platform_synced_block', true)
 			? meta?.toggleMenu?.triggerByNode || menuTriggerByNode
 			: undefined,
-		blockMenuOptions: expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+		blockMenuOptions: editorExperiment('platform_editor_block_menu', true)
 			? {
 					canMoveUp:
 						meta?.toggleMenu?.moveUp !== undefined
@@ -1297,7 +1293,7 @@ export const createPlugin = (
 						) {
 							const isDragHandle =
 								event.target.closest(
-									expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+									editorExperiment('platform_editor_block_menu', true)
 										? DRAG_HANDLE_SELECTOR
 										: '[data-editor-block-ctrl-drag-handle="true"]',
 								) !== null;
@@ -1315,7 +1311,7 @@ export const createPlugin = (
 						) {
 							const isBlockMenuOpen =
 								api?.blockControls.sharedState.currentState()?.isMenuOpen &&
-								expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true);
+								editorExperiment('platform_editor_block_menu', true);
 							// when block menu is just open, and we press arrow keys, we want to use the arrow keys to navigate the block menu
 							// in this scenario, isSelectedViaDragHandle should not be set to false
 							if (
@@ -1355,7 +1351,7 @@ export const createPlugin = (
 						) {
 							const isDragHandle =
 								event.target.closest(
-									expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+									editorExperiment('platform_editor_block_menu', true)
 										? DRAG_HANDLE_SELECTOR
 										: '[data-editor-block-ctrl-drag-handle="true"]',
 								) !== null;
@@ -1373,7 +1369,7 @@ export const createPlugin = (
 						) {
 							const isBlockMenuOpen =
 								api?.blockControls.sharedState.currentState()?.isMenuOpen &&
-								expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true);
+								editorExperiment('platform_editor_block_menu', true);
 							// when block menu is just open, and we press arrow keys, we want to use the arrow keys to navigate the block menu
 							// in this scenario, isSelectedViaDragHandle should not be set to false
 							if (

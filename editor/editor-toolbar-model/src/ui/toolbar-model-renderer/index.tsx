@@ -106,6 +106,7 @@ const ComponentRenderer = ({
 	const childTypes = getChildTypesForParent(component.type);
 
 	const children = getSortedChildren(
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 		allComponents.filter((comp) => childTypes.includes(comp.type)),
 		component.key,
 	);
@@ -144,6 +145,7 @@ export const ToolbarModelRenderer = ({
 }: ToolbarProps): React.JSX.Element => {
 	const ToolbarComponent = toolbar.component || NoOp;
 
+	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 	const sections = getSortedChildren(components.filter(isSection), toolbar.key);
 
 	return (
@@ -152,7 +154,9 @@ export const ToolbarModelRenderer = ({
 				<ComponentRenderer
 					key={section.key}
 					component={section as RegisterComponent}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					parents={[{ key: toolbar.key, type: toolbar.type }]}
+					// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 					allComponents={components.filter(hasParents)}
 					fallbacks={fallbacks}
 				/>

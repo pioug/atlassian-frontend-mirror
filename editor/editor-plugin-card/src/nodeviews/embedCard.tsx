@@ -37,6 +37,12 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
+import {
+	SmartLinkDraggable,
+	SMART_LINK_DRAG_TYPES,
+	SMART_LINK_APPEARANCE,
+} from '@atlaskit/editor-smart-link-draggable';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
@@ -474,27 +480,33 @@ export class EmbedCardComponent extends React.PureComponent<
 		);
 
 		return (
-			<EmbedResizeMessageListener
-				embedIframeRef={this.embedIframeRef}
-				onHeightUpdate={this.onHeightUpdate}
+			<SmartLinkDraggable
+				url={url}
+				appearance={SMART_LINK_APPEARANCE.EMBED}
+				source={SMART_LINK_DRAG_TYPES.EDITOR}
 			>
-				<CardInner
-					pluginInjectionApi={pluginInjectionApi}
-					smartCard={smartCard}
-					hasPreview={hasPreview}
-					getPosSafely={this.getPosSafely}
-					view={view}
-					getLineLength={this.getLineLength}
-					eventDispatcher={this.props.eventDispatcher as EventDispatcher}
-					updateSize={this.updateSize}
-					getPos={getPos}
-					aspectRatio={aspectRatio}
-					allowResizing={allowResizing}
-					heightAlone={heightAlone}
-					cardProps={cardProps}
-					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-				/>
-			</EmbedResizeMessageListener>
+				<EmbedResizeMessageListener
+					embedIframeRef={this.embedIframeRef}
+					onHeightUpdate={this.onHeightUpdate}
+				>
+					<CardInner
+						pluginInjectionApi={pluginInjectionApi}
+						smartCard={smartCard}
+						hasPreview={hasPreview}
+						getPosSafely={this.getPosSafely}
+						view={view}
+						getLineLength={this.getLineLength}
+						eventDispatcher={this.props.eventDispatcher as EventDispatcher}
+						updateSize={this.updateSize}
+						getPos={getPos}
+						aspectRatio={aspectRatio}
+						allowResizing={allowResizing}
+						heightAlone={heightAlone}
+						cardProps={cardProps}
+						dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					/>
+				</EmbedResizeMessageListener>
+			</SmartLinkDraggable>
 		);
 	}
 }
@@ -643,6 +655,25 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 				provider={provider}
 			/>
 		);
+	}
+
+	/**
+	 * Prevent ProseMirror from handling drag events on the smart-element-link,
+	 * allowing native drag to work so SmartLinkDraggable can intercept it.
+	 * @see {@link https://prosemirror.net/docs/ref/#view.NodeView.stopEvent}
+	 */
+	stopEvent(event: Event): boolean {
+		if (event.type === 'dragstart') {
+			const target = event.target;
+			if (
+				target instanceof HTMLElement &&
+				target.closest('[data-smart-element-link]') &&
+				fg('cc_drag_and_drop_smart_link_from_content_to_tree')
+			) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	destroy(): void {

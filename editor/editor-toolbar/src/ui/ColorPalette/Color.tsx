@@ -19,10 +19,10 @@ const buttonWrapperStyles = css({
 	borderWidth: token('border.width'),
 	display: 'flex',
 	alignItems: 'center',
-	paddingTop: token('space.025', '2px'),
-	paddingRight: token('space.025', '2px'),
-	paddingBottom: token('space.025', '2px'),
-	paddingLeft: token('space.025', '2px'),
+	paddingTop: token('space.025'),
+	paddingRight: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
 	borderRadius: token('radius.small', '4px'),
 	'&:focus-within, &:focus, &:hover': {
 		borderColor: token('color.border'),
@@ -30,8 +30,8 @@ const buttonWrapperStyles = css({
 });
 
 const buttonStyles = css({
-	height: token('space.300', '26px'),
-	width: token('space.300', '26px'),
+	height: token('space.300'),
+	width: token('space.300'),
 	backgroundColor: token('color.background.neutral'),
 	padding: 0,
 	borderRadius: token('radius.small', '4px'),
@@ -41,7 +41,7 @@ const buttonStyles = css({
 	position: 'relative',
 	'&:focus': {
 		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
-		outlineOffset: token('space.025', '2px'),
+		outlineOffset: token('space.025'),
 	},
 });
 
@@ -57,7 +57,7 @@ export const Color: React.NamedExoticComponent<ColorProps> = memo<ColorProps>(
 		label,
 		isSelected,
 		borderColor,
-		checkMarkColor = token('color.icon.inverse', '#FFFFFF'),
+		checkMarkColor = token('color.icon.inverse'),
 		hexToPaletteColor,
 		decorator,
 		onClick,
@@ -102,7 +102,7 @@ export const Color: React.NamedExoticComponent<ColorProps> = memo<ColorProps>(
 						onMouseDown={handleMouseDown}
 						tabIndex={tabIndex}
 						style={{
-							backgroundColor: colorStyle || token('color.background.input', '#FFFFFF'),
+							backgroundColor: colorStyle || token('color.background.input'),
 							border: `${token('border.width')} solid ${borderColor}`,
 						}}
 						autoFocus={autoFocus}

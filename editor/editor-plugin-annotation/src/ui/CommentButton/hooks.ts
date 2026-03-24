@@ -44,6 +44,7 @@ export const useCommentButtonMount = ({
 			}) ?? [];
 
 		const isNonTextInlineNodeInludedInComment =
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 			inlineNodeNames.filter((nodeName) => nodeName !== 'text').length > 0;
 
 		fireCommentButtonViewedAnalyticsEvent({

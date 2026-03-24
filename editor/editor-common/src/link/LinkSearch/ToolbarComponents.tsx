@@ -10,7 +10,7 @@ export const inputWrapper: SerializedStyles = css({
 	display: 'flex',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 0,
-	padding: `${token('space.075', '6px')} 0`,
+	padding: `${token('space.075')} 0`,
 	alignItems: 'center',
 });
 

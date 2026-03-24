@@ -54,10 +54,10 @@ const PopupWithListeners = withOuterListeners(Popup);
 const TRYING_REQUEST_TIMEOUT = 3000;
 
 const popupContentWrapper = css({
-	paddingTop: token('space.025', '2px'),
-	paddingBottom: token('space.025', '2px'),
-	paddingLeft: token('space.025', '2px'),
-	paddingRight: token('space.025', '2px'),
+	paddingTop: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
+	paddingRight: token('space.025'),
 	borderRadius: token('radius.small', '3px'),
 	boxShadow: token('elevation.shadow.overlay'),
 	backgroundColor: token('elevation.surface.overlay'),
@@ -276,6 +276,7 @@ export const RequestToEditPopup = ({
 									<div css={[dotStyles, dotStylesUnbounded]}></div>
 									<Box>
 										<Pressable
+											// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 											onClick={() => onHandleDismiss(api?.analytics?.actions)}
 											xcss={pressableStyles.pressable}
 											testId="request-to-edit-popup-cancel-btn"

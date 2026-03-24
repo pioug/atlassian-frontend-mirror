@@ -76,6 +76,7 @@ const CustomHyperlinkDropdown = (
 			const provider = await getProvider();
 			isUrlSupported = (await provider?.findPattern(url)) ?? false;
 		} catch (error) {
+			// eslint-disable-line no-unused-vars
 			isUrlSupported = false;
 		}
 
@@ -137,6 +138,7 @@ const CustomHyperlinkDropdown = (
 				handleEscapeKeydown={close}
 				trigger={trigger}
 				scrollableElement={containerRef.current}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				arrowKeyNavigationProviderOptions={{
 					type: ArrowKeyNavigationType.MENU,
 				}}

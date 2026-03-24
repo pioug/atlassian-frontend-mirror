@@ -1,7 +1,6 @@
 import React, { PureComponent, useCallback, useEffect, useRef, useState } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import ReactEditorViewContext from './ReactEditorViewContext';
@@ -59,7 +58,8 @@ class WithOutsideClick extends PureComponent<
 		if (
 			this.props.handleEscapeKeydown ||
 			this.props.handleBackspaceDeleteKeydown ||
-			(this.props.handleKeyDown && expValEquals('platform_editor_block_menu', 'isEnabled', true))
+			(this.props.handleKeyDown &&
+				editorExperiment('platform_editor_block_menu', true, { exposure: true }))
 		) {
 			// Attached event to the menu so that 'ESC' events from the opened menu also will be handled.
 			// Ignored via go/ees005
@@ -89,7 +89,8 @@ class WithOutsideClick extends PureComponent<
 		if (
 			this.props.handleEscapeKeydown ||
 			this.props.handleBackspaceDeleteKeydown ||
-			(this.props.handleKeyDown && expValEquals('platform_editor_block_menu', 'isEnabled', true))
+			(this.props.handleKeyDown &&
+				editorExperiment('platform_editor_block_menu', true, { exposure: true }))
 		) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -143,7 +144,7 @@ class WithOutsideClick extends PureComponent<
 			this.props.handleBackspaceDeleteKeydown(evt);
 		}
 
-		if (expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+		if (editorExperiment('platform_editor_block_menu', true, { exposure: true })) {
 			this.props.handleKeyDown?.(evt);
 		}
 	};

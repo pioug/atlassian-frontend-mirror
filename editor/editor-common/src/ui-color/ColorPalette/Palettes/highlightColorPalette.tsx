@@ -44,10 +44,10 @@ export const EditorDiagonalLineIcon = (): jsx.JSX.Element => {
 	const { colorMode } = useThemeObserver();
 	const primaryColor =
 		colorMode === 'dark'
-			? token('color.background.accent.gray.bolder', '#626F86')
-			: token('color.background.accent.gray.subtle', '#8590A2');
+			? token('color.background.accent.gray.bolder')
+			: token('color.background.accent.gray.subtle');
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 		<DiagonalLineGlyph aria-label="" style={{ color: primaryColor }} />
 	);
 };
@@ -56,7 +56,7 @@ export const highlightColorPalette: Array<PaletteColor> = [
 	{
 		value: REMOVE_HIGHLIGHT_COLOR,
 		label: 'No color' as const, // Mostly informative, only used for analytics
-		border: token('color.border', '#091E4224'),
+		border: token('color.border'),
 		message: getColorMessage(paletteMessages, 'no-color'),
 		decorator: <EditorDiagonalLineIcon />,
 	},

@@ -52,7 +52,7 @@ export type TableArrayMapped = {
 
 const stickyContainerBaseStyles = {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-	height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+	height: token('space.250'), // MAX_BROWSER_SCROLLBAR_HEIGHT
 	// Follow editor to hide by default so it does not show empty gap in SSR
 	// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/editor/editor-plugin-table/src/nodeviews/TableComponent.tsx#957
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -64,7 +64,7 @@ const stickyContainerAdditionalStyles = {
 	visibility: 'hidden',
 	overflowX: 'auto',
 	position: 'sticky',
-	bottom: token('space.0', '0px'),
+	bottom: token('space.0'),
 	zIndex: 1,
 };
 

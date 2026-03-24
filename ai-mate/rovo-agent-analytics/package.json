@@ -1,4 +1,8 @@
 {
+	"name": "@atlaskit/rovo-agent-analytics",
+	"version": "1.1.0",
+	"description": "Rovo Agents analytics",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
 		"team": "Rovo Agents",
 		"website": {
@@ -6,7 +10,11 @@
 			"category": "Layout and structure"
 		}
 	},
-	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
@@ -19,10 +27,10 @@
 			]
 		}
 	},
+	"atlaskit:src": "src/index.ts",
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		"./actions": "./src/actions/index.tsx",
 		"./create": "./src/create/index.tsx",
@@ -34,15 +42,15 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},
-	"peerDependencies": {
-		"react": "^18.2.0"
-	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -78,13 +86,5 @@
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
 		}
-	},
-	"name": "@atlaskit/rovo-agent-analytics",
-	"version": "1.0.0",
-	"description": "Rovo Agents analytics",
-	"author": "Atlassian Pty Ltd",
-	"license": "Apache-2.0",
-	"publishConfig": {
-		"registry": "https://registry.npmjs.org/"
 	}
 }

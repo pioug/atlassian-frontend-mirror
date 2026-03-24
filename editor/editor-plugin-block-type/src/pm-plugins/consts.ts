@@ -5,6 +5,7 @@ const KEY_3 = 51;
 const KEY_4 = 52;
 const KEY_5 = 53;
 const KEY_6 = 54;
+export const KEY_7 = 55;
 export const HEADING_KEYS: number[] = [KEY_0, KEY_1, KEY_2, KEY_3, KEY_4, KEY_5, KEY_6];
 
 const NUMPAD_KEY_0 = 96;

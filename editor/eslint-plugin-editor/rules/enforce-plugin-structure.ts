@@ -26,6 +26,7 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<[], 'enforcePluginStructure'>({
 				const jsonString = sourceCode
 					.replace(/^.*?module\.exports\s*=\s*/u, '')
 					.replace(/;\s*$/u, '');
+				// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 				const jsonContent = JSON.parse(jsonString);
 
 				const techstack = jsonContent.techstack;

@@ -185,7 +185,7 @@ export const extractListFromParagraph = (
 						// Ignored via go/ees005
 						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						// Ignored via go/ees005
-						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 						order: parseInt(firstNonHardBreakNode!.text!.split('.')[0]),
 					}
 				: undefined;

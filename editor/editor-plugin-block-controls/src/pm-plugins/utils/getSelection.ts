@@ -12,7 +12,7 @@ import {
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 
@@ -121,7 +121,7 @@ export const newGetSelection = (
 	const nodeSize = node ? node.nodeSize : 1;
 	const nodeName = node?.type.name;
 
-	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+	if (editorExperiment('platform_editor_block_menu', true)) {
 		// if mediaGroup only has a single child, we want to select the child
 		if (nodeName === 'mediaGroup' && node?.childCount === 1) {
 			const $mediaStartPos = doc.resolve(start + 1);
@@ -187,7 +187,7 @@ export const getSelection = (
 ): false | TextSelection | NodeSelection => {
 	if (
 		areToolbarFlagsEnabled(Boolean(api?.toolbar)) ||
-		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+		editorExperiment('platform_editor_block_menu', true)
 	) {
 		return newGetSelection(tr.doc, tr.selection.empty, start);
 	}

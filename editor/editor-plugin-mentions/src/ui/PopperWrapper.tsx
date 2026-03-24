@@ -57,6 +57,7 @@ export function Popup({ referenceElement, children }: Props): React.JSX.Element 
 			<Portal zIndex={layers.modal()}>
 				<ReactPopper
 					referenceElement={referenceElement}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					offset={[0, 8]}
 					placement="bottom-end"
 					strategy="fixed"

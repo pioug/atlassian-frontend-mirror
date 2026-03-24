@@ -109,6 +109,7 @@ export const ToolbarNext = ({
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				fireAnalyticsEvent={(payload: unknown) => {
 					editorAPI?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
 				}}
@@ -116,6 +117,7 @@ export const ToolbarNext = ({
 				<ToolbarModelRenderer
 					toolbar={toolbar}
 					components={components}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					fallbacks={{
 						group: ToolbarButtonGroup,
 						section: ToolbarSection,

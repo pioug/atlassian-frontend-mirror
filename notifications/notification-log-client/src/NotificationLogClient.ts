@@ -16,11 +16,18 @@ export default class NotificationLogClient implements NotificationLogProvider {
 	private serviceConfig: ServiceConfig;
 	private cloudId?: string;
 	private source: string;
+	private routingWorkspaceId?: string;
 
-	constructor(baseUrl: string, cloudId?: string, source: string = DEFAULT_SOURCE) {
+	constructor(
+		baseUrl: string,
+		cloudId?: string,
+		source: string = DEFAULT_SOURCE,
+		routingWorkspaceId?: string,
+	) {
 		this.serviceConfig = { url: baseUrl };
 		this.cloudId = cloudId;
 		this.source = source;
+		this.routingWorkspaceId = routingWorkspaceId;
 	}
 
 	public async countUnseenNotifications(
@@ -46,9 +53,9 @@ export default class NotificationLogClient implements NotificationLogProvider {
 		// https://switcheroo.atlassian.com/ui/gates/2bb857fa-a92c-43b4-9f07-79ab8b9f7610/key/post-office_enable-notification-components-graphql
 		if (fg('post-office_enable-notification-components-graphql')) {
 			const query = `
-query NotificationLogClientUnseenCount($workspaceId: String) {
+query NotificationLogClientUnseenCount($workspaceId: String, $routingWorkspaceId: String) {
   notifications {
-    unseenNotificationCount(workspaceId: $workspaceId)
+    unseenNotificationCount(workspaceId: $workspaceId, routingWorkspaceId: $routingWorkspaceId)
   }
 }`;
 			const response = await utils.requestService<NotificationLogGraphQLResponse>(
@@ -75,6 +82,7 @@ query NotificationLogClientUnseenCount($workspaceId: String) {
 							query: query,
 							variables: {
 								workspaceId: this.cloudId,
+								routingWorkspaceId: this.routingWorkspaceId,
 							},
 						}),
 						...options.requestInit,

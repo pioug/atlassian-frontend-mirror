@@ -3,18 +3,11 @@
 
 import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common/styles';
 import {
-	akEditorTableBorder,
-	akEditorTableBorderSelected,
-	akEditorTableCellBlanketDeleted,
-	akEditorTableCellBlanketSelected,
 	akEditorTableCellOnStickyHeaderZIndex,
-	akEditorTableHeaderCellBackground,
-	akEditorTableToolbar,
 	akEditorTableToolbarSize,
 	akEditorUnitZIndex,
 	akRichMediaResizeZIndex,
 } from '@atlaskit/editor-shared-styles';
-import { B200, N0, N20, N200, N20A, N300, R300, R400, R75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
@@ -24,37 +17,28 @@ import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
  */
 
 // TODO: DSP-4135 - Remove these tokens once the new elevation tokens are available
-export const tableCellBackgroundColor = token('elevation.surface', N0);
+export const tableCellBackgroundColor = token('elevation.surface');
 
-export const tableHeaderCellBackgroundColor = token(
-	'color.background.accent.gray.subtlest',
-	akEditorTableHeaderCellBackground,
-);
+export const tableHeaderCellBackgroundColor = token('color.background.accent.gray.subtlest');
 
-export const tableToolbarColor = token('color.background.neutral.subtle', akEditorTableToolbar);
-export const tableTextColor = token('color.text.subtlest', N200);
-export const tableBorderColor = token('color.background.accent.gray.subtler', akEditorTableBorder);
-export const tableFloatingControlsColor = token('color.background.neutral', N20);
+export const tableToolbarColor = token('color.background.neutral.subtle');
+export const tableTextColor = token('color.text.subtlest');
+export const tableBorderColor = token('color.background.accent.gray.subtler');
+export const tableFloatingControlsColor = token('color.background.neutral');
 
 // TODO: DSP-4461 - Remove these tokens once the new elevation tokens are available
-export const tableCellSelectedColor = token(
-	'color.blanket.selected',
-	akEditorTableCellBlanketSelected,
-);
-export const tableHeaderCellSelectedColor = token('color.background.selected.pressed', B200);
-export const tableToolbarSelectedColor = token('color.background.selected.pressed', B200);
-export const tableBorderSelectedColor = token('color.border.focused', akEditorTableBorderSelected);
-export const tableCellSelectedDeleteIconColor = token('color.icon.subtle', N300);
-export const tableCellSelectedDeleteIconBackground = token(
-	'color.background.accent.gray.subtlest',
-	N20A,
-);
-export const tableCellDeleteColor = token('color.blanket.danger', akEditorTableCellBlanketDeleted);
+export const tableCellSelectedColor = token('color.blanket.selected');
+export const tableHeaderCellSelectedColor = token('color.background.selected.pressed');
+export const tableToolbarSelectedColor = token('color.background.selected.pressed');
+export const tableBorderSelectedColor = token('color.border.focused');
+export const tableCellSelectedDeleteIconColor = token('color.icon.subtle');
+export const tableCellSelectedDeleteIconBackground = token('color.background.accent.gray.subtlest');
+export const tableCellDeleteColor = token('color.blanket.danger');
 
-export const tableBorderDeleteColor = token('color.border.danger', R400);
-export const tableToolbarDeleteColor = token('color.background.danger.pressed', R75);
-export const tableCellHoverDeleteIconColor = token('color.icon.inverse', 'white');
-export const tableCellHoverDeleteIconBackground = token('color.background.danger.bold', R300);
+export const tableBorderDeleteColor = token('color.border.danger');
+export const tableToolbarDeleteColor = token('color.background.danger.pressed');
+export const tableCellHoverDeleteIconColor = token('color.icon.inverse');
+export const tableCellHoverDeleteIconBackground = token('color.background.danger.bold');
 export const tableBorderRadiusSize = 3;
 export const tablePadding = 8;
 export const tableScrollbarOffset = 15;

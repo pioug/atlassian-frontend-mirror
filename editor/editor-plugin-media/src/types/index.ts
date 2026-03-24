@@ -16,6 +16,7 @@ import type { FileIdentifier } from '@atlaskit/media-client';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { MediaFile, UploadParams } from '@atlaskit/media-picker/types';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
 // TODO: ED-26962 - Once we extract the placeholder-text we should import this type again
 //import type { PlaceholderTextOptions } from '../../plugins/placeholder-text/types';
 
@@ -117,6 +118,8 @@ export interface MediaPluginOptions {
 	// Allows consumer products to choose if they want referential copies to occur at a context or editor level.
 	// default is context
 	mediaShallowCopyScope?: MediaCopyScope;
+	/** Extensions for the media viewer header (e.g. comment navigation button). */
+	mediaViewerExtensions?: MediaViewerExtensions;
 	onCommentButtonMount?: () => void;
 	/**
 	 * When enabled, prevents automatic focus/selection of media nodes after upload completion.

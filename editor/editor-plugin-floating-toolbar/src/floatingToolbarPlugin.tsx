@@ -373,6 +373,7 @@ export function ContentComponent({
 	if (isInViewMode) {
 		// Typescript note: Not all toolbar item types have the `supportsViewMode` prop.
 		const toolbarItemViewModeProp: keyof FloatingToolbarButton<Command> = 'supportsViewMode';
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 		items = iterableItems.filter(
 			(item) => toolbarItemViewModeProp in item && !!item[toolbarItemViewModeProp],
 		);
@@ -381,12 +382,14 @@ export function ContentComponent({
 	if (areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))) {
 		// Consolidate floating toolbar items
 		const toolbarItemsArray = Array.isArray(items) ? items : items?.(node);
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 		const overflowDropdownItems = toolbarItemsArray.filter(
 			(item) => item.type === 'overflow-dropdown',
 		) as FloatingToolbarOverflowDropdown<Command>[];
 
 		if (overflowDropdownItems.length > 1) {
 			const consolidatedOverflowDropdown = consolidateOverflowDropdownItems(overflowDropdownItems);
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 			const otherItems = toolbarItemsArray.filter((item) => item.type !== 'overflow-dropdown');
 
 			if (otherItems.length > 0) {
@@ -508,7 +511,9 @@ export function ContentComponent({
 			>
 				<WithProviders
 					providerFactory={providerFactory}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					providers={['extensionProvider']}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					renderNode={(providers) => {
 						return (
 							<Toolbar
@@ -522,6 +527,7 @@ export function ContentComponent({
 								editorView={editorView}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={className}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								focusEditor={() => editorView.focus()}
 								providerFactory={providerFactory}
 								popupsMountPoint={popupsMountPoint}
@@ -541,6 +547,7 @@ export function ContentComponent({
 			<ConfirmationModal
 				testId="ak-floating-toolbar-confirmation-modal"
 				options={confirmDialogOptions}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onConfirm={(isChecked = false) => {
 					// Ignored via go/ees005
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -554,6 +561,7 @@ export function ContentComponent({
 						dispatchCommand(confirmButtonItem!.onClick);
 					}
 				}}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClose={() => {
 					dispatchCommand(hideConfirmDialog());
 					// Need to set focus to Editor here,

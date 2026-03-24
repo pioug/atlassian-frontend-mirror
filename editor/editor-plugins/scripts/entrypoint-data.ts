@@ -26,8 +26,8 @@ interface NewExportData {
 }
 
 export interface EntryPointData {
-	exportData: NewExportData;
 	atlaskitImportName: string;
+	exportData: NewExportData;
 	fileData: FileData;
 }
 
@@ -50,7 +50,9 @@ function getExports(folderPath: string) {
 			const normalizedValue = exportsValue[key].startsWith('.')
 				? exportsValue[key].substring(1)
 				: exportsValue[key];
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			const shortenedFolderName = folderName.split('-').slice(2).join('-');
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			const newRelativeFilePath = exportsValue[key].replace(
 				'./src',
 				path.join('src', shortenedFolderName),

@@ -8,6 +8,7 @@ import { type PaletteColor } from './type';
 const borderColorPalette: Array<PaletteColor> = [];
 
 colorPalette.forEach((label, color) => {
+	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 	const key = label.toLowerCase().replace(' ', '-');
 	const message = getColorMessage(paletteMessages, key);
 

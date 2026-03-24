@@ -64,6 +64,7 @@ const Action = ({
 				tooltipOnHide={tooltipOnHide}
 				hideTooltipOnMouseDown={hideTooltipOnMouseDown}
 				hideTooltip={hideTooltip}
+				ariaLabel={ariaLabel}
 			/>
 		);
 	}

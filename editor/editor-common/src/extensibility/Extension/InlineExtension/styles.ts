@@ -9,7 +9,7 @@ import { wrapperDefault } from '../styles';
 export const wrapperStyle: SerializedStyles = css(wrapperDefault, {
 	cursor: 'pointer',
 	display: 'inline-flex',
-	margin: `1px 1px ${token('space.050', '4px')}`,
+	margin: `1px 1px ${token('space.050')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> img': {
 		borderRadius: token('radius.small', '3px'),
@@ -22,7 +22,7 @@ export const wrapperStyle: SerializedStyles = css(wrapperDefault, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-children': {
 		padding: 0,
-		background: token('color.background.neutral.subtle', 'white'),
+		background: token('color.background.neutral.subtle'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-hover-border': {

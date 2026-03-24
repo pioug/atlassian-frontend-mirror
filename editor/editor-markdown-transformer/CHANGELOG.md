@@ -1,5 +1,12 @@
 # @atlaskit/editor-markdown-transformer
 
+## 5.20.6
+
+### Patch Changes
+
+- [`d497cbb2d150f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d497cbb2d150f) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 5.20.5
 
 ### Patch Changes

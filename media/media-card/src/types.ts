@@ -18,7 +18,7 @@ import {
 } from '@atlaskit/media-common';
 import { type CardAction } from './card/actions';
 import { type MediaCardError, type MediaCardErrorPrimaryReason } from './errors';
-import { type ViewerOptionsProps } from '@atlaskit/media-viewer';
+import { type ViewerOptionsProps, type MediaViewerExtensions } from '@atlaskit/media-viewer';
 import type { MediaFilePreviewErrorPrimaryReason } from '@atlaskit/media-file-preview';
 
 export type CardStatus =
@@ -186,6 +186,8 @@ export interface CardProps extends SharedCardProps, CardEventProps {
 	readonly onError?: (
 		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason,
 	) => void;
+	/** Extensions for the media viewer (e.g. comment button in header). */
+	readonly mediaViewerExtensions?: MediaViewerExtensions;
 }
 
 export interface CardState {

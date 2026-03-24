@@ -75,6 +75,7 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 				fallbackComponent={null}
 			>
 				<SyncBlockActionsProvider
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					fetchSyncBlockSourceInfo={(sourceAri: string) =>
 						syncBlockStoreManager.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
 					}

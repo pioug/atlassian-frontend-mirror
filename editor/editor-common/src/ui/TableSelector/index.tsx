@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -46,15 +45,9 @@ type SimpleEventHandler<T> = (event: T) => void;
 
 const tableSelectorPopupWrapperStyles = css({
 	borderRadius: token('radius.small', '3px'),
-	backgroundColor: token('elevation.surface.overlay', N0),
-	boxShadow: token(
-		'elevation.shadow.overlay',
-		`0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A}`,
-	),
-	padding: `${token(
-		'space.100',
-		`${TABLE_SELECTOR_PADDING_TOP}px`,
-	)} ${TABLE_SELECTOR_PADDING_SIDE}px`,
+	backgroundColor: token('elevation.surface.overlay'),
+	boxShadow: token('elevation.shadow.overlay'),
+	padding: `${token('space.100')} ${TABLE_SELECTOR_PADDING_SIDE}px`,
 });
 
 export interface TableSelectorPopupProps {
@@ -323,6 +316,7 @@ export const TableSelectorPopup = (props: TableSelectorPopupProps): jsx.JSX.Elem
 	return (
 		<Popup
 			target={props.target}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			offset={[0, 3]}
 			mountTo={props.popupsMountPoint}
 			boundariesElement={props.popupsBoundariesElement}

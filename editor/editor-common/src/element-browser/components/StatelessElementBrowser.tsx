@@ -91,10 +91,7 @@ const baseSidebarStyles = css({
 const mobileSideBar = css(baseSidebarStyles, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	flex: `0 0 ${INLINE_SIDEBAR_HEIGHT}`,
-	padding: `${token('space.150', '12px')} ${token(
-		'space.150',
-		'12px',
-	)} 0 ${token('space.150', '12px')}`,
+	padding: `${token('space.150')} ${token('space.150')} 0 ${token('space.150')}`,
 });
 
 const mobileSideBarShowCategories = css({
@@ -130,18 +127,18 @@ const mobileMainContent = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const mainContent = css(mobileMainContent, {
-	marginLeft: token('space.200', '16px'),
+	marginLeft: token('space.200'),
 	height: 'auto',
 });
 
 const searchContainer = css({
-	paddingBottom: token('space.200', '16px'),
+	paddingBottom: token('space.200'),
 });
 
 const mobileCategoryListWrapper = css({
 	display: 'flex',
 	overflowX: 'auto',
-	padding: `${token('space.200', '8px')} 0 ${token('space.200', '16px')} 0`,
+	padding: `${token('space.200')} 0 ${token('space.200')} 0`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	minHeight: `${GRID_SIZE * 4}px`,
 	overflow: '-moz-scrollbars-none',
@@ -156,7 +153,7 @@ const mobileCategoryListWrapper = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const categoryListWrapper = css(mobileCategoryListWrapper, {
 	padding: 0,
-	marginTop: token('space.200', '24px'),
+	marginTop: token('space.200'),
 	flexDirection: 'column',
 });
 

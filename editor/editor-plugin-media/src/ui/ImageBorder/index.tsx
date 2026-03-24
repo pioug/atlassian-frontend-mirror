@@ -114,7 +114,11 @@ const ImageBorder = ({
 		}
 	};
 
-	const handleTriggerByKeyboard = (event: React.KeyboardEvent, allowedKeys: string[], callback: () => void,) => {
+	const handleTriggerByKeyboard = (
+		event: React.KeyboardEvent,
+		allowedKeys: string[],
+		callback: () => void,
+	) => {
 		if (!allowedKeys.includes(event.key)) {
 			return;
 		}
@@ -229,6 +233,7 @@ const ImageBorder = ({
 							<div css={contextualSubMenu(0)} ref={handleSubMenuRef}>
 								<ArrowKeyNavigationProvider
 									type={ArrowKeyNavigationType.MENU}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									handleClose={(e) => {
 										e.preventDefault();
 										e.stopPropagation();
@@ -237,10 +242,12 @@ const ImageBorder = ({
 									disableCloseOnArrowClick={true}
 								>
 									<ColorPalette
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										onClick={(color: string) => {
 											setBorder({ color });
 											setIsOpen(!isOpen);
 										}}
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										onKeyDown={(color, _, event) => {
 											if (event.key === 'Enter' || event.key === ' ') {
 												setBorder({ color });
@@ -251,6 +258,7 @@ const ImageBorder = ({
 											}
 										}}
 										selectedColor={color ?? null}
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										paletteOptions={{
 											palette: borderColorPalette,
 											paletteColorTooltipMessages: borderPaletteTooltipMessages,
@@ -318,6 +326,7 @@ const ImageBorder = ({
 						{isSizeSubmenuOpen && (
 							<ArrowKeyNavigationProvider
 								type={ArrowKeyNavigationType.MENU}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								handleClose={(e) => {
 									e.preventDefault();
 									handleSizeSubmenuEsc();
@@ -428,10 +437,12 @@ const ImageBorder = ({
 						iconBefore={
 							<ChevronDownIcon color="currentColor" spacing="spacious" label="" size="small" />
 						}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onClick={() => {
 							setIsOpen(!isOpen);
 							setIsOpenedByKeyboard(false);
 						}}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onKeyDown={(e) => handleTriggerToolbarByKeyboard(e, () => setIsOpen(!isOpen))}
 					/>
 				</div>
@@ -446,11 +457,11 @@ const ImageBorder = ({
 				<div
 					onMouseLeave={
 						expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)
-						? undefined
-						: () => {
-								setIsColorSubmenuOpen(false);
-								setIsSizeSubmenuOpen(false);
-							}
+							? undefined
+							: () => {
+									setIsColorSubmenuOpen(false);
+									setIsSizeSubmenuOpen(false);
+								}
 					}
 					/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
 					css={dropdownWrapper}
@@ -459,6 +470,7 @@ const ImageBorder = ({
 						//This needs be removed when the a11y is completely handled
 						//Disabling key navigation now as it works only partially
 						//Same with packages/editor/editor-plugin-table/src/plugins/table/ui/FloatingContextualMenu/ContextualMenu.tsx
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						arrowKeyNavigationProviderOptions={{
 							type: ArrowKeyNavigationType.MENU,
 							disableArrowKeyNavigation: isAnySubMenuOpen,
@@ -473,15 +485,19 @@ const ImageBorder = ({
 										openDropdownButtonRef.current?.focus();
 									}
 						}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						items={[{ items }]}
 						isOpen={isOpen}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						shouldFocusFirstItem={() => isOpenByKeyboard}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onOpenChange={() => {
 							setIsOpen(false);
 							setIsColorSubmenuOpen(false);
 							setIsSizeSubmenuOpen(false);
 							setIsOpenedByKeyboard(false);
 						}}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onItemActivated={({ item }) => {
 							if (item.value.name === 'color') {
 								if (expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
@@ -510,25 +526,27 @@ const ImageBorder = ({
 								}
 							}
 						}}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onMouseEnter={({ item }) => {
-							if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true,)) {
+							if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
 								if (item.value.name === 'color') {
-								setIsColorSubmenuOpen(true);
-								setIsOpenedByKeyboard(false);
+									setIsColorSubmenuOpen(true);
+									setIsOpenedByKeyboard(false);
 								}
 								if (item.value.name === 'size') {
-								setIsSizeSubmenuOpen(true);
-								setIsOpenedByKeyboard(false);
+									setIsSizeSubmenuOpen(true);
+									setIsOpenedByKeyboard(false);
 								}
 							}
 						}}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onMouseLeave={({ item }) => {
-							if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true,)) {
+							if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
 								if (item.value.name === 'color') {
-								setIsColorSubmenuOpen(false);
+									setIsColorSubmenuOpen(false);
 								}
 								if (item.value.name === 'size') {
-								setIsSizeSubmenuOpen(false);
+									setIsSizeSubmenuOpen(false);
 								}
 							}
 						}}

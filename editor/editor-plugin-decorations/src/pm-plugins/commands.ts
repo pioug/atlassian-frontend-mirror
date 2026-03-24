@@ -5,7 +5,7 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection, TableMap } from '@atlaskit/editor-tables';
 import { findTableClosestToPos } from '@atlaskit/editor-tables/utils';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { HoverDecorationCommand } from '../decorationsPluginType';
 
@@ -112,8 +112,7 @@ export const hoverDecorationCommand: HoverDecorationCommand =
 			action: add ? ACTIONS.DECORATION_ADD : ACTIONS.DECORATION_REMOVE,
 			data: DecorationSet.create(tr.doc, decorations),
 			hasDangerDecorations:
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) &&
-				hasDangerDecorations,
+				editorExperiment('platform_editor_block_menu', true) && hasDangerDecorations,
 		}).setMeta('addToHistory', false);
 
 		return tr;

@@ -180,6 +180,7 @@ export function InlineCommentView({
 					dom={dom}
 					textSelection={textSelection}
 					wasNewAnnotationSelected={!!currentlySelectedAnnotation && isAnnotationSelectionChanged}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onCreate={(id) => {
 						if (!isAnnotationManagerEnabled) {
 							const createAnnotationResult = createAnnotation(editorAnalyticsAPI, editorAPI)(
@@ -194,6 +195,7 @@ export function InlineCommentView({
 							}
 						}
 					}}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onClose={() => {
 						if (!isAnnotationManagerEnabled) {
 							setInlineCommentDraftState(editorAnalyticsAPI, undefined, editorAPI)(false)(
@@ -213,6 +215,7 @@ export function InlineCommentView({
 
 	// View Component
 	const activeAnnotations =
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 		selectedAnnotations?.filter((mark) => annotations && annotations[mark.id] === false) || [];
 	if (!ViewComponent || activeAnnotations.length === 0) {
 		return null;
@@ -260,18 +263,21 @@ export function InlineCommentView({
 				annotations={activeAnnotations}
 				getInlineNodeTypes={getInlineNodeTypes}
 				dom={dom}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onDelete={(id) =>
 					removeInlineCommentNearSelection(id, inlineCommentProvider.supportedBlockNodes)(
 						editorView.state,
 						dispatch,
 					)
 				}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onResolve={(id) =>
 					updateInlineCommentResolvedState(editorAnalyticsAPI)(
 						{ [id]: true },
 						RESOLVE_METHOD.COMPONENT,
 					)(editorView.state, editorView.dispatch)
 				}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClose={() => {
 					closeComponent()(editorView.state, editorView.dispatch);
 				}}

@@ -245,6 +245,7 @@ export const getContextPanelBodyComponent = ({
 							extensionProvider={extensionProvider}
 							autoSaveTrigger={autoSaveResolve}
 							autoSaveReject={autoSaveReject}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onChange={async (updatedParameters) => {
 								await onChangeAction(
 									editorView,
@@ -259,6 +260,7 @@ export const getContextPanelBodyComponent = ({
 									autoSaveResolve();
 								}
 							}}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onCancel={() => startClosingConfigPanel({ api, editorView })}
 							featureFlags={featureFlags}
 							// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG

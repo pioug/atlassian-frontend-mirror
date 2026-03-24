@@ -17,6 +17,7 @@ const ConfigPanelErrorMessage = ({ errorMessage, intl }: Props) => {
 		<EmptyState
 			header={intl.formatMessage(messages.configFailedToLoad)}
 			description={errorMessage}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			renderImage={() => <ErrorImage />}
 			width="narrow"
 			imageHeight={80}

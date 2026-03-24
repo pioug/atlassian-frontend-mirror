@@ -94,8 +94,8 @@ export const mediaStyles: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-imported-style-values
 		[`table .${richMediaClassName}`]: {
-			marginTop: token('space.150', '12px'),
-			marginBottom: token('space.150', '12px'),
+			marginTop: token('space.150'),
+			marginBottom: token('space.150'),
 			clear: 'both',
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -104,7 +104,7 @@ export const mediaStyles: SerializedStyles = css({
 
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 				'&:first-child': {
-					marginTop: token('space.150', '12px'),
+					marginTop: token('space.150'),
 				},
 			},
 		},
@@ -128,7 +128,7 @@ export const mediaStyles: SerializedStyles = css({
 				{
 					float: 'none',
 					overflow: 'auto',
-					margin: `${token('space.150', '12px')} 0`,
+					margin: `${token('space.150')} 0`,
 				},
 		},
 

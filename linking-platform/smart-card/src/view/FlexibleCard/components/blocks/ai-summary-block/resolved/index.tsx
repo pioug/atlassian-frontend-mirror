@@ -122,6 +122,10 @@ export const RovoSummaryBlockResolvedView = (props: AISummaryBlockResolvedViewPr
 
 	const minHeight = isSummarisedOnMountRef.current ? 0 : aiSummaryMinHeight;
 
+	if (status === 'error') {
+		return null;
+	}
+
 	if (!showAISummary) {
 		return (
 			<Inline testId={`${testId}-placeholder`} xcss={newStyles.placeholderWrapper}>

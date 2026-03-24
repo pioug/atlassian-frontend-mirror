@@ -14,7 +14,6 @@ import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import type { TableLayout } from '@atlaskit/adf-schema';
-import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { Table } from './table';
@@ -54,12 +53,12 @@ const fixedTableDivStaticStyles = css({
 			marginBottom: 0,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			tr: {
-				background: token('elevation.surface', 'white'),
+				background: token('elevation.surface'),
 			},
 		},
-	borderTop: `${tableStickyPadding}px solid ${token('elevation.surface', 'white')}`,
-	background: token('elevation.surface.overlay', 'white'),
-	boxShadow: `0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)}`,
+	borderTop: `${tableStickyPadding}px solid ${token('elevation.surface')}`,
+	background: token('elevation.surface.overlay'),
+	boxShadow: `0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	"div[data-expanded='false'] &": {
 		display: 'none',

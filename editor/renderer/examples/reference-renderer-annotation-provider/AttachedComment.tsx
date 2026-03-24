@@ -40,11 +40,11 @@ export function AttachedComment({
 
 const sidebarContainer = css({
 	zIndex: 11,
-	border: `${token('border.width')} solid ${token('color.border', '#dfe1e6')}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
-	boxShadow: `${token('elevation.shadow.overflow', '0 8px 16px -4px rgba(9, 30, 66, 0.25)')}`,
-	backgroundColor: `${token('elevation.surface', '#fff')}`,
+	boxShadow: `${token('elevation.shadow.overflow')}`,
+	backgroundColor: `${token('elevation.surface')}`,
 	right: '12px',
 	position: 'absolute',
 	display: 'flex',

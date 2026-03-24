@@ -263,6 +263,16 @@ export const HoverCardComponent = ({
 		],
 	);
 
+	const handleKeyDown = useCallback(
+		(e: React.KeyboardEvent) => {
+			if (e.key === ' ') {
+				e.preventDefault();
+				initShowCard(e);
+			}
+		},
+		[initShowCard],
+	);
+
 	const trigger = useCallback(
 		({ 'aria-haspopup': _ariaHasPopup, 'aria-expanded': _ariaExpanded, ...triggerProps }: any) => (
 			<span ref={parentSpan}>
@@ -274,6 +284,7 @@ export const HoverCardComponent = ({
 					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 					onMouseLeave={initHideCard}
 					onMouseMove={setMousePosition}
+					onKeyDown={fg('fix_hover_card_on_focus_a11y') ? handleKeyDown : undefined}
 					onClick={onChildClick}
 					onContextMenu={onContextMenuClick}
 					data-testid={HOVER_CARD_TRIGGER_WRAPPER}
@@ -285,7 +296,15 @@ export const HoverCardComponent = ({
 				</span>
 			</span>
 		),
-		[children, initHideCard, initShowCard, onChildClick, onContextMenuClick, setMousePosition],
+		[
+			children,
+			initHideCard,
+			initShowCard,
+			onChildClick,
+			onContextMenuClick,
+			setMousePosition,
+			handleKeyDown,
+		],
 	);
 
 	const popupComponent = useMemo(
@@ -299,7 +318,7 @@ export const HoverCardComponent = ({
 		<Popup
 			testId="hover-card"
 			isOpen={isOpen && canOpen}
-			onClose={hideCard}
+			onClose={fg('fix_hover_card_on_focus_a11y') ? initHideCard : hideCard}
 			placement="bottom-start"
 			offset={popupOffset.current}
 			autoFocus={false}

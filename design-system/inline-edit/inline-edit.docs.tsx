@@ -57,7 +57,7 @@ const documentation: ComponentStructuredContentSource[] = [
 		usageGuidelines: [
 			'Use for existing content in a text field that may need tweaking',
 			'Use where multiple items on a page can be edited at once',
-			'Don\'t use if the main function of the screen is editing—use a text area instead',
+			"Don't use if the main function of the screen is editing—use a text area instead",
 			'Use InlineEdit when you need custom input components',
 		],
 		contentGuidelines: [
@@ -74,7 +74,10 @@ const documentation: ComponentStructuredContentSource[] = [
 			{
 				name: 'Inline Editable Textfield',
 				description: 'InlineEditableTextfield example',
-				source: path.resolve(__dirname, './examples/constellation/inline-editable-textfield-default.tsx'),
+				source: path.resolve(
+					__dirname,
+					'./examples/constellation/inline-editable-textfield-default.tsx',
+				),
 			},
 		],
 		keywords: ['inline', 'edit', 'editable', 'textfield', 'text', 'input'],

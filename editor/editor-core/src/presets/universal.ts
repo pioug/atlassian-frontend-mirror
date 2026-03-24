@@ -207,15 +207,15 @@ export default function createUniversalPresetInternal({
 			[breakoutPlugin, { allowBreakoutButton: appearance === 'full-page', appearance: appearance }],
 			Boolean(
 				props.allowBreakout &&
-					(isFullPage ||
-						(appearance === 'max' &&
-							(expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-								expValEqualsNoExposure(
-									'confluence_max_width_content_appearance',
-									'isEnabled',
-									true,
-								)) &&
-							fg('platform_editor_breakout_in_universal_preset'))),
+				(isFullPage ||
+					(appearance === 'max' &&
+						(expValEqualsNoExposure('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+							expValEqualsNoExposure(
+								'confluence_max_width_content_appearance',
+								'isEnabled',
+								true,
+							)) &&
+						fg('platform_editor_breakout_in_universal_preset'))),
 			),
 		)
 		.maybeAdd(alignmentPlugin, Boolean(props.allowTextAlignment))
@@ -242,8 +242,8 @@ export default function createUniversalPresetInternal({
 			guidelinePlugin,
 			Boolean(
 				(!isComment && !isChromeless && (props.media || props.allowTables)) ||
-					(editorExperiment('platform_editor_breakout_resizing', true, { exposure: true }) &&
-						(props.allowExpand || props.allowLayouts || props.codeBlock)),
+				(editorExperiment('platform_editor_breakout_resizing', true, { exposure: true }) &&
+					(props.allowExpand || props.allowLayouts || props.codeBlock)),
 			),
 		)
 		.maybeAdd([gridPlugin, { shouldCalcBreakoutGridLines: isFullPage }], Boolean(props.media))
@@ -538,7 +538,7 @@ export default function createUniversalPresetInternal({
 			],
 			Boolean(
 				hasBeforePrimaryToolbar(props.primaryToolbarComponents) &&
-					!featureFlags.twoLineEditorToolbar,
+				!featureFlags.twoLineEditorToolbar,
 			),
 		)
 		.add([

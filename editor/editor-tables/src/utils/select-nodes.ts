@@ -1,6 +1,6 @@
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';
@@ -216,7 +216,7 @@ export const getTableSelectionClosesToPos = ($pos: ResolvedPos): CellSelection |
 };
 
 export const selectTableClosestToPos = (tr: Transaction, $pos: ResolvedPos): Transaction => {
-	if (expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+	if (editorExperiment('platform_editor_block_menu', true, { exposure: true })) {
 		const tableSelection = getTableSelectionClosesToPos($pos);
 		if (tableSelection) {
 			return cloneTr(tr.setSelection(tableSelection));

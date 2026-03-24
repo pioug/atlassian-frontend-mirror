@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "217.5.2",
+	"version": "217.5.7",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -227,10 +227,6 @@
 		},
 		"platform_editor_nested_dnd_styles_changes": {
 			"type": "boolean"
-		},
-		"platform_editor_nested_tables_gap_cursor": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_editor_controls_no_toolbar_space": {
 			"type": "boolean",

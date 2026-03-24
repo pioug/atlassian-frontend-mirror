@@ -92,6 +92,7 @@ const Modal = ({
 				<ModalDialog
 					height="100%"
 					width="large"
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onClose={() => {
 						setIsOpen(false);
 						onClose();

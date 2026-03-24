@@ -199,6 +199,7 @@ export default function UserSelect({
 			label={label}
 			isRequired={isRequired}
 			defaultValue={defaultValue}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			validate={(value) => validate(field, value)}
 			testId={`config-panel-user-select-${name}`}
 			isDisabled={isDisabled}
@@ -227,6 +228,7 @@ export default function UserSelect({
 							field={field}
 							formFieldProps={fieldProps}
 							autoFocus={autoFocus || false}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onBlur={() => onFieldChange(name, meta.dirty)}
 							onChange={onChange}
 						/>

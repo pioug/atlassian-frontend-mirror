@@ -179,6 +179,7 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 			);
 
 			return (
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				<AnalyticsContext data={{ attributes: { ...resolvedAnalyticsAttributes } }}>
 					<DiscoveryPulse
 						localStorageKey={LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR}
@@ -215,6 +216,7 @@ export const getUnavailableMessage = (state: EditorState, intl: IntlShape): stri
 		});
 		return tooltip;
 	} catch (e) {
+		// eslint-disable-line no-unused-vars
 		return intl.formatMessage(messages.displayOptionUnavailableInParentNode, {
 			node: intl.formatMessage(nodeNames.defaultBlockNode),
 		});

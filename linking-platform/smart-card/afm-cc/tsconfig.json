@@ -120,6 +120,9 @@
 			"path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/motion/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../teamwork-ecosystem/outbound-auth-flow-client/afm-cc/tsconfig.json"
 		},
 		{

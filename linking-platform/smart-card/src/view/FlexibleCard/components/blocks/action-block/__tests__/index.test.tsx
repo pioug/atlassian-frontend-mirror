@@ -8,9 +8,9 @@ import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { type SmartLinkStatus } from '../../../../../../constants';
 import { InternalActionName } from '../../../../../../constants';
+import * as useAISummary from '../../../../../../state/hooks/use-ai-summary';
 import ActionBlock from '../index';
 import type { ActionBlockProps } from '../types';
-
 jest.mock('../../../../../../state/hooks/use-invoke', () => jest.fn());
 jest.mock('../../../../../../state/hooks/use-resolve', () => jest.fn());
 jest.mock('../../../../../../state/hooks/use-rovo-chat', () => ({
@@ -139,6 +139,11 @@ describe('ActionBlock', () => {
 
 		ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
 			it('renders only RovoChatAction when experiment and kill switch on and Rovo action in context', async () => {
+				jest.spyOn(useAISummary, 'useAISummary').mockReturnValue({
+					summariseUrl: jest.fn(),
+					state: { status: 'done', content: 'this is a summary' },
+				});
+
 				setup({ is3PAuthRovoActionsExperimentOn: true });
 
 				const rovoAction = await screen.findByTestId('smart-action-rovo-chat-action-1');
@@ -148,6 +153,11 @@ describe('ActionBlock', () => {
 			});
 
 			it('renders other actions (excluding Rovo) when experiment and kill switch on but no Rovo in context', async () => {
+				jest.spyOn(useAISummary, 'useAISummary').mockReturnValue({
+					summariseUrl: jest.fn(),
+					state: { status: 'done', content: 'this is a summary' },
+				});
+
 				const contextWithoutRovo = {
 					...context,
 					actions: {

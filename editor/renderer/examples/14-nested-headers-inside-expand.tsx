@@ -30,8 +30,8 @@ const headersIdListStyle = css({
 
 const containerStyle = css({
 	display: 'inline-block',
-	marginTop: token('space.150', '12px'),
-	marginBottom: token('space.150', '12px'),
+	marginTop: token('space.150'),
+	marginBottom: token('space.150'),
 });
 
 export default function Example() {

@@ -397,6 +397,7 @@ export function EditorSSRRenderer({
 		} catch {
 			return undefined;
 		}
+		// eslint-disable-next-line @atlassian/perf-linting/no-unstable-usememo-deps -- Ignored via go/ees017 (to be fixed)
 	}, [doc, serializer, nodePositions, onSSRMeasure]);
 
 	const containerRef = useRef<HTMLDivElement>(null);

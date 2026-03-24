@@ -397,13 +397,13 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					expValEquals('platform_editor_small_font_size', 'isEnabled', true) && editorUGCSmallText,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					blocktypeStyles,
-					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+					editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						blockquoteSelectedNodeStyles,
-					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+					editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						listSelectedNodeStyles,
-					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+					editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						textSelectedNodeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -425,7 +425,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					textHighlightPaddingStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					listsStyles,
-					expValEqualsNoExposure('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
+					expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						listItemHiddenMarkerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -584,7 +584,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					annotationStyles,
 					expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-						? expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+						? editorExperiment('platform_editor_block_menu', true)
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 								smartCardStylesWithSearchMatchAndBlockMenuDangerStyles
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

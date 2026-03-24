@@ -100,7 +100,7 @@ export const layoutColumnResponsiveStyles: SerializedStyles = css({
 	'.ProseMirror [data-layout-section]': {
 		display: 'flex',
 		flexDirection: 'row',
-		gap: token('space.100', '8px'),
+		gap: token('space.100'),
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& > *': {
@@ -144,7 +144,7 @@ export const layoutSectionStylesAdvanced: SerializedStyles = css({
 			'&[data-blocks-drop-target-container]': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 				display: 'block !important',
-				margin: token('space.negative.050', '-4px'),
+				margin: token('space.negative.050'),
 
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				'[data-drop-target-for-element]': {
@@ -467,7 +467,7 @@ export const layoutBaseStyles: SerializedStyles = css({
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-layout-section]': {
-			margin: `${token('space.100', '8px')} -12px 0`,
+			margin: `${token('space.100')} -12px 0`,
 			transition: 'border-color 0.3s cubic-bezier(0.15, 1, 0.3, 1)',
 			cursor: 'pointer',
 
@@ -589,7 +589,7 @@ export const layoutBaseStylesAdvanced: SerializedStyles = css({
 export const layoutBaseStylesFixesUnderNestedDnDFG: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section]': {
-		margin: `${token('space.100', '8px')} -20px 0`,
+		margin: `${token('space.100')} -20px 0`,
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -607,13 +607,13 @@ export const layoutBaseStylesFixesUnderNestedDnDFGExcludingBodiedSync: Serialize
 	// Apply -20px margin to all sections
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section]': {
-		margin: `${token('space.100', '8px')} -20px 0`,
+		margin: `${token('space.100')} -20px 0`,
 	},
 
 	// Reset to default margin when inside bodied sync block
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-prosemirror-node-name="bodiedSyncBlock"] [data-layout-section]': {
-		margin: `${token('space.100', '8px')} -12px 0`,
+		margin: `${token('space.100')} -12px 0`,
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

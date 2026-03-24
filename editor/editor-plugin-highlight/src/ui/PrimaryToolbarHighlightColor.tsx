@@ -160,6 +160,7 @@ const PrimaryToolbarHighlightColor = ({
 						}
 					/>
 				}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onColorChange={(color) => handleColorChange({ color, inputMethod: INPUT_METHOD.TOOLBAR })}
 				isOpenedByKeyboard={isOpenedByKeyboard}
 				handleClickOutside={handleClickOutside}

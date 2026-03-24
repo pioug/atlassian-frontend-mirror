@@ -49,6 +49,7 @@ export const CommentBadgeNext = ({
 	return (
 		<Tooltip position="top" content={title}>
 			<Pressable
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				xcss={[baseStyles, mediumBadgeStyles]}
 				padding="space.0"
 				onClick={onClick}

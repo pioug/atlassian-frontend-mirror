@@ -43,7 +43,7 @@ export default function ConfigPanelWithProviders({
 				parameters={parameters}
 				showHeader
 				onChange={_onChange}
-				// eslint-disable-next-line no-console
+				// eslint-disable-next-line no-console, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onCancel={() => console.log('onCancel')}
 			/>
 		</IntlProvider>

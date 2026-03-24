@@ -28,6 +28,7 @@ export default function RadioField({
 			label={field.label}
 			defaultValue={field.defaultValue}
 			isRequired={field.isRequired}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			validate={(value?: string) => validate<string | undefined>(field, value)}
 			testId={`config-panel-radio-group-${field.name}`}
 			isDisabled={field.isDisabled}
@@ -42,6 +43,7 @@ export default function RadioField({
 							...option,
 							name: field.name,
 						}))}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onChange={(value) => {
 							fieldProps.onChange(value);
 							onFieldChange(field.name, true);

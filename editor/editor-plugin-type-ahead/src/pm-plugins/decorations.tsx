@@ -14,7 +14,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { redo, undo } from '@atlaskit/prosemirror-history';
-import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
@@ -94,7 +93,7 @@ export const factoryDecorations = ({
 				typeaheadComponent.dataset.editorPopup = 'true';
 				typeaheadComponent.dataset.typeAhead = TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE;
 
-				typeaheadComponent.style.color = token('color.text.accent.blue', B400);
+				typeaheadComponent.style.color = token('color.text.accent.blue');
 				typeaheadComponent.style.backgroundColor = 'transparent';
 
 				const onUndoRedo = (inputType: 'historyUndo' | 'historyRedo'): boolean => {

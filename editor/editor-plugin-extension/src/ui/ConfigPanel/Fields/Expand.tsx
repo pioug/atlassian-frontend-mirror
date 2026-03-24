@@ -71,11 +71,13 @@ function Expand({ field, children, isExpanded = false, intl }: Props) {
 				<div css={labelContainerStyles}>{field.label}</div>
 				<div css={chevronContainerStyles}>
 					<IconButton
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onClick={() => {
 							setExpanded(!expanded);
 						}}
 						label={intl.formatMessage(expanded ? messages.collapse : messages.expand)}
 						testId="form-expand-toggle"
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						icon={(iconProps) =>
 							expanded ? (
 								<ChevronDownIcon label={iconProps.label} size="small" />

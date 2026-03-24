@@ -108,6 +108,7 @@ export const SingleValue = (props: Props) => {
 							{
 								<Inline alignBlock="center">
 									{label}
+									<ElementAfter {...props} />
 									{canShowArchivedLozenge ? (
 										<Box xcss={styles.archivedLozengeWrapper}>
 											<Lozenge appearance="default">
@@ -115,7 +116,6 @@ export const SingleValue = (props: Props) => {
 											</Lozenge>
 										</Box>
 									) : null}
-									<ElementAfter {...props} />
 								</Inline>
 							}
 						</Box>

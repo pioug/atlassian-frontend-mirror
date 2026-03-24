@@ -129,6 +129,7 @@ export const AKRendererWrapper: React.MemoExoticComponent<
 		return (
 			<RendererActionsContext>
 				<ValidationContextWrapper>
+					{/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
 					<RendererContextProvider value={{ nestedRendererType: 'syncedBlock' }}>
 						<div data-testid="sync-block-renderer-wrapper">
 							<ReactRenderer

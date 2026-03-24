@@ -41,6 +41,7 @@ export const PasteActionsMenuContent = ({
 			onMouseEnter={onMouseEnter}
 		>
 			<ToolbarDropdownItemSection title={intl.formatMessage(messages.pasteMenuActionsTitle)}>
+				{/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
 				<SurfaceRenderer surface={{ type: 'menu', key: 'paste-menu' }} components={components} />
 			</ToolbarDropdownItemSection>
 		</Box>

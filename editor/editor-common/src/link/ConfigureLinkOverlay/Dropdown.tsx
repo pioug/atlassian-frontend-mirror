@@ -99,6 +99,7 @@ const Dropdown = ({
 
 	return (
 		<DropdownMenu<HTMLButtonElement>
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			trigger={({ onClick, triggerRef, ...props }) => (
 				<StyledButton
 					innerRef={triggerRef}
@@ -106,6 +107,7 @@ const Dropdown = ({
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
 					iconBefore={<ChevronDownIcon label={configureLinkLabel} size="small" />}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onClick={(e) => {
 						onClick?.(e);
 						fireLinkClickEvent();

@@ -195,6 +195,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		return (
 			<WithProviders
 				providerFactory={providerFactory}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				providers={['emojiProvider']}
 				renderNode={renderNode}
 			/>

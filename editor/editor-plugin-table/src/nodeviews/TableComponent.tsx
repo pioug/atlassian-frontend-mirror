@@ -688,6 +688,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		if (
 			this.table &&
 			this.table !== this.lastSetTableRef &&
+			(!expValEquals('platform_editor_table_ref_optimisation', 'isEnabled', true) ||
+				this.props.tableActive) &&
 			this.props.view &&
 			expValEquals('platform_editor_fix_editor_unhandled_type_errors', 'isEnabled', true) &&
 			(expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) ||
@@ -801,6 +803,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				getEditorFeatureFlags={getEditorFeatureFlags}
 				tableContainerWidth={tableContainerWidth}
 				isNumberColumnEnabled={node.attrs.isNumberColumnEnabled}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				getScrollOffset={() => this.wrapper?.scrollLeft || 0}
 				tableWrapperHeight={this.state.tableWrapperHeight}
 				api={pluginInjectionApi}
@@ -880,9 +883,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					<ExternalDropTargets
 						editorView={view}
 						node={node}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						getScrollOffset={() => {
 							return this.wrapper?.scrollLeft || 0;
 						}}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						getTableWrapperWidth={() => {
 							return this.wrapper?.clientWidth || 760;
 						}}
@@ -905,6 +910,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 								// // At this point, both table and wrapper are in DOM with correct parent-child relationship
 								if (
 									this.table &&
+									(!expValEquals('platform_editor_table_ref_optimisation', 'isEnabled', true) ||
+										this.props.tableActive) &&
 									this.props.view &&
 									!expValEquals(
 										'platform_editor_fix_editor_unhandled_type_errors',
@@ -929,11 +936,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						data-vc-nvs="true"
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+							height: token('space.250'), // MAX_BROWSER_SCROLLBAR_HEIGHT
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							display: 'none',
 							// prevent unwanted scroll during table resize without removing scrollbar container from the dom
-							width: isResizing ? token('space.0', '0px') : '100%',
+							width: isResizing ? token('space.0') : '100%',
 						}}
 					>
 						<div

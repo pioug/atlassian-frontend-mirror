@@ -63,7 +63,7 @@ export const content: SerializedStyles = css({
 });
 
 const paddingStyles = css({
-	padding: `${token('space.200', '16px')} ${token('space.200', '16px')} 0px`,
+	padding: `${token('space.200')} ${token('space.200')} 0px`,
 });
 
 type SwappableContentAreaProps = {
@@ -127,6 +127,7 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 				in={!!pluginContent}
 				mountOnEnter
 				unmountOnExit
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onExited={() => this.unsetPluginContent()}
 			>
 				{currentPluginContent}

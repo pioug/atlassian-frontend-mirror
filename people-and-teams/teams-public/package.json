@@ -118,7 +118,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.71.1",
+	"version": "0.72.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -149,6 +149,9 @@
 			"type": "boolean"
 		},
 		"space-team_linking_invites_fg": {
+			"type": "boolean"
+		},
+		"workforce_optimization_team_modal_update": {
 			"type": "boolean"
 		}
 	}

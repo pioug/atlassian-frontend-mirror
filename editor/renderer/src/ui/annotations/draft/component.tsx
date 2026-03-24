@@ -35,7 +35,7 @@ const markStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:has(.date-lozenger-container)': {
-		paddingTop: token('space.025', '2px'),
+		paddingTop: token('space.025'),
 	},
 	background: token('color.background.accent.yellow.subtlest.pressed'),
 	borderBottomColor: token('color.border.accent.yellow'),

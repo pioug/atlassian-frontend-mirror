@@ -214,9 +214,13 @@ const ToolbarItems = React.memo(
 							appearance={item.appearance}
 							target={item.target}
 							onClick={onClickHandler}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onMouseEnter={() => dispatchCommand(item.onMouseEnter)}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onMouseLeave={() => dispatchCommand(item.onMouseLeave)}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onFocus={() => dispatchCommand(item.onFocus)}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onBlur={() => dispatchCommand(item.onBlur)}
 							onMount={item.onMount}
 							onUnmount={item.onUnmount}
@@ -254,7 +258,9 @@ const ToolbarItems = React.memo(
 							boundariesElement={popupsBoundariesElement}
 							defaultValue={item.defaultValue}
 							placeholder={item.placeholder}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onSubmit={(value) => dispatchCommand(item.onSubmit(value))}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onBlur={(value) => dispatchCommand(item.onBlur(value))}
 						/>
 					);
@@ -357,6 +363,7 @@ const ToolbarItems = React.memo(
 								scrollableElement={popupsScrollableElement}
 								defaultValue={item.defaultValue}
 								placeholder={item.placeholder}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onChange={(selected) => dispatchCommand(item.onChange(selected as SelectOption))}
 								ariaLabel={ariaLabel}
 								filterOption={item.filterOption}
@@ -372,6 +379,7 @@ const ToolbarItems = React.memo(
 								key={idx}
 								isAriaExpanded={item.isAriaExpanded}
 								title={item.title}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onChange={(selected) => {
 									dispatchCommand(item.onChange(selected));
 								}}
@@ -402,6 +410,7 @@ const ToolbarItems = React.memo(
 								title={item.title}
 								providerFactory={providerFactory}
 								isSelected={item.selected}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onChange={(selected) => dispatchCommand(item.onChange(selected))}
 								mountPoint={emojiAndColourPickerMountPoint}
 								popupsBoundariesElement={popupsBoundariesElement}
@@ -452,6 +461,7 @@ const ToolbarItems = React.memo(
 		};
 
 		const groupedItems = groupItems(
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 			items.filter((item) => !item.hidden),
 			areAnyNewToolbarFlagsEnabled,
 		);

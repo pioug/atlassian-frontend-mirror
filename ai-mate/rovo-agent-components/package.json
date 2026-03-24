@@ -2,11 +2,7 @@
 	"name": "@atlaskit/rovo-agent-components",
 	"version": "3.46.2",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
-	"author": "Atlassian Pty Ltd",
-	"license": "Apache-2.0",
-	"publishConfig": {
-		"registry": "https://registry.npmjs.org/"
-	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
 		"team": "Rovo Agents",
 		"website": {
@@ -14,7 +10,11 @@
 			"category": "Components"
 		}
 	},
-	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
@@ -27,10 +27,10 @@
 			]
 		}
 	},
+	"atlaskit:src": "src/index.ts",
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./agent-name-side-nav": "./src/ui/agent-name-side-nav/index.tsx",
@@ -76,9 +76,6 @@
 		"react-magnetic-di": "root:*",
 		"react-relay": "root:*"
 	},
-	"peerDependencies": {
-		"react": "^18.2.0"
-	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
@@ -91,6 +88,9 @@
 		"@types/relay-test-utils": "root:*",
 		"relay-test-utils": "^14.1.0",
 		"wait-for-expect": "root:*"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

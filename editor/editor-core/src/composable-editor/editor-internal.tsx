@@ -104,6 +104,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 						action={ACTION.RE_RENDERED}
 						actionSubject={ACTION_SUBJECT.EDITOR}
 						handleAnalyticsEvent={handleAnalyticsEvent}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						propsToIgnore={['defaultValue']}
 						useShallow={useShallow}
 					/>
@@ -140,6 +141,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 										onEditorDestroyed={onEditorDestroyed}
 										disabled={props.disabled}
 										preset={preset}
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										render={({
 											editor,
 											view,

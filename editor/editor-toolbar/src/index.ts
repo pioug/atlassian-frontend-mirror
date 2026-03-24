@@ -53,6 +53,7 @@ export { PinnedIcon } from './ui/icons/PinnedIcon';
 export { QuoteIcon } from './ui/icons/QuoteIcon';
 export { TextColorIcon } from './ui/icons/TextColorIcon';
 export { TextIcon } from './ui/icons/TextIcon';
+export { TextSmallIcon } from './ui/icons/TextSmallIcon';
 export { ClearFormattingIcon } from './ui/icons/ClearFormattingIcon';
 export { UnderlineIcon } from './ui/icons/UnderlineIcon';
 export { StrikeThroughIcon } from './ui/icons/StrikeThroughIcon';

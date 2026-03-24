@@ -74,20 +74,20 @@ export const tasksAndDecisionsStyles: SerializedStyles = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'div[data-task-list-local-id]': {
-		margin: `${token('space.150', '12px')} 0 0 0`,
+		margin: `${token('space.150')} 0 0 0`,
 
 		// If task item is not first in the list then set margin top to 4px.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'div + div': {
-			marginTop: token('space.050', '4px'),
+			marginTop: token('space.050'),
 		},
 	},
 
 	// If task list is not first in the document then set margin top to 4px.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'div[data-task-list-local-id] div[data-task-list-local-id]': {
-		marginTop: token('space.050', '4px'),
-		marginLeft: token('space.300', '24px'),
+		marginTop: token('space.050'),
+		marginLeft: token('space.300'),
 	},
 
 	// When action list is inside panel
@@ -221,7 +221,7 @@ export const decisionStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="placeholder"]':
 		{
-			margin: `0 0 0 calc(${token('space.100', '8px')} * 3.5)`,
+			margin: `0 0 0 calc(${token('space.100')} * 3.5)`,
 			position: 'absolute',
 			color: token('color.text.subtlest'),
 			pointerEvents: 'none',
@@ -325,7 +325,7 @@ export const taskItemStyles: SerializedStyles = css({
 	'[data-prosemirror-node-name="taskItem"] [data-component="placeholder"]': {
 		position: 'absolute',
 		color: token('color.text.subtlest'),
-		margin: `0 0 0 calc(${token('space.100', '8px')} * 3)`,
+		margin: `0 0 0 calc(${token('space.100')} * 3)`,
 		pointerEvents: 'none',
 		textOverflow: 'ellipsis',
 		overflow: 'hidden',
@@ -369,8 +369,8 @@ export const taskItemCheckboxStyles: SerializedStyles = css({
 		pointerEvents: 'none',
 		color: 'currentColor',
 		verticalAlign: 'bottom',
-		width: token('space.200', '16px'),
-		height: token('space.200', '16px'),
+		width: token('space.200'),
+		height: token('space.200'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-prosemirror-node-name="taskItem"] input[type=checkbox]:not(:checked) + span [data-component=checkbox-checked-icon]':
@@ -519,10 +519,10 @@ export const taskItemCheckboxStyles: SerializedStyles = css({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'&:focus + span::after': {
 					position: 'absolute',
-					width: token('space.200', '16px'),
-					height: token('space.200', '16px'),
-					border: `2px solid ${token('color.border.focused')}`,
-					borderRadius: token('space.050', '4px'),
+					width: token('space.200'),
+					height: token('space.200'),
+					border: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
+					borderRadius: token('space.050'),
 					content: "''",
 					display: 'block',
 					top: '50%',
@@ -555,8 +555,8 @@ export const taskItemCheckboxStylesWithBlockTaskItem: SerializedStyles = css({
 			pointerEvents: 'none',
 			color: 'currentColor',
 			verticalAlign: 'bottom',
-			width: token('space.200', '16px'),
-			height: token('space.200', '16px'),
+			width: token('space.200'),
+			height: token('space.200'),
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-prosemirror-node-name="taskItem"] input[type=checkbox]:not(:checked) + span [data-component=checkbox-checked-icon], [data-prosemirror-node-name="blockTaskItem"] input[type=checkbox]:not(:checked) + span [data-component=checkbox-checked-icon]':
@@ -705,10 +705,10 @@ export const taskItemCheckboxStylesWithBlockTaskItem: SerializedStyles = css({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'&:focus + span::after': {
 					position: 'absolute',
-					width: token('space.200', '16px'),
-					height: token('space.200', '16px'),
-					border: `2px solid ${token('color.border.focused')}`,
-					borderRadius: token('space.050', '4px'),
+					width: token('space.200'),
+					height: token('space.200'),
+					border: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
+					borderRadius: token('space.050'),
 					content: "''",
 					display: 'block',
 					top: '50%',
@@ -790,7 +790,7 @@ export const taskItemNextCheckboxStyles: SerializedStyles = css({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 					'rect:first-of-type': {
 						stroke: 'var(--checkbox-border-color)',
-						strokeWidth: token('border.width', '1px'),
+						strokeWidth: token('border.width'),
 						transition: 'stroke 0.2s ease-in-out',
 					},
 				},
@@ -798,8 +798,8 @@ export const taskItemNextCheckboxStyles: SerializedStyles = css({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 				'&:focus + svg, &:checked:focus + svg': {
 					borderRadius: token('radius.small', '0.25rem'),
-					outline: `${token('border.width.focused', '2px')} solid ${token('color.border.focused', '#2684FF')}`,
-					outlineOffset: token('space.negative.025', '-2px'),
+					outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
+					outlineOffset: token('space.negative.025'),
 				},
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				'&:hover + svg': {
@@ -863,7 +863,7 @@ export const taskItemStylesWithBlockTaskItem: SerializedStyles = css({
 		{
 			position: 'absolute',
 			color: token('color.text.subtlest'),
-			margin: `0 0 0 calc(${token('space.100', '8px')} * 3)`,
+			margin: `0 0 0 calc(${token('space.100')} * 3)`,
 			pointerEvents: 'none',
 			textOverflow: 'ellipsis',
 			overflow: 'hidden',

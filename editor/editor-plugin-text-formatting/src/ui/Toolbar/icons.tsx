@@ -6,8 +6,8 @@ import { token } from '@atlaskit/tokens';
 const SVGContainer = ({ children }: React.PropsWithChildren<object>) => (
 	<span
 		style={{
-			width: token('space.300', '24px'),
-			height: token('space.300', '24px'),
+			width: token('space.300'),
+			height: token('space.300'),
 			display: 'flex',
 			justifyContent: 'center',
 			alignItems: 'center',

@@ -118,6 +118,7 @@ function orderObjectByDepthAndRoot(input: { [key: string]: string }): {
 	// First, group the entries by their root level name
 	const grouped = Object.entries(input).reduce(
 		(acc, [key, value]) => {
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			const root = key.split('/')[1]; // Get the root level name
 			if (!acc[root]) {
 				acc[root] = [];

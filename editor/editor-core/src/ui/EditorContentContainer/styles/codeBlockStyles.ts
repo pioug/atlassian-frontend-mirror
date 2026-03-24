@@ -44,7 +44,7 @@ export const codeBlockStyles: SerializedStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 		[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED} > .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} > .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]:
 			{
-				marginRight: token('space.100', '8px'),
+				marginRight: token('space.100'),
 
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				code: {
@@ -145,7 +145,7 @@ export const codeBlockStyles: SerializedStyles = css({
 				backgroundColor: token('color.background.neutral'),
 				position: 'relative',
 				width: 'var(--lineNumberGutterWidth, 2rem)',
-				padding: token('space.100', '8px'),
+				padding: token('space.100'),
 				flexShrink: 0,
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				fontSize: fontSize14px,
@@ -175,7 +175,7 @@ export const codeBlockStyles: SerializedStyles = css({
 					cursor: 'text',
 					color: token('color.text'),
 					borderRadius: token('radius.small', '3px'),
-					margin: token('space.100', '8px'),
+					margin: token('space.100'),
 					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 					fontSize: fontSize14px,
 					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -192,11 +192,11 @@ export const codeBlockStyles: SerializedStyles = css({
 				position: 'absolute',
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				fontSize: fontSize14px,
-				padding: `0px ${token('space.100', '8px')}`,
+				padding: `0px ${token('space.100')}`,
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				lineHeight: '1.5rem',
 				textAlign: 'right',
-				color: token('color.text.subtlest', '#505F79'),
+				color: token('color.text.subtlest'),
 				boxSizing: 'content-box',
 			},
 		},

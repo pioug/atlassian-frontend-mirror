@@ -1,16 +1,17 @@
 # Synced Block Provider — Developer Agent Guide
 
-> **Package**: `@atlaskit/editor-synced-block-provider`
-> **Purpose**: Data layer for synced blocks — store managers, block service API client, ARI generation, permissions, media tokens.
-> **Full Knowledge Base**: [Synced Blocks — Comprehensive Knowledge Base](https://hello.atlassian.net/wiki/spaces/egcuc/pages/6679548384)
+> **Package**: `@atlaskit/editor-synced-block-provider` **Purpose**: Data layer for synced blocks —
+> store managers, block service API client, ARI generation, permissions, media tokens. **Full
+> Knowledge Base**:
+> [Synced Blocks — Comprehensive Knowledge Base](https://hello.atlassian.net/wiki/spaces/egcuc/pages/6679548384)
 
 ---
 
 ## Quick Context
 
 This package manages the lifecycle and state of synced blocks for both source and reference nodes.
-It provides the data fetching, caching, subscription, and persistence layer used by the editor plugin
-and the renderer across Confluence and Jira.
+It provides the data fetching, caching, subscription, and persistence layer used by the editor
+plugin and the renderer across Confluence and Jira.
 
 ---
 
@@ -62,17 +63,19 @@ SyncBlockStoreManager (parent coordinator)
 
 ### ARI Formats & Utilities
 
-| Function | ARI Pattern | Example |
-|----------|-------------|---------|
-| `generateBlockAri({cloudId, parentId, product, resourceId})` | Source block ARI | `ari:cloud:block::{cloudId}/confluence-page:{pageId}/{localId}` |
-| `generateBlockAriFromReference({cloudId, resourceId})` | Reference block ARI | — |
-| `getConfluencePageAri({pageId, cloudId, pageType})` | Confluence page | `ari:cloud:confluence::{cloudId}:page/{pageId}` |
-| `getJiraWorkItemAri({cloudId, workItemId})` | Jira issue | `ari:cloud:jira::{cloudId}:work-item/{issueId}` |
-| `getJiraWorkItemIdFromAri(ari)` | Extract issue ID from ARI | — |
+| Function                                                     | ARI Pattern               | Example                                                         |
+| ------------------------------------------------------------ | ------------------------- | --------------------------------------------------------------- |
+| `generateBlockAri({cloudId, parentId, product, resourceId})` | Source block ARI          | `ari:cloud:block::{cloudId}/confluence-page:{pageId}/{localId}` |
+| `generateBlockAriFromReference({cloudId, resourceId})`       | Reference block ARI       | —                                                               |
+| `getConfluencePageAri({pageId, cloudId, pageType})`          | Confluence page           | `ari:cloud:confluence::{cloudId}:page/{pageId}`                 |
+| `getJiraWorkItemAri({cloudId, workItemId})`                  | Jira issue                | `ari:cloud:jira::{cloudId}:work-item/{issueId}`                 |
+| `getJiraWorkItemIdFromAri(ari)`                              | Extract issue ID from ARI | —                                                               |
 
 ### Block Service API
 
-The client in `clients/block-service/blockService.ts` communicates via GraphQL at `/gateway/api/graphql`:
+The client in `clients/block-service/blockService.ts` communicates via GraphQL at
+`/gateway/api/graphql`:
+
 - **Fetch**: Single or batch block content retrieval
 - **Create**: Register new source block with content
 - **Update**: Push content changes (debounced 3s)
@@ -82,27 +85,33 @@ The client in `clients/block-service/blockService.ts` communicates via GraphQL a
 
 ### Media Token Fetching
 
-`fetchMediaToken(contentId)` → GraphQL `MediaUploadTokenQuery` → returns `{token, config: {clientId, fileStoreUrl}, collectionId}`
+`fetchMediaToken(contentId)` → GraphQL `MediaUploadTokenQuery` → returns
+`{token, config: {clientId, fileStoreUrl}, collectionId}`
 
-Used when synced blocks contain media (images, files) — the reference needs a valid token to render media from the source page.
+Used when synced blocks contain media (images, files) — the reference needs a valid token to render
+media from the source page.
 
 ---
 
 ## Common Tasks
 
 ### Adding a new API method
+
 1. Add the GraphQL query/mutation in `clients/block-service/blockService.ts`
 2. Expose it through the appropriate store manager
 3. Export from `src/index.ts` if needed by product integrations
 4. Add tests in `editor-synced-block-provider-tests`
 
 ### Debugging data issues
+
 1. Check `ReferenceSyncBlockStoreManager` cache state
 2. Verify ARI format matches expected pattern for the product
 3. Check Block Service API responses in network tab (look for `/gateway/api/graphql`)
-4. Use analytics: [HOW-TO: Debug errors](https://hello.atlassian.net/wiki/spaces/egcuc/pages/6342760320)
+4. Use analytics:
+   [HOW-TO: Debug errors](https://hello.atlassian.net/wiki/spaces/egcuc/pages/6342760320)
 
 ### Adding support for a new product
+
 1. Create ARI utilities in `clients/{product}/ari.ts`
 2. Ensure `generateBlockAri` supports the new product type
 3. Add media token fetching if the product has media content
@@ -111,7 +120,10 @@ Used when synced blocks contain media (images, files) — the reference needs a 
 ---
 
 ## Related Packages
+
 - **Plugin**: `platform/packages/editor/editor-plugin-synced-block/` — uses store managers
 - **Renderer**: `platform/packages/editor/editor-synced-block-renderer/` — uses fetch provider
-- **Confluence**: `confluence/next/packages/fabric-providers/src/SyncedBlockProvider.ts` — wraps this provider
-- **Jira**: `jira/src/packages/issue/issue-view-synced-block-provider/` — wraps this provider with Relay
+- **Confluence**: `confluence/next/packages/fabric-providers/src/SyncedBlockProvider.ts` — wraps
+  this provider
+- **Jira**: `jira/src/packages/issue/issue-view-synced-block-provider/` — wraps this provider with
+  Relay

@@ -25,7 +25,6 @@ import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
-import { N0 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -76,13 +75,10 @@ export interface State {
 }
 
 const pickerContainerStyles = css({
-	background: token('elevation.surface.overlay', N0),
-	padding: `${token('space.100', '8px')} 0`,
+	background: token('elevation.surface.overlay'),
+	padding: `${token('space.100')} 0`,
 	borderRadius: token('radius.small', '3px'),
-	boxShadow: token(
-		'elevation.shadow.overlay',
-		'0 0 1px rgba(9, 30, 66, 0.31), 0 4px 8px -2px rgba(9, 30, 66, 0.25)',
-	),
+	boxShadow: token('elevation.shadow.overlay'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus': {
 		outline: 'none',
@@ -299,6 +295,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 							: undefined
 					}
 					target={target}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					offset={[0, 8]}
 					handleClickOutside={this.handleClickOutside}
 					handleEscapeKeydown={this.handleEscapeKeydown}

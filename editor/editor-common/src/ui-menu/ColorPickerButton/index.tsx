@@ -71,7 +71,7 @@ const colorPickerWrapper = () =>
 		borderRadius: token('radius.small', '3px'),
 		backgroundColor: token('elevation.surface.overlay'),
 		boxShadow: token('elevation.shadow.overlay'),
-		padding: `${token('space.100', '8px')} 0px`,
+		padding: `${token('space.100')} 0px`,
 	});
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
@@ -194,6 +194,7 @@ const ColorPickerButton = (props: Props) => {
 				target={buttonRef.current}
 				fitHeight={350}
 				fitWidth={350}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				offset={[0, 10]}
 				alignX={props.alignX}
 				mountTo={props.setDisableParentScroll ? props.mountPoint : undefined}
@@ -215,6 +216,7 @@ const ColorPickerButton = (props: Props) => {
 						selectedRowIndex={selectedRowIndex}
 						selectedColumnIndex={selectedColumnIndex}
 						closeOnTab={true}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						handleClose={() => setIsPopupOpen(false)}
 						isOpenedByKeyboard={isOpenedByKeyboard}
 						isPopupPositioned={isPopupPositioned}
@@ -226,6 +228,7 @@ const ColorPickerButton = (props: Props) => {
 							onClick={onColorSelected}
 							handleClickOutside={togglePopup}
 							handleEscapeKeydown={handleEsc}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							paletteOptions={{
 								palette: props.colorPalette,
 								hexToPaletteColor: props.hexToPaletteColor,
@@ -263,7 +266,7 @@ const ColorPickerButton = (props: Props) => {
 				width: props.size?.width || '14px',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				height: props.size?.height || '14px',
-				marginTop: `${token('space.025', '2px')}`,
+				marginTop: `${token('space.025')}`,
 			},
 		});
 	return (
@@ -279,6 +282,7 @@ const ColorPickerButton = (props: Props) => {
 							editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'
 						}
 						onClick={togglePopup}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onKeyDown={(event: React.KeyboardEvent) => {
 							if (event.key === 'Enter' || event.key === ' ') {
 								event.preventDefault();

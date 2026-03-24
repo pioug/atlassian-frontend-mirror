@@ -19,11 +19,8 @@ import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { token } from '@atlaskit/tokens';
 
 const whiteBoxStyles = css({
-	backgroundColor: token('color.background.input', 'rgb(255, 255, 255)'),
-	boxShadow: token(
-		'elevation.shadow.overlay',
-		'rgba(9, 30, 66, 0.6) 0px 4px 8px 0px, rgba(9, 30, 66, 0.31) 0px 0px 1px',
-	),
+	backgroundColor: token('color.background.input'),
+	boxShadow: token('elevation.shadow.overlay'),
 });
 
 type Callback = (doc: JSONDocNode) => void;

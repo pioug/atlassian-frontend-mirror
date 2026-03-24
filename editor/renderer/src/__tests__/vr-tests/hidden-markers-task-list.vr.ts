@@ -8,13 +8,13 @@ import {
 snapshot(HiddenMarkersTaskListRenderer, {
 	description: 'hidden markers task list should not show checkboxes in full-page renderer',
 	featureFlags: {
-		platform_editor_flexible_list_indentation: true,
+		platform_editor_flexible_list_schema: true,
 	},
 });
 
 snapshot(HiddenMarkersTaskListCommentRenderer, {
 	description: 'hidden markers task list should not show checkboxes in comment renderer',
 	featureFlags: {
-		platform_editor_flexible_list_indentation: true,
+		platform_editor_flexible_list_schema: true,
 	},
 });

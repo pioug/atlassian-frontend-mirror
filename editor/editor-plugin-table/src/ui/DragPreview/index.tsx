@@ -29,12 +29,14 @@ export const DragPreview = ({
 	return (
 		<Box
 			xcss={boxStyles}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			style={{
 				width: `${width}px`,
 				height: `${height}px`,
 			}}
 		>
 			<DragInMotionIcon
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					position: 'absolute',

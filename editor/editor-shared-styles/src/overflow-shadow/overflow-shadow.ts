@@ -11,7 +11,7 @@ export const overflowShadow = ({
 	leftCoverWidth?: string;
 	rightCoverWidth?: string;
 }): SerializedStyles => {
-	const width = token('space.100', '8px');
+	const width = token('space.100');
 	const leftCoverWidthResolved = leftCoverWidth || width;
 	const rightCoverWidthResolved = rightCoverWidth || width;
 

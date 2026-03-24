@@ -56,6 +56,7 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 	render(): React.JSX.Element {
 		return (
 			<WithProviders
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				providers={['mentionProvider', 'profilecardProvider']}
 				providerFactory={this.providerFactory}
 				renderNode={this.renderWithProvider}

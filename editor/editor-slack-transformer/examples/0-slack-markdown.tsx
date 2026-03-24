@@ -96,7 +96,7 @@ export default function EditorWithFeedback(props: Props): React.JSX.Element {
 				<ToolsDrawer
 					renderEditor={({ mentionProvider, emojiProvider, onChange, disabled }) => (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						<div style={{ padding: token('space.250', '20px') }}>
+						<div style={{ padding: token('space.250') }}>
 							<CollapsedEditor
 								placeholder="What do you want to say?"
 								isExpanded={isExpanded}

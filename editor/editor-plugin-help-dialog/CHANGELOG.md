@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 8.0.12
+
+### Patch Changes
+
+- [`ceefea718fc6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ceefea718fc6d) -
+  Add keyboard shortcut (Cmd+Opt+7 on Mac, Ctrl+Alt+7 on Windows) for the small text feature in the
+  editor, gated behind the platform_editor_small_font_size experiment. Also adds the shortcut to the
+  toolbar tooltip and help dialog.
+- Updated dependencies
+
+## 8.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.10
 
 ### Patch Changes

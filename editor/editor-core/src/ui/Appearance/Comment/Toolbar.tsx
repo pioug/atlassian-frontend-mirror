@@ -20,12 +20,12 @@ const akEditorToolbarKeylineHeight = 2;
 const mainToolbarWrapperStyleNew = css({
 	position: 'relative',
 	alignItems: 'center',
-	padding: `${token('space.100', '8px')} ${token('space.100', '8px')} 0`,
+	padding: `${token('space.100')} ${token('space.100')} 0`,
 	display: 'flex',
 	height: 'auto',
-	backgroundColor: token('elevation.surface', 'white'),
+	backgroundColor: token('elevation.surface'),
 	boxShadow: 'none',
-	paddingLeft: token('space.250', '20px'),
+	paddingLeft: token('space.250'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'> div': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -41,11 +41,11 @@ const mainToolbarWrapperStyleNew = css({
 
 /** keep default padding for entire toolbar */
 const mainToolbarWithoutLeftPadding = css({
-	padding: `${token('space.100', '8px')} ${token('space.100', '8px')} 0`,
+	padding: `${token('space.100')} ${token('space.100')} 0`,
 });
 
 const mainToolbarWithPadding = css({
-	padding: `${token('space.100', '8px')}`,
+	padding: `${token('space.100')}`,
 });
 
 const mainToolbarTwoLineStylesNew = css({
@@ -89,7 +89,7 @@ const mainToolbarRadius = css({
 
 const stickyToolbarWrapperStyleNew = css({
 	position: 'sticky',
-	paddingBottom: token('space.100', '8px'),
+	paddingBottom: token('space.100'),
 	zIndex: akEditorMenuZIndex,
 	transition: 'box-shadow ease-in-out 0.2s',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

@@ -3,6 +3,7 @@ import React, { lazy, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import AutomationIcon from '@atlaskit/icon/core/automation';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
@@ -95,6 +96,7 @@ const AutomationAction = (props: LinkActionProps): React.JSX.Element | null => {
 						spacing="spacious"
 						color="currentColor"
 						label={automationActionIconLabel}
+						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { size: props.iconSize } : {})}
 					/>
 				}
 				testId="smart-action-automation-action"

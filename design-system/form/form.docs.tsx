@@ -52,7 +52,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'FormHeader',
-		description: 'The header section of a form, typically containing the title and optional description.',
+		description:
+			'The header section of a form, typically containing the title and optional description.',
 		status: 'general-availability',
 		import: {
 			name: 'FormHeader',
@@ -93,7 +94,10 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Primary button on the right; include Cancel for dismissal',
 			'Use align prop for left or right alignment',
 		],
-		contentGuidelines: ['Use action verbs in button labels', 'Primary button reflects the form action'],
+		contentGuidelines: [
+			'Use action verbs in button labels',
+			'Primary button reflects the form action',
+		],
 		examples: [
 			{
 				name: 'Form Footer',
@@ -133,7 +137,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'Field',
-		description: 'A form field wrapper that provides label, validation, and error handling. Used with any form control via the component prop.',
+		description:
+			'A form field wrapper that provides label, validation, and error handling. Used with any form control via the component prop.',
 		status: 'general-availability',
 		import: {
 			name: 'Field',
@@ -165,7 +170,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'Label',
-		description: 'A label component for form fields. Usually used internally by Field, but can be used standalone.',
+		description:
+			'A label component for form fields. Usually used internally by Field, but can be used standalone.',
 		status: 'general-availability',
 		import: {
 			name: 'Label',
@@ -174,14 +180,25 @@ const documentation: ComponentStructuredContentSource[] = [
 			packagePath: path.resolve(__dirname),
 			packageJson: require('./package.json'),
 		},
-		usageGuidelines: ['Use with Field for field labels', 'Associate with form controls via htmlFor'],
+		usageGuidelines: [
+			'Use with Field for field labels',
+			'Associate with form controls via htmlFor',
+		],
 		contentGuidelines: ['Use clear, descriptive labels'],
+		examples: [
+			{
+				name: 'Label',
+				description: 'Standalone label associated with a text field via htmlFor / id',
+				source: path.resolve(__dirname, './examples/ai/label-standalone.tsx'),
+			},
+		],
 		keywords: ['form', 'label'],
 		categories: ['form'],
 	},
 	{
 		name: 'Legend',
-		description: 'A legend component for fieldset groups. Used with Fieldset for grouping related fields.',
+		description:
+			'A legend component for fieldset groups. Used with Fieldset for grouping related fields.',
 		status: 'general-availability',
 		import: {
 			name: 'Legend',
@@ -190,7 +207,10 @@ const documentation: ComponentStructuredContentSource[] = [
 			packagePath: path.resolve(__dirname),
 			packageJson: require('./package.json'),
 		},
-		usageGuidelines: ['Use with Fieldset to describe a group of fields', 'Required for accessibility'],
+		usageGuidelines: [
+			'Use with Fieldset to describe a group of fields',
+			'Required for accessibility',
+		],
 		contentGuidelines: ['Use clear, descriptive legend text'],
 		examples: [
 			{
@@ -285,7 +305,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'MessageWrapper',
-		description: 'A wrapper for form field messages (HelperMessage, ErrorMessage, ValidMessage). Manages layout and visibility.',
+		description:
+			'A wrapper for form field messages (HelperMessage, ErrorMessage, ValidMessage). Manages layout and visibility.',
 		status: 'general-availability',
 		import: {
 			name: 'MessageWrapper',
@@ -297,6 +318,13 @@ const documentation: ComponentStructuredContentSource[] = [
 		usageGuidelines: [
 			'Wrap HelperMessage, ErrorMessage, and ValidMessage in MessageWrapper',
 			'Place below the form control within Field',
+		],
+		examples: [
+			{
+				name: 'Message wrapper',
+				description: 'MessageWrapper grouping helper, error, and valid messages',
+				source: path.resolve(__dirname, './examples/21-messages.tsx'),
+			},
 		],
 		keywords: ['form', 'message', 'wrapper'],
 		categories: ['form'],
@@ -355,7 +383,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'Fieldset',
-		description: 'Groups related form fields with a legend. Use for radio groups or logical groupings.',
+		description:
+			'Groups related form fields with a legend. Use for radio groups or logical groupings.',
 		status: 'general-availability',
 		import: {
 			name: 'Fieldset',
@@ -381,7 +410,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'RequiredAsterisk',
-		description: 'Visual indicator for required fields. Renders an asterisk (*) for form accessibility.',
+		description:
+			'Visual indicator for required fields. Renders an asterisk (*) for form accessibility.',
 		status: 'general-availability',
 		import: {
 			name: 'RequiredAsterisk',
@@ -407,7 +437,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'CharacterCounterField',
-		description: 'A form field that includes character count display. Combines Field with CharacterCounter.',
+		description:
+			'A form field that includes character count display. Combines Field with CharacterCounter.',
 		status: 'general-availability',
 		import: {
 			name: 'CharacterCounterField',
@@ -433,7 +464,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'CharacterCounter',
-		description: 'Displays character count for text inputs. Can be used standalone or with CharacterCounterField.',
+		description:
+			'Displays character count for text inputs. Can be used standalone or with CharacterCounterField.',
 		status: 'general-availability',
 		import: {
 			name: 'CharacterCounter',
@@ -451,7 +483,10 @@ const documentation: ComponentStructuredContentSource[] = [
 			{
 				name: 'Character Counter',
 				description: 'CharacterCounter example',
-				source: path.resolve(__dirname, './examples/constellation/form-character-counter-standalone.tsx'),
+				source: path.resolve(
+					__dirname,
+					'./examples/constellation/form-character-counter-standalone.tsx',
+				),
 			},
 		],
 		keywords: ['form', 'character', 'counter'],

@@ -54,6 +54,7 @@ export const FloatingToolbarComponent = ({
 
 	return (
 		<ToolbarTextColor
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			pluginState={{ color, defaultColor, palette, disabled }}
 			isReducedSpacing={FloatingToolbarSettings.isReducedSpacing}
 			editorView={editorView}

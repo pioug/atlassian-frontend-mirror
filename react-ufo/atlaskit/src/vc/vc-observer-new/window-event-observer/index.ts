@@ -1,10 +1,13 @@
 import { bind, type UnbindFn } from 'bind-event-listener';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 export type ObservedWindowEvent = 'wheel' | 'scroll' | 'keydown' | 'resize';
+export type ObservedWindowEventExtended = ObservedWindowEvent | 'scroll-container';
 
 export type OnEventCallback = (args: {
 	time: DOMHighResTimeStamp;
-	type: ObservedWindowEvent;
+	type: ObservedWindowEventExtended;
 	event: Event;
 }) => void;
 
@@ -40,11 +43,44 @@ export default class WindowEventObserver {
 		this.unbindFns.push(unbindCallback);
 	}
 
+	/**
+	 * Binds a scroll listener on `document` using the capture phase.
+	 * The `scroll` event does not bubble, so listening on `window` only catches
+	 * document-level scrolls. By using `{ capture: true }` on `document`, we can
+	 * detect scroll events from any element in the DOM tree, including inner
+	 * scrollable containers (e.g. when the user drags a scrollbar).
+	 */
+	private bindCaptureScrollEvent() {
+		const unbindCallback = bind(document, {
+			type: 'scroll',
+			listener: (event: Event) => {
+				if (!event.isTrusted) {
+					return;
+				}
+				this.onEvent({
+					time: event.timeStamp,
+					type: 'scroll-container',
+					event,
+				});
+			},
+			options: {
+				capture: true,
+				passive: true,
+				once: true,
+			},
+		});
+		this.unbindFns.push(unbindCallback);
+	}
+
 	start(): void {
 		this.bindEvent('wheel');
 		this.bindEvent('scroll');
 		this.bindEvent('keydown');
 		this.bindEvent('resize');
+
+		if (fg('platform_ufo_detect_container_scroll')) {
+			this.bindCaptureScrollEvent();
+		}
 	}
 
 	stop(): void {

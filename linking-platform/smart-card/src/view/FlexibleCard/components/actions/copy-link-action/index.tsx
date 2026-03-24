@@ -44,6 +44,7 @@ const CopyLinkAction = ({
 					color="currentColor"
 					label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'copy url'}
 					spacing="spacious"
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { size: props.iconSize } : {})}
 				/>
 			}
 			onClick={onClick}

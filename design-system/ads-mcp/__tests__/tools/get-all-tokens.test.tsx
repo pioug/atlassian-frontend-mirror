@@ -5,6 +5,10 @@ jest.mock('@atlaskit/tokens/token-metadata', () => ({
 		{
 			name: 'test.token',
 			exampleValue: '#FFFFFF',
+			usageGuidelines: {
+				usage: 'example usage',
+				cssProperties: ['background-color'],
+			},
 		},
 	],
 }));
@@ -18,6 +22,10 @@ describe('ads_get_all_tokens tool', () => {
 				{
 					name: 'test.token',
 					exampleValue: '#FFFFFF',
+					usageGuidelines: {
+						usage: 'example usage',
+						cssProperties: ['background-color'],
+					},
 				},
 				null,
 				2,

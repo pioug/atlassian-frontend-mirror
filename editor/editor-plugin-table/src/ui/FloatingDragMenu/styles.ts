@@ -2,7 +2,6 @@
 import { css, type SerializedStyles } from '@emotion/react';
 
 import { tableBackgroundBorderColor } from '@atlaskit/adf-schema';
-import { N60A, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../../types';
@@ -25,15 +24,15 @@ export const cellColourPreviewStyles = (selectedColor: string) =>
 export const dragMenuBackgroundColorStyles = () => css`
 	.${ClassName.DRAG_SUBMENU} {
 		border-radius: ${token('radius.small', '3px')};
-		background: ${token('elevation.surface.overlay', 'white')};
-		box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`)};
+		background: ${token('elevation.surface.overlay')};
+		box-shadow: ${token('elevation.shadow.overlay')};
 		display: block;
 		position: absolute;
 		top: ${TABLE_DRAG_MENU_PADDING_TOP +
 		TABLE_DRAG_MENU_SORT_GROUP_HEIGHT +
 		TABLE_DRAG_MENU_MENU_GROUP_BEFORE_HEIGHT}px; /* move the submenu down when 'sort increasing/decreasing' appear before background color picker */
 		left: ${dragMenuDropdownWidth}px;
-		padding: ${token('space.100', '8px')};
+		padding: ${token('space.100')};
 
 		> div {
 			padding: 0;
@@ -54,9 +53,9 @@ export const dragMenuBackgroundColorStyles = () => css`
 
 		&::after {
 			content: '›';
-			margin-left: ${token('space.050', '4px')};
+			margin-left: ${token('space.050')};
 			line-height: 14px;
-			color: ${token('color.icon', N90)};
+			color: ${token('color.icon')};
 		}
 	}
 `;

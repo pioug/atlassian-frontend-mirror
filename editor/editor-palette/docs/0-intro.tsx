@@ -40,7 +40,7 @@ or reach out to the Design System Team via the [Atlassian Developer Community fo
 ${
 	(
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div style={{ marginTop: token('space.100', '8px') }}>
+		<div style={{ marginTop: token('space.100') }}>
 			<SectionMessage
 				title="Design token names and values are an implementation detail."
 				appearance="warning"

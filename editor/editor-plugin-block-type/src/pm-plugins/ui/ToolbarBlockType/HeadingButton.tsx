@@ -19,6 +19,7 @@ import {
 	toggleHeading4,
 	toggleHeading5,
 	toggleHeading6,
+	toggleSmallText,
 } from '@atlaskit/editor-common/keymaps';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -128,11 +129,7 @@ const headingSizeStylesMap = cssMap({
 
 const shortcuts: Record<TextBlockTypes, Keymap> = {
 	normal: setNormalText,
-	smallText: {
-		description: '',
-		mac: '',
-		windows: '',
-	},
+	smallText: toggleSmallText,
 	heading1: toggleHeading1,
 	heading2: toggleHeading2,
 	heading3: toggleHeading3,

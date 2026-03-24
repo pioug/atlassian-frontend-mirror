@@ -155,6 +155,7 @@ export class CellSelection extends Selection {
 		for (let i = 0; i < ranges.length; i++) {
 			const { $from, $to } = ranges[i];
 			const mapping = tr.mapping.slice(mapFrom);
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			tr.replace(mapping.map($from.pos), mapping.map($to.pos), i ? Slice.empty : content);
 		}
 		const sel = Selection.findFrom(tr.doc.resolve(tr.mapping.slice(mapFrom).map(this.to)), -1);

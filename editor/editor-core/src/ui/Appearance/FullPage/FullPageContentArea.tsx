@@ -78,7 +78,7 @@ const editorContentAreaProsemirrorStyle = css({
 			},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> p:last-child': {
-			marginBottom: token('space.300', '24px'),
+			marginBottom: token('space.300'),
 		},
 	},
 });
@@ -105,30 +105,27 @@ const fullWidthNonChromelessBreakoutBlockTableStyle = css({
 // is hidden – this avoids layout shift when the toolbar is toggled under the editor controls feature
 const contentAreaReservedPrimaryToolbarSpace = css({
 	// extra 1px to account for the bottom border on the toolbar
-	marginTop: `calc(${token('space.500', '40px')} + 1px)`,
+	marginTop: `calc(${token('space.500')} + 1px)`,
 });
 
 // A reduced top spacing applied to the content area to compensate for the reserved space at the top
 // of the page when the primary toolbar is hidden under the editor controls feature
 const contentAreaReducedHeaderSpace = css({
-	paddingTop: token('space.400', '32px'),
+	paddingTop: token('space.400'),
 });
 
 // new styles
 const editorContentAreaNew = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '24px',
-	paddingTop: token('space.600', '48px'),
+	paddingTop: token('space.600'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.ak-editor-content-area-no-toolbar &': {
 		// When the toolbar is hidden, we don't want content to jump up
 		// the extra 1px is to account for the border on the toolbar
-		paddingTop: `calc(${token(
-			'space.600',
-			'48px',
-		)} + var(--ak-editor-fullpage-toolbar-height) + 1px)`,
+		paddingTop: `calc(${token('space.600')} + var(--ak-editor-fullpage-toolbar-height) + 1px)`,
 	},
-	paddingBottom: token('space.600', '48px'),
+	paddingBottom: token('space.600'),
 	height: 'calc( 100% - 105px )',
 	width: '100%',
 	margin: 'auto',

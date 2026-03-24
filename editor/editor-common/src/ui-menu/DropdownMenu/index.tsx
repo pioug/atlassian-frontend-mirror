@@ -12,7 +12,6 @@ import { css, jsx } from '@emotion/react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -58,20 +57,14 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 					position: absolute;
 					left: 0;
 					top: 0;
-					background: ${token('color.border.selected', 'transparent')};
+					background: ${token('color.border.selected')};
 					content: '';
 				}
 				> span,
 				> span:hover,
 				> span:active {
-					background: ${token(
-						'color.background.selected',
-						fg('platform_editor_updated_dropdown_colors') ? '#E9F2FE' : '#6c798f',
-					)};
-					color: ${token(
-						'color.text.selected',
-						fg('platform_editor_updated_dropdown_colors') ? '#1868DB' : '#0C66E4',
-					)};
+					background: ${token('color.background.selected')};
+					color: ${token('color.text.selected')};
 				}
 				:focus > span[aria-disabled='false'] {
 					${focusedMenuItemStyle};
@@ -91,14 +84,8 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 			> span,
 			> span:hover,
 			> span:active {
-				background: ${token(
-					'color.background.selected',
-					fg('platform_editor_updated_dropdown_colors') ? '#E9F2FE' : '#6c798f',
-				)};
-				color: ${token(
-					'color.text.selected',
-					fg('platform_editor_updated_dropdown_colors') ? '#1868DB' : '#0C66E4',
-				)};
+				background: ${token('color.background.selected')};
+				color: ${token('color.text.selected')};
 			}
 			:focus > span[aria-disabled='false'] {
 				${focusedMenuItemStyle};
@@ -113,12 +100,12 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 		return css`
 			> span:hover[aria-disabled='false'] {
 				color: ${token('color.text')};
-				background-color: ${token('color.background.neutral.subtle.hovered', 'rgb(244, 245, 247)')};
+				background-color: ${token('color.background.neutral.subtle.hovered')};
 			}
 			${!submenuActive &&
 			`
 					> span:active[aria-disabled='false'] {
-						background-color: ${token('color.background.neutral.subtle.pressed', 'rgb(179, 212, 255)')};
+						background-color: ${token('color.background.neutral.subtle.pressed')};
 					}`}
 			> span[aria-disabled='true'] {
 				color: ${token('color.text.disabled')};
@@ -249,6 +236,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 						shouldFitContainer={true}
 						handleClickOutside={this.handleClose}
 						handleEscapeKeydown={handleEscapeKeydown || this.handleCloseAndFocus}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						handleEnterKeydown={(e: KeyboardEvent) => {
 							if (!allowEnterDefaultBehavior) {
 								e.preventDefault();
@@ -425,15 +413,19 @@ export function DropdownMenuItem({
 				iconBefore={item.elemBefore}
 				iconAfter={item.elemAfter}
 				isDisabled={item.isDisabled}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClick={() => onItemActivated && onItemActivated({ item })}
 				aria-label={ariaLabel}
 				aria-pressed={shouldUseDefaultRole ? item.isActive : undefined}
 				aria-keyshortcuts={item['aria-keyshortcuts']}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onMouseDown={(e) => {
 					e.preventDefault();
 				}}
 				component={DropdownMenuItemCustomComponent}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onMouseEnter={() => onMouseEnter && onMouseEnter({ item })}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onMouseLeave={() => onMouseLeave && onMouseLeave({ item })}
 				aria-expanded={
 					expValEquals('platform_editor_august_a11y', 'isEnabled', true)
@@ -474,6 +466,7 @@ export const DropdownMenuWithKeyboardNavigation: React.MemoExoticComponent<
 		// Default context has the void callbacks for above key events
 		return (
 			<DropdownMenuWrapper
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				arrowKeyNavigationProviderOptions={{
 					...props.arrowKeyNavigationProviderOptions,
 					keyDownHandlerContext,

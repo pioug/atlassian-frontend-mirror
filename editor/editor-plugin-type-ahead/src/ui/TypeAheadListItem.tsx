@@ -21,7 +21,6 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
-import { B400, N30, N800 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -31,10 +30,10 @@ import { type TypeAheadPlugin } from '../typeAheadPluginType';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const itemIcon: SerializedStyles = css({
-	width: token('space.500', '40px'),
-	height: token('space.500', '40px'),
+	width: token('space.500'),
+	height: token('space.500'),
 	overflow: 'hidden',
-	border: `${token('border.width')} solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}` /* N60 at 50% */,
+	border: `${token('border.width')} solid ${token('color.border')}` /* N60 at 50% */,
 	borderRadius: token('radius.small', '3px'),
 	boxSizing: 'border-box',
 
@@ -44,20 +43,20 @@ export const itemIcon: SerializedStyles = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	div: {
-		width: token('space.500', '40px'),
-		height: token('space.500', '40px'),
+		width: token('space.500'),
+		height: token('space.500'),
 	},
 });
 
 const itemIconSizeUpdated = css({
-	width: token('space.400', '32px'),
-	height: token('space.400', '32px'),
+	width: token('space.400'),
+	height: token('space.400'),
 
 	// AI icons may contain div as container of the icon
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	div: {
-		width: token('space.400', '32px'),
-		height: token('space.400', '32px'),
+		width: token('space.400'),
+		height: token('space.400'),
 	},
 });
 
@@ -71,7 +70,7 @@ const itemBody = css`
 
 const itemText = css({
 	whiteSpace: 'initial',
-	color: `${token('color.text', N800)}`,
+	color: `${token('color.text')}`,
 });
 const itemTitle = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -85,7 +84,7 @@ const itemDescription = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography
 	fontSize: `${relativeFontSizeToBase16(12)};`,
 	color: `${token('color.text.subtle')};`,
-	marginTop: `${token('space.050', '4px')};`,
+	marginTop: `${token('space.050')};`,
 });
 const itemDescriptionOverride = css({
 	font: token('font.body.small'),
@@ -101,8 +100,8 @@ const itemAfter = css`
 const customRenderItemDivStyle = css`
 	overflow: hidden;
 	&:focus {
-		box-shadow: inset 2px 0px 0px ${token('color.border.focused', B400)};
-		background-color: ${token('color.background.neutral.subtle.hovered', N30)};
+		box-shadow: inset 2px 0px 0px ${token('color.border.focused')};
+		background-color: ${token('color.background.neutral.subtle.hovered')};
 		outline: none;
 	}
 `;
@@ -114,8 +113,8 @@ const customRenderItemDivStyle = css`
  */
 const selectionFrame = {
 	'& > button:focus': {
-		boxShadow: `inset 2px 0px 0px ${token('color.border.focused', B400)};`,
-		backgroundColor: `${token('color.background.neutral.subtle.hovered', N30)}`,
+		boxShadow: `inset 2px 0px 0px ${token('color.border.focused')};`,
+		backgroundColor: `${token('color.background.neutral.subtle.hovered')}`,
 		outline: 'none',
 		'&:active': {
 			boxShadow: 'none',
@@ -129,8 +128,8 @@ const selectionFrame = {
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const selectedStyle = css`
-	background-color: ${token('color.background.neutral.subtle.hovered', N30)};
-	box-shadow: inset 2px 0px 0px ${token('color.border.focused', B400)};
+	background-color: ${token('color.background.neutral.subtle.hovered')};
+	box-shadow: inset 2px 0px 0px ${token('color.border.focused')};
 `;
 
 const disabledStyle = css({
@@ -140,7 +139,7 @@ const disabledStyle = css({
 const titleWithLozengeStyle = css({
 	display: 'flex',
 	alignItems: 'center',
-	gap: `${token('space.050', '4px')}`,
+	gap: `${token('space.050')}`,
 });
 
 const FallbackIcon = React.memo(() => {

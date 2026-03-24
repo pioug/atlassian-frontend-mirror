@@ -80,7 +80,7 @@ interface HandleOpenChangeData {
 }
 
 const addMarginToWrapper = css({
-	marginRight: token('space.050', '4px'),
+	marginRight: token('space.050'),
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -159,6 +159,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 					zIndex={akEditorMenuZIndex}
 					fitWidth={fitWidth}
 					closeOnTab={true}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					arrowKeyNavigationProviderOptions={{
 						type: ArrowKeyNavigationType.COLOR,
 						selectedRowIndex,
@@ -208,6 +209,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 				>
 					<div data-testid="text-color-palette">
 						<ColorPalette
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onClick={(color) =>
 								this.changeTextColor(
 									color,
@@ -216,6 +218,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 								)
 							}
 							selectedColor={pluginState.color}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							paletteOptions={{
 								palette,
 								hexToPaletteColor: hexToEditorTextPaletteColor,

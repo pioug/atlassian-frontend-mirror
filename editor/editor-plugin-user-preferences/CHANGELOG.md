@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-user-preferences
 
+## 6.0.10
+
+### Patch Changes
+
+- [`0f4a08b633f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f4a08b633f6e) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 6.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.8
 
 ### Patch Changes

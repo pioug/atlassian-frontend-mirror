@@ -108,7 +108,7 @@ const defaultCollabUrl = 'https://pf-collab-service--app.ap-southeast-2.dev.atl-
 
 // eslint-disable-next-line
 export const content: any = css({
-	padding: `0 ${token('space.250', '20px')}`,
+	padding: `0 ${token('space.250')}`,
 	height: '50%',
 	background: '#fff',
 	boxSizing: 'border-box',
@@ -301,7 +301,7 @@ export default class Example extends React.Component<Props, State> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						backgroundColor: '#FF5630',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						padding: token('space.150', '12px'),
+						padding: token('space.150'),
 					}}
 				>
 					<strong>NOTE!</strong> Something went wrong in the editor. You may be out of sync.
@@ -320,7 +320,7 @@ export default class Example extends React.Component<Props, State> {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					backgroundColor: '#00B8D9',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					padding: token('space.150', '12px'),
+					padding: token('space.150'),
 				}}
 			>
 				<div>

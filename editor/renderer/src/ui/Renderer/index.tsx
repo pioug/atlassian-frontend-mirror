@@ -580,6 +580,7 @@ export const RendererFunctionalComponent = (
 			<RendererContextProvider value={rendererContext}>
 				<ActiveHeaderIdProvider value={getActiveHeadingId(props.allowHeadingAnchorLinks)}>
 					<AnalyticsContext.Provider
+						// eslint-disable-next-line @atlassian/perf-linting/no-inline-context-value, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						value={{
 							fireAnalyticsEvent: (event: AnalyticsEventPayload) => fireAnalyticsEvent(event),
 						}}
@@ -601,6 +602,7 @@ export const RendererFunctionalComponent = (
 									}
 									addTelepointer={props.addTelepointer}
 									innerRef={editorRef}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onClick={(event) => handleWrapperOnClick(event, props, mouseDownSelection)}
 									onMouseDown={onMouseDownEditView}
 									ssr={props.media?.ssr}
@@ -654,6 +656,7 @@ export const RendererFunctionalComponent = (
 				allowNestedHeaderLinks={isNestedHeaderLinksEnabled(props.allowHeadingAnchorLinks)}
 				useBlockRenderForCodeBlock={rendererContext.featureFlags.useBlockRenderForCodeBlock ?? true}
 				addTelepointer={props.addTelepointer}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClick={(event) => handleWrapperOnClick(event, props, mouseDownSelection)}
 				isTopLevelRenderer={rendererContext.isTopLevelRenderer}
 				allowRendererContainerStyles={props.allowRendererContainerStyles}
@@ -712,6 +715,7 @@ export function Renderer(props: RendererProps) {
 // For the nested renderers - see RendererWithAnnotationSelection.
 export const RendererWithAnalytics = React.memo((props: RendererProps) => (
 	<FabricEditorAnalyticsContext
+		// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 		data={{
 			appearance: getAnalyticsAppearance(props.appearance),
 			packageName,
@@ -722,6 +726,7 @@ export const RendererWithAnalytics = React.memo((props: RendererProps) => (
 		}}
 	>
 		<WithCreateAnalyticsEvent
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			render={(createAnalyticsEvent) => {
 				// `IntlErrorBoundary` only captures Internationalisation errors, leaving others for `ErrorBoundary`.
 				return (
@@ -996,6 +1001,7 @@ function RendererActionsInternalUpdater({
 
 	if (editorExperiment('comment_on_bodied_extensions', true)) {
 		return (
+			// eslint-disable-next-line @atlassian/perf-linting/no-inline-context-value, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			<RootRendererContext.Provider value={{ doc: _doc }}>{children}</RootRendererContext.Provider>
 		);
 	}

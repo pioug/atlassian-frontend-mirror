@@ -139,6 +139,7 @@ export default class Conversation extends React.PureComponent<Props, State> {
 				onCancel={onCancel}
 				onUserClick={onUserClick}
 				dataProviders={dataProviders}
+				// eslint-disable-next-line @atlassian/perf-linting/detect-unnecessary-rerenders, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				renderComment={(props) => (
 					<Comment
 						// Ignored via go/ees005

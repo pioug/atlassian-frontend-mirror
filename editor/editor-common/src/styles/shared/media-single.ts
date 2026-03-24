@@ -37,15 +37,15 @@ const mediaSingleSharedStyle: SerializedStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`table .${richMediaClassName}`]: {
-		marginTop: token('space.150', '12px'),
-		marginBottom: token('space.150', '12px'),
+		marginTop: token('space.150'),
+		marginBottom: token('space.150'),
 		clear: 'both',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&.image-wrap-left[data-layout], &.image-wrap-right[data-layout]': {
 			clear: 'none',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:first-child': {
-				marginTop: token('space.150', '12px'),
+				marginTop: token('space.150'),
 			},
 		},
 	},
@@ -66,7 +66,7 @@ const mediaSingleSharedStyle: SerializedStyles = css({
 			{
 				float: 'none',
 				overflow: 'auto',
-				margin: `${token('space.150', '12px')} 0`,
+				margin: `${token('space.150')} 0`,
 			},
 	},
 });
@@ -106,15 +106,15 @@ const mediaSingleSharedStyleNew: SerializedStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`table .${richMediaClassName}`]: {
-		marginTop: token('space.150', '12px'),
-		marginBottom: token('space.150', '12px'),
+		marginTop: token('space.150'),
+		marginBottom: token('space.150'),
 		clear: 'both',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&.image-wrap-left[data-layout], &.image-wrap-right[data-layout]': {
 			clear: 'none',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:first-child': {
-				marginTop: token('space.150', '12px'),
+				marginTop: token('space.150'),
 			},
 		},
 	},
@@ -135,7 +135,7 @@ const mediaSingleSharedStyleNew: SerializedStyles = css({
 			{
 				float: 'none',
 				overflow: 'auto',
-				margin: `${token('space.150', '12px')} 0`,
+				margin: `${token('space.150')} 0`,
 			},
 	},
 });

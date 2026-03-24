@@ -18,6 +18,8 @@ export interface MediaFilePreviewCache {
 	set(id: string, mode: Mode, cardPreview: MediaFilePreview): void;
 	remove(id: string, mode: Mode): void;
 	clear(): void;
+	acquire(id: string, mode: Mode): void;
+	release(id: string, mode: Mode): void;
 }
 
 export class CardPreviewCacheImpl implements MediaFilePreviewCache {
@@ -40,6 +42,16 @@ export class CardPreviewCacheImpl implements MediaFilePreviewCache {
 
 	clear = (): void => {
 		this.previewCache.clear();
+	};
+
+	acquire = (id: string, mode: Mode): void => {
+		const cacheKey = getCacheKey(id, mode);
+		this.previewCache.acquire(cacheKey);
+	};
+
+	release = (id: string, mode: Mode): void => {
+		const cacheKey = getCacheKey(id, mode);
+		this.previewCache.release(cacheKey);
 	};
 }
 

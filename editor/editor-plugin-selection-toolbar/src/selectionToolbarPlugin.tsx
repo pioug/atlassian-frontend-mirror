@@ -26,7 +26,6 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -214,7 +213,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 										};
 									}
 
-									if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+									if (editorExperiment('platform_editor_block_menu', true)) {
 										const isBlockMenuOpen =
 											api?.userIntent?.sharedState.currentState()?.currentUserIntent ===
 											'blockMenuOpen';
@@ -395,7 +394,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 						if (
 							isBlockMenuOpen &&
 							isEditorControlsEnabled &&
-							expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+							editorExperiment('platform_editor_block_menu', true)
 						) {
 							// If the block menu is open, do not show the selection toolbar.
 							return;

@@ -176,12 +176,14 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 							<Button
 								title={formatLinkAddressText}
 								icon={<ChevronLeftLargeIcon label={formatLinkAddressText} size="small" />}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onClick={() =>
 									this.handleOnBack({
 										url: value,
 										inputMethod: currentInputMethod,
 									})
 								}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onKeyDown={(event) => {
 									if (event.key === 'Enter' || event.key === ' ') {
 										event.preventDefault();
@@ -204,6 +206,7 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 							autoFocus={true}
 							onCancel={this.handleCancel}
 							defaultValue={value}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onSubmit={(inputValue) => {
 								const validationErrors = this.getValidationErrors(inputValue, currentInputMethod);
 								this.setState({ validationErrors });
@@ -211,6 +214,7 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 									onSubmit();
 								}
 							}}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onChange={(value) => {
 								this.setState({ validationErrors: [] });
 								onChange(value);
@@ -227,7 +231,9 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 								<Button
 									title={formatUnlinkText}
 									icon={<EditorUnlinkIcon label={formatUnlinkText} />}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onClick={() => this.handleUnlink()}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onKeyDown={(event) => {
 										if (event.key === 'Enter' || event.key === ' ') {
 											event.preventDefault();

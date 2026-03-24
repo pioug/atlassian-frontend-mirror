@@ -13,10 +13,10 @@ import type { ExtensionParams } from './types/extension-handler';
 import type { Parameters } from './types/extension-parameters';
 
 // Unknown macro placeholder styling aligned with Legacy Content Macro (LCM) for consistent look
-const neutralBorder = token('color.background.neutral', '#0515240F');
+const neutralBorder = token('color.background.neutral');
 
 const unknownMacroContainerStyles = css({
-	backgroundColor: token('elevation.surface.raised', '#fffdf6'),
+	backgroundColor: token('elevation.surface.raised'),
 	border: `1px solid ${neutralBorder}`,
 	borderRadius: token('radius.small'),
 	overflow: 'hidden',
@@ -24,26 +24,26 @@ const unknownMacroContainerStyles = css({
 
 // Match LCM header exactly: lcmHeaderStyles from LegacyContentHeader/index.tsx
 const unknownMacroHeaderStyles = css({
-	backgroundColor: token('color.background.neutral', '#0515240F'),
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.200', '16px'),
-	paddingBottom: token('space.050', '4px'),
-	paddingLeft: token('space.200', '16px'),
+	backgroundColor: token('color.background.neutral'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.050'),
+	paddingLeft: token('space.200'),
 	borderRadius: `${token('radius.small', '4px')} ${token('radius.small', '4px')} 0 0`,
-	borderBottom: `1px solid ${neutralBorder}`,
+	borderBottom: `${token('border.width')} solid ${neutralBorder}`,
 	position: 'relative',
 	top: '-1px',
-	font: token('font.body.small', '12px'),
+	font: token('font.body.small'),
 });
 
 // Match LCM content area: white surface, text color inherits
 const unknownMacroBodyStyles = css({
-	backgroundColor: token('elevation.surface', '#fff'),
+	backgroundColor: token('elevation.surface'),
 	margin: 0,
-	paddingTop: token('space.150', '12px'),
-	paddingRight: token('space.150', '12px'),
-	paddingBottom: token('space.150', '12px'),
-	paddingLeft: token('space.150', '12px'),
+	paddingTop: token('space.150'),
+	paddingRight: token('space.150'),
+	paddingBottom: token('space.150'),
+	paddingLeft: token('space.150'),
 });
 
 const unknownMacroPreStyles = css({
@@ -71,6 +71,7 @@ export function UnknownMacroPlaceholder({
 		const value = String(param?.value ?? '').trim();
 		return `${key} = ${value}`;
 	};
+	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 	const visibleParams = Object.entries(macroParams)
 		.filter(([key]) => !key.startsWith('_'))
 		.map(([key, param]) => formatParam(key, param as { value?: string }))

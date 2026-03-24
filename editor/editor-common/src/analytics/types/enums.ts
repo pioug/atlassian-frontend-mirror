@@ -356,6 +356,7 @@ export enum ACTION_SUBJECT {
 	EDITOR_PLUGIN_SELECTION_EXTENSION = 'editorPluginSelectionExtension',
 	AI_DEFINITIONS = 'aiDefinitions',
 	AI_QUICK_PROMPT = 'aiQuickPrompt',
+	AI_AUTOCOMPLETE = 'aiAutocomplete',
 	USER_PREFERENCES = 'userPreferences',
 	ALIGNMENT = 'alignment',
 	OFFLINE_EDITING = 'offlineEditing',
@@ -365,6 +366,7 @@ export enum ACTION_SUBJECT {
 	BLOCK_MENU_ITEM = 'blockMenuItem',
 	PASTE_ACTIONS_MENU = 'pasteActionsMenu',
 	SYNCED_BLOCK = 'syncedBlock',
+	NATIVE_EMBED = 'nativeEmbed',
 }
 
 export enum ACTION_SUBJECT_ID {

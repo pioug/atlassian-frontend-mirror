@@ -178,9 +178,9 @@ export const getScaledDenseEmojiStyles = (baseFontSize?: number): SerializedStyl
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ProseMirror .ak-editor-panel .ak-editor-panel__icon': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			height: token('space.250', '20px'),
+			height: token('space.250'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			width: token('space.250', '20px'),
+			width: token('space.250'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		[`.ProseMirror h1 :is(.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE})`]:
@@ -290,9 +290,9 @@ export const getDenseEmojiStyles = (baseFontSize?: number): SerializedStyles => 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ProseMirror .ak-editor-panel .ak-editor-panel__icon': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			height: token('space.250', '20px'),
+			height: token('space.250'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			width: token('space.250', '20px'),
+			width: token('space.250'),
 		},
 	});
 };

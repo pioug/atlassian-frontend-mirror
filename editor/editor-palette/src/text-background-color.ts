@@ -7,37 +7,30 @@ export const textBackgroundColorPalette = {
 	/** Gray - light */
 	['#DCDFE4']: token(
 		'color.background.accent.gray.subtler',
-		'#DCDFE4',
 	) as 'var(--ds-background-accent-gray-subtler, #DCDFE4)',
 	/** Teal - light */
 	['#C6EDFB']: token(
 		'color.background.accent.teal.subtler',
-		'#C6EDFB',
 	) as 'var(--ds-background-accent-teal-subtler, #C6EDFB)',
 	/** Lime - light */
 	['#D3F1A7']: token(
 		'color.background.accent.lime.subtler',
-		'#D3F1A7',
 	) as 'var(--ds-background-accent-lime-subtler, #D3F1A7)',
 	/** Yellow - light */
 	['#F8E6A0']: token(
 		'color.background.accent.yellow.subtler',
-		'#F8E6A0',
 	) as 'var(--ds-background-accent-yellow-subtler, #F8E6A0)',
 	/** Orange - light */
 	['#FEDEC8']: token(
 		'color.background.accent.orange.subtler',
-		'#FEDEC8',
 	) as 'var(--ds-background-accent-orange-subtler, #FEDEC8)',
 	/** Magenta - light */
 	['#FDD0EC']: token(
 		'color.background.accent.magenta.subtler',
-		'#FDD0EC',
 	) as 'var(--ds-background-accent-magenta-subtler, #FDD0EC)',
 	/** Purple - light */
 	['#DFD8FD']: token(
 		'color.background.accent.purple.subtler',
-		'#DFD8FD',
 	) as 'var(--ds-background-accent-purple-subtler, #DFD8FD)',
 };
 type TextBackgroundColorPalette = typeof textBackgroundColorPalette;

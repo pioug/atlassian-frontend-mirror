@@ -184,6 +184,7 @@ const BlockMenuContent = ({
 		>
 			<ArrowKeyNavigationProvider
 				type={ArrowKeyNavigationType.MENU}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				handleClose={(e) => e.preventDefault()}
 				disableArrowKeyNavigation={shouldDisableArrowKeyNavigation}
 			>
@@ -350,6 +351,7 @@ const BlockMenu = ({
 				fitHeight={menuHeight}
 				preventOverflow={true}
 				stick={true}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				offset={[DRAG_HANDLE_WIDTH + DRAG_HANDLE_OFFSET_PADDING, targetHandleHeightOffset]}
 				focusTrap={
 					openedViaKeyboard

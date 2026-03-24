@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.0.18
+
+### Patch Changes
+
+- [`bd008993d07cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd008993d07cd) -
+  Reuse the same selectors for determinig hover locations and location to draw drag handle
+- Updated dependencies
+
+## 9.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.16
+
+### Patch Changes
+
+- [`9ed32aea2c1d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ed32aea2c1d3) -
+  Replace feature experiment util with cross platform alternative for platform_editor_block_menu
+- Updated dependencies
+
 ## 9.0.15
 
 ### Patch Changes

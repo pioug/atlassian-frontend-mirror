@@ -22,32 +22,18 @@ export const DragInMotionIcon = ({ style }: DragInMotionIconProps): React.JSX.El
 			width="26"
 			height="18"
 			rx="5"
-			fill={token('color.background.accent.blue.subtle', '#579DFF')}
+			fill={token('color.background.accent.blue.subtle')}
 		/>
-		<rect x="9" y="6" width="2" height="8" rx="1" fill={token('color.border.inverse', '#FFFFFF')} />
-		<rect
-			x="13"
-			y="6"
-			width="2"
-			height="8"
-			rx="1"
-			fill={token('color.border.inverse', '#FFFFFF')}
-		/>
-		<rect
-			x="17"
-			y="6"
-			width="2"
-			height="8"
-			rx="1"
-			fill={token('color.border.inverse', '#FFFFFF')}
-		/>
+		<rect x="9" y="6" width="2" height="8" rx="1" fill={token('color.border.inverse')} />
+		<rect x="13" y="6" width="2" height="8" rx="1" fill={token('color.border.inverse')} />
+		<rect x="17" y="6" width="2" height="8" rx="1" fill={token('color.border.inverse')} />
 		<rect
 			x="1"
 			y="1"
 			width="26"
 			height="18"
 			rx="5"
-			stroke={token('color.border.inverse', '#FFFFFF')}
+			stroke={token('color.border.inverse')}
 			strokeWidth="2"
 		/>
 	</svg>

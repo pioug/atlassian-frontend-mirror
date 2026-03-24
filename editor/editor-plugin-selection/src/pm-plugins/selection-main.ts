@@ -48,7 +48,9 @@ export const createPlugin = (
 				'platform_editor_element_drag_and_drop_multiselect',
 				true,
 			);
-			const needsBlockSelection = expValEquals('platform_editor_block_menu', 'isEnabled', true);
+			const needsBlockSelection = editorExperiment('platform_editor_block_menu', true, {
+				exposure: true,
+			});
 
 			for (let i = transactions.length - 1; i >= 0; i--) {
 				const meta = transactions[i].getMeta(selectionPluginKey);

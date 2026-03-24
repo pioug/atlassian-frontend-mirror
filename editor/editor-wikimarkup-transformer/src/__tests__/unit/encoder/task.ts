@@ -108,11 +108,9 @@ describe('ADF => WikiMarkup - Task', () => {
 		)(stage0Schema);
 
 		expect(transformer.encode(node)).toBe(
-			[
-				'* Level 1 item',
-				'*** -Level 3 item (stepped down)-',
-				'* Level 1 item (stepped up)',
-			].join('\n'),
+			['* Level 1 item', '*** -Level 3 item (stepped down)-', '* Level 1 item (stepped up)'].join(
+				'\n',
+			),
 		);
 	});
 
@@ -133,11 +131,7 @@ describe('ADF => WikiMarkup - Task', () => {
 		)(stage0Schema);
 
 		expect(transformer.encode(node)).toBe(
-			[
-				'**** Depth 4 - first',
-				'**** -Depth 4 - second-',
-				'**** Depth 4 - third',
-			].join('\n'),
+			['**** Depth 4 - first', '**** -Depth 4 - second-', '**** Depth 4 - third'].join('\n'),
 		);
 	});
 

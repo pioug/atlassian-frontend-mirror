@@ -36,7 +36,7 @@ export default class Example extends Component<{}, State> {
 		return (
 			<div>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ padding: token('space.250', '20px'), paddingBottom: 0 }}>
+				<div style={{ padding: token('space.250'), paddingBottom: 0 }}>
 					<p>Max Height</p>
 					<Range value={this.state.maxHeight} min={0} max={300} onChange={this.onMaxHeightChange} />
 					<p>FadeOut Height</p>

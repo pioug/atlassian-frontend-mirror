@@ -114,6 +114,7 @@ export const useImageEditor = (): UseImageEditorReturn => {
 			};
 
 			// Call once to set initial value
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			handleSelectionChange();
 
 			// Attach change listener to selection element

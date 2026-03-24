@@ -72,6 +72,7 @@ class EmojiNode extends PureComponent<EmojiProps, Object> {
 
 		return (
 			<ResourcedEmoji
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				emojiId={{ id, fallback, shortName }}
 				emojiProvider={providers.emojiProvider}
 				showTooltip={showTooltip}
@@ -92,6 +93,7 @@ class EmojiNode extends PureComponent<EmojiProps, Object> {
 	render() {
 		return (
 			<WithProviders
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				providers={['emojiProvider']}
 				providerFactory={this.providerFactory}
 				renderNode={this.renderWithProvider}

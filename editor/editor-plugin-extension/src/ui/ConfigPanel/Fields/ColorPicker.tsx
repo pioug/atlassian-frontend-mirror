@@ -237,6 +237,7 @@ const ColorPicker = (props: Props) => {
 			cols={EXPANDED_COLOR_PICKER_COLUMNS}
 			alignX="right"
 			placement="ConfigPanel"
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			size={{
 				width: token('space.300', '24px'),
 				height: token('space.300', '24px'),
@@ -244,7 +245,7 @@ const ColorPicker = (props: Props) => {
 			/* ED-18288 We align the palette to the right edge which is 1.5rem spacing away to avoid
         excess overflow on left. Additional 1 is to mitigate 1px added by floating toolbar. */
 			// Disabling design token check as this is a calculated value
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			absoluteOffset={{ right: Number(-1.5 * getCurrentRemSize() - 1) }}
 		/>
 	);
@@ -269,6 +270,7 @@ const ColorPickerField = ({
 			isRequired={isRequired}
 			defaultValue={defaultValue}
 			testId={`config-panel-color-picker-${name}`}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			validate={(value?: string) => validate<string>(field, value || '')}
 			isDisabled={isDisabled}
 		>

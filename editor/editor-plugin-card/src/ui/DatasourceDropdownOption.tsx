@@ -126,6 +126,7 @@ export const DatasourceDropdownOption = ({
 			iconBefore={SmartLinkListIcon({
 				label: intl.formatMessage(messages.datasourceAppearanceTitle),
 			})}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onClick={() => dispatchCommand(onChangeAppearance)}
 			isSelected={selected}
 		>

@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
@@ -36,6 +37,7 @@ const getIcon = (stackIconType: string) => {
 
 const FollowAction = (props: FollowActionProps): React.JSX.Element | null => {
 	const context = useFlexibleUiContext();
+	const intl = useIntl();
 
 	const actionData = context?.actions?.[ActionName.FollowAction];
 
@@ -89,6 +91,9 @@ const FollowAction = (props: FollowActionProps): React.JSX.Element | null => {
 	return (
 		<ServerAction
 			content={<FormattedMessage {...label} />}
+			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+				? { ariaLabel: intl.formatMessage(label) }
+				: {})}
 			icon={followIcon}
 			testId="smart-action-follow-action"
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}

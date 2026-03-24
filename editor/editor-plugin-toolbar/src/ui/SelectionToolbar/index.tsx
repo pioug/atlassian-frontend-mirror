@@ -36,7 +36,7 @@ import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { SELECTION_TOOLBAR_LABEL } from '../consts';
@@ -161,7 +161,7 @@ export const SelectionToolbar = ({
 		currentUserIntent === 'dragging' ||
 		!shouldShowToolbar ||
 		(currentUserIntent === 'blockMenuOpen' &&
-			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) ||
+			editorExperiment('platform_editor_block_menu', true)) ||
 		// hide toolbar when user intent is not default, except when it's dragHandleSelected without cell selection
 		(currentUserIntent &&
 			currentUserIntent !== 'default' &&
@@ -173,6 +173,7 @@ export const SelectionToolbar = ({
 
 	return (
 		<Popup
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			offset={[0, 10]}
 			target={getDomRefFromSelection(editorView)}
 			onPositionCalculated={onPositionCalculated}
@@ -190,6 +191,7 @@ export const SelectionToolbar = ({
 				<EditorToolbarUIProvider
 					api={api}
 					isDisabled={isDisabled}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					fireAnalyticsEvent={(payload: unknown) => {
 						api?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
 					}}
@@ -198,6 +200,7 @@ export const SelectionToolbar = ({
 					<ToolbarModelRenderer
 						toolbar={toolbar as RegisterToolbar}
 						components={components}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						fallbacks={{
 							section: ToolbarSection,
 							menuSection: ToolbarDropdownItemSection,

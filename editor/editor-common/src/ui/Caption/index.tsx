@@ -16,7 +16,7 @@ import { token } from '@atlaskit/tokens';
 import { messages } from './messages';
 
 const captionWrapperStyle = css({
-	marginTop: token('space.100', '8px'),
+	marginTop: token('space.100'),
 	textAlign: 'center',
 	position: 'relative',
 	color: token('color.text.subtle'),

@@ -24,7 +24,7 @@ type MoreButtonProps = {
 const MoreIconStyle = css({
 	display: 'flex',
 	alignItems: 'center',
-	height: token('space.300', '24px'),
+	height: token('space.300'),
 });
 
 export const MoreButton: React.MemoExoticComponent<(props: MoreButtonProps) => jsx.JSX.Element> =

@@ -170,17 +170,17 @@ export const smartCardStyles: SerializedStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.card-with-comment': {
 			background: token('color.background.accent.yellow.subtler'),
-			borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
+			borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow')}`,
 			boxShadow: token('elevation.shadow.overlay'),
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.card': {
-			paddingLeft: token('space.025', '2px'),
-			paddingRight: token('space.025', '2px'),
-			paddingTop: token('space.100', '0.5em'),
-			paddingBottom: token('space.100', '0.5em'),
-			marginBottom: token('space.negative.100', '-0.5em'),
+			paddingLeft: token('space.025'),
+			paddingRight: token('space.025'),
+			paddingTop: token('space.100'),
+			paddingBottom: token('space.100'),
+			marginBottom: token('space.negative.100'),
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			[`.${SmartCardSharedCssClassName.LOADER_WRAPPER} > a:focus`]: [
@@ -349,11 +349,11 @@ export const smartCardStylesWithSearchMatch: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.card': {
-			paddingLeft: token('space.025', '2px'),
-			paddingRight: token('space.025', '2px'),
-			paddingTop: token('space.100', '0.5em'),
-			paddingBottom: token('space.100', '0.5em'),
-			marginBottom: token('space.negative.100', '-0.5em'),
+			paddingLeft: token('space.025'),
+			paddingRight: token('space.025'),
+			paddingTop: token('space.100'),
+			paddingBottom: token('space.100'),
+			marginBottom: token('space.negative.100'),
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			[`.${SmartCardSharedCssClassName.LOADER_WRAPPER} > a:focus`]: [
@@ -534,11 +534,11 @@ export const smartCardStylesWithSearchMatchAndBlockMenuDangerStyles: SerializedS
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.card': {
-			paddingLeft: token('space.025', '2px'),
-			paddingRight: token('space.025', '2px'),
-			paddingTop: token('space.100', '0.5em'),
-			paddingBottom: token('space.100', '0.5em'),
-			marginBottom: token('space.negative.100', '-0.5em'),
+			paddingLeft: token('space.025'),
+			paddingRight: token('space.025'),
+			paddingTop: token('space.100'),
+			paddingBottom: token('space.100'),
+			marginBottom: token('space.negative.100'),
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			[`.${SmartCardSharedCssClassName.LOADER_WRAPPER} > a:focus`]: [
@@ -708,7 +708,7 @@ export const smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness: Serial
 	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-nested-selectors
 		[`.${SmartCardSharedCssClassName.EMBED_CARD_CONTAINER}`]: {
-			marginTop: token('space.150', '0.75rem'),
+			marginTop: token('space.150'),
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values

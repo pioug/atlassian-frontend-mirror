@@ -160,6 +160,7 @@ export const LinkAppearanceMenu = ({
 						<ButtonItem
 							key={option.title}
 							iconBefore={option.icon}
+							// eslint-disable-next-line @atlassian/perf-linting/detect-unnecessary-rerenders, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onClick={() => option.onClick()}
 							isSelected={option.selected}
 							description={option.description}

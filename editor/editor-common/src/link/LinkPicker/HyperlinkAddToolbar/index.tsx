@@ -77,8 +77,10 @@ export function HyperlinkAddToolbar({
 }: HyperlinkAddToolbarProps): React.JSX.Element {
 	return (
 		<WithProviders
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			providers={['activityProvider', 'searchProvider']}
 			providerFactory={providerFactory}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			renderNode={({ activityProvider, searchProvider }) => {
 				// If we're offline fallback to HyperlinkAddToolbarComp as we may not have loaded
 				// EditorLinkPicker into the bundle

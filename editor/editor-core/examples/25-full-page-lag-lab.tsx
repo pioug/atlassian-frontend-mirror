@@ -93,12 +93,12 @@ const exampleWrapper = css({
 
 const latencyPanelContainer = css({
 	maxWidth: '250px',
-	padding: token('space.200', '16px'),
+	padding: token('space.200'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"input[type='number']": {
 		width: '230px',
-		padding: token('space.050', '4px'),
-		margin: token('space.050', '4px'),
+		padding: token('space.050'),
+		margin: token('space.050'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:first-child': {
 			marginLeft: 0,

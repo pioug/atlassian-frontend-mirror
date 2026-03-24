@@ -27,6 +27,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { CardSSR } from '../../../ssr';
 import * as useSmartCardActions from '../../../state/actions';
+import * as useAISummary from '../../../state/hooks/use-ai-summary';
 import { fakeFactory } from '../../../utils/mocks';
 import { Card } from '../../Card';
 
@@ -315,13 +316,18 @@ describe('HoverCard', () => {
 				});
 
 				it('should render Rovo AI summary on google-object-provider link', async () => {
+					jest.spyOn(useAISummary, 'useAISummary').mockReturnValue({
+						summariseUrl: jest.fn(),
+						state: { status: 'done', content: 'this is a summary' },
+					});
+
 					await setup({
 						extraCardProps: { actionOptions },
 						mock,
 						rovoOptions,
 					});
 
-					const aiSummaryBlock = await screen.findByTestId('smart-ai-summary-block-placeholder');
+					const aiSummaryBlock = await screen.findByTestId('smart-ai-summary-block-resolved-view');
 					expect(aiSummaryBlock).toBeInTheDocument();
 				});
 

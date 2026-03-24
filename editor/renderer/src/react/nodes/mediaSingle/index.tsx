@@ -304,6 +304,7 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 				height={height}
 				lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
 				containerWidth={containerWidth}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				size={{
 					width: widthAttr,
 					widthType,

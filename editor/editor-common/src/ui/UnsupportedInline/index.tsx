@@ -32,9 +32,9 @@ const inlineNodeStyle = css({
 	display: 'inline-flex',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(14),
-	margin: `0 ${token('space.025', '2px')}`,
+	margin: `0 ${token('space.025')}`,
 	minHeight: '24px',
-	padding: `0 ${token('space.100', '8px')}`,
+	padding: `0 ${token('space.100')}`,
 	verticalAlign: 'middle',
 	whiteSpace: 'nowrap',
 });

@@ -1,5 +1,13 @@
 # @atlaskit/editor-cq-transformer
 
+## 15.0.2
+
+### Patch Changes
+
+- [`d497cbb2d150f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d497cbb2d150f) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 15.0.1
 
 ### Patch Changes

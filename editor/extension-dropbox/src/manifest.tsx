@@ -51,8 +51,10 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 		}
 		if (expValEquals('platform_editor_react19_migration', 'isEnabled', true)) {
 			root = createRoot(popupMountPoint);
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			root.render(<Modal.default onClose={() => {}} />);
 		} else {
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			ReactDOM.render(<Modal.default onClose={() => {}} />, popupMountPoint);
 		}
 	}

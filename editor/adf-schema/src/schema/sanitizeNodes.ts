@@ -8,6 +8,7 @@ export function sanitizeNodes(
 	nodeNames.forEach((nodeKey) => {
 		const nodeSpec = { ...nodes[nodeKey] };
 		if (nodeSpec.marks && nodeSpec.marks !== '_') {
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			nodeSpec.marks = nodeSpec.marks
 				.split(' ')
 				.filter((mark) => !!supportedMarks[mark])

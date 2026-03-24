@@ -26,7 +26,7 @@ export default function TwoColumnLayoutIcon(): React.JSX.Element {
 					width="39"
 					height="39"
 					rx="2.5"
-					stroke={token('color.border', '#091E42')}
+					stroke={token('color.border')}
 					strokeOpacity="0.14"
 				/>
 			</g>

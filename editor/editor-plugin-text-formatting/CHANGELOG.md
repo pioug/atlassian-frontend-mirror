@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 8.1.6
+
+### Patch Changes
+
+- [`0f4a08b633f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f4a08b633f6e) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 8.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.4
 
 ### Patch Changes

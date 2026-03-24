@@ -14,7 +14,7 @@ export const shortcutStyle: SerializedStyles = css`
 	background-color: ${token('color.background.neutral')};
 	color: ${token('color.text.subtle')};
 	border-radius: ${token('radius.small', '3px')};
-	padding: ${token('space.050', '4px')};
+	padding: ${token('space.050')};
 	line-height: 12px;
 	font-size: ${relativeFontSizeToBase16(11.67)};
 	align-self: flex-end;

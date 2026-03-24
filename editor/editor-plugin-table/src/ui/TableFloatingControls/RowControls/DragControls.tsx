@@ -318,7 +318,7 @@ export const DragControls = ({
 				left: isDragging
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						`-${dropTargetExtendedWidth + 2}px`
-					: token('space.negative.025', '-2px'),
+					: token('space.negative.025'),
 			}}
 			onMouseMove={handleMouseMove}
 			contentEditable={false}
@@ -352,6 +352,7 @@ export const DragControls = ({
 							key={`drop-target-${index}`}
 							index={index}
 							localId={currentNodeLocalId}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							style={{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								gridColumn: '1 / span 3',
@@ -363,7 +364,7 @@ export const DragControls = ({
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								position: 'relative',
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								left: token('space.negative.100', '-8px'),
+								left: token('space.negative.100'),
 							}}
 						/>
 					)}

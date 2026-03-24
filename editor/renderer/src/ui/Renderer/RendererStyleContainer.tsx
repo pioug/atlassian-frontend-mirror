@@ -7,28 +7,12 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
-import {
-	B300,
-	B400,
-	B500,
-	N20,
-	N200,
-	N30A,
-	N40A,
-	N60A,
-	N800,
-	R50,
-	R500,
-	Y300,
-	Y75,
-} from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { type RendererWrapperProps } from './index';
 import { FullPagePadding } from './style';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { RendererCssClassName } from '../../consts';
 import {
-	akEditorBlockquoteBorderColor,
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
 	akEditorFullPageNarrowBreakout,
@@ -41,10 +25,8 @@ import {
 	akEditorSelectedNodeClassName,
 	akEditorShadowZIndex,
 	akEditorStickyHeaderZIndex,
-	akEditorTableBorder,
 	akEditorTableCellMinWidth,
 	akEditorTableNumberColumnWidth,
-	akEditorTableToolbar,
 	blockNodesVerticalMargin,
 	scaledBlockNodesVerticalMargin,
 	gridMediumMaxWidth,
@@ -140,7 +122,7 @@ const originalBaseFontLineHeight = css({
 const baseStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 'var(--ak-renderer-base-font-size)',
-	color: token('color.text', N800),
+	color: token('color.text'),
 
 	'--ak-editor--full-width-layout-width': `${akEditorFullWidthLayoutWidth}px`,
 
@@ -219,20 +201,20 @@ const baseStyles = css({
 	},
 
 	[`& span.akActionMark`]: {
-		color: token('color.link', B400),
+		color: token('color.link'),
 		textDecoration: 'none',
 		cursor: 'pointer',
 		'&:hover': {
-			color: token('color.link', B300),
+			color: token('color.link'),
 			textDecoration: 'underline',
 		},
 		'&:active': {
-			color: token('color.link.pressed', B500),
+			color: token('color.link.pressed'),
 		},
 	},
 
 	'& span[data-placeholder]': {
-		color: token('color.text.subtlest', N200),
+		color: token('color.text.subtlest'),
 	},
 });
 
@@ -240,7 +222,7 @@ const headingAnchorStylesDuplicateAnchor = css({
 	'& h1, & h2, & h3, & h4, & h5, & h6': {
 		[`.${HeadingAnchorWrapperClassName}`]: {
 			position: 'absolute',
-			marginLeft: token('space.075', '6px'),
+			marginLeft: token('space.075'),
 
 			button: {
 				paddingLeft: 0,
@@ -314,7 +296,7 @@ const headingAnchorStylesDuplicateAnchor = css({
 const headingAnchorStyles = css({
 	'& .renderer-heading-wrapper': {
 		[`.${HeadingAnchorWrapperClassName}`]: {
-			marginLeft: token('space.075', '6px'),
+			marginLeft: token('space.075'),
 
 			button: {
 				paddingLeft: 0,
@@ -544,7 +526,7 @@ const rovoTelepointerStyles = css({
 		width: '1.5px',
 		height: '24px',
 		backgroundColor: token('color.background.brand.bold'),
-		marginLeft: token('space.025', '2px'),
+		marginLeft: token('space.025'),
 
 		'&::after': {
 			content: '""',
@@ -565,7 +547,7 @@ const rovoTelepointerStyles = css({
 			position: 'absolute',
 			fontFamily: token('font.family.body'),
 			fontWeight: token('font.weight.semibold'),
-			color: token('color.text.inverse', 'white'),
+			color: token('color.text.inverse'),
 			backgroundColor: token('color.text'),
 			top: 1,
 			left: 1,
@@ -593,19 +575,16 @@ const blockquoteSharedStyles = css({
 		color: 'inherit',
 		width: '100%',
 		display: 'inline-block',
-		paddingLeft: token('space.200', '16px'),
+		paddingLeft: token('space.200'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		borderLeft: `${token('border.width.selected')} solid ${token(
-			'color.border',
-			akEditorBlockquoteBorderColor,
-		)}`,
+		borderLeft: `${token('border.width.selected')} solid ${token('color.border')}`,
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		margin: `${blockNodesVerticalMargin} 0 0 0`,
 		marginRight: 0,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		"[dir='rtl'] &": {
 			paddingLeft: 0,
-			paddingRight: token('space.200', '16px'),
+			paddingRight: token('space.200'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:first-child': {
@@ -678,7 +657,7 @@ const headingsSharedStyles = css({
 	'& h4': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		font: `var(--ak-renderer-editor-font-heading-h4)`,
-		marginTop: token('space.250', '1.25em'),
+		marginTop: token('space.250'),
 		'& strong': {
 			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
 			fontWeight: token('font.weight.bold'),
@@ -981,7 +960,7 @@ const listsSharedStylesForGekko = css({
 /**
  * Hides list markers for "wrapper items" - list items that only contain nested lists with no other content.
  * These wrapper items have no meaningful content themselves, only nested lists below.
- * Applied when platform_editor_flexible_list_indentation experiment is enabled.
+ * Applied when platform_editor_flexible_list_schema experiment is enabled.
  */
 const listItemHiddenMarkerStyles = css({
 	// Hide markers and remove spacing for wrapper list items (items containing only nested lists)
@@ -1112,8 +1091,8 @@ const codeMarkSharedStyles = css({
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontFamily: token('font.family.code'),
 		fontWeight: token('font.weight.regular'),
-		backgroundColor: `var(--ds--code--bg-color,${token('color.background.neutral', N20)})`,
-		color: token('color.text', N800),
+		backgroundColor: `var(--ds--code--bg-color,${token('color.background.neutral')})`,
+		color: token('color.text'),
 		borderStyle: 'none',
 		borderRadius: token('radius.small', '3px'),
 		display: 'inline',
@@ -1213,10 +1192,7 @@ const shadowSharedStyle = css({
 	[`& .${shadowClassNames.LEFT_SHADOW}::before`]: {
 		background: `linear-gradient( to left, transparent 0, ${token(
 			'elevation.shadow.overflow.spread',
-		)} 140% ), linear-gradient( to right, ${token(
-			'elevation.shadow.overflow.perimeter',
-			'transparent',
-		)} 0px, transparent 1px )`,
+		)} 140% ), linear-gradient( to right, ${token('elevation.shadow.overflow.perimeter')} 0px, transparent 1px )`,
 		top: '0px',
 		left: 0,
 		display: 'block',
@@ -1225,10 +1201,7 @@ const shadowSharedStyle = css({
 	[`& .${shadowClassNames.RIGHT_SHADOW}::after`]: {
 		background: `linear-gradient( to right, transparent 0, ${token(
 			'elevation.shadow.overflow.spread',
-		)} 140% ), linear-gradient( to left, ${token(
-			'elevation.shadow.overflow.perimeter',
-			'transparent',
-		)} 0px, transparent 1px )`,
+		)} 140% ), linear-gradient( to left, ${token('elevation.shadow.overflow.perimeter')} 0px, transparent 1px )`,
 		right: '0px',
 		top: '0px',
 		display: 'block',
@@ -1292,13 +1265,13 @@ const backgroundColorStyles = css({
 export const textHighlightPaddingStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.fabric-background-color-mark:has(.background-color-padding-left)': {
-		paddingLeft: token('space.025', '2px'),
-		marginLeft: token('space.negative.025', '-2px'),
+		paddingLeft: token('space.025'),
+		marginLeft: token('space.negative.025'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.fabric-background-color-mark:has(.background-color-padding-right)': {
-		paddingRight: token('space.025', '2px'),
-		marginRight: token('space.negative.025', '-2px'),
+		paddingRight: token('space.025'),
+		marginRight: token('space.negative.025'),
 	},
 });
 
@@ -1337,20 +1310,20 @@ const tasksAndDecisionsStyles = css({
 	},
 
 	'div[data-task-list-local-id]': {
-		marginTop: token('space.150', '12px'),
+		marginTop: token('space.150'),
 		marginRight: 0,
 		marginBottom: 0,
 		marginLeft: 0,
 		// If task item is not first in the list then set margin top to 4px.
 		'div + div': {
-			marginTop: token('space.050', '4px'),
+			marginTop: token('space.050'),
 		},
 	},
 
 	// If task list is not first in the document then set margin top to 4px.
 	'div[data-task-list-local-id] div[data-task-list-local-id]': {
-		marginTop: token('space.050', '4px'),
-		marginLeft: token('space.300', '24px'),
+		marginTop: token('space.050'),
+		marginLeft: token('space.300'),
 	},
 
 	/* When action list is inside panel */
@@ -1446,26 +1419,26 @@ const baseOtherStylesDuplicateAnchor = css({
 		wordWrap: 'break-word',
 	},
 	'& span.date-node': {
-		backgroundColor: token('color.background.neutral', N30A),
+		backgroundColor: token('color.background.neutral'),
 		borderRadius: token('radius.small', '3px'),
-		color: token('color.text', N800),
-		paddingTop: token('space.025', '2px'),
-		paddingRight: token('space.050', '4px'),
-		paddingBottom: token('space.025', '2px'),
-		paddingLeft: token('space.050', '4px'),
+		color: token('color.text'),
+		paddingTop: token('space.025'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.025'),
+		paddingLeft: token('space.050'),
 		margin: `0 1px`,
 		transition: `background 0.3s`,
 	},
 	'& span.date-node-highlighted': {
-		backgroundColor: token('color.background.danger', R50),
-		color: token('color.text.danger', R500),
+		backgroundColor: token('color.background.danger'),
+		color: token('color.text.danger'),
 	},
 	'& .renderer-image': {
 		maxWidth: '100%',
 		display: 'block',
-		marginTop: token('space.300', '24px'),
+		marginTop: token('space.300'),
 		marginRight: 0,
-		marginBottom: token('space.300', '24px'),
+		marginBottom: token('space.300'),
 		marginLeft: 0,
 	},
 
@@ -1488,7 +1461,7 @@ const baseOtherStylesDuplicateAnchor = css({
 	'& .rich-media-wrapped': {
 		'& + .renderer-heading-wrapper': {
 			'h1, h2, h3, h4, h5, h6': {
-				marginTop: token('space.100', '8px'),
+				marginTop: token('space.100'),
 			},
 		},
 	},
@@ -1586,26 +1559,26 @@ const baseOtherStyles = css({
 		wordWrap: 'break-word',
 	},
 	'& span.date-node': {
-		backgroundColor: token('color.background.neutral', N30A),
+		backgroundColor: token('color.background.neutral'),
 		borderRadius: token('radius.small', '3px'),
-		color: token('color.text', N800),
-		paddingTop: token('space.025', '2px'),
-		paddingRight: token('space.050', '4px'),
-		paddingBottom: token('space.025', '2px'),
-		paddingLeft: token('space.050', '4px'),
+		color: token('color.text'),
+		paddingTop: token('space.025'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.025'),
+		paddingLeft: token('space.050'),
 		margin: `0 1px`,
 		transition: `background 0.3s`,
 	},
 	'& span.date-node-highlighted': {
-		backgroundColor: token('color.background.danger', R50),
-		color: token('color.text.danger', R500),
+		backgroundColor: token('color.background.danger'),
+		color: token('color.text.danger'),
 	},
 	'& .renderer-image': {
 		maxWidth: '100%',
 		display: 'block',
-		marginTop: token('space.300', '24px'),
+		marginTop: token('space.300'),
 		marginRight: 0,
-		marginBottom: token('space.300', '24px'),
+		marginBottom: token('space.300'),
 		marginLeft: 0,
 	},
 
@@ -1628,7 +1601,7 @@ const baseOtherStyles = css({
 	'& .rich-media-wrapped': {
 		'& + .renderer-heading-wrapper': {
 			'h1, h2, h3, h4, h5, h6': {
-				marginTop: token('space.100', '8px'),
+				marginTop: token('space.100'),
 			},
 		},
 	},
@@ -1719,14 +1692,14 @@ const alignedHeadingAnchorStyleDuplicateAnchor = css({
 	'.fabric-editor-block-mark:not([data-align="center"])[data-align]': {
 		[`.${HeadingAnchorWrapperClassName}`]: {
 			marginTop: 0,
-			marginRight: token('space.075', '6px'),
+			marginRight: token('space.075'),
 			marginBottom: 0,
 			marginLeft: 0,
 			// If the anchor is right aligned then the left side of the heading
 			// is aligned with the left side of the anchor.
 			// In order to align as expected we transform it the width of the element (plus our expected 6px)
 			// to the left
-			transform: `translateX(calc(-100% - ${token('space.075', '6px')}))`,
+			transform: `translateX(calc(-100% - ${token('space.075')}))`,
 		},
 		'@media (hover: hover) and (pointer: fine)': {
 			[`.${HeadingAnchorWrapperClassName} > button`]: {
@@ -1759,14 +1732,14 @@ const alignedHeadingAnchorStyle = css({
 	'.fabric-editor-block-mark:not([data-align="center"])[data-align]': {
 		[`.${HeadingAnchorWrapperClassName}`]: {
 			marginTop: 0,
-			marginRight: token('space.075', '6px'),
+			marginRight: token('space.075'),
 			marginBottom: 0,
 			marginLeft: 0,
 			// If the anchor is right aligned then the left side of the heading
 			// is aligned with the left side of the anchor.
 			// In order to align as expected we transform it the width of the element (plus our expected 6px)
 			// to the left
-			transform: `translateX(calc(-100% - ${token('space.075', '6px')}))`,
+			transform: `translateX(calc(-100% - ${token('space.075')}))`,
 		},
 		'@media (hover: hover) and (pointer: fine)': {
 			[`.${HeadingAnchorWrapperClassName} > button`]: {
@@ -1816,15 +1789,15 @@ const mediaSingleSharedStyle = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`table .${richMediaClassName}`]: {
-		marginTop: token('space.150', '12px'),
-		marginBottom: token('space.150', '12px'),
+		marginTop: token('space.150'),
+		marginBottom: token('space.150'),
 		clear: 'both',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&.image-wrap-left[data-layout], &.image-wrap-right[data-layout]': {
 			clear: 'none',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:first-child': {
-				marginTop: token('space.150', '12px'),
+				marginTop: token('space.150'),
 			},
 		},
 	},
@@ -1845,9 +1818,9 @@ const mediaSingleSharedStyle = css({
 			{
 				float: 'none',
 				overflow: 'auto',
-				marginTop: token('space.150', '12px'),
+				marginTop: token('space.150'),
 				marginRight: 0,
-				marginBottom: token('space.150', '12px'),
+				marginBottom: token('space.150'),
 				marginLeft: 0,
 			},
 	},
@@ -1858,94 +1831,94 @@ const tableSharedStyle = css({
 	// originally from packages/editor/editor-common/src/styles/shared/tableCell.ts
 	// Hardcoding the background color for the table cells to avoid the use of inline styles
 	'td[colorname="white" i], th[colorname="white" i]': {
-		backgroundColor: `${token('elevation.surface', '#FFFFFF')} !important`,
+		backgroundColor: `${token('elevation.surface')} !important`,
 	},
 
 	'td[colorname="light blue" i], th[colorname="light blue" i]': {
-		backgroundColor: `${token('color.background.accent.blue.subtlest', '#DEEBFF')} !important`,
+		backgroundColor: `${token('color.background.accent.blue.subtlest')} !important`,
 	},
 
 	'td[colorname="light teal" i], th[colorname="light teal" i]': {
-		backgroundColor: `${token('color.background.accent.teal.subtlest', '#E6FCFF')} !important`,
+		backgroundColor: `${token('color.background.accent.teal.subtlest')} !important`,
 	},
 
 	'td[colorname="light green" i], th[colorname="light green" i]': {
-		backgroundColor: `${token('color.background.accent.green.subtlest', '#E3FCEF')} !important`,
+		backgroundColor: `${token('color.background.accent.green.subtlest')} !important`,
 	},
 
 	'td[colorname="light yellow" i], th[colorname="light yellow" i]': {
-		backgroundColor: `${token('color.background.accent.yellow.subtlest', '#FFFAE6')} !important`,
+		backgroundColor: `${token('color.background.accent.yellow.subtlest')} !important`,
 	},
 
 	'td[colorname="light red" i], th[colorname="light red" i]': {
-		backgroundColor: `${token('color.background.accent.red.subtlest', '#FFEBE6')} !important`,
+		backgroundColor: `${token('color.background.accent.red.subtlest')} !important`,
 	},
 
 	'td[colorname="light purple" i], th[colorname="light purple" i]': {
-		backgroundColor: `${token('color.background.accent.purple.subtlest', '#EAE6FF')} !important`,
+		backgroundColor: `${token('color.background.accent.purple.subtlest')} !important`,
 	},
 
 	'td[colorname="light gray" i], th[colorname="light gray" i]': {
-		backgroundColor: `${token('color.background.accent.gray.subtlest', '#F4F5F7')} !important`,
+		backgroundColor: `${token('color.background.accent.gray.subtlest')} !important`,
 	},
 
 	'td[colorname="blue" i], th[colorname="blue" i]': {
-		backgroundColor: `${token('color.background.accent.blue.subtler', '#B3D4FF')} !important`,
+		backgroundColor: `${token('color.background.accent.blue.subtler')} !important`,
 	},
 
 	'td[colorname="teal" i], th[colorname="teal" i]': {
-		backgroundColor: `${token('color.background.accent.teal.subtler', '#B3F5FF')} !important`,
+		backgroundColor: `${token('color.background.accent.teal.subtler')} !important`,
 	},
 
 	'td[colorname="green" i], th[colorname="green" i]': {
-		backgroundColor: `${token('color.background.accent.green.subtler', '#ABF5D1')} !important`,
+		backgroundColor: `${token('color.background.accent.green.subtler')} !important`,
 	},
 
 	'td[colorname="yellow" i], th[colorname="yellow" i]': {
-		backgroundColor: `${token('color.background.accent.yellow.subtler', '#FFF0B3')} !important`,
+		backgroundColor: `${token('color.background.accent.yellow.subtler')} !important`,
 	},
 
 	'td[colorname="red" i], th[colorname="red" i]': {
-		backgroundColor: `${token('color.background.accent.red.subtler', '#FFBDAD')} !important`,
+		backgroundColor: `${token('color.background.accent.red.subtler')} !important`,
 	},
 
 	'td[colorname="purple" i], th[colorname="purple" i]': {
-		backgroundColor: `${token('color.background.accent.purple.subtler', '#C0B6F2')} !important`,
+		backgroundColor: `${token('color.background.accent.purple.subtler')} !important`,
 	},
 
 	'td[colorname="gray" i], th[colorname="gray" i]': {
-		backgroundColor: `${token('color.background.accent.gray.subtle', '#B3BAC5')} !important`,
+		backgroundColor: `${token('color.background.accent.gray.subtle')} !important`,
 	},
 
 	'td[colorname="dark blue" i], th[colorname="dark blue" i]': {
-		backgroundColor: `${token('color.background.accent.blue.subtle', '#4C9AFF')} !important`,
+		backgroundColor: `${token('color.background.accent.blue.subtle')} !important`,
 	},
 
 	'td[colorname="dark teal" i], th[colorname="dark teal" i]': {
-		backgroundColor: `${token('color.background.accent.teal.subtle', '#79E2F2')} !important`,
+		backgroundColor: `${token('color.background.accent.teal.subtle')} !important`,
 	},
 
 	'td[colorname="dark green" i], th[colorname="dark green" i]': {
-		backgroundColor: `${token('color.background.accent.green.subtle', '#57D9A3')} !important`,
+		backgroundColor: `${token('color.background.accent.green.subtle')} !important`,
 	},
 
 	'td[colorname="dark yellow" i], th[colorname="dark yellow" i]': {
-		backgroundColor: `${token('color.background.accent.orange.subtle', '#FFC400')} !important`,
+		backgroundColor: `${token('color.background.accent.orange.subtle')} !important`,
 	},
 
 	'td[colorname="dark red" i], th[colorname="dark red" i]': {
-		backgroundColor: `${token('color.background.accent.red.subtle', '#FF8F73')} !important`,
+		backgroundColor: `${token('color.background.accent.red.subtle')} !important`,
 	},
 
 	'td[colorname="dark purple" i], th[colorname="dark purple" i]': {
-		backgroundColor: `${token('color.background.accent.purple.subtle', '#998DD9')} !important`,
+		backgroundColor: `${token('color.background.accent.purple.subtle')} !important`,
 	},
 
 	[`.${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		position: 'relative',
 		marginTop: 0,
 		marginRight: 'auto',
-		marginBottom: token('space.200', '16px'),
+		marginBottom: token('space.200'),
 		marginLeft: 'auto',
 		boxSizing: 'border-box',
 		/**
@@ -1970,7 +1943,7 @@ const tableSharedStyle = css({
 	},
 
 	[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table`]: {
-		marginTop: token('space.300', '24px'),
+		marginTop: token('space.300'),
 		marginRight: 0,
 		marginBottom: 0,
 		marginLeft: 0,
@@ -1978,8 +1951,8 @@ const tableSharedStyle = css({
 
 	[`.${TableSharedCssClassName.TABLE_CONTAINER} > table,
 	.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]: {
-		marginTop: token('space.300', '24px'),
-		marginRight: token('space.100', '8px'),
+		marginTop: token('space.300'),
+		marginRight: token('space.100'),
 		marginBottom: 0,
 		marginLeft: 0,
 	},
@@ -1989,10 +1962,7 @@ const tableSharedStyle = css({
 	.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
 	.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]: {
 		borderCollapse: 'collapse',
-		border: `${tableCellBorderWidth}px solid ${token(
-			'color.background.accent.gray.subtler',
-			akEditorTableBorder,
-		)}`,
+		border: `${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
 		tableLayout: 'fixed',
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: '1em',
@@ -2012,13 +1982,13 @@ const tableSharedStyle = css({
 			borderBottom: 'none',
 		},
 		'th td': {
-			backgroundColor: token('color.background.neutral.subtle', 'white'),
+			backgroundColor: token('color.background.neutral.subtle'),
 		},
 		'> tbody > tr > td': {
 			backgroundColor: token('elevation.surface'),
 		},
 		th: {
-			backgroundColor: token('color.background.accent.gray.subtlest', akEditorTableToolbar),
+			backgroundColor: token('color.background.accent.gray.subtlest'),
 			textAlign: 'left',
 
 			/* only apply this styling to codeblocks in default background headercells */
@@ -2026,52 +1996,52 @@ const tableSharedStyle = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&:not([style]):not(.danger)': {
 				[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}:not(.danger)`]: {
-					backgroundColor: token('elevation.surface.raised', 'rgb(235, 237, 240)'),
+					backgroundColor: token('elevation.surface.raised'),
 
 					[`&:not(.${akEditorSelectedNodeClassName})`]: {
-						boxShadow: `0px 0px 0px 1px ${token('color.border', 'transparent')}`,
+						boxShadow: `0px 0px 0px 1px ${token('color.border')}`,
 					},
 
 					[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}`]: {
 						// originally copied from packages/editor/editor-shared-styles/src/overflow-shadow/overflow-shadow.ts
 						backgroundImage: `linear-gradient(
 							to right,
-							${token('color.background.neutral')} ${token('space.300', '24px')},
-							transparent ${token('space.300', '24px')}
+							${token('color.background.neutral')} ${token('space.300')},
+							transparent ${token('space.300')}
 						  ),linear-gradient(
 							to right,
-							${token('elevation.surface.raised')} ${token('space.300', '24px')},
-							transparent ${token('space.300', '24px')}
+							${token('elevation.surface.raised')} ${token('space.300')},
+							transparent ${token('space.300')}
 						  ),linear-gradient(
 							to left,
-							${token('color.background.neutral')} ${token('space.100', '8px')},
-							transparent ${token('space.100', '8px')}
+							${token('color.background.neutral')} ${token('space.100')},
+							transparent ${token('space.100')}
 						  ),linear-gradient(
 							to left,
-							${token('elevation.surface.raised')} ${token('space.100', '8px')},
-							transparent ${token('space.100', '8px')}
+							${token('elevation.surface.raised')} ${token('space.100')},
+							transparent ${token('space.100')}
 						  ),linear-gradient(
 							to left,
 							${token('elevation.shadow.overflow.spread')} 0,
-							${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+							${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 						  ),linear-gradient(
 							to left,
 							${token('elevation.shadow.overflow.perimeter')} 0,
-							${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+							${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 						  ),linear-gradient(
 							to right,
 							${token('elevation.shadow.overflow.spread')} 0,
-							${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+							${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 						  ),linear-gradient(
 							to right,
 							${token('elevation.shadow.overflow.perimeter')} 0,
-							${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+							${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 						  )`,
-						backgroundColor: token('color.background.neutral', 'rgb(235, 237, 240)'),
+						backgroundColor: token('color.background.neutral'),
 					},
 
 					[`.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]: {
-						backgroundColor: token('color.background.neutral', 'rgb(226, 229, 233)'),
+						backgroundColor: token('color.background.neutral'),
 					},
 
 					/* this is only relevant to the element taken care of by renderer */
@@ -2079,45 +2049,42 @@ const tableSharedStyle = css({
 						// originally copied from packages/editor/editor-shared-styles/src/overflow-shadow/overflow-shadow.ts
 						backgroundImage: `linear-gradient(
 							to right,
-							${token('color.background.neutral')} ${token('space.300', '24px')},
-							transparent ${token('space.300', '24px')}
+							${token('color.background.neutral')} ${token('space.300')},
+							transparent ${token('space.300')}
 						  ),linear-gradient(
 							to right,
-							${token('elevation.surface.raised')} ${token('space.300', '24px')},
-							transparent ${token('space.300', '24px')}
+							${token('elevation.surface.raised')} ${token('space.300')},
+							transparent ${token('space.300')}
 						  ),linear-gradient(
 							to left,
-							${token('color.background.neutral')} ${token('space.100', '8px')},
-							transparent ${token('space.100', '8px')}
+							${token('color.background.neutral')} ${token('space.100')},
+							transparent ${token('space.100')}
 						  ),linear-gradient(
 							to left,
-							${token('elevation.surface.raised')} ${token('space.100', '8px')},
-							transparent ${token('space.100', '8px')}
+							${token('elevation.surface.raised')} ${token('space.100')},
+							transparent ${token('space.100')}
 						  ),linear-gradient(
 							to left,
 							${token('elevation.shadow.overflow.spread')} 0,
-							${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+							${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 						  ),linear-gradient(
 							to left,
 							${token('elevation.shadow.overflow.perimeter')} 0,
-							${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+							${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 						  ),linear-gradient(
 							to right,
 							${token('elevation.shadow.overflow.spread')} 0,
-							${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+							${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 						  ),linear-gradient(
 							to right,
 							${token('elevation.shadow.overflow.perimeter')} 0,
-							${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+							${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 						  )`,
 
-						backgroundColor: `${token('color.background.neutral', 'rgb(235, 237, 240)')}!important`,
+						backgroundColor: `${token('color.background.neutral')}!important`,
 
 						// selector lives inside @atlaskit/code
-						'--ds--code--line-number-bg-color': token(
-							'color.background.neutral',
-							'rgb(226, 229, 233)',
-						),
+						'--ds--code--line-number-bg-color': token('color.background.neutral'),
 					},
 				},
 			},
@@ -2133,19 +2100,16 @@ const tableRendererHeaderStylesForTableCellOnly = css({
 			minWidth: `${tableCellMinWidth}px`,
 			fontWeight: token('font.weight.regular'),
 			verticalAlign: 'top',
-			border: `${token('border.width')} solid ${token(
-				'color.background.accent.gray.subtler',
-				akEditorTableBorder,
-			)}`,
+			border: `${token('border.width')} solid ${token('color.background.accent.gray.subtler')}`,
 			borderRightWidth: 0,
 			borderBottomWidth: 0,
-			paddingTop: token('space.100', '8px'),
-			paddingRight: token('space.100', '8px'),
-			paddingBottom: token('space.100', '8px'),
-			paddingLeft: token('space.100', '8px'),
+			paddingTop: token('space.100'),
+			paddingRight: token('space.100'),
+			paddingBottom: token('space.100'),
+			paddingLeft: token('space.100'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'th p:not(:first-of-type), td p:not(:first-of-type)': {
-				marginTop: token('space.150', '12px'),
+				marginTop: token('space.150'),
 			},
 		},
 	},
@@ -2153,7 +2117,7 @@ const tableRendererHeaderStylesForTableCellOnly = css({
 
 const tableRendererNestedPanelStyles = css({
 	[`.${TableSharedCssClassName.TABLE_CONTAINER} .ak-editor-panel`]: {
-		border: `${token('border.width', '1px')} solid ${token('color.border', '#d9dbea')}`,
+		border: `${token('border.width')} solid ${token('color.border')}`,
 	},
 });
 
@@ -2219,11 +2183,11 @@ const rendererTableStyles = css({
 			background: `linear-gradient(
 					to left,
 					transparent 0,
-					${token('elevation.shadow.overflow.spread', N40A)} 140%
+					${token('elevation.shadow.overflow.spread')} 140%
 				),
 				linear-gradient(
 					to right,
-					${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+					${token('elevation.shadow.overflow.perimeter')} 0px,
 					transparent 1px
 				)`,
 		},
@@ -2232,11 +2196,11 @@ const rendererTableStyles = css({
 			background: `linear-gradient(
 					to right,
 					transparent 0,
-					${token('elevation.shadow.overflow.spread', N40A)} 140%
+					${token('elevation.shadow.overflow.spread')} 140%
 				),
 				linear-gradient(
 					to left,
-					${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+					${token('elevation.shadow.overflow.perimeter')} 0px,
 					transparent 1px
 				)`,
 			right: `0px`,
@@ -2262,7 +2226,7 @@ const stickyScrollbarStyles = css({
 			visibility: 'hidden',
 			overflowX: 'auto',
 			position: 'sticky',
-			bottom: `${token('space.0', '0px')}`,
+			bottom: `${token('space.0')}`,
 			zIndex: 1,
 		},
 
@@ -2281,7 +2245,7 @@ const stickyScrollbarStyles = css({
 			top: `${tableRowHeight * 3}px`,
 		},
 		[`> .${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}`]: {
-			bottom: `${token('space.250', '20px')}`, // MAX_BROWSER_SCROLLBAR_HEIGHT = 20;
+			bottom: `${token('space.250')}`, // MAX_BROWSER_SCROLLBAR_HEIGHT = 20;
 		},
 	},
 });
@@ -2342,7 +2306,7 @@ const rendererTableSortableColumnStyles = css({
 								outline: 'unset',
 							},
 							'&:focus-visible': {
-								borderColor: `${token('color.border.focused', B300)}`,
+								borderColor: `${token('color.border.focused')}`,
 							},
 						},
 					},
@@ -2388,10 +2352,10 @@ const rendererTableColumnStyles = css({
 			[`.${RendererCssClassName.NUMBER_COLUMN}`]: {
 				backgroundColor: `${token('color.background.accent.gray.subtlest')}`,
 				borderRight: `${token('border.width')} solid
-								${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
+								${token('color.background.accent.gray.subtler')}`,
 				width: `${akEditorTableNumberColumnWidth}px`,
 				textAlign: 'center',
-				color: `${token('color.text.subtlest', N200)}`,
+				color: `${token('color.text.subtlest')}`,
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				fontSize: `${14 / 16} rem`,
 			},
@@ -2454,14 +2418,8 @@ const stickyHeaderStyles = css({
 		overflow: 'hidden',
 		zIndex: `${akEditorStickyHeaderZIndex}`,
 
-		borderRight: `${token('border.width')} solid ${token(
-			'color.background.accent.gray.subtler',
-			akEditorTableBorder,
-		)}`,
-		borderBottom: `${token('border.width')} solid ${token(
-			'color.background.accent.gray.subtler',
-			akEditorTableBorder,
-		)}`,
+		borderRight: `${token('border.width')} solid ${token('color.background.accent.gray.subtler')}`,
+		borderBottom: `${token('border.width')} solid ${token('color.background.accent.gray.subtler')}`,
 
 		/* this is to compensate for the table border */
 		transform: 'translateX(-1px)',
@@ -2483,10 +2441,10 @@ const stickyHeaderStyles = css({
  and work around background-clip: padding-box
  bug for FF causing box-shadow bug in Chrome */
 	'.sticky th, .sticky td': {
-		boxShadow: `0px 1px ${token('color.background.accent.gray.subtler', akEditorTableBorder)},
-			0px -0.5px ${token('color.background.accent.gray.subtler', akEditorTableBorder)},
-			inset -1px 0px ${token('color.background.accent.gray.subtler', akEditorTableToolbar)},
-			0px -1px ${token('color.background.accent.gray.subtler', akEditorTableToolbar)}`,
+		boxShadow: `0px 1px ${token('color.background.accent.gray.subtler')},
+			0px -0.5px ${token('color.background.accent.gray.subtler')},
+			inset -1px 0px ${token('color.background.accent.gray.subtler')},
+			0px -1px ${token('color.background.accent.gray.subtler')}`,
 	},
 
 	/* this will remove jumpiness caused in Chrome for sticky headers */
@@ -2535,9 +2493,9 @@ const codeBlockAndLayoutStyles = css({
 	},
 
 	'& [data-layout-section]': {
-		marginTop: token('space.250', '20px'),
+		marginTop: token('space.250'),
 		'& > div + div': {
-			marginLeft: token('space.400', '32px'),
+			marginLeft: token('space.400'),
 		},
 
 		[`@media screen and (max-width: ${gridMediumMaxWidth}px)`]: {
@@ -2638,7 +2596,7 @@ const columnLayoutResponsiveSharedStyle = css({
 	'[data-layout-section]': {
 		display: 'flex',
 		flexDirection: 'row',
-		gap: token('space.100', '8px'),
+		gap: token('space.100'),
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& > *': {
@@ -2661,11 +2619,11 @@ const columnLayoutResponsiveSharedStyle = css({
 const columnLayoutResponsiveRendererStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.layout-section-container [data-layout-section]': {
-		gap: token('space.600', '48px'),
+		gap: token('space.600'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
 		[`@container layout-area (max-width: ${LAYOUT_BREAKPOINT_RENDERER}px)`]: {
 			flexDirection: 'column',
-			gap: token('space.400', '32px'),
+			gap: token('space.400'),
 		},
 	},
 });
@@ -2673,37 +2631,31 @@ const columnLayoutResponsiveRendererStyles = css({
 const rendererAnnotationStylesOld = css({
 	"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark], & [data-annotation-draft-mark][data-annotation-inline-node]":
 		{
-			background: token('color.background.accent.yellow.subtler', Y75),
-			borderBottom: `${token('border.width.selected')} solid ${token(
-				'color.border.accent.yellow',
-				Y300,
-			)}`,
-			boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+			background: token('color.background.accent.yellow.subtler'),
+			borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow')}`,
+			boxShadow: token('elevation.shadow.overlay'),
 			cursor: 'pointer',
-			paddingTop: token('space.050', '4px'),
-			paddingRight: token('space.025', '2px'),
-			paddingBottom: token('space.050', '4px'),
-			paddingLeft: token('space.025', '2px'),
+			paddingTop: token('space.050'),
+			paddingRight: token('space.025'),
+			paddingBottom: token('space.050'),
+			paddingLeft: token('space.025'),
 		},
 });
 
 const rendererAnnotationStyles = css({
 	"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark]": {
 		background: token('color.background.accent.yellow.subtlest'),
-		borderBottom: `${token('border.width.selected')} solid ${token(
-			'color.border.accent.yellow',
-			Y300,
-		)}`,
+		borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow')}`,
 		cursor: 'pointer',
-		paddingTop: token('space.050', '4px'),
-		paddingRight: token('space.025', '2px'),
-		paddingBottom: token('space.050', '4px'),
-		paddingLeft: token('space.025', '2px'),
+		paddingTop: token('space.050'),
+		paddingRight: token('space.025'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.025'),
 	},
 	"& [data-mark-type='annotation'][data-mark-annotation-state='active'][data-has-focus='true'] [data-annotation-mark]":
 		{
 			background: token('color.background.accent.yellow.subtlest.pressed'),
-			boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+			boxShadow: token('elevation.shadow.overlay'),
 		},
 });
 
@@ -2717,9 +2669,9 @@ const rendererAnnotationStylesCommentHeightFix = css({
 		paddingRight: 0,
 		paddingBottom: token('space.025'),
 		paddingLeft: 0,
-		backgroundColor: token('color.background.accent.yellow.subtler', Y75),
-		borderBottomColor: token('color.border.accent.yellow', Y300),
-		boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+		backgroundColor: token('color.background.accent.yellow.subtler'),
+		borderBottomColor: token('color.border.accent.yellow'),
+		boxShadow: token('elevation.shadow.overlay'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& [data-annotation-draft-mark][data-annotation-inline-node][data-inline-card]': {
@@ -2727,7 +2679,7 @@ const rendererAnnotationStylesCommentHeightFix = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& [data-annotation-draft-mark][data-annotation-inline-node].date-lozenger-container': {
-		paddingTop: token('space.025', '2px'),
+		paddingTop: token('space.025'),
 	},
 });
 
@@ -2837,8 +2789,8 @@ const denseStyles = css({
 	// Scale panel icon
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	[`.${RendererCssClassName.DOCUMENT} .ak-editor-panel .ak-editor-panel__icon`]: {
-		height: token('space.250', '20px'),
-		width: token('space.250', '20px'),
+		height: token('space.250'),
+		width: token('space.250'),
 	},
 
 	// Condense spacing across lists, tasks and decisions
@@ -2881,8 +2833,8 @@ const syncBlockStyles = css({
 	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]:
 		{
 			borderRadius: token('radius.small', '3px'),
-			marginTop: token('space.075', '6px'),
-			paddingBlock: token('space.150', '12px'),
+			marginTop: token('space.075'),
+			paddingBlock: token('space.150'),
 			overflow: 'visible',
 		},
 
@@ -3029,7 +2981,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
-				expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
+				expValEquals('platform_editor_flexible_list_schema', 'isEnabled', true) &&
 					listItemHiddenMarkerStyles,
 				indentationSharedStyles,
 				fg('platform_editor__renderer_indentation_text_margin') &&

@@ -20,15 +20,15 @@ const Content = styled.div({
 	width: '100%',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: `${akEditorFullPageMaxWidth + akEditorGutterPaddingDynamic() * 2}px`,
-	paddingTop: token('space.600', '48px'),
+	paddingTop: token('space.600'),
 	margin: '0 auto',
 	display: 'flex',
 	flexDirection: 'column',
 	flexGrow: 1,
-	paddingBottom: token('space.600', '48px'),
+	paddingBottom: token('space.600'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
-		padding: `0 ${token('space.400', '32px')}`,
+		padding: `0 ${token('space.400')}`,
 	},
 });
 
@@ -242,6 +242,7 @@ export default class EmbeddedDocument extends Component<Props, State> {
 		const { renderTitle, renderToolbar } = this.props;
 		return (
 			<Context.Provider
+				// eslint-disable-next-line @atlassian/perf-linting/no-inline-context-value, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				value={{
 					value: this.state,
 					actions: this.actions,

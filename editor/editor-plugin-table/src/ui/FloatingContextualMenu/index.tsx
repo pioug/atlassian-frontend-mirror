@@ -120,6 +120,7 @@ const FloatingContextualMenu = ({
 			// in table, but below floating dialogs like typeaheads, pickers, etc.
 			zIndex={parentSticky ? akEditorFloatingDialogZIndex : akEditorFloatingOverlapPanelZIndex}
 			forcePlacement={true}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			offset={[-7, 0]}
 			stick={true}
 		>
@@ -129,6 +130,7 @@ const FloatingContextualMenu = ({
 					// Remove ! during platform_editor_hydratable_ui cleanup
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					editorView={editorView!}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					offset={[contextualMenuTriggerSize / 2, -contextualMenuTriggerSize]}
 					isOpen={isOpen}
 					targetCellPosition={targetCellPosition}

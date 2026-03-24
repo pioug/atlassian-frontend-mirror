@@ -117,7 +117,11 @@ interface State {
 	isOpenAllowed: boolean;
 	isSubmenuOpen: boolean;
 }
-const arrowsList = new Set(!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true) ? ['ArrowRight', 'ArrowLeft'] : ['ArrowRight'],);
+const arrowsList = new Set(
+	!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)
+		? ['ArrowRight', 'ArrowLeft']
+		: ['ArrowRight'],
+);
 
 const elementBeforeIconStyles = xcss({
 	marginRight: 'space.negative.075',
@@ -176,8 +180,8 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					data-testid="table-cell-contextual-menu"
 					onMouseLeave={
 						expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)
-						? undefined
-						: this.closeSubmenu
+							? undefined
+							: this.closeSubmenu
 					}
 					onBlur={
 						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
@@ -189,6 +193,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					<DropdownMenu
 						//This needs be removed when the a11y is completely handled
 						//Disabling key navigation now as it works only partially
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						arrowKeyNavigationProviderOptions={{
 							type: ArrowKeyNavigationType.MENU,
 							disableArrowKeyNavigation: !isCellMenuOpenByKeyboard || this.state.isSubmenuOpen,
@@ -203,6 +208,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						fitWidth={
 							isDragAndDropEnabled ? contextualMenuDropdownWidthDnD : contextualMenuDropdownWidth
 						}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						shouldFocusFirstItem={() => {
 							return Boolean(isCellMenuOpenByKeyboard);
 						}}
@@ -320,6 +326,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 									type={ArrowKeyNavigationType.COLOR}
 									selectedRowIndex={selectedRowIndex || 0}
 									selectedColumnIndex={selectedColumnIndex || 0}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									handleClose={() => {
 										this.setState({ isSubmenuOpen: false });
 										if (this.dropdownMenuRef && this.dropdownMenuRef.current) {
@@ -340,6 +347,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 										cols={7}
 										onClick={this.setColor}
 										selectedColor={node?.attrs?.background || '#ffffff'}
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										paletteOptions={{
 											palette: cellBackgroundColorPalette,
 											paletteColorTooltipMessages: backgroundPaletteTooltipMessages,

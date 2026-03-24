@@ -218,6 +218,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 			mountTo={tableWrapper || mountPoint}
 			boundariesElement={targetCellRef}
 			scrollableElement={scrollableElement}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			offset={[BUTTON_OFFSET, -BUTTON_OFFSET]}
 			forcePlacement
 			allowOutOfBounds

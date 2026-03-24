@@ -119,7 +119,9 @@ export const AwarenessWrapper = ({
 				<InlineCardOverlay
 					isSelected={isSelected}
 					isVisible={isResolvedViewRendered && (isInserted || isHovered || isSelected)}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onMouseEnter={() => handleOverlayChange(true)}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onMouseLeave={() => handleOverlayChange(false)}
 					url={url}
 				>
@@ -153,6 +155,7 @@ export const AwarenessWrapper = ({
 				data-ssr-placeholder-replace={`awareness-wrapper-${placeholderUniqId}`}
 			>
 				<AnalyticsContext
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					data={{
 						attributes: getResolvedAttributesFromStore(url, 'inline', cardContext?.value?.store),
 					}}

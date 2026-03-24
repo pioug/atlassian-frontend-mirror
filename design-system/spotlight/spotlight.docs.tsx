@@ -102,7 +102,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'PopoverProvider',
-		description: 'Context provider for positioning spotlight content. Wrap with PopoverTarget and PopoverContent.',
+		description:
+			'Context provider for positioning spotlight content. Wrap with PopoverTarget and PopoverContent.',
 		status: 'open-beta',
 		import: {
 			name: 'PopoverProvider',
@@ -146,7 +147,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'PopoverTarget',
-		description: 'The element the spotlight is positioned relative to. Use with PopoverProvider and PopoverContent.',
+		description:
+			'The element the spotlight is positioned relative to. Use with PopoverProvider and PopoverContent.',
 		status: 'open-beta',
 		import: {
 			name: 'PopoverTarget',
@@ -168,7 +170,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'SpotlightDismissControl',
-		description: 'Required close/dismiss button for spotlight cards. Must be the first focusable element.',
+		description:
+			'Required close/dismiss button for spotlight cards. Must be the first focusable element.',
 		status: 'open-beta',
 		import: {
 			name: 'SpotlightDismissControl',

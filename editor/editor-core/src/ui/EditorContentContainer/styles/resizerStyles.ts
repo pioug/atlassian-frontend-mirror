@@ -73,7 +73,7 @@ export const resizerStyles: SerializedStyles = css({
 			flexDirection: 'column',
 			justifyContent: 'center',
 			alignItems: 'center',
-			marginTop: token('space.negative.200', '-16px'),
+			marginTop: token('space.negative.200'),
 			whiteSpace: 'normal',
 		},
 
@@ -126,8 +126,8 @@ export const resizerStyles: SerializedStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 			[`& .${resizerHandleThumbClassName}`]: {
 				position: 'sticky',
-				top: token('space.150', '12px'),
-				bottom: token('space.150', '12px'),
+				top: token('space.150'),
+				bottom: token('space.150'),
 			},
 		},
 
@@ -150,7 +150,7 @@ export const resizerStyles: SerializedStyles = css({
 		content: "' '",
 		display: 'flex',
 		width: 3,
-		margin: `0 ${token('space.025', '2px')}`,
+		margin: `0 ${token('space.025')}`,
 		height: 64,
 		transition: 'background-color 0.2s',
 		borderRadius: token('radius.medium'),
@@ -171,11 +171,11 @@ export const resizerStyles: SerializedStyles = css({
 			'&::after': {
 				content: "''",
 				position: 'absolute',
-				top: token('space.negative.050', '-4px'),
-				right: token('space.negative.050', '-4px'),
-				bottom: token('space.negative.050', '-4px'),
-				left: token('space.negative.050', '-4px'),
-				border: `2px solid ${token('color.border.focused')}`,
+				top: token('space.negative.050'),
+				right: token('space.negative.050'),
+				bottom: token('space.negative.050'),
+				left: token('space.negative.050'),
+				border: `${token('border.width.selected')} solid ${token('color.border.focused')}`,
 				borderRadius: 'inherit',
 				zIndex: -1,
 			},
@@ -234,8 +234,8 @@ export const resizerStyles: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 		[`&.${resizerExtendedZone}`]: {
-			padding: `0 ${token('space.150', '12px')}`,
-			left: token('space.negative.150', '-12px'),
+			padding: `0 ${token('space.150')}`,
+			left: token('space.negative.150'),
 		},
 	},
 
@@ -465,8 +465,8 @@ export const pragmaticResizerStyles: SerializedStyles = css({
 
 		// sticky styles
 		position: 'sticky',
-		top: token('space.150', '12px'),
-		bottom: token('space.150', '12px'),
+		top: token('space.150'),
+		bottom: token('space.150'),
 	},
 });
 

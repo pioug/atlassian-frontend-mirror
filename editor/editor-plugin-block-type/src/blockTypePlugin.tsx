@@ -35,7 +35,6 @@ import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockTypePlugin } from './blockTypePluginType';
@@ -185,7 +184,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		});
 	}
 
-	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+	if (editorExperiment('platform_editor_block_menu', true)) {
 		api?.blockMenu?.actions.registerBlockMenuComponents(getBlockTypeComponents(api));
 	}
 

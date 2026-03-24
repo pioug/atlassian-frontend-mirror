@@ -106,7 +106,7 @@ export function createSpec(nodes?: Array<string>, marks?: Array<string>): Create
 		let spec = { ...(specs as any)[k] };
 
 		if (
-			expValEqualsNoExposure('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
+			expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true) &&
 			isVariant(spec) &&
 			// Only apply to variants which are explicitly marked for override in `variantSpecOverrides`
 			Object.values(variantSpecOverrides).includes(k)
@@ -443,7 +443,7 @@ export function validator(
 ): Validate {
 	const validatorSpecs = createSpec(nodes, marks);
 
-	if (expValEqualsNoExposure('platform_editor_flexible_list_indentation', 'isEnabled', true)) {
+	if (expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true)) {
 		applyVariantSpecOverrides(validatorSpecs);
 	}
 

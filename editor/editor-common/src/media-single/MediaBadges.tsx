@@ -100,6 +100,7 @@ export const MediaBadges = ({
 			testId="media-badges"
 			data-media-badges="true"
 			contentEditable={false}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			xcss={[
 				containerStyles,
 				useMinimumZIndex && hackedZIndexStyles,

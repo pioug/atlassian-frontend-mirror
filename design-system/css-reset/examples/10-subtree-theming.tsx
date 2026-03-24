@@ -43,33 +43,25 @@ const contentStyles = cssMap({
  */
 export default (): React.JSX.Element => (
 	<Box xcss={contentStyles.body}>
-		<ThemeProvider defaultColorMode='dark'>
+		<ThemeProvider defaultColorMode="dark">
 			<Box xcss={contentStyles.section}>
 				<h2>Dark theme</h2>
-				<p>
-					This paragraph is the correct color.
-				</p>
+				<p>This paragraph is the correct color.</p>
 				<ul>
 					<li>List items in sub-tree theme</li>
 					<li>Will have correct colors</li>
 				</ul>
-				<blockquote>
-					This blockquote is also the correct color.
-				</blockquote>
+				<blockquote>This blockquote is also the correct color.</blockquote>
 				<a href="https://www.atlassian.com">This link will be the correct color</a>
-				<ThemeProvider defaultColorMode='light'>
+				<ThemeProvider defaultColorMode="light">
 					<Box xcss={contentStyles.section}>
 						<h2>Light theme</h2>
-						<p>
-							This paragraph is the correct color
-						</p>
+						<p>This paragraph is the correct color</p>
 						<ul>
 							<li>List items in sub-tree theme</li>
 							<li>Will have correct colors</li>
 						</ul>
-						<blockquote>
-							This blockquote is also the correct color.
-						</blockquote>
+						<blockquote>This blockquote is also the correct color.</blockquote>
 						<a href="https://www.atlassian.com">This link will be the correct color</a>
 					</Box>
 				</ThemeProvider>

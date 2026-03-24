@@ -27,40 +27,39 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
 import { token } from '@atlaskit/tokens';
-import { N40 } from '@atlaskit/theme/colors';
 import { calcBreakoutWidth, canRenderDatasource } from '@atlaskit/editor-common/utils';
 import { usePortal } from '../../ui/Renderer/PortalContext';
 import { RendererCssClassName } from '../../consts';
 
 const datasourceCenterWrapperStyles = css({
-	marginTop: token('space.150', '0.75rem'),
-	marginBottom: token('space.150', '0.75rem'),
+	marginTop: token('space.150'),
+	marginBottom: token('space.150'),
 });
 
 const datasourceContainerStyleWithMarginTop = css({
 	borderRadius: `${token('radius.large', '8px')}`,
-	border: `${token('border.width')} solid ${token('color.border', N40)}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	overflow: 'hidden',
-	marginTop: `${token('space.150', '0.75rem')}`,
-	marginBottom: `${token('space.150', '0.75rem')}`,
+	marginTop: `${token('space.150')}`,
+	marginBottom: `${token('space.150')}`,
 });
 
 // No vertical margin when inside center wrapper (wrapper has margin so it participates in collapse). Styles from datasourceContainerStyleLegacy
 const datasourceContainerStyleNoVerticalMargin = css({
 	borderRadius: `${token('radius.large', '8px')}`,
-	border: `${token('border.width')} solid ${token('color.border', N40)}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	overflow: 'hidden',
 });
 
 const datasourceContainerStyleLegacy = css({
 	borderRadius: `${token('radius.large', '8px')}`,
-	border: `${token('border.width')} solid ${token('color.border', N40)}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	overflow: 'hidden',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	marginLeft: '50%',
-	marginBottom: `${token('space.150', '0.75rem')}`,
+	marginBottom: `${token('space.150')}`,
 	transform: 'translateX(-50%)',
-	marginTop: `${token('space.150', '0.75rem')}`,
+	marginTop: `${token('space.150')}`,
 });
 
 export default function BlockCard(props: {
@@ -116,6 +115,7 @@ export default function BlockCard(props: {
 			const columns = tableView.properties?.columns;
 			const visibleColumnKeys = columns?.map(({ key }) => key);
 
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 			const columnCustomSizesEntries = columns
 				?.filter((c): c is { key: string; width: number } => !!c.width)
 				.map<[string, number]>(({ key, width }) => [key, width]);
@@ -124,6 +124,7 @@ export default function BlockCard(props: {
 				? Object.fromEntries<number>(columnCustomSizesEntries)
 				: undefined;
 
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 			const wrappedColumnKeys = columns?.filter((c) => c.isWrapped).map((c) => c.key);
 
 			const { datasource, layout } = props;
@@ -251,6 +252,7 @@ export default function BlockCard(props: {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="blockCardView-content-wrap"
 					data-block-card
+					// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 					data-card-data={data ? JSON.stringify(data) : undefined}
 					data-card-url={url}
 					data-local-id={localId}

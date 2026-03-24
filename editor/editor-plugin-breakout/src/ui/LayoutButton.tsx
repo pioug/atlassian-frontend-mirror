@@ -191,6 +191,7 @@ const LayoutButton = ({
 		<Popup
 			ariaLabel={title}
 			target={element}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			offset={[5, 0]}
 			alignY="start"
 			alignX="end"
@@ -211,6 +212,7 @@ const LayoutButton = ({
 				<ToolbarButton
 					title={title}
 					testId={titleMessage.id}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onClick={() => handleClick(nextBreakoutMode)}
 					iconBefore={
 						breakoutMode === 'full-width' ? (

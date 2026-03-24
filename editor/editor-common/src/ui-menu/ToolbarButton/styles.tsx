@@ -15,7 +15,7 @@ const _default_1: React.ForwardRefExoticComponent<ButtonProps & React.RefAttribu
 				// Ignored via go/ees007
 				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 				// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				style={{ alignItems: 'center' }}
 			/>
 		);

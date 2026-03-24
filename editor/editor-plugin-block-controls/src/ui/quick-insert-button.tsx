@@ -427,6 +427,7 @@ export const TypeAheadControl = ({
 				testId="editor-quick-insert-button"
 				type="button"
 				aria-label={formatMessage(messages.insert)}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				xcss={[
 					stickyButtonStyles,
 					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
@@ -446,6 +447,7 @@ export const TypeAheadControl = ({
 		<Box
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={positionStyles}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			xcss={[containerStaticStyles]}
 		>
 			<span

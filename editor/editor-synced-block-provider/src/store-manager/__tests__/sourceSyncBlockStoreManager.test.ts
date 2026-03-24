@@ -55,10 +55,7 @@ describe('SourceSyncBlockStoreManager', () => {
 			manager = new SourceSyncBlockStoreManager(neverResolveProvider);
 			manager.setFireAnalyticsEvent(mockFireAnalytics);
 
-			manager.createBodiedSyncBlockNode(
-				{ resourceId, localId: 'local-1' },
-				onCompletion,
-			);
+			manager.createBodiedSyncBlockNode({ resourceId, localId: 'local-1' }, onCompletion);
 
 			// Verify the creation is pending
 			expect(manager.isPendingCreation(resourceId)).toBe(true);
@@ -70,54 +67,49 @@ describe('SourceSyncBlockStoreManager', () => {
 			expect(manager.isPendingCreation(resourceId)).toBe(false);
 		});
 
-		eeTest
-			.describe('platform_synced_block_patch_6', 'when patch_6 is on')
-			.variant(true, () => {
-				it('should set hasReceivedContentChange to true when creation succeeds', () => {
-					const onCompletion = jest.fn();
-					const resourceId = 'resource-1';
+		eeTest.describe('platform_synced_block_patch_6', 'when patch_6 is on').variant(true, () => {
+			it('should set hasReceivedContentChange to true when creation succeeds', () => {
+				const onCompletion = jest.fn();
+				const resourceId = 'resource-1';
 
-					const neverResolveProvider = createMockDataProvider({
-						createNodeData: jest.fn().mockReturnValue(new Promise(() => {})),
-					});
-
-					manager = new SourceSyncBlockStoreManager(neverResolveProvider);
-					manager.setFireAnalyticsEvent(mockFireAnalytics);
-
-					// Initially, hasUnsavedChanges should be false
-					expect(manager.hasUnsavedChanges()).toBe(false);
-
-					// Create a block and register its callback
-					manager.createBodiedSyncBlockNode(
-						{ resourceId, localId: 'local-1' },
-						onCompletion,
-					);
-
-					// Commit creation as successful
-					manager.commitPendingCreation(true, resourceId);
-
-					// After successful creation, the block is in the cache with isDirty=true
-					// (set by updateSyncBlockData or by the initial creation).
-					// The commitPendingCreation sets hasReceivedContentChange = true.
-					// But hasUnsavedChanges also requires isDirty blocks in cache.
-					// Let's verify the hasReceivedContentChange flag is set by checking
-					// that after adding a dirty block, hasUnsavedChanges returns true.
-
-					// Simulate adding a dirty block to the cache via updateSyncBlockData
-					const mockNode = {
-						type: { name: 'bodiedSyncBlock' },
-						attrs: { localId: 'local-1', resourceId },
-						content: { toJSON: () => [{ type: 'paragraph', content: [] }] },
-					} as any;
-
-					manager.updateSyncBlockData(mockNode);
-
-					// Now hasUnsavedChanges should be true because:
-					// 1. hasReceivedContentChange was set to true by commitPendingCreation
-					// 2. There is a dirty block in cache from updateSyncBlockData
-					expect(manager.hasUnsavedChanges()).toBe(true);
+				const neverResolveProvider = createMockDataProvider({
+					createNodeData: jest.fn().mockReturnValue(new Promise(() => {})),
 				});
+
+				manager = new SourceSyncBlockStoreManager(neverResolveProvider);
+				manager.setFireAnalyticsEvent(mockFireAnalytics);
+
+				// Initially, hasUnsavedChanges should be false
+				expect(manager.hasUnsavedChanges()).toBe(false);
+
+				// Create a block and register its callback
+				manager.createBodiedSyncBlockNode({ resourceId, localId: 'local-1' }, onCompletion);
+
+				// Commit creation as successful
+				manager.commitPendingCreation(true, resourceId);
+
+				// After successful creation, the block is in the cache with isDirty=true
+				// (set by updateSyncBlockData or by the initial creation).
+				// The commitPendingCreation sets hasReceivedContentChange = true.
+				// But hasUnsavedChanges also requires isDirty blocks in cache.
+				// Let's verify the hasReceivedContentChange flag is set by checking
+				// that after adding a dirty block, hasUnsavedChanges returns true.
+
+				// Simulate adding a dirty block to the cache via updateSyncBlockData
+				const mockNode = {
+					type: { name: 'bodiedSyncBlock' },
+					attrs: { localId: 'local-1', resourceId },
+					content: { toJSON: () => [{ type: 'paragraph', content: [] }] },
+				} as any;
+
+				manager.updateSyncBlockData(mockNode);
+
+				// Now hasUnsavedChanges should be true because:
+				// 1. hasReceivedContentChange was set to true by commitPendingCreation
+				// 2. There is a dirty block in cache from updateSyncBlockData
+				expect(manager.hasUnsavedChanges()).toBe(true);
 			});
+		});
 
 		it('should NOT set hasReceivedContentChange when creation fails', () => {
 			const onCompletion = jest.fn();
@@ -132,10 +124,7 @@ describe('SourceSyncBlockStoreManager', () => {
 
 			expect(manager.hasUnsavedChanges()).toBe(false);
 
-			manager.createBodiedSyncBlockNode(
-				{ resourceId, localId: 'local-1' },
-				onCompletion,
-			);
+			manager.createBodiedSyncBlockNode({ resourceId, localId: 'local-1' }, onCompletion);
 
 			// Commit creation as failed
 			manager.commitPendingCreation(false, resourceId);
@@ -182,10 +171,7 @@ describe('SourceSyncBlockStoreManager', () => {
 			manager.updateSyncBlockData(mockNode);
 
 			// Register callback
-			manager.createBodiedSyncBlockNode(
-				{ resourceId, localId: 'local-1' },
-				onCompletion,
-			);
+			manager.createBodiedSyncBlockNode({ resourceId, localId: 'local-1' }, onCompletion);
 
 			// Commit as failed
 			manager.commitPendingCreation(false, resourceId);
@@ -194,46 +180,41 @@ describe('SourceSyncBlockStoreManager', () => {
 			expect(manager.hasUnsavedChanges()).toBe(false);
 		});
 
-		eeTest
-			.describe('platform_synced_block_patch_6', 'when patch_6 is on')
-			.variant(true, () => {
-				it('should allow hasUnsavedChanges to return true after successful creation followed by updateSyncBlockData', () => {
-					const onCompletion = jest.fn();
-					const resourceId = 'resource-1';
+		eeTest.describe('platform_synced_block_patch_6', 'when patch_6 is on').variant(true, () => {
+			it('should allow hasUnsavedChanges to return true after successful creation followed by updateSyncBlockData', () => {
+				const onCompletion = jest.fn();
+				const resourceId = 'resource-1';
 
-					const neverResolveProvider = createMockDataProvider({
-						createNodeData: jest.fn().mockReturnValue(new Promise(() => {})),
-					});
-
-					manager = new SourceSyncBlockStoreManager(neverResolveProvider);
-					manager.setFireAnalyticsEvent(mockFireAnalytics);
-
-					// Create a block
-					manager.createBodiedSyncBlockNode(
-						{ resourceId, localId: 'local-1' },
-						onCompletion,
-					);
-
-					// Add initial content to cache
-					const mockNode = {
-						type: { name: 'bodiedSyncBlock' },
-						attrs: { localId: 'local-1', resourceId },
-						content: { toJSON: () => [{ type: 'paragraph', content: [] }] },
-					} as any;
-					manager.updateSyncBlockData(mockNode);
-
-					// Before commitPendingCreation, hasUnsavedChanges should be false
-					// because hasReceivedContentChange is still false (no content diff yet)
-					expect(manager.hasUnsavedChanges()).toBe(false);
-
-					// Commit creation as successful - this sets hasReceivedContentChange = true
-					manager.commitPendingCreation(true, resourceId);
-
-					// Now hasUnsavedChanges should be true because:
-					// - hasReceivedContentChange is true (set by commitPendingCreation)
-					// - there's a dirty block in cache
-					expect(manager.hasUnsavedChanges()).toBe(true);
+				const neverResolveProvider = createMockDataProvider({
+					createNodeData: jest.fn().mockReturnValue(new Promise(() => {})),
 				});
+
+				manager = new SourceSyncBlockStoreManager(neverResolveProvider);
+				manager.setFireAnalyticsEvent(mockFireAnalytics);
+
+				// Create a block
+				manager.createBodiedSyncBlockNode({ resourceId, localId: 'local-1' }, onCompletion);
+
+				// Add initial content to cache
+				const mockNode = {
+					type: { name: 'bodiedSyncBlock' },
+					attrs: { localId: 'local-1', resourceId },
+					content: { toJSON: () => [{ type: 'paragraph', content: [] }] },
+				} as any;
+				manager.updateSyncBlockData(mockNode);
+
+				// Before commitPendingCreation, hasUnsavedChanges should be false
+				// because hasReceivedContentChange is still false (no content diff yet)
+				expect(manager.hasUnsavedChanges()).toBe(false);
+
+				// Commit creation as successful - this sets hasReceivedContentChange = true
+				manager.commitPendingCreation(true, resourceId);
+
+				// Now hasUnsavedChanges should be true because:
+				// - hasReceivedContentChange is true (set by commitPendingCreation)
+				// - there's a dirty block in cache
+				expect(manager.hasUnsavedChanges()).toBe(true);
 			});
+		});
 	});
 });

@@ -102,6 +102,7 @@ const FieldDefinitionsPromiseResolver = (props: FieldDefsPromiseResolverProps) =
 		const promiseFn = getFieldsDefinitionFn(extensionManifest, nodeKey);
 
 		if (typeof promiseFn !== 'function') {
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			setFields(undefined);
 			return;
 		}

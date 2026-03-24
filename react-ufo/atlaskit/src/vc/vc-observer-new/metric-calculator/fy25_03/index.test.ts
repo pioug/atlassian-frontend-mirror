@@ -454,6 +454,19 @@ describe('VCCalculator_FY25_03', () => {
 		it('should return true for empty entries', () => {
 			expect(calculator['getVCCleanStatus']([])).toEqual({ isVCClean: true });
 		});
+
+		it('should return clean for scroll-container events (not an aborting event in fy25.03)', () => {
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1234,
+					data: {
+						type: 'window:event',
+						eventType: 'scroll-container',
+					} as unknown as WindowEventEntryData,
+				},
+			];
+			expect(calculator['getVCCleanStatus'](entries)).toEqual({ isVCClean: true });
+		});
 	});
 
 	describe('getConsideredEntryTypes behavior with platform_ufo_exclude_3p_elements_from_ttvc feature flag', () => {

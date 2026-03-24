@@ -70,6 +70,7 @@ export const transformOrderedUnorderedListToBlockNodes = (
 
 			// Convert codeblocks to block nodes
 			if (node.type === schema.nodes.codeBlock) {
+				// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 				const textContent = node.textContent.split('\n');
 				const attributes =
 					targetNodeType === schema.nodes.heading ? { level: targetAttrs?.level ?? 1 } : null;

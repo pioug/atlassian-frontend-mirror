@@ -18,6 +18,7 @@ import { IconCode } from '@atlaskit/editor-common/quick-insert';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CodeBlockPlugin } from './codeBlockPluginType';
 import { createInsertCodeBlockTransaction, insertCodeBlockWithAnalytics } from './editor-commands';
@@ -37,7 +38,7 @@ import { createCodeBlockMenuItem } from './ui/CodeBlockMenuItem';
 const CODE_BLOCK_NODE_NAME = 'codeBlock';
 
 const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
-	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+	if (editorExperiment('platform_editor_block_menu', true)) {
 		api?.blockMenu?.actions.registerBlockMenuComponents([
 			{
 				type: 'block-menu-item',

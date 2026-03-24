@@ -19,6 +19,12 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import {
+	SmartLinkDraggable,
+	SMART_LINK_DRAG_TYPES,
+	SMART_LINK_APPEARANCE,
+} from '@atlaskit/editor-smart-link-draggable';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -150,13 +156,19 @@ export class BlockCardComponent extends React.PureComponent<
 		// [WS-2307]: we only render card wrapped into a Provider when the value is ready,
 		// otherwise if we got data, we can render the card directly since it doesn't need the Provider
 		return (
-			<div>
-				{cardContext && cardContext.value ? (
-					<cardContext.Provider value={cardContext.value}>{cardInner}</cardContext.Provider>
-				) : data ? (
-					cardInner
-				) : null}
-			</div>
+			<SmartLinkDraggable
+				url={url}
+				appearance={SMART_LINK_APPEARANCE.BLOCK}
+				source={SMART_LINK_DRAG_TYPES.EDITOR}
+			>
+				<div>
+					{cardContext && cardContext.value ? (
+						<cardContext.Provider value={cardContext.value}>{cardInner}</cardContext.Provider>
+					) : data ? (
+						cardInner
+					) : null}
+				</div>
+			</SmartLinkDraggable>
 		);
 	}
 }
@@ -245,6 +257,25 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 				provider={provider}
 			/>
 		);
+	}
+
+	/**
+	 * Prevent ProseMirror from handling drag events on the smart-element-link,
+	 * allowing native drag to work so SmartLinkDraggable can intercept it.
+	 * @see {@link https://prosemirror.net/docs/ref/#view.NodeView.stopEvent}
+	 */
+	stopEvent(event: Event): boolean {
+		if (event.type === 'dragstart') {
+			const target = event.target;
+			if (
+				target instanceof HTMLElement &&
+				target.closest('[data-smart-element-link]') &&
+				fg('cc_drag_and_drop_smart_link_from_content_to_tree')
+			) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	destroy(): void {

@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-type
 
+## 12.1.9
+
+### Patch Changes
+
+- [`ceefea718fc6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ceefea718fc6d) -
+  Add keyboard shortcut (Cmd+Opt+7 on Mac, Ctrl+Alt+7 on Windows) for the small text feature in the
+  editor, gated behind the platform_editor_small_font_size experiment. Also adds the shortcut to the
+  toolbar tooltip and help dialog.
+- [`d7123d7a16015`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7123d7a16015) -
+  Use TextSmallIcon instead of TextIcon for small text block type
+- Updated dependencies
+
+## 12.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.7
+
+### Patch Changes
+
+- [`9ed32aea2c1d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ed32aea2c1d3) -
+  Replace feature experiment util with cross platform alternative for platform_editor_block_menu
+- Updated dependencies
+
 ## 12.1.6
 
 ### Patch Changes

@@ -7,6 +7,7 @@ export default function DataConsumer(props: MarkProps<DataConsumerAttributes>): 
 
 	return (
 		<WrapperElement
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 			data-source={props.sources ? JSON.stringify(props.sources) : undefined}
 			data-mark-type="dataConsumer"
 			// Ignored via go/ees005

@@ -81,12 +81,15 @@ export const DropdownMenu = ({
 				isOpen
 				shouldFitContainer
 				position={popupPlacement.join(' ')}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				handleClickOutside={() => handleClose('editor')}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				handleEscapeKeydown={() => {
 					if (!disableKeyboardHandling) {
 						handleClose('handle');
 					}
 				}}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				handleEnterKeydown={(e: KeyboardEvent) => {
 					if (!disableKeyboardHandling) {
 						e.preventDefault();
@@ -178,12 +181,14 @@ export const DropdownMenu = ({
 				mountTo={mountPoint}
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onPlacementChanged={(placement: [string, string]) => {
 					setPopupPlacement(placement);
 				}}
 				fitHeight={fitHeight}
 				fitWidth={fitWidth}
 				zIndex={akEditorFloatingPanelZIndex}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				offset={[offsetX, offsetY]}
 				allowOutOfBounds // required as this popup is child of a parent popup, should be allowed to be out of bound of the parent popup, otherwise horizontal offset is not right
 			>

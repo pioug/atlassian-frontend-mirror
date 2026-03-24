@@ -36,9 +36,9 @@ export type EditorBorderPaletteKey = keyof EditorBorderPalette;
 export const editorBorderPalette = {
 	// gray
 	/** gray - subtle */
-	['#091E4224']: token('color.border', '#091E4224') as 'var(--ds-border, #091E4224)',
+	['#091E4224']: token('color.border') as 'var(--ds-border, #091E4224)',
 	/** gray */
-	['#758195']: token('color.border.bold', '#758195') as 'var(--ds-border-bold, #758195)',
+	['#758195']: token('color.border.bold') as 'var(--ds-border-bold, #758195)',
 	/** gray - bold */
-	['#172B4D']: token('color.text', '#172B4D') as 'var(--ds-text, #172B4D)',
+	['#172B4D']: token('color.text') as 'var(--ds-text, #172B4D)',
 };

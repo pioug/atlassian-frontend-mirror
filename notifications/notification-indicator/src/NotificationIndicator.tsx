@@ -33,6 +33,8 @@ export interface Props {
 	refreshOnHidden?: boolean;
 	refreshOnVisibilityChange?: boolean;
 	refreshRate?: number;
+	/** Required to support collaboration contexts. You must provide the id of the workspace the user is currently viewing. */
+	routingWorkspaceId?: string;
 	ssrInitialValue?: number;
 }
 

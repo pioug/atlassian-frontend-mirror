@@ -98,6 +98,7 @@ export const findImportFromPackage = (
 export const createRenameVariableTransform = (from: string, toName: string) => {
 	return (j: core.JSCodeshift, source: Collection<unknown>): void => {
 		source.find(j.Identifier, { name: from }).forEach((x) => {
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			x.replace(j.identifier(toName));
 		});
 	};

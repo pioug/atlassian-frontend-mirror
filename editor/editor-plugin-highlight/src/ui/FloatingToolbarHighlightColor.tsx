@@ -169,6 +169,7 @@ const FloatingToolbarHighlightColor = ({
 						formatMessage(messages.highlightFloatingToolbar)}
 				</ToolbarButton>
 			}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onColorChange={(color) => handleColorChange({ color, inputMethod: INPUT_METHOD.FLOATING_TB })}
 			isOpenedByKeyboard={isOpenedByKeyboard}
 			handleClickOutside={handleClickOutside}

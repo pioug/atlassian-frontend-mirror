@@ -8,8 +8,8 @@ export const gridStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.gridParent': {
 		width: `calc(100% + 24px)`,
-		marginLeft: token('space.negative.150', '-12px'),
-		marginRight: token('space.negative.150', '-12px'),
+		marginLeft: token('space.negative.150'),
+		marginRight: token('space.negative.150'),
 		transform: 'scale(1)',
 		zIndex: 2,
 	},
@@ -24,7 +24,7 @@ export const gridStyles: SerializedStyles = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.gridLine': {
-		borderLeft: `1px solid ${token('color.border')}`,
+		borderLeft: `${token('border.width')} solid ${token('color.border')}`,
 		display: 'inline-block',
 		boxSizing: 'border-box',
 		height: '100%',

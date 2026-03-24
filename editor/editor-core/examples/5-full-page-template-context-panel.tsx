@@ -71,8 +71,8 @@ const templateCard = css({
 	cursor: 'pointer',
 	font: 'inherit',
 	border: `${token('border.width')} solid ${token('color.border')}`,
-	padding: token('space.100', '8px'),
-	marginBottom: token('space.100', '8px'),
+	padding: token('space.100'),
+	marginBottom: token('space.100'),
 	borderRadius: token('radius.medium', '6px'),
 	'&:hover': {
 		background: token('color.background.accent.gray.subtler'),

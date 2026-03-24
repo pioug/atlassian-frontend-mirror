@@ -125,12 +125,14 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
 				// via the floating toolbar
 				invokeMethod={INPUT_METHOD.FLOATING_TB}
 				lpLinkPicker={lpLinkPicker}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onSubmit={(href, title, displayText, inputMethod, analytic) => {
 					this.hideLinkToolbar();
 					if (onSubmit) {
 						onSubmit(href, displayText || title, inputMethod, analytic);
 					}
 				}}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onEscapeCallback={(state, dispatch) => {
 					const { tr } = state;
 					hideLinkToolbar(tr);
@@ -143,6 +145,7 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
 					}
 					return false;
 				}}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClickAwayCallback={(state, dispatch) => {
 					const { tr } = state;
 
@@ -219,6 +222,7 @@ export const buildEditLinkToolbar = ({
 					node={node}
 					lpLinkPicker={lpLinkPicker}
 					forceFocusSelector={pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onSubmit={(newHref, newText, inputMethod, analytic) => {
 						const urlChanged = newHref !== displayInfo.url;
 						const titleChanged = newText !== displayInfo.title;

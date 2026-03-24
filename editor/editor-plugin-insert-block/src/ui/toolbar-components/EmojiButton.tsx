@@ -71,6 +71,7 @@ export const EmojiButton = ({ api }: BaseToolbarButtonProps): React.JSX.Element 
 					iconBefore={<EmojiIcon label={formatMessage(messages.emoji)} size="small" />}
 					ariaKeyshortcuts="Shift+;"
 					ref={emojiButtonRef}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onClick={() => emojiPickerPopup.toggle()}
 					isSelected={emojiPickerPopup.isOpen}
 					isDisabled={!isTypeAheadAllowed || !emojiProvider}

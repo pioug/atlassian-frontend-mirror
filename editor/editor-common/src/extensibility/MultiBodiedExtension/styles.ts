@@ -11,24 +11,24 @@ export const mbeExtensionWrapperCSSStyles: SerializedStyles = css(wrapperDefault
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
 		marginTop: 0,
-		marginLeft: token('space.negative.150', '-12px'),
-		marginRight: token('space.negative.150', '-12px'),
+		marginLeft: token('space.negative.150'),
+		marginRight: token('space.negative.150'),
 	},
 	cursor: 'pointer',
-	marginTop: token('space.250', '24px'),
-	marginBottom: token('space.200', '16px'),
+	marginTop: token('space.250'),
+	marginBottom: token('space.200'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.extension-title': {
 		display: 'flex',
 		alignItems: 'center',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 		lineHeight: '16px !important',
-		marginBottom: token('space.100', '8px'),
+		marginBottom: token('space.100'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		marginLeft: `${token('space.050', '4px')} !important`,
-		marginRight: token('space.100', '8px'),
+		marginLeft: `${token('space.050')} !important`,
+		marginRight: token('space.100'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		paddingTop: `${token('space.100', '8px')} !important`,
+		paddingTop: `${token('space.100')} !important`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-border': {
@@ -40,7 +40,7 @@ export const mbeExtensionWrapperCSSStyles: SerializedStyles = css(wrapperDefault
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-padding-background-styles': {
-		padding: `${token('space.100', '8px')} ${token('space.250', '20px')}`,
+		padding: `${token('space.100')} ${token('space.250')}`,
 		background: 'transparent',
 	},
 });
@@ -57,6 +57,6 @@ export const overlayStyles: SerializedStyles = css({
 	zIndex: 1,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin': {
-		margin: token('space.negative.100', '-8px'),
+		margin: token('space.negative.100'),
 	},
 });

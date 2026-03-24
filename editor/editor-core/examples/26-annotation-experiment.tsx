@@ -174,7 +174,7 @@ export default class ExampleAnnotationExperiment extends React.Component<any, St
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<div style={{ display: 'flex', height: '100%' }}>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ flex: '20%', padding: token('space.200', '16px') }}>
+				<div style={{ flex: '20%', padding: token('space.200') }}>
 					<h3>Annotations</h3>
 					<button onClick={this.handleShowInlineComments}>Show inline comments</button>
 					<div>

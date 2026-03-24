@@ -313,6 +313,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 				target={ref.deref()}
 				fitHeight={350}
 				fitWidth={350}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				offset={[0, 3]}
 				mountTo={popupsMountPoint}
 				boundariesElement={popupsBoundariesElement}

@@ -440,6 +440,7 @@ export default class Comment extends React.Component<Props, State> {
 	}
 
 	private renderComments() {
+		// eslint-disable-next-line no-unused-vars
 		const { comment, comments, ...otherCommentProps } = this.props;
 
 		if (!comments || comments.length === 0) {
@@ -451,7 +452,7 @@ export default class Comment extends React.Component<Props, State> {
 				key={child.localId}
 				comment={child}
 				// Ignored via go/ees005
-				// eslint-disable-next-line react/jsx-props-no-spreading
+				// eslint-disable-next-line react/jsx-props-no-spreading, @atlassian/perf-linting/detect-unnecessary-rerenders, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				renderComment={(props) => <Comment {...props} />}
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
@@ -552,8 +553,10 @@ export default class Comment extends React.Component<Props, State> {
 				...actions,
 				<WithProviders
 					key="reactions"
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					providers={['emojiProvider', 'reactionsStore']}
 					providerFactory={dataProviders}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					renderNode={({ emojiProvider, reactionsStore }) => {
 						if (typeof emojiProvider === 'undefined' || typeof reactionsStore === 'undefined') {
 							return null;

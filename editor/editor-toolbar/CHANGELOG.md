@@ -1,5 +1,26 @@
 # @atlaskit/editor-toolbar
 
+## 0.20.8
+
+### Patch Changes
+
+- [`d7123d7a16015`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7123d7a16015) -
+  Add TextSmallIcon component for small text block type
+- Updated dependencies
+
+## 0.20.7
+
+### Patch Changes
+
+- [`0f4a08b633f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f4a08b633f6e) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
+## 0.20.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.20.5
 
 ### Patch Changes

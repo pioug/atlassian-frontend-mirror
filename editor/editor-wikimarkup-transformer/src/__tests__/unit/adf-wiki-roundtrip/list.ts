@@ -209,42 +209,18 @@ describe('ADF => WikiMarkup - List', () => {
 				type: 'doc',
 				content: [
 					bList(
-						wrapperLi(
-							bList(
-								wrapperLi(
-									bList(
-										wrapperLi(
-											bList(textLi('Item 1 at level 4')),
-										),
-									),
-								),
-							),
-						),
+						wrapperLi(bList(wrapperLi(bList(wrapperLi(bList(textLi('Item 1 at level 4'))))))),
 						textLi('Item 2 at level 1'),
 						wrapperLi(
 							bList(
 								wrapperLi(
 									bList(
-										wrapperLi(
-											bList(
-												wrapperLi(
-													bList(textLi('Item 3 at level 5')),
-												),
-											),
-										),
+										wrapperLi(bList(wrapperLi(bList(textLi('Item 3 at level 5'))))),
 										textLi('Item 4 at level 2'),
 										wrapperLi(
 											bList(
 												wrapperLi(
-													bList(
-														wrapperLi(
-															bList(
-																wrapperLi(
-																	bList(textLi('Item 5 at level 6')),
-																),
-															),
-														),
-													),
+													bList(wrapperLi(bList(wrapperLi(bList(textLi('Item 5 at level 6')))))),
 												),
 												textLi('Item 6 at level 3'),
 											),
@@ -383,42 +359,18 @@ describe('ADF => WikiMarkup - List', () => {
 				type: 'doc',
 				content: [
 					oList(
-						wrapperLi(
-							oList(
-								wrapperLi(
-									oList(
-										wrapperLi(
-											oList(textLi('Item 1 at level 4')),
-										),
-									),
-								),
-							),
-						),
+						wrapperLi(oList(wrapperLi(oList(wrapperLi(oList(textLi('Item 1 at level 4'))))))),
 						textLi('Item 2 at level 1'),
 						wrapperLi(
 							oList(
 								wrapperLi(
 									oList(
-										wrapperLi(
-											oList(
-												wrapperLi(
-													oList(textLi('Item 3 at level 5')),
-												),
-											),
-										),
+										wrapperLi(oList(wrapperLi(oList(textLi('Item 3 at level 5'))))),
 										textLi('Item 4 at level 2'),
 										wrapperLi(
 											oList(
 												wrapperLi(
-													oList(
-														wrapperLi(
-															oList(
-																wrapperLi(
-																	oList(textLi('Item 5 at level 6')),
-																),
-															),
-														),
-													),
+													oList(wrapperLi(oList(wrapperLi(oList(textLi('Item 5 at level 6')))))),
 												),
 												textLi('Item 6 at level 3'),
 											),
@@ -466,9 +418,7 @@ describe('ADF => WikiMarkup - List', () => {
 
 			const wiki = stage0Transformer.encode(node);
 
-			expect(wiki).toBe(
-				['* Level 1 item', '*** -Level 3 item-', '* Back to level 1'].join('\n'),
-			);
+			expect(wiki).toBe(['* Level 1 item', '*** -Level 3 item-', '* Back to level 1'].join('\n'));
 
 			// Double roundtrip: ADF → wiki → ADF → wiki
 			const parsed = stage0Transformer.parse(wiki);
@@ -492,9 +442,7 @@ describe('ADF => WikiMarkup - List', () => {
 
 			const wiki = stage0Transformer.encode(node);
 
-			expect(wiki).toBe(
-				['**** Deep first', '**** -Deep second-'].join('\n'),
-			);
+			expect(wiki).toBe(['**** Deep first', '**** -Deep second-'].join('\n'));
 
 			const parsed = stage0Transformer.parse(wiki);
 			const reEncoded = stage0Transformer.encode(parsed);
@@ -522,12 +470,9 @@ describe('ADF => WikiMarkup - List', () => {
 			const wiki = stage0Transformer.encode(node);
 
 			expect(wiki).toBe(
-				[
-					'*** At level 3',
-					'* -At level 1-',
-					'*** -At level 3 again-',
-					'* At level 1 again',
-				].join('\n'),
+				['*** At level 3', '* -At level 1-', '*** -At level 3 again-', '* At level 1 again'].join(
+					'\n',
+				),
 			);
 
 			const parsed = stage0Transformer.parse(wiki);

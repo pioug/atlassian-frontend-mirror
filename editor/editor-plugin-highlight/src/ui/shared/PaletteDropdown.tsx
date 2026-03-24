@@ -61,6 +61,7 @@ export const PaletteDropdown = (props: PaletteDropdownProps): React.JSX.Element 
 			zIndex={akEditorMenuZIndex}
 			fitWidth={fitWidth}
 			closeOnTab={true}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			arrowKeyNavigationProviderOptions={{
 				type: ArrowKeyNavigationType.COLOR,
 				selectedRowIndex,
@@ -75,6 +76,7 @@ export const PaletteDropdown = (props: PaletteDropdownProps): React.JSX.Element 
 					cols={HIGHLIGHT_COLOR_PICKER_COLUMNS}
 					onClick={onColorChange}
 					selectedColor={activeColor}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					paletteOptions={{
 						palette: highlightColorPalette,
 						hexToPaletteColor: hexToEditorTextBackgroundPaletteColor,

@@ -1,5 +1,53 @@
 # @atlaskit/editor-common
 
+## 112.8.1
+
+### Patch Changes
+
+- [`ceefea718fc6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ceefea718fc6d) -
+  Add keyboard shortcut (Cmd+Opt+7 on Mac, Ctrl+Alt+7 on Windows) for the small text feature in the
+  editor, gated behind the platform_editor_small_font_size experiment. Also adds the shortcut to the
+  toolbar tooltip and help dialog.
+- Updated dependencies
+
+## 112.8.0
+
+### Minor Changes
+
+- [`65cb641586cc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65cb641586cc0) -
+  Extract shared list indentation utilities: restoreSelection, computeSelectionOffsets,
+  buildReplacementFragment, flattenList, and FlattenedItem
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.7.5
+
+### Patch Changes
+
+- [`d497cbb2d150f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d497cbb2d150f) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 112.7.4
+
+### Patch Changes
+
+- [`a35f1a8d92461`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a35f1a8d92461) -
+  [FFCLEANUP-84844] Clean up stale feature flag platform_editor_nested_table_refresh_width_fix
+- Updated dependencies
+
+## 112.7.3
+
+### Patch Changes
+
+- [`e152aabe13c9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e152aabe13c9a) -
+  Add analytics events to Autocomplete plugin
+- [`9ed32aea2c1d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ed32aea2c1d3) -
+  Replace feature experiment util with cross platform alternative for platform_editor_block_menu
+- Updated dependencies
+
 ## 112.7.2
 
 ### Patch Changes

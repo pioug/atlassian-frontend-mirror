@@ -108,6 +108,7 @@ const ToolbarFormatting = ({
 		toolbarMessages.subscriptOffSuperscriptOn,
 	);
 
+	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 	const activeItems = [...dropdownItems, ...singleItems].filter((item) => item.isActive);
 	const prevActiveItems = usePreviousState(activeItems) ?? [];
 

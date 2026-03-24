@@ -188,6 +188,7 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 						handleEscapeKeydown={onClose}
 						trigger={trigger}
 						scrollableElement={containerRef.current}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						arrowKeyNavigationProviderOptions={{
 							type: ArrowKeyNavigationType.MENU,
 						}}

@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 const imageContainer = css({
 	width: '120px',
 	height: '111px',
-	marginTop: token('space.600', '48px'),
+	marginTop: token('space.600'),
 });
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */

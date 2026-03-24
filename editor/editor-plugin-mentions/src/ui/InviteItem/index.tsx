@@ -13,7 +13,6 @@ import { mentionMessages as messages } from '@atlaskit/editor-common/messages';
 import AddIcon from '@atlaskit/icon/core/add';
 import type { UserRole } from '@atlaskit/mention';
 import type { MentionDescription } from '@atlaskit/mention/resource';
-import { N30, N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const mentionItemStyle = css({
@@ -25,7 +24,7 @@ const mentionItemStyle = css({
 });
 
 const mentionItemSelectedStyle = css({
-	backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+	backgroundColor: token('color.background.neutral.subtle.hovered'),
 });
 
 const rowStyle = css({
@@ -34,8 +33,8 @@ const rowStyle = css({
 	flexDirection: 'row',
 	flexWrap: 'wrap',
 	overflow: 'hidden',
-	paddingTop: token('space.075', '6px'),
-	paddingBottom: token('space.075', '6px'),
+	paddingTop: token('space.075'),
+	paddingBottom: token('space.075'),
 	// @ts-expect-error - TODO should use token here, https://product-fabric.atlassian.net/browse/EDF-2517
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingLeft: '14px',
@@ -63,7 +62,7 @@ const nameSectionStyle = css({
 	// @ts-expect-error - TODO should use token here, https://product-fabric.atlassian.net/browse/EDF-2517
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	marginLeft: '14px',
-	color: token('color.text.subtle', N300),
+	color: token('color.text.subtle'),
 });
 
 const capitalizedStyle = css({
@@ -168,7 +167,7 @@ const InviteItem = ({
 				<span css={avatarStyle}>
 					<AddIcon
 						label={intl.formatMessage(messages.mentionsAddLabel)}
-						color={token('color.icon.subtle', N300)}
+						color={token('color.icon.subtle')}
 					/>
 				</span>
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
@@ -177,6 +176,7 @@ const InviteItem = ({
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...messages.inviteItemTitle}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						values={{
 							userRole: userRole || 'basic',
 							productName: (

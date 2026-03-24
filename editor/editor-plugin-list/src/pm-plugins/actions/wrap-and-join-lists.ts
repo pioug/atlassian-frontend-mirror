@@ -114,6 +114,7 @@ function doWrapInList(
 	const parent = range.parent;
 	for (let i = range.startIndex, e = range.endIndex, first = true; i < e; i++, first = false) {
 		if (!first && canSplit(tr.doc, splitPos, splitDepth)) {
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			tr.split(splitPos, splitDepth);
 			splitPos += 2 * splitDepth;
 		}

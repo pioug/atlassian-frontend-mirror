@@ -44,7 +44,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'ButtonItem',
-		description: 'A menu item that triggers an action when clicked. Use for actions like Copy, Delete, or Create.',
+		description:
+			'A menu item that triggers an action when clicked. Use for actions like Copy, Delete, or Create.',
 		status: 'general-availability',
 		import: {
 			name: 'ButtonItem',
@@ -74,7 +75,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'LinkItem',
-		description: 'A menu item that navigates to a URL when clicked. Use for navigation links like Dashboard or Settings.',
+		description:
+			'A menu item that navigates to a URL when clicked. Use for navigation links like Dashboard or Settings.',
 		status: 'general-availability',
 		import: {
 			name: 'LinkItem',
@@ -88,10 +90,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Indicate the current page when relevant',
 			'Combine with icons for context when they add meaning',
 		],
-		contentGuidelines: [
-			'Use clear, descriptive labels for destinations',
-			'Keep labels concise',
-		],
+		contentGuidelines: ['Use clear, descriptive labels for destinations', 'Keep labels concise'],
 		examples: [
 			{
 				name: 'Link Item',
@@ -104,7 +103,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'CustomItem',
-		description: 'A menu item that accepts a custom component for advanced use cases when ButtonItem or LinkItem do not meet your needs.',
+		description:
+			'A menu item that accepts a custom component for advanced use cases when ButtonItem or LinkItem do not meet your needs.',
 		status: 'general-availability',
 		import: {
 			name: 'CustomItem',
@@ -147,10 +147,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Use clear section titles when grouping',
 			'Use visual separators between sections when helpful',
 		],
-		contentGuidelines: [
-			'Use clear section titles',
-			'Group items logically',
-		],
+		contentGuidelines: ['Use clear section titles', 'Group items logically'],
 		examples: [
 			{
 				name: 'Section',
@@ -182,7 +179,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'HeadingItem',
-		description: 'A non-interactive heading within a menu section. Use to label groups of items when Section title is not used.',
+		description:
+			'A non-interactive heading within a menu section. Use to label groups of items when Section title is not used.',
 		status: 'general-availability',
 		import: {
 			name: 'HeadingItem',
@@ -195,10 +193,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Use to label section groups when a section title is not sufficient',
 			'Do not use for interactive content—headings are display-only',
 		],
-		contentGuidelines: [
-			'Use clear, descriptive headings',
-			'Keep headings concise',
-		],
+		contentGuidelines: ['Use clear, descriptive headings', 'Keep headings concise'],
 		examples: [
 			{
 				name: 'Heading Item',
@@ -245,9 +240,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			packagePath: path.resolve(__dirname),
 			packageJson: require('./package.json'),
 		},
-		usageGuidelines: [
-			'Use during loading when a section heading will appear',
-		],
+		usageGuidelines: ['Use during loading when a section heading will appear'],
 		examples: [
 			{
 				name: 'Skeleton Heading Item',

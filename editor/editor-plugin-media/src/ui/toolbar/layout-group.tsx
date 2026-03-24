@@ -58,6 +58,7 @@ export const LayoutGroup = ({
 									title={item.title}
 									selected={item.selected}
 									disabled={item.disabled}
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onClick={() => {
 										dispatchCommand(item.onClick);
 										hide();

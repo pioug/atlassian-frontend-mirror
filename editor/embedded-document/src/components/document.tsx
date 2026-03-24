@@ -25,6 +25,7 @@ export default class Document extends Component<Props> {
 		const { mode, renderToolbar } = this.props;
 
 		if (renderToolbar) {
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			return <WithEditorActions render={(actions) => renderToolbar(mode, actions)} />;
 		}
 

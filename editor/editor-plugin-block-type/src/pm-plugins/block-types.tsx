@@ -22,6 +22,7 @@ import {
 	HeadingFourIcon,
 	HeadingFiveIcon,
 	HeadingSixIcon,
+	TextSmallIcon,
 } from '@atlaskit/editor-toolbar';
 import TextHeadingFiveIcon from '@atlaskit/icon-lab/core/text-heading-five';
 import TextHeadingFourIcon from '@atlaskit/icon-lab/core/text-heading-four';
@@ -48,7 +49,7 @@ export const SMALL_TEXT: BlockType = {
 	title: messages.smallText,
 	nodeName: 'paragraph',
 	markName: 'fontSize',
-	icon: <TextIcon label="" />,
+	icon: <TextSmallIcon label="" />,
 	LEGACY_icon: <Text />,
 };
 export const HEADING_1: BlockType = {
@@ -164,7 +165,7 @@ export const toolbarBlockTypesWithRank = ({
 		expValEquals('platform_editor_small_font_size', 'isEnabled', true) && {
 			smallText: {
 				...SMALL_TEXT,
-				icon: <TextIcon size="small" label="" />,
+				icon: <TextSmallIcon size="small" label="" />,
 				toolbarRank: TEXT_STYLES_MENU_SECTION_RANK[SMALL_TEXT_MENU_ITEM.key],
 				toolbarKey: SMALL_TEXT_MENU_ITEM.key,
 			},

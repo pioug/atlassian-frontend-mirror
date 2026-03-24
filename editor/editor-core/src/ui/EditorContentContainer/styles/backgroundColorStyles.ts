@@ -7,13 +7,13 @@ import { token } from '@atlaskit/tokens';
 export const textHighlightPaddingStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.fabric-background-color-mark:has(.background-color-padding-left)': {
-		paddingLeft: token('space.025', '2px'),
-		marginLeft: token('space.negative.025', '-2px'),
+		paddingLeft: token('space.025'),
+		marginLeft: token('space.negative.025'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.fabric-background-color-mark:has(.background-color-padding-right)': {
-		paddingRight: token('space.025', '2px'),
-		marginRight: token('space.negative.025', '-2px'),
+		paddingRight: token('space.025'),
+		marginRight: token('space.negative.025'),
 	},
 });
 

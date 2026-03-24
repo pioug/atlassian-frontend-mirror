@@ -11,9 +11,9 @@ export const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 868;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const mainToolbarIconBeforeStyle: SerializedStyles = css({
-	margin: token('space.200', '16px'),
-	height: token('space.400', '32px'),
-	width: token('space.400', '32px'),
+	margin: token('space.200'),
+	height: token('space.400'),
+	width: token('space.400'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
 		gridColumn: 1,

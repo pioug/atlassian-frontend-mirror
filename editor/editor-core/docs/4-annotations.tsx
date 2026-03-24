@@ -199,9 +199,9 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
 				<div
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						margin: token('space.100', '8px'),
+						margin: token('space.100'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						padding: token('space.100', '8px'),
+						padding: token('space.100'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						backgroundColor: N20,
 						border: `${token('border.width')} solid ${token('color.border.accent.gray')}`,
@@ -218,7 +218,7 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						overflow: 'auto',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						margin: token('space.100', '8px'),
+						margin: token('space.100'),
 					}}
 				>
 					<p>Paragraph node's content:</p>
@@ -248,9 +248,9 @@ ${(
 	<div
 		style={{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			margin: token('space.100', '8px'),
+			margin: token('space.100'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			padding: token('space.100', '8px'),
+			padding: token('space.100'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			backgroundColor: N20,
 			border: `${token('border.width')} solid ${token('color.border.accent.gray')}`,

@@ -153,8 +153,10 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 
 			return (
 				<WithProviders
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					providers={['mentionProvider']}
 					providerFactory={providerFactory}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					renderNode={({ mentionProvider }) => {
 						return (
 							<>

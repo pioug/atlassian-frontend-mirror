@@ -8,27 +8,27 @@ import { token } from '@atlaskit/tokens';
 export const content: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& div.toolsDrawer': {
-		padding: `${token('space.100', '8px')} ${token('space.200', '16px')}`,
+		padding: `${token('space.100')} ${token('space.200')}`,
 		background: N800,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& label': {
 			display: 'flex',
 			color: 'white',
 			alignSelf: 'center',
-			paddingRight: token('space.100', '8px'),
+			paddingRight: token('space.100'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& > div': {
-			'/* padding': `${token('space.050', '4px')} 0`,
+			'/* padding': `${token('space.050')} 0`,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& button': {
-			margin: `${token('space.050', '4px')} 0`,
+			margin: `${token('space.050')} 0`,
 		},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& legend': {
-		margin: `${token('space.100', '8px')} 0`,
+		margin: `${token('space.100')} 0`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& input': {

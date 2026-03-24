@@ -311,9 +311,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 											placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
 											inputId={id}
 										/>
-										{validationErrors.type && (
-											<ErrorMessage>{validationErrors.type}</ErrorMessage>
-										)}
+										{validationErrors.type && <ErrorMessage>{validationErrors.type}</ErrorMessage>}
 									</>
 								)}
 							</Field>

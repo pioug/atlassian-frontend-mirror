@@ -25,7 +25,7 @@ export const LegacyPrimaryToolbarComponent = ({
 	// NEXT PR: need to render a separator after – if there are extensions added
 	return (
 		<>
-			{primaryToolbarItemExtensions.map((toolbarItemExtension, i) => {
+			{primaryToolbarItemExtensions.map((toolbarItemExtension, _i) => {
 				const toolbarItem = toolbarItemExtension.getToolbarItem();
 				return <LegacyExtensionToolbarItem key={toolbarItem.tooltip} toolbarItem={toolbarItem} />;
 			})}
@@ -92,7 +92,8 @@ export const LegacyExtensionToolbarItem = ({
 	};
 
 	const items = isOpen
-		? getMenuItems()
+		? // eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
+			getMenuItems()
 				.map<MenuItem | undefined>((menuItem, i) => {
 					// Only process ExtensionMenuItemConfiguration, skip ExtensionMenuSectionConfiguration
 					if ('label' in menuItem && 'icon' in menuItem) {
@@ -117,9 +118,11 @@ export const LegacyExtensionToolbarItem = ({
 
 	return (
 		<DropdownMenu
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			arrowKeyNavigationProviderOptions={{
 				type: ArrowKeyNavigationType.MENU,
 			}}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			items={[{ items }]}
 			isOpen={isOpen}
 			onItemActivated={handleItemActivated}

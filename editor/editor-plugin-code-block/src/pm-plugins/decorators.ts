@@ -100,6 +100,7 @@ export const generateLineAttributesFromNode = (node: NodeWithPos): CodeBlockLine
 		const nodeStartPos = pos;
 
 		let lineStartIndex = nodeStartPos;
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 		const newLineAttributes = nodeTextContent.split('\n').map((line, index) => {
 			const lineLength = line.length;
 			const lineStart = lineStartIndex + 1;

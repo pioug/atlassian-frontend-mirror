@@ -1,10 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import {
-	akEditorBlockquoteBorderColor,
-	blockNodesVerticalMargin,
-} from '@atlaskit/editor-shared-styles';
+import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -15,16 +12,16 @@ export const blockquoteSharedStyles: SerializedStyles = css({
 		color: 'inherit',
 		width: '100%',
 		display: 'inline-block',
-		paddingLeft: token('space.200', '16px'),
+		paddingLeft: token('space.200'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		borderLeft: `2px solid ${token('color.border', akEditorBlockquoteBorderColor)}`,
+		borderLeft: `${token('border.width.selected')} solid ${token('color.border')}`,
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		margin: `${blockNodesVerticalMargin} 0 0 0`,
 		marginRight: 0,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		"[dir='rtl'] &": {
 			paddingLeft: 0,
-			paddingRight: token('space.200', '16px'),
+			paddingRight: token('space.200'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:first-child': {

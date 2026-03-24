@@ -74,7 +74,7 @@ export const statusStyles: SerializedStyles = css({
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		textTransform: 'uppercase',
 		whiteSpace: 'nowrap',
-		maxWidth: `calc(200px - ${token('space.100', '8px')})`,
+		maxWidth: `calc(200px - ${token('space.100')})`,
 	},
 });
 

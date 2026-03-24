@@ -27,7 +27,7 @@ export const buttonWrapperStyle: SerializedStyles = css({
 	fontSize: 0,
 	display: 'flex',
 	alignItems: 'center',
-	padding: token('space.025', '2px'),
+	padding: token('space.025'),
 	borderRadius: token('radius.medium'),
 	'&:focus-within, &:focus, &:hover': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766

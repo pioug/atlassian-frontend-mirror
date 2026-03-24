@@ -74,7 +74,8 @@ const messages = defineMessages({
 	confirmText: {
 		id: 'profilecard.agent-profile.agent-delete-confirm.confirm-text',
 		defaultMessage: 'Delete',
-		description: 'Button label to confirm and permanently delete the agent in the confirmation modal',
+		description:
+			'Button label to confirm and permanently delete the agent in the confirmation modal',
 	},
 	title: {
 		id: 'profilecard.agent-profile.delete-agent-confirm-title',

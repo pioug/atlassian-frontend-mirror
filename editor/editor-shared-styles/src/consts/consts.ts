@@ -138,9 +138,9 @@ export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = (
 		return '44px';
 	}
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-		return token('space.500', '40px');
+		return token('space.500');
 	}
-	return token('space.500', '40px');
+	return token('space.500');
 };
 
 export const akEditorFullPageToolbarHeight = 40;

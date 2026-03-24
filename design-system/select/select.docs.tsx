@@ -64,6 +64,13 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Provide clear loading states while fetching',
 			'Cache options when users search repeatedly',
 		],
+		examples: [
+			{
+				name: 'Async select',
+				description: 'Async select with loadOptions for remote or deferred options.',
+				source: path.resolve(__dirname, './examples/constellation/select-async.tsx'),
+			},
+		],
 		keywords: ['select', 'async', 'dropdown', 'form', 'api'],
 		categories: ['form'],
 	},
@@ -82,6 +89,13 @@ const documentation: ComponentStructuredContentSource[] = [
 		usageGuidelines: [
 			'Use when users need to add custom options',
 			'Validate new values before creation',
+		],
+		examples: [
+			{
+				name: 'Creatable select',
+				description: 'Creatable select for adding options not in the list.',
+				source: path.resolve(__dirname, './examples/constellation/select-creatable.tsx'),
+			},
 		],
 		keywords: ['select', 'creatable', 'dropdown', 'form', 'custom'],
 		categories: ['form'],
@@ -103,6 +117,13 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Consider z-index and layering with modals',
 			'Ensure proper focus management',
 		],
+		examples: [
+			{
+				name: 'Popup select',
+				description: 'Popup select with filterable options in an overlay.',
+				source: path.resolve(__dirname, './examples/constellation/select-popup.tsx'),
+			},
+		],
 		keywords: ['select', 'popup', 'dropdown', 'overlay', 'portal'],
 		categories: ['form'],
 	},
@@ -118,8 +139,13 @@ const documentation: ComponentStructuredContentSource[] = [
 			packagePath: path.resolve(__dirname),
 			packageJson: require('./package.json'),
 		},
-		usageGuidelines: [
-			'Use for multi-select when checkbox affordance improves clarity',
+		usageGuidelines: ['Use for multi-select when checkbox affordance improves clarity'],
+		examples: [
+			{
+				name: 'Checkbox select',
+				description: 'Multi-select with checkbox indicators per option.',
+				source: path.resolve(__dirname, './examples/constellation/select-checkbox.tsx'),
+			},
 		],
 		keywords: ['select', 'checkbox', 'multi', 'dropdown', 'form'],
 		categories: ['form'],
@@ -136,8 +162,13 @@ const documentation: ComponentStructuredContentSource[] = [
 			packagePath: path.resolve(__dirname),
 			packageJson: require('./package.json'),
 		},
-		usageGuidelines: [
-			'Use for single-select when radio affordance improves clarity',
+		usageGuidelines: ['Use for single-select when radio affordance improves clarity'],
+		examples: [
+			{
+				name: 'Radio select',
+				description: 'Single-select with radio indicators per option.',
+				source: path.resolve(__dirname, './examples/constellation/select-radio.tsx'),
+			},
 		],
 		keywords: ['select', 'radio', 'single', 'dropdown', 'form'],
 		categories: ['form'],
@@ -156,6 +187,13 @@ const documentation: ComponentStructuredContentSource[] = [
 		usageGuidelines: [
 			'Use for country selection in forms',
 			'Provides built-in country options and search',
+		],
+		examples: [
+			{
+				name: 'Country select',
+				description: 'Country select with built-in country list and search.',
+				source: path.resolve(__dirname, './examples/constellation/select-country.tsx'),
+			},
 		],
 		keywords: ['select', 'country', 'dropdown', 'form', 'localization'],
 		categories: ['form'],

@@ -6,6 +6,8 @@ import {
 	useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 
+import type { AddToolsPromptEventPayload } from '../actions/groups/add-tools-prompt';
+import type { CreateFlowEventPayload } from '../actions/groups/create-flow';
 import { ANALYTICS_CHANNEL } from '../common/constants';
 import { useRovoAgentCSID } from '../common/csid';
 import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
@@ -13,38 +15,11 @@ import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common
 const DefaultActionSubject = 'rovoAgent';
 
 /**
- * Union type of all valid create agent flow actions.
- * Includes both CreateFlow and AddToolsPrompt actions.
- *
- * Data portal registry links:
- * - createFlowStart: https://data-portal.internal.atlassian.com/analytics/registry/97089
- * - createFlowSkipNL: https://data-portal.internal.atlassian.com/analytics/registry/97127
- * - createFlowReviewNL: https://data-portal.internal.atlassian.com/analytics/registry/97124
- * - createFlowActivate: https://data-portal.internal.atlassian.com/analytics/registry/97123
- * - createFlowRestart: https://data-portal.internal.atlassian.com/analytics/registry/97131
- * - createFlowError: https://data-portal.internal.atlassian.com/analytics/registry/97132
- * - createLandInStudio: https://data-portal.internal.atlassian.com/analytics/registry/97136
- * - createDiscard: https://data-portal.internal.atlassian.com/analytics/registry/97137
- * - saDraft: https://data-portal.internal.atlassian.com/analytics/registry/97924
- * - addToolsPromptShown: https://data-portal.internal.atlassian.com/analytics/registry/98106
- * - addToolsPromptBrowse: https://data-portal.internal.atlassian.com/analytics/registry/98107
- * - addToolsPromptDismiss: https://data-portal.internal.atlassian.com/analytics/registry/98108
+ * Union of all valid actions for the create agent analytics hook.
+ * Derived from the event payload types in the action group files.
+ * To add a new action, update the payload type in the relevant group file.
  */
-type AgentCreateAction =
-	// CreateFlow actions
-	| 'createFlowStart'
-	| 'createFlowSkipNL'
-	| 'createFlowReviewNL'
-	| 'createFlowActivate'
-	| 'createFlowRestart'
-	| 'createFlowError'
-	| 'createLandInStudio'
-	| 'createDiscard'
-	| 'saDraft'
-	// AddToolsPrompt actions
-	| 'addToolsPromptShown'
-	| 'addToolsPromptBrowse'
-	| 'addToolsPromptDismiss';
+type AgentCreateAction = CreateFlowEventPayload['action'] | AddToolsPromptEventPayload['action'];
 
 type CommonAnalyticsAttributes = {
 	touchPoint?: string;
@@ -66,11 +41,10 @@ export const useRovoAgentCreateAnalytics = (
 			error: Error,
 			attributes?: CommonAnalyticsAttributes,
 		) => void;
-		readonly refreshCSID: () => `${string}-${string}-${string}-${string}-${string}`;
+		readonly refreshCSID: () => string;
 	},
 ] => {
-	const [csid, { refresh: refreshCSID }] = useRovoAgentCSID();
-
+	const [{ csid, globalCSID }, { refresh: refreshCSID }] = useRovoAgentCSID();
 	const analyticsContext = useContext(AnalyticsReactContext);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const commonAttributesRef = useRef(commonAttributes);
@@ -83,7 +57,6 @@ export const useRovoAgentCreateAnalytics = (
 				...commonAttributesRef.current,
 				...event.attributes,
 				actionGroup: 'createFlow',
-				csid,
 				referrer,
 			};
 
@@ -93,37 +66,39 @@ export const useRovoAgentCreateAnalytics = (
 				attributes,
 			}).fire(ANALYTICS_CHANNEL);
 		},
-		[createAnalyticsEvent, csid, analyticsContext], // keep number of dependencies minimal to prevent re-rendering
+		[createAnalyticsEvent, analyticsContext], // keep number of dependencies minimal to prevent re-rendering
 	);
 
 	/**
-	 * This will fire analytics event for intermediate steps in the create agent flow funnel
-	 * To start the create agent flow, use trackCreateSessionStart
+	 * Fires an analytics event for a step in the create agent flow funnel.
+	 * Uses the CSID from the URL query parameter.
 	 */
 	const trackCreateSession = useCallback(
 		(action: AgentCreateAction, attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
 				actionSubject: DefaultActionSubject,
 				action,
-				attributes,
+				attributes: { csid: globalCSID, ...attributes },
 			});
 		},
-		[fireAnalyticsEvent],
+		[fireAnalyticsEvent, globalCSID],
 	);
 
 	/**
-	 * This should be used ONLY in the beginning of the funnel of create agent flow, it will create a new CSID (CSID = create session ID)
+	 * Fires `createFlowStart` with the current CSID (matching the href),
+	 * then refreshes the CSID for the next session.
+	 * The component re-renders with the new CSID, updating any href attributes.
 	 */
 	const trackCreateSessionStart = useCallback(
-		(attributes?: CommonAnalyticsAttributes) => {
+		(attributes?: CommonAnalyticsAttributes): void => {
 			fireAnalyticsEvent({
 				actionSubject: DefaultActionSubject,
 				action: 'createFlowStart',
-				attributes,
+				attributes: { csid, ...attributes },
 			});
 			refreshCSID();
 		},
-		[fireAnalyticsEvent, refreshCSID],
+		[fireAnalyticsEvent, refreshCSID, csid],
 	);
 
 	const trackCreateSessionError = useCallback(
@@ -135,11 +110,12 @@ export const useRovoAgentCreateAnalytics = (
 					error: {
 						message: error.message,
 					},
+					csid: globalCSID,
 					...attributes,
 				},
 			});
 		},
-		[fireAnalyticsEvent],
+		[fireAnalyticsEvent, globalCSID],
 	);
 
 	return [

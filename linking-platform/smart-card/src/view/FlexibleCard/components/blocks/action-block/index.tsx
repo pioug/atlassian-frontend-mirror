@@ -7,6 +7,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
+import { FadeIn, StaggeredEntrance } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -19,6 +20,7 @@ import {
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,
 } from '../../../../../state/flexible-ui-context';
+import useAISummaryAction from '../../../../../state/hooks/use-ai-summary-action';
 import * as Actions from '../../actions';
 import type { ActionMessage } from '../../actions/action/types';
 
@@ -86,6 +88,8 @@ const ActionBlock = ({
 	const context = useFlexibleUiContext();
 	const ui = useFlexibleUiOptionContext();
 
+	const url = context?.url;
+
 	const isRovoChatActionAvailable =
 		is3PAuthRovoActionsExperimentOn && fg('platform_sl_3p_auth_rovo_action_kill_switch')
 			? context?.actions?.[InternalActionName.RovoChatAction] !== undefined
@@ -132,10 +136,17 @@ const ActionBlock = ({
 
 		arr.sort(sort);
 
-		return arr.map((name) => {
+		const renderAction = (name: FlexibleUiActionName, motionStyle?: React.CSSProperties) => {
 			const Action = name in Actions ? Actions[name as keyof typeof Actions] : undefined;
+			if (!Action) {
+				return null;
+			}
 
-			return Action ? (
+			const style =
+				padding || motionStyle
+					? { ...(motionStyle || {}), ...(padding && { paddingInline: padding }) }
+					: undefined;
+			return (
 				<Action
 					as="stack-item"
 					spaceInline={spaceInline}
@@ -145,13 +156,26 @@ const ActionBlock = ({
 					onLoadingChange={onLoadingChange}
 					size={size || ui?.size}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/no-unsafe-design-token-usage
-					style={padding && { paddingInline: padding }}
+					style={style}
 					hideTooltip={isLoading}
 				/>
-			) : null;
-		});
+			);
+		};
+
+		return isRovoChatActionAvailable && fg('platform_sl_3p_auth_rovo_action_kill_switch') ? (
+			<StaggeredEntrance columns={1}>
+				{arr.map((name, index) => (
+					<FadeIn duration={'large'} key={index}>
+						{(motion) => renderAction(name, motion.style)}
+					</FadeIn>
+				))}
+			</StaggeredEntrance>
+		) : (
+			arr.map((name) => renderAction(name))
+		);
 	}, [
 		context?.actions,
+		is3PAuthRovoActionsExperimentOn,
 		isRovoChatActionAvailable,
 		spaceInline,
 		onError,
@@ -161,10 +185,34 @@ const ActionBlock = ({
 		padding,
 		isLoading,
 		onClick,
-		is3PAuthRovoActionsExperimentOn,
 	]);
 
-	return actions ? (
+	if (
+		!fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+		(!isRovoChatActionAvailable && actions) ||
+		!url
+	) {
+		return actions ? (
+			<div
+				css={[ignoreContainerPaddingStyles]}
+				ref={blockRef}
+				data-testid={testId}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={className}
+			>
+				{actions}
+				<ActionFooter message={message} testId={testId} />
+			</div>
+		) : null;
+	}
+
+	const aiSummaryConfig = fg('platform_sl_3p_auth_rovo_action_kill_switch')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useAISummaryAction(url)
+		: undefined;
+
+	return actions &&
+		(aiSummaryConfig?.state.status === 'done' || aiSummaryConfig?.state.status === 'error') ? (
 		<div
 			css={[ignoreContainerPaddingStyles]}
 			ref={blockRef}

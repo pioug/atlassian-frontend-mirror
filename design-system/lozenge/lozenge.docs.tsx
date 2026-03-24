@@ -6,7 +6,7 @@ const documentation: ComponentStructuredContentSource[] = [
 	{
 		name: 'Lozenge',
 		description:
-			'A lozenge is a visual indicator used to highlight an item\'s status for quick recognition.',
+			"A lozenge is a visual indicator used to highlight an item's status for quick recognition.",
 		status: 'general-availability', // beta lozenge is feature-flagged
 		import: {
 			name: 'Lozenge',
@@ -47,7 +47,7 @@ const documentation: ComponentStructuredContentSource[] = [
 	{
 		name: 'LozengeDropdownTrigger',
 		description:
-			'Lozenge dropdown trigger displays an item\'s status and enables switching through a menu.',
+			"Lozenge dropdown trigger displays an item's status and enables switching through a menu.",
 		status: 'open-beta',
 		import: {
 			name: 'LozengeDropdownTrigger',
@@ -74,7 +74,10 @@ const documentation: ComponentStructuredContentSource[] = [
 			{
 				name: 'Lozenge Dropdown Trigger',
 				description: 'LozengeDropdownTrigger example',
-				source: path.resolve(__dirname, './examples/constellation/lozenge-dropdown-trigger-basic.tsx'),
+				source: path.resolve(
+					__dirname,
+					'./examples/constellation/lozenge-dropdown-trigger-basic.tsx',
+				),
 			},
 		],
 		keywords: ['lozenge', 'dropdown', 'trigger', 'status', 'menu', 'interactive'],

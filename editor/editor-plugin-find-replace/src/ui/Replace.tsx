@@ -273,6 +273,7 @@ const Replace = ({
 					<Inline xcss={actionButtonInlineStyles}>
 						<FindReplaceTooltipButton
 							title={formatMessage(messages.findNext)}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							icon={(iconProps) => <ChevronDownIcon label={iconProps.label} size="small" />}
 							iconLabel={formatMessage(messages.findNext)}
 							keymapDescription={'Enter'}
@@ -281,6 +282,7 @@ const Replace = ({
 						/>
 						<FindReplaceTooltipButton
 							title={findPrevious}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							icon={(iconProps) => <ChevronUpIcon label={iconProps.label} size="small" />}
 							iconLabel={findPrevious}
 							keymapDescription={'Shift Enter'}

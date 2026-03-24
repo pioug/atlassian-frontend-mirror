@@ -92,7 +92,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 									display: 'flex',
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									padding: token('space.050', '4px'),
+									padding: token('space.050'),
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 									alignItems: 'center',
 								}}

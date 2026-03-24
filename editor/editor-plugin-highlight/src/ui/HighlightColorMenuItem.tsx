@@ -103,10 +103,12 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 		<Stack xcss={styles.container} testId="highlight-color-menu-item">
 			<Heading size="xxsmall">{formatMessage(messages.highlight)}</Heading>
 			<ColorPalette
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClick={(color, _, event) => {
 					handleHighlightColorChange(color, event);
 				}}
 				selectedColor={activeColor || null}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				paletteOptions={{
 					palette: colorPalette || [],
 					hexToPaletteColor: hexToEditorTextBackgroundPaletteColor,

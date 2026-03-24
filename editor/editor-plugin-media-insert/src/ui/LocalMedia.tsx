@@ -179,10 +179,12 @@ export const LocalMedia: React.ForwardRefExoticComponent<
 				)}
 				<Button
 					id="local-media-upload-button"
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					iconBefore={() => <UploadIcon label="" />}
 					ref={ref}
 					shouldFitContainer
 					isDisabled={!uploadMediaClientConfig || !uploadParams}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onClick={() => {
 						onUploadButtonClickedAnalytics();
 						dispatch({ type: 'open' });
@@ -193,8 +195,10 @@ export const LocalMedia: React.ForwardRefExoticComponent<
 				{uploadMediaClientConfig && uploadParams && (
 					<Browser
 						isOpen={uploadState.isOpen}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						config={{ uploadParams: uploadParams, multiple: true }}
 						mediaClientConfig={uploadMediaClientConfig}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onUploadsStart={() => onUploadCommencedAnalytics('local')}
 						onPreviewUpdate={onPreviewUpdate}
 						onEnd={onEnd}
@@ -202,6 +206,7 @@ export const LocalMedia: React.ForwardRefExoticComponent<
 						// for others like empty files. Those have their own feedback toast
 						// owned by media.
 						onError={onError}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onClose={() => {
 							erroredFileIds.clear();
 							dispatch({ type: 'close' });

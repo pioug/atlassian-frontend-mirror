@@ -63,7 +63,7 @@ export const visuallyHiddenStyles: SerializedStyles = css({
 	clipPath: 'inset(50%)',
 	height: '1px',
 	width: '1px',
-	margin: token('space.negative.025', '-2px'),
+	margin: token('space.negative.025'),
 	overflow: 'hidden',
 	padding: 0,
 	position: 'absolute',
@@ -83,16 +83,16 @@ const clearTextWrapper = css({
 	right: 0,
 });
 const containerPadding = css({
-	padding: `${token('space.150', '12px')} ${token('space.100', '8px')}`,
+	padding: `${token('space.150')} ${token('space.100')}`,
 });
 
 const textLabelMargin = css({
-	marginTop: token('space.150', '12px'),
+	marginTop: token('space.150'),
 });
 
 const inputLabel = css({
 	color: token('color.text.subtlest'),
-	paddingBottom: token('space.050', '4px'),
+	paddingBottom: token('space.050'),
 	font: token('font.body.small'),
 	fontWeight: token('font.weight.medium'),
 });
@@ -703,10 +703,12 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 							ariaControls={linkSearchListId}
 							ariaAutoComplete
 							describedById={screenReaderDescriptionId}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							ref={(ele) => (this.urlInputContainer = ele)}
 							testId={'link-url'}
 							onSubmit={this.handleSubmit}
 							onChange={this.updateInput}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							autoFocus={{ preventScroll: true }}
 							onCancel={this.handleCancel}
 							defaultValue={displayUrl}
@@ -732,6 +734,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={[inputWrapper, inputWrapperPosition]}>
 						<PanelTextInput
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							ref={(ele) => (this.displayTextInputContainer = ele)}
 							testId={'link-text'}
 							onChange={this.updateTextInput}
@@ -789,6 +792,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
 		if (expValEquals('platform_editor_a11y_escape_link_dialog', 'isEnabled', true)) {
 			return (
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				<FocusLock returnFocus={{ preventScroll: true }} focusOptions={{ preventScroll: true }}>
 					{hyperlinkElement}
 				</FocusLock>

@@ -84,6 +84,7 @@ function ExtensionConfigPanel({
 		try {
 			setParameters({
 				...parameters,
+				// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 				...JSON.parse(parametersJson),
 			});
 		} catch (e) {
@@ -122,6 +123,7 @@ function ExtensionConfigPanel({
 					{parameters && (
 						<CodeBlock
 							language="json"
+							// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 							text={JSON.stringify(parameters, null, 4)}
 							showLineNumbers={false}
 						/>
@@ -134,6 +136,7 @@ function ExtensionConfigPanel({
 				<div css={codeWrapperStyles}>
 					<CodeBlock
 						language="json"
+						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 						text={JSON.stringify(fields, null, 4)}
 						showLineNumbers={false}
 					/>
@@ -197,6 +200,7 @@ export default function ConfigPanelWithExtensionPicker({
 						selectedExtension={extensionKey}
 						selectedNode={nodeKey}
 						extensionProvider={extensionProvider}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onSelect={(params) => {
 							setNodeAndParameters(params);
 							setItem(params.item);

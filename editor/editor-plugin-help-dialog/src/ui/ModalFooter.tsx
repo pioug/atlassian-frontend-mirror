@@ -19,6 +19,7 @@ const ModalFooter = (): jsx.JSX.Element => (
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...messages.helpDialogTips}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			values={{ keyMap: getComponentFromKeymap(openHelp) }}
 		/>
 	</div>

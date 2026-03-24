@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.4.10
+
+### Patch Changes
+
+- [`3d793d41ae6c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d793d41ae6c9) -
+  Add capture-phase scroll detection for container scrollbar drags behind
+  platform_ufo_detect_container_scroll feature flag
+
 ## 5.4.9
 
 ### Patch Changes

@@ -213,13 +213,13 @@ const DragHandleComponent = ({
 					height: isRow
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							`calc(100% - ${dragTableInsertColumnButtonSize}px)`
-						: `${token('space.200', '16px')}`, // 16px here because it's the size of drag handle button's large side
+						: `${token('space.200')}`, // 16px here because it's the size of drag handle button's large side
 					width: isRow
-						? `${token('space.200', '16px')}` // 16px here because it's the size of drag handle button's large side
+						? `${token('space.200')}` // 16px here because it's the size of drag handle button's large side
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							`calc(100% - ${dragTableInsertColumnButtonSize}px)`,
-					left: isRow ? `${token('space.050', '4px')}` : undefined,
-					bottom: isColumn ? `${token('space.0', '0px')}` : undefined,
+					left: isRow ? `${token('space.050')}` : undefined,
+					bottom: isColumn ? `${token('space.0')}` : undefined,
 					alignSelf: isColumn ? 'none' : 'center',
 					zIndex: isColumn ? '-1' : 'auto',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

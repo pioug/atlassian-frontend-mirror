@@ -49,15 +49,12 @@ const commentEditorStylesOld = css({
 	flexDirection: 'column',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.less-margin > .ProseMirror': {
-		margin: `${token('space.150', '12px')} ${token('space.100', '8px')} ${token(
-			'space.100',
-			'8px',
-		)}`,
+		margin: `${token('space.150')} ${token('space.100')} ${token('space.100')}`,
 	},
 	minWidth: '272px',
 	height: 'auto',
-	backgroundColor: token('color.background.input', 'white'),
-	border: `${token('border.width', '1px')} solid ${token('color.border.input')}`,
+	backgroundColor: token('color.background.input'),
+	border: `${token('border.width')} solid ${token('color.border.input')}`,
 	boxSizing: 'border-box',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: token('radius.small', '3px'),
@@ -70,14 +67,11 @@ const commentEditorStyles = css({
 	flexDirection: 'column',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.less-margin > .ProseMirror': {
-		margin: `${token('space.150', '12px')} ${token('space.100', '8px')} ${token(
-			'space.100',
-			'8px',
-		)}`,
+		margin: `${token('space.150')} ${token('space.100')} ${token('space.100')}`,
 	},
 	minWidth: '272px',
 	height: 'auto',
-	backgroundColor: token('color.background.input', 'white'),
+	backgroundColor: token('color.background.input'),
 	border: `${token('border.width')} solid ${token('color.border.input')}`,
 	boxSizing: 'border-box',
 	borderRadius: token('radius.medium', '6px'),
@@ -90,7 +84,7 @@ const secondaryToolbarStyles = css({
 	justifyContent: 'flex-end',
 	alignItems: 'center',
 	display: 'flex',
-	padding: `${token('space.150', '12px')} ${token('space.025', '2px')}`,
+	padding: `${token('space.150')} ${token('space.025')}`,
 });
 
 const mainToolbarCustomComponentsSlotStyleNew = css({
@@ -98,7 +92,7 @@ const mainToolbarCustomComponentsSlotStyleNew = css({
 	justifyContent: 'flex-end',
 	alignItems: 'center',
 	flexGrow: 1,
-	paddingRight: token('space.250', '20px'),
+	paddingRight: token('space.250'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'> div': {
 		display: 'flex',
@@ -322,6 +316,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 								return (
 									<EditorContentContainer
 										ref={containerElement}
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										css={[
 											maxHeight
 												? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

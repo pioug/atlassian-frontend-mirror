@@ -10,6 +10,7 @@ import type { AdfDoc } from '../../model/HelpArticle';
 
 import resetCSS from './resetCss';
 import { ArticleFrame } from './styled';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface Props {
 	// Article Content
@@ -162,6 +163,31 @@ export const ArticleBody = (props: Props): React.JSX.Element | null => {
 								const style = iframeDocument.createElement('style');
 								style.innerText = resetCSS;
 								head.appendChild(style);
+
+								if (fg('asf-943-in-product-help-dark-mode')) {
+									// Copy theme attributes from parent document to iframe for dark mode support
+									const parentHtml = document.documentElement;
+									const iframeHtml = iframeDocument.documentElement;
+									const colorMode = parentHtml.getAttribute('data-color-mode');
+									const themeAttr = parentHtml.getAttribute('data-theme');
+									if (colorMode) {
+										iframeHtml.setAttribute('data-color-mode', colorMode);
+									}
+									if (themeAttr) {
+										iframeHtml.setAttribute('data-theme', themeAttr);
+									}
+
+									// Copy theme style elements from parent document into the iframe
+									const themeStyles = document.querySelectorAll('style[data-theme]');
+									themeStyles.forEach((themeStyle) => {
+										const clonedStyle = iframeDocument.createElement('style');
+										clonedStyle.textContent = themeStyle.textContent;
+										if (themeStyle instanceof HTMLElement && themeStyle.dataset.theme) {
+											clonedStyle.dataset.theme = themeStyle.dataset.theme;
+										}
+										head.appendChild(clonedStyle);
+									});
+								}
 
 								resizeIframe();
 

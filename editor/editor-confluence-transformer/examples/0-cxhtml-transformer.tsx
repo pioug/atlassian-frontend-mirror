@@ -43,7 +43,7 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const content: SerializedStyles = css({
-	padding: `0 ${token('space.250', '20px')}`,
+	padding: `0 ${token('space.250')}`,
 	height: '100%',
 	background: '#fff',
 	boxSizing: 'border-box',
@@ -54,15 +54,15 @@ const clickableSpan: SerializedStyles = css({
 });
 
 const fieldsetStyle: SerializedStyles = css({
-	marginTop: token('space.250', '20px'),
-	marginBottom: token('space.250', '20px'),
+	marginTop: token('space.250'),
+	marginBottom: token('space.250'),
 });
 
 const textareaStyle: SerializedStyles = css({
 	boxSizing: 'border-box',
 	border: `${token('border.width')} solid lightgray`,
 	fontFamily: 'monospace',
-	padding: token('space.150', '12px'),
+	padding: token('space.150'),
 	width: '100%',
 	height: 100,
 });
@@ -282,7 +282,7 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 	};
 
 	fieldsetStyle: SerializedStyles = css({
-		marginTop: token('space.250', '20px'),
+		marginTop: token('space.250'),
 	});
 
 	preStyle: SerializedStyles = css({
@@ -291,7 +291,7 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 	});
 
 	spinnerContainerStyle: SerializedStyles = css({
-		padding: token('space.250', '20px'),
+		padding: token('space.250'),
 	});
 
 	handleChange = (editorActions: EditorActions): void => {

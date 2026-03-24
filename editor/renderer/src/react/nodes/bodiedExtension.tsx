@@ -81,6 +81,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 			 * This allows nested renderers to have their positions reported in a way
 			 * that the annotations positions can be calculated correctly.
 			 */}
+			{/* eslint-disable-next-line @atlassian/perf-linting/no-inline-context-value, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
 			<AnnotationsPositionContext.Provider value={{ startPos: props.startPos + 1 }}>
 				<ValidationContextProvider value={validationContextValue}>
 					<ExtensionRenderer

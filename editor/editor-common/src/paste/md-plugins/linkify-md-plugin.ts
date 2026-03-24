@@ -107,13 +107,13 @@ const linkify = (state: any) => {
 					//
 					if (!links[ln].schema) {
 						// Ignored via go/ees005
-						// eslint-disable-next-line require-unicode-regexp
+						// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 						urlText = state.md.normalizeLinkText('http://' + urlText).replace(/^http:\/\//, '');
 						// Ignored via go/ees005
 						// eslint-disable-next-line require-unicode-regexp
 					} else if (links[ln].schema === 'mailto:' && !/^mailto:/i.test(urlText)) {
 						// Ignored via go/ees005
-						// eslint-disable-next-line require-unicode-regexp
+						// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 						urlText = state.md.normalizeLinkText('mailto:' + urlText).replace(/^mailto:/, '');
 					} else {
 						urlText = state.md.normalizeLinkText(urlText);

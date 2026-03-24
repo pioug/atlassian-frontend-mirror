@@ -185,7 +185,8 @@ const FindReplaceToolbarButtonWithState = ({
 			}
 			numReplaceable={
 				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-					? matches.filter((match) => match.canReplace === true).length
+					? // eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
+						matches.filter((match) => match.canReplace === true).length
 					: undefined
 			}
 			replaceText={replaceText}

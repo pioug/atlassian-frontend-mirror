@@ -17,11 +17,11 @@ import { token } from '@atlaskit/tokens';
 const container = css({
 	display: 'flex',
 	flexDirection: 'column',
-	margin: token('space.100', '8px'),
+	margin: token('space.100'),
 	height: 'calc(100% - 30px)',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
-		margin: `${token('space.100', '8px')} 0`,
+		margin: `${token('space.100')} 0`,
 	},
 });
 
@@ -45,7 +45,7 @@ const diffContainer = css({
 	lineHeight: '16px',
 	overflow: 'auto',
 	wordWrap: 'break-word',
-	padding: `${token('space.075', '6px')} ${token('space.075', '6px')}`,
+	padding: `${token('space.075')} ${token('space.075')}`,
 });
 
 const buttonContainer = css({
@@ -81,7 +81,7 @@ const label = css({
 	textAlign: 'center',
 	borderTop: `${token('border.width')} solid ${token('color.border')}`,
 	fontSize: '16px',
-	paddingTop: token('space.200', '16px'),
+	paddingTop: token('space.200'),
 });
 
 type State = {

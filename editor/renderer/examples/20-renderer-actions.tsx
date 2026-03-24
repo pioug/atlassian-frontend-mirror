@@ -5,7 +5,6 @@
 import React, { useState } from 'react';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { generateUuid } from '@atlaskit/adf-schema';
-import { Y75, Y200 } from '@atlaskit/theme/colors';
 
 import RendererDemo from './helper/RendererDemo';
 import { validDocument as storyDataDocument } from './helper/story-data';
@@ -76,8 +75,8 @@ function AnnotationSelect({ doc, onDelete }: { doc?: Node; onDelete: (id: string
 const wrapperStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"[data-mark-type='annotation']": {
-		backgroundColor: token('color.background.accent.yellow.subtler', Y75),
-		borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow', Y200)}`,
+		backgroundColor: token('color.background.accent.yellow.subtler'),
+		borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow')}`,
 	},
 });
 

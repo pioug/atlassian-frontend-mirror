@@ -34,11 +34,8 @@ const fadeOutStyles = (maxHeight: number, top: number, backgroundColor: string) 
 			bottom: 0,
 			left: 0,
 			right: 0,
-			backgroundImage: `linear-gradient( ${token(
-				'color.background.neutral.subtle',
-				'rgba(255, 255, 255, 0)',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			)}, ${backgroundColor} )`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			backgroundImage: `linear-gradient( ${token('color.background.neutral.subtle')}, ${backgroundColor} )`,
 		},
 	});
 
@@ -62,7 +59,7 @@ export class TruncatedWrapper extends Component<TruncatedWrapperProps, unknown> 
 		const {
 			height = 95,
 			fadeHeight = 24,
-			backgroundColor = token('elevation.surface', 'white'),
+			backgroundColor = token('elevation.surface'),
 			children,
 		} = this.props;
 		return (

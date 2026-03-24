@@ -1,5 +1,18 @@
 # @atlaskit/editor-shared-styles
 
+## 3.10.37
+
+### Patch Changes
+
+- [`0f4a08b633f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f4a08b633f6e) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
+## 3.10.36
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.10.35
 
 ### Patch Changes

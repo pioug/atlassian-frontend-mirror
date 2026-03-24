@@ -1,4 +1,4 @@
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { DecorationsPlugin, HoverDecorationProps } from './decorationsPluginType';
 import { hoverDecorationCommand, removeDecorationCommand } from './pm-plugins/commands';
@@ -32,10 +32,10 @@ export const decorationsPlugin: DecorationsPlugin = () => ({
 	},
 
 	commands: {
-		hoverDecoration: expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+		hoverDecoration: editorExperiment('platform_editor_block_menu', true)
 			? ({ add, className }: HoverDecorationProps) => hoverDecorationCommand({ add, className })
 			: undefined,
-		removeDecoration: expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+		removeDecoration: editorExperiment('platform_editor_block_menu', true)
 			? () => removeDecorationCommand()
 			: undefined,
 	},

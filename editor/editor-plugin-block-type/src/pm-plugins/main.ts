@@ -35,8 +35,12 @@ import {
 	getBlockTypesInDropdown,
 	SMALL_TEXT,
 } from './block-types';
-import { setHeadingWithAnalytics, setNormalTextWithAnalytics } from './commands/block-type';
-import { HEADING_KEYS, HEADING_NUMPAD_KEYS } from './consts';
+import {
+	setHeadingWithAnalytics,
+	setNormalTextWithAnalytics,
+	setSmallTextWithAnalytics,
+} from './commands/block-type';
+import { HEADING_KEYS, HEADING_NUMPAD_KEYS, KEY_7 } from './consts';
 import type { BlockType } from './types';
 import { areBlockTypesDisabled, checkFormattingIsPresent, hasBlockQuoteInOptions } from './utils';
 
@@ -254,6 +258,28 @@ export const createPlugin = (
 						return (
 							editorAPI?.core?.actions.execute(
 								autoformatHeading(headingLevel as HeadingLevels, editorAnalyticsApi),
+							) ?? false
+						);
+					}
+				} else if (
+					event.keyCode === KEY_7 &&
+					event.altKey &&
+					expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+				) {
+					if (browser.mac && event.metaKey) {
+						return (
+							editorAPI?.core?.actions.execute(
+								setSmallTextWithAnalytics(INPUT_METHOD.SHORTCUT, editorAnalyticsApi),
+							) ?? false
+						);
+					} else if (
+						!browser.mac &&
+						event.ctrlKey &&
+						altKeyLocation !== event.DOM_KEY_LOCATION_RIGHT
+					) {
+						return (
+							editorAPI?.core?.actions.execute(
+								setSmallTextWithAnalytics(INPUT_METHOD.SHORTCUT, editorAnalyticsApi),
 							) ?? false
 						);
 					}

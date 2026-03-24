@@ -60,6 +60,7 @@ export default class TaskItemWithProviders extends Component<Props, State> {
 					this.setState({ resolvedContextProvider });
 				}
 			} catch (err) {
+				// eslint-disable-line no-unused-vars
 				if (this.mounted) {
 					this.setState({ resolvedContextProvider: undefined });
 				}
@@ -70,12 +71,13 @@ export default class TaskItemWithProviders extends Component<Props, State> {
 	}
 
 	render(): React.JSX.Element {
-		const { contextIdentifierProvider, ...otherProps } = this.props;
+		const { contextIdentifierProvider: _contextIdentifierProvider, ...otherProps } = this.props;
 		const { objectId } = this.state.resolvedContextProvider || ({} as ContextIdentifierProvider);
 		const userContext = objectId ? 'edit' : 'new';
 
 		return (
 			<FabricElementsAnalyticsContext
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				data={{
 					userContext,
 				}}

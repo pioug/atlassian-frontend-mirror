@@ -100,32 +100,32 @@ interface BasePopoverContentProps {
 export type PopoverContentProps = BasePopoverContentProps &
 	(
 		| {
-			/**
-			 * Invoked when the user clicks `SpotlightPrimaryAction` in a tour.
-			 * If an `onClick` handler is provided to `SpotlightPrimaryAction` then that takes precedence,
-			 * and `next` will be ignored.
-			 *
-			 * If `next` is passed to `PopoverContent`, then `done` cannot be passed. This will result in a type error.
-			 */
-			next: (event: NextEvent) => void;
+				/**
+				 * Invoked when the user clicks `SpotlightPrimaryAction` in a tour.
+				 * If an `onClick` handler is provided to `SpotlightPrimaryAction` then that takes precedence,
+				 * and `next` will be ignored.
+				 *
+				 * If `next` is passed to `PopoverContent`, then `done` cannot be passed. This will result in a type error.
+				 */
+				next: (event: NextEvent) => void;
 
-			/**
-			 * Invoked when the user clicks `SpotlightPrimaryAction`.
-			 * If an `onClick` handler is provided to SpotlightPrimaryAction then that takes precedence,
-			 * and `done` will be ignored.
-			 *
-			 * If `done` is passed to PopoverContent, then `next` cannot be passed. This will result in a type error.
-			 */
-			done?: never;
-		}
+				/**
+				 * Invoked when the user clicks `SpotlightPrimaryAction`.
+				 * If an `onClick` handler is provided to SpotlightPrimaryAction then that takes precedence,
+				 * and `done` will be ignored.
+				 *
+				 * If `done` is passed to PopoverContent, then `next` cannot be passed. This will result in a type error.
+				 */
+				done?: never;
+		  }
 		| {
-			done: (event: DoneEvent) => void;
-			next?: never;
-		}
+				done: (event: DoneEvent) => void;
+				next?: never;
+		  }
 		| {
-			next?: never;
-			done?: never;
-		}
+				next?: never;
+				done?: never;
+		  }
 	);
 
 /**

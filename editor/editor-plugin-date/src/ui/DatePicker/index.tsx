@@ -138,6 +138,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				target={element!}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				offset={[0, 8]}
 				fitHeight={370}
 				fitWidth={340}
@@ -167,6 +168,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 							/>
 							<Calendar
 								onChange={this.handleOnChange}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onSelect={(date: DateType) => onSelect(date, INPUT_METHOD.PICKER)}
 								day={day}
 								month={month}

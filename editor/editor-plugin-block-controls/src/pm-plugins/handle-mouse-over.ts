@@ -105,7 +105,7 @@ export const handleMouseOver = (
 	if (
 		!view.hasFocus() &&
 		isMenuOpen &&
-		expValEquals('platform_editor_block_menu', 'isEnabled', true)
+		editorExperiment('platform_editor_block_menu', true, { exposure: true })
 	) {
 		return false;
 	}
@@ -285,7 +285,7 @@ export const handleMouseOver = (
 		if (nodeType) {
 			// platform_editor_controls note: enables quick insert
 			if (toolbarFlagsEnabled) {
-				if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+				if (editorExperiment('platform_editor_block_menu', true)) {
 					const preservedSelection = selectionPreservationPluginKey.getState(
 						view.state,
 					)?.preservedSelection;
@@ -327,7 +327,7 @@ export const handleMouseOver = (
 				);
 			}
 
-			if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+			if (editorExperiment('platform_editor_block_menu', true)) {
 				if (
 					isMenuOpen &&
 					originalAnchorName &&

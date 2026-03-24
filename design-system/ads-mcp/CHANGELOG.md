@@ -1,5 +1,21 @@
 # @atlaskit/ads-mcp
 
+## 0.17.4
+
+### Patch Changes
+
+- [`221fe0390240d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/221fe0390240d) -
+  Refactor to scripts and auto-generated AI content.
+- [`221fe0390240d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/221fe0390240d) -
+  Auto-generate codegen files
+
+## 0.17.3
+
+### Patch Changes
+
+- [`3462e31664c27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3462e31664c27) -
+  Auto-generate with new examples from dropdown, select, and label
+
 ## 0.17.2
 
 ### Patch Changes

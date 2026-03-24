@@ -1,6 +1,6 @@
 import type { AbortReasonType, InteractionType } from '../../common/common/types';
 
-import type { ObservedWindowEvent } from './window-event-observer';
+import type { ObservedWindowEventExtended } from './window-event-observer';
 
 export type VCObserverEntryType =
 	| 'mutation:child-element'
@@ -47,7 +47,7 @@ export type VCObserverLabelStacks = {
 
 export type WindowEventEntryData = {
 	readonly type: VCObserverEntryType;
-	readonly eventType: ObservedWindowEvent;
+	readonly eventType: ObservedWindowEventExtended;
 };
 
 export type VCObserverEntry = {

@@ -14,7 +14,7 @@ const barStyles = css({
 	right: 0,
 	top: '18px',
 	margin: 'auto',
-	width: token('space.200', '16px'),
+	width: token('space.200'),
 	height: '3px',
 });
 

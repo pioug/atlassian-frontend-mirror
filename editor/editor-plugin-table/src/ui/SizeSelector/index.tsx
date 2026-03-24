@@ -61,6 +61,7 @@ export const SizeSelector = ({
 
 	return (
 		<TableSelectorPopup
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			defaultSize={{ row: DEFAULT_TABLE_SELECTOR_ROWS, col: DEFAULT_TABLE_SELECTOR_COLS }}
 			target={target}
 			onUnmount={onUnmount}

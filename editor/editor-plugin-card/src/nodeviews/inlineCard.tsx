@@ -304,6 +304,7 @@ export function InlineCardNodeView(
 	);
 
 	const url = node.attrs.url;
+
 	const CompetitorPromptComponent =
 		CompetitorPrompt && url ? <CompetitorPrompt sourceUrl={url} linkType="inline" /> : null;
 
@@ -338,7 +339,7 @@ export function InlineCardNodeView(
 		</>
 	);
 
-	return expValEquals('cc_drag_and_drop_smart_link_from_content_to_tree', 'isEnabled', true) ? (
+	return (
 		<SmartLinkDraggable
 			url={url}
 			appearance={SMART_LINK_APPEARANCE.INLINE}
@@ -346,8 +347,6 @@ export function InlineCardNodeView(
 		>
 			{inlineCardContent}
 		</SmartLinkDraggable>
-	) : (
-		inlineCardContent
 	);
 }
 

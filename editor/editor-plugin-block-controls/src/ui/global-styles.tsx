@@ -44,6 +44,12 @@ const dragHandlerAnchorSelector =
  */
 const dragHandlerAnchorSelectorNext = `[${NODE_ANCHOR_ATTR_NAME}]:not([data-prosemirror-node-name="tableRow"], [data-prosemirror-node-name="tableCell"],  [data-prosemirror-node-name="tableHeader"], [data-prosemirror-node-name="media"], [data-prosemirror-node-inline="true"])`;
 
+/**
+ * Extended version that also excludes descendants of taskList.
+ * preventing the ::after hover zone from blocking checkbox inputs in blockTaskItem nodes.
+ */
+const dragHandlerAnchorSelectorWithTaskExclusion = `[${NODE_ANCHOR_ATTR_NAME}]:not([data-prosemirror-node-name="tableRow"], [data-prosemirror-node-name="tableCell"],  [data-prosemirror-node-name="tableHeader"], [data-prosemirror-node-name="media"], [data-prosemirror-node-inline="true"], [data-prosemirror-node-name="taskList"] [${NODE_ANCHOR_ATTR_NAME}])`;
+
 const gutterPaddingWidth = () =>
 	editorExperiment('platform_editor_controls', 'variant1')
 		? `${akEditorGutterPaddingDynamic()}px`
@@ -136,31 +142,33 @@ const extendedHoverZone = () =>
 
 const extendedHoverZoneNext = () =>
 	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[`.block-ctrl-drag-preview ${dragHandlerAnchorSelectorNext}::after`]: {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			display: 'none !important',
-		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`.block-ctrl-drag-preview ${expValEquals('platform_editor_unify_native_dnd_selectors', 'isEnabled', true) ? dragHandlerAnchorSelectorWithTaskExclusion : dragHandlerAnchorSelectorNext}::after`]:
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				display: 'none !important',
+			},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ProseMirror': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-			[`&& ${dragHandlerAnchorSelectorNext}::after`]: {
-				content: '""',
-				position: 'absolute',
-				top: 0,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				left: `-${DRAG_HANDLE_MAX_WIDTH_PLUS_GAP}px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				width: `${DRAG_HANDLE_MAX_WIDTH_PLUS_GAP}px`,
-				height: '100%',
-				cursor: 'default',
-				zIndex: 1,
-			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`&& ${expValEquals('platform_editor_unify_native_dnd_selectors', 'isEnabled', true) ? dragHandlerAnchorSelectorWithTaskExclusion : dragHandlerAnchorSelectorNext}::after`]:
+				{
+					content: '""',
+					position: 'absolute',
+					top: 0,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					left: `-${DRAG_HANDLE_MAX_WIDTH_PLUS_GAP}px`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					width: `${DRAG_HANDLE_MAX_WIDTH_PLUS_GAP}px`,
+					height: '100%',
+					cursor: 'default',
+					zIndex: 1,
+				},
 
 			// Top level depth hover zone should extend to gutter padding area
 			// we select the top level by using NOT nested anchor selector
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`&& ${dragHandlerAnchorSelectorNext}:not([${NODE_ANCHOR_ATTR_NAME}] [${NODE_ANCHOR_ATTR_NAME}])::after`]:
+			[`&& ${expValEquals('platform_editor_unify_native_dnd_selectors', 'isEnabled', true) ? dragHandlerAnchorSelectorWithTaskExclusion : dragHandlerAnchorSelectorNext}:not([${NODE_ANCHOR_ATTR_NAME}] [${NODE_ANCHOR_ATTR_NAME}])::after`]:
 				{
 					content: '""',
 					position: 'absolute',
@@ -174,8 +182,8 @@ const extendedHoverZoneNext = () =>
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 					zIndex: -1,
 				},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-			[`&& :is(.pm-table-cell-content-wrap, .pm-table-header-content-wrap) > ${dragHandlerAnchorSelectorNext}::after`]:
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`&& :is(.pm-table-cell-content-wrap, .pm-table-header-content-wrap) > ${expValEquals('platform_editor_unify_native_dnd_selectors', 'isEnabled', true) ? dragHandlerAnchorSelectorWithTaskExclusion : dragHandlerAnchorSelectorNext}::after`]:
 				{
 					content: '""',
 					position: 'absolute',
@@ -194,7 +202,7 @@ const extendedHoverZoneNext = () =>
 		},
 		//Hide pseudo element at top depth level. Leave for nested depths to prevent mouseover loop.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		[`[data-blocks-drag-handle-container="true"] + ${dragHandlerAnchorSelectorNext}:not([${NODE_ANCHOR_ATTR_NAME}] [${NODE_ANCHOR_ATTR_NAME}])::after`]:
+		[`[data-blocks-drag-handle-container="true"] + ${expValEquals('platform_editor_unify_native_dnd_selectors', 'isEnabled', true) ? dragHandlerAnchorSelectorWithTaskExclusion : dragHandlerAnchorSelectorNext}:not([${NODE_ANCHOR_ATTR_NAME}] [${NODE_ANCHOR_ATTR_NAME}])::after`]:
 			{
 				display: 'none',
 			},
@@ -204,19 +212,20 @@ const layoutColumnExtendedHoverZone = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// hover zone for layout column should be placed near the top of the column (where drag handle is)
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[`&&& ${dragHandlerAnchorSelectorNext}[data-layout-column]::after`]: {
-			content: '""',
-			position: 'absolute',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			top: `${-DRAG_HANDLE_WIDTH / 2}px`,
-			left: 0,
-			width: '100%',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			height: `${DRAG_HANDLE_WIDTH}px`,
-			cursor: 'default',
-			zIndex: 1,
-		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`&&& ${expValEquals('platform_editor_unify_native_dnd_selectors', 'isEnabled', true) ? dragHandlerAnchorSelectorWithTaskExclusion : dragHandlerAnchorSelectorNext}[data-layout-column]::after`]:
+			{
+				content: '""',
+				position: 'absolute',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				top: `${-DRAG_HANDLE_WIDTH / 2}px`,
+				left: 0,
+				width: '100%',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				height: `${DRAG_HANDLE_WIDTH}px`,
+				cursor: 'default',
+				zIndex: 1,
+			},
 	},
 });
 
@@ -224,10 +233,11 @@ const layoutColumnWithoutHoverZone = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// when advanced_layouts is off, layout columns should not have hover zones, because there aren't any drag handles for layout columns
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[`&&& ${dragHandlerAnchorSelectorNext}[data-layout-column]::after`]: {
-			display: 'none',
-		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`&&& ${expValEquals('platform_editor_unify_native_dnd_selectors', 'isEnabled', true) ? dragHandlerAnchorSelectorWithTaskExclusion : dragHandlerAnchorSelectorNext}[data-layout-column]::after`]:
+			{
+				display: 'none',
+			},
 	},
 });
 
@@ -250,16 +260,17 @@ const extendHoverZoneReduced = css({
 const extendHoverZoneReducedNext = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[`> ${dragHandlerAnchorSelectorNext}::after`]: {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				left: `-${akEditorGutterPaddingReduced}px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				width: `${akEditorGutterPaddingReduced}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`> ${expValEquals('platform_editor_unify_native_dnd_selectors', 'isEnabled', true) ? dragHandlerAnchorSelectorWithTaskExclusion : dragHandlerAnchorSelectorNext}::after`]:
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+					left: `-${akEditorGutterPaddingReduced}px`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+					width: `${akEditorGutterPaddingReduced}px`,
+				},
 			},
-		},
 	},
 });
 
@@ -278,7 +289,7 @@ const extendedDragZoneNext = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		[`&& ${dragHandlerAnchorSelectorNext}:not([${NODE_ANCHOR_ATTR_NAME}] [${NODE_ANCHOR_ATTR_NAME}])::after`]:
+		[`&& ${expValEquals('platform_editor_unify_native_dnd_selectors', 'isEnabled', true) ? dragHandlerAnchorSelectorWithTaskExclusion : dragHandlerAnchorSelectorNext}:not([${NODE_ANCHOR_ATTR_NAME}] [${NODE_ANCHOR_ATTR_NAME}])::after`]:
 			{
 				width: 'var(--ak-editor-max-container-width)',
 				left: `calc((100% - var(--ak-editor-max-container-width))/2)`,
@@ -662,6 +673,7 @@ export const GlobalStylesWrapper = ({
 
 	return (
 		<Global
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			styles={[
 				globalStyles(),
 				globalDnDStyle,

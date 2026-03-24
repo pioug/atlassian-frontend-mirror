@@ -111,6 +111,7 @@ function createRule() {
 					}
 
 					const closingTokens = openingTokens
+						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 						.map((token) => new State.Token(token.type.replace('_open', '_close'), token.tag, -1))
 						.reverse();
 

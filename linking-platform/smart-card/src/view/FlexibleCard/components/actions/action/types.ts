@@ -72,6 +72,11 @@ export type ActionProps = {
 	iconPosition?: 'before' | 'after';
 
 	/**
+	 * Determines the size of the icon.
+	 */
+	iconSize?: 'small' | 'medium';
+
+	/**
 	 * Determines whether the button displays as disabled.
 	 */
 	isDisabled?: boolean;

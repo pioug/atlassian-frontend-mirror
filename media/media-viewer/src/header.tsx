@@ -56,6 +56,7 @@ export const Header = ({
 	isSidebarVisible,
 	onSidebarButtonClick,
 	identifier,
+	onClose,
 	onSetArchiveSideBarVisible,
 	traceContext,
 }: Props & WrappedComponentProps): React.JSX.Element => {
@@ -180,6 +181,20 @@ export const Header = ({
 				})}
 			</LeftHeader>
 			<RightHeader>
+				{extensions?.headerActions?.map((action, index) => {
+					if (action.isVisible && !action.isVisible(identifier)) {
+						return null;
+					}
+					return (
+						<MediaButton
+							key={index}
+							testId={`media-viewer-header-action-${index}`}
+							onClick={() => action.onClick(identifier, { close: onClose || (() => {}) })}
+							iconBefore={action.icon as ReactChild}
+							aria-label={action.label}
+						/>
+					);
+				})}
 				{extensions?.sidebar && (
 					<MediaButton
 						isSelected={isSidebarVisible}

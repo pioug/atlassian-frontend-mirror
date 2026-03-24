@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 import { css, jsx } from '@compiled/react';
 
 const svgStyles = css({
-	fill: token('elevation.surface', '#FFFFFF'),
+	fill: token('elevation.surface'),
 	overflow: 'hidden',
 	pointerEvents: 'none',
 });

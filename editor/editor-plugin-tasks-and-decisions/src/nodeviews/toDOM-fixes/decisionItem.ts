@@ -33,9 +33,9 @@ export const decisionItemSpecWithFixedToDOM = (): NodeSpec => {
 						// Styles to match `packages/elements/task-decision/src/components/styles.ts`
 						style: convertToInlineCss({
 							background: token('color.background.neutral'),
-							padding: token('space.100', '8px'),
-							paddingLeft: token('space.150', '12px'),
-							margin: `${token('space.100', '8px')} 0 0 0`,
+							padding: token('space.100'),
+							paddingLeft: token('space.150'),
+							margin: `${token('space.100')} 0 0 0`,
 							display: 'flex',
 							borderRadius: token('radius.small', '3px'),
 						}),
@@ -46,7 +46,7 @@ export const decisionItemSpecWithFixedToDOM = (): NodeSpec => {
 							style: convertToInlineCss({
 								width: '16px',
 								height: '16px',
-								margin: `${token('space.050', '4px')} ${token('space.150', '12px')} 0 0`,
+								margin: `${token('space.050')} ${token('space.150')} 0 0`,
 								color: showPlaceholder ? token('color.icon.subtle') : token('color.icon.success'),
 								display: 'flex',
 								alignItems: 'center',

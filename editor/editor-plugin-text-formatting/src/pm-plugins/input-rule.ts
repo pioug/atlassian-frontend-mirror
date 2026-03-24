@@ -174,7 +174,7 @@ const buildRegex = (char: ValidAutoformatChars) => {
 	// eslint-disable-next-line require-unicode-regexp
 	const escapedChar = char.replace(/(\W)/g, '\\$1');
 	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
+	// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 	const combinations = ValidCombinations[char].map((c) => c.replace(/(\W)/g, '\\$1')).join('|');
 
 	// Single X - https://regex101.com/r/McT3yq/14/
@@ -199,7 +199,7 @@ const buildRegexNew = (char: ValidAutoformatChars, allowsBackwardMatch: boolean 
 	// eslint-disable-next-line require-unicode-regexp
 	const escapedChar = char.replace(/(\W)/g, '\\$1');
 	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
+	// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 	const combinations = ValidCombinations[char].map((c) => c.replace(/(\W)/g, '\\$1')).join('|');
 
 	// Single X - https://regex101.com/r/McT3yq/14/

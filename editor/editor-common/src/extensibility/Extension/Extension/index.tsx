@@ -239,7 +239,9 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 						<LegacyContentHeader
 							isNodeSelected={isNodeSelected}
 							isNodeHovered={isNodeHovered}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onMouseEnter={() => handleMouseEvent(true)}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onMouseLeave={() => handleMouseEvent(false)}
 						/>
 					)}
@@ -355,6 +357,7 @@ const Extension = (props: Props & OverflowShadowProps) => {
 	// Ignored via go/ees005
 	return (
 		<ExtensionWithPluginState
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			widthState={{
 				width: width ?? 0,
 				lineLength,

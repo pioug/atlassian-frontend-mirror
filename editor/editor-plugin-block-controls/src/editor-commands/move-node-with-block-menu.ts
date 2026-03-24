@@ -2,7 +2,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { DIRECTION } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
@@ -29,7 +29,7 @@ export const moveNodeWithBlockMenu = (
 	direction: DIRECTION.UP | DIRECTION.DOWN,
 ): EditorCommand => {
 	return ({ tr }) => {
-		if (!expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+		if (!editorExperiment('platform_editor_block_menu', true)) {
 			return tr;
 		}
 

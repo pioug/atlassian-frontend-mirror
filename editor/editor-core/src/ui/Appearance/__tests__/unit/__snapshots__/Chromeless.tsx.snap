@@ -20,7 +20,7 @@ exports[`Chromeless editor should render correct overridden styles 1`] = `
 }
 
 .emotion-0 div>.ProseMirror>:last-child {
-  padding-bottom: var(--ds-space-100, 0.5em);
+  padding-bottom: var(--ds-space-100, 8px);
 }
 
 

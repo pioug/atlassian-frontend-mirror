@@ -19,9 +19,9 @@ const stickyHeader = css({
 	position: 'sticky',
 	background: 'white none repeat scroll 0% 0%',
 	zIndex: 99,
-	paddingLeft: token('space.100', '8px'),
-	marginLeft: token('space.negative.100', '-8px'),
-	paddingTop: token('space.025', '2px'),
+	paddingLeft: token('space.100'),
+	marginLeft: token('space.negative.100'),
+	paddingTop: token('space.025'),
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 	top: '-1px',
 	boxShadow: 'rgb(235, 236, 240) 0px 2px',
@@ -30,7 +30,7 @@ const stickyHeader = css({
 const editorSide = css({
 	flexGrow: 1,
 	overflow: 'hidden auto',
-	padding: `0px ${token('space.400', '32px')} ${token('space.400', '32px')}`,
+	padding: `0px ${token('space.400')} ${token('space.400')}`,
 	width: 'calc(-12px + min(840px, 60%))',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 	paddingLeft: 'max(50% - 700px, 0px)',
@@ -38,7 +38,7 @@ const editorSide = css({
 });
 
 const contentSection = css({
-	paddingTop: token('space.150', '12px'),
+	paddingTop: token('space.150'),
 	gridArea: 'content',
 	display: 'flex',
 	height: '100%',

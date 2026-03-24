@@ -29,10 +29,10 @@ export const panelStyles: SerializedStyles = css({
 			// panelSharedStylesWithoutPrefix()
 			borderRadius: token('radius.small', '3px'),
 			margin: `0.75rem 0 0`,
-			paddingTop: token('space.100', '8px'),
-			paddingRight: token('space.200', '16px'),
-			paddingBottom: token('space.100', '8px'),
-			paddingLeft: token('space.100', '8px'),
+			paddingTop: token('space.100'),
+			paddingRight: token('space.200'),
+			paddingBottom: token('space.100'),
+			paddingLeft: token('space.100'),
 			minWidth: '48px',
 			display: 'flex',
 			position: 'relative',
@@ -47,10 +47,10 @@ export const panelStyles: SerializedStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'.ak-editor-panel__icon': {
 				flexShrink: 0,
-				height: token('space.300', '24px'),
-				width: token('space.300', '24px'),
+				height: token('space.300'),
+				width: token('space.300'),
 				boxSizing: 'content-box',
-				paddingRight: token('space.100', '8px'),
+				paddingRight: token('space.100'),
 				textAlign: 'center',
 				userSelect: 'none',
 				MozUserSelect: 'none',
@@ -87,7 +87,7 @@ export const panelStyles: SerializedStyles = css({
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'.ak-editor-panel__content': {
-				margin: `${token('space.025', '2px')} 0 ${token('space.025', '2px')}`,
+				margin: `${token('space.025')} 0 ${token('space.025')}`,
 				flex: '1 0 0',
 				/*
 					https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox
@@ -208,8 +208,8 @@ export const panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes: Seri
 		'.ak-editor-panel': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'&.ak-editor-panel__no-icon': {
-				paddingRight: token('space.150', '12px'),
-				paddingLeft: token('space.150', '12px'),
+				paddingRight: token('space.150'),
+				paddingLeft: token('space.150'),
 			},
 		},
 	},
@@ -217,12 +217,12 @@ export const panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes: Seri
 	'.ak-editor-content-area.appearance-full-page .ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ak-editor-panel .ak-editor-panel__icon': {
-			paddingRight: token('space.150', '12px'),
+			paddingRight: token('space.150'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ak-editor-panel.ak-editor-panel__no-icon': {
-			paddingLeft: token('space.250', '20px'),
-			paddingRight: token('space.250', '20px'),
+			paddingLeft: token('space.250'),
+			paddingRight: token('space.250'),
 		},
 	},
 	/* Don't want extra padding for inline editor (nested) */
@@ -230,12 +230,12 @@ export const panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes: Seri
 	'.ak-editor-content-area .ak-editor-content-area .ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ak-editor-panel .ak-editor-panel__icon': {
-			paddingRight: token('space.100', '8px'),
+			paddingRight: token('space.100'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ak-editor-panel.ak-editor-panel__no-icon': {
-			paddingRight: token('space.150', '12px'),
-			paddingLeft: token('space.150', '12px'),
+			paddingRight: token('space.150'),
+			paddingLeft: token('space.150'),
 		},
 	},
 });

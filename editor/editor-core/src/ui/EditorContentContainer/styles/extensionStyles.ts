@@ -465,9 +465,9 @@ export const getExtensionStyles = (contentMode?: EditorContentMode): SerializedS
 					},
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 					'.bodiedExtension-content-inner-wrapper': {
-						margin: `0 ${token('space.negative.250', '-20px')}`,
-						padding: `${token('space.200', '16px')} ${token('space.250', '20px')}`,
-						border: `1px solid ${token('color.border')}`,
+						margin: `0 ${token('space.negative.250')}`,
+						padding: `${token('space.200')} ${token('space.250')}`,
+						border: `${token('border.width')} solid ${token('color.border')}`,
 						borderRadius: token('radius.small', '3px'),
 					},
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

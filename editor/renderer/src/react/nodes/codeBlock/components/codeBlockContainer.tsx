@@ -7,7 +7,6 @@ import { jsx, css } from '@emotion/react';
 import type { ReactNode } from 'react';
 import type { CodeBlockButtonContainerProps } from './codeBlockButtonContainer';
 
-import { N20 } from '@atlaskit/theme/colors';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -18,7 +17,7 @@ import CodeBlockButtonContainer from './codeBlockButtonContainer';
 
 const codeBlockStyleOverrides = css({
 	tabSize: 4,
-	backgroundColor: token('elevation.surface.raised', N20),
+	backgroundColor: token('elevation.surface.raised'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	button: {
 		opacity: 0,
@@ -39,36 +38,36 @@ const codeBlockStyleOverrides = css({
 		lineHeight: '1.5rem',
 		backgroundImage: `linear-gradient(
 			to right,
-			${token('color.background.neutral')} ${token('space.300', '24px')},
-			transparent ${token('space.300', '24px')}
+			${token('color.background.neutral')} ${token('space.300')},
+			transparent ${token('space.300')}
 			),linear-gradient(
 			to right,
-			${token('elevation.surface.raised')} ${token('space.300', '24px')},
-			transparent ${token('space.300', '24px')}
+			${token('elevation.surface.raised')} ${token('space.300')},
+			transparent ${token('space.300')}
 			),linear-gradient(
 			to left,
-			${token('color.background.neutral')} ${token('space.100', '8px')},
-			transparent ${token('space.100', '8px')}
+			${token('color.background.neutral')} ${token('space.100')},
+			transparent ${token('space.100')}
 			),linear-gradient(
 			to left,
-			${token('elevation.surface.raised')} ${token('space.100', '8px')},
-			transparent ${token('space.100', '8px')}
+			${token('elevation.surface.raised')} ${token('space.100')},
+			transparent ${token('space.100')}
 			),linear-gradient(
 			to left,
 			${token('elevation.shadow.overflow.spread')} 0,
-			${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 			),linear-gradient(
 			to left,
 			${token('elevation.shadow.overflow.perimeter')} 0,
-			${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 			),linear-gradient(
 			to right,
 			${token('elevation.shadow.overflow.spread')} 0,
-			${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 			),linear-gradient(
 			to right,
 			${token('elevation.shadow.overflow.perimeter')} 0,
-			${token('utility.UNSAFE.transparent')}  ${token('space.100', '8px')}
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
 			)`,
 		backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
 		backgroundPosition: '0 0, 0 0, 100% 0, 100% 0, 100% 0, 100% 0, 0 0, 0 0',

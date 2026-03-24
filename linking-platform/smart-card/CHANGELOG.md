@@ -1,5 +1,26 @@
 # @atlaskit/smart-card
 
+## 43.27.2
+
+### Patch Changes
+
+- [`9b9ffb59d1419`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b9ffb59d1419) -
+  [ux] NAVX-3600 aligning new hovercard for rovo experiment with figma designs
+- Updated dependencies
+
+## 43.27.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.27.0
+
+### Minor Changes
+
+- [`171234137629d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/171234137629d) -
+  Open smart hover card on focus
+
 ## 43.26.13
 
 ### Patch Changes

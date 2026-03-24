@@ -15,7 +15,6 @@ import EmailIcon from '@atlaskit/icon/core/email';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import type { UserRole } from '@atlaskit/mention';
 import type { MentionDescription } from '@atlaskit/mention/resource';
-import { N30, N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { isValidEmail } from '@atlaskit/user-picker';
 
@@ -28,12 +27,12 @@ const mentionItemStyle = css({
 });
 
 const mentionItemSelectedStyle = css({
-	backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+	backgroundColor: token('color.background.neutral.subtle.hovered'),
 });
 
 const style = cssMap({
 	byline: {
-		marginTop: token('space.025', '2px'),
+		marginTop: token('space.025'),
 	},
 	rowStyle: {
 		alignItems: 'center',
@@ -41,10 +40,10 @@ const style = cssMap({
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		overflow: 'hidden',
-		paddingTop: token('space.075', '6px'),
-		paddingBottom: token('space.075', '6px'),
-		paddingLeft: token('space.150', '12px'),
-		paddingRight: token('space.150', '12px'),
+		paddingTop: token('space.075'),
+		paddingBottom: token('space.075'),
+		paddingLeft: token('space.150'),
+		paddingRight: token('space.150'),
 		textOverflow: 'ellipsis',
 		verticalAlign: 'middle',
 	},
@@ -61,8 +60,8 @@ const style = cssMap({
 	nameSection: {
 		flex: 1,
 		minWidth: '0px',
-		marginLeft: token('space.150', '12px'),
-		color: token('color.text.subtle', N300),
+		marginLeft: token('space.150'),
+		color: token('color.text.subtle'),
 	},
 	capitalize: {
 		textTransform: 'capitalize',
@@ -150,6 +149,7 @@ const InviteItemWithEmailDomain = ({
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...messages.inviteItemTitle}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					values={{
 						userRole: userRole || 'basic',
 						productName: (
@@ -257,7 +257,7 @@ const InviteItemWithEmailDomain = ({
 						{shouldShowError ? (
 							<StatusErrorIcon label="Error" color={token('color.icon.danger')} />
 						) : (
-							<EmailIcon label="Email" color={token('color.icon.subtle', N300)} />
+							<EmailIcon label="Email" color={token('color.icon.subtle')} />
 						)}
 					</span>
 					<div css={style.nameSection} data-testid="name-section">

@@ -57,6 +57,7 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps): jsx.JS
 							/>
 						</Heading>
 						<ul>
+							{/* eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed) */}
 							{formatting
 								.filter((form) => {
 									const keymap = form.keymap && form.keymap();
@@ -75,6 +76,7 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps): jsx.JS
 									);
 								})}
 
+							{/* eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed) */}
 							{formatting
 								.filter((form) => shortcutNamesWithoutKeymap.indexOf(form.type) !== -1)
 								.filter((form) => form.autoFormatting)
@@ -104,6 +106,7 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps): jsx.JS
 							/>
 						</Heading>
 						<ul>
+							{/* eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed) */}
 							{formatting
 								.filter((form) => shortcutNamesWithoutKeymap.indexOf(form.type) === -1)
 								.map(

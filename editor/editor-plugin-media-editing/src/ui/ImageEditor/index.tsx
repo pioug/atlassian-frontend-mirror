@@ -158,6 +158,7 @@ export const ImageEditor = ({
 							<div>
 								<DropdownMenu
 									appearance="default"
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									trigger={({ triggerRef, ...props }) => (
 										<Button
 											ref={triggerRef}
@@ -191,6 +192,7 @@ export const ImageEditor = ({
 											{(['original', 'custom'] as const).map((item) => (
 												<DropdownItem
 													key={item}
+													// eslint-disable-next-line @atlassian/perf-linting/detect-unnecessary-rerenders, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 													onClick={() => {
 														setSelectionArea(item);
 													}}
@@ -207,6 +209,7 @@ export const ImageEditor = ({
 												(item) => (
 													<DropdownItem
 														key={item}
+														// eslint-disable-next-line @atlassian/perf-linting/detect-unnecessary-rerenders, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 														onClick={() => {
 															setSelectionArea(item);
 														}}
@@ -226,6 +229,7 @@ export const ImageEditor = ({
 									</div>
 								</DropdownMenu>
 								<Button
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onClick={async () => {
 										rotateRight();
 										await setSelectionArea('custom');
@@ -266,6 +270,7 @@ export const ImageEditor = ({
 								</Button>
 								<Button
 									appearance="primary"
+									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									onClick={() => handleSave(onSave, onClose, errorReporter)}
 									isDisabled={!isImageReady || isSaving}
 									isLoading={isSaving}

@@ -139,7 +139,7 @@ export const listsStyles: SerializedStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'& > p:not(:first-child)': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				margin: `${token('space.050', '4px')} 0 0 0`,
+				margin: `${token('space.050')} 0 0 0`,
 			},
 
 			/* In SSR the above rule will apply to all p tags because first-child would be a style tag.

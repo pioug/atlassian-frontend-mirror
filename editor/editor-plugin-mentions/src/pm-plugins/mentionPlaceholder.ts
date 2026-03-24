@@ -1,7 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const mentionPlaceholderPluginKey: PluginKey = new PluginKey('mentionPlaceholderPlugin');
@@ -41,7 +40,7 @@ export function createMentionPlaceholderPlugin(): SafePlugin<{}> {
 					const { selection } = state;
 					const span = document.createElement('span');
 					span.textContent = pluginState.placeholder;
-					span.style.setProperty('color', token('color.text.accent.blue', B400));
+					span.style.setProperty('color', token('color.text.accent.blue'));
 					return DecorationSet.create(state.doc, [Decoration.widget(selection.from, span)]);
 				}
 				return null;

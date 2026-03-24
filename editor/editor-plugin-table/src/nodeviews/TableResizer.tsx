@@ -112,7 +112,7 @@ const handleStyles = {
 	right: {
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 		right: '-14px',
-		marginTop: token('space.150', '12px'),
+		marginTop: token('space.150'),
 	},
 };
 
@@ -863,6 +863,7 @@ export const TableResizer = ({
 				}
 				appearance={isTableSelected && isWholeTableInDanger ? 'danger' : undefined}
 				handleHighlight="shadow"
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				handleTooltipContent={({ update }) => {
 					updateTooltip.current = update;
 					return (

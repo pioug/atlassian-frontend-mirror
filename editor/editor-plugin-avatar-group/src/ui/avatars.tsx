@@ -72,6 +72,7 @@ export const Avatars: React.MemoExoticComponent<(props: AvatarsProps) => jsx.JSX
 			return null;
 		}
 
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 		const avatars = participants
 			.sort((p) => (p.sessionId === sessionId ? -1 : 1))
 			.map((participant) => toAvatar(participant, editorAPI, intl.formatMessage));
@@ -88,6 +89,7 @@ export const Avatars: React.MemoExoticComponent<(props: AvatarsProps) => jsx.JSX
 					size="medium"
 					data={avatars}
 					maxCount={3}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onAvatarClick={(
 						_event: React.MouseEvent,
 						_analytics: AnalyticsEvent | undefined,

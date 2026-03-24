@@ -43,7 +43,7 @@ export default class ExampleRenderer extends React.Component {
 								Edit
 							</Button>
 						</div>
-						<h1 style={{ margin: `${token('space.250', '20px')} 0` }}>
+						<h1 style={{ margin: `${token('space.250')} 0` }}>
 							{localStorage ? localStorage.getItem(LOCALSTORAGE_defaultTitleKey) : null}
 						</h1>
 						<Renderer

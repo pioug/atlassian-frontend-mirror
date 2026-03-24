@@ -129,6 +129,7 @@ export const createMediaSpec = (
 				if (attributes) {
 					Object.keys(attributes).forEach((k) => {
 						// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 						const key = camelCaseToKebabCase(k).replace(/^__/u, '');
 						// eslint-disable-next-line @atlaskit/editor/no-as-casting
 						const value = (dom as HTMLElement).getAttribute(`data-${key}`) || '';

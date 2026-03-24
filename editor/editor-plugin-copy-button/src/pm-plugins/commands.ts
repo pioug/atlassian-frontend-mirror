@@ -17,7 +17,7 @@ import type { MarkType, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CopyButtonPlugin } from '../copyButtonPluginType';
 
@@ -150,7 +150,7 @@ export const createToolbarCopyCommandForNode =
 			// dispatch is provided -- as otherwise the consumer is only testing to see if
 			// the action is availble.
 			const domNode = toDOM(contentNodeWithPos.node, schema);
-			if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+			if (editorExperiment('platform_editor_block_menu', true)) {
 				copyDomNode(domNode, contentNodeWithPos.node.type, tr.selection);
 			} else {
 				if (domNode) {

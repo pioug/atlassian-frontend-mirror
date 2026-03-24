@@ -425,6 +425,7 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 					// when cursor is located below a media with caption,
 					// press “Up“ key will result cursor focus on an invalid position, (on the resize handler)
 					// This workaround adds an empty div inside the resize handler to prevent the issue.
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					handleComponentFunc={() => <div contentEditable={false} />}
 					handleStyles={nestedInTableHandleStyles(this.isNestedInTable())}
 				>

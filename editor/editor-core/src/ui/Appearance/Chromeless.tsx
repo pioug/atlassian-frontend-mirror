@@ -59,7 +59,7 @@ const chromelessEditorStylesNew = css({
 		margin: 0,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'& > :last-child': {
-			paddingBottom: token('space.100', '0.5em'),
+			paddingBottom: token('space.100'),
 		},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -119,6 +119,7 @@ export default class Editor extends React.Component<AppearanceProps> {
 				<ChromelessEditorContainer
 					maxHeight={maxHeight}
 					minHeight={minHeight}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					containerRef={(ref: HTMLElement | null) => (this.containerElement = ref)}
 				>
 					<EditorContentContainer

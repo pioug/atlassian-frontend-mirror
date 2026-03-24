@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 1.1.0
+
+### Minor Changes
+
+- [`cffd9dae547c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cffd9dae547c3) -
+  Update rovo agents analytics funnel
+
 ## 1.0.0
 
 ### Major Changes

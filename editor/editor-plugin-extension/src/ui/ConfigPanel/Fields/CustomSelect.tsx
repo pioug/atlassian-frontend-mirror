@@ -133,6 +133,7 @@ function CustomSelect({
 			label={label}
 			isRequired={isRequired}
 			defaultValue={defaultValue as ValueType<Option, false>}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			validate={(value) => validate(field, value)}
 			testId={`config-panel-custom-select-${name}`}
 			isDisabled={isDisabled}
@@ -145,6 +146,7 @@ function CustomSelect({
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...fieldProps}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onChange={(value) => {
 									fieldProps.onChange(value);
 									// We assume onChange is called whenever values actually changed
@@ -154,15 +156,18 @@ function CustomSelect({
 								// add type cast to avoid adding a "IsMulti" generic prop (TODO: ED-12072)
 								isMulti={(isMultiple || false) as false}
 								isClearable={true}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								isValidNewOption={(value: string) => !!(isCreatable && value)}
 								validationState={error ? 'error' : 'default'}
 								defaultOptions={defaultOptions}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								formatCreateLabel={(value: string) =>
 									customFormatCreateLabel
 										? customFormatCreateLabel(value)
 										: formatCreateLabel(value)
 								}
 								formatOptionLabel={formatOptionLabel}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								loadOptions={(searchTerm: string) => {
 									return resolver(searchTerm, fieldDefaultValue, parameters);
 								}}

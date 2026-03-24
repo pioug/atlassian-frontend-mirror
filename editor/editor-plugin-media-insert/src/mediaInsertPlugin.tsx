@@ -130,6 +130,7 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api, config }) => {
 					popupsMountPoint={popupsMountPoint}
 					popupsBoundariesElement={popupsBoundariesElement}
 					popupsScrollableElement={popupsScrollableElement}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					closeMediaInsertPicker={() =>
 						editorView.dispatch(closeMediaInsertPicker(editorView.state.tr))
 					}

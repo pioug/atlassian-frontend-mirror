@@ -24,6 +24,7 @@ export const listItem = (node: PMNode, prefix: string, context?: Context): strin
 					result.push(`${prefix} ${contentBuffer.join('\n')}`);
 					contentBuffer = [];
 				}
+				// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 				const nestedList = encode(n, context)
 					.split('\n')
 					.map((line) => {

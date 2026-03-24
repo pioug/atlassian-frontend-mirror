@@ -34,10 +34,10 @@ const i18n = defineMessages({
 });
 
 const lcmHeaderStyles = css({
-	padding: `0 ${token('space.200', '16px')} ${token('space.050', '4px')} ${token('space.200', '16px')}`,
-	backgroundColor: token('color.background.neutral', '#0515240F'),
+	padding: `0 ${token('space.200')} ${token('space.050')} ${token('space.200')}`,
+	backgroundColor: token('color.background.neutral'),
 	borderRadius: `${token('radius.small', '4px')} ${token('radius.small', '4px')} 0 0`,
-	boxShadow: `0 0 0 1px ${token('color.background.neutral', '#0515240F')}`,
+	boxShadow: `0 0 0 1px ${token('color.background.neutral')}`,
 	position: 'relative',
 	top: `-1px`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -51,15 +51,15 @@ const lcmHeaderStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& .status-lozenge-span': {
-		marginRight: token('space.100', '8px'),
+		marginRight: token('space.100'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > .legacy-content-header-text': {
-		font: token('font.body.small', '12px'),
+		font: token('font.body.small'),
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& span': {
-			paddingRight: token('space.050', '4px'),
+			paddingRight: token('space.050'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& a': {

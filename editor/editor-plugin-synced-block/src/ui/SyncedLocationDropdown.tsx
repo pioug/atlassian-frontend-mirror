@@ -304,8 +304,10 @@ export const SyncedLocationDropdown = ({
 	return (
 		<DropdownMenu
 			isOpen={isOpen}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onOpenChange={({ isOpen }) => setIsOpen(isOpen)}
 			testId="synced-block-synced-locations-dropdown"
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			trigger={({ triggerRef, ...triggerProps }) => (
 				<Button
 					ref={triggerRef}
@@ -401,6 +403,7 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 												target="_blank"
 												key={reference.title}
 												rel="noopener noreferrer"
+												// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 												onClick={() => handleLocationClick()}
 											>
 												<ItemTitle

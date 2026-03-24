@@ -9,6 +9,7 @@ import ModalDialog, {
 	ModalHeader,
 	ModalTitle,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { type ContainerTypes } from '../../../common/types';
@@ -42,6 +43,17 @@ export const messages = defineMessages({
 			LoomSpace {space}
 			other {link}
 		}.`,
+		description: 'Disclaimer of the disconnect dialog for team containers',
+	},
+	disconnectDialogDisclaimerNew: {
+		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer',
+		// eslint-disable-next-line @atlassian/i18n/no-complex-selectors
+		defaultMessage: `{containerType, select,
+			JiraProject {Disconnecting the team from the project might affect work connected to the team within the project.}
+			ConfluenceSpace {Disconnecting the team from the space will not affect any work connected to the team within the space.}
+			LoomSpace {Disconnecting the team from the space will not affect any work connected to the team within the space.}
+			other {Disconnecting the team from the link will not affect any work connected to the team within the link.}
+		}`,
 		description: 'Disclaimer of the disconnect dialog for team containers',
 	},
 	disconnectDialogDisclaimerFallback: {
@@ -106,7 +118,12 @@ export const DisconnectDialog = ({
 						/>
 					</Box>
 
-					<FormattedMessage {...messages.disconnectDialogDisclaimer} values={{ containerType }} />
+					<FormattedMessage
+						{...(fg('workforce_optimization_team_modal_update')
+							? messages.disconnectDialogDisclaimerNew
+							: messages.disconnectDialogDisclaimer)}
+						values={{ containerType }}
+					/>
 				</Stack>
 			</ModalBody>
 			<ModalFooter>

@@ -42,6 +42,7 @@ const controls = {
 } as const;
 
 function WrapperEditorComponent(props: EditorProps) {
+	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 	const ChildKey = JSON.stringify(props);
 	return (
 		<EditorContext>
@@ -59,8 +60,7 @@ function WrapperEditorComponent(props: EditorProps) {
 
 const _default_1: {
 	component: typeof Editor;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-explicit-any
 	decorators: ((...args: any) => any)[];
 	title: string;
 } = {

@@ -13,6 +13,7 @@ import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-e
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { insertAdfAtEndOfDoc } from './pm-plugins/actions/insertAdfAtEndOfDoc';
 import { replaceWithAdf } from './pm-plugins/actions/replaceWithAdf';
@@ -61,7 +62,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 		}
 	}
 
-	if (expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+	if (editorExperiment('platform_editor_block_menu', true, { exposure: true })) {
 		registerBlockMenuItems({ extensionList, api, editorViewRef });
 	}
 
@@ -109,7 +110,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				}
 				const { state } = editorViewRef.current;
 
-				if (expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+				if (editorExperiment('platform_editor_block_menu', true, { exposure: true })) {
 					const selection =
 						api?.blockControls?.sharedState.currentState()?.preservedSelection || state.selection;
 
@@ -130,7 +131,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 
 				const { state } = editorViewRef.current;
 
-				if (expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+				if (editorExperiment('platform_editor_block_menu', true, { exposure: true })) {
 					const selection =
 						api?.blockControls?.sharedState.currentState()?.preservedSelection || state.selection;
 

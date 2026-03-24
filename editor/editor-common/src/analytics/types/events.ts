@@ -10,6 +10,7 @@ import type {
 import type { FireAnalyticsEventOptions } from '../api';
 
 import type { ActiveSessionEventPayload } from './activity-session-events';
+import type { AiAutocompleteEventPayload } from './ai-autocomplete-events';
 import type { AICommandPaletteEventPayload } from './ai-command-palette-events';
 import type { AIDefinitionsEventPayload } from './ai-definitions-events';
 import type { AIEventPayload } from './ai-events';
@@ -143,6 +144,7 @@ export type AnalyticsEventPayload<T = void> =
 	| AIEventPayload
 	| AIStreamingEventPayload
 	| AIProactiveEventPayload
+	| AiAutocompleteEventPayload
 	| AIQuickPromptEventPayload
 	| AIUnifiedEventPayload
 	| BreakoutEventPayload

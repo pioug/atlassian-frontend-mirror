@@ -191,6 +191,7 @@ const resolveMentionsInText = async (
 	let resolvedText = text;
 	for (const id of mentionSet) {
 		const mention = await mentionProvider.resolveMentionName(id);
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 		resolvedText = resolvedText.replace(`@${id}`, `@${mention.name}` || '@…');
 	}
 

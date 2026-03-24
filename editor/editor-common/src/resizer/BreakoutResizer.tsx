@@ -405,6 +405,7 @@ const BreakoutResizer = ({
 	return (
 		<Resizer
 			ref={resizerRef}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			enable={{ left: true, right: true }}
 			snap={snaps || undefined}
 			snapGap={SNAP_GAP}

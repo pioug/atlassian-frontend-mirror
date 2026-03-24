@@ -8,7 +8,7 @@ import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 const tableFullWidthLabelWrapperStyles = xcss({
-	height: token('space.400', '32px'),
+	height: token('space.400'),
 	display: 'flex',
 	backgroundColor: 'elevation.surface.overlay',
 	borderRadius: 'radius.small',

@@ -98,6 +98,7 @@ const MenuItemComponent = React.forwardRef<HTMLElement, Props>(
 				href={href}
 				target={target}
 				rel={rel}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClick={(e) => onClick(e)}
 			>
 				{formatMessage(

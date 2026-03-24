@@ -72,12 +72,12 @@ export default function EmptyState({
 
 const emptyStateHeading = css({
 	font: token('font.heading.medium'),
-	color: token('color.text', 'rgb(23, 43, 77)'),
-	marginTop: token('space.300', '24px'),
+	color: token('color.text'),
+	marginTop: token('space.300'),
 });
 
 const emptyStateSubHeading = css({
-	marginTop: token('space.200', '16px'),
+	marginTop: token('space.200'),
 	maxWidth: '400px',
 	textAlign: 'center',
 });

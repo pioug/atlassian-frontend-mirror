@@ -181,9 +181,11 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 						zIndex={akEditorMenuZIndex}
 						fitHeight={360}
 						fitWidth={106}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						section={{ hasSeparator: true }}
 						shouldUseDefaultRole={shouldUseDefaultRole}
 						// hasSeparator={true}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						shouldFocusFirstItem={() => {
 							if (isOpenedByKeyboard) {
 								// eslint-disable-next-line @repo/internal/react/no-set-state-inside-render

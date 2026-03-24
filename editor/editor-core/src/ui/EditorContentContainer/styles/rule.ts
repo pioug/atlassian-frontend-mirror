@@ -13,8 +13,8 @@ export const ruleStyles: SerializedStyles = css({
 		height: '2px',
 		borderRadius: '1px', // this should use token('radius.full') but cannot since the element has padding which increases its height beyond 2px
 		cursor: 'pointer',
-		padding: `${token('space.050', '4px')} 0`,
-		margin: `${token('space.300', '24px')} 0`,
+		padding: `${token('space.050')} 0`,
+		margin: `${token('space.300')} 0`,
 		backgroundClip: 'content-box',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values

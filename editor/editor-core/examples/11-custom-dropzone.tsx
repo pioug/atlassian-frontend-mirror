@@ -51,7 +51,7 @@ class DemoEditor extends React.PureComponent<any, State> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						justifyContent: 'center',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						margin: token('space.150', '12px'),
+						margin: token('space.150'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						borderRadius: '25px',
 					}}
@@ -70,7 +70,7 @@ export default function Example(): React.JSX.Element {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ display: 'flex' }}>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ marginRight: token('space.150', '12px') }}>
+			<div style={{ marginRight: token('space.150') }}>
 				<DemoEditor />
 			</div>
 			<div style={{}}>

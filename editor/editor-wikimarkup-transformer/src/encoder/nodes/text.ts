@@ -59,6 +59,7 @@ const isEscapeNeeded = (node: PMNode, parent?: PMNode) => {
 function escapingWikiFormatter(text: string) {
 	const pattern = [
 		MENTION_ESCAPE_PATTERN,
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 		...macroKeywordTokenMap.map((macro) => `(${macro.regex.source.replace('^', '')})`),
 	].join('|');
 	return (

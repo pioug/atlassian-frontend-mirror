@@ -24,7 +24,7 @@ const containerStyles = css({
 	position: 'relative',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.bodied': {
-		marginTop: token('space.300', '24px'),
+		marginTop: token('space.300'),
 	},
 });
 
@@ -55,7 +55,7 @@ const labelStyles = css({
 	'&.nested': {
 		// Need to add indent if the node is nested since we removed previous indentation styles to make it fit properly
 		// in the nested component
-		marginLeft: token('space.150', '12px'),
+		marginLeft: token('space.150'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.inline': {
@@ -70,16 +70,16 @@ const labelStyles = css({
 	'&.bodied-border': {
 		boxShadow: `0 0 0 1px ${token('color.border')}`,
 	},
-	minHeight: token('space.300', '24px'),
+	minHeight: token('space.300'),
 	alignItems: 'center',
 	borderRadius: token('radius.small', '3px'),
-	paddingLeft: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
+	paddingLeft: token('space.100'),
+	paddingRight: token('space.100'),
 	color: token('color.text.subtle'),
 	backgroundColor: token('color.background.accent.gray.subtlest'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.remove-left-margin': {
-		marginLeft: token('space.negative.150', '-12px'),
+		marginLeft: token('space.negative.150'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.remove-nested-left-margin': {
@@ -100,7 +100,7 @@ const spacerStyles = xcss({
 });
 
 const iconStyles = css({
-	marginLeft: token('space.075', '6px'),
+	marginLeft: token('space.075'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.hide-icon': {
 		display: 'none',
@@ -235,6 +235,7 @@ export const ExtensionLabel = ({
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...i18n.configure}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						values={{ macroName: text }}
 					/>
 				}

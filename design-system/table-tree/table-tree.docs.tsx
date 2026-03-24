@@ -27,7 +27,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'Headers',
-		description: 'Container for table column headers. Use with Header components to define columns.',
+		description:
+			'Container for table column headers. Use with Header components to define columns.',
 		status: 'general-availability',
 		import: {
 			name: 'Headers',
@@ -45,7 +46,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'Header',
-		description: 'A single column header in a table tree. Use within Headers to define each column.',
+		description:
+			'A single column header in a table tree. Use within Headers to define each column.',
 		status: 'general-availability',
 		import: {
 			name: 'Header',
@@ -54,9 +56,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			packagePath: path.resolve(__dirname),
 			packageJson: require('./package.json'),
 		},
-		usageGuidelines: [
-			'Use for structured tabular data only—never for layout',
-		],
+		usageGuidelines: ['Use for structured tabular data only—never for layout'],
 		keywords: ['table-tree', 'header', 'table', 'column'],
 		categories: ['text and data display', 'data'],
 	},

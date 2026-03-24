@@ -264,6 +264,7 @@ export const ToolbarDropdownItem = ({
 
 	return (
 		<DropdownItem
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onClick={(e) => {
 				if (!hasNestedDropdownMenu) {
 					parentContext?.closeMenu(e);

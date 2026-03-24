@@ -33,6 +33,7 @@ export const createJSXRenameVariableToNestedKeyTransform = (
 					const newObject = j.objectExpression([
 						j.property('init', j.identifier(toObjectKey), j.objectExpression(existingProperties)),
 					]);
+					// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 					fromAttribute.replace(
 						j.jsxAttribute(j.jsxIdentifier(toObjectName), j.jsxExpressionContainer(newObject)),
 					);

@@ -253,6 +253,7 @@ const ContentComponentInternal = ({
 						stick={true}
 						forcePlacement={true}
 						zIndex={akEditorFloatingPanelZIndex}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						offset={[0, 10]}
 					/>
 				)}

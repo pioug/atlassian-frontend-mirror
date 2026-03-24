@@ -117,6 +117,7 @@ export const BlockTypeButton = (props: BlockTypeButtonProps): jsx.JSX.Element =>
 		>
 			{!shouldUseIconAsButton && (
 				<Box
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					xcss={[buttonContentStyle, props.isReducedSpacing && buttonContentReducedSpacingStyle]}
 				>
 					<FormattedMessage

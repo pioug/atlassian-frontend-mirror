@@ -125,6 +125,7 @@ export default function CheckboxGroup({
 			name={name}
 			isRequired={isRequired}
 			defaultValue={defaultValue}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			validate={(value?: string[]) => validate(value, isRequired)}
 			isDisabled={isDisabled}
 		>

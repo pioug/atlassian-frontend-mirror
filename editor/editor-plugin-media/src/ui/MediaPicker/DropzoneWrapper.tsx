@@ -72,7 +72,9 @@ const DropzoneWrapperInternal = ({
 			onError={pickerFacadeInstance.handleUploadError}
 			onPreviewUpdate={pickerFacadeInstance.handleUploadPreviewUpdate}
 			onEnd={pickerFacadeInstance.handleReady}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onDragEnter={() => handleDrag?.('enter')}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onDragLeave={() => handleDrag?.('leave')}
 			featureFlags={featureFlags}
 		/>

@@ -8,7 +8,11 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { ActionName, type FlexibleUiActionName } from '../../../../../constants';
+import {
+	type ActionName,
+	type FlexibleUiActionName,
+	InternalActionName,
+} from '../../../../../constants';
 import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import * as Actions from '../../actions';
@@ -21,10 +25,9 @@ import type { ResolvedHoverCardFooterBlockProps } from './types';
  * Allowed footer actions for HoverCard, in display order. Fetched from context.
  * @featureGate platform_sl_3p_auth_rovo_action_kill_switch
  */
-const ALLOWED_HOVER_CARD_FOOTER_ACTIONS: ActionName[] = [
-	ActionName.CopyLinkAction,
-	ActionName.PreviewAction,
-	ActionName.AutomationAction,
+const HIDDEN_HOVER_CARD_FOOTER_ACTIONS: FlexibleUiActionName[] = [
+	InternalActionName.AISummaryAction,
+	InternalActionName.RovoChatAction,
 ];
 
 const ignoreContainerMarginStyles = css({
@@ -63,7 +66,6 @@ const actionsStyles = css({
 	boxSizing: 'border-box',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& *': {
-		maxHeight: token('space.300'),
 		paddingLeft: token('space.0'),
 		paddingRight: token('space.0'),
 		paddingTop: token('space.0'),
@@ -75,6 +77,9 @@ const actionsStyles = css({
 		gap: token('space.0'),
 		rowGap: token('space.0'),
 		columnGap: token('space.0'),
+		'&:hover': {
+			borderRadius: token('radius.small'),
+		},
 	},
 });
 
@@ -101,8 +106,8 @@ const ResolvedHoverCardFooterBlock = ({
 		}
 
 		let arr = Object.keys(context.actions) as FlexibleUiActionName[];
-		arr = arr.filter((name) =>
-			ALLOWED_HOVER_CARD_FOOTER_ACTIONS.includes(name as ActionName),
+		arr = arr.filter(
+			(name) => !HIDDEN_HOVER_CARD_FOOTER_ACTIONS.includes(name as ActionName),
 		) as FlexibleUiActionName[];
 
 		return arr.map((name) => {
@@ -116,6 +121,7 @@ const ResolvedHoverCardFooterBlock = ({
 					testId={`${testId}-${name}`}
 					onClick={() => onActionClick?.(name as FlexibleUiActionName)}
 					size={size}
+					iconSize={'small'}
 				/>
 			) : null;
 		});
@@ -130,7 +136,7 @@ const ResolvedHoverCardFooterBlock = ({
 		>
 			{!hideProvider && (
 				<div css={providerStyles}>
-					<Provider appearance="subtle" testId={`${testId}-provider`} iconSize="large" />
+					<Provider appearance="subtle" testId={`${testId}-provider`} />
 				</div>
 			)}
 			{actions.length > 0 ? (

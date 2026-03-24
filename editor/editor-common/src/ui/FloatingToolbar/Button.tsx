@@ -14,8 +14,8 @@ import { ButtonSpotlightCard } from './ButtonSpotlightCard';
 import { getButtonStyles, iconOnlySpacing } from './styles';
 
 const customSizeAndPadding = {
-	minWidth: token('space.400', '32px'),
-	padding: `0px ${token('space.050', '4px')}`,
+	minWidth: token('space.400'),
+	padding: `0px ${token('space.050')}`,
 };
 
 export interface Props {
@@ -144,6 +144,7 @@ const FloatingToolbarButton = (
 						<Button
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 							className={className}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							ref={(buttonElement) => {
 								setSpotlightReferenceElement(buttonElement);
 
@@ -156,7 +157,7 @@ const FloatingToolbarButton = (
 									}
 								}
 							}}
-							// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+							// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							theme={(adgTheme, themeProps) => {
 								const { buttonStyles, ...rest } = adgTheme(themeProps);
 								return {

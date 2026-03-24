@@ -472,6 +472,7 @@ export function insertCells(
 	for (let row = top; row < bottom; row++) {
 		const from = map.positionAt(row, left, table);
 		const to = map.positionAt(row, right, table);
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 		tr.replace(
 			tr.mapping.slice(mapFrom).map(from + tableStart),
 			tr.mapping.slice(mapFrom).map(to + tableStart),

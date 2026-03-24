@@ -57,7 +57,7 @@ const titleStyles = css({
 	display: 'flex',
 	flex: 1,
 	margin: 0,
-	padding: `0 0 0 ${token('space.050', '4px')}`,
+	padding: `0 0 0 ${token('space.050')}`,
 	textAlign: 'left',
 });
 
@@ -72,12 +72,12 @@ const containerStyles = css({
 	borderColor: 'transparent',
 	borderRadius: token('radius.small', '4px'),
 	minHeight: '25px',
-	background: token('color.background.neutral.subtle', 'transparent'),
+	background: token('color.background.neutral.subtle'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transition: `background 0.3s ${akEditorSwoopCubicBezier}, border-color 0.3s ${akEditorSwoopCubicBezier}`,
-	padding: token('space.0', '0px'),
-	paddingBottom: token('space.0', '0px'),
-	marginTop: token('space.050', '0.25rem'),
+	padding: token('space.0'),
+	paddingBottom: token('space.0'),
+	marginTop: token('space.050'),
 	marginBottom: 0,
 	marginLeft: 0,
 	marginRight: 0,
@@ -88,8 +88,8 @@ const containerStyles = css({
 });
 
 const containerStylesExpanded = css({
-	background: token('elevation.surface', 'rgba(255, 255, 255, 0.6)'),
-	paddingBottom: token('space.100', '8px'),
+	background: token('elevation.surface'),
+	paddingBottom: token('space.100'),
 	borderColor: token('color.border'),
 });
 
@@ -115,21 +115,21 @@ const titleContainerStyles = css({
 	color: token('color.text.subtle'),
 	overflow: 'hidden',
 	cursor: 'pointer',
-	padding: token('space.100', '8px'),
+	padding: token('space.100'),
 	'&:focus': {
 		outline: 0,
 	},
 });
 
 const titleContainerStylesExpanded = css({
-	paddingBottom: token('space.0', '0px'),
+	paddingBottom: token('space.0'),
 });
 
 const contentContainerStyles = css({
-	paddingTop: token('space.0', '0px'),
-	marginLeft: token('space.050', '4px'),
-	paddingRight: token('space.200', '16px'),
-	paddingLeft: token('space.400', '32px'),
+	paddingTop: token('space.0'),
+	marginLeft: token('space.050'),
+	paddingRight: token('space.200'),
+	paddingLeft: token('space.400'),
 	display: 'flow-root',
 	visibility: 'hidden',
 
@@ -143,7 +143,7 @@ const contentContainerStyles = css({
 });
 
 const contentContainerStylesExpanded = css({
-	paddingTop: token('space.100', '8px'),
+	paddingTop: token('space.100'),
 	visibility: 'visible',
 });
 
@@ -310,6 +310,7 @@ function Expand({
 			{nestedHeaderIds && nestedHeaderIds.length > 0 ? (
 				<ActiveHeaderIdConsumer
 					nestedHeaderIds={nestedHeaderIds}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onNestedHeaderIdMatch={() => {
 						if (!hasLoadedChildren) {
 							setHasLoadedChildren(true);
@@ -319,6 +320,7 @@ function Expand({
 				/>
 			) : null}
 			<TitleContainer
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClick={(e: React.SyntheticEvent) => {
 					e.preventDefault();
 					e.stopPropagation();

@@ -5,6 +5,7 @@
 import { useCallback } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -50,6 +51,7 @@ const ActionButton = ({
 	testId,
 	tooltipProps,
 	style,
+	ariaLabel,
 }: ActionStackItemProps & { tooltipProps?: TriggerProps }) => {
 	const space = spaceOption ?? getPrimitivesInlineSpaceBySize(size);
 
@@ -74,6 +76,7 @@ const ActionButton = ({
 			testId={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={style}
+			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { 'aria-label': ariaLabel } : {})}
 		>
 			<Inline alignBlock="center" grow="fill" space={space}>
 				{icon}

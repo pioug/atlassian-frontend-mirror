@@ -410,6 +410,18 @@ export const useFilePreview = ({
 	]);
 
 	//----------------------------------------------------------------
+	// Cache ref tracking — prevent blob URL eviction while mounted
+	//----------------------------------------------------------------
+	useEffect(() => {
+		if (preview) {
+			mediaFilePreviewCache.acquire(identifier.id, resizeMode);
+			return () => {
+				mediaFilePreviewCache.release(identifier.id, resizeMode);
+			};
+		}
+	}, [preview, identifier.id, resizeMode]);
+
+	//----------------------------------------------------------------
 	// RETURN
 	//----------------------------------------------------------------
 

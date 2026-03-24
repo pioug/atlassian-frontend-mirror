@@ -17,7 +17,7 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import { IconExpand } from '@atlaskit/editor-common/quick-insert';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { toggleExpandRange } from '../editor-commands/toggleExpandRange';
 import type { ExpandPlugin } from '../types';
@@ -38,7 +38,7 @@ import { getToolbarConfig } from './toolbar';
 // Ignored via go/ees005
 // eslint-disable-next-line prefer-const
 export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
-	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+	if (editorExperiment('platform_editor_block_menu', true)) {
 		api?.blockMenu?.actions.registerBlockMenuComponents([
 			{
 				type: 'block-menu-item',

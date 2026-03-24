@@ -22,7 +22,8 @@ export default function withActivityProvider<Props>(
 		Diff<Props, WithActivityProviderProps> & ExpandedActivityProviderProps
 	> {
 		renderNode = (providers: Providers) => {
-			const { providerFactory, ...props } = this.props as ExpandedActivityProviderProps;
+			const { providerFactory: _providerFactory, ...props } = this
+				.props as ExpandedActivityProviderProps;
 			const { activityProvider } = providers;
 
 			// Ignored via go/ees005
@@ -34,6 +35,7 @@ export default function withActivityProvider<Props>(
 			const { providerFactory } = this.props;
 			return (
 				<WithProviders
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					providers={['activityProvider']}
 					providerFactory={providerFactory}
 					renderNode={this.renderNode}

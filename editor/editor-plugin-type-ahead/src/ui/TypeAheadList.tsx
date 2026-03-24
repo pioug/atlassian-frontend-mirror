@@ -41,7 +41,7 @@ const LIST_WIDTH = 320;
 
 const list = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	button: { padding: `${token('space.100', '8px')} ${token('space.150', '12px')}` },
+	button: { padding: `${token('space.100')} ${token('space.150')}` },
 });
 
 type TypeAheadListProps = {
@@ -272,6 +272,7 @@ const TypeAheadListComponent = React.memo(
 			// Exclude view more item from the count
 			const itemsToRender = showMoreOptionsButton ? items.slice(0, -1) : items;
 			const height = Math.min(
+				// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 				itemsToRender.reduce((prevValue, currentValue, index) => {
 					return prevValue + cache.rowHeight({ index: index });
 				}, 0),
@@ -385,6 +386,7 @@ const TypeAheadListComponent = React.memo(
 							style={style}
 							isVisible={isVisible}
 							isScrolling={isScrolling}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onMouseMove={(e) => onMouseMove(e, index)}
 						>
 							<TypeAheadListItem
@@ -394,6 +396,7 @@ const TypeAheadListComponent = React.memo(
 								itemsLength={itemsLength}
 								itemIndex={index}
 								selectedIndex={selectedIndex}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onItemClick={(mode: SelectItemMode, index: number) => {
 									actions.onItemClick(mode, index, INPUT_METHOD.MOUSE);
 								}}
@@ -450,13 +453,13 @@ const TypeAheadListComponent = React.memo(
 				aria-label={getTypeAheadListAriaLabels(undefined, intl).popupAriaLabel}
 				containerRole="presentation"
 				role="listbox"
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				css={[
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					css({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						button: {
-							padding: `${token('space.150', '12px')} ${token('space.150', '12px')} 11px`,
+							padding: `${token('space.150')} ${token('space.150')} 11px`,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 							'span:last-child span:last-child': {
 								whiteSpace: 'normal',

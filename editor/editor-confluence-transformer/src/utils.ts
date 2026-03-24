@@ -241,6 +241,7 @@ export function getMacroParameters(node: Element): any {
 	getMacroAttribute(node, 'parameters')
 		.split('|')
 		.forEach((paramStr) => {
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			const param = paramStr.split('=');
 			if (param.length) {
 				params[param[0]] = param[1];

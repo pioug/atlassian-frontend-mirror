@@ -130,6 +130,9 @@
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/motion/tsconfig.app.json"
+		},
+		{
 			"path": "../../teamwork-ecosystem/outbound-auth-flow-client/tsconfig.app.json"
 		},
 		{

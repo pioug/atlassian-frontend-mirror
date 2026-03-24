@@ -21,7 +21,7 @@ import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ListPlugin } from './listPluginType';
 import {
@@ -52,7 +52,7 @@ export const listPlugin: ListPlugin = ({ api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
-	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+	if (editorExperiment('platform_editor_block_menu', true)) {
 		api?.blockMenu?.actions.registerBlockMenuComponents(getListComponents(api));
 	}
 
@@ -78,7 +78,7 @@ export const listPlugin: ListPlugin = ({ api }) => {
 
 		nodes() {
 			const getListItemNode = () => {
-				if (expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)) {
+				if (expValEquals('platform_editor_flexible_list_schema', 'isEnabled', true)) {
 					return listItemWithFlexibleFirstChildStage0;
 				} else if (fg('platform_editor_adf_with_localid')) {
 					return listItemWithLocalId;

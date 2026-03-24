@@ -53,6 +53,7 @@ export const AssistiveText = ({
 
 	useEffect(() => {
 		if (!debounced) {
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			debounceStatusUpdate();
 			return () => {
 				debounceStatusUpdate.cancel();
@@ -62,8 +63,11 @@ export const AssistiveText = ({
 
 	useEffect(() => {
 		if (debounced) {
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			setBump((prevBump) => !prevBump);
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			setDebounced(true);
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			setSilenced(!isInFocus);
 		}
 	}, [assistiveText, isInFocus, debounced]);

@@ -25,7 +25,7 @@ const codeBlockSharedStyles = css({
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED}
 		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}
 		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
-		marginRight: token('space.100', '8px'),
+		marginRight: token('space.100'),
 		code: {
 			display: 'block',
 			wordBreak: 'break-word',
@@ -89,13 +89,13 @@ const codeBlockSharedStyles = css({
 			backgroundImage: 'var(--ak-renderer-codeblock-content-wrapper-bg-img)',
 			backgroundRepeat: 'no-repeat',
 			backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
-			backgroundSize: `${token('space.300', '24px')} 100%,
-				${token('space.300', '24px')} 100%,
-				${token('space.100', '8px')} 100%,
-				${token('space.100', '8px')} 100%,
-				${token('space.100', '8px')} 100%,
+			backgroundSize: `${token('space.300')} 100%,
+				${token('space.300')} 100%,
+				${token('space.100')} 100%,
+				${token('space.100')} 100%,
+				${token('space.100')} 100%,
 				1px 100%,
-				${token('space.100', '8px')} 100%,
+				${token('space.100')} 100%,
 				1px 100%`,
 			backgroundPosition: `0 0,
 				0 0,
@@ -114,7 +114,7 @@ const codeBlockSharedStyles = css({
 			backgroundColor: token('color.background.neutral'),
 			position: 'relative',
 			width: 'var(--lineNumberGutterWidth, 2rem)',
-			padding: token('space.100', '8px'),
+			padding: token('space.100'),
 			flexShrink: 0,
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			fontSize: `${14 / 16}rem`,
@@ -141,7 +141,7 @@ const codeBlockSharedStyles = css({
 				cursor: 'text',
 				color: token('color.text'),
 				borderRadius: token('radius.small', '3px'),
-				margin: token('space.100', '8px'),
+				margin: token('space.100'),
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				fontSize: `${14 / 16}rem`,
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -157,11 +157,11 @@ const codeBlockSharedStyles = css({
 			position: 'absolute',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			fontSize: `${14 / 16}rem`,
-			padding: `0px ${token('space.100', '8px')}`,
+			padding: `0px ${token('space.100')}`,
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			lineHeight: '1.5rem',
 			textAlign: 'right',
-			color: token('color.text.subtlest', '#505F79'),
+			color: token('color.text.subtlest'),
 			boxSizing: 'content-box',
 		},
 	},
@@ -213,7 +213,7 @@ const LightWeightCodeBlock = forwardRef(
 		});
 		const classNames = [LightWeightCodeBlockCssClassName.CONTAINER, className].join(' ');
 		const codeBlockBackgroundImage = overflowShadow({
-			leftCoverWidth: token('space.300', '24px'),
+			leftCoverWidth: token('space.300'),
 		});
 
 		return (

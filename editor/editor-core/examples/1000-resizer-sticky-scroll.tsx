@@ -72,7 +72,7 @@ export default function ExampleForResizerStickyScroll(): jsx.JSX.Element {
 				display: 'grid',
 				gridTemplateColumns: '1fr 1fr 1fr 1fr',
 				gridTemplateRows: '1fr 1fr',
-				gap: token('space.150', '12px'),
+				gap: token('space.150'),
 				justifyItems: 'center',
 			})}
 		>

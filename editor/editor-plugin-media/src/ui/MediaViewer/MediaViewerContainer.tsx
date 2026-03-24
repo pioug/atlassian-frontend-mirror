@@ -9,6 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { isVideo } from '../../pm-plugins/utils/is-type';
@@ -27,6 +28,7 @@ type MediaViewerContainerProps = {
 	isSelected?: boolean;
 	mediaClientConfig: MediaClientConfig;
 	mediaNode: PMNode;
+	mediaViewerExtensions?: MediaViewerExtensions;
 	selectedMediaContainerNode: () => PMNode | undefined;
 };
 const mediaViewerContainerTestID = 'media-viewer-container-test';
@@ -37,6 +39,7 @@ export const MediaViewerContainer = ({
 	isEditorViewMode = false,
 	isSelected = true,
 	isInline = false,
+	mediaViewerExtensions,
 	children,
 }: MediaViewerContainerProps): jsx.JSX.Element => {
 	const [showViewer, setShowMediaViewer] = useState(false);
@@ -96,6 +99,7 @@ export const MediaViewerContainer = ({
 							selectedNodeAttrs={selectedNodeAttrs}
 							mediaClientConfig={mediaClientConfig}
 							onClose={closeMediaViewer}
+							extensions={mediaViewerExtensions}
 						/>
 					)}
 				</Fragment>

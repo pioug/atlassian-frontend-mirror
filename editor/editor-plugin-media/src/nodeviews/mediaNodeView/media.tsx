@@ -384,6 +384,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 				selected={selected}
 			>
 				<AnalyticsContext
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					data={{
 						[MEDIA_CONTEXT]: {
 							border: !!borderMark,

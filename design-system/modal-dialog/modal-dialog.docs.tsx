@@ -51,7 +51,8 @@ const documentation: ComponentStructuredContentSource[] = [
 	},
 	{
 		name: 'ModalHeader',
-		description: 'The header section of a modal dialog, typically containing the title and optional close button.',
+		description:
+			'The header section of a modal dialog, typically containing the title and optional close button.',
 		status: 'general-availability',
 		import: {
 			name: 'ModalHeader',
@@ -66,10 +67,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Ensure header contains ModalTitle or equivalent for accessibility',
 			'For custom headers, use CloseButton as first element in DOM',
 		],
-		contentGuidelines: [
-			'Use clear, descriptive titles',
-			'Keep header content focused',
-		],
+		contentGuidelines: ['Use clear, descriptive titles', 'Keep header content focused'],
 		examples: [
 			{
 				name: 'Modal Header',
@@ -96,10 +94,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Modal must have a title for accessibility',
 			'Supports any valid React element as children',
 		],
-		contentGuidelines: [
-			'Use clear, descriptive titles',
-			'Use sentence case',
-		],
+		contentGuidelines: ['Use clear, descriptive titles', 'Use sentence case'],
 		examples: [
 			{
 				name: 'Modal Title',
@@ -126,10 +121,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Accepts any valid React element as children',
 			'Handles overflow and scrolling when content exceeds viewport',
 		],
-		contentGuidelines: [
-			'Keep content focused on a single task',
-			'Use clear, readable content',
-		],
+		contentGuidelines: ['Keep content focused on a single task', 'Use clear, readable content'],
 		examples: [
 			{
 				name: 'Modal Body',

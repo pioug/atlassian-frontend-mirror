@@ -302,6 +302,7 @@ export const PasteActionsMenu = ({
 			zIndex={akEditorFloatingPanelZIndex}
 			alignX="end"
 			alignY="bottom"
+			/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */
 			offset={[PASTE_MENU_GAP_HORIZONTAL, 0]}
 			onPositionCalculated={onPositionCalculated(
 				editorView,

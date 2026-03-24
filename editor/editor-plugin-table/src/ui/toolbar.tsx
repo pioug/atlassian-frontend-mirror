@@ -798,6 +798,7 @@ export const getToolbarConfig =
 													<DropdownMenuExtensionItems
 														node={tableObject.node}
 														editorView={editorView}
+														// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 														extension={{
 															extensionProvider: extensionState?.extensionProvider
 																? Promise.resolve(extensionState.extensionProvider)
@@ -805,6 +806,7 @@ export const getToolbarConfig =
 															extensionApi: extensionApi,
 														}}
 														dropdownOptions={dropdownOptions}
+														// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 														disabled={(key: string) => {
 															return (
 																isNestedTable &&

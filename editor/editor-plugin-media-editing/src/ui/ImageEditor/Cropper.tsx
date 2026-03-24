@@ -564,6 +564,7 @@ export const Cropper: React.ForwardRefExoticComponent<
 				return;
 			}
 
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			setIsImageReady(false); // Hide canvas while repositioning
 			const image = imageRef.current;
 			if (!image) {
@@ -774,6 +775,7 @@ export const Cropper: React.ForwardRefExoticComponent<
 				ref={canvasRef}
 				class={className}
 				background={background}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				style={{ opacity: isImageReady ? 1 : 0 }}
 			>
 				<CropperImage

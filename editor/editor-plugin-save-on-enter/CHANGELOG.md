@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-save-on-enter
 
+## 8.0.1
+
+### Patch Changes
+
+- [`0f4a08b633f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f4a08b633f6e) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 8.0.0
 
 ### Patch Changes

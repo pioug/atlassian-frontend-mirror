@@ -50,10 +50,10 @@ export const gapCursorStyles: SerializedStyles = css`
 				height: 100%;
 			}
 			&.-left span::after {
-				left: ${token('space.negative.050', '-4px')};
+				left: ${token('space.negative.050')};
 			}
 			&.-right span::after {
-				right: ${token('space.negative.050', '-4px')};
+				right: ${token('space.negative.050')};
 			}
 			& span[layout='full-width'],
 			& span[layout='wide'],

@@ -191,16 +191,16 @@ export default class TableView extends ReactNodeView<Props> {
 			};
 
 			// Store the current selection state if there is a visible selection
-				// This lets us restore it after DOM changes
-				const { selection } = this.view.state;
-				const tablePos = this.getPos();
-				if (
-					selection.empty &&
-					tablePos &&
-					TextSelection.near(this.view.state.doc.resolve(tablePos)).from === selection.from
-				) {
-					selectionBookmark = this.view.state.selection.getBookmark();
-				}
+			// This lets us restore it after DOM changes
+			const { selection } = this.view.state;
+			const tablePos = this.getPos();
+			if (
+				selection.empty &&
+				tablePos &&
+				TextSelection.near(this.view.state.doc.resolve(tablePos)).from === selection.from
+			) {
+				selectionBookmark = this.view.state.selection.getBookmark();
+			}
 
 			if (this.dom) {
 				this.dom.setAttribute('data-ssr-placeholder', `table-nodeview-${this.node.attrs.localId}`);

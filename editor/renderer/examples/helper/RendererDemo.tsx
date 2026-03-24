@@ -247,10 +247,10 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 		return (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={{ position: 'relative', padding: token('space.250', '20px') }}
+				style={{ position: 'relative', padding: token('space.250') }}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<fieldset style={{ marginBottom: token('space.250', '20px') }}>
+				<fieldset style={{ marginBottom: token('space.250') }}>
 					<legend>Input</legend>
 					{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 					<textarea
@@ -258,13 +258,13 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							boxSizing: 'border-box',
-							border: `${token('border.width')} solid ${token('color.border.input', 'lightgray')}`,
+							border: `${token('border.width')} solid ${token('color.border.input')}`,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							fontFamily: 'monospace',
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							fontSize: 16,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							padding: token('space.150', '12px'),
+							padding: token('space.150'),
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							width: '100%',
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -398,9 +398,9 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 					<div
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							color: token('color.text.subtle', '#ccc'),
+							color: token('color.text.subtle'),
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							marginBottom: token('space.100', '8px'),
+							marginBottom: token('space.100'),
 						}}
 					>
 						&lt;Renderer&gt;
@@ -416,9 +416,9 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 					<div
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							color: token('color.text.subtle', '#ccc'),
+							color: token('color.text.subtle'),
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							marginTop: token('space.100', '8px'),
+							marginTop: token('space.100'),
 						}}
 					>
 						&lt;/Renderer&gt;

@@ -73,7 +73,7 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 				<div>
 					<div
 						// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ color: '#ccc', marginBottom: token('space.100', '8px') }}
+						style={{ color: '#ccc', marginBottom: token('space.100') }}
 					>
 						&lt;Renderer&gt;
 					</div>
@@ -83,9 +83,7 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 						{...props}
 					/>
 					{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					<div style={{ color: '#ccc', marginTop: token('space.100', '8px') }}>
-						&lt;/Renderer&gt;
-					</div>
+					<div style={{ color: '#ccc', marginTop: token('space.100') }}>&lt;/Renderer&gt;</div>
 				</div>
 			);
 		} catch (ex) {

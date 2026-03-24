@@ -147,7 +147,7 @@ export function escapeBackslashAndLinksExceptCodeBlock(textInput: string): strin
 				return line;
 			} else {
 				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
+				// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 				let escaped = line.replace(/\\/g, '\\\\');
 				escaped = escapeLinks(escaped);
 				return escaped;

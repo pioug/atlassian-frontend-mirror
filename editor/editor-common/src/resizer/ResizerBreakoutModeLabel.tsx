@@ -10,7 +10,7 @@ import { breakoutMessages as messages } from '../messages';
 import type { BreakoutMode } from '../types';
 
 const fullWidthLabelWrapperStyles = xcss({
-	height: token('space.400', '32px'),
+	height: token('space.400'),
 	display: 'flex',
 	backgroundColor: 'elevation.surface.overlay',
 	borderRadius: 'radius.small',

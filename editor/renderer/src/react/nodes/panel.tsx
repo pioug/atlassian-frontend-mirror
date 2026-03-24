@@ -41,24 +41,24 @@ const panelBaseStyles = css({
 	'&.ak-editor-panel': {
 		borderRadius: token('radius.small', '3px'),
 		margin: `${blockNodesVerticalMargin} 0 0`,
-		paddingTop: token('space.100', '8px'),
-		paddingRight: token('space.200', '16px'),
-		paddingBottom: token('space.100', '8px'),
-		paddingLeft: token('space.100', '8px'),
+		paddingTop: token('space.100'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
 		minWidth: `${akEditorTableCellMinWidth}px`,
 		display: 'flex',
 		position: 'relative',
 		alignItems: 'normal',
 		wordBreak: 'break-word',
-		backgroundColor: token('color.background.accent.blue.subtlest', '#DEEBFF'),
+		backgroundColor: token('color.background.accent.blue.subtlest'),
 		color: 'inherit',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ak-editor-panel__icon': {
 			flexShrink: 0,
-			height: token('space.300', '24px'),
-			width: token('space.300', '24px'),
+			height: token('space.300'),
+			width: token('space.300'),
 			boxSizing: 'content-box',
-			paddingRight: token('space.100', '8px'),
+			paddingRight: token('space.100'),
 			textAlign: 'center',
 			userSelect: 'none',
 			MozUserSelect: 'none',
@@ -99,7 +99,7 @@ const panelBaseStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ak-editor-panel__content': {
-			margin: `${token('space.025', '2px')} 0 ${token('space.025', '2px')}`,
+			margin: `${token('space.025')} 0 ${token('space.025')}`,
 			flex: '1 0 0',
 			/*
 		https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox
@@ -110,7 +110,7 @@ const panelBaseStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&[data-panel-type="note"]': {
-			backgroundColor: token('color.background.accent.purple.subtlest', '#EAE6FF'),
+			backgroundColor: token('color.background.accent.purple.subtlest'),
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'.ak-editor-panel__icon': {
@@ -120,7 +120,7 @@ const panelBaseStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'&[data-panel-type="tip"]': {
-			backgroundColor: token('color.background.accent.green.subtlest', '#E3FCEF'),
+			backgroundColor: token('color.background.accent.green.subtlest'),
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'.ak-editor-panel__icon': {
@@ -130,7 +130,7 @@ const panelBaseStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'&[data-panel-type="warning"]': {
-			backgroundColor: token('color.background.accent.yellow.subtlest', '#FFFAE6'),
+			backgroundColor: token('color.background.accent.yellow.subtlest'),
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'.ak-editor-panel__icon': {
@@ -140,7 +140,7 @@ const panelBaseStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'&[data-panel-type="error"]': {
-			backgroundColor: token('color.background.accent.red.subtlest', '#FFEBE6'),
+			backgroundColor: token('color.background.accent.red.subtlest'),
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'.ak-editor-panel__icon': {
@@ -150,7 +150,7 @@ const panelBaseStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'&[data-panel-type="success"]': {
-			backgroundColor: token('color.background.accent.green.subtlest', '#E3FCEF'),
+			backgroundColor: token('color.background.accent.green.subtlest'),
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'.ak-editor-panel__icon': {
@@ -165,8 +165,8 @@ const panelHasNoIconStyles = css({
 	'&.ak-editor-panel': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&[data-panel-type="custom"]': {
-			paddingLeft: token('space.150', '12px'),
-			paddingRight: token('space.150', '12px'),
+			paddingLeft: token('space.150'),
+			paddingRight: token('space.150'),
 		},
 	},
 });
@@ -174,15 +174,15 @@ const panelHasNoIconStyles = css({
 const panelNestedIconStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&.ak-editor-panel__no-icon': {
-		paddingLeft: token('space.150', '12px'),
-		paddingRight: token('space.150', '12px'),
+		paddingLeft: token('space.150'),
+		paddingRight: token('space.150'),
 	},
 });
 
 const nestedPanelStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-panel__content .ak-editor-panel': {
-		border: `${token('border.width')} solid ${token('color.border', '#091E42')}`,
+		border: `${token('border.width')} solid ${token('color.border')}`,
 	},
 });
 

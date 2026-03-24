@@ -31,10 +31,10 @@ const buttonStyles = css`
 	display: flex;
 	height: 28px;
 	width: 28px;
-	margin: ${token('space.075', '6px')};
+	margin: ${token('space.075')};
 	right: 0;
 	top: 0;
-	border: ${token('border.width.selected')} solid ${token('color.border', '#fff')};
+	border: ${token('border.width.selected')} solid ${token('color.border')};
 	border-radius: ${token('radius.small', '4px')};
 	background-color: ${token('elevation.surface.overlay')};
 	justify-content: center;
@@ -46,7 +46,7 @@ const buttonStyles = css`
 	}
 
 	&:active {
-		background-color: ${token('elevation.surface.overlay.pressed', 'rgba(179, 212, 255, 0.6)')};
+		background-color: ${token('elevation.surface.overlay.pressed')};
 	}
 
 	&.${SORTABLE_COLUMN_ICON_CLASSNAME}__not-allowed {
@@ -79,10 +79,10 @@ const iconStyles = css({
 	height: '100%',
 	width: '2px',
 	borderRadius: token('radius.full'),
-	background: token('color.icon', '#42526E'),
+	background: token('color.icon'),
 	userSelect: 'none',
 	'&::before, &::after': {
-		background: token('color.icon', '#42526E'),
+		background: token('color.icon'),
 		content: "''",
 		height: '2px',
 		width: '6px',

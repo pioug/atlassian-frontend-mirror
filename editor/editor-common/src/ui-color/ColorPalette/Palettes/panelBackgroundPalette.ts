@@ -1,6 +1,5 @@
 import { token } from '@atlaskit/tokens';
 
-import { DEFAULT_BORDER_COLOR } from './common';
 import type { PaletteColor } from './type';
 
 export const panelBackgroundPalette: PaletteColor[] = [
@@ -29,5 +28,5 @@ export const panelBackgroundPalette: PaletteColor[] = [
 	{ label: 'Dark purple' as const, value: '#998DD9' },
 ].map((color) => ({
 	...color,
-	border: token('color.border', DEFAULT_BORDER_COLOR),
+	border: token('color.border'),
 }));

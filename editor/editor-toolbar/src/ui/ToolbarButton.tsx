@@ -113,6 +113,7 @@ export const ToolbarButton: React.ForwardRefExoticComponent<
 				testId={testId}
 				id={id}
 				isDisabled={disabled}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onMouseDown={(event) => {
 					if (preventDefaultOnMouseDown) {
 						event.preventDefault();

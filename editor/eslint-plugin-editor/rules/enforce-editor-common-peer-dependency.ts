@@ -28,6 +28,7 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<[], 'enforceCommonPeerDependenc
 					.replace(/;\s*$/u, '');
 
 				try {
+					// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 					const packageJson = JSON.parse(jsonString);
 
 					// Check if @atlaskit/editor-common is in dependencies
@@ -38,6 +39,7 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<[], 'enforceCommonPeerDependenc
 						});
 					}
 				} catch (e) {
+					// eslint-disable-line no-unused-vars
 					// Not valid JSON, ignore
 				}
 			},

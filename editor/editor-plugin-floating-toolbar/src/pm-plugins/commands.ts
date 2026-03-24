@@ -13,8 +13,7 @@ import {
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 export const copyNode =
 	(
 		nodeType: NodeType | Array<NodeType>,
@@ -37,7 +36,7 @@ export const copyNode =
 		const copyToClipboardTr = tr;
 
 		const domNode = toDOM(contentNodeWithPos.node, schema);
-		if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+		if (editorExperiment('platform_editor_block_menu', true)) {
 			copyDomNode(domNode, contentNodeWithPos.node.type, tr.selection);
 		} else {
 			if (domNode) {

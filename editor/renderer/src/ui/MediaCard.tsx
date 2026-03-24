@@ -27,6 +27,7 @@ import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { RendererAppearance } from './Renderer/types';
 import type { RendererContext } from '../react/types';
 import type { MediaSSR } from '../types/mediaOptions';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import AnalyticsContext from '../analytics/analyticsContext';
@@ -62,6 +63,8 @@ export interface MediaCardProps {
 	id?: string;
 	imageStatus?: ImageStatus;
 	localId?: string;
+	/** Extensions for the media viewer (e.g. comment button in header). */
+	mediaViewerExtensions?: MediaViewerExtensions;
 	/**
 	 * Indicates if media node is nested under a bodiedSyncBlock
 	 */
@@ -335,6 +338,7 @@ export class MediaCardView extends Component<
 			dataAttributes,
 			enableSyncMediaCard,
 			localId,
+			mediaViewerExtensions,
 		} = this.props;
 
 		const isMobile = false;
@@ -417,6 +421,7 @@ export class MediaCardView extends Component<
 					shouldEnableDownloadButton={shouldEnableDownloadButton}
 					ssr={ssr?.mode}
 					shouldHideTooltip={isMobile}
+					mediaViewerExtensions={mediaViewerExtensions}
 					onError={
 						expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
 							? this.onError

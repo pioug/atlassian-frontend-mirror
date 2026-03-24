@@ -41,7 +41,7 @@ const Page = ({ title }: PageProps) => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				border: `${token('border.width')} solid`,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				margin: token('space.150', '12px'),
+				margin: token('space.150'),
 			}}
 		>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}

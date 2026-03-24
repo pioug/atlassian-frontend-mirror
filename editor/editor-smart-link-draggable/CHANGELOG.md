@@ -1,5 +1,22 @@
 # @atlaskit/editor-smart-link-draggable
 
+## 0.2.2
+
+### Patch Changes
+
+- [`4ed1779bfe87a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ed1779bfe87a) -
+  Add ak-postbuild script to include GIF assets in package distribution
+- Updated dependencies
+
+## 0.2.1
+
+### Patch Changes
+
+- [`2116707c51d9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2116707c51d9b) -
+  [ux] Add SmartLinkDraggable wrapping to BlockCard and EmbedCard. Add stopEvent to prevent
+  ProseMirror from intercepting drag events on smart-element-link. Remove double feature gating in
+  inlineCard.
+
 ## 0.2.0
 
 ### Minor Changes

@@ -151,6 +151,7 @@ export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {
 				mountTo={props.setDisableParentScroll ? props.mountPoint : buttonRef.current.parentElement!}
 				fitHeight={EMOJI_PICKER_MAX_HEIGHT}
 				fitWidth={EMOJI_PICKER_MAX_WIDTH}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				offset={[0, 10]}
 				// Confluence inline comment editor has z-index: 500
 				// if the toolbar is scrollable, this will be mounted in the root editor
@@ -184,6 +185,7 @@ export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {
 						isSelected={props.isSelected}
 						label={title}
 						spacing="compact"
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						icon={() => (
 							<EmojiAddIcon color="currentColor" label="emoji-picker-button" spacing="spacious" />
 						)}

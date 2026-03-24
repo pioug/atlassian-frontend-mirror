@@ -87,6 +87,7 @@ const RenderMediaInline = ({
 					setFileState(fileState);
 				}
 			} catch (error) {
+				// eslint-disable-line no-unused-vars
 				// do not set state on error
 			}
 		},
@@ -109,6 +110,7 @@ const RenderMediaInline = ({
 
 	useEffect(() => {
 		const { id } = clipboardAttrs;
+		// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 		id && updateFileState(id);
 	}, [contextIdentifier, clipboardAttrs, updateFileState]);
 
@@ -204,6 +206,7 @@ const MediaInline = (props: MediaInlineProps & WrappedComponentProps & MediaInli
 					width={width}
 					height={height}
 					ssr={ssr}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					border={{ borderSize, borderColor }}
 					serializeDataAttrs
 					shouldOpenMediaViewer={!hasLinkMark}

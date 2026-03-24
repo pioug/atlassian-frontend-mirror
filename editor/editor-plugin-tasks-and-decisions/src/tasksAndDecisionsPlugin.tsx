@@ -22,7 +22,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { taskItemNodeSpec, blockTaskItemNodeSpec } from './nodeviews/taskItemNodeSpec';
 import { decisionItemSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/decisionItem';
@@ -165,7 +165,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		});
 	}
 
-	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
+	if (editorExperiment('platform_editor_block_menu', true)) {
 		api?.blockMenu?.actions.registerBlockMenuComponents([
 			{
 				type: 'block-menu-item',
@@ -210,7 +210,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				{ name: 'decisionItem', node: decisionItemSpecWithFixedToDOM() },
 				{
 					name: 'taskList',
-					node: expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)
+					node: expValEquals('platform_editor_flexible_list_schema', 'isEnabled', true)
 						? taskListWithFlexibleFirstChildStage0
 						: taskList,
 				},

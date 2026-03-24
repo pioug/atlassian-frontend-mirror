@@ -26,6 +26,7 @@ export default memo(function Status(props: Props) {
 				role={'emphasis'}
 			>
 				<FabricElementsAnalyticsContext
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					data={{
 						userContext: 'document',
 					}}
@@ -44,6 +45,7 @@ export default memo(function Status(props: Props) {
 
 	return (
 		<FabricElementsAnalyticsContext
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			data={{
 				userContext: 'document',
 			}}

@@ -10,7 +10,7 @@ import {
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type {
@@ -69,7 +69,10 @@ export const SelectionExtensionComponentWrapper = ({
 		if (!extension) {
 			return;
 		}
-		if (isToolbarAIFCEnabled || expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+		if (
+			isToolbarAIFCEnabled ||
+			editorExperiment('platform_editor_block_menu', true, { exposure: true })
+		) {
 			let currentComponent: React.ComponentType<SelectionExtensionComponentProps> | undefined;
 
 			if ('contentComponent' in extension && extension.contentComponent !== undefined) {
@@ -114,7 +117,10 @@ export const SelectionExtensionComponentWrapper = ({
 	if (!extension) {
 		return null;
 	}
-	if (isToolbarAIFCEnabled || expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+	if (
+		isToolbarAIFCEnabled ||
+		editorExperiment('platform_editor_block_menu', true, { exposure: true })
+	) {
 		const hasContentComponent = (ext: typeof extension): ext is ExtensionMenuItemConfiguration => {
 			return 'contentComponent' in ext && ext.contentComponent !== undefined;
 		};

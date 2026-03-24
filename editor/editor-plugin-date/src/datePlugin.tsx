@@ -110,6 +110,7 @@ function ContentComponent({
 			element={dateNode}
 			isNew={isNew}
 			autoFocus={focusDateInput}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onDelete={() => {
 				if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !editorView) {
 					return;
@@ -117,6 +118,7 @@ function ContentComponent({
 				dependencyApi?.core?.actions.execute(deleteDateCommand(dependencyApi));
 				editorView?.focus();
 			}}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onSelect={(
 				date: DateType | null,
 				commitMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.KEYBOARD,
@@ -136,6 +138,7 @@ function ContentComponent({
 				);
 				editorView?.focus();
 			}}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onTextChanged={(date?: DateType) => {
 				dependencyApi?.core?.actions.execute(
 					insertDateCommand(dependencyApi)({
@@ -144,6 +147,7 @@ function ContentComponent({
 					}),
 				);
 			}}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			closeDatePicker={() => {
 				if (!editorView) {
 					return;
@@ -151,6 +155,7 @@ function ContentComponent({
 				closeDatePicker()(editorView.state, editorView.dispatch);
 				editorView?.focus();
 			}}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			closeDatePickerWithAnalytics={({ date }: { date?: DateType }) => {
 				if (!editorView) {
 					return;

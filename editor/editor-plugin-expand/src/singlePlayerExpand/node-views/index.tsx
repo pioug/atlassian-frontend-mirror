@@ -26,6 +26,7 @@ import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemir
 import { fg } from '@atlaskit/platform-feature-flags';
 import { redo, undo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExpandPlugin } from '../../types';
 import { renderExpandButton } from '../../ui/renderExpandButton';
@@ -79,7 +80,7 @@ export class ExpandNodeView implements NodeView {
 		this.node = node;
 
 		if (
-			expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+			editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
 			fg('platform_editor_block_menu_v2_patch_3')
 		) {
 			this.isExpanded.expanded = expandedState.get(node) ?? false;
@@ -608,7 +609,7 @@ export class ExpandNodeView implements NodeView {
 			this.node = node;
 			const currentExpanded = expandedState.get(node) ?? false;
 			const hasChanged =
-				expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
 				fg('platform_editor_block_menu_v2_patch_3')
 					? this.isExpanded.expanded !== currentExpanded &&
 						this.isExpanded.localId === node.attrs.localId
@@ -646,7 +647,7 @@ export class ExpandNodeView implements NodeView {
 		}
 		this.updateExpandBodyContentEditable();
 		this.isExpanded =
-			expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+			editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
 			fg('platform_editor_block_menu_v2_patch_3')
 				? { expanded: expanded ?? false, localId: node.attrs.localId }
 				: { expanded: expanded ?? false };

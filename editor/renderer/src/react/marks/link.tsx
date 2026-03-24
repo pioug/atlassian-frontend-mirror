@@ -5,7 +5,6 @@
 import React, { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { B400, B300, B500 } from '@atlaskit/theme/colors';
 import type { LinkAttributes } from '@atlaskit/adf-schema';
 
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -20,13 +19,13 @@ import LinkUrl from '@atlaskit/smart-card/link-url';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 const anchorStyles = css({
-	color: token('color.link', B400),
+	color: token('color.link'),
 	'&:hover': {
-		color: token('color.link', B300),
+		color: token('color.link'),
 		textDecoration: 'underline',
 	},
 	'&:active': {
-		color: token('color.link.pressed', B500),
+		color: token('color.link.pressed'),
 	},
 });
 
@@ -53,6 +52,7 @@ export default function Link(props: MarkProps<LinkProps>) {
 		try {
 			actualTarget = onSetLinkTarget(href) ?? actualTarget;
 		} catch (error) {
+			// eslint-disable-line no-unused-vars
 			// If URL parsing fails, use the original target
 		}
 	}
@@ -85,6 +85,7 @@ export default function Link(props: MarkProps<LinkProps>) {
 		<AnalyticsContext data={analyticsData}>
 			<LinkUrl
 				css={anchorStyles}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClick={(e) => {
 					if (fireAnalyticsEvent) {
 						fireAnalyticsEvent({

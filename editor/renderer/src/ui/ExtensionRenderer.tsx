@@ -65,7 +65,7 @@ const inlineExtensionStyle = css({
 	// The timing is tricky as it happens to be when UFO collects the dimension for the placeholder for TTVC calculation.
 	// This resulted 1px mismatch on the image. Further cause everything on page to shift by 1px.
 	// es-lint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	margin: `0px 1px ${token('space.050', '4px')}`,
+	margin: `0px 1px ${token('space.050')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& .rich-media-item': {
 		maxWidth: '100%',
@@ -199,6 +199,7 @@ export default function ExtensionRenderer(props: Props) {
 
 	return (
 		<WithProviders
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			providers={['extensionProvider']}
 			providerFactory={props.providers}
 			renderNode={setupAndRenderExtensionNode}

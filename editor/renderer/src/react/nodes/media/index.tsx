@@ -171,11 +171,13 @@ const MediaAnnotation = ({
 		<AnnotationComponent
 			id={mark.attrs.id}
 			annotationType={mark.attrs.annotationType}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			dataAttributes={{
 				'data-renderer-mark': true,
 				'data-block-mark': true,
 			}}
 			// This should be fine being empty [] since the serializer serializeFragmentChild getMarkProps call always passes
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			annotationParentIds={[]}
 			allowAnnotations
 			useBlockLevel
@@ -282,7 +284,9 @@ const CommentBadgeWrapper = ({
 
 	return (
 		<CommentBadgeNext
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onMouseEnter={() => setEntered(true)}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onMouseLeave={() => setEntered(false)}
 			status={entered ? 'entered' : status}
 			onClick={onClick}
@@ -341,6 +345,7 @@ class Media extends PureComponent<MediaProps, Object> {
 				<MediaAnnotations marks={annotationMarks}>
 					<MediaBorder mark={borderMark}>
 						<AnalyticsContext
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							data={{
 								[MEDIA_CONTEXT]: {
 									border: !!borderMark,
@@ -421,6 +426,7 @@ class Media extends PureComponent<MediaProps, Object> {
 		}
 		return (
 			<WithProviders
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				providers={['mediaProvider', 'contextIdentifierProvider']}
 				providerFactory={providers}
 				renderNode={this.renderCard}
@@ -445,10 +451,14 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
 		const posToCheck = (draftPosition?.from ?? 0) + 1;
 
 		if (draftPosition !== null && posToCheck === pos) {
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			setShouldApplyDraftAnnotation(true);
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			setPosition(posToCheck);
 		} else if (draftPosition === null && shouldApplyDraftAnnotation) {
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			setShouldApplyDraftAnnotation(false);
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			setPosition(undefined);
 		}
 	}, [draftPosition, pos, shouldApplyDraftAnnotation]);

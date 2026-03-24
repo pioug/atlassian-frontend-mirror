@@ -141,5 +141,6 @@ export const VisibilityContainer = ({
 		);
 	}
 
+	// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 	return <Box xcss={[baseStyles, shouldHide ? hiddenStyles : visibleStyles]}>{children}</Box>;
 };

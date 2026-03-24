@@ -94,7 +94,9 @@ export const FormattingTextDropdownMenu: React.MemoExoticComponent<
 				fitHeight={188}
 				fitWidth={editorExperiment('platform_editor_controls', 'control') ? 136 : 230}
 				shouldUseDefaultRole
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				section={{ hasSeparator: true }}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				shouldFocusFirstItem={() => {
 					if (isOpenedByKeyboard) {
 						setIsOpenedByKeyboard(false);
@@ -108,10 +110,12 @@ export const FormattingTextDropdownMenu: React.MemoExoticComponent<
 						label={moreButtonLabel}
 						isReducedSpacing={isReducedSpacing}
 						isDisabled={false}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onClick={() => {
 							toggleMenu();
 							setIsOpenedByKeyboard(false);
 						}}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onKeyDown={(event: React.KeyboardEvent) => {
 							if (event.key === 'Enter' || event.key === ' ') {
 								event.preventDefault();
@@ -129,10 +133,12 @@ export const FormattingTextDropdownMenu: React.MemoExoticComponent<
 						label={intl.formatMessage(toolbarMessages.textFormat)}
 						aria-expanded={isMenuOpen}
 						aria-haspopup
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onClick={() => {
 							toggleMenu();
 							setIsOpenedByKeyboard(false);
 						}}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onKeyDown={(event: React.KeyboardEvent) => {
 							if (event.key === 'Enter' || event.key === ' ') {
 								event.preventDefault();

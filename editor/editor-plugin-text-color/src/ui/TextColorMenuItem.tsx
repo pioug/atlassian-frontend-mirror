@@ -65,10 +65,12 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 		<Stack xcss={styles.container} testId="text-color-menu-item">
 			<Heading size="xxsmall">{formatMessage(messages.textColorTooltip)}</Heading>
 			<ColorPalette
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClick={(color, _, event) => {
 					handleTextColorChange(color, event);
 				}}
 				selectedColor={color || defaultColor}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				paletteOptions={{
 					palette: palette,
 					hexToPaletteColor: hexToEditorTextPaletteColor,

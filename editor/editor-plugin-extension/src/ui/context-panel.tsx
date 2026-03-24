@@ -114,6 +114,7 @@ export const getContextPanel =
 								extensionProvider={extensionProvider}
 								autoSaveTrigger={autoSaveResolve}
 								autoSaveReject={autoSaveReject}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onChange={async (updatedParameters) => {
 									await onChangeAction(
 										editorView,
@@ -128,6 +129,7 @@ export const getContextPanel =
 										autoSaveResolve();
 									}
 								}}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onCancel={async () => {
 									try {
 										await new Promise<void>((resolve, reject) => {

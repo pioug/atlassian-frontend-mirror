@@ -120,6 +120,9 @@
 			"path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/motion/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../teamwork-ecosystem/outbound-auth-flow-client/afm-jira/tsconfig.json"
 		},
 		{

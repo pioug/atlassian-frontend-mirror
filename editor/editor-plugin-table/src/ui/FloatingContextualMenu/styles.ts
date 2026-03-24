@@ -2,7 +2,6 @@
 import { css } from '@emotion/react';
 
 import { tableBackgroundBorderColor } from '@atlaskit/adf-schema';
-import { N60A, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../../types';
@@ -22,13 +21,13 @@ export const tablePopupStyles = (
 ) => css`
 	.${ClassName.CONTEXTUAL_SUBMENU} {
 		border-radius: ${token('radius.small', '3px')};
-		background: ${token('elevation.surface.overlay', 'white')};
-		box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`)};
+		background: ${token('elevation.surface.overlay')};
+		box-shadow: ${token('elevation.shadow.overlay')};
 		display: block;
 		position: absolute;
 		top: 0;
 		left: ${isDragAndDropEnabled ? contextualMenuDropdownWidthDnD : contextualMenuDropdownWidth}px;
-		padding: ${token('space.100', '8px')};
+		padding: ${token('space.100')};
 
 		> div {
 			padding: 0;
@@ -49,9 +48,9 @@ export const tablePopupStyles = (
 
 		&::after {
 			content: '›';
-			margin-left: ${token('space.050', '4px')};
+			margin-left: ${token('space.050')};
 			line-height: 20px;
-			color: ${token('color.icon', N90)};
+			color: ${token('color.icon')};
 		}
 	}
 
@@ -69,9 +68,9 @@ export const tablePopupStyles = (
 
 		&::after {
 			content: '›';
-			margin-left: ${token('space.050', '4px')};
+			margin-left: ${token('space.050')};
 			line-height: 14px;
-			color: ${token('color.icon', N90)};
+			color: ${token('color.icon')};
 		}
 	}
 `;

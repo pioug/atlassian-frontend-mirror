@@ -58,6 +58,7 @@ export const EmojiPickerPopup = ({
 			target={targetRef.current}
 			fitHeight={350}
 			fitWidth={350}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			offset={[0, 3]}
 			mountTo={popupsMountPoint}
 			boundariesElement={popupsBoundariesElement}

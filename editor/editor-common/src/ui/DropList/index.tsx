@@ -89,7 +89,7 @@ class DropList extends Component<Props> {
 			boxShadow: token('elevation.shadow.overlay'),
 			boxSizing: 'border-box',
 			overflow: 'auto',
-			padding: `${token('space.050', '4px')} 0`,
+			padding: `${token('space.050')} 0`,
 			maxHeight: '90vh',
 		});
 	};

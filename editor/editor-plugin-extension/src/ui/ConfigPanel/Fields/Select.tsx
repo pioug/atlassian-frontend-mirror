@@ -39,6 +39,7 @@ export default function SelectField({
 			defaultValue={getOptionFromValue(field.items, field.defaultValue) as ValueType<Option, false>}
 			testId={`config-panel-select-${name}`}
 			isRequired={field.isRequired}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			validate={(value: ValueType<Option> | null | undefined) => {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -57,6 +58,7 @@ export default function SelectField({
 							inputId: fieldProps.id,
 							id: undefined,
 						}}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onChange={(value) => {
 							fieldProps.onChange(value);
 							onFieldChange(name, true);

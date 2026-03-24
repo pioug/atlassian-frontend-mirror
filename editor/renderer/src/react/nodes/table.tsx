@@ -140,8 +140,7 @@ export const addSortableColumn = (
 	rows: React.ReactElement<any>[],
 	tableOrderStatus: TableOrderStatus | undefined,
 	onSorting: (columnIndex: number, sortOrder: SortOrder) => void,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-explicit-any
 ): React.ReactElement<any, string | React.JSXElementConstructor<any>>[] => {
 	return React.Children.map(rows, (row, index) => {
 		if (index === 0) {
@@ -798,7 +797,7 @@ export class TableContainer extends React.Component<
 							ref={this.stickyScrollbarRef}
 							style={{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+								height: token('space.250'), // MAX_BROWSER_SCROLLBAR_HEIGHT
 								// Follow editor to hide by default so it does not show empty gap in SSR
 								// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/editor/editor-plugin-table/src/nodeviews/TableComponent.tsx#957
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -960,6 +959,7 @@ const TableWithWidth = (
 ) => {
 	if (fg('platform-ssr-table-resize')) {
 		const colWidthsSum =
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 			props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
 
 		if (colWidthsSum || props.allowTableResizing) {
@@ -981,6 +981,7 @@ const TableWithWidth = (
 					const renderWidth =
 						props.rendererAppearance === 'full-page' ? width - FullPagePadding * 2 : width;
 					const colWidthsSum =
+						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 						props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
 
 					if (colWidthsSum || props.allowTableResizing) {
@@ -1157,8 +1158,7 @@ const _default_1: {
 						prevState: Readonly<{}>,
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						props: Readonly<Diff<any, WithSmartCardStorageProps>>,
-						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-empty-object-type
 				  ) => {} | Pick<{}, K> | null)
 				// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 				| Pick<{}, K>

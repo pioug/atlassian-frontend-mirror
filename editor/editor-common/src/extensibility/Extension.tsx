@@ -99,6 +99,7 @@ export class Extension extends Component<Props, any> {
 	render(): React.JSX.Element {
 		return (
 			<WithProviders
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				providers={['extensionProvider']}
 				providerFactory={this.providerFactory}
 				renderNode={this.renderWithProvider}

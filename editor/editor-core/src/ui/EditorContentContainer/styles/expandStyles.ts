@@ -21,11 +21,11 @@ export const expandStyles: SerializedStyles = css({
 		borderColor: 'transparent',
 		borderRadius: token('radius.small', '4px'),
 		minHeight: '25px',
-		background: token('color.background.neutral.subtle', 'transparent'),
-		margin: `${token('space.050', '0.25rem')} 0 0`,
+		background: token('color.background.neutral.subtle'),
+		margin: `${token('space.050')} 0 0`,
 		transition:
 			'background 0.3s cubic-bezier(0.15, 1, 0.3, 1), border-color 0.3s cubic-bezier(0.15, 1, 0.3, 1)',
-		padding: token('space.100', '8px'),
+		padding: token('space.100'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'td > :not(style):first-child, td > style:first-child + *': {
 			marginTop: 0,
@@ -98,10 +98,10 @@ export const expandStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-expand__content': {
 		// sharedExpandStyles.contentStyles({ expanded: false, focused: false })(),
-		paddingTop: token('space.0', '0px'),
-		paddingRight: token('space.100', '8px'),
-		paddingLeft: token('space.300', '24px'),
-		marginLeft: token('space.050', '4px'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.100'),
+		paddingLeft: token('space.300'),
+		marginLeft: token('space.050'),
 		display: 'flow-root',
 		/* The follow rules inside @supports block are added as a part of ED-8893
 			The fix is targeting mobile bridge on iOS 12 or below,
@@ -144,7 +144,7 @@ export const expandStyles: SerializedStyles = css({
 		background: 'transparent',
 		display: 'flex',
 		flex: 1,
-		padding: `0 0 0 ${token('space.050', '4px')}`,
+		padding: `0 0 0 ${token('space.050')}`,
 		width: '100%',
 		'&::placeholder': {
 			opacity: 1,
@@ -178,8 +178,8 @@ export const expandStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-expand__icon-button': {
 		appearance: 'none',
-		width: token('space.300', '24px'),
-		height: token('space.300', '24px'),
+		width: token('space.300'),
+		height: token('space.300'),
 		border: 'none',
 		borderRadius: token('radius.small', '4px'),
 		background: token('color.background.neutral.subtle'),
@@ -196,7 +196,7 @@ export const expandStyles: SerializedStyles = css({
 
 		'&:focus-visible': {
 			outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
-			outlineOffset: token('space.025', '2px'),
+			outlineOffset: token('space.025'),
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -220,7 +220,7 @@ export const expandStyles: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ak-editor-expand__content': {
-			paddingTop: token('space.100', '8px'),
+			paddingTop: token('space.100'),
 			// If fg('platform_editor_nested_dnd_styles_changes') then this needs to be extended
 		},
 
@@ -325,7 +325,7 @@ export const expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: Ser
 				},
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				'> div.ak-editor-expand[data-node-type="nestedExpand"]': {
-					marginTop: token('space.050', '0.25rem'),
+					marginTop: token('space.050'),
 				},
 			},
 		},

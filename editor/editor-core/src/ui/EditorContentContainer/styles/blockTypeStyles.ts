@@ -20,7 +20,7 @@ export const blocktypeStyles: SerializedStyles = css({
 			paddingTop: 0,
 			paddingBottom: 0,
 
-			paddingLeft: token('space.200', '16px'),
+			paddingLeft: token('space.200'),
 			borderLeftWidth: token('border.width.selected'),
 			borderLeftStyle: 'solid',
 			borderLeftColor: token('color.border'),
@@ -29,7 +29,7 @@ export const blocktypeStyles: SerializedStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
 			'[dir="rtl"] &': {
 				paddingLeft: 0,
-				paddingRight: token('space.200', '16px'),
+				paddingRight: token('space.200'),
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&:first-child': {
@@ -316,12 +316,12 @@ export const blocktypeStyles_without_fg_platform_editor_typography_ugc: Serializ
 export const blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-content-area.appearance-full-page .ProseMirror blockquote': {
-		paddingLeft: token('space.250', '20px'),
+		paddingLeft: token('space.250'),
 	},
 	// Don't want extra padding for inline editor (nested)
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-content-area .ak-editor-content-area .ProseMirror blockquote': {
-		paddingLeft: token('space.200', '16px'),
+		paddingLeft: token('space.200'),
 	},
 });
 

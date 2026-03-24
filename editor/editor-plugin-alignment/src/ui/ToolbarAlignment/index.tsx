@@ -115,12 +115,15 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 			<ToolbarDropdownWrapper>
 				{editorExperiment('platform_editor_controls', 'variant1') ? (
 					<DropdownMenu
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						arrowKeyNavigationProviderOptions={{
 							type: ArrowKeyNavigationType.MENU,
 						}}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						items={[{ items }]}
 						isOpen={isOpen}
 						onItemActivated={this.handleOnItemActivated}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onOpenChange={(attrs: OpenChangedEvent) => this.setState({ isOpen: attrs?.isOpen })}
 						mountTo={popupsMountPoint}
 						boundariesElement={popupsBoundariesElement}
@@ -151,12 +154,14 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 						boundariesElement={popupsBoundariesElement}
 						scrollableElement={popupsScrollableElement}
 						isOpen={isOpen}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						handleClickOutside={(event: MouseEvent) => {
 							if (event instanceof MouseEvent) {
 								this.hide({ isOpen: false, event });
 							}
 						}}
 						handleEscapeKeydown={this.hideOnEscape}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						arrowKeyNavigationProviderOptions={{
 							type: ArrowKeyNavigationType.MENU,
 						}}
@@ -187,6 +192,7 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 						}
 					>
 						<Alignment
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onClick={(align) => this.changeAlignment(align, false)}
 							selectedAlignment={alignment}
 						/>
@@ -197,7 +203,7 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 		);
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate(_prevProps: Props) {
 		if (this.props.toolbarType !== ToolbarType.FLOATING && this.state.isOpen) {
 			// by triggering the keyboard event with a setTimeout, we ensure that the tooltip
 			// associated with the alignment button doesn't render until the next render cycle

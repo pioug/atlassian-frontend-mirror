@@ -72,8 +72,11 @@ export const MenuArrowKeyNavigationProvider = ({
 		const list = getFocusableElements(wrapperRef?.current);
 		const currentElement = list[currentIndex];
 
+		// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 		if (currentElement && currentElement.getAttribute('aria-disabled') === 'true') {
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			const focusIndex = incrementIndex(list);
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Ignored via go/ees017 (to be fixed)
 			list[focusIndex]?.focus();
 		}
 	}, [currentSelectedItemIndex, onSelection, incrementIndex, decrementIndex]);

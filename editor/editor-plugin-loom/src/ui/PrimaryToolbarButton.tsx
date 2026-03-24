@@ -68,6 +68,7 @@ const CustomisableLoomToolbarButton = (
 				disabled={disabled || isDisabled || isOfflineMode(connectivityMode)}
 				api={api}
 				appearance={appearance}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClick={(e) => handleOnClick(e)}
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading

@@ -89,6 +89,7 @@ const ToolbarDropdownMenuContent = ({
 
 	return (
 		<DropdownMenu<HTMLButtonElement>
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			trigger={(triggerProps) => {
 				const toolbarButton = (
 					<ToolbarButton
@@ -98,6 +99,7 @@ const ToolbarDropdownMenuContent = ({
 						aria-haspopup={triggerProps['aria-haspopup']}
 						aria-controls={triggerProps['aria-controls']}
 						onBlur={triggerProps.onBlur}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onClick={(e) => {
 							onClick && onClick(e, !menuContext?.isOpen);
 							handleClick(e);

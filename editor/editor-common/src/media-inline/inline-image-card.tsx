@@ -74,6 +74,7 @@ export const InlineImageCard = ({
 				dataURI={preview.dataURI}
 				alt={alt}
 				previewOrientation={preview.orientation}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onImageLoad={() => {
 					onImageLoad(preview);
 				}}

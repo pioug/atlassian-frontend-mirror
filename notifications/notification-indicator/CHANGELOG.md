@@ -1,5 +1,17 @@
 # @atlaskit/notification-indicator
 
+## 10.1.0
+
+### Minor Changes
+
+- [`bfc622620e041`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfc622620e041) -
+  Adds new optional parameter `routingWorkspaceId` to Notifications, NotificationFullPage and
+  NotificationFullPage components to support collaboration contexts.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.1
 
 ### Patch Changes
@@ -275,7 +287,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics-next@6.3.5
   - @atlaskit/badge@13.1.5
@@ -333,12 +344,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -379,7 +388,6 @@
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -414,20 +422,17 @@
 ## 7.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 6.0.1
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 6.0.0
 
 - [major][987ab01f30](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/987ab01f30):
-
   - The appearance prop only accepts appearance types supported by the badge component, i.e.
     'primary', 'added', 'default' etc.
 
@@ -438,19 +443,16 @@
 ## 5.1.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 5.1.0
 
 - [minor][de0c7c3258](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/de0c7c3258):
-
   - Enable noImplicitAny for home/notification-indicator
 
 ## 5.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 4.1.3
@@ -465,19 +467,16 @@
 ## 4.1.2
 
 - [patch][4c9a6d2187](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4c9a6d2187):
-
   - Correcting attribute name in analytics event
 
 ## 4.1.1
 
 - [patch][a4b0717](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a4b0717):
-
   - Updated analytics events triggered by the notification-indicator
 
 ## 4.1.0
 
 - [minor][9cfee26](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9cfee26):
-
   - Add data-test-selector to various components to help open and close the Notification Drawer
     programmatically. This would support test automation
 

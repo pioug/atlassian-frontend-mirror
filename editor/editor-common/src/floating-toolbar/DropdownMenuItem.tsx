@@ -34,7 +34,7 @@ const labelStyles = css({
 const spacerStyles = css({
 	display: 'flex',
 	flex: 1,
-	padding: token('space.100', '8px'),
+	padding: token('space.100'),
 });
 
 export interface Props {

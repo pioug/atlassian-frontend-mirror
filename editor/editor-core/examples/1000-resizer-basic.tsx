@@ -106,7 +106,7 @@ export default function Example(): jsx.JSX.Element {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				flexDirection: 'column',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				gap: token('space.800', '64px'),
+				gap: token('space.800'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				alignItems: 'center',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -122,7 +122,7 @@ export default function Example(): jsx.JSX.Element {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					flexDirection: 'row',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					gap: token('space.800', '64px'),
+					gap: token('space.800'),
 				}}
 			>
 				<RadioGroup

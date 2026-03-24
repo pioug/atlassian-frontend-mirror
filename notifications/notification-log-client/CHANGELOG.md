@@ -1,5 +1,13 @@
 # @atlaskit/notification-log-service
 
+## 6.5.0
+
+### Minor Changes
+
+- [`bfc622620e041`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfc622620e041) -
+  Adds new optional parameter `routingWorkspaceId` to Notifications, NotificationFullPage and
+  NotificationFullPage components to support collaboration contexts.
+
 ## 6.4.0
 
 ### Minor Changes

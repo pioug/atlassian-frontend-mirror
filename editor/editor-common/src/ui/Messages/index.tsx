@@ -33,14 +33,14 @@ const messageStyle = () =>
 		lineHeight: 16 / 12,
 		fontWeight: token('font.weight.regular'),
 		color: token('color.text.subtlest'),
-		marginTop: token('space.050', '4px'),
+		marginTop: token('space.050'),
 		display: 'flex',
 		justifyContent: 'baseline',
 	});
 
 const iconWrapperStyle = css({
 	display: 'flex',
-	marginRight: token('space.050', '4px'),
+	marginRight: token('space.050'),
 });
 
 interface Props {

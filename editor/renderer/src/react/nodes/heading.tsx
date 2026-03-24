@@ -71,6 +71,7 @@ function WrappedHeadingAnchor({
 				<HeadingAnchor
 					enableNestedHeaderLinks={enableNestedHeaderLinks}
 					level={level}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onCopyText={() => {
 						fireAnalyticsEvent({
 							action: ACTION.CLICKED,

@@ -11,6 +11,7 @@ import type { Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getRandomHex } from '@atlaskit/media-common';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PastePlugin } from '../pastePluginType';
 
@@ -203,6 +204,19 @@ export const unwrapNestedMediaElements = (html: string): string => {
 
 		// Bypass emoji
 		if (imageTag.className.includes('emoji-common-emoji-image')) {
+			return;
+		}
+
+		// Bypass mediaInline images - don't hoist images that are inside a mediaInline wrapper
+		// as this would break parseDOM matching for mediaInline nodes
+		// We remove the img from the DOM since mediaInline is a leaf node with no content
+		if (
+			imageTag.closest('[data-node-type="mediaInline"]') &&
+			expValEquals('platform_editor_inline_media_copy_paste_fix', 'isEnabled', true)
+		) {
+			// Remove the img element so ProseMirror doesn't try to parse it
+			// mediaInline nodes are leaf nodes and cannot have children
+			imageTag.remove();
 			return;
 		}
 

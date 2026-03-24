@@ -1,5 +1,13 @@
 # @atlaskit/editor-jira-transformer
 
+## 16.0.1
+
+### Patch Changes
+
+- [`d497cbb2d150f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d497cbb2d150f) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 16.0.0
 
 ### Patch Changes

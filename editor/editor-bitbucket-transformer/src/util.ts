@@ -191,6 +191,7 @@ export function transformHtml(
 			suggestionDiv.setAttribute('data-local-id', index.toString());
 			// remove trailing newline from suggestion text
 			// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			const suggestionText = div.textContent ? div.textContent.replace(/\n$/, '') : '';
 			suggestionDiv.setAttribute(
 				'data-parameters',
@@ -218,6 +219,7 @@ export function transformHtml(
 				expandDiv.setAttribute('data-title', parsedResult.title);
 				expandDiv.setAttribute('data-expanded', 'false');
 
+				// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 				parsedResult.body.split('\n').forEach(function (line) {
 					if (!line.trim()) {
 						return;
@@ -446,6 +448,7 @@ export function transformHtml(
 				let parsedContent = captionText;
 
 				// Escape HTML entities first to prevent XSS
+				// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 				parsedContent = parsedContent
 					.replace(/&/g, '&amp;')
 					.replace(/</g, '&lt;')

@@ -366,7 +366,9 @@ export const DropTarget = (
 	return (
 		<Fragment>
 			<HoverZone
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onDragEnter={() => setIsDraggedOver(true)}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onDragLeave={() => setIsDraggedOver(false)}
 				onDrop={onDrop}
 				node={prevNode}
@@ -394,7 +396,9 @@ export const DropTarget = (
 			</div>
 			{dropTargetStyle !== 'remainingHeight' && (
 				<HoverZone
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onDragEnter={() => setIsDraggedOver(true)}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onDragLeave={() => setIsDraggedOver(false)}
 					onDrop={onDrop}
 					node={nextNode}

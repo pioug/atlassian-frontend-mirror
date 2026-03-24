@@ -106,10 +106,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Group related actions logically',
 			'Use consistent terminology across menu items',
 		],
-		accessibilityGuidelines: [
-			'Provide clear group titles',
-			'Nested menu: maximum two layers',
-		],
+		accessibilityGuidelines: ['Provide clear group titles', 'Nested menu: maximum two layers'],
 		examples: [
 			{
 				name: 'Dropdown Menu',
@@ -137,10 +134,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Use for multiple selection from a list or toggles (e.g. categories, column visibility)',
 			'Group related checkboxes; use short uppercase title on DropdownItemCheckboxGroup',
 		],
-		contentGuidelines: [
-			'Use clear, descriptive labels',
-			'Keep menu item text concise',
-		],
+		contentGuidelines: ['Use clear, descriptive labels', 'Keep menu item text concise'],
 		accessibilityGuidelines: [
 			'Ensure keyboard navigation and clear selection state',
 			'Use appropriate ARIA attributes',
@@ -171,9 +165,16 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Use to group related DropdownItemCheckbox items',
 			'Use for multiple selection from a list',
 		],
-		contentGuidelines: [
-			'Group related checkboxes logically',
-			'Use consistent terminology',
+		contentGuidelines: ['Group related checkboxes logically', 'Use consistent terminology'],
+		examples: [
+			{
+				name: 'Checkbox group',
+				description: 'DropdownItemCheckboxGroup with titled section and checkbox items.',
+				source: path.resolve(
+					__dirname,
+					'./examples/constellation/dropdown-item-checkbox-selected.tsx',
+				),
+			},
 		],
 		keywords: ['dropdown', 'menu', 'checkbox', 'group', 'multi-select'],
 		categories: ['navigation', 'interaction', 'form'],
@@ -195,10 +196,7 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Use for single selection from a short list (e.g. views, density)',
 			'Group related radio items; use short uppercase title on DropdownItemRadioGroup',
 		],
-		contentGuidelines: [
-			'Use clear, descriptive labels',
-			'Keep menu item text concise',
-		],
+		contentGuidelines: ['Use clear, descriptive labels', 'Keep menu item text concise'],
 		accessibilityGuidelines: [
 			'Ensure keyboard navigation and clear selection state',
 			'Use appropriate ARIA attributes',
@@ -229,9 +227,16 @@ const documentation: ComponentStructuredContentSource[] = [
 			'Use to group related DropdownItemRadio items',
 			'Use for single selection from a short list',
 		],
-		contentGuidelines: [
-			'Group related radio items logically',
-			'Use consistent terminology',
+		contentGuidelines: ['Group related radio items logically', 'Use consistent terminology'],
+		examples: [
+			{
+				name: 'Radio group',
+				description: 'DropdownItemRadioGroup with titled section and radio items.',
+				source: path.resolve(
+					__dirname,
+					'./examples/constellation/dropdown-item-radio-selected.tsx',
+				),
+			},
 		],
 		keywords: ['dropdown', 'menu', 'radio', 'group', 'single-select'],
 		categories: ['navigation', 'interaction', 'form'],

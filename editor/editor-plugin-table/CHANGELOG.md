@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-table
 
+## 18.1.6
+
+### Patch Changes
+
+- [`d43c8a96e6740`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d43c8a96e6740) -
+  Gate table ref update dispatch behind tableActive check to avoid unnecessary transactions firing
+  for every table on the page
+- [`737087ff3afe7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/737087ff3afe7) -
+  Cleanup experiment platform_editor_change_table_nesting_check
+- Updated dependencies
+
+## 18.1.5
+
+### Patch Changes
+
+- [`0f4a08b633f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f4a08b633f6e) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 18.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.3
+
+### Patch Changes
+
+- [`9ed32aea2c1d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ed32aea2c1d3) -
+  Replace feature experiment util with cross platform alternative for platform_editor_block_menu
+- Updated dependencies
+
 ## 18.1.2
 
 ### Patch Changes

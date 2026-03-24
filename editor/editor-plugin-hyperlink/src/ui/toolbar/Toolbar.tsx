@@ -400,9 +400,11 @@ export const getToolbarConfig =
 											displayUrl={link}
 											displayText={displayText || ''}
 											providerFactory={providerFactory}
+											// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 											onCancel={() => view.focus()}
 											onEscapeCallback={onEscapeCallback(editorCardActions)}
 											onClickAwayCallback={onClickAwayCallback}
+											// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 											onSubmit={(href, title = '', displayText, inputMethod, analytic) => {
 												const isEdit = isEditLink(activeLinkMark);
 												const action = isEdit ? ACTION.UPDATED : ACTION.INSERTED;

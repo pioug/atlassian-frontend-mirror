@@ -27,6 +27,7 @@ export const TypeAheadErrorFallback = (): jsx.JSX.Element => {
 		<div data-testid="typeahead-error-boundary-ui" css={minHeightComponentStyles}>
 			<EmptyState
 				header={header}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				renderImage={() => <GenericErrorSVG />}
 				description={description}
 			/>

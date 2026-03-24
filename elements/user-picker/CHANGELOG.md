@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 11.25.4
+
+### Patch Changes
+
+- [`a4ffaeb7622b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4ffaeb7622b6) -
+  Fixed the wrong order of verified icon and Archived lozenge
+
 ## 11.25.3
 
 ### Patch Changes

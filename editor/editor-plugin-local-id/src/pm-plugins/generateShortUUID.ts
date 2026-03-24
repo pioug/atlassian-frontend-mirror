@@ -16,6 +16,7 @@ export const generateShortUUID = (): string => {
 	const maxRetries = 10;
 	for (let attempt = 0; attempt < maxRetries; attempt++) {
 		try {
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			const shortUUID = crypto.randomUUID().split('-')[4];
 			if (!generatedShortUUIDs.has(shortUUID)) {
 				generatedShortUUIDs.add(shortUUID);

@@ -155,6 +155,7 @@ export function Card(
 					return fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
 						<Link
 							href={url}
+							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onClick={(e) => {
 								e.preventDefault();
 							}}
@@ -182,6 +183,7 @@ export function Card(
 
 			return (
 				<AnalyticsContext
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					data={{
 						attributes: { location: analyticsEditorAppearance },
 						// Below is added for the future implementation of Linking Platform namespaced analytics context

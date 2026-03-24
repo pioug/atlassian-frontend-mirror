@@ -93,6 +93,7 @@ export const InlineEmojiPopupOld = ({
 	return (
 		<PopupWithListeners
 			ariaLabel={intl.formatMessage(emojiPopupMessages.emojiPickerAriaLabel)}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			offset={[0, 12]}
 			mountTo={popupsMountPoint}
 			boundariesElement={popupsBoundariesElement}
@@ -176,6 +177,7 @@ const InlineEmojiPopupContent = ({
 	return (
 		<PopupWithListeners
 			ariaLabel={intl.formatMessage(emojiPopupMessages.emojiPickerAriaLabel)}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			offset={[0, 12]}
 			mountTo={popupsMountPoint}
 			boundariesElement={popupsBoundariesElement}

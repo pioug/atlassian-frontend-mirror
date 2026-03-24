@@ -238,6 +238,7 @@ class FieldsetField extends React.Component<Props, State> {
 						autoFocus
 						placeholder={intl.formatMessage(messages.addField)}
 						options={selectOptions}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onChange={(option) => {
 							if (option) {
 								this.onSelectItem(option as OptionType);
@@ -248,6 +249,7 @@ class FieldsetField extends React.Component<Props, State> {
 					<Button
 						testId="add-more"
 						appearance="subtle"
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						iconBefore={(iconProps) => (
 							<AddCircleIcon
 								// Ignored via go/ees005
@@ -257,6 +259,7 @@ class FieldsetField extends React.Component<Props, State> {
 								label={intl.formatMessage(messages.addField)}
 							/>
 						)}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onClick={() => this.setIsAdding(true)}
 					>
 						{intl.formatMessage(messages.addField)}

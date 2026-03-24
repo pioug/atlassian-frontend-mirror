@@ -161,7 +161,7 @@ const InsertButtonForDragAndDrop = ({
 						type === 'row'
 							? {
 									width: getInsertLineWidth(tableRef, true, isChromelessEditor),
-									left: token('space.150', '12px'),
+									left: token('space.150'),
 								}
 							: {
 									height: getInsertLineHeight(tableRef, hasStickyHeaders, true) - 8,

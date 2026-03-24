@@ -2,9 +2,9 @@
 import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
 
-import { zodToJsonSchema } from '../../helpers';
+import { tokens } from '@atlaskit/tokens/token-metadata';
 
-import { tokens } from './tokens';
+import { zodToJsonSchema } from '../../helpers';
 
 const inputSchema = z.object({});
 
@@ -32,6 +32,14 @@ export const getAllTokensTool = async (): Promise<{
 		// NOTE: Ideally one day the MCP would support structured content…
 		// eg. `type: 'object', data: token`
 		type: 'text',
-		text: JSON.stringify(token, null, 2),
+		text: JSON.stringify(
+			{
+				name: token.name,
+				exampleValue: token.exampleValue,
+				usageGuidelines: token.usageGuidelines,
+			},
+			null,
+			2,
+		),
 	})),
 });

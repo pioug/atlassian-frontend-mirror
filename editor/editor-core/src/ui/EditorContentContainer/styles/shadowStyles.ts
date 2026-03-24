@@ -38,7 +38,7 @@ export const shadowStyles: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		[`& .${shadowClassNames.LEFT_SHADOW}::before`]: {
-			background: `linear-gradient(to left, transparent 0, ${token('elevation.shadow.overflow.spread')} 140% ), linear-gradient( to right, ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px, transparent 1px)`,
+			background: `linear-gradient(to left, transparent 0, ${token('elevation.shadow.overflow.spread')} 140% ), linear-gradient( to right, ${token('elevation.shadow.overflow.perimeter')} 0px, transparent 1px)`,
 			top: 0,
 			left: 0,
 			display: 'block',
@@ -46,7 +46,7 @@ export const shadowStyles: SerializedStyles = css({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		[`& .${shadowClassNames.RIGHT_SHADOW}::after`]: {
-			background: `linear-gradient(to right, transparent 0, ${token('elevation.shadow.overflow.spread')} 140% ), linear-gradient( to left, ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px, transparent 1px)`,
+			background: `linear-gradient(to right, transparent 0, ${token('elevation.shadow.overflow.spread')} 140% ), linear-gradient( to left, ${token('elevation.shadow.overflow.perimeter')} 0px, transparent 1px)`,
 			right: 0,
 			top: 0,
 			display: 'block',

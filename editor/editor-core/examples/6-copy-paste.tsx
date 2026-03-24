@@ -75,7 +75,7 @@ const rendererWrapper = css({
 
 const externalClipboardWrapper = css({
 	width: '500px',
-	padding: token('space.150', '12px'),
+	padding: token('space.150'),
 	border: `${token('border.width')} dashed #ccc`,
 });
 
@@ -507,7 +507,7 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 						<ClipboardWidthPopup
 							content={
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								<div style={{ padding: token('space.250', '24px') }}>
+								<div style={{ padding: token('space.250') }}>
 									<h3>Clipboard in popup: </h3>
 									{this.renderEditor(defaultCollectionName, fullWidthEditorStyles)}
 									<ExampleExternalClipboard />

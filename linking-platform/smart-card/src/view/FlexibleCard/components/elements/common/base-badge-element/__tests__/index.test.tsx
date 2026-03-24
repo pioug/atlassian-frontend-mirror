@@ -6,12 +6,8 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider, type MessageFormatElement } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
-import { getFlexibleCardTestWrapper } from '../../../../../../../__tests__/__utils__/unit-testing-library-helpers';
-import { IconType, InternalActionName } from '../../../../../../../constants';
+import { IconType } from '../../../../../../../constants';
 import { messages } from '../../../../../../../messages';
-import type { FlexibleUiDataContext } from '../../../../../../../state/flexible-ui-context/types';
 import Badge from '../index';
 
 jest.mock('react-render-image', () => ({ src, loading, loaded, errored }: any) => {
@@ -127,117 +123,5 @@ describe('Element: Badge', () => {
 		const element = await screen.findByTestId('smart-element-badge');
 
 		expect(element).toHaveCompiledCss('background-color', 'blue');
-	});
-
-	describe('large icon (platform_sl_3p_auth_rovo_action_kill_switch)', () => {
-		const rovoActionAvailableData: FlexibleUiDataContext = {
-			actions: {
-				[InternalActionName.RovoChatAction]: {
-					invokeAction: {
-						actionSubjectId: 'rovoChatPrompt',
-						actionType: 'RovoChatAction',
-					},
-					product: 'CONFLUENCE',
-					url: 'https://url',
-				},
-			},
-		};
-		const rovoActionUnavailableData: FlexibleUiDataContext = {
-			actions: { [InternalActionName.RovoChatAction]: undefined },
-		};
-
-		ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', 'when FF is ON', () => {
-			it('uses large container gap when rovo action is available', async () => {
-				render(<Badge icon={IconType.Comment} label="99" iconSize="large" />, {
-					wrapper: getFlexibleCardTestWrapper(rovoActionAvailableData),
-				});
-
-				const badge = await screen.findByTestId('smart-element-badge');
-				expect(badge).toHaveCompiledCss('gap', 'var(--ds-space-100,8px)');
-			});
-
-			it('uses large icon sizing when rovo action is available', async () => {
-				render(<Badge icon={IconType.Comment} label="99" iconSize="large" />, {
-					wrapper: getFlexibleCardTestWrapper(rovoActionAvailableData),
-				});
-
-				const icon = await screen.findByTestId('smart-element-badge-icon');
-				const iconWrapper = icon.parentElement;
-				expect(iconWrapper).toHaveCompiledCss('height', '24px');
-				expect(iconWrapper).toHaveCompiledCss('width', '24px');
-			});
-
-			it('respects hideIcon when rovo action is available', async () => {
-				render(<Badge icon={IconType.Comment} label="99" hideIcon iconSize="large" />, {
-					wrapper: getFlexibleCardTestWrapper(rovoActionAvailableData),
-				});
-
-				expect(screen.queryByTestId('smart-element-badge-icon')).toBeNull();
-				const label = await screen.findByTestId('smart-element-badge-label');
-				expect(label).toBeInTheDocument();
-			});
-
-			it('uses standard gap when rovo action is unavailable', async () => {
-				render(<Badge icon={IconType.Comment} label="99" iconSize="large" />, {
-					wrapper: getFlexibleCardTestWrapper(rovoActionUnavailableData),
-				});
-
-				const badge = await screen.findByTestId('smart-element-badge');
-				expect(badge).toHaveCompiledCss('gap', 'var(--ds-space-050,4px)');
-			});
-
-			it('uses standard icon sizing when rovo action is unavailable', async () => {
-				render(<Badge icon={IconType.Comment} label="99" iconSize="large" />, {
-					wrapper: getFlexibleCardTestWrapper(rovoActionUnavailableData),
-				});
-
-				const icon = await screen.findByTestId('smart-element-badge-icon');
-				const iconWrapper = icon.parentElement;
-				expect(iconWrapper).toHaveCompiledCss('height', '1pc');
-				expect(iconWrapper).toHaveCompiledCss('width', '1pc');
-			});
-
-			it('uses standard gap when iconSize is default even if rovo action is available', async () => {
-				render(<Badge icon={IconType.Comment} label="99" />, {
-					wrapper: getFlexibleCardTestWrapper(rovoActionAvailableData),
-				});
-
-				const badge = await screen.findByTestId('smart-element-badge');
-				expect(badge).toHaveCompiledCss('gap', 'var(--ds-space-050,4px)');
-			});
-
-			it('uses standard icon sizing when iconSize is default even if rovo action is available', async () => {
-				render(<Badge icon={IconType.Comment} label="99" />, {
-					wrapper: getFlexibleCardTestWrapper(rovoActionAvailableData),
-				});
-
-				const icon = await screen.findByTestId('smart-element-badge-icon');
-				const iconWrapper = icon.parentElement;
-				expect(iconWrapper).toHaveCompiledCss('height', '1pc');
-				expect(iconWrapper).toHaveCompiledCss('width', '1pc');
-			});
-		});
-
-		ffTest.off('platform_sl_3p_auth_rovo_action_kill_switch', 'when FF is OFF', () => {
-			it('uses standard gap even when rovo action is available', async () => {
-				render(<Badge icon={IconType.Comment} label="99" iconSize="large" />, {
-					wrapper: getFlexibleCardTestWrapper(rovoActionAvailableData),
-				});
-
-				const badge = await screen.findByTestId('smart-element-badge');
-				expect(badge).toHaveCompiledCss('gap', 'var(--ds-space-050,4px)');
-			});
-
-			it('uses standard icon sizing even when rovo action is available', async () => {
-				render(<Badge icon={IconType.Comment} label="99" iconSize="large" />, {
-					wrapper: getFlexibleCardTestWrapper(rovoActionAvailableData),
-				});
-
-				const icon = await screen.findByTestId('smart-element-badge-icon');
-				const iconWrapper = icon.parentElement;
-				expect(iconWrapper).toHaveCompiledCss('height', '1pc');
-				expect(iconWrapper).toHaveCompiledCss('width', '1pc');
-			});
-		});
 	});
 });

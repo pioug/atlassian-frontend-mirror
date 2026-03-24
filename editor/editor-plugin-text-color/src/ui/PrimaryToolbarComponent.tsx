@@ -59,6 +59,7 @@ export const PrimaryToolbarComponent = ({
 	}
 	return (
 		<ToolbarTextColor
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			pluginState={{ color, defaultColor, palette, disabled: textColorDisabled }}
 			isReducedSpacing={isReducedSpacing}
 			editorView={editorView}

@@ -21,7 +21,7 @@ import type { LinkSearchListItemData } from './types';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const container: SerializedStyles = css({
 	backgroundColor: 'transparent',
-	padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
+	padding: `${token('space.100')} ${token('space.150')}`,
 	cursor: 'pointer',
 	display: 'flex',
 	marginTop: 0,
@@ -57,8 +57,8 @@ export const containerName: SerializedStyles = css({
 
 const iconStyle = css({
 	minWidth: '16px',
-	marginTop: token('space.050', '4px'),
-	marginRight: token('space.150', '12px'),
+	marginTop: token('space.050'),
+	marginRight: token('space.150'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	img: {
 		maxWidth: '16px',

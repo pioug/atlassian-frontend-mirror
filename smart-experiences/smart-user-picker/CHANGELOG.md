@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 9.2.1
+
+### Patch Changes
+
+- [`7eb1025a50079`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7eb1025a50079) -
+  Added Archive Lozenge when a team state is DISBANDED
+
 ## 9.2.0
 
 ### Minor Changes

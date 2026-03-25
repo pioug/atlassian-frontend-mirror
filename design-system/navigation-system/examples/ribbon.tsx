@@ -19,7 +19,7 @@ import {
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -189,11 +189,11 @@ export default function RibbonExample(): React.JSX.Element {
 						 * - the side nav is collapsed on desktop
 						 */}
 						<div ref={setSideNavPortalTarget} />
-						<SideNavContent>
+						<SideNavBody>
 							<MenuList>
 								<ButtonMenuItem elemBefore={<HomeIcon label="Home" />}>Hello world</ButtonMenuItem>
 							</MenuList>
-						</SideNavContent>
+						</SideNavBody>
 					</div>
 				</SideNav>
 				<Main>

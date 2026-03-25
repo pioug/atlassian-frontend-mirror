@@ -6,7 +6,7 @@ import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { JiraIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import { COLLAPSE_ELEM_BEFORE, LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
@@ -46,7 +46,7 @@ export function LinkMenuItemExample(): React.JSX.Element {
 		<Stack space="space.100">
 			<Inline space="space.600">
 				<MockSideNav>
-					<SideNavContent>
+					<SideNavBody>
 						<MenuList>
 							<LinkMenuItem
 								href={linkMenuItemHref}
@@ -71,11 +71,11 @@ export function LinkMenuItemExample(): React.JSX.Element {
 								Link menu item (no elemBefore)
 							</LinkMenuItem>
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 				</MockSideNav>
 
 				<MockSideNav>
-					<SideNavContent>
+					<SideNavBody>
 						<MenuList>
 							<LinkMenuItem
 								href={linkMenuItemHref}
@@ -133,7 +133,7 @@ export function LinkMenuItemExample(): React.JSX.Element {
 								Link menu item (elemAfter, actions & actionsOnHover)
 							</LinkMenuItem>
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 				</MockSideNav>
 			</Inline>
 
@@ -143,7 +143,7 @@ export function LinkMenuItemExample(): React.JSX.Element {
 
 			{showSelectedStateExample && (
 				<MockSideNav>
-					<SideNavContent>
+					<SideNavBody>
 						<MenuList>
 							<LinkMenuItem
 								href={linkMenuItemHref}
@@ -153,7 +153,7 @@ export function LinkMenuItemExample(): React.JSX.Element {
 								Link menu item (selected state)
 							</LinkMenuItem>
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 				</MockSideNav>
 			)}
 		</Stack>

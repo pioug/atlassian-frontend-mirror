@@ -88,10 +88,12 @@ describe('HoverCardResolvedView', () => {
 		mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
 		isAISummaryEnabled,
 		cardState,
+		showRovoResolvedView,
 	}: {
 		cardState: any;
 		isAISummaryEnabled?: boolean;
 		mockResponse?: JsonLd.Response;
+		showRovoResolvedView?: boolean;
 	}) => {
 		return (
 			<HoverCardResolvedView
@@ -104,6 +106,7 @@ describe('HoverCardResolvedView', () => {
 				url={url}
 				titleBlockProps={titleBlockProps}
 				isAISummaryEnabled={isAISummaryEnabled}
+				showRovoResolvedView={showRovoResolvedView}
 			/>
 		);
 	};
@@ -120,9 +123,11 @@ describe('HoverCardResolvedView', () => {
 	const setup = ({
 		mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
 		isAISummaryEnabled,
+		showRovoResolvedView,
 	}: {
 		isAISummaryEnabled?: boolean;
 		mockResponse?: JsonLd.Response;
+		showRovoResolvedView?: boolean;
 	} = {}) => {
 		cardState = getCardState({
 			data: mockResponse.data,
@@ -136,6 +141,7 @@ describe('HoverCardResolvedView', () => {
 				cardState={cardState}
 				mockResponse={mockResponse}
 				isAISummaryEnabled={isAISummaryEnabled}
+				showRovoResolvedView={showRovoResolvedView}
 			/>,
 			{ wrapper },
 		);
@@ -392,14 +398,17 @@ describe('HoverCardResolvedView', () => {
 						summariseUrl: jest.fn(),
 					});
 
-					const { findByTestId } = setup({ mockResponse: GoogleDoc });
+					const { findByTestId } = setup({ mockResponse: GoogleDoc, showRovoResolvedView: true });
 
 					const aiSummaryBlock = await findByTestId('smart-ai-summary-block-resolved-view');
 					expect(aiSummaryBlock).toBeInTheDocument();
 				});
 
 				it('should render ResolvedHoverCardFooterBlock instead of AIFooterBlock when Rovo is enabled', async () => {
-					const { findByTestId, queryByTestId } = setup({ mockResponse: GoogleDoc });
+					const { findByTestId, queryByTestId } = setup({
+						mockResponse: GoogleDoc,
+						showRovoResolvedView: true,
+					});
 
 					const footerBlock = await findByTestId('smart-hover-card-footer-block-resolved-view');
 					expect(footerBlock).toBeInTheDocument();
@@ -407,14 +416,14 @@ describe('HoverCardResolvedView', () => {
 				});
 
 				it('should pass onActionClick to ResolvedHoverCardFooterBlock', async () => {
-					const { findByTestId } = setup({ mockResponse: GoogleDoc });
+					const { findByTestId } = setup({ mockResponse: GoogleDoc, showRovoResolvedView: true });
 
 					const footerBlock = await findByTestId('smart-hover-card-footer-block-resolved-view');
 					expect(footerBlock).toBeInTheDocument();
 				});
 
 				it('should hide AI summary action in ActionBlock when Rovo is enabled', async () => {
-					const { queryByTestId } = setup({ mockResponse: GoogleDoc });
+					const { queryByTestId } = setup({ mockResponse: GoogleDoc, showRovoResolvedView: true });
 
 					expect(
 						queryByTestId('smart-action-ai-summary-action-summarise-action'),

@@ -1,5 +1,6 @@
 import React from 'react';
 
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { parseISO } from 'date-fns';
 
 import { DateTimePicker } from '@atlaskit/datetime-picker';

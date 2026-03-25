@@ -24,4 +24,4 @@ export { default as SlideIn } from './entering/slide-in';
 export { default as ShrinkOut } from './entering/shrink-out';
 export type { ShrinkOutProps } from './entering/shrink-out';
 export type { Transition, Direction } from './entering/types';
-export { default as Motion, Reanimate, type MotionRef } from './entering/motion';
+export { default as Motion, Reanimate, type MotionRef, type MotionProps } from './entering/motion';

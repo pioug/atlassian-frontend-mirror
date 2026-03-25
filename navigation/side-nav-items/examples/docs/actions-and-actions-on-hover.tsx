@@ -5,7 +5,7 @@ import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Inline } from '@atlaskit/primitives/compiled';
 import {
 	ExpandableMenuItem,
@@ -44,7 +44,7 @@ export function ActionsAndActionsOnHoverExample(): React.JSX.Element {
 	return (
 		<Inline space="space.600">
 			<MockSideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<LinkMenuItem
 							href={exampleHref}
@@ -89,11 +89,11 @@ export function ActionsAndActionsOnHoverExample(): React.JSX.Element {
 							Link menu item (elemAfter, actions & actionsOnHover)
 						</LinkMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 			</MockSideNav>
 
 			<MockSideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<ExpandableMenuItem>
 							<ExpandableMenuItemTrigger
@@ -144,7 +144,7 @@ export function ActionsAndActionsOnHoverExample(): React.JSX.Element {
 							</ExpandableMenuItemTrigger>
 						</ExpandableMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 			</MockSideNav>
 		</Inline>
 	);

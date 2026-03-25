@@ -1,5 +1,6 @@
 import React, { type ComponentType } from 'react';
 
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import { fg } from '@atlaskit/platform-feature-flags';

@@ -1,5 +1,16 @@
 # @atlaskit/side-nav-items
 
+## 1.12.0
+
+### Minor Changes
+
+- [`f48c03e011b92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f48c03e011b92) -
+  Updated usage of `SideNavContent` to `SideNavBody` due to rename in `@atlaskit/navigation-system`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.11.0
 
 ### Minor Changes

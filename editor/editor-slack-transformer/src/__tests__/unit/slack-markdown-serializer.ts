@@ -31,6 +31,8 @@ import {
 	tr,
 	th,
 	td,
+	taskList,
+	taskItem,
 	typeAheadQuery,
 	ul,
 	underline,
@@ -42,6 +44,7 @@ import {
 	syncBlock,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 
 import { MarkdownSerializer, marks, nodes } from '../../serializer';
 
@@ -261,14 +264,10 @@ describe('SlackTransformer: serializer', () => {
 				),
 			).toEqual(
 				'• foo 1\n' +
-					'\n' +
 					'    • bar 1\n' +
-					'    \n' +
 					'        • baz 1\n' +
 					'        • baz 2\n' +
-					'        \n' +
 					'    • bar 2\n' +
-					'    \n' +
 					'• foo 2\n' +
 					'\n',
 			);
@@ -350,14 +349,10 @@ describe('SlackTransformer: serializer', () => {
 				),
 			).toEqual(
 				'1. foo 1\n' +
-					'\n' +
 					'    1. bar 1\n' +
-					'    \n' +
 					'        1. baz 1\n' +
 					'        2. baz 2\n' +
-					'        \n' +
 					'    2. bar 2\n' +
-					'    \n' +
 					'2. foo 2\n' +
 					'\n',
 			);
@@ -383,17 +378,11 @@ describe('SlackTransformer: serializer', () => {
 				),
 			).toEqual(
 				'1. foo 1\n' +
-					'\n' +
 					'    • bar 1\n' +
-					'    \n' +
 					'        1. baz 1\n' +
 					'        2. baz 2\n' +
-					'        \n' +
 					'            • banana\n' +
-					'            \n' +
-					'        \n' +
 					'    • bar 2\n' +
-					'    \n' +
 					'2. foo 2\n' +
 					'\n',
 			);
@@ -908,4 +897,331 @@ describe('syncBlock', () => {
 			),
 		).toEqual('[sync block]');
 	});
+});
+
+describe('task list', () => {
+	it('should serialize a basic task list with TODO items', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					taskList({ localId: 'list-1' })(
+						taskItem({ localId: 'item-1', state: 'TODO' })('Task 1'),
+						taskItem({ localId: 'item-2', state: 'TODO' })('Task 2'),
+					),
+				)(defaultSchema),
+			),
+		).toEqual('[ ] Task 1\n[ ] Task 2\n\n');
+	});
+
+	it('should serialize task items with DONE state', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					taskList({ localId: 'list-1' })(
+						taskItem({ localId: 'item-1', state: 'DONE' })('Completed task'),
+						taskItem({ localId: 'item-2', state: 'TODO' })('Pending task'),
+					),
+				)(defaultSchema),
+			),
+		).toEqual('[x] Completed task\n[ ] Pending task\n\n');
+	});
+
+	it('should serialize an empty task item', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					taskList({ localId: 'list-1' })(taskItem({ localId: 'item-1', state: 'TODO' })()),
+				)(defaultSchema),
+			),
+		).toEqual('[ ] \n\n');
+	});
+
+	it('should serialize nested task lists (sibling-based nesting)', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					taskList({ localId: 'list-1' })(
+						taskItem({ localId: 'item-1', state: 'TODO' })('Parent task'),
+						taskList({ localId: 'list-2' })(
+							taskItem({ localId: 'item-2', state: 'TODO' })('Child task 1'),
+							taskItem({ localId: 'item-3', state: 'DONE' })('Child task 2'),
+						),
+					),
+				)(defaultSchema),
+			),
+		).toEqual(
+			'[ ] Parent task\n' + '  [ ] Child task 1\n' + '  [x] Child task 2\n\n',
+		);
+	});
+
+	it('should serialize deeply nested task lists', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					taskList({ localId: 'list-1' })(
+						taskItem({ localId: 'item-1', state: 'TODO' })('Level 1'),
+						taskList({ localId: 'list-2' })(
+							taskItem({ localId: 'item-2', state: 'TODO' })('Level 2'),
+							taskList({ localId: 'list-3' })(
+								taskItem({ localId: 'item-3', state: 'DONE' })('Level 3'),
+							),
+						),
+					),
+				)(defaultSchema),
+			),
+		).toEqual(
+			'[ ] Level 1\n' +
+				'  [ ] Level 2\n' +
+				'    [x] Level 3\n\n',
+		);
+	});
+
+	it('should serialize task list surrounded by other block elements', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					p('Before tasks'),
+					taskList({ localId: 'list-1' })(
+						taskItem({ localId: 'item-1', state: 'TODO' })('Task 1'),
+						taskItem({ localId: 'item-2', state: 'DONE' })('Task 2'),
+					),
+					p('After tasks'),
+				)(defaultSchema),
+			),
+		).toEqual('Before tasks\n\n[ ] Task 1\n[x] Task 2\n\nAfter tasks');
+	});
+});
+
+describe('wrapper listItem (flexible list indentation)', () => {
+	it('should serialize a wrapper listItem with nested bullet list', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					ul(
+						li(p('Normal item')),
+						li(ul(li(p('Indented item 1')), li(p('Indented item 2')))),
+					),
+				)(defaultSchema),
+			),
+		).toEqual('• Normal item\n    • Indented item 1\n    • Indented item 2\n');
+	});
+
+	it('should serialize a wrapper listItem with nested ordered list', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					ul(
+						li(p('Bullet item')),
+						li(ol()(li(p('Numbered 1')), li(p('Numbered 2')))),
+					),
+				)(defaultSchema),
+			),
+		).toEqual('• Bullet item\n    1. Numbered 1\n    2. Numbered 2\n');
+	});
+
+	it('should serialize a wrapper listItem inside an ordered list', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					ol()(
+						li(p('First')),
+						li(ul(li(p('Nested bullet 1')), li(p('Nested bullet 2')))),
+					),
+				)(defaultSchema),
+			),
+		).toEqual('1. First\n    • Nested bullet 1\n    • Nested bullet 2\n');
+	});
+
+	it('should serialize deeply nested wrapper listItems', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					ul(
+						li(p('Level 1')),
+						li(
+							ul(
+								li(p('Level 2')),
+								li(ul(li(p('Level 3')))),
+							),
+						),
+					),
+				)(defaultSchema),
+			),
+		).toEqual('• Level 1\n    • Level 2\n        • Level 3\n');
+	});
+
+	it('should serialize wrapper listItem with mixed list types', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					ul(
+						li(p('Bullet item')),
+						li(
+							taskList({ localId: 'list-1' })(
+								taskItem({ localId: 'item-1', state: 'TODO' })('Task in bullet'),
+							),
+						),
+					),
+				)(defaultSchema),
+			),
+		).toEqual('• Bullet item\n    [ ] Task in bullet\n');
+	});
+
+	it('should serialize multi-level step up and down wrapper listItems (1→3→1)', () => {
+		const stage0Schema = getSchemaBasedOnStage('stage0');
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					ul(
+						li(p('Level 1')),
+						li(
+							ul(
+								li(
+									ul(
+										li(p('Level 3 (stepped down from 1)')),
+									),
+								),
+							),
+						),
+						li(p('Level 1 (stepped up from 3)')),
+					),
+				)(stage0Schema),
+			),
+		).toEqual(
+			'• Level 1\n        • Level 3 (stepped down from 1)\n• Level 1 (stepped up from 3)\n\n',
+		);
+	});
+
+	it('should serialize wrapper listItem with ordered list inside ordered list', () => {
+		const stage0Schema = getSchemaBasedOnStage('stage0');
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					ol()(
+						li(p('First')),
+						li(
+							ol()(
+								li(p('Nested ordered 1')),
+								li(p('Nested ordered 2')),
+							),
+						),
+						li(p('Third')),
+					),
+				)(stage0Schema),
+			),
+		).toEqual('1. First\n    1. Nested ordered 1\n    2. Nested ordered 2\n3. Third\n\n');
+	});
+
+	it('should serialize task list deeply nested via wrappers (bullet > bullet > task)', () => {
+		const stage0Schema = getSchemaBasedOnStage('stage0');
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					ul(
+						li(p('Bullet item')),
+						li(
+							ul(
+								li(
+									taskList({ localId: 'list-1' })(
+										taskItem({ localId: 'item-1', state: 'TODO' })('Deep task 1'),
+										taskItem({ localId: 'item-2', state: 'DONE' })('Deep task 2'),
+									),
+								),
+							),
+						),
+						li(p('After nested tasks')),
+					),
+				)(stage0Schema),
+			),
+		).toEqual(
+			'• Bullet item\n        [ ] Deep task 1\n        [x] Deep task 2\n• After nested tasks\n\n',
+		);
+	});
+
+	it('should correctly indent wrapper children nested inside a standard listItem with content', () => {
+		const stage0Schema = getSchemaBasedOnStage('stage0');
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					ul(
+						li(
+							p('Level 1'),
+							ul(
+								li(
+									ul(
+										li(p('Level 3')),
+									),
+								),
+							),
+						),
+					),
+				)(stage0Schema),
+			),
+		).toEqual('• Level 1\n        • Level 3\n\n');
+	});
+
+});
+
+
+describe('task list mixed states across nesting levels', () => {
+	const stage0Schema = getSchemaBasedOnStage('stage0');
+
+	it('should serialize mixed TODO and DONE states across nesting levels', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					taskList({ localId: 'list-1' })(
+						taskItem({ localId: 'item-1', state: 'DONE' })('Level 1 done'),
+						taskList({ localId: 'list-2' })(
+							taskItem({ localId: 'item-2', state: 'TODO' })('Level 2 open'),
+							taskItem({ localId: 'item-3', state: 'DONE' })('Level 2 done'),
+							taskList({ localId: 'list-3' })(
+								taskItem({ localId: 'item-4', state: 'DONE' })('Level 3 done'),
+								taskItem({ localId: 'item-5', state: 'TODO' })('Level 3 open'),
+							),
+						),
+						taskItem({ localId: 'item-6', state: 'TODO' })('Level 1 open'),
+					),
+				)(stage0Schema),
+			),
+		).toEqual(
+			'[x] Level 1 done\n' +
+				'  [ ] Level 2 open\n' +
+				'  [x] Level 2 done\n' +
+				'    [x] Level 3 done\n' +
+				'    [ ] Level 3 open\n' +
+				'[ ] Level 1 open\n\n',
+		);
+	});
+
+	it('should serialize alternating task list depths (1→3→1→3→1)', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					taskList({ localId: 'list-1' })(
+						taskItem({ localId: 'item-1', state: 'TODO' })('Level 1 first'),
+						taskList({ localId: 'list-2' })(
+							taskList({ localId: 'list-3' })(
+								taskItem({ localId: 'item-2', state: 'DONE' })('Level 3'),
+							),
+						),
+						taskItem({ localId: 'item-3', state: 'TODO' })('Level 1 again'),
+						taskList({ localId: 'list-4' })(
+							taskList({ localId: 'list-5' })(
+								taskItem({ localId: 'item-4', state: 'DONE' })('Level 3 again'),
+							),
+						),
+						taskItem({ localId: 'item-5', state: 'TODO' })('Level 1 last'),
+					),
+				)(stage0Schema),
+			),
+		).toEqual(
+			'[ ] Level 1 first\n' +
+				'    [x] Level 3\n' +
+				'[ ] Level 1 again\n' +
+				'    [x] Level 3 again\n' +
+				'[ ] Level 1 last\n\n',
+		);
+	});
+
 });

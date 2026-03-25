@@ -37,7 +37,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavFooter,
 	SideNavHeader,
 	SideNavPanelSplitter,
@@ -258,7 +258,7 @@ function Example() {
 					<SideNavHeader>
 						<Heading size="medium">Sidebar header</Heading>
 					</SideNavHeader>
-					<SideNavContent>
+					<SideNavBody>
 						<MenuList>
 							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" />}>
 								Your work
@@ -319,7 +319,7 @@ function Example() {
 								</ExpandableMenuItemContent>
 							</ExpandableMenuItem>
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 					<SideNavFooter>
 						<Text>Sidebar footer</Text>
 					</SideNavFooter>

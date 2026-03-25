@@ -14,8 +14,6 @@ import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { blockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
-import { blockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import {
@@ -42,7 +40,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled - go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
@@ -207,6 +205,12 @@ function ComposableEditorPage() {
 				enableNewToolbarExperience: true,
 				contextualFormattingEnabled: 'controlled',
 			},
+			blockControlsPlugin: {
+				enabled: true,
+			},
+			blockMenuPlugin: {
+				enabled: editorExperiment('platform_editor_block_menu', true),
+			},
 		},
 	});
 	const noteSelectionExtension = useNoteSelectionExtension(editorApiRef.current);
@@ -314,11 +318,6 @@ function ComposableEditorPage() {
 	// Memoise the preset otherwise we will re-render the editor too often
 	const { preset, editorApi } = usePreset(() => {
 		return universalPreset
-			.add(blockControlsPlugin)
-			.maybeAdd(
-				[blockMenuPlugin, {}],
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true),
-			)
 			.add([editorViewModePlugin, { mode: 'edit' }])
 			.add(selectionMarkerPlugin)
 			.add(codeBlockAdvancedPlugin)

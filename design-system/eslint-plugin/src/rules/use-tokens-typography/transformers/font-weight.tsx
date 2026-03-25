@@ -7,7 +7,7 @@ import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { Root } from '../../../ast-nodes';
 import { getNodeSource } from '../../utils/get-node-source';
 import { isDecendantOfStyleBlock, isDecendantOfType } from '../../utils/is-node';
-import { type RuleConfig } from '../config';
+import type { RuleConfig } from '../config';
 import { findFontWeightTokenForValue, insertTokensImport } from '../utils';
 
 interface MetaData {

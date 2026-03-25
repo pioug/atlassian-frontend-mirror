@@ -4,7 +4,7 @@ import Badge from '@atlaskit/badge';
 import HomeIcon from '@atlaskit/icon/core/home';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import Lozenge from '@atlaskit/lozenge';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
@@ -16,7 +16,7 @@ const exampleHref = '#example-href';
 export function ElemAfterExample(): React.JSX.Element {
 	return (
 		<MockSideNav>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<LinkMenuItem
 						href={exampleHref}
@@ -52,7 +52,7 @@ export function ElemAfterExample(): React.JSX.Element {
 						Link menu item (lozenge & icon)
 					</LinkMenuItem>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 		</MockSideNav>
 	);
 }

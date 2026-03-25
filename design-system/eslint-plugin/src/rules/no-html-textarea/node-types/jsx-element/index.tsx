@@ -1,5 +1,5 @@
 import type { Rule } from 'eslint';
-import { type ImportDeclaration } from 'eslint-codemod-utils';
+import type { ImportDeclaration } from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 

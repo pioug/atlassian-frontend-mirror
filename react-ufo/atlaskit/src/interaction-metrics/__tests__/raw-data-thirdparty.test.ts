@@ -55,11 +55,7 @@ describe('Raw Data Third Party Behavior', () => {
 		mockFg.mockImplementation((flag: string) => {
 			if (flag === 'platform_ufo_raw_data_thirdparty') {
 				return true;
-			}
-			if (flag === 'platform_ufo_enable_ttai_with_3p') {
-				return true;
-			}
-			return false;
+			}			return false;
 		});
 	});
 
@@ -163,7 +159,7 @@ describe('Raw Data Third Party Behavior', () => {
 				if (flag === 'platform_ufo_raw_data_thirdparty') {
 					return false;
 				}
-				return flag === 'platform_ufo_enable_ttai_with_3p';
+				return false;
 			});
 
 			const interactionId = 'test-interaction-3';
@@ -416,7 +412,7 @@ describe('Raw Data Third Party Behavior', () => {
 				if (flag === 'platform_ufo_raw_data_thirdparty') {
 					return false;
 				}
-				return flag === 'platform_ufo_enable_ttai_with_3p';
+				return false;
 			});
 
 			const interactionId = 'test-interaction-9';

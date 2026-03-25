@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 217.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.6.0
+
+### Minor Changes
+
+- [`14174d5130d27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14174d5130d27) -
+  Adding editorAppearance in coreplugin shared state so that plugins can access appearance value
+  when updated
+
+### Patch Changes
+
+- [`6016d8dbf0996`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6016d8dbf0996) -
+  Move blockControlsPlugin and blockMenuPlugin into universal preset as optional preset (default
+  OFF)
+- Updated dependencies
+
+## 217.5.8
+
+### Patch Changes
+
+- [`23ec129dbbb34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23ec129dbbb34) -
+  [FFCLEANUP-74122] clean up feature flag platform_editor_blocktaskitem_patch_3
+- Updated dependencies
+
 ## 217.5.7
 
 ### Patch Changes

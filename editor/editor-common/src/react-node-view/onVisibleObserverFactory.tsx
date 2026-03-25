@@ -1,3 +1,4 @@
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import type { MemoizedFunction } from 'lodash';
 import memoize from 'lodash/memoize';
 

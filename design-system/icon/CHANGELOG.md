@@ -1,5 +1,12 @@
 # @atlaskit/icon
 
+## 33.0.2
+
+### Patch Changes
+
+- [`c426ad3d11c7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c426ad3d11c7c) -
+  Fixes to icon build process
+
 ## 33.0.1
 
 ### Patch Changes

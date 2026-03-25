@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dropdown-menu",
-	"version": "16.7.2",
+	"version": "16.8.0",
 	"description": "A dropdown menu displays a list of actions or options to a user.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -122,6 +122,13 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
+		"./dropdown-item-checkbox": "./src/checkbox/dropdown-item-checkbox.tsx",
+		"./dropdown-item-checkbox-group": "./src/checkbox/dropdown-item-checkbox-group.tsx",
+		"./dropdown-item-radio": "./src/radio/dropdown-item-radio.tsx",
+		"./dropdown-item-radio-group": "./src/radio/dropdown-item-radio-group.tsx",
+		"./dropdown-menu": "./src/dropdown-menu.tsx",
+		"./dropdown-menu-item": "./src/dropdown-menu-item.tsx",
+		"./dropdown-menu-item-group": "./src/dropdown-menu-item-group.tsx",
 		"./types": "./src/types.tsx"
 	},
 	"homepage": "https://atlassian.design/components/dropdown-menu/"

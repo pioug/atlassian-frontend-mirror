@@ -29,7 +29,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -149,7 +149,7 @@ export default function LayersInMain({
 					</TopNavEnd>
 				</TopNav>
 				<SideNav>
-					<SideNavContent>
+					<SideNavBody>
 						<MenuList>
 							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 								Your work
@@ -229,7 +229,7 @@ export default function LayersInMain({
 								Filters
 							</ButtonMenuItem>
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 					<PanelSplitter label="Resize side nav" testId="side-nav-panel-splitter" />
 				</SideNav>
 				<Main id="main-container">
@@ -257,7 +257,9 @@ export default function LayersInMain({
 							placeholder="Search labels..."
 							menuPlacement="bottom"
 							options={options}
-							target={({ isOpen, ...triggerProps }) => <Button {...triggerProps}>Labels</Button>}
+							target={({ isOpen: _isOpen, ...triggerProps }) => (
+								<Button {...triggerProps}>Labels</Button>
+							)}
 						/>
 						<Inline alignInline="end" grow="fill">
 							<DropdownMenu

@@ -1,5 +1,5 @@
 import { isDuplicateMark, duplicateMarkError } from './is-duplicate-mark';
-import { type WithMark } from '../types';
+import type { WithMark } from '../types';
 import { text } from '../nodes/text';
 import type { TextDefinition } from '@atlaskit/adf-schema';
 

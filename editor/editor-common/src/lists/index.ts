@@ -14,6 +14,8 @@ export { hasValidListIndentationLevel } from './indentation';
 export { restoreSelection, computeSelectionOffsets } from './restore-selection';
 export { buildReplacementFragment } from './build-replacement-fragment';
 export type { BuildResult } from './build-replacement-fragment';
+export { narrowReplacementRange } from './narrow-replacement-range';
+export type { NarrowedReplacement } from './narrow-replacement-range';
 export type { FlattenedItem } from './flatten-list';
 export { flattenList } from './flatten-list';
 export type { FlattenListOptions, FlattenListResult } from './flatten-list';

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { parseISO } from 'date-fns';
 
 import type { WeekDay } from '../../types';

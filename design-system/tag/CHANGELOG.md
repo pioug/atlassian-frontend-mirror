@@ -1,5 +1,16 @@
 # @atlaskit/tag
 
+## 14.6.0
+
+### Minor Changes
+
+- [`a4a6864086c42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4a6864086c42) -
+  Added onClick prop to new Tag and AvatarTag with link for analytics tracking.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.5.4
 
 ### Patch Changes

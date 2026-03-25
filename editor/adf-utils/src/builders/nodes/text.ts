@@ -1,4 +1,4 @@
-import { type TextDefinition } from '@atlaskit/adf-schema';
+import type { TextDefinition } from '@atlaskit/adf-schema';
 
 export const text = (text: string): TextDefinition => ({
 	type: 'text',

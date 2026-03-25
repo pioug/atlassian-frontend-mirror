@@ -1,4 +1,5 @@
-import SchemaNode, { type NodeType } from './schema-node';
+import SchemaNode from './schema-node';
+import type { NodeType } from './schema-node';
 
 export interface Indexed {
 	[key: string]: number | string | boolean | undefined;

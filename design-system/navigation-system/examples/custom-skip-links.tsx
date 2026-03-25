@@ -17,7 +17,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import { useSkipLink } from '@atlaskit/navigation-system/layout/skip-links';
@@ -112,7 +112,7 @@ export function CustomSkipLinksExample(): JSX.Element {
 				</TopNav>
 
 				<SideNav>
-					<SideNavContent>
+					<SideNavBody>
 						<MenuList>
 							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 								Your work
@@ -124,7 +124,7 @@ export function CustomSkipLinksExample(): JSX.Element {
 								Projects
 							</LinkMenuItem>
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 					<PanelSplitter label="Resize side nav" />
 				</SideNav>
 

@@ -9,7 +9,7 @@ import { jsx } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { triggerPostMoveFlash } from '@atlaskit/pragmatic-drag-and-drop-flourish/trigger-post-move-flash';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
@@ -336,7 +336,7 @@ export function Sidebar(): JSX.Element {
 	);
 
 	return (
-		<SideNavContent ref={scrollableRef}>
+		<SideNavBody ref={scrollableRef}>
 			<GetDataContext.Provider value={getData}>
 				<DispatchContext.Provider value={dispatch}>
 					<LastActionContext.Provider value={data.lastAction}>
@@ -356,6 +356,6 @@ export function Sidebar(): JSX.Element {
 					</LastActionContext.Provider>
 				</DispatchContext.Provider>
 			</GetDataContext.Provider>
-		</SideNavContent>
+		</SideNavBody>
 	);
 }

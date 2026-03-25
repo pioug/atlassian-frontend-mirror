@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-list
 
+## 10.1.3
+
+### Patch Changes
+
+- [`9b33b26d69865`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b33b26d69865) -
+  Narrow list replacement range during indent/outdent for collab-friendly cursor preservation
+- [`3f6f3c13a6033`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f6f3c13a6033) -
+  Fix fontSize mark not being stripped during paragraph to list conversion by checking listItem mark
+  compatibility instead of list container
+- Updated dependencies
+
+## 10.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.1
 
 ### Patch Changes

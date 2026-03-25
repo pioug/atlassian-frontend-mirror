@@ -1,4 +1,5 @@
 import { Device, type Hooks, type SnapshotTestOptions } from '@af/visual-regression';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { snapshotInformational } from '@atlassian/gemini';
 
 import { ScrollableNoPanelVR, ScrollableVR } from '../../../examples/composition';

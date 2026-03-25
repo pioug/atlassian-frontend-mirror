@@ -28,7 +28,7 @@ import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavPanelSplitter,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
@@ -239,7 +239,7 @@ export function SideNavLayering(): JSX.Element {
 					</TopNavEnd>
 				</TopNav>
 				<SideNav testId="side-nav">
-					<SideNavContent>
+					<SideNavBody>
 						<MenuList>
 							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 								Your work
@@ -374,7 +374,7 @@ export function SideNavLayering(): JSX.Element {
 								</ExpandableMenuItemContent>
 							</ExpandableMenuItem>
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 					<SideNavPanelSplitter
 						label="Resize side nav"
 						testId="side-nav-panel-splitter"

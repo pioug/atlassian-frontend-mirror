@@ -4,16 +4,13 @@
  */
 import React, { forwardRef, type ReactNode, type Ref, useMemo, useRef } from 'react';
 
-import { cssMap, jsx, keyframes } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
-import { sideNavContentScrollTimelineVar } from '../constants';
 
-import { useSideNavVisibility } from './use-side-nav-visibility';
 
 /**
  * The main content of the side nav, filling up the middle section. It acts as a scroll container.
@@ -21,7 +18,7 @@ import { useSideNavVisibility } from './use-side-nav-visibility';
  * It will grow to take up the available space in the side nav — this is used to push the footer to the
  * bottom of the side nav.
  */
-export const SideNavContent: React.ForwardRefExoticComponent<
+export const SideNavBody: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SideNavContentProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, SideNavContentProps>(_SideNavContent);
 
@@ -39,49 +36,6 @@ const styles = cssMap({
 	},
 });
 
-/**
- * Using CSS scroll-driven animations to apply a scrolled indicator border.
- *
- * This approach is better for SSR, as some apps like Confluence will apply the
- * initial scroll position of the side nav content using JS before hydration.
- *
- * If we applied the border through React state it would only appear after hydration,
- * whereas this CSS approach should show even before hydration.
- */
-const scrolledBorder = keyframes({
-	from: {
-		boxShadow: 'none',
-	},
-	'0.1%': {
-		boxShadow: `0px -1px ${token('color.border')}`,
-	},
-	to: {
-		boxShadow: `0px -1px ${token('color.border')}`,
-	},
-});
-
-const fullHeightSidebarStyles = cssMap({
-	scrollContainer: {
-		// Only needed when the side nav is full height, which only happens on desktop.
-		'@media (min-width: 64rem)': {
-			'@supports (scroll-timeline-axis: block)': {
-				// Creates the scroll timeline bound to the var
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				scrollTimelineName: sideNavContentScrollTimelineVar,
-				scrollTimelineAxis: 'block',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'html:has([data-private-side-nav-header]) &': {
-					// Only applied if there is a SideNavHeader. See the comment in SideNavHeader for more details.
-					// Consumes the scroll timeline for the animation
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-					animationTimeline: sideNavContentScrollTimelineVar,
-					animationName: scrolledBorder,
-				},
-			},
-		},
-	},
-});
-
 function _SideNavContent(
 	{ children, testId }: SideNavContentProps,
 	forwardedRef: Ref<HTMLDivElement>,
@@ -89,8 +43,6 @@ function _SideNavContent(
 	const isFhsEnabled = useIsFhsEnabled();
 	const internalRef = useRef<HTMLDivElement>(null);
 	const mergedRef = useMemo(() => mergeRefs([internalRef, forwardedRef]), [forwardedRef]);
-
-	const { isExpandedOnDesktop } = useSideNavVisibility();
 
 	return (
 		/**
@@ -101,11 +53,7 @@ function _SideNavContent(
 		<div
 			css={[
 				styles.scrollContainer,
-				isFhsEnabled &&
-					isExpandedOnDesktop &&
-					!fg('platform_dst_nav4_fhs_feedback_1') &&
-					fullHeightSidebarStyles.scrollContainer,
-			]}
+				]}
 			ref={isFhsEnabled ? mergedRef : forwardedRef}
 			data-testid={testId}
 		>

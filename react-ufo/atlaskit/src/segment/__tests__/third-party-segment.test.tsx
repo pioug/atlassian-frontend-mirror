@@ -18,21 +18,9 @@ jest.mock('../segment', () => {
 	};
 });
 
-// Mock UFOIgnoreHolds component
-jest.mock('../../ignore-holds', () => {
-	const MockUFOIgnoreHolds = ({ children }: any) => (
-		<div data-testid="mock-ufo-ignore-holds">{children}</div>
-	);
-	MockUFOIgnoreHolds.displayName = 'UFOIgnoreHolds';
-	return MockUFOIgnoreHolds;
-});
-
 // Mock feature flags
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn((flag: string) => {
-		if (flag === 'platform_ufo_reenable_3p_tracking') {
-			return true;
-		}
 		if (flag === 'platform_ufo_exclude_3p_elements_from_ttai') {
 			return false;
 		}
@@ -68,7 +56,7 @@ describe('UFOThirdPartySegment', () => {
 		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render children wrapped in UFOIgnoreHolds', async () => {
+	it('should render children within UFOSegment', async () => {
 		const { getByTestId, getByText } = render(
 			<UFOThirdPartySegment name="test-segment">
 				<div>Test content</div>
@@ -77,9 +65,6 @@ describe('UFOThirdPartySegment', () => {
 
 		// Verify UFOSegment was rendered
 		expect(getByTestId('mock-ufo-segment')).toBeInTheDocument();
-
-		// Verify UFOIgnoreHolds was rendered
-		expect(getByTestId('mock-ufo-ignore-holds')).toBeInTheDocument();
 
 		// Verify children were rendered
 		expect(getByText('Test content')).toBeInTheDocument();

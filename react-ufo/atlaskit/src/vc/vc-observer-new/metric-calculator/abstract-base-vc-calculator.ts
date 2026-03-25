@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AbortReasonType, InteractionType } from '../../../common/common/types';
 import type {
@@ -241,7 +240,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			: [];
 
 		// If 3p metric enabled - calculate the debug details
-		const shouldCalculate3p = include3p && fg('platform_ufo_enable_ttai_with_3p');
+		const shouldCalculate3p = include3p;
 		// Only calculate enhanced debug details if devtool callbacks exist
 
 		const shouldCalculateDebugDetails =

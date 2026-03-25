@@ -1,3 +1,4 @@
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { lazyForPaint } from 'react-loosely-lazy';
 
 import { composeLinkPicker } from './main';

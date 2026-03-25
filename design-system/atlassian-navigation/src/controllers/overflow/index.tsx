@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import type { DebouncedFuncLeading } from 'lodash';
 import throttle from 'lodash/throttle';
 

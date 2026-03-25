@@ -1,7 +1,7 @@
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 
-import { type EditorExperimentsConfig } from './experiments-config';
+import type { EditorExperimentsConfig } from './experiments-config';
 
 import { _overrides, _product } from './setup';
 

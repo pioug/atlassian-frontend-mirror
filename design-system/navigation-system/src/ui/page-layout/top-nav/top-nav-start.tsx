@@ -4,7 +4,7 @@
  */
 import React, { forwardRef, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { cssMap, jsx, keyframes } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/experimental/open-layer-observer';
@@ -14,10 +14,7 @@ import { token } from '@atlaskit/tokens';
 
 import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-context';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
-import {
-	openLayerObserverTopNavStartNamespace,
-	sideNavContentScrollTimelineVar,
-} from '../constants';
+import { openLayerObserverTopNavStartNamespace } from '../constants';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 import { SideNavVisibilityState } from '../side-nav/visibility-context';
 
@@ -81,22 +78,6 @@ const innerStyles = cssMap({
 });
 
 /**
- * The scroll indicator is usually applied in SideNavContent, but if there is no SideNavHeader it is
- * applied in TopNavStart instead for layering reasons. See the comment in SideNavHeader for more details.
- */
-const scrolledShadow = keyframes({
-	from: {
-		boxShadow: `inset 0 -1px 0 0 transparent`,
-	},
-	'0.1%': {
-		boxShadow: `inset 0 -1px 0 0 ${token('color.border')}`,
-	},
-	to: {
-		boxShadow: `inset 0 -1px 0 0 ${token('color.border')}`,
-	},
-});
-
-/**
  * Styles for the outer element, that does not have re-enabled pointer events and spans the entire
  * width of the TopNavStart area.
  *
@@ -131,27 +112,12 @@ const wrapperStyles = cssMap({
 	fullHeightSidebarExpanded: {
 		'@media (min-width: 64rem)': {
 			width: `var(--n_sNvlw, 100%)`,
-			paddingInlineEnd: token('space.200'),
+			paddingInlineEnd: token('space.150'),
 			// Set the background color to the same as the side nav, to make it appear full height.
 			backgroundColor: token('elevation.surface'),
 			// When expanded, show the pseudo element (vertical border that makes the sidebar appear full height).
 			'&::after': {
 				opacity: 1,
-			},
-		},
-	},
-	fullHeightSidebarExpandedScrollTimeline: {
-		// Only apply the scroll indicator styles if supported. Otherwise, the shadow would always be applied, even when not scrolled.
-		'@supports (scroll-timeline-axis: block)': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'html:not(:has([data-private-side-nav-header])) &': {
-				// Consumes the scroll timeline from SideNavContent to show a bottom shadow when scrolled.
-				// This is only applied if there is no SideNavHeader. See the comment in SideNavHeader for more details.
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				animationTimeline: sideNavContentScrollTimelineVar,
-				animationName: scrolledShadow,
-				// This shouldn't be required, but without it, the animation (shadow) stopped being applied at the end of the scroll timeline.
-				animationFillMode: 'both',
 			},
 		},
 	},
@@ -163,11 +129,6 @@ const wrapperStyles = cssMap({
 				transitionDuration: '0.2s',
 				transitionTimingFunction: 'ease-in',
 			},
-		},
-	},
-	fullHeightSidebarExpandedWithFeedback: {
-		'@media (min-width: 64rem)': {
-			paddingInlineEnd: token('space.150'),
 		},
 	},
 });
@@ -355,15 +316,9 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 			css={[
 				wrapperStyles.root,
 				isExpandedOnDesktop && wrapperStyles.fullHeightSidebarExpanded,
-				isExpandedOnDesktop &&
-					fg('platform_dst_nav4_fhs_feedback_1') &&
-					wrapperStyles.fullHeightSidebarExpandedWithFeedback,
 				!isFirstRenderRef.current &&
 					isExpandedOnDesktop &&
 					wrapperStyles.fullHeightSidebarBorderTransition,
-				isExpandedOnDesktop &&
-					!fg('platform_dst_nav4_fhs_feedback_1') &&
-					wrapperStyles.fullHeightSidebarExpandedScrollTimeline,
 			]}
 		>
 			<div

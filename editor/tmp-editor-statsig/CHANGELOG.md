@@ -1,5 +1,56 @@
 # @atlaskit/editor-statsig-tmp
 
+## 46.0.0
+
+### Major Changes
+
+- [`61f4e0dfbe267`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61f4e0dfbe267) -
+  EDITOR-6067 - Tab to Improve Writing: Create new experiment for Confluence only
+
+## 45.1.0
+
+### Minor Changes
+
+- [`9f5fba61d4c9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f5fba61d4c9d) -
+  do not show external badge for images hosted on bitbucket.org
+- [`3cd18ada1401f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3cd18ada1401f) -
+  [EDITOR-6131] add Jira as a target app to the font size experiment
+
+### Patch Changes
+
+- [`04bcc33e0d738`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04bcc33e0d738) -
+  Mechanical type-import autofix for AI adjunct editor packages.
+
+## 45.0.0
+
+### Major Changes
+
+- [`a64a0cad8103d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a64a0cad8103d) -
+  Cleanup stale feature flag `platform_editor_quick_insert_image_wrap_right_fix`. The enabled
+  behaviour (setting `clear: unset` on the quick insert button element to prevent interference with
+  floated wrap-right images) is now always active.
+
+### Minor Changes
+
+- [`14174d5130d27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14174d5130d27) -
+  Adding editorAppearance in coreplugin shared state so that plugins can access appearance value
+  when updated
+- [`2ce5b11415296`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ce5b11415296) -
+  Add tabIndex to renderer headings for a11y and 'confluence_toc_nav_a11y' experiment config
+
+## 44.3.0
+
+### Minor Changes
+
+- [`da1128b3090cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da1128b3090cc) -
+  [EDITOR-5922] Update media picker to mount to popupsMountPoint (e.g. portal) if available so that
+  it is still visible when rendering outside of editor that has overflow hidden (e.g. resizable
+  editor)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.2.0
 
 ### Minor Changes

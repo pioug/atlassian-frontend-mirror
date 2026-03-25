@@ -1,4 +1,4 @@
-import { type ADFEntity, type VisitorCollection, type EntityParent } from '../types';
+import type { ADFEntity, VisitorCollection, EntityParent } from '../types';
 
 export function validateVisitors(_visitors: VisitorCollection) {
 	return true;

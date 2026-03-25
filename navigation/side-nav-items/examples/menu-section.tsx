@@ -5,7 +5,7 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import HomeIcon from '@atlaskit/icon/core/home';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
@@ -36,7 +36,7 @@ export const DividerExample = () => (
 
 export const MenuSectionExample = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<MenuListItem>
 					<MenuSection>
@@ -67,7 +67,7 @@ export const MenuSectionExample = () => (
 					</MenuSection>
 				</MenuListItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 

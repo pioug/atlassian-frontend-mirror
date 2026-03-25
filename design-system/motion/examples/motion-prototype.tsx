@@ -51,8 +51,8 @@ export default (): React.JSX.Element => {
 				<ExitingPersistence appear>
 					{isIn && (
 						<Motion
-							enteringAnimation={token('motion.dialog.enter')}
-							exitingAnimation={token('motion.dialog.exit')}
+							enteringAnimation={token('motion.modal.enter')}
+							exitingAnimation={token('motion.modal.exit')}
 						>
 							<Block appearance="small" />
 						</Motion>
@@ -67,20 +67,20 @@ export default (): React.JSX.Element => {
 							{isIn && (
 								<React.Fragment>
 									<Motion
-										enteringAnimation={token('motion.dialog.enter')}
-										exitingAnimation={token('motion.dialog.exit')}
+										enteringAnimation={token('motion.modal.enter')}
+										exitingAnimation={token('motion.modal.exit')}
 									>
 										<Block appearance="small" />
 									</Motion>
 									<Motion
-										enteringAnimation={token('motion.dialog.enter')}
-										exitingAnimation={token('motion.dialog.exit')}
+										enteringAnimation={token('motion.modal.enter')}
+										exitingAnimation={token('motion.modal.exit')}
 									>
 										<Block appearance="small" />
 									</Motion>
 									<Motion
-										enteringAnimation={token('motion.dialog.enter')}
-										exitingAnimation={token('motion.dialog.exit')}
+										enteringAnimation={token('motion.modal.enter')}
+										exitingAnimation={token('motion.modal.exit')}
 									>
 										<Block appearance="small" />
 									</Motion>
@@ -104,8 +104,8 @@ export default (): React.JSX.Element => {
 							<React.Fragment>
 								<Motion
 									ref={motionRef}
-									enteringAnimation={token('motion.dialog.enter')}
-									exitingAnimation={token('motion.dialog.exit')}
+									enteringAnimation={token('motion.modal.enter')}
+									exitingAnimation={token('motion.modal.exit')}
 								>
 									<Block appearance="small" />
 								</Motion>
@@ -125,8 +125,8 @@ export default (): React.JSX.Element => {
 							<React.Fragment>
 								<Motion
 									ref={motionRef}
-									enteringAnimation={token('motion.dialog.enter')}
-									exitingAnimation={token('motion.dialog.exit')}
+									enteringAnimation={token('motion.modal.enter')}
+									exitingAnimation={token('motion.modal.exit')}
 									isPaused={isPaused}
 								>
 									<Block appearance="small" />

@@ -18,7 +18,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavFooter,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
@@ -130,7 +130,7 @@ export default function SidebarExample(): JSX.Element {
 					</TopNavStart>
 				</TopNav>
 				<SideNav defaultCollapsed testId="side-nav">
-					<SideNavContent>
+					<SideNavBody>
 						<MenuList>
 							<ButtonMenuItem
 								ref={buttonRef}
@@ -140,7 +140,7 @@ export default function SidebarExample(): JSX.Element {
 								Draggable MenuItemButton
 							</ButtonMenuItem>
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 					<SideNavFooter>
 						<DropTarget testId="side-nav-drop-target">Sidebar drop target</DropTarget>
 					</SideNavFooter>

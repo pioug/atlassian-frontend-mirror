@@ -1,5 +1,15 @@
 # @atlaskit/rovo-triggers
 
+## 5.31.0
+
+### Minor Changes
+
+- [`e6182ecb8b9b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6182ecb8b9b0) -
+  [ux] Programmatically update Context in Context chip in Rovo Button with Project URL. Add
+  `CurrentProjectContext` type to `CurrentPageContextType`. Add new `aiFeatureContext` to set in the
+  store when the chat is created. Each key-value pair is set via setAIFeatureContext. Stale entries
+  for known keys (e.g. 'projectContext') are cleared before new values are applied.
+
 ## 5.30.0
 
 ### Minor Changes

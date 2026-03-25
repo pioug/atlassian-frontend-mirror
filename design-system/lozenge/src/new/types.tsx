@@ -84,7 +84,7 @@ type NewLozengeBaseProps = {
 	testId?: string;
 
 	/**
-	 * @deprecated This prop is deprecated and will be removed. Use Tag component for non-bold styles.
+	 * @deprecated Deprecated. Will be removed in a future major release. Lozenge will be bold by default. For labels and categorization, use Tag instead.
 	 */
 	isBold?: boolean;
 };

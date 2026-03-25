@@ -2,7 +2,7 @@ import type { Rule } from 'eslint';
 import { type ImportDeclaration, isNodeOfType, type Program } from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
-import { type ImportSource } from '@atlaskit/eslint-utils/is-supported-import';
+import type { ImportSource } from '@atlaskit/eslint-utils/is-supported-import';
 
 type RuleContext = Rule.RuleContext;
 

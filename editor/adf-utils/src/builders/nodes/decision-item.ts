@@ -1,4 +1,4 @@
-import { type DecisionItemDefinition, type Inline } from '@atlaskit/adf-schema';
+import type { DecisionItemDefinition, Inline } from '@atlaskit/adf-schema';
 
 export const decisionItem =
 	(attrs: DecisionItemDefinition['attrs']) =>

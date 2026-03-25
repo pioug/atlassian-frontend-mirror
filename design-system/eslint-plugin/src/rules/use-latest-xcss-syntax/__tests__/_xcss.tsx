@@ -1,6 +1,6 @@
 import outdent from 'outdent';
 
-import { type Tests } from '../../__tests__/utils/_types';
+import type { Tests } from '../../__tests__/utils/_types';
 import { noRawSpacingValues as error } from '../index';
 
 const valid: string[] = [

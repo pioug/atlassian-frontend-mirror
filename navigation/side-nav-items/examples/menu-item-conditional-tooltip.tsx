@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import AddIcon from '@atlaskit/icon/core/add';
-import { SideNavContent, SideNavHeader } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody, SideNavHeader } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
 	ExpandableMenuItem,
@@ -59,7 +59,7 @@ export function ButtonMenuItemExample() {
 			<SideNavHeader>
 				<Heading size="small">ButtonMenuItem</Heading>
 			</SideNavHeader>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuSection>
 					<MenuSectionHeading>Standard</MenuSectionHeading>
 					<MenuList>
@@ -137,7 +137,7 @@ export function ButtonMenuItemExample() {
 						</ButtonMenuItem>
 					</MenuList>
 				</MenuSection>
-			</SideNavContent>
+			</SideNavBody>
 		</div>
 	);
 }
@@ -148,7 +148,7 @@ export function LinkMenuItemExample() {
 			<SideNavHeader>
 				<Heading size="small">LinkMenuItem</Heading>
 			</SideNavHeader>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuSection>
 					<MenuSectionHeading>Standard</MenuSectionHeading>
 					<MenuList>
@@ -182,7 +182,7 @@ export function LinkMenuItemExample() {
 						</LinkMenuItem>
 					</MenuList>
 				</MenuSection>
-			</SideNavContent>
+			</SideNavBody>
 		</div>
 	);
 }
@@ -193,7 +193,7 @@ export function ExpandableMenuItemExample() {
 			<SideNavHeader>
 				<Heading size="small">ExpandableMenuItem</Heading>
 			</SideNavHeader>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuSection>
 					<MenuSectionHeading>Standard</MenuSectionHeading>
 					<MenuList>
@@ -230,7 +230,7 @@ export function ExpandableMenuItemExample() {
 						</ExpandableMenuItem>
 					</MenuList>
 				</MenuSection>
-			</SideNavContent>
+			</SideNavBody>
 		</div>
 	);
 }
@@ -241,7 +241,7 @@ export function FlyoutMenuItemExample() {
 			<SideNavHeader>
 				<Heading size="small">FlyoutMenuItem</Heading>
 			</SideNavHeader>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuSection>
 					<MenuSectionHeading>Standard</MenuSectionHeading>
 					<MenuList>
@@ -284,7 +284,7 @@ export function FlyoutMenuItemExample() {
 						</FlyoutMenuItem>
 					</MenuList>
 				</MenuSection>
-			</SideNavContent>
+			</SideNavBody>
 		</div>
 	);
 }

@@ -15,7 +15,7 @@ import InboxIcon from '@atlaskit/icon/core/inbox';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { JiraIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import {
@@ -98,7 +98,7 @@ export function ExpandableMenuItemLinkVariantExample() {
 	return (
 		<Inline space="space.600">
 			<MockSideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<ExpandableMenuItem>
 							<ExpandableMenuItemTrigger
@@ -231,11 +231,11 @@ export function ExpandableMenuItemLinkVariantExample() {
 							</ExpandableMenuItemContent>
 						</ExpandableMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 			</MockSideNav>
 
 			<MockSideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<ExpandableMenuItem>
 							<ExpandableMenuItemTrigger
@@ -329,7 +329,7 @@ export function ExpandableMenuItemLinkVariantExample() {
 							/>
 						</ExpandableMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 			</MockSideNav>
 		</Inline>
 	);

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { type PublicBaseSelectProps } from './select';
+import type { PublicBaseSelectProps } from './select';
 import {
 	type ActionMeta,
 	type GroupBase,

@@ -1,4 +1,4 @@
-import { type TextDefinition } from '@atlaskit/adf-schema';
+import type { TextDefinition } from '@atlaskit/adf-schema';
 import { text } from '../nodes/text';
 
 // Ignored via go/ees005

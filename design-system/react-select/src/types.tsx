@@ -1,9 +1,9 @@
-import { type XCSSProp } from '@compiled/react';
+import type { XCSSProp } from '@compiled/react';
 
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
 
-import { type SelectProps } from './select';
-import { type StylesProps } from './styles';
+import type { SelectProps } from './select';
+import type { StylesProps } from './styles';
 
 export interface GroupBase<Option> {
 	readonly options: readonly Option[];

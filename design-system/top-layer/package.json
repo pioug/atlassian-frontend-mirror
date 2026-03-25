@@ -1,0 +1,111 @@
+{
+	"name": "@atlaskit/top-layer",
+	"version": "0.1.0",
+	"description": "Low-level layering primitives based on popover and dialog",
+	"homepage": "https://atlassian.design/components/top-layer",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": [
+		"*.compiled.css"
+	],
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "Design System Team",
+		"website": {
+			"name": "Top Layer",
+			"category": "Libraries"
+		},
+		"integrationTests": {
+			"additionalBrowsers": [
+				"desktop-firefox"
+			]
+		}
+	},
+	"exports": {
+		".": "./src/index.tsx",
+		"./popover": "./src/entry-points/popover.tsx",
+		"./popup": "./src/entry-points/popup.tsx",
+		"./popup-surface": "./src/entry-points/popup-surface.tsx",
+		"./dialog": "./src/entry-points/dialog.tsx",
+		"./create-close-event": "./src/entry-points/create-close-event.tsx",
+		"./dialog-scroll-lock": "./src/entry-points/dialog-scroll-lock.tsx",
+		"./placement-map": "./src/entry-points/placement-map.tsx",
+		"./animations": "./src/entry-points/animations.tsx",
+		"./arrow": "./src/entry-points/arrow.tsx",
+		"./focus": "./src/entry-points/focus.tsx",
+		"./use-anchor-position": "./src/entry-points/use-anchor-position.tsx",
+		"./use-arrow-navigation": "./src/entry-points/use-arrow-navigation.tsx",
+		"./use-simple-light-dismiss": "./src/entry-points/use-simple-light-dismiss.tsx"
+	},
+	"dependencies": {
+		"@atlaskit/browser-apis": "workspace:^",
+		"@atlaskit/css": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"bind-event-listener": "root:*",
+		"raf-schd": "root:*"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0 || ^19.0.0",
+		"react-dom": "^18.2.0 || ^19.0.0"
+	},
+	"devDependencies": {
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/lozenge": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
+		"@testing-library/react": "root:*",
+		"@types/raf-schd": "root:*",
+		"tiny-invariant": "root:*"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"ui-components": [
+				"lite-mode"
+			],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"compiled"
+			]
+		}
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	}
+}

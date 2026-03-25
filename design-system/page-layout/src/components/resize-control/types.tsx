@@ -1,6 +1,6 @@
-import { type ButtonHTMLAttributes, type ElementType, type ReactElement } from 'react';
+import type { ButtonHTMLAttributes, ElementType, ReactElement } from 'react';
 
-import { type LeftSidebarState } from '../../controllers/sidebar-resize-context';
+import type { LeftSidebarState } from '../../controllers/sidebar-resize-context';
 
 export type ResizeButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	isLeftSidebarCollapsed: boolean;

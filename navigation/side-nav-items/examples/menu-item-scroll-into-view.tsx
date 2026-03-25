@@ -30,7 +30,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavFooter,
 	SideNavHeader,
 	SideNavToggleButton,
@@ -101,7 +101,7 @@ export function MenuItemScrollIntoView() {
 						<Heading size="xsmall">Settings</Heading>
 					</SideNavHeader>
 
-					<SideNavContent>
+					<SideNavBody>
 						<MenuList>
 							<LinkMenuItem
 								href="#"
@@ -231,7 +231,7 @@ export function MenuItemScrollIntoView() {
 								More
 							</LinkMenuItem>
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 
 					<SideNavFooter>
 						<MenuList>

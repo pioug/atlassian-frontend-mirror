@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::7a338699bda4131da7df23ae3c72eb27>>
+ * @codegen <<SignedSource::65bb623680260c7e030f7e50835c1813>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -95,6 +95,12 @@ export type InviteToProductServiceFailedAttributesType = {
 	errorsCount: number | null;
 	errors: unknown[] | null;
 	result: unknown[] | null;
+};
+export type InviteToSoftwareAndBusinessProjectsFailedAttributesType = {
+	message: string;
+	spacesCount: number;
+	newUsersCount: number;
+	existingUsersCount: number;
 };
 export type ContainerPermissionsSucceededAttributesType = {
 	canCreateConfluenceContainer: boolean;
@@ -1636,6 +1642,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the invite to product service failed */
 	'track.inviteToProductService.failed': InviteToProductServiceFailedAttributesType;
+	/**
+	 * fired when inviting users to software and business projects failed */
+	'track.inviteToSoftwareAndBusinessProjects.failed': InviteToSoftwareAndBusinessProjectsFailedAttributesType;
 	/**
 	 * fired when the container permissions are succeeded */
 	'track.containerPermissions.succeeded': ContainerPermissionsSucceededAttributesType;

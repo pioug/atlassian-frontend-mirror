@@ -1,23 +1,5 @@
-import {
-	type Node,
-	type Type,
-	type Symbol,
-	TypeFlags,
-	type UnionType,
-	type TupleType,
-	type SourceFile,
-	SyntaxKind,
-	type ObjectType,
-	type Declaration,
-	type LiteralType,
-	type TypeChecker,
-	ObjectFlags,
-	type JSDocTagInfo,
-	type TypeReference,
-	type IntersectionType,
-	type InterfaceDeclaration,
-	type TypeAliasDeclaration,
-} from 'typescript';
+import { TypeFlags, SyntaxKind, ObjectFlags } from 'typescript';
+import type { Node, Type, Symbol, UnionType, TupleType, SourceFile, ObjectType, Declaration, LiteralType, TypeChecker, JSDocTagInfo, TypeReference, IntersectionType, InterfaceDeclaration, TypeAliasDeclaration } from 'typescript';
 
 export type TagInfo = {
 	// Ignored via go/ees005

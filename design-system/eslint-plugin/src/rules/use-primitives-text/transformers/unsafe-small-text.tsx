@@ -4,7 +4,7 @@ import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
 
-import { type MetaData } from './common';
+import type { MetaData } from './common';
 
 export const UnsafeSmallText = {
 	lint(node: Rule.Node, { context, config }: MetaData): void {

@@ -4,6 +4,7 @@ import { type SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -77,6 +78,7 @@ export class SourceSyncBlockStoreManager {
 	};
 
 	private creationCompletionCallbacks: Map<ResourceId, OnCompletion>;
+	private flushCompletionCallback?: () => void;
 
 	private createExperience: Experience | undefined;
 	private saveExperience: Experience | undefined;
@@ -87,6 +89,15 @@ export class SourceSyncBlockStoreManager {
 		this.dataProvider = dataProvider;
 		this.syncBlockCache = new Map();
 		this.creationCompletionCallbacks = new Map();
+	}
+
+	/**
+	 * Register a callback to be invoked after flush() completes.
+	 * Used by the pm-plugin to dispatch a transaction so that
+	 * hasUnsavedBodiedSyncBlockChanges is recalculated in plugin state.
+	 */
+	public registerFlushCompletionCallback(callback: () => void): void {
+		this.flushCompletionCallback = callback;
 	}
 
 	public setFireAnalyticsEvent(
@@ -233,6 +244,10 @@ export class SourceSyncBlockStoreManager {
 			this.fireAnalyticsEvent?.(updateErrorPayload((error as Error).message));
 
 			return false;
+		} finally {
+			if (fg('platform_synced_block_patch_7')) {
+				this.flushCompletionCallback?.();
+			}
 		}
 	}
 
@@ -546,6 +561,7 @@ export class SourceSyncBlockStoreManager {
 		this.syncBlockCache.clear();
 		this.confirmationCallback = undefined;
 		this.creationCompletionCallbacks.clear();
+		this.flushCompletionCallback = undefined;
 		this.dataProvider = undefined;
 		this.saveExperience?.abort({ reason: 'editorDestroyed' });
 		this.createExperience?.abort({ reason: 'editorDestroyed' });

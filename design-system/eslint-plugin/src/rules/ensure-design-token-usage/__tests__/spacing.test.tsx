@@ -1,5 +1,5 @@
 import { tester, typescriptEslintTester } from '../../__tests__/utils/_tester';
-import { type Tests } from '../../__tests__/utils/_types';
+import type { Tests } from '../../__tests__/utils/_types';
 import rule from '../../ensure-design-token-usage';
 
 export const spacingTests: Tests = {

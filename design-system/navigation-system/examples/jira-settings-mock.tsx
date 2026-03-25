@@ -21,7 +21,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -143,7 +143,7 @@ export default function JiraSettingMockExample(): JSX.Element {
 							</Stack>
 						</Stack>
 					</SideNavHeader>
-					<SideNavContent testId="side-nav-content">
+					<SideNavBody testId="side-nav-content">
 						<MenuList>
 							<LinkMenuItem href="#">General configuration</LinkMenuItem>
 							{Array.from({ length: 15 }, (_, index) => (
@@ -152,7 +152,7 @@ export default function JiraSettingMockExample(): JSX.Element {
 								</LinkMenuItem>
 							))}
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 					<PanelSplitter label="Resize side nav" testId="side-nav-panel-splitter" />
 				</SideNav>
 				<Main id="main-container">Hello world</Main>

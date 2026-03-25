@@ -1,4 +1,8 @@
+/**
+ * Used only for documentation/testing purpose
+ */
 export type ProductKeys = {
+	bitbucket?: string;
 	confluence?: string;
 	jira?: string;
 	test?: string;

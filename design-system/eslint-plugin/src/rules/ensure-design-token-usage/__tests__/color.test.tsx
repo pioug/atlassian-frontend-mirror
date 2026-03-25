@@ -3,7 +3,7 @@ import { outdent } from 'outdent';
 import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
 
 import { tester } from '../../__tests__/utils/_tester';
-import { type Tests } from '../../__tests__/utils/_types';
+import type { Tests } from '../../__tests__/utils/_types';
 import rule from '../../ensure-design-token-usage';
 
 const isESLintV9 = (tester as unknown as { linter: { version: string } }).linter.version.startsWith(

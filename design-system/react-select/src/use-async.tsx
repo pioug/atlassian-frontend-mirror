@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { type GroupBase, type InputActionMeta, type OptionsOrGroups } from './types';
-import { type StateManagerProps } from './use-state-manager';
+import type { GroupBase, InputActionMeta, OptionsOrGroups } from './types';
+import type { StateManagerProps } from './use-state-manager';
 import { handleInputChange } from './utils';
 
 type AsyncManagedPropKeys = 'options' | 'isLoading' | 'onInputChange' | 'filterOption';

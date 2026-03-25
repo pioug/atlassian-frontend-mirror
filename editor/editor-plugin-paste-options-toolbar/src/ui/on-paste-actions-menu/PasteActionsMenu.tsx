@@ -91,10 +91,50 @@ export function getVisualEndBottom(
 }
 
 /**
- * Adjusts the vertical position of the paste menu to align with the top of the
- * pasted content using the exact coordinates at the paste start position,
- * and sticks the menu to the top of the scroll container when the pasted
- * content scrolls above the visible area.
+ * Finds the DOM element for the nearest block-level ProseMirror ancestor of
+ * the given document position. Uses ProseMirror's schema (`node.isBlock`)
+ * rather than CSS display properties, so the check is always in sync with the
+ * document model.
+ *
+ * Returns `null` if no block ancestor can be resolved to a DOM element.
+ */
+export function findBlockAncestorDOM(
+	editorView: EditorView,
+	pos: number,
+): HTMLElement | null {
+	try {
+		const $pos = editorView.state.doc.resolve(pos);
+		// Walk up the document tree from the resolved position's innermost
+		// node towards the root. $pos.node(depth) gives the ancestor at each
+		// depth; $pos.start(depth) gives the position just inside that ancestor,
+		// so `$pos.start(depth) - 1` is the position of the ancestor node itself
+		// (which is what nodeDOM expects).
+		for (let depth = $pos.depth; depth >= 0; depth--) {
+			const node = $pos.node(depth);
+			if (node.isBlock) {
+				const domNode = editorView.nodeDOM($pos.start(depth) - 1);
+				if (domNode instanceof HTMLElement) {
+					return domNode;
+				}
+				// depth 0 is the doc node — nodeDOM(–1) won't work, so try
+				// the editor's own DOM element as a fallback.
+				if (depth === 0 && editorView.dom instanceof HTMLElement) {
+					return editorView.dom;
+				}
+			}
+		}
+	} catch {
+		// Position may be out of range after a concurrent edit — fall through.
+	}
+	return null;
+}
+
+/**
+ * Adjusts the position of the paste menu so that:
+ *
+ * **Vertical:** The menu aligns with the top of the pasted content using the
+ * exact coordinates at the paste start position, and sticks to the top of the
+ * scroll container when the pasted content scrolls above the visible area.
  *
  * The Popup uses alignY="bottom", which positions the popup below the target
  * element's bottom edge. This override:
@@ -105,6 +145,14 @@ export function getVisualEndBottom(
  *    to the scroll container's top edge (sticky-top).
  * 3. Stops sticking once the entire pasted range (pasteEndPos) has scrolled
  *    above the visible area.
+ *
+ * **Horizontal:** When the target element is an inline element (e.g. a mark
+ * wrapper like `<strong>`, or an inline node like an emoji), the Popup's
+ * `alignX="end"` would place the menu at the right edge of that narrow
+ * element. This override resolves the nearest block-level ProseMirror
+ * ancestor (using `node.isBlock` from the document schema) and re-anchors
+ * the horizontal position to its right edge, so the menu consistently
+ * appears at the right side of the content area.
  */
 export function onPositionCalculated(
 	editorView: EditorView,
@@ -120,12 +168,14 @@ export function onPositionCalculated(
 } {
 	// Pre-compute once per render to avoid doc.resolve() on every scroll frame.
 	const tableAfterPos = resolveTableAfterPos(editorView, pasteEndPos);
+	const blockAncestorDOM = findBlockAncestorDOM(editorView, pasteStartPos);
 
 	return (position: { bottom?: number; left?: number; right?: number; top?: number }) => {
 		const startCoords = editorView.coordsAtPos(pasteStartPos);
 		const endBottom = getVisualEndBottom(editorView, pasteEndPos, tableAfterPos);
 		const targetRect = targetElement.getBoundingClientRect();
 
+		// ── Vertical adjustment ──────────────────────────────────────────
 		// The Popup places the menu at the target's bottom edge by default.
 		// We shift it up so it aligns with the paste start position.
 		// Both coordinates are in viewport space, so the delta is offset-parent agnostic.
@@ -142,9 +192,28 @@ export function onPositionCalculated(
 			}
 		}
 
+		// ── Horizontal adjustment ────────────────────────────────────────
+		// When pasted content starts with a mark (bold, italic, link …) or
+		// an inline node (emoji, smart link, inline image …),
+		// findDomRefAtPos returns the narrow inline wrapper element. The
+		// Popup's alignX="end" then places the menu at that element's right
+		// edge instead of the content area's right edge. We correct this by
+		// resolving the nearest block-level ProseMirror ancestor and
+		// re-anchoring to its right edge.
+		let adjustedLeft = position.left;
+		if (blockAncestorDOM && blockAncestorDOM !== targetElement) {
+			const blockRect = blockAncestorDOM.getBoundingClientRect();
+			// Shift left by the difference between the block's right edge and
+			// the inline target's right edge. This mirrors what alignX="end"
+			// would have computed if the target were the block element.
+			const leftDelta = blockRect.right - targetRect.right;
+			adjustedLeft = (position.left ?? 0) + leftDelta;
+		}
+
 		return {
 			...position,
 			top: adjustedTop,
+			left: adjustedLeft,
 		};
 	};
 }

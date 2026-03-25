@@ -1,6 +1,7 @@
 import {
 	buildReplacementFragment,
 	computeSelectionOffsets,
+	narrowReplacementRange,
 	restoreSelection,
 } from '@atlaskit/editor-common/lists';
 import { findFarthestParentNode } from '@atlaskit/editor-common/utils';
@@ -54,7 +55,7 @@ export function moveSelectedTaskListItems(
 			// taskItem has inline content, so wrap in a paragraph.
 			// blockTaskItem already has paragraph children.
 			const { blockTaskItem } = s.nodes;
-			if (blockTaskItem != null && item.node.type === blockTaskItem) {
+			if (!!blockTaskItem && item.node.type === blockTaskItem) {
 				// blockTaskItem children are already paragraphs/extensions
 				const children: PMNode[] = [];
 				item.node.forEach((child: PMNode) => children.push(child));
@@ -69,7 +70,17 @@ export function moveSelectedTaskListItems(
 		return null;
 	}
 
-	tr.replaceWith(rootListStart, rootListEnd, fragment);
+	// Narrow the replacement to the minimal changed range for collab-friendly
+	// cursor preservation on unaffected list items.
+	const narrowed = narrowReplacementRange(
+		tr.doc,
+		rootListStart,
+		rootListEnd,
+		fragment,
+		contentStartOffsets,
+	);
+
+	tr.replaceWith(narrowed.start, narrowed.end, narrowed.fragment);
 
 	const { from, to } = computeSelectionOffsets({
 		items: flattenedItems,
@@ -77,8 +88,8 @@ export function moveSelectedTaskListItems(
 		endIndex,
 		originalFrom: $from.pos,
 		originalTo: $to.pos,
-		contentStartOffsets,
-		rootListStart,
+		contentStartOffsets: narrowed.adjustedContentStartOffsets,
+		rootListStart: narrowed.start,
 		docSize: tr.doc.content.size,
 	});
 

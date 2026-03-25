@@ -4,7 +4,7 @@ import type { Rule } from 'eslint';
 import { isNodeOfType, type SimpleCallExpression } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
-import { type RuleConfig } from '../config';
+import type { RuleConfig } from '../config';
 import { supportedDimensionAttributesMap, supportedStylesMap } from '../transformers/css-to-xcss';
 
 import { convertASTObjectExpressionToJSObject } from './convert-ast-object-expression-to-js-object';
@@ -84,9 +84,10 @@ export const isValidCssPropertiesToTransform = (
 			} else {
 				// direct value used
 				return (
-					supportedStylesMap[styleProperty] && // Is the key something we can map
-					supportedStylesMap[styleProperty][styleValue] // Is the value something we can map
-				);
+                    // Is the value something we can map
+                    (// Is the key something we can map
+                    supportedStylesMap[styleProperty] && supportedStylesMap[styleProperty][styleValue])
+                );
 			}
 		},
 	);

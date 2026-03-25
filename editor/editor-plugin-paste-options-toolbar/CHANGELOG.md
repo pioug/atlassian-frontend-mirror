@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.1.6
+
+### Patch Changes
+
+- [`fc5915138b437`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc5915138b437) -
+  EDITOR-6110 Ensure that paste actions menu appears in the correct position when the first item of
+  the paste is an inline node or mark
+- Updated dependencies
+
 ## 9.1.5
 
 ### Patch Changes

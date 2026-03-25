@@ -1,5 +1,28 @@
 # @atlaskit/renderer
 
+## 128.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.3.4
+
+### Patch Changes
+
+- [`ca2338799c141`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca2338799c141) -
+  [ux] Fix media cards and media singles to use the correct border radius in the editor, renderer
+  and inline media player.
+- Updated dependencies
+
+## 128.3.3
+
+### Patch Changes
+
+- [`2ce5b11415296`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ce5b11415296) -
+  Add tabIndex to renderer headings for a11y and 'confluence_toc_nav_a11y' experiment config
+- Updated dependencies
+
 ## 128.3.2
 
 ### Patch Changes

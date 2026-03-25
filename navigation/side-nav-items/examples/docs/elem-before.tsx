@@ -3,7 +3,7 @@ import React from 'react';
 import ClockIcon from '@atlaskit/icon/core/clock';
 import HomeIcon from '@atlaskit/icon/core/home';
 import { JiraIcon } from '@atlaskit/logo';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import {
@@ -24,7 +24,7 @@ export function ElemBeforeExample(): React.JSX.Element {
 	return (
 		<Inline space="space.600">
 			<MockSideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<LinkMenuItem
 							href={exampleHref}
@@ -46,11 +46,11 @@ export function ElemBeforeExample(): React.JSX.Element {
 							Link menu item (no elemBefore)
 						</LinkMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 			</MockSideNav>
 
 			<MockSideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<ExpandableMenuItem>
 							<ExpandableMenuItemTrigger>Exp default menu item (default)</ExpandableMenuItemTrigger>
@@ -108,7 +108,7 @@ export function ElemBeforeExample(): React.JSX.Element {
 							</FlyoutMenuItemTrigger>
 						</FlyoutMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 			</MockSideNav>
 		</Inline>
 	);

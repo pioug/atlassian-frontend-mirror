@@ -4,7 +4,7 @@ import {
 	getOptionLabel as baseGetOptionLabel,
 	getOptionValue as baseGetOptionValue,
 } from './builtins';
-import { type PublicBaseSelectProps } from './select';
+import type { PublicBaseSelectProps } from './select';
 import {
 	type ActionMeta,
 	type GetOptionLabel,

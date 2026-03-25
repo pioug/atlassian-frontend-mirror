@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::56eb11eac253239f7fbc9424cbdbe2a9>>
+ * @codegen <<SignedSource::37ec7245f08b07b7d708acdd3c6c1a87>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -148,6 +148,24 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
+	'ai-generative-remix': {
+		keywords: [
+			'ai-generative-remix',
+			'aigenerativeremix',
+			'icon',
+			'icon-lab',
+			'transform',
+			'AI visualization',
+			'remix with rovo',
+		],
+		componentName: 'AiGenerativeRemixIcon',
+		package: '@atlaskit/icon-lab/core/ai-generative-remix',
+		categorization: 'single-purpose',
+		usage: 'Reserved for Remix with Rovo',
+		team: 'Confluence Malleable UI (MaUI)',
+		status: 'published',
+		slackChannel: '#maui-ux',
+	},
 	'ai-generative-remove': {
 		keywords: [
 			'ai-generative-remove',
@@ -185,6 +203,24 @@ const metadata: Record<string, metadata> = {
 		team: 'Loom',
 		status: 'published',
 		slackChannel: '#feedback-loom-vizrefresh',
+	},
+	'ai-generative-slides': {
+		keywords: [
+			'ai-generative-slides',
+			'aigenerativeslides',
+			'icon',
+			'icon-lab',
+			'slides',
+			'AI slides',
+			'presentation',
+		],
+		componentName: 'AiGenerativeSlidesIcon',
+		package: '@atlaskit/icon-lab/core/ai-generative-slides',
+		categorization: 'single-purpose',
+		usage: 'Reserved for Confluence Slides',
+		team: 'Confluence Malleable UI (MaUI)',
+		status: 'published',
+		slackChannel: '#maui-UX',
 	},
 	'ai-generative-text': {
 		keywords: [

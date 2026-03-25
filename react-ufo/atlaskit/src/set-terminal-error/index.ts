@@ -1,5 +1,8 @@
 import { useEffect, useRef } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { getActiveTrace } from '../experience-trace-id-context';
 import { type LabelStack, useInteractionContext } from '../interaction-context';
 import { getActiveInteraction, PreviousInteractionLog } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
@@ -9,10 +12,11 @@ export interface TerminalErrorAdditionalAttributes {
 	packageName?: string;
 	errorBoundaryId?: string;
 	errorHash?: string;
-	traceId?: string;
 	fallbackType?: 'page' | 'flag' | 'custom';
-	statusCode?: number;
 	isClientNetworkError?: boolean;
+	// TODO: Remove when cleaning up platform_ufo_terminal_errors_fix_missing_data
+	traceId?: string;
+	statusCode?: number;
 }
 
 export interface TerminalErrorData extends TerminalErrorAdditionalAttributes {
@@ -36,13 +40,53 @@ export interface TerminalErrorContext {
 let sinkHandlerFn: (
 	errorData: TerminalErrorData,
 	context: TerminalErrorContext,
-) => void | Promise<void> = () => {};
+) => void | Promise<void> = () => { };
 
 export function sinkTerminalErrorHandler(
 	fn: (errorData: TerminalErrorData, context: TerminalErrorContext) => void | Promise<void>,
 ): void {
 	sinkHandlerFn = fn;
 }
+
+const RELAY_NETWORK_ERRORS_NAME = 'RelayNetwork';
+/**
+ * Relay error structure
+ */
+type RelayNetworkErrors = {
+	name: string;
+	type: string;
+	source?: {
+		errors?: { extensions?: { statusCode?: number } }[];
+	};
+};
+
+export const isRelayNetworkError = (
+	error: RelayNetworkErrors | Error,
+): error is RelayNetworkErrors => error.name === RELAY_NETWORK_ERRORS_NAME;
+
+const isErrorObject = (error: unknown): error is Record<string, unknown> =>
+	typeof error === 'object' && error !== null;
+
+const getErrorStatusCode = (error: Error) => {
+	if(!isErrorObject(error)) {
+		return undefined;
+	}
+
+	if (isRelayNetworkError(error)) {
+		return error.source?.errors?.[0]?.extensions?.statusCode;
+	} 
+	
+	if ('statusCode' in error && typeof error.statusCode === 'number') {
+		return error.statusCode;
+	}
+	
+	return undefined;
+};
+
+const getErrorTraceId = (error: Error) =>
+	isErrorObject(error) && 'traceId' in error && typeof error.traceId === 'string'
+		? error.traceId
+		: undefined;
 
 export function setTerminalError(
 	error: Error,
@@ -56,10 +100,24 @@ export function setTerminalError(
 
 	const activeInteraction = getActiveInteraction();
 	const currentTime = performance.now();
-	const errorData: TerminalErrorData = {
+
+	const baseErrorData = {
 		errorType: error.name || 'Error',
 		errorMessage: error.message?.slice(0, 100) || 'Unknown error',
 		timestamp: currentTime,
+	}
+	const errorData: TerminalErrorData = fg('platform_ufo_terminal_errors_fix_missing_data') ? {
+		...baseErrorData,
+		statusCode: getErrorStatusCode(error),
+		// Fallback to traceId from error object if it exists (e.g. FetchError)
+		traceId: getActiveTrace()?.traceId ?? getErrorTraceId(error),
+		teamName: additionalAttributes?.teamName,
+		packageName: additionalAttributes?.packageName,
+		errorBoundaryId: additionalAttributes?.errorBoundaryId,
+		errorHash: additionalAttributes?.errorHash,
+		fallbackType: additionalAttributes?.fallbackType,
+	} : {
+		...baseErrorData,
 		...additionalAttributes,
 	};
 

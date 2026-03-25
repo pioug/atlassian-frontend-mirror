@@ -39,7 +39,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -266,7 +266,7 @@ export default function ConfluenceMockExample(): JSX.Element {
 					</TopNavEnd>
 				</TopNav>
 				<SideNav>
-					<SideNavContent ref={sideNavContentRef} testId="side-nav-content">
+					<SideNavBody ref={sideNavContentRef} testId="side-nav-content">
 						<MenuList>
 							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 								Your work
@@ -305,7 +305,7 @@ export default function ConfluenceMockExample(): JSX.Element {
 								</ExpandableMenuItemContent>
 							</ExpandableMenuItem>
 						</div>
-					</SideNavContent>
+					</SideNavBody>
 					<PanelSplitter label="Resize side nav" testId="side-nav-panel-splitter" />
 				</SideNav>
 				<Main id="main-container">

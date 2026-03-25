@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugins
 
+## 13.0.44
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.43
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.42
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.40
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.39
+
+### Patch Changes
+
+- [`73c46b71987a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c46b71987a0) -
+  [ux] Fix remix button sticky for tables right side
+- Updated dependencies
+
 ## 13.0.38
 
 ### Patch Changes

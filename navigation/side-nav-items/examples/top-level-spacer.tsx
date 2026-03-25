@@ -9,7 +9,7 @@ import GoalIcon from '@atlaskit/icon/core/goal';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
@@ -24,7 +24,7 @@ const wrapperStyles = cssMap({
 export function TopLevelSpacerExample() {
 	return (
 		<div css={wrapperStyles.root}>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<LinkMenuItem href="#" elemBefore={<InboxIcon label="" />}>
 						For you
@@ -47,7 +47,7 @@ export function TopLevelSpacerExample() {
 
 					<ButtonMenuItem elemBefore={<ShowMoreHorizontalIcon label="" />}>More</ButtonMenuItem>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 		</div>
 	);
 }

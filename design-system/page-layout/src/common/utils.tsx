@@ -5,7 +5,7 @@ import {
 	PAGE_LAYOUT_SLOT_SELECTOR,
 } from './constants';
 import safeLocalStorage from './safe-local-storage';
-import { type DimensionNames } from './types';
+import type { DimensionNames } from './types';
 
 const mergeGridStateIntoStorage = (key: string, value: any): void => {
 	const storageValue = JSON.parse(safeLocalStorage().getItem(PAGE_LAYOUT_LS_KEY) || '{}');

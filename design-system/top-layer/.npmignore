@@ -1,0 +1,12 @@
+src/
+examples-utils/
+examples/
+docs/
+build/
+__tests__/
+notes/
+afm-cc/
+afm-products/
+tsconfig.json
+tsconfig.app.json
+tsconfig.dev.json

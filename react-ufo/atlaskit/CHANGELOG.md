@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.5.0
+
+### Minor Changes
+
+- [`b6474459ca8ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6474459ca8ec) -
+  Improve Terminal Error Metric to internally extract statusCode & traceId
+
+## 5.4.11
+
+### Patch Changes
+
+- [`2054e5f97e932`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2054e5f97e932) -
+  Use actual page visibility hidden timestamp for browser_backgrounded abort reason in VC
+  raw-data-handler instead of hard-coded -1
+
 ## 5.4.10
 
 ### Patch Changes

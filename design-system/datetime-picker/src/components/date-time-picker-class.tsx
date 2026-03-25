@@ -6,6 +6,7 @@
 import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { format, isValid, parseISO } from 'date-fns';
 
 import {

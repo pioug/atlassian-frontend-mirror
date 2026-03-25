@@ -5,6 +5,7 @@
 
 import { Fragment, type MouseEventHandler } from 'react';
 
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { isValid, parseISO } from 'date-fns';
 
 import Calendar from '@atlaskit/calendar';

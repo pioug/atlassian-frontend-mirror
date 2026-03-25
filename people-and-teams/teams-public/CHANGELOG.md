@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.72.1
+
+### Patch Changes
+
+- [`79cd2fc60c2a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79cd2fc60c2a2) -
+  Fix require-description ESLint violation
+
 ## 0.72.0
 
 ### Minor Changes

@@ -1,5 +1,28 @@
 # @atlassian/navigation-system
 
+## 7.1.0
+
+### Minor Changes
+
+- [`15acec25cc47f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15acec25cc47f) -
+  Cleans up the `platform_dst_nav4_fhs_feedback_1` feature gate. Scroll lines are now removed, as
+  well as other minor visual changes.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.0
+
+### Major Changes
+
+- [`f48c03e011b92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f48c03e011b92) -
+  Renamed `SideNavContent` to `SideNavBody` to align with other slot component naming.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.0
 
 ### Minor Changes

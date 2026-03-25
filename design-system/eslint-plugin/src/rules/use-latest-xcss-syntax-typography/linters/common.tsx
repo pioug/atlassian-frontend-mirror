@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
-import { type RuleConfig } from '../config';
+import type { RuleConfig } from '../config';
 
 export type MetaData = {
 	context: Rule.RuleContext;

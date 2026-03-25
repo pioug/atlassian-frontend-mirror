@@ -1,5 +1,21 @@
 # @atlaskit/link-picker
 
+## 4.2.17
+
+### Patch Changes
+
+- [`b9af0df8e1dae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9af0df8e1dae) -
+  NAVX-3975 cleaning up navx-3332-update-link-picker-heading-levels
+- Updated dependencies
+
+## 4.2.16
+
+### Patch Changes
+
+- [`5dbae6055bb27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dbae6055bb27) -
+  NAVX-36742 cleaning up navx-3742-refactoring-link-picker-helper-text-a11y
+- Updated dependencies
+
 ## 4.2.15
 
 ### Patch Changes

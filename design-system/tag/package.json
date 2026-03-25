@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "14.5.4",
+	"version": "14.6.0",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -86,7 +86,9 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
+		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {

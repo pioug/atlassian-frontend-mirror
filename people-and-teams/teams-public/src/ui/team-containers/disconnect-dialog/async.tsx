@@ -1,5 +1,6 @@
 import React from 'react';
 
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import type { DisconnectDialogProps } from './index';

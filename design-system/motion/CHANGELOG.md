@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 5.4.2
+
+### Patch Changes
+
+- [`4927c4a64f704`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4927c4a64f704) -
+  Added export of new MotionProps interface
+- Updated dependencies
+
 ## 5.4.1
 
 ### Patch Changes

@@ -208,10 +208,12 @@ export interface MotionScaleTokenSchema<
 	DurationScaleValues extends string,
 	BezierCurveScaleValues extends string,
 	KeyframeScaleValues extends string,
+	TransitionPropertyScaleValues extends string,
 > {
 	duration: Record<DurationScaleValues, BaseToken<number, 'motion'>>;
 	curve: Record<BezierCurveScaleValues, BaseToken<string, 'motion'>>;
 	keyframe: Record<KeyframeScaleValues, BaseToken<Record<string, object>, 'keyframe'>>;
+	properties: Record<TransitionPropertyScaleValues, BaseToken<string, 'motion'>>;
 }
 
 export interface FontSizeScaleTokenSchema<ScaleValues extends string> {
@@ -1234,10 +1236,38 @@ export interface FontFamilyTokenSchema<BaseToken> {
  */
 export interface MotionTokenSchema<BaseToken> {
 	motion: {
-		dialog: {
+		avatar: {
 			enter: MotionToken<BaseToken>;
 			exit: MotionToken<BaseToken>;
-		};
+			hovered: MotionToken<BaseToken>;
+		},
+		flag: {
+			enter: MotionToken<BaseToken>;
+			exit: MotionToken<BaseToken>;
+			reposition: MotionToken<BaseToken>;
+		},
+		modal: {
+			enter: MotionToken<BaseToken>;
+			exit: MotionToken<BaseToken>;
+		},
+		popup: {
+			enter: {
+				top: MotionToken<BaseToken>;
+				bottom: MotionToken<BaseToken>;
+				left: MotionToken<BaseToken>;
+				right: MotionToken<BaseToken>;
+			},
+			exit: {
+				top: MotionToken<BaseToken>;
+				bottom: MotionToken<BaseToken>;
+				left: MotionToken<BaseToken>;
+				right: MotionToken<BaseToken>;
+			}
+		},
+		spotlight: {
+			enter: MotionToken<BaseToken>;
+			exit: MotionToken<BaseToken>;
+		},
 		content: {
 			enter: {
 				short: MotionToken<BaseToken>;

@@ -23,7 +23,6 @@ import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
-import { blockControlsPlugin } from '@atlaskit/editor-plugins/block-controls';
 import { connectivityPlugin } from '@atlaskit/editor-plugins/connectivity';
 import { type Node, Slice } from '@atlaskit/editor-prosemirror/model';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
@@ -50,15 +49,15 @@ export class CustomReplaceStep extends ReplaceStep {
 	}
 
 	toJSON(): {
-		stepType: string;
 		from: number;
-		to: number;
 		slice: {
 			content: {
-				type: string;
 				text: string;
+				type: string;
 			}[];
 		};
+		stepType: string;
+		to: number;
 	} {
 		return {
 			stepType: 'replace',
@@ -193,7 +192,14 @@ const getQueryParam = (param: string) => {
 };
 
 function useFullPageEditorPreset(props: any) {
-	const universalPreset = useUniversalPreset({ props });
+	const universalPreset = useUniversalPreset({
+		props,
+		initialPluginConfiguration: {
+			blockControlsPlugin: {
+				enabled: true,
+			},
+		},
+	});
 
 	const { preset, editorApi } = usePreset(() => {
 		return universalPreset
@@ -201,7 +207,6 @@ function useFullPageEditorPreset(props: any) {
 			.add(selectionMarkerPlugin)
 			.add(collabCustomStepPlugin)
 			.add(connectivityPlugin)
-			.add(blockControlsPlugin)
 			.add(codeBlockAdvancedPlugin);
 	}, [universalPreset]);
 
@@ -570,7 +575,8 @@ export default class Example extends React.Component<Props, State> {
 					url.searchParams.set('documentId', documentId);
 					url.searchParams.set('collabUrl', collabUrl);
 					win.history.pushState({}, '', url.toString());
-				} catch (err) {}
+					// eslint-disable-next-line no-empty
+				} catch {}
 				this.setState({
 					documentId,
 					collabUrl,

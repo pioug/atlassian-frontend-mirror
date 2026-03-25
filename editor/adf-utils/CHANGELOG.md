@@ -1,5 +1,25 @@
 # @atlaskit/adf-utils
 
+## 19.27.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.27.19
+
+### Patch Changes
+
+- [`a12c91a07773e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a12c91a07773e) -
+  Mechanical type-import autofix for ADF utility packages.
+- Updated dependencies
+
+## 19.27.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.27.17
 
 ### Patch Changes

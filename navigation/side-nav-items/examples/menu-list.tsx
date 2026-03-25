@@ -5,7 +5,7 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import Avatar from '@atlaskit/avatar';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
 	ExpandableMenuItem,
@@ -30,7 +30,7 @@ export function MenuListExample() {
 		// to avoid leaving storybook.
 		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events
 		<nav css={styles.root} onClick={(evt) => evt.preventDefault()}>
-			<SideNavContent>
+			<SideNavBody>
 				<ButtonMenuItem>Text only</ButtonMenuItem>
 				<ButtonMenuItem elemBefore={<Avatar />}>With avatar</ButtonMenuItem>
 				<ButtonMenuItem description="A long description that should be truncated">
@@ -54,7 +54,7 @@ export function MenuListExample() {
 						</LinkMenuItem>
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
-			</SideNavContent>
+			</SideNavBody>
 		</nav>
 	);
 }

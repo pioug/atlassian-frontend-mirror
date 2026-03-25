@@ -239,18 +239,27 @@ function SmartLinkDraggableInner({
 
 		// In contentEditable="true" contexts (block/embed cards), the browser treats
 		// the smart-element-link as editable text rather than a draggable element.
-		// Not needed for inline cards since the wrapper is already not editable
+		// Not needed for inline cards since their NodeView is already not editable
 		let observer: MutationObserver | null = null;
 		if (appearance !== SMART_LINK_APPEARANCE.INLINE) {
-			const setupSmartElementLink = () => {
+			const setupDraggableElements = () => {
 				el.querySelectorAll<HTMLElement>('[data-smart-element-link]').forEach((link) => {
 					link.contentEditable = 'false';
 					link.setAttribute('draggable', 'true');
 				});
+				// For footer/provider/header, only set draggable to avoid disrupting selection behavior.
+				el.querySelectorAll<HTMLElement>(
+					'[data-smart-block], [data-smart-element="Provider"], .embed-header',
+				).forEach((child) => {
+					child.setAttribute('draggable', 'true');
+					child.querySelectorAll<HTMLElement>('img, a').forEach((inner) => {
+						inner.setAttribute('draggable', 'false');
+					});
+				});
 			};
-			setupSmartElementLink();
+			setupDraggableElements();
 
-			observer = new MutationObserver(setupSmartElementLink);
+			observer = new MutationObserver(setupDraggableElements);
 			observer.observe(el, { childList: true, subtree: true });
 		}
 
@@ -261,7 +270,22 @@ function SmartLinkDraggableInner({
 				cleanupDraggable?.();
 
 				const target = event.target;
-				const dragTarget = target instanceof HTMLElement && el.contains(target) ? target : el;
+
+				// Find the nearest draggable ancestor within the card to match
+				// the element the browser will use as the dragstart target.
+				let dragTarget: HTMLElement = el;
+				if (target instanceof Element && el.contains(target)) {
+					if (appearance !== SMART_LINK_APPEARANCE.INLINE) {
+						// For block/embed cards, find the nearest draggable ancestor within the card.
+						const closestDraggable = target.closest('[draggable="true"]');
+						if (closestDraggable instanceof HTMLElement && el.contains(closestDraggable)) {
+							dragTarget = closestDraggable;
+						}
+					} else if (target instanceof HTMLElement) {
+						// For inline cards, use the target directly.
+						dragTarget = target;
+					}
+				}
 
 				cleanupDraggable = draggable(getDragConfig(dragTarget));
 			},

@@ -85,7 +85,7 @@ function getThemeValues(theme: Token[]): FormattedTokens {
 				return prev + v;
 			}, '');
 		} else {
-			if (Object(rawToken.value).hasOwnProperty('keyframes')) {
+			if (Object(rawToken.value).hasOwnProperty('keyframes') || Object(rawToken.value).hasOwnProperty('properties')) {
 				value = rawObjectToAnimation(rawToken.value);
 			} else {
 				// Unknown value shape – default to string coercion to avoid crashing codegen

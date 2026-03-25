@@ -250,7 +250,7 @@ ${(
 	/>
 )}
 
-### Truncation
+## Truncation
 
 When the label or description of side nav menu items exceed the available horizontal space, the text
 becomes truncated. Tooltips expose the full menu label and are positioned right-start.
@@ -264,7 +264,7 @@ ${(
 	/>
 )}
 
-### Menu section and menu section heading
+## Menu section and menu section heading
 
 Use **menu section** to group related menu items. This is important for accessibility as it acts as
 a landmark for assistive technology.
@@ -281,7 +281,7 @@ ${(
 	/>
 )}
 
-### Menu divider
+## Menu divider
 
 Avoid using this component. Instead, use a [menu section heading](/packages/navigation/side-nav-items#menu-section-and-menu-section-heading)
 or a [top level spacer](/packages/navigation/side-nav-items#top-level-spacer).
@@ -296,7 +296,7 @@ ${(
 	/>
 )}
 
-### Top level spacer
+## Top level spacer
 
 A 12px space to separate level 0 menu items or sections.
 
@@ -309,7 +309,7 @@ ${(
 	/>
 )}
 
-### Right to left languages
+## Right to left languages
 
 All side nav items support right to left languages.
 

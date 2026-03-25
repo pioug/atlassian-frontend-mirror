@@ -1,5 +1,5 @@
 import { traverse } from '../traverse/traverse';
-import { type ADFEntity } from '../types';
+import type { ADFEntity } from '../types';
 import { validator } from '../validator/validator';
 
 const NATIVE_EMBED_EXTENSION_KEY = 'native-embed';

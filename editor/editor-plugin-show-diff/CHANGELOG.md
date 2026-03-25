@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 6.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.0
+
+### Minor Changes
+
+- [`255e764f80182`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/255e764f80182) -
+  EDITOR-5830: Add support for showing inline vs. block diff types.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.9
 
 ### Patch Changes

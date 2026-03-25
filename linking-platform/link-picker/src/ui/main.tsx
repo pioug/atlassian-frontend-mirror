@@ -5,6 +5,7 @@
 import React, { memo } from 'react';
 
 import { css, jsx } from '@compiled/react';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { LazySuspense } from 'react-loosely-lazy';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';

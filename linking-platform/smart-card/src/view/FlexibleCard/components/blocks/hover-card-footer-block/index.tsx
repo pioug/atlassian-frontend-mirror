@@ -118,14 +118,13 @@ const ResolvedHoverCardFooterBlock = ({
 					key={name}
 					as="stack-item"
 					content=""
-					testId={`${testId}-${name}`}
 					onClick={() => onActionClick?.(name as FlexibleUiActionName)}
 					size={size}
 					iconSize={'small'}
 				/>
 			) : null;
 		});
-	}, [context?.actions, onActionClick, testId, size]);
+	}, [context?.actions, onActionClick, size]);
 
 	return (
 		<Block

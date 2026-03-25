@@ -101,10 +101,8 @@ export const quickInsertButtonDecoration = ({
 			// inline decoration causes cursor disappear when focusing editor at the first line (e.g. press Tab when title is focused)
 			element.style.display = 'block';
 
-			if (expValEquals('platform_editor_quick_insert_image_wrap_right_fix', 'isEnabled', true)) {
-				// make sure it does not interfere with elements floating next to each other e.g. paragraph next to image with wrap-right
-				element.style.clear = 'unset';
-			}
+			// make sure it does not interfere with elements floating next to each other e.g. paragraph next to image with wrap-right
+			element.style.clear = 'unset';
 			element.contentEditable = 'false';
 			element.setAttribute('data-blocks-quick-insert-container', 'true');
 			if (expValEqualsNoExposure('confluence_remix_icon_right_side', 'isEnabled', true)) {

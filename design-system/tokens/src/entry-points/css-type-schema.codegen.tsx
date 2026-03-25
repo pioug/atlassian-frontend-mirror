@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::a329b54d1bff55f1079838f935d27b43>>
+ * @codegen <<SignedSource::08c6f944d8c913dff7bdf4becc44b834>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -420,14 +420,30 @@ export type FontFamily =
 	| 'var(--ds-font-family-brand-heading)'
 	| 'var(--ds-font-family-brand-body)';
 export type Motion =
+	| 'var(--ds-avatar-enter)'
+	| 'var(--ds-avatar-exit)'
+	| 'var(--ds-avatar-hovered)'
 	| 'var(--ds-content-enter-long)'
 	| 'var(--ds-content-enter-medium)'
 	| 'var(--ds-content-enter-short)'
 	| 'var(--ds-content-exit-long)'
 	| 'var(--ds-content-exit-medium)'
 	| 'var(--ds-content-exit-short)'
-	| 'var(--ds-dialog-enter)'
-	| 'var(--ds-dialog-exit)';
+	| 'var(--ds-flag-enter)'
+	| 'var(--ds-flag-exit)'
+	| 'var(--ds-flag-reposition)'
+	| 'var(--ds-modal-enter)'
+	| 'var(--ds-modal-exit)'
+	| 'var(--ds-popup-enter-bottom)'
+	| 'var(--ds-popup-enter-left)'
+	| 'var(--ds-popup-enter-right)'
+	| 'var(--ds-popup-enter-top)'
+	| 'var(--ds-popup-exit-bottom)'
+	| 'var(--ds-popup-exit-left)'
+	| 'var(--ds-popup-exit-right)'
+	| 'var(--ds-popup-exit-top)'
+	| 'var(--ds-spotlight-enter)'
+	| 'var(--ds-spotlight-exit)';
 
 export interface CSSPropertiesHovered {
 	backgroundColor: BackgroundColorHovered;

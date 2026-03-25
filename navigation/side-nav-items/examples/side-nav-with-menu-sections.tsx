@@ -35,7 +35,7 @@ import { ConfluenceIcon } from '@atlaskit/logo';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavPanelSplitter,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
@@ -218,7 +218,7 @@ export default function SideNavWithMenuSections() {
 			</TopNav>
 
 			<SideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<LinkMenuItem
 							href="#"
@@ -594,7 +594,7 @@ export default function SideNavWithMenuSections() {
 							Customize sidebar
 						</ButtonMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 				<SideNavPanelSplitter label="Resize side nav" tooltipContent="Double click to collapse" />
 			</SideNav>
 		</Root>

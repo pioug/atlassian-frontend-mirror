@@ -1,31 +1,58 @@
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import isEqual from 'lodash/isEqual';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
-import { ChangeSet, simplifyChanges, type Change } from 'prosemirror-changeset';
+import { type Change, ChangeSet, simplifyChanges } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl-next';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
-import { type EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction, EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { ColorScheme, ShowDiffPlugin } from '../showDiffPluginType';
-
-import { areDocsEqualByBlockStructureAndText } from './areDocsEqualByBlockStructureAndText';
-import { createBlockChangedDecoration } from './decorations/createBlockChangedDecoration';
-import { createInlineChangedDecoration } from './decorations/createInlineChangedDecoration';
-import { createNodeChangedDecorationWidget } from './decorations/createNodeChangedDecorationWidget';
+import type { ColorScheme, ShowDiffPlugin, DiffType } from '../../showDiffPluginType';
+import { areDocsEqualByBlockStructureAndText } from '../areDocsEqualByBlockStructureAndText';
+import { createBlockChangedDecoration } from '../decorations/createBlockChangedDecoration';
+import { createInlineChangedDecoration } from '../decorations/createInlineChangedDecoration';
+import { createNodeChangedDecorationWidget } from '../decorations/createNodeChangedDecorationWidget';
 import {
 	getAttrChangeRanges,
 	stepIsValidAttrChange,
-} from './decorations/utils/getAttrChangeRanges';
-import { getMarkChangeRanges } from './decorations/utils/getMarkChangeRanges';
-import type { ShowDiffPluginState } from './main';
-import type { NodeViewSerializer } from './NodeViewSerializer';
-import { simplifySteps } from './simplifyChanges';
+} from '../decorations/utils/getAttrChangeRanges';
+import { getMarkChangeRanges } from '../decorations/utils/getMarkChangeRanges';
+import type { ShowDiffPluginState } from '../main';
+import type { NodeViewSerializer } from '../NodeViewSerializer';
+
+import { groupChangesByBlock } from './groupChangesByBlock';
+import { optimizeChanges } from './optimizeChanges';
+import { simplifySteps } from './simplifySteps';
+
+const getChanges = ({
+	changeset,
+	originalDoc,
+	steppedDoc,
+	diffType,
+	tr,
+}: {
+	changeset: ChangeSet;
+	diffType: DiffType;
+	originalDoc: PMNode;
+	steppedDoc: PMNode;
+	tr: Transaction;
+}): Change[] => {
+	if (
+		diffType === 'block' &&
+		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+	) {
+		return groupChangesByBlock(changeset.changes, originalDoc, steppedDoc);
+	}
+	const changes = simplifyChanges(changeset.changes, tr.doc);
+
+	return optimizeChanges(changes);
+};
 
 const calculateNodesForBlockDecoration = ({
 	doc,
@@ -69,43 +96,6 @@ const calculateNodesForBlockDecoration = ({
 	return decorations;
 };
 
-/**
- * Groups adjacent changes to reduce visual fragmentation in diffs.
- * Merges consecutive insertions and deletions that are close together.
- */
-function optimizeChanges(changes: Change[]): Change[] {
-	if (changes.length <= 1) {
-		return changes;
-	}
-
-	const optimized: Change[] = [];
-	let current = { ...changes[0] };
-
-	for (let i = 1; i < changes.length; i++) {
-		const next = changes[i];
-
-		// Check if changes are adjacent or very close (within 2 positions)
-		const isAdjacent = next.fromB <= current.toB + 2;
-
-		if (isAdjacent) {
-			current = {
-				fromA: current.fromA,
-				toA: Math.max(current.toA, next.toA),
-				fromB: current.fromB,
-				toB: Math.max(current.toB, next.toB),
-				deleted: [...current.deleted, ...next.deleted],
-				inserted: [...current.inserted, ...next.inserted],
-			};
-		} else {
-			optimized.push(current);
-			current = { ...next };
-		}
-	}
-
-	optimized.push(current);
-	return optimized;
-}
-
 type NodesEqualEvent = {
 	action: 'nodesNotEqual';
 	actionSubject: 'showDiff';
@@ -126,10 +116,12 @@ const calculateDiffDecorationsInner = ({
 	activeIndexPos,
 	api,
 	isInverted = false,
+	diffType = 'inline',
 }: {
 	activeIndexPos?: { from: number; to: number };
 	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
 	colorScheme?: ColorScheme;
+	diffType?: DiffType;
 	intl: IntlShape;
 	isInverted?: boolean;
 	nodeViewSerializer: NodeViewSerializer;
@@ -188,11 +180,16 @@ const calculateDiffDecorationsInner = ({
 		}
 	}
 	const changeset = ChangeSet.create(originalDoc).addSteps(steppedDoc, stepMaps, tr.doc);
-	const changes = simplifyChanges(changeset.changes, tr.doc);
+	const changes = getChanges({
+		changeset,
+		originalDoc,
+		steppedDoc,
+		diffType,
+		tr,
+	});
 
-	const optimizedChanges = optimizeChanges(changes);
 	const decorations: Decoration[] = [];
-	optimizedChanges.forEach((change) => {
+	changes.forEach((change) => {
 		const isActive =
 			activeIndexPos && change.fromB === activeIndexPos.from && change.toB === activeIndexPos.to;
 		// Our default operations are insertions, so it should match the opposite of isInverted.
@@ -295,7 +292,7 @@ export const calculateDiffDecorations: MemoizedFn<
 	calculateDiffDecorationsInner,
 	// Cache results unless relevant inputs change
 	(
-		[{ pluginState, state, colorScheme, intl, activeIndexPos, isInverted }],
+		[{ pluginState, state, colorScheme, intl, activeIndexPos, isInverted, diffType }],
 		[
 			{
 				pluginState: lastPluginState,
@@ -304,6 +301,7 @@ export const calculateDiffDecorations: MemoizedFn<
 				intl: lastIntl,
 				activeIndexPos: lastActiveIndexPos,
 				isInverted: lastIsInverted,
+				diffType: lastDiffType,
 			},
 		],
 	) => {
@@ -317,6 +315,7 @@ export const calculateDiffDecorations: MemoizedFn<
 				(colorScheme === lastColorScheme &&
 					intl.locale === lastIntl.locale &&
 					isInverted === lastIsInverted &&
+					diffType === lastDiffType &&
 					isEqual(activeIndexPos, lastActiveIndexPos) &&
 					originalDocIsSame &&
 					isEqual(pluginState.steps, lastPluginState.steps) &&

@@ -2,12 +2,8 @@
 // Entry file in package.json
 
 import { editorExperimentsConfig } from './experiments-config';
-import {
-	testBooleanOverrides,
-	testMultivariateOverrides,
-	type EditorExperimentOverridesBoolean,
-	type EditorExperimentOverridesMultivariate,
-} from './exp-test-overrides';
+import { testBooleanOverrides, testMultivariateOverrides } from './exp-test-overrides';
+import type { EditorExperimentOverridesBoolean, EditorExperimentOverridesMultivariate } from './exp-test-overrides';
 
 export type EditorExperimentOverrides = Partial<{
 	[ExperimentName in keyof typeof editorExperimentsConfig]: (typeof editorExperimentsConfig)[ExperimentName]['defaultValue'];
@@ -20,7 +16,7 @@ export type EditorExperimentParamOverrides = {
 
 export let _overrides = {} as EditorExperimentOverrides;
 export let _paramOverrides = {} as EditorExperimentParamOverrides;
-export let _product: 'confluence' | 'jira' | 'test' | undefined;
+export let _product: 'bitbucket' | 'confluence' | 'jira' | 'test' | undefined;
 
 /**
  * This function is used to set up the editor experiments for testing purposes.
@@ -34,7 +30,7 @@ export let _product: 'confluence' | 'jira' | 'test' | undefined;
  * ```
  */
 export function setupEditorExperiments(
-	product: 'confluence' | 'jira' | 'test',
+	product: 'bitbucket' | 'confluence' | 'jira' | 'test',
 	/**
 	 * Overrides are used to set the group of an experiment for testing purposes.
 	 * This is useful when you want to test a specific experiment group.

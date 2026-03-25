@@ -221,6 +221,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			getEditorState: getEditorState,
 			getEditorView: getEditorView,
 			fireAnalyticsEvent: handleAnalyticsEvent,
+			appearance: nextAppearance,
 		}),
 	);
 
@@ -286,6 +287,9 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 						pluginInjectionAPI.current,
 					),
 				);
+				if (expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)) {
+					config.current.pmPlugins.push(...pluginInjectionAPI.current.getInternalPMPlugins());
+				}
 
 				schema = createSchema(config.current);
 			}
@@ -516,6 +520,9 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			);
 
 			config.current = processPluginsList(editorPlugins);
+			if (expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)) {
+				config.current.pmPlugins.push(...pluginInjectionAPI.current.getInternalPMPlugins());
+			}
 
 			const state = viewRef.current.state;
 
@@ -1072,6 +1079,12 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			}
 		}
 	}, [disabled, shouldFocus, previousDisabledState, __livePage]);
+
+	useLayoutEffect(() => {
+		if (expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)) {
+			pluginInjectionAPI.current.api()?.core?.actions?.updateAppearance(nextAppearance);
+		}
+	}, [nextAppearance]);
 
 	useFireFullWidthEvent(nextAppearance, dispatchAnalyticsEvent);
 

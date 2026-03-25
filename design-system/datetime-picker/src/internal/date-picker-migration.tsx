@@ -16,6 +16,7 @@
  * broken out to be it's own function.
  */
 
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { format, lastDayOfMonth, parseISO } from 'date-fns';
 
 import { type LocalizationProvider } from '@atlaskit/locale';

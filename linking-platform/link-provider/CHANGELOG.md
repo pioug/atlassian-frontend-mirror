@@ -1,5 +1,12 @@
 # @atlaskit/link-provider
 
+## 4.3.0
+
+### Minor Changes
+
+- [`83655026cdebb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83655026cdebb) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 4.2.1
 
 ### Patch Changes

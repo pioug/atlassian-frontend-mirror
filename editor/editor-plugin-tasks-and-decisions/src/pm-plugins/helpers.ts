@@ -15,7 +15,6 @@ import {
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { stateKey } from './plugin-key';
@@ -244,7 +243,7 @@ export const subtreeHeight = ($from: ResolvedPos, $to: ResolvedPos, types: NodeT
 	// and get the max height from the current position to the
 	// deepest leaf node
 	let maxChildDepth = $from.depth;
-	$from.doc.nodesBetween(blockRange.start, blockRange.end, (descendent, relPos, parent) => {
+	$from.doc.nodesBetween(blockRange.start, blockRange.end, (descendent, relPos, _parent) => {
 		maxChildDepth = Math.max($from.doc.resolve(relPos).depth, maxChildDepth);
 
 		// keep descending down the tree if we can
@@ -279,8 +278,7 @@ export const isEmptyTaskDecision = (state: EditorState): boolean => {
 		$from.depth > 0 &&
 		// and it's parent is a blockTaskItem with only this paragraph inside it
 		$from.node($from.depth - 1).type === blockTaskItem &&
-		$from.node($from.depth - 1).childCount === 1 &&
-		fg('platform_editor_blocktaskitem_patch_3');
+		$from.node($from.depth - 1).childCount === 1;
 
 	return isEmptyTaskOrDecisionItem || isInEmptyBlockTaskItem;
 };

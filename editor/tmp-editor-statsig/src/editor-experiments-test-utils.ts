@@ -3,8 +3,10 @@
 
 // This is loosely based on the `ffTest` util from `@atlassian/feature-flags-test-utils` package.
 
-import { type EditorExperimentOverrides, setupEditorExperiments } from './setup';
-import { type EditorExperimentsConfig, editorExperimentsConfig } from './experiments-config';
+import { setupEditorExperiments } from './setup';
+import type { EditorExperimentOverrides } from './setup';
+import { editorExperimentsConfig } from './experiments-config';
+import type { EditorExperimentsConfig } from './experiments-config';
 
 type DescribeBody = Parameters<typeof describe>[1];
 

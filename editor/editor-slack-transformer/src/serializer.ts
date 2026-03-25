@@ -6,6 +6,7 @@ import {
 } from '@atlaskit/editor-prosemirror/markdown';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
+import { collapseTrailingUnwind, isWrapperListItem, listTypes, renderListChildren } from './list-utils';
 import { escapeMarkdown } from './util';
 
 export class MarkdownSerializerState extends PMMarkdownSerializerState {
@@ -135,10 +136,6 @@ const unsupportedNodes = {
 		state.write('[sync block]');
 		state.closeBlock(node);
 	},
-	taskList(state: MarkdownSerializerState, node: PMNode): void {
-		state.write('[task list]');
-		state.closeBlock(node);
-	},
 	expand(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('[expand]');
 		state.closeBlock(node);
@@ -181,26 +178,64 @@ export const nodes = {
 		state.closeBlock(node);
 	},
 	bulletList(state: MarkdownSerializerState, node: PMNode): void {
-		for (let i = 0; i < node.childCount; i++) {
-			const child = node.child(i);
-
-			state.render(child, node, i);
-		}
+		renderListChildren(state, node);
 	},
 	orderedList(state: MarkdownSerializerState, node: PMNode): void {
-		for (let i = 0; i < node.childCount; i++) {
-			const child = node.child(i);
-
-			state.render(child, node, i);
+		renderListChildren(state, node);
+	},
+	taskList(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void {
+		if (parent.type.name === 'taskList') {
+			// Nested: indent each child 2 spaces
+			for (let i = 0; i < node.childCount; i++) {
+				state.wrapBlock('  ', null, node, () => state.render(node.child(i), node, i));
+				state.flushClose(1);
+			}
+			collapseTrailingUnwind(state);
+			if (index === parent.childCount - 1) {
+				state.write('\n');
+			}
+		} else {
+			renderListChildren(state, node);
+		}
+	},
+	taskItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void {
+		const checkbox = node.attrs.state === 'DONE' ? '[x] ' : '[ ] ';
+		state.wrapBlock('  ', checkbox, node, () => state.renderInline(node));
+		state.flushClose(1);
+		if (index === parent.childCount - 1) {
+			state.write('\n');
 		}
 	},
 	listItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number): void {
+		if (isWrapperListItem(node)) {
+			// Strip parent wrapBlock's pre-written whitespace; delim handles indentation.
+			if (!state.atBlank()) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
+				const trailingWs = /[^\S\n]+$/.exec(state.out);
+				if (trailingWs) {
+					state.out = state.out.slice(0, -trailingWs[0].length);
+				}
+			}
+
+			const prevDelim = state.delim;
+			state.delim += '    ';
+			renderListChildren(state, node);
+			state.delim = prevDelim;
+
+			// Strip trailing whitespace-only line to prevent extra blank lines.
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
+			state.out = state.out.replace(/\n[ \t]+\n$/, '\n');
+			return;
+		}
+
 		const delimiter = parent.type.name === 'bulletList' ? '• ' : `${index + 1}. `;
 
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
 
-			if (i > 0) {
+			if (i > 0 && !listTypes.has(child.type.name)) {
 				state.write('\n');
 			}
 
@@ -215,6 +250,12 @@ export const nodes = {
 			}
 
 			state.flushClose(1);
+		}
+
+		// Collapse nested list unwinding whitespace.
+		const lastChild = node.child(node.childCount - 1);
+		if (node.childCount > 1 && listTypes.has(lastChild.type.name)) {
+			collapseTrailingUnwind(state);
 		}
 
 		if (index === parent.childCount - 1) {

@@ -28,7 +28,7 @@ import {
 } from './color';
 import ruleMeta from './rule-meta';
 import { lintObjectForSpacing } from './spacing';
-import { type RuleConfig } from './types';
+import type { RuleConfig } from './types';
 import {
 	convertHyphenatedNameToCamelCase,
 	emToPixels,

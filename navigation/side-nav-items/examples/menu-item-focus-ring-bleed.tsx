@@ -8,7 +8,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import HomeIcon from '@atlaskit/icon/core/home';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 
@@ -30,7 +30,7 @@ export function LinkMenuItemBleed() {
 
 	return (
 		<div css={styles.root}>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<LinkMenuItem href="#" elemBefore={homeIcon} isSelected>
 						1.1 (selected)
@@ -42,7 +42,7 @@ export function LinkMenuItemBleed() {
 						1.3 (selected)
 					</LinkMenuItem>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 		</div>
 	);
 }

@@ -1,9 +1,16 @@
 import { act, screen, within } from '@testing-library/react';
 
+import * as exp from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
 import * as analytics from '../../../../utils/analytics/analytics';
 import * as HoverCardComponent from '../../components/HoverCardComponent';
-import { mockBaseResponseWithDownload, mockBaseResponseWithPreview } from '../__mocks__/mocks';
+import {
+	mockBaseResponse,
+	mockBaseResponseWithDownload,
+	mockBaseResponseWithPreview,
+} from '../__mocks__/mocks';
 
 import {
 	type setup as hoverCardSetup,
@@ -334,6 +341,249 @@ export const analyticsTests = (
 					}),
 				}),
 			);
+		});
+
+		describe('fire with viewVariant when rovo action is enabled', () => {
+			ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
+				const mock = {
+					...mockBaseResponse,
+					meta: { ...mockBaseResponse.meta, key: 'google-object-provider' },
+				};
+				const rovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
+				const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
+
+				beforeEach(() => {
+					jest.spyOn(exp, 'expValEqualsNoExposure').mockReturnValue(true);
+				});
+
+				describe.each<[string, SetUpParams | undefined]>([
+					['default', { mock }],
+					['default', { extraCardProps: { actionOptions }, mock }],
+					['default', { mock, rovoOptions }],
+					['rovo-resolved-view', { extraCardProps: { actionOptions }, mock, rovoOptions }],
+				])('with viewVariant %s', (viewVariant: string, params?: SetUpParams) => {
+					it('should fire hover card viewed event with correct data in the analytics context', async () => {
+						const { mockAnalyticsClient } = await setup(params);
+						await screen.findByTestId('hover-card');
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'viewed',
+								actionSubject: 'hoverCard',
+								attributes: expect.objectContaining({
+									previewDisplay: 'card',
+									previewInvokeMethod: 'mouse_hover',
+									status: 'resolved',
+									viewVariant,
+								}),
+							}),
+						);
+					});
+
+					it('should fire viewed event when hover card is opened', async () => {
+						const { mockAnalyticsClient } = await setup(params);
+
+						// wait for card to be resolved
+						const hoverCard = await screen.findByTestId('hover-card');
+						within(hoverCard).getByTestId('smart-block-title-resolved-view');
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'viewed',
+								actionSubject: 'hoverCard',
+								attributes: expect.objectContaining({
+									previewDisplay: 'card',
+									previewInvokeMethod: 'mouse_hover',
+									status: 'resolved',
+									viewVariant,
+								}),
+							}),
+						);
+					});
+
+					it('should fire closed event when hover card is opened then closed', async () => {
+						const { element, event, mockAnalyticsClient } = await setup(params);
+						// wait for card to be resolved
+						const hoverCard = await screen.findByTestId('hover-card');
+						within(hoverCard).getByTestId('smart-block-title-resolved-view');
+						await event.unhover(element);
+						act(() => {
+							jest.runAllTimers();
+						});
+						expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'dismissed',
+								actionSubject: 'hoverCard',
+								attributes: expect.objectContaining({
+									previewDisplay: 'card',
+									previewInvokeMethod: 'mouse_hover',
+									status: 'resolved',
+									hoverTime: 0,
+									viewVariant,
+								}),
+							}),
+						);
+					});
+
+					it('should fire clicked event when title is clicked', async () => {
+						const { event, mockAnalyticsClient } = await setup(params);
+
+						act(() => {
+							jest.runAllTimers();
+						});
+
+						mockAnalyticsClient.sendUIEvent.mockClear();
+
+						const hoverCard = await screen.findByTestId('hover-card');
+						const link = within(hoverCard).getByTestId('smart-element-link');
+
+						await event.click(link);
+
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'clicked',
+								actionSubject: 'smartLink',
+								actionSubjectId: 'titleGoToLink',
+								attributes: expect.objectContaining({
+									definitionId: 'd1',
+									extensionKey: 'google-object-provider',
+									status: 'resolved',
+									isModifierKeyPressed: false,
+									display: 'hoverCardPreview',
+									viewVariant,
+								}),
+							}),
+						);
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								actionSubject: 'link',
+								action: 'clicked',
+								attributes: expect.objectContaining({
+									definitionId: 'd1',
+									extensionKey: 'google-object-provider',
+									status: 'resolved',
+									display: 'hoverCardPreview',
+									viewVariant,
+								}),
+							}),
+						);
+
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'clicked',
+								actionSubject: 'smartLink',
+								attributes: expect.objectContaining({
+									definitionId: 'd1',
+									extensionKey: 'google-object-provider',
+									status: 'resolved',
+									display: 'hoverCardPreview',
+									viewVariant,
+								}),
+							}),
+						);
+					});
+
+					it('should fire clicked event when title is middle clicked', async () => {
+						const { analyticsSpy, event } = await setup(params);
+
+						await screen.findByTestId('smart-block-title-resolved-view');
+						const link = await screen.findByTestId('smart-element-link');
+
+						await event.click(link);
+
+						expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+							{
+								payload: {
+									action: 'clicked',
+									actionSubject: 'link',
+								},
+							},
+							analytics.ANALYTICS_CHANNEL,
+						);
+					});
+
+					it('should fire clicked event when title is right clicked', async () => {
+						const { analyticsSpy, event } = await setup(params);
+
+						await screen.findByTestId('smart-block-title-resolved-view');
+						const link = await screen.findByTestId('smart-element-link');
+
+						// @ts-ignore
+						await event.click(link, { button: 2 });
+
+						expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+							{
+								payload: {
+									action: 'clicked',
+									actionSubject: 'link',
+								},
+							},
+							analytics.ANALYTICS_CHANNEL,
+						);
+					});
+
+					it('should fire link clicked event with attributes from SmartLinkAnalyticsContext if link is resolved', async () => {
+						const { mockAnalyticsClient, event } = await setup({
+							...params,
+							extraCardProps: { ...params?.extraCardProps, id: 'some-id' },
+						});
+						mockAnalyticsClient.sendUIEvent.mockClear();
+
+						const hoverCard = await screen.findByTestId('hover-card');
+						within(hoverCard).getByTestId('smart-block-title-resolved-view');
+						const link = within(hoverCard).getByTestId('smart-element-link');
+
+						await event.click(link);
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'clicked',
+								actionSubject: 'link',
+								attributes: expect.objectContaining({
+									extensionKey: 'google-object-provider',
+									status: 'resolved',
+									viewVariant,
+								}),
+							}),
+						);
+					});
+
+					it('should fire clicked event and close event when preview button is clicked', async () => {
+						const { event, mockAnalyticsClient } = await setup(params);
+						mockAnalyticsClient.sendUIEvent.mockClear();
+
+						await screen.findByTestId('smart-block-title-resolved-view');
+						const button = await screen.findByTestId('smart-action-preview-action');
+						await event.click(button);
+
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'clicked',
+								actionSubject: 'button',
+								actionSubjectId: 'invokePreviewScreen',
+								attributes: expect.objectContaining({
+									actionType: 'PreviewAction',
+									display: 'hoverCardPreview',
+									extensionKey: 'google-object-provider',
+									viewVariant,
+								}),
+							}),
+						);
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'dismissed',
+								actionSubject: 'hoverCard',
+								attributes: expect.objectContaining({
+									previewDisplay: 'card',
+									previewInvokeMethod: 'mouse_hover',
+									status: 'resolved',
+									extensionKey: 'google-object-provider',
+									hoverTime: 0,
+									viewVariant,
+								}),
+							}),
+						);
+					});
+				});
+			});
 		});
 	});
 };

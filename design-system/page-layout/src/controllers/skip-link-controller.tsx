@@ -3,7 +3,7 @@ import React, { type FC, type ReactNode, useRef, useState } from 'react';
 import { PAGE_LAYOUT_SLOT_SELECTOR } from '../common/constants';
 
 import { SkipLinksContext } from './skip-link-context';
-import { type SkipLinkData } from './types';
+import type { SkipLinkData } from './types';
 
 const byDOMOrder = (a: SkipLinkData, b: SkipLinkData) => {
 	const elems = Array.from(document.querySelectorAll(`[${PAGE_LAYOUT_SLOT_SELECTOR}]`));

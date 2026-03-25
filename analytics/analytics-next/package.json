@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-next",
-	"version": "11.1.4",
+	"version": "11.2.0",
 	"description": "React components, HOCs and hooks to assist with tracking user activity with React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,7 +46,10 @@
 		"./AnalyticsEvent": "./src/events/AnalyticsEvent.ts",
 		"./UIAnalyticsEvent": "./src/events/UIAnalyticsEvent.ts",
 		"./createAndFireEvents": "./src/utils/createAndFireEvent.ts",
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./cleanProps": "./src/utils/cleanProps.ts",
+		"./AnalyticsReactContext": "./src/components/AnalyticsReactContext.tsx",
+		"./usePlatformLeafSyntheticEventHandler": "./src/hooks/usePlatformLeafSyntheticEventHandler.ts"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next-stable-react-context": "root:*",

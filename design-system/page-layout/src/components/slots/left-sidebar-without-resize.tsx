@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { jsx } from '@emotion/react';
 
 import { VAR_LEFT_SIDEBAR_WIDTH } from '../../common/constants';
-import { type SlotWidthProps } from '../../common/types';
+import type { SlotWidthProps } from '../../common/types';
 import { resolveDimension } from '../../common/utils';
 import { publishGridState, useSkipLink } from '../../controllers';
 

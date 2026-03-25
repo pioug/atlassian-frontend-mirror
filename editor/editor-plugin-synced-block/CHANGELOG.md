@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 6.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.23
+
+### Patch Changes
+
+- [`a9d6a5531d4ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9d6a5531d4ba) -
+  [ux] Ensures hasUnsavedBodiedSyncBlockChanges state is updated when page is being published.
+- Updated dependencies
+
+## 6.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.20
 
 ### Patch Changes

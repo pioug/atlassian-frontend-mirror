@@ -15,7 +15,7 @@ import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
 import { ButtonItem } from '@atlaskit/menu';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import Popup from '@atlaskit/popup';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { ButtonMenuItem, COLLAPSE_ELEM_BEFORE } from '@atlaskit/side-nav-items/button-menu-item';
@@ -86,7 +86,7 @@ const elemAfter = <Lozenge>elem after</Lozenge>;
 
 export const ButtonMenuItemExample = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ButtonMenuItem>Text only</ButtonMenuItem>
 				<ButtonMenuItem elemBefore={COLLAPSE_ELEM_BEFORE}>
@@ -215,7 +215,7 @@ export const ButtonMenuItemExample = () => (
 					Selected and disabled
 				</ButtonMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
@@ -230,7 +230,7 @@ export const ButtonMenuItemWithPopup = () => {
 	const [isNestedPopup2Open, setIsNestedPopup2Open] = useState(true);
 	return (
 		<div css={styles.root}>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<ButtonMenuItem
 						elemBefore={homeIcon}
@@ -300,7 +300,7 @@ export const ButtonMenuItemWithPopup = () => {
 						With elemAfter and action
 					</ButtonMenuItem>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 		</div>
 	);
 };

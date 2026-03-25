@@ -67,6 +67,8 @@ const statusContainer = css({
 const detailsHeaderContainer = css({
 	display: 'flex',
 	justifyContent: 'space-between',
+	alignItems: 'center',
+	width: '100%',
 	padding: `11px ${token('space.150')} 11px ${token('space.150')}`,
 	border: `solid ${token('border.width')} rgb(235, 236, 240)`,
 	borderRadius: `${token('radius.small')} ${token('radius.small')} 0px 0px`,
@@ -74,6 +76,8 @@ const detailsHeaderContainer = css({
 	top: token('space.400'),
 	background: 'white none repeat scroll 0% 0%',
 	zIndex: 99,
+	cursor: 'pointer',
+	font: 'inherit',
 });
 
 const detialsContentContainer = css({
@@ -131,8 +135,8 @@ export default function CommentWithJiraCardsExample(): jsx.JSX.Element {
 									</Button>
 								</div>
 
-								{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions */}
-								<div
+								<button
+									type="button"
 									css={detailsHeaderContainer}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 									style={isOpen ? {} : { borderRadius: 4 }}
@@ -140,7 +144,7 @@ export default function CommentWithJiraCardsExample(): jsx.JSX.Element {
 								>
 									<strong>Details</strong>
 									<ChevronDown label="" size="small" />
-								</div>
+								</button>
 								{isOpen && (
 									<div css={detialsContentContainer}>
 										<EditorContext>

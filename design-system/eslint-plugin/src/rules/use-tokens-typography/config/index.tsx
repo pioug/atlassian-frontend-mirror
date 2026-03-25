@@ -1,6 +1,6 @@
 /* eslint-disable @atlassian/tangerine/import/entry-points */
 
-import { type JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
+import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 
 type Pattern =
 	| 'style-object'

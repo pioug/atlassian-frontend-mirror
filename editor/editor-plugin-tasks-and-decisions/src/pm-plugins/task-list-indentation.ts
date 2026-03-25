@@ -30,6 +30,21 @@ export function flattenTaskList(options: FlattenListOptions): FlattenListResult 
 	});
 }
 
+// Each stack entry collects children for a taskList at a given depth.
+// The root entry (depth -1) is special: its children become the content
+// of the outermost taskList directly (not wrapped in another taskList).
+// Entries at depth >= 0 each produce a nested taskList when popped.
+// listAttrs preserves the original parent's attributes when available.
+// sourceParentAttrs tracks the original parent taskList attrs of the items
+// in this entry, used to decide whether consecutive same-depth items
+// should share a wrapper or be separated.
+type StackEntry = {
+	children: PMNode[];
+	depth: number;
+	listAttrs: Attrs | null;
+	sourceParentAttrs: Attrs | null;
+};
+
 /**
  * Rebuilds a taskList tree from a flattened array of task items.
  * Uses a stack-based approach to create proper nesting.
@@ -62,21 +77,6 @@ export function rebuildTaskList(
 
 	if (items.length === 0) {
 		return null;
-	}
-
-	// Each stack entry collects children for a taskList at a given depth.
-	// The root entry (depth -1) is special: its children become the content
-	// of the outermost taskList directly (not wrapped in another taskList).
-	// Entries at depth >= 0 each produce a nested taskList when popped.
-	// listAttrs preserves the original parent's attributes when available.
-	// sourceParentAttrs tracks the original parent taskList attrs of the items
-	// in this entry, used to decide whether consecutive same-depth items
-	// should share a wrapper or be separated.
-	interface StackEntry {
-		children: PMNode[];
-		depth: number;
-		listAttrs: Attrs | null;
-		sourceParentAttrs: Attrs | null;
 	}
 
 	// Start with the root level (depth -1 represents the root taskList wrapper)

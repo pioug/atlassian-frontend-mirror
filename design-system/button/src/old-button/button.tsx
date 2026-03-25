@@ -96,7 +96,7 @@ const Button: React.MemoExoticComponent<
 				buttonCss={buttonCss}
 				children={children}
 				// Due to how click events are set, we need to set active styles
-				//  manually in Firefox and wrap onMouseDown/onMouseUp
+				// manually in Firefox and wrap onMouseDown/onMouseUp
 				data-firefox-is-active={isActive ? true : undefined}
 				iconAfter={iconAfter}
 				iconBefore={iconBefore}

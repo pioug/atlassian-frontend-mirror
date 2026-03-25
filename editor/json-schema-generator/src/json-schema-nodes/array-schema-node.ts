@@ -1,5 +1,6 @@
 import type SchemaNode from './schema-node';
-import SchemaNodeWithValidators, { type Indexed } from './schema-node-with-validators';
+import SchemaNodeWithValidators from './schema-node-with-validators';
+import type { Indexed } from './schema-node-with-validators';
 
 export interface ArrayValidators extends Indexed {
 	maxItems?: number; // 6.11

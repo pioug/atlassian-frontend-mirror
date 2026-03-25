@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 
 import Select from './select';
-import { type GroupBase } from './types';
+import type { GroupBase } from './types';
 import useAsync, { type AsyncProps } from './use-async';
 import useStateManager from './use-state-manager';
 export type { AsyncProps };

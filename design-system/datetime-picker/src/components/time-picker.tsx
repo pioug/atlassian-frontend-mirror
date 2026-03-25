@@ -7,6 +7,7 @@ import React, {
 	useState,
 } from 'react';
 
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { format, isValid } from 'date-fns';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';

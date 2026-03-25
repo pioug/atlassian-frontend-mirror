@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 17.5.6
+
+### Patch Changes
+
+- [`d14fcb02e17e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d14fcb02e17e7) -
+  Fix bad falsy check in functional datetime picker behind feature flag.
+
 ## 17.5.5
 
 ### Patch Changes

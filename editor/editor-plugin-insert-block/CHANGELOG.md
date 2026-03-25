@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 9.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.11
+
+### Patch Changes
+
+- [`da1128b3090cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da1128b3090cc) -
+  [EDITOR-5922] Update media picker to mount to popupsMountPoint (e.g. portal) if available so that
+  it is still visible when rendering outside of editor that has overflow hidden (e.g. resizable
+  editor)
+- Updated dependencies
+
 ## 9.0.10
 
 ### Patch Changes

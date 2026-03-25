@@ -1,4 +1,7 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { RawObservation, RevisionPayloadEntry, VCAbortReason } from '../../../common/vc/types';
+import { getEarliestHiddenTiming } from '../../../hidden-timing';
 import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
 import getViewportWidth from '../metric-calculator/utils/get-viewport-width';
 import type { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../types';
@@ -76,7 +79,9 @@ export default class RawDataHandler {
 				clean: false,
 				'metric:vc90': null,
 				abortReason: 'browser_backgrounded',
-				abortTimestamp: -1,
+				abortTimestamp: fg('platform_ufo_fix_abort_timestamp_raw_data')
+					? (getEarliestHiddenTiming(startTime, stopTime) ?? -1)
+					: -1,
 				viewport: { w: getViewportWidth(), h: getViewportHeight() },
 			};
 		}

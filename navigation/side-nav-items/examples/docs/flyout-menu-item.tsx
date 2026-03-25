@@ -7,7 +7,7 @@ import ClockIcon from '@atlaskit/icon/core/clock';
 import FilterIcon from '@atlaskit/icon/core/filter';
 import SearchIcon from '@atlaskit/icon/core/search';
 import { JiraIcon } from '@atlaskit/logo';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import {
@@ -99,7 +99,7 @@ function MyFlyoutMenuItemContent() {
 
 export const FlyoutMenuItemExample = (): React.JSX.Element => (
 	<MockSideNav>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<FlyoutMenuItem>
 					<FlyoutMenuItemTrigger elemBefore={<ClockIcon label="" />}>
@@ -143,7 +143,7 @@ export const FlyoutMenuItemExample = (): React.JSX.Element => (
 					<MyFlyoutMenuItemContent />
 				</FlyoutMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</MockSideNav>
 );
 

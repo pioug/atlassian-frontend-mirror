@@ -18,7 +18,7 @@ import {
 	isDecendantOfStyleBlock,
 	isDecendantOfType,
 } from '../../utils/is-node';
-import { type RuleConfig } from '../config';
+import type { RuleConfig } from '../config';
 import {
 	convertPropertyNodeToStringableNode,
 	defaultFontWeight,

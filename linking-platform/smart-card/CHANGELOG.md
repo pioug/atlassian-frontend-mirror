@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 43.27.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.27.4
+
+### Patch Changes
+
+- [`d8be6e648fd52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8be6e648fd52) -
+  Refactor ActionBlock for SL 3P auth experiment
+- Updated dependencies
+
+## 43.27.3
+
+### Patch Changes
+
+- [`972c9cf1a64ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/972c9cf1a64ee) -
+  Add viewVarient to HoverCard content analytics events
+- Updated dependencies
+
 ## 43.27.2
 
 ### Patch Changes

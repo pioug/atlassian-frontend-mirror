@@ -1,3 +1,4 @@
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { Device, snapshotInformational } from '@atlassian/gemini';
 
 import TopNavWithLongProductName from '../../../../../examples/top-nav-with-long-name';

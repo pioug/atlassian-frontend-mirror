@@ -1,16 +1,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable no-bitwise, @atlaskit/editor/no-re-export */
-import {
-	type Node,
-	type Type,
-	type Symbol,
-	JsxEmit,
-	SymbolFlags,
-	ObjectFlags,
-	createProgram,
-	type StringLiteralType,
-	ModuleResolutionKind,
-} from 'typescript';
+import { JsxEmit, SymbolFlags, ObjectFlags, createProgram, ModuleResolutionKind } from 'typescript';
+import type { Node, Type, Symbol, StringLiteralType } from 'typescript';
 import { writeFileSync } from 'fs';
 import { resolve, join } from 'path';
 // Ignored via go/ees005

@@ -27,7 +27,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
@@ -198,9 +198,9 @@ export const AllSlots: () => JSX.Element = () => {
 					</TopNavEnd>
 				</TopNav>
 				<SideNav defaultCollapsed>
-					<SideNavContent>
+					<SideNavBody>
 						<BoardMenuItem />
-					</SideNavContent>
+					</SideNavBody>
 					<PanelSplitter label="Resize side nav" />
 				</SideNav>
 				<Main xcss={styles.main}>main content</Main>
@@ -248,7 +248,7 @@ export const AllSlotsScrollable: () => JSX.Element = () => {
 				</TopNavEnd>
 			</TopNav>
 			<SideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<ScrollableContent>
 						<div css={styles.sticky}>sticky in sticky</div>
 						<BoardMenuItem />
@@ -256,7 +256,7 @@ export const AllSlotsScrollable: () => JSX.Element = () => {
 						<BoardMenuItem />
 						<BoardMenuItem />
 					</ScrollableContent>
-				</SideNavContent>
+				</SideNavBody>
 				<PanelSplitter label="Resize side nav" />
 			</SideNav>
 			<Main xcss={styles.main} testId="main">
@@ -302,7 +302,7 @@ export const AllSlotsRTL: () => JSX.Element = () => {
 					</TopNavEnd>
 				</TopNav>
 				<SideNav>
-					<SideNavContent>side nav</SideNavContent>
+					<SideNavBody>side nav</SideNavBody>
 				</SideNav>
 				<Main xcss={styles.main}>main content</Main>
 				<Aside xcss={styles.aside}>aside</Aside>
@@ -324,7 +324,7 @@ export const TopBarSideNavMainAside: () => JSX.Element = () => (
 			</TopNavStart>
 		</TopNav>
 		<SideNav>
-			<SideNavContent>side nav</SideNavContent>
+			<SideNavBody>side nav</SideNavBody>
 		</SideNav>
 		<Main xcss={styles.main}>main content</Main>
 		<Aside xcss={styles.aside}>aside</Aside>
@@ -343,9 +343,9 @@ export const TopBarSideNavMainAsideScrollable: () => JSX.Element = () => (
 			</TopNavStart>
 		</TopNav>
 		<SideNav>
-			<SideNavContent>
+			<SideNavBody>
 				<ScrollableContent>side nav</ScrollableContent>
-			</SideNavContent>
+			</SideNavBody>
 		</SideNav>
 		<Main xcss={styles.main}>
 			<ScrollableContent>main content</ScrollableContent>
@@ -368,7 +368,7 @@ export const TopBarSideNavMain: () => JSX.Element = () => (
 			</TopNavStart>
 		</TopNav>
 		<SideNav>
-			<SideNavContent>side nav</SideNavContent>
+			<SideNavBody>side nav</SideNavBody>
 		</SideNav>
 		<Main xcss={styles.main}>main content</Main>
 	</Root>
@@ -386,9 +386,9 @@ export const TopBarSideNavMainScrollable: () => JSX.Element = () => (
 			</TopNavStart>
 		</TopNav>
 		<SideNav>
-			<SideNavContent>
+			<SideNavBody>
 				<ScrollableContent>side nav</ScrollableContent>
-			</SideNavContent>
+			</SideNavBody>
 		</SideNav>
 		<Main xcss={styles.main}>
 			<ScrollableContent>main content</ScrollableContent>
@@ -399,7 +399,7 @@ export const TopBarSideNavMainScrollable: () => JSX.Element = () => (
 export const SideNavMainAside: () => JSX.Element = () => (
 	<Root>
 		<SideNav>
-			<SideNavContent>side nav</SideNavContent>
+			<SideNavBody>side nav</SideNavBody>
 		</SideNav>
 		<Main xcss={styles.main}>main content</Main>
 		<Aside xcss={styles.aside}>aside</Aside>
@@ -409,9 +409,9 @@ export const SideNavMainAside: () => JSX.Element = () => (
 export const SideNavMainAsideScrollable: () => JSX.Element = () => (
 	<Root>
 		<SideNav>
-			<SideNavContent>
+			<SideNavBody>
 				<ScrollableContent>side nav</ScrollableContent>
-			</SideNavContent>
+			</SideNavBody>
 		</SideNav>
 		<Main xcss={styles.main}>
 			<ScrollableContent>main content</ScrollableContent>
@@ -452,10 +452,10 @@ export const Resizable: () => JSX.Element = () => (
 			</TopNavStart>
 		</TopNav>
 		<SideNav>
-			<SideNavContent>
+			<SideNavBody>
 				side nav
 				<PanelSplitter label="Resize side nav" />
-			</SideNavContent>
+			</SideNavBody>
 		</SideNav>
 		<Main xcss={styles.main}>main content</Main>
 	</Root>
@@ -474,10 +474,10 @@ export const ResizableRTL: () => JSX.Element = () => (
 				</TopNavStart>
 			</TopNav>
 			<SideNav>
-				<SideNavContent>
+				<SideNavBody>
 					side nav
 					<PanelSplitter label="Resize side nav" />
-				</SideNavContent>
+				</SideNavBody>
 			</SideNav>
 			<Main xcss={styles.main}>main content</Main>
 			<Aside xcss={styles.aside}>
@@ -538,7 +538,7 @@ export const SideNavOverflowingChildren: () => JSX.Element = () => (
 			</TopNavStart>
 		</TopNav>
 		<SideNav>
-			<SideNavContent>
+			<SideNavBody>
 				<div
 					css={styles.wide}
 					/**
@@ -552,7 +552,7 @@ export const SideNavOverflowingChildren: () => JSX.Element = () => (
 					side nav
 				</div>
 				<PanelSplitter label="Resize side nav" />
-			</SideNavContent>
+			</SideNavBody>
 		</SideNav>
 		<Main xcss={styles.main}>main content</Main>
 	</Root>
@@ -577,7 +577,7 @@ export const EdgeCaseSiblingAbsolutePositioned: () => JSX.Element = () => {
 					</TopNavEnd>
 				</TopNav>
 				<SideNav>
-					<SideNavContent>side nav</SideNavContent>
+					<SideNavBody>side nav</SideNavBody>
 				</SideNav>
 				<Aside xcss={styles.aside}>aside</Aside>
 				{panelShown && <Panel xcss={styles.panel}>panel</Panel>}
@@ -608,7 +608,7 @@ export const EdgeCaseSiblingAbsolutePositionedCollapsed: () => JSX.Element = () 
 				</TopNavStart>
 			</TopNav>
 			<SideNav defaultCollapsed>
-				<SideNavContent>side nav</SideNavContent>
+				<SideNavBody>side nav</SideNavBody>
 			</SideNav>
 			<Aside xcss={styles.aside}>aside</Aside>
 		</Root>
@@ -637,7 +637,7 @@ export const EdgeCaseSiblingAbsolutePositionedPanelVisible: () => JSX.Element = 
 					</TopNavEnd>
 				</TopNav>
 				<SideNav>
-					<SideNavContent>side nav</SideNavContent>
+					<SideNavBody>side nav</SideNavBody>
 				</SideNav>
 				<Aside xcss={styles.aside}>aside</Aside>
 				{panelShown && <Panel xcss={styles.panel}>panel</Panel>}
@@ -673,7 +673,7 @@ export const EdgeCaseUsingLegacyVars: () => JSX.Element = () => {
 					</TopNavEnd>
 				</TopNav>
 				<SideNav defaultCollapsed>
-					<SideNavContent>side nav</SideNavContent>
+					<SideNavBody>side nav</SideNavBody>
 				</SideNav>
 				<Aside xcss={styles.aside}>aside</Aside>
 				{panelShown && <Panel xcss={styles.panel}>panel</Panel>}
@@ -704,10 +704,10 @@ export const EdgeCaseSiblingAbsolutePositionedResizable: () => JSX.Element = () 
 					</TopNavEnd>
 				</TopNav>
 				<SideNav>
-					<SideNavContent>
+					<SideNavBody>
 						side nav
 						<PanelSplitter label="Resize side nav" />
-					</SideNavContent>
+					</SideNavBody>
 				</SideNav>
 				<Aside xcss={styles.aside}>
 					aside
@@ -769,7 +769,7 @@ export const ResizableWithIframeContent: () => JSX.Element = () => {
 					</TopNavEnd>
 				</TopNav>
 				<SideNav>
-					{/* Not using <SideNavContent> so the iframe can take up the full size */}
+					{/* Not using <SideNavBody> so the iframe can take up the full size */}
 					<Box xcss={iframeStyles.root} as="iframe" title="iframe" src={iframeSrc} />
 					<PanelSplitter label="Resize side nav" />
 				</SideNav>
@@ -820,7 +820,7 @@ export const AllSlotsBannerHeightZero: () => JSX.Element = () => {
 				</TopNavEnd>
 			</TopNav>
 			<SideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<ScrollableContent>
 						<div css={styles.sticky}>sticky in sticky</div>
 						<BoardMenuItem />
@@ -828,7 +828,7 @@ export const AllSlotsBannerHeightZero: () => JSX.Element = () => {
 						<BoardMenuItem />
 						<BoardMenuItem />
 					</ScrollableContent>
-				</SideNavContent>
+				</SideNavBody>
 			</SideNav>
 			<Main xcss={styles.main}>
 				<ScrollableContent>main content</ScrollableContent>
@@ -877,7 +877,7 @@ export const AllSlotsCustomSizes: () => JSX.Element = () => {
 				</TopNavEnd>
 			</TopNav>
 			<SideNav defaultWidth={250}>
-				<SideNavContent>
+				<SideNavBody>
 					<ScrollableContent>
 						<div css={styles.sticky}>sticky in sticky</div>
 						<BoardMenuItem />
@@ -885,7 +885,7 @@ export const AllSlotsCustomSizes: () => JSX.Element = () => {
 						<BoardMenuItem />
 						<BoardMenuItem />
 					</ScrollableContent>
-				</SideNavContent>
+				</SideNavBody>
 			</SideNav>
 			<Main xcss={styles.main}>
 				<ScrollableContent>main content</ScrollableContent>
@@ -935,7 +935,7 @@ export const EdgeCaseSiblingAbsolutePositionedCustomSizes: () => JSX.Element = (
 					</TopNavEnd>
 				</TopNav>
 				<SideNav defaultWidth={250}>
-					<SideNavContent>side nav</SideNavContent>
+					<SideNavBody>side nav</SideNavBody>
 				</SideNav>
 				<Aside xcss={styles.aside} defaultWidth={195}>
 					aside
@@ -983,7 +983,7 @@ export const SideNavWithMenuItems: () => JSX.Element = () => (
 			</TopNavStart>
 		</TopNav>
 		<SideNav>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<ButtonMenuItem elemBefore={homeIcon} actions={actions}>
 						Button menu item
@@ -999,7 +999,7 @@ export const SideNavWithMenuItems: () => JSX.Element = () => (
 						</FlyoutMenuItemContent>
 					</FlyoutMenuItem>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 		</SideNav>
 		<Main xcss={styles.main}>main content</Main>
 	</Root>

@@ -462,24 +462,14 @@ export function addHold(
 		const start = performance.now();
 		const holdActive = { labelStack, name, start };
 
-		if (fg('platform_ufo_enable_ttai_with_3p')) {
-			const is3pHold = labelStack.some((l) => 'type' in l && l.type === 'third-party');
-			if (is3pHold) {
-				if (!interaction.hold3pActive) {
-					interaction.hold3pActive = new Map();
-				}
-				interaction.hold3pActive.set(id, { ...holdActive, start });
-			} else {
-				interaction.holdActive.set(id, { ...holdActive, start });
-				addHoldCriterion(id, labelStack, name, start);
+		const is3pHold = labelStack.some((l) => 'type' in l && l.type === 'third-party');
+		if (is3pHold) {
+			if (!interaction.hold3pActive) {
+				interaction.hold3pActive = new Map();
 			}
+			interaction.hold3pActive.set(id, { ...holdActive, start });
 		} else {
-			if (getConfig()?.experimentalInteractionMetrics?.enabled && experimental) {
-				interaction.holdExpActive.set(id, { ...holdActive, start });
-			}
-			if (!experimental) {
-				interaction.holdActive.set(id, { ...holdActive, start });
-			}
+			interaction.holdActive.set(id, { ...holdActive, start });
 			addHoldCriterion(id, labelStack, name, start);
 		}
 
@@ -517,16 +507,14 @@ export function addHold(
 					interaction.holdExpActive.delete(id);
 				}
 
-				if (fg('platform_ufo_enable_ttai_with_3p')) {
-					if (interaction.hold3pActive) {
-						const current3pHold = interaction.hold3pActive.get(id);
-						if (current3pHold != null) {
-							if (!currentInteraction.hold3pInfo) {
-								currentInteraction.hold3pInfo = [];
-							}
-							currentInteraction.hold3pInfo.push({ ...current3pHold, end });
-							interaction.hold3pActive.delete(id);
+				if (interaction.hold3pActive) {
+					const current3pHold = interaction.hold3pActive.get(id);
+					if (current3pHold != null) {
+						if (!currentInteraction.hold3pInfo) {
+							currentInteraction.hold3pInfo = [];
 						}
+						currentInteraction.hold3pInfo.push({ ...current3pHold, end });
+						interaction.hold3pActive.delete(id);
 					}
 				}
 			}
@@ -545,17 +533,12 @@ export function addHoldByID(
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		const start = performance.now();
-		if (fg('platform_ufo_enable_ttai_with_3p')) {
-			const is3pHold = labelStack.some((l) => 'type' in l && l.type === 'third-party');
-			if (is3pHold) {
-				if (!interaction.hold3pActive) {
-					interaction.hold3pActive = new Map();
-				}
-				interaction.hold3pActive.set(id, { labelStack, name, start, ignoreOnSubmit });
-			} else {
-				interaction.holdActive.set(id, { labelStack, name, start, ignoreOnSubmit });
-				addHoldCriterion(id, labelStack, name, start);
+		const is3pHold = labelStack.some((l) => 'type' in l && l.type === 'third-party');
+		if (is3pHold) {
+			if (!interaction.hold3pActive) {
+				interaction.hold3pActive = new Map();
 			}
+			interaction.hold3pActive.set(id, { labelStack, name, start, ignoreOnSubmit });
 		} else {
 			interaction.holdActive.set(id, { labelStack, name, start, ignoreOnSubmit });
 			addHoldCriterion(id, labelStack, name, start);
@@ -577,16 +560,14 @@ export function removeHoldByID(interactionId: string, id: string): void {
 			removeHoldCriterion(id);
 		}
 
-		if (fg('platform_ufo_enable_ttai_with_3p')) {
-			if (interaction.hold3pActive) {
-				const current3pHold = interaction.hold3pActive.get(id);
-				if (currentInteraction != null && current3pHold != null) {
-					if (!currentInteraction.hold3pInfo) {
-						currentInteraction.hold3pInfo = [];
-					}
-					currentInteraction.hold3pInfo.push({ ...current3pHold, end });
-					interaction.hold3pActive.delete(id);
+		if (interaction.hold3pActive) {
+			const current3pHold = interaction.hold3pActive.get(id);
+			if (currentInteraction != null && current3pHold != null) {
+				if (!currentInteraction.hold3pInfo) {
+					currentInteraction.hold3pInfo = [];
 				}
+				currentInteraction.hold3pInfo.push({ ...current3pHold, end });
+				interaction.hold3pActive.delete(id);
 			}
 		}
 	}
@@ -798,16 +779,9 @@ function finishInteraction(
 		postInteractionLog.stopVCObserver();
 	}
 
-	if (fg('platform_ufo_enable_ttai_with_3p')) {
-		const sanitisedUfoName = sanitizeUfoName(data.ufoName);
-		if (!coinflip(getExtraInteractionRate(sanitisedUfoName, data.type))) {
-			interactionExtraMetrics.stopAll(id);
-		} else if (!data.hold3pActive || data.hold3pActive.size === 0) {
-			if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
-				remove(id);
-			}
-		}
-	} else {
+	if (!coinflip(getExtraInteractionRate(sanitisedUfoName, data.type))) {
+		interactionExtraMetrics.stopAll(id);
+	} else if (!data.hold3pActive || data.hold3pActive.size === 0) {
 		if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
 			remove(id);
 		}
@@ -821,12 +795,8 @@ function finishInteraction(
 	PreviousInteractionLog.name = data.ufoName || 'unknown';
 	PreviousInteractionLog.isAborted = data.abortReason != null;
 	if (data.ufoName) {
-		if (fg('platform_ufo_enable_ttai_with_3p')) {
-			if (interactionExtraMetrics.finishedInteraction?.id !== id) {
-				// If this same interaction was not already handled, handle it
-				handleInteraction(id, data);
-			}
-		} else {
+		if (interactionExtraMetrics.finishedInteraction?.id !== id) {
+			// If this same interaction was not already handled, handle it
 			handleInteraction(id, data);
 		}
 	}
@@ -931,14 +901,8 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 				});
 			}
 
-			if (fg('platform_ufo_enable_ttai_with_3p')) {
-				if (interactionExtraMetrics.finishedInteraction?.id !== interactionId) {
-					// If interactionExtraMetrics is not waiting for measuring this interaction
-					if (getConfig()?.experimentalInteractionMetrics?.enabled) {
-						remove(interactionId);
-					}
-				}
-			} else {
+			if (interactionExtraMetrics.finishedInteraction?.id !== interactionId) {
+				// If interactionExtraMetrics is not waiting for measuring this interaction
 				if (getConfig()?.experimentalInteractionMetrics?.enabled) {
 					remove(interactionId);
 				}
@@ -946,111 +910,39 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 			activeSubmitted = false;
 		};
 
-		if (fg('platform_ufo_enable_ttai_with_3p')) {
-			const noMoreActive3pHolds =
-				interaction.hold3pActive?.size === 0 || interaction.hold3pActive === undefined;
+		const noMoreActive3pHolds =
+			interaction.hold3pActive?.size === 0 || interaction.hold3pActive === undefined;
 
-			// If using raw data third party behavior, wait for 3p holds to clear
-			if (shouldUseRawDataThirdParty) {
-				// If there are no non-3p holds active, mark the interaction as successful
-				// but don't finish until 3p holds are cleared
-				if (noMoreActiveHolds && !noMoreActive3pHolds) {
-					// Mark interaction as successful by setting endTime, but don't finish yet
-					if (endTime !== undefined && interaction.end === 0) {
-						interaction.end = endTime;
-					}
-					// Wait for 3p holds to clear before finishing
-					return;
+		// If using raw data third party behavior, wait for 3p holds to clear
+		if (shouldUseRawDataThirdParty) {
+			// If there are no non-3p holds active, mark the interaction as successful
+			// but don't finish until 3p holds are cleared
+			if (noMoreActiveHolds && !noMoreActive3pHolds) {
+				// Mark interaction as successful by setting endTime, but don't finish yet
+				if (endTime !== undefined && interaction.end === 0) {
+					interaction.end = endTime;
 				}
-
-				// If all holds (including 3p) are cleared, finish the interaction
-				if (noMoreActiveHolds && noMoreActive3pHolds) {
-					if (!activeSubmitted) {
-						// Set end3p to current time when 3p holds cleared, but ensure it's at least interaction.end
-						const currentTime = endTime ?? performance.now();
-						interaction.end3p =
-							interaction.end !== 0 && currentTime < interaction.end
-								? interaction.end
-								: currentTime;
-						finishInteraction(
-							interactionId,
-							interaction,
-							interaction.end !== 0 ? interaction.end : endTime,
-						);
-						if (getConfig()?.extraInteractionMetrics?.enabled) {
-							interactionExtraMetrics.updateFinishedInteraction(interaction);
-						}
-
-						if (
-							getConfig()?.extraSearchPageInteraction?.enabled &&
-							interaction.ufoName === getConfig()?.extraSearchPageInteraction?.searchPageMetricName
-						) {
-							onSearchPageInteractionComplete(interactionId, interaction);
-						}
-
-						activeSubmitted = true;
-					}
-
-					if (noMoreExpHolds) {
-						if (getConfig()?.experimentalInteractionMetrics?.enabled) {
-							onExperimentalInteractionComplete(
-								interactionId,
-								interaction,
-								endTime || interaction.end,
-							);
-						}
-						postInteraction();
-					}
-				}
-				// Send separated third-party event even when feature flag is active
-				if (noMoreActiveHolds && noMoreActive3pHolds) {
-					const data = {
-						...interaction,
-						end: endTime || interaction.end,
-					};
-					interactionExtraMetrics.onInteractionComplete(interactionId, data);
-				}
-			} else {
-				// Original behavior when feature flag is not active
-				if (
-					noMoreActiveHolds &&
-					interactionExtraMetrics.finishedInteraction?.id !== interactionId
-				) {
-					// If it's not waiting for extra metrics to complete, finish the interaction as normal
-					if (!activeSubmitted) {
-						finishInteraction(interactionId, interaction, endTime);
-						if (getConfig()?.extraInteractionMetrics?.enabled) {
-							interactionExtraMetrics.updateFinishedInteraction(interaction);
-						}
-
-						if (
-							getConfig()?.extraSearchPageInteraction?.enabled &&
-							interaction.ufoName === getConfig()?.extraSearchPageInteraction?.searchPageMetricName
-						) {
-							onSearchPageInteractionComplete(interactionId, interaction);
-						}
-						activeSubmitted = true;
-					}
-
-					if (noMoreExpHolds) {
-						if (getConfig()?.experimentalInteractionMetrics?.enabled) {
-							onExperimentalInteractionComplete(interactionId, interaction, endTime);
-						}
-						postInteraction();
-					}
-				}
-				if (noMoreActiveHolds && noMoreActive3pHolds) {
-					const data = {
-						...interaction,
-						end: endTime!,
-					};
-					interactionExtraMetrics.onInteractionComplete(interactionId, data);
-				}
+				// Wait for 3p holds to clear before finishing
+				return;
 			}
-		} else {
-			if (noMoreActiveHolds) {
+
+			// If all holds (including 3p) are cleared, finish the interaction
+			if (noMoreActiveHolds && noMoreActive3pHolds) {
 				if (!activeSubmitted) {
-					finishInteraction(interactionId, interaction, endTime);
+					// Set end3p to current time when 3p holds cleared, but ensure it's at least interaction.end
+					const currentTime = endTime ?? performance.now();
+					interaction.end3p =
+						interaction.end !== 0 && currentTime < interaction.end
+							? interaction.end
+							: currentTime;
+					finishInteraction(
+						interactionId,
+						interaction,
+						interaction.end !== 0 ? interaction.end : endTime,
+					);
+					if (getConfig()?.extraInteractionMetrics?.enabled) {
+						interactionExtraMetrics.updateFinishedInteraction(interaction);
+					}
 
 					if (
 						getConfig()?.extraSearchPageInteraction?.enabled &&
@@ -1064,10 +956,58 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 
 				if (noMoreExpHolds) {
 					if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+						onExperimentalInteractionComplete(
+							interactionId,
+							interaction,
+							endTime || interaction.end,
+						);
+					}
+					postInteraction();
+				}
+			}
+			// Send separated third-party event even when feature flag is active
+			if (noMoreActiveHolds && noMoreActive3pHolds) {
+				const data = {
+					...interaction,
+					end: endTime || interaction.end,
+				};
+				interactionExtraMetrics.onInteractionComplete(interactionId, data);
+			}
+		} else {
+			// Original behavior when feature flag is not active
+			if (
+				noMoreActiveHolds &&
+				interactionExtraMetrics.finishedInteraction?.id !== interactionId
+			) {
+				// If it's not waiting for extra metrics to complete, finish the interaction as normal
+				if (!activeSubmitted) {
+					finishInteraction(interactionId, interaction, endTime);
+					if (getConfig()?.extraInteractionMetrics?.enabled) {
+						interactionExtraMetrics.updateFinishedInteraction(interaction);
+					}
+
+					if (
+						getConfig()?.extraSearchPageInteraction?.enabled &&
+						interaction.ufoName === getConfig()?.extraSearchPageInteraction?.searchPageMetricName
+					) {
+						onSearchPageInteractionComplete(interactionId, interaction);
+					}
+					activeSubmitted = true;
+				}
+
+				if (noMoreExpHolds) {
+					if (getConfig()?.experimentalInteractionMetrics?.enabled) {
 						onExperimentalInteractionComplete(interactionId, interaction, endTime);
 					}
 					postInteraction();
 				}
+			}
+			if (noMoreActiveHolds && noMoreActive3pHolds) {
+				const data = {
+					...interaction,
+					end: endTime!,
+				};
+				interactionExtraMetrics.onInteractionComplete(interactionId, data);
 			}
 		}
 	}
@@ -1097,9 +1037,7 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
 
-			if (fg('platform_ufo_enable_ttai_with_3p')) {
-				interactionExtraMetrics.stopAll(interactionId);
-			}
+			interactionExtraMetrics.stopAll(interactionId);
 
 			if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 				onExperimentalInteractionComplete(interactionId, interaction, endTime);
@@ -1114,9 +1052,7 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
 
-		if (fg('platform_ufo_enable_ttai_with_3p')) {
-			interactionExtraMetrics.stopAll(interactionId);
-		}
+		interactionExtraMetrics.stopAll(interactionId);
 
 		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 			onExperimentalInteractionComplete(interactionId, interaction);
@@ -1144,9 +1080,7 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
 
-			if (fg('platform_ufo_enable_ttai_with_3p')) {
-				interactionExtraMetrics.stopAll(interactionId);
-			}
+			interactionExtraMetrics.stopAll(interactionId);
 
 			if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 				onExperimentalInteractionComplete(interactionId, interaction, endTime);
@@ -1162,9 +1096,7 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
 
-		if (fg('platform_ufo_enable_ttai_with_3p')) {
-			interactionExtraMetrics.stopAll(interactionId);
-		}
+		interactionExtraMetrics.stopAll(interactionId);
 
 		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 			onExperimentalInteractionComplete(interactionId, interaction);
@@ -1211,9 +1143,7 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
 
-			if (fg('platform_ufo_enable_ttai_with_3p')) {
-				interactionExtraMetrics.stopAll(interactionId);
-			}
+			interactionExtraMetrics.stopAll(interactionId);
 
 			if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 				onExperimentalInteractionComplete(interactionId, interaction, endTime);
@@ -1234,9 +1164,7 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
 
-		if (fg('platform_ufo_enable_ttai_with_3p')) {
-			interactionExtraMetrics.stopAll(interactionId);
-		}
+		interactionExtraMetrics.stopAll(interactionId);
 
 		if (coinflip(getExperimentalInteractionRate(interaction.ufoName, interaction.type))) {
 			onExperimentalInteractionComplete(interactionId, interaction);
@@ -1408,7 +1336,7 @@ export function addNewInteraction(
 		if (coinflip(getExperimentalInteractionRate(ufoName, type))) {
 			experimentalVC.start({ startTime });
 		}
-		if (config?.extraInteractionMetrics?.enabled && fg('platform_ufo_enable_ttai_with_3p')) {
+		if (config?.extraInteractionMetrics?.enabled) {
 			interactionExtraMetrics.startVCObserver({ startTime }, interactionId);
 		}
 	}

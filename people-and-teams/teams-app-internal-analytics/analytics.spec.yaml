@@ -394,6 +394,23 @@ events:
           type: []
           required: false
           description: the result
+  - inviteToSoftwareAndBusinessProjects failed:
+      type: track
+      description: fired when inviting users to software and business projects failed
+      attributes:
+        <<: *PackageMetaDataContext
+        message:
+          type: string
+          description: the error message
+        spacesCount:
+          type: number
+          description: the number of spaces the invite was attempted for
+        newUsersCount:
+          type: number
+          description: the number of new users invited by email
+        existingUsersCount:
+          type: number
+          description: the number of existing users invited by account id
   - containerPermissions succeeded:
       type: track
       description: fired when the container permissions are succeeded

@@ -6,6 +6,7 @@ import { cloneElement, type ComponentType, forwardRef, isValidElement, memo } fr
 
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { AvatarPropTypes } from '@atlaskit/avatar';
 import StatusVerifiedIcon from '@atlaskit/icon/core/status-verified';
 import type { TeamAvatarProps } from '@atlaskit/teams-avatar';
@@ -91,6 +92,11 @@ interface CommonAvatarTagProps {
 	 * Accepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').
 	 */
 	maxWidth?: string | number;
+	/**
+	 * Handler called when the tag is clicked. Only fires for link tags (when href is provided).
+	 * The second argument provides an Atlaskit UI analytics event.
+	 */
+	onClick?: (e: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => void;
 }
 
 /**
@@ -391,6 +397,7 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		testId,
 		isVerified, // Shows verified icon for 'other' type tags
 		maxWidth,
+		onClick,
 		...other
 	},
 	ref,
@@ -480,6 +487,7 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 				LinkComponent={LinkComponent}
 				testId={testId}
 				linkHandlers={linkHandlers}
+				onClick={onClick}
 			>
 				<span
 					css={[

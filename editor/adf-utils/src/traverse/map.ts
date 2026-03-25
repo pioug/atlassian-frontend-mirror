@@ -1,4 +1,4 @@
-import { type ADFEntity } from '../types';
+import type { ADFEntity } from '../types';
 import { traverse } from './traverse';
 
 // Ignored via go/ees005

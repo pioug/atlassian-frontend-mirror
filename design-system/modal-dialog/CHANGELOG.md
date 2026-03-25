@@ -1,5 +1,16 @@
 # @atlaskit/modal-dialog
 
+## 14.12.0
+
+### Minor Changes
+
+- [`1001eaeabe30f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1001eaeabe30f) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.11.5
 
 ### Patch Changes

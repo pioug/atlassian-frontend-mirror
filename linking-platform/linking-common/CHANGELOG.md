@@ -1,5 +1,15 @@
 # @atlaskit/linking-common
 
+## 9.11.0
+
+### Minor Changes
+
+- [`ef7797fd12220`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef7797fd12220) -
+  Switch /gateway/api/available-sites and /gateway/api/v2/accessible-products endpoints to
+  unit-compliant paths (/gateway/api/experimental/available-sites and
+  /gateway/api/experimental/v2/accessible-products) behind
+  linking_platform_site_picker_api_unit_compliant feature gate
+
 ## 9.10.1
 
 ### Patch Changes

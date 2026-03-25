@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 

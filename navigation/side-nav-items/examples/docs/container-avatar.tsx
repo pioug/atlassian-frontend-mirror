@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
@@ -15,7 +15,7 @@ const exampleHref = '#example-href';
 export function ContainerAvatarExample(): React.JSX.Element {
 	return (
 		<MockSideNav>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<LinkMenuItem href={exampleHref} elemBefore={<ContainerAvatar src={MoneyIcon} />}>
 						Link menu item (ContainerAvatar)
@@ -24,7 +24,7 @@ export function ContainerAvatarExample(): React.JSX.Element {
 						Link menu item (ContainerAvatar)
 					</LinkMenuItem>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 		</MockSideNav>
 	);
 }

@@ -23,6 +23,7 @@ import {
 	type SyncBlockStoreManager,
 	type DeletionReason,
 } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -311,6 +312,16 @@ export const createPlugin = (
 	const confirmationTransactionRef = ctx.confirmationTransactionRef;
 	const unpublishedFlagShown = ctx.unpublishedFlagShown;
 	const extensionFlagShown = ctx.extensionFlagShown;
+
+	// Update plugin state post-flush to sync hasUnsavedBodiedSyncBlockChanges.
+	// It prevents false "Changes may not be saved" warnings when publishing
+	// Classic pages with sync blocks.
+	fg('platform_synced_block_patch_7') &&
+		syncBlockStore.sourceManager.registerFlushCompletionCallback(() => {
+			deferDispatch(() => {
+				api?.core.actions.execute(({ tr }) => tr);
+			});
+		});
 
 	// Set up callback to detect unpublished sync blocks when they're fetched
 	syncBlockStore.referenceManager.setOnUnpublishedSyncBlockDetected((resourceId: string) => {

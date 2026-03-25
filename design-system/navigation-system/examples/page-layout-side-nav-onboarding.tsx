@@ -18,7 +18,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavToggleButton,
 	useExpandSideNav,
 } from '@atlaskit/navigation-system/layout/side-nav';
@@ -107,7 +107,7 @@ export default function SideNavOnboardingExample(): JSX.Element {
 						onExpand={() => console.log('onExpand')}
 						onCollapse={() => console.log('onCollapse')}
 					>
-						<SideNavContent>
+						<SideNavBody>
 							<MenuList>
 								<SpotlightTarget name="your-work">
 									<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
@@ -121,7 +121,7 @@ export default function SideNavOnboardingExample(): JSX.Element {
 									Projects
 								</LinkMenuItem>
 							</MenuList>
-						</SideNavContent>
+						</SideNavBody>
 						<PanelSplitter label="Resize side nav" />
 					</SideNav>
 					<Main id="main-container">

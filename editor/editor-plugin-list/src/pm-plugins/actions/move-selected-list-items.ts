@@ -1,4 +1,8 @@
-import { restoreSelection, computeSelectionOffsets } from '@atlaskit/editor-common/lists';
+import {
+	computeSelectionOffsets,
+	narrowReplacementRange,
+	restoreSelection,
+} from '@atlaskit/editor-common/lists';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { MAX_NESTED_LIST_INDENTATION } from '../../types';
@@ -11,7 +15,6 @@ import { buildReplacementFragment, flattenList } from '../utils/list-indentation
 export function moveSelectedListItems(tr: Transaction, indentDelta: number): void {
 	const originalSelection = tr.selection;
 
-	// Find the root list so depth adjustments are absolute
 	const rootListResolved = findRootParentListNode(originalSelection.$from);
 	if (!rootListResolved) {
 		return;
@@ -41,14 +44,22 @@ export function moveSelectedListItems(tr: Transaction, indentDelta: number): voi
 
 	const { items, startIndex, endIndex } = result;
 
-	// Build replacement — handles both indent (all depths >= 0)
-	// and outdent (some depths may be < 0, producing extracted paragraphs).
 	const { fragment, contentStartOffsets } = buildReplacementFragment(items, tr.doc.type.schema);
 	if (fragment.size === 0) {
 		return;
 	}
 
-	tr.replaceWith(rootListStart, rootListEnd, fragment);
+	// Narrow the replacement to the minimal changed range for collab-friendly
+	// cursor preservation on unaffected list items.
+	const narrowed = narrowReplacementRange(
+		tr.doc,
+		rootListStart,
+		rootListEnd,
+		fragment,
+		contentStartOffsets,
+	);
+
+	tr.replaceWith(narrowed.start, narrowed.end, narrowed.fragment);
 
 	const { from, to } = computeSelectionOffsets({
 		items,
@@ -56,11 +67,10 @@ export function moveSelectedListItems(tr: Transaction, indentDelta: number): voi
 		endIndex,
 		originalFrom: originalSelection.from,
 		originalTo: originalSelection.to,
-		contentStartOffsets,
-		rootListStart,
+		contentStartOffsets: narrowed.adjustedContentStartOffsets,
+		rootListStart: narrowed.start,
 		docSize: tr.doc.content.size,
 	});
 
-	// Restore selection using the positional offsets from the rebuild.
 	restoreSelection({ tr, originalSelection, from, to });
 }

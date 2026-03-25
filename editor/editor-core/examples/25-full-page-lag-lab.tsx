@@ -269,8 +269,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 					value={variableLatencyFrom}
 					onChange={updateLatency(onVariableLatencyFromChange)}
 				/>
-				{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
-				<label> to </label>
+				<span> to </span>
 				<input
 					min="0"
 					type="number"
@@ -296,14 +295,14 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 				/>
 			</div>
 
-			<div>
-				<p>
-					{/* eslint-disable-next-line @atlassian/a11y/label-has-associated-control */}
-					<label>Focus latency (ms)</label>
-				</p>
-				<input
-					type="number"
-					value={focusLatency}
+				<div>
+					<p>
+						<label htmlFor="focus-latency">Focus latency (ms)</label>
+					</p>
+					<input
+						id="focus-latency"
+						type="number"
+						value={focusLatency}
 					onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 						updateLatency(setFocusLatency)(event);
 					}}

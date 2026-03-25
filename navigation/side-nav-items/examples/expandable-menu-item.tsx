@@ -13,7 +13,7 @@ import ClockIcon from '@atlaskit/icon/core/clock';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
 	ExpandableMenuItem,
@@ -84,7 +84,7 @@ const MockActions = ({ shouldRenderToParent }: { shouldRenderToParent: boolean }
 
 export const ExpandableMenuItemUnselectable = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem>
 					<ExpandableMenuItemTrigger>Parent menu item</ExpandableMenuItemTrigger>
@@ -94,7 +94,7 @@ export const ExpandableMenuItemUnselectable = () => (
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
@@ -103,7 +103,7 @@ const ExpandableMenuItemControlled = () => {
 
 	return (
 		<div css={styles.root}>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<ExpandableMenuItem
 						isExpanded={isExpanded}
@@ -116,7 +116,7 @@ const ExpandableMenuItemControlled = () => {
 						</ExpandableMenuItemContent>
 					</ExpandableMenuItem>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 		</div>
 	);
 };
@@ -126,7 +126,7 @@ export const ExpandableMenuItemSelectable = () => {
 
 	return (
 		<div css={styles.root}>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<ExpandableMenuItem>
 						<ExpandableMenuItemTrigger
@@ -154,14 +154,14 @@ export const ExpandableMenuItemSelectable = () => {
 						</ExpandableMenuItemContent>
 					</ExpandableMenuItem>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 		</div>
 	);
 };
 
 export const ExpandableMenuItemSelected = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem>
 					<ExpandableMenuItemTrigger href="#test" isSelected>
@@ -173,13 +173,13 @@ export const ExpandableMenuItemSelected = () => (
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
 export const ExpandableMenuItemWithIcon = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem>
 					<ExpandableMenuItemTrigger elemBefore={<HomeIcon label="" color={token('color.icon')} />}>
@@ -191,13 +191,13 @@ export const ExpandableMenuItemWithIcon = () => (
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
 export const ExpandableMenuItemSelectedWithIcon = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem>
 					<ExpandableMenuItemTrigger
@@ -226,13 +226,13 @@ export const ExpandableMenuItemSelectedWithIcon = () => (
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
 export const ExpandableMenuItemWithElemAfter = ({ isExpanded }: { isExpanded?: boolean }) => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem isDefaultExpanded={isExpanded}>
 					<ExpandableMenuItemTrigger
@@ -247,7 +247,7 @@ export const ExpandableMenuItemWithElemAfter = ({ isExpanded }: { isExpanded?: b
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
@@ -257,7 +257,7 @@ export const ExpandableMenuItemExpandedWithElemAfter = () => (
 
 export const ExpandableMenuItemWithActions = ({ isSelected }: { isSelected?: boolean }) => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem>
 					<ExpandableMenuItemTrigger
@@ -274,7 +274,7 @@ export const ExpandableMenuItemWithActions = ({ isSelected }: { isSelected?: boo
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
@@ -288,7 +288,7 @@ export const ExpandableMenuItemWithActionsOnHover = ({
 	isSelected?: boolean;
 }) => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem isExpanded={isExpanded}>
 					<ExpandableMenuItemTrigger
@@ -305,7 +305,7 @@ export const ExpandableMenuItemWithActionsOnHover = ({
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
@@ -319,7 +319,7 @@ export const ExpandableMenuItemSelectedWithActionsOnHover = () => (
 
 export const ExpandableMenuItemWithActionsOnHoverAndElemAfter = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem>
 					<ExpandableMenuItemTrigger
@@ -335,13 +335,13 @@ export const ExpandableMenuItemWithActionsOnHoverAndElemAfter = () => (
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
 export const ExpandableMenuItemWithActionsAndElemAfter = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem>
 					<ExpandableMenuItemTrigger
@@ -357,13 +357,13 @@ export const ExpandableMenuItemWithActionsAndElemAfter = () => (
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
 export const ExpandableMenuItemExpandedWithActionsOnHoverAndElemAfter = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem isExpanded>
 					<ExpandableMenuItemTrigger
@@ -379,7 +379,7 @@ export const ExpandableMenuItemExpandedWithActionsOnHoverAndElemAfter = () => (
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
@@ -394,7 +394,7 @@ export const ExpandableMenuItemNested = ({
 
 	return (
 		<div css={styles.root}>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<ExpandableMenuItem isDefaultExpanded>
 						<ExpandableMenuItemTrigger>Expandable trigger level 1</ExpandableMenuItemTrigger>
@@ -513,7 +513,7 @@ export const ExpandableMenuItemNested = ({
 						</ExpandableMenuItemContent>
 					</ExpandableMenuItem>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 			<Button
 				onClick={() => {
 					setSelectedMenuItemId(null);
@@ -537,7 +537,7 @@ export const ExpandableMenuItemNestedRTL = () => (
 
 export const ExpandableMenuItemCollapsedWithSelectedChild = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem>
 					<ExpandableMenuItemTrigger>Parent menu item</ExpandableMenuItemTrigger>
@@ -560,13 +560,13 @@ export const ExpandableMenuItemCollapsedWithSelectedChild = () => (
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
 export const ExpandableMenuItemLink = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem>
 					<ExpandableMenuItemTrigger href="#">Parent menu item</ExpandableMenuItemTrigger>
@@ -576,13 +576,13 @@ export const ExpandableMenuItemLink = () => (
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
 export const ExpandableMenuItemWithAllOptions = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem>
 					<ExpandableMenuItemTrigger
@@ -601,13 +601,13 @@ export const ExpandableMenuItemWithAllOptions = () => (
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 
 const ExpandableMenuItemWithAllOptionsPortalledPopups = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<ExpandableMenuItem>
 					<ExpandableMenuItemTrigger
@@ -625,7 +625,7 @@ const ExpandableMenuItemWithAllOptionsPortalledPopups = () => (
 					</ExpandableMenuItemContent>
 				</ExpandableMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 

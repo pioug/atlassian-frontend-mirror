@@ -27,7 +27,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -120,7 +120,7 @@ export default function SideNavFlyout({
 					</TopNavEnd>
 				</TopNav>
 				<SideNav defaultCollapsed={defaultSideNavCollapsed}>
-					<SideNavContent>
+					<SideNavBody>
 						<MenuList>
 							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 								Your work
@@ -196,7 +196,7 @@ export default function SideNavFlyout({
 						</MenuList>
 
 						{isChildLayerOpen && <MockLayeredComponent />}
-					</SideNavContent>
+					</SideNavBody>
 					<PanelSplitter label="Resize side nav" />
 				</SideNav>
 				<Main id="main-container">

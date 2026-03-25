@@ -9,6 +9,8 @@ import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import { avatarGroupPlugin } from '@atlaskit/editor-plugins/avatar-group';
 import { batchAttributeUpdatesPlugin } from '@atlaskit/editor-plugins/batch-attribute-updates';
 import { beforePrimaryToolbarPlugin } from '@atlaskit/editor-plugins/before-primary-toolbar';
+import { blockControlsPlugin } from '@atlaskit/editor-plugins/block-controls';
+import { blockMenuPlugin } from '@atlaskit/editor-plugins/block-menu';
 import { borderPlugin } from '@atlaskit/editor-plugins/border';
 import { breakoutPlugin } from '@atlaskit/editor-plugins/breakout';
 import { captionPlugin } from '@atlaskit/editor-plugins/caption';
@@ -84,6 +86,13 @@ export type UniversalPresetProps = DefaultPresetPluginOptions &
  * Note: not all plugins are configurable via this mechanism, and for plugins configured -- it is only doing a subset of the configuration.
  */
 export type InitialPluginConfiguration = {
+	blockControlsPlugin?: {
+		enabled?: boolean;
+		quickInsertButtonEnabled?: boolean;
+	};
+	blockMenuPlugin?: {
+		enabled?: boolean;
+	};
 	blockTypePlugin?: {
 		allowFontSize?: boolean;
 	};
@@ -203,6 +212,20 @@ export default function createUniversalPresetInternal({
 		.add(accessibilityUtilsPlugin)
 		.add(contentInsertionPlugin)
 		.add(batchAttributeUpdatesPlugin)
+		.maybeAdd(
+			[
+				blockControlsPlugin,
+				{
+					quickInsertButtonEnabled:
+						initialPluginConfiguration?.blockControlsPlugin?.quickInsertButtonEnabled ?? true,
+				},
+			],
+			Boolean(initialPluginConfiguration?.blockControlsPlugin?.enabled ?? false),
+		)
+		.maybeAdd(
+			[blockMenuPlugin, {}],
+			Boolean(initialPluginConfiguration?.blockMenuPlugin?.enabled ?? false),
+		)
 		.maybeAdd(
 			[breakoutPlugin, { allowBreakoutButton: appearance === 'full-page', appearance: appearance }],
 			Boolean(

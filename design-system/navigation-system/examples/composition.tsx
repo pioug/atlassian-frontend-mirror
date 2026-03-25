@@ -31,7 +31,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavPanelSplitter,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
@@ -310,7 +310,7 @@ export default function Composition({
 					</TopNavEnd>
 				</TopNav>
 				<SideNav>
-					<SideNavContent>
+					<SideNavBody>
 						<MenuList>
 							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 								Your work
@@ -391,7 +391,7 @@ export default function Composition({
 								Filters
 							</ButtonMenuItem>
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 					<SideNavPanelSplitter
 						label="Resize side nav"
 						testId="side-nav-panel-splitter"

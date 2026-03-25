@@ -1,5 +1,53 @@
 # @atlaskit/editor-common
 
+## 112.9.1
+
+### Patch Changes
+
+- [`9b33b26d69865`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b33b26d69865) -
+  Narrow list replacement range during indent/outdent for collab-friendly cursor preservation
+- [`3f6f3c13a6033`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f6f3c13a6033) -
+  Fix fontSize mark preservation during list type conversions (bullet/ordered ↔ task list) and
+  blockTaskItem handling when toggling task list off
+- Updated dependencies
+
+## 112.9.0
+
+### Minor Changes
+
+- [`9f5fba61d4c9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f5fba61d4c9d) -
+  do not show external badge for images hosted on bitbucket.org
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.8.4
+
+### Patch Changes
+
+- [`ca2338799c141`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca2338799c141) -
+  [ux] Fix media cards and media singles to use the correct border radius in the editor, renderer
+  and inline media player.
+- Updated dependencies
+
+## 112.8.3
+
+### Patch Changes
+
+- [`14174d5130d27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14174d5130d27) -
+  Adding editorAppearance in coreplugin shared state so that plugins can access appearance value
+  when updated
+- Updated dependencies
+
+## 112.8.2
+
+### Patch Changes
+
+- [`23ec129dbbb34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23ec129dbbb34) -
+  [FFCLEANUP-74122] clean up feature flag platform_editor_blocktaskitem_patch_3
+- Updated dependencies
+
 ## 112.8.1
 
 ### Patch Changes

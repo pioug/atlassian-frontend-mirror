@@ -20,7 +20,7 @@ import SettingsIcon from '@atlaskit/icon/core/settings';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import TagIcon from '@atlaskit/icon/core/tag';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	dropTargetForElements,
 	type ElementDropTargetEventBasePayload,
@@ -401,7 +401,7 @@ export function AllMenuItems(): JSX.Element {
 
 	return (
 		<SidebarExampleContainer>
-			<SideNavContent>
+			<SideNavBody>
 				<GroupDropIndicator isActive={isInnerMostOver} ref={ref}>
 					<MenuList>
 						<OurLinkMenuItem testId="link-menu-item" />
@@ -410,7 +410,7 @@ export function AllMenuItems(): JSX.Element {
 						<OurExpandableMenuItem triggerTestId="expandable-menu-item-trigger" />
 					</MenuList>
 				</GroupDropIndicator>
-			</SideNavContent>
+			</SideNavBody>
 		</SidebarExampleContainer>
 	);
 }
@@ -420,13 +420,13 @@ export function AllMenuItems(): JSX.Element {
 function LinkMenuItemWithDropIndicator({ dropIndicator }: { dropIndicator: ReactNode }) {
 	return (
 		<SidebarExampleContainer>
-			<SideNavContent>
+			<SideNavBody>
 				<GroupDropIndicator isActive>
 					<MenuList>
 						<OurLinkMenuItem testId="link-menu-item" forcedDropIndicator={dropIndicator} />
 					</MenuList>
 				</GroupDropIndicator>
-			</SideNavContent>
+			</SideNavBody>
 		</SidebarExampleContainer>
 	);
 }
@@ -434,13 +434,13 @@ function LinkMenuItemWithDropIndicator({ dropIndicator }: { dropIndicator: React
 function ButtonMenuItemWithDropIndicator({ dropIndicator }: { dropIndicator: ReactNode }) {
 	return (
 		<SidebarExampleContainer>
-			<SideNavContent>
+			<SideNavBody>
 				<GroupDropIndicator isActive>
 					<MenuList>
 						<OurButtonMenuItem testId="button-menu-item" forcedDropIndicator={dropIndicator} />
 					</MenuList>
 				</GroupDropIndicator>
-			</SideNavContent>
+			</SideNavBody>
 		</SidebarExampleContainer>
 	);
 }
@@ -448,7 +448,7 @@ function ButtonMenuItemWithDropIndicator({ dropIndicator }: { dropIndicator: Rea
 function FlyoutMenuItemWithDropIndicator({ dropIndicator }: { dropIndicator: ReactNode }) {
 	return (
 		<SidebarExampleContainer>
-			<SideNavContent>
+			<SideNavBody>
 				<GroupDropIndicator isActive>
 					<MenuList>
 						<OurFlyoutMenuItem
@@ -457,7 +457,7 @@ function FlyoutMenuItemWithDropIndicator({ dropIndicator }: { dropIndicator: Rea
 						/>
 					</MenuList>
 				</GroupDropIndicator>
-			</SideNavContent>
+			</SideNavBody>
 		</SidebarExampleContainer>
 	);
 }
@@ -465,7 +465,7 @@ function FlyoutMenuItemWithDropIndicator({ dropIndicator }: { dropIndicator: Rea
 function ExpandableMenuItemWithDropIndicator({ dropIndicator }: { dropIndicator: ReactNode }) {
 	return (
 		<SidebarExampleContainer>
-			<SideNavContent>
+			<SideNavBody>
 				<GroupDropIndicator isActive>
 					<MenuList>
 						<OurExpandableMenuItem
@@ -474,7 +474,7 @@ function ExpandableMenuItemWithDropIndicator({ dropIndicator }: { dropIndicator:
 						/>
 					</MenuList>
 				</GroupDropIndicator>
-			</SideNavContent>
+			</SideNavBody>
 		</SidebarExampleContainer>
 	);
 }

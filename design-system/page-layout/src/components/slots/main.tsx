@@ -17,7 +17,7 @@ import {
 	VAR_LEFT_SIDEBAR_FLYOUT,
 } from '../../common/constants';
 import { useIsSidebarDragging } from '../../common/hooks';
-import { type SlotWidthProps } from '../../common/types';
+import type { SlotWidthProps } from '../../common/types';
 import { getPageLayoutSlotSelector } from '../../common/utils';
 import { SidebarResizeContext, useSkipLink } from '../../controllers';
 

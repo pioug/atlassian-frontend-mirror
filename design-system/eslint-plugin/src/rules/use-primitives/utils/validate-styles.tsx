@@ -7,7 +7,7 @@ import {
 } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
-import { type RuleConfig } from '../config';
+import type { RuleConfig } from '../config';
 import { spaceTokenMap, supportedStylesMap } from '../transformers';
 import { supportedDimensionAttributesMap } from '../transformers/css-to-xcss';
 

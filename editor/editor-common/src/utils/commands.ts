@@ -9,7 +9,6 @@ import {
 	TextSelection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -392,7 +391,7 @@ export const isEmptySelectionAtEnd = (state: EditorState): boolean => {
 
 	// If blockTaskItem is in the schema,
 	// we need to check if the selection is inside a blockTaskItem
-	if (blockTaskItem && empty && fg('platform_editor_blocktaskitem_patch_3')) {
+	if (blockTaskItem && empty) {
 		// If the parent is in a textblock,
 		// check if it's nested inside a blockTaskItem
 		if ($from.parent.isTextblock) {

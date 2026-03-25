@@ -6,17 +6,101 @@ import type { MotionScaleTokenSchema } from '../../src/types';
 export type MotionPaletteToken = {
 	duration: BaseDurationToken;
 	curve: BaseBezierCurveToken;
-	keyframes: BaseKeyframeToken[];
+	keyframes?: BaseKeyframeToken[];
+	properties?: BaseTransitionPropertyToken[];
 	delay?: BaseDurationToken;
 };
 export type BaseDurationToken = keyof typeof baseDurationTokens;
 export type BaseBezierCurveToken = keyof typeof baseBezierCurveTokens;
 export type BaseKeyframeToken = keyof typeof baseKeyframeTokens;
+export type BaseTransitionPropertyToken = keyof typeof baseTransitionPropertyTokens;
 
 export type MotionTokenSchema = {
-	motion: MotionScaleTokenSchema<BaseDurationToken, BaseBezierCurveToken, BaseKeyframeToken>;
+	motion: MotionScaleTokenSchema<BaseDurationToken, BaseBezierCurveToken, BaseKeyframeToken, BaseTransitionPropertyToken>;
 };
+
+const baseTransitionPropertyTokens = {
+	Transform: {
+		value: 'transform',
+		attributes: {
+			group: 'motion',
+		},
+	},
+} as const;
+
 const baseKeyframeTokens = {
+	SlideInTop: {
+		value: {
+			'0%': { transform: 'translateY(8px)' },
+			'100%': { transform: 'translateY(0px)' },
+		},
+		attributes: {
+			group: 'keyframe',
+		}
+	},
+	SlideInBottom: {
+		value: {
+			'0%': { transform: 'translateY(-8px)' },
+			'100%': { transform: 'translateY(0px)' },
+		},
+		attributes: {
+			group: 'keyframe',
+		}
+	},
+	SlideInLeft: {
+		value: {
+			'0%': { transform: 'translateX(8px)' },
+			'100%': { transform: 'translateX(0px)' },
+		},
+		attributes: {
+			group: 'keyframe',
+		}
+	},
+	SlideInRight: {
+		value: {
+			'0%': { transform: 'translateX(-8px)' },
+			'100%': { transform: 'translateX(0px)' },
+		},
+		attributes: {
+			group: 'keyframe',
+		}
+	},
+	SlideOutTop: {
+		value: {
+			'0%': { transform: 'translateY(0px)' },
+			'100%': { transform: 'translateY(4px)' },
+		},
+		attributes: {
+			group: 'keyframe',
+		}
+	},
+	SlideOutBottom: {
+		value: {
+			'0%': { transform: 'translateY(0px)' },
+			'100%': { transform: 'translateY(-4px)' },
+		},
+		attributes: {
+			group: 'keyframe',
+		}
+	},
+	SlideOutLeft: {
+		value: {
+			'0%': { transform: 'translateX(0px)' },
+			'100%': { transform: 'translateX(4px)' },
+		},
+		attributes: {
+			group: 'keyframe',
+		}
+	},
+	SlideOutRight: {
+		value: {
+			'0%': { transform: 'translateX(0px)' },
+			'100%': { transform: 'translateX(-4px)' },
+		},
+		attributes: {
+			group: 'keyframe',
+		}
+	},
 	ScaleIn80: {
 		value: {
 			'0%': { transform: 'scale(0.8)' },
@@ -107,19 +191,37 @@ const baseKeyframeTokens = {
 			group: 'keyframe',
 		},
 	},
-	RotateIn: {
+	SlideIn15PercentLeft: {
 		value: {
-			'0%': { transform: 'rotate(0deg)' },
-			'100%': { transform: 'rotate(5deg)' },
+			'0%': { transform: 'translateX(-15%)', 'transform-origin': 'left' },
+			'100%': { transform: 'translateX(0px)', 'transform-origin': 'left' },
 		},
 		attributes: {
 			group: 'keyframe',
 		},
 	},
-	RotateOut: {
+	SlideOut15PercentLeft: {
 		value: {
-			'0%': { transform: 'rotate(5deg)' },
-			'100%': { transform: 'rotate(0deg)' },
+			'0%': { transform: 'translateX(0px)', 'transform-origin': 'left' },
+			'100%': { transform: 'translateX(-15%)', 'transform-origin': 'left' },
+		},
+		attributes: {
+			group: 'keyframe',
+		},
+	},
+	SlideIn50PercentLeft: {
+		value: {
+			'0%': { transform: 'translateX(-50%)', 'transform-origin': 'left' },
+			'100%': { transform: 'translateX(0px)', 'transform-origin': 'left' },
+		},
+		attributes: {
+			group: 'keyframe',
+		},
+	},
+	SlideOut50PercentLeft: {
+		value: {
+			'0%': { transform: 'translateX(0px)', 'transform-origin': 'left' },
+			'100%': { transform: 'translateX(-50%)', 'transform-origin': 'left' },
 		},
 		attributes: {
 			group: 'keyframe',
@@ -179,24 +281,36 @@ const baseDurationTokens = {
 } as const;
 
 const baseBezierCurveTokens = {
-	CubicEaseOut: {
-		value: 'cubic-bezier(0.33, 1, 0.68, 1)',
+	EasePracticalOut: {
+		value: 'cubic-bezier(0.4, 1, 0.6, 1)',
 		attributes: {
 			group: 'motion',
 		},
 	},
-	CubicEaseIn: {
+	EasePracticalIn: {
+		value: 'cubic-bezier(0.6, 0, 0.8, 0.6)',
+		attributes: {
+			group: 'motion',
+		},
+	},
+	EaseBoldInOut: {
+		value: 'cubic-bezier(0.4, 0, 0, 1)',
+		attributes: {
+			group: 'motion',
+		},
+	},
+	EaseBoldOut: {
+		value: 'cubic-bezier(0, 0.4, 0, 1)',
+		attributes: {
+			group: 'motion',
+		},
+	},
+	Custom: {
 		value: 'cubic-bezier(0.32, 0, 0.67, 0)',
 		attributes: {
 			group: 'motion',
 		},
-	},
-	CubicEaseInOut: {
-		value: 'cubic-bezier(0.66, 0, 0.34, 1)',
-		attributes: {
-			group: 'motion',
-		},
-	},
+	}
 } as const;
 
 const motionPalette: MotionTokenSchema = {
@@ -204,6 +318,7 @@ const motionPalette: MotionTokenSchema = {
 		duration: baseDurationTokens,
 		curve: baseBezierCurveTokens,
 		keyframe: baseKeyframeTokens,
+		properties: baseTransitionPropertyTokens,
 	},
 };
 

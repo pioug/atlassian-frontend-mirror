@@ -6,18 +6,34 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f76d5451a0ccdab4ce74bc3e952aec8c>>
+ * @codegen <<SignedSource::921c184d9a6e3b52bd2ab053939ce9ad>>
  * @codegenCommand yarn build tokens
  */
 var tokens = {
+  'motion.avatar.enter': '--ds-avatar-enter',
+  'motion.avatar.exit': '--ds-avatar-exit',
+  'motion.avatar.hovered': '--ds-avatar-hovered',
   'motion.content.enter.long': '--ds-content-enter-long',
   'motion.content.enter.medium': '--ds-content-enter-medium',
   'motion.content.enter.short': '--ds-content-enter-short',
   'motion.content.exit.long': '--ds-content-exit-long',
   'motion.content.exit.medium': '--ds-content-exit-medium',
   'motion.content.exit.short': '--ds-content-exit-short',
-  'motion.dialog.enter': '--ds-dialog-enter',
-  'motion.dialog.exit': '--ds-dialog-exit',
+  'motion.flag.enter': '--ds-flag-enter',
+  'motion.flag.exit': '--ds-flag-exit',
+  'motion.flag.reposition': '--ds-flag-reposition',
+  'motion.modal.enter': '--ds-modal-enter',
+  'motion.modal.exit': '--ds-modal-exit',
+  'motion.popup.enter.bottom': '--ds-popup-enter-bottom',
+  'motion.popup.enter.left': '--ds-popup-enter-left',
+  'motion.popup.enter.right': '--ds-popup-enter-right',
+  'motion.popup.enter.top': '--ds-popup-enter-top',
+  'motion.popup.exit.bottom': '--ds-popup-exit-bottom',
+  'motion.popup.exit.left': '--ds-popup-exit-left',
+  'motion.popup.exit.right': '--ds-popup-exit-right',
+  'motion.popup.exit.top': '--ds-popup-exit-top',
+  'motion.spotlight.enter': '--ds-spotlight-enter',
+  'motion.spotlight.exit': '--ds-spotlight-exit',
   'color.text': '--ds-text',
   'color.text.accent.lime': '--ds-text-accent-lime',
   'color.text.accent.lime.bolder': '--ds-text-accent-lime-bolder',

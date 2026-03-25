@@ -1,5 +1,5 @@
 import { traverse } from '../traverse/traverse';
-import { type ADFEntity } from '../types';
+import type { ADFEntity } from '../types';
 
 // when media single has a invalid width, we fallback to default width
 // this the last resort when revert the pixel width, we couldnt determine the correct width value

@@ -19,6 +19,7 @@ import {
 
 import { jsx } from '@compiled/react';
 
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
 import Link, { type LinkProps } from '@atlaskit/link';
 import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
@@ -319,6 +320,7 @@ interface LinkWrapperProps {
 	LinkComponent: ComponentType<any>;
 	testId?: string;
 	children: ReactNode;
+	onClick?: (e: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => void;
 	linkHandlers?: {
 		onMouseEnter: () => void;
 		onMouseLeave: () => void;
@@ -335,6 +337,7 @@ export function LinkWrapper({
 	LinkComponent,
 	testId,
 	children,
+	onClick,
 	linkHandlers,
 }: LinkWrapperProps): JSX.Element {
 	if (isLink && href) {
@@ -342,6 +345,7 @@ export function LinkWrapper({
 			<LinkComponent
 				href={href}
 				testId={testId ? `${testId}--link` : undefined}
+				onClick={onClick}
 				onMouseEnter={linkHandlers?.onMouseEnter}
 				onMouseLeave={linkHandlers?.onMouseLeave}
 				onMouseDown={linkHandlers?.onMouseDown}

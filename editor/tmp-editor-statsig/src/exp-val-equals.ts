@@ -1,10 +1,6 @@
 import { expValEqualsInternal } from './exp-val-equals-internal';
 
-import {
-	type EditorExperimentsConfig,
-	type ExperimentDefaultValue,
-	type ExperimentExpectedValue,
-} from './experiments-config';
+import type { EditorExperimentsConfig, ExperimentDefaultValue, ExperimentExpectedValue } from './experiments-config';
 
 /**
  * Check the value if an editor experiment and fire exposure.

@@ -36,6 +36,7 @@ export interface TeamsClientUser {
 	userType?: UserType;
 	isAgent?: boolean;
 	aboutMe?: string;
+	pronouns?: string;
 }
 
 export interface UserInSiteUserbase {
@@ -53,6 +54,7 @@ const EditableUserFieldList = [
 	'locale',
 	'email',
 	'aboutMe',
+	'pronouns',
 ] as const;
 
 export type EditableUserFields = Pick<TeamsClientUser, (typeof EditableUserFieldList)[number]>;

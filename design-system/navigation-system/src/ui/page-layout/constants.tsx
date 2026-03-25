@@ -82,9 +82,3 @@ export const openLayerObserverSideNavNamespace = 'side-nav';
 export const openLayerObserverTopNavStartNamespace = 'top-nav-start';
 export const openLayerObserverTopNavMiddleNamespace = 'top-nav-middle';
 export const openLayerObserverTopNavEndNamespace = 'top-nav-end';
-
-/**
- * CSS scroll timeline variable for the side nav content scroll indicator.
- * The scroll timeline is created in SideNavContent, and then used by TopNavStart to apply the scroll indicator line.
- */
-export const sideNavContentScrollTimelineVar = '--sNcst';

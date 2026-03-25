@@ -5,6 +5,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { type FireAnalyticsCallback } from '../analytics';
+import type { EditorAppearance } from '../types';
 import type {
 	BasePluginDependenciesAPI,
 	CorePlugin,
@@ -24,6 +25,8 @@ type SharedStateAPIProps = {
 };
 
 interface PluginInjectionAPIProps extends SharedStateAPIProps {
+	// Initial appearance value for the editor, used to initialize appearance tracking in shared state
+	appearance?: EditorAppearance;
 	// Optional analytics callback - used exclusively by core plugin since it is unable to consume AnalyticsPlugin as a dependency
 	fireAnalyticsEvent?: FireAnalyticsCallback;
 	getEditorView: () => EditorView | undefined;
@@ -317,17 +320,42 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 	private commandsAPI: EditorCommandsAPI;
 	private plugins: Map<string, NextEditorPluginInitializedType>;
 
-	constructor({ getEditorState, getEditorView, fireAnalyticsEvent }: PluginInjectionAPIProps) {
+	constructor({ getEditorState, getEditorView, fireAnalyticsEvent, appearance }: PluginInjectionAPIProps) {
 		this.sharedStateAPI = new SharedStateAPI({ getEditorState });
 		this.plugins = new Map();
 		this.actionsAPI = new ActionsAPI();
 		this.commandsAPI = new EditorCommandsAPI();
+
 		// Special core plugin that is always added
 		this.addPlugin(
 			corePlugin({
-				config: { getEditorView, fireAnalyticsEvent },
+				config: {
+					getEditorView,
+					fireAnalyticsEvent,
+					appearance,
+				},
 			}),
 		);
+	}
+
+	/**
+	 * Returns PM plugins from internally-registered plugins (e.g. the core plugin)
+	 * that are not processed through the normal preset builder flow.
+	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	getInternalPMPlugins(): Array<{ name: string; plugin: (...args: any[]) => any }> {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const result: Array<{ name: string; plugin: (...args: any[]) => any }> = [];
+		const corePlugin = this.plugins.get('core');
+		if (corePlugin && typeof corePlugin.pmPlugins === 'function') {
+			const pmPlugins = corePlugin.pmPlugins();
+			if (pmPlugins) {
+				result.push(...pmPlugins);
+			}
+		}
+		return result;
 	}
 
 	private createAPI() {

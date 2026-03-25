@@ -6,6 +6,7 @@ import { type ComponentType, forwardRef, memo, type ReactNode } from 'react';
 
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -84,6 +85,11 @@ export interface TagNewProps {
 	 * Accepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').
 	 */
 	maxWidth?: string | number;
+	/**
+	 * Handler called when the tag is clicked. Only fires for link tags (when href is provided).
+	 * The second argument provides an Atlaskit UI analytics event.
+	 */
+	onClick?: (e: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => void;
 }
 
 // Color mapping from old color names to new color names
@@ -375,6 +381,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 		onAfterRemoveAction,
 		testId,
 		maxWidth,
+		onClick,
 		...other
 	},
 	ref,
@@ -434,6 +441,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 				LinkComponent={LinkComponent}
 				testId={testId}
 				linkHandlers={linkHandlers}
+				onClick={onClick}
 			>
 				{elemBefore && <span css={styles.beforeStyles}>{elemBefore}</span>}
 				<span css={styles.textStyles} data-tag-text>

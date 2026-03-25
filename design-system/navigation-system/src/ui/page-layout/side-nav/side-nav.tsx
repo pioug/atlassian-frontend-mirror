@@ -350,7 +350,7 @@ const styles = cssMap({
 type SideNavProps = CommonSlotProps & {
 	/**
 	 * The content of the layout area.
-	 * Should include side nav layout areas as required: `SideNavHeader`, `SideNavContent`, `SideNavFooter`.
+	 * Should include side nav layout areas as required: `SideNavHeader`, `SideNavBody`, `SideNavFooter`.
 	 * Within these, you can use side nav menu items.
 	 */
 	children: React.ReactNode;
@@ -1279,7 +1279,7 @@ function SideNavInternal({
 /**
  * The side navigation layout area. It will show on the left (inline start) of the screen.
  *
- * Use the side nav area components (`SideNavHeader`, `SideNavContent`, `SideNavFooter`) to position
+ * Use the side nav area components (`SideNavHeader`, `SideNavBody`, `SideNavFooter`) to position
  * content within areas of the side nav.
  *
  * You can optionally render a `PanelSplitter` as a child to make the side navigation slot resizable.

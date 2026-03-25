@@ -22,7 +22,7 @@ import {
 	TOP_NAVIGATION,
 	TOP_NAVIGATION_HEIGHT,
 } from '../../common/constants';
-import { type PageLayoutProps } from '../../common/types';
+import type { PageLayoutProps } from '../../common/types';
 import { SidebarResizeController, SkipLinksController } from '../../controllers';
 import { SkipLinkWrapper } from '../skip-links';
 

@@ -16,7 +16,7 @@ import {
 	TOP_NAVIGATION_HEIGHT,
 	VAR_TOP_NAVIGATION_HEIGHT,
 } from '../../common/constants';
-import { type SlotHeightProps } from '../../common/types';
+import type { SlotHeightProps } from '../../common/types';
 import { getPageLayoutSlotSelector, resolveDimension } from '../../common/utils';
 import { publishGridState, useSkipLink } from '../../controllers';
 

@@ -1,5 +1,16 @@
 # @atlaskit/dropdown-menu
 
+## 16.8.0
+
+### Minor Changes
+
+- [`1001eaeabe30f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1001eaeabe30f) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.7.2
 
 ### Patch Changes

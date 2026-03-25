@@ -1,0 +1,54 @@
+/**
+ * This file is used by the test scaling project to optimise test result caching.
+ * Examples that are used by tests affect the outcome of tests so must be included when hashing.
+ *
+ * Example numbering scheme:
+ * - 01–30: Functional examples (basic usage, positions, nesting, etc.)
+ * - 80–89: VR test examples (visual regression snapshots)
+ * - 90+: Browser/Playwright test examples (integration testing)
+ */
+{
+	"testExamples": [
+		"90-testing-popover-basic.tsx",
+		"91-testing-dialog-basic.tsx",
+		"92-testing-popover-escape.tsx",
+		"93-testing-dialog-close-reason.tsx",
+		"94-testing-nested-popovers.tsx",
+		"95-testing-focus-return.tsx",
+		"96-testing-dialog-focus-trap.tsx",
+		"97-testing-popover-in-dialog.tsx",
+		"98-testing-dialog-scroll-lock.tsx",
+		"99-testing-nested-focus-return.tsx",
+		"100-testing-dom-order.tsx",
+		"101-testing-dialog-tab-trap.tsx",
+		"102-testing-dialog-autofocus.tsx",
+		"104-testing-popover-programmatic-close.tsx",
+		"105-testing-focus-return-no-reopen.tsx",
+		"106-testing-sibling-auto-close.tsx",
+		"107-testing-popover-mode-hint.tsx",
+		"110-testing-dialog-close-timing.tsx",
+		"112-testing-popover-positioning.tsx",
+		"113-testing-popover-flip.tsx",
+		"114-testing-popover-width-trigger.tsx",
+		"115-testing-popover-animation.tsx",
+		"116-testing-manual-coexistence.tsx",
+		"117-testing-popover-scroll.tsx",
+		"118-testing-popover-rapid-toggle.tsx",
+		"119-testing-simple-light-dismiss.tsx",
+		"120-testing-manual-popover-a11y.tsx",
+		"121-testing-popover-dialog-focus-trap.tsx",
+		"122-testing-popup-focus-restore.tsx",
+		"123-testing-popover-initial-focus.tsx",
+		"124-testing-standalone-focus-restore.tsx",
+		"125-testing-animation-exit.tsx",
+		"126-testing-animation-reduced-motion.tsx",
+		"127-testing-click-outside-passthrough.tsx",
+		"128-testing-keyboard-mouse-interleaving.tsx",
+		"129-testing-focus-return-ref.tsx",
+		"130-testing-form-in-popup.tsx",
+		"131-testing-hint-no-close-auto.tsx",
+		"132-testing-native-focus-restoration.tsx",
+		"140-testing-arrow-navigation.tsx",
+	],
+	"exampleDependencies": [],
+}

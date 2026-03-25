@@ -1,17 +1,33 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f76d5451a0ccdab4ce74bc3e952aec8c>>
+ * @codegen <<SignedSource::921c184d9a6e3b52bd2ab053939ce9ad>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
+	'motion.avatar.enter': '--ds-avatar-enter',
+	'motion.avatar.exit': '--ds-avatar-exit',
+	'motion.avatar.hovered': '--ds-avatar-hovered',
 	'motion.content.enter.long': '--ds-content-enter-long',
 	'motion.content.enter.medium': '--ds-content-enter-medium',
 	'motion.content.enter.short': '--ds-content-enter-short',
 	'motion.content.exit.long': '--ds-content-exit-long',
 	'motion.content.exit.medium': '--ds-content-exit-medium',
 	'motion.content.exit.short': '--ds-content-exit-short',
-	'motion.dialog.enter': '--ds-dialog-enter',
-	'motion.dialog.exit': '--ds-dialog-exit',
+	'motion.flag.enter': '--ds-flag-enter',
+	'motion.flag.exit': '--ds-flag-exit',
+	'motion.flag.reposition': '--ds-flag-reposition',
+	'motion.modal.enter': '--ds-modal-enter',
+	'motion.modal.exit': '--ds-modal-exit',
+	'motion.popup.enter.bottom': '--ds-popup-enter-bottom',
+	'motion.popup.enter.left': '--ds-popup-enter-left',
+	'motion.popup.enter.right': '--ds-popup-enter-right',
+	'motion.popup.enter.top': '--ds-popup-enter-top',
+	'motion.popup.exit.bottom': '--ds-popup-exit-bottom',
+	'motion.popup.exit.left': '--ds-popup-exit-left',
+	'motion.popup.exit.right': '--ds-popup-exit-right',
+	'motion.popup.exit.top': '--ds-popup-exit-top',
+	'motion.spotlight.enter': '--ds-spotlight-enter',
+	'motion.spotlight.exit': '--ds-spotlight-exit',
 	'color.text': '--ds-text',
 	'color.text.accent.lime': '--ds-text-accent-lime',
 	'color.text.accent.lime.bolder': '--ds-text-accent-lime-bolder',
@@ -493,14 +509,30 @@ const tokens = {
 } as const;
 
 export type CSSTokenMap = {
+	'motion.avatar.enter': 'var(--ds-avatar-enter)';
+	'motion.avatar.exit': 'var(--ds-avatar-exit)';
+	'motion.avatar.hovered': 'var(--ds-avatar-hovered)';
 	'motion.content.enter.long': 'var(--ds-content-enter-long)';
 	'motion.content.enter.medium': 'var(--ds-content-enter-medium)';
 	'motion.content.enter.short': 'var(--ds-content-enter-short)';
 	'motion.content.exit.long': 'var(--ds-content-exit-long)';
 	'motion.content.exit.medium': 'var(--ds-content-exit-medium)';
 	'motion.content.exit.short': 'var(--ds-content-exit-short)';
-	'motion.dialog.enter': 'var(--ds-dialog-enter)';
-	'motion.dialog.exit': 'var(--ds-dialog-exit)';
+	'motion.flag.enter': 'var(--ds-flag-enter)';
+	'motion.flag.exit': 'var(--ds-flag-exit)';
+	'motion.flag.reposition': 'var(--ds-flag-reposition)';
+	'motion.modal.enter': 'var(--ds-modal-enter)';
+	'motion.modal.exit': 'var(--ds-modal-exit)';
+	'motion.popup.enter.bottom': 'var(--ds-popup-enter-bottom)';
+	'motion.popup.enter.left': 'var(--ds-popup-enter-left)';
+	'motion.popup.enter.right': 'var(--ds-popup-enter-right)';
+	'motion.popup.enter.top': 'var(--ds-popup-enter-top)';
+	'motion.popup.exit.bottom': 'var(--ds-popup-exit-bottom)';
+	'motion.popup.exit.left': 'var(--ds-popup-exit-left)';
+	'motion.popup.exit.right': 'var(--ds-popup-exit-right)';
+	'motion.popup.exit.top': 'var(--ds-popup-exit-top)';
+	'motion.spotlight.enter': 'var(--ds-spotlight-enter)';
+	'motion.spotlight.exit': 'var(--ds-spotlight-exit)';
 	'color.text': 'var(--ds-text)';
 	'color.text.accent.lime': 'var(--ds-text-accent-lime)';
 	'color.text.accent.lime.bolder': 'var(--ds-text-accent-lime-bolder)';

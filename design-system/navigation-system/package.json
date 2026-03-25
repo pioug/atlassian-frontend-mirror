@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "6.4.0",
+	"version": "7.1.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -174,9 +174,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_dst_nav4_ribbon_slot": {
-			"type": "boolean"
-		},
-		"platform_dst_nav4_fhs_feedback_1": {
 			"type": "boolean"
 		},
 		"platform_dst_nav4_top_nav_increase_height": {

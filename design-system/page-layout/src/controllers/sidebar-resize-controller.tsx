@@ -20,7 +20,7 @@ import {
 	DEFAULT_LEFT_SIDEBAR_WIDTH,
 	IS_SIDEBAR_COLLAPSING,
 } from '../common/constants';
-import { type SidebarResizeControllerProps } from '../common/types';
+import type { SidebarResizeControllerProps } from '../common/types';
 import { getPageLayoutSlotCSSSelector } from '../common/utils';
 
 import {

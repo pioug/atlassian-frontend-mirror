@@ -1,3 +1,8 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+/** @jsxFrag */
 import React, { useCallback, useEffect, useState } from 'react';
 
 import applyDevTools from 'prosemirror-dev-tools';
@@ -16,6 +21,7 @@ import {
 	tr,
 } from '@atlaskit/adf-utils/builders';
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
@@ -61,8 +67,20 @@ import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import { ReplaceStep, type Step } from '@atlaskit/editor-prosemirror/transform';
+import { token } from '@atlaskit/tokens';
 
-import type { ColorScheme } from '../src/showDiffPluginType';
+import type { ColorScheme, DiffType } from '../src/showDiffPluginType';
+
+const styles = cssMap({
+	container: {
+		paddingTop: token('space.150'),
+		paddingBottom: token('space.150'),
+		paddingLeft: token('space.150'),
+		paddingRight: token('space.150'),
+		display: 'flex',
+		gap: token('space.100'),
+	},
+});
 
 const original = doc(
 	p('Intro: original paragraph before changes.'),
@@ -97,6 +115,7 @@ export default function Editor(): React.JSX.Element {
 	const [isShowingDiff, setIsShowingDiff] = useState(false);
 	const [colorScheme, setColorScheme] = useState<ColorScheme>('standard');
 	const [isInverted, setisInverted] = useState(false);
+	const [diffType, setDiffType] = useState<DiffType>('inline');
 
 	const { preset, editorApi } = usePreset(
 		(builder) =>
@@ -209,10 +228,11 @@ export default function Editor(): React.JSX.Element {
 				steps,
 				originalDoc,
 				isInverted,
+				diffType,
 			}),
 		);
 		setIsShowingDiff(true);
-	}, [editorApi, isInverted]);
+	}, [editorApi, isInverted, diffType]);
 
 	useEffect(() => {
 		showDiff();
@@ -225,29 +245,39 @@ export default function Editor(): React.JSX.Element {
 
 	return (
 		<>
-			<Button
-				onClick={() => {
-					hideDiff();
-					setColorScheme(colorScheme === 'traditional' ? 'standard' : 'traditional');
-				}}
-			>
-				Colour scheme: {colorScheme}
-			</Button>
-			<Button
-				onClick={() => {
-					hideDiff();
-					setisInverted((prev) => !prev);
-				}}
-			>
-				Inverted: {isInverted ? 'on' : 'off'}
-			</Button>
-			<Button
-				onClick={() => {
-					isShowingDiff ? hideDiff() : showDiff();
-				}}
-			>
-				{isShowingDiff ? 'Hide diff' : 'Show diff'}
-			</Button>
+			<div css={styles.container}>
+				<Button
+					onClick={() => {
+						hideDiff();
+						setColorScheme(colorScheme === 'traditional' ? 'standard' : 'traditional');
+					}}
+				>
+					Colour scheme: {colorScheme}
+				</Button>
+				<Button
+					onClick={() => {
+						hideDiff();
+						setisInverted((prev) => !prev);
+					}}
+				>
+					Inverted: {isInverted ? 'on' : 'off'}
+				</Button>
+				<Button
+					onClick={() => {
+						hideDiff();
+						setDiffType(diffType === 'inline' ? 'block' : 'inline');
+					}}
+				>
+					Type: {diffType}
+				</Button>
+				<Button
+					onClick={() => {
+						isShowingDiff ? hideDiff() : showDiff();
+					}}
+				>
+					{isShowingDiff ? 'Hide diff' : 'Show diff'}
+				</Button>
+			</div>
 			<ComposableEditor
 				appearance="full-page"
 				defaultValue={defaultDoc}

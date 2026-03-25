@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ComponentType, type CSSProperties, type MouseEvent, type ReactNode } from 'react';
+import type { ComponentType, CSSProperties, MouseEvent, ReactNode } from 'react';
 
 import { css, cssMap, cx, jsx, type XCSSProp } from '@compiled/react';
 
@@ -13,8 +13,8 @@ import Tag from '@atlaskit/tag';
 import type { NewTagColor } from '@atlaskit/tag';
 import { token } from '@atlaskit/tokens';
 
-import { type SelectProps } from '../select';
-import { type CommonPropsAndClassName, type GroupBase } from '../types';
+import type { SelectProps } from '../select';
+import type { CommonPropsAndClassName, GroupBase } from '../types';
 import { getStyleProps } from '../utils';
 
 interface MultiValueComponents<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {

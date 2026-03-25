@@ -1,5 +1,36 @@
 # @atlaskit/editor-synced-block-provider
 
+## 4.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.0
+
+### Minor Changes
+
+- [`a9d6a5531d4ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9d6a5531d4ba) -
+  [ux] Ensures hasUnsavedBodiedSyncBlockChanges state is updated when page is being published.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.7
+
+### Patch Changes
+
+- [`612d18a57aabd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/612d18a57aabd) -
+  404s on updating a source synced block should be ignored
+- Updated dependencies
+
+## 4.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.5
 
 ### Patch Changes

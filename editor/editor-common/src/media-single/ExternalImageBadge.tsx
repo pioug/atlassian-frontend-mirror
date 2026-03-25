@@ -6,6 +6,7 @@ import { type MediaType } from '@atlaskit/adf-schema';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -26,6 +27,13 @@ type ExternalImageBadgeProps = {
 
 const NO_EXTERNAL_BADGE_HOSTS = ['atlassian.com', 'loom.com', 'dam-cdn.atl.orangelogic.com'];
 
+const NO_EXTERNAL_BADGE_HOSTS_NEW = [
+	'atlassian.com',
+	'loom.com',
+	'dam-cdn.atl.orangelogic.com',
+	'bitbucket.org',
+];
+
 export const isUnbadgedUrl = (url: string | undefined): boolean => {
 	if (!url) {
 		return false;
@@ -44,9 +52,18 @@ export const isUnbadgedUrl = (url: string | undefined): boolean => {
 		return pathname?.startsWith('image/');
 	}
 
+	if (expValEquals('platform_editor_media_external_badge_bbc_fix', 'isEnable', true)) {
+		return Boolean(
+			hostname &&
+				NO_EXTERNAL_BADGE_HOSTS_NEW.some(
+					(host) => hostname === host || hostname.endsWith(`.${host}`),
+				),
+		);
+	}
+
 	return Boolean(
 		hostname &&
-		NO_EXTERNAL_BADGE_HOSTS.some((host) => hostname === host || hostname.endsWith(`.${host}`)),
+			NO_EXTERNAL_BADGE_HOSTS.some((host) => hostname === host || hostname.endsWith(`.${host}`)),
 	);
 };
 

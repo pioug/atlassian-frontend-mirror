@@ -11,7 +11,7 @@ import cases from 'jest-in-case';
 import { skipA11yAudit } from '@af/accessibility-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { type FilterOptionOption } from '../../filters';
+import type { FilterOptionOption } from '../../filters';
 import Select, { type FormatOptionLabelMeta } from '../../select';
 import { noop } from '../../utils';
 

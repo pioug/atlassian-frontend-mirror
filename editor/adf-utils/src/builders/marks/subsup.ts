@@ -1,10 +1,6 @@
-import {
-	type SubSupDefinition,
-	type SubSupAttributes,
-	type TextDefinition,
-} from '@atlaskit/adf-schema';
+import type { SubSupDefinition, SubSupAttributes, TextDefinition } from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
-import { type WithMark } from '../types';
+import type { WithMark } from '../types';
 
 export const subsup =
 	(attrs: SubSupAttributes) =>

@@ -1,4 +1,4 @@
-import { type RuleTester } from 'eslint';
+import type { RuleTester } from 'eslint';
 
 type TestsBase = Parameters<RuleTester['run']>[2];
 type ValidTests = NonNullable<TestsBase['valid']>;

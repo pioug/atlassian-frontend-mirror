@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
-import { type Options } from '@atlaskit/react-select';
+import type { Options } from '@atlaskit/react-select';
 import AsyncSelect from '@atlaskit/react-select/async';
 
 import { cities } from './common/data';

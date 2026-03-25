@@ -21,14 +21,11 @@ import uuid from 'uuid';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
-import { HelperMessage } from '@atlaskit/form';
 import { CardClient } from '@atlaskit/link-provider';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import LinkUrl from '@atlaskit/smart-card/link-url';
-import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -64,14 +61,7 @@ const styles = cssMap({
 		marginTop: token('space.200'),
 		display: 'flex',
 		flexDirection: 'column',
-	},
-	linkDisplayHelperTextContainer: {
-		marginTop: token('space.050'),
-		color: token('color.text.subtlest', N700),
-	},
-	linkDisplayHelperText: {
-		font: token('font.body.small'),
-	},
+	}
 });
 
 const baseRootContainerStyles = css({
@@ -597,21 +587,10 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 								readOnly={isSubmitting}
 								onClear={handleClear}
 								onChange={handleChangeText}
-								{...(fg('navx-3742-refactoring-link-picker-helper-text-a11y')
-									? {
-											helperMessage: intl.formatMessage(
-												customMessages?.linkHelperTextLabel ?? linkTextMessages.linkHelperTextLabel,
-											),
-										}
-									: {})}
+								helperMessage={intl.formatMessage(
+									customMessages?.linkHelperTextLabel ?? linkTextMessages.linkHelperTextLabel,
+								)}
 							/>
-							{!fg('navx-3742-refactoring-link-picker-helper-text-a11y') && (
-								<HelperMessage testId={testIds.linkHelperText}>
-									{customMessages?.linkHelperTextLabel
-										? intl.formatMessage(customMessages?.linkHelperTextLabel)
-										: intl.formatMessage(linkTextMessages.linkHelperTextLabel)}
-								</HelperMessage>
-							)}
 						</Fragment>
 					)}
 					{moveSubmitButton && (

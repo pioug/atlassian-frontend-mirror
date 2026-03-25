@@ -1,5 +1,12 @@
 # @atlaskit/analytics-next
 
+## 11.2.0
+
+### Minor Changes
+
+- [`a0a0a9bcde425`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0a0a9bcde425) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 11.1.4
 
 ### Patch Changes

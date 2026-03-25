@@ -118,6 +118,7 @@ export type HoverCardContentProps = {
 	onMouseLeave?: MouseEventHandler;
 	onResolve: () => void;
 	renderers?: CardProviderRenderers;
+	showRovoResolvedView?: boolean;
 	url: string;
 };
 

@@ -1,5 +1,5 @@
-import { type ADFEntity, type EntityParent } from '../types';
-import { type ValueReplacements } from './default-value-replacements';
+import type { ADFEntity, EntityParent } from '../types';
+import type { ValueReplacements } from './default-value-replacements';
 import { scrubAttrs } from './scrub-content';
 
 export type NodeReplacer = (

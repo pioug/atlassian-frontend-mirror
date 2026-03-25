@@ -1,7 +1,7 @@
 import React from 'react';
 
 import HomeIcon from '@atlaskit/icon/core/home';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	ExpandableMenuItem,
 	ExpandableMenuItemTrigger,
@@ -17,7 +17,7 @@ const exampleHref = '#example-href';
 export function TruncationExample(): React.JSX.Element {
 	return (
 		<MockSideNav>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<LinkMenuItem
 						href={exampleHref}
@@ -47,7 +47,7 @@ export function TruncationExample(): React.JSX.Element {
 						</FlyoutMenuItemTrigger>
 					</FlyoutMenuItem>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 		</MockSideNav>
 	);
 }

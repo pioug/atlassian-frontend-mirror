@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import * as React from 'react';
-import { type ComponentProps, type FocusEvent, type KeyboardEvent, type MouseEvent } from 'react';
+import type { ComponentProps, FocusEvent, KeyboardEvent, MouseEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -12,7 +12,7 @@ import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { GRAB_AREA_LINE_SELECTOR, GRAB_AREA_SELECTOR } from '../../common/constants';
-import { type LeftSidebarProps } from '../../common/types';
+import type { LeftSidebarProps } from '../../common/types';
 
 type GrabAreaProps = {
 	isDisabled: boolean;

@@ -1,25 +1,4 @@
-import {
-	type BlockCardDefinition as BlockCard,
-	type BlockQuoteDefinition as Blockquote,
-	type BulletListDefinition as BulletList,
-	type CodeBlockDefinition as CodeBlock,
-	type DecisionListDefinition as DecisionList,
-	type EmbedCardDefinition as EmbedCard,
-	type ExpandDefinition as Expand,
-	type HeadingDefinition as Heading,
-	type HeadingWithMarksDefinition as HeadingWithMarks,
-	type LayoutSectionDefinition as LayoutSection,
-	type MediaGroupDefinition as MediaGroup,
-	type MediaSingleDefinition as MediaSingle,
-	type OrderedListDefinition as OrderedList,
-	type PanelDefinition as Panel,
-	type ParagraphDefinition as Paragraph,
-	type ParagraphWithMarksDefinition as ParagraphWithMarks,
-	type RuleDefinition as Rule,
-	type TableDefinition as Table,
-	type TaskListDefinition as TaskList,
-	type BodiedSyncBlockDefinition,
-} from '@atlaskit/adf-schema';
+import type { BlockCardDefinition as BlockCard, BlockQuoteDefinition as Blockquote, BulletListDefinition as BulletList, CodeBlockDefinition as CodeBlock, DecisionListDefinition as DecisionList, EmbedCardDefinition as EmbedCard, ExpandDefinition as Expand, HeadingDefinition as Heading, HeadingWithMarksDefinition as HeadingWithMarks, LayoutSectionDefinition as LayoutSection, MediaGroupDefinition as MediaGroup, MediaSingleDefinition as MediaSingle, OrderedListDefinition as OrderedList, PanelDefinition as Panel, ParagraphDefinition as Paragraph, ParagraphWithMarksDefinition as ParagraphWithMarks, RuleDefinition as Rule, TableDefinition as Table, TaskListDefinition as TaskList, BodiedSyncBlockDefinition } from '@atlaskit/adf-schema';
 
 type BodiedSyncBlockContent =
 	| BlockCard

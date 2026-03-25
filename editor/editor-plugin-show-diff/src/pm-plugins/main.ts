@@ -15,9 +15,9 @@ import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { type DiffParams, type ShowDiffPlugin } from '../showDiffPluginType';
+import { type DiffParams, type DiffType, type ShowDiffPlugin } from '../showDiffPluginType';
 
-import { calculateDiffDecorations } from './calculateDiffDecorations';
+import { calculateDiffDecorations } from './calculateDiff/calculateDiffDecorations';
 import { NodeViewSerializer } from './NodeViewSerializer';
 import { scrollToActiveDecoration } from './scrollToActiveDecoration';
 
@@ -29,6 +29,7 @@ export type ShowDiffPluginState = {
 	activeIndex?: number;
 	activeIndexPos?: { from: number; to: number };
 	decorations: DecorationSet;
+	diffType?: DiffType;
 	isDisplayingChanges: boolean;
 	isInverted?: boolean;
 	originalDoc: PMNode | undefined;
@@ -86,6 +87,7 @@ export const createPlugin = (
 					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
 						? {
 								isInverted: false,
+								diffType: 'inline',
 							}
 						: {}),
 				};
@@ -120,7 +122,7 @@ export const createPlugin = (
 								: undefined,
 							api,
 							...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-								? { isInverted: newPluginState?.isInverted }
+								? { isInverted: newPluginState?.isInverted, diffType: newPluginState?.diffType }
 								: {}),
 						});
 						// Update the decorations
@@ -133,11 +135,11 @@ export const createPlugin = (
 							isDisplayingChanges: false,
 							activeIndex: undefined,
 							/**
-							 * Reset isInverted state when hiding diffs
+							 * Reset isInverted & diffType state when hiding diffs
 							 * Otherwise this should persist for the diff-showing session
 							 */
 							...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-								? { isInverted: false }
+								? { isInverted: false, diffType: 'inline' }
 								: {}),
 						};
 					} else if (

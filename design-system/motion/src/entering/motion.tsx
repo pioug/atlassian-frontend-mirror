@@ -54,7 +54,7 @@ export interface MotionRef {
 
 type MotionState = 'entering' | 'exiting' | 'idle' | 'reanimating';
 
-interface MotionProps {
+export interface MotionProps {
 	/**
 	 * Will callback when the motion has finished in the particular direction.
 	 * If it finished entering direction will be `entering`.
@@ -63,18 +63,16 @@ interface MotionProps {
 	onFinish?: (state: Transition) => void;
 
 	/**
-	 * Children as `function`.
-	 * Will be passed `props` for you to hook up.
-	 * The `state` arg can be used to know if the motion is `entering` or `exiting`.
+	 * Children to be animated.
 	 */
 	children: React.ReactNode;
 	/**
-	 * CSS keyframes for the entering animation.
+	 * Motion token for the entering animation.
 	 */
 	enteringAnimation?: MotionToken;
 
 	/**
-	 * CSS keyframes for the exiting animation.
+	 * Motion token for the exiting animation.
 	 */
 	exitingAnimation?: MotionToken;
 	/**

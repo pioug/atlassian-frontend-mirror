@@ -7,6 +7,7 @@ import { getNodeIdProvider } from '../../node-anchor/node-anchor-provider';
 import type {
 	CorePlugin,
 	DefaultTransformerResultCallback,
+	EditorAppearance,
 	InferTransformerResultCallback,
 	Transformer,
 	TransformerResult,
@@ -18,6 +19,7 @@ import {
 } from '../../utils/processRawValue';
 import { editorCommandToPMCommand } from '../editor-commands';
 
+import { appearancePluginKey, createAppearancePlugin } from './pm-plugins/appearance-plugin';
 import {
 	createThrottleSchedule,
 	returnDocumentRequest,
@@ -34,13 +36,27 @@ export const corePlugin: CorePlugin = ({ config }) => {
 	const scheduleDocumentRequestNoThrowError = createThrottleSchedule(
 		returnDocumentRequestNoThrowError,
 	);
-
 	return {
 		name: 'core',
 		getSharedState(state) {
+			const pluginState = state && appearancePluginKey.getState(state);
 			return {
 				schema: state?.schema,
+				appearance: expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)
+					? pluginState?.appearance
+					: undefined,
 			};
+		},
+		pmPlugins() {
+			if (expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)) {
+				return [
+					{
+						name: 'appearancePlugin',
+						plugin: () => createAppearancePlugin(config?.appearance),
+					},
+				];
+			}
+			return [];
 		},
 		actions: {
 			execute: (command) => {
@@ -108,6 +124,24 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				dom.scrollIntoView(scrollOptions);
 				return true;
 			},
+			updateAppearance: (newAppearance: EditorAppearance | undefined) => {
+				if (!expValEquals('platform_editor_appearance_shared_state', 'isEnabled', true)) {
+					return false;
+				}
+				const editorView = config?.getEditorView();
+				if (!editorView) {
+					return false;
+				}
+				// Avoid dispatching a redundant transaction if appearance hasn't changed
+				const currentAppearance = appearancePluginKey.getState(editorView.state)?.appearance;
+				if (currentAppearance === newAppearance) {
+					return false;
+				}
+				const tr = editorView.state.tr.setMeta(appearancePluginKey, { appearance: newAppearance });
+				tr.setMeta('addToHistory', false);
+				editorView.dispatch(tr);
+				return true;
+			},
 			replaceDocument: (
 				replaceValue: Node | Fragment | Array<Node> | Object | String,
 				options?: {
@@ -129,12 +163,12 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					? processRawValueWithoutValidation(schema, replaceValue)
 					: Array.isArray(replaceValue)
 						? processRawFragmentValue(
-								schema,
-								replaceValue,
-								undefined,
-								undefined,
-								options?.transformer,
-							)
+							schema,
+							replaceValue,
+							undefined,
+							undefined,
+							options?.transformer,
+						)
 						: processRawValue(schema, replaceValue, undefined, undefined, options?.transformer);
 
 				// Don't replace the document if it's the same document, as full size
@@ -176,8 +210,8 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				scheduleDocumentRequest(
 					view,
 					onReceive as GenericTransformer extends undefined
-						? DefaultTransformerResultCallback
-						: InferTransformerResultCallback<GenericTransformer>,
+					? DefaultTransformerResultCallback
+					: InferTransformerResultCallback<GenericTransformer>,
 					options?.transformer,
 					config?.fireAnalyticsEvent,
 					options?.alwaysFire,

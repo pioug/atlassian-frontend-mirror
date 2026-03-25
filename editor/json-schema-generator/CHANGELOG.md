@@ -1,5 +1,12 @@
 # @atlaskit/json-schema-generator
 
+## 3.3.13
+
+### Patch Changes
+
+- [`a12c91a07773e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a12c91a07773e) -
+  Mechanical type-import autofix for ADF utility packages.
+
 ## 3.3.12
 
 ### Patch Changes

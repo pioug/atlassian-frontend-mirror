@@ -11,6 +11,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { FireAnalyticsCallback } from '../analytics';
 
+import type { EditorAppearance } from './editor-appearance';
 import type { EditorCommand, EditorCommandWithMetadata } from './editor-command';
 import type { EditorPlugin } from './editor-plugin';
 
@@ -137,13 +138,29 @@ export type CorePlugin = NextEditorPlugin<
 			 * @returns (boolean) if scroll was successful
 			 */
 			scrollToPos: (pos: number, scrollOptions?: boolean | ScrollIntoViewOptions) => boolean;
+
+			/**
+			 * Updates the editor appearance in shared state. Dispatches a ProseMirror transaction
+			 * so that shared state subscribers are correctly notified of the change.
+			 *
+			 * @param appearance - The new editor appearance value
+			 * @returns true if the update was dispatched, false if the experiment is off or the view was unavailable
+			 */
+			updateAppearance: (appearance: EditorAppearance | undefined) => boolean;
 		};
 		pluginConfiguration: {
+			// Initial appearance value for the editor, used to initialize appearance tracking in shared state
+			appearance?: EditorAppearance;
 			// Optional analytics callback to fire events - core plugin isn't able to consume AnalyticsPlugin as a dependency like other plugins
 			fireAnalyticsEvent?: FireAnalyticsCallback;
 			getEditorView: () => EditorView | undefined;
 		};
 		sharedState: {
+			/**
+			 * The appearance configuration of the editor. Used as fallback when individual
+			 * plugins don't have explicit appearance configuration.
+			 */
+			appearance: EditorAppearance | undefined;
 			/**
 			 * The schema of the editor. It is guarranteed to be static for its lifecycle
 			 * so is safe to use `currentState`

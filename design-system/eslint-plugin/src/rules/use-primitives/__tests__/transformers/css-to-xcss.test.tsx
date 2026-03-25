@@ -1,4 +1,4 @@
-import { type Rule } from 'eslint';
+import type { Rule } from 'eslint';
 import * as eslintCodemodUtils from 'eslint-codemod-utils';
 import j from 'jscodeshift';
 

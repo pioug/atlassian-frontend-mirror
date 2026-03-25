@@ -1,3 +1,4 @@
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { format } from 'date-fns';
 
 import { convertTokens } from './parse-tokens';

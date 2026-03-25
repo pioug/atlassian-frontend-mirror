@@ -12,7 +12,6 @@ import {
 } from '@af/icon-build-process';
 
 import coreIconMetadata from '../icons_raw/metadata-core';
-import migrationMap from '../src/migration-map';
 import { recommendedSmallIcons } from '../src/recommended-small';
 import synonyms from '../utils/synonyms';
 
@@ -54,7 +53,6 @@ async function main() {
 			icons,
 			'@atlaskit/icon',
 			coreIconMetadata,
-			migrationMap,
 		);
 
 		fs.outputFile(path.resolve(root, 'src/deprecated-core.tsx'), deprecatedDocs);

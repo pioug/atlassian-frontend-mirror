@@ -1,4 +1,4 @@
-import { type ParagraphDefinition, type Inline } from '@atlaskit/adf-schema';
+import type { ParagraphDefinition, Inline } from '@atlaskit/adf-schema';
 import { createTextNodes } from '../utils/create-text-nodes';
 
 export const paragraph = (...content: Array<Inline | string>): ParagraphDefinition => ({

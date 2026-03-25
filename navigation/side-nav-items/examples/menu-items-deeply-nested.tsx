@@ -24,7 +24,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavFooter,
 	SideNavHeader,
 	SideNavToggleButton,
@@ -135,7 +135,7 @@ function MenuItemsDeeplyNestedExample({
 						<Heading size="xsmall">Settings</Heading>
 					</SideNavHeader>
 
-					<SideNavContent testId="side-nav-content">
+					<SideNavBody testId="side-nav-content">
 						<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 							Your work
 						</LinkMenuItem>
@@ -323,7 +323,7 @@ function MenuItemsDeeplyNestedExample({
 								</NestedExpandable>
 							</NestedExpandable>
 						</NestedExpandable>
-					</SideNavContent>
+					</SideNavBody>
 
 					<SideNavFooter>
 						<LinkMenuItem href="#" elemBefore={<MegaphoneIcon label="" color="currentColor" />}>

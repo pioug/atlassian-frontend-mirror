@@ -8,7 +8,7 @@ import ClockIcon from '@atlaskit/icon/core/clock';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import { Root } from '@atlaskit/navigation-system/layout/root';
-import { SideNav, SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNav, SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
 	FlyoutBody,
@@ -141,7 +141,7 @@ export default function MultipleFlyoutMenuExample(): React.JSX.Element {
 		<WithResponsiveViewport>
 			<Root>
 				<SideNav>
-					<SideNavContent>
+					<SideNavBody>
 						<ManagerContext.Provider value={manager}>
 							<FlyoutWithShortcut
 								label="Recent"
@@ -191,7 +191,7 @@ export default function MultipleFlyoutMenuExample(): React.JSX.Element {
 						<ButtonMenuItem elemBefore={<ShowMoreHorizontalIcon label="" color="currentColor" />}>
 							More
 						</ButtonMenuItem>
-					</SideNavContent>
+					</SideNavBody>
 				</SideNav>
 			</Root>
 		</WithResponsiveViewport>

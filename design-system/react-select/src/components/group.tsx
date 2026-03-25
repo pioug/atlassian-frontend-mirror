@@ -2,14 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ComponentType, type CSSProperties, type ReactNode } from 'react';
+import type { ComponentType, CSSProperties, ReactNode } from 'react';
 
 import { css, cssMap, cx, jsx, type XCSSProp } from '@compiled/react';
 
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
-import { type SelectProps } from '../select';
+import type { SelectProps } from '../select';
 import {
 	type CommonProps,
 	type CommonPropsAndClassName,

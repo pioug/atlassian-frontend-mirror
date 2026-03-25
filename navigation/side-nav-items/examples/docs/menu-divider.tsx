@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ImageIcon from '@atlaskit/icon/core/image';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { Divider } from '@atlaskit/side-nav-items/menu-section';
@@ -12,7 +12,7 @@ const exampleHref = '#example-href';
 
 export const MenuDividerExample = (): React.JSX.Element => (
 	<MockSideNav>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<LinkMenuItem href={exampleHref} elemBefore={<ImageIcon label="" spacing="spacious" />}>
 					Link menu item
@@ -28,7 +28,7 @@ export const MenuDividerExample = (): React.JSX.Element => (
 					Link menu item
 				</LinkMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</MockSideNav>
 );
 

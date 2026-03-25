@@ -1,7 +1,7 @@
 import type { Rule, Scope as ScopeNamespace } from 'eslint';
 
 import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
-import { type ImportSource } from '@atlaskit/eslint-utils/is-supported-import';
+import type { ImportSource } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { isStyledComponent } from './is-styled-component';
 

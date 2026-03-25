@@ -35,7 +35,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavPanelSplitter,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
@@ -227,7 +227,7 @@ export function ResizableSlots(): JSX.Element {
 			</TopNav>
 
 			<SideNav label="Side navigation" defaultWidth={320} id="side-nav" testId="side-nav">
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 							Your work
@@ -253,7 +253,7 @@ export function ResizableSlots(): JSX.Element {
 							Projects
 						</LinkMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 				<SideNavPanelSplitter
 					label="Resize sidebar"
 					onResizeStart={handleResizeStart}

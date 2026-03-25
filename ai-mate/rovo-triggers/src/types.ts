@@ -106,6 +106,10 @@ export type ChatNewPayload = PayloadCore<
 		resetActiveMenu?: boolean;
 		// Chat mode options to configure the conversation behavior
 		mode?: ChatModeParam;
+		// AI feature context to set in the store when the chat is created.
+		// Each key-value pair is set via setAIFeatureContext. Stale entries for
+		// known keys (e.g. 'projectContext') are cleared before new values are applied.
+		aiFeatureContext?: Record<string, unknown>;
 	} & Partial<TargetAgentParam> &
 		PlaceholderParam
 >;

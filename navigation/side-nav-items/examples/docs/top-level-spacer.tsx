@@ -6,7 +6,7 @@ import PagesIcon from '@atlaskit/icon/core/pages';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { ConfluenceIcon, GoalsIcon, JiraIcon, TeamsIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
@@ -19,7 +19,7 @@ const exampleHref = '#example-href';
 export function TopLevelSpacerExample(): React.JSX.Element {
 	return (
 		<MockSideNav>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<LinkMenuItem
 						href={exampleHref}
@@ -71,7 +71,7 @@ export function TopLevelSpacerExample(): React.JSX.Element {
 
 					<ButtonMenuItem elemBefore={<MoreIcon label="" />}>More</ButtonMenuItem>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 		</MockSideNav>
 	);
 }

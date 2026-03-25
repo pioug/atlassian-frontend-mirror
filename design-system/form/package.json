@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "15.4.2",
+	"version": "15.5.0",
 	"description": "A form allows people to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -110,17 +110,32 @@
 		}
 	},
 	"exports": {
+		".": "./src/index.tsx",
+		"./character-counter": "./src/entry-points/character-counter.tsx",
+		"./character-counter-field": "./src/entry-points/character-counter-field.tsx",
+		"./checkbox-field": "./src/entry-points/checkbox-field.tsx",
 		"./CheckboxField": "./src/entry-points/checkbox-field.tsx",
+		"./field": "./src/entry-points/field.tsx",
 		"./Field": "./src/entry-points/field.tsx",
+		"./fieldset": "./src/entry-points/fieldset.tsx",
 		"./Fieldset": "./src/entry-points/fieldset.tsx",
+		"./form": "./src/entry-points/form.tsx",
+		"./Form": "./src/entry-points/form.tsx",
+		"./form-footer": "./src/entry-points/form-footer.tsx",
+		"./form-header": "./src/entry-points/form-header.tsx",
+		"./form-section": "./src/entry-points/form-section.tsx",
 		"./FormFooter": "./src/entry-points/form-footer.tsx",
 		"./FormHeader": "./src/entry-points/form-header.tsx",
 		"./FormSection": "./src/entry-points/form-section.tsx",
-		"./Form": "./src/entry-points/form.tsx",
-		"./Messages": "./src/entry-points/messages.tsx",
-		"./RangeField": "./src/entry-points/range-field.tsx",
+		"./label": "./src/entry-points/label.tsx",
 		"./Label": "./src/entry-points/label.tsx",
-		".": "./src/index.tsx"
+		"./messages": "./src/entry-points/messages.tsx",
+		"./Messages": "./src/entry-points/messages.tsx",
+		"./range-field": "./src/entry-points/range-field.tsx",
+		"./RangeField": "./src/entry-points/range-field.tsx",
+		"./required-asterisk": "./src/entry-points/required-asterisk.tsx",
+		"./types": "./src/types.tsx",
+		"./use-form-state": "./src/entry-points/use-form-state.tsx"
 	},
 	"homepage": "https://atlassian.design/components/form/"
 }

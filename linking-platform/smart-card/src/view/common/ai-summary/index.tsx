@@ -6,6 +6,7 @@ import { css, jsx } from '@compiled/react';
 import Markdown from 'markdown-to-jsx';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import type { AISummaryProps } from './types';
@@ -52,7 +53,10 @@ const AISummary = ({
 			className={className}
 			css={[
 				baseStyle,
-				fg('platform_sl_3p_auth_rovo_action_kill_switch') ? textStyleNew : textStyleOld,
+				expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true) &&
+				fg('platform_sl_3p_auth_rovo_action_kill_switch')
+					? textStyleNew
+					: textStyleOld,
 			]}
 			children={content}
 			options={{

@@ -24,7 +24,7 @@ const transformTeam = (team: LegionResponse, id: string): Team => {
 		name: team.displayName,
 		type: 'team',
 		avatarUrl: team.smallAvatarImageUrl,
-		...(team.state && { state: team.state }),
+		...(team.state && { state: team.state }), // State to determine if the team is active/disbanded
 	};
 };
 

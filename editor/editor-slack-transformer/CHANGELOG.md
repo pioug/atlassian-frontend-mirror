@@ -1,5 +1,15 @@
 # @atlaskit/editor-slack-transformer
 
+## 4.1.5
+
+### Patch Changes
+
+- [`77cafcf235d17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77cafcf235d17) -
+  EDITOR-6049 Add support for flexible list indentation and task lists in Slack markdown serializer.
+  Wrapper listItem nodes (listItem nodes whose only children are nested lists) no longer produce
+  empty bullet points or numbers. Task lists render with checkbox indicators and correct
+  indentation.
+
 ## 4.1.4
 
 ### Patch Changes

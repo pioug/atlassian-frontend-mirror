@@ -8,7 +8,7 @@ import { css } from '@atlaskit/css';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Root } from '@atlaskit/navigation-system/layout/root';
-import { SideNav, SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNav, SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
 
 const noShrinkStyles = css({
@@ -23,7 +23,7 @@ export default function ImplicitRows(): JSX.Element {
 				<span css={noShrinkStyles}>top nav</span>
 			</TopNav>
 			<SideNav defaultCollapsed>
-				<SideNavContent>Hello world</SideNavContent>
+				<SideNavBody>Hello world</SideNavBody>
 			</SideNav>
 			<div data-yo>I should not be here</div>
 			<Main>main content</Main>

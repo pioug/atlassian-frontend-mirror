@@ -257,7 +257,6 @@ The package uses platform feature flags for gradual rollouts. Key flags are defi
 
 | Flag                                                | Purpose                          |
 | --------------------------------------------------- | -------------------------------- |
-| `platform_ufo_enable_ttai_with_3p`                  | Third-party segment timing       |
 | `platform_ufo_enable_vc_raw_data`                   | Raw VC data inclusion            |
 | `platform_ufo_segment_critical_metrics`             | Segment-level metrics            |
 | `platform_ufo_enable_terminal_errors`               | Terminal error tracking          |

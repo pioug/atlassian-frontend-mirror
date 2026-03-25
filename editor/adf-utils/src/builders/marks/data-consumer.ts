@@ -1,12 +1,6 @@
-import {
-	type ExtensionDefinition,
-	type BodiedExtensionDefinition,
-	type InlineExtensionDefinition,
-	type DataConsumerAttributes,
-	type DataConsumerDefinition,
-} from '@atlaskit/adf-schema';
+import type { ExtensionDefinition, BodiedExtensionDefinition, InlineExtensionDefinition, DataConsumerAttributes, DataConsumerDefinition } from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
-import { type WithAppliedMark } from '../types';
+import type { WithAppliedMark } from '../types';
 
 export const dataConsumer =
 	(attrs: DataConsumerAttributes) =>

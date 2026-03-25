@@ -10,8 +10,13 @@ import {
 	mockedAccessibleResultWithGatewayBaseUrl,
 } from './accessible-products-result';
 
-const fetchAvailableSiteEndpoint = /\/gateway\/api\/available-sites/;
-const fetchAccessibleProductsEndpoint = /\/gateway\/api\/v2\/accessible-products/;
+const AVAILABLE_SITES_ENDPOINT = '/gateway/api/available-sites';
+const AVAILABLE_SITES_UNIT_COMPLIANT_ENDPOINT = '/gateway/api/experimental/available-sites';
+const ACCESSIBLE_PRODUCTS_ENDPOINT = '/gateway/api/v2/accessible-products';
+const ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_ENDPOINT =
+	'/gateway/api/experimental/v2/accessible-products';
+const fetchAvailableSiteEndpoint = /\/gateway\/api(?:\/experimental)?\/available-sites/;
+const fetchAccessibleProductsEndpoint = /\/gateway\/api(?:\/experimental)?\/v2\/accessible-products/;
 
 export const mockAvailableSites = (responseData?: any): void => {
 	fetchMock.post(fetchAvailableSiteEndpoint, responseData || mockedAvailableSitesResult, {
@@ -31,9 +36,16 @@ export const mockAccessibleProducts = (responseData?: any): void => {
  * Mock availableSites for a specific gatewayBaseUrl. Only matches requests with the gatewayBaseUrl in the url.
  * @param gatewayBaseUrl Base url without trailing slash
  */
-export const mockAvailableSitesForGatewayUrl = (gatewayBaseUrl: string): void => {
+export const mockAvailableSitesForGatewayUrl = (
+	gatewayBaseUrl: string,
+	useUnitCompliantEndpoint = false,
+): void => {
 	fetchMock.post(
-		`${gatewayBaseUrl}/gateway/api/available-sites`,
+		`${gatewayBaseUrl}${
+			useUnitCompliantEndpoint
+				? AVAILABLE_SITES_UNIT_COMPLIANT_ENDPOINT
+				: AVAILABLE_SITES_ENDPOINT
+		}`,
 		mockedAvailableSitesResultWithGatewayBaseUrl,
 		{
 			delay: 10,
@@ -46,9 +58,16 @@ export const mockAvailableSitesForGatewayUrl = (gatewayBaseUrl: string): void =>
  * Mock accessibleProducts for a specific gatewayBaseUrl. Only matches requests with the gatewayBaseUrl in the url.
  * @param gatewayBaseUrl Base url without trailing slash
  */
-export const mockAccessibleProductsForGatewayUrl = (gatewayBaseUrl: string): void => {
+export const mockAccessibleProductsForGatewayUrl = (
+	gatewayBaseUrl: string,
+	useUnitCompliantEndpoint = false,
+): void => {
 	fetchMock.post(
-		`${gatewayBaseUrl}/gateway/api/v2/accessible-products`,
+		`${gatewayBaseUrl}${
+			useUnitCompliantEndpoint
+				? ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_ENDPOINT
+				: ACCESSIBLE_PRODUCTS_ENDPOINT
+		}`,
 		mockedAccessibleResultWithGatewayBaseUrl,
 		{
 			delay: 10,

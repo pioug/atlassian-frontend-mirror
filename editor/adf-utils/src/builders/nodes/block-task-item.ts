@@ -1,8 +1,4 @@
-import {
-	type BlockTaskItemDefinition,
-	type ParagraphDefinition,
-	type ExtensionDefinition,
-} from '@atlaskit/adf-schema';
+import type { BlockTaskItemDefinition, ParagraphDefinition, ExtensionDefinition } from '@atlaskit/adf-schema';
 
 export const blockTaskItem =
 	(attrs: BlockTaskItemDefinition['attrs']) =>

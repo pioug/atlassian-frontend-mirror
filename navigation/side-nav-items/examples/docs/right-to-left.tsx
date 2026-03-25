@@ -8,7 +8,7 @@ import HomeIcon from '@atlaskit/icon/core/home';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	ExpandableMenuItem,
 	ExpandableMenuItemContent,
@@ -49,7 +49,7 @@ export function RightToLeftExample(): React.JSX.Element {
 	return (
 		<div dir="rtl">
 			<MockSideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<LinkMenuItem
 							href={exampleHref}
@@ -129,7 +129,7 @@ export function RightToLeftExample(): React.JSX.Element {
 							</FlyoutMenuItemTrigger>
 						</FlyoutMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 			</MockSideNav>
 		</div>
 	);

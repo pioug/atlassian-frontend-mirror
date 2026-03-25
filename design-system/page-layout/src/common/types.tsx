@@ -1,7 +1,7 @@
-import { type ElementType, type ReactElement, type ReactNode } from 'react';
+import type { ElementType, ReactElement, ReactNode } from 'react';
 
-import { type ResizeButtonProps } from '../components/resize-control/types';
-import { type LeftSidebarState } from '../controllers/sidebar-resize-context';
+import type { ResizeButtonProps } from '../components/resize-control/types';
+import type { LeftSidebarState } from '../controllers/sidebar-resize-context';
 
 interface SlotProps {
 	/**

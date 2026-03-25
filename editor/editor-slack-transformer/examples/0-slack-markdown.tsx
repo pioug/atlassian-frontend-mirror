@@ -11,6 +11,8 @@ import { useMemoizedSyncedBlockProvider } from '@atlaskit/editor-synced-block-pr
 import { getSyncedBlockRenderer } from '@atlaskit/editor-synced-block-renderer';
 import { token } from '@atlaskit/tokens';
 
+import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { SlackTransformer } from '../src';
 
@@ -39,7 +41,7 @@ declare global {
 	}
 }
 
-export default function EditorWithFeedback(props: Props): React.JSX.Element {
+export default function EditorWithFeedback(_props: Props): React.JSX.Element {
 	const [{ hasJquery, isExpanded }, setState] = useState<State>({
 		hasJquery: false,
 		isExpanded: false,
@@ -108,9 +110,12 @@ export default function EditorWithFeedback(props: Props): React.JSX.Element {
 									placeholder="What do you want to say?"
 									shouldFocus={true}
 									allowHelpDialog={true}
+									allowTasksAndDecisions={true}
+									allowNestedTasks={true}
 									disabled={disabled}
 									mentionProvider={mentionProvider}
 									emojiProvider={emojiProvider}
+									taskDecisionProvider={Promise.resolve(getMockTaskDecisionResource())}
 									media={{
 										provider: mediaProvider,
 										allowMediaSingle: true,

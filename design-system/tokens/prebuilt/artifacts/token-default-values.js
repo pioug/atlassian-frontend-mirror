@@ -13,18 +13,34 @@ exports.default = void 0;
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::a18a0cf6bb63fbd882dcfe06ef046047>>
+ * @codegen <<SignedSource::c8dea3807fda6392faffb7299b6ecb9a>>
  * @codegenCommand yarn build tokens
  */
 var defaultTokenValues = {
-  'motion.content.enter.long': '400ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn',
-  'motion.content.enter.medium': '200ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn',
-  'motion.content.enter.short': '100ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn',
-  'motion.content.exit.long': '200ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut',
-  'motion.content.exit.medium': '100ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut',
-  'motion.content.exit.short': '50ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut',
-  'motion.dialog.enter': '350ms cubic-bezier(0.66, 0, 0.34, 1) ScaleIn80, 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn',
-  'motion.dialog.exit': '350ms cubic-bezier(0.66, 0, 0.34, 1) ScaleOut80, 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut',
+  'motion.avatar.enter': '150ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleIn80, 150ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeIn',
+  'motion.avatar.exit': '100ms cubic-bezier(0.32, 0, 0.67, 0) ScaleOut80, 100ms cubic-bezier(0.32, 0, 0.67, 0) FadeOut',
+  'motion.avatar.hovered': 'transform 100ms cubic-bezier(0.32, 0, 0.67, 0)',
+  'motion.content.enter.long': '400ms cubic-bezier(0.4, 0, 0, 1) FadeIn',
+  'motion.content.enter.medium': '200ms cubic-bezier(0.4, 0, 0, 1) FadeIn',
+  'motion.content.enter.short': '100ms cubic-bezier(0.4, 0, 0, 1) FadeIn',
+  'motion.content.exit.long': '200ms cubic-bezier(0.4, 0, 0, 1) FadeOut',
+  'motion.content.exit.medium': '100ms cubic-bezier(0.4, 0, 0, 1) FadeOut',
+  'motion.content.exit.short': '50ms cubic-bezier(0.4, 0, 0, 1) FadeOut',
+  'motion.flag.enter': '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn50PercentLeft, 250ms cubic-bezier(0, 0.4, 0, 1) FadeIn',
+  'motion.flag.exit': '200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut15PercentLeft, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut',
+  'motion.flag.reposition': 'transform 300ms cubic-bezier(0.4, 0, 0, 1)',
+  'motion.modal.enter': '200ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95, 200ms cubic-bezier(0.4, 0, 0, 1) FadeIn',
+  'motion.modal.exit': '200ms cubic-bezier(0.4, 1, 0.6, 1) ScaleOut95, 200ms cubic-bezier(0.4, 1, 0.6, 1) FadeOut',
+  'motion.popup.enter.bottom': '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn',
+  'motion.popup.enter.left': '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInLeft, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn',
+  'motion.popup.enter.right': '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInRight, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn',
+  'motion.popup.enter.top': '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInTop, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn',
+  'motion.popup.exit.bottom': '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut',
+  'motion.popup.exit.left': '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut',
+  'motion.popup.exit.right': '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut',
+  'motion.popup.exit.top': '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutTop, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut',
+  'motion.spotlight.enter': '250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95, 250ms cubic-bezier(0.4, 0, 0, 1) FadeIn',
+  'motion.spotlight.exit': '200ms cubic-bezier(0.4, 1, 0.6, 1) ScaleOut95, 200ms cubic-bezier(0.4, 1, 0.6, 1) FadeOut',
   'color.text': '#292A2E',
   'color.text.accent.lime': '#4C6B1F',
   'color.text.accent.lime.bolder': '#37471F',

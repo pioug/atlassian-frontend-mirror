@@ -13,7 +13,7 @@ import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { COLLAPSE_ELEM_BEFORE, LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
@@ -83,7 +83,7 @@ const elemAfter = <Lozenge>elem after</Lozenge>;
 
 export const LinkMenuItemExample = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<LinkMenuItem href="#">Text only</LinkMenuItem>
 				<LinkMenuItem href="#" elemBefore={COLLAPSE_ELEM_BEFORE}>
@@ -233,7 +233,7 @@ export const LinkMenuItemExample = () => (
 					With all options and long text (portalled popup)
 				</LinkMenuItem>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 

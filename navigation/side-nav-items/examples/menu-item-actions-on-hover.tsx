@@ -14,7 +14,7 @@ import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
 import { ButtonItem } from '@atlaskit/menu';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Popup } from '@atlaskit/popup';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
@@ -124,7 +124,7 @@ function ButtonMenuItemWithPopup({
 function ButtonMenuItemExample() {
 	return (
 		<div css={styles.root}>
-			<SideNavContent>
+			<SideNavBody>
 				<MenuList>
 					<ButtonMenuItem
 						elemBefore={homeIcon}
@@ -186,7 +186,7 @@ function ButtonMenuItemExample() {
 						testId="button-menu-item-with-popup-portalled-popup"
 					/>
 				</MenuList>
-			</SideNavContent>
+			</SideNavBody>
 		</div>
 	);
 }

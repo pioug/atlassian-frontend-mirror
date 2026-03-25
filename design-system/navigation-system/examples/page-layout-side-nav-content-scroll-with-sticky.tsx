@@ -13,7 +13,7 @@ import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavFooter,
 	SideNavHeader,
 	SideNavToggleButton,
@@ -101,7 +101,7 @@ function SideNavContentScrollWithSticky({
 						<Heading size="xsmall">Settings</Heading>
 					</SideNavHeader>
 
-					<SideNavContent ref={scrollContainerRef}>
+					<SideNavBody ref={scrollContainerRef}>
 						<div css={stickyContentStyles.root}>Sticky content</div>
 						<div
 							css={normalContentStyles.root}
@@ -115,7 +115,7 @@ function SideNavContentScrollWithSticky({
 						>
 							Normal content
 						</div>
-					</SideNavContent>
+					</SideNavBody>
 
 					<SideNavFooter>
 						<MenuList>

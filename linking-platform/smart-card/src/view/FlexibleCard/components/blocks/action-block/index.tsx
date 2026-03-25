@@ -127,7 +127,7 @@ const ActionBlock = ({
 		}
 
 		const arr = fg('platform_sl_3p_auth_rovo_action_kill_switch')
-			? is3PAuthRovoActionsExperimentOn && isRovoChatActionAvailable
+			? isRovoChatActionAvailable
 				? [InternalActionName.RovoChatAction]
 				: (Object.keys(context.actions) as FlexibleUiActionName[]).filter(
 						(name) => name !== InternalActionName.RovoChatAction,
@@ -162,7 +162,7 @@ const ActionBlock = ({
 			);
 		};
 
-		return isRovoChatActionAvailable && fg('platform_sl_3p_auth_rovo_action_kill_switch') ? (
+		return isRovoChatActionAvailable ? (
 			<StaggeredEntrance columns={1}>
 				{arr.map((name, index) => (
 					<FadeIn duration={'large'} key={index}>
@@ -175,7 +175,6 @@ const ActionBlock = ({
 		);
 	}, [
 		context?.actions,
-		is3PAuthRovoActionsExperimentOn,
 		isRovoChatActionAvailable,
 		spaceInline,
 		onError,
@@ -187,12 +186,18 @@ const ActionBlock = ({
 		onClick,
 	]);
 
-	if (
-		!fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-		(!isRovoChatActionAvailable && actions) ||
-		!url
-	) {
-		return actions ? (
+	const aiSummaryConfig = fg('platform_sl_3p_auth_rovo_action_kill_switch')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useAISummaryAction(url ?? '')
+		: undefined;
+
+	if (fg('platform_sl_3p_auth_rovo_action_kill_switch')) {
+		const shouldShowActions =
+			!isRovoChatActionAvailable ||
+			(isRovoChatActionAvailable &&
+				(aiSummaryConfig?.state.status === 'done' || aiSummaryConfig?.state.status === 'error'));
+
+		return actions && shouldShowActions ? (
 			<div
 				css={[ignoreContainerPaddingStyles]}
 				ref={blockRef}
@@ -206,13 +211,7 @@ const ActionBlock = ({
 		) : null;
 	}
 
-	const aiSummaryConfig = fg('platform_sl_3p_auth_rovo_action_kill_switch')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useAISummaryAction(url)
-		: undefined;
-
-	return actions &&
-		(aiSummaryConfig?.state.status === 'done' || aiSummaryConfig?.state.status === 'error') ? (
+	return actions ? (
 		<div
 			css={[ignoreContainerPaddingStyles]}
 			ref={blockRef}

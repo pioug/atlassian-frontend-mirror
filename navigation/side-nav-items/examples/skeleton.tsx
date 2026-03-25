@@ -19,7 +19,7 @@ import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavPanelSplitter,
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
@@ -216,7 +216,7 @@ export const SkeletonExample = ({
 			</TopNav>
 
 			<SideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						{menuItemsVisible ? (
 							<>
@@ -322,7 +322,7 @@ export const SkeletonExample = ({
 							<SkeletonMenuItems />
 						)}
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 				<SideNavPanelSplitter label="Resize side nav" tooltipContent="Double click to collapse" />
 			</SideNav>
 

@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Mapping file
 import type React from 'react';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import { lazyForPaint } from 'react-loosely-lazy';
 
 import Table from './table';

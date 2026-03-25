@@ -12,9 +12,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SkipLinksProvider } from '../../context/skip-links/skip-links-provider';
 import { TopNavStartProvider } from '../../context/top-nav-start/top-nav-start-context-provider';
-import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';
 
-import { sideNavContentScrollTimelineVar } from './constants';
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
 import { SideNavElementProvider } from './side-nav/element-context';
 import { IsSideNavShortcutEnabledProvider } from './side-nav/is-side-nav-shortcut-enabled-context';
@@ -63,11 +61,6 @@ const styles = cssMap({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			display: 'none !important',
 		},
-	},
-	sideNavScrollTimeline: {
-		// Hoists the SideNavContent's scroll timeline scope so it can be referenced by TopNavStart
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		timelineScope: sideNavContentScrollTimelineVar,
 	},
 	ribbon: {
 		// There is no ribbon grid area on small viewports
@@ -163,7 +156,6 @@ export function Root({
 	isSideNavShortcutEnabled?: boolean;
 }): JSX.Element {
 	const ref = useRef<HTMLDivElement>(null);
-	const isFhsEnabled = useIsFhsEnabled();
 
 	useEffect(() => {
 		if (process.env.NODE_ENV !== 'production') {
@@ -207,13 +199,7 @@ This message will not be displayed in production.
 									<SkipLinksProvider label={skipLinksLabel} testId={testId}>
 										<div
 											ref={ref}
-											css={[
-												styles.root,
-												isFhsEnabled &&
-													!fg('platform_dst_nav4_fhs_feedback_1') &&
-													styles.sideNavScrollTimeline,
-												fg('platform_dst_nav4_ribbon_slot') && styles.ribbon,
-											]}
+											css={[styles.root, fg('platform_dst_nav4_ribbon_slot') && styles.ribbon]}
 											className={xcss}
 											id={gridRootId}
 											data-testid={testId}

@@ -23,8 +23,8 @@ export { default as withAnalyticsEvents } from './hocs/withAnalyticsEvents';
 export type { WithAnalyticsEventsProps } from './hocs/withAnalyticsEvents';
 
 // React context
-export { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
-export type { AnalyticsReactContextInterface } from '@atlaskit/analytics-next-stable-react-context';
+export { default as AnalyticsReactContext } from './components/AnalyticsReactContext';
+export type { AnalyticsReactContextInterface } from './components/AnalyticsReactContext';
 
 // Hook for creating and firing analytics events
 export { useAnalyticsEvents } from './hooks/useAnalyticsEvents';

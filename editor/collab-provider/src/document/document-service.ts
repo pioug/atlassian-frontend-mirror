@@ -50,6 +50,7 @@ import { type DocumentServiceInterface } from './interface-document-service';
 import { getConflictChanges } from './getConflictChanges';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
 import type { DebouncedFunc } from 'lodash';
 
 const CATCHUP_THROTTLE = 1 * 1000; // 1 second

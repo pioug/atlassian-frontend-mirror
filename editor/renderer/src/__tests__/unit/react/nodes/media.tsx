@@ -15,6 +15,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Card, CardSync } from '@atlaskit/media-card';
 import { sleep, nextTick, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { createPlaceholderImageDataUrl } from '@atlaskit/editor-test-helpers/placeholder-images';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import * as mocks from './media.mock';
 import Media from '../../../../react/nodes/media';
 import type { MediaCardProps } from '../../../../ui/MediaCard';
@@ -1193,34 +1194,75 @@ describe('Media', () => {
 	});
 
 	describe('Media Border Mark', () => {
-		it('should render border mark with right color and size', () => {
-			const mediaComponent = mount(
-				<Media
-					type={mediaNode.attrs.type as MediaType}
-					id={mediaNode.attrs.id}
-					collection={mediaNode.attrs.collection}
-					alt="test"
-					marks={[
-						{
-							type: 'border',
-							attrs: {
-								color: '#091E4224',
-								size: 3,
-							},
-						},
-					]}
-					isLinkMark={() => false}
-					isBorderMark={() => true}
-					allowAltTextOnImages={false}
-					isDrafting={false}
-				/>,
-			);
+		ffTest.off(
+			'platform_editor_media_border_radius_fix',
+			'should render border mark with right color and size (old behavior)',
+			() => {
+				it('should use borderWidth as borderRadius', () => {
+					const mediaComponent = mount(
+						<Media
+							type={mediaNode.attrs.type as MediaType}
+							id={mediaNode.attrs.id}
+							collection={mediaNode.attrs.collection}
+							alt="test"
+							marks={[
+								{
+									type: 'border',
+									attrs: {
+										color: '#091E4224',
+										size: 3,
+									},
+								},
+							]}
+							isLinkMark={() => false}
+							isBorderMark={() => true}
+							allowAltTextOnImages={false}
+							isDrafting={false}
+						/>,
+					);
 
-			const border = mediaComponent.find('div[data-mark-type="border"]');
-			expect(border).toHaveLength(1);
-			expect(getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow')).toContain('3px');
-			expect(getComputedStyle(border.getDOMNode())).toHaveProperty('borderRadius', '3px');
-		});
+					const border = mediaComponent.find('div[data-mark-type="border"]');
+					expect(border).toHaveLength(1);
+					expect(getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow')).toContain('3px');
+					expect(getComputedStyle(border.getDOMNode())).toHaveProperty('borderRadius', '3px');
+				});
+			},
+		);
+
+		ffTest.on(
+			'platform_editor_media_border_radius_fix',
+			'should render border mark with right color and size (new behavior)',
+			() => {
+				it('should use 8px as borderRadius', () => {
+					const mediaComponent = mount(
+						<Media
+							type={mediaNode.attrs.type as MediaType}
+							id={mediaNode.attrs.id}
+							collection={mediaNode.attrs.collection}
+							alt="test"
+							marks={[
+								{
+									type: 'border',
+									attrs: {
+										color: '#091E4224',
+										size: 3,
+									},
+								},
+							]}
+							isLinkMark={() => false}
+							isBorderMark={() => true}
+							allowAltTextOnImages={false}
+							isDrafting={false}
+						/>,
+					);
+
+					const border = mediaComponent.find('div[data-mark-type="border"]');
+					expect(border).toHaveLength(1);
+					expect(getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow')).toContain('3px');
+					expect(getComputedStyle(border.getDOMNode())).toHaveProperty('borderRadius', 'var(--ds-radius-large, 8px)');
+				});
+			},
+		);
 	});
 
 	describe('Media Annotation Mark', () => {

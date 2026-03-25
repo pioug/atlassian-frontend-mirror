@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { generateBlockAri, generateBlockAriFromReference } from '../../clients/block-service/ari';
@@ -70,6 +71,8 @@ const mapErrorResponseCode = (errorCode: string): SyncBlockError => {
 	switch (errorCode) {
 		case 'FORBIDDEN':
 			return SyncBlockError.Forbidden;
+		case 'RESOURCE_NOT_FOUND':
+			return fg('block_service_source_repair') ? SyncBlockError.NotFound : SyncBlockError.Errored;
 		case 'NOT_FOUND':
 			return SyncBlockError.NotFound;
 		case 'INVALID_REQUEST':
@@ -661,7 +664,6 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 		this.getVersion = getVersion;
 	}
 
-	// it will first try to update and if it can't (404) then it will try to create
 	async writeData(data: SyncBlockData): Promise<WriteSyncBlockResult> {
 		if (!this.parentAri || !this.parentId) {
 			return { error: SyncBlockError.Errored };
@@ -855,7 +857,13 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 				for (const block of data) {
 					const error = errorResourceIds.get(block.resourceId);
 					if (error) {
-						results.push({ error, resourceId: block.resourceId });
+						if (fg('block_service_source_repair')) {
+							if (error !== SyncBlockError.NotFound) {
+								results.push({ error, resourceId: block.resourceId });
+							}
+						} else {
+							results.push({ error, resourceId: block.resourceId });
+						}
 					} else if (!results.some((r) => r.resourceId === block.resourceId)) {
 						// If not in success or error lists, mark as errored
 						results.push({ error: SyncBlockError.Errored, resourceId: block.resourceId });

@@ -10,7 +10,7 @@ import {
 import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import * as ast from '../../../../ast-nodes';
-import { type RuleConfig } from '../../config';
+import type { RuleConfig } from '../../config';
 import {
 	getVariableDefinitionValue,
 	getVariableUsagesCount,

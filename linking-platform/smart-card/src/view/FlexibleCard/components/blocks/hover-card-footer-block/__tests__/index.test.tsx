@@ -83,7 +83,7 @@ ffTest.both('navx-1895-new-logo-design', '', () => {
 				const actionsElementGroup = await screen.findByTestId(`${testIdBase}-actions`);
 				expect(actionsElementGroup).toBeDefined();
 
-				const copyLinkButton = await screen.findByTestId(`${testIdBase}-CopyLinkAction`);
+				const copyLinkButton = await screen.findByTestId('smart-action-copy-link-action');
 				await user.click(copyLinkButton);
 				expect(onActionClick).toHaveBeenCalledWith(ActionName.CopyLinkAction);
 			});

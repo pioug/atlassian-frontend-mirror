@@ -8,7 +8,7 @@ import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
 import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import {
@@ -54,7 +54,7 @@ export function MenuSectionExample(): React.JSX.Element {
 	return (
 		<Inline space="space.600">
 			<MockSideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<ExpandableMenuItem isDefaultExpanded>
 							<ExpandableMenuItemTrigger
@@ -113,11 +113,11 @@ export function MenuSectionExample(): React.JSX.Element {
 							Code
 						</LinkMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 			</MockSideNav>
 
 			<MockSideNav>
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<ExpandableMenuItem isDefaultExpanded>
 							<ExpandableMenuItemTrigger>Exp default menu item (level 0)</ExpandableMenuItemTrigger>
@@ -165,7 +165,7 @@ export function MenuSectionExample(): React.JSX.Element {
 							</ExpandableMenuItemContent>
 						</ExpandableMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 			</MockSideNav>
 		</Inline>
 	);

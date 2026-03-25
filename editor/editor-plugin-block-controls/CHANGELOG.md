@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.20
+
+### Patch Changes
+
+- [`a64a0cad8103d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a64a0cad8103d) -
+  Cleanup stale feature flag `platform_editor_quick_insert_image_wrap_right_fix`. The enabled
+  behaviour (setting `clear: unset` on the quick insert button element to prevent interference with
+  floated wrap-right images) is now always active.
+- Updated dependencies
+
+## 9.0.19
+
+### Patch Changes
+
+- [`73c46b71987a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c46b71987a0) -
+  [ux] Fix remix button sticky for tables right side
+
 ## 9.0.18
 
 ### Patch Changes

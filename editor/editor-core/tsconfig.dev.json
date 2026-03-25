@@ -112,12 +112,6 @@
 			"path": "../editor-plugin-annotation/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-block-controls/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-plugin-block-menu/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-card/tsconfig.app.json"
 		},
 		{

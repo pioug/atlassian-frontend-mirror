@@ -1,5 +1,5 @@
 import { traverse } from '../traverse/traverse';
-import { type ADFEntity, type ADFEntityMark } from '../types';
+import type { ADFEntity, ADFEntityMark } from '../types';
 
 // This is the set of marks that we wont allow in duplicate to
 // exist on a given node, regardless of their attributes. We do

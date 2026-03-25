@@ -5,7 +5,7 @@ import { isNodeOfType, type JSXElement, type VariableDeclarator } from 'eslint-c
 import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import * as ast from '../../../../ast-nodes';
-import { type RuleConfig } from '../../config';
+import type { RuleConfig } from '../../config';
 import { isValidCssPropertiesToTransform } from '../../utils';
 import { validateStyles } from '../../utils/validate-styles';
 

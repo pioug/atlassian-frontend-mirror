@@ -1,13 +1,20 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
+import {
+	AnalyticsContext,
+	useAnalyticsEvents as useAnalyticsEventsNext,
+} from '@atlaskit/analytics-next';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
+import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
 import { getDefinitionId, getExtensionKey, getServices } from '../../../state/helpers';
+import useRovoConfig from '../../../state/hooks/use-rovo-config';
 import { useSmartCardState } from '../../../state/store';
 import { type CardState } from '../../../state/types';
 import { isSpecialEvent } from '../../../utils';
@@ -38,6 +45,7 @@ const HoverCardContent = ({
 	onMouseLeave,
 	actionOptions,
 	hoverPreviewOptions,
+	showRovoResolvedView,
 }: HoverCardContentProps): React.JSX.Element | null => {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
@@ -184,7 +192,9 @@ const HoverCardContent = ({
 		if (cardState.status === 'resolved') {
 			return (
 				<HoverCardResolvedView
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { actionOptions } : undefined)}
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+						? { actionOptions, showRovoResolvedView }
+						: undefined)}
 					cardState={cardState}
 					extensionKey={extensionKey}
 					flexibleCardProps={flexibleCardProps}
@@ -211,4 +221,41 @@ const HoverCardContent = ({
 	) : null;
 };
 
-export default HoverCardContent;
+const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JSX.Element => {
+	const rovoConfig = useRovoConfig();
+	const showRovoResolvedView = useMemo(
+		() =>
+			props?.cardState?.status === 'resolved' &&
+			props?.cardState.details &&
+			extractRovoChatAction({
+				response: props?.cardState.details,
+				rovoConfig,
+				actionOptions: props?.actionOptions,
+			}) !== undefined,
+		[props?.actionOptions, props?.cardState?.details, props?.cardState?.status, rovoConfig],
+	);
+
+	const data = useMemo(() => {
+		const viewVariant =
+			showRovoResolvedView &&
+			expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true)
+				? 'rovo-resolved-view'
+				: 'default';
+
+		return {
+			attributes: { viewVariant },
+		};
+	}, [showRovoResolvedView]);
+
+	return (
+		<AnalyticsContext data={data}>
+			<HoverCardContent {...props} showRovoResolvedView={showRovoResolvedView} />
+		</AnalyticsContext>
+	);
+};
+
+export default componentWithFG(
+	'platform_sl_3p_auth_rovo_action_kill_switch',
+	HoverCardContentWithViewVariant,
+	HoverCardContent,
+);

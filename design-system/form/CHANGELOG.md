@@ -1,5 +1,16 @@
 # @atlaskit/form
 
+## 15.5.0
+
+### Minor Changes
+
+- [`b9829b6cd7780`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9829b6cd7780) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.4.2
 
 ### Patch Changes

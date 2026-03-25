@@ -16,6 +16,7 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { MediaCardProps, MediaProvider } from '../../../ui/MediaCard';
 import { MediaCard } from '../../../ui/MediaCard';
 import type {
@@ -26,6 +27,7 @@ import type {
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
+import { token } from '@atlaskit/tokens';
 
 import { getEventHandler } from '../../../utils';
 import {
@@ -113,6 +115,13 @@ const MediaBorder = ({
 
 	const paletteColorValue = hexToEditorBorderPaletteColor(borderColor) || borderColor;
 
+	// [FEATURE FLAG: platform_editor_media_border_radius_fix]
+	// Fixes border radius to properly match image with 8px radius
+	// To clean up: keep only flag-on behavior ('8px')
+	const borderRadius = fg('platform_editor_media_border_radius_fix')
+		? token('radius.large', '8px')
+		: `${borderWidth}px`; // OLD BEHAVIOR (to be removed when flag is cleaned up)
+
 	return (
 		<div
 			data-mark-type="border"
@@ -120,7 +129,8 @@ const MediaBorder = ({
 			data-size={borderWidth}
 			css={borderStyle}
 			style={{
-				borderRadius: `${borderWidth}px`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				borderRadius,
 				boxShadow: `0 0 0 ${borderWidth}px ${paletteColorValue}`,
 			}}
 		>

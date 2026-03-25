@@ -1,6 +1,7 @@
 import React from 'react';
 import { renderHook, waitFor } from '@testing-library/react';
 import '@atlaskit/link-test-helpers/jest';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies
 // @ts-ignore - This was added due to this import failing with 'no declaration file found for 'fetch-mock/cjs/client' in the Jira Typecheck when the platform is being locally consumed, as Jira does not contain the 'platform/fetch-mock.d.ts' typing. Additionally since this is a custom typing with no properties set it is already adding no type value
 import fetchMock from 'fetch-mock/cjs/client';
@@ -16,6 +17,12 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { getOperationFailedAttributes } from './utils';
 import { AvailableSitesProductType, type AccessibleProduct, type AvailableSite } from './types';
 import { icon } from '../../common/mocks/icons';
+
+const AVAILABLE_SITES_PATH = '/gateway/api/available-sites';
+const AVAILABLE_SITES_UNIT_COMPLIANT_PATH = '/gateway/api/experimental/available-sites';
+const ACCESSIBLE_PRODUCTS_PATH = '/gateway/api/v2/accessible-products';
+const ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH =
+	'/gateway/api/experimental/v2/accessible-products';
 
 describe('useAvailableSites', () => {
 	beforeEach(() => {
@@ -81,6 +88,42 @@ describe('useAvailableSites', () => {
 			expect(result.current.error?.message).toBe('unknown error');
 		});
 	});
+
+	ffTest.on(
+		'linking_platform_site_picker_api_unit_compliant',
+		'should use the experimental available sites endpoint when the gate is enabled',
+		() => {
+			it('requests the experimental available sites path', async () => {
+				mockAvailableSites();
+				const { result } = renderHook(() => useAvailableSites());
+
+				await waitFor(() => {
+					expect(result.current.loading).toBe(false);
+				});
+
+				const [requestUrl] = fetchMock.lastCall() ?? [];
+				expect(requestUrl).toBe(AVAILABLE_SITES_UNIT_COMPLIANT_PATH);
+			});
+		},
+	);
+
+	ffTest.off(
+		'linking_platform_site_picker_api_unit_compliant',
+		'should use the current available sites endpoint when the gate is disabled',
+		() => {
+			it('requests the current available sites path', async () => {
+				mockAvailableSites();
+				const { result } = renderHook(() => useAvailableSites());
+
+				await waitFor(() => {
+					expect(result.current.loading).toBe(false);
+				});
+
+				const [requestUrl] = fetchMock.lastCall() ?? [];
+				expect(requestUrl).toBe(AVAILABLE_SITES_PATH);
+			});
+		},
+	);
 });
 
 describe('mapAccessibleProductsToAvailableSites', () => {
@@ -299,6 +342,42 @@ describe('useAvailableSitesV2', () => {
 	`);
 		});
 	});
+
+	ffTest.on(
+		'linking_platform_site_picker_api_unit_compliant',
+		'should use the experimental accessible products endpoint when the gate is enabled',
+		() => {
+			it('requests the experimental accessible products path', async () => {
+				mockAccessibleProducts();
+				const { result } = renderHook(() => useAvailableSitesV2({}));
+
+				await waitFor(() => {
+					expect(result.current.loading).toBe(false);
+				});
+
+				const [requestUrl] = fetchMock.lastCall() ?? [];
+				expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
+			});
+		},
+	);
+
+	ffTest.off(
+		'linking_platform_site_picker_api_unit_compliant',
+		'should use the current accessible products endpoint when the gate is disabled',
+		() => {
+			it('requests the current accessible products path', async () => {
+				mockAccessibleProducts();
+				const { result } = renderHook(() => useAvailableSitesV2({}));
+
+				await waitFor(() => {
+					expect(result.current.loading).toBe(false);
+				});
+
+				const [requestUrl] = fetchMock.lastCall() ?? [];
+				expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
+			});
+		},
+	);
 });
 
 describe('getOperationFailedAttributes', () => {

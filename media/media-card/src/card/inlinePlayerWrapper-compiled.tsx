@@ -8,6 +8,7 @@ import { getDimensionsWithDefault } from '../utils/lightCards/getDimensionsWithD
 import { type InlinePlayerWrapperProps } from './types';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const hideNativeBrowserTextSelectionStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -43,6 +44,19 @@ const borderStyle = css({
 	},
 });
 
+const updatedBorderStyle = css({
+	'&::after': {
+		content: '',
+		width: '100%',
+		height: '100%',
+		position: 'absolute',
+		top: '0',
+		boxSizing: 'border-box',
+		pointerEvents: 'none',
+		borderRadius: 'inherit',
+	},
+})
+
 export const inlinePlayerClassName = 'media-card-inline-player';
 export const LOCAL_WIDTH_VARIABLE = '--media-inline-player-wrapper-width';
 export const LOCAL_HEIGHT_VARIABLE = '--media-inline-player-wrapper-height';
@@ -63,6 +77,22 @@ const inlinePlayerWrapperStyles = css({
 	},
 });
 
+const updatedInlinePlayerWrapperStyles = css({
+	overflow: 'hidden',
+	borderRadius: token('radius.large', '8px'),
+	position: 'relative',
+	maxWidth: '100%',
+	maxHeight: '100%',
+	width: `var(${LOCAL_WIDTH_VARIABLE})`,
+	height: `var(${LOCAL_HEIGHT_VARIABLE})`,
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	video: {
+		width: '100%',
+		height: '100%',
+	},
+})
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 
 export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
@@ -79,9 +109,9 @@ export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
 				[LOCAL_HEIGHT_VARIABLE as any]: getDimensionsWithDefault(dimensions).height || 'auto',
 			}}
 			css={[
-				inlinePlayerWrapperStyles,
+				fg('platform_editor_media_border_radius_fix') ? updatedInlinePlayerWrapperStyles : inlinePlayerWrapperStyles,
 				selected && hideNativeBrowserTextSelectionStyles,
-				borderStyle,
+				fg('platform_editor_media_border_radius_fix') ? updatedBorderStyle : borderStyle,
 				selected && selectedBorderStyle,
 			]}
 			onClick={onClick}

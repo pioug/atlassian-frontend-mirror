@@ -2,7 +2,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
-import { type MetaData } from './common';
+import type { MetaData } from './common';
 
 const messageId = 'noWrappedTokenTypographyValues';
 

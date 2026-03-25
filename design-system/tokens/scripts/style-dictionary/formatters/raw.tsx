@@ -50,7 +50,8 @@ const toTokenValueString = (
 			? `	${prefix}{
 		duration: ${original ? 'string' : 'number'};
 		curve: string;
-		keyframes: string[];
+		keyframes?: string[];
+		properties?: string[];
 		delay?: ${original ? 'string' : 'number'};
 	}`
 			: undefined,

@@ -1,4 +1,4 @@
-import type { NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -6,6 +6,7 @@ import {
 	findParentNodeOfType,
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TransformContext } from './list-types';
 import {
@@ -36,6 +37,17 @@ const getContentSupportChecker = (targetNodeType: NodeType): ((node: PMNode) => 
 	};
 };
 
+const createBlockTaskItemWithMarks = (
+	content: PMNode[],
+	marks: readonly Mark[],
+	schema: Schema,
+): PMNode => {
+	const { blockTaskItem, paragraph } = schema.nodes;
+	const allowedMarks = marks.filter((mark) => blockTaskItem.allowsMarkType(mark.type));
+	const newParagraph = paragraph.create(null, content.length > 0 ? content : null, allowedMarks);
+	return blockTaskItem.create(null, newParagraph);
+};
+
 export const transformListRecursively = (
 	props: TransformListRecursivelyProps,
 	onhandleUnsupportedContent?: (content: PMNode) => void,
@@ -52,7 +64,25 @@ export const transformListRecursively = (
 		schema,
 		targetNodeType,
 	} = props;
-	const { taskList, listItem, taskItem, paragraph } = schema.nodes;
+	const { taskList, listItem, taskItem, paragraph, blockTaskItem } = schema.nodes;
+
+	// gating behind platform_editor_small_font_size to support task lists with font size applied,
+	// but keep this solution general
+	const isBlockTaskEnabled =
+		!!blockTaskItem && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+
+	/**
+	 * Extracts paragraph children from a blockTaskItem, preserving their marks.
+	 */
+	const extractParagraphsFromBlockTaskItem = (node: PMNode): PMNode[] => {
+		const paragraphs: PMNode[] = [];
+		node.forEach((child) => {
+			if (child.type === paragraph) {
+				paragraphs.push(child);
+			}
+		});
+		return paragraphs;
+	};
 
 	listNode.forEach((child) => {
 		if (isSourceBulletOrOrdered && isTargetTask) {
@@ -60,6 +90,7 @@ export const transformListRecursively = (
 			if (child.type === listItem) {
 				const inlineContent: PMNode[] = [];
 				const nestedTaskLists: PMNode[] = [];
+				let blockMarks: readonly Mark[] = [];
 
 				child.forEach((grandChild) => {
 					if (supportedListTypes.has(grandChild.type) && grandChild.type !== taskList) {
@@ -72,24 +103,53 @@ export const transformListRecursively = (
 					} else if (!getContentSupportChecker(taskItem)(grandChild) && !grandChild.isTextblock) {
 						onhandleUnsupportedContent?.(grandChild);
 					} else {
+						if (
+							isBlockTaskEnabled &&
+							grandChild.type === paragraph &&
+							grandChild.marks.length > 0
+						) {
+							blockMarks = grandChild.marks;
+						}
 						inlineContent.push(...convertBlockToInlineContent(grandChild, schema));
 					}
 				});
 
-				transformedItems.push(
-					taskItem.create(null, inlineContent.length > 0 ? inlineContent : null),
-				);
+				if (isBlockTaskEnabled && blockMarks.length > 0) {
+					transformedItems.push(createBlockTaskItemWithMarks(inlineContent, blockMarks, schema));
+				} else {
+					transformedItems.push(
+						taskItem.create(null, inlineContent.length > 0 ? inlineContent : null),
+					);
+				}
+
 				transformedItems.push(...nestedTaskLists);
 			}
 		} else if (isSourceTask && isTargetBulletOrOrdered) {
 			// Convert task => bullet/ordered
 			if (child.type === taskItem) {
 				const inlineContent = [...child.content.content];
+
+				// Transfer taskItem's block marks to the paragraph.
+				// Use listItem.allowsMarkType since the paragraph will be inside a listItem
+				// (which uses ParagraphWithFontSizeStage0 that allows fontSize).
+				const paragraphMarks =
+					isBlockTaskEnabled && child.marks.length > 0
+						? child.marks.filter((mark) => listItem.allowsMarkType(mark.type))
+						: undefined;
+
 				const paragraphNode = paragraph.create(
 					null,
 					inlineContent.length > 0 ? inlineContent : null,
+					paragraphMarks,
 				);
 				transformedItems.push(listItem.create(null, [paragraphNode]));
+			} else if (isBlockTaskEnabled && child.type === blockTaskItem) {
+				// blockTaskItem wraps content in paragraphs — extract them directly,
+				// preserving their fontSize marks
+				const paragraphs = extractParagraphsFromBlockTaskItem(child);
+				if (paragraphs.length > 0) {
+					transformedItems.push(listItem.create(null, paragraphs));
+				}
 			} else if (child.type === taskList) {
 				const transformedNestedList = transformListRecursively(
 					{ ...props, listNode: child },
@@ -246,23 +306,31 @@ export const transformToTaskList = (
 	nodes: Record<string, NodeType>,
 ): Transaction | null => {
 	try {
-		const { taskItem } = nodes;
+		const { taskItem, paragraph, blockTaskItem } = nodes;
+		// gating behind platform_editor_small_font_size to support task lists with font size applied,
+		// but keep this solution general
+		const isBlockTaskItemEnabled =
+			!!blockTaskItem && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+
 		const listItems: PMNode[] = [];
 
 		// Process each block in the range
 		tr.doc.nodesBetween(range.start, range.end, (node) => {
 			if (node.isBlock) {
-				// For block nodes like paragraphs, directly use their inline content
 				const inlineContent = [...node.content.content];
 
 				if (inlineContent.length > 0) {
-					// Create task item with inline content directly
-					const listItem = taskItem.create(targetAttrs, inlineContent);
-					listItems.push(listItem);
+					if (isBlockTaskItemEnabled && node.type === paragraph && node.marks.length > 0) {
+						listItems.push(
+							createBlockTaskItemWithMarks(inlineContent, node.marks, tr.doc.type.schema),
+						);
+					} else {
+						listItems.push(taskItem.create(targetAttrs, inlineContent));
+					}
 				}
 			}
 
-			return false; // Don't traverse into children
+			return false;
 		});
 
 		if (listItems.length === 0) {
@@ -285,6 +353,40 @@ export const transformTaskListToBlockNodes = (context: TransformContext): Transa
 	const { tr, targetNodeType, targetAttrs, sourceNode, sourcePos } = context;
 	const { selection } = tr;
 	const schema = selection.$from.doc.type.schema;
+	const { blockTaskItem } = schema.nodes;
+
+	// gating behind platform_editor_small_font_size to support task lists with font size applied,
+	// but keep this solution general
+	const isBlockTaskItemEnabled =
+		!!blockTaskItem && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+
+	if (isBlockTaskItemEnabled) {
+		const blockTaskItemsResult = findChildrenByType(sourceNode, blockTaskItem);
+
+		if (blockTaskItemsResult.length > 0 && targetNodeType === schema.nodes.paragraph) {
+			// blockTaskItem content is (paragraph | extension)+
+			// Extract paragraph children directly — they may carry block marks (e.g. fontSize)
+			const targetNodes: PMNode[] = [];
+			for (const { node: blockItem } of blockTaskItemsResult) {
+				blockItem.forEach((child) => {
+					if (child.type === schema.nodes.paragraph) {
+						targetNodes.push(child);
+					}
+				});
+			}
+
+			if (targetNodes.length === 0) {
+				return null;
+			}
+
+			const slice = new Slice(Fragment.fromArray(targetNodes), 0, 0);
+			const rangeStart = sourcePos !== null ? sourcePos : selection.from;
+			tr.replaceRange(rangeStart, rangeStart + sourceNode.nodeSize, slice);
+			return tr;
+		}
+	}
+
+	// Original logic for regular taskItem children
 	const taskItemsResult = findChildrenByType(sourceNode, schema.nodes.taskItem);
 	const taskItems = taskItemsResult.map((item) => item.node);
 	const taskItemFragments = taskItems.map((taskItem) => taskItem.content);
@@ -328,6 +430,11 @@ export const getFormattedNode = (tr: Transaction): { node: PMNode; pos: number }
 	const { selection } = tr;
 	const { nodes } = tr.doc.type.schema;
 
+	// gating behind platform_editor_small_font_size to support task lists with font size applied,
+	// but keep this solution general
+	const isBlockTaskItemEnabled =
+		!!nodes.blockTaskItem && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+
 	// Find the node to format from the current selection
 	let nodeToFormat;
 	let nodePos: number = selection.from;
@@ -351,7 +458,7 @@ export const getFormattedNode = (tr: Transaction): { node: PMNode; pos: number }
 		nodePos = selectedNode.pos;
 	} else {
 		// Try to find parent node (including list parents)
-		const parentNode = findParentNodeOfType([
+		const parentNodeTypes = [
 			nodes.blockquote,
 			nodes.panel,
 			nodes.expand,
@@ -359,7 +466,13 @@ export const getFormattedNode = (tr: Transaction): { node: PMNode; pos: number }
 			nodes.listItem,
 			nodes.taskItem,
 			nodes.layoutSection,
-		])(selection);
+		];
+
+		if (isBlockTaskItemEnabled) {
+			parentNodeTypes.push(nodes.blockTaskItem);
+		}
+
+		const parentNode = findParentNodeOfType(parentNodeTypes)(selection);
 
 		if (parentNode) {
 			nodeToFormat = parentNode.node;
@@ -368,8 +481,12 @@ export const getFormattedNode = (tr: Transaction): { node: PMNode; pos: number }
 			const paragraphOrHeadingNode = findParentNodeOfType([nodes.paragraph, nodes.heading])(
 				selection,
 			);
-			// Special case: if we found a listItem, check if we need the parent list instead
-			if (parentNode.node.type === nodes.listItem || parentNode.node.type === nodes.taskItem) {
+			// Special case: if we found a listItem/taskItem/blockTaskItem, check if we need the parent list instead
+			if (
+				parentNode.node.type === nodes.listItem ||
+				parentNode.node.type === nodes.taskItem ||
+				(isBlockTaskItemEnabled && parentNode.node.type === nodes.blockTaskItem)
+			) {
 				const listParent = findParentNodeOfType([
 					nodes.bulletList,
 					nodes.orderedList,

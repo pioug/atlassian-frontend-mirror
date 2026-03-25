@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 11.3.3
+
+### Patch Changes
+
+- [`9b33b26d69865`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b33b26d69865) -
+  Narrow list replacement range during indent/outdent for collab-friendly cursor preservation
+- Updated dependencies
+
+## 11.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.1
 
 ### Patch Changes

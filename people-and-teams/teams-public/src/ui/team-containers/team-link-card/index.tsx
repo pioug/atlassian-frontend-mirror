@@ -422,7 +422,7 @@ const messages = defineMessages({
 	editLink: {
 		id: 'ptc-directory.team-containers.edit-link',
 		defaultMessage: 'Edit link',
-		description: 'Edit link option in dropdown',
+		description: 'Label for the edit link option in the team link card dropdown menu',
 	},
 	removeLink: {
 		id: 'ptc-directory.team-containers.remove-link',
@@ -432,6 +432,6 @@ const messages = defineMessages({
 	linkExternalIconLabel: {
 		id: 'ptc-directory.team-containers.link-external-icon-label',
 		defaultMessage: 'Open link in new tab',
-		description: 'Open link in new tab',
+		description: 'Accessible label for the external link icon on team link cards that opens in a new tab',
 	},
 });

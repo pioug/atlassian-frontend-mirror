@@ -6,7 +6,12 @@ export {
 	refreshAnchorName,
 	getAnchorAttrName,
 	rootElementGap,
+	STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER,
 	topPositionAdjustment,
+	getControlBottomCSSValue,
+	getControlHeightCSSValue,
+	getNodeHeight,
 	getTopPosition,
 	getRightPositionForRootElement,
+	shouldBeSticky,
 } from '@atlaskit/editor-plugin-block-controls/block-decoration-utils';

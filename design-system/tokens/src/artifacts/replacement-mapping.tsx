@@ -12,7 +12,7 @@
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::71a61fb83f1440f2c7e0c2b84375593c>>
+ * @codegen <<SignedSource::e46353a7329c8e87640e1586a2ec2ce7>>
  * @codegenCommand yarn build tokens
  */
 import type tokens from './token-names';
@@ -25,6 +25,18 @@ type RenameMap = {
 }
 
 const replacementMapper: RenameMap[] = [
+  {
+    "path": "motion.avatar.enter",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.avatar.exit",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.avatar.hovered",
+    "state": "experimental"
+  },
   {
     "path": "motion.content.enter.long",
     "state": "experimental"
@@ -50,11 +62,63 @@ const replacementMapper: RenameMap[] = [
     "state": "experimental"
   },
   {
-    "path": "motion.dialog.enter",
+    "path": "motion.flag.enter",
     "state": "experimental"
   },
   {
-    "path": "motion.dialog.exit",
+    "path": "motion.flag.exit",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.flag.reposition",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.modal.enter",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.modal.exit",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.popup.enter.bottom",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.popup.enter.left",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.popup.enter.right",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.popup.enter.top",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.popup.exit.bottom",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.popup.exit.left",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.popup.exit.right",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.popup.exit.top",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.spotlight.enter",
+    "state": "experimental"
+  },
+  {
+    "path": "motion.spotlight.exit",
     "state": "experimental"
   },
   {

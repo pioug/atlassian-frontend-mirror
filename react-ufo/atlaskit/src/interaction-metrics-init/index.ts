@@ -313,7 +313,7 @@ export function init(
 					if (config.postInteractionLog?.enabled) {
 						sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
 					}
-					if (config?.extraInteractionMetrics?.enabled && fg('platform_ufo_enable_ttai_with_3p')) {
+					if (config?.extraInteractionMetrics?.enabled) {
 						sinkInteractionExtraMetrics(
 							instance,
 							createInteractionExtraMetricsPayloadPackage.default,
@@ -343,7 +343,7 @@ export function init(
 						createPostInteractionLogPayloadPackage.default,
 					);
 				}
-				if (config?.extraInteractionMetrics?.enabled && fg('platform_ufo_enable_ttai_with_3p')) {
+				if (config?.extraInteractionMetrics?.enabled) {
 					sinkInteractionExtraMetrics(
 						awc as GenericAnalyticWebClientInstance,
 						createInteractionExtraMetricsPayloadPackage.default,

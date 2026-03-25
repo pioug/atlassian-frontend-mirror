@@ -11,9 +11,16 @@ import {
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { ANALYTICS_CHANNEL } from '../../common/utils/constants';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useIsMounted } from '../useIsMounted';
 
 import { getOperationFailedAttributes } from './utils';
+
+const AVAILABLE_SITES_PATH = '/gateway/api/available-sites';
+const AVAILABLE_SITES_UNIT_COMPLIANT_PATH = '/gateway/api/experimental/available-sites';
+const ACCESSIBLE_PRODUCTS_PATH = '/gateway/api/v2/accessible-products';
+const ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH =
+	'/gateway/api/experimental/v2/accessible-products';
 
 const defaultProducts = [
 	AvailableSitesProductType.WHITEBOARD,
@@ -153,6 +160,9 @@ async function getAvailableSites({
 	products,
 	gatewayBaseUrl,
 }: AvailableSitesRequest): Promise<AvailableSitesResponse> {
+	const availableSitesPath = fg('linking_platform_site_picker_api_unit_compliant')
+		? AVAILABLE_SITES_UNIT_COMPLIANT_PATH
+		: AVAILABLE_SITES_PATH;
 	const requestConfig = {
 		method: 'POST',
 		credentials: 'include' as RequestCredentials,
@@ -167,9 +177,7 @@ async function getAvailableSites({
 	};
 
 	const response = await window.fetch(
-		gatewayBaseUrl
-			? `${gatewayBaseUrl}/gateway/api/available-sites`
-			: '/gateway/api/available-sites',
+		gatewayBaseUrl ? `${gatewayBaseUrl}${availableSitesPath}` : availableSitesPath,
 		requestConfig,
 	);
 	if (response.ok) {
@@ -182,6 +190,9 @@ async function getAccessibleProducts({
 	products,
 	gatewayBaseUrl,
 }: AvailableSitesRequest): Promise<AccessibleProductResponse> {
+	const accessibleProductsPath = fg('linking_platform_site_picker_api_unit_compliant')
+		? ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH
+		: ACCESSIBLE_PRODUCTS_PATH;
 	const requestConfig = {
 		method: 'POST',
 		credentials: 'include' as RequestCredentials,
@@ -197,9 +208,7 @@ async function getAccessibleProducts({
 	};
 
 	const response = await window.fetch(
-		gatewayBaseUrl
-			? `${gatewayBaseUrl}/gateway/api/v2/accessible-products`
-			: '/gateway/api/v2/accessible-products',
+		gatewayBaseUrl ? `${gatewayBaseUrl}${accessibleProductsPath}` : accessibleProductsPath,
 		requestConfig,
 	);
 	if (response.ok) {

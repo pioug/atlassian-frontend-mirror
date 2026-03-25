@@ -1,6 +1,6 @@
-import { type ComponentType } from 'react';
+import type { ComponentType } from 'react';
 
-import { type GroupBase } from '../types';
+import type { GroupBase } from '../types';
 
 import {
 	type ContainerProps,

@@ -1,10 +1,6 @@
-import {
-	type BorderMarkDefinition,
-	type BorderMarkAttributes,
-	type TextDefinition,
-} from '@atlaskit/adf-schema';
+import type { BorderMarkDefinition, BorderMarkAttributes, TextDefinition } from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
-import { type WithMark } from '../types';
+import type { WithMark } from '../types';
 
 export const border =
 	(attrs: BorderMarkAttributes) =>

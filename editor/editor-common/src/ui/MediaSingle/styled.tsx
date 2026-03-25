@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
 
 import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
@@ -475,6 +476,11 @@ type MediaBorderGapFillerProps = {
 export const MediaBorderGapFiller = ({
 	borderColor,
 }: MediaBorderGapFillerProps): jsx.JSX.Element => {
+	// [FEATURE FLAG: platform_editor_media_border_radius_fix]
+	// Fixes border radius to properly match image with 8px radius
+	// To clean up: remove conditional, keep only flag-on behavior ('8px')
+	const borderRadius = fg('platform_editor_media_border_radius_fix') ? token('radius.large', '8px') : '1px'; // OLD BEHAVIOR (to be removed when flag is cleaned up)
+
 	return (
 		<div
 			style={{
@@ -484,7 +490,7 @@ export const MediaBorderGapFiller = ({
 				inset: '0px',
 				border: `0.5px solid ${borderColor}`,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				borderRadius: '1px',
+				borderRadius,
 			}}
 		/>
 	);

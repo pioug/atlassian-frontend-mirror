@@ -59,7 +59,7 @@ export const BorderWrapper = ({ children }: { children: React.ReactNode }) => (
 export const LazyLoadingWithoutDisplayTextExample = () => {
 	return (
 		<Box>
-			<Heading size="xlarge">Without display text</Heading>
+			<Heading size="large">Without display text</Heading>
 			<Text as="p">
 				LinkPicker on left, LoaderFallback on right. These should have similar height
 			</Text>
@@ -76,7 +76,7 @@ export const LazyLoadingWithoutDisplayTextExample = () => {
 export const LazyLoadingWithDisplayTextExample = () => {
 	return (
 		<Box>
-			<Heading size="xlarge">With display text</Heading>
+			<Heading size="large">With display text</Heading>
 			<Text as="p">
 				LinkPicker on left, LoaderFallback on right. These should have similar height
 			</Text>
@@ -93,7 +93,7 @@ export const LazyLoadingWithDisplayTextExample = () => {
 export const LazyLoadingWithoutDisplayTextWithOnePluginExample = () => {
 	return (
 		<Box>
-			<Heading size="xlarge">Without display text, with one plugin</Heading>
+			<Heading size="large">Without display text, with one plugin</Heading>
 			<Text as="p">
 				LinkPicker on left, LoaderFallback on right. These should have similar height
 			</Text>
@@ -115,7 +115,7 @@ export const LazyLoadingWithoutDisplayTextWithOnePluginExample = () => {
 export const LazyLoadingWithDisplayTextWithOnePluginExample = () => {
 	return (
 		<Box>
-			<Heading size="xlarge">With display text, with one plugin</Heading>
+			<Heading size="large">With display text, with one plugin</Heading>
 			<Text as="p">
 				LinkPicker on left, LoaderFallback on right. These should have similar height
 			</Text>
@@ -132,7 +132,7 @@ export const LazyLoadingWithDisplayTextWithOnePluginExample = () => {
 export const LazyLoadingWithoutDisplayTextWithPluginsExample = () => {
 	return (
 		<Box>
-			<Heading size="xlarge">Without display text, with plugins</Heading>
+			<Heading size="large">Without display text, with plugins</Heading>
 			<Text as="p">
 				LinkPicker on left, LoaderFallback on right. These should have similar height
 			</Text>
@@ -155,7 +155,7 @@ export const LazyLoadingWithoutDisplayTextWithPluginsExample = () => {
 export const LazyLoadingWithDisplayTextWithPluginsExample = () => {
 	return (
 		<Box>
-			<Heading size="xlarge">With display text, with plugins</Heading>
+			<Heading size="large">With display text, with plugins</Heading>
 			<Text as="p">
 				LinkPicker on left, LoaderFallback on right. These should have similar height
 			</Text>
@@ -177,7 +177,7 @@ export const LazyLoadingWithDisplayTextWithPluginsExample = () => {
 export const LazyLoadingEditModeWithDisplayTextWithPluginsExample = () => {
 	return (
 		<Box>
-			<Heading size="xlarge">
+			<Heading size="large">
 				Edit mode (mounted with url prop), with display text, with plugins
 			</Heading>
 			<Text as="p">

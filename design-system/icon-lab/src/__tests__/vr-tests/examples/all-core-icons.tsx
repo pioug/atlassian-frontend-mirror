@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::d8953a4273978fe0a7a70e2f32371823>>
+ * @codegen <<SignedSource::56cd4ea3b1b475cda5c7ea80cd5b9b14>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -23,8 +23,10 @@ import AiComputeIcon from '../../../../core/ai-compute';
 import AiGenerativeAudioBriefingIcon from '../../../../core/ai-generative-audio-briefing';
 import AiGenerativeChaptersIcon from '../../../../core/ai-generative-chapters';
 import AiGenerativeCleanupIcon from '../../../../core/ai-generative-cleanup';
+import AiGenerativeRemixIcon from '../../../../core/ai-generative-remix';
 import AiGenerativeRemoveIcon from '../../../../core/ai-generative-remove';
 import AiGenerativeRemoveSilenceIcon from '../../../../core/ai-generative-remove-silence';
+import AiGenerativeSlidesIcon from '../../../../core/ai-generative-slides';
 import AiGenerativeTextIcon from '../../../../core/ai-generative-text';
 import AiGenerativeTextTitleIcon from '../../../../core/ai-generative-text-title';
 import AiModelIcon from '../../../../core/ai-model';
@@ -921,6 +923,8 @@ const Icons = [
 	PersonLockLockedIcon,
 	PersonLockUnlockedIcon,
 	RegistryServiceIcon,
+	AiGenerativeRemixIcon,
+	AiGenerativeSlidesIcon,
 ];
 
 const groupSize = 50;
@@ -971,6 +975,8 @@ export const MediumIconGroup6: () => React.JSX.Element = allMediumExamples[6];
 export const MediumIconGroup7: () => React.JSX.Element = allMediumExamples[7];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MediumIconGroup8: () => React.JSX.Element = allMediumExamples[8];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const MediumIconGroup9: () => React.JSX.Element = allMediumExamples[9];
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup0: () => React.JSX.Element = allSmallExamples[0];
@@ -990,3 +996,5 @@ export const SmallIconGroup6: () => React.JSX.Element = allSmallExamples[6];
 export const SmallIconGroup7: () => React.JSX.Element = allSmallExamples[7];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup8: () => React.JSX.Element = allSmallExamples[8];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup9: () => React.JSX.Element = allSmallExamples[9];

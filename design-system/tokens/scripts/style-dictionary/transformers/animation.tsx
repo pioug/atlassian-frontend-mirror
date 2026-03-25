@@ -5,10 +5,14 @@ export const rawObjectToAnimation = ({
 	curve,
 	keyframes,
 	delay,
+	properties
 }: TransformedToken): string => {
-	return keyframes
-		.map((keyframe: string) => `${duration}ms ${curve} ${keyframe}${delay ? ` ${delay}ms` : ''}`)
-		.join(', ');
+	if(keyframes) {
+		return keyframes
+			.map((keyframe: string) => `${duration}ms ${curve} ${keyframe}${delay ? ` ${delay}ms` : ''}`).join(', ');
+	} else {
+		return `${properties.join(' ')} ${duration}ms ${curve}${delay ? ` ${delay}ms` : ''}`;
+	}
 };
 
 /**

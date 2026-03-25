@@ -16,7 +16,7 @@ import StarredUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
 import { Root } from '@atlaskit/navigation-system/layout/root';
-import { SideNav, SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNav, SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
@@ -84,7 +84,7 @@ export default function FlyoutMenuItemAsyncContentExample() {
 			<TopNav>{null}</TopNav>
 
 			<SideNav label="Side navigation">
-				<SideNavContent>
+				<SideNavBody>
 					<MenuList>
 						<LinkMenuItem href="#" elemBefore={<PersonAvatarIcon label="" color="currentColor" />}>
 							Your work
@@ -116,7 +116,7 @@ export default function FlyoutMenuItemAsyncContentExample() {
 							</FlyoutMenuItemContent>
 						</FlyoutMenuItem>
 					</MenuList>
-				</SideNavContent>
+				</SideNavBody>
 				<PanelSplitter label="Resize sidebar" />
 			</SideNav>
 

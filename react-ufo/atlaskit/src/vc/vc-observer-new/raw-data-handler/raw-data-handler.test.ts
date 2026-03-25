@@ -1,3 +1,6 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { getEarliestHiddenTiming } from '../../../hidden-timing';
 import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
 import getViewportWidth from '../metric-calculator/utils/get-viewport-width';
 import type { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../types';
@@ -7,6 +10,13 @@ import RawDataHandler from './index';
 // Mock viewport utilities
 jest.mock('../metric-calculator/utils/get-viewport-width');
 jest.mock('../metric-calculator/utils/get-viewport-height');
+jest.mock('../../../hidden-timing');
+jest.mock('@atlaskit/platform-feature-flags');
+
+const mockFg = fg as jest.Mock;
+const mockGetEarliestHiddenTiming = getEarliestHiddenTiming as jest.MockedFunction<
+	typeof getEarliestHiddenTiming
+>;
 
 const mockGetViewportWidth = getViewportWidth as jest.MockedFunction<typeof getViewportWidth>;
 const mockGetViewportHeight = getViewportHeight as jest.MockedFunction<typeof getViewportHeight>;
@@ -337,7 +347,12 @@ describe('RawDataHandler', () => {
 			expect(result?.rawData?.evts?.[1].t).toBe(1000); // 2000 - 1000
 		});
 
-		it('should not include events when page is not visible', async () => {
+		it('should use hidden timestamp when page is not visible and feature gate is enabled', async () => {
+			mockFg.mockImplementation(
+				(key: string) => key === 'platform_ufo_fix_abort_timestamp_raw_data',
+			);
+			mockGetEarliestHiddenTiming.mockReturnValue(500);
+
 			const entries: VCObserverEntry[] = [
 				{
 					time: 1100,
@@ -357,6 +372,55 @@ describe('RawDataHandler', () => {
 
 			expect(result?.rawData).toBeUndefined();
 			expect(result?.abortReason).toBe('browser_backgrounded');
+			expect(result?.abortTimestamp).toBe(500);
+			expect(mockGetEarliestHiddenTiming).toHaveBeenCalledWith(startTime, stopTime);
+		});
+
+		it('should fallback to -1 when page is not visible, feature gate is enabled, and hidden timestamp is unavailable', async () => {
+			mockFg.mockImplementation(
+				(key: string) => key === 'platform_ufo_fix_abort_timestamp_raw_data',
+			);
+			mockGetEarliestHiddenTiming.mockReturnValue(undefined);
+
+			const entries: VCObserverEntry[] = [];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: false,
+			});
+
+			expect(result?.rawData).toBeUndefined();
+			expect(result?.abortReason).toBe('browser_backgrounded');
+			expect(result?.abortTimestamp).toBe(-1);
+			expect(mockGetEarliestHiddenTiming).toHaveBeenCalledWith(startTime, stopTime);
+		});
+
+		it('should return -1 when page is not visible and feature gate is disabled', async () => {
+			mockFg.mockReturnValue(false);
+
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'window:event',
+						eventType: 'wheel',
+					} as WindowEventEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: false,
+			});
+
+			expect(result?.rawData).toBeUndefined();
+			expect(result?.abortReason).toBe('browser_backgrounded');
+			expect(result?.abortTimestamp).toBe(-1);
+			expect(mockGetEarliestHiddenTiming).not.toHaveBeenCalled();
 		});
 	});
 

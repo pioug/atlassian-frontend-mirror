@@ -31,7 +31,7 @@ import {
 	VAR_LEFT_SIDEBAR_FLYOUT,
 	VAR_LEFT_SIDEBAR_WIDTH,
 } from '../../common/constants';
-import { type LeftSidebarProps } from '../../common/types';
+import type { LeftSidebarProps } from '../../common/types';
 import {
 	getGridStateFromStorage,
 	mergeGridStateIntoStorage,

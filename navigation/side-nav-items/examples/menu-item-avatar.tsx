@@ -4,7 +4,7 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 
-import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
@@ -20,7 +20,7 @@ const styles = cssMap({
 
 export const MenuItemAvatarExample = () => (
 	<div css={styles.root}>
-		<SideNavContent>
+		<SideNavBody>
 			<MenuList>
 				<MenuSection isMenuListItem>
 					<MenuSectionHeading>Projects</MenuSectionHeading>
@@ -31,7 +31,7 @@ export const MenuItemAvatarExample = () => (
 					</MenuList>
 				</MenuSection>
 			</MenuList>
-		</SideNavContent>
+		</SideNavBody>
 	</div>
 );
 

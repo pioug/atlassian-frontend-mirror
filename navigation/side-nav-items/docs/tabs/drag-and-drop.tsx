@@ -491,7 +491,7 @@ export function MyMenuItemGroup() {
 
 Users must be able to scroll the sidebar while dragging, in order to place items in any position.
 [Wire up \`autoScrollForElements\`](https://atlassian.design/components/pragmatic-drag-and-drop/optional-packages/auto-scroll/about)
-on the \`ref\` that the \`<SideNavContent>\` returns to ensure the scrollable portion of the sidebar
+on the \`ref\` that the \`<SideNavBody>\` returns to ensure the scrollable portion of the sidebar
 automatically scrolls during a drag operation.
 
 ${code`import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
@@ -509,7 +509,7 @@ function Sidebar() {
 		});
 	}, []);
 
-	return <SideNavContent ref={scrollableRef}>{/* ... */}</SideNavContent>;
+	return <SideNavBody ref={scrollableRef}>{/* ... */}</SideNavBody>;
 }`}
 
 ## Handling drops

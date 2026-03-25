@@ -26,7 +26,7 @@ import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNav,
-	SideNavContent,
+	SideNavBody,
 	SideNavFooter,
 	SideNavHeader,
 	SideNavToggleButton,
@@ -92,7 +92,7 @@ export function SideNavSlotsExample(): JSX.Element {
 						<Heading size="xsmall">Settings</Heading>
 					</SideNavHeader>
 
-					<SideNavContent testId="side-nav-content">
+					<SideNavBody testId="side-nav-content">
 						<MenuList>
 							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 								Your work
@@ -153,7 +153,7 @@ export function SideNavSlotsExample(): JSX.Element {
 								More
 							</ButtonMenuItem>
 						</MenuList>
-					</SideNavContent>
+					</SideNavBody>
 
 					<SideNavFooter>
 						<MenuList>

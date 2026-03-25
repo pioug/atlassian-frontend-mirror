@@ -10,7 +10,7 @@ import Heading from '@atlaskit/heading';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import ShrinkDiagonalIcon from '@atlaskit/icon/core/shrink-diagonal';
-import { Main, Root, Search, SideNav, SideNavContent } from '@atlaskit/navigation-system';
+import { Main, Root, Search, SideNav, SideNavBody } from '@atlaskit/navigation-system';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
@@ -86,13 +86,13 @@ function MainContentBorderExample({
 
 				{!isFullscreen && (
 					<SideNav defaultCollapsed={defaultIsSideNavCollapsed}>
-						<SideNavContent>
+						<SideNavBody>
 							<MenuList>
 								<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
 									Your work
 								</LinkMenuItem>
 							</MenuList>
-						</SideNavContent>
+						</SideNavBody>
 					</SideNav>
 				)}
 				<Main>

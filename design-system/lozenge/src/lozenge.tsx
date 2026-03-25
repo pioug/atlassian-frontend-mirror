@@ -108,7 +108,7 @@ export interface LozengeProps {
 
 	/**
 	 * Determines whether to apply the bold style or not.
-	 * @deprecated This prop is deprecated and will be removed in an upcoming major release. Use Tag component for non-bold styles.
+	 * @deprecated Deprecated. Will be removed in a future major release. Lozenge will be bold by default. For labels and categorization, use Tag instead.
 	 */
 	isBold?: boolean;
 

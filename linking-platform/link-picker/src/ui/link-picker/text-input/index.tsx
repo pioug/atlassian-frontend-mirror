@@ -19,7 +19,6 @@ import { useMergeRefs } from 'use-callback-ref';
 import { cssMap } from '@atlaskit/css';
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import Selectclear from '@atlaskit/icon/core/cross-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import Textfield, { type TextFieldProps } from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
@@ -198,9 +197,9 @@ export const TextInput = ({
 									ref={textfieldRef}
 									elemAfterInput={clearText}
 									isInvalid={!!error}
-									aria-describedby={`${restProps['aria-describedby']} ${fieldProps.id}-error ${fg('navx-3742-refactoring-link-picker-helper-text-a11y') ? `${fieldProps.id}-helper` : ''}`}
+									aria-describedby={`${restProps['aria-describedby']} ${fieldProps.id}-error ${fieldProps.id}-helper`}
 								/>
-								{helperMessage && fg('navx-3742-refactoring-link-picker-helper-text-a11y') && (
+								{helperMessage && (
 									<HelperMessage testId={testIds.linkHelperText}>{helperMessage}</HelperMessage>
 								)}
 								{error && <ErrorMessage testId={testIds.urlError}>{error}</ErrorMessage>}

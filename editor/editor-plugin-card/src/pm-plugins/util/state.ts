@@ -3,11 +3,11 @@ import type { ACTION } from '@atlaskit/editor-common/analytics';
 import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
 import type { CardAppearance, CardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { DatasourceModalType, EditorAppearance } from '@atlaskit/editor-common/types';
-import { type EditorState, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { DatasourceAdfView } from '@atlaskit/linking-common';
 import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
-import { type CardPluginState, type Request } from '../../types';
+import type { CardPluginState, Request } from '../../types';
 import type { DatasourceTableLayout } from '../../ui/LayoutButton/types';
 import { pluginKey } from '../plugin-key';
 

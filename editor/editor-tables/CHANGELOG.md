@@ -1,5 +1,18 @@
 # @atlaskit/editor-tables
 
+## 2.9.57
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.56
+
+### Patch Changes
+
+- [`5221db0d676ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5221db0d676ef) -
+  Mechanical type-import autofix for tables, collab, and synchrony packages.
+
 ## 2.9.55
 
 ### Patch Changes

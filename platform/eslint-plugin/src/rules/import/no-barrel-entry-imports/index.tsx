@@ -323,11 +323,22 @@ function classifySpecifiers({
 
 				// Find the best export path in the source package
 				let targetExportPath: string | null = null;
+				let resolvedOriginalName = exportInfo.originalName;
 				if (sourcePackageExportsMap) {
-					targetExportPath = findExportForSourceFile({
+					const sourceExportName = exportInfo.originalName ?? nameInSource;
+					const matchResult = findExportForSourceFile({
 						sourceFilePath: exportInfo.path,
 						exportsMap: sourcePackageExportsMap,
+						fs,
+						sourceExportName,
 					});
+					targetExportPath = matchResult?.exportPath ?? null;
+					if (matchResult?.entryPointExportName !== undefined) {
+						resolvedOriginalName =
+							matchResult.entryPointExportName === nameInSource
+								? undefined
+								: matchResult.entryPointExportName;
+					}
 				}
 
 				// Build the full import path: @package/subpath or just @package if no subpath found
@@ -340,7 +351,7 @@ function classifySpecifiers({
 				}
 				specifiersByTarget.get(targetKey)!.push({
 					spec: { ...spec, importKind: effectiveKind } as AugmentedSpecifier,
-					originalName: exportInfo.originalName,
+					originalName: resolvedOriginalName,
 					targetExportPath: targetKey,
 					kind: effectiveKind,
 					sourcePackageName,
@@ -349,10 +360,22 @@ function classifySpecifiers({
 			}
 
 			// Find if there's a package.json export that points to this source file
-			const targetExportPath = findExportForSourceFile({
+			const sourceExportName = exportInfo.originalName ?? nameInSource;
+			const matchResult = findExportForSourceFile({
 				sourceFilePath: exportInfo.path,
 				exportsMap,
+				fs,
+				sourceExportName,
 			});
+			const targetExportPath = matchResult?.exportPath ?? null;
+
+			let resolvedOriginalName2 = exportInfo.originalName;
+			if (matchResult?.entryPointExportName !== undefined) {
+				resolvedOriginalName2 =
+					matchResult.entryPointExportName === nameInSource
+						? undefined
+						: matchResult.entryPointExportName;
+			}
 
 			// Get the file that the current export path resolves to
 			const currentExportResolvedFile = exportsMap.get(currentExportPath);
@@ -375,7 +398,7 @@ function classifySpecifiers({
 				}
 				specifiersByTarget.get(targetExportPath)!.push({
 					spec: { ...spec, importKind: effectiveKind } as AugmentedSpecifier,
-					originalName: exportInfo.originalName,
+					originalName: resolvedOriginalName2,
 					targetExportPath,
 					kind: effectiveKind,
 				});

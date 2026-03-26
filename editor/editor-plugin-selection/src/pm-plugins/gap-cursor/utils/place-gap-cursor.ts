@@ -1,7 +1,6 @@
 import type { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side } from '@atlaskit/editor-common/selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getComputedStyleForLayoutMode, getLayoutModeFromTargetNode, isLeftCursor } from '../utils';
 
@@ -85,47 +84,7 @@ const mutateElementStyle = (element: HTMLElement, style: CSSStyleDeclaration, si
 	}
 };
 
-export const toDOMOld = (view: EditorView, getPos: () => number | undefined): HTMLSpanElement => {
-	const selection = view.state.selection as GapCursorSelection;
-	const { $from, side } = selection;
-	const isRightCursor = side === Side.RIGHT;
-	const node = isRightCursor ? $from.nodeBefore : $from.nodeAfter;
-	const nodeStart = getPos();
-	// @ts-ignore - [unblock prosemirror bump] nodeStart can be undefined
-	const dom = view.nodeDOM(nodeStart);
-
-	const element = document.createElement('span');
-	element.className = `ProseMirror-gapcursor ${isRightCursor ? '-right' : '-left'}`;
-	element.appendChild(document.createElement('span'));
-
-	if (dom instanceof HTMLElement && element.firstChild) {
-		const style = computeNestedStyle(dom) || window.getComputedStyle(dom);
-
-		const gapCursor = element.firstChild as HTMLSpanElement;
-		gapCursor.style.height = `${measureHeight(style)}px`;
-
-		const layoutMode = node && getLayoutModeFromTargetNode(node);
-
-		if (nodeStart !== 0 || layoutMode || node?.type.name === 'table') {
-			gapCursor.style.marginTop = style.getPropertyValue('margin-top');
-		}
-
-		// Tables nested inside other elements such as layouts, expands and other tables do not have fixed width
-		const isNestedTable = node?.type.name === 'table' && selection.$to.depth > 0;
-
-		if (layoutMode && !isNestedTable) {
-			gapCursor.setAttribute('layout', layoutMode);
-			const breakoutModeStyle = getComputedStyleForLayoutMode(dom, node, style);
-			gapCursor.style.width = `${measureWidth(breakoutModeStyle)}px`;
-		} else {
-			mutateElementStyle(gapCursor, style, selection.side);
-		}
-	}
-
-	return element;
-};
-
-export const toDOMNew = (view: EditorView, getPos: () => number | undefined): HTMLSpanElement => {
+export const toDOM = (view: EditorView, getPos: () => number | undefined): HTMLSpanElement => {
 	const selection = view.state.selection as GapCursorSelection;
 	const { $from, side } = selection;
 	const isRightCursor = side === Side.RIGHT;
@@ -176,10 +135,4 @@ export const toDOMNew = (view: EditorView, getPos: () => number | undefined): HT
 	}
 
 	return element;
-};
-
-export const toDOM = (view: EditorView, getPos: () => number | undefined): HTMLSpanElement => {
-	return expValEquals('platform_editor_fix_gapcursor_on_paste', 'isEnabled', true)
-		? toDOMNew(view, getPos)
-		: toDOMOld(view, getPos);
 };

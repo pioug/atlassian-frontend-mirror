@@ -1,4 +1,4 @@
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';

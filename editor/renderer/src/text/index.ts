@@ -1,6 +1,6 @@
-import { type Fragment, type Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 
-import { type Serializer } from '../serializer';
+import type { Serializer } from '../serializer';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { reduce } from './nodes';
 

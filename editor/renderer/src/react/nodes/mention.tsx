@@ -4,10 +4,8 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { Mention } from '@atlaskit/editor-common/mention';
 import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	useInlineAnnotationProps,
-	type MarkDataAttributes,
-} from '../../ui/annotations/element/useInlineAnnotationProps';
+import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
+import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
 
 export interface Props extends MarkDataAttributes {
 	accessLevel?: string;

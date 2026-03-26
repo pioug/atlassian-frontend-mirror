@@ -320,7 +320,12 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 	private commandsAPI: EditorCommandsAPI;
 	private plugins: Map<string, NextEditorPluginInitializedType>;
 
-	constructor({ getEditorState, getEditorView, fireAnalyticsEvent, appearance }: PluginInjectionAPIProps) {
+	constructor({
+		getEditorState,
+		getEditorView,
+		fireAnalyticsEvent,
+		appearance,
+	}: PluginInjectionAPIProps) {
 		this.sharedStateAPI = new SharedStateAPI({ getEditorState });
 		this.plugins = new Map();
 		this.actionsAPI = new ActionsAPI();

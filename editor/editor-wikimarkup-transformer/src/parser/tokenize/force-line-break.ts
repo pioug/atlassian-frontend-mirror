@@ -1,4 +1,4 @@
-import { type Token, type TokenParser } from './';
+import type { Token, TokenParser } from './';
 
 /**
  * Jira is using the following regex to match force line break

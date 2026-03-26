@@ -34,7 +34,7 @@ import {
 
 import { ACTIONS } from '../pm-plugins/actions';
 import { copySelectionPluginKey } from '../pm-plugins/codeBlockCopySelectionPlugin';
-import { type CodeBlockState } from '../pm-plugins/main-state';
+import type { CodeBlockState } from '../pm-plugins/main-state';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { transformToCodeBlockAction } from '../pm-plugins/transform-to-code-block';
 

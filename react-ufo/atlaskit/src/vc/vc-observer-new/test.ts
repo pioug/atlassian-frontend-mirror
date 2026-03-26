@@ -525,9 +525,6 @@ describe('VCObserverNew', () => {
 			];
 
 			beforeEach(() => {
-				(fg as jest.Mock).mockImplementation((flag: string) => {
-					return flag === 'platform_ufo_enable_vc_raw_data';
-				});
 				(RawDataHandler.prototype.getRawData as jest.Mock).mockResolvedValue({
 					revision: 'raw-handler',
 					clean: true,

@@ -1,5 +1,6 @@
 import { backgroundTask, isTaskAborted } from './backgroundTasks';
-import { type CalculateVCOptions, EditorPerformanceMetrics } from './editorPerformanceMetrics';
+import { EditorPerformanceMetrics } from './editorPerformanceMetrics';
+import type { CalculateVCOptions } from './editorPerformanceMetrics';
 import { getLatencyPercentiles } from './measurements';
 import { TimelineController } from './timeline';
 import type { UserEvent } from './timelineTypes';

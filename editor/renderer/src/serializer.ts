@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import { type Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 export interface Serializer<T> {
 	// Ignored via go/ees005

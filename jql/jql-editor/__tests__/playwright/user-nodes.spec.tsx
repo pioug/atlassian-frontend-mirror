@@ -5,14 +5,14 @@ import { JQLEditorPage } from './page';
 test.describe('JQL Editor User Nodes', () => {
 	test('User nodes are hydrated on initial load', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('user-nodes');
+		await jqlEditor.visitExample<typeof import('../../examples/01-user-nodes.tsx')>('user-nodes');
 		await expect(jqlEditor.input).toHaveText(
 			`assignee = EMPTY AND status = 111 AND reporter in (Cristian Casais, Kyle Painter, Soney Mathew)`,
 		);
 	});
 	test('User nodes are hydrated on paste', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('user-nodes');
+		await jqlEditor.visitExample<typeof import('../../examples/01-user-nodes.tsx')>('user-nodes');
 		await expect(jqlEditor.input).toHaveText(
 			`assignee = EMPTY AND status = 111 AND reporter in (Cristian Casais, Kyle Painter, Soney Mathew)`,
 		);
@@ -22,7 +22,7 @@ test.describe('JQL Editor User Nodes', () => {
 	});
 	test('User nodes are hydrated when inserted from autocomplete', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('user-nodes');
+		await jqlEditor.visitExample<typeof import('../../examples/01-user-nodes.tsx')>('user-nodes');
 		await expect(jqlEditor.input).toHaveText(
 			`assignee = EMPTY AND status = 111 AND reporter in (Cristian Casais, Kyle Painter, Soney Mathew)`,
 		);
@@ -33,7 +33,7 @@ test.describe('JQL Editor User Nodes', () => {
 	});
 	test('User nodes are not hydrated as user types', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('user-nodes');
+		await jqlEditor.visitExample<typeof import('../../examples/01-user-nodes.tsx')>('user-nodes');
 		await expect(jqlEditor.input).toHaveText(
 			`assignee = EMPTY AND status = 111 AND reporter in (Cristian Casais, Kyle Painter, Soney Mathew)`,
 		);
@@ -44,7 +44,7 @@ test.describe('JQL Editor User Nodes', () => {
 
 	test('Other node types are not hydrated when inserted from autocomplete', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('user-nodes');
+		await jqlEditor.visitExample<typeof import('../../examples/01-user-nodes.tsx')>('user-nodes');
 		await expect(jqlEditor.input).toHaveText(
 			`assignee = EMPTY AND status = 111 AND reporter in (Cristian Casais, Kyle Painter, Soney Mathew)`,
 		);
@@ -56,7 +56,7 @@ test.describe('JQL Editor User Nodes', () => {
 
 	test('Correctly handles interactions before user nodes', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('user-nodes');
+		await jqlEditor.visitExample<typeof import('../../examples/01-user-nodes.tsx')>('user-nodes');
 		await expect(jqlEditor.input).toHaveText(
 			`assignee = EMPTY AND status = 111 AND reporter in (Cristian Casais, Kyle Painter, Soney Mathew)`,
 		);
@@ -76,7 +76,7 @@ test.describe('JQL Editor User Nodes', () => {
 		page,
 	}) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('user-nodes');
+		await jqlEditor.visitExample<typeof import('../../examples/01-user-nodes.tsx')>('user-nodes');
 		await expect(jqlEditor.input).toHaveText(
 			`assignee = EMPTY AND status = 111 AND reporter in (Cristian Casais, Kyle Painter, Soney Mathew)`,
 		);
@@ -105,7 +105,7 @@ test.describe('JQL Editor User Nodes', () => {
 
 	test('Supports quoted AAIDs', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('user-nodes');
+		await jqlEditor.visitExample<typeof import('../../examples/01-user-nodes.tsx')>('user-nodes');
 		await expect(jqlEditor.input).toHaveText(
 			`assignee = EMPTY AND status = 111 AND reporter in (Cristian Casais, Kyle Painter, Soney Mathew)`,
 		);
@@ -121,7 +121,7 @@ test.describe('JQL Editor User Nodes', () => {
 	// Fix this test as it needs to be updated after Playwright version upgrade.
 	test.fixme('Correctly inserts user nodes when using the keyboard', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('user-nodes');
+		await jqlEditor.visitExample<typeof import('../../examples/01-user-nodes.tsx')>('user-nodes');
 		await expect(jqlEditor.input).toHaveText(
 			`assignee = EMPTY AND status = 111 AND reporter in (Cristian Casais, Kyle Painter, Soney Mathew)`,
 		);
@@ -133,7 +133,9 @@ test.describe('JQL Editor User Nodes', () => {
 
 	test('Does not hydrate user nodes when rich inline nodes are disabled', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.pasteText('assignee = rjuedbergtlfrde');
 		await expect(jqlEditor.input).toHaveText('assignee = rjuedbergtlfrde');

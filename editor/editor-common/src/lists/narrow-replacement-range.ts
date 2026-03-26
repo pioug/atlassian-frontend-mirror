@@ -88,9 +88,7 @@ export function narrowReplacementRange(
 	const narrowedFragment = Fragment.from(changedNodes);
 
 	const prefixOffset = 1 + prefixSize;
-	const adjustedContentStartOffsets = contentStartOffsets.map(
-		(offset) => offset - prefixOffset,
-	);
+	const adjustedContentStartOffsets = contentStartOffsets.map((offset) => offset - prefixOffset);
 
 	return {
 		start: narrowedStart,

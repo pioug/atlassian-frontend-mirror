@@ -203,7 +203,7 @@ function getImportPathForSourceFile({
 		}
 
 		const targetExportPath = exportsMap
-			? findExportForSourceFile({ sourceFilePath, exportsMap })
+			? findExportForSourceFile({ sourceFilePath, exportsMap })?.exportPath
 			: null;
 
 		return targetExportPath ? crossPackageName + targetExportPath.slice(1) : crossPackageName;

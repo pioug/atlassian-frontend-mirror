@@ -3,7 +3,10 @@ import { type ReactElement, type ReactNode, type Ref, type RefObject } from 'rea
 import { type TAnimationPreset } from '../animations/types';
 import { type TArrowPreset } from '../arrow/types';
 import { type TPlacement } from '../internal/resolve-placement';
-import { type TRoleRequiringAccessibleName, type TRoleWithImplicitName } from '../internal/role-types';
+import {
+	type TRoleRequiringAccessibleName,
+	type TRoleWithImplicitName,
+} from '../internal/role-types';
 import { type TPopoverCloseReason } from '../popover/types';
 
 /**

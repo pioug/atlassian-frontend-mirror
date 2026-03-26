@@ -32,7 +32,7 @@ const dateTextFieldWrapper = css({
 	// @ts-expect-error
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingTop: '22px',
-	paddingBottom: token('space.150', '12px'),
+	paddingBottom: token('space.150'),
 	// TODO: EDF-2517 - should use token here
 	// @ts-expect-error
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space

@@ -14,11 +14,7 @@ export default function TestingKeyboardMouseInterleaving() {
 			<div data-testid="status">{isOpen ? 'open' : 'closed'}</div>
 			<Popup placement={{ edge: 'end' }} onClose={handleClose}>
 				<Popup.Trigger>
-					<button
-						type="button"
-						data-testid="trigger"
-						onClick={() => setIsOpen((prev) => !prev)}
-					>
+					<button type="button" data-testid="trigger" onClick={() => setIsOpen((prev) => !prev)}>
 						Toggle popup
 					</button>
 				</Popup.Trigger>

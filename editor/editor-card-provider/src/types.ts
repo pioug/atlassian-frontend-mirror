@@ -1,4 +1,4 @@
-import { type CardAppearance } from '@atlaskit/linking-common';
+import type { CardAppearance } from '@atlaskit/linking-common';
 
 export interface CardProvider {
 	resolve: (

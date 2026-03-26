@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.10.46
+
+### Patch Changes
+
+- [`a592557c4d6a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a592557c4d6a1) -
+  [ux] A11y Updates
+- Updated dependencies
+
 ## 69.10.45
 
 ### Patch Changes

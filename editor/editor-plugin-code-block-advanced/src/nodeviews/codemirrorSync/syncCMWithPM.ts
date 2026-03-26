@@ -1,7 +1,7 @@
-import { type ViewUpdate } from '@codemirror/view';
+import type { ViewUpdate } from '@codemirror/view';
 
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 interface Props {

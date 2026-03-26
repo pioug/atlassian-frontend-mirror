@@ -96,24 +96,40 @@ test.describe('speed index - fy26.04 revision', () => {
 				const fy26_04_revision = ufoRevisions?.find((rev) => rev.revision === 'fy26.04');
 
 				expect(fy26_04_revision).toBeDefined();
-				expect(fy26_04_revision?.vcDetails).toBeDefined();
 
 				const speedIndex = fy26_04_revision?.speedIndex;
-				const vc50 = fy26_04_revision?.vcDetails?.['50']?.t;
-				const vc100 = fy26_04_revision?.vcDetails?.['100']?.t;
+				expect(speedIndex).toBeDefined();
+				expect(typeof speedIndex).toBe('number');
+				expect(speedIndex).toBeGreaterThan(0);
 
-				// Speed index is typically between VC50 and VC100
-				// It represents the average time at which the viewport is painted
-				if (vc50 !== undefined && speedIndex !== undefined) {
-					// Speed index should generally be >= VC50
-					// (time at which at least 50% is painted)
-					expect(speedIndex).toBeGreaterThanOrEqual(vc50 * 0.5); // Allow some tolerance
+				// When raw data is included, vcDetails is deleted and carried by raw-handler.
+				// Use metric:vc90 (which is always present) for speed index validation.
+				const vc90 = fy26_04_revision?.['metric:vc90'];
+				// eslint-disable-next-line playwright/no-conditional-in-test
+				if (vc90 !== null && vc90 !== undefined && speedIndex !== undefined) {
+					expect(speedIndex).toBeLessThanOrEqual(vc90);
 				}
 
-				if (vc100 !== undefined && speedIndex !== undefined) {
-					// Speed index should be <= VC100
-					// (time at which 100% is painted)
-					expect(speedIndex).toBeLessThanOrEqual(vc100);
+				// eslint-disable-next-line playwright/no-conditional-in-test
+				if (fy26_04_revision?.vcDetails) {
+					const vc50 = fy26_04_revision.vcDetails['50']?.t;
+					const vc100 = fy26_04_revision.vcDetails['100']?.t;
+
+					// Speed index is typically between VC50 and VC100
+					// It represents the average time at which the viewport is painted
+					if (vc50 !== undefined && speedIndex !== undefined) {
+						expect(speedIndex).toBeGreaterThanOrEqual(vc50 * 0.5);
+					}
+
+					if (vc100 !== undefined && speedIndex !== undefined) {
+						expect(speedIndex).toBeLessThanOrEqual(vc100);
+					}
+				} else {
+					// Verify raw-handler carries the observation data for backend recalculation
+					const rawHandlerRev = ufoRevisions?.find((rev) => rev.revision === 'raw-handler');
+					expect(rawHandlerRev).toBeTruthy();
+					expect(rawHandlerRev!.rawData).toBeDefined();
+					expect(rawHandlerRev!.rawData!.obs!.length).toBeGreaterThan(0);
 				}
 			});
 		});

@@ -1,5 +1,5 @@
 /* eslint-disable require-unicode-regexp */
-import { type SyncBlockProduct } from '../../common/types';
+import type { SyncBlockProduct } from '../../common/types';
 
 /**
  * Generates the block ARI from the source page ARI and the source block's resource ID.

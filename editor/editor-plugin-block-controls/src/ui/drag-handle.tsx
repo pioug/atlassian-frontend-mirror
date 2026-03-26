@@ -109,12 +109,12 @@ const buttonWrapperStyles = css({
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
 		{
 			background: `linear-gradient(to bottom, ${token('elevation.surface')} 90%, transparent)`,
-			marginBottom: token('space.negative.200', '-16px'),
-			paddingBottom: token('space.200', '16px'),
-			marginTop: token('space.negative.400', '-32px'),
-			paddingTop: `calc(${token('space.400', '32px')} - 1px)`,
-			marginRight: token('space.negative.150', '-12px'),
-			paddingRight: token('space.150', '12px'),
+			marginBottom: token('space.negative.200'),
+			paddingBottom: token('space.200'),
+			marginTop: token('space.negative.400'),
+			paddingTop: `calc(${token('space.400')} - 1px)`,
+			marginRight: token('space.negative.150'),
+			paddingRight: token('space.150'),
 			boxSizing: 'border-box',
 		},
 
@@ -122,12 +122,12 @@ const buttonWrapperStyles = css({
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
 		{
 			background: `linear-gradient(to bottom, ${token('elevation.surface')} 90%, transparent)`,
-			marginBottom: token('space.negative.200', '-16px'),
-			paddingBottom: token('space.200', '16px'),
-			marginTop: token('space.negative.400', '-32px'),
-			paddingTop: `calc(${token('space.400', '32px')} - 1px)`,
-			marginRight: token('space.negative.150', '-12px'),
-			paddingRight: token('space.150', '12px'),
+			marginBottom: token('space.negative.200'),
+			paddingBottom: token('space.200'),
+			marginTop: token('space.negative.400'),
+			paddingTop: `calc(${token('space.400')} - 1px)`,
+			marginRight: token('space.negative.150'),
+			paddingRight: token('space.150'),
 			boxSizing: 'border-box',
 		},
 });
@@ -171,26 +171,26 @@ const dragHandleButtonStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: DRAG_HANDLE_BORDER_RADIUS,
 	// when platform_editor_controls is enabled, the drag handle color is overridden. Update color here when experiment is cleaned up.
-	color: token('color.icon', '#44546F'),
+	color: token('color.icon'),
 	cursor: 'grab',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: DRAG_HANDLE_ZINDEX,
 	outline: 'none',
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', '#091E420F'),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 
 	'&:active': {
-		backgroundColor: token('color.background.neutral.subtle.pressed', '#091E4224'),
+		backgroundColor: token('color.background.neutral.subtle.pressed'),
 	},
 
 	'&:disabled': {
-		color: token('color.icon.disabled', '#8993A4'),
+		color: token('color.icon.disabled'),
 		backgroundColor: 'transparent',
 	},
 
 	'&:hover:disabled': {
-		backgroundColor: token('color.background.disabled', 'transparent'),
+		backgroundColor: token('color.background.disabled'),
 	},
 });
 
@@ -214,8 +214,8 @@ const dragHandleButtonSmallScreenStyles = css({
 
 const dragHandleButtonStylesOld = css({
 	position: 'absolute',
-	paddingTop: `${token('space.025', '2px')}`,
-	paddingBottom: `${token('space.025', '2px')}`,
+	paddingTop: `${token('space.025')}`,
+	paddingBottom: `${token('space.025')}`,
 	paddingLeft: '0',
 	paddingRight: '0',
 	boxSizing: 'border-box',
@@ -232,48 +232,48 @@ const dragHandleButtonStylesOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: DRAG_HANDLE_BORDER_RADIUS,
 	// when platform_editor_controls is enabled, the drag handle color is overridden. Update color here when experiment is cleaned up.
-	color: token('color.icon', '#44546F'),
+	color: token('color.icon'),
 	cursor: 'grab',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: DRAG_HANDLE_ZINDEX,
 	outline: 'none',
 
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', '#091E420F'),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 
 	'&:active': {
-		backgroundColor: token('color.background.neutral.subtle.pressed', '#091E4224'),
+		backgroundColor: token('color.background.neutral.subtle.pressed'),
 	},
 
 	'&:focus': {
-		outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 	},
 
 	'&:disabled': {
-		color: token('color.icon.disabled', '#8993A4'),
+		color: token('color.icon.disabled'),
 		backgroundColor: 'transparent',
 	},
 
 	'&:hover:disabled': {
-		backgroundColor: token('color.background.disabled', 'transparent'),
+		backgroundColor: token('color.background.disabled'),
 	},
 });
 
 const focusedStylesOld = css({
 	'&:focus': {
-		outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 	},
 });
 
 const focusedStyles = css({
 	'&:focus-visible': {
-		outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 	},
 });
 
 const keyboardFocusedDragHandleStyles = css({
-	outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
+	outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 });
 
 const dragHandleContainerStyles = xcss({
@@ -383,8 +383,8 @@ const layoutColumnDragHandleStyles = css({
 });
 
 const selectedStyles = css({
-	backgroundColor: token('color.background.selected', '#E9F2FF'),
-	color: token('color.icon.selected', '#0C66E4'),
+	backgroundColor: token('color.background.selected'),
+	color: token('color.icon.selected'),
 });
 
 // [Chrome only] When selection contains multiple nodes and then drag a drag handle that is within the selection range,

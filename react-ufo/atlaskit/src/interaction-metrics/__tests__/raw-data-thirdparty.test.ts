@@ -55,7 +55,8 @@ describe('Raw Data Third Party Behavior', () => {
 		mockFg.mockImplementation((flag: string) => {
 			if (flag === 'platform_ufo_raw_data_thirdparty') {
 				return true;
-			}			return false;
+			}
+			return false;
 		});
 	});
 

@@ -1,4 +1,5 @@
-import { InsertDraftPosition, type Position, type TextPosition } from '../types';
+import { InsertDraftPosition } from '../types';
+import type { Position, TextPosition } from '../types';
 
 export const calcInsertDraftPositionOnText = (
 	{ start: startTextPosition, end: endTextPosition }: TextPosition,

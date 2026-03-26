@@ -35,7 +35,6 @@ import {
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
@@ -298,14 +297,9 @@ const insertMenuWrapper = (height: number) => {
 		width: '320px',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		height: `${height}px`,
-		backgroundColor: `${token('elevation.surface.overlay', N0)}`,
+		backgroundColor: `${token('elevation.surface.overlay')}`,
 		borderRadius: token('radius.small', '3px'),
-		boxShadow: `${token(
-			'elevation.shadow.overlay',
-			`0 0 0 1px ${N30A},
-    0 2px 1px ${N30A},
-    0 0 20px -6px ${N60A}`,
-		)}`,
+		boxShadow: `${token('elevation.shadow.overlay')}`,
 	});
 };
 

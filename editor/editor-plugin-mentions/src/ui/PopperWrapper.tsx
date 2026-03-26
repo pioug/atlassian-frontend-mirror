@@ -1,6 +1,8 @@
-import React, { useRef, useEffect, type PropsWithChildren, Suspense } from 'react';
+import React, { useRef, useEffect, Suspense } from 'react';
+import type { PropsWithChildren } from 'react';
 
-import { Popper as ReactPopper, type PopperChildrenProps } from '@atlaskit/popper';
+import { Popper as ReactPopper } from '@atlaskit/popper';
+import type { PopperChildrenProps } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 

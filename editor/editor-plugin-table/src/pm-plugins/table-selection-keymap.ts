@@ -1,4 +1,4 @@
-import { type IntlShape } from 'react-intl-next/src/types';
+import type { IntlShape } from 'react-intl-next/src/types';
 
 import {
 	bindKeymapArrayWithCommand,
@@ -13,7 +13,7 @@ import {
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
-import { type PluginInjectionAPI } from '../types';
+import type { PluginInjectionAPI } from '../types';
 
 import {
 	arrowLeftFromTable,

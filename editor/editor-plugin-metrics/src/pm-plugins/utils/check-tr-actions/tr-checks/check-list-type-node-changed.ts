@@ -1,6 +1,7 @@
-import { type ReplaceAroundStep, type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
-import { ActionType, type TrAction } from '../types';
+import { ActionType } from '../types';
+import type { TrAction } from '../types';
 
 export const checkListTypeNodeChanged = (
 	step: ReplaceStep | ReplaceAroundStep,

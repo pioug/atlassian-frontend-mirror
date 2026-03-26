@@ -3,16 +3,11 @@ import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } 
 
 import classNames from 'classnames';
 
-import {
-	CHANGE_ALIGNMENT_REASON,
-	INPUT_METHOD,
-	type TableEventPayload,
-} from '@atlaskit/editor-common/analytics';
+import { CHANGE_ALIGNMENT_REASON, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import {
-	type NamedPluginStatesFromInjectionAPI,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { EditorContainerWidth, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';

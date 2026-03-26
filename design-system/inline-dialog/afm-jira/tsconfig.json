@@ -8,7 +8,10 @@
 		"noCheck": true,
 		"isolatedDeclarations": true
 	},
-	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -32,9 +35,6 @@
 		},
 		{
 			"path": "../../popper/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../theme/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../tokens/afm-jira/tsconfig.json"

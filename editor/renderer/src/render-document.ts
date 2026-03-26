@@ -15,15 +15,16 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 import { getValidDocument } from '@atlaskit/editor-common/validator';
-import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import memoizeOne from 'memoize-one';
-import { PLATFORM, type AnalyticsEventPayload } from './analytics/events';
+import { PLATFORM } from './analytics/events';
+import type { AnalyticsEventPayload } from './analytics/events';
 import { trackUnsupportedContentLevels } from './analytics/unsupported-content';
-import { type Serializer } from './serializer';
+import type { Serializer } from './serializer';
 import { countNodes } from './ui/Renderer/count-nodes';
-import { type RendererAppearance } from './ui/Renderer/types';
+import type { RendererAppearance } from './ui/Renderer/types';
 
 export interface RenderOutput<T> {
 	pmDoc?: PMNode;

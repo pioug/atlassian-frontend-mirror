@@ -40,11 +40,7 @@ export default function TestingManualCoexistence() {
 	return (
 		<div css={styles.wrapper}>
 			<div>
-				<button
-					type="button"
-					data-testid="trigger-a"
-					onClick={() => setOpenA((prev) => !prev)}
-				>
+				<button type="button" data-testid="trigger-a" onClick={() => setOpenA((prev) => !prev)}>
 					Toggle A
 				</button>
 				<Popover ref={refA} role="note" mode="manual" isOpen={openA}>
@@ -54,11 +50,7 @@ export default function TestingManualCoexistence() {
 				</Popover>
 			</div>
 			<div>
-				<button
-					type="button"
-					data-testid="trigger-b"
-					onClick={() => setOpenB((prev) => !prev)}
-				>
+				<button type="button" data-testid="trigger-b" onClick={() => setOpenB((prev) => !prev)}>
 					Toggle B
 				</button>
 				<Popover ref={refB} role="note" mode="manual" isOpen={openB}>

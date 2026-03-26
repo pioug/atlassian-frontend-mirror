@@ -1,5 +1,5 @@
 import isYesterday from 'date-fns/isYesterday';
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 const SECONDS_IN_MINUTE = 60;
 const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * 60;

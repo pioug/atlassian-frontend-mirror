@@ -1,4 +1,4 @@
-import { type Node, type Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { WikiMarkupTransformer } from '../../index';
 

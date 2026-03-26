@@ -10,7 +10,7 @@ import { checkNodeAttributeChanged } from './tr-checks/check-node-attribute-chan
 import { checkStatusChanged } from './tr-checks/check-status-changed';
 import { checkTableColumnResized } from './tr-checks/check-table-column-resized';
 import { checkTextInput } from './tr-checks/check-text-input';
-import { type TrActionType } from './types';
+import type { TrActionType } from './types';
 
 export const checkTrActionType = (tr: ReadonlyTransaction): TrActionType => {
 	const stepsLength = tr.steps.length;

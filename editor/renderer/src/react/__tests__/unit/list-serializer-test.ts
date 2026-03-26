@@ -1,6 +1,7 @@
-import { create, type ReactTestRenderer, type ReactTestInstance } from 'react-test-renderer';
+import { create } from 'react-test-renderer';
+import type { ReactTestRenderer, ReactTestInstance } from 'react-test-renderer';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { type Node as PMNode, type Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Node } from '@atlaskit/editor-prosemirror/model';
 import { ReactSerializer } from '../../../index';
 import {
 	nestedBulletList,

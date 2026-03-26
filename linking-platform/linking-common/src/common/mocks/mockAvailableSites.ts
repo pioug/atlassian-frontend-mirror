@@ -16,7 +16,8 @@ const ACCESSIBLE_PRODUCTS_ENDPOINT = '/gateway/api/v2/accessible-products';
 const ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_ENDPOINT =
 	'/gateway/api/experimental/v2/accessible-products';
 const fetchAvailableSiteEndpoint = /\/gateway\/api(?:\/experimental)?\/available-sites/;
-const fetchAccessibleProductsEndpoint = /\/gateway\/api(?:\/experimental)?\/v2\/accessible-products/;
+const fetchAccessibleProductsEndpoint =
+	/\/gateway\/api(?:\/experimental)?\/v2\/accessible-products/;
 
 export const mockAvailableSites = (responseData?: any): void => {
 	fetchMock.post(fetchAvailableSiteEndpoint, responseData || mockedAvailableSitesResult, {
@@ -42,9 +43,7 @@ export const mockAvailableSitesForGatewayUrl = (
 ): void => {
 	fetchMock.post(
 		`${gatewayBaseUrl}${
-			useUnitCompliantEndpoint
-				? AVAILABLE_SITES_UNIT_COMPLIANT_ENDPOINT
-				: AVAILABLE_SITES_ENDPOINT
+			useUnitCompliantEndpoint ? AVAILABLE_SITES_UNIT_COMPLIANT_ENDPOINT : AVAILABLE_SITES_ENDPOINT
 		}`,
 		mockedAvailableSitesResultWithGatewayBaseUrl,
 		{

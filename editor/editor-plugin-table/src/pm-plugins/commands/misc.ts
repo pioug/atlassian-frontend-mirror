@@ -2,7 +2,7 @@ import isEqual from 'lodash/isEqual';
 
 import type { CellAttributes, TableAttributes, TableLayout } from '@atlaskit/adf-schema';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import {
 	closestElement,

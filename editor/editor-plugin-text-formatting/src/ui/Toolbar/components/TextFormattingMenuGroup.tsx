@@ -15,11 +15,11 @@ import {
 	TEXT_COLLAPSED_MENU_RANK,
 	TEXT_COLLAPSED_MENU,
 } from '@atlaskit/editor-common/toolbar';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
-import { type RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
-import { type TextFormattingPlugin } from '../../../textFormattingPluginType';
+import type { TextFormattingPlugin } from '../../../textFormattingPluginType';
 import type { FormatOptions } from '../types';
 
 import { ClearFormatMenuItem, MoreFormattingMenu, MenuSection, FormatMenuItem } from './Component';

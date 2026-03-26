@@ -1,8 +1,93 @@
-import { join } from 'path';
+import { dirname, join } from 'path';
 
-import { readFileContent, resolveImportPath } from './file-system';
+import * as ts from 'typescript';
+
+import { isRelativeImport, readFileContent, resolveImportPath } from './file-system';
 import { findPackageInRegistry } from './package-registry';
 import type { FileSystem } from './types';
+
+const ENTRY_POINT_FOLDER_NAMES = new Set([
+	'entry-points',
+	'entrypoints',
+	'entrypoint',
+	'entry-point',
+]);
+
+function isInEntryPointsFolder(filePath: string): boolean {
+	const parts = filePath.split(/[/\\]/);
+	return parts.some((part) => ENTRY_POINT_FOLDER_NAMES.has(part));
+}
+
+interface EntryPointReExport {
+	sourcePath: string;
+	/** Maps source export name → entry-point export name.
+	 * E.g. `export { default as Foo }` → Map { 'default' → 'Foo' }
+	 * Empty for star exports (`export * from`). */
+	nameMap: Map<string, string>;
+}
+
+/**
+ * Parse an entry-point wrapper file and resolve the source files it re-exports from,
+ * along with name mappings (source export name → entry-point export name).
+ */
+function resolveEntryPointReExports({
+	entryPointFilePath,
+	fs,
+}: {
+	entryPointFilePath: string;
+	fs: FileSystem;
+}): EntryPointReExport[] {
+	const content = readFileContent({ filePath: entryPointFilePath, fs });
+	if (!content) {
+		return [];
+	}
+
+	try {
+		const sourceFile = ts.createSourceFile(
+			entryPointFilePath,
+			content,
+			ts.ScriptTarget.Latest,
+			true,
+		);
+		const basedir = dirname(entryPointFilePath);
+		const results: EntryPointReExport[] = [];
+
+		for (const statement of sourceFile.statements) {
+			if (
+				ts.isExportDeclaration(statement) &&
+				statement.moduleSpecifier &&
+				ts.isStringLiteral(statement.moduleSpecifier)
+			) {
+				const modulePath = statement.moduleSpecifier.text;
+				if (!isRelativeImport(modulePath)) {
+					continue;
+				}
+
+				const resolved = resolveImportPath({ basedir, importPath: modulePath, fs });
+				if (!resolved) {
+					continue;
+				}
+
+				const nameMap = new Map<string, string>();
+				if (statement.exportClause && ts.isNamedExports(statement.exportClause)) {
+					for (const element of statement.exportClause.elements) {
+						const exportedName = element.name.text;
+						const sourceName = element.propertyName
+							? element.propertyName.text
+							: exportedName;
+						nameMap.set(sourceName, exportedName);
+					}
+				}
+
+				results.push({ sourcePath: resolved, nameMap });
+			}
+		}
+
+		return results;
+	} catch {
+		return [];
+	}
+}
 
 /**
  * Parse the package.json exports field and return a map of export paths to resolved file paths.
@@ -89,22 +174,69 @@ export function parsePackageExports({
 	return exportsMap;
 }
 
+export interface ExportMatchResult {
+	exportPath: string;
+	/**
+	 * When resolved through an entry-point wrapper, the name under which
+	 * the symbol is exported from the entry-point file.
+	 * Callers use this to override the barrel's `originalName` so the
+	 * generated import matches the entry-point's export shape.
+	 */
+	entryPointExportName?: string;
+}
+
 /**
  * Find a matching export entry for a given source file path.
  * Returns the export path (e.g., "./controllers/analytics") or null if not found.
+ *
+ * When `fs` is provided, also checks entry-point wrapper files. If an export resolves
+ * to a file inside a recognized entry-points folder (entry-points, entrypoints, etc.),
+ * the wrapper is parsed to see if it re-exports from `sourceFilePath`.
+ *
+ * `sourceExportName` is the name under which the symbol is exported from the source file
+ * (e.g. `'default'`). Used to look up the corresponding entry-point export name so the
+ * caller can generate the correct import style.
  */
 export function findExportForSourceFile({
 	sourceFilePath,
 	exportsMap,
+	fs,
+	sourceExportName,
 }: {
 	sourceFilePath: string;
 	exportsMap: Map<string, string>;
-}): string | null {
+	fs?: FileSystem;
+	sourceExportName?: string;
+}): ExportMatchResult | null {
 	for (const [exportPath, resolvedPath] of exportsMap) {
 		if (resolvedPath === sourceFilePath) {
-			return exportPath;
+			return { exportPath };
 		}
 	}
+
+	if (fs) {
+		for (const [exportPath, resolvedPath] of exportsMap) {
+			if (isInEntryPointsFolder(resolvedPath)) {
+				const reExports = resolveEntryPointReExports({
+					entryPointFilePath: resolvedPath,
+					fs,
+				});
+				for (const reExport of reExports) {
+					if (reExport.sourcePath === sourceFilePath) {
+						let entryPointExportName: string | undefined;
+						if (
+							sourceExportName !== undefined &&
+							reExport.nameMap.has(sourceExportName)
+						) {
+							entryPointExportName = reExport.nameMap.get(sourceExportName);
+						}
+						return { exportPath, entryPointExportName };
+					}
+				}
+			}
+		}
+	}
+
 	return null;
 }
 

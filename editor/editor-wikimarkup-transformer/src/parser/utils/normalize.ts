@@ -1,4 +1,4 @@
-import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { createParagraphNodeFromInlineNodes, createEmptyParagraphNode } from '../nodes/paragraph';
 
 export function normalizePMNodes(nodes: PMNode[], schema: Schema, parentNode?: string): PMNode[] {

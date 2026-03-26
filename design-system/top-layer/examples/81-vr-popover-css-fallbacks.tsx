@@ -55,7 +55,9 @@ function PopupAtEdge({ placement }: { placement: TPlacementOptions; children?: R
 	return (
 		<Popup placement={placement} onClose={() => {}}>
 			<Popup.Trigger>
-				<button ref={triggerRef} type="button">{label}</button>
+				<button ref={triggerRef} type="button">
+					{label}
+				</button>
 			</Popup.Trigger>
 			<Popup.Content role="dialog" label={`Fallback ${label}`}>
 				<PopupSurface>

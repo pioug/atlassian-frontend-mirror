@@ -122,12 +122,7 @@ function NestedMenu() {
 			</button>
 			{isOpen && (
 				<div ref={menuRef} role="menu" data-testid="nested-menu">
-					<button
-						type="button"
-						role="menuitem"
-						css={styles.menuItem}
-						data-testid="nested-item-1"
-					>
+					<button type="button" role="menuitem" css={styles.menuItem} data-testid="nested-item-1">
 						Parent Item 1
 					</button>
 					<button
@@ -142,36 +137,16 @@ function NestedMenu() {
 						Parent Item 2 (has sub-menu)
 					</button>
 					{isSubOpen && (
-						<div
-							ref={subMenuRef}
-							role="menu"
-							data-testid="nested-submenu"
-							css={styles.nestedMenu}
-						>
-							<button
-								type="button"
-								role="menuitem"
-								css={styles.menuItem}
-								data-testid="sub-item-1"
-							>
+						<div ref={subMenuRef} role="menu" data-testid="nested-submenu" css={styles.nestedMenu}>
+							<button type="button" role="menuitem" css={styles.menuItem} data-testid="sub-item-1">
 								Sub Item 1
 							</button>
-							<button
-								type="button"
-								role="menuitem"
-								css={styles.menuItem}
-								data-testid="sub-item-2"
-							>
+							<button type="button" role="menuitem" css={styles.menuItem} data-testid="sub-item-2">
 								Sub Item 2
 							</button>
 						</div>
 					)}
-					<button
-						type="button"
-						role="menuitem"
-						css={styles.menuItem}
-						data-testid="nested-item-3"
-					>
+					<button type="button" role="menuitem" css={styles.menuItem} data-testid="nested-item-3">
 						Parent Item 3
 					</button>
 				</div>
@@ -209,20 +184,10 @@ function MixedMenu() {
 			</button>
 			{isOpen && (
 				<div ref={menuRef} role="menu" data-testid="mixed-menu">
-					<button
-						type="button"
-						role="menuitem"
-						css={styles.menuItem}
-						data-testid="mixed-item-1"
-					>
+					<button type="button" role="menuitem" css={styles.menuItem} data-testid="mixed-item-1">
 						Button Item
 					</button>
-					<button
-						type="button"
-						role="menuitem"
-						css={styles.menuItem}
-						data-testid="mixed-item-2"
-					>
+					<button type="button" role="menuitem" css={styles.menuItem} data-testid="mixed-item-2">
 						Another Button
 					</button>
 					<button
@@ -234,12 +199,7 @@ function MixedMenu() {
 					>
 						Disabled Item
 					</button>
-					<button
-						type="button"
-						role="menuitem"
-						css={styles.menuItem}
-						data-testid="mixed-item-3"
-					>
+					<button type="button" role="menuitem" css={styles.menuItem} data-testid="mixed-item-3">
 						Last Button
 					</button>
 				</div>

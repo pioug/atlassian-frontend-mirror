@@ -16,8 +16,7 @@ export function usePresetStyles<T extends TPresetWithCssAndName>({
 }: {
 	preset: T | false | null | undefined;
 }): T | null {
-	const resolved: T | null =
-		preset != null && preset !== false ? preset : null;
+	const resolved: T | null = preset != null && preset !== false ? preset : null;
 
 	useInsertionEffect(() => {
 		if (resolved) {

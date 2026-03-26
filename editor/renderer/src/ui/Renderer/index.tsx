@@ -3,7 +3,6 @@
  * @jsx jsx
  */
 import React, {
-	type ComponentProps,
 	Fragment,
 	useCallback,
 	useContext,
@@ -12,6 +11,7 @@ import React, {
 	useMemo,
 	useRef,
 } from 'react';
+import type { ComponentProps } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { ProviderFactory, ProviderFactoryProvider } from '@atlaskit/editor-common/provider-factory';
@@ -54,7 +54,7 @@ import type { ReactSerializerInit } from '../../react';
 import { EditorMediaClientProvider } from '../../react/utils/EditorMediaClientProvider';
 import { getActiveHeadingId, isNestedHeaderLinksEnabled } from '../../react/utils/links';
 import { RendererContextProvider, useRendererContext } from '../../renderer-context';
-import { type Serializer } from '../../serializer';
+import type { Serializer } from '../../serializer';
 import { findInTree } from '../../utils';
 import {
 	RendererContext as ActionsContext,

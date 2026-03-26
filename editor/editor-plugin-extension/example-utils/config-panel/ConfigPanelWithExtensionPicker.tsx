@@ -21,9 +21,6 @@ import Heading from '@atlaskit/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import TextArea from '@atlaskit/textarea';
-// Ignored via go/ees005
-// eslint-disable-next-line import/no-namespace
-import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useStateFromPromise } from '../../src/ui/ConfigPanel/use-state-from-promise';
@@ -41,17 +38,16 @@ const column = (width: number | string) =>
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${width}px`,
-		margin: token('space.200', '16px'),
+		margin: token('space.200'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		h3: {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			borderBottom: `${token('border.width')} solid ${colors.N50}`,
-			marginBottom: token('space.200', '16px'),
+			borderBottom: `${token('border.width')} solid ${token('color.border')}`,
+			marginBottom: token('space.200'),
 		},
 	});
 
 const codeWrapperStyles = css({
-	marginTop: token('space.200', '16px'),
+	marginTop: token('space.200'),
 });
 
 function ExtensionConfigPanel({

@@ -1,17 +1,10 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import {
-	type Fragment,
-	type Node as PMNode,
-	type Schema,
-} from '@atlaskit/editor-prosemirror/model';
+import type { Fragment, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import flow from 'lodash/flow';
 import property from 'lodash/property';
-import {
-	type SerializeFragmentWithAttachmentsResult,
-	type SerializerWithImages,
-} from './serializer';
+import type { SerializeFragmentWithAttachmentsResult, SerializerWithImages } from './serializer';
 import { nodeSerializers } from './node-serializers';
 import styles from './styles';
 import juice from 'juice';
@@ -19,7 +12,7 @@ import { escapeHtmlString } from './escape-html-string';
 import { processImages } from './static';
 import { createClassName } from './styles/util';
 import { fontFamily, fontSize } from './styles/common';
-import { type MetaDataContext, type EmailSerializerOpts } from './interfaces';
+import type { MetaDataContext, EmailSerializerOpts } from './interfaces';
 import { transformNestedTableExtension } from './table-util';
 
 const serializeNode = (

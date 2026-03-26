@@ -59,7 +59,13 @@ export default function TestingSimpleLightDismiss() {
 			>
 				Open popover
 			</button>
-			<Popover ref={popoverRef} role="dialog" mode="manual" isOpen={isOpen} label="Light dismiss popover">
+			<Popover
+				ref={popoverRef}
+				role="dialog"
+				mode="manual"
+				isOpen={isOpen}
+				label="Light dismiss popover"
+			>
 				<div data-testid="popover-content" css={styles.content}>
 					Manual popover with simple light dismiss
 					<button type="button" data-testid="inner-button">

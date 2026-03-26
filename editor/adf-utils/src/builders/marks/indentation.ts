@@ -1,4 +1,8 @@
-import type { IndentationMarkDefinition, IndentationMarkAttributes, ParagraphDefinition } from '@atlaskit/adf-schema';
+import type {
+	IndentationMarkDefinition,
+	IndentationMarkAttributes,
+	ParagraphDefinition,
+} from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
 import type { WithMark, WithAppliedMark } from '../types';
 

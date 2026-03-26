@@ -39,14 +39,14 @@ import {
 	getStepUGCFreeDetails,
 	sleep,
 } from '../helpers/utils';
-import { type ParticipantsService } from '../participants/participants-service';
+import type { ParticipantsService } from '../participants/participants-service';
 import { MAX_STEP_REJECTED_ERROR, MAX_STEP_REJECTED_ERROR_AGGRESSIVE } from '../provider';
 import { CommitStepService } from '../provider/commit-step';
 import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
 
 import { catchupv2 } from './catchupv2';
 import { StepQueueState } from './step-queue-state';
-import { type DocumentServiceInterface } from './interface-document-service';
+import type { DocumentServiceInterface } from './interface-document-service';
 import { getConflictChanges } from './getConflictChanges';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';

@@ -72,7 +72,8 @@ export type TPopupContextValue = {
 	forceFallbackPositioning?: boolean;
 };
 
-const PopupContext: React.Context<TPopupContextValue | null> = createContext<TPopupContextValue | null>(null);
+const PopupContext: React.Context<TPopupContextValue | null> =
+	createContext<TPopupContextValue | null>(null);
 
 /**
  * __Popup provider__

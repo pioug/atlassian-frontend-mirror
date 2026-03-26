@@ -1,5 +1,5 @@
 import React from 'react';
-import { type DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { createRendererWindowBindings } from './helper/testing-setup';

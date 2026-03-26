@@ -9,6 +9,7 @@ import { defineMessages, useIntl } from 'react-intl-next';
 import ImageLoader from 'react-render-image';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { LoadingSkeleton } from '../loading-skeleton';
@@ -29,6 +30,7 @@ const messages = defineMessages({
 });
 
 const ImageIcon = ({
+	label,
 	defaultIcon,
 	testId,
 	url,
@@ -56,7 +58,7 @@ const ImageIcon = ({
 			<img
 				src={url}
 				data-testid={`${testId}-image`}
-				alt=""
+				alt={fg('platform_navx_smart_link_icon_label_a11y') ? (label?.trim() ?? '') : ''}
 				style={{
 					width,
 					height,
@@ -74,7 +76,11 @@ const ImageIcon = ({
 					<img
 						src={url}
 						data-testid={`${testId}-image`}
-						alt={formatMessage(messages.imageAltText)}
+						alt={
+							fg('platform_navx_smart_link_icon_label_a11y')
+								? (label?.trim() ?? '')
+								: formatMessage(messages.imageAltText)
+						}
 						style={{
 							width,
 							height,

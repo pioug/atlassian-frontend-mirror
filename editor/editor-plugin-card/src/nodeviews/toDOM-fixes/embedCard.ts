@@ -23,7 +23,6 @@ import {
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // From `packages/editor/editor-common/src/ui/MediaSingle/styled.tsx`
@@ -139,12 +138,12 @@ export const embedCardSpecWithFixedToDOM = (): {
 					'a',
 					{
 						style: convertToInlineCss({
-							padding: `${token('space.025', '2px')} 0px`,
-							marginLeft: token('space.negative.025', '-2px'),
+							padding: `${token('space.025')} 0px`,
+							marginLeft: token('space.negative.025'),
 							display: 'inline',
 							boxDecorationBreak: 'clone',
 							borderRadius: token('radius.small', '4px'),
-							color: token('color.link', B400),
+							color: token('color.link'),
 							lineHeight: '22px',
 							WebkitTransition: '0.1s all ease-in-out',
 							transition: '0.1s all ease-in-out',

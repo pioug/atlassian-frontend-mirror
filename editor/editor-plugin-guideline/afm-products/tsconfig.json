@@ -33,9 +33,6 @@
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/theme/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
 		},
 		{

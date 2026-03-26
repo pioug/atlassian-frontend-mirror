@@ -29,7 +29,7 @@ const iconWrapperStyles = css({
 // Adding 4px instead of 3px, since Design tokens supports space sizes in 2 multiples only Ref: https://atlassian.design/components/tokens/all-tokens
 const iconWrapperMenuStyles = css({
 	alignSelf: 'flex-start',
-	marginTop: token('space.050', '4px'),
+	marginTop: token('space.050'),
 });
 
 const getIconSize = (context: 'menu' | 'value', description?: string) => {
@@ -54,7 +54,7 @@ export const formatOptionLabel = (
 				)}
 			</span>
 			<div
-				style={{ paddingLeft: icon ? token('space.100', '8px') : token('space.0', '0') }}
+				style={{ paddingLeft: icon ? token('space.100') : token('space.0') }}
 				data-testid="extension-option-label"
 			>
 				{label}

@@ -1,10 +1,10 @@
-import { type Style, type Attrs } from './interfaces';
+import type { Style, Attrs } from './interfaces';
 import { serializeStyle } from './serialize-style';
 import { createTag } from './create-tag';
 import { createClassName } from './styles/util';
 import { fontFamily, fontSize, fontWeight } from './styles/common';
 import { transformNestedTablesIncomingDocument } from '@atlaskit/adf-utils/transforms';
-import { type ADFEntity } from '@atlaskit/adf-utils/types';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 export type TableData = {
 	attrs?: Attrs;

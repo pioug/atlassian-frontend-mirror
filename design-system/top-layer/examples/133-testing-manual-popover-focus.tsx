@@ -225,9 +225,7 @@ function ManualFocusRestore() {
 				popover="manual"
 				css={styles.content}
 			>
-				<span data-testid="manual-restore-content">
-					Manual popover — focus restore test
-				</span>
+				<span data-testid="manual-restore-content">Manual popover — focus restore test</span>
 				<br />
 				<button type="button" ref={innerRef} data-testid="manual-restore-inner">
 					Inner button (autofocus)
@@ -272,9 +270,7 @@ function AutoFocusRestore() {
 				popover="auto"
 				css={styles.content}
 			>
-				<span data-testid="auto-restore-content">
-					Auto popover — focus restore test
-				</span>
+				<span data-testid="auto-restore-content">Auto popover — focus restore test</span>
 				<br />
 				<button type="button" ref={innerRef} data-testid="auto-restore-inner">
 					Inner button (autofocus)

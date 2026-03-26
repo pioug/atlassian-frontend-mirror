@@ -3,20 +3,19 @@
 import { css, type SerializedStyles } from '@emotion/react';
 
 import { akEditorSmallZIndex, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const inviteTeamWrapperStyles: SerializedStyles = css({
-	background: token('color.background.neutral', N20),
+	background: token('color.background.neutral'),
 	borderRadius: token('radius.full'),
-	minWidth: token('space.400', '32px'),
-	marginLeft: token('space.negative.050', '-4px'),
+	minWidth: token('space.400'),
+	marginLeft: token('space.negative.050'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const avatarContainerStyles: SerializedStyles = css({
-	marginRight: token('space.100', '8px'),
+	marginRight: token('space.100'),
 	display: 'flex',
 	alignItems: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -28,7 +27,7 @@ export const avatarContainerStyles: SerializedStyles = css({
 		borderRadius: token('radius.full'),
 		height: '32px',
 		width: '32px',
-		padding: token('space.025', '2px'),
+		padding: token('space.025'),
 	},
 });
 
@@ -36,10 +35,10 @@ export const badge = (backgroundColor: string, textColor: string): SerializedSty
 	css({
 		display: 'block',
 		position: 'absolute',
-		right: token('space.025', '2px'),
-		bottom: token('space.025', '2px'),
-		width: token('space.150', '12px'),
-		height: token('space.150', '12px'),
+		right: token('space.025'),
+		bottom: token('space.025'),
+		width: token('space.150'),
+		height: token('space.150'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		zIndex: akEditorSmallZIndex,
 		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
@@ -52,8 +51,8 @@ export const badge = (backgroundColor: string, textColor: string): SerializedSty
 		fontSize: relativeFontSizeToBase16(9),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 0,
-		paddingTop: token('space.075', '6px'),
+		paddingTop: token('space.075'),
 		textAlign: 'center',
-		boxShadow: `0 0 1px ${token('color.border.inverse', '#fff')}`,
+		boxShadow: `0 0 1px ${token('color.border.inverse')}`,
 		boxSizing: 'border-box',
 	});

@@ -20,5 +20,5 @@ export const triggerWrapper: SerializedStyles = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const expandWrapperStyle: SerializedStyles = css({
-	marginLeft: token('space.050', '4px'),
+	marginLeft: token('space.050'),
 });

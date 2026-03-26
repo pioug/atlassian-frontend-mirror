@@ -3,7 +3,10 @@
 
 import { editorExperimentsConfig } from './experiments-config';
 import { testBooleanOverrides, testMultivariateOverrides } from './exp-test-overrides';
-import type { EditorExperimentOverridesBoolean, EditorExperimentOverridesMultivariate } from './exp-test-overrides';
+import type {
+	EditorExperimentOverridesBoolean,
+	EditorExperimentOverridesMultivariate,
+} from './exp-test-overrides';
 
 export type EditorExperimentOverrides = Partial<{
 	[ExperimentName in keyof typeof editorExperimentsConfig]: (typeof editorExperimentsConfig)[ExperimentName]['defaultValue'];

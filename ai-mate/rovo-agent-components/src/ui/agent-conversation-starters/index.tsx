@@ -36,7 +36,7 @@ const styles = cssMap({
 		paddingBottom: token('space.075'),
 		paddingLeft: token('space.075'),
 		font: token('font.body'),
-		fontWeight: token('font.weight.medium', '500'),
+		fontWeight: token('font.weight.medium'),
 		borderRadius: token('radius.small'),
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',

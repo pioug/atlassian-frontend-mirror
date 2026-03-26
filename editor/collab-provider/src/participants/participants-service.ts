@@ -25,7 +25,8 @@ import {
 	fetchParticipants,
 	PARTICIPANT_UPDATE_INTERVAL,
 } from './participants-helper';
-import { type ParticipantFilter, ParticipantsState } from './participants-state';
+import { ParticipantsState } from './participants-state';
+import type { ParticipantFilter } from './participants-state';
 import { createLogger, isAIProviderID } from '../helpers/utils';
 
 const logger = createLogger('PresenceService', 'pink');

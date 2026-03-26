@@ -1,4 +1,5 @@
-import { FirstInteractionObserver, type OnFirstInteraction } from './firstInteractionObserver';
+import { FirstInteractionObserver } from './firstInteractionObserver';
+import type { OnFirstInteraction } from './firstInteractionObserver';
 
 describe('FirstInteractionObserver', () => {
 	let onFirstInteraction: jest.Mock<ReturnType<OnFirstInteraction>, Parameters<OnFirstInteraction>>;

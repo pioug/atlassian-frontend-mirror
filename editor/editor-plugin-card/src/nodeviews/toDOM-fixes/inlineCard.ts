@@ -8,7 +8,6 @@ import type {
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // @nodeSpecException:toDOM patch
@@ -66,13 +65,13 @@ export const inlineCardSpecWithFixedToDOM = (): {
 				// We need to match the style of LoadingCardLink
 				// Which uses frame styling `packages/linking-platform/smart-card/src/view/InlineCard/Frame/styled.ts`, with withoutBackground=true
 				style: convertToInlineCss({
-					padding: `${token('space.025', '2px')} 0px`,
-					marginLeft: token('space.negative.025', '-2px'),
+					padding: `${token('space.025')} 0px`,
+					marginLeft: token('space.negative.025'),
 					display: 'inline',
 					boxDecorationBreak: 'clone',
 					WebkitBoxDecorationBreak: 'clone',
 					borderRadius: token('radius.small', '4px'),
-					color: token('color.link', B400),
+					color: token('color.link'),
 					lineHeight: '22px',
 					WebkitTransition: '0.1s all ease-in-out',
 					transition: '0.1s all ease-in-out',

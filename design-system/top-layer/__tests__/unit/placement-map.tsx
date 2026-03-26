@@ -43,8 +43,16 @@ describe('placement-map', () => {
 			);
 			expect(nonAutoEntries.length).toBe(14);
 			// top-center and bottom-center duplicate block-start and block-end respectively (with explicit align: 'center')
-			expect(fromLegacyPlacement({ legacy: 'top-center' })).toEqual({ axis: 'block', edge: 'start', align: 'center' });
-			expect(fromLegacyPlacement({ legacy: 'bottom-center' })).toEqual({ axis: 'block', edge: 'end', align: 'center' });
+			expect(fromLegacyPlacement({ legacy: 'top-center' })).toEqual({
+				axis: 'block',
+				edge: 'start',
+				align: 'center',
+			});
+			expect(fromLegacyPlacement({ legacy: 'bottom-center' })).toEqual({
+				axis: 'block',
+				edge: 'end',
+				align: 'center',
+			});
 		});
 	});
 });

@@ -1,10 +1,6 @@
 import React, { useMemo, useCallback, useContext } from 'react';
-import {
-	type AnnotationId,
-	type AnnotationDataAttributes,
-	AnnotationMarkStates,
-	type AnnotationTypes,
-} from '@atlaskit/adf-schema';
+import { AnnotationMarkStates } from '@atlaskit/adf-schema';
+import type { AnnotationId, AnnotationDataAttributes, AnnotationTypes } from '@atlaskit/adf-schema';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 
 import { MarkComponent } from './mark';

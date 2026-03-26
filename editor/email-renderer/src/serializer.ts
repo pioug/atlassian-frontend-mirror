@@ -1,4 +1,4 @@
-import { type Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 export interface Serializer<T> {
 	// Ignored via go/ees005

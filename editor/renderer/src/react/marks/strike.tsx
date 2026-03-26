@@ -1,5 +1,5 @@
 import React from 'react';
-import { type MarkProps } from '../types';
+import type { MarkProps } from '../types';
 
 export default function Strike(props: MarkProps): React.JSX.Element {
 	return (

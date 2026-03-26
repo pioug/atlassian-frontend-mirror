@@ -4,11 +4,8 @@ import uuid from 'uuid';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { isCSSAnchorSupported, isCSSAttrAnchorSupported } from '@atlaskit/editor-common/styles';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import {
-	PluginKey,
-	type EditorState,
-	type ReadonlyTransaction,
-} from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

@@ -128,6 +128,9 @@ const AI_MATE_DIR = `${PLATFORM_PACKAGES}/ai-mate`;
 const TEST_PACKAGE_DIR = `${AI_MATE_DIR}/conversation-assistant-instrumentation`;
 const TEST_FILE = `${AI_MATE_DIR}/agent-evaluation/src/ui/CreateDatasetModal.tsx`;
 
+// instead of using the package name directly, we use a constant so the ratcheting does not fail
+const TEST_PACKAGE_NAME = '@atlassian/conversation-assistant-instrumentation';
+
 /**
  * Creates a standard mock file system for testing the rule.
  * Sets up a typical package structure with barrel file and specific exports.
@@ -1952,6 +1955,127 @@ describe('no-barrel-entry-imports', () => {
 						filename: TEST_FILE,
 						errors: [{ messageId: 'barrelEntryImport' }],
 						output: `import { useAnalytics } from '@atlassian/conversation-assistant-instrumentation/hooks/useAnalytics';`,
+					},
+				],
+			},
+		);
+	});
+
+	describe('entry-point wrapper files', () => {
+		// When exports map to thin wrapper files in an entry-points/ folder that
+		// re-export from the actual source, the rule should still detect barrel
+		// imports and produce the correct fix.
+		const fsWithEntryPointWrappers = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+
+			[`${TEST_PACKAGE_DIR}/package.json`]: JSON.stringify({
+				name: TEST_PACKAGE_NAME,
+				exports: {
+					'.': './src/index.ts',
+					'./dropdown-menu': './src/entry-points/dropdown-menu.ts',
+					'./dropdown-menu-item': './src/entry-points/dropdown-menu-item.ts',
+					'./dropdown-menu-item-group': './src/entry-points/dropdown-menu-item-group.ts',
+					'./types': './src/entry-points/types.ts',
+				},
+			}),
+
+			// Barrel file re-exports directly from source files
+			[`${TEST_PACKAGE_DIR}/src/index.ts`]: outdent`
+				export { default } from './dropdown-menu';
+				export { default as DropdownItemGroup } from './dropdown-menu-item-group';
+				export { default as DropdownItem } from './dropdown-menu-item';
+				export type { DropdownMenuProps } from './types';
+			`,
+
+			// Actual source files
+			[`${TEST_PACKAGE_DIR}/src/dropdown-menu.ts`]: outdent`
+				const DropdownMenu = () => null;
+				export default DropdownMenu;
+			`,
+			[`${TEST_PACKAGE_DIR}/src/dropdown-menu-item.ts`]: outdent`
+				const DropdownItem = () => null;
+				export default DropdownItem;
+			`,
+			[`${TEST_PACKAGE_DIR}/src/dropdown-menu-item-group.ts`]: outdent`
+				const DropdownItemGroup = () => null;
+				export default DropdownItemGroup;
+			`,
+			[`${TEST_PACKAGE_DIR}/src/types.ts`]: outdent`
+				export interface DropdownMenuProps { placement?: string; }
+			`,
+
+			// Entry-point wrapper files that re-export from the source
+			[`${TEST_PACKAGE_DIR}/src/entry-points/dropdown-menu.ts`]: outdent`
+				export { default } from '../dropdown-menu';
+			`,
+			[`${TEST_PACKAGE_DIR}/src/entry-points/dropdown-menu-item.ts`]: outdent`
+				export { default as DropdownItem } from '../dropdown-menu-item';
+			`,
+			[`${TEST_PACKAGE_DIR}/src/entry-points/dropdown-menu-item-group.ts`]: outdent`
+				export { default as DropdownItemGroup } from '../dropdown-menu-item-group';
+			`,
+			[`${TEST_PACKAGE_DIR}/src/entry-points/types.ts`]: outdent`
+				export type { DropdownMenuProps } from '../types';
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-imports - entry-point wrapper files',
+			fsWithEntryPointWrappers,
+			{
+				valid: [
+					// Already using a specific entry-point import
+					{
+						code: `import DropdownItem from '${TEST_PACKAGE_NAME}/dropdown-menu-item';`,
+						filename: TEST_FILE,
+					},
+				],
+				invalid: [
+					// Named import of a default-as-named re-export through entry-point wrapper
+					// Entry-point: `export { default as DropdownItem }` → consumer uses named import
+					{
+						code: `import { DropdownItem } from '${TEST_PACKAGE_NAME}';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { DropdownItem } from '${TEST_PACKAGE_NAME}/dropdown-menu-item';`,
+					},
+					// Multiple named imports, each going through different entry-point wrappers
+					{
+						code: `import { DropdownItem, DropdownItemGroup } from '${TEST_PACKAGE_NAME}';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: tabindent`
+							import { DropdownItem } from '${TEST_PACKAGE_NAME}/dropdown-menu-item';
+							import { DropdownItemGroup } from '${TEST_PACKAGE_NAME}/dropdown-menu-item-group';
+						`,
+					},
+					// Default import through entry-point wrapper
+					// Entry-point: `export { default }` → consumer uses default import
+					{
+						code: `import DropdownMenu from '${TEST_PACKAGE_NAME}';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import DropdownMenu from '${TEST_PACKAGE_NAME}/dropdown-menu';`,
+					},
+					// Type import through entry-point wrapper
+					{
+						code: `import type { DropdownMenuProps } from '${TEST_PACKAGE_NAME}';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import type { DropdownMenuProps } from '${TEST_PACKAGE_NAME}/types';`,
+					},
+					// Mixed default and named imports through entry-point wrappers
+					{
+						code: `import DropdownMenu, { DropdownItem, DropdownItemGroup } from '${TEST_PACKAGE_NAME}';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: tabindent`
+							import DropdownMenu from '${TEST_PACKAGE_NAME}/dropdown-menu';
+							import { DropdownItem } from '${TEST_PACKAGE_NAME}/dropdown-menu-item';
+							import { DropdownItemGroup } from '${TEST_PACKAGE_NAME}/dropdown-menu-item-group';
+						`,
 					},
 				],
 			},

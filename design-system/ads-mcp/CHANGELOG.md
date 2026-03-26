@@ -1,5 +1,21 @@
 # @atlaskit/ads-mcp
 
+## 0.18.0
+
+### Minor Changes
+
+- [`44a9ad271ff5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44a9ad271ff5d) -
+  [ux] Update ADS Structured content. Now includes guidelines, lint rules, components, Icon lab
+
+## 0.17.5
+
+### Patch Changes
+
+- [`0daada0469ab8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0daada0469ab8) -
+  Remove `no-legacy-icons` from lint rules structured content. The rule no longer exists following
+  the removal of `@atlaskit/icon/glyph` legacy icons.
+- Updated dependencies
+
 ## 0.17.4
 
 ### Patch Changes

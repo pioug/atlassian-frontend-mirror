@@ -1,6 +1,7 @@
-import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
-import { ActionType, type DetailedReplaceStep, type TrAction } from '../types';
+import { ActionType } from '../types';
+import type { DetailedReplaceStep, TrAction } from '../types';
 
 export const checkDeletingContent = (
 	step: ReplaceStep,

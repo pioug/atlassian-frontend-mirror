@@ -1,10 +1,10 @@
-import {
-	type AnalyticsEventPayload as EditorAnalyticsEventPayload,
-	type DispatchAnalyticsEvent,
-	type ExperienceEventPayload,
-	type SyncBlockEventPayload,
-	type RendererSyncBlockEventPayload,
-	ACTION,
+import { ACTION } from '@atlaskit/editor-common/analytics';
+import type {
+	AnalyticsEventPayload as EditorAnalyticsEventPayload,
+	DispatchAnalyticsEvent,
+	ExperienceEventPayload,
+	SyncBlockEventPayload,
+	RendererSyncBlockEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import {
 	Experience,

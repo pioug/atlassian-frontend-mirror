@@ -6,7 +6,7 @@ import type {
 	SyncUpErrorFunction,
 } from '@atlaskit/editor-common/collab';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { type Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
 export type PrivateCollabEditOptions = CollabEditOptions & {
 	hideTelecursorOnLoad?: boolean;

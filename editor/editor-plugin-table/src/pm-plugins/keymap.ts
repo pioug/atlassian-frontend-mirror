@@ -42,7 +42,7 @@ import {
 	startColumnResizing,
 	toggleTable,
 } from '@atlaskit/editor-common/keymaps';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';

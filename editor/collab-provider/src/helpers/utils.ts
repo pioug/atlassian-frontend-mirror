@@ -1,4 +1,4 @@
-import { type ADFEntity } from '@atlaskit/adf-utils/types';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { ProductInformation } from '../types';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { scrubAdf } from '@atlaskit/adf-utils/scrub';
@@ -16,8 +16,8 @@ import type {
 	StepJson,
 	StepMetadata,
 } from '@atlaskit/editor-common/collab';
-import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { type Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { CustomError } from '../errors/custom-errors';
 
 export const createLogger =

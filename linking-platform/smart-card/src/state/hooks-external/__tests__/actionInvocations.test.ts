@@ -1,6 +1,8 @@
 import { renderHook } from '@testing-library/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	TEST_RESPONSE_WITH_DOWNLOAD,
@@ -34,10 +36,6 @@ jest.mock('@atlaskit/link-provider', () => ({
 jest.mock('../../hooks/use-resolve', () => ({
 	__esModule: true,
 	default: jest.fn(),
-}));
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
 }));
 
 // used directly by refactored hook
@@ -102,110 +100,116 @@ describe('actions', () => {
 		expect(openUrl).toHaveBeenCalledWith(TEST_URL);
 	});
 
-	it('should invoke preview method with expected parameters', async () => {
-		const details = TEST_RESPONSE_WITH_PREVIEW;
+	ffTest.both(
+		'platform_navx_smart_link_icon_label_a11y',
+		'should invoke preview method with expected parameters',
+		() => {
+			it('should invoke preview method with expected parameters', async () => {
+				const details = TEST_RESPONSE_WITH_PREVIEW;
 
-		const state: CardState = {
-			details,
-			status: 'resolved',
-		};
+				const state: CardState = {
+					details,
+					status: 'resolved',
+				};
 
-		jest.mocked(useSmartCardState).mockReturnValueOnce(state);
-		const { result } = renderHook(() => useSmartLinkActions({ url, appearance, origin }), {
-			wrapper: SmartCardProvider,
-		});
-		const previewAction = result.current?.[0];
-		await previewAction?.invoke();
+				jest.mocked(useSmartCardState).mockReturnValueOnce(state);
+				const { result } = renderHook(() => useSmartLinkActions({ url, appearance, origin }), {
+					wrapper: SmartCardProvider,
+				});
+				const previewAction = result.current?.[0];
+				await previewAction?.invoke();
 
-		expect(openEmbedModal).toHaveBeenCalledWith(
-			expect.objectContaining({
-				extensionKey: 'object-provider',
-				invokeDownloadAction: undefined,
-				invokeViewAction: expect.objectContaining({
-					actionFn: expect.any(Function),
-					actionSubjectId: 'shortcutGoToLink',
-					actionType: 'ViewAction',
-					definitionId: undefined,
-					display: 'block',
-					extensionKey: 'object-provider',
-					resourceType: undefined,
-				}),
-				isSupportTheming: false,
-				isTrusted: true,
-				linkIcon: {
-					label: 'my name',
-					url: TEST_URL,
-					render: undefined,
-				},
-				providerName: undefined,
-				onClose: undefined,
-				origin: 'smartLinkCard',
-				src: TEST_URL,
-				title: 'my name',
-				url: TEST_URL,
-			}),
-		);
-	});
+				expect(openEmbedModal).toHaveBeenCalledWith(
+					expect.objectContaining({
+						extensionKey: 'object-provider',
+						invokeDownloadAction: undefined,
+						invokeViewAction: expect.objectContaining({
+							actionFn: expect.any(Function),
+							actionSubjectId: 'shortcutGoToLink',
+							actionType: 'ViewAction',
+							definitionId: undefined,
+							display: 'block',
+							extensionKey: 'object-provider',
+							resourceType: undefined,
+						}),
+						isSupportTheming: false,
+						isTrusted: true,
+						linkIcon: {
+							...(fg('platform_navx_smart_link_icon_label_a11y') ? {} : { label: 'my name' }),
+							url: TEST_URL,
+							render: undefined,
+						},
+						providerName: undefined,
+						onClose: undefined,
+						origin: 'smartLinkCard',
+						src: TEST_URL,
+						title: 'my name',
+						url: TEST_URL,
+					}),
+				);
+			});
 
-	it('should invoke preview method with expected parameters and action options with feature flag enabled', async () => {
-		const details = TEST_RESPONSE_WITH_PREVIEW;
+			it('should invoke preview method with expected parameters and action options with feature flag enabled', async () => {
+				const details = TEST_RESPONSE_WITH_PREVIEW;
 
-		const { fg } = require('@atlaskit/platform-feature-flags');
-		fg.mockReturnValue(true);
+				const { fg } = require('@atlaskit/platform-feature-flags');
+				fg.mockReturnValue(true);
 
-		const state: CardState = {
-			details,
-			status: 'resolved',
-		};
+				const state: CardState = {
+					details,
+					status: 'resolved',
+				};
 
-		jest.mocked(useSmartCardState).mockReturnValueOnce(state);
-		const { result } = renderHook(
-			() =>
-				useSmartLinkActions({
-					url,
-					appearance,
-					origin,
-					actionOptions: {
-						hide: false,
-						previewAction: { size: EmbedModalSize.Small, hideBlanket: true },
+				jest.mocked(useSmartCardState).mockReturnValueOnce(state);
+				const { result } = renderHook(
+					() =>
+						useSmartLinkActions({
+							url,
+							appearance,
+							origin,
+							actionOptions: {
+								hide: false,
+								previewAction: { size: EmbedModalSize.Small, hideBlanket: true },
+							},
+						}),
+					{
+						wrapper: SmartCardProvider,
 					},
-				}),
-			{
-				wrapper: SmartCardProvider,
-			},
-		);
-		const previewAction = result.current?.[0];
-		await previewAction?.invoke();
+				);
+				const previewAction = result.current?.[0];
+				await previewAction?.invoke();
 
-		expect(openEmbedModal).toHaveBeenCalledWith(
-			expect.objectContaining({
-				size: EmbedModalSize.Small,
-				isBlanketHidden: true,
-				extensionKey: 'object-provider',
-				invokeDownloadAction: undefined,
-				invokeViewAction: expect.objectContaining({
-					actionFn: expect.any(Function),
-					actionSubjectId: 'shortcutGoToLink',
-					actionType: 'ViewAction',
-					definitionId: undefined,
-					display: 'block',
-					extensionKey: 'object-provider',
-					resourceType: undefined,
-				}),
-				isSupportTheming: false,
-				isTrusted: true,
-				linkIcon: {
-					label: 'my name',
-					url: TEST_URL,
-					render: undefined,
-				},
-				providerName: undefined,
-				onClose: undefined,
-				origin: 'smartLinkCard',
-				src: TEST_URL,
-				title: 'my name',
-				url: TEST_URL,
-			}),
-		);
-	});
+				expect(openEmbedModal).toHaveBeenCalledWith(
+					expect.objectContaining({
+						size: EmbedModalSize.Small,
+						isBlanketHidden: true,
+						extensionKey: 'object-provider',
+						invokeDownloadAction: undefined,
+						invokeViewAction: expect.objectContaining({
+							actionFn: expect.any(Function),
+							actionSubjectId: 'shortcutGoToLink',
+							actionType: 'ViewAction',
+							definitionId: undefined,
+							display: 'block',
+							extensionKey: 'object-provider',
+							resourceType: undefined,
+						}),
+						isSupportTheming: false,
+						isTrusted: true,
+						linkIcon: {
+							...(fg('platform_navx_smart_link_icon_label_a11y') ? {} : { label: 'my name' }),
+							url: TEST_URL,
+							render: undefined,
+						},
+						providerName: undefined,
+						onClose: undefined,
+						origin: 'smartLinkCard',
+						src: TEST_URL,
+						title: 'my name',
+						url: TEST_URL,
+					}),
+				);
+			});
+		},
+	);
 });

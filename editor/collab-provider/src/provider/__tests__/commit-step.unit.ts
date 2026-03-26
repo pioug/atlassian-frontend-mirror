@@ -1,5 +1,6 @@
 import { Slice } from '@atlaskit/editor-prosemirror/model';
-import { Transaction, type EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { CommitStepService, RESET_READYTOCOMMIT_INTERVAL_MS } from '../commit-step';

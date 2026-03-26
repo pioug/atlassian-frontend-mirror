@@ -46,7 +46,7 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 }));
 
 import * as common from '@atlaskit/editor-common/validator';
-import { type Serializer } from '../../serializer';
+import type { Serializer } from '../../serializer';
 import { renderDocument } from '../../render-document';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

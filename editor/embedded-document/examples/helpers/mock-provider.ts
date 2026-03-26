@@ -1,4 +1,4 @@
-import { type Provider, type Document } from '../../src';
+import type { Provider, Document } from '../../src';
 
 const demoDoc: Document = {
 	documentId: 'demo-doc',

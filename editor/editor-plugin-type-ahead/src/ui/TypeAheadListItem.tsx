@@ -4,18 +4,19 @@
  */
 import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports, @atlaskit/design-system/no-unsafe-style-overrides */
+import { css, jsx } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { IconFallback } from '@atlaskit/editor-common/quick-insert';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
-import {
-	type ExtractInjectionAPI,
-	type TypeAheadItem,
-	type TypeAheadItemRenderProps,
+import type {
+	ExtractInjectionAPI,
+	TypeAheadItem,
+	TypeAheadItemRenderProps,
 } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
@@ -26,7 +27,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import { type TypeAheadPlugin } from '../typeAheadPluginType';
+import type { TypeAheadPlugin } from '../typeAheadPluginType';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const itemIcon: SerializedStyles = css({

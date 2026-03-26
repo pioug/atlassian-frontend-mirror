@@ -18,10 +18,12 @@ import { expect, test } from '@af/integration-testing';
 test.describe('Native popover="manual" focus behavior', () => {
 	// ── Show: without autofocus ──
 
-	test('manual popover WITHOUT autofocus: focus stays on trigger after show', async ({
-		page,
-	}) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-manual-popover-focus');
+	test('manual popover WITHOUT autofocus: focus stays on trigger after show', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/133-testing-manual-popover-focus.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-manual-popover-focus',
+		);
 
 		const trigger = page.getByTestId('manual-no-af-trigger');
 		await trigger.click();
@@ -30,10 +32,12 @@ test.describe('Native popover="manual" focus behavior', () => {
 		await expect(trigger).toBeFocused();
 	});
 
-	test('auto popover WITHOUT autofocus: focus stays on trigger (comparison)', async ({
-		page,
-	}) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-manual-popover-focus');
+	test('auto popover WITHOUT autofocus: focus stays on trigger (comparison)', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/133-testing-manual-popover-focus.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-manual-popover-focus',
+		);
 
 		const trigger = page.getByTestId('auto-no-af-trigger');
 		await trigger.click();
@@ -44,10 +48,12 @@ test.describe('Native popover="manual" focus behavior', () => {
 
 	// ── Show: with native autofocus attribute ──
 
-	test('manual popover WITH autofocus: browser runs popover focusing steps', async ({
-		page,
-	}) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-manual-popover-focus');
+	test('manual popover WITH autofocus: browser runs popover focusing steps', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/133-testing-manual-popover-focus.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-manual-popover-focus',
+		);
 
 		const trigger = page.getByTestId('manual-af-trigger');
 		await trigger.click();
@@ -63,7 +69,11 @@ test.describe('Native popover="manual" focus behavior', () => {
 	test('auto popover WITH autofocus: browser runs popover focusing steps (comparison)', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-manual-popover-focus');
+		await page.visitExample<typeof import('../../examples/133-testing-manual-popover-focus.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-manual-popover-focus',
+		);
 
 		const trigger = page.getByTestId('auto-af-trigger');
 		await trigger.click();
@@ -77,7 +87,11 @@ test.describe('Native popover="manual" focus behavior', () => {
 	// ── Hide: focus restoration ──
 
 	test('manual popover: hidePopover() does NOT restore focus to trigger', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-manual-popover-focus');
+		await page.visitExample<typeof import('../../examples/133-testing-manual-popover-focus.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-manual-popover-focus',
+		);
 
 		const trigger = page.getByTestId('manual-restore-trigger');
 		await trigger.click();
@@ -100,7 +114,11 @@ test.describe('Native popover="manual" focus behavior', () => {
 	});
 
 	test('auto popover: Escape DOES restore focus to trigger (comparison)', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-manual-popover-focus');
+		await page.visitExample<typeof import('../../examples/133-testing-manual-popover-focus.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-manual-popover-focus',
+		);
 
 		const trigger = page.getByTestId('auto-restore-trigger');
 		await trigger.click();

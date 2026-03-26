@@ -5,12 +5,8 @@ import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
-import {
-	SyncBlockError,
-	type BlockInstanceId,
-	type ReferencesSourceInfo,
-	type ResourceId,
-} from '../common/types';
+import { SyncBlockError } from '../common/types';
+import type { BlockInstanceId, ReferencesSourceInfo, ResourceId } from '../common/types';
 import type { SyncBlockDataProviderInterface } from '../providers/types';
 import { fetchReferencesErrorPayload } from '../utils/errorHandling';
 import {

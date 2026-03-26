@@ -589,16 +589,12 @@ const splitListItemWith = (
 	if (shouldSplit && !isNestedActionInsideLists) {
 		// this only splits a node to delete it, so we probably don't need a random uuid
 		// but generate one anyway for correctness
-		tr = tr.split(
-			$from.pos,
-			hasBlockTaskItem ? 0 : 1,
-			[
-				{
-					type: $from.parent.type,
-					attrs: { localId: uuid.generate() },
-				},
-			],
-		);
+		tr = tr.split($from.pos, hasBlockTaskItem ? 0 : 1, [
+			{
+				type: $from.parent.type,
+				attrs: { localId: uuid.generate() },
+			},
+		]);
 	}
 
 	/*
@@ -864,7 +860,7 @@ export function keymapPlugin(
 		? {
 				'Shift-Tab': isInsideTaskOrDecisionItem,
 				Tab: isInsideTaskOrDecisionItem,
-		  }
+			}
 		: {};
 
 	const toggleTaskListShortcut = (state: EditorState, dispatch?: (tr: Transaction) => void) => {

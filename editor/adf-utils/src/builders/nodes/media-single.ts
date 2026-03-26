@@ -1,4 +1,9 @@
-import type { MediaSingleDefinition, MediaDefinition, ExtendedMediaAttributes as MediaSingleAttributes, CaptionDefinition } from '@atlaskit/adf-schema';
+import type {
+	MediaSingleDefinition,
+	MediaDefinition,
+	ExtendedMediaAttributes as MediaSingleAttributes,
+	CaptionDefinition,
+} from '@atlaskit/adf-schema';
 
 export const mediaSingle =
 	(attrs: MediaSingleAttributes | undefined) =>

@@ -7,10 +7,7 @@ test.describe('Stacking - hint popover does not close auto popover', () => {
 	// This catches the bug where popover="hint" falls back to "auto" and causes
 	// unwanted mutual exclusivity closes.
 
-	test('mode="hint" popover does not close mode="auto" popover', async ({
-		page,
-		browserName,
-	}) => {
+	test('mode="hint" popover does not close mode="auto" popover', async ({ page, browserName }) => {
 		// popover="hint" is not yet supported in all browsers.
 		// In browsers that don't support it, the fallback behavior may differ.
 		// This test validates the behavior in browsers that support it.
@@ -19,7 +16,11 @@ test.describe('Stacking - hint popover does not close auto popover', () => {
 			'popover="hint" is not supported in webkit — fallback behavior differs',
 		);
 
-		await page.visitExample('design-system', 'top-layer', 'testing-hint-no-close-auto');
+		await page.visitExample<typeof import('../../examples/131-testing-hint-no-close-auto.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-hint-no-close-auto',
+		);
 
 		// Open the auto popover
 		await page.getByTestId('auto-trigger').click();
@@ -35,16 +36,17 @@ test.describe('Stacking - hint popover does not close auto popover', () => {
 		await expect(page.getByTestId('auto-popover')).toBeVisible();
 	});
 
-	test('hint popover closes without affecting auto popover', async ({
-		page,
-		browserName,
-	}) => {
+	test('hint popover closes without affecting auto popover', async ({ page, browserName }) => {
 		test.fixme(
 			browserName === 'webkit',
 			'popover="hint" is not supported in webkit — fallback behavior differs',
 		);
 
-		await page.visitExample('design-system', 'top-layer', 'testing-hint-no-close-auto');
+		await page.visitExample<typeof import('../../examples/131-testing-hint-no-close-auto.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-hint-no-close-auto',
+		);
 
 		// Open the auto popover
 		await page.getByTestId('auto-trigger').click();

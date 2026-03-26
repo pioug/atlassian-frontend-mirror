@@ -1,5 +1,6 @@
-import { Selection, type Transaction } from '@atlaskit/editor-prosemirror/state';
-import { type ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import { cloneTr } from './clone-tr';
 import { getCellsInColumn } from './get-cells-in-column';

@@ -27,7 +27,7 @@ export const menuItemDimensions = {
 };
 
 const headingStyles = css({
-	padding: `${token('space.200', '16px')} 0 ${token('space.100', '8px')}`,
+	padding: `${token('space.200')} 0 ${token('space.100')}`,
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
@@ -38,12 +38,12 @@ const menuContainerStyles = css({
 	// temporary solution to retain spacing defined by @atlaskit/Item
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& button': {
-		minHeight: token('space.400', '32px'),
-		padding: `${token('space.100', '8px')} ${token('space.100', '8px')} 7px`,
+		minHeight: token('space.400'),
+		padding: `${token('space.100')} ${token('space.100')} 7px`,
 
 		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& > [data-item-elem-before]': {
-			marginRight: token('space.050', '4px'),
+			marginRight: token('space.050'),
 		},
 	},
 });

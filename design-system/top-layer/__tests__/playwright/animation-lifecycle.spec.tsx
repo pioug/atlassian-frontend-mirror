@@ -5,7 +5,11 @@ test.describe('Animation lifecycle - entry animation', () => {
 	// Category 2: Animation Lifecycle
 	// Verifies that the entry animation data attribute is present when the popover opens.
 	test('entry animation: data attribute is present while open', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-animation-exit');
+		await page.visitExample<typeof import('../../examples/125-testing-animation-exit.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-animation-exit',
+		);
 
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();
@@ -28,7 +32,11 @@ test.describe('Animation lifecycle - exit animation', () => {
 	// Verifies that the exit animation completes before element is logically hidden.
 	// This catches the class of bug where React unmounts before transitionend fires.
 	test('exit animation: element remains in DOM during exit transition', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-animation-exit');
+		await page.visitExample<typeof import('../../examples/125-testing-animation-exit.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-animation-exit',
+		);
 
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();
@@ -63,7 +71,9 @@ test.describe('Animation lifecycle - reduced motion', () => {
 	// The popover should appear instantly without transition.
 	test('prefers-reduced-motion: reduce disables transition durations', async ({ page }) => {
 		await page.emulateMedia({ reducedMotion: 'reduce' });
-		await page.visitExample('design-system', 'top-layer', 'testing-animation-reduced-motion');
+		await page.visitExample<
+			typeof import('../../examples/126-testing-animation-reduced-motion.tsx')
+		>('design-system', 'top-layer', 'testing-animation-reduced-motion');
 
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();
@@ -83,7 +93,9 @@ test.describe('Animation lifecycle - reduced motion', () => {
 
 	test('prefers-reduced-motion: reduce — popover closes instantly', async ({ page }) => {
 		await page.emulateMedia({ reducedMotion: 'reduce' });
-		await page.visitExample('design-system', 'top-layer', 'testing-animation-reduced-motion');
+		await page.visitExample<
+			typeof import('../../examples/126-testing-animation-reduced-motion.tsx')
+		>('design-system', 'top-layer', 'testing-animation-reduced-motion');
 
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();

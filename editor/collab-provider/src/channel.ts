@@ -16,7 +16,8 @@ import type {
 } from './types';
 import { createLogger, getProduct, getSubProduct } from './helpers/utils';
 import { MEASURE_NAME, startMeasure, stopMeasure } from './analytics/performance';
-import { EVENT_ACTION, EVENT_STATUS, type CatchupEventReason } from './helpers/const';
+import { EVENT_ACTION, EVENT_STATUS } from './helpers/const';
+import type { CatchupEventReason } from './helpers/const';
 import type { Socket } from 'socket.io-client';
 import ReconnectHelper from './connectivity/reconnect-helper';
 import type { UFOExperience } from '@atlaskit/ufo';

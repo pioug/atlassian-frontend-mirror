@@ -5,7 +5,7 @@
  */
 import React from 'react';
 
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
 import {
 	ACTION,
@@ -19,10 +19,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { copyTextToClipboard } from '../utils/clipboard';
 import type { NodeProps } from '../types';
-import {
-	type HeadingAnchorLinksProps,
-	type HeadingAnchorLinksConfig,
-} from '../../ui/Renderer/types';
+import type { HeadingAnchorLinksProps, HeadingAnchorLinksConfig } from '../../ui/Renderer/types';
 
 import HeadingAnchor from './heading-anchor';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -145,7 +142,7 @@ function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
 				data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}
 				data-as-inline={asInline}
 				onMouseEnter={mouseEnterHandler}
-				tabIndex={expValEquals("confluence_toc_nav_a11y", "isEnabled", true) ? -1 : undefined}
+				tabIndex={expValEquals('confluence_toc_nav_a11y', 'isEnabled', true) ? -1 : undefined}
 			>
 				<>
 					{showAnchorLink && headingId && isRightAligned && (
@@ -237,7 +234,7 @@ function HeadingWithWrapper(props: HeadingProps): React.JSX.Element {
 				data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}
 				data-as-inline={asInline}
 				onMouseEnter={mouseEnterHandler}
-				tabIndex={expValEquals("confluence_toc_nav_a11y", "isEnabled", true) ? -1 : undefined}
+				tabIndex={expValEquals('confluence_toc_nav_a11y', 'isEnabled', true) ? -1 : undefined}
 			>
 				{props.children}
 			</HX>

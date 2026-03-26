@@ -2,7 +2,8 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { mount, shallow } from 'enzyme';
 import { ResourcedTaskItem as AkTaskItem } from '@atlaskit/task-decision';
-import FabricAnalyticsListener, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import FabricAnalyticsListener from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import TaskItem from '../../../../react/nodes/taskItem';
 import ReactSerializer from '../../../../react';
 

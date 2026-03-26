@@ -1,4 +1,8 @@
-import type { TextColorDefinition, TextColorAttributes, TextDefinition } from '@atlaskit/adf-schema';
+import type {
+	TextColorDefinition,
+	TextColorAttributes,
+	TextDefinition,
+} from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
 import type { WithMark } from '../types';
 

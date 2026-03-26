@@ -1,5 +1,5 @@
 import { useMemo, useContext } from 'react';
-import { type AnnotationId, type AnnotationMarkStates } from '@atlaskit/adf-schema';
+import type { AnnotationId, AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { InlineCommentsStateContext } from '../context';
 
 type Props = {

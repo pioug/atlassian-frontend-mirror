@@ -11,7 +11,6 @@ import { token } from '@atlaskit/tokens';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 
-
 /**
  * The main content of the side nav, filling up the middle section. It acts as a scroll container.
  *
@@ -51,9 +50,7 @@ function _SideNavContent(
 		 * the scrollable area doesn't, so other non-sticky children can be seen above/below the sticky element's stick point.
 		 */
 		<div
-			css={[
-				styles.scrollContainer,
-				]}
+			css={[styles.scrollContainer]}
 			ref={isFhsEnabled ? mergedRef : forwardedRef}
 			data-testid={testId}
 		>

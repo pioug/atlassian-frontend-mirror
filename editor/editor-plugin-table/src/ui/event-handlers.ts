@@ -3,7 +3,7 @@ import rafSchedule from 'raf-schd';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import {
 	browser,
 	closestElement,

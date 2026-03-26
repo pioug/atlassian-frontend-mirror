@@ -1,5 +1,6 @@
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { encode, type NodeEncoder, type NodeEncoderOpts } from '..';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { encode } from '..';
+import type { NodeEncoder, NodeEncoderOpts } from '..';
 import { unknown } from './unknown';
 
 export const table: NodeEncoder = (node: PMNode, opts: NodeEncoderOpts = {}): string => {

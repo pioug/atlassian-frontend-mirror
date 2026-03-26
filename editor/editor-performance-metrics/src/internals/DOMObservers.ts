@@ -2,8 +2,8 @@ import {
 	createIntersectionObserver,
 	createMutationObserver,
 	createPerformanceObserver,
-	type TaintedIntersectionObserver,
 } from './createBrowserObservers';
+import type { TaintedIntersectionObserver } from './createBrowserObservers';
 import type { TimelineClock } from './timelineInterfaces';
 import type { HeatmapEntrySource } from './types';
 

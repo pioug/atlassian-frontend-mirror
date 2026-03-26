@@ -177,7 +177,9 @@ function getTryFallbacks({ placement }: { placement: TPlacementOptions }): strin
 	if (align === 'center') {
 		// Single-axis: only flip the edge
 		const flippedEdge = edge === 'start' ? 'end' : 'start';
-		return positionAreaToRuleName({ positionArea: placementToPositionArea({ placement: { axis, edge: flippedEdge } }) });
+		return positionAreaToRuleName({
+			positionArea: placementToPositionArea({ placement: { axis, edge: flippedEdge } }),
+		});
 	}
 
 	// Compound placement: try flipping edge, alignment, and both
@@ -185,11 +187,17 @@ function getTryFallbacks({ placement }: { placement: TPlacementOptions }): strin
 	const flippedAlign = align === 'start' ? 'end' : 'start';
 
 	return [
-		positionAreaToRuleName({ positionArea: placementToPositionArea({ placement: { axis, edge: flippedEdge, align } }) }),
-		positionAreaToRuleName({ positionArea: placementToPositionArea({ placement: { axis, edge, align: flippedAlign } }) }),
-		positionAreaToRuleName(
-			{ positionArea: placementToPositionArea({ placement: { axis, edge: flippedEdge, align: flippedAlign } }) },
-		),
+		positionAreaToRuleName({
+			positionArea: placementToPositionArea({ placement: { axis, edge: flippedEdge, align } }),
+		}),
+		positionAreaToRuleName({
+			positionArea: placementToPositionArea({ placement: { axis, edge, align: flippedAlign } }),
+		}),
+		positionAreaToRuleName({
+			positionArea: placementToPositionArea({
+				placement: { axis, edge: flippedEdge, align: flippedAlign },
+			}),
+		}),
 	].join(', ');
 }
 
@@ -214,10 +222,12 @@ function getTryFallbacks({ placement }: { placement: TPlacementOptions }): strin
  * <Popup.Content arrow={myArrow} />
  * ```
  */
-export const arrow = once((): TArrowPreset => ({
-	name: 'arrow',
-	css: ARROW_CSS,
-	getTryFallbacks,
-})) as () => TArrowPreset;
+export const arrow = once(
+	(): TArrowPreset => ({
+		name: 'arrow',
+		css: ARROW_CSS,
+		getTryFallbacks,
+	}),
+) as () => TArrowPreset;
 
 export type { TArrowPreset } from './types';

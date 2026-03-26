@@ -1,10 +1,12 @@
-import { type NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 
 import { Rect } from '../table-map';
-import { type Command } from '../types';
+import type { Command } from '../types';
 
-import { selectedRect, type SelectionRect } from './selection-rect';
-import { type TableNodeCache, tableNodeTypes } from './table-node-types';
+import { selectedRect } from './selection-rect';
+import type { SelectionRect } from './selection-rect';
+import { tableNodeTypes } from './table-node-types';
+import type { TableNodeCache } from './table-node-types';
 import { isInTable } from './tables';
 
 export type ToggleType = 'column' | 'row';

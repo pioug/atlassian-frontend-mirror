@@ -15,7 +15,6 @@ snapshot(ActionItem, {
 snapshot(ActionTrigger, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		platform_navx_sl_lozenge_max_width: [true, false],
 	},
 });
 

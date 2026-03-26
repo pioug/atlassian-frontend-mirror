@@ -10,11 +10,11 @@ import { findCodeBlock } from '@atlaskit/editor-common/transforms';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import {
-	type Decoration,
-	DecorationSet,
-	type EditorView,
-	type EditorProps as PMEditorProps,
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type {
+	Decoration,
+	EditorView,
+	EditorProps as PMEditorProps,
 } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -29,7 +29,7 @@ import {
 	updateCodeBlockDecorations,
 	updateDecorationSetWithWordWrappedDecorator,
 } from './decorators';
-import { type CodeBlockState } from './main-state';
+import type { CodeBlockState } from './main-state';
 import { pluginKey } from './plugin-key';
 import { getAllChangedCodeBlocksInTransaction } from './utils';
 

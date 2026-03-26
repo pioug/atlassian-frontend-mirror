@@ -1,7 +1,8 @@
 import { bind } from 'bind-event-listener';
 import type { UnbindFn } from 'bind-event-listener';
 
-import { type AbortableTask, backgroundTask } from './backgroundTasks';
+import { backgroundTask } from './backgroundTasks';
+import type { AbortableTask } from './backgroundTasks';
 import type {
 	Cleanable,
 	Timeline,

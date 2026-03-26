@@ -804,24 +804,22 @@ async function createInteractionMetricsPayload(
 		expTTAI = undefined;
 	}
 
-	if (fg('platform_ufo_enable_vc_raw_data')) {
-		const size = getPayloadSize(payload.attributes.properties);
-		const vcRev = (payload.attributes.properties as Record<string, any>)['ufo:vc:rev'];
+	const size = getPayloadSize(payload.attributes.properties);
+	const vcRev = (payload.attributes.properties as Record<string, any>)['ufo:vc:rev'];
+	if (Array.isArray(vcRev)) {
 		const rawData = vcRev.find((item: { revision: string }) => item.revision === 'raw-handler');
 		if (rawData) {
 			const rawDataSize = getPayloadSize(rawData);
 			(payload.attributes.properties as Record<string, unknown>)['ufo:vc:raw:size'] = rawDataSize;
-			if (size > MAX_PAYLOAD_SIZE && Array.isArray(vcRev) && vcRev.length > 0) {
+			if (size > MAX_PAYLOAD_SIZE && vcRev.length > 0) {
 				(payload.attributes.properties as Record<string, any>)['ufo:vc:rev'] = vcRev.filter(
 					(item: { revision: string }) => item.revision !== 'raw-handler',
 				);
 				(payload.attributes.properties as Record<string, unknown>)['ufo:vc:raw:removed'] = true;
 			}
 		}
-		payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
-	} else {
-		payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
 	}
+	payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
 
 	// in order of importance, first one being least important
 	// we can add more fields as necessary

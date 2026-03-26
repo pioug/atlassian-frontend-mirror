@@ -1,7 +1,7 @@
-import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { timestampToIsoFormat } from '@atlaskit/editor-common/utils';
 import { getText } from '../../utils';
-import { type NodeReducer } from './';
+import type { NodeReducer } from './';
 
 const date: NodeReducer = (node: PMNode, _schema: Schema) => {
 	return node.attrs.timestamp ? timestampToIsoFormat(node.attrs.timestamp) : getText(node);

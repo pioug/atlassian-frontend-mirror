@@ -1,5 +1,5 @@
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type NodeEncoder, type NodeEncoderOpts } from '..';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { NodeEncoder, NodeEncoderOpts } from '..';
 
 const PREFIX = 'accountid:';
 const UNKNOWN_USER = 'UNKNOWN_USER';

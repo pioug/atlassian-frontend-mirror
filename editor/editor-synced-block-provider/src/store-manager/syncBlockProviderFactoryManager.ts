@@ -1,6 +1,7 @@
-import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { ProviderFactory, type MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 
 import type { ResourceId } from '../common/types';
 import type {

@@ -40,7 +40,7 @@ export interface TerminalErrorContext {
 let sinkHandlerFn: (
 	errorData: TerminalErrorData,
 	context: TerminalErrorContext,
-) => void | Promise<void> = () => { };
+) => void | Promise<void> = () => {};
 
 export function sinkTerminalErrorHandler(
 	fn: (errorData: TerminalErrorData, context: TerminalErrorContext) => void | Promise<void>,
@@ -68,18 +68,18 @@ const isErrorObject = (error: unknown): error is Record<string, unknown> =>
 	typeof error === 'object' && error !== null;
 
 const getErrorStatusCode = (error: Error) => {
-	if(!isErrorObject(error)) {
+	if (!isErrorObject(error)) {
 		return undefined;
 	}
 
 	if (isRelayNetworkError(error)) {
 		return error.source?.errors?.[0]?.extensions?.statusCode;
-	} 
-	
+	}
+
 	if ('statusCode' in error && typeof error.statusCode === 'number') {
 		return error.statusCode;
 	}
-	
+
 	return undefined;
 };
 
@@ -105,21 +105,23 @@ export function setTerminalError(
 		errorType: error.name || 'Error',
 		errorMessage: error.message?.slice(0, 100) || 'Unknown error',
 		timestamp: currentTime,
-	}
-	const errorData: TerminalErrorData = fg('platform_ufo_terminal_errors_fix_missing_data') ? {
-		...baseErrorData,
-		statusCode: getErrorStatusCode(error),
-		// Fallback to traceId from error object if it exists (e.g. FetchError)
-		traceId: getActiveTrace()?.traceId ?? getErrorTraceId(error),
-		teamName: additionalAttributes?.teamName,
-		packageName: additionalAttributes?.packageName,
-		errorBoundaryId: additionalAttributes?.errorBoundaryId,
-		errorHash: additionalAttributes?.errorHash,
-		fallbackType: additionalAttributes?.fallbackType,
-	} : {
-		...baseErrorData,
-		...additionalAttributes,
 	};
+	const errorData: TerminalErrorData = fg('platform_ufo_terminal_errors_fix_missing_data')
+		? {
+				...baseErrorData,
+				statusCode: getErrorStatusCode(error),
+				// Fallback to traceId from error object if it exists (e.g. FetchError)
+				traceId: getActiveTrace()?.traceId ?? getErrorTraceId(error),
+				teamName: additionalAttributes?.teamName,
+				packageName: additionalAttributes?.packageName,
+				errorBoundaryId: additionalAttributes?.errorBoundaryId,
+				errorHash: additionalAttributes?.errorHash,
+				fallbackType: additionalAttributes?.fallbackType,
+			}
+		: {
+				...baseErrorData,
+				...additionalAttributes,
+			};
 
 	// Calculate time since previous interaction
 	const timeSincePreviousInteraction =

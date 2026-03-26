@@ -8,18 +8,15 @@
 // in the user interaction part of table selections (so that you
 // actually get such selections when you select across cells).
 
-import {
-	Fragment,
-	type Node as PMNode,
-	type ResolvedPos,
-	Slice,
-} from '@atlaskit/editor-prosemirror/model';
-import { Selection, TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
-import { type Mapping } from '@atlaskit/editor-prosemirror/transform';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
 
 import { CellBookmark } from './cell-bookmark';
 import { TableMap } from './table-map';
-import { type SerializedCellSelection } from './types';
+import type { SerializedCellSelection } from './types';
 import { pointsAtCell } from './utils/cells';
 import { removeColSpan } from './utils/colspan';
 import { getCellSelectionRanges } from './utils/get-cell-selection-ranges';

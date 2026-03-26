@@ -1,5 +1,12 @@
 # @atlaskit/email-renderer
 
+## 9.11.11
+
+### Patch Changes
+
+- [`5979ce2baa3ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5979ce2baa3ea) -
+  Mechanical type-import autofix for rendering and provider packages.
+
 ## 9.11.10
 
 ### Patch Changes

@@ -127,7 +127,7 @@ const LozengeActionTrigger = ({
 				<Lozenge
 					appearance={appearance}
 					isBold
-					{...(fg('platform_navx_sl_lozenge_max_width') ? { maxWidth } : undefined)}
+					maxWidth={maxWidth}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					style={{
 						backgroundColor: lozengeBackgroundColor,
@@ -135,9 +135,7 @@ const LozengeActionTrigger = ({
 					}}
 				>
 					<span css={triggerLozengeStyles}>
-						<span css={[fg('platform_navx_sl_lozenge_max_width') ? textStyles : undefined]}>
-							{text}
-						</span>
+						<span css={textStyles}>{text}</span>
 						<Box as="span" xcss={styles.chevronDown}>
 							<ChevronDownIcon
 								color="currentColor"
@@ -168,7 +166,7 @@ const LozengeActionTrigger = ({
 			css={triggerButtonStyles}
 			data-action-open={isOpen}
 			data-testid={`${testId}--trigger`}
-			style={{ maxWidth: fg('platform_navx_sl_lozenge_max_width') ? maxWidth : undefined }}
+			style={{ maxWidth }}
 			onMouseDown={onMouseOrKeyDown}
 			onMouseUp={onMouseOrKeyUp}
 			onKeyDown={onMouseOrKeyDown}

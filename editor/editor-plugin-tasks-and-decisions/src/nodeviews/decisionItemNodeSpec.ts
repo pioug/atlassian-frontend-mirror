@@ -1,7 +1,7 @@
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
-import { type DOMOutputSpec, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // When cleaning up editor_a11y_decision_aria_label remove this iconDOM variable

@@ -13,7 +13,11 @@ test.describe('ConfluenceSearchModal', () => {
 		packageIdSelection: string = 'link-datasource',
 		exampleIdSelection: string = 'with-confluence-search-modal',
 	) {
-		await page.visitExample(groupIdSelection, packageIdSelection, exampleIdSelection);
+		await page.visitExample<typeof import('../../examples/with-confluence-search-modal.tsx')>(
+			groupIdSelection,
+			packageIdSelection,
+			exampleIdSelection,
+		);
 	}
 
 	async function openDropDown(page: Page) {

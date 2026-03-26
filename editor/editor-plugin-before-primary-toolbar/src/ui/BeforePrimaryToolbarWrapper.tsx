@@ -11,7 +11,7 @@ import { type ReactComponents } from '../types/ReactComponents';
 
 const beforePrimaryToolbarPluginWrapperStyles = css({
 	display: 'flex',
-	marginRight: token('space.100', '8px'),
+	marginRight: token('space.100'),
 	flexGrow: 1,
 	justifyContent: 'flex-end',
 	alignItems: 'center',

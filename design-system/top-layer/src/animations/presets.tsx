@@ -12,7 +12,13 @@ type TSlideAndFadeOptions = {
 	distance?: number;
 };
 
-function getSlideAndFadeProperties({ placement, distance }: { placement: TPlacementOptions; distance: number }): Record<string, string> {
+function getSlideAndFadeProperties({
+	placement,
+	distance,
+}: {
+	placement: TPlacementOptions;
+	distance: number;
+}): Record<string, string> {
 	const pos = `${distance}px`;
 	const neg = `-${distance}px`;
 	const { axis, edge } = getPlacement({ placement });
@@ -90,7 +96,8 @@ export function slideAndFade(options?: TSlideAndFadeOptions): TAnimationPreset {
 	return {
 		name: 'slide-and-fade',
 		css: SLIDE_AND_FADE_CSS,
-		getProperties: ({ placement }: { placement: TPlacementOptions }) => getSlideAndFadeProperties({ placement, distance }),
+		getProperties: ({ placement }: { placement: TPlacementOptions }) =>
+			getSlideAndFadeProperties({ placement, distance }),
 		exitDurationMs: 175,
 	};
 }

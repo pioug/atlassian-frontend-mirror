@@ -136,39 +136,6 @@ jest.mock('@atlaskit/icon-lab/metadata', () => ({
 	},
 }));
 
-jest.mock('@atlaskit/icon/migration-map', () => ({
-	'bullet-list': {
-		newIcon: { name: 'list-bulleted', type: 'core', package: '@atlaskit/icon' },
-		additionalIcons: [{ name: 'bulleted-list', type: 'core', package: '@atlaskit/icon' }],
-		sizeGuidance: {
-			small: 'swap',
-			medium: 'swap',
-			large: 'icon-tile',
-			xlarge: 'icon-tile',
-		},
-	},
-	document: {
-		newIcon: { name: 'file', type: 'core', package: '@atlaskit/icon' },
-		additionalIcons: [{ name: 'page', type: 'core', package: '@atlaskit/icon' }],
-		sizeGuidance: {
-			small: 'swap-slight-visual-change',
-			medium: 'swap-slight-visual-change',
-			large: 'icon-tile',
-			xlarge: 'icon-tile',
-		},
-	},
-	'image-resize': {
-		newIcon: { name: 'maximize', type: 'core', package: '@atlaskit/icon' },
-		additionalIcons: [{ name: 'expand', type: 'core', package: '@atlaskit/icon' }],
-		sizeGuidance: {
-			small: 'swap-visual-change',
-			medium: 'swap-visual-change',
-			large: 'icon-tile',
-			xlarge: 'icon-tile',
-		},
-	},
-}));
-
 /**
  * Run the tests
  */

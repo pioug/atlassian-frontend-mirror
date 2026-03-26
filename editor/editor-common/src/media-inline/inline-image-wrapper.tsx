@@ -8,6 +8,7 @@ import type { CSSProperties, ReactElement } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	borderStyle,
@@ -36,7 +37,7 @@ type Props = {
 	children: ReactElement;
 	htmlAttrs?: { [key: string]: string | number | undefined };
 	isSelected?: boolean;
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	onClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 };
 
 export const InlineImageWrapper = ({
@@ -63,8 +64,18 @@ export const InlineImageWrapper = ({
 			} as CSSProperties)
 		: {};
 
+	const onKeyDown = (e: React.KeyboardEvent) => {
+		if (expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)) {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				onClick(e);
+			}
+		}
+		return undefined;
+	};
+
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/prefer-primitives, @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+		// eslint-disable-next-line @atlaskit/design-system/prefer-primitives
 		<span
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={{ ...borderStyleVars, ...aspectStyleVars }}
@@ -79,7 +90,14 @@ export const InlineImageWrapper = ({
 				isSelected && selectedStyle,
 			]}
 			data-testid="inline-image-wrapper"
+			role={
+				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? 'button' : undefined
+			}
+			tabIndex={
+				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? 0 : undefined
+			}
 			onClick={onClick}
+			onKeyDown={onKeyDown}
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...htmlAttrs}

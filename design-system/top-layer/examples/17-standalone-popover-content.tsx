@@ -26,7 +26,9 @@ const animation = slideAndFade();
 export default function StandalonePopoverContentExample() {
 	return (
 		<ForceFallbackToggle>
-			{(forceFallbackPositioning) => <StandalonePopover forceFallbackPositioning={forceFallbackPositioning} />}
+			{(forceFallbackPositioning) => (
+				<StandalonePopover forceFallbackPositioning={forceFallbackPositioning} />
+			)}
 		</ForceFallbackToggle>
 	);
 }
@@ -51,8 +53,8 @@ function StandalonePopover({ forceFallbackPositioning }: { forceFallbackPosition
 		<Box padding="space.400">
 			<Stack space="space.200">
 				<Text>
-					This example composes <code>Popover</code> + <code>useAnchorPosition</code>,
-					like <code>@atlaskit/tooltip</code> does internally.
+					This example composes <code>Popover</code> + <code>useAnchorPosition</code>, like{' '}
+					<code>@atlaskit/tooltip</code> does internally.
 				</Text>
 				<Box>
 					<Button
@@ -82,9 +84,8 @@ function StandalonePopover({ forceFallbackPositioning }: { forceFallbackPosition
 								<Stack space="space.100">
 									<Heading size="xsmall">Standalone mode</Heading>
 									<Text>
-										This popover was created without the Popup compound
-										component. The trigger lifecycle is fully controlled by the
-										consumer.
+										This popover was created without the Popup compound component. The trigger
+										lifecycle is fully controlled by the consumer.
 									</Text>
 									<Box>
 										<Button appearance="subtle" onClick={handleClose}>

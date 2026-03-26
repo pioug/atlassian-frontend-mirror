@@ -1,10 +1,8 @@
 import React from 'react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import {
-	type SyncBlockStoreManager,
-	useHandleContentChanges,
-} from '@atlaskit/editor-synced-block-provider';
+import { useHandleContentChanges } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import { SyncBlockLabel } from './SyncBlockLabel';
 

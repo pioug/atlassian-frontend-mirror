@@ -27,7 +27,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
-import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -43,13 +42,13 @@ import { isSupportedNodeForBreakout } from '../pm-plugins/utils/is-supported-nod
 const toolbarButtonWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&& button': {
-		background: token('color.background.neutral', N20A),
-		color: token('color.icon', N300),
+		background: token('color.background.neutral'),
+		color: token('color.icon'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		':hover': {
-			background: token('color.background.neutral.hovered', B300),
+			background: token('color.background.neutral.hovered'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-			color: `${token('color.icon', 'white')} !important`,
+			color: `${token('color.icon')} !important`,
 		},
 	},
 });

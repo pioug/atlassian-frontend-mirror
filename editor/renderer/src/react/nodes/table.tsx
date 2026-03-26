@@ -15,8 +15,8 @@ import {
 	convertProsemirrorTableNodeToArrayOfRows,
 	hasMergedCell,
 	compose,
-	type Diff,
 } from '@atlaskit/editor-common/utils';
+import type { Diff } from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import {
 	akEditorDefaultLayoutWidth,

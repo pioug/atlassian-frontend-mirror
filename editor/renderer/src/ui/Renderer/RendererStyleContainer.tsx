@@ -8,7 +8,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import { type RendererWrapperProps } from './index';
+import type { RendererWrapperProps } from './index';
 import { FullPagePadding } from './style';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { RendererCssClassName } from '../../consts';
@@ -965,18 +965,16 @@ const listsSharedStylesForGekko = css({
 const listItemHiddenMarkerStyles = css({
 	// Hide markers and remove spacing for wrapper list items (items containing only nested lists)
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'li:has(> ul:only-child), li:has(> ol:only-child), li:has(> div[data-node-type="actionList"]:only-child)':
-		{
-			listStyleType: 'none',
-			marginTop: 0,
-			marginBottom: 0,
-		},
+	'li:has(> ul:only-child), li:has(> ol:only-child)': {
+		listStyleType: 'none',
+		marginTop: 0,
+		marginBottom: 0,
+	},
 	// Remove margin from nested lists inside wrapper list items to avoid double spacing
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'li:has(> ul:only-child) > ul, li:has(> ol:only-child) > ol, li:has(> div[data-node-type="actionList"]:only-child) > div[data-node-type="actionList"]':
-		{
-			marginTop: 0,
-		},
+	'li:has(> ul:only-child) > ul, li:has(> ol:only-child) > ol': {
+		marginTop: 0,
+	},
 	// Collapse wrapper task items (empty task items followed by a sibling nested task list)
 	// Only hides empty task items that are actual wrappers, not regular empty task items
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors

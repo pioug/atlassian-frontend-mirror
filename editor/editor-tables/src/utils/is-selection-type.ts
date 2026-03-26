@@ -1,9 +1,5 @@
-import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import {
-	type NodeSelection,
-	type Selection,
-	type TextSelection,
-} from '@atlaskit/editor-prosemirror/state';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 interface CellSelectionShape extends Selection {
 	$anchorCell: ResolvedPos;

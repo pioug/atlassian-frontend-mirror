@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 112.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.10.0
+
+### Minor Changes
+
+- [`6da6979e0583c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6da6979e0583c) -
+  fix a11y issue for InlineImageWrapper for media inline
+
+### Patch Changes
+
+- [`673732f902814`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/673732f902814) -
+  Add error handling with plugin context to EditorPresetBuilder to improve debugging of plugin
+  initialization failures. When a plugin fails to initialize, the name of the plugin is added to the
+  error message before it's thrown.
+- Updated dependencies
+
 ## 112.9.1
 
 ### Patch Changes

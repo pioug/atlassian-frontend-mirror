@@ -27,16 +27,16 @@ Dialog (<dialog>) → visual styling div → ModalContext.Provider → ScrollCon
 
 ### What native `<dialog>` replaces
 
-| Legacy mechanism               | Native replacement                                                    |
-| ------------------------------ | --------------------------------------------------------------------- |
-| `@atlaskit/portal`             | Top layer stacking -- no DOM reordering                               |
-| `react-focus-lock`             | `<dialog>.showModal()` makes background inert                         |
-| `react-scrolllock`             | Native inertness prevents background interaction                      |
-| `@atlaskit/blanket`            | `::backdrop` pseudo-element                                           |
-| z-index / `Positioner`         | Top layer is always above everything                                  |
-| `useCloseOnEscapePress`        | Native `cancel` event on `<dialog>`                                   |
-| `usePreventProgrammaticScroll` | Native inertness handles this                                         |
-| `FadeIn` / `@atlaskit/motion`  | CSS `@starting-style` + `allow-discrete` via `dialogSlideUpAndFade()` |
+| Legacy mechanism               | Native replacement                                                                         |
+| ------------------------------ | ------------------------------------------------------------------------------------------ |
+| `@atlaskit/portal`             | Top layer stacking -- no DOM reordering                                                    |
+| `react-focus-lock`             | `<dialog>.showModal()` makes background inert                                              |
+| `react-scrolllock`             | Native inertness prevents background interaction                                           |
+| `@atlaskit/blanket`            | `::backdrop` pseudo-element                                                                |
+| z-index / `Positioner`         | Top layer is always above everything                                                       |
+| `useCloseOnEscapePress`        | Native `cancel` event on `<dialog>`                                                        |
+| `usePreventProgrammaticScroll` | Native inertness handles this                                                              |
+| `FadeIn` / `@atlaskit/motion`  | CSS `@starting-style` + `allow-discrete` via `dialogSlideUpAndFade()`                      |
 | `react-focus-lock` returnFocus | Native `<dialog>` focus restoration (returns focus to previously-focused element on close) |
 
 ### Deliberate design choice: native focus restoration
@@ -68,10 +68,10 @@ The `Dialog` component was enhanced to support modal-dialog's requirements:
 
 ### Visual styling
 
-Modal-dialog provides its own visual styling via a `cssMap` (the top-layer `Dialog` provides only the
-raw `<dialog>` lifecycle). Styles include background, color, flex layout, elevation
-surface, box-shadow, focus-visible ring, and border-radius (with a separate T26 shape theme variant
-behind `platform-dst-shape-theme-default`).
+Modal-dialog provides its own visual styling via a `cssMap` (the top-layer `Dialog` provides only
+the raw `<dialog>` lifecycle). Styles include background, color, flex layout, elevation surface,
+box-shadow, focus-visible ring, and border-radius (with a separate T26 shape theme variant behind
+`platform-dst-shape-theme-default`).
 
 ---
 
@@ -103,9 +103,10 @@ close it. Behavior matches the legacy path. See `notes/architecture/dialog-close
 | `ref`            | `react-focus-lock` initialFocus option   | `useAutoFocus` hook focuses the ref after mount                    |
 | `false`          | `react-focus-lock` skips auto-focus      | `showModal()` still moves focus into the dialog (browser behavior) |
 
-> Decision (2026-03-17 audit): Deprecate `autoFocus` prop. Mark as `@private` `@deprecated`.
-> Native `showModal()` always moves focus into the dialog — this is correct per WCAG 2.4.3.
-> `autoFocus={false}` on a modal was an anti-pattern that allowed focus to stay on background content.
+> Decision (2026-03-17 audit): Deprecate `autoFocus` prop. Mark as `@private` `@deprecated`. Native
+> `showModal()` always moves focus into the dialog — this is correct per WCAG 2.4.3.
+> `autoFocus={false}` on a modal was an anti-pattern that allowed focus to stay on background
+> content.
 
 ### `focusLockAllowlist` not supported
 
@@ -167,41 +168,41 @@ closes), which modal-dialog uses to signal `ExitingPersistence` to unmount. The 
 
 ### Separation of concerns
 
-| Concern                                            | Where it lives                                             |
-| -------------------------------------------------- | ---------------------------------------------------------- |
-| `showModal()` / `close()` lifecycle                | `@atlaskit/top-layer` (Dialog)                             |
-| Escape handling (cancel event)                     | `@atlaskit/top-layer` (Dialog)                             |
-| Backdrop click detection                           | `@atlaskit/top-layer` (Dialog)                             |
-| `aria-label` / `aria-labelledby`                   | `@atlaskit/top-layer` (Dialog)                             |
-| Close-reason → DOM event bridging                  | `@atlaskit/top-layer` (`createCloseEvent`)                 |
-| Background scroll lock                             | `@atlaskit/top-layer` (`DialogScrollLock`, opt-in child)   |
-| Width presets                                      | `@atlaskit/modal-dialog` (resolves named sizes to px)      |
-| Responsive positioning (mobile fill / desktop gutter) | `@atlaskit/modal-dialog` (ID-scoped `<style>`)          |
-| Visual styling (background, shadow, border-radius) | `@atlaskit/modal-dialog` (cssMap)                          |
-| `ModalContext` / `ScrollContext`                   | `@atlaskit/modal-dialog`                                   |
-| ExitingPersistence integration                     | `@atlaskit/modal-dialog`                                   |
-| DnD iframe workaround                              | `@atlaskit/modal-dialog`                                   |
-| Custom width/height/fullscreen                     | `@atlaskit/modal-dialog` (via `Dialog` style prop)         |
+| Concern                                               | Where it lives                                           |
+| ----------------------------------------------------- | -------------------------------------------------------- |
+| `showModal()` / `close()` lifecycle                   | `@atlaskit/top-layer` (Dialog)                           |
+| Escape handling (cancel event)                        | `@atlaskit/top-layer` (Dialog)                           |
+| Backdrop click detection                              | `@atlaskit/top-layer` (Dialog)                           |
+| `aria-label` / `aria-labelledby`                      | `@atlaskit/top-layer` (Dialog)                           |
+| Close-reason → DOM event bridging                     | `@atlaskit/top-layer` (`createCloseEvent`)               |
+| Background scroll lock                                | `@atlaskit/top-layer` (`DialogScrollLock`, opt-in child) |
+| Width presets                                         | `@atlaskit/modal-dialog` (resolves named sizes to px)    |
+| Responsive positioning (mobile fill / desktop gutter) | `@atlaskit/modal-dialog` (ID-scoped `<style>`)           |
+| Visual styling (background, shadow, border-radius)    | `@atlaskit/modal-dialog` (cssMap)                        |
+| `ModalContext` / `ScrollContext`                      | `@atlaskit/modal-dialog`                                 |
+| ExitingPersistence integration                        | `@atlaskit/modal-dialog`                                 |
+| DnD iframe workaround                                 | `@atlaskit/modal-dialog`                                 |
+| Custom width/height/fullscreen                        | `@atlaskit/modal-dialog` (via `Dialog` style prop)       |
 
 ---
 
 ## Known risks
 
-| Severity | Risk                                         | Impact                                                                  | Status   |
-| -------- | -------------------------------------------- | ----------------------------------------------------------------------- | -------- |
-| High     | ~~Full-screen modal does not fill viewport~~ | ~~Modal renders as narrow strip~~                                       | **Fixed** |
-| High     | ~~Mobile width overflows viewport~~          | ~~Modal retains desktop width on mobile~~                               | **Fixed** |
-| High     | `onClose` called without DOM event           | Consumers accessing `event.target`, `event.key` get `undefined`. Synthetic events bridge the gap. | Accepted |
-| High     | Portal-based select dropdowns invisible      | Select with `menuPortalTarget: document.body` hidden behind `::backdrop`. Decision (2026-03-17 audit): Ignored — resolved by migrating select to top-layer. | Accepted |
-| Medium   | ~~`isBlanketHidden` not wired~~              | ~~Backdrop always visible when hidden blanket requested~~               | **Fixed** |
-| Medium   | ~~Viewport scroll missing top margin~~       | ~~No `margin-block: 60px` gap when scrolling in viewport~~             | **Fixed** |
-| Medium   | `focusLockAllowlist` not supported           | External elements (AUI dialogs) become inert. Decision (2026-03-17 audit): Deprecate prop (`@private` `@deprecated`). Native `<dialog>` inertness is correct per WCAG. Investigate production usage. | Deprecated |
-| Medium   | `returnFocusRef` not wired in top-layer path | Custom focus return target doesn't work. Focus restoration is handled natively by the browser's Popover API. For `returnFocusRef`, redirect focus via `requestAnimationFrame` in the `onClose` callback to override the browser's default restoration. See notes/architecture/focus.md. | Planned  |
-| Medium   | `height` prop not applied                    | Modal ignores height values (420, 42em, 100%). Decision (2026-03-17 audit): Needs VR verification — significant work was done and this may already be resolved. | Verify   |
-| Medium   | `width: "100%"` fills entire viewport        | Modal goes edge-to-edge instead of respecting container constraints. Decision (2026-03-17 audit): Needs VR verification — may already be resolved. | Verify   |
-| Medium   | Tooltip positioning differs in `<dialog>`    | Tooltips appear at wrong position inside the modal. Decision (2026-03-17 audit): Accepted — transitional mixed-stack issue. Resolved when tooltip migrates to top-layer. | Accepted |
-| Low      | ~~Nested modals darken cumulatively~~        | ~~Each `::backdrop` stacks, making background darker~~                  | **Fixed** |
-| Low      | `onOpenComplete` receives `HTMLDivElement`   | Consumers checking element type will see a different type               | Open     |
+| Severity | Risk                                         | Impact                                                                                                                                                                                                                                                                                  | Status     |
+| -------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| High     | ~~Full-screen modal does not fill viewport~~ | ~~Modal renders as narrow strip~~                                                                                                                                                                                                                                                       | **Fixed**  |
+| High     | ~~Mobile width overflows viewport~~          | ~~Modal retains desktop width on mobile~~                                                                                                                                                                                                                                               | **Fixed**  |
+| High     | `onClose` called without DOM event           | Consumers accessing `event.target`, `event.key` get `undefined`. Synthetic events bridge the gap.                                                                                                                                                                                       | Accepted   |
+| High     | Portal-based select dropdowns invisible      | Select with `menuPortalTarget: document.body` hidden behind `::backdrop`. Decision (2026-03-17 audit): Ignored — resolved by migrating select to top-layer.                                                                                                                             | Accepted   |
+| Medium   | ~~`isBlanketHidden` not wired~~              | ~~Backdrop always visible when hidden blanket requested~~                                                                                                                                                                                                                               | **Fixed**  |
+| Medium   | ~~Viewport scroll missing top margin~~       | ~~No `margin-block: 60px` gap when scrolling in viewport~~                                                                                                                                                                                                                              | **Fixed**  |
+| Medium   | `focusLockAllowlist` not supported           | External elements (AUI dialogs) become inert. Decision (2026-03-17 audit): Deprecate prop (`@private` `@deprecated`). Native `<dialog>` inertness is correct per WCAG. Investigate production usage.                                                                                    | Deprecated |
+| Medium   | `returnFocusRef` not wired in top-layer path | Custom focus return target doesn't work. Focus restoration is handled natively by the browser's Popover API. For `returnFocusRef`, redirect focus via `requestAnimationFrame` in the `onClose` callback to override the browser's default restoration. See notes/architecture/focus.md. | Planned    |
+| Medium   | `height` prop not applied                    | Modal ignores height values (420, 42em, 100%). Decision (2026-03-17 audit): Needs VR verification — significant work was done and this may already be resolved.                                                                                                                         | Verify     |
+| Medium   | `width: "100%"` fills entire viewport        | Modal goes edge-to-edge instead of respecting container constraints. Decision (2026-03-17 audit): Needs VR verification — may already be resolved.                                                                                                                                      | Verify     |
+| Medium   | Tooltip positioning differs in `<dialog>`    | Tooltips appear at wrong position inside the modal. Decision (2026-03-17 audit): Accepted — transitional mixed-stack issue. Resolved when tooltip migrates to top-layer.                                                                                                                | Accepted   |
+| Low      | ~~Nested modals darken cumulatively~~        | ~~Each `::backdrop` stacks, making background darker~~                                                                                                                                                                                                                                  | **Fixed**  |
+| Low      | `onOpenComplete` receives `HTMLDivElement`   | Consumers checking element type will see a different type                                                                                                                                                                                                                               | Open       |
 
 ---
 
@@ -230,9 +231,9 @@ on both desktop and mobile. VR-verified.
 ~~On mobile viewports (< 30rem / 480px), the top-layer modal retains its desktop width (e.g. 600px
 for `medium`), causing content to be clipped on the right edge.~~
 
-**Fix applied:** Changed `dialogStyle['width']` from a fixed pixel value to `min(<namedWidth>, 100vw)`.
-This naturally caps at viewport width on mobile without needing media queries, while preserving the
-named width on desktop. VR-verified.
+**Fix applied:** Changed `dialogStyle['width']` from a fixed pixel value to
+`min(<namedWidth>, 100vw)`. This naturally caps at viewport width on mobile without needing media
+queries, while preserving the named width on desktop. VR-verified.
 
 #### 3. ~~`isBlanketHidden` prop not wired~~ (FIXED)
 
@@ -244,8 +245,9 @@ named width on desktop. VR-verified.
 `<style>` tag overrides `::backdrop { background-color: transparent }`. This approach was necessary
 because Compiled's atomic CSS deduplicates `::backdrop { background-color }` into a single class,
 making it impossible to toggle via separate cssMap entries. The ID selector has higher specificity
-and always wins. `modal-wrapper.tsx` passes `hideBackdrop={stackIndex > 0 || Boolean(isBlanketHidden)}`,
-which also fixes nested backdrop stacking (finding #6). VR-verified.
+and always wins. `modal-wrapper.tsx` passes
+`hideBackdrop={stackIndex > 0 || Boolean(isBlanketHidden)}`, which also fixes nested backdrop
+stacking (finding #6). VR-verified.
 
 ### Intentional / expected differences
 
@@ -264,12 +266,12 @@ viewport top to match legacy. VR-verified.
 
 **Severity: Low**
 
-Both paths use `token('color.blanket')` for the backdrop color. Investigation confirmed both use
-the identical token value with no opacity difference. The `@atlaskit/blanket` component uses
-`backgroundColor: token('color.blanket', N100A)` on a `<div>`, while the Dialog uses the same
-token on `::backdrop`. Any subtle visual difference is a browser compositing artifact — `::backdrop`
-is painted behind the top layer and has different stacking context behavior than a regular `<div>`.
-No code change needed.
+Both paths use `token('color.blanket')` for the backdrop color. Investigation confirmed both use the
+identical token value with no opacity difference. The `@atlaskit/blanket` component uses
+`backgroundColor: token('color.blanket', N100A)` on a `<div>`, while the Dialog uses the same token
+on `::backdrop`. Any subtle visual difference is a browser compositing artifact — `::backdrop` is
+painted behind the top layer and has different stacking context behavior than a regular `<div>`. No
+code change needed.
 
 #### 6. ~~Nested modals: cumulative backdrop darkening~~ (FIXED)
 
@@ -360,8 +362,9 @@ viewport. The legacy path renders 100% relative to the `Positioner` container, w
 constraints.
 
 In the top-layer path, `dialogStyle['width'] = min(100%, 100vw)` is applied to the `<dialog>`
-element. For a modal `<dialog>`, the containing block is the viewport, so `100%` resolves to `100vw`,
-filling the entire width. The legacy `Positioner` resolves `100%` relative to its own container width.
+element. For a modal `<dialog>`, the containing block is the viewport, so `100%` resolves to
+`100vw`, filling the entire width. The legacy `Positioner` resolves `100%` relative to its own
+container width.
 
 This also removes the border-radius since the `@media (min-width: 30rem)` query for border-radius
 still applies, but the modal flush against the viewport edges makes the rounded corners look
@@ -375,9 +378,9 @@ Tooltips rendered inside the modal appear at a different position in the top-lay
 legacy path. In the legacy path, the tooltip appears adjacent to its trigger element. In the
 top-layer path, the tooltip appears at the bottom-left of the modal, far from the trigger.
 
-This is likely caused by the tooltip's positioning calculation (which uses fixed/absolute positioning
-or portals) interacting differently with the `<dialog>` element's containing block and stacking
-context.
+This is likely caused by the tooltip's positioning calculation (which uses fixed/absolute
+positioning or portals) interacting differently with the `<dialog>` element's containing block and
+stacking context.
 
 ### Scenarios confirmed visually identical
 
@@ -406,20 +409,20 @@ accepted subtle backdrop color artifact from #5):
 
 ### Summary table
 
-| # | Difference                                 | Severity | Category    | Status    |
-|---|--------------------------------------------|----------|-------------|-----------|
-| 1 | Full-screen modal broken                   | High     | Bug         | **Fixed** |
-| 2 | Mobile width overflow                      | High     | Bug         | **Fixed** |
-| 3 | `isBlanketHidden` not wired                | Medium   | Bug         | **Fixed** |
-| 4 | Vertical centering vs 60px top             | Low      | Bug         | **Fixed** |
-| 5 | Backdrop color subtlety                    | Low      | Investigate | Accepted  |
-| 6 | Nested backdrop stacking                   | Low      | Bug         | **Fixed** |
-| 7 | Viewport scroll missing margin             | Medium   | Bug         | **Fixed** |
-| 8 | Body scroll content height                 | Low      | Bug         | **Fixed** |
-| 9 | Portal-based select dropdown invisible     | High     | Bug         | Open      |
-| 10 | `height` prop not applied                 | Medium   | Bug         | Open      |
-| 11 | `width: "100%"` fills viewport            | Medium   | Bug         | Open      |
-| 12 | Tooltip positioning differs in `<dialog>` | Medium   | Bug         | Open      |
+| #   | Difference                                | Severity | Category    | Status    |
+| --- | ----------------------------------------- | -------- | ----------- | --------- |
+| 1   | Full-screen modal broken                  | High     | Bug         | **Fixed** |
+| 2   | Mobile width overflow                     | High     | Bug         | **Fixed** |
+| 3   | `isBlanketHidden` not wired               | Medium   | Bug         | **Fixed** |
+| 4   | Vertical centering vs 60px top            | Low      | Bug         | **Fixed** |
+| 5   | Backdrop color subtlety                   | Low      | Investigate | Accepted  |
+| 6   | Nested backdrop stacking                  | Low      | Bug         | **Fixed** |
+| 7   | Viewport scroll missing margin            | Medium   | Bug         | **Fixed** |
+| 8   | Body scroll content height                | Low      | Bug         | **Fixed** |
+| 9   | Portal-based select dropdown invisible    | High     | Bug         | Open      |
+| 10  | `height` prop not applied                 | Medium   | Bug         | Open      |
+| 11  | `width: "100%"` fills viewport            | Medium   | Bug         | Open      |
+| 12  | Tooltip positioning differs in `<dialog>` | Medium   | Bug         | Open      |
 
 ### Visual regression test coverage
 
@@ -501,19 +504,19 @@ enabled:
 
 ### Accessibility (top-layer path)
 
-| A11y criterion               | Browser test | Notes                                                                                                                                                                                                                                        |
-| ---------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1.3.1 Info and Relationships | ✓            | `modal.spec.tsx` — trigger has `aria-haspopup="dialog"` linking trigger to modal semantically. `aria-labelledby` links dialog to title.                                                                                                      |
-| 1.3.2 Meaningful Sequence    | ✓            | `modal.spec.tsx` — dialog rendered in-place (no portal)                                                                                                                                                                                      |
-| 2.1.1 Keyboard               | ✓            | `modal.spec.tsx` — close button activatable via keyboard                                                                                                                                                                                     |
-| 2.1.2 No Keyboard Trap       | ✓            | `modal.spec.tsx` — Escape dismisses; backdrop click dismisses                                                                                                                                                                                |
-| 2.4.3 Focus Order            | ✓            | `modal.spec.tsx` — focus into dialog, return, Tab trap, inert, nested                                                                                                                                                                        |
-| 2.4.7 Focus Visible          | ✓            | `modal.spec.tsx` — `:focus-visible` on elements within the dialog (close button, form fields)                                                                                                                     |
-| 2.4.11 Focus Not Obscured    | ✓            | `modal.spec.tsx` — dialog in top layer not obscured                                                                                                                                                                                          |
-| 3.2.1 On Focus               | ✓            | Covered by design — modal opens via user activation (click), not on focus. Focus return on close does not re-trigger the modal because the consumer controls open state via `isOpen` prop, not via focus events.                             |
-| 4.1.2 Name, Role, Value      | ✓            | `modal.spec.tsx` — role, aria-labelledby, aria-label, close button, trigger `aria-haspopup="dialog"`                                                                                                                                         |
-| 4.1.3 Status Messages        | ✓            | Native `<dialog>` + correct role (top-layer primitive)                                                                                                                                                                                       |
-| Background inertness         | ✓            | `modal.spec.tsx` — background content is inert via `showModal()`                                                                                                                                                                             |
+| A11y criterion               | Browser test | Notes                                                                                                                                                                                                            |
+| ---------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.3.1 Info and Relationships | ✓            | `modal.spec.tsx` — trigger has `aria-haspopup="dialog"` linking trigger to modal semantically. `aria-labelledby` links dialog to title.                                                                          |
+| 1.3.2 Meaningful Sequence    | ✓            | `modal.spec.tsx` — dialog rendered in-place (no portal)                                                                                                                                                          |
+| 2.1.1 Keyboard               | ✓            | `modal.spec.tsx` — close button activatable via keyboard                                                                                                                                                         |
+| 2.1.2 No Keyboard Trap       | ✓            | `modal.spec.tsx` — Escape dismisses; backdrop click dismisses                                                                                                                                                    |
+| 2.4.3 Focus Order            | ✓            | `modal.spec.tsx` — focus into dialog, return, Tab trap, inert, nested                                                                                                                                            |
+| 2.4.7 Focus Visible          | ✓            | `modal.spec.tsx` — `:focus-visible` on elements within the dialog (close button, form fields)                                                                                                                    |
+| 2.4.11 Focus Not Obscured    | ✓            | `modal.spec.tsx` — dialog in top layer not obscured                                                                                                                                                              |
+| 3.2.1 On Focus               | ✓            | Covered by design — modal opens via user activation (click), not on focus. Focus return on close does not re-trigger the modal because the consumer controls open state via `isOpen` prop, not via focus events. |
+| 4.1.2 Name, Role, Value      | ✓            | `modal.spec.tsx` — role, aria-labelledby, aria-label, close button, trigger `aria-haspopup="dialog"`                                                                                                             |
+| 4.1.3 Status Messages        | ✓            | Native `<dialog>` + correct role (top-layer primitive)                                                                                                                                                           |
+| Background inertness         | ✓            | `modal.spec.tsx` — background content is inert via `showModal()`                                                                                                                                                 |
 
 > **Note:** All modal-dialog browser tests run with `featureFlag: 'platform-dst-top-layer'`. See
 > `modal-dialog/src/__tests__/playwright/ff-testing/platform-dst-top-layer/modal.spec.tsx`.
@@ -528,17 +531,17 @@ All 44 existing legacy tests pass, plus 2 skipped (unchanged).
 
 ### `@atlaskit/top-layer`
 
-| File                                        | Change                                                                         |
-| ------------------------------------------- | ------------------------------------------------------------------------------ |
-| `src/dialog/types.tsx`                      | Added `titleId`, `label`, `hideBackdrop`, `onExitFinish` to `DialogProps` |
-| `src/dialog/dialog-context.tsx`             | Added `label` to `DialogContextValue`                                          |
-| `src/dialog/dialog.tsx`                     | `DialogRoot` accepts and passes `titleId`, `label` through context             |
-| `src/dialog/dialog-content.tsx`             | Conditional `aria-label` / `aria-labelledby`; merges `style` prop; `hideBackdrop` via ID-scoped `<style>` |
-| `src/dialog/create-close-event.tsx`         | New: `createCloseEvent({ reason })` helper for bridging close reasons to DOM events |
-| `src/entry-points/create-close-event.tsx`   | New entry point: `@atlaskit/top-layer/create-close-event`                      |
-| `src/popup/types.tsx`                       | `PopupContentProps.role` narrowed to `PopupRole` union; type-level enforcement |
-| `src/popup/popup-content.tsx`               | Removed runtime `console.warn` (replaced by type-level enforcement)            |
-| `src/popup/index.tsx`                       | Exported `PopupRole` type                                                      |
+| File                                      | Change                                                                                                    |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `src/dialog/types.tsx`                    | Added `titleId`, `label`, `hideBackdrop`, `onExitFinish` to `DialogProps`                                 |
+| `src/dialog/dialog-context.tsx`           | Added `label` to `DialogContextValue`                                                                     |
+| `src/dialog/dialog.tsx`                   | `DialogRoot` accepts and passes `titleId`, `label` through context                                        |
+| `src/dialog/dialog-content.tsx`           | Conditional `aria-label` / `aria-labelledby`; merges `style` prop; `hideBackdrop` via ID-scoped `<style>` |
+| `src/dialog/create-close-event.tsx`       | New: `createCloseEvent({ reason })` helper for bridging close reasons to DOM events                       |
+| `src/entry-points/create-close-event.tsx` | New entry point: `@atlaskit/top-layer/create-close-event`                                                 |
+| `src/popup/types.tsx`                     | `PopupContentProps.role` narrowed to `PopupRole` union; type-level enforcement                            |
+| `src/popup/popup-content.tsx`             | Removed runtime `console.warn` (replaced by type-level enforcement)                                       |
+| `src/popup/index.tsx`                     | Exported `PopupRole` type                                                                                 |
 
 ### `@atlaskit/modal-dialog`
 
@@ -563,7 +566,8 @@ listener + `bind()` + fallback timeout) has been fully replaced by two features 
 
 2. **`onExitFinish` callback**: `Dialog` fires `onExitFinish` when the exit animation completes (or
    immediately for non-animated closes). Modal-dialog uses this to call `onCloseComplete` and signal
-   `ExitingPersistence` to unmount. This replaces the manual `setTimeout` that was previously needed.
+   `ExitingPersistence` to unmount. This replaces the manual `setTimeout` that was previously
+   needed.
 
 `ExitingPersistence` keeps the modal-wrapper component mounted during exit. `Dialog`'s internal
 `showChildren` pattern handles children lifecycle within that — children stay mounted during the
@@ -584,16 +588,16 @@ entirely.
 When a `<Select>` component uses `menuPortalTarget: document.body` inside a top-layer modal, the
 dropdown menu is invisible and non-interactive. This happens because `showModal()` marks all content
 outside the `<dialog>` as
-[inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert). A menu
-portalled to `document.body` renders outside the dialog, so it becomes inert regardless of z-index.
+[inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert). A menu portalled
+to `document.body` renders outside the dialog, so it becomes inert regardless of z-index.
 
 **Workaround for consumers:** Use `menuPosition: "fixed"` without `menuPortalTarget` to keep the
 select menu inside the dialog's DOM tree:
 
 ```tsx
 <Select
-  menuPosition="fixed"
-  // Do NOT use menuPortalTarget={document.body} inside top-layer modals
+	menuPosition="fixed"
+	// Do NOT use menuPortalTarget={document.body} inside top-layer modals
 />
 ```
 
@@ -617,51 +621,57 @@ for details.
 
 ## Update: `createCloseEvent` helper extracted to top-layer
 
-Modal-dialog's `syntheticCloseEvent` function has been replaced by
-`createCloseEvent({ reason })` from `@atlaskit/top-layer/create-close-event`. This is a standalone
-entry point — separate from the `dialog` entry point — so consumers can import it independently.
+Modal-dialog's `syntheticCloseEvent` function has been replaced by `createCloseEvent({ reason })`
+from `@atlaskit/top-layer/create-close-event`. This is a standalone entry point — separate from the
+`dialog` entry point — so consumers can import it independently.
 
 The helper converts a `DialogCloseReason` (`'escape'` | `'overlay-click'`) into a synthetic DOM
-event, bridging Dialog's `onClose({ reason })` callback to legacy APIs that expect a
-`KeyboardEvent` or `MouseEvent`.
+event, bridging Dialog's `onClose({ reason })` callback to legacy APIs that expect a `KeyboardEvent`
+or `MouseEvent`.
 
 ### Design decisions: what stays in modal-dialog
 
 The following concerns were evaluated for extraction into `@atlaskit/top-layer` but deliberately
 kept in `@atlaskit/modal-dialog`:
 
-- **Width presets** (`small` → `400px`, `medium` → `600px`, etc.) — Moving the `dialogWidth`
-  utility into Dialog would just shift complexity, not reduce it. The resolution logic is
-  straightforward and modal-specific.
+- **Width presets** (`small` → `400px`, `medium` → `600px`, etc.) — Moving the `dialogWidth` utility
+  into Dialog would just shift complexity, not reduce it. The resolution logic is straightforward
+  and modal-specific.
 - **Responsive positioning** (mobile fill / desktop gutter via ID-scoped `<style>`) — Too
-  intertwined with modal-specific scroll-mode variants (`shouldScrollInViewport`,
-  `dialogHeight`, desktop margin differences). Extracting a generic `responsive` prop would
-  either be too simple to cover modal's needs or too modal-specific to belong in Dialog.
-- **`DialogScrollLock`** — Deliberately kept as an opt-in composable child component rather than
-  a prop on Dialog. This keeps Dialog focused on the `<dialog>` lifecycle and lets consumers
-  choose whether they need scroll locking.
+  intertwined with modal-specific scroll-mode variants (`shouldScrollInViewport`, `dialogHeight`,
+  desktop margin differences). Extracting a generic `responsive` prop would either be too simple to
+  cover modal's needs or too modal-specific to belong in Dialog.
+- **`DialogScrollLock`** — Deliberately kept as an opt-in composable child component rather than a
+  prop on Dialog. This keeps Dialog focused on the `<dialog>` lifecycle and lets consumers choose
+  whether they need scroll locking.
 
 ---
 
 ## Merge Risk Assessment
 
-**Question:** Is it safe to merge this code to master, assuming the `platform-dst-top-layer` feature flag is OFF?
+**Question:** Is it safe to merge this code to master, assuming the `platform-dst-top-layer` feature
+flag is OFF?
 
 ### 1. Verdict
 
 ✅ **Safe to merge**
 
-All unflagged changes are side-effect-free (imports and conditional hook calls that are stable throughout the component's lifetime). The legacy path is unaffected and all 44 existing tests pass.
+All unflagged changes are side-effect-free (imports and conditional hook calls that are stable
+throughout the component's lifetime). The legacy path is unaffected and all 44 existing tests pass.
 
 ### 2. Changes that execute WITHOUT the feature flag
 
-- **Top-level imports** of `@atlaskit/top-layer` entry points and migration modules — side-effect-free, no DOM access or initialization logic
+- **Top-level imports** of `@atlaskit/top-layer` entry points and migration modules —
+  side-effect-free, no DOM access or initialization logic
 - **Bundle size increase** from importing top-layer modules (unavoidable cost of the feature)
-- **Conditional `usePreventProgrammaticScroll()` hook call** — gated on `fg('platform-dst-top-layer')` in `modal-wrapper.tsx`. Safe because feature flags are resolved once at startup and **cannot change during a component's lifetime**
+- **Conditional `usePreventProgrammaticScroll()` hook call** — gated on
+  `fg('platform-dst-top-layer')` in `modal-wrapper.tsx`. Safe because feature flags are resolved
+  once at startup and **cannot change during a component's lifetime**
 
 ### 3. Changes gated behind `platform-dst-top-layer`
 
-- Early-return branch in `InternalModalWrapper` component (`modal-wrapper.tsx:242` and `modal-wrapper.tsx:285`)
+- Early-return branch in `InternalModalWrapper` component (`modal-wrapper.tsx:242` and
+  `modal-wrapper.tsx:285`)
 - Entire native `<dialog>` rendering path (Dialog component, visual styling, lifecycle management)
 - All top-layer-specific event handlers and callbacks
 
@@ -669,25 +679,38 @@ All unflagged changes are side-effect-free (imports and conditional hook calls t
 
 **Risk level: LOW**
 
-Only unflagged changes are imports (side-effect-free) and the conditional hook call (safe due to stable flag value). No behavioral changes to the legacy rendering pipeline.
+Only unflagged changes are imports (side-effect-free) and the conditional hook call (safe due to
+stable flag value). No behavioral changes to the legacy rendering pipeline.
 
 ### 5. Risks when flag is turned on
 
 **HIGH-severity accepted risks:**
-- Portal-based select dropdowns invisible due to `inert` attribute (Bug #9 — accepted; resolved by migrating select to top-layer)
-- `focusLockAllowlist` not supported (deprecated; native `<dialog>` inertness has no allowlist equivalent)
-- `returnFocusRef` not wired (custom focus return target doesn't work; will be addressed during rollout)
+
+- Portal-based select dropdowns invisible due to `inert` attribute (Bug #9 — accepted; resolved by
+  migrating select to top-layer)
+- `focusLockAllowlist` not supported (deprecated; native `<dialog>` inertness has no allowlist
+  equivalent)
+- `returnFocusRef` not wired (custom focus return target doesn't work; will be addressed during
+  rollout)
 
 **MEDIUM-severity accepted risks:**
-- `onClose` receives synthetic event (KeyboardEvent/MouseEvent) — may lack properties like `event.target`
-- `autoFocus={false}` still moves focus into dialog (native `showModal()` behavior, correct per WCAG)
+
+- `onClose` receives synthetic event (KeyboardEvent/MouseEvent) — may lack properties like
+  `event.target`
+- `autoFocus={false}` still moves focus into dialog (native `showModal()` behavior, correct per
+  WCAG)
 - `onOpenComplete` receives `HTMLDivElement` not `<dialog>` element
-- `height` prop may not be applied (needs VR verification; significant work was done, may already be resolved)
-- `width: '100%'` fills entire viewport instead of container width (needs VR verification; may already be resolved)
-- Tooltip positioning differs inside `<dialog>` (Bug #12 — accepted transitional issue; resolved when tooltip migrates)
+- `height` prop may not be applied (needs VR verification; significant work was done, may already be
+  resolved)
+- `width: '100%'` fills entire viewport instead of container width (needs VR verification; may
+  already be resolved)
+- Tooltip positioning differs inside `<dialog>` (Bug #12 — accepted transitional issue; resolved
+  when tooltip migrates)
 
 **Fixed during development:**
-- Full-screen modal, mobile width overflow, `isBlanketHidden`, vertical positioning, nested backdrop stacking, viewport scroll margin, body scroll content height
+
+- Full-screen modal, mobile width overflow, `isBlanketHidden`, vertical positioning, nested backdrop
+  stacking, viewport scroll margin, body scroll content height
 
 ### 6. Test confidence
 
@@ -699,4 +722,6 @@ Only unflagged changes are imports (side-effect-free) and the conditional hook c
 
 **44 existing legacy tests** all pass (2 pre-existing skips unchanged)
 
-**Coverage:** Native dialog lifecycle, sub-component rendering, Escape/backdrop-click closing, exit animations, accessibility (WCAG), width/height variants, nested modals, form content, token propagation, and mixed-component scenarios.
+**Coverage:** Native dialog lifecycle, sub-component rendering, Escape/backdrop-click closing, exit
+animations, accessibility (WCAG), width/height variants, nested modals, form content, token
+propagation, and mixed-component scenarios.

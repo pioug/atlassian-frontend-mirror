@@ -7,11 +7,11 @@ import {
 	TEXT_SECTION_PRIMARY_TOOLBAR_RANK,
 	useEditorToolbar,
 } from '@atlaskit/editor-common/toolbar';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
-import { type RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
-import { type TextFormattingPlugin } from '../../../textFormattingPluginType';
+import type { TextFormattingPlugin } from '../../../textFormattingPluginType';
 import { FormatOptions } from '../types';
 
 import { FormatButton } from './Component';

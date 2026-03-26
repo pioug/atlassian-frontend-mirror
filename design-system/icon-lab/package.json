@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-lab",
-	"version": "6.1.0",
+	"version": "6.2.0",
 	"description": "An icon package for public icon contributions",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -88,7 +88,6 @@
 	"exports": {
 		"./deprecated-map": "./src/entry-points/deprecated-map.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",
-		"./migration-map": "./src/migration-map.tsx",
 		"./core": "./core",
 		"./core/*": {
 			"types": "./core/*.d.ts",

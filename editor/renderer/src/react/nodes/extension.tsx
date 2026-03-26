@@ -7,9 +7,9 @@
 import { jsx, css } from '@emotion/react';
 
 import React from 'react';
-import { type Mark as PMMark, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type RendererContext, type ExtensionViewportSize } from '../types';
-import { type ExtensionLayout } from '@atlaskit/adf-schema';
+import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { RendererContext, ExtensionViewportSize } from '../types';
+import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
 
 import type {
@@ -17,7 +17,7 @@ import type {
 	ExtensionParams,
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
-import { type ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { overflowShadow, WidthConsumer } from '@atlaskit/editor-common/ui';
 import type {
 	OverflowShadowProps,

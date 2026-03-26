@@ -14,11 +14,9 @@ test.describe('Standalone Popover - native focus restoration', () => {
 	// ── WCAG 2.4.3 Focus Order ──
 	// Standalone dialog popover should restore focus to trigger on Escape.
 	test('role="dialog": focus restores to trigger on Escape', async ({ page }) => {
-		await page.visitExample(
-			'design-system',
-			'top-layer',
-			'testing-standalone-focus-restore',
-		);
+		await page.visitExample<
+			typeof import('../../examples/124-testing-standalone-focus-restore.tsx')
+		>('design-system', 'top-layer', 'testing-standalone-focus-restore');
 
 		const trigger = page.getByTestId('standalone-dialog-trigger');
 		await trigger.click();
@@ -39,11 +37,9 @@ test.describe('Standalone Popover - native focus restoration', () => {
 	test('role="dialog": focus restores to trigger on Escape from inner element', async ({
 		page,
 	}) => {
-		await page.visitExample(
-			'design-system',
-			'top-layer',
-			'testing-standalone-focus-restore',
-		);
+		await page.visitExample<
+			typeof import('../../examples/124-testing-standalone-focus-restore.tsx')
+		>('design-system', 'top-layer', 'testing-standalone-focus-restore');
 
 		const trigger = page.getByTestId('standalone-dialog-trigger');
 		await trigger.click();
@@ -60,11 +56,9 @@ test.describe('Standalone Popover - native focus restoration', () => {
 	// ── WCAG 2.4.3 Focus Order ──
 	// Standalone menu popover should restore focus to trigger on Escape.
 	test('role="menu": focus restores to trigger on Escape', async ({ page }) => {
-		await page.visitExample(
-			'design-system',
-			'top-layer',
-			'testing-standalone-focus-restore',
-		);
+		await page.visitExample<
+			typeof import('../../examples/124-testing-standalone-focus-restore.tsx')
+		>('design-system', 'top-layer', 'testing-standalone-focus-restore');
 
 		const trigger = page.getByTestId('standalone-menu-trigger');
 		await trigger.click();

@@ -7,7 +7,6 @@ import type {
 	TagParseRule,
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const capitalizeFirstLetter = (str: string): string => {
@@ -78,7 +77,7 @@ export const bodiedExtensionSpecWithFixedToDOM = (): {
 					{
 						// Styles based on `packages/editor/editor-common/src/extensibility/Extension/Lozenge/ExtensionLabel.tsx`
 						style: convertToInlineCss({
-							boxShadow: `0 0 0 1px ${token('color.border', N30)}`,
+							boxShadow: `0 0 0 1px ${token('color.border')}`,
 							fontSize: '14px',
 							padding: `${token('space.025')} ${token('space.050')}`,
 							color: token('color.text.subtle'),
@@ -102,7 +101,7 @@ export const bodiedExtensionSpecWithFixedToDOM = (): {
 							padding: token('space.200'),
 							marginLeft: token('space.negative.150'),
 							marginRight: token('space.negative.150'),
-							boxShadow: `0 0 0 1px ${token('color.border', N30)}`,
+							boxShadow: `0 0 0 1px ${token('color.border')}`,
 							borderRadius: token('radius.small'),
 						}),
 					},

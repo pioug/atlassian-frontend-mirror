@@ -3,9 +3,18 @@ import * as t from '@babel/types';
 
 import tokenNames from '../artifacts/token-names';
 import light from '../artifacts/tokens-raw/atlassian-light';
+import motion from '../artifacts/tokens-raw/atlassian-motion';
 import shape from '../artifacts/tokens-raw/atlassian-shape';
 import spacing from '../artifacts/tokens-raw/atlassian-spacing';
 import typography from '../artifacts/tokens-raw/atlassian-typography';
+
+interface MotionTokenMeta {
+	duration: number;
+	curve: string;
+	keyframes?: string[];
+	properties?: string[];
+	delay?: number;
+}
 
 interface TokenMeta {
 	value:
@@ -24,7 +33,8 @@ interface TokenMeta {
 				fontFamily: string;
 				fontStyle: string;
 				letterSpacing: string;
-		  };
+		  }
+		| MotionTokenMeta;
 	cleanName?: string;
 }
 
@@ -76,6 +86,23 @@ const getThemeValues = (theme: TokenMeta[]): { [x: string]: string } => {
 
 				return prev + value;
 			}, '');
+		} else if (
+			Object(rawToken.value).hasOwnProperty('keyframes') ||
+			Object(rawToken.value).hasOwnProperty('properties')
+		) {
+			// Handle motion tokens which have object values like { duration, curve, keyframes, etc. }
+			// Convert to a JSON string representation for fallback value
+			const motionToken = rawToken.value as MotionTokenMeta;
+			if (motionToken.keyframes) {
+				value = motionToken.keyframes
+					.map(
+						(keyframe: string) =>
+							`${motionToken.duration}ms ${motionToken.curve} ${keyframe}${motionToken.delay ? ` ${motionToken.delay}ms` : ''}`,
+					)
+					.join(', ');
+			} else {
+				value = `${motionToken.properties?.join(' ')} ${motionToken.duration}ms ${motionToken.curve}${motionToken.delay ? ` ${motionToken.delay}ms` : ''}`;
+			}
 		} else {
 			// ignore when value is `fontweight` etc. - this is apparently not handled here.
 			return formatted;
@@ -272,6 +299,7 @@ const lightValues = getThemeValues(light);
 const shapeValues = getThemeValues(shape);
 const spacingValues = getThemeValues(spacing);
 const typographyValues = getThemeValues(typography);
+const motionValues = getThemeValues(motion);
 
 function getDefaultFallback(tokenName: keyof typeof lightValues): string {
 	if (shapeValues[tokenName]) {
@@ -284,6 +312,10 @@ function getDefaultFallback(tokenName: keyof typeof lightValues): string {
 
 	if (typographyValues[tokenName]) {
 		return typographyValues[tokenName];
+	}
+
+	if (motionValues[tokenName]) {
+		return motionValues[tokenName];
 	}
 
 	return lightValues[tokenName];

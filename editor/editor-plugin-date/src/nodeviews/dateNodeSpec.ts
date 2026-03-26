@@ -8,7 +8,6 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N30A, N800 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -29,8 +28,8 @@ export const dateNodeSpec = (node: PMNode): DOMOutputSpec => {
 	const attrs = {
 		style: convertToInlineCss({
 			// Taken from @atlaskit/date Component
-			backgroundColor: token('color.background.neutral', N30A),
-			color: token('color.text', N800),
+			backgroundColor: token('color.background.neutral'),
+			color: token('color.text'),
 			borderRadius: token('radius.small'),
 			padding: `${token('space.025')} ${token('space.050')}`,
 			margin: '0 1px',

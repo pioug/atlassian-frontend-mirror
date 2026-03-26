@@ -7,21 +7,19 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { hexToRgba } from '@atlaskit/adf-schema';
 import { dropPlaceholderMessages } from '@atlaskit/editor-common/media';
 import DocumentFilledIcon from '@atlaskit/icon/core/file';
-import { B200, B300, B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { FILE_WIDTH, MEDIA_HEIGHT } from '../../nodeviews/mediaNodeView/media';
 
 const iconWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	color: token('color.icon.accent.blue', hexToRgba(B400, 0.4) || B400),
+	color: token('color.icon.accent.blue'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	background: token('color.background.accent.blue.subtle', hexToRgba(B300, 0.6) || B300),
+	background: token('color.background.accent.blue.subtle'),
 	borderRadius: token('radius.small', '3px'),
-	margin: `${token('space.075', '6px')} ${token('space.050', '4px')} ${token('space.300', '24px')}`,
+	margin: `${token('space.075')} ${token('space.050')} ${token('space.300')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${FILE_WIDTH}px`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -32,9 +30,9 @@ const iconWrapperStyles = css({
 });
 
 const dropLineStyles = css({
-	background: token('color.border.focused', B200),
+	background: token('color.border.focused'),
 	borderRadius: token('radius.small', '3px'),
-	margin: `${token('space.025', '2px')} 0`,
+	margin: `${token('space.025')} 0`,
 	width: '100%',
 	height: '2px',
 });

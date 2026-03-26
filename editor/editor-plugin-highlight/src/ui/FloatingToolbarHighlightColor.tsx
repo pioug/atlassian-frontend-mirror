@@ -2,7 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useRef, type ComponentType, type FC } from 'react';
+import { useRef } from 'react';
+import type { ComponentType, FC } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -15,12 +16,10 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	type DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-import {
-	type NamedPluginStatesFromInjectionAPI,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons';
 import {
 	toggleHighlightPalette,
@@ -37,7 +36,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';

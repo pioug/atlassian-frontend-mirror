@@ -63,12 +63,7 @@ describe('TagNew and AvatarTag onClick analytics', () => {
 			const onClickHandler = jest.fn();
 
 			render(
-				<TagNew
-					text="Non-link Tag"
-					onClick={onClickHandler}
-					isRemovable={false}
-					testId={testId}
-				/>,
+				<TagNew text="Non-link Tag" onClick={onClickHandler} isRemovable={false} testId={testId} />,
 			);
 
 			const tag = screen.getByTestId(testId);
@@ -79,12 +74,7 @@ describe('TagNew and AvatarTag onClick analytics', () => {
 
 		it('should work without onClick prop (backward compatibility)', async () => {
 			render(
-				<TagNew
-					text="Link Tag"
-					href="https://example.com"
-					isRemovable={false}
-					testId={testId}
-				/>,
+				<TagNew text="Link Tag" href="https://example.com" isRemovable={false} testId={testId} />,
 			);
 
 			const link = screen.getByTestId(`${testId}--link`);

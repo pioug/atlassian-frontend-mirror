@@ -1,29 +1,24 @@
 import React from 'react';
 
-import {
-	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
-	type DispatchAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
-import {
-	type NamedPluginStatesFromInjectionAPI,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import { ResizerBreakoutModeLabel } from '@atlaskit/editor-common/resizer';
-import {
-	type ExtractInjectionAPI,
-	type GetEditorContainerWidth,
-	type GetEditorFeatureFlags,
+import type {
+	ExtractInjectionAPI,
+	GetEditorContainerWidth,
+	GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type tablePlugin from '../tablePlugin';
-import { type TablePlugin, type TablePluginOptions } from '../tablePluginType';
-import { type TableSharedStateInternal } from '../types';
+import type { TablePlugin, TablePluginOptions } from '../tablePluginType';
+import type { TableSharedStateInternal } from '../types';
 
 import FloatingContextualButton from './FloatingContextualButton';
 import FloatingContextualMenu from './FloatingContextualMenu';

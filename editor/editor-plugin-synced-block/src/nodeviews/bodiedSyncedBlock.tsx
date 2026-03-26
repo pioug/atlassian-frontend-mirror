@@ -4,8 +4,11 @@ import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analy
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { ForwardRef, ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
-import ReactNodeView, { type getPosHandler } from '@atlaskit/editor-common/react-node-view';
+import ReactNodeView, {
+	type ForwardRef,
+	type ReactComponentProps,
+	type getPosHandler,
+} from '@atlaskit/editor-common/react-node-view';
 import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type {
 	ExtractInjectionAPI,

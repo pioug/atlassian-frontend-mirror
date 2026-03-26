@@ -1,12 +1,9 @@
 import { foldGutter, codeFolding, foldState, foldEffect } from '@codemirror/language';
-import { type Extension, type StateEffect } from '@codemirror/state';
+import type { Extension, StateEffect } from '@codemirror/state';
 import type { EditorView as CodeMirror } from '@codemirror/view';
 
-import {
-	setCodeBlockFoldState,
-	type FoldRange,
-	getCodeBlockFoldState,
-} from '@atlaskit/editor-common/code-block';
+import { setCodeBlockFoldState, getCodeBlockFoldState } from '@atlaskit/editor-common/code-block';
+import type { FoldRange } from '@atlaskit/editor-common/code-block';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';

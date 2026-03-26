@@ -1,10 +1,10 @@
 import React from 'react';
 import memoizeOne from 'memoize-one';
 import {
-	type ExtensionProvider,
 	getExtensionModuleNodePrivateProps,
 	getNodeRenderer,
 } from '@atlaskit/editor-common/extensions';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { useProvider } from '@atlaskit/editor-common/provider-factory';
 
 type useMultiBodiedExtensionContextProps = {

@@ -1,7 +1,8 @@
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
 import { metricsKey } from '../../../main';
-import { ActionType, type TrAction } from '../types';
+import { ActionType } from '../types';
+import type { TrAction } from '../types';
 
 const UI_EVENT = 'uiEvent';
 const PASTE_EVENT = 'paste';

@@ -64,7 +64,11 @@ function AnimatedPopoverDemo({
 	const handleClose = useCallback(() => {}, []);
 
 	return (
-		<Popup placement={{ edge: 'end' }} onClose={handleClose} forceFallbackPositioning={forceFallbackPositioning}>
+		<Popup
+			placement={{ edge: 'end' }}
+			onClose={handleClose}
+			forceFallbackPositioning={forceFallbackPositioning}
+		>
 			<Popup.Trigger>
 				<Button>
 					<Lozenge appearance="new">{label}</Lozenge>

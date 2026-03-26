@@ -1,8 +1,9 @@
-import { type Mark } from '@atlaskit/editor-prosemirror/model';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import { type ReplaceAroundStep, type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
-import { ActionType, type DetailedReplaceStep, type AttrChangeAction } from '../types';
+import { ActionType } from '../types';
+import type { DetailedReplaceStep, AttrChangeAction } from '../types';
 
 type Attrs = Record<string, unknown>;
 

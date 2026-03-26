@@ -13,16 +13,15 @@ import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, Text, xcss } from '@atlaskit/primitives';
-import { N200 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const placeholder = css`
-	color: ${token('color.text.subtlest', N200)};
+	color: ${token('color.text.subtlest')};
 	width: 100%;
 	text-align: center;
-	margin-top: ${token('space.100', '8px')} !important;
+	margin-top: ${token('space.100')} !important;
 	display: block;
 `;
 

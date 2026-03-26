@@ -6,10 +6,8 @@ import uuid from 'uuid/v4';
 
 import type { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import {
-	type NamedPluginStatesFromInjectionAPI,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import type {
 	InlineNodeViewComponentProps,
 	getInlineNodeViewProducer,
@@ -28,17 +26,15 @@ import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { type cardPlugin } from '../cardPlugin';
+import type { cardPlugin } from '../cardPlugin';
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { getAwarenessProps } from '../pm-plugins/utils';
 import { visitCardLinkAnalytics } from '../ui/toolbar';
 
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
-import {
-	InlineCardWithAwareness,
-	type InlineCardWithAwarenessProps,
-} from './inlineCardWithAwareness';
+import { InlineCardWithAwareness } from './inlineCardWithAwareness';
+import type { InlineCardWithAwarenessProps } from './inlineCardWithAwareness';
 
 export const InlineCard: React.MemoExoticComponent<
 	({

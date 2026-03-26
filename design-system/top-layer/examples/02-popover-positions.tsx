@@ -86,12 +86,11 @@ export default function PopoverPositionsExample() {
 							<Inline space="space.200" alignBlock="center">
 								<label htmlFor="placement-axis">
 									<Text size="small">axis</Text>{' '}
-									<select id="placement-axis"
+									<select
+										id="placement-axis"
 										value={axis}
 										onChange={(e) =>
-											setAxis(
-												e.target.value as NonNullable<TPlacementOptions['axis']>,
-											)
+											setAxis(e.target.value as NonNullable<TPlacementOptions['axis']>)
 										}
 										disabled={useLegacy}
 										css={styles.select}
@@ -102,12 +101,11 @@ export default function PopoverPositionsExample() {
 								</label>
 								<label htmlFor="placement-edge">
 									<Text size="small">edge</Text>{' '}
-									<select id="placement-edge"
+									<select
+										id="placement-edge"
 										value={edge}
 										onChange={(e) =>
-											setEdge(
-												e.target.value as NonNullable<TPlacementOptions['edge']>,
-											)
+											setEdge(e.target.value as NonNullable<TPlacementOptions['edge']>)
 										}
 										disabled={useLegacy}
 										css={styles.select}
@@ -118,12 +116,11 @@ export default function PopoverPositionsExample() {
 								</label>
 								<label htmlFor="placement-align">
 									<Text size="small">align</Text>{' '}
-									<select id="placement-align"
+									<select
+										id="placement-align"
 										value={align}
 										onChange={(e) =>
-											setAlign(
-												e.target.value as NonNullable<TPlacementOptions['align']>,
-											)
+											setAlign(e.target.value as NonNullable<TPlacementOptions['align']>)
 										}
 										disabled={useLegacy}
 										css={styles.select}
@@ -136,20 +133,12 @@ export default function PopoverPositionsExample() {
 							</Inline>
 
 							<Inline space="space.100" alignBlock="center">
-								<Toggle
-									id="legacy-toggle"
-									isChecked={useLegacy}
-									onChange={handleLegacyToggle}
-								/>
+								<Toggle id="legacy-toggle" isChecked={useLegacy} onChange={handleLegacyToggle} />
 								<label htmlFor="legacy-toggle">
 									<Text>Use legacy placement</Text>
 								</label>
 								{useLegacy && (
-									<select
-										value={legacyPlacement}
-										onChange={handleLegacyChange}
-										css={styles.select}
-									>
+									<select value={legacyPlacement} onChange={handleLegacyChange} css={styles.select}>
 										{legacyPlacements.map((p) => (
 											<option key={p} value={p}>
 												{p}

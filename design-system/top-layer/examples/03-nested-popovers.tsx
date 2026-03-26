@@ -55,10 +55,7 @@ export default function NestedPopoversExample() {
 											<PopupSurface>
 												<Stack space="space.100">
 													<Heading size="xsmall">Nested popup</Heading>
-													<Text>
-														Escape closes this one only. Clicking outside
-														closes both.
-													</Text>
+													<Text>Escape closes this one only. Clicking outside closes both.</Text>
 												</Stack>
 											</PopupSurface>
 										</Popup.Content>

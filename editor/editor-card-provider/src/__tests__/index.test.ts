@@ -1,12 +1,12 @@
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
-import { type Datasource } from '@atlaskit/linking-common';
+import type { Datasource } from '@atlaskit/linking-common';
 import { CardClient } from '@atlaskit/link-provider';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-import { type EditorExperimentsConfig } from '@atlaskit/tmp-editor-statsig/experiments-config';
-import { type LinkAppearance, type UserPreferences } from '../types';
+import type { EditorExperimentsConfig } from '@atlaskit/tmp-editor-statsig/experiments-config';
+import type { LinkAppearance, UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { EditorCardProvider, isJiraWorkItem } from '../provider';

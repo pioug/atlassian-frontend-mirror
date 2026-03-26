@@ -1,5 +1,12 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.1.9
+
+### Patch Changes
+
+- [`c0a8e9590b919`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0a8e9590b919) -
+  Mechanical type-import autofix for editor lint and metrics packages.
+
 ## 2.1.8
 
 ### Patch Changes

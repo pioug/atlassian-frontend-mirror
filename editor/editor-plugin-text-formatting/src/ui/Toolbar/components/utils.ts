@@ -26,17 +26,17 @@ import {
 	getInputMethodFromParentKeys,
 } from '@atlaskit/editor-common/toolbar';
 import type { TextFormattingState } from '@atlaskit/editor-common/types';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	BoldIcon,
 	ItalicIcon,
-	type IconComponent,
 	UnderlineIcon,
 	CodeIcon,
 	StrikeThroughIcon,
 	SubscriptIcon,
 	SuperscriptIcon,
 } from '@atlaskit/editor-toolbar';
+import type { IconComponent } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
 import {
@@ -52,7 +52,7 @@ import type {
 	ToggleMarkWithAnalyticsEditorCommand,
 	ClearFormattingWithAnalyticsEditorCommand,
 } from '../../../editor-commands/types';
-import { type TextFormattingPlugin } from '../../../textFormattingPluginType';
+import type { TextFormattingPlugin } from '../../../textFormattingPluginType';
 import type { FormatOptionState, FormatOptions } from '../types';
 
 export type FormatComponentProps = {

@@ -1,5 +1,5 @@
 // Adapted from https://github.com/GoogleChrome/web-vitals/blob/main/src/lib/bindReporter.ts
-import { type Metric } from './index';
+import type { Metric } from './index';
 
 export const bindReporter = (callback: (metric: Metric) => void) => {
 	let prevValue: number;

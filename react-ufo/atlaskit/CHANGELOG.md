@@ -1,5 +1,31 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.5.3
+
+### Patch Changes
+
+- [`89157b4835801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89157b4835801) -
+  Clean up platform_ufo_enable_vc_raw_data feature gate
+- [`dd2a8188611e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd2a8188611e5) -
+  Clean up platform_ufo_reenable_3p_tracking feature gate, assuming always true
+
+## 5.5.2
+
+### Patch Changes
+
+- [`74b7d44630b84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74b7d44630b84) -
+  Clean up feature gate platform_ufo_enable_finish_interaction_transition - gate always evaluates to
+  true
+
+## 5.5.1
+
+### Patch Changes
+
+- [`d52302fe9ea1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d52302fe9ea1b) -
+  Clean up platform_ufo_exclude_3p_attribute_changes feature gate, assuming always true
+- [`ac3d03af6d443`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac3d03af6d443) -
+  Clean up feature gate platform_ufo_exclude_3p_elements_from_ttai - gate always evaluates to true
+
 ## 5.5.0
 
 ### Minor Changes

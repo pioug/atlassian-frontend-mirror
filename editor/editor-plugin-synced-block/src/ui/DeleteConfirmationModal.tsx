@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { cssMap } from '@compiled/react';
-import { useIntl, type IntlShape, type MessageDescriptor } from 'react-intl-next';
+import { useIntl } from 'react-intl-next';
+import type { IntlShape, MessageDescriptor } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';

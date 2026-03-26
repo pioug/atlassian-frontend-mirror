@@ -14,7 +14,6 @@ import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { B200 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -36,7 +35,7 @@ const hoverZoneCommonStyle = css({
 	// above the top and bottom drop zone as block hover zone
 	zIndex: 120,
 	positionAnchor: `var(${HOVER_ZONE_ANCHOR_NAME})`,
-	minWidth: token('space.100', '8px'),
+	minWidth: token('space.100'),
 	left: 0,
 	right: 0,
 	width: `var(${HOVER_ZONE_WIDTH})`,
@@ -61,7 +60,7 @@ const GAP = 4;
 const dropTargetLayoutHintStyle = css({
 	height: '100%',
 	position: 'absolute',
-	borderRight: `${token('border.width')} dashed ${token('color.border.focused', B200)}`,
+	borderRight: `${token('border.width')} dashed ${token('color.border.focused')}`,
 	width: 0,
 	left: 0,
 });

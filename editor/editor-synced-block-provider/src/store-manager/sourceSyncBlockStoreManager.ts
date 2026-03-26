@@ -1,21 +1,21 @@
 import isEqual from 'lodash/isEqual';
 
-import { type SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import {
-	type ResourceId,
-	type SyncBlockAttrs,
-	type SyncBlockData as Data,
-	type SyncBlockNode,
-	SyncBlockError,
-	type BlockInstanceId,
-	type DeletionReason,
-	type ReferenceSyncBlockData,
+import { SyncBlockError } from '../common/types';
+import type {
+	ResourceId,
+	SyncBlockAttrs,
+	SyncBlockData as Data,
+	SyncBlockNode,
+	BlockInstanceId,
+	DeletionReason,
+	ReferenceSyncBlockData,
 } from '../common/types';
 import type { SyncBlockDataProviderInterface, SyncBlockSourceInfo } from '../providers/types';
 import {

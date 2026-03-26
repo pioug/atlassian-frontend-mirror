@@ -5,7 +5,7 @@ const sectionMessage = "[data-testid='overflow-section-message']";
 const content = "[data-testid='overflow-section-message--content']";
 
 test('SectionMessage should wrap long text onto new lines', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/100-ssr-testing.tsx')>(
+	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
 		'design-system',
 		'section-message',
 		'testing',

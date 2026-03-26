@@ -1,13 +1,13 @@
 import { EditorCardProvider } from '../../provider';
 import { CardClient } from '@atlaskit/link-provider';
 import type { SmartCardLocalCacheClient } from '../../smart-card-local-cache-client';
-import {
-	type BlockCardAdf,
-	type EmbedCardAdf,
-	type InlineCardAdf,
-	type DatasourceAdfTableView,
+import type {
+	BlockCardAdf,
+	EmbedCardAdf,
+	InlineCardAdf,
+	DatasourceAdfTableView,
 } from '@atlaskit/linking-common';
-import { type JSONNode } from '@atlaskit/editor-json-transformer';
+import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import type { CallbackPayload } from '@atlaskit/node-data-provider';

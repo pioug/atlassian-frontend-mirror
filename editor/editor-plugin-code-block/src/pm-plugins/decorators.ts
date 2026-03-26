@@ -1,7 +1,8 @@
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
-import { type EditorState, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { CodeBlockLineAttributes } from '../types';
 import { codeBlockClassNames } from '../ui/class-names';

@@ -1,4 +1,4 @@
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { blockquote } from './nodes/blockquote';
 import { bulletList } from './nodes/bullet-list';
@@ -20,7 +20,7 @@ import { blockCard } from './nodes/block-card';
 import { embedCard } from './nodes/embed-card';
 import { caption } from './nodes/caption';
 import { bodiedSyncBlock } from './nodes/bodied-sync-block';
-import { type Context } from '../interfaces';
+import type { Context } from '../interfaces';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

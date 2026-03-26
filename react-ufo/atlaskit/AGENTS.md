@@ -255,13 +255,11 @@ sequenceDiagram
 The package uses platform feature flags for gradual rollouts. Key flags are defined in
 [`package.json`](./package.json):
 
-| Flag                                                | Purpose                          |
-| --------------------------------------------------- | -------------------------------- |
-| `platform_ufo_enable_vc_raw_data`                   | Raw VC data inclusion            |
-| `platform_ufo_segment_critical_metrics`             | Segment-level metrics            |
-| `platform_ufo_enable_terminal_errors`               | Terminal error tracking          |
-| `platform_ufo_raw_data_thirdparty`                  | Third-party raw data behavior    |
-| `platform_ufo_enable_finish_interaction_transition` | Finish interaction on transition |
+| Flag                                    | Purpose                       |
+| --------------------------------------- | ----------------------------- |
+| `platform_ufo_segment_critical_metrics` | Segment-level metrics         |
+| `platform_ufo_enable_terminal_errors`   | Terminal error tracking       |
+| `platform_ufo_raw_data_thirdparty`      | Third-party raw data behavior |
 
 ## Testing
 

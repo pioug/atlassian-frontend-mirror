@@ -1,7 +1,7 @@
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { type CollabEditProvider } from '@atlaskit/editor-common/collab';
-import { type SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { type PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -9,12 +9,8 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	collab,
-	getCollabState,
-	type Rebaseable,
-	sendableSteps,
-} from '@atlaskit/prosemirror-collab';
+import { collab, getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
+import type { Rebaseable } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

@@ -3,8 +3,8 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	type INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 

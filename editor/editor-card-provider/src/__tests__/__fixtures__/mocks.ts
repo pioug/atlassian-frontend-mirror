@@ -1,5 +1,5 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import type { JsonLd } from '@atlaskit/json-ld-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
 
 export interface ErrorResponseBody {
 	message: string;

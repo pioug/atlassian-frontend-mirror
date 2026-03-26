@@ -1,8 +1,9 @@
-import { type Node as PMNode, type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { type Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 
-import { type TableContext, TableMap } from '../table-map';
+import { TableMap } from '../table-map';
+import type { TableContext } from '../table-map';
 
 import { cloneTr } from './clone-tr';
 import { findCellRectClosestToPos, findTable } from './find';

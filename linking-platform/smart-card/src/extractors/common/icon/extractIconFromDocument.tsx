@@ -2,6 +2,7 @@ import React from 'react';
 
 import DocumentFilledIcon from '@atlaskit/icon/core/file';
 import { isConfluenceGenerator } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import BlogIcon from '../../../common/ui/icons/blog-icon';
 import PresentationIcon from '../../../common/ui/icons/chart-bar-icon';
@@ -48,51 +49,47 @@ export const extractIconFromDocument = (
 };
 const documentFileFormatToIcon = (opts: IconOpts): React.ReactNode | undefined => {
 	if (opts.fileFormat) {
-		return getIconForFileType(opts.fileFormat);
+		return getIconForFileType(
+			opts.fileFormat,
+			fg('platform_navx_smart_link_icon_label_a11y') ? opts.showIconLabel : undefined,
+		);
 	}
 };
+
+const documentLabel = (opts: IconOpts, label: string) => {
+	// NAVX-4354 can be inlined during cleanup.
+	if (!opts.showIconLabel) {
+		return '';
+	}
+	return fg('platform_navx_smart_link_icon_label_a11y') ? label : opts.title || label;
+};
+
 const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode | undefined => {
 	switch (type) {
 		case 'schema:BlogPosting':
-			return <BlogIcon label={opts.showIconLabel ? opts.title || 'blog' : ''} testId="blog-icon" />;
+			return <BlogIcon label={documentLabel(opts, 'blog')} testId="blog-icon" />;
 		case 'schema:DigitalDocument':
 			return digitalDocumentToIcon(opts);
 		case 'schema:TextDigitalDocument':
-			return (
-				<DocumentIcon
-					label={opts.showIconLabel ? opts.title || 'document' : ''}
-					testId="document-icon"
-				/>
-			);
+			return <DocumentIcon label={documentLabel(opts, 'document')} testId="document-icon" />;
 		case 'schema:PresentationDigitalDocument':
 			return (
-				<PresentationIcon
-					label={opts.showIconLabel ? opts.title || 'presentation' : ''}
-					testId="presentation-icon"
-				/>
+				<PresentationIcon label={documentLabel(opts, 'presentation')} testId="presentation-icon" />
 			);
 		case 'schema:SpreadsheetDigitalDocument':
 			return (
-				<SpreadsheetIcon
-					label={opts.showIconLabel ? opts.title || 'spreadsheet' : ''}
-					testId="spreadsheet-icon"
-				/>
+				<SpreadsheetIcon label={documentLabel(opts, 'spreadsheet')} testId="spreadsheet-icon" />
 			);
 		case 'atlassian:Template':
 			return (
 				<DocumentFilledIcon
 					color="currentColor"
-					label={opts.showIconLabel ? opts.title || 'template' : ''}
+					label={documentLabel(opts, 'template')}
 					testId="document-filled-icon"
 				/>
 			);
 		case 'atlassian:UndefinedLink':
-			return (
-				<DocumentIcon
-					label={opts.showIconLabel ? opts.title || 'undefinedLink' : ''}
-					testId="document-icon"
-				/>
-			);
+			return <DocumentIcon label={documentLabel(opts, 'document')} testId="document-icon" />;
 	}
 };
 
@@ -106,8 +103,8 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
  */
 const digitalDocumentToIcon = (opts: IconOpts): React.ReactNode => {
 	if (opts.provider?.id && isConfluenceGenerator(opts.provider.id)) {
-		return <LiveDocumentIcon label="live-doc" testId="live-doc-icon" />;
+		return <LiveDocumentIcon label={documentLabel(opts, 'live document')} testId="live-doc-icon" />;
 	} else {
-		return <FileIcon label={opts.showIconLabel ? opts.title || 'file' : ''} testId="file-icon" />;
+		return <FileIcon label={documentLabel(opts, 'file')} testId="file-icon" />;
 	}
 };

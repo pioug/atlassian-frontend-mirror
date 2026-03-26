@@ -1,5 +1,5 @@
-import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 export function isInTable(state: EditorState): boolean {
 	const { $head } = state.selection;

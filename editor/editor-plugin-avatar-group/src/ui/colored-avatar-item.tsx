@@ -6,7 +6,6 @@
 import { jsx } from '@emotion/react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { N900, R100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
@@ -24,8 +23,8 @@ export const ColoredAvatarItem = (props: ColoredAvatarItemProps): jsx.JSX.Elemen
 	const participantColor = props.api?.collabEdit?.actions?.getAvatarColor(
 		props.presenceId ?? props.sessionId,
 	) ?? {
-		backgroundColor: token('color.background.accent.red.subtle', R100),
-		textColor: token('color.text.accent.gray.bolder', N900),
+		backgroundColor: token('color.background.accent.red.subtle'),
+		textColor: token('color.text.accent.gray.bolder'),
 	};
 
 	const avatar = props.name.substr(0, 1).toUpperCase();

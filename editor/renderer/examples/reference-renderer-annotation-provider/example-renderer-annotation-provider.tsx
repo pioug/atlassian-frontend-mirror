@@ -4,17 +4,15 @@ import React, { useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
-import { AnnotationMarkStates, AnnotationTypes, type DocNode } from '@atlaskit/adf-schema';
+import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema';
 import {
-	type AnnotationManager,
 	AnnotationUpdateEmitter,
 	createAnnotationManager,
 } from '@atlaskit/editor-common/annotation';
-import {
-	// type AnnotationActionResult,
-	type AnnotationProviders,
-	AnnotationUpdateEvent,
-} from '@atlaskit/editor-common/types';
+import type { AnnotationManager } from '@atlaskit/editor-common/annotation';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import type { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags';
 

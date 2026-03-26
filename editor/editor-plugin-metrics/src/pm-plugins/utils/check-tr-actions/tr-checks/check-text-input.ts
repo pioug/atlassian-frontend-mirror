@@ -1,6 +1,7 @@
-import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
-import { type DetailedReplaceStep, type TrAction, ActionType } from '../types';
+import { ActionType } from '../types';
+import type { DetailedReplaceStep, TrAction } from '../types';
 
 export const checkTextInput = (step: ReplaceStep): TrAction<ActionType.TEXT_INPUT> | undefined => {
 	const {

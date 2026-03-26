@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/editor-common/sync-block';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { SyncBlockError, useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
-import { type MediaSSR, type NodeProps } from '@atlaskit/renderer';
+import type { MediaSSR, NodeProps } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';
 

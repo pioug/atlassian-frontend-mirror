@@ -53,7 +53,7 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					introduced: '11.2.0',
 					description: '',
 				},
-			}
+			},
 		},
 		modal: {
 			enter: {

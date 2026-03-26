@@ -9,7 +9,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 	motion: {
 		avatar: {
 			enter: {
-				value: { 
+				value: {
 					duration: 'Duration150',
 					curve: 'EasePracticalIn',
 					keyframes: ['ScaleIn80', 'FadeIn'],
@@ -76,28 +76,28 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
 						keyframes: ['SlideInTop', 'FadeIn'],
-					}
+					},
 				},
 				bottom: {
 					value: {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
 						keyframes: ['SlideInBottom', 'FadeIn'],
-					}
+					},
 				},
 				left: {
 					value: {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
 						keyframes: ['SlideInLeft', 'FadeIn'],
-					}
+					},
 				},
 				right: {
 					value: {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
 						keyframes: ['SlideInRight', 'FadeIn'],
-					}
+					},
 				},
 			},
 			exit: {
@@ -106,30 +106,30 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
 						keyframes: ['SlideOutTop', 'FadeOut'],
-					}
+					},
 				},
 				bottom: {
 					value: {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
 						keyframes: ['SlideOutBottom', 'FadeOut'],
-					}
+					},
 				},
 				left: {
 					value: {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
 						keyframes: ['SlideOutLeft', 'FadeOut'],
-					}
+					},
 				},
 				right: {
 					value: {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
 						keyframes: ['SlideOutRight', 'FadeOut'],
-					}
+					},
 				},
-			}
+			},
 		},
 		spotlight: {
 			enter: {

@@ -33,7 +33,9 @@ test.describe('ReactUFO: Revisions - replacement node', () => {
 				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoRevisions).toBeDefined();
 
-				const applicableRevisions = ufoRevisions?.filter((rev) => rev['revision'] >= 'fy25.03');
+				const applicableRevisions = ufoRevisions?.filter(
+					(rev) => rev['revision'] >= 'fy25.03' && rev['revision'] !== 'raw-handler',
+				);
 				for (const rev of applicableRevisions!) {
 					const revisionName = rev['revision'];
 

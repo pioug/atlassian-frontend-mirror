@@ -1,4 +1,10 @@
-import type { ExtensionDefinition, BodiedExtensionDefinition, InlineExtensionDefinition, DataConsumerAttributes, DataConsumerDefinition } from '@atlaskit/adf-schema';
+import type {
+	ExtensionDefinition,
+	BodiedExtensionDefinition,
+	InlineExtensionDefinition,
+	DataConsumerAttributes,
+	DataConsumerDefinition,
+} from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
 import type { WithAppliedMark } from '../types';
 

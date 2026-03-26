@@ -58,11 +58,7 @@ function DialogWithAutofocusPopup() {
 	return (
 		<Popup placement={{}} onClose={() => setIsOpen(false)}>
 			<Popup.Trigger>
-				<button
-					type="button"
-					data-testid="autofocus-trigger"
-					onClick={() => setIsOpen(true)}
-				>
+				<button type="button" data-testid="autofocus-trigger" onClick={() => setIsOpen(true)}>
 					Open dialog with autofocus
 				</button>
 			</Popup.Trigger>

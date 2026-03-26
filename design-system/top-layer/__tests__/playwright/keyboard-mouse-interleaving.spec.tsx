@@ -7,11 +7,9 @@ test.describe('Interaction - mouse + keyboard interleaving', () => {
 	// confusing the component's state machine.
 
 	test('mouse click opens, keyboard Escape closes', async ({ page }) => {
-		await page.visitExample(
-			'design-system',
-			'top-layer',
-			'testing-keyboard-mouse-interleaving',
-		);
+		await page.visitExample<
+			typeof import('../../examples/128-testing-keyboard-mouse-interleaving.tsx')
+		>('design-system', 'top-layer', 'testing-keyboard-mouse-interleaving');
 
 		const trigger = page.getByTestId('trigger');
 
@@ -27,11 +25,9 @@ test.describe('Interaction - mouse + keyboard interleaving', () => {
 	});
 
 	test('keyboard Enter opens, mouse click outside closes', async ({ page }) => {
-		await page.visitExample(
-			'design-system',
-			'top-layer',
-			'testing-keyboard-mouse-interleaving',
-		);
+		await page.visitExample<
+			typeof import('../../examples/128-testing-keyboard-mouse-interleaving.tsx')
+		>('design-system', 'top-layer', 'testing-keyboard-mouse-interleaving');
 
 		const trigger = page.getByTestId('trigger');
 
@@ -50,11 +46,9 @@ test.describe('Interaction - mouse + keyboard interleaving', () => {
 	test('mouse open → keyboard Tab to inner element → keyboard Escape to close', async ({
 		page,
 	}) => {
-		await page.visitExample(
-			'design-system',
-			'top-layer',
-			'testing-keyboard-mouse-interleaving',
-		);
+		await page.visitExample<
+			typeof import('../../examples/128-testing-keyboard-mouse-interleaving.tsx')
+		>('design-system', 'top-layer', 'testing-keyboard-mouse-interleaving');
 
 		const trigger = page.getByTestId('trigger');
 
@@ -74,11 +68,9 @@ test.describe('Interaction - mouse + keyboard interleaving', () => {
 	});
 
 	test('alternating mouse and keyboard open/close cycles work correctly', async ({ page }) => {
-		await page.visitExample(
-			'design-system',
-			'top-layer',
-			'testing-keyboard-mouse-interleaving',
-		);
+		await page.visitExample<
+			typeof import('../../examples/128-testing-keyboard-mouse-interleaving.tsx')
+		>('design-system', 'top-layer', 'testing-keyboard-mouse-interleaving');
 
 		const trigger = page.getByTestId('trigger');
 

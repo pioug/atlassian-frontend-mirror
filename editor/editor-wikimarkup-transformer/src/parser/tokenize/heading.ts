@@ -1,5 +1,6 @@
 import { parseString } from '../text';
-import { type Token, TokenType, type TokenParser } from './';
+import { TokenType } from './';
+import type { Token, TokenParser } from './';
 
 // h1. HEADING
 // Ignored via go/ees005

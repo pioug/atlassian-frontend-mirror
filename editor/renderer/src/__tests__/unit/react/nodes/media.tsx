@@ -7,7 +7,8 @@ import userEvent from '@testing-library/user-event';
 import Loadable from 'react-loadable';
 
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { AnnotationTypes, type MediaType } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { MediaType } from '@atlaskit/adf-schema';
 import type { CardEvent } from '@atlaskit/media-card';
 import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-client';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
@@ -1223,7 +1224,9 @@ describe('Media', () => {
 
 					const border = mediaComponent.find('div[data-mark-type="border"]');
 					expect(border).toHaveLength(1);
-					expect(getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow')).toContain('3px');
+					expect(getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow')).toContain(
+						'3px',
+					);
 					expect(getComputedStyle(border.getDOMNode())).toHaveProperty('borderRadius', '3px');
 				});
 			},
@@ -1258,8 +1261,13 @@ describe('Media', () => {
 
 					const border = mediaComponent.find('div[data-mark-type="border"]');
 					expect(border).toHaveLength(1);
-					expect(getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow')).toContain('3px');
-					expect(getComputedStyle(border.getDOMNode())).toHaveProperty('borderRadius', 'var(--ds-radius-large, 8px)');
+					expect(getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow')).toContain(
+						'3px',
+					);
+					expect(getComputedStyle(border.getDOMNode())).toHaveProperty(
+						'borderRadius',
+						'var(--ds-radius-large, 8px)',
+					);
 				});
 			},
 		);

@@ -12,7 +12,7 @@ test.describe('Primitives components should pass basic aXe audit', () => {
 	});
 
 	test('Flex, should pass basic aXe audit', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../examples/06-box-flex.tsx')>(
+		await page.visitExample<typeof import('../../../../examples/61-flex.tsx')>(
 			'design-system',
 			'primitives',
 			'flex',

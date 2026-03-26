@@ -27,17 +27,16 @@ When composing your page layout ensure that:
 These are the distinct areas in the layout. These components are designed to contain other
 components and content.
 
-For examples see
-[ready-made navigation experiences (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE).
+[View ready-made navigation experiences](https://hello.atlassian.net/wiki/x/rBE7MAE)
 
 ### Banner
 
-Use the `Banner` area to render a [banner](/components/banner) component. It will always display at
+Use the banner area to render a [banner](/components/banner) component. It will always display at
 the top of the screen.
 
 ### Top nav
 
-Use the `TopNav` to render [top nav items](/components/navigation-system/top-nav-items).
+Use the top nav area to render [top nav items](/components/navigation-system/top-nav-items).
 
 - It will display at the top of the screen, below the banner if one is present. It has a fixed
   height of 48px.
@@ -47,12 +46,12 @@ Use the `TopNav` to render [top nav items](/components/navigation-system/top-nav
 
 #### Top nav slots
 
-The TopNav has three layout components that you must use to position
+The top nav has three layout components that you must use to position
 [top nav items](/components/navigation-system/top-nav-items) within the top nav flexbox.
 
-- `TopNavStart`. Area for left-aligned items.
-- `TopNavMiddle`. Area for centre-aligned items.
-- `TopNavEnd`. Area for right-aligned items.
+- `TopNavStart`: Area for left-aligned items.
+- `TopNavMiddle`: Area for centre-aligned items.
+- `TopNavEnd`: Area for right-aligned items.
 
 #### Top nav custom theming
 
@@ -60,7 +59,7 @@ See the [custom theming](/components/navigation-system/layout/custom-theming) ta
 
 ### Side nav
 
-- Use the `SideNav` to
+- Use the side nav area to
   render [side nav items](https://atlaskit.atlassian.com/packages/navigation/side-nav-items). It
   will show on the left of the screen. The default width of the side nav is 320px.
 - Use the [side nav slots](#side-nav-slots) to position content within the side nav.
@@ -68,13 +67,13 @@ See the [custom theming](/components/navigation-system/layout/custom-theming) ta
 
 #### Side nav slots
 
-The `SideNav` has three layout components that you can use to position components within the side
-nav flexbox.
+The side nav has three layout components that you can use to position components within the side nav
+flexbox.
 
-- `SideNavHeader`. The top part of the side nav.
-- `SideNavBody`. The middle part of the side nav. It acts as a scroll container. It will grow to
+- `SideNavHeader`: The top part of the side nav.
+- `SideNavBody`: The middle part of the side nav. It acts as a scroll container. It will grow to
   take up the available space — this is used to push the footer to the bottom of the side nav.
-- `SideNavFooter`. The bottom part of the side nav.
+- `SideNavFooter`: The bottom part of the side nav.
 
 Note: make sure to render `SideNavBody` to ensure that the footer is positioned at the bottom of the
 side nav, simulating a sticky footer.
@@ -116,13 +115,13 @@ This is useful for toggling the side nav based on a keyboard shortcut.
 - In the collapsed state, hovering over the `SideNavToggleButton` from
   [top nav items](/components/navigation-system/top-nav-items/examples#start-items) will trigger the
   side nav to open as an overlay. Moving the curser away will close it. If there are any open
-  supported ADS layering components (e.g. Popups, Dropdown menus) within the side nav, the flyout
+  supported ADS layering components (e.g. popups, dropdown menus) within the side nav, the flyout
   will stay locked open, until the layering components are closed.
 
 - The expansion and collapse of the side nav flyout is animated on **supported browsers**.
   Currently, Firefox does not support the animation. Instead, it will instantly expand and collapse.
 
-See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
+[View interactive example](https://go.atlassian.com/nav4-interactive-example)
 
 #### Side nav resizing
 
@@ -135,7 +134,7 @@ See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-in
   tooltips) will be closed.
 - The side nav panel splitter can be also double clicked to collapse the side nav.
 
-See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
+[View interactive example](https://go.atlassian.com/nav4-interactive-example)
 
 #### Side nav responsive
 
@@ -146,14 +145,14 @@ See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-in
 - At `xs` and `xxs` breakpoints (i.e. viewports smaller than 768px), the max width of the overlay
   side nav is either 320px or 90% of the screen width - whichever value is smaller.
 
-See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
+[View interactive example](https://go.atlassian.com/nav4-interactive-example)
 
 ### Main
 
-Use `Main` for the [page header](/components/page-header) and main page content. It will expand to
-fill available space.
+Use the main area for the [page header](/components/page-header) and main page content. It will
+expand to fill available space.
 
-- On large viewports `Main` can be fixed, meaning it will have its own scroll container and not use
+- On large viewports main can be fixed, meaning it will have its own scroll container and not use
   the body scroll.
 - On small viewports, the element will always use body scroll, to make it easier to scroll the page
   when the content is tall.
@@ -161,43 +160,43 @@ fill available space.
 ### Aside
 
 <SectionMessage appearance="warning" title="Caution">
-	We are planning on deprecating the Aside component. Please use Panel instead.
+	We are planning on deprecating the aside component. Please use panel instead.
 </SectionMessage>
 
-`Aside` is rendered to the right of the `Main` area.
+The aside area is rendered to the right of the main area.
 
-- The default width of the Aside is 330px, and it is
+- The default width of the aside is 330px, and it is
   [resizable](/components/navigation-system/layout/examples#aside-resizing) and
   [responsive](/components/navigation-system/layout/examples#aside-responsive).
-- On large viewports the Aside can be fixed, meaning it will have its own scroll container and not
+- On large viewports the aside can be fixed, meaning it will have its own scroll container and not
   use the body scroll.
 - On small viewports, the element will always use body scroll, to make it easier to scroll the page
   when the content is tall.
 
-See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
+[View interactive example](https://go.atlassian.com/nav4-interactive-example)
 
 #### Aside resizing
 
-You can optionally render a [panel splitter](#resizable-areas) as a child to make the `Aside`
+You can optionally render a [panel splitter](#resizable-areas) as a child to make the aside
 resizable.
 
 - It is resized using the drag handle. When hovering on the drag handle the mouse pointer changes to
   a resize pointer.
-- The `Aside` can be resized to a minimum width of 120px, and a maximum width equal to 50% of the
+- The aside can be resized to a minimum width of 120px, and a maximum width equal to 50% of the
   total viewport width. It retains this resized width even after refreshing the page.
 
-See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
+[View interactive example](https://go.atlassian.com/nav4-interactive-example)
 
 #### Aside responsive
 
-At `s`, `xs`, and `xxs` breakpoints (i.e. viewports smaller than 1024px), the `Aside` moves below
-the `Main` area, and conforms to `Main` width and behaviour.
+At `s`, `xs`, and `xxs` breakpoints (i.e. viewports smaller than 1024px), the aside moves below the
+main area, and conforms to main width and behaviour.
 
-See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
+[View interactive example](https://go.atlassian.com/nav4-interactive-example)
 
 ### Panel
 
-The `Panel` is rendered to the right of the `Main` and `Aside` areas.
+The panel area is rendered to the right of the main and aside areas.
 
 - The default width of the panel is 365px, which can be modified using the `defaultWidth` prop.
 - The panel is
@@ -206,13 +205,13 @@ The `Panel` is rendered to the right of the `Main` and `Aside` areas.
   [responsive](/components/navigation-system/layout/examples#panel-responsive).
 
 Common usage is to house
-[Preview panel (Atlassians only)](https://atlaskit-website-staging.stg-east.frontend.public.atl-paas.net/#/packages/navigation/preview-panel)
+[Preview panel](https://atlaskit-website-staging.stg-east.frontend.public.atl-paas.net/#/packages/navigation/preview-panel)
 
 #### Panel collapse/expand
 
 The panel can be collapsed and expanded using a trigger of your choosing.
 
-See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
+[View interactive example](https://go.atlassian.com/nav4-interactive-example)
 
 #### Panel resizing
 
@@ -221,18 +220,18 @@ resizable. It can be resized using the drag handle. When hovering on the drag ha
 pointer changes to a resize pointer.
 
 - The panel can be resized larger than the `defaultWidth` to a maximum of 50% of content area
-  (viewport minus `SideNav`).
+  (viewport minus the side nav area).
 - It retains this resized width even after collapsing, reopening, or refreshing the page.
 - It has no ability to resize smaller than `defaultWidth`.
 
-See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
+[View interactive example](https://go.atlassian.com/nav4-interactive-example)
 
 #### Panel responsive
 
-At `m` breakpoints (between 1024-1440px), the `Panel` will overlay `Aside`. At `s` breakpoints and
-below (less than 1024px) it will start to overlay the `Main` area.
+At `m` breakpoints (between 1024-1440px), the panel will overlay the aside area. At `s` breakpoints
+and below (less than 1024px) it will start to overlay the main area.
 
-See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
+[View interactive example](https://go.atlassian.com/nav4-interactive-example)
 
 ## Resizable areas
 
@@ -240,31 +239,31 @@ Render a `PanelSplitter` in a layout area to make it resizable.
 
 Resizing is supported for the following areas:
 
-- [SideNav](/components/navigation-system/layout/examples#side-nav) - use `SideNavPanelSplitter`
+- [Side nav](/components/navigation-system/layout/examples#side-nav) - use `SideNavPanelSplitter`
 - [Aside](/components/navigation-system/layout/examples#aside) - use `PanelSplitter`
 - [Panel](/components/navigation-system/layout/examples#panel) - use `PanelSplitter`
 
-See the [interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
+[View interactive example](https://go.atlassian.com/nav4-interactive-example)
 
-| Area      | Default width      | Min width             | Max width                                    |
-| --------- | ------------------ | --------------------- | -------------------------------------------- |
-| `SideNav` | 320px              | 240px                 | 50% of viewport width                        |
-| `Aside`   | 330px (modifiable) | 120px                 | 50% of viewport width                        |
-| `Panel`   | 365px (modifiable) | Same as default width | 50% of content area (viewport minus SideNav) |
+| Area      | Default width      | Min width             | Max width                                              |
+| --------- | ------------------ | --------------------- | ------------------------------------------------------ |
+| `SideNav` | 320px              | 240px                 | 50% of viewport width                                  |
+| `Aside`   | 330px (modifiable) | 120px                 | 50% of viewport width                                  |
+| `Panel`   | 365px (modifiable) | Same as default width | 50% of content area (viewport minus the side nav area) |
 
 ## Responsive
 
 Layout areas respond to the viewport size. See default behaviour below, or the
-[interactive example (Atlassians only)](https://go.atlassian.com/nav4-interactive-example).
+[interactive example](https://go.atlassian.com/nav4-interactive-example).
 
-| Breakpoint | Viewport      | Side nav                    | Aside        | Panel                                                       |
-| ---------- | ------------- | --------------------------- | ------------ | ----------------------------------------------------------- |
-| `xxs`      | 320 - 479px   | Collapsed; opens as overlay | Below Main   | Collapsed; opens as overlay (over Main)                     |
-| `xs`       | 480 - 767px   | Collapsed; opens as overlay | Below Main   | Collapsed; opens as overlay (over Main)                     |
-| `s`        | 768 - 1023px  | Collapsed; opens as overlay | Below Main   | Collapsed; opens as overlay (over Main)                     |
-| `m`        | 1024 - 1439px | Expanded (inline)           | Next to Main | Collapsed; opens inline (or as overlay if Aside is present) |
-| `l`        | 1440 - 1767px | Expanded (inline)           | Next to Main | Collapsed; Opens inline                                     |
-| `xl`       | 1768+px       | Expanded (inline)           | Next to Main | Collapsed; Opens inline                                     |
+| Breakpoint | Viewport      | Side nav                    | Aside        | Panel                                                                |
+| ---------- | ------------- | --------------------------- | ------------ | -------------------------------------------------------------------- |
+| `xxs`      | 320 - 479px   | Collapsed; opens as overlay | Below main   | Collapsed; opens as overlay (over the main area)                     |
+| `xs`       | 480 - 767px   | Collapsed; opens as overlay | Below main   | Collapsed; opens as overlay (over the main area)                     |
+| `s`        | 768 - 1023px  | Collapsed; opens as overlay | Below main   | Collapsed; opens as overlay (over the main area)                     |
+| `m`        | 1024 - 1439px | Expanded (inline)           | Next to main | Collapsed; opens inline (or as overlay if the aside area is present) |
+| `l`        | 1440 - 1767px | Expanded (inline)           | Next to main | Collapsed; Opens inline                                              |
+| `xl`       | 1768+px       | Expanded (inline)           | Next to main | Collapsed; Opens inline                                              |
 
 ## Custom skip links
 

@@ -38,7 +38,7 @@ import type {
 } from './types';
 
 const dropdownExpandContainer = css({
-	margin: `0px ${token('space.negative.050', '-4px')}`,
+	margin: `0px ${token('space.negative.050')}`,
 });
 
 type EditVariant = 'none' | 'edit-link' | 'edit-datasource' | 'edit-dropdown';

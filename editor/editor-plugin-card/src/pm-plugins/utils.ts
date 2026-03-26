@@ -1,10 +1,10 @@
 import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
-import { type getPosHandler } from '@atlaskit/editor-common/react-node-view';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 import {
 	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,

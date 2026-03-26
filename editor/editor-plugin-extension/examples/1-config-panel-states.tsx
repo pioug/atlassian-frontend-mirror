@@ -23,7 +23,7 @@ const wrapperStyles = css({
 
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	h3: {
-		margin: `${token('space.100', '8px')} 0`,
+		margin: `${token('space.100')} 0`,
 	},
 });
 
@@ -38,7 +38,7 @@ const contextPanelStyles = css({
 	border: `${token('border.width.selected')} solid ${N30}`,
 	width: '360px',
 	height: '450px',
-	padding: token('space.200', '16px'),
+	padding: token('space.200'),
 	overflowY: 'auto',
 });
 

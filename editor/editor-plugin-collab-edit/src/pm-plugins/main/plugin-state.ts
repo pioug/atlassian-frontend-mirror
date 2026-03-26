@@ -24,8 +24,8 @@ import {
 	getPositionOfTelepointer,
 	isReplaceStep,
 	hasExistingNudge,
-	type NudgeAnimationsMap,
 } from '../utils';
+import type { NudgeAnimationsMap } from '../utils';
 
 /**
  * Returns position where it's possible to place a decoration.

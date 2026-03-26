@@ -1,4 +1,5 @@
-import { getElementName, type SelectorConfig } from './getElementName'; // Adjust the import path accordingly
+import { getElementName } from './getElementName';
+import type { SelectorConfig } from './getElementName'; // Adjust the import path accordingly
 
 describe('getElementName', () => {
 	let divElement: HTMLElement;

@@ -5,16 +5,16 @@ import type {
 	Selection,
 } from '@atlaskit/editor-prosemirror/state';
 
-import { type MetricsState } from '../main';
+import type { MetricsState } from '../main';
 
 import { checkTrActionType } from './check-tr-actions/check-tr-action-type';
-import {
-	ActionType,
-	type AttrChangeAction,
-	type MarkChangeAction,
-	type StatusChangeAction,
-	type TrAction,
-	type TrActionType,
+import { ActionType } from './check-tr-actions/types';
+import type {
+	AttrChangeAction,
+	MarkChangeAction,
+	StatusChangeAction,
+	TrAction,
+	TrActionType,
 } from './check-tr-actions/types';
 import { isNonTextUndo } from './is-non-text-undo';
 import { isSafeInsert } from './is-safe-insert';

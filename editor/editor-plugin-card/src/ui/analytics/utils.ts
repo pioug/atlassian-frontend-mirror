@@ -1,10 +1,11 @@
 import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
-import { type Node } from '@atlaskit/editor-prosemirror/model';
-import { type ReadonlyTransaction, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { appearanceForNodeType } from '../../pm-plugins/utils';
 
-import { type Entity, EVENT_SUBJECT } from './types';
+import { EVENT_SUBJECT } from './types';
+import type { Entity } from './types';
 
 export function isDatasourceNode(node: Node): boolean {
 	return 'datasource' in node.attrs && !!node.attrs.datasource;

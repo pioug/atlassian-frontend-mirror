@@ -8,7 +8,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { getPosHandler, ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import {

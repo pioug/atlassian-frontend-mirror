@@ -13,10 +13,10 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import {
-	type TypeAheadPluginOptions,
-	type TypeAheadPluginSharedState,
-	type OpenTypeAheadProps,
+import type {
+	TypeAheadPluginOptions,
+	TypeAheadPluginSharedState,
+	OpenTypeAheadProps,
 } from './types';
 
 type InsertTypeAheadItemProps = {

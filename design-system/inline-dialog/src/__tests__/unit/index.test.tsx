@@ -5,7 +5,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import Button from '@atlaskit/button/new';
 import Link from '@atlaskit/link';
 
-import InlineDialog from '../../../index';
+import InlineDialog from '../../index';
 
 declare var global: any;
 

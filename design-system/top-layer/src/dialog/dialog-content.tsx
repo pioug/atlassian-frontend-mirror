@@ -63,7 +63,9 @@ const styles = cssMap({
  * Close flow: we never call `dialog.close()` from event handlers. We always call
  * `onClose`; the consumer decides whether to set `isOpen={false}`.
  */
-export const Dialog: React.ForwardRefExoticComponent<TDialogProps & React.RefAttributes<HTMLDialogElement>> = forwardRef<HTMLDialogElement, TDialogProps>(function Dialog(
+export const Dialog: React.ForwardRefExoticComponent<
+	TDialogProps & React.RefAttributes<HTMLDialogElement>
+> = forwardRef<HTMLDialogElement, TDialogProps>(function Dialog(
 	{
 		children,
 		isOpen,
@@ -119,7 +121,6 @@ export const Dialog: React.ForwardRefExoticComponent<TDialogProps & React.RefAtt
 		if (dialog.open) {
 			dialog.close();
 		}
-
 	}, [isOpen]);
 
 	// ── Handle native Escape (cancel event) ──
@@ -170,15 +171,15 @@ export const Dialog: React.ForwardRefExoticComponent<TDialogProps & React.RefAtt
 			data-testid={testId}
 			{...(preset ? { [`data-ds-${preset.name}`]: '' } : undefined)}
 		>
-		{/* Use an ID-scoped <style> to make the backdrop transparent because
+			{/* Use an ID-scoped <style> to make the backdrop transparent because
 			atomic CSS (Compiled) deduplicates the ::backdrop rule into a single
 			shared class — so we can't conditionally override it with cssMap.
 			The ID selector has higher specificity and always wins. */}
-		{shouldHideBackdrop && (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
-			<style>{`#${escapedId}::backdrop{background-color:transparent}`}</style>
-		)}
-		{showChildren ? children : null}
-	</dialog>
+			{shouldHideBackdrop && (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
+				<style>{`#${escapedId}::backdrop{background-color:transparent}`}</style>
+			)}
+			{showChildren ? children : null}
+		</dialog>
 	);
 });

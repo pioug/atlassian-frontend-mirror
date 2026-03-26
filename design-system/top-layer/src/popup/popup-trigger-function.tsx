@@ -128,11 +128,14 @@ export function PopupTriggerFunction({ children }: TPopupTriggerFunctionProps): 
 		}
 	}, [popoverRef]);
 
-	const ariaAttributes = useMemo(() => ({
-		'aria-expanded': isOpen,
-		'aria-controls': popoverId,
-		'aria-haspopup': ariaHasPopup,
-	}), [isOpen, popoverId, ariaHasPopup]);
+	const ariaAttributes = useMemo(
+		() => ({
+			'aria-expanded': isOpen,
+			'aria-controls': popoverId,
+			'aria-haspopup': ariaHasPopup,
+		}),
+		[isOpen, popoverId, ariaHasPopup],
+	);
 
 	return children({ ref, isOpen, popoverId, toggle, ariaAttributes });
 }

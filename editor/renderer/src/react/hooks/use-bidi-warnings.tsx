@@ -1,4 +1,5 @@
-import React, { type ReactNode } from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import CodeBidiWarning from '@atlaskit/code/bidi-warning';

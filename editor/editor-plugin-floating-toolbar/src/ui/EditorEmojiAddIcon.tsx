@@ -8,7 +8,7 @@ export default function EditorEmojiAddIcon(): React.JSX.Element {
 			<rect
 				width={24}
 				height={24}
-				fill={token('color.background.neutral.subtle', 'white')}
+				fill={token('color.background.neutral.subtle')}
 				fillOpacity="0.01"
 			/>
 			<path

@@ -18,11 +18,11 @@ import { token } from '@atlaskit/tokens';
 const spinnerWrapperStyles = css({
 	display: 'flex',
 	justifyContent: 'center',
-	marginTop: token('space.800', '64px'),
+	marginTop: token('space.800'),
 });
 
 const errorWrapperStyles = css({
-	marginTop: token('space.400', '32px'), // Add some padding to the top to make sure we place this below the offline status banner
+	marginTop: token('space.400'), // Add some padding to the top to make sure we place this below the offline status banner
 });
 
 const LoadingStateWithErrorHandling = injectIntl(

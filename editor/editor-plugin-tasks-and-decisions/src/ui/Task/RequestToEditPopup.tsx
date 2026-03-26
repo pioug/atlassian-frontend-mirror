@@ -14,12 +14,11 @@ import { css, cssMap, jsx } from '@atlaskit/css';
 import {
 	ACTION,
 	ACTION_SUBJECT,
-	type EditorAnalyticsAPI,
 	EVENT_TYPE,
 	MODE,
 	PLATFORMS,
-	type RequestToEditAEP,
 } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI, RequestToEditAEP } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -29,7 +28,7 @@ import {
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';

@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-namespace
 import * as icons from './icons';
 import { IconName } from './icons';
-import { type SerializeFragmentWithAttachmentsResult, type MediaImageBase64 } from '../serializer';
+import type { SerializeFragmentWithAttachmentsResult, MediaImageBase64 } from '../serializer';
 import { base64Prefix, imageOutputType } from './generator/constants';
 import { CS_CONTENT_PREFIX } from '../styles/util';
 

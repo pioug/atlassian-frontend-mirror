@@ -15,6 +15,5 @@ export type {
 	SVGProps,
 	NewIconProps,
 	NewCoreIconProps,
-	IconMigrationMap,
 	IconTileProps,
 } from './types';

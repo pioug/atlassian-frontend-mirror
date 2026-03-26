@@ -20,11 +20,7 @@ function StandaloneDialogPopover() {
 
 	return (
 		<div>
-			<button
-				type="button"
-				data-testid="standalone-dialog-trigger"
-				onClick={() => setIsOpen(true)}
-			>
+			<button type="button" data-testid="standalone-dialog-trigger" onClick={() => setIsOpen(true)}>
 				Open standalone dialog
 			</button>
 			<Popover
@@ -38,11 +34,7 @@ function StandaloneDialogPopover() {
 					<button type="button" data-testid="standalone-dialog-inner-button">
 						Button inside dialog
 					</button>
-					<button
-						type="button"
-						data-testid="standalone-dialog-close-button"
-						onClick={handleClose}
-					>
+					<button type="button" data-testid="standalone-dialog-close-button" onClick={handleClose}>
 						Close
 					</button>
 				</PopupSurface>
@@ -60,11 +52,7 @@ function StandaloneMenuPopover() {
 
 	return (
 		<div>
-			<button
-				type="button"
-				data-testid="standalone-menu-trigger"
-				onClick={() => setIsOpen(true)}
-			>
+			<button type="button" data-testid="standalone-menu-trigger" onClick={() => setIsOpen(true)}>
 				Open standalone menu
 			</button>
 			<Popover

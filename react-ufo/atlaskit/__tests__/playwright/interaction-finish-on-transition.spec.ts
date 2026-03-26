@@ -6,7 +6,6 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: Finish on transition', () => {
 	test.use({
 		examplePage: 'finish-interaction-transition',
-		featureFlags: ['platform_ufo_enable_finish_interaction_transition'],
 	});
 	test('interaction is successful on transition', async ({
 		page,

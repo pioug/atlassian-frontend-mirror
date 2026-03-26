@@ -1,5 +1,5 @@
 import getMediaSingleNodeView from '../nodes/mediaSingle';
-import { type Token, type TokenParser } from './';
+import type { Token, TokenParser } from './';
 import { parseAttrs } from '../utils/attrs';
 import { commonFormatter } from './common-formatter';
 

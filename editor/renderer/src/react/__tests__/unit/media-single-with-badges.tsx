@@ -2,13 +2,12 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import MediaWithDraftAnnotation from '../../nodes/media';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import {
-	type AnnotationMarkDefinition,
-	AnnotationTypes,
-	AnnotationMarkStates,
-	type BorderMarkDefinition,
-	type LinkDefinition,
-	type MediaType,
+import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
+import type {
+	AnnotationMarkDefinition,
+	BorderMarkDefinition,
+	LinkDefinition,
+	MediaType,
 } from '@atlaskit/adf-schema';
 import { InlineCommentsStateContext } from '../../../ui/annotations/context';
 import { IntlProvider } from 'react-intl-next';

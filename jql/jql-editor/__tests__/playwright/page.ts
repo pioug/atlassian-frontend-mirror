@@ -24,7 +24,7 @@ export class JQLEditorPage {
 		return this.page.getByTestId(`jql-validation-${text}`);
 	}
 
-	visitExample(exampleId: string) {
+	visitExample<_T = unknown>(exampleId: string) {
 		return this.page.visitExample('jql', 'jql-editor', exampleId);
 	}
 

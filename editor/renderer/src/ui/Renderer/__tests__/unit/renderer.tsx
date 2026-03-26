@@ -7,7 +7,7 @@ import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import type { AnnotationProviders, AnnotationState } from '@atlaskit/editor-common/types';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
-import { mount, type ReactWrapper, shallow, type ShallowWrapper } from 'enzyme';
+import { mount, shallow, type ReactWrapper, type ShallowWrapper } from 'enzyme';
 
 import {
 	SEVERITY,

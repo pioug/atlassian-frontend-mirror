@@ -12,8 +12,7 @@ type TPresetWithCssAndName = { css: string; name: string };
 export function useAnimationPreset<T extends TPresetWithCssAndName>(
 	animate: T | false | null | undefined,
 ): T | null {
-	const preset: T | null =
-		animate != null && animate !== false ? animate : null;
+	const preset: T | null = animate != null && animate !== false ? animate : null;
 
 	useInsertionEffect(() => {
 		if (preset) {

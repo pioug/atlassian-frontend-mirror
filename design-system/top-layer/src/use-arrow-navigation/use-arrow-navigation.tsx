@@ -5,7 +5,12 @@ import { bind } from 'bind-event-listener';
 import { getDocument } from '@atlaskit/browser-apis';
 import { KEY_DOWN, KEY_END, KEY_HOME, KEY_TAB, KEY_UP } from '@atlaskit/ds-lib/keycodes';
 
-import { getFirstFocusable, getLastFocusable, getNextFocusable, type TFocusableFilter } from '../focus';
+import {
+	getFirstFocusable,
+	getLastFocusable,
+	getNextFocusable,
+	type TFocusableFilter,
+} from '../focus';
 
 const menuScope = '[role="menu"]';
 

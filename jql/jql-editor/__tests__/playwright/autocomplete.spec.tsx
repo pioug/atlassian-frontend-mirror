@@ -11,7 +11,9 @@ test.describe('JQL Editor Autocomplete', () => {
 			browsers: [BROWSERS.chromium],
 		});
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		// Field
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('as');
@@ -42,7 +44,9 @@ test.describe('JQL Editor Autocomplete', () => {
 		});
 
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		// Field
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('as');
@@ -67,7 +71,9 @@ test.describe('JQL Editor Autocomplete', () => {
 			browsers: [BROWSERS.chromium],
 		});
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('project = "JSW"');
 		await jqlEditor.selectText('JSW');
@@ -91,7 +97,9 @@ test.describe('JQL Editor Autocomplete', () => {
 		});
 
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('project = "JSW"');
 		await jqlEditor.selectText('JSW');
@@ -109,7 +117,9 @@ test.describe('JQL Editor Autocomplete', () => {
 			browsers: [BROWSERS.chromium],
 		});
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('project = "JSW"');
 		await jqlEditor.selectText('oject = "JS');
@@ -127,7 +137,9 @@ test.describe('JQL Editor Autocomplete', () => {
 			browsers: [BROWSERS.chromium],
 		});
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('project = "JSW"');
 		await jqlEditor.selectText('"JS');
@@ -145,7 +157,9 @@ test.describe('JQL Editor Autocomplete', () => {
 			browsers: [BROWSERS.chromium],
 		});
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('project = "JSW"');
 		await jqlEditor.setCursorAfter('"JS');
@@ -163,7 +177,9 @@ test.describe('JQL Editor Autocomplete', () => {
 			browsers: [BROWSERS.chromium],
 		});
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('project = projectsLeadByUser()');
 		await jqlEditor.setCursorAfter('projectsLead');
@@ -180,7 +196,9 @@ test.describe('JQL Editor Autocomplete', () => {
 				'Skipped due to a timeout issue with locating elements after upgrading to Playwright 1.44.1',
 		});
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('assignee IN ');
 		await jqlEditor.selectAutocompleteOption('currentUser()');
@@ -196,7 +214,9 @@ test.describe('JQL Editor Autocomplete', () => {
 				'Skipped due to a timeout issue with locating elements after upgrading to Playwright 1.44.1',
 		});
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('project IN ');
 		await jqlEditor.selectAutocompleteOption('projectsLeadByUser()');
@@ -212,7 +232,9 @@ test.describe('JQL Editor Autocomplete', () => {
 				'Skipped due to a timeout issue with locating elements after upgrading to Playwright 1.44.1',
 		});
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('assignee IN ');
 		await jqlEditor.selectAutocompleteOption('myForgeJqlFunction()');

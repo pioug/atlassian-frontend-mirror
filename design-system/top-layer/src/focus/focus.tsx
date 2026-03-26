@@ -50,7 +50,13 @@ export type TFocusableFilter = (element: HTMLElement, container: HTMLElement) =>
  * is not in the DOM when the parent's initial focus runs. If that
  * assumption changes, this would need to be scoped to the current layer.
  */
-function getFocusables({ container, filter }: { container: HTMLElement; filter?: TFocusableFilter }): HTMLElement[] {
+function getFocusables({
+	container,
+	filter,
+}: {
+	container: HTMLElement;
+	filter?: TFocusableFilter;
+}): HTMLElement[] {
 	return Array.from(container.querySelectorAll(selectors.focusable))
 		.filter((el): el is HTMLElement => el instanceof HTMLElement)
 		.filter((el) => !filter || filter(el, container));

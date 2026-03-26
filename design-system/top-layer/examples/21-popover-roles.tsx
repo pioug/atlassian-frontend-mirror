@@ -52,9 +52,15 @@ const roleDemos: Array<{
 		description: 'For select-like components. Name provided by the associated combobox.',
 		content: (
 			<Stack space="space.050">
-				<div role="option" aria-selected={false}>Option A</div>
-				<div role="option" aria-selected={false}>Option B</div>
-				<div role="option" aria-selected={false}>Option C</div>
+				<div role="option" aria-selected={false}>
+					Option A
+				</div>
+				<div role="option" aria-selected={false}>
+					Option B
+				</div>
+				<div role="option" aria-selected={false}>
+					Option C
+				</div>
 			</Stack>
 		),
 	},
@@ -78,8 +84,8 @@ export default function PopoverRolesExample() {
 						<Stack space="space.100">
 							<Heading size="small">Popup roles</Heading>
 							<Text>
-								Each popup below uses a different role prop. Roles that are ARIA
-								landmarks require an accessible name.
+								Each popup below uses a different role prop. Roles that are ARIA landmarks require
+								an accessible name.
 							</Text>
 						</Stack>
 						<Stack space="space.300">

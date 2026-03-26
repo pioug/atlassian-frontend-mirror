@@ -14,7 +14,6 @@ import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { layoutBreakpointWidth } from '@atlaskit/editor-shared-styles';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { B200 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -49,7 +48,7 @@ const dropTargetLayoutStyle = css({
 const dropTargetLayoutHintStyle = css({
 	height: '100%',
 	position: 'relative',
-	borderRight: `${token('border.width')} dashed ${token('color.border.focused', B200)}`,
+	borderRight: `${token('border.width')} dashed ${token('color.border.focused')}`,
 	width: 0,
 });
 
@@ -83,7 +82,7 @@ export const DropTargetLayout = (
 		[`@container layout-area (max-width:${layoutBreakpointWidth.MEDIUM - 1}px)`]: {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			height,
-			marginTop: `${token('space.050', '4px')}`,
+			marginTop: `${token('space.050')}`,
 		},
 	});
 	const [isActiveAnchor] = useActiveAnchorTracker(anchorName);
@@ -196,7 +195,7 @@ export const DropTargetLayoutNativeAnchorSupport = (
 		[`@container layout-area (max-width:${layoutBreakpointWidth.MEDIUM - 1}px)`]: {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			height,
-			marginTop: `${token('space.050', '4px')}`,
+			marginTop: `${token('space.050')}`,
 		},
 	});
 	const [isActiveAnchor] = useActiveAnchorTracker(anchorName);

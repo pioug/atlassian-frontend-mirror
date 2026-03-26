@@ -3,10 +3,6 @@
 import { css, type SerializedStyles } from '@emotion/react';
 
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
-// Ignored via go/ees005
-// eslint-disable-next-line import/no-namespace
-import * as colors from '@atlaskit/theme/colors';
-import { N0, N20A, N50, N60A, N800, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // menuItemDimensions and itemSpacing are copied from
@@ -25,9 +21,9 @@ export const contextualMenuArrow: SerializedStyles = css`
 	display: flex;
 	&::after {
 		content: '›';
-		margin-left: ${token('space.050', '4px')};
+		margin-left: ${token('space.050')};
 		line-height: 20px;
-		color: ${token('color.icon', N90)};
+		color: ${token('color.icon')};
 	}
 `;
 
@@ -36,7 +32,7 @@ export const contextualMenuColorIcon = (color?: string): SerializedStyles => css
 	&::before {
 		content: '';
 		display: block;
-		border: 1px solid ${DEFAULT_BORDER_COLOR};
+		border: ${token('border.width')} solid ${DEFAULT_BORDER_COLOR};
 		border-radius: ${token('radius.small', '3px')};
 		width: 20px;
 		height: 20px;
@@ -46,13 +42,13 @@ export const contextualMenuColorIcon = (color?: string): SerializedStyles => css
 
 export const contextualSubMenu = (index: number): SerializedStyles => css`
 	border-radius: ${token('radius.small', '3px')};
-	background: ${token('elevation.surface.overlay', 'white')};
-	box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`)};
+	background: ${token('elevation.surface.overlay')};
+	box-shadow: ${token('elevation.shadow.overlay')};
 	display: flex;
 	position: absolute;
 	top: ${index * (menuItemDimensions.height + itemSpacing * 2)}px;
 	left: ${menuItemDimensions.width}px;
-	padding: ${token('space.100', '8px')};
+	padding: ${token('space.100')};
 
 	> div {
 		padding: 0;
@@ -63,10 +59,8 @@ export const buttonStyle = (selected: boolean): SerializedStyles => css`
 	height: 26px;
 	width: 26px;
 	padding: 0;
-	border-radius: 4px;
-	background-color: ${selected
-		? token('color.text', N800)
-		: token('color.background.neutral', N20A)};
+	border-radius: ${token('radius.small')};
+	background-color: ${selected ? token('color.text') : token('color.background.neutral')};
 	border: 1px solid ${DEFAULT_BORDER_COLOR};
 	cursor: pointer;
 	display: block;
@@ -75,16 +69,16 @@ export const buttonStyle = (selected: boolean): SerializedStyles => css`
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const buttonWrapperStyle: SerializedStyles = css`
 	border: 1px solid transparent;
-	margin: ${token('space.025', '2px')};
+	margin: ${token('space.025')};
 	font-size: 0;
 	display: flex;
 	align-items: center;
-	padding: ${token('space.025', '2px')};
-	border-radius: 6px;
+	padding: ${token('space.025')};
+	border-radius: ${token('radius.medium')};
 	&:focus-within,
 	&:focus,
 	&:hover {
-		border-color: ${token('color.border', N50)} !important;
+		border-color: ${token('color.border')} !important;
 	}
 `;
 
@@ -98,9 +92,7 @@ export const line = (size: number, selected: boolean): SerializedStyles => css`
 		left: 50%;
 		width: 12px;
 		height: ${size}px;
-		background-color: ${selected
-			? token('color.icon.inverse', N0)
-			: token('color.icon', '#44546F')};
+		background-color: ${selected ? token('color.icon.inverse') : token('color.icon')};
 		border-radius: 90px;
 		transform: translate(-50%, -50%) rotate(135deg);
 	}
@@ -108,10 +100,10 @@ export const line = (size: number, selected: boolean): SerializedStyles => css`
 
 const getHoverStyles = (selector: string) =>
 	`&:hover ${selector} {
-    background: ${token('color.background.neutral.subtle.hovered', colors.N20A)};
+    background: ${token('color.background.neutral.subtle.hovered')};
 
     &:hover {
-      background: ${token('color.background.neutral.hovered', colors.N30A)};
+      background: ${token('color.background.neutral.hovered')};
     }
   }`;
 
@@ -142,7 +134,7 @@ export const toolbarButtonWrapper = ({
 		width: 16px !important;
 		border-top-left-radius: 0 !important;
 		border-bottom-left-radius: 0 !important;
-		margin-left: ${token('space.025', '2px')};
+		margin-left: ${token('space.025')};
 		&:not([disabled])::after {
 			border: none;
 		}
@@ -155,7 +147,7 @@ export const toolbarButtonWrapper = ({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const dropdownOptionButton: SerializedStyles = css`
 	background: transparent;
-	border: 2px solid transparent;
+	border: ${token('border.width.focused')} solid transparent;
 	display: flex;
 	width: 100%;
 	align-items: center;
@@ -163,8 +155,8 @@ export const dropdownOptionButton: SerializedStyles = css`
 	padding: 8px 16px;
 
 	&:focus {
-		background-color: ${token('color.background.neutral.subtle.hovered', 'rgb(244, 245, 247)')};
-		border: 2px solid ${token('color.border.focused', '#2684FF')};
+		background-color: ${token('color.background.neutral.subtle.hovered')};
+		border: ${token('border.width.focused')} solid ${token('color.border.focused')};
 	}
 `;
 

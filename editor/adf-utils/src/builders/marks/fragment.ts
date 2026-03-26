@@ -1,4 +1,11 @@
-import type { ExtensionDefinition, BodiedExtensionDefinition, InlineExtensionDefinition, TableDefinition, FragmentAttributes, FragmentDefinition } from '@atlaskit/adf-schema';
+import type {
+	ExtensionDefinition,
+	BodiedExtensionDefinition,
+	InlineExtensionDefinition,
+	TableDefinition,
+	FragmentAttributes,
+	FragmentDefinition,
+} from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
 import type { WithAppliedMark } from '../types';
 

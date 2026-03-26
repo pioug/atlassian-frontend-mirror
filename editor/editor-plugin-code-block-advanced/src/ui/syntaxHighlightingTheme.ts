@@ -1,4 +1,5 @@
-import { HighlightStyle, type Language } from '@codemirror/language';
+import { HighlightStyle } from '@codemirror/language';
+import type { Language } from '@codemirror/language';
 import { tags } from '@lezer/highlight';
 
 import { token } from '@atlaskit/tokens';

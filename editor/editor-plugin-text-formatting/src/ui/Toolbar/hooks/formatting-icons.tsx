@@ -2,16 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type JSXElementConstructor, type ReactElement, useMemo } from 'react';
+import { useMemo, type JSXElementConstructor, type ReactElement } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import {
+	type EditorAnalyticsAPI,
+	TOOLBAR_ACTION_SUBJECT_ID,
+} from '@atlaskit/editor-common/analytics';
+import {
+	type Keymap,
 	getAriaKeyshortcuts,
 	toggleBold,
 	toggleCode,
@@ -51,8 +53,13 @@ import {
 } from '../../../editor-commands/toggle-mark';
 import { Subscript, Superscript } from '../icons';
 import { getInputMethod } from '../input-method-utils';
-import type { IconHookProps, MenuIconItem, MenuIconState } from '../types';
-import { IconTypes, type ToolbarType } from '../types';
+import {
+	type IconHookProps,
+	type MenuIconItem,
+	type MenuIconState,
+	IconTypes,
+	type ToolbarType,
+} from '../types';
 
 const withInputMethod = (
 	toolbarType: ToolbarType,

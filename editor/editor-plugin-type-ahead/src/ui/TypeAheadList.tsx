@@ -16,7 +16,7 @@ import { List } from 'react-virtualized/dist/commonjs/List';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
-import { type ExtractInjectionAPI, type TypeAheadItem } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, TypeAheadItem } from '@atlaskit/editor-common/types';
 import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
@@ -24,12 +24,12 @@ import { Text, Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-import { type InputMethodType } from '../pm-plugins/analytics';
+import type { InputMethodType } from '../pm-plugins/analytics';
 import { closeTypeAhead } from '../pm-plugins/commands/close-type-ahead';
 import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
 import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../pm-plugins/constants';
 import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../pm-plugins/utils';
-import { type TypeAheadPlugin } from '../typeAheadPluginType';
+import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler } from '../types';
 
 import { ListRow } from './ListRow';

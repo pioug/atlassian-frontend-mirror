@@ -29,7 +29,7 @@ import { editDatasource } from '../editDatasourceAction';
 import type { EditDatasourceToolbarButtonWithCommonProps, EditVariant } from './types';
 
 const dropdownExpandContainer = css({
-	margin: `0px ${token('space.negative.050', '-4px')}`,
+	margin: `0px ${token('space.negative.050')}`,
 });
 
 interface EditToolbarPresentationProps extends EditDatasourceToolbarButtonWithCommonProps {

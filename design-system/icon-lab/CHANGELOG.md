@@ -1,5 +1,21 @@
 # @atlaskit/icon-lab
 
+## 6.2.0
+
+### Minor Changes
+
+- [`0daada0469ab8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0daada0469ab8) -
+  Remove `@atlaskit/icon/migration-map` entry point, `IconMigrationMap` and
+  `IconMigrationSizeGuidance` types from `@atlaskit/icon`, and `@atlaskit/icon-lab/migration-map`
+  entry point. These were only needed to support the legacy glyph icon migration path which has now
+  been fully completed. Remove the `no-legacy-icons` ESLint rule from
+  `@atlaskit/eslint-plugin-design-system` as `@atlaskit/icon/glyph` and
+  `@atlaskit/icon/core/migration` no longer exist.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

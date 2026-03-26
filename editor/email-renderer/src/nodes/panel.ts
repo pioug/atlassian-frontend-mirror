@@ -1,7 +1,8 @@
 import { B50, R50, Y50, G50, P50 } from '@atlaskit/adf-schema';
 
-import { type NodeSerializerOpts } from '../interfaces';
-import { createTable, type TableData } from '../table-util';
+import type { NodeSerializerOpts } from '../interfaces';
+import { createTable } from '../table-util';
+import type { TableData } from '../table-util';
 import { createTag } from '../create-tag';
 import { createContentId } from '../static';
 import { createClassName } from '../styles/util';

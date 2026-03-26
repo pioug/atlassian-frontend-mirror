@@ -1,6 +1,7 @@
-import { type Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
-import { type Rect, TableMap } from '../table-map';
+import { TableMap } from '../table-map';
+import type { Rect } from '../table-map';
 
 import { isSelectionType } from './is-selection-type';
 

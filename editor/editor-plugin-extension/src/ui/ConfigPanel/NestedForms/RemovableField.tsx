@@ -11,7 +11,6 @@ import { injectIntl } from 'react-intl-next';
 
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
-import { N80, R300 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -22,7 +21,7 @@ const removableFieldWrapperStyles = css({
 });
 
 const wrapperWithMarginBottomStyles = css({
-	marginBottom: token('space.200', '16px'),
+	marginBottom: token('space.200'),
 });
 
 const removeButtonWrapperStyles = css({
@@ -31,10 +30,10 @@ const removeButtonWrapperStyles = css({
 	top: 0,
 	cursor: 'pointer',
 
-	color: token('color.icon.subtle', N80),
+	color: token('color.icon.subtle'),
 
 	'&:hover': {
-		color: token('color.icon.danger', R300),
+		color: token('color.icon.danger'),
 	},
 });
 

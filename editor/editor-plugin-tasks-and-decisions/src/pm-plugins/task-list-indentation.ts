@@ -1,9 +1,9 @@
 import { uuid } from '@atlaskit/adf-schema';
-import {
-	type FlattenedItem,
-	type FlattenListOptions,
-	type FlattenListResult,
-	flattenList as flattenListBase,
+import { flattenList as flattenListBase } from '@atlaskit/editor-common/lists';
+import type {
+	FlattenedItem,
+	FlattenListOptions,
+	FlattenListResult,
 } from '@atlaskit/editor-common/lists';
 import type { Attrs, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 

@@ -8,8 +8,8 @@
 > **Which component to use:** Use `Popup` when you have a trigger button (browser manages
 > visibility). Use `Popover` directly when you have a custom trigger lifecycle (hover, timers,
 > external state) — `Popover` is unopinionated (visibility + animation only), so compose it with the
-> `useAnchorPosition` hook when you need anchor positioning. See [overview.md](./overview.md)
-> for full examples.
+> `useAnchorPosition` hook when you need anchor positioning. See [overview.md](./overview.md) for
+> full examples.
 
 ## The CSS mechanism
 
@@ -227,8 +227,8 @@ By default, `Popover` and `Dialog` conditionally render their children based on 
   immediately
 
 This means consumers get **conditional rendering for performance** (children unmount when closed)
-while still getting **exit animations** (children stay mounted long enough for the CSS transition
-to complete). The primitive handles the lifecycle automatically.
+while still getting **exit animations** (children stay mounted long enough for the CSS transition to
+complete). The primitive handles the lifecycle automatically.
 
 ### `onExitFinish` callback
 
@@ -471,8 +471,8 @@ Keep the element always rendered and let the browser manage everything:
 **Why not:** The element would call `showPopover()` on mount and be visible immediately. There's no
 way for the consumer to say "render this but don't show it yet." The `Popup` compound solves this
 because the trigger calls `togglePopover()` (and `Popup.Content` reads state from context), but
-`Popover` and `Dialog` used directly have no trigger — they need explicit open/close control
-via `isOpen`.
+`Popover` and `Dialog` used directly have no trigger — they need explicit open/close control via
+`isOpen`.
 
 #### 6. Other alternatives that don't change the conclusion
 
@@ -519,49 +519,48 @@ DOM, so it doesn't solve the exit animation constraint.
 
 ## Why animation stays on `Popover`
 
-During the design of `Popover`, we considered splitting animation into a
-separate hook (like `useAnchorPosition`). We kept it on `Popover` because
-animation and visibility are one concern.
+During the design of `Popover`, we considered splitting animation into a separate hook (like
+`useAnchorPosition`). We kept it on `Popover` because animation and visibility are one concern.
 
 ### The constraint
 
-Exit animations for top-layer elements require calling `hidePopover()` to
-start the CSS transition (via `allow-discrete`), then waiting for the
-transition to complete before the element leaves the top layer. The element
-must stay in the top layer during the transition.
+Exit animations for top-layer elements require calling `hidePopover()` to start the CSS transition
+(via `allow-discrete`), then waiting for the transition to complete before the element leaves the
+top layer. The element must stay in the top layer during the transition.
 
-This means the component managing `hidePopover()` **must also know whether
-to wait for an animation** before considering the element hidden. Visibility
-and animation are interleaved — they cannot be separated without one side
-reaching into the other's internals.
+This means the component managing `hidePopover()` **must also know whether to wait for an
+animation** before considering the element hidden. Visibility and animation are interleaved — they
+cannot be separated without one side reaching into the other's internals.
 
 ### What a separate hook would look like
 
 ```tsx
 const { ref, isVisible } = usePopoverAnimation({
-  isOpen,
-  animation: slideAndFade(),
+	isOpen,
+	animation: slideAndFade(),
 });
 
-<Popover ref={ref} isOpen={isVisible}>...</Popover>
+<Popover ref={ref} isOpen={isVisible}>
+	...
+</Popover>;
 ```
 
 ### Why it doesn't work
 
-1. Entry works: `isOpen=true` → hook sets `isVisible=true` → `Popover` calls
-   `showPopover()` → `@starting-style` plays the entry animation.
+1. Entry works: `isOpen=true` → hook sets `isVisible=true` → `Popover` calls `showPopover()` →
+   `@starting-style` plays the entry animation.
 
-2. Exit breaks: `isOpen=false` → the hook needs to call `hidePopover()` on the
-   element (to start the CSS exit transition), but if `Popover` still sees
-   `isVisible=true`, it won't interfere. The hook would need to:
+2. Exit breaks: `isOpen=false` → the hook needs to call `hidePopover()` on the element (to start the
+   CSS exit transition), but if `Popover` still sees `isVisible=true`, it won't interfere. The hook
+   would need to:
    - Call `hidePopover()` directly on the ref (reaching into `Popover`'s internals)
    - Keep `isVisible=true` during the transition
    - Listen for `transitionend` on the ref
    - Set `isVisible=false` after completion
 
-   The hook ends up owning half of `Popover`'s lifecycle — calling `hidePopover()`,
-   listening for DOM events, managing the programmatic-close guard. At that point
-   it's not an animation hook, it's a visibility-management hook.
+   The hook ends up owning half of `Popover`'s lifecycle — calling `hidePopover()`, listening for
+   DOM events, managing the programmatic-close guard. At that point it's not an animation hook, it's
+   a visibility-management hook.
 
 ### The clean split
 
@@ -571,9 +570,9 @@ useAnchorPosition = positioning (separate concern)
 Popup             = Popover + trigger + positioning (compound)
 ```
 
-Animation and visibility are **one concern** — the exit animation is triggered
-*by* the visibility change. Positioning is a **separate concern** — where
-the element goes has nothing to do with whether it's visible.
+Animation and visibility are **one concern** — the exit animation is triggered _by_ the visibility
+change. Positioning is a **separate concern** — where the element goes has nothing to do with
+whether it's visible.
 
 Consumers who don't use animation pay nothing: when `animate` is omitted,
 `showPopover()`/`hidePopover()` fire immediately with no listeners or timeouts.

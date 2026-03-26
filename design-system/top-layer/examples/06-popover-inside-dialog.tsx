@@ -66,11 +66,7 @@ export default function PopoverInsideDialogExample() {
 		<ForceFallbackToggle>
 			{(forceFallbackPositioning) => (
 				<Box padding="space.400">
-					<Button
-						appearance="primary"
-						onClick={() => setIsOpen(true)}
-						aria-haspopup="dialog"
-					>
+					<Button appearance="primary" onClick={() => setIsOpen(true)} aria-haspopup="dialog">
 						Open dialog with popup
 					</Button>
 					<Dialog onClose={handleClose} isOpen={isOpen} label="Dialog with popup">
@@ -81,8 +77,8 @@ export default function PopoverInsideDialogExample() {
 							<div css={styles.dialogBody}>
 								<Stack space="space.200">
 									<Text>
-										This dialog contains a popup trigger. The popup renders
-										above the dialog in the top layer.
+										This dialog contains a popup trigger. The popup renders above the dialog in the
+										top layer.
 									</Text>
 									<Box>
 										<Popup
@@ -103,9 +99,7 @@ export default function PopoverInsideDialogExample() {
 													<Stack space="space.050">
 														<Heading size="xxsmall">Actions</Heading>
 														<Button appearance="subtle">Edit</Button>
-														<Button appearance="subtle">
-															Duplicate
-														</Button>
+														<Button appearance="subtle">Duplicate</Button>
 														<Button appearance="subtle">Delete</Button>
 													</Stack>
 												</PopupSurface>

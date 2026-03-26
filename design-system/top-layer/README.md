@@ -21,14 +21,15 @@ Positioning or JS fallback).
 </Popup>
 ```
 
-For default overlay styling (background, shadow, border-radius), see `PopupSurface` in the package examples (not currently a public API; we may expose it in a future release).
+For default overlay styling (background, shadow, border-radius), see `PopupSurface` in the package
+examples (not currently a public API; we may expose it in a future release).
 
 ## Popover
 
 Low-level primitive: a `<div>` with the `popover` attribute and show/hide lifecycle only. No
-placement, no trigger wiring — use it when you need top-layer rendering with **fixed or
-custom positioning** (e.g. Flag uses `Popover mode="manual"`). For anchor-positioned content
-next to a trigger, use **Popup** instead.
+placement, no trigger wiring — use it when you need top-layer rendering with **fixed or custom
+positioning** (e.g. Flag uses `Popover mode="manual"`). For anchor-positioned content next to a
+trigger, use **Popup** instead.
 
 ## Dialog
 
@@ -56,9 +57,9 @@ Compound component for modal dialogs using the native `<dialog>` element with `.
 ## Animations
 
 Both Popup (and the low-level Popover) and Dialog support CSS-based entry/exit animations via the
-`animate` prop. Animations
-use [`@starting-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) for entry
-and [`allow-discrete`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior) on
+`animate` prop. Animations use
+[`@starting-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) for entry and
+[`allow-discrete`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior) on
 `display`/`overlay` for exit — no JavaScript animation coordination required.
 
 Presets are available from `@atlaskit/top-layer/animations`:
@@ -90,7 +91,8 @@ const animation = slideAndFade();
 </Popup.Content>;
 ```
 
-For overlay styling (background, shadow, border-radius), see the `PopupSurface` usage in the package examples.
+For overlay styling (background, shadow, border-radius), see the `PopupSurface` usage in the package
+examples.
 
 Available popover presets:
 
@@ -130,20 +132,20 @@ Browser tests in `__tests__/playwright/` verify the following WCAG 2.2 success c
 [`notes/audits/accessibility-audit-report.md`](notes/audits/accessibility-audit-report.md) for
 details.
 
-| A11y criterion                        | Browser test |
-| ------------------------------------- | ------------ |
-| 1.3.1 Info and Relationships          | ✓            |
-| 1.3.2 Meaningful Sequence             | ✓            |
-| 2.1.1 Keyboard                        | ✓            |
-| 2.1.2 No Keyboard Trap                | ✓            |
-| 2.4.3 Focus Order                     | ✓            |
-| 2.4.7 Focus Visible                   | ✓            |
+| A11y criterion                       | Browser test |
+| ------------------------------------ | ------------ |
+| 1.3.1 Info and Relationships         | ✓            |
+| 1.3.2 Meaningful Sequence            | ✓            |
+| 2.1.1 Keyboard                       | ✓            |
+| 2.1.2 No Keyboard Trap               | ✓            |
+| 2.4.3 Focus Order                    | ✓            |
+| 2.4.7 Focus Visible                  | ✓            |
 | 2.4.11 Focus Not Obscured            | ✓            |
-| 3.2.1 On Focus                        | ✓            |
+| 3.2.1 On Focus                       | ✓            |
 | 4.1.2 Name, Role, Value              | ✓            |
-| 4.1.3 Status Messages                 | ✓            |
-| Background inertness (modal dialogs)  | ✓            |
-| Close reasons (Dialog)                | ✓            |
+| 4.1.3 Status Messages                | ✓            |
+| Background inertness (modal dialogs) | ✓            |
+| Close reasons (Dialog)               | ✓            |
 
 ## Documentation
 

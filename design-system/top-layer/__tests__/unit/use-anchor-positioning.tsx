@@ -54,9 +54,12 @@ describe('placementToTryFallbacks()', () => {
 				{ axis: 'block', edge: 'end' },
 				'block-end span-inline-end, block-end span-inline-start, flip-block, block-start span-inline-end, block-start span-inline-start',
 			],
-		] as [TPlacementOptions, string][])('returns cross-axis fallbacks for %o', (placement, expected) => {
-			expect(placementToTryFallbacks({ placement })).toBe(expected);
-		});
+		] as [TPlacementOptions, string][])(
+			'returns cross-axis fallbacks for %o',
+			(placement, expected) => {
+				expect(placementToTryFallbacks({ placement })).toBe(expected);
+			},
+		);
 	});
 
 	describe('centered inline placements include cross-axis shifts and flip-inline', () => {
@@ -69,9 +72,12 @@ describe('placementToTryFallbacks()', () => {
 				{ axis: 'inline', edge: 'end' },
 				'inline-end span-block-end, inline-end span-block-start, flip-inline, inline-start span-block-end, inline-start span-block-start',
 			],
-		] as [TPlacementOptions, string][])('returns cross-axis fallbacks for %o', (placement, expected) => {
-			expect(placementToTryFallbacks({ placement })).toBe(expected);
-		});
+		] as [TPlacementOptions, string][])(
+			'returns cross-axis fallbacks for %o',
+			(placement, expected) => {
+				expect(placementToTryFallbacks({ placement })).toBe(expected);
+			},
+		);
 	});
 
 	describe('aligned placements include same-edge centered fallback and flip', () => {
@@ -96,8 +102,11 @@ describe('placementToTryFallbacks()', () => {
 				{ axis: 'inline', edge: 'end', align: 'start' },
 				'inline-end span-block-end, inline-end, inline-end span-block-start, flip-inline, inline-start span-block-end, inline-start, inline-start span-block-start',
 			],
-		] as [TPlacementOptions, string][])('returns position-area fallbacks including center for %o', (placement, expected) => {
-			expect(placementToTryFallbacks({ placement })).toBe(expected);
-		});
+		] as [TPlacementOptions, string][])(
+			'returns position-area fallbacks including center for %o',
+			(placement, expected) => {
+				expect(placementToTryFallbacks({ placement })).toBe(expected);
+			},
+		);
 	});
 });

@@ -9,6 +9,7 @@ export default async function transformer(file: FileInfo, api: API): Promise<str
 		return file.source;
 	}
 
+	let fileHasChanges = false;
 	source.find(j.CallExpression, { callee: { name: 'token' } }).forEach((path) => {
 		if (
 			path.node.arguments.length > 1 &&
@@ -17,8 +18,9 @@ export default async function transformer(file: FileInfo, api: API): Promise<str
 		) {
 			// Remove the second argument
 			path.node.arguments.splice(1, 1);
+			fileHasChanges = true;
 		}
 	});
 
-	return source.toSource();
+	return fileHasChanges ? source.toSource({ useTabs: true }) : file.source;
 }

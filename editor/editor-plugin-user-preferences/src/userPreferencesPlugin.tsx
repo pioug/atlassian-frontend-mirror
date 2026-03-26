@@ -1,7 +1,5 @@
-import {
-	type ResolvedUserPreferences,
-	useResolvedUserPreferences,
-} from '@atlaskit/editor-common/user-preferences';
+import { useResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
+import type { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
 
 import { updateUserPreference } from './pm-plugins/commands';
 import { createPlugin, userPreferencesPluginKey } from './pm-plugins/main';

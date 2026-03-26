@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 const imageContainerStyles = css({
-	margin: `0 auto ${token('space.300', '24px')}`,
+	margin: `0 auto ${token('space.300')}`,
 	height: '80px',
 });
 

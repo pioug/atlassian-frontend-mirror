@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 
 import { css, jsx, cssMap, keyframes, cx } from '@compiled/react';
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import {
@@ -18,12 +18,12 @@ import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages'
 import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
-import {
-	type SyncBlockSourceInfo,
-	type SyncBlockStoreManager,
-	type ReferencesSourceInfo,
-	type SyncBlockProduct,
-	getPageIdAndTypeFromConfluencePageAri,
+import { getPageIdAndTypeFromConfluencePageAri } from '@atlaskit/editor-synced-block-provider';
+import type {
+	SyncBlockSourceInfo,
+	SyncBlockStoreManager,
+	ReferencesSourceInfo,
+	SyncBlockProduct,
 } from '@atlaskit/editor-synced-block-provider';
 import { IconTile } from '@atlaskit/icon';
 import PageLiveDocIcon from '@atlaskit/icon-lab/core/page-live-doc';

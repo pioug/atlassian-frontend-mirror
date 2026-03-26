@@ -1,6 +1,6 @@
 import rafSchedule from 'raf-schd';
 
-import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 
 import type { ResourceId, BlockInstanceId, SyncBlockNode } from '../common/types';

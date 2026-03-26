@@ -241,20 +241,11 @@ function SmartLinkDraggableInner({
 		// the smart-element-link as editable text rather than a draggable element.
 		// Not needed for inline cards since their NodeView is already not editable
 		let observer: MutationObserver | null = null;
-		if (appearance !== SMART_LINK_APPEARANCE.INLINE) {
+		if (appearance === SMART_LINK_APPEARANCE.BLOCK) {
 			const setupDraggableElements = () => {
 				el.querySelectorAll<HTMLElement>('[data-smart-element-link]').forEach((link) => {
 					link.contentEditable = 'false';
 					link.setAttribute('draggable', 'true');
-				});
-				// For footer/provider/header, only set draggable to avoid disrupting selection behavior.
-				el.querySelectorAll<HTMLElement>(
-					'[data-smart-block], [data-smart-element="Provider"], .embed-header',
-				).forEach((child) => {
-					child.setAttribute('draggable', 'true');
-					child.querySelectorAll<HTMLElement>('img, a').forEach((inner) => {
-						inner.setAttribute('draggable', 'false');
-					});
 				});
 			};
 			setupDraggableElements();
@@ -275,11 +266,48 @@ function SmartLinkDraggableInner({
 				// the element the browser will use as the dragstart target.
 				let dragTarget: HTMLElement = el;
 				if (target instanceof Element && el.contains(target)) {
-					if (appearance !== SMART_LINK_APPEARANCE.INLINE) {
-						// For block/embed cards, find the nearest draggable ancestor within the card.
+					if (appearance === SMART_LINK_APPEARANCE.BLOCK) {
+						// For block cards, find the nearest draggable ancestor.
 						const closestDraggable = target.closest('[draggable="true"]');
 						if (closestDraggable instanceof HTMLElement && el.contains(closestDraggable)) {
 							dragTarget = closestDraggable;
+						}
+					} else if (appearance === SMART_LINK_APPEARANCE.EMBED) {
+						// For embed cards, find the nearest draggable ancestor or link/image
+						const closestDraggable =
+							target.closest('[draggable="true"]') ??
+							target.closest('.embed-header a') ??
+							target.closest('.embed-header img');
+						if (closestDraggable instanceof HTMLElement && el.contains(closestDraggable)) {
+							dragTarget = closestDraggable;
+
+							// Temporarily set contentEditable="false" and draggable="true"
+							// so the browser initiates drag instead of text selection.
+							// Restore on pointerup so shift+arrow selection still works.
+							const prevContentEditable = dragTarget.contentEditable;
+							const prevDraggable = dragTarget.getAttribute('draggable');
+							dragTarget.contentEditable = 'false';
+							dragTarget.setAttribute('draggable', 'true');
+							const restore = () => {
+								dragTarget.contentEditable = prevContentEditable;
+								if (prevDraggable) {
+									dragTarget.setAttribute('draggable', prevDraggable);
+								} else {
+									dragTarget.removeAttribute('draggable');
+								}
+								unbindPointerUp();
+								unbindPointerCancel();
+							};
+							// Listen on window to catch pointerup even if the pointer
+							// leaves the drag target during a drag gesture (keyboard events)
+							const unbindPointerUp = bind(window, {
+								type: 'pointerup',
+								listener: restore,
+							});
+							const unbindPointerCancel = bind(window, {
+								type: 'pointercancel',
+								listener: restore,
+							});
 						}
 					} else if (target instanceof HTMLElement) {
 						// For inline cards, use the target directly.

@@ -1,5 +1,19 @@
 # @atlaskit/media-card
 
+## 79.16.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 79.16.2
+
+### Patch Changes
+
+- [`b512cc17bab98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b512cc17bab98) -
+  Added change to avoid adding ufo hold if the the cardpreview is not available
+- Updated dependencies
+
 ## 79.16.1
 
 ### Patch Changes

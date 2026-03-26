@@ -6,7 +6,8 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'reac
 
 import { css, jsx } from '@compiled/react';
 
-import { PerformanceMetrics, type OnTTAI } from '@atlaskit/editor-performance-metrics/react';
+import { PerformanceMetrics } from '@atlaskit/editor-performance-metrics/react';
+import type { OnTTAI } from '@atlaskit/editor-performance-metrics/react';
 
 const sectionOneStyle = css({
 	backgroundColor: '#FFB3BA', // Pastel Red

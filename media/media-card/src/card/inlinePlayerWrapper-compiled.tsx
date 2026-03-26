@@ -55,7 +55,7 @@ const updatedBorderStyle = css({
 		pointerEvents: 'none',
 		borderRadius: 'inherit',
 	},
-})
+});
 
 export const inlinePlayerClassName = 'media-card-inline-player';
 export const LOCAL_WIDTH_VARIABLE = '--media-inline-player-wrapper-width';
@@ -91,7 +91,7 @@ const updatedInlinePlayerWrapperStyles = css({
 		width: '100%',
 		height: '100%',
 	},
-})
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 
@@ -109,7 +109,9 @@ export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
 				[LOCAL_HEIGHT_VARIABLE as any]: getDimensionsWithDefault(dimensions).height || 'auto',
 			}}
 			css={[
-				fg('platform_editor_media_border_radius_fix') ? updatedInlinePlayerWrapperStyles : inlinePlayerWrapperStyles,
+				fg('platform_editor_media_border_radius_fix')
+					? updatedInlinePlayerWrapperStyles
+					: inlinePlayerWrapperStyles,
 				selected && hideNativeBrowserTextSelectionStyles,
 				fg('platform_editor_media_border_radius_fix') ? updatedBorderStyle : borderStyle,
 				selected && selectedBorderStyle,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { create, act } from 'react-test-renderer';
-import { type DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { render } from '@testing-library/react';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';

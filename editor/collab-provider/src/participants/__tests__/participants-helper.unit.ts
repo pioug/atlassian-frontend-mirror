@@ -1,10 +1,10 @@
 import type { ProviderParticipant, PresenceActivity } from '@atlaskit/editor-common/collab';
 import {
-	type BatchProps,
 	createParticipantFromPayload,
 	fetchParticipants,
 	PARTICIPANT_UPDATE_INTERVAL,
 } from '../participants-helper';
+import type { BatchProps } from '../participants-helper';
 import { ParticipantsState } from '../participants-state';
 
 // Realistic time as a base reference

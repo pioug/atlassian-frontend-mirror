@@ -295,14 +295,14 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 				/>
 			</div>
 
-				<div>
-					<p>
-						<label htmlFor="focus-latency">Focus latency (ms)</label>
-					</p>
-					<input
-						id="focus-latency"
-						type="number"
-						value={focusLatency}
+			<div>
+				<p>
+					<label htmlFor="focus-latency">Focus latency (ms)</label>
+				</p>
+				<input
+					id="focus-latency"
+					type="number"
+					value={focusLatency}
 					onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 						updateLatency(setFocusLatency)(event);
 					}}

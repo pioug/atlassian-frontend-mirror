@@ -1,13 +1,9 @@
 import { closeBrackets } from '@codemirror/autocomplete';
 import { syntaxHighlighting, bracketMatching } from '@codemirror/language';
-import {
-	Compartment,
-	type Extension,
-	Facet,
-	EditorState as CodeMirrorState,
-	type StateEffect,
-} from '@codemirror/state';
-import { EditorView as CodeMirror, lineNumbers, type ViewUpdate, gutters } from '@codemirror/view';
+import { Compartment, Facet, EditorState as CodeMirrorState } from '@codemirror/state';
+import type { Extension, StateEffect } from '@codemirror/state';
+import { EditorView as CodeMirror, lineNumbers, gutters } from '@codemirror/view';
+import type { ViewUpdate } from '@codemirror/view';
 import type { IntlShape } from 'react-intl-next';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
@@ -18,7 +14,7 @@ import {
 	codeBlockMessages,
 	roleDescriptionMessages,
 } from '@atlaskit/editor-common/messages';
-import { type RelativeSelectionPos } from '@atlaskit/editor-common/selection';
+import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type {
 	getPosHandler,
 	getPosHandlerNode,
@@ -26,8 +22,8 @@ import type {
 	EditorContentMode,
 } from '@atlaskit/editor-common/types';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
-import { type EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
 	Decoration,

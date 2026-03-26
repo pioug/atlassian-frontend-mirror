@@ -1,4 +1,4 @@
-import { type CellAttributes, type CellAttributesWithColSpan } from '../types';
+import type { CellAttributes, CellAttributesWithColSpan } from '../types';
 
 export function removeColSpan(attrs: CellAttributes, pos: number, n = 1): CellAttributes {
 	if (!attrs.colspan) {

@@ -3,6 +3,10 @@ export type ImageIconProps = {
 	defaultIcon?: React.ReactNode;
 	height?: string;
 	hideLoadingSkeleton?: boolean;
+	/**
+	 * Accessible name for the loaded image (maps to the HTML `alt` attribute).
+	 */
+	label?: string;
 	onError?: () => void;
 	onLoad?: () => void;
 	testId?: string;

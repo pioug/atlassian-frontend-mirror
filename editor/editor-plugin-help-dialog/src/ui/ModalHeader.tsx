@@ -24,8 +24,8 @@ const toolbarFocusStyles: SerializedStyles = css({
 	// Hence we manually force it
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
 	'button:focus:not(:focus-visible)': {
-		outline: `2px solid ${token('color.border.focused')}`,
-		outlineOffset: token('space.025', '2px'),
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
+		outlineOffset: token('space.025'),
 	},
 });
 

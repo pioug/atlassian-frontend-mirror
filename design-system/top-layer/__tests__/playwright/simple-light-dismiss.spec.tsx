@@ -4,7 +4,11 @@ import { expect, test } from '@af/integration-testing';
 test.describe('useSimpleLightDismiss', () => {
 	// WCAG 2.1.2 No Keyboard Trap - Escape always dismisses
 	test('closes on Escape and reports reason as "escape"', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-simple-light-dismiss');
+		await page.visitExample<typeof import('../../examples/119-testing-simple-light-dismiss.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-simple-light-dismiss',
+		);
 
 		const trigger = page.getByTestId('trigger');
 		await trigger.click();
@@ -18,7 +22,11 @@ test.describe('useSimpleLightDismiss', () => {
 	});
 
 	test('closes on click outside and reports reason as "light-dismiss"', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-simple-light-dismiss');
+		await page.visitExample<typeof import('../../examples/119-testing-simple-light-dismiss.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-simple-light-dismiss',
+		);
 
 		const trigger = page.getByTestId('trigger');
 		await trigger.click();
@@ -32,7 +40,11 @@ test.describe('useSimpleLightDismiss', () => {
 	});
 
 	test('does not close when clicking inside the popover', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-simple-light-dismiss');
+		await page.visitExample<typeof import('../../examples/119-testing-simple-light-dismiss.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-simple-light-dismiss',
+		);
 
 		const trigger = page.getByTestId('trigger');
 		await trigger.click();
@@ -46,7 +58,11 @@ test.describe('useSimpleLightDismiss', () => {
 	});
 
 	test('does not fire dismiss events when popover is closed', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-simple-light-dismiss');
+		await page.visitExample<typeof import('../../examples/119-testing-simple-light-dismiss.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-simple-light-dismiss',
+		);
 
 		// Don't open the popover — just press Escape and click outside
 		await page.keyboard.press('Escape');
@@ -56,7 +72,11 @@ test.describe('useSimpleLightDismiss', () => {
 	});
 
 	test('can be reopened after dismiss', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-simple-light-dismiss');
+		await page.visitExample<typeof import('../../examples/119-testing-simple-light-dismiss.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-simple-light-dismiss',
+		);
 
 		const trigger = page.getByTestId('trigger');
 
@@ -76,7 +96,11 @@ test.describe('useSimpleLightDismiss', () => {
 	});
 
 	test('non-Escape keys do not dismiss', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-simple-light-dismiss');
+		await page.visitExample<typeof import('../../examples/119-testing-simple-light-dismiss.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-simple-light-dismiss',
+		);
 
 		const trigger = page.getByTestId('trigger');
 		await trigger.click();

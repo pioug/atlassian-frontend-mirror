@@ -1,7 +1,8 @@
 import React from 'react';
 import { mount, type ReactWrapper } from 'enzyme';
 import { DateComponent } from '../../../../react/nodes/date';
-import { createIntl, IntlProvider, type IntlShape } from 'react-intl-next';
+import { createIntl, IntlProvider } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { timestampToString, todayTimestampInUTC } from '@atlaskit/editor-common/utils';

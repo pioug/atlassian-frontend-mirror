@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 8.0.14
+
+### Patch Changes
+
+- [`369e414179c61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/369e414179c61) -
+  Cleanup feature flag platform_editor_fix_gapcursor_on_paste. The fix for gapcursor on paste is now
+  enabled by default.
+- Updated dependencies
+
 ## 8.0.13
 
 ### Patch Changes

@@ -93,13 +93,7 @@ export default function TestingManualPopoverA11y() {
 			>
 				Open popover
 			</button>
-			<Popover
-				ref={popoverRef}
-				role="dialog"
-				mode="manual"
-				isOpen={isOpen}
-				label="Manual popover"
-			>
+			<Popover ref={popoverRef} role="dialog" mode="manual" isOpen={isOpen} label="Manual popover">
 				<div data-testid="popover-content" css={styles.content}>
 					Manual popover content
 					<button type="button" data-testid="inner-button">

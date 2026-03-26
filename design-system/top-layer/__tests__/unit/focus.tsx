@@ -1,8 +1,4 @@
-import {
-	getFirstFocusable,
-	getLastFocusable,
-	getNextFocusable,
-} from '../../src/focus/focus';
+import { getFirstFocusable, getLastFocusable, getNextFocusable } from '../../src/focus/focus';
 
 // ── focus helpers unit tests ──
 

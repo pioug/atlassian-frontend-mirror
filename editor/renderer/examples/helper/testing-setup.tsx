@@ -1,5 +1,6 @@
 import React from 'react';
-import { createRoot, type Root } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
+import type { Root } from 'react-dom/client';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
@@ -19,10 +20,8 @@ import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-help
 import AnalyticsListeners from '@atlaskit/analytics-listeners';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
-import {
-	setupEditorExperiments,
-	type EditorExperimentOverrides,
-} from '@atlaskit/tmp-editor-statsig/setup';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/setup';
 
 import { RendererActionsContext as RendererContext } from '../../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../../src/ui/RendererActionsContext/WithRendererActions';

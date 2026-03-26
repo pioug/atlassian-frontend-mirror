@@ -13,10 +13,15 @@ test.describe('JiraIssuesModal', () => {
 		exampleIdSelection: string = 'with-issues-modal',
 		featureFlag: string | boolean = false,
 	) {
-		await page.visitExample(groupIdSelection, packageIdSelection, exampleIdSelection, {
-			'react-18-mode': 'legacy',
-			featureFlag: featureFlag,
-		});
+		await page.visitExample<typeof import('../../examples/with-issues-modal.tsx')>(
+			groupIdSelection,
+			packageIdSelection,
+			exampleIdSelection,
+			{
+				'react-18-mode': 'legacy',
+				featureFlag: featureFlag,
+			},
+		);
 	}
 	async function openDropDown(page: Page) {
 		await page.getByTestId('datasource-modal--view-drop-down--trigger').click();

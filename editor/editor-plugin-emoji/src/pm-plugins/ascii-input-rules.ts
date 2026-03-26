@@ -17,7 +17,7 @@ import type { EmojiDescription } from '@atlaskit/emoji/types';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { type EmojiPlugin } from '../emojiPluginType';
+import type { EmojiPlugin } from '../emojiPluginType';
 
 let matcher: AsciiEmojiMatcher;
 

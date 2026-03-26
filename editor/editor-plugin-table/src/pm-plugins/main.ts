@@ -11,7 +11,7 @@ import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-commo
 import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
 	transformSliceToRemoveOpenBodiedExtension,

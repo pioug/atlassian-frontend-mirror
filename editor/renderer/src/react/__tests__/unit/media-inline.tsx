@@ -2,7 +2,8 @@ import React from 'react';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { mediaInlineWithAnnotation } from './__fixtures__/media-inline';
 import { ReactSerializer } from '../../../index';
-import { type ReactTestRenderer, create, type ReactTestInstance } from 'react-test-renderer';
+import { create } from 'react-test-renderer';
+import type { ReactTestRenderer, ReactTestInstance } from 'react-test-renderer';
 import AnnotationComponent from '../../marks/annotation';
 import { IntlProvider } from 'react-intl-next';
 

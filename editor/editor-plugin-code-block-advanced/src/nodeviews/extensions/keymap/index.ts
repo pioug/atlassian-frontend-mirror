@@ -1,13 +1,14 @@
 import { defaultKeymap, indentWithTab } from '@codemirror/commands';
-import { type Extension } from '@codemirror/state';
-import { type KeyBinding, keymap as cmKeymap } from '@codemirror/view';
+import type { Extension } from '@codemirror/state';
+import { keymap as cmKeymap } from '@codemirror/view';
+import type { KeyBinding } from '@codemirror/view';
 
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { type RelativeSelectionPos } from '@atlaskit/editor-common/selection';
+import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { exitCode, selectAll } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { undo, redo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

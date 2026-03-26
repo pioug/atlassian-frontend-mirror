@@ -1,6 +1,6 @@
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import { type MetricsPlugin } from '../../metricsPluginType';
+import type { MetricsPlugin } from '../../metricsPluginType';
 
 const ACTIVE_SESSION_IDLE_TIME = 5000;
 

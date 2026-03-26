@@ -55,10 +55,7 @@ export default function PopoverSurfaceVariantsExample() {
 								<div css={styles.customPopup}>
 									<Stack space="space.100">
 										<Heading size="xsmall">Custom styled</Heading>
-										<Text>
-											No PopupSurface — all styling is applied directly by the
-											consumer.
-										</Text>
+										<Text>No PopupSurface — all styling is applied directly by the consumer.</Text>
 									</Stack>
 								</div>
 							</Popup.Content>
@@ -82,8 +79,7 @@ export default function PopoverSurfaceVariantsExample() {
 									<Stack space="space.100">
 										<Heading size="xsmall">With PopupSurface</Heading>
 										<Text>
-											Uses the default elevation, background, and border-radius
-											from design tokens.
+											Uses the default elevation, background, and border-radius from design tokens.
 										</Text>
 										<Inline space="space.100">
 											<Button appearance="subtle">View profile</Button>

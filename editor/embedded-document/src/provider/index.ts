@@ -1,4 +1,4 @@
-import { type Provider } from './provider';
+import type { Provider } from './provider';
 import { default as ServiceProvider } from './service-provider';
 
 export interface ProviderProps {

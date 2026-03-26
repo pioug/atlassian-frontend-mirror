@@ -8,7 +8,6 @@ export type {
 	NewIconProps,
 	NewGlyphColorProps,
 	NewCoreIconProps,
-	IconMigrationMap,
 	IconSpacing,
 	IconSize,
 	IconTileProps,

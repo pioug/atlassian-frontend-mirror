@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
+import type { CardContext } from '@atlaskit/link-provider';
 
 import { getResolvedAttributesFromStore } from '../pm-plugins/utils';
 

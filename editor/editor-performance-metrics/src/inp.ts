@@ -1,4 +1,5 @@
-import { onINP, type Metric, type CleanupOnINP as CleanupINPTracking } from './internals/onINP';
+import { onINP } from './internals/onINP';
+import type { Metric, CleanupOnINP as CleanupINPTracking } from './internals/onINP';
 
 type INPCallback = (param: Pick<Metric, 'value'>) => void;
 export const setupINPTracking = (callback: INPCallback): CleanupINPTracking | undefined => {

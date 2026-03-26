@@ -673,7 +673,7 @@ function traceSymbolsToExports({
 		let targetExportPath = findExportForSourceFile({
 			sourceFilePath: exportInfo.path,
 			exportsMap,
-		});
+		})?.exportPath ?? null;
 
 		// If no direct match, check which export can provide this symbol
 		// (handles nested barrels where the symbol is re-exported through intermediate files)

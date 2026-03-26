@@ -1,9 +1,9 @@
 import { useEffect, useRef, useCallback } from 'react';
 import {
-	type RangeType,
 	useAnnotationRangeDispatch,
 	useAnnotationRangeState,
 } from '../contexts/AnnotationRangeContext';
+import type { RangeType } from '../contexts/AnnotationRangeContext';
 import { isRangeInsideOfRendererContainer } from './utils';
 import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
 

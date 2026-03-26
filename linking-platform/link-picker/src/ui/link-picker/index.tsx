@@ -61,7 +61,7 @@ const styles = cssMap({
 		marginTop: token('space.200'),
 		display: 'flex',
 		flexDirection: 'column',
-	}
+	},
 });
 
 const baseRootContainerStyles = css({

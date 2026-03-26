@@ -10,6 +10,7 @@ import { useMemo } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import LinkIcon from '@atlaskit/icon/core/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tile from '@atlaskit/tile';
 import { token } from '@atlaskit/tokens';
@@ -174,14 +175,19 @@ const renderAtlaskitIcon = (
 	icon?: IconType,
 	testId?: string,
 	size: SmartLinkSize = SmartLinkSize.Medium,
+	label?: string,
 ): React.ReactNode | undefined => {
 	if (icon) {
 		return (
 			<AtlaskitIcon
 				icon={icon}
 				testId={`${testId}-icon`}
-				aria-hidden="true"
-				label="" // Since we already set aria-hidden="true", the label should be given an empty string
+				{...(fg('platform_navx_smart_link_icon_label_a11y')
+					? { label }
+					: {
+							'aria-hidden': true,
+							label: '',
+						})}
 				size={size}
 			/>
 		);
@@ -199,12 +205,14 @@ const renderImageIcon = (
 	size = SmartLinkSize.Medium,
 	appearance?: ImageIconProps['appearance'],
 	hideLoadingSkeleton?: boolean,
+	label?: string,
 ): React.ReactNode | undefined => {
 	const width = size === SmartLinkSize.Large ? token('space.300') : token('space.200');
 
 	if (url) {
 		return (
 			<ImageIcon
+				{...(fg('platform_navx_smart_link_icon_label_a11y') ? { label } : {})}
 				defaultIcon={defaultIcon}
 				testId={testId}
 				url={url}
@@ -226,7 +234,7 @@ const renderImageIcon = (
 const IconElement = ({
 	icon,
 	overrideIcon,
-	label = 'Link',
+	label: labelProp,
 	name,
 	position = SmartLinkPosition.Top,
 	className,
@@ -238,13 +246,29 @@ const IconElement = ({
 	hideLoadingSkeleton,
 	isTiledIcon,
 }: BaseIconElementProps) => {
+	const label = fg('platform_navx_smart_link_icon_label_a11y')
+		? (labelProp ?? '')
+		: (labelProp ?? 'Link');
 	const element = useMemo(() => {
 		const defaultIcon = renderDefaultIcon(label, testId);
 		return (
 			overrideIcon ||
 			render?.() ||
-			renderImageIcon(defaultIcon, url, testId, size, appearance, hideLoadingSkeleton) ||
-			renderAtlaskitIcon(icon, testId, size) ||
+			renderImageIcon(
+				defaultIcon,
+				url,
+				testId,
+				size,
+				appearance,
+				hideLoadingSkeleton,
+				fg('platform_navx_smart_link_icon_label_a11y') ? label : undefined,
+			) ||
+			renderAtlaskitIcon(
+				icon,
+				testId,
+				size,
+				fg('platform_navx_smart_link_icon_label_a11y') ? label : undefined,
+			) ||
 			defaultIcon
 		);
 	}, [label, testId, overrideIcon, render, url, size, appearance, hideLoadingSkeleton, icon]);

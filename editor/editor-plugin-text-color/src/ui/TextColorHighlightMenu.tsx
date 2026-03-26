@@ -19,7 +19,7 @@ import {
 	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
 import { token } from '@atlaskit/tokens';
-import { type IconColor } from '@atlaskit/tokens/css-type-schema';
+import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 
 import type { TextColorPlugin } from '../textColorPluginType';
 

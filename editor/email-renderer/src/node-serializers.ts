@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
-import { type NodeSerializer } from './interfaces';
+import type { NodeSerializer } from './interfaces';
 
 import blockquote from './nodes/blockquote';
 import blockCard from './nodes/block-card';

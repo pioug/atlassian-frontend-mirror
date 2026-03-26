@@ -12,6 +12,7 @@ import { isFileIdentifier } from '@atlaskit/media-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 import { useInteractionContext } from '@atlaskit/react-ufo/interaction-context';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 const baseStyles = css({
 	objectFit: 'contain',
 });
@@ -52,9 +53,12 @@ export const ImageRenderer = ({
 
 	useLayoutEffect(() => {
 		if (!didRender && fg('platfrom_close_blindspot_for_img')) {
+			if (!cardPreview && expValEquals('cc_editor_ttvc_media_hold_fix', 'isEnabled', true)) {
+				return;
+			}
 			return ufoContext?.hold('img-loading');
 		}
-	}, [didRender, ufoContext]);
+	}, [didRender, cardPreview, ufoContext]);
 
 	const imgRef = useRef<HTMLImageElement | null>(null);
 
@@ -66,6 +70,9 @@ export const ImageRenderer = ({
 	};
 
 	const onError = () => {
+		if (expValEquals('cc_editor_ttvc_media_hold_fix', 'isEnabled', true)) {
+			setDidRender(true);
+		}
 		onImageError && cardPreview && onImageError(cardPreview);
 	};
 

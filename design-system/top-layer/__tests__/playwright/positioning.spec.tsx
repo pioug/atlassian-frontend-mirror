@@ -5,7 +5,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Positioning', () => {
 	test('popover appears below trigger (block-end default)', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popover-positioning');
+		await page.visitExample<typeof import('../../examples/112-testing-popover-positioning.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-positioning',
+		);
 
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();
@@ -22,10 +26,15 @@ test.describe('Positioning', () => {
 	});
 
 	test('popover appears above trigger (block-start)', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popover-positioning', {
-			axis: 'block',
-			edge: 'start',
-		});
+		await page.visitExample<typeof import('../../examples/112-testing-popover-positioning.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-positioning',
+			{
+				axis: 'block',
+				edge: 'start',
+			},
+		);
 
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();
@@ -42,10 +51,15 @@ test.describe('Positioning', () => {
 	});
 
 	test('popover appears to the right of trigger (inline-end)', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popover-positioning', {
-			axis: 'inline',
-			edge: 'end',
-		});
+		await page.visitExample<typeof import('../../examples/112-testing-popover-positioning.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-positioning',
+			{
+				axis: 'inline',
+				edge: 'end',
+			},
+		);
 
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();
@@ -62,7 +76,11 @@ test.describe('Positioning', () => {
 	});
 
 	test('popover flips when insufficient space below', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popover-flip');
+		await page.visitExample<typeof import('../../examples/113-testing-popover-flip.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-flip',
+		);
 
 		// Wait for the tall container to be rendered before scrolling
 		await page.getByTestId('trigger-wrapper').waitFor({ state: 'visible' });
@@ -84,7 +102,11 @@ test.describe('Positioning', () => {
 	});
 
 	test('width="trigger" makes popover match trigger width', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popover-width-trigger');
+		await page.visitExample<typeof import('../../examples/114-testing-popover-width-trigger.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-width-trigger',
+		);
 
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();

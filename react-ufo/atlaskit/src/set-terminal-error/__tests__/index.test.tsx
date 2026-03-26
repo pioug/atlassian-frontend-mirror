@@ -67,9 +67,9 @@ const createMockContext = (
 
 const createWrapper =
 	(context: UFOInteractionContextType) =>
-		({ children }: { children: ReactNode }) => (
-			<UFOInteractionContext.Provider value={context}>{children}</UFOInteractionContext.Provider>
-		);
+	({ children }: { children: ReactNode }) => (
+		<UFOInteractionContext.Provider value={context}>{children}</UFOInteractionContext.Provider>
+	);
 
 describe('terminal-error', () => {
 	const mockSink = jest.fn();
@@ -318,7 +318,11 @@ describe('terminal-error', () => {
 			});
 
 			it('should use traceId from getActiveTrace()', () => {
-				mockGetActiveTrace.mockReturnValue({ traceId: 'active-trace-123', spanId: 'span-456', type: 'page_load' });
+				mockGetActiveTrace.mockReturnValue({
+					traceId: 'active-trace-123',
+					spanId: 'span-456',
+					type: 'page_load',
+				});
 
 				setTerminalError(mockError);
 

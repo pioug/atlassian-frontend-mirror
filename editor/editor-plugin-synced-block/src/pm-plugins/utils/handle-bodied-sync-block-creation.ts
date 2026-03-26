@@ -1,13 +1,11 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import {
-	TextSelection,
-	type EditorState,
-	type Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
-import { FLAG_ID, type SyncBlockInfo } from '../../types';
+import { FLAG_ID } from '../../types';
+import type { SyncBlockInfo } from '../../types';
 import { syncedBlockPluginKey } from '../main';
 
 import { deferDispatch } from './utils';

@@ -2,18 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, {
-	type ChangeEvent,
-	useCallback,
-	useContext,
-	useState,
-	useEffect,
-	useRef,
-} from 'react';
+import React, { useCallback, useContext, useState, useEffect, useRef } from 'react';
+import type { ChangeEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { jsx, css } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
-import { type AnnotationMarkStates, type DocNode } from '@atlaskit/adf-schema';
+import type { AnnotationMarkStates, DocNode } from '@atlaskit/adf-schema';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { token } from '@atlaskit/tokens';

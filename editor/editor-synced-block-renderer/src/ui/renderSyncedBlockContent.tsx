@@ -4,7 +4,8 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { SyncBlockError, type SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
+import { SyncBlockError } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockRendererOptions } from '../types';
 

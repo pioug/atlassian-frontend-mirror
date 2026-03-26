@@ -8,7 +8,7 @@ const noOptions = '[id="react-select-2-listbox"]';
 const createSelectInput = '[id="async-creatable-example"]';
 
 test(`Creatable-select should pass basic aXe audit`, async ({ page, skipAxeCheck }) => {
-	await page.visitExample<typeof import('../../../../examples/08-async-creatable-select.tsx')>(
+	await page.visitExample<typeof import('../../../../examples/09-creatable-select.tsx')>(
 		'design-system',
 		'select',
 		'creatable-select',

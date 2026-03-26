@@ -2,13 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { ChangeEvent } from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import { css, jsx } from '@atlaskit/css';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import type { AnnotationSelectedChangeData } from '@atlaskit/editor-common/annotation';
-import { type AnnotationProviders, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import {
 	AnnotationsProvider,
 	CommentsContentProvider,
@@ -18,8 +20,8 @@ import {
 import {
 	useUpdateDocument,
 	UpdateDocumentProvider,
-	type UpdateDocument,
 } from '@atlaskit/editor-test-helpers/update-document-context';
+import type { UpdateDocument } from '@atlaskit/editor-test-helpers/update-document-context';
 import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';

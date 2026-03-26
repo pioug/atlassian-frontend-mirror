@@ -1,23 +1,24 @@
 import React, { useCallback, useEffect } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
-import { ACTION_SUBJECT, type AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import {
 	convertSyncBlockJSONNodeToSyncBlockNode,
 	useMemoizedSyncBlockStoreManager,
-	type SyncBlockNode,
-	type SyncedBlockProvider,
-	type SyncBlockPrefetchData,
+} from '@atlaskit/editor-synced-block-provider';
+import type {
+	SyncBlockNode,
+	SyncedBlockProvider,
+	SyncBlockPrefetchData,
 } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockRendererOptions } from './types';
-import {
-	SyncedBlockNodeComponentRenderer,
-	type SyncedBlockNodeProps,
-} from './ui/SyncedBlockNodeComponentRenderer';
+import { SyncedBlockNodeComponentRenderer } from './ui/SyncedBlockNodeComponentRenderer';
+import type { SyncedBlockNodeProps } from './ui/SyncedBlockNodeComponentRenderer';
 
 export type GetSyncedBlockNodeComponentProps = {
 	fireAnalyticsEvent?: (payload: AnalyticsEventPayload) => void;

@@ -6,13 +6,12 @@ import {
 	timestampToTaskContext,
 } from '@atlaskit/editor-common/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
 import { useRendererContext } from '../../renderer-context';
 import { useTaskItemsFormatContext } from '../../ui/TaskItemsFormatContext/TaskItemsFormatContext';
-import {
-	type MarkDataAttributes,
-	useInlineAnnotationProps,
-} from '../../ui/annotations/element/useInlineAnnotationProps';
+import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
+import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
 
 export interface Props extends MarkDataAttributes {
 	parentIsIncompleteTask?: boolean;

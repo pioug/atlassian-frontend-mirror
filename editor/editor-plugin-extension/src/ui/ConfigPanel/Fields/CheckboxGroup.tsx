@@ -25,7 +25,7 @@ function validate(value: string[] | undefined, isRequired: boolean) {
 }
 
 const requiredIndicatorStyles = css({
-	color: token('color.text.danger', '#bf2600'),
+	color: token('color.text.danger'),
 });
 
 function CheckboxGroupInner({

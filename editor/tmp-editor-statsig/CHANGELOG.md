@@ -1,5 +1,39 @@
 # @atlaskit/editor-statsig-tmp
 
+## 47.0.0
+
+### Major Changes
+
+- [`369e414179c61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/369e414179c61) -
+  Cleanup feature flag platform_editor_fix_gapcursor_on_paste. The fix for gapcursor on paste is now
+  enabled by default.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.2.0
+
+### Minor Changes
+
+- [`b512cc17bab98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b512cc17bab98) -
+  Added change to avoid adding ufo hold if the the cardpreview is not available
+
+## 46.1.0
+
+### Minor Changes
+
+- [`673732f902814`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/673732f902814) -
+  Add error handling with plugin context to EditorPresetBuilder to improve debugging of plugin
+  initialization failures. When a plugin fails to initialize, the name of the plugin is added to the
+  error message before it's thrown.
+- [`6da6979e0583c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6da6979e0583c) -
+  fix a11y issue for InlineImageWrapper for media inline
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.0.0
 
 ### Major Changes

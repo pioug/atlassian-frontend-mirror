@@ -7,9 +7,8 @@ import noop from '@atlaskit/ds-lib/noop';
 import { Layering, useCloseOnEscapePress, useLayering } from '@atlaskit/layering';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
 
-import type { InlineDialogProps } from '../types';
-
-import { Container } from './styled/container';
+import { Container } from './inline-dialog-container';
+import type { InlineDialogProps } from './types';
 
 interface ReferenceChildrenProps {
 	ref: Ref<HTMLElement>;

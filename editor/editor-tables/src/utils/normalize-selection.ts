@@ -1,11 +1,6 @@
-import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import {
-	type EditorState,
-	NodeSelection,
-	type Selection,
-	TextSelection,
-	type Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { CellSelection } from '../cell-selection';

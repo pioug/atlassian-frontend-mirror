@@ -1,10 +1,11 @@
-import { create, type ReactTestRenderer, type ReactTestInstance } from 'react-test-renderer';
+import { create } from 'react-test-renderer';
+import type { ReactTestRenderer, ReactTestInstance } from 'react-test-renderer';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { ReactSerializer } from '../../../index';
 import { emojiList } from './__fixtures__/emoji';
 import Emoji, { EmojiItemComponent } from '../../../react/nodes/emoji';
-import { type EmojiId } from '@atlaskit/emoji';
+import type { EmojiId } from '@atlaskit/emoji';
 
 describe('Renderer - ReactSerializer - Emoji', () => {
 	let docFromSchema: PMNode;

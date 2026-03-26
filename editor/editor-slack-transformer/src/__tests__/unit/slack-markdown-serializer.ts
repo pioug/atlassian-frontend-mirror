@@ -929,9 +929,9 @@ describe('task list', () => {
 	it('should serialize an empty task item', () => {
 		expect(
 			markdownSerializer.serialize(
-				doc(
-					taskList({ localId: 'list-1' })(taskItem({ localId: 'item-1', state: 'TODO' })()),
-				)(defaultSchema),
+				doc(taskList({ localId: 'list-1' })(taskItem({ localId: 'item-1', state: 'TODO' })()))(
+					defaultSchema,
+				),
 			),
 		).toEqual('[ ] \n\n');
 	});
@@ -949,9 +949,7 @@ describe('task list', () => {
 					),
 				)(defaultSchema),
 			),
-		).toEqual(
-			'[ ] Parent task\n' + '  [ ] Child task 1\n' + '  [x] Child task 2\n\n',
-		);
+		).toEqual('[ ] Parent task\n' + '  [ ] Child task 1\n' + '  [x] Child task 2\n\n');
 	});
 
 	it('should serialize deeply nested task lists', () => {
@@ -969,11 +967,7 @@ describe('task list', () => {
 					),
 				)(defaultSchema),
 			),
-		).toEqual(
-			'[ ] Level 1\n' +
-				'  [ ] Level 2\n' +
-				'    [x] Level 3\n\n',
-		);
+		).toEqual('[ ] Level 1\n' + '  [ ] Level 2\n' + '    [x] Level 3\n\n');
 	});
 
 	it('should serialize task list surrounded by other block elements', () => {
@@ -996,12 +990,9 @@ describe('wrapper listItem (flexible list indentation)', () => {
 	it('should serialize a wrapper listItem with nested bullet list', () => {
 		expect(
 			markdownSerializer.serialize(
-				doc(
-					ul(
-						li(p('Normal item')),
-						li(ul(li(p('Indented item 1')), li(p('Indented item 2')))),
-					),
-				)(defaultSchema),
+				doc(ul(li(p('Normal item')), li(ul(li(p('Indented item 1')), li(p('Indented item 2'))))))(
+					defaultSchema,
+				),
 			),
 		).toEqual('• Normal item\n    • Indented item 1\n    • Indented item 2\n');
 	});
@@ -1009,12 +1000,9 @@ describe('wrapper listItem (flexible list indentation)', () => {
 	it('should serialize a wrapper listItem with nested ordered list', () => {
 		expect(
 			markdownSerializer.serialize(
-				doc(
-					ul(
-						li(p('Bullet item')),
-						li(ol()(li(p('Numbered 1')), li(p('Numbered 2')))),
-					),
-				)(defaultSchema),
+				doc(ul(li(p('Bullet item')), li(ol()(li(p('Numbered 1')), li(p('Numbered 2'))))))(
+					defaultSchema,
+				),
 			),
 		).toEqual('• Bullet item\n    1. Numbered 1\n    2. Numbered 2\n');
 	});
@@ -1022,12 +1010,9 @@ describe('wrapper listItem (flexible list indentation)', () => {
 	it('should serialize a wrapper listItem inside an ordered list', () => {
 		expect(
 			markdownSerializer.serialize(
-				doc(
-					ol()(
-						li(p('First')),
-						li(ul(li(p('Nested bullet 1')), li(p('Nested bullet 2')))),
-					),
-				)(defaultSchema),
+				doc(ol()(li(p('First')), li(ul(li(p('Nested bullet 1')), li(p('Nested bullet 2'))))))(
+					defaultSchema,
+				),
 			),
 		).toEqual('1. First\n    • Nested bullet 1\n    • Nested bullet 2\n');
 	});
@@ -1035,17 +1020,9 @@ describe('wrapper listItem (flexible list indentation)', () => {
 	it('should serialize deeply nested wrapper listItems', () => {
 		expect(
 			markdownSerializer.serialize(
-				doc(
-					ul(
-						li(p('Level 1')),
-						li(
-							ul(
-								li(p('Level 2')),
-								li(ul(li(p('Level 3')))),
-							),
-						),
-					),
-				)(defaultSchema),
+				doc(ul(li(p('Level 1')), li(ul(li(p('Level 2')), li(ul(li(p('Level 3'))))))))(
+					defaultSchema,
+				),
 			),
 		).toEqual('• Level 1\n    • Level 2\n        • Level 3\n');
 	});
@@ -1074,15 +1051,7 @@ describe('wrapper listItem (flexible list indentation)', () => {
 				doc(
 					ul(
 						li(p('Level 1')),
-						li(
-							ul(
-								li(
-									ul(
-										li(p('Level 3 (stepped down from 1)')),
-									),
-								),
-							),
-						),
+						li(ul(li(ul(li(p('Level 3 (stepped down from 1)')))))),
 						li(p('Level 1 (stepped up from 3)')),
 					),
 				)(stage0Schema),
@@ -1099,12 +1068,7 @@ describe('wrapper listItem (flexible list indentation)', () => {
 				doc(
 					ol()(
 						li(p('First')),
-						li(
-							ol()(
-								li(p('Nested ordered 1')),
-								li(p('Nested ordered 2')),
-							),
-						),
+						li(ol()(li(p('Nested ordered 1')), li(p('Nested ordered 2')))),
 						li(p('Third')),
 					),
 				)(stage0Schema),
@@ -1142,26 +1106,11 @@ describe('wrapper listItem (flexible list indentation)', () => {
 		const stage0Schema = getSchemaBasedOnStage('stage0');
 		expect(
 			markdownSerializer.serialize(
-				doc(
-					ul(
-						li(
-							p('Level 1'),
-							ul(
-								li(
-									ul(
-										li(p('Level 3')),
-									),
-								),
-							),
-						),
-					),
-				)(stage0Schema),
+				doc(ul(li(p('Level 1'), ul(li(ul(li(p('Level 3'))))))))(stage0Schema),
 			),
 		).toEqual('• Level 1\n        • Level 3\n\n');
 	});
-
 });
-
 
 describe('task list mixed states across nesting levels', () => {
 	const stage0Schema = getSchemaBasedOnStage('stage0');
@@ -1223,5 +1172,4 @@ describe('task list mixed states across nesting levels', () => {
 				'[ ] Level 1 last\n\n',
 		);
 	});
-
 });

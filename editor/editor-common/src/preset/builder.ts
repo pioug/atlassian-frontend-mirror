@@ -1,3 +1,5 @@
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 import { EventDispatcher, type Listener } from '../event-dispatcher';
 import type {
 	CorePlugin,
@@ -943,9 +945,27 @@ export class EditorPresetBuilder<
 					return null;
 				}
 
-				const plugin = pluginInjectionAPI
-					? fn({ config, api: pluginInjectionAPI.api() })
-					: fn({ config });
+				let plugin: EditorPlugin | undefined;
+
+				if (expValEquals('platform_editor_improve_preset_builder_logging', 'isEnabled', true)) {
+					try {
+						plugin = pluginInjectionAPI
+							? fn({ config, api: pluginInjectionAPI.api() })
+							: fn({ config });
+					} catch (error) {
+						const pluginName = fn.name || 'unknown';
+						const enhancedError =
+							error instanceof Error
+								? new Error(`Failed to initialize plugin '${pluginName}': ${error.message}`)
+								: new Error(`Failed to initialize plugin '${pluginName}'`);
+
+						throw enhancedError;
+					}
+				} else {
+					plugin = pluginInjectionAPI
+						? fn({ config, api: pluginInjectionAPI.api() })
+						: fn({ config });
+				}
 
 				if (plugin && excludePlugins?.has(plugin.name)) {
 					return null;

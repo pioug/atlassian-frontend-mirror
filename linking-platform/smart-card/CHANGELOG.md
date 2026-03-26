@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 43.28.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.28.0
+
+### Minor Changes
+
+- [`3dccb10fee69f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dccb10fee69f) -
+  Define a11y appropriate label/alt for icons in smart-links. behind
+  platform_navx_smart_link_icon_label_a11y fg
+
+### Patch Changes
+
+- [`7006182752c62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7006182752c62) -
+  FG Cleanup: platform_navx_sl_lozenge_max_width
+- Updated dependencies
+
 ## 43.27.5
 
 ### Patch Changes

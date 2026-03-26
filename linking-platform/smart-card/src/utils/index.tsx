@@ -33,7 +33,10 @@ export const isSpecialKey = (event: React.MouseEvent | React.KeyboardEvent): boo
 
 export const isSpecialClick = (event: React.MouseEvent): boolean => event.button === 1;
 
-export const getIconForFileType = (fileMimeType: string): React.ReactNode | undefined => {
+export const getIconForFileType = (
+	fileMimeType: string,
+	showIconLabel?: boolean,
+): React.ReactNode | undefined => {
 	if (!fileMimeType) {
 		return;
 	}
@@ -53,10 +56,17 @@ export const getIconForFileType = (fileMimeType: string): React.ReactNode | unde
 		loading: () => null,
 	}) as any; // because we're using dynamic loading here, TS will not be able to infer the type
 
-	return (<Icon testId="document-file-format-icon" />) as React.ReactNode;
+	if (fg('platform_navx_smart_link_icon_label_a11y')) {
+		const descriptorLabel = icon[1] || ''; // NAVX-4354: Combine into const [importCb] = icon; above
+		const label = (showIconLabel ?? true) ? descriptorLabel : '';
+		return (<Icon testId="document-file-format-icon" label={label} />) as React.ReactNode;
+	} else {
+		return (<Icon testId="document-file-format-icon" />) as React.ReactNode;
+	}
 };
 
 type IconLabelMap = [(() => Promise<any>) | undefined];
+type IconLabelMapNew = [(() => Promise<any>) | undefined, string];
 
 // prettier-ignore
 export const getLazyIcons = (): Partial<
@@ -260,7 +270,7 @@ export const getLazyIcons = (): Partial<
 	};
 };
 
-const getTypeToIconMap = (fileFormat: string): IconLabelMap | null => {
+const getTypeToIconMap = (fileFormat: string): IconLabelMap | IconLabelMapNew | null => {
 	const iconDescriptor = extractFileFormatIcon(fileFormat);
 	if (!iconDescriptor?.icon) {
 		return null;
@@ -268,7 +278,11 @@ const getTypeToIconMap = (fileFormat: string): IconLabelMap | null => {
 
 	const lazyIcons = getLazyIcons();
 
-	return [lazyIcons[iconDescriptor.icon]?.default];
+	if (fg('platform_navx_smart_link_icon_label_a11y')) {
+		return [lazyIcons[iconDescriptor.icon]?.default, iconDescriptor.label ?? ''];
+	} else {
+		return [lazyIcons[iconDescriptor.icon]?.default];
+	}
 };
 
 export const getIframeSandboxAttribute = (isTrusted: boolean) => {

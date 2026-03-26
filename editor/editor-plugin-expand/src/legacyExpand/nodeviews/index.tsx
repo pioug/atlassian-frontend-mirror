@@ -76,7 +76,7 @@ const toDOM = (
 			tabindex: '-1',
 		},
 		// prettier-ignore
-		['div', { 'class': expandClassNames.icon, style: `display: flex; width: ${token('space.300', '24px')}; height: ${token('space.300', '24px')}` }],
+		['div', { 'class': expandClassNames.icon, style: `display: flex; width: ${token('space.300')}; height: ${token('space.300')}` }],
 		[
 			'div',
 			{

@@ -1,5 +1,6 @@
 import { getEventCategory } from '../dom';
-import { getElementName, type SelectorConfig } from '../getElementName';
+import { getElementName } from '../getElementName';
+import type { SelectorConfig } from '../getElementName';
 import type { TimelineClock } from '../timelineInterfaces';
 
 import { InputEventsObserver } from './InputEventsObserver';

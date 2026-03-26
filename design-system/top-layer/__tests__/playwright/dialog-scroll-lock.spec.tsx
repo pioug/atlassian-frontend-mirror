@@ -3,7 +3,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('DialogScrollLock', () => {
 	test('should prevent body scrolling when dialog is open', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-scroll-lock');
+		await page.visitExample<typeof import('../../examples/98-testing-dialog-scroll-lock.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-scroll-lock',
+		);
 
 		// Body should be scrollable before dialog opens
 		const overflowBefore = await page.evaluate(() => document.body.style.overflow);
@@ -27,7 +31,11 @@ test.describe('DialogScrollLock', () => {
 	});
 
 	test('should restore original overflow value on close', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-scroll-lock');
+		await page.visitExample<typeof import('../../examples/98-testing-dialog-scroll-lock.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-scroll-lock',
+		);
 
 		// Set a custom overflow value before opening
 		await page.evaluate(() => {

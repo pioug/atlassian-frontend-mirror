@@ -13,6 +13,7 @@ import {
 	extractUrlFromIconJsonLd,
 	type LinkProvider,
 } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getIconForFileType } from '../../../utils';
 import { extractTaskType, type LinkTaskType } from '../lozenge/extractTaskType';
@@ -31,7 +32,7 @@ export interface IconOpts {
 	provider?: LinkProvider;
 	showIconLabel?: boolean;
 	taskType?: LinkTaskType;
-	title?: string;
+	title?: string; // NAVX-4354: remove this during cleanup
 }
 
 export const extractIcon = (
@@ -41,7 +42,7 @@ export const extractIcon = (
 ): React.ReactNode | undefined => {
 	const type = jsonLd['@type'];
 	const opts = {
-		title: extractTitle(jsonLd),
+		...(fg('platform_navx_smart_link_icon_label_a11y') ? {} : { title: extractTitle(jsonLd) }),
 		provider: extractProvider(jsonLd),
 		fileFormat: extractFileFormat(jsonLd as JsonLd.Data.Document),
 		taskType: extractTaskType(jsonLd as JsonLd.Data.Task),
@@ -62,25 +63,24 @@ function typeToIcon(
 	type: JsonLd.Primitives.ObjectType | 'atlassian:Template',
 	opts: IconOpts,
 ): React.ReactNode | undefined {
+	const getLabel = (title: string) =>
+		fg('platform_navx_smart_link_icon_label_a11y') ? title : opts.title || title;
+
 	switch (type) {
 		case 'atlassian:SourceCodeCommit':
-			return <CommitIcon label={opts.title || 'commit'} testId="commit-icon" />;
+			return <CommitIcon label={getLabel('commit')} testId="commit-icon" />;
 		case 'atlassian:Project':
 			return (
-				<PeopleGroupIcon
-					label={opts.title || 'project'}
-					testId="project-icon"
-					color="currentColor"
-				/>
+				<PeopleGroupIcon label={getLabel('project')} testId="project-icon" color="currentColor" />
 			);
 		case 'atlassian:SourceCodePullRequest':
-			return <PullRequestIcon label={opts.title || 'pullRequest'} testId="pull-request-icon" />;
+			return <PullRequestIcon label={getLabel('pull request')} testId="pull-request-icon" />;
 		case 'atlassian:SourceCodeReference':
-			return <BranchIcon label={opts.title || 'reference'} testId="branch-icon" />;
+			return <BranchIcon label={getLabel('reference')} testId="branch-icon" />;
 		case 'atlassian:SourceCodeRepository':
-			return <RepoIcon label={opts.title || 'repository'} testId="repo-icon" />;
+			return <RepoIcon label={getLabel('repository')} testId="repo-icon" />;
 		case 'atlassian:Goal':
-			return <TaskIcon label={opts.title || 'goal'} testId="task-icon" />;
+			return <TaskIcon label={getLabel('goal')} testId="task-icon" />;
 		case 'atlassian:Task':
 			return extractIconFromTask(opts);
 		default:
@@ -93,7 +93,12 @@ function standardisedExtractIcon(
 	opts: IconOpts,
 ) {
 	const iconFromType = typeToIcon(type, opts);
-	const iconFromFileFormat = opts.fileFormat ? getIconForFileType(opts.fileFormat) : undefined;
+	const iconFromFileFormat = opts.fileFormat
+		? getIconForFileType(
+				opts.fileFormat,
+				fg('platform_navx_smart_link_icon_label_a11y') ? opts.showIconLabel : undefined,
+			)
+		: undefined;
 	const iconFromProvider = opts.provider && opts.provider.icon;
 
 	return prioritiseIcon<React.ReactNode>({

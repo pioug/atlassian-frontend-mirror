@@ -5,4 +5,3 @@
 //   import { Popup } from '@atlaskit/top-layer/popup';
 //   import { Dialog } from '@atlaskit/top-layer/dialog';
 //   import { Popover } from '@atlaskit/top-layer/popover';
-

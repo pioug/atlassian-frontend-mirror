@@ -1,13 +1,12 @@
-import { type Node } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { fixTablesKey } from '../pm-plugins/plugin-key';
-import {
-	TableMap,
-	type TableProblemCollision,
-	type TableProblemLongRowspan,
-	type TableProblemMissing,
-	TableProblemTypes,
+import { TableMap, TableProblemTypes } from '../table-map';
+import type {
+	TableProblemCollision,
+	TableProblemLongRowspan,
+	TableProblemMissing,
 } from '../table-map';
 
 import { removeColSpan } from './colspan';

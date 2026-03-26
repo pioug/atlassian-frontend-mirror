@@ -1,5 +1,12 @@
 # @atlaskit/activity-provider
 
+## 2.5.3
+
+### Patch Changes
+
+- [`5979ce2baa3ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5979ce2baa3ea) -
+  Mechanical type-import autofix for rendering and provider packages.
+
 ## 2.5.2
 
 ### Patch Changes

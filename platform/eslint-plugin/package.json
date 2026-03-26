@@ -46,6 +46,8 @@
 		"@compiled/eslint-plugin": "root:*",
 		"@manypkg/find-root": "root:*",
 		"@manypkg/get-packages": "root:*",
+		"@typescript-eslint/typescript-estree": "root:*",
+		"@typescript-eslint/utils": "root:*",
 		"fuse.js": "root:*",
 		"read-pkg-up": "root:*",
 		"typescript": "root:*"

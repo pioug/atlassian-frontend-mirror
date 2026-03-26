@@ -1,4 +1,6 @@
+import type { JsonLd } from '@atlaskit/json-ld-types';
 import { isConfluenceGenerator } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { IconType } from '../../../constants';
 
@@ -20,52 +22,55 @@ import { type IconDescriptor } from './types';
  * @returns an icon descriptor representing the document type
  */
 const extractDocumentTypeIcon = (
-	documentType: string,
-	label?: string,
+	documentType: JsonLd.Primitives.ObjectType | 'atlassian:Template',
+	label?: string, // NAVX-4354: remove this during cleanup
 	providerId?: string,
 ): IconDescriptor | undefined => {
+	const getLabel = (hardcodedLabel: string) =>
+		fg('platform_navx_smart_link_icon_label_a11y') ? hardcodedLabel : label;
+
 	switch (documentType) {
 		case 'schema:BlogPosting':
 			return {
 				icon: IconType.Blog,
-				label,
+				label: getLabel('blog'),
 			};
 		case 'schema:DigitalDocument':
 			if (providerId && isConfluenceGenerator(providerId)) {
 				return {
 					icon: IconType.LiveDocument,
-					label,
+					label: getLabel('live document'),
 				};
 			} else {
 				return {
 					icon: IconType.File,
-					label,
+					label: getLabel('file'),
 				};
 			}
 		case 'schema:TextDigitalDocument':
 			return {
 				icon: IconType.Document,
-				label,
+				label: getLabel('document'),
 			};
 		case 'schema:PresentationDigitalDocument':
 			return {
 				icon: IconType.Presentation,
-				label,
+				label: getLabel('presentation'),
 			};
 		case 'schema:SpreadsheetDigitalDocument':
 			return {
 				icon: IconType.Spreadsheet,
-				label,
+				label: getLabel('spreadsheet'),
 			};
 		case 'atlassian:Template':
 			return {
 				icon: IconType.Template,
-				label,
+				label: getLabel('template'),
 			};
 		case 'atlassian:UndefinedLink':
 			return {
 				icon: IconType.Document,
-				label,
+				label: getLabel('document'),
 			};
 		default:
 			return undefined;

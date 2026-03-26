@@ -1,5 +1,19 @@
 # @atlaskit/editor-card-provider
 
+## 6.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.5.5
+
+### Patch Changes
+
+- [`5979ce2baa3ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5979ce2baa3ea) -
+  Mechanical type-import autofix for rendering and provider packages.
+- Updated dependencies
+
 ## 6.5.4
 
 ### Patch Changes

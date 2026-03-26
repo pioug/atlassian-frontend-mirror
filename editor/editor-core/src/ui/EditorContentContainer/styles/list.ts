@@ -236,22 +236,20 @@ export const listItemHiddenMarkerStyles = css({
 	'.ProseMirror': {
 		// Hide markers and remove spacing for wrapper list items (items containing only nested lists)
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'li:has(> ul:only-child), li:has(> ol:only-child), li:has(> div[data-node-type="actionList"]:only-child)':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-				listStyleType: 'none !important',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-				marginTop: '0 !important',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-				marginBottom: '0 !important',
-			},
+		'li:has(> ul:only-child), li:has(> ol:only-child)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			listStyleType: 'none !important',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			marginTop: '0 !important',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			marginBottom: '0 !important',
+		},
 		// Remove margin from nested lists inside wrapper list items to avoid double spacing
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'li:has(> ul:only-child) > ul, li:has(> ol:only-child) > ol, li:has(> div[data-node-type="actionList"]:only-child) > div[data-node-type="actionList"]':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-				marginTop: '0 !important',
-			},
+		'li:has(> ul:only-child) > ul, li:has(> ol:only-child) > ol': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			marginTop: '0 !important',
+		},
 		// Collapse wrapper task items (empty task items followed by a sibling nested task list)
 		// Only hides empty task items that are actual wrappers, not regular empty task items being edited
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors

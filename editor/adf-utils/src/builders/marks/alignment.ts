@@ -1,4 +1,9 @@
-import type { AlignmentMarkDefinition, AlignmentAttributes, ParagraphDefinition, HeadingDefinition } from '@atlaskit/adf-schema';
+import type {
+	AlignmentMarkDefinition,
+	AlignmentAttributes,
+	ParagraphDefinition,
+	HeadingDefinition,
+} from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
 import type { WithMark, WithAppliedMark } from '../types';
 

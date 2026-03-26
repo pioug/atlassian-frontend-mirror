@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 import { AnnotationView } from './view';
 import { AnnotationsContextWrapper } from './wrapper';
-import { type AnnotationsWrapperProps } from './types';
+import type { AnnotationsWrapperProps } from './types';
 import { ProvidersContext, InlineCommentsStateContext } from './context';
-import { type LoadCompleteHandler, useLoadAnnotations } from './hooks/use-load-annotations';
+import { useLoadAnnotations } from './hooks/use-load-annotations';
+import type { LoadCompleteHandler } from './hooks/use-load-annotations';
 import { useAnnotationStateByTypeEvent } from './hooks/use-events';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { AnnotationRangeProvider } from './contexts/AnnotationRangeContext';

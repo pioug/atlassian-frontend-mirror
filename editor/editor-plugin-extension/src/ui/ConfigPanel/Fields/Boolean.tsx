@@ -24,10 +24,7 @@ const toggleFieldWrapperStyles = css({
 
 const toggleLabelStyles = css({
 	display: 'flex',
-	padding: `${token('space.050', '4px')} ${token('space.050', '4px')} ${token(
-		'space.050',
-		'4px',
-	)} ${token('space.0', '0px')}`,
+	padding: `${token('space.050')} ${token('space.050')} ${token('space.050')} ${token('space.0')}`,
 	flexGrow: 1,
 });
 

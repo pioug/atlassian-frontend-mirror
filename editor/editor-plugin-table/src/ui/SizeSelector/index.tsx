@@ -8,7 +8,8 @@ import { useCallback } from 'react';
 import { jsx } from '@emotion/react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { TableSelectorPopup, type TableSelectorPopupProps } from '@atlaskit/editor-common/ui';
+import { TableSelectorPopup } from '@atlaskit/editor-common/ui';
+import type { TableSelectorPopupProps } from '@atlaskit/editor-common/ui';
 
 import { pluginKey } from '../../pm-plugins/table-size-selector';
 import type { TablePlugin } from '../../tablePluginType';

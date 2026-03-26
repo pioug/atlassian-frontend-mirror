@@ -20,10 +20,7 @@ jest.mock('../segment', () => {
 
 // Mock feature flags
 jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn((flag: string) => {
-		if (flag === 'platform_ufo_exclude_3p_elements_from_ttai') {
-			return false;
-		}
+	fg: jest.fn(() => {
 		return false;
 	}),
 }));

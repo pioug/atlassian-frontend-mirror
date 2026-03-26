@@ -1,4 +1,4 @@
-import { type TextToken, type TokenParser } from './';
+import type { TextToken, TokenParser } from './';
 
 export const createDashTokenParser =
 	(token: TextToken, fallback: TextToken): TokenParser =>

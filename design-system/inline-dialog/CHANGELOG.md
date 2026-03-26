@@ -1,5 +1,12 @@
 # @atlaskit/inline-dialog
 
+## 18.0.13
+
+### Patch Changes
+
+- [`c054192950c10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c054192950c10) -
+  Updates internal file structure and removes unused dynamic styles
+
 ## 18.0.12
 
 ### Patch Changes

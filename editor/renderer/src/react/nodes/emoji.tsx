@@ -5,20 +5,16 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { type EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import { PureComponent, memo, type FC } from 'react';
-import {
-	ProviderFactory,
-	WithProviders,
-	type Providers,
-} from '@atlaskit/editor-common/provider-factory';
+import { PureComponent, memo } from 'react';
+import type { FC } from 'react';
+import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { EmojiId } from '@atlaskit/emoji/types';
-import {
-	useInlineAnnotationProps,
-	type MarkDataAttributes,
-} from '../../ui/annotations/element/useInlineAnnotationProps';
-import { type EmojiAttributes } from '@atlaskit/adf-schema';
+import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
+import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
+import type { EmojiAttributes } from '@atlaskit/adf-schema';
 
 export interface EmojiProps extends EmojiId, EmojiAttributes, MarkDataAttributes {
 	allowTextFallback?: boolean;

@@ -1,14 +1,13 @@
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { N20, N30 } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const previewStyle = {
-	borderColor: token('color.border', N30),
+	borderColor: token('color.border'),
 	borderStyle: 'solid',
 	borderRadius: token('radius.small', '3px'),
-	borderWidth: token('border.width.selected', '2px'),
-	backgroundColor: token('color.skeleton.subtle', N20),
+	borderWidth: token('border.width.selected'),
+	backgroundColor: token('color.skeleton.subtle'),
 };
 
 export type DragPreviewContent = {

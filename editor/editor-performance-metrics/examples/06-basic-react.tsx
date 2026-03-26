@@ -6,7 +6,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { PerformanceMetrics, type OnTTVC } from '@atlaskit/editor-performance-metrics/react';
+import { PerformanceMetrics } from '@atlaskit/editor-performance-metrics/react';
+import type { OnTTVC } from '@atlaskit/editor-performance-metrics/react';
 
 import type { WindowWithEditorPerformanceGlobals } from '../__tests__/playwright/window-type';
 

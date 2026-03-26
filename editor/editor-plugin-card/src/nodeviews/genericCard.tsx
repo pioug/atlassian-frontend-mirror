@@ -6,19 +6,17 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import {
-	type NamedPluginStatesFromInjectionAPI,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory, Providers } from '@atlaskit/editor-common/provider-factory';
 import type { ReactComponentProps, getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Link from '@atlaskit/link';
-import { type CardContext } from '@atlaskit/link-provider';
+import type { CardContext } from '@atlaskit/link-provider';
 import type { APIError } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardProps as BaseCardProps } from '@atlaskit/smart-card';

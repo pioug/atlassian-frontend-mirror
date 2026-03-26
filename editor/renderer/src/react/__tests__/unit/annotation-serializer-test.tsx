@@ -1,7 +1,8 @@
 import React from 'react';
-import { create, type ReactTestRenderer, type ReactTestInstance } from 'react-test-renderer';
+import { create } from 'react-test-renderer';
+import type { ReactTestRenderer, ReactTestInstance } from 'react-test-renderer';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { ReactSerializer } from '../../../index';
 import AnnotationComponent from '../../marks/annotation';
 import { MarkElement as AnnotationMark } from '../../../ui/annotations/element';

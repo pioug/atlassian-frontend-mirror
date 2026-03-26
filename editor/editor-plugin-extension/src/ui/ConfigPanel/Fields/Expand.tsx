@@ -14,18 +14,17 @@ import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const expandContainerStyles = css({
-	borderBottom: `${token('border.width')} solid ${token('color.border', N40)}`,
+	borderBottom: `${token('border.width')} solid ${token('color.border')}`,
 });
 
 const expandControlStyles = css({
 	display: 'flex',
-	height: token('space.600', '48px'),
+	height: token('space.600'),
 	justifyContent: 'center',
-	paddingRight: token('space.100', '8px'),
+	paddingRight: token('space.100'),
 });
 
 const chevronContainerStyles = css({
@@ -34,8 +33,8 @@ const chevronContainerStyles = css({
 
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > button': {
-		width: token('space.300', '24px'),
-		height: token('space.300', '24px'),
+		width: token('space.300'),
+		height: token('space.300'),
 	},
 });
 
@@ -48,12 +47,12 @@ const labelContainerStyles = css({
 
 const expandContentContainerHiddenStyles = css({
 	display: 'none',
-	marginTop: token('space.negative.100', '-8px'),
+	marginTop: token('space.negative.100'),
 });
 
 const expandContentContainerVisibleStyles = css({
 	display: 'block',
-	marginTop: token('space.negative.100', '-8px'),
+	marginTop: token('space.negative.100'),
 });
 
 type Props = {

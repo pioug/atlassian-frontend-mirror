@@ -4,7 +4,8 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DeletionReason, SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
-import { FLAG_ID, type ActiveFlag, type SyncBlockInfo } from '../../types';
+import { FLAG_ID } from '../../types';
+import type { ActiveFlag, SyncBlockInfo } from '../../types';
 import { syncedBlockPluginKey } from '../main';
 
 export type TransactionRef = { current: Transaction | undefined };

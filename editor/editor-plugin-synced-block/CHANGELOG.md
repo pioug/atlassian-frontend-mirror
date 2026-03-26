@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 6.0.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.26
+
+### Patch Changes
+
+- [`5221db0d676ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5221db0d676ef) -
+  Mechanical type-import autofix for tables, collab, and synchrony packages.
+- Updated dependencies
+
+## 6.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.24
 
 ### Patch Changes

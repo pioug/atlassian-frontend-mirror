@@ -83,7 +83,12 @@ function ProgrammaticClose() {
 					Open programmatic popup
 				</button>
 			</Popup.Trigger>
-			<Popup.Content ref={popoverRef} role="dialog" label="Programmatic close popup" testId="programmatic-popup">
+			<Popup.Content
+				ref={popoverRef}
+				role="dialog"
+				label="Programmatic close popup"
+				testId="programmatic-popup"
+			>
 				<div>
 					<button type="button" data-testid="programmatic-inner-button">
 						Inner button

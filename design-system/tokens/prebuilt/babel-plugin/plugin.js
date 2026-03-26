@@ -11,6 +11,7 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 var t = _interopRequireWildcard(require("@babel/types"));
 var _tokenNames = _interopRequireDefault(require("../artifacts/token-names"));
 var _atlassianLight = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-light"));
+var _atlassianMotion = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-motion"));
 var _atlassianShape = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-shape"));
 var _atlassianSpacing = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-spacing"));
 var _atlassianTypography = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography"));
@@ -72,6 +73,18 @@ var getThemeValues = function getThemeValues(theme) {
         }
         return prev + value;
       }, '');
+    } else if (Object(rawToken.value).hasOwnProperty('keyframes') || Object(rawToken.value).hasOwnProperty('properties')) {
+      // Handle motion tokens which have object values like { duration, curve, keyframes, etc. }
+      // Convert to a JSON string representation for fallback value
+      var motionToken = rawToken.value;
+      if (motionToken.keyframes) {
+        value = motionToken.keyframes.map(function (keyframe) {
+          return "".concat(motionToken.duration, "ms ").concat(motionToken.curve, " ").concat(keyframe).concat(motionToken.delay ? " ".concat(motionToken.delay, "ms") : '');
+        }).join(', ');
+      } else {
+        var _motionToken$properti;
+        value = "".concat((_motionToken$properti = motionToken.properties) === null || _motionToken$properti === void 0 ? void 0 : _motionToken$properti.join(' '), " ").concat(motionToken.duration, "ms ").concat(motionToken.curve).concat(motionToken.delay ? " ".concat(motionToken.delay, "ms") : '');
+      }
     } else {
       // ignore when value is `fontweight` etc. - this is apparently not handled here.
       return formatted;
@@ -196,6 +209,7 @@ var lightValues = getThemeValues(_atlassianLight.default);
 var shapeValues = getThemeValues(_atlassianShape.default);
 var spacingValues = getThemeValues(_atlassianSpacing.default);
 var typographyValues = getThemeValues(_atlassianTypography.default);
+var motionValues = getThemeValues(_atlassianMotion.default);
 function getDefaultFallback(tokenName) {
   if (shapeValues[tokenName]) {
     return shapeValues[tokenName];
@@ -205,6 +219,9 @@ function getDefaultFallback(tokenName) {
   }
   if (typographyValues[tokenName]) {
     return typographyValues[tokenName];
+  }
+  if (motionValues[tokenName]) {
+    return motionValues[tokenName];
   }
   return lightValues[tokenName];
 }

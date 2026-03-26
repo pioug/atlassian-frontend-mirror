@@ -1,7 +1,5 @@
-import {
-	EditorPerformanceObserver,
-	type EditorPerformanceObserverOptions,
-} from './editorPerformanceObserver';
+import { EditorPerformanceObserver } from './editorPerformanceObserver';
+import type { EditorPerformanceObserverOptions } from './editorPerformanceObserver';
 import { TimelineController } from './timeline';
 import type { Timeline } from './timelineInterfaces';
 

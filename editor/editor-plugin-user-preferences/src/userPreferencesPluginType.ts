@@ -3,10 +3,10 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import {
-	type ResolvedUserPreferences,
-	type UserPreferencesProvider,
-	type UserPreferences,
+import type {
+	ResolvedUserPreferences,
+	UserPreferencesProvider,
+	UserPreferences,
 } from '@atlaskit/editor-common/user-preferences';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 

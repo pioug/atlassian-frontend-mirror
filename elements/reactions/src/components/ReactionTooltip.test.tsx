@@ -2,6 +2,8 @@ import React from 'react';
 import { act, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { TOOLTIP_USERS_LIMIT } from '../shared/constants';
 import { type ReactionSummary } from '../types';
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
@@ -200,5 +202,78 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 
 		expect(mockDismissTooltip).toHaveBeenCalled();
 		expect(mockHandleOpenReactionsDialog).toHaveBeenCalled();
+	});
+
+	ffTest.on('platform_reactions_tooltip_a11y', 'with a11y suppression removal flag on', () => {
+		it('should render overflow footer as a button when allowUserDialog is enabled', async () => {
+			renderReactionTooltip({ allowUserDialog: true });
+
+			const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+			await userEvent.hover(item);
+
+			const usersListWrapper = await screen.findByRole('tooltip');
+			expect(usersListWrapper).toBeInTheDocument();
+
+			const footerButton = screen.getByRole('button', {
+				name: 'and 2 others',
+			});
+			expect(footerButton).toBeInTheDocument();
+			expect(footerButton).toHaveAttribute('type', 'button');
+		});
+
+		it('should open dialog and dismiss tooltip when the footer button is clicked', async () => {
+			const mockHandleOpenReactionsDialog = jest.fn();
+			const mockDismissTooltip = jest.fn();
+
+			renderReactionTooltip({
+				dismissTooltip: mockDismissTooltip,
+				handleOpenReactionsDialog: mockHandleOpenReactionsDialog,
+				allowUserDialog: true,
+			});
+
+			const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+			await userEvent.hover(item);
+
+			await screen.findByRole('tooltip');
+
+			const footerButton = screen.getByRole('button', { name: 'and 2 others' });
+			await userEvent.click(footerButton);
+
+			expect(mockDismissTooltip).toHaveBeenCalledTimes(1);
+			expect(mockHandleOpenReactionsDialog).toHaveBeenCalledTimes(1);
+		});
+
+		it('should not render footer at all when users do not exceed the limit', async () => {
+			renderReactionTooltip({
+				reactionSummary: {
+					...demoReaction,
+					users: demoReaction.users!.slice(0, 3),
+				},
+				allowUserDialog: true,
+			});
+
+			const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+			await userEvent.hover(item);
+
+			const usersListWrapper = await screen.findByRole('tooltip');
+			expect(usersListWrapper).toBeInTheDocument();
+
+			expect(screen.queryByRole('button')).not.toBeInTheDocument();
+			expect(screen.queryByText(/others/)).not.toBeInTheDocument();
+		});
+
+		it('should render overflow footer as plain text (no button) when allowUserDialog is disabled', async () => {
+			renderReactionTooltip({ allowUserDialog: false });
+
+			const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+			await userEvent.hover(item);
+
+			const usersListWrapper = await screen.findByRole('tooltip');
+			expect(usersListWrapper).toBeInTheDocument();
+
+			expect(screen.queryByRole('button')).not.toBeInTheDocument();
+			const footerItems = screen.getAllByText('and 2 others');
+			expect(footerItems.length).toBeGreaterThan(0);
+		});
 	});
 });

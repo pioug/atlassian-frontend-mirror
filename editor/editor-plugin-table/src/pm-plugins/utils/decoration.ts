@@ -6,7 +6,7 @@ import type { IntlShape } from 'react-intl-next';
 import uuid from 'uuid/v4';
 
 import type { CellAttributes } from '@atlaskit/adf-schema';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { nonNullable } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 // @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck

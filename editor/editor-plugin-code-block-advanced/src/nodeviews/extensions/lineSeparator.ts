@@ -1,4 +1,5 @@
-import { EditorState as CodeMirrorState, type Extension } from '@codemirror/state';
+import { EditorState as CodeMirrorState } from '@codemirror/state';
+import type { Extension } from '@codemirror/state';
 
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

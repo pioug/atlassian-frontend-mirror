@@ -411,7 +411,7 @@ const quickInsertStyles = () =>
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.blocks-quick-insert-button:focus': {
-			outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#388BFF')}`,
+			outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.blocks-quick-insert-visible-container': {
@@ -435,13 +435,13 @@ const quickInsertStyles = () =>
 			backgroundColor: token('color.background.neutral.bold'),
 			color: token('color.text.inverse'),
 			font: token('font.body.small'),
-			insetBlockStart: token('space.0', '0px'),
-			insetInlineStart: token('space.0', '0px'),
+			insetBlockStart: token('space.0'),
+			insetInlineStart: token('space.0'),
 			overflowWrap: 'break-word',
-			paddingBlockEnd: token('space.025', '2px'),
-			paddingBlockStart: token('space.025', '2px'),
-			paddingInlineEnd: token('space.075', '6px'),
-			paddingInlineStart: token('space.075', '6px'),
+			paddingBlockEnd: token('space.025'),
+			paddingBlockStart: token('space.025'),
+			paddingInlineEnd: token('space.075'),
+			paddingInlineStart: token('space.075'),
 			wordWrap: 'break-word',
 			pointerEvents: 'none',
 			userSelect: 'none',

@@ -46,7 +46,9 @@ function VrPopupFallback({ placement }: { placement: TPlacementOptions }) {
 		<div css={styles.center}>
 			<Popup placement={placement} onClose={() => {}} forceFallbackPositioning>
 				<Popup.Trigger>
-					<button ref={triggerRef} type="button">{label}</button>
+					<button ref={triggerRef} type="button">
+						{label}
+					</button>
 				</Popup.Trigger>
 				<Popup.Content role="dialog" label={`JS fallback ${label}`}>
 					<PopupSurface>

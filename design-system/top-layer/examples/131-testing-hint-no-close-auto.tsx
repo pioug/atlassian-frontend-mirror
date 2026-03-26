@@ -40,10 +40,7 @@ export default function TestingHintNoCloseAuto() {
 			{/* Auto popup */}
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
 				<Popup.Trigger>
-					<button
-						type="button"
-						data-testid="auto-trigger"
-					>
+					<button type="button" data-testid="auto-trigger">
 						Toggle auto popup
 					</button>
 				</Popup.Trigger>
@@ -51,11 +48,7 @@ export default function TestingHintNoCloseAuto() {
 					<div data-testid="auto-popover" css={styles.popoverContent}>
 						Auto popup content
 						{/* Hint popup nested inside the auto popup */}
-						<Popup
-							placement={{ edge: 'end' }}
-							onClose={() => {}}
-							mode="hint"
-						>
+						<Popup placement={{ edge: 'end' }} onClose={() => {}} mode="hint">
 							<Popup.Trigger>
 								<button type="button" data-testid="hint-trigger">
 									Hover for hint

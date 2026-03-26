@@ -29,10 +29,10 @@ when the component mounts/unmounts.
 
 ### What was replaced
 
-| Legacy mechanism                         | Native replacement                            |
-| ---------------------------------------- | --------------------------------------------- |
-| `@atlaskit/portal` with `layers.flag()`  | `Popover mode="manual"` (top layer rendering) |
-| z-index stacking                         | Top layer insertion order                     |
+| Legacy mechanism                        | Native replacement                            |
+| --------------------------------------- | --------------------------------------------- |
+| `@atlaskit/portal` with `layers.flag()` | `Popover mode="manual"` (top layer rendering) |
+| z-index stacking                        | Top layer insertion order                     |
 
 ---
 
@@ -55,8 +55,8 @@ This contrasts with tooltip and popup which use `popover="auto"` for native ligh
 
 Minimal. Flags now render in the browser's top layer instead of a portal. There are no API changes.
 
-The `shouldRenderToParent` prop still exists and is still accepted, but on the top-layer path it
-has no effect -- the Popover wrapper handles in-place rendering regardless.
+The `shouldRenderToParent` prop still exists and is still accepted, but on the top-layer path it has
+no effect -- the Popover wrapper handles in-place rendering regardless.
 
 ---
 
@@ -70,16 +70,16 @@ Informational VR tests comparing `platform-dst-top-layer` true vs false are in
 The following scenarios produce **byte-for-byte identical** snapshots between the legacy and
 top-layer paths:
 
-| Scenario | Device | Result |
-| --- | --- | --- |
-| Single flag | Desktop | Identical |
-| Single flag | Mobile | Identical |
-| Multiple flags stacked (3 flags) | Desktop | Identical |
+| Scenario                                 | Device  | Result    |
+| ---------------------------------------- | ------- | --------- |
+| Single flag                              | Desktop | Identical |
+| Single flag                              | Mobile  | Identical |
+| Multiple flags stacked (3 flags)         | Desktop | Identical |
 | Flag appearances (normal, via FlagGroup) | Desktop | Identical |
-| Single flag — action button hovered | Desktop | Identical |
-| Single flag — action button focused | Desktop | Identical |
-| Long title | Desktop | Identical |
-| Long content | Desktop | Identical |
+| Single flag — action button hovered      | Desktop | Identical |
+| Single flag — action button focused      | Desktop | Identical |
+| Long title                               | Desktop | Identical |
+| Long content                             | Desktop | Identical |
 
 For standard flag usage (FlagGroup rendered at page level), the top-layer migration produces **no
 visual change** across all tested scenarios, including multiple flags, all appearances, interactive
@@ -87,9 +87,9 @@ states, long content, and mobile viewports.
 
 ### Scenarios with visual differences
 
-| Scenario | Difference | Intentional? |
-| --- | --- | --- |
-| Flag in modal with `shouldRenderToParent` | ~3.6% pixel diff around the flag card and blanket area | Yes |
+| Scenario                                  | Difference                                             | Intentional? |
+| ----------------------------------------- | ------------------------------------------------------ | ------------ |
+| Flag in modal with `shouldRenderToParent` | ~3.6% pixel diff around the flag card and blanket area | Yes          |
 
 **Flag in modal with `shouldRenderToParent`**: This is the only scenario with a visual difference.
 The pixel diff is concentrated around the flag card and the modal blanket region. The cause is that
@@ -120,25 +120,24 @@ in the test environment.
 Browser tests: `flag/src/__tests__/playwright/ff-testing/platform-dst-top-layer/flag.spec.tsx` — 6
 tests covering 1.3.2, 2.1.1, 2.4.7, 2.4.11, 4.1.2 (dismiss button accessible label test is SKIPPED).
 
-Visual regression tests:
-`flag/src/__tests__/informational-vr-tests/flag-top-layer.vr.tsx` — 9 scenarios (18 snapshots
-total: 9 with flag on, 9 with flag off) covering single flag, multiple flags, appearances,
-hover/focus states, long title/content, mobile viewport, and flag-in-modal.
+Visual regression tests: `flag/src/__tests__/informational-vr-tests/flag-top-layer.vr.tsx` — 9
+scenarios (18 snapshots total: 9 with flag on, 9 with flag off) covering single flag, multiple
+flags, appearances, hover/focus states, long title/content, mobile viewport, and flag-in-modal.
 
 ### Accessibility (top-layer path)
 
-| A11y criterion | Test | Status | Notes |
-| --- | --- | --- | --- |
-| 1.3.1 Info and Relationships | ✗ | N/A | Flags are persistent notifications with no trigger element. There is no trigger-to-popup relationship to expose. `Popover mode="manual"` is used purely for top-layer rendering. |
-| 1.3.2 Meaningful Sequence | ✓ | Browser | `flag.spec.tsx` — no portal rendering |
-| 2.1.1 Keyboard | ✓ | Browser | `flag.spec.tsx` — keyboard dismiss via close button |
-| 2.1.2 No Keyboard Trap | ✗ | N/A | `popover="manual"` has no light dismiss and no focus trap. Flags do not capture focus, so no keyboard trap is possible by design. |
-| 2.4.3 Focus Order | ✗ | **Gap** | No browser test verifies focus order within the flag group or focus behavior after flag dismiss on the top-layer path. Focus handling is flag component logic. |
-| 2.4.7 Focus Visible | ✓ | Browser | `flag.spec.tsx` — focus-visible on flag actions |
-| 2.4.11 Focus Not Obscured | ✓ | Browser | `flag.spec.tsx` — top-layer content not obscured |
-| 3.2.1 On Focus | ✗ | N/A | Flags are persistent notifications that do not open/close on focus. No focus-triggered context change is possible. |
-| 4.1.2 Name, Role, Value | ✓* | Browser (partial) | `flag.spec.tsx` — ARIA role. **SKIPPED:** dismiss button accessible label test (Flag doesn't provide aria-label on dismiss button) |
-| 4.1.3 Status Messages | ✗ | **Gap** | Flags are status notifications and should use `role="status"` or `aria-live="polite"` to announce to screen readers. This is a flag component concern, not tested on the top-layer path. |
+| A11y criterion               | Test | Status            | Notes                                                                                                                                                                                    |
+| ---------------------------- | ---- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.3.1 Info and Relationships | ✗    | N/A               | Flags are persistent notifications with no trigger element. There is no trigger-to-popup relationship to expose. `Popover mode="manual"` is used purely for top-layer rendering.         |
+| 1.3.2 Meaningful Sequence    | ✓    | Browser           | `flag.spec.tsx` — no portal rendering                                                                                                                                                    |
+| 2.1.1 Keyboard               | ✓    | Browser           | `flag.spec.tsx` — keyboard dismiss via close button                                                                                                                                      |
+| 2.1.2 No Keyboard Trap       | ✗    | N/A               | `popover="manual"` has no light dismiss and no focus trap. Flags do not capture focus, so no keyboard trap is possible by design.                                                        |
+| 2.4.3 Focus Order            | ✗    | **Gap**           | No browser test verifies focus order within the flag group or focus behavior after flag dismiss on the top-layer path. Focus handling is flag component logic.                           |
+| 2.4.7 Focus Visible          | ✓    | Browser           | `flag.spec.tsx` — focus-visible on flag actions                                                                                                                                          |
+| 2.4.11 Focus Not Obscured    | ✓    | Browser           | `flag.spec.tsx` — top-layer content not obscured                                                                                                                                         |
+| 3.2.1 On Focus               | ✗    | N/A               | Flags are persistent notifications that do not open/close on focus. No focus-triggered context change is possible.                                                                       |
+| 4.1.2 Name, Role, Value      | ✓\*  | Browser (partial) | `flag.spec.tsx` — ARIA role. **SKIPPED:** dismiss button accessible label test (Flag doesn't provide aria-label on dismiss button)                                                       |
+| 4.1.3 Status Messages        | ✗    | **Gap**           | Flags are status notifications and should use `role="status"` or `aria-live="polite"` to announce to screen readers. This is a flag component concern, not tested on the top-layer path. |
 
 > **Note:** Flag has dedicated top-layer browser tests in
 > `flag/src/__tests__/playwright/ff-testing/platform-dst-top-layer/flag.spec.tsx` (6 tests).
@@ -161,10 +160,10 @@ top-layer migration. They exist in both the legacy and top-layer paths:
 
 ### `@atlaskit/flag`
 
-| File              | Change                                                                              |
-| ----------------- | ----------------------------------------------------------------------------------- |
-| `src/flag-group.tsx` | Added `<Popover mode="manual">` wrapper behind `platform-dst-top-layer` flag     |
-| `package.json`    | Added `platform-dst-top-layer` feature flag; added `@atlaskit/top-layer` dependency |
+| File                 | Change                                                                              |
+| -------------------- | ----------------------------------------------------------------------------------- |
+| `src/flag-group.tsx` | Added `<Popover mode="manual">` wrapper behind `platform-dst-top-layer` flag        |
+| `package.json`       | Added `platform-dst-top-layer` feature flag; added `@atlaskit/top-layer` dependency |
 
 ---
 
@@ -181,7 +180,8 @@ top-layer migration. They exist in both the legacy and top-layer paths:
 
 ### Changes gated behind `platform-dst-top-layer`
 
-- **`flag-group.tsx:201`** — `fg('platform-dst-top-layer')` condition wraps the `<Popover mode="manual">` component
+- **`flag-group.tsx:201`** — `fg('platform-dst-top-layer')` condition wraps the
+  `<Popover mode="manual">` component
   - When flag is ON: FlagGroup renders via `<Popover mode="manual">` (top-layer rendering)
   - When flag is OFF: FlagGroup uses legacy Portal path (no change)
 
@@ -196,25 +196,30 @@ top-layer migration. They exist in both the legacy and top-layer paths:
 ### Risks when flag is turned on
 
 - **`shouldRenderToParent` prop is ignored** (intentional design decision)
-  - When flag is ON, Popover always renders via top-layer, regardless of `shouldRenderToParent` value
+  - When flag is ON, Popover always renders via top-layer, regardless of `shouldRenderToParent`
+    value
   - This is expected behavior; documented in "Behavior changes for consumers"
-  - **Impact:** Flags in modals show visual difference (intentional; modal and flag both use top-layer)
+  - **Impact:** Flags in modals show visual difference (intentional; modal and flag both use
+    top-layer)
 
 - **No Escape dismiss, no click-outside dismiss** (intentional; correct for flags)
   - `popover="manual"` mode intentionally disables auto-dismiss
-  - Flags are persistent notifications; consumers control lifecycle via close button or auto-dismiss timer
+  - Flags are persistent notifications; consumers control lifecycle via close button or auto-dismiss
+    timer
   - This is the correct behavior; matches flag semantics
 
 ### Test confidence
 
-| Test type | Count | Status | Coverage |
-| --- | --- | --- | --- |
-| Unit tests | 88 | ✓ Pass | Flag rendering, properties, event handling |
-| Gap tests | 11 | ✓ Pass (added) | New top-layer paths |
-| Browser tests | 6 | ✓ Pass | Meaningful sequence, keyboard dismiss, focus visibility, focus not obscured, ARIA role |
-| Browser test (skipped) | 1 | ⊗ Skipped | Dismiss button aria-label (pre-existing gap in flag component) |
-| VR snapshots | 18 | ✓ Pass | 9 legacy scenarios vs 9 top-layer scenarios |
-| Byte-for-byte identical | 8 of 9 | ✓ Pass | Single flag, multiple flags, all appearances, hover/focus, long content, mobile |
-| Intentional differences | 1 of 9 | ✓ Pass | Flag-in-modal-with-shouldRenderToParent (expected due to both modal and flag switching paths) |
+| Test type               | Count  | Status         | Coverage                                                                                      |
+| ----------------------- | ------ | -------------- | --------------------------------------------------------------------------------------------- |
+| Unit tests              | 88     | ✓ Pass         | Flag rendering, properties, event handling                                                    |
+| Gap tests               | 11     | ✓ Pass (added) | New top-layer paths                                                                           |
+| Browser tests           | 6      | ✓ Pass         | Meaningful sequence, keyboard dismiss, focus visibility, focus not obscured, ARIA role        |
+| Browser test (skipped)  | 1      | ⊗ Skipped      | Dismiss button aria-label (pre-existing gap in flag component)                                |
+| VR snapshots            | 18     | ✓ Pass         | 9 legacy scenarios vs 9 top-layer scenarios                                                   |
+| Byte-for-byte identical | 8 of 9 | ✓ Pass         | Single flag, multiple flags, all appearances, hover/focus, long content, mobile               |
+| Intentional differences | 1 of 9 | ✓ Pass         | Flag-in-modal-with-shouldRenderToParent (expected due to both modal and flag switching paths) |
 
-**Summary:** All existing tests pass. 11 new gap tests added and passing. VR tests confirm visual equivalence on the legacy path and expected behavior on the top-layer path. This is the simplest migration of all packages — a thin wrapper with no breaking changes to the legacy path.
+**Summary:** All existing tests pass. 11 new gap tests added and passing. VR tests confirm visual
+equivalence on the legacy path and expected behavior on the top-layer path. This is the simplest
+migration of all packages — a thin wrapper with no breaking changes to the legacy path.

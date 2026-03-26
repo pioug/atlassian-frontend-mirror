@@ -14,7 +14,7 @@ test('InlineDialog should be able to be identified and clicked by data-testid', 
 	page,
 	skipAxeCheck,
 }) => {
-	await page.visitExample<typeof import('../../../../examples/99-testing.tsx')>(
+	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
 		'design-system',
 		'inline-dialog',
 		'testing',
@@ -29,7 +29,7 @@ test('InlineDialog should be able to be identified and clicked by data-testid', 
 });
 
 test('InlineDialog with Open Modal button should open modal', async ({ page }) => {
-	await page.visitExample<typeof import('../../../../examples/06-modal.tsx')>(
+	await page.visitExample<typeof import('../../../examples/06-modal.tsx')>(
 		'design-system',
 		'inline-dialog',
 		'modal',
@@ -43,7 +43,7 @@ test('InlineDialog with Open Modal button should open modal', async ({ page }) =
 test('InlineDialog should stay open when modal is closed through button click', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../../examples/06-modal.tsx')>(
+	await page.visitExample<typeof import('../../../examples/06-modal.tsx')>(
 		'design-system',
 		'inline-dialog',
 		'modal',
@@ -60,7 +60,7 @@ test('InlineDialog should stay open when modal is closed through button click', 
 });
 
 test('InlineDialog should stay open when user clicks modal blanket', async ({ page }) => {
-	await page.visitExample<typeof import('../../../../examples/06-modal.tsx')>(
+	await page.visitExample<typeof import('../../../examples/06-modal.tsx')>(
 		'design-system',
 		'inline-dialog',
 		'modal',
@@ -77,7 +77,7 @@ test('InlineDialog should stay open when user clicks modal blanket', async ({ pa
 });
 
 test('InlineDialog should close correctly after modal is closed', async ({ page }) => {
-	await page.visitExample<typeof import('../../../../examples/06-modal.tsx')>(
+	await page.visitExample<typeof import('../../../examples/06-modal.tsx')>(
 		'design-system',
 		'inline-dialog',
 		'modal',
@@ -94,7 +94,7 @@ test('InlineDialog should close correctly after modal is closed', async ({ page 
 });
 
 test('InlineDialog should work with Select and set value correctly', async ({ page }) => {
-	await page.visitExample<typeof import('../../../../examples/04-select-datepicker.tsx')>(
+	await page.visitExample<typeof import('../../../examples/04-select-datepicker.tsx')>(
 		'design-system',
 		'inline-dialog',
 		'select-datepicker',
@@ -109,7 +109,7 @@ test('InlineDialog should work with Select and set value correctly', async ({ pa
 });
 
 test('InlineDialog should work correctly with DatePicker component', async ({ page }) => {
-	await page.visitExample<typeof import('../../../../examples/04-select-datepicker.tsx')>(
+	await page.visitExample<typeof import('../../../examples/04-select-datepicker.tsx')>(
 		'design-system',
 		'inline-dialog',
 		'select-datepicker',
@@ -120,7 +120,7 @@ test('InlineDialog should work correctly with DatePicker component', async ({ pa
 });
 
 test('InlineDialog should stay open when interacting dropdown in modal', async ({ page }) => {
-	await page.visitExample<typeof import('../../../../examples/09-popup.tsx')>(
+	await page.visitExample<typeof import('../../../examples/09-popup.tsx')>(
 		'design-system',
 		'inline-dialog',
 		'popup',

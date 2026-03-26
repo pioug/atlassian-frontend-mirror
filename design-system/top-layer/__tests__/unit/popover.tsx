@@ -97,7 +97,9 @@ describe('Popup compound component', () => {
 					<button type="button">Trigger</button>
 				</Popup.Trigger>
 				<Popup.Content role="listbox" label="Listbox">
-					<div role="option" aria-selected={false}>Option 1</div>
+					<div role="option" aria-selected={false}>
+						Option 1
+					</div>
 				</Popup.Content>
 			</Popup>,
 		);

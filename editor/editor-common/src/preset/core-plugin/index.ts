@@ -163,12 +163,12 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					? processRawValueWithoutValidation(schema, replaceValue)
 					: Array.isArray(replaceValue)
 						? processRawFragmentValue(
-							schema,
-							replaceValue,
-							undefined,
-							undefined,
-							options?.transformer,
-						)
+								schema,
+								replaceValue,
+								undefined,
+								undefined,
+								options?.transformer,
+							)
 						: processRawValue(schema, replaceValue, undefined, undefined, options?.transformer);
 
 				// Don't replace the document if it's the same document, as full size
@@ -210,8 +210,8 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				scheduleDocumentRequest(
 					view,
 					onReceive as GenericTransformer extends undefined
-					? DefaultTransformerResultCallback
-					: InferTransformerResultCallback<GenericTransformer>,
+						? DefaultTransformerResultCallback
+						: InferTransformerResultCallback<GenericTransformer>,
 					options?.transformer,
 					config?.fireAnalyticsEvent,
 					options?.alwaysFire,

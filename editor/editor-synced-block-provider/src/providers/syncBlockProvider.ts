@@ -6,32 +6,32 @@ import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
 import { fetchConfluencePageInfo } from '../clients/confluence/sourceInfo';
 import { fetchJiraWorkItemInfo } from '../clients/jira/sourceInfo';
-import {
-	SyncBlockError,
-	type BlockInstanceId,
-	type DeletionReason,
-	type ReferenceSyncBlockData,
-	type ResourceId,
-	type SyncBlockAttrs,
-	type SyncBlockData,
-	type SyncBlockNode,
-	type SyncBlockProduct,
+import { SyncBlockError } from '../common/types';
+import type {
+	BlockInstanceId,
+	DeletionReason,
+	ReferenceSyncBlockData,
+	ResourceId,
+	SyncBlockAttrs,
+	SyncBlockData,
+	SyncBlockNode,
+	SyncBlockProduct,
 } from '../common/types';
 
-import {
-	SyncBlockDataProviderInterface,
-	type ADFFetchProvider,
-	type ADFWriteProvider,
-	type BlockSubscriptionErrorCallback,
-	type BlockUpdateCallback,
-	type DeleteSyncBlockResult,
-	type SyncBlockInstance,
-	type SyncBlockParentInfo,
-	type SyncBlockSourceInfo,
-	type SyncedBlockRendererProviderOptions,
-	type Unsubscribe,
-	type UpdateReferenceSyncBlockResult,
-	type WriteSyncBlockResult,
+import { SyncBlockDataProviderInterface } from './types';
+import type {
+	ADFFetchProvider,
+	ADFWriteProvider,
+	BlockSubscriptionErrorCallback,
+	BlockUpdateCallback,
+	DeleteSyncBlockResult,
+	SyncBlockInstance,
+	SyncBlockParentInfo,
+	SyncBlockSourceInfo,
+	SyncedBlockRendererProviderOptions,
+	Unsubscribe,
+	UpdateReferenceSyncBlockResult,
+	WriteSyncBlockResult,
 } from './types';
 
 export class SyncedBlockProvider extends SyncBlockDataProviderInterface {

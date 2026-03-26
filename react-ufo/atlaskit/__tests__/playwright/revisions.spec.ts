@@ -34,7 +34,9 @@ test.describe('ReactUFO: Revisions - basic', () => {
 				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoRevisions).toBeDefined();
 
-				const applicableRevisions = ufoRevisions?.filter((rev) => rev['revision'] >= 'fy25.03');
+				const applicableRevisions = ufoRevisions?.filter(
+					(rev) => rev['revision'] >= 'fy25.03' && rev['revision'] !== 'raw-handler',
+				);
 				for (const rev of applicableRevisions!) {
 					const vc90Result = rev['metric:vc90'];
 					const revisionName = rev['revision'];
@@ -91,7 +93,9 @@ test.describe('ReactUFO: Revisions - nested', () => {
 				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoRevisions).toBeDefined();
 
-				const applicableRevisions = ufoRevisions?.filter((rev) => rev['revision'] >= 'fy25.03');
+				const applicableRevisions = ufoRevisions?.filter(
+					(rev) => rev['revision'] >= 'fy25.03' && rev['revision'] !== 'raw-handler',
+				);
 				for (const rev of applicableRevisions!) {
 					const vc90Result = rev['metric:vc90'];
 					const revisionName = rev['revision'];

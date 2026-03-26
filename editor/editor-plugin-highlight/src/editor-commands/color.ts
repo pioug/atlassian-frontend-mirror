@@ -1,10 +1,7 @@
 import { entireSelectionContainsMark } from '@atlaskit/editor-common/mark';
 import type { Mark, Node } from '@atlaskit/editor-prosemirror/model';
-import {
-	type ReadonlyTransaction,
-	TextSelection,
-	type Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 const getAllUniqueBackgroundColorMarksInRange = (

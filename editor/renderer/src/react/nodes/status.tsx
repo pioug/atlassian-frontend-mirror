@@ -1,11 +1,10 @@
 import React, { memo } from 'react';
-import { Status as AkStatus, type Color } from '@atlaskit/status/element';
+import { Status as AkStatus } from '@atlaskit/status/element';
+import type { Color } from '@atlaskit/status/element';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	useInlineAnnotationProps,
-	type MarkDataAttributes,
-} from '../../ui/annotations/element/useInlineAnnotationProps';
+import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
+import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
 
 export interface Props extends MarkDataAttributes {
 	color: Color;

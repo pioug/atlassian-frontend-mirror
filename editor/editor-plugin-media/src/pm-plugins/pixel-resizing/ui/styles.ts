@@ -13,7 +13,7 @@ export const pixelSizingWrapper: SerializedStyles = css`
 	grid-template-areas: 'widthinput label heightinput submit';
 	width: ${PIXEL_SIZING_WRAPPER_MINIMUM_WIDTH}px;
 	text-align: center;
-	height: ${token('space.300', '24px')};
+	height: ${token('space.300')};
 
 	/* Atlaskit fieldset does not allow style override */
 	& > * {
@@ -32,7 +32,7 @@ export const pixelEntryForm: SerializedStyles = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const pixelSizingInput: SerializedStyles = css({
 	width: '100%',
-	height: token('space.300', '24px'),
+	height: token('space.300'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& input': {
 		textAlign: 'center',
@@ -61,7 +61,7 @@ export const pixelEntryHiddenSubmit: SerializedStyles = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const pixelSizingFullWidthLabelStyles: SerializedStyles = css({
 	minWidth: `${PIXEL_SIZING_WRAPPER_MINIMUM_WIDTH}px`,
-	height: token('space.300', '24px'),
+	height: token('space.300'),
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',

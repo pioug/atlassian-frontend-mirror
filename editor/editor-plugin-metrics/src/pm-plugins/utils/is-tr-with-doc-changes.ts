@@ -1,13 +1,13 @@
 import { BatchAttrsStep } from '@atlaskit/adf-schema/steps';
-import { type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import {
 	AddMarkStep,
 	AttrStep,
 	RemoveMarkStep,
 	ReplaceAroundStep,
 	ReplaceStep,
-	type Step,
 } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
 export const isTrWithDocChanges = (tr: ReadonlyTransaction): boolean =>
 	tr.steps.length > 0 &&

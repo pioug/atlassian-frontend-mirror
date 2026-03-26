@@ -1,5 +1,13 @@
 # @atlaskit/quick-search
 
+## 10.4.0
+
+### Minor Changes
+
+- [`b2250607b5d5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2250607b5d5e) -
+  Fix cross-package barrel imports in search packages - comprehensive update for all search packages
+  to use specific subpath imports instead of barrel files
+
 ## 10.3.0
 
 ### Minor Changes

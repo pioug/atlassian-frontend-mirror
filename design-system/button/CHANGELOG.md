@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 23.10.5
+
+### Patch Changes
+
+- [`0daada0469ab8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0daada0469ab8) -
+  Remove `eslint-disable` comment for `@atlaskit/design-system/no-legacy-icons` rule which no longer
+  exists.
+- Updated dependencies
+
 ## 23.10.4
 
 ### Patch Changes

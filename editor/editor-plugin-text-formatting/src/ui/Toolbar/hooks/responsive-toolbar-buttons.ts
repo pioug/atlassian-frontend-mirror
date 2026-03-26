@@ -14,7 +14,8 @@ import {
 } from '../constants';
 import type { IconTypes, MenuIconItem } from '../types';
 
-import { type IconsPositions, useIconList } from './use-icon-list';
+import { useIconList } from './use-icon-list';
+import type { IconsPositions } from './use-icon-list';
 
 export const useResponsiveIconTypeButtons = ({
 	toolbarSize,

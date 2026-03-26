@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-	EmbeddedDocument,
-	DocumentBody,
-	ServiceProvider,
-	type DocumentMode,
-	Toolbar,
-} from '../src';
+import { EmbeddedDocument, DocumentBody, ServiceProvider, Toolbar } from '../src';
+import type { DocumentMode } from '../src';
 
 import { Container } from './helpers/styles';
 

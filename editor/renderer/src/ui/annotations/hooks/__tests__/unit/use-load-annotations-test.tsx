@@ -10,7 +10,8 @@ import { act } from 'react-dom/test-utils';
 import RendererActions from '../../../../../actions/index';
 import { RendererContext } from '../../../../RendererActionsContext';
 import { ProvidersContext } from '../../../context';
-import { useLoadAnnotations, type LoadCompleteHandler } from '../../use-load-annotations';
+import { useLoadAnnotations } from '../../use-load-annotations';
+import type { LoadCompleteHandler } from '../../use-load-annotations';
 
 function createFakeMark(id: string): Mark {
 	// @ts-ignore

@@ -5,7 +5,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Nested layers - nested popovers', () => {
 	test('nested popover renders inside parent popover', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-nested-popovers');
+		await page.visitExample<typeof import('../../examples/94-testing-nested-popovers.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-nested-popovers',
+		);
 
 		await page.getByTestId('first-trigger').click();
 		await expect(page.getByTestId('first-popover')).toBeVisible();
@@ -15,7 +19,11 @@ test.describe('Nested layers - nested popovers', () => {
 	});
 
 	test('nested popover is clickable (renders on top)', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-nested-popovers');
+		await page.visitExample<typeof import('../../examples/94-testing-nested-popovers.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-nested-popovers',
+		);
 
 		await page.getByTestId('first-trigger').click();
 		await expect(page.getByTestId('first-popover')).toBeVisible();
@@ -42,7 +50,11 @@ test.describe('Nested layers - nested popovers', () => {
 
 	// WCAG 2.1.2 No Keyboard Trap - Escape closes innermost layer first
 	test('Escape closes innermost layer first', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-nested-popovers');
+		await page.visitExample<typeof import('../../examples/94-testing-nested-popovers.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-nested-popovers',
+		);
 
 		await page.getByTestId('first-trigger').click();
 		await page.getByTestId('second-trigger').click();
@@ -56,7 +68,11 @@ test.describe('Nested layers - nested popovers', () => {
 
 	// WCAG 2.4.3 Focus Order - nested focus return at each level
 	test('focus returns to correct trigger at each nesting level', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-nested-popovers');
+		await page.visitExample<typeof import('../../examples/94-testing-nested-popovers.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-nested-popovers',
+		);
 
 		const firstTrigger = page.getByTestId('first-trigger');
 		const secondTrigger = page.getByTestId('second-trigger');
@@ -75,7 +91,11 @@ test.describe('Nested layers - nested popovers', () => {
 
 test.describe('Nested layers - sibling auto-close', () => {
 	test('opening sibling auto-closes previous (A then B)', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-sibling-auto-close');
+		await page.visitExample<typeof import('../../examples/106-testing-sibling-auto-close.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-sibling-auto-close',
+		);
 
 		await page.getByTestId('trigger-a').click();
 		await expect(page.getByTestId('popover-a')).toBeVisible();
@@ -86,7 +106,11 @@ test.describe('Nested layers - sibling auto-close', () => {
 	});
 
 	test('opening sibling auto-closes previous (B then A)', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-sibling-auto-close');
+		await page.visitExample<typeof import('../../examples/106-testing-sibling-auto-close.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-sibling-auto-close',
+		);
 
 		await page.getByTestId('trigger-b').click();
 		await expect(page.getByTestId('popover-b')).toBeVisible();
@@ -97,7 +121,11 @@ test.describe('Nested layers - sibling auto-close', () => {
 	});
 
 	test('multiple mode="manual" popovers coexist', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-manual-coexistence');
+		await page.visitExample<typeof import('../../examples/116-testing-manual-coexistence.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-manual-coexistence',
+		);
 
 		await page.getByTestId('trigger-a').click();
 		await expect(page.getByTestId('popover-a')).toBeVisible();
@@ -111,7 +139,11 @@ test.describe('Nested layers - sibling auto-close', () => {
 
 test.describe('Nested layers - popover in dialog', () => {
 	test('popover inside dialog is visible and interactive', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popover-in-dialog');
+		await page.visitExample<typeof import('../../examples/97-testing-popover-in-dialog.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-in-dialog',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.locator('dialog')).toBeVisible();
@@ -126,7 +158,11 @@ test.describe('Nested layers - popover in dialog', () => {
 
 	// WCAG 2.4.3 Focus Order - Escape through popover-in-dialog returns focus correctly
 	test('Escape from popover in dialog returns focus to popover trigger', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popover-in-dialog');
+		await page.visitExample<typeof import('../../examples/97-testing-popover-in-dialog.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-in-dialog',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.locator('dialog')).toBeVisible();

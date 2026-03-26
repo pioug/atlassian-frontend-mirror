@@ -1,5 +1,12 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.20.11
+
+### Patch Changes
+
+- [`e974c7d2d3aef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e974c7d2d3aef) -
+  Mechanical type-import autofix for editor-wikimarkup-transformer.
+
 ## 11.20.10
 
 ### Patch Changes

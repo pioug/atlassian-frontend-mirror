@@ -14,16 +14,15 @@ import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightLargeIcon from '@atlaskit/icon/core/chevron-right';
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const toolbarScrollButtons = css({
 	display: 'grid',
 	gridTemplateColumns: '1fr 1fr',
-	gridGap: token('space.050', '4px'),
-	padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
-	borderLeft: `solid ${token('color.border', N30)} 1px`,
+	gridGap: token('space.050'),
+	padding: `${token('space.050')} ${token('space.100')}`,
+	borderLeft: `solid ${token('color.border')} ${token('border.width')}`,
 	flexShrink: 0,
 	alignItems: 'center',
 });

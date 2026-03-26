@@ -1,7 +1,7 @@
-import { type ExtractInjectionAPI, type TypeAheadItem } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, TypeAheadItem } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 
-import { type TypeAheadPlugin } from '../typeAheadPluginType';
+import type { TypeAheadPlugin } from '../typeAheadPluginType';
 
 export const itemIsDisabled = (
 	item: TypeAheadItem | undefined,

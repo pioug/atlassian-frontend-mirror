@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { bind } from 'bind-event-listener';
 
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { type UserPreferencesProvider } from '@atlaskit/editor-common/user-preferences';
+import type { UserPreferencesProvider } from '@atlaskit/editor-common/user-preferences';
 
 export const useDocumentVisibilityWatcher = (
 	userPreferencesProvider?: UserPreferencesProvider,

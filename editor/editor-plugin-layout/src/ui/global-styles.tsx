@@ -43,9 +43,9 @@ const getPlaceholderStyle = (message: string) => {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 					content: `"${message}"`,
 					position: 'absolute',
-					color: token('color.text.disabled', '#A5ADBA'),
+					color: token('color.text.disabled'),
 					font: token('font.body'),
-					marginTop: token('space.050', '4px'),
+					marginTop: token('space.050'),
 					pointerEvents: 'none',
 				},
 			},

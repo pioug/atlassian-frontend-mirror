@@ -447,7 +447,7 @@ export function addHold(
 	interactionId: string,
 	labelStack: LabelStack,
 	name: string,
-	experimental: boolean,
+	_experimental: boolean,
 ): () => void {
 	const interaction = interactions.get(interactionId);
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -932,9 +932,7 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 					// Set end3p to current time when 3p holds cleared, but ensure it's at least interaction.end
 					const currentTime = endTime ?? performance.now();
 					interaction.end3p =
-						interaction.end !== 0 && currentTime < interaction.end
-							? interaction.end
-							: currentTime;
+						interaction.end !== 0 && currentTime < interaction.end ? interaction.end : currentTime;
 					finishInteraction(
 						interactionId,
 						interaction,
@@ -975,10 +973,7 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 			}
 		} else {
 			// Original behavior when feature flag is not active
-			if (
-				noMoreActiveHolds &&
-				interactionExtraMetrics.finishedInteraction?.id !== interactionId
-			) {
+			if (noMoreActiveHolds && interactionExtraMetrics.finishedInteraction?.id !== interactionId) {
 				// If it's not waiting for extra metrics to complete, finish the interaction as normal
 				if (!activeSubmitted) {
 					finishInteraction(interactionId, interaction, endTime);
@@ -1122,8 +1117,7 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 			isActiveInteraction &&
 			abortReason === 'transition' &&
 			interaction.type === 'press' &&
-			finishInteractions?.includes(interaction.ufoName) &&
-			fg('platform_ufo_enable_finish_interaction_transition')
+			finishInteractions?.includes(interaction.ufoName)
 		) {
 			hasFinished = true;
 		}

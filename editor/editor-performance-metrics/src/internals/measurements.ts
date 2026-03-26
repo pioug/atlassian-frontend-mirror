@@ -1,10 +1,5 @@
-import {
-	type Heatmap,
-	type HeatmapEntryData,
-	isElementMoved,
-	isLayoutShift,
-	isNodeReplacement,
-} from './heatmap';
+import { isElementMoved, isLayoutShift, isNodeReplacement } from './heatmap';
+import type { Heatmap, HeatmapEntryData } from './heatmap';
 import type { UserEvent } from './timelineTypes';
 
 export type VCTargetsTuple = ['25', '50', '75', '80', '85', '90', '95', '98', '99'];

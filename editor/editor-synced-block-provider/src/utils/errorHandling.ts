@@ -3,9 +3,11 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	ACTION_SUBJECT_ID,
-	type RendererSyncBlockEventPayload,
-	type OperationalAEP,
-	type SyncBlockEventPayload,
+} from '@atlaskit/editor-common/analytics';
+import type {
+	RendererSyncBlockEventPayload,
+	OperationalAEP,
+	SyncBlockEventPayload,
 } from '@atlaskit/editor-common/analytics';
 
 export const stringifyError = (error: unknown): string | undefined => {

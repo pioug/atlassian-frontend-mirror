@@ -55,15 +55,15 @@ export const isUnbadgedUrl = (url: string | undefined): boolean => {
 	if (expValEquals('platform_editor_media_external_badge_bbc_fix', 'isEnable', true)) {
 		return Boolean(
 			hostname &&
-				NO_EXTERNAL_BADGE_HOSTS_NEW.some(
-					(host) => hostname === host || hostname.endsWith(`.${host}`),
-				),
+			NO_EXTERNAL_BADGE_HOSTS_NEW.some(
+				(host) => hostname === host || hostname.endsWith(`.${host}`),
+			),
 		);
 	}
 
 	return Boolean(
 		hostname &&
-			NO_EXTERNAL_BADGE_HOSTS.some((host) => hostname === host || hostname.endsWith(`.${host}`)),
+		NO_EXTERNAL_BADGE_HOSTS.some((host) => hostname === host || hostname.endsWith(`.${host}`)),
 	);
 };
 

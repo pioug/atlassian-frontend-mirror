@@ -15,22 +15,14 @@ import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/s
 import { insm } from '@atlaskit/insm';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import { SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/resource';
-import {
-	ComponentNames,
-	type Actions as MentionActions,
-	type SliNames,
-} from '@atlaskit/mention/types';
+import { ComponentNames } from '@atlaskit/mention/types';
+import type { Actions as MentionActions, SliNames } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import { MentionNodeView } from '../nodeviews/mentionNodeView';
-import {
-	type FireElementsChannelEvent,
-	MENTION_PROVIDER_REJECTED,
-	MENTION_PROVIDER_UNDEFINED,
-	type MentionPluginOptions,
-	type MentionPluginState,
-} from '../types';
+import { MENTION_PROVIDER_REJECTED, MENTION_PROVIDER_UNDEFINED } from '../types';
+import type { FireElementsChannelEvent, MentionPluginOptions, MentionPluginState } from '../types';
 
 import { mentionPluginKey } from './key';
 import { canMentionBeCreatedInRange } from './utils';

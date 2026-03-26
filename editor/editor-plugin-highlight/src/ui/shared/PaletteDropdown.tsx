@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type WithOutsideClickProps } from '@atlaskit/editor-common/ui';
+import type { WithOutsideClickProps } from '@atlaskit/editor-common/ui';
 import {
 	ColorPalette,
 	getSelectedRowAndColumnFromPalette,

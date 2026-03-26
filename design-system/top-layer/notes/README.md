@@ -1,8 +1,8 @@
 # @atlaskit/top-layer — Notes
 
 Project documentation for the `@atlaskit/top-layer` package and the migration of design system
-layering components from Popper.js + Portal + z-index to native browser top layer
-(`popover`, `<dialog>`) and CSS Anchor Positioning.
+layering components from Popper.js + Portal + z-index to native browser top layer (`popover`,
+`<dialog>`) and CSS Anchor Positioning.
 
 ## Directory Structure
 
@@ -40,8 +40,8 @@ Architectural decisions, design rationale, and decision logs.
   keys, type-ahead) is the consumer's responsibility
 - **[compiled.md](./decisions/compiled.md)** — Gap analysis for Compiled CSS-in-JS migration
   (animations, `@position-try`, `var()`, `calc()`)
-- **[migration-roadmap.md](./decisions/migration-roadmap.md)** — Status of all DS layering
-  packages (which are migrated, which are planned, which are skipped)
+- **[migration-roadmap.md](./decisions/migration-roadmap.md)** — Status of all DS layering packages
+  (which are migrated, which are planned, which are skipped)
 - **[migration-audit-report.md](./decisions/migration-audit-report.md)** — Cross-package migration
   audit (12 packages, 96 gaps identified, 99 tests added, remediation plan)
 - **[accessibility-audit-report.md](./decisions/accessibility-audit-report.md)** — Per-component

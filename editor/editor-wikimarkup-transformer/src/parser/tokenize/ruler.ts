@@ -1,5 +1,5 @@
 import { createRuleNode } from '../nodes/rule';
-import { type TokenParser } from './';
+import type { TokenParser } from './';
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp

@@ -6,7 +6,7 @@ import { useMutation, graphql } from 'react-relay';
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { type SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
 import Heading from '@atlaskit/heading';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import Image from '@atlaskit/image';

@@ -5,7 +5,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { handleSSRErrorsAnalytics } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { SyncedBlockPlugin } from '@atlaskit/editor-plugin-synced-block';
-import { type UseFetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-provider';
+import type { UseFetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-provider';
 import type { MediaSSR } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';

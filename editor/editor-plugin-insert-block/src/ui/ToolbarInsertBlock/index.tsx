@@ -33,7 +33,6 @@ import type { EmojiId } from '@atlaskit/emoji/types';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N20A, N30A } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -57,10 +56,10 @@ const TABLE_SELECTOR_STRING = 'table selector';
 // TODO: ED-26959 - Jenga team will create a component for a split button using this css
 const getHoverStyles = (selector: string) =>
 	`&:hover ${selector} {
-    background: ${token('color.background.neutral.subtle.hovered', N20A)};
+    background: ${token('color.background.neutral.subtle.hovered')};
 
     &:hover {
-      background: ${token('color.background.neutral.hovered', N30A)};
+      background: ${token('color.background.neutral.hovered')};
     }
   }`;
 
@@ -89,17 +88,17 @@ export const tableButtonWrapper = ({
   .table-toolbar-btn {
 			border-top-right-radius: ${token('radius.large', '0px')};
 			border-bottom-right-radius: ${token('radius.large', '0px')};
-			margin-right: ${token('space.025', '1px')};
-			padding: ${token('space.0', '0px')};
+			margin-right: ${token('space.025')};
+			padding: ${token('space.0')};
 			& > span {
 				min-width: 16px;
-				margin: ${token('space.0', '0px')};
+				margin: ${token('space.0')};
 			}
 		}
 		.table-selector-toolbar-btn {
-			padding: ${token('space.0', '0px')};
+			padding: ${token('space.0')};
 			& > span {
-				margin: ${token('space.0', '0px')};
+				margin: ${token('space.0')};
 				width: 16px !important;
 				display: flex;
 				justify-content: center;

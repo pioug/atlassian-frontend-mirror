@@ -36,6 +36,20 @@ test.describe('ReactUFO: Revisions - bad replacement node', () => {
 				for (const rev of ufoRevisions!) {
 					const revisionName = rev['revision'];
 
+					// raw-handler has metric:vc90 = null by design (recalculated server-side).
+					// Verify it carries valid observation data instead.
+					// eslint-disable-next-line playwright/no-conditional-in-test
+					if (revisionName === 'raw-handler') {
+						expect(rev.rawData).toBeDefined();
+						expect(rev.rawData!.obs!.length).toBeGreaterThan(0);
+						expect(rev.rawData!.eid).toBeDefined();
+						const eidValues = Object.values(rev.rawData!.eid!) as string[];
+						expect(
+							eidValues.some((name: string) => name.includes('section-to-replace-final')),
+						).toBe(true);
+						continue;
+					}
+
 					await test.step(`checking revision ${revisionName}`, () => {
 						const vc90Result = rev['metric:vc90'];
 						expect(vc90Result).toBeDefined();

@@ -1,10 +1,8 @@
-import React, { type ReactNode } from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import {
-	type ContentRef,
-	type TaskDecisionProvider,
-	ResourcedTaskItem,
-} from '@atlaskit/task-decision';
+import { ResourcedTaskItem } from '@atlaskit/task-decision';
+import type { ContentRef, TaskDecisionProvider } from '@atlaskit/task-decision';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 interface Props {

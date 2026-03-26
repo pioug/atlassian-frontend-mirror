@@ -1,4 +1,4 @@
-import { type MarkEncoder } from '..';
+import type { MarkEncoder } from '..';
 
 export const code: MarkEncoder = (text: string): string => {
 	return `{{${text}}}`;

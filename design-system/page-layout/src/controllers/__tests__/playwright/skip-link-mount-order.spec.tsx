@@ -23,13 +23,16 @@ async function getLinkFragments(page: Page) {
 		(selector) => {
 			const links = document.querySelectorAll(selector);
 			// Ensure we have the expected number of skip links and they're all properly rendered
-			return links.length > 0 && Array.from(links).every(link => {
-				const href = link.getAttribute('href');
-				return href && href.includes('#');
-			});
+			return (
+				links.length > 0 &&
+				Array.from(links).every((link) => {
+					const href = link.getAttribute('href');
+					return href && href.includes('#');
+				})
+			);
 		},
 		skipLink,
-		{ timeout: 10000 }
+		{ timeout: 10000 },
 	);
 
 	const links = await page.locator(skipLink).all();

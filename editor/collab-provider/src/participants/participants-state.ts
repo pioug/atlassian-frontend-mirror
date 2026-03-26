@@ -1,5 +1,5 @@
 import { isAIProviderID } from '../helpers/utils';
-import { type ParticipantsMap } from './participants-helper';
+import type { ParticipantsMap } from './participants-helper';
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 
 export type ParticipantFilter = {

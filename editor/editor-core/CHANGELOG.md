@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 217.6.2
+
+### Patch Changes
+
+- [`ff6221892c2d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff6221892c2d0) -
+  EDITOR-6158: Stop hiding list markers on list items containing nested task lists to fix
+  inconsistent marker visibility
+- Updated dependencies
+
 ## 217.6.1
 
 ### Patch Changes

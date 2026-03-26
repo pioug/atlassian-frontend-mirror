@@ -1,6 +1,6 @@
-import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
-import { type Token, type TokenParser } from '.';
-import { type Context } from '../../interfaces';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Token, TokenParser } from '.';
+import type { Context } from '../../interfaces';
 import { commonMacro } from './common-macro';
 import { parseString } from '../text';
 import { parseAttrs } from '../utils/attrs';

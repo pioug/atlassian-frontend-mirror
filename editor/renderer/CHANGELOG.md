@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 128.3.7
+
+### Patch Changes
+
+- [`ff6221892c2d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff6221892c2d0) -
+  EDITOR-6158: Stop hiding list markers on list items containing nested task lists to fix
+  inconsistent marker visibility
+- Updated dependencies
+
+## 128.3.6
+
+### Patch Changes
+
+- [`9245d3bb1916d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9245d3bb1916d) -
+  Mechanical type-import autofix for renderer.
+- Updated dependencies
+
 ## 128.3.5
 
 ### Patch Changes

@@ -33,7 +33,7 @@ import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const dropdownExpandContainer = css({
-	margin: `0px ${token('space.negative.050', '-4px')}`,
+	margin: `0px ${token('space.negative.050')}`,
 });
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage

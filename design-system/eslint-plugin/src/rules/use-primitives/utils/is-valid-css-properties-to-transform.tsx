@@ -84,10 +84,10 @@ export const isValidCssPropertiesToTransform = (
 			} else {
 				// direct value used
 				return (
-                    // Is the value something we can map
-                    (// Is the key something we can map
-                    supportedStylesMap[styleProperty] && supportedStylesMap[styleProperty][styleValue])
-                );
+					// Is the value something we can map
+					// Is the key something we can map
+					supportedStylesMap[styleProperty] && supportedStylesMap[styleProperty][styleValue]
+				);
 			}
 		},
 	);

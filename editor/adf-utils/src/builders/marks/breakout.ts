@@ -1,4 +1,9 @@
-import type { BreakoutMarkAttrs, BreakoutMarkDefinition, CodeBlockDefinition, LayoutSectionDefinition } from '@atlaskit/adf-schema';
+import type {
+	BreakoutMarkAttrs,
+	BreakoutMarkDefinition,
+	CodeBlockDefinition,
+	LayoutSectionDefinition,
+} from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
 import type { WithAppliedMark } from '../types';
 

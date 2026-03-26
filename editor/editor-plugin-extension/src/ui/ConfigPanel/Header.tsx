@@ -19,7 +19,6 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import CrossIcon from '@atlaskit/icon/core/cross';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text, xcss } from '@atlaskit/primitives';
-import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { HelpLink } from './HelpLink';
@@ -31,14 +30,14 @@ const gapSizeForEllipsis = iconWidth + buttonWidth + margin * 2;
 
 const itemStyles = css({
 	display: 'flex',
-	marginBottom: token('space.300', '24px'),
+	marginBottom: token('space.300'),
 });
 
 const itemIconStyles = css({
 	width: iconWidth,
 	height: iconWidth,
 	overflow: 'hidden',
-	border: `${token('border.width')} solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	borderRadius: token('radius.small', '3px'),
 	boxSizing: 'border-box',
 	display: 'flex',
@@ -58,7 +57,7 @@ const itemBodyStyles = css({
 	justifyContent: 'space-between',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1.4,
-	margin: `0 ${token('space.200', '16px')}`,
+	margin: `0 ${token('space.200')}`,
 	flexGrow: 3,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: `calc(100% - ${gapSizeForEllipsis}px)`,
@@ -77,8 +76,8 @@ const itemTextStyles = css({
 	itemSummary: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: relativeFontSizeToBase16(11.67),
-		color: token('color.text.subtlest', N200),
-		marginTop: token('space.050', '4px'),
+		color: token('color.text.subtlest'),
+		marginTop: token('space.050'),
 		whiteSpace: 'nowrap',
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',

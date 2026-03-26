@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 11.3.0
+
+### Minor Changes
+
+- [`6df6d2b1f286b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6df6d2b1f286b) -
+  Added motion values to tokens babel plugin
+
 ## 11.2.0
 
 ### Minor Changes

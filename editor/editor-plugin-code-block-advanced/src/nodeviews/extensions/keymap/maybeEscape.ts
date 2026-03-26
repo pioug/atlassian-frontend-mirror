@@ -1,10 +1,10 @@
-import { type EditorView as CodeMirror } from '@codemirror/view';
+import type { EditorView as CodeMirror } from '@codemirror/view';
 
 import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 interface MaybeEscapeProps {
 	cm: CodeMirror;

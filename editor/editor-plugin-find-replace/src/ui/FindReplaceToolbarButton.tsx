@@ -43,7 +43,7 @@ const toolbarButtonWrapper = css`
 	flex-grow: 0;
 	justify-content: flex-end;
 	align-items: center;
-	padding: 0 ${token('space.100', '8px')};
+	padding: 0 ${token('space.100')};
 	@media (max-width: ${akEditorMobileMaxWidth}px) {
 		justify-content: center;
 		padding: 0;

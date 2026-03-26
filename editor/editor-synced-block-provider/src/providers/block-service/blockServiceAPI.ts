@@ -18,19 +18,21 @@ import {
 	updateReferenceSyncedBlockOnDocument,
 	updateSyncedBlock,
 	updateSyncedBlocks,
-	type ErrorResponse,
-	type BlockContentResponse,
-	type BatchUpdateSyncedBlockRequest,
+} from '../../clients/block-service/blockService';
+import type {
+	ErrorResponse,
+	BlockContentResponse,
+	BatchUpdateSyncedBlockRequest,
 } from '../../clients/block-service/blockService';
 import { subscribeToBlockUpdates as subscribeToBlockUpdatesWS } from '../../clients/block-service/blockSubscription';
-import {
-	SyncBlockError,
-	type ReferenceSyncBlockData,
-	type ResourceId,
-	type SyncBlockAttrs,
-	type SyncBlockData,
-	type SyncBlockProduct,
-	type SyncBlockStatus,
+import { SyncBlockError } from '../../common/types';
+import type {
+	ReferenceSyncBlockData,
+	ResourceId,
+	SyncBlockAttrs,
+	SyncBlockData,
+	SyncBlockProduct,
+	SyncBlockStatus,
 } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
 import { createResourceIdForReference } from '../../utils/resourceId';

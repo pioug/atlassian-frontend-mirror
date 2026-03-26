@@ -1,6 +1,7 @@
-import { type ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
-import { ActionType, type StatusChangeAction } from '../types';
+import { ActionType } from '../types';
+import type { StatusChangeAction } from '../types';
 
 export const checkStatusChanged = (step: ReplaceStep): StatusChangeAction | undefined => {
 	const { slice } = step;

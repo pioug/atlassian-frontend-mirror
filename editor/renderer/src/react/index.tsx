@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react';
 import React from 'react';
 
-import { type GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
+import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 import type { Fragment, Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import { MarkType } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

@@ -116,8 +116,8 @@ JavaScript fallback for browsers without CSS Anchor Positioning support (~6% of 
 ### `useArrowNavigation`
 
 Arrow key navigation for composite widgets (menus, listboxes). Consumers wire this into their
-components — top-layer does not bake in menu keyboard behavior
-(see [decisions/menu-keyboard.md](../decisions/menu-keyboard.md)).
+components — top-layer does not bake in menu keyboard behavior (see
+[decisions/menu-keyboard.md](../decisions/menu-keyboard.md)).
 
 ### `useSimpleLightDismiss`
 
@@ -130,8 +130,8 @@ Light dismiss handler for manual popovers that need click-outside and Escape key
 ### Animation presets
 
 `@atlaskit/top-layer/animations` exports animation presets (`slideAndFade()`, `fade()`,
-`dialogFade()`) that configure CSS entry/exit transitions. See [animations.md](./animations.md)
-for how the animation system works.
+`dialogFade()`) that configure CSS entry/exit transitions. See [animations.md](./animations.md) for
+how the animation system works.
 
 ### `createPopoverCloseEvent`
 
@@ -150,21 +150,21 @@ Popper.js placement strings to top-layer placement objects.
 
 ### `DialogScrollLock`
 
-`@atlaskit/top-layer/dialog-scroll-lock` exports a component that prevents background scrolling
-when a modal dialog is open.
+`@atlaskit/top-layer/dialog-scroll-lock` exports a component that prevents background scrolling when
+a modal dialog is open.
 
 ---
 
 ## When to use what
 
-| Scenario                                               | Component                       | `isOpen`?              | Focus Management               |
-| ------------------------------------------------------ | ------------------------------- | ---------------------- | ------------------------------ |
-| Button opens dropdown/menu                             | `Popup`                         | No — browser manages   | All automatic (role-based)     |
-| Hover/focus shows tooltip                              | `Popover` + `useAnchorPosition` | Yes — consumer manages | No focus changes (`tooltip`)   |
-| Toast/flag notification                                | `Popover`                       | Yes — `mode="manual"`  | No focus changes               |
-| Modal dialog                                           | `Dialog`                        | Yes — on `Dialog`      | Native `<dialog>` focus trap   |
-| Custom trigger (timer, external)                       | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (browser Popover API)|
-| Button opens anchored content with no custom lifecycle | `Popup`                         | No — browser manages   | All automatic (role-based)     |
+| Scenario                                               | Component                       | `isOpen`?              | Focus Management                |
+| ------------------------------------------------------ | ------------------------------- | ---------------------- | ------------------------------- |
+| Button opens dropdown/menu                             | `Popup`                         | No — browser manages   | All automatic (role-based)      |
+| Hover/focus shows tooltip                              | `Popover` + `useAnchorPosition` | Yes — consumer manages | No focus changes (`tooltip`)    |
+| Toast/flag notification                                | `Popover`                       | Yes — `mode="manual"`  | No focus changes                |
+| Modal dialog                                           | `Dialog`                        | Yes — on `Dialog`      | Native `<dialog>` focus trap    |
+| Custom trigger (timer, external)                       | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (browser Popover API) |
+| Button opens anchored content with no custom lifecycle | `Popup`                         | No — browser manages   | All automatic (role-based)      |
 
 ---
 
@@ -180,28 +180,28 @@ Dialog                = <dialog> element + isOpen + animate + onExitFinish
 
 ### Entry points
 
-| Entry Point                                  | Purpose                                            |
-| -------------------------------------------- | -------------------------------------------------- |
-| `@atlaskit/top-layer/popup`                  | Compound component — trigger + content             |
-| `@atlaskit/top-layer/popover`                | Low-level primitive — visibility + animation        |
-| `@atlaskit/top-layer/dialog`                 | Modal dialog — `<dialog>` with `showModal()`        |
-| `@atlaskit/top-layer/animations`             | Animation presets (`slideAndFade`, `fade`, etc.)    |
-| `@atlaskit/top-layer/use-anchor-position`    | CSS anchor positioning hook                         |
-| `@atlaskit/top-layer/use-arrow-navigation`   | Arrow key navigation hook for composite widgets     |
-| `@atlaskit/top-layer/use-simple-light-dismiss` | Light dismiss for manual popovers                 |
-| `@atlaskit/top-layer/create-close-event`     | Legacy `onClose` bridge                             |
-| `@atlaskit/top-layer/popup-surface`          | Styled popup surface component                      |
-| `@atlaskit/top-layer/placement-map`          | Legacy placement string conversion                  |
-| `@atlaskit/top-layer/dialog-scroll-lock`     | Background scroll prevention for modals             |
-| `@atlaskit/top-layer/focus`                  | Focus utilities (focus wrapping, initial focus)      |
+| Entry Point                                    | Purpose                                          |
+| ---------------------------------------------- | ------------------------------------------------ |
+| `@atlaskit/top-layer/popup`                    | Compound component — trigger + content           |
+| `@atlaskit/top-layer/popover`                  | Low-level primitive — visibility + animation     |
+| `@atlaskit/top-layer/dialog`                   | Modal dialog — `<dialog>` with `showModal()`     |
+| `@atlaskit/top-layer/animations`               | Animation presets (`slideAndFade`, `fade`, etc.) |
+| `@atlaskit/top-layer/use-anchor-position`      | CSS anchor positioning hook                      |
+| `@atlaskit/top-layer/use-arrow-navigation`     | Arrow key navigation hook for composite widgets  |
+| `@atlaskit/top-layer/use-simple-light-dismiss` | Light dismiss for manual popovers                |
+| `@atlaskit/top-layer/create-close-event`       | Legacy `onClose` bridge                          |
+| `@atlaskit/top-layer/popup-surface`            | Styled popup surface component                   |
+| `@atlaskit/top-layer/placement-map`            | Legacy placement string conversion               |
+| `@atlaskit/top-layer/dialog-scroll-lock`       | Background scroll prevention for modals          |
+| `@atlaskit/top-layer/focus`                    | Focus utilities (focus wrapping, initial focus)  |
 
 ### Focus management
 
 Focus management is **role-based and automatic**. See [focus.md](./focus.md) for full details.
 
-| Role                    | Initial Focus           | Focus Wrapping              | Focus Restoration              |
-| ----------------------- | ----------------------- | --------------------------- | ------------------------------ |
-| `dialog` / `alertdialog`| First focusable element | Tab wraps within content    | ✅ Auto-restores to trigger    |
-| `menu`                  | First menu item         | No Tab wrapping (Tab exits) | ✅ Auto-restores to trigger    |
-| `listbox`               | First/selected option   | Tab wraps within content    | ✅ Auto-restores to trigger    |
-| `tooltip`               | No focus change         | No wrapping                 | ❌ No restoration              |
+| Role                     | Initial Focus           | Focus Wrapping              | Focus Restoration           |
+| ------------------------ | ----------------------- | --------------------------- | --------------------------- |
+| `dialog` / `alertdialog` | First focusable element | Tab wraps within content    | ✅ Auto-restores to trigger |
+| `menu`                   | First menu item         | No Tab wrapping (Tab exits) | ✅ Auto-restores to trigger |
+| `listbox`                | First/selected option   | Tab wraps within content    | ✅ Auto-restores to trigger |
+| `tooltip`                | No focus change         | No wrapping                 | ❌ No restoration           |

@@ -88,6 +88,13 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
+	// Added 2026-03-25
+	'editor_a11y__enghealth-46814_fy26': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-20
 	editor_a11y_decision_aria_label: {
 		defaultValue: boolean;
@@ -1134,13 +1141,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-02-02
-	platform_editor_fix_gapcursor_on_paste: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-16
 	platform_editor_ai_fix_insert_after_selection: {
 		defaultValue: boolean;
@@ -1510,6 +1510,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-20
+	cc_editor_ttvc_media_hold_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-06
 	platform_editor_single_player_expand: {
 		defaultValue: boolean;
@@ -1586,6 +1593,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-25
+	platform_editor_improve_preset_builder_logging: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-23
 	confluence_toc_nav_a11y: {
 		defaultValue: boolean;
@@ -1627,6 +1641,14 @@ export const editorExperimentsConfig: {
 	cc_fix_hydration_ttvc: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_fix_hydration_ttvc',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-25
+	'editor_a11y__enghealth-46814_fy26': createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_a11y__enghealth-46814_fy26',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2894,15 +2916,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-02
-	platform_editor_fix_gapcursor_on_paste: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_gapcursor_on_paste',
-			jira: 'platform_editor_fix_gapcursor_on_paste',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	confluence_ttvc_inline_extensions: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_ttvc_inline_extensions',
@@ -3319,6 +3332,13 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	cc_editor_ttvc_media_hold_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_ttvc_media_hold_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-06
 	platform_editor_single_player_expand: createBooleanExperiment({
 		productKeys: {
@@ -3424,6 +3444,14 @@ export const editorExperimentsConfig: {
 	confluence_toc_nav_a11y: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_toc_nav_a11y',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-25
+	platform_editor_improve_preset_builder_logging: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_improve_preset_builder_logging',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

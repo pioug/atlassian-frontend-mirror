@@ -6,7 +6,6 @@ import { css, jsx } from '@compiled/react';
 import { FormattedDate } from 'react-intl-next';
 
 import AtlaskitLozenge, { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { LinkLozengeInvokeActions } from '../../../../../../extractors/common/lozenge/types';
 import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
@@ -66,7 +65,7 @@ const BaseLozengeElement = ({
 		<LozengeAction
 			action={action}
 			appearance={appearance}
-			{...(fg('platform_navx_sl_lozenge_max_width') ? { maxWidth } : undefined)}
+			maxWidth={maxWidth}
 			testId={testId}
 			text={text}
 			zIndex={ui?.zIndex}
@@ -76,7 +75,7 @@ const BaseLozengeElement = ({
 		<AtlaskitLozenge
 			appearance={appearance}
 			isBold
-			{...(fg('platform_navx_sl_lozenge_max_width') ? { maxWidth } : undefined)}
+			maxWidth={maxWidth}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 			testId={`${testId}-lozenge`}

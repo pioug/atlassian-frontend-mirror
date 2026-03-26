@@ -1,4 +1,4 @@
-import { type MarkEncoder } from '..';
+import type { MarkEncoder } from '..';
 import { baseMarkPattern } from './__base';
 
 export const subsup: MarkEncoder = (text: string, attrs: { type: 'sub' | 'sup' }): string => {

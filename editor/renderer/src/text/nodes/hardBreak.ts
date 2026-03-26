@@ -1,4 +1,4 @@
-import { type NodeReducer } from './';
+import type { NodeReducer } from './';
 
 const hardBreak: NodeReducer = () => {
 	return '\n';

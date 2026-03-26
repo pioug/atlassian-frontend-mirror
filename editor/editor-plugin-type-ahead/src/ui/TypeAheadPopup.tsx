@@ -30,11 +30,8 @@ import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import {
-	type CloseActionType,
-	fireTypeAheadClosedAnalyticsEvent,
-	type InputMethodType,
-} from '../pm-plugins/analytics';
+import { fireTypeAheadClosedAnalyticsEvent } from '../pm-plugins/analytics';
+import type { CloseActionType, InputMethodType } from '../pm-plugins/analytics';
 import {
 	CloseSelectionOptions,
 	TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE,

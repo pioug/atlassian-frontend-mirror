@@ -2,10 +2,8 @@ import React from 'react';
 
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	SyncBlockError,
-	type UseFetchSyncBlockDataResult,
-} from '@atlaskit/editor-synced-block-provider';
+import { SyncBlockError } from '@atlaskit/editor-synced-block-provider';
+import type { UseFetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin, SyncedBlockRendererProps } from '../syncedBlockPluginType';
 

@@ -1,5 +1,12 @@
 # @atlaskit/panel
 
+## 0.12.8
+
+### Patch Changes
+
+- [`255cf43792087`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/255cf43792087) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 0.12.7
 
 ### Patch Changes

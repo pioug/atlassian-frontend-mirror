@@ -3,7 +3,8 @@ import React, { useCallback, useContext, useMemo, useEffect } from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
-import { type AnnotationId, AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
+import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
+import type { AnnotationId } from '@atlaskit/adf-schema';
 import type {
 	ApplyDraftResult,
 	ClearDraftResult,

@@ -1,5 +1,5 @@
 import { Provider } from '../..';
-import { type NamespaceStatus } from '../../types';
+import type { NamespaceStatus } from '../../types';
 
 describe('DocumentService onNamespaceStatusChanged', () => {
 	let provider: any;

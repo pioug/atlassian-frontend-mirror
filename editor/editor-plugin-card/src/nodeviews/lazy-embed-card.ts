@@ -1,7 +1,9 @@
-import { withLazyLoading, type NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
+import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { embedCardNodeView, type EmbedCardNodeViewProperties } from './embedCard';
+import { embedCardNodeView } from './embedCard';
+import type { EmbedCardNodeViewProperties } from './embedCard';
 
 export const lazyEmbedCardView: (props: EmbedCardNodeViewProperties) => NodeViewConstructor = (
 	props: EmbedCardNodeViewProperties,

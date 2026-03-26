@@ -1,5 +1,5 @@
-import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
-import { type AddArgs, type List, type ListItem, type ListType } from '../../interfaces';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { AddArgs, List, ListItem, ListType } from '../../interfaces';
 
 const supportedContentType = ['paragraph', 'orderedList', 'bulletList', 'mediaSingle', 'codeBlock'];
 

@@ -1,9 +1,5 @@
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	type AnalyticsEventPayload,
-	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { UserRole } from '@atlaskit/mention';

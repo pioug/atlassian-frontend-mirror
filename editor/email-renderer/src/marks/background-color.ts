@@ -1,6 +1,6 @@
 import { createTag } from '../create-tag';
 import { serializeStyle } from '../serialize-style';
-import { type MarkSerializerOpts } from '../interfaces';
+import type { MarkSerializerOpts } from '../interfaces';
 
 export default function backgroundColor({ mark, text }: MarkSerializerOpts): string {
 	const css = serializeStyle({ 'background-color': mark.attrs.color });

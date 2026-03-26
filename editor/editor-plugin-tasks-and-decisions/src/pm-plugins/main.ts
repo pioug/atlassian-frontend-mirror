@@ -1,10 +1,10 @@
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import { uuid } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { type NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler, GapCursorSelection } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -16,7 +16,8 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { DecisionItemNodeView } from '../nodeviews/DecisionItemNodeView';
@@ -35,7 +36,8 @@ import {
 } from './helpers';
 import { stateKey } from './plugin-key';
 import { taskItemOnChange } from './taskItemOnChange';
-import { ACTIONS, type TaskDecisionPluginAction, type TaskDecisionPluginCommand } from './types';
+import { ACTIONS } from './types';
+import type { TaskDecisionPluginAction, TaskDecisionPluginCommand } from './types';
 import { tempTransformSliceToRemoveBlockTaskItem } from './utils/paste';
 
 type ChangedFn = (

@@ -7,7 +7,11 @@ test.describe('Focus - returnFocusRef when trigger is removed', () => {
 	// after the popup closes, we document the current behavior.
 
 	test('popup and trigger are removed from the DOM after the close action', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-focus-return-ref');
+		await page.visitExample<typeof import('../../examples/129-testing-focus-return-ref.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-focus-return-ref',
+		);
 
 		// Verify trigger exists initially
 		await expect(page.getByTestId('trigger-visible')).toHaveText('yes');

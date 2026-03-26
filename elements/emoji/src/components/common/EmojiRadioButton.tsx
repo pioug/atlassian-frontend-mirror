@@ -50,7 +50,6 @@ const emojiButton = css({
 			width: '24px',
 		},
 	},
-
 });
 
 const emojiRadio = cssMap({

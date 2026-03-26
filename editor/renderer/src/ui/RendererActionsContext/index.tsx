@@ -1,4 +1,5 @@
-import React, { type PropsWithChildren, useMemo } from 'react';
+import React, { useMemo } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';

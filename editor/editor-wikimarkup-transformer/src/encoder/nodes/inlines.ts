@@ -1,5 +1,5 @@
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type NodeEncoder, type NodeEncoderOpts } from '..';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { NodeEncoder, NodeEncoderOpts } from '..';
 
 import { emoji } from './emoji';
 import { hardBreak } from './hard-break';

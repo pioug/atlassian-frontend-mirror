@@ -215,7 +215,7 @@ export const MediaInlineImageCardInternal = ({
 	}, [alt, fileState, height, identifier, width, serializeDataAttrs]);
 
 	const onMediaInlineImageClick = useCallback(
-		(e: React.MouseEvent) => {
+		(e: React.MouseEvent | React.KeyboardEvent) => {
 			if (shouldOpenMediaViewer) {
 				setMediaViewerVisible(true);
 			}

@@ -1,4 +1,5 @@
-import React, { type ChangeEvent } from 'react';
+import React from 'react';
+import type { ChangeEvent } from 'react';
 import RendererDemo from './helper/RendererDemo';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';

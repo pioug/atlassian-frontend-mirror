@@ -224,7 +224,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			itemsContent = (
 				<Fragment>
 					<Box
-						as='h3' // Must remain <h3> for a11y title hierarchy as per https://hello.jira.atlassian.cloud/browse/NAVX-3332
+						as="h3" // Must remain <h3> for a11y title hierarchy as per https://hello.jira.atlassian.cloud/browse/NAVX-3332
 						// `.wiki-content h3` css styles in confluence override ADS/native styles here, so inline styles are needed.
 						// Should use css or xcss prop when that CSS is removed/fixed by confluence
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

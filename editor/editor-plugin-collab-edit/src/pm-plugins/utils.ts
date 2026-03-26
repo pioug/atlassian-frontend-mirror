@@ -5,18 +5,12 @@ import {
 	TELEPOINTER_DATA_SESSION_ID_ATTR,
 	TELEPOINTER_PULSE_DURING_TR_CLASS,
 	TELEPOINTER_PULSE_DURING_TR_DURATION_MS,
-	type CollabEditOptions,
-	type CollabParticipant,
 } from '@atlaskit/editor-common/collab';
+import type { CollabEditOptions, CollabParticipant } from '@atlaskit/editor-common/collab';
 import { processRawValueWithoutValidation } from '@atlaskit/editor-common/process-raw-value';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
-import {
-	type EditorState,
-	type ReadonlyTransaction,
-	Transaction,
-	Selection,
-	TextSelection,
-} from '@atlaskit/editor-prosemirror/state';
+import { Transaction, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { AttrStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -32,8 +26,8 @@ export const findPointers = (id: string, decorations: DecorationSet): Decoration
 		>((arr, deco) => (deco.spec.pointer.presenceId === id ? arr.concat(deco) : arr), []);
 
 function style(options: { color: string }) {
-	const color = (options && options.color) || token('color.border', 'black');
-	const borderWidth = token('border.width.focused', '2px');
+	const color = (options && options.color) || token('color.border');
+	const borderWidth = token('border.width.focused');
 	return `border-right: ${borderWidth} solid ${color}; margin-right: calc(-1 * ${borderWidth}); z-index: 1`;
 }
 

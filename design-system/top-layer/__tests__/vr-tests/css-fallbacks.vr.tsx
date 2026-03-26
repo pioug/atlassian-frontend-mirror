@@ -1,10 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import {
-	VrFlipBlock,
-	VrFlipBoth,
-	VrFlipInline,
-} from '../../examples/81-vr-popover-css-fallbacks';
+import { VrFlipBlock, VrFlipBoth, VrFlipInline } from '../../examples/81-vr-popover-css-fallbacks';
 
 const opts = { drawsOutsideBounds: true } as const;
 

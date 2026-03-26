@@ -5,9 +5,6 @@ import { withFocusWithin } from 'react-focus-within';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled, { css, type StyledComponentClass } from 'styled-components';
 
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
@@ -22,7 +19,7 @@ export const PanelWrapper: StyledComponentClass<
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 	// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766
 > = styled.div`
-	margin: 0 auto ${token('space.200', '16px')};
+	margin: 0 auto ${token('space.200')};
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -65,14 +62,13 @@ export const PanelHeader: FC<
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/design-system/no-styled-tagged-template-expression -- Ignored via go/DSP-18766
 > = withFocusWithin(styled.div<{ isFocused?: boolean }>`
 	align-items: center;
-	background-color: ${(props) => props.isFocused && token('elevation.surface.hovered', colors.N20)};
+	background-color: ${(props) => props.isFocused && token('elevation.surface.hovered')};
 	border-radius: ${token('radius.small', '3px')};
 	display: flex;
-	left: ${token('space.negative.300', '-24px')};
-	margin-bottom: ${token('space.100', '8px')};
-	margin-top: ${token('space.200', '16px')};
-	padding: ${token('space.025', '2px')} ${token('space.0', '0px')} ${token('space.025', '2px')}
-		${token('space.300', '24px')};
+	left: ${token('space.negative.300')};
+	margin-bottom: ${token('space.100')};
+	margin-top: ${token('space.200')};
+	padding: ${token('space.025')} ${token('space.0')} ${token('space.025')} ${token('space.300')};
 	position: relative;
 	${transition};
 	width: 100%;
@@ -82,7 +78,7 @@ export const PanelHeader: FC<
 	}
 
 	&:hover {
-		background-color: ${token('elevation.surface.hovered', colors.N20)};
+		background-color: ${token('elevation.surface.hovered')};
 		cursor: pointer;
 
 		${ButtonWrapper} {

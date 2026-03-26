@@ -5,31 +5,29 @@ import type { CallbackPayload } from '@atlaskit/node-data-provider';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import {
-	type BlockCardAdf,
-	type EmbedCardAdf,
-	type CardAdf,
-	type InlineCardAdf,
-	type CardAppearance,
-	type DatasourceAdf,
-	getStatus,
-	type ProductType,
-	type EnvironmentsKeys,
-	getBaseUrl,
-	getResolverUrl,
+import { getStatus, getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
+import type {
+	BlockCardAdf,
+	EmbedCardAdf,
+	CardAdf,
+	InlineCardAdf,
+	CardAppearance,
+	DatasourceAdf,
+	ProductType,
+	EnvironmentsKeys,
 } from '@atlaskit/linking-common';
 import DataLoader from 'dataloader';
 import { Transformer } from './transformer';
-import {
-	type CardProvider,
-	type LinkAppearance,
-	type ORSProvidersResponse,
-	type ProviderPattern,
-	type ProvidersData,
+import type {
+	CardProvider,
+	LinkAppearance,
+	ORSProvidersResponse,
+	ProviderPattern,
+	ProvidersData,
 } from './types';
-import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
+import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { CardClient } from '@atlaskit/link-provider';
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { request } from './api';
 import { SmartCardLocalCacheClient } from './smart-card-local-cache-client';

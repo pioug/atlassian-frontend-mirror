@@ -1,8 +1,10 @@
 import { BatchAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import { AttrStep, type Step } from '@atlaskit/editor-prosemirror/transform';
+import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
-import { ActionType, type AttrChangeAction } from '../types';
+import { ActionType } from '../types';
+import type { AttrChangeAction } from '../types';
 
 export const checkTableColumnResized = (tr: ReadonlyTransaction): AttrChangeAction | undefined => {
 	const COL_WIDTH_ATTR = 'colwidth';

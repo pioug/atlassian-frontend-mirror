@@ -6,7 +6,12 @@ import {
 } from '@atlaskit/editor-prosemirror/markdown';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import { collapseTrailingUnwind, isWrapperListItem, listTypes, renderListChildren } from './list-utils';
+import {
+	collapseTrailingUnwind,
+	isWrapperListItem,
+	listTypes,
+	renderListChildren,
+} from './list-utils';
 import { escapeMarkdown } from './util';
 
 export class MarkdownSerializerState extends PMMarkdownSerializerState {

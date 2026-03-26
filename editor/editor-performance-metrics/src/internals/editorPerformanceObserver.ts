@@ -2,7 +2,8 @@
 import { getEventCategory, searchAncestors } from './dom';
 import { DOMObservers } from './DOMObservers';
 import { FirstInteractionObserver } from './firstInteractionObserver';
-import { getElementName, type SelectorConfig } from './getElementName';
+import { getElementName } from './getElementName';
+import type { SelectorConfig } from './getElementName';
 import type {
 	OnIdleBufferFlushCallback,
 	TimelineClock,

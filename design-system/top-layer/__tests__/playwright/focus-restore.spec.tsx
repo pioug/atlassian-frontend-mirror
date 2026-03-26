@@ -7,7 +7,11 @@ test.describe('Popup - native popover focus restoration', () => {
 	// per the HTML Popover spec (focusPreviousElement=false for light dismiss).
 
 	test('role="dialog": focus restores to trigger on Escape', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popup-focus-restore');
+		await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popup-focus-restore',
+		);
 		const trigger = page.getByTestId('dialog-trigger');
 		await trigger.click();
 		await expect(page.getByTestId('dialog-popup')).toBeVisible();
@@ -22,7 +26,11 @@ test.describe('Popup - native popover focus restoration', () => {
 	test('role="dialog": focus does NOT restore to trigger on light-dismiss', async ({ page }) => {
 		// The HTML Popover spec passes focusPreviousElement=false for light dismiss,
 		// so focus is not restored to the trigger when clicking outside.
-		await page.visitExample('design-system', 'top-layer', 'testing-popup-focus-restore');
+		await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popup-focus-restore',
+		);
 		const trigger = page.getByTestId('dialog-trigger');
 		await trigger.click();
 		await expect(page.getByTestId('dialog-popup')).toBeVisible();
@@ -40,7 +48,11 @@ test.describe('Popup - native popover focus restoration', () => {
 	});
 
 	test('role="menu": focus restores to trigger on Escape', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popup-focus-restore');
+		await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popup-focus-restore',
+		);
 		const trigger = page.getByTestId('menu-trigger');
 		await trigger.click();
 		await expect(page.getByTestId('menu-popup')).toBeVisible();
@@ -55,7 +67,11 @@ test.describe('Popup - native popover focus restoration', () => {
 	test('role="menu": focus does NOT restore to trigger on light-dismiss', async ({ page }) => {
 		// The HTML Popover spec passes focusPreviousElement=false for light dismiss,
 		// so focus is not restored to the trigger when clicking outside.
-		await page.visitExample('design-system', 'top-layer', 'testing-popup-focus-restore');
+		await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popup-focus-restore',
+		);
 		const trigger = page.getByTestId('menu-trigger');
 		await trigger.click();
 		await expect(page.getByTestId('menu-popup')).toBeVisible();
@@ -65,7 +81,11 @@ test.describe('Popup - native popover focus restoration', () => {
 	});
 
 	test('role="listbox": focus restores to trigger on Escape', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popup-focus-restore');
+		await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popup-focus-restore',
+		);
 		const trigger = page.getByTestId('listbox-trigger');
 		await trigger.click();
 		await expect(page.getByTestId('listbox-popup')).toBeVisible();
@@ -77,7 +97,11 @@ test.describe('Popup - native popover focus restoration', () => {
 	test('role="listbox": focus does NOT restore to trigger on light-dismiss', async ({ page }) => {
 		// The HTML Popover spec passes focusPreviousElement=false for light dismiss,
 		// so focus is not restored to the trigger when clicking outside.
-		await page.visitExample('design-system', 'top-layer', 'testing-popup-focus-restore');
+		await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popup-focus-restore',
+		);
 		const trigger = page.getByTestId('listbox-trigger');
 		await trigger.click();
 		await expect(page.getByTestId('listbox-popup')).toBeVisible();
@@ -87,7 +111,11 @@ test.describe('Popup - native popover focus restoration', () => {
 	});
 
 	test('role="tooltip": focus does NOT move on close', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popup-focus-restore');
+		await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popup-focus-restore',
+		);
 		const externalInput = page.getByTestId('external-input');
 		await externalInput.focus();
 		await expect(externalInput).toBeFocused();

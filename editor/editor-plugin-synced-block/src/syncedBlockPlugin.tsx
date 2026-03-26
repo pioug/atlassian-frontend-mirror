@@ -15,7 +15,7 @@ import { bodiedSyncBlockNodeWithToDOMFixed } from './nodeviews/bodiedSyncBlockNo
 import { createPlugin, syncedBlockPluginKey } from './pm-plugins/main';
 import { getMenuAndToolbarExperiencesPlugin } from './pm-plugins/menu-and-toolbar-experiences';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
-import { type SyncedBlockSharedState } from './types';
+import type { SyncedBlockSharedState } from './types';
 import { getBlockMenuComponents } from './ui/block-menu-components';
 import { DeleteConfirmationModal } from './ui/DeleteConfirmationModal';
 import { Flag } from './ui/Flag';

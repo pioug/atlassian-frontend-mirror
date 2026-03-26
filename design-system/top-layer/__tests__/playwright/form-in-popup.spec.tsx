@@ -8,7 +8,11 @@ test.describe('Focus - Tab through form fields in popup', () => {
 
 	// WCAG 2.1.1 Keyboard - all form fields inside popup reachable via Tab
 	test('Tab navigates through all form fields in order', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-form-in-popup');
+		await page.visitExample<typeof import('../../examples/130-testing-form-in-popup.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-form-in-popup',
+		);
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
@@ -31,7 +35,11 @@ test.describe('Focus - Tab through form fields in popup', () => {
 
 	// WCAG 2.1.1 Keyboard - form fields are operable (can type in inputs)
 	test('form fields inside popup are operable via keyboard', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-form-in-popup');
+		await page.visitExample<typeof import('../../examples/130-testing-form-in-popup.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-form-in-popup',
+		);
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
@@ -49,7 +57,11 @@ test.describe('Focus - Tab through form fields in popup', () => {
 	test('form inside popup can be submitted via keyboard (Enter on submit button)', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-form-in-popup');
+		await page.visitExample<typeof import('../../examples/130-testing-form-in-popup.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-form-in-popup',
+		);
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
@@ -66,7 +78,11 @@ test.describe('Focus - Tab through form fields in popup', () => {
 
 	// WCAG 2.1.2 No Keyboard Trap - Escape still works inside form fields
 	test('Escape closes popup even when focus is on a form field', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-form-in-popup');
+		await page.visitExample<typeof import('../../examples/130-testing-form-in-popup.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-form-in-popup',
+		);
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();

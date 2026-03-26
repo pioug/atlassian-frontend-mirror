@@ -17,7 +17,9 @@ test.describe('Native Popover API focus restoration', () => {
 	// so the browser restores focus to the trigger on Escape.
 
 	test('popover="auto" dialog: Escape restores focus to trigger', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-native-focus-restoration');
+		await page.visitExample<
+			typeof import('../../examples/132-testing-native-focus-restoration.tsx')
+		>('design-system', 'top-layer', 'testing-native-focus-restoration');
 
 		const trigger = page.getByTestId('auto-dialog-trigger');
 		await trigger.click();
@@ -36,7 +38,9 @@ test.describe('Native Popover API focus restoration', () => {
 	});
 
 	test('popover="auto" menu: Escape restores focus to trigger', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-native-focus-restoration');
+		await page.visitExample<
+			typeof import('../../examples/132-testing-native-focus-restoration.tsx')
+		>('design-system', 'top-layer', 'testing-native-focus-restoration');
 
 		const trigger = page.getByTestId('auto-menu-trigger');
 		await trigger.click();
@@ -61,7 +65,9 @@ test.describe('Native Popover API focus restoration', () => {
 	test('popover="auto" dialog: click-outside does NOT restore focus to trigger', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-native-focus-restoration');
+		await page.visitExample<
+			typeof import('../../examples/132-testing-native-focus-restoration.tsx')
+		>('design-system', 'top-layer', 'testing-native-focus-restoration');
 
 		const trigger = page.getByTestId('auto-dialog-trigger');
 		await trigger.click();
@@ -81,10 +87,10 @@ test.describe('Native Popover API focus restoration', () => {
 		await expect(trigger).not.toBeFocused();
 	});
 
-	test('popover="auto" menu: click-outside does NOT restore focus to trigger', async ({
-		page,
-	}) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-native-focus-restoration');
+	test('popover="auto" menu: click-outside does NOT restore focus to trigger', async ({ page }) => {
+		await page.visitExample<
+			typeof import('../../examples/132-testing-native-focus-restoration.tsx')
+		>('design-system', 'top-layer', 'testing-native-focus-restoration');
 
 		const trigger = page.getByTestId('auto-menu-trigger');
 		await trigger.click();
@@ -110,7 +116,9 @@ test.describe('Native Popover API focus restoration', () => {
 	// and avoid this timing issue.
 
 	test('hidePopover() restores focus to trigger', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-native-focus-restoration');
+		await page.visitExample<
+			typeof import('../../examples/132-testing-native-focus-restoration.tsx')
+		>('design-system', 'top-layer', 'testing-native-focus-restoration');
 
 		const trigger = page.getByTestId('programmatic-trigger');
 		await trigger.click();

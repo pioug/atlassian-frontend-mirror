@@ -4,13 +4,13 @@ import { bind } from 'bind-event-listener';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
-import { type MentionPluginOptions } from '../types';
+import type { MentionPluginOptions } from '../types';
 import { ProfileCardComponent } from '../ui/ProfileCardComponent';
 
 export const profileCardRenderer = ({

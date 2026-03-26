@@ -1,7 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
-import { type MetricsPlugin } from './metricsPluginType';
+import type { MetricsPlugin } from './metricsPluginType';
 import { createPlugin, initialPluginState, metricsKey } from './pm-plugins/main';
 import { getAnalyticsPayload } from './pm-plugins/utils/analytics';
 /**

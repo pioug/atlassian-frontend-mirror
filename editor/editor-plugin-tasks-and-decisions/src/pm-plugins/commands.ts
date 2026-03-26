@@ -1,6 +1,6 @@
 import { findCutBefore } from '@atlaskit/editor-common/commands';
 import type { Command } from '@atlaskit/editor-common/types';
-import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { findWrapping, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
 
 import {

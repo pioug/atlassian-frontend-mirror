@@ -1,6 +1,6 @@
-import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { ResourceId, BlockInstanceId } from '../common/types';
 import type {

@@ -188,15 +188,15 @@ when space is tight — matching legacy behavior.
 
 ### Accessibility (top-layer path)
 
-| A11y criterion | Test | Notes |
-| --- | --- | --- |
-| 1.3.2 Meaningful Sequence | ✓ | `dropdown-menu.spec.tsx` — no portal rendering |
-| 2.1.1 Keyboard | ✓ | `dropdown-menu.spec.tsx` — keyboard open (Enter), arrow navigation (ArrowDown/Up with wrap) |
-| 2.1.2 No Keyboard Trap | ✓ | `dropdown-menu.spec.tsx` — Escape closes, Tab exits (not trapped) |
-| 2.4.3 Focus Order | ✓ | `dropdown-menu.spec.tsx` — first item focused on keyboard open, focus returns to trigger on Escape |
-| 2.4.7 Focus Visible | ✓ | `dropdown-menu.spec.tsx` — `:focus-visible` on menu items during arrow navigation |
-| 2.4.11 Focus Not Obscured | ✓ | `dropdown-menu.spec.tsx` — top-layer content not obscured |
-| 3.2.1 On Focus | ✓ | `dropdown-menu.spec.tsx` — focus return to trigger does not re-open menu |
+| A11y criterion            | Test | Notes                                                                                              |
+| ------------------------- | ---- | -------------------------------------------------------------------------------------------------- |
+| 1.3.2 Meaningful Sequence | ✓    | `dropdown-menu.spec.tsx` — no portal rendering                                                     |
+| 2.1.1 Keyboard            | ✓    | `dropdown-menu.spec.tsx` — keyboard open (Enter), arrow navigation (ArrowDown/Up with wrap)        |
+| 2.1.2 No Keyboard Trap    | ✓    | `dropdown-menu.spec.tsx` — Escape closes, Tab exits (not trapped)                                  |
+| 2.4.3 Focus Order         | ✓    | `dropdown-menu.spec.tsx` — first item focused on keyboard open, focus returns to trigger on Escape |
+| 2.4.7 Focus Visible       | ✓    | `dropdown-menu.spec.tsx` — `:focus-visible` on menu items during arrow navigation                  |
+| 2.4.11 Focus Not Obscured | ✓    | `dropdown-menu.spec.tsx` — top-layer content not obscured                                          |
+| 3.2.1 On Focus            | ✓    | `dropdown-menu.spec.tsx` — focus return to trigger does not re-open menu                           |
 
 > **Note:** All 10 browser tests in
 > `dropdown-menu/src/__tests__/playwright/ff-testing/platform-dst-top-layer/dropdown-menu.spec.tsx`
@@ -206,12 +206,12 @@ when space is tight — matching legacy behavior.
 
 ## Known gaps
 
-| Gap                            | Impact                                                                                                                                                                          |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Nested dropdown menus          | Not yet tested in top-layer path — native `popover="auto"` nesting should handle stacking, but the nested trigger detection logic from legacy `handleOnClose` is not replicated |
-| `shouldFitContainer`           | Supported — uses a `useEffect` to measure the trigger width and apply `minWidth` to the popover and menu content                                                                |
-| Integration/Playwright tests   | 10 browser tests passing in `dropdown-menu.spec.tsx`                                                                                                                              |
-| Screen reader testing          | JAWS/NVDA/VoiceOver matrix not conducted                                                                                                                                        |
+| Gap                            | Impact                                                                                                                                                                                                                                                                            |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Nested dropdown menus          | Not yet tested in top-layer path — native `popover="auto"` nesting should handle stacking, but the nested trigger detection logic from legacy `handleOnClose` is not replicated                                                                                                   |
+| `shouldFitContainer`           | Supported — uses a `useEffect` to measure the trigger width and apply `minWidth` to the popover and menu content                                                                                                                                                                  |
+| Integration/Playwright tests   | 10 browser tests passing in `dropdown-menu.spec.tsx`                                                                                                                                                                                                                              |
+| Screen reader testing          | JAWS/NVDA/VoiceOver matrix not conducted                                                                                                                                                                                                                                          |
 | `onOpenChange` event parameter | Top-layer path passes `null` for the event on close (native Popover API doesn't expose the original DOM event in `onClose`). Decision (2026-03-17 audit): Accepted — the `OnOpenChangeArgs.event` type already allows `null` and the JSDoc documents this case. No change needed. |
 
 ---
@@ -232,9 +232,9 @@ In the legacy path, `shouldFitContainer` causes the dropdown content to stretch 
 of the trigger element (via Popper's `matchWidth` behavior). In the top-layer path, CSS Anchor
 Positioning does not have a native equivalent to Popper's `matchWidth`.
 
-**Fix:** A `useEffect` in `dropdown-menu-top-layer.tsx` measures `triggerRef.current.offsetWidth` and
-applies `minWidth` to both the popover element and the inner menu content div. This runs when the
-dropdown opens (when `isLocalOpen` changes to `true`).
+**Fix:** A `useEffect` in `dropdown-menu-top-layer.tsx` measures `triggerRef.current.offsetWidth`
+and applies `minWidth` to both the popover element and the inner menu content div. This runs when
+the dropdown opens (when `isLocalOpen` changes to `true`).
 
 **Status:** Fixed.
 
@@ -244,18 +244,19 @@ dropdown opens (when `isLocalOpen` changes to `true`).
 
 When `isOpen` is hardcoded to `true` (a controlled, always-open dropdown) and the user clicks
 outside the popover, the browser's `popover="auto"` light-dismiss hides the popover element. In the
-legacy path, the dropdown stays open because Popup's positioning is not tied to native popover state.
-In the top-layer path, the popover closes and does not reopen.
+legacy path, the dropdown stays open because Popup's positioning is not tied to native popover
+state. In the top-layer path, the popover closes and does not reopen.
 
 This primarily affects:
+
 - Examples and tests that use `isOpen` without an `onOpenChange` handler
 - Consumers that use `isOpen` as a persistent-open prop (uncommon in production)
 
 **Status:** By design — the DOM owns the dismiss. For `popover="auto"`, the browser controls
 light-dismiss behavior. When the browser dismisses, `onClose` is called and the consumer must
-respond by setting `isOpen` to `false`. If `isOpen` remains `true`, the DOM and React state
-will be out of sync. This is the consumer's responsibility to handle. Consumers needing a
-permanently visible popover should use `mode="manual"` instead.
+respond by setting `isOpen` to `false`. If `isOpen` remains `true`, the DOM and React state will be
+out of sync. This is the consumer's responsibility to handle. Consumers needing a permanently
+visible popover should use `mode="manual"` instead.
 
 ### Intentional differences
 
@@ -284,11 +285,11 @@ between both paths.
 
 ### Summary table
 
-| # | Difference                          | Severity | Category    | Status         |
-|---|-------------------------------------|----------|-------------|----------------|
-| 1 | `shouldFitContainer` width mismatch | Medium   | Bug         | **Fixed**      |
-| 2 | Controlled `isOpen` light-dismiss   | Medium   | Bug         | Open           |
-| 3 | Multiple simultaneous popovers      | Low      | Intentional | Accepted       |
+| #   | Difference                          | Severity | Category    | Status    |
+| --- | ----------------------------------- | -------- | ----------- | --------- |
+| 1   | `shouldFitContainer` width mismatch | Medium   | Bug         | **Fixed** |
+| 2   | Controlled `isOpen` light-dismiss   | Medium   | Bug         | Open      |
+| 3   | Multiple simultaneous popovers      | Low      | Intentional | Accepted  |
 
 ---
 
@@ -332,18 +333,19 @@ snapshots for comparison. 14 snapshots total (7 pairs):
 The top-layer path uses `getNextFocusable` from `@atlaskit/top-layer/focus` for arrow navigation,
 which has a **broader** definition of "not focusable" than the legacy `FocusManager`:
 
-| Attribute | Legacy (skipped?) | Top-layer (skipped?) |
-| --- | --- | --- |
-| `[disabled]` | ✅ Yes | ✅ Yes |
-| `[aria-disabled="true"]` | ❌ No (receives focus) | ✅ Yes |
-| `[tabindex="-1"]` | Depends | ✅ Yes |
-| `[aria-hidden="true"]` | ❌ No (receives focus) | ✅ Yes |
+| Attribute                | Legacy (skipped?)      | Top-layer (skipped?) |
+| ------------------------ | ---------------------- | -------------------- |
+| `[disabled]`             | ✅ Yes                 | ✅ Yes               |
+| `[aria-disabled="true"]` | ❌ No (receives focus) | ✅ Yes               |
+| `[tabindex="-1"]`        | Depends                | ✅ Yes               |
+| `[aria-hidden="true"]`   | ❌ No (receives focus) | ✅ Yes               |
 
 ---
 
 ## Merge Risk Assessment
 
-**Is it safe to merge this code to master, assuming the `platform-dst-top-layer` feature flag is OFF?**
+**Is it safe to merge this code to master, assuming the `platform-dst-top-layer` feature flag is
+OFF?**
 
 ### Verdict
 
@@ -354,9 +356,12 @@ which has a **broader** definition of "not focusable" than the legacy `FocusMana
 1. **Top-level imports** (module load time):
    - `@atlaskit/top-layer` imported unconditionally in `dropdown-menu.tsx`
    - `dropdown-menu-top-layer.tsx` module imported unconditionally
-   - **Risk level:** Low — `@atlaskit/top-layer` modules are side-effect-free (no top-level DOM access, no global state mutation)
+   - **Risk level:** Low — `@atlaskit/top-layer` modules are side-effect-free (no top-level DOM
+     access, no global state mutation)
 
-2. **`useArrowNavigation` imports** — only used by `dropdown-menu-top-layer.tsx`, which only executes when flag is ON. The legacy `dropdown-menu.tsx` does not import or reference these modules.
+2. **`useArrowNavigation` imports** — only used by `dropdown-menu-top-layer.tsx`, which only
+   executes when flag is ON. The legacy `dropdown-menu.tsx` does not import or reference these
+   modules.
 
 3. **Bundle size increase** — standard for feature flag rollouts
 
@@ -365,30 +370,41 @@ which has a **broader** definition of "not focusable" than the legacy `FocusMana
 ### Changes gated behind `platform-dst-top-layer`
 
 - Early-return branch in `dropdown-menu.tsx` (line 116)
-- Entire `DropdownMenuTopLayer` rendering pipeline (SelectionStore → Popup → Popup.TriggerFunction → Popup.Content)
+- Entire `DropdownMenuTopLayer` rendering pipeline (SelectionStore → Popup → Popup.TriggerFunction →
+  Popup.Content)
 - All top-layer-specific logic (CSS Anchor Positioning, arrow navigation, popover API handling)
 - New files: `dropdown-menu-top-layer.tsx`, `use-arrow-navigation/*`, `popup-trigger-function.tsx`
 
 ### Residual risks (flag off)
 
 **LOW.** The only unflagged runtime changes are:
+
 - Imports of side-effect-free modules (`@atlaskit/top-layer` and its sub-modules)
 - JSDoc annotations (no runtime impact)
 
-Existing legacy rendering pipeline (`SelectionStore → Popup → FocusManager → MenuWrapper → children`) remains unchanged. All 23 existing legacy tests pass.
+Existing legacy rendering pipeline
+(`SelectionStore → Popup → FocusManager → MenuWrapper → children`) remains unchanged. All 23
+existing legacy tests pass.
 
 ### Risks when flag is turned on
 
 When rolling out `platform-dst-top-layer=true`, expect these behavioral differences:
 
-1. **Controlled `isOpen` does not survive light-dismiss** — when `isOpen` is hardcoded to `true` and user clicks outside, the popover closes and does not reopen (by design; `popover="auto"` behavior)
-2. **Multiple simultaneous popovers not possible** — `popover="auto"` elements auto-dismiss each other; only the last opened popover remains visible (intentional Popover API behavior)
-3. **`onOpenChange` event is `null` on close** — top-layer path passes `null` (native Popover API doesn't expose original DOM event); consumers must handle this
-4. **Disabled item skipping differs slightly** — broader definition of "not focusable" (includes `aria-disabled="true"`, `aria-hidden="true"`, `tabindex="-1"`); this is an intentional improvement per WAI-ARIA
+1. **Controlled `isOpen` does not survive light-dismiss** — when `isOpen` is hardcoded to `true` and
+   user clicks outside, the popover closes and does not reopen (by design; `popover="auto"`
+   behavior)
+2. **Multiple simultaneous popovers not possible** — `popover="auto"` elements auto-dismiss each
+   other; only the last opened popover remains visible (intentional Popover API behavior)
+3. **`onOpenChange` event is `null` on close** — top-layer path passes `null` (native Popover API
+   doesn't expose original DOM event); consumers must handle this
+4. **Disabled item skipping differs slightly** — broader definition of "not focusable" (includes
+   `aria-disabled="true"`, `aria-hidden="true"`, `tabindex="-1"`); this is an intentional
+   improvement per WAI-ARIA
 
 ### Test confidence
 
 ✅ **High**
+
 - 42 `useArrowNavigation` unit tests pass
 - 35+ dropdown-menu unit tests pass (12+ new top-layer tests)
 - 28+ browser tests pass (10+ integrated in Playwright)

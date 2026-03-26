@@ -1,6 +1,6 @@
-import { type ContentLink } from './link-parser';
-import { type Schema, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type Context } from '../../../interfaces';
+import type { ContentLink } from './link-parser';
+import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Context } from '../../../interfaces';
 
 export function mentionLinkResolver(
 	link: ContentLink,

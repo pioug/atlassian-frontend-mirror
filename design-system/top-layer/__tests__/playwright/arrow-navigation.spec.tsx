@@ -6,7 +6,11 @@ const exampleName = 'testing-arrow-navigation';
 test.describe('useArrowNavigation — Basic menu', () => {
 	test.describe('ArrowDown navigation', () => {
 		test('ArrowDown moves focus to the next item', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			const trigger = page.getByTestId('basic-trigger');
 			await trigger.click();
@@ -19,7 +23,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 		});
 
 		test('ArrowDown moves through multiple items sequentially', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('basic-trigger').click();
 			await page.getByTestId('basic-item-1').focus();
@@ -35,7 +43,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 		});
 
 		test('ArrowDown wraps from last item to first item', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('basic-trigger').click();
 			await page.getByTestId('basic-item-4').focus();
@@ -45,7 +57,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 		});
 
 		test('ArrowDown prevents default page scroll', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('basic-trigger').click();
 			await page.getByTestId('basic-item-1').focus();
@@ -60,7 +76,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 
 	test.describe('ArrowUp navigation', () => {
 		test('ArrowUp moves focus to the previous item', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('basic-trigger').click();
 			await page.getByTestId('basic-item-3').focus();
@@ -70,7 +90,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 		});
 
 		test('ArrowUp wraps from first item to last item', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('basic-trigger').click();
 			await page.getByTestId('basic-item-1').focus();
@@ -82,7 +106,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 
 	test.describe('Home and End keys', () => {
 		test('Home moves focus to the first item', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('basic-trigger').click();
 			await page.getByTestId('basic-item-3').focus();
@@ -92,7 +120,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 		});
 
 		test('Home on first item stays on first item', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('basic-trigger').click();
 			await page.getByTestId('basic-item-1').focus();
@@ -102,7 +134,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 		});
 
 		test('End moves focus to the last item', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('basic-trigger').click();
 			await page.getByTestId('basic-item-1').focus();
@@ -112,7 +148,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 		});
 
 		test('End on last item stays on last item', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('basic-trigger').click();
 			await page.getByTestId('basic-item-4').focus();
@@ -124,7 +164,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 
 	test.describe('Tab to close', () => {
 		test('Tab closes the menu', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('basic-trigger').click();
 			await page.getByTestId('basic-item-1').focus();
@@ -134,7 +178,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 		});
 
 		test('Shift+Tab also closes the menu', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('basic-trigger').click();
 			await page.getByTestId('basic-item-1').focus();
@@ -147,7 +195,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 
 	test.describe('isEnabled', () => {
 		test('no keyboard navigation when menu is closed (isEnabled=false)', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			const trigger = page.getByTestId('basic-trigger');
 			await trigger.focus();
@@ -164,7 +216,11 @@ test.describe('useArrowNavigation — Basic menu', () => {
 test.describe('useArrowNavigation — Nested menu with filter', () => {
 	test.describe('Parent menu navigation stays scoped', () => {
 		test('ArrowDown in parent does not enter nested sub-menu items', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('nested-trigger').click();
 
@@ -185,7 +241,11 @@ test.describe('useArrowNavigation — Nested menu with filter', () => {
 		});
 
 		test('ArrowUp in parent does not enter nested sub-menu items', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('nested-trigger').click();
 
@@ -206,7 +266,11 @@ test.describe('useArrowNavigation — Nested menu with filter', () => {
 		});
 
 		test('Home/End in parent are scoped to parent items', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('nested-trigger').click();
 			await page.getByTestId('nested-item-2').click();
@@ -227,7 +291,11 @@ test.describe('useArrowNavigation — Nested menu with filter', () => {
 
 	test.describe('Sub-menu navigation is independent', () => {
 		test('ArrowDown in sub-menu navigates within sub-menu', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('nested-trigger').click();
 			await page.getByTestId('nested-item-2').click();
@@ -240,7 +308,11 @@ test.describe('useArrowNavigation — Nested menu with filter', () => {
 		});
 
 		test('ArrowDown wraps within sub-menu', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('nested-trigger').click();
 			await page.getByTestId('nested-item-2').click();
@@ -252,7 +324,11 @@ test.describe('useArrowNavigation — Nested menu with filter', () => {
 		});
 
 		test('Tab in sub-menu closes only the sub-menu', async ({ page }) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('nested-trigger').click();
 			await page.getByTestId('nested-item-2').click();
@@ -268,10 +344,12 @@ test.describe('useArrowNavigation — Nested menu with filter', () => {
 	});
 
 	test.describe('Guard prevents parent from handling nested events', () => {
-		test('parent handler does not move focus when sub-menu item is focused', async ({
-			page,
-		}) => {
-			await page.visitExample('design-system', 'top-layer', exampleName);
+		test('parent handler does not move focus when sub-menu item is focused', async ({ page }) => {
+			await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+				'design-system',
+				'top-layer',
+				exampleName,
+			);
 
 			await page.getByTestId('nested-trigger').click();
 			await page.getByTestId('nested-item-2').click();
@@ -288,7 +366,11 @@ test.describe('useArrowNavigation — Nested menu with filter', () => {
 
 test.describe('useArrowNavigation — Mixed element types', () => {
 	test('navigates through buttons', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', exampleName);
+		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+			'design-system',
+			'top-layer',
+			exampleName,
+		);
 
 		await page.getByTestId('mixed-trigger').click();
 		await page.getByTestId('mixed-item-1').focus();
@@ -299,7 +381,11 @@ test.describe('useArrowNavigation — Mixed element types', () => {
 	});
 
 	test('skips disabled items', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', exampleName);
+		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+			'design-system',
+			'top-layer',
+			exampleName,
+		);
 
 		await page.getByTestId('mixed-trigger').click();
 		await page.getByTestId('mixed-item-2').focus();
@@ -310,7 +396,11 @@ test.describe('useArrowNavigation — Mixed element types', () => {
 	});
 
 	test('wraps correctly with disabled items present', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', exampleName);
+		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+			'design-system',
+			'top-layer',
+			exampleName,
+		);
 
 		await page.getByTestId('mixed-trigger').click();
 		await page.getByTestId('mixed-item-3').focus();
@@ -321,7 +411,11 @@ test.describe('useArrowNavigation — Mixed element types', () => {
 	});
 
 	test('Home skips disabled items', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', exampleName);
+		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+			'design-system',
+			'top-layer',
+			exampleName,
+		);
 
 		await page.getByTestId('mixed-trigger').click();
 		await page.getByTestId('mixed-item-3').focus();
@@ -331,7 +425,11 @@ test.describe('useArrowNavigation — Mixed element types', () => {
 	});
 
 	test('End skips disabled items', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', exampleName);
+		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+			'design-system',
+			'top-layer',
+			exampleName,
+		);
 
 		await page.getByTestId('mixed-trigger').click();
 		await page.getByTestId('mixed-item-1').focus();
@@ -344,7 +442,11 @@ test.describe('useArrowNavigation — Mixed element types', () => {
 
 test.describe('useArrowNavigation — Unhandled keys pass through', () => {
 	test('letter keys are not intercepted', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', exampleName);
+		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+			'design-system',
+			'top-layer',
+			exampleName,
+		);
 
 		await page.getByTestId('basic-trigger').click();
 		await page.getByTestId('basic-item-1').focus();
@@ -355,7 +457,11 @@ test.describe('useArrowNavigation — Unhandled keys pass through', () => {
 	});
 
 	test('Escape is not intercepted', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', exampleName);
+		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+			'design-system',
+			'top-layer',
+			exampleName,
+		);
 
 		await page.getByTestId('basic-trigger').click();
 		await page.getByTestId('basic-item-1').focus();

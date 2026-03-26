@@ -2,14 +2,14 @@ import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
-	type EditorAnalyticsAPI,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { type Command } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { Command } from '@atlaskit/editor-common/types';
 import { getDatasourceType } from '@atlaskit/editor-common/utils';
 
 import { showDatasourceModal } from '../pm-plugins/actions';
-import { type CardType } from '../types';
+import type { CardType } from '../types';
 
 export const editDatasource =
 	(

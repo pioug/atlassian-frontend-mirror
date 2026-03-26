@@ -40,7 +40,7 @@ import {
 	isTypeAheadAllowed,
 	isTypeAheadOpen,
 } from './pm-plugins/utils';
-import { type TypeAheadPlugin } from './typeAheadPluginType';
+import type { TypeAheadPlugin } from './typeAheadPluginType';
 import type { OpenTypeAheadProps, PopupMountPointReference, TypeAheadHandler } from './types';
 import { ContentComponent } from './ui/ContentComponent';
 

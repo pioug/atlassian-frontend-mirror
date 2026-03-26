@@ -4,7 +4,8 @@ import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import ReactNodeView, { type getPosHandler } from '@atlaskit/editor-common/react-node-view';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type { ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
 import {
 	SyncBlockSharedCssClassName,
@@ -18,10 +19,10 @@ import type {
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
 import {
-	type SyncBlockStoreManager,
 	useFetchSyncBlockData,
 	useFetchSyncBlockTitle,
 } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { removeSyncedBlockAtPos } from '../editor-commands';

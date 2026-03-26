@@ -5,7 +5,8 @@ import {
 	SetAttrsStep,
 } from '@atlaskit/adf-schema/steps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
 	AddMarkStep,
 	AddNodeMarkStep,
@@ -15,8 +16,8 @@ import {
 	RemoveNodeMarkStep,
 	ReplaceAroundStep,
 	ReplaceStep,
-	type Step,
 } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
 import type { TrackSpammingStepsMetadata } from '../types';
 

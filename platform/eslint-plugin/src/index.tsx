@@ -35,6 +35,7 @@ import noBarrelEntryJestMock from './rules/import/no-barrel-entry-jest-mock';
 import noJestMockBarrelFiles from './rules/import/no-jest-mock-barrel-files';
 import noRelativeBarrelFileImports from './rules/import/no-relative-barrel-file-imports';
 import noConversationAssistantBarrelImports from './rules/import/no-conversation-assistant-barrel-imports';
+import visitExampleTypeImportRequired from './rules/visit-example-type-import-required';
 import { join, normalize } from 'node:path';
 import { readFileSync } from 'node:fs';
 
@@ -99,6 +100,7 @@ const rules = {
 	'no-jest-mock-barrel-files': noJestMockBarrelFiles,
 	'no-relative-barrel-file-imports': noRelativeBarrelFileImports,
 	'no-conversation-assistant-barrel-imports': noConversationAssistantBarrelImports,
+	'visit-example-type-import-required': visitExampleTypeImportRequired,
 };
 
 const commonConfig = {

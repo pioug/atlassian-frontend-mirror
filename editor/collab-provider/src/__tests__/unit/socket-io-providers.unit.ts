@@ -1,6 +1,6 @@
 import { SOCKET_IO_OPTIONS, SOCKET_IO_OPTIONS_WITH_HIGH_JITTER } from '../../config';
 import { createSocketIOSocket } from '../../socket-io-provider';
-import { type InitAndAuthData } from '../../types';
+import type { InitAndAuthData } from '../../types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { isIsolatedCloud } from '@atlaskit/atlassian-context';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

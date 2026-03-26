@@ -4,7 +4,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isDatasourceNode } from '../../pm-plugins/utils';
 import type { DatasourceNode } from '../../types';
 
-import { DATASOURCE_TABLE_LAYOUTS, type DatasourceTableLayout } from './types';
+import { DATASOURCE_TABLE_LAYOUTS } from './types';
+import type { DatasourceTableLayout } from './types';
 
 export const getDatasource = (
 	editorView: EditorView | undefined,

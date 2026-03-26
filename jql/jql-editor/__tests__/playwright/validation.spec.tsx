@@ -8,7 +8,9 @@ import { JQLEditorPage } from './page';
 test.describe('JQL Editor validations', () => {
 	test('Shows a tooltip when hovering an invalid token', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('somefield == somevalue');
 		await jqlEditor.errorToken.hover();
@@ -24,7 +26,9 @@ test.describe('JQL Editor validations', () => {
 
 	test('Shows an error message when invalid query is submitted', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
-		await jqlEditor.visitExample('basic-editor');
+		await jqlEditor.visitExample<typeof import('../../examples/00-basic-editor.tsx')>(
+			'basic-editor',
+		);
 		await jqlEditor.input.clear();
 		await jqlEditor.appendInputValue('ORDER BY created des');
 		// Submit the invalid query

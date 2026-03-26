@@ -5,7 +5,7 @@ const sectionMessage = "[data-testid='overflow-actions-section-message']";
 const actions = "[data-testid='overflow-actions-section-message--content']";
 
 test('SectionMessage should wrap actions onto new lines', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/100-ssr-testing.tsx')>(
+	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
 		'design-system',
 		'section-message',
 		'testing',

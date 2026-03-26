@@ -9,7 +9,6 @@
 import React from 'react';
 
 import type { Prettify } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkSize } from '../../constants';
 
@@ -170,9 +169,7 @@ export const SourceBranchElement = (): React.JSX.Element => <SourceBranch />;
 
 export type StateElementProps = Prettify<Pick<React.ComponentProps<typeof State>, 'maxWidth'>>;
 export const StateElement = (props?: StateElementProps): React.JSX.Element => (
-	<State
-		{...(fg('platform_navx_sl_lozenge_max_width') ? { maxWidth: props?.maxWidth } : undefined)}
-	/>
+	<State maxWidth={props?.maxWidth} />
 );
 export const StoryPointsElement = (): React.JSX.Element => <StoryPoints />;
 export const SubscriberCountElement = (): React.JSX.Element => <SubscriberCount />;

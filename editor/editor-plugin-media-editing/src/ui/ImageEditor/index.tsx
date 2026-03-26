@@ -59,7 +59,7 @@ const modalFooter = css({
 const ratioBtn = css({
 	display: 'flex',
 	alignItems: 'center',
-	gap: token('space.100', '8px'),
+	gap: token('space.100'),
 });
 
 const ratioSelect = css({
@@ -82,7 +82,7 @@ const dropdownItemGroup = css({
 const btnGroupStyle = cssMap({
 	box: {
 		display: 'flex',
-		gap: token('space.100', '8px'),
+		gap: token('space.100'),
 	},
 });
 

@@ -40,13 +40,7 @@ export default function TestingDialogAutofocus() {
 	);
 }
 
-function AutofocusDialog({
-	onClose,
-	useOverride,
-}: {
-	onClose: () => void;
-	useOverride: boolean;
-}) {
+function AutofocusDialog({ onClose, useOverride }: { onClose: () => void; useOverride: boolean }) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	const autofocusRef = useCallback((node: HTMLButtonElement | null) => {
 		if (node) {

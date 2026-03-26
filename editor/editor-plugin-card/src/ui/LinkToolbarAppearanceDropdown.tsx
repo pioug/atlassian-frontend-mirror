@@ -5,8 +5,8 @@ import {
 	appearancePropsMap,
 	commandWithMetadata,
 	getDropdownOption,
-	type OptionConfig,
 } from '@atlaskit/editor-common/card';
+import type { OptionConfig } from '@atlaskit/editor-common/card';
 import { cardMessages as messages, linkToolbarMessages } from '@atlaskit/editor-common/messages';
 import type {
 	Command,
@@ -23,7 +23,8 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
 
 import { DatasourceDropdownOption, datasourceDisplayInformation } from './DatasourceDropdownOption';
-import { getUnavailableMessage, type LinkToolbarAppearanceProps } from './LinkToolbarAppearance';
+import { getUnavailableMessage } from './LinkToolbarAppearance';
+import type { LinkToolbarAppearanceProps } from './LinkToolbarAppearance';
 
 type Props = LinkToolbarAppearanceProps & {
 	allowDatasource?: boolean;

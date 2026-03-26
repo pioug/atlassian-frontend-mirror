@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { SyncBlockStoreManager } from '../store-manager/syncBlockStoreManager';
 

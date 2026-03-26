@@ -1,6 +1,6 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
+	type INPUT_METHOD,
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
@@ -15,12 +15,16 @@ import type {
 	ExtractInjectionAPI,
 	TypeAheadInsert,
 } from '@atlaskit/editor-common/types';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { DOMSerializer, Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
+	type Schema,
+	DOMSerializer,
+	Fragment,
+	type Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import {
+	TextSelection,
 	type EditorState,
 	type Transaction,
-	TextSelection,
 	type Selection,
 } from '@atlaskit/editor-prosemirror/state';
 import {

@@ -1,19 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /* eslint-disable compat/compat */
-import {
-	test as base,
-	expect as baseExpect,
-	type Expect,
-	type Page,
-} from '@af/integration-testing';
+import { test as base, expect as baseExpect } from '@af/integration-testing';
+import type { Expect, Page } from '@af/integration-testing';
 import { EditorPerformanceMetrics } from '@atlaskit/editor-performance-metrics/metrics';
 import type { TTVCTargets } from '@atlaskit/editor-performance-metrics/react';
-import {
-	createTimelineFromEvents,
-	type Timeline,
-	type TimelineEvent,
-} from '@atlaskit/editor-performance-metrics/timeline';
+import { createTimelineFromEvents } from '@atlaskit/editor-performance-metrics/timeline';
+import type { Timeline, TimelineEvent } from '@atlaskit/editor-performance-metrics/timeline';
 
 import type { WindowWithEditorPerformanceGlobals } from './window-type';
 

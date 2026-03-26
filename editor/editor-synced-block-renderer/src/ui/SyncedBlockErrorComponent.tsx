@@ -13,8 +13,8 @@ import {
 	fetchErrorPayload,
 	getContentIdAndProductFromResourceId,
 	SyncBlockError,
-	type SyncBlockInstance,
 } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
 
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
 import { SyncedBlockLoadError } from './SyncedBlockLoadError';

@@ -5,13 +5,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo, useEffect, useMemo, useRef, type MemoExoticComponent } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
+import type { MemoExoticComponent } from 'react';
 
-import {
-	createCalculator,
-	type LatencyPercentileTargets,
-	type TTVCTargets,
-} from './internals/editorPerformanceMetrics';
+import { createCalculator } from './internals/editorPerformanceMetrics';
+import type { LatencyPercentileTargets, TTVCTargets } from './internals/editorPerformanceMetrics';
 import type { EditorPerformanceObserver } from './internals/editorPerformanceObserver';
 import { getGlobalEditorMetricsObserver } from './internals/global';
 

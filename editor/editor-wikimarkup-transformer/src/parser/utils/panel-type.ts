@@ -1,4 +1,5 @@
-import colorNameMapping, { type RGB, type RGBColors } from './color-name-mapping';
+import colorNameMapping from './color-name-mapping';
+import type { RGB, RGBColors } from './color-name-mapping';
 
 const COLOR_TYPE_REGEX = {
 	// Ignored via go/ees005

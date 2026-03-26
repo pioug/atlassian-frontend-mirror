@@ -1,10 +1,7 @@
 import { isMarkAllowedInRange, isMarkExcluded } from '@atlaskit/editor-common/mark';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import {
-	type EditorState,
-	NodeSelection,
-	type TextSelection,
-} from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 export const getDisabledState = (state: EditorState): boolean => {
 	const { backgroundColor } = state.schema.marks;

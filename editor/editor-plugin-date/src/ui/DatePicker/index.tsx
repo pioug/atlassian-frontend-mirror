@@ -20,7 +20,6 @@ import {
 } from '@atlaskit/editor-common/ui';
 import { timestampToIsoFormat, timestampToUTCDate } from '@atlaskit/editor-common/utils';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import { N0, N60A } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -34,13 +33,13 @@ import { getDFLocale } from './utils/internal';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const popupContentWrapper = css({
-	paddingTop: token('space.025', '2px'),
-	paddingBottom: token('space.025', '2px'),
-	paddingLeft: token('space.025', '2px'),
-	paddingRight: token('space.025', '2px'),
+	paddingTop: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
+	paddingRight: token('space.025'),
 	borderRadius: token('radius.small', '3px'),
-	boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`),
-	backgroundColor: token('elevation.surface.overlay', N0),
+	boxShadow: token('elevation.shadow.overlay'),
+	backgroundColor: token('elevation.surface.overlay'),
 });
 
 export interface Props {

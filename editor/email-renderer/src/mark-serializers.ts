@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
-import { type MarkSerializer, type MarkSerializerOpts } from './interfaces';
+import type { MarkSerializer, MarkSerializerOpts } from './interfaces';
 
 import code from './marks/code';
 import em from './marks/em';

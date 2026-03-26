@@ -7,7 +7,6 @@ import { css, jsx } from '@emotion/react';
 
 import { isVerticalPosition } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import { B200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { getPositionStyles } from './positionStyles';
@@ -17,7 +16,7 @@ const basicGuidelineStyles = css({
 	zIndex: 0,
 	opacity: 1,
 	transition: 'border-color 0.15s linear, opacity 0.15s linear',
-	borderColor: `${token('color.border.disabled', N30A)}`,
+	borderColor: `${token('color.border.disabled')}`,
 	borderStyle: 'solid',
 });
 
@@ -34,10 +33,10 @@ const horizontalStyles = css({
 });
 
 const activeGuidelineStyles = css({
-	borderColor: token('color.border.focused', B200),
+	borderColor: token('color.border.focused'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:before, &:after': {
-		backgroundColor: token('color.border.focused', B200),
+		backgroundColor: token('color.border.focused'),
 	},
 });
 
@@ -52,7 +51,7 @@ const dashedGuidelineStyles = css({
 const verticalCapStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:before, &:after': {
-		backgroundColor: token('color.border.disabled', N30A),
+		backgroundColor: token('color.border.disabled'),
 		content: '""',
 		position: 'absolute',
 		height: '5px',
@@ -68,7 +67,7 @@ const verticalCapStyles = css({
 const horizontalCapStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:before, &:after': {
-		backgroundColor: `${token('color.border.disabled', N30A)}`,
+		backgroundColor: `${token('color.border.disabled')}`,
 		content: '""',
 		position: 'absolute',
 		height: '1px',

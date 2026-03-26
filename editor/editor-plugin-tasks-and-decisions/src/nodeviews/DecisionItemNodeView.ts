@@ -1,8 +1,9 @@
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
-import { DOMSerializer, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type NodeView } from '@atlaskit/editor-prosemirror/view';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { decisionItemToDOM } from './decisionItemNodeSpec';

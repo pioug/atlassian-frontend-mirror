@@ -1,4 +1,5 @@
-import { onINP, type Metric } from '../index';
+import { onINP } from '../index';
+import type { Metric } from '../index';
 
 // Mock PerformanceObserver
 class MockPerformanceObserver {

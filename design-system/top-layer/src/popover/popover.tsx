@@ -73,7 +73,9 @@ type TPopoverMode = 'auto' | 'hint' | 'manual';
  * consumer must set `isOpen` to `false`. The DOM owns the dismiss — React
  * must follow.
  */
-export const Popover: React.ForwardRefExoticComponent<TPopoverForwardedProps & React.RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, TPopoverForwardedProps>(function Popover(
+export const Popover: React.ForwardRefExoticComponent<
+	TPopoverForwardedProps & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, TPopoverForwardedProps>(function Popover(
 	{
 		children,
 		mode: modeProp = 'auto',
@@ -238,7 +240,6 @@ export const Popover: React.ForwardRefExoticComponent<TPopoverForwardedProps & R
 		} catch {
 			// Already hidden — DOM matches intent.
 		}
-
 	}, [isOpen]);
 
 	return (

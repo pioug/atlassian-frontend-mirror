@@ -20,9 +20,8 @@ import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
 import {
 	convertPMNodesToSyncBlockNodes,
 	rebaseTransaction,
-	type SyncBlockStoreManager,
-	type DeletionReason,
 } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockStoreManager, DeletionReason } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -32,19 +31,17 @@ import {
 } from '../nodeviews/bodiedSyncedBlock';
 import { SyncBlock as SyncBlockView } from '../nodeviews/syncedBlock';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
-import {
-	FLAG_ID,
-	type ActiveFlag,
-	type BodiedSyncBlockDeletionStatus,
-	type RetryCreationPosEntry,
-	type RetryCreationPosMap,
+import { FLAG_ID } from '../types';
+import type {
+	ActiveFlag,
+	BodiedSyncBlockDeletionStatus,
+	RetryCreationPosEntry,
+	RetryCreationPosMap,
 } from '../types';
 
 import { handleBodiedSyncBlockCreation } from './utils/handle-bodied-sync-block-creation';
-import {
-	handleBodiedSyncBlockRemoval,
-	type TransactionRef,
-} from './utils/handle-bodied-sync-block-removal';
+import { handleBodiedSyncBlockRemoval } from './utils/handle-bodied-sync-block-removal';
+import type { TransactionRef } from './utils/handle-bodied-sync-block-removal';
 import { shouldIgnoreDomEvent } from './utils/ignore-dom-event';
 import { calculateDecorations } from './utils/selection-decorations';
 import { hasEditInSyncBlock, trackSyncBlocks } from './utils/track-sync-blocks';

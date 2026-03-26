@@ -1,5 +1,5 @@
-import { type EditorState } from '@atlaskit/editor-prosemirror/state';
-import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { addPaddingDecorations } from './add-padding-decorations';
 

@@ -26,11 +26,10 @@ import {
 	syncStickyRowToTable,
 	updateStickyMargins as updateTableMargin,
 } from '../pm-plugins/table-resizing/utils/dom';
-import type { TableDOMElements } from '../pm-plugins/utils/dom';
-import { areAllRectsZero, getTop, getTree } from '../pm-plugins/utils/dom';
+import { type TableDOMElements, areAllRectsZero, getTop, getTree } from '../pm-plugins/utils/dom';
 import { supportedHeaderRow } from '../pm-plugins/utils/nodes';
-import type { TablePluginState } from '../types';
 import {
+	type TablePluginState,
 	TableCssClassName as ClassName,
 	TableCssClassName,
 	type PluginInjectionAPI,

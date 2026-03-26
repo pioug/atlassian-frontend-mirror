@@ -24,7 +24,7 @@ import type {
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
-import { type Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';

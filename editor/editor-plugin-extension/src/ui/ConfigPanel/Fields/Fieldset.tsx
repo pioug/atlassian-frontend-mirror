@@ -23,7 +23,6 @@ import AddCircleIcon from '@atlaskit/icon/core/add';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
-import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { FormContentProps, OnFieldChange } from '../types';
@@ -35,9 +34,9 @@ type OptionType = {
 };
 
 const actionsWrapperStyles = css({
-	borderTop: `${token('border.width')} solid ${token('color.border', N40A)}`,
-	marginTop: token('space.200', '16px'),
-	paddingTop: token('space.200', '16px'),
+	borderTop: `${token('border.width')} solid ${token('color.border')}`,
+	marginTop: token('space.200'),
+	paddingTop: token('space.200'),
 });
 
 const populateFromParameters = (

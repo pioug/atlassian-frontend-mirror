@@ -1,7 +1,8 @@
 /* eslint-disable @atlaskit/design-system/prefer-primitives */
 import React, { useCallback, useState } from 'react';
 
-import { DropList, type DropListProps, Popup } from '@atlaskit/editor-common/ui';
+import { DropList, Popup } from '@atlaskit/editor-common/ui';
+import type { DropListProps } from '@atlaskit/editor-common/ui';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import {
 	ArrowKeyNavigationProvider,

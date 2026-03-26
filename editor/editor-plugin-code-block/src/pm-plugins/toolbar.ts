@@ -32,12 +32,8 @@ import {
 	provideVisualFeedbackForCopyButton,
 	removeVisualFeedbackForCopyButton,
 } from './codeBlockCopySelectionPlugin';
-import {
-	createLanguageList,
-	DEFAULT_LANGUAGES,
-	getLanguageIdentifier,
-	type Language,
-} from './language-list';
+import { createLanguageList, DEFAULT_LANGUAGES, getLanguageIdentifier } from './language-list';
+import type { Language } from './language-list';
 import type { CodeBlockState } from './main-state';
 import { pluginKey } from './plugin-key';
 

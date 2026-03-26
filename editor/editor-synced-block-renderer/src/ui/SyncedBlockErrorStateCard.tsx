@@ -1,4 +1,5 @@
-import React, { type ReactNode } from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import WarningOutlineIcon from '@atlaskit/icon-lab/core/warning-outline';

@@ -1,11 +1,7 @@
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { findFarthestParentNode, isListNode } from '@atlaskit/editor-common/utils';
-import {
-	NodeRange,
-	type Node,
-	type NodeType,
-	type ResolvedPos,
-} from '@atlaskit/editor-prosemirror/model';
+import { NodeRange } from '@atlaskit/editor-prosemirror/model';
+import type { Node, NodeType, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { liftTarget } from '@atlaskit/editor-prosemirror/transform';

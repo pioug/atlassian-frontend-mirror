@@ -74,11 +74,7 @@ export default function BasicDialogExample() {
 		<Box padding="space.400">
 			<Stack space="space.200">
 				<Inline space="space.100" alignBlock="center">
-					<Button
-						appearance="primary"
-						onClick={() => setIsOpen(true)}
-						aria-haspopup="dialog"
-					>
+					<Button appearance="primary" onClick={() => setIsOpen(true)} aria-haspopup="dialog">
 						Open dialog
 					</Button>
 					{closeLog.length > 0 && (
@@ -109,20 +105,18 @@ export default function BasicDialogExample() {
 						<div css={styles.dialogBody}>
 							<Stack space="space.150">
 								<Text>
-									This dialog uses the native {'<dialog>'} element. Try closing it
-									different ways to see the reason logged:
+									This dialog uses the native {'<dialog>'} element. Try closing it different ways to
+									see the reason logged:
 								</Text>
 								<Box as="ul" paddingInlineStart="space.300">
 									<li>
 										<Text>
-											Press <strong>Escape</strong> →{' '}
-											<Lozenge appearance="moved">escape</Lozenge>
+											Press <strong>Escape</strong> → <Lozenge appearance="moved">escape</Lozenge>
 										</Text>
 									</li>
 									<li>
 										<Text>
-											Click the backdrop →{' '}
-											<Lozenge appearance="inprogress">overlay-click</Lozenge>
+											Click the backdrop → <Lozenge appearance="inprogress">overlay-click</Lozenge>
 										</Text>
 									</li>
 								</Box>

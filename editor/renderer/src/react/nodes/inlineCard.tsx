@@ -3,18 +3,11 @@
  * @jsx jsx
  */
 /* eslint-disable jsdoc/check-tag-names */
-import {
-	Fragment,
-	useState,
-	useMemo,
-	type Context,
-	type ErrorInfo,
-	type JSX,
-	type ReactInstance,
-} from 'react';
+import { Fragment, useState, useMemo } from 'react';
+import type { Context, ErrorInfo, JSX, ReactInstance } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { type Mark } from '@atlaskit/editor-prosemirror/model';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { useSmartCardContext } from '@atlaskit/link-provider';
 import { Card, getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
 import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
@@ -45,10 +38,8 @@ import { withSmartCardStorage } from '../../ui/SmartCardStorage';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 
-import {
-	useInlineAnnotationProps,
-	type MarkDataAttributes,
-} from '../../ui/annotations/element/useInlineAnnotationProps';
+import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
+import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
 import { usePortal } from '../../ui/Renderer/PortalContext';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { AnalyticsEventPayload } from '../../analytics/events';

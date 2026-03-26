@@ -21,7 +21,8 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { type Rect, TableMap } from '@atlaskit/editor-tables/table-map';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/table-map';
 import {
 	findCellClosestToPos,
 	findCellRectClosestToPos,

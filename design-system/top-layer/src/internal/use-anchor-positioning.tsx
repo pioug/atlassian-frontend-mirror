@@ -105,7 +105,11 @@ export function placementToTryFallbacks({ placement }: { placement: TPlacementOp
  * Uses `once()` for lazy evaluation — safe for SSR and avoids hydration mismatches.
  */
 const supportsAnchorPositioning = once((): boolean => {
-	if (typeof window === 'undefined' || typeof CSS === 'undefined' || typeof CSS.supports !== 'function') {
+	if (
+		typeof window === 'undefined' ||
+		typeof CSS === 'undefined' ||
+		typeof CSS.supports !== 'function'
+	) {
 		return false;
 	}
 	return CSS.supports('anchor-name', '--a');
@@ -222,7 +226,10 @@ export function useAnchorPosition({
 
 			const popoverStyles: Array<{ property: string; value: string }> = [
 				{ property: 'position-anchor', value: anchorName },
-				{ property: 'position-area', value: placementToPositionArea({ placement: resolvedPlacement }) },
+				{
+					property: 'position-area',
+					value: placementToPositionArea({ placement: resolvedPlacement }),
+				},
 				{
 					property: 'position-try-fallbacks',
 					value: arrow
@@ -255,10 +262,13 @@ export function useAnchorPosition({
 		// The popover is already in the browser's top layer via popover="auto",
 		// so it does not need position:fixed. We only reset the UA defaults
 		// (inset: 0; margin: auto) and set top/left based on measurements.
-		const cleanupBaseStyles = setStyle({ el: popover, styles: [
-			{ property: 'margin', value: '0' },
-			{ property: 'inset', value: 'auto' },
-		] });
+		const cleanupBaseStyles = setStyle({
+			el: popover,
+			styles: [
+				{ property: 'margin', value: '0' },
+				{ property: 'inset', value: 'auto' },
+			],
+		});
 
 		function update() {
 			if (!trigger || !popover) {
@@ -329,13 +339,5 @@ export function useAnchorPosition({
 		);
 
 		return undoPositioning;
-	}, [
-		anchorRef,
-		popoverRef,
-		placement,
-		anchorName,
-		offset,
-		forceFallbackPositioning,
-		arrow,
-	]);
+	}, [anchorRef, popoverRef, placement, anchorName, offset, forceFallbackPositioning, arrow]);
 }

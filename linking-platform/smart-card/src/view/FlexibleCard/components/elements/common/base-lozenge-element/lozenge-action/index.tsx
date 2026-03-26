@@ -112,7 +112,7 @@ const LozengeAction = ({
 				{...props}
 				appearance={selected.appearance}
 				isOpen={isOpen}
-				{...(fg('platform_navx_sl_lozenge_max_width') ? { maxWidth } : undefined)}
+				maxWidth={maxWidth}
 				testId={testId}
 				text={selected.text}
 			/>

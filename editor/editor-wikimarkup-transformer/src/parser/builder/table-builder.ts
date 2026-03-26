@@ -1,12 +1,5 @@
-import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
-import {
-	type AddCellArgs,
-	type Builder,
-	type CellType,
-	type Table,
-	type TableCell,
-	type TableRow,
-} from '../../interfaces';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { AddCellArgs, Builder, CellType, Table, TableCell, TableRow } from '../../interfaces';
 
 /**
  * Return the cell type based on the delimeter

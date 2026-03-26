@@ -1,22 +1,20 @@
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
-import { DOMSerializer, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { MentionProvider } from '@atlaskit/mention';
-import {
-	isResolvingMentionProvider,
-	type MentionNameDetails,
-	MentionNameStatus,
-} from '@atlaskit/mention/resource';
+import { isResolvingMentionProvider, MentionNameStatus } from '@atlaskit/mention/resource';
+import type { MentionNameDetails } from '@atlaskit/mention/resource';
 import { isRestricted } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
-import { type MentionPluginOptions } from '../types';
+import type { MentionPluginOptions } from '../types';
 
 import { profileCardRenderer } from './profileCardRenderer';
 

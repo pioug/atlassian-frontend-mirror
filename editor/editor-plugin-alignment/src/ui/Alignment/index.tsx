@@ -21,10 +21,10 @@ import AlignmentButton from './AlignmentButton';
 
 const alignmentWrapper = css({
 	display: 'flex',
-	paddingTop: token('space.0', '0px'),
-	paddingBottom: token('space.0', '0px'),
-	paddingLeft: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
+	paddingTop: token('space.0'),
+	paddingBottom: token('space.0'),
+	paddingLeft: token('space.100'),
+	paddingRight: token('space.100'),
 	maxWidth: `${3 * 32 + 2 * 2}px`, // 3 buttons * 32px + 2 * 2px gap
 	columnGap: token('space.025'), // add gap between buttons, so they don't crunch each other
 });

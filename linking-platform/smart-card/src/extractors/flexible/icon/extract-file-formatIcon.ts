@@ -1,87 +1,62 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { IconType } from '../../../constants';
 
 import { type IconDescriptor } from './types';
 
 const extractFileFormatIcon = (fileFormat?: string): IconDescriptor | undefined => {
+	const getIconDescriptor = (icon: IconType, label: string): IconDescriptor =>
+		fg('platform_navx_smart_link_icon_label_a11y') ? { icon, label } : { icon };
+
 	switch (fileFormat) {
 		// Generic documents
 		case 'folder':
-			return {
-				icon: IconType.Folder,
-			};
+			return getIconDescriptor(IconType.Folder, 'folder');
 		case 'text/plain':
 		case 'application/vnd.oasis.opendocument.text':
 		case 'application/vnd.apple.pages':
-			return {
-				icon: IconType.Document,
-			};
+			return getIconDescriptor(IconType.Document, 'document');
 		case 'application/pdf':
-			return {
-				icon: IconType.PDF,
-			};
+			return getIconDescriptor(IconType.PDF, 'pdf');
 		case 'application/vnd.oasis.opendocument.presentation':
 		case 'application/vnd.apple.keynote':
-			return {
-				icon: IconType.Presentation,
-			};
+			return getIconDescriptor(IconType.Presentation, 'presentation');
 		case 'application/vnd.oasis.opendocument.spreadsheet':
 		case 'application/vnd.apple.numbers':
-			return {
-				icon: IconType.Spreadsheet,
-			};
+			return getIconDescriptor(IconType.Spreadsheet, 'spreadsheet');
 		// Google Drive
 		case 'application/vnd.google-apps.document':
-			return {
-				icon: IconType.GoogleDocs,
-			};
+			return getIconDescriptor(IconType.GoogleDocs, 'google document');
 		case 'application/vnd.google-apps.form':
-			return {
-				icon: IconType.GoogleForms,
-			};
+			return getIconDescriptor(IconType.GoogleForms, 'google form');
 		case 'application/vnd.google-apps.spreadsheet':
-			return {
-				icon: IconType.GoogleSheets,
-			};
+			return getIconDescriptor(IconType.GoogleSheets, 'google sheet');
 		case 'application/vnd.google-apps.presentation':
-			return {
-				icon: IconType.GoogleSlides,
-			};
+			return getIconDescriptor(IconType.GoogleSlides, 'google slide');
 		// Microsoft
 		case 'application/vnd.ms-excel':
 		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-			return {
-				icon: IconType.MSExcel,
-			};
+			return getIconDescriptor(IconType.MSExcel, 'excel spreadsheet');
 		case 'application/vnd.ms-powerpoint':
 		case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-			return {
-				icon: IconType.MSPowerpoint,
-			};
+			return getIconDescriptor(IconType.MSPowerpoint, 'powerpoint');
 		case 'application/msword':
 		case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-			return {
-				icon: IconType.MSWord,
-			};
+			return getIconDescriptor(IconType.MSWord, 'word document');
 		case 'image/png':
 		case 'image/jpeg':
 		case 'image/bmp':
 		case 'image/webp':
 		case 'image/svg+xml':
-			return {
-				icon: IconType.Image,
-			};
+			return getIconDescriptor(IconType.Image, 'image');
 		case 'image/gif':
-			return {
-				icon: IconType.GIF,
-			};
+			return getIconDescriptor(IconType.GIF, 'gif');
 		case 'audio/midi':
 		case 'audio/mpeg':
 		case 'audio/webm':
 		case 'audio/ogg':
 		case 'audio/wav':
-			return {
-				icon: IconType.Audio,
-			};
+			return getIconDescriptor(IconType.Audio, 'audio');
 		case 'video/mp4':
 		case 'video/quicktime':
 		case 'video/mov':
@@ -89,41 +64,27 @@ const extractFileFormatIcon = (fileFormat?: string): IconDescriptor | undefined 
 		case 'video/ogg':
 		case 'video/x-ms-wmv':
 		case 'video/x-msvideo':
-			return {
-				icon: IconType.Video,
-			};
+			return getIconDescriptor(IconType.Video, 'video');
 		// Others
 		case 'text/css':
 		case 'text/html':
 		case 'application/javascript':
-			return {
-				icon: IconType.Code,
-			};
+			return getIconDescriptor(IconType.Code, 'code');
 		case 'application/zip':
 		case 'application/x-tar':
 		case 'application/x-gtar':
 		case 'application/x-7z-compressed':
 		case 'application/x-apple-diskimage':
 		case 'application/vnd.rar':
-			return {
-				icon: IconType.Archive,
-			};
+			return getIconDescriptor(IconType.Archive, 'archive');
 		case 'application/dmg':
-			return {
-				icon: IconType.Executable,
-			};
+			return getIconDescriptor(IconType.Executable, 'disk image');
 		case 'application/sketch':
-			return {
-				icon: IconType.Sketch,
-			};
+			return getIconDescriptor(IconType.Sketch, 'sketch');
 		case 'application/octet-stream':
-			return {
-				icon: IconType.Generic,
-			};
+			return getIconDescriptor(IconType.Generic, 'file');
 		case 'application/invision.prototype':
-			return {
-				icon: IconType.Generic,
-			};
+			return getIconDescriptor(IconType.Generic, 'file');
 		default:
 			return undefined;
 	}

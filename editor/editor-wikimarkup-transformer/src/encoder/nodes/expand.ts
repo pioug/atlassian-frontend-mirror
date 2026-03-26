@@ -1,5 +1,6 @@
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { encode, type NodeEncoder, type NodeEncoderOpts } from '..';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { encode } from '..';
+import type { NodeEncoder, NodeEncoderOpts } from '..';
 
 export const expand: NodeEncoder = (node: PMNode, { context }: NodeEncoderOpts = {}): string => {
 	// Title of expand appears as a bold text, followed by empty line

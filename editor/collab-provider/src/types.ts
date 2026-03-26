@@ -13,7 +13,7 @@ import type {
 	UserPermitType,
 	PresenceActivity,
 } from '@atlaskit/editor-common/collab';
-import { type CatchupEventReason } from './helpers/const';
+import type { CatchupEventReason } from './helpers/const';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 export interface CollabEventDisconnectedData {

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { type Actions, Context, type State } from '../context/context';
+import { Context } from '../context/context';
+import type { Actions, State } from '../context/context';
 
 export interface Props<
 	PropsFromState extends Object,

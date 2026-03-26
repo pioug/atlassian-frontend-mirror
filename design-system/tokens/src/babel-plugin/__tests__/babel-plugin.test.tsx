@@ -15,6 +15,8 @@ jest.mock('../../artifacts/token-names', () => {
 			'space.100': '--ds-space-100',
 			'radius.xsmall': '--ds-radius-xsmall',
 			'font.heading.xlarge': '--ds-font-heading-xlarge',
+			'motion.avatar.enter': '--ds-motion-avatar-enter',
+			'motion.avatar.exit': '--ds-motion-avatar-exit',
 		},
 	};
 });
@@ -81,6 +83,28 @@ jest.mock('../../artifacts/tokens-raw/atlassian-typography', () => ({
 			value:
 				'"normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif"',
 			cleanName: 'font.heading.xlarge',
+		},
+	],
+}));
+
+jest.mock('../../artifacts/tokens-raw/atlassian-motion', () => ({
+	__esModule: true,
+	default: [
+		{
+			value: {
+				duration: 150,
+				curve: 'cubic-bezier(0.6, 0, 0.8, 0.6)',
+				keyframes: ['ScaleIn80', 'FadeIn'],
+			},
+			cleanName: 'motion.avatar.enter',
+		},
+		{
+			value: {
+				duration: 100,
+				curve: 'cubic-bezier(0.32, 0, 0.67, 0)',
+				keyframes: ['ScaleOut80', 'FadeOut'],
+			},
+			cleanName: 'motion.avatar.exit',
 		},
 	],
 }));
@@ -511,6 +535,54 @@ const getStyles = css => css\`
 			"var(--ds-radius-xsmall, 2px)";
 			"var(--ds-font-heading-xlarge, \\"normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Ubuntu, system-ui, \\"Helvetica Neue\\", sans-serif\\")";"
 		`);
+		});
+	});
+
+	describe('Motion tokens', () => {
+		it('converts motion token 1-argument usage correctly when shouldUseAutoFallback set to false', () => {
+			const actual = transform({})`
+      import { token } from '@atlaskit/tokens';
+      token('motion.avatar.enter');
+    `;
+
+			expect(actual).toMatchInlineSnapshot(`""var(--ds-motion-avatar-enter)";"`);
+		});
+
+		it('converts motion token with 1-argument usage correctly when shouldUseAutoFallback set to true', () => {
+			const actual = transform({
+				shouldUseAutoFallback: true,
+				transformTemplateLiterals: false,
+				defaultTheme: 'light',
+			})`
+        import { token } from '@atlaskit/tokens';
+        token('motion.avatar.enter');
+        token('motion.avatar.exit');
+      `;
+
+			expect(actual).toMatchInlineSnapshot(`
+			""var(--ds-motion-avatar-enter, 150ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleIn80, 150ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeIn)";
+			"var(--ds-motion-avatar-exit, 100ms cubic-bezier(0.32, 0, 0.67, 0) ScaleOut80, 100ms cubic-bezier(0.32, 0, 0.67, 0) FadeOut)";"
+		`);
+		});
+
+		it('converts motion token with StringLiteral second argument', () => {
+			const actual = transform({})`
+        import { token } from '@atlaskit/tokens';
+        token('motion.avatar.enter', '150ms ease-out');
+      `;
+
+			expect(actual).toMatchInlineSnapshot(`""var(--ds-motion-avatar-enter, 150ms ease-out)";"`);
+		});
+
+		it('converts motion token with expression second argument', () => {
+			const actual = transform({})`
+        import { token } from '@atlaskit/tokens';
+        token('motion.avatar.enter', customDuration);
+      `;
+
+			expect(actual).toMatchInlineSnapshot(
+				`"\`var(--ds-motion-avatar-enter, \${customDuration})\`;"`,
+			);
 		});
 	});
 

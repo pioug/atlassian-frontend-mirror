@@ -98,10 +98,7 @@ export function getVisualEndBottom(
  *
  * Returns `null` if no block ancestor can be resolved to a DOM element.
  */
-export function findBlockAncestorDOM(
-	editorView: EditorView,
-	pos: number,
-): HTMLElement | null {
+export function findBlockAncestorDOM(editorView: EditorView, pos: number): HTMLElement | null {
 	try {
 		const $pos = editorView.state.doc.resolve(pos);
 		// Walk up the document tree from the resolved position's innermost

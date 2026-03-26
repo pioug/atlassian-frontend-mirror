@@ -7,12 +7,8 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils';
-import {
-	Fragment,
-	type Mark,
-	type Node,
-	type ResolvedPos,
-} from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EmojiId } from '@atlaskit/emoji';

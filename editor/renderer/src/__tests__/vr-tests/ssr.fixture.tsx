@@ -15,7 +15,8 @@ import { smartCardAdf, smartCardAtlassianProjectAdf } from '../__fixtures__/ssr-
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { IntlProvider } from 'react-intl-next';
 import Loadable from 'react-loadable';
-import { ReactRenderer, type RendererProps } from '../../index';
+import { ReactRenderer } from '../../index';
+import type { RendererProps } from '../../index';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { DocNode } from '@atlaskit/adf-schema';
 import {

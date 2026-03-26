@@ -19,8 +19,7 @@ import { getOperationFailedAttributes } from './utils';
 const AVAILABLE_SITES_PATH = '/gateway/api/available-sites';
 const AVAILABLE_SITES_UNIT_COMPLIANT_PATH = '/gateway/api/experimental/available-sites';
 const ACCESSIBLE_PRODUCTS_PATH = '/gateway/api/v2/accessible-products';
-const ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH =
-	'/gateway/api/experimental/v2/accessible-products';
+const ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH = '/gateway/api/experimental/v2/accessible-products';
 
 const defaultProducts = [
 	AvailableSitesProductType.WHITEBOARD,

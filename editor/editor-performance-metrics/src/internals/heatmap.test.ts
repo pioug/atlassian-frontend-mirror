@@ -4,13 +4,10 @@ import {
 	cloneArray,
 	createHeatmapWithAspectRatio,
 	getElementRatio,
-	type Heatmap,
-	type HeatmapEntry,
-	type HeatmapRect,
 	mapDOMRectToHeatmap,
 	transformHeatmap,
-	type ViewportDimension,
 } from './heatmap';
+import type { Heatmap, HeatmapEntry, HeatmapRect, ViewportDimension } from './heatmap';
 
 const entry = (time: DOMHighResTimeStamp): HeatmapEntry => {
 	if (time === 0) {

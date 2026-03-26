@@ -3,7 +3,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Popup - rapid toggle', () => {
 	test('rapid toggling does not leave popover stuck open or closed', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popover-rapid-toggle');
+		await page.visitExample<typeof import('../../examples/118-testing-popover-rapid-toggle.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-rapid-toggle',
+		);
 
 		const trigger = page.getByTestId('popover-trigger');
 		const content = page.getByTestId('popover-content');
@@ -22,7 +26,11 @@ test.describe('Popup - rapid toggle', () => {
 	});
 
 	test('popover is visible after odd number of rapid clicks', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popover-rapid-toggle');
+		await page.visitExample<typeof import('../../examples/118-testing-popover-rapid-toggle.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-rapid-toggle',
+		);
 
 		const trigger = page.getByTestId('popover-trigger');
 		const content = page.getByTestId('popover-content');
@@ -37,7 +45,11 @@ test.describe('Popup - rapid toggle', () => {
 	});
 
 	test('popover can be opened normally after rapid toggling', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popover-rapid-toggle');
+		await page.visitExample<typeof import('../../examples/118-testing-popover-rapid-toggle.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-rapid-toggle',
+		);
 
 		const trigger = page.getByTestId('popover-trigger');
 		const content = page.getByTestId('popover-content');
@@ -61,7 +73,11 @@ test.describe('Popup - rapid toggle', () => {
 	});
 
 	test('rapid toggle does not cause multiple popovers to be visible', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-popover-rapid-toggle');
+		await page.visitExample<typeof import('../../examples/118-testing-popover-rapid-toggle.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-rapid-toggle',
+		);
 
 		const trigger = page.getByTestId('popover-trigger');
 

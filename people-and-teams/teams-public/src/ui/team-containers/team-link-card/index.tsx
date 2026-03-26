@@ -432,6 +432,7 @@ const messages = defineMessages({
 	linkExternalIconLabel: {
 		id: 'ptc-directory.team-containers.link-external-icon-label',
 		defaultMessage: 'Open link in new tab',
-		description: 'Accessible label for the external link icon on team link cards that opens in a new tab',
+		description:
+			'Accessible label for the external link icon on team link cards that opens in a new tab',
 	},
 });

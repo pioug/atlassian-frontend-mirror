@@ -32,8 +32,8 @@ test.describe('ReactUFO: data-vc-ignore-if-no-layout-shift true', () => {
 		for (const rev of ufoRevisions!) {
 			const revisionName = rev['revision'];
 
-			// eslint-disable-next-line playwright/no-conditional-in-test -- ignore old revisions
-			if (revisionName <= 'fy25.02') {
+			// eslint-disable-next-line playwright/no-conditional-in-test -- ignore old revisions and raw-handler
+			if (revisionName <= 'fy25.02' || revisionName === 'raw-handler') {
 				continue;
 			}
 
@@ -76,8 +76,8 @@ test.describe('ReactUFO: data-vc-ignore-if-no-layout-shift false', () => {
 		for (const rev of ufoRevisions!) {
 			const revisionName = rev['revision'];
 
-			// eslint-disable-next-line playwright/no-conditional-in-test -- ignore old revisions
-			if (revisionName <= 'fy25.02') {
+			// eslint-disable-next-line playwright/no-conditional-in-test -- ignore old revisions and raw-handler
+			if (revisionName <= 'fy25.02' || revisionName === 'raw-handler') {
 				continue;
 			}
 

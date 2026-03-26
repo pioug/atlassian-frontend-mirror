@@ -1,7 +1,7 @@
-import { type Extension } from '@codemirror/state';
+import type { Extension } from '@codemirror/state';
 import { EditorView as CodeMirror } from '@codemirror/view';
 
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { CodeBlockAdvancedPlugin } from '../../codeBlockAdvancedPluginType';
 

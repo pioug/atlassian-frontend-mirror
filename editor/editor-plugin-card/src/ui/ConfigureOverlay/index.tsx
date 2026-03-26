@@ -9,13 +9,13 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { OverlayButton } from '@atlaskit/editor-common/link';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const ConfigureOverlayWrapperStyles = css({
 	position: 'relative',
-	left: token('space.025', '2px'),
+	left: token('space.025'),
 });
 
 const OverlayWrapper = ({

@@ -1,9 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import {
-	type EditorState,
-	PluginKey,
-	type ReadonlyTransaction,
-} from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 

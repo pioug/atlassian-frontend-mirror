@@ -1,10 +1,12 @@
-import { Fragment, type Slice, type Node } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Slice, Node } from '@atlaskit/editor-prosemirror/model';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CellSelection } from '../cell-selection';
-import { type Rect, TableMap } from '../table-map';
+import { TableMap } from '../table-map';
+import type { Rect } from '../table-map';
 import type { CellSelectionRect } from '../types';
 import { selectionCell } from '../utils/selection-cell';
 import { tableNodeTypes } from '../utils/table-node-types';

@@ -1,5 +1,6 @@
-import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
-import { type NodeReducer, reduce } from './';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { reduce } from './';
+import type { NodeReducer } from './';
 
 const blockquote: NodeReducer = (node: PMNode, schema: Schema) => {
 	const result: string[] = [];

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5d0d1213db83267889fa81e0aab419f7>>
+ * @codegen <<SignedSource::e36ff3c1350e9663e23e8bf40c7aa809>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -41,7 +41,6 @@ import noHtmlTextarea from './no-html-textarea';
 import noIconSpacingProp from './no-icon-spacing-prop';
 import noInvalidCssMap from './no-invalid-css-map';
 import noKeyframesTaggedTemplateExpression from './no-keyframes-tagged-template-expression';
-import noLegacyIcons from './no-legacy-icons';
 import noMargin from './no-margin';
 import noNestedStyles from './no-nested-styles';
 import noPhysicalProperties from './no-physical-properties';
@@ -120,7 +119,6 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-icon-spacing-prop': noIconSpacingProp,
 	'no-invalid-css-map': noInvalidCssMap,
 	'no-keyframes-tagged-template-expression': noKeyframesTaggedTemplateExpression,
-	'no-legacy-icons': noLegacyIcons,
 	'no-margin': noMargin,
 	'no-nested-styles': noNestedStyles,
 	'no-physical-properties': noPhysicalProperties,

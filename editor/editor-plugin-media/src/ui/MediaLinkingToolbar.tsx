@@ -33,7 +33,6 @@ import {
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
 import EditorUnlinkIcon from '@atlaskit/icon/core/link-broken';
-import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type Props = {
@@ -56,22 +55,16 @@ type Props = {
 const validationWrapper = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 0,
-	padding: `${token('space.150', '12px')} ${token('space.300', '24px')} ${token(
-		'space.150',
-		'12px',
-	)} 0`,
-	margin: `0 ${token('space.050', '4px')} 0 ${token('space.400', '32px')}`,
-	borderTop: `${token('border.width')} solid ${token('color.border.danger', R400)}`,
+	padding: `${token('space.150')} ${token('space.300')} ${token('space.150')} 0`,
+	margin: `0 ${token('space.050')} 0 ${token('space.400')}`,
+	borderTop: `${token('border.width')} solid ${token('color.border.danger')}`,
 	alignItems: 'start',
 	display: 'flex',
 	flexDirection: 'column',
 });
 
 const buttonWrapper = css({
-	padding: `${token('space.050', '4px')} ${token('space.100', '8px')} ${token(
-		'space.050',
-		'4px',
-	)} 0px`,
+	padding: `${token('space.050')} ${token('space.100')} ${token('space.050')} 0px`,
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

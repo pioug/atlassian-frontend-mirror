@@ -16,7 +16,12 @@ export type BaseKeyframeToken = keyof typeof baseKeyframeTokens;
 export type BaseTransitionPropertyToken = keyof typeof baseTransitionPropertyTokens;
 
 export type MotionTokenSchema = {
-	motion: MotionScaleTokenSchema<BaseDurationToken, BaseBezierCurveToken, BaseKeyframeToken, BaseTransitionPropertyToken>;
+	motion: MotionScaleTokenSchema<
+		BaseDurationToken,
+		BaseBezierCurveToken,
+		BaseKeyframeToken,
+		BaseTransitionPropertyToken
+	>;
 };
 
 const baseTransitionPropertyTokens = {
@@ -36,7 +41,7 @@ const baseKeyframeTokens = {
 		},
 		attributes: {
 			group: 'keyframe',
-		}
+		},
 	},
 	SlideInBottom: {
 		value: {
@@ -45,7 +50,7 @@ const baseKeyframeTokens = {
 		},
 		attributes: {
 			group: 'keyframe',
-		}
+		},
 	},
 	SlideInLeft: {
 		value: {
@@ -54,7 +59,7 @@ const baseKeyframeTokens = {
 		},
 		attributes: {
 			group: 'keyframe',
-		}
+		},
 	},
 	SlideInRight: {
 		value: {
@@ -63,7 +68,7 @@ const baseKeyframeTokens = {
 		},
 		attributes: {
 			group: 'keyframe',
-		}
+		},
 	},
 	SlideOutTop: {
 		value: {
@@ -72,7 +77,7 @@ const baseKeyframeTokens = {
 		},
 		attributes: {
 			group: 'keyframe',
-		}
+		},
 	},
 	SlideOutBottom: {
 		value: {
@@ -81,7 +86,7 @@ const baseKeyframeTokens = {
 		},
 		attributes: {
 			group: 'keyframe',
-		}
+		},
 	},
 	SlideOutLeft: {
 		value: {
@@ -90,7 +95,7 @@ const baseKeyframeTokens = {
 		},
 		attributes: {
 			group: 'keyframe',
-		}
+		},
 	},
 	SlideOutRight: {
 		value: {
@@ -99,7 +104,7 @@ const baseKeyframeTokens = {
 		},
 		attributes: {
 			group: 'keyframe',
-		}
+		},
 	},
 	ScaleIn80: {
 		value: {
@@ -310,7 +315,7 @@ const baseBezierCurveTokens = {
 		attributes: {
 			group: 'motion',
 		},
-	}
+	},
 } as const;
 
 const motionPalette: MotionTokenSchema = {

@@ -111,14 +111,10 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 			//   - Click-outside (focus is on the clicked element, not in popover)
 			if (!args.isOpen) {
 				const trigger = triggerRef?.current;
-				const focusStillInPopover =
-					trigger && args.element.contains(document.activeElement);
+				const focusStillInPopover = trigger && args.element.contains(document.activeElement);
 				if (focusStillInPopover) {
 					const shouldRestore =
-						role === 'dialog' ||
-						role === 'alertdialog' ||
-						role === 'menu' ||
-						role === 'listbox';
+						role === 'dialog' || role === 'alertdialog' || role === 'menu' || role === 'listbox';
 					if (shouldRestore) {
 						trigger.focus({ preventScroll: true });
 					}

@@ -364,7 +364,7 @@ export default class VCObserverNew {
 
 		const feVCCalculationEndTime = performance.now();
 
-		if (includeRawData && fg('platform_ufo_enable_vc_raw_data')) {
+		if (includeRawData) {
 			const rawVCCalculationStartTime = performance.now();
 			const rawHandler = new RawDataHandler();
 			// Use rawDataStopTime (end3p) when available to capture observations during 3p holds

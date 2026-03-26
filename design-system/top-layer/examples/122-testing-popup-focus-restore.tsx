@@ -83,7 +83,9 @@ function ListboxPopup() {
 				</button>
 			</Popup.Trigger>
 			<Popup.Content role="listbox" label="Listbox popup" testId="listbox-popup">
-				<div role="option" aria-selected="false" data-testid="listbox-option">Option 1</div>
+				<div role="option" aria-selected="false" data-testid="listbox-option">
+					Option 1
+				</div>
 			</Popup.Content>
 		</Popup>
 	);

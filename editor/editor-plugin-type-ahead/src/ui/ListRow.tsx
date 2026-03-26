@@ -1,12 +1,7 @@
-import React, {
-	type ReactNode,
-	useEffect,
-	useRef,
-	forwardRef,
-	type MouseEventHandler,
-} from 'react';
+import React, { useEffect, useRef, forwardRef } from 'react';
+import type { ReactNode, MouseEventHandler } from 'react';
 
-import { type ListRowProps } from 'react-virtualized';
+import type { ListRowProps } from 'react-virtualized';
 
 type Props = {
 	children: ReactNode;

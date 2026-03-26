@@ -9,11 +9,9 @@ test.describe('Interaction - click outside passthrough', () => {
 	test('click-outside closes popover and the target element receives the click', async ({
 		page,
 	}) => {
-		await page.visitExample(
-			'design-system',
-			'top-layer',
-			'testing-click-outside-passthrough',
-		);
+		await page.visitExample<
+			typeof import('../../examples/127-testing-click-outside-passthrough.tsx')
+		>('design-system', 'top-layer', 'testing-click-outside-passthrough');
 
 		const trigger = page.getByTestId('popover-trigger');
 		await trigger.click();
@@ -37,11 +35,9 @@ test.describe('Interaction - click outside passthrough', () => {
 
 	// Verify that multiple click-outside events work consistently
 	test('repeated click-outside events are all received by target elements', async ({ page }) => {
-		await page.visitExample(
-			'design-system',
-			'top-layer',
-			'testing-click-outside-passthrough',
-		);
+		await page.visitExample<
+			typeof import('../../examples/127-testing-click-outside-passthrough.tsx')
+		>('design-system', 'top-layer', 'testing-click-outside-passthrough');
 
 		// Open and close via outside click — 3 times
 		for (let i = 0; i < 3; i++) {

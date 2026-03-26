@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.8.24
+
+### Patch Changes
+
+- [`a592557c4d6a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a592557c4d6a1) -
+  [ux] A11y Updates
+- Updated dependencies
+
 ## 33.8.23
 
 ### Patch Changes

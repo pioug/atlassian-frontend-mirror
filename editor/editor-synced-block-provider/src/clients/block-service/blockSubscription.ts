@@ -1,4 +1,5 @@
-import { type Client, createClient } from 'graphql-ws';
+import { createClient } from 'graphql-ws';
+import type { Client } from 'graphql-ws';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { isSSR } from '@atlaskit/editor-common/core-utils';

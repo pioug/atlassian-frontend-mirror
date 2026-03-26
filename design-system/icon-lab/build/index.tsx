@@ -46,11 +46,7 @@ async function main() {
 
 		fs.outputFile(path.resolve(root, 'src/metadata-core.tsx'), iconDocs);
 
-		const deprecatedDocs = createDeprecatedIconDocs(
-			icons,
-			'@atlaskit/icon-lab',
-			coreIconMetadata,
-		);
+		const deprecatedDocs = createDeprecatedIconDocs(icons, '@atlaskit/icon-lab', coreIconMetadata);
 
 		fs.outputFile(path.resolve(root, 'src/deprecated-core.tsx'), deprecatedDocs);
 

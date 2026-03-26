@@ -12,7 +12,6 @@ import { messages } from '@atlaskit/editor-common/extensions';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text, xcss } from '@atlaskit/primitives';
-import { G300, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { SaveIndicatorProps } from './types';
@@ -27,18 +26,15 @@ const saveIndicatorWrapperStyles = css({
 const saveIndicatorContentStyles = css({
 	position: 'fixed',
 	width: '256px',
-	bottom: token('space.250', '20px'),
+	bottom: token('space.250'),
 	display: 'flex',
 	flexDirection: 'row',
 	alignItems: 'center',
-	padding: `${token('space.075', '6px')} ${token('space.150', '12px')}`,
-	background: token('elevation.surface.overlay', N0),
+	padding: `${token('space.075')} ${token('space.150')}`,
+	background: token('elevation.surface.overlay'),
 
 	/* E300 */
-	boxShadow: token(
-		'elevation.shadow.overlay',
-		`0px 8px 12px rgba(9, 30, 66, 0.15), 0px 0px 1px rgba(9, 30, 66, 0.31)`,
-	),
+	boxShadow: token('elevation.shadow.overlay'),
 	borderRadius: token('radius.xxlarge'),
 });
 
@@ -77,11 +73,7 @@ export const SaveIndicator = ({
 			{visible && saving && (
 				<div css={saveIndicatorWrapperStyles}>
 					<div css={saveIndicatorContentStyles} data-testid="save-indicator-content">
-						<CheckCircleIcon
-							label="Saving"
-							color={token('color.icon.success', G300)}
-							spacing="none"
-						/>
+						<CheckCircleIcon label="Saving" color={token('color.icon.success')} spacing="none" />
 						<Box xcss={saveIndicatorTextStyles}>
 							<Text>
 								<FormattedMessage

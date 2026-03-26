@@ -146,7 +146,9 @@ const transform = (palette: Record<string, any>): Transform => {
 					duration: palette.motion.duration?.[value.duration]?.value,
 					curve: palette.motion.curve?.[value.curve]?.value,
 					keyframes: value.keyframes,
-					properties: value.properties?.map((property: string) => palette.motion.properties?.[property]?.value),
+					properties: value.properties?.map(
+						(property: string) => palette.motion.properties?.[property]?.value,
+					),
 					delay: palette.motion.duration?.[value.delay]?.value,
 				};
 			}

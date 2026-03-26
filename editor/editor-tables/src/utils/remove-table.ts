@@ -1,4 +1,4 @@
-import { type Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { cloneTr } from './clone-tr';
 

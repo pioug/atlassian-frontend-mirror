@@ -5,7 +5,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Dialog - open and close', () => {
 	test('opens via trigger click (showModal)', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-basic');
+		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-basic',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 
@@ -14,7 +18,11 @@ test.describe('Dialog - open and close', () => {
 
 	// WCAG 2.1.2 No Keyboard Trap - Escape always dismisses with correct reason
 	test('closes on Escape with reason "escape"', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-close-reason');
+		await page.visitExample<typeof import('../../examples/93-testing-dialog-close-reason.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-close-reason',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
@@ -27,7 +35,11 @@ test.describe('Dialog - open and close', () => {
 
 	// WCAG 2.1.2 No Keyboard Trap - backdrop click fires onClose with reason "overlay-click"
 	test('closes on backdrop click with reason "overlay-click"', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-close-reason');
+		await page.visitExample<typeof import('../../examples/93-testing-dialog-close-reason.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-close-reason',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
@@ -43,7 +55,11 @@ test.describe('Dialog - open and close', () => {
 	});
 
 	test('onClose is called before dialog closes (Escape)', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-close-timing');
+		await page.visitExample<typeof import('../../examples/110-testing-dialog-close-timing.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-close-timing',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
@@ -58,7 +74,11 @@ test.describe('Dialog - open and close', () => {
 	});
 
 	test('onClose is called before dialog closes (backdrop click)', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-close-timing');
+		await page.visitExample<typeof import('../../examples/110-testing-dialog-close-timing.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-close-timing',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
@@ -74,7 +94,11 @@ test.describe('Dialog - open and close', () => {
 
 	// WCAG 2.1.1 Keyboard - dialog close button is reachable via keyboard
 	test('close button can be activated via keyboard', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-basic');
+		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-basic',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
@@ -104,7 +128,11 @@ test.describe('Dialog - open and close', () => {
 test.describe('Dialog - focus', () => {
 	// WCAG 2.4.3 Focus Order - focus moves into the dialog on open
 	test('focus moves into dialog on open', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-focus-trap');
+		await page.visitExample<typeof import('../../examples/96-testing-dialog-focus-trap.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-focus-trap',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 
@@ -118,7 +146,11 @@ test.describe('Dialog - focus', () => {
 
 	// WCAG 2.4.3 Focus Order - focus returns to trigger on dismiss
 	test('focus returns to trigger on close', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-focus-return');
+		await page.visitExample<typeof import('../../examples/95-testing-focus-return.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-focus-return',
+		);
 
 		const trigger = page.getByTestId('dialog-trigger');
 		await trigger.click();
@@ -132,7 +164,11 @@ test.describe('Dialog - focus', () => {
 
 	// WCAG 2.4.3 Focus Order - Tab cycles within modal dialog (focus wrap)
 	test('Tab cycles within modal dialog and wraps directly from last to first', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-tab-trap');
+		await page.visitExample<typeof import('../../examples/101-testing-dialog-tab-trap.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-tab-trap',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 
@@ -180,7 +216,11 @@ test.describe('Dialog - focus', () => {
 
 	// WCAG 2.4.3 Focus Order - Shift+Tab cycles backward within modal dialog
 	test('Shift+Tab cycles backward and wraps directly from first to last', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-tab-trap');
+		await page.visitExample<typeof import('../../examples/101-testing-dialog-tab-trap.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-tab-trap',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 
@@ -210,7 +250,11 @@ test.describe('Dialog - focus', () => {
 
 	// WCAG 2.4.3 Focus Order - background elements are inert when modal is open
 	test('background content is inert when modal dialog is open', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-tab-trap');
+		await page.visitExample<typeof import('../../examples/101-testing-dialog-tab-trap.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-tab-trap',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 
@@ -228,7 +272,11 @@ test.describe('Dialog - focus', () => {
 
 	// WCAG 2.4.7 Focus Visible - focus indicator on elements inside a dialog
 	test(':focus-visible on button inside dialog after keyboard navigation', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-focus-trap');
+		await page.visitExample<typeof import('../../examples/96-testing-dialog-focus-trap.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-focus-trap',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 
@@ -246,7 +294,11 @@ test.describe('Dialog - focus', () => {
 
 	// WCAG 2.4.11 Focus Not Obscured - dialog in top layer is never obscured
 	test('dialog content in top layer is not obscured by other elements', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-basic');
+		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-basic',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 
@@ -294,7 +346,11 @@ test.describe('Dialog - autofocus', () => {
 	// The browser's dialog focusing algorithm focuses the element with the
 	// HTML autofocus attribute when showModal() is called.
 	test('HTML autofocus attribute is respected by showModal()', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-autofocus');
+		await page.visitExample<typeof import('../../examples/102-testing-dialog-autofocus.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-autofocus',
+		);
 
 		await page.getByTestId('open-default').click();
 
@@ -308,7 +364,11 @@ test.describe('Dialog - autofocus', () => {
 	// Consumers can use getFirstFocusable to override the browser's autofocus
 	// behavior and explicitly focus the first focusable element.
 	test('getFirstFocusable overrides HTML autofocus attribute', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-autofocus');
+		await page.visitExample<typeof import('../../examples/102-testing-dialog-autofocus.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-autofocus',
+		);
 
 		await page.getByTestId('open-override').click();
 
@@ -324,7 +384,11 @@ test.describe('Dialog - autofocus', () => {
 test.describe('Dialog - ARIA', () => {
 	// WCAG 4.1.2 Name, Role, Value - dialog has role="dialog" (native)
 	test('dialog element has native dialog role', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-basic');
+		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-basic',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 
@@ -338,7 +402,11 @@ test.describe('Dialog - ARIA', () => {
 
 	// WCAG 4.1.2 Name, Role, Value - dialog has aria-labelledby pointing to title
 	test('heading is associated via aria-labelledby', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-basic');
+		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-basic',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 
@@ -354,7 +422,11 @@ test.describe('Dialog - ARIA', () => {
 
 	// WCAG 4.1.2 Name, Role, Value - close button has accessible name
 	test('close button has aria-label', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-basic');
+		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-basic',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 
@@ -365,7 +437,11 @@ test.describe('Dialog - ARIA', () => {
 
 	// WCAG 4.1.3 Status Messages - native <dialog> has implicit role="dialog" for SR announcement
 	test('dialog has a role that enables screen reader announcement', async ({ page }) => {
-		await page.visitExample('design-system', 'top-layer', 'testing-dialog-basic');
+		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-basic',
+		);
 
 		await page.getByTestId('dialog-trigger').click();
 

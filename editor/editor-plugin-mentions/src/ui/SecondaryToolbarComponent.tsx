@@ -1,14 +1,12 @@
 import React, { useCallback } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import {
-	type NamedPluginStatesFromInjectionAPI,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, TypeAheadHandler } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { type mentionsPlugin } from '../mentionsPlugin';
+import type { mentionsPlugin } from '../mentionsPlugin';
 import type { MentionsPlugin } from '../mentionsPluginType';
 
 import ToolbarMention from './ToolbarMention';

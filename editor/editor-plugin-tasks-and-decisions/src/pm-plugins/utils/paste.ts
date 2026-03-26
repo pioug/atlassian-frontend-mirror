@@ -1,6 +1,7 @@
 import { uuid } from '@atlaskit/adf-schema';
-import { type Node as PMNode, Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 /**
  * Transforms a paste slice to handle blockTaskItem nodes when pasting into task items.

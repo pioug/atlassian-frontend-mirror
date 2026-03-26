@@ -1,5 +1,5 @@
-import { type TSESTree } from '@typescript-eslint/typescript-estree';
-import { type TSESLint } from '@typescript-eslint/utils';
+import type { TSESTree } from '@typescript-eslint/typescript-estree';
+import type { TSESLint } from '@typescript-eslint/utils';
 
 export const rule: TSESLint.RuleModule<string> = {
 	meta: {

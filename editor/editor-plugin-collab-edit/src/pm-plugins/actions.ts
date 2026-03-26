@@ -4,7 +4,7 @@ import * as allAdfSchemaSteps from '@atlaskit/adf-schema/steps';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as allAtlaskitCustomSteps from '@atlaskit/custom-steps';
-import { type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
 	CollabEventConnectionData,
 	CollabEventInitData,

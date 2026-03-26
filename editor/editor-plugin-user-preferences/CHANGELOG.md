@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-user-preferences
 
+## 6.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.13
+
+### Patch Changes
+
+- [`c0a8e9590b919`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0a8e9590b919) -
+  Mechanical type-import autofix for editor lint and metrics packages.
+- Updated dependencies
+
 ## 6.0.12
 
 ### Patch Changes

@@ -1,17 +1,17 @@
 import isEqual from 'lodash/isEqual';
 
-import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { type ProviderFactory, type MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import {
-	SyncBlockError,
-	type ResourceId,
-	type SyncBlockAttrs,
-	type SyncBlockNode,
-	type SyncBlockPrefetchData,
+import { SyncBlockError } from '../common/types';
+import type {
+	ResourceId,
+	SyncBlockAttrs,
+	SyncBlockNode,
+	SyncBlockPrefetchData,
 } from '../common/types';
 import type {
 	SyncBlockInstance,

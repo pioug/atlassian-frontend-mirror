@@ -7,12 +7,12 @@ import { injectIntl } from 'react-intl-next';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { ContentRef } from '@atlaskit/task-decision';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
-import { type TaskAndDecisionsSharedState } from '../../types';
+import type { TaskAndDecisionsSharedState } from '../../types';
 
 import TaskItemWithProviders from './task-item-with-providers';
 

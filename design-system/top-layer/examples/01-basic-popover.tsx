@@ -37,9 +37,7 @@ export default function BasicPopupExample() {
 					<Stack space="space.200">
 						<Inline space="space.100" alignBlock="center">
 							<Text>Close count:</Text>
-							<Lozenge appearance={closeCount > 0 ? 'moved' : 'default'}>
-								{closeCount}
-							</Lozenge>
+							<Lozenge appearance={closeCount > 0 ? 'moved' : 'default'}>{closeCount}</Lozenge>
 						</Inline>
 						<Box>
 							<Popup
@@ -61,10 +59,7 @@ export default function BasicPopupExample() {
 											<Heading size="xsmall">Popup</Heading>
 											<Text>Click outside or press Escape to dismiss.</Text>
 											<Box>
-												<Button
-													appearance="subtle"
-													onClick={handleProgrammaticClose}
-												>
+												<Button appearance="subtle" onClick={handleProgrammaticClose}>
 													Close programmatically
 												</Button>
 											</Box>

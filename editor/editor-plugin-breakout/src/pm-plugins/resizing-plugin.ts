@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl-next';
 
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getBreakoutResizableNodeTypes, stepAddsOneOf } from '@atlaskit/editor-common/utils';
@@ -28,7 +28,7 @@ import type {
 	BreakoutPluginState,
 } from '../breakoutPluginType';
 
-import { type GUIDELINE_KEYS } from './get-guidelines';
+import type { GUIDELINE_KEYS } from './get-guidelines';
 import { handleKeyDown } from './handle-key-down';
 import { ResizingMarkView } from './resizing-mark-view';
 import { updateExpandedStateNew } from './utils/single-player-expand';

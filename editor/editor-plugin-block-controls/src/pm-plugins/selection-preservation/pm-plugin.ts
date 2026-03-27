@@ -4,12 +4,12 @@ import { getDocument } from '@atlaskit/browser-apis';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	type EditorState,
-	type ReadonlyTransaction,
-	type Transaction,
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { key } from '../main';

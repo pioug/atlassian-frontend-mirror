@@ -15,7 +15,6 @@ import {
 import { css, cssMap, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-import { N30A } from '@atlaskit/theme/colors';
 import {
 	FormattedMessage,
 	injectIntl,
@@ -75,8 +74,8 @@ const emojiToneSelectorContainer = css({
 
 const previewFooter = css({
 	flex: '0 0 auto',
-	borderBottom: `${token('border.width.selected')} solid ${token('color.border', N30A)}`,
-	boxShadow: `0px 1px 1px 0px ${token('color.border', 'rgba(0, 0, 0, 0.1)')}`,
+	borderBottom: `${token('border.width.selected')} solid ${token('color.border')}`,
+	boxShadow: `0px 1px 1px 0px ${token('color.border')}`,
 });
 
 export interface Props {

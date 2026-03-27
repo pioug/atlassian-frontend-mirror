@@ -1,5 +1,5 @@
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { DEFAULT_COLUMN_DISTRIBUTIONS } from '../../ui/consts';
 

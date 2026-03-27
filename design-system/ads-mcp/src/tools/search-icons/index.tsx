@@ -28,18 +28,14 @@ export const searchIconsInputSchema: z.ZodObject<
 	terms: z
 		.array(z.string())
 		.describe(
-			'An array of search terms to find icons by name, keywords, or categorization, eg. `["search", "folder", "user"]`',
+			'Required: one or more terms; fuzzy match on component name, icon name, keywords, categorization, etc. Example: `["search", "folder", "user"]`.',
 		),
-	limit: z
-		.number()
-		.default(1)
-		.describe('Maximum number of results per search term in the array (default: 1)')
-		.optional(),
+	limit: z.number().default(1).describe('Max matches **per term** (default 1).').optional(),
 	exactName: z
 		.boolean()
 		.default(false)
 		.describe(
-			'Enable to explicitly search icons by the exact name match (when you know the name, but need more details)',
+			'If true, match each term to an icon **componentName** only, case-insensitively. If false, fuzzy search.',
 		)
 		.optional(),
 });
@@ -48,9 +44,12 @@ type Icon = (typeof icons)[number];
 
 export const listSearchIconsTool: Tool = {
 	name: 'ads_search_icons',
-	description: `Search for Atlassian Design System icons.
+	description: `Searches the bundled Atlassian Design System **icon** catalog. Returns JSON with **componentName**, **package**, and **usage** for each match.
 
-Example icon usage:
+WHEN TO USE:
+**Choosing an icon** for a control, nav item, empty state, or illustration—find \`@atlaskit/icon\` import paths and usage notes. Prefer \`ads_plan\` when you also need tokens and components together.
+
+Example:
 \`\`\`tsx
 import AddIcon from '@atlaskit/icon/core/add';
 <AddIcon label="Add work item" size="small" />

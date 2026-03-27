@@ -1,5 +1,19 @@
 # @atlaskit/tokens
 
+## 11.4.0
+
+### Minor Changes
+
+- [`6d76a7647c5da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d76a7647c5da) -
+  Autofix: add explicit package exports (barrel removal)
+
+## 11.3.1
+
+### Patch Changes
+
+- [`9f858e9b1f9e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f858e9b1f9e8) -
+  Fixed default fallback resolution for motion design tokens
+
 ## 11.3.0
 
 ### Minor Changes

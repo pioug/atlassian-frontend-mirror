@@ -11,7 +11,6 @@ import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { MenuGroup } from '@atlaskit/menu';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
-import { N300, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -44,7 +43,7 @@ const styles = cssMap({
 		paddingInline: token('space.150'),
 	},
 	formWrapperStyles: {
-		marginTop: token('space.100', '8px'),
+		marginTop: token('space.100'),
 		width: '100%',
 	},
 	formFooterStyles: {
@@ -52,19 +51,19 @@ const styles = cssMap({
 		justifyContent: 'flex-start',
 	},
 	formFieldStyles: {
-		marginBottom: token('space.150', '12px'),
+		marginBottom: token('space.150'),
 	},
 	integrationWrapperStyles: {
 		display: 'flex',
 		alignItems: 'center',
 	},
 	integrationIconWrapperStyles: {
-		marginBottom: token('space.negative.075', '-6px'),
-		marginRight: token('space.050', '4px'),
+		marginBottom: token('space.negative.075'),
+		marginRight: token('space.050'),
 	},
 	requiredFieldInfoStyles: {
-		marginBottom: token('space.200', '16px'),
-		color: token('color.text.subtle', N300),
+		marginBottom: token('space.200'),
+		color: token('color.text.subtle'),
 		font: token('font.body.small'),
 	},
 	menuGroupContainerStyles: {
@@ -226,7 +225,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 							<ErrorIcon
 								spacing="spacious"
 								label={formatMessage(messages.shareFailureIconLabel)}
-								color={token('color.icon.danger', R400)}
+								color={token('color.icon.danger')}
 							/>
 						</Tooltip>
 					)}

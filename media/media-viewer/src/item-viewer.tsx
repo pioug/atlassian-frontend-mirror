@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { Suspense, useCallback, useEffect, useState, useRef } from 'react';
 import Loadable from 'react-loadable';
 import {
 	type FileState,
@@ -42,51 +42,86 @@ import type { SvgViewerProps } from './viewers/svg';
 import { type ViewerOptionsProps } from './viewerOptions';
 import { CustomViewer } from './viewers/customViewer/customViewer';
 
-const ImageViewer = Loadable({
+function loadImageViewer() {
+	return import(/* webpackChunkName: "@atlaskit-internal_imageViewer" */ './viewers/image');
+}
+
+const LoadableImageViewer = Loadable({
 	loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
-		import(/* webpackChunkName: "@atlaskit-internal_imageViewer" */ './viewers/image').then(
-			(mod) => mod.ImageViewer,
-		),
+		loadImageViewer().then((mod) => mod.ImageViewer),
 	loading: () => <Spinner />,
 });
-const VideoViewer = Loadable({
+const LazyImageViewer = React.lazy(() =>
+	loadImageViewer().then((mod) => ({ default: mod.ImageViewer })),
+);
+
+function loadVideoViewer() {
+	return import(/* webpackChunkName: "@atlaskit-internal_videoViewer" */ './viewers/video');
+}
+
+const LoadableVideoViewer = Loadable({
 	loader: (): Promise<React.ComponentType<VideoViewerProps>> =>
-		import(/* webpackChunkName: "@atlaskit-internal_videoViewer" */ './viewers/video').then(
-			(mod) => mod.VideoViewer,
-		),
+		loadVideoViewer().then((mod) => mod.VideoViewer),
 	loading: () => <Spinner />,
 });
-const AudioViewer = Loadable({
+const LazyVideoViewer = React.lazy(() =>
+	loadVideoViewer().then((mod) => ({ default: mod.VideoViewer })),
+);
+
+function loadAudioViewer() {
+	return import(/* webpackChunkName: "@atlaskit-internal_audioViewer" */ './viewers/audio');
+}
+
+const LoadableAudioViewer = Loadable({
 	loader: (): Promise<React.ComponentType<AudioViewerProps>> =>
-		import(/* webpackChunkName: "@atlaskit-internal_audioViewer" */ './viewers/audio').then(
-			(mod) => mod.AudioViewer,
-		),
+		loadAudioViewer().then((mod) => mod.AudioViewer),
 	loading: () => <Spinner />,
 });
-const DocViewer = Loadable({
+const LazyAudioViewer = React.lazy(() =>
+	loadAudioViewer().then((mod) => ({ default: mod.AudioViewer })),
+);
+
+function loadDocViewer() {
+	return import(/* webpackChunkName: "@atlaskit-internal_docViewer" */ './viewers/doc');
+}
+
+const LoadableDocViewer = Loadable({
 	loader: (): Promise<React.ComponentType<DocViewerProps>> =>
-		import(/* webpackChunkName: "@atlaskit-internal_docViewer" */ './viewers/doc').then(
-			(mod) => mod.DocViewer,
-		),
+		loadDocViewer().then((mod) => mod.DocViewer),
 	loading: () => <Spinner />,
 });
+const LazyDocViewer = React.lazy(() => loadDocViewer().then((mod) => ({ default: mod.DocViewer })));
 
-const CodeViewer = Loadable({
+function loadCodeViewer() {
+	return import(/* webpackChunkName: "@atlaskit-internal_codeViewer" */ './viewers/codeViewer');
+}
+
+const LoadableCodeViewer = Loadable({
 	loader: (): Promise<React.ComponentType<CodeViewerProps>> =>
-		import(/* webpackChunkName: "@atlaskit-internal_codeViewer" */ './viewers/codeViewer').then(
-			(mod) => mod.CodeViewer,
-		),
+		loadCodeViewer().then((mod) => mod.CodeViewer),
 	loading: () => <Spinner />,
 });
+const LazyCodeViewer = React.lazy(() =>
+	loadCodeViewer().then((mod) => ({ default: mod.CodeViewer })),
+);
 
-const SvgViewer = Loadable({
+function loadSvgViewer() {
+	return import(/* webpackChunkName: "@atlaskit-internal_svgViewer" */ './viewers/svg');
+}
+
+const LoadableSvgViewer = Loadable({
 	loader: (): Promise<React.ComponentType<SvgViewerProps>> =>
-		// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
+		// @ts-ignore [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 		import(/* webpackChunkName: "@atlaskit-internal_svgViewer" */ './viewers/svg').then(
 			(mod) => mod.SvgViewer,
 		),
 	loading: () => <Spinner />,
 });
+const LazySvgViewer = React.lazy(() => loadSvgViewer().then((mod) => ({ default: mod.SvgViewer })));
+
+const ViewerSuspense = ({ children }: { children: React.ReactNode }) => (
+	<Suspense fallback={<Spinner />}>{children}</Suspense>
+);
 
 export type Props = Readonly<{
 	identifier: Identifier;
@@ -337,12 +372,28 @@ export const ItemViewerBase = ({
 				return renderError(new MediaViewerError('codeviewer-file-size-exceeds'), fileItem);
 			}
 
-			return <CodeViewer onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;
+			return fg('platform_media_react19_support') ? (
+				<ViewerSuspense>
+					<LazyCodeViewer onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />
+				</ViewerSuspense>
+			) : (
+				<LoadableCodeViewer onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />
+			);
 		}
 
 		if (isFileIdentifier(identifier) && fileItem.mimeType === 'image/svg+xml') {
-			return (
-				<SvgViewer
+			return fg('platform_media_react19_support') ? (
+				<ViewerSuspense>
+					<LazySvgViewer
+						identifier={identifier}
+						onLoad={onSuccess}
+						onError={onLoadFail}
+						onClose={onClose}
+						traceContext={traceContext}
+					/>
+				</ViewerSuspense>
+			) : (
+				<LoadableSvgViewer
 					identifier={identifier}
 					onLoad={onSuccess}
 					onError={onLoadFail}
@@ -356,8 +407,17 @@ export const ItemViewerBase = ({
 
 		switch (mediaType) {
 			case 'image':
-				return (
-					<ImageViewer
+				return fg('platform_media_react19_support') ? (
+					<ViewerSuspense>
+						<LazyImageViewer
+							onLoad={onSuccess}
+							onError={onLoadFail}
+							contextId={contextId}
+							{...viewerProps}
+						/>
+					</ViewerSuspense>
+				) : (
+					<LoadableImageViewer
 						onLoad={onSuccess}
 						onError={onLoadFail}
 						contextId={contextId}
@@ -365,8 +425,17 @@ export const ItemViewerBase = ({
 					/>
 				);
 			case 'audio':
-				return (
-					<AudioViewer
+				return fg('platform_media_react19_support') ? (
+					<ViewerSuspense>
+						<LazyAudioViewer
+							showControls={showControls}
+							onCanPlay={onSuccess}
+							onError={onLoadFail}
+							{...viewerProps}
+						/>
+					</ViewerSuspense>
+				) : (
+					<LoadableAudioViewer
 						showControls={showControls}
 						onCanPlay={onSuccess}
 						onError={onLoadFail}
@@ -374,8 +443,18 @@ export const ItemViewerBase = ({
 					/>
 				);
 			case 'video':
-				return (
-					<VideoViewer
+				return fg('platform_media_react19_support') ? (
+					<ViewerSuspense>
+						<LazyVideoViewer
+							identifier={identifier}
+							showControls={showControls}
+							onCanPlay={onSuccess}
+							onError={onLoadFail}
+							{...viewerProps}
+						/>
+					</ViewerSuspense>
+				) : (
+					<LoadableVideoViewer
 						identifier={identifier}
 						showControls={showControls}
 						onCanPlay={onSuccess}
@@ -384,7 +463,13 @@ export const ItemViewerBase = ({
 					/>
 				);
 			case 'doc':
-				return <DocViewer onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;
+				return fg('platform_media_react19_support') ? (
+					<ViewerSuspense>
+						<LazyDocViewer onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />
+					</ViewerSuspense>
+				) : (
+					<LoadableDocViewer onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />
+				);
 			case 'archive':
 				return <ArchiveViewerLoader onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;
 		}

@@ -16,10 +16,10 @@ import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import {
-	type ExtensionConfiguration,
-	type ExtensionMenuItemConfiguration,
-	selectionExtensionPlugin,
+import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension';
+import type {
+	ExtensionConfiguration,
+	ExtensionMenuItemConfiguration,
 } from '@atlaskit/editor-plugin-selection-extension';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block';

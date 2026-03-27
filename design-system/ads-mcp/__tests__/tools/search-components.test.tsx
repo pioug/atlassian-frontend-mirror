@@ -1,6 +1,6 @@
 import { searchComponentsTool } from '../../src/tools/search-components';
 
-jest.mock('../../src/tools/get-components/components', () => ({
+jest.mock('../../src/tools/get-all-components/components.codegen', () => ({
 	components: [
 		{
 			name: 'ExactMatchComponent',

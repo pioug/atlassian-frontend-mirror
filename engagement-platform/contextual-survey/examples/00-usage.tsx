@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 import { ContextualSurvey, type OnDismissArgs, SurveyMarshal } from '../src';
 
 const styles = css({
-	paddingTop: token('space.100', '8px'),
+	paddingTop: token('space.100'),
 	font: token('font.body.large'),
 });
 export default function BasicUsage(): JSX.Element {

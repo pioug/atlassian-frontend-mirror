@@ -1,14 +1,8 @@
-import { type MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
 
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	type AnalyticsEventPayload,
-	EVENT_TYPE,
-	MODE,
-	PLATFORMS,
-} from '../../analytics';
-import { type OnClickCallback } from '../../card';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE, MODE, PLATFORMS } from '../../analytics';
+import type { AnalyticsEventPayload } from '../../analytics';
+import type { OnClickCallback } from '../../card';
 
 /**
  * Function that opens a new page and fires the relevant analytics events

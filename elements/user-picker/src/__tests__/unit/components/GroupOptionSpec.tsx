@@ -2,7 +2,6 @@ import { shallow } from 'enzyme';
 import React, { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { N800, N200, B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
@@ -37,8 +36,8 @@ describe('GroupOption', () => {
 	it('should render GroupOption component', () => {
 		const component = shallowOption();
 		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', N800));
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', N200));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', '#6B6E76'));
 		// emotion css doesn't play well with component equality
 		expect(avatarItemOption.prop('avatar')).toMatchInlineSnapshot(`
 		<span
@@ -70,7 +69,7 @@ describe('GroupOption', () => {
 	it('should render GroupOption in selected state', () => {
 		const component = shallowOption({ isSelected: true });
 		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenNthCalledWith(2, token('color.text.selected', B400));
+		expect(mockTextWrapper).toHaveBeenNthCalledWith(2, token('color.text.selected', '#1868DB'));
 
 		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
 
@@ -97,7 +96,7 @@ describe('GroupOption', () => {
 		};
 		const component = shallowOption({ group: groupWithHighlight });
 		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', N800));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
 
 		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
 

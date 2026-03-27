@@ -1,9 +1,10 @@
 /* eslint-disable @repo/internal/react/no-class-components */
 import React, { PureComponent } from 'react';
 
-import { ProviderFactory, type Providers, WithProviders } from '../../provider-factory';
-import { type ProfilecardProvider } from '../../provider-factory/profile-card-provider';
-import { type MentionEventHandlers } from '../EventHandlers';
+import { ProviderFactory, WithProviders } from '../../provider-factory';
+import type { Providers } from '../../provider-factory';
+import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
+import type { MentionEventHandlers } from '../EventHandlers';
 
 import { MentionWithProviders } from './mention-with-providers';
 

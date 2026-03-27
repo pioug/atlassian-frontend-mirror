@@ -1,6 +1,6 @@
 import { lazyNodeViewDecorationPluginKey } from '@atlaskit/editor-common/lazy-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { type EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 const LAZY_NODE_VIEW_DECORATION_CLASS = '__lazy-node-view-decoration__';

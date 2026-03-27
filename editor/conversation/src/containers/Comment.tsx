@@ -1,19 +1,14 @@
 import React from 'react';
-import {
-	connect,
-	type Component,
-	type ComponentClass,
-	type DispatchProp,
-	type Omit,
-} from 'react-redux';
-import {
-	type RenderEditorWithComments,
-	type SendAnalyticsEvent,
-	type SharedProps,
+import { connect } from 'react-redux';
+import type { Component, ComponentClass, DispatchProp, Omit } from 'react-redux';
+import type {
+	RenderEditorWithComments,
+	SendAnalyticsEvent,
+	SharedProps,
 } from '../components/types';
-import { type Comment as CommentType } from '../model/Comment';
+import type { Comment as CommentType } from '../model/Comment';
 import { getComments, getHighlighted } from '../internal/selectors';
-import { type State } from '../internal/store';
+import type { State } from '../internal/store';
 import type { CommentActionItemProps } from '@atlaskit/comment';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { SuccessHandler } from '../internal/actions';

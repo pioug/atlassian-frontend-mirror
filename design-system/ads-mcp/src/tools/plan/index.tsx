@@ -35,37 +35,48 @@ export const planInputSchema: z.ZodObject<
 	tokens: z
 		.array(z.string())
 		.describe(
-			'Array of terms to search for tokens, eg. `["spacing", "inverted text", "background primary"]`. Provide a minimum of 2 terms when known.',
+			'Search terms for ADS design tokens (fuzzy by default). Use `[]` if you only need icons or components. Prefer **at least two** terms per non-empty list when you know what you need.',
 		),
 	icons: z
 		.array(z.string())
 		.describe(
-			'Array of terms to search for icons, eg. `["search", "folder", "user"]`. Provide a minimum of 2 terms when known.',
+			'Search terms for ADS icons. Use `[]` if you only need tokens or components. Prefer **at least two** terms per non-empty list when known.',
 		),
 	components: z
 		.array(z.string())
 		.describe(
-			'Array of terms to search for components, eg. `["button", "input", "select"]`. Provide a minimum of 2 terms when known.',
+			'Search terms for ADS components. Use `[]` if you only need tokens or icons. Prefer **at least two** terms per non-empty list when known.',
 		),
 	limit: z
 		.number()
 		.default(1)
-		.describe('Maximum number of results per search term in the provided arrays (default: 1)')
+		.describe(
+			'Max matches **per term** for each non-empty list (default 1). Same limit applies to tokens, icons, and components searches.',
+		)
 		.optional(),
 	exactName: z
 		.boolean()
 		.default(false)
 		.describe(
-			'Search tokens, icons, and components by their exact name match (use when you explicitly know the name and need more details)',
+			'If true, resolve each term by exact **name** (token name, icon component name, or component name) case-insensitively. If false, fuzzy search across metadata.',
 		)
 		.optional(),
 });
 
 export const listPlanTool: Tool = {
 	name: 'ads_plan',
-	description: `Search how to use the Atlassian Design System offerings and get guidance on \`tokens\`, \`icons\`, and \`components\`.
+	description: `Runs **ads_search_tokens**, **ads_search_icons**, and **ads_search_components** in one call and returns a single JSON payload (each section only if that list was non-empty). Use this as the default way to discover ADS **tokens**, **icons**, and **components** for a UI task.
 
-YOU MUST ALWAYS call this tool with known parameters and include a minimum of 2 search terms per parameter when known, eg.
+WHEN TO USE:
+**Implementing or iterating on a UI**—new screen, feature, or polish—and you need candidate **token** names, **icon** imports, and **component** packages/props in one pass. Also use when exploring ADS building blocks before you write code.
+
+At least one of \`tokens\`, \`icons\`, or \`components\` must contain search terms (use \`[]\` for lists you do not need).
+
+Prefer supplying **multiple** terms per non-empty array when you know them—broader queries improve recall. Some queries return no rows where metadata is thin; try alternate wording.
+
+This is equivalent to calling the individual search tools; there are no extra merge semantics beyond concatenating results.
+
+Example request:
 \`\`\`json
 {
 	"tokens": ["spacing", "inverted text", "background primary", "animation"],
@@ -73,8 +84,6 @@ YOU MUST ALWAYS call this tool with known parameters and include a minimum of 2 
 	"components": ["button", "input", "select", "heading"]
 }
 \`\`\`
-
-Please note, there may not be results for everything as there are minor gaps in offerings or how we describe them.
 
 Example token usage:
 \`\`\`tsx
@@ -88,7 +97,7 @@ import AddIcon from '@atlaskit/icon/core/add';
 <AddIcon label="Add work item" size="small" />
 \`\`\``,
 	annotations: {
-		title: 'Plan ADS resources',
+		title: 'Search ADS tokens, icons, and components to plan what to build',
 		readOnlyHint: true,
 		destructiveHint: false,
 		idempotentHint: true,

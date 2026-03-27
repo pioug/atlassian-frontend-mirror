@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import {
 	extendedBlockquote,
@@ -37,7 +37,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { type BlockTypePlugin } from './blockTypePluginType';
+import type { BlockTypePlugin } from './blockTypePluginType';
 import type { TextBlockTypes } from './pm-plugins/block-types';
 import type { ClearFormattingInputMethod, InputMethod } from './pm-plugins/commands/block-type';
 import {

@@ -11,7 +11,7 @@ import {
 import { coreIconMetadata as allIcons } from '@atlaskit/icon/metadata';
 import { tokens as allTokens } from '@atlaskit/tokens/token-metadata';
 
-import { components as allComponents } from '../../src/tools/get-components/components';
+import { components as allComponents } from '../../src/tools/get-all-components/components.codegen';
 import { testData } from '../__fixtures__/data';
 
 describe('ADS MCP Server E2E', () => {
@@ -51,7 +51,7 @@ describe('ADS MCP Server E2E', () => {
 		'ads_get_a11y_guidelines',
 		'ads_get_all_icons',
 		'ads_get_all_tokens',
-		'ads_get_components',
+		'ads_get_all_components',
 		'ads_plan',
 	])('Lists the %s tool', async (toolName) => {
 		const listedTools = (await client.listTools()).tools;
@@ -82,7 +82,8 @@ describe('ADS MCP Server E2E', () => {
 		const expectedComponentNames = allComponents.map(({ name }) =>
 			expect.objectContaining({ name }),
 		);
-		const listedComponents = (await client.callTool({ name: 'ads_get_components' })).content as {
+		const listedComponents = (await client.callTool({ name: 'ads_get_all_components' }))
+			.content as {
 			text: string;
 		}[];
 		const listedComponentsData = listedComponents.map((data) => JSON.parse(data.text));

@@ -12,7 +12,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const emojiScrollable = css({
-	border: `${token('border.width')} solid ${token('color.border', '#fff')}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	borderRadius: token('radius.small', '3px'),
 	display: 'block',
 	margin: '0',

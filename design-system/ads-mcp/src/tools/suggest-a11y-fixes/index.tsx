@@ -29,17 +29,42 @@ export const suggestA11yFixesInputSchema: z.ZodObject<
 		component?: string | undefined;
 	}
 > = z.object({
-	violation: z.string().describe('Description of the accessibility violation'),
-	code: z.string().describe('The problematic code that needs fixing'),
-	component: z.string().optional().describe('Component name or type'),
-	context: z.string().optional().describe('Additional context about the usage'),
+	violation: z
+		.string()
+		.describe(
+			'Human-readable description of the issue (e.g. axe rule help text, "button has no accessible name", "missing alt"). Used to match curated recipes when possible; otherwise the tool falls back to generic guidance.',
+		),
+	code: z
+		.string()
+		.describe(
+			'Snippet of the problematic code or markup so the response can be tailored (may be shown in the output for traceability).',
+		),
+	component: z
+		.string()
+		.optional()
+		.describe(
+			'Optional: React component name involved (e.g. `Button`, `TextField`)—may be ADS or app-specific.',
+		),
+	context: z
+		.string()
+		.optional()
+		.describe('Optional: where this appears (e.g. modal, table row, page section) or constraints.'),
 });
 
 export const listSuggestA11yFixesTool: Tool = {
 	name: 'ads_suggest_a11y_fixes',
-	description: `Suggests specific accessibility fixes using Atlassian Design System components and patterns.`,
+	description: `Suggests remediation steps for an accessibility issue described in natural language (often pasted from **axe-core**, ESLint, or review).
+
+WHAT YOU GET (varies by match):
+- **Curated hit:** ADS-biased examples and patterns from this server’s recipe map (components, tokens, common fixes).
+- **No strong match:** Generic guidance (e.g. “use ADS components”, labeling, testing)—still useful, but **not** guaranteed to be ADS-specific. May reference axe/atlassian.design resources.
+
+WHEN TO USE:
+After \`ads_analyze_a11y\` or \`ads_analyze_localhost_a11y\`, or whenever you have a violation string. For **topic-level** Atlassian Design System accessibility guidance, call \`ads_get_a11y_guidelines\` (this tool is fix-oriented, not a full guideline browse).
+
+Does not replace manual testing with assistive technologies or keyboard-only navigation.`,
 	annotations: {
-		title: 'Suggest Accessibility Fixes',
+		title: 'Suggest accessibility fixes',
 		readOnlyHint: true,
 		destructiveHint: false,
 		idempotentHint: true,
@@ -194,7 +219,7 @@ export const suggestA11yFixesTool = async (
 							'https://atlassian.design/llms-a11y.txt - Complete ADS accessibility documentation',
 							'https://atlassian.design/foundations/accessibility - ADS accessibility foundation',
 						],
-						recommendation: 'Try the get_a11y_guidelines tool for component-specific guidance',
+						recommendation: 'Try the ads_get_a11y_guidelines tool for component-specific guidance',
 					},
 					null,
 					2,

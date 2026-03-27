@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import type { EditorNextProps, EditorProps } from '../../types/editor-props';
-import { type WithAppearanceComponent } from '../../types/with-appearance-component';
+import type { WithAppearanceComponent } from '../../types/with-appearance-component';
 
 export type Complete<T> = {
 	[P in keyof Required<T>]: Pick<T, P> extends Required<Pick<T, P>> ? T[P] : T[P] | undefined;

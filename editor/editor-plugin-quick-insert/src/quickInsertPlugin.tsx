@@ -69,17 +69,16 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 
 			return result;
 		},
-		getMoreOptionsButtonConfig:
-			options?.enableElementBrowser || !fg('platform_editor_controls_fix_view_more_in_comment')
-				? ({ formatMessage }) => {
-						return {
-							title: formatMessage(messages.viewMore),
-							ariaLabel: formatMessage(messages.viewMoreAriaLabel),
-							onClick: openElementBrowserModal,
-							iconBefore: <ShowMoreHorizontalIcon label="" />,
-						};
-					}
-				: undefined,
+		getMoreOptionsButtonConfig: options?.enableElementBrowser
+			? ({ formatMessage }) => {
+					return {
+						title: formatMessage(messages.viewMore),
+						ariaLabel: formatMessage(messages.viewMoreAriaLabel),
+						onClick: openElementBrowserModal,
+						iconBefore: <ShowMoreHorizontalIcon label="" />,
+					};
+				}
+			: undefined,
 	};
 
 	let intl: IntlShape;

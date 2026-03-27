@@ -1,4 +1,5 @@
-import React, { type ReactNode, forwardRef, type Ref, isValidElement, cloneElement } from 'react';
+import React, { forwardRef, isValidElement, cloneElement } from 'react';
+import type { ReactNode, Ref } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { DropdownItem } from '@atlaskit/dropdown-menu';

@@ -4,7 +4,7 @@ import throttle from 'lodash/throttle';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { type FireAnalyticsCallback } from '../analytics';
+import type { FireAnalyticsCallback } from '../analytics';
 import type { EditorAppearance } from '../types';
 import type {
 	BasePluginDependenciesAPI,

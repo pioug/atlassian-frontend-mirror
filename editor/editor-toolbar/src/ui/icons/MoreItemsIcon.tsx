@@ -2,7 +2,7 @@ import React from 'react';
 
 import Icon from '@atlaskit/icon/core/chevron-down';
 
-import { type IconComponent } from '../../types';
+import type { IconComponent } from '../../types';
 
 export const MoreItemsIcon: IconComponent = ({
 	label,

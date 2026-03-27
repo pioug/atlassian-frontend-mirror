@@ -1,5 +1,38 @@
 # @atlaskit/renderer
 
+## 128.4.0
+
+### Minor Changes
+
+- [`f30780a78f02c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f30780a78f02c) -
+  Fix list item markers not inheriting font-size when small text is applied. Propagate font-size to
+  li and blockTaskItem elements via CSS :has() so the ::marker pseudo-element renders at the correct
+  size, while resetting the inner block mark to prevent double-application.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.3.9
+
+### Patch Changes
+
+- [`a5d5b5c29ef5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5d5b5c29ef5d) -
+  Move smallTextStyle CSS custom property from css prop to style prop for consistency with other UGC
+  font tokens
+
+  Fix extra top margin for small text in nested renderer blocks
+
+- Updated dependencies
+
+## 128.3.8
+
+### Patch Changes
+
+- [`85bf86ad39118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85bf86ad39118) -
+  Replace deprecated @atlaskit/navigation-next with @atlaskit/navigation-system in renderer examples
+- Updated dependencies
+
 ## 128.3.7
 
 ### Patch Changes

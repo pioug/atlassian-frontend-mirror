@@ -1,11 +1,8 @@
-import React, { useContext } from 'react';
-
-import { useIntl } from 'react-intl-next';
+import React, { useCallback, useContext } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { pasteOptionsToolbarMessages as messages } from '@atlaskit/editor-common/messages';
+import { PASTE_MENU } from '@atlaskit/editor-common/toolbar';
 import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -19,8 +16,11 @@ const styles = cssMap({
 	},
 });
 
+const pasteMenuSurface = { type: PASTE_MENU.type, key: PASTE_MENU.key } as const;
+
 interface PasteActionsMenuContentProps {
 	components: RegisterComponent[];
+	contentRef?: React.RefObject<HTMLDivElement | null>;
 	onMouseDown: (e: React.MouseEvent) => void;
 	onMouseEnter: () => void;
 }
@@ -29,21 +29,28 @@ export const PasteActionsMenuContent = ({
 	onMouseDown,
 	onMouseEnter,
 	components,
+	contentRef,
 }: PasteActionsMenuContentProps): React.JSX.Element => {
 	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
-	const intl = useIntl();
+
+	const mergedRef = useCallback(
+		(node: HTMLDivElement | null) => {
+			setOutsideClickTargetRef?.(node);
+			if (contentRef) {
+				(contentRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+			}
+		},
+		[setOutsideClickTargetRef, contentRef],
+	);
 
 	return (
 		<Box
-			ref={setOutsideClickTargetRef}
+			ref={mergedRef}
 			xcss={styles.container}
 			onMouseDown={onMouseDown}
 			onMouseEnter={onMouseEnter}
 		>
-			<ToolbarDropdownItemSection title={intl.formatMessage(messages.pasteMenuActionsTitle)}>
-				{/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */}
-				<SurfaceRenderer surface={{ type: 'menu', key: 'paste-menu' }} components={components} />
-			</ToolbarDropdownItemSection>
+			<SurfaceRenderer surface={pasteMenuSurface} components={components} />
 		</Box>
 	);
 };

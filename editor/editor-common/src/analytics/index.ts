@@ -56,6 +56,11 @@ export type {
 	InsertEventPayload,
 } from './types/insert-events';
 
+export type {
+	InputMethodInsertNativeEmbed,
+	InsertNativeEmbedAEP,
+} from './types/native-embed-events';
+
 export {
 	CHANGE_ALIGNMENT_REASON,
 	TABLE_ACTION,
@@ -211,6 +216,8 @@ export type { AIEventPayload, AIMarkdownConversionErrorCaughtAttributes } from '
 
 export type { AIProactiveEventPayload } from './types/ai-proactive-events';
 export type { AIQuickPromptEventPayload } from './types/ai-quick-prompt-events';
+
+export type { AiAutocompleteEventPayload, TriggerType } from './types/ai-autocomplete-events';
 
 export type { AIDefinitionsEventPayload } from './types/ai-definitions-events';
 

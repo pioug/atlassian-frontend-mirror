@@ -1,10 +1,10 @@
-import {
-	type ExtensionAutoConvertHandler,
-	type ExtensionKey,
-	type ExtensionManifest,
-	type ExtensionType,
+import type {
+	ExtensionAutoConvertHandler,
+	ExtensionKey,
+	ExtensionManifest,
+	ExtensionType,
 } from './extension-manifest';
-import { type Parameters } from './extension-parameters';
+import type { Parameters } from './extension-parameters';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

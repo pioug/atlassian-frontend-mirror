@@ -670,10 +670,11 @@ function traceSymbolsToExports({
 		}
 
 		// First try to find an export that directly exposes the source file
-		let targetExportPath = findExportForSourceFile({
-			sourceFilePath: exportInfo.path,
-			exportsMap,
-		})?.exportPath ?? null;
+		let targetExportPath =
+			findExportForSourceFile({
+				sourceFilePath: exportInfo.path,
+				exportsMap,
+			})?.exportPath ?? null;
 
 		// If no direct match, check which export can provide this symbol
 		// (handles nested barrels where the symbol is re-exported through intermediate files)

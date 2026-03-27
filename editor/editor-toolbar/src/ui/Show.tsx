@@ -1,5 +1,6 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-classname-prop */
-import React, { type ReactNode } from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 
 export type Breakpoint = 'sm' | 'md' | 'lg' | 'xl';
 

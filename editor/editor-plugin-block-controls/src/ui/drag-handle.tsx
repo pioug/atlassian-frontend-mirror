@@ -2,13 +2,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { CSSProperties, DragEvent, KeyboardEvent, MouseEvent } from 'react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+	type CSSProperties,
+	type DragEvent,
+	type KeyboardEvent,
+	type MouseEvent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import { getDocument } from '@atlaskit/browser-apis';
 import {
@@ -32,8 +41,11 @@ import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/s
 import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { NodeRange, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import {
+	type Transaction,
+	TextSelection,
+	type Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -59,7 +71,7 @@ import { getNodeTypeWithLevel } from '../pm-plugins/decorations-common';
 import { key } from '../pm-plugins/main';
 import { selectionPreservationPluginKey } from '../pm-plugins/selection-preservation/plugin-key';
 import { getMultiSelectAnalyticsAttributes } from '../pm-plugins/utils/analytics';
-import { type AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
+import type { AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
 import {
 	getControlBottomCSSValue,
 	getControlHeightCSSValue,
@@ -89,8 +101,7 @@ import {
 	topPositionAdjustment,
 } from './consts';
 import { DragHandleNestedIcon } from './drag-handle-nested-icon';
-import type { DragPreviewContent } from './drag-preview';
-import { dragPreview } from './drag-preview';
+import { type DragPreviewContent, dragPreview } from './drag-preview';
 import { refreshAnchorName } from './utils/anchor-name';
 import { getAnchorAttrName } from './utils/dom-attr-name';
 import { VisibilityContainer } from './visibility-container';

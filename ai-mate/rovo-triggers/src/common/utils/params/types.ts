@@ -1,4 +1,4 @@
-export type RovoChatPathway = 'chat' | 'agents-browse' | 'agents-create';
+export type RovoChatPathway = 'chat' | 'agents-browse' | 'agents-create' | 'pulse';
 
 export interface BaseRovoChatParams {
 	pathway: RovoChatPathway;
@@ -25,5 +25,8 @@ type RovoParams<T extends RovoChatPathway, P = object> = BaseRovoChatParams & {
 type ChatParams = RovoParams<'chat'>;
 type AgentBrowseParams = RovoParams<'agents-browse'>;
 type AgentCreateParams = RovoParams<'agents-create'>;
+type PulseParams = RovoParams<'pulse'>;
 
-export type RovoChatParams = Partial<ChatParams | AgentCreateParams | AgentBrowseParams>;
+export type RovoChatParams = Partial<
+	ChatParams | AgentCreateParams | AgentBrowseParams | PulseParams
+>;

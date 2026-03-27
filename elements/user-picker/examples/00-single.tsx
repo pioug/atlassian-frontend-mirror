@@ -19,6 +19,7 @@ const Example = (): React.JSX.Element => {
 					onInputChange={onInputChange}
 					onSelection={onSelection}
 					value={selectedUser}
+					openMenuOnFocus={false}
 				/>
 			)}
 		</ExampleWrapper>

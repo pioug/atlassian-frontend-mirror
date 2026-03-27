@@ -110,7 +110,7 @@ export default class MentionTextInput extends React.Component<Props, State> {
 
 		return (
 			<IntlProvider locale="en">
-				<div style={{ padding: `${token('space.150', '12px')}` }}>
+				<div style={{ padding: `${token('space.150')}` }}>
 					{searchInput}
 					{mentionPicker}
 				</div>

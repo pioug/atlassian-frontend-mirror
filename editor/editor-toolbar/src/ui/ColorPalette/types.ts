@@ -1,6 +1,6 @@
-import { type ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
-import { type MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl-next';
 
 /**
  * Represents a single color in the palette

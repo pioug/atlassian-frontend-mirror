@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.18.1
+
+### Patch Changes
+
+- [`1cd0ae6738030`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cd0ae6738030) -
+  remove feature gate to use the most up to date components documentation
+
 ## 0.18.0
 
 ### Minor Changes

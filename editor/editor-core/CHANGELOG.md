@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 217.7.0
+
+### Minor Changes
+
+- [`f30780a78f02c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f30780a78f02c) -
+  Fix list item markers not inheriting font-size when small text is applied. Propagate font-size to
+  li and blockTaskItem elements via CSS :has() so the ::marker pseudo-element renders at the correct
+  size, while resetting the inner block mark to prevent double-application.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.6.4
+
+### Patch Changes
+
+- [`c9b7aaa42d05b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9b7aaa42d05b) -
+  Mechanical type-import autofix for editor core shell packages.
+- Updated dependencies
+
+## 217.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 217.6.2
 
 ### Patch Changes

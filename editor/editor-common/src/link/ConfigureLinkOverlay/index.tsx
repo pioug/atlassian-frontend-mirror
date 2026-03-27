@@ -2,31 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import {
-	type ForwardRefExoticComponent,
-	type MouseEvent,
-	type RefAttributes,
-	useCallback,
-	useLayoutEffect,
-	useState,
-} from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
+import type { ForwardRefExoticComponent, MouseEvent, RefAttributes } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import withAnalyticsContext, {
-	type WithContextProps,
-} from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
+import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import PreferencesIcon from '@atlaskit/icon/core/customize';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { cardMessages } from '../../messages';
 
-import Dropdown, { type OnDropdownChange } from './Dropdown';
+import Dropdown from './Dropdown';
+import type { OnDropdownChange } from './Dropdown';
 import { StyledButton } from './StyledButton';
 import { useLinkOverlayAnalyticsEvents } from './useLinkOverlayAnalyticsEvents';
 

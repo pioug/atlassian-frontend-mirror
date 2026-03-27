@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/date",
-	"version": "2.0.11",
+	"version": "2.0.12",
 	"description": "Fabric Date React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

@@ -8,9 +8,12 @@ import { Children, createContext, type ReactElement, useContext, useMemo } from 
 import { css, cssMap, jsx } from '@compiled/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { cssMap as cssMapAK, cx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
-import { ExitingPersistence, SlideIn } from '@atlaskit/motion';
+import { ExitingPersistence, SlideIn, Motion } from '@atlaskit/motion';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
+import { Box } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -97,6 +100,37 @@ const groupStyles = cssMap({
 	},
 });
 
+// transition: none is set on first-of-type to prevent a bug in Firefox
+// that causes a broken transition
+const groupStylesNew = cssMapAK({
+	root: {
+		position: 'absolute',
+		insetBlockEnd: 0,
+		transition: token('motion.flag.reposition'),
+		width: '400px',
+		//@ts-ignore
+		'@media (max-width: 560px)': {
+			width: '100vw',
+		},
+	},
+	first: {
+		transform: 'translate(0,0)',
+		//@ts-ignore
+		zIndex: 5,
+	},
+	second: {
+		transform: 'translateY(100%) translateY(16px)',
+		//@ts-ignore
+		zIndex: 4,
+	},
+	nth: {
+		transform: 'translateY(200%) translateY(32px)',
+	},
+	hidden: {
+		visibility: 'hidden',
+	},
+});
+
 // Transform needed to push up while 1st flag is leaving
 // Exiting time should match the exiting time of motion so is halved
 const dismissAllowedStyles = css({
@@ -152,7 +186,32 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 			? Children.map(children, (flag: ReactElement, index: number) => {
 					const isDismissAllowed = index === 0;
 
-					return (
+					return fg('platform-dst-motion-uplift') ? (
+						<Box
+							xcss={cx(
+								groupStylesNew.root,
+								index === 0 && groupStylesNew.first,
+								index === 1 && groupStylesNew.second,
+								index >= 2 && groupStylesNew.nth,
+								index >= 3 && groupStylesNew.hidden,
+							)}
+							data-vc-oob
+						>
+							<Motion
+								enteringAnimation={token('motion.flag.enter')}
+								exitingAnimation={token('motion.flag.exit')}
+							>
+								<FlagGroupContext.Provider
+									value={
+										// Only the first flag should be able to be dismissed.
+										isDismissAllowed ? dismissFlagContext : defaultFlagGroupContext
+									}
+								>
+									{flag}
+								</FlagGroupContext.Provider>
+							</Motion>
+						</Box>
+					) : (
 						<SlideIn
 							enterFrom="left"
 							fade="inout"

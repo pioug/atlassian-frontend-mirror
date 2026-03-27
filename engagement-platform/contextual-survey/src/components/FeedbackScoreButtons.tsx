@@ -30,7 +30,7 @@ const buttonWrapperStyles = css({
 	justifyContent: 'space-between',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& > * + *': {
-		marginLeft: token('space.100', '8px'),
+		marginLeft: token('space.100'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& > *': {
@@ -44,12 +44,12 @@ const buttonWrapperStyles = css({
 
 const descriptionWrapperStyles = css({
 	display: 'flex',
-	marginTop: token('space.100', '8px'),
-	marginBottom: token('space.300', '24px'),
+	marginTop: token('space.100'),
+	marginBottom: token('space.300'),
 	justifyContent: 'space-between',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& > span': {
-		width: token('space.1000', '80px'),
+		width: token('space.1000'),
 	},
 });
 

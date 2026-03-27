@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-type
 
+## 12.1.15
+
+### Patch Changes
+
+- [`da0d44bd1fc45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da0d44bd1fc45) -
+  Cleanup history feature flag bug fix
+- Updated dependencies
+
+## 12.1.14
+
+### Patch Changes
+
+- [`88a7ee0806123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88a7ee0806123) -
+  Mechanical type-import autofix for block, layout, and control packages.
+- Updated dependencies
+
 ## 12.1.13
 
 ### Patch Changes

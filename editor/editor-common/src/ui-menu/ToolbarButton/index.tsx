@@ -15,13 +15,10 @@ import type { ButtonProps } from '@atlaskit/button/types';
 import type { PositionType } from '@atlaskit/tooltip';
 import Tooltip from '@atlaskit/tooltip';
 
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	type TOOLBAR_ACTION_SUBJECT_ID,
-} from '../../analytics';
-import { type Keymap, ToolTipContent } from '../../keymaps';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics';
+import type { TOOLBAR_ACTION_SUBJECT_ID } from '../../analytics';
+import { ToolTipContent } from '../../keymaps';
+import type { Keymap } from '../../keymaps';
 import type { MenuItem } from '../DropdownMenu/types';
 
 import Button from './styles';

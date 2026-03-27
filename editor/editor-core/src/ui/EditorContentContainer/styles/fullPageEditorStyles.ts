@@ -1,5 +1,6 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css, type SerializedStyles } from '@emotion/react';
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+import { css } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 
 // Originally copied from scrollStyles in packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles

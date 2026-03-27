@@ -17,7 +17,6 @@ import {
 } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N300 } from '@atlaskit/theme/colors';
 import {
 	FormattedMessage,
 	injectIntl,
@@ -58,7 +57,7 @@ const emojiUploadTop = css({
 	display: 'flex',
 	justifyContent: 'space-between',
 	alignItems: 'flex-end',
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 });
 
 const labelStyles = css({
@@ -87,7 +86,7 @@ const uploadChooseFileEmojiName = css({
 const uploadChooseFileMessage = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
-		color: token('color.text.subtle', N300),
+		color: token('color.text.subtle'),
 	},
 });
 

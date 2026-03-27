@@ -1,5 +1,4 @@
 import EmailIcon from '@atlaskit/icon/core/email';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
 import React from 'react';
@@ -19,7 +18,7 @@ describe('AddOptionAvatar', () => {
 		expect(inviteIcon).toHaveLength(1);
 		expect(inviteIcon.props()).toMatchObject({
 			label: 'Invite',
-			color: token('color.text.subtle', N500),
+			color: token('color.text.subtle', '#505258'),
 		});
 	});
 });

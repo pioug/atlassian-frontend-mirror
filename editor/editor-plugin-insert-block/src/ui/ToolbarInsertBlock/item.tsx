@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import { type NewCoreIconProps } from '@atlaskit/icon';
+import type { NewCoreIconProps } from '@atlaskit/icon';
 import FieldTextIcon from '@atlaskit/icon-lab/core/field-text';
 import LozengeIcon from '@atlaskit/icon-lab/core/lozenge';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';

@@ -1,5 +1,12 @@
 # @atlaskit/editor-slack-transformer
 
+## 4.1.6
+
+### Patch Changes
+
+- [`c9b7aaa42d05b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9b7aaa42d05b) -
+  Mechanical type-import autofix for editor core shell packages.
+
 ## 4.1.5
 
 ### Patch Changes

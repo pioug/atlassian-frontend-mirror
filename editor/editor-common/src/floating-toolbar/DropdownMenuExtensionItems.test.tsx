@@ -44,7 +44,8 @@ jest.mock('./DropdownMenuItem', () => ({
 import { getContextualToolbarItemsFromModule } from '../extensions';
 import type { ExtensionAPI, ExtensionProvider, ExtensionToolbarButton } from '../extensions';
 
-import { DropdownMenuExtensionItems, type ExtensionProps } from './DropdownMenuExtensionItems';
+import { DropdownMenuExtensionItems } from './DropdownMenuExtensionItems';
+import type { ExtensionProps } from './DropdownMenuExtensionItems';
 
 const getContextualToolbarItemsFromModuleMock =
 	getContextualToolbarItemsFromModule as jest.MockedFunction<

@@ -83,12 +83,12 @@ const styles = cssMap({
 	},
 	footerCustomStyles: {
 		marginTop: '0',
-		marginRight: token('space.negative.300', '-24px'),
-		marginBottom: token('space.negative.200', '-16px'),
-		marginLeft: token('space.negative.300', '-24px'),
+		marginRight: token('space.negative.300'),
+		marginBottom: token('space.negative.200'),
+		marginLeft: token('space.negative.300'),
 	},
 	headerCustomStyles: {
-		marginBottom: token('space.200', '16px'),
+		marginBottom: token('space.200'),
 	},
 });
 

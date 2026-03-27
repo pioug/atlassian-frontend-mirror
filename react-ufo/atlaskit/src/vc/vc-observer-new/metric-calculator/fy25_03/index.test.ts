@@ -469,95 +469,44 @@ describe('VCCalculator_FY25_03', () => {
 		});
 	});
 
-	describe('getConsideredEntryTypes behavior with platform_ufo_exclude_3p_elements_from_ttvc feature flag', () => {
-		describe('when fg platform_ufo_exclude_3p_elements_from_ttvc is true', () => {
-			beforeEach(() => {
-				mockFg.mockImplementation((flag) => flag === 'platform_ufo_exclude_3p_elements_from_ttvc');
-			});
-
-			it('should exclude mutation:third-party-element entries', () => {
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:third-party-element',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-					},
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
-			});
-
-			it('should exclude mutation:third-party-attribute entries', () => {
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:third-party-attribute',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-					},
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
-			});
-
-			it('should still include other valid entry types', () => {
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:element',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-					},
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
-			});
+	describe('getConsideredEntryTypes behavior - third-party elements excluded from TTVC by default', () => {
+		it('should exclude mutation:third-party-element entries', () => {
+			const entry: VCObserverEntry = {
+				time: 0,
+				data: {
+					type: 'mutation:third-party-element',
+					elementName: 'div',
+					rect: new DOMRect(),
+					visible: true,
+				},
+			};
+			expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
 		});
 
-		describe('when fg platform_ufo_exclude_3p_elements_from_ttvc is false', () => {
-			beforeEach(() => {
-				mockFg.mockImplementation(() => false);
-			});
+		it('should exclude mutation:third-party-attribute entries', () => {
+			const entry: VCObserverEntry = {
+				time: 0,
+				data: {
+					type: 'mutation:third-party-attribute',
+					elementName: 'div',
+					rect: new DOMRect(),
+					visible: true,
+				},
+			};
+			expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+		});
 
-			it('should include mutation:third-party-element entries', () => {
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:third-party-element',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-					},
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
-			});
-
-			it('should include mutation:third-party-attribute entries', () => {
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:third-party-attribute',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-					},
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
-			});
-
-			it('should still include other valid entry types', () => {
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:element',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-					},
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
-			});
+		it('should still include other valid entry types', () => {
+			const entry: VCObserverEntry = {
+				time: 0,
+				data: {
+					type: 'mutation:element',
+					elementName: 'div',
+					rect: new DOMRect(),
+					visible: true,
+				},
+			};
+			expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
 		});
 	});
 

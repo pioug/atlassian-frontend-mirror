@@ -1,8 +1,5 @@
-import {
-	TOOLBAR_DOCKING_POSITIONS,
-	type ResolvedUserPreferences,
-	type UserPreferences,
-} from './user-preferences';
+import { TOOLBAR_DOCKING_POSITIONS } from './user-preferences';
+import type { ResolvedUserPreferences, UserPreferences } from './user-preferences';
 
 export const mergeUserPreferences = (
 	userPreferences: UserPreferences,

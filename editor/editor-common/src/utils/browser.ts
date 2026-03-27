@@ -1,4 +1,5 @@
-import memorizeOne, { type MemoizedFn } from 'memoize-one';
+import memorizeOne from 'memoize-one';
+import type { MemoizedFn } from 'memoize-one';
 
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /**

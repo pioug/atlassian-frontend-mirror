@@ -1,5 +1,12 @@
 # @atlaskit/embedded-confluence
 
+## 4.5.2
+
+### Patch Changes
+
+- [`8f05be23c4c9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f05be23c4c9a) -
+  Add JSDocs to public API exposures
+
 ## 4.5.1
 
 ### Patch Changes

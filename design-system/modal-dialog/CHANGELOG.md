@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 14.13.0
+
+### Minor Changes
+
+- [`bbfd308f360d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbfd308f360d8) -
+  Add flag to remove internal focus lock from running when using `false` in `autoFocus`. This is in
+  service of eventually removing boolean `autoFocus` from the API.
+
 ## 14.12.0
 
 ### Minor Changes

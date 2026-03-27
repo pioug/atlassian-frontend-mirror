@@ -1,4 +1,3 @@
-import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
 import React, { type ReactElement } from 'react';
@@ -46,7 +45,7 @@ describe('User Option', () => {
 			/>,
 		);
 
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', colors.N800));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
 
 		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
 
@@ -68,7 +67,7 @@ describe('User Option', () => {
 	it('should render Option in selected state', () => {
 		const component = shallowOption({ isSelected: true });
 		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenNthCalledWith(3, token('color.text.selected', colors.B400));
+		expect(mockTextWrapper).toHaveBeenNthCalledWith(3, token('color.text.selected', '#1868DB'));
 
 		expect(avatarItemOption.props().avatar).toEqual(
 			<SizeableAvatar
@@ -110,8 +109,8 @@ describe('User Option', () => {
 
 		const avatarItemOption = component.find(AvatarItemOption);
 
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', colors.N800));
-		expect(mockTextWrapper).toHaveBeenNthCalledWith(2, token('color.text.subtlest', colors.N200));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
+		expect(mockTextWrapper).toHaveBeenNthCalledWith(2, token('color.text.subtlest', '#6B6E76'));
 		expect(avatarItemOption.props().avatar).toEqual(
 			<SizeableAvatar
 				appearance="big"
@@ -149,8 +148,8 @@ describe('User Option', () => {
 		const component = shallowOption({ user: userWithHighlight });
 		const avatarItemOption = component.find(AvatarItemOption);
 
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', colors.N800));
-		expect(mockTextWrapper).toHaveBeenNthCalledWith(2, token('color.text.subtlest', colors.N200));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
+		expect(mockTextWrapper).toHaveBeenNthCalledWith(2, token('color.text.subtlest', '#6B6E76'));
 		expect(avatarItemOption.props().avatar).toEqual(
 			<SizeableAvatar
 				appearance="big"
@@ -186,7 +185,7 @@ describe('User Option', () => {
 		};
 		const component = shallowOption({ user: userWithoutName });
 		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', colors.N800));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
 
 		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
 
@@ -202,7 +201,7 @@ describe('User Option', () => {
 		};
 		const component = shallowOption({ user: userWithSamePublicName });
 		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', colors.N800));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
 
 		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
 
@@ -217,7 +216,7 @@ describe('User Option', () => {
 		};
 		const component = shallowOption({ user: userWithSamePublicName });
 		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', colors.N800));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
 
 		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
 

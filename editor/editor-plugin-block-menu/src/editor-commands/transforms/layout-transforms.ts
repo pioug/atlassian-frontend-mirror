@@ -1,7 +1,11 @@
 import { DEFAULT_TWO_COLUMN_LAYOUT_COLUMN_WIDTH } from '@atlaskit/editor-common/styles';
 import type { TransformContext } from '@atlaskit/editor-common/transforms';
-import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Fragment, type Schema } from '@atlaskit/editor-prosemirror/model';
+import {
+	type Mark,
+	type Node as PMNode,
+	Fragment,
+	type Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { convertUnwrappedLayoutContent, unwrapLayoutNodesToTextNodes } from './layout/utils';

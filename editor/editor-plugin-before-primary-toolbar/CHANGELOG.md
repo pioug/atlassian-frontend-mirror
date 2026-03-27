@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-before-primary-toolbar
 
+## 8.0.3
+
+### Patch Changes
+
+- [`88a7ee0806123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88a7ee0806123) -
+  Mechanical type-import autofix for block, layout, and control packages.
+- Updated dependencies
+
 ## 8.0.2
 
 ### Patch Changes

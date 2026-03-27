@@ -11,11 +11,11 @@ describe('Breadcrumbs container', () => {
 	it('should be able to render a single child', () => {
 		render(
 			<Breadcrumbs onExpand={__noop} testId="bcs">
-				<BreadcrumbsItem text="item" />
+				<BreadcrumbsItem text="item" testId="item" />
 			</Breadcrumbs>,
 		);
-		const links = screen.queryAllByRole('link');
-		expect(links.length).toEqual(1);
+		const items = screen.queryAllByTestId('item');
+		expect(items.length).toEqual(1);
 	});
 
 	it('should render a navigation role', () => {
@@ -48,16 +48,16 @@ describe('Breadcrumbs container', () => {
 		render(
 			<Breadcrumbs onExpand={__noop} maxItems={3}>
 				{null}
-				<BreadcrumbsItem text="item" />
-				<BreadcrumbsItem text="item" />
-				<BreadcrumbsItem text="item" />
+				<BreadcrumbsItem text="item" testId="item" />
+				<BreadcrumbsItem text="item" testId="item" />
+				<BreadcrumbsItem text="item" testId="item" />
 				{undefined}
 				{false}
 			</Breadcrumbs>,
 		);
 
-		const links = screen.queryAllByRole('link');
-		expect(links.length).toEqual(3);
+		const items = screen.queryAllByTestId('item');
+		expect(items.length).toEqual(3);
 	});
 
 	it('renders ellipsis for statefull breadcrumbs when there are too many items', () => {
@@ -118,22 +118,22 @@ describe('Controlled breadcrumbs', () => {
 		const onExpand = jest.fn();
 		render(
 			<Breadcrumbs onExpand={onExpand} maxItems={2} testId="bcs">
-				<BreadcrumbsItem text="item 1" />
-				<BreadcrumbsItem text="item 2" />
-				<BreadcrumbsItem text="item 3" />
+				<BreadcrumbsItem text="item 1" testId="item" />
+				<BreadcrumbsItem text="item 2" testId="item" />
+				<BreadcrumbsItem text="item 3" testId="item" />
 			</Breadcrumbs>,
 		);
 
-		const links = screen.queryAllByRole('link');
-		expect(links.length).toEqual(2);
-		['item 1', 'item 3'].forEach((linkText) => {
-			const link = screen.queryByRole('link', { name: linkText });
-			expect(link).toBeInTheDocument();
+		const items = screen.queryAllByTestId('item');
+		expect(items.length).toEqual(2);
+		['item 1', 'item 3'].forEach((itemText) => {
+			const item = screen.queryByText(itemText);
+			expect(item).toBeInTheDocument();
 		});
-		const link = screen.queryByRole('link', { name: 'item 2' });
-		expect(link).not.toBeInTheDocument();
+		const item = screen.queryByText('item 2');
+		expect(item).not.toBeInTheDocument();
 
-		const ellipsis = screen.getByRole('button');
+		const ellipsis = screen.getByTestId('bcs--breadcrumb-ellipsis');
 		fireEvent.click(ellipsis);
 		expect(onExpand).toHaveBeenCalled();
 	});
@@ -148,22 +148,22 @@ describe('Controlled breadcrumbs', () => {
 				itemsAfterCollapse={2}
 				testId="bcs"
 			>
-				<BreadcrumbsItem text="item 1" />
-				<BreadcrumbsItem text="item 2" />
-				<BreadcrumbsItem text="item 3" />
-				<BreadcrumbsItem text="item 4" />
-				<BreadcrumbsItem text="item 5" />
-				<BreadcrumbsItem text="item 6" />
-				<BreadcrumbsItem text="item 7" />
+				<BreadcrumbsItem text="item 1" testId="item" />
+				<BreadcrumbsItem text="item 2" testId="item" />
+				<BreadcrumbsItem text="item 3" testId="item" />
+				<BreadcrumbsItem text="item 4" testId="item" />
+				<BreadcrumbsItem text="item 5" testId="item" />
+				<BreadcrumbsItem text="item 6" testId="item" />
+				<BreadcrumbsItem text="item 7" testId="item" />
 			</Breadcrumbs>,
 		);
 
-		const links = screen.queryAllByRole('link');
-		expect(links.length).toEqual(4);
+		const items = screen.queryAllByTestId('item');
+		expect(items.length).toEqual(4);
 
-		['item 1', 'item 2', 'item 6', 'item 7'].forEach((linkText) => {
-			const link = screen.queryByRole('link', { name: linkText });
-			expect(link).toBeInTheDocument();
+		['item 1', 'item 2', 'item 6', 'item 7'].forEach((itemText) => {
+			const item = screen.queryByText(itemText);
+			expect(item).toBeInTheDocument();
 		});
 	});
 

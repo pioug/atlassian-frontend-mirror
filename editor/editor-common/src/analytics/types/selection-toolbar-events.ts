@@ -1,5 +1,5 @@
-import { type ACTION, type ACTION_SUBJECT, type ACTION_SUBJECT_ID } from './enums';
-import { type TrackAEP, type OperationalAEP } from './utils';
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
+import type { TrackAEP, OperationalAEP } from './utils';
 
 export type UserPreferencesInitialisedAEP = OperationalAEP<
 	ACTION.INITIALISED,

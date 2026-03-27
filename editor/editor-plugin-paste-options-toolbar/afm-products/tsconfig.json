@@ -27,6 +27,9 @@
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/dropdown-menu/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-markdown-transformer/afm-products/tsconfig.json"
 		},
 		{

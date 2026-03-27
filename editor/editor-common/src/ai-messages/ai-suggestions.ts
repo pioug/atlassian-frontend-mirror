@@ -1,110 +1,125 @@
 import { defineMessages } from 'react-intl-next';
 
 export const aiSuggestionsMessages: {
-	suggestionsToolbarButtonLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	suggestionsToolbarButtonLoadingLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	suggestionsToolbarButtonReadyLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	suggestionsToolbarButtonErrorLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	previewLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	viewLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	titleLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	reviewNote: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	applyChangesButtonLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	fetchSuggestionsButtonLabel: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	fetchSuggestionsButtonLoadingLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	originalViewLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	suggestedLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	suggestionsLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	cardExpandButtonLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	cardCollapseButtonLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	cardCloseButtonLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	cardRovoTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	cardPrivateLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	cardAcceptButtonLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	cardCloseButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardCollapseButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	cardDiscardButtonLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	cardExpandButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardPrivateLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardRovoTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	fetchFromSavedContent: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	fetchGenerateFromAdf: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	fetchGenerateFromDocument: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	fetchSuggestionsButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	fetchSuggestionsButtonLoadingLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	originalViewLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	previewLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	reviewNote: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	suggestedLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	suggestionsLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	suggestionsToolbarButtonErrorLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	suggestionsToolbarButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	suggestionsToolbarButtonLoadingLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	suggestionsToolbarButtonReadyLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	titleLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	viewLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	suggestionsToolbarButtonLabel: {
@@ -162,6 +177,22 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.stagingArea.fetchSuggestionsButtonLoadingLabel.non-final',
 		defaultMessage: 'Loading…',
 		description: 'Label for the fetch suggestions button when loading',
+	},
+	fetchGenerateFromDocument: {
+		id: 'fabric.editor.ai.suggestions.quickInsert.generateFromDocument.non-final',
+		defaultMessage: 'Suggested edits (generate)',
+		description: 'Quick insert: fetch AI suggestions by generating from the current document (ADF)',
+	},
+	fetchFromSavedContent: {
+		id: 'fabric.editor.ai.suggestions.quickInsert.fromSavedContent.non-final',
+		defaultMessage: 'Suggested edits (ERS)',
+		description: 'Quick insert: fetch AI suggestions using saved content (ERS)',
+	},
+	fetchGenerateFromAdf: {
+		id: 'fabric.editor.ai.suggestions.quickInsert.generateFromAdf.non-final',
+		defaultMessage: 'Suggested edits (generate from ADF)',
+		description:
+			'Quick insert: fetch AI suggestions by generating from document, same as page toolbar action',
 	},
 	originalViewLabel: {
 		id: 'fabric.editor.ai.suggestions.stagingArea.originalViewLabel.non-final',

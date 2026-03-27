@@ -23,7 +23,7 @@ import { UploadStatus } from './internal-types';
 import RetryableButton from './RetryableButton';
 
 const bigEmojiPreview = css({
-	paddingLeft: token('space.050', '4px'),
+	paddingLeft: token('space.050'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	img: {
 		maxHeight: '40px',

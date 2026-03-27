@@ -2,7 +2,7 @@ import AkAvatar from '@atlaskit/avatar';
 import AkComment, { CommentAction, CommentAuthor, CommentTime } from '@atlaskit/comment';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { EditorProps } from '@atlaskit/editor-core';
-import { type ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import type { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { ConnectedReactionsView } from '@atlaskit/reactions';
 import { ReactRenderer } from '@atlaskit/renderer';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';

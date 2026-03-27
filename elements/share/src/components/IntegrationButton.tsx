@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/custom-theme-button';
 import { type CustomThemeButtonProps } from '@atlaskit/button/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import IntegrationButtonNext from './IntegrationButtonNext';
@@ -23,8 +22,7 @@ const integrationButtonCopyWrapperStyle = css`
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const integrationIconWrapperStyle = css`
-	margin: ${token('space.025', '2px')} ${token('space.100', '8px')} ${token('space.0', '0px')}
-		${token('space.0', '0px')};
+	margin: ${token('space.025')} ${token('space.100')} ${token('space.0')} ${token('space.0')};
 `;
 
 type Props = CustomThemeButtonProps & {
@@ -40,7 +38,7 @@ const IntegrationButtonInner: React.FC<Props> = (props) => {
 		<Button {...restProps}>
 			<span
 				css={integrationButtonCopyWrapperStyle}
-				style={{ color: textColor || token('color.text', N500) }}
+				style={{ color: textColor || token('color.text') }}
 			>
 				<span css={integrationIconWrapperStyle}>
 					<IntegrationIcon />

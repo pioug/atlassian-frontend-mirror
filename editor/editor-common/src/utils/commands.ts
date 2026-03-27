@@ -1,23 +1,11 @@
-import {
-	Fragment,
-	type Node as PMNode,
-	type ResolvedPos,
-} from '@atlaskit/editor-prosemirror/model';
-import {
-	type EditorState,
-	NodeSelection,
-	TextSelection,
-	type Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
-	type EditorAnalyticsAPI,
-	EVENT_TYPE,
-} from '../analytics';
+import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
+import type { EditorAnalyticsAPI } from '../analytics';
 import { withAnalytics } from '../editor-analytics';
 import { GapCursorSelection } from '../selection';
 import type { Command, Predicate } from '../types';

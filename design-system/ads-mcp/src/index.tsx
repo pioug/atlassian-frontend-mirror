@@ -25,9 +25,9 @@ import {
 	getA11yGuidelinesTool,
 	listGetA11yGuidelinesTool,
 } from './tools/get-a11y-guidelines';
+import { getAllComponentsTool, listGetAllComponentsTool } from './tools/get-all-components';
 import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
-import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
 import {
 	getGuidelinesInputSchema,
 	getGuidelinesTool,
@@ -49,6 +49,17 @@ import {
 	migrationGuidesTool,
 } from './tools/migration-guides';
 import { listPlanTool, planInputSchema, planTool } from './tools/plan';
+import {
+	listSearchComponentsTool,
+	searchComponentsInputSchema,
+	searchComponentsTool,
+} from './tools/search-components';
+import { listSearchIconsTool, searchIconsInputSchema, searchIconsTool } from './tools/search-icons';
+import {
+	listSearchTokensTool,
+	searchTokensInputSchema,
+	searchTokensTool,
+} from './tools/search-tokens';
 import {
 	listSuggestA11yFixesTool,
 	suggestA11yFixesInputSchema,
@@ -98,89 +109,83 @@ export const getToolRegistry = (): Record<
 		inputSchema: z.AnyZodObject | null;
 		tool: Tool;
 	}
-> => {
-	const baseTools: ReturnType<typeof getToolRegistry> = {
-		[listAnalyzeA11yTool.name]: {
-			handler: analyzeA11yTool,
-			inputSchema: analyzeA11yInputSchema,
-			tool: listAnalyzeA11yTool,
-		},
-		[listAnalyzeLocalhostA11yTool.name]: {
-			handler: analyzeLocalhostA11yTool,
-			inputSchema: analyzeA11yLocalhostInputSchema,
-			tool: listAnalyzeLocalhostA11yTool,
-		},
-		[listGetA11yGuidelinesTool.name]: {
-			handler: getA11yGuidelinesTool,
-			inputSchema: getA11yGuidelinesInputSchema,
-			tool: listGetA11yGuidelinesTool,
-		},
-		[listGetComponentsTool.name]: {
-			handler: getComponentsTool,
-			inputSchema: null,
-			tool: listGetComponentsTool,
-		},
-		[listPlanTool.name]: {
-			handler: planTool,
-			inputSchema: planInputSchema,
-			tool: listPlanTool,
-		},
-		// NOTE: These should not actually be called as they're not in the `list_tools` endpoint.
-		// But there might be a reason to keep them around for backwards-compatibility.
-		// [listSearchComponentsTool.name]: {
-		//   handler: searchComponentsTool,
-		//   inputSchema: searchComponentsInputSchema,
-		//   tool: listSearchComponentsTool,
-		// },
-		// [listSearchIconsTool.name]: {
-		//   handler: searchIconsTool,
-		//   inputSchema: searchIconsInputSchema,
-		//   tool: listSearchIconsTool,
-		// },
-		// [listSearchTokensTool.name]: {
-		//   handler: searchTokensTool,
-		//   inputSchema: searchTokensInputSchema,
-		//   tool: listSearchTokensTool,
-		// },
-		[listSuggestA11yFixesTool.name]: {
-			handler: suggestA11yFixesTool,
-			inputSchema: suggestA11yFixesInputSchema,
-			tool: listSuggestA11yFixesTool,
-		},
-		[listMigrationGuidesTool.name]: {
-			handler: migrationGuidesTool,
-			inputSchema: migrationGuidesInputSchema,
-			tool: listMigrationGuidesTool,
-		},
-		[listI18nConversionTool.name]: {
-			handler: i18nConversionTool,
-			inputSchema: i18nConversionInputSchema,
-			tool: listI18nConversionTool,
-		},
-		[listGetGuidelinesTool.name]: {
-			handler: getGuidelinesTool,
-			inputSchema: getGuidelinesInputSchema,
-			tool: listGetGuidelinesTool,
-		},
-		[listGetAllTokensTool.name]: {
-			handler: getAllTokensTool,
-			inputSchema: null,
-			tool: listGetAllTokensTool,
-		},
-		[listGetAllIconsTool.name]: {
-			handler: getAllIconsTool,
-			inputSchema: null,
-			tool: listGetAllIconsTool,
-		},
-		[listGetLintRulesTool.name]: {
-			handler: getLintRulesTool,
-			inputSchema: getLintRulesInputSchema,
-			tool: listGetLintRulesTool,
-		},
-	};
-
-	return baseTools;
-};
+> => ({
+	[listAnalyzeA11yTool.name]: {
+		handler: analyzeA11yTool,
+		inputSchema: analyzeA11yInputSchema,
+		tool: listAnalyzeA11yTool,
+	},
+	[listAnalyzeLocalhostA11yTool.name]: {
+		handler: analyzeLocalhostA11yTool,
+		inputSchema: analyzeA11yLocalhostInputSchema,
+		tool: listAnalyzeLocalhostA11yTool,
+	},
+	[listGetA11yGuidelinesTool.name]: {
+		handler: getA11yGuidelinesTool,
+		inputSchema: getA11yGuidelinesInputSchema,
+		tool: listGetA11yGuidelinesTool,
+	},
+	[listGetAllComponentsTool.name]: {
+		handler: getAllComponentsTool,
+		inputSchema: null,
+		tool: listGetAllComponentsTool,
+	},
+	[listPlanTool.name]: {
+		handler: planTool,
+		inputSchema: planInputSchema,
+		tool: listPlanTool,
+	},
+	[listSearchComponentsTool.name]: {
+		handler: searchComponentsTool,
+		inputSchema: searchComponentsInputSchema,
+		tool: listSearchComponentsTool,
+	},
+	[listSearchIconsTool.name]: {
+		handler: searchIconsTool,
+		inputSchema: searchIconsInputSchema,
+		tool: listSearchIconsTool,
+	},
+	[listSearchTokensTool.name]: {
+		handler: searchTokensTool,
+		inputSchema: searchTokensInputSchema,
+		tool: listSearchTokensTool,
+	},
+	[listSuggestA11yFixesTool.name]: {
+		handler: suggestA11yFixesTool,
+		inputSchema: suggestA11yFixesInputSchema,
+		tool: listSuggestA11yFixesTool,
+	},
+	[listMigrationGuidesTool.name]: {
+		handler: migrationGuidesTool,
+		inputSchema: migrationGuidesInputSchema,
+		tool: listMigrationGuidesTool,
+	},
+	[listI18nConversionTool.name]: {
+		handler: i18nConversionTool,
+		inputSchema: i18nConversionInputSchema,
+		tool: listI18nConversionTool,
+	},
+	[listGetGuidelinesTool.name]: {
+		handler: getGuidelinesTool,
+		inputSchema: getGuidelinesInputSchema,
+		tool: listGetGuidelinesTool,
+	},
+	[listGetAllTokensTool.name]: {
+		handler: getAllTokensTool,
+		inputSchema: null,
+		tool: listGetAllTokensTool,
+	},
+	[listGetAllIconsTool.name]: {
+		handler: getAllIconsTool,
+		inputSchema: null,
+		tool: listGetAllIconsTool,
+	},
+	[listGetLintRulesTool.name]: {
+		handler: getLintRulesTool,
+		inputSchema: getLintRulesInputSchema,
+		tool: listGetLintRulesTool,
+	},
+});
 
 server.setRequestHandler(ListToolsRequestSchema, async (request, extra) => {
 	const toolRegistry = getToolRegistry();

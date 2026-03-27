@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef, type MutableRefObject } from 'react';
+import { useLayoutEffect, useRef } from 'react';
+import type { MutableRefObject } from 'react';
 
 /**
  * A custom hook that handles focus on a DOM element.

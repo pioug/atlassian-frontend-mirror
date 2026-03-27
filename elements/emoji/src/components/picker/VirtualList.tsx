@@ -22,7 +22,7 @@ const virtualList = css({
 	'&:focus': {
 		outline: 'none',
 	},
-	paddingBottom: token('space.100', '8px'),
+	paddingBottom: token('space.100'),
 });
 
 const virtualRowStyle = css({

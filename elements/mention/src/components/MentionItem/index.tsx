@@ -114,9 +114,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 
 		const nameHighlights = highlight && highlight.name;
 
-		const xProductUserInfoIconColor = selected
-			? token('color.icon.selected', '#0C66E4')
-			: token('color.icon', '#44546F');
+		const xProductUserInfoIconColor = selected ? token('color.icon.selected') : token('color.icon');
 
 		return (
 			<MessagesIntlProvider>

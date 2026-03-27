@@ -84,7 +84,7 @@ test('reference intent: sets target="_self" and no rel', () => {
 });
 
 describe('action intent', () => {
-	test('calls openPreviewPanel on click, prevents default, and skips SPA navigation', () => {
+	test('calls openPreviewPanel on click with url derived from href, prevents default, and skips SPA navigation', () => {
 		const context = createMockContext();
 		const previewPanelProps = { ari: 'test-ari', name: 'Test Entity' };
 		const props = getNavigationProps({
@@ -95,7 +95,11 @@ describe('action intent', () => {
 		});
 		const event = createMouseEvent<HTMLAnchorElement>();
 		props.onClick?.(event);
-		expect(context.openPreviewPanel).toHaveBeenCalledWith(previewPanelProps);
+		expect(context.openPreviewPanel).toHaveBeenCalledWith({
+			ari: 'test-ari',
+			name: 'Test Entity',
+			url: TEAMS_APP_HREF,
+		});
 		expect(event.preventDefault).toHaveBeenCalled();
 		expect(context.navigate).not.toHaveBeenCalled();
 	});
@@ -144,5 +148,66 @@ describe('href handling', () => {
 		const context = createMockContext(intent === 'navigation' ? { orgId: 'my-org' } : {});
 		const props = getNavigationProps({ href, intent, context });
 		expect(props.href).toBe(href);
+	});
+});
+
+describe('contextEntryPoint prefixing', () => {
+	test('prefixes relative href with contextEntryPoint for navigation intent', () => {
+		const context = createMockContext({ contextEntryPoint: '/wiki/people' });
+		const props = getNavigationProps({ href: 'team/123', intent: 'navigation', context });
+		expect(props.href).toBe('/wiki/people/team/123');
+	});
+
+	test('prefixes relative href with contextEntryPoint for action intent', () => {
+		const context = createMockContext({ contextEntryPoint: '/wiki/people' });
+		const props = getNavigationProps({ href: 'team/123', intent: 'action', context });
+		expect(props.href).toBe('/wiki/people/team/123');
+	});
+
+	test('does not prefix absolute URLs', () => {
+		const context = createMockContext({ contextEntryPoint: '/wiki/people' });
+		const props = getNavigationProps({
+			href: 'https://team.atlassian.com/goal/123',
+			intent: 'navigation',
+			context,
+		});
+		expect(props.href).toBe('https://team.atlassian.com/goal/123');
+	});
+
+	test('does not prefix URLs that already start with contextEntryPoint', () => {
+		const context = createMockContext({ contextEntryPoint: '/wiki/people' });
+		const props = getNavigationProps({
+			href: '/wiki/people/team/123',
+			intent: 'navigation',
+			context,
+		});
+		expect(props.href).toBe('/wiki/people/team/123');
+	});
+
+	test('does not prefix URLs that start with /', () => {
+		const context = createMockContext({ contextEntryPoint: '/wiki/people' });
+		const props = getNavigationProps({ href: '/people/team/123', intent: 'navigation', context });
+		expect(props.href).toBe('/people/team/123');
+	});
+
+	test('does not prefix for external intent', () => {
+		const context = createMockContext({ contextEntryPoint: '/wiki/people' });
+		const props = getNavigationProps({ href: 'team/123', intent: 'external', context });
+		expect(props.href).toBe('team/123');
+	});
+
+	test('does not prefix when forceExternalIntent is true', () => {
+		const context = createMockContext({
+			contextEntryPoint: '/wiki/people',
+			forceExternalIntent: true,
+		});
+		const props = getNavigationProps({ href: 'team/123', intent: 'navigation', context });
+		expect(props.href).toBe('team/123');
+	});
+
+	test('does not prefix when contextEntryPoint is not set', () => {
+		const context = createMockContext();
+		const props = getNavigationProps({ href: 'team/123', intent: 'navigation', context });
+		expect(props.href).toBe('team/123');
 	});
 });

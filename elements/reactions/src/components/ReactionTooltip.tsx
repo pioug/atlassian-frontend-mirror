@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N90, N800, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -43,20 +42,20 @@ const tooltipStyle = css({
 
 const emojiNameStyle = css({
 	textTransform: 'capitalize',
-	color: token('color.text.inverse', N90),
+	color: token('color.text.inverse'),
 	fontWeight: token('font.weight.semibold'),
 });
 
 const footerStyle = css({
-	color: token('color.text.inverse', N90),
+	color: token('color.text.inverse'),
 });
 
 const underlineStyle = css({
 	cursor: 'pointer',
 	textDecoration: 'underline',
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.bold', N800),
-		color: token('color.text.inverse', N0),
+		backgroundColor: token('color.background.neutral.bold'),
+		color: token('color.text.inverse'),
 	},
 });
 

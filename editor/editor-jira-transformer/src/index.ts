@@ -1,4 +1,5 @@
-import { Fragment, Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 import parseHtml from './parse-html';
 import fixDoc from './fix-doc';
@@ -14,7 +15,7 @@ import {
 	isSchemaWithMedia,
 	isSchemaWithTables,
 } from '@atlaskit/adf-schema/schema-jira';
-import { type Transformer } from '@atlaskit/editor-common/types';
+import type { Transformer } from '@atlaskit/editor-common/types';
 
 export type CustomEncoder = (userId: string) => string;
 

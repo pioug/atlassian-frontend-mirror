@@ -3,8 +3,10 @@ import {
 	ACTION_SUBJECT,
 	CONTENT_COMPONENT,
 	EVENT_TYPE,
-	type AnalyticsEventPayload,
-	type DispatchAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
+import type {
+	AnalyticsEventPayload,
+	DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';

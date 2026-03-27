@@ -1,8 +1,10 @@
-import React, { type ComponentProps } from 'react';
+import React from 'react';
+import type { ComponentProps } from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { SpotlightCard } from '@atlaskit/onboarding';
-import { type Placement, Popper } from '@atlaskit/popper';
+import { Popper } from '@atlaskit/popper';
+import type { Placement } from '@atlaskit/popper';
 
 type PropsFromSpotlightCard = ComponentProps<typeof SpotlightCard>;
 export type ButtonSpotlightCardProps = PropsFromSpotlightCard & {

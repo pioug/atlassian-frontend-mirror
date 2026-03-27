@@ -20,7 +20,7 @@ import { type MediaPlayerProps } from './types';
 import { toggleFullscreen, getFullscreenElement } from '../fullscreen';
 import simultaneousPlayManager from '../simultaneousPlayManager';
 import * as getControlsWrapperClassNameModule from '../getControlsWrapperClassName';
-import { act } from 'react-dom/test-utils';
+import { act } from 'react';
 import { waitFor, render, screen, fireEvent } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import { keyCodes } from '../../shortcut';

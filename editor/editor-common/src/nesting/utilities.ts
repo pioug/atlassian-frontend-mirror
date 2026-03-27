@@ -1,5 +1,5 @@
 import type { NodeType, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findTable } from '@atlaskit/editor-tables';
 
 /*

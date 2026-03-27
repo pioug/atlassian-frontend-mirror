@@ -130,17 +130,15 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
 const getItemStyle = (isDragging: boolean, draggableStyle?: Object) => ({
 	// some basic styles to make the items look a bit nicer
 	userSelect: 'none',
-	padding: token('space.200', '16px'),
+	padding: token('space.200'),
 	display: 'flex',
 	flexDirection: 'column',
-	gap: token('space.100', '8px'),
-	marginBottom: token('space.100', '8px'),
+	gap: token('space.100'),
+	marginBottom: token('space.100'),
 
 	// change background color if dragging
-	background: token('elevation.surface.raised', '#FFFFFF'),
-	boxShadow: isDragging
-		? token('elevation.shadow.overlay', '0 1px 2px rgba(0,0,0,0.15)')
-		: token('elevation.shadow.raised', '0 4px 8px -2px #000000'),
+	background: token('elevation.surface.raised'),
+	boxShadow: isDragging ? token('elevation.shadow.overlay') : token('elevation.shadow.raised'),
 	transition: 'background 0.2s ease',
 
 	// styles we need to apply on draggables
@@ -148,15 +146,13 @@ const getItemStyle = (isDragging: boolean, draggableStyle?: Object) => ({
 });
 
 const getListStyle = (isDraggingOver: boolean) => ({
-	padding: token('space.100', '8px'),
+	padding: token('space.100'),
 
-	background: isDraggingOver
-		? token('color.background.selected', '#DEEBFF')
-		: token('elevation.surface', '#FFFFFF'),
+	background: isDraggingOver ? token('color.background.selected') : token('elevation.surface'),
 	transition: 'background 0.2s ease, box-shadow 0.2s ease',
 
 	width: 250,
-	border: `${token('border.width')} solid ${token('color.border', '#C1C7D0')} `,
+	border: `${token('border.width')} solid ${token('color.border')} `,
 });
 
 export default Example;

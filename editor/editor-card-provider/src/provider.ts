@@ -33,36 +33,37 @@ import { request } from './api';
 import { SmartCardLocalCacheClient } from './smart-card-local-cache-client';
 
 const BATCH_WAIT_TIME = 50;
+type UrlChecker = (url: string) => RegExpMatchArray | null;
 
 // Check if it is matching a Jira Roadmaps or Jira Timeline url
 // NOT to be confused with JSM timeline
-const isJiraRoadmapOrTimeline = (url: string) =>
+const isJiraRoadmapOrTimeline: UrlChecker = (url) =>
 	url.match(
 		/^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/(timeline|roadmap)\/?/,
 	);
 
-const isPolarisView = (url: string) =>
+const isPolarisView: UrlChecker = (url) =>
 	url.match(
 		/^https:\/\/.*?\/jira\/polaris\/projects\/[^\/]+?\/ideas\/view\/\d+$|^https:\/\/.*?\/secure\/JiraProductDiscoveryAnonymous\.jspa\?hash=\w+|^https:\/\/.*?\/jira\/polaris\/share\/\w+|^https:\/\/.*?\/jira\/discovery\/share\/views\/[\w-]+(\?selectedIssue=[\w-]+&issueViewLayout=sidebar&issueViewSection=[\w-]+)?$/,
 	);
 
-const isJwmView = (url: string) =>
+const isJwmView: UrlChecker = (url) =>
 	url.match(
 		/^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board|summary|(form\/[^\/]+?))\/?/,
 	);
 
-const isJiraList = (url: string) =>
+const isJiraList: UrlChecker = (url) =>
 	url.match(/^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/list\/?/);
 
-const isGiphyMedia = (url: string) =>
+const isGiphyMedia: UrlChecker = (url) =>
 	url.match(/^https:\/\/(.*?\.)?giphy\.com\/(gifs|media|clips)\//);
 
-const isProformaView = (url: string) =>
+const isProformaView: UrlChecker = (url) =>
 	url.match(
 		/^https:\/\/[^/]+\/jira\/(core|software(\/c)?|servicedesk)\/projects\/\w+\/forms\/form\/direct\/\d+\/\d+.*$/,
 	);
 
-const isConfluenceWhiteboard = (url: string) =>
+const isConfluenceWhiteboard: UrlChecker = (url) =>
 	// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 	url.match(/\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>\d+)(\?\/)?/) ||
 	url.match(
@@ -70,34 +71,34 @@ const isConfluenceWhiteboard = (url: string) =>
 		/\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12})(\?\/)?/,
 	);
 
-const isConfluenceDatabase = (url: string) =>
+const isConfluenceDatabase: UrlChecker = (url) =>
 	url.match(/\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*)?$/);
 
-const isYoutubeVideo = (url: string) =>
+const isYoutubeVideo: UrlChecker = (url) =>
 	url.match(/^https:\/\/(.*?\.)?(youtube\..*?\/(watch\?|v\/|shorts\/)|youtu\.be)/);
 
-const isLoomUrl = (url: string) => {
+const isLoomUrl: UrlChecker = (url) => {
 	return url.match(
 		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 		/^https:\/\/(.*?\.)?(loom\..*?\/(share|embed))\/([a-zA-Z0-9-]*-)?(?<videoId>[a-f0-9]{32})/,
 	);
 };
 
-const isJiraDashboard = (url: string) => {
+const isJiraDashboard: UrlChecker = (url) => {
 	return url.match(/^https:\/\/.*?\/jira\/dashboards\/[0-9]+.*/);
 };
 
-const isJiraBacklog = (url: string) => {
+const isJiraBacklog: UrlChecker = (url) => {
 	return url.match(
 		/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\/backlog\??.*/,
 	);
 };
 
-const isJiraBoard = (url: string) => {
+const isJiraBoard: UrlChecker = (url) => {
 	return url.match(/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\??.*/);
 };
 
-const isJiraPlan = (url: string) => {
+const isJiraPlan: UrlChecker = (url) => {
 	return (
 		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 		url.match(/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)/) ||
@@ -108,45 +109,90 @@ const isJiraPlan = (url: string) => {
 	);
 };
 
-const isJiraVersion = (url: string) => {
+const isJiraVersion: UrlChecker = (url) => {
 	return url.match(
 		/https:\/\/.*?\/projects\/[^\/]+?\/versions\/\d+\/tab\/release-report-all-issues/,
 	);
 };
 
-const isJiraForm = (url: string) => {
+const isJiraForm: UrlChecker = (url) => {
 	return url.match(/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/form\/\d\??.*/);
 };
 
-const isJiraSummary = (url: string) => {
+const isJiraSummary: UrlChecker = (url) => {
 	return url.match(/^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/summary/);
 };
 
-const isRovoAgentProfilePage = (url: string) => {
+const isRovoAgentProfilePage: UrlChecker = (url) => {
 	return url.match(/^https:\/\/.*?\/people\/agent\/.+$/);
 };
 
-const isCustomer360LandingPage = (url: string) =>
+const isCustomer360LandingPage: UrlChecker = (url) =>
 	url.match(/^https:\/\/customer\.atlassian\.com\/.*$/);
 
-const isConfluenceTeamCalendars = (url: string) =>
+const isConfluenceTeamCalendars: UrlChecker = (url) =>
 	// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 	url.match(/\/wiki\/spaces\/(?<resourceContext>[^\/]+)\/calendars\/(?<resourceId>[a-zA-Z0-9-]+)/);
 
-const isJiraIssueNavigator = (url: string) =>
+const isJiraIssueNavigator: UrlChecker = (url) =>
 	url.match(/^https:\/\/.*?\/jira\/software|core\/(c\/)?projects\/[^\/]+?\/issues\/?/);
 
-const isAvpVisualizationView = (url: string) => url.match(/^https:\/\/.*?\/avpviz\/c\/[^\/]+.*/);
+const isAvpVisualizationView: UrlChecker = (url) =>
+	url.match(/^https:\/\/.*?\/avpviz\/c\/[^\/]+.*/);
 
 export const isJiraWorkItem = (url: string): boolean => /\/browse\/((?:\w+)-(?:\d+))/i.test(url);
 
+export const internalUrlCheckers: { [key: string]: UrlChecker } = {
+	isJiraRoadmapOrTimeline,
+	isPolarisView,
+	isJwmView,
+	isJiraList,
+	isConfluenceWhiteboard,
+	isConfluenceDatabase,
+	isJiraDashboard,
+	isJiraBacklog,
+	isJiraBoard,
+	isJiraPlan,
+	isJiraVersion,
+	isJiraForm,
+	isJiraSummary,
+	isRovoAgentProfilePage,
+	isConfluenceTeamCalendars,
+	isJiraIssueNavigator,
+};
+
+/**
+ * Check if a URL is an internal Atlassian URL (Jira, Confluence, etc.)
+ * by testing it against all known internal URL patterns
+ */
+export function isInternalUrl(url: string): boolean {
+	return Object.values(internalUrlCheckers).some((checker) => checker(url));
+}
+
+/**
+ * Check if a URL is external (not a known internal Atlassian URL)
+ */
+export function isExternalUrl(url: string): boolean {
+	return !isInternalUrl(url);
+}
+
 type CardNode = InlineCardAdf | BlockCardAdf | EmbedCardAdf;
+type SupportedUrlFilter = (url: string) => boolean;
+
+function isCardNode(node: JSONNode): node is CardNode {
+	return (
+		['inlineCard', 'blockCard', 'embedCard'].includes(node.type) &&
+		!!node.attrs &&
+		'url' in node.attrs &&
+		typeof node.attrs.url === 'string'
+	);
+}
 
 export class EditorCardProvider
 	extends NodeDataProvider<CardNode, JsonLd.Response>
 	implements CardProvider
 {
-	override readonly name: 'editorCardProvider';
+	override readonly name: 'editorCardProvider' | string;
 	private baseUrl: string;
 	private resolverUrl: string;
 	private providersData?: ProvidersData;
@@ -157,6 +203,7 @@ export class EditorCardProvider
 	private smartCardLocalCacheClient: SmartCardLocalCacheClient =
 		SmartCardLocalCacheClient.getInstance();
 	private onResolve: ((url: string, ari: string) => void) | undefined;
+	private supportedUrlFilter?: SupportedUrlFilter;
 
 	constructor(
 		envKey?: EnvironmentsKeys,
@@ -164,6 +211,7 @@ export class EditorCardProvider
 		product?: ProductType,
 		onResolve?: (url: string) => void,
 		customCardClient?: CardClient,
+		supportedUrlFilter?: SupportedUrlFilter,
 	) {
 		super();
 		this.name = 'editorCardProvider';
@@ -171,6 +219,7 @@ export class EditorCardProvider
 		this.resolverUrl = getResolverUrl(envKey, baseUrlOverride);
 		this.transformer = new Transformer();
 		this.onResolve = onResolve;
+		this.supportedUrlFilter = supportedUrlFilter;
 		this.requestHeaders = {
 			Origin: this.baseUrl,
 		};
@@ -245,12 +294,15 @@ export class EditorCardProvider
 	}
 
 	override isNodeSupported(node: JSONNode): node is CardNode {
-		return (
-			['inlineCard', 'blockCard', 'embedCard'].includes(node.type) &&
-			!!node.attrs &&
-			'url' in node.attrs &&
-			typeof node.attrs.url === 'string'
-		);
+		if (!isCardNode(node)) {
+			return false;
+		}
+
+		if (!this.supportedUrlFilter) {
+			return true;
+		}
+
+		return this.supportedUrlFilter(node.attrs.url);
 	}
 
 	private async batchProviders(

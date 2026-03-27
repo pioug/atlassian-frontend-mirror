@@ -1,7 +1,8 @@
-import React, { forwardRef, type ReactNode, type Ref } from 'react';
+import React, { forwardRef } from 'react';
+import type { ReactNode, Ref } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { type TriggerProps } from '@atlaskit/popup';
+import type { TriggerProps } from '@atlaskit/popup';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

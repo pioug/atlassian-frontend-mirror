@@ -1,5 +1,26 @@
 # @atlaskit/breadcrumbs
 
+## 16.0.0
+
+### Major Changes
+
+- [`50e3bb8a1727d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50e3bb8a1727d) - -
+  Breadcrumb items no longer use an underlying legacy `Button` from `@atlaskit/button`, and now
+  instead render primitives `Anchor`, `Pressable`, or a native `<span>` depending on interactivity
+  required. This will only apply if no `component` override prop is passed, which will still render
+  legacy `Button` during the deprecation period of `component`. Component overrides are no longer
+  necessary to implement router links, as breadcrumb will inherit and utilize router link
+  configuration from App Provider.
+  [See the documentation](https://atlassian.design/components/app-provider/examples#router-links) to
+  ensure App Provider is configured in your app in order to migrate away from the `component` prop.
+  - [ux] A spacing of `space.050` (4px) between breadrcrumb text and icons has been added to assist
+    rollout of new iconography. Previously breadcrumbs relied on consumers adding spacing manually,
+    so adjustments may need to be made to prevent excessive spacing.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.3.22
 
 ### Patch Changes

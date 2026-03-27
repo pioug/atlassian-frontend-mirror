@@ -1,8 +1,6 @@
 import { BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu';
-import {
-	popupWithNestedElement,
-	type ExperienceCheckResult,
-} from '@atlaskit/editor-common/experiences';
+import { popupWithNestedElement } from '@atlaskit/editor-common/experiences';
+import type { ExperienceCheckResult } from '@atlaskit/editor-common/experiences';
 
 /**
  * Checks if the given element or any of its ancestors is a drag handle element.

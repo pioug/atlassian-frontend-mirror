@@ -5,7 +5,6 @@ import { type User } from '../src/types';
 import EmailIcon from '@atlaskit/icon/core/email';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import { token } from '@atlaskit/tokens';
-import { R400 } from '@atlaskit/theme/colors';
 
 const agentUsers: User[] = [
 	{
@@ -21,7 +20,7 @@ const agentUsers: User[] = [
 		icon: <StatusErrorIcon label="Status Error" />,
 		byline: 'Enter a valid email',
 		appType: 'team',
-		iconColor: token('color.icon.danger', R400),
+		iconColor: token('color.icon.danger'),
 	},
 ];
 const Example = (): React.JSX.Element => {

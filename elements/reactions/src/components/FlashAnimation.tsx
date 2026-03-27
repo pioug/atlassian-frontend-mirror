@@ -4,7 +4,6 @@
  */
 import { type PropsWithChildren } from 'react';
 import { jsx, css, keyframes } from '@compiled/react';
-import { B75, B300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const flashTime = 700;
@@ -14,16 +13,16 @@ const flashAnimation = keyframes({
 		backgroundColor: 'transparent',
 	},
 	'20%': {
-		backgroundColor: token('color.background.selected.pressed', B75),
-		borderColor: token('color.border.selected', B300),
+		backgroundColor: token('color.background.selected.pressed'),
+		borderColor: token('color.border.selected'),
 	},
 	'75%': {
-		backgroundColor: token('color.background.selected.pressed', B75),
-		borderColor: token('color.border.selected', B300),
+		backgroundColor: token('color.background.selected.pressed'),
+		borderColor: token('color.border.selected'),
 	},
 	'100%': {
-		backgroundColor: token('color.background.selected.pressed', B75),
-		borderColor: token('color.border.selected', B300),
+		backgroundColor: token('color.background.selected.pressed'),
+		borderColor: token('color.border.selected'),
 	},
 });
 

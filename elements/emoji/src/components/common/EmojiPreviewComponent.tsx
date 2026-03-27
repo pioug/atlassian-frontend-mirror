@@ -4,13 +4,12 @@
  */
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N400, N900 } from '@atlaskit/theme/colors';
 import type { EmojiDescription } from '../../types';
 import CachingEmoji from './CachingEmoji';
 
 const emojiName = css({
 	display: 'block',
-	color: token('color.text', N900),
+	color: token('color.text'),
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
@@ -23,19 +22,19 @@ const emojiName = css({
 
 const emojiShortName = css({
 	display: 'block',
-	color: token('color.text.subtle', N400),
-	font: token('font.body.UNSAFE_small'),
+	color: token('color.text.subtle'),
+	font: token('font.body.small'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
-	marginBottom: token('space.negative.025', '-2px'),
+	marginBottom: token('space.negative.025'),
 	overflow: 'hidden',
-	paddingBottom: token('space.025', '2px'),
+	paddingBottom: token('space.025'),
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:first-of-type': {
-		color: token('color.text', N900),
+		color: token('color.text'),
 		font: token('font.body'),
 	},
 });
@@ -77,7 +76,7 @@ const previewText = css({
 	display: 'flex',
 	flexDirection: 'column',
 	alignSelf: 'center',
-	marginTop: token('space.negative.025', '-2px'),
+	marginTop: token('space.negative.025'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	marginLeft: '10px',
 	maxWidth: '285px',

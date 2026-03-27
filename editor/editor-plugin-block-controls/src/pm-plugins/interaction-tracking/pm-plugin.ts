@@ -1,4 +1,5 @@
-import { bind, type UnbindFn } from 'bind-event-listener';
+import { bind } from 'bind-event-listener';
+import type { UnbindFn } from 'bind-event-listener';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';

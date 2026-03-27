@@ -11,7 +11,7 @@ const Emoji = ({ children, isChecked }: { children: React.ReactNode; isChecked: 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			fontSize: 30,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			margin: token('space.050', '4px'),
+			margin: token('space.050'),
 			opacity: isChecked ? 1 : 0.7,
 		}}
 	>
@@ -23,7 +23,7 @@ export default (): React.JSX.Element => {
 	return (
 		<div
 			style={{
-				margin: `${token('space.200', '16px')} 0 ${token('space.100', '8px')}`,
+				margin: `${token('space.200')} 0 ${token('space.100')}`,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				textAlign: 'center',
 			}}

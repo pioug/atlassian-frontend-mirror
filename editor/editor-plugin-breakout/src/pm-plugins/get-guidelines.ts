@@ -1,4 +1,5 @@
-import memoizeOne, { type MemoizedFn } from 'memoize-one';
+import memoizeOne from 'memoize-one';
+import type { MemoizedFn } from 'memoize-one';
 
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import {
@@ -7,7 +8,7 @@ import {
 	resizerHandleThumbWidth,
 } from '@atlaskit/editor-common/styles';
 import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
-import { type NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPadding,

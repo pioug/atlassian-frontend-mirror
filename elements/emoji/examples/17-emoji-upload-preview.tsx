@@ -8,7 +8,7 @@ import { IntlProvider } from 'react-intl-next';
 
 const defaultStyles = {
 	width: emojiPickerWidth,
-	border: `${token('border.width')} solid ${token('color.border', '#ddd')}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	margin: '20px',
 };
 

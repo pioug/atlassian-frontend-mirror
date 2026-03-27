@@ -9,7 +9,7 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { type setKeyboardHeight } from './editor-commands/set-keyboard-height';
+import type { setKeyboardHeight } from './editor-commands/set-keyboard-height';
 import type { ScrollGutterPluginOptions } from './pm-plugins/scroll-gutter/plugin';
 
 export interface BasePluginOptions {

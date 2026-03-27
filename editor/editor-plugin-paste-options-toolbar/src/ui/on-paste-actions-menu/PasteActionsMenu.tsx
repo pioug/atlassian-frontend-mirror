@@ -2,7 +2,11 @@ import React, { useCallback, useEffect, useRef } from 'react';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { EditorToolbarProvider, PASTE_MENU } from '@atlaskit/editor-common/toolbar';
+import {
+	AI_PASTE_MENU_SECTION,
+	EditorToolbarProvider,
+	PASTE_MENU,
+} from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
@@ -127,6 +131,46 @@ export function findBlockAncestorDOM(editorView: EditorView, pos: number): HTMLE
 }
 
 /**
+ * Positions the paste menu inline, immediately to the right of the cursor
+ * at the paste end position, vertically centered with the line.
+ * Used for short pastes without AI actions.
+ */
+export function onInlinePositionCalculated(
+	editorView: EditorView,
+	pasteEndPos: number,
+	targetElement: HTMLElement,
+	popupContentRef: React.RefObject<HTMLDivElement | null>,
+): (position: { bottom?: number; left?: number; right?: number; top?: number }) => {
+	bottom?: number;
+	left?: number;
+	right?: number;
+	top: number;
+} {
+	return (position: { bottom?: number; left?: number; right?: number; top?: number }) => {
+		const endCoords = editorView.coordsAtPos(pasteEndPos);
+		const targetRect = targetElement.getBoundingClientRect();
+
+		// Vertical: center the menu with the line at the paste end position.
+		const lineHeight = endCoords.bottom - endCoords.top;
+		const lineMidpoint = endCoords.top + lineHeight / 2;
+		const menuHeight = popupContentRef.current?.getBoundingClientRect().height ?? lineHeight;
+		const menuTop = lineMidpoint - menuHeight / 2;
+		const topDelta = menuTop - (targetRect.top + targetRect.height);
+		const adjustedTop = (position.top ?? 0) + topDelta;
+
+		// Horizontal: position to the right of the cursor
+		const leftDelta = endCoords.right - targetRect.right;
+		const adjustedLeft = (position.left ?? 0) + leftDelta;
+
+		return {
+			...position,
+			top: adjustedTop,
+			left: adjustedLeft,
+		};
+	};
+}
+
+/**
  * Adjusts the position of the paste menu so that:
  *
  * **Vertical:** The menu aligns with the top of the pasted content using the
@@ -227,6 +271,7 @@ export const PasteActionsMenu = ({
 		lastContentPasted: states.pasteState?.lastContentPasted,
 	}));
 	const prevShowToolbarRef = useRef(false);
+	const popupContentRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (!lastContentPasted) {
@@ -254,9 +299,7 @@ export const PasteActionsMenu = ({
 			}
 		}
 
-		const legacyVisible =
-			isToolbarVisible(editorView.state, lastContentPasted) &&
-			(lastContentPasted.text?.length ?? 0) >= 100;
+		const legacyVisible = isToolbarVisible(editorView.state, lastContentPasted);
 
 		showToolbar(
 			lastContentPasted,
@@ -345,6 +388,22 @@ export const PasteActionsMenu = ({
 
 	const anyComponentVisible = hasVisibleButton(pasteMenuComponents);
 
+	// Two positioning modes:
+	// 1. Inline: no AI actions visible — menu appears to the right of the cursor,
+	//    vertically centered with the text line.
+	// 2. Block-anchored: AI actions are visible — menu appears at the right edge
+	//    of the content block, aligned with paste start.
+	const hasVisibleAiActions =
+		getVisibleKeys(
+			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- pasteMenuComponents changes by reference each render; filter is small (< 10 items)
+			pasteMenuComponents.filter(
+				(c) =>
+					c.type === 'menu-item' && c.parents?.some((p) => p.key === AI_PASTE_MENU_SECTION.key),
+			),
+			['menu-item'],
+		).length > 0;
+	const useInlinePosition = !hasVisibleAiActions;
+
 	if (!isToolbarShown) {
 		return null;
 	}
@@ -353,10 +412,23 @@ export const PasteActionsMenu = ({
 		return null;
 	}
 
-	const target = getTargetElement(editorView, pasteStartPos);
+	const target = getTargetElement(editorView, useInlinePosition ? pasteEndPos : pasteStartPos);
 	if (!target) {
 		return null;
 	}
+
+	// Choose positioning strategy based on whether the menu appears inline
+	// (right of cursor for short pastes) or anchored to the block ancestor
+	// (right side of content area for longer pastes / AI actions).
+	const positionCalculator = useInlinePosition
+		? onInlinePositionCalculated(editorView, pasteEndPos, target, popupContentRef)
+		: onPositionCalculated(
+				editorView,
+				pasteStartPos,
+				pasteEndPos,
+				target,
+				effectiveScrollableElement,
+			);
 
 	return (
 		<PopupWithListeners
@@ -367,16 +439,10 @@ export const PasteActionsMenu = ({
 			minPopupMargin={PASTE_MENU_GAP_HORIZONTAL}
 			zIndex={akEditorFloatingPanelZIndex}
 			alignX="end"
-			alignY="bottom"
+			alignY={useInlinePosition ? 'top' : 'bottom'}
 			/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */
 			offset={[PASTE_MENU_GAP_HORIZONTAL, 0]}
-			onPositionCalculated={onPositionCalculated(
-				editorView,
-				pasteStartPos,
-				pasteEndPos,
-				target,
-				effectiveScrollableElement,
-			)}
+			onPositionCalculated={positionCalculator}
 			handleClickOutside={handleClickOutside}
 			handleEscapeKeydown={handleDismiss}
 		>
@@ -386,6 +452,7 @@ export const PasteActionsMenu = ({
 						onMouseDown={preventEditorFocusLoss}
 						onMouseEnter={handleMouseEnter}
 						components={pasteMenuComponents}
+						contentRef={popupContentRef}
 					/>
 				</ToolbarDropdownMenuProvider>
 			</EditorToolbarProvider>

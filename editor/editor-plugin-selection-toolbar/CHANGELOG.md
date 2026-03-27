@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 9.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.0
+
+### Minor Changes
+
+- [`87752e143e30f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87752e143e30f) -
+  PGXT-9997 introduce an option to disable the pin option in the selection toolbar
+
 ## 9.0.15
 
 ### Patch Changes

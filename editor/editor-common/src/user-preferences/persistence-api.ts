@@ -1,4 +1,4 @@
-import { type UserPreferences } from './user-preferences';
+import type { UserPreferences } from './user-preferences';
 
 export type PersistenceAPI = {
 	/**

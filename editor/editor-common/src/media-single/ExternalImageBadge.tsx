@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { type MediaType } from '@atlaskit/adf-schema';
+import type { MediaType } from '@atlaskit/adf-schema';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

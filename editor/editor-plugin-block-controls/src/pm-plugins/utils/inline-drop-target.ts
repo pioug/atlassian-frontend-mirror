@@ -2,7 +2,7 @@ import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { type ActiveNode } from '../../blockControlsPluginType';
+import type { ActiveNode } from '../../blockControlsPluginType';
 
 import { isWrappedMedia } from './check-media-layout';
 import { maxLayoutColumnSupported } from './consts';

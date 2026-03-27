@@ -1,4 +1,4 @@
-import { type CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
@@ -12,7 +12,7 @@ import {
 import { refreshAnchorName } from '../ui/utils/anchor-name';
 import { getAnchorAttrName } from '../ui/utils/dom-attr-name';
 
-import { type AnchorRectCache } from './utils/anchor-utils';
+import type { AnchorRectCache } from './utils/anchor-utils';
 import {
 	getControlBottomCSSValue,
 	getControlHeightCSSValue,

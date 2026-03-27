@@ -2,27 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import {
-	type ForwardRefExoticComponent,
-	type KeyboardEvent,
-	type MouseEvent,
-	type RefAttributes,
-	useCallback,
-} from 'react';
+import { useCallback } from 'react';
+import type { ForwardRefExoticComponent, KeyboardEvent, MouseEvent, RefAttributes } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import withAnalyticsContext, {
-	type WithContextProps,
-} from '@atlaskit/analytics-next/withAnalyticsContext';
-import DropdownMenu, {
-	DropdownItem,
-	DropdownItemGroup,
-	type OnOpenChangeArgs,
-} from '@atlaskit/dropdown-menu';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
+import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import PreferencesIcon from '@atlaskit/icon/core/customize';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';

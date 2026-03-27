@@ -29,22 +29,42 @@ export const analyzeA11yInputSchema: z.ZodObject<
 		includePatternAnalysis?: boolean | undefined;
 	}
 > = z.object({
-	code: z.string().describe('React component code to analyze for accessibility'),
-	componentName: z.string().describe('Name of the component being analyzed').optional(),
-	context: z.string().describe('Additional context about the component usage').optional(),
+	code: z
+		.string()
+		.describe(
+			'Source code of a React component or JSX snippet to analyze (string content only—no file path).',
+		),
+	componentName: z
+		.string()
+		.optional()
+		.describe('Optional label for the component under review (for summaries and reports).'),
+	context: z
+		.string()
+		.optional()
+		.describe(
+			'Optional: how the component is used (e.g. in a form, modal) to improve suggestions.',
+		),
 	includePatternAnalysis: z
 		.boolean()
 		.default(true)
-		.describe('Include pattern-based analysis in addition to axe-core')
+		.describe(
+			'When true (default), runs regex-based heuristics on the code string (e.g. unlabeled buttons, missing alt) in addition to other analysis.',
+		)
 		.optional(),
 });
 
 export const listAnalyzeA11yTool: Tool = {
 	name: 'ads_analyze_a11y',
-	description:
-		'Analyze React component code for accessibility violations using axe-core and generate ADS-specific suggestions.',
+	description: `Analyzes a **string of React/JSX** code for likely accessibility issues (heuristics and/or axe-related paths) and returns hints that often **point to** \`ads_suggest_a11y_fixes\` or generic axe/WCAG-style context—not every finding maps to a specific ADS component fix.
+
+WHEN TO USE:
+You have component source as text and want automated checks or heuristics before or during a code review.
+
+LIMITATIONS:
+- Does not replace testing in a real browser with assistive technologies or full keyboard traversal.
+- For rendered UI, \`ads_analyze_localhost_a11y\` (live URL + axe) is preferable when available—it is **only exposed when this MCP runs locally**, not in the remote MCP deployment.`,
 	annotations: {
-		title: 'Analyze Accessibility',
+		title: 'Analyze accessibility (code string)',
 		readOnlyHint: true,
 		destructiveHint: false,
 		idempotentHint: true,
@@ -75,22 +95,41 @@ export const analyzeA11yLocalhostInputSchema: z.ZodObject<
 		selector?: string | undefined;
 	}
 > = z.object({
-	url: z.string().describe('The URL to analyze for accessibility (e.g. `http://localhost:9000`)'),
-	componentName: z.string().optional().describe('Name of the component being analyzed'),
-	context: z.string().optional().describe('Additional context about the component usage'),
+	url: z
+		.string()
+		.describe(
+			'Fully qualified page URL to load (e.g. `http://localhost:9000` or a dev URL). Must be reachable from this MCP process.',
+		),
+	componentName: z
+		.string()
+		.optional()
+		.describe('Optional label for reporting (e.g. feature or component under test).'),
+	context: z
+		.string()
+		.optional()
+		.describe('Optional: route, user flow, or feature context for the analyzed page.'),
 	selector: z
 		.string()
 		.optional()
 		.describe(
-			'CSS selector to target a specific element for analysis (e.g. `#my-form` or `[data-role="button"]`)',
+			'Optional CSS selector to scope axe analysis to a subtree (e.g. `#my-form`, `[data-testid="panel"]`). Omit to analyze the whole document.',
 		),
 });
 
 export const listAnalyzeLocalhostA11yTool: Tool = {
 	name: 'ads_analyze_localhost_a11y',
-	description: `Analyze a live web page for accessibility violations using axe-core and generate ADS-specific suggestions.`,
+	description: `Loads a **live URL** in a headless browser, runs **axe-core**, and returns violations with follow-up hints (often suggesting \`ads_suggest_a11y_fixes\`). Output is anchored in **axe** rule text; remediation may be generic or ADS-biased depending on the violation.
+
+**Availability:** This tool is only registered when the ADS MCP runs **on your machine** (local MCP). It is **not** available in the **remote** MCP offering—use \`ads_analyze_a11y\` on source text there instead.
+
+WHEN TO USE:
+You have a running app or storybook page and need automated accessibility results on **rendered** UI—especially local or staging URLs.
+
+LIMITATIONS:
+- Does not replace manual testing with assistive technologies or keyboard-only navigation.
+- Requires network access to the URL from the environment running the MCP.`,
 	annotations: {
-		title: 'Analyze Localhost Accessibility',
+		title: 'Analyze accessibility (live URL)',
 		readOnlyHint: true,
 		destructiveHint: false,
 		idempotentHint: true,

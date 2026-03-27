@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "11.3.0",
+	"version": "11.4.0",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -121,23 +121,39 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./custom-themes": "./src/entry-points/custom-themes.tsx",
-		"./figma/atlassian-light.json": "./figma/atlassian-light.json",
-		"./figma/atlassian-dark.json": "./figma/atlassian-dark.json",
-		"./palettes-raw": "./src/entry-points/palettes-raw.tsx",
-		"./tokens-raw": "./src/entry-points/tokens-raw.tsx",
-		"./token-ids": "./src/entry-points/token-ids.tsx",
-		"./token-names": "./src/entry-points/token-names.tsx",
-		"./token-metadata": "./src/entry-points/token-metadata.codegen.tsx",
-		"./token-order": "./src/entry-points/token-order.tsx",
-		"./token-default-values": "./src/entry-points/token-default-values.tsx",
-		"./rename-mapping": "./src/entry-points/rename-mapping.tsx",
+		"./artifacts/theme-import-map": "./src/entry-points/artifacts-theme-import-map.tsx",
+		"./artifacts/types": "./src/entry-points/artifacts-types.tsx",
 		"./babel-plugin": {
 			"types": "./src/entry-points/babel-plugin.tsx",
 			"publish": "./src/entry-points/babel-plugin.tsx",
 			"default": "./babel-plugin.js"
 		},
-		"./css-type-schema": "./src/entry-points/css-type-schema.codegen.tsx"
+		"./constants": "./src/entry-points/constants.tsx",
+		"./css-type-schema": "./src/entry-points/css-type-schema.codegen.tsx",
+		"./custom-themes": "./src/entry-points/custom-themes.tsx",
+		"./enable-global-theme": "./src/entry-points/enable-global-theme.tsx",
+		"./figma/atlassian-dark.json": "./figma/atlassian-dark.json",
+		"./figma/atlassian-light.json": "./figma/atlassian-light.json",
+		"./get-global-theme": "./src/entry-points/get-global-theme.tsx",
+		"./get-ssr-auto-script": "./src/entry-points/get-ssr-auto-script.tsx",
+		"./get-theme-html-attrs": "./src/entry-points/get-theme-html-attrs.tsx",
+		"./get-theme-styles": "./src/entry-points/get-theme-styles.tsx",
+		"./get-token-value": "./src/entry-points/get-token-value.tsx",
+		"./get-token": "./src/entry-points/get-token.tsx",
+		"./palettes-raw": "./src/entry-points/palettes-raw.tsx",
+		"./rename-mapping": "./src/entry-points/rename-mapping.tsx",
+		"./set-global-theme": "./src/entry-points/set-global-theme.tsx",
+		"./theme-config": "./src/entry-points/theme-config.tsx",
+		"./theme-mutation-observer": "./src/entry-points/theme-mutation-observer.tsx",
+		"./theme-state-transformer": "./src/entry-points/theme-state-transformer.tsx",
+		"./token-default-values": "./src/entry-points/token-default-values.tsx",
+		"./token-ids": "./src/entry-points/token-ids.tsx",
+		"./token-metadata": "./src/entry-points/token-metadata.codegen.tsx",
+		"./token-names": "./src/entry-points/token-names.tsx",
+		"./token-order": "./src/entry-points/token-order.tsx",
+		"./tokens-raw": "./src/entry-points/tokens-raw.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		"./use-theme-observer": "./src/entry-points/use-theme-observer.tsx"
 	},
 	"platform-feature-flags": {
 		"platform_increased-contrast-themes": {

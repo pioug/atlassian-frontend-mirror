@@ -78,9 +78,6 @@
 			"path": "../../people-and-teams/teams-avatar/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/theme/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{

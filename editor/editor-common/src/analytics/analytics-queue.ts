@@ -1,4 +1,5 @@
-import memoizeOne, { type MemoizedFn } from 'memoize-one';
+import memoizeOne from 'memoize-one';
+import type { MemoizedFn } from 'memoize-one';
 
 type Deadline = {
 	didTimeout: boolean;

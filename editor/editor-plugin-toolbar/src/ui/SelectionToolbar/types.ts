@@ -1,4 +1,4 @@
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export type Position = {
 	left?: number;

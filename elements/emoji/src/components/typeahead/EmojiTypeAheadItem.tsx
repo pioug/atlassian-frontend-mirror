@@ -6,7 +6,6 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-import { N30 } from '@atlaskit/theme/colors';
 
 import type { EmojiDescription, EmojiProvider, OnEmojiEvent } from '../../types';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
@@ -37,7 +36,7 @@ const typeAheadItem = css({
 });
 
 const selectedStyles = css({
-	backgroundColor: token('color.background.neutral', N30),
+	backgroundColor: token('color.background.neutral'),
 });
 
 const typeAheadItemRow = css({

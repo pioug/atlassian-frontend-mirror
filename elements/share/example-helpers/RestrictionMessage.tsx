@@ -16,7 +16,7 @@ export default (): jsx.JSX.Element => (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={{
 			maxWidth: '100%',
-			color: `${token('color.text.danger', '#de350c')}`,
+			color: `${token('color.text.danger')}`,
 			display: 'flex',
 			'& > div': {
 				flexGrow: 1,

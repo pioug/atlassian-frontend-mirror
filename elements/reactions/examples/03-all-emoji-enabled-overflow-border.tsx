@@ -13,7 +13,7 @@ export default (): React.JSX.Element => {
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						width: '300px',
-						border: `${token('border.width')} solid ${token('color.border', '#777')}`,
+						border: `${token('border.width')} solid ${token('color.border')}`,
 					}}
 				>
 					<p>

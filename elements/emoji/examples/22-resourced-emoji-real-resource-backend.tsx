@@ -8,7 +8,6 @@ import { emojiPickerHeight } from '../src/util/constants';
 import { IntlProvider } from 'react-intl-next';
 import { type EmojiProvider, ResourcedEmoji } from '../src';
 import { token } from '@atlaskit/tokens';
-import { B300, N0 } from '@atlaskit/theme/colors';
 
 interface RenderRealEmojisProps {
 	emailProvider: Promise<EmojiProvider>;
@@ -27,7 +26,7 @@ const CustomFallbackElement = ({ children }: React.PropsWithChildren<unknown>) =
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				width: '50px',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				backgroundColor: token('color.background.accent.blue.bolder', B300),
+				backgroundColor: token('color.background.accent.blue.bolder'),
 			}}
 		>
 			<div
@@ -43,7 +42,7 @@ const CustomFallbackElement = ({ children }: React.PropsWithChildren<unknown>) =
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					width: '100%',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					color: token('color.text.inverse', N0),
+					color: token('color.text.inverse'),
 				}}
 			>
 				{children}

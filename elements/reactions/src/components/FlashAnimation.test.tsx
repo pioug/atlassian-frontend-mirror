@@ -30,7 +30,7 @@ describe('@atlaskit/reactions/components/FlashAnimation', () => {
 		renderWithIntl(renderFlash({ flash: true }));
 		const elem = await screen.findByTestId(RENDER_FLASHANIMATION_TESTID);
 		expect(elem).toHaveCompiledCss({
-			animationName: 'k1qrjcqm',
+			animationName: 'k9373e0',
 			animationDuration: '.7s',
 			animationTimingFunction: 'ease-in-out',
 		});

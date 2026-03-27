@@ -2,13 +2,13 @@ import memoizeOne from 'memoize-one';
 
 import { isMultiBlockSelection } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { type BlockControlsPlugin } from '../blockControlsPluginType';
+import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import {
 	getAnchorAttrName,
 	getTypeNameAttrName,

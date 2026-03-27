@@ -18,6 +18,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { type DiffParams, type DiffType, type ShowDiffPlugin } from '../showDiffPluginType';
 
 import { calculateDiffDecorations } from './calculateDiff/calculateDiffDecorations';
+import { enforceCustomStepRegisters } from './enforceCustomStepRegisters';
 import { NodeViewSerializer } from './NodeViewSerializer';
 import { scrollToActiveDecoration } from './scrollToActiveDecoration';
 
@@ -69,6 +70,10 @@ export const createPlugin = (
 	getIntl: () => IntlShape,
 	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined,
 ): SafePlugin<ShowDiffPluginState> => {
+	if (fg('platform_editor_show_diff_equality_fallback')) {
+		enforceCustomStepRegisters();
+	}
+
 	const nodeViewSerializer = new NodeViewSerializer({});
 	const setNodeViewSerializer = (editorView: EditorView) => {
 		nodeViewSerializer.init({ editorView });

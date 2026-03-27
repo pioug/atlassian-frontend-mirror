@@ -3,7 +3,7 @@ import React, { memo, useLayoutEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { PortalBucket } from './PortalBucket';
-import { type PortalManager } from './PortalManager';
+import type { PortalManager } from './PortalManager';
 
 type RenderFn = (
 	children: () => React.ReactChild | JSX.Element | null,

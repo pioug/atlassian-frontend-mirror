@@ -25,7 +25,8 @@ import {
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { EmojiResource, type EmojiProvider } from '@atlaskit/emoji/resource';
+import { EmojiResource } from '@atlaskit/emoji/resource';
+import type { EmojiProvider } from '@atlaskit/emoji/resource';
 import Link from '@atlaskit/link';
 import { MentionResource } from '@atlaskit/mention/resource';
 import { TeamMentionResource } from '@atlaskit/mention/team-resource';

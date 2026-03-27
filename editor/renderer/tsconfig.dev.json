@@ -74,9 +74,6 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/avatar/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
@@ -140,9 +137,6 @@
 			"path": "../../linking-platform/linking-common/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/logo/tsconfig.app.json"
-		},
-		{
 			"path": "../../media/media-card/tsconfig.app.json"
 		},
 		{
@@ -173,6 +167,9 @@
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/navigation-system/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
@@ -192,6 +189,9 @@
 		},
 		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../../navigation/side-nav-items/tsconfig.app.json"
 		},
 		{
 			"path": "../../linking-platform/smart-card/tsconfig.app.json"

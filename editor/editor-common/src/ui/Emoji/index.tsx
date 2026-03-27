@@ -4,7 +4,7 @@ import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import type { EmojiProvider, EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import type { EmojiId } from '@atlaskit/emoji/types';
 
-import { type ProviderFactory } from '../../provider-factory';
+import type { ProviderFactory } from '../../provider-factory';
 
 export interface EmojiProps extends EmojiId {
 	allowTextFallback?: boolean;

@@ -1,6 +1,6 @@
 import { createElement } from 'react';
 
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
@@ -10,26 +10,24 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
 import { nodeMargins } from '../ui/consts';
 import {
-	type DropTargetProps,
 	DropTarget,
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP,
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET,
 } from '../ui/drop-target';
-import {
-	DropTargetLayout,
-	DropTargetLayoutNativeAnchorSupport,
-	type DropTargetLayoutProps,
-} from '../ui/drop-target-layout';
+import type { DropTargetProps } from '../ui/drop-target';
+import { DropTargetLayout, DropTargetLayoutNativeAnchorSupport } from '../ui/drop-target-layout';
+import type { DropTargetLayoutProps } from '../ui/drop-target-layout';
 
 import { NESTED_DEPTH, TYPE_DROP_TARGET_DEC } from './decorations-common';
-import { type AnchorRectCache } from './utils/anchor-utils';
+import type { AnchorRectCache } from './utils/anchor-utils';
 import { maxLayoutColumnSupported } from './utils/consts';
 import { canMoveNodeToIndex, canMoveSliceToIndex, isInSameLayout } from './utils/validation';
 

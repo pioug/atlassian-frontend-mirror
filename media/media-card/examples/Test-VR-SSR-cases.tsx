@@ -5,7 +5,7 @@
  * way. It is discouraged to use this code as a base for consumers.
  */
 import React, { useEffect, useMemo } from 'react';
-import ReactDOM from 'react-dom';
+import { hydrateRoot } from 'react-dom/client';
 import { tallImage } from '@atlaskit/media-test-helpers';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { MediaClient } from '@atlaskit/media-client';
@@ -111,7 +111,8 @@ const runSSR = ({ containerId, mode, hydrate, throwError }: RunSSRParams) => {
 	if (elem) {
 		elem.innerHTML = txt;
 		hydrate &&
-			ReactDOM.hydrate(
+			hydrateRoot(
+				elem,
 				<Page
 					ssr="client"
 					title={title}
@@ -119,7 +120,6 @@ const runSSR = ({ containerId, mode, hydrate, throwError }: RunSSRParams) => {
 					throwError={throwError}
 					additionalProps={additionalProps}
 				/>,
-				elem,
 			);
 	}
 };

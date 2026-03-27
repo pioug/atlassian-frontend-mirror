@@ -530,9 +530,11 @@ class ConfigPanel extends React.Component<Props, State> {
 										data-testid="extension-config-panel"
 									>
 										{this.renderHeader(extensionManifest)}
-										{fg('platform_editor_ai_object_sidebar_injection') && (
-											<DescriptionSummary extensionManifest={extensionManifest} />
-										)}
+										{(!fg('platform_editor_conditionally_add_sidebar_summary') ||
+											this.props.usingObjectSidebarPanel) &&
+											fg('platform_editor_ai_object_sidebar_injection') && (
+												<DescriptionSummary extensionManifest={extensionManifest} />
+											)}
 										<ConfigFormIntlWithBoundary
 											api={api}
 											canSave={false}

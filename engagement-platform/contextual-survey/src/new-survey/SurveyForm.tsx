@@ -26,10 +26,10 @@ const transitionBaseStyles = css({
 
 const styles = cssMap({
 	buttonContainer: {
-		marginTop: token('space.300', '24px'),
+		marginTop: token('space.300'),
 	},
 	questionContainer: {
-		marginBottom: token('space.250', '20px'),
+		marginBottom: token('space.250'),
 	},
 });
 

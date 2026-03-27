@@ -1,30 +1,24 @@
 import React, { useCallback } from 'react';
 
-import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { type GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import {
-	type NamedPluginStatesFromInjectionAPI,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import { BreakoutResizer, ignoreResizerMutations } from '@atlaskit/editor-common/resizer';
-import { type ExtractInjectionAPI, type getPosHandlerNode } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import {
-	DOMSerializer,
-	type Schema,
-	type DOMOutputSpec,
-	type Node as PMNode,
-} from '@atlaskit/editor-prosemirror/model';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+import type { Schema, DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { type LayoutPlugin } from '../layoutPluginType';
+import type { LayoutPlugin } from '../layoutPluginType';
 import { selectIntoLayout } from '../pm-plugins/utils';
-import { type LayoutPluginOptions } from '../types';
+import type { LayoutPluginOptions } from '../types';
 
 type LayoutSectionViewProps = {
 	eventDispatcher: EventDispatcher;

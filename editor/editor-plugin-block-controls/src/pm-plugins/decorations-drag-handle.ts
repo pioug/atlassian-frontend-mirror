@@ -1,15 +1,17 @@
 import { createElement } from 'react';
 
-import { bind, type UnbindFn } from 'bind-event-listener';
+import { bind } from 'bind-event-listener';
+import type { UnbindFn } from 'bind-event-listener';
 import ReactDOM from 'react-dom';
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type EditorState } from '@atlaskit/editor-prosemirror/state';
-import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -19,7 +21,7 @@ import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginT
 import { DragHandle, DragHandleWithVisibility } from '../ui/drag-handle';
 
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
-import { type AnchorRectCache } from './utils/anchor-utils';
+import type { AnchorRectCache } from './utils/anchor-utils';
 import { getActiveBlockMarks } from './utils/marks';
 
 export const emptyParagraphNodeDecorations = (): Decoration => {

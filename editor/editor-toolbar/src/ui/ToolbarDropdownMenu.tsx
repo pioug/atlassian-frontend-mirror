@@ -2,11 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type ReactNode, useCallback } from 'react';
+import React, { useCallback } from 'react';
+import type { ReactNode } from 'react';
 
 import { jsx, cssMap, cx } from '@compiled/react';
 
-import DropdownMenu, { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu';
+import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';

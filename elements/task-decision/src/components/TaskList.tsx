@@ -26,7 +26,7 @@ const listStyles = css({
 });
 
 const taskListStyles = css({
-	marginTop: token('space.050', '4px'),
+	marginTop: token('space.050'),
 });
 
 export interface Props {

@@ -1,5 +1,27 @@
 # @atlaskit/editor-statsig-tmp
 
+## 48.1.0
+
+### Minor Changes
+
+- [`31b465ec806b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31b465ec806b1) -
+  Fix INP buffered attribute - gate cc_editor_fix_insm_inp_buffer
+
+## 48.0.1
+
+### Patch Changes
+
+- [`5999b4aa6053c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5999b4aa6053c) -
+  [EDITOR-5811] remove override for single player expand
+
+## 48.0.0
+
+### Major Changes
+
+- [`c076c3169e9a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c076c3169e9a4) -
+  EDITOR-6146: Clean up unused platform_editor_ai_suggestions (migrated to
+  platform_editor_ai_content_suggested_edits)
+
 ## 47.0.0
 
 ### Major Changes

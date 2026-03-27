@@ -1,4 +1,4 @@
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { isListWithIndentation } from '../nodeChecks';
 import type { TransformStep } from '../types';

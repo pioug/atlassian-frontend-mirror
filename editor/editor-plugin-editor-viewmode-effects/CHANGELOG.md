@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-editor-viewmode-effects
 
+## 8.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.14
 
 ### Patch Changes

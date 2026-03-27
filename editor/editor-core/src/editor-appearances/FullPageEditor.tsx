@@ -2,7 +2,7 @@ import React from 'react';
 
 import type EditorActions from '../actions';
 import { CoreEditor } from '../composable-editor/core-editor';
-import { type EditorNextProps } from '../types/editor-props';
+import type { EditorNextProps } from '../types/editor-props';
 import { FullPageEditor as FullPage } from '../ui/Appearance/FullPage/FullPage';
 
 export type FullPageEditorProps = Pick<

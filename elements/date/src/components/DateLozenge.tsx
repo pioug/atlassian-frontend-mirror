@@ -16,10 +16,10 @@ export type Props = React.HTMLProps<HTMLSpanElement> & {
 
 const baseStyles = css({
 	borderRadius: token('radius.small', '3px'),
-	paddingTop: token('space.025', '2px'),
-	paddingRight: token('space.050', '4px'),
-	paddingBottom: token('space.025', '2px'),
-	paddingLeft: token('space.050', '4px'),
+	paddingTop: token('space.025'),
+	paddingRight: token('space.050'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.050'),
 	margin: '0 1px',
 	position: 'relative',
 	transition: 'background 0.3s',

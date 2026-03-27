@@ -4,8 +4,8 @@ import Fuse from 'fuse.js';
 import { z } from 'zod';
 
 import { cleanQuery, zodToJsonSchema } from '../../helpers';
-import { loadAllComponents } from '../get-components/load-all-components';
-import type { ComponentMcpPayload } from '../get-components/types';
+import { loadAllComponents } from '../get-all-components/load-all-components';
+import type { ComponentMcpPayload } from '../get-all-components/types';
 
 export const searchComponentsInputSchema: z.ZodObject<
 	{
@@ -29,25 +29,26 @@ export const searchComponentsInputSchema: z.ZodObject<
 	terms: z
 		.array(z.string())
 		.describe(
-			'An array of search terms to find components by name, package name, description, or example, eg. `["button", "input", "select"]`',
+			'Required: one or more search terms (fuzzy over name, package, category, description, examples). Example: `["button", "modal", "select"]`.',
 		),
-	limit: z
-		.number()
-		.default(1)
-		.describe('Maximum number of results per search term in the array (default: 1)')
-		.optional(),
+	limit: z.number().default(1).describe('Max matches **per term** (default 1).').optional(),
 	exactName: z
 		.boolean()
 		.default(false)
 		.describe(
-			'Enable to explicitly search components by the exact name match (when you know the name, but need more details)',
+			'If true, match each term to a component **name** only, case-insensitively. If false, fuzzy search.',
 		)
 		.optional(),
 });
 
 export const listSearchComponentsTool: Tool = {
 	name: 'ads_search_components',
-	description: 'Search for Atlassian Design System components.',
+	description: `Searches the bundled Atlassian Design System (ADS) component catalog. Returns JSON objects with **name**, **package**, **examples**, and **props** for each match (trimmed payload).
+
+WHEN TO USE:
+**Selecting which ADS component to use**—package name, examples, and props—before implementation. Use when composing a new view or swapping a primitive.Prefer \`ads_plan\` when you also need token and icon discovery in one shot.
+
+Requires non-empty \`terms\`.`,
 	annotations: {
 		title: 'Search ADS components',
 		readOnlyHint: true,

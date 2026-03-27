@@ -1,10 +1,4 @@
-export type AgentCreatorType =
-	| 'SYSTEM'
-	| 'CUSTOMER'
-	| 'THIRD_PARTY'
-	| 'FORGE'
-	| 'OOTB'
-	| 'REMOTE_A2A';
+import type { AgentCreatorType } from '../types';
 
 // BE will deprecate THIRD_PARTY and use FORGE instead
 export const isForgeAgentByCreatorType = (creatorType: AgentCreatorType): boolean =>

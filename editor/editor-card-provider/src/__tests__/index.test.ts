@@ -301,6 +301,46 @@ describe('providers > editor', () => {
 		);
 	});
 
+	it('should support card nodes when url filter allows the url', () => {
+		const provider = new EditorCardProvider(
+			undefined,
+			undefined,
+			undefined,
+			undefined,
+			undefined,
+			(url) => url.includes('atlassian.net'),
+		);
+
+		expect(
+			provider.isNodeSupported({
+				type: 'inlineCard',
+				attrs: {
+					url: 'https://example.atlassian.net/wiki/spaces/TEST/pages/1',
+				},
+			}),
+		).toBe(true);
+	});
+
+	it('should reject card nodes when url filter blocks the url', () => {
+		const provider = new EditorCardProvider(
+			undefined,
+			undefined,
+			undefined,
+			undefined,
+			undefined,
+			(url) => url.includes('atlassian.net'),
+		);
+
+		expect(
+			provider.isNodeSupported({
+				type: 'inlineCard',
+				attrs: {
+					url: 'https://external-site.example.com/page',
+				},
+			}),
+		).toBe(false);
+	});
+
 	it('calls /providers endpoint again if the first request fails', async () => {
 		const mockResolveResponse = {
 			json: async () => [{ body: mocks.success, status: 200 }],

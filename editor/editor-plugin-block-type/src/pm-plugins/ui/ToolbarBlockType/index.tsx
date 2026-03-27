@@ -21,7 +21,8 @@ import TextIcon from '@atlaskit/icon/core/text';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { ThemeMutationObserver, type ThemeState } from '@atlaskit/tokens';
+import { ThemeMutationObserver } from '@atlaskit/tokens';
+import type { ThemeState } from '@atlaskit/tokens';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import type { TextBlockTypes } from '../../block-types';

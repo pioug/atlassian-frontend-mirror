@@ -4,7 +4,8 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import { isTransformDisabledBasedOnStepsConfig } from '../editor-commands/transform-node-utils/transform';
-import { toNodeTypeValue, type NodeTypeName } from '../editor-commands/transform-node-utils/types';
+import { toNodeTypeValue } from '../editor-commands/transform-node-utils/types';
+import type { NodeTypeName } from '../editor-commands/transform-node-utils/types';
 import {
 	getBlockNodesInRange,
 	getTargetNodeTypeNameInContext,

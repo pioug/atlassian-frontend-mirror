@@ -2,7 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import type { ChangeEvent } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 

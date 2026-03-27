@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-base
 
+## 9.0.15
+
+### Patch Changes
+
+- [`c9b7aaa42d05b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9b7aaa42d05b) -
+  Mechanical type-import autofix for editor core shell packages.
+- Updated dependencies
+
+## 9.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.13
 
 ### Patch Changes

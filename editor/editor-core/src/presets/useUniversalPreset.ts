@@ -6,7 +6,7 @@ import { createUniversalPreset } from '../create-editor/create-universal-preset'
 import { shouldRecreatePreset } from '../create-editor/preset-utils';
 import type { EditorProps } from '../types/editor-props';
 
-import { type InitialPluginConfiguration } from './universal';
+import type { InitialPluginConfiguration } from './universal';
 
 interface PresetProps {
 	initialPluginConfiguration?: InitialPluginConfiguration;

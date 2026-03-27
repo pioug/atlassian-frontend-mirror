@@ -22,9 +22,16 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./TeamsLink": "./src/ui/TeamsLink.tsx",
+		"./TeamsLinkButton": "./src/ui/TeamsLinkButton.tsx",
+		"./TeamsLinkItem": "./src/ui/TeamsLinkItem.tsx",
+		"./get-navigation-props": "./src/common/utils/getNavigationProps.ts"
 	},
 	"dependencies": {
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/link": "workspace:^",
+		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
@@ -62,7 +69,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-internal-navigation",
-	"version": "1.2.1",
+	"version": "1.4.0",
 	"description": "Headless navigation utilities for consistent internal link behaviour across the Teams app.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

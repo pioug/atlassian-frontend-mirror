@@ -1,110 +1,21 @@
 import React from 'react';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	NavigationProvider,
-	LayoutManager,
-	HeaderSection,
-	MenuSection,
-	GlobalNav,
-	Item,
-	ItemAvatar,
-	ContainerHeader,
-	Separator,
-	Wordmark,
-} from '@atlaskit/navigation-next';
-import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+
 import BacklogIcon from '@atlaskit/icon/core/backlog';
 import BoardIcon from '@atlaskit/icon/core/board';
 import ChartTrendUpIcon from '@atlaskit/icon/core/chart-trend-up';
-import Avatar from '@atlaskit/avatar';
-import AddIcon from '@atlaskit/icon/core/add';
-import SearchIcon from '@atlaskit/icon/core/search';
-import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
-import { token } from '@atlaskit/tokens';
-
-type ClassNameProps = { className: string };
-
-const Nav = () => (
-	<GlobalNav
-		primaryItems={[
-			{
-				id: 'jira',
-				icon: ({ label }: any) => <JiraIcon size="medium" label={label} />,
-				label: 'Jira',
-			},
-			{ id: 'search', icon: SearchIcon },
-			{ id: 'create', icon: AddIcon },
-		]}
-		secondaryItems={[
-			{ id: 'help', icon: QuestionCircleIcon, label: 'Help', size: 'small' },
-			{
-				icon: () => <Avatar borderColor="transparent" size="small" />,
-				label: 'Profile',
-				size: 'small',
-				id: 'profile',
-			},
-		]}
-	/>
-);
-
-const ContainerNavigation = () => (
-	<div>
-		<HeaderSection>
-			{({ css }: any) => (
-				<div
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						...css,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						paddingBottom: token('space.200'),
-					}}
-				>
-					<ContainerHeader
-						before={(itemState: any) => (
-							<ItemAvatar itemState={itemState} appearance="square" size="large" />
-						)}
-						text="Fabric Editor"
-						subText="Renderer"
-					/>
-				</div>
-			)}
-		</HeaderSection>
-		<MenuSection>
-			{({ className }: ClassNameProps) => (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				<div className={className}>
-					<Item before={BacklogIcon} text="Backlog" isSelected />
-					<Item before={BoardIcon} text="Active sprints" />
-					<Item before={ChartTrendUpIcon} text="Reports" />
-					<Separator />
-				</div>
-			)}
-		</MenuSection>
-	</div>
-);
-
-const ProductNavigation = () => (
-	<div>
-		<HeaderSection>
-			{({ className }: ClassNameProps) => (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				<div className={className}>
-					<Wordmark wordmark={JiraLogo} />
-				</div>
-			)}
-		</HeaderSection>
-		<MenuSection>
-			{({ className }: ClassNameProps) => (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				<div className={className}>
-					<Item text="Dashboards" />
-					<Item text="Projects" />
-					<Item text="Issues" />
-				</div>
-			)}
-		</MenuSection>
-	</div>
-);
+import { Main } from '@atlaskit/navigation-system/layout/main';
+import { Root } from '@atlaskit/navigation-system/layout/root';
+import {
+	SideNav,
+	SideNavBody,
+	SideNavHeader,
+	SideNavPanelSplitter,
+	SideNavToggleButton,
+} from '@atlaskit/navigation-system/layout/side-nav';
+import { TopNav, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
+import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 
 const LOCALSTORAGE_renderer_sidebar_key = 'fabric.editor.examples.renderer.sidebar';
 
@@ -118,21 +29,6 @@ export const getDefaultShowSidebarState = (defaultValue = false): any => {
 
 	return defaultValue;
 };
-
-function NavigationNext({ children }: { children: React.ReactNode }) {
-	return (
-		<NavigationProvider>
-			<LayoutManager
-				globalNavigation={Nav}
-				productNavigation={ProductNavigation}
-				containerNavigation={ContainerNavigation}
-			>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ padding: token('space.500') }}>{children}</div>
-			</LayoutManager>
-		</NavigationProvider>
-	);
-}
 
 type SidebarProps = { children: any; showSidebar: boolean };
 
@@ -161,6 +57,49 @@ export default class Sidebar extends React.Component<SidebarProps, { showSidebar
 			appearance: 'full-page',
 		};
 
-		return <NavigationNext>{this.props.children(additionalRendererProps)}</NavigationNext>;
+		return (
+			<Root isSideNavShortcutEnabled>
+				<TopNav>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
+						<span>Fabric Editor</span>
+					</TopNavStart>
+				</TopNav>
+				<SideNav>
+					<SideNavHeader>Renderer</SideNavHeader>
+					<SideNavBody>
+						<MenuList>
+							<MenuListItem>
+								<ButtonMenuItem
+									isSelected
+									elemBefore={<BacklogIcon label="" color="currentColor" spacing="spacious" />}
+								>
+									Backlog
+								</ButtonMenuItem>
+							</MenuListItem>
+							<MenuListItem>
+								<ButtonMenuItem
+									elemBefore={<BoardIcon label="" color="currentColor" spacing="spacious" />}
+								>
+									Active sprints
+								</ButtonMenuItem>
+							</MenuListItem>
+							<MenuListItem>
+								<ButtonMenuItem
+									elemBefore={<ChartTrendUpIcon label="" color="currentColor" spacing="spacious" />}
+								>
+									Reports
+								</ButtonMenuItem>
+							</MenuListItem>
+						</MenuList>
+					</SideNavBody>
+					<SideNavPanelSplitter label="Resize sidebar" />
+				</SideNav>
+				<Main>{this.props.children(additionalRendererProps)}</Main>
+			</Root>
+		);
 	}
 }

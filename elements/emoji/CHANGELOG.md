@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 69.10.48
+
+### Patch Changes
+
+- [`608c375f6f9b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/608c375f6f9b9) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
+## 69.10.47
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 69.10.46
 
 ### Patch Changes

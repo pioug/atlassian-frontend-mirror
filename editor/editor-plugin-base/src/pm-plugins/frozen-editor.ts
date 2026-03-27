@@ -19,7 +19,8 @@ import type {
 	ExtractInjectionAPI,
 	InputTracking,
 } from '@atlaskit/editor-common/types';
-import { getAnalyticsEventSeverity, type SEVERITY } from '@atlaskit/editor-common/utils/analytics';
+import { getAnalyticsEventSeverity } from '@atlaskit/editor-common/utils/analytics';
+import type { SEVERITY } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

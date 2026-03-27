@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CoreEditor } from '../composable-editor/core-editor';
-import { type EditorNextProps } from '../types/editor-props';
+import type { EditorNextProps } from '../types/editor-props';
 import Chromeless from '../ui/Appearance/Chromeless';
 
 export type ChromelessEditorProps = Pick<

@@ -2,7 +2,8 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { type CreateReactNodeViewProps, withLazyLoading } from './index'; // Update this with the actual path
+import { withLazyLoading } from './index';
+import type { CreateReactNodeViewProps } from './index'; // Update this with the actual path
 
 jest.mock('@atlaskit/editor-prosemirror/model', () => {
 	return {

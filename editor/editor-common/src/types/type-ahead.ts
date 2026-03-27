@@ -2,7 +2,7 @@ import type { ReactElement, ReactNode } from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-import { type Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { TypeAheadPayload } from '../analytics/types/type-ahead';

@@ -5,7 +5,6 @@
 import { useMemo } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N500 } from '@atlaskit/theme/colors';
 import Avatar from '@atlaskit/avatar/Avatar';
 import Spinner from '@atlaskit/spinner';
 import { TabPanel } from '@atlaskit/tabs';
@@ -14,12 +13,12 @@ import { type ReactionSummary, type ProfileCardWrapper } from '../types';
 
 const userListStyle = css({
 	listStyle: 'none',
-	marginTop: token('space.200', '16px'),
+	marginTop: token('space.200'),
 	padding: 0,
 	textAlign: 'left',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	li: {
-		color: `${token('color.text', N500)}`,
+		color: `${token('color.text')}`,
 		font: token('font.body'),
 	},
 });
@@ -27,13 +26,13 @@ const userListStyle = css({
 const userStyle = css({
 	display: 'flex',
 	alignItems: 'center',
-	paddingTop: token('space.050', '4px'),
-	paddingBottom: token('space.050', '4px'),
+	paddingTop: token('space.050'),
+	paddingBottom: token('space.050'),
 	paddingLeft: 0,
 	paddingRight: 0,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> span': {
-		marginLeft: token('space.200', '16px'),
+		marginLeft: token('space.200'),
 	},
 });
 

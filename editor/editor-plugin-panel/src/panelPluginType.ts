@@ -1,4 +1,4 @@
-import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	Command,
 	LongPressSelectionPluginOptions,
@@ -8,7 +8,7 @@ import type {
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import { type EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
+import type { EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';

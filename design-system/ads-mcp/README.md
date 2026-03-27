@@ -54,7 +54,7 @@ to help ensure your interfaces are accessible to all users.
 
 - `ads_get_all_tokens` - Get all available design tokens for colors, spacing, typography, etc.
 - `ads_search_tokens` - Search for specific design tokens by name, description, or example values
-- `ads_get_components` - Get a list of all available components with basic information
+- `ads_get_all_components` - Get all available components with basic information (full catalog)
 - `ads_search_components` - Search for components by name, description, category, or package name
 - `ads_get_all_icons` - Get all available icons from the design system
 - `ads_search_icons` - Search for specific icons by name, keywords, or categorization
@@ -91,7 +91,7 @@ const designResources = await plan({
 });
 
 // Get all available items (fallback when search doesn't find what you need)
-const allComponents = await get_components();
+const allComponents = await get_all_components();
 const allTokens = await get_all_tokens();
 const allIcons = await get_all_icons();
 ```

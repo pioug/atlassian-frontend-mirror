@@ -6,10 +6,8 @@ import uuid from 'uuid/v4';
 import type { PanelAttributes } from '@atlaskit/adf-schema';
 import { PanelType } from '@atlaskit/adf-schema';
 import { Emoji } from '@atlaskit/editor-common/emoji';
-import {
-	useSharedPluginStateWithSelector,
-	type NamedPluginStatesFromInjectionAPI,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import {
 	PanelErrorIcon,
 	PanelInfoIcon,
@@ -18,7 +16,7 @@ import {
 	PanelWarningIcon,
 } from '@atlaskit/editor-common/icons';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
 	ExtractInjectionAPI,

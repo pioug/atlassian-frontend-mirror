@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 
 import EditorFileIcon from '@atlaskit/icon/core/file';
 
-import { type ExtensionsPluginInjectionAPI } from '../../types';
+import type { ExtensionsPluginInjectionAPI } from '../../types';
 import { placeholderFallback, placeholderFallbackParams } from '../styles';
 
 import { EditToggle } from './EditToggle';

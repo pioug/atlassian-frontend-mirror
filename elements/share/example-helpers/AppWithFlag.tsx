@@ -2,7 +2,6 @@ import React from 'react';
 
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
-import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type Flag } from '../src/types';
@@ -38,7 +37,7 @@ export default class AppWithFlag extends React.PureComponent<Props, State> {
 	render(): React.JSX.Element {
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<div style={{ padding: token('space.200', '16px') }}>
+			<div style={{ padding: token('space.200') }}>
 				{this.props.children(this.addFlag)}
 				<FlagGroup onDismissed={this.handleDismiss}>
 					{this.state.flags.map((flag: Flag, index) => {
@@ -50,7 +49,7 @@ export default class AppWithFlag extends React.PureComponent<Props, State> {
 									<SuccessIcon
 										label="Success"
 										spacing="spacious"
-										color={token('color.icon.success', G300)}
+										color={token('color.icon.success')}
 									/>
 								}
 								key={index}

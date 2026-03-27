@@ -1,5 +1,19 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 1.4.0
+
+### Minor Changes
+
+- [`b60167a9835e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b60167a9835e4) -
+  Add support for prefixing links
+
+## 1.3.0
+
+### Minor Changes
+
+- [`5675f51636ecb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5675f51636ecb) -
+  Introduces the TeamsLink, TeamsLinkItem and TeamsLinkButton components & relevant test.
+
 ## 1.2.1
 
 ### Patch Changes

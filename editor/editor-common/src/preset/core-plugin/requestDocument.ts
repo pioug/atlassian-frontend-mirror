@@ -3,7 +3,8 @@ import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE, type FireAnalyticsCallback } from '../../analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics';
+import type { FireAnalyticsCallback } from '../../analytics';
 import type {
 	DefaultTransformerResultCallback,
 	InferTransformerResultCallback,

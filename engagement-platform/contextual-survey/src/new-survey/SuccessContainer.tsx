@@ -13,7 +13,7 @@ import doneSvg from './assets/checkIcon.svg';
 
 const styles = cssMap({
 	container: {
-		gap: token('space.150', '12px'),
+		gap: token('space.150'),
 		alignContent: 'center',
 		alignItems: 'center',
 		textAlign: 'center',

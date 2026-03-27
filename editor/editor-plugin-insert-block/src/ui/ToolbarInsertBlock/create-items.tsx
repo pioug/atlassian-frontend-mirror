@@ -1,7 +1,8 @@
 import React from 'react';
 
 import memoize from 'lodash/memoize';
-import memoizeOne, { type MemoizedFn } from 'memoize-one';
+import memoizeOne from 'memoize-one';
+import type { MemoizedFn } from 'memoize-one';
 import type { WrappedComponentProps } from 'react-intl-next';
 
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';

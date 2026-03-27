@@ -21,33 +21,33 @@ const emojiItem = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& .emoji-common-node': {
 		cursor: 'pointer',
-		paddingTop: token('space.100', '8px'),
-		paddingRight: token('space.100', '8px'),
-		paddingBottom: token('space.100', '8px'),
-		paddingLeft: token('space.100', '8px'),
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
 		borderRadius: token('radius.medium'),
 		width: '24px',
 		height: '24px',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& .emoji-common-placeholder': {
-		paddingTop: token('space.0', '0px'),
-		paddingRight: token('space.0', '0px'),
-		paddingBottom: token('space.0', '0px'),
-		paddingLeft: token('space.0', '0px'),
-		marginTop: token('space.100', '8px'),
-		marginRight: token('space.100', '8px'),
-		marginBottom: token('space.100', '8px'),
-		marginLeft: token('space.100', '8px'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		marginTop: token('space.100'),
+		marginRight: token('space.100'),
+		marginBottom: token('space.100'),
+		marginLeft: token('space.100'),
 		minWidth: '24px',
 		maxWidth: '24px',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& .emoji-common-node .emoji-common-placeholder': {
-		marginTop: token('space.0', '0px'),
-		marginRight: token('space.0', '0px'),
-		marginBottom: token('space.0', '0px'),
-		marginLeft: token('space.0', '0px'),
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
 	},
 	// Fit non-square emoji to square
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -69,7 +69,7 @@ const emojiItem = css({
 });
 
 const emojiPickerRow = css({
-	marginLeft: token('space.100', '8px'),
+	marginLeft: token('space.100'),
 });
 
 export interface Props {

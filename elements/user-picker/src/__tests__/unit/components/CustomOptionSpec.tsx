@@ -6,7 +6,6 @@ import { AvatarOrIcon } from '../../../components/AvatarOrIcon';
 import { CustomOption, type CustomOptionProps } from '../../../components/CustomOption/main';
 import { type Custom } from '../../../types';
 import { token } from '@atlaskit/tokens';
-import * as colors from '@atlaskit/theme/colors';
 
 jest.mock('../../../components/AvatarItemOption', () => ({
 	...(jest.requireActual('../../../components/AvatarItemOption') as any),
@@ -44,7 +43,7 @@ describe('Custom Option', () => {
 	it('should render the byline', () => {
 		const component = shallowOption({ isSelected: true }, basicCustomOption);
 		const avatarOptionProps = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', colors.B400));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', '#1868DB'));
 
 		const secondaryText = avatarOptionProps.props().secondaryText as ReactElement;
 

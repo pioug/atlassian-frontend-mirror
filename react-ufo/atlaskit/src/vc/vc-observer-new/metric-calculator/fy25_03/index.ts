@@ -36,9 +36,8 @@ const getConsideredEntryTypes = (
 		'window:event',
 	];
 
-	// If not exclude 3p elements from ttvc,
-	// including the tags into the ConsideredEntryTypes so that it won't be ignored for TTVC calculation
-	if (!fg('platform_ufo_exclude_3p_elements_from_ttvc') || include3p) {
+	// Only include third-party elements in TTVC calculation when explicitly requested
+	if (include3p) {
 		entryTypes.push('mutation:third-party-element');
 		entryTypes.push('mutation:third-party-attribute');
 	}

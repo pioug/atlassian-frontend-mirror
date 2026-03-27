@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { act } from 'react-dom/test-utils';
+import { act } from 'react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { asMock } from '@atlaskit/media-common/test-helpers';

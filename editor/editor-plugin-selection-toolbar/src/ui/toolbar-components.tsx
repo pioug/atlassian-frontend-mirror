@@ -24,6 +24,7 @@ import { PinMenuItem } from './PinMenuItem';
 export const getToolbarComponents = (
 	api?: ExtractInjectionAPI<SelectionToolbarPlugin>,
 	contextualFormattingEnabled?: boolean,
+	disablePin?: boolean,
 ): RegisterComponent[] => {
 	const components: RegisterComponent[] = [
 		{
@@ -51,7 +52,7 @@ export const getToolbarComponents = (
 				},
 			],
 			component: () => {
-				return <PinMenuItem api={api} />;
+				return <PinMenuItem api={api} disablePin={disablePin} />;
 			},
 		},
 	];

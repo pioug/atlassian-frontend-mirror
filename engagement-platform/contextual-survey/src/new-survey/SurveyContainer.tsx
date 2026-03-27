@@ -10,7 +10,6 @@ import { cssMap } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import Image from '@atlaskit/image';
 import { Stack } from '@atlaskit/primitives/compiled';
-import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 interface Props {
@@ -22,21 +21,21 @@ interface Props {
 const styles = cssMap({
 	root: {
 		borderRadius: token('radius.small', '3px'),
-		backgroundColor: token('elevation.surface.overlay', N0),
-		boxShadow: token('elevation.shadow.overlay', `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`),
+		backgroundColor: token('elevation.surface.overlay'),
+		boxShadow: token('elevation.shadow.overlay'),
 		// Hard-coded because there is no large enough space token and this component is not responsive.
 		width: '384px',
 	},
 	container: {
-		paddingTop: token('space.300', '24px'),
-		paddingBottom: token('space.300', '24px'),
-		paddingLeft: token('space.300', '24px'),
-		paddingRight: token('space.300', '24px'),
+		paddingTop: token('space.300'),
+		paddingBottom: token('space.300'),
+		paddingLeft: token('space.300'),
+		paddingRight: token('space.300'),
 	},
 	buttonWrapperStyles: {
 		position: 'absolute',
-		top: token('space.100', '8px'),
-		right: token('space.100', '8px'),
+		top: token('space.100'),
+		right: token('space.100'),
 	},
 });
 

@@ -1,6 +1,8 @@
-import React, { Component, type ReactNode } from 'react';
+import React, { Component } from 'react';
+import type { ReactNode } from 'react';
 
-import Popper, { type Boundary, type Data } from 'popper.js'; // eslint-disable-line import/extensions
+import Popper from 'popper.js';
+import type { Boundary, Data } from 'popper.js'; // eslint-disable-line import/extensions
 import rafSchedule from 'raf-schd';
 
 import { positionPropToPopperPosition } from './internal/helpers';

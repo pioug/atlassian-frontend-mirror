@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc, react/jsx-props-no-spreading -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -5,8 +6,9 @@
 import type { ReactNode } from 'react';
 import React, { Fragment, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { css, jsx } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 
 import { BreadcrumbsMiscActions } from '@af/editor-examples-helpers/utils';
 import type { DocNode } from '@atlaskit/adf-schema';

@@ -1,5 +1,51 @@
 # @atlaskit/editor-common
 
+## 112.11.3
+
+### Patch Changes
+
+- [`0ec4cd35c30c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ec4cd35c30c8) -
+  ED-000 Fix accessibility ESLint violations in element-browser behind
+  editor_a11y\_\_enghealth-46814_fy26 experiment: remove no-static-element-interactions,
+  interactive-element-not-keyboard-focusable, and no-noninteractive-element-to-interactive-role
+  suppressions
+- Updated dependencies
+
+## 112.11.2
+
+### Patch Changes
+
+- [`85bcb73915b7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85bcb73915b7c) -
+  Mechanical type-import autofix for editor-common packages.
+- [`9d96d107b757f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d96d107b757f) -
+  Fix a11y/mouse-events-have-key-events violations in FloatingToolbar Button and HoverLinkOverlay.
+  FloatingToolbar Button: move onMouseEnter/onMouseLeave to Button component behind experiment gate.
+  HoverLinkOverlay: add no-op onFocus/onBlur handlers as keyboard equivalents.
+- Updated dependencies
+
+## 112.11.1
+
+### Patch Changes
+
+- [`0189eb81c663c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0189eb81c663c) -
+  Update types to include new autocomplete use workflow
+- Updated dependencies
+
+## 112.11.0
+
+### Minor Changes
+
+- [`15d5b8e4805ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15d5b8e4805ae) -
+  EDITOR-4680: Create a second anchor to mount a popup onto for better card positioning.
+
+### Patch Changes
+
+- [`3b007c601e102`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b007c601e102) -
+  EDITOR-6092 Remove 100 character limit on legacy paste actions for new editor AI paste actions
+  menu. Also redesigns the legacy paste actions to more closely resemble the legacy paste floating
+  toolbar when there are no AI actions present.
+- Updated dependencies
+
 ## 112.10.1
 
 ### Patch Changes

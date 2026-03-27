@@ -5,13 +5,13 @@ import cloneDeepWith from 'lodash/cloneDeepWith';
 import Button from '@atlaskit/button/new';
 import { code } from '@atlaskit/docs';
 import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/preset';
-import { type EditorProps } from '@atlaskit/editor-core';
+import type { EditorProps } from '@atlaskit/editor-core';
 import { createUniversalPresetInternal } from '@atlaskit/editor-core/preset-universal';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { getDefaultPresetOptionsFromEditorProps } from '../src/create-editor/create-plugins-list';
-import { type EditorNextProps } from '../src/types/editor-props';
+import type { EditorNextProps } from '../src/types/editor-props';
 import { createFeatureFlagsFromProps } from '../src/utils/feature-flags-from-props';
 
 type Complete<T> = {

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 5.1.13
+
+### Patch Changes
+
+- [`c9b7aaa42d05b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9b7aaa42d05b) -
+  Mechanical type-import autofix for editor core shell packages.
+- Updated dependencies
+
+## 5.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.11
 
 ### Patch Changes

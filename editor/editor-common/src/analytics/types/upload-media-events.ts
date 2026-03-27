@@ -1,4 +1,4 @@
-import { type ACTION, type ACTION_SUBJECT, type ACTION_SUBJECT_ID } from './enums';
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import type { OperationalAEP } from './utils';
 
 type MediaUploadAEP<Action, Attributes> = OperationalAEP<

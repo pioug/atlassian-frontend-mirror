@@ -52,13 +52,13 @@ export default class DemoMentionList extends React.Component<any, State> {
 		);
 
 		return (
-			<div style={{ paddingLeft: `${token('space.150', '12px')}` }}>
-				<div style={{ paddingBottom: `${token('space.150', '12px')}` }}>
+			<div style={{ paddingLeft: `${token('space.150')}` }}>
+				<div style={{ paddingBottom: `${token('space.150')}` }}>
 					<button
 						onClick={this.updateData}
 						style={{
-							height: `${token('space.400', '32px')}`,
-							marginRight: `${token('space.150', '12px')}`,
+							height: `${token('space.400')}`,
+							marginRight: `${token('space.150')}`,
 						}}
 					>
 						Random refresh
@@ -66,8 +66,8 @@ export default class DemoMentionList extends React.Component<any, State> {
 					<button
 						onClick={this.moveUp}
 						style={{
-							height: `${token('space.400', '32px')}`,
-							marginRight: `${token('space.150', '12px')}`,
+							height: `${token('space.400')}`,
+							marginRight: `${token('space.150')}`,
 						}}
 					>
 						Up
@@ -75,8 +75,8 @@ export default class DemoMentionList extends React.Component<any, State> {
 					<button
 						onClick={this.moveDown}
 						style={{
-							height: `${token('space.400', '32px')}`,
-							marginRight: `${token('space.150', '12px')}`,
+							height: `${token('space.400')}`,
+							marginRight: `${token('space.150')}`,
 						}}
 					>
 						Down

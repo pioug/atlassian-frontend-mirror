@@ -1,6 +1,5 @@
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { onMentionEvent } from '../example-helpers/index';
@@ -14,9 +13,9 @@ import { ELEMENTS_CHANNEL } from '../src/_constants';
 import ResourcedMention from '../src/components/Mention/ResourcedMention';
 
 const style = {
-	backgroundColor: token('elevation.surface.sunken', N20),
+	backgroundColor: token('elevation.surface.sunken'),
 	width: '100%',
-	padding: `${token('space.250', '20px')}`,
+	padding: `${token('space.250')}`,
 };
 
 const padding = { padding: '10px' };

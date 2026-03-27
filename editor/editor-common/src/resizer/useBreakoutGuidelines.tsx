@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { type GuidelineConfig } from '../guideline';
+import type { GuidelineConfig } from '../guideline';
 import type { BreakoutMode, EditorContainerWidth } from '../types';
 
 import type { Snap } from './types';

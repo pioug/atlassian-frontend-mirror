@@ -1,6 +1,6 @@
-import { type Comment } from '../src/model/Comment';
-import { type Conversation } from '../src/model/Conversation';
-import { type User } from '../src/model/User';
+import type { Comment } from '../src/model/Comment';
+import type { Conversation } from '../src/model/Conversation';
+import type { User } from '../src/model/User';
 import { uuid } from '../src/internal/uuid';
 
 export const MOCK_USERS: User[] = [

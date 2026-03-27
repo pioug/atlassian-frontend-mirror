@@ -1,4 +1,4 @@
-import { type INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
 	copyHTMLToClipboard,
@@ -11,7 +11,8 @@ import {
 	toDOM,
 } from '@atlaskit/editor-common/copy-button';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 export const copyNode =

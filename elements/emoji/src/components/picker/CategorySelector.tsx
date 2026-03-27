@@ -6,7 +6,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { cssMap, cx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { N30 } from '@atlaskit/theme/colors';
 import { useIntl } from 'react-intl-next';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
@@ -56,7 +55,7 @@ const styles = cssMap({
 
 const categorySelector = css({
 	flex: '0 0 auto',
-	backgroundColor: token('elevation.surface.sunken', N30),
+	backgroundColor: token('elevation.surface.sunken'),
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	button: {
@@ -65,10 +64,10 @@ const categorySelector = css({
 });
 
 const categorySelectorTablist = css({
-	paddingTop: token('space.075', '6px'),
-	paddingBottom: token('space.075', '6px'),
-	paddingLeft: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
+	paddingTop: token('space.075'),
+	paddingBottom: token('space.075'),
+	paddingLeft: token('space.100'),
+	paddingRight: token('space.100'),
 	display: 'flex',
 	flexDirection: 'row',
 	justifyContent: 'space-around',

@@ -72,9 +72,7 @@ function resolveEntryPointReExports({
 				if (statement.exportClause && ts.isNamedExports(statement.exportClause)) {
 					for (const element of statement.exportClause.elements) {
 						const exportedName = element.name.text;
-						const sourceName = element.propertyName
-							? element.propertyName.text
-							: exportedName;
+						const sourceName = element.propertyName ? element.propertyName.text : exportedName;
 						nameMap.set(sourceName, exportedName);
 					}
 				}
@@ -224,10 +222,7 @@ export function findExportForSourceFile({
 				for (const reExport of reExports) {
 					if (reExport.sourcePath === sourceFilePath) {
 						let entryPointExportName: string | undefined;
-						if (
-							sourceExportName !== undefined &&
-							reExport.nameMap.has(sourceExportName)
-						) {
+						if (sourceExportName !== undefined && reExport.nameMap.has(sourceExportName)) {
 							entryPointExportName = reExport.nameMap.get(sourceExportName);
 						}
 						return { exportPath, entryPointExportName };

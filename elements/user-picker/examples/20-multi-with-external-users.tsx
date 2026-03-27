@@ -31,12 +31,12 @@ const ExampleContainer = styled.div({
 	justifyContent: 'space-around',
 	width: '320px',
 	height: '120px',
-	padding: token('space.500', '40px'),
+	padding: token('space.500'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const InputWrapper = styled.div({
-	marginBottom: token('space.250', '20px'),
+	marginBottom: token('space.250'),
 });
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

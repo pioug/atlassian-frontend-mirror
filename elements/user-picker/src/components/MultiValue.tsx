@@ -64,7 +64,7 @@ const iconStyle = css({
 
 const nameWrapper = css({
 	font: token('font.body'),
-	paddingLeft: token('space.050', '4px'),
+	paddingLeft: token('space.050'),
 });
 
 const avatarTagWrapperStyle = css({

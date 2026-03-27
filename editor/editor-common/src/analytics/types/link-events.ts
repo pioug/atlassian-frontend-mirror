@@ -1,6 +1,6 @@
 import type { ACTION, ACTION_SUBJECT } from './enums';
-import { type MODE, type PLATFORMS } from './general-events';
-import { type TrackAEP } from './utils';
+import type { MODE, PLATFORMS } from './general-events';
+import type { TrackAEP } from './utils';
 
 export type VisitedLinkAEP = TrackAEP<
 	ACTION.VISITED,

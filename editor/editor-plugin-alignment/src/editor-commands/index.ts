@@ -3,8 +3,8 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	type EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	changeImageAlignment,
 	changeImageAlignmentNext,

@@ -3,7 +3,6 @@ import styled, { type StyledComponent } from '@emotion/styled';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { Theme } from '@emotion/react';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N900, N100, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
@@ -38,7 +37,7 @@ export const RowStyle: StyledComponent<
 	flexDirection: 'row',
 	flexWrap: 'wrap',
 	overflow: 'hidden',
-	padding: `${token('space.075', '6px')} ${token('space.150', '12px')}`,
+	padding: `${token('space.075')} ${token('space.150')}`,
 	textOverflow: 'ellipsis',
 	verticalAlign: 'middle',
 });
@@ -71,7 +70,7 @@ export const NameSectionStyle: StyledComponent<
 > = styled.div<NameSectionStyleProps>((props) => ({
 	flex: 1,
 	minWidth: 0,
-	marginLeft: token('space.150', '12px'),
+	marginLeft: token('space.150'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	opacity: props.restricted ? '0.5' : 'inherit',
 }));
@@ -90,7 +89,7 @@ export const FullNameStyle: StyledComponent<
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
-	color: token('color.text', N900),
+	color: token('color.text'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
@@ -118,7 +117,7 @@ export const InfoSectionStyle: StyledComponent<
 					marginTop: token('space.025'),
 				}
 			: {
-					marginBottom: token('space.025', '2px'),
+					marginBottom: token('space.025'),
 				},
 	},
 }));
@@ -133,9 +132,9 @@ export const TimeStyle: StyledComponent<
 	{}
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 > = styled.div({
-	marginLeft: token('space.250', '20px'),
+	marginLeft: token('space.250'),
 	flex: 'none',
-	color: token('color.text.subtlest', N100),
+	color: token('color.text.subtlest'),
 	font: token('font.body.small'),
 });
 
@@ -151,7 +150,7 @@ export const MentionItemStyle: StyledComponent<
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 > = styled.div<MentionItemStyleProps>((props) => ({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: props.selected ? token('color.background.selected', N30) : 'transparent',
+	backgroundColor: props.selected ? token('color.background.selected') : 'transparent',
 	display: 'block',
 	overflow: 'hidden',
 	listStyleType: 'none',
@@ -171,6 +170,6 @@ export const AccessSectionStyle: StyledComponent<
 	{}
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 > = styled.div({
-	paddingLeft: token('space.050', '4px'),
-	color: token('color.text.subtle', N500),
+	paddingLeft: token('space.050'),
+	color: token('color.text.subtle'),
 });

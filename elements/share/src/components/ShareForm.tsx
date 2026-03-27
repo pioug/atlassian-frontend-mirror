@@ -17,7 +17,6 @@ import { MenuGroup } from '@atlaskit/menu';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
-import { N300, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -58,7 +57,7 @@ const centerAlignedIconWrapperStyles = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const formWrapperStyles: SerializedStyles = css({
-	marginTop: token('space.100', '8px'),
+	marginTop: token('space.100'),
 	width: '100%',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'#ghx-modes-tools #ghx-share & h1:first-child': {
@@ -73,11 +72,11 @@ export const formFooterStyles: SerializedStyles = css({
 });
 
 const formFieldStyles = css({
-	marginBottom: token('space.150', '12px'),
+	marginBottom: token('space.150'),
 });
 
 const formFieldStylesSpacious = css({
-	marginBottom: token('space.250', '20px'),
+	marginBottom: token('space.250'),
 });
 
 const integrationWrapperStyles = css({
@@ -86,13 +85,13 @@ const integrationWrapperStyles = css({
 });
 
 const integrationIconWrapperStyles = css({
-	marginBottom: token('space.negative.075', '-6px'),
-	marginRight: token('space.050', '4px'),
+	marginBottom: token('space.negative.075'),
+	marginRight: token('space.050'),
 });
 
 const requiredFieldInfoStyles = css({
-	marginBottom: token('space.200', '16px'),
-	color: token('color.text.subtle', N300),
+	marginBottom: token('space.200'),
+	color: token('color.text.subtle'),
 	font: token('font.body.small'),
 });
 
@@ -311,7 +310,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 							<ErrorIcon
 								spacing="spacious"
 								label={formatMessage(messages.shareFailureIconLabel)}
-								color={token('color.icon.danger', R400)}
+								color={token('color.icon.danger')}
 							/>
 						</Tooltip>
 					)}

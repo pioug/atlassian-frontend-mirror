@@ -1,9 +1,6 @@
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import {
-	NodeSelection,
-	type Selection,
-	type Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

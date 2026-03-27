@@ -1,4 +1,5 @@
-import React, { type ErrorInfo } from 'react';
+import React from 'react';
+import type { ErrorInfo } from 'react';
 
 import type { Primitive } from '@sentry/types';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead

@@ -15,6 +15,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import { Layering } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import FadeIn from '@atlaskit/motion/fade-in';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -90,7 +91,13 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 	const isForeground = stackIndex === 0;
 
 	// When a user supplies a ref to focus we skip auto focus via react-focus-lock
-	const autoFocusLock = typeof autoFocus === 'boolean' ? autoFocus : false;
+	// When flag is true and a ref is not supplied, autofocus is true. See https://product-fabric.atlassian.net/browse/DSP-24307
+	// When we remove boolean `autoFocus`, we won't have to worry about this
+	const autoFocusLock = fg('platform_dst_autofocus-never-false-2')
+		? typeof autoFocus === 'boolean'
+		: typeof autoFocus === 'boolean'
+			? autoFocus
+			: false;
 
 	const onCloseHandler = usePlatformLeafEventHandler({
 		fn: providedOnClose || noop,

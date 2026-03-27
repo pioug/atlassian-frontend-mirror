@@ -93,6 +93,7 @@ const Step: React.ForwardRefExoticComponent<
 			testId,
 			children,
 			truncationWidth,
+			...rest
 		},
 		ref,
 	) => {
@@ -128,6 +129,7 @@ const Step: React.ForwardRefExoticComponent<
 					style={{
 						maxWidth: truncationWidth,
 					}}
+					{...rest}
 				>
 					{content}
 				</Anchor>
@@ -146,6 +148,7 @@ const Step: React.ForwardRefExoticComponent<
 				style={{
 					maxWidth: truncationWidth,
 				}}
+				{...rest}
 			>
 				{content}
 			</Pressable>

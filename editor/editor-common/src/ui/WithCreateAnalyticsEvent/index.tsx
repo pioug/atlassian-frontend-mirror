@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-	type CreateUIAnalyticsEvent,
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent, WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 export type Props = {

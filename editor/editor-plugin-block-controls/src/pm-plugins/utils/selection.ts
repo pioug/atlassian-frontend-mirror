@@ -1,12 +1,11 @@
 import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import {
-	NodeSelection,
-	TextSelection,
-	type ReadonlyTransaction,
-	type Selection,
-	type Transaction,
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type {
+	ReadonlyTransaction,
+	Selection,
+	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { CellSelection } from '@atlaskit/editor-tables';
 import { getTableSelectionClosesToPos } from '@atlaskit/editor-tables/utils';

@@ -1,12 +1,10 @@
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { type EditorState, TextSelection, Transaction } from '@atlaskit/editor-prosemirror/state';
-import {
-	type ContentNodeWithPos,
-	findParentNodeOfType,
-	findSelectedNodeOfType,
-} from '@atlaskit/editor-prosemirror/utils';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { TextSelection, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const getMaybeLayoutSection = (state: EditorState): ContentNodeWithPos | undefined => {

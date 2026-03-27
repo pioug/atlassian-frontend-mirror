@@ -21,26 +21,25 @@ export const i18nConversionInputSchema: z.ZodObject<
 > = z.object({
 	guide: z
 		.enum(['hardcoded-string-to-formatmessage'])
-		.describe('The i18n conversion guide to retrieve.'),
+		.describe(
+			'Which bundled guide to return. Currently only `hardcoded-string-to-formatmessage` (JSX literals → `formatMessage` / intl patterns).',
+		),
 });
 
 export const listI18nConversionTool: Tool = {
 	name: 'ads_i18n_conversion_guide',
-	description: `Provides comprehensive guide for converting hardcoded strings to use formatMessage from @atlassian/jira-intl or react-intl-next.
+	description: `Returns a **bundled** step-by-step guide for replacing hardcoded UI strings with \`formatMessage\` (and related patterns) using @atlassian/jira-intl or react-intl-next: message constants, placeholders, descriptions, and scope/limitations for systematic refactors.
 
-**TRIGGER**: Use this tool when you encounter:
-- "fix hardcoded string" / "fix hardcoded strings" / "fix hardcoded string in [file]"
-- "convert hardcoded string" / "convert to i18n" / "convert to formatMessage"
-- "translate string" / "internationalize string" / "i18n this string"
-- "use formatMessage" / "use FormattedMessage" / "wrap in formatMessage"
-- "literal string" / "fix literal string" / "convert literal string"
-- ESLint errors: "Literal string in JSX content should be internationalized. Use FormattedMessage or intl.formatMessage()"
-- ESLint errors: "@atlassian/i18n/no-literal-string-in-jsx"
-- Requests to convert hardcoded strings to i18n messages
+When working with i18n or hardcoded UI strings, use this tool alongside the Context Engine MCP tool \`get_i18n_docs\` for Atlassian-wide Traduki / i18n standards (message definition, extraction, pluralisation, formatting, workflow); this tool supplies the concrete hardcoded-string → \`formatMessage\` playbook bundled in ADS MCP.
 
-This tool helps LLM agents systematically convert hardcoded strings while respecting scope limitations and following best practices for message constants, placeholders, and descriptions.`,
+WHEN TO USE / TYPICAL TRIGGERS:
+- Refactoring JSX or TS literals to i18n; "fix hardcoded string(s)", "convert hardcoded string in [file]", "literal string in JSX".
+- "Convert to i18n", "convert to formatMessage", "translate this string", "internationalize this string", "i18n this string".
+- "Use formatMessage", "use FormattedMessage", "wrap in formatMessage", "fix literal string".
+- ESLint: \`Literal string in JSX content should be internationalized. Use FormattedMessage or intl.formatMessage()\`.
+- ESLint: \`@atlassian/i18n/no-literal-string-in-jsx\`.`,
 	annotations: {
-		title: 'i18n Conversion Guide',
+		title: 'i18n conversion guide',
 		readOnlyHint: true,
 		destructiveHint: false,
 		idempotentHint: true,

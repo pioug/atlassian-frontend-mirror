@@ -2,11 +2,8 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import {
-	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
-	type AnalyticsEventPayload,
-} from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -24,7 +21,7 @@ import {
 } from '@atlaskit/editor-common/utils';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { AllSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import {
 	ToolbarSection,

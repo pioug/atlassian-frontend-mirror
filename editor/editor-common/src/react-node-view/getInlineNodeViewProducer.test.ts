@@ -2,7 +2,8 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
-import { getInlineNodeViewProducer, type CreateNodeViewOptions } from './getInlineNodeViewProducer';
+import { getInlineNodeViewProducer } from './getInlineNodeViewProducer';
+import type { CreateNodeViewOptions } from './getInlineNodeViewProducer';
 
 /**
  * This file was identified as having accessibility violations.

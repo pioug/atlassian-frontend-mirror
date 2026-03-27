@@ -1,11 +1,11 @@
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { ACTION, EditorAnalyticsAPI, INPUT_METHOD } from '../analytics';
-import { type CardAppearance, type CardProvider } from '../provider-factory';
+import type { CardAppearance, CardProvider } from '../provider-factory';
 import type { Command, FloatingToolbarItem } from '../types';
 
 export interface OptionConfig {

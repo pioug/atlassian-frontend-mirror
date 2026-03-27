@@ -29,27 +29,26 @@ export const searchTokensInputSchema: z.ZodObject<
 	terms: z
 		.array(z.string())
 		.describe(
-			'An array of search terms to find tokens by name or description, eg. `["spacing", "inverted text", "background primary"]`',
+			'Required: one or more terms; fuzzy match on token **name**, **description**, and **exampleValue**. Example: `["spacing", "color.text", "background"]`.',
 		),
-	limit: z
-		.number()
-		.default(1)
-		.describe('Maximum number of results per search term in the array (default: 1)')
-		.optional(),
+	limit: z.number().default(1).describe('Max matches **per term** (default 1).').optional(),
 	exactName: z
 		.boolean()
 		.default(false)
 		.describe(
-			'Enable to explicitly search tokens by the exact name match (when you know the name, but need more details)',
+			'If true, match each term to a token **name** only, case-insensitively. If false, fuzzy search.',
 		)
 		.optional(),
 });
 
 export const listSearchTokensTool: Tool = {
 	name: 'ads_search_tokens',
-	description: `Search for Atlassian Design System tokens.
+	description: `Searches Atlassian Design System **design tokens** from bundled metadata. Returns JSON objects with **name** and **exampleValue** for each match (search also considers description in metadata).
 
-Example token usage:
+WHEN TO USE:
+**Styling or theming in code**—you need the right \`token('…')\` names for colors, space, typography, etc. Use during layout and visual work when tokens must match ADS. Prefer \`ads_plan\` when you also need icons and components in the same step.
+
+Example:
 \`\`\`tsx
 import { token } from '@atlaskit/tokens';
 const styles = css({ color: token('color.text'), padding: token('space.100') });

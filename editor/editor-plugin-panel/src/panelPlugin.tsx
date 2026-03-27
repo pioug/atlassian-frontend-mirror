@@ -35,7 +35,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { T50 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { type PanelPlugin } from './panelPluginType';
+import type { PanelPlugin } from './panelPluginType';
 import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
 import { createPanelBlockMenuItem } from './ui/panelBlockMenuItem';

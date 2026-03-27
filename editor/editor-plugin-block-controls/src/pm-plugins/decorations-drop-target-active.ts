@@ -1,4 +1,4 @@
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
@@ -6,8 +6,9 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { type NodeWithPos, findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
-import { type Decoration } from '@atlaskit/editor-prosemirror/view';
+import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
+import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

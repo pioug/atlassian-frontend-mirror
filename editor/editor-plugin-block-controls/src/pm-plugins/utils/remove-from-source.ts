@@ -1,9 +1,6 @@
-import {
-	Fragment,
-	type ResolvedPos,
-	type Node as PMNode,
-} from '@atlaskit/editor-prosemirror/model';
-import { type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { ResolvedPos, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

@@ -14,7 +14,6 @@ import React, {
 } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { B100, N30 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
 import {
@@ -67,7 +66,7 @@ const emojiSpriteContainer = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.emoji-common-selected,&.emoji-common-select-on-hover:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -80,7 +79,7 @@ const emojiSpriteContainer = css({
 	},
 
 	'&:focus': {
-		boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+		boxShadow: `0 0 0 2px ${token('color.border.focused')}`,
 		transitionDuration: '0s, 0.2s',
 		outline: 'none',
 	},
@@ -103,7 +102,7 @@ const emojiImageContainer = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.emoji-common-selected,&.emoji-common-select-on-hover:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -124,7 +123,7 @@ const emojiImageContainer = css({
 	},
 
 	'&:focus': {
-		boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+		boxShadow: `0 0 0 2px ${token('color.border.focused')}`,
 		transitionDuration: '0s, 0.2s',
 		outline: 'none',
 	},

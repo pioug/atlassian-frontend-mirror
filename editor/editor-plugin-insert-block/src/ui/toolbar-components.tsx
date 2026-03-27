@@ -30,7 +30,8 @@ import {
 	CODE_BLOCK_GROUP_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Show, ToolbarButtonGroup, type Breakpoint } from '@atlaskit/editor-toolbar';
+import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
+import type { Breakpoint } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
 import type { InsertBlockPlugin } from '../insertBlockPluginType';

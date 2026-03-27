@@ -1,5 +1,13 @@
 # @atlaskit/editor-jira-transformer
 
+## 16.0.2
+
+### Patch Changes
+
+- [`c9b7aaa42d05b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9b7aaa42d05b) -
+  Mechanical type-import autofix for editor core shell packages.
+- Updated dependencies
+
 ## 16.0.1
 
 ### Patch Changes

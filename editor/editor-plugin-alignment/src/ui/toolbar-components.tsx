@@ -13,10 +13,10 @@ import {
 	TEXT_SECTION_PRIMARY_TOOLBAR,
 	TEXT_SECTION_PRIMARY_TOOLBAR_RANK,
 } from '@atlaskit/editor-common/toolbar';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 
-import { type AlignmentPlugin } from '../alignmentPluginType';
+import type { AlignmentPlugin } from '../alignmentPluginType';
 import type { AlignmentState } from '../pm-plugins/types';
 
 import { AlignmentMenu } from './Toolbar/AlignmentMenu';

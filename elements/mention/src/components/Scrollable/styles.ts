@@ -19,9 +19,9 @@ export const ScrollableStyle: StyledComponent<
 	display: 'block',
 	overflowX: 'hidden',
 	overflowY: 'auto',
-	padding: `${token('space.050', '4px')} 0`,
+	padding: `${token('space.050')} 0`,
 	margin: 0,
-	background: token('elevation.surface', 'white'),
+	background: token('elevation.surface'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxHeight: scrollableMaxHeight,
 	borderRadius: token('radius.small', '3px'),

@@ -153,10 +153,10 @@ const checkboxStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&:focus + span::after': {
 			position: 'absolute',
-			width: token('space.200', '16px'),
-			height: token('space.200', '16px'),
+			width: token('space.200'),
+			height: token('space.200'),
 			border: `${token('border.width.selected')} solid ${token('color.border.focused')}`,
-			borderRadius: token('space.050', '4px'),
+			borderRadius: token('space.050'),
 			content: "''",
 			display: 'block',
 			top: '50%',

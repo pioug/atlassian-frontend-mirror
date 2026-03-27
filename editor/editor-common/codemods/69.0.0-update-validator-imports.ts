@@ -1,4 +1,5 @@
-import { createTransformer, type API, type FileInfo, type Options } from '@atlaskit/codemod-utils';
+import { createTransformer } from '@atlaskit/codemod-utils';
+import type { API, FileInfo, Options } from '@atlaskit/codemod-utils';
 
 import { validatorExports, validatorTypes } from './migrates/entry-points';
 

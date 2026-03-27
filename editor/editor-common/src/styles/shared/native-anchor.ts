@@ -1,6 +1,9 @@
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, type SerializedStyles } from '@emotion/react';
-import memoizeOne, { type MemoizedFn } from 'memoize-one';
+import { css } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
+import memoizeOne from 'memoize-one';
+import type { MemoizedFn } from 'memoize-one';
 
 export const ANCHOR_VARIABLE_NAME = '--ed-pm-node-anchor';
 

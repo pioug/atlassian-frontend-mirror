@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import { bind, bindAll, type UnbindFn } from 'bind-event-listener';
+import { bind, bindAll } from 'bind-event-listener';
+import type { UnbindFn } from 'bind-event-listener';
 
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
@@ -17,15 +18,15 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAnalyticsAPI } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
-import { type BreakoutEventPayload } from '../analytics/types/breakout-events';
-import { type GuidelineConfig } from '../guideline';
+import type { BreakoutEventPayload } from '../analytics/types/breakout-events';
+import type { GuidelineConfig } from '../guideline';
 import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles';
-import { type EditorContainerWidth, type getPosHandlerNode } from '../types';
+import type { EditorContainerWidth, getPosHandlerNode } from '../types';
 import { browser as browserLegacy, getBrowserInfo } from '../utils/browser';
 
 import Resizer from './Resizer';
 import { ResizerBreakoutModeLabel } from './ResizerBreakoutModeLabel';
-import { type HandleResize, type HandleResizeStart } from './types';
+import type { HandleResize, HandleResizeStart } from './types';
 import { SNAP_GAP, useBreakoutGuidelines } from './useBreakoutGuidelines';
 
 type ResizingState = { isResizing: boolean; maxWidth?: number; minWidth?: number };

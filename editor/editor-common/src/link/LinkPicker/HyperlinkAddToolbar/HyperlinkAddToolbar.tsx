@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -6,7 +7,8 @@ import type { KeyboardEvent, RefObject } from 'react';
 import React, { PureComponent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import { flushSync } from 'react-dom';
 import FocusLock from 'react-focus-lock';

@@ -1,15 +1,12 @@
 import type React from 'react';
 
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { type EventDispatcher } from '../event-dispatcher';
-import { type PortalProviderAPI } from '../portal';
-import ReactNodeView, {
-	type getPosHandler,
-	type ReactComponentProps,
-	type shouldUpdate,
-} from '../react-node-view';
+import type { EventDispatcher } from '../event-dispatcher';
+import type { PortalProviderAPI } from '../portal';
+import ReactNodeView from '../react-node-view';
+import type { getPosHandler, ReactComponentProps, shouldUpdate } from '../react-node-view';
 
 /**
  * A ReactNodeView that handles React components sensitive

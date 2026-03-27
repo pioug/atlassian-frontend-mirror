@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { token } from '@atlaskit/tokens';
-import { type IconColor } from '@atlaskit/tokens/css-type-schema';
+import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 
 import { AddIcon } from '../../../src/ui/icons/AddIcon';
 import { AIChatIcon } from '../../../src/ui/icons/AIChatIcon';
@@ -31,7 +31,8 @@ import { TaskIcon } from '../../../src/ui/icons/TaskIcon';
 import { TextColorIcon } from '../../../src/ui/icons/TextColorIcon';
 import { TextIcon } from '../../../src/ui/icons/TextIcon';
 import { UnderlineIcon } from '../../../src/ui/icons/UnderlineIcon';
-import { type BreakpointPreset, ResponsiveContainer } from '../../../src/ui/ResponsiveContainer';
+import { ResponsiveContainer } from '../../../src/ui/ResponsiveContainer';
+import type { BreakpointPreset } from '../../../src/ui/ResponsiveContainer';
 import { Show } from '../../../src/ui/Show';
 import { Toolbar } from '../../../src/ui/Toolbar';
 import { ToolbarButton } from '../../../src/ui/ToolbarButton';

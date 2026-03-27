@@ -11,7 +11,6 @@ import {
 } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { B100 } from '@atlaskit/theme/colors';
 import type { EmojiDescription } from '../../types';
 import Emoji from './Emoji';
 
@@ -36,10 +35,10 @@ const emojiButton = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&>span': {
-		paddingTop: token('space.075', '6px'),
-		paddingBottom: token('space.075', '6px'),
-		paddingLeft: token('space.075', '6px'),
-		paddingRight: token('space.075', '6px'),
+		paddingTop: token('space.075'),
+		paddingBottom: token('space.075'),
+		paddingLeft: token('space.075'),
+		paddingRight: token('space.075'),
 
 		// Scale sprite to fit regardless of default emoji size
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -56,7 +55,7 @@ const emojiButton = css({
 	},
 
 	'&:focus': {
-		boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+		boxShadow: `0 0 0 2px ${token('color.border.focused')}`,
 		transitionDuration: '0s, 0.2s',
 		outline: 'none',
 	},

@@ -11,7 +11,8 @@ import {
 } from '@atlaskit/adf-utils/transforms';
 import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { Fragment, Node, type Schema } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Node } from '@atlaskit/editor-prosemirror/model';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DispatchAnalyticsEvent } from '../analytics';

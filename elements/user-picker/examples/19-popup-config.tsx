@@ -21,17 +21,17 @@ export const MenuPlaceholder: StyledComponent<
 	{}
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 > = styled.div((props) => ({
-	minWidth: token('space.150', '12px'),
+	minWidth: token('space.150'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	visibility: props ? 'visible' : 'hidden',
-	marginLeft: token('space.050', '4px'),
+	marginLeft: token('space.050'),
 	position: 'relative',
 }));
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const SelectContainer = styled.div({
 	width: '250px',
-	paddingLeft: token('space.150', '12px'),
+	paddingLeft: token('space.150'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard

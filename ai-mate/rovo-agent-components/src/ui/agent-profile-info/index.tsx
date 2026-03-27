@@ -16,12 +16,10 @@ import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
+import type { AgentCreatorType } from '../../common/types';
 import { HiddenIcon } from '../../common/ui/hidden-icon';
 import { StarIconButton } from '../../common/ui/star-icon-button';
-import {
-	type AgentCreatorType,
-	isForgeAgentByCreatorType,
-} from '../../common/utils/is-forge-agent';
+import { isForgeAgentByCreatorType } from '../../common/utils/is-forge-agent';
 
 import { messages } from './messages';
 
@@ -218,6 +216,7 @@ export const AgentProfileInfo = ({
 	isHidden,
 	onStarToggle,
 	showStarButton = true,
+	renderAdditionalContent,
 }: {
 	agentName: string;
 	agentDescription?: string | null;
@@ -228,6 +227,7 @@ export const AgentProfileInfo = ({
 	isHidden: boolean;
 	onStarToggle: () => void;
 	showStarButton?: boolean;
+	renderAdditionalContent?: () => React.ReactNode;
 }): JSX.Element => {
 	const { formatMessage } = useIntl();
 	return (
@@ -257,6 +257,7 @@ export const AgentProfileInfo = ({
 				</Box>
 			)}
 			{starCountRender}
+			{!!renderAdditionalContent && fg('jira_browse_agents_modal') && renderAdditionalContent()}
 		</Stack>
 	);
 };

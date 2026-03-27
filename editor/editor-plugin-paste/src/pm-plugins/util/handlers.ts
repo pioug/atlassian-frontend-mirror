@@ -4,6 +4,7 @@ import uuid from 'uuid/v4';
 import type { MentionAttributes } from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI, InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import type { CardOptions, QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
 import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
@@ -829,11 +830,13 @@ function insertAutoMacro(
 
 		// replace the text with the macro as a separate transaction
 		// so the autoconversion generates 2 undo steps
-		view.dispatch(
-			closeHistory(view.state.tr)
-				.replaceRangeWith(before, before + slice.size, macro)
-				.scrollIntoView(),
-		);
+		const macroTr = closeHistory(view.state.tr)
+			.replaceRangeWith(before, before + slice.size, macro)
+			.scrollIntoView();
+		addLinkMetadata(view.state.selection, macroTr, {
+			inputMethod: INPUT_METHOD.CLIPBOARD,
+		});
+		view.dispatch(macroTr);
 		return true;
 	}
 	return false;

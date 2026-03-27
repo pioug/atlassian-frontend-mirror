@@ -300,15 +300,8 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 		setCanFocusSearch(true);
 	};
 
-	return (
-		/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable*/
-		<div
-			css={wrapper}
-			data-testid="element-browser"
-			id={ELEMENT_BROWSER_ID}
-			onKeyUp={canFocusSearch ? undefined : handleKeyPress}
-			onClick={canFocusSearch ? undefined : handleClick}
-		>
+	const browserContent = (
+		<React.Fragment>
 			<ContainerWidthMonitor />
 			{containerWidth < DEVICE_BREAKPOINT_NUMBERS.medium ? (
 				<MobileBrowser
@@ -353,6 +346,34 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 					cache={cache}
 				/>
 			)}
+		</React.Fragment>
+	);
+
+	if (expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)) {
+		return (
+			<div
+				css={wrapper}
+				data-testid="element-browser"
+				id={ELEMENT_BROWSER_ID}
+				role="none"
+				onKeyUp={canFocusSearch ? undefined : handleKeyPress}
+				onClick={canFocusSearch ? undefined : handleClick}
+			>
+				{browserContent}
+			</div>
+		);
+	}
+
+	return (
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
+		<div
+			css={wrapper}
+			data-testid="element-browser"
+			id={ELEMENT_BROWSER_ID}
+			onKeyUp={canFocusSearch ? undefined : handleKeyPress}
+			onClick={canFocusSearch ? undefined : handleClick}
+		>
+			{browserContent}
 		</div>
 	);
 }
@@ -400,9 +421,11 @@ function MobileBrowser({
 		setFocusOnSearch: () => void;
 	}) {
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<div
 			css={mobileElementBrowserContainer}
+			role={
+				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? 'none' : undefined
+			}
 			onKeyDown={onKeyDown}
 			data-testid="mobile__element-browser"
 		>
@@ -522,23 +545,44 @@ function DesktopBrowser({
 							description="Sidebar heading"
 						/>
 					</div>
-					{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-to-interactive-role*/}
-					<nav role="tablist" aria-labelledby="sidebar-heading" css={categoryListWrapper}>
-						<CategoryList
-							categories={categories}
-							onSelectCategory={onSelectCategory}
-							selectedCategory={selectedCategory}
-							createAnalyticsEvent={createAnalyticsEvent}
-							focusedCategoryIndex={focusedCategoryIndex}
-							setFocusedCategoryIndex={setFocusedCategoryIndex}
-							setFocusedItemIndex={setFocusedItemIndex}
-							setFocusOnSearch={setFocusOnSearch}
-						/>
-					</nav>
+					{expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? (
+						<div role="tablist" aria-labelledby="sidebar-heading" css={categoryListWrapper}>
+							<CategoryList
+								categories={categories}
+								onSelectCategory={onSelectCategory}
+								selectedCategory={selectedCategory}
+								createAnalyticsEvent={createAnalyticsEvent}
+								focusedCategoryIndex={focusedCategoryIndex}
+								setFocusedCategoryIndex={setFocusedCategoryIndex}
+								setFocusedItemIndex={setFocusedItemIndex}
+								setFocusOnSearch={setFocusOnSearch}
+							/>
+						</div>
+					) : (
+						// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-to-interactive-role
+						<nav role="tablist" aria-labelledby="sidebar-heading" css={categoryListWrapper}>
+							<CategoryList
+								categories={categories}
+								onSelectCategory={onSelectCategory}
+								selectedCategory={selectedCategory}
+								createAnalyticsEvent={createAnalyticsEvent}
+								focusedCategoryIndex={focusedCategoryIndex}
+								setFocusedCategoryIndex={setFocusedCategoryIndex}
+								setFocusedItemIndex={setFocusedItemIndex}
+								setFocusOnSearch={setFocusOnSearch}
+							/>
+						</nav>
+					)}
 				</div>
 			)}
-			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions*/}
-			<div css={mainContent} onKeyDown={onKeyDown} data-testid="main-content">
+			<div
+				css={mainContent}
+				role={
+					expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? 'none' : undefined
+				}
+				onKeyDown={onKeyDown}
+				data-testid="main-content"
+			>
 				{showSearch && (
 					// eslint-disable-next-line
 					<div css={searchContainer}>

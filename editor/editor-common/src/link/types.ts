@@ -1,7 +1,7 @@
-import { type Node } from '@atlaskit/editor-prosemirror/model';
-import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import { type INPUT_METHOD } from '../analytics';
+import type { INPUT_METHOD } from '../analytics';
 import type { EditorAppearance } from '../types';
 
 export enum LinkAction {

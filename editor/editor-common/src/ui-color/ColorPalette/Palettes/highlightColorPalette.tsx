@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { type ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';

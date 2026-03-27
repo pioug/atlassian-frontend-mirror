@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme';
 import React, { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { AddOptionAvatar } from '../../../components/AddOptionAvatar';
 import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
@@ -49,8 +48,8 @@ describe('EmailOption', () => {
 		expect(formattedMessage).toHaveLength(1);
 		const message = renderProp(formattedMessage, 'children', 'Invite');
 		const avatarItemOption = message.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', N800));
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', N200));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', '#6B6E76'));
 		expect(avatarItemOption.props().avatar).toEqual(<AddOptionAvatar label="Invite" />);
 		const primaryText = avatarItemOption.props().primaryText as ReactElement;
 
@@ -78,8 +77,8 @@ describe('EmailOption', () => {
 		const message = renderProp(formattedMessage, 'children', 'Invite');
 		const avatarItemOption = message.find(AvatarItemOption);
 
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', N800));
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', N200));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', '#6B6E76'));
 		expect(avatarItemOption.props().avatar).toEqual(<AddOptionAvatar label="Invite" />);
 		const primaryText = avatarItemOption.props().primaryText as ReactElement;
 
@@ -103,8 +102,8 @@ describe('EmailOption', () => {
 			emailValidity: 'VALID',
 		});
 		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', N800));
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', N200));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', '#6B6E76'));
 		expect(avatarItemOption.props().avatar).toEqual(<AddOptionAvatar label="Add new user" />);
 		const primaryText = avatarItemOption.props().primaryText as ReactElement;
 

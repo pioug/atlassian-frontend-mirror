@@ -6,7 +6,6 @@ import { css, cssMap, jsx } from '@compiled/react';
 import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import { token } from '@atlaskit/tokens';
-import { N500 } from '@atlaskit/theme/colors';
 import { deleteEmojiLabel } from '../../util/constants';
 import { emojiDeleteButton } from './styles';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -23,8 +22,8 @@ const deleteButton = css({
 	visibility: 'hidden',
 	display: 'flex',
 	position: 'absolute',
-	top: token('space.negative.100', '-8px'),
-	right: token('space.negative.100', '-8px'),
+	top: token('space.negative.100'),
+	right: token('space.negative.100'),
 	zIndex: 1,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& span': {
@@ -50,7 +49,7 @@ const DeleteButton = (props: ButtonProps): JSX.Element => (
 				<Box xcss={styles.boxWrapperStyle}>
 					<CrossCircleIcon
 						label={deleteEmojiLabel}
-						color={token('color.text.subtle', N500)}
+						color={token('color.text.subtle')}
 						size="small"
 					/>
 				</Box>

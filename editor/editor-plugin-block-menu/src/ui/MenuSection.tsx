@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { useIntl, type MessageDescriptor } from 'react-intl-next';
+import { useIntl } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl-next';
 
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 

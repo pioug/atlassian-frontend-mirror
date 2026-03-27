@@ -4,7 +4,6 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 import { AtlassianIcon } from '@atlaskit/logo';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import BreadcrumbsItem from '../../breadcrumbs-item';
 
@@ -88,51 +87,18 @@ describe('BreadcrumbsItem', () => {
 		expect(item).toHaveAttribute('target', '_blank');
 	});
 
-	describe('should render an anchor when passed a `href`', () => {
-		ffTest(
-			'platform_dst_breadcrumbs_step_conversion',
-			() => {
-				render(<BreadcrumbsItem href="/item" testId="item" text="Some text" />);
-
-				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
-			},
-			() => {
-				render(<BreadcrumbsItem href="/item" testId="item" text="Some text" />);
-
-				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
-			},
-		);
+	it('should render an anchor when passed a `href`', () => {
+		render(<BreadcrumbsItem href="/item" testId="item" text="Some text" />);
+		expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
 	});
 
-	describe('should render an anchor when passed both a `href` and `onClick`', () => {
-		ffTest(
-			'platform_dst_breadcrumbs_step_conversion',
-			() => {
-				render(<BreadcrumbsItem onClick={__noop} href="/item" testId="item" text="Some text" />);
-
-				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
-			},
-			() => {
-				render(<BreadcrumbsItem onClick={__noop} href="/item" testId="item" text="Some text" />);
-
-				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
-			},
-		);
+	it('should render an anchor when passed both a `href` and `onClick`', () => {
+		render(<BreadcrumbsItem onClick={__noop} href="/item" testId="item" text="Some text" />);
+		expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
 	});
 
-	describe('should render a button when passed a `onClick` with no `href`', () => {
-		ffTest(
-			'platform_dst_breadcrumbs_step_conversion',
-			() => {
-				render(<BreadcrumbsItem onClick={__noop} testId="item" text="Some text" />);
-
-				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLButtonElement);
-			},
-			() => {
-				render(<BreadcrumbsItem onClick={__noop} testId="item" text="Some text" />);
-
-				expect(screen.getByTestId('item')).toBeInstanceOf(HTMLAnchorElement);
-			},
-		);
+	it('should render a button when passed a `onClick` with no `href`', () => {
+		render(<BreadcrumbsItem onClick={__noop} testId="item" text="Some text" />);
+		expect(screen.getByTestId('item')).toBeInstanceOf(HTMLButtonElement);
 	});
 });

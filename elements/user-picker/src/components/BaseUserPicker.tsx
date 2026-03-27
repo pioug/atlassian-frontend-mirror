@@ -334,7 +334,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		}
 		this.startOptionsShownUfoExperience();
 		callCallback(this.props.onFocus, this.getSessionId());
-		if (!this.isMenuOpenOnClickForSingleSelect) {
+		const openMenuOnFocus = this.props.openMenuOnFocus ?? true;
+		if (!this.isMenuOpenOnClickForSingleSelect && openMenuOnFocus) {
 			this.setState({ menuIsOpen: true });
 			if (!this.props.isMulti && isSingleValue(value)) {
 				const input = event.target;
@@ -773,6 +774,7 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<
 				clearValueLabel?: string;
 				closeMenuOnScroll?: boolean | EventListener;
 				components?: SelectComponentsConfig<OptionData, boolean>;
+				customGroupLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>;
 				defaultValue?: DefaultValue;
 				disableInput?: boolean;
 				emailLabel?: string;
@@ -780,7 +782,6 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<
 				footer?: React.ReactNode;
 				forwardedRef?: React.ForwardedRef<UserPickerRef>;
 				groupByTypeOrder?: NonNullable<OptionData['type']>[];
-				customGroupLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>;
 				header?: React.ReactNode;
 				height?: number | string;
 				includeTeamsUpdates?: boolean;

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { hydrateRoot } from 'react-dom/client';
 import Loadable from 'react-loadable';
 import { type MediaClientConfig } from '@atlaskit/media-core';
 import { type SSR } from '@atlaskit/media-common';
@@ -80,14 +80,14 @@ const runSSR = async (
 	if (elem) {
 		elem.innerHTML = txt;
 		hydrate &&
-			ReactDOM.hydrate(
+			hydrateRoot(
+				elem,
 				<Page
 					ssr="client"
 					title={'SSR + Hydration'}
 					mode={mode}
 					mediaClientConfig={mediaClientConfig}
 				/>,
-				elem,
 			);
 	}
 };

@@ -1,10 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import {
-	type EditorUGCTokens,
-	editorUGCTokens,
-	editorUGCTokensRefreshed,
-} from './editor-ugc-token-names';
+import { editorUGCTokens, editorUGCTokensRefreshed } from './editor-ugc-token-names';
+import type { EditorUGCTokens } from './editor-ugc-token-names';
 
 function editorUGCToken<T extends keyof EditorUGCTokens>(path: T): EditorUGCTokens[T] {
 	let tokens;

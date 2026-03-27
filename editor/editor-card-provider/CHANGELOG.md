@@ -1,5 +1,22 @@
 # @atlaskit/editor-card-provider
 
+## 6.6.0
+
+### Minor Changes
+
+- [`f0140695e5997`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0140695e5997) -
+  EDITOR-5585 all split function for card provider with config
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.5.6
 
 ### Patch Changes

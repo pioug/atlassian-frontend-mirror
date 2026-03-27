@@ -2,31 +2,24 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useState } from 'react';
+import EditorPanelIcon from '@atlaskit/icon/core/status-information';
+import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
-import EditorPanelIcon from '@atlaskit/icon/core/status-information';
-import { N50, N200 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
 const wrapper = css({
 	display: 'flex',
-	marginRight: token('space.050', '4px'),
+	marginRight: token('space.050'),
 });
 
 export default (): jsx.JSX.Element => {
-	const [isMouseHovered, setHoverState] = useState(false);
-	const onMouseEnter = useCallback(() => setHoverState(true), [setHoverState]);
-	const onMouseLeave = useCallback(() => setHoverState(false), [setHoverState]);
-
 	return (
-		// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-		<div css={wrapper} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+		<div css={wrapper}>
 			<EditorPanelIcon
 				testId="source-icon"
 				label=""
 				spacing="spacious"
-				color={token('color.text.subtlest', isMouseHovered ? N200 : N50)}
+				color={token('color.text.subtlest')}
 			/>
 		</div>
 	);

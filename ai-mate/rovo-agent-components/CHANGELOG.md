@@ -1,5 +1,29 @@
 # @atlaskit/rovo-agent-components
 
+## 3.48.0
+
+### Minor Changes
+
+- [`5763146cffd44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5763146cffd44) - -
+  Update AgentCreatorType import from @atlassian/rovo-agent-components.
+  - Update `AssistanceService.getAgentKnowledgeConfiguration` to accept an optional
+    `agentCreatorType` to pass as query params to the underlying `/knowledge` endpoint.
+  - Update `KnowledgeSourcesField` to pass in `creatorType` value, under a FG
+    `rovo_agent_knowledge_source_allow_list`.
+
+## 3.47.0
+
+### Minor Changes
+
+- [`f04cf52b53925`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f04cf52b53925) -
+  [ux] This change adds two new props to the browse agent modal and view agent modal to optionally
+  allow additional content and CTA to be rendered in the agent profile. An opt-in change to the chat
+  button has also been added to account for reduced space when the CTA is used.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.46.3
 
 ### Patch Changes

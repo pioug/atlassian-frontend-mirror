@@ -1,7 +1,9 @@
-import { nodeToJSON, type JSONNode } from '@atlaskit/editor-json-transformer';
+import { nodeToJSON } from '@atlaskit/editor-json-transformer';
+import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { TextSelection, NodeSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 const listDepth = 3;
 

@@ -30,6 +30,16 @@ const provider = new EditorCardProvider('stg');
 // You may also pass in a base url override, if you'd like EditorCardProvider
 // to make requests other than api-private.atlassian.com (prod) or pug.jira-dev.com (stg)
 const provider = new EditorCardProvider('stg', 'www.acme.com/your-api-here');
+
+// You may optionally pass a url filter to control which card nodes are supported.
+const provider = new EditorCardProvider(
+	'stg',
+	undefined,
+	undefined,
+	undefined,
+	undefined,
+	(url) => url.endsWith('.atlassian.net'),
+);
 ```
 
 ## Team

@@ -6,9 +6,14 @@ import { zodToJsonSchema } from '../../helpers';
 
 import { loadAllComponents } from './load-all-components';
 
-export const listGetComponentsTool: Tool = {
-	name: 'ads_get_components',
-	description: `Fetch all Atlassian Design System components. Only use when \`ads_search_components\` does not return what you're looking for.`,
+export const listGetAllComponentsTool: Tool = {
+	name: 'ads_get_all_components',
+	description: `Returns **every** Atlassian Design System component record as separate JSON text chunks (full catalog; large payload).
+
+WHEN TO USE:
+Last resort when \`ads_plan\` / \`ads_search_components\` is insufficient and you must enumerate all components. Prefer search for normal component picking.
+
+No parameters.`,
 	annotations: {
 		title: 'Get all ADS components',
 		readOnlyHint: true,
@@ -19,7 +24,7 @@ export const listGetComponentsTool: Tool = {
 	inputSchema: zodToJsonSchema(z.object({})),
 };
 
-export const getComponentsTool = async (): Promise<{
+export const getAllComponentsTool = async (): Promise<{
 	content: {
 		// NOTE: Ideally one day the MCP would support structured content…
 		// eg. `type: 'object', data: component`

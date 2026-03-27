@@ -1,4 +1,5 @@
-import { changeImportEntryPoint, type Collection, type JSCodeshift } from '@atlaskit/codemod-utils';
+import { changeImportEntryPoint } from '@atlaskit/codemod-utils';
+import type { Collection, JSCodeshift } from '@atlaskit/codemod-utils';
 
 const PACKAGE_NAME = '@atlaskit/editor-common';
 

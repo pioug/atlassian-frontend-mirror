@@ -1,6 +1,6 @@
-import { type ACTION, type ACTION_SUBJECT, type ACTION_SUBJECT_ID } from './enums';
-import { type InsertDateAEP } from './insert-events';
-import { type TrackAEP } from './utils';
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
+import type { InsertDateAEP } from './insert-events';
+import type { TrackAEP } from './utils';
 
 export enum AI_SUGGESTION_TRIGGERED_FROM {
 	ENTER_BUTTON = 'enterKeydown',

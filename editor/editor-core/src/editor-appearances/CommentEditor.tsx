@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CoreEditor } from '../composable-editor/core-editor';
-import { type EditorNextProps } from '../types/editor-props';
+import type { EditorNextProps } from '../types/editor-props';
 import { CommentEditorWithIntl as Comment } from '../ui/Appearance/Comment/Comment';
 
 export type CommentEditorProps = Pick<

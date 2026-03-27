@@ -23,7 +23,7 @@ export interface Props {
 const placeholderStyles = css({
 	position: 'absolute',
 	color: token('color.text.subtlest'),
-	margin: `0 0 0 calc(${token('space.100', '8px')} * 3.5)`,
+	margin: `0 0 0 calc(${token('space.100')} * 3.5)`,
 	pointerEvents: 'none',
 	textOverflow: 'ellipsis',
 	overflow: 'hidden',
@@ -32,20 +32,20 @@ const placeholderStyles = css({
 });
 
 const placeholderTaskStyles = css({
-	margin: `0 0 0 calc(${token('space.100', '8px')} * 3)`,
+	margin: `0 0 0 calc(${token('space.100')} * 3)`,
 });
 
 const decisionStyles = css({
 	display: 'flex',
 	flexDirection: 'row',
-	marginTop: token('space.100', '8px'),
+	marginTop: token('space.100'),
 	marginRight: 0,
 	marginBottom: 0,
 	marginLeft: 0,
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.150', '12px'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.150'),
 	borderRadius: token('radius.small', '3px'),
 	backgroundColor: token('color.background.neutral'),
 	position: 'relative',

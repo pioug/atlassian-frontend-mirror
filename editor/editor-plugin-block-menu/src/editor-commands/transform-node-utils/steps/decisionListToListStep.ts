@@ -1,5 +1,4 @@
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { type Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
+import { type Schema, Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { NodeTypeName, TransformStep } from '../types';
 

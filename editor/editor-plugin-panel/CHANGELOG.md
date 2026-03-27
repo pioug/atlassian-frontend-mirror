@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-panel
 
+## 10.0.16
+
+### Patch Changes
+
+- [`88a7ee0806123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88a7ee0806123) -
+  Mechanical type-import autofix for block, layout, and control packages.
+- Updated dependencies
+
 ## 10.0.15
 
 ### Patch Changes

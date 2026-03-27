@@ -8,12 +8,10 @@ import React, { useCallback, useContext } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
-import {
-	type NamedPluginStatesFromInjectionAPI,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import {
 	OutsideClickTargetRefContext,
@@ -25,7 +23,7 @@ import { EmojiPicker } from '@atlaskit/emoji';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import Tooltip from '@atlaskit/tooltip';
 
-import { type FloatingToolbarPlugin } from '../floatingToolbarPluginType';
+import type { FloatingToolbarPlugin } from '../floatingToolbarPluginType';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const emojiPickerButtonWrapperVisualRefresh = css({

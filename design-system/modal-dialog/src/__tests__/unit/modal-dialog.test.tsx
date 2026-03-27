@@ -1,12 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
 import { skipA11yAudit } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act, fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { width } from '../../internal/utils';
 import ModalBody from '../../modal-body';
@@ -585,14 +584,28 @@ describe('autoFocus', () => {
 		expect(screen.getByTestId(innerButtonTestId)).toHaveFocus();
 	});
 
-	it('should not change from initial focus when `autoFocus` is false', async () => {
-		const user = userEvent.setup();
-		render(<Jsx autoFocus={false} />);
+	describe('FF on/off: should focus/should not focus on first element when `autoFocus` is false', () => {
+		ffTest(
+			'platform_dst_autofocus-never-false-2',
+			async () => {
+				const user = userEvent.setup();
+				render(<Jsx autoFocus={false} />);
 
-		expect(screen.queryByTestId(innerButtonTestId)).not.toBeInTheDocument();
-		await user.click(screen.getByTestId(openModalButtonTestId));
-		// Focus should not have moved
-		expect(screen.getByTestId(innerButtonTestId)).not.toHaveFocus();
+				expect(screen.queryByTestId(innerButtonTestId)).not.toBeInTheDocument();
+				await user.click(screen.getByTestId(openModalButtonTestId));
+				// Focus should have moved
+				expect(screen.getByTestId(innerButtonTestId)).toHaveFocus();
+			},
+			async () => {
+				const user = userEvent.setup();
+				render(<Jsx autoFocus={false} />);
+
+				expect(screen.queryByTestId(innerButtonTestId)).not.toBeInTheDocument();
+				await user.click(screen.getByTestId(openModalButtonTestId));
+				// Focus should not have moved
+				expect(screen.getByTestId(innerButtonTestId)).not.toHaveFocus();
+			},
+		);
 	});
 
 	it('should focus on element if `ref` is provided to `autoFocus`', async () => {

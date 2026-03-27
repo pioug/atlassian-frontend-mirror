@@ -1,4 +1,5 @@
-import React, { type ReactNode, useCallback, memo, useRef } from 'react';
+import React, { useCallback, memo, useRef } from 'react';
+import type { ReactNode } from 'react';
 
 import { isSSR } from '../core-utils/is-ssr';
 

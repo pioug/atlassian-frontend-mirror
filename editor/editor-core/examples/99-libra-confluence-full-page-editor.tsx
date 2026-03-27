@@ -1,6 +1,7 @@
 import React, { Profiler } from 'react';
 
-import { createRoot, type Root } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
+import type { Root } from 'react-dom/client';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';

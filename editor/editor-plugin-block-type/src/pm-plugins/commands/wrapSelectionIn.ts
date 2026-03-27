@@ -1,4 +1,4 @@
-import { type EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { Mark, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';

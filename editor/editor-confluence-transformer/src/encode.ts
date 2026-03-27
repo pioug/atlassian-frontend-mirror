@@ -1,17 +1,10 @@
-import {
-	type MediaAttributes,
-	getEmojiAcName,
-	hexToRgb,
-	type RichMediaAttributes as MediaSingleAttributes,
-	tableBackgroundColorPalette,
+import { getEmojiAcName, hexToRgb, tableBackgroundColorPalette } from '@atlaskit/adf-schema';
+import type {
+	MediaAttributes,
+	RichMediaAttributes as MediaSingleAttributes,
 } from '@atlaskit/adf-schema';
 import { timestampToIsoFormat, calcTableColumnWidths } from '@atlaskit/editor-common/utils';
-import {
-	type Fragment,
-	type Node as PMNode,
-	type Mark,
-	type Schema,
-} from '@atlaskit/editor-prosemirror/model';
+import type { Fragment, Node as PMNode, Mark, Schema } from '@atlaskit/editor-prosemirror/model';
 import parseCxhtml from './parse-cxhtml';
 import { AC_XMLNS, FAB_XMLNS, default as encodeCxhtml } from './encode-cxhtml';
 import { mapCodeLanguage } from './languageMap';

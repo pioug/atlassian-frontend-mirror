@@ -1,5 +1,5 @@
-import { type Conversation } from './Conversation';
-import { type User } from './User';
+import type { Conversation } from './Conversation';
+import type { User } from './User';
 export interface Comment extends Pick<Conversation, 'comments' | 'error'> {
 	commentAri?: string;
 	commentId: string;

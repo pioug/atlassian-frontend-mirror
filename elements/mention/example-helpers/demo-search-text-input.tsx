@@ -86,8 +86,8 @@ class SearchTextInput extends Component<Props, {}> {
 					onKeyDown={this.handleKeyDown}
 					ref={this.inputRefUpdate}
 					style={{
-						height: `${token('space.250', '20px')}`,
-						marginLeft: `${token('space.150', '12px')}`,
+						height: `${token('space.250')}`,
+						marginLeft: `${token('space.150')}`,
 					}}
 				/>
 			</div>

@@ -12,7 +12,6 @@ import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockTypePlugin } from '../blockTypePluginType';
@@ -160,16 +159,10 @@ export const createPlugin = (
 				const lastNode = pos.node(1);
 				const { paragraph } = newState.schema.nodes;
 				if (lastNode && lastNode.isBlock && lastNode.type !== paragraph) {
-					if (fg('platform_editor_fix_insert_paragraph_undo')) {
-						return newState.tr.insert(
-							newState.doc.content.size,
-							newState.schema.nodes.paragraph.create(),
-						);
-					} else {
-						return newState.tr
-							.insert(newState.doc.content.size, newState.schema.nodes.paragraph.create())
-							.setMeta('addToHistory', false);
-					}
+					return newState.tr.insert(
+						newState.doc.content.size,
+						newState.schema.nodes.paragraph.create(),
+					);
 				}
 			}
 		},

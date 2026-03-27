@@ -13,8 +13,8 @@ import {
 	ToolbarButtonGroup,
 	ToolbarDropdownItemSection,
 	ToolbarSection,
-	type ToolbarUIContextType,
 } from '@atlaskit/editor-toolbar';
+import type { ToolbarUIContextType } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolbar-model';
 

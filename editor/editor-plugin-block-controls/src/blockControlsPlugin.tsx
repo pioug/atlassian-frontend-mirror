@@ -3,12 +3,9 @@ import React from 'react';
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { DIRECTION, PMPlugin } from '@atlaskit/editor-common/types';
-import {
-	TextSelection,
-	type EditorState,
-	type Transaction,
-} from '@atlaskit/editor-prosemirror/state';
-import { type Mapping } from '@atlaskit/editor-prosemirror/transform';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

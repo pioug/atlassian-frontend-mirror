@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const isDnDStyleChange = (style: string): boolean => {
 	return style.startsWith('anchor-name: --node-anchor');
 };
@@ -39,10 +37,6 @@ function isDnDStyleMutation({
 	oldValue?: string | undefined | null;
 	newValue?: string | undefined | null;
 }): boolean {
-	if (!fg('platform_editor_exclude_dnd_anchor_name_from_ttvc')) {
-		return false;
-	}
-
 	if (!(target instanceof Element)) {
 		return false;
 	}

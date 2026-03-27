@@ -1,5 +1,6 @@
 import type { ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
-import { TextSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 export const getNestedNodePosition = ({

@@ -1,4 +1,4 @@
-import { type InputTracking } from '@atlaskit/editor-common/types';
+import type { InputTracking } from '@atlaskit/editor-common/types';
 
 export const inputTracking: InputTracking = {
 	enabled: true,

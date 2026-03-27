@@ -1,4 +1,5 @@
-import React, { type ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 
 import debounce from 'lodash/debounce';
 

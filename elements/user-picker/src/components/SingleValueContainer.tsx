@@ -32,7 +32,7 @@ const valueContainerStyles = cssMap({
 });
 
 const placeholderIconContainer = css({
-	paddingLeft: token('space.075', '6px'),
+	paddingLeft: token('space.075'),
 	gridArea: '1/1/2/2',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 0,

@@ -4,7 +4,6 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { R300, R400 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import type { Message } from '../../types';
@@ -17,21 +16,21 @@ export type ErrorStyle = 'chooseFile' | 'delete' | 'preview';
 const errorMessageStyles = cssMap({
 	chooseFile: {
 		display: 'flex',
-		color: token('color.text.danger', R300),
+		color: token('color.text.danger'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		paddingRight: '10px',
 		justifyContent: 'flex-start',
 	},
 	delete: {
 		display: 'flex',
-		color: token('color.text.danger', R400),
+		color: token('color.text.danger'),
 		alignItems: 'center',
 		justifyContent: 'flex-end',
-		paddingRight: token('space.050', '4px'),
+		paddingRight: token('space.050'),
 	},
 	preview: {
 		display: 'inline-flex',
-		color: token('color.text.danger', R400),
+		color: token('color.text.danger'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		paddingRight: '10px',
 		justifyContent: 'flex-end',

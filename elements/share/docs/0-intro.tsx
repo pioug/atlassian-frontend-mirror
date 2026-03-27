@@ -13,10 +13,10 @@ import { token } from '@atlaskit/tokens';
 const _default_1: any = md`
   ${(
 		<>
-			<div style={{ marginBottom: `${token('space.100', '8px')}` }}>
+			<div style={{ marginBottom: `${token('space.100')}` }}>
 				<AtlassianInternalWarning />
 			</div>
-			<div style={{ marginTop: `${token('space.100', '8px')}` }}>
+			<div style={{ marginTop: `${token('space.100')}` }}>
 				<DevPreviewWarning />
 			</div>
 		</>

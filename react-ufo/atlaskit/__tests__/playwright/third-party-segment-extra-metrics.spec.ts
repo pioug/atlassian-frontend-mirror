@@ -27,7 +27,7 @@ const findThirdPartySegment = (node: SegmentItem, targetName: string): SegmentIt
 };
 
 test.describe('ReactUFO: Third Party Segment Extra Metrics', () => {
-	const requiredFeatureFlags = ['platform_ufo_exclude_3p_elements_from_ttvc'];
+	const requiredFeatureFlags: string[] = [];
 	const featureFlagsCombos = [[...requiredFeatureFlags]];
 	for (const featureFlags of featureFlagsCombos) {
 		test.describe(`with feature flags ${featureFlags.join(', ')}`, () => {
@@ -85,8 +85,8 @@ test.describe('ReactUFO: Third Party Segment Extra Metrics', () => {
 		});
 	}
 
-	test.describe('with 3P feature flags enabled', () => {
-		const featureFlags = ['platform_ufo_exclude_3p_elements_from_ttvc'];
+	test.describe('3P segment behavior (default, no feature flags needed)', () => {
+		const featureFlags: string[] = [];
 
 		test.use({
 			examplePage: 'third-party-segment',
@@ -124,7 +124,7 @@ test.describe('ReactUFO: Third Party Segment Extra Metrics', () => {
 			expect(typeof ufoProperties['vc:effective:revision']).toBe('string');
 		});
 
-		test('extra metrics payload should contain 3P segment data with FG enabled', async ({
+		test('extra metrics payload should contain 3P segment data', async ({
 			waitForInteractionExtraMetricsPayload,
 		}) => {
 			const reactUFOPayload = await waitForInteractionExtraMetricsPayload();

@@ -22,12 +22,12 @@ import {
 	TRANSFORM_STRUCTURE_MENU_SECTION,
 	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/block-menu';
-import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	layoutMessages,
 	toolbarInsertBlockMessages as messages,
 } from '@atlaskit/editor-common/messages';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import {
 	IconFiveColumnLayout,
@@ -38,7 +38,8 @@ import {
 	IconTwoColumnLayout,
 } from '@atlaskit/editor-common/quick-insert';
 import type { FloatingToolbarConfig, PMPlugin } from '@atlaskit/editor-common/types';
-import { TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';

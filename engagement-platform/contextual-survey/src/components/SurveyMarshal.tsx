@@ -11,7 +11,7 @@ import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 // 8px is the base unit in pixels
-const surveyOffset = token('space.600', '48px');
+const surveyOffset = token('space.600');
 
 type TransitionState = 'entering' | 'entered' | 'exiting' | 'exited' | 'unmounted';
 

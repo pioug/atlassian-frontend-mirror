@@ -27,6 +27,7 @@ import {
 	ToolbarNestedDropdownMenu,
 } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import ClipboardIcon from '@atlaskit/icon/core/clipboard';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -43,6 +44,7 @@ import type {
 import { ToolbarDropdownOption, type PasteType } from '../../types/types';
 
 import { getVisibleKeys } from './hasVisibleButton';
+import { PasteOptionsDropdownButton } from './PasteOptionsDropdownButton';
 
 const nestedMenuStyles = cssMap({
 	narrowSection: {
@@ -160,17 +162,36 @@ const PasteMenuItem = ({ api, pasteType }: PasteMenuItemProps) => {
 	);
 };
 
-const PasteOptionsNestedMenu = ({ children }: { children: React.ReactNode }) => {
+const PasteOptionsNestedMenu = ({
+	children,
+	hasVisibleAiActions,
+}: {
+	children: React.ReactNode;
+	hasVisibleAiActions: boolean;
+}) => {
 	const intl = useIntl();
+	const label = intl.formatMessage(messages.pasteMenuActionsPasteAs);
+
+	if (!hasVisibleAiActions) {
+		return (
+			<PasteOptionsDropdownButton
+				elemBefore={<ClipboardIcon size="small" label="" />}
+				elemAfter={<ChevronDownIcon size="small" label="" />}
+				label={label}
+				testId="paste-options-nested-menu"
+				tooltipContent={label}
+			>
+				{children}
+			</PasteOptionsDropdownButton>
+		);
+	}
 
 	return (
 		<ToolbarNestedDropdownMenu
-			elemBefore={<ClipboardIcon size="small" label={intl.formatMessage(messages.pasteOptions)} />}
-			elemAfter={
-				<ChevronRightIcon size="small" label={intl.formatMessage(messages.pasteOptions)} />
-			}
+			elemBefore={<ClipboardIcon size="small" label={label} />}
+			elemAfter={<ChevronRightIcon size="small" label="" />}
 			testId="paste-options-nested-menu"
-			text={intl.formatMessage(messages.pasteOptions)}
+			text={label}
 		>
 			{children}
 		</ToolbarNestedDropdownMenu>
@@ -180,6 +201,16 @@ const PasteOptionsNestedMenu = ({ children }: { children: React.ReactNode }) => 
 interface PasteMenuComponentsConfig {
 	api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined;
 }
+
+const getHasVisibleAiActions = (
+	api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined,
+): boolean => {
+	const allComponents = api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
+	const aiMenuItems = allComponents.filter(
+		(c) => c.type === 'menu-item' && c.parents?.some((p) => p.key === AI_PASTE_MENU_SECTION.key),
+	);
+	return getVisibleKeys(aiMenuItems, ['menu-item']).length > 0;
+};
 
 export const getPasteMenuComponents = ({ api }: PasteMenuComponentsConfig): RegisterComponent[] => [
 	{
@@ -199,14 +230,14 @@ export const getPasteMenuComponents = ({ api }: PasteMenuComponentsConfig): Regi
 			return !(pluginState?.showLegacyOptions ?? false);
 		},
 		component: (props: Record<string, unknown>) => {
-			const allComponents = api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
-			const aiMenuItems = allComponents.filter(
-				(c) =>
-					c.type === 'menu-item' && c.parents?.some((p) => p.key === AI_PASTE_MENU_SECTION.key),
-			);
-			const hasVisibleAiActions = getVisibleKeys(aiMenuItems, ['menu-item']).length > 0;
+			const hasVisibleAiActions = getHasVisibleAiActions(api);
+
+			if (!hasVisibleAiActions) {
+				return <Box padding="space.050">{props.children as React.ReactNode}</Box>;
+			}
+
 			return (
-				<ToolbarDropdownItemSection hasSeparator={hasVisibleAiActions}>
+				<ToolbarDropdownItemSection hasSeparator>
 					{props.children as React.ReactNode}
 				</ToolbarDropdownItemSection>
 			);
@@ -222,9 +253,14 @@ export const getPasteMenuComponents = ({ api }: PasteMenuComponentsConfig): Regi
 				rank: PASTE_MENU_SECTION_RANK[PASTE_NESTED_MENU.key],
 			},
 		],
-		component: (props: Record<string, unknown>) => (
-			<PasteOptionsNestedMenu>{props.children as React.ReactNode}</PasteOptionsNestedMenu>
-		),
+		component: (props: Record<string, unknown>) => {
+			const hasVisibleAiActions = getHasVisibleAiActions(api);
+			return (
+				<PasteOptionsNestedMenu hasVisibleAiActions={hasVisibleAiActions}>
+					{props.children as React.ReactNode}
+				</PasteOptionsNestedMenu>
+			);
+		},
 	},
 	{
 		type: PASTE_MENU_NESTED_SECTION.type,

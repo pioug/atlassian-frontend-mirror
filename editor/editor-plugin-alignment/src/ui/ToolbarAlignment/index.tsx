@@ -10,7 +10,7 @@ import { injectIntl } from 'react-intl-next';
 import { jsx } from '@atlaskit/css';
 import { alignCenter, alignLeft, alignRight, tooltip } from '@atlaskit/editor-common/keymaps';
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
 import {
 	Shortcut,
@@ -24,15 +24,16 @@ import {
 	DropdownContainer as Dropdown,
 	DropdownMenuWithKeyboardNavigation as DropdownMenu,
 	ToolbarButton,
-	type MenuItem,
 } from '@atlaskit/editor-common/ui-menu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import AlignTextCenterIcon from '@atlaskit/icon/core/align-text-center';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import AlignTextRightIcon from '@atlaskit/icon/core/align-text-right';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
-import { ToolbarType, type AlignmentState } from '../../pm-plugins/types';
+import { ToolbarType } from '../../pm-plugins/types';
+import type { AlignmentState } from '../../pm-plugins/types';
 import Alignment from '../Alignment';
 
 import { IconMap } from './icon-map';

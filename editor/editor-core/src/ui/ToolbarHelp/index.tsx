@@ -3,9 +3,9 @@ import React from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
+import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import type { EditorState, PluginKey, Transaction } from '@atlaskit/editor-prosemirror/state';
 import QuestionIcon from '@atlaskit/icon/core/question-circle';
 import type { PositionType } from '@atlaskit/tooltip/types';

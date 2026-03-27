@@ -1,14 +1,9 @@
-import {
-	Fragment,
-	type Mark,
-	Node as PMNode,
-	type Schema,
-	type MarkType,
-} from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, Schema, MarkType } from '@atlaskit/editor-prosemirror/model';
 
 import { normalizeHexColor } from '@atlaskit/adf-schema';
 import { AC_XMLNS } from './encode-cxhtml';
-import { type Macro } from './types';
+import type { Macro } from './types';
 
 /**
  * Deduce a set of marks from a style declaration.

@@ -1,4 +1,4 @@
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export const isWrappedMedia = (node?: PMNode): boolean => {
 	if ('mediaSingle' === node?.type.name) {

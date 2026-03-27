@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.1.7
+
+### Patch Changes
+
+- [`3b007c601e102`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b007c601e102) -
+  EDITOR-6092 Remove 100 character limit on legacy paste actions for new editor AI paste actions
+  menu. Also redesigns the legacy paste actions to more closely resemble the legacy paste floating
+  toolbar when there are no AI actions present.
+- Updated dependencies
+
 ## 9.1.6
 
 ### Patch Changes

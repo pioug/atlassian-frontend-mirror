@@ -22,9 +22,9 @@ const input = css({
 	outline: 'none',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingBlockStart: '1px',
-	paddingInlineEnd: token('space.0', '0px'),
-	paddingBlockEnd: token('space.025', '2px'),
-	paddingInlineStart: token('space.075', '6px'),
+	paddingInlineEnd: token('space.0'),
+	paddingBlockEnd: token('space.025'),
+	paddingInlineStart: token('space.075'),
 	width: '100%',
 
 	'&:invalid': {
@@ -38,16 +38,16 @@ const input = css({
 
 const pickerSearch = css({
 	boxSizing: 'border-box',
-	paddingTop: token('space.150', '12px'),
-	paddingBottom: token('space.150', '12px'),
-	paddingLeft: token('space.150', '12px'),
-	paddingRight: token('space.150', '12px'),
+	paddingTop: token('space.150'),
+	paddingBottom: token('space.150'),
+	paddingLeft: token('space.150'),
+	paddingRight: token('space.150'),
 	width: '100%',
 });
 
 const searchIcon = css({
 	opacity: 0.5,
-	marginLeft: token('space.negative.025', '-2px'),
+	marginLeft: token('space.negative.025'),
 });
 
 const hidden = css({

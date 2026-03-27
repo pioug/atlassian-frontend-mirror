@@ -16,13 +16,11 @@ import {
 	version as packageVersion,
 } from '@atlaskit/editor-core';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import {
-	useUniversalPreset,
-	type InitialPluginConfiguration,
-} from '@atlaskit/editor-core/preset-universal';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import type { InitialPluginConfiguration } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { User } from '../model/User';
 

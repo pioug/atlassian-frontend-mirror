@@ -1,11 +1,8 @@
 import type { DependencyList } from 'react';
 import { useLayoutEffect, useMemo, useState } from 'react';
 
-import {
-	type AllEditorPresetPluginTypes,
-	EditorPresetBuilder,
-	type ExtractPresetAPI,
-} from '@atlaskit/editor-common/preset';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type { AllEditorPresetPluginTypes, ExtractPresetAPI } from '@atlaskit/editor-common/preset';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface PresetAPI<Preset extends EditorPresetBuilder<any, any>> {

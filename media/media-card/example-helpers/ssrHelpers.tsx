@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import ReactDOM from 'react-dom';
+import { hydrateRoot } from 'react-dom/client';
 import ReactDOMServer from 'react-dom/server';
 import { SSRAnalyticsWrapper } from '.';
 
@@ -29,7 +29,7 @@ export const SimulateSsr = ({
 		if (elem) {
 			elem.innerHTML = txt;
 			if (hydratePage) {
-				ReactDOM.hydrate(<SSRAnalyticsWrapper>{hydratePage}</SSRAnalyticsWrapper>, elem);
+				hydrateRoot(elem, <SSRAnalyticsWrapper>{hydratePage}</SSRAnalyticsWrapper>);
 			}
 		}
 	}, [id, hydratePage, serverPage]);

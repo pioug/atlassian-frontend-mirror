@@ -31,7 +31,7 @@ import type { ToolbarEditorPlugins } from './FullPageToolbar';
 import { FullPageToolbar } from './FullPageToolbar';
 import { FullPageToolbarNext } from './FullPageToolbarNext';
 import { fullPageEditorWrapper } from './StyledComponents';
-import { type ScrollContainerRefs } from './types';
+import type { ScrollContainerRefs } from './types';
 
 const SSR_TRACE_SEGMENT_NAME = 'reactEditorView/fullPageAppearance';
 

@@ -5,8 +5,9 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports */
+import { css, jsx } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -49,6 +50,7 @@ import type { Props, State } from './types';
 /**
  * Checks if an element is detached (i.e. not in the current document)
  */
+// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- Existing DOM check surfaced by this mechanical PR.
 const isDetachedElement = (el: HTMLElement) => !document.body.contains(el);
 
 const TABLE_SELECTOR_STRING = 'table selector';

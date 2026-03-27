@@ -8,7 +8,6 @@ import { SlideIn, ExitingPersistence, type Durations } from '@atlaskit/motion';
 import { formatLargeNumber } from '../shared/utils';
 
 import { token } from '@atlaskit/tokens';
-import { B400 } from '@atlaskit/theme/colors';
 
 const containerStyle = css({
 	display: 'flex',
@@ -24,16 +23,16 @@ const countStyle = css({
 	color: token('color.text.subtlest'),
 	overflow: 'hidden',
 	position: 'relative',
-	paddingTop: token('space.050', '4px'),
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.050', '4px'),
+	paddingTop: token('space.050'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.050'),
 	paddingLeft: 0,
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '14px',
 });
 
 const highlightStyle = css({
-	color: token('color.text.selected', B400),
+	color: token('color.text.selected'),
 });
 
 const darkerFontStyle = css({

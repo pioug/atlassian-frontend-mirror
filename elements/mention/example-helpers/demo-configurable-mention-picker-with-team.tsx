@@ -72,7 +72,7 @@ export default class ConfigurableTeamMentionPicker extends React.Component<Props
 		const { resourceProvider } = this.state;
 
 		return (
-			<div style={{ padding: `${token('space.150', '12px')}` }}>
+			<div style={{ padding: `${token('space.150')}` }}>
 				{React.cloneElement(this.props.children, { resourceProvider })}
 				<Text as="p">
 					<label htmlFor="mention-urls">MentionResource config</label>

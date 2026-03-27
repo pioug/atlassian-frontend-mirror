@@ -70,7 +70,7 @@ const customTabListStyles = css({
 	'div[role=tablist]': {
 		flexGrow: 1,
 		// paddingInline exists to maintain styling prior to @atlaskit/tabs update that removed baked in horizontal padding
-		paddingInline: token('space.100', '8px'),
+		paddingInline: token('space.100'),
 		// we add our own border bottom below since tablist border is not full width
 		'&::before': {
 			backgroundColor: 'transparent',
@@ -78,7 +78,7 @@ const customTabListStyles = css({
 	},
 	width: '100%',
 	alignItems: 'flex-start',
-	borderBottom: `${token('border.width')} solid ${token('color.border', '#EBECF0')}`,
+	borderBottom: `${token('border.width')} solid ${token('color.border')}`,
 });
 
 const customTabWrapper = cssMap({
@@ -142,7 +142,7 @@ const customTabWrapper = cssMap({
 });
 
 const firstElement = css({
-	paddingLeft: token('space.200', '16px'),
+	paddingLeft: token('space.200'),
 });
 
 interface ReactionsDialogModalHeaderProps {

@@ -8,8 +8,12 @@ import { icons } from './icons';
 
 export const listGetAllIconsTool: Tool = {
 	name: 'ads_get_all_icons',
-	description:
-		"Fetch all Atlassian Design System icons. Only use when `ads_search_icons` does not return what you're looking for.",
+	description: `Returns **every** ADS icon record as separate JSON text chunks (full catalog; large payload).
+
+WHEN TO USE:
+Last resort when \`ads_plan\` / \`ads_search_icons\` is insufficient and you must enumerate all icons. Prefer search for normal icon picking.
+
+No parameters.`,
 	annotations: {
 		title: 'Get all ADS icons',
 		readOnlyHint: true,

@@ -1,5 +1,6 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css, type SerializedStyles } from '@emotion/react';
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+import { css } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 
 import { INLINE_IMAGE_WRAPPER_CLASS_NAME } from '@atlaskit/editor-common/media-inline';
 import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';

@@ -1,19 +1,22 @@
+/* eslint-disable jsdoc/require-jsdoc -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx, type SerializedStyles } from '@emotion/react';
-import { injectIntl, type IntlShape } from 'react-intl-next';
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
+import { css, jsx } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
+import { injectIntl } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import Transition from 'react-transition-group/Transition';
 
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { contextPanelMessages } from '@atlaskit/editor-common/messages';
 import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
-import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
+import type { ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorContextPanelWidth,

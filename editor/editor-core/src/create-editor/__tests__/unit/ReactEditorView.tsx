@@ -84,7 +84,7 @@ import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { FireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import * as coreUtilsModule from '@atlaskit/editor-common/core-utils';
-import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import * as ProcessRawValueModule from '@atlaskit/editor-common/process-raw-value';
 import {
 	processRawValue,
@@ -98,7 +98,7 @@ import type { EditorProps } from '@atlaskit/editor-core/editor';
 import { replaceDocument } from '@atlaskit/editor-plugin-collab-edit/src/pm-plugins/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
 import * as editorSSRRendererModule from '@atlaskit/editor-ssr-renderer';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

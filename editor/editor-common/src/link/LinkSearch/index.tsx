@@ -1,18 +1,21 @@
-import React, { type KeyboardEvent } from 'react';
+import React from 'react';
+import type { KeyboardEvent } from 'react';
 
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
 
-import { type ActivityItem, type ActivityProvider } from '@atlaskit/activity-provider';
+import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
 
 import { INPUT_METHOD } from '../../analytics';
 import type { Providers } from '../../provider-factory';
 import type { Diff } from '../../utils';
 
 import LinkSearchList from './LinkSearchList';
-import { type RecentSearchProps, type RecentSearchState } from './types';
-import withActivityProvider, {
-	type ExpandedActivityProviderProps,
-	type WithActivityProviderProps,
+import type { RecentSearchProps, RecentSearchState } from './types';
+import withActivityProvider from './withActivityProvider';
+import type {
+	ExpandedActivityProviderProps,
+	WithActivityProviderProps,
 } from './withActivityProvider';
 
 const DEFAULT_ITEMS_LIMIT = 5;

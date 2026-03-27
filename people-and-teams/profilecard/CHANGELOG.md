@@ -1,5 +1,26 @@
 # @atlaskit/profilecard
 
+## 24.45.0
+
+### Minor Changes
+
+- [`5763146cffd44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5763146cffd44) - -
+  Update AgentCreatorType import from @atlassian/rovo-agent-components.
+  - Update `AssistanceService.getAgentKnowledgeConfiguration` to accept an optional
+    `agentCreatorType` to pass as query params to the underlying `/knowledge` endpoint.
+  - Update `KnowledgeSourcesField` to pass in `creatorType` value, under a FG
+    `rovo_agent_knowledge_source_allow_list`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.44.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.44.16
 
 ### Patch Changes

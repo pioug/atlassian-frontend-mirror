@@ -12,13 +12,8 @@ import {
 	isSchemaWithTables,
 } from '@atlaskit/adf-schema/schema-jira';
 
-import {
-	Fragment,
-	type Mark,
-	type Node as PMNode,
-	type Schema,
-	type NodeType,
-} from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, Node as PMNode, Schema, NodeType } from '@atlaskit/editor-prosemirror/model';
 
 import { mapImageToEmoji } from './emojiHelper';
 

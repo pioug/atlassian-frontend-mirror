@@ -11,7 +11,6 @@ import { jsx, cssMap } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	formatShortcut,
-	type Keymap,
 	setNormalText,
 	toggleHeading1,
 	toggleHeading2,
@@ -21,6 +20,7 @@ import {
 	toggleHeading6,
 	toggleSmallText,
 } from '@atlaskit/editor-common/keymaps';
+import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { editorUGCToken } from '@atlaskit/editor-common/ugc-tokens';

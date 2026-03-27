@@ -5,7 +5,7 @@ type AiAutocompleteInvokedAEP = TrackAEP<
 	ACTION.INVOKED,
 	ACTION_SUBJECT.AI_AUTOCOMPLETE,
 	undefined,
-	undefined,
+	{ triggerType: TriggerType },
 	undefined
 >;
 
@@ -32,6 +32,12 @@ type AiAutocompleteRejectedAEP = TrackAEP<
 	undefined,
 	undefined
 >;
+
+export type TriggerType =
+	| 'summary-heading'
+	| 'summary-first-lines'
+	| 'summary-panel'
+	| 'cmd+shift+space';
 
 export type AiAutocompleteEventPayload =
 	| AiAutocompleteInvokedAEP

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "3.46.3",
+	"version": "3.48.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -36,12 +36,14 @@
 		"./agent-name-side-nav": "./src/ui/agent-name-side-nav/index.tsx",
 		"./agent-verification-dropdown-item": "./src/ui/agent-verification-dropdown-item/index.tsx",
 		"./agent-verified": "./src/ui/agent-verified/index.tsx",
+		"./common/types": "./src/common/types.ts",
 		"./common/ui/ChatIcon": "./src/common/ui/chat-icon/index.tsx",
 		"./common/ui/ChatPill": "./src/common/ui/chat-pill/index.tsx",
 		"./common/ui/HiddenIcon": "./src/common/ui/hidden-icon/index.tsx",
 		"./common/ui/LinkIconButton": "./src/common/ui/link-icon-button/index.tsx",
 		"./common/ui/ShowIcon": "./src/common/ui/show-icon/index.tsx",
 		"./common/ui/StarIconButton": "./src/common/ui/star-icon-button/index.tsx",
+		"./common/utils/is-agent-creator-type": "./src/common/utils/is-agent-creator-type.ts",
 		"./common/utils/is-forge-agent": "./src/common/utils/is-forge-agent.ts",
 		"./ui/agent-avatar/GeneratedAvatar": "./src/ui/agent-avatar/generated-avatars/index.tsx",
 		"./ui/agent-profile-info/AgentStarCount": "./src/ui/agent-profile-info/agent-star-count/index.tsx",

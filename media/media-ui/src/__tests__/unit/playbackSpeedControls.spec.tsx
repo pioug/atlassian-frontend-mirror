@@ -1,5 +1,5 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
+import { act } from 'react';
 import { type OptionType } from '@atlaskit/select';
 import PlaybackSpeedControls, {
 	type PlaybackSpeedControlsProps,

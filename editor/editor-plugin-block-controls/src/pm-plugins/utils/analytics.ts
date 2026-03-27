@@ -6,10 +6,10 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { type BlockControlsPlugin } from '../../blockControlsPluginType';
+import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 
 export const attachMoveNodeAnalytics = (
 	tr: Transaction,

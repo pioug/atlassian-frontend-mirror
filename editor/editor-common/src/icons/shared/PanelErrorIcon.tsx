@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 
 import { css, jsx } from '@compiled/react';
 

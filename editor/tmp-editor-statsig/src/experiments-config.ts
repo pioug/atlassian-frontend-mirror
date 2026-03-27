@@ -73,6 +73,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-26
+	cc_editor_fix_insm_inp_buffer: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-18
 	editor_a11y_7152_profile_card_tab_order: {
 		defaultValue: boolean;
@@ -1211,13 +1218,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-02-10
-	platform_editor_ai_suggestions: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-12
 	platform_editor_bodiedextension_layoutshift_fix: {
 		defaultValue: boolean;
@@ -1724,6 +1724,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-26
+	cc_editor_fix_insm_inp_buffer: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_fix_insm_inp_buffer',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-04
 	cwr_blank_object_experiment: createBooleanExperiment({
 		productKeys: {
@@ -2006,6 +2014,7 @@ export const editorExperimentsConfig: {
 	platform_editor_controls: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'platform_editor_controls',
+			jira: 'platform_editor_controls_jira',
 		},
 		param: 'cohort',
 		values: ['control', 'variant1'],
@@ -2287,6 +2296,7 @@ export const editorExperimentsConfig: {
 	platform_editor_block_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_block_menu',
+			jira: 'platform_editor_block_menu_jira',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2984,14 +2994,6 @@ export const editorExperimentsConfig: {
 	platform_rovo_inline_chat_missing_analytics_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_rovo_inline_chat_missing_analytics_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-02-10
-	platform_editor_ai_suggestions: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_suggestions',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

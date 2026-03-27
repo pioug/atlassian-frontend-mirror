@@ -1,4 +1,4 @@
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import {
 	ACTION,
@@ -11,11 +11,15 @@ import { expandedState } from '@atlaskit/editor-common/expand';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import { expandSelectionBounds, GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
-import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { DIRECTION } from '@atlaskit/editor-common/types';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
+	type Command,
+	type EditorCommand,
+	type ExtractInjectionAPI,
+	DIRECTION,
+} from '@atlaskit/editor-common/types';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import {
+	type Node as PMNode,
 	Fragment,
 	Slice,
 	type NodeType,

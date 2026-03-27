@@ -1,4 +1,6 @@
-import { css, keyframes, type SerializedStyles } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766 */
+import { css, keyframes } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 
 const fadeIn = keyframes({
 	from: {

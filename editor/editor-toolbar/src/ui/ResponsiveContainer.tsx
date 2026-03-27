@@ -1,12 +1,14 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-selectors */
 /* eslint-disable @atlaskit/ui-styling-standard/no-container-queries */
 /* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
-import React, { type ReactNode } from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 
 import type { AllowedStyles, ApplySchema, CompiledStyles } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { Box, type MediaQuery } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled';
+import type { MediaQuery } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 

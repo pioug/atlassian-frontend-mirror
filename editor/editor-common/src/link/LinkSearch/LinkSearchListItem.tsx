@@ -1,11 +1,14 @@
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { forwardRef, Fragment, useCallback, type KeyboardEvent } from 'react';
+import React, { forwardRef, Fragment, useCallback } from 'react';
+import type { KeyboardEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';

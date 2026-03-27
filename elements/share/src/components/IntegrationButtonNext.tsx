@@ -3,20 +3,19 @@ import React from 'react';
 import Button, { type ButtonProps } from '@atlaskit/button/new';
 import { cssMap, cx } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	integrationButtonCopyWrapperStyle: {
 		display: 'flex',
 		justifyContent: 'left',
-		color: token('color.text', N500),
+		color: token('color.text'),
 	},
 	integrationIconWrapperStyle: {
-		marginTop: token('space.025', '2px'),
-		marginRight: token('space.100', '8px'),
-		marginBottom: token('space.0', '0px'),
-		marginLeft: token('space.0', '0px'),
+		marginTop: token('space.025'),
+		marginRight: token('space.100'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
 	},
 });
 

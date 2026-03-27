@@ -111,6 +111,7 @@ test.describe('first block node styles', () => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.expand.first();
 			const secondNode = nodes.expand.nth(1);
+			await editor.openExpands();
 			await expect(firstNode).toHaveCSS('margin-top', '0px');
 			await expect(secondNode).toHaveCSS('margin-top', '4px');
 		});

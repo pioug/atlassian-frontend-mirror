@@ -1,5 +1,7 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css, type SerializedStyles } from '@emotion/react';
+/* eslint-disable @atlaskit/design-system/use-tokens-shape -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+import { css } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';

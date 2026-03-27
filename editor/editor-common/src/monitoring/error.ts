@@ -1,10 +1,5 @@
-import {
-	Integrations,
-	type BrowserOptions,
-	type EventHint,
-	type Scope,
-	type Event as SentryEvent,
-} from '@sentry/browser';
+import { Integrations } from '@sentry/browser';
+import type { BrowserOptions, EventHint, Scope, Event as SentryEvent } from '@sentry/browser';
 import type { Integration, Primitive } from '@sentry/types';
 
 import { fg } from '@atlaskit/platform-feature-flags';

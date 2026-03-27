@@ -17,8 +17,8 @@ const iconStyles = css({
 	flex: '0 0 16px',
 	height: '16px',
 	width: '16px',
-	marginTop: token('space.050', '4px'),
-	marginRight: token('space.150', '12px'),
+	marginTop: token('space.050'),
+	marginRight: token('space.150'),
 	marginBottom: 0,
 	marginLeft: 0,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

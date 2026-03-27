@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "128.3.7",
+	"version": "128.4.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -91,8 +91,9 @@
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
-		"@atlaskit/navigation-next": "root:*",
+		"@atlaskit/navigation-system": "workspace:^",
 		"@atlaskit/profilecard": "workspace:^",
+		"@atlaskit/side-nav-items": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",

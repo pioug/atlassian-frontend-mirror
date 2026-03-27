@@ -28,7 +28,7 @@ const Example = (): React.JSX.Element => {
 			<Button onClick={() => setIsOpened(!isOpened)}>Show Modal</Button>
 			{isOpened && (
 				<ModalDialog width="x-large" height="40vh">
-					<h2 style={{ padding: `${token('space.150', '12px')}` }}>User picker in Modal</h2>
+					<h2 style={{ padding: `${token('space.150')}` }}>User picker in Modal</h2>
 					<ModalBody>
 						<ExampleWrapper>
 							{({ options, onInputChange }) => (

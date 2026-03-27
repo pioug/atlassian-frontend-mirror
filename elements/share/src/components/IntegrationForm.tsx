@@ -28,17 +28,17 @@ export const formWrapperStyle: SerializedStyles = css`
 	}
 
 	[class^='FormSection__FormSectionWrapper'] {
-		margin-top: ${token('space.0', '0px')};
+		margin-top: ${token('space.0')};
 	}
 
 	[class^='FormFooter__FormFooterWrapper'] {
 		justify-content: space-between;
-		margin-top: ${token('space.150', '12px')};
-		margin-bottom: ${token('space.300', '24px')};
+		margin-top: ${token('space.150')};
+		margin-bottom: ${token('space.300')};
 	}
 
 	[class^='Field__FieldWrapper']:not(:first-child) {
-		margin-top: ${token('space.150', '12px')};
+		margin-top: ${token('space.150')};
 	}
 `;
 

@@ -1,11 +1,8 @@
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
-import {
-	type ContentNodeWithPos,
-	findParentNodeOfType,
-	findSelectedNodeOfType,
-} from '@atlaskit/editor-prosemirror/utils';
+import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import { mapSlice } from '../utils/slice';
 

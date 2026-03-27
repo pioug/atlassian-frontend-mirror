@@ -24,14 +24,25 @@ export const getA11yGuidelinesInputSchema: z.ZodObject<
 	topic: z
 		.string()
 		.optional()
-		.describe('Select the topic to get the accessibility guidelines for: ' + topics.join(', ')),
+		.describe(
+			'ADS accessibility topic key. Omit to receive all topics and the full guideline bundle. Pass a valid key (see response \`availableTopics\`) or \`general\` for a focused overview when supported. Known topics: ' +
+				topics.join(', ') +
+				'.',
+		),
 });
 
 export const listGetA11yGuidelinesTool: Tool = {
 	name: 'ads_get_a11y_guidelines',
-	description: 'Get accessibility guidelines and best practices from the Atlassian Design System.',
+	description: `Returns Atlassian Design System (ADS) accessibility guidance: best practices and patterns for buttons, interactions, color contrast, forms, and other design-system topics shipped in this tool.
+
+Use this alongside the Context Engine MCP tool \`get_accessibility_docs\` for Atlassian-wide accessibility standards (e.g. A11YKB); this tool supplies ADS-specific component and pattern guidance.
+
+WHEN TO USE:
+You MUST call this when generating or substantially changing a new interactive or visual user interface built with ADS, or when you need topic-specific ADS guidance (e.g. focus, forms, motion).
+
+DO NOT rely on generic web accessibility advice alone—ADS conventions may differ. Use \`get_accessibility_docs\` for org-wide standards and this tool for ADS-topic guidance.`,
 	annotations: {
-		title: 'Get Accessibility Guidelines',
+		title: 'Get ADS accessibility guidelines',
 		readOnlyHint: true,
 		destructiveHint: false,
 		idempotentHint: true,

@@ -42,13 +42,13 @@ export default class DemoMentionList extends React.Component<any, State> {
 		const mentionList = <MentionList mentions={[]} resourceError={this.state.error} />;
 
 		return (
-			<div style={{ paddingLeft: `${token('space.150', '12px')}` }}>
-				<div style={{ paddingBottom: `${token('space.150', '12px')}` }}>
+			<div style={{ paddingLeft: `${token('space.150')}` }}>
+				<div style={{ paddingBottom: `${token('space.150')}` }}>
 					<button
 						onClick={this.setGenericError}
 						style={{
-							height: `${token('space.400', '32px')}`,
-							marginRight: `${token('space.150', '12px')}`,
+							height: `${token('space.400')}`,
+							marginRight: `${token('space.150')}`,
 						}}
 					>
 						Generic
@@ -56,8 +56,8 @@ export default class DemoMentionList extends React.Component<any, State> {
 					<button
 						onClick={this.set401Error}
 						style={{
-							height: `${token('space.400', '32px')}`,
-							marginRight: `${token('space.150', '12px')}`,
+							height: `${token('space.400')}`,
+							marginRight: `${token('space.150')}`,
 						}}
 					>
 						401
@@ -65,8 +65,8 @@ export default class DemoMentionList extends React.Component<any, State> {
 					<button
 						onClick={this.set403Error}
 						style={{
-							height: `${token('space.400', '32px')}`,
-							marginRight: `${token('space.150', '12px')}`,
+							height: `${token('space.400')}`,
+							marginRight: `${token('space.150')}`,
 						}}
 					>
 						403

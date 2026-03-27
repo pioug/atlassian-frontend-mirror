@@ -1,11 +1,7 @@
-import {
-	type ComponentNames,
-	type Actions as MentionActions,
-	type SliNames,
-} from '@atlaskit/mention/types';
+import type { ComponentNames, Actions as MentionActions, SliNames } from '@atlaskit/mention/types';
 
-import { type ACTION, type ACTION_SUBJECT, type ACTION_SUBJECT_ID } from './enums';
-import { type OperationalAEP, type UIAEP } from './utils';
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
+import type { OperationalAEP, UIAEP } from './utils';
 
 type MentionTypeaheadCancelledEventPayload = UIAEP<
 	ACTION.CANCELLED,

@@ -97,10 +97,6 @@ const baseFontStyle = css({
 	font: editorUGCToken('editor.font.body'),
 });
 
-const smallTextStyle = css({
-	'--ak-renderer-editor-font-small-text': editorUGCToken('editor.font.body.small'),
-});
-
 const fontSizeStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.fabric-editor-font-size': {
@@ -109,6 +105,15 @@ const fontSizeStyles = css({
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			font: 'var(--ak-renderer-editor-font-small-text)',
 		},
+	},
+
+	// Apply font-size to the ::marker pseudo-element of list items that have a font-size mark.
+	// Targeting ::marker directly avoids setting font on the <li> itself, which would cascade
+	// into nested lists and compound the sizing at each nesting level.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	"li:has(> .fabric-editor-font-size[data-font-size='small'])::marker": {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		font: 'var(--ak-renderer-editor-font-small-text)',
 	},
 });
 
@@ -1041,6 +1046,7 @@ const blockMarksSharedStylesDuplicateAnchor = css({
 	:not(.fabric-editor-indentation-mark)
 	:not(.fabric-editor-alignment),
   	.fabric-editor-alignment:first-of-type:first-child,
+  	.fabric-editor-font-size:first-of-type:first-child,
   	.ProseMirror .fabric-editor-indentation-mark:first-of-type:first-child`]: {
 		'p, h1, h2, h3, h4, h5, h6, .heading-wrapper': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -1062,6 +1068,7 @@ const blockMarksSharedStyles = css({
 	:not(.fabric-editor-indentation-mark)
 	:not(.fabric-editor-alignment),
   	.fabric-editor-alignment:first-of-type:first-child,
+  	.fabric-editor-font-size:first-of-type:first-child,
   	.ProseMirror .fabric-editor-indentation-mark:first-of-type:first-child`]: {
 		'p, .heading-wrapper': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -2924,6 +2931,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					'--ak-renderer-editor-font-heading-h5': `${editorUGCToken('editor.font.heading.h5')}`,
 					'--ak-renderer-editor-font-heading-h6': `${editorUGCToken('editor.font.heading.h6')}`,
 					'--ak-renderer-editor-font-normal-text': `${editorUGCToken('editor.font.body')}`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- CSS custom properties for UGC font tokens
+					...(expValEquals('platform_editor_small_font_size', 'isEnabled', true) && {
+						'--ak-renderer-editor-font-small-text': editorUGCToken('editor.font.body.small'),
+					}),
 				} as React.CSSProperties
 			}
 			css={[
@@ -2931,7 +2942,6 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					? baseFontStyle
 					: originalBaseFontLineHeight,
 				baseStyles,
-				expValEquals('platform_editor_small_font_size', 'isEnabled', true) && smallTextStyle,
 				expValEquals('platform_editor_small_font_size', 'isEnabled', true) && fontSizeStyles,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? headingAnchorStyles

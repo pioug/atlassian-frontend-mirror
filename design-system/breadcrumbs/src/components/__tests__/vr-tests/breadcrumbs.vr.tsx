@@ -11,23 +11,14 @@ import BreadcrumbsWithManyItems from '../../../../examples/7-many-in-container';
 
 snapshot(BreadcrumbsBasic, {
 	description: 'basic',
-	featureFlags: {
-		platform_dst_breadcrumbs_step_conversion: [true, false],
-	},
 });
 
 snapshot(BreadcrumbsExpandable, {
 	description: 'collapsed',
-	featureFlags: {
-		platform_dst_breadcrumbs_step_conversion: [true, false],
-	},
 });
 
 snapshot(BreadcrumbsExpandableDefaultIsExpanded, {
 	description: 'expanded',
-	featureFlags: {
-		platform_dst_breadcrumbs_step_conversion: [true, false],
-	},
 });
 
 snapshot(BreadcrumbsTruncation, {
@@ -45,28 +36,16 @@ snapshot(BreadcrumbsTruncation, {
 			},
 		},
 	],
-	featureFlags: {
-		platform_dst_breadcrumbs_step_conversion: [true, false],
-	},
 });
 
 snapshot(BreadcrumbsWithIcons, {
 	description: 'with icons',
-	featureFlags: {
-		platform_dst_breadcrumbs_step_conversion: [true, false],
-	},
 });
 
 snapshot(BreadcrumbsWithManyItems, {
 	description: 'with many items',
-	featureFlags: {
-		platform_dst_breadcrumbs_step_conversion: [true, false],
-	},
 });
 
 snapshot(BreadcrumbsWithElementToSide, {
 	description: 'with elements to side',
-	featureFlags: {
-		platform_dst_breadcrumbs_step_conversion: [true, false],
-	},
 });

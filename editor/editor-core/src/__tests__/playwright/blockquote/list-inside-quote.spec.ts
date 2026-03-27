@@ -119,6 +119,7 @@ test.describe('List inside a blockquote', () => {
 		});
 
 		test(`should insert a bullet list on typing - inside blockquote`, async ({ editor }) => {
+			await editor.openExpands();
 			await editor.selection.set({ anchor: 9, head: 9 });
 			await editor.keyboard.type('- ');
 			await expect(editor).toMatchDocument(

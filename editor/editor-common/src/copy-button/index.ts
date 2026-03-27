@@ -2,11 +2,8 @@ import type { NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemir
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import {
-	type ContentNodeWithPos,
-	findParentNodeOfType,
-	findSelectedNodeOfType,
-} from '@atlaskit/editor-prosemirror/utils';
+import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { copyHTMLToClipboard, copyHTMLToClipboardPolyfill } from '../clipboard';

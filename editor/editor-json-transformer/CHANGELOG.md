@@ -1,5 +1,12 @@
 # @atlaskit/editor-json-transformer
 
+## 8.31.8
+
+### Patch Changes
+
+- [`c9b7aaa42d05b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9b7aaa42d05b) -
+  Mechanical type-import autofix for editor core shell packages.
+
 ## 8.31.7
 
 ### Patch Changes

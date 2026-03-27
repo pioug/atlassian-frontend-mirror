@@ -1,11 +1,13 @@
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
 import type { ReactElement } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, type SerializedStyles } from '@emotion/react';
+import { css } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 
-import {
-	type BatchAttrsStep,
-	type OverrideDocumentStepJSON as OverrideDocumentStep,
+import type {
+	BatchAttrsStep,
+	OverrideDocumentStepJSON as OverrideDocumentStep,
 } from '@atlaskit/adf-schema/steps';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';

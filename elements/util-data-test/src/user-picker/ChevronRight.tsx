@@ -1,8 +1,7 @@
-import React, { useCallback, useState } from 'react';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import React from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { N50, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = xcss({
@@ -15,16 +14,13 @@ const iconWrapperStyles = xcss({
 });
 
 export default (): React.JSX.Element => {
-	const [isMouseHovered, setHoverState] = useState(false);
-	const onMouseEnter = useCallback(() => setHoverState(true), [setHoverState]);
-	const onMouseLeave = useCallback(() => setHoverState(false), [setHoverState]);
 	return (
-		<Box xcss={containerStyles} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+		<Box xcss={containerStyles}>
 			<Box xcss={iconWrapperStyles}>
 				<ChevronRightIcon
 					testId="chevron-right-icon"
 					label="chevron right"
-					color={token('color.text.subtlest', isMouseHovered ? N200 : N50)}
+					color={token('color.text.subtlest')}
 					spacing="spacious"
 					size="small"
 				/>

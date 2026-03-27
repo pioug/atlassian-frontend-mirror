@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.0.24
+
+### Patch Changes
+
+- [`88a7ee0806123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88a7ee0806123) -
+  Mechanical type-import autofix for block, layout, and control packages.
+- Updated dependencies
+
 ## 9.0.23
 
 ### Patch Changes

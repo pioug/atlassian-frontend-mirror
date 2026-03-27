@@ -2,7 +2,8 @@
 //  and notify about the change in #team-fc-editor-ai-dev channel.
 import React from 'react';
 
-import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/standard-button';
+import type { ButtonProps } from '@atlaskit/button/standard-button';
 
 const _default_1: React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLElement>> =
 	React.forwardRef<HTMLElement, ButtonProps>((props, ref) => {

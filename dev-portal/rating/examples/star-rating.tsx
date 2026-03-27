@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { RatingGroup, Star } from '../src';
@@ -16,9 +15,7 @@ export default (): React.JSX.Element => {
 			<ButtonGroup>
 				<Button
 					isSelected={!!color}
-					onClick={() =>
-						setColor((prev) => (prev ? undefined : token('color.icon.accent.green', G300)))
-					}
+					onClick={() => setColor((prev) => (prev ? undefined : token('color.icon.accent.green')))}
 				>
 					{color ? 'Reset color' : 'Use custom color'}
 				</Button>

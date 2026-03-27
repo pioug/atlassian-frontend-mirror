@@ -35,7 +35,7 @@ const wrapper = (isDisabled?: boolean) => {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			cursor: isDisabled ? 'not-allowed' : 'pointer',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			opacity: isDisabled ? token('opacity.disabled', '0.4') : undefined,
+			opacity: isDisabled ? token('opacity.disabled') : undefined,
 		});
 	}
 
@@ -51,7 +51,7 @@ const wrapper = (isDisabled?: boolean) => {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		cursor: isDisabled ? 'not-allowed' : 'pointer',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		opacity: isDisabled ? token('opacity.disabled', '0.4') : undefined,
+		opacity: isDisabled ? token('opacity.disabled') : undefined,
 	});
 };
 
@@ -60,7 +60,7 @@ const optionWrapper = css({
 	minWidth: 0,
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '1.4',
-	paddingLeft: token('space.100', '8px'),
+	paddingLeft: token('space.100'),
 });
 
 const optionWrapperFix = css({
@@ -68,7 +68,7 @@ const optionWrapperFix = css({
 	overflow: 'hidden',
 	minWidth: 0,
 	maxWidth: '100%',
-	paddingLeft: token('space.100', '8px'),
+	paddingLeft: token('space.100'),
 });
 
 const getTextStyle = (isSecondary?: boolean) => {
@@ -98,7 +98,7 @@ const getTextStyle = (isSecondary?: boolean) => {
 
 const additionalInfo = css({
 	float: 'right',
-	marginLeft: token('space.100', '8px'),
+	marginLeft: token('space.100'),
 });
 
 export const textWrapper = (color?: string): SerializedStyles => {

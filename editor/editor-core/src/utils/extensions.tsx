@@ -18,7 +18,7 @@ import type {
 	QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { combineProviders } from '@atlaskit/editor-common/provider-helpers';
-import { type PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';

@@ -62,6 +62,6 @@ test('throws when rendered outside a TeamsNavigationProvider', () => {
 				Link
 			</TeamsAnchor>,
 		),
-	).toThrow('useNavigationContext must be used within a TeamsNavigationProvider');
+	).toThrow('useTeamsNavigationContext must be used within a TeamsNavigationProvider');
 	consoleSpy.mockRestore();
 });

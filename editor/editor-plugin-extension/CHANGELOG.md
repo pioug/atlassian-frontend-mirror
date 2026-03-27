@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-extension
 
+## 11.0.18
+
+### Patch Changes
+
+- [`028f8edfca7ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/028f8edfca7ff) -
+  Conditionally render DescriptionSummary behind platform_editor_conditionally_add_sidebar_summary
+  feature gate to prevent duplicate descriptions when using old ContextPanel
+- Updated dependencies
+
+## 11.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.16
 
 ### Patch Changes

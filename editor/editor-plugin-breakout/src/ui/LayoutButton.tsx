@@ -2,19 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, type ComponentType, type FC } from 'react';
+import { useCallback } from 'react';
+import type { ComponentType, FC } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	type BreakoutSupportedNodes,
-	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import type { BreakoutSupportedNodes } from '@atlaskit/editor-common/analytics';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
 import type { BreakoutMode, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';

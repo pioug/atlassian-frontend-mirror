@@ -3,10 +3,10 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
 import { trackChangesPlugin } from '@atlaskit/editor-plugin-track-changes';
-import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
+import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import Form, { Field, FormFooter } from '@atlaskit/form';

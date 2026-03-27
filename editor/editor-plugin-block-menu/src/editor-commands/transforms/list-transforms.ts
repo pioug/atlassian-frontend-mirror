@@ -1,6 +1,7 @@
 import { transformBetweenListTypes, isTaskList } from '@atlaskit/editor-common/transforms';
 import type { TransformContext } from '@atlaskit/editor-common/transforms';
-import { type Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 

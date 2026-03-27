@@ -7,7 +7,6 @@ import { type CSSProperties, memo, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -133,48 +132,46 @@ const BreadcrumbsItem: import('react').MemoExoticComponent<
 				typeof truncationWidth !== 'undefined' && `${truncationWidth}px`,
 		};
 
-		const step =
-			!component && fg('platform_dst_breadcrumbs_step_conversion') ? (
-				<Step
-					ref={stepTextRef}
-					analyticsContext={analyticsContext}
-					href={href}
-					iconAfter={iconAfter}
-					iconBefore={iconBefore}
-					onClick={onClick}
-					target={target}
-					testId={testId}
-					truncationWidth={truncationWidth}
-				>
-					{text}
-				</Step>
-			) : (
-				<StepOld
-					{...rest}
-					analyticsContext={analyticsContext}
-					component={component}
-					hasOverflow={hasOverflow}
-					href={href}
-					iconAfter={iconAfter}
-					iconBefore={iconBefore}
-					onClick={onClick}
-					ref={stepTextRef}
-					target={target}
-					testId={testId}
-					css={[
-						staticItemStyles,
-						truncationWidth ? staticItemWithTruncationStyles : staticItemWithoutTruncationStyles,
-					]}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					style={
-						truncationWidth
-							? { ...dynamicItemStyles, ...buttonOverrideStyles }
-							: buttonOverrideStyles
-					}
-				>
-					{text}
-				</StepOld>
-			);
+		const step = !component ? (
+			<Step
+				ref={stepTextRef}
+				analyticsContext={analyticsContext}
+				href={href}
+				iconAfter={iconAfter}
+				iconBefore={iconBefore}
+				onClick={onClick}
+				target={target}
+				testId={testId}
+				truncationWidth={truncationWidth}
+				{...rest}
+			>
+				{text}
+			</Step>
+		) : (
+			<StepOld
+				{...rest}
+				analyticsContext={analyticsContext}
+				component={component}
+				hasOverflow={hasOverflow}
+				href={href}
+				iconAfter={iconAfter}
+				iconBefore={iconBefore}
+				onClick={onClick}
+				ref={stepTextRef}
+				target={target}
+				testId={testId}
+				css={[
+					staticItemStyles,
+					truncationWidth ? staticItemWithTruncationStyles : staticItemWithoutTruncationStyles,
+				]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={
+					truncationWidth ? { ...dynamicItemStyles, ...buttonOverrideStyles } : buttonOverrideStyles
+				}
+			>
+				{text}
+			</StepOld>
+		);
 
 		return (
 			<li css={itemWrapperStyles}>

@@ -28,7 +28,7 @@ export const TeamsAnchor = (props: TeamsAnchorProps) => {
 	};
 	return (
 		<Anchor
-			href={href}
+			href={navigationProps.href}
 			target={navigationProps.target}
 			rel={navigationProps.rel}
 			onClick={handleClick}

@@ -5,7 +5,6 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
-import { B400, N500, N30A, N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { MentionType } from '../../types';
 import {
@@ -21,25 +20,25 @@ export interface PrimitiveMentionProps extends HTMLAttributes<HTMLSpanElement> {
 
 const mentionStyle = {
 	[MentionType.SELF]: {
-		background: token('color.background.brand.bold', B400),
+		background: token('color.background.brand.bold'),
 		borderColor: 'transparent',
-		text: token('color.text.inverse', N20),
-		hoveredBackground: token('color.background.brand.bold.hovered', B400),
-		pressedBackground: token('color.background.brand.bold.pressed', B400),
+		text: token('color.text.inverse'),
+		hoveredBackground: token('color.background.brand.bold.hovered'),
+		pressedBackground: token('color.background.brand.bold.pressed'),
 	},
 	[MentionType.RESTRICTED]: {
 		background: 'transparent',
-		borderColor: token('color.border.bold', N500),
-		text: token('color.text', N500),
+		borderColor: token('color.border.bold'),
+		text: token('color.text'),
 		hoveredBackground: 'transparent',
 		pressedBackground: 'transparent',
 	},
 	[MentionType.DEFAULT]: {
-		background: token('color.background.neutral', N30A),
+		background: token('color.background.neutral'),
 		borderColor: 'transparent',
-		text: token('color.text.subtle', N500),
-		hoveredBackground: token('color.background.neutral.hovered', N30A),
-		pressedBackground: token('color.background.neutral.pressed', N30A),
+		text: token('color.text.subtle'),
+		hoveredBackground: token('color.background.neutral.hovered'),
+		pressedBackground: token('color.background.neutral.pressed'),
 	},
 } as const;
 

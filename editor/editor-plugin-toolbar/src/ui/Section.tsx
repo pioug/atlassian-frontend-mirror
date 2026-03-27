@@ -1,10 +1,7 @@
 import React from 'react';
 
-import {
-	TOOLBARS,
-	useEditorToolbar,
-	type ContextualFormattingEnabledOptions,
-} from '@atlaskit/editor-common/toolbar';
+import { TOOLBARS, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
+import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI, UserPreferences } from '@atlaskit/editor-common/types';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import { ToolbarSection, SeparatorPosition } from '@atlaskit/editor-toolbar';

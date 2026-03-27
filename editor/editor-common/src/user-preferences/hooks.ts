@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { type ResolvedUserPreferences } from './user-preferences';
+import type { ResolvedUserPreferences } from './user-preferences';
 import type { UserPreferencesProvider } from './user-preferences-provider';
 
 /**

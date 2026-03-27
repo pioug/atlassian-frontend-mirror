@@ -16,6 +16,7 @@ const shouldShowPinMenuItem = (editMode?: ViewMode) => {
 
 type PinMenuItemProps = {
 	api?: ExtractInjectionAPI<SelectionToolbarPlugin>;
+	disablePin?: boolean;
 };
 
 const usePluginState = (_api?: ExtractInjectionAPI<SelectionToolbarPlugin> | undefined) => {
@@ -31,7 +32,7 @@ const usePluginState = (_api?: ExtractInjectionAPI<SelectionToolbarPlugin> | und
 /**
  * The menu-item version of pin only appears in selection toolbar - the primary toolbar will have its own component
  */
-export const PinMenuItem = ({ api }: PinMenuItemProps): React.JSX.Element | null => {
+export const PinMenuItem = ({ api, disablePin }: PinMenuItemProps): React.JSX.Element | null => {
 	const intl = useIntl();
 	const {
 		editorViewMode,
@@ -40,7 +41,7 @@ export const PinMenuItem = ({ api }: PinMenuItemProps): React.JSX.Element | null
 	} = usePluginState(api);
 	const isToolbarDocked = editorToolbarDockingPreference === 'top';
 
-	if (!shouldShowPinMenuItem(editorViewMode)) {
+	if (disablePin || !shouldShowPinMenuItem(editorViewMode)) {
 		return null;
 	}
 

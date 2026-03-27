@@ -1,15 +1,10 @@
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	Fragment,
-	type Mark,
-	type MarkType,
-	Node as PMNode,
-	type ResolvedPos,
-	type Schema,
-} from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, MarkType, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';

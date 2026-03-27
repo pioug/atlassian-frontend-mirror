@@ -20,16 +20,16 @@ const styles = cssMap({
 		width: '452px',
 	},
 	inlineDialogContentWrapper: {
-		paddingTop: token('space.200', '16px'),
-		paddingRight: token('space.300', '24px'),
-		paddingBottom: token('space.200', '16px'),
-		paddingLeft: token('space.300', '24px'),
+		paddingTop: token('space.200'),
+		paddingRight: token('space.300'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.300'),
 	},
 	extendedInlineDialogContentWrapper: {
-		paddingTop: token('space.250', '20px'),
-		paddingRight: token('space.250', '20px'),
-		paddingBottom: token('space.250', '20px'),
-		paddingLeft: token('space.250', '20px'),
+		paddingTop: token('space.250'),
+		paddingRight: token('space.250'),
+		paddingBottom: token('space.250'),
+		paddingLeft: token('space.250'),
 	},
 });
 

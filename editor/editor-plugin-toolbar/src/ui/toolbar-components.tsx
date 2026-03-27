@@ -28,8 +28,9 @@ import {
 	OVERFLOW_MENU_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Show, Toolbar, type BreakpointPreset } from '@atlaskit/editor-toolbar';
-import { type RegisterComponent, type ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import { Show, Toolbar } from '@atlaskit/editor-toolbar';
+import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
+import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
 

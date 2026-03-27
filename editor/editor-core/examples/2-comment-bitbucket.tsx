@@ -6,13 +6,13 @@ import { IntlProvider } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { token } from '@atlaskit/tokens';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { name, version } from '../package.json';
-import { type EditorProps } from '../src';
+import type { EditorProps } from '../src';
 import { ComposableEditor } from '../src/composable-editor';
 import { useUniversalPreset } from '../src/preset-universal';
 import CollapsedEditor from '../src/ui/CollapsedEditor';

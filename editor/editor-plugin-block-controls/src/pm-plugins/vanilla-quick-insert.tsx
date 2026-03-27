@@ -1,4 +1,4 @@
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { blockControlsMessages as messages } from '@atlaskit/editor-common/messages';
@@ -22,7 +22,7 @@ import {
 import { createNewLine } from '../ui/utils/editor-commands';
 
 import { calculatePosition } from './quick-insert-calculate-position';
-import { type AnchorRectCache } from './utils/anchor-utils';
+import type { AnchorRectCache } from './utils/anchor-utils';
 
 type VanillaQuickInsertProps = {
 	anchorName: string;

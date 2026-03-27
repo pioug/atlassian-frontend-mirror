@@ -5,7 +5,6 @@
 import { memo, type MemoExoticComponent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N30A } from '@atlaskit/theme/colors';
 import type { EmojiDescription } from '../../types';
 import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 
@@ -14,8 +13,8 @@ const emojiPickerFooter = css({
 });
 
 const emojiPickerFooterWithTopShadow = css({
-	borderTop: `${token('border.width.selected')} solid ${token('color.border', N30A)}`,
-	boxShadow: `0px -1px 1px 0px ${token('color.border', 'rgba(0, 0, 0, 0.1)')}`,
+	borderTop: `${token('border.width.selected')} solid ${token('color.border')}`,
+	boxShadow: `0px -1px 1px 0px ${token('color.border')}`,
 });
 
 export interface Props {

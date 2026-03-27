@@ -103,7 +103,7 @@ describe('@atlaskit/reactions/components/Counter', () => {
 		renderCounter({ value, highlight });
 		const labelWrapper = await screen.findByTestId(RENDER_LABEL_TESTID);
 		expect(labelWrapper).toBeInTheDocument();
-		expect(labelWrapper).toHaveCompiledCss('color', 'var(--ds-text-selected,#0052cc)');
+		expect(labelWrapper).toHaveCompiledCss('color', 'var(--ds-text-selected,#1868db)');
 	});
 
 	describe('should update number', () => {

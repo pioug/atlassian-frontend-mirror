@@ -1,9 +1,4 @@
-import {
-	type ProviderHandler,
-	type ProviderName,
-	type Providers,
-	type ProviderType,
-} from './types';
+import type { ProviderHandler, ProviderName, Providers, ProviderType } from './types';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

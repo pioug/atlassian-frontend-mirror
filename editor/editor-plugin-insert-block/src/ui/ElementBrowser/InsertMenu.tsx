@@ -5,17 +5,17 @@
 import type { ComponentClass, HTMLAttributes, ReactElement } from 'react';
 import { useCallback, useContext, useLayoutEffect, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
-import { css, jsx, type SerializedStyles } from '@emotion/react';
-import { type MessageDescriptor, useIntl } from 'react-intl-next';
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports, jsdoc/require-description -- Ignored via go/DSP-18766; jsdoc debt surfaced by this mechanical PR */
+import { css, jsx } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
+import { useIntl } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl-next';
 import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { ELEMENT_ITEM_HEIGHT, ElementBrowser } from '@atlaskit/editor-common/element-browser';
-import {
-	type NamedPluginStatesFromInjectionAPI,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import {
 	messages,
@@ -45,13 +45,14 @@ import type { InsertMenuProps, SvgGetterParams } from './types';
 export const DEFAULT_HEIGHT = 560;
 
 /**
- * Exported helper to allow testing of InsertMenu pinning logic. NOTE: this is
-   *not* the ideal way to approach this, quickinsert plugin provides a `getSuggestions`
-   method that can be used to get suggestions -> once all experiments are cleaned up,
-   they should be unified through `pluginInjectionApi?.quickInsert?.actions.getSuggestions`
-
-   `cc_fd_db_top_editor_toolbar` experiment adds new logic to sort elements by `priority`
-   this newer implementation matches how the "quick insert menu" sorts elements
+ * Exported helper to allow testing of InsertMenu pinning logic.
+ *
+ * NOTE: this is *not* the ideal way to approach this. The quick insert plugin provides a
+ * `getSuggestions` method that can be used to get suggestions. Once all experiments are cleaned up,
+ * they should be unified through `pluginInjectionApi?.quickInsert?.actions.getSuggestions`.
+ *
+ * The `cc_fd_db_top_editor_toolbar` experiment adds new logic to sort elements by `priority`.
+ * This newer implementation matches how the quick insert menu sorts elements.
  */
 export const sortPrioritizedElements = (
 	featuredItems: QuickInsertItem[],

@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, type ReactNode } from 'react';
 
 import type { NavigationContext } from '../common/utils/getNavigationProps';
 
@@ -6,7 +6,7 @@ const NavigationContextReact = createContext<NavigationContext | undefined>(unde
 
 export interface TeamsNavigationProviderProps {
 	value: NavigationContext;
-	children: React.ReactNode;
+	children: ReactNode;
 }
 
 /**
@@ -28,7 +28,7 @@ export function TeamsNavigationProvider({ value, children }: TeamsNavigationProv
 export function useTeamsNavigationContext() {
 	const context = useContext(NavigationContextReact);
 	if (!context) {
-		throw new Error('useNavigationContext must be used within a TeamsNavigationProvider');
+		throw new Error('useTeamsNavigationContext must be used within a TeamsNavigationProvider');
 	}
 	return context;
 }

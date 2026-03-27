@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 8.0.16
+
+### Patch Changes
+
+- [`7acad9336e3c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7acad9336e3c4) -
+  Remove stale feature flag platform_editor_controls_fix_view_more_in_comment (final value: true)
+- Updated dependencies
+
+## 8.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.14
 
 ### Patch Changes

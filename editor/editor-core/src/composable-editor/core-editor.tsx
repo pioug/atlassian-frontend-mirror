@@ -23,7 +23,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import EditorActions from '../actions';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
-import { type WithAppearanceComponent } from '../types/with-appearance-component';
+import type { WithAppearanceComponent } from '../types/with-appearance-component';
 import { useEditorContext } from '../ui/EditorContext';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import measurements from '../utils/performance/measure-enum';

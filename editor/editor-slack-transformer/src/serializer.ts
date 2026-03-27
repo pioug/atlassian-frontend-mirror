@@ -1,9 +1,8 @@
 import {
 	MarkdownSerializer as PMMarkdownSerializer,
 	MarkdownSerializerState as PMMarkdownSerializerState,
-	type NodeSerializerSpec,
-	type MarkSerializerSpec,
 } from '@atlaskit/editor-prosemirror/markdown';
+import type { NodeSerializerSpec, MarkSerializerSpec } from '@atlaskit/editor-prosemirror/markdown';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import {

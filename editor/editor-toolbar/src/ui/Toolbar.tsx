@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-selectors */
 /* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
-import React, { type ReactNode } from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -11,7 +12,8 @@ import { useToolbarUI } from '../hooks/ui-context';
 import type { ResponsiveContainerProps } from './ResponsiveContainer';
 import { ResponsiveContainer, ResponsiveWrapper } from './ResponsiveContainer';
 import { ToolbarKeyboardNavigationProvider } from './ToolbarKeyboardNavigationProvider';
-import { ACTION_SUBJECT, ViewEventEmitter, type ViewEventEmitterProps } from './ViewEventEmitter';
+import { ACTION_SUBJECT, ViewEventEmitter } from './ViewEventEmitter';
+import type { ViewEventEmitterProps } from './ViewEventEmitter';
 
 const styles = cssMap({
 	toolbarBase: {

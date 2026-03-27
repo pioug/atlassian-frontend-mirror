@@ -1,5 +1,21 @@
 # @atlaskit/rovo-triggers
 
+## 5.33.0
+
+### Minor Changes
+
+- [`f431307deb663`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f431307deb663) -
+  [ux] Add 'pulse' pathway to enable deep-linking to the Pulse/Insights menu via URL params
+  (rovoChatPathway=pulse)
+
+## 5.32.0
+
+### Minor Changes
+
+- [`47d14b235fa57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47d14b235fa57) -
+  [ux] When user clicks "Chat" button on Project card under Rovo For You tab, they get routed to the
+  Rovo Empty Chat state with a custom greeting and the project URL as context
+
 ## 5.31.0
 
 ### Minor Changes

@@ -1,5 +1,6 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css, type SerializedStyles } from '@emotion/react';
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
+import { css } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 import { token } from '@atlaskit/tokens';

@@ -6,7 +6,7 @@ import type {
 	ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
-import { type PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

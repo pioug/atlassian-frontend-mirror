@@ -30,17 +30,29 @@ export const migrationGuidesInputSchema: z.ZodObject<
 		description: string;
 	}
 > = z.object({
-	migration: z.enum(migrationIds as [string]).describe(`The specific migration to perform.\n`),
+	migration: z
+		.enum(migrationIds as [string])
+		.describe(
+			'Migration id from the registry. Must match the guide you want (see tool description list).',
+		),
 	description: z
 		.enum(migrationDescriptions as [string])
-		.describe(`Description of the migration type.\n`),
+		.describe(
+			'Human-readable migration label that pairs with `migration` in the schema—choose the entry that matches the selected id.',
+		),
 });
 
 export const listMigrationGuidesTool: Tool = {
 	name: 'ads_migration_guides',
-	description: `Migration guides for Atlassian Design System components.
+	description: `Returns a structured Atlassian Design System (ADS) **migration guide** for a known package or API migration (before/after examples, best practices, links).
 
-	Available migrations:\n${getAvailableMigrationsDescription()}`,
+WHEN TO USE:
+You are upgrading or refactoring code between ADS packages or APIs and need the official migration pattern for a specific id listed below.
+
+Pass **both** \`migration\` and \`description\` using a **matching pair** from the enum (schema enforces valid combinations).
+
+Available migrations:
+${getAvailableMigrationsDescription()}`,
 	annotations: {
 		title: 'ADS Migration Guides',
 		readOnlyHint: true,

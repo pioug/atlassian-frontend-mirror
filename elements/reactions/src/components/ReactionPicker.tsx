@@ -37,7 +37,6 @@ import { Selector, type SelectorProps } from './Selector';
 import { Trigger, type TriggerProps } from './Trigger';
 import { RepositionOnUpdate } from './RepositionOnUpdate';
 
-import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Portal from '@atlaskit/portal';
 
@@ -57,14 +56,14 @@ const popupWrapperStyle = css({
 });
 
 const popupStyle = css({
-	backgroundColor: token('elevation.surface.overlay', N0),
+	backgroundColor: token('elevation.surface.overlay'),
 	borderRadius: token('radius.small', '3px'),
-	boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
+	boxShadow: token('elevation.shadow.overlay'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&> div': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		boxShadow: undefined,
-		marginBottom: token('space.050', '4px'),
+		marginBottom: token('space.050'),
 	},
 });
 

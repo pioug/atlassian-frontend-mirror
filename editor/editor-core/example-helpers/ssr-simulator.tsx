@@ -25,10 +25,7 @@ import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags'
 import { Flex, Stack } from '@atlaskit/primitives/compiled';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
-import {
-	type InitialPluginConfiguration,
-	type UniversalPresetProps,
-} from '../src/presets/universal';
+import type { InitialPluginConfiguration, UniversalPresetProps } from '../src/presets/universal';
 
 type CreateExamplePresetConfig = {
 	featureFlags?: EditorProps['featureFlags'];

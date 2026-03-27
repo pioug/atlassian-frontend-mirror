@@ -2021,65 +2021,61 @@ describe('no-barrel-entry-imports', () => {
 			`,
 		});
 
-		runWithFs(
-			'no-barrel-entry-imports - entry-point wrapper files',
-			fsWithEntryPointWrappers,
-			{
-				valid: [
-					// Already using a specific entry-point import
-					{
-						code: `import DropdownItem from '${TEST_PACKAGE_NAME}/dropdown-menu-item';`,
-						filename: TEST_FILE,
-					},
-				],
-				invalid: [
-					// Named import of a default-as-named re-export through entry-point wrapper
-					// Entry-point: `export { default as DropdownItem }` → consumer uses named import
-					{
-						code: `import { DropdownItem } from '${TEST_PACKAGE_NAME}';`,
-						filename: TEST_FILE,
-						errors: [{ messageId: 'barrelEntryImport' }],
-						output: `import { DropdownItem } from '${TEST_PACKAGE_NAME}/dropdown-menu-item';`,
-					},
-					// Multiple named imports, each going through different entry-point wrappers
-					{
-						code: `import { DropdownItem, DropdownItemGroup } from '${TEST_PACKAGE_NAME}';`,
-						filename: TEST_FILE,
-						errors: [{ messageId: 'barrelEntryImport' }],
-						output: tabindent`
+		runWithFs('no-barrel-entry-imports - entry-point wrapper files', fsWithEntryPointWrappers, {
+			valid: [
+				// Already using a specific entry-point import
+				{
+					code: `import DropdownItem from '${TEST_PACKAGE_NAME}/dropdown-menu-item';`,
+					filename: TEST_FILE,
+				},
+			],
+			invalid: [
+				// Named import of a default-as-named re-export through entry-point wrapper
+				// Entry-point: `export { default as DropdownItem }` → consumer uses named import
+				{
+					code: `import { DropdownItem } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import { DropdownItem } from '${TEST_PACKAGE_NAME}/dropdown-menu-item';`,
+				},
+				// Multiple named imports, each going through different entry-point wrappers
+				{
+					code: `import { DropdownItem, DropdownItemGroup } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: tabindent`
 							import { DropdownItem } from '${TEST_PACKAGE_NAME}/dropdown-menu-item';
 							import { DropdownItemGroup } from '${TEST_PACKAGE_NAME}/dropdown-menu-item-group';
 						`,
-					},
-					// Default import through entry-point wrapper
-					// Entry-point: `export { default }` → consumer uses default import
-					{
-						code: `import DropdownMenu from '${TEST_PACKAGE_NAME}';`,
-						filename: TEST_FILE,
-						errors: [{ messageId: 'barrelEntryImport' }],
-						output: `import DropdownMenu from '${TEST_PACKAGE_NAME}/dropdown-menu';`,
-					},
-					// Type import through entry-point wrapper
-					{
-						code: `import type { DropdownMenuProps } from '${TEST_PACKAGE_NAME}';`,
-						filename: TEST_FILE,
-						errors: [{ messageId: 'barrelEntryImport' }],
-						output: `import type { DropdownMenuProps } from '${TEST_PACKAGE_NAME}/types';`,
-					},
-					// Mixed default and named imports through entry-point wrappers
-					{
-						code: `import DropdownMenu, { DropdownItem, DropdownItemGroup } from '${TEST_PACKAGE_NAME}';`,
-						filename: TEST_FILE,
-						errors: [{ messageId: 'barrelEntryImport' }],
-						output: tabindent`
+				},
+				// Default import through entry-point wrapper
+				// Entry-point: `export { default }` → consumer uses default import
+				{
+					code: `import DropdownMenu from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import DropdownMenu from '${TEST_PACKAGE_NAME}/dropdown-menu';`,
+				},
+				// Type import through entry-point wrapper
+				{
+					code: `import type { DropdownMenuProps } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import type { DropdownMenuProps } from '${TEST_PACKAGE_NAME}/types';`,
+				},
+				// Mixed default and named imports through entry-point wrappers
+				{
+					code: `import DropdownMenu, { DropdownItem, DropdownItemGroup } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: tabindent`
 							import DropdownMenu from '${TEST_PACKAGE_NAME}/dropdown-menu';
 							import { DropdownItem } from '${TEST_PACKAGE_NAME}/dropdown-menu-item';
 							import { DropdownItemGroup } from '${TEST_PACKAGE_NAME}/dropdown-menu-item-group';
 						`,
-					},
-				],
-			},
-		);
+				},
+			],
+		});
 	});
 
 	describe('applyToImportsFrom option', () => {

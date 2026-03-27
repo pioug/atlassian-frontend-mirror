@@ -4,10 +4,10 @@ import { useIntl } from 'react-intl-next';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownMenu, ToolbarTooltip } from '@atlaskit/editor-toolbar';
 
-import { type AlignmentPlugin } from '../../alignmentPluginType';
+import type { AlignmentPlugin } from '../../alignmentPluginType';
 
 import { alignmentOptions } from './options';
 

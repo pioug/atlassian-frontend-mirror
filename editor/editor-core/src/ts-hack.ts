@@ -6,6 +6,6 @@
  *
  * Typecheck team is working on a fix for this issue.
  **/
-import { type QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
+import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 
 export type tmpQuickInsertPlugin = QuickInsertPlugin;

@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.6.0
+
+### Minor Changes
+
+- [`165ad4e461379`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/165ad4e461379) -
+  Allow sending custom.interaction-extra-metrics payload when 3P-inclusive VC is dirty behind
+  platform_ufo_send_extra_metrics_on_dirty_vc feature gate. Adds vcClean and vcAbortReason fields to
+  the payload properties.
+
+## 5.5.4
+
+### Patch Changes
+
+- [`fe2db5c510193`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe2db5c510193) -
+  Clean up feature gate platform_ufo_exclude_3p_elements_from_ttvc - gate always evaluates to true
+
 ## 5.5.3
 
 ### Patch Changes

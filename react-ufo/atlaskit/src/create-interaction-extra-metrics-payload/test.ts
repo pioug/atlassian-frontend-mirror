@@ -95,6 +95,7 @@ function createVCRevisionPayload(
 	revision: string,
 	vc90: number | null,
 	clean: boolean = true,
+	abortReason?: string,
 ): RevisionPayload[number] {
 	return {
 		revision,
@@ -103,6 +104,7 @@ function createVCRevisionPayload(
 		'metric:vc95': null,
 		'metric:vc99': null,
 		revisionVCDetails: [],
+		...(abortReason !== undefined && { abortReason }),
 	} as RevisionPayload[number];
 }
 
@@ -219,8 +221,8 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 		);
 
 		expect(result).not.toBeNull();
-		expect(result?.attributes?.properties?.lastInteractionFinish?.vc90).toBe(200);
-		expect(result?.attributes?.properties?.lastInteractionFinish?.vcClean).toBe(true);
+		expect((result?.attributes?.properties as any)?.lastInteractionFinish?.vc90).toBe(200);
+		expect((result?.attributes?.properties as any)?.lastInteractionFinish?.vcClean).toBe(true);
 	});
 
 	it('should return null when lastInteractionFinish VC has no matching revision', async () => {
@@ -249,5 +251,322 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 
 		// lastInteractionFinish revision doesn't match fy26.04 → unclean → returns null
 		expect(result).toBeNull();
+	});
+
+	it('should include vcClean field as true in payload when VC is clean', async () => {
+		mockGetVCMetrics.mockResolvedValue({
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 300)],
+		});
+
+		const interaction = createMockInteraction();
+		const lastInteraction = createMockInteraction({
+			id: 'last-interaction',
+			start: 0,
+			end: 100,
+		});
+		const lastVCResult = {
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 200)],
+		};
+
+		const result = await createInteractionExtraLogPayload(
+			'test-interaction-id',
+			interaction,
+			lastInteraction,
+			lastVCResult,
+		);
+
+		expect(result).not.toBeNull();
+		const properties = result?.attributes?.properties as any;
+		expect(properties?.vcClean).toBe(true);
+		expect(properties?.vcAbortReason).toBeUndefined();
+		expect(properties?.hasMinorInteractions).toBe(false);
+		expect(properties?.hasErrors).toBe(false);
+	});
+});
+
+describe('createInteractionExtraLogPayload - dirty VC with feature gate', () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+		(fg as jest.Mock).mockImplementation(() => false);
+	});
+
+	it('should return null when 3P VC is dirty and feature gate is OFF', async () => {
+		(fg as jest.Mock).mockImplementation((flag: string) => {
+			if (flag === 'platform_ufo_send_extra_metrics_on_dirty_vc') {
+				return false;
+			}
+			return false;
+		});
+
+		mockGetVCMetrics.mockResolvedValue({
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', null, false, 'scroll')],
+		});
+
+		const interaction = createMockInteraction();
+		const lastInteraction = createMockInteraction({
+			id: 'last-interaction',
+			start: 0,
+			end: 100,
+		});
+		const lastVCResult = {
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 200)],
+		};
+
+		const result = await createInteractionExtraLogPayload(
+			'test-interaction-id',
+			interaction,
+			lastInteraction,
+			lastVCResult,
+		);
+
+		expect(result).toBeNull();
+	});
+
+	it('should send payload when 3P VC is dirty and feature gate is ON', async () => {
+		(fg as jest.Mock).mockImplementation((flag: string) => {
+			if (flag === 'platform_ufo_send_extra_metrics_on_dirty_vc') {
+				return true;
+			}
+			return false;
+		});
+
+		mockGetVCMetrics.mockResolvedValue({
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', null, false, 'scroll')],
+		});
+
+		const interaction = createMockInteraction();
+		const lastInteraction = createMockInteraction({
+			id: 'last-interaction',
+			start: 0,
+			end: 100,
+		});
+		const lastVCResult = {
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 200)],
+		};
+
+		const result = await createInteractionExtraLogPayload(
+			'test-interaction-id',
+			interaction,
+			lastInteraction,
+			lastVCResult,
+		);
+
+		expect(result).not.toBeNull();
+		expect((result?.attributes?.properties as any)?.vcClean).toBe(false);
+		expect((result?.attributes?.properties as any)?.vcAbortReason).toBe('scroll');
+	});
+
+	it('should send payload with vcClean=false and vcAbortReason=keypress when dirty due to keypress', async () => {
+		(fg as jest.Mock).mockImplementation((flag: string) => {
+			if (flag === 'platform_ufo_send_extra_metrics_on_dirty_vc') {
+				return true;
+			}
+			return false;
+		});
+
+		mockGetVCMetrics.mockResolvedValue({
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', null, false, 'keypress')],
+		});
+
+		const interaction = createMockInteraction();
+		const lastInteraction = createMockInteraction({
+			id: 'last-interaction',
+			start: 0,
+			end: 100,
+		});
+		const lastVCResult = {
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 200)],
+		};
+
+		const result = await createInteractionExtraLogPayload(
+			'test-interaction-id',
+			interaction,
+			lastInteraction,
+			lastVCResult,
+		);
+
+		expect(result).not.toBeNull();
+		expect((result?.attributes?.properties as any)?.vcClean).toBe(false);
+		expect((result?.attributes?.properties as any)?.vcAbortReason).toBe('keypress');
+	});
+
+	it('should still return null when feature gate is ON but TTAI is invalid', async () => {
+		(fg as jest.Mock).mockImplementation((flag: string) => {
+			if (flag === 'platform_ufo_send_extra_metrics_on_dirty_vc') {
+				return true;
+			}
+			return false;
+		});
+
+		mockGetVCMetrics.mockResolvedValue({
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', null, false, 'scroll')],
+		});
+
+		// interaction with no valid end time → TTAI will be invalid
+		const interaction = createMockInteraction({ end: 0 });
+		const result = await createInteractionExtraLogPayload('test-interaction-id', interaction, null);
+
+		expect(result).toBeNull();
+	});
+
+	it('should send payload when interaction has errors and feature gate is ON', async () => {
+		(fg as jest.Mock).mockImplementation((flag: string) => {
+			if (flag === 'platform_ufo_send_extra_metrics_on_dirty_vc') {
+				return true;
+			}
+			return false;
+		});
+
+		mockGetVCMetrics.mockResolvedValue({
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 300)],
+		});
+
+		const interaction = createMockInteraction({
+			errors: [{ name: 'test-error', labelStack: null, errorType: 'type', errorMessage: 'msg' }],
+		});
+		const lastInteraction = createMockInteraction({
+			id: 'last-interaction',
+			start: 0,
+			end: 100,
+		});
+		const lastVCResult = {
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 200)],
+		};
+
+		const result = await createInteractionExtraLogPayload(
+			'test-interaction-id',
+			interaction,
+			lastInteraction,
+			lastVCResult,
+		);
+
+		expect(result).not.toBeNull();
+		expect((result?.attributes?.properties as any)?.hasErrors).toBe(true);
+	});
+
+	it('should return null when interaction has errors and feature gate is OFF', async () => {
+		(fg as jest.Mock).mockImplementation(() => false);
+
+		mockGetVCMetrics.mockResolvedValue({
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 300)],
+		});
+
+		const interaction = createMockInteraction({
+			errors: [{ name: 'test-error', labelStack: null, errorType: 'type', errorMessage: 'msg' }],
+		});
+		const lastInteraction = createMockInteraction({
+			id: 'last-interaction',
+			start: 0,
+			end: 100,
+		});
+
+		const result = await createInteractionExtraLogPayload(
+			'test-interaction-id',
+			interaction,
+			lastInteraction,
+		);
+
+		expect(result).toBeNull();
+	});
+
+	it('should send payload when minor interactions exist and feature gate is ON', async () => {
+		(fg as jest.Mock).mockImplementation((flag: string) => {
+			if (flag === 'platform_ufo_send_extra_metrics_on_dirty_vc') {
+				return true;
+			}
+			return false;
+		});
+
+		mockGetVCMetrics.mockResolvedValue({
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 300)],
+		});
+
+		const interaction = createMockInteraction({
+			minorInteractions: [{ name: 'tooltip-hover', startTime: 50 }],
+		});
+		const lastInteraction = createMockInteraction({
+			id: 'last-interaction',
+			start: 0,
+			end: 100,
+		});
+		const lastVCResult = {
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 200)],
+		};
+
+		const result = await createInteractionExtraLogPayload(
+			'test-interaction-id',
+			interaction,
+			lastInteraction,
+			lastVCResult,
+		);
+
+		expect(result).not.toBeNull();
+		expect((result?.attributes?.properties as any)?.hasMinorInteractions).toBe(true);
+	});
+
+	it('should return null when minor interactions exist and feature gate is OFF', async () => {
+		(fg as jest.Mock).mockImplementation(() => false);
+
+		mockGetVCMetrics.mockResolvedValue({
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 300)],
+		});
+
+		const interaction = createMockInteraction({
+			minorInteractions: [{ name: 'tooltip-hover', startTime: 50 }],
+		});
+		const lastInteraction = createMockInteraction({
+			id: 'last-interaction',
+			start: 0,
+			end: 100,
+		});
+
+		const result = await createInteractionExtraLogPayload(
+			'test-interaction-id',
+			interaction,
+			lastInteraction,
+		);
+
+		expect(result).toBeNull();
+	});
+
+	it('should send payload when lastInteractionFinish VC is dirty and feature gate is ON', async () => {
+		(fg as jest.Mock).mockImplementation((flag: string) => {
+			if (flag === 'platform_ufo_send_extra_metrics_on_dirty_vc') {
+				return true;
+			}
+			return false;
+		});
+
+		mockGetVCMetrics.mockResolvedValue({
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 300)],
+		});
+
+		const interaction = createMockInteraction();
+		const lastInteraction = createMockInteraction({
+			id: 'last-interaction',
+			start: 0,
+			end: 100,
+		});
+
+		// lastInteractionFinish VC is dirty
+		const lastVCResult = {
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', null, false, 'resize')],
+		};
+
+		const result = await createInteractionExtraLogPayload(
+			'test-interaction-id',
+			interaction,
+			lastInteraction,
+			lastVCResult,
+		);
+
+		// With gate ON, should still produce payload
+		expect(result).not.toBeNull();
+		const properties = result?.attributes?.properties as any;
+		// The 3P VC itself is clean
+		expect(properties?.vcClean).toBe(true);
+		// But lastInteractionFinish VC is dirty
+		expect(properties?.lastInteractionFinish?.vcClean).toBe(false);
+		expect(properties?.lastInteractionFinish?.vc90).toBeNull();
 	});
 });

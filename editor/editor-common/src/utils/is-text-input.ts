@@ -1,4 +1,4 @@
-import { type Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 

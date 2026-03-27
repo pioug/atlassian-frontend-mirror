@@ -1,5 +1,5 @@
-import { type ACTION, type ACTION_SUBJECT } from './enums';
-import { type UIAEP } from './utils';
+import type { ACTION, ACTION_SUBJECT } from './enums';
+import type { UIAEP } from './utils';
 
 type OpenAEP = UIAEP<
 	ACTION.OPENED,

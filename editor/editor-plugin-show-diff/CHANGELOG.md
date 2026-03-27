@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 6.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.3
+
+### Patch Changes
+
+- [`c2b3bd8f1e4cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2b3bd8f1e4cb) -
+  Enforce custom step registers for show diff plugin for consistency.
+
 ## 6.2.2
 
 ### Patch Changes

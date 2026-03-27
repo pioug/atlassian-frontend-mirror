@@ -24,12 +24,12 @@ type PendingAnswer = 'yes' | 'no';
 type Optional<T> = T | null;
 
 const buttonContainerStyles = css({
-	marginTop: token('space.400', '32px'),
+	marginTop: token('space.400'),
 	display: 'flex',
 	justifyContent: 'flex-end',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& > * + *': {
-		marginLeft: token('space.100', '8px'),
+		marginLeft: token('space.100'),
 	},
 });
 

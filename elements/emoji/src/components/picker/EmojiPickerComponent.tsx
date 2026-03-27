@@ -15,7 +15,6 @@ import {
 } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N40 } from '@atlaskit/theme/colors';
 import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
 import { getEmojiVariation } from '../../api/EmojiRepository';
@@ -77,7 +76,7 @@ import { useEmoji } from '../../hooks/useEmoji';
 import { useIsMounted } from '../../hooks/useIsMounted';
 import { messages } from '../i18n';
 
-const emojiPickerBoxShadow = token('elevation.shadow.overlay', '0 3px 6px rgba(0, 0, 0, 0.2)');
+const emojiPickerBoxShadow = token('elevation.shadow.overlay');
 const emojiPickerHeight = 295;
 const emojiPickerHeightWithPreview = 349; // emojiPickerHeight + emojiPickerPreviewHeight;
 const emojiPickerWidth = 350;
@@ -88,8 +87,8 @@ const emojiPicker = css({
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'space-between',
-	backgroundColor: token('elevation.surface.overlay', 'white'),
-	border: `${token('color.border', N40)} ${token('border.width')} solid`,
+	backgroundColor: token('elevation.surface.overlay'),
+	border: `${token('color.border')} ${token('border.width')} solid`,
 	borderRadius: token('radius.small', '3px'),
 	boxShadow: emojiPickerBoxShadow,
 	height: `${emojiPickerHeight}px`,

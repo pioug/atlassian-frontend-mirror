@@ -10,8 +10,12 @@ const inputSchema = z.object({});
 
 export const listGetAllTokensTool: Tool = {
 	name: 'ads_get_all_tokens',
-	description:
-		"Fetch all Atlassian Design System tokens. Only use when `ads_search_tokens` does not return what you're looking for.",
+	description: `Returns **every** ADS design token from bundled metadata (name, example value, usage guidelines)—one JSON object per token, **very large** output.
+
+WHEN TO USE:
+Last resort when \`ads_plan\` / \`ads_search_tokens\` cannot answer the question and you need the full list (e.g. exhaustive audit). Prefer targeted search for normal development.
+
+No parameters.`,
 	annotations: {
 		title: 'Get all ADS tokens',
 		readOnlyHint: true,

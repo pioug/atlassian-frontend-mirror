@@ -10,9 +10,13 @@ export const isModified = (event: React.MouseEvent<HTMLElement>) =>
  * Checks if a URL is a Teams app route.
  */
 export const isTeamsAppRoute = (url: string) => {
-	const path = getRoutePathFromUrl(url);
-	const hostname = new URL(url).hostname;
-	return hostname.includes('home.atlassian') && path.includes('/people');
+	try {
+		const path = getRoutePathFromUrl(url);
+		const hostname = new URL(url).hostname;
+		return hostname.includes('home.atlassian') && path.includes('/people');
+	} catch {
+		return false;
+	}
 };
 
 /**

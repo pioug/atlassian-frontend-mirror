@@ -1,10 +1,7 @@
 import { bind } from 'bind-event-listener';
 
-import {
-	ACTION,
-	ACTION_SUBJECT_ID,
-	type DispatchAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
 	BLOCK_MENU_ACTION_TEST_ID,
 	BLOCK_MENU_TEST_ID,

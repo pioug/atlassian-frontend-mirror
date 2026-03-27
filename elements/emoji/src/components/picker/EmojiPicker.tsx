@@ -6,7 +6,6 @@ import React from 'react';
 import type { ComponentClass } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N40 } from '@atlaskit/theme/colors';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { ufoExperiences } from '../../util/analytics';
 import type { EmojiProvider } from '../../api/EmojiResource';
@@ -25,10 +24,10 @@ const emojiPicker = css({
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'space-between',
-	backgroundColor: token('elevation.surface.overlay', 'white'),
-	border: `${token('color.border', N40)} ${token('border.width')} solid`,
+	backgroundColor: token('elevation.surface.overlay'),
+	border: `${token('color.border')} ${token('border.width')} solid`,
 	borderRadius: token('radius.small', '3px'),
-	boxShadow: token('elevation.shadow.overlay', '0 3px 6px rgba(0, 0, 0, 0.2)'),
+	boxShadow: token('elevation.shadow.overlay'),
 	height: '375px',
 	width: '350px',
 	minWidth: '350px',

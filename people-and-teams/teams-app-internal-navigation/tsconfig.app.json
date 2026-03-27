@@ -38,6 +38,15 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/menu/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		}
 	],

@@ -6,7 +6,6 @@ import CheckCircleIcon from '@atlaskit/icon/core/status-success';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 import { Box } from '@atlaskit/primitives/compiled';
-import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -24,21 +23,21 @@ const styles = cssMap({
 	messageContainer: {
 		display: 'flex',
 		alignItems: 'center',
-		marginTop: token('space.negative.100', '-8px'),
-		marginRight: token('space.negative.200', '-16px'),
-		marginBottom: token('space.negative.100', '-8px'),
-		marginLeft: token('space.negative.200', '-16px'),
+		marginTop: token('space.negative.100'),
+		marginRight: token('space.negative.200'),
+		marginBottom: token('space.negative.100'),
+		marginLeft: token('space.negative.200'),
 	},
 	boxWrapper: {
-		marginRight: token('space.025', '2px'),
+		marginRight: token('space.025'),
 	},
 	copyIconContainerStyles: {
-		marginRight: token('space.025', '2px'),
+		marginRight: token('space.025'),
 		minWidth: '28px',
 		textAlign: 'left',
 	},
 	messageText: {
-		textIndent: token('space.075', '6px'),
+		textIndent: token('space.075'),
 	},
 });
 
@@ -197,7 +196,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
 									<CheckCircleIcon
 										spacing="spacious"
 										label=""
-										color={token('color.icon.success', G300)}
+										color={token('color.icon.success')}
 									/>
 									<Box xcss={cx(styles.messageText)}>{copiedToClipboardText}</Box>
 								</Box>

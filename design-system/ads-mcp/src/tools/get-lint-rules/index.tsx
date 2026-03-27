@@ -19,19 +19,21 @@ export const getLintRulesInputSchema: z.ZodObject<{
 		.array(z.string())
 		.default([])
 		.describe(
-			'An array of search terms to find lint rules by name or description, eg. `["icon-label", "xcss", "design token"]`. If empty or not provided, returns all lint rules.',
+			'Search terms matched against rule name, description, and docs body (fuzzy unless \`exactName\` is true). Example: `["icon-label", "xcss", "design token"]`. Omit or empty: return **all** rules as JSON.',
 		)
 		.optional(),
 	limit: z
 		.number()
 		.default(1)
-		.describe('Maximum number of results per search term in the array (default: 1)')
+		.describe(
+			'Max matches **per term** when searching (default 1). Not used when returning all rules.',
+		)
 		.optional(),
 	exactName: z
 		.boolean()
 		.default(false)
 		.describe(
-			'Enable to explicitly search lint rules by the exact rule name match (when you know the rule name, but need more details)',
+			'If true, resolve each term by **exact** ESLint rule name (case-insensitive). If false, fuzzy search across name, description, and content.',
 		)
 		.optional(),
 });
@@ -54,14 +56,18 @@ export const listGetLintRulesTool: {
 	};
 } = {
 	name: 'ads_get_lint_rules',
-	description: `Get Atlassian Design System ESLint rule documentation (constellation) with optional search functionality.
+	description: `Returns documentation for **Constellation** (Atlassian Design System) ESLint rules shipped with this MCP—rule purpose, examples, and fixes where available.
 
-- If search parameters are provided, searches for lint rules matching the criteria.
-- If no search parameters are provided, returns all lint rules.
+WHAT YOU GET:
+- No \`terms\`: JSON array of all rule payloads.
+- With \`terms\`: fuzzy search (or exact rule name when \`exactName\` is true); JSON for one or more matching rules.
 
-Example: use this tool to look up documentation for rules like icon-label, ensure-proper-xcss-usage, or no-deprecated-apis.`,
+WHEN TO USE:
+Explaining or fixing an ESLint message from ADS rules (e.g. \`icon-label\`, \`ensure-proper-xcss-usage\`, \`no-deprecated-apis\`), or browsing rule docs without opening the repo. Prefer this over guessing from rule id alone.
+
+This tool does not run ESLint; it only returns bundled documentation.`,
 	annotations: {
-		title: 'Get ADS lint rules',
+		title: 'Get ADS ESLint rule docs',
 		readOnlyHint: true,
 		destructiveHint: false,
 		idempotentHint: true,

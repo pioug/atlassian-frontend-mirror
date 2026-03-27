@@ -1,7 +1,7 @@
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-reporter';
 import { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import { sortByOrder } from '@atlaskit/editor-common/legacy-rank-plugins';
-import { type SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorPlugin, PluginsOptions } from '@atlaskit/editor-common/types';
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

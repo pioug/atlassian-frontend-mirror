@@ -198,9 +198,15 @@ async function createInteractionExtraLogPayload(
 
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
 	const isPageLoad = type === 'page_load' || type === 'transition';
-	if (!isPageLoad || (minorInteractions !== undefined && minorInteractions.length > 0)) {
-		// Not send if aborted by minor interaction for now
-		// Only create payload for page load
+	const hasMinorInteractions = minorInteractions !== undefined && minorInteractions.length > 0;
+
+	if (!isPageLoad) {
+		// Only create payload for page load or transition
+		return null;
+	}
+
+	if (hasMinorInteractions && !fg('platform_ufo_send_extra_metrics_on_dirty_vc')) {
+		// Not send if aborted by minor interaction, unless feature gate is on
 		return null;
 	}
 
@@ -223,16 +229,35 @@ async function createInteractionExtraLogPayload(
 	const effectiveVCRevisionPayload = vcRevisionPayload?.find(
 		({ revision }) => revision === effectiveRevision,
 	);
-	if (
-		!effectiveVCRevisionPayload?.clean ||
-		effectiveVCRevisionPayload?.['metric:vc90'] === undefined ||
-		typeof effectiveVCRevisionPayload?.['metric:vc90'] !== 'number' ||
-		extraTTAI === undefined ||
-		typeof extraTTAI !== 'number' ||
-		interaction.errors.length > 0
-	) {
+
+	const isVCCleanFor3p = effectiveVCRevisionPayload?.clean ?? false;
+	const vcAbortReasonFor3p = effectiveVCRevisionPayload?.abortReason ?? undefined;
+
+	const allowDirtyVC = fg('platform_ufo_send_extra_metrics_on_dirty_vc');
+
+	// Always require valid TTAI
+	if (extraTTAI === undefined || typeof extraTTAI !== 'number') {
 		return null;
 	}
+
+	// When feature gate is off, require no errors; when on, allow errors through
+	if (interaction.errors.length > 0 && !fg('platform_ufo_send_extra_metrics_on_dirty_vc')) {
+		return null;
+	}
+
+	if (isVCCleanFor3p) {
+		// When VC is clean, require a valid vc90 metric
+		if (
+			effectiveVCRevisionPayload?.['metric:vc90'] === undefined ||
+			typeof effectiveVCRevisionPayload?.['metric:vc90'] !== 'number'
+		) {
+			return null;
+		}
+	} else if (!allowDirtyVC) {
+		// When VC is dirty and feature gate is off, preserve existing behavior
+		return null;
+	}
+	// When VC is dirty and feature gate is on, continue to send payload
 
 	// Get normal TTAI & VC90 for last finished interaction (without 3p)
 	if (
@@ -266,7 +291,7 @@ async function createInteractionExtraLogPayload(
 		if (lastInteractionFinishRevision?.clean) {
 			lastInteractionFinishVCClean = true;
 			lastInteractionFinishVC90 = lastInteractionFinishRevision['metric:vc90'];
-		} else {
+		} else if (!allowDirtyVC) {
 			return null;
 		}
 	} else if (
@@ -275,8 +300,8 @@ async function createInteractionExtraLogPayload(
 		normalTTAI === extraTTAI
 	) {
 		// Because TTAI is equal between with and without 3p, we can assume VC90 is also equal
-		lastInteractionFinishVC90 = effectiveVCRevisionPayload?.['metric:vc90'];
-		lastInteractionFinishVCClean = effectiveVCRevisionPayload?.clean;
+		lastInteractionFinishVC90 = effectiveVCRevisionPayload?.['metric:vc90'] ?? null;
+		lastInteractionFinishVCClean = effectiveVCRevisionPayload?.clean ?? false;
 	}
 
 	// Helper function to check if labelStack contains third-party type
@@ -389,6 +414,10 @@ async function createInteractionExtraLogPayload(
 					customData: filteredData.customData,
 					...getDetailedInteractionMetrics(),
 				},
+				vcClean: isVCCleanFor3p,
+				...(vcAbortReasonFor3p !== undefined && { vcAbortReason: vcAbortReasonFor3p }),
+				hasMinorInteractions,
+				hasErrors: interaction.errors.length > 0,
 				'vc:effective:revision': effectiveRevision,
 				lastInteractionFinish: {
 					start: lastInteractionFinishStart,

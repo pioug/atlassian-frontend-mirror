@@ -74,14 +74,14 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
-	const { userPreferencesProvider, contextualFormattingEnabled } = config;
+	const { userPreferencesProvider, contextualFormattingEnabled, disablePin } = config;
 
 	if (isToolbarAIFCEnabled) {
 		/**
 		 * If toolbar is set to always-pinned or always-inline, there is no control over toolbar placement
 		 */
 		if (api?.toolbar?.actions.contextualFormattingMode() === 'controlled') {
-			api?.toolbar?.actions.registerComponents(getToolbarComponents(api, true));
+			api?.toolbar?.actions.registerComponents(getToolbarComponents(api, true, disablePin));
 		}
 	} else {
 		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {

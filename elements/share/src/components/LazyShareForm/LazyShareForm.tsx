@@ -88,14 +88,11 @@ const footerBottomMessageStyles = css({
 });
 
 const footerCustomStyles = css({
-	margin: `0 ${token('space.negative.300', '-24px')} ${token(
-		'space.negative.200',
-		'-16px',
-	)} ${token('space.negative.300', '-24px')}`,
+	margin: `0 ${token('space.negative.300')} ${token('space.negative.200')} ${token('space.negative.300')}`,
 });
 
 const headerCustomStyles = css({
-	marginBottom: `${token('space.200', '16px')}`,
+	marginBottom: `${token('space.200')}`,
 });
 
 /**

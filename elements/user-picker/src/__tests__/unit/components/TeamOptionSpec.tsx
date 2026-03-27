@@ -1,4 +1,3 @@
-import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
 import React, { type ReactElement } from 'react';
@@ -61,7 +60,7 @@ describe('Team Option', () => {
 			}),
 		);
 		const avatarOptionProps = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', colors.B400));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', '#1868DB'));
 
 		expect(avatarOptionProps.props().avatar).toEqual(
 			<SizeableAvatar
@@ -94,7 +93,7 @@ describe('Team Option', () => {
 			}),
 		);
 		const avatarOptionProps = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', colors.B400));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', '#1868DB'));
 
 		const secondaryText = avatarOptionProps.props().secondaryText as ReactElement;
 
@@ -118,7 +117,7 @@ describe('Team Option', () => {
 			}),
 		);
 		const avatarOptionProps = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', colors.B400));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', '#1868DB'));
 
 		const secondaryText = avatarOptionProps.props().secondaryText as ReactElement;
 		expect(secondaryText.props.children).toEqual(
@@ -144,7 +143,7 @@ describe('Team Option', () => {
 			}),
 		);
 		const avatarOptionProps = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', colors.B400));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', '#1868DB'));
 		const secondaryText = avatarOptionProps.props().secondaryText as ReactElement;
 
 		expect(secondaryText.props.children).toEqual(
@@ -167,7 +166,7 @@ describe('Team Option', () => {
 			}),
 		);
 		const avatarOptionProps = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', colors.B400));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', '#1868DB'));
 
 		const secondaryText = avatarOptionProps.props().secondaryText as ReactElement;
 
@@ -194,7 +193,7 @@ describe('Team Option', () => {
 			}),
 		);
 		const avatarOptionProps = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', colors.B400));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', '#1868DB'));
 
 		const secondaryText = avatarOptionProps.props().secondaryText as ReactElement;
 
@@ -220,7 +219,7 @@ describe('Team Option', () => {
 			}),
 		);
 		const avatarOptionProps = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', colors.B400));
+		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', '#1868DB'));
 
 		const secondaryText = avatarOptionProps.props().secondaryText as ReactElement;
 

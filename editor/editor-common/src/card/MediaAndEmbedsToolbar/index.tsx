@@ -26,7 +26,8 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { EditorAnalyticsAPI } from '../../analytics';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../analytics';
 import { insideTable } from '../../core-utils';
-import { type Keymap, alignCenter, alignLeft, alignRight, tooltip } from '../../keymaps';
+import { alignCenter, alignLeft, alignRight, tooltip } from '../../keymaps';
+import type { Keymap } from '../../keymaps';
 import commonMessages, { mediaAndEmbedToolbarMessages as toolbarMessages } from '../../messages';
 import type {
 	Command,

@@ -3,7 +3,6 @@
  * @jsx jsx
  */
 import { getAppearanceForAppType } from '@atlaskit/avatar';
-import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -43,7 +42,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 				key="name"
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
-					this.props.isSelected ? token('color.text.selected', B400) : token('color.text', N800),
+					this.props.isSelected ? token('color.text.selected') : token('color.text'),
 				)}
 			>
 				<HighlightText highlights={highlight && highlight.name}>{name}</HighlightText>
@@ -51,8 +50,8 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 		];
 		if (hasValue(publicName) && name.trim() !== publicName.trim()) {
 			const color = this.props.isSelected
-				? token('color.text.selected', B400)
-				: token('color.text.subtlest', N200);
+				? token('color.text.selected')
+				: token('color.text.subtlest');
 
 			result.push(
 				<React.Fragment key="publicName">
@@ -79,9 +78,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 			<span
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
-					this.props.isSelected
-						? token('color.text.selected', B400)
-						: token('color.text.subtlest', N200),
+					this.props.isSelected ? token('color.text.selected') : token('color.text.subtlest'),
 				)}
 			>
 				{this.props.user.byline}

@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useMemo, type ReactNode } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
+import type { ReactNode } from 'react';
 
 export interface SyncBlockActionsContextValue {
 	deleteSyncBlock?: () => void;

@@ -1,16 +1,16 @@
 import { bind } from 'bind-event-listener';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import { type DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
 	Experience,
 	EXPERIENCE_ID,
 	ExperienceCheckDomMutation,
 	ExperienceCheckPopupMutation,
-	type ExperienceCheckPopupMutationConfig,
 	ExperienceCheckTimeout,
 	getSelectionAncestorDOM,
 } from '@atlaskit/editor-common/experiences';
+import type { ExperienceCheckPopupMutationConfig } from '@atlaskit/editor-common/experiences';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';

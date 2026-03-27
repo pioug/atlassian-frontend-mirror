@@ -1,6 +1,5 @@
-import createUniversalPresetInternal, {
-	type InitialPluginConfiguration,
-} from '../presets/universal';
+import createUniversalPresetInternal from '../presets/universal';
+import type { InitialPluginConfiguration } from '../presets/universal';
 import type { EditorProps } from '../types';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 

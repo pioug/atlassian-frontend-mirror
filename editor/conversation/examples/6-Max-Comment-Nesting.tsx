@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { type EditorProps } from '@atlaskit/editor-core';
-import { type ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import type { EditorProps } from '@atlaskit/editor-core';
+import type { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { MOCK_USERS } from '../example-helpers/MockData';
 import {
@@ -8,7 +8,7 @@ import {
 	MockProvider as ConversationResource,
 } from '../example-helpers/MockProvider';
 import { Conversation } from '../src';
-import { type Comment as CommentType } from '../src/model/Comment';
+import type { Comment as CommentType } from '../src/model/Comment';
 
 const provider = new ConversationResource({
 	url: 'http://mockservice/',

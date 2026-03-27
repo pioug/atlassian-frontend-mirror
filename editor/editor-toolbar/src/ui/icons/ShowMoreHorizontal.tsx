@@ -2,7 +2,7 @@ import React from 'react';
 
 import Icon from '@atlaskit/icon/core/show-more-horizontal';
 
-import { type IconComponent } from '../../types';
+import type { IconComponent } from '../../types';
 
 export const ShowMoreHorizontalIcon: IconComponent = ({
 	label,

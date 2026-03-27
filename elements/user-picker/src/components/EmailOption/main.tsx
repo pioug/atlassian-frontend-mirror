@@ -4,7 +4,6 @@
  */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
@@ -42,7 +41,7 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
 				key="name"
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
-					this.props.isSelected ? token('color.text.selected', B400) : token('color.text', N800),
+					this.props.isSelected ? token('color.text.selected') : token('color.text'),
 				)}
 			>
 				{id}
@@ -55,9 +54,7 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
 			<span
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
-					this.props.isSelected
-						? token('color.text.selected', B400)
-						: token('color.text.subtlest', N200),
+					this.props.isSelected ? token('color.text.selected') : token('color.text.subtlest'),
 				)}
 				data-testid="user-picker-email-secondary-text"
 			>

@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 17.9.0
+
+### Minor Changes
+
+- [`7118a6dc08262`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7118a6dc08262) -
+  [ux] Updated animations in Flag Group behind fg platform-dst-motion-uplift
+
 ## 17.8.9
 
 ### Patch Changes

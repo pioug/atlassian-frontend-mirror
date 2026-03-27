@@ -20,7 +20,8 @@ import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schem
 import type { Mark as PMMark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { markOverrideRuleFor } from './markOverrideRules';
-import { sanitizeNode, type SanitizeNodeOptions } from './sanitize/sanitize-node';
+import { sanitizeNode } from './sanitize/sanitize-node';
+import type { SanitizeNodeOptions } from './sanitize/sanitize-node';
 import type { JSONDocNode, JSONNode } from './types';
 
 export type { JSONDocNode, JSONNode } from './types';

@@ -2,7 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Children, Fragment, type ReactNode } from 'react';
+import { Children, Fragment } from 'react';
+import type { ReactNode } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 

@@ -7,10 +7,8 @@ import { memo } from 'react';
 
 import { css } from '@compiled/react';
 
-import Button from '@atlaskit/button/standard-button';
 import { cssMap, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -41,16 +39,6 @@ const itemWrapperStyles = css({
 		paddingInline: token('space.100'),
 		textAlign: 'center',
 	},
-});
-
-const staticItemStyles = css({
-	// TODO: Replace fontWeight and lineHeight with "font: token('font.body')" and remove all the !important once Button is migrated to compiled
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-	fontWeight: `${token('font.weight.regular')} !important`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/use-tokens-typography
-	lineHeight: `20px !important`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-	paddingBlock: `${token('space.025')} !important`,
 });
 
 const styles = cssMap({
@@ -85,22 +73,9 @@ const EllipsisItem: import('react').MemoExoticComponent<
 	({ label, onClick, testId }: EllipsisItemProps) => JSX.Element
 > = memo(({ label, onClick = noop, testId }: EllipsisItemProps) => (
 	<li css={itemWrapperStyles}>
-		{fg('platform_dst_breadcrumbs_step_conversion') ? (
-			<Pressable aria-label={label} onClick={onClick} xcss={styles.root} testId={testId}>
-				&hellip;
-			</Pressable>
-		) : (
-			<Button
-				appearance="subtle-link"
-				aria-label={label}
-				css={staticItemStyles}
-				onClick={onClick}
-				spacing="none"
-				testId={testId}
-			>
-				&hellip;
-			</Button>
-		)}
+		<Pressable aria-label={label} onClick={onClick} xcss={styles.root} testId={testId}>
+			&hellip;
+		</Pressable>
 	</li>
 ));
 

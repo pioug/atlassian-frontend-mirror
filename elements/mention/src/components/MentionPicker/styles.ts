@@ -3,7 +3,6 @@ import styled, { type StyledComponent } from '@emotion/styled';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { Theme } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import { N100 } from '@atlaskit/theme/colors';
 
 import {
 	mentionListWidth,
@@ -41,8 +40,8 @@ export const MentionPickerInfoStyle: StyledComponent<
 	{}
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 > = styled.div({
-	background: token('elevation.surface', '#fff'),
-	color: token('color.text.subtlest', N100),
+	background: token('elevation.surface'),
+	color: token('color.text.subtlest'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	border: `1px solid ${noDialogContainerBorderColor}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -59,7 +58,7 @@ export const MentionPickerInfoStyle: StyledComponent<
 		p: {
 			margin: 0,
 			overflow: 'hidden',
-			padding: token('space.100', '8px'),
+			padding: token('space.100'),
 			textOverflow: 'ellipsis',
 		},
 	},

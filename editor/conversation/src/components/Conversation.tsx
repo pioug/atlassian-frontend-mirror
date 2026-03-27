@@ -2,16 +2,11 @@ import React from 'react';
 import CommentContainer from '../containers/Comment';
 import Comment from '../components/Comment';
 import Editor from './Editor';
-import { type Conversation as ConversationType } from '../model/Conversation';
-import { type SharedProps, type SendAnalyticsEvent } from './types';
-import {
-	type createAnalyticsEvent,
-	actionSubjectIds,
-	fireEvent,
-	trackEventActions,
-	eventTypes,
-} from '../internal/analytics';
-import { type SuccessHandler } from '../internal/actions';
+import type { Conversation as ConversationType } from '../model/Conversation';
+import type { SharedProps, SendAnalyticsEvent } from './types';
+import { actionSubjectIds, fireEvent, trackEventActions, eventTypes } from '../internal/analytics';
+import type { createAnalyticsEvent } from '../internal/analytics';
+import type { SuccessHandler } from '../internal/actions';
 
 export interface Props extends SharedProps {
 	canModerateComments?: boolean;

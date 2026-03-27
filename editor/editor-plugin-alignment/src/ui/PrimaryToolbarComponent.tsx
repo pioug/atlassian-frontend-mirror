@@ -2,12 +2,13 @@ import React, { useCallback } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { AlignmentPlugin } from '../alignmentPluginType';
 import { changeAlignment } from '../editor-commands';
-import { ToolbarType, type AlignmentState } from '../pm-plugins/types';
+import { ToolbarType } from '../pm-plugins/types';
+import type { AlignmentState } from '../pm-plugins/types';
 
 import ToolbarAlignment from './ToolbarAlignment';
 

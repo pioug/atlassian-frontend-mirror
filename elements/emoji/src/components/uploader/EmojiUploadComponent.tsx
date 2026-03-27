@@ -32,14 +32,14 @@ const emojiUploadWidget = css({
 	flexDirection: 'column',
 	justifyContent: 'center',
 	alignItems: 'stretch',
-	backgroundColor: token('elevation.surface.overlay', 'white'),
+	backgroundColor: token('elevation.surface.overlay'),
 	height: `120px`,
 	width: `${emojiPickerWidth}px`,
 	minWidth: `${emojiPickerWidth}px`,
-	marginTop: token('space.negative.200', '-16px'),
-	marginLeft: token('space.negative.150', '-12px'),
-	marginBottom: token('space.negative.150', '-12px'),
-	marginRight: token('space.negative.150', '-12px'),
+	marginTop: token('space.negative.200'),
+	marginLeft: token('space.negative.150'),
+	marginBottom: token('space.negative.150'),
+	marginRight: token('space.negative.150'),
 });
 
 const emojiUploadFooter = css({

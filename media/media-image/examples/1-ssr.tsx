@@ -19,7 +19,7 @@ import Spinner from '@atlaskit/spinner';
 import { MediaClientContext } from '@atlaskit/media-client-react';
 import { imageFileId } from '@atlaskit/media-test-helpers';
 import ReactDOMServer from 'react-dom/server';
-import ReactDOM from 'react-dom';
+import { hydrateRoot } from 'react-dom/client';
 import DevelopmentUseMessage from '../example-helpers/developmentUseMessage';
 
 const dimensions = { width: 100, height: 150 };
@@ -122,7 +122,7 @@ const runSSR = ({ containerId, hydrate, throwError }: RunSSRParams) => {
 	const elem = document.querySelector(`#${containerId}`);
 	if (elem) {
 		elem.innerHTML = txt;
-		hydrate && ReactDOM.hydrate(<Page ssr="client" title={title} throwError={throwError} />, elem);
+		hydrate && hydrateRoot(elem, <Page ssr="client" title={title} throwError={throwError} />);
 	}
 };
 

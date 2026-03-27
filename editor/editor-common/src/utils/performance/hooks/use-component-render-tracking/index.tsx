@@ -3,12 +3,8 @@ import { useEffect, useRef } from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuidv4 from 'uuid/v4';
 
-import {
-	getPropsDifference,
-	getShallowPropsDifference,
-	type PropsDifference,
-	type ShallowPropsDifference,
-} from '../../../compare-props';
+import { getPropsDifference, getShallowPropsDifference } from '../../../compare-props';
+import type { PropsDifference, ShallowPropsDifference } from '../../../compare-props';
 
 type PropsDiff<Props> = ShallowPropsDifference<Props> | PropsDifference<Props>;
 

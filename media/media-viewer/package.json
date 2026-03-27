@@ -131,6 +131,9 @@
 		},
 		"download_event_for_jira_attachments": {
 			"type": "boolean"
+		},
+		"platform_media_react19_support": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {

@@ -13,7 +13,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -32,8 +31,8 @@ export const AUTO_DISMISS_MS: number = AUTO_DISMISS_SECONDS * 1000;
 export const messageContainerStyle: SerializedStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	margin: `${token('space.negative.100', '-8px')}
-    ${token('space.negative.200', '-16px')}`,
+	margin: `${token('space.negative.100')}
+    ${token('space.negative.200')}`,
 });
 
 const boxWrapperStyle = xcss({
@@ -205,7 +204,7 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 									<CheckCircleIcon
 										spacing="spacious"
 										label=""
-										color={token('color.icon.success', G300)}
+										color={token('color.icon.success')}
 									/>
 									<Box xcss={messageTextStyle}>{copiedToClipboardText}</Box>
 								</React.Fragment>

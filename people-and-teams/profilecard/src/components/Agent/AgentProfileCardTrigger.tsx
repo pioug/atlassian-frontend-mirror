@@ -1,10 +1,8 @@
 import React, { forwardRef, Suspense } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	type AgentCreatorType,
-	isForgeAgentByCreatorType,
-} from '@atlaskit/rovo-agent-components/common/utils/is-forge-agent';
+import type { AgentCreatorType } from '@atlaskit/rovo-agent-components/common/types';
+import { isForgeAgentByCreatorType } from '@atlaskit/rovo-agent-components/common/utils/is-forge-agent';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 

@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.8.25
+
+### Patch Changes
+
+- [`608c375f6f9b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/608c375f6f9b9) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 33.8.24
 
 ### Patch Changes

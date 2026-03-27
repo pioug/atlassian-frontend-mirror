@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
@@ -29,7 +28,7 @@ export class CustomOption extends React.PureComponent<CustomOptionProps> {
 				key="name"
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
-					this.props.isSelected ? token('color.text.selected', B400) : token('color.text', N800),
+					this.props.isSelected ? token('color.text.selected') : token('color.text'),
 				)}
 			>
 				<HighlightText highlights={highlight && highlight.name}>{name}</HighlightText>
@@ -40,9 +39,7 @@ export class CustomOption extends React.PureComponent<CustomOptionProps> {
 	private getBylineComponent = (isSelected: boolean, message: string) => (
 		<span
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={textWrapper(
-				isSelected ? token('color.text.selected', B400) : token('color.text.subtlest', N200),
-			)}
+			css={textWrapper(isSelected ? token('color.text.selected') : token('color.text.subtlest'))}
 			data-testid="user-picker-custom-secondary-text"
 		>
 			{message}

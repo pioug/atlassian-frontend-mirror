@@ -1,45 +1,50 @@
 import { defineMessages } from 'react-intl-next';
 
 export const pasteOptionsToolbarMessages: {
-	pasteOptions: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	plainText: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	markdown: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	richText: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	plainTextAction: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	markdownAction: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	richTextAction: {
-		id: string;
+	pasteMenuActionsPasteAs: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	pasteMenuActionsTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	pasteOptions: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	plainText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	plainTextAction: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	richText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	richTextAction: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	pasteOptions: {
@@ -81,5 +86,11 @@ export const pasteOptionsToolbarMessages: {
 		id: 'fabric.editor.pasteMenuActionsTitle',
 		defaultMessage: 'Paste actions',
 		description: 'Section title for actions in the paste options menu',
+	},
+	pasteMenuActionsPasteAs: {
+		id: 'fabric.editor.pasteMenuActionsPasteAs',
+		defaultMessage: 'Paste as',
+		description:
+			'Submenu title to surface pasting options to paste content as Markdown, Rich text or Plain text',
 	},
 });

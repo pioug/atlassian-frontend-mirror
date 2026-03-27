@@ -16,7 +16,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { type ExtensionsPluginInjectionAPI } from '../../types';
+import type { ExtensionsPluginInjectionAPI } from '../../types';
 
 const containerStyles = css({
 	textAlign: 'left',

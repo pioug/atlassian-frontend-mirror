@@ -12,23 +12,17 @@ export function MicrosoftIcon(props: React.SVGProps<SVGSVGElement>): React.JSX.E
 			{...props}
 		>
 			<g clipPath="url(#clip0)">
-				<path d="M0 0H5.70233V5.7023H0V0Z" fill={token('color.text.inverse', 'white')} />
-				<path
-					d="M6.29785 0H12.0002V5.7023H6.29785V0Z"
-					fill={token('color.text.inverse', 'white')}
-				/>
-				<path
-					d="M0 6.29688H5.70233V11.9992H0V6.29688Z"
-					fill={token('color.text.inverse', 'white')}
-				/>
+				<path d="M0 0H5.70233V5.7023H0V0Z" fill={token('color.text.inverse')} />
+				<path d="M6.29785 0H12.0002V5.7023H6.29785V0Z" fill={token('color.text.inverse')} />
+				<path d="M0 6.29688H5.70233V11.9992H0V6.29688Z" fill={token('color.text.inverse')} />
 				<path
 					d="M6.29785 6.29688H12.0002V11.9992H6.29785V6.29688Z"
-					fill={token('color.text.inverse', 'white')}
+					fill={token('color.text.inverse')}
 				/>
 			</g>
 			<defs>
 				<clipPath id="clip0">
-					<rect width="12" height="11.9999" fill={token('color.text.inverse', 'white')} />
+					<rect width="12" height="11.9999" fill={token('color.text.inverse')} />
 				</clipPath>
 			</defs>
 		</svg>

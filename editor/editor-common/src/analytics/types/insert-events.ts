@@ -7,6 +7,7 @@ import type {
 	INPUT_METHOD,
 	INSERT_MEDIA_VIA,
 } from './enums';
+import type { InsertNativeEmbedAEP } from './native-embed-events';
 import type { InsertSmartLinkAEP } from './smart-links';
 import type { InsertAEP, TrackAEP, OperationalAEP } from './utils';
 
@@ -398,6 +399,7 @@ export type InsertEventPayload =
 	| InsertNodeViaExtensionAPIAEP
 	| InsertDateAEP
 	| InsertPlaceholderTextAEP
+	| InsertNativeEmbedAEP
 	| FailedToInsertMediaPayload
 	| InsertReferenceSyncedBlockPayload
 	| InsertSourceSyncedBlockPayload;

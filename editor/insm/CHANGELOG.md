@@ -1,5 +1,22 @@
 # @atlaskit/insm
 
+## 0.4.0
+
+### Minor Changes
+
+- [`31b465ec806b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31b465ec806b1) -
+  Fix INP buffered attribute - gate cc_editor_fix_insm_inp_buffer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.3.32
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.31
 
 ### Patch Changes

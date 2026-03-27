@@ -1,5 +1,6 @@
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import { TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ReplaceStep, Step } from '@atlaskit/editor-prosemirror/transform';
 

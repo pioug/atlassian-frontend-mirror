@@ -27,7 +27,7 @@ const findThirdPartySegment = (node: SegmentItem, targetName: string): SegmentIt
 };
 
 test.describe('ReactUFO: Third Party Segment', () => {
-	const requiredFeatureFlags = ['platform_ufo_exclude_3p_elements_from_ttvc'];
+	const requiredFeatureFlags: string[] = [];
 	const featureFlagsCombos = [[...requiredFeatureFlags]];
 	for (const featureFlags of featureFlagsCombos) {
 		test.describe(`with feature flags ${featureFlags.join(', ')}`, () => {

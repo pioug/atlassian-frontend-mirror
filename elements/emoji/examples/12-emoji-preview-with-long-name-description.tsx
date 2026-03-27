@@ -20,8 +20,8 @@ const longTongueEmoji = {
 
 const borderedStyle = {
 	margin: '20px',
-	border: `${token('border.width')} solid ${token('color.border', '#ddd')}`,
-	backgroundColor: token('elevation.surface', 'white'),
+	border: `${token('border.width')} solid ${token('color.border')}`,
+	backgroundColor: token('elevation.surface'),
 	width: emojiPickerWidth,
 };
 

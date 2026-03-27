@@ -31,7 +31,6 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tag": "workspace:^",
 		"@atlaskit/teams-avatar": "workspace:^",
-		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
@@ -128,5 +127,5 @@
 			]
 		}
 	},
-	"version": "24.6.0"
+	"version": "24.6.1"
 }

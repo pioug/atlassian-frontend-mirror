@@ -5,7 +5,6 @@
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
-import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import {
@@ -30,7 +29,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 export const imageContainer: SerializedStyles = css({
 	height: '16px',
 	width: '16px',
-	paddingRight: token('space.050', '4px'),
+	paddingRight: token('space.050'),
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
@@ -70,7 +69,7 @@ class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps
 				key="name"
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
-					this.props.isSelected ? token('color.text.selected', B400) : token('color.text', N800),
+					this.props.isSelected ? token('color.text.selected') : token('color.text'),
 				)}
 			>
 				{name}
@@ -86,8 +85,8 @@ class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps
 		}
 
 		const textColor = this.props.isSelected
-			? token('color.text.selected', B400)
-			: token('color.text.subtlest', N200);
+			? token('color.text.selected')
+			: token('color.text.subtlest');
 
 		// Render byline if present
 		if (byline) {

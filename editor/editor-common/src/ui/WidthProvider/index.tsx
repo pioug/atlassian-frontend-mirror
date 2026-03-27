@@ -6,7 +6,8 @@ import React, { Fragment, useContext, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
-import memoizeOne, { type MemoizedFn } from 'memoize-one';
+import memoizeOne from 'memoize-one';
+import type { MemoizedFn } from 'memoize-one';
 import rafSchedule from 'raf-schd';
 
 import { WidthObserver } from '@atlaskit/width-detector';

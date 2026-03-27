@@ -1,10 +1,9 @@
-import { B100, N0, N10, N20, N30, N100, R50, R400, N90 } from '@atlaskit/theme/colors';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 import memoizeOne from 'memoize-one';
-import { mergeStyles, type StylesConfig } from '@atlaskit/select';
-import { fg } from '@atlaskit/platform-feature-flags';
 
-export const BORDER_PADDING = token('space.075', '6px');
+export const BORDER_PADDING = token('space.075');
 export const AVATAR_PADDING = 6;
 export const INDICATOR_WIDTH = 39;
 
@@ -36,43 +35,43 @@ export const getStyles = memoizeOne(
 					...css,
 					width,
 					borderColor: state.isFocused
-						? token('color.border.focused', css.borderColor)
+						? token('color.border.focused')
 						: state.isInvalid
-							? token('color.border.danger', R400)
+							? token('color.border.danger')
 							: state.selectProps.subtle || state.selectProps.noBorder
 								? 'transparent'
-								: token('color.border.input', N90),
+								: token('color.border.input'),
 					backgroundColor: state.isFocused
-						? token('color.background.input', css['backgroundColor'])
+						? token('color.background.input')
 						: state.selectProps.subtle
 							? 'transparent'
 							: state.isDisabled && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
-								? token('color.background.disabled', N10)
+								? token('color.background.disabled')
 								: state.selectProps.textFieldBackgroundColor
-									? token('color.background.input', N10)
-									: token('color.background.input', N20),
+									? token('color.background.input')
+									: token('color.background.input'),
 					'&:hover .fabric-user-picker__clear-indicator': { opacity: 1 },
 					':hover': {
 						...css[':hover'],
 						borderColor: state.isFocused
 							? css[':hover']
-								? token('color.border.focused', css[':hover'].borderColor)
-								: token('color.border.focused', B100)
+								? token('color.border.focused')
+								: token('color.border.focused')
 							: state.isInvalid
-								? token('color.border.danger', R400)
+								? token('color.border.danger')
 								: state.selectProps.subtle
 									? 'transparent'
-									: token('color.border.input', N90),
+									: token('color.border.input'),
 						backgroundColor:
 							state.selectProps.subtle && state.selectProps.hoveringClearIndicator
-								? token('color.background.danger', R50)
+								? token('color.background.danger')
 								: state.isFocused
 									? css[':hover']
-										? token('color.background.input', css[':hover'].backgroundColor)
-										: token('color.background.input', N0)
+										? token('color.background.input')
+										: token('color.background.input')
 									: state.isDisabled
-										? token('color.background.disabled', N10)
-										: token('color.background.input.hovered', N30),
+										? token('color.background.disabled')
+										: token('color.background.input.hovered'),
 					},
 					padding: 0,
 					minHeight: minHeight ? minHeight : height || isCompact ? 'none' : 44,
@@ -93,12 +92,12 @@ export const getStyles = memoizeOne(
 				paddingTop: 0,
 				padding: 0,
 				':hover': {
-					color: token('color.icon.danger', R400),
+					color: token('color.icon.danger'),
 				},
 			}),
 			indicatorsContainer: (css) => ({
 				...css,
-				paddingRight: token('space.050', '4px'),
+				paddingRight: token('space.050'),
 			}),
 			valueContainer: ({ _paddingTop, _paddingBottom, _position, ...css }, state) => {
 				const isMulti = state.selectProps.isMulti;
@@ -158,8 +157,8 @@ export const getStyles = memoizeOne(
 					return {
 						...css,
 						overflow: 'hidden',
-						paddingLeft: isPopupStyles ? token('space.200', '16px') : token('space.100', '8px'),
-						paddingRight: isPopupStyles ? token('space.200', '16px') : token('space.100', '8px'),
+						paddingLeft: isPopupStyles ? token('space.200') : token('space.100'),
+						paddingRight: isPopupStyles ? token('space.200') : token('space.100'),
 					};
 				}
 				return {
@@ -172,7 +171,7 @@ export const getStyles = memoizeOne(
 				gridArea: '1/2/2/3',
 				gridTemplateColumns: isMulti && state.placeholder ? '0 123px' : css.gridTemplateColumns,
 				/* Necessary to make input height and tag height the same. */
-				margin: `${token('space.050', '4px')} 0`,
+				margin: `${token('space.050')} 0`,
 				/* Padding top and bottom of 2 is set by default. */
 				paddingTop: 0,
 				paddingBottom: 0,
@@ -180,12 +179,12 @@ export const getStyles = memoizeOne(
 				paddingLeft: state.selectProps.isMulti ? 0 : BORDER_PADDING,
 				'& input::placeholder': {
 					/* Chrome, Firefox, Opera, Safari 10.1+ */
-					color: token('color.text.subtlest', N100),
+					color: token('color.text.subtlest'),
 					opacity: 1 /* Firefox */,
 				},
 				'& input:-ms-input-placeholder': {
 					/* Internet Explorer 10-11 */
-					color: token('color.text.subtlest', N100),
+					color: token('color.text.subtlest'),
 				},
 			}),
 			singleValue: (css) => ({

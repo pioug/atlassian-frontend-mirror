@@ -1,10 +1,13 @@
-import React, { forwardRef, useCallback, useEffect, useState, type Ref } from 'react';
+import React, { forwardRef, useCallback, useEffect, useState } from 'react';
+import type { Ref } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip';
+import type { TooltipProps } from '@atlaskit/tooltip';
 
 import type { ButtonAppearance } from '../../types';
 import type { FloatingToolbarButtonSpotlightConfig } from '../../types/floating-toolbar';
@@ -137,8 +140,24 @@ const FloatingToolbarButton = (
 				hideTooltipOnClick={hideTooltipOnClick}
 				position="top"
 			>
-				{/* eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events*/}
-				<div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+				{/*
+					Move onMouseEnter/onMouseLeave from this wrapper div to the Button component below,
+					which already has onFocus/onBlur handlers. This satisfies the a11y rule by pairing
+					mouse events with keyboard equivalents on the same element.
+				*/}
+				{/* eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events */}
+				<div
+					onMouseEnter={
+						expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
+							? undefined
+							: onMouseEnter
+					}
+					onMouseLeave={
+						expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
+							? undefined
+							: onMouseLeave
+					}
+				>
 					<Pulse pulse={pulse || spotlightConfig?.pulse}>
 						{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
 						<Button
@@ -194,6 +213,16 @@ const FloatingToolbarButton = (
 							isDisabled={disabled}
 							testId={testId}
 							interactionName={interactionName}
+							onMouseEnter={
+								expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
+									? onMouseEnter
+									: undefined
+							}
+							onMouseLeave={
+								expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
+									? onMouseLeave
+									: undefined
+							}
 							onFocus={onFocus}
 							onBlur={onBlur}
 							// @ts-ignore

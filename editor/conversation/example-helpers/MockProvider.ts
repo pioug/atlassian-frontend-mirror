@@ -3,11 +3,8 @@ import { MemoryReactionsStore } from '@atlaskit/reactions';
 import { MockReactionsClient } from '@atlaskit/reactions/MockReactionsClient';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import {
-	AbstractConversationResource,
-	type ResourceProvider,
-	type ConversationResourceConfig,
-} from '../src/api/ConversationResource';
+import { AbstractConversationResource } from '../src/api/ConversationResource';
+import type { ResourceProvider, ConversationResourceConfig } from '../src/api/ConversationResource';
 import { HttpError } from '../src/api/HttpError';
 import {
 	ADD_COMMENT_ERROR,
@@ -28,9 +25,9 @@ import {
 	UPDATE_USER_SUCCESS,
 } from '../src/internal/actions';
 import { uuid } from '../src/internal/uuid';
-import { type Comment } from '../src/model/Comment';
-import { type Conversation } from '../src/model/Conversation';
-import { type User } from '../src/model/User';
+import type { Comment } from '../src/model/Comment';
+import type { Conversation } from '../src/model/Conversation';
+import type { User } from '../src/model/User';
 import {
 	generateMockConversation,
 	mockInlineConversation,

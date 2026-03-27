@@ -2,10 +2,8 @@ import { useEffect } from 'react';
 
 import debounce from 'lodash/debounce';
 
-import {
-	useAnalyticsEvents,
-	type UseAnalyticsEventsHook,
-} from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type { UseAnalyticsEventsHook } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { setupINPTracking } from '@atlaskit/editor-performance-metrics/inp';
 import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';

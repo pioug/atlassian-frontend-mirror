@@ -11,7 +11,7 @@ import { jsx } from '@emotion/react';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
 import { getExtensionLozengeData } from '../../../utils';
-import { type ExtensionsPluginInjectionAPI } from '../../types';
+import type { ExtensionsPluginInjectionAPI } from '../../types';
 import { styledImage } from '../styles';
 
 import { LozengeComponent } from './LozengeComponent';

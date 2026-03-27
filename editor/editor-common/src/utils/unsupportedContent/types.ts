@@ -1,9 +1,4 @@
-import {
-	type ACTION,
-	type ACTION_SUBJECT,
-	type ACTION_SUBJECT_ID,
-	type EVENT_TYPE,
-} from '../../analytics';
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../analytics';
 
 type AEP<Action, ActionSubject, ActionSubjectID, Attributes, EventType> = {
 	action: Action;

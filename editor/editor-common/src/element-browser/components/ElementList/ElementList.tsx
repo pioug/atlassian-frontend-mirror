@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -5,7 +6,8 @@
 import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 import { Grid, List } from 'react-virtualized';
 import type { Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
@@ -277,7 +279,6 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 			}) => {
 				return (
 					<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
-						{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions*/}
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={style}
@@ -285,6 +286,11 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 -- Ignored via go/DSP-18766
 							className="element-item-wrapper"
 							css={elementItemWrapperSingle}
+							role={
+								expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
+									? 'presentation'
+									: undefined
+							}
 							onKeyDown={(e) => {
 								if (e.key === 'Tab') {
 									if (e.shiftKey && index === 0) {

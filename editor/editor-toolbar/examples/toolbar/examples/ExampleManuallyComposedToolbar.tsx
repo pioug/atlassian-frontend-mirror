@@ -4,7 +4,7 @@ import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
-import { type IconColor } from '@atlaskit/tokens/css-type-schema';
+import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 
 import { AddIcon } from '../../../src/ui/icons/AddIcon';
 import { AIAdjustLengthIcon } from '../../../src/ui/icons/AIAdjustLengthIcon';

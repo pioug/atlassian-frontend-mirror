@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N900 } from '@atlaskit/theme/colors';
 import { FormattedMessage } from 'react-intl-next';
 import { isMessagesKey } from '../../util/type-helpers';
 import { messages } from '../i18n';
@@ -12,12 +11,12 @@ import type { CategoryGroupKey } from './categories';
 
 const emojiCategoryTitle = css({
 	boxSizing: 'border-box',
-	color: token('color.text', N900),
+	color: token('color.text'),
 	font: token('font.body'),
-	paddingTop: token('space.075', '6px'),
-	paddingBottom: token('space.075', '6px'),
-	paddingLeft: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
+	paddingTop: token('space.075'),
+	paddingBottom: token('space.075'),
+	paddingLeft: token('space.100'),
+	paddingRight: token('space.100'),
 	textTransform: 'lowercase',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:first-letter': {

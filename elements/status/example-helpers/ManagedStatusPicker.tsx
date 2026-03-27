@@ -47,12 +47,12 @@ export default class ManagedStatusPicker extends React.Component<Props, State> {
 			<div
 				id="container"
 				style={{
-					border: `${token('border.width')} solid ${token('color.border', '#ccc')}`,
+					border: `${token('border.width')} solid ${token('color.border')}`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					width: '225px',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					borderRadius: token('radius.small'),
-					padding: `${token('space.150', '12px')} 0`, // Added 12px padding instead of 10px, since Design tokens supports 8 and 12 px only
+					padding: `${token('space.150')} 0`, // Added 12px padding instead of 10px, since Design tokens supports 8 and 12 px only
 				}}
 			>
 				<StatusPicker

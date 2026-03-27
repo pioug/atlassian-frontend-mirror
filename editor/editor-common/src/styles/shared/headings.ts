@@ -1,13 +1,16 @@
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
 /* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
 /* eslint-disable @atlaskit/design-system/use-tokens-space */
 /* eslint-disable @atlaskit/design-system/use-tokens-typography */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, type SerializedStyles } from '@emotion/react';
+import { css } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { token, type ThemeState } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import type { ThemeState } from '@atlaskit/tokens';
 
 import editorUGCToken from '../../ugc-tokens/get-editor-ugc-token';
 

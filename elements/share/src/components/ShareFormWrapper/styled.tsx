@@ -69,11 +69,11 @@ export const InlineDialogFormWrapper = ({
 };
 
 const inlineDialogContentWrapperStyles = css({
-	padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
+	padding: `${token('space.200')} ${token('space.300')}`,
 });
 
 const extendedInlineDialogContentWrapperStyles = css({
-	padding: token('space.250', '20px'),
+	padding: token('space.250'),
 });
 
 /**

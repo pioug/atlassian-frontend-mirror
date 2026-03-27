@@ -15,7 +15,7 @@ export type Props = React.PropsWithChildren<{
 
 const getFooterStyle = () => {
 	return css({
-		padding: `${token('space.100', '8px')} ${token('space.200', '16px')}`,
+		padding: `${token('space.100')} ${token('space.200')}`,
 	});
 };
 

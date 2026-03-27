@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import { type ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
+import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import { token } from '@atlaskit/tokens';
 
@@ -19,7 +19,8 @@ import { ContextPanel } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
-import { ExampleEditor, LOCALSTORAGE_defaultDocKey, type EditorAPI } from './5-full-page';
+import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
+import type { EditorAPI } from './5-full-page';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

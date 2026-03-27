@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-alignment
 
+## 9.1.10
+
+### Patch Changes
+
+- [`88a7ee0806123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88a7ee0806123) -
+  Mechanical type-import autofix for block, layout, and control packages.
+- Updated dependencies
+
 ## 9.1.9
 
 ### Patch Changes

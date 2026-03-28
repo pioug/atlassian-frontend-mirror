@@ -177,7 +177,7 @@ function SmartLinkDraggableInner({
 	source,
 	children,
 }: PropsWithChildren<SmartLinkDraggableProps>) {
-	const ref = useRef<HTMLDivElement>(null);
+	const ref = useRef<HTMLElement>(null);
 	const { store } = useSmartLinkContext();
 	const [state, setState] = useState<DraggableState>(idleState);
 	// Changeboarding popover will always be hidden until visibility/targeting logic is implemented
@@ -222,14 +222,16 @@ function SmartLinkDraggableInner({
 	);
 
 	// On pointerdown, determine the drag element and register it with Pragmatic DnD.
-	// For block/embed: disables native drag on nested anchors, registers the wrapper.
-	// For inline: registers the anchor itself since an inline <span> can't be a drag source.
-	// Uses pointerdown because the anchor may not exist at mount time (smart card resolves asynchronously).
+	// Uses pointerdown because the drag source may not exist at mount time as smart cards resolve.
+	// For inline cards inside ProseMirror, prefer the inner anchor because the browser fires
+	// dragstart from that element rather than from the inline card wrapper.
 	useEffect(() => {
 		const el = ref.current;
 		if (!el) {
 			return;
 		}
+
+		const inlineCardRootSelector = '[data-prosemirror-node-name="inlineCard"][draggable="true"]';
 
 		// In contentEditable editors (ProseMirror), the browser may pick a child
 		// element (e.g., an <a> tag) as the drag target instead of our element.
@@ -239,82 +241,62 @@ function SmartLinkDraggableInner({
 
 		// In contentEditable="true" contexts (block/embed cards), the browser treats
 		// the smart-element-link as editable text rather than a draggable element.
-		// Not needed for inline cards since their NodeView is already not editable
+		// Not needed for inline cards since the wrapper is already not editable
 		let observer: MutationObserver | null = null;
-		if (appearance === SMART_LINK_APPEARANCE.BLOCK) {
-			const setupDraggableElements = () => {
+		if (appearance !== SMART_LINK_APPEARANCE.INLINE) {
+			const setupSmartElementLink = () => {
 				el.querySelectorAll<HTMLElement>('[data-smart-element-link]').forEach((link) => {
 					link.contentEditable = 'false';
 					link.setAttribute('draggable', 'true');
 				});
 			};
-			setupDraggableElements();
+			setupSmartElementLink();
 
-			observer = new MutationObserver(setupDraggableElements);
+			observer = new MutationObserver(setupSmartElementLink);
 			observer.observe(el, { childList: true, subtree: true });
 		}
 
 		const unbindPointerDown = bind(el, {
 			type: 'pointerdown',
 			listener: (event: PointerEvent) => {
-				// Clean up previous registration
+				const selectionAtPointerDown = window.getSelection();
+				if (
+					appearance === SMART_LINK_APPEARANCE.INLINE &&
+					selectionAtPointerDown?.type === 'Range' &&
+					selectionAtPointerDown.toString().length > 0
+				) {
+					selectionAtPointerDown.removeAllRanges();
+				}
 				cleanupDraggable?.();
 
 				const target = event.target;
-
 				// Find the nearest draggable ancestor within the card to match
 				// the element the browser will use as the dragstart target.
 				let dragTarget: HTMLElement = el;
-				if (target instanceof Element && el.contains(target)) {
-					if (appearance === SMART_LINK_APPEARANCE.BLOCK) {
-						// For block cards, find the nearest draggable ancestor.
-						const closestDraggable = target.closest('[draggable="true"]');
-						if (closestDraggable instanceof HTMLElement && el.contains(closestDraggable)) {
-							dragTarget = closestDraggable;
-						}
-					} else if (appearance === SMART_LINK_APPEARANCE.EMBED) {
-						// For embed cards, find the nearest draggable ancestor or link/image
-						const closestDraggable =
-							target.closest('[draggable="true"]') ??
-							target.closest('.embed-header a') ??
-							target.closest('.embed-header img');
-						if (closestDraggable instanceof HTMLElement && el.contains(closestDraggable)) {
-							dragTarget = closestDraggable;
-
-							// Temporarily set contentEditable="false" and draggable="true"
-							// so the browser initiates drag instead of text selection.
-							// Restore on pointerup so shift+arrow selection still works.
-							const prevContentEditable = dragTarget.contentEditable;
-							const prevDraggable = dragTarget.getAttribute('draggable');
-							dragTarget.contentEditable = 'false';
-							dragTarget.setAttribute('draggable', 'true');
-							const restore = () => {
-								dragTarget.contentEditable = prevContentEditable;
-								if (prevDraggable) {
-									dragTarget.setAttribute('draggable', prevDraggable);
-								} else {
-									dragTarget.removeAttribute('draggable');
-								}
-								unbindPointerUp();
-								unbindPointerCancel();
-							};
-							// Listen on window to catch pointerup even if the pointer
-							// leaves the drag target during a drag gesture (keyboard events)
-							const unbindPointerUp = bind(window, {
-								type: 'pointerup',
-								listener: restore,
-							});
-							const unbindPointerCancel = bind(window, {
-								type: 'pointercancel',
-								listener: restore,
-							});
-						}
-					} else if (target instanceof HTMLElement) {
-						// For inline cards, use the target directly.
-						dragTarget = target;
+				if (appearance === SMART_LINK_APPEARANCE.INLINE) {
+					const targetElement = target instanceof Element ? target : null;
+					const hostInlineCardRoot = el.closest<HTMLElement>(inlineCardRootSelector);
+					const inlineCardRoot =
+						targetElement?.closest<HTMLElement>(inlineCardRootSelector) ?? null;
+					const closestInlineAnchor =
+						targetElement?.closest<HTMLElement>('a[href], [data-smart-element-link]') ?? null;
+					if (
+						closestInlineAnchor instanceof HTMLElement &&
+						(el.contains(closestInlineAnchor) ||
+							(hostInlineCardRoot instanceof HTMLElement &&
+								hostInlineCardRoot.contains(closestInlineAnchor)))
+					) {
+						dragTarget = closestInlineAnchor;
+					} else if (
+						inlineCardRoot instanceof HTMLElement &&
+						hostInlineCardRoot instanceof HTMLElement &&
+						inlineCardRoot === hostInlineCardRoot
+					) {
+						dragTarget = inlineCardRoot;
 					}
+				} else {
+					dragTarget = target instanceof HTMLElement && el.contains(target) ? target : el;
 				}
-
 				cleanupDraggable = draggable(getDragConfig(dragTarget));
 			},
 		});

@@ -1,5 +1,12 @@
 # @atlaskit/share
 
+## 6.19.0
+
+### Minor Changes
+
+- [`f9d403632c747`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9d403632c747) -
+  Clean up flag to improve accessibility of links.
+
 ## 6.18.10
 
 ### Patch Changes

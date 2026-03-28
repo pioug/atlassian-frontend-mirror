@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-alignment
 
+## 9.1.11
+
+### Patch Changes
+
+- [`292fe7483aeee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/292fe7483aeee) -
+  [ux] Improved accessible names for color picker, remove status button, alignment toolbar, reaction
+  summary, and expand/collapse icons
+
 ## 9.1.10
 
 ### Patch Changes

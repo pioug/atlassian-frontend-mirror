@@ -78,6 +78,13 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 		const alignment = align ?? 'start';
 
 		const title = intl.formatMessage(messages.alignment);
+		const alignmentLabelMap: Record<string, string> = {
+			start: intl.formatMessage(messages.alignLeft),
+			center: intl.formatMessage(messages.alignCenter),
+			end: intl.formatMessage(messages.alignRight),
+		};
+
+		const ariaLabel = `${title}, ${alignmentLabelMap[alignment] ?? ''}`;
 
 		const reducedSpacing = editorExperiment('platform_editor_controls', 'variant1', {
 			exposure: true,
@@ -136,7 +143,7 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 							disabled={disabled}
 							selected={isOpen}
 							title={title}
-							aria-label={title}
+							aria-label={ariaLabel}
 							aria-expanded={isOpen}
 							aria-haspopup
 							onClick={this.toggleOpen}
@@ -177,7 +184,7 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 								title={title}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 								className="align-btn"
-								aria-label={title}
+								aria-label={ariaLabel}
 								aria-expanded={isOpen}
 								aria-haspopup
 								onClick={this.toggleOpen}

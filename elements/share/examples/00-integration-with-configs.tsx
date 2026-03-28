@@ -14,7 +14,6 @@ import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-ne
 import { type IconButtonProps } from '@atlaskit/button/new';
 import WorldIcon from '@atlaskit/icon/core/globe';
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import { type OptionData } from '@atlaskit/smart-user-picker';
@@ -303,7 +302,7 @@ const IntegrationContent = (props: ContentProps) => {
 	return (
 		<>
 			<div>Share to Integration form</div>
-			{fg('dst-a11y__replace-anchor-with-link__people-and-tea') ? (
+			{
 				// eslint-disable-next-line @atlassian/a11y/anchor-is-valid
 				<Link
 					href="#"
@@ -313,17 +312,7 @@ const IntegrationContent = (props: ContentProps) => {
 				>
 					Change tab
 				</Link>
-			) : (
-				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlassian/a11y/anchor-is-valid
-				<a
-					href="#"
-					onClick={() => {
-						props?.changeTab?.(0);
-					}}
-				>
-					Change tab
-				</a>
-			)}
+			}
 		</>
 	);
 };
@@ -331,7 +320,7 @@ const IntegrationContent = (props: ContentProps) => {
 const AdditionalTabContent = (props: ContentProps) => (
 	<>
 		<div>This is a custom tab in the share dialog</div>
-		{fg('dst-a11y__replace-anchor-with-link__people-and-tea') ? (
+		{
 			// eslint-disable-next-line @atlassian/a11y/anchor-is-valid
 			<Link
 				href="#"
@@ -341,17 +330,7 @@ const AdditionalTabContent = (props: ContentProps) => (
 			>
 				Change tab
 			</Link>
-		) : (
-			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlassian/a11y/anchor-is-valid
-			<a
-				href="#"
-				onClick={() => {
-					props?.changeTab?.(0);
-				}}
-			>
-				Change tab
-			</a>
-		)}
+		}
 	</>
 );
 

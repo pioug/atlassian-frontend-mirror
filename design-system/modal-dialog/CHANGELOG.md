@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 14.13.1
+
+### Patch Changes
+
+- [`953d1f6ea290c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/953d1f6ea290c) -
+  [ux] Add a new recommended spaces screen for confluence onboarding for the nth user crossjoin
+  experiement
+
 ## 14.13.0
 
 ### Minor Changes

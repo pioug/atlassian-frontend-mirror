@@ -145,7 +145,7 @@ describe('href handling', () => {
 		['external', EXTERNAL_HREF, 'external'],
 		['internal', TEAMS_APP_HREF, 'navigation'],
 	] as const)('leaves %s URLs unchanged', (_, href, intent) => {
-		const context = createMockContext(intent === 'navigation' ? { orgId: 'my-org' } : {});
+		const context = createMockContext();
 		const props = getNavigationProps({ href, intent, context });
 		expect(props.href).toBe(href);
 	});

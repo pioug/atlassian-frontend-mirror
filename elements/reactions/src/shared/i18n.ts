@@ -1,91 +1,91 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-	addReaction: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	addNewReaction: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	loadingReactions: {
-		id: string;
+	addReaction: {
 		defaultMessage: string;
 		description: string;
-	};
-	moreEmoji: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	reactWithEmoji: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	reactWithEmojiAndCount: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	summary: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	unexpectedError: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	otherUsers: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	closeReactionsDialog: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	reactionsCount: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	leftNavigateLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	rightNavigateLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	emojiName: {
-		id: string;
 		// eslint-disable-next-line @atlassian/i18n/no-useless-message
 		defaultMessage: string;
 		description: string;
-	};
-	seeWhoReacted: {
 		id: string;
+	};
+	leftNavigateLabel: {
 		defaultMessage: string;
 		description: string;
-	};
-	seeWhoReactedTooltip: {
 		id: string;
+	};
+	loadingReactions: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	moreEmoji: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	otherUsers: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	popperWrapperLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	reactionsCount: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	reactWithEmoji: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	reactWithEmojiAndCount: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	rightNavigateLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	seeWhoReacted: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	seeWhoReactedTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	summary: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	unexpectedError: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	addReaction: {
@@ -122,9 +122,10 @@ export const messages: {
 	},
 	summary: {
 		id: 'fabric.reactions.summary',
-		defaultMessage: 'View all user reactions',
+		defaultMessage:
+			'View all user reactions, {count, plural, one {# reaction} other {# reactions}}',
 		description:
-			'Aria label on summary reaction button. Clicking this button shows who reacted in a popup',
+			'Aria label on summary reaction button that includes the total count. Clicking this button shows who reacted in a popup',
 	},
 	unexpectedError: {
 		id: 'fabric.reactions.error.unexpected',

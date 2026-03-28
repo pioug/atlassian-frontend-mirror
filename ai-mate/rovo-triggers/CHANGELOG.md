@@ -1,5 +1,17 @@
 # @atlaskit/rovo-triggers
 
+## 5.34.0
+
+### Minor Changes
+
+- [`bb7cdf182433a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb7cdf182433a) -
+  Added `SmartLinksContextPayload` type to rovo-triggers for publishing third-party Smart Card
+  connector context from host applications (e.g. Confluence) to Rovo Chat. This enables proactive
+  connector recommendation banners when a page contains unconnected 3P app links.
+
+  Updated conversation-assistant-store to subscribe to `smartlinks-context-payload` events and store
+  `pageSmartLinks` data for consumption by the chat UI.
+
 ## 5.33.0
 
 ### Minor Changes

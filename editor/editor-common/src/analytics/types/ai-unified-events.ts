@@ -24,6 +24,7 @@ export type AIUnifiedCommonAttributes = {
 	 */
 	nudgeMetrics?: Record<string, number | undefined>;
 	proactiveAIGenerated: 0 | 1;
+	promptVersion?: string;
 	singleInstrumentationID: string;
 	traceIds?: string[];
 	userGeneratedAI: 0 | 1;

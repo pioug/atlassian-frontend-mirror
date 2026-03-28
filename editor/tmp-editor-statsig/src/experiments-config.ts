@@ -1239,6 +1239,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-26
+	platform_editor_fix_comment_border: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-17
 	confluence_frontend_fix_date_hydration_error: {
 		defaultValue: boolean;
@@ -3454,6 +3461,14 @@ export const editorExperimentsConfig: {
 	platform_editor_improve_preset_builder_logging: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_improve_preset_builder_logging',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-26
+	platform_editor_fix_comment_border: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_comment_border',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

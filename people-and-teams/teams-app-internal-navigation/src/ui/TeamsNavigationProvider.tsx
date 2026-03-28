@@ -10,7 +10,7 @@ export interface TeamsNavigationProviderProps {
 }
 
 /**
- * Provider for Teams internal navigation context (e.g. cloudId, orgId).
+ * Provider for Teams internal navigation context.
  *
  * This is a thin wrapper around the headless {@link NavigationContext}. It should not implement any logic beyond providing values to hooks.
  */

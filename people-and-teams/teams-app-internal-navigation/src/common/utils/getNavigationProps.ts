@@ -36,14 +36,12 @@ const prefixWithContextEntryPoint = (path: string, contextEntryPoint = ''): stri
 export type NavigationIntent = 'navigation' | 'reference' | 'action' | 'external' | 'unknown';
 
 export interface NavigationContext {
-	cloudId: string;
-	orgId: string;
 	/**
 	 * Use this when TeamsLinks are consumed inside a preview panel. Navigation links in this context do not
 	 * receive openPreviewPanel props (they are plain navigation links), so this flag is the only way for
 	 * the link to know it is being rendered inside a preview panel and should open in a new tab.
 	 */
-	forceExternalIntent: boolean;
+	forceExternalIntent?: boolean;
 	navigate: (url: string) => void;
 	openPreviewPanel?: (props: PreviewPanelOpenProps) => void;
 	/**

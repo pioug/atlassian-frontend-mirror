@@ -11,7 +11,7 @@ import {
 } from './ReactionSummaryButton';
 import { DefaultReactions } from '../shared/constants';
 import { getReactionSummary } from '../MockReactionsClient';
-import { messages } from '../shared/i18n';
+
 import { type ReactionSummary } from '../types';
 import { RENDER_COUNTER_TESTID } from './Counter';
 
@@ -155,7 +155,7 @@ describe('ReactionSummaryButton', () => {
 	it('should have an accessible label', () => {
 		renderComponent();
 		const button = screen.getByRole('button');
-		expect(button).toHaveAccessibleName(messages.summary.defaultMessage);
+		expect(button).toHaveAccessibleName(/View all user reactions, \d+ reactions?/);
 	});
 
 	it('should accurately count reactions without being affected by non number values', async () => {

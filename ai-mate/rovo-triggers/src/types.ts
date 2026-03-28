@@ -503,6 +503,21 @@ export type OpenChatFeedbackModalPayload = PayloadCore<
 	}
 >;
 
+// Not using PayloadCore because `data: type | undefined` is necessary
+// but `| undefined` will cause `data` to be removed by PayloadCore
+export type SmartLinksContextPayload = PayloadCore<'smartlinks-context-payload'> & {
+	data?: Array<{
+		/**
+		 * ORS auth key from meta.auth[0].key (e.g. 'gdrive', 'notion', 'miro').
+		 * Matches the `serviceKey` query param in Knowledge API outboundAuthUrl,
+		 * enabling the chat to cross-reference with Knowledge API without a mapping table.
+		 */
+		orsAuthKey: string;
+		/** Number of occurrences on the page — used for ranking in the banner. */
+		count: number;
+	}>;
+};
+
 export type Payload =
 	| MessageSendPayload
 	| ChatClosePayload
@@ -539,7 +554,8 @@ export type Payload =
 	| SolutionArchitectAgentActivationPayload
 	| UpdateAgentConfigurationPayload
 	| StudioLandingPageRedirectPayload
-	| UploadAndInsertMediaPayload;
+	| UploadAndInsertMediaPayload
+	| SmartLinksContextPayload;
 
 export type Callback = (payload: Payload) => void;
 

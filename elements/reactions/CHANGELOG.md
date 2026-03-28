@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.8.26
+
+### Patch Changes
+
+- [`292fe7483aeee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/292fe7483aeee) -
+  [ux] Improved accessible names for color picker, remove status button, alignment toolbar, reaction
+  summary, and expand/collapse icons
+
 ## 33.8.25
 
 ### Patch Changes

@@ -165,7 +165,9 @@ export const ReactionSummaryButton: ForwardRefExoticComponent<
 						onMouseEnter={onMouseEnter}
 						onMouseLeave={onMouseLeave}
 						testId={RENDER_SUMMARY_BUTTON_TESTID}
-						ariaLabel={intl.formatMessage(messages.summary)}
+						ariaLabel={intl.formatMessage(messages.summary, {
+							count: totalReactionsCount,
+						})}
 						showSubtleStyle={subtleReactionsSummaryAndPicker}
 						showOpaqueBackground={showOpaqueBackground}
 					>

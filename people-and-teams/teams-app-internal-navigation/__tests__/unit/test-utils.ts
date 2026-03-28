@@ -10,8 +10,6 @@ import type { NavigationContext } from '../../src/common/utils/getNavigationProp
  */
 export function createMockContext(overrides: Partial<NavigationContext> = {}): NavigationContext {
 	return {
-		cloudId: 'test-cloud-id',
-		orgId: 'test-org-id',
 		forceExternalIntent: false,
 		navigate: jest.fn(),
 		openPreviewPanel: jest.fn(),

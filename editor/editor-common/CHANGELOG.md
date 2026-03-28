@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 112.12.0
+
+### Minor Changes
+
+- [`ebcd63b75ef4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebcd63b75ef4c) -
+  Added handling of ACTION_PUBLIC_METADATA stream action type in AI Mate packages. Sending message
+  to bridge when action in ACTION_PUBLIC_METADATA. Handled meta data action in editor rovo bridge
+  part of ConfluenceUpdatePageCommand. Updated ai streaming orchestrator and editor-plugin-ai to
+  send promptVersion received in metadata to analytics events.
+
 ## 112.11.3
 
 ### Patch Changes

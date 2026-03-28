@@ -7,8 +7,6 @@ import { TeamsLinkItem } from '../src/ui/TeamsLinkItem';
 
 export default function Basic() {
 	const context = {
-		cloudId: 'example-cloud-id',
-		orgId: 'example-org-id',
 		forceExternalIntent: true,
 		navigate: () => {},
 		openPreviewPanel: () => {},

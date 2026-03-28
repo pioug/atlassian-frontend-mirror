@@ -29,6 +29,7 @@ export type {
 	OpenChatDebugModalPayload,
 	OpenChatFeedbackModalPayload,
 	SelectActionPayload,
+	SmartLinksContextPayload,
 } from './types';
 export type {
 	SolutionArchitectHandoffPayload,

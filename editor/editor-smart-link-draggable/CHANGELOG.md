@@ -1,5 +1,13 @@
 # @atlaskit/editor-smart-link-draggable
 
+## 0.3.0
+
+### Minor Changes
+
+- [`2b758d3bf02a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b758d3bf02a5) -
+  Fix inline smart link drag registration so cards can be dragged into the content tree without
+  breaking in-editor drag and drop.
+
 ## 0.2.2
 
 ### Patch Changes

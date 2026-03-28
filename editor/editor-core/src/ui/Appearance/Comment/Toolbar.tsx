@@ -129,6 +129,13 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 				mainToolbarWrapperStylesVisualRefresh,
 				stickyToolbarWrapperStyleNew,
 				props.isNewToolbarEnabled && mainToolbarWithPadding,
+				expValEquals('platform_editor_fix_comment_border', 'isEnabled', true) &&
+					expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
+					mainToolbarRadius,
+				expValEquals('platform_editor_fix_comment_border', 'isEnabled', true) &&
+					!expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
+					fg('platform_editor_comments_border_radius') &&
+					mainToolbarWithRadiusStyle,
 			]}
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 			style={{ top: `${top}px` }}

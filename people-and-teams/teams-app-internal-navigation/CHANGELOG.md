@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 1.5.0
+
+### Minor Changes
+
+- [`03592ef49b37f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03592ef49b37f) -
+  Removed cloudId/orgId props from TeamsNavigationProvider and updated package export paths
+
 ## 1.4.0
 
 ### Minor Changes

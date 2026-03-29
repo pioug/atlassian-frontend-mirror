@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 48.2.0
+
+### Minor Changes
+
+- [`7ba3e1eb9de75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ba3e1eb9de75) -
+  [ux] Fix top border corners being cut off in comment boxes in Jira
+
 ## 48.1.0
 
 ### Minor Changes

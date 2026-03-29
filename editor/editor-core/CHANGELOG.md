@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 217.7.1
+
+### Patch Changes
+
+- [`7ba3e1eb9de75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ba3e1eb9de75) -
+  [ux] Fix top border corners being cut off in comment boxes in Jira
+- Updated dependencies
+
 ## 217.7.0
 
 ### Minor Changes

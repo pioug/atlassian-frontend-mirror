@@ -34,7 +34,7 @@ export class ProviderCardExampleWithErrorBoundary extends React.Component<
 				<span
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						color: token('color.text.danger', 'red'),
+						color: token('color.text.danger'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						fontWeight: token('font.weight.bold'),
 					}}

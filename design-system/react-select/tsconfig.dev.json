@@ -46,7 +46,19 @@
 			"path": "../checkbox/tsconfig.app.json"
 		},
 		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
 			"path": "../form/tsconfig.app.json"
+		},
+		{
+			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../tag/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"

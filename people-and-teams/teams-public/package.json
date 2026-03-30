@@ -32,7 +32,8 @@
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./next": "./src/next/index.ts"
+		"./next": "./src/next/index.ts",
+		"./space-invite-scheduler": "./src/common/hooks/useSpaceInviteScheduler.ts"
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-people-and-teams-teams-public": "root:*",

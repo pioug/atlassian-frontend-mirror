@@ -23,7 +23,7 @@ import { ProviderAuthRequiredSVG } from './provider-auth-required-svg';
 
 const styles = cssMap({
 	buttonContainer: {
-		marginTop: token('space.200', '16px'),
+		marginTop: token('space.200'),
 	},
 });
 

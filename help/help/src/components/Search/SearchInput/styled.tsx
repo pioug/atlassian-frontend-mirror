@@ -20,12 +20,12 @@ export const SearchInputContainer = ({ children }: { children: React.ReactNode }
 );
 
 const searchInputContainerAiStyles = css({
-	width: `calc(100% - ${token('space.300', '24px')} - ${token('space.300', '24px')})`,
-	height: token('space.400', '32px'),
-	marginLeft: token('space.300', '24px'),
-	marginRight: token('space.300', '24px'),
-	marginTop: token('space.200', '14px'),
-	marginBottom: token('space.200', '14px'),
+	width: `calc(100% - ${token('space.300')} - ${token('space.300')})`,
+	height: token('space.400'),
+	marginLeft: token('space.300'),
+	marginRight: token('space.300'),
+	marginTop: token('space.200'),
+	marginBottom: token('space.200'),
 	order: 0,
 	flex: '0 1 auto',
 	alignSelf: 'auto',
@@ -39,15 +39,15 @@ export const SearchInputContainerAi = ({
 }): JSX.Element => <div css={searchInputContainerAiStyles}>{children}</div>;
 
 const searchIconContainerStyles = css({
-	width: token('space.300', '24px'),
-	height: token('space.300', '24px'),
-	paddingLeft: token('space.050', '4px'),
-	marginLeft: token('space.negative.025', '-2px'),
+	width: token('space.300'),
+	height: token('space.300'),
+	paddingLeft: token('space.050'),
+	marginLeft: token('space.negative.025'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > span': {
-		paddingLeft: token('space.050', '4px'),
-		height: token('space.300', '24px'),
-		width: token('space.300', '24px'),
+		paddingLeft: token('space.050'),
+		height: token('space.300'),
+		width: token('space.300'),
 		boxSizing: 'border-box',
 	},
 });
@@ -59,12 +59,12 @@ export const SearchIconContainer = ({ children }: { children: React.ReactNode })
 const closeButtonAndSpinnerContainerStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 0,
-	paddingRight: token('space.100', '8px'),
+	paddingRight: token('space.100'),
 	position: 'relative',
 	whiteSpace: 'nowrap',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > span': {
-		paddingRight: token('space.050', '4px'),
+		paddingRight: token('space.050'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > button, & > span': {

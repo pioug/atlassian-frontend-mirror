@@ -5,7 +5,6 @@ import InformationIcon from '@atlaskit/icon/core/status-information';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { type BackgroundColor } from '@atlaskit/primitives/compiled';
-import { B400, N0, N30A, N700, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type AppearanceTypes, type HeadingColor } from './types';
@@ -49,11 +48,11 @@ export const flagTextColorToken: {
 	success: 'var(--ds-text-inverse)';
 	warning: 'var(--ds-text-warning-inverse)';
 } = {
-	error: token('color.text.inverse', N0),
-	info: token('color.text.inverse', N0),
-	normal: token('color.text', N800),
-	success: token('color.text.inverse', N0),
-	warning: token('color.text.warning.inverse', N700),
+	error: token('color.text.inverse'),
+	info: token('color.text.inverse'),
+	normal: token('color.text'),
+	success: token('color.text.inverse'),
+	warning: token('color.text.warning.inverse'),
 };
 
 type ActionBackgroundColor = Record<
@@ -77,24 +76,24 @@ type ActionBackgroundColor = Record<
 // https://product-fabric.atlassian.net/browse/DSP-2519
 export const actionBackgroundColor: ActionBackgroundColor = {
 	success: {
-		default: token('color.background.inverse.subtle', N30A),
-		active: token('color.background.inverse.subtle.pressed', N30A),
-		pressed: token('color.background.inverse.subtle.hovered', N30A),
+		default: token('color.background.inverse.subtle'),
+		active: token('color.background.inverse.subtle.pressed'),
+		pressed: token('color.background.inverse.subtle.hovered'),
 	},
 	info: {
-		default: token('color.background.inverse.subtle', N30A),
-		active: token('color.background.inverse.subtle.pressed', N30A),
-		pressed: token('color.background.inverse.subtle.hovered', N30A),
+		default: token('color.background.inverse.subtle'),
+		active: token('color.background.inverse.subtle.pressed'),
+		pressed: token('color.background.inverse.subtle.hovered'),
 	},
 	error: {
-		default: token('color.background.inverse.subtle', N30A),
-		active: token('color.background.inverse.subtle.pressed', N30A),
-		pressed: token('color.background.inverse.subtle.hovered', N30A),
+		default: token('color.background.inverse.subtle'),
+		active: token('color.background.inverse.subtle.pressed'),
+		pressed: token('color.background.inverse.subtle.hovered'),
 	},
 	warning: {
-		default: token('color.background.inverse.subtle', N30A),
-		active: token('color.background.inverse.subtle.pressed', N30A),
-		pressed: token('color.background.inverse.subtle.hovered', N30A),
+		default: token('color.background.inverse.subtle'),
+		active: token('color.background.inverse.subtle.pressed'),
+		pressed: token('color.background.inverse.subtle.hovered'),
 	},
 	normal: {
 		default: 'none',
@@ -104,9 +103,9 @@ export const actionBackgroundColor: ActionBackgroundColor = {
 };
 
 export const actionTextColor: Record<AppearanceTypes, string> = {
-	success: token('color.text.inverse', N0),
-	info: token('color.text.inverse', N0),
-	error: token('color.text.inverse', N0),
-	warning: token('color.text.warning.inverse', N700),
-	normal: token('color.link', B400),
+	success: token('color.text.inverse'),
+	info: token('color.text.inverse'),
+	error: token('color.text.inverse'),
+	warning: token('color.text.warning.inverse'),
+	normal: token('color.link'),
 };

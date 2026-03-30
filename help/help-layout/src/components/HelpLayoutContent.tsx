@@ -39,7 +39,7 @@ export const HelpContent: React.FC<HelpLayout & WrappedComponentProps> = (props)
 				<Header {...rest} />
 				{isLoading ? (
 					<LoadingContainer aria-label={formatMessage(messages.help_loading)} role="img">
-						<LoadingRectangle contentHeight={token('space.250', '20px')} marginTop="0" />
+						<LoadingRectangle contentHeight={token('space.250')} marginTop="0" />
 						<LoadingRectangle contentWidth="90%" />
 						<LoadingRectangle contentWidth="80%" />
 						<LoadingRectangle contentWidth="80%" />

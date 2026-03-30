@@ -166,6 +166,12 @@ export interface RendererProps {
 	rendererContext?: RendererContext;
 	schema?: Schema;
 	/**
+	 * Optional callback to scroll an element into view when using block links (#block-xxx).
+	 * When provided, this is used instead of the default scrollIntoView for accurate positioning
+	 * in product-specific scroll containers (e.g. Confluence view page).
+	 */
+	scrollToBlock?: (element: HTMLElement) => void;
+	/**
 	 * Determines if the extension should be displayed as inline based on the extension parameters.
 	 * @param extensionParams - The extension parameters.
 	 * @returns True if the extension should be displayed as inline, false otherwise.

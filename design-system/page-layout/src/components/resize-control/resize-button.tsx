@@ -13,7 +13,7 @@ import ChevronRight from '@atlaskit/icon/core/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';
 import { durations } from '@atlaskit/motion/durations';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
-import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
+import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { RESIZE_BUTTON_SELECTOR } from '../../common/constants';
@@ -40,11 +40,11 @@ const resizeIconButtonStyles = css({
 	height: 24,
 	padding: token('space.0', '0px'),
 	position: 'absolute',
-	backgroundColor: token('elevation.surface.overlay', N0),
+	backgroundColor: token('elevation.surface.overlay'),
 	border: 0,
 	borderRadius: token('radius.full', '50%'),
 	boxShadow: `0 0 0 1px ${N30A}, 0 2px 4px 1px ${N30A}`,
-	color: token('color.text.subtle', N200),
+	color: token('color.text.subtle'),
 	cursor: 'pointer',
 	insetBlockStart: token('space.400', '32px'),
 	insetInlineStart: 0,
@@ -62,14 +62,14 @@ const resizeIconButtonStyles = css({
   `,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
-		backgroundColor: token('color.background.selected.bold', B100),
-		color: token('color.text.inverse', N0),
+		backgroundColor: token('color.background.selected.bold'),
+		color: token('color.text.inverse'),
 		opacity: 1,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':active, :focus': {
-		backgroundColor: token('color.background.selected.bold.hovered', B200),
-		color: token('color.text.inverse', N0),
+		backgroundColor: token('color.background.selected.bold.hovered'),
+		color: token('color.text.inverse'),
 		opacity: 1,
 	},
 });

@@ -7,7 +7,6 @@
 import React from 'react';
 import { css, jsx, keyframes } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N10, N30, N40 } from '@atlaskit/theme/colors';
 
 const containerStyles = css({
 	position: 'absolute',
@@ -17,7 +16,7 @@ const containerStyles = css({
 	width: '100%',
 	display: 'flex',
 	flexDirection: 'column',
-	backgroundColor: token('elevation.surface', '#FFFFFF'),
+	backgroundColor: token('elevation.surface'),
 });
 
 export const Container = ({ children }: { children: React.ReactNode }): JSX.Element => (
@@ -36,13 +35,13 @@ export const Section = ({ children }: { children: React.ReactNode }): JSX.Elemen
 );
 
 const helpFooterStyles = css({
-	paddingTop: token('space.100', '8px'),
+	paddingTop: token('space.100'),
 	paddingRight: 0,
-	paddingBottom: token('space.100', '8px'),
+	paddingBottom: token('space.100'),
 	paddingLeft: 0,
 	boxSizing: 'border-box',
-	backgroundColor: token('color.background.neutral', N10),
-	borderTop: `${token('border.width.selected')} solid ${token('color.border', N30)}`,
+	backgroundColor: token('color.background.neutral'),
+	borderTop: `${token('border.width.selected')} solid ${token('color.border')}`,
 	justifyContent: 'space-between',
 });
 
@@ -63,10 +62,10 @@ export const HelpFooter = ({
  */
 
 const loadingContainerStyles = css({
-	paddingTop: token('space.200', '16px'),
-	paddingRight: token('space.200', '16px'),
-	paddingBottom: token('space.200', '16px'),
-	paddingLeft: token('space.200', '16px'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 	height: '100%',
 });
 
@@ -96,8 +95,8 @@ const shimmer = keyframes({
 
 const loadingRectangleStyles = css({
 	position: 'relative',
-	height: token('space.200', '1rem'),
-	marginTop: token('space.100', '8px'),
+	height: token('space.200'),
+	marginTop: token('space.100'),
 	width: '100%',
 	borderRadius: token('radius.xsmall'),
 	animationDuration: '1.2s',
@@ -105,12 +104,12 @@ const loadingRectangleStyles = css({
 	animationIterationCount: 'infinite',
 	animationName: shimmer,
 	animationTimingFunction: 'linear',
-	backgroundColor: token('color.background.neutral', N30),
+	backgroundColor: token('color.background.neutral'),
 	backgroundImage: `linear-gradient(
 		to right,
-		${token('color.background.neutral.subtle', N30)} 10%,
-		${token('color.background.neutral', N40)} 20%,
-		${token('color.background.neutral.subtle', N30)} 30%
+		${token('color.background.neutral.subtle')} 10%,
+		${token('color.background.neutral')} 20%,
+		${token('color.background.neutral.subtle')} 30%
 	)`,
 	backgroundRepeat: 'no-repeat',
 });

@@ -17,7 +17,7 @@ import { SubmitButton } from './submit-button';
 
 const formFooterWrapperStyles = css({
 	display: 'flex',
-	marginTop: token('space.300', '24px'),
+	marginTop: token('space.300'),
 	justifyContent: 'flex-end',
 });
 
@@ -50,7 +50,7 @@ export const CreateFormFooter = ({
 				<div role="alert" css={errorStyles} data-testid={`${testId}-error`}>
 					<ErrorIcon
 						label={formErrorMessage}
-						color={token('color.icon.danger', '#E34935')}
+						color={token('color.icon.danger')}
 						spacing="spacious"
 					/>
 					{formErrorMessage}

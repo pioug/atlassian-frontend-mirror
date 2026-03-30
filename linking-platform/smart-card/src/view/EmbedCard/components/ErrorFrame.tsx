@@ -6,7 +6,6 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { B200, N20A, N30A, N40A, N50A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export interface FrameProps {
@@ -39,13 +38,13 @@ const sharedBaseFrameStyles = css({
 
 const sharedFrameStyles = css({
 	maxWidth: '760px',
-	backgroundColor: token('elevation.surface.raised', 'white'),
+	backgroundColor: token('elevation.surface.raised'),
 });
 
 const expandedFrameHoverStyles = css({
 	'&:hover': {
 		// TODO: https://product-fabric.atlassian.net/browse/DSP-4064
-		backgroundColor: token('color.background.neutral.subtle.hovered', N20A),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 		cursor: 'pointer',
 	},
 });
@@ -61,7 +60,7 @@ const expandedFrameFluidHeightFalseStyles = css({
 const expandedFrameSelectedStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
-	borderColor: token('color.border.selected', B200),
+	borderColor: token('color.border.selected'),
 	borderStyle: 'solid',
 	borderWidth: token('border.width.selected'),
 });
@@ -76,7 +75,7 @@ const expandedFrameNotSelectedStyles = css({
 const expandedFrameStyles = css({
 	justifyContent: 'space-between',
 	overflow: 'hidden',
-	boxShadow: token('elevation.shadow.raised', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`),
+	boxShadow: token('elevation.shadow.raised'),
 });
 
 export const ExpandedFrame = ({
@@ -109,7 +108,7 @@ export const ExpandedFrame = ({
 
 const compactFrameHoverStyles = css({
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.hovered', N30A),
+		backgroundColor: token('color.background.neutral.hovered'),
 	},
 });
 
@@ -124,7 +123,7 @@ const compactFrameInheritDimensionsFalseStyles = css({
 const compactFrameAlignStyles = css({
 	justifyContent: 'center',
 	alignItems: 'center',
-	backgroundColor: token('color.background.neutral', N20A),
+	backgroundColor: token('color.background.neutral'),
 });
 
 const compactFrameStyles = css({

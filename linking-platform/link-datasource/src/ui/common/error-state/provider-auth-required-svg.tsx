@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 const imageStyles = css({
 	width: 200,
 	height: 140,
-	marginBottom: token('space.200', '16px'),
+	marginBottom: token('space.200'),
 });
 
 export const ProviderAuthRequiredSVG = () => {

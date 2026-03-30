@@ -24,9 +24,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../design-system/theme/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
 		}
 	]

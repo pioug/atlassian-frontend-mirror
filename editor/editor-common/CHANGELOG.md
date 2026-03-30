@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 112.13.0
+
+### Minor Changes
+
+- [`b749ce678d575`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b749ce678d575) -
+  Preserve small text formatting across list and task list edits
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.12.1
+
+### Patch Changes
+
+- [`13ec7df78a017`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13ec7df78a017) -
+  Editor-5664: Fix scroll position for block links
+- Updated dependencies
+
 ## 112.12.0
 
 ### Minor Changes

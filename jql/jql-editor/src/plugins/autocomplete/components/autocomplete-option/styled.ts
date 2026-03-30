@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import { N100, N20, N50, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -16,7 +15,7 @@ export const OptionListItem = styled.li<{
 }>(
 	{
 		cursor: 'pointer',
-		padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
+		padding: `${token('space.075')} ${token('space.100')}`,
 		fontFamily: token('font.family.code'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '24px',
@@ -24,19 +23,19 @@ export const OptionListItem = styled.li<{
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	({ isSelected }) =>
 		isSelected && {
-			background: token('color.background.neutral.subtle.hovered', N20),
+			background: token('color.background.neutral.subtle.hovered'),
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	({ isDeprecated }) =>
 		isDeprecated && {
 			cursor: 'default',
-			color: token('color.text.disabled', N50),
+			color: token('color.text.disabled'),
 		},
 );
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const OptionName = styled.div({
-	color: token('color.text', N800),
+	color: token('color.text'),
 	overflow: 'hidden',
 	whiteSpace: 'nowrap',
 	textOverflow: 'ellipsis',
@@ -46,7 +45,7 @@ export const OptionName = styled.div({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DeprecatedOptionContainer = styled.div({
-	color: token('color.text.disabled', N50),
+	color: token('color.text.disabled'),
 	display: 'flex',
 	justifyContent: 'space-between',
 	opacity: 0.6,
@@ -61,12 +60,12 @@ export const OptionHighlight = styled.span({
 export const FieldType = styled.div({
 	display: 'flex',
 	alignItems: 'center',
-	marginTop: token('space.negative.025', '-2px'),
-	color: token('color.text.subtlest', N100),
+	marginTop: token('space.negative.025'),
+	color: token('color.text.subtlest'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const FieldTypeIcon = styled.span({
 	display: 'flex',
-	marginRight: token('space.050', '4px'),
+	marginRight: token('space.050'),
 });

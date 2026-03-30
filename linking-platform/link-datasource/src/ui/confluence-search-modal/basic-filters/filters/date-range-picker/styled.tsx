@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { B400, B50, N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const customDropdownItemBaseStyles = css({
@@ -22,21 +21,21 @@ const customDropdownItemBaseStyles = css({
 const customDropdownItemSelectedStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingLeft: '15px',
-	color: token('color.text.selected', B400),
-	backgroundColor: token('color.background.accent.blue.subtlest', B50),
-	borderLeft: `${token('border.width.selected')} solid ${token('color.text.selected', B400)}`,
+	color: token('color.text.selected'),
+	backgroundColor: token('color.background.accent.blue.subtlest'),
+	borderLeft: `${token('border.width.selected')} solid ${token('color.text.selected')}`,
 	'&:hover': {
-		backgroundColor: token('color.background.accent.blue.subtlest', B50),
+		backgroundColor: token('color.background.accent.blue.subtlest'),
 	},
 });
 
 const customDropdownItemNotSelectedStyles = css({
-	paddingLeft: token('space.200', '16px'),
+	paddingLeft: token('space.200'),
 	color: 'inherit',
 	backgroundColor: 'transparent',
 	borderLeft: `none`,
 	'&:hover': {
-		backgroundColor: token('color.background.input.hovered', N20),
+		backgroundColor: token('color.background.input.hovered'),
 	},
 });
 

@@ -1,44 +1,30 @@
 import type { ComponentType } from 'react';
 
-import type { GroupBase } from '../types';
+import type { GroupBase, MultiValueGenericProps, NoticeProps } from '../types';
 
 import {
-	type ContainerProps,
 	IndicatorsContainer,
 	type IndicatorsContainerProps,
-	SelectContainer,
-	ValueContainer,
-	type ValueContainerProps,
-} from './containers';
+} from './containers/indicators-container';
+import { MultiValueContainer } from './containers/multi-value-container';
+import { type ContainerProps, SelectContainer } from './containers/select-container';
+import { ValueContainer, type ValueContainerProps } from './containers/value-container';
 import Control, { type ControlProps } from './control';
-import Group, { GroupHeading, type GroupHeadingProps, type GroupProps } from './group';
-import {
-	ClearIndicator,
-	type ClearIndicatorProps,
-	DropdownIndicator,
-	type DropdownIndicatorProps,
-	LoadingIndicator,
-	type LoadingIndicatorProps,
-} from './indicators';
+import Group, { type GroupProps } from './group';
+import { GroupHeading, type GroupHeadingProps } from './group-heading';
+import { ClearIndicator, type ClearIndicatorProps } from './indicators/clear-indicator';
+import { DropdownIndicator, type DropdownIndicatorProps } from './indicators/dropdown-indicator';
+import { LoadingIndicator, type LoadingIndicatorProps } from './indicators/loading-indicator';
 import Input, { type InputProps } from './input';
-import Menu, {
-	LoadingMessage,
-	MenuList,
-	type MenuListProps,
-	MenuPortal,
-	type MenuPortalProps,
-	type MenuProps,
-	NoOptionsMessage,
-	type NoticeProps,
-} from './menu';
-import MultiValue, {
-	MultiValueContainer,
-	type MultiValueGenericProps,
-	MultiValueLabel,
-	type MultiValueProps,
-	MultiValueRemove,
-	type MultiValueRemoveProps,
-} from './multi-value';
+import Menu from './menu';
+import type { MenuProps } from './menu';
+import { MenuList, type MenuListProps } from './menu-list';
+import { LoadingMessage } from './menu-loading-message';
+import { NoOptionsMessage } from './menu-no-options-message';
+import { MenuPortal, type MenuPortalProps } from './menu-portal';
+import MultiValue, { type MultiValueProps } from './multi-value';
+import { MultiValueLabel } from './multi-value-label';
+import { MultiValueRemove, type MultiValueRemoveProps } from './multi-value-remove';
 import Option, { type OptionProps } from './option';
 import Placeholder, { type PlaceholderProps } from './placeholder';
 import SingleValue, { type SingleValueProps } from './single-value';

@@ -34,7 +34,7 @@ const styles = cssMap({
 	},
 	titleStyles: {
 		color: token('color.text.subtle'),
-		font: token('font.body.UNSAFE_small'),
+		font: token('font.body.small'),
 	},
 });
 
@@ -43,7 +43,7 @@ const getIcon = (appearance?: ActionMessageAppearance) => {
 		case 'error':
 			return (
 				<ErrorIcon
-					color={token('color.icon.danger', '#C9372C')}
+					color={token('color.icon.danger')}
 					spacing="compact"
 					label="Error"
 					testId="action-error-icon"

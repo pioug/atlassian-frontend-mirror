@@ -1,4 +1,3 @@
-import { N10, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { VAR_SCROLL_INDICATOR_COLOR, VAR_SEPARATOR_COLOR } from '../../common/constants';
@@ -79,7 +78,7 @@ export const outerContainerCSS = (
 			right: containerPadding + opts.scrollbarWidth,
 			height: scrollIndicatorHeight,
 			borderRadius: token('radius.xsmall', scrollIndicatorBorderRadius),
-			backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${token('color.border', N30)})`,
+			backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${token('color.border')})`,
 			position: 'absolute',
 			zIndex: scrollIndicatorZIndex,
 		},
@@ -95,7 +94,7 @@ export const outerContainerCSS = (
 			right: containerPadding + opts.scrollbarWidth,
 			bottom: 0,
 			zIndex: scrollIndicatorZIndex,
-			backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${token('color.border', N30)})`,
+			backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${token('color.border')})`,
 		},
 	}) as const;
 
@@ -159,7 +158,7 @@ export const innerContainerCSS = (
 					left: 0,
 					right: 0,
 					height: scrollIndicatorHeight,
-					backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${token('elevation.surface', N10)})`,
+					backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${token('elevation.surface')})`,
 					position: 'absolute',
 					display: 'block',
 					zIndex: scrollIndicatorMaskZIndex,
@@ -178,7 +177,7 @@ export const innerContainerCSS = (
 			marginTop: 'auto',
 			position: 'relative',
 			zIndex: scrollIndicatorMaskZIndex,
-			backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${token('elevation.surface', N10)})`,
+			backgroundColor: `var(${VAR_SCROLL_INDICATOR_COLOR}, ${token('elevation.surface')})`,
 		},
 	}) as const;
 

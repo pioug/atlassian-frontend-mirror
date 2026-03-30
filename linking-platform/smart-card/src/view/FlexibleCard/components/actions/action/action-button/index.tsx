@@ -45,18 +45,18 @@ const SizeSmall = css({
 const SizeSmallIconOnly = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'button, button:hover, button:focus, button:active': {
-		paddingTop: token('space.025', '0.125rem'),
-		paddingRight: token('space.025', '0.125rem'),
-		paddingBottom: token('space.025', '0.125rem'),
-		paddingLeft: token('space.025', '0.125rem'),
+		paddingTop: token('space.025'),
+		paddingRight: token('space.025'),
+		paddingBottom: token('space.025'),
+		paddingLeft: token('space.025'),
 	},
 });
 
 const SizeSmallNotIconOnly = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'button, button:hover, button:focus, button:active': {
-		paddingLeft: token('space.050', '0.25rem'),
-		paddingRight: token('space.050', '0.25rem'),
+		paddingLeft: token('space.050'),
+		paddingRight: token('space.050'),
 	},
 });
 

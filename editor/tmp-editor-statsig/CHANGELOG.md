@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 49.0.0
+
+### Major Changes
+
+- [`ffccc4788eabb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffccc4788eabb) -
+  Cleanup presence PMR experiment
+
 ## 48.2.0
 
 ### Minor Changes

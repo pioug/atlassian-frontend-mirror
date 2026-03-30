@@ -16,7 +16,7 @@ export const SelectContainer = ({ children }: { children: React.ReactNode }): JS
 );
 
 const whatsNewResultsListContainerStyles = css({
-	paddingTop: token('space.100', '8px'),
+	paddingTop: token('space.100'),
 });
 
 export const WhatsNewResultsListContainer = ({
@@ -30,9 +30,9 @@ export const WhatsNewResultsListContainer = ({
 
 const whatsNewResultsListTitleContainerStyles = css({
 	paddingTop: 0,
-	paddingRight: token('space.100', '8px'),
+	paddingRight: token('space.100'),
 	paddingBottom: 0,
-	paddingLeft: token('space.100', '8px'),
+	paddingLeft: token('space.100'),
 });
 
 export const WhatsNewResultsListTitleContainer = ({

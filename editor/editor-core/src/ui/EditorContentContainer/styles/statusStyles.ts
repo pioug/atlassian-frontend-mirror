@@ -330,3 +330,160 @@ export const statusStylesMixin_without_fg_platform_component_visual_refresh_with
 			color: token('color.text.success'),
 		},
 	});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const statusStylesTeam26: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] .lozenge-wrapper': {
+		paddingBlockStart: token('space.025'),
+		paddingBlockEnd: token('space.025'),
+		paddingInlineStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		alignItems: 'center',
+		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+		borderRadius: token('radius.small', '4px'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		height: '1.25rem',
+		border: `solid ${token('border.width')} transparent`,
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] .lozenge-text': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		textTransform: 'none',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		font: token('font.body.small'),
+	},
+
+	/* Border, background and text colors
+	 * These colors are copied from @atlaskit/lozenge
+	 * DST is currently using oklch with different light and dark lightness factors
+	 * and suggest using hex colors until the design tokens are added
+	 */
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=neutral] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.neutral'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html:not([data-color-mode=dark]) &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#CACBCF',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html[data-color-mode=dark] &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#63666B',
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
+		color: token('color.text'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.discovery.subtler'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html:not([data-color-mode=dark]) &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#D8A0F7',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html[data-color-mode=dark] &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#803FA5',
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
+		color: token('color.text.discovery.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.information.subtler'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html:not([data-color-mode=dark]) &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#8FB8F6',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html[data-color-mode=dark] &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#1558BC',
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
+		color: token('color.text.information.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.danger.subtler'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html:not([data-color-mode=dark]) &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#FD9891',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html[data-color-mode=dark] &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#AE2E24',
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
+		color: token('color.text.danger.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.warning.subtler'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html:not([data-color-mode=dark]) &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#FBC828',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html[data-color-mode=dark] &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#9E4C00',
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
+		color: token('color.text.warning.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.success.subtler'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html:not([data-color-mode=dark]) &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#B3DF72',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'html[data-color-mode=dark] &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			borderColor: '#4C6B1F',
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
+		color: token('color.text.success.bolder'),
+	},
+
+	/* Find and Replace Styles */
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.statusView-content-wrap:not(.search-match-block)': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&.ak-editor-selected-node .status-lozenge-span > span': {
+			boxShadow: `0 0 0 2px ${token('color.border.selected')}`,
+		},
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.danger': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.statusView-content-wrap:not(.search-match-block).ak-editor-selected-node .status-lozenge-span > span':
+			{
+				boxShadow: `0 0 0 2px ${token('color.border.danger')}`,
+			},
+	},
+});

@@ -8,7 +8,6 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { HORIZONTAL_GLOBAL_NAV_HEIGHT } from '../../common/constants';
@@ -26,7 +25,7 @@ const containerStyles = css({
 	alignItems: 'center',
 	justifyContent: 'space-between',
 	flexShrink: 0,
-	borderBlockEnd: `${token('border.width')} solid ${token('color.border', N30)}`,
+	borderBlockEnd: `${token('border.width')} solid ${token('color.border')}`,
 	paddingInlineEnd: token('space.150', '12px'),
 	paddingInlineStart: token('space.150', '12px'),
 });

@@ -1,0 +1,124 @@
+---
+order: 1
+---
+
+Volt strict mode is a set of constraints on how modules are named, declared, imported, and exported
+so Volt can reason about code mechanically across Atlassian Design System (ADS), platform, and
+product codebases.
+
+These ESLint rules enforce Volt strict mode today; more rules are planned as the program expands.
+
+## Examples
+
+## Rules
+
+<!-- START_RULE_TABLE_CODEGEN -->
+<!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-volt-strict-mode codegen -->
+
+| Rule                                                                                                   | Description                                                                                                                                                 | Recommended | Fixable | Suggestions |
+| ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------- | ----------- |
+| <a href="/components/eslint-plugin-volt-strict-mode/no-multiple-exports/usage">no-multiple-exports</a> | Allows at most one runtime export per module so each file maps to a single bundler unit; `export type` / `export interface` are exempt.                     | Yes         |         |             |
+| <a href="/components/eslint-plugin-volt-strict-mode/no-re-exports/usage">no-re-exports</a>             | Disallows re-exporting symbols from other modules (barrel patterns and import-then-export indirection) so consumers and bundlers do not chase extra layers. | Yes         |         |             |
+
+<!-- END_RULE_TABLE_CODEGEN -->
+
+## Purpose
+
+Volt strict mode is a set of strict constraints on how modules are named, declared, imported, and
+exported so Volt can reason about code mechanically. The goal is to make Atlassian Design System
+(ADS), platform, and product modules **Volt strict compliant** so Volt can optimally bundle,
+deliver, and cache them.
+
+The **file is the container**: the file boundary is the unit Volt works with. Standardising naming,
+imports, exports, and styling boundaries keeps the global module graph simple and consistent, avoids
+resolution tricks, and ensures each file can be compiled and analysed in isolation—without a “second
+global pass.”
+
+Rollout strategy: start with ADS components, then Townsquare product code and dependencies, then
+broader AFM.
+
+### Desired outcomes
+
+- Tooling that scales in **O(changes)**, not **O(repo)**, for builds, linting, tests, and bundling.
+- **One-shot bundling** where Volt assembles bundles without repeated global graph work.
+- Smaller, more precise bundles and fewer unnecessary dependencies at runtime.
+- Faster CI, incremental builds, and cheaper infra from incremental, file-scoped analysis.
+- A high-signal, AI-friendly codebase where agents can safely refactor and enforce rules
+  mechanically.
+- Explicit, traceable dependencies: canonical module IDs, no ambiguous or path-y import edges.
+
+## Core principles
+
+We want modules in ADS, platform, and product code to be as predictable and analysable as the other
+languages we ship—names and boundaries should be stable, graphs acyclic where strict mode applies,
+and behaviour knowable from the file in front of you.
+
+Like other strict, toolable systems, Volt strict modules should be:
+
+- **file-scoped** — the file is the primary unit Volt reasons about
+- **predictably named** — unique, consistent conventions (often PascalCase) without duplicate or
+  ambiguous basenames where rules apply
+- **canonically addressed** — non-aliased module names and stable module IDs
+- **explicitly linked** — import specifiers are not path-y, aliased, or ambiguous
+- **acyclic** — no circular dependencies or code cycles that break one-shot bundling
+- **statically resolvable** — no dynamic `import()` / dynamic `require` where Volt expects semantic
+  import tiers instead
+- **policy-light at resolve time** — no clever `package.json` mappings that repoint modules for
+  first-party code; no npm-time resolution required for first-party code treated as pre-built,
+  vendored units
+- **transform-friendly** — no cross-file style sharing, no dynamic evaluation of styles, and no
+  other dynamic constructs that block per-file static analysis
+
+When these principles hold, Volt's toolchain can evolve the codebase programmatically—much like we
+already expect from typed, locally analysable systems.
+
+## Module constraints
+
+Following our core principles, we've developed a set of module, import, and export constraints.
+
+All modules must:
+
+- use standardised file naming (unique, predictable, often PascalCase, no inappropriate duplicates)
+- use stable, canonical import specifiers (no path-y, aliased, or ambiguous forms that tooling
+  cannot treat as fixed module IDs)
+- bias strongly toward **one export per file** and avoid multi-export barrels and indirection
+  (type-only exports may follow rule-specific exceptions)
+- treat first-party code as **pre-built, vendored units** so tooling does not depend on npm-time
+  resolution
+- keep per-file transforms independent: **no cross-file style sharing** and no dynamic style
+  evaluation where rules apply—plus avoidance of other dynamic constructs that block static analysis
+- prefer Volt's own **semantic import tiers** over ad-hoc dynamic loading for splitting and ordering
+
+Additionally, modules cannot:
+
+- introduce **circular dependencies** or code cycles that prevent one-shot bundling
+- use **re-exports and barrelling** (or equivalent indirection) in disallowed ways—dependencies must
+  stay explicit and traceable (see
+  [`no-re-exports`](/components/eslint-plugin-volt-strict-mode/no-re-exports/usage))
+- rely on **dynamic imports** or **dynamic require** where static edges are required
+- depend on **resolution tricks or overrides** (including package export maps) that repoint
+  first-party modules unpredictably
+- require a **second global pass** over the repo: each file must be compilable and analysable in
+  isolation
+
+These constraints unlock one-shot bundling, raise the floor for static analysis, and keep Volt's
+graph work bounded and repeatable at scale.
+
+## Benefits
+
+The above constraints provide numerous benefits:
+
+- Volt can reason about modules mechanically—edges and units are explicit, not rediscovered on every
+  run.
+
+- Builds, linting, and tests can track **O(changes)** work instead of re-walking the whole repo.
+
+- **One-shot bundling** becomes feasible: fewer repeated global graph phases when assembling
+  deliverables.
+
+- **Runtime performance** improves via smaller bundles and fewer accidental dependencies.
+
+- **Pipeline efficiency** improves through faster incremental CI and cheaper infra.
+
+- **AI- and human-friendly code**: canonical names, single-export files, and minimal barrels make
+  refactors and automated enforcement safer.

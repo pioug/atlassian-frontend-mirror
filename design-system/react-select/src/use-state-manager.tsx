@@ -26,7 +26,7 @@ type SelectPropsWithOptionalStateManagedProps<
 	Partial<PublicBaseSelectProps<Option, IsMulti, Group>>;
 
 // Export required for downstream consumers
-export interface StateManagerAdditionalProps<Option> {
+interface StateManagerAdditionalProps<Option> {
 	defaultInputValue?: string;
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	defaultMenuIsOpen?: boolean;

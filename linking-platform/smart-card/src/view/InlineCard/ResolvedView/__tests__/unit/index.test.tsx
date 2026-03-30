@@ -74,11 +74,11 @@ describe('ResolvedView', () => {
 			<InlineCardResolvedView
 				icon="some-link-to-icon"
 				title="some text content"
-				titleTextColor={token('color.text.inverse', '#FFFFFF')}
+				titleTextColor={token('color.text.inverse')}
 			/>,
 		);
 		expect(await screen.findByText('some text content')).toHaveStyle(
-			`color: var(--ds-text-inverse, #FFFFFF)`,
+			`color: var(--ds-text-inverse)`,
 		);
 	});
 
@@ -93,7 +93,7 @@ describe('ResolvedView', () => {
 		// Lozenge background color is hardcoded in the lozenge component for now
 		expect(lozenge).toHaveCompiledCss('background-color', '#8fb8f6');
 
-		expect(lozenge).toHaveStyle(`color: var(--ds-link,#0052cc)`);
+		expect(lozenge).toHaveStyle(`color: var(--ds-link,#1868db)`);
 	});
 
 	it('should not render a lozenge when one is not provided', () => {

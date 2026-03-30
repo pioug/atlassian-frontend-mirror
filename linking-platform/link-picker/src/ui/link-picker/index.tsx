@@ -75,7 +75,7 @@ const baseRootContainerStyles = css({
 });
 
 const formFooterMargin = css({
-	marginTop: token('space.200', '16px'),
+	marginTop: token('space.200'),
 });
 
 export const testIds = {

@@ -11,8 +11,7 @@ import { token } from '@atlaskit/tokens';
 import type { UNSAFE_NewGlyphProps } from '../types';
 
 /**
- * We are hiding this props from consumers as it's reserved
- * for use by Icon Tile.
+ * We are hiding this props from consumers as it's reserved for use by Icon Tile.
  */
 export type InternalIconPropsNew = UNSAFE_NewGlyphProps & {
 	/**

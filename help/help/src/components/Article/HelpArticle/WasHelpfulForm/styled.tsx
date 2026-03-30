@@ -5,11 +5,7 @@
 
 import React from 'react';
 import { css, jsx } from '@compiled/react';
-import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
-import { N200 } from '@atlaskit/theme/colors';
-
-const { heading } = fontFallback;
 
 const articleFeedbackContainerStyles = css({
 	position: 'relative',
@@ -22,8 +18,8 @@ export const ArticleFeedbackContainer = ({
 }): JSX.Element => <div css={articleFeedbackContainerStyles}>{children}</div>;
 
 const articleFeedbackTextStyles = css({
-	font: token('font.heading.xxsmall', heading.xxsmall),
-	color: token('color.text.subtlest', N200),
+	font: token('font.heading.xxsmall'),
+	color: token('color.text.subtlest'),
 	position: 'relative',
 	display: 'inline-block',
 });
@@ -55,7 +51,7 @@ export const ArticleFeedbackText = ({
 );
 
 const articleFeedbackAnswerWrapperStyles = css({
-	paddingTop: token('space.200', '16px'),
+	paddingTop: token('space.200'),
 });
 
 export const ArticleFeedbackAnswerWrapper = ({

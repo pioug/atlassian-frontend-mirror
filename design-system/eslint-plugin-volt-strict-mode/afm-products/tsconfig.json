@@ -1,0 +1,32 @@
+{
+	"extends": "../../../../tsconfig.local-consumption.json",
+	"compilerOptions": {
+		"target": "es5",
+		"lib": ["ES2021.String"],
+		"outDir": "../../../../../tsDist/@atlaskit__eslint-plugin-volt-strict-mode/app",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
+	},
+	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*",
+		"../src/**/examples/*",
+		"../src/**/examples/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*"
+	],
+	"references": [
+		{
+			"path": "../../eslint-plugin/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../eslint-utils/afm-products/tsconfig.json"
+		}
+	]
+}

@@ -8,6 +8,10 @@ import {
 	INPUT_METHOD,
 	LIST_TEXT_SCENARIOS,
 } from '@atlaskit/editor-common/analytics';
+import {
+	getBlockMarkAttrs,
+	reconcileBlockMarkForParagraphAtPos,
+} from '@atlaskit/editor-common/lists';
 import type { CommandDispatch } from '@atlaskit/editor-common/types';
 import type { WalkNode } from '@atlaskit/editor-common/utils';
 import {
@@ -20,6 +24,7 @@ import {
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isPosInsideList, isPosInsideParagraph } from '../utils/selection';
 
@@ -62,6 +67,7 @@ const listBackspaceCase2: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 	 */
 
 	const listItemE = $head.node(-1); //Head is inside listItem E so it must have a first and last child
+	const { fontSize } = tr.doc.type.schema.marks;
 	if (!listItemE.firstChild) {
 		return false;
 	}
@@ -85,6 +91,16 @@ const listBackspaceCase2: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 		],
 		[[beforeListItemE, afterListItemE]],
 	);
+
+	if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+		const targetParagraphFontSizeAttrs = getBlockMarkAttrs($prev.parent.lastChild, fontSize);
+		reconcileBlockMarkForParagraphAtPos(
+			tr,
+			tr.mapping.map(textInsertPos),
+			fontSize,
+			targetParagraphFontSizeAttrs,
+		);
+	}
 
 	if (dispatch) {
 		dispatch(tr);
@@ -133,6 +149,7 @@ const listBackspaceCase3: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 
 	const listE = $head.node(-2);
 	const listItemF = $head.node(-1); //Head is inside listItem F so it must have a first and last child
+	const { fontSize } = tr.doc.type.schema.marks;
 	if (!listItemF.firstChild || !listItemF.lastChild) {
 		return false;
 	}
@@ -176,6 +193,17 @@ const listBackspaceCase3: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 				],
 		[shouldRemoveListE ? [beforeListE, afterListE] : [beforeListItemF, afterListItemF]],
 	);
+
+	if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+		const targetParagraphFontSizeAttrs = getBlockMarkAttrs($prev.parent, fontSize);
+
+		reconcileBlockMarkForParagraphAtPos(
+			tr,
+			tr.mapping.map(textInsertPos),
+			fontSize,
+			targetParagraphFontSizeAttrs,
+		);
+	}
 
 	if (dispatch) {
 		dispatch(tr);
@@ -244,6 +272,7 @@ const listBackspaceCase4: BackspaceCommand = (tr, dispatch, $prev, $head, $last)
 	}
 
 	const listItemK = $head.node(-1); //Head is inside listItem K so it must have a first and last child
+	const { fontSize } = tr.doc.type.schema.marks;
 	if (!listItemK.firstChild || !listItemK.lastChild) {
 		return false;
 	}
@@ -284,6 +313,16 @@ const listBackspaceCase4: BackspaceCommand = (tr, dispatch, $prev, $head, $last)
 				],
 		[[beforeListItemK, afterListItemK]],
 	);
+
+	if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+		const targetParagraphFontSizeAttrs = getBlockMarkAttrs($last.parent, fontSize);
+		reconcileBlockMarkForParagraphAtPos(
+			tr,
+			tr.mapping.map(textInsertPos),
+			fontSize,
+			targetParagraphFontSizeAttrs,
+		);
+	}
 
 	if (dispatch) {
 		dispatch(tr);

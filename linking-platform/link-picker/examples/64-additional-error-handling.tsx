@@ -67,7 +67,7 @@ function AdditionalErrorHandling() {
 			<form onSubmit={handleFormSubmit}>
 				<div>Link added to application: {applicationLink || 'None'}</div>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ paddingBottom: token('space.250', '20px') }}>
+				<div style={{ paddingBottom: token('space.250') }}>
 					Preview:
 					{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
 					<a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
@@ -75,7 +75,7 @@ function AdditionalErrorHandling() {
 					</a>
 				</div>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ paddingBottom: token('space.250', '20px') }}>
+				<div style={{ paddingBottom: token('space.250') }}>
 					<LinkPicker
 						plugins={plugins}
 						url={link.url}

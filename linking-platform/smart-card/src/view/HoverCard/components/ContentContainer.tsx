@@ -31,11 +31,8 @@ const HoverCardContainerStyle = css({
 
 const popupContainerStyles = css({
 	borderRadius: token('radius.large', '8px'),
-	backgroundColor: token('elevation.surface.overlay', 'white'),
-	boxShadow: token(
-		'elevation.shadow.overlay',
-		'0px 8px 12px rgba(9, 30, 66, 0.15),0px 0px 1px rgba(9, 30, 66, 0.31)',
-	),
+	backgroundColor: token('elevation.surface.overlay'),
+	boxShadow: token('elevation.shadow.overlay'),
 });
 
 const ConnectedAIPrismContainer = ({

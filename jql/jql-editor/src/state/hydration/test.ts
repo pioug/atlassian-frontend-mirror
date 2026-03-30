@@ -1,7 +1,7 @@
 import { JastBuilder } from '@atlaskit/jql-ast';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { ValidQueryVisitor } from './util';
+import { ValidQueryVisitor, normaliseHydrationKey } from './util';
 
 // Base queries that don't involve membersOf
 const baseQueries = [
@@ -154,5 +154,13 @@ describe('ValidQueryVisitor', () => {
 				});
 			},
 		);
+	});
+});
+
+describe('normaliseHydrationKey', () => {
+	it('produces the same key for quoted+lowercase and unquoted+propercase field names', () => {
+		const fromApi = normaliseHydrationKey('Project[AtlassianProject]');
+		const fromEditor = normaliseHydrationKey('\"project[atlassianproject]\"');
+		expect(fromApi).toBe(fromEditor);
 	});
 });

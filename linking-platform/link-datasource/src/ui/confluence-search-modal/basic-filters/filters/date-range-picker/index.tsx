@@ -6,7 +6,6 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import Popup from '@atlaskit/popup';
-import { N0, N20, N30, R400 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -25,47 +24,44 @@ import { getCurrentOptionLabel, getDropdownLabel, useInvalidDateRange } from './
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const DateRangeErrorMessage = styled.div({
 	display: 'flex',
-	marginTop: token('space.050', '2px'),
+	marginTop: token('space.050'),
 	gap: token('space.025'),
 	paddingInlineStart: token('space.025'),
-	font: token('font.body.UNSAFE_small'),
-	color: token('color.text.danger', R400),
+	font: token('font.body.small'),
+	color: token('color.text.danger'),
 	alignItems: 'center',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const CustomDropdown = styled.div({
 	width: '340px',
-	backgroundColor: token('color.background.input', N0),
+	backgroundColor: token('color.background.input'),
 	borderRadius: token('radius.small', '4px'),
-	boxShadow: token(
-		'elevation.shadow.overlay',
-		'0px 0px 1px 0px rgba(9, 30, 66, 0.31), 0px 3px 5px 0px rgba(9, 30, 66, 0.20)',
-	),
+	boxShadow: token('elevation.shadow.overlay'),
 	zIndex: layers.modal(),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const SelectDateRangeButton = styled.button({
-	backgroundColor: token('color.background.accent.gray.subtler', N20),
+	backgroundColor: token('color.background.accent.gray.subtler'),
 	border: 'none',
 	font: 'inherit',
 	width: '70px',
 	height: '40px',
-	marginTop: token('space.150', '12px'),
+	marginTop: token('space.150'),
 	borderRadius: token('radius.small', '4px'),
 	'&:hover': {
-		backgroundColor: token('color.background.accent.gray.subtler', N30),
+		backgroundColor: token('color.background.accent.gray.subtler'),
 		cursor: 'pointer',
 	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const CustomDateWrapper = styled.div({
-	paddingTop: token('space.150', '12px'),
-	paddingRight: token('space.150', '12px'),
-	paddingBottom: token('space.150', '12px'),
-	paddingLeft: token('space.150', '12px'),
+	paddingTop: token('space.150'),
+	paddingRight: token('space.150'),
+	paddingBottom: token('space.150'),
+	paddingLeft: token('space.150'),
 	boxSizing: 'border-box',
 });
 
@@ -231,7 +227,7 @@ export const DateRangePicker = ({
 						{invalidDateRange && (
 							<DateRangeErrorMessage>
 								<ErrorIcon
-									color={token('color.icon.danger', R400)}
+									color={token('color.icon.danger')}
 									label={formatMessage(dateRangeMessages.dateRangeError)}
 									size="small"
 								/>

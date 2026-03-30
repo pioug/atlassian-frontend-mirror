@@ -142,10 +142,10 @@ export const ZeroPaddingExample = createExample({
 
 export const LargePaddingUsingTokensExample = createExample({
 	plugins,
-	paddingLeft: token('space.400', '24px'),
-	paddingRight: token('space.800', '48px'),
-	paddingTop: token('space.200', '12px'),
-	paddingBottom: token('space.300', '18px'),
+	paddingLeft: token('space.400'),
+	paddingRight: token('space.800'),
+	paddingTop: token('space.200'),
+	paddingBottom: token('space.300'),
 });
 
 export const VaryingPaddingsExample = createExample({

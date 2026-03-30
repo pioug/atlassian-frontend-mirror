@@ -1,5 +1,4 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { R500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { extractorPriorityMap } from '../icon/priority';
@@ -12,7 +11,7 @@ export const extractTitleTextColor = (jsonLd: JsonLd.Primitives.Object): string 
 		)[0];
 		switch (highestPriorityType) {
 			case 'atlassian:UndefinedLink':
-				return token('color.text.danger', R500);
+				return token('color.text.danger');
 			default:
 				return undefined;
 		}

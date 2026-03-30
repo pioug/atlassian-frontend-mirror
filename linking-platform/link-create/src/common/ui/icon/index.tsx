@@ -9,17 +9,16 @@ import { useIntl } from 'react-intl-next';
 
 import Document16Icon from '@atlaskit/icon-file-type/glyph/document/16';
 import PageLiveDoc16Icon from '@atlaskit/icon-object/glyph/page-live-doc/16';
-import { N20A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { iconLabelMessages } from './messages';
 
 const baseStyles = css({
-	backgroundColor: token('color.skeleton', N20A),
+	backgroundColor: token('color.skeleton'),
 	backgroundSize: 'contain',
 	backgroundRepeat: 'no-repeat',
-	height: token('space.200', '16px'),
-	width: token('space.200', '16px'),
+	height: token('space.200'),
+	width: token('space.200'),
 	borderRadius: token('radius.small', '3px'),
 	flexShrink: 0,
 });

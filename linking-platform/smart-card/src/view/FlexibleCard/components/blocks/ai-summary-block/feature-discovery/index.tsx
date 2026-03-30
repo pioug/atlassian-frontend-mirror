@@ -30,7 +30,7 @@ const pulseStyles = css({
 	display: 'inline-flex',
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
-	boxShadow: `0 0 0 0 ${token('color.border.discovery', '#8270DB')}`,
+	boxShadow: `0 0 0 0 ${token('color.border.discovery')}`,
 	animationName: pulseKeyframes,
 	animationDuration: '2s',
 	animationTimingFunction: 'cubic-bezier(0.5, 0, 0, 1)',

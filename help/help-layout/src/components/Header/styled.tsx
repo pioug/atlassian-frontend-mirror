@@ -8,12 +8,11 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N10, N30, N500 } from '@atlaskit/theme/colors';
 import { type TransitionStatus } from '../constants';
 
 const headerContainerStyles = css({
-	backgroundColor: token('color.background.neutral', N10),
-	borderBottom: `${token('border.width.selected')} solid ${token('color.border', N30)}`,
+	backgroundColor: token('color.background.neutral'),
+	borderBottom: `${token('border.width.selected')} solid ${token('color.border')}`,
 	justifyContent: 'space-between',
 	position: 'relative',
 });
@@ -42,15 +41,15 @@ export const TRANSITION_DURATION_MS = 220;
 
 const backButtonContainerStyles = css({
 	transition: `left ${TRANSITION_DURATION_MS}ms, opacity ${TRANSITION_DURATION_MS}ms`,
-	left: token('space.300', '24px'),
+	left: token('space.300'),
 	opacity: 0,
 	position: 'absolute',
-	top: token('space.150', '12px'),
+	top: token('space.150'),
 });
 
 const backButtonContainerTransitionStyles: { [id: string]: React.CSSProperties } = {
-	entered: { left: token('space.100', '8px'), opacity: 1 },
-	exited: { left: token('space.100', '8px'), opacity: 0 },
+	entered: { left: token('space.100'), opacity: 1 },
+	exited: { left: token('space.100'), opacity: 0 },
 };
 
 type BackButtonContainerProps = {
@@ -76,12 +75,12 @@ export const BackButtonContainer: React.ForwardRefExoticComponent<
 BackButtonContainer.displayName = 'BackButtonContainer';
 
 const headerTitleStyles = css({
-	color: token('color.text.subtle', N500),
+	color: token('color.text.subtle'),
 	textAlign: 'center',
 	font: token('font.body.large'),
 	fontWeight: token('font.weight.semibold'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: token('space.800', '56px'),
+	lineHeight: token('space.800'),
 	width: '100%',
 	whiteSpace: 'nowrap',
 	textOverflow: 'ellipsis',
@@ -97,9 +96,9 @@ export const HeaderTitle = ({ children }: { children: React.ReactNode }): JSX.El
 
 const headerContentStyles = css({
 	paddingTop: 0,
-	paddingRight: token('space.200', '16px'),
-	paddingBottom: token('space.200', '16px'),
-	paddingLeft: token('space.200', '16px'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 });
 
 export const HeaderContent = ({ children }: { children: React.ReactNode }): JSX.Element => (

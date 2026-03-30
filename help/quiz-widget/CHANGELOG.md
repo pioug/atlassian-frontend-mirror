@@ -1,5 +1,12 @@
 # @atlaskit/quiz-widget
 
+## 3.0.28
+
+### Patch Changes
+
+- [`379cf9c4c25f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/379cf9c4c25f0) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 3.0.27
 
 ### Patch Changes

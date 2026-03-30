@@ -1,0 +1,36 @@
+# no-multiple-exports
+
+Volt Strict Mode expects each module to surface at most one runtime export so the module graph stays
+shallow and predictable for bundlers and static analysis.
+
+## Examples
+
+### Incorrect
+
+```tsx
+export const Foo = () => null;
+export const Bar = () => null;
+```
+
+### Correct
+
+```tsx
+export const Foo = () => null;
+```
+
+```tsx
+export type Props = { id: string };
+export interface Config {
+	enabled: boolean;
+}
+export const Widget = (props: Props) => null;
+```
+
+## Options
+
+This rule does not accept options.
+
+## When not to use it
+
+Disable only in rare migration paths where a file must temporarily expose more than one runtime
+symbol.

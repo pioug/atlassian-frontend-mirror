@@ -411,6 +411,17 @@ events:
         existingUsersCount:
           type: number
           description: the number of existing users invited by account id
+  - sendSpaceInvite failed:
+      type: track
+      description: fired when scheduling a space invite for team members failed
+      attributes:
+        <<: *PackageMetaDataContext
+        message:
+          type: string
+          description: the error message
+        spaceId:
+          type: string
+          description: the space or project the invite was attempted for
   - containerPermissions succeeded:
       type: track
       description: fired when the container permissions are succeeded

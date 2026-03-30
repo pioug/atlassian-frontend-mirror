@@ -12,7 +12,7 @@ const VREmbedFrame = (props: Partial<ExpandedFrameProps>): React.JSX.Element => 
 	<VRTestWrapper
 		style={{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			padding: token('space.250', '20px'),
+			padding: token('space.250'),
 		}}
 	>
 		<ExpandedFrame text="frame text" testId="vr-embed-card-frame" {...props}>

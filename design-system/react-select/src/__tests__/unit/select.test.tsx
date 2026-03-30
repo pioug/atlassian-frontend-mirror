@@ -13,7 +13,6 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import type { FilterOptionOption } from '../../filters';
 import Select, { type FormatOptionLabelMeta } from '../../select';
-import { noop } from '../../utils';
 
 import {
 	type GroupedOption,
@@ -55,6 +54,8 @@ const BASIC_PROPS: BasicProps = {
 	inputValue: '',
 	value: null,
 };
+
+const noop = () => {};
 
 beforeEach(() => {
 	skipA11yAudit();

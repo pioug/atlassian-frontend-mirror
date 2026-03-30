@@ -6,15 +6,14 @@
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N800 } from '@atlaskit/theme/colors';
 import Heading from '@atlaskit/heading';
 
 const relatedArticlesTitleStyles = css({
-	color: token('color.text', N800),
+	color: token('color.text'),
 	font: token('font.heading.small'),
-	paddingTop: token('space.200', '16px'),
+	paddingTop: token('space.200'),
 	paddingRight: 0,
-	paddingBottom: token('space.200', '16px'),
+	paddingBottom: token('space.200'),
 	paddingLeft: 0,
 });
 
@@ -52,11 +51,11 @@ export const LoadingRelatedArticleList = ({
 const loadingRelatedArticleListItemStyles = css({
 	display: 'block',
 	width: '100%',
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.100', '8px'),
-	marginBottom: token('space.200', '16px'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
+	marginBottom: token('space.200'),
 	boxSizing: 'border-box',
 });
 

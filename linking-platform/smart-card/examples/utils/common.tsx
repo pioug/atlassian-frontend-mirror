@@ -27,7 +27,7 @@ const subHeaderCSS = css({
 	// to be thoroughly checked with a designer so that we do not miss an unintended visual change
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 	marginTop: '28px',
-	marginBottom: token('space.100', '8px'),
+	marginBottom: token('space.100'),
 });
 
 const divPadding = css({

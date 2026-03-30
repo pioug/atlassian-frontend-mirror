@@ -311,7 +311,7 @@ describe('TitleBlock', () => {
 				const element = await screen.findByTestId(titleTestId);
 				expect(element).toHaveTextContent('Spaghetti');
 
-				expect(element).toHaveCompiledCss('color', 'var(--ds-text-subtle,#44546f)');
+				expect(element).toHaveCompiledCss('color', 'var(--ds-text-subtle,#505258)');
 			},
 		);
 	});

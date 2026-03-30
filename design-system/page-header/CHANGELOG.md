@@ -1,5 +1,12 @@
 # @atlaskit/page-header
 
+## 12.1.18
+
+### Patch Changes
+
+- [`807c3489b9542`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/807c3489b9542) -
+  Restructures internal files so that they have a single export per file.
+
 ## 12.1.17
 
 ### Patch Changes

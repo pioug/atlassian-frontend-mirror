@@ -7,7 +7,6 @@ import { forwardRef } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
-import { N10, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export interface SideNavigationProps {
@@ -52,8 +51,8 @@ const sideNavStyles = css({
 	height: '100%',
 	position: 'relative',
 	flexDirection: 'column',
-	backgroundColor: token('elevation.surface', N10),
-	color: token('color.text.subtle', N500),
+	backgroundColor: token('elevation.surface'),
+	color: token('color.text.subtle'),
 	overflow: 'hidden',
 });
 

@@ -9,11 +9,11 @@ export const MessageContainer = styled.div<{
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 }>((props) => ({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	paddingLeft: props.isSearch ? token('space.100', '8px') : token('space.0', '0px'),
+	paddingLeft: props.isSearch ? token('space.100') : token('space.0'),
 }));
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const MessageList = styled.ul({
 	margin: 0,
-	paddingLeft: token('space.300', '24px'),
+	paddingLeft: token('space.300'),
 });

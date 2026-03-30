@@ -4,6 +4,7 @@ import { statusMessages as messages } from '@atlaskit/editor-common/messages';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { statusToDOM } from './statusNodeSpec';
@@ -65,6 +66,14 @@ export class StatusNodeView implements NodeView {
 			if (expValEquals('platform_editor_copy_paste_issue_fix', 'isEnabled', true)) {
 				this.domElement?.setAttribute('data-text', node.attrs.text);
 			}
+		}
+
+		if (
+			this.textContainer &&
+			node.attrs.style !== this.node.attrs.style &&
+			fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+		) {
+			this.textContainer.style.textTransform = node.attrs.style !== 'mixedCase' ? 'uppercase' : '';
 		}
 
 		if (node.attrs.color !== this.node.attrs.color) {

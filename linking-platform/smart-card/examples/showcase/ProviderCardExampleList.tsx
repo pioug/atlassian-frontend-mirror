@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ProviderCardExampleWithErrorBoundary } from './ProviderCardExampleWithErrorBoundaryProps';
@@ -15,20 +14,20 @@ export const ProviderCardExampleList = ({
 }): JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div style={{ marginTop: token('space.300', '24px') }}>
+		<div style={{ marginTop: token('space.300') }}>
 			{examples.map((example) => {
 				return (
 					<div
 						key={example.displayName}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ marginTop: token('space.300', '24px') }}
+						style={{ marginTop: token('space.300') }}
 					>
 						<h6
 							style={{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								textTransform: 'uppercase',
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								color: token('color.text.subtle', N300),
+								color: token('color.text.subtle'),
 							}}
 						>
 							{example.displayName}

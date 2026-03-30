@@ -148,7 +148,7 @@ describe('ActionGroup', () => {
 					? ({
 							name: ActionName.CustomAction,
 							...commonProps,
-							icon: <PremiumIcon label="magic" color={token('color.icon', '#44546F')} />,
+							icon: <PremiumIcon label="magic" color={token('color.icon')} />,
 							content: 'Magic!',
 						} as CustomActionItem)
 					: {

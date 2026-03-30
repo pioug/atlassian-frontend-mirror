@@ -4,14 +4,12 @@
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention */
 import React, { type ReactElement, type ReactNode } from 'react';
 
-import {
-	ActionsWrapper,
-	BottomBarWrapper,
-	OuterWrapper,
-	StyledTitleWrapper,
-	TitleContainer,
-	TitleWrapper,
-} from './styled';
+import ActionsWrapper from './actions-wrapper';
+import BottomBar from './bottom-bar';
+import OuterWrapper from './outer-wrapper';
+import Title from './title';
+import TitleContainer from './title-container';
+import TitleWrapper from './title-wrapper';
 
 type PageHeaderProps = {
 	/**
@@ -81,19 +79,19 @@ const PageHeader = ({
 					{disableTitleStyles ? (
 						children
 					) : (
-						<StyledTitleWrapper
+						<Title
 							ref={innerRef as React.Ref<HTMLHeadingElement>}
 							truncateTitle={truncateTitle}
 							id={id}
 							testId={testId}
 						>
 							{children}
-						</StyledTitleWrapper>
+						</Title>
 					)}
 				</TitleContainer>
 				{actions && <ActionsWrapper>{actions}</ActionsWrapper>}
 			</TitleWrapper>
-			{bottomBar && <BottomBarWrapper> {bottomBar} </BottomBarWrapper>}
+			{bottomBar && <BottomBar> {bottomBar} </BottomBar>}
 		</OuterWrapper>
 	);
 };

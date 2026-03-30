@@ -13,7 +13,7 @@ import { type Locale } from './locales';
 const DropdownContainer = styled.div({
 	display: 'flex',
 	minWidth: '200px',
-	marginBottom: token('space.200', '16px'),
+	marginBottom: token('space.200'),
 });
 
 export interface Props {

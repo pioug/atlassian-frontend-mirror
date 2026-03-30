@@ -8,11 +8,11 @@ import { token } from '@atlaskit/tokens';
 
 const articleFrameStyles = css({
 	display: 'block',
-	width: `calc(100% + ${token('space.150', '12px')})`,
-	marginTop: token('space.negative.050', '-4px'),
-	marginRight: token('space.negative.050', '-4px'),
-	marginBottom: token('space.negative.050', '-4px'),
-	marginLeft: token('space.negative.050', '-4px'),
+	width: `calc(100% + ${token('space.150')})`,
+	marginTop: token('space.negative.050'),
+	marginRight: token('space.negative.050'),
+	marginBottom: token('space.negative.050'),
+	marginLeft: token('space.negative.050'),
 	border: 'none',
 });
 

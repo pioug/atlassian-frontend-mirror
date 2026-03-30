@@ -18,7 +18,6 @@ import { css, jsx } from '@emotion/react';
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import { easeOut } from '@atlaskit/motion';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
-import { N100A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -49,7 +48,7 @@ const openBackdropStyles = css({
 	width: '100%',
 	height: '100%',
 	position: 'absolute',
-	background: token('color.blanket', N100A),
+	background: token('color.blanket'),
 	opacity: 1,
 });
 

@@ -137,6 +137,7 @@ export type EditorContextPayloadData =
 				fragmentAdf?: string;
 				fullAdf?: any;
 			};
+			dynamicUiType?: string;
 			isViewMode?: boolean;
 			useGenericEditorSkill?: boolean;
 			additionalContext?: Record<string, unknown>;

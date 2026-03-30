@@ -11,7 +11,6 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
-import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { AccessRequired } from '../../../common/error-state/access-required';
@@ -52,19 +51,19 @@ const contentContainerStyles = css({
 });
 
 const tableBordersStyles = css({
-	border: `${token('border.width')} solid ${token('color.border', N40)}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 	borderTopLeftRadius: token('radius.large', '8px'),
 	borderTopRightRadius: token('radius.large', '8px'),
-	borderBottom: `${token('border.width.selected')} solid ${token('color.background.accent.gray.subtler', N40)}`,
+	borderBottom: `${token('border.width.selected')} solid ${token('color.background.accent.gray.subtler')}`,
 	backgroundImage: `
-		linear-gradient(90deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
-		linear-gradient(90deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}, rgba(0, 0, 0, 0)),
-		linear-gradient(90deg, rgba(255, 255, 255, 0), ${token('utility.elevation.surface.current', '#FFF')} 70%),
-		linear-gradient(90deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}),
-		linear-gradient(0deg, rgba(255, 255, 255, 0),  ${token('utility.elevation.surface.current', '#FFF')} 30%),
-		linear-gradient(0deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.05)')}),
-		linear-gradient(0deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
-		linear-gradient(0deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.05)')}, rgba(0, 0, 0, 0))
+		linear-gradient(90deg, ${token('utility.elevation.surface.current')} 30%, rgba(255, 255, 255, 0)),
+		linear-gradient(90deg, ${token('elevation.shadow.overflow.perimeter')}, rgba(0, 0, 0, 0)),
+		linear-gradient(90deg, rgba(255, 255, 255, 0), ${token('utility.elevation.surface.current')} 70%),
+		linear-gradient(90deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter')}),
+		linear-gradient(0deg, rgba(255, 255, 255, 0),  ${token('utility.elevation.surface.current')} 30%),
+		linear-gradient(0deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter')}),
+		linear-gradient(0deg, ${token('utility.elevation.surface.current')} 30%, rgba(255, 255, 255, 0)),
+		linear-gradient(0deg, ${token('elevation.shadow.overflow.perimeter')}, rgba(0, 0, 0, 0))
 		`,
 	backgroundRepeat: 'no-repeat',
 	backgroundSize:

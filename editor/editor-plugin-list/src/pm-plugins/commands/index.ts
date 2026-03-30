@@ -8,8 +8,12 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { findCutBefore } from '@atlaskit/editor-common/commands';
 import {
+	getBlockMarkAttrs,
 	getCommonListAnalyticsAttributes,
+	getFirstParagraphBlockMarkAttrs,
 	moveTargetIntoList,
+	reconcileBlockMarkForContainerAtPos,
+	reconcileBlockMarkForParagraphAtPos,
 } from '@atlaskit/editor-common/lists';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
@@ -25,7 +29,12 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { StepResult } from '@atlaskit/editor-prosemirror/transform';
-import { findPositionOfNodeBefore, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import {
+	findParentNodeOfTypeClosestToPos,
+	findPositionOfNodeBefore,
+	hasParentNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { convertListType } from '../actions/conversions';
 import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
@@ -306,10 +315,26 @@ function splitListItem(itemType: NodeType): Command {
 		const nextType = $to.pos === $from.end() ? wrapperListItem.contentMatchAt(0).defaultType : null;
 		const tr = state.tr.delete($from.pos, $to.pos);
 		const types = nextType && [null, { type: nextType }];
+		const fontSize = state.schema.marks.fontSize;
+		const isFontSizeSupported =
+			fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+
+		const currentFontSizeAttrs = isFontSizeSupported
+			? getBlockMarkAttrs($from.parent, fontSize)
+			: false;
 
 		if (dispatch) {
 			if (ref instanceof TextSelection) {
-				dispatch(tr.split($from.pos, 2, types ?? undefined).scrollIntoView());
+				const splitTr = tr.split($from.pos, 2, types ?? undefined);
+				if (isFontSizeSupported) {
+					reconcileBlockMarkForParagraphAtPos(
+						splitTr,
+						splitTr.selection.from,
+						fontSize,
+						currentFontSizeAttrs,
+					);
+				}
+				dispatch(splitTr.scrollIntoView());
 				return true;
 			}
 
@@ -318,7 +343,17 @@ function splitListItem(itemType: NodeType): Command {
 				// For gap cursor selection, we cannot split the list item directly
 				// We need to insert a new list item after the current list item to simulate the split behaviour
 				const { listItem, paragraph } = state.schema.nodes;
-				const newListItem = listItem.createChecked({}, paragraph.createChecked());
+
+				const newListItem = listItem.createChecked(
+					{},
+					paragraph.createChecked(
+						{},
+						undefined,
+						currentFontSizeAttrs && isFontSizeSupported
+							? [fontSize.create(currentFontSizeAttrs)]
+							: undefined,
+					),
+				);
 				dispatch(
 					tr
 						.insert($from.pos, newListItem)
@@ -367,6 +402,7 @@ const deletePreviousEmptyListItem: Command = (state, dispatch) => {
 const joinToPreviousListItem: Command = (state, dispatch) => {
 	const { $from } = state.selection;
 	const { paragraph, listItem, codeBlock, bulletList, orderedList } = state.schema.nodes;
+	const { fontSize } = state.schema.marks;
 	const isGapCursorShown = state.selection instanceof GapCursorSelection;
 	const $cutPos = isGapCursorShown ? state.doc.resolve($from.pos + 1) : $from;
 	const $cut = findCutBefore($cutPos);
@@ -427,6 +463,24 @@ const joinToPreviousListItem: Command = (state, dispatch) => {
 				[bulletList, orderedList].indexOf($postCut.nodeBefore.type) > -1
 			) {
 				tr = tr.join($postCut.pos);
+			}
+
+			if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+				const prevListFontSizeAttrs = getFirstParagraphBlockMarkAttrs($cut.nodeBefore, fontSize);
+
+				const containingList = findParentNodeOfTypeClosestToPos(
+					tr.doc.resolve(tr.mapping.map($cut.pos)),
+					[bulletList, orderedList],
+				);
+
+				if (containingList) {
+					reconcileBlockMarkForContainerAtPos(
+						tr,
+						containingList.pos,
+						fontSize,
+						prevListFontSizeAttrs,
+					);
+				}
 			}
 
 			if (dispatch) {

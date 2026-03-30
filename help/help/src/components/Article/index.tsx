@@ -20,15 +20,15 @@ interface ArticleProps {
 }
 
 const articleContainerStyles = css({
-	paddingTop: token('space.200', '16px'),
-	paddingRight: token('space.300', '24px'),
-	paddingBottom: token('space.200', '16px'),
-	paddingLeft: token('space.300', '24px'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.300'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.300'),
 	position: 'absolute',
 	height: '100%',
 	width: '100%',
 	top: 0,
-	backgroundColor: token('elevation.surface', '#FFFFFF'),
+	backgroundColor: token('elevation.surface'),
 	left: '100%',
 	flex: 1,
 	flexDirection: 'column',
@@ -42,14 +42,14 @@ const articleContainerStyles = css({
 });
 
 const articleContainerAiStyles = css({
-	paddingLeft: token('space.300', '24px'),
-	paddingRight: token('space.300', '24px'),
-	paddingBottom: token('space.200', '16px'),
+	paddingLeft: token('space.300'),
+	paddingRight: token('space.300'),
+	paddingBottom: token('space.200'),
 	position: 'absolute',
-	height: `calc(100% - ${token('space.800', '60px')})`,
+	height: `calc(100% - ${token('space.800')})`,
 	width: '100%',
-	top: token('space.800', '60px'),
-	backgroundColor: token('elevation.surface', '#FFFFFF'),
+	top: token('space.800'),
+	backgroundColor: token('elevation.surface'),
 	left: '100%',
 	flex: 1,
 	flexDirection: 'column',

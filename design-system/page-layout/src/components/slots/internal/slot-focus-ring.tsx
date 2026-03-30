@@ -7,7 +7,6 @@ import type { ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { ClassNames, css, jsx } from '@emotion/react';
 
-import { B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type SlotFocusRingProps = {
@@ -21,7 +20,7 @@ const focusStyles = css({
 		outline: 'none',
 		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> div': {
-			boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused', B100)}`,
+			boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused')}`,
 			outline: 'none',
 		},
 	},
@@ -37,7 +36,7 @@ const sidebarFocusStyles = css({
 		outline: 'none',
 		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> div > div': {
-			boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused', B100)}`,
+			boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused')}`,
 			outline: 'none',
 		},
 	},

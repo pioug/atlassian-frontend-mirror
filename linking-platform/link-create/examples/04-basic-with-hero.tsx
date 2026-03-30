@@ -84,16 +84,16 @@ export default function CreateBasic(): React.JSX.Element {
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div style={{ padding: token('space.250', '20px') }}>
+		<div style={{ padding: token('space.250') }}>
 			{ari && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				<div style={{ marginBottom: token('space.400', '2rem') }}>
+				<div style={{ marginBottom: token('space.400') }}>
 					<p>ARI: {ari}</p>
 				</div>
 			)}
 			{link && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				<div style={{ marginBottom: token('space.200', '1rem') }}>
+				<div style={{ marginBottom: token('space.200') }}>
 					{fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
 						<Link href={link} target="_blank" rel="noopener noreferrer nofollow">
 							{link}

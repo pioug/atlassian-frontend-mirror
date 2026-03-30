@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { B300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 interface StageBarProps {
@@ -21,7 +20,7 @@ const spacing = {
 const progressBarStyles = css({
 	height: token('space.100', '8px'),
 	position: 'absolute',
-	backgroundColor: token('color.background.brand.bold', B300),
+	backgroundColor: token('color.background.brand.bold'),
 	borderEndEndRadius: token('radius.full', '8px'),
 	borderStartEndRadius: token('radius.full', '8px'),
 	insetInlineStart: '50%',

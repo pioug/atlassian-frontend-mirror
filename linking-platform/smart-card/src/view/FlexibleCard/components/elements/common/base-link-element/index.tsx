@@ -65,7 +65,7 @@ const linkStyleSizeMap = cssMap({
 		lineHeight: '1rem',
 	},
 	small: {
-		font: token('font.body.UNSAFE_small'),
+		font: token('font.body.small'),
 		fontWeight: token('font.weight.regular'),
 		lineHeight: '1rem',
 	},
@@ -150,28 +150,28 @@ const themeStyleMap = cssMap({
 	grey: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'a&': {
-			color: token('color.text.subtlest', '#626F86'),
+			color: token('color.text.subtlest'),
 			'&:active, &:visited, &:focus, &:hover': {
-				color: token('color.text.subtlest', '#626F86'),
+				color: token('color.text.subtlest'),
 				textDecoration: 'underline',
 			},
-			font: token('font.body.UNSAFE_small'),
+			font: token('font.body.small'),
 		},
 	},
 	black: {
-		color: token('color.text.subtle', '#44546F'),
+		color: token('color.text.subtle'),
 		'&:active, &:visited, &:focus, &:hover': {
-			color: token('color.text.subtle', '#44546F'),
+			color: token('color.text.subtle'),
 			textDecoration: 'underline',
 		},
 	},
 	link: {
-		color: token('color.link', '#0C66E4'),
+		color: token('color.link'),
 		'&:active': {
-			color: token('color.link.pressed', '#0055CC'),
+			color: token('color.link.pressed'),
 		},
 		'&:hover': {
-			color: token('color.link', '#0C66E4'),
+			color: token('color.link'),
 			textDecoration: 'underline',
 		},
 	},

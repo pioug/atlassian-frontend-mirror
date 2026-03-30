@@ -44,11 +44,7 @@ const BlockBuilderContainer = ({
 	return (
 		<Box padding="space.100" xcss={containerStyles}>
 			<Grid alignItems="center" columnGap="space.025" templateColumns="24px 1fr 24px">
-				<DragHandleVerticalIcon
-					label=""
-					spacing="spacious"
-					color={token('color.icon', '#44546F')}
-				/>
+				<DragHandleVerticalIcon label="" spacing="spacious" color={token('color.icon')} />
 				<Text weight="medium">
 					{name} {internal && <Lozenge>INTERNAL</Lozenge>}
 				</Text>

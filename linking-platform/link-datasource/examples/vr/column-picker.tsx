@@ -18,10 +18,10 @@ import { token } from '@atlaskit/tokens';
 import { ColumnPicker } from '../../src/ui/issue-like-table/column-picker';
 
 const containerStyles = css({
-	paddingTop: token('space.250', '20px'),
-	paddingRight: token('space.250', '20px'),
-	paddingBottom: token('space.250', '20px'),
-	paddingLeft: token('space.250', '20px'),
+	paddingTop: token('space.250'),
+	paddingRight: token('space.250'),
+	paddingBottom: token('space.250'),
+	paddingLeft: token('space.250'),
 	width: '400px',
 });
 

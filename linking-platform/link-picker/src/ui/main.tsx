@@ -68,14 +68,11 @@ export const composeLinkPicker = (Component: React.ComponentType<LinkPickerProps
 									? '100%'
 									: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										`${LINK_PICKER_WIDTH_IN_PX}px`,
-								['--link-picker-padding-left' as string]:
-									props.paddingLeft ?? token('space.200', '16px'),
-								['--link-picker-padding-right' as string]:
-									props.paddingRight ?? token('space.200', '16px'),
-								['--link-picker-padding-top' as string]:
-									props.paddingTop ?? token('space.200', '16px'),
+								['--link-picker-padding-left' as string]: props.paddingLeft ?? token('space.200'),
+								['--link-picker-padding-right' as string]: props.paddingRight ?? token('space.200'),
+								['--link-picker-padding-top' as string]: props.paddingTop ?? token('space.200'),
 								['--link-picker-padding-bottom' as string]:
-									props.paddingBottom ?? token('space.200', '16px'),
+									props.paddingBottom ?? token('space.200'),
 							}}
 						>
 							<FixedWidthContainer>

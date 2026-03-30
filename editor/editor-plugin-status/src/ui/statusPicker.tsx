@@ -90,6 +90,20 @@ const pickerContainerStyles = css({
 	},
 });
 
+const pickerContainerStylesTeam26 = css({
+	background: token('elevation.surface.overlay'),
+	padding: `${token('space.100', '8px')} 0`,
+	borderRadius: token('radius.small', '3px'),
+	boxShadow: token(
+		'elevation.shadow.overlay',
+		'0 0 1px rgba(9, 30, 66, 0.31), 0 4px 8px -2px rgba(9, 30, 66, 0.25)',
+	),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	':focus': {
+		outline: 'none',
+	},
+});
+
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class StatusPickerWithIntl extends React.Component<Props, State> {
 	private startTime!: number;
@@ -259,7 +273,11 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		return (
 			<UserIntentPopupWrapper api={api} userIntent="statusPickerOpen">
 				<div
-					css={pickerContainerStyles}
+					css={
+						fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+							? pickerContainerStylesTeam26
+							: pickerContainerStyles
+					}
 					role="none"
 					ref={this.setRef(setOutsideClickTargetRef)}
 					onClick={this.handlePopupClick}

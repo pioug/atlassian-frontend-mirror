@@ -94,7 +94,10 @@ describe('MessageIcon component', () => {
 				);
 
 				// eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-				expect(container.querySelector('span')).toHaveCompiledCss('color', 'var(--icon-color)');
+				expect(container.querySelector('span')).toHaveCompiledCss(
+					'color',
+					'var(--ds-icon-discovery,#af59e1)',
+				);
 			});
 		});
 	});

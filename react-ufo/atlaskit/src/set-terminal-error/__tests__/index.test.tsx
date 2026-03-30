@@ -279,6 +279,24 @@ describe('terminal-error', () => {
 				);
 			});
 
+			it('should use statusCode from additionalAttributes when provided', () => {
+				const relayError = Object.assign(new Error('Relay error'), {
+					name: 'RelayNetwork',
+					type: 'network',
+					source: {
+						errors: [{ extensions: { statusCode: 503 } }],
+					},
+				});
+
+				setTerminalError(relayError, { statusCode: 200 });
+
+				expect(mockSink.mock.calls[0][0]).toEqual(
+					expect.objectContaining({
+						statusCode: 200,
+					}),
+				);
+			});
+
 			it('should extract statusCode from a Relay network error', () => {
 				const relayError = Object.assign(new Error('Relay error'), {
 					name: 'RelayNetwork',

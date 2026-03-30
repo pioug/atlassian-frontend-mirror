@@ -65,7 +65,7 @@ const titleCss = css({
 const actionCss = css({
 	display: 'flex',
 	flex: '0 0 auto',
-	gap: token('space.050', '4px'),
+	gap: token('space.050'),
 	'@media only screen and (max-width: 980px)': {
 		// Hide resize button if the screen is smaller than the min width
 		// or too small to have enough impact to matter.
@@ -79,7 +79,7 @@ const actionCss = css({
 const buttonGroupCss = css({
 	display: 'flex',
 	flex: '0 0 auto',
-	gap: token('space.050', '4px'),
+	gap: token('space.050'),
 	listStyle: 'none',
 	marginTop: token('space.0'),
 	marginRight: token('space.0'),

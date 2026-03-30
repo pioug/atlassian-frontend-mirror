@@ -80,18 +80,18 @@ export const Placeholder = () => null;
 
 const colorCardWrapperStyles = css({
 	display: 'flex',
-	marginTop: token('space.025', '2px'),
-	marginRight: token('space.025', '2px'),
-	marginBottom: token('space.025', '2px'),
-	marginLeft: token('space.025', '2px'),
+	marginTop: token('space.025'),
+	marginRight: token('space.025'),
+	marginBottom: token('space.025'),
+	marginLeft: token('space.025'),
 	height: '32px',
 });
 
 const colorPaletteContainerStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',
-	paddingTop: token('space.050', '4px'),
-	paddingRight: token('space.050', '4px'),
-	paddingBottom: token('space.050', '4px'),
-	paddingLeft: token('space.050', '4px'),
+	paddingTop: token('space.050'),
+	paddingRight: token('space.050'),
+	paddingBottom: token('space.050'),
+	paddingLeft: token('space.050'),
 });

@@ -1,9 +1,6 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": [
-		"./src/**/*.ts",
-		"./src/**/*.tsx"
-	],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -35,9 +32,6 @@
 		"isolatedDeclarations": true
 	},
 	"references": [
-		{
-			"path": "../../design-system/theme/tsconfig.app.json"
-		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		}

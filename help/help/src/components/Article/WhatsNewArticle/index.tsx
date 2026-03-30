@@ -60,7 +60,7 @@ export const WhatsNewArticle: React.FC<Props & WrappedComponentProps> = ({
 					<>
 						<DividerLine
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							style={{ marginTop: 0, marginBottom: token('space.200', '16px') }}
+							style={{ marginTop: 0, marginBottom: token('space.200') }}
 						/>
 						{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 						<WhatsNewTitleText>RELATED LINKS</WhatsNewTitleText>

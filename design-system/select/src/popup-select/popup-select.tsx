@@ -14,7 +14,6 @@ import {
 	mergeStyles,
 	type components as RSComponents,
 } from '@atlaskit/react-select';
-import { N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Select from '../select';
@@ -203,7 +202,7 @@ export default class PopupSelect<
 	defaultStyles: StylesConfig<Option, IsMulti> = {
 		groupHeading: (provided) => ({
 			...provided,
-			color: token('color.text.subtlest', N80),
+			color: token('color.text.subtlest'),
 		}),
 	};
 

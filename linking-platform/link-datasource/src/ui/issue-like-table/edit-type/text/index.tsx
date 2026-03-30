@@ -40,7 +40,7 @@ const TextEditType = (props: TextEditTypeProps): React.JSX.Element => {
 				testId="inline-edit-text"
 				style={{
 					// We need 8px left padding to match read only version, but there is already 1px of border
-					padding: `${token('space.100', '8px')} calc(${token('space.100', '8px')} - 1px)`,
+					padding: `${token('space.100')} calc(${token('space.100')} - 1px)`,
 				}}
 				value={currentValue?.values?.[0] ?? ''}
 				aria-labelledby={labelId}

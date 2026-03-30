@@ -24,11 +24,11 @@ import {
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const blockOverrideCss = css({
-	backgroundColor: token('color.background.accent.green.subtlest', '#DBFFF0'),
-	paddingTop: token('space.200', '1rem'),
-	paddingRight: token('space.200', '1rem'),
-	paddingBottom: token('space.200', '1rem'),
-	paddingLeft: token('space.200', '1rem'),
+	backgroundColor: token('color.background.accent.green.subtlest'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 });
 
 const renderFooter = (size?: SmartLinkSize, actions?: ActionItem[]) => {
@@ -65,7 +65,7 @@ export default () => {
 					makeCustomActionItem(),
 					makeDeleteActionItem(),
 					makeCustomActionItem({
-						icon: <PremiumIcon label="magic" color={token('color.icon', '#44546F')} />,
+						icon: <PremiumIcon label="magic" color={token('color.icon')} />,
 						testId: 'third-action-item',
 						content: 'Magic!',
 					}),

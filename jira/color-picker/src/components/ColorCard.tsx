@@ -16,7 +16,6 @@ import { COLOR_PALETTE_MENU, KEY_ENTER, KEY_SPACE, KEY_TAB } from '../constants'
 import { css, jsx } from '@atlaskit/css';
 import { css as cssUnbounded } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
 import { mergeRefs } from 'use-callback-ref';
 import type { ColorCardType, ColorCardVariant } from '../types';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
@@ -52,7 +51,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 		label,
 		selected,
 		focused,
-		checkMarkColor = N0,
+		checkMarkColor = '#FFFFFF',
 		isTabbing,
 		onClick,
 		onKeyDown,
@@ -184,15 +183,15 @@ export default ColorCard;
 
 const colorCardOptionTabbingStyles = css({
 	'&:hover': {
-		borderColor: token('color.border.focused', B75),
+		borderColor: token('color.border.focused'),
 	},
 	'&:focus': {
-		borderColor: token('color.border.focused', B75),
+		borderColor: token('color.border.focused'),
 	},
 });
 
 const colorCardOptionFocusedStyles = css({
-	borderColor: token('color.border.focused', B75),
+	borderColor: token('color.border.focused'),
 });
 
 const sharedColorContainerStyles = css({
@@ -200,15 +199,15 @@ const sharedColorContainerStyles = css({
 	position: 'relative',
 	width: '32px',
 	height: '32px',
-	border: `${token('border.width.selected', '2px')} solid transparent`,
+	border: `${token('border.width.selected')} solid transparent`,
 	boxSizing: 'border-box',
 	borderRadius: token('radius.large', '6px'),
 	transition: 'border-color 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
-	backgroundColor: token('color.background.neutral.subtle', N0),
-	paddingTop: token('space.0', '0px'),
-	paddingRight: token('space.0', '0px'),
-	paddingBottom: token('space.0', '0px'),
-	paddingLeft: token('space.0', '0px'),
+	backgroundColor: token('color.background.neutral.subtle'),
+	paddingTop: token('space.0'),
+	paddingRight: token('space.0'),
+	paddingBottom: token('space.0'),
+	paddingLeft: token('space.0'),
 	cursor: 'pointer',
 	outline: 'none',
 });
@@ -225,11 +224,11 @@ const colorCardContentStyles = cssUnbounded({
 	width: '24px',
 	height: '24px',
 	borderRadius: token('radius.small', '3px'),
-	boxShadow: `inset 0px 0px 0px 1px ${token('color.background.inverse.subtle', DN600A)}`,
+	boxShadow: `inset 0px 0px 0px 1px ${token('color.background.inverse.subtle')}`,
 });
 
 const colorCardContentStylesOutline = cssUnbounded({
 	boxShadow: 'none',
-	borderWidth: token('border.width.selected', '2px'),
+	borderWidth: token('border.width.selected'),
 	borderStyle: 'solid',
 });

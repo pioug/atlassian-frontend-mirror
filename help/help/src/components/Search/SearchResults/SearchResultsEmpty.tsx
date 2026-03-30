@@ -4,7 +4,6 @@ import {
 	type UIAnalyticsEvent,
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import * as colors from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { token } from '@atlaskit/tokens';
@@ -65,7 +64,7 @@ export const SearchResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 						>
 							<Button
 								appearance="link"
-								iconAfter={<ShortcutIcon label="" color={token('color.icon.subtle', colors.N90)} />}
+								iconAfter={<ShortcutIcon label="" color={token('color.icon.subtle')} />}
 								spacing="compact"
 								href={searchExternalUrl}
 								target="_blank"

@@ -8,8 +8,8 @@ import { cssMap, cx, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { getStyleProps } from '../get-style-props';
 import { type CommonPropsAndClassName, type GroupBase } from '../types';
-import { getStyleProps } from '../utils';
 
 export interface OptionProps<
 	Option = unknown,
@@ -55,8 +55,6 @@ export interface OptionProps<
 	 */
 	isSelected: boolean;
 }
-
-export const optionCSS: () => {} = () => ({});
 
 const optionStyles = cssMap({
 	root: {

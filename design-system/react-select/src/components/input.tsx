@@ -9,8 +9,9 @@ import { css, cssMap, cx, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+import { getStyleProps } from '../get-style-props';
+import { cleanCommonProps } from '../internal/clean-common-props';
 import { type CommonPropsAndClassName, type GroupBase } from '../types';
-import { cleanCommonProps, getStyleProps } from '../utils';
 
 interface InputSpecificProps<
 	Option = unknown,
@@ -49,8 +50,6 @@ export type InputProps<
 	IsMulti extends boolean = boolean,
 	Group extends GroupBase<Option> = GroupBase<Option>,
 > = InputSpecificProps<Option, IsMulti, Group>;
-
-export const inputCSS: () => {} = () => ({});
 
 const inputStylesOld = cssMap({
 	root: {

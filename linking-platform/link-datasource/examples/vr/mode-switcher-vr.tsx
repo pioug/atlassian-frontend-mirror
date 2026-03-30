@@ -28,10 +28,10 @@ const containerStyles = css({
 });
 
 const lineStyles = css({
-	marginTop: token('space.150', '12px'),
-	marginRight: token('space.150', '12px'),
-	marginBottom: token('space.150', '12px'),
-	marginLeft: token('space.150', '12px'),
+	marginTop: token('space.150'),
+	marginRight: token('space.150'),
+	marginBottom: token('space.150'),
+	marginLeft: token('space.150'),
 });
 
 export default () => {

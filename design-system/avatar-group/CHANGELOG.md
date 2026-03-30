@@ -1,5 +1,16 @@
 # @atlaskit/avatar-group
 
+## 12.5.0
+
+### Minor Changes
+
+- [`2596f105ed08c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2596f105ed08c) -
+  [ux] Added entry/exit animations to Avatars in Avatar Group behind fg platform-dst-motion-uplift
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.4.13
 
 ### Patch Changes

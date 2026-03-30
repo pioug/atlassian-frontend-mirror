@@ -29,7 +29,7 @@ export interface BasicSearchInputProps {
 }
 
 const styles = cssMap({
-	searchButtonContainer: { marginRight: token('space.075', '6px') },
+	searchButtonContainer: { marginRight: token('space.075') },
 });
 
 const formStyles = css({

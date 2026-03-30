@@ -1,5 +1,13 @@
 # @atlaskit/calendar
 
+## 17.2.14
+
+### Patch Changes
+
+- [`7aef1e49e90ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aef1e49e90ea) -
+  Removes redundant fallback color values via @atlaskit/theme
+- Updated dependencies
+
 ## 17.2.13
 
 ### Patch Changes

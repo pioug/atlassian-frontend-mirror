@@ -12,10 +12,9 @@ const _default_1: any = md`
 
   ${code`import { NotificationLogClient } from '@atlaskit/notification-log-client';
 
-  const notificationLogClient = new NotificationLogClient(
-    'http://base-url-to-notification-log-service',
-    'cloudid-abcd-1234-5678',
-  );
+  const notificationLogClient = new NotificationLogClient({
+    cloudId: 'cloudid-abcd-1234-5678',
+  });
 
   const result = await notificationLogClient.countUnseenNotifications();
   console.log(result.count);`}

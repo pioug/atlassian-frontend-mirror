@@ -14,11 +14,11 @@ const formRowContainerBaseStyles = css({
 });
 
 const formRowContainerNarrowGapStyles = css({
-	gap: token('space.100', '8px'),
+	gap: token('space.100'),
 });
 
 const formRowContainerWideGapStyles = css({
-	gap: token('space.200', '16px'),
+	gap: token('space.200'),
 });
 
 export const FormRowContainer = (props: React.PropsWithChildren<{ isNarrowGap?: boolean }>) => (

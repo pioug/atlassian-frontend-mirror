@@ -14,7 +14,6 @@ import { css, jsx } from '@emotion/react';
 
 import Link from '@atlaskit/link';
 import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
-import { N30A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -33,13 +32,10 @@ const skipLinkStyles = css({
 	padding: '0.8rem 1rem',
 	position: 'fixed',
 	zIndex: -1,
-	background: token('elevation.surface.overlay', 'white'),
+	background: token('elevation.surface.overlay'),
 	border: 'none',
 	borderRadius: token('radius.small', '3px'),
-	boxShadow: token(
-		'elevation.shadow.overlay',
-		`0 0 0 1px ${N30A}, 0 2px 10px ${N30A}, 0 0 20px -4px ${N60A}`,
-	),
+	boxShadow: token('elevation.shadow.overlay'),
 	insetInlineStart: -999999,
 	opacity: 0,
 	transform: 'translateY(-50%)',

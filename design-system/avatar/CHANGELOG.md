@@ -1,5 +1,19 @@
 # @atlaskit/avatar
 
+## 25.11.1
+
+### Patch Changes
+
+- [`7aef1e49e90ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aef1e49e90ea) -
+  Removes redundant fallback color values via @atlaskit/theme
+
+## 25.11.0
+
+### Minor Changes
+
+- [`2596f105ed08c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2596f105ed08c) -
+  [ux] Added motion on hover for interactive Avatar behind fg platform-dst-motion-uplift
+
 ## 25.10.0
 
 ### Minor Changes

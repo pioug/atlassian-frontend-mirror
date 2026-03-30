@@ -17,7 +17,6 @@ import CheckboxIcon from '@atlaskit/icon/core/task';
 import TextIcon from '@atlaskit/icon/core/text';
 import { normaliseJqlString } from '@atlaskit/jql-ast';
 import { type Position } from '@atlaskit/jql-autocomplete';
-import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -171,7 +170,7 @@ const AutocompleteOption = forwardRef<HTMLLIElement, Props>((props, ref) => {
 							spacing="spacious"
 							testId="jql-editor-deprecated-icon"
 							label=""
-							color={token('color.icon', N400)}
+							color={token('color.icon')}
 						/>
 					</Tooltip>
 				</DeprecatedOptionContainer>

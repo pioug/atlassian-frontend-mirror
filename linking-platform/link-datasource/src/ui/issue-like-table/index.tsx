@@ -20,8 +20,6 @@ import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { Box } from '@atlaskit/primitives/compiled';
-import { N40 } from '@atlaskit/theme/colors';
-import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -44,10 +42,10 @@ import {
 import { useIsOnScreen } from './useIsOnScreen';
 import { COLUMN_BASE_WIDTH, getFieldLabelById, getWidthCss } from './utils';
 
-const tableSidePadding = token('space.200', '16px');
+const tableSidePadding = token('space.200');
 
 const tableHeadStyles = css({
-	backgroundColor: token('utility.elevation.surface.current', '#FFF'),
+	backgroundColor: token('utility.elevation.surface.current'),
 	position: 'sticky',
 	top: 0,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -66,12 +64,9 @@ const ColumnPickerHeader = styled.th({
 			zIndex: 10,
 			position: 'sticky',
 			right: `calc(-1 * ${tableSidePadding})`,
-			background: `linear-gradient( 90deg, rgba(255, 255, 255, 0) 0%, ${token(
-				'utility.elevation.surface.current',
-				'#FFF',
-			)} 10% )`,
+			background: `linear-gradient( 90deg, rgba(255, 255, 255, 0) 0%, ${token('utility.elevation.surface.current')} 10% )`,
 			/* It is required to have solid (not half-transparent) color because of this gradient business below */
-			borderBottom: `${token('border.width.selected')} solid ${token('color.border', N40)}`,
+			borderBottom: `${token('border.width.selected')} solid ${token('color.border')}`,
 			paddingRight: tableSidePadding,
 			/* Keeps dropdown button in the middle */
 			verticalAlign: 'middle',
@@ -109,12 +104,12 @@ const TableHeading = styled.th({
 		/* This makes resizing work with out jumping due to padding + changes overall width for same default values. */
 		boxSizing: 'border-box',
 		lineHeight: '24px',
-		paddingTop: token('space.025', '2px'),
-		paddingRight: token('space.050', '4px'),
-		paddingBottom: token('space.025', '2px'),
-		paddingLeft: token('space.050', '4px'),
-		borderRight: `0.5px solid ${token('color.border', N40)}`,
-		borderBottom: `${token('border.width.selected')} solid ${token('color.border', N40)}`,
+		paddingTop: token('space.025'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.025'),
+		paddingLeft: token('space.050'),
+		borderRight: `0.5px solid ${token('color.border')}`,
+		borderBottom: `${token('border.width.selected')} solid ${token('color.border')}`,
 		/*
 	  lineHeight * 2 -> Max height of two lined header
 	  verticalPadding * 2 -> padding for this component itself
@@ -122,9 +117,9 @@ const TableHeading = styled.th({
 	  2px -> Bottom border
 	  Last two terms are needed because of border-box box sizing.
 	*/
-		height: `calc(24px * 2 + ${token('space.025', '2px')} * 4 + 2px)`,
+		height: `calc(24px * 2 + ${token('space.025')} * 4 + 2px)`,
 		verticalAlign: 'bottom',
-		backgroundColor: token('utility.elevation.surface.current', '#FFF'),
+		backgroundColor: token('utility.elevation.surface.current'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.pm-table-wrapper > table thead.has-column-picker &:nth-last-of-type(2), .ProseMirror .pm-table-wrapper > table thead.has-column-picker &:nth-last-of-type(2), thead.has-column-picker &:nth-last-of-type(2)':
@@ -134,7 +129,7 @@ const TableHeading = styled.th({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.pm-table-wrapper > table thead &:first-of-type, .ProseMirror .pm-table-wrapper > table thead &:first-of-type, &:first-of-type':
 		{
-			paddingLeft: token('space.050', '4px'),
+			paddingLeft: token('space.050'),
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.pm-table-wrapper > table thead &:last-of-type, .ProseMirror .pm-table-wrapper > table thead &:last-of-type, &:last-of-type':
@@ -147,10 +142,10 @@ const TableHeading = styled.th({
 		/* With Button now being a parent for this component it adds its lineHeight value and spoils
 	  `height` calculation above. */
 		lineHeight: '24px',
-		paddingTop: token('space.025', '2px'),
-		paddingRight: token('space.050', '4px'),
-		paddingBottom: token('space.025', '2px'),
-		paddingLeft: token('space.050', '4px'),
+		paddingTop: token('space.025'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.025'),
+		paddingLeft: token('space.050'),
 		display: '-webkit-box',
 		WebkitLineClamp: 2,
 		WebkitBoxOrient: 'vertical',
@@ -166,17 +161,17 @@ const InlineEditableTableCell = styled.td({
 	'.pm-table-wrapper > table tbody &, .ProseMirror .pm-table-wrapper > table tbody &, &': {
 		/* First section here is to override things editor table plugin css defines */
 		font: token('font.body'),
-		paddingTop: token('space.0', '0'),
-		paddingRight: token('space.0', '0'),
-		paddingBottom: token('space.0', '0'),
-		paddingLeft: token('space.0', '0'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
 		border: 0,
 		minWidth: 'auto',
 		height: '40px',
 		verticalAlign: 'inherit',
 		boxSizing: 'content-box',
-		borderRight: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
-		borderBottom: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
+		borderRight: `${token('border.width')} solid ${token('color.border')}`,
+		borderBottom: `${token('border.width')} solid ${token('color.border')}`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.pm-table-wrapper > table tbody &:last-of-type, .ProseMirror .pm-table-wrapper > table tbody &:last-of-type, &:last-of-type':
@@ -204,16 +199,16 @@ const InlineEditableTableCell = styled.td({
 const scrollableContainerStyles = css({
 	overflow: 'auto',
 	boxSizing: 'border-box',
-	backgroundColor: token('utility.elevation.surface.current', '#FFF'),
+	backgroundColor: token('utility.elevation.surface.current'),
 	backgroundImage: `
-		linear-gradient(90deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
-		linear-gradient(90deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}, rgba(0, 0, 0, 0)),
-		linear-gradient(90deg, rgba(255, 255, 255, 0), ${token('utility.elevation.surface.current', '#FFF')} 70%),
-		linear-gradient(90deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}),
-		linear-gradient(0deg, rgba(255, 255, 255, 0), ${token('utility.elevation.surface.current', '#FFF')} 30%),
-		linear-gradient(0deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.05)')}),
-		linear-gradient(0deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
-		linear-gradient(0deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.05)')}, rgba(0, 0, 0, 0))
+		linear-gradient(90deg, ${token('utility.elevation.surface.current')} 30%, rgba(255, 255, 255, 0)),
+		linear-gradient(90deg, ${token('elevation.shadow.overflow.perimeter')}, rgba(0, 0, 0, 0)),
+		linear-gradient(90deg, rgba(255, 255, 255, 0), ${token('utility.elevation.surface.current')} 70%),
+		linear-gradient(90deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter')}),
+		linear-gradient(0deg, rgba(255, 255, 255, 0), ${token('utility.elevation.surface.current')} 30%),
+		linear-gradient(0deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter')}),
+		linear-gradient(0deg, ${token('utility.elevation.surface.current')} 30%, rgba(255, 255, 255, 0)),
+		linear-gradient(0deg, ${token('elevation.shadow.overflow.perimeter')}, rgba(0, 0, 0, 0))
 		`,
 	backgroundPosition:
 		'left center, left center, right center, right center, center top, 0px 52px, center bottom, center bottom',
@@ -240,9 +235,8 @@ const noDefaultBorderStyles = css({
 });
 
 const headerStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	font: token('font.body.small', fontFallback.body.UNSAFE_small),
-	fontWeight: token('font.weight.medium', '500'),
+	font: token('font.body.small'),
+	fontWeight: token('font.weight.medium'),
 });
 
 const headingHoverEffectStyles = css({
@@ -250,7 +244,7 @@ const headingHoverEffectStyles = css({
 	alignItems: 'center',
 	whiteSpace: 'nowrap',
 	'&:hover': {
-		backgroundColor: token('color.background.input.hovered', '#F7F8F9'),
+		backgroundColor: token('color.background.input.hovered'),
 		borderRadius: token('radius.large', '3px'),
 	},
 });

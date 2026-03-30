@@ -1,5 +1,13 @@
 # @atlaskit/radio
 
+## 8.4.6
+
+### Patch Changes
+
+- [`7aef1e49e90ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aef1e49e90ea) -
+  Removes redundant fallback color values via @atlaskit/theme
+- Updated dependencies
+
 ## 8.4.5
 
 ### Patch Changes

@@ -1,9 +1,8 @@
 import React, { Fragment, type ReactNode, useMemo } from 'react';
 
 import { type AriaSelection, defaultAriaLiveMessages } from '../accessibility';
+import A11yText from '../internal/a11y-text';
 import { type CommonProps, type GroupBase, type OnChangeValue, type Options } from '../types';
-
-import A11yText from './internal/a11y-text';
 
 // ==============================
 // Root Container

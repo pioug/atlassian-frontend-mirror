@@ -977,20 +977,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-03-12
-	platform_editor_use_pmr_for_collab_presence_non_ic: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-03-12
-	platform_editor_use_pmr_for_collab_presence_in_ic: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-01-23
 	platform_editor_to_use_pmr_for_collab_edit_none_ic: {
 		defaultValue: boolean;
@@ -2695,24 +2681,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_sl_3p_auth_rovo_action',
 			jira: 'platform_sl_3p_auth_rovo_action',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-12-03
-	platform_editor_use_pmr_for_collab_presence_non_ic: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_use_pmr_for_collab_presence_non_ic',
-			jira: 'platform_editor_use_pmr_for_collab_presence_non_ic',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-12-03
-	platform_editor_use_pmr_for_collab_presence_in_ic: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_use_pmr_for_collab_presence_in_ic',
-			jira: 'platform_editor_use_pmr_for_collab_presence_in_ic',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

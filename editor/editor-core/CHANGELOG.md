@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 217.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.8.0
+
+### Minor Changes
+
+- [`d9e33431d0d37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9e33431d0d37) -
+  [ux] EDITOR-5603 update editor status with team 26 lozenge styles
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 217.7.1
 
 ### Patch Changes

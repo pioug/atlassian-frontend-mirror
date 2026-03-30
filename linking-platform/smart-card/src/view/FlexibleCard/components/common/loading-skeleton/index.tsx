@@ -20,11 +20,8 @@ const animationNameStyles = keyframes({
 const loadingSkeletonStyle = css({
 	borderRadius: token('radius.xsmall'),
 	userSelect: 'none',
-	backgroundColor: token('color.skeleton.subtle', '#f6f7f8'),
-	backgroundImage: `linear-gradient( to right, transparent 0%, ${token(
-		'color.skeleton',
-		'#edeef1',
-	)} 20%, transparent 40%, transparent 100% )`,
+	backgroundColor: token('color.skeleton.subtle'),
+	backgroundImage: `linear-gradient( to right, transparent 0%, ${token('color.skeleton')} 20%, transparent 40%, transparent 100% )`,
 	backgroundRepeat: 'no-repeat',
 	backgroundSize: '280% 100%',
 	display: 'inline-block',

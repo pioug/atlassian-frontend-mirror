@@ -7,7 +7,6 @@ import React, { Fragment, type MouseEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
@@ -82,7 +81,7 @@ const productHomeButtonStyles = css({
 	'&:focus-visible': {
 		backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_FOCUS})`,
 		color: `var(${VAR_PRODUCT_HOME_COLOR_FOCUS})`,
-		outline: `${token('border.width.focused')} solid ${token('color.border.focused', B200)}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 	},
 
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766

@@ -7,7 +7,6 @@ import { type CSSProperties, forwardRef } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { B200, B300, B400, N30, N40, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -30,7 +29,7 @@ const webkitStyles = css({
 		boxSizing: 'border-box',
 		width: thumbSize,
 		height: thumbSize,
-		backgroundColor: `var(--thumb-bg, ${token('color.background.neutral.bold', B400)})`,
+		backgroundColor: `var(--thumb-bg, ${token('color.background.neutral.bold')})`,
 		border: 'none',
 		borderRadius: token('radius.full', '50%'),
 		boxShadow: 'var(--thumb-shadow)',
@@ -74,7 +73,7 @@ const firefoxStyles = css({
 		boxSizing: 'border-box',
 		width: thumbSize,
 		height: thumbSize,
-		backgroundColor: `var(--thumb-bg, ${token('color.background.neutral.bold', B400)})`,
+		backgroundColor: `var(--thumb-bg, ${token('color.background.neutral.bold')})`,
 		border: 'none',
 		borderRadius: token('radius.full', '50%'),
 		boxShadow: 'var(--thumb-shadow)',
@@ -129,21 +128,21 @@ const baseStyles = css({
 });
 
 const themeStyles = css({
-	'--thumb-shadow': token('utility.UNSAFE.transparent', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
-	'--track-bg': token('color.background.neutral', N30),
-	'--track-fg': token('color.background.neutral.bold', B400),
+	'--thumb-shadow': token('utility.UNSAFE.transparent'),
+	'--track-bg': token('color.background.neutral'),
+	'--track-fg': token('color.background.neutral.bold'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
 	'&:hover:not(:disabled)': {
-		'--thumb-bg': token('color.background.neutral.bold.hovered', B300),
-		'--track-bg': token('color.background.neutral.hovered', N40),
-		'--track-fg': token('color.background.neutral.bold.hovered', B300),
+		'--thumb-bg': token('color.background.neutral.bold.hovered'),
+		'--track-bg': token('color.background.neutral.hovered'),
+		'--track-fg': token('color.background.neutral.bold.hovered'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
 	'&:active:not(:disabled)': {
-		'--thumb-bg': token('color.background.neutral.bold.pressed', B200),
+		'--thumb-bg': token('color.background.neutral.bold.pressed'),
 	},
 	'&:focus-visible': {
-		'--thumb-border': token('color.border.focused', B200),
+		'--thumb-border': token('color.border.focused'),
 	},
 });
 

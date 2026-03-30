@@ -138,7 +138,7 @@ export const ShowingResultsWhileLoadingResults = (): React.JSX.Element => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				display: 'flex',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				gap: token('space.200', '1rem'),
+				gap: token('space.200'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				flexWrap: 'wrap',
 			}}

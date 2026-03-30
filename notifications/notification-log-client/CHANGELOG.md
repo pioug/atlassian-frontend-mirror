@@ -1,5 +1,37 @@
 # @atlaskit/notification-log-service
 
+## 7.0.0
+
+### Major Changes
+
+- [`62281c5d82340`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62281c5d82340) -
+  Remove the legacy positional `NotificationLogClient` constructor API, and require a new object
+  configuration format.
+
+  This change completes the cleanup of the old notification-log client configuration and removes the
+  legacy REST/feature-flagged behavior in favor of the GraphQL client path.
+
+  As part of that cleanup, consumers can no longer construct the client with positional parameters
+  such as `baseUrl`, `cloudId`, or `source`.
+
+  To migrate, update any constructor usage from positional arguments to a single configuration
+  object. For example, replace:
+
+  ```ts
+  new NotificationLogClient(baseUrl, cloudId?, source?)
+  ```
+
+  with:
+
+  ```ts
+  new NotificationLogClient({ cloudId?, source?, routingWorkspaceId? })
+  ```
+
+  We do not recommend overriding the default GraphQL endpoint (`/gateway/api/graphql`) unless
+  absolutely necessary.
+
+  However, if you must, you can pass `graphQLBaseUrl` in the config object.
+
 ## 6.5.0
 
 ### Minor Changes

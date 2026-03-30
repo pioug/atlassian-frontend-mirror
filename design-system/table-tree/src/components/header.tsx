@@ -5,14 +5,13 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import CommonCell from './internal/common-cell';
 import withColumnWidth from './internal/with-column-width';
 
 const headerStyles = css({
-	color: token('color.text.subtle', N300),
+	color: token('color.text.subtle'),
 	font: token('font.body.small'),
 	fontWeight: token('font.weight.bold'),
 });

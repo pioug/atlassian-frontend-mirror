@@ -18,7 +18,7 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 const clickableContainerStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.layered-link': {
-		backgroundColor: token('color.background.accent.lime.subtlest', '#EFFED5'),
+		backgroundColor: token('color.background.accent.lime.subtlest'),
 		opacity: 0.2,
 	},
 });

@@ -7,22 +7,21 @@ import { type ButtonHTMLAttributes, forwardRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const backgroundColors: { [key: string]: string } = {
-	blue: token('color.background.brand.bold', colors.B300),
-	green: token('color.background.success.bold', colors.G400),
-	neutral: token('color.background.neutral', colors.N100), // it seems unused
-	purple: token('color.background.accent.purple.bolder', colors.P300),
-	red: token('color.background.danger.bold', colors.R400),
-	teal: token('color.background.accent.teal.bolder', '#227D9B'), // #227D9B is equal to T700 that is absent in @atlaskit/theme/colors
-	yellow: token('color.background.warning.bold', colors.Y200),
+	blue: token('color.background.brand.bold'),
+	green: token('color.background.success.bold'),
+	neutral: token('color.background.neutral'), // it seems unused
+	purple: token('color.background.accent.purple.bolder'),
+	red: token('color.background.danger.bold'),
+	teal: token('color.background.accent.teal.bolder'),
+	yellow: token('color.background.warning.bold'),
 };
 
 // text colors for a given background color
 const textColors: { [key: string]: string } = {
-	yellow: token('color.text.warning.inverse', colors.N800),
+	yellow: token('color.text.warning.inverse'),
 };
 
 export type Color = 'blue' | 'green' | 'neutral' | 'purple' | 'red' | 'teal' | 'yellow';

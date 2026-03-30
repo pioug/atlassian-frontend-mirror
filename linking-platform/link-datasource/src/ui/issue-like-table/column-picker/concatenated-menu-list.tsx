@@ -12,7 +12,6 @@ import {
 	type OptionProps,
 	type OptionType,
 } from '@atlaskit/select';
-import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { columnPickerMessages } from './messages';
@@ -20,10 +19,9 @@ import { columnPickerMessages } from './messages';
 export const SELECT_ITEMS_MAXIMUM_THRESHOLD = 200;
 
 const messageStyles = css({
-	color: token('color.text.subtle', '#44546F'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	font: token('font.body.small', fontFallback.body.small),
-	fontWeight: token('font.weight.regular', '400'),
+	color: token('color.text.subtle'),
+	font: token('font.body.small'),
+	fontWeight: token('font.weight.regular'),
 });
 
 const listItemStylesSelected = css({
@@ -59,7 +57,7 @@ export const ConcatenatedMenuList = ({
 	}
 
 	const optionStyle = {
-		padding: `${token('space.050', '4px')} ${token('space.200', '16px')}`,
+		padding: `${token('space.050')} ${token('space.200')}`,
 		height: 'auto',
 	};
 	const maximumLimitReachedMessage = (

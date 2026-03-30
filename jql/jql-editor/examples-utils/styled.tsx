@@ -18,8 +18,8 @@ export const Container: StyledComponent<
 	{}
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 > = styled.div({
-	padding: `${token('space.1000', '80px')} ${token('space.600', '64px')}`,
-	backgroundColor: token('elevation.surface', 'white'),
+	padding: `${token('space.1000')} ${token('space.600')}`,
+	backgroundColor: token('elevation.surface'),
 	height: '100vh',
 	width: '100vw',
 	boxSizing: 'border-box',

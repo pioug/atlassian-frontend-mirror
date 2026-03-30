@@ -17,7 +17,7 @@ const styles = cssMap({
 		display: 'flex',
 		justifyContent: 'baseline',
 		gap: token('space.050'),
-		font: token('font.body.UNSAFE_small'),
+		font: token('font.body.small'),
 		marginBlockStart: token('space.050'),
 	},
 });
@@ -46,8 +46,8 @@ const messageAppearanceStyles = cssMap({
 const iconWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	marginInlineStart: token('space.025', '2px'),
-	marginInlineEnd: token('space.025', '2px'),
+	marginInlineStart: token('space.025'),
+	marginInlineEnd: token('space.025'),
 });
 
 const IconWrapper = ({ children }: { children: ReactNode }) => {
@@ -55,12 +55,8 @@ const IconWrapper = ({ children }: { children: ReactNode }) => {
 };
 
 const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
-	error: (
-		<StatusErrorIcon color={token('color.text.danger', '#AE2A19')} label="error" size="small" />
-	),
-	valid: (
-		<SuccessIcon color={token('color.text.success', '#216E4E')} label="success" size="small" />
-	),
+	error: <StatusErrorIcon color={token('color.text.danger')} label="error" size="small" />,
+	valid: <SuccessIcon color={token('color.text.success')} label="success" size="small" />,
 };
 
 export const Message = ({ children, appearance = 'default', id, testId }: MessageProps) => {

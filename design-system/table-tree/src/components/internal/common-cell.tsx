@@ -7,7 +7,6 @@ import type { CSSProperties, FC, HTMLAttributes, ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const commonStyles = css({
@@ -20,7 +19,7 @@ const commonStyles = css({
 	)} var(--indent, ${token('space.300', '25px')})`,
 	position: 'relative',
 	alignItems: 'center',
-	color: token('color.text', N800),
+	color: token('color.text'),
 	font: token('font.body'),
 	hyphens: 'auto',
 	wordBreak: 'break-word',

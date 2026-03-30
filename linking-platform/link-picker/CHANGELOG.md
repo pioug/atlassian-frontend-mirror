@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 4.2.18
+
+### Patch Changes
+
+- [`93a66599141af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93a66599141af) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 4.2.17
 
 ### Patch Changes

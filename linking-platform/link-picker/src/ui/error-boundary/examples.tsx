@@ -16,13 +16,13 @@ const createExample = (): React.ComponentType => {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					width: `${LINK_PICKER_WIDTH_IN_PX}px`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					['--link-picker-padding-left' as string]: token('space.200', '16px'),
+					['--link-picker-padding-left' as string]: token('space.200'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					['--link-picker-padding-right' as string]: token('space.200', '16px'),
+					['--link-picker-padding-right' as string]: token('space.200'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					['--link-picker-padding-top' as string]: token('space.200', '16px'),
+					['--link-picker-padding-top' as string]: token('space.200'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					['--link-picker-padding-bottom' as string]: token('space.200', '16px'),
+					['--link-picker-padding-bottom' as string]: token('space.200'),
 				}}
 			>
 				<ErrorBoundaryFallback />

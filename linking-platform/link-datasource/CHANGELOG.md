@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.34.4
+
+### Patch Changes
+
+- [`93a66599141af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93a66599141af) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 4.34.3
 
 ### Patch Changes

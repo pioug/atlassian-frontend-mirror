@@ -5,7 +5,6 @@ import ErrorIcon from '@atlaskit/icon/core/status-error';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { B50, B500, G50, G500, P50, P500, R50, R500, Y50, Y500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { Appearance, SectionMessageProps } from '../types';
@@ -21,29 +20,29 @@ const appearanceIconSchema: {
 	[key in Appearance]: AppearanceIconSchema;
 } = {
 	information: {
-		backgroundColor: token('color.background.information', B50),
+		backgroundColor: token('color.background.information'),
 		Icon: InfoIcon,
-		primaryIconColor: token('color.icon.information', B500),
+		primaryIconColor: token('color.icon.information'),
 	},
 	warning: {
-		backgroundColor: token('color.background.warning', Y50),
+		backgroundColor: token('color.background.warning'),
 		Icon: WarningIcon,
-		primaryIconColor: token('color.icon.warning', Y500),
+		primaryIconColor: token('color.icon.warning'),
 	},
 	error: {
-		backgroundColor: token('color.background.danger', R50),
+		backgroundColor: token('color.background.danger'),
 		Icon: ErrorIcon,
-		primaryIconColor: token('color.icon.danger', R500),
+		primaryIconColor: token('color.icon.danger'),
 	},
 	success: {
-		backgroundColor: token('color.background.success', G50),
+		backgroundColor: token('color.background.success'),
 		Icon: SuccessIcon,
-		primaryIconColor: token('color.icon.success', G500),
+		primaryIconColor: token('color.icon.success'),
 	},
 	discovery: {
-		backgroundColor: token('color.background.discovery', P50),
+		backgroundColor: token('color.background.discovery'),
 		Icon: StatusDiscoveryIcon,
-		primaryIconColor: token('color.icon.discovery', P500),
+		primaryIconColor: token('color.icon.discovery'),
 	},
 };
 

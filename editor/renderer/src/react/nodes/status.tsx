@@ -6,15 +6,51 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
 import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
 
+const ANALYTICS_DATA = { userContext: 'document' };
+
 export interface Props extends MarkDataAttributes {
 	color: Color;
 	localId?: string;
+	style?: string;
 	text: string;
 }
 
 export default memo(function Status(props: Props) {
-	const { text, color, localId } = props;
+	const { text, color, style, localId } = props;
 	const inlineAnnotationProps = useInlineAnnotationProps(props);
+
+	if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
+		if (fg('editor_inline_comments_on_inline_nodes')) {
+			return (
+				<span
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...inlineAnnotationProps}
+					role={'emphasis'}
+				>
+					<FabricElementsAnalyticsContext data={ANALYTICS_DATA}>
+						<AkStatus
+							text={style === 'mixedCase' ? text : text.toUpperCase()}
+							color={color}
+							localId={localId}
+							role={undefined}
+						/>
+					</FabricElementsAnalyticsContext>
+				</span>
+			);
+		}
+
+		return (
+			<FabricElementsAnalyticsContext data={ANALYTICS_DATA}>
+				<AkStatus
+					text={style === 'mixedCase' ? text : text.toUpperCase()}
+					color={color}
+					localId={localId}
+					role={undefined}
+				/>
+			</FabricElementsAnalyticsContext>
+		);
+	}
 
 	if (fg('editor_inline_comments_on_inline_nodes')) {
 		return (

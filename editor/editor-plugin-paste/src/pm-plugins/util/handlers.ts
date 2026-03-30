@@ -8,6 +8,11 @@ import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import type { CardOptions, QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
 import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
+import {
+	getBlockMarkAttrs,
+	getFirstParagraphBlockMarkAttrs,
+	reconcileBlockMarkForContainerAtPos,
+} from '@atlaskit/editor-common/lists';
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
 import {
 	getParentOfTypeCount,
@@ -1196,18 +1201,54 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 
 	const {
 		schema,
+		selection,
 		selection: { $from },
 	} = state;
+	const destinationListNode = findParentNodeOfType([
+		schema.nodes.bulletList,
+		schema.nodes.orderedList,
+	])(selection)?.node;
+	const currentNode = typeof $from.node === 'function' ? $from.node() : undefined;
+	const isInNormalTaskContext =
+		currentNode?.type === schema.nodes.taskItem || $from.parent.type === schema.nodes.taskItem;
+	const isInSmallTaskContext =
+		(schema.nodes.blockTaskItem && currentNode?.type === schema.nodes.blockTaskItem) ||
+		(schema.nodes.blockTaskItem && $from.parent.type === schema.nodes.blockTaskItem) ||
+		(schema.nodes.blockTaskItem &&
+			$from.parent.type === schema.nodes.paragraph &&
+			$from.depth > 0 &&
+			$from.node($from.depth - 1).type === schema.nodes.blockTaskItem);
+	const destinationBlockMarkAttrs =
+		expValEquals('platform_editor_small_font_size', 'isEnabled', true) && schema.marks.fontSize
+			? destinationListNode
+				? getFirstParagraphBlockMarkAttrs(destinationListNode, schema.marks.fontSize)
+				: isInSmallTaskContext
+					? getBlockMarkAttrs($from.parent, schema.marks.fontSize) ||
+						getFirstParagraphBlockMarkAttrs(currentNode, schema.marks.fontSize)
+					: false
+			: false;
 
 	// If no paragraph in the slice contains marks, there's no need for special handling
+	// unless we're pasting into a small-text list and need to add the destination block mark.
 	// Note: this doesn't check for marks applied to lower level nodes such as text
-	if (!sliceHasTopLevelMarks(slice)) {
+	if (!sliceHasTopLevelMarks(slice) && !destinationBlockMarkAttrs) {
 		return slice;
 	}
 
-	// If pasting a single paragraph into pre-existing content, match destination formatting
+	const shouldNormalizeFontSizeForTarget =
+		expValEquals('platform_editor_small_font_size', 'isEnabled', true) &&
+		!!schema.marks.fontSize &&
+		(!!destinationListNode || isInNormalTaskContext || !!isInSmallTaskContext);
+
+	// If pasting a single paragraph into pre-existing content, match destination formatting.
+	// For bullet/ordered lists under small-text, we still need to normalize the paragraph block mark
+	// so pasted content adopts the destination list state.
 	const destinationHasContent = $from.parent.textContent.length > 0;
-	if (slice.content.childCount === 1 && destinationHasContent) {
+	if (
+		slice.content.childCount === 1 &&
+		destinationHasContent &&
+		!shouldNormalizeFontSizeForTarget
+	) {
 		return slice;
 	}
 
@@ -1222,24 +1263,20 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 		}
 	}
 
-	if (forbiddenMarkTypes.length === 0) {
-		// In a slice containing one or more paragraphs at the document level (not wrapped in
-		// another node), the first paragraph will only have its text content captured and pasted
-		// since openStart is 1. We decrement the open depth of the slice so it retains any block
-		// marks applied to it. We only care about the depth at the start of the selection so
-		// there's no need to change openEnd - the rest of the slice gets pasted correctly.
-		const openStart = Math.max(0, slice.openStart - 1);
-		return new Slice(slice.content, openStart, slice.openEnd);
-	}
-
-	// If the paragraph or heading contains marks forbidden by the parent node
-	// (e.g. alignment/indentation), drop those marks from the slice
-	return mapSlice(slice, (node) => {
+	const fontSizeMarkType = shouldNormalizeFontSizeForTarget ? schema.marks.fontSize : undefined;
+	const normalizedContent = mapSlice(slice, (node) => {
 		if (node.type === schema.nodes.paragraph) {
+			const paragraphMarks = node.marks.filter((mark) => !forbiddenMarkTypes.includes(mark.type));
+			const normalizedMarks = fontSizeMarkType
+				? paragraphMarks.filter((mark) => mark.type !== fontSizeMarkType)
+				: paragraphMarks;
+
 			return schema.nodes.paragraph.createChecked(
 				undefined,
 				node.content,
-				node.marks.filter((mark) => !forbiddenMarkTypes.includes(mark.type)),
+				destinationBlockMarkAttrs && fontSizeMarkType
+					? normalizedMarks.concat(fontSizeMarkType.create(destinationBlockMarkAttrs))
+					: normalizedMarks,
 			);
 		} else if (node.type === schema.nodes.heading) {
 			// Preserve heading attributes to keep formatting
@@ -1251,6 +1288,26 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 		}
 		return node;
 	});
+
+	if (forbiddenMarkTypes.length === 0 && !shouldNormalizeFontSizeForTarget) {
+		// In a slice containing one or more paragraphs at the document level (not wrapped in
+		// another node), the first paragraph will only have its text content captured and pasted
+		// since openStart is 1. We decrement the open depth of the slice so it retains any block
+		// marks applied to it. We only care about the depth at the start of the selection so
+		// there's no need to change openEnd - the rest of the slice gets pasted correctly.
+		const openStart = Math.max(0, slice.openStart - 1);
+		return new Slice(slice.content, openStart, slice.openEnd);
+	}
+
+	if (forbiddenMarkTypes.length === 0 && shouldNormalizeFontSizeForTarget) {
+		const openStart = Math.max(0, slice.openStart - 1);
+		return new Slice(normalizedContent.content, openStart, slice.openEnd);
+	}
+
+	// If the paragraph or heading contains marks forbidden by the parent node
+	// (e.g. alignment/indentation), drop those marks from the slice. For lists under the small
+	// text experiment, also normalize fontSize to the destination list state.
+	return new Slice(normalizedContent.content, slice.openStart, slice.openEnd);
 }
 
 /**
@@ -1305,6 +1362,17 @@ export function handleRichText(
 		const { selection, schema } = state;
 		const firstChildOfSlice = slice.content?.firstChild;
 		const lastChildOfSlice = slice.content?.lastChild;
+		const destinationListFontSizeAttrs = expValEquals(
+			'platform_editor_small_font_size',
+			'isEnabled',
+			true,
+		)
+			? getFirstParagraphBlockMarkAttrs(
+					findParentNodeOfType([schema.nodes.bulletList, schema.nodes.orderedList])(selection)
+						?.node,
+					schema.marks.fontSize,
+				)
+			: false;
 
 		// In case user is pasting inline code,
 		// any backtick ` immediately preceding it should be removed.
@@ -1407,6 +1475,24 @@ export function handleRichText(
 				if (checkTaskListInList(state, slice)) {
 					updateSelectionAfterReplace({ tr });
 				}
+			}
+		}
+
+		if (
+			expValEquals('platform_editor_small_font_size', 'isEnabled', true) &&
+			isSliceContentListNodes
+		) {
+			const containingList = findParentNodeOfTypeClosestToPos(
+				tr.doc.resolve(tr.mapping.map(selection.from)),
+				[schema.nodes.bulletList, schema.nodes.orderedList],
+			);
+			if (containingList) {
+				reconcileBlockMarkForContainerAtPos(
+					tr,
+					containingList.pos,
+					schema.marks.fontSize,
+					destinationListFontSizeAttrs,
+				);
 			}
 		}
 

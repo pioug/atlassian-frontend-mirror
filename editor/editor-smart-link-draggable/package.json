@@ -22,7 +22,7 @@
 		".": "./src/index.tsx"
 	},
 	"atlassian": {
-		"team": "Editor",
+		"team": "Confluence Integrations",
 		"website": {
 			"name": "SmartLinkDraggable"
 		}

@@ -27,10 +27,10 @@ export const TabLabels = ({ children }: { children: React.ReactNode }): JSX.Elem
 
 const tabLabelStyles = css({
 	flex: 1,
-	paddingTop: token('space.150', '12px'),
-	paddingRight: token('space.150', '12px'),
-	paddingBottom: token('space.150', '12px'),
-	paddingLeft: token('space.150', '12px'),
+	paddingTop: token('space.150'),
+	paddingRight: token('space.150'),
+	paddingBottom: token('space.150'),
+	paddingLeft: token('space.150'),
 	textAlign: 'center',
 	alignContent: 'center',
 	cursor: 'pointer',

@@ -9,7 +9,6 @@ import { FormattedMessage } from 'react-intl-next';
 import { cssMap, jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
@@ -155,7 +154,7 @@ export const InlineCardForbiddenView = ({
 				link={url}
 				title={url}
 				onClick={onClick}
-				titleColor={token('color.text.subtle', N500)}
+				titleColor={token('color.text.subtle')}
 			/>
 			{renderActionButton()}
 		</Frame>

@@ -5,7 +5,6 @@ import { IconButton } from '@atlaskit/button/new';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import ShrinkDiagonalIcon from '@atlaskit/icon/core/shrink-diagonal';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N50, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ExpandToggleContainer } from './styled';
@@ -14,14 +13,14 @@ import { ExpandToggleContainer } from './styled';
 const ExpandCircleIcon = ({ isDisabled }: { isDisabled?: boolean }) => (
 	<GrowDiagonalIcon
 		label={''}
-		color={isDisabled ? token('color.icon.disabled', N50) : token('color.icon', N500)}
+		color={isDisabled ? token('color.icon.disabled') : token('color.icon')}
 	/>
 );
 
 const CollapseCircleIcon = ({ isDisabled }: { isDisabled?: boolean }) => (
 	<ShrinkDiagonalIcon
 		label={''}
-		color={isDisabled ? token('color.icon.disabled', N50) : token('color.icon', N500)}
+		color={isDisabled ? token('color.icon.disabled') : token('color.icon')}
 	/>
 );
 

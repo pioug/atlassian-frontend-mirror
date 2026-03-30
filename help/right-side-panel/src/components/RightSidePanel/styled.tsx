@@ -7,7 +7,6 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { type TransitionStatus } from '.';
-import { N30 } from '@atlaskit/theme/colors';
 
 const PANEL_WIDTH = 368;
 export const transitionDurationMs = 220;
@@ -63,10 +62,10 @@ export const RightSidePanelDrawer: React.ForwardRefExoticComponent<
 RightSidePanelDrawer.displayName = 'RightSidePanelDrawer';
 
 const rightSidePanelDrawerContentStyles = css({
-	backgroundColor: token('elevation.surface.overlay', 'white'),
+	backgroundColor: token('elevation.surface.overlay'),
 	boxSizing: 'border-box',
 	flex: 1,
-	borderLeft: `3px solid ${token('color.border', N30)}`,
+	borderLeft: `3px solid ${token('color.border')}`,
 	overflow: 'hidden',
 	flexDirection: 'column',
 	width: `${PANEL_WIDTH}px`,

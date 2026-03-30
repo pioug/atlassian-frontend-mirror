@@ -6,7 +6,6 @@
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N200 } from '@atlaskit/theme/colors';
 
 const whatsNewResultsListContainerStyles = css({
 	position: 'relative',
@@ -19,9 +18,9 @@ export const WhatsNewResultsListContainer = ({
 }): JSX.Element => <div css={whatsNewResultsListContainerStyles}>{children}</div>;
 
 const whatsNewResultsListGroupWrapperStyles = css({
-	paddingTop: token('space.100', '8px'),
+	paddingTop: token('space.100'),
 	paddingRight: 0,
-	paddingBottom: token('space.100', '8px'),
+	paddingBottom: token('space.100'),
 	paddingLeft: 0,
 });
 
@@ -38,13 +37,13 @@ export const WhatsNewResultsListGroupWrapper = ({
 );
 
 const whatsNewResultsListGroupTitleStyles = css({
-	color: token('color.text.subtlest', N200),
+	color: token('color.text.subtlest'),
 	font: token('font.body.small'),
 	fontWeight: token('font.weight.bold'),
 	paddingTop: 0,
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.100', '8px'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	textTransform: 'uppercase',
 });

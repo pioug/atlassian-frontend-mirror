@@ -1,4 +1,3 @@
-import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 import evaluateInner from './utils/evaluate-inner';
@@ -12,7 +11,7 @@ const _default_1: string = evaluateInner`
   thead,
   tbody,
   tfoot {
-    border-bottom: ${token('border.width.selected', '2px')} solid ${token('color.border', colors.N40)};
+    border-bottom: ${token('border.width.selected', '2px')} solid ${token('color.border', '#DFE1E6')};
   }
 
   td,

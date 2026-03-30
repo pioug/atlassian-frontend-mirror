@@ -17,12 +17,12 @@ import { HorizontalWrapper } from '../utils/vr-test';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const boxStyles = css({
-	color: token('color.text.inverse', '#FFFFFF'),
-	backgroundColor: token('color.icon.brand', '#0C66E4'),
+	color: token('color.text.inverse'),
+	backgroundColor: token('color.icon.brand'),
 	borderRadius: token('radius.medium', '6px'),
 });
 const linkIconStyles = css({
-	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
+	backgroundColor: token('color.background.accent.blue.subtle'),
 	borderRadius: token('radius.full', '15px'),
 });
 

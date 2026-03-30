@@ -12,7 +12,7 @@ export interface StatusDefinition {
 		color: 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
 		localId?: string;
 		/**
-		 * Supported values are bold and subtle
+		 * Supported values are bold, subtle, and mixedCase
 		 */
 		style?: string;
 		/**

@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
-import { NotificationLogClient } from '@atlaskit/notification-log-client';
+import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 
 import { Help } from '../../index';
 
@@ -11,12 +11,10 @@ const NUMBER_OF_NOTIFICATIONS = 5;
 const MAX_NUMBER_OF_NOTIFICATIONS = 3;
 
 // Mockup notification Promise
-class MockNotificationLogClient extends NotificationLogClient {
+class MockNotificationLogClient implements NotificationLogProvider {
 	notificationCounter: number;
 
 	constructor(notificationCounter: number = NUMBER_OF_NOTIFICATIONS) {
-		super('', '');
-
 		this.notificationCounter = notificationCounter;
 	}
 

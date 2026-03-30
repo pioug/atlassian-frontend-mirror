@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 11.4.0
+
+### Minor Changes
+
+- [`b749ce678d575`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b749ce678d575) -
+  Preserve small text formatting across list and task list edits
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.6
 
 ### Patch Changes

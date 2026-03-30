@@ -6,7 +6,6 @@
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N10, N30 } from '@atlaskit/theme/colors';
 import type { TransitionStatus } from './constants';
 
 const helpBodyContainerStyles = css({
@@ -65,10 +64,10 @@ const homeStyles = css({
 	display: 'block',
 	height: '100%',
 	overflow: 'auto',
-	paddingTop: token('space.200', '16px'),
-	paddingRight: token('space.200', '16px'),
-	paddingBottom: token('space.200', '16px'),
-	paddingLeft: token('space.200', '16px'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 	boxSizing: 'border-box',
 	marginTop: 0,
 });
@@ -92,9 +91,9 @@ export const Home = ({
 const homeAiStyles = css({
 	display: 'block',
 	overflow: 'auto',
-	paddingLeft: token('space.200', '16px'),
-	paddingRight: token('space.200', '16px'),
-	paddingBottom: token('space.200', '16px'),
+	paddingLeft: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
 	boxSizing: 'border-box',
 	marginTop: 0,
 });
@@ -116,14 +115,14 @@ export const HomeAi = ({
 );
 
 const helpFooterStyles = css({
-	paddingTop: token('space.100', '8px'),
+	paddingTop: token('space.100'),
 	paddingRight: 0,
-	paddingBottom: token('space.100', '8px'),
+	paddingBottom: token('space.100'),
 	paddingLeft: 0,
 	boxSizing: 'border-box',
 	width: '100%',
-	backgroundColor: token('color.background.neutral', N10),
-	borderTop: `${token('border.width.selected')} solid ${token('color.border', N30)}`,
+	backgroundColor: token('color.background.neutral'),
+	borderTop: `${token('border.width.selected')} solid ${token('color.border')}`,
 	justifyContent: 'space-between',
 });
 
@@ -144,17 +143,17 @@ export const BACK_BUTTON_CONTAINER_TRANSITION_DURATION_MS = 220;
 const backButtonContainerStyles = css({
 	transition: `left ${BACK_BUTTON_CONTAINER_TRANSITION_DURATION_MS}ms, opacity ${BACK_BUTTON_CONTAINER_TRANSITION_DURATION_MS}ms`,
 	position: 'absolute',
-	marginTop: token('space.200', '14px'),
-	left: token('space.300', '24px'),
-	height: token('space.400', '32px'),
+	marginTop: token('space.200'),
+	left: token('space.300'),
+	height: token('space.400'),
 	opacity: 0,
 });
 
 const backButtonContainerTransitionStyles: {
 	[id: string]: React.CSSProperties;
 } = {
-	entered: { left: token('space.100', '8px'), opacity: 1 },
-	exited: { left: token('space.100', '8px'), opacity: 0 },
+	entered: { left: token('space.100'), opacity: 1 },
+	exited: { left: token('space.100'), opacity: 0 },
 };
 
 type BackButtonContainerProps = {

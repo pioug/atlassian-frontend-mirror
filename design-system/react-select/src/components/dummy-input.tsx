@@ -6,7 +6,20 @@ import type { Ref } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { removeProps } from '../../utils';
+const removeProps: <Props extends object, K extends string[]>(
+	propsObj: Props,
+	...properties: K
+) => Omit<Props, K[number]> = <Props extends object, K extends string[]>(
+	propsObj: Props,
+	...properties: K
+): Omit<Props, K[number]> => {
+	let propsMap = Object.entries(propsObj).filter(([key]) => !properties.includes(key));
+
+	return propsMap.reduce((newProps: { [key: string]: any }, [key, val]) => {
+		newProps[key] = val;
+		return newProps;
+	}, {}) as Omit<Props, K[number]>;
+};
 
 const dummyInputStyles = css({
 	width: 1,

@@ -6,7 +6,6 @@
 import React from 'react';
 
 import { css, jsx } from '@atlaskit/css';
-import { B400, N10, N100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const svgStyles = css({
@@ -30,20 +29,16 @@ const CheckboxIcon = ({ checked }: { checked: boolean }): React.JSX.Element => {
 			viewBox="0 0 24 24"
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				color: checked
-					? token('color.background.selected.bold', B400)
-					: token('color.background.input', N10),
+				color: checked ? token('color.background.selected.bold') : token('color.background.input'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				fill: checked ? token('color.icon.inverse', N10) : 'transparent',
+				fill: checked ? token('color.icon.inverse') : 'transparent',
 			}}
 			css={svgStyles}
 			role="presentation"
 		>
 			<g fillRule="evenodd">
 				<rect
-					stroke={
-						checked ? token('color.border.selected', B400) : token('color.border.input', N100)
-					}
+					stroke={checked ? token('color.border.selected') : token('color.border.input')}
 					x="5.5"
 					y="5.5"
 					width="13"

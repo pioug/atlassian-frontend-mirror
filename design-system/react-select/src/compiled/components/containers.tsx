@@ -8,8 +8,8 @@ import { css, cssMap, cx, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { getStyleProps } from '../../get-style-props';
 import { type CommonPropsAndClassName, type GroupBase } from '../../types';
-import { getStyleProps } from '../../utils';
 
 // ==============================
 // Root Container
@@ -34,7 +34,6 @@ export interface ContainerProps<
 	 */
 	innerProps: {};
 }
-export const containerCSS: () => {} = () => ({});
 
 // iOS Safari automatically zooms into form inputs on focus when the font size is less than 16px.
 // To prevent this zoom behaviour on mobile devices, the select container uses font.body.large (16px) by default,
@@ -110,7 +109,7 @@ export interface ValueContainerProps<
 	 */
 	isCompact?: boolean;
 }
-export const valueContainerCSS: () => {} = () => ({});
+
 const valueContainerStyles = cssMap({
 	default: {
 		alignItems: 'center',
@@ -120,19 +119,19 @@ const valueContainerStyles = cssMap({
 		WebkitOverflowScrolling: 'touch',
 		position: 'relative',
 		overflow: 'hidden',
-		paddingTop: token('space.025'),
-		paddingRight: token('space.075'),
-		paddingBottom: token('space.025'),
-		paddingLeft: token('space.075'),
+		paddingBlockStart: token('space.025'),
+		paddingInlineEnd: token('space.075'),
+		paddingBlockEnd: token('space.025'),
+		paddingInlineStart: token('space.075'),
 	},
 	flex: {
 		display: 'flex',
 	},
 	compact: {
-		paddingTop: token('space.0'),
-		paddingRight: token('space.075'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.075'),
+		paddingBlockStart: token('space.0'),
+		paddingInlineEnd: token('space.075'),
+		paddingBlockEnd: token('space.0'),
+		paddingInlineStart: token('space.075'),
 	},
 });
 
@@ -194,8 +193,6 @@ export interface IndicatorsContainerProps<
 	 */
 	innerProps?: {};
 }
-
-export const indicatorsContainerCSS: () => {} = () => ({});
 
 const indicatorContainerStyles = css({
 	display: 'flex',

@@ -14,9 +14,9 @@ export interface TerminalErrorAdditionalAttributes {
 	errorHash?: string;
 	fallbackType?: 'page' | 'flag' | 'custom';
 	isClientNetworkError?: boolean;
+	statusCode?: number;
 	// TODO: Remove when cleaning up platform_ufo_terminal_errors_fix_missing_data
 	traceId?: string;
-	statusCode?: number;
 }
 
 export interface TerminalErrorData extends TerminalErrorAdditionalAttributes {
@@ -109,7 +109,7 @@ export function setTerminalError(
 	const errorData: TerminalErrorData = fg('platform_ufo_terminal_errors_fix_missing_data')
 		? {
 				...baseErrorData,
-				statusCode: getErrorStatusCode(error),
+				statusCode: additionalAttributes?.statusCode ?? getErrorStatusCode(error),
 				// Fallback to traceId from error object if it exists (e.g. FetchError)
 				traceId: getActiveTrace()?.traceId ?? getErrorTraceId(error),
 				teamName: additionalAttributes?.teamName,

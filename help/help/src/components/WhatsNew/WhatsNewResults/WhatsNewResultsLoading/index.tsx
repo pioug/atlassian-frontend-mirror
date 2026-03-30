@@ -38,7 +38,7 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
 					<LoadingRectangle
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							marginLeft: token('space.100', '8px'),
+							marginLeft: token('space.100'),
 						}}
 						contentHeight="11px"
 						contentWidth="60px"
@@ -65,7 +65,7 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
 					<LoadingRectangle
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							marginLeft: token('space.100', '8px'),
+							marginLeft: token('space.100'),
 						}}
 						contentHeight="11px"
 						contentWidth="60px"
@@ -96,7 +96,7 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
 					<LoadingRectangle
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							marginLeft: token('space.100', '8px'),
+							marginLeft: token('space.100'),
 						}}
 						contentHeight="11px"
 						contentWidth="60px"
@@ -123,7 +123,7 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
 					<LoadingRectangle
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							marginLeft: token('space.100', '8px'),
+							marginLeft: token('space.100'),
 						}}
 						contentHeight="11px"
 						contentWidth="60px"

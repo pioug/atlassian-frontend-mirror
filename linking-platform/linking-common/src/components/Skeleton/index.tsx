@@ -4,7 +4,6 @@
  */
 import { keyframes, jsx, css, cssMap } from '@compiled/react';
 
-import { B50, N30, N40, N50, N60 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { type SkeletonProps } from './types';
 
@@ -19,13 +18,13 @@ const placeholderShimmer = keyframes({
 
 const appearanceValues = {
 	darkGray: {
-		animation: token('color.background.accent.gray.subtle', N60),
+		animation: token('color.background.accent.gray.subtle'),
 	},
 	gray: {
-		animation: token('color.skeleton', N40),
+		animation: token('color.skeleton'),
 	},
 	blue: {
-		animation: token('color.background.information.hovered', '#cce0ff'),
+		animation: token('color.background.information.hovered'),
 	},
 };
 
@@ -41,13 +40,13 @@ const spanSkeletonStyles = css({
 
 const spanSkeletonBackgroundStyleMap = cssMap({
 	gray: {
-		backgroundColor: token('color.background.accent.gray.subtlest', N30),
+		backgroundColor: token('color.background.accent.gray.subtlest'),
 	},
 	blue: {
-		backgroundColor: token('color.background.accent.blue.subtlest', B50),
+		backgroundColor: token('color.background.accent.blue.subtlest'),
 	},
 	darkGray: {
-		backgroundColor: token('color.background.accent.gray.subtler', N50),
+		backgroundColor: token('color.background.accent.gray.subtler'),
 	},
 });
 

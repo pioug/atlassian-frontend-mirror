@@ -17,44 +17,44 @@ const lozengeAccentStyles: Record<
 	}
 > = {
 	blue: {
-		backgroundColor: token('color.background.accent.blue.subtler', '#CCE0FF'),
-		color: token('color.text.accent.blue', '#0055CC'),
+		backgroundColor: token('color.background.accent.blue.subtler'),
+		color: token('color.text.accent.blue'),
 	},
 	gray: {
-		backgroundColor: token('color.background.accent.gray.subtler', '#DCDFE4'),
-		color: token('color.text.accent.gray', '#44546F'),
+		backgroundColor: token('color.background.accent.gray.subtler'),
+		color: token('color.text.accent.gray'),
 	},
 	green: {
-		backgroundColor: token('color.background.accent.green.subtler', '#BAF3DB'),
-		color: token('color.text.accent.green', '#216E4E'),
+		backgroundColor: token('color.background.accent.green.subtler'),
+		color: token('color.text.accent.green'),
 	},
 	lime: {
-		backgroundColor: token('color.background.accent.lime.subtler', '#D3F1A7'),
-		color: token('color.text.accent.lime', '#4C6B1F'),
+		backgroundColor: token('color.background.accent.lime.subtler'),
+		color: token('color.text.accent.lime'),
 	},
 	magenta: {
-		backgroundColor: token('color.background.accent.magenta.subtler', '#FDD0EC'),
-		color: token('color.text.accent.magenta', '#943D73'),
+		backgroundColor: token('color.background.accent.magenta.subtler'),
+		color: token('color.text.accent.magenta'),
 	},
 	orange: {
-		backgroundColor: token('color.background.accent.orange.subtler', '#FEDEC8'),
-		color: token('color.text.accent.orange', '#A54800'),
+		backgroundColor: token('color.background.accent.orange.subtler'),
+		color: token('color.text.accent.orange'),
 	},
 	purple: {
-		backgroundColor: token('color.background.accent.purple.subtler', '#DFD8FD'),
-		color: token('color.text.accent.purple', '#5E4DB2'),
+		backgroundColor: token('color.background.accent.purple.subtler'),
+		color: token('color.text.accent.purple'),
 	},
 	red: {
-		backgroundColor: token('color.background.accent.red.subtler', '#FFD5D2'),
-		color: token('color.text.accent.red', '#AE2E24'),
+		backgroundColor: token('color.background.accent.red.subtler'),
+		color: token('color.text.accent.red'),
 	},
 	teal: {
-		backgroundColor: token('color.background.accent.teal.subtler', '#C6EDFB'),
-		color: token('color.text.accent.teal', '#206A83'),
+		backgroundColor: token('color.background.accent.teal.subtler'),
+		color: token('color.text.accent.teal'),
 	},
 	yellow: {
-		backgroundColor: token('color.background.accent.yellow.subtler', '#F8E6A0'),
-		color: token('color.text.accent.yellow', '#7F5F01'),
+		backgroundColor: token('color.background.accent.yellow.subtler'),
+		color: token('color.text.accent.yellow'),
 	},
 };
 

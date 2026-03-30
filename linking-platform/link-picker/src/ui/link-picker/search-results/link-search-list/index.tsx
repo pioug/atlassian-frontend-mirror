@@ -37,8 +37,8 @@ const listContainerStyles = css({
 	width: '100%',
 	paddingTop: 0,
 	minHeight: '80px',
-	marginTop: token('space.200', '16px'),
-	marginBottom: token('space.200', '16px'),
+	marginTop: token('space.200'),
+	marginBottom: token('space.200'),
 	flexGrow: 1,
 	display: 'flex',
 	flexDirection: 'column',
@@ -51,12 +51,12 @@ const spinnerContainerStyles = css({
 });
 
 const listStyles = css({
-	paddingTop: token('space.0', '0px'),
-	paddingRight: token('space.0', '0px'),
-	paddingBottom: token('space.0', '0px'),
-	paddingLeft: token('space.0', '0px'),
-	marginTop: token('space.0', '0px'),
-	marginBottom: token('space.0', '0px'),
+	paddingTop: token('space.0'),
+	paddingRight: token('space.0'),
+	paddingBottom: token('space.0'),
+	paddingLeft: token('space.0'),
+	marginTop: token('space.0'),
+	marginBottom: token('space.0'),
 	marginLeft: 'calc(-1 * var(--link-picker-padding-left))',
 	marginRight: 'calc(-1 * var(--link-picker-padding-right))',
 	listStyle: 'none',
@@ -65,7 +65,7 @@ const listStyles = css({
 const listTitleStyles: CSSProperties = {
 	font: token('font.body.small'),
 	fontWeight: token('font.weight.bold'),
-	marginBottom: token('space.050', '4px'),
+	marginBottom: token('space.050'),
 	color: token('color.text.subtle'),
 };
 

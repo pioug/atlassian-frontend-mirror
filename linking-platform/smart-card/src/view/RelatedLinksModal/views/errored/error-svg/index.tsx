@@ -10,7 +10,7 @@ const errorStyles = css({
 	width: '80px',
 	marginTop: 0,
 	marginRight: 'auto',
-	marginBottom: token('space.300', '24px'),
+	marginBottom: token('space.300'),
 	marginLeft: 'auto',
 	display: 'block',
 });

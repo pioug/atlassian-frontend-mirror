@@ -11,26 +11,25 @@ import { IconButton } from '@atlaskit/button/new';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import CollapseIcon from '@atlaskit/icon/core/chevron-up';
 import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
-import { N40A, N50A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ProviderCardExampleList } from './ProviderCardExampleList';
 import { type ExampleRolloutStatus, type ExampleUIConfig, type ExampleUrl } from './types';
 
 const base = css({
-	paddingTop: token('space.300', '24px'),
-	paddingRight: token('space.300', '24px'),
-	paddingBottom: token('space.300', '24px'),
-	paddingLeft: token('space.300', '24px'),
-	marginBottom: token('space.300', '24px'),
-	boxShadow: token('elevation.shadow.raised', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`),
+	paddingTop: token('space.300'),
+	paddingRight: token('space.300'),
+	paddingBottom: token('space.300'),
+	paddingLeft: token('space.300'),
+	marginBottom: token('space.300'),
+	boxShadow: token('elevation.shadow.raised'),
 	width: 'calc(85% - 48px)',
 	borderRadius: token('radius.small', '3px'),
-	backgroundColor: token('elevation.surface.raised', 'white'),
+	backgroundColor: token('elevation.surface.raised'),
 	cursor: 'pointer',
 	transition: '0.3s ease-in-out all',
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', 'rgba(0, 0, 0, 0.03)'),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 });
 
@@ -48,7 +47,7 @@ const headerStyles = css({
 
 const lozengeWrapperStyles = css({
 	margin: 0,
-	marginLeft: token('space.100', '8px'),
+	marginLeft: token('space.100'),
 	display: 'flex',
 	alignItems: 'center',
 });
@@ -76,7 +75,7 @@ const spanStyle = css({
 
 const headerStyle = css({
 	margin: 0,
-	marginLeft: token('space.100', '8px'),
+	marginLeft: token('space.100'),
 	display: 'flex',
 	alignItems: 'center',
 });

@@ -1,5 +1,4 @@
 import React, { forwardRef } from 'react';
-import * as colors from '@atlaskit/theme/colors';
 import {
 	useAnalyticsEvents,
 	type UIAnalyticsEvent,
@@ -113,10 +112,7 @@ export const ArticlesListItem = forwardRef<HTMLAnchorElement, ArticlesListItemPr
 					</ArticlesListItemTitleSection>
 					{href && (
 						<ArticlesListItemLinkIcon>
-							<ShortcutIcon
-								label="Opens in a new window"
-								color={token('color.icon.subtle', colors.N90)}
-							/>
+							<ShortcutIcon label="Opens in a new window" color={token('color.icon.subtle')} />
 						</ArticlesListItemLinkIcon>
 					)}
 				</ArticlesListItemContainer>

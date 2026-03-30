@@ -39,12 +39,12 @@ const listStyles = css({
 	paddingLeft: 0,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	li: {
-		paddingTop: token('space.050', '4px'),
-		paddingRight: token('space.100', '8px'),
-		paddingBottom: token('space.050', '4px'),
-		paddingLeft: token('space.100', '8px'),
+		paddingTop: token('space.050'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.100'),
 		'&:hover': {
-			backgroundColor: token('color.background.neutral', '#091E420F'),
+			backgroundColor: token('color.background.neutral'),
 			borderRadius: token('radius.small', '4px'),
 		},
 	},
@@ -53,7 +53,7 @@ const listStyles = css({
 const previewStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',
-	gap: token('space.100', '8px'),
+	gap: token('space.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
 		maxWidth: '350px',
@@ -125,7 +125,7 @@ const renderPreview = (url: string) => {
 	const titleActions = [
 		{
 			name: ActionName.CustomAction,
-			icon: <ShortcutIcon label="open in new tab" color={token('color.icon', '#44546F')} />,
+			icon: <ShortcutIcon label="open in new tab" color={token('color.icon')} />,
 			iconPosition: 'before',
 			onClick: () => {},
 			tooltipMessage: 'Go to',

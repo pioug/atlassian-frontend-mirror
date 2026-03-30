@@ -134,7 +134,7 @@ export const Popover: React.ForwardRefExoticComponent<
 	const mode: TPopoverMode = modeProp === 'hint' && !supportsPopoverHint() ? 'auto' : modeProp;
 
 	// Distinguishes programmatic hidePopover() from browser-initiated dismiss.
-	// When we call hidePopover() ourselves the toggle event fires synchronously —
+	// When we call hidePopover() ourselves the beforetoggle event fires synchronously —
 	// this ref prevents the toggle handler from calling onClose redundantly.
 	const programmaticCloseRef = useRef(false);
 
@@ -208,9 +208,10 @@ export const Popover: React.ForwardRefExoticComponent<
 		});
 	}, [preset, placement]);
 
-	// Show/hide based on isOpen. try/catch because show/hide throw if the
-	// element is already in the target state (e.g. browser dismissed via
-	// light-dismiss before our effect ran).
+	// Show/hide based on isOpen.
+	// showPopover() and hidePopover() are no-ops when the popover is already
+	// in the target state (e.g. browser dismissed via light-dismiss before our
+	// effect ran), so no try/catch is needed.
 	useLayoutEffect(() => {
 		const el = ownRef.current;
 		if (!el) {
@@ -219,27 +220,15 @@ export const Popover: React.ForwardRefExoticComponent<
 
 		if (isOpen) {
 			programmaticCloseRef.current = false;
-			try {
-				el.showPopover();
-			} catch {
-				// Already showing or unsupported — DOM matches intent.
-			}
+			el.showPopover();
 			return () => {
 				programmaticCloseRef.current = true;
-				try {
-					el.hidePopover();
-				} catch {
-					// Already hidden — DOM matches intent.
-				}
+				el.hidePopover();
 			};
 		}
 
 		programmaticCloseRef.current = true;
-		try {
-			el.hidePopover();
-		} catch {
-			// Already hidden — DOM matches intent.
-		}
+		el.hidePopover();
 	}, [isOpen]);
 
 	return (

@@ -12,16 +12,16 @@ const getPopupCustomControlStyles = () => ({
 	display: 'flex',
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
-	border: `solid ${token('border.width')} ${token('color.border.input', '#8C8F97')}`,
+	border: `solid ${token('border.width')} ${token('color.border.input')}`,
 	minHeight: 'auto',
 });
 
 const popupCustomControlStyles = cssMap({
 	container: {
-		paddingTop: token('space.050', '4px'),
-		paddingBottom: token('space.050', '4px'),
-		paddingLeft: token('space.100', '4px'),
-		paddingRight: token('space.100', '4px'),
+		paddingTop: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.100'),
+		paddingRight: token('space.100'),
 	},
 	control: {
 		'&:focus-within': {

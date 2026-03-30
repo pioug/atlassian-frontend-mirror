@@ -15,7 +15,6 @@ import FocusRing from '@atlaskit/focus-ring';
 import type { InteractionContextType } from '@atlaskit/interaction-context';
 // eslint-disable-next-line no-duplicate-imports
 import InteractionContext from '@atlaskit/interaction-context';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type BaseProps } from '../types';
@@ -192,8 +191,8 @@ const ButtonBase: React.ForwardRefExoticComponent<
 			'[data-theme] & circle': {
 				stroke: `${
 					isSelected || isDisabled
-						? token('color.icon.subtle', N500)
-						: token('color.icon.warning.inverse', N500)
+						? token('color.icon.subtle')
+						: token('color.icon.warning.inverse')
 				} !important`,
 			},
 		};

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "5.4.2",
+	"version": "5.5.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,6 +49,7 @@
 		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
@@ -99,5 +100,9 @@
 		}
 	},
 	"homepage": "https://atlassian.design/components/motion/",
-	"platform-feature-flags": {}
+	"platform-feature-flags": {
+		"platform-dst-motion-uplift": {
+			"type": "boolean"
+		}
+	}
 }

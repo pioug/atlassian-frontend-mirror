@@ -102,6 +102,10 @@ export type InviteToSoftwareAndBusinessProjectsFailedAttributesType = {
 	newUsersCount: number;
 	existingUsersCount: number;
 };
+export type SendSpaceInviteFailedAttributesType = {
+	message: string;
+	spaceId: string;
+};
 export type ContainerPermissionsSucceededAttributesType = {
 	canCreateConfluenceContainer: boolean;
 	canCreateJiraContainer: boolean;
@@ -1645,6 +1649,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when inviting users to software and business projects failed */
 	'track.inviteToSoftwareAndBusinessProjects.failed': InviteToSoftwareAndBusinessProjectsFailedAttributesType;
+	/**
+	 * fired when scheduling a space invite for team members failed */
+	'track.sendSpaceInvite.failed': SendSpaceInviteFailedAttributesType;
 	/**
 	 * fired when the container permissions are succeeded */
 	'track.containerPermissions.succeeded': ContainerPermissionsSucceededAttributesType;

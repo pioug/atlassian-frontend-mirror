@@ -93,10 +93,10 @@ describe('Snippet', () => {
 
 		it('should capture and report a11y violations', async () => {
 			const overrideCss = css({
-				marginTop: token('space.1000', '80px'),
-				marginRight: token('space.1000', '80px'),
-				marginBottom: token('space.1000', '80px'),
-				marginLeft: token('space.1000', '80px'),
+				marginTop: token('space.1000'),
+				marginRight: token('space.1000'),
+				marginBottom: token('space.1000'),
+				marginLeft: token('space.1000'),
 			});
 			const { container } = render(<Snippet testId={testId} css={overrideCss} />, {
 				wrapper: getFlexibleCardTestWrapper({ snippet: snippetContent }),
@@ -113,10 +113,10 @@ describe('Snippet', () => {
 
 		it('renders Snippet element with provided styles', () => {
 			const overrideCss = css({
-				marginTop: token('space.1000', '80px'),
-				marginRight: token('space.1000', '80px'),
-				marginBottom: token('space.1000', '80px'),
-				marginLeft: token('space.1000', '80px'),
+				marginTop: token('space.1000'),
+				marginRight: token('space.1000'),
+				marginBottom: token('space.1000'),
+				marginLeft: token('space.1000'),
 			});
 
 			render(<Snippet testId={testId} css={overrideCss} />, {

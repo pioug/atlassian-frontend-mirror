@@ -20,7 +20,6 @@ import { Checkbox } from '@atlaskit/checkbox';
 import TextArea from '@atlaskit/textarea';
 import { token } from '@atlaskit/tokens';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';
-import { colors } from '@atlaskit/theme';
 import { css, jsx } from '@compiled/react';
 import { Text } from '@atlaskit/primitives/compiled';
 
@@ -195,7 +194,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 			return (
 				<>
 					<ArticleFeedbackContainer>
-						<ArticleFeedbackText paddingRight={token('space.100', '8px')}>
+						<ArticleFeedbackText paddingRight={token('space.100')}>
 							{formatMessage(messages.help_article_rating_title)}
 						</ArticleFeedbackText>
 						<ButtonGroup
@@ -265,7 +264,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 													<>
 														<ArticleFeedbackText
 															id="articleFeedbackText"
-															top={token('space.negative.100', '-8px')}
+															top={token('space.negative.100')}
 														>
 															{formatMessage(messages.help_article_rating_form_title)}
 														</ArticleFeedbackText>
@@ -321,7 +320,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 					<span
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							paddingRight: token('space.100', '8px'),
+							paddingRight: token('space.100'),
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							verticalAlign: 'middle',
 						}}
@@ -329,11 +328,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 						aria-label="Success"
 					>
-						<CheckCircleIcon
-							spacing="spacious"
-							color={token('color.icon.success', colors.G400)}
-							label=""
-						/>
+						<CheckCircleIcon spacing="spacious" color={token('color.icon.success')} label="" />
 					</span>
 					<ArticleFeedbackText role="alert" aria-live="polite">
 						{formatMessage(messages.help_article_rating_form_Success)}

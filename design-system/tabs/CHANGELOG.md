@@ -1,5 +1,12 @@
 # @atlaskit/tabs
 
+## 19.0.1
+
+### Patch Changes
+
+- [`7aef1e49e90ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aef1e49e90ea) -
+  Removes redundant fallback color values via @atlaskit/theme
+
 ## 19.0.0
 
 ### Major Changes

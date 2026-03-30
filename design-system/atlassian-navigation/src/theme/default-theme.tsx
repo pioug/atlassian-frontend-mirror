@@ -1,127 +1,125 @@
-import { B200, B400, B50, N0, N100, N20, N200, N600, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { hexToRGBA } from './theme-helpers';
 import { type Mode } from './types';
 
 const defaultTheme: { mode: Mode } = {
 	mode: {
 		create: {
 			active: {
-				color: token('color.text.inverse', N0),
-				backgroundColor: token('color.background.brand.bold.pressed', hexToRGBA(B400, 0.8)),
+				color: token('color.text.inverse'),
+				backgroundColor: token('color.background.brand.bold.pressed'),
 				boxShadow: '',
 			},
 			default: {
-				color: token('color.text.inverse', N0),
-				backgroundColor: token('color.background.brand.bold', B400),
+				color: token('color.text.inverse'),
+				backgroundColor: token('color.background.brand.bold'),
 				boxShadow: '',
 			},
 			focus: {
-				color: token('color.text.inverse', N0),
+				color: token('color.text.inverse'),
 				backgroundColor: '',
 				boxShadow: '',
 			},
 			hover: {
-				color: token('color.text.inverse', N0),
-				backgroundColor: token('color.background.brand.bold.hovered', hexToRGBA(B400, 0.9)),
+				color: token('color.text.inverse'),
+				backgroundColor: token('color.background.brand.bold.hovered'),
 				boxShadow: '',
 			},
 			selected: { color: '', backgroundColor: '', boxShadow: '' },
 		},
 		iconButton: {
 			active: {
-				color: token('color.text.subtle', B400),
-				backgroundColor: token('color.background.neutral.subtle.pressed', hexToRGBA(B50, 0.6)),
+				color: token('color.text.subtle'),
+				backgroundColor: token('color.background.neutral.subtle.pressed'),
 				boxShadow: '',
 			},
 			default: {
-				color: token('color.text.subtle', N600),
+				color: token('color.text.subtle'),
 				backgroundColor: 'transparent',
 				boxShadow: '',
 			},
 			focus: {
-				color: token('color.text.subtle', N600),
+				color: token('color.text.subtle'),
 				backgroundColor: '',
 				boxShadow: '',
 			},
 			hover: {
-				color: token('color.text.subtle', B400),
-				backgroundColor: token('color.background.neutral.subtle.hovered', hexToRGBA(B50, 0.9)),
+				color: token('color.text.subtle'),
+				backgroundColor: token('color.background.neutral.subtle.hovered'),
 				boxShadow: '',
 			},
 			selected: {
-				color: token('color.text.selected', B400),
-				backgroundColor: token('color.background.selected', hexToRGBA(B50, 0.6)),
+				color: token('color.text.selected'),
+				backgroundColor: token('color.background.selected'),
 				boxShadow: '',
 			},
 			selectedHover: {
-				color: token('color.text.selected', B400),
-				backgroundColor: token('color.background.selected.hovered', hexToRGBA(B50, 0.6)),
+				color: token('color.text.selected'),
+				backgroundColor: token('color.background.selected.hovered'),
 				boxShadow: '',
 			},
 		},
 		navigation: {
-			backgroundColor: token('elevation.surface', N0),
-			color: token('color.text.subtlest', N200),
+			backgroundColor: token('elevation.surface'),
+			color: token('color.text.subtlest'),
 		},
 		productHome: {
-			backgroundColor: token('color.text.brand', B400),
-			color: token('color.text', N700),
-			borderRight: `${token('border.width')} solid ${token('color.border', hexToRGBA(N200, 0.3))}`,
+			backgroundColor: token('color.text.brand'),
+			color: token('color.text'),
+			borderRight: `${token('border.width')} solid ${token('color.border')}`,
 			// TODO: replace with token after brand refresh
 			iconColor: '#357DE8',
-			textColor: token('color.text', N700),
+			textColor: token('color.text'),
 		},
 		primaryButton: {
 			active: {
-				color: token('color.text.subtle', B400),
-				backgroundColor: token('color.background.neutral.subtle.pressed', hexToRGBA(B50, 0.7)),
+				color: token('color.text.subtle'),
+				backgroundColor: token('color.background.neutral.subtle.pressed'),
 				boxShadow: '',
 			},
 			default: {
-				color: token('color.text.subtle', N600),
+				color: token('color.text.subtle'),
 				backgroundColor: 'transparent',
 				boxShadow: '',
 			},
 			focus: {
-				color: token('color.text.subtle', N600),
+				color: token('color.text.subtle'),
 				backgroundColor: '',
 				boxShadow: '',
 			},
 			hover: {
-				color: token('color.text.subtle', B400),
-				backgroundColor: token('color.background.neutral.subtle.hovered', hexToRGBA(B50, 0.9)),
+				color: token('color.text.subtle'),
+				backgroundColor: token('color.background.neutral.subtle.hovered'),
 				boxShadow: '',
 			},
 			selected: {
-				color: token('color.text.selected', B400),
-				backgroundColor: token('color.background.selected', hexToRGBA(B50, 0.7)),
+				color: token('color.text.selected'),
+				backgroundColor: token('color.background.selected'),
 				boxShadow: '',
-				borderColor: token('color.border.selected', B400),
+				borderColor: token('color.border.selected'),
 			},
 			selectedHover: {
-				color: token('color.text.selected', B400),
-				backgroundColor: token('color.background.selected.hovered', hexToRGBA(B50, 0.6)),
+				color: token('color.text.selected'),
+				backgroundColor: token('color.background.selected.hovered'),
 				boxShadow: '',
-				borderColor: token('color.border.selected', B400),
+				borderColor: token('color.border.selected'),
 			},
 		},
 		search: {
 			default: {
-				backgroundColor: token('color.background.input', N0),
-				color: token('color.text.subtlest', N200),
-				borderColor: token('color.border.input', N100),
+				backgroundColor: token('color.background.input'),
+				color: token('color.text.subtlest'),
+				borderColor: token('color.border.input'),
 			},
 			focus: {
-				borderColor: token('color.border.focused', B200),
+				borderColor: token('color.border.focused'),
 			},
 			hover: {
-				backgroundColor: token('color.background.input.hovered', N0),
+				backgroundColor: token('color.background.input.hovered'),
 			},
 		},
 		skeleton: {
-			backgroundColor: token('color.background.neutral', N20),
+			backgroundColor: token('color.background.neutral'),
 			opacity: 1,
 		},
 	},

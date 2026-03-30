@@ -50,9 +50,6 @@
 			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
 		},
 		{
-			"path": "../../uip/atlassian-context/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{

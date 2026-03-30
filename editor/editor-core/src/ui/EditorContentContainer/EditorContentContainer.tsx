@@ -203,6 +203,7 @@ import {
 	statusStylesMixin_fg_platform_component_visual_refresh_with_search_match,
 	statusStylesMixin_without_fg_platform_component_visual_refresh,
 	statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match,
+	statusStylesTeam26,
 } from './styles/statusStyles';
 import {
 	syncBlockStyles,
@@ -562,25 +563,28 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					decisionIconWithVisualRefresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					statusStyles,
-					fg('platform-component-visual-refresh')
-						? expValEqualsNoExposure(
-								'platform_editor_find_and_replace_improvements',
-								'isEnabled',
-								true,
-							)
-							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
-							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								statusStylesMixin_fg_platform_component_visual_refresh
-						: expValEqualsNoExposure(
+					fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							statusStylesTeam26
+						: fg('platform-component-visual-refresh')
+							? expValEqualsNoExposure(
 									'platform_editor_find_and_replace_improvements',
 									'isEnabled',
 									true,
-							  )
-							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match
-							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								statusStylesMixin_without_fg_platform_component_visual_refresh,
+								)
+								? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+									statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
+								: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+									statusStylesMixin_fg_platform_component_visual_refresh
+							: expValEqualsNoExposure(
+										'platform_editor_find_and_replace_improvements',
+										'isEnabled',
+										true,
+								  )
+								? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+									statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match
+								: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+									statusStylesMixin_without_fg_platform_component_visual_refresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					annotationStyles,
 					expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)

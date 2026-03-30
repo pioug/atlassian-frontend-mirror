@@ -18,10 +18,10 @@ export const HelpContainer = styled.div<HelpContainerProps>(
 		marginLeft: 'auto',
 		marginRight: 0,
 		flexShrink: 0,
-		padding: `0 ${token('space.100', '8px')}`,
+		padding: `0 ${token('space.100')}`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> * + *': {
-			marginLeft: token('space.200', '16px'),
+			marginLeft: token('space.200'),
 		},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766

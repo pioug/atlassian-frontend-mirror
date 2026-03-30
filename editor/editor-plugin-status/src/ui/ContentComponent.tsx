@@ -5,6 +5,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { commitStatusPicker, updateStatus } from '../pm-plugins/actions';
 import type { StatusPlugin } from '../statusPluginType';
@@ -76,14 +77,19 @@ export function ContentComponent({
 		return null;
 	}
 
-	const { text, color, localId } = statusNode.attrs;
+	const { text, color, localId, style } = statusNode.attrs;
+
+	const displayText =
+		style !== 'mixedCase' && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+			? text.toUpperCase()
+			: text;
 
 	return (
 		<StatusPicker
 			isNew={statusState?.isNew}
 			focusStatusInput={statusState?.focusStatusInput}
 			target={target}
-			defaultText={text}
+			defaultText={displayText}
 			defaultColor={color}
 			defaultLocalId={localId}
 			mountTo={popupsMountPoint}

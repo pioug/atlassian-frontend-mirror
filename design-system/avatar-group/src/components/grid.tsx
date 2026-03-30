@@ -6,6 +6,7 @@ import { Children, type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { ExitingPersistence } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -57,7 +58,13 @@ const Grid: FC<{
 		aria-label={label}
 		css={[listStyles, fg('platform-avatar-group-spacing-fix') && listStylesFlagged]}
 	>
-		{Children.map(children, (child) => child && <li css={listItemStyles}>{child}</li>)}
+		{fg('platform-dst-motion-uplift') ? (
+			<ExitingPersistence exitThenEnter>
+				{Children.map(children, (child) => child && <li css={listItemStyles}>{child}</li>)}
+			</ExitingPersistence>
+		) : (
+			Children.map(children, (child) => child && <li css={listItemStyles}>{child}</li>)
+		)}
 	</ul>
 );
 

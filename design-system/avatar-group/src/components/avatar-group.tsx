@@ -14,8 +14,10 @@ import noop from '@atlaskit/ds-lib/noop';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { Section } from '@atlaskit/menu';
+import { Motion } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
+import { token } from '@atlaskit/tokens';
 import Tooltip, { type PositionType } from '@atlaskit/tooltip';
 
 import AvatarGroupItem from './avatar-group-item';
@@ -371,11 +373,24 @@ const AvatarGroup = ({
 					</FocusManager>
 				)}
 				trigger={(triggerProps) =>
-					renderMoreButton({
-						...triggerProps,
-						...bindFocus,
-						onClick: handleTriggerClicked,
-					})
+					fg('platform-dst-motion-uplift') ? (
+						<Motion
+							enteringAnimation={token('motion.avatar.enter')}
+							exitingAnimation={token('motion.avatar.exit')}
+						>
+							{renderMoreButton({
+								...triggerProps,
+								...bindFocus,
+								onClick: handleTriggerClicked,
+							})}
+						</Motion>
+					) : (
+						renderMoreButton({
+							...triggerProps,
+							...bindFocus,
+							onClick: handleTriggerClicked,
+						})
+					)
 				}
 				testId={testId && `${testId}--overflow-menu`}
 			/>
@@ -408,18 +423,40 @@ const AvatarGroup = ({
 					idx,
 				);
 
-				return !isTooltipDisabled && !avatarData.isDisabled ? (
-					<Tooltip
-						key={composeUniqueKey(avatarData, idx)}
-						content={avatarData.name}
-						testId={testId && `${testId}--tooltip-${idx}`}
-						position={tooltipPosition}
-					>
-						{finalAvatar}
-					</Tooltip>
-				) : (
-					finalAvatar
-				);
+				if (fg('platform-dst-motion-uplift')) {
+					return (
+						<Motion
+							enteringAnimation={token('motion.avatar.enter')}
+							exitingAnimation={token('motion.avatar.exit')}
+							key={composeUniqueKey(avatarData, idx)}
+						>
+							{!isTooltipDisabled && !avatarData.isDisabled ? (
+								<Tooltip
+									content={avatarData.name}
+									testId={testId && `${testId}--tooltip-${idx}`}
+									position={tooltipPosition}
+								>
+									{finalAvatar}
+								</Tooltip>
+							) : (
+								finalAvatar
+							)}
+						</Motion>
+					);
+				} else {
+					return !isTooltipDisabled && !avatarData.isDisabled ? (
+						<Tooltip
+							key={composeUniqueKey(avatarData, idx)}
+							content={avatarData.name}
+							testId={testId && `${testId}--tooltip-${idx}`}
+							position={tooltipPosition}
+						>
+							{finalAvatar}
+						</Tooltip>
+					) : (
+						finalAvatar
+					);
+				}
 			})}
 			{renderMoreDropdown(+maxAvatar, total, groupId)}
 		</Stack>
@@ -444,18 +481,40 @@ const AvatarGroup = ({
 					idx,
 				);
 
-				return !isTooltipDisabled && !avatarData.isDisabled ? (
-					<Tooltip
-						key={composeUniqueKey(avatarData, idx)}
-						content={avatarData.name}
-						testId={testId && `${testId}--tooltip-${idx}`}
-						position={tooltipPosition}
-					>
-						{finalAvatar}
-					</Tooltip>
-				) : (
-					finalAvatar
-				);
+				if (fg('platform-dst-motion-uplift')) {
+					return (
+						<Motion
+							enteringAnimation={token('motion.avatar.enter')}
+							exitingAnimation={token('motion.avatar.exit')}
+							key={composeUniqueKey(avatarData, idx)}
+						>
+							{!isTooltipDisabled && !avatarData.isDisabled ? (
+								<Tooltip
+									content={avatarData.name}
+									testId={testId && `${testId}--tooltip-${idx}`}
+									position={tooltipPosition}
+								>
+									{finalAvatar}
+								</Tooltip>
+							) : (
+								finalAvatar
+							)}
+						</Motion>
+					);
+				} else {
+					return !isTooltipDisabled && !avatarData.isDisabled ? (
+						<Tooltip
+							key={composeUniqueKey(avatarData, idx)}
+							content={avatarData.name}
+							testId={testId && `${testId}--tooltip-${idx}`}
+							position={tooltipPosition}
+						>
+							{finalAvatar}
+						</Tooltip>
+					) : (
+						finalAvatar
+					);
+				}
 			})}
 			{renderMoreDropdown(+maxAvatar, total, groupId)}
 		</Grid>

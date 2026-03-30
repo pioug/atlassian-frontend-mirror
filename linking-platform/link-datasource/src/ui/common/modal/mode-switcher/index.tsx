@@ -6,7 +6,6 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { N30A, N60, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -33,15 +32,15 @@ export interface ModeSwitcherProps<T extends string = string> {
 
 const modeSwitcherStyles = css({
 	alignItems: 'center',
-	borderRadius: token('space.050', '4px'),
+	borderRadius: token('space.050'),
 	boxSizing: 'border-box',
 	display: 'inline-flex',
-	paddingRight: token('space.050', '4px'),
-	paddingLeft: token('space.050', '4px'),
+	paddingRight: token('space.050'),
+	paddingLeft: token('space.050'),
 	'&:disabled': {
 		opacity: '0.5',
 	},
-	marginLeft: token('space.250', '20px'),
+	marginLeft: token('space.250'),
 	borderColor: token('color.border'),
 	borderWidth: token('border.width'),
 	borderStyle: 'solid',
@@ -49,11 +48,11 @@ const modeSwitcherStyles = css({
 });
 
 const compactModeSwitcherStyles = css({
-	paddingTop: token('space.050', '4px'),
-	paddingRight: token('space.050', '4px'),
-	paddingBottom: token('space.050', '4px'),
-	paddingLeft: token('space.050', '4px'),
-	gap: token('space.025', '2px'),
+	paddingTop: token('space.050'),
+	paddingRight: token('space.050'),
+	paddingBottom: token('space.050'),
+	paddingLeft: token('space.050'),
+	gap: token('space.025'),
 });
 
 const modeInputStyles = css({
@@ -61,14 +60,14 @@ const modeInputStyles = css({
 });
 
 const modeSwitcherLabelStyles = css({
-	color: token('color.text.subtlest', N700),
+	color: token('color.text.subtlest'),
 	boxSizing: 'border-box',
 	font: token('font.body'),
 	fontWeight: token('font.weight.medium'),
 
-	paddingRight: token('space.150', '12px'),
-	paddingLeft: token('space.150', '12px'),
-	borderRadius: token('space.050', '4px'),
+	paddingRight: token('space.150'),
+	paddingLeft: token('space.150'),
+	borderRadius: token('space.050'),
 	minHeight: '24px',
 	display: 'flex',
 	alignItems: 'center',
@@ -80,13 +79,13 @@ const modeSwitcherLabelStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		cursor: 'pointer',
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30A),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 });
 
 const modeSwitcherLabelSelectedStyles = css({
 	backgroundColor: token('color.background.selected'),
-	borderRadius: token('space.050', '4px'),
+	borderRadius: token('space.050'),
 	borderColor: token('color.border.selected'),
 	color: token('color.text.selected'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -97,7 +96,7 @@ const modeSwitcherLabelSelectedStyles = css({
 });
 
 const modeSwitcherLabelDisabledStyles = css({
-	color: token('color.text.disabled', N60),
+	color: token('color.text.disabled'),
 });
 
 const modeSwitcherDisabledStyles = css({
@@ -109,10 +108,10 @@ const modeSwitcherDisabledStyles = css({
 });
 
 const compactModeSwitcherLabelStyles = css({
-	paddingTop: token('space.025', '2px'),
-	paddingRight: token('space.050', '4px'),
-	paddingBottom: token('space.025', '2px'),
-	paddingLeft: token('space.050', '4px'),
+	paddingTop: token('space.025'),
+	paddingRight: token('space.050'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.050'),
 });
 
 export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps<T>) => {

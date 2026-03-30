@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.1.8
+
+### Patch Changes
+
+- [`fb9bbd5719238`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb9bbd5719238) -
+  EDITOR-6193 Correcting `visibleAiActions` attribute of paste actions menu which was not being
+  populated.
+
 ## 9.1.7
 
 ### Patch Changes

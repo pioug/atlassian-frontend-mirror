@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 import { Notifications } from '@atlaskit/atlassian-navigation';
 import { Notifications as NotificationsIframe } from '@atlaskit/atlassian-notifications';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
-import { NotificationLogClient } from '@atlaskit/notification-log-client';
+import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 import Popup from '@atlaskit/popup';
 
 const wrapperStyles = css({
@@ -34,10 +34,9 @@ const NotificationsContent = () => (
 	</div>
 );
 
-class MockNotificationLogClient extends NotificationLogClient {
+class MockNotificationLogClient implements NotificationLogProvider {
 	mockedCount = 0;
 	constructor(mockedCount: number) {
-		super('', '');
 		this.mockedCount = mockedCount;
 	}
 

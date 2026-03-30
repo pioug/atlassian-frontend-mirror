@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.7.0
+
+### Minor Changes
+
+- [`b516e549d5e91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b516e549d5e91) -
+  Allows statusCode to be provided for terminal error metric
+
+## 5.6.1
+
+### Patch Changes
+
+- [`aa542ab5bad47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa542ab5bad47) -
+  Remove platform_ufo_detect_container_scroll and always observe container scrolls
+
 ## 5.6.0
 
 ### Minor Changes

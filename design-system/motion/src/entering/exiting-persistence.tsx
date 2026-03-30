@@ -8,6 +8,8 @@ import React, {
 	useState,
 } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 /**
  * Internally we will be playing with an element that will always have a key defined.
  */
@@ -211,7 +213,7 @@ const ExitingPersistence: React.MemoExoticComponent<
 
 	if (exitThenEnter) {
 		if (exitingChildren.length) {
-			visibleChildren = exitingChildren;
+			visibleChildren = fg('platform-dst-motion-uplift') ? previous : exitingChildren;
 		} else {
 			const nextExitingChildren = visibleChildren.filter((child) => missingKeys.has(child.key));
 			if (nextExitingChildren.length) {

@@ -22,7 +22,7 @@ const SchemaSelectContainer = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const FormContainer = styled.form({
 	display: 'grid',
-	rowGap: token('space.200', '16px'),
+	rowGap: token('space.200'),
 	width: '100%',
 });
 

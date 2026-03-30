@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Text } from '@atlaskit/primitives/compiled';
-import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
@@ -178,7 +177,7 @@ export const AppHome = ({
 	// The default theme is set at module scope and immediately used in context.
 	// To allow the feature flag to switch the logo color at runtime, we also detect the original hardcoded
 	// values and override them to undefined.
-	if (iconColor === '#357DE8' && textColor === token('color.text', N700)) {
+	if (iconColor === '#357DE8' && textColor === token('color.text')) {
 		iconColor = undefined;
 		textColor = undefined;
 	}
@@ -279,7 +278,7 @@ const ProductHome = ({
 	let { iconColor = undefined, textColor = undefined } = theme.mode.productHome;
 
 	// If the theme returns the default Atlassian theme, rely on the Logo default behaviour instead
-	if (iconColor === '#357DE8' && textColor === token('color.text', N700)) {
+	if (iconColor === '#357DE8' && textColor === token('color.text')) {
 		iconColor = undefined;
 		textColor = undefined;
 	}

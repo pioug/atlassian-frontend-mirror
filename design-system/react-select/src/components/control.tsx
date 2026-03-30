@@ -10,8 +10,8 @@ import { cssMap, cx, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+import { getStyleProps } from '../get-style-props';
 import { type CommonPropsAndClassName, type GroupBase } from '../types';
-import { getStyleProps } from '../utils';
 
 export interface ControlProps<
 	Option = unknown,
@@ -157,8 +157,6 @@ border-color 200ms ease-in-out`,
 		},
 	},
 });
-
-export const css: () => {} = () => ({});
 
 const Control: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ControlProps<Option, IsMulti, Group>,

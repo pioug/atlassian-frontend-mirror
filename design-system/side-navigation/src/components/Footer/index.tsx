@@ -7,7 +7,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { Container, type HeaderProps } from '../Header';
@@ -28,8 +27,8 @@ const styles = cssMap({
 		width: '100%',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-item-elem-before]': {
-			marginRight: token('space.0', '0px'),
-			marginBottom: token('space.100', '8px'),
+			marginInlineEnd: token('space.0', '0px'),
+			marginBlockEnd: token('space.100', '8px'),
 			display: 'inline-block',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -41,21 +40,21 @@ const styles = cssMap({
 		'[data-item-description]': {
 			textAlign: 'center',
 			display: 'inline-block',
-			marginTop: token('space.075', '6px'),
-			marginRight: token('space.075', '6px'),
-			marginBottom: token('space.075', '6px'),
-			marginLeft: token('space.075', '6px'),
+			marginBlockStart: token('space.075', '6px'),
+			marginInlineEnd: token('space.075', '6px'),
+			marginBlockEnd: token('space.075', '6px'),
+			marginInlineStart: token('space.075', '6px'),
 		},
 		// Will look interactive if the `component` is anything other than a div.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'div&:hover': {
-			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+			backgroundColor: token('color.background.neutral.subtle'),
 			cursor: 'default',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'div&:active': {
-			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-			color: token('color.text.subtle', N500),
+			backgroundColor: token('color.background.neutral.subtle'),
+			color: token('color.text.subtle'),
 		},
 	},
 });

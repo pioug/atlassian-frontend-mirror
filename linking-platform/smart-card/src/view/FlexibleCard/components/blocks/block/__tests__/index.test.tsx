@@ -100,7 +100,7 @@ describe('Block', () => {
 				const element = await screen.findByTestId('smart-element-link');
 
 				expect(element).toHaveStyle(
-					'font: var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif);',
+					'font: var(--ds-font-body-small,normal 400 9pt/1pc "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif);',
 				);
 			});
 

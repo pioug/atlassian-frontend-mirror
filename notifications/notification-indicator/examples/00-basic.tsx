@@ -1,14 +1,10 @@
 import React from 'react';
 
-import { NotificationLogClient } from '@atlaskit/notification-log-client';
+import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 
 import { NotificationIndicator } from '../src';
 
-class MockNotificationLogClient extends NotificationLogClient {
-	constructor() {
-		super('', '');
-	}
-
+class MockNotificationLogClient implements NotificationLogProvider {
 	public async countUnseenNotifications() {
 		return Promise.resolve({ count: 5 });
 	}

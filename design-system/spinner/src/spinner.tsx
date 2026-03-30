@@ -7,7 +7,6 @@ import React, { useContext, useEffect, useLayoutEffect as useRealLayoutEffect } 
 import { cssMap, jsx, keyframes } from '@compiled/react';
 
 import InteractionContext from '@atlaskit/interaction-context';
-import { N0, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { presetSizes } from './constants';
@@ -17,9 +16,7 @@ import { type Appearance, type SpinnerProps } from './types';
  * Returns the appropriate circle stroke color.
  */
 function getStrokeColor(appearance: Appearance): string {
-	return appearance === 'inherit'
-		? token('color.icon.subtle', N500)
-		: token('color.icon.inverse', N0);
+	return appearance === 'inherit' ? token('color.icon.subtle') : token('color.icon.inverse');
 }
 
 const rotate = keyframes({

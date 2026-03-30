@@ -15,7 +15,7 @@ const loadingWhatsNewResultsListStyles = css({
 	margin: 0,
 	padding: 0,
 	boxSizing: 'border-box',
-	marginTop: token('space.200', '16px'),
+	marginTop: token('space.200'),
 });
 
 export const LoadingWhatsNewResultsList = ({
@@ -33,10 +33,10 @@ export const LoadingWhatsNewResultsList = ({
 const loadingWhatsNewResultsListItemStyles = css({
 	display: 'block',
 	width: '100%',
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.100', '8px'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 	margin: 0,
 	boxSizing: 'border-box',
 });

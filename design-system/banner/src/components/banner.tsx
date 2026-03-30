@@ -6,7 +6,6 @@ import React, { type CSSProperties, forwardRef } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { type BackgroundColor, Box, Inline } from '@atlaskit/primitives/compiled';
-import { N0, N500, N700, R400, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const CSS_VAR_TEXT_COLOR = '--banner-text-color';
@@ -37,15 +36,15 @@ const backgroundColors: Record<Appearance, BackgroundColor> = {
 };
 
 const tokenBackgroundColors: Record<Appearance, string> = {
-	warning: token('color.background.warning.bold', Y300),
-	error: token('color.background.danger.bold', R400),
-	announcement: token('color.background.neutral.bold', N500),
+	warning: token('color.background.warning.bold'),
+	error: token('color.background.danger.bold'),
+	announcement: token('color.background.neutral.bold'),
 };
 
 const tokenTextColors: Record<Appearance, string> = {
-	warning: token('color.text.warning.inverse', N700),
-	error: token('color.text.inverse', N0),
-	announcement: token('color.text.inverse', N0),
+	warning: token('color.text.warning.inverse'),
+	error: token('color.text.inverse'),
+	announcement: token('color.text.inverse'),
 };
 
 type Appearance = 'warning' | 'error' | 'announcement';

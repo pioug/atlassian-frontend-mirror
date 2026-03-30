@@ -33,6 +33,9 @@
 			"path": "../../ds-lib/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-products/tsconfig.json"
 		}
 	]

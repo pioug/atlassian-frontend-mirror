@@ -7,7 +7,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import UnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import { ButtonItem } from '@atlaskit/menu';
-import { B400, B50, N10, N200, N30, N500 } from '@atlaskit/theme/colors';
+import { B400, B50, N10, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import ImgIcon from './common/img-icon';
@@ -46,15 +46,15 @@ const customItemStyles = cssMap({
 			width: 8 * 1.25,
 			alignItems: 'center',
 			justifyContent: 'center',
-			marginRight: token('space.200', '16px'),
+			marginInlineEnd: token('space.200', '16px'),
 		},
 	},
 	disabled: {
-		color: token('color.text.disabled', N200),
+		color: token('color.text.disabled'),
 		backgroundColor: N10,
 		'&:hover, &:active': {
 			backgroundColor: N10,
-			color: token('color.text.disabled', N200),
+			color: token('color.text.disabled'),
 		},
 	},
 });

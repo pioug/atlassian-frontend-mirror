@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 
 import { Text } from '@atlaskit/primitives/compiled';
-import { B100, B400, B50, N20, N300, N400, N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type LinkSearchListItemData } from '../../../../../common/types';
@@ -26,13 +25,13 @@ const base64SVG = (icon: string) =>
 	`data:image/svg+xml;base64,${Buffer.from(icon).toString('base64')}`;
 
 const itemIconStyles = css({
-	minWidth: token('space.200', '16px'),
-	marginTop: token('space.050', '4px'),
-	marginRight: token('space.150', '12px'),
+	minWidth: token('space.200'),
+	marginTop: token('space.050'),
+	marginRight: token('space.150'),
 });
 
 const listItemContextStyles = css({
-	color: token('color.text', N300),
+	color: token('color.text'),
 	font: token('font.body.small'),
 	display: 'flex',
 });
@@ -43,12 +42,12 @@ const listItemContainerStyles = css({
 });
 
 const listItemContainerInnerStylesA11yRefresh = css({
-	color: token('color.text.subtle', N400),
+	color: token('color.text.subtle'),
 	whiteSpace: 'nowrap',
 });
 
 const listItemContainerInnerStylesSeparatorLinkPickerRefresh = css({
-	color: token('color.border', N40A),
+	color: token('color.border'),
 });
 
 const itemNameStyles = css({
@@ -58,15 +57,15 @@ const itemNameStyles = css({
 });
 
 const imgStyles = css({
-	maxWidth: token('space.200', '16px'),
+	maxWidth: token('space.200'),
 });
 
 const listItemBaseStyles = css({
 	display: 'flex',
-	paddingTop: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: `clamp( ${token('space.100', '8px')}, var(--link-picker-padding-left), 100% )`,
-	paddingRight: `clamp( ${token('space.100', '8px')}, var(--link-picker-padding-right), 100% )`,
+	paddingTop: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: `clamp( ${token('space.100')}, var(--link-picker-padding-left), 100% )`,
+	paddingRight: `clamp( ${token('space.100')}, var(--link-picker-padding-right), 100% )`,
 	margin: 0,
 	cursor: 'pointer',
 });
@@ -159,20 +158,20 @@ export type LinkSearchListItemProps = {
 
 const listItemActive = css({
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N20),
-		boxShadow: `inset 2px 0px 0px ${token('color.border.selected', B400)}`,
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
+		boxShadow: `inset 2px 0px 0px ${token('color.border.selected')}`,
 	},
 });
 
 const listItemSelected = css({
-	backgroundColor: token('color.background.selected', B50),
-	boxShadow: `inset 2px 0px 0px ${token('color.border.selected', B400)}`,
+	backgroundColor: token('color.background.selected'),
+	boxShadow: `inset 2px 0px 0px ${token('color.border.selected')}`,
 });
 
 const listItemFocusStyles = css({
 	'&:focus': {
 		outline: 'none',
-		boxShadow: `0 0 0 2px ${token('color.border.focused', B100)} inset`,
+		boxShadow: `0 0 0 2px ${token('color.border.focused')} inset`,
 		textDecoration: 'none',
 	},
 });

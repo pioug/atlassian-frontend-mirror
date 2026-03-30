@@ -25,6 +25,7 @@ import {
 	normaliseJqlString,
 } from '@atlaskit/jql-ast';
 import { JQLAutocomplete, type JQLRuleSuggestion } from '@atlaskit/jql-autocomplete';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	ActionSubject,
@@ -68,6 +69,7 @@ import { getNodeText } from '../utils/document-text';
 import { onStartAutocompleteEvent } from './analytics';
 import { sortOperators } from './autocomplete';
 import { hydrateQuery } from './hydration';
+import { normaliseHydrationKey } from './hydration/util';
 import {
 	type AutocompletePosition,
 	type AutocompleteState,
@@ -1007,6 +1009,10 @@ export const useAutocompletePosition = createHook<State, Actions, AutocompletePo
 	},
 });
 
+// IMPORTANT: All hydration lookup hooks below must normalise fieldName using normaliseHydrationKey.
+// This ensures consistent matching regardless of quoting or casing differences between the hydration API
+// response (storage) and ProseMirror node attributes (lookup). Both sides must use the same normalisation.
+// See normaliseHydrationKey in ./hydration/util.ts for details.
 export const useHydratedValue = createHook<
 	State,
 	Actions,
@@ -1014,6 +1020,9 @@ export const useHydratedValue = createHook<
 	{ fieldName: string; id: string }
 >(Store, {
 	selector: (state, { id, fieldName }) => {
+		if (fg('projects_in_jira_eap_drop2')) {
+			return state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id));
+		}
 		return state.hydratedValues[fieldName]?.get(id);
 	},
 });
@@ -1025,7 +1034,9 @@ export const useHydratedUser = createHook<
 	{ fieldName: string; id: string }
 >(Store, {
 	selector: (state, { id, fieldName }) => {
-		const user = state.hydratedValues[fieldName]?.get(id);
+		const user = fg('projects_in_jira_eap_drop2')
+			? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
+			: state.hydratedValues[fieldName]?.get(id);
 		return user && user.type === 'user' ? user : undefined;
 	},
 });
@@ -1037,7 +1048,9 @@ export const useHydratedTeam = createHook<
 	{ fieldName: string; id: string }
 >(Store, {
 	selector: (state, { id, fieldName }) => {
-		const team = state.hydratedValues[fieldName]?.get(id);
+		const team = fg('projects_in_jira_eap_drop2')
+			? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
+			: state.hydratedValues[fieldName]?.get(id);
 		return team && team.type === 'team' ? team : undefined;
 	},
 });
@@ -1049,9 +1062,9 @@ export const useHydratedProject = createHook<
 	{ fieldName: string; id: string }
 >(Store, {
 	selector: (state, { id, fieldName }) => {
-		const project = state.hydratedValues[normaliseJqlString(fieldName)]?.get(
-			normaliseJqlString(id),
-		);
+		const project = fg('projects_in_jira_eap_drop2')
+			? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
+			: state.hydratedValues[normaliseJqlString(fieldName)]?.get(normaliseJqlString(id));
 		return project && project.type === 'project' ? project : undefined;
 	},
 });

@@ -17,7 +17,6 @@ import { css, jsx } from '@compiled/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
-import { N100A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -36,7 +35,7 @@ const baseStyles = css({
 	position: 'fixed',
 	zIndex: layers.blanket(),
 	inset: 0,
-	backgroundColor: token('color.blanket', N100A),
+	backgroundColor: token('color.blanket'),
 	overflowY: 'auto',
 	pointerEvents: 'initial',
 });

@@ -179,6 +179,13 @@ const unboundStyles = unboundCssMap({
 			},
 		},
 	},
+	// This can be combined with the interactive style when "platform-dst-motion-uplift" is cleaned up
+	interactiveMotion: {
+		transition: token('motion.avatar.hovered'),
+		'&:hover': {
+			transform: 'scale(1.12)',
+		},
+	},
 });
 
 const widthHeightMap = cssMap({
@@ -253,6 +260,10 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				widthHeightMap[size],
 				stackIndex !== undefined && styles.positionRelative,
 				isInteractive && !isDisabled && unboundStyles.interactive,
+				isInteractive &&
+					!isDisabled &&
+					fg('platform-dst-motion-uplift') &&
+					unboundStyles.interactiveMotion,
 				isDisabled && styles.disabled,
 			]}
 			style={

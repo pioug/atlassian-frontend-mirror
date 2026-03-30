@@ -190,7 +190,7 @@ type ResizableTableContainerProps = {
 	isTableScalingEnabled?: boolean;
 	isWholeTableInDanger?: boolean;
 
-	lineLength: number;
+	lineLength: number | undefined;
 	node: PMNode;
 	pluginInjectionApi?: PluginInjectionAPI;
 	shouldUseIncreasedScalingPercent?: boolean;
@@ -348,24 +348,14 @@ export const ResizableTableContainer = React.memo(
 				// When: Show scroll bars -> containerWidth = akEditorGutterPadding * 2 + lineLength;
 				// When: Always -> containerWidth = akEditorGutterPadding * 2 + lineLength + scrollbarWidth;
 				// scrollbarWidth can vary. Values can be 14, 15, 16 and up to 20px;
-				responsiveContainerWidth = isTableScalingEnabled
-					? lineLength
-					: containerWidth - padding * 2 - resizeHandleSpacing;
-
-				// platform_editor_table_fw_numcol_overflow_fix:
 				// lineLength is undefined on first paint → width: NaN → wrapper expands to page
 				// width. rAF col-sizing then runs before the number-column padding and
 				// the final shrink, so column widths are locked in wrong.
-				// With the flag ON, if the value isn’t finite we fall back to gutterWidth
-				// for that first frame—no flash, no premature rAF.
-				//
-				// Type clean-up comes later:
-				// 1) ship this runtime guard (quick fix, no breakage);
-				// 2) TODO: widen lineLength to `number|undefined` and remove this block.
-				if (fg('platform_editor_table_fw_numcol_overflow_fix')) {
-					if (isTableScalingEnabled && !Number.isFinite(responsiveContainerWidth)) {
-						responsiveContainerWidth = containerWidth - padding * 2 - resizeHandleSpacing;
-					}
+				// If the value isn't finite we fall back to gutterWidth for that first frame.
+				if (isTableScalingEnabled && Number.isFinite(lineLength) && lineLength !== undefined) {
+					responsiveContainerWidth = lineLength;
+				} else {
+					responsiveContainerWidth = containerWidth - padding * 2 - resizeHandleSpacing;
 				}
 			} else if (isCommentEditor) {
 				responsiveContainerWidth = containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR;
@@ -436,6 +426,7 @@ export const ResizableTableContainer = React.memo(
 			return !isResizing ? nonResizingMaxWidth : maxResizerWidth;
 		}, [isCommentEditor, isChromelessEditor, isTableScalingEnabled, isResizing, maxResizerWidth]);
 
+		// TODO: EDITOR-1679 - Add support for lineLength being undefined at runtime.
 		const tableResizerProps = {
 			// The `width` is used for .resizer-item in <TableResizer>, and it has to be a number
 			// So we can't use min(var(--ak-editor-table-width), ${tableWidth}px) here
@@ -443,7 +434,8 @@ export const ResizableTableContainer = React.memo(
 			width,
 			maxWidth: tableResizerMaxWidth,
 			containerWidth,
-			lineLength,
+			// oxlint-disable-next-line @typescript-eslint/no-non-null-assertion -- To be fixed in EDITOR-1679
+			lineLength: lineLength!,
 			updateWidth,
 			editorView,
 			getPos,

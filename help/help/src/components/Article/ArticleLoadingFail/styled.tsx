@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 const loadingErrorMessageStyles = css({
-	paddingTop: token('space.300', '24px'),
+	paddingTop: token('space.300'),
 	textAlign: 'center',
 });
 
@@ -17,7 +17,7 @@ export const LoadingErrorMessage = ({ children }: { children: React.ReactNode })
 );
 
 const loadingErrorButtonContainerStyles = css({
-	paddingTop: token('space.300', '24px'),
+	paddingTop: token('space.300'),
 	textAlign: 'center',
 });
 
@@ -28,7 +28,7 @@ export const LoadingErrorButtonContainer = ({
 }): JSX.Element => <div css={loadingErrorButtonContainerStyles}>{children}</div>;
 
 const loadingErrorHeadingStyles = css({
-	paddingTop: token('space.500', '40px'),
+	paddingTop: token('space.500'),
 	textAlign: 'center',
 });
 

@@ -12,7 +12,6 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import CloseIcon from '@atlaskit/icon/core/cross';
 import Spinner from '@atlaskit/spinner';
-import { B200, G400, G500, N0, N20, N200, N400, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -26,11 +25,11 @@ const basicStyles = css({
 	boxSizing: 'content-box',
 	position: 'relative',
 	backgroundClip: 'content-box',
-	backgroundColor: token('color.background.neutral.bold', N200),
+	backgroundColor: token('color.background.neutral.bold'),
 	borderColor: 'transparent',
 	borderStyle: 'solid',
 	borderWidth: token('border.width.selected'),
-	color: token('color.icon.inverse', N0),
+	color: token('color.icon.inverse'),
 	marginBlockEnd: token('space.025'),
 	marginBlockStart: token('space.025'),
 	marginInlineEnd: token('space.025'),
@@ -42,22 +41,22 @@ const basicStyles = css({
 	transition: 'transform 0.2s ease',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:has(:focus-visible)': {
-		borderColor: token('color.border.focused', B200),
+		borderColor: token('color.border.focused'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width.focused'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&[data-disabled]:not([data-checked])': {
-		backgroundColor: token('color.background.disabled', N20),
+		backgroundColor: token('color.background.disabled'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-disabled][data-checked],&[data-disabled][data-checked]:hover': {
-		backgroundColor: token('color.background.disabled', N20),
+		backgroundColor: token('color.background.disabled'),
 	},
 
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.bold.hovered', N400),
+		backgroundColor: token('color.background.neutral.bold.hovered'),
 		cursor: 'pointer',
 	},
 
@@ -69,24 +68,24 @@ const basicStyles = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-checked]': {
-		backgroundColor: token('color.background.success.bold', G400),
-		color: token('color.icon.inverse', N0),
+		backgroundColor: token('color.background.success.bold'),
+		color: token('color.icon.inverse'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-checked]:hover': {
-		backgroundColor: token('color.background.success.bold.hovered', G500),
+		backgroundColor: token('color.background.success.bold.hovered'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:not([data-checked]):hover': {
-		backgroundColor: token('color.background.neutral.bold.hovered', N400),
+		backgroundColor: token('color.background.neutral.bold.hovered'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&[data-disabled]:not([data-checked]):hover': {
-		backgroundColor: token('color.background.disabled', N20),
+		backgroundColor: token('color.background.disabled'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-disabled], &[data-disabled][data-checked], &[data-disabled][data-checked]:hover': {
-		color: token('color.icon.disabled', N70),
+		color: token('color.icon.disabled'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'input[type="checkbox"]': {
@@ -103,7 +102,7 @@ const basicStyles = css({
 	// slider
 	'&::before': {
 		position: 'absolute',
-		backgroundColor: token('color.icon.inverse', N0),
+		backgroundColor: token('color.icon.inverse'),
 		borderRadius: token('radius.full', '50%'),
 		content: '""',
 		insetBlockEnd: `4px`,
@@ -113,12 +112,12 @@ const basicStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-checked]::before': {
-		backgroundColor: token('color.icon.inverse', N0),
+		backgroundColor: token('color.icon.inverse'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-disabled]::before': {
 		zIndex: 1,
-		backgroundColor: token('color.icon.inverse', N0),
+		backgroundColor: token('color.icon.inverse'),
 	},
 	'@media screen and (forced-colors: active)': {
 		'&::before': {

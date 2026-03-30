@@ -1,5 +1,14 @@
 # @atlaskit/notification-indicator
 
+## 10.1.1
+
+### Patch Changes
+
+- [`62281c5d82340`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62281c5d82340) -
+  Align examples and tests with the new `NotificationLogClient` object constructor API , updated for
+  GraphQL support
+- Updated dependencies
+
 ## 10.1.0
 
 ### Minor Changes

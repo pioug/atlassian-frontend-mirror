@@ -15,25 +15,22 @@ export type { StateManagerProps as Props } from './use-state-manager';
 export { useStateManager };
 
 export type { SelectComponentsConfig, SelectComponents } from './components';
-export type {
-	ContainerProps,
-	IndicatorsContainerProps,
-	ValueContainerProps,
-} from './components/containers';
+export type { ContainerProps } from './components/containers/select-container';
+export type { IndicatorsContainerProps } from './components/containers/indicators-container';
+export type { ValueContainerProps } from './components/containers/value-container';
 export type { ControlProps } from './components/control';
-export type { GroupProps, GroupHeadingProps } from './components/group';
-export type {
-	ClearIndicatorProps,
-	DropdownIndicatorProps,
-	LoadingIndicatorProps,
-} from './components/indicators';
+export type { GroupProps } from './components/group';
+export type { GroupHeadingProps } from './components/group-heading';
+export type { ClearIndicatorProps } from './components/indicators/clear-indicator';
+export type { DropdownIndicatorProps } from './components/indicators/dropdown-indicator';
+export type { LoadingIndicatorProps } from './components/indicators/loading-indicator';
 export type { InputProps } from './components/input';
-export type { MenuListProps, MenuProps, NoticeProps, MenuPortalProps } from './components/menu';
-export type {
-	MultiValueGenericProps,
-	MultiValueProps,
-	MultiValueRemoveProps,
-} from './components/multi-value';
+export type { MenuListProps } from './components/menu-list';
+export type { MenuProps } from './components/menu';
+export type { MenuPortalProps } from './components/menu-portal';
+export type { NoticeProps, MultiValueGenericProps } from './types';
+export type { MultiValueProps } from './components/multi-value';
+export type { MultiValueRemoveProps } from './components/multi-value-remove';
 export type { OptionProps } from './components/option';
 export type { PlaceholderProps } from './components/placeholder';
 export type { SingleValueProps } from './components/single-value';

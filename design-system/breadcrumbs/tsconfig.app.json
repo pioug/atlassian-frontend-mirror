@@ -1,9 +1,6 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": [
-		"./src/**/*.ts",
-		"./src/**/*.tsx"
-	],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -51,9 +48,6 @@
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"
-		},
-		{
-			"path": "../theme/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

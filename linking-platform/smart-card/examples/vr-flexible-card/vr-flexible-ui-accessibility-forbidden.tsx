@@ -24,7 +24,7 @@ const actions: ActionItem[] = [
 		content: 'Open',
 		hideContent: true,
 		name: ActionName.CustomAction,
-		icon: <ShortcutIcon label="open in new tab" color={token('color.icon', '#44546F')} />,
+		icon: <ShortcutIcon label="open in new tab" color={token('color.icon')} />,
 		iconPosition: 'before',
 		onClick: () => console.log('Custom action!'),
 		testId: 'action-item-custom',

@@ -6,6 +6,7 @@ import { Children, type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { ExitingPersistence } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -59,19 +60,40 @@ const Stack: FC<{
 			size === 'small' && fg('platform-avatar-group-spacing-fix') && listSmallStyles,
 		]}
 	>
-		{Children.map(
-			children,
-			(child) =>
-				child && (
-					<li
-						css={[
-							listItemStyles,
-							size === 'small' && fg('platform-avatar-group-spacing-fix') && listItemSmallStyles,
-						]}
-					>
-						{child}
-					</li>
-				),
+		{fg('platform-dst-motion-uplift') ? (
+			<ExitingPersistence exitThenEnter>
+				{Children.map(
+					children,
+					(child) =>
+						child && (
+							<li
+								css={[
+									listItemStyles,
+									size === 'small' &&
+										fg('platform-avatar-group-spacing-fix') &&
+										listItemSmallStyles,
+								]}
+							>
+								{child}
+							</li>
+						),
+				)}
+			</ExitingPersistence>
+		) : (
+			Children.map(
+				children,
+				(child) =>
+					child && (
+						<li
+							css={[
+								listItemStyles,
+								size === 'small' && fg('platform-avatar-group-spacing-fix') && listItemSmallStyles,
+							]}
+						>
+							{child}
+						</li>
+					),
+			)
 		)}
 	</ul>
 );

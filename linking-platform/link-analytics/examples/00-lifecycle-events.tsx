@@ -191,12 +191,12 @@ function LifecycleAnalytics() {
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		<div className="example" style={{ padding: token('space.600', '48px') }}>
+		<div className="example" style={{ padding: token('space.600') }}>
 			<IntlProvider locale="en">
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div style={{ margin: '0 auto', maxWidth: 800 }}>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					<div style={{ marginBottom: token('space.400', '32px') }}>
+					<div style={{ marginBottom: token('space.400') }}>
 						{links.map(({ id, url }) => (
 							<Fragment key={id}>
 								<Card

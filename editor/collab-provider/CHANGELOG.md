@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 16.2.0
+
+### Minor Changes
+
+- [`ffccc4788eabb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffccc4788eabb) -
+  Cleanup presence PMR experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.12
 
 ### Patch Changes

@@ -55,7 +55,7 @@ const Button: React.MemoExoticComponent<
 		const [isActive, setIsActive] = useState<boolean>(false);
 
 		// Wrap onMouseDown / onMouseUp to manually trigger active state
-		//  in Firefox
+		// in Firefox
 		const onMouseDown = useCallback(
 			(event: React.MouseEvent<HTMLElement>) => {
 				providedOnMouseDown(event);

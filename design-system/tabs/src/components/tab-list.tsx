@@ -6,7 +6,6 @@ import { Children, createRef, type KeyboardEvent, type ReactNode, useCallback } 
 
 import { css, jsx } from '@compiled/react';
 
-import { B400, B500, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { TabContext } from '../internal/tab-context';
@@ -30,7 +29,7 @@ const tabListStyles = css({
 		margin: 0,
 		position: 'relative',
 		borderRadius: token('radius.medium', '6px'),
-		color: token('color.text.subtle', N500),
+		color: token('color.text.subtle'),
 		cursor: 'pointer',
 		overflow: 'hidden',
 		paddingBlockEnd: token('space.075', '6px'),
@@ -41,13 +40,13 @@ const tabListStyles = css({
 		whiteSpace: 'nowrap',
 		'&:hover': {
 			// TODO: interaction states will be reviewed in DSP-1438
-			color: token('color.text.subtle', B400),
+			color: token('color.text.subtle'),
 			'&::after': {
 				width: 'inherit',
 				height: 0,
 				margin: 0,
 				position: 'absolute',
-				borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border', 'transparent')}`,
+				borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border')}`,
 				content: '""',
 				insetBlockEnd: 0,
 				insetInlineEnd: token('space.100', '8px'),
@@ -56,13 +55,13 @@ const tabListStyles = css({
 		},
 		'&:active': {
 			// TODO: interaction states will be reviewed in DSP-1438
-			color: token('color.text', B500),
+			color: token('color.text'),
 			'&::after': {
 				width: 'inherit',
 				height: 0,
 				margin: 0,
 				position: 'absolute',
-				borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border', 'transparent')}`,
+				borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border')}`,
 				content: '""',
 				insetBlockEnd: 0,
 				insetInlineEnd: token('space.100', '8px'),
@@ -71,14 +70,14 @@ const tabListStyles = css({
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 		'&[aria-selected="true"]': {
-			color: token('color.text.selected', B400),
+			color: token('color.text.selected'),
 			'&::after': {
 				width: 'inherit',
 				height: 0,
 				margin: 0,
 				position: 'absolute',
 				// This line is a border so it is visible in high contrast mode
-				borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border.selected', B400)}`,
+				borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border.selected')}`,
 				content: '""',
 				insetBlockEnd: 0,
 				insetInlineEnd: token('space.100', '8px'),
@@ -92,7 +91,7 @@ const tabListStyles = css({
 		margin: 0,
 		position: 'absolute',
 		// This line is not a border so the selected line is visible in high contrast mode
-		backgroundColor: token('color.border', N30),
+		backgroundColor: token('color.border'),
 		content: '""',
 		insetBlockEnd: 0,
 		insetInlineEnd: 0,

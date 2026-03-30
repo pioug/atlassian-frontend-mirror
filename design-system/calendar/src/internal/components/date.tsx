@@ -9,21 +9,20 @@ import { css, jsx } from '@compiled/react';
 import noop from '@atlaskit/ds-lib/noop';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Grid } from '@atlaskit/primitives/compiled';
-import { B200, B400, B50, N0, N200, N30, N40, N500, N600, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { TabIndex } from '../../types';
 import type { DateObj } from '../types';
 
 const dateCellSiblingStyle = css({
-	color: token('color.text.subtlest', N200),
+	color: token('color.text.subtlest'),
 	'&:hover': {
-		color: token('color.text.subtlest', N200),
+		color: token('color.text.subtlest'),
 	},
 });
 
 const dateCellTodayStyle = css({
-	color: token('color.text.selected', B400),
+	color: token('color.text.selected'),
 	fontWeight: token('font.weight.bold', 'bold'),
 	'&::after': {
 		display: 'block',
@@ -38,28 +37,28 @@ const dateCellTodayStyle = css({
 });
 
 const dateCellPrevSelectedStyle = css({
-	backgroundColor: token('color.background.selected', B50),
-	color: token('color.text.subtle', N600),
+	backgroundColor: token('color.background.selected'),
+	color: token('color.text.subtle'),
 	'&:hover': {
-		color: token('color.text.subtle', N600),
+		color: token('color.text.subtle'),
 	},
 });
 
 const dateCellSelectedStyle = css({
-	backgroundColor: token('color.background.selected', N500),
-	color: token('color.text.selected', N0),
+	backgroundColor: token('color.background.selected'),
+	color: token('color.text.selected'),
 	'&:hover': {
-		backgroundColor: token('color.background.selected.hovered', B50),
-		color: token('color.text.selected', N600),
+		backgroundColor: token('color.background.selected.hovered'),
+		color: token('color.text.selected'),
 	},
 });
 
 const dateCellDisabledStyle = css({
-	color: token('color.text.disabled', N40),
+	color: token('color.text.disabled'),
 	cursor: 'not-allowed',
 	'&:hover': {
 		backgroundColor: 'transparent',
-		color: token('color.text.disabled', N40),
+		color: token('color.text.disabled'),
 	},
 });
 
@@ -73,7 +72,7 @@ const dateCellStyles = css({
 	borderRadius: token('radius.small', '3px'),
 	borderStyle: 'solid',
 	borderWidth: token('border.width.selected'),
-	color: token('color.text', N900),
+	color: token('color.text'),
 	cursor: 'pointer',
 	font: token('font.body'),
 	paddingBlockEnd: token('space.050', '4px'),
@@ -84,17 +83,17 @@ const dateCellStyles = css({
 	paddingInlineStart: '9px',
 	textAlign: 'center',
 	'&:focus-visible': {
-		borderColor: token('color.border.focused', B200),
+		borderColor: token('color.border.focused'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width.focused'),
 	},
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
-		color: token('color.text', N900),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
+		color: token('color.text'),
 	},
 	'&:active': {
-		backgroundColor: token('color.background.neutral.subtle.pressed', B50),
-		color: token('color.text', N900),
+		backgroundColor: token('color.background.neutral.subtle.pressed'),
+		color: token('color.text'),
 	},
 });
 // platform-dst-shape-theme-default TODO: Merge into base after rollout

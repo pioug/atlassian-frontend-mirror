@@ -11,20 +11,6 @@ import { css, jsx } from '@compiled/react';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import __noop from '@atlaskit/ds-lib/noop';
 import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	B200,
-	B300,
-	B400,
-	B50,
-	N10,
-	N100,
-	N20,
-	N30,
-	N70,
-	N80,
-	N900,
-	R300,
-} from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type RadioProps } from './types';
@@ -45,7 +31,7 @@ const labelStyles = css({
 	boxSizing: 'border-box',
 	position: 'relative',
 	alignItems: 'flex-start',
-	color: token('color.text', N900),
+	color: token('color.text'),
 	font: token('font.body'),
 });
 
@@ -53,13 +39,13 @@ const labelStyles = css({
 const labelLegacyStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&[data-disabled]': {
-		color: token('color.text.disabled', N80),
+		color: token('color.text.disabled'),
 		cursor: 'not-allowed',
 	},
 });
 
 const labelDisabledStyles = css({
-	color: token('color.text.disabled', N80),
+	color: token('color.text.disabled'),
 	cursor: 'not-allowed',
 });
 
@@ -67,12 +53,12 @@ const radioBaseStyles = css({
 	display: 'flex',
 	// TODO https://product-fabric.atlassian.net/browse/DSP-10507 revisit and remove the scale of 14/24
 	/*
-    The circle should be 14px * 14px centred in a 24px * 24px box.
-    This is inclusive of a 2px border and inner circle with 2px radius.
-    There is a Chrome bug that makes the circle become an oval and the
-    inner circle not be centred at various zoom levels. This bug is fixed
-    in all browsers if a scale of 14/24 is applied.
-  */
+		The circle should be 14px * 14px centred in a 24px * 24px box.
+		This is inclusive of a 2px border and inner circle with 2px radius.
+		There is a Chrome bug that makes the circle become an oval and the
+		inner circle not be centred at various zoom levels. This bug is fixed
+		in all browsers if a scale of 14/24 is applied.
+	*/
 	width: '24px',
 	height: '24px',
 	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
@@ -84,20 +70,20 @@ const radioBaseStyles = css({
 	flexShrink: 0,
 	backgroundColor: 'var(--radio-background-color)',
 	/* Border should multiply by 24/14 to offset scale, a scale of 12 / 7 is to fix a Chrome bug that makes the circle become an oval and the
-    inner circle not be centred at various zoom levels */
+		inner circle not be centred at various zoom levels */
 	border: `${token('border.width', '1px')} solid var(--radio-border-color)`,
 	borderRadius: token('radius.full', '50%'),
 	MozAppearance: 'none',
 	outline: 'none',
 
 	/*
-    Change the variables --radio-background-color, --radio-border-color,
-    -radio-dot-color and -radio-dot-opacity according to user interactions.
-    All other variables are constant
-  */
-	'--radio-background-color': token('color.background.input', N10),
-	'--radio-border-color': token('color.border.input', N100),
-	'--radio-dot-color': token('color.icon.inverse', N10),
+		Change the variables --radio-background-color, --radio-border-color,
+		-radio-dot-color and -radio-dot-opacity according to user interactions.
+		All other variables are constant
+	*/
+	'--radio-background-color': token('color.background.input'),
+	'--radio-border-color': token('color.border.input'),
+	'--radio-dot-color': token('color.icon.inverse'),
 	'--radio-dot-opacity': 0,
 
 	transform: 'scale(calc(7.5 / 12))', // 15px
@@ -120,33 +106,33 @@ const radioBaseStyles = css({
 
 const radioInteractiveStyles = css({
 	'&:hover': {
-		'--radio-background-color': token('color.background.input.hovered', N30),
-		'--radio-border-color': token('color.border.input', N100),
+		'--radio-background-color': token('color.background.input.hovered'),
+		'--radio-border-color': token('color.border.input'),
 	},
 	'&:active': {
-		'--radio-background-color': token('color.background.input.pressed', N30),
+		'--radio-background-color': token('color.background.input.pressed'),
 	},
 	'&:focus': {
-		outline: `${token('border.width.focused', '3px')} solid ${token('color.border.focused', B200)}`,
+		outline: `${token('border.width.focused', '3px')} solid ${token('color.border.focused')}`,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		outlineOffset: '3px',
 	},
 	'&:checked': {
-		'--radio-background-color': token('color.background.selected.bold', B400),
-		'--radio-border-color': token('color.background.selected.bold', B400),
+		'--radio-background-color': token('color.background.selected.bold'),
+		'--radio-border-color': token('color.background.selected.bold'),
 		'--radio-dot-opacity': 1,
 	},
 	'&:checked:hover': {
-		'--radio-background-color': token('color.background.selected.bold.hovered', B300),
-		'--radio-border-color': token('color.background.selected.bold.hovered', B300),
+		'--radio-background-color': token('color.background.selected.bold.hovered'),
+		'--radio-border-color': token('color.background.selected.bold.hovered'),
 	},
 	'&:checked:active': {
-		'--radio-background-color': token('color.background.selected.bold.pressed', B50),
-		'--radio-border-color': token('color.border.input', N100),
-		'--radio-dot-color': token('color.icon.inverse', B400),
+		'--radio-background-color': token('color.background.selected.bold.pressed'),
+		'--radio-border-color': token('color.border.input'),
+		'--radio-dot-color': token('color.icon.inverse'),
 	},
 	'&:checked:focus': {
-		outline: `${token('border.width.focused', '3px')} solid ${token('color.border.focused', B200)}`,
+		outline: `${token('border.width.focused', '3px')} solid ${token('color.border.focused')}`,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		outlineOffset: '3px',
 	},
@@ -154,9 +140,9 @@ const radioInteractiveStyles = css({
 
 const radioDisabledStyles = css({
 	cursor: 'not-allowed',
-	'--radio-background-color': token('color.background.disabled', N20),
-	'--radio-border-color': token('color.border.disabled', N20),
-	'--radio-dot-color': token('color.icon.disabled', N70),
+	'--radio-background-color': token('color.background.disabled'),
+	'--radio-border-color': token('color.border.disabled'),
+	'--radio-dot-color': token('color.icon.disabled'),
 });
 
 const radioDisabledCheckedStyles = css({
@@ -168,23 +154,23 @@ const radioDisabledCheckedStyles = css({
 const radioLegacyStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&[data-invalid], &:checked[data-invalid]': {
-		'--radio-border-color': token('color.icon.danger', R300),
+		'--radio-border-color': token('color.icon.danger'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&:disabled, &:disabled:hover, &:disabled:focus, &:disabled:active, &:disabled[data-invalid], &:disabled:checked, &:disabled:checked:hover, &:disabled:checked:focus, &:disabled:checked:active':
 		{
 			cursor: 'not-allowed',
-			'--radio-background-color': token('color.background.disabled', N20),
-			'--radio-border-color': token('color.border.disabled', N20),
-			'--radio-dot-color': token('color.icon.disabled', N70),
+			'--radio-background-color': token('color.background.disabled'),
+			'--radio-border-color': token('color.border.disabled'),
+			'--radio-dot-color': token('color.icon.disabled'),
 		},
 });
 
 const radioInvalidStyles = css({
-	'--radio-border-color': token('color.icon.danger', R300),
+	'--radio-border-color': token('color.icon.danger'),
 	'&:checked': {
-		'--radio-border-color': token('color.icon.danger', R300),
+		'--radio-border-color': token('color.icon.danger'),
 	},
 });
 

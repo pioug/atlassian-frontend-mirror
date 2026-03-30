@@ -13,11 +13,8 @@ const needMoreHelpContainerStyles = css({
 	alignContent: 'center',
 	backgroundColor: token('color.background.accent.yellow.subtlest'),
 	width: '187px',
-	height: token('space.500', '42px'),
-	boxShadow: token(
-		'elevation.shadow.overlay',
-		'0px 0px 0px 1px var(--shadow-overlay-third,rgba(188,214,240,0.00)) inset',
-	),
+	height: token('space.500'),
+	boxShadow: token('elevation.shadow.overlay'),
 	filter:
 		'drop-shadow(0px 8px 12px var(--shadow-overlay-second, rgba(9,30,66,0.15))) drop-shadow(0px 0px 1px rgba(9,30,66,0.31))',
 });

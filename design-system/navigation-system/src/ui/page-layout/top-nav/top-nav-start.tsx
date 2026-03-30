@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/experimental/open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -344,11 +343,6 @@ export function TopNavStart({
 	testId,
 	sideNavToggleButton,
 }: TopNavStartProps): JSX.Element {
-	if (fg('platform_editor_topnavstart_delay_browser_check')) {
-		isFirefox =
-			typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-	}
-
 	const isFhsEnabled = useIsFhsEnabled();
 	const ref = useContext(TopNavStartAttachRef);
 	const elementRef = useRef(null);

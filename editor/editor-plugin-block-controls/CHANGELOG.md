@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.0.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.26
+
+### Patch Changes
+
+- [`13ec7df78a017`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13ec7df78a017) -
+  Editor-4477: Removed the heading with alignment patch in the newGetSelection
+- Updated dependencies
+
+## 9.0.25
+
+### Patch Changes
+
+- [`12e112a137d5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12e112a137d5f) -
+  Clean up platform_editor_table_fw_numcol_overflow_fix feature flag
+
 ## 9.0.24
 
 ### Patch Changes

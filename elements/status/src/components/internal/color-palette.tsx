@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { token } from '@atlaskit/tokens';
+import { token, useThemeObserver } from '@atlaskit/tokens';
 import React, { useEffect, useRef, useCallback } from 'react';
 import { css, jsx } from '@compiled/react';
 import { type Color as ColorType } from '../Status';
@@ -92,8 +92,54 @@ const paletteRefreshed: [
 	],
 ];
 
-const getPalette = () =>
-	fg('platform-component-visual-refresh') ? paletteRefreshed : paletteLegacy;
+const paletteTeam26: [
+	colorValue: ColorType,
+	backgroundColor: string,
+	lightBorderColor: string,
+	darkBorderColor: string,
+	iconColor: string,
+][] = [
+	['neutral', token('color.background.neutral'), '#CACBCF', '#63666B', token('color.icon')],
+	[
+		'blue',
+		token('color.background.information.subtler'),
+		'#8FB8F6',
+		'#1558BC',
+		token('color.icon'),
+	],
+	['green', token('color.background.success.subtler'), '#B3DF72', '#4C6B1F', token('color.icon')],
+	['yellow', token('color.background.warning.subtler'), '#FBC828', '#9E4C00', token('color.icon')],
+	['red', token('color.background.danger.subtler'), '#FD9891', '#AE2E24', token('color.icon')],
+	[
+		'purple',
+		token('color.background.discovery.subtler'),
+		'#D8A0F7',
+		'#803FA5',
+		token('color.icon'),
+	],
+];
+
+type PaletteEntry = [
+	colorValue: ColorType,
+	backgroundColor: string,
+	borderColor: string,
+	iconColor: string,
+];
+
+const getPalette = (colorMode?: string): PaletteEntry[] => {
+	if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
+		const isDark = colorMode === 'dark';
+		return paletteTeam26.map(
+			([colorValue, backgroundColor, lightBorderColor, darkBorderColor, iconColor]) => [
+				colorValue,
+				backgroundColor,
+				isDark ? darkBorderColor : lightBorderColor,
+				iconColor,
+			],
+		);
+	}
+	return fg('platform-component-visual-refresh') ? paletteRefreshed : paletteLegacy;
+};
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const colorPaletteWrapperStyles = css({
@@ -122,7 +168,8 @@ export default ({
 	className,
 	onHover,
 }: ColorPaletteProps): JSX.Element => {
-	const palette = getPalette();
+	const { colorMode } = useThemeObserver();
+	const palette = getPalette(colorMode);
 	const colorRefs: React.MutableRefObject<HTMLButtonElement[]> = useRef([]);
 	useEffect(() => {
 		colorRefs.current = colorRefs.current.slice(0, palette.length);

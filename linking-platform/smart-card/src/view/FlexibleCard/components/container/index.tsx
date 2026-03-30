@@ -130,7 +130,7 @@ const baseStyleCommon = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'a:focus, .has-action:focus': {
-		outlineOffset: token('space.negative.025', '-2px'),
+		outlineOffset: token('space.negative.025'),
 	},
 });
 

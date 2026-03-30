@@ -16,7 +16,6 @@ import CheckCircleIcon from '@atlaskit/icon/core/status-success';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import Textfield from '@atlaskit/textfield';
-import { G300, N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -28,7 +27,7 @@ import { searchInputMessages } from './messages';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const FieldContainer = styled.div({
 	flex: 1,
-	marginTop: token('space.negative.100', '-8px'),
+	marginTop: token('space.negative.100'),
 });
 
 const buttonBaseStyles = css({
@@ -38,7 +37,7 @@ const buttonBaseStyles = css({
 	alignItems: 'center',
 	justifyContent: 'center',
 	flexDirection: 'column',
-	marginRight: token('space.100', '0.5em'),
+	marginRight: token('space.100'),
 });
 
 const AQLSupportDocumentLink =
@@ -51,7 +50,7 @@ export interface AqlSearchInputProps {
 }
 
 const styles = cssMap({
-	searchButtonContainer: { marginRight: token('space.075', '6px') },
+	searchButtonContainer: { marginRight: token('space.075') },
 });
 
 const renderValidatorIcon = (lastValidationResult: AqlValidationResult) => {
@@ -62,7 +61,7 @@ const renderValidatorIcon = (lastValidationResult: AqlValidationResult) => {
 		return (
 			<CrossCircleIcon
 				label="label"
-				color={token('color.icon.danger', R400)}
+				color={token('color.icon.danger')}
 				testId="assets-datasource-modal--aql-invalid"
 				spacing="spacious"
 			/>
@@ -72,7 +71,7 @@ const renderValidatorIcon = (lastValidationResult: AqlValidationResult) => {
 		return (
 			<CheckCircleIcon
 				label="label"
-				color={token('color.icon.success', G300)}
+				color={token('color.icon.success')}
 				testId="assets-datasource-modal--aql-valid"
 				spacing="spacious"
 			/>
@@ -108,7 +107,7 @@ export const AqlSearchInput = ({
 							elemBeforeInput={
 								<span
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									style={{ paddingLeft: token('space.075', '6px'), width: 24, display: 'flex' }}
+									style={{ paddingLeft: token('space.075'), width: 24, display: 'flex' }}
 								>
 									{renderValidatorIcon(lastValidationResult)}
 								</span>
@@ -123,7 +122,7 @@ export const AqlSearchInput = ({
 										<a href={AQLSupportDocumentLink} target="_blank" css={buttonBaseStyles}>
 											<QuestionCircleIcon
 												label="label"
-												color={token('color.icon', N500)}
+												color={token('color.icon')}
 												testId="assets-datasource-modal-help"
 												spacing="spacious"
 											/>

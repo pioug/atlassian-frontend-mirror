@@ -9,6 +9,7 @@ import {
 	findNodeWithExpandParents,
 	getLocalIdSelector,
 } from '@atlaskit/editor-common/block-menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useStableScroll } from './useStableScroll';
 
 /**
@@ -28,6 +29,7 @@ import { useStableScroll } from './useStableScroll';
 export const useScrollToBlock = (
 	containerRef?: React.RefObject<HTMLDivElement>,
 	adfDoc?: DocNode,
+	scrollToBlock?: (element: HTMLElement) => void,
 ): void => {
 	const { waitForStability, cleanup: cleanupStability } = useStableScroll({
 		stabilityWaitTime: 750,
@@ -127,7 +129,17 @@ export const useScrollToBlock = (
 			// Element found and all parent expands are open! Use the utility to scroll.
 			// (This will handle any final edge cases and do the actual scrolling).
 			// Capture cleanup function to cancel pending timeouts.
-			cancelExpandAndScroll = expandAllParentsThenScroll(element);
+			if (fg('platform_editor_block_menu_v2_patch_4')) {
+				cancelExpandAndScroll = expandAllParentsThenScroll(element, 0, (el) => {
+					if (scrollToBlock) {
+						scrollToBlock(el);
+					} else {
+						el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					}
+				});
+			} else {
+				cancelExpandAndScroll = expandAllParentsThenScroll(element);
+			}
 
 			return true;
 		};
@@ -246,5 +258,5 @@ export const useScrollToBlock = (
 		return cleanup;
 		// Intentionally not including adfDoc in the dependency array to avoid unnecessary re-renders.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [containerRef, waitForStability, cleanupStability]);
+	}, [containerRef, waitForStability, cleanupStability, scrollToBlock]);
 };

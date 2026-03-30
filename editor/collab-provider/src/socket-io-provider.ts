@@ -1,7 +1,6 @@
 import type { Socket } from 'socket.io-client';
 import { io } from 'socket.io-client';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { isIsolatedCloud } from '@atlaskit/atlassian-context';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { Provider } from './provider';
@@ -33,26 +32,7 @@ export function createSocketIOSocket(
 			transports = ['websocket'];
 		}
 		socketIOOptions = SOCKET_IO_OPTIONS_WITH_HIGH_JITTER;
-
-		// PMR routing for presence traffic
-		if (
-			(isIsolatedCloud() &&
-				expValEquals(
-					'platform_editor_use_pmr_for_collab_presence_in_ic',
-					'isEnabled',
-					true,
-					false,
-				)) ||
-			(!isIsolatedCloud() &&
-				expValEquals(
-					'platform_editor_use_pmr_for_collab_presence_non_ic',
-					'isEnabled',
-					true,
-					false,
-				))
-		) {
-			usePMR = true;
-		}
+		usePMR = true;
 	} else {
 		// PMR routing for edit traffic
 		if (

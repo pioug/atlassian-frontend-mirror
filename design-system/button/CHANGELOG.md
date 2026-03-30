@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 23.10.6
+
+### Patch Changes
+
+- [`7aef1e49e90ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aef1e49e90ea) -
+  Removes redundant fallback color values via @atlaskit/theme
+- Updated dependencies
+
 ## 23.10.5
 
 ### Patch Changes

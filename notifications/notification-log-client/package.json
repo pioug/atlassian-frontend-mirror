@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/notification-log-client",
-	"version": "6.5.0",
+	"version": "7.0.0",
 	"description": "Client APIs for notification-log service",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,16 +26,10 @@
 			"name": "Notification Log Client"
 		}
 	},
-	"platform-feature-flags": {
-		"post-office_enable-notification-components-graphql": {
-			"type": "boolean"
-		}
-	},
 	"exports": {
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "root:*"
 	},

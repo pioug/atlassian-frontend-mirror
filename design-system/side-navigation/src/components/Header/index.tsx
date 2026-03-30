@@ -7,7 +7,6 @@ import React, { forwardRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { type CustomItemComponentProps } from '@atlaskit/menu';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { CustomItem } from '../Item';
@@ -18,7 +17,7 @@ const styles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-item-title]': {
 			font: token('font.heading.xsmall'),
-			color: token('color.text', N500),
+			color: token('color.text'),
 		},
 		// Will look interactive if the `component` is anything other than a div.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -29,7 +28,7 @@ const styles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'div&:active': {
 			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-			color: token('color.text', N500),
+			color: token('color.text'),
 		},
 	},
 });

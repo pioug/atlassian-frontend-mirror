@@ -1,5 +1,17 @@
 # @atlaskit/jql-editor
 
+## 5.14.0
+
+### Minor Changes
+
+- [`2ce9dcaba3539`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ce9dcaba3539) -
+  [ux] Normalise hydration key so that lozenge data is refreshed in JQL editor
+
+### Patch Changes
+
+- [`ce16754d5db01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce16754d5db01) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 5.13.6
 
 ### Patch Changes

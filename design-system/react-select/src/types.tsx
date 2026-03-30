@@ -1,4 +1,6 @@
-import type { XCSSProp } from '@compiled/react';
+import type { ReactNode } from 'react';
+
+import type { CSSProperties, XCSSProp } from '@compiled/react';
 
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
 
@@ -185,3 +187,35 @@ export type GetOptionLabel<Option> = (option: Option) => string;
 export type GetOptionValue<Option> = (option: Option) => string;
 
 export type CSSObjectWithLabel = any;
+
+export interface MultiValueGenericProps<
+	Option = unknown,
+	IsMulti extends boolean = boolean,
+	Group extends GroupBase<Option> = GroupBase<Option>,
+> {
+	children: ReactNode;
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	data: any;
+	innerProps: { className?: string; style?: CSSProperties };
+	selectProps: SelectProps<Option, IsMulti, Group>;
+	isFocused?: boolean;
+	isDisabled?: boolean;
+	hasEllipsis?: boolean;
+	className?: string | undefined;
+	xcss?: XCSSProp<XCSSAllProperties, XCSSAllPseudos> | undefined;
+}
+
+export interface NoticeProps<
+	Option = unknown,
+	IsMulti extends boolean = boolean,
+	Group extends GroupBase<Option> = GroupBase<Option>,
+> extends CommonPropsAndClassName<Option, IsMulti, Group> {
+	/**
+	 * The children to be rendered.
+	 */
+	children: ReactNode;
+	/**
+	 * Props to be passed on to the wrapper.
+	 */
+	innerProps: JSX.IntrinsicElements['div'];
+}

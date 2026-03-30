@@ -99,7 +99,7 @@ function CustomMessagesExample() {
 	return (
 		<Fragment>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ paddingBottom: token('space.250', '20px') }}>
+			<div style={{ paddingBottom: token('space.250') }}>
 				{fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
 					<Link id="test-link" href={link.url} target="_blank" onClick={handleClick}>
 						{link.displayText || link.url}

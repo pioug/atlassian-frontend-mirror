@@ -2,7 +2,6 @@
 
 import { styled } from '@compiled/react';
 
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { FrameStyle } from '../types';
@@ -69,11 +68,11 @@ export const Thumbnail = styled.div({
 	width: '48px',
 	height: '48px',
 	float: 'right',
-	marginTop: token('space.050', '4px'),
+	marginTop: token('space.050'),
 	marginRight: 0,
-	marginBottom: token('space.150', '12px'),
-	marginLeft: token('space.150', '12px'),
-	backgroundColor: token('color.skeleton', N30),
+	marginBottom: token('space.150'),
+	marginLeft: token('space.150'),
+	backgroundColor: token('color.skeleton'),
 	backgroundSize: 'cover',
 	backgroundImage: (props: ThumbnailProps) => `url(${props.src})`,
 });

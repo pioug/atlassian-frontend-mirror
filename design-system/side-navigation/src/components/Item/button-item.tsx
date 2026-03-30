@@ -7,7 +7,6 @@ import { forwardRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { ButtonItem as Button, type ButtonItemProps } from '@atlaskit/menu';
-import { B400, B50, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
@@ -23,13 +22,13 @@ const styles = cssMap({
 		borderRadius: token('radius.small', '3px'),
 		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
 		'&:hover': {
-			color: token('color.text.subtle', N500),
-			backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+			color: token('color.text.subtle'),
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
 		'&:active': {
 			'&:active': {
-				color: token('color.text.subtle', B400),
-				backgroundColor: token('color.background.neutral.subtle.pressed', B50),
+				color: token('color.text.subtle'),
+				backgroundColor: token('color.background.neutral.subtle.pressed'),
 			},
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -39,18 +38,18 @@ const styles = cssMap({
 		},
 	},
 	selectedStyles: {
-		backgroundColor: token('color.background.selected', N30),
-		color: token('color.text.selected', B400),
+		backgroundColor: token('color.background.selected'),
+		color: token('color.text.selected'),
 		'&:visited': {
-			color: token('color.text.selected', B400),
+			color: token('color.text.selected'),
 		},
 		'&:hover': {
-			backgroundColor: token('color.background.selected.hovered', N30),
-			color: token('color.text.selected', N500),
+			backgroundColor: token('color.background.selected.hovered'),
+			color: token('color.text.selected'),
 		},
 		'&:active': {
-			backgroundColor: token('color.background.selected.pressed', B50),
-			color: token('color.text.selected', B400),
+			backgroundColor: token('color.background.selected.pressed'),
+			color: token('color.text.selected'),
 		},
 	},
 });

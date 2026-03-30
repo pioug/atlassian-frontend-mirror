@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 export const Icon = styled.img({
 	height: '16px',
 	width: '16px',
-	marginRight: token('space.050', '4px'),
+	marginRight: token('space.050'),
 	borderRadius: token('radius.xsmall'),
 	userSelect: 'none',
 	position: 'absolute',
@@ -31,7 +31,7 @@ export const Shimmer = ({ testId }: { testId: string }): React.JSX.Element => {
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
-		marginRight: token('space.050', '4px'),
+		marginRight: token('space.050'),
 	};
 
 	return (

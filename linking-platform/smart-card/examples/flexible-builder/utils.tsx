@@ -43,7 +43,7 @@ export const handleOnChange = <T extends object>(
 };
 
 export const getCustomActionIcon = (): React.JSX.Element => (
-	<PremiumIcon label="" color={token('color.icon', '#44546F')} />
+	<PremiumIcon label="" color={token('color.icon')} />
 );
 
 export const getExampleFromLocalStorage = (): any => {

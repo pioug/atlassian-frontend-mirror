@@ -1,7 +1,11 @@
+import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema';
 import { findCutBefore } from '@atlaskit/editor-common/commands';
+import { getFirstParagraphBlockMarkAttrs } from '@atlaskit/editor-common/lists';
+import { isTaskList } from '@atlaskit/editor-common/transforms';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { findWrapping, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	getBlockRange,
@@ -11,6 +15,7 @@ import {
 	subtreeHeight,
 } from './helpers';
 import { findBlockTaskItem, normalizeTaskItemsSelection } from './utils';
+import { normalizeNodeForTaskTextSize } from './utils/paste';
 
 export const liftSelection: Command = (state, dispatch) => {
 	const normalizedSelection = normalizeTaskItemsSelection(state.selection);
@@ -100,6 +105,7 @@ export const joinAtCut =
 	(state, dispatch) => {
 		const $cut = findCutBefore($pos);
 		const { blockTaskItem } = state.schema.nodes;
+		const { fontSize } = state.schema.marks;
 		if (!$cut) {
 			return false;
 		}
@@ -155,9 +161,36 @@ export const joinAtCut =
 			//
 			// see https://prosemirror.net/docs/ref/#transform.ReplaceStep.constructor
 			// see https://prosemirror.net/docs/ref/#transform.ReplaceAroundStep.constructor
-			const tr = state.tr.step(
-				new ReplaceAroundStep(from, to, gapFrom, gapTo, slice, insert, true),
-			);
+			let tr = state.tr.step(new ReplaceAroundStep(from, to, gapFrom, gapTo, slice, insert, true));
+
+			if (fontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+				const targetTaskListSmallTextAttrs = getFirstParagraphBlockMarkAttrs<FontSizeMarkAttrs>(
+					$cut.nodeBefore,
+					fontSize,
+				);
+
+				const followingListPos = $cut.pos + $cut.nodeAfter.nodeSize;
+				const followingListNode = state.doc.resolve(followingListPos).nodeAfter;
+
+				if (followingListNode && isTaskList(followingListNode.type)) {
+					const normalizedListNode = normalizeNodeForTaskTextSize(
+						followingListNode,
+						state.schema,
+						targetTaskListSmallTextAttrs,
+					)[0];
+					if (normalizedListNode && normalizedListNode !== followingListNode) {
+						const mappedFollowingListPos = tr.mapping.map(followingListPos);
+						const currentFollowingListNode = tr.doc.nodeAt(mappedFollowingListPos);
+						if (currentFollowingListNode) {
+							tr = tr.replaceWith(
+								mappedFollowingListPos,
+								mappedFollowingListPos + currentFollowingListNode.nodeSize,
+								normalizedListNode,
+							);
+						}
+					}
+				}
+			}
 
 			if (dispatch) {
 				dispatch(tr);

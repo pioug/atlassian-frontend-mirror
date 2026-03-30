@@ -4,7 +4,6 @@ import Button from '@atlaskit/button/standard-button';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import CollapseIcon from '@atlaskit/icon/core/chevron-up';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ProviderCard } from './ProviderCard';
@@ -66,7 +65,7 @@ export const ProviderCategory = ({
 	}, 0);
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div key={category} style={{ marginBottom: token('space.600', '48px') }}>
+		<div key={category} style={{ marginBottom: token('space.600') }}>
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="header"
@@ -94,9 +93,9 @@ export const ProviderCategory = ({
 					<h5
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							color: token('color.text.subtlest', N200),
+							color: token('color.text.subtlest'),
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							paddingBottom: token('space.300', '24px'),
+							paddingBottom: token('space.300'),
 						}}
 					>
 						{categoryExamplesTotal} entities supported across {examples.length} providers.
@@ -105,13 +104,11 @@ export const ProviderCategory = ({
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 				<div className="right">
 					<Button
-						iconBefore={
-							<CopyIcon label="" spacing="spacious" color={token('color.icon', '#44546F')} />
-						}
+						iconBefore={<CopyIcon label="" spacing="spacious" color={token('color.icon')} />}
 						onClick={handleCopyToClipboard}
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							marginRight: token('space.100', '8px'),
+							marginRight: token('space.100'),
 						}}
 					>
 						Copy

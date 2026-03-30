@@ -9,7 +9,6 @@ import { css, jsx } from '@compiled/react';
 import { IconButton, type IconButtonProps } from '@atlaskit/button/new';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { N0, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -54,10 +53,10 @@ const scrollingContainerStyles = css({
 		margin: 0,
 		position: 'absolute',
 		width: 'inherit',
-		left: token('space.100', '8px'),
-		right: token('space.100', '8px'),
+		left: token('space.100'),
+		right: token('space.100'),
 		height: 2,
-		backgroundColor: token('color.border', N30),
+		backgroundColor: token('color.border'),
 	},
 });
 
@@ -81,17 +80,17 @@ const containerStyles = css({
 
 const backButtonStyles = css({
 	position: 'absolute',
-	top: token('space.050', '4px'),
+	top: token('space.050'),
 	zIndex: 999,
-	backgroundColor: token('elevation.surface', N0),
+	backgroundColor: token('elevation.surface'),
 	left: 0,
 });
 
 const nextButtonStyles = css({
 	position: 'absolute',
-	top: token('space.050', '4px'),
+	top: token('space.050'),
 	zIndex: 999,
-	backgroundColor: token('elevation.surface', N0),
+	backgroundColor: token('elevation.surface'),
 	right: 0,
 });
 

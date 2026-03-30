@@ -1,7 +1,5 @@
 import { bind, type UnbindFn } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export type ObservedWindowEvent = 'wheel' | 'scroll' | 'keydown' | 'resize';
 export type ObservedWindowEventExtended = ObservedWindowEvent | 'scroll-container';
 
@@ -77,10 +75,7 @@ export default class WindowEventObserver {
 		this.bindEvent('scroll');
 		this.bindEvent('keydown');
 		this.bindEvent('resize');
-
-		if (fg('platform_ufo_detect_container_scroll')) {
-			this.bindCaptureScrollEvent();
-		}
+		this.bindCaptureScrollEvent();
 	}
 
 	stop(): void {

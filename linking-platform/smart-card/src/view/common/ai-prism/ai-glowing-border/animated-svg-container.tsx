@@ -18,11 +18,11 @@ const svgStyles = css({
 });
 
 const blurredStyles = css({
-	width: `calc(100% - ${token('space.050', '4px')})`,
-	height: `calc(100% - ${token('space.050', '4px')})`,
-	top: token('space.050', '4px'),
-	left: token('space.050', '4px'),
-	filter: `blur(${token('space.100', '8px')})`,
+	width: `calc(100% - ${token('space.050')})`,
+	height: `calc(100% - ${token('space.050')})`,
+	top: token('space.050'),
+	left: token('space.050'),
+	filter: `blur(${token('space.100')})`,
 
 	// for safari... : https://stackoverflow.com/a/71353198
 	backfaceVisibility: 'hidden',

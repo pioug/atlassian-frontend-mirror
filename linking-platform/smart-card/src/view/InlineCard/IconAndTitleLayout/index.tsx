@@ -12,7 +12,6 @@ import ImageLoader from 'react-render-image';
 import { cssMap } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
 import { Box } from '@atlaskit/primitives/compiled';
-import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { isProfileType } from '../../../utils';
@@ -91,7 +90,7 @@ export interface IconAndTitleLayoutProps {
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/design-system/no-html-anchor -- Ignored via go/DSP-18766
 const LinkAppearance = styled.a({
-	color: token('color.link', B400),
+	color: token('color.link'),
 	'&:hover': {
 		textDecoration: 'none',
 	},

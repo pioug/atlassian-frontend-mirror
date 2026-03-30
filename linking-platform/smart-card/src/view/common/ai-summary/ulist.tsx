@@ -9,8 +9,8 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 const listStyles = css({
-	paddingLeft: token('space.250', '20px'),
-	paddingInlineStart: token('space.250', '20px'),
+	paddingLeft: token('space.250'),
+	paddingInlineStart: token('space.250'),
 });
 
 const UList = ({ children, ...props }: React.HTMLAttributes<HTMLUListElement>) => (

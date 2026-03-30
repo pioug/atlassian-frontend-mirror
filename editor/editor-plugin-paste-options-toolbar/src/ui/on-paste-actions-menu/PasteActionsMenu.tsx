@@ -324,24 +324,6 @@ export const PasteActionsMenu = ({
 		};
 	});
 
-	const aiSurfaceComponents = api?.uiControlRegistry?.actions.getComponents('ai-paste-menu') ?? [];
-	const visibleAiActionKeys = getVisibleKeys(aiSurfaceComponents, ['button', 'menu-item']);
-
-	useEffect(() => {
-		if (!prevShowToolbarRef.current && isToolbarShown) {
-			editorAnalyticsAPI?.fireAnalyticsEvent({
-				action: ACTION.OPENED,
-				actionSubject: ACTION_SUBJECT.PASTE_ACTIONS_MENU,
-				eventType: EVENT_TYPE.UI,
-				attributes: {
-					visibleAiActions: visibleAiActionKeys,
-				},
-			});
-		}
-		prevShowToolbarRef.current = isToolbarShown;
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isToolbarShown, editorAnalyticsAPI]);
-
 	const preventEditorFocusLoss = useCallback((e: React.MouseEvent) => {
 		e.preventDefault();
 	}, []);
@@ -388,20 +370,33 @@ export const PasteActionsMenu = ({
 
 	const anyComponentVisible = hasVisibleButton(pasteMenuComponents);
 
+	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- pasteMenuComponents changes by reference each render; filter is small (< 10 items)
+	const aiMenuItems = pasteMenuComponents.filter(
+		(c) => c.type === 'menu-item' && c.parents?.some((p) => p.key === AI_PASTE_MENU_SECTION.key),
+	);
+	const visibleAiActionKeys = getVisibleKeys(aiMenuItems, ['menu-item']);
+
 	// Two positioning modes:
 	// 1. Inline: no AI actions visible — menu appears to the right of the cursor,
 	//    vertically centered with the text line.
 	// 2. Block-anchored: AI actions are visible — menu appears at the right edge
 	//    of the content block, aligned with paste start.
-	const hasVisibleAiActions =
-		getVisibleKeys(
-			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- pasteMenuComponents changes by reference each render; filter is small (< 10 items)
-			pasteMenuComponents.filter(
-				(c) =>
-					c.type === 'menu-item' && c.parents?.some((p) => p.key === AI_PASTE_MENU_SECTION.key),
-			),
-			['menu-item'],
-		).length > 0;
+	const hasVisibleAiActions = visibleAiActionKeys.length > 0;
+
+	useEffect(() => {
+		if (!prevShowToolbarRef.current && isToolbarShown) {
+			editorAnalyticsAPI?.fireAnalyticsEvent({
+				action: ACTION.OPENED,
+				actionSubject: ACTION_SUBJECT.PASTE_ACTIONS_MENU,
+				eventType: EVENT_TYPE.UI,
+				attributes: {
+					visibleAiActions: visibleAiActionKeys,
+				},
+			});
+		}
+		prevShowToolbarRef.current = isToolbarShown;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isToolbarShown, editorAnalyticsAPI]);
 	const useInlinePosition = !hasVisibleAiActions;
 
 	if (!isToolbarShown) {

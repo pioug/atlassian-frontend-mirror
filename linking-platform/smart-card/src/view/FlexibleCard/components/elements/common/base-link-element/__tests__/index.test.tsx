@@ -48,7 +48,7 @@ describe('Element: Link', () => {
 			],
 			[
 				SmartLinkSize.Small,
-				'var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+				'var(--ds-font-body-small,normal 400 9pt/1pc "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 			],
 		])('renders element in %s size', async (size: SmartLinkSize, expectedFont) => {
 			render(<BaseLinkElement text={text} url={url} size={size} />);
@@ -92,7 +92,7 @@ describe('Element: Link', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveCompiledCss('color', 'var(--ds-link,#0c66e4)');
+			expect(element).toHaveCompiledCss('color', 'var(--ds-link,#1868db)');
 		});
 
 		it(`renders with ${SmartLinkTheme.Link} theme`, async () => {
@@ -100,7 +100,7 @@ describe('Element: Link', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveCompiledCss('color', 'var(--ds-link,#0c66e4)');
+			expect(element).toHaveCompiledCss('color', 'var(--ds-link,#1868db)');
 		});
 
 		it(`renders with ${SmartLinkTheme.Black} theme`, async () => {
@@ -108,7 +108,7 @@ describe('Element: Link', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveCompiledCss('color', 'var(--ds-text-subtle,#44546f)');
+			expect(element).toHaveCompiledCss('color', 'var(--ds-text-subtle,#505258)');
 			expect(element).toHaveCompiledCss('font-weight', 'var(--ds-font-weight-regular,400)');
 		});
 	});

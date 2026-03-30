@@ -6,7 +6,6 @@
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { B100, B50, N30, N600 } from '@atlaskit/theme/colors';
 
 const wrappedSpanStyles = css({
 	display: 'table',
@@ -19,31 +18,31 @@ const parentListItemHelpContentButtonContainerStyles = css({
 const helpContentButtonContainerStyles = css({
 	display: 'block',
 	cursor: 'pointer',
-	width: `calc(100% - ${token('space.200', '16px')})`,
-	color: token('color.text.subtle', N600),
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.100', '8px'),
+	width: `calc(100% - ${token('space.200')})`,
+	color: token('color.text.subtle'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
 	border: 'none',
 	background: 'transparent',
-	font: token('font.body', 'inherit'),
+	font: token('font.body'),
 	'&:hover, &:focus, &:visited, &:active': {
 		textDecoration: 'none',
 		outline: 'none',
 		outlineOffset: 'none',
-		color: token('color.text.subtle', N600),
+		color: token('color.text.subtle'),
 	},
 	'&:focus': {
-		boxShadow: `${token('color.border.focused', B100)} 0 0 0 2px inset`,
+		boxShadow: `${token('color.border.focused')} 0 0 0 2px inset`,
 	},
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 	'&:active': {
-		backgroundColor: token('color.background.neutral.subtle.pressed', B50),
+		backgroundColor: token('color.background.neutral.subtle.pressed'),
 	},
 });
 
@@ -125,9 +124,9 @@ const helpContentButtonTextStyles = css({
 	verticalAlign: 'middle',
 	width: 'calc(100% - 20px)',
 	paddingTop: 0,
-	paddingRight: token('space.100', '8px'),
+	paddingRight: token('space.100'),
 	paddingBottom: 0,
-	paddingLeft: token('space.100', '8px'),
+	paddingLeft: token('space.100'),
 	boxSizing: 'border-box',
 });
 
@@ -138,7 +137,7 @@ export const HelpContentButtonText = ({ children }: { children: React.ReactNode 
 const helpContentButtonExternalLinkIconStyles = css({
 	display: 'inline-block',
 	verticalAlign: 'middle',
-	paddingLeft: token('space.050', '4px'),
+	paddingLeft: token('space.050'),
 });
 
 export const HelpContentButtonExternalLinkIcon = ({
@@ -156,8 +155,8 @@ export const HelpContentButtonExternalLinkIcon = ({
 const helpContentButtonExternalNotificationIconStyles = css({
 	display: 'inline-block',
 	verticalAlign: 'middle',
-	paddingLeft: token('space.050', '4px'),
-	marginTop: token('space.negative.050', '-4px'),
+	paddingLeft: token('space.050'),
+	marginTop: token('space.negative.050'),
 });
 
 export const HelpContentButtonExternalNotificationIcon = ({

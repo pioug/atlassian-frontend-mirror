@@ -6,12 +6,11 @@
 import React, { type FC, type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const editedContentStyles = cssMap({
 	root: {
-		color: token('color.text.subtlest', N200),
+		color: token('color.text.subtlest'),
 	},
 });
 

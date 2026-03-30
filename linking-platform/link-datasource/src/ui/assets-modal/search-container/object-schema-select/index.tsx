@@ -29,7 +29,7 @@ import { objectSchemaToSelectOption } from './utils';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const FieldContainer = styled.div({
 	flex: 1,
-	marginTop: token('space.negative.100', '-8px'),
+	marginTop: token('space.negative.100'),
 });
 
 type AssetsObjectSchemaSelectProps = {

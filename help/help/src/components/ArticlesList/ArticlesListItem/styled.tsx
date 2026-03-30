@@ -6,39 +6,35 @@
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import Heading from '@atlaskit/heading';
-import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
-import { B100, B50, N200, N30, N400, N400A, N800, Y100 } from '@atlaskit/theme/colors';
-
-const { heading, body } = fontFallback;
 
 const articlesListItemWrapperStyles = css({
 	position: 'relative',
 	boxSizing: 'border-box',
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.100', '8px'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 	display: 'block',
 	textDecoration: 'none',
 	cursor: 'pointer',
-	color: token('color.text.subtlest', N200),
+	color: token('color.text.subtlest'),
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
-	backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+	backgroundColor: token('color.background.neutral.subtle'),
 	'&:hover, &:focus, &:visited, &:active': {
 		textDecoration: 'none',
 		outline: 'none',
 		outlineOffset: 'none',
 	},
 	'&:focus': {
-		boxShadow: `${token('color.border.focused', B100)} 0px 0px 0px 2px inset`,
+		boxShadow: `${token('color.border.focused')} 0px 0px 0px 2px inset`,
 	},
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 	'&:active': {
-		backgroundColor: token('color.background.neutral.subtle.pressed', B50),
+		backgroundColor: token('color.background.neutral.subtle.pressed'),
 	},
 });
 
@@ -97,7 +93,7 @@ export const ArticlesListItemTitleSection = ({
 
 const articlesListItemLinkIconStyles = css({
 	alignSelf: 'auto',
-	paddingInlineStart: token('space.050', '4px'),
+	paddingInlineStart: token('space.050'),
 	verticalAlign: 'middle',
 });
 
@@ -114,12 +110,12 @@ export const ArticlesListItemLinkIcon = ({
 
 const articlesListItemTitleTextStyles = css({
 	textDecoration: 'none',
-	color: token('color.text', N800),
-	font: token('font.heading.xsmall', heading.xsmall),
+	color: token('color.text'),
+	font: token('font.heading.xsmall'),
 	display: 'inline-block',
 	whiteSpace: 'normal',
 	overflow: 'hidden',
-	marginBottom: token('space.100', '4px'),
+	marginBottom: token('space.100'),
 });
 
 export const ArticlesListItemTitleText = ({
@@ -138,9 +134,9 @@ const articlesListItemDescriptionStyles = css({
 	display: 'block',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '20px',
-	color: token('color.text.subtle', N400),
+	color: token('color.text.subtle'),
 	margin: 0,
-	paddingBottom: token('space.025', '2px'),
+	paddingBottom: token('space.025'),
 });
 
 export const ArticlesListItemDescription = ({
@@ -155,13 +151,13 @@ export const ArticlesListItemDescription = ({
 const articlesListItemSourceStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	font: token('font.heading.xxsmall', heading.xxsmall),
-	color: token('color.text.subtlest', N400A),
-	paddingTop: token('space.050', '4px'),
+	font: token('font.heading.xxsmall'),
+	color: token('color.text.subtlest'),
+	paddingTop: token('space.050'),
 	paddingRight: 0,
-	paddingBottom: token('space.050', '4px'),
+	paddingBottom: token('space.050'),
 	paddingLeft: 0,
-	fontWeight: token('font.weight.bold', 'bold'),
+	fontWeight: token('font.weight.bold'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	textTransform: 'uppercase',
 });
@@ -178,9 +174,9 @@ export const ArticlesListItemSource = ({
 const articlesListItemTrustFactorStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	font: token('font.body.small', body.small),
-	color: token('color.text.subtlest', N400A),
-	paddingTop: token('space.025', '2px'),
+	font: token('font.body.small'),
+	color: token('color.text.subtlest'),
+	paddingTop: token('space.025'),
 });
 
 export const ArticlesListItemTrustFactor = ({
@@ -190,7 +186,7 @@ export const ArticlesListItemTrustFactor = ({
 }): JSX.Element => <div css={articlesListItemTrustFactorStyles}>{children}</div>;
 
 const articlesListItemViewCountStyles = css({
-	paddingRight: token('space.100', '8px'),
+	paddingRight: token('space.100'),
 });
 
 export const ArticlesListItemViewCount = ({
@@ -201,11 +197,11 @@ export const ArticlesListItemViewCount = ({
 
 const articlesListItemHelpfulCountStyles = css({
 	display: 'inline-flex',
-	paddingRight: token('space.100', '8px'),
+	paddingRight: token('space.100'),
 	alignItems: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& > span': {
-		marginRight: token('space.025', '2px'),
+		marginRight: token('space.025'),
 	},
 });
 
@@ -216,11 +212,11 @@ export const ArticlesListItemHelpfulCount = ({
 }): JSX.Element => <span css={articlesListItemHelpfulCountStyles}>{children}</span>;
 
 const articlesListItemLastModifiedStyles = css({
-	font: token('font.body.small', body.small),
-	color: token('color.text.subtlest', N400A),
-	paddingTop: token('space.050', '4px'),
+	font: token('font.body.small'),
+	color: token('color.text.subtlest'),
+	paddingTop: token('space.050'),
 	paddingRight: 0,
-	paddingBottom: token('space.050', '4px'),
+	paddingBottom: token('space.050'),
 	paddingLeft: 0,
 });
 
@@ -231,7 +227,7 @@ export const ArticlesListItemLastModified = ({
 }): JSX.Element => <div css={articlesListItemLastModifiedStyles}>{children}</div>;
 
 const articlesListItemDescriptionHighlightStyles = css({
-	backgroundColor: token('color.background.accent.yellow.subtlest', Y100),
+	backgroundColor: token('color.background.accent.yellow.subtlest'),
 });
 
 export const ArticlesListItemDescriptionHighlight = ({

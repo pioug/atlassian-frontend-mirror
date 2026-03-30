@@ -16,8 +16,8 @@ export const WhatsNewTypeTitle = ({ children }: { children: React.ReactNode }): 
 
 const whatsNewIconContainerStyles = css({
 	display: 'flex',
-	gap: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
+	gap: token('space.100'),
+	paddingBottom: token('space.100'),
 });
 
 export const WhatsNewIconContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
@@ -31,7 +31,7 @@ export const WhatsNewTitleText = ({ children }: { children: React.ReactNode }): 
 );
 
 const relatedLinkContainerStyles = css({
-	marginBottom: token('space.100', '8px'),
+	marginBottom: token('space.100'),
 });
 
 export const RelatedLinkContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
@@ -42,7 +42,7 @@ export const RelatedLinkContainer = ({ children }: { children: React.ReactNode }
 const externalLinkIconContainerStyles = css({
 	display: 'inline-block',
 	verticalAlign: 'middle',
-	paddingLeft: token('space.050', '4px'),
+	paddingLeft: token('space.050'),
 });
 
 export const ExternalLinkIconContainer = ({

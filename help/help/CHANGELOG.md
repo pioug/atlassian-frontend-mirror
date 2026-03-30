@@ -1,5 +1,22 @@
 # @atlaskit/help
 
+## 9.4.11
+
+### Patch Changes
+
+- [`379cf9c4c25f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/379cf9c4c25f0) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 9.4.10
+
+### Patch Changes
+
+- [`62281c5d82340`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62281c5d82340) -
+  Align examples and tests with the new `NotificationLogClient` object constructor API , updated for
+  GraphQL support
+- Updated dependencies
+
 ## 9.4.9
 
 ### Patch Changes

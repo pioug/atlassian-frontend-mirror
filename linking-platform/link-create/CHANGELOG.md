@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 4.5.21
+
+### Patch Changes
+
+- [`93a66599141af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93a66599141af) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 4.5.20
 
 ### Patch Changes

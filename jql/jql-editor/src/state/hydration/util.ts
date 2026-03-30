@@ -4,12 +4,20 @@ import {
 	type CompoundClause,
 	type FunctionOperand,
 	type ListOperand,
+	normaliseJqlString,
 	type NotClause,
 	type Query,
 	type TerminalClause,
 	type ValueOperand,
 } from '@atlaskit/jql-ast';
 import { fg } from '@atlaskit/platform-feature-flags';
+
+/**
+ * Normalise a JQL string for use as a hydration map key.
+ * Strips quotes/escaping and lowercases to ensure case-insensitive matching
+ * between field names from different sources (e.g. AST vs hydration API).
+ */
+export const normaliseHydrationKey = (key: string): string => normaliseJqlString(key).toLowerCase();
 
 /**
  * Given an AST with parse errors, this visitor returns a valid query that is equivalent for hydration purposes

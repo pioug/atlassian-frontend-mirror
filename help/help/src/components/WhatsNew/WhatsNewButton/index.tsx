@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { type UIAnalyticsEvent, AnalyticsContext } from '@atlaskit/analytics-next';
-import * as colors from '@atlaskit/theme/colors';
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import { token } from '@atlaskit/tokens';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
@@ -57,13 +56,7 @@ export const WhatsNewButton: React.FC<WrappedComponentProps & WhatsNewButtonProp
 						})
 					: formatMessage(messages.help_whats_new_button_label_without_product_name)
 			}
-			icon={
-				<LightbulbIcon
-					color={token('color.icon.subtle', colors.N600)}
-					spacing="spacious"
-					label=""
-				/>
-			}
+			icon={<LightbulbIcon color={token('color.icon.subtle')} spacing="spacious" label="" />}
 		/>
 	);
 };

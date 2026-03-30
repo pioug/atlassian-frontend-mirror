@@ -11,7 +11,6 @@ import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import { N800, R500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../../../../common/analytics/generated/use-analytics-events';
@@ -36,7 +35,7 @@ const styles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span, > div': {
 			font: token('font.body'),
-			color: token('color.text', N800),
+			color: token('color.text'),
 		},
 	},
 	linkStyles: {
@@ -123,7 +122,7 @@ const LozengeActionError = ({
 				<div css={styles.contentStyles}>
 					<ErrorIcon
 						testId={`${testId}-icon`}
-						color={token('color.icon.danger', R500)}
+						color={token('color.icon.danger')}
 						label={'error'}
 						spacing="spacious"
 					/>

@@ -1,0 +1,76 @@
+{
+	"name": "@atlaskit/eslint-plugin-volt-strict-mode",
+	"version": "0.1.0",
+	"author": "Atlassian Pty Ltd",
+	"description": "The eslint plugin to enforce and educate on Atlassian's Volt Strict Mode",
+	"license": "Apache-2.0",
+	"atlassian": {
+		"team": "UIP: Volt",
+		"website": {
+			"name": "Volt Strict Mode",
+			"category": "Tooling"
+		},
+		"toolingLabels": [
+			"linting"
+		]
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"homepage": "https://atlassian.design/components/eslint-plugin-volt-strict-mode",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
+	"atlaskit:src": "src/index.tsx",
+	"exports": {
+		".": {
+			"types": "./src/index.tsx",
+			"publish": "./src/index.tsx",
+			"default": "./index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"dependencies": {
+		"@atlaskit/eslint-plugin-design-system": "workspace:^",
+		"@atlaskit/eslint-utils": "workspace:^",
+		"@babel/runtime": "root:*",
+		"@typescript-eslint/utils": "root:*",
+		"ajv": "root:*",
+		"eslint-codemod-utils": "root:*",
+		"eslint-scope": "root:*",
+		"esquery": "root:*",
+		"estraverse": "root:*",
+		"json-schema-to-ts": "root:*",
+		"outdent": "root:*",
+		"postcss-selector-parser": "root:*"
+	},
+	"devDependencies": {
+		"@af/formatting": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlassian/codegen": "workspace:^",
+		"@atlassian/ts-loader": "workspace:^",
+		"@eslint/eslintrc": "root:*",
+		"@types/eslint": "root:*",
+		"@types/eslint__eslintrc": "root:*",
+		"@types/estraverse": "root:*",
+		"@types/json-schema": "root:*",
+		"eslint": "root:*",
+		"lodash": "root:*"
+	},
+	"scripts": {
+		"codegen": "run-ts ./scripts/codegen.tsx"
+	}
+}

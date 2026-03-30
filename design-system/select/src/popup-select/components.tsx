@@ -9,7 +9,6 @@ import { css, jsx } from '@compiled/react';
 import SearchIcon from '@atlaskit/icon/core/search';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { components } from '@atlaskit/react-select';
-import { N40A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -34,9 +33,9 @@ interface MenuDialogProps {
 
 const menuDialogStyles = css({
 	zIndex: layers.modal(),
-	backgroundColor: token('elevation.surface.overlay', 'white'),
+	backgroundColor: token('elevation.surface.overlay'),
 	borderRadius: token('radius.small', '4px'),
-	boxShadow: token('elevation.shadow.overlay', `0 0 0 1px ${N40A}, 0 4px 11px ${N40A}`),
+	boxShadow: token('elevation.shadow.overlay'),
 });
 
 const menuDialogStylesT26Shape = css({

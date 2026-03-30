@@ -4,6 +4,8 @@ import {
 	getOptionLabel as baseGetOptionLabel,
 	getOptionValue as baseGetOptionValue,
 } from './builtins';
+import { cleanValue } from './internal/clean-value';
+import { valueTernary } from './internal/value-ternary';
 import type { PublicBaseSelectProps } from './select';
 import {
 	type ActionMeta,
@@ -14,7 +16,6 @@ import {
 	type Options,
 	type OptionsOrGroups,
 } from './types';
-import { cleanValue, valueTernary } from './utils';
 
 interface Accessors<Option> {
 	getOptionValue: GetOptionValue<Option>;

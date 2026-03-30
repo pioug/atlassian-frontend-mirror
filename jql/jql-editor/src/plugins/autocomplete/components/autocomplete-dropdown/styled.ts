@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import { N200, N40, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -12,26 +11,26 @@ export const AutocompleteContainer = styled.div<{
 }>(
 	{
 		position: 'absolute',
-		backgroundColor: token('elevation.surface.overlay', 'white'),
+		backgroundColor: token('elevation.surface.overlay'),
 		borderRadius: token('radius.small', '3px'),
 		willChange: 'top, left',
 		zIndex: layers.dialog(),
-		boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
-		padding: `${token('space.075', '6px')} ${token('space.0', '0')}`,
+		boxShadow: token('elevation.shadow.overlay'),
+		padding: `${token('space.075')} ${token('space.0')}`,
 		minWidth: '200px',
 		maxWidth: '400px',
 		'&:focus': {
 			outline: 'none',
 		},
-		marginLeft: token('space.negative.100', '-8px'),
-		marginTop: token('space.200', '16px'),
+		marginLeft: token('space.negative.100'),
+		marginTop: token('space.200'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	({ isOpen }) => (isOpen ? { visibility: 'visible' } : { visibility: 'hidden' }),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	({ usePopper }) =>
 		usePopper && {
-			marginTop: token('space.100', '8px'),
+			marginTop: token('space.100'),
 		},
 );
 
@@ -44,8 +43,8 @@ export const AutocompleteOptionsContainer = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const OptionList = styled.ul({
 	listStyle: 'none',
-	margin: `${token('space.0', '0')}`,
-	padding: `${token('space.0', '0')}`,
+	margin: `${token('space.0')}`,
+	padding: `${token('space.0')}`,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -53,16 +52,16 @@ export const AutocompleteLoadingFooter = styled.div<{ hasOptions: boolean }>(
 	{
 		display: 'flex',
 		justifyContent: 'center',
-		color: token('color.text.subtlest', N200),
+		color: token('color.text.subtlest'),
 		fontStyle: 'italic',
-		padding: token('space.150', '12px'),
+		padding: token('space.150'),
 		textAlign: 'center',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	({ hasOptions }) =>
 		hasOptions && {
-			borderTop: `solid 1px ${token('color.border', N40)}`,
-			marginTop: token('space.075', '6px'),
-			paddingTop: token('space.250', '20px'),
+			borderTop: `solid ${token('border.width')} ${token('color.border')}`,
+			marginTop: token('space.075'),
+			paddingTop: token('space.250'),
 		},
 );

@@ -45,7 +45,7 @@ const styles = cssMap({
 		minHeight: '72px',
 	},
 	modeSwitcherContainerStyles: {
-		marginTop: token('space.050', '4px'),
+		marginTop: token('space.050'),
 	},
 });
 

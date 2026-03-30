@@ -1,10 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f99588f71d6b353cefbed97fd172e433>>
+ * @codegen <<SignedSource::61c9435885ec26523572667a3a476d30>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import type { Linter } from 'eslint';
-
 import * as atlaskitDesignSystemPlugin from '@atlaskit/eslint-plugin-design-system';
 
 const config: Linter.FlatConfig = {

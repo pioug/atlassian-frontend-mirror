@@ -8,8 +8,8 @@ import { cssMap, cx, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { getStyleProps } from '../get-style-props';
 import { type CommonPropsAndClassName, type GroupBase } from '../types';
-import { getStyleProps } from '../utils';
 
 export interface PlaceholderProps<
 	Option = unknown,
@@ -28,15 +28,13 @@ export interface PlaceholderProps<
 	isFocused: boolean;
 }
 
-export const placeholderCSS: () => {} = () => ({});
-
 const placeholderStyles = cssMap({
 	root: {
 		gridArea: '1 / 1 / 2 / 3',
-		marginTop: 0,
-		marginRight: token('space.025'),
-		marginBottom: 0,
-		marginLeft: token('space.025'),
+		marginBlockStart: 0,
+		marginInlineEnd: token('space.025'),
+		marginBlockEnd: 0,
+		marginInlineStart: token('space.025'),
 		color: token('color.text.subtlest'),
 	},
 	disabled: {

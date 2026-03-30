@@ -14,9 +14,9 @@ const wrapperStylesOld = css({
 	// Align the label with the text
 	verticalAlign: '1px',
 	marginTop: 0,
-	marginRight: token('space.050', '4px'),
+	marginRight: token('space.050'),
 	marginBottom: 0,
-	marginLeft: token('space.025', '2px'),
+	marginLeft: token('space.025'),
 
 	// Set max width to prevent Lozenge to overflow on top of other element in smaller space, e.g. inside table cell
 	maxWidth: '100%',
@@ -28,9 +28,9 @@ const wrapperStylesNew = css({
 	top: '-1px',
 	position: 'relative',
 	marginTop: 0,
-	marginRight: token('space.050', '4px'),
+	marginRight: token('space.050'),
 	marginBottom: 0,
-	marginLeft: token('space.025', '2px'),
+	marginLeft: token('space.025'),
 
 	// Set max width to prevent Lozenge to overflow on top of other element in smaller space, e.g. inside table cell
 	maxWidth: '100%',

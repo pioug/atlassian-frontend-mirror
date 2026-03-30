@@ -1,6 +1,5 @@
 import React from 'react';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
@@ -25,14 +24,14 @@ const listStyles = xcss({
 const getStyles = (style: string) => {
 	if (style === 'secondary') {
 		return {
-			border: `${token('border.width.selected')} solid ${token('color.border', N30)}`,
-			padding: token('space.200', '16px'),
-			marginBottom: token('space.150', '12px'),
+			border: `${token('border.width.selected')} solid ${token('color.border')}`,
+			padding: token('space.200'),
+			marginBottom: token('space.150'),
 		};
 	}
 	return {
 		border: 0,
-		padding: token('space.150', '12px'),
+		padding: token('space.150'),
 		marginBottom: 0,
 	};
 };

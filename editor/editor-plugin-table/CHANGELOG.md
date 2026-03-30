@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 18.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.15
+
+### Patch Changes
+
+- [`12e112a137d5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12e112a137d5f) -
+  Clean up platform_editor_table_fw_numcol_overflow_fix feature flag
+- Updated dependencies
+
 ## 18.1.14
 
 ### Patch Changes

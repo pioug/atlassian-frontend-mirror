@@ -1,5 +1,12 @@
 # @atlaskit/checkbox
 
+## 17.3.7
+
+### Patch Changes
+
+- [`7aef1e49e90ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aef1e49e90ea) -
+  Removes redundant fallback color values via @atlaskit/theme
+
 ## 17.3.6
 
 ### Patch Changes

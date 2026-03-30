@@ -24,9 +24,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../../elements/util-service-support/afm-cc/tsconfig.json"
 		}
 	]

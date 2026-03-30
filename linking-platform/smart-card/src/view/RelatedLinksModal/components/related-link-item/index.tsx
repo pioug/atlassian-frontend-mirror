@@ -44,9 +44,9 @@ const selectedStyle = css({
 });
 
 const relatedLinkItemStyles = css({
-	paddingTop: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	gap: token('space.150', '12px'),
+	paddingTop: token('space.100'),
+	paddingBottom: token('space.100'),
+	gap: token('space.150'),
 	font: token('font.body.small'),
 });
 

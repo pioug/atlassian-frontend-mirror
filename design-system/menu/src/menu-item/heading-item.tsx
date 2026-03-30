@@ -5,13 +5,12 @@
 import { memo } from 'react';
 
 import { css, jsx } from '@atlaskit/css';
-import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { HeadingItemProps } from '../types';
 
 const headingStyles = css({
-	color: token('color.text.subtle', N300),
+	color: token('color.text.subtle'),
 	font: token('font.heading.xxsmall'),
 	paddingBlock: token('space.0', '0px'),
 	paddingInline: token('space.200', '16px'),

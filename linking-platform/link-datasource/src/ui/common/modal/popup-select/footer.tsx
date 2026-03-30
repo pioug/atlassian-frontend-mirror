@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
 import { Flex, Inline } from '@atlaskit/primitives/compiled';
-import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { asyncPopupSelectMessages } from './messages';
@@ -22,9 +21,9 @@ const styles = cssMap({
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.200'),
 		paddingRight: token('space.200'),
-		borderTopWidth: token('border.width', '1px'),
+		borderTopWidth: token('border.width'),
 		borderTopStyle: `solid`,
-		borderTopColor: token('color.border', N40),
+		borderTopColor: token('color.border'),
 	},
 	footerPaginationInfoStyles: {
 		color: token('color.text.subtlest'),

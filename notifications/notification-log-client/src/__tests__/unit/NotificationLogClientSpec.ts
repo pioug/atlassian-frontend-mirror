@@ -1,7 +1,5 @@
 import fetchMock from 'fetch-mock/cjs/client';
-import { NotificationLogClient, type NotificationCountResponse, DEFAULT_SOURCE } from '../..';
-
-const notificationLogUrl = 'http://notification-log';
+import { NotificationLogClient, type NotificationCountResponse } from '../..';
 
 describe('NotificationLogClient', () => {
 	const cloudIdResponse: NotificationCountResponse = {
@@ -10,48 +8,37 @@ describe('NotificationLogClient', () => {
 	const userCentricResponse: NotificationCountResponse = {
 		count: 10,
 	};
-	const mockTenantExperience = () => {
+	const mockGraphQLResponse = (response: NotificationCountResponse) => {
 		fetchMock.mock({
-			matcher: `${notificationLogUrl}/api/3/notifications/count/unseen?cloudId=123&source=atlaskitNotificationLogClient`,
-			response: cloudIdResponse,
-			name: 'notification-log',
-		});
-	};
-	const mockUserCentricExperience = () => {
-		fetchMock.mock({
-			matcher: `${notificationLogUrl}/api/3/notifications/count/unseen?source=atlaskitNotificationLogClient`,
-			response: userCentricResponse,
-			name: 'notification-log',
+			matcher: 'begin:/gateway/api/graphql',
+			response: {
+				data: {
+					notifications: {
+						unseenNotificationCount: response.count,
+					},
+				},
+			},
+			name: 'graphql-notification-log',
 		});
 	};
 
 	afterEach(fetchMock.restore);
 
-	it('should resolve count unseen notifications', () => {
-		mockTenantExperience();
+	it('should resolve count unseen notifications with cloudId', () => {
+		mockGraphQLResponse(cloudIdResponse);
 
-		const provider = new NotificationLogClient(notificationLogUrl, '123');
+		const provider = new NotificationLogClient({ cloudId: '123' });
 		return provider.countUnseenNotifications().then(({ count }) => {
 			expect(count).toEqual(5);
 		});
 	});
 
-	it('should accept a null cloud id', () => {
-		mockUserCentricExperience();
+	it('should accept undefined cloud id', () => {
+		mockGraphQLResponse(userCentricResponse);
 
-		const provider = new NotificationLogClient(notificationLogUrl);
+		const provider = new NotificationLogClient();
 		return provider.countUnseenNotifications().then(({ count }) => {
 			expect(count).toEqual(10);
-		});
-	});
-
-	it('should add the app version header', () => {
-		mockTenantExperience();
-		const provider = new NotificationLogClient(notificationLogUrl, '123');
-		return provider.countUnseenNotifications().then(() => {
-			expect(fetchMock.lastOptions().headers['x-app-version']).toEqual(
-				`${process.env._PACKAGE_VERSION_}-${DEFAULT_SOURCE}`,
-			);
 		});
 	});
 });

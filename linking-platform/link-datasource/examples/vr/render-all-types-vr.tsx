@@ -24,10 +24,10 @@ const ContainerWrapper = styled.div({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const RenderDiv = styled.div({
-	marginTop: token('space.075', '6px'),
-	marginRight: token('space.0', '0px'),
-	marginBottom: token('space.075', '6px'),
-	marginLeft: token('space.0', '0px'),
+	marginTop: token('space.075'),
+	marginRight: token('space.0'),
+	marginBottom: token('space.075'),
+	marginLeft: token('space.0'),
 });
 
 const tableHeaderStyles = css({

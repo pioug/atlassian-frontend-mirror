@@ -6,7 +6,6 @@
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N200 } from '@atlaskit/theme/colors';
 
 const exampleWrapperStyles = css({
 	display: 'flex',
@@ -20,10 +19,10 @@ export const ExampleWrapper = ({ children }: { children: React.ReactNode }): JSX
 );
 
 const exampleDefaultContentStyles = css({
-	paddingTop: token('space.200', '16px'),
-	paddingRight: token('space.200', '16px'),
-	paddingBottom: token('space.200', '16px'),
-	paddingLeft: token('space.200', '16px'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 });
 
 export const ExampleDefaultContent = ({ children }: { children: React.ReactNode }): JSX.Element => (
@@ -34,7 +33,7 @@ export const ExampleDefaultContent = ({ children }: { children: React.ReactNode 
 const footerContentStyles = css({
 	textAlign: 'center',
 	fontSize: '11px',
-	color: token('color.text.subtlest', N200),
+	color: token('color.text.subtlest'),
 });
 
 export const FooterContent = ({ children }: { children: React.ReactNode }): JSX.Element => (
@@ -42,10 +41,10 @@ export const FooterContent = ({ children }: { children: React.ReactNode }): JSX.
 );
 
 const buttonsWrapperStyles = css({
-	paddingTop: token('space.200', '16px'),
-	paddingRight: token('space.200', '16px'),
-	paddingBottom: token('space.200', '16px'),
-	paddingLeft: token('space.200', '16px'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 	boxSizing: 'border-box',
 	display: 'inline-block',
 	width: '100%',
@@ -56,10 +55,10 @@ export const ButtonsWrapper = ({ children }: { children: React.ReactNode }): JSX
 );
 
 const controlsWrapperStyles = css({
-	paddingTop: token('space.200', '16px'),
-	paddingRight: token('space.200', '16px'),
-	paddingBottom: token('space.200', '16px'),
-	paddingLeft: token('space.200', '16px'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 	boxSizing: 'border-box',
 	display: 'inline-block',
 	width: '50%',
@@ -87,7 +86,7 @@ const helpWrapperStyles = css({
 	height: '100%',
 	position: 'relative',
 	overflowX: 'hidden',
-	backgroundColor: token('elevation.surface', N200),
+	backgroundColor: token('elevation.surface'),
 });
 
 export const HelpWrapper = ({ children }: { children: React.ReactNode }): JSX.Element => (
@@ -98,12 +97,12 @@ const helpContainerStyles = css({
 	display: 'inline-block',
 	height: '100%',
 	verticalAlign: 'top',
-	paddingTop: token('space.200', '16px'),
-	paddingRight: token('space.200', '16px'),
-	paddingBottom: token('space.200', '16px'),
-	paddingLeft: token('space.200', '16px'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 	boxSizing: 'border-box',
-	backgroundColor: token('color.background.neutral.bold', N200),
+	backgroundColor: token('color.background.neutral.bold'),
 });
 
 export const HelpContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (

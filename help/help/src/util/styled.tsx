@@ -7,17 +7,16 @@ import React, { useEffect, useState } from 'react';
 import { css, jsx, keyframes } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { WHATS_NEW_ITEM_TYPES } from '../model/WhatsNew';
-import { B500, G300, N30, N30A, N40, N400, N700, P500, Y200 } from '@atlaskit/theme/colors';
 
 const dividerLineStyles = css({
-	backgroundColor: token('color.border', N30A),
+	backgroundColor: token('color.border'),
 	height: '2px',
 	width: '100%',
 	paddingTop: 0,
-	paddingRight: token('space.200', '16px'),
+	paddingRight: token('space.200'),
 	paddingBottom: 0,
-	paddingLeft: token('space.200', '16px'),
-	marginTop: token('space.200', '16px'),
+	paddingLeft: token('space.200'),
+	marginTop: token('space.200'),
 	boxSizing: 'border-box',
 });
 
@@ -56,18 +55,8 @@ const loadingRectangleStyles = css({
 	animationIterationCount: 'infinite',
 	animationName: shimmer,
 	animationTimingFunction: 'linear',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	backgroundColor: token('color.background.neutral', N30),
-	backgroundImage: `linear-gradient( to right, ${token(
-		'color.background.neutral.subtle',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		N30,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	)} 10%, ${token('color.background.neutral', N40)} 20%, ${token(
-		'color.background.neutral.subtle',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		N30,
-	)} 30% )`,
+	backgroundColor: token('color.background.neutral'),
+	backgroundImage: `linear-gradient( to right, ${token('color.background.neutral.subtle')} 10%, ${token('color.background.neutral')} 20%, ${token('color.background.neutral.subtle')} 30% )`,
 	backgroundRepeat: 'no-repeat',
 });
 
@@ -119,26 +108,26 @@ const whatsNewTypeIconStyles = css({
 });
 
 export const WhatsNewTypeIcon = ({ type, children }: WhatsNewTypeIconProps): JSX.Element => {
-	const [backgroundColor, setBackgroundColor] = useState<string>(token('color.icon', N400));
+	const [backgroundColor, setBackgroundColor] = useState<string>(token('color.icon'));
 	useEffect(() => {
 		switch (type) {
 			case WHATS_NEW_ITEM_TYPES.IMPROVEMENT:
-				setBackgroundColor(token('color.icon.warning', Y200));
+				setBackgroundColor(token('color.icon.warning'));
 				break;
 			case WHATS_NEW_ITEM_TYPES.NEW_FEATURE:
-				setBackgroundColor(token('color.icon.success', G300));
+				setBackgroundColor(token('color.icon.success'));
 				break;
 			case WHATS_NEW_ITEM_TYPES.FIX:
-				setBackgroundColor(token('color.icon.information', B500));
+				setBackgroundColor(token('color.icon.information'));
 				break;
 			case WHATS_NEW_ITEM_TYPES.EXPERIMENT:
-				setBackgroundColor(token('color.icon.discovery', P500));
+				setBackgroundColor(token('color.icon.discovery'));
 				break;
 			case WHATS_NEW_ITEM_TYPES.REMOVED:
-				setBackgroundColor(token('color.icon.disabled', N700));
+				setBackgroundColor(token('color.icon.disabled'));
 				break;
 			default:
-				setBackgroundColor(token('color.icon', N400));
+				setBackgroundColor(token('color.icon'));
 		}
 	}, [type]);
 

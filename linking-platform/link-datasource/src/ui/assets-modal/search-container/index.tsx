@@ -49,7 +49,7 @@ const SEARCH_FORM_ID = 'linkDataSource.assets.configModal.searchContainer-form';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const FormContainer = styled.form({
 	display: 'grid',
-	rowGap: token('space.200', '16px'),
+	rowGap: token('space.200'),
 	width: '100%',
 });
 

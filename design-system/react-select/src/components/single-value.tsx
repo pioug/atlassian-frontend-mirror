@@ -8,8 +8,8 @@ import { cssMap, cx, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { getStyleProps } from '../get-style-props';
 import { type CommonPropsAndClassName, type GroupBase } from '../types';
-import { getStyleProps } from '../utils';
 
 export interface SingleValueProps<
 	Option = unknown,
@@ -35,8 +35,6 @@ export interface SingleValueProps<
 	isDisabled: boolean;
 }
 
-export const css: () => {} = () => ({});
-
 const styles = cssMap({
 	root: {
 		gridArea: '1 / 1 / 2 / 3',
@@ -44,10 +42,10 @@ const styles = cssMap({
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
-		marginTop: 0,
-		marginRight: token('space.025'),
-		marginBottom: 0,
-		marginLeft: token('space.025'),
+		marginBlockStart: 0,
+		marginInlineEnd: token('space.025'),
+		marginBlockEnd: 0,
+		marginInlineStart: token('space.025'),
 		color: token('color.text'),
 	},
 	disalbed: {

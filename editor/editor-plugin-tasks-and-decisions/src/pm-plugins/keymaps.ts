@@ -1,3 +1,4 @@
+import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema';
 import { uuid } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -15,6 +16,11 @@ import {
 	toggleTaskItemCheckbox,
 	toggleTaskList as toggleTaskListKeymap,
 } from '@atlaskit/editor-common/keymaps';
+import {
+	getBlockMarkAttrs,
+	getFirstParagraphBlockMarkAttrs,
+	reconcileBlockMarkForParagraphAtPos,
+} from '@atlaskit/editor-common/lists';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -657,12 +663,54 @@ const creatParentListItemFragement = (state: EditorState) => {
 	return state.schema.nodes.listItem.create({}, state.schema.nodes.paragraph.create());
 };
 
+const getCurrentBlockTaskFontSizeAttrs = (
+	state: EditorState,
+	$from: ResolvedPos,
+): FontSizeMarkAttrs | false => {
+	if (!expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+		return false;
+	}
+
+	const { fontSize } = state.schema.marks;
+	if (!fontSize) {
+		return false;
+	}
+
+	const result = findBlockTaskItem($from);
+	if (!result) {
+		return false;
+	}
+
+	return result.hasParagraph
+		? getBlockMarkAttrs<FontSizeMarkAttrs>($from.parent, fontSize)
+		: getFirstParagraphBlockMarkAttrs<FontSizeMarkAttrs>(result.blockTaskItemNode, fontSize);
+};
+
+const createTaskItemForCurrentTextSize = (
+	state: EditorState,
+	attrs: Record<string, unknown>,
+	fontSizeAttrs: { fontSize: 'small' } | false,
+) => {
+	const { taskItem, blockTaskItem, paragraph } = state.schema.nodes;
+	const { fontSize } = state.schema.marks;
+
+	if (fontSizeAttrs && blockTaskItem && paragraph && fontSize) {
+		return blockTaskItem.createChecked(
+			attrs,
+			paragraph.createChecked({}, undefined, [fontSize.create(fontSizeAttrs)]),
+		);
+	}
+
+	return taskItem.createAndFill(attrs);
+};
+
 const splitListItem = (state: EditorState, dispatch?: (tr: Transaction) => void) => {
 	const {
 		tr,
 		selection: { $from },
 	} = state;
 	const { listItem, blockTaskItem, taskItem, paragraph } = state.schema.nodes;
+	const currentBlockTaskFontSizeAttrs = getCurrentBlockTaskFontSizeAttrs(state, $from);
 
 	if (actionDecisionFollowsOrNothing($from)) {
 		if (dispatch) {
@@ -684,7 +732,16 @@ const splitListItem = (state: EditorState, dispatch?: (tr: Transaction) => void)
 				return true;
 			}
 
-			dispatch(splitListItemWith(tr, paragraph.createChecked(), $from, true));
+			const splitTr = splitListItemWith(tr, paragraph.createChecked(), $from, true);
+			if (currentBlockTaskFontSizeAttrs) {
+				reconcileBlockMarkForParagraphAtPos(
+					splitTr,
+					splitTr.selection.from,
+					state.schema.marks.fontSize,
+					currentBlockTaskFontSizeAttrs,
+				);
+			}
+			dispatch(splitTr);
 		}
 		return true;
 	}
@@ -770,11 +827,14 @@ const enter = (
 							(!$from.parent.isTextblock || isInLastTextblockOfBlockTaskItem(state)) &&
 							$from.parentOffset === $from.parent.nodeSize - 2
 						) {
-							const newTaskItem = taskItem.createAndFill({
-								localId: itemLocalId,
-							});
-							if (newTaskItem) {
-								tr.insert(blockTaskItemNode.pos + blockTaskItemNode.node.nodeSize, newTaskItem);
+							const currentBlockTaskFontSizeAttrs = getCurrentBlockTaskFontSizeAttrs(state, $from);
+							const newTaskNode = createTaskItemForCurrentTextSize(
+								state,
+								{ localId: itemLocalId },
+								currentBlockTaskFontSizeAttrs,
+							);
+							if (newTaskNode) {
+								tr.insert(blockTaskItemNode.pos + blockTaskItemNode.node.nodeSize, newTaskNode);
 
 								// Move the cursor to the end of the newly inserted blockTaskItem
 								tr.setSelection(
@@ -788,9 +848,19 @@ const enter = (
 						}
 
 						// Split near the depth of the current selection
-						return tr.split($from.pos, $from?.parent?.isTextblock ? 2 : 1, [
+						const splitTr = tr.split($from.pos, $from?.parent?.isTextblock ? 2 : 1, [
 							{ type: blockTaskItem, attrs: { localId: itemLocalId } },
 						]);
+						const currentBlockTaskFontSizeAttrs = getCurrentBlockTaskFontSizeAttrs(state, $from);
+						if (currentBlockTaskFontSizeAttrs) {
+							reconcileBlockMarkForParagraphAtPos(
+								splitTr,
+								splitTr.selection.from,
+								state.schema.marks.fontSize,
+								currentBlockTaskFontSizeAttrs,
+							);
+						}
+						return splitTr;
 					}
 					return tr.split($from.pos, 1, [{ type: nodeType, attrs: { localId: itemLocalId } }]);
 				};

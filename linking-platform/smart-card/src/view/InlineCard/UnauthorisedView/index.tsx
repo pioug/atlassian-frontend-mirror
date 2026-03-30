@@ -8,7 +8,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
@@ -99,7 +98,7 @@ export const InlineCardUnauthorizedView = ({
 				title={url}
 				link={url}
 				onClick={onClick}
-				titleColor={token('color.text.subtle', N500)}
+				titleColor={token('color.text.subtle')}
 			/>
 			{onAuthorise && renderActionButton()}
 		</Frame>

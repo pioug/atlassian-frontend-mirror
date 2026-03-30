@@ -7,7 +7,6 @@ import React, { useRef } from 'react';
 import { css, cssMap, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const readViewContainerStyles = css({
@@ -61,7 +60,7 @@ const readViewWrapperStyles = css({
 	borderWidth: token('border.width.selected'),
 	transition: 'background 0.2s',
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 });
 

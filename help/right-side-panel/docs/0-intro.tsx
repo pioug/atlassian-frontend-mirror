@@ -7,7 +7,7 @@ const intro: React.ReactElement = md`
   ${(
 		<>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ marginBottom: token('space.100', '0.5rem') }}>
+			<div style={{ marginBottom: token('space.100') }}>
 				<AtlassianInternalWarning />
 			</div>
 		</>
@@ -73,7 +73,7 @@ const intro: React.ReactElement = md`
   ${
 		(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<div style={{ paddingTop: token('space.200', '16px') }}>
+			<div style={{ paddingTop: token('space.200') }}>
 				<Button
 					onClick={() => window.open('/examples/help/right-side-panel/0-Right-Side-Panel', '_self')}
 				>

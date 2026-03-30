@@ -6,12 +6,11 @@ import type { FC, HTMLAttributes, ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const treeRowContainerStyles = css({
 	display: 'flex',
-	borderBlockEnd: `${token('border.width')} solid ${token('color.border', N30)}`,
+	borderBlockEnd: `${token('border.width')} solid ${token('color.border')}`,
 });
 
 /**

@@ -5,6 +5,7 @@ import type { closingMethods } from '../ui/statusPicker';
 export type StatusType = {
 	color: ColorType;
 	localId?: string;
+	style?: string;
 	text: string;
 };
 

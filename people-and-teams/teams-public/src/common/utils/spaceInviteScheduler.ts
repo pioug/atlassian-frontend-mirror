@@ -8,10 +8,11 @@
  * the global scope — a simple in-memory workaround is sufficient here.
  */
 
-const DEBOUNCE_MS = 30_000;
+const DEBOUNCE_MS = 15_000;
 
 type PendingInvite = {
 	timeoutId: ReturnType<typeof setTimeout>;
+	callback: () => void;
 };
 
 const pending = new Map<string, PendingInvite>();
@@ -36,6 +37,7 @@ export const spaceInviteScheduler = {
 			clearTimeout(existing.timeoutId);
 		}
 		pending.set(key, {
+			callback,
 			timeoutId: setTimeout(() => {
 				pending.delete(key);
 				callback();
@@ -50,5 +52,22 @@ export const spaceInviteScheduler = {
 			clearTimeout(existing.timeoutId);
 			pending.delete(key);
 		}
+	},
+
+	/**
+	 * Immediately fires all pending callbacks and clears the queue.
+	 * Called automatically on page unload (visibilitychange / beforeunload)
+	 * so that debounced invites are not lost when the user navigates away.
+	 *
+	 * Important: callbacks invoked during page teardown must use
+	 * `fetch({ keepalive: true })` or `navigator.sendBeacon` — a regular
+	 * `fetch` without `keepalive` may be cancelled by the browser.
+	 */
+	flushAll: (): void => {
+		pending.forEach((entry) => {
+			clearTimeout(entry.timeoutId);
+			entry.callback();
+		});
+		pending.clear();
 	},
 };

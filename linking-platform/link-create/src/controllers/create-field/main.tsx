@@ -15,7 +15,7 @@ import { shouldShowValidationErrors } from '../../common/utils/form';
 import { type CreateFieldProps } from './types';
 
 const fieldWrapperStyles = css({
-	marginTop: token('space.100', '8px'),
+	marginTop: token('space.100'),
 });
 
 export const CreateField = ({

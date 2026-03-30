@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import { NotificationLogClient } from '@atlaskit/notification-log-client';
+import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 import Page from '@atlaskit/page';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import ShipIcon from '@atlaskit/icon/core/release';
-import * as colors from '@atlaskit/theme/colors';
 import { Field, HelperMessage } from '@atlaskit/form';
 
 import {
@@ -39,11 +38,7 @@ const handleEvent = (analyticsEvent: { context: any; payload: any }) => {
 };
 
 // Mockup notification Promise
-class MockNotificationLogClient extends NotificationLogClient {
-	constructor() {
-		super('', '');
-	}
-
+class MockNotificationLogClient implements NotificationLogProvider {
 	public async countUnseenNotifications() {
 		return Promise.resolve({ count: 100 });
 	}
@@ -271,7 +266,7 @@ const Example = (): React.JSX.Element => {
 		console.log(analyticsEvent);
 		console.log(articleFeedback);
 		console.log(articleData);
-		return new Promise((resolve, rejects) => {
+		return new Promise((resolve, _rejects) => {
 			let wait = setTimeout(() => {
 				clearTimeout(wait);
 				resolve(true);
@@ -357,7 +352,7 @@ const Example = (): React.JSX.Element => {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							boxSizing: 'border-box',
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							padding: token('space.150', '12px'),
+							padding: token('space.150'),
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							overflow: 'auto',
 						}}
@@ -366,7 +361,7 @@ const Example = (): React.JSX.Element => {
 							style={{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								width: 'Calc(100% - 400px)',
-								padding: `0 0 ${token('space.100', '8px')} ${token('space.200', '16px')}`,
+								padding: `0 0 ${token('space.100')} ${token('space.200')}`,
 							}}
 						>
 							Help articles
@@ -398,9 +393,9 @@ const Example = (): React.JSX.Element => {
 							style={{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								width: 'Calc(100% - 400px)',
-								padding: `${token('space.200', '16px')} 0 0 ${token('space.200', '16px')}`,
+								padding: `${token('space.200')} 0 0 ${token('space.200')}`,
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								margin: token('space.0', '0px'),
+								margin: token('space.0'),
 							}}
 						>
 							Help articles settings
@@ -508,9 +503,9 @@ const Example = (): React.JSX.Element => {
 							style={{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								width: 'Calc(100% - 400px)',
-								padding: `${token('space.200', '16px')} 0 0 ${token('space.200', '16px')}`,
+								padding: `${token('space.200')} 0 0 ${token('space.200')}`,
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								margin: token('space.0', '0px'),
+								margin: token('space.0'),
 							}}
 						>
 							Release Notes
@@ -532,9 +527,9 @@ const Example = (): React.JSX.Element => {
 							style={{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								width: 'Calc(100% - 400px)',
-								padding: `${token('space.200', '16px')} 0 0 ${token('space.200', '16px')}`,
+								padding: `${token('space.200')} 0 0 ${token('space.200')}`,
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								margin: token('space.0', '0px'),
+								margin: token('space.0'),
 							}}
 						>
 							Help articles settings
@@ -706,14 +701,14 @@ const Example = (): React.JSX.Element => {
 										homeOptions: [
 											{
 												id: 'test-button',
-												onClick: (id: string) => {
+												onClick: (_id: string) => {
 													console.log('test button');
 												},
 												text: `Test Button`,
 												href: 'https://www.google.com',
 												icon: (
 													<ShipIcon
-														color={token('color.icon.subtle', colors.N600)}
+														color={token('color.icon.subtle')}
 														spacing="spacious"
 														label=""
 													/>

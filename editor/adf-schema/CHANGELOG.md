@@ -1,5 +1,18 @@
 # @atlaskit/adf-schema
 
+## 52.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.4.9
+
+### Patch Changes
+
+- [`d9e33431d0d37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9e33431d0d37) -
+  [ux] EDITOR-5603 update editor status with team 26 lozenge styles
+
 ## 52.4.8
 
 ### Patch Changes

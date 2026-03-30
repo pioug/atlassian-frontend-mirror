@@ -7,7 +7,6 @@ import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
-import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useEditorViewHasWarnings } from '../../../../hooks/use-editor-view-has-warnings';
@@ -146,11 +145,7 @@ export const WarningMessages = (): React.JSX.Element | null => {
 		<MessageContainer>
 			<HelperMessage testId="jql-editor-warning-message">
 				<Box as="span" paddingInlineEnd="space.050">
-					<StatusWarningIcon
-						label=""
-						color={token('color.icon.warning', colors.Y400)}
-						size="small"
-					/>
+					<StatusWarningIcon label="" color={token('color.icon.warning')} size="small" />
 				</Box>
 				{warningMessage}
 			</HelperMessage>

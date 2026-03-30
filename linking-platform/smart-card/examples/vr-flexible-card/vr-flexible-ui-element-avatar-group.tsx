@@ -22,11 +22,11 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 const containerStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',
-	gap: token('space.050', '4px'),
-	paddingTop: token('space.050', '4px'),
-	paddingRight: token('space.050', '4px'),
-	paddingBottom: token('space.050', '4px'),
-	paddingLeft: token('space.050', '4px'),
+	gap: token('space.050'),
+	paddingTop: token('space.050'),
+	paddingRight: token('space.050'),
+	paddingBottom: token('space.050'),
+	paddingLeft: token('space.050'),
 });
 
 const overrideCss = css({
@@ -34,7 +34,7 @@ const overrideCss = css({
 	li: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'span, svg': {
-			backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
+			backgroundColor: token('color.background.accent.blue.subtle'),
 		},
 	},
 });

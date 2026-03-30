@@ -6,13 +6,12 @@
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N200 } from '@atlaskit/theme/colors';
 
 const searchResultEmptyMessageImageStyles = css({
-	paddingTop: token('space.300', '24px'),
-	paddingRight: token('space.300', '24px'),
+	paddingTop: token('space.300'),
+	paddingRight: token('space.300'),
 	paddingBottom: 0,
-	paddingLeft: token('space.300', '24px'),
+	paddingLeft: token('space.300'),
 	textAlign: 'center',
 });
 
@@ -23,14 +22,14 @@ export const SearchResultEmptyMessageImage = ({
 }): JSX.Element => <div css={searchResultEmptyMessageImageStyles}>{children}</div>;
 
 const searchResultEmptyMessageTextStyles = css({
-	paddingTop: token('space.300', '24px'),
-	paddingRight: token('space.300', '24px'),
+	paddingTop: token('space.300'),
+	paddingRight: token('space.300'),
 	paddingBottom: 0,
-	paddingLeft: token('space.300', '24px'),
+	paddingLeft: token('space.300'),
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	p: {
-		color: token('color.text.subtlest', N200),
+		color: token('color.text.subtlest'),
 	},
 });
 

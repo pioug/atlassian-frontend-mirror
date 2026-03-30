@@ -1,48 +1,21 @@
-import {
-	containerCSS,
-	type ContainerProps,
-	indicatorsContainerCSS,
-	type IndicatorsContainerProps,
-	valueContainerCSS,
-	type ValueContainerProps,
-} from './components/containers';
-import { css as controlCSS, type ControlProps } from './components/control';
-import {
-	groupCSS,
-	groupHeadingCSS,
-	type GroupHeadingProps,
-	type GroupProps,
-} from './components/group';
-import {
-	clearIndicatorCSS,
-	type ClearIndicatorProps,
-	dropdownIndicatorCSS,
-	type DropdownIndicatorProps,
-	loadingIndicatorCSS,
-	type LoadingIndicatorProps,
-} from './components/indicators';
-import { inputCSS, type InputProps } from './components/input';
-import {
-	loadingMessageCSS,
-	menuCSS,
-	menuListCSS,
-	type MenuListProps,
-	menuPortalCSS,
-	type MenuProps,
-	noOptionsMessageCSS,
-	type NoticeProps,
-	type PortalStyleArgs,
-} from './components/menu';
-import {
-	multiValueCSS,
-	multiValueLabelCSS,
-	type MultiValueProps,
-	multiValueRemoveCSS,
-} from './components/multi-value';
-import { optionCSS, type OptionProps } from './components/option';
-import { placeholderCSS, type PlaceholderProps } from './components/placeholder';
-import { css as singleValueCSS, type SingleValueProps } from './components/single-value';
-import { type CSSObjectWithLabel, type GroupBase } from './types';
+import { type IndicatorsContainerProps } from './components/containers/indicators-container';
+import { type ContainerProps } from './components/containers/select-container';
+import { type ValueContainerProps } from './components/containers/value-container';
+import { type ControlProps } from './components/control';
+import { type GroupProps } from './components/group';
+import { type GroupHeadingProps } from './components/group-heading';
+import { type ClearIndicatorProps } from './components/indicators/clear-indicator';
+import { type DropdownIndicatorProps } from './components/indicators/dropdown-indicator';
+import { type LoadingIndicatorProps } from './components/indicators/loading-indicator';
+import { type InputProps } from './components/input';
+import { type MenuProps } from './components/menu';
+import { type MenuListProps } from './components/menu-list';
+import { type PortalStyleArgs } from './components/menu-portal';
+import { type MultiValueProps } from './components/multi-value';
+import { type OptionProps } from './components/option';
+import { type PlaceholderProps } from './components/placeholder';
+import { type SingleValueProps } from './components/single-value';
+import { type CSSObjectWithLabel, type GroupBase, type NoticeProps } from './types';
 
 export interface StylesProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
 	clearIndicator: ClearIndicatorProps<Option, IsMulti, Group>;
@@ -67,34 +40,6 @@ export interface StylesProps<Option, IsMulti extends boolean, Group extends Grou
 	singleValue: SingleValueProps<Option, IsMulti, Group>;
 	valueContainer: ValueContainerProps<Option, IsMulti, Group>;
 }
-
-export const defaultStyles: {
-	[K in keyof StylesProps<any, any, any>]: (
-		props: StylesProps<unknown, boolean, GroupBase<unknown>>[K],
-	) => CSSObjectWithLabel;
-} = {
-	clearIndicator: clearIndicatorCSS,
-	container: containerCSS,
-	control: controlCSS,
-	dropdownIndicator: dropdownIndicatorCSS,
-	group: groupCSS,
-	groupHeading: groupHeadingCSS,
-	indicatorsContainer: indicatorsContainerCSS,
-	input: inputCSS,
-	loadingIndicator: loadingIndicatorCSS,
-	loadingMessage: loadingMessageCSS,
-	menu: menuCSS,
-	menuList: menuListCSS,
-	menuPortal: menuPortalCSS,
-	multiValue: multiValueCSS,
-	multiValueLabel: multiValueLabelCSS,
-	multiValueRemove: multiValueRemoveCSS,
-	noOptionsMessage: noOptionsMessageCSS,
-	option: optionCSS,
-	placeholder: placeholderCSS,
-	singleValue: singleValueCSS,
-	valueContainer: valueContainerCSS,
-};
 
 export type StylesConfig<
 	Option = unknown,

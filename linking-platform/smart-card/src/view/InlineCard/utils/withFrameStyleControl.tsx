@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -14,7 +13,7 @@ export default (Button: any, frameRef: React.RefObject<HTMLSpanElement>) =>
 		const setBorderStyle = () => {
 			const frameNode = frameRef.current;
 			if (frameNode) {
-				frameNode.style.borderColor = `${token('color.border', N40)}`;
+				frameNode.style.borderColor = `${token('color.border')}`;
 			}
 		};
 

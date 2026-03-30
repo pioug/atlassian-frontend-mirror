@@ -10,7 +10,6 @@ import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import AKLink from '@atlaskit/link';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
-import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -21,7 +20,7 @@ import { loadingErrorMessages } from './messages';
 const styles = cssMap({
 	errorContainerStyles: {
 		display: 'grid',
-		gap: token('space.200', '16px'),
+		gap: token('space.200'),
 		placeItems: 'center',
 		marginInline: 'auto',
 		maxWidth: '400px',
@@ -31,12 +30,11 @@ const styles = cssMap({
 	},
 	errorMessageContainerStyles: {
 		display: 'grid',
-		gap: token('space.100', '8px'),
+		gap: token('space.100'),
 		placeItems: 'center',
 	},
 	errorMessageStyles: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		font: token('font.heading.small', fontFallback.heading.small),
+		font: token('font.heading.small'),
 	},
 });
 

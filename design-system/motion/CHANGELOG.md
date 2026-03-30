@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 5.5.0
+
+### Minor Changes
+
+- [`2596f105ed08c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2596f105ed08c) -
+  Fix to Exiting Persistence to display previous elements instead of just exiting children when
+  exitThenEnter set to true
+
 ## 5.4.2
 
 ### Patch Changes

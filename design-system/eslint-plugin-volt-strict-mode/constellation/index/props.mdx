@@ -1,0 +1,30 @@
+---
+order: 2
+---
+
+You must use the recommended config to follow the styling standards at Atlassian, which will ensure
+compatability and performance with the design system.
+
+```diff
+module.exports = {
+  extends: [
++    'plugin:@atlaskit/volt-strict-mode/recommended',
+  ],
+};
+```
+
+We don't recommended maintaining your own configuration. If you do not use our config you will need
+to specify individual rules and configuration. Add the plugin to your `eslint.config.cjs` file and
+enable individual rules as you're ready to adopt.
+
+```diff
+module.exports = {
+  plugins: [
++    '@atlaskit/volt-strict-mode',
+  ],
+  rules: [
++    '@atlaskit/volt-strict-mode/no-multiple-exports': 'warn',
++    '@atlaskit/volt-strict-mode/no-re-exports': 'error',
+  ],
+};
+```

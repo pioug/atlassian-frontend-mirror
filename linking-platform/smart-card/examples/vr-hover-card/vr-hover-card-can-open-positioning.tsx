@@ -31,9 +31,9 @@ const styles = css({
 	'> div': {
 		flexGrow: 1,
 		padding: '1rem',
-		backgroundColor: token('color.background.accent.lime.subtlest', '#eefbda'),
+		backgroundColor: token('color.background.accent.lime.subtlest'),
 		'&:hover': {
-			backgroundColor: token('color.background.accent.lime.subtle', '#94C747'),
+			backgroundColor: token('color.background.accent.lime.subtle'),
 		},
 	},
 });

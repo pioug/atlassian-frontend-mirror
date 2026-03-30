@@ -10,7 +10,6 @@ import {
 	SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -129,7 +128,7 @@ export const SmartLinksShowcase = (): React.JSX.Element => {
 					<div
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							padding: token('space.800', '64px'),
+							padding: token('space.800'),
 							// we hardcode the padding bottom to account for the spacing of the floating bar on the example page
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							paddingBottom: '120px',
@@ -140,9 +139,9 @@ export const SmartLinksShowcase = (): React.JSX.Element => {
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								textAlign: 'center',
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								paddingTop: token('space.300', '24px'),
+								paddingTop: token('space.300'),
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								paddingBottom: token('space.1000', '80px'),
+								paddingBottom: token('space.1000'),
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								position: 'relative',
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -153,7 +152,7 @@ export const SmartLinksShowcase = (): React.JSX.Element => {
 							<h3
 								style={{
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									color: token('color.text.subtlest', N200),
+									color: token('color.text.subtlest'),
 								}}
 							>
 								{entitiesSupported} entities supported across {providersSupported} providers.

@@ -5,6 +5,7 @@
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * Timing constants for expand animation and DOM update delays.
@@ -200,8 +201,11 @@ export const expandElement = (expandContainer: HTMLElement): boolean => {
 export const expandAllParentsThenScroll = (
 	element: HTMLElement,
 	attempt: number = 0,
+	scrollFn?: (element: HTMLElement) => void,
 ): (() => void) => {
 	const { MAX_EXPAND_DEPTH, MAX_ATTEMPTS, DOM_UPDATE_DELAY, RETRY_DELAY } = SCROLL_TO_BLOCK_TIMING;
+	const doScroll =
+		scrollFn ?? ((el: HTMLElement) => el.scrollIntoView({ behavior: 'smooth', block: 'center' }));
 
 	// Store timeout ID and nested cleanup function so they can be cancelled.
 	let timeoutId: ReturnType<typeof setTimeout> | null = null;
@@ -223,7 +227,7 @@ export const expandAllParentsThenScroll = (
 	if (attempt >= MAX_ATTEMPTS || !element.isConnected) {
 		// Max attempts reached or element disconnected, scroll anyway.
 		if (element.isConnected) {
-			element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			doScroll(element);
 		}
 		return cleanup;
 	}
@@ -239,7 +243,7 @@ export const expandAllParentsThenScroll = (
 
 		if (collapsedExpands.length === 0) {
 			// All expands are open (or there are no expands), scroll to element.
-			element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			doScroll(element);
 			return cleanup;
 		}
 
@@ -260,11 +264,11 @@ export const expandAllParentsThenScroll = (
 						}
 
 						// Recurse to handle any nested collapsed expands or retry if still collapsed.
-						nestedCleanup = expandAllParentsThenScroll(element, attempt + 1);
+						nestedCleanup = expandAllParentsThenScroll(element, attempt + 1, scrollFn);
 					} catch {
 						// Fallback to simple scroll on error.
 						if (element.isConnected) {
-							element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+							doScroll(element);
 						}
 					}
 				}, DOM_UPDATE_DELAY);
@@ -272,7 +276,7 @@ export const expandAllParentsThenScroll = (
 				// Failed to expand, retry with longer delay.
 				timeoutId = setTimeout(() => {
 					if (element.isConnected) {
-						nestedCleanup = expandAllParentsThenScroll(element, attempt + 1);
+						nestedCleanup = expandAllParentsThenScroll(element, attempt + 1, scrollFn);
 					}
 				}, RETRY_DELAY);
 			}
@@ -280,14 +284,14 @@ export const expandAllParentsThenScroll = (
 			// Retry on error.
 			timeoutId = setTimeout(() => {
 				if (element.isConnected) {
-					nestedCleanup = expandAllParentsThenScroll(element, attempt + 1);
+					nestedCleanup = expandAllParentsThenScroll(element, attempt + 1, scrollFn);
 				}
 			}, RETRY_DELAY);
 		}
 	} catch {
 		// Fallback to simple scroll on error.
 		if (element.isConnected) {
-			element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			doScroll(element);
 		}
 	}
 
@@ -316,6 +320,9 @@ export const getLocalIdSelector = (localId: string, container: HTMLElement): HTM
 	// Special case for tables which use data-table-local-id
 	element = container.querySelector(`[data-table-local-id="${localId}"]`);
 	if (element) {
+		if (fg('platform_editor_block_menu_v2_patch_4')) {
+			return element.parentElement; // return table wrapper instead of table div, so the height calculation is correct
+		}
 		return element;
 	}
 

@@ -20,8 +20,8 @@ const initialStateViewContainerStyles = css({
 const svgAndTextsWrapperStyles = css({
 	textAlign: 'center',
 	alignSelf: 'center',
-	paddingTop: token('space.600', '48px'),
-	paddingBottom: token('space.600', '48px'),
+	paddingTop: token('space.600'),
+	paddingBottom: token('space.600'),
 });
 
 const betaTagStyles = css({
@@ -31,16 +31,16 @@ const betaTagStyles = css({
 const searchTitleStyles = css({
 	color: token('color.text'),
 	font: token('font.heading.medium'),
-	paddingTop: token('space.300', '24px'),
-	paddingBottom: token('space.200', '16px'),
+	paddingTop: token('space.300'),
+	paddingBottom: token('space.200'),
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
-	gap: token('space.100', '8px'),
+	gap: token('space.100'),
 });
 
 const mainTextStyles = css({
-	color: token('color.text.subtle', '#44546F'),
+	color: token('color.text.subtle'),
 });
 
 interface InitialStateViewProps {

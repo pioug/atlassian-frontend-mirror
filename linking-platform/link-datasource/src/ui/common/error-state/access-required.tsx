@@ -23,7 +23,7 @@ const styles = cssMap({
 	descriptionMessageStyles: {
 		display: 'flex',
 		flexDirection: 'column',
-		gap: token('space.200', '16px'),
+		gap: token('space.200'),
 	},
 	urlStyles: {
 		font: token('font.heading.medium'),

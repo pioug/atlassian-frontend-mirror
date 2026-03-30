@@ -19,6 +19,13 @@ export type { NarrowedReplacement } from './narrow-replacement-range';
 export type { FlattenedItem } from './flatten-list';
 export { flattenList } from './flatten-list';
 export type { FlattenListOptions, FlattenListResult } from './flatten-list';
+export {
+	getBlockMarkAttrs,
+	getFirstParagraphBlockMarkAttrs,
+	reconcileBlockMarkForContainerAtPos,
+	reconcileBlockMarkForParagraphAtPos,
+	reconcileBlockMarkInRange,
+} from './block-mark';
 
 export { isListNode, isListItemNode, isBulletList, isParagraphNode } from '../utils';
 

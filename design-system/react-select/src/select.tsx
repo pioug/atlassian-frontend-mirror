@@ -1,3 +1,7 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, {
 	type AriaAttributes,
 	Component,
@@ -10,8 +14,12 @@ import React, {
 	type TouchEventHandler,
 } from 'react';
 
+import { css, jsx } from '@compiled/react';
+
 import { isAppleDevice, isSafari } from '@atlaskit/ds-lib/device-check';
+import __noop from '@atlaskit/ds-lib/noop';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { type AriaLiveMessages, type AriaSelection } from './accessibility';
 import {
@@ -21,19 +29,21 @@ import {
 	isOptionDisabled as isOptionDisabledBuiltin,
 } from './builtins';
 import { defaultComponents, type SelectComponentsConfig } from './components';
-import DummyInput from './components/internal/dummy-input';
-import { NotifyOpenLayerObserver } from './components/internal/notify-open-layer-observer';
-import RequiredInput from './components/internal/required-input';
-import ScrollManager from './components/internal/scroll-manager';
+import DummyInput from './components/dummy-input';
 import LiveRegion from './components/live-region';
-import { MenuPlacer } from './components/menu';
+import MenuPlacer from './components/menu-placer';
 import { createFilter, type FilterOptionOption } from './filters';
-import {
-	type ClassNamesConfig,
-	defaultStyles,
-	type StylesConfig,
-	type StylesProps,
-} from './styles';
+import { classNames } from './internal/classnames';
+import { cleanValue } from './internal/clean-value';
+import { isDocumentElement } from './internal/is-document-el';
+import { multiValueAsValue } from './internal/multi-value-as-value';
+import { NotifyOpenLayerObserver } from './internal/notify-open-layer-observer';
+import RequiredInput from './internal/required-input';
+import ScrollManager from './internal/scroll-manager';
+import { scrollTo } from './internal/scroll-to';
+import { singleValueAsValue } from './internal/single-value-as-value';
+import { valueTernary } from './internal/value-ternary';
+import { type ClassNamesConfig, type StylesConfig, type StylesProps } from './styles';
 import {
 	type ActionMeta,
 	type CommonProps,
@@ -50,20 +60,86 @@ import {
 	type PropsValue,
 	type SetValueAction,
 } from './types';
-import {
-	classNames,
-	cleanValue,
-	filterUnsupportedSelectors,
-	isDocumentElement,
-	isMobileDevice,
-	isTouchCapable,
-	multiValueAsValue,
-	noop,
-	notNullish,
-	scrollIntoView,
-	singleValueAsValue,
-	valueTernary,
-} from './utils';
+
+const noop = __noop;
+
+function notNullish<T>(item: T | null | undefined): item is T {
+	return item != null;
+}
+
+function scrollIntoView(menuEl: HTMLElement, focusedEl: HTMLElement): void {
+	const menuRect = menuEl.getBoundingClientRect();
+	const focusedRect = focusedEl.getBoundingClientRect();
+	const overScroll = focusedEl.offsetHeight / 3;
+
+	if (focusedRect.bottom + overScroll > menuRect.bottom) {
+		scrollTo(
+			menuEl,
+			Math.min(
+				focusedEl.offsetTop + focusedEl.clientHeight - menuEl.offsetHeight + overScroll,
+				menuEl.scrollHeight,
+			),
+		);
+	} else if (focusedRect.top - overScroll < menuRect.top) {
+		scrollTo(menuEl, Math.max(focusedEl.offsetTop - overScroll, 0));
+	}
+}
+
+function isMobileDevice(): boolean {
+	try {
+		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+			navigator.userAgent,
+		);
+	} catch {
+		return false;
+	}
+}
+
+function isTouchCapable(): boolean {
+	try {
+		document.createEvent('TouchEvent');
+		return true;
+	} catch {
+		return false;
+	}
+}
+
+/**
+ * Filters out unsupported selectors (e.g., pseudo-classes, complex selectors) from a styles object.
+ * @param styles - The styles object to filter.
+ * @returns A new object containing only supported styles.
+ */
+const filterUnsupportedSelectors: (styles: Record<string, any>) => Record<string, any> = (
+	styles: Record<string, any>,
+): Record<string, any> => {
+	const unsupportedSelectors = [
+		':', // pseudo-classes/elements
+		'[', // attribute selectors
+		'>', // child combinator
+		'+', // adjacent sibling combinator
+		'~', // general sibling combinator
+		' ', // descendant combinator
+		'*', // universal selector
+		'#', // ID selector
+		'.', // class selector
+		'@', // at-rules
+		'&', // parent selector
+		'|', // namespace separator
+		'^', // starts with
+		'$', // ends with
+		'=', // equals
+	];
+
+	return Object.keys(styles).reduce(
+		(filteredStyles, key) => {
+			if (!unsupportedSelectors.some((selector) => key.includes(selector))) {
+				filteredStyles[key] = styles[key];
+			}
+			return filteredStyles;
+		},
+		{} as Record<string, any>,
+	);
+};
 
 export type FormatOptionLabelContext = 'menu' | 'value';
 export interface FormatOptionLabelMeta<Option> {
@@ -516,6 +592,12 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 */
 	shouldKeepInputOnSelect?: boolean;
 }
+
+const elemBeforeCSS = css({
+	display: 'flex',
+	alignItems: 'center',
+	gap: token('space.100'),
+});
 
 export const defaultProps: Omit<
 	SelectProps<unknown, false, GroupBase<unknown>>,
@@ -1415,14 +1497,12 @@ export default class Select<
 		key: Key,
 		props: StylesProps<Option, IsMulti, Group>[Key],
 	): any => {
-		const base = defaultStyles[key](props as any);
-		base.boxSizing = 'border-box';
+		const base = { boxSizing: 'border-box' };
 		const custom = this.props.styles[key];
-		if (!custom) {
-			return base;
+		if (custom) {
+			return filterUnsupportedSelectors(custom(base, props as any));
 		}
-		const customStyles = filterUnsupportedSelectors(custom(base, props as any));
-		return customStyles;
+		return base;
 	};
 	getClassNames = <Key extends keyof StylesProps<Option, IsMulti, Group>>(
 		key: Key,
@@ -1499,9 +1579,28 @@ export default class Select<
 				inputValue,
 				selectValue,
 			});
-		} else {
-			return this.getOptionLabel(data);
 		}
+		// Auto-render elemBefore in dropdown menu only if formatOptionLabel is not provided
+		// and no custom Option component is provided (custom Option components may already
+		// render elemBefore themselves, causing it to appear twice)
+		if (
+			context === 'menu' &&
+			!this.props.formatOptionLabel &&
+			!this.props.components?.Option &&
+			fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+		) {
+			const elemBefore = (data as { elemBefore?: ReactNode }).elemBefore;
+			if (elemBefore) {
+				const label = this.getOptionLabel(data);
+				return (
+					<div css={elemBeforeCSS}>
+						{elemBefore}
+						<span>{label}</span>
+					</div>
+				);
+			}
+		}
+		return this.getOptionLabel(data);
 	}
 	formatGroupLabel(data: Group): React.ReactNode {
 		return this.props.formatGroupLabel(data);

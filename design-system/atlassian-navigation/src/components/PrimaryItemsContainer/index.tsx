@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 
 import Popup from '@atlaskit/popup';
 import { type TriggerProps } from '@atlaskit/popup/types';
-import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
 
@@ -43,7 +42,7 @@ const widthObserverContainerStyles = css({
 });
 
 const overflowItemsStyles = css({
-	color: token('color.text', N700),
+	color: token('color.text'),
 });
 
 // Internal only

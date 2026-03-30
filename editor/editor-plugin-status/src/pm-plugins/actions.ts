@@ -21,6 +21,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ClosingPayload, StatusType } from '../types';
 
@@ -29,6 +30,12 @@ import { pluginKey } from './plugin-key';
 export const DEFAULT_STATUS: StatusType = {
 	text: '',
 	color: 'neutral',
+};
+
+export const DEFAULT_STATUS_NEW: StatusType = {
+	text: '',
+	color: 'neutral',
+	style: 'mixedCase',
 };
 
 export const verifyAndInsertStatus = (
@@ -64,7 +71,9 @@ export const createStatus = (tr: Transaction): Transaction => {
 
 	const statusNode = tr.doc.type.schema.nodes.status.createChecked(
 		{
-			...DEFAULT_STATUS,
+			...(fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+				? DEFAULT_STATUS_NEW
+				: DEFAULT_STATUS),
 			localId: uuid.generate(),
 		},
 		null,
@@ -108,7 +117,9 @@ export const updateStatus =
 			: status;
 
 		const statusProps = {
-			...DEFAULT_STATUS,
+			...(fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+				? DEFAULT_STATUS_NEW
+				: DEFAULT_STATUS),
 			...selectedStatus,
 		};
 

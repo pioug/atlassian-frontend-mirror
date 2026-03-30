@@ -7,7 +7,6 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import type { TransitionStatus } from '../../constants';
-import { N200, N500 } from '@atlaskit/theme/colors';
 
 export const FADEIN_OVERLAY_TRANSITION_DURATION_MS = 440;
 
@@ -16,7 +15,7 @@ const searchResultsContainerStyles = css({
 	height: '100%',
 	width: '100%',
 	top: 0,
-	backgroundColor: token('elevation.surface', '#FFFFFF'),
+	backgroundColor: token('elevation.surface'),
 	flex: 1,
 	flexDirection: 'column',
 	boxSizing: 'border-box',
@@ -24,9 +23,9 @@ const searchResultsContainerStyles = css({
 	overflowY: 'auto',
 	zIndex: 10,
 	paddingTop: 0,
-	paddingRight: token('space.200', '16px'),
+	paddingRight: token('space.200'),
 	paddingBottom: 0,
-	paddingLeft: token('space.200', '16px'),
+	paddingLeft: token('space.200'),
 	transition: `opacity ${FADEIN_OVERLAY_TRANSITION_DURATION_MS}ms`,
 	opacity: 0,
 	visibility: 'hidden',
@@ -57,10 +56,10 @@ SearchResultsContainer.displayName = 'SearchResultsContainer';
 
 const searchResultsContainerAiStyles = css({
 	position: 'absolute',
-	height: `calc(100% - ${token('space.800', '60px')})`,
+	height: `calc(100% - ${token('space.800')})`,
 	width: '100%',
-	top: token('space.800', '60px'),
-	backgroundColor: token('elevation.surface', '#FFFFFF'),
+	top: token('space.800'),
+	backgroundColor: token('elevation.surface'),
 	flex: 1,
 	flexDirection: 'column',
 	boxSizing: 'border-box',
@@ -68,9 +67,9 @@ const searchResultsContainerAiStyles = css({
 	overflowY: 'auto',
 	zIndex: 10,
 	paddingTop: 0,
-	paddingRight: token('space.200', '16px'),
+	paddingRight: token('space.200'),
 	paddingBottom: 0,
-	paddingLeft: token('space.200', '16px'),
+	paddingLeft: token('space.200'),
 	transition: `opacity ${FADEIN_OVERLAY_TRANSITION_DURATION_MS}ms`,
 	opacity: 0,
 	visibility: 'hidden',
@@ -91,10 +90,10 @@ export const SearchResultsContainerAi = React.forwardRef<
 SearchResultsContainerAi.displayName = 'SearchResultsContainerAi';
 
 const searchResultEmptyMessageImageStyles = css({
-	paddingTop: token('space.300', '24px'),
-	paddingRight: token('space.300', '24px'),
+	paddingTop: token('space.300'),
+	paddingRight: token('space.300'),
 	paddingBottom: 0,
-	paddingLeft: token('space.300', '24px'),
+	paddingLeft: token('space.300'),
 	textAlign: 'center',
 });
 
@@ -105,14 +104,14 @@ export const SearchResultEmptyMessageImage = ({
 }): JSX.Element => <div css={searchResultEmptyMessageImageStyles}>{children}</div>;
 
 const searchResultEmptyMessageTextStyles = css({
-	paddingTop: token('space.300', '24px'),
-	paddingRight: token('space.300', '24px'),
+	paddingTop: token('space.300'),
+	paddingRight: token('space.300'),
 	paddingBottom: 0,
-	paddingLeft: token('space.300', '24px'),
+	paddingLeft: token('space.300'),
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	p: {
-		color: token('color.text.subtlest', N200),
+		color: token('color.text.subtlest'),
 	},
 });
 
@@ -123,7 +122,7 @@ export const SearchResultEmptyMessageText = ({
 }): JSX.Element => <div css={searchResultEmptyMessageTextStyles}>{children}</div>;
 
 const searchResultEmptyMessageHeaderTextStyles = css({
-	color: token('color.text', N500),
+	color: token('color.text'),
 	font: token('font.body'),
 	fontWeight: token('font.weight.bold'),
 });
@@ -138,14 +137,14 @@ export const SearchResultEmptyMessageHeaderText = ({
 );
 
 const searchResultSearchExternalSiteContainerStyles = css({
-	paddingTop: token('space.300', '24px'),
-	paddingRight: token('space.300', '24px'),
-	paddingBottom: token('space.300', '24px'),
-	paddingLeft: token('space.300', '24px'),
+	paddingTop: token('space.300'),
+	paddingRight: token('space.300'),
+	paddingBottom: token('space.300'),
+	paddingLeft: token('space.300'),
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	p: {
-		color: token('color.text.subtlest', N200),
+		color: token('color.text.subtlest'),
 	},
 });
 

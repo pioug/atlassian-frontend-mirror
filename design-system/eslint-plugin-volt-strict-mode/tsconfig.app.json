@@ -1,0 +1,43 @@
+{
+	"extends": "../../../tsconfig.node.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx"
+	],
+	"compilerOptions": {
+		"lib": ["ES2021.String", "ES2022"],
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-volt-strict-mode/app",
+		"isolatedDeclarations": true
+	},
+	"references": [
+		{
+			"path": "../eslint-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../codegen/tsconfig.app.json"
+		}
+	],
+	"files": []
+}

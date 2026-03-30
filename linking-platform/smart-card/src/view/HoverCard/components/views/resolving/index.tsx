@@ -19,10 +19,10 @@ import { type HoverCardLoadingViewProps } from './types';
 const loadingViewContainer = css({
 	display: 'flex',
 	flexDirection: 'column',
-	paddingTop: token('space.200', '1rem'),
-	paddingRight: token('space.200', '1rem'),
-	paddingBottom: token('space.200', '1rem'),
-	paddingLeft: token('space.200', '1rem'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 });
 
 const skeletonContainer = css({
@@ -44,7 +44,7 @@ const titleStyle = css({
 
 const titleBlockStyles = css({
 	width: '100%',
-	gap: token('space.100', '0.5rem'),
+	gap: token('space.100'),
 });
 
 const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) => {

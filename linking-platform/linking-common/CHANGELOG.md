@@ -1,5 +1,12 @@
 # @atlaskit/linking-common
 
+## 9.11.1
+
+### Patch Changes
+
+- [`93a66599141af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93a66599141af) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 9.11.0
 
 ### Minor Changes

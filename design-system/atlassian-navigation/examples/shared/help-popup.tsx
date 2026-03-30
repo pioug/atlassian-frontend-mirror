@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Help } from '@atlaskit/atlassian-navigation';
 import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
-import { NotificationLogClient } from '@atlaskit/notification-log-client';
+import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 import Popup from '@atlaskit/popup';
 
 const HelpContent = () => (
@@ -25,12 +25,10 @@ const HelpContent = () => (
 	</MenuGroup>
 );
 
-class MockNotificationLogClient extends NotificationLogClient {
+class MockNotificationLogClient implements NotificationLogProvider {
 	mockedCount = 0;
 
 	constructor(mockedCount: number) {
-		super('', '');
-
 		this.mockedCount = mockedCount;
 	}
 

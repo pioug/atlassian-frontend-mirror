@@ -228,11 +228,11 @@ export const FlexibleUiBlockActionOverrideCSS = () => {
 							css={css({
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 								button: {
-									backgroundColor: token('color.icon.brand', '#0C66E4'),
+									backgroundColor: token('color.icon.brand'),
 								},
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 								span: {
-									color: token('color.text.inverse', '#FFFFFF'),
+									color: token('color.text.inverse'),
 								},
 							})}
 						/>

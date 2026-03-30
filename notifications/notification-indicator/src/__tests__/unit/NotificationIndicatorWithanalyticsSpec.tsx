@@ -2,18 +2,16 @@ import React from 'react';
 import { act, render, waitFor } from '@testing-library/react';
 
 import {
-	NotificationLogClient,
 	type NotificationCountResponse,
 	type NotificationLogProvider,
 } from '@atlaskit/notification-log-client';
 
 import NotificationIndicator from '../../NotificationIndicator';
 
-class MockNotificationLogClient extends NotificationLogClient {
+class MockNotificationLogClient implements NotificationLogProvider {
 	private response: Promise<NotificationCountResponse>;
 
 	constructor(response: Promise<NotificationCountResponse>) {
-		super('', '');
 		this.response = response;
 	}
 
@@ -52,17 +50,17 @@ describe('NotificationIndicator', () => {
 
 		try {
 			await mockClientPromise;
-		} catch (e) {}
+		} catch {}
 
 		try {
 			await notificationLogResponse;
-		} catch (e) {}
+		} catch {}
 	}
 
 	beforeEach(() => {
 		jest.useFakeTimers();
 		notificationLogClient = new MockNotificationLogClient(Promise.resolve({ count: 0 }));
-		mockCreateAnalyticsEvent = jest.fn((analytics) => {
+		mockCreateAnalyticsEvent = jest.fn((_analytics) => {
 			return {
 				fire: () => null,
 			};

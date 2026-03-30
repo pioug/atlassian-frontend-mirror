@@ -1,8 +1,8 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlassian/testing-library/prefer-atlassian-testing-library
 import { render as renderFn, screen } from '@testing-library/react';
 
-import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import ProgressTrackerLink from '../../internal/link';
@@ -73,10 +73,10 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
 		// get root styles
 		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.subtle', colors.N70));
+		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.subtle'));
 		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
 
-		expect(title).toHaveStyle(`color: ${token('color.text.subtle', colors.N300)}`);
+		expect(title).toHaveStyle(`color: ${token('color.text.subtle')}`);
 	});
 	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
 	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
@@ -110,10 +110,10 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
 		// get root styles
 		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand', colors.B300));
+		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand'));
 		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
 
-		expect(title).toHaveStyle(`color: ${token('color.text.brand', colors.B300)}`);
+		expect(title).toHaveStyle(`color: ${token('color.text.brand')}`);
 	});
 	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
 	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
@@ -147,10 +147,10 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
 		// get root styles
 		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand', colors.B300));
+		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand'));
 		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
 
-		expect(title).toHaveStyle(`color: ${token('color.text.disabled', colors.N70)}`);
+		expect(title).toHaveStyle(`color: ${token('color.text.disabled')}`);
 	});
 	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
 	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
@@ -184,10 +184,10 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
 		// get root styles
 		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand', colors.B300));
+		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand'));
 		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
 
-		expect(title).toHaveStyle(`color: ${token('color.text', colors.N800)}`);
+		expect(title).toHaveStyle(`color: ${token('color.text')}`);
 	});
 	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
 	// https://hello.jira.atlassian.cloud/browse/UTEST-2000

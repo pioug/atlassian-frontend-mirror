@@ -22,7 +22,7 @@ export default () => {
 			<SmartCardProvider>
 				<div css={containerStyle}>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					<div style={{ padding: token('space.400', '32px') }}>
+					<div style={{ padding: token('space.400') }}>
 						<h5>Errored view</h5>
 						<FlexibleErroredView
 							cardState={getCardState({

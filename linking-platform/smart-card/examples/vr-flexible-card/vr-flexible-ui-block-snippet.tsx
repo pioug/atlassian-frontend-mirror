@@ -20,11 +20,11 @@ const cardState = getCardState({
 });
 
 const blockOverrideCss = css({
-	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
-	paddingTop: token('space.200', '1rem'),
-	paddingRight: token('space.200', '1rem'),
-	paddingBottom: token('space.200', '1rem'),
-	paddingLeft: token('space.200', '1rem'),
+	backgroundColor: token('color.background.accent.blue.subtle'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 });
 
 export default () => {

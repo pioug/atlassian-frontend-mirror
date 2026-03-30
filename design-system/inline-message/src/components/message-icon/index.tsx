@@ -6,7 +6,6 @@ import type { FC } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { B400, G300, P300, R400, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { typesMapping } from '../../constants';
@@ -21,19 +20,19 @@ interface MessageIconProps {
 
 const iconColor = cssMap({
 	connectivity: {
-		'--icon-color': token('color.icon.brand', B400),
+		color: token('color.icon.brand'),
 	},
 	confirmation: {
-		'--icon-color': token('color.icon.success', G300),
+		color: token('color.icon.success'),
 	},
 	info: {
-		'--icon-color': token('color.icon.discovery', P300),
+		color: token('color.icon.discovery'),
 	},
 	warning: {
-		'--icon-color': token('color.icon.warning', Y300),
+		color: token('color.icon.warning'),
 	},
 	error: {
-		'--icon-color': token('color.icon.danger', R400),
+		color: token('color.icon.danger'),
 	},
 });
 
@@ -41,7 +40,6 @@ const iconWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	flex: '0 0 auto',
-	color: 'var(--icon-color)',
 });
 
 const iconColorStyles = css({
@@ -62,7 +60,7 @@ const SelectedIcon: FC<MessageIconProps> = ({ appearance, isOpen, label, spacing
 	return (
 		<span
 			data-ds--inline-message--icon
-			css={[iconWrapperStyles, isOpen && iconColorStyles, iconColor[appearance]]}
+			css={[iconWrapperStyles, iconColor[appearance], isOpen && iconColorStyles]}
 		>
 			<Icon
 				testId="inline-message-icon"

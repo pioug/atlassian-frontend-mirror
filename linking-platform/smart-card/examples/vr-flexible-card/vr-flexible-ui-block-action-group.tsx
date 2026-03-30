@@ -19,7 +19,7 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 const containerStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'div.vr-test-wrapper': {
-		paddingTop: token('space.050', '4px'),
+		paddingTop: token('space.050'),
 		paddingRight: 0,
 		paddingBottom: 0,
 		paddingLeft: 0,

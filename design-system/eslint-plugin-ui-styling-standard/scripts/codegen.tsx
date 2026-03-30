@@ -73,6 +73,7 @@ async function ruleDocsPath(name: string) {
 	try {
 		const file = await fs.readFile(absolutePath, 'utf-8');
 		return { path: relativePath, file };
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (_) {
 		throw new Error(`invariant: rule ${name} should have docs at ${absolutePath}`);
 	}
@@ -141,14 +142,9 @@ export default config;`,
 	);
 
 	const flatCode = format(
-		`
-
+		`import type { Linter } from 'eslint';
 		${externalPlugins
-			.map(
-				(plugin) => `import type { Linter } from 'eslint';
-
-import * as ${plugin.identifier} from '${plugin.specifier}';`,
-			)
+			.map((plugin) => `import * as ${plugin.identifier} from '${plugin.specifier}';`)
 			.join('\n')}
 
 const config: Linter.FlatConfig = {

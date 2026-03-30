@@ -551,7 +551,7 @@ export const RendererFunctionalComponent = (
 		[props.featureFlags, props.isTopLevelRenderer, createRendererContext, props.timeZone],
 	);
 
-	useScrollToBlock(editorRef, props.document);
+	useScrollToBlock(editorRef, props.document, props.scrollToBlock);
 
 	try {
 		const schema = getSchema(props.schema, props.adfStage);

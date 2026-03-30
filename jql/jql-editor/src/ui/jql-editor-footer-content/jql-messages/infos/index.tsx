@@ -5,7 +5,6 @@ import { di } from 'react-magnetic-di';
 import { HelperMessage } from '@atlaskit/form';
 import StatusInformationIcon from '@atlaskit/icon/core/status-information';
 import { Box } from '@atlaskit/primitives/compiled';
-import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useEditorViewHasInfos } from '../../../../hooks/use-editor-view-has-infos';
@@ -34,11 +33,7 @@ export const InfoMessages = (): React.JSX.Element | null => {
 		<MessageContainer>
 			<HelperMessage testId="jql-editor-info-message">
 				<Box as="span" paddingInlineEnd="space.050">
-					<StatusInformationIcon
-						label=""
-						color={token('color.icon.information', colors.B500)}
-						size="small"
-					/>
+					<StatusInformationIcon label="" color={token('color.icon.information')} size="small" />
 				</Box>
 				{infoMessage}
 			</HelperMessage>

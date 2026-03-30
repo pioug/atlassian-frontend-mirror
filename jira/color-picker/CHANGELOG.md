@@ -1,5 +1,12 @@
 # @atlaskit/color-picker
 
+## 5.3.10
+
+### Patch Changes
+
+- [`ce16754d5db01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce16754d5db01) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 5.3.9
 
 ### Patch Changes

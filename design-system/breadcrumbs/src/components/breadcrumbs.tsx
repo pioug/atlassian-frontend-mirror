@@ -9,7 +9,6 @@ import { css, jsx } from '@compiled/react';
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import __noop from '@atlaskit/ds-lib/noop';
-import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type BreadcrumbsProps } from '../types';
@@ -36,7 +35,7 @@ const interactiveElementSelector = 'a, button, [tabindex]:not([tabindex="-1"])';
 const breadcrumbStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',
-	color: token('color.text.subtlest', N200),
+	color: token('color.text.subtlest'),
 	marginBlockEnd: token('space.0', '0px'),
 	marginBlockStart: token('space.0', '0px'),
 	marginInlineEnd: token('space.0', '0px'),

@@ -1,5 +1,12 @@
 # @atlassian/navigation-system
 
+## 7.1.1
+
+### Patch Changes
+
+- [`3088f1c2a117a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3088f1c2a117a) -
+  Cleanup platform_editor_topnavstart_delay_browser_check flag
+
 ## 7.1.0
 
 ### Minor Changes

@@ -8,7 +8,6 @@ import React from 'react';
 import { css, cssMap, jsx, keyframes } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type DefaultProgressBarProps } from '../types';
@@ -30,7 +29,7 @@ const containerStyles = css({
 	width: '100%',
 	height: 6,
 	position: 'relative',
-	backgroundColor: token('color.background.neutral', N40A),
+	backgroundColor: token('color.background.neutral'),
 	borderRadius: token('radius.small', '3px'),
 	overflow: 'hidden',
 });

@@ -60,6 +60,12 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 						letterSpacing: '0.165px',
 					}
 				: {}),
+			...(style !== 'mixedCase' && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+				? {
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						textTransform: 'uppercase',
+					}
+				: {}),
 		}),
 	};
 

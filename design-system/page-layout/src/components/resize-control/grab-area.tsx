@@ -8,7 +8,6 @@ import type { ComponentProps, FocusEvent, KeyboardEvent, MouseEvent } from 'reac
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { GRAB_AREA_LINE_SELECTOR, GRAB_AREA_SELECTOR } from '../../common/constants';
@@ -49,7 +48,7 @@ const grabAreaStyles = css({
 		outline: 0,
 	},
 	'&:enabled:hover, &:enabled:focus, &:enabled:active': {
-		[varLineColor]: token('color.border.selected', B200),
+		[varLineColor]: token('color.border.selected'),
 	},
 });
 

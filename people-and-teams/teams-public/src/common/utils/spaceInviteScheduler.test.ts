@@ -1,6 +1,6 @@
 import { spaceInviteScheduler } from './spaceInviteScheduler';
 
-const { scheduleInvite, cancelInvite } = spaceInviteScheduler;
+const { scheduleInvite, cancelInvite, flushAll } = spaceInviteScheduler;
 
 describe('spaceInviteScheduler', () => {
 	beforeEach(() => {
@@ -12,20 +12,20 @@ describe('spaceInviteScheduler', () => {
 	});
 
 	describe('scheduleInvite', () => {
-		it('should call callback after 30 seconds', () => {
+		it('should call callback after 15 seconds', () => {
 			const callback = jest.fn();
 			scheduleInvite('team-1', 'container-1', callback);
 
 			expect(callback).not.toHaveBeenCalled();
-			jest.advanceTimersByTime(30_000);
+			jest.advanceTimersByTime(15_000);
 			expect(callback).toHaveBeenCalledTimes(1);
 		});
 
-		it('should not call callback before 30 seconds', () => {
+		it('should not call callback before 15 seconds', () => {
 			const callback = jest.fn();
 			scheduleInvite('team-1', 'container-1', callback);
 
-			jest.advanceTimersByTime(29_999);
+			jest.advanceTimersByTime(14_999);
 			expect(callback).not.toHaveBeenCalled();
 		});
 
@@ -34,15 +34,15 @@ describe('spaceInviteScheduler', () => {
 			const callback2 = jest.fn();
 
 			scheduleInvite('team-1', 'container-1', callback1);
-			jest.advanceTimersByTime(15_000);
+			jest.advanceTimersByTime(7_500);
 
 			scheduleInvite('team-1', 'container-1', callback2);
-			jest.advanceTimersByTime(15_000);
+			jest.advanceTimersByTime(7_500);
 
 			expect(callback1).not.toHaveBeenCalled();
 			expect(callback2).not.toHaveBeenCalled();
 
-			jest.advanceTimersByTime(15_000);
+			jest.advanceTimersByTime(7_500);
 			expect(callback1).not.toHaveBeenCalled();
 			expect(callback2).toHaveBeenCalledTimes(1);
 		});
@@ -52,15 +52,15 @@ describe('spaceInviteScheduler', () => {
 			const callback2 = jest.fn();
 
 			scheduleInvite('team-1', 'container-1', callback1);
-			jest.advanceTimersByTime(15_000);
+			jest.advanceTimersByTime(7_500);
 
 			scheduleInvite('team-2', 'container-2', callback2);
-			jest.advanceTimersByTime(15_000);
+			jest.advanceTimersByTime(7_500);
 
 			expect(callback1).toHaveBeenCalledTimes(1);
 			expect(callback2).not.toHaveBeenCalled();
 
-			jest.advanceTimersByTime(15_000);
+			jest.advanceTimersByTime(7_500);
 			expect(callback2).toHaveBeenCalledTimes(1);
 		});
 	});
@@ -71,7 +71,7 @@ describe('spaceInviteScheduler', () => {
 			scheduleInvite('team-1', 'container-1', callback);
 
 			cancelInvite('team-1', 'container-1');
-			jest.advanceTimersByTime(30_000);
+			jest.advanceTimersByTime(15_000);
 
 			expect(callback).not.toHaveBeenCalled();
 		});
@@ -84,7 +84,7 @@ describe('spaceInviteScheduler', () => {
 			scheduleInvite('team-2', 'container-2', callback2);
 
 			cancelInvite('team-1', 'container-1');
-			jest.advanceTimersByTime(30_000);
+			jest.advanceTimersByTime(15_000);
 
 			expect(callback1).not.toHaveBeenCalled();
 			expect(callback2).toHaveBeenCalledTimes(1);
@@ -103,7 +103,7 @@ describe('spaceInviteScheduler', () => {
 			);
 
 			cancelInvite('abc-123', '10000');
-			jest.advanceTimersByTime(30_000);
+			jest.advanceTimersByTime(15_000);
 
 			expect(callback).not.toHaveBeenCalled();
 		});
@@ -113,9 +113,53 @@ describe('spaceInviteScheduler', () => {
 			scheduleInvite('abc-123', '10000', callback);
 
 			cancelInvite('ari:cloud:identity::team/abc-123', 'ari:cloud:jira:site-1:project/10000');
-			jest.advanceTimersByTime(30_000);
+			jest.advanceTimersByTime(15_000);
 
 			expect(callback).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('flushAll', () => {
+		it('should fire all pending callbacks immediately', () => {
+			const callback1 = jest.fn();
+			const callback2 = jest.fn();
+
+			scheduleInvite('team-1', 'container-1', callback1);
+			scheduleInvite('team-2', 'container-2', callback2);
+
+			flushAll();
+
+			expect(callback1).toHaveBeenCalledTimes(1);
+			expect(callback2).toHaveBeenCalledTimes(1);
+		});
+
+		it('should not re-fire callbacks when original timers expire after flush', () => {
+			const callback = jest.fn();
+			scheduleInvite('team-1', 'container-1', callback);
+
+			flushAll();
+			expect(callback).toHaveBeenCalledTimes(1);
+
+			jest.advanceTimersByTime(15_000);
+			expect(callback).toHaveBeenCalledTimes(1);
+		});
+
+		it('should be a no-op when nothing is pending', () => {
+			expect(() => flushAll()).not.toThrow();
+		});
+
+		it('should not affect subsequently scheduled invites', () => {
+			const callback1 = jest.fn();
+			const callback2 = jest.fn();
+
+			scheduleInvite('team-1', 'container-1', callback1);
+			flushAll();
+
+			scheduleInvite('team-1', 'container-1', callback2);
+			jest.advanceTimersByTime(15_000);
+
+			expect(callback1).toHaveBeenCalledTimes(1);
+			expect(callback2).toHaveBeenCalledTimes(1);
 		});
 	});
 });

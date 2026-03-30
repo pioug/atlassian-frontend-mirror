@@ -1,5 +1,13 @@
 # @atlaskit/table-tree
 
+## 12.2.24
+
+### Patch Changes
+
+- [`7aef1e49e90ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aef1e49e90ea) -
+  Removes redundant fallback color values via @atlaskit/theme
+- Updated dependencies
+
 ## 12.2.23
 
 ### Patch Changes

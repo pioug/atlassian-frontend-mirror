@@ -1,5 +1,21 @@
 # @atlaskit/atlassian-navigation
 
+## 5.6.11
+
+### Patch Changes
+
+- [`7aef1e49e90ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7aef1e49e90ea) -
+  Removes redundant fallback color values via @atlaskit/theme
+- Updated dependencies
+
+## 5.6.10
+
+### Patch Changes
+
+- [`62281c5d82340`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62281c5d82340) -
+  Align examples and tests with the new `NotificationLogClient` object constructor API , updated for
+  GraphQL support
+
 ## 5.6.9
 
 ### Patch Changes

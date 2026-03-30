@@ -4,7 +4,6 @@ import { type Link } from '@atlaskit/linking-types';
 import { Card } from '@atlaskit/smart-card';
 import { HoverCard } from '@atlaskit/smart-card/hover-card';
 import LinkUrl from '@atlaskit/smart-card/link-url';
-import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 interface LinkProps extends Link {
@@ -14,7 +13,7 @@ interface LinkProps extends Link {
 const linkStyles = {
 	key: {
 		fontWeight: token('font.weight.semibold'),
-		color: token('color.text.subtlest', N300),
+		color: token('color.text.subtlest'),
 		marginTop: token('space.250'),
 	},
 	default: {},

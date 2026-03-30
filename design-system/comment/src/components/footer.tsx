@@ -2,7 +2,6 @@ import React, { type FC, type ReactNode } from 'react';
 
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Inline from '@atlaskit/primitives/inline';
-import { Y500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 interface FooterProps {
@@ -40,7 +39,7 @@ const Footer: FC<FooterProps> = ({
 			{isError && (
 				<WarningIcon
 					spacing="spacious"
-					color={token('color.icon.warning', Y500)}
+					color={token('color.icon.warning')}
 					label={errorIconLabel ? errorIconLabel : ''}
 				/>
 			)}

@@ -26,11 +26,11 @@ const formStyles = css({
 	maxWidth: `480px`,
 	paddingTop: 0,
 	paddingRight: 0,
-	paddingBottom: token('space.300', '24px'),
+	paddingBottom: token('space.300'),
 	paddingLeft: 0,
-	marginTop: token('space.0', '0px'),
+	marginTop: token('space.0'),
 	marginRight: 'auto',
-	marginBottom: token('space.0', '0px'),
+	marginBottom: token('space.0'),
 	marginLeft: 'auto',
 });
 

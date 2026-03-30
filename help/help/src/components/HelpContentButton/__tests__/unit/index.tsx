@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import ShipIcon from '@atlaskit/icon/core/release';
-import { NotificationLogClient } from '@atlaskit/notification-log-client';
+import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
@@ -14,10 +14,9 @@ const buttonLabel = 'Test Content Button';
 const notificationNumber = 5;
 
 // Mockup notification Promise
-class MockNotificationLogClient extends NotificationLogClient {
+class MockNotificationLogClient implements NotificationLogProvider {
 	notificationCounter: number;
 	constructor(notificationCounter: number = notificationNumber) {
-		super('', '');
 		this.notificationCounter = notificationCounter;
 	}
 

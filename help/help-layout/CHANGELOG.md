@@ -1,5 +1,12 @@
 # @atlaskit/help-layout
 
+## 6.3.38
+
+### Patch Changes
+
+- [`379cf9c4c25f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/379cf9c4c25f0) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 6.3.37
 
 ### Patch Changes

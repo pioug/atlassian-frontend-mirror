@@ -4,7 +4,6 @@
  */
 import { css, jsx, keyframes } from '@compiled/react';
 
-import { N20, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type SkeletonProps = {
@@ -50,19 +49,16 @@ const shimmer = keyframes({
 
 const SkeletonText = css({
 	width: '85%',
-	height: token('space.200', '16px'),
-	marginTop: token('space.050', '4px'),
-	marginLeft: token('space.150', '12px'),
+	height: token('space.200'),
+	marginTop: token('space.050'),
+	marginLeft: token('space.150'),
 	animationDuration: '1s',
 	animationFillMode: 'forwards',
 	animationIterationCount: 'infinite',
 	animationName: shimmer,
 	animationTimingFunction: 'linear',
-	backgroundColor: token('color.skeleton', N30),
-	backgroundImage: `linear-gradient(to right, ${token(
-		'color.skeleton',
-		N30,
-	)} 10%, ${token('color.skeleton.subtle', N20)} 30%, ${token('color.skeleton', N30)} 50%)`,
+	backgroundColor: token('color.skeleton'),
+	backgroundImage: `linear-gradient(to right, ${token('color.skeleton')} 10%, ${token('color.skeleton.subtle')} 30%, ${token('color.skeleton')} 50%)`,
 	backgroundRepeat: 'no-repeat',
 });
 

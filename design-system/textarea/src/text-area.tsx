@@ -8,7 +8,6 @@ import { css, cssMap, jsx } from '@compiled/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { B200, N0, N10, N20, N200, N30, N70, N900, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type TextAreaProps } from './types';
@@ -41,7 +40,7 @@ const baseStyles = css({
 
 	borderRadius: token('radius.small', '3px'),
 	borderWidth: token('border.width'),
-	color: token('color.text', N900),
+	color: token('color.text'),
 	font: token('font.body'),
 	outline: 'none',
 	overflow: 'auto',
@@ -49,7 +48,7 @@ const baseStyles = css({
                border-color ${transitionDuration} ease-in-out`,
 	wordWrap: 'break-word',
 	'&:disabled': {
-		color: token('color.text.disabled', N70),
+		color: token('color.text.disabled'),
 		cursor: 'not-allowed',
 		// Safari puts on some difficult to remove styles, mainly for disabled inputs
 		// but we want full control so need to override them in all cases
@@ -67,37 +66,37 @@ const baseStyles = css({
 	// border and background styles
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&[data-invalid]:focus': {
-		backgroundColor: token('color.background.input.pressed', N0),
-		borderColor: token('color.border.focused', B200),
-		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused', B200)}`,
+		backgroundColor: token('color.background.input.pressed'),
+		borderColor: token('color.border.focused'),
+		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused')}`,
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&[data-invalid]:not(:focus)': {
-		backgroundColor: token('color.background.input', N10),
-		borderColor: token('color.border.danger', R400),
-		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.danger', R400)}`,
+		backgroundColor: token('color.background.input'),
+		borderColor: token('color.border.danger'),
+		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.danger')}`,
 	},
 
 	// hover styles
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:hover:not(:read-only):not(:focus)': {
 		'&:disabled': {
-			backgroundColor: token('color.background.disabled', N20),
+			backgroundColor: token('color.background.disabled'),
 		},
 		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&[data-invalid]': {
-			backgroundColor: token('color.background.input.hovered', N30),
-			borderColor: token('color.border.danger', R400),
-			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.danger', R400)}`,
+			backgroundColor: token('color.background.input.hovered'),
+			borderColor: token('color.border.danger'),
+			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.danger')}`,
 		},
 	},
 
 	// placeholder styles
 	'&::placeholder': {
-		color: token('color.text.subtlest', N200),
+		color: token('color.text.subtlest'),
 	},
 	'&:disabled::placeholder': {
-		color: token('color.text.disabled', N70),
+		color: token('color.text.disabled'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles

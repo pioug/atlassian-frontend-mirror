@@ -2,7 +2,6 @@ import { token } from '@atlaskit/tokens';
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
-import { N40 } from '@atlaskit/theme/colors';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import Button from '@atlaskit/button/custom-theme-button';
 import { messages } from '@atlaskit/media-ui';
@@ -42,7 +41,7 @@ const MediaDownloadButton = (props: Props & WrappedComponentProps) => {
 					...current(themeProps).buttonStyles,
 					minWidth: 'max-content',
 					'&:hover': {
-						background: token('color.background.neutral.hovered', N40),
+						background: token('color.background.neutral.hovered'),
 					},
 				},
 				spinnerStyles: current(themeProps).spinnerStyles,

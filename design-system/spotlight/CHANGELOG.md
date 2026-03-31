@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 0.11.0
+
+### Minor Changes
+
+- [`58f8502090976`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58f8502090976) -
+  Expose `placement` prop on `SpotlightCard`. `SpotlightCard` is now better supported to render
+  outside of a `PopoverProvider`.
+
 ## 0.10.10
 
 ### Patch Changes

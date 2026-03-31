@@ -33,7 +33,7 @@ export type DocumentViewerProps = {
 };
 
 const documentViewerStyles = css({
-	marginTop: token('space.800', '64px'),
+	marginTop: token('space.800'),
 	minWidth: '100%',
 	display: 'flex',
 	gap: token('space.150'),

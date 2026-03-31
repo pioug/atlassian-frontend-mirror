@@ -1,4 +1,3 @@
-import { N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { akEditorSelectedBoxShadow } from '@atlaskit/editor-shared-styles/consts';
 
@@ -50,7 +49,7 @@ export const getWrapperDimensions = (dimensions?: CardDimensions, appearance?: C
 // CSS outline has no 'radius', therefore we can't achieve the same effect with it
 export const getWrapperShadow = (disableOverlay: boolean, selected: boolean): string => {
 	const withOverlayShadow = !disableOverlay
-		? `${token('elevation.shadow.raised', `0 1px 1px ${N60A}, 0 0 1px 0 ${N60A}`)}`
+		? `${token('elevation.shadow.raised')}`
 		: '';
 
 	const selectedShadow = selected ? akEditorSelectedBoxShadow : '';

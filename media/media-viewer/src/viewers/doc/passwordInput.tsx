@@ -36,7 +36,7 @@ const headingStyle = css({
 });
 
 const errorMessageWrapperStyle = css({
-	marginTop: token('space.050', '4px'),
+	marginTop: token('space.050'),
 	font: token('font.body.small'),
 	display: 'flex',
 	alignItems: 'center',
@@ -50,7 +50,7 @@ const errorMessageWrapperStyle = css({
 
 const errorMessageStyle = css({
 	marginTop: '0px',
-	marginLeft: token('space.050', '4px'),
+	marginLeft: token('space.050'),
 });
 
 const headerStyles = xcss({

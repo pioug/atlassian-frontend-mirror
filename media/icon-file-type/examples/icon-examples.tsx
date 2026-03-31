@@ -1,7 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { token } from '@atlaskit/tokens';
-import { DN30 } from '@atlaskit/theme/colors';
 
 import metadata from '../src/metadata';
 
@@ -59,7 +58,7 @@ export default function IconExamples(): React.JSX.Element {
 			<div
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					backgroundColor: token('elevation.surface', DN30),
+					backgroundColor: token('elevation.surface'),
 				}}
 				data-testid="dark-root"
 			>

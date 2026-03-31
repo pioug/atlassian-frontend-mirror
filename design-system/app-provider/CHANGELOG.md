@@ -1,5 +1,13 @@
 # @atlaskit/app-provider
 
+## 4.2.0
+
+### Minor Changes
+
+- [`1fab6967bb305`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fab6967bb305) -
+  Tidied feature flag `platform_dst_subtree_theming` which enables sub-tree theming capabilities
+  within `@atlaskit/app-provider`
+
 ## 4.1.0
 
 ### Minor Changes

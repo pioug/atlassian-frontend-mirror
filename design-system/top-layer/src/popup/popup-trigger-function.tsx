@@ -124,7 +124,10 @@ export function PopupTriggerFunction({ children }: TPopupTriggerFunctionProps): 
 	const toggle = useCallback(() => {
 		const popoverEl = popoverRef.current;
 		if (popoverEl) {
-			popoverEl.togglePopover();
+			// Defensive: element may be disconnected or in an unexpected state.
+			try {
+				popoverEl.togglePopover();
+			} catch {}
 		}
 	}, [popoverRef]);
 

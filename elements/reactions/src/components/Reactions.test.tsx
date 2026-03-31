@@ -350,7 +350,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 
 		expect(screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID)).toBeInTheDocument();
 		const popper = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
-		const popperPortal = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID).parentElement;
+		const popperPortal = popper.closest('.atlaskit-portal');
 		expect(popperPortal).toHaveStyle({ zIndex: 700 });
 		expect(popper).toHaveStyle({ zIndex: 700 });
 	});

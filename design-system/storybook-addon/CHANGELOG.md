@@ -1,5 +1,14 @@
 # @atlaskit/storybook-addon-design-system
 
+## 3.2.3
+
+### Patch Changes
+
+- [`8ee405518dbc3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ee405518dbc3) -
+  Fixed ADS theme switcher not applying dark and split/stack themes in Storybook. Added `motion` to
+  `setGlobalTheme` calls to prevent a `ReferenceError` from an uninitialized feature flag, and
+  changed split/stack mode to load both light and dark theme CSS.
+
 ## 3.2.2
 
 ### Patch Changes

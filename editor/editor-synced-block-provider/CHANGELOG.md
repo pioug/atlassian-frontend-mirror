@@ -1,5 +1,25 @@
 # @atlaskit/editor-synced-block-provider
 
+## 4.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.6
+
+### Patch Changes
+
+- [`9039c3cc043e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9039c3cc043e0) -
+  Editor-5990-Fixed-deleting-source-synced-block-on-copied-page-throw-error"
+- Updated dependencies
+
 ## 4.2.5
 
 ### Patch Changes

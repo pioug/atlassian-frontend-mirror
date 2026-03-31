@@ -2,6 +2,12 @@
 import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { zodToJsonSchema as zodToJsonSchemaHelper } from 'zod-to-json-schema';
 
+export {
+	computeMultiTermFuseAllocation,
+	type FuseHit,
+	mergeMultiTermFuseResults,
+} from './fuse-multi-term';
+
 export const cleanQuery = (query: string): string => query.trim().toLowerCase().replace(/\s+/g, '');
 
 export const zodToJsonSchema = <T = Tool['inputSchema'],>(

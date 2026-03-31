@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 6.0.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.33
+
+### Patch Changes
+
+- [`28b7faffe727d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28b7faffe727d) -
+  [ux] Disables 'Unsync' button in the floating toolbar when source block is added on an unpublished
+  page.
+
+## 6.0.32
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.31
 
 ### Patch Changes

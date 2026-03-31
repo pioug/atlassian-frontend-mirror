@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 6.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.6
+
+### Patch Changes
+
+- [`164eae4f672d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/164eae4f672d5) -
+  Fix a number of issues with the diff flipper
+- Updated dependencies
+
 ## 6.2.5
 
 ### Patch Changes

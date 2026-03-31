@@ -10,7 +10,6 @@ import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Modal, { ModalBody, type OnCloseHandler } from '@atlaskit/modal-dialog';
 import { type SelectedType } from '@atlaskit/tabs/types';
 import { Box } from '@atlaskit/primitives/compiled';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../shared/constants';
 import { type ReactionSummary, type ProfileCardWrapper } from '../types';
@@ -134,7 +133,6 @@ export const ReactionsDialog = ({
 			onClose={handleCloseReactionsDialog}
 			height={600}
 			testId={RENDER_MODAL_TESTID}
-			autoFocus={fg('platform-a11y-remove-autofocus-prop') ? true : false}
 		>
 			<Tabs id="reactions-dialog-tabs" onChange={onTabChange} selected={selectedIndex}>
 				<ReactionsDialogHeader

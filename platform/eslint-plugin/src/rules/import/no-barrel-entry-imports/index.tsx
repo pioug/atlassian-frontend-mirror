@@ -168,26 +168,20 @@ interface SpecifierClassification {
 }
 
 /**
- * Resolves import context for barrel file analysis.
+ * Resolves import context for barrel file analysis from a module specifier string.
  * Returns null if the import should not be processed (relative import, not in target folder, etc.)
  */
-function resolveImportContext({
-	node,
+function resolveImportContextFromModulePath({
+	importPath,
 	workspaceRoot,
 	fs,
 	applyToImportsFrom,
 }: {
-	node: ImportDeclarationNode;
+	importPath: string;
 	workspaceRoot: string;
 	fs: FileSystem;
 	applyToImportsFrom: string[];
 }): ImportContext | null {
-	if (!node.source || typeof node.source.value !== 'string') {
-		return null;
-	}
-
-	const importPath = node.source.value;
-
 	// Skip relative imports - this rule is for cross-package imports
 	if (isRelativeImport(importPath)) {
 		return null;
@@ -250,6 +244,33 @@ function resolveImportContext({
 		exportsMap,
 		exportMap,
 	};
+}
+
+/**
+ * Resolves import context for barrel file analysis.
+ * Returns null if the import should not be processed (relative import, not in target folder, etc.)
+ */
+function resolveImportContext({
+	node,
+	workspaceRoot,
+	fs,
+	applyToImportsFrom,
+}: {
+	node: ImportDeclarationNode;
+	workspaceRoot: string;
+	fs: FileSystem;
+	applyToImportsFrom: string[];
+}): ImportContext | null {
+	if (!node.source || typeof node.source.value !== 'string') {
+		return null;
+	}
+
+	return resolveImportContextFromModulePath({
+		importPath: node.source.value,
+		workspaceRoot,
+		fs,
+		applyToImportsFrom,
+	});
 }
 
 /**
@@ -792,6 +813,361 @@ function createBarrelImportFix({
 	return fixes;
 }
 
+function isPlainRequireCall(node: TSESTree.CallExpression): boolean {
+	if (node.callee.type !== 'Identifier' || node.callee.name !== 'require') {
+		return false;
+	}
+	if (node.arguments.length !== 1) {
+		return false;
+	}
+	const arg = node.arguments[0];
+	return arg.type === 'Literal' && typeof arg.value === 'string';
+}
+
+function unwrapToRequireCall(expr: TSESTree.Expression): TSESTree.CallExpression | null {
+	let e: TSESTree.Expression = expr;
+	for (;;) {
+		const wrapped = e as { type?: string; expression?: TSESTree.Expression };
+		if (wrapped.type !== 'ParenthesizedExpression' || !wrapped.expression) {
+			break;
+		}
+		e = wrapped.expression;
+	}
+	if (e.type !== 'CallExpression' || !isPlainRequireCall(e)) {
+		return null;
+	}
+	return e;
+}
+
+function buildSyntheticImportFromRequireAccess(
+	exportPropertyName: string,
+	modulePath: string,
+): ImportDeclarationNode {
+	const specifiers: TSESTree.ImportDeclaration['specifiers'] =
+		exportPropertyName === 'default'
+			? ([
+					{
+						type: 'ImportDefaultSpecifier',
+						local: { type: 'Identifier', name: '_r' },
+					},
+				] as TSESTree.ImportDefaultSpecifier[])
+			: ([
+					{
+						type: 'ImportSpecifier',
+						imported: { type: 'Identifier', name: exportPropertyName },
+						local: { type: 'Identifier', name: exportPropertyName },
+					},
+				] as TSESTree.ImportSpecifier[]);
+
+	return {
+		type: 'ImportDeclaration',
+		source: {
+			type: 'Literal',
+			value: modulePath,
+			raw: `'${modulePath}'`,
+		} as TSESTree.StringLiteral,
+		specifiers,
+		importKind: 'value',
+	} as ImportDeclarationNode;
+}
+
+function fullNewImportPathForTarget(
+	targetKey: string,
+	specsWithTarget: SpecifierWithTarget[],
+	packageName: string,
+): string {
+	const isCrossPackage = specsWithTarget.some((s) => s.sourcePackageName);
+	return isCrossPackage ? targetKey : packageName + targetKey.slice(1);
+}
+
+function getRhsPropertyAfterTransform(spec: AugmentedSpecifier): string {
+	if (spec.type === 'ImportDefaultSpecifier') {
+		return 'default';
+	}
+	return getImportedName(spec as TSESTree.ImportSpecifier);
+}
+
+function appendAutomockFixesForPathMigration({
+	fixer,
+	sourceCode,
+	oldBarrelPath,
+	newPaths,
+}: {
+	fixer: Rule.RuleFixer;
+	sourceCode: Rule.RuleContext['sourceCode'];
+	oldBarrelPath: string;
+	newPaths: string[];
+}): Rule.Fix[] {
+	const automocks = findMatchingAutomocks({ sourceCode, importPath: oldBarrelPath });
+	if (automocks.length === 0 || newPaths.length === 0) {
+		return [];
+	}
+	const fixes: Rule.Fix[] = [];
+	for (const automock of automocks) {
+		const newAutomockStatements = newPaths.map((path) =>
+			buildAutomockStatement({ path, quoteChar: automock.quoteChar }),
+		);
+		fixes.push(
+			fixer.replaceTextRange(automock.statementNode.range!, newAutomockStatements.join('\n')),
+		);
+	}
+	return fixes;
+}
+
+/**
+ * `require('barrel').default` or `require('barrel').namedExport`
+ */
+function handleRequireMemberExpression({
+	node,
+	context,
+	workspaceRoot,
+	fs,
+	applyToImportsFrom,
+}: {
+	node: TSESTree.MemberExpression;
+	context: Rule.RuleContext;
+	workspaceRoot: string;
+	fs: FileSystem;
+	applyToImportsFrom: string[];
+}): void {
+	if (node.computed || node.property.type !== 'Identifier') {
+		return;
+	}
+
+	const reqCall = unwrapToRequireCall(node.object as TSESTree.Expression);
+	if (!reqCall) {
+		return;
+	}
+
+	const modulePath = (reqCall.arguments[0] as TSESTree.StringLiteral).value;
+	const importContext = resolveImportContextFromModulePath({
+		importPath: modulePath,
+		workspaceRoot,
+		fs,
+		applyToImportsFrom,
+	});
+	if (!importContext) {
+		return;
+	}
+
+	const exportPropertyName = node.property.name;
+	const synthetic = buildSyntheticImportFromRequireAccess(exportPropertyName, modulePath);
+	const { specifiersByTarget, hasNamespaceImport } = classifySpecifiers({
+		node: synthetic,
+		importContext,
+		workspaceRoot,
+		fs,
+	});
+
+	if (hasNamespaceImport || specifiersByTarget.size === 0) {
+		return;
+	}
+
+	const entries = [...specifiersByTarget.entries()];
+	if (entries.length !== 1) {
+		return;
+	}
+
+	const [targetKey, specsWithTarget] = entries[0]!;
+	if (specsWithTarget.length !== 1) {
+		return;
+	}
+
+	const st = specsWithTarget[0]!;
+	const newImportPath = fullNewImportPathForTarget(
+		targetKey,
+		specsWithTarget,
+		importContext.packageName,
+	);
+	const transformed = transformSpecifierForExport({
+		spec: st.spec,
+		originalName: st.originalName,
+		kind: st.kind,
+	});
+	const newRhs = getRhsPropertyAfterTransform(transformed);
+
+	const sourceCode = context.getSourceCode();
+	const quote = sourceCode.getText(reqCall.arguments[0] as unknown as Rule.Node)[0];
+
+	context.report({
+		node: node as unknown as Rule.Node,
+		messageId: 'barrelEntryImport',
+		data: { path: importContext.importPath },
+		fix(fixer) {
+			const fixes: Rule.Fix[] = [];
+			fixes.push(
+				fixer.replaceText(
+					node as unknown as Rule.Node,
+					`require(${quote}${newImportPath}${quote}).${newRhs}`,
+				),
+			);
+			if (st.kind === 'value') {
+				fixes.push(
+					...appendAutomockFixesForPathMigration({
+						fixer,
+						sourceCode,
+						oldBarrelPath: modulePath,
+						newPaths: [newImportPath],
+					}),
+				);
+			}
+			return fixes;
+		},
+	});
+}
+
+/**
+ * `const { a, b } = require('barrel')`
+ */
+function handleRequireDestructuringDeclarator({
+	node,
+	context,
+	workspaceRoot,
+	fs,
+	applyToImportsFrom,
+}: {
+	node: TSESTree.VariableDeclarator;
+	context: Rule.RuleContext;
+	workspaceRoot: string;
+	fs: FileSystem;
+	applyToImportsFrom: string[];
+}): void {
+	if (node.id.type !== 'ObjectPattern' || !node.init || node.init.type !== 'CallExpression') {
+		return;
+	}
+	const initCall = node.init;
+	if (!isPlainRequireCall(initCall)) {
+		return;
+	}
+
+	const modulePath = (initCall.arguments[0] as TSESTree.StringLiteral).value;
+	const importContext = resolveImportContextFromModulePath({
+		importPath: modulePath,
+		workspaceRoot,
+		fs,
+		applyToImportsFrom,
+	});
+	if (!importContext) {
+		return;
+	}
+
+	const specifiers: TSESTree.ImportDeclaration['specifiers'] = [];
+	for (const prop of node.id.properties) {
+		if (prop.type !== 'Property' || prop.computed) {
+			continue;
+		}
+		if (prop.key.type !== 'Identifier' || prop.value.type !== 'Identifier') {
+			continue;
+		}
+		const importedName = prop.key.name;
+		const localName = prop.value.name;
+		specifiers.push({
+			type: 'ImportSpecifier',
+			imported: { type: 'Identifier', name: importedName },
+			local: { type: 'Identifier', name: localName },
+		} as TSESTree.ImportSpecifier);
+	}
+
+	if (specifiers.length === 0) {
+		return;
+	}
+
+	const synthetic: ImportDeclarationNode = {
+		type: 'ImportDeclaration',
+		source: {
+			type: 'Literal',
+			value: modulePath,
+			raw: `'${modulePath}'`,
+		} as TSESTree.StringLiteral,
+		specifiers,
+		importKind: 'value',
+	} as ImportDeclarationNode;
+
+	const { specifiersByTarget, unmappedSpecifiers, hasNamespaceImport } = classifySpecifiers({
+		node: synthetic,
+		importContext,
+		workspaceRoot,
+		fs,
+	});
+
+	if (hasNamespaceImport || specifiersByTarget.size === 0 || unmappedSpecifiers.length > 0) {
+		return;
+	}
+
+	const parentDecl = node.parent as TSESTree.VariableDeclaration;
+	if (parentDecl.type !== 'VariableDeclaration') {
+		return;
+	}
+	if (specifiersByTarget.size > 1 && parentDecl.declarations.length !== 1) {
+		return;
+	}
+
+	const sourceCode = context.getSourceCode();
+	const quote = sourceCode.getText(initCall.arguments[0] as unknown as Rule.Node)[0];
+	const pkg = importContext.packageName;
+
+	const buildFixes = (fixer: Rule.RuleFixer): Rule.Fix[] => {
+		const fixes: Rule.Fix[] = [];
+		let hasValue = false;
+		const automockPaths: string[] = [];
+
+		if (specifiersByTarget.size === 1) {
+			const [targetKey, specsWithTarget] = [...specifiersByTarget.entries()][0]!;
+			const newImportPath = fullNewImportPathForTarget(targetKey, specsWithTarget, pkg);
+			if (specsWithTarget.some((s) => s.kind === 'value')) {
+				hasValue = true;
+				automockPaths.push(newImportPath);
+			}
+			fixes.push(
+				fixer.replaceText(
+					initCall.arguments[0] as unknown as Rule.Node,
+					`${quote}${newImportPath}${quote}`,
+				),
+			);
+		} else {
+			const lines: string[] = [];
+			for (const [targetKey, specsWithTarget] of specifiersByTarget) {
+				const newImportPath = fullNewImportPathForTarget(targetKey, specsWithTarget, pkg);
+				if (specsWithTarget.some((s) => s.kind === 'value')) {
+					hasValue = true;
+					automockPaths.push(newImportPath);
+				}
+				for (const st of specsWithTarget) {
+					const transformed = transformSpecifierForExport({
+						spec: st.spec,
+						originalName: st.originalName,
+						kind: st.kind,
+					});
+					const rhs = getRhsPropertyAfterTransform(transformed);
+					const local = st.spec.local.name;
+					lines.push(`${local} = require(${quote}${newImportPath}${quote}).${rhs}`);
+				}
+			}
+			const declText = lines.map((l) => `${parentDecl.kind} ${l};`).join('\n');
+			fixes.push(fixer.replaceText(parentDecl as unknown as Rule.Node, declText));
+		}
+
+		if (hasValue) {
+			fixes.push(
+				...appendAutomockFixesForPathMigration({
+					fixer,
+					sourceCode,
+					oldBarrelPath: modulePath,
+					newPaths: [...new Set(automockPaths)],
+				}),
+			);
+		}
+		return fixes;
+	};
+
+	context.report({
+		node: initCall as unknown as Rule.Node,
+		messageId: 'barrelEntryImport',
+		data: { path: importContext.importPath },
+		fix: buildFixes,
+	});
+}
+
 /**
  * Handles an ImportDeclaration node to check for barrel file imports.
  * Reports and auto-fixes imports that could use more specific export paths.
@@ -885,6 +1261,24 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 					const node = rawNode as ImportDeclarationNode;
 
 					handleImportDeclaration({ node, context, workspaceRoot, fs, applyToImportsFrom });
+				},
+				MemberExpression(rawNode) {
+					handleRequireMemberExpression({
+						node: rawNode as TSESTree.MemberExpression,
+						context,
+						workspaceRoot,
+						fs,
+						applyToImportsFrom,
+					});
+				},
+				VariableDeclarator(rawNode) {
+					handleRequireDestructuringDeclarator({
+						node: rawNode as TSESTree.VariableDeclarator,
+						context,
+						workspaceRoot,
+						fs,
+						applyToImportsFrom,
+					});
 				},
 			};
 		},

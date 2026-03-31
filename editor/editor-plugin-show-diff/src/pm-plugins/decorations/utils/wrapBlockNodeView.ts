@@ -9,12 +9,15 @@ import { token } from '@atlaskit/tokens';
 import type { ColorScheme } from '../../../showDiffPluginType';
 import {
 	deletedBlockOutline,
+	deletedBlockOutlineActive,
 	deletedBlockOutlineRounded,
+	deletedBlockOutlineRoundedActive,
 	deletedContentStyle,
 	deletedContentStyleActive,
 	deletedContentStyleNew,
 	deletedContentStyleNewActive,
 	deletedStyleQuoteNodeWithLozenge,
+	deletedStyleQuoteNodeWithLozengeActive,
 	editingStyle,
 	editingStyleActive,
 	editingStyleNode,
@@ -23,9 +26,13 @@ import {
 } from '../colorSchemes/standard';
 import {
 	deletedTraditionalBlockOutline,
+	deletedTraditionalBlockOutlineActive,
 	deletedTraditionalBlockOutlineRounded,
+	deletedTraditionalBlockOutlineRoundedActive,
 	deletedTraditionalContentStyle,
+	deletedTraditionalContentStyleActive,
 	deletedTraditionalStyleQuoteNode,
+	deletedTraditionalStyleQuoteNodeActive,
 	traditionalInsertStyle,
 	traditionalInsertStyleActive,
 	traditionalStyleNode,
@@ -50,6 +57,40 @@ const lozengeStyle = convertToInlineCss({
 	color: token('color.text.warning.inverse'),
 });
 
+const lozengeStyleActiveStandard = convertToInlineCss({
+	display: 'inline-flex',
+	boxSizing: 'border-box',
+	position: 'static',
+	blockSize: 'min-content',
+	borderRadius: token('radius.small'),
+	overflow: 'hidden',
+	paddingInlineStart: token('space.050'),
+	paddingInlineEnd: token('space.050'),
+	backgroundColor: token('color.background.accent.red.subtler.pressed'),
+	font: token('font.body.small'),
+	fontWeight: token('font.weight.bold'),
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
+	color: token('color.text.warning.inverse'),
+});
+
+const lozengeStyleActiveTraditional = convertToInlineCss({
+	display: 'inline-flex',
+	boxSizing: 'border-box',
+	position: 'static',
+	blockSize: 'min-content',
+	borderRadius: token('radius.small'),
+	overflow: 'hidden',
+	paddingInlineStart: token('space.050'),
+	paddingInlineEnd: token('space.050'),
+	backgroundColor: token('color.background.accent.red.subtler.pressed'),
+	font: token('font.body.small'),
+	fontWeight: token('font.weight.bold'),
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
+	color: token('color.text.warning.inverse'),
+});
+
 const getChangedContentStyle = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
@@ -62,7 +103,7 @@ const getChangedContentStyle = (
 		return isActive ? editingStyleActive : editingStyle;
 	}
 	if (colorScheme === 'traditional') {
-		return deletedTraditionalContentStyle;
+		return isActive ? deletedTraditionalContentStyleActive : deletedTraditionalContentStyle;
 	}
 	if (isActive) {
 		return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
@@ -78,6 +119,7 @@ const getChangedNodeStyle = (
 	nodeName: string,
 	colorScheme?: ColorScheme,
 	isInserted: boolean = false,
+	isActive: boolean = false,
 ) => {
 	const isTraditional = colorScheme === 'traditional';
 
@@ -93,13 +135,24 @@ const getChangedNodeStyle = (
 
 	switch (nodeName) {
 		case 'blockquote':
-			return isTraditional ? deletedTraditionalStyleQuoteNode : deletedStyleQuoteNodeWithLozenge;
+			if (isTraditional) {
+				return isActive ? deletedTraditionalStyleQuoteNodeActive : deletedTraditionalStyleQuoteNode;
+			}
+			return isActive ? deletedStyleQuoteNodeWithLozengeActive : deletedStyleQuoteNodeWithLozenge;
 		case 'expand':
 		case 'decisionList':
-			return isTraditional ? deletedTraditionalBlockOutline : deletedBlockOutline;
+			if (isTraditional) {
+				return isActive ? deletedTraditionalBlockOutlineActive : deletedTraditionalBlockOutline;
+			}
+			return isActive ? deletedBlockOutlineActive : deletedBlockOutline;
 		case 'panel':
 		case 'codeBlock':
-			return isTraditional ? deletedTraditionalBlockOutlineRounded : deletedBlockOutlineRounded;
+			if (isTraditional) {
+				return isActive
+					? deletedTraditionalBlockOutlineRoundedActive
+					: deletedTraditionalBlockOutlineRounded;
+			}
+			return isActive ? deletedBlockOutlineRoundedActive : deletedBlockOutlineRounded;
 		default:
 			return undefined;
 	}
@@ -166,7 +219,11 @@ const applyCellOverlayStyles = ({
 /**
  * Creates a "Removed" lozenge to be displayed at the top right corner of deleted block nodes
  */
-const createRemovedLozenge = (intl: IntlShape): HTMLElement => {
+const createRemovedLozenge = (
+	intl: IntlShape,
+	isActive: boolean = false,
+	colorScheme?: ColorScheme,
+): HTMLElement => {
 	const container = document.createElement('span');
 
 	const containerStyle = convertToInlineCss({
@@ -184,7 +241,13 @@ const createRemovedLozenge = (intl: IntlShape): HTMLElement => {
 	// Create vanilla HTML lozenge element with Atlaskit Lozenge styling (visual refresh)
 	const lozengeElement = document.createElement('span');
 
-	lozengeElement.setAttribute('style', lozengeStyle);
+	const lozengeInnerStyle =
+		isActive && colorScheme === 'traditional'
+			? lozengeStyleActiveTraditional
+			: isActive
+				? lozengeStyleActiveStandard
+				: lozengeStyle;
+	lozengeElement.setAttribute('style', lozengeInnerStyle);
 	lozengeElement.textContent = intl.formatMessage(trackChangesMessages.removed).toUpperCase();
 
 	container.appendChild(lozengeElement);
@@ -216,17 +279,19 @@ const applyStylesToElement = ({
 	element,
 	targetNode,
 	colorScheme,
+	isActive,
 	isInserted,
 }: {
 	colorScheme?: ColorScheme;
 	element: HTMLElement;
+	isActive: boolean;
 	isInserted: boolean;
 	targetNode: PMNode;
 }): void => {
 	const currentStyle = element.getAttribute('style') || '';
-	const contentStyle = getChangedContentStyle(colorScheme, false, isInserted);
+	const contentStyle = getChangedContentStyle(colorScheme, isActive, isInserted);
 	const nodeSpecificStyle =
-		getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted) || '';
+		getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted, isActive) || '';
 
 	element.setAttribute('style', `${currentStyle}${contentStyle}${nodeSpecificStyle}`);
 };
@@ -238,18 +303,20 @@ const createBlockNodeContentWrapper = ({
 	nodeView,
 	targetNode,
 	colorScheme,
+	isActive,
 	isInserted,
 }: {
 	colorScheme?: ColorScheme;
+	isActive: boolean;
 	isInserted: boolean;
 	nodeView: Node;
 	targetNode: PMNode;
 }): HTMLElement => {
 	const contentWrapper = document.createElement('div');
-	const nodeStyle = getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted);
+	const nodeStyle = getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted, isActive);
 	contentWrapper.setAttribute(
 		'style',
-		`${getChangedContentStyle(colorScheme, false, isInserted)}${nodeStyle || ''}`,
+		`${getChangedContentStyle(colorScheme, isActive, isInserted)}${nodeStyle || ''}`,
 	);
 	contentWrapper.append(nodeView);
 	return contentWrapper;
@@ -267,9 +334,11 @@ const handleEmbedCardWithLozenge = ({
 	targetNode,
 	lozenge,
 	colorScheme,
+	isActive = false,
 }: {
 	colorScheme?: ColorScheme;
 	dom: HTMLElement;
+	isActive?: boolean;
 	lozenge: HTMLElement;
 	nodeView: Node;
 	targetNode: PMNode;
@@ -299,6 +368,9 @@ const handleEmbedCardWithLozenge = ({
 				? 'show-diff-deleted-node-traditional'
 				: 'show-diff-deleted-node';
 		nodeView.classList.add(showDiffDeletedNodeClass);
+		if (isActive) {
+			nodeView.classList.add('show-diff-deleted-active');
+		}
 	}
 
 	dom.append(nodeView);
@@ -315,9 +387,11 @@ const handleMediaSingleWithLozenge = ({
 	targetNode,
 	lozenge,
 	colorScheme,
+	isActive = false,
 }: {
 	colorScheme?: ColorScheme;
 	dom: HTMLElement;
+	isActive?: boolean;
 	lozenge: HTMLElement;
 	nodeView: Node;
 	targetNode: PMNode;
@@ -345,6 +419,9 @@ const handleMediaSingleWithLozenge = ({
 				? 'show-diff-deleted-node-traditional'
 				: 'show-diff-deleted-node';
 		nodeView.classList.add(showDiffDeletedNodeClass);
+		if (isActive) {
+			nodeView.classList.add('show-diff-deleted-active');
+		}
 	}
 
 	dom.append(nodeView);
@@ -360,11 +437,13 @@ const wrapBlockNode = ({
 	targetNode,
 	colorScheme,
 	intl,
+	isActive = false,
 	isInserted = false,
 }: {
 	colorScheme?: ColorScheme;
 	dom: HTMLElement;
 	intl: IntlShape;
+	isActive?: boolean;
 	isInserted: boolean;
 	nodeView: Node;
 	targetNode: PMNode;
@@ -375,13 +454,15 @@ const wrapBlockNode = ({
 		shouldShowRemovedLozenge(targetNode.type.name) &&
 		(!expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) || !isInserted)
 	) {
-		const lozenge = createRemovedLozenge(intl);
+		const lozenge = createRemovedLozenge(intl, isActive, colorScheme);
 
-		if (handleEmbedCardWithLozenge({ dom, nodeView, targetNode, lozenge, colorScheme })) {
+		if (handleEmbedCardWithLozenge({ dom, nodeView, targetNode, lozenge, colorScheme, isActive })) {
 			return;
 		}
 
-		if (handleMediaSingleWithLozenge({ dom, nodeView, targetNode, lozenge, colorScheme })) {
+		if (
+			handleMediaSingleWithLozenge({ dom, nodeView, targetNode, lozenge, colorScheme, isActive })
+		) {
 			return;
 		}
 
@@ -392,6 +473,7 @@ const wrapBlockNode = ({
 		nodeView,
 		targetNode,
 		colorScheme,
+		isActive,
 		isInserted,
 	});
 	blockWrapper.append(contentWrapper);
@@ -402,6 +484,9 @@ const wrapBlockNode = ({
 				? 'show-diff-deleted-node-traditional'
 				: 'show-diff-deleted-node';
 		nodeView.classList.add(showDiffDeletedNodeClass);
+		if (isActive) {
+			nodeView.classList.add('show-diff-deleted-active');
+		}
 	}
 
 	dom.append(blockWrapper);
@@ -418,18 +503,20 @@ export const wrapBlockNodeView = ({
 	targetNode,
 	colorScheme,
 	intl,
+	isActive = false,
 	isInserted = false,
 }: {
 	colorScheme?: ColorScheme;
 	dom: HTMLElement;
 	intl: IntlShape;
+	isActive?: boolean;
 	isInserted: boolean;
 	nodeView: Node;
 	targetNode: PMNode;
 }): void => {
 	if (shouldApplyStylesDirectly(targetNode.type.name) && nodeView instanceof HTMLElement) {
 		// Apply deleted styles directly to preserve natural block-level margins
-		applyStylesToElement({ element: nodeView, targetNode, colorScheme, isInserted });
+		applyStylesToElement({ element: nodeView, targetNode, colorScheme, isActive, isInserted });
 		dom.append(nodeView);
 	} else if (
 		targetNode.type.name === 'table' &&
@@ -440,6 +527,6 @@ export const wrapBlockNodeView = ({
 		dom.append(nodeView);
 	} else {
 		// Use wrapper approach for other block nodes
-		wrapBlockNode({ dom, nodeView, targetNode, colorScheme, intl, isInserted });
+		wrapBlockNode({ dom, nodeView, targetNode, colorScheme, intl, isActive, isInserted });
 	}
 };

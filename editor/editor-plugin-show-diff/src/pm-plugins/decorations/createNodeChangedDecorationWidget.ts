@@ -4,6 +4,7 @@ import type { IntlShape } from 'react-intl-next';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ColorScheme } from '../../showDiffPluginType';
@@ -128,13 +129,13 @@ const createContentWrapper = (
 		} else {
 			wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colorScheme, isActive)}`);
 			const strikethrough = document.createElement('span');
-			strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme));
+			strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme, isActive));
 			wrapper.append(strikethrough);
 		}
 	} else {
 		wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colorScheme, isActive)}`);
 		const strikethrough = document.createElement('span');
-		strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme));
+		strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme, isActive));
 		wrapper.append(strikethrough);
 	}
 
@@ -152,22 +153,33 @@ export const createNodeChangedDecorationWidget = ({
 	colorScheme,
 	newDoc,
 	intl,
-	isActive = false,
+	activeIndexPos,
 	// This is false by default as this is generally used to show deleted content
 	isInserted = false,
 }: {
+	activeIndexPos?: { from: number; to: number };
 	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted' | 'toB'>;
 	colorScheme?: ColorScheme;
 	doc: PMNode;
 	intl: IntlShape;
-	isActive?: boolean;
 	isInserted?: boolean;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 }): Decoration[] | undefined => {
 	const slice = doc.slice(change.fromA, change.toA);
+	const shouldSkipDeletedEmptyParagraphDecoration =
+		!isInserted &&
+		slice?.content?.childCount === 1 &&
+		slice?.content?.firstChild?.type.name === 'paragraph' &&
+		slice?.content?.firstChild?.content.size === 0 &&
+		fg('platform_editor_show_diff_scroll_navigation');
+	// Widget decoration used for deletions as the content is not in the document
+	// and we want to display the deleted content with a style.
+	const safeInsertPos = findSafeInsertPos(newDoc, change.fromB, slice);
+	const isActive =
+		activeIndexPos && safeInsertPos === activeIndexPos.from && safeInsertPos === activeIndexPos.to;
 
-	if (slice.content.content.length === 0) {
+	if (slice.content.content.length === 0 || shouldSkipDeletedEmptyParagraphDecoration) {
 		return;
 	}
 
@@ -272,7 +284,15 @@ export const createNodeChangedDecorationWidget = ({
 				dom.append(wrapper);
 			} else {
 				// Handle all block nodes with unified function
-				wrapBlockNodeView({ dom, nodeView, targetNode: node, colorScheme, intl, isInserted });
+				wrapBlockNodeView({
+					dom,
+					nodeView,
+					targetNode: node,
+					colorScheme,
+					intl,
+					isActive,
+					isInserted,
+				});
 			}
 		} else if (
 			nodeViewSerializer.getFilteredNodeViewBlocklist(['paragraph', 'tableRow']).has(node.type.name)
@@ -282,7 +302,10 @@ export const createNodeChangedDecorationWidget = ({
 		} else {
 			const fallbackNode = fallbackSerialization();
 			if (fallbackNode) {
-				if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+				if (
+					expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) ||
+					fg('platform_editor_show_diff_scroll_navigation')
+				) {
 					if (fallbackNode instanceof HTMLElement) {
 						const injectedNode = injectInnerWrapper({
 							node: fallbackNode,
@@ -307,9 +330,6 @@ export const createNodeChangedDecorationWidget = ({
 
 	dom.setAttribute('data-testid', 'show-diff-deleted-decoration');
 
-	// Widget decoration used for deletions as the content is not in the document
-	// and we want to display the deleted content with a style.
-	const safeInsertPos = findSafeInsertPos(newDoc, change.fromB, slice);
 	const decorations: Decoration[] = [];
 	decorations.push(
 		Decoration.widget(safeInsertPos, dom, {

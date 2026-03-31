@@ -1,79 +1,124 @@
 import { searchComponentsTool } from '../../src/tools/search-components';
 
-jest.mock('../../src/tools/get-all-components/components.codegen', () => ({
-	components: [
-		{
-			name: 'ExactMatchComponent',
-			package: 'example-package',
-			examples: 'example-examples',
-			props: [],
-		},
-		{
-			name: 'FuzzyMatchComponent',
-			package: 'fuzzy-example-package',
-			examples: 'example-examples',
-			props: [],
-		},
-		{
-			name: 'DuplicateComponent',
-			package: 'example-package',
-			examples: 'example-examples',
-			props: [],
-		},
-		{
-			name: 'DuplicateComponent',
-			package: 'example-package',
-			examples: 'example-examples',
-			props: [],
-		},
+/**
+ * Expected names for `searchComponentsTool({ terms, limit: 2 })` (matches tool default).
+ * `[[search terms], [component names]]` — grouped by theme for easier scanning.
+ */
+const expectedComponentResults: [string[], string[]][] = [
+	// Common primitives
+	[['button'], ['Button', 'ButtonGroup']],
+	[['modal'], ['Modal', 'ModalTitle']],
+	[['select'], ['Select', 'PopupSelect']],
+	[
+		['button', 'modal'],
+		['Button', 'Modal', 'IconButton', 'Tooltip'],
 	],
-}));
+	[
+		['form', 'footer'],
+		['Form', 'FormFooter', 'ModalFooter'],
+	],
+
+	// Forms & inputs
+	[['checkbox'], ['Checkbox', 'CheckboxField']],
+	[['radio'], ['Radio', 'RadioGroup']],
+	[['textarea'], ['Textarea', 'TextField']],
+	[['toggle'], ['Toggle', 'DropdownItemCheckbox']],
+
+	// Navigation & layout
+	[['tabs'], ['Tabs', 'CreatableSelect']],
+	[['inline'], ['Inline', 'InlineEdit']],
+	[['popup'], ['Popup', 'PopupSelect']],
+	[['pagination'], ['Pagination', 'Breadcrumbs']],
+	[['breadcrumb'], ['BreadcrumbsItem', 'Breadcrumbs']],
+	[['menu'], ['MenuGroup', 'DropdownMenu']],
+	[['dropdown'], ['DropdownItemCheckbox', 'DropdownItemRadio']],
+
+	// Content & display
+	[['avatar'], ['Avatar', 'AvatarTag']],
+	[['badge'], ['Badge', 'Lozenge']],
+	[['flag'], ['Flag', 'Banner']],
+	[['empty'], ['EmptyState', 'InlineEditableTextfield']],
+	[['heading'], ['Heading', 'HeadingContextProvider']],
+	[['page'], ['PageHeader', 'Pagination']],
+	[['link'], ['Link', 'LinkItem']],
+	[['tag'], ['Tag', 'TagGroup']],
+
+	// Date & progress
+	[['date'], ['DateTimePicker', 'DatePicker']],
+	[['calendar'], ['Calendar', 'DatePicker']],
+	[['progress'], ['ProgressTracker', 'ProgressIndicator']],
+
+	// Feedback
+	[['spinner'], ['Spinner']],
+
+	// Multi-term (merge can return more than two names)
+	[
+		['tooltip', 'inline'],
+		['Tooltip', 'Inline', 'InlineEdit'],
+	],
+	[
+		['grid', 'stack'],
+		['Grid', 'Stack'],
+	],
+	[
+		['text', 'field'],
+		['Text', 'Field', 'TextField', 'InlineEditableTextfield'],
+	],
+	[
+		['section', 'message'],
+		['Section', 'MessageWrapper', 'SectionMessage', 'ErrorMessage'],
+	],
+];
 
 describe('search_components tool', () => {
-	it('Returns an error if there are no search terms', async () => {
+	it('Returns empty results if there are no search terms', async () => {
 		const result = await searchComponentsTool({ terms: [] });
 		expect(result).toEqual({
-			isError: true,
 			content: [
 				{
 					type: 'text',
-					text: `Error: Required parameter 'terms' is missing or empty`,
+					text: '[]',
 				},
 			],
 		});
 	});
 
-	it('Returns only exact matches if `exactName` is set', async () => {
-		const result = await searchComponentsTool({ terms: ['ExactMatchComponent'], exactName: true });
-		expect(result.content).toHaveLength(1);
-		expect(JSON.parse(result.content[0].text as string)[0].name).toEqual('ExactMatchComponent');
-	});
-
-	it('Returns fuse results when there is no exact match', async () => {
+	it('Returns fuse results when there is no exact name match (e.g. package string)', async () => {
 		const result = await searchComponentsTool({
-			terms: ['fuzzy-example-package'],
+			terms: ['@atlaskit/button'],
 		});
 		expect(result.content).toHaveLength(1);
-		expect(JSON.parse(result.content[0].text as string)[0].name).toEqual('FuzzyMatchComponent');
+		expect(JSON.parse(result.content[0].text as string)[0].name).toEqual('Button');
 	});
 
-	it('Returns an error if there are no results', async () => {
+	it('returns suggestive results when there are no matches', async () => {
 		const result = await searchComponentsTool({
-			terms: ['DOES NOT EXIST'],
+			terms: ['DOES NOT EXIST XYZ123'],
 		});
 		expect(result).toEqual({
 			content: [
 				{
-					text: "Error: No components found for 'DOES NOT EXIST'. Available components: ExactMatchComponent, FuzzyMatchComponent, DuplicateComponent, DuplicateComponent",
+					text: expect.stringContaining("Error: No components found for 'DOES NOT EXIST XYZ123'"),
 					type: 'text',
 				},
 			],
-			isError: true,
 		});
 	});
 
-	it('Deduplicates results', async () => {
-		const result = await searchComponentsTool({ terms: ['DuplicateComponent'] });
-		expect(result.content).toHaveLength(1);
+	it('Deduplicates input terms so duplicate search strings do not duplicate the same component', async () => {
+		const result = await searchComponentsTool({ terms: ['Button', 'Button'], limit: 2 });
+		const names = JSON.parse(result.content[0].text as string).map((c: { name: string }) => c.name);
+		expect(names.filter((n: string) => n === 'Button')).toHaveLength(1);
 	});
+
+	it.each(expectedComponentResults)(
+		'returns fuzzy component names in order for query %s',
+		async (query, expectedNames) => {
+			const result = await searchComponentsTool({ terms: query, limit: 2 });
+
+			const text = result.content[0]?.type === 'text' ? result.content[0].text : '[]';
+			const parsed = JSON.parse(text as string) as { name: string }[];
+			expect(parsed.map((t) => t.name)).toEqual(expectedNames);
+		},
+	);
 });

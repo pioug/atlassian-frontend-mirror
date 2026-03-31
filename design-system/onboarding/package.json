@@ -91,6 +91,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/exenv": "root:*",

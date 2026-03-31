@@ -8,14 +8,13 @@ import ArrowLeft from '@atlaskit/icon/core/arrow-left';
 import ArrowRight from '@atlaskit/icon/core/arrow-right';
 import { MediaFilmStripListItemSelector } from '.';
 import { css } from '@compiled/react';
-import { N20, N40, B400, B50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const filmStripViewStyles = css({
 	position: 'relative',
-	paddingTop: token('space.025', '3px'),
+	paddingTop: token('space.025'),
 	paddingRight: 0,
-	paddingBottom: token('space.025', '3px'),
+	paddingBottom: token('space.025'),
 	paddingLeft: 0,
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
@@ -32,10 +31,10 @@ const filmStripViewStyles = css({
 const filmStripListWrapperStyles = css({
 	width: 'inherit',
 	overflow: 'hidden',
-	paddingTop: token('space.025', '2px'),
-	paddingRight: token('space.025', '3px'),
-	paddingBottom: token('space.025', '2px'),
-	paddingLeft: token('space.025', '3px'),
+	paddingTop: token('space.025'),
+	paddingRight: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
 });
 
 const filmStripListStyles = css({
@@ -52,9 +51,9 @@ const filmStripListItemStyles = css({
 	listStyleType: 'none',
 	margin: 0,
 	paddingTop: 0,
-	paddingRight: token('space.050', '4px'),
+	paddingRight: token('space.050'),
 	paddingBottom: 0,
-	paddingLeft: token('space.050', '4px'),
+	paddingLeft: token('space.050'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':first-of-type': {
 		paddingLeft: 0,
@@ -70,24 +69,24 @@ const arrowWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	top: '50%',
 	transform: 'translateY(-50%)',
-	backgroundColor: token('elevation.surface.overlay', N20),
+	backgroundColor: token('elevation.surface.overlay'),
 	borderRadius: token('radius.full'),
 	display: 'flex',
 	cursor: 'pointer',
 	transition: 'opacity 0.3s',
-	boxShadow: token('elevation.shadow.overlay', '0 1px 6px 0 rgba(0, 0, 0, 0.6)'),
-	color: token('color.icon', 'black'),
+	boxShadow: token('elevation.shadow.overlay'),
+	color: token('color.icon'),
 	width: '30px',
 	height: '30px',
 	justifyContent: 'center',
 	opacity: 0,
 	'&:hover': {
-		color: token('color.text.subtle', 'black'),
-		backgroundColor: token('elevation.surface.overlay.hovered', N40),
+		color: token('color.text.subtle'),
+		backgroundColor: token('elevation.surface.overlay.hovered'),
 	},
 	'&:active': {
-		color: token('color.text.selected', B400),
-		backgroundColor: token('color.background.selected', B50),
+		color: token('color.text.selected'),
+		backgroundColor: token('color.background.selected'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	svg: {
@@ -97,18 +96,18 @@ const arrowWrapperStyles = css({
 });
 
 const arrowLeftWrapperStyles = css({
-	left: token('space.100', '8px'),
+	left: token('space.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	svg: {
-		paddingRight: token('space.025', '2px'),
+		paddingRight: token('space.025'),
 	},
 });
 
 const arrowRightWrapperStyles = css({
-	right: token('space.100', '8px'),
+	right: token('space.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	svg: {
-		paddingLeft: token('space.025', '2px'),
+		paddingLeft: token('space.025'),
 	},
 });
 
@@ -118,7 +117,7 @@ const shadowStyles = css({
 	height: '100%',
 	top: 0,
 	width: '2px',
-	backgroundColor: token('color.border', 'rgba(0, 0, 0, 0.2)'),
+	backgroundColor: token('color.border'),
 });
 
 const shadowLeftStyles = css({

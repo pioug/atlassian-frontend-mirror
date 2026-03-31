@@ -549,13 +549,7 @@ const generateMediaSingleFloatingToolbar = (
 							),
 							onClick: changeMediaSingleToMediaInline(pluginInjectionApi?.analytics?.actions),
 							testId: 'image-inline-appearance',
-							selected: expValEquals(
-								'platform_editor_add_aria_checked_to_inline_img_btn',
-								'isEnabled',
-								true,
-							)
-								? false
-								: undefined,
+							selected: false,
 						},
 						{
 							type: 'button',

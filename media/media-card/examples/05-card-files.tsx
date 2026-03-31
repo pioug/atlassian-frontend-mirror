@@ -20,14 +20,14 @@ export default (): React.JSX.Element => {
 			<div>
 				<h1
 					style={{
-						margin: `${token('space.100', '8px')} ${token('space.250', '20px')}`,
+						margin: `${token('space.100')} ${token('space.250')}`,
 					}}
 				>
 					File cards
 				</h1>
 				<div
 					style={{
-						margin: `${token('space.250', '20px')} ${token('space.500', '40px')}`,
+						margin: `${token('space.250')} ${token('space.500')}`,
 					}}
 				>
 					<h3>Standard</h3>

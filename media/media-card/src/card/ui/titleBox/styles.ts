@@ -2,8 +2,6 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { responsiveSettings, getTitleBoxHeight, Breakpoint } from '../common';
-import { N0, N800 } from '@atlaskit/theme/colors';
-import { rgba } from '../styles';
 import { type TitleBoxFooterProps, type TitleBoxHeaderProps } from './types';
 
 const generateResponsiveStyles = (breakpoint: Breakpoint = Breakpoint.SMALL) => {
@@ -15,8 +13,6 @@ const generateResponsiveStyles = (breakpoint: Breakpoint = Breakpoint.SMALL) => 
     padding: ${verticalPadding}px ${horizontalPadding}px;`;
 };
 
-const HEX_REGEX = /^#[0-9A-F]{6}$/i;
-
 type TitleBoxWrapperStyleArgs = {
 	breakpoint: Breakpoint;
 	titleBoxBgColor?: string;
@@ -26,19 +22,14 @@ type TitleBoxWrapperStyleArgs = {
 export const titleBoxWrapperStyles = ({
 	breakpoint,
 	display = 'flex',
-	titleBoxBgColor,
 }: TitleBoxWrapperStyleArgs) =>
 	css(
 		{
 			position: 'absolute',
 			bottom: 0,
 			width: '100%',
-			backgroundColor: token(
-				'elevation.surface',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				rgba(titleBoxBgColor && HEX_REGEX.test(titleBoxBgColor) ? titleBoxBgColor : N0, 1),
-			),
-			color: token('color.text', N800),
+			backgroundColor: token('elevation.surface'),
+			color: token('color.text'),
 			cursor: 'inherit',
 			pointerEvents: 'none',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -85,15 +76,15 @@ titleBoxFooterStyles.displayName = 'TitleBoxFooter';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const titleBoxIconStyles = css({
 	position: 'absolute',
-	right: token('space.050', '4px'),
+	right: token('space.050'),
 	bottom: '0px',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const newTitleBoxIconStyles = css({
 	position: 'absolute',
-	right: token('space.050', '4px'),
-	bottom: token('space.050', '4px'),
+	right: token('space.050'),
+	bottom: token('space.050'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -108,8 +99,8 @@ export const errorMessageWrapperStyles = css({
 		verticalAlign: 'middle',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		':nth-child(2)': {
-			marginLeft: token('space.050', '4px'),
-			marginRight: token('space.050', '4px'),
+			marginLeft: token('space.050'),
+			marginRight: token('space.050'),
 		},
 	},
 });

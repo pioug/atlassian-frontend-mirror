@@ -4,17 +4,29 @@ description: Buttons and elements for the top nav.
 order: 3
 ---
 
-import topNavDo1 from './images/top-nav-do-1.png';
-import topNavDont1 from './images/top-nav-dont-1.png';
-import topNavDo2 from './images/top-nav-do-2.png';
-import topNavDont2 from './images/top-nav-dont-2.png';
+import Image from '@atlaskit/image';
+
+import topNavItemsAnatomyLight from './images/topNavItems-anatomy-light.png';
+import topNavItemsAnatomyDark from './images/topNavItems-anatomy-dark.png';
+import topNavItemsDo1Light from './images/topNavItems-do-1-light.png';
+import topNavItemsDo1Dark from './images/topNavItems-do-1-dark.png';
+import topNavItemsDo2Light from './images/topNavItems-do-2-light.png';
+import topNavItemsDo2Dark from './images/topNavItems-do-2-dark.png';
+import topNavItemsDont1Light from './images/topNavItems-dont-1-light.png';
+import topNavItemsDont1Dark from './images/topNavItems-dont-1-dark.png';
+import topNavItemsDont2Light from './images/topNavItems-dont-2-light.png';
+import topNavItemsDont2Dark from './images/topNavItems-dont-2-dark.png';
 
 ## Usage
 
 Use top nav items to create common utilities in
-the [top nav](/components/navigation-system/top-nav-items).
+the top nav within [layout](/components/navigation-system/layout/examples).
 
-![Diagram of the navigation system top nav](./images/top-nav-anatomy.png)
+<Image
+	src={topNavItemsAnatomyLight}
+	srcDark={topNavItemsAnatomyDark}
+	alt="Diagram of the navigation system top nav"
+/>
 
 1. **Start items:** Left-aligned buttons.
 2. **Middle items:** Centre-aligned actions.
@@ -23,8 +35,8 @@ the [top nav](/components/navigation-system/top-nav-items).
 ## Follow Atlassian's navigation patterns
 
 The current navigation has specific menu items that are similar across apps. Make sure your top
-navigation follows Atlassian patterns consistently,
-[see navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812).
+navigation follows Atlassian patterns consistently. For all the guidelines, see
+[navigation resources (Atlassians only)](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812).
 
 ## Best practices
 
@@ -34,7 +46,8 @@ navigation follows Atlassian patterns consistently,
 	<DoDont
 		type="do"
 		image={{
-			url: topNavDo1,
+			url: topNavItemsDo1Light,
+			urlDarkMode: topNavItemsDo1Dark,
 			alt: 'Two buttons, one outlined and one solid purple, both labeled "Button".',
 		}}
 	>
@@ -43,7 +56,8 @@ navigation follows Atlassian patterns consistently,
 	<DoDont
 		type="dont"
 		image={{
-			url: topNavDont1,
+			url: topNavItemsDont1Light,
+			urlDarkMode: topNavItemsDont1Dark,
 			alt: 'Two buttons, one outlined and one solid purple, both labeled "Button".',
 		}}
 	>
@@ -57,7 +71,8 @@ navigation follows Atlassian patterns consistently,
 	<DoDont
 		type="do"
 		image={{
-			url: topNavDo2,
+			url: topNavItemsDo2Light,
+			urlDarkMode: topNavItemsDo2Dark,
 			alt: 'A segment of a top navigation bar showing standard Atlassian icons and a highlighted "ate" item.',
 		}}
 	>
@@ -66,7 +81,8 @@ navigation follows Atlassian patterns consistently,
 	<DoDont
 		type="dont"
 		image={{
-			url: topNavDont2,
+			url: topNavItemsDont2Light,
+			urlDarkMode: topNavItemsDont2Dark,
 			alt: 'A segment of a top navigation bar showing standard Atlassian icons with an additional "Logout" button and a diamond icon.',
 		}}
 	>

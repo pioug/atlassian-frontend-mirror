@@ -10,7 +10,7 @@ import {
 	type ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
-import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -19,6 +19,7 @@ import { type DiffParams, type DiffType, type ShowDiffPlugin } from '../showDiff
 
 import { calculateDiffDecorations } from './calculateDiff/calculateDiffDecorations';
 import { enforceCustomStepRegisters } from './enforceCustomStepRegisters';
+import { getScrollableDecorations } from './getScrollableDecorations';
 import { NodeViewSerializer } from './NodeViewSerializer';
 import { scrollToActiveDecoration } from './scrollToActiveDecoration';
 
@@ -38,32 +39,6 @@ export type ShowDiffPluginState = {
 };
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
-
-export const getScrollableDecorations = (set: DecorationSet | undefined): Decoration[] => {
-	const seenBlockKeys = new Set<string>();
-	return (
-		set?.find(
-			undefined,
-			undefined,
-			(spec) =>
-				spec.key === 'diff-inline' ||
-				spec.key?.startsWith('diff-widget') ||
-				spec.key === 'diff-block',
-		) ?? []
-	)
-		.filter((dec) => {
-			if (dec.spec?.key === 'diff-block') {
-				// Skip listItem blocks as they are not scrollable
-				if (dec.spec?.nodeName === 'listItem') return false;
-				const key = `${dec.from}-${dec.to}-${dec.spec?.nodeName ?? ''}`;
-				// Skip blocks that have already been seen
-				if (seenBlockKeys.has(key)) return false;
-				seenBlockKeys.add(key);
-			}
-			return true;
-		})
-		.sort((a, b) => (a.from === b.from ? a.to - b.to : a.from - b.from));
-};
 
 export const createPlugin = (
 	config: DiffParams | undefined,
@@ -152,7 +127,10 @@ export const createPlugin = (
 						fg('platform_editor_show_diff_scroll_navigation')
 					) {
 						// Update the active index in plugin state and recalculate decorations
-						const decorations = getScrollableDecorations(currentPluginState.decorations);
+						const decorations = getScrollableDecorations(
+							currentPluginState.decorations,
+							newState.doc,
+						);
 
 						if (decorations.length > 0) {
 							// Initialize to -1 if undefined so that the first "next" scroll takes us to index 0 (first change).
@@ -207,6 +185,7 @@ export const createPlugin = (
 			setNodeViewSerializer(editorView);
 			let isFirst = true;
 			let previousActiveIndex: number | undefined;
+			let cancelPendingScrollToDecoration: (() => void) | null = null;
 			return {
 				update(view: EditorView) {
 					// If we're using configuration to show diffs we initialise here once we setup the editor view
@@ -233,13 +212,18 @@ export const createPlugin = (
 						previousActiveIndex = pluginState?.activeIndex;
 
 						if (pluginState?.activeIndex !== undefined && activeIndexChanged) {
-							scrollToActiveDecoration(
+							cancelPendingScrollToDecoration?.();
+							cancelPendingScrollToDecoration = scrollToActiveDecoration(
 								view,
-								getScrollableDecorations(pluginState.decorations),
+								getScrollableDecorations(pluginState.decorations, view.state.doc),
 								pluginState.activeIndex,
 							);
 						}
 					}
+				},
+				destroy() {
+					cancelPendingScrollToDecoration?.();
+					cancelPendingScrollToDecoration = null;
 				},
 			};
 		},

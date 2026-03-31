@@ -30,7 +30,7 @@ const baseStyles = css({
 	overflow: 'hidden',
 	opacity: 1,
 	fontWeight: token('font.weight.medium'),
-	color: token('color.text.subtlest', '#7A869A'),
+	color: token('color.text.subtlest'),
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	marginBottom: '-1em', // Needs pixel precision to align the icon at the center of the box

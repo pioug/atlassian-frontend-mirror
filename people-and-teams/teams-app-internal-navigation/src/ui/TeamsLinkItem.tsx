@@ -4,6 +4,7 @@ import { LinkItem, type LinkItemProps } from '@atlaskit/menu';
 
 import type { NavigationIntentProps } from '../common/utils/getNavigationProps';
 import { getNavigationProps } from '../common/utils/getNavigationProps';
+import { buildNavigationInput } from '../common/utils/utils';
 
 import { useTeamsNavigationContext } from './TeamsNavigationProvider';
 
@@ -17,28 +18,11 @@ export type TeamsLinkItemProps = BaseLinkItemProps & NavigationIntentProps;
 export const TeamsLinkItem = (props: TeamsLinkItemProps) => {
 	const { href, onClick, children, ...rest } = props;
 	const context = useTeamsNavigationContext();
-	const input =
-		props.intent === 'action'
-			? {
-					href: href ?? '',
-					intent: props.intent,
-					previewPanelProps: props.previewPanelProps,
-					context,
-				}
-			: { href: href ?? '', intent: props.intent, context };
-	const navigationProps = getNavigationProps(input);
-	const handleClick: typeof onClick = (e) => {
-		if (onClick) onClick(e);
-		if (!e.defaultPrevented) navigationProps.onClick?.(e as React.MouseEvent<HTMLAnchorElement>);
-	};
+	const input = buildNavigationInput({ ...props, href: href ?? '', context, onBeforeNavigate: onClick });
+	const { onClick: composedOnClick, href: resolvedHref, target, rel } = getNavigationProps(input);
+
 	return (
-		<LinkItem
-			href={href}
-			target={navigationProps.target}
-			rel={navigationProps.rel}
-			onClick={handleClick}
-			{...rest}
-		>
+		<LinkItem {...rest} href={resolvedHref} target={target} rel={rel} onClick={composedOnClick}>
 			{children}
 		</LinkItem>
 	);

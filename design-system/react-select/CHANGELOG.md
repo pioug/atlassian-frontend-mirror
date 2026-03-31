@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 3.14.4
+
+### Patch Changes
+
+- [`1b79e1553a7ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b79e1553a7ce) -
+  [ux] Bug fix for elemBefore in select options. ElemBefore should also show in the dropdown in
+  cases where the formatOptionLabel or custom Option is not provided.
+
 ## 3.14.3
 
 ### Patch Changes

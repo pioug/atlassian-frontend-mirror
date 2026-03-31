@@ -4,7 +4,6 @@
  */
 import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N90A } from '@atlaskit/theme/colors';
 
 import { bkgClassName } from './styles';
 const discSize = 48;
@@ -15,7 +14,7 @@ const backgroundStyles = css({
 	position: 'absolute',
 	width: `${discSize}px`,
 	height: `${discSize}px`,
-	backgroundColor: token('color.background.neutral.bold', N90A),
+	backgroundColor: token('color.background.neutral.bold'),
 	borderRadius: token('radius.full'),
 });
 

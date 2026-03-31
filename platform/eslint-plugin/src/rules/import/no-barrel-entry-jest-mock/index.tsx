@@ -732,6 +732,72 @@ function escapeRegExp(str: string): string {
 	return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/** Mock object keys that are module interop metadata, not package exports. */
+const ESM_INTEROP_MOCK_KEYS = new Set(['__esModule']);
+
+/**
+ * If a preamble line is `const|let actual = jest.requireActual('<barrel>')`, rewrite the specifier to
+ * `targetImportPathForThisMock` when every `binding.<prop>` read in this split mock's implementation
+ * resolves to that same path via `symbolToNewImportPath`. Otherwise leave unchanged (e.g. mixed paths
+ * still need the barrel module).
+ */
+function rewritePreambleLineBarrelRequireActual({
+	lineText,
+	oldBarrelPath,
+	targetImportPathForThisMock,
+	mockImplementationTextForGroup,
+	symbolToNewImportPath,
+}: {
+	lineText: string;
+	oldBarrelPath: string;
+	targetImportPathForThisMock: string;
+	mockImplementationTextForGroup: string;
+	symbolToNewImportPath: Map<string, string>;
+}): string {
+	const requireActualRe = /jest\.requireActual(?:<[^>]*>)?\((['"])([^'"]+)\1\)/;
+	const requireMatch = requireActualRe.exec(lineText);
+	if (!requireMatch || requireMatch[2] !== oldBarrelPath) {
+		return lineText;
+	}
+	const quote = requireMatch[1];
+
+	const bindingMatch = /^\s*(?:const|let)\s+(\w+)\s*=/m.exec(lineText);
+	if (!bindingMatch) {
+		return lineText;
+	}
+	const binding = bindingMatch[1];
+
+	const propAccessRe = new RegExp(`\\b${escapeRegExp(binding)}\\.(\\w+)`, 'g');
+	const accessedProps = new Set<string>();
+	let propMatch: RegExpExecArray | null;
+	while ((propMatch = propAccessRe.exec(mockImplementationTextForGroup)) !== null) {
+		accessedProps.add(propMatch[1]);
+	}
+	if (accessedProps.size === 0) {
+		return lineText;
+	}
+
+	const resolvedPaths: string[] = [];
+	for (const prop of accessedProps) {
+		const mapped = symbolToNewImportPath.get(prop);
+		if (mapped) {
+			resolvedPaths.push(mapped);
+		}
+	}
+	if (resolvedPaths.length === 0) {
+		return lineText;
+	}
+	const uniquePaths = new Set(resolvedPaths);
+	if (uniquePaths.size !== 1 || !uniquePaths.has(targetImportPathForThisMock)) {
+		return lineText;
+	}
+
+	return lineText.replace(
+		`jest.requireActual(${quote}${oldBarrelPath}${quote})`,
+		`jest.requireActual(${quote}${targetImportPathForThisMock}${quote})`,
+	);
+}
+
 /**
  * Generate fix text for multiple jest.mock calls
  */
@@ -742,6 +808,9 @@ function generateMockFixes({
 	mockProperties,
 	quote,
 	preambleStatements,
+	propagateEsModuleFromOriginalMock,
+	oldBarrelImportPath,
+	symbolToNewImportPath,
 }: {
 	groups: MockPropertyGroup[];
 	crossPackageGroups: MockPropertyGroup[];
@@ -749,6 +818,11 @@ function generateMockFixes({
 	mockProperties: Map<string, { node: TSESTree.Node; text: string }>;
 	quote: string;
 	preambleStatements: PreambleStatement[];
+	/** When the original barrel mock listed `__esModule`, repeat it on every split mock (and do not emit a barrel-only mock just for it). */
+	propagateEsModuleFromOriginalMock: boolean;
+	/** Original `jest.mock('…')` specifier (barrel entry) so preamble `jest.requireActual` can be retargeted. */
+	oldBarrelImportPath: string;
+	symbolToNewImportPath: Map<string, string>;
 }): string {
 	const mockCalls: string[] = [];
 
@@ -758,8 +832,8 @@ function generateMockFixes({
 
 		propTexts.push(`...jest.requireActual(${quote}${fullImportPath}${quote})`);
 
-		// Add __esModule: true when mocking default exports
-		if (group.hasDefaultExport) {
+		// Add __esModule: true when mocking default exports, or when the original mock already used __esModule (apply to every split).
+		if (group.hasDefaultExport || propagateEsModuleFromOriginalMock) {
 			propTexts.push('__esModule: true');
 		}
 
@@ -798,15 +872,29 @@ function generateMockFixes({
 			}
 		}
 
+		const combinedGroupImplText = group.propertyNames
+			.map((name) => group.propertyTexts.get(name) ?? mockProperties.get(name)?.text ?? '')
+			.join('\n');
+
 		// Determine if we need preamble for this group
 		const neededPreamble = getNeededPreamble({
 			propertyTexts: propTexts,
 			allPreamble: preambleStatements,
 		});
 
+		const rewrittenPreamble = neededPreamble.map((p) =>
+			rewritePreambleLineBarrelRequireActual({
+				lineText: p.text,
+				oldBarrelPath: oldBarrelImportPath,
+				targetImportPathForThisMock: fullImportPath,
+				mockImplementationTextForGroup: combinedGroupImplText,
+				symbolToNewImportPath,
+			}),
+		);
+
 		if (neededPreamble.length > 0) {
 			// Generate block body arrow function with preamble
-			const preambleLines = neededPreamble.map((p) => `\t${p.text}`).join('\n');
+			const preambleLines = rewrittenPreamble.map((text) => `\t${text}`).join('\n');
 			const formattedProps = propTexts.map((p) => `\t\t${p},`).join('\n');
 			return `jest.mock(${quote}${fullImportPath}${quote}, () => {\n${preambleLines}\n\treturn {\n${formattedProps}\n\t};\n})`;
 		} else {
@@ -1006,8 +1094,10 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 							return;
 						}
 
-						// Skip if nested inside a jest.mock() factory that itself targets a barrel —
-						// the jest.mock handler already rewrites the entire mock including inner requireActual calls.
+						// `jest.requireActual('<barrel>')` inside `jest.mock('<barrel>')` is handled by the mock
+						// rule's fix (preamble retargeting + `jest.requireActual('barrel').x` rewriting), including
+						// `const actual = jest.requireActual('<barrel>')` with no member access on the call.
+						// Skip standalone handling here to avoid duplicate diagnostics.
 						let ancestor: TSESTree.Node | undefined = (
 							node as TSESTree.Node & { parent?: TSESTree.Node }
 						).parent;
@@ -1160,7 +1250,10 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 						return;
 					}
 
-					const symbolNames = Array.from(mockProperties.keys());
+					const originalMockHadEsModule = mockProperties.has('__esModule');
+					const symbolNames = Array.from(mockProperties.keys()).filter(
+						(name) => !ESM_INTEROP_MOCK_KEYS.has(name),
+					);
 					const { groupedByExport, crossPackageGroups, unmappedSymbols } = traceSymbolsToExports({
 						symbolNames,
 						exportMap: mockContext.exportMap,
@@ -1311,6 +1404,13 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 								}
 							}
 
+							const symbolToNewImportPath = new Map<string, string>();
+							for (const group of [...mergedGroups, ...crossPackageMockGroups]) {
+								for (const propName of group.propertyNames) {
+									symbolToNewImportPath.set(propName, group.importPath);
+								}
+							}
+
 							let fixText = generateMockFixes({
 								groups: mergedGroups,
 								crossPackageGroups: crossPackageMockGroups,
@@ -1318,15 +1418,10 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 								mockProperties,
 								quote,
 								preambleStatements,
+								propagateEsModuleFromOriginalMock: originalMockHadEsModule,
+								oldBarrelImportPath: oldImportPath,
+								symbolToNewImportPath,
 							});
-
-							// Build a map of symbol name -> new import path for jest.requireMock() rewriting
-							const symbolToNewImportPath = new Map<string, string>();
-							for (const group of [...mergedGroups, ...crossPackageMockGroups]) {
-								for (const propName of group.propertyNames) {
-									symbolToNewImportPath.set(propName, group.importPath);
-								}
-							}
 
 							// Post-process fixText to update jest.requireActual('barrel').Symbol
 							// references embedded in property texts (e.g. inside jest.fn callbacks)

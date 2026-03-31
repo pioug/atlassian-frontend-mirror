@@ -179,7 +179,7 @@ const runScenarios = (scenarios: Scenarios) => {
 const rowStyle = {
 	display: 'flex',
 	flexDirection: 'row',
-	marginBottom: token('space.250', '20px'),
+	marginBottom: token('space.250'),
 } as const;
 
 const ScenariosComponent: React.FC<{ scenarios: Scenarios }> = ({ scenarios }) => (
@@ -193,7 +193,7 @@ const ScenariosComponent: React.FC<{ scenarios: Scenarios }> = ({ scenarios }) =
 						<div
 							key={id}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							style={{ marginRight: token('space.250', '20px') }}
+							style={{ marginRight: token('space.250') }}
 							id={id}
 						></div>
 					))}
@@ -217,7 +217,7 @@ export default (): React.JSX.Element => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				margin: 'auto',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				marginTop: token('space.250', '20px'),
+				marginTop: token('space.250'),
 			}}
 		>
 			<MainWrapper developmentOnly>

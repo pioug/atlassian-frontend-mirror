@@ -9,7 +9,7 @@ const spinnerWrapperStyles = css({
 	whiteSpace: 'pre-wrap',
 	wordBreak: 'break-all',
 	verticalAlign: 'baseline',
-	marginLeft: token('space.025', '2px'),
+	marginLeft: token('space.025'),
 });
 
 export const SpinnerWrapper = ({

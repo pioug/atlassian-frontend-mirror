@@ -13,6 +13,7 @@ import NoMedia from '../../examples/without-image';
 snapshot(Card, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform_spotlight_card_fit_content_anchor': true,
 	},
 	variants: [
 		{
@@ -33,6 +34,7 @@ snapshot(Card, {
 snapshot(StepVariants, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform_spotlight_card_fit_content_anchor': true,
 	},
 	variants: [
 		{
@@ -47,6 +49,7 @@ snapshot(StepVariants, {
 snapshot(NoMedia, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform_spotlight_card_fit_content_anchor': true,
 	},
 	variants: [
 		{
@@ -61,6 +64,7 @@ snapshot(NoMedia, {
 snapshot(AllPlacements, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform_spotlight_card_fit_content_anchor': true,
 	},
 	variants: [
 		{
@@ -75,6 +79,7 @@ snapshot(AllPlacements, {
 snapshot(OverlayingUI, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform_spotlight_card_fit_content_anchor': true,
 	},
 	variants: [
 		{
@@ -89,6 +94,7 @@ snapshot(OverlayingUI, {
 snapshot(FullWidthTarget, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform_spotlight_card_fit_content_anchor': true,
 	},
 	variants: [
 		{
@@ -102,6 +108,7 @@ snapshot(FullWidthTarget, {
 snapshot(Offset, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform_spotlight_card_fit_content_anchor': true,
 	},
 	variants: [
 		{
@@ -115,6 +122,7 @@ snapshot(Offset, {
 snapshot(Links, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
+		'platform_spotlight_card_fit_content_anchor': true,
 	},
 	variants: [
 		{

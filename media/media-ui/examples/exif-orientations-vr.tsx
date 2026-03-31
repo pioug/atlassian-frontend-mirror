@@ -22,7 +22,7 @@ const SHORT = 60;
 const StyledContainer = styled.div({
 	display: 'flex',
 	maxWidth: '600px',
-	margin: token('space.250', '20px'),
+	margin: token('space.250'),
 	alignItems: 'center',
 });
 
@@ -33,7 +33,7 @@ const ItemWrapper = styled.div({
 	flexDirection: 'column',
 	alignItems: 'center',
 	justifyContent: 'center',
-	margin: token('space.100', '8px'),
+	margin: token('space.100'),
 	position: 'relative',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	label: {
@@ -49,11 +49,11 @@ const ItemWrapper = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const OuterBorder = styled.div({
 	position: 'absolute',
-	backgroundColor: token('color.border', '#ccc'),
-	left: token('space.negative.050', '-4px'),
-	top: token('space.negative.050', '-4px'),
-	width: `calc(100% + ${token('space.100', '8px')})`,
-	height: `calc(100% + ${token('space.100', '8px')})`,
+	backgroundColor: token('color.border'),
+	left: token('space.negative.050'),
+	top: token('space.negative.050'),
+	width: `calc(100% + ${token('space.100')})`,
+	height: `calc(100% + ${token('space.100')})`,
 });
 
 export const mediaImage = (dataUri: string, orientation: number): React.JSX.Element => (

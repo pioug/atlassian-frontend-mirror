@@ -67,7 +67,7 @@ export const IconWrapper = ({
 
 const emojiWrapperStyles = css({
 	display: 'inline-block',
-	marginRight: token('space.025', '2px'),
+	marginRight: token('space.025'),
 	userSelect: 'none',
 });
 
@@ -103,10 +103,10 @@ const lozengeWrapperStyles = css({
 	verticalAlign: '1px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > span': {
-		marginLeft: token('space.050', '4px'),
-		paddingTop: token('space.025', '2px'),
+		marginLeft: token('space.050'),
+		paddingTop: token('space.025'),
 		paddingRight: 0,
-		paddingBottom: token('space.025', '2px'),
+		paddingBottom: token('space.025'),
 		paddingLeft: 0,
 	},
 });
@@ -124,10 +124,10 @@ export const LozengeWrapper = ({
 const lozengeBlockWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > span': {
-		marginLeft: token('space.050', '4px'),
-		paddingTop: token('space.025', '2px'),
+		marginLeft: token('space.050'),
+		paddingTop: token('space.025'),
 		paddingRight: 0,
-		paddingBottom: token('space.025', '2px'),
+		paddingBottom: token('space.025'),
 		paddingLeft: 0,
 	},
 });
@@ -143,8 +143,8 @@ export const LozengeBlockWrapper = ({
 );
 
 const rightIconPositionWrapperStyles = css({
-	marginLeft: token('space.025', '2px'),
-	marginRight: token('space.050', '4px'),
+	marginLeft: token('space.025'),
+	marginRight: token('space.050'),
 	position: 'relative',
 	display: 'inline-block',
 });
@@ -159,7 +159,7 @@ export const RightIconPositionWrapper = ({
 );
 
 const iconPositionWrapperStyles = css({
-	marginRight: token('space.050', '4px'),
+	marginRight: token('space.050'),
 	position: 'relative',
 	display: 'inline-block',
 });

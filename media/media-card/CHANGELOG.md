@@ -1,5 +1,25 @@
 # @atlaskit/media-card
 
+## 79.16.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 79.16.7
+
+### Patch Changes
+
+- [`715629fc18fc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/715629fc18fc8) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 79.16.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 79.16.5
 
 ### Patch Changes

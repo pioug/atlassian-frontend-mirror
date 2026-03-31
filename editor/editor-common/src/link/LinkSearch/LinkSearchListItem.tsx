@@ -15,6 +15,7 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { getCorrectAltByIconUrl } from './listItemAlts';
@@ -71,6 +72,7 @@ const iconStyle = css({
 export interface Props {
 	id?: string;
 	item: LinkSearchListItemData;
+	onBlur?: () => void;
 	onFocus?: () => void;
 	onKeyDown?: (e: KeyboardEvent<HTMLDivElement>) => void;
 	onMouseEnter?: (objectId: string) => void;
@@ -88,6 +90,7 @@ const LinkSearchListItem = (
 	const {
 		id,
 		item,
+		onBlur,
 		onFocus,
 		onKeyDown,
 		onMouseEnter,
@@ -175,11 +178,15 @@ const LinkSearchListItem = (
 			id={id}
 			aria-selected={selected}
 			data-testid="link-search-list-item"
+			onBlur={
+        expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
+            ? onBlur
+            : undefined
+    	}
 			onFocus={onFocus}
 			onKeyDown={handleKeyDown}
 			onMouseMove={handleMouseMove}
 			onMouseEnter={handleMouseEnter}
-			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseLeave={handleMouseLeave}
 			onClick={handleSelect}
 		>

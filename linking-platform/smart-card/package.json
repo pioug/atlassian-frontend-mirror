@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.28.4",
+	"version": "43.28.7",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -244,6 +244,9 @@
 			"type": "boolean"
 		},
 		"platform_navx_smart_link_icon_label_a11y": {
+			"type": "boolean"
+		},
+		"navx-vuln-1914676-fix-xss-in-ai-summaries": {
 			"type": "boolean"
 		}
 	},

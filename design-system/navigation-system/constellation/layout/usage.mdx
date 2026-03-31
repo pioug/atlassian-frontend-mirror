@@ -4,8 +4,14 @@ description: Layout components define a page’s structure and the areas for nav
 order: 4
 ---
 
-import layoutDo from './images/layout-do.png';
-import layoutDont from './images/layout-dont.png';
+import Image from '@atlaskit/image';
+
+import layoutAnatomyLight from './images/layout-anatomy-light.png';
+import layoutAnatomyDark from './images/layout-anatomy-dark.png';
+import layoutDoLight from './images/layout-do-light.png';
+import layoutDoDark from './images/layout-do-dark.png';
+import layoutDontLight from './images/layout-dont-light.png';
+import layoutDontDark from './images/layout-dont-dark.png';
 
 import SectionMessage from '@atlaskit/section-message';
 
@@ -14,10 +20,13 @@ import SectionMessage from '@atlaskit/section-message';
 Use layout to compose the structure of your application. It also defines the page behavior and
 navigational areas.
 
-When applying components to the navigational areas,
-[see navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812).
+When applying components to the navigational areas, [see navigation resources (Atlassians only)](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812).
 
-![Diagram of the navigation system layout areas](./images/layout-anatomy.png)
+<Image
+	src={layoutAnatomyLight}
+	srcDark={layoutAnatomyDark}
+	alt="Diagram of the navigation system layout areas"
+/>
 
 <ol>
 	<li>
@@ -28,7 +37,7 @@ When applying components to the navigational areas,
 		<a href="/components/navigation-system/top-nav-items">top nav items</a>.
 		<ol type="a">
 			<li>
-				<strong>Top nav start:</strong> Area for left-aligned actions.
+				<strong>Top nav start:</strong> Area for left-aligned actions. Appears in the side nav when the side nav is expanded.
 			</li>
 			<li>
 				<strong>Top nav middle:</strong> Area for centre-aligned actions.
@@ -39,10 +48,9 @@ When applying components to the navigational areas,
 		</ol>
 	</li>
 	<li>
-		<strong>Side nav:</strong> Use to display{' '}
-		<a href="https://atlaskit.atlassian.com/packages/navigation/side-nav-items">side nav items</a>.
-		Is resizable and collapsible.
-		<ol type="a" start="4">
+		<strong>Side nav:</strong> Use to display <a href="https://atlaskit.atlassian.com/packages/navigation/side-nav-items">side nav items</a>. Is resizable and
+		collapsible.
+		<ol type="a">
 			<li>
 				<strong>Side nav header:</strong> Optional. Top part of the side nav (fixed).
 			</li>
@@ -60,7 +68,7 @@ When applying components to the navigational areas,
 	</li>
 	<li>
 		<strong>Aside:</strong> Optional. Use to display supporting or supplementary content. Is
-		resizable. <em>We plan to deprecate this component, please use panel instead.</em>
+		resizable. <em>We plan to deprecate aside, please use panel instead.</em>
 	</li>
 	<li>
 		<strong>Panel:</strong> Optional. Use to display supporting or supplementary content. Is
@@ -71,26 +79,25 @@ When applying components to the navigational areas,
 ### The difference between aside, panel and modal dialog
 
 <SectionMessage appearance="warning" title="Caution">
-	We are planning on deprecating the aside component. Please use panel instead.
+	We plan to deprecate aside. Use panel instead.
 </SectionMessage>
 
 The main difference between aside, panel and modal dialog is their behaviours:
 
 - **Aside** is not collapsible, while **panel** can be collapsible.
-- **Panel** and **aside** present content alongside the **main** area, while **modal dialog** exists
+- **Panel** and **aside** present content alongside the **main** area, while a **modal dialog** appears
   in a layer above the page.
 - On small viewports (1024px and below), the **panel** becomes an overlay, while the **aside** moves
-  below **main**.
+  below the **main** area.
 
-#### Usage guidance:
+#### Usage guidance
 
-- Use **aside** for content that needs to be constantly visible and accessible without requiring the
-  user to open it, or have the ability to close it.
-- Use **panel** for contextual information or tertiary actions that complement the user's workflow.
-  Panels enable greater multitasking by functioning as an additional work space, while keeping users
+- Use the **panel** for contextual information or tertiary actions that complement the user's workflow.
+  Panels enable multitasking by providing an additional work space, while keeping users
   connected to their primary task.
-- Use **modal dialog** when you need your user to focus their attention on a single or specific
-  task, like requiring a decision or action before they can return to their primary task.
+- Use a **modal dialog** when you need the user to focus on a specific
+  task, such as making a decision or completing an action, before they can return to their primary task.
+- Don’t use aside for new experiences. It is planned for deprecation.
 
 ## Best practices
 
@@ -100,7 +107,8 @@ The main difference between aside, panel and modal dialog is their behaviours:
 	<DoDont
 		type="do"
 		image={{
-			url: layoutDo,
+			url: layoutDoLight,
+			urlDarkMode: layoutDoDark,
 			alt: 'A layout with a grid overlay on the Main area.',
 		}}
 		isFullWidth
@@ -111,7 +119,8 @@ The main difference between aside, panel and modal dialog is their behaviours:
 	<DoDont
 		type="dont"
 		image={{
-			url: layoutDont,
+			url: layoutDontLight,
+			urlDarkMode: layoutDontDark,
 			alt: 'A layout with a grid overlay on the Main area, but also on the Side nav, Aside and Panel areas.',
 		}}
 		isFullWidth
@@ -125,4 +134,3 @@ The main difference between aside, panel and modal dialog is their behaviours:
 - [Page header](/components/page-header)
 - [Top nav items](/components/navigation-system/top-nav-items)
 - [Navigation resources (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE)
-- [Preview panel (Atlassians only)](https://atlaskit-website-staging.stg-east.frontend.public.atl-paas.net/#/packages/navigation/preview-panel)

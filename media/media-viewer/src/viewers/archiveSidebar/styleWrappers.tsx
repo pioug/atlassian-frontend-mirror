@@ -6,7 +6,6 @@ import { type ReactNode, type MouseEvent, type Key, forwardRef } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css, keyframes } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { DN500 } from '@atlaskit/theme/colors';
 
 export const ARCHIVE_SIDE_BAR_WIDTH = 300;
 
@@ -19,10 +18,10 @@ const archiveItemViewerWrapperStyles = css({
 const archiveSideBarStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingTop: '22px',
-	paddingRight: `${token('space.250', '20px')}`,
-	paddingLeft: `${token('space.250', '20px')}`,
-	paddingBottom: `${token('space.250', '20px')}`,
-	backgroundColor: token('elevation.surface', '#101214'),
+	paddingRight: `${token('space.250')}`,
+	paddingLeft: `${token('space.250')}`,
+	paddingBottom: `${token('space.250')}`,
+	backgroundColor: token('elevation.surface'),
 	position: 'absolute',
 	left: 0,
 	top: 0,
@@ -44,40 +43,40 @@ const slideDown = keyframes({
 });
 
 const archiveDownloadButtonWrapperStyles = css({
-	paddingTop: `${token('space.100', '8px')}`,
+	paddingTop: `${token('space.100')}`,
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingRight: '7px',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingBottom: '5px',
-	paddingLeft: `${token('space.100', '8px')}`,
+	paddingLeft: `${token('space.100')}`,
 	border: 'none',
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
 	backgroundColor: 'transparent',
-	color: token('color.icon', '#9FADBC'),
+	color: token('color.icon'),
 	'&:hover': {
 		cursor: 'pointer',
-		backgroundColor: token('color.background.neutral.subtle.hovered', '#A1BDD914'),
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
 	'&:active': {
 		cursor: 'pointer',
-		backgroundColor: token('color.background.neutral.subtle.pressed', '#A6C5E229'),
+		backgroundColor: token('color.background.neutral.subtle.pressed'),
 	},
 });
 
 const disabledArchiveDownloadButtonWrapperStyles = css({
-	paddingTop: `${token('space.100', '8px')}`,
+	paddingTop: `${token('space.100')}`,
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingRight: '7px',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingBottom: '5px',
-	paddingLeft: `${token('space.100', '8px')}`,
+	paddingLeft: `${token('space.100')}`,
 
 	border: 'none',
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
 	backgroundColor: 'transparent',
-	color: token('color.icon', '#9FADBC'),
+	color: token('color.icon'),
 	cursor: 'not-allowed',
 });
 
@@ -95,7 +94,7 @@ const sidebarItemWrapperStyles = css({
 });
 
 const archiveSidebarFileEntryWrapperStyles = css({
-	paddingBottom: token('space.075', '5px'),
+	paddingBottom: token('space.075'),
 	display: 'flex',
 	alignItems: 'center',
 	cursor: 'pointer',
@@ -122,11 +121,11 @@ const archiveViewerWrapperStyles = css({
 const separatorStyles = css({
 	borderRadius: token('radius.full'),
 	height: '2px',
-	marginTop: `${token('space.200', '19px')}`,
+	marginTop: `${token('space.200')}`,
 	marginRight: '0',
-	marginBottom: `${token('space.200', '19px')}`,
+	marginBottom: `${token('space.200')}`,
 	marginLeft: '0',
-	backgroundColor: token('color.border', '#A6C5E229'),
+	backgroundColor: token('color.border'),
 
 	flexShrink: 0,
 });
@@ -140,7 +139,7 @@ const sidebarHeaderWrapperStyles = css({
 const sidebarHeaderIconStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	marginRight: token('space.100', '10px'),
+	marginRight: token('space.100'),
 	flexShrink: 0,
 });
 
@@ -151,7 +150,7 @@ const sidebarHeaderEntryStyles = css({
 	whiteSpace: 'nowrap',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1.14286,
-	color: token('color.text', DN500),
+	color: token('color.text'),
 });
 
 type Children = {

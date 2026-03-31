@@ -4,7 +4,6 @@
  */
 import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N0 } from '@atlaskit/theme/colors';
 
 import { playButtonClassName } from './styles';
 
@@ -17,7 +16,7 @@ const playButtonWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
-	color: token('color.icon.inverse', N0),
+	color: token('color.icon.inverse'),
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	span: {

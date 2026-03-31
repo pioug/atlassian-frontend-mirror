@@ -22,6 +22,7 @@ import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	copySyncedBlockReferenceToClipboard,
@@ -114,6 +115,11 @@ export const getToolbarConfig = (
 					return (
 						<Button
 							areAnyNewToolbarFlagsEnabled={true}
+							disabled={
+								fg('platform_synced_block_patch_8')
+									? syncBlockInstance?.data?.status === 'unpublished'
+									: false
+							}
 							icon={<LinkBrokenIcon label="" />}
 							title={formatMessage(messages.unsyncButton)}
 							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)

@@ -1,5 +1,14 @@
 # @atlaskit/ads-mcp
 
+## 0.19.0
+
+### Minor Changes
+
+- [`a841a60987add`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a841a60987add) -
+  Overhaul search-icon, search-tokens, search-components, and plan tools to make empty messages, no
+  results, and fuzzy searching more consistent and better. Fixes token results such as border.radius
+  or font.size
+
 ## 0.18.1
 
 ### Patch Changes

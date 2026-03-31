@@ -912,10 +912,7 @@ export const apply = (
 	}
 
 	let isSelectedViaDragHandleNew;
-	if (
-		flags.toolbarFlagsEnabled &&
-		expValEquals('platform_editor_controls_block_controls_state_fix', 'isEnabled', true)
-	) {
+	if (flags.toolbarFlagsEnabled) {
 		isSelectedViaDragHandleNew =
 			meta?.isSelectedViaDragHandle !== undefined
 				? meta?.isSelectedViaDragHandle

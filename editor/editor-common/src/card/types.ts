@@ -97,6 +97,7 @@ export type EmbedCardTransformCommandOptions = {
 	 * (e.g. analytics events, datasource stash updates, link metadata).
 	 */
 	augmentTransaction?: (tr: Transaction, state: EditorState) => void;
+	editorAnalyticsApi?: EditorAnalyticsAPI,
 };
 
 /**

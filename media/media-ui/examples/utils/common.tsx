@@ -13,7 +13,7 @@ export const VRTestCase = ({ title, children }: VRTestCaseOpts): React.JSX.Eleme
 		<IntlProvider locale={'en'}>
 			<Page>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ padding: token('space.400', '32px') }}>
+				<div style={{ padding: token('space.400') }}>
 					<h6>{title}</h6>
 					{children()}
 				</div>

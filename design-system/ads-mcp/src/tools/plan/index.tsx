@@ -13,7 +13,6 @@ export const planInputSchema: z.ZodObject<
 		icons: z.ZodArray<z.ZodString, 'many'>;
 		components: z.ZodArray<z.ZodString, 'many'>;
 		limit: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
-		exactName: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
 	},
 	'strip',
 	z.ZodTypeAny,
@@ -22,14 +21,12 @@ export const planInputSchema: z.ZodObject<
 		icons: string[];
 		components: string[];
 		limit?: number | undefined;
-		exactName?: boolean | undefined;
 	},
 	{
 		tokens: string[];
 		icons: string[];
 		components: string[];
 		limit?: number | undefined;
-		exactName?: boolean | undefined;
 	}
 > = z.object({
 	tokens: z
@@ -49,16 +46,9 @@ export const planInputSchema: z.ZodObject<
 		),
 	limit: z
 		.number()
-		.default(1)
+		.default(2)
 		.describe(
-			'Max matches **per term** for each non-empty list (default 1). Same limit applies to tokens, icons, and components searches.',
-		)
-		.optional(),
-	exactName: z
-		.boolean()
-		.default(false)
-		.describe(
-			'If true, resolve each term by exact **name** (token name, icon component name, or component name) case-insensitively. If false, fuzzy search across metadata.',
+			'Max matches **per term** for each non-empty list (default 2). Same limit applies to tokens, icons, and components searches.',
 		)
 		.optional(),
 });
@@ -106,9 +96,12 @@ import AddIcon from '@atlaskit/icon/core/add';
 	inputSchema: zodToJsonSchema(planInputSchema),
 };
 
-export const planTool = async (
-	params: z.infer<typeof planInputSchema>,
-): Promise<
+export const planTool = async ({
+	tokens: tokens_search,
+	icons: icons_search,
+	components: components_search,
+	limit,
+}: z.infer<typeof planInputSchema>): Promise<
 	| {
 			isError: boolean;
 			content: {
@@ -124,14 +117,6 @@ export const planTool = async (
 			isError?: undefined;
 	  }
 > => {
-	const {
-		tokens: tokens_search,
-		icons: icons_search,
-		components: components_search,
-		limit = 1,
-		exactName = false,
-	} = params;
-
 	// Validate that at least one search type is provided
 	if (!tokens_search?.length && !icons_search?.length && !components_search?.length) {
 		return {
@@ -156,7 +141,7 @@ export const planTool = async (
 
 	if (tokens_search?.length) {
 		searchPromises.push(
-			searchTokensTool({ terms: tokens_search, limit, exactName }).then((result) => {
+			searchTokensTool({ terms: tokens_search, limit }).then((result) => {
 				results.tokens = result;
 			}),
 		);
@@ -164,7 +149,7 @@ export const planTool = async (
 
 	if (icons_search?.length) {
 		searchPromises.push(
-			searchIconsTool({ terms: icons_search, limit, exactName }).then((result) => {
+			searchIconsTool({ terms: icons_search, limit }).then((result) => {
 				results.icons = result;
 			}),
 		);
@@ -172,7 +157,7 @@ export const planTool = async (
 
 	if (components_search?.length) {
 		searchPromises.push(
-			searchComponentsTool({ terms: components_search, limit, exactName }).then((result) => {
+			searchComponentsTool({ terms: components_search, limit }).then((result) => {
 				results.components = result;
 			}),
 		);

@@ -1,5 +1,7 @@
 // A collection of utility functions for the teams-app-internal-navigation package.
 
+import type { NavigationContext, NavigationIntentProps } from './getNavigationProps';
+
 /**
  * Checks if a mouse event is modified.
  */
@@ -32,3 +34,24 @@ export const getRoutePathFromUrl = (url: string) => {
 		return url;
 	}
 };
+
+type BuildNavigationInputArgs = NavigationIntentProps & {
+	href: string;
+	context: NavigationContext;
+	onBeforeNavigate?: (...args: any[]) => void;
+};
+
+/**
+ * Builds the input object for `getNavigationProps`, handling the intent props.
+ */
+export function buildNavigationInput({ href, context, onBeforeNavigate, ...intentProps }: BuildNavigationInputArgs) {
+	return intentProps.intent === 'action'
+		? {
+				href,
+				intent: intentProps.intent,
+				previewPanelProps: intentProps.previewPanelProps,
+				context,
+				onBeforeNavigate,
+			}
+		: { href, intent: intentProps.intent, context, onBeforeNavigate };
+}

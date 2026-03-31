@@ -5,15 +5,20 @@
 import { forwardRef, type ReactNode, useContext, useEffect, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { SpotlightContext } from '../../controllers/context';
+import type { Placement } from '../../types';
 
 import { Caret } from './caret';
 
 const styles = cssMap({
 	root: {
+		width: 'fit-content',
+	},
+	container: {
 		position: 'relative',
 	},
 	card: {
@@ -93,6 +98,11 @@ export interface SpotlightCardProps {
 	testId?: string;
 
 	/**
+	 * The position in relation to the target the content should be shown at. Overrides `PopoverContent.placement`
+	 */
+	placement?: Placement;
+
+	/**
 	 * Elements to be rendered inside the `SpotlightCard`.
 	 */
 	children?: ReactNode;
@@ -107,7 +117,7 @@ export interface SpotlightCardProps {
 export const SpotlightCard: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SpotlightCardProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, SpotlightCardProps>(
-	({ children, testId }: SpotlightCardProps, ref) => {
+	({ children, placement, testId }: SpotlightCardProps, ref) => {
 		const { card } = useContext(SpotlightContext);
 		const cardRef = useRef<HTMLDivElement>(null);
 
@@ -115,13 +125,31 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 			card.setRef(cardRef);
 		}, [card]);
 
+
+		if (fg('platform_spotlight_card_fit_content_anchor')) {
+			return (
+				<div css={styles.root} data-testid={testId} ref={ref}>
+					<div css={styles.container}>
+						<Caret placement={placement || card.placement} />
+						<Box
+							ref={cardRef}
+							backgroundColor="color.background.neutral.bold"
+							xcss={cx(styles.card, placementStyles[placement || card.placement])}
+						>
+							{children}
+						</Box>
+					</div>
+				</div>
+			);
+		}
+
 		return (
-			<div css={styles.root} data-testid={testId} ref={ref}>
-				<Caret />
+			<div css={styles.container} data-testid={testId} ref={ref}>
+				<Caret placement={placement || card.placement} />
 				<Box
 					ref={cardRef}
 					backgroundColor="color.background.neutral.bold"
-					xcss={cx(styles.card, placementStyles[card.placement])}
+					xcss={cx(styles.card, placementStyles[placement || card.placement])}
 				>
 					{children}
 				</Box>
@@ -129,3 +157,5 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 		);
 	},
 );
+
+

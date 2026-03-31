@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 51.0.0
+
+### Major Changes
+
+- [`6442aba65e911`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6442aba65e911) -
+  Clean up cc_editor_lcm_readonly_initial experiment - remove LegacyContentHeader rendering and
+  associated dead code
+- [`a3b34e2d09709`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3b34e2d09709) -
+  Cleanup experiment platform_editor_add_aria_checked_to_inline_img_btn - ships the enabled code
+  path (selected: false on inline image button)
+
+## 50.0.0
+
+### Major Changes
+
+- [`f65fa1ea7c0e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f65fa1ea7c0e5) -
+  Cleaned up stale feature flag `platform_editor_fix_button_name_violation_in_table`. The flag has
+  been fully rolled out, so the button name fix in table floating insert button is now always
+  applied.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 49.0.0
 
 ### Major Changes

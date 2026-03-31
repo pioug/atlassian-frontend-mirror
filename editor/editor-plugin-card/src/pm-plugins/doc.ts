@@ -591,6 +591,7 @@ export const setSelectedCardAppearance: (
 			cardState?.embedCardTransformers?.createEmbedCardTransformCommand;
 		if (createEmbedCardTransformCommand) {
 			const transformCommand = createEmbedCardTransformCommand({
+				editorAnalyticsApi,
 				augmentTransaction: (augmentTr: Transaction) => {
 					updateDatasourceStash(augmentTr, selectedNode);
 					editorAnalyticsApi?.attachAnalyticsEvent({

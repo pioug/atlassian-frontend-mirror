@@ -19,7 +19,7 @@ import { mediaImage } from './exif-orientations-vr';
 const StyledContainer = styled.div({
 	display: 'flex',
 	maxWidth: '600px',
-	margin: token('space.250', '20px'),
+	margin: token('space.250'),
 	alignItems: 'center',
 });
 

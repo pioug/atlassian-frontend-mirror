@@ -5,7 +5,6 @@
 import React from 'react';
 import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N200 } from '@atlaskit/theme/colors';
 import { Component } from 'react';
 import { FormattedMessage, type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
@@ -52,13 +51,13 @@ const sliderContainerStyles = css({
 	justifyContent: 'center',
 	display: 'flex',
 	flexDirection: 'row',
-	marginTop: token('space.100', '8px'),
+	marginTop: token('space.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	input: {
 		boxSizing: 'content-box',
 		padding: 0,
 	},
-	backgroundColor: token('elevation.surface.overlay', '#fff'),
+	backgroundColor: token('elevation.surface.overlay'),
 });
 
 const fileInputStyles = css({
@@ -71,9 +70,9 @@ const imageUploaderStyles = css({
 	justifyContent: 'center',
 	alignItems: 'center',
 	marginTop: 0,
-	marginRight: token('space.150', '10px'),
-	marginBottom: token('space.250', '20px'),
-	marginLeft: token('space.150', '10px'),
+	marginRight: token('space.150'),
+	marginBottom: token('space.250'),
+	marginLeft: token('space.150'),
 });
 
 const dragZoneImageStyles = css({
@@ -91,11 +90,11 @@ const imageBgStyles = css({
 
 const dragZoneTextBaseStyles = css({
 	textAlign: 'center',
-	color: token('color.text.subtlest', N200),
+	color: token('color.text.subtlest'),
 });
 
 const dragZoneTextStylesFullSize = css({
-	width: `calc(${AVATAR_DIALOG_WIDTH} - ${token('space.100', '8px')} * 8)px`,
+	width: `calc(${AVATAR_DIALOG_WIDTH} - ${token('space.100')} * 8)px`,
 });
 
 const dragZoneTextStylesNotFullSize = css({
@@ -114,8 +113,8 @@ const selectionBlockerStyles = css({
 
 const paddedBreakStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-	marginTop: `${token('space.100', '10px')} !important`,
-	marginBottom: token('space.100', '10px'),
+	marginTop: `${token('space.100')} !important`,
+	marginBottom: token('space.100'),
 	textAlign: 'center',
 });
 

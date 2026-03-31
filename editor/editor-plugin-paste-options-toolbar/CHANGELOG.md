@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.9
+
+### Patch Changes
+
+- [`194f00cfcef60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/194f00cfcef60) -
+  EDITOR-6197 Fire manual experiment exposure for paste actions menu experiment
+
 ## 9.1.8
 
 ### Patch Changes

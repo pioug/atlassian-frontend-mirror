@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.43.0
+
+### Minor Changes
+
+- [`7c66756e9392b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c66756e9392b) -
+  Add use-textfield-autocomplete rule to flag inaccessible use of autocomplete prop for email, url
+  and tel text fields
+
 ## 13.42.0
 
 ### Minor Changes

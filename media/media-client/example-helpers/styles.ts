@@ -36,11 +36,11 @@ export interface FilesWrapperProps {
 }
 
 const statusColorMap: { [key in FileStatus]: string } = {
-	uploading: token('color.background.accent.blue.subtle', 'cornflowerblue'),
-	processing: token('color.background.accent.orange.subtler', 'peachpuff'),
-	processed: token('color.background.accent.green.subtle', 'darkseagreen'),
-	error: token('color.background.accent.red.subtle', 'indianred'),
-	'failed-processing': token('color.background.accent.red.subtle', 'indianred'),
+	uploading: token('color.background.accent.blue.subtle'),
+	processing: token('color.background.accent.orange.subtler'),
+	processed: token('color.background.accent.green.subtle'),
+	error: token('color.background.accent.red.subtle'),
+	'failed-processing': token('color.background.accent.red.subtle'),
 };
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
@@ -58,11 +58,11 @@ export const fileWrapperStyles = (status: FileStatus) =>
 export const cardsWrapperStyles = css({
 	width: '900px',
 	padding: '10px',
-	borderRight: `1px solid ${token('color.border', '#ccc')}`,
+	borderRight: `${token('border.width', '1px')} solid ${token('color.border')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	h1: {
 		textAlign: 'center',
-		borderBottom: `1px solid ${token('color.border', '#ccc')}`,
+		borderBottom: `${token('border.width', '1px')} solid ${token('color.border')}`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
@@ -82,7 +82,7 @@ export const headerStyles = css({
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const fileStateWrapperStyles = css({
-	border: `1px solid ${token('color.border', '#ccc')}`,
+	border: `${token('border.width', '1px')} solid ${token('color.border')}`,
 	margin: '10px',
 	padding: '10px',
 	width: '500px',

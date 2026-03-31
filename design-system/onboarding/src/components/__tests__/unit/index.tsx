@@ -1,13 +1,12 @@
 import React, { forwardRef, useState } from 'react';
 
-import { render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import Lorem from 'react-lorem-component';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { render, screen, userEvent, within } from '@atlassian/testing-library';
 
 import {
 	Modal,
@@ -130,11 +129,7 @@ const SpotlightDialogLabel = (props: SpotlightDialogLabelProps) => {
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Benefits Modal', () => {
 	it('should have an appriorate accessible label', () => {
-		render(
-			<Modal heading="Experience the new Jira">
-				<p>How about some body text?</p>
-			</Modal>,
-		);
+		render(<Modal heading="Experience the new Jira">How about some body text?</Modal>);
 
 		expect(screen.getByRole('dialog')).toHaveAccessibleName('Experience the new Jira');
 	});
@@ -232,64 +227,115 @@ describe('<Spotlight />', () => {
 		});
 	});
 
-	it('pulse should not appear on target element when SpotlightPulse pulse prop is true', () => {
-		render(
-			<SpotlightManager>
-				<SpotlightTarget name="target-one">
-					<ElementStub
-						width={100}
-						height={50}
-						position="fixed"
-						testId="target"
-						marginLeft={50}
-						marginTop={100}
-					>
-						Target
-					</ElementStub>
-				</SpotlightTarget>
+	describe('Spotlight pulse', () => {
+		const renderSpotlight = (pulse: boolean) =>
+			render(
+				<SpotlightManager>
+					<SpotlightTarget name="target-one">
+						<ElementStub
+							width={100}
+							height={50}
+							position="fixed"
+							testId="target"
+							marginLeft={50}
+							marginTop={100}
+						>
+							Target
+						</ElementStub>
+					</SpotlightTarget>
 
-				<Spotlight target="target-one">Spotlight for target</Spotlight>
-			</SpotlightManager>,
-		);
+					<Spotlight pulse={pulse} target="target-one">
+						Spotlight for target
+					</Spotlight>
+				</SpotlightManager>,
+			);
 
-		const targetStyles = getComputedStyle(screen.getByTestId('spotlight--target'));
-		expect(targetStyles.getPropertyValue('animation-name')).toBeTruthy();
-		expect(targetStyles.getPropertyValue('animation-duration')).toEqual('3s');
-		expect(targetStyles.getPropertyValue('animation-timing-function')).toEqual(
-			'cubic-bezier(.55,.055,.675,.19)',
-		);
-	});
+		// The DOM node inside SpotlightTarget (not the portalled clone). There is also a cloned `target` in the portal.
+		const getPageTarget = (): HTMLElement => {
+			const pageTarget = screen.getAllByTestId('target').find((element) => {
+				// eslint-disable-next-line testing-library/no-node-access -- must exclude the clone inside .atlaskit-portal
+				return !element.closest('.atlaskit-portal');
+			});
+			expect(pageTarget).toBeDefined();
+			return pageTarget as HTMLElement;
+		};
 
-	it('pulse should not appear on target element when SpotlightPulse pulse prop is false', () => {
-		render(
-			<SpotlightManager>
-				<SpotlightTarget name="target-one">
-					<ElementStub
-						width={100}
-						height={50}
-						position="fixed"
-						testId="target"
-						marginLeft={50}
-						marginTop={100}
-					>
-						Target
-					</ElementStub>
-				</SpotlightTarget>
+		describe('portalled clone (spotlight--target)', () => {
+			it('applies pulse styles when pulse is true (differs from pulse off)', () => {
+				const { rerender } = render(
+					<SpotlightManager>
+						<SpotlightTarget name="target-one">
+							<ElementStub
+								width={100}
+								height={50}
+								position="fixed"
+								testId="target"
+								marginLeft={50}
+								marginTop={100}
+							>
+								Target
+							</ElementStub>
+						</SpotlightTarget>
 
-				<Spotlight pulse={false} target="target-one">
-					Spotlight for target
-				</Spotlight>
-			</SpotlightManager>,
-		);
+						<Spotlight pulse={false} target="target-one">
+							Spotlight for target
+						</Spotlight>
+					</SpotlightManager>,
+				);
 
-		expect(screen.getByTestId('spotlight--target')).not.toHaveCompiledCss(
-			'animation',
-			expect.any(String),
-		);
-		expect(screen.getByTestId('spotlight--target')).not.toHaveCompiledCss(
-			'animationName',
-			expect.any(String),
-		);
+				// eslint-disable-next-line testing-library/no-node-access -- comparing compiled class lists for pulse on/off
+				const cloneWithoutPulse = screen.getByTestId('spotlight--target').className;
+
+				rerender(
+					<SpotlightManager>
+						<SpotlightTarget name="target-one">
+							<ElementStub
+								width={100}
+								height={50}
+								position="fixed"
+								testId="target"
+								marginLeft={50}
+								marginTop={100}
+							>
+								Target
+							</ElementStub>
+						</SpotlightTarget>
+
+						<Spotlight pulse={true} target="target-one">
+							Spotlight for target
+						</Spotlight>
+					</SpotlightManager>,
+				);
+
+				// eslint-disable-next-line testing-library/no-node-access -- comparing compiled class lists for pulse on/off
+				const cloneWithPulse = screen.getByTestId('spotlight--target').className;
+
+				// toHaveCompiledCss does not resolve pulse keyframes on portalled nodes in JSDOM;
+				// toggling pulse must change the clone’s compiled TargetInner output
+				expect(cloneWithPulse).not.toEqual(cloneWithoutPulse);
+			});
+
+			it('does not apply pulse animation when pulse is false', () => {
+				renderSpotlight(false);
+
+				const clone = screen.getByTestId('spotlight--target');
+				expect(clone).not.toHaveCompiledCss('animation', expect.any(String));
+				expect(clone).not.toHaveCompiledCss('animationName', expect.any(String));
+			});
+		});
+
+		describe('original page target', () => {
+			it.each([true, false] as const)(
+				'does not receive pulse styles when Spotlight pulse is %s (pulse only on the clone)',
+				(pulse) => {
+					renderSpotlight(pulse);
+
+					const pageTarget = getPageTarget();
+					expect(pageTarget).not.toHaveCompiledCss('animation', expect.any(String));
+					expect(pageTarget).not.toHaveCompiledCss('animationName', expect.any(String));
+				},
+			);
+		});
 	});
 
 	it('pulse should not appear on element when SpotlightPulse pulse prop is false', () => {
@@ -322,12 +368,10 @@ describe('<Spotlight />', () => {
 			</SpotlightManager>,
 		);
 
-		const targetStyles = getComputedStyle(screen.getByTestId('spotlight-pulse'));
-		expect(targetStyles.getPropertyValue('animation-name')).toBeTruthy();
-		expect(targetStyles.getPropertyValue('animation-duration')).toEqual('3s');
-		expect(targetStyles.getPropertyValue('animation-timing-function')).toEqual(
-			'cubic-bezier(.55,.055,.675,.19)',
-		);
+		const pulse = screen.getByTestId('spotlight-pulse');
+		expect(pulse).toHaveCompiledCss('animationDuration', '3s');
+		expect(pulse).toHaveCompiledCss('animationIterationCount', 'infinite');
+		expect(pulse).toHaveCompiledCss('animationTimingFunction', 'cubic-bezier(.55,.055,.675,.19)');
 	});
 
 	// Skipped due to HOT-111922 Fails for React 18
@@ -368,7 +412,7 @@ describe('<Spotlight />', () => {
 
 		render(
 			<SpotlightDialogLabel titleId="explicit-spotlight-dialog-label">
-				<h2 id="explicit-spotlight-dialog-label">Explicit heading</h2>
+				<div id="explicit-spotlight-dialog-label">Explicit heading</div>
 			</SpotlightDialogLabel>,
 		);
 
@@ -403,7 +447,7 @@ describe('<Spotlight />', () => {
 
 		render(
 			<SpotlightDialogLabel heading="Spotlight heading" titleId="referenced-spotlight-dialog-label">
-				<p id="referenced-spotlight-dialog-label">Element referenced as label</p>
+				<div id="referenced-spotlight-dialog-label">Element referenced as label</div>
 			</SpotlightDialogLabel>,
 		);
 

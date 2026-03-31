@@ -211,7 +211,11 @@ export const Popover: React.ForwardRefExoticComponent<
 	// Show/hide based on isOpen.
 	// showPopover() and hidePopover() are no-ops when the popover is already
 	// in the target state (e.g. browser dismissed via light-dismiss before our
-	// effect ran), so no try/catch is needed.
+	// effect ran).
+	// Defensive try/catch: these APIs throw InvalidStateError if the element
+	// is disconnected or missing the popover attribute. While we don't expect
+	// that to happen in normal usage, it can occur in edge cases (e.g. React
+	// concurrent mode, StrictMode double-effects, or unmount races).
 	useLayoutEffect(() => {
 		const el = ownRef.current;
 		if (!el) {
@@ -220,15 +224,24 @@ export const Popover: React.ForwardRefExoticComponent<
 
 		if (isOpen) {
 			programmaticCloseRef.current = false;
-			el.showPopover();
+			// Defensive: element may be disconnected or in an unexpected state.
+			try {
+				el.showPopover();
+			} catch {}
 			return () => {
 				programmaticCloseRef.current = true;
-				el.hidePopover();
+				// Defensive: element may be disconnected or in an unexpected state.
+				try {
+					el.hidePopover();
+				} catch {}
 			};
 		}
 
 		programmaticCloseRef.current = true;
-		el.hidePopover();
+		// Defensive: element may be disconnected or in an unexpected state.
+		try {
+			el.hidePopover();
+		} catch {}
 	}, [isOpen]);
 
 	return (

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aa118aeb6a9c0d954f6e3a5ea7bd10af>>
+ * @codegen <<SignedSource::a12b7837d2a4105c5d20b49d5b9b54ab>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -64,6 +64,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/use-simple-field': 'warn',
 		'@atlaskit/design-system/use-simple-form': 'warn',
 		'@atlaskit/design-system/use-tag-group-label': 'warn',
+		'@atlaskit/design-system/use-textfield-autocomplete': 'warn',
 		'@atlaskit/design-system/use-tokens-typography': 'warn',
 		'@atlaskit/design-system/use-visually-hidden': 'error',
 	},

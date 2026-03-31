@@ -73,7 +73,7 @@ describe('Portal container', () => {
 		const elements = document.getElementsByClassName('atlaskit-portal');
 		expect(container.innerHTML).toBe('<div></div>');
 		expect(elements).toHaveLength(1);
-		expect(elements[0].innerHTML).toBe('<div>Hi</div>');
+		expect(elements[0]).toHaveTextContent('Hi');
 	});
 
 	test('should use z-index to stack nested portals', async () => {
@@ -449,7 +449,7 @@ describe('new portal logic enable test', () => {
 				const elements = document.getElementsByClassName('atlaskit-portal');
 				expect(container.innerHTML).toBe('<div></div>');
 				expect(elements).toHaveLength(1);
-				expect(elements[0].innerHTML).toBe('<div>Hi</div>');
+				expect(elements[0]).toHaveTextContent('Hi');
 			});
 		},
 	);

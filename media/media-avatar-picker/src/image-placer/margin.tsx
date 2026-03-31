@@ -20,8 +20,8 @@ const marginWrapperSquareBaseStyles = css({
 	left: 0,
 	top: 0,
 	borderStyle: 'solid',
-	borderColor: token('elevation.surface.overlay', 'rgba(255, 255, 255)'),
-	opacity: token('opacity.disabled', '0.3'),
+	borderColor: token('elevation.surface.overlay'),
+	opacity: token('opacity.disabled'),
 });
 
 const marginWrapperCircleBaseStyles = css({
@@ -35,7 +35,7 @@ const marginWrapperCircleAfterBaseStyles = css({
 	content: "''",
 	position: 'absolute',
 	borderRadius: token('radius.full'),
-	opacity: token('opacity.disabled', '0.3'),
+	opacity: token('opacity.disabled'),
 });
 
 export class Margin extends React.Component<MarginProps, MarginState> {
@@ -57,10 +57,7 @@ export class Margin extends React.Component<MarginProps, MarginState> {
 						top: `${size}px`,
 						width: `${width}px`,
 						height: `${height}px`,
-						boxShadow: `0px 0px 0px ${Math.max(width, height)}px ${token(
-							'elevation.surface.overlay',
-							'rgba(255, 255, 255)',
-						)}`,
+						boxShadow: `0px 0px 0px ${Math.max(width, height)}px ${token('elevation.surface.overlay')}`,
 					}}
 				/>
 			</div>

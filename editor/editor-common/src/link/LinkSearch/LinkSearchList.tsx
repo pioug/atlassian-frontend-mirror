@@ -39,6 +39,7 @@ export interface Props {
 	isLoading: boolean;
 	items?: LinkSearchListItemData[];
 	listItemRefCallback?: (el: HTMLElement | null, id: string) => void;
+	onBlur?: () => void;
 	onFocus?: (index: number) => void;
 	onKeyDown?: (e: KeyboardEvent<HTMLDivElement>) => void;
 	onMouseEnter?: (objectId: string) => void;
@@ -51,6 +52,7 @@ export interface Props {
 
 const LinkSearchList = ({
 	listItemRefCallback,
+	onBlur,
 	onFocus,
 	onKeyDown,
 	onSelect,
@@ -81,6 +83,7 @@ const LinkSearchList = ({
 						id={`link-search-list-item-${index}`}
 						item={item}
 						selected={selectedIndex === index}
+						onBlur={onBlur}
 						// eslint-disable-next-line @atlassian/perf-linting/detect-unnecessary-rerenders, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						onFocus={() => onFocus?.(index)}
 						onKeyDown={onKeyDown}

@@ -8,14 +8,8 @@ import SubTreeThemingOutsideAppProvider from '../../examples/sub-tree-theming-ou
 snapshot(BasicLight);
 snapshot(BasicDark);
 snapshot(SubTreeTheming, {
-	featureFlags: {
-		platform_dst_subtree_theming: [true, false],
-	},
 	drawsOutsideBounds: true,
 });
 snapshot(SubTreeThemingOutsideAppProvider, {
-	featureFlags: {
-		platform_dst_subtree_theming: [true, false],
-	},
 	drawsOutsideBounds: true,
 });

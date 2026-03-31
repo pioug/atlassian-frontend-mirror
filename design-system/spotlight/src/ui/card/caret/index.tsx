@@ -8,6 +8,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 import { SpotlightContext } from '../../../controllers/context';
+import type { Placement } from '../../../types';
 
 const styles = cssMap({
 	root: {
@@ -52,6 +53,11 @@ const styles = cssMap({
 
 export interface CaretProps {
 	/**
+	 * The position in relation to the target the content should be shown at. Overrides `PopoverContent.placement`
+	 */
+	placement?: Placement;
+
+	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
 	 * string that appears as a data attribute `data-testid` in the rendered code,
 	 * serving as a hook for automated tests
@@ -66,14 +72,14 @@ export interface CaretProps {
  */
 export const Caret: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<CaretProps> & React.RefAttributes<HTMLDivElement>
-> = forwardRef<HTMLDivElement, CaretProps>(({ testId }: CaretProps, ref) => {
+> = forwardRef<HTMLDivElement, CaretProps>(({ placement, testId }: CaretProps, ref) => {
 	const { card } = useContext(SpotlightContext);
 
 	return (
 		<div
 			data-testid={testId}
 			ref={ref}
-			css={[styles.root, styles[card.placement]]}
+			css={[styles.root, styles[placement || card.placement]]}
 			// Growth Pattern Library designs dictate 1px radius. cssMap only allows tokens
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={{ borderEndStartRadius: '1px' }}

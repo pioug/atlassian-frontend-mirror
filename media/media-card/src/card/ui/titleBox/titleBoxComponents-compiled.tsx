@@ -4,7 +4,7 @@
  */
 import { jsx, css, cssMap } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N0, N800 } from '@atlaskit/theme/colors';
+import { N0 } from '@atlaskit/theme/colors';
 
 import {
 	type TitleBoxFooterProps,
@@ -38,8 +38,8 @@ const titleBoxWrapperStyles = css({
 	position: 'absolute',
 	bottom: 0,
 	width: '100%',
-	backgroundColor: token('elevation.surface', 'rgba(255, 255, 255, 1)'),
-	color: token('color.text', N800),
+	backgroundColor: token('elevation.surface'),
+	color: token('color.text'),
 	cursor: 'inherit',
 	pointerEvents: 'none',
 	display: 'flex',
@@ -123,8 +123,8 @@ TitleBoxFooter.displayName = 'TitleBoxFooter';
 
 const titleBoxIconStyles = css({
 	position: 'absolute',
-	right: token('space.050', '4px'),
-	bottom: token('space.050', '4px'),
+	right: token('space.050'),
+	bottom: token('space.050'),
 });
 
 export const TitleBoxIcon = (props: any) => {

@@ -7,7 +7,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { bind } from 'bind-event-listener';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	getThemeHtmlAttrs,
 	setGlobalTheme,
@@ -96,35 +95,22 @@ function ThemeProvider({
 	const isInsideAppProvider = useIsInsideAppProvider();
 	const isAppProviderThemingEnabled = useIsAppProviderThemingEnabled();
 	const isInsideThemeProvider = useIsInsideThemeProvider();
+	/**
+	 * A top-level ThemeProvider is detected by being the first ThemeProvider inside an AppProvider.
+	 *
+	 * This will not use sub-tree theming but instead set the global theme state using the
+	 * `@atlaskit/tokens` APIs, as it's required for styling root `html` and `body` elements
+	 * for compatibility with `@atlaskit/css-reset`.
+	 *
+	 * In the future we could consider moving away from DOM mutations and require AppProvider to wrap
+	 * `html` in order to apply global theme state, which would allow a more consistent approach to
+	 * theme loading.
+	 */
 	const isRootThemeProvider =
 		isInsideAppProvider && !isInsideThemeProvider && isAppProviderThemingEnabled;
 
-	const shouldUseGlobalTheming =
-		/**
-		 * When not behind feature flag, partially revert to legacy behavior.
-		 * This only affects theme providers that are not inside an AppProvider or a ThemeProvider,
-		 * as we still need to set global theme state to prevent breaking existing apps,
-		 * but also prevent multiple theme providers from loading conflicting theme states.
-		 *
-		 * At some point this should be removed as we will
-		 * only support sub-tree theming when used inside of AppProvider.
-		 */
-		(!fg('platform_dst_subtree_theming') && !isInsideAppProvider && !isInsideThemeProvider) ||
-		/**
-		 * A top-level ThemeProvider is detected by being the first ThemeProvider inside an AppProvider.
-		 *
-		 * This will not use sub-tree theming but instead set the global theme state using the
-		 * `@atlaskit/tokens` APIs, as it's required for styling root `html` and `body` elements
-		 * for compatibility with `@atlaskit/css-reset`.
-		 *
-		 * In the future we could consider moving away from DOM mutations and require AppProvider to wrap
-		 * `html` in order to apply global theme state, which would allow a more consistent approach to
-		 * theme loading.
-		 */
-		isRootThemeProvider;
-
 	useEffect(() => {
-		if (shouldUseGlobalTheming) {
+		if (isRootThemeProvider) {
 			/**
 			 * We need to wait for any previous `setGlobalTheme` calls to finish before calling it again.
 			 * This is to prevent race conditions as `setGlobalTheme` is async and mutates the DOM (e.g. sets the
@@ -169,14 +155,7 @@ function ThemeProvider({
 			// we treat them as sub-tree themes that do not load global theme state.
 			loadAndMountThemes(theme);
 		}
-	}, [
-		isInsideAppProvider,
-		isInsideThemeProvider,
-		isRootThemeProvider,
-		reconciledColorMode,
-		shouldUseGlobalTheming,
-		theme,
-	]);
+	}, [isInsideAppProvider, isInsideThemeProvider, isRootThemeProvider, reconciledColorMode, theme]);
 
 	useEffect(() => {
 		if (!prefersDarkModeMql) {
@@ -209,7 +188,7 @@ function ThemeProvider({
 				<SetColorModeContext.Provider value={setColorMode}>
 					<ThemeContext.Provider value={theme}>
 						<SetThemeContext.Provider value={setPartialTheme}>
-							{!shouldUseGlobalTheming && fg('platform_dst_subtree_theming') ? (
+							{!isRootThemeProvider ? (
 								<div {...attrs} css={contentStyles.body}>
 									{children}
 								</div>

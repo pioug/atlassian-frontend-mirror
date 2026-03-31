@@ -147,13 +147,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 20-01-2026
-	cc_editor_lcm_readonly_initial: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 02-12-2025
 	cc_fix_hydration_ttvc: {
 		defaultValue: boolean;
@@ -339,13 +332,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-09-11
-	platform_editor_add_aria_checked_to_inline_img_btn: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-19
 	platform_editor_a11y_eslint_fix: {
 		defaultValue: boolean;
@@ -480,13 +466,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'variant1';
 		values: ('control' | 'variant1')[];
 	};
-	// Added 2025-08-01
-	platform_editor_controls_block_controls_state_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_clean_up_widget_mark_logic: {
 		defaultValue: boolean;
 		param: string;
@@ -570,13 +549,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-06-24
 	platform_editor_find_and_replace_improvements: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-09-10
-	platform_editor_fix_button_name_violation_in_table: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1622,14 +1594,6 @@ export const editorExperimentsConfig: {
 		param: 'contentPlaceholder',
 		defaultValue: false,
 	}),
-	// Added 20-01-2026
-	cc_editor_lcm_readonly_initial: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_editor_lcm_readonly_initial',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 02-12-2025
 	cc_fix_hydration_ttvc: createBooleanExperiment({
 		productKeys: {
@@ -2012,14 +1976,6 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		values: ['control', 'variant1'],
 		defaultValue: 'control',
-	}),
-	// Added 2025-08-01
-	platform_editor_controls_block_controls_state_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_controls_block_controls_state_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
 	}),
 	// Added 2025-09-03
 	platform_editor_hydratable_ui: createBooleanExperiment({
@@ -2524,26 +2480,10 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-09-10
-	platform_editor_fix_button_name_violation_in_table: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_button_name_violation_in_table',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-05
 	platform_editor_abort_ufo_on_user_interaction: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_abort_ufo_on_user_interaction',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-09-11
-	platform_editor_add_aria_checked_to_inline_img_btn: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_add_aria_checked_to_inline_image_btn',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

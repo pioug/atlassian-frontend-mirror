@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "33.8.26",
+	"version": "33.8.27",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -126,9 +126,6 @@
 			"type": "boolean"
 		},
 		"platform_optimistic_reaction_emoji": {
-			"type": "boolean"
-		},
-		"platform-a11y-remove-autofocus-prop": {
 			"type": "boolean"
 		},
 		"jfp_a11y_team_comment_actions_semantic": {

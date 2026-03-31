@@ -5,6 +5,7 @@
  */
 import React, {
 	type CSSProperties,
+	startTransition,
 	useCallback,
 	useContext,
 	useEffect,
@@ -705,12 +706,23 @@ function SideNavInternal({
 
 		// Sync the visibility in context (provided in `<Root>`) with the local `defaultCollapsed` prop provided to `SideNav`
 		// after SSR hydration. This should only run once, after the initial render on the client.
-		setSideNavState({
-			desktop: initialDefaultCollapsed ? 'collapsed' : 'expanded',
-			mobile: 'collapsed',
-			flyout: 'closed',
-			lastTrigger: null,
-		});
+		if (fg('navx-4418-fix-effect-state-updates-in-gsn')) {
+			startTransition(() => {
+				setSideNavState({
+					desktop: initialDefaultCollapsed ? 'collapsed' : 'expanded',
+					mobile: 'collapsed',
+					flyout: 'closed',
+					lastTrigger: null,
+				});
+			});
+		} else {
+			setSideNavState({
+				desktop: initialDefaultCollapsed ? 'collapsed' : 'expanded',
+				mobile: 'collapsed',
+				flyout: 'closed',
+				lastTrigger: null,
+			});
+		}
 	}, [initialDefaultCollapsed, setSideNavState, sideNavState]);
 
 	const handleExpand = useCallback<VisibilityCallback>(

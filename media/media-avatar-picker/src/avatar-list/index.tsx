@@ -7,7 +7,6 @@ import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
-import { B200, B100 } from '@atlaskit/theme/colors';
 import { useState } from 'react';
 
 export interface Avatar {
@@ -25,8 +24,8 @@ export interface AvatarListProps {
 const smallAvatarImageStyles = css({
 	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
-	width: token('space.500', '40px'),
-	height: token('space.500', '40px'),
+	width: token('space.500'),
+	height: token('space.500'),
 });
 
 const avatarListWrapperStyles = css({
@@ -34,7 +33,7 @@ const avatarListWrapperStyles = css({
 });
 
 const labelStyles = css({
-	paddingRight: token('space.050', '4px'),
+	paddingRight: token('space.050'),
 	display: 'inline-flex',
 });
 
@@ -50,17 +49,11 @@ const inputStyles = css({
 });
 
 const imageCheckedStyles = css({
-	boxShadow: `0px 0px 0px 1px ${token(
-		'color.border.inverse',
-		'white',
-	)}, 0px 0px 0px 3px ${token('color.border.selected', B200)}`,
+	boxShadow: `0px 0px 0px 1px ${token('color.border.inverse')}, 0px 0px 0px 3px ${token('color.border.selected')}`,
 });
 
 const imageFocusedStyles = css({
-	boxShadow: `0px 0px 0px 1px ${token(
-		'color.border.inverse',
-		'white',
-	)}, 0px 0px 0px 3px ${token('color.border.focused', B100)}`,
+	boxShadow: `0px 0px 0px 1px ${token('color.border.inverse')}, 0px 0px 0px 3px ${token('color.border.focused')}`,
 });
 
 export const AvatarList = ({

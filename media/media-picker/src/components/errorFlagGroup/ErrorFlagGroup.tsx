@@ -2,7 +2,6 @@ import React from 'react';
 
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import FailIcon from '@atlaskit/icon/core/cross-circle';
-import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type UploadRejectionData } from '../../types';
@@ -55,9 +54,7 @@ const FlagGroupContent = ({ flagData, onFlagDismissed }: ErrorFlagGroupProps) =>
 			{flagData.map((data: UploadRejectionData, i: number) => (
 				<AutoDismissFlag
 					id={i}
-					icon={
-						<FailIcon color={token('color.icon.danger', R300)} label="Fail" spacing="spacious" />
-					}
+					icon={<FailIcon color={token('color.icon.danger')} label="Fail" spacing="spacious" />}
 					key={i}
 					title={intl.formatMessage(errorFlagMessages.errorTitle)}
 					description={

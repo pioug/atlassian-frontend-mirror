@@ -1,3 +1,4 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Command, NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -38,6 +39,7 @@ export interface CardToNativeEmbedTransformOptions {
 	 * (e.g. datasource stash, analytics, link metadata).
 	 */
 	augmentTransaction?: (tr: Transaction, state: EditorState) => void;
+	editorAnalyticsApi?: EditorAnalyticsAPI,
 }
 
 /**

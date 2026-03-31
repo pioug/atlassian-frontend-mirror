@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 21.9.0
+
+### Minor Changes
+
+- [`d454bf5c04b6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d454bf5c04b6b) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 21.8.4
 
 ### Patch Changes

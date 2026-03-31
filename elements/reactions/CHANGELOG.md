@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 33.8.27
+
+### Patch Changes
+
+- [`62b18e01c52fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62b18e01c52fa) -
+  Remove feature flag platform-a11y-remove-autofocus-prop and hard-code autoFocus={true} on Modal in
+  ReactionsDialog
+- Updated dependencies
+
 ## 33.8.26
 
 ### Patch Changes

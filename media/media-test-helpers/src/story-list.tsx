@@ -28,9 +28,9 @@ const styles: {
 			margin: token('space.100'),
 		},
 		stateTitle: {
-			borderBottom: `${token('border.width')} solid ${token('color.border', '#ccc')}`,
+			borderBottom: `${token('border.width')} solid ${token('color.border')}`,
 			marginBottom: token('space.100'),
-			color: token('color.text', '#606369'),
+			color: token('color.text'),
 			width: '100%',
 			textTransform: 'capitalize',
 		},
@@ -50,9 +50,9 @@ const styles: {
 			margin: token('space.100'),
 		},
 		stateTitle: {
-			borderBottom: `${token('border.width')} solid ${token('color.border', '#ccc')}`,
+			borderBottom: `${token('border.width')} solid ${token('color.border')}`,
 			marginBottom: token('space.100'),
-			color: token('color.text', '#606369'),
+			color: token('color.text'),
 			width: '100%',
 			textTransform: 'capitalize',
 		},

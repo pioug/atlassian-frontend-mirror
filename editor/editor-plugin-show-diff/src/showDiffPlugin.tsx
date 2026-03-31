@@ -1,7 +1,8 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { createPlugin, showDiffPluginKey, getScrollableDecorations } from './pm-plugins/main';
+import { getScrollableDecorations } from './pm-plugins/getScrollableDecorations';
+import { createPlugin, showDiffPluginKey } from './pm-plugins/main';
 import type { ShowDiffPlugin, PMDiffParams } from './showDiffPluginType';
 
 export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
@@ -39,7 +40,7 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
 		}
 		const pluginState = showDiffPluginKey.getState(editorState);
 		const decorationCount = fg('platform_editor_show_diff_scroll_navigation')
-			? getScrollableDecorations(pluginState?.decorations)
+			? getScrollableDecorations(pluginState?.decorations, editorState.doc)
 			: pluginState?.decorations?.find() || [];
 		return {
 			isDisplayingChanges: decorationCount.length > 0,

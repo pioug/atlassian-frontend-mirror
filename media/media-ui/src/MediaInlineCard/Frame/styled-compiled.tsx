@@ -5,7 +5,6 @@
 import React from 'react';
 import { token } from '@atlaskit/tokens';
 import { css, jsx } from '@compiled/react';
-import { B300, N30A, N40A, N900, R50 } from '@atlaskit/theme/colors';
 
 export interface WrapperProps {
 	isSelected?: boolean;
@@ -14,7 +13,7 @@ export interface WrapperProps {
 
 const selectedStyles = css({
 	cursor: 'pointer',
-	boxShadow: `0 0 0 1px ${token('color.border.selected', B300)}`,
+	boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
 	outline: 'none',
 	userSelect: 'none',
 	borderColor: 'transparent',
@@ -29,31 +28,31 @@ const notSelectedStyles = css({
 });
 
 const errorStyles = css({
-	backgroundColor: token('color.background.danger', R50),
+	backgroundColor: token('color.background.danger'),
 	// Unset hover effects
 	cursor: 'default',
 	'&:hover': {
-		backgroundColor: token('color.background.danger', R50),
+		backgroundColor: token('color.background.danger'),
 	},
 });
 
 const wrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '16px',
-	paddingTop: token('space.025', '2px'),
-	paddingRight: token('space.050', '4px'),
-	paddingBottom: token('space.025', '2px'),
-	paddingLeft: token('space.050', '4px'),
+	paddingTop: token('space.025'),
+	paddingRight: token('space.050'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.050'),
 	boxDecorationBreak: 'clone',
 	display: 'inline',
 	borderRadius: token('radius.small', '3px'),
-	color: token('color.text', N900),
-	backgroundColor: token('color.background.neutral', N30A),
+	color: token('color.text'),
+	backgroundColor: token('color.background.neutral'),
 	transition: '0.1s all ease-in-out',
 	MozUserSelect: 'none',
 	cursor: 'pointer',
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.hovered', N40A),
+		backgroundColor: token('color.background.neutral.hovered'),
 	},
 });
 

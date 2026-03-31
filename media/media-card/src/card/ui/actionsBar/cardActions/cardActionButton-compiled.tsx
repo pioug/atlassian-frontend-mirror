@@ -8,18 +8,17 @@ import { jsx, css, cssMap } from '@compiled/react';
 import { type CardActionButtonOwnProps } from './styles';
 import { token } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N500 } from '@atlaskit/theme/colors';
 
 const variantStyleMap = cssMap({
 	filled: {
-		backgroundColor: token('elevation.surface.overlay', 'rgba(255, 255, 255, 0.8)'),
+		backgroundColor: token('elevation.surface.overlay'),
 		'&:hover': {
-			backgroundColor: token('elevation.surface.overlay.hovered', 'rgba(255, 255, 255, 0.6)'),
+			backgroundColor: token('elevation.surface.overlay.hovered'),
 		},
 	},
 	default: {
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered', 'rgba(9, 30, 66, 0.06)'),
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
 	},
 });
@@ -33,7 +32,7 @@ const cardActionButtonStyles = css({
 	borderRadius: token('radius.small', '3px'),
 	width: '26px',
 	height: '26px',
-	color: token('color.icon', N500),
+	color: token('color.icon'),
 	'&:hover': {
 		cursor: 'pointer',
 	},

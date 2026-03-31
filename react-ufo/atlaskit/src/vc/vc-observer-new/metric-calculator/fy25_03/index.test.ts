@@ -5,6 +5,7 @@ import { expVal } from '../../../expVal';
 import type { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../../types';
 import {
 	DARK_READER_BROWSER_EXTENSION_ATTRIBUTES,
+	MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES,
 	KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS,
 	NON_VISUAL_ARIA_ATTRIBUTES,
 } from '../utils/constants';
@@ -612,6 +613,66 @@ describe('VCCalculator_FY25_03', () => {
 						rect: new DOMRect(),
 						visible: true,
 						attributeName: 'data-darkreader-inline-color',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+		});
+	});
+
+	describe('fdprocessedid attribute filtering for mutation:attribute entries', () => {
+		describe('when platform_ufo_exclude_fdprocessedid_attribute is true', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(
+					(flag: string) => flag === 'platform_ufo_exclude_fdprocessedid_attribute',
+				);
+			});
+
+			describe.each(MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES)('when entry has %s attribute', (att) => {
+				it('should return false', () => {
+					const entry: VCObserverEntry = {
+						time: 0,
+						data: {
+							type: 'mutation:attribute',
+							elementName: 'div',
+							rect: new DOMRect(),
+							visible: true,
+							attributeName: att,
+						} as ViewportEntryData,
+					};
+					expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+				});
+			});
+
+			it('should still include other mutation:attribute entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'class',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+		});
+
+		describe('when platform_ufo_exclude_fdprocessedid_attribute is false', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(() => false);
+			});
+
+			it('should include fdprocessedid attribute', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'fdprocessedid',
 					} as ViewportEntryData,
 				};
 				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { components, type OptionType, type SingleValueProps } from '@atlaskit/select';
 
 /**
@@ -40,7 +41,7 @@ export const makeSingleValue =
 					getStyles={getStyles}
 					getValue={getValue}
 					hasValue={hasValue}
-					innerProps={{ id, lang }}
+					innerProps={{ id, lang: fg('platform-dst-single-value-lang-replace') ? lang.replace('_', '-') : lang }}
 					isDisabled={isDisabled}
 					isMulti={isMulti}
 					isRtl={isRtl}

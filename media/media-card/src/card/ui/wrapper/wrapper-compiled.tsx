@@ -7,7 +7,6 @@ import { newFileExperienceClassName } from '../../cardConstants';
 import { type WrapperProps } from './types';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 
-import { N0, N100, N20, N60A, N90A, B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { getDefaultCardDimensions } from '../../../utils/cardDimensions';
@@ -36,7 +35,7 @@ const wrapperStyles = cssMap({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&:hover .media-card-blanket': {
-			backgroundColor: token('color.blanket', N90A),
+			backgroundColor: token('color.blanket'),
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -46,27 +45,24 @@ const wrapperStyles = cssMap({
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'button:focus + &': {
-			outline: `solid ${token('border.width.focused')} ${token('color.border.focused', B100)}`,
+			outline: `solid ${token('border.width.focused')} ${token('color.border.focused')}`,
 		},
 	},
 });
 
 const backgroundStyle = css({
-	backgroundColor: token('color.background.neutral', N20),
+	backgroundColor: token('color.background.neutral'),
 });
 
 const shadowStyleMap = cssMap({
 	withOverlay: {
-		boxShadow: `${token('elevation.shadow.raised', `0 1px 1px ${N60A}, 0 0 1px 0 ${N60A}`)}`,
+		boxShadow: `${token('elevation.shadow.raised')}`,
 	},
 	selected: {
 		boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
 	},
 	selectedWithOverlay: {
-		boxShadow: `0 0 0 1px ${token('color.border.selected')}, ${token(
-			'elevation.shadow.raised',
-			`0 1px 1px ${N60A}, 0 0 1px 0 ${N60A}`,
-		)}`,
+		boxShadow: `0 0 0 1px ${token('color.border.selected')}, ${token('elevation.shadow.raised')}`,
 	},
 });
 
@@ -108,8 +104,8 @@ const clickableButtonPlayButtonStyles = css({
 const selectableTickboxStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:hover .media-card-tickbox': {
-		backgroundColor: token('color.background.input', N0),
-		color: token('color.icon.subtle', N100),
+		backgroundColor: token('color.background.input'),
+		color: token('color.icon.subtle'),
 	},
 });
 

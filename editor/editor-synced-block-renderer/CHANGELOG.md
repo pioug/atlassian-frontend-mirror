@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 6.0.5
+
+### Patch Changes
+
+- [`55ea61cf8df26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55ea61cf8df26) -
+  Enable table scaling in bodiedSyncBlock nested editor (behind platform_synced_block_patch_8)
+- Updated dependencies
+
 ## 6.0.4
 
 ### Patch Changes

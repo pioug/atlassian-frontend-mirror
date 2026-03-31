@@ -1,5 +1,12 @@
 # @atlaskit/media-document-viewer
 
+## 0.6.9
+
+### Patch Changes
+
+- [`715629fc18fc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/715629fc18fc8) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 0.6.8
 
 ### Patch Changes

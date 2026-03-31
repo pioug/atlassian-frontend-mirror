@@ -19,7 +19,6 @@ import {
 import { MainWrapper } from '../example-helpers';
 import { MediaInlineCard, type MediaInlineCardProps } from '../src/inline/mediaInlineCard';
 
-import { R500 } from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button/new';
 import { MediaClientContext } from '@atlaskit/media-client-react';
 
@@ -41,17 +40,17 @@ const createExample =
 			<div
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					margin: token('space.250', '20px'),
+					margin: token('space.250'),
 					width: defaultDimensions.width * 1.2,
 				}}
 			>
 				<h4>{title}</h4>
 				{description && <p>{description}</p>}
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<h5 style={{ marginBottom: token('space.075', '6px') }}>
+				<h5 style={{ marginBottom: token('space.075') }}>
 					File Status:{' '}
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					<span style={{ color: token('color.text.danger', R500) }}>
+					<span style={{ color: token('color.text.danger') }}>
 						{fileState?.status || 'unknown'}
 					</span>
 				</h5>
@@ -180,7 +179,7 @@ const createSection =
 		return (
 			<>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<h3 style={{ marginBottom: token('space.150', '12px') }}>{title}</h3>
+				<h3 style={{ marginBottom: token('space.150') }}>{title}</h3>
 				<SectionControls />
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div key={key} style={{ display: 'flex', flexWrap: 'wrap' }}>

@@ -168,9 +168,6 @@
 			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../elements/status/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../elements/task-decision/afm-products/tsconfig.json"
 		},
 		{

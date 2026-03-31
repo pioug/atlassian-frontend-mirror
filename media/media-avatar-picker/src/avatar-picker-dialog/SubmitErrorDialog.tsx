@@ -12,10 +12,10 @@ import { messages } from '@atlaskit/media-ui';
 import { useIntl } from 'react-intl-next';
 
 const avatarPickerErrorStyles = css({
-	marginTop: token('space.0', '0px'),
-	marginRight: token('space.200', '16px'),
-	marginLeft: token('space.200', '16px'),
-	marginBottom: token('space.200', '16px'),
+	marginTop: token('space.0'),
+	marginRight: token('space.200'),
+	marginLeft: token('space.200'),
+	marginBottom: token('space.200'),
 });
 
 export const SubmitErrorDialog = () => {

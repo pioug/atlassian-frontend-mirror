@@ -162,9 +162,6 @@
 		"platform-dst-shape-theme-default": {
 			"type": "boolean"
 		},
-		"platform_dst_subtree_theming": {
-			"type": "boolean"
-		},
 		"platform-dst-motion-theme-default": {
 			"type": "boolean"
 		}

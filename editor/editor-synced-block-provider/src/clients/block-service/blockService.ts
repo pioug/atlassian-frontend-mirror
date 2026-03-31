@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type {
 	ReferenceSyncBlockResponse,
 	SyncBlockProduct,
@@ -61,7 +63,10 @@ type DeleteBlockGraphQLResponse = {
 			deleted: boolean;
 		};
 	};
-	errors?: Array<{ message: string }>;
+	errors?: Array<{
+		extensions?: { errorType?: string };
+		message: string;
+	}>;
 };
 
 type CreateBlockGraphQLResponse = {
@@ -680,6 +685,17 @@ export const deleteSyncedBlock = async ({
 	const result: DeleteBlockGraphQLResponse = await response.json();
 
 	if (result.errors && result.errors.length > 0) {
+		if (fg('platform_synced_block_patch_8')) {
+			const allNotFound = result.errors.every(
+				(e) => e.extensions?.errorType === 'RESOURCE_NOT_FOUND',
+			);
+			if (allNotFound) {
+				// do not throw an error, return early
+				// as if the block is not found, it is likely an orphan from a page copy.
+				// delete the synced block should just delete the block from the ADF, no need to delete it from the block service as it does not exist.
+				return;
+			}
+		}
 		throw new Error(result.errors.map((e) => e.message).join(', '));
 	}
 

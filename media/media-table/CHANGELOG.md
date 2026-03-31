@@ -1,5 +1,13 @@
 # @atlaskit/media-table
 
+## 18.1.13
+
+### Patch Changes
+
+- [`715629fc18fc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/715629fc18fc8) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 18.1.12
 
 ### Patch Changes

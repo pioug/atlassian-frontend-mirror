@@ -49,7 +49,7 @@ export const deletedTraditionalContentStyleUnboundedActive: string = convertToIn
 	top: '50%',
 	width: '100%',
 	display: 'inline-block',
-	borderTop: `1px solid ${token('color.text.accent.red.bolder')}`,
+	borderTop: `2px solid ${token('color.border.accent.red')}`,
 	pointerEvents: 'none',
 	zIndex: 1,
 });
@@ -63,13 +63,32 @@ export const deletedTraditionalStyleQuoteNode: string = convertToInlineCss({
 	borderRadius: token('radius.small'),
 });
 
+export const deletedTraditionalStyleQuoteNodeActive: string = convertToInlineCss({
+	marginTop: token('space.150'),
+	paddingTop: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
+	boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+	borderRadius: token('radius.small'),
+});
+
 export const deletedTraditionalBlockOutline: string = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
 	borderRadius: token('radius.small'),
 });
 
+export const deletedTraditionalBlockOutlineActive: string = convertToInlineCss({
+	boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+	borderRadius: token('radius.small'),
+});
+
 export const deletedTraditionalBlockOutlineRounded: string = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
+});
+
+export const deletedTraditionalBlockOutlineRoundedActive: string = convertToInlineCss({
+	boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
 	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
 });
 

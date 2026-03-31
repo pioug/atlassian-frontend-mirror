@@ -12,7 +12,6 @@ import Modal, {
 	ModalTitle,
 } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
-import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives/compiled';
@@ -29,7 +28,7 @@ const IconExplorerLink = styled.a({
 		lineHeight: 0,
 	},
 	'&:hover': {
-		background: token('color.background.neutral.hovered', N30A),
+		background: token('color.background.neutral.hovered'),
 	},
 });
 

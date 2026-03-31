@@ -2,11 +2,10 @@ import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { transition } from '../styles';
-import { N90A } from '@atlaskit/theme/colors';
 
 export const blanketClassName = 'media-card-blanket';
 
-export const fixedBlanketStyles: string = `background-color: ${token('color.blanket', N90A)};`;
+export const fixedBlanketStyles: string = `background-color: ${token('color.blanket')};`;
 
 export const blanketStyles = (isFixed?: boolean) =>
 	css(

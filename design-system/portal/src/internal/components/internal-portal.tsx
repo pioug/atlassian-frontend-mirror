@@ -3,7 +3,6 @@ import React, { type ReactPortal, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ThemeProvider, useColorMode } from '@atlaskit/app-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	appendPortalContainerIfNotAppended,
@@ -35,11 +34,7 @@ export default function InternalPortal(props: InternalPortalProps): ReactPortal 
 	}, [container]);
 
 	return createPortal(
-		colorMode && fg('platform_dst_subtree_theming') ? (
-			<ThemeProvider defaultColorMode={colorMode}>{children}</ThemeProvider>
-		) : (
-			children
-		),
+		colorMode ? <ThemeProvider defaultColorMode={colorMode}>{children}</ThemeProvider> : children,
 		container,
 	);
 }

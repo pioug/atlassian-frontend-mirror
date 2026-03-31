@@ -2,7 +2,6 @@
 import { css } from '@emotion/react';
 
 import { borderRadius } from '@atlaskit/media-ui';
-import { N20, B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
 
@@ -40,7 +39,7 @@ WrapperProps) => css`
 	position: relative;
 	font-family: ${token('font.family.body')};
 	${getWrapperDimensions(dimensions, appearance)}
-	${displayBackground && `background: ${token('color.background.neutral', N20)};`}
+	${displayBackground && `background: ${token('color.background.neutral')};`}
   ${borderRadius}
   ${getCursorStyle(mediaCardCursor)}
   ${getWrapperShadow(disableOverlay, selected)}
@@ -61,7 +60,7 @@ WrapperProps) => css`
 	${shouldDisplayTooltip && `> div { width: 100%; height: 100%; }`}
 
 	button:focus + & {
-		outline: solid 2px ${token('color.border.focused', B100)};
+		outline: solid 2px ${token('color.border.focused')};
 	}
 `;
 

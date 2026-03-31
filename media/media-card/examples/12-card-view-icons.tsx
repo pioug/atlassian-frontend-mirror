@@ -17,7 +17,7 @@ const dimensions = { width: '100%', height: '100%' };
 
 const styledContainerStyles = css({
 	maxWidth: '800px',
-	margin: `${token('space.250', '20px')} auto`,
+	margin: `${token('space.250')} auto`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	h3: {
 		textAlign: 'center',

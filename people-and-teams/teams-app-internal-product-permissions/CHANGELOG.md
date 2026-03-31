@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-product-permissions
 
+## 1.3.0
+
+### Minor Changes
+
+- [`2fed5ef28cecf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fed5ef28cecf) -
+  Remove dead code from teams-app-internal-product-permissions package
+
 ## 1.2.9
 
 ### Patch Changes

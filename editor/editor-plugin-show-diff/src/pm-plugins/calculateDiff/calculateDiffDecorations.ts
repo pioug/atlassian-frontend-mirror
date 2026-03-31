@@ -81,6 +81,7 @@ const calculateNodesForBlockDecoration = ({
 			const nodeEnd = pos + node.nodeSize;
 			const isActive =
 				activeIndexPos && pos === activeIndexPos.from && nodeEnd === activeIndexPos.to;
+
 			const decoration = createBlockChangedDecoration({
 				change: { from: pos, to: nodeEnd, name: node.type.name },
 				colorScheme,
@@ -221,11 +222,6 @@ const calculateDiffDecorationsInner = ({
 			);
 		}
 		if (change.deleted.length > 0) {
-			const isActive =
-				activeIndexPos &&
-				change.fromB === activeIndexPos.from &&
-				change.fromB === activeIndexPos.to;
-
 			const decoration = createNodeChangedDecorationWidget({
 				change,
 				doc: originalDoc,
@@ -233,7 +229,7 @@ const calculateDiffDecorationsInner = ({
 				colorScheme,
 				newDoc: tr.doc,
 				intl,
-				isActive,
+				activeIndexPos,
 				...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
 					isInserted: !isInserted,
 				}),

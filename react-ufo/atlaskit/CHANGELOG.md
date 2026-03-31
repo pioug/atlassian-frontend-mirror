@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.7.1
+
+### Patch Changes
+
+- [`461e0d45a1b49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/461e0d45a1b49) -
+  Exclude fdprocessedid and data-dashlane-classification attributes from TTVC
+
 ## 5.7.0
 
 ### Minor Changes

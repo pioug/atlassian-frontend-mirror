@@ -21,13 +21,13 @@ const mediaClientConfig = createStorybookMediaClientConfig();
 
 const wrapperStyles = css({
 	maxWidth: '800px',
-	margin: `${token('space.250', '20px')} auto`,
+	margin: `${token('space.250')} auto`,
 });
 
 const cardContainerStyles = css({
 	display: 'inline-block',
-	marginRight: token('space.250', '20px'),
-	marginTop: token('space.250', '20px'),
+	marginRight: token('space.250'),
+	marginTop: token('space.250'),
 });
 
 const cardDimensions = [

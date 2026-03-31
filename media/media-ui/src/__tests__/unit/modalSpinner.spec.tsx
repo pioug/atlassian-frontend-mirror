@@ -8,14 +8,14 @@ import { ModalSpinner } from '../../index';
 describe.skip('Modal Spinner', () => {
 	it('should show spinner', async () => {
 		render(
-			<ModalSpinner blankedColor={token('color.blanket', 'white')} invertSpinnerColor={false} />,
+			<ModalSpinner blankedColor={token('color.blanket')} invertSpinnerColor={false} />,
 		);
 
 		expect(await screen.findByTestId('media-modal-spinner')).toBeDefined();
 	});
 	it('should set spinner to inverted mode when specified to do so', async () => {
 		render(
-			<ModalSpinner blankedColor={token('color.blanket', 'white')} invertSpinnerColor={true} />,
+			<ModalSpinner blankedColor={token('color.blanket')} invertSpinnerColor={true} />,
 		);
 
 		expect((await screen.findByTestId('media-modal-spinner')).childNodes[1]).toHaveStyle(

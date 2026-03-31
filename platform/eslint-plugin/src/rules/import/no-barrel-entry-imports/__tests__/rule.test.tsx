@@ -246,6 +246,51 @@ describe('no-barrel-entry-imports', () => {
 		});
 	});
 
+	describe('CommonJS require() of barrel entry', () => {
+		const fs = createStandardMockFs();
+
+		runWithFs('no-barrel-entry-imports - require member access', fs, {
+			valid: [],
+			invalid: [
+				{
+					code: `const useAnalytics = require('@atlassian/conversation-assistant-instrumentation').useAnalytics;`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `const useAnalytics = require('@atlassian/conversation-assistant-instrumentation/controllers/analytics').useAnalytics;`,
+				},
+			],
+		});
+
+		runWithFs('no-barrel-entry-imports - require destructuring single target', fs, {
+			valid: [],
+			invalid: [
+				{
+					code: `const { useAnalytics } = require('@atlassian/conversation-assistant-instrumentation');`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `const { useAnalytics } = require('@atlassian/conversation-assistant-instrumentation/controllers/analytics');`,
+				},
+			],
+		});
+
+		runWithFs('no-barrel-entry-imports - require destructuring multiple targets', fs, {
+			valid: [],
+			invalid: [
+				{
+					code: tabindent`
+						const { useAnalytics, useExperienceTracker } = require('@atlassian/conversation-assistant-instrumentation');
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: tabindent`
+						const useAnalytics = require('@atlassian/conversation-assistant-instrumentation/controllers/analytics').useAnalytics;
+						const useExperienceTracker = require('@atlassian/conversation-assistant-instrumentation/controllers/experience-tracker').useExperienceTracker;
+					`,
+				},
+			],
+		});
+	});
+
 	describe('multiple imports from different sources', () => {
 		const fs = createStandardMockFs();
 
@@ -568,6 +613,13 @@ describe('no-barrel-entry-imports', () => {
 		runWithFs('no-barrel-entry-imports - default alias', fsWithDefaultAlias, {
 			valid: [],
 			invalid: [
+				// require() of default re-exported as named → subpath + .default
+				{
+					code: `const AnalyticsProvider = require('@atlassian/conversation-assistant-instrumentation').AnalyticsProvider;`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `const AnalyticsProvider = require('@atlassian/conversation-assistant-instrumentation/components/AnalyticsProvider').default;`,
+				},
 				// Single default-as-named import
 				{
 					code: `import { AnalyticsProvider } from '@atlassian/conversation-assistant-instrumentation';`,

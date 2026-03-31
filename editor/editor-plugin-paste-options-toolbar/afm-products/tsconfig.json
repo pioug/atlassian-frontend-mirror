@@ -63,6 +63,9 @@
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
 		},
 		{

@@ -23,7 +23,10 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { token } from '@atlaskit/tokens';
 
-import { CheckboxIcon, Label, LabelText, RequiredIndicator } from './internal';
+import CheckboxIcon from './internal/checkbox-icon';
+import Label from './internal/label';
+import LabelText from './internal/label-text';
+import RequiredIndicator from './internal/required-indicator';
 import type { CheckboxProps } from './types';
 
 /**

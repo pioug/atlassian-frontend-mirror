@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 112.13.4
+
+### Patch Changes
+
+- [`6442aba65e911`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6442aba65e911) -
+  Clean up cc_editor_lcm_readonly_initial experiment - remove LegacyContentHeader rendering and
+  associated dead code
+- Updated dependencies
+
+## 112.13.3
+
+### Patch Changes
+
+- [`55ea61cf8df26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55ea61cf8df26) -
+  Enable table scaling in bodiedSyncBlock nested editor (behind platform_synced_block_patch_8)
+- Updated dependencies
+
+## 112.13.2
+
+### Patch Changes
+
+- [`afe721737a588`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afe721737a588) -
+  [ux] Fix @atlassian/a11y/mouse-events-have-key-events violation in LinkSeachListItem by
+  implementing onBlur
+- Updated dependencies
+
+## 112.13.1
+
+### Patch Changes
+
+- [`9571b24edc635`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9571b24edc635) -
+  Add i18n messages for trigger keywords
+
 ## 112.13.0
 
 ### Minor Changes

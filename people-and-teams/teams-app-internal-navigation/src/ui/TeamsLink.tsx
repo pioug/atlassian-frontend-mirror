@@ -4,6 +4,7 @@ import Link, { type LinkProps } from '@atlaskit/link';
 
 import type { NavigationIntentProps } from '../common/utils/getNavigationProps';
 import { getNavigationProps } from '../common/utils/getNavigationProps';
+import { buildNavigationInput } from '../common/utils/utils';
 
 import { useTeamsNavigationContext } from './TeamsNavigationProvider';
 
@@ -17,17 +18,11 @@ export type TeamsLinkProps = BaseLinkProps & NavigationIntentProps;
 export const TeamsLink = (props: TeamsLinkProps) => {
 	const { href, onClick, children, ...rest } = props;
 	const context = useTeamsNavigationContext();
-	const input =
-		props.intent === 'action'
-			? { href, intent: props.intent, previewPanelProps: props.previewPanelProps, context }
-			: { href, intent: props.intent, context };
-	const navigationProps = getNavigationProps(input);
-	const handleClick: typeof onClick = (e, analyticsEvent) => {
-		if (onClick) onClick(e, analyticsEvent);
-		if (!e.defaultPrevented) navigationProps.onClick?.(e);
-	};
+	const input = buildNavigationInput({ ...props, href: href ?? '', context, onBeforeNavigate: onClick });
+	const { onClick: composedOnClick, href: resolvedHref, target, rel } = getNavigationProps(input);
+
 	return (
-		<Link href={href} target={navigationProps.target} onClick={handleClick} {...rest}>
+		<Link {...rest} href={resolvedHref} target={target} rel={rel} onClick={composedOnClick}>
 			{children}
 		</Link>
 	);

@@ -5,45 +5,35 @@ import { z } from 'zod';
 
 import { type Token, tokens } from '@atlaskit/tokens/token-metadata';
 
-import { cleanQuery, zodToJsonSchema } from '../../helpers';
+import { cleanQuery, mergeMultiTermFuseResults, zodToJsonSchema } from '../../helpers';
 
 export const searchTokensInputSchema: z.ZodObject<
 	{
 		terms: z.ZodArray<z.ZodString, 'many'>;
 		limit: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
-		exactName: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
 	},
 	'strip',
 	z.ZodTypeAny,
 	{
 		terms: string[];
 		limit?: number | undefined;
-		exactName?: boolean | undefined;
 	},
 	{
 		terms: string[];
 		limit?: number | undefined;
-		exactName?: boolean | undefined;
 	}
 > = z.object({
 	terms: z
 		.array(z.string())
 		.describe(
-			'Required: one or more terms; fuzzy match on token **name**, **description**, and **exampleValue**. Example: `["spacing", "color.text", "background"]`.',
+			'Required: one or more terms; fuzzy match on token **name**, **description**, **exampleValue**, **usageGuidelines.usage**, and **usageGuidelines.cssProperties**. Example: `["spacing", "color.text", "background"]`.',
 		),
-	limit: z.number().default(1).describe('Max matches **per term** (default 1).').optional(),
-	exactName: z
-		.boolean()
-		.default(false)
-		.describe(
-			'If true, match each term to a token **name** only, case-insensitively. If false, fuzzy search.',
-		)
-		.optional(),
+	limit: z.number().default(2).describe('Max matches **per term** (default 2).').optional(),
 });
 
 export const listSearchTokensTool: Tool = {
 	name: 'ads_search_tokens',
-	description: `Searches Atlassian Design System **design tokens** from bundled metadata. Returns JSON objects with **name** and **exampleValue** for each match (search also considers description in metadata).
+	description: `Searches Atlassian Design System **design tokens** from bundled metadata. Returns JSON objects with **name** and **exampleValue** for each match (search also considers description, usage guidelines, and CSS property hints in metadata).
 
 WHEN TO USE:
 **Styling or theming in code**—you need the right \`token('…')\` names for colors, space, typography, etc. Use during layout and visual work when tokens must match ADS. Prefer \`ads_plan\` when you also need icons and components in the same step.
@@ -63,73 +53,81 @@ const styles = css({ color: token('color.text'), padding: token('space.100') });
 	inputSchema: zodToJsonSchema(searchTokensInputSchema),
 };
 
-export const searchTokensTool = async (
-	params: z.infer<typeof searchTokensInputSchema>,
-): Promise<CallToolResult> => {
-	const { terms, limit = 1, exactName = false } = params;
-	const searchTerms = terms.filter(Boolean).map(cleanQuery);
+export const searchTokensTool = async ({
+	terms,
+	limit = 2,
+}: z.infer<typeof searchTokensInputSchema>): Promise<CallToolResult> => {
+	// Unique cleaned terms (order preserved) so duplicates don't concatenate into a bogus query.
+	const searchTerms = [...new Set(terms.filter(Boolean).map(cleanQuery))];
 
-	if (exactName) {
-		// for each search term, search for the exact match
-		const exactNameMatches = searchTerms
-			.map((term) => {
-				return tokens.find((token) => token.name.toLowerCase() === term.toLowerCase());
-			})
-			.filter(Boolean) as Token[];
-
-		if (exactNameMatches.length > 0) {
-			return {
-				content: [
-					{
-						type: 'text',
-						text: JSON.stringify(
-							exactNameMatches.map((token) => ({
-								name: token.name,
-								exampleValue: token.exampleValue,
-							})),
-						),
-					},
-				],
-			};
-		}
+	if (!searchTerms.length) {
+		return {
+			content: [
+				{
+					type: 'text',
+					text: '[]',
+				},
+			],
+		};
 	}
 
-	// use Fuse.js to fuzzy-search for the tokens
 	const fuse = new Fuse(tokens, {
 		keys: [
 			{
 				name: 'name',
-				weight: 3,
+				weight: 5,
+			},
+			{
+				name: 'path',
+				weight: 2,
 			},
 			{
 				name: 'description',
 				weight: 2,
 			},
 			{
+				name: 'usageGuidelines.usage',
+				weight: 2,
+			},
+			{
+				name: 'usageGuidelines.cssProperties',
+				weight: 3,
+			},
+			{
 				name: 'exampleValue',
-				weight: 1,
+				weight: 0.5,
 			},
 		],
 		threshold: 0.4,
+		distance: 80,
+		minMatchCharLength: 3,
+		ignoreFieldNorm: true,
+		includeScore: true,
 	});
 
-	const results = searchTerms
-		.map((term) => {
-			return fuse.search(term).slice(0, limit);
-		})
-		.flat();
-
-	// Remove duplicates based on token name
-	const uniqueResults = results.filter((result, index, arr) => {
-		return arr.findIndex((r) => r.item.name === result.item.name) === index;
+	const matchedItems: Token[] = mergeMultiTermFuseResults<Token>({
+		searchTerms,
+		limit,
+		search: (query: string) => fuse.search(query, { limit: limit * searchTerms.length }),
+		searchTermsJoin: '.',
 	});
 
-	const matchedTokens = uniqueResults.map((result) => {
+	const matchedTokens = matchedItems.map((item: Token) => ({
+		name: item.name,
+		exampleValue: item.exampleValue,
+	}));
+
+	if (!matchedTokens.length) {
 		return {
-			name: result.item.name,
-			exampleValue: result.item.exampleValue,
+			content: [
+				{
+					type: 'text',
+					text: `Error: No tokens found for '${terms.join(', ')}'. Available tokens: ${tokens.map((t) => t.name).join(', ')}`,
+				},
+			],
 		};
-	});
+	}
+
 	return {
 		content: [
 			{

@@ -3,44 +3,40 @@ import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types.js';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
 
-import { cleanQuery, zodToJsonSchema } from '../../helpers';
+import { cleanQuery, mergeMultiTermFuseResults, zodToJsonSchema } from '../../helpers';
 import { icons } from '../get-all-icons/icons';
 
 export const searchIconsInputSchema: z.ZodObject<
 	{
 		terms: z.ZodArray<z.ZodString, 'many'>;
 		limit: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
-		exactName: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
 	},
 	'strip',
 	z.ZodTypeAny,
 	{
 		terms: string[];
 		limit?: number | undefined;
-		exactName?: boolean | undefined;
 	},
 	{
 		terms: string[];
 		limit?: number | undefined;
-		exactName?: boolean | undefined;
 	}
 > = z.object({
 	terms: z
 		.array(z.string())
 		.describe(
-			'Required: one or more terms; fuzzy match on component name, icon name, keywords, categorization, etc. Example: `["search", "folder", "user"]`.',
+			'Required: one or more terms; fuzzy match on icon **componentName**, **iconName**, **keywords**, **categorization**, **type**, and **usage**. Example: `["search", "folder", "user"]`.',
 		),
-	limit: z.number().default(1).describe('Max matches **per term** (default 1).').optional(),
-	exactName: z
-		.boolean()
-		.default(false)
-		.describe(
-			'If true, match each term to an icon **componentName** only, case-insensitively. If false, fuzzy search.',
-		)
-		.optional(),
+	limit: z.number().default(2).describe('Max matches **per term** (default 2).').optional(),
 });
 
 type Icon = (typeof icons)[number];
+
+const buildIconResult = (icon: Icon) => ({
+	componentName: icon.componentName,
+	package: icon.package,
+	usage: icon.usage,
+});
 
 export const listSearchIconsTool: Tool = {
 	name: 'ads_search_icons',
@@ -64,98 +60,48 @@ import AddIcon from '@atlaskit/icon/core/add';
 	inputSchema: zodToJsonSchema(searchIconsInputSchema),
 };
 
-export const searchIconsTool = async (
-	params: z.infer<typeof searchIconsInputSchema>,
-): Promise<CallToolResult> => {
-	const { terms, limit = 1, exactName = false } = params;
-	const searchTerms = terms.filter(Boolean).map(cleanQuery);
+export const searchIconsTool = async ({
+	terms,
+	limit = 2,
+}: z.infer<typeof searchIconsInputSchema>): Promise<CallToolResult> => {
+	const searchTerms = [...new Set(terms.filter(Boolean).map(cleanQuery))];
 
 	if (!searchTerms.length) {
 		return {
-			isError: true,
 			content: [
 				{
 					type: 'text',
-					text: `Error: Required parameter 'terms' is missing or empty`,
+					text: '[]',
 				},
 			],
 		};
 	}
 
-	if (exactName) {
-		// for each search term, search for the exact match
-		const exactNameMatches = searchTerms
-			.map((term) => {
-				return icons.find((icon) => icon.componentName.toLowerCase() === term.toLowerCase());
-			})
-			.filter(Boolean) as Icon[];
-
-		if (exactNameMatches.length > 0) {
-			return {
-				content: [
-					{
-						type: 'text',
-						text: JSON.stringify(exactNameMatches),
-					},
-				],
-			};
-		}
-	}
-
-	// use Fuse.js to fuzzy-search through the icons
 	const fuse = new Fuse(icons, {
 		keys: [
-			{
-				name: 'componentName',
-				weight: 3,
-			},
-			{
-				name: 'iconName',
-				weight: 3,
-			},
-			{
-				name: 'keywords',
-				weight: 2,
-			},
-			{
-				name: 'categorization',
-				weight: 1,
-			},
-			{
-				name: 'type',
-				weight: 1,
-			},
-			{
-				name: 'usage',
-				weight: 1,
-			},
+			{ name: 'componentName', weight: 5 },
+			{ name: 'iconName', weight: 3 },
+			{ name: 'keywords', weight: 2 },
+			{ name: 'categorization', weight: 2 },
+			{ name: 'type', weight: 1 },
+			{ name: 'usage', weight: 2 },
 		],
 		threshold: 0.4,
+		distance: 80,
+		minMatchCharLength: 3,
+		ignoreFieldNorm: true,
+		includeScore: true,
 	});
 
-	// every search term, search for the results
-	const results = searchTerms
-		.map((term) => {
-			// always search exact match from the icons
-			const exactNameMatch = icons.find(
-				(icon) => icon.componentName.toLowerCase() === term.toLowerCase(),
-			);
-			if (exactNameMatch) {
-				return [
-					{
-						item: exactNameMatch,
-					},
-				];
-			}
+	const matchedItems = mergeMultiTermFuseResults<Icon>({
+		searchTerms,
+		limit,
+		search: (query: string) => fuse.search(query, { limit: limit * searchTerms.length }),
+		tokenKey: (icon) => icon.componentName,
+	});
 
-			return fuse.search(term).slice(0, limit);
-		})
-
-		.flat();
-
-	if (!results.length) {
+	if (!matchedItems.length) {
 		return {
-			isError: true,
 			content: [
 				{
 					type: 'text',
@@ -165,23 +111,11 @@ export const searchIconsTool = async (
 		};
 	}
 
-	// Remove duplicates based on componentName
-	const uniqueResults = results.filter((result, index, arr) => {
-		return arr.findIndex((r) => r.item.componentName === result.item.componentName) === index;
-	});
-
-	const matchedIcons = uniqueResults.map((result) => {
-		return {
-			componentName: result.item.componentName,
-			package: result.item.package,
-			usage: result.item.usage,
-		};
-	});
 	return {
 		content: [
 			{
 				type: 'text',
-				text: JSON.stringify(matchedIcons),
+				text: JSON.stringify(matchedItems.map(buildIconResult)),
 			},
 		],
 	};

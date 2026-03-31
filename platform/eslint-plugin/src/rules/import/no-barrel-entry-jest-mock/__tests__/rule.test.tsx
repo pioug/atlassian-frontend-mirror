@@ -476,6 +476,31 @@ describe('no-barrel-entry-jest-mock', () => {
 						}));
 					`,
 				},
+				// When the barrel mock includes __esModule, every split mock gets it (including the barrel remainder).
+				{
+					code: outdent`
+						jest.mock('@atlassian/conversation-assistant-store', () => ({
+							...jest.requireActual('@atlassian/conversation-assistant-store'),
+							__esModule: true,
+							EMPTY_CONVERSATION_ID: 'test-id',
+							internalOnlyFunction: jest.fn(),
+						}));
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryMock' }],
+					output: tabindent`
+						jest.mock('@atlassian/conversation-assistant-store/controllers/chat', () => ({
+							...jest.requireActual('@atlassian/conversation-assistant-store/controllers/chat'),
+							__esModule: true,
+							EMPTY_CONVERSATION_ID: 'test-id',
+						}));
+						jest.mock('@atlassian/conversation-assistant-store', () => ({
+							...jest.requireActual('@atlassian/conversation-assistant-store'),
+							__esModule: true,
+							internalOnlyFunction: jest.fn(),
+						}));
+					`,
+				},
 			],
 		});
 	});
@@ -797,6 +822,64 @@ describe('no-barrel-entry-jest-mock', () => {
 							__esModule: true,
 							default: jest.fn(),
 						}));
+					`,
+				},
+				// Explicit __esModule on the barrel mock should not create a second barrel-only mock; it is folded into the split mock.
+				{
+					code: outdent`
+						jest.mock('@atlassian/conversation-assistant-store', () => {
+							const actual = jest.requireActual('@atlassian/conversation-assistant-store');
+							return {
+								...actual,
+								__esModule: true,
+								ProfileController: jest.fn(),
+							};
+						});
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryMock' }],
+					output: tabindent`
+						jest.mock('@atlassian/conversation-assistant-store/controllers/profile', () => ({
+							...jest.requireActual('@atlassian/conversation-assistant-store/controllers/profile'),
+							__esModule: true,
+							default: jest.fn(),
+						}));
+					`,
+				},
+			],
+		});
+	});
+
+	describe('preamble jest.requireActual retargeting', () => {
+		const fs = createStandardMockFs();
+
+		runWithFs('no-barrel-entry-jest-mock - preamble requireActual retarget', fs, {
+			valid: [],
+			invalid: [
+				{
+					code: outdent`
+						jest.mock('@atlassian/conversation-assistant-store', () => {
+							const actual = jest.requireActual('@atlassian/conversation-assistant-store');
+							return {
+								...actual,
+								useChatContextStoreActions: jest.fn((...args) =>
+									actual.useChatContextStoreActions(...args),
+								),
+							};
+						});
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryMock' }],
+					output: tabindent`
+						jest.mock('@atlassian/conversation-assistant-store/controllers/chat-context/store', () => {
+							const actual = jest.requireActual('@atlassian/conversation-assistant-store/controllers/chat-context/store');
+							return {
+								...jest.requireActual('@atlassian/conversation-assistant-store/controllers/chat-context/store'),
+								useChatContextStoreActions: jest.fn((...args) =>
+									actual.useChatContextStoreActions(...args),
+								),
+							};
+						});
 					`,
 				},
 			],

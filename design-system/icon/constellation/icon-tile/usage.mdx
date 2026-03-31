@@ -16,6 +16,8 @@ import iconTileBoldDo from './images/do-donts/icon-tile-bold-do.png';
 import iconTileBoldDont from './images/do-donts/icon-tile-bold-dont.png';
 import iconTileHeightDo from './images/do-donts/icon-tile-height-do.png';
 import iconTileHeightDont from './images/do-donts/icon-tile-height-dont.png';
+import iconTilePairingDo from './images/do-donts/icon-tile-pairing-do.png';
+import iconTilePairingDont from './images/do-donts/icon-tile-pairing-dont.png';
 
 ## Usage
 
@@ -114,6 +116,32 @@ reference the size of the icon tile to the height of its adjacent content for vi
 		}}
 	>
 		Avoid selecting icon tile sizes smaller than the height of its adjacent content.
+	</DoDont>
+</DoDontGrid>
+
+### Avoid pairing icon tile with compact elements
+
+Icon tile can act as strong visual anchors for primary content. Reserve them for grounding major content blocks.
+When pairing an icon with compact elements like a single line body copy, use a standard icon instead.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: iconTilePairingDo,
+			alt: '',
+		}}
+	>
+		Use icon tile to highlight content at a glance.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: iconTilePairingDont,
+			alt: '',
+		}}
+	>
+		Avoid pairing icon tile next to compact elements such as single line body text. Use <a href="/components/icon/examples">Icon</a> instead.
 	</DoDont>
 </DoDontGrid>
 

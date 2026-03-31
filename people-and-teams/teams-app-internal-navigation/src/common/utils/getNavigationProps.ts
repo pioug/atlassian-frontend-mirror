@@ -58,6 +58,7 @@ export type NavigationIntentProps =
 type NavigationInput = NavigationIntentProps & {
 	href: string;
 	context: NavigationContext;
+	onBeforeNavigate?: (...args: any[]) => void;
 };
 
 /**
@@ -78,29 +79,25 @@ type PreviewPanelOpenProps = {
 	url: string;
 };
 
-type BaseNavigationResults = {
-	href: string;
-	onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
-};
-
-type NavigationByIntent<I extends NavigationIntent> = BaseNavigationResults &
-	(I extends 'external'
-		? {
-				intent: 'external';
-				target: '_blank';
-				rel: 'noopener noreferrer';
-			}
-		: {
-				intent: Exclude<NavigationIntent, 'external'>;
-				target: '_self';
-				rel?: string;
-			});
+type NavigationByIntent = 
+	| {
+		href: string;
+		onClick?: (...args: any[]) => void;
+		target: '_self';
+		rel?: string;
+	}
+	| {
+		href: string;
+		onClick?: (...args: any[]) => void;
+		target: '_blank';
+		rel: 'noopener noreferrer';
+	};
 
 /**
  * Headless, pure function that determines how a link should behave.
  */
-export function getNavigationProps(input: NavigationInput): NavigationByIntent<NavigationIntent> {
-	const { href: rawHref, intent, context } = input;
+export function getNavigationProps(input: NavigationInput): NavigationByIntent {
+	const { href: rawHref, intent, context, onBeforeNavigate } = input;
 	const previewPanelProps = 'previewPanelProps' in input ? input.previewPanelProps : undefined;
 	const resolvedIntent = intent !== 'unknown' ? intent : classifyNavigationIntent(rawHref);
 
@@ -113,22 +110,24 @@ export function getNavigationProps(input: NavigationInput): NavigationByIntent<N
 	if (resolvedIntent === 'external' || context.forceExternalIntent) {
 		return {
 			href,
-			intent: 'external',
 			target: '_blank',
 			rel: 'noopener noreferrer',
-			onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
+			onClick: (...args: any[]) => {
+				const e = args[0] as React.MouseEvent<HTMLAnchorElement>;
+				onBeforeNavigate?.(...args);
+				if (e.defaultPrevented) return;
 				e.preventDefault();
 				window.open(href, '_blank', 'noopener noreferrer');
-				return;
 			},
 		};
 	}
 
 	return {
 		href,
-		intent: resolvedIntent,
 		target: '_self',
-		onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
+		onClick: (...args: any[]) => {
+			const e = args[0] as React.MouseEvent<HTMLAnchorElement>;
+			onBeforeNavigate?.(...args);
 			if (e.defaultPrevented) return;
 
 			// Handle left-click with modifier keys (let browser handle it)

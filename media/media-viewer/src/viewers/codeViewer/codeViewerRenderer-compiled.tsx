@@ -21,7 +21,7 @@ const codeViewWrapperStyles = css({
 	top: 0,
 	right: 0,
 	bottom: 0,
-	backgroundColor: token('elevation.surface', '#F4F5F7'),
+	backgroundColor: token('elevation.surface'),
 	overflow: 'auto',
 });
 
@@ -35,11 +35,11 @@ const codeViewerHTMLStyles = css({
 	display: 'flex',
 	overflowX: 'auto',
 	whiteSpace: 'pre',
-	font: token('font.body.UNSAFE_small'),
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.100', '8px'),
+	font: token('font.body.small'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 });
 
 // Based on some basic benchmarking with @atlaskit/code it was found that ~10,000 lines took around ~5secs to render, which locks the main thread.

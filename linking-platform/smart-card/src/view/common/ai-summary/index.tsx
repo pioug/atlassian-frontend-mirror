@@ -64,6 +64,7 @@ const AISummary = ({
 				overrides: {
 					ul: UList,
 				},
+				...(fg('navx-vuln-1914676-fix-xss-in-ai-summaries') ? { disableParsingRawHTML: true } : {}),
 			}}
 			style={{ minHeight: minHeight }}
 		/>

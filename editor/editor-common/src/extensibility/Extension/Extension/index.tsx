@@ -24,7 +24,6 @@ import { overflowShadow } from '../../../ui';
 import { calculateBreakoutStyles } from '../../../utils';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
 import { shouldExtensionBreakout } from '../../utils/should-extension-breakout';
-import { LegacyContentHeader } from '../LegacyContentHeader';
 import ExtensionLozenge from '../Lozenge';
 import { overlay } from '../styles';
 
@@ -168,9 +167,6 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 			: showMacroInteractionDesignUpdates && isNodeHovered,
 		'with-danger-overlay': showMacroInteractionDesignUpdates,
 		'without-frame': removeBorder,
-		'legacy-content': expValEquals('cc_editor_lcm_readonly_initial', 'isEnabled', true)
-			? undefined
-			: showLegacyContentHeader,
 		[widerLayoutClassName]: shouldBreakout,
 	});
 
@@ -233,18 +229,6 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 
 	return (
 		<Fragment>
-			{expValEquals('cc_editor_lcm_readonly_initial', 'isEnabled', true)
-				? null
-				: showLegacyContentHeader && (
-						<LegacyContentHeader
-							isNodeSelected={isNodeSelected}
-							isNodeHovered={isNodeHovered}
-							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-							onMouseEnter={() => handleMouseEvent(true)}
-							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-							onMouseLeave={() => handleMouseEvent(false)}
-						/>
-					)}
 			{!showLegacyContentHeader && showMacroInteractionDesignUpdates && !isLivePageViewMode && (
 				<ExtensionLozenge
 					isNodeSelected={isNodeSelected}

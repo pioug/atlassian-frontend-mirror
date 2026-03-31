@@ -130,11 +130,11 @@ const hiddenCardWithCacheAvailable = [
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					position: 'absolute',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					right: token('space.negative.400', '-32px'),
+					right: token('space.negative.400'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					marginRight: token('space.negative.400', '-32px'),
+					marginRight: token('space.negative.400'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					width: token('space.600', '48px'),
+					width: token('space.600'),
 				}}
 			>
 				<DelayedRender
@@ -161,11 +161,11 @@ const hiddenCardWithoutCacheAvailable = [
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					position: 'absolute',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					right: token('space.negative.400', '-32px'),
+					right: token('space.negative.400'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					marginRight: token('space.negative.400', '-32px'),
+					marginRight: token('space.negative.400'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					width: token('space.600', '48px'),
+					width: token('space.600'),
 				}}
 			>
 				<Card identifier={freshNewFile} mediaClientConfig={mediaClientConfig} appearance="image" />
@@ -179,14 +179,14 @@ export default (): React.JSX.Element => (
 		<div>
 			<h1
 				style={{
-					margin: `${token('space.150', '12px')} ${token('space.250', '20px')}`,
+					margin: `${token('space.150')} ${token('space.250')}`,
 				}}
 			>
 				File cards
 			</h1>
 			<div
 				style={{
-					margin: `${token('space.250', '20px')} ${token('space.500', '40px')}`,
+					margin: `${token('space.250')} ${token('space.500')}`,
 				}}
 			>
 				<h3>Standard</h3>

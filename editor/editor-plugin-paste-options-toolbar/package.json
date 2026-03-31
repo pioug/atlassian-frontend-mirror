@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste-options-toolbar",
-	"version": "9.1.8",
+	"version": "9.1.10",
 	"description": "Paste options toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,6 +45,7 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
@@ -62,6 +63,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_paste_actions_keypress_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_paste_actions_menu_exposure": {
 			"type": "boolean"
 		}
 	},

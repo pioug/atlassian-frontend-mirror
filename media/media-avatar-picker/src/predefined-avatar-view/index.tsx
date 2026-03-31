@@ -11,7 +11,6 @@ import { type Avatar } from '../avatar-list';
 import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
 import Button from '@atlaskit/button/standard-button';
 
-import { B200, B100 } from '@atlaskit/theme/colors';
 import { forwardRef, useState } from 'react';
 
 export interface PredefinedAvatarViewProps {
@@ -31,17 +30,11 @@ const largeAvatarImageStyles = css({
 });
 
 const largeAvatarImageCheckedStyles = css({
-	boxShadow: `0px 0px 0px 1px ${token(
-		'color.border.inverse',
-		'white',
-	)}, 0px 0px 0px 3px ${token('color.border.selected', B200)}`,
+	boxShadow: `0px 0px 0px 1px ${token('color.border.inverse')}, 0px 0px 0px 3px ${token('color.border.selected')}`,
 });
 
 const largeAvatarImageFocusedStyles = css({
-	boxShadow: `0px 0px 0px 1px ${token(
-		'color.border.inverse',
-		'white',
-	)}, 0px 0px 0px 3px ${token('color.border.focused', B100)}`,
+	boxShadow: `0px 0px 0px 1px ${token('color.border.inverse')}, 0px 0px 0px 3px ${token('color.border.focused')}`,
 });
 
 const bodyStyles = css({
@@ -50,7 +43,7 @@ const bodyStyles = css({
 	width: '353px',
 	maxHeight: '294px',
 	overflowY: 'auto',
-	paddingTop: token('space.100', '8px'),
+	paddingTop: token('space.100'),
 	paddingRight: 0,
 	paddingBottom: 0,
 	paddingLeft: 0,
@@ -69,21 +62,21 @@ const inputStyles = css({
 });
 
 const labelStyles = css({
-	paddingRight: token('space.050', '4px'),
-	paddingLeft: token('space.050', '4px'),
-	paddingBottom: token('space.100', '8px'),
+	paddingRight: token('space.050'),
+	paddingLeft: token('space.050'),
+	paddingBottom: token('space.100'),
 	display: 'inline-flex',
 });
 
 const headerStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	paddingTop: token('space.050', '4px'),
-	paddingBottom: token('space.100', '8px'),
+	paddingTop: token('space.050'),
+	paddingBottom: token('space.100'),
 });
 
 const descriptionStyles = css({
-	paddingLeft: token('space.100', '8px'),
+	paddingLeft: token('space.100'),
 	margin: 0,
 	font: token('font.body'),
 });

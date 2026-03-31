@@ -16,7 +16,7 @@ const Example = (): React.JSX.Element => {
 		};
 	});
 	return (
-		<div style={{ padding: `${token('space.250', '20px')}` }}>
+		<div style={{ padding: `${token('space.250')}` }}>
 			<iframe
 				name="Basic MediaViewer Example"
 				title="Basic MediaViewer Example"

@@ -15,7 +15,6 @@ import {
 	createStorybookMediaClient,
 	defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
-import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -203,9 +202,7 @@ const Sidebar = (props: SidebarProps) => {
 				<Button
 					onClick={actions.close}
 					aria-label="Close panel"
-					iconBefore={
-						<ArrowRightIcon spacing="spacious" color={token('color.icon', N0)} label="" />
-					}
+					iconBefore={<ArrowRightIcon spacing="spacious" color={token('color.icon')} label="" />}
 				/>
 			</MVSidebarHeader>
 			{identifier.mediaItemType === 'file'

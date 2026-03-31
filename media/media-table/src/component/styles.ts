@@ -13,7 +13,7 @@ export const nameCellWrapperStyles = css({
 export const truncateWrapperStyles = css({
 	minWidth: 0,
 	width: '100%',
-	marginLeft: token('space.050', '4px'),
+	marginLeft: token('space.050'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'span:first-of-type': {
 		'&::first-letter': {

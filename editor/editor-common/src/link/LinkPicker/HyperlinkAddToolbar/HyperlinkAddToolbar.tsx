@@ -783,6 +783,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 						selectedIndex={selectedIndex}
 						listItemRefCallback={this.listItemRefCallback}
 						onFocus={this.handleListItemFocus}
+						onBlur={this.handleListItemBlur}
 						onKeyDown={this.handleKeyDown}
 						onSelect={this.handleSelected}
 						onMouseEnter={this.handleMouseEnterResultItem}
@@ -929,6 +930,12 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 	private handleListItemFocus = (index: number) => {
 		this.setState({
 			selectedIndex: index,
+		});
+	};
+
+	private handleListItemBlur = () => {
+		this.setState({
+			selectedIndex: -1,
 		});
 	};
 

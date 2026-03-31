@@ -47,15 +47,17 @@ const withDesignTokens = (
 						spacing: 'spacing',
 						shape: 'shape',
 						typography: 'typography',
+						motion: 'motion',
 					});
 					break;
 				case 'split':
 				case 'stack':
 					await setGlobalTheme({
-						colorMode: 'light',
+						colorMode: 'auto',
 						spacing: 'spacing',
 						shape: 'shape',
 						typography: 'typography',
+						motion: 'motion',
 					});
 
 					document.documentElement.querySelectorAll('style[data-theme]').forEach((el) => {

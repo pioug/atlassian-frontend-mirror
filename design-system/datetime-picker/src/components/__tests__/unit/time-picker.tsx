@@ -6,6 +6,7 @@ import cases from 'jest-in-case';
 import moment from 'moment';
 
 import { CreatableSelect, type OptionsType } from '@atlaskit/select';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type TimePickerBaseProps } from '../../../types';
 import TimePicker from '../../time-picker';
@@ -98,6 +99,24 @@ describe('TimePicker', () => {
 
 			expect(value).toHaveAttribute('lang', expect.stringContaining(lang));
 		});
+
+		ffTest(
+			'platform-dst-single-value-lang-replace',
+			() => {
+				render(createTimePicker({ locale: 'en_GB', value: timeValue }));
+
+				const value = screen.getByText(timeValue);
+
+				expect(value).toHaveAttribute('lang', expect.stringContaining('en-GB'));
+			},
+			() => {
+				render(createTimePicker({ locale: 'en_GB', value: timeValue }));
+
+				const value = screen.getByText(timeValue);
+
+				expect(value).toHaveAttribute('lang', expect.stringContaining('en_GB'));
+			},
+		);
 
 		cases(
 			'should format time using provided locale',

@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 1.5.1
+
+### Patch Changes
+
+- [`2732080e75eb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2732080e75eb8) -
+  Updated Teams Link components to use the href returned by getNavigationProps, moved the onClick
+  handling to getNavigationProps and did a cleanup of the Link component props.
+
 ## 1.5.0
 
 ### Minor Changes

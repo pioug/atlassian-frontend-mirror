@@ -1,5 +1,12 @@
 # @atlaskit/checkbox
 
+## 17.3.8
+
+### Patch Changes
+
+- [`f1383e3821070`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1383e3821070) -
+  Removes internal barrel file
+
 ## 17.3.7
 
 ### Patch Changes

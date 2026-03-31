@@ -1,5 +1,19 @@
 # @atlaskit/profilecard
 
+## 24.45.3
+
+### Patch Changes
+
+- [`1b9b44974e78b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b9b44974e78b) -
+  Fix agent request
+- Updated dependencies
+
+## 24.45.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.45.1
 
 ### Patch Changes

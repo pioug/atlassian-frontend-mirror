@@ -135,7 +135,6 @@ export type EditorContextPayloadData =
 				startIndex?: number;
 				endIndex?: number;
 				fragmentAdf?: string;
-				fullAdf?: any;
 			};
 			dynamicUiType?: string;
 			isViewMode?: boolean;

@@ -20,8 +20,8 @@ const mediaClient = new MediaClient(mediaClientConfig);
 
 const cardWrapperStyles = css({
 	border: `${token('border.width')} solid`,
-	padding: token('space.100', '8px'),
-	margin: token('space.050', '4px'),
+	padding: token('space.100'),
+	margin: token('space.050'),
 	overflow: 'auto',
 	display: 'inline-block',
 });

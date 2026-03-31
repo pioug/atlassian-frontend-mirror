@@ -126,28 +126,10 @@ describe('Popup compound component', () => {
 		expect(showPopoverMock).not.toHaveBeenCalled();
 	});
 
-	it('calls showPopover() when context isOpen becomes true inside compound', () => {
-		render(
-			<Popup placement={{ edge: 'end' }} onClose={() => {}}>
-				<Popup.Trigger>
-					<button type="button">Trigger</button>
-				</Popup.Trigger>
-				<Popup.Content role="dialog" label="Test popover">
-					Content
-				</Popup.Content>
-			</Popup>,
-		);
-
-		// Simulate the browser firing a toggle event (which sets ctx.isOpen = true)
-		const popover = screen.getByRole('dialog');
-		act(() => {
-			popover.dispatchEvent(new Event('toggle', { bubbles: false }));
-		});
-
-		// Note: In JSDOM the toggle event doesn't have newState, so the
-		// context handler won't set isOpen=true. This test verifies the
-		// mount behavior; the isOpen prop tests below cover the full lifecycle.
-	});
+	// Skipped: JSDOM does not support ToggleEvent (no newState property),
+	// so the context handler never sets isOpen=true from a toggle event.
+	// This path is covered by browser (Playwright) tests.
+	// The isOpen prop tests below cover the equivalent showPopover() lifecycle.
 
 	it('calls hidePopover() when Popup.Content unmounts', () => {
 		const { unmount } = render(

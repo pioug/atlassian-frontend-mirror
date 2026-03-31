@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { hideToolbar, showToolbar } from './editor-commands/commands';
 import type {
@@ -12,6 +14,7 @@ import type {
 import { createPlugin } from './pm-plugins/main';
 import type { PasteOptionsPluginState } from './types/types';
 import { pasteOptionsPluginKey, ToolbarDropdownOption } from './types/types';
+import { firePasteActionsMenuExperimentExposure } from './ui/on-paste-actions-menu/exposure';
 import { PasteActionsMenu } from './ui/on-paste-actions-menu/PasteActionsMenu';
 import { getPasteMenuComponents } from './ui/on-paste-actions-menu/PasteMenuComponents';
 import { buildToolbar, isToolbarVisible } from './ui/toolbar';
@@ -19,7 +22,10 @@ import { buildToolbar, isToolbarVisible } from './ui/toolbar';
 export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
-	if (config?.usePopupBasedPasteActionsMenu) {
+	if (
+		config?.usePopupBasedPasteActionsMenu &&
+		expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true)
+	) {
 		api?.uiControlRegistry?.actions.register(getPasteMenuComponents({ api }));
 	}
 
@@ -31,7 +37,9 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 					name: 'pasteOptionsToolbarPlugin',
 					plugin: ({ dispatch }) =>
 						createPlugin(dispatch, {
-							useNewPasteMenu: config?.usePopupBasedPasteActionsMenu,
+							useNewPasteMenu:
+								config?.usePopupBasedPasteActionsMenu &&
+								expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true),
 						}),
 				},
 			];
@@ -67,7 +75,10 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 
 		pluginsOptions: {
 			floatingToolbar(state, intl): FloatingToolbarConfig | undefined {
-				if (config?.usePopupBasedPasteActionsMenu) {
+				if (
+					config?.usePopupBasedPasteActionsMenu &&
+					expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true)
+				) {
 					return;
 				}
 				const pastePluginState = pasteOptionsPluginKey.getState(state) as PasteOptionsPluginState;
@@ -86,7 +97,13 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 			popupsBoundariesElement,
 			popupsScrollableElement,
 		}) {
-			if (!config?.usePopupBasedPasteActionsMenu || !editorView) {
+			if (
+				!(
+					config?.usePopupBasedPasteActionsMenu &&
+					expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true)
+				) ||
+				!editorView
+			) {
 				return null;
 			}
 			return (
@@ -106,7 +123,23 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 			}));
 
 			useEffect(() => {
-				if (config?.usePopupBasedPasteActionsMenu) {
+				if (
+					config?.usePopupBasedPasteActionsMenu &&
+					fg('platform_editor_paste_actions_menu_exposure')
+				) {
+					firePasteActionsMenuExperimentExposure(
+						lastContentPasted?.text?.length ?? 0,
+						editorView.state,
+						lastContentPasted?.pasteStartPos,
+						lastContentPasted?.pasteEndPos,
+						lastContentPasted?.text,
+					);
+				}
+
+				if (
+					config?.usePopupBasedPasteActionsMenu &&
+					expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true)
+				) {
 					return;
 				}
 

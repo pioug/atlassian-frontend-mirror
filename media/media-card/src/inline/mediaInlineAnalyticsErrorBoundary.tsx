@@ -2,7 +2,6 @@ import React, { type ErrorInfo, type PropsWithChildren } from 'react';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { token } from '@atlaskit/tokens';
-import { B300, R300, N30A, N900 } from '@atlaskit/theme/colors';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { type AnalyticsErrorBoundaryInlinePayload, fireMediaCardEvent } from '../utils/analytics';
 export type MediaInlineAnalyticsErrorBoundaryProps = PropsWithChildren<
@@ -25,7 +24,7 @@ interface ErrorBoundaryProps {
 const ErrorBoundaryComponent: React.FC<ErrorBoundaryProps> = ({ message, isSelected }) => {
 	const selectedStyle: React.CSSProperties = {
 		cursor: 'pointer',
-		boxShadow: `0 0 0 1px ${token('color.border.selected', B300)}`,
+		boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
 		outline: 'none',
 		userSelect: 'none',
 		borderColor: 'transparent',
@@ -49,16 +48,16 @@ const ErrorBoundaryComponent: React.FC<ErrorBoundaryProps> = ({ message, isSelec
 	const style: React.CSSProperties = {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '16px',
-		padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
-		marginRight: token('space.negative.025', '-2px'),
+		padding: `${token('space.025')} ${token('space.050')}`,
+		marginRight: token('space.negative.025'),
 		WebkitBoxDecorationBreak: 'clone',
 		display: 'inline-flex',
 		gap: token('space.050'),
 		alignItems: 'center',
 		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 		borderRadius: token('radius.small', '3px'),
-		color: token('color.text', N900),
-		backgroundColor: token('color.background.neutral', N30A),
+		color: token('color.text'),
+		backgroundColor: token('color.background.neutral'),
 		userSelect: 'text',
 		transition: 'all 0.1s ease-in-out 0s',
 		cursor: 'pointer',
@@ -68,7 +67,7 @@ const ErrorBoundaryComponent: React.FC<ErrorBoundaryProps> = ({ message, isSelec
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<span style={style}>
-			<WarningIcon label="error" color={token('color.icon.danger', R300)} size="small" />
+			<WarningIcon label="error" color={token('color.icon.danger')} size="small" />
 			{message}
 		</span>
 	);

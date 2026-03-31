@@ -3,10 +3,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { VCObserverEntry, VCObserverEntryType, ViewportEntryData } from '../../types';
 import VCCalculator_FY25_03 from '../fy25_03';
 import {
+	DARK_READER_BROWSER_EXTENSION_ATTRIBUTES,
+	MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES,
 	KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS,
 	NON_VISUAL_ARIA_ATTRIBUTES,
 	THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
-	DARK_READER_BROWSER_EXTENSION_ATTRIBUTES,
 } from '../utils/constants';
 
 const getConsideredEntryTypes = () => {
@@ -64,9 +65,13 @@ export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 			return false;
 		}
 
-		const thirdPartyAttributes = fg('platform_ufo_exclude_dark_reader_extension')
-			? [...THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES, ...DARK_READER_BROWSER_EXTENSION_ATTRIBUTES]
-			: THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES;
+		const thirdPartyAttributes = [
+			...THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
+			...(fg('platform_ufo_exclude_dark_reader_extension')
+				? DARK_READER_BROWSER_EXTENSION_ATTRIBUTES
+				: []),
+			...(fg('platform_ufo_exclude_fdprocessedid_attribute') ? MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES : []),
+		];
 
 		if (entryData.type === 'mutation:display-contents-children-attribute') {
 			if (

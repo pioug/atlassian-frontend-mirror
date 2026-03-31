@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 18.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.17
+
+### Patch Changes
+
+- [`f65fa1ea7c0e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f65fa1ea7c0e5) -
+  Cleaned up stale feature flag `platform_editor_fix_button_name_violation_in_table`. The flag has
+  been fully rolled out, so the button name fix in table floating insert button is now always
+  applied.
+- Updated dependencies
+
 ## 18.1.16
 
 ### Patch Changes

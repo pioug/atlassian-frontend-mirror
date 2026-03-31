@@ -26,13 +26,13 @@ const dimensions = { width: '100%', height: '100%' };
 const checkboxesContainerStyles = css({
 	display: 'flex',
 	justifyContent: 'center',
-	marginTop: token('space.250', '20px'),
+	marginTop: token('space.250'),
 	alignItems: 'center',
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const styledTableStyles = css({
-	margin: `${token('space.400', '32px')} auto ${token('space.0', '0px')} auto`,
+	margin: `${token('space.400')} auto ${token('space.0')} auto`,
 	maxWidth: '1100px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'thead *': {
@@ -40,7 +40,7 @@ const styledTableStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'td, th': {
-		padding: token('space.0', '0px'),
+		padding: token('space.0'),
 	},
 });
 

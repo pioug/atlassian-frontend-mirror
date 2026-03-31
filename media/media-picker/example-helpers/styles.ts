@@ -73,8 +73,8 @@ export const previewsWrapperStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	overflow: 'visible',
-	marginLeft: token('space.250', '20px'),
-	marginBottom: token('space.250', '20px'),
+	marginLeft: token('space.250'),
+	marginBottom: token('space.250'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

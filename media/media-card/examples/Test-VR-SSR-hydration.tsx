@@ -95,7 +95,7 @@ const runSSR = async (
 const rowStyle = {
 	display: 'flex',
 	flexDirection: 'row',
-	marginBottom: token('space.250', '20px'),
+	marginBottom: token('space.250'),
 } as const;
 
 export default (): React.JSX.Element => {
@@ -124,7 +124,7 @@ export default (): React.JSX.Element => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				margin: 'auto',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				marginTop: token('space.250', '20px'),
+				marginTop: token('space.250'),
 			}}
 		>
 			<MainWrapper developmentOnly>
@@ -133,12 +133,12 @@ export default (): React.JSX.Element => {
 				<div style={rowStyle}>
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ marginRight: token('space.250', '20px') }}
+						style={{ marginRight: token('space.250') }}
 						id={serverOnlySingleId}
 					></div>
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ marginRight: token('space.250', '20px') }}
+						style={{ marginRight: token('space.250') }}
 						id={hydrationSingleId}
 					></div>
 				</div>
@@ -148,12 +148,12 @@ export default (): React.JSX.Element => {
 				<div style={rowStyle}>
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ marginRight: token('space.250', '20px') }}
+						style={{ marginRight: token('space.250') }}
 						id={serverOnlyVideoId}
 					></div>
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ marginRight: token('space.250', '20px') }}
+						style={{ marginRight: token('space.250') }}
 						id={hydrationVideoId}
 					></div>
 				</div>
@@ -163,12 +163,12 @@ export default (): React.JSX.Element => {
 				<div style={rowStyle}>
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ marginRight: token('space.250', '20px') }}
+						style={{ marginRight: token('space.250') }}
 						id={serverOnlyGroupId}
 					></div>
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ marginRight: token('space.250', '20px') }}
+						style={{ marginRight: token('space.250') }}
 						id={hydrationGroupId}
 					></div>
 				</div>

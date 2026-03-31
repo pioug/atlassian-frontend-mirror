@@ -1,5 +1,14 @@
 # @atlaskit/datetime-picker
 
+## 17.5.7
+
+### Patch Changes
+
+- [`3f079fa52f117`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f079fa52f117) -
+  Change lang.replace(\_, -) ensures any ICU format input is normalised to valid BCP 47 before
+  rendering to DOM. This is a no-op when locale is already in BCP 47 format, making the change
+  backward compatible
+
 ## 17.5.6
 
 ### Patch Changes

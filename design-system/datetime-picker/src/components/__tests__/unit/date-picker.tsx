@@ -7,6 +7,7 @@ import { format, parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { convertTokens } from '../../../internal/parse-tokens';
 import { type DatePickerBaseProps } from '../../../types';
@@ -304,6 +305,38 @@ describe('DatePicker', () => {
 
 				expect(value).toHaveAttribute('lang', lang);
 			});
+
+			ffTest(
+				'platform-dst-single-value-lang-replace',
+				() => {
+					render(
+						createDatePicker({
+							value: exampleDate.iso,
+							locale: 'en_GB',
+						}),
+					);
+
+					const value = screen.getByText(
+						`${exampleDate.parts.day.padStart(2, '0')}/${exampleDate.parts.month.padStart(2, '0')}/${exampleDate.parts.year}`,
+					);
+
+					expect(value).toHaveAttribute('lang', 'en-GB');
+				},
+				() => {
+					render(
+						createDatePicker({
+							value: exampleDate.iso,
+							locale: 'en_GB',
+						}),
+					);
+
+					const value = screen.getByText(
+						`${exampleDate.parts.day.padStart(2, '0')}/${exampleDate.parts.month.padStart(2, '0')}/${exampleDate.parts.year}`,
+					);
+
+					expect(value).toHaveAttribute('lang', 'en_GB');
+				},
+			);
 
 			cases(
 				'should format date using provided locale',

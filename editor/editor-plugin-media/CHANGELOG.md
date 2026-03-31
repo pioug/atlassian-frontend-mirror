@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 10.1.9
+
+### Patch Changes
+
+- [`a3b34e2d09709`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3b34e2d09709) -
+  Cleanup experiment platform_editor_add_aria_checked_to_inline_img_btn - ships the enabled code
+  path (selected: false on inline image button)
+- Updated dependencies
+
+## 10.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.7
 
 ### Patch Changes

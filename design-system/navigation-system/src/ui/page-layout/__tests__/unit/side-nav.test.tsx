@@ -2,6 +2,7 @@ import React from 'react';
 
 import { renderToString } from 'react-dom/server';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
@@ -1069,118 +1070,120 @@ describe('Side nav', () => {
 	});
 
 	describe('post-SSR desktop visibility state sync', () => {
-		it('should only set desktop visibility state once after SSR hydration only, regardless of changes to defaultCollapsed prop', () => {
-			const setSideNavStateMock = jest.fn();
+		ffTest.both('navx-4418-fix-effect-state-updates-in-gsn', '', () => {
+			it('should only set desktop visibility state once after SSR hydration only, regardless of changes to defaultCollapsed prop', () => {
+				const setSideNavStateMock = jest.fn();
 
-			const MockProvider = ({
-				sideNavState,
-				children,
-			}: {
-				sideNavState: SideNavState | null;
-				children: React.ReactNode;
-			}) => (
-				// 	Wrapping in Root to provide open layer observer context
-				<Root>
-					{/* Overriding visibility context to mock the values */}
-					<SideNavVisibilityState.Provider value={sideNavState}>
-						<SetSideNavVisibilityState.Provider value={setSideNavStateMock}>
-							{children}
-						</SetSideNavVisibilityState.Provider>
-					</SideNavVisibilityState.Provider>
-				</Root>
-			);
-			const { rerender } = render(
-				<MockProvider sideNavState={null}>
-					<SideNav defaultCollapsed={false}>sidenav</SideNav>
-				</MockProvider>,
-			);
+				const MockProvider = ({
+					sideNavState,
+					children,
+				}: {
+					sideNavState: SideNavState | null;
+					children: React.ReactNode;
+				}) => (
+					// 	Wrapping in Root to provide open layer observer context
+					<Root>
+						{/* Overriding visibility context to mock the values */}
+						<SideNavVisibilityState.Provider value={sideNavState}>
+							<SetSideNavVisibilityState.Provider value={setSideNavStateMock}>
+								{children}
+							</SetSideNavVisibilityState.Provider>
+						</SideNavVisibilityState.Provider>
+					</Root>
+				);
+				const { rerender } = render(
+					<MockProvider sideNavState={null}>
+						<SideNav defaultCollapsed={false}>sidenav</SideNav>
+					</MockProvider>,
+				);
 
-			expect(setSideNavStateMock).toHaveBeenCalledTimes(1);
-			// Should be visible by default, as `defaultCollapsed` was false
-			expect(setSideNavStateMock).toHaveBeenCalledWith({
-				desktop: 'expanded',
-				mobile: 'collapsed',
-				flyout: 'closed',
-				lastTrigger: null,
+				expect(setSideNavStateMock).toHaveBeenCalledTimes(1);
+				// Should be visible by default, as `defaultCollapsed` was false
+				expect(setSideNavStateMock).toHaveBeenCalledWith({
+					desktop: 'expanded',
+					mobile: 'collapsed',
+					flyout: 'closed',
+					lastTrigger: null,
+				});
+
+				// Rerender with `defaultCollapsed` now flipped to `true`
+				rerender(
+					<MockProvider
+						sideNavState={{
+							desktop: 'expanded',
+							mobile: 'collapsed',
+							flyout: 'closed',
+							lastTrigger: null,
+						}}
+					>
+						<SideNav defaultCollapsed={true}>sidenav</SideNav>
+					</MockProvider>,
+				);
+
+				// Should not have been called again
+				expect(setSideNavStateMock).toHaveBeenCalledTimes(1);
 			});
 
-			// Rerender with `defaultCollapsed` now flipped to `true`
-			rerender(
-				<MockProvider
-					sideNavState={{
-						desktop: 'expanded',
-						mobile: 'collapsed',
-						flyout: 'closed',
-						lastTrigger: null,
-					}}
-				>
-					<SideNav defaultCollapsed={true}>sidenav</SideNav>
-				</MockProvider>,
-			);
+			it('should only sync desktop visibility state once after SSR hydration only, regardless of side nav state changing', async () => {
+				const user = userEvent.setup();
+				setMediaQuery('(min-width: 64rem)', { initial: true });
+				const setSideNavStateMock = jest.fn();
 
-			// Should not have been called again
-			expect(setSideNavStateMock).toHaveBeenCalledTimes(1);
-		});
+				const MockProvider = ({
+					sideNavState,
+					children,
+				}: {
+					sideNavState: SideNavState | null;
+					children: React.ReactNode;
+				}) => (
+					// 	Wrapping in Root to provide open layer observer context
+					<Root>
+						{/* Overriding visibility context to mock the values */}
+						<SideNavVisibilityState.Provider value={sideNavState}>
+							<SetSideNavVisibilityState.Provider value={setSideNavStateMock}>
+								{children}
+							</SetSideNavVisibilityState.Provider>
+						</SideNavVisibilityState.Provider>
+					</Root>
+				);
 
-		it('should only sync desktop visibility state once after SSR hydration only, regardless of side nav state changing', async () => {
-			const user = userEvent.setup();
-			setMediaQuery('(min-width: 64rem)', { initial: true });
-			const setSideNavStateMock = jest.fn();
+				render(
+					<MockProvider sideNavState={null}>
+						<TopNav>
+							<TopNavStart
+								sideNavToggleButton={
+									<SideNavToggleButton
+										collapseLabel="Collapse sidebar"
+										expandLabel="Expand sidebar"
+										defaultCollapsed={false}
+									/>
+								}
+							>
+								{null}
+							</TopNavStart>
+						</TopNav>
+						<SideNav defaultCollapsed={false}>sidenav</SideNav>
+					</MockProvider>,
+				);
 
-			const MockProvider = ({
-				sideNavState,
-				children,
-			}: {
-				sideNavState: SideNavState | null;
-				children: React.ReactNode;
-			}) => (
-				// 	Wrapping in Root to provide open layer observer context
-				<Root>
-					{/* Overriding visibility context to mock the values */}
-					<SideNavVisibilityState.Provider value={sideNavState}>
-						<SetSideNavVisibilityState.Provider value={setSideNavStateMock}>
-							{children}
-						</SetSideNavVisibilityState.Provider>
-					</SideNavVisibilityState.Provider>
-				</Root>
-			);
+				expect(setSideNavStateMock).toHaveBeenCalledTimes(1);
+				// Should be visible by default, as `defaultCollapsed` was false
+				expect(setSideNavStateMock).toHaveBeenCalledWith({
+					desktop: 'expanded',
+					mobile: 'collapsed',
+					flyout: 'closed',
+					lastTrigger: null,
+				});
 
-			render(
-				<MockProvider sideNavState={null}>
-					<TopNav>
-						<TopNavStart
-							sideNavToggleButton={
-								<SideNavToggleButton
-									collapseLabel="Collapse sidebar"
-									expandLabel="Expand sidebar"
-									defaultCollapsed={false}
-								/>
-							}
-						>
-							{null}
-						</TopNavStart>
-					</TopNav>
-					<SideNav defaultCollapsed={false}>sidenav</SideNav>
-				</MockProvider>,
-			);
+				await user.click(
+					screen.getByRole('button', {
+						name: 'Collapse sidebar',
+					}),
+				);
 
-			expect(setSideNavStateMock).toHaveBeenCalledTimes(1);
-			// Should be visible by default, as `defaultCollapsed` was false
-			expect(setSideNavStateMock).toHaveBeenCalledWith({
-				desktop: 'expanded',
-				mobile: 'collapsed',
-				flyout: 'closed',
-				lastTrigger: null,
+				// Should have been called only one more time - by the toggle button click
+				expect(setSideNavStateMock).toHaveBeenCalledTimes(2);
 			});
-
-			await user.click(
-				screen.getByRole('button', {
-					name: 'Collapse sidebar',
-				}),
-			);
-
-			// Should have been called only one more time - by the toggle button click
-			expect(setSideNavStateMock).toHaveBeenCalledTimes(2);
 		});
 	});
 

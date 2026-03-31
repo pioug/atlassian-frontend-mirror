@@ -111,9 +111,6 @@
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/theme/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/toggle/tsconfig.app.json"
 		},
 		{

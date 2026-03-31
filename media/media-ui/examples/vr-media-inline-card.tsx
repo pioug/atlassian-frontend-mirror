@@ -13,19 +13,19 @@ export default (): React.JSX.Element => (
 	<div
 		style={{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			padding: token('space.400', '2rem'),
+			padding: token('space.400'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			display: 'flex',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			flexDirection: 'column',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			gap: token('space.200', '1rem'),
+			gap: token('space.200'),
 		}}
 	>
 		<Container
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				gap: token('space.200', '1rem'),
+				gap: token('space.200'),
 			}}
 		>
 			<MediaInlineCardLoadingView message="I'm loading" />
@@ -35,7 +35,7 @@ export default (): React.JSX.Element => (
 		<Container
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				gap: token('space.200', '1rem'),
+				gap: token('space.200'),
 			}}
 		>
 			<MediaInlineCardLoadingView message="I'm loading" isSelected />

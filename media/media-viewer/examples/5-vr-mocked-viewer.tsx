@@ -194,9 +194,7 @@ const Sidebar = (props: SidebarProps) => {
 				<Button
 					onClick={actions.close}
 					aria-label="Close panel"
-					iconBefore={
-						<ArrowRightIcon spacing="spacious" color={token('color.icon', 'white')} label="" />
-					}
+					iconBefore={<ArrowRightIcon spacing="spacious" color={token('color.icon')} label="" />}
 				/>
 			</MVSidebarHeader>
 			{renderFileState()}

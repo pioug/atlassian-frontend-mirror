@@ -39,7 +39,7 @@ interface InternalIconProps extends IconProps {
 const iconStyles = css({
 	display: 'inline-block',
 	flexShrink: 0,
-	'--icon-secondary-color': token('elevation.surface', '#FFFFFF'),
+	'--icon-secondary-color': token('elevation.surface'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors

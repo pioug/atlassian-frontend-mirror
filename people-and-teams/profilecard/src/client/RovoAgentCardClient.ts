@@ -53,7 +53,7 @@ const buildRovoAgentQueryByAri = (agentAri: string) => ({
 	},
 });
 
-const buildRovoAgentQueryByAccountId = (identityAccountId: string, cloudId: string) => ({
+const buildRovoAgentQueryByAccountIdOld = (identityAccountId: string, cloudId: string) => ({
 	query: `
 		query RovoAgentProfileCard_AgentQueryByAccountId($identityAccountId: ID!, $cloudId: ID!) {
 			agentStudio_agentByIdentityAccountId(identityAccountId: $identityAccountId, cloudId: $cloudId) @optIn(to: "AgentStudio") {
@@ -72,6 +72,29 @@ const buildRovoAgentQueryByAccountId = (identityAccountId: string, cloudId: stri
 	`,
 	variables: {
 		identityAccountId,
+		cloudId,
+	},
+});
+
+const buildRovoAgentQueryByAccountId = (identityAccountId: string, cloudId: string) => ({
+	query: `
+		query RovoAgentProfileCard_AgentQueryByAccountId($id: ID!, $cloudId: String!) {
+			agentStudio_agentByIdentityAccountId(cloudId: $cloudId, id: $id) @optIn(to: "AgentStudio") {
+			  __typename
+				... on AgentStudioAssistant {
+					authoringTeam {
+						displayName
+						profileUrl
+					}
+				}
+				... on QueryError {
+					message
+				}
+			}
+		}
+	`,
+	variables: {
+		id: identityAccountId,
 		cloudId,
 	},
 });
@@ -149,9 +172,14 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 		identityAccountId: string,
 		cloudId: string,
 	): Promise<RovoAgentAgg | null | undefined> {
+
+
 		const response = await AGGQuery<{
 			agentStudio_agentByIdentityAccountId: AgentAggResponse | null | undefined;
-		}>('/gateway/api/graphql', buildRovoAgentQueryByAccountId(identityAccountId, cloudId));
+		}>('/gateway/api/graphql',
+			fg('jira_ai_fix_agent_profile_card_flashing') ?
+	buildRovoAgentQueryByAccountId(identityAccountId, cloudId) : buildRovoAgentQueryByAccountIdOld(identityAccountId, cloudId)
+	);
 
 		if (response.agentStudio_agentByIdentityAccountId?.__typename === 'QueryError') {
 			throw new Error(

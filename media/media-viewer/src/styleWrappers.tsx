@@ -38,10 +38,10 @@ const headerWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	color: '#c7d1db',
 	fontWeight: token('font.weight.medium'),
-	paddingTop: token('space.300', '24px'),
-	paddingBottom: token('space.300', '24px'),
-	paddingLeft: token('space.300', '24px'),
-	paddingRight: token('space.300', '24px'),
+	paddingTop: token('space.300'),
+	paddingBottom: token('space.300'),
+	paddingLeft: token('space.300'),
+	paddingRight: token('space.300'),
 	boxSizing: 'border-box',
 	pointerEvents: 'none',
 	// (OVERLAY_Z_INDEX = 520) + 1
@@ -64,8 +64,8 @@ const listWrapperStyles = css({
 
 const closeButtonWrapperStyles = css({
 	position: 'absolute',
-	top: token('space.300', '24px'),
-	right: token('space.250', '20px'),
+	top: token('space.300'),
+	right: token('space.250'),
 	// (OVERLAY_Z_INDEX = 520) + 2
 	zIndex: 522,
 });
@@ -90,17 +90,17 @@ const zoomWrapperStyles = css({
 	boxSizing: 'border-box',
 	display: 'flex',
 	alignItems: 'flex-end',
-	paddingTop: `${token('space.100', '10px')} ${token('space.300', '24px')}`,
-	paddingBottom: `${token('space.100', '10px')}`,
-	paddingRight: `${token('space.300', '24px')}`,
-	paddingLeft: `${token('space.300', '24px')}`,
+	paddingTop: `${token('space.100')} ${token('space.300')}`,
+	paddingBottom: `${token('space.100')}`,
+	paddingRight: `${token('space.300')}`,
+	paddingLeft: `${token('space.300')}`,
 });
 
 const zoomCenterControlsStyles = css({
 	width: '100%',
 	display: 'flex',
 	justifyContent: 'center',
-	gap: token('space.100', '10px'),
+	gap: token('space.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		pointerEvents: 'all',
@@ -109,13 +109,13 @@ const zoomCenterControlsStyles = css({
 
 const zoomRightControlsStyles = css({
 	position: 'absolute',
-	right: token('space.300', '24px'),
+	right: token('space.300'),
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	color: '#c7d1db',
 	pointerEvents: 'all',
 	display: 'flex',
 	justifyContent: 'right',
-	gap: token('space.100', '10px'),
+	gap: token('space.100'),
 });
 
 const zoomLevelIndicatorStyles = css({
@@ -127,7 +127,7 @@ const zoomLevelIndicatorStyles = css({
 const hdIconGroupWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	gap: token('space.100', '10px'),
+	gap: token('space.100'),
 	position: 'relative',
 	width: '24px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -147,7 +147,7 @@ const errorMessageWrapperStyles = css({
 });
 
 const errorImageStyles = css({
-	marginBottom: token('space.100', '10px'),
+	marginBottom: token('space.100'),
 	userSelect: 'none',
 });
 
@@ -199,10 +199,10 @@ const arrowWrapperStyles = css({
 	position: 'absolute',
 	top: '50%',
 	transform: 'translateY(-50%)',
-	paddingTop: token('space.250', '20px'),
-	paddingBottom: token('space.250', '20px'),
-	paddingLeft: token('space.250', '20px'),
-	paddingRight: token('space.250', '20px'),
+	paddingTop: token('space.250'),
+	paddingBottom: token('space.250'),
+	paddingLeft: token('space.250'),
+	paddingRight: token('space.250'),
 });
 
 const arrowsWrapperStyles = css({
@@ -315,7 +315,7 @@ export interface IconWrapperProps {
 
 const rightHeaderStyles = css({
 	textAlign: 'right',
-	marginRight: token('space.500', '40px'),
+	marginRight: token('space.500'),
 	minWidth: '200px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
@@ -366,7 +366,7 @@ const defaultCoverWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
-	color: token('color.text', '#9FADBC'),
+	color: token('color.text'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		transform: 'scale(2)',
@@ -374,7 +374,7 @@ const defaultCoverWrapperStyles = css({
 });
 
 const downloadButtonWrapperStyles = css({
-	marginTop: token('space.300', '28px'),
+	marginTop: token('space.300'),
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	button: {
@@ -402,8 +402,8 @@ const sidebarWrapperStyles = css({
 	width: `416px`,
 	height: '100vh',
 	overflow: 'hidden auto',
-	backgroundColor: token('elevation.surface', '#101214'),
-	color: token('color.text', '#c7d1db'),
+	backgroundColor: token('elevation.surface'),
+	color: token('color.text'),
 });
 
 const spinnerWrapperStyles = css({

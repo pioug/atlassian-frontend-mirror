@@ -35,6 +35,13 @@ type ChangePanelAEP = ChangeTypeAEP<
 	undefined
 >;
 
+type ChangeNativeEmbedAEP = ChangeTypeAEP<
+	ACTION_SUBJECT.NATIVE_EMBED,
+	undefined,
+	{ newType: 'nativeEmbed' | SMART_LINK_TYPE; previousType: 'nativeEmbed' | SMART_LINK_TYPE },
+	undefined
+>;
+
 type ChangeSmartLinkAEP = ChangeTypeAEP<
 	ACTION_SUBJECT.SMART_LINK,
 	undefined,
@@ -156,4 +163,5 @@ export type NodeEventPayload =
 	| DeletedExpandAEP
 	| NodeDeletedAEP
 	| ChangeSmartLinkAEP
+	| ChangeNativeEmbedAEP
 	| UnsupportedContentAEP;

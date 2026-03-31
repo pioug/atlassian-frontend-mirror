@@ -1,5 +1,12 @@
 # @atlassian/navigation-system
 
+## 7.1.2
+
+### Patch Changes
+
+- [`5aec10fd5955e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5aec10fd5955e) -
+  Wrap useEffect->set-state call in startTransition, to avoid potential hydration rework.
+
 ## 7.1.1
 
 ### Patch Changes

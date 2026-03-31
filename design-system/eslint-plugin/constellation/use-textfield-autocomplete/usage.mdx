@@ -1,0 +1,61 @@
+# use-textfield-autocomplete
+
+This rule enforces that `Textfield` components with identifiable input purposes (`type="email"`,
+`type="tel"`, or `type="url"`) have an appropriate `autoComplete` prop set. This is required for
+WCAG 2.2 SC 1.3.5 compliance (Identify Input Purpose), which mandates that inputs with identifiable
+purposes must have that purpose indicated programmatically.
+
+## Supported Types
+
+| Input `type` | Required `autoComplete` |
+| ------------ | ----------------------- |
+| `email`      | `"email"`               |
+| `tel`        | `"tel"`                 |
+| `url`        | `"url"`                 |
+
+## Examples
+
+This rule will warn makers if a `Textfield` component with one of the supported types is missing the
+`autoComplete` attribute or has it set to `"off"`.
+
+### Incorrect
+
+```tsx
+import Textfield from '@atlaskit/textfield';
+
+// Missing autoComplete (Having autoComplete on the Textfield would provide the most accurate autofill)
+<Textfield type="email" />
+<Textfield type="tel" />
+<Textfield type="url" />
+```
+
+```tsx
+import Textfield from '@atlaskit/textfield';
+
+// autoComplete disabled
+<Textfield type="email" autoComplete="off" />
+<Textfield type="tel" autoComplete="off" />
+<Textfield type="url" autoComplete="off" />
+```
+
+### Correct
+
+```tsx
+import Textfield from '@atlaskit/textfield';
+
+<Textfield type="email" autoComplete="email" />
+<Textfield type="tel" autoComplete="tel" />
+<Textfield type="url" autoComplete="url" />
+```
+
+## Auto-Fix
+
+This rule is auto-fixable. When enabled, ESLint can automatically:
+
+- Add the appropriate `autoComplete` value to `Textfield` components that are missing the attribute
+- Replace `autoComplete="off"` with the correct value for the input type
+
+## References
+
+- [WCAG 2.2 SC 1.3.5: Identify Input Purpose](https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html)
+- [HTML autocomplete attribute specification](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill)

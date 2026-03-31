@@ -59,6 +59,12 @@ export const THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES: string[] = [
 	'data-gr-aaa-loaded',
 ];
 
+// TODO Merge with THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES on platform_ufo_exclude_fdprocessedid_attribute cleanup
+export const MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES: string[] = [
+	'fdprocessedid',
+	'data-dashlane-classification',
+];
+
 // TODO Merge with THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES on platform_ufo_exclude_dark_reader_extension cleanup
 export const DARK_READER_BROWSER_EXTENSION_ATTRIBUTES: string[] = [
 	// dark reader extension

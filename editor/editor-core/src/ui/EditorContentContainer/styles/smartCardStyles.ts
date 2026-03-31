@@ -64,6 +64,20 @@ export const showDiffDeletedNodeStyles: SerializedStyles = css({
 				borderColor: 'transparent',
 			},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
+		[`&.show-diff-deleted-node-traditional.show-diff-deleted-active .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after`]:
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+				borderColor: 'transparent',
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
+		[`&.show-diff-deleted-node.show-diff-deleted-active .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after`]:
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+				borderColor: 'transparent',
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
 		[`&.show-diff-deleted-node .${SmartCardSharedCssClassName.LOADER_WRAPPER}`]: {
 			opacity: 0.6,
 		},
@@ -85,6 +99,25 @@ export const showDiffDeletedNodeStyles: SerializedStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
 			boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
 			borderRadius: token('radius.small'),
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-deleted-node-traditional.show-diff-deleted-active .media-card-wrapper': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& > div': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+			borderRadius: token('radius.small'),
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-deleted-node.show-diff-deleted-active .media-card-wrapper': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& > div': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+			borderRadius: token('radius.small'),
+			opacity: 0.6,
 		},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -121,6 +154,20 @@ export const showDiffDeletedNodeStylesNew: SerializedStyles = css({
 				borderColor: 'transparent',
 			},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
+		[`&.show-diff-deleted-node-traditional.show-diff-deleted-active .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after`]:
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+				borderColor: 'transparent',
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
+		[`&.show-diff-deleted-node.show-diff-deleted-active .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after`]:
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+				borderColor: 'transparent',
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
 		[`&.show-diff-deleted-node .${SmartCardSharedCssClassName.LOADER_WRAPPER}`]: {
 			opacity: 0.8,
 		},
@@ -142,6 +189,25 @@ export const showDiffDeletedNodeStylesNew: SerializedStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
 			boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
 			borderRadius: token('radius.small'),
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-deleted-node-traditional.show-diff-deleted-active .media-card-wrapper': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& > div': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+			borderRadius: token('radius.small'),
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-deleted-node.show-diff-deleted-active .media-card-wrapper': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& > div': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+			borderRadius: token('radius.small'),
+			opacity: 0.8,
 		},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

@@ -25,9 +25,9 @@ export const layoutToWidth: {
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	default: number;
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
-	wide: number;
-	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	'full-width': number;
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
+	wide: number;
 } = {
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	default: akEditorDefaultLayoutWidth,
@@ -152,6 +152,7 @@ const getNestedParentNode = (tablePos: number, state: EditorState): PMNode | nul
 	}
 
 	const $pos = state.doc.resolve(tablePos);
+
 	const parent = findParentNodeOfTypeClosestToPos($pos, [
 		state.schema.nodes.bodiedExtension,
 		state.schema.nodes.extensionFrame,
@@ -159,6 +160,7 @@ const getNestedParentNode = (tablePos: number, state: EditorState): PMNode | nul
 		state.schema.nodes.expand,
 		state.schema.nodes.tableCell,
 		state.schema.nodes.tableHeader,
+		...(fg('platform_synced_block_patch_8') ? [state.schema.nodes.bodiedSyncBlock] : []),
 	]);
 
 	return parent ? parent.node : null;
@@ -174,11 +176,11 @@ const calcBreakoutNodeWidth = (
 		return isFullWidthModeEnabled
 			? Math.min(containerWidth.lineLength as number, breakoutWidth)
 			: // container width minus breakout padding
-				// --ak-editor--breakout-full-page-guttering-padding = (--ak-editor--large-gutter-padding * 2) + --ak-editor--default-gutter-padding
-				Math.min(
-					containerWidth.width - (akEditorGutterPaddingDynamic() * 2 + akEditorGutterPadding),
-					breakoutWidth,
-				);
+			// --ak-editor--breakout-full-page-guttering-padding = (--ak-editor--large-gutter-padding * 2) + --ak-editor--default-gutter-padding
+			Math.min(
+				containerWidth.width - (akEditorGutterPaddingDynamic() * 2 + akEditorGutterPadding),
+				breakoutWidth,
+			);
 	}
 	return isFullWidthModeEnabled
 		? Math.min(containerWidth.lineLength as number, akEditorFullWidthLayoutWidth)

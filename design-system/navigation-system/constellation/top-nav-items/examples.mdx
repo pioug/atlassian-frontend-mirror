@@ -7,6 +7,7 @@ order: 1
 import SectionMessage from '@atlaskit/section-message';
 
 import { TopNavStartLayoutExample } from '../../examples/constellation/top-nav-items/top-nav-start';
+import { TopNavStartToggleExample } from '../../examples/constellation/top-nav-items/top-nav-start-toggle';
 import { TopNavMiddleLayoutExample } from '../../examples/constellation/top-nav-items/top-nav-middle';
 import { TopNavEndLayoutExample } from '../../examples/constellation/top-nav-items/top-nav-end';
 import { AppLogoExample } from '../../examples/constellation/top-nav-items/app-logo';
@@ -18,89 +19,96 @@ import { EndItemExample } from '../../examples/constellation/top-nav-items/end-i
 import { TopNavButtonExample } from '../../examples/constellation/top-nav-items/top-nav-button';
 import { CustomTitleExample } from '../../examples/constellation/top-nav-items/custom-title';
 
-These components can be used within the
-[top nav](/components/navigation-system/layout/examples#top-nav).
+These components can be used within the top nav from [layout](/components/navigation-system/layout/examples).
 
 For other components that can be used within the top nav, see
-[navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE).
+[navigation resources (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE).
 
 ## Start items
 
-These actions go in the [Top nav start](/components/navigation-system/layout/examples#top-nav-slots)
-area. They are left-aligned in the following order:
+These actions go in the [top nav start](/components/navigation-system/layout/examples#top-nav-slots)
+area.
 
-- SideNavToggleButton - Opens and closes the
+- Side nav toggle button: Opens and closes the
   [side nav](/components/navigation-system/layout/examples#side-nav).
-- AppSwitcher - Use to open and close an app switcher. See
-  [navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE)
+- App switcher: Opens and closes an app switcher. See
+  [navigation resources (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE)
   for recommended platform components.
 
 Use one of the following logo components to orient users and provide a persistent link to the app
 landing page:
 
-- [AppLogo](#applogo) - A container for an app's [logo icon](/components/logo) and name.
-- [CustomLogo](#customlogo) - A container for custom logo images.
-- [CustomTitle](#customtitle) - Optional text used for app customisation by customers.
+- [App logo](#app-logo): A container for an app's [logo icon](/components/logo) and name.
+- [Custom logo](#custom-logo): A container for custom logo images.
+- [Custom title](#custom-title): Optional text used for app customisation by customers.
 
 <Example Component={TopNavStartLayoutExample} />
 
-### AppLogo
+### Side nav toggle button
 
-`AppLogo` displays an app [logo icon](/components/logo) and name.
+The side nav toggle button must be passed to `TopNavStart` through the `sideNavToggleButton` prop, not via `children`.
+- When the keyboard shortcut is enabled, the toggle button’s tooltip will automatically show Ctrl+[ as the shortcut.
+- The toggle button is left-aligned when the side nav is collapsed, and right-aligned when the side nav is expanded.
 
-- Max width is 320px. If larger, the text will truncate.
+<Example Component={TopNavStartToggleExample} />
+
+### App logo
+
+App logo displays an app [logo icon](/components/logo) and name.
+- It has a maximum width of 320px, after which the app name truncates. The app name also truncates based on the available space when the side nav is resized.
 - At `s` breakpoints and below (less that 1024px), the app name is not shown.
 
-See the [Responsive section](#responsive) for more information.
+See the [responsive section](#responsive) for more information.
 
 <Example Component={AppLogoExample} />
 
-### CustomLogo
+### Custom logo
 
-`CustomLogo` provides a container for custom logo images with the following width and height values:
+Custom logo provides a container for custom logo images with the following constraints:
+- Maximum width: 320px.  If the image is wider than this, or if space is limited when the side nav is resized, the logo will scale down to fit.
+- Maximum height: 24px. If the image is shorter than this, the logo will scale up to fit.
 
-- Max width 320px. If larger, the logo will scale down to fit.
-- Max height 24px. If smaller, the logo will scale up to fit.
+Do not provide explicit width and height values on the image, otherwise it will not respect the container size.
 
-Do not provide explicit width and height values otherwise they will not respect the container size.
-At `s` breakpoints and below (less that 1024px), the provided icon is shown. Above `s` breakpoints,
+At `s` breakpoints and below (less that 1024px), only the provided icon is shown. Above `s` breakpoints,
 the provided logo is shown.
 
-See the [Responsive section](#responsive) for more information.
+See the [responsive section](#responsive) for more information.
 
 <Example Component={CustomLogoExample} />
 
-### CustomTitle
+### Custom title
 
 Optional text used for app customisation by customers.
 
-When present, it sits to the right of the logo, and and will truncate after 200px. At `s`
-breakpoints and below (less than 1024px), `CustomTitle` will not display.
+- When present, it appears to the right of the logo.
+- It has a maximum width of 200px, after which the text truncates. It also truncates based on the available space when the side nav is resized.
+- At `s` breakpoints and below (less than 1024px), the custom title is not displayed.
 
 <Example Component={CustomTitleExample} />
 
 ## Middle items
 
 These actions go in the
-[Top nav middle](/components/navigation-system/layout/examples#top-nav-slots) area, and are
-centre-aligned.
+[top nav middle](/components/navigation-system/layout/examples#top-nav-slots) area.
 
-- It should consist of a search component and a create component, in that order to maintain the
+- They should consist of a search component and a create component, in that order to maintain the
   correct layout behaviour.
+- The actions are centre-aligned when the side nav is collapsed, and left-aligned when the side nav is expanded.
+- At `xl` breakpoints (1768px or greater), the middle items are centred in the viewport when the side nav is expanded, but are pushed out by the side nav to avoid overlapping.
 - We have provided placeholder components. See
-  [navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE)
+  [navigation resources (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE)
   for recommended platform components.
 - Our placeholder search field scales to fill the available area of common actions, up to a maximum
   width of 780px. At `xxs` breakpoints (less than 480px), the search field converts to an icon only
   button.
 
-See the [Responsive section](#responsive) for more information. If using search or create components
+See the [responsive section](#responsive) for more information. If you use search or create components
 from other packages, you may experience different responsive behaviour.
 
 <SectionMessage>
 
-The search bar must be the first child in `TopNavMiddle`, in line with our design specifications. If
-this is not the case, you may see unexpected layout behavior.
+The search bar must be the first child of `TopNavMiddle`, in line with our design specifications. Otherwise, you may see unexpected layout behavior.
 
 </SectionMessage>
 
@@ -108,7 +116,7 @@ this is not the case, you may see unexpected layout behavior.
 
 ## End items
 
-These actions go in the [Top nav end](/components/navigation-system/layout/examples#top-nav-slots)
+These actions appear in the [top nav end](/components/navigation-system/layout/examples#top-nav-slots)
 area. They are right-aligned and provided as a list for accessibility. Contains, in the following
 order:
 
@@ -119,12 +127,12 @@ order:
 - Settings - Use to open and close a settings menu.
 - Profile/Login - A placeholder for an account component.
 
-See [navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE)
-for recommended platform components for these buttons, or triggered by these buttons.
+See [navigation resources (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE)
+for recommended platform components for these buttons, or components triggered by these buttons.
 
-At `xs` breakpoints and below (less than 768px), these buttons collapse into a single 'more' button.
+At `xs` breakpoints and below (less than 768px), these buttons collapse into a single 'More' button.
 
-See the [Responsive section](#responsive) for more details.
+See the [responsive section](#responsive) for more details.
 
 <Example Component={TopNavEndLayoutExample} />
 
@@ -132,27 +140,27 @@ See the [Responsive section](#responsive) for more details.
 
 If none of the provided end items are suitable, you can create your own icon button using `EndItem`.
 
-If you need a more customised button, use `TopNavButton` and wrap it in a list item.
+If you need a more customised button, use [top nav button](#top-nav-button) and wrap it in a list item.
 
 <Example Component={EndItemExample} />
 
-## Top Nav Button
+## Top nav button
 
-A button that supports theming. Variants available:
+A button component that supports theming. The following variants are available:
 
-- top nav icon button
-- top nav link button
-- top nav link icon button
-- top nav button
+- Top nav icon button
+- Top nav link button
+- Top nav link icon button
+- Top nav button
 
-Use if you need to add buttons to top nav. Adding buttons may negatively impact the consistency
+Use this component when you need to add buttons to the top nav. Be aware that adding custom buttons may negatively impact the consistency
 across apps.
 
 <Example Component={TopNavButtonExample} />
 
 ## Responsive
 
-Top nav items respond to the viewport size. See default behaviour below, or the
+Top nav items respond to the viewport size. See the default behaviour below, or explore the
 [interactive example](/components/navigation-system/examples#examples).
 
 **Note:** If using other platform components in top nav, they may have different responsive
@@ -169,14 +177,14 @@ behaviour.
 
 ## Custom theming
 
-Custom theming is set on the [top nav](/components/navigation-system/layout/examples#top-nav).
+Custom theming is configured on the [top nav](/components/navigation-system/layout/custom-theming).
 
 ### Logos
 
-Logos and icons from the [Logo](/components/logo) package will automatically consume the theme when
+Logos and icons from the [logo](/components/logo) package will automatically consume the theme when
 used with the `AppLogo` or `CustomLogo` component.
 
-Custom logos uploaded by organization admins are unaffected by theming.
+Custom logos uploaded by organization admins are not affected by theming.
 
 <Example Component={CustomThemingLogoExample} />
 
@@ -187,7 +195,7 @@ Search Platform components.
 
 <SectionMessage appearance="warning" title="Use sparingly">
 
-Do not create new components that rely on the `useLegacySearchTheme()` hook. It is only intended for
+Do not create new components that rely on the `useLegacySearchTheme()` hook. It is intended only for
 backwards compatibility, and may be deprecated if the Search Platform evolves.
 
 </SectionMessage>
@@ -196,12 +204,12 @@ backwards compatibility, and may be deprecated if the Search Platform evolves.
 
 ### Buttons
 
-Do not use [Button](/components/button) inside of the top navigation.
+Do not use [button](/components/button) inside of the top navigation.
 
-Use the action components exported from this package (such as `AppSwitcher` and `Create`) as they
-will automatically consume the custom theme.
+Use the action components exported from this package (such as `AppSwitcher`), as they
+ automatically consume the custom theme.
 
-Custom actions can be created using `EndItem` for icon buttons and `TopNavButton` for buttons with
+Custom actions can be created using [end item](#end-item) for icon buttons and [top nav button](#top-nav-button) for buttons with
 visible text.
 
 <Example Component={CustomThemingButtonsExample} />

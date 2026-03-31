@@ -70,13 +70,33 @@ export const deletedStyleQuoteNodeWithLozenge: string = convertToInlineCss({
 	borderRadius: token('radius.small'),
 });
 
+/** Stronger outline when this deleted block decoration is the active scroll target */
+export const deletedStyleQuoteNodeWithLozengeActive: string = convertToInlineCss({
+	marginTop: token('space.150'),
+	paddingTop: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
+	boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+	borderRadius: token('radius.small'),
+});
+
 export const deletedBlockOutline: string = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
 	borderRadius: token('radius.small'),
 });
 
+export const deletedBlockOutlineActive: string = convertToInlineCss({
+	boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+	borderRadius: token('radius.small'),
+});
+
 export const deletedBlockOutlineRounded: string = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
+	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
+});
+
+export const deletedBlockOutlineRoundedActive: string = convertToInlineCss({
+	boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
 	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
 });
 

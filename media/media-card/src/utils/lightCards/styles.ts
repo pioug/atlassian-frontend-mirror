@@ -2,7 +2,6 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { center, borderRadius } from '@atlaskit/media-ui';
-import { N20, N50 } from '@atlaskit/theme/colors';
 import { type WrapperProps } from './types';
 
 export const wrapperStyles = ({ dimensions }: WrapperProps) =>
@@ -10,8 +9,8 @@ export const wrapperStyles = ({ dimensions }: WrapperProps) =>
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		center,
 		{
-			background: token('color.background.neutral', N20),
-			color: token('color.icon', N50),
+			background: token('color.background.neutral'),
+			color: token('color.icon'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius,

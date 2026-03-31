@@ -1,5 +1,24 @@
 # @atlaskit/smart-card
 
+## 43.28.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.28.6
+
+### Patch Changes
+
+- [`f838a5a7535df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f838a5a7535df) -
+  VULN-1914676 disabling parsing of raw html for ai summary markdown
+
+## 43.28.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.28.4
 
 ### Patch Changes

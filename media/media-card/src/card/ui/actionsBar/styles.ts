@@ -17,8 +17,8 @@ export const wrapperStyles = (isFixed?: boolean) =>
 		display: 'flex',
 		flexFlow: 'row nowrap',
 		justifyContent: 'right',
-		padding: token('space.100', '8px'),
-		gap: token('space.100', '8px'),
+		padding: token('space.100'),
+		gap: token('space.100'),
 	});
 
 wrapperStyles.displayName = 'ActionsBarWrapper';

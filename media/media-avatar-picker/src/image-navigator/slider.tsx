@@ -29,7 +29,7 @@ const sliderWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.zoom_button svg': {
 		position: 'relative',
-		left: token('space.negative.025', '-2px'),
+		left: token('space.negative.025'),
 	},
 });
 

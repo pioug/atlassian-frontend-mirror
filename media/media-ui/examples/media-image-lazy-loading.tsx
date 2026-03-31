@@ -8,7 +8,7 @@ import { MediaImage } from '../src';
 
 const paddingBoxStyle: CSSProperties = {
 	height: '110vh',
-	background: token('color.background.neutral', '#eee'),
+	background: token('color.background.neutral'),
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'space-between',
@@ -16,7 +16,7 @@ const paddingBoxStyle: CSSProperties = {
 const imageBoxStyle: CSSProperties = {
 	position: 'relative',
 	height: '20rem',
-	border: `${token('border.width')} solid ${token('color.border', 'black')}`,
+	border: `${token('border.width')} solid ${token('color.border')}`,
 };
 
 export default (): React.JSX.Element => {

@@ -32,6 +32,7 @@ import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar
 import { focusPlugin } from '@atlaskit/editor-plugins/focus';
 import { gridPlugin } from '@atlaskit/editor-plugins/grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';
+import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
 import { layoutPlugin } from '@atlaskit/editor-plugins/layout';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
@@ -44,6 +45,7 @@ import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { statusPlugin } from '@atlaskit/editor-plugins/status';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
+import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
@@ -175,6 +177,7 @@ export default function FullPageDiffEditor(): React.JSX.Element {
 				.add(statusPlugin)
 				.add(guidelinePlugin)
 				.add(textFormattingPlugin)
+				.add(textColorPlugin)
 				.add([
 					tablesPlugin,
 					{
@@ -209,6 +212,7 @@ export default function FullPageDiffEditor(): React.JSX.Element {
 				.add(floatingToolbarPlugin)
 				.add([cardPlugin, { allowBlockCards: true, allowEmbeds: true }])
 				.add([editorViewModePlugin, { mode: 'view' }])
+				.add(highlightPlugin)
 				.add([
 					mediaPlugin,
 					{

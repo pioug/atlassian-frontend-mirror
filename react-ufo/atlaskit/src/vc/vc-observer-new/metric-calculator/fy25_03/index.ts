@@ -11,10 +11,11 @@ import type {
 } from '../../types';
 import AbstractVCCalculatorBase from '../abstract-base-vc-calculator';
 import {
+	DARK_READER_BROWSER_EXTENSION_ATTRIBUTES,
+	MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES,
 	KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS,
 	NON_VISUAL_ARIA_ATTRIBUTES,
 	THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
-	DARK_READER_BROWSER_EXTENSION_ATTRIBUTES,
 } from '../utils/constants';
 import { isEntrySmartAnswersInSearch } from '../utils/is-entry-smart-answers-in-search';
 import isViewportEntryData from '../utils/is-viewport-entry-data';
@@ -131,7 +132,9 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 				(THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES.includes(attributeName) &&
 					fg('platform_ufo_exclude_3p_extensions_from_ttvc')) ||
 				(DARK_READER_BROWSER_EXTENSION_ATTRIBUTES.includes(attributeName) &&
-					fg('platform_ufo_exclude_dark_reader_extension'))
+					fg('platform_ufo_exclude_dark_reader_extension')) ||
+				(MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES.includes(attributeName) &&
+					fg('platform_ufo_exclude_fdprocessedid_attribute'))
 			) {
 				return false;
 			}

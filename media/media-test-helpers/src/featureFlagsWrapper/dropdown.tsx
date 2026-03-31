@@ -26,7 +26,7 @@ const camelCaseToSentenceCase = (text: string) => {
 const Container = styled.div({
 	display: 'flex',
 	flexDirection: 'row',
-	margin: `${token('space.250', '20px')} auto`,
+	margin: `${token('space.250')} auto`,
 });
 
 const CheckboxItem = ({

@@ -54,7 +54,10 @@ export function PopupTrigger({ children }: TPopupTriggerProps): ReactNode {
 				// - If React thinks it was closed → the user wants to open.
 				//   Call showPopover().
 				if (!isOpenRef.current) {
-					popoverEl.showPopover();
+					// Defensive: element may be disconnected or in an unexpected state.
+					try {
+						popoverEl.showPopover();
+					} catch {}
 				}
 				// When isOpenRef.current is true, the browser's light-dismiss
 				// already closed the popover and fired the toggle event, which

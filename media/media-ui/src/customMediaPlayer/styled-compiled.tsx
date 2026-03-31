@@ -23,8 +23,8 @@ const volumeStyles = css({
 	overflow: 'hidden',
 	transition: 'width 0.3s',
 	alignItems: 'center',
-	bottom: token('space.0', '0px'),
-	left: token('space.500', '40px'),
+	bottom: token('space.0'),
+	left: token('space.500'),
 });
 
 const showSliderVolumeStyles = css({
@@ -56,7 +56,7 @@ export const VolumeWrapper = ({
 const currentTimeStyles = css({
 	color: '#c7d1db',
 	userSelect: 'none',
-	marginRight: token('space.100', '8px'),
+	marginRight: token('space.100'),
 	whiteSpace: 'nowrap',
 });
 
@@ -101,7 +101,7 @@ const currentTimeLineStyles = css({
 	borderRadius: 'inherit',
 	height: 'inherit',
 	position: 'absolute',
-	top: token('space.0', '0px'),
+	top: token('space.0'),
 	maxWidth: '100%',
 });
 
@@ -125,7 +125,7 @@ const thumbStyles = css({
 	borderColor: '#666',
 	position: 'absolute',
 	right: 0,
-	top: token('space.025', '2px'),
+	top: token('space.025'),
 	transform: 'translate(7px, -50%) scale(0)',
 	transition: 'all 0.1s',
 	transitionDelay: '1s',
@@ -148,13 +148,13 @@ const currentTimeLineThumbStyles = css({
 	transform: 'translate(50%, -50%)',
 	backgroundColor: '#05c',
 	border: 'none',
-	height: token('space.150', '13px'),
-	width: token('space.150', '13px'),
+	height: token('space.150'),
+	width: token('space.150'),
 	pointerEvents: 'none',
 	borderRadius: token('radius.full'),
 	opacity: '0',
-	outline: `${token('border.width.focused')} solid ${token('color.border.focused', '#85B8FF')}`,
-	outlineOffset: token('space.025', '2px'),
+	outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
+	outlineOffset: token('space.025'),
 
 	'&:focus': {
 		opacity: '1',
@@ -195,7 +195,7 @@ export const BufferedTime = ({
 
 const leftControlsStyles = css({
 	display: 'flex',
-	marginLeft: token('space.150', '12px'),
+	marginLeft: token('space.150'),
 });
 
 export const LeftControls = ({
@@ -210,7 +210,7 @@ export const LeftControls = ({
 const rightControlStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	marginRight: token('space.150', '12px'),
+	marginRight: token('space.150'),
 });
 
 export const RightControls = ({
@@ -298,7 +298,7 @@ export const VolumeToggleWrapper = ({
 
 const volumeTimeRangeWrapperStyles = css({
 	width: '100%',
-	marginRight: token('space.250', '20px'),
+	marginRight: token('space.250'),
 });
 
 export const VolumeTimeRangeWrapper = ({
@@ -314,8 +314,8 @@ const mutedIndicatorStyles = css({
 	width: '29px',
 	height: '2px',
 	position: 'absolute',
-	top: token('space.100', '8px'),
-	left: token('space.100', '8px'),
+	top: token('space.100'),
+	left: token('space.100'),
 	zIndex: 2,
 	background: R300,
 	transform: 'rotate(32deg) translateY(10px)',
@@ -347,15 +347,15 @@ export interface CurrentTimeTooltipProps {
 const currentTimeTooltipStyles = css({
 	position: 'absolute',
 	userSelect: 'none',
-	top: token('space.negative.400', '-32px'),
+	top: token('space.negative.400'),
 	backgroundColor: '#182c4c',
 	color: '#eff1f3',
-	font: token('font.body.UNSAFE_small'),
-	paddingTop: token('space.050', '4px'),
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.050', '4px'),
-	paddingLeft: token('space.100', '8px'),
-	borderRadius: token('space.050', '4px'),
+	font: token('font.body.small'),
+	paddingTop: token('space.050'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.050'),
+	paddingLeft: token('space.100'),
+	borderRadius: token('space.050'),
 	left: '50%',
 	transform: 'translateX(-50%)',
 	transition: 'opacity 0.3s',

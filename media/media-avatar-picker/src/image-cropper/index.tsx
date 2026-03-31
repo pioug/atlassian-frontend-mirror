@@ -48,7 +48,7 @@ const maskStyles = {
 	left: `${CONTAINER_PADDING}px`,
 	right: `${CONTAINER_PADDING}px`,
 	opacity: token('opacity.disabled'),
-	boxShadow: `0 0 0 100px ${token('elevation.surface.overlay', 'rgba(255, 255, 255)')}`,
+	boxShadow: `0 0 0 100px ${token('elevation.surface.overlay')}`,
 };
 
 const offscreenStyles = {

@@ -211,3 +211,49 @@ describe('contextEntryPoint prefixing', () => {
 		expect(props.href).toBe('team/123');
 	});
 });
+
+describe('onBeforeNavigate', () => {
+	test('is called before navigation onClick for internal links', () => {
+		const context = createMockContext();
+		const onBeforeNavigate = jest.fn();
+		const props = getNavigationProps({ href: TEAMS_APP_HREF, intent: 'navigation', context, onBeforeNavigate });
+		const event = createMouseEvent<HTMLAnchorElement>();
+		props.onClick?.(event);
+		expect(onBeforeNavigate).toHaveBeenCalledWith(event);
+		expect(context.navigate).toHaveBeenCalled();
+	});
+
+	test('is called before navigation onClick for external links', () => {
+		const context = createMockContext();
+		const onBeforeNavigate = jest.fn();
+		const props = getNavigationProps({ href: EXTERNAL_HREF, intent: 'external', context, onBeforeNavigate });
+		const event = createMouseEvent<HTMLAnchorElement>();
+		props.onClick?.(event);
+		expect(onBeforeNavigate).toHaveBeenCalledWith(event);
+		expect(mockWindowOpen).toHaveBeenCalled();
+	});
+
+	test('skips navigation when onBeforeNavigate calls preventDefault', () => {
+		const context = createMockContext();
+		const onBeforeNavigate = jest.fn((e: { preventDefault: () => void }) => {
+			e.preventDefault();
+		});
+		const props = getNavigationProps({ href: TEAMS_APP_HREF, intent: 'navigation', context, onBeforeNavigate });
+		const event = createMouseEvent<HTMLAnchorElement>();
+		// Make preventDefault actually set defaultPrevented
+		event.preventDefault = jest.fn(() => {
+			Object.defineProperty(event, 'defaultPrevented', { value: true });
+		});
+		props.onClick?.(event);
+		expect(onBeforeNavigate).toHaveBeenCalled();
+		expect(context.navigate).not.toHaveBeenCalled();
+	});
+
+	test('works correctly when onBeforeNavigate is not provided', () => {
+		const context = createMockContext();
+		const props = getNavigationProps({ href: TEAMS_APP_HREF, intent: 'navigation', context });
+		const event = createMouseEvent<HTMLAnchorElement>();
+		props.onClick?.(event);
+		expect(context.navigate).toHaveBeenCalled();
+	});
+});

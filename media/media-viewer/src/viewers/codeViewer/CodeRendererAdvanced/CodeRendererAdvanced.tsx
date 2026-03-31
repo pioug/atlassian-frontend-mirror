@@ -29,7 +29,7 @@ const codeViewWrapperStyles = css({
 	top: 0,
 	right: 0,
 	bottom: 0,
-	backgroundColor: token('elevation.surface', '#F4F5F7'),
+	backgroundColor: token('elevation.surface'),
 	overflow: 'auto',
 });
 

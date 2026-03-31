@@ -13,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 const iconStyles = css({
 	height: '14px',
 	width: '14px',
-	marginRight: token('space.050', '4px'),
+	marginRight: token('space.050'),
 	borderRadius: token('radius.xsmall'),
 	userSelect: 'none',
 	position: 'absolute',
@@ -33,7 +33,7 @@ export const Icon = ({
 // are less than that in height/width.
 // TODO: Replace this override with proper AtlasKit solution.
 const akIconWrapperStyles = css({
-	marginRight: token('space.negative.025', '-2px'),
+	marginRight: token('space.negative.025'),
 });
 
 export const AKIconWrapper = ({

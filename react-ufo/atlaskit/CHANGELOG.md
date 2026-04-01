@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.8.1
+
+### Patch Changes
+
+- [`29653f924f0e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29653f924f0e1) -
+  Remove obsolete abort timestamp raw data feature gate
+- Updated dependencies
+
+## 5.8.0
+
+### Minor Changes
+
+- [`bb3f342023003`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb3f342023003) -
+  Ignore data-fabric-mode from TTVC calculations
+
 ## 5.7.1
 
 ### Patch Changes

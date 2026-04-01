@@ -6,5 +6,6 @@ export type LozengeActionTriggerProps = {
 	isOpen?: boolean;
 	testId?: string;
 	text: string | React.ReactNode;
+	trailingMetric?: string;
 } & Pick<LozengeProps, 'maxWidth'> &
 	CustomTriggerProps<HTMLButtonElement>;

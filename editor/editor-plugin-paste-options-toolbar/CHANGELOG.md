@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.2.0
+
+### Minor Changes
+
+- [`f320bfec5b28f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f320bfec5b28f) -
+  Hide AI paste actions when pasted content contains a table.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.10
 
 ### Patch Changes

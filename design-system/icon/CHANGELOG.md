@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 33.1.1
+
+### Patch Changes
+
+- [`af37f7d87df51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af37f7d87df51) -
+  Deprecate `spacing` prop on icon components via JSDoc `@deprecated` annotation, and update ADS
+  website docs (Icon > Examples, Icon > Usage) to reflect the deprecation with migration guidance.
+
 ## 33.1.0
 
 ### Minor Changes

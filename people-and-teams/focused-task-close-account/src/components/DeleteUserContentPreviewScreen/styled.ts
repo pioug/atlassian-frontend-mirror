@@ -1,6 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import { B50, B400, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 interface SectionCardProps {
@@ -8,7 +7,7 @@ interface SectionCardProps {
 }
 
 const getSelectedCardColor = (props: SectionCardProps) => {
-	return props.isSelected && `${token('color.background.selected', B50)}`;
+	return props.isSelected && `${token('color.background.selected')}`;
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -34,7 +33,7 @@ export const SectionCard = styled.div`
 	width: 100%;
 	background-color: ${(props: SectionCardProps) => getSelectedCardColor(props)};
 	border-radius: ${token('radius.small', '3px')};
-	box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`)};
+	box-shadow: ${token('elevation.shadow.overlay')};
 	margin-top: ${token('space.200')};
 `;
 
@@ -55,5 +54,5 @@ export const UserDetails = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	marginTop: token('space.150'),
 	fontWeight: token('font.weight.semibold'),
-	color: token('color.text.accent.blue', B400),
+	color: token('color.text.accent.blue'),
 });

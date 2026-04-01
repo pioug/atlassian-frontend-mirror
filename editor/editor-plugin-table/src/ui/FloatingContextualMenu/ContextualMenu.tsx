@@ -183,11 +183,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 							? undefined
 							: this.closeSubmenu
 					}
-					onBlur={
-						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-							? this.closeSubmenu
-							: undefined
-					}
 					ref={this.dropdownMenuRef}
 				>
 					<DropdownMenu

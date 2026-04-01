@@ -153,6 +153,9 @@
 			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/tag/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/textarea/afm-jira/tsconfig.json"
 		},
 		{

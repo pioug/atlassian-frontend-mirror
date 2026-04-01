@@ -3,10 +3,10 @@
  *
  * Generated prop types for Global component - GlobalSidebar
  *
- * @codegen <<SignedSource::801b8c50439e535a59d02fc552de2ba6>>
+ * @codegen <<SignedSource::0e090e23bd8d4d637f6e235046d0754d>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::22a8bb81a36bca1a22c7a20a0fdb443f>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Global-Sidebar.tsx <<SignedSource::cdeaedb1f8277703adc781e514cecf61>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Global-Sidebar.tsx <<SignedSource::07a348093aa61c4311536f52784b52b2>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

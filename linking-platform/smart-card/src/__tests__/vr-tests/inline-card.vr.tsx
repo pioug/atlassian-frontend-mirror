@@ -1,5 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
+import InlineCardWithStatus from '../../../examples/vr-inline-card-with-status';
 import VRInlineCardAllExamplesInText from '../../../examples/vr-inline-card/vr-inline-card-all-examples-in-text';
 import InlineCardDefaultWithEntities from '../../../examples/vr-inline-card/vr-inline-card-default-entities';
 import InlineCardDefault from '../../../examples/vr-inline-card/vr-inline-card-default-icon';
@@ -334,6 +335,13 @@ snapshot(VRInlineCardAllExamplesInText, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'jfp-magma-platform-lozenge-jump-fix': [true, false],
+	},
+});
+
+snapshot(InlineCardWithStatus, {
+	description: 'inline card with status lozenge',
+	featureFlags: {
+		'platform-dst-lozenge-tag-badge-visual-uplifts': [true, false],
 	},
 });
 

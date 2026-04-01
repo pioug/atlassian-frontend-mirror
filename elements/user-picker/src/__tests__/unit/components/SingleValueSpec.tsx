@@ -369,66 +369,33 @@ describe('SingleValue', () => {
 			jest.clearAllMocks();
 		});
 
-		ffTest.on('jira_ai_agent_avatar_user_picker_user_option', 'on', () => {
-			it('should set avatarAppearanceShape', async () => {
-				(getAppearanceForAppType as jest.Mock).mockReturnValue('hexagon');
+		it('should set avatarAppearanceShape', async () => {
+			(getAppearanceForAppType as jest.Mock).mockReturnValue('hexagon');
 
-				render(
-					<SingleValue
-						{...defaultSingleValueProps}
-						data={{
-							label: 'Jace Beleren',
-							value: 'abc-123',
-							data: {
-								id: 'abc-123',
-								name: 'Jace Beleren',
-								avatarUrl: 'http://avatars.atlassian.com/jace.png',
-								appType: 'agent',
-							},
-						}}
-					/>,
-				);
+			render(
+				<SingleValue
+					{...defaultSingleValueProps}
+					data={{
+						label: 'Jace Beleren',
+						value: 'abc-123',
+						data: {
+							id: 'abc-123',
+							name: 'Jace Beleren',
+							avatarUrl: 'http://avatars.atlassian.com/jace.png',
+							appType: 'agent',
+						},
+					}}
+				/>,
+			);
 
-				expect(getAppearanceForAppType).toHaveBeenCalledWith('agent');
-				expect(
-					await screen.findByText(
-						'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person","avatarAppearanceShape":"hexagon"}',
-					),
-				).toBeInTheDocument();
+			expect(getAppearanceForAppType).toHaveBeenCalledWith('agent');
+			expect(
+				await screen.findByText(
+					'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person","avatarAppearanceShape":"hexagon"}',
+				),
+			).toBeInTheDocument();
 
-				await expect(document.body).toBeAccessible();
-			});
-		});
-
-		ffTest.off('jira_ai_agent_avatar_user_picker_user_option', 'off', () => {
-			it('should not set avatarAppearanceShape when jira_ai_agent_avatar_user_picker_user_option gate is disabled', async () => {
-				(getAppearanceForAppType as jest.Mock).mockReturnValue('hexagon');
-
-				render(
-					<SingleValue
-						{...defaultSingleValueProps}
-						data={{
-							label: 'Jace Beleren',
-							value: 'abc-123',
-							data: {
-								id: 'abc-123',
-								name: 'Jace Beleren',
-								avatarUrl: 'http://avatars.atlassian.com/jace.png',
-								appType: 'agent',
-							},
-						}}
-					/>,
-				);
-
-				expect(getAppearanceForAppType).not.toHaveBeenCalled();
-				expect(
-					await screen.findByText(
-						'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}',
-					),
-				).toBeInTheDocument();
-
-				await expect(document.body).toBeAccessible();
-			});
+			await expect(document.body).toBeAccessible();
 		});
 	});
 
@@ -436,6 +403,10 @@ describe('SingleValue', () => {
 		const mockIcon = <div data-testid="test-icon">Icon</div>;
 		const iconAsString =
 			'{"type":"div","key":null,"ref":null,"props":{"data-testid":"test-icon","children":"Icon"},"_owner":null,"_store":{}}';
+
+		beforeEach(() => {
+			jest.resetAllMocks();
+		});
 
 		it('should render AvatarOrIcon when icon is provided', async () => {
 			const userWithIcon = {

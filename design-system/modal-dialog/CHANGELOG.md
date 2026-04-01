@@ -1,5 +1,16 @@
 # @atlaskit/modal-dialog
 
+## 14.14.0
+
+### Minor Changes
+
+- [`6d543e4f58915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d543e4f58915) -
+  [ux] Updated motion on opening and closing of Modal Dialog
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.13.1
 
 ### Patch Changes

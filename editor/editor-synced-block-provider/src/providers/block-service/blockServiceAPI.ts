@@ -9,6 +9,7 @@ import { generateBlockAri, generateBlockAriFromReference } from '../../clients/b
 import {
 	batchRetrieveSyncedBlocks,
 	BlockError,
+	BlockNotFoundError,
 	BlockTimeoutError,
 	createSyncedBlock,
 	deleteSyncedBlock,
@@ -748,12 +749,74 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			await deleteSyncedBlock({ blockAri, deleteReason });
 			return { resourceId, success: true, error: undefined };
 		} catch (error) {
+			if (
+				error instanceof BlockNotFoundError &&
+				this.parentAri &&
+				fg('platform_synced_block_patch_8')
+			) {
+				return this.deleteOrphanBlock({
+					blockAri,
+					resourceId,
+					parentAri: this.parentAri,
+					deleteReason,
+				});
+			}
 			if (error instanceof BlockError) {
 				if (error.status === 404) {
 					// User should not be blocked by not_found error when deleting,
 					// hence returns successful result for 404 error
 					return { resourceId, success: true };
 				}
+				return { resourceId, success: false, error: mapBlockError(error) };
+			}
+			return { resourceId, success: false, error: stringifyError(error) };
+		}
+	}
+
+	// The block is an orphan (e.g. from a copied page) — it doesn't exist in Block Service.
+	// Block Service uses soft-deletes, so we must first create the block then delete it,
+	// ensuring a deletion-reason record is stored (used to display errors in reference blocks).
+	private async deleteOrphanBlock({
+		blockAri,
+		resourceId,
+		parentAri,
+		deleteReason,
+	}: {
+		blockAri: string;
+		deleteReason: string | undefined;
+		parentAri: string;
+		resourceId: string;
+	}): Promise<DeleteSyncBlockResult> {
+		try {
+			const stepVersion = this.getVersion ? await this.getVersion() : undefined;
+			try {
+				await createSyncedBlock({
+					blockAri,
+					blockInstanceId: resourceId,
+					sourceAri: parentAri,
+					product: this.product,
+					content: '[]',
+					stepVersion,
+				});
+			} catch (createError) {
+				// "Conditional check failed" means the block already exists in Block Service.
+				// This can happen when an orphan block is copied and pasted — a reference block repair
+				// in the backend may have already created it. We can proceed directly to delete it.
+				if (
+					createError instanceof Error &&
+					createError.message.includes('Conditional check failed')
+				) {
+					// block already exists, proceed to delete
+				} else if (createError instanceof BlockError) {
+					return { resourceId, success: false, error: mapBlockError(createError) };
+				} else {
+					return { resourceId, success: false, error: stringifyError(createError) };
+				}
+			}
+			await deleteSyncedBlock({ blockAri, deleteReason });
+			return { resourceId, success: true, error: undefined };
+		} catch (error) {
+			if (error instanceof BlockError) {
 				return { resourceId, success: false, error: mapBlockError(error) };
 			}
 			return { resourceId, success: false, error: stringifyError(error) };

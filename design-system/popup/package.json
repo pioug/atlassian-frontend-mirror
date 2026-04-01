@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "4.14.0",
+	"version": "4.15.0",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,6 +40,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/layering": "workspace:^",
+		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/portal": "workspace:^",
@@ -126,6 +127,9 @@
 			"type": "boolean"
 		},
 		"platform_dst_nested_escape": {
+			"type": "boolean"
+		},
+		"platform-dst-motion-uplift": {
 			"type": "boolean"
 		}
 	},

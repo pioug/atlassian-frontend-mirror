@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 6.0.38
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.35
+
+### Patch Changes
+
+- [`827be3d512390`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/827be3d512390) -
+  Refactor source synced block cache update to use appendTransaction instead of nodeview update.
+  Behind fg('platform_synced_block_update_refactor'):
+  - Moves cache update from nodeview update() to PM plugin appendTransaction hook, filtering out
+    non-user changes (remote collab, table auto-scale, dirty transactions)
+  - Moves initial cache population from nodeview constructor to PM plugin state.init()
+  - Optimises updateSyncBlockData with Fragment.eq() for O(1) comparison instead of toJSON() +
+    lodash/isEqual
+- Updated dependencies
+
 ## 6.0.34
 
 ### Patch Changes

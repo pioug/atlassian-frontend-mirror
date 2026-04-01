@@ -375,7 +375,57 @@ export class ExpandNodeView implements NodeView {
 	};
 
 	private handleTitleKeydown = (event: KeyboardEvent) => {
-		switch (keyName(event)) {
+		// Handle Ctrl+Shift+H to select the expand node for drag handle
+		// Note: If changing this implementation in legacyExpand, please also update the implementation in singlePlayerExpand
+		if (
+			expValEquals('platform_editor_dnd_accessibility_fixes_expand', 'isEnabled', true) &&
+			(event.ctrlKey || event.metaKey) &&
+			event.shiftKey &&
+			(event.key === 'H' || event.key === 'h')
+		) {
+			event.preventDefault();
+			const pos = this.getPos();
+			if (typeof pos === 'number') {
+				// Blur the input first to remove focus from the title
+				if (this.input) {
+					this.input.blur();
+				}
+				// Use requestAnimationFrame to ensure blur completes before setting selection
+				requestAnimationFrame(() => {
+					const { state } = this.view;
+					this.view.focus();
+					this.api?.core.actions.execute(({ tr }) => {
+						tr.setSelection(NodeSelection.create(state.doc, pos));
+						// Show the drag handle on the selected expand node
+						const node = state.doc.nodeAt(pos);
+						if (node) {
+							// Find the anchor name from the DOM
+							const dom = this.view.nodeDOM(pos);
+							if (dom instanceof HTMLElement) {
+								const anchorName = dom.getAttribute('data-node-anchor');
+								// Only proceed if we found a valid anchor name
+								if (anchorName) {
+									const command = this.api?.blockControls?.commands.showDragHandleAt(
+										pos,
+										anchorName,
+										node.type.name,
+										{ isFocused: true },
+									);
+									if (command) {
+										return command({ tr });
+									}
+								}
+							}
+						}
+						return null;
+					});
+				});
+			}
+			return;
+		}
+
+		const keyName_result = keyName(event);
+		switch (keyName_result) {
 			case 'Enter':
 				this.toggleExpand();
 				break;

@@ -15,11 +15,12 @@ const withErrorBoundary =
 					appearance={props?.appearance}
 					isBold={true}
 					testId={`${props?.testId ?? 'smart-element-lozenge-action'}-fallback`}
+					trailingMetric={props?.trailingMetric}
 				>
 					{props?.text}
 				</Lozenge>
 			),
-			[props?.appearance, props?.testId, props?.text],
+			[props?.appearance, props?.testId, props?.text, props?.trailingMetric],
 		);
 
 		return (

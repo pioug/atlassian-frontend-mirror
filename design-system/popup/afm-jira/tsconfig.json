@@ -8,7 +8,10 @@
 		"noCheck": true,
 		"isolatedDeclarations": true
 	},
-	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -29,6 +32,9 @@
 		},
 		{
 			"path": "../../layering/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../motion/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"

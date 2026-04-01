@@ -814,13 +814,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-10
-	platform_editor_task_item_styles: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-12-08
 	platform_editor_add_image_editing: {
 		defaultValue: boolean;
@@ -1371,6 +1364,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-30
+	platform_editor_a11y_scrollable_region: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-02
 	platform_editor_a11y_table_wrapper_fix: {
 		defaultValue: boolean;
@@ -1544,6 +1544,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-30
+	platform_editor_stricter_panelcolor_typecheck: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-15
 	platform_editor_sync_block_ssr_config: {
 		defaultValue: boolean;
@@ -1567,6 +1574,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-23
 	confluence_toc_nav_a11y: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-31
+	platform_editor_dnd_accessibility_fixes_expand: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2208,14 +2222,6 @@ export const editorExperimentsConfig: {
 	platform_editor_table_excerpts_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_table_excerpts_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-01-10
-	platform_editor_task_item_styles: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_task_item_styles',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3126,6 +3132,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-30
+	platform_editor_a11y_scrollable_region: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_a11y_scrollable_region',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-02
 	platform_editor_a11y_table_wrapper_fix: createBooleanExperiment({
 		productKeys: {
@@ -3342,6 +3356,14 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-03-15
+	platform_editor_stricter_panelcolor_typecheck: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_stricter_panelcolor_typecheck',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-15
 	platform_editor_sync_block_ssr_config: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_sync_block_ssr_config',
@@ -3377,6 +3399,14 @@ export const editorExperimentsConfig: {
 	platform_editor_fix_comment_border: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_fix_comment_border',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-31
+	platform_editor_dnd_accessibility_fixes_expand: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_dnd_accessibility_fixes_expand',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

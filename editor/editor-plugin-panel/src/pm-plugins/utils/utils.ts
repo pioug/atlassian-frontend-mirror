@@ -36,11 +36,25 @@ export const panelAttrsToDom = (
 	const isCustomPanel = panelType === PanelType.CUSTOM && allowCustomPanel;
 	const hasIcon = !isCustomPanel || !!panelIcon || !!panelIconId;
 
-	const tokenColor = panelColor && hexToEditorBackgroundPaletteColor(panelColor);
+	const tokenColor = expValEquals(
+		'platform_editor_stricter_panelcolor_typecheck',
+		'isEnabled',
+		true,
+	)
+		? typeof panelColor === 'string' && hexToEditorBackgroundPaletteColor(panelColor)
+		: panelColor && hexToEditorBackgroundPaletteColor(panelColor);
 	const panelBackgroundColor = tokenColor || panelColor;
 
 	const style = [
-		`${panelColor && isCustomPanel ? `background-color: ${panelBackgroundColor};` : ''}`,
+		`${
+			(
+				expValEquals('platform_editor_stricter_panelcolor_typecheck', 'isEnabled', true)
+					? typeof panelColor === 'string' && isCustomPanel
+					: panelColor && isCustomPanel
+			)
+				? `background-color: ${panelBackgroundColor};`
+				: ''
+		}`,
 		`${!hasIcon && !fg('platform_editor_nested_dnd_styles_changes') ? `padding-left: 12px;padding-right: 12px;` : ''}`,
 	].join('');
 
@@ -139,7 +153,7 @@ export const panelContentCheck = (newState: EditorState, oldState: EditorState):
 	);
 	return Boolean(
 		isNodeSelection &&
-		isParentTypePanel?.node.childCount === 1 &&
-		(isparentTypeDecision?.node.childCount === 1 || isNodeTypeRuleOrCodeBlock),
+			isParentTypePanel?.node.childCount === 1 &&
+			(isparentTypeDecision?.node.childCount === 1 || isNodeTypeRuleOrCodeBlock),
 	);
 };

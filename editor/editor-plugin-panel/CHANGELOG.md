@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-panel
 
+## 10.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.20
+
+### Patch Changes
+
+- [`d3c7e8b3f1a04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3c7e8b3f1a04) -
+  add stricter typecheck for panel color attr to avoid unhandled errors
+- Updated dependencies
+
 ## 10.0.19
 
 ### Patch Changes

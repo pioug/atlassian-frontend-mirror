@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.9.0
+
+### Minor Changes
+
+- [`50be0b9fcf83d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50be0b9fcf83d) -
+  Added new ESLint rule `ensure-use-sync-external-store-server-snapshot` that enforces all
+  `useSyncExternalStore` calls include the third argument (`getServerSnapshot`) for SSR
+  compatibility. The rule is enabled as an error in all platform, jira, and confluence configs.
+
 ## 2.8.0
 
 ### Minor Changes

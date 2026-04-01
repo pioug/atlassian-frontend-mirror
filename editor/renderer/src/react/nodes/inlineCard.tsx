@@ -216,7 +216,9 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 		onClick,
 		container: portal,
 	};
-	const { hideHoverPreview, actionOptions, ssr } = smartLinks || {};
+	const { hideHoverPreview, actionOptions, ssr, getResolvingPlaceholder } = smartLinks || {};
+	const resolvingPlaceholder =
+		url && getResolvingPlaceholder ? getResolvingPlaceholder(url) : undefined;
 
 	const analyticsData = {
 		attributes: {
@@ -272,6 +274,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 									showHoverPreview={!hideHoverPreview}
 									actionOptions={actionOptions}
 									onClick={onClick}
+									resolvingPlaceholder={resolvingPlaceholder}
 								/>,
 							)}
 						</AnalyticsContext>
@@ -293,6 +296,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 							showHoverPreview={!hideHoverPreview}
 							actionOptions={actionOptions}
 							onClick={onClick}
+							resolvingPlaceholder={resolvingPlaceholder}
 						/>,
 					)}
 					{CompetitorPromptComponent}
@@ -340,6 +344,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 										showHoverPreview={!hideHoverPreview}
 										actionOptions={actionOptions}
 										onClick={onClick}
+										resolvingPlaceholder={resolvingPlaceholder}
 										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										onResolve={(data) => {
 											if (!data.url || !data.title) {
@@ -382,6 +387,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 								showHoverPreview={!hideHoverPreview}
 								actionOptions={actionOptions}
 								onClick={onClick}
+								resolvingPlaceholder={resolvingPlaceholder}
 								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 								onResolve={(data) => {
 									if (!data.url || !data.title) {
@@ -439,6 +445,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 									appearance="inline"
 									showHoverPreview={!hideHoverPreview}
 									actionOptions={actionOptions}
+									resolvingPlaceholder={resolvingPlaceholder}
 									// Ignored via go/ees005
 									// eslint-disable-next-line react/jsx-props-no-spreading
 									{...cardProps}

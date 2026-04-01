@@ -10,7 +10,7 @@ import { useIntl } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge, { LozengeDropdownTrigger } from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -38,6 +38,12 @@ const styles = cssMap({
 	lozengeContainerSelected: {
 		borderColor: token('color.border.focused'),
 		overflow: 'hidden',
+	},
+	lozengeDropdownContainer: {
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
 	},
 });
 
@@ -87,6 +93,7 @@ const LozengeActionTrigger = ({
 	testId,
 	text,
 	triggerRef,
+	trailingMetric,
 	...props
 }: LozengeActionTriggerProps) => {
 	const intl = useIntl();
@@ -158,7 +165,28 @@ const LozengeActionTrigger = ({
 		maxWidth,
 	]);
 
-	return (
+	return fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? (
+		<Box xcss={styles.lozengeDropdownContainer}>
+			<LozengeDropdownTrigger
+				{...props}
+				appearance={appearance}
+				trailingMetric={trailingMetric}
+				data-action-open={isOpen}
+				data-testid={`${testId}--trigger`}
+				maxWidth={maxWidth}
+				testId={testId}
+				ref={triggerRef}
+				aria-label={
+					fg('platform_navx_flex_card_status_dropdown_a11y_fix')
+						? // The `as unknown` type cast is needed for react-intl v7 upgrade
+							(intl.formatMessage(messages.change_status, { status: text }) as unknown as string)
+						: undefined
+				}
+			>
+				{text}
+			</LozengeDropdownTrigger>
+		</Box>
+	) : (
 		// eslint-disable-next-line @atlaskit/design-system/no-html-button
 		<button
 			type="button"
@@ -174,7 +202,7 @@ const LozengeActionTrigger = ({
 			ref={triggerRef}
 			aria-label={
 				fg('platform_navx_flex_card_status_dropdown_a11y_fix')
-					? (intl.formatMessage(messages.change_status, { status: text }) as string)
+					? (intl.formatMessage(messages.change_status, { status: text }) as unknown as string)
 					: undefined
 			}
 		>

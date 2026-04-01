@@ -39,6 +39,7 @@ const LozengeAction = ({
 	text,
 	zIndex,
 	onAfterChanged,
+	trailingMetric,
 	shouldRenderToParent = false,
 }: LozengeActionProps) => {
 	const [selected, setSelected] = useState<Partial<LozengeActionTriggerProps>>({
@@ -115,9 +116,10 @@ const LozengeAction = ({
 				maxWidth={maxWidth}
 				testId={testId}
 				text={selected.text}
+				trailingMetric={trailingMetric}
 			/>
 		),
-		[selected.appearance, selected.text, isOpen, maxWidth, testId],
+		[selected.appearance, selected.text, isOpen, maxWidth, testId, trailingMetric],
 	);
 
 	const handleItemClick = useCallback(

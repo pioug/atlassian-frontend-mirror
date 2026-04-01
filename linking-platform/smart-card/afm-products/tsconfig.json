@@ -153,6 +153,9 @@
 			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/tag/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/textarea/afm-products/tsconfig.json"
 		},
 		{

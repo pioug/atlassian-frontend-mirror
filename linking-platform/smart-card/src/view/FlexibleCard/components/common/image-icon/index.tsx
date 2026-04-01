@@ -26,6 +26,7 @@ const messages = defineMessages({
 	imageAltText: {
 		id: 'smart-link.image-icon.altText',
 		defaultMessage: 'Link Icon',
+		description: 'Alt text for a link icon.',
 	},
 });
 

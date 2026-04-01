@@ -11,7 +11,6 @@ import ValueContainerWrapper from './ValueContainerWrapper';
 import { token } from '@atlaskit/tokens';
 import { css, cssMap, jsx } from '@compiled/react';
 import { getAppearanceForAppType } from '@atlaskit/avatar';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const valueContainerStyles = cssMap({
 	root: {
@@ -64,9 +63,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 						type={placeholderAvatar}
 						src={userData.avatarUrl}
 						avatarAppearanceShape={
-							userData && fg('jira_ai_agent_avatar_user_picker_user_option')
-								? getAppearanceForAppType(userData.appType)
-								: undefined
+							userData ? getAppearanceForAppType(userData.appType) : undefined
 						}
 					/>
 				);
@@ -78,9 +75,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 					type={placeholderAvatar}
 					src={userData?.avatarUrl}
 					avatarAppearanceShape={
-						userData && fg('jira_ai_agent_avatar_user_picker_user_option')
-							? getAppearanceForAppType(userData.appType)
-							: undefined
+						userData ? getAppearanceForAppType(userData.appType) : undefined
 					}
 				/>
 			);

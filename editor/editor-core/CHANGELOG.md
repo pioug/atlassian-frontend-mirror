@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 217.9.1
+
+### Patch Changes
+
+- [`e2f512c5e8eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2f512c5e8eba) -
+  Clean up feature flag platform_editor_task_item_styles for task item checkbox and remove unused
+  styles objects taskItemCheckboxStylesWithBlockTaskItem and taskItemCheckboxStyles. Renamed
+  taskItemNextCheckboxStyles to taskItemCheckboxStyles
+- Updated dependencies
+
+## 217.9.0
+
+### Minor Changes
+
+- [`87bb2de1fb74d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87bb2de1fb74d) -
+  Fix scrollable-region-focusable a11y violation on inline code by removing overflow:auto from code
+  mark styles in EditorContentContainer behind the platform_editor_a11y_scrollable_region
+  experiment. Removing overflow:auto eliminates the scrollable region entirely (text wraps naturally
+  via overflow-wrap:break-word and white-space:pre-wrap),
+
+### Patch Changes
+
+- [`32a165c38d466`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32a165c38d466) -
+  Add an option to the block menu so that nodes can change width as required
+- Updated dependencies
+
 ## 217.8.3
 
 ### Patch Changes

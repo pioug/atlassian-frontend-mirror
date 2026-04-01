@@ -3,7 +3,7 @@ import isEqual from 'lodash/isEqual';
 import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -54,6 +54,11 @@ type SyncBlockData = Data & {
 	 * Whether the block is waiting to be deleted in backend
 	 */
 	pendingDeletion?: boolean;
+	/**
+	 * Cached PM Fragment reference for fast equality comparison via Fragment.eq()
+	 * Used when platform_synced_block_update_refactor fg is ON
+	 */
+	contentFragment?: Fragment;
 };
 
 // A store manager responsible for the lifecycle and state management of source sync blocks in an editor instance.
@@ -131,17 +136,38 @@ export class SourceSyncBlockStoreManager {
 				throw new Error('Local ID or resource ID is not set');
 			}
 
-			const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
-
 			const cachedBlock = this.syncBlockCache.get(resourceId);
-			if (cachedBlock && !isEqual(syncBlockData.content, cachedBlock.content)) {
-				this.hasReceivedContentChange = true;
-			}
 
-			this.syncBlockCache.set(resourceId, {
-				...syncBlockData,
-				isDirty: true,
-			});
+			if (fg('platform_synced_block_update_refactor')) {
+				// Fast path: if the PM content fragment hasn't changed, skip serialization entirely
+				// Fragment.eq() leverages ProseMirror's structural sharing for O(1) comparison
+				if (cachedBlock?.contentFragment?.eq(syncBlockNode.content)) {
+					return true;
+				}
+
+				const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
+
+				if (cachedBlock) {
+					this.hasReceivedContentChange = true;
+				}
+
+				this.syncBlockCache.set(resourceId, {
+					...syncBlockData,
+					isDirty: true,
+					contentFragment: syncBlockNode.content,
+				});
+			} else {
+				const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
+
+				if (cachedBlock && !isEqual(syncBlockData.content, cachedBlock.content)) {
+					this.hasReceivedContentChange = true;
+				}
+
+				this.syncBlockCache.set(resourceId, {
+					...syncBlockData,
+					isDirty: true,
+				});
+			}
 
 			return true;
 		} catch (error) {

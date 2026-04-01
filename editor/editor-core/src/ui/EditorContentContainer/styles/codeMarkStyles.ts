@@ -26,3 +26,11 @@ export const codeMarkStyles: SerializedStyles = css({
 		whiteSpace: 'pre-wrap',
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const codeMarkStylesA11yFix: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.code': {
+		overflow: 'unset',
+	},
+});

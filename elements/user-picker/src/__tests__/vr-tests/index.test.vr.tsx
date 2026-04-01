@@ -90,9 +90,6 @@ snapshot(GroupByTypeWithDefaultValue, {
 
 snapshot(SingleUserPickerWithAgentHexagonAvatar, {
 	drawsOutsideBounds: true,
-	featureFlags: {
-		jira_ai_agent_avatar_user_picker_user_option: true,
-	},
 });
 
 snapshot(UserPickerWithIcon, {

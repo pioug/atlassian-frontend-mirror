@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 7.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.22
+
+### Patch Changes
+
+- [`32a165c38d466`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32a165c38d466) -
+  Add an option to the block menu so that nodes can change width as required
+- Updated dependencies
+
 ## 7.0.21
 
 ### Patch Changes

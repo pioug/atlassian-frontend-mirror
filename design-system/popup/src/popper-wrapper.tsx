@@ -8,8 +8,9 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
 import { useLayering } from '@atlaskit/layering';
+import { Motion, type MotionProps } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Popper } from '@atlaskit/popper';
+import { type Placement, Popper } from '@atlaskit/popper';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import { RepositionOnUpdate } from './reposition-on-update';
@@ -43,6 +44,9 @@ const wrapperStyles = cssMap({
 	rootT26Shape: {
 		borderRadius: token('radius.large'),
 	},
+	rootLayer: {
+		zIndex: 400,
+	}
 });
 
 const scrollableStyles = css({
@@ -88,6 +92,57 @@ const focusRingStyles = cssMap({
 	},
 });
 
+const placementMap: Record<Exclude<Placement, 'auto' | 'auto-start' | 'auto-end'>, { enter: MotionProps["enteringAnimation"], exit: MotionProps["exitingAnimation"] }> = {
+	'top': {
+		enter: token('motion.popup.enter.top'),
+		exit: token('motion.popup.exit.top')
+	},
+	'top-start': {
+		enter: token('motion.popup.enter.top'),
+		exit: token('motion.popup.exit.top')
+	},
+	'top-end': {
+		enter: token('motion.popup.enter.top'),
+		exit: token('motion.popup.exit.top')
+	},
+	'bottom': {
+		enter: token('motion.popup.enter.bottom'),
+		exit: token('motion.popup.exit.bottom')
+	},
+	'bottom-start': {
+		enter: token('motion.popup.enter.bottom'),
+		exit: token('motion.popup.exit.bottom')
+	},
+	'bottom-end': {
+		enter: token('motion.popup.enter.bottom'),
+		exit: token('motion.popup.exit.bottom')
+	},
+	'left': {
+		enter: token('motion.popup.enter.left'),
+		exit: token('motion.popup.exit.left')
+	},
+	'left-start': {
+		enter: token('motion.popup.enter.left'),
+		exit: token('motion.popup.exit.left')
+	},
+	'left-end': {
+		enter: token('motion.popup.enter.left'),
+		exit: token('motion.popup.exit.left')
+	},
+	'right': {
+		enter: token('motion.popup.enter.right'),
+		exit: token('motion.popup.exit.right')
+	},
+	'right-start': {
+		enter: token('motion.popup.enter.right'),
+		exit: token('motion.popup.exit.right')
+	},
+	'right-end': {
+		enter: token('motion.popup.enter.right'),
+		exit: token('motion.popup.exit.right')
+	},
+}
+
 const DefaultPopupComponent: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<PopupComponentProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, PopupComponentProps>((props, ref) => {
@@ -122,7 +177,7 @@ const DefaultPopupComponent: React.ForwardRefExoticComponent<
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 			{...htmlAttributes}
-			ref={ref}
+			ref={!fg('platform-dst-motion-uplift') ? ref : undefined}
 		>
 			{children}
 		</div>
@@ -232,7 +287,7 @@ function PopperWrapper({
 						role={role}
 						aria-label={label}
 						aria-labelledby={titleId}
-						ref={(node: HTMLDivElement) => {
+						ref={!fg('platform-dst-motion-uplift') ? (node: HTMLDivElement) => {
 							if (node) {
 								if (typeof ref === 'function') {
 									ref(node);
@@ -241,9 +296,9 @@ function PopperWrapper({
 								}
 								setPopupRef(node);
 							}
-						}}
+						} : undefined}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={appearance === 'UNSAFE_modal-below-sm' ? {} : style}
+						style={fg('platform-dst-motion-uplift') || appearance === 'UNSAFE_modal-below-sm' ? {} : style}
 						// using tabIndex={-1} would cause a bug where Safari focuses
 						// first on the browser address bar when using keyboard
 						tabIndex={autoFocus ? 0 : undefined}
@@ -262,10 +317,40 @@ function PopperWrapper({
 						</RepositionOnUpdate>
 					</PopupContainer>
 				);
+				const container = (
+					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						style={style}
+						css={wrapperStyles.rootLayer}
+						// using tabIndex={-1} would cause a bug where Safari focuses
+						// first on the browser address bar when using keyboard
+						ref={(node: HTMLDivElement) => {
+							if (node) {
+								if (typeof ref === 'function') {
+									ref(node);
+								} else {
+									(ref as React.MutableRefObject<HTMLElement>).current = node;
+								}
+								setPopupRef(node);
+							}
+						}}
+						data-testid={`${testId}--container`}
+					>
+						{/* Don't apply motion to auto placements */}
+						{placement === 'auto' || placement === 'auto-start' || placement === 'auto-end' ? popupContainer : (
+							<Motion
+								enteringAnimation={placementMap[placement].enter}
+								exitingAnimation={placementMap[placement].exit}
+							>
+								{popupContainer}
+							</Motion>
+						)}
+					</div>
+				);
 
 				return (
 					<Fragment>
-						{popupContainer}
+						{fg('platform-dst-motion-uplift') ? container : popupContainer}
 						{appearance === 'UNSAFE_modal-below-sm' && <div css={blanketStyles} />}
 					</Fragment>
 				);

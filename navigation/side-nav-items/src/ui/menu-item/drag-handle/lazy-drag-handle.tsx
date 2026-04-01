@@ -1,20 +1,5 @@
 import React, { type ComponentType, lazy, Suspense, useEffect, useState } from 'react';
 
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-
-const LazyDragHandleComponent = lazy(() => {
-	return import(
-		/* webpackChunkName: "@atlaskit-internal_nav4-menu-item-drag-handle" */
-		'./drag-handle'
-	);
-});
-
-export const LazyDragHandle = componentWithFG(
-	'navx-4169-improve-gsn-code',
-	LazyDragHandleNEW,
-	LazyDragHandleComponent,
-);
-
 /**
  * A wrapper around `React.lazy` that defers rendering until after the component has mounted.
  *
@@ -31,7 +16,7 @@ export const LazyDragHandle = componentWithFG(
  * By deferring to after mount, both server and initial client render agree on `null`,
  * and the lazy import + Suspense only kicks in after hydration is complete.
  */
-function LazyDragHandleNEW() {
+export function LazyDragHandle() {
 	const [Component, setComponent] = useState<ComponentType | null>(null);
 
 	useEffect(() => {
@@ -50,3 +35,10 @@ function LazyDragHandleNEW() {
 		</Suspense>
 	);
 }
+
+const LazyDragHandleComponent = lazy(() => {
+	return import(
+		/* webpackChunkName: "@atlaskit-internal_nav4-menu-item-drag-handle" */
+		'./drag-handle'
+	);
+});

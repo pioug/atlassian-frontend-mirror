@@ -562,6 +562,18 @@ export class BlockError extends Error {
 	}
 }
 
+/**
+ * Thrown when Block Service returns RESOURCE_NOT_FOUND for a block.
+ * This typically happens when an orphan block (e.g. from a copied page) is deleted.
+ * The caller should create the block first, then delete it to ensure a proper soft-delete record.
+ */
+export class BlockNotFoundError extends Error {
+	constructor() {
+		super('Block not found in Block Service');
+		this.name = 'BlockNotFoundError';
+	}
+}
+
 export class BlockTimeoutError extends Error {
 	constructor() {
 		super('Block request timed out');
@@ -690,10 +702,10 @@ export const deleteSyncedBlock = async ({
 				(e) => e.extensions?.errorType === 'RESOURCE_NOT_FOUND',
 			);
 			if (allNotFound) {
-				// do not throw an error, return early
-				// as if the block is not found, it is likely an orphan from a page copy.
-				// delete the synced block should just delete the block from the ADF, no need to delete it from the block service as it does not exist.
-				return;
+				// Throw BlockNotFoundError so the caller can create the block first then retry the delete.
+				// Block Service uses soft-deletes: the entry must exist before deletion so a deletion-reason
+				// is stored (used to display errors in reference blocks).
+				throw new BlockNotFoundError();
 			}
 		}
 		throw new Error(result.errors.map((e) => e.message).join(', '));

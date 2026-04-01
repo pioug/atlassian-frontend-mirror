@@ -71,11 +71,9 @@ interface GlyphSizeProps {
 }
 
 interface NewCoreGlyphSpacingProps {
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/**
-	 * Core Icons can be displayed with additional spacing.
-	 * - `none` is default, and allows the icon to be placed in buttons and allows the parent component to manage spacing.
-	 * - `compact` provides accessible compact spacing between the icon and other elements. **Only available for small icons.**
-	 * - `spacious` provides accessible spacing between the icon and other elements.
+	 * @deprecated Use a `Flex` wrapper with `cssMap` padding tokens instead. Migrate with the `32.0.2-icon-spacing-to-flex-primitive` codemod in `npx @atlaskit/codemod-cli`, or the `no-icon-spacing-prop` ESLint rule.
 	 */
 	spacing?: IconSpacing;
 }
@@ -149,7 +147,10 @@ interface IconInternalGlyphProps {
 export interface GlyphProps extends LegacyOtherGlyphProps, GlyphSizeProps, GlyphColorProps {}
 
 interface NewCoreGlyphProps
-	extends OtherGlyphProps, NewCoreGlyphSpacingProps, NewCoreGlyphSizeProps, NewGlyphColorProps {}
+	extends OtherGlyphProps,
+		NewCoreGlyphSpacingProps,
+		NewCoreGlyphSizeProps,
+		NewGlyphColorProps {}
 
 export interface IconProps extends GlyphProps, IconInternalGlyphProps {
 	/**

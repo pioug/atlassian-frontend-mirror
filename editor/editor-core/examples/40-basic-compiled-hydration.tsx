@@ -13,7 +13,7 @@ const compiledTextClass = css({
  * Simple example to test hydration of compiled styles works under rspack.
  * It should be run with this command:
  *
- * yarn start:rspack:ssr editor-core --hydrate --extractCompiled --verbose
+ * yarn start:ssr editor-core --hydrate --extractCompiled --verbose
  *
  * @returns example component
  */

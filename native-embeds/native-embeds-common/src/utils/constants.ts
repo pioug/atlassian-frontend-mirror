@@ -18,7 +18,7 @@ export const NATIVE_EMBED_PARAMETER_DEFAULTS: NativeEmbedParameterValues = {
  * Built-in keys that can be referenced in the `items` and `moreItems` arrays.
  *
  * Toolbar keys: ASK_ROVO, REFRESH, EDIT, EMBED, BORDER, ALIGNMENT, OPEN_IN_NEW_WINDOW
- * More Options dropdown keys: ALWAYS_SHOW_TITLE, SET_EMBED_TYPE, COPY_LINK, DELETE
+ * More Options dropdown keys: ALWAYS_SHOW_TITLE, SET_EMBED_TYPE, COPY, COPY_LINK (deprecated), DELETE
  * Shared: SEPARATOR (usable in both)
  */
 export const BUILTIN_TOOLBAR_KEYS = {
@@ -32,6 +32,14 @@ export const BUILTIN_TOOLBAR_KEYS = {
 	EDIT_URL: 'editUrl',
 	ALWAYS_SHOW_TITLE: 'alwaysShowTitle',
 	SET_EMBED_TYPE: 'setEmbedType',
+	/**
+	 * Copies the native-embed node to the clipboard.
+	 */
+	COPY: 'copy',
+	/**
+	 * @private
+	 * @deprecated Use `COPY` instead. `COPY_LINK` is a deprecated alias for `COPY` and will be removed in a future release.
+	 */
 	COPY_LINK: 'copyLink',
 	DELETE: 'delete',
 	SEPARATOR: 'separator',
@@ -41,11 +49,12 @@ export const EDITOR_TOOLBAR_HANDLER_KEYS = [
 	'onAlignmentClick',
 	'onAppearanceClick',
 	'onAskRovoClick',
-	'onCopyLinkClick',
 	'onChangeBorderClick',
+	'onCopyClick',
+	'onCopyLinkClick',
 	'onDeleteClick',
-	'onEditUrlClick',
 	'onEditClick',
+	'onEditUrlClick',
 	'onOpenInNewWindowClick',
 	'onRefreshClick',
 	'onSetEmbedTypeClick',

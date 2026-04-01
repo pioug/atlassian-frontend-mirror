@@ -307,6 +307,20 @@ interface ThemeStateDefaults extends Omit<ThemeState, 'shape' | 'motion'> {
 	motion: () => ThemeState['motion'];
 }
 
+function getShapeDefault(): ThemeState['shape'] {
+	if (fg('platform-dst-shape-theme-default')) {
+		return 'shape';
+	}
+	return undefined;
+}
+
+function getMotionDefault(): ThemeState['motion'] {
+	if (fg('platform-dst-motion-theme-default')) {
+		return 'motion';
+	}
+	return undefined;
+}
+
 /**
  * themeStateDefaults: the default values for ThemeState used by theming utilities
  */
@@ -315,20 +329,10 @@ export const themeStateDefaults: ThemeStateDefaults = {
 	contrastMode: 'auto',
 	dark: 'dark',
 	light: 'light',
-	shape: () => {
-		if (fg('platform-dst-shape-theme-default')) {
-			return 'shape';
-		}
-		return undefined;
-	},
+	shape: getShapeDefault,
 	spacing: 'spacing',
 	typography: 'typography',
-	motion: () => {
-		if (fg('platform-dst-motion-theme-default')) {
-			return 'motion';
-		}
-		return undefined;
-	},
+	motion: getMotionDefault,
 	UNSAFE_themeOptions: undefined,
 };
 

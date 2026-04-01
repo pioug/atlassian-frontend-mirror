@@ -20,11 +20,13 @@ describe('clientIdCache', () => {
 			expect(getClientIdForFile('unknown-file')).toBeUndefined();
 		});
 
-		it('should consume the entry after retrieval (one-time use)', () => {
+		it('should return the same clientId on multiple reads (supports multiple pastes)', () => {
 			setClientIdForFile('file-123', 'client-abc');
 			expect(getClientIdForFile('file-123')).toBe('client-abc');
-			// Second call should return undefined
-			expect(getClientIdForFile('file-123')).toBeUndefined();
+			// Second call should still return the same value (not consumed)
+			expect(getClientIdForFile('file-123')).toBe('client-abc');
+			// Third call too
+			expect(getClientIdForFile('file-123')).toBe('client-abc');
 		});
 
 		it('should handle multiple files', () => {
@@ -43,29 +45,27 @@ describe('clientIdCache', () => {
 			expect(getClientIdForFile('file-123')).toBe('client-new');
 		});
 
-		it('should evict the oldest entry when cache exceeds max size (100)', () => {
+		it('should evict the oldest entry when cache exceeds max size (20)', () => {
 			// Fill the cache to the limit
-			for (let i = 0; i < 100; i++) {
+			for (let i = 0; i < 20; i++) {
 				setClientIdForFile(`file-${i}`, `client-${i}`);
 			}
 
-			// The first entry should still be present
+			// All entries should be present (reads no longer consume entries)
 			expect(getClientIdForFile('file-0')).toBe('client-0');
+			expect(getClientIdForFile('file-10')).toBe('client-10');
 
-			// Re-add file-0 so the cache is full again (file-0 was consumed above)
-			setClientIdForFile('file-0', 'client-0');
-
-			// Adding one more should evict the oldest (file-1, since file-0 was re-added)
+			// Adding one more should evict the oldest (file-0)
 			setClientIdForFile('file-overflow', 'client-overflow');
 
-			// file-1 was the oldest remaining entry and should be evicted
-			expect(getClientIdForFile('file-1')).toBeUndefined();
+			// file-0 was the oldest entry and should be evicted
+			expect(getClientIdForFile('file-0')).toBeUndefined();
 
 			// The new entry should be retrievable
 			expect(getClientIdForFile('file-overflow')).toBe('client-overflow');
 
 			// Other entries should still exist
-			expect(getClientIdForFile('file-50')).toBe('client-50');
+			expect(getClientIdForFile('file-10')).toBe('client-10');
 		});
 	});
 

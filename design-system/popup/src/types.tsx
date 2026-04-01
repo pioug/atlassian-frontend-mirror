@@ -78,16 +78,11 @@ export interface PopupComponentProps {
 	 * Test ID passed through by the parent popup.
 	 */
 	'data-testid'?: string;
-
+		
 	/**
 	 * ID passed through by the parent popup.
 	 */
 	id?: string;
-
-	/**
-	 * Ref that should be assigned to the root element.
-	 */
-	ref: Ref<HTMLDivElement>;
 
 	/**
 	 * Style that should be assigned to the root element.
@@ -132,12 +127,6 @@ export interface PopupComponentProps {
 	appearance?: 'default' | 'UNSAFE_modal-below-sm';
 
 	/**
-	 * Use this to set the accessibility role for the popup.
-	 * We strongly recommend using only `menu` or `dialog`.
-	 */
-	role?: string;
-
-	/**
 	 * Class name to apply to the popup container element.
 	 */
 	className?: string;
@@ -146,6 +135,12 @@ export interface PopupComponentProps {
 	 * Boolean to indicate if the reference element is hidden.
 	 */
 	isReferenceHidden?: boolean;
+
+	/**
+	 * Use this to set the accessibility role for the popup.
+	 * We strongly recommend using only `menu` or `dialog`.
+	 */
+	role?: string;
 }
 
 interface BaseProps {

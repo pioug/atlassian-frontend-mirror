@@ -1,4 +1,5 @@
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import type { SyncBlockDataProviderInterface } from '../../providers/types';
 import { SourceSyncBlockStoreManager } from '../sourceSyncBlockStoreManager';
@@ -214,6 +215,82 @@ describe('SourceSyncBlockStoreManager', () => {
 				// - hasReceivedContentChange is true (set by commitPendingCreation)
 				// - there's a dirty block in cache
 				expect(manager.hasUnsavedChanges()).toBe(true);
+			});
+		});
+	});
+
+	describe('updateSyncBlockData', () => {
+		let manager: SourceSyncBlockStoreManager;
+
+		beforeEach(() => {
+			const dataProvider = createMockDataProvider();
+			manager = new SourceSyncBlockStoreManager(dataProvider);
+		});
+
+		ffTest.on('platform_synced_block_update_refactor', 'when refactor fg is on', () => {
+			it('should skip serialization when content fragment has not changed', () => {
+				const contentFragment = {
+					eq: jest.fn().mockReturnValue(true),
+					toJSON: () => [{ type: 'paragraph', content: [] }],
+				};
+				const mockNode = {
+					type: { name: 'bodiedSyncBlock' },
+					attrs: { localId: 'local-1', resourceId: 'resource-1' },
+					content: contentFragment,
+				} as any;
+
+				// First call — populates cache
+				manager.updateSyncBlockData(mockNode);
+
+				// Second call — should hit Fragment.eq() fast path
+				const result = manager.updateSyncBlockData(mockNode);
+
+				expect(result).toBe(true);
+				expect(contentFragment.eq).toHaveBeenCalled();
+			});
+
+			it('should update cache when content fragment has changed', () => {
+				const contentFragment1 = {
+					eq: jest.fn().mockReturnValue(false),
+					toJSON: () => [{ type: 'paragraph', content: [{ type: 'text', text: 'hello' }] }],
+				};
+				const contentFragment2 = {
+					eq: jest.fn().mockReturnValue(false),
+					toJSON: () => [{ type: 'paragraph', content: [{ type: 'text', text: 'world' }] }],
+				};
+				const mockNode1 = {
+					type: { name: 'bodiedSyncBlock' },
+					attrs: { localId: 'local-1', resourceId: 'resource-1' },
+					content: contentFragment1,
+				} as any;
+				const mockNode2 = {
+					type: { name: 'bodiedSyncBlock' },
+					attrs: { localId: 'local-1', resourceId: 'resource-1' },
+					content: contentFragment2,
+				} as any;
+
+				manager.updateSyncBlockData(mockNode1);
+				manager.updateSyncBlockData(mockNode2);
+
+				// hasUnsavedChanges should be true because content changed
+				expect(manager.hasUnsavedChanges()).toBe(true);
+			});
+
+			it('should NOT set hasReceivedContentChange on first population', () => {
+				const mockNode = {
+					type: { name: 'bodiedSyncBlock' },
+					attrs: { localId: 'local-1', resourceId: 'resource-1' },
+					content: {
+						eq: jest.fn().mockReturnValue(false),
+						toJSON: () => [{ type: 'paragraph', content: [] }],
+					},
+				} as any;
+
+				manager.updateSyncBlockData(mockNode);
+
+				// First call should not set hasReceivedContentChange
+				// (no cachedBlock exists yet)
+				expect(manager.hasUnsavedChanges()).toBe(false);
 			});
 		});
 	});

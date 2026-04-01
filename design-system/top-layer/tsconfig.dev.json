@@ -67,6 +67,9 @@
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
+			"path": "../../uip/ssr-tests/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]

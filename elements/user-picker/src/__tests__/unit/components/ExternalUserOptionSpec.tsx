@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom';
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
 import { type ExternalUser, type UserSource, type UserSourceResult } from '../../../types';
 import { ExusUserSourceProvider } from '../../../clients/UserSourceProvider';
@@ -70,58 +69,28 @@ describe('ExternalUserOption', () => {
 		await expect(document.body).toBeAccessible();
 	});
 
-	ffTest.on('jira_ai_agent_avatar_user_picker_user_option', 'on', () => {
-		it('should render a avatar with the appropriate shape if avatarAppearanceShape is supplied', async () => {
-			const getAppearanceForAppTypeSpy = jest.spyOn(
-				require('@atlaskit/avatar'),
-				'getAppearanceForAppType',
-			);
-			user.appType = 'agent';
+	it('should render a avatar with the appropriate shape if avatarAppearanceShape is supplied', async () => {
+		const getAppearanceForAppTypeSpy = jest.spyOn(
+			require('@atlaskit/avatar'),
+			'getAppearanceForAppType',
+		);
+		user.appType = 'agent';
 
-			render(
-				<IntlProvider messages={{}} locale="en">
-					<ExternalUserOption user={user} status="approved" isSelected={false} />
-				</IntlProvider>,
-			);
+		render(
+			<IntlProvider messages={{}} locale="en">
+				<ExternalUserOption user={user} status="approved" isSelected={false} />
+			</IntlProvider>,
+		);
 
-			expect(getAppearanceForAppTypeSpy).toHaveBeenCalledWith('agent');
-			expect(getAppearanceForAppTypeSpy).toHaveReturnedWith('hexagon');
+		expect(getAppearanceForAppTypeSpy).toHaveBeenCalledWith('agent');
+		expect(getAppearanceForAppTypeSpy).toHaveReturnedWith('hexagon');
 
-			const hexagonAvatar = screen.getByTestId('hexagon-focus-container');
-			expect(hexagonAvatar).toBeInTheDocument();
+		const hexagonAvatar = screen.getByTestId('hexagon-focus-container');
+		expect(hexagonAvatar).toBeInTheDocument();
 
-			getAppearanceForAppTypeSpy.mockRestore();
+		getAppearanceForAppTypeSpy.mockRestore();
 
-			await expect(document.body).toBeAccessible();
-		});
-	});
-
-	ffTest.off('jira_ai_agent_avatar_user_picker_user_option', 'off', () => {
-		it('should not render a hexagon avatar with the appropriate shape if avatarAppearanceShape is supplied when fg jira_ai_agent_avatar_user_picker_user_option is disabled', async () => {
-			const getAppearanceForAppTypeSpy = jest.spyOn(
-				require('@atlaskit/avatar'),
-				'getAppearanceForAppType',
-			);
-			user.appType = 'agent';
-
-			render(
-				<IntlProvider messages={{}} locale="en">
-					<ExternalUserOption user={user} status="approved" isSelected={false} />
-				</IntlProvider>,
-			);
-
-			expect(getAppearanceForAppTypeSpy).not.toHaveBeenCalled();
-
-			// The hexagon container wrapper does not exist
-			const hexagonAvatar = screen.queryByTestId(/hexagon.*container/i);
-			expect(hexagonAvatar).not.toBeInTheDocument();
-
-			// When feature flag is off, no avatarAppearanceShape is passed, so Avatar uses default circle
-			const avatarElement = screen.getByRole('img');
-			expect(avatarElement).toBeInTheDocument();
-
-			await expect(document.body).toBeAccessible();
-		});
+		await expect(document.body).toBeAccessible();
 	});
 
 	it('should render a tooltip containing the user sources', async () => {

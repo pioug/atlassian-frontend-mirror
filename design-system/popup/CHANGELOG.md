@@ -1,5 +1,16 @@
 # @atlaskit/popup
 
+## 4.15.0
+
+### Minor Changes
+
+- [`18245cbd990e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18245cbd990e3) -
+  [ux] Added motion on open and close of Popup behind fg platform-dst-motion-uplift
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.14.0
 
 ### Minor Changes

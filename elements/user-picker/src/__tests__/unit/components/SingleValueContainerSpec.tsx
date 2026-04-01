@@ -6,7 +6,6 @@ import { AvatarOrIcon } from '../../../components/AvatarOrIcon';
 import { testUser } from '../_testUtils';
 import { type Option } from '../../../types';
 import { getAppearanceForAppType } from '@atlaskit/avatar';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/avatar', () => ({
 	...jest.requireActual('@atlaskit/avatar'),
@@ -75,50 +74,26 @@ describe('SingleValueContainer', () => {
 			jest.clearAllMocks();
 		});
 
-		ffTest.on('jira_ai_agent_avatar_user_picker_user_option', 'on', () => {
-			it('should set avatarAppearanceShape', async () => {
-				(getAppearanceForAppType as jest.Mock).mockReturnValue('hexagon');
+		it('should set avatarAppearanceShape', async () => {
+			(getAppearanceForAppType as jest.Mock).mockReturnValue('hexagon');
 
-				const userValueWithAppType: Option = {
-					data: { ...testUser, appType: 'agent' },
-					label: testUser.name,
-					value: '0',
-				};
+			const userValueWithAppType: Option = {
+				data: { ...testUser, appType: 'agent' },
+				label: testUser.name,
+				value: '0',
+			};
 
-				const component = shallowValueContainer({
-					hasValue: true,
-					selectProps: {
-						isFocused: true,
-						inputValue: testUser.name,
-						value: userValueWithAppType,
-					},
-				});
-
-				expect(getAppearanceForAppType).toHaveBeenCalledWith('agent');
-				expect(component.find(SizeableAvatar).prop('avatarAppearanceShape')).toBe('hexagon');
+			const component = shallowValueContainer({
+				hasValue: true,
+				selectProps: {
+					isFocused: true,
+					inputValue: testUser.name,
+					value: userValueWithAppType,
+				},
 			});
-		});
 
-		ffTest.off('jira_ai_agent_avatar_user_picker_user_option', 'off', () => {
-			it('should not set avatarAppearanceShape when jira_ai_agent_avatar_user_picker_user_option gate is disabled', async () => {
-				const userValueWithAppType: Option = {
-					data: { ...testUser, appType: 'agent' },
-					label: testUser.name,
-					value: '0',
-				};
-
-				const component = shallowValueContainer({
-					hasValue: true,
-					selectProps: {
-						isFocused: true,
-						inputValue: testUser.name,
-						value: userValueWithAppType,
-					},
-				});
-
-				expect(getAppearanceForAppType).not.toHaveBeenCalled();
-				expect(component.find(SizeableAvatar).prop('avatarAppearanceShape')).toBeUndefined();
-			});
+			expect(getAppearanceForAppType).toHaveBeenCalledWith('agent');
+			expect(component.find(SizeableAvatar).prop('avatarAppearanceShape')).toBe('hexagon');
 		});
 	});
 

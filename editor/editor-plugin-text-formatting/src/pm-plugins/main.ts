@@ -48,7 +48,7 @@ const checkNodeSelection = (
 
 const getTextFormattingState = (
 	editorState: EditorState,
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	_editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): TextFormattingState => {
 	const { em, code, strike, strong, subsup, underline } = editorState.schema.marks;
 	const state: TextFormattingState = { isInitialised: true };

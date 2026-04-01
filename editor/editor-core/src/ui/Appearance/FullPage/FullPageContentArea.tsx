@@ -27,6 +27,7 @@ import type {
 	UIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import type { BasePlugin } from '@atlaskit/editor-plugins/base';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugins/block-menu';
 import type { ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import type { ViewMode } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -244,6 +245,10 @@ const contentAreaHeightNoToolbar = css({
 	height: '100%',
 });
 
+type EditorAPI = PublicPluginAPI<
+	[OptionalPlugin<ContextPanelPlugin>, BasePlugin, OptionalPlugin<BlockMenuPlugin>]
+>;
+
 interface FullPageEditorContentAreaProps {
 	appearance: EditorAppearance | undefined;
 	contentComponents: UIComponentFactory[] | undefined;
@@ -253,7 +258,7 @@ interface FullPageEditorContentAreaProps {
 	disabled: boolean | undefined;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
 	editorActions: EditorActions | undefined;
-	editorAPI: PublicPluginAPI<[OptionalPlugin<ContextPanelPlugin>, BasePlugin]> | undefined;
+	editorAPI: EditorAPI | undefined;
 	editorDOMElement: ReactElement;
 	editorView: EditorView;
 	eventDispatcher: EventDispatcher | undefined;
@@ -290,6 +295,12 @@ const Content = React.forwardRef<
 				? akEditorUltraWideLayoutWidth
 				: theme.layoutMaxWidth
 			: akEditorFullWidthLayoutWidth);
+
+	// Get useStandardNodeWidth from block menu plugin shared state
+	// Only access editorAPI when the experiment is enabled to avoid performance impact
+	const useStandardNodeWidth =
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		(props.editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false);
 
 	useImperativeHandle(
 		ref,
@@ -330,6 +341,7 @@ const Content = React.forwardRef<
 					isScrollable
 					appearance={props.appearance}
 					contentMode={props.contentMode}
+					useStandardNodeWidth={useStandardNodeWidth}
 				>
 					<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 						<div

@@ -218,14 +218,21 @@ export const ExtensionLabel = ({
 			className={containerClassNames}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={customContainerStyles}
-			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseOver={() => {
 				setIsNodeHovered?.(true);
 			}}
-			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
+			// @atlassian/a11y/mouse-events-have-key-events: label visibility on keyboard focus is already
+			// handled via the .ak-editor-selected-node CSS class applied by ProseMirror on node selection.
+			// No-ops here satisfy the rule.
+			onFocus={
+				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? () => {} : undefined
+			}
 			onMouseLeave={() => {
 				setIsNodeHovered?.(false);
 			}}
+			onBlur={
+				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? () => {} : undefined
+			}
 			data-testid="new-lozenge-container"
 			contentEditable={false}
 		>

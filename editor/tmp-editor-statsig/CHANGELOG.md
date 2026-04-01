@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 52.0.0
+
+### Major Changes
+
+- [`e2f512c5e8eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2f512c5e8eba) -
+  Clean up feature flag platform_editor_task_item_styles for task item checkbox and remove unused
+  styles objects taskItemCheckboxStylesWithBlockTaskItem and taskItemCheckboxStyles. Renamed
+  taskItemNextCheckboxStyles to taskItemCheckboxStyles
+
+## 51.1.0
+
+### Minor Changes
+
+- [`f2500fdeca2ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2500fdeca2ee) -
+  Fix Ctrl+Shift+H keyboard shortcut for expand node title drag handles to support keyboard-only and
+  screen reader users
+- [`d3c7e8b3f1a04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3c7e8b3f1a04) -
+  add stricter typecheck for panel color attr to avoid unhandled errors
+- [`87bb2de1fb74d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87bb2de1fb74d) -
+  Fix scrollable-region-focusable a11y violation on inline code by removing overflow:auto from code
+  mark styles in EditorContentContainer behind the platform_editor_a11y_scrollable_region
+  experiment. Removing overflow:auto eliminates the scrollable region entirely (text wraps naturally
+  via overflow-wrap:break-word and white-space:pre-wrap),
+
 ## 51.0.0
 
 ### Major Changes

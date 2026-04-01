@@ -1,5 +1,12 @@
 # @atlaskit/side-nav-items
 
+## 1.12.1
+
+### Patch Changes
+
+- [`a7ccccca79cb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7ccccca79cb9) -
+  Clean up feature gate navx-4169-improve-gsn-code
+
 ## 1.12.0
 
 ### Minor Changes

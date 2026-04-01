@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import type { ReactNode } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { ExtractInjectionAPI, NextEditorPlugin } from '../types';
 
 import type { PopupUserIntent } from './types';
@@ -26,16 +24,12 @@ export const UserIntentPopupWrapper = ({
 
 		return () => {
 			if (userIntent === api?.userIntent?.sharedState.currentState()?.currentUserIntent) {
-				if (fg('platform_editor_fix_popup_user_intent')) {
-					// Defer the reset to avoid interfering with ongoing ProseMirror transactions
-					// This fixes a race condition where cleanup happens during a transaction
-					// (e.g., during drag handle mouse over -> unmountDecorations -> flushSync)
-					setTimeout(() => {
-						api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('default'));
-					}, 0);
-				} else {
+				// Defer the reset to avoid interfering with ongoing ProseMirror transactions
+				// This fixes a race condition where cleanup happens during a transaction
+				// (e.g., during drag handle mouse over -> unmountDecorations -> flushSync)
+				setTimeout(() => {
 					api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('default'));
-				}
+				}, 0);
 			}
 		};
 

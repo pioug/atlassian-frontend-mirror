@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 16.8.2
+
+### Patch Changes
+
+- [`18245cbd990e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18245cbd990e3) -
+  Added motion to opening and closing of Popup
+- Updated dependencies
+
 ## 16.8.1
 
 ### Patch Changes

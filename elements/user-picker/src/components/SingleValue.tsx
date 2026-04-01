@@ -84,22 +84,14 @@ export const SingleValue = (props: Props) => {
 						src={getAvatarUrl(data)}
 						appearance={appearance}
 						type={isTeam(data) ? 'team' : 'person'}
-						avatarAppearanceShape={
-							fg('jira_ai_agent_avatar_user_picker_user_option')
-								? getAppearanceForAppType(data.appType)
-								: undefined
-						}
+						avatarAppearanceShape={getAppearanceForAppType(data.appType)}
 					/>
 				) : (
 					<SizeableAvatar
 						src={getAvatarUrl(data)}
 						appearance={appearance}
 						type={isTeam(data) ? 'team' : 'person'}
-						avatarAppearanceShape={
-							fg('jira_ai_agent_avatar_user_picker_user_option')
-								? getAppearanceForAppType(data.appType)
-								: undefined
-						}
+						avatarAppearanceShape={getAppearanceForAppType(data.appType)}
 					/>
 				)}
 				<Box xcss={styles.avatarItem}>

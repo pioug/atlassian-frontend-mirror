@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 112.13.9
+
+### Patch Changes
+
+- [`6c3e67fec342f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c3e67fec342f) -
+  Rename copyLink message to copy with defaultMessage 'Copy' in block-menu messages
+- Updated dependencies
+
+## 112.13.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.13.7
+
+### Patch Changes
+
+- [`3ab437cd78576`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ab437cd78576) -
+  Tidy feature flag `platform_editor_fix_popup_user_intent` which fixes a race condition in popup
+  user intent cleanup by deferring the reset with setTimeout
+- Updated dependencies
+
+## 112.13.6
+
+### Patch Changes
+
+- [`9ac8f29c7ac94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ac8f29c7ac94) -
+  Fix @atlassian/a11y/mouse-events-have-key-events violations in editor-common extensibility
+  components by adding no-op onFocus/onBlur handlers gated behind the
+  editor_a11y\_\_enghealth-46814_fy26 experiment. Affected files: EditToggle, ExtensionLabel,
+  Extension, InlineExtension, MultiBodiedExtension.
+- Updated dependencies
+
+## 112.13.5
+
+### Patch Changes
+
+- [`546c399f5932a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/546c399f5932a) -
+  smartlink toolbar - added action items for links
+
 ## 112.13.4
 
 ### Patch Changes

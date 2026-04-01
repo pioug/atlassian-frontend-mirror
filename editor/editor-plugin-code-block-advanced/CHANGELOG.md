@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 8.0.19
+
+### Patch Changes
+
+- [`495e6f8060297`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/495e6f8060297) -
+  Cleanup feature flag platform_editor_a11y_code_block_gutter_focus_fix - always set tabindex="-1"
+  on code block fold gutter buttons for improved accessibility.
+- Updated dependencies
+
 ## 8.0.18
 
 ### Patch Changes

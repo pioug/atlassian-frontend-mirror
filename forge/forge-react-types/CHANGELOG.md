@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.65.3
+
+### Patch Changes
+
+- [`024c80d6caae2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/024c80d6caae2) -
+  <Global> TopNav now renders automatically and Create button moved to top level
+- Updated dependencies
+
 ## 0.65.2
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @atlaskit/tokens
 
+## 11.4.1
+
+### Patch Changes
+
+- [`6bce18279cb35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bce18279cb35) -
+  Prevents a bundling/runtime failure for `themeStateDefaults` **shape** and **motion** defaults by
+  defining them as module-scope functions instead of inline object methods, so `react-magnetic-di`’s
+  `fg()` rewrite uses a valid `di(host, fg)` host and no longer references undefined `motion` /
+  `shape` identifiers.
+
 ## 11.4.0
 
 ### Minor Changes

@@ -4,6 +4,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { isDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import {
@@ -345,6 +346,17 @@ export const createPlugin = (
 				syncBlockStore.referenceManager.fetchSyncBlocksData(
 					convertPMNodesToSyncBlockNodes(syncBlockNodes),
 				);
+
+				// Populate source sync block cache from initial document
+				// When fg is ON, this replaces the constructor call in the nodeview
+				if (fg('platform_synced_block_update_refactor')) {
+					instance.doc.forEach((node) => {
+						if (syncBlockStore.sourceManager.isSourceBlock(node)) {
+							syncBlockStore.sourceManager.updateSyncBlockData(node);
+						}
+					});
+				}
+
 				return {
 					selectionDecorationSet: calculateDecorations(
 						instance.doc,
@@ -427,13 +439,13 @@ export const createPlugin = (
 							pmPluginFactoryParams,
 							api,
 							syncBlockStore,
-						})
+					  })
 					: bodiedSyncBlockNodeViewOld({
 							pluginOptions: options,
 							pmPluginFactoryParams,
 							api,
 							syncBlockStore,
-						}),
+					  }),
 			},
 			decorations: (state) => {
 				const currentPluginState = syncedBlockPluginKey.getState(state);
@@ -609,7 +621,7 @@ export const createPlugin = (
 						isConfirmedSyncBlockDeletion,
 						bodiedSyncBlockRemoved,
 						bodiedSyncBlockAdded,
-					})
+				  })
 				: filterTransactionOnline({
 						tr,
 						state,
@@ -619,9 +631,28 @@ export const createPlugin = (
 						bodiedSyncBlockRemoved,
 						bodiedSyncBlockAdded,
 						extensionFlagShown,
-					});
+				  });
 		},
 		appendTransaction: (trs, oldState, newState) => {
+			// Update source sync block cache for user-initiated changes only
+			// When fg is ON, cache updates are handled here instead of in the nodeview update()
+			if (fg('platform_synced_block_update_refactor')) {
+				const isUserChange = (tr: Transaction) =>
+					tr.docChanged && !isDirtyTransaction(tr) && !tr.getMeta('isRemote');
+
+				const hasSourceBlockEdit = trs.some(
+					(tr) => isUserChange(tr) && hasEditInSyncBlock(tr, oldState),
+				);
+
+				if (hasSourceBlockEdit) {
+					newState.doc.forEach((node) => {
+						if (syncBlockStore.sourceManager.isSourceBlock(node)) {
+							syncBlockStore.sourceManager.updateSyncBlockData(node);
+						}
+					});
+				}
+			}
+
 			trs
 				.filter((tr) => tr.docChanged)
 				.forEach((tr) => {

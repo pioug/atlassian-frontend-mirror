@@ -1,5 +1,12 @@
 # @atlaskit/focused-task-close-account
 
+## 3.3.5
+
+### Patch Changes
+
+- [`f0ae528c7b0bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0ae528c7b0bb) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 3.3.4
 
 ### Patch Changes

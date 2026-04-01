@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 8.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.0
+
+### Minor Changes
+
+- [`87bb2de1fb74d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87bb2de1fb74d) -
+  Fix scrollable-region-focusable a11y violation on inline code by removing overflow:auto from code
+  mark styles in EditorContentContainer behind the platform_editor_a11y_scrollable_region
+  experiment. Removing overflow:auto eliminates the scrollable region entirely (text wraps naturally
+  via overflow-wrap:break-word and white-space:pre-wrap),
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.14
 
 ### Patch Changes

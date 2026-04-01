@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 11.25.6
+
+### Patch Changes
+
+- [`56b3ad1028c58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56b3ad1028c58) -
+  Clean up feature gate jira_ai_agent_avatar_user_picker_user_option
+
 ## 11.25.5
 
 ### Patch Changes

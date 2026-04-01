@@ -109,6 +109,15 @@ export type EditorToolbarHandlers = Partial<{
 		context?: EditorToolbarHandlerContext,
 	) => void;
 	onChangeBorderClick: EditorToolbarHandler;
+	/**
+	 * Handler invoked when the Copy action is clicked.
+	 * Copies the native-embed node to the clipboard.
+	 */
+	onCopyClick: EditorToolbarHandler;
+	/**
+	 * @private
+	 * @deprecated Use `onCopyClick` instead. This is a deprecated alias and will be removed in a future release.
+	 */
 	onCopyLinkClick: EditorToolbarHandler;
 	onDeleteClick: EditorToolbarHandler;
 	onEditClick: EditorToolbarHandler;

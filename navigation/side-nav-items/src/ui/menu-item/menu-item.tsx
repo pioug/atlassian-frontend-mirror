@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Suspense, useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 
 import { cssMap, cx, jsx, keyframes } from '@compiled/react';
 
@@ -687,15 +687,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 			 * hydration mismatches. It also wraps the lazy component in its own `Suspense`
 			 * boundary, so its loading won't block the rendering of the rest of the menu item.
 			 */}
-			{hasDragIndicator ? (
-				fg('navx-4169-improve-gsn-code') ? (
-					<LazyDragHandle />
-				) : (
-					<Suspense fallback={null}>
-						<LazyDragHandle />
-					</Suspense>
-				)
-			) : null}
+			{hasDragIndicator ? <LazyDragHandle /> : null}
 
 			{dropIndicator}
 		</div>

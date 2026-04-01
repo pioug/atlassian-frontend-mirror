@@ -1,5 +1,12 @@
 # @atlaskit/media-common
 
+## 13.0.1
+
+### Patch Changes
+
+- [`539f26aebdac4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/539f26aebdac4) -
+  Update CopyIntent clientId cache to be mutli use following LRU principles
+
 ## 13.0.0
 
 ### Major Changes

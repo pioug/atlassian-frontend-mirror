@@ -90,10 +90,13 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			},
 		},
 		getSharedState(editorState) {
+			const useStandardNodeWidth = config?.useStandardNodeWidth ?? false;
+
 			if (!editorState) {
 				return {
 					currentSelectedNodeName: undefined,
 					showFlag: false,
+					useStandardNodeWidth,
 				};
 			}
 
@@ -107,6 +110,7 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			return {
 				currentSelectedNodeName,
 				showFlag,
+				useStandardNodeWidth,
 			};
 		},
 		contentComponent({

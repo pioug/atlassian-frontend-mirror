@@ -10,7 +10,9 @@ const DueOnElement = (props: DueOnElementProps): JSX.Element | null => {
 	const context = useFlexibleUiContext();
 	const data = context ? toDateLozengeProps(context.dueOn) : null;
 
-	return data ? <BaseLozengeElement {...data} {...props} name={ElementName.DueOn} /> : null;
+	return data ? (
+		<BaseLozengeElement {...data} {...props} name={ElementName.DueOn} isDateTag />
+	) : null;
 };
 
 export default DueOnElement;

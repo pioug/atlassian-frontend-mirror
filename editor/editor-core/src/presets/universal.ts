@@ -93,6 +93,7 @@ export type InitialPluginConfiguration = {
 	};
 	blockMenuPlugin?: {
 		enabled?: boolean;
+		useStandardNodeWidth?: boolean;
 	};
 	blockTypePlugin?: {
 		allowFontSize?: boolean;
@@ -224,7 +225,13 @@ export default function createUniversalPresetInternal({
 			Boolean(initialPluginConfiguration?.blockControlsPlugin?.enabled ?? false),
 		)
 		.maybeAdd(
-			[blockMenuPlugin, {}],
+			[
+				blockMenuPlugin,
+				{
+					useStandardNodeWidth:
+						initialPluginConfiguration?.blockMenuPlugin?.useStandardNodeWidth ?? false,
+				},
+			],
 			Boolean(initialPluginConfiguration?.blockMenuPlugin?.enabled ?? false),
 		)
 		.maybeAdd(

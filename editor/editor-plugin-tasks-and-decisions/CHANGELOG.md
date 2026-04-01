@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 11.4.3
+
+### Patch Changes
+
+- [`e2f512c5e8eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2f512c5e8eba) -
+  Clean up feature flag platform_editor_task_item_styles for task item checkbox and remove unused
+  styles objects taskItemCheckboxStylesWithBlockTaskItem and taskItemCheckboxStyles. Renamed
+  taskItemNextCheckboxStyles to taskItemCheckboxStyles
+- Updated dependencies
+
 ## 11.4.2
 
 ### Patch Changes

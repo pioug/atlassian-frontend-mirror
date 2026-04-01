@@ -178,6 +178,19 @@ var themeConfig = {
  * it will always resolve to false when server side rendered or when flags are loaded async.
  */
 
+function getShapeDefault() {
+  if ((0, _platformFeatureFlags.fg)('platform-dst-shape-theme-default')) {
+    return 'shape';
+  }
+  return undefined;
+}
+function getMotionDefault() {
+  if ((0, _platformFeatureFlags.fg)('platform-dst-motion-theme-default')) {
+    return 'motion';
+  }
+  return undefined;
+}
+
 /**
  * themeStateDefaults: the default values for ThemeState used by theming utilities
  */
@@ -186,20 +199,10 @@ var themeStateDefaults = exports.themeStateDefaults = {
   contrastMode: 'auto',
   dark: 'dark',
   light: 'light',
-  shape: function shape() {
-    if ((0, _platformFeatureFlags.fg)('platform-dst-shape-theme-default')) {
-      return 'shape';
-    }
-    return undefined;
-  },
+  shape: getShapeDefault,
   spacing: 'spacing',
   typography: 'typography',
-  motion: function motion() {
-    if ((0, _platformFeatureFlags.fg)('platform-dst-motion-theme-default')) {
-      return 'motion';
-    }
-    return undefined;
-  },
+  motion: getMotionDefault,
   UNSAFE_themeOptions: undefined
 };
 

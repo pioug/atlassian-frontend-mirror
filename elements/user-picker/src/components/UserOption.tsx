@@ -100,11 +100,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 					iconColor={iconColor}
 					src={avatarUrl}
 					presence={status}
-					avatarAppearanceShape={
-						fg('jira_ai_agent_avatar_user_picker_user_option')
-							? getAppearanceForAppType(appType)
-							: undefined
-					}
+					avatarAppearanceShape={getAppearanceForAppType(appType)}
 				/>
 			);
 		}
@@ -114,11 +110,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 				appearance={appearance}
 				src={avatarUrl}
 				presence={status}
-				avatarAppearanceShape={
-					fg('jira_ai_agent_avatar_user_picker_user_option')
-						? getAppearanceForAppType(appType)
-						: undefined
-				}
+				avatarAppearanceShape={getAppearanceForAppType(appType)}
 			/>
 		);
 	};

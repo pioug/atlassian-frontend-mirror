@@ -14,6 +14,7 @@ import Blanket from '@atlaskit/blanket';
 import noop from '@atlaskit/ds-lib/noop';
 import { Layering } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { Motion } from '@atlaskit/motion';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
@@ -161,7 +162,7 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 	);
 
 	let returnFocus = true;
-	let onDeactivation: (node: HTMLElement) => void;
+	let onDeactivation: (node: HTMLElement) => void = noop;
 
 	if ('boolean' === typeof shouldReturnFocus) {
 		returnFocus = shouldReturnFocus;
@@ -176,33 +177,63 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 	return (
 		<Layering isDisabled={false}>
 			<Portal zIndex={layers.modal()}>
-				<FadeIn>
-					{(fadeInProps) => (
-						<div
-							{...fadeInProps}
-							css={fillScreenStyles}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-							className={fadeInProps.className}
-							aria-hidden={!isForeground}
+				{
+					fg('platform-dst-motion-uplift') ? (
+						<Motion
+							enteringAnimation={token('motion.content.enter.medium')}
+							exitingAnimation={token('motion.content.exit.long')}
 						>
-							<FocusLock
-								autoFocus={autoFocusLock}
-								returnFocus={returnFocus}
-								onDeactivation={onDeactivation}
-								whiteList={allowListCallback}
+							<div
+								css={fillScreenStyles}
+								aria-hidden={!isForeground}
 							>
-								{/* Ensures scroll events are blocked on the document body and locked */}
-								<ScrollLock />
-								{/* TouchScrollable makes the whole modal dialog scrollable when scroll boundary is set to viewport. */}
-								{shouldScrollInViewport ? (
-									<TouchScrollable>{modalDialogWithBlanket}</TouchScrollable>
-								) : (
-									modalDialogWithBlanket
-								)}
-							</FocusLock>
-						</div>
-					)}
-				</FadeIn>
+								<FocusLock
+									autoFocus={autoFocusLock}
+									returnFocus={returnFocus}
+									onDeactivation={onDeactivation}
+									whiteList={allowListCallback}
+								>
+									{/* Ensures scroll events are blocked on the document body and locked */}
+									<ScrollLock />
+									{/* TouchScrollable makes the whole modal dialog scrollable when scroll boundary is set to viewport. */}
+									{shouldScrollInViewport ? (
+										<TouchScrollable>{modalDialogWithBlanket}</TouchScrollable>
+									) : (
+										modalDialogWithBlanket
+									)}
+								</FocusLock>
+							</div>
+						</Motion>
+					) : (
+						<FadeIn>
+							{(fadeInProps) => (
+								<div
+									{...fadeInProps}
+									css={fillScreenStyles}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+									className={fadeInProps.className}
+									aria-hidden={!isForeground}
+								>
+									<FocusLock
+										autoFocus={autoFocusLock}
+										returnFocus={returnFocus}
+										onDeactivation={onDeactivation}
+										whiteList={allowListCallback}
+									>
+										{/* Ensures scroll events are blocked on the document body and locked */}
+										<ScrollLock />
+										{/* TouchScrollable makes the whole modal dialog scrollable when scroll boundary is set to viewport. */}
+										{shouldScrollInViewport ? (
+											<TouchScrollable>{modalDialogWithBlanket}</TouchScrollable>
+										) : (
+											modalDialogWithBlanket
+										)}
+									</FocusLock>
+								</div>
+							)}
+						</FadeIn>
+					)
+				}
 			</Portal>
 		</Layering>
 	);

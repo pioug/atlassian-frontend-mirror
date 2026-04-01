@@ -6,6 +6,9 @@ import { css, jsx } from '@compiled/react';
 import { FormattedDate } from 'react-intl-next';
 
 import AtlaskitLozenge, { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { SimpleTag as Tag } from '@atlaskit/tag';
+import { token } from '@atlaskit/tokens';
 
 import type { LinkLozengeInvokeActions } from '../../../../../../extractors/common/lozenge/types';
 import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
@@ -16,6 +19,12 @@ import LozengeAction from './lozenge-action';
 const styles = css({
 	display: 'inline-flex',
 	minWidth: 'fit-content',
+});
+const dueOnStyles = css({
+	marginTop: token('space.negative.050', '-4px'),
+	marginRight: token('space.negative.050', '-4px'),
+	marginBottom: token('space.negative.050', '-4px'),
+	marginLeft: token('space.negative.050', '-4px'),
 });
 
 export type LozengeAppearance = 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
@@ -30,6 +39,10 @@ export type BaseLozengeElementProps = ElementProps & {
 	 */
 	appearance?: LozengeAppearance;
 	/**
+	 * Determines if the element is a due on element.
+	 */
+	isDateTag?: boolean;
+	/**
 	 * Callback fired after lozenge value has changed
 	 */
 	onAfterChanged?: () => void;
@@ -37,6 +50,10 @@ export type BaseLozengeElementProps = ElementProps & {
 	 * The text to display within the lozenge.
 	 */
 	text?: string | React.ReactNode;
+	/**
+	 * Numeric metric displayed as a trailing badge inside the lozenge.
+	 */
+	trailingMetric?: string;
 } & Pick<AtlaskitLozengeProps, 'maxWidth' | 'style'>;
 
 /**
@@ -55,6 +72,8 @@ const BaseLozengeElement = ({
 	style,
 	text,
 	testId = 'smart-element-lozenge',
+	isDateTag,
+	trailingMetric,
 }: BaseLozengeElementProps) => {
 	const ui = useFlexibleUiOptionContext();
 	if (!text) {
@@ -70,6 +89,14 @@ const BaseLozengeElement = ({
 			text={text}
 			zIndex={ui?.zIndex}
 			onAfterChanged={onAfterChanged}
+			{...(trailingMetric && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+				? { trailingMetric }
+				: undefined)}
+		/>
+	) : isDateTag ? (
+		<Tag
+			text={text as string}
+			migration_fallback="lozenge"
 		/>
 	) : (
 		<AtlaskitLozenge
@@ -79,6 +106,9 @@ const BaseLozengeElement = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 			testId={`${testId}-lozenge`}
+			{...(trailingMetric && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+				? { trailingMetric }
+				: undefined)}
 		>
 			{text}
 		</AtlaskitLozenge>
@@ -86,7 +116,10 @@ const BaseLozengeElement = ({
 
 	return (
 		<span
-			css={[styles]}
+			css={[
+				styles,
+				isDateTag && fg('platform-dst-lozenge-tag-badge-visual-uplifts') && dueOnStyles,
+			]}
 			data-smart-element={name}
 			data-smart-element-lozenge
 			data-testid={testId}

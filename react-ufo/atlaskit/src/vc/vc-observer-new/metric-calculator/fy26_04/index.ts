@@ -43,6 +43,21 @@ export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 		include3p?: boolean,
 		excludeSmartAnswersInSearch?: boolean,
 	): boolean {
+		const extra_fy26_04_excluded_attributes = fg('platform_ufo_ignore_data_fabric_mode')
+			? ['data-fabric-mode']
+			: [];
+
+		const entryData = entry.data as ViewportEntryData;
+		const { attributeName } = entryData;
+
+		if (
+			entry.data.type === 'mutation:attribute' &&
+			attributeName &&
+			extra_fy26_04_excluded_attributes.includes(attributeName)
+		) {
+			return false;
+		}
+
 		const isEntryIncludedInV3 = super.isEntryIncluded(
 			entry,
 			include3p,
@@ -52,9 +67,6 @@ export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 		if (isEntryIncludedInV3 && !getExcludedEntryTypes().includes(entry.data.type)) {
 			return true;
 		}
-
-		const entryData = entry.data as ViewportEntryData;
-		const { attributeName } = entryData;
 
 		if (
 			entry.data.type === 'mutation:attribute' &&

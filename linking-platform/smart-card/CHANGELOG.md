@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 43.29.0
+
+### Minor Changes
+
+- [`e0b37b0d6c8eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0b37b0d6c8eb) -
+  [ux] Migrate labels in smart card to adopt the new labelling system, changes are behind flag
+  platform-dst-lozenge-tag-badge-visual-uplifts.
+
+### Patch Changes
+
+- [`e01f4cbec931b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e01f4cbec931b) -
+  Add message descriptors for translation
+- Updated dependencies
+
 ## 43.28.7
 
 ### Patch Changes

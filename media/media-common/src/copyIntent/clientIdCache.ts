@@ -4,11 +4,12 @@
  *
  * Used for cross-client copy/paste scenarios
  *
- * Entries are one-time use (consumed on read), with a max size limit
- * to guard against build-up if entries are never consumed (should not happpen).
+ * Entries persist across reads to support multiple pastes of the same content.
+ * An LRU-style max size limit guards against unbounded growth — the oldest entry
+ * is evicted whenever the cache exceeds CLIENT_ID_CACHE_MAX_SIZE.
  */
 
-const CLIENT_ID_CACHE_MAX_SIZE = 100;
+const CLIENT_ID_CACHE_MAX_SIZE = 20;
 
 const clientIdCache = new Map<string, string>();
 
@@ -25,16 +26,12 @@ export const setClientIdForFile = (fileId: string, clientId: string): void => {
 };
 
 /**
- * Retrieve and consume clientId for a file ID (called during copyFile)
+ * Retrieve clientId for a file ID (called during copyFile).
  * Returns undefined if not found.
+ * Entries are NOT consumed on read — the same file can be pasted multiple times.
  */
 export const getClientIdForFile = (fileId: string): string | undefined => {
-	const clientId = clientIdCache.get(fileId);
-	// Consume the entry after reading (one-time use)
-	if (clientId) {
-		clientIdCache.delete(fileId);
-	}
-	return clientId;
+	return clientIdCache.get(fileId);
 };
 
 /**

@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type LozengeProps } from '../../../../../types';
 import { InlineCardResolvedView } from '../../index';
@@ -131,5 +132,72 @@ describe('ResolvedView', () => {
 	it('should not render a hover preview when prop is not provided', () => {
 		render(<InlineCardResolvedView link="www.test.com" />);
 		expect(screen.queryByTestId('hover-card-trigger-wrapper')).not.toBeInTheDocument();
+	});
+
+	describe('feature flag: platform-dst-lozenge-tag-badge-visual-uplifts', () => {
+		ffTest.on(
+			'platform-dst-lozenge-tag-badge-visual-uplifts',
+			'splits state metric from lozenge text',
+			() => {
+				it('should split "On track - 0.7" into label and trailingMetric', () => {
+					const lozengeProps: LozengeProps = {
+						text: 'On track - 0.7',
+						appearance: 'success',
+					};
+					render(<InlineCardResolvedView title="some text content" lozenge={lozengeProps} />);
+
+					const lozenge = screen.getByTestId('inline-card-resolved-view-lozenge');
+					expect(lozenge).toBeInTheDocument();
+					expect(lozenge).toHaveTextContent('On track');
+					expect(lozenge).not.toHaveTextContent('On track - 0.7');
+					const metricBadge = screen.getByTestId('inline-card-resolved-view-lozenge--metric');
+					expect(metricBadge).toHaveTextContent('0.7');
+				});
+
+				it('should split "Off track - 0.1" into label and trailingMetric for integers', () => {
+					const lozengeProps: LozengeProps = {
+						text: 'Off track - 0.1',
+						appearance: 'removed',
+					};
+					render(<InlineCardResolvedView title="some text content" lozenge={lozengeProps} />);
+
+					const lozenge = screen.getByTestId('inline-card-resolved-view-lozenge');
+					expect(lozenge).toBeInTheDocument();
+					expect(lozenge).toHaveTextContent('Off track');
+					const metricBadge = screen.getByTestId('inline-card-resolved-view-lozenge--metric');
+					expect(metricBadge).toHaveTextContent('0.1');
+				});
+
+				it('should not split text without a dash-number pattern', () => {
+					const lozengeProps: LozengeProps = {
+						text: 'Pending',
+						appearance: 'default',
+					};
+					render(<InlineCardResolvedView title="some text content" lozenge={lozengeProps} />);
+
+					const lozenge = screen.getByTestId('inline-card-resolved-view-lozenge');
+					expect(lozenge).toBeInTheDocument();
+					expect(lozenge).toHaveTextContent('Pending');
+				});
+			},
+		);
+
+		ffTest.off(
+			'platform-dst-lozenge-tag-badge-visual-uplifts',
+			'does not split state metric when flag is off',
+			() => {
+				it('should render full text without splitting when flag is off', () => {
+					const lozengeProps: LozengeProps = {
+						text: 'On track - 0.7',
+						appearance: 'success',
+					};
+					render(<InlineCardResolvedView title="some text content" lozenge={lozengeProps} />);
+
+					const lozenge = screen.getByTestId('inline-card-resolved-view-lozenge');
+					expect(lozenge).toBeInTheDocument();
+					expect(lozenge).toHaveTextContent('On track - 0.7');
+				});
+			},
+		);
 	});
 });

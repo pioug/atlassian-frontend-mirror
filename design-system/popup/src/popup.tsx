@@ -11,6 +11,7 @@ import { cssMap } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { Layering } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
@@ -131,12 +132,26 @@ export const Popup: FC<PopupProps> = memo(
 						});
 					}}
 				</Reference>
-				{isOpen &&
+				{
+					!fg('platform-dst-motion-uplift') && isOpen &&
 					(shouldRenderToParent || shouldFitContainer ? (
 						renderPopperWrapper
 					) : (
 						<Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
-					))}
+					))
+				}
+				{
+					fg('platform-dst-motion-uplift') && (
+						<ExitingPersistence appear>
+							{isOpen &&
+								(shouldRenderToParent || shouldFitContainer ? (
+									renderPopperWrapper
+								) : (
+									<Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
+								))}
+						</ExitingPersistence>
+					)
+				}
 			</Manager>
 		);
 

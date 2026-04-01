@@ -50,10 +50,14 @@ Icons can use color tokens for icons, text, links, or the current text color.
 
 <Example Component={IconColor} packageName="@atlaskit/icon" hiddenSections={['iconography']} />
 
-## Spacing props
+## Spacing props (deprecated)
 
-Icons support a `spacing` prop to add padding around the icon. `spacious` spacing sets the bounding
-box to `24px`. Both small and utility icons support an additional option, `compact`, that sets the
-bounding box to `16px`.
+The spacing prop is deprecated because icons work best when they're spacing-neutral — padding
+belongs in the layout around them, not built into the icon itself. Remove spacing from your icons
+and add padding to the surrounding component or frame instead. Engineers can use the
+`32.0.2-icon-spacing-to-flex-primitive` codemod via `npx @atlaskit/codemod-cli` or use the
+`@atlaskit/design-system/no-icon-spacing-prop`
+[ESLint rule](https://atlassian.design/components/eslint-plugin-design-system/no-icon-spacing-prop)
+rule will flag and suggest fixes for any remaining usages.
 
 <Example Component={IconSpacing} packageName="@atlaskit/icon" hiddenSections={['iconography']} />

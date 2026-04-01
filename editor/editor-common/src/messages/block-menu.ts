@@ -1,129 +1,134 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
+	codeBlock: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	copy: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	copyBlock: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	moveUpBlock: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	moveDownBlock: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	copyLink: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	copyLinkToBlock: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
 	// New message with updated wording. To clean up: remove old message and feature flag check when flag is removed.
 	copyLinkToSelection: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	linkCopiedToClipboard: {
-		id: string;
+	copySyncedBlock: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	paragraph: {
-		id: string;
+	create: {
 		defaultMessage: string;
 		description: string;
-	};
-	codeBlock: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	layout: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	deleteBlock: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	turnInto: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	createSyncedBlock: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	decisionList: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteBlock: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	fallbackMenuItem: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	fallbackNestedMenu: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	headings: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	layout: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	linkCopiedToClipboard: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	moveDownBlock: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	moveUpBlock: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	newLozenge: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	paragraph: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	structure: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	suggested: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
 	// New message with updated wording. To clean up: remove old message and feature flag check when flag is removed.
 	syncBlock: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	copySyncedBlock: {
-		id: string;
+	turnInto: {
 		defaultMessage: string;
 		description: string;
-	};
-	newLozenge: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	decisionList: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	wrapIcon: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	create: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	headings: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	suggested: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	structure: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	fallbackNestedMenu: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	fallbackMenuItem: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 } = defineMessages({
 	copyBlock: {
@@ -140,6 +145,11 @@ export const messages: {
 		id: 'fabric.editor.block.menu.move.down',
 		defaultMessage: 'Move down',
 		description: 'Move the selected block down in the document',
+	},
+	copy: {
+		id: 'fabric.editor.block.menu.copy',
+		defaultMessage: 'Copy',
+		description: 'Copy the selected content to the clipboard',
 	},
 	copyLink: {
 		id: 'fabric.editor.block.menu.copy.link',

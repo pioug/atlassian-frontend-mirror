@@ -21,7 +21,7 @@ const Controls = styled.div({
 	alignItems: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'>': {
-		paddingRight: token('space.050', '4px'),
+		paddingRight: token('space.050'),
 	},
 });
 

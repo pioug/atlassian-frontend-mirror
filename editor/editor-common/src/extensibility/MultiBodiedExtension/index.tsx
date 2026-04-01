@@ -317,10 +317,20 @@ const MultiBodiedExtensionWithWidth = ({
 				data-layout={node.attrs.layout}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={mbeWrapperStyles}
-				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseEnter={() => handleMouseEvent(true)}
-				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
+				// @atlassian/a11y/mouse-events-have-key-events: hover border is also applied via .ak-editor-selected-node
+				// CSS on keyboard selection. No-ops here satisfy the rule without duplicating state updates.
+				onFocus={
+					expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
+						? () => {}
+						: undefined
+				}
 				onMouseLeave={() => handleMouseEvent(false)}
+				onBlur={
+					expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
+						? () => {}
+						: undefined
+				}
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766

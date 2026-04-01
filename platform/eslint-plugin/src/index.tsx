@@ -36,6 +36,7 @@ import noJestMockBarrelFiles from './rules/import/no-jest-mock-barrel-files';
 import noRelativeBarrelFileImports from './rules/import/no-relative-barrel-file-imports';
 import noConversationAssistantBarrelImports from './rules/import/no-conversation-assistant-barrel-imports';
 import visitExampleTypeImportRequired from './rules/visit-example-type-import-required';
+import ensureUseSyncExternalStoreServerSnapshot from './rules/ensure-use-sync-external-store-server-snapshot';
 import { join, normalize } from 'node:path';
 import { readFileSync } from 'node:fs';
 
@@ -101,11 +102,13 @@ const rules = {
 	'no-relative-barrel-file-imports': noRelativeBarrelFileImports,
 	'no-conversation-assistant-barrel-imports': noConversationAssistantBarrelImports,
 	'visit-example-type-import-required': visitExampleTypeImportRequired,
+	'ensure-use-sync-external-store-server-snapshot': ensureUseSyncExternalStoreServerSnapshot,
 };
 
 const commonConfig = {
 	'@atlaskit/platform/ensure-test-runner-arguments': 'error',
 	'@atlaskit/platform/ensure-test-runner-nested-count': 'warn',
+	'@atlaskit/platform/ensure-use-sync-external-store-server-snapshot': 'error',
 	'@atlaskit/platform/no-invalid-feature-flag-usage': 'error',
 	'@atlaskit/platform/no-invalid-storybook-decorator-usage': 'error',
 	'@atlaskit/platform/ensure-atlassian-team': 'error',

@@ -1,5 +1,16 @@
 # @atlaskit/profilecard
 
+## 24.46.0
+
+### Minor Changes
+
+- [`56bb55759e4cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56bb55759e4cf) -
+  Fix the pathway missing from redirectUrl issue
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.45.3
 
 ### Patch Changes

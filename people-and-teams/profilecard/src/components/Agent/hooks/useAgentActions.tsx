@@ -108,7 +108,7 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 			const baseUrl = `${getATLContextUrl('home')}/chat`;
 			const urlWithParams = encodeParamsToUrl(baseUrl, {
 				cloudId,
-				...createRovoParams({ cloudId, agentId }),
+				...createRovoParams({ cloudId, agentId, pathway: 'chat' }),
 			});
 			window.open(urlWithParams, '_blank', 'noopener, noreferrer');
 		};

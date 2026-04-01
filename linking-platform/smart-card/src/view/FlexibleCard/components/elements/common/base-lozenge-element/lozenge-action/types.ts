@@ -15,5 +15,6 @@ export type LozengeActionProps = {
 	shouldRenderToParent?: boolean;
 	testId?: string;
 	text: string | React.ReactNode;
+	trailingMetric?: string;
 	zIndex?: number;
 } & Pick<LozengeProps, 'maxWidth'>;

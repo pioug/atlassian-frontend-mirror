@@ -23,6 +23,7 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
@@ -272,7 +273,10 @@ export class BodiedSyncBlock implements NodeView {
 		this.handleViewModeChange();
 
 		// update sync block data on initial creation
-		this.syncedBlockStore?.sourceManager.updateSyncBlockData(node);
+		// When fg is ON, cache is populated in state.init() and updated in appendTransaction
+		if (!fg('platform_synced_block_update_refactor')) {
+			this.syncedBlockStore?.sourceManager.updateSyncBlockData(node);
+		}
 	}
 
 	private updateContentEditable({
@@ -323,7 +327,11 @@ export class BodiedSyncBlock implements NodeView {
 		}
 
 		if (node !== this.node) {
-			this.syncedBlockStore?.sourceManager.updateSyncBlockData(node);
+			// When fg is ON, cache updates are handled in appendTransaction where we can
+			// filter out non-user changes (remote collab, table auto-scale, etc.)
+			if (!fg('platform_synced_block_update_refactor')) {
+				this.syncedBlockStore?.sourceManager.updateSyncBlockData(node);
+			}
 		}
 		this.node = node;
 

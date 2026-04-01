@@ -1,5 +1,21 @@
+import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+
+const hasTableNode = (slice: Slice | undefined): boolean => {
+	if (!slice) {
+		return false;
+	}
+	let found = false;
+	slice.content.descendants((node) => {
+		if (node.type.name === 'table') {
+			found = true;
+			return false;
+		}
+		return true;
+	});
+	return found;
+};
 
 const isNotProse = (text: string): boolean => {
 	const trimmed = text.trim();
@@ -25,6 +41,7 @@ const isNotProse = (text: string): boolean => {
 	return true;
 };
 
+// Remove this file when experiment `platform_editor_paste_actions_menu` is cleaned up.
 // Manual exposure event for `platform_editor_paste_actions_menu`. Due to the fact that as part of this experiment
 // the paste menu was completely redesigned, it was very difficult to ensure that an exposure event fires accurately
 // for both control and test cohorts without executing code paths for both menus.
@@ -36,12 +53,17 @@ export const firePasteActionsMenuExperimentExposure = (
 	pasteStartPos?: number,
 	pasteEndPos?: number,
 	pastedText?: string,
+	pastedSlice?: Slice,
 ) => {
 	if (contentLength < 100 || !pasteStartPos || !pasteEndPos || !pastedText) {
 		return;
 	}
 
 	if (isNotProse(pastedText)) {
+		return;
+	}
+
+	if (hasTableNode(pastedSlice)) {
 		return;
 	}
 

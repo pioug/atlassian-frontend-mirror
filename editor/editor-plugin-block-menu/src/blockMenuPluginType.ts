@@ -59,6 +59,14 @@ export type BlockMenuPluginOptions = {
 	 * @returns The current link path as a string, or null if no path is available
 	 */
 	getLinkPath?: () => string | null;
+
+	/**
+	 * When true, nodes maintain their standard width without negative margins
+	 * for block menu compatibility. Used in contexts like Jira issue descriptions
+	 * where block menu controls need consistent spacing.
+	 * @default false
+	 */
+	useStandardNodeWidth?: boolean;
 };
 
 export type BlockMenuSharedState =
@@ -72,6 +80,11 @@ export type BlockMenuSharedState =
 			 * Whether to show a flag (e.g. for copy confirmation)
 			 */
 			showFlag: FLAG_ID | false;
+			/**
+			 * When true, nodes maintain their standard width without negative margins
+			 * for block menu compatibility.
+			 */
+			useStandardNodeWidth?: boolean;
 	  }
 	| undefined;
 

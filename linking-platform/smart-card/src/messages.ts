@@ -198,7 +198,7 @@ export const messages: Messages = defineMessages({
 	actions: {
 		id: 'fabric.linking.actions',
 		defaultMessage: 'Actions',
-		description: '',
+		description: 'Title for a section or menu containing available actions for a resource.',
 	},
 	add_account: {
 		id: 'fabric.linking.add_account',
@@ -304,11 +304,11 @@ export const messages: Messages = defineMessages({
 		description:
 			'The description in the automation modal when the SmartLink is a Confluence page. Indicating which page the automation will apply to, and who controls the available automations.',
 	},
-	cancel: {
-		id: 'fabric.linking.cancel',
-		defaultMessage: 'Cancel',
-		description: 'cancel',
-	},
+		cancel: {
+			id: 'fabric.linking.cancel',
+			defaultMessage: 'Cancel',
+			description: 'Cancel the current action or close the modal.',
+		},
 	beta: {
 		id: 'fabric.linking.beta',
 		defaultMessage: 'Beta',
@@ -335,21 +335,22 @@ export const messages: Messages = defineMessages({
 		description:
 			'Informs the user that they have access to this product, and can sign up or join right away.',
 	},
-	close: {
-		id: 'fabric.linking.close',
-		defaultMessage: 'Close',
-		description: '',
-	},
+		close: {
+			id: 'fabric.linking.close',
+			defaultMessage: 'Close',
+			description: 'Close the current screen or modal.',
+		},
 	check_this_link: {
 		id: 'fabric.linking.check_this_link',
 		defaultMessage: 'Check this link',
 		description: 'Link safety warning modal header',
 	},
-	compass_applied_components_count: {
-		id: 'compass.applied_components_count.non-final',
-		defaultMessage:
-			'Applied to {numberOfComponents, plural, one {{numberOfComponents, number} component}  other {{numberOfComponents, number} components}}',
-	},
+		compass_applied_components_count: {
+			id: 'compass.applied_components_count.non-final',
+			defaultMessage:
+				'Applied to {numberOfComponents, plural, one {{numberOfComponents, number} component}  other {{numberOfComponents, number} components}}',
+			description: 'Indicates the number of components the resource is applied to.',
+		},
 	connect_to: {
 		id: 'fabric.linking.connect_to',
 		defaultMessage: 'Connect to {name}',
@@ -402,16 +403,16 @@ export const messages: Messages = defineMessages({
 		description:
 			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view and we do not have the providers name.',
 	},
-	continue: {
-		id: 'fabric.linking.continue',
-		defaultMessage: 'Continue',
-		description: 'continue',
-	},
-	copy_url_to_clipboard: {
-		id: 'fabric.linking.copy_url_to_clipboard',
-		defaultMessage: 'Copy link',
-		description: '',
-	},
+		continue: {
+			id: 'fabric.linking.continue',
+			defaultMessage: 'Continue',
+			description: 'Continue to the next step.',
+		},
+		copy_url_to_clipboard: {
+			id: 'fabric.linking.copy_url_to_clipboard',
+			defaultMessage: 'Copy link',
+			description: 'Action to copy the URL of the link to the clipboard.',
+		},
 	copied_url_to_clipboard: {
 		id: 'fabric.linking.copied_url_to_clipboard',
 		defaultMessage: 'Copied!',
@@ -442,11 +443,11 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Delete',
 		description: 'Allow a user to delete a link',
 	},
-	download: {
-		id: 'fabric.linking.download',
-		defaultMessage: 'Download',
-		description: '',
-	},
+		download: {
+			id: 'fabric.linking.download',
+			defaultMessage: 'Download',
+			description: 'Action to download the resource.',
+		},
 	download_description: {
 		id: 'fabric.linking.download_description',
 		defaultMessage: 'Download this file into your local storage',

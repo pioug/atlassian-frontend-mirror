@@ -11,7 +11,7 @@ import {
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const syncBlockStyles: SerializedStyles = css({
+export const syncBlockStylesBase: SerializedStyles = css({
 	'@property --angle': { syntax: '"<angle>"', initialValue: '0deg', inherits: 'false' },
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
@@ -20,8 +20,6 @@ export const syncBlockStyles: SerializedStyles = css({
 			position: 'relative',
 			cursor: 'pointer',
 			borderRadius: token('radius.small', '3px'),
-			marginRight: `-18px`,
-			marginLeft: `-18px`,
 			marginBottom: 0,
 			marginTop: token('space.075'),
 			paddingBlock: token('space.150'),
@@ -231,6 +229,20 @@ export const syncBlockStyles: SerializedStyles = css({
 		maxWidth: '140px',
 	},
 });
+
+// Export the default styles with negative margins (original behavior)
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const syncBlockStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`.${SyncBlockSharedCssClassName.prefix}, .${BodiedSyncBlockSharedCssClassName.prefix}`]: {
+			marginRight: `-18px`,
+			marginLeft: `-18px`,
+		},
+	},
+});
+
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const syncBlockOverflowStyles: SerializedStyles = css({

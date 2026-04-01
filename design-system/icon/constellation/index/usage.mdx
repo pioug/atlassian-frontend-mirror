@@ -130,6 +130,23 @@ caution when composing custom selectable elements with icons.
 
 ## Spacing and sizing
 
+<SectionMessage appearance="warning">
+	<p>
+		Icons are intentionally spacing-neutral. Whitespace around an icon should be defined by the
+		composition it sits within, not baked into the icon itself. This keeps layouts flexible,
+		debuggable, and consistent with how the rest of ADS handles spacing.
+	</p>
+	<p>
+		The spacing prop was introduced as a migration shortcut and is now deprecated. It will be
+		removed in a future release. Where possible, move the spacing into the surrounding component. In
+		code, wrap icons in a Flex primitive with explicit padding tokens for a quick 1:1 migration.
+	</p>
+	<p>
+		See the <a href="/components/icon/examples#spacing-props">examples page</a> for migration
+		guidance.
+	</p>
+</SectionMessage>
+
 ### Don't scale or resize icons
 
 Our icons were designed to work in harmony with the typography and spacing systems across Atlassian

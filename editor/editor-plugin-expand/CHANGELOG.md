@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-expand
 
+## 9.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.17
+
+### Patch Changes
+
+- [`f2500fdeca2ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2500fdeca2ee) -
+  Fix Ctrl+Shift+H keyboard shortcut for expand node title drag handles to support keyboard-only and
+  screen reader users
+- Updated dependencies
+
 ## 9.1.16
 
 ### Patch Changes

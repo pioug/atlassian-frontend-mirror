@@ -12,6 +12,6 @@ export {
 	getControlHeightCSSValue,
 	getNodeHeight,
 	getTopPosition,
-	getRightPositionForRootElement,
 	shouldBeSticky,
+	getRightPositionForRootElement,
 } from '@atlaskit/editor-plugin-block-controls/block-decoration-utils';

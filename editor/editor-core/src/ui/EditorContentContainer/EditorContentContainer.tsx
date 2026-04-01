@@ -60,7 +60,7 @@ import {
 	firstCodeBlockWithNoMargin,
 	firstCodeBlockWithNoMarginOld,
 } from './styles/codeBlockStyles';
-import { codeMarkStyles } from './styles/codeMarkStyles';
+import { codeMarkStyles, codeMarkStylesA11yFix } from './styles/codeMarkStyles';
 import { commentEditorStyles } from './styles/commentEditorStyles';
 import { cursorStyles } from './styles/cursorStyles';
 import { dangerDateStyles, dateStyles, dateVanillaStyles } from './styles/dateStyles';
@@ -79,6 +79,7 @@ import {
 } from './styles/emoji';
 import {
 	expandStyles,
+	expandStylesBase,
 	expandStylesMixin_experiment_platform_editor_chromeless_expand_fix,
 	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
 	expandStylesMixin_fg_platform_visual_refresh_icons,
@@ -207,6 +208,7 @@ import {
 } from './styles/statusStyles';
 import {
 	syncBlockStyles,
+	syncBlockStylesBase,
 	syncBlockFirstNodeStyles,
 	syncBlockOverflowStyles,
 } from './styles/syncBlockStyles';
@@ -222,8 +224,6 @@ import {
 	decisionStyles,
 	getDenseTasksAndDecisionsStyles,
 	taskItemCheckboxStyles,
-	taskItemCheckboxStylesWithBlockTaskItem,
-	taskItemNextCheckboxStyles,
 	taskItemStyles,
 	taskItemStylesWithBlockTaskItem,
 	tasksAndDecisionsStyles,
@@ -244,6 +244,11 @@ export type EditorContentContainerProps = {
 	contentMode?: EditorContentMode;
 	featureFlags?: FeatureFlags;
 	isScrollable?: boolean;
+	/**
+	 * When true, nodes maintain their standard width without negative margins
+	 * For when the drag handle is visible and the editor has limited space.
+	 */
+	useStandardNodeWidth?: boolean;
 	viewMode?: 'view' | 'edit';
 };
 
@@ -291,7 +296,15 @@ const firstWrappedMediaStyles = {
  */
 const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentContainerProps>(
 	(props, ref) => {
-		const { className, children, viewMode, isScrollable, appearance, contentMode } = props;
+		const {
+			className,
+			children,
+			viewMode,
+			isScrollable,
+			appearance,
+			contentMode,
+			useStandardNodeWidth,
+		} = props;
 		const theme = useTheme();
 		const { colorMode } = useThemeObserver();
 
@@ -418,6 +431,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					codeMarkStyles,
+					expValEquals('platform_editor_a11y_scrollable_region', 'isEnabled', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						codeMarkStylesA11yFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					textColorStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -505,7 +521,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					extensionDiffStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					expandStyles,
+					expandStylesBase,
+					// Apply expand delta styles conditionally based on useStandardNodeWidth (negative margins or not)
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					!useStandardNodeWidth && expandStyles,
 					contentMode === 'compact' &&
 						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
@@ -547,18 +566,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							taskItemStylesWithBlockTaskItem
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							taskItemStyles,
-					expValEquals('platform_editor_task_item_styles', 'isEnabled', true)
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							taskItemNextCheckboxStyles
-						: expValEqualsNoExposure(
-									'platform_editor_blocktaskitem_node_tenantid',
-									'isEnabled',
-									true,
-							  )
-							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								taskItemCheckboxStylesWithBlockTaskItem
-							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								taskItemCheckboxStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				taskItemCheckboxStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					decisionIconWithVisualRefresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -616,6 +625,12 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// merge alignMultipleWrappedImageInLayoutStyles with layoutBaseStyles when clean up platform_editor_fix_media_in_renderer
 					fg('platform_editor_fix_media_in_renderer') && alignMultipleWrappedImageInLayoutStyles,
 					editorExperiment('platform_synced_block', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						syncBlockStylesBase,
+					editorExperiment('platform_synced_block', true) &&
+						// Apply sync block delta styles conditionally based on useStandardNodeWidth (negative margins or not)
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						!useStandardNodeWidth &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						syncBlockStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

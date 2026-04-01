@@ -133,6 +133,7 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 						lastContentPasted?.pasteStartPos,
 						lastContentPasted?.pasteEndPos,
 						lastContentPasted?.text,
+						lastContentPasted?.pastedSlice,
 					);
 				}
 

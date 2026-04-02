@@ -11,8 +11,8 @@ import { jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 const outerStyles = css({
-	marginBlockEnd: token('space.200', '16px'),
-	marginBlockStart: token('space.300', '24px'),
+	marginBlockEnd: token('space.200'),
+	marginBlockStart: token('space.300'),
 	marginInlineEnd: 0,
 	marginInlineStart: 0,
 });

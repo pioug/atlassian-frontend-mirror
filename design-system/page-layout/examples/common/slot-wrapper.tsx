@@ -22,7 +22,7 @@ type SlotWrapperProps = {
 const slotWrapperStyles = css({
 	boxSizing: 'border-box',
 	height: '100%',
-	padding: token('space.100', '8px'),
+	padding: token('space.100'),
 	backgroundColor: token('color.background.neutral.subtle'),
 	outlineOffset: -4,
 	overflowY: 'auto',
@@ -30,7 +30,7 @@ const slotWrapperStyles = css({
 
 const extraPaddingStyles = css({
 	minWidth: 50,
-	padding: `${token('space.100', '8px')} 28px`,
+	padding: `${token('space.100')} 28px`,
 });
 
 const SlotWrapper = ({

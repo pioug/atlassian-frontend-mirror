@@ -1,5 +1,27 @@
 # @atlaskit/modal-dialog
 
+## 14.14.3
+
+### Patch Changes
+
+- [`c966e427a25c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c966e427a25c6) -
+  Flattens internal util file
+- Updated dependencies
+
+## 14.14.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.14.1
+
+### Patch Changes
+
+- [`08170da1fbf62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08170da1fbf62) -
+  Migrate spacing prop usages on icons to Flex wrapper
+- Updated dependencies
+
 ## 14.14.0
 
 ### Minor Changes

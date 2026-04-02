@@ -10,12 +10,12 @@ import { token } from '@atlaskit/tokens';
 
 const buttonWrapperStyles = css({
 	display: 'flex',
-	gap: token('space.100', '8px'),
+	gap: token('space.100'),
 	flexWrap: 'wrap',
-	paddingBlockEnd: token('space.050', '4px'),
-	paddingBlockStart: token('space.050', '4px'),
-	paddingInlineEnd: token('space.050', '4px'),
-	paddingInlineStart: token('space.050', '4px'),
+	paddingBlockEnd: token('space.050'),
+	paddingBlockStart: token('space.050'),
+	paddingInlineEnd: token('space.050'),
+	paddingInlineStart: token('space.050'),
 });
 
 export const ButtonWrapper: ({ children }: PropsWithChildren<{}>) => JSX.Element = ({

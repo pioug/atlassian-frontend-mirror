@@ -14,8 +14,8 @@ import { PrimaryButtonSkeleton } from '../PrimaryButton/skeleton';
 import { type PrimaryItemsContainerSkeletonProps } from './types';
 
 const primaryButtonSkeletonStyles = css({
-	marginInlineEnd: token('space.150', '12px'),
-	marginInlineStart: token('space.150', '12px'),
+	marginInlineEnd: token('space.150'),
+	marginInlineStart: token('space.150'),
 });
 
 // Internal only

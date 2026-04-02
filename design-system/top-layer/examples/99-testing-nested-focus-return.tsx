@@ -14,7 +14,7 @@ import { Popup } from '@atlaskit/top-layer/popup';
  *
  * On dismiss, focus should return to trigger at each level.
  */
-export default function TestingNestedFocusReturn() {
+export default function TestingNestedFocusReturn(): React.JSX.Element {
 	const [dialogOpen, setDialogOpen] = useState(false);
 
 	const handleDialogClose = useCallback(() => {

@@ -74,7 +74,7 @@ export const outerContainerCSS = (
 		'&::before': {
 			content: "''",
 			display: 'block',
-			left: token('space.100', '8px'),
+			left: token('space.100'),
 			right: containerPadding + opts.scrollbarWidth,
 			height: scrollIndicatorHeight,
 			borderRadius: token('radius.xsmall', scrollIndicatorBorderRadius),
@@ -90,7 +90,7 @@ export const outerContainerCSS = (
 			borderRadius: token('radius.xsmall', scrollIndicatorBorderRadius),
 			flexShrink: 0,
 			height: scrollIndicatorHeight,
-			left: token('space.100', '8px'),
+			left: token('space.100'),
 			right: containerPadding + opts.scrollbarWidth,
 			bottom: 0,
 			zIndex: scrollIndicatorZIndex,
@@ -206,14 +206,14 @@ export const containerCSS = (
 		// so the spacing between matches what it would be if the indicator was a "block" element.
 		// We use margin here so any child absolutely positioned elements are positioned correctly.
 		marginTop: opts.showTopScrollIndicator ? scrollIndicatorHeight : 0,
-		marginLeft: token('space.100', '8px'),
-		marginRight: token('space.100', '8px'),
+		marginLeft: token('space.100'),
+		marginRight: token('space.100'),
 		// Enables child absolutely positioned elements to be positioned relative to this element.
 		position: 'relative',
 
 		'& [data-ds--menu--heading-item]': {
-			marginBottom: token('space.075', '6px'),
-			marginTop: token('space.200', '16px'),
+			marginBottom: token('space.075'),
+			marginTop: token('space.200'),
 		},
 		'& [data-ds--menu--skeleton-heading-item]': {
 			marginTop: skeletonHeadingTopMargin,

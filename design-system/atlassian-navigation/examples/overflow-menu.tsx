@@ -10,9 +10,18 @@ import {
 	useOverflowStatus,
 } from '@atlaskit/atlassian-navigation';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import ChevronIcon from '@atlaskit/icon/core/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space075: {
+		paddingBlock: token('space.075'),
+		paddingInline: token('space.075'),
+	},
+});
 
 const ResponsivePrimaryButton = (props: PrimaryButtonProps) => {
 	const overflowStatus = useOverflowStatus();
@@ -34,7 +43,9 @@ const ResponsivePrimaryDropdownButton = (props: PrimaryDropdownButtonProps) => {
 			iconAfter={
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<span style={{ opacity: 0.51 }}>
-					<ChevronIcon size="small" spacing="spacious" label="" />
+					<Flex xcss={iconSpacingStyles.space075}>
+						<ChevronIcon size="small" label="" />
+					</Flex>
 				</span>
 			}
 		>
@@ -68,9 +79,8 @@ export default (): React.JSX.Element => {
 
 			<div
 				style={{
-					// TODO Delete this comment after verifying space token -> previous value `'20px'`
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					marginTop: token('space.250', '20px'),
+					marginTop: token('space.250'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					textAlign: 'center',
 				}}

@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { Popup } from '@atlaskit/top-layer/popup';
 
-export default function TestingKeyboardMouseInterleaving() {
+export default function TestingKeyboardMouseInterleaving(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleClose = useCallback(() => {

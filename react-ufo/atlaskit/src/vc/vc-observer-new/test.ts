@@ -639,6 +639,120 @@ describe('VCObserverNew', () => {
 		});
 	});
 
+	describe('getVCResult - fy26.04 disabled via config', () => {
+		const mockEntries: VCObserverEntry[] = [
+			{
+				time: 100,
+				data: {
+					type: 'mutation:element',
+					elementName: 'element1',
+					rect: new DOMRect(0, 0, 10, 10),
+					visible: true,
+				},
+			},
+		];
+
+		beforeEach(() => {
+			mockEntriesTimeline.getOrderedEntries.mockReturnValue(mockEntries);
+			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue({
+				revision: 'fy25.03',
+				clean: true,
+				'metric:vc90': 100,
+				vcDetails: { '90': { t: 100, e: ['element1'] } },
+				ratios: { element1: 0.5 },
+			});
+			(VCCalculator_FY26_04.prototype.calculate as jest.Mock).mockResolvedValue({
+				revision: 'fy26.04',
+				clean: true,
+				'metric:vc90': 100,
+			});
+			(RawDataHandler.prototype.getRawData as jest.Mock).mockResolvedValue({
+				revision: 'raw-handler',
+				clean: true,
+				'metric:vc90': null,
+			});
+		});
+
+		it('should skip fy26.04 calculator when fy26.04 is not in enabledVCRevisions', async () => {
+			// Only enable fy25.03, not fy26.04
+			(isVCRevisionEnabled as jest.Mock).mockImplementation((revision: string) => {
+				return revision === 'fy25.03';
+			});
+
+			const result = await vcObserver.getVCResult({
+				start: 0,
+				stop: 1000,
+				interactionId: 'test-interaction-id',
+				interactionType: 'page_load',
+				isPageVisible: true,
+			});
+
+			expect(VCCalculator_FY26_04.prototype.calculate).not.toHaveBeenCalled();
+			expect(VCCalculator_FY25_03.prototype.calculate).toHaveBeenCalled();
+			// Should not include fy26.04 result
+			expect(result.find((r) => r.revision === 'fy26.04')).toBeUndefined();
+			// Should include fy25.03 result
+			expect(result.find((r) => r.revision === 'fy25.03')).toBeDefined();
+		});
+
+		it('should always include raw data when fy26.04 is not enabled and server-side TTVC gate is on', async () => {
+			// Only enable fy25.03
+			(isVCRevisionEnabled as jest.Mock).mockImplementation((revision: string) => {
+				return revision === 'fy25.03';
+			});
+			(fg as jest.Mock).mockImplementation(
+				(flag: string) => flag === 'platform_ufo_ttvc_server_side_sync',
+			);
+
+			const result = await vcObserver.getVCResult({
+				start: 0,
+				stop: 1000,
+				interactionId: 'test-interaction-id',
+				interactionType: 'page_load',
+				isPageVisible: true,
+				includeRawData: false, // explicitly false, but should still include raw data
+			});
+
+			expect(RawDataHandler.prototype.getRawData).toHaveBeenCalled();
+			expect(result.find((r) => r.revision === 'raw-handler')).toBeDefined();
+		});
+
+		it('should not auto-include raw data when server-side TTVC gate is off', async () => {
+			// Only enable fy25.03, but server-side TTVC gate is off
+			(isVCRevisionEnabled as jest.Mock).mockImplementation((revision: string) => {
+				return revision === 'fy25.03';
+			});
+			(fg as jest.Mock).mockImplementation(() => false);
+
+			const result = await vcObserver.getVCResult({
+				start: 0,
+				stop: 1000,
+				interactionId: 'test-interaction-id',
+				interactionType: 'page_load',
+				isPageVisible: true,
+				includeRawData: false,
+			});
+
+			expect(RawDataHandler.prototype.getRawData).not.toHaveBeenCalled();
+			expect(result.find((r) => r.revision === 'raw-handler')).toBeUndefined();
+		});
+
+		it('should delete vcDetails and ratios when raw data is included', async () => {
+			const result = await vcObserver.getVCResult({
+				start: 0,
+				stop: 1000,
+				interactionId: 'test-interaction-id',
+				interactionType: 'page_load',
+				isPageVisible: true,
+				includeRawData: true,
+			});
+
+			const fy25_03Result = result.find((r) => r.revision === 'fy25.03');
+			expect(fy25_03Result?.vcDetails).toBeUndefined();
+			expect(fy25_03Result?.ratios).toBeUndefined();
+		});
+	});
+
 	describe('getElementName', () => {
 		it('should call getElementName with correct parameters', () => {
 			const mockElement = document.createElement('div');

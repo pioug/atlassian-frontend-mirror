@@ -38,11 +38,11 @@ export default function BasicPortalExample(): React.JSX.Element {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						top: 54,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						left: token('space.300', '24px'),
+						left: token('space.300'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						background: 'lightpink',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						padding: token('space.300', '24px'),
+						padding: token('space.300'),
 						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						borderRadius: token('radius.small', '3px'),
 						zIndex: zIndexes.zIndex2,
@@ -64,7 +64,7 @@ export default function BasicPortalExample(): React.JSX.Element {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						background: 'aquamarine',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						padding: token('space.300', '24px'),
+						padding: token('space.300'),
 						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						borderRadius: token('radius.small', '3px'),
 						zIndex: zIndexes.zIndex1,

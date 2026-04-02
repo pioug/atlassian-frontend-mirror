@@ -21,7 +21,7 @@ const Paragraph = ({ position }: { position: number }) => (
 	<Fragment>
 		<h3>{position}</h3>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-		<div style={{ marginBottom: token('space.250', '20px') }}>
+		<div style={{ marginBottom: token('space.250') }}>
 			<Lorem count={1} />
 		</div>
 	</Fragment>
@@ -43,7 +43,7 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
 		const { spotlight } = this.state;
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<div style={{ paddingBottom: token('space.500', '40px') }}>
+			<div style={{ paddingBottom: token('space.500') }}>
 				<SpotlightManager>
 					<p>
 						To save some time for consumers and provide a delightfull experience to users we check
@@ -52,7 +52,7 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
 					</p>
 					<p>Scroll down to see the target element.</p>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					<p style={{ marginBottom: token('space.200', '1em') }}>
+					<p style={{ marginBottom: token('space.200') }}>
 						<button type="button" onClick={this.highlightOne}>
 							Show
 						</button>
@@ -89,7 +89,7 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
 					</HighlightGroup>
 
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					<p style={{ marginBottom: token('space.200', '1em') }}>
+					<p style={{ marginBottom: token('space.200') }}>
 						<button type="button" onClick={this.highlightTwo}>
 							Show
 						</button>

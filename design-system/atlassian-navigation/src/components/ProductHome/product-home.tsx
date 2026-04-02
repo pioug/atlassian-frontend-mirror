@@ -34,7 +34,7 @@ const VAR_PRODUCT_HOME_BOX_SHADOW_HOVER = '--product-home-box-shadow-hover';
 
 const productHomeButtonStyles = css({
 	display: 'flex',
-	padding: token('space.050', '4px'),
+	padding: token('space.050'),
 	alignItems: 'center',
 	background: 'none',
 	border: 0,
@@ -62,10 +62,7 @@ const productHomeButtonStyles = css({
 	'&:focus-visible': {
 		backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_FOCUS})`,
 		color: `var(${VAR_PRODUCT_HOME_COLOR_FOCUS})`,
-		outline: `${token('border.width.focused', '2px')} solid ${token(
-			'color.border.focused',
-			'#4C9AFF',
-		)}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 	},
 
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -74,11 +71,11 @@ const productHomeButtonStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
-		margin: `0 ${token('space.100', '8px')}`,
+		margin: `0 ${token('space.100')}`,
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
-		margin: `0 ${token('space.200', '16px')}`,
+		margin: `0 ${token('space.200')}`,
 	},
 });
 
@@ -141,9 +138,9 @@ const appLogoTextStyles = css({
 const siteTitleStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	marginInlineEnd: token('space.050', '4px'),
-	marginInlineStart: token('space.050', '4px'),
-	paddingInlineEnd: token('space.200', '16px'),
+	marginInlineEnd: token('space.050'),
+	marginInlineStart: token('space.050'),
+	paddingInlineEnd: token('space.200'),
 });
 
 /**

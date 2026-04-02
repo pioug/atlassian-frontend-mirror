@@ -1,5 +1,37 @@
 # @atlaskit/editor-synced-block-provider
 
+## 4.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.0
+
+### Minor Changes
+
+- [`5421779d09855`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5421779d09855) -
+  [ux] Fix error state shown in the locations dropdown on a reference sync block when no references
+  are registered yet. When the block hasn't been saved, the dropdown now shows the source page and
+  the current page instead of an error. An 'Untitled' placeholder is shown when a page has no title.
+
+### Patch Changes
+
+- [`f8922537e5ec8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8922537e5ec8) -
+  Preserve node referential identity in replaceDocument to prevent ProseMirror view reconciliation
+  from unnecessarily destroying and recreating mark wrappers (and their React nodeviews), which
+  caused visible flicker on sync blocks and other wrapped nodeviews during collab initialization.
+
+  Fixes EDITOR-5277.
+
+- Updated dependencies
+
+## 4.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.10
 
 ### Patch Changes

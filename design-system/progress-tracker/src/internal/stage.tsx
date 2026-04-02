@@ -56,10 +56,10 @@ const fontWeight = cssMap({
 
 const listItemStyles = css({
 	listStyleType: 'none',
-	marginBlockEnd: token('space.0', '0px'),
-	marginBlockStart: token('space.0', '0px'),
-	marginInlineEnd: token('space.0', '0px'),
-	marginInlineStart: token('space.0', '0px'),
+	marginBlockEnd: token('space.0'),
+	marginBlockStart: token('space.0'),
+	marginInlineEnd: token('space.0'),
+	marginInlineStart: token('space.0'),
 	overflowWrap: 'break-word',
 });
 

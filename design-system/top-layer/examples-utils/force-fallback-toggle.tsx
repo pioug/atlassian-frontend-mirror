@@ -42,7 +42,7 @@ export function ForceFallbackToggle({
 	children,
 }: {
 	children: ReactNode | ((forceFallbackPositioning: boolean) => ReactNode);
-}) {
+}): React.JSX.Element {
 	const [forceFallbackPositioning, setForceFallback] = useState(false);
 
 	return (

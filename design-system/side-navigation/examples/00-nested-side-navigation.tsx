@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import AppIcon from '@atlaskit/icon/core/app';
 import FilterIcon from '@atlaskit/icon/core/filter';
 import WorkIcon from '@atlaskit/icon/core/folder-closed';
@@ -8,6 +9,7 @@ import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import QueueIcon from '@atlaskit/icon/core/pages';
 import CustomerIcon from '@atlaskit/icon/core/person';
 import SettingsIcon from '@atlaskit/icon/core/settings';
+import { Flex } from '@atlaskit/primitives/compiled';
 import {
 	ButtonItem,
 	LinkItem,
@@ -18,15 +20,27 @@ import {
 	Section,
 	SideNavigation,
 } from '@atlaskit/side-navigation';
+import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
 import SampleFooter from './common/sample-footer';
 import SampleHeader from './common/sample-header';
 
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
+
 const LanguageSettings = () => {
 	return (
 		<NestingItem
-			iconBefore={<LanguageIcon spacing="spacious" label="" />}
+			iconBefore={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<LanguageIcon label="" />
+				</Flex>
+			}
 			id="language-menu"
 			title="Language settings"
 		>
@@ -61,8 +75,16 @@ const BasicExample = (): React.JSX.Element => {
 							id="filters"
 							testId="filter-nesting-item"
 							title="Filters"
-							iconBefore={<FilterIcon spacing="spacious" label="" />}
-							iconAfter={<LightbulbIcon spacing="spacious" label="" />}
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<FilterIcon label="" />
+								</Flex>
+							}
+							iconAfter={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<LightbulbIcon label="" />
+								</Flex>
+							}
 						>
 							<Section>
 								<ButtonItem>Search work items</ButtonItem>
@@ -87,7 +109,11 @@ const BasicExample = (): React.JSX.Element => {
 							testId="selected"
 							isSelected
 							title="Queues view"
-							iconBefore={<QueueIcon spacing="spacious" label="" />}
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<QueueIcon label="" />
+								</Flex>
+							}
 							aria-current={true}
 						>
 							<Section title="Queues" isList>
@@ -103,7 +129,11 @@ const BasicExample = (): React.JSX.Element => {
 						</NestingItem>
 						<NestingItem
 							id="settings"
-							iconBefore={<SettingsIcon spacing="spacious" label="" />}
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<SettingsIcon label="" />
+								</Flex>
+							}
 							title="Settings"
 							testId="settings-nesting-item"
 						>
@@ -113,16 +143,35 @@ const BasicExample = (): React.JSX.Element => {
 						</NestingItem>
 						<NestingItem
 							id="dropbox"
-							iconBefore={<AppIcon spacing="spacious" label="" />}
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<AppIcon label="" />
+								</Flex>
+							}
 							title="Dropbox"
 							testId="dropbox-nesting-item"
 							isDisabled
 						>
 							<Fragment />
 						</NestingItem>
-						<ButtonItem iconBefore={<WorkIcon spacing="spacious" label="" />}>Your work</ButtonItem>
+						<ButtonItem
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<WorkIcon label="" />
+								</Flex>
+							}
+						>
+							Your work
+						</ButtonItem>
 						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
-						<LinkItem href="#" iconBefore={<CustomerIcon spacing="spacious" label="" />}>
+						<LinkItem
+							href="#"
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<CustomerIcon label="" />
+								</Flex>
+							}
+						>
 							Your customers
 						</LinkItem>
 					</Section>

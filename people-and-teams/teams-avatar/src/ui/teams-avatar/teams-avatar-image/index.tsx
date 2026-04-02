@@ -81,8 +81,8 @@ const containerStyles = cssMap({
 	disabled: {
 		cursor: 'not-allowed',
 		'&::after': {
-			backgroundColor: token('elevation.surface', '#FFFFFF'),
-			opacity: token('opacity.disabled', '0.7'),
+			backgroundColor: token('elevation.surface'),
+			opacity: token('opacity.disabled'),
 		},
 	},
 });
@@ -96,11 +96,11 @@ const unboundStyles = cssMap({
 	interactive: {
 		cursor: 'pointer',
 		'&:hover::after': {
-			backgroundColor: token('color.interaction.hovered', 'rgba(9, 30, 66, 0.36)'),
+			backgroundColor: token('color.interaction.hovered'),
 			opacity: '1',
 		},
 		'&:active::after': {
-			backgroundColor: token('color.interaction.pressed', 'rgba(9, 30, 66, 0.36)'),
+			backgroundColor: token('color.interaction.pressed'),
 			opacity: '1',
 		},
 		'@media screen and (forced-colors: active)': {

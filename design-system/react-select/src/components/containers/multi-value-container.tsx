@@ -26,19 +26,16 @@ const multiValueStyles = cssMap({
 		'@media screen and (-ms-high-contrast: active)': {
 			border: 'none',
 		},
-		color: token('color.text', 'hsl(0, 0%, 20%)'),
+		color: token('color.text'),
 	},
 	disabled: {
 		color: token('color.text.disabled'),
 		backgroundColor: token('color.background.neutral'),
 	},
 	focused: {
-		color: token('color.text.selected', 'hsl(0, 0%, 20%)'),
+		color: token('color.text.selected'),
 		backgroundColor: token('color.background.selected'),
-		boxShadow: `0 0 0 2px ${token(
-			'elevation.surface',
-			'transparent',
-		)}, 0 0 0 4px ${token('color.border.focused', 'transparent')}`,
+		boxShadow: `0 0 0 2px ${token('elevation.surface')}, 0 0 0 4px ${token('color.border.focused')}`,
 		'@media screen and (-ms-high-contrast: active)': {
 			borderWidth: token('border.width'),
 			borderColor: 'transparent',

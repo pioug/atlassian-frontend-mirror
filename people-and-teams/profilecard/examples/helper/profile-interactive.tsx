@@ -5,7 +5,6 @@ import uid from 'uid';
 
 import { cssMap } from '@atlaskit/css';
 import { Box, type BoxProps } from '@atlaskit/primitives/compiled';
-import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ProfileCard } from '../../src';
@@ -15,8 +14,8 @@ import { type LozengeProps, type StatusModifiedDateType, type StatusType } from 
 
 const styles = cssMap({
 	label: {
-		color: token('color.text', N800),
-		marginRight: token('space.100', '8px'),
+		color: token('color.text'),
+		marginRight: token('space.100'),
 	},
 	list: {
 		margin: 0,
@@ -340,7 +339,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 				<div
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						marginTop: token('space.200', '16px'),
+						marginTop: token('space.200'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						clear: 'both',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -385,7 +384,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 				<div
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						marginTop: token('space.200', '16px'),
+						marginTop: token('space.200'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						clear: 'both',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

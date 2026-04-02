@@ -28,7 +28,6 @@ export { messages as dateMessages } from './date';
 export { toolbarMessages as layoutMessages } from './layout';
 export { messages as indentationMessages } from './indentation';
 export { avatarGroupMessages } from './avatar-group';
-export { smartLinkChangeboardMessages } from './smart-link-changeboard';
 export { findReplaceMessages } from './find-replace';
 export { elementInsertSidePanel } from './element-insert-side-panel';
 export { textColorMessages } from './text-color';
@@ -53,165 +52,165 @@ export { companyHubTextColorMessages } from './company-hub-text-color';
 export { nativeEmbedToolbarMessages } from './native-embed-toolbar';
 
 const _default_1: {
-	layoutFixedWidth: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	layoutStateFixedWidth: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	layoutWide: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	layoutStateWide: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	layoutFullWidth: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	layoutStateFullWidth: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	alignImageRight: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	alignImageCenter: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	alignImageLeft: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	delete: {
-		id: string;
+	alignImageRight: {
 		defaultMessage: string;
 		description: string;
-	};
-	remove: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	removeEmoji: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	visit: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	inviteToEditButtonTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	saveButton: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	cancelButton: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	taskList: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	bulletList: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	nestedExpand: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	decisionList: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	defaultBlockNode: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	panel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	blockquote: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	timeUpdated: {
-		id: string;
+	bulletList: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	timeViewed: {
-		id: string;
+	cancelButton: {
 		defaultMessage: string;
 		description: string;
-	};
-	timeAgo: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	copyToClipboard: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	copiedToClipboard: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	viewMore: {
-		id: string;
+	copyToClipboard: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	imageEdit: {
-		id: string;
+	decisionList: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	defaultBlockNode: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	delete: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	error: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	imageEdit: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	inviteToEditButtonTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	layoutFixedWidth: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	layoutFullWidth: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	layoutStateFixedWidth: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	layoutStateFullWidth: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	layoutStateWide: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	layoutWide: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	nestedExpand: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	panel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	remove: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	removeEmoji: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	saveButton: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	success: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	taskList: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	timeAgo: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	timeUpdated: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	timeViewed: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	viewMore: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	visit: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	layoutFixedWidth: {

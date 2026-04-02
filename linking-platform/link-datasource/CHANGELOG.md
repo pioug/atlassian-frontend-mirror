@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 4.34.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.34.4
 
 ### Patch Changes

@@ -27,15 +27,15 @@ const headingStyles = css({
 });
 
 const taglineStyles = css({
-	paddingBlockEnd: token('space.200', '16px'),
+	paddingBlockEnd: token('space.200'),
 });
 
 const optionStyles = cssMap({
 	root: {
-		paddingTop: token('space.050'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingBlockEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
 	},
 });
 

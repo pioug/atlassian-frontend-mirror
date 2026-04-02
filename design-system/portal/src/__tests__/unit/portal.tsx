@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/no-node-access */
 import React, { type ReactNode, StrictMode, useEffect } from 'react';
 
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { bindAll, type UnbindFn } from 'bind-event-listener';
 import { replaceRaf } from 'raf-stub';
 
@@ -428,10 +428,31 @@ describe('Portal container', () => {
 			);
 		}).not.toThrow();
 	});
+
+	ffTest.on('import_into_jsm_in_template_gallery_killswitch', 'isClosed cleanup', () => {
+		test('should remove portal container from the DOM when isClosed becomes true', async () => {
+			const Wrapper = ({ isClosed }: { isClosed: boolean }) => (
+				<App>
+					<Portal zIndex={500} isClosed={isClosed}>
+						<div>Hi</div>
+					</Portal>
+				</App>
+			);
+			const { rerender } = render(<Wrapper isClosed={false} />);
+			await waitFor(() => {
+				expect(document.querySelector('.atlaskit-portal')).toBeInTheDocument();
+			});
+
+			rerender(<Wrapper isClosed />);
+			await waitFor(() => {
+				expect(document.querySelector('.atlaskit-portal')).toBeNull();
+			});
+		});
+	});
 });
 
 describe('new portal logic enable test', () => {
-	ffTest.on(
+		ffTest.on(
 		'platform_design_system_team_portal_logic_r18_fix',
 		'new portal logic enable test',
 		() => {
@@ -450,6 +471,29 @@ describe('new portal logic enable test', () => {
 				expect(container.innerHTML).toBe('<div></div>');
 				expect(elements).toHaveLength(1);
 				expect(elements[0]).toHaveTextContent('Hi');
+			});
+
+			ffTest.on('import_into_jsm_in_template_gallery_killswitch', 'isClosed cleanup', () => {
+				test('should remove portal container from the DOM when isClosed becomes true', async () => {
+					const Wrapper = ({ isClosed }: { isClosed: boolean }) => (
+						<StrictMode>
+							<App>
+								<Portal zIndex={500} isClosed={isClosed}>
+									<div>Hi</div>
+								</Portal>
+							</App>
+						</StrictMode>
+					);
+					const { rerender } = render(<Wrapper isClosed={false} />);
+					await waitFor(() => {
+						expect(document.querySelector('.atlaskit-portal')).toBeInTheDocument();
+					});
+
+					rerender(<Wrapper isClosed />);
+					await waitFor(() => {
+						expect(document.querySelector('.atlaskit-portal')).toBeNull();
+					});
+				});
 			});
 		},
 	);

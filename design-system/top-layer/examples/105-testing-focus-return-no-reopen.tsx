@@ -8,7 +8,7 @@ import { Popup } from '@atlaskit/top-layer/popup';
  * the popover must NOT re-open. This verifies that focus-return
  * does not trigger a context change.
  */
-export default function TestingFocusReturnNoReopen() {
+export default function TestingFocusReturnNoReopen(): React.JSX.Element {
 	const [openCount, setOpenCount] = useState(0);
 	const [closeCount, setCloseCount] = useState(0);
 

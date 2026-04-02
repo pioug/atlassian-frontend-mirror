@@ -2,6 +2,7 @@ import React from 'react';
 
 import { styled } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
 import CodeIcon from '@atlaskit/icon/core/angle-brackets';
 import LinkIcon from '@atlaskit/icon/core/link';
 import BulletListIcon from '@atlaskit/icon/core/list-bulleted';
@@ -9,8 +10,16 @@ import NumberListIcon from '@atlaskit/icon/core/list-numbered';
 import BoldIcon from '@atlaskit/icon/core/text-bold';
 import ItalicIcon from '@atlaskit/icon/core/text-italic';
 import TextUnderlineIcon from '@atlaskit/icon/core/text-underline';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Toolbar = styled.div({
@@ -35,13 +44,41 @@ const Action = styled.button({
 });
 
 const ACTIONS: { [key: string]: React.ReactElement } = {
-	Bold: <BoldIcon spacing="spacious" label="Bold" />,
-	Italic: <ItalicIcon spacing="spacious" label="Italic" />,
-	Underline: <TextUnderlineIcon spacing="spacious" label="Underline" />,
-	Link: <LinkIcon spacing="spacious" label="Link" />,
-	'Bullet List': <BulletListIcon spacing="spacious" label="Bullet List" />,
-	'Number List': <NumberListIcon spacing="spacious" label="Number List" />,
-	Source: <CodeIcon spacing="spacious" label="Source" />,
+	Bold: (
+		<Flex xcss={iconSpacingStyles.space050}>
+			<BoldIcon label="Bold" />
+		</Flex>
+	),
+	Italic: (
+		<Flex xcss={iconSpacingStyles.space050}>
+			<ItalicIcon label="Italic" />
+		</Flex>
+	),
+	Underline: (
+		<Flex xcss={iconSpacingStyles.space050}>
+			<TextUnderlineIcon label="Underline" />
+		</Flex>
+	),
+	Link: (
+		<Flex xcss={iconSpacingStyles.space050}>
+			<LinkIcon label="Link" />
+		</Flex>
+	),
+	'Bullet List': (
+		<Flex xcss={iconSpacingStyles.space050}>
+			<BulletListIcon label="Bullet List" />
+		</Flex>
+	),
+	'Number List': (
+		<Flex xcss={iconSpacingStyles.space050}>
+			<NumberListIcon label="Number List" />
+		</Flex>
+	),
+	Source: (
+		<Flex xcss={iconSpacingStyles.space050}>
+			<CodeIcon label="Source" />
+		</Flex>
+	),
 };
 
 export default function WysiwygExample(): React.JSX.Element {

@@ -410,7 +410,7 @@ export default class Popup extends React.Component<Props, State> {
 			// Provide a valid role only when aria-label is present to satisfy a11y rules, as when aria-label is present, role is required
 			// use role = dialog as default role, as dialog role itself is not a parent role that requires specific children to function as some other ARIA roles(menu) do
 			// if set default role to menu, tons of integration tests will fail as many of our popup usages do not have children that satisfy menu role requirements
-			if (ariaLabel && fg('platform_editor_a11y_add_role_to_popup')) {
+			if (ariaLabel) {
 				return this.props.role || 'dialog';
 			}
 			return undefined;

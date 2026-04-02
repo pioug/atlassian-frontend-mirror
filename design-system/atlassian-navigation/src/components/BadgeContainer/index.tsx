@@ -13,8 +13,8 @@ import { type BadgeProps } from './types';
 
 const badgeContainerStyles = css({
 	position: 'absolute',
-	insetBlockStart: `${token('space.negative.050', '-4px')}`,
-	insetInlineEnd: `${token('space.negative.025', '-2px')}`,
+	insetBlockStart: `${token('space.negative.050')}`,
+	insetInlineEnd: `${token('space.negative.025')}`,
 	pointerEvents: 'none',
 });
 

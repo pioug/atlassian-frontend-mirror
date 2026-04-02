@@ -3,8 +3,6 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -17,7 +15,7 @@ import {
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { useControlDataExportConfig } from '../../../state/hooks/use-control-data-export-config';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
@@ -439,56 +437,25 @@ describe('smart-card: card states, block', () => {
 				expect(mockOnResolve).toHaveBeenCalledTimes(1);
 			});
 
-			ffTest.on(
-				'expose-product-details-from-smart-card',
-				'block: should pass extensionKey in onResolve when feature flag is enabled',
-				() => {
-					it('should pass extensionKey in onResolve when feature flag is enabled', async () => {
-						render(
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card appearance="block" url={mockUrl} onResolve={mockOnResolve} />
-								</Provider>
-							</IntlProvider>,
-						);
+			it('block: should pass extensionKey in onResolve', async () => {
+				render(
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card appearance="block" url={mockUrl} onResolve={mockOnResolve} />
+						</Provider>
+					</IntlProvider>,
+				);
 
-						const resolvedViewName = await screen.findByText('I love cheese');
-						expect(resolvedViewName).toBeInTheDocument();
-						expect(mockFetch).toHaveBeenCalledTimes(1);
-						expect(mockOnResolve).toHaveBeenCalledTimes(1);
-						expect(mockOnResolve).toHaveBeenCalledWith({
-							title: 'I love cheese',
-							url: mockUrl,
-							extensionKey: 'object-provider',
-						});
-					});
-				},
-			);
-
-			ffTest.off(
-				'expose-product-details-from-smart-card',
-				'block: should not pass extensionKey in onResolve when feature flag is disabled',
-				() => {
-					it('should not pass extensionKey in onResolve when feature flag is disabled', async () => {
-						render(
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card appearance="block" url={mockUrl} onResolve={mockOnResolve} />
-								</Provider>
-							</IntlProvider>,
-						);
-
-						const resolvedViewName = await screen.findByText('I love cheese');
-						expect(resolvedViewName).toBeInTheDocument();
-						expect(mockFetch).toHaveBeenCalledTimes(1);
-						expect(mockOnResolve).toHaveBeenCalledTimes(1);
-						expect(mockOnResolve).toHaveBeenCalledWith({
-							title: 'I love cheese',
-							url: mockUrl,
-						});
-					});
-				},
-			);
+				const resolvedViewName = await screen.findByText('I love cheese');
+				expect(resolvedViewName).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
+				expect(mockOnResolve).toHaveBeenCalledTimes(1);
+				expect(mockOnResolve).toHaveBeenCalledWith({
+					title: 'I love cheese',
+					url: mockUrl,
+					extensionKey: 'object-provider',
+				});
+			});
 
 			it('should re-render when URL changes', async () => {
 				const { rerender } = render(

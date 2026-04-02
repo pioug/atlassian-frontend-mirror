@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import Button, { IconButton, SplitButton } from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
@@ -19,7 +20,16 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -331,10 +341,22 @@ const JiraWorkItemViewActionsExample = () => {
 					placement="bottom-end"
 				>
 					<DropdownItemGroup>
-						<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>
+						<DropdownItem
+							elemBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<PageIcon label="" />
+								</Flex>
+							}
+						>
 							Link Confluence page
 						</DropdownItem>
-						<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>
+						<DropdownItem
+							elemBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<WorldIcon label="" />
+								</Flex>
+							}
+						>
 							Add web link
 						</DropdownItem>
 					</DropdownItemGroup>
@@ -365,10 +387,22 @@ const WithWrappersExample = () => {
 						placement="bottom-end"
 					>
 						<DropdownItemGroup>
-							<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>
+							<DropdownItem
+								elemBefore={
+									<Flex xcss={iconSpacingStyles.space050}>
+										<PageIcon label="" />
+									</Flex>
+								}
+							>
 								Link Confluence page
 							</DropdownItem>
-							<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>
+							<DropdownItem
+								elemBefore={
+									<Flex xcss={iconSpacingStyles.space050}>
+										<WorldIcon label="" />
+									</Flex>
+								}
+							>
 								Add web link
 							</DropdownItem>
 						</DropdownItemGroup>
@@ -400,10 +434,22 @@ const WithWrappersExample = () => {
 							placement="bottom-end"
 						>
 							<DropdownItemGroup>
-								<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>
+								<DropdownItem
+									elemBefore={
+										<Flex xcss={iconSpacingStyles.space050}>
+											<PageIcon label="" />
+										</Flex>
+									}
+								>
 									Link Confluence page
 								</DropdownItem>
-								<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>
+								<DropdownItem
+									elemBefore={
+										<Flex xcss={iconSpacingStyles.space050}>
+											<WorldIcon label="" />
+										</Flex>
+									}
+								>
 									Add web link
 								</DropdownItem>
 							</DropdownItemGroup>

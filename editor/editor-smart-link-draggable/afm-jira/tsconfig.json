@@ -23,9 +23,6 @@
 			"path": "../../../design-system/css/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/image/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../linking-platform/link-extractors/afm-jira/tsconfig.json"
 		},
 		{
@@ -50,13 +47,7 @@
 			"path": "../../../linking-platform/smart-card/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/spotlight/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../editor-common/afm-jira/tsconfig.json"
 		}
 	]
 }

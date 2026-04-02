@@ -9,7 +9,7 @@ import { Popup } from '@atlaskit/top-layer/popup';
  *
  * This is critical for WCAG 1.3.2 Meaningful Sequence.
  */
-export default function TestingDomOrder() {
+export default function TestingDomOrder(): React.JSX.Element {
 	return (
 		<div data-testid="container">
 			<div data-testid="before-content">Content before trigger</div>

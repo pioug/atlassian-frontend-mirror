@@ -8,6 +8,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { SyncBlockError } from '../common/types';
 import type {
+	BlockInstanceId,
 	ResourceId,
 	SyncBlockAttrs,
 	SyncBlockNode,
@@ -246,6 +247,27 @@ export class ReferenceSyncBlockStoreManager {
 			logException(error as Error, {
 				location:
 					'editor-synced-block-provider/referenceSyncBlockStoreManager/fetchSyncBlockSourceInfoBySourceAri',
+			});
+			this.fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message));
+
+			return Promise.resolve(undefined);
+		}
+	}
+
+	public fetchSyncBlockSourceInfoByLocalId(
+		localId: BlockInstanceId,
+		hasAccess: boolean = true,
+	): Promise<SyncBlockSourceInfo | undefined> {
+		try {
+			if (!this.dataProvider) {
+				throw new Error('Data provider not set');
+			}
+
+			return this.dataProvider.fetchSyncBlockSourceInfo(localId, undefined, undefined, hasAccess);
+		} catch (error) {
+			logException(error as Error, {
+				location:
+					'editor-synced-block-provider/referenceSyncBlockStoreManager/fetchSyncBlockSourceInfoByLocalId',
 			});
 			this.fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message));
 

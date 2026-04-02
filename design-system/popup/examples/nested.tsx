@@ -12,8 +12,15 @@ import ArrowRight from '@atlaskit/icon/core/arrow-right';
 import MenuIcon from '@atlaskit/icon/core/menu';
 import { ButtonItem, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const nestedPopupStyles = cssMap({
 	root: {
@@ -62,7 +69,11 @@ const NestedPopup: FC<NestedPopupProps> = ({ level }) => {
 								testId="nested-popup-trigger"
 								isSelected={isOpen}
 								onClick={() => setIsOpen(true)}
-								iconAfter={<ArrowRight spacing="spacious" label="" />}
+								iconAfter={
+									<Flex xcss={iconSpacingStyles.space050}>
+										<ArrowRight label="" />
+									</Flex>
+								}
 							>
 								More actions (Level {level})
 							</ButtonItem>

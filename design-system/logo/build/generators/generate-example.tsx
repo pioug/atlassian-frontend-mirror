@@ -12,7 +12,7 @@ import { type Assets } from '../utils';
  * @param root Root directory of package
  * @param assets Assets to generate examples for
  */
-export default function generateExample(root: string | undefined, assets: Assets) {
+export default function generateExample(root: string | undefined, assets: Assets): void {
 	// Create example utils file with rows of all assets
 	const exampleUsage = `import React from 'react';
 

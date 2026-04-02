@@ -15,7 +15,7 @@ const multiValueLabelStyles = cssMap({
 		whiteSpace: 'nowrap',
 		borderRadius: token('radius.xsmall', '2px'),
 		font: token('font.body'),
-		paddingInlineEnd: token('space.025', '2px'),
+		paddingInlineEnd: token('space.025'),
 		paddingInlineStart: token('space.050'),
 		color: 'inherit',
 	},

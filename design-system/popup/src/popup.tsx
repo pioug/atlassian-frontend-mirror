@@ -142,7 +142,7 @@ export const Popup: FC<PopupProps> = memo(
 				}
 				{
 					fg('platform-dst-motion-uplift') && (
-						<ExitingPersistence appear>
+						<ExitingPersistence>
 							{isOpen &&
 								(shouldRenderToParent || shouldFitContainer ? (
 									renderPopperWrapper

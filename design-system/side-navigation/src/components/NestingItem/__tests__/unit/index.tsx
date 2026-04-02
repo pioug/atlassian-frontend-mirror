@@ -2,7 +2,8 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { ButtonItem, type CustomItemComponentProps } from '../../../Item';
+import ButtonItem from '../../../Item/button-item';
+import { type CustomItemComponentProps } from '../../../Item/custom-item';
 import { ROOT_ID } from '../../../NestableNavigationContent';
 import { NestedContext } from '../../../NestableNavigationContent/context';
 import { default as NestingItem } from '../../index';

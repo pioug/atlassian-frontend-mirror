@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 9.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.21
+
+### Patch Changes
+
+- [`f8922537e5ec8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8922537e5ec8) -
+  Preserve node referential identity in replaceDocument to prevent ProseMirror view reconciliation
+  from unnecessarily destroying and recreating mark wrappers (and their React nodeviews), which
+  caused visible flicker on sync blocks and other wrapped nodeviews during collab initialization.
+
+  Fixes EDITOR-5277.
+
+- Updated dependencies
+
+## 9.0.20
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.19
 
 ### Patch Changes

@@ -126,10 +126,7 @@ snapshot(TopNavigationCustomLogoImage200x20Example, defaultOptions);
 snapshot(TopNavigationCustomLogoImage20x200Example, defaultOptions);
 snapshot(TopNavigationCustomLogoImage20x20Example, defaultOptions);
 
-snapshot(TopNavigationAppLogoOversizeExample, {
-	...defaultOptions,
-	featureFlags: { 'platform-dst-nav-app-icon-height-fix': [true, false] },
-});
+snapshot(TopNavigationAppLogoOversizeExample, defaultOptions);
 
 snapshot(TopNavigationThemingLoggedOutExample, {
 	description: 'log in button',

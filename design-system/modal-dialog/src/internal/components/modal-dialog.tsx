@@ -18,15 +18,39 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
+import type { ModalDialogProps, WidthNames } from '../../types';
 import { ModalContext, ScrollContext } from '../context';
 import useOnMotionFinish from '../hooks/use-on-motion-finish';
 import { disableDraggingToCrossOriginIFramesForElement } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/element';
 import { disableDraggingToCrossOriginIFramesForExternal } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/external';
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
 import type { InternalModalDialogProps } from '../types';
-import { dialogHeight, dialogWidth } from '../utils';
+import { width } from '../width';
 
 import Positioner from './positioner';
+
+const dialogWidth = (input?: ModalDialogProps['width']): string => {
+	if (!input) {
+		return 'auto';
+	}
+
+	const isWidthName = width.values.indexOf(input.toString()) !== -1;
+	const widthName = isWidthName && (input as WidthNames);
+
+	if (widthName) {
+		return `${width.widths[widthName]}px`;
+	}
+
+	return typeof input === 'number' ? `${input}px` : input;
+};
+
+const dialogHeight = (input?: ModalDialogProps['height']): string => {
+	if (!input) {
+		return 'auto';
+	}
+
+	return typeof input === 'number' ? `${input}px` : input;
+};
 
 const LOCAL_CURRENT_SURFACE_CSS_VAR: typeof CURRENT_SURFACE_CSS_VAR =
 	'--ds-elevation-surface-current';

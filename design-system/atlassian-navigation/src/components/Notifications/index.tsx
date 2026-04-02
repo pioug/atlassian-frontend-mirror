@@ -1,11 +1,22 @@
 import React, { forwardRef, type Ref } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import NotificationIcon from '@atlaskit/icon/core/notification';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
 
 import { BadgeContainer } from '../BadgeContainer';
 import { IconButton } from '../IconButton';
 
 import { type NotificationsProps } from './types';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const NOTIFICATIONS_BADGE_ID = 'atlassian-navigation-notification-count';
 
@@ -49,11 +60,12 @@ export const Notifications: React.ForwardRefExoticComponent<
 				component={component}
 				href={href}
 				icon={
-					<NotificationIcon
-						spacing="spacious"
-						color="currentColor"
-						label={typeof tooltip === 'string' ? tooltip : 'Notification Icon'}
-					/>
+					<Flex xcss={iconSpacingStyles.space050}>
+						<NotificationIcon
+							color="currentColor"
+							label={typeof tooltip === 'string' ? tooltip : 'Notification Icon'}
+						/>
+					</Flex>
 				}
 				id={id}
 				isDisabled={isDisabled}

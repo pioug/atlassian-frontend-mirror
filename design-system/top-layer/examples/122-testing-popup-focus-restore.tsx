@@ -18,7 +18,7 @@ import { Popup, type TTriggerFunctionRenderProps } from '@atlaskit/top-layer/pop
  *
  * No custom focus restoration hooks are needed.
  */
-export default function TestingPopupFocusRestore() {
+export default function TestingPopupFocusRestore(): React.JSX.Element {
 	return (
 		<div>
 			<DialogPopup />

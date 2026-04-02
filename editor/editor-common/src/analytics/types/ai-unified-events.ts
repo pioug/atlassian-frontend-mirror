@@ -10,6 +10,10 @@ export type AIUnifiedCommonAttributes = {
 	aiExperienceName?: string;
 	aiFeatureName: string;
 	aiInteractionID: string;
+	/**
+	 * Whether or not the AI experience is from a 3p product when user invokes AI action from smartlink toolbar.
+	 */
+	has3pSources?: boolean;
 	invokedFrom?: string;
 	isAIFeature: 1;
 	/**
@@ -26,6 +30,10 @@ export type AIUnifiedCommonAttributes = {
 	proactiveAIGenerated: 0 | 1;
 	promptVersion?: string;
 	singleInstrumentationID: string;
+	/**
+	 * The source 3p product when user invokes AI action from smartlink toolbar.
+	 */
+	sourceProducts?: string | null;
 	traceIds?: string[];
 	userGeneratedAI: 0 | 1;
 };

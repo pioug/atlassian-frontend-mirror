@@ -5,7 +5,10 @@ import { render, screen } from '@testing-library/react';
 import { ROOT_ID } from '../../../NestableNavigationContent';
 import { NestedContext } from '../../../NestableNavigationContent/context';
 import { default as NestingItem } from '../../../NestingItem';
-import { ButtonItem, CustomItem, type CustomItemComponentProps, LinkItem } from '../../index';
+import ButtonItem from '../../button-item';
+import CustomItem from '../../custom-item';
+import { type CustomItemComponentProps } from '../../custom-item';
+import LinkItem from '../../link-item';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Item', () => {

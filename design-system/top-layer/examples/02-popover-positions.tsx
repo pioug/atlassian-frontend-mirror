@@ -43,7 +43,7 @@ const styles = cssMap({
 	},
 });
 
-export default function PopoverPositionsExample() {
+export default function PopoverPositionsExample(): JSX.Element {
 	const [axis, setAxis] = useState<NonNullable<TPlacementOptions['axis']>>('block');
 	const [edge, setEdge] = useState<NonNullable<TPlacementOptions['edge']>>('end');
 	const [align, setAlign] = useState<NonNullable<TPlacementOptions['align']>>('center');

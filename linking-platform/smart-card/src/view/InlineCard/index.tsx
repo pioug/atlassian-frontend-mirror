@@ -2,7 +2,6 @@ import React, { type PropsWithChildren, useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
 
 import { SmartLinkStatus } from '../../constants';
@@ -72,9 +71,7 @@ export const InlineCard = ({
 				onResolve?.({
 					url,
 					title: resolvedProps.title,
-					...(fg('expose-product-details-from-smart-card') && {
-						extensionKey: details?.meta?.key,
-					}),
+					extensionKey: details?.meta?.key,
 				});
 				break;
 			case SmartLinkStatus.Errored:

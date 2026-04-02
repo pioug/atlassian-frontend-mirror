@@ -32,7 +32,7 @@ import {
 	draggable,
 	dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { Box, Grid } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Grid } from '@atlaskit/primitives/compiled';
 import {
 	ButtonItem,
 	NavigationHeader,
@@ -45,6 +45,13 @@ import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const InstanceIdContext = createContext<symbol | null>(null);
 const ListContext = createContext<any>(null);
@@ -105,7 +112,7 @@ const styles = cssMap({
 		filter: 'grayscale(0.8)',
 	},
 	over: {
-		boxShadow: token('elevation.shadow.overlay', 'none'),
+		boxShadow: token('elevation.shadow.overlay'),
 		filter: 'brightness(1.15)',
 		transform: 'scale(1.1) rotate(8deg)',
 	},
@@ -249,7 +256,9 @@ const ADragDropView = ({ items }: any) => {
 
 	const announceMovement = (itemLabel: string, previousIndex: number, currentIndex: number) => {
 		liveRegion.announce(
-			`You've moved ${itemLabel} from position ${previousIndex + 1} to position ${currentIndex + 1}.`,
+			`You've moved ${itemLabel} from position ${previousIndex + 1} to position ${
+				currentIndex + 1
+			}.`,
 		);
 	};
 
@@ -356,7 +365,14 @@ const generateDraggableButtonItems = (n: number) => {
 		}, [instanceId, index, onDrop]);
 
 		return (
-			<ButtonItem iconBefore={<ItemIcon spacing="spacious" label="" />} ref={ref}>
+			<ButtonItem
+				iconBefore={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<ItemIcon label="" />
+					</Flex>
+				}
+				ref={ref}
+			>
 				Item {index}
 			</ButtonItem>
 		);
@@ -517,7 +533,11 @@ const RBDExample: () => JSX.Element = () => {
 						<NestableNavigationContent>
 							<NestingItem
 								id="draggable-button-items"
-								iconBefore={<RBDIcon spacing="spacious" label="" />}
+								iconBefore={
+									<Flex xcss={iconSpacingStyles.space050}>
+										<RBDIcon label="" />
+									</Flex>
+								}
 								title="Draggable <ButtonItem/>s"
 							>
 								<Section title="Click and drag the items below to rearrange">
@@ -526,7 +546,11 @@ const RBDExample: () => JSX.Element = () => {
 							</NestingItem>
 							<NestingItem
 								id="draggable-custom-items"
-								iconBefore={<RBDIcon spacing="spacious" label="" />}
+								iconBefore={
+									<Flex xcss={iconSpacingStyles.space050}>
+										<RBDIcon label="" />
+									</Flex>
+								}
 								title="Draggable <CustomItem/>s"
 							>
 								<Section title="Click and drag the items below to rearrange">

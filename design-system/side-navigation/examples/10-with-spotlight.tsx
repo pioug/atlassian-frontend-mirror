@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import AppIcon from '@atlaskit/icon/core/app';
 import WorkIcon from '@atlaskit/icon/core/folder-closed';
 import LanguageIcon from '@atlaskit/icon/core/globe';
@@ -8,7 +9,7 @@ import QueueIcon from '@atlaskit/icon/core/pages';
 import CustomerIcon from '@atlaskit/icon/core/person';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline, Text } from '@atlaskit/primitives/compiled';
 import {
 	ButtonItem,
 	LinkItem,
@@ -35,15 +36,27 @@ import {
 	SpotlightSecondaryAction,
 	SpotlightStepCount,
 } from '@atlaskit/spotlight';
+import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
 import SampleFooter from './common/sample-footer';
 import SampleHeader from './common/sample-header';
 
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
+
 const LanguageSettings = () => {
 	return (
 		<NestingItem
-			iconBefore={<LanguageIcon spacing="spacious" label="" />}
+			iconBefore={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<LanguageIcon label="" />
+				</Flex>
+			}
 			id="language-settings"
 			title="Language settings"
 		>
@@ -80,7 +93,13 @@ const BasicExample = (): React.JSX.Element => {
 						<Section>
 							<PopoverProvider>
 								<PopoverTarget>
-									<ButtonItem iconBefore={<WorkIcon spacing="spacious" label="" />}>
+									<ButtonItem
+										iconBefore={
+											<Flex xcss={iconSpacingStyles.space050}>
+												<WorkIcon label="" />
+											</Flex>
+										}
+									>
 										Your work
 									</ButtonItem>
 								</PopoverTarget>
@@ -117,7 +136,11 @@ const BasicExample = (): React.JSX.Element => {
 								<PopoverTarget>
 									<LinkItem
 										href="https://www.atlassian.design"
-										iconBefore={<CustomerIcon spacing="spacious" label="" />}
+										iconBefore={
+											<Flex xcss={iconSpacingStyles.space050}>
+												<CustomerIcon label="" />
+											</Flex>
+										}
 									>
 										Your customers
 									</LinkItem>
@@ -158,7 +181,11 @@ const BasicExample = (): React.JSX.Element => {
 								<PopoverTarget>
 									<NestingItem
 										id="dropbox"
-										iconBefore={<AppIcon spacing="spacious" label="" />}
+										iconBefore={
+											<Flex xcss={iconSpacingStyles.space050}>
+												<AppIcon label="" />
+											</Flex>
+										}
 										title="Dropbox"
 										isDisabled
 									>
@@ -201,7 +228,11 @@ const BasicExample = (): React.JSX.Element => {
 								<PopoverTarget>
 									<NestingItem
 										id="3"
-										iconBefore={<SettingsIcon spacing="spacious" label="" />}
+										iconBefore={
+											<Flex xcss={iconSpacingStyles.space050}>
+												<SettingsIcon label="" />
+											</Flex>
+										}
 										title="Settings"
 									>
 										<Section>
@@ -247,7 +278,11 @@ const BasicExample = (): React.JSX.Element => {
 										id="queues"
 										isSelected
 										title="Queues view"
-										iconBefore={<QueueIcon spacing="spacious" label="" />}
+										iconBefore={
+											<Flex xcss={iconSpacingStyles.space050}>
+												<QueueIcon label="" />
+											</Flex>
+										}
 									>
 										<Section title="Queues">
 											<ButtonItem>Untriaged</ButtonItem>

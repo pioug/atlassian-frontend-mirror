@@ -15,7 +15,7 @@ import { type SkeletonIconButtonProps } from './types';
 
 const skeletonIconButtonStyles = css({
 	margin: 0,
-	padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
+	padding: `${token('space.050')} ${token('space.075')}`,
 	border: 0,
 	borderRadius: token('radius.full', '100%'),
 	pointerEvents: 'none',
@@ -40,7 +40,7 @@ const skeletonIconButtonStyles = css({
 });
 
 const buttonWrapperStyles = css({
-	marginInlineEnd: token('space.050', '4px'),
+	marginInlineEnd: token('space.050'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:only-of-type': {
 		marginInlineEnd: 0,

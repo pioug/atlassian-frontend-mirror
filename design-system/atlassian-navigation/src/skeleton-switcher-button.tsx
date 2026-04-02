@@ -30,8 +30,8 @@ export type SkeletonSwitcherButtonProps = {
 const skeletonSwitcherButtonStyles = css({
 	margin: 0,
 	// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
-	marginRight: token('space.050', '4px'),
-	padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
+	marginRight: token('space.050'),
+	padding: `${token('space.050')} ${token('space.075')}`,
 	border: 0,
 	borderRadius: token('radius.full', '100%'),
 	pointerEvents: 'none',

@@ -21,7 +21,7 @@ const styles = cssMap({
 		backgroundColor: token('color.background.neutral.hovered'),
 	},
 	margin: {
-		marginBlockEnd: token('space.100', '8px'),
+		marginBlockEnd: token('space.100'),
 	},
 });
 

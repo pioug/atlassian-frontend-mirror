@@ -13,10 +13,7 @@ const commonStyles = css({
 	display: 'flex',
 	boxSizing: 'border-box',
 	minHeight: 40,
-	padding: `${token('space.100', '10px')} ${token('space.300', '25px')} ${token(
-		'space.100',
-		'10px',
-	)} var(--indent, ${token('space.300', '25px')})`,
+	padding: `${token('space.100')} ${token('space.300')} ${token('space.100')} var(--indent, ${token('space.300')})`,
 	position: 'relative',
 	alignItems: 'center',
 	color: token('color.text'),

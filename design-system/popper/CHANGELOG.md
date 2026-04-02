@@ -1,5 +1,12 @@
 # @atlaskit/popper
 
+## 7.1.9
+
+### Patch Changes
+
+- [`e2085d35701ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2085d35701ca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 7.1.8
 
 ### Patch Changes

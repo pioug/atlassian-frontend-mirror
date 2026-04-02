@@ -1,5 +1,11 @@
 # @atlaskit/ads-mcp
 
+## 0.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.19.0
 
 ### Minor Changes

@@ -12,8 +12,6 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { type EllipsisItemProps } from '../types';
-
 const noop = __noop;
 
 const itemWrapperStyles = css({
@@ -68,6 +66,18 @@ const styles = cssMap({
 		},
 	},
 });
+
+interface EllipsisItemProps {
+	onClick?: (event: React.MouseEvent<Element>) => void;
+	/**
+	 * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+	 */
+	testId?: string;
+	/**
+	 * A `label` prop is used as aria-label for ellipsis button.
+	 */
+	label: string;
+}
 
 const EllipsisItem: import('react').MemoExoticComponent<
 	({ label, onClick, testId }: EllipsisItemProps) => JSX.Element

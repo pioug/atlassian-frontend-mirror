@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { getEarliestHiddenTiming } from '../../../hidden-timing';
 import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
 import getViewportWidth from '../metric-calculator/utils/get-viewport-width';
@@ -9,6 +11,7 @@ import RawDataHandler from './index';
 jest.mock('../metric-calculator/utils/get-viewport-width');
 jest.mock('../metric-calculator/utils/get-viewport-height');
 jest.mock('../../../hidden-timing');
+jest.mock('@atlaskit/platform-feature-flags');
 
 const mockGetEarliestHiddenTiming = getEarliestHiddenTiming as jest.MockedFunction<
 	typeof getEarliestHiddenTiming
@@ -24,6 +27,7 @@ describe('RawDataHandler', () => {
 		handler = new RawDataHandler();
 		mockGetViewportWidth.mockReturnValue(1920);
 		mockGetViewportHeight.mockReturnValue(1080);
+		(fg as jest.Mock).mockImplementation(() => false);
 	});
 
 	afterEach(() => {
@@ -1305,6 +1309,327 @@ describe('RawDataHandler', () => {
 			// Verify all observation eids reference valid entries in the eid map
 			const allEids = new Set(result?.rawData?.obs?.map((obs) => obs.eid) || []);
 			for (const eid of allEids) {
+				expect(result?.rawData?.eid?.[eid]).toBeDefined();
+			}
+		});
+	});
+
+	describe('getRawData - previousRect (pr) capture', () => {
+		const startTime = 1000;
+		const stopTime = 2000;
+
+		beforeEach(() => {
+			(fg as jest.Mock).mockImplementation(
+				(flag: string) => flag === 'platform_ufo_ttvc_server_side_sync',
+			);
+		});
+
+		it('should encode pr as null when previousRect is undefined', async () => {
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'layout-shift',
+						elementName: 'element1',
+						rect: new DOMRect(10, 20, 100, 200),
+						previousRect: undefined,
+						visible: true,
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({ entries, startTime, stopTime, isPageVisible: true });
+
+			expect(result?.rawData?.obs?.[0]).toMatchObject({
+				t: 100,
+				r: [10, 20, 110, 220],
+				pr: null,
+			});
+		});
+
+		it('should encode pr when previousRect differs from current rect', async () => {
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'layout-shift',
+						elementName: 'element1',
+						rect: new DOMRect(10, 20, 100, 200),
+						previousRect: new DOMRect(0, 0, 100, 200),
+						visible: true,
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({ entries, startTime, stopTime, isPageVisible: true });
+
+			expect(result?.rawData?.obs?.[0]).toMatchObject({
+				r: [10, 20, 110, 220],
+				pr: [0, 0, 100, 200],
+			});
+		});
+
+		it('should omit pr when previousRect matches current rect after encoding', async () => {
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'layout-shift',
+						elementName: 'element1',
+						rect: new DOMRect(10, 20, 100, 200),
+						previousRect: new DOMRect(10, 20, 100, 200),
+						visible: true,
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({ entries, startTime, stopTime, isPageVisible: true });
+
+			expect(result?.rawData?.obs?.[0]).toMatchObject({ r: [10, 20, 110, 220] });
+			expect(result?.rawData?.obs?.[0]).not.toHaveProperty('pr');
+		});
+
+		it('should omit pr when feature gate is disabled', async () => {
+			(fg as jest.Mock).mockImplementation(() => false);
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'layout-shift',
+						elementName: 'element1',
+						rect: new DOMRect(10, 20, 100, 200),
+						previousRect: new DOMRect(0, 0, 100, 200),
+						visible: true,
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({ entries, startTime, stopTime, isPageVisible: true });
+
+			expect(result?.rawData?.obs?.[0]).not.toHaveProperty('pr');
+		});
+	});
+
+	describe('getRawData - labelStacks (lbl) capture', () => {
+		const startTime = 1000;
+		const stopTime = 2000;
+
+		beforeEach(() => {
+			// Enable the server-side TTVC feature gate for lbl tests
+			(fg as jest.Mock).mockImplementation(
+				(flag: string) => flag === 'platform_ufo_ttvc_server_side_sync',
+			);
+		});
+
+		it('should include lbl field when entries have labelStacks', async () => {
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'element1',
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+						labelStacks: {
+							segment: 'main-content',
+							labelStack: 'App/MainContent/Header',
+						},
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			expect(result?.rawData?.lbl).toBeDefined();
+			// The element should have eid 1 (first element)
+			const eid = Object.keys(result?.rawData?.eid || {}).find(
+				(key) => result?.rawData?.eid?.[Number(key)] === 'element1',
+			);
+			expect(eid).toBeDefined();
+			expect(result?.rawData?.lbl?.[Number(eid!)]).toEqual({
+				s: 'main-content',
+				l: 'App/MainContent/Header',
+			});
+		});
+
+		it('should not include lbl field when feature gate is disabled', async () => {
+			(fg as jest.Mock).mockImplementation(() => false);
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'element1',
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+						labelStacks: {
+							segment: 'main-content',
+							labelStack: 'App/MainContent/Header',
+						},
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			expect(result?.rawData?.lbl).toBeUndefined();
+		});
+
+		it('should not include lbl field when no entries have labelStacks', async () => {
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'element1',
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			expect(result?.rawData?.lbl).toBeUndefined();
+		});
+
+		it('should capture labelStacks only once per unique element', async () => {
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'element1',
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+						labelStacks: {
+							segment: 'main-content',
+							labelStack: 'App/MainContent/Header',
+						},
+					} as ViewportEntryData,
+				},
+				{
+					time: 1200,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'element1',
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+						labelStacks: {
+							segment: 'updated-segment',
+							labelStack: 'App/MainContent/Header/Updated',
+						},
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			const eid = Object.keys(result?.rawData?.eid || {}).find(
+				(key) => result?.rawData?.eid?.[Number(key)] === 'element1',
+			);
+			// Should keep the first labelStack, not the second
+			expect(result?.rawData?.lbl?.[Number(eid!)]).toEqual({
+				s: 'main-content',
+				l: 'App/MainContent/Header',
+			});
+		});
+
+		it('should capture labelStacks for multiple different elements', async () => {
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'element1',
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+						labelStacks: {
+							segment: 'header',
+							labelStack: 'App/Header',
+						},
+					} as ViewportEntryData,
+				},
+				{
+					time: 1200,
+					data: {
+						type: 'mutation:element',
+						elementName: 'element2',
+						rect: new DOMRect(0, 100, 100, 100),
+						visible: true,
+						labelStacks: {
+							segment: 'content',
+							labelStack: 'App/Content',
+						},
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			expect(Object.keys(result?.rawData?.lbl || {})).toHaveLength(2);
+		});
+
+		it('should remove labelStacks for trimmed elements when observations exceed MAX_OBSERVATIONS', async () => {
+			const entries: VCObserverEntry[] = [];
+			// Create MAX_OBSERVATIONS + 10 entries with different element names
+			for (let i = 0; i < 510; i++) {
+				entries.push({
+					time: startTime + i + 1,
+					data: {
+						type: 'mutation:element',
+						elementName: `element-${i}`,
+						rect: new DOMRect(0, 0, 10, 10),
+						visible: true,
+						labelStacks: {
+							segment: `segment-${i}`,
+							labelStack: `App/Component${i}`,
+						},
+					} as ViewportEntryData,
+				});
+			}
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			// All remaining eids should have corresponding lbl entries
+			const remainingEids = Object.keys(result?.rawData?.eid || {}).map(Number);
+			for (const eid of remainingEids) {
+				expect(result?.rawData?.lbl?.[eid]).toBeDefined();
+			}
+
+			// lbl entries should only exist for remaining eids
+			const lblEids = Object.keys(result?.rawData?.lbl || {}).map(Number);
+			for (const eid of lblEids) {
 				expect(result?.rawData?.eid?.[eid]).toBeDefined();
 			}
 		});

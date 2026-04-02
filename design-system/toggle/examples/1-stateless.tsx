@@ -20,7 +20,7 @@ const StatelessExample = (): React.JSX.Element => {
 			<p
 				id="button-description"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={{ marginBottom: token('space.100', '8px') }}
+				style={{ marginBottom: token('space.100') }}
 			>
 				Can use this button to trigger a toggle
 			</p>

@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import type { KeyboardEvent, MouseEvent } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useToolbarUI } from '../hooks/ui-context';
 
 interface ToolbarDropdownMenuContextValue {
@@ -39,9 +37,7 @@ export const ToolbarDropdownMenuProvider = ({
 		} else {
 			setIsOpenInternal(true);
 		}
-		if (fg('platform_editor_toolbar_highlight_bug_fix')) {
-			onDropdownOpenChanged({ isOpen: true, event: event });
-		}
+		onDropdownOpenChanged({ isOpen: true, event: event });
 	};
 	const closeMenu = (event: Event | MouseEvent | KeyboardEvent | null) => {
 		if (setIsOpen !== undefined) {
@@ -49,9 +45,7 @@ export const ToolbarDropdownMenuProvider = ({
 		} else {
 			setIsOpenInternal(false);
 		}
-		if (fg('platform_editor_toolbar_highlight_bug_fix')) {
-			onDropdownOpenChanged({ isOpen: false, event: event });
-		}
+		onDropdownOpenChanged({ isOpen: false, event: event });
 	};
 
 	const contextValue: ToolbarDropdownMenuContextValue = {

@@ -18,7 +18,7 @@ export default function generateRawIcons(
 	root: string | undefined,
 	rawDirectory: string,
 	targetDirectory: string,
-) {
+): void {
 	const rawIconsDirectory = path.resolve(root!, 'src', targetDirectory);
 	fs.ensureDirSync(rawIconsDirectory);
 

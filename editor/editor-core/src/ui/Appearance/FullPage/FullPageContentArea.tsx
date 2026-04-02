@@ -36,6 +36,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -391,9 +392,7 @@ const Content = React.forwardRef<
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={classnames('ak-editor-content-area', 'appearance-full-page', {
 									'fabric-editor--full-width-mode': fullWidthMode,
-									...(fg('platform_editor_max_width_mode_resize_fix') && {
-										'fabric-editor--max-width-mode': Boolean(maxWidthMode),
-									}),
+									'fabric-editor--max-width-mode': Boolean(maxWidthMode),
 								})}
 								ref={contentAreaRef}
 							>
@@ -422,11 +421,20 @@ const Content = React.forwardRef<
 									? contentComponentClickWrapper(props.customContentComponents.after)
 									: null}
 								{allowScrollGutter && (
-									<div
-										id="editor-scroll-gutter"
-										style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
-										data-vc="scroll-gutter"
-									></div>
+									FeatureGates.getExperimentValue('cc_snippets_dogfooding_beta', 'isEnabled', false) ? (
+										<div
+											id="editor-scroll-gutter"
+											style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
+											data-vc="scroll-gutter"
+											data-editor-scroll-gutter="true"
+										></div>
+									) : (
+										<div
+											id="editor-scroll-gutter"
+											style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
+											data-vc="scroll-gutter"
+										></div>
+									)
 								)}
 							</div>
 						</div>

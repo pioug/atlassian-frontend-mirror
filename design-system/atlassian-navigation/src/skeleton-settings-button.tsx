@@ -1,9 +1,18 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import SettingsIcon from '@atlaskit/icon/core/settings';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { SkeletonIconButton } from './components/SkeletonIconButton';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 export type SkeletonSettingsButtonProps = {
 	/**
@@ -27,7 +36,9 @@ export const SkeletonSettingsButton = ({
 	label = '',
 }: SkeletonSettingsButtonProps): React.JSX.Element => (
 	<SkeletonIconButton>
-		<SettingsIcon color="currentColor" spacing="spacious" label={label} />
+		<Flex xcss={iconSpacingStyles.space050}>
+			<SettingsIcon color="currentColor" label={label} />
+		</Flex>
 	</SkeletonIconButton>
 );
 

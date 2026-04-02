@@ -3,10 +3,7 @@ import type { ReactUFOPayload } from '../../src/common/react-ufo-payload-schema'
 import { expect, test, viewports } from './fixtures';
 import type { WindowWithReactUFOTestGlobals } from './window-type';
 
-const requiredFeatureFlags = [
-	'ufo_payload_use_idle_callback',
-	'rovo_search_page_ttvc_ignoring_smart_answers_fix',
-];
+const requiredFeatureFlags = ['ufo_payload_use_idle_callback'];
 
 const featureFlagsCombos = [[...requiredFeatureFlags]];
 

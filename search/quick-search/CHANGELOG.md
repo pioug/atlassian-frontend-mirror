@@ -1,5 +1,13 @@
 # @atlaskit/quick-search
 
+## 10.5.1
+
+### Patch Changes
+
+- [`4df2d7549b0d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4df2d7549b0d8) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 10.5.0
 
 ### Minor Changes

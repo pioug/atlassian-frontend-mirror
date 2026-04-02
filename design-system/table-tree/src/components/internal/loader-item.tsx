@@ -35,7 +35,7 @@ const LoaderItem = ({
 
 	return phase === 'loading' ? (
 		<TreeRowContainer>
-			<CommonCell indent={`calc(${token('space.300', '25px')} * ${depth})`} width="100%">
+			<CommonCell indent={`calc(${token('space.300')} * ${depth})`} width="100%">
 				<LoaderItemContainer isRoot={depth === 1}>
 					<Spinner size="small" testId="table-tree-spinner" label={loadingLabel} />
 				</LoaderItemContainer>

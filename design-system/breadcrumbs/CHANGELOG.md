@@ -1,5 +1,20 @@
 # @atlaskit/breadcrumbs
 
+## 16.0.3
+
+### Patch Changes
+
+- [`c966e427a25c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c966e427a25c6) -
+  Moves internal type definitions to be colocated with the components that use them.
+
+## 16.0.2
+
+### Patch Changes
+
+- [`08170da1fbf62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08170da1fbf62) -
+  Migrate spacing prop usages on icons to Flex wrapper
+- Updated dependencies
+
 ## 16.0.1
 
 ### Patch Changes

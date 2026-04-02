@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 43.29.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.29.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.29.1
+
+### Patch Changes
+
+- [`c029ee58de1cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c029ee58de1cb) -
+  Fix no-literal-string-in-object ESLint violations
+- Updated dependencies
+
 ## 43.29.0
 
 ### Minor Changes

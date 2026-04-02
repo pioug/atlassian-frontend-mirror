@@ -2,15 +2,18 @@ import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { Mark, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-export function wrapSelectionInBlockType(nodeType: NodeType): EditorCommand {
+export function wrapSelectionInBlockType(_nodeType: NodeType): EditorCommand {
 	return ({ tr }) => {
 		const { nodes } = tr.doc.type.schema;
-		const { alignment, indentation } = tr.doc.type.schema.marks;
+		const { alignment, indentation, fontSize } = tr.doc.type.schema.marks;
 
 		if (nodes.paragraph && nodes.blockquote) {
-			/**Remove alignment and indentation marks from the selection */
-			const marksToRemove = [alignment, indentation];
+			/** Remove alignment, indentation, and unsupported blockquote marks from the selection */
+			const marksToRemove = expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+				? [alignment, indentation, fontSize]
+				: [alignment, indentation];
 
 			const hasMark = (mark: Mark) => marksToRemove.indexOf(mark.type) > -1;
 

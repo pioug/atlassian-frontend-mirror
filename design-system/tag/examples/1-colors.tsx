@@ -28,10 +28,10 @@ const colors: TagColor[] = [
 
 const tableStyles = css({
 	maxWidth: '700px',
-	marginBlockEnd: token('space.100', '8px'),
-	marginBlockStart: token('space.100', '8px'),
-	marginInlineEnd: token('space.100', '8px'),
-	marginInlineStart: token('space.100', '8px'),
+	marginBlockEnd: token('space.100'),
+	marginBlockStart: token('space.100'),
+	marginInlineEnd: token('space.100'),
+	marginInlineStart: token('space.100'),
 });
 
 const avatarTagContainerStyles = css({

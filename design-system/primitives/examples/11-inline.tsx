@@ -31,7 +31,7 @@ const Block = () => (
 );
 
 const pageContainerStyles = xcss({ maxWidth: '900px' });
-const spaceNameStyles = xcss({ minWidth: token('space.1000', '80px') });
+const spaceNameStyles = xcss({ minWidth: token('space.1000') });
 const containerStyles = xcss({
 	display: 'flex',
 	borderRadius: 'radius.xsmall',

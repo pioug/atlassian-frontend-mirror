@@ -16,14 +16,18 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { getParticipantColor } from '@atlaskit/editor-shared-styles';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
+
+import { preserveNodeIdentity } from './preserve-node-identity';
 
 export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
 	decorations
 		.find()
-		.reduce<
-			Decoration[]
-		>((arr, deco) => (deco.spec.pointer.presenceId === id ? arr.concat(deco) : arr), []);
+		.reduce<Decoration[]>(
+			(arr, deco) => (deco.spec.pointer.presenceId === id ? arr.concat(deco) : arr),
+			[],
+		);
 
 function style(options: { color: string }) {
 	const color = (options && options.color) || token('color.border');
@@ -32,8 +36,8 @@ function style(options: { color: string }) {
 }
 
 export function getAvatarColor(str: string): {
-	index: number;
 	backgroundColor: string;
+	index: number;
 	textColor: string;
 } {
 	const participantColor = getParticipantColor(str);
@@ -141,6 +145,49 @@ export const replaceDocument = (
 	);
 	const hasContent = !!parsedDoc?.childCount;
 	const content = parsedDoc?.content;
+
+	if (
+		hasContent &&
+		content &&
+		editorExperiment('platform_editor_preserve_node_identity', true, { exposure: true })
+	) {
+		const preservedContent = preserveNodeIdentity(state.doc.content, content);
+
+		// If the entire content is identical, skip the replaceWith entirely
+		// and just update collab metadata. This avoids triggering a full
+		// document reconciliation for no-op replacements.
+		if (preservedContent === state.doc.content) {
+			tr.setMeta('addToHistory', false);
+			if (version !== undefined && options && options.useNativePlugin) {
+				const collabState = { version, unconfirmed: [] };
+				tr.setMeta('collab$', collabState);
+			}
+			return tr;
+		}
+
+		// Use the preserved fragment (reuses old node references for unchanged nodes)
+		// rather than the raw parsed content, so ProseMirror's view reconciliation
+		// can fast-match unchanged subtrees via referential identity (===).
+		tr.setMeta('addToHistory', false);
+		tr.replaceWith(0, state.doc.nodeSize - 2, preservedContent);
+		const selection = state.selection;
+		if (reserveCursor) {
+			if (selection.to < tr.doc.content.size - 2) {
+				const $from = tr.doc.resolve(selection.from);
+				const $to = tr.doc.resolve(selection.to);
+				const newselection = new TextSelection($from, $to);
+				tr.setSelection(newselection);
+			}
+		} else {
+			tr.setSelection(Selection.atStart(tr.doc));
+		}
+		tr.setMeta('replaceDocument', true);
+		if (version !== undefined && options && options.useNativePlugin) {
+			const collabState = { version, unconfirmed: [] };
+			tr.setMeta('collab$', collabState);
+		}
+		return tr;
+	}
 
 	if (hasContent) {
 		tr.setMeta('addToHistory', false);

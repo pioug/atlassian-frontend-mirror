@@ -23,7 +23,7 @@ const labelStyles = css({
 const flagStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: '1.125rem', // emoji size
-	marginInlineEnd: token('space.100', '8px'),
+	marginInlineEnd: token('space.100'),
 });
 
 const Opt = ({ children, icon }: { icon: Country['icon']; children: string }) => (

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/range",
-	"version": "10.0.1",
+	"version": "10.0.2",
 	"description": "A range lets users choose an approximate value on a slider.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

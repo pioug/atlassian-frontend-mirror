@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "21.9.0",
+	"version": "21.10.1",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,9 +45,12 @@
 		"./input-options": "./src/entry-points/input-options.tsx",
 		"./popup-select": "./src/entry-points/popup-select.tsx",
 		"./radio-select": "./src/entry-points/radio-select.tsx",
+		"./react-select": "./src/entry-points/react-select.tsx",
 		"./select": "./src/entry-points/select.tsx",
 		"./Select": "./src/entry-points/select.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./types": "./src/entry-points/types.tsx",
+		"./use-async": "./src/entry-points/use-async.tsx",
+		"./use-creatable": "./src/entry-points/use-creatable.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

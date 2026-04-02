@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { Popup } from '@atlaskit/top-layer/popup';
 
-export default function TestingPopupEscape() {
+export default function TestingPopupEscape(): React.JSX.Element {
 	const [closedBy, setClosedBy] = useState<string | null>(null);
 
 	const handleClose = useCallback(() => {

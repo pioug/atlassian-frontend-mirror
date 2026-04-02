@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import Popup from '@atlaskit/popup';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space075: {
+		paddingBlock: token('space.075'),
+		paddingInline: token('space.075'),
+	},
+});
 
 const NestedDropdownItem = () => (
 	<DropdownMenu
@@ -16,12 +24,9 @@ const NestedDropdownItem = () => (
 				{...triggerProps}
 				ref={triggerRef}
 				elemAfter={
-					<ChevronRightIcon
-						size="small"
-						spacing="spacious"
-						color={token('color.icon.subtle', '')}
-						label=""
-					/>
+					<Flex xcss={iconSpacingStyles.space075}>
+						<ChevronRightIcon size="small" color={token('color.icon.subtle')} label="" />
+					</Flex>
 				}
 			>
 				<span>Nested Menu</span>

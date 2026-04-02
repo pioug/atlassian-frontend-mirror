@@ -173,31 +173,31 @@ const styles = cssMapUnbound({
 		boxSizing: 'border-box',
 		minWidth: '0px',
 		maxWidth: '11.25rem',
-		height: token('space.250', '20px'),
+		height: token('space.250'),
 		position: 'relative',
 		alignItems: 'center',
 		verticalAlign: 'middle',
-		gap: token('space.025', '2px'),
+		gap: token('space.025'),
 		backgroundColor: token('color.background.neutral.subtle'),
 		borderRadius: token('radius.full'),
 		borderStyle: 'solid',
-		borderWidth: token('border.width', '1px'),
+		borderWidth: token('border.width'),
 		color: token('color.text'),
 		cursor: 'default',
 		font: token('font.body.small'),
-		marginBlock: token('space.050', '4px'),
-		marginInline: token('space.050', '4px'),
+		marginBlock: token('space.050'),
+		marginInline: token('space.050'),
 		paddingInlineEnd: '6px',
-		paddingInlineStart: token('space.0', '0px'),
-		paddingBlock: token('space.0', '0px'),
+		paddingInlineStart: token('space.0'),
+		paddingBlock: token('space.0'),
 	},
 	otherBaseStyles: {
 		borderRadius: token('radius.small', '4px'),
-		paddingInlineEnd: token('space.050', '4px'),
+		paddingInlineEnd: token('space.050'),
 	},
 	agentBaseStyles: {
 		borderRadius: token('radius.small', '4px'),
-		paddingInlineEnd: token('space.050', '4px'),
+		paddingInlineEnd: token('space.050'),
 	},
 	removableStyles: {
 		paddingInlineEnd: '3px',
@@ -233,7 +233,7 @@ const styles = cssMapUnbound({
 		alignItems: 'center',
 		flexShrink: 0,
 		pointerEvents: 'auto',
-		marginInlineStart: token('space.025', '2px'),
+		marginInlineStart: token('space.025'),
 		position: 'relative',
 	},
 	verifiedIconStyles: {
@@ -246,16 +246,16 @@ const styles = cssMapUnbound({
 	focusRingStyles: {
 		// Only show focus ring when keyboard navigating (not mouse clicks)
 		'&:focus-visible': {
-			outline: `${token('border.width.focused', '2px')} solid ${token('color.border.focused')}`,
+			outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 			// @ts-ignore
-			outlineOffset: token('space.025', '2px'),
+			outlineOffset: token('space.025'),
 		},
 	},
 	// Show focus ring when child link is focused via keyboard (applied conditionally via JS)
 	childFocusRingStyles: {
-		outline: `${token('border.width.focused', '2px')} solid ${token('color.border.focused')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 		// @ts-ignore
-		outlineOffset: token('space.025', '2px'),
+		outlineOffset: token('space.025'),
 	},
 	// Base interactive styles - always applied when link (cursor, link styling)
 	interactiveBaseStyles: {
@@ -265,7 +265,7 @@ const styles = cssMapUnbound({
 		'& a': {
 			display: 'inline-flex',
 			alignItems: 'center',
-			gap: token('space.025', '2px'),
+			gap: token('space.025'),
 			textDecoration: 'none',
 			// Allow link to shrink and enable text truncation
 			minWidth: 0,

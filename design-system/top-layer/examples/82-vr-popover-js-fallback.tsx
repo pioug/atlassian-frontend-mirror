@@ -62,38 +62,38 @@ function VrPopupFallback({ placement }: { placement: TPlacementOptions }) {
 	);
 }
 
-export function VrJsFallbackBlockEnd() {
+export function VrJsFallbackBlockEnd(): JSX.Element {
 	return <VrPopupFallback placement={{ edge: 'end' }} />;
 }
 
-export function VrJsFallbackInlineEnd() {
+export function VrJsFallbackInlineEnd(): JSX.Element {
 	return <VrPopupFallback placement={{ axis: 'inline', edge: 'end' }} />;
 }
 
-export function VrJsFallbackBlockStart() {
+export function VrJsFallbackBlockStart(): JSX.Element {
 	return <VrPopupFallback placement={{ edge: 'start' }} />;
 }
 
-export function VrJsFallbackInlineStart() {
+export function VrJsFallbackInlineStart(): JSX.Element {
 	return <VrPopupFallback placement={{ axis: 'inline', edge: 'start' }} />;
 }
 
-export function VrJsFallbackBlockEndAlignStart() {
+export function VrJsFallbackBlockEndAlignStart(): JSX.Element {
 	return <VrPopupFallback placement={{ axis: 'block', edge: 'end', align: 'start' }} />;
 }
 
-export function VrJsFallbackBlockEndAlignEnd() {
+export function VrJsFallbackBlockEndAlignEnd(): JSX.Element {
 	return <VrPopupFallback placement={{ axis: 'block', edge: 'end', align: 'end' }} />;
 }
 
-export function VrJsFallbackInlineEndAlignStart() {
+export function VrJsFallbackInlineEndAlignStart(): JSX.Element {
 	return <VrPopupFallback placement={{ axis: 'inline', edge: 'end', align: 'start' }} />;
 }
 
-export function VrJsFallbackInlineEndAlignEnd() {
+export function VrJsFallbackInlineEndAlignEnd(): JSX.Element {
 	return <VrPopupFallback placement={{ axis: 'inline', edge: 'end', align: 'end' }} />;
 }
 
-export default function VrPopupJsFallback() {
+export default function VrPopupJsFallback(): JSX.Element {
 	return <VrJsFallbackBlockEnd />;
 }

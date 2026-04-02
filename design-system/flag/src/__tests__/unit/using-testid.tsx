@@ -2,10 +2,20 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import Flag from '../../flag';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Flag should be found by data-testid', () => {
@@ -16,7 +26,11 @@ describe('Flag should be found by data-testid', () => {
 					{ content: 'Show me', onClick: noop },
 					{ content: 'No thanks', onClick: noop },
 				]}
-				icon={<SuccessIcon spacing="spacious" label="Info" />}
+				icon={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<SuccessIcon label="Info" />
+					</Flex>
+				}
 				description="We got fun an games. We got everything you want honey, we know the names."
 				id="1"
 				key="1"
@@ -39,7 +53,11 @@ describe('Flag actions should be found by data-testid', () => {
 					},
 					{ content: 'No thanks', onClick: noop },
 				]}
-				icon={<SuccessIcon spacing="spacious" label="Info" />}
+				icon={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<SuccessIcon label="Info" />
+					</Flex>
+				}
 				description="We got fun an games. We got everything you want honey, we know the names."
 				id="1"
 				key="1"
@@ -53,7 +71,11 @@ describe('Flag icon containers should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
 		render(
 			<Flag
-				icon={<SuccessIcon spacing="spacious" label="Info" />}
+				icon={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<SuccessIcon label="Info" />
+					</Flex>
+				}
 				description="We got fun an games. We got everything you want honey, we know the names."
 				id="1"
 				key="1"

@@ -47,7 +47,7 @@ function Playground(): React.JSX.Element {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					backgroundColor: N80,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					margin: token('space.250', '20px'),
+					margin: token('space.250'),
 				}}
 			/>
 			<Checkbox

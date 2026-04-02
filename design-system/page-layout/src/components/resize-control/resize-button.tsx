@@ -22,10 +22,10 @@ import type { ResizeButtonProps } from './types';
 
 const hitAreaSpanStyles = css({
 	position: 'absolute',
-	insetBlockEnd: `${token('space.negative.300', '-24px')}`,
-	insetBlockStart: `${token('space.negative.300', '-24px')}`,
-	insetInlineEnd: `${token('space.negative.150', '-12px')}`,
-	insetInlineStart: `${token('space.negative.100', '-8px')}`,
+	insetBlockEnd: `${token('space.negative.300')}`,
+	insetBlockStart: `${token('space.negative.300')}`,
+	insetInlineEnd: `${token('space.negative.150')}`,
+	insetInlineStart: `${token('space.negative.100')}`,
 });
 
 const mobileStyles = css({
@@ -38,7 +38,7 @@ const mobileStyles = css({
 const resizeIconButtonStyles = css({
 	width: 24,
 	height: 24,
-	padding: token('space.0', '0px'),
+	padding: token('space.0'),
 	position: 'absolute',
 	backgroundColor: token('elevation.surface.overlay'),
 	border: 0,
@@ -46,7 +46,7 @@ const resizeIconButtonStyles = css({
 	boxShadow: `0 0 0 1px ${N30A}, 0 2px 4px 1px ${N30A}`,
 	color: token('color.text.subtle'),
 	cursor: 'pointer',
-	insetBlockStart: token('space.400', '32px'),
+	insetBlockStart: token('space.400'),
 	insetInlineStart: 0,
 	/**
 	 * The fallback value of 0 ensures that the button is hidden by default,

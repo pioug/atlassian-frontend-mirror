@@ -1,5 +1,26 @@
 # @atlaskit/editor-toolbar
 
+## 0.20.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.20.19
+
+### Patch Changes
+
+- [`4dac2e41a9cca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4dac2e41a9cca) -
+  Clean up feature gate `platform_editor_toolbar_highlight_bug_fix` - enable toolbar highlight bug
+  fix behaviour unconditionally.
+- Updated dependencies
+
+## 0.20.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.20.17
 
 ### Patch Changes

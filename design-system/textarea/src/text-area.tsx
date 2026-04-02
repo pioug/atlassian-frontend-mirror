@@ -68,13 +68,13 @@ const baseStyles = css({
 	'&[data-invalid]:focus': {
 		backgroundColor: token('color.background.input.pressed'),
 		borderColor: token('color.border.focused'),
-		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused')}`,
+		boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&[data-invalid]:not(:focus)': {
 		backgroundColor: token('color.background.input'),
 		borderColor: token('color.border.danger'),
-		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.danger')}`,
+		boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.danger')}`,
 	},
 
 	// hover styles
@@ -87,7 +87,7 @@ const baseStyles = css({
 		'&[data-invalid]': {
 			backgroundColor: token('color.background.input.hovered'),
 			borderColor: token('color.border.danger'),
-			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.danger')}`,
+			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.danger')}`,
 		},
 	},
 

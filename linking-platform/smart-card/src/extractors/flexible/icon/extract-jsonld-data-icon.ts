@@ -135,9 +135,7 @@ function typeToIconDescriptor({
 			};
 		case 'atlassian:Task':
 			if (fg('platform_navx_smart_link_icon_label_a11y')) {
-				// Not user-facing copy: icon descriptor label for a11y (see go/i18n-no-literal-string-in-object).
-				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-				const taskIconDescriptor = { icon: IconType.Task, label: 'Task' };
+				const taskIconDescriptor = { icon: IconType.Task, label: descriptorLabel('task') };
 				if (isJiraProvider(providerId)) {
 					const { taskType, taskIcon } = extractTaskNew(data as JsonLd.Data.Task);
 					return taskType === 'JiraCustomTaskType'

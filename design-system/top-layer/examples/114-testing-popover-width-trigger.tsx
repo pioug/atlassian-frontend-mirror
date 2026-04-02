@@ -24,7 +24,7 @@ const styles = cssMap({
  * The trigger is an element with a known width so we can verify the
  * popover matches it.
  */
-export default function TestingPopoverWidthTrigger() {
+export default function TestingPopoverWidthTrigger(): JSX.Element {
 	return (
 		<div css={styles.wrapper}>
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>

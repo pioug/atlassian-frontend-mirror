@@ -28,6 +28,7 @@ export {
 } from './code-block';
 export { transformSliceToDecisionList } from './decision-list';
 export {
+	createBlockTaskItem,
 	transformListStructure,
 	transformBetweenListTypes,
 	transformListRecursively,

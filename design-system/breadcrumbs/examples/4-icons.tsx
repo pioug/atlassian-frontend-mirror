@@ -1,9 +1,18 @@
 import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { cssMap } from '@atlaskit/css';
 import ImageIcon from '@atlaskit/icon/core/image';
 import { AtlassianIcon } from '@atlaskit/logo';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Flex, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const TestIcon = <AtlassianIcon label="" size="small" />;
 
@@ -64,30 +73,62 @@ export default (): React.JSX.Element => (
 			<BreadcrumbsItem href="/item" text="No icon" />
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={<ImageIcon label="" spacing="spacious" />}
+				iconBefore={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<ImageIcon label="" />
+					</Flex>
+				}
 				text="Before"
 			/>
 			<BreadcrumbsItem
 				href="/item"
-				iconAfter={<ImageIcon label="" spacing="spacious" />}
+				iconAfter={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<ImageIcon label="" />
+					</Flex>
+				}
 				text="After"
 			/>
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={<ImageIcon label="" spacing="spacious" />}
-				iconAfter={<ImageIcon label="" spacing="spacious" />}
+				iconBefore={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<ImageIcon label="" />
+					</Flex>
+				}
+				iconAfter={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<ImageIcon label="" />
+					</Flex>
+				}
 				text="Before and after"
 			/>
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={<ImageIcon label="" spacing="spacious" />}
-				iconAfter={<ImageIcon label="" spacing="spacious" />}
+				iconBefore={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<ImageIcon label="" />
+					</Flex>
+				}
+				iconAfter={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<ImageIcon label="" />
+					</Flex>
+				}
 				text="Long content, icons before and after"
 			/>
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={<ImageIcon label="" spacing="spacious" />}
-				iconAfter={<ImageIcon label="" spacing="spacious" />}
+				iconBefore={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<ImageIcon label="" />
+					</Flex>
+				}
+				iconAfter={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<ImageIcon label="" />
+					</Flex>
+				}
 				text="Truncated content, icons before and after"
 				truncationWidth={100}
 			/>

@@ -7,7 +7,7 @@ import { Popup } from '@atlaskit/top-layer/popup';
  * WCAG 2.1.1 Keyboard: all form fields inside a popup must be
  * reachable and operable via keyboard (Tab navigation).
  */
-export default function TestingFormInPopup() {
+export default function TestingFormInPopup(): React.JSX.Element {
 	const [submitted, setSubmitted] = useState(false);
 
 	const handleClose = useCallback(() => {}, []);

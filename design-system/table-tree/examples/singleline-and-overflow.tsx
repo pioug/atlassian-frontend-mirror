@@ -29,7 +29,7 @@ const overflowingBoxStyles = css({
 	border: `5px solid ${token('color.border')}`,
 	color: token('color.text.inverse'),
 	insetBlockEnd: '100%',
-	insetInlineEnd: token('space.0', '0px'),
+	insetInlineEnd: token('space.0'),
 	marginBlockEnd: '-15px',
 });
 

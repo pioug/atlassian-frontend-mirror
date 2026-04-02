@@ -1,11 +1,20 @@
 import React, { forwardRef, type Ref } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import AppSwitcherIcon from '@atlaskit/icon/core/app-switcher';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { IconButton } from '../IconButton';
 
 import { type AppSwitcherProps } from './types';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 /**
  * _App switcher__
@@ -44,11 +53,12 @@ export const AppSwitcher: React.ForwardRefExoticComponent<
 			component={component}
 			href={href}
 			icon={
-				<AppSwitcherIcon
-					color="currentColor"
-					spacing="spacious"
-					label={typeof tooltip === 'string' ? tooltip : 'Switch apps'}
-				/>
+				<Flex xcss={iconSpacingStyles.space050}>
+					<AppSwitcherIcon
+						color="currentColor"
+						label={typeof tooltip === 'string' ? tooltip : 'Switch apps'}
+					/>
+				</Flex>
 			}
 			id={id}
 			isDisabled={isDisabled}

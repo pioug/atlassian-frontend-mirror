@@ -6,10 +6,10 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	mainStage: {
-		marginTop: token('space.200', '16px'),
-		marginRight: token('space.200', '16px'),
-		marginBottom: token('space.200', '16px'),
-		marginLeft: token('space.200', '16px'),
+		marginTop: token('space.200'),
+		marginRight: token('space.200'),
+		marginBottom: token('space.200'),
+		marginLeft: token('space.200'),
 	},
 });
 

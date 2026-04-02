@@ -54,8 +54,8 @@ const highlightStyles = css({
 		position: 'absolute',
 		backgroundColor: 'transparent',
 		content: '""',
-		insetBlockStart: token('space.0', '0px'),
-		insetInlineStart: token('space.0', '0px'),
+		insetBlockStart: token('space.0'),
+		insetInlineStart: token('space.0'),
 	},
 });
 

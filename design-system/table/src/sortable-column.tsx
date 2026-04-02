@@ -49,7 +49,7 @@ const sortingMessages = {
 const overrideStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	margin: '0 -2px !important',
-	gap: token('space.050', '4px'),
+	gap: token('space.050'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	paddingInline: `2px !important`,
 });

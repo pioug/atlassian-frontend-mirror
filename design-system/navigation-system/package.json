@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "7.1.2",
+	"version": "7.1.5",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -193,9 +193,6 @@
 			"type": "boolean"
 		},
 		"platform_dst_button_chevron_sizing": {
-			"type": "boolean"
-		},
-		"platform-dst-nav-app-icon-height-fix": {
 			"type": "boolean"
 		},
 		"platform-dst-shape-theme-default": {

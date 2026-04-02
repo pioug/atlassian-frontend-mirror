@@ -1,5 +1,25 @@
 # @atlaskit/media-card
 
+## 79.16.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 79.16.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 79.16.10
+
+### Patch Changes
+
+- [`a418385029dc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a418385029dc5) -
+  Clean up jfp-magma-fix-attachments-hydration-error feature gate
+- Updated dependencies
+
 ## 79.16.9
 
 ### Patch Changes

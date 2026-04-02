@@ -27,7 +27,7 @@ const modalBodyStyles = css({
 const modalHeadingStyles = css({
 	color: 'inherit',
 	font: token('font.heading.medium'),
-	marginBlockEnd: token('space.100', '8px'),
+	marginBlockEnd: token('space.100'),
 });
 
 const modalImageStyles = css({

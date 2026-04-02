@@ -2,14 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 import { Code } from '@atlaskit/code';
+// oxlint-disable-next-line no-unused-vars
 import { cssMap, jsx } from '@atlaskit/css';
-import { Field, FormFooter, FormSection, HelperMessage } from '@atlaskit/form';
+import { CheckboxField, Field, FormFooter, FormSection } from '@atlaskit/form';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -79,7 +80,7 @@ export default function NestedModalExample(): JSX.Element {
 		<Box xcss={multipleContainerStyles.root}>
 			<div>
 				<FormSection>
-					<Field name="sb" label="Scrolling behavior">
+					<CheckboxField name="sb" label="Scrolling behavior">
 						{() => (
 							<Checkbox
 								label="Should scroll within the viewport"
@@ -89,9 +90,9 @@ export default function NestedModalExample(): JSX.Element {
 								isChecked={shouldScrollInViewport}
 							/>
 						)}
-					</Field>
+					</CheckboxField>
 
-					<Field name="content" label="Content">
+					<CheckboxField name="content" label="Content">
 						{() => (
 							<Checkbox
 								label="Has long content"
@@ -101,25 +102,27 @@ export default function NestedModalExample(): JSX.Element {
 								isChecked={hasLongContent}
 							/>
 						)}
-					</Field>
+					</CheckboxField>
 
-					<Field name="full-screen" label="Appearance">
-						{() => (
-							<Fragment>
-								<Checkbox
-									label="Full screen"
-									name="full-screen"
-									testId="full-screen"
-									onChange={(e) => setIsFullScreen(e.target.checked)}
-									isChecked={isFullScreen}
-								/>
-								<HelperMessage>
-									Full screen mode will ignore the <Code>width</Code>, <Code>height</Code> and{' '}
-									<Code>shouldScrollInViewport</Code> props.
-								</HelperMessage>
-							</Fragment>
+					<Field
+						name="full-screen"
+						label="Appearance"
+						helperMessage={
+							<React.Fragment>
+								Full screen mode will ignore the <Code>width</Code>, <Code>height</Code> and{' '}
+								<Code>shouldScrollInViewport</Code> props.
+							</React.Fragment>
+						}
+						component={() => (
+							<Checkbox
+								label="Full screen"
+								name="full-screen"
+								testId="full-screen"
+								onChange={(e) => setIsFullScreen(e.target.checked)}
+								isChecked={isFullScreen}
+							/>
 						)}
-					</Field>
+					/>
 				</FormSection>
 
 				<FormFooter align="start">

@@ -1148,6 +1148,39 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	}, [allowBlockType, buildDoc, props.preset, onSSRMeasure]);
 
 	const { assistiveLabel, assistiveDescribedBy } = props.editorProps;
+	const handleSsrEditorStateChanged = useCallback(
+		(state: EditorState) => {
+			ssrEditorStateRef.current = state;
+			// Notify listeners about the initial SSR state
+			pluginInjectionAPI.current.onEditorViewUpdated({
+				newEditorState: state,
+				oldEditorState: undefined,
+			});
+		},
+		[pluginInjectionAPI],
+	);
+	const memoizedReactEditorViewContext = useMemo(() => (
+		{
+			editorRef,
+			// Use a getter so that consumers always read the live viewRef.current at access
+			// time, not a stale snapshot captured when this memo was created.
+			get editorView() {
+				return viewRef.current;
+			},
+			popupsMountPoint: props.editorProps.popupsMountPoint,
+		}
+		// viewRef is intentionally omitted from the deps array — it's a stable ref object; the getter reads
+		// .current lazily so there's no stale-closure risk.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	), [editorRef, props.editorProps.popupsMountPoint]);
+	// eslint-disable-next-line @atlassian/perf-linting/no-inline-context-value, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017
+	const reactEditorViewContext = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedReactEditorViewContext
+		: {
+				editorRef,
+				editorView: viewRef.current,
+				popupsMountPoint: props.editorProps.popupsMountPoint,
+			};
 
 	const ssrEditor = useMemo(() => {
 		if (!ssrDeps) {
@@ -1176,14 +1209,18 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				data-editor-id={editorId.current}
 				onSSRMeasure={onSSRMeasure}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				onEditorStateChanged={(state) => {
-					ssrEditorStateRef.current = state;
-					// Notify listeners about the initial SSR state
-					pluginInjectionAPI.current.onEditorViewUpdated({
-						newEditorState: state,
-						oldEditorState: undefined,
-					});
-				}}
+				onEditorStateChanged={
+					expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+						? handleSsrEditorStateChanged
+						: (state) => {
+								ssrEditorStateRef.current = state;
+								// Notify listeners about the initial SSR state
+								pluginInjectionAPI.current.onEditorViewUpdated({
+									newEditorState: state,
+									oldEditorState: undefined,
+								});
+							}
+				}
 			/>
 		);
 	}, [
@@ -1194,6 +1231,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		isPageAppearance,
 		assistiveDescribedBy,
 		onSSRMeasure,
+		handleSsrEditorStateChanged,
 	]);
 
 	const editor = useMemo(
@@ -1223,14 +1261,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			startTimestampRef={firstRenderStartTimestampRef}
 			onSSRMeasure={onSSRMeasure}
 		>
-			<ReactEditorViewContext.Provider
-				// eslint-disable-next-line @atlassian/perf-linting/no-inline-context-value, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				value={{
-					editorRef: editorRef,
-					editorView: viewRef.current,
-					popupsMountPoint: props.editorProps.popupsMountPoint,
-				}}
-			>
+			<ReactEditorViewContext.Provider value={reactEditorViewContext}>
 				{renderTrackingEnabled && (
 					<RenderTracking
 						componentProps={props}

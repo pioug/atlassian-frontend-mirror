@@ -6,9 +6,9 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	section: {
-		marginTop: token('space.200', '16px'),
+		marginTop: token('space.200'),
 		marginRight: 0,
-		marginBottom: token('space.200', '16px'),
+		marginBottom: token('space.200'),
 		marginLeft: 0,
 	},
 });

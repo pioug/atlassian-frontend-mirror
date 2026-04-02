@@ -7,7 +7,15 @@ import { cssMap, type CSSProperties, jsx } from '@compiled/react';
 
 import GlobeIcon from '@atlaskit/icon/core/globe';
 import { type NewGlyphColorProps } from '@atlaskit/icon/types';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const backgroundColorCssVar = '--card-background-color';
 const borderCssVar = '--card-border';
@@ -67,11 +75,9 @@ const Card = ({ tokenSet }: { tokenSet: Record<string, string> }): JSX.Element =
 				} as CSSProperties
 			}
 		>
-			<GlobeIcon
-				label=""
-				color={tokenSet.iconColor as NewGlyphColorProps['color']}
-				spacing="spacious"
-			/>
+			<Flex xcss={iconSpacingStyles.space050}>
+				<GlobeIcon label="" color={tokenSet.iconColor as NewGlyphColorProps['color']} />
+			</Flex>
 			{tokenSet.label || 'Text'}
 		</span>
 	);

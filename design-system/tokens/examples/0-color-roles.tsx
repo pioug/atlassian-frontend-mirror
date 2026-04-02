@@ -7,9 +7,17 @@ import { cssMap, type CSSProperties, jsx } from '@compiled/react';
 
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { setGlobalTheme, token } from '@atlaskit/tokens';
 
 import { useVrGlobalTheme } from './utils/use-vr-global-theme';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const variantStyles = {
 	brand: {
@@ -206,11 +214,9 @@ const Box = ({ text, style }: { text: string; style: Record<string, string> }) =
 			} as CSSProperties
 		}
 	>
-		<StarStarredIcon
-			label="Star icon"
-			color={style.iconColor as NewCoreIconProps['color']}
-			spacing="spacious"
-		/>
+		<Flex xcss={iconSpacingStyles.space050}>
+			<StarStarredIcon label="Star icon" color={style.iconColor as NewCoreIconProps['color']} />
+		</Flex>
 		{text}
 	</button>
 );

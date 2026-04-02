@@ -1,5 +1,19 @@
 # @atlaskit/button
 
+## 23.10.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.10.7
+
+### Patch Changes
+
+- [`08170da1fbf62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08170da1fbf62) -
+  Migrate spacing prop usages on icons to Flex wrapper
+- Updated dependencies
+
 ## 23.10.6
 
 ### Patch Changes

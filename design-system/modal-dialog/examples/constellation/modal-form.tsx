@@ -1,7 +1,7 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, { Field, HelperMessage } from '@atlaskit/form';
+import Form, { Field } from '@atlaskit/form';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -45,14 +45,9 @@ export default function Example(): React.JSX.Element {
 									name="name"
 									label="Type your name to continue"
 									defaultValue="Ian Atlas"
-								>
-									{({ fieldProps }) => (
-										<Fragment>
-											<Textfield {...fieldProps} />
-											<HelperMessage>{name ? `Hello, ${name}` : ''}</HelperMessage>
-										</Fragment>
-									)}
-								</Field>
+									helperMessage={name ? `Hello, ${name}` : ''}
+									component={({ fieldProps }) => <Textfield {...fieldProps} />}
+								/>
 							</ModalBody>
 							<ModalFooter>
 								<Button appearance="subtle" onClick={closeModal}>

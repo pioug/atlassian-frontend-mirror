@@ -11,14 +11,16 @@ import { type ButtonItemProps, type CustomItemComponentProps } from '@atlaskit/m
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
-import { ButtonItem, CustomItem, NavigationContent } from '../index';
+import useChildIdsEffect from '../../common/use-child-ids-effect';
+import ButtonItem from '../Item/button-item';
+import CustomItem from '../Item/custom-item';
+import NavigationContent from '../NavigationContent';
 import { ROOT_ID } from '../NestableNavigationContent';
 import {
 	NestedContext,
 	type NestedContextValue,
 	useNestedContext,
 } from '../NestableNavigationContent/context';
-import { useChildIdsEffect } from '../utils/hooks';
 
 const styles = cssMap({
 	iconContainer: {

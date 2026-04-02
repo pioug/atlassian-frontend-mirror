@@ -1,5 +1,17 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 1.6.0
+
+### Minor Changes
+
+- [`6314532348ebc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6314532348ebc) -
+  Updated URL navigation intent classification utility to recognise FEDRAMP and Isolated Cloud
+  environments.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.1
 
 ### Patch Changes

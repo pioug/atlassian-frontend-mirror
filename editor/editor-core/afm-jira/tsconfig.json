@@ -79,6 +79,9 @@
 			"path": "../../../elements/emoji/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../measurement/feature-gate-js-client/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{

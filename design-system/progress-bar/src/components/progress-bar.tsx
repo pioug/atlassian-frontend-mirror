@@ -49,7 +49,7 @@ const containerAppearance = cssMap({
 const barAppearance = cssMap({
 	default: { backgroundColor: token('color.background.neutral.bold') },
 	success: { backgroundColor: token('color.background.success.bold') },
-	inverse: { backgroundColor: token('elevation.surface', 'white') },
+	inverse: { backgroundColor: token('elevation.surface') },
 });
 
 const barStyles = css({

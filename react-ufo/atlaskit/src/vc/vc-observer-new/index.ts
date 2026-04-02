@@ -349,8 +349,10 @@ export default class VCObserverNew {
 			reportLayoutShiftOffenders: this.trackLayoutShiftOffenders,
 		};
 
+		const isFy2604Enabled = isVCRevisionEnabled('fy26.04');
+
 		const [fy26_04, vcNext] = await Promise.all([
-			isVCRevisionEnabled('fy26.04') ? calculator_fy26_04.calculate(calculatorParams) : null,
+			isFy2604Enabled ? calculator_fy26_04.calculate(calculatorParams) : null,
 			isVCRevisionEnabled('next') ? calculator_next.calculate(calculatorParams) : null,
 		]);
 
@@ -364,7 +366,13 @@ export default class VCObserverNew {
 
 		const feVCCalculationEndTime = performance.now();
 
-		if (includeRawData) {
+		// When server-side TTVC is enabled and fy26.04 is not in the client config,
+		// always include raw data so the server can recalculate fy26.04 metrics
+		// (ssrRatio, labelStacks, speedIndex) from raw observations
+		const shouldIncludeRawData =
+			includeRawData || (!isFy2604Enabled && fg('platform_ufo_ttvc_server_side_sync'));
+
+		if (shouldIncludeRawData) {
 			const rawVCCalculationStartTime = performance.now();
 			const rawHandler = new RawDataHandler();
 			// Use rawDataStopTime (end3p) when available to capture observations during 3p holds

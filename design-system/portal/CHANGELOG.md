@@ -1,5 +1,27 @@
 # @atlaskit/portal
 
+## 5.4.0
+
+### Minor Changes
+
+- [`399dfa9f10273`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/399dfa9f10273) -
+  [ux] Added an `isClosed` property that closes the portal cleanly and unmounts it
+
+## 5.3.2
+
+### Patch Changes
+
+- [`e2085d35701ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2085d35701ca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 5.3.1
+
+### Patch Changes
+
+- [`08170da1fbf62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08170da1fbf62) -
+  Migrate spacing prop usages on icons to Flex wrapper
+
 ## 5.3.0
 
 ### Minor Changes

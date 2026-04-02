@@ -18,7 +18,7 @@ import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
  * - **onClose tracking**: The `onClose` callback fires on every dismiss
  * - **Programmatic close**: Call `hidePopover()` on the underlying element via a ref
  */
-export default function BasicPopupExample() {
+export default function BasicPopupExample(): React.JSX.Element {
 	const popoverRef = useRef<HTMLDivElement | null>(null);
 	const [closeCount, setCloseCount] = useState(0);
 

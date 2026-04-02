@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import Archive24Icon from '@atlaskit/icon-file-type/glyph/archive/24';
 import Blog24Icon from '@atlaskit/icon-object/glyph/blog/24';
 import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
@@ -18,7 +19,15 @@ import {
 	SkeletonHeadingItem,
 	SkeletonItem,
 } from '@atlaskit/menu';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 export default (): React.JSX.Element => {
 	return (
@@ -43,26 +52,49 @@ export default (): React.JSX.Element => {
 			>
 				<MenuGroup testId="with-adjacent-sections" maxWidth={600} maxHeight={1000}>
 					<Section title="Actions">
-						<LinkItem iconBefore={<EditorSearchIcon spacing="spacious" label="" />} href="#search">
+						<LinkItem
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<EditorSearchIcon label="" />
+								</Flex>
+							}
+							href="#search"
+						>
 							Search your items
 						</LinkItem>
 						<LinkItem
-							iconBefore={<EditFilledIcon spacing="spacious" label="" />}
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<EditFilledIcon label="" />
+								</Flex>
+							}
 							href="#add-new-item"
 							isDisabled
 						>
 							Add new item (disabled)
 						</LinkItem>
 						<LinkItem
-							iconBefore={<StarFilledIcon spacing="spacious" label="" />}
-							iconAfter={<ArrowRightIcon spacing="spacious" label="" />}
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<StarFilledIcon label="" />
+								</Flex>
+							}
+							iconAfter={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<ArrowRightIcon label="" />
+								</Flex>
+							}
 							description="You have 24 starred items."
 							href="#starred"
 						>
 							Starred items
 						</LinkItem>
 						<LinkItem
-							iconAfter={<ArrowRightIcon spacing="spacious" label="" />}
+							iconAfter={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<ArrowRightIcon label="" />
+								</Flex>
+							}
 							iconBefore={<Archive24Icon label="" />}
 							description="You have 16 archived items."
 							href="#archived"
@@ -71,26 +103,49 @@ export default (): React.JSX.Element => {
 						</LinkItem>
 					</Section>
 					<Section title="More actions">
-						<LinkItem iconBefore={<EditorSearchIcon spacing="spacious" label="" />} href="#edit">
+						<LinkItem
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<EditorSearchIcon label="" />
+								</Flex>
+							}
+							href="#edit"
+						>
 							Edit your items
 						</LinkItem>
 						<LinkItem
-							iconBefore={<TrashIcon spacing="spacious" label="" />}
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<TrashIcon label="" />
+								</Flex>
+							}
 							href="#delete"
 							isDisabled
 						>
 							Delete item (disabled)
 						</LinkItem>
 						<LinkItem
-							iconBefore={<StarIcon spacing="spacious" label="" />}
-							iconAfter={<ArrowRightIcon spacing="spacious" label="" />}
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<StarIcon label="" />
+								</Flex>
+							}
+							iconAfter={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<ArrowRightIcon label="" />
+								</Flex>
+							}
 							description="You have 24 unstarred items."
 							href="#unstarred"
 						>
 							Unstarred items
 						</LinkItem>
 						<LinkItem
-							iconAfter={<ArrowRightIcon spacing="spacious" label="" />}
+							iconAfter={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<ArrowRightIcon label="" />
+								</Flex>
+							}
 							iconBefore={<StrokeWeightLargeIcon label="" />}
 							description="You have 16 archived items."
 							href="#archive"
@@ -99,7 +154,11 @@ export default (): React.JSX.Element => {
 						</LinkItem>
 						<LinkItem
 							isDisabled={true}
-							iconAfter={<ArrowRightIcon spacing="spacious" label="" />}
+							iconAfter={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<ArrowRightIcon label="" />
+								</Flex>
+							}
 							iconBefore={<StrokeWeightLargeIcon label="" />}
 							description="You have 4 archived items."
 							href="#active"
@@ -172,7 +231,9 @@ export default (): React.JSX.Element => {
 								description="Software Project"
 								iconBefore={<Blog24Icon label="" />}
 								iconAfter={
-									<StarFilledIcon spacing="spacious" label="" color={token('color.icon.warning')} />
+									<Flex xcss={iconSpacingStyles.space050}>
+										<StarFilledIcon label="" color={token('color.icon.warning')} />
+									</Flex>
 								}
 							>
 								Endeavour (JSPA)
@@ -181,7 +242,9 @@ export default (): React.JSX.Element => {
 								description="Software Project"
 								iconBefore={<Blog24Icon label="" />}
 								iconAfter={
-									<StarFilledIcon spacing="spacious" label="" color={token('color.icon.warning')} />
+									<Flex xcss={iconSpacingStyles.space050}>
+										<StarFilledIcon label="" color={token('color.icon.warning')} />
+									</Flex>
 								}
 							>
 								Navigation v3 (JNAV)

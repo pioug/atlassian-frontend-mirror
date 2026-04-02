@@ -4,8 +4,15 @@
  */
 import { cssMap, jsx } from '@atlaskit/css';
 import PersonIcon from '@atlaskit/icon/core/person';
-import { Bleed, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
+import { Bleed, Flex, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const styles = cssMap({
 	button: {
@@ -36,7 +43,9 @@ export default function Basic(): JSX.Element {
 			<Inline>
 				{['first', 'second', 'third', 'fourth'].map((key) => (
 					<Pressable key={key} xcss={styles.button}>
-						<PersonIcon label="An avatar" spacing="spacious" />
+						<Flex xcss={iconSpacingStyles.space050}>
+							<PersonIcon label="An avatar" />
+						</Flex>
 					</Pressable>
 				))}
 			</Inline>
@@ -44,7 +53,9 @@ export default function Basic(): JSX.Element {
 				{['first', 'second', 'third', 'fourth'].map((key) => (
 					<Bleed inline="space.050" key={key}>
 						<Pressable xcss={styles.button}>
-							<PersonIcon label="An avatar" spacing="spacious" />
+							<Flex xcss={iconSpacingStyles.space050}>
+								<PersonIcon label="An avatar" />
+							</Flex>
 						</Pressable>
 					</Bleed>
 				))}

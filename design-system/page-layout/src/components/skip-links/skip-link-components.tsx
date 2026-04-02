@@ -28,7 +28,7 @@ import type { SkipLinkWrapperProps } from './types';
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
 const skipLinkStyles = css({
-	margin: token('space.250', '10px'),
+	margin: token('space.250'),
 	padding: '0.8rem 1rem',
 	position: 'fixed',
 	zIndex: -1,
@@ -53,7 +53,7 @@ const skipLinkHeadingStyles = css({ fontWeight: token('font.weight.semibold') })
 const skipLinkListStyles = css({
 	listStylePosition: 'outside',
 	listStyleType: 'none',
-	marginBlockStart: token('space.050', '4px'),
+	marginBlockStart: token('space.050'),
 	paddingInlineStart: 0,
 });
 

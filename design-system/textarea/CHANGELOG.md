@@ -1,5 +1,13 @@
 # @atlaskit/textarea
 
+## 8.2.6
+
+### Patch Changes
+
+- [`e2085d35701ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2085d35701ca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 8.2.5
 
 ### Patch Changes

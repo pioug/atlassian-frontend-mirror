@@ -13,7 +13,7 @@ import { useTheme } from '../../theme';
 
 import { type IconButtonSkeletonProps } from './types';
 
-const buttonHeight = token('space.400', '32px');
+const buttonHeight = token('space.400');
 
 const skeletonStyles = css({
 	borderRadius: token('radius.full', '50%'),
@@ -31,7 +31,7 @@ export const IconButtonSkeleton = ({
 	const theme = useTheme();
 
 	const dynamicStyles = {
-		marginLeft: typeof marginLeft === 'number' ? marginLeft : token('space.050', '4px'),
+		marginLeft: typeof marginLeft === 'number' ? marginLeft : token('space.050'),
 		marginRight: typeof marginRight === 'number' ? marginRight : 0,
 		width: typeof size === 'number' ? size : buttonHeight,
 		height: typeof size === 'number' ? size : buttonHeight,

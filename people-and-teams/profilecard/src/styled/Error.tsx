@@ -2,23 +2,22 @@ import React from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	errorWrapper: {
 		textAlign: 'center',
-		paddingTop: token('space.300', '24px'),
-		paddingRight: token('space.300', '24px'),
-		paddingBottom: token('space.300', '24px'),
-		paddingLeft: token('space.300', '24px'),
+		paddingTop: token('space.300'),
+		paddingRight: token('space.300'),
+		paddingBottom: token('space.300'),
+		paddingLeft: token('space.300'),
 	},
 	errorTitle: {
-		marginTop: token('space.100', '8px'),
+		marginTop: token('space.100'),
 	},
 	teamErrorText: {
-		color: token('color.text.subtlest', N200),
-		marginTop: token('space.100', '8px'),
+		color: token('color.text.subtlest'),
+		marginTop: token('space.100'),
 	},
 });
 

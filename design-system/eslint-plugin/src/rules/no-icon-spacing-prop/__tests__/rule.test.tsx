@@ -249,7 +249,7 @@ const iconSpacingStyles = cssMap({
 							output: `
 				import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Stack, Flex } from '@atlaskit/primitives/compiled';
+import { Flex, Stack } from '@atlaskit/primitives/compiled';
 				import AddIcon from '@atlaskit/icon/core/add';
 const iconSpacingStyles = cssMap({
   space050: { paddingBlock: token('space.050'), paddingInline: token('space.050') },

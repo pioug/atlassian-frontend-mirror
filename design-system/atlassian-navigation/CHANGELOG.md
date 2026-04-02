@@ -1,5 +1,21 @@
 # @atlaskit/atlassian-navigation
 
+## 5.6.13
+
+### Patch Changes
+
+- [`8f1a80e10b1d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f1a80e10b1d7) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 5.6.12
+
+### Patch Changes
+
+- [`08170da1fbf62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08170da1fbf62) -
+  Migrate spacing prop usages on icons to Flex wrapper
+- Updated dependencies
+
 ## 5.6.11
 
 ### Patch Changes

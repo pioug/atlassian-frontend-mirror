@@ -16,6 +16,7 @@ export interface Props {
 	label?: string;
 	onClick?: () => void;
 	swatchSize?: SwatchSize;
+	tooltipContent?: string;
 	value: string;
 	variant?: ColorCardVariant;
 }
@@ -28,6 +29,7 @@ const ColorCard = ({
 	swatchSize = 'default',
 	isDisabled,
 	id,
+	tooltipContent,
 	variant = 'fill',
 }: Props) => {
 	const handleMouseDown = useCallback((event: MouseEvent<HTMLButtonElement>) => {
@@ -49,7 +51,7 @@ const ColorCard = ({
 		: { backgroundColor: value || 'transparent' };
 
 	return (
-		<Tooltip content={label}>
+		<Tooltip content={tooltipContent ?? label}>
 			<button
 				css={[
 					sharedColorContainerStyles,

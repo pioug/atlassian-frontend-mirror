@@ -95,7 +95,7 @@ function NotePopup() {
 	);
 }
 
-export default function TestingPopoverDialogFocusTrap() {
+export default function TestingPopoverDialogFocusTrap(): React.JSX.Element {
 	return (
 		<div>
 			<button type="button" data-testid="outside-before">

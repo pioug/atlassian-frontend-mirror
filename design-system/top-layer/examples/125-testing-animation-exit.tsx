@@ -29,7 +29,7 @@ const styles = cssMap({
  * Verifies that exit animation completes before the element is hidden from the DOM.
  * Includes a status indicator that reflects whether the popover is open or closed.
  */
-export default function TestingAnimationExit() {
+export default function TestingAnimationExit(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

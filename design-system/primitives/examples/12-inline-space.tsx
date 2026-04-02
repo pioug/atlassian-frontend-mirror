@@ -27,7 +27,7 @@ const spaceItems = [
 	'space.1000',
 ] as const;
 
-const spaceValueStyles = css({ minWidth: token('space.1000', '80px') });
+const spaceValueStyles = css({ minWidth: token('space.1000') });
 const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 const containerStyles = xcss({ width: 'size.300' });
 

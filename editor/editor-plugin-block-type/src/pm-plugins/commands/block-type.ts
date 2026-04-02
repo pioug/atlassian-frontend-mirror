@@ -152,7 +152,7 @@ export function setBlockTypeWithAnalytics(
 			marks.fontSize &&
 			expValEquals('platform_editor_small_font_size', 'isEnabled', true)
 		) {
-			return setSmallTextWithAnalytics(inputMethod, editorAnalyticsApi)({ tr });
+			return setSmallTextWithAnalytics(inputMethod, editorAnalyticsApi, fromBlockQuote)({ tr });
 		}
 
 		const headingBlockType = HEADINGS_BY_NAME[name];
@@ -169,7 +169,7 @@ export function setBlockTypeWithAnalytics(
 	};
 }
 
-export function setSmallText(): EditorCommand {
+export function setSmallText(fromBlockQuote?: boolean): EditorCommand {
 	return function ({ tr }) {
 		const {
 			marks: { fontSize },
@@ -181,36 +181,47 @@ export function setSmallText(): EditorCommand {
 		}
 
 		const { selection } = tr;
+		const applySmallFontSize = createToggleBlockMarkOnRangeNext(
+			fontSize,
+			() => ({ fontSize: 'small' }),
+			[paragraph],
+		);
 
-		if (selection instanceof CellSelection) {
+		if (fromBlockQuote) {
+			const { $from, $to } = selection;
+
+			const range = $from.blockRange($to);
+			if (!range) {
+				return tr;
+			}
+			const targetLiftDepth = liftTarget(range);
+			if (targetLiftDepth || targetLiftDepth === 0) {
+				tr.lift(range, targetLiftDepth);
+			}
+			const from = tr.mapping.map($from.pos);
+			const to = tr.mapping.map($to.pos);
+			tr.setBlockType(from, to, paragraph);
+			applySmallFontSize(from, to, tr);
+		} else if (selection instanceof CellSelection) {
 			const mapFrom = tr.steps.length;
 			selection.forEachCell((cell, pos) => {
-				const mappedPos = tr.mapping.slice(mapFrom).map(pos);
-				tr.setBlockType(mappedPos, mappedPos + cell.nodeSize, paragraph);
-				convertTaskItemsToBlockTaskItems(tr, mappedPos, mappedPos + cell.nodeSize);
-				createToggleBlockMarkOnRangeNext(fontSize, () => ({ fontSize: 'small' }), [paragraph])(
-					mappedPos,
-					mappedPos + cell.nodeSize,
-					tr,
-				);
+				const from = tr.mapping.slice(mapFrom).map(pos);
+				const to = from + cell.nodeSize;
+				tr.setBlockType(from, to, paragraph);
+				convertTaskItemsToBlockTaskItems(tr, from, to);
+				applySmallFontSize(from, to, tr);
 			});
 		} else {
-			// Step 1. Convert headings to paragraphs (for non-task content)
 			tr.setBlockType(selection.from, selection.to, paragraph);
-
-			// Step 2. Expand the selection range to include full list nodes
 			const expandedRange = getSelectionRangeExpandedToLists(tr);
-
-			// Step 3. Convert taskItems → blockTaskItems so their content can hold the fontSize mark
 			convertTaskItemsToBlockTaskItems(tr, expandedRange.from, expandedRange.to);
-
-			// Step 4. Apply fontSize mark to all paragraphs in range (including those inside new blockTaskItems)
-			createToggleBlockMarkOnRangeNext(fontSize, () => ({ fontSize: 'small' }), [paragraph])(
+			applySmallFontSize(
 				tr.mapping.map(expandedRange.from, -1),
 				tr.mapping.map(expandedRange.to, 1),
 				tr,
 			);
 		}
+
 		return tr;
 	};
 }
@@ -218,6 +229,7 @@ export function setSmallText(): EditorCommand {
 export function setSmallTextWithAnalytics(
 	inputMethod: InputMethod,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	fromBlockQuote?: boolean,
 ): EditorCommand {
 	return withCurrentHeadingLevel((previousHeadingLevel) => ({ tr }) => {
 		editorAnalyticsApi?.attachAnalyticsEvent({
@@ -231,7 +243,7 @@ export function setSmallTextWithAnalytics(
 					previousHeadingLevel !== undefined ? String(previousHeadingLevel) : undefined,
 			},
 		})(tr);
-		return setSmallText()({ tr });
+		return setSmallText(fromBlockQuote)({ tr });
 	});
 }
 

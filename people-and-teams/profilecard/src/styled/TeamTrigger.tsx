@@ -22,16 +22,16 @@ const styles = cssMap({
 	cardcontent: {
 		display: 'flex',
 		flexDirection: 'column',
-		paddingTop: token('space.300', '24px'),
-		paddingRight: token('space.300', '24px'),
-		paddingBottom: token('space.300', '24px'),
-		paddingLeft: token('space.300', '24px'),
+		paddingTop: token('space.300'),
+		paddingRight: token('space.300'),
+		paddingBottom: token('space.300'),
+		paddingLeft: token('space.300'),
 		minHeight: '104px',
 	},
 	loadingwrapper: {
 		textAlign: 'center',
-		marginTop: token('space.500', '40px'),
-		marginBottom: token('space.500', '40px'),
+		marginTop: token('space.500'),
+		marginBottom: token('space.500'),
 	},
 	grayoutImage: {
 		filter: 'grayscale(100%)',

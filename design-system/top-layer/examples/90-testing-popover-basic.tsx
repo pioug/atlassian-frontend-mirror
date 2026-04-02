@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Popup } from '@atlaskit/top-layer/popup';
 
-export default function TestingPopupBasic() {
+export default function TestingPopupBasic(): React.JSX.Element {
 	return (
 		<Popup placement={{ edge: 'end' }} onClose={() => {}}>
 			<Popup.Trigger>

@@ -19,14 +19,14 @@ const styles = cssMap({
 	container: {
 		borderColor: token('color.border'),
 		borderRadius: token('radius.small', '3px'),
-		marginTop: token('space.100', '8px'),
-		marginRight: token('space.100', '8px'),
-		marginBottom: token('space.100', '8px'),
-		marginLeft: token('space.100', '8px'),
-		paddingTop: token('space.100', '8px'),
-		paddingRight: token('space.100', '8px'),
-		paddingBottom: token('space.100', '8px'),
-		paddingLeft: token('space.100', '8px'),
+		marginTop: token('space.100'),
+		marginRight: token('space.100'),
+		marginBottom: token('space.100'),
+		marginLeft: token('space.100'),
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
 	},
 	editViewContainer: {
 		zIndex: 300,
@@ -146,7 +146,7 @@ function MiniEditor(props: {
 					<div
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							padding: token('space.100', '8px'),
+							padding: token('space.100'),
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							width: '300px',
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -164,7 +164,7 @@ function MiniEditor(props: {
 							<strong
 								style={{
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									color: token('color.text', 'black'),
+									color: token('color.text'),
 								}}
 							>
 								{value.label}
@@ -184,10 +184,7 @@ export default function InlineEditExample(): React.JSX.Element {
 	return (
 		<div
 			style={{
-				padding: `${token('space.100', '8px')} ${token(
-					'space.100',
-					'8px',
-				)} ${token('space.600', '48px')}`,
+				padding: `${token('space.100')} ${token('space.100')} ${token('space.600')}`,
 			}}
 		>
 			<input value="Sample" type="text" />

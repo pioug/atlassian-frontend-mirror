@@ -13,7 +13,7 @@ const sizes: Size[] = ['xsmall', 'small', 'medium', 'large', 'xlarge', 80];
 
 const containerStyles = css({
 	display: 'flex',
-	gap: token('space.200', '16px'),
+	gap: token('space.200'),
 	flexWrap: 'wrap',
 });
 
@@ -21,7 +21,7 @@ const itemStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'flex-end',
-	gap: token('space.100', '8px'),
+	gap: token('space.100'),
 	flexDirection: 'column',
 });
 

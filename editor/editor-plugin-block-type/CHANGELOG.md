@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-type
 
+## 12.1.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.20
+
+### Patch Changes
+
+- [`1c4534dc921e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c4534dc921e6) -
+  Preserve small text formatting when converting selections to task lists across block menu, block
+  type, and paste flows
+- Updated dependencies
+
 ## 12.1.19
 
 ### Patch Changes

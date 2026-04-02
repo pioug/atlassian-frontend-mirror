@@ -27,10 +27,10 @@ const headerStyles = css({
 	insetBlockStart: 0,
 	insetInlineEnd: 0,
 	insetInlineStart: 0,
-	paddingBlockEnd: token('space.100', '8px'),
-	paddingBlockStart: token('space.100', '8px'),
-	paddingInlineEnd: token('space.100', '8px'),
-	paddingInlineStart: token('space.100', '8px'),
+	paddingBlockEnd: token('space.100'),
+	paddingBlockStart: token('space.100'),
+	paddingInlineEnd: token('space.100'),
+	paddingInlineStart: token('space.100'),
 });
 
 const PopupSurfaceDetectionExample = (): JSX.Element => {

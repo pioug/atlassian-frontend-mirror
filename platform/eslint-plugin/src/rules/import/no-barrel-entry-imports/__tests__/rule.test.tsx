@@ -324,6 +324,16 @@ describe('no-barrel-entry-imports', () => {
 					errors: [{ messageId: 'barrelEntryImport' }],
 					output: `import type { IUseAnalytics } from '@atlassian/conversation-assistant-instrumentation/types/analytics';`,
 				},
+				// Multiple type imports in a single statement as named imports going to different targets
+				{
+					code: `import type { IUseAnalytics, ANALYTICS_CHANNEL } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: tabindent`
+						import type { IUseAnalytics } from '${TEST_PACKAGE_NAME}/types/analytics';
+						import type { ANALYTICS_CHANNEL } from '${TEST_PACKAGE_NAME}/constants/analytics';
+					`,
+				},
 			],
 		});
 	});
@@ -341,7 +351,43 @@ describe('no-barrel-entry-imports', () => {
 					errors: [{ messageId: 'barrelEntryImport' }],
 					output: tabindent`
 						import { useAnalytics } from '@atlassian/conversation-assistant-instrumentation/controllers/analytics';
-						import { type IUseAnalytics } from '@atlassian/conversation-assistant-instrumentation/types/analytics';
+						import type { IUseAnalytics } from '@atlassian/conversation-assistant-instrumentation/types/analytics';
+					`,
+				},
+			],
+		});
+	});
+
+	describe('inline type-only imports promote to import type', () => {
+		const fs = createStandardMockFs();
+
+		runWithFs('no-barrel-entry-imports - inline type promotes to import type', fs, {
+			valid: [],
+			invalid: [
+				// When ALL specifiers are inline type imports, the output should use `import type { ... }`
+				// instead of `import { type ... }`
+				{
+					code: `import { type IUseAnalytics } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import type { IUseAnalytics } from '${TEST_PACKAGE_NAME}/types/analytics';`,
+				},
+				// When a value symbol is imported as type, preserve the type annotation
+				{
+					code: `import { type useAnalytics } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import type { useAnalytics } from '${TEST_PACKAGE_NAME}/controllers/analytics';`,
+				},
+				// Mixed: value import + inline type import going to different targets
+				// Value stays as value, type-only group becomes `import type`
+				{
+					code: `import { useAnalytics, type ANALYTICS_CHANNEL } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: tabindent`
+						import { useAnalytics } from '${TEST_PACKAGE_NAME}/controllers/analytics';
+						import type { ANALYTICS_CHANNEL } from '${TEST_PACKAGE_NAME}/constants/analytics';
 					`,
 				},
 			],
@@ -694,6 +740,20 @@ describe('no-barrel-entry-imports', () => {
 					filename: TEST_FILE,
 					errors: [{ messageId: 'barrelEntryImport' }],
 					output: `import AP, { useAnalyticsContext as useAC } from '@atlassian/conversation-assistant-instrumentation/components/AnalyticsProvider';`,
+				},
+				// Type-only default-as-named import should preserve `import type`
+				{
+					code: `import type { AnalyticsProvider } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import type AnalyticsProvider from '${TEST_PACKAGE_NAME}/components/AnalyticsProvider';`,
+				},
+				// Type-only default-as-named import with consumer alias
+				{
+					code: `import type { AnalyticsProvider as AP } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import type AP from '${TEST_PACKAGE_NAME}/components/AnalyticsProvider';`,
 				},
 			],
 		});
@@ -1200,7 +1260,7 @@ describe('no-barrel-entry-imports', () => {
 					errors: [{ messageId: 'barrelEntryImport' }],
 					output: tabindent`
 						import { useAnalytics } from '@atlassian/conversation-assistant-instrumentation/controllers/analytics';
-						import { type IUseAnalytics } from '@atlassian/conversation-assistant-instrumentation/types/analytics';
+						import type { IUseAnalytics } from '@atlassian/conversation-assistant-instrumentation/types/analytics';
 
 						jest.mock('@atlassian/conversation-assistant-instrumentation/controllers/analytics');
 					`,
@@ -1577,7 +1637,7 @@ describe('no-barrel-entry-imports', () => {
 						errors: [{ messageId: 'barrelEntryImport' }],
 						output: tabindent`
 							import { SomeComponent } from '@atlassian/package-b/ui/components';
-							import { type SomeType } from '@atlassian/package-b/types';
+							import type { SomeType } from '@atlassian/package-b/types';
 						`,
 					},
 				],
@@ -2108,6 +2168,13 @@ describe('no-barrel-entry-imports', () => {
 					errors: [{ messageId: 'barrelEntryImport' }],
 					output: `import DropdownMenu from '${TEST_PACKAGE_NAME}/dropdown-menu';`,
 				},
+				// Type-only default import through entry-point wrapper
+				{
+					code: `import type DropdownMenu from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import type DropdownMenu from '${TEST_PACKAGE_NAME}/dropdown-menu';`,
+				},
 				// Type import through entry-point wrapper
 				{
 					code: `import type { DropdownMenuProps } from '${TEST_PACKAGE_NAME}';`,
@@ -2124,6 +2191,16 @@ describe('no-barrel-entry-imports', () => {
 							import DropdownMenu from '${TEST_PACKAGE_NAME}/dropdown-menu';
 							import { DropdownItem } from '${TEST_PACKAGE_NAME}/dropdown-menu-item';
 							import { DropdownItemGroup } from '${TEST_PACKAGE_NAME}/dropdown-menu-item-group';
+						`,
+				},
+				// Default and named imports used as type in the same line
+				{
+					code: `import type DropdownMenu, { DropdownMenuProps } from '${TEST_PACKAGE_NAME}';`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: tabindent`
+							import type DropdownMenu from '${TEST_PACKAGE_NAME}/dropdown-menu';
+							import type { DropdownMenuProps } from '${TEST_PACKAGE_NAME}/types';
 						`,
 				},
 			],

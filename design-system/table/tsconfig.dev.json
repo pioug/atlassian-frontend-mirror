@@ -30,14 +30,10 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": [
-		"./dist/**/*",
-		"./build/**/*",
-		"./node_modules/**/*"
-	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__table/dev",
+		"outDir": "../../../tsDist/@atlaskit__table/dev"
 	},
 	"references": [
 		{
@@ -54,6 +50,9 @@
 		},
 		{
 			"path": "../button/tsconfig.app.json"
+		},
+		{
+			"path": "../css/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/date/tsconfig.app.json"
@@ -78,6 +77,9 @@
 		},
 		{
 			"path": "../section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../visually-hidden/tsconfig.app.json"

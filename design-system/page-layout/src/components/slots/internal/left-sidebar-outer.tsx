@@ -76,7 +76,7 @@ const outerStyles = css({
 	width: LEFT_SIDEBAR_WIDTH,
 	position: 'relative',
 	zIndex: 1,
-	marginInlineStart: token('space.0', '0px'),
+	marginInlineStart: token('space.0'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766

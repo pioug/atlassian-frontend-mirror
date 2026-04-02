@@ -11,10 +11,10 @@ const customPanelStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
 		flexDirection: 'column',
-		paddingBlockEnd: token('space.250', '20px'),
-		paddingBlockStart: token('space.250', '20px'),
-		paddingInlineEnd: token('space.250', '20px'),
-		paddingInlineStart: token('space.250', '20px'),
+		paddingBlockEnd: token('space.250'),
+		paddingBlockStart: token('space.250'),
+		paddingInlineEnd: token('space.250'),
+		paddingInlineStart: token('space.250'),
 	},
 });
 

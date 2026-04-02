@@ -15,9 +15,9 @@ import { IconButtonSkeleton } from '../IconButton/skeleton';
 
 const searchInputContainerStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
-	marginRight: token('space.100', '8px'),
+	marginRight: token('space.100'),
 	// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
-	marginLeft: token('space.250', '20px'),
+	marginLeft: token('space.250'),
 	position: 'relative',
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
@@ -29,8 +29,8 @@ const searchInputContainerStyles = css({
 const searchInputSkeletonStyles = css({
 	boxSizing: 'border-box',
 	width: '220px',
-	height: token('space.400', '32px'),
-	padding: `0 ${token('space.100', '8px')} 0 ${token('space.500', '40px')}`,
+	height: token('space.400'),
+	padding: `0 ${token('space.100')} 0 ${token('space.500')}`,
 	borderRadius: token('radius.large', '6px'),
 	opacity: 0.15,
 });

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-media
 
+## 10.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.12
+
+### Patch Changes
+
+- [`1229e42f9f503`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1229e42f9f503) -
+  fix layout shift issue and initial size issue on legacy media
+- Updated dependencies
+
+## 10.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.10
 
 ### Patch Changes

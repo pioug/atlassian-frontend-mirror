@@ -15,7 +15,12 @@ export const isTeamsAppRoute = (url: string) => {
 	try {
 		const path = getRoutePathFromUrl(url);
 		const hostname = new URL(url).hostname;
-		return hostname.includes('home.atlassian') && path.includes('/people');
+		return (
+			(hostname.includes('home.atlassian') ||
+				isFedramp(hostname) ||
+				isIsolatedCloud(hostname)) &&
+			path.includes('/people')
+		);
 	} catch {
 		return false;
 	}
@@ -55,3 +60,29 @@ export function buildNavigationInput({ href, context, onBeforeNavigate, ...inten
 			}
 		: { href, intent: intentProps.intent, context, onBeforeNavigate };
 }
+
+// FedRAMP domain patterns used by Atlassian products
+const FEDRAMP_DOMAIN_PATTERNS =
+	/atlassian-us-gov-mod\.(com|net)|atlassian-us-gov\.(com|net)|atlassian-fex\.(com|net)|atlassian-stg-fedm\.(com|net)/;
+
+// Isolated Cloud domain pattern
+const ISOLATED_CLOUD_DOMAIN_PATTERN = /atlassian-isolated\.net/;
+
+/**
+ * Checks if a hostname belongs to a FedRAMP environment.
+ */
+export const isFedramp = (hostname: string): boolean => {
+	return FEDRAMP_DOMAIN_PATTERNS.test(hostname.toLowerCase());
+};
+
+/**
+ * Checks if a hostname belongs to an Isolated Cloud environment.
+ *
+ * Note: This is a hostname-based check for URL classification purposes.
+ * The canonical `isIsolatedCloud()` in `@atlaskit/atlassian-context` uses
+ * cookie-based detection (`Atl-Ctx-Perimeter` + `Atl-Ctx-Isolation-Context-Domain`),
+ * which is not suitable for classifying arbitrary URLs.
+ */
+export const isIsolatedCloud = (hostname: string): boolean => {
+	return ISOLATED_CLOUD_DOMAIN_PATTERN.test(hostname.toLowerCase());
+};

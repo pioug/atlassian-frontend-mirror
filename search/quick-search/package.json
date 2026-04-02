@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/quick-search",
-	"version": "10.5.0",
+	"version": "10.5.1",
 	"description": "A quick-search component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,7 +33,6 @@
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
-		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"keycode": "root:*"

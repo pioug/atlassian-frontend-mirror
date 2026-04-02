@@ -10,7 +10,7 @@ function WithTooltip(): React.JSX.Element {
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div style={{ paddingTop: token('space.500', '40px') }}>
+		<div style={{ paddingTop: token('space.500') }}>
 			<Label htmlFor="range-tooltip">With tooltip</Label>
 			<Tooltip position="top" content={value}>
 				<Range id="range-tooltip" step={1} value={value} onChange={(value) => setValue(value)} />

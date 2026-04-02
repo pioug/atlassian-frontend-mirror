@@ -72,7 +72,7 @@ function StandaloneMenuPopover() {
 	);
 }
 
-export default function TestingStandaloneFocusRestore() {
+export default function TestingStandaloneFocusRestore(): React.JSX.Element {
 	return (
 		<div>
 			<StandaloneDialogPopover />

@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.72.2
+
+### Patch Changes
+
+- [`fd9cfb7fca5c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd9cfb7fca5c6) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 0.72.1
 
 ### Patch Changes

@@ -6,11 +6,19 @@ import { Fragment } from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
-import { css, jsx } from '@atlaskit/css';
+import { css, cssMap, jsx } from '@atlaskit/css';
 import EditIcon from '@atlaskit/icon/core/edit';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
+import { Flex } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const afterStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
@@ -33,7 +41,9 @@ export default function ElementsBeforeAfterExample(): JSX.Element {
 				id="after-input"
 				elemAfterInput={
 					<div css={afterStyle}>
-						<ErrorIcon spacing="spacious" label="error" />
+						<Flex xcss={iconSpacingStyles.space050}>
+							<ErrorIcon label="error" />
+						</Flex>
 					</div>
 				}
 			/>
@@ -47,7 +57,6 @@ export default function ElementsBeforeAfterExample(): JSX.Element {
 					</div>
 				}
 			/>
-
 			<label htmlFor="after-input-focusable">With focusable</label>
 			<Textfield
 				testId="after-input-focusable"

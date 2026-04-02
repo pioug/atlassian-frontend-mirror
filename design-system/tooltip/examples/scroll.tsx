@@ -10,12 +10,12 @@ import { Target } from './styled';
 const parentBaseStyles = cssMap({
 	root: {
 		borderRadius: token('radius.small'),
-		marginBottom: token('space.100', '8px'),
+		marginBlockEnd: token('space.100'),
 		height: '80px',
-		paddingTop: token('space.100', '8px'),
-		paddingRight: token('space.100', '8px'),
-		paddingBottom: token('space.100', '8px'),
-		paddingLeft: token('space.100', '8px'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 	},
 });
 

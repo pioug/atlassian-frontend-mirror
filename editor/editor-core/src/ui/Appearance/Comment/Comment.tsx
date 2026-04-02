@@ -228,6 +228,39 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 		primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
 	}
 	const isToolbarAIFCEnabled = Boolean(editorAPI?.toolbar);
+	const memoizedContentAreaStyles = useMemo(
+		() => [
+			maxHeight
+				? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					css({
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+						maxHeight: `${maxHeight}px`,
+						// When maxHeight is set, content area should have overflow-y explicitly set as auto
+						// As we have overflow-x: clip for the content area, and when maxHeight prop is set, overflow-y will be computed as visible by default.
+						// This will cause the content area to have content overflowing the container
+						// so need to set overflow-y as auto to make sure the content area is scrollable
+						overflowY: 'auto',
+					})
+				: null,
+		],
+		[maxHeight],
+	);
+	const contentAreaStyles = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedContentAreaStyles
+		: [
+				maxHeight
+					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						css({
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+							maxHeight: `${maxHeight}px`,
+							// When maxHeight is set, content area should have overflow-y explicitly set as auto
+							// As we have overflow-x: clip for the content area, and when maxHeight prop is set, overflow-y will be computed as visible by default.
+							// This will cause the content area to have content overflowing the container
+							// so need to set overflow-y as auto to make sure the content area is scrollable
+							overflowY: 'auto',
+						})
+					: null,
+			];
 	const customToolbarSlot = (
 		<div
 			css={[
@@ -325,21 +358,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 								return (
 									<EditorContentContainer
 										ref={containerElement}
-										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-										css={[
-											maxHeight
-												? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-													css({
-														// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-														maxHeight: `${maxHeight}px`,
-														// When maxHeight is set, content area should have overflow-y explicitly set as auto
-														// As we have overflow-x: clip for the content area, and when maxHeight prop is set, overflow-y will be computed as visible by default.
-														// This will cause the content area to have content overflowing the container
-														// so need to set overflow-y as auto to make sure the content area is scrollable
-														overflowY: 'auto',
-													})
-												: null,
-										]}
+										css={contentAreaStyles}
 										isScrollable={maxHeight ? true : undefined}
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 										className={classnames('ak-editor-content-area', {

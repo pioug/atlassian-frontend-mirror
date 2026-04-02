@@ -34,7 +34,7 @@ type GrabAreaProps = {
 const varLineColor = '--ds-line';
 
 const grabAreaStyles = css({
-	width: token('space.200', '16px'),
+	width: token('space.200'),
 	height: '100%',
 	padding: 0,
 	backgroundColor: 'transparent',
@@ -53,7 +53,7 @@ const grabAreaStyles = css({
 });
 
 const grabAreaCollapsedStyles = css({
-	height: `calc(100% - ${token('space.600', '3rem')} * 2)`,
+	height: `calc(100% - ${token('space.600')} * 2)`,
 	padding: 0,
 	position: 'absolute',
 	backgroundColor: 'transparent',

@@ -20,10 +20,10 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 const noop = __noop;
 
 const labelPaddingStyles = css({
-	paddingBlockEnd: token('space.025', '2px'),
-	paddingBlockStart: token('space.025', '2px'),
-	paddingInlineEnd: token('space.050', '4px'),
-	paddingInlineStart: token('space.050', '4px'),
+	paddingBlockEnd: token('space.025'),
+	paddingBlockStart: token('space.025'),
+	paddingInlineEnd: token('space.050'),
+	paddingInlineStart: token('space.050'),
 });
 
 const labelStyles = css({
@@ -63,7 +63,7 @@ const radioBaseStyles = css({
 	height: '24px',
 	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
 	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	margin: token('space.0', '0px'),
+	margin: token('space.0'),
 	position: 'relative',
 	alignItems: 'center',
 	justifyContent: 'center',
@@ -71,7 +71,7 @@ const radioBaseStyles = css({
 	backgroundColor: 'var(--radio-background-color)',
 	/* Border should multiply by 24/14 to offset scale, a scale of 12 / 7 is to fix a Chrome bug that makes the circle become an oval and the
 		inner circle not be centred at various zoom levels */
-	border: `${token('border.width', '1px')} solid var(--radio-border-color)`,
+	border: `${token('border.width')} solid var(--radio-border-color)`,
 	borderRadius: token('radius.full', '50%'),
 	MozAppearance: 'none',
 	outline: 'none',
@@ -113,7 +113,7 @@ const radioInteractiveStyles = css({
 		'--radio-background-color': token('color.background.input.pressed'),
 	},
 	'&:focus': {
-		outline: `${token('border.width.focused', '3px')} solid ${token('color.border.focused')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		outlineOffset: '3px',
 	},
@@ -132,7 +132,7 @@ const radioInteractiveStyles = css({
 		'--radio-dot-color': token('color.icon.inverse'),
 	},
 	'&:checked:focus': {
-		outline: `${token('border.width.focused', '3px')} solid ${token('color.border.focused')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		outlineOffset: '3px',
 	},

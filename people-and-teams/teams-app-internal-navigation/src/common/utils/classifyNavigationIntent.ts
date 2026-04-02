@@ -1,4 +1,5 @@
 import type { NavigationIntent } from './getNavigationProps';
+import { isFedramp, isIsolatedCloud } from './utils';
 
 export interface classifyNavigationIntentInput {
 	href: string;
@@ -19,11 +20,22 @@ const ATLASSIAN_DOMAINS = [
 	'atlassian-dev.net',
 	'atlassian-us-gov-mod.com',
 	'atlassian-us-gov-mod.net',
+	'atlassian-us-gov.com',
+	'atlassian-us-gov.net',
+	'atlassian-fex.com',
+	'atlassian-fex.net',
+	'atlassian-stg-fedm.com',
+	'atlassian-stg-fedm.net',
+	'atlassian-isolated.net',
 ];
 
 function isAtlassianDomain(hostname: string): boolean {
 	const lower = hostname.toLowerCase();
-	return ATLASSIAN_DOMAINS.some((domain) => lower === domain || lower.endsWith('.' + domain));
+	return (
+		ATLASSIAN_DOMAINS.some((domain) => lower === domain || lower.endsWith('.' + domain)) ||
+		isFedramp(lower) ||
+		isIsolatedCloud(lower)
+	);
 }
 
 const REFERENCE_DOMAINS = [

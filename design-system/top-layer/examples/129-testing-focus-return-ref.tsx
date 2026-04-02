@@ -7,7 +7,7 @@ import { Popup } from '@atlaskit/top-layer/popup';
  * WCAG 2.4.3 Focus Order: when the trigger element is removed from the DOM
  * after the popup closes, focus should not fall to <body>.
  */
-export default function TestingFocusReturnRef() {
+export default function TestingFocusReturnRef(): React.JSX.Element {
 	const [showTrigger, setShowTrigger] = useState(true);
 	const [closeCount, setCloseCount] = useState(0);
 

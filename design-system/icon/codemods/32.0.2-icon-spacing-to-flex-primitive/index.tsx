@@ -1,4 +1,56 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
 import type { API, ASTPath, Collection, FileInfo, JSXElement, default as core } from 'jscodeshift';
+
+// Accumulated across all files in this worker — printed as a summary at process exit
+const packagesNeedingCssDep = new Set<string>();
+const emotionSkippedFiles: string[] = [];
+const dynamicSpacingFiles: string[] = [];
+const unresolvableIconFiles: string[] = [];
+
+process.on('exit', () => {
+	const lines: string[] = [];
+
+	if (emotionSkippedFiles.length > 0) {
+		lines.push('');
+		lines.push('━━━ ⏭  FILES SKIPPED — Emotion imports detected (manual migration required) ━━━');
+		lines.push('  These files mix Emotion and Compiled. To migrate:');
+		lines.push('  Option A: Replace Emotion imports with @compiled/react equivalents first.');
+		lines.push('  Option B: Manually wrap icon(s) in <Flex xcss={...}> + cssMap.');
+		emotionSkippedFiles.forEach((f) => lines.push(`  • ${f}`));
+	}
+
+	if (dynamicSpacingFiles.length > 0) {
+		lines.push('');
+		lines.push('━━━ ⚠️  DYNAMIC SPACING — manual migration needed ━━━');
+		lines.push('  spacing prop has a dynamic/variable value. Manually wrap the icon in');
+		lines.push('  <Flex xcss={iconSpacingStyles.spaceXXX}> with the correct token.');
+		lines.push('  An eslint-disable comment has been added to suppress the lint error.');
+		dynamicSpacingFiles.forEach((f) => lines.push(`  • ${f}`));
+	}
+
+	if (unresolvableIconFiles.length > 0) {
+		lines.push('');
+		lines.push('━━━ ⚠️  UNRESOLVABLE ICON — manual migration needed ━━━');
+		lines.push('  Icon component uses a member expression or aliased variable name.');
+		lines.push('  The codemod cannot statically resolve these. Manually wrap the icon in');
+		lines.push('  <Flex xcss={iconSpacingStyles.spaceXXX}> and remove the spacing prop.');
+		unresolvableIconFiles.forEach((f) => lines.push(`  • ${f}`));
+	}
+
+	if (packagesNeedingCssDep.size > 0) {
+		lines.push('');
+		lines.push('━━━ ⚠️  PACKAGES NEEDING package.json UPDATE ━━━');
+		lines.push(`  Add "@atlaskit/css": "*" to dependencies in each package.json below:`);
+		[...packagesNeedingCssDep].sort().forEach((p) => lines.push(`  • ${p}`));
+	}
+
+	if (lines.length > 0) {
+		// eslint-disable-next-line no-console
+		console.warn(lines.join('\n'));
+	}
+});
 
 const ICON_PACKAGES = ['@atlaskit/icon/core', '@atlaskit/icon-lab/core'];
 const FLEX_COMPILED_PACKAGE = '@atlaskit/primitives/compiled';
@@ -57,12 +109,21 @@ function getIconImportSpecifiers(j: core.JSCodeshift, source: Collection<any>): 
 	return specifiers;
 }
 
+function sortImportSpecifiers(specifiers: any[]): void {
+	specifiers.sort((a, b) => {
+		const aName = a.imported?.name ?? '';
+		const bName = b.imported?.name ?? '';
+		return aName.localeCompare(bName);
+	});
+}
+
 function ensureNamedImport(j: core.JSCodeshift, specifiers: any[], name: string): void {
 	const alreadyImported = specifiers.some(
 		(s) => s.type === 'ImportSpecifier' && s.imported?.name === name,
 	);
 	if (!alreadyImported) {
 		specifiers.push(j.importSpecifier(j.identifier(name)));
+		sortImportSpecifiers(specifiers);
 	}
 }
 
@@ -89,11 +150,22 @@ function insertFlexImport(j: core.JSCodeshift, source: Collection<any>): void {
 		.filter((path) => path.node.source.value === FLEX_NON_COMPILED_PACKAGE);
 
 	if (nonCompiledImports.length > 0) {
-		nonCompiledImports.forEach((path) => {
-			path.node.source = j.stringLiteral(FLEX_COMPILED_PACKAGE);
-			ensureNamedImport(j, path.node.specifiers || [], 'Flex');
-		});
-		return;
+		// Only rewrite @atlaskit/primitives → /compiled if the file doesn't use xcss.
+		// xcss is NOT exported from /compiled — rewriting would cause type errors.
+		const hasXcss = nonCompiledImports.some((path) =>
+			(path.node.specifiers || []).some(
+				(s: any) => s.type === 'ImportSpecifier' && s.imported?.name === 'xcss',
+			),
+		);
+
+		if (!hasXcss) {
+			nonCompiledImports.forEach((path) => {
+				path.node.source = j.stringLiteral(FLEX_COMPILED_PACKAGE);
+				ensureNamedImport(j, path.node.specifiers || [], 'Flex');
+			});
+			return;
+		}
+		// If xcss is used, don't rewrite — add a new /compiled import for Flex instead.
 	}
 
 	const newImport = j.importDeclaration(
@@ -118,6 +190,19 @@ function insertCssMapImport(j: core.JSCodeshift, source: Collection<any>): void 
 		cssImports.forEach((path) => {
 			ensureNamedImport(j, path.node.specifiers || [], 'cssMap');
 		});
+		return;
+	}
+
+	// If cssMap is already imported from another package (e.g. @compiled/react), don't add a duplicate
+	const cssMapAlreadyImported = source
+		.find(j.ImportDeclaration)
+		.filter((path) =>
+			(path.node.specifiers || []).some(
+				(s: any) => s.type === 'ImportSpecifier' && s.imported?.name === 'cssMap',
+			),
+		);
+
+	if (cssMapAlreadyImported.length > 0) {
 		return;
 	}
 
@@ -261,9 +346,33 @@ function addEslintDisableComment(
 	path: ASTPath<JSXElement>,
 	reason: string,
 ): void {
-	const comment = j.line(
-		` eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: ${reason}`,
+	// JSX requires comments inside children to be wrapped in {/* */}.
+	// We achieve this by inserting a JSXExpressionContainer with an empty expression
+	// and attaching the block comment to it — jscodeshift prints this as {/* ... */}.
+	const emptyExpr = j.jsxEmptyExpression();
+	(emptyExpr as any).innerComments = [
+		{
+			type: 'CommentBlock',
+			value: ` eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: ${reason} `,
+		},
+	];
+	const commentContainer = j.jsxExpressionContainer(emptyExpr);
+
+	// Insert the {/* */} container as a sibling before the icon element in its parent's children
+	const parent = path.parent;
+	if (parent && parent.value && Array.isArray(parent.value.children)) {
+		const idx = parent.value.children.indexOf(path.value);
+		if (idx !== -1) {
+			parent.value.children.splice(idx, 0, commentContainer);
+			return;
+		}
+	}
+
+	// Fallback: attach as a leading comment on the node itself
+	const comment = j.block(
+		` eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: ${reason} `,
 	);
+	comment.leading = true;
 	const node = path.value as any;
 	node.comments = [comment, ...(node.comments || [])];
 }
@@ -335,6 +444,50 @@ function replaceWithWrapped(
 	}
 }
 
+const EMOTION_PACKAGES = ['@emotion/react', '@emotion/styled', '@emotion/core'];
+
+/**
+ * Check if the file imports from Emotion. If so, it can't be migrated automatically
+ * because mixing Emotion and Compiled (used by @atlaskit/primitives/compiled) in the
+ * same file causes type-checking and runtime errors. These files need manual migration.
+ */
+function hasEmotionImports(j: core.JSCodeshift, source: Collection<any>): boolean {
+	return (
+		source
+			.find(j.ImportDeclaration)
+			.filter((p) => EMOTION_PACKAGES.includes(p.node.source.value as string)).length > 0
+	);
+}
+
+/**
+ * Check if @atlaskit/css is listed in the nearest package.json.
+ * If not, warn the user that they need to add it.
+ */
+function checkCssPackageDependency(filePath: string | undefined): boolean {
+	if (!filePath) {
+		return true; // In test environments, file.path may be undefined — skip the check
+	}
+	let dir = path.dirname(filePath);
+	while (dir !== path.dirname(dir)) {
+		const pkgPath = path.join(dir, 'package.json');
+		if (fs.existsSync(pkgPath)) {
+			try {
+				const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+				const deps = {
+					...(pkg.dependencies || {}),
+					...(pkg.devDependencies || {}),
+					...(pkg.peerDependencies || {}),
+				};
+				return CSS_PACKAGE in deps;
+			} catch {
+				return false;
+			}
+		}
+		dir = path.dirname(dir);
+	}
+	return false;
+}
+
 export default function transformer(file: FileInfo, api: API): string {
 	const j = api.jscodeshift;
 	const source = j(file.source);
@@ -343,6 +496,51 @@ export default function transformer(file: FileInfo, api: API): string {
 	if (!iconSpecifiers.length) {
 		return file.source;
 	}
+
+	// Skip files that import from Emotion — mixing Emotion and Compiled causes
+	// type-checking and runtime errors. These files need manual migration.
+	if (hasEmotionImports(j, source)) {
+		if (file.path) {
+			emotionSkippedFiles.push(file.path);
+		}
+		return file.source;
+	}
+
+	// Detect unresolvable cases: JSX elements with spacing prop that are NOT in iconSpecifiers
+	// (member expressions like <appearanceIconStyles.Icon> or aliased variables like <Icon>)
+	source
+		.find(j.JSXElement)
+		.filter((path) => {
+			const name = path.value.openingElement.name;
+			const attrs = path.value.openingElement.attributes || [];
+			const hasSpacing = attrs.some(
+				(attr: any) => attr.type === 'JSXAttribute' && attr.name?.name === 'spacing',
+			);
+			if (!hasSpacing) {
+				return false;
+			}
+			// Member expression: <appearanceIconStyles.Icon spacing="spacious">
+			if (name.type === 'JSXMemberExpression') {
+				return true;
+			}
+			// Aliased variable: <Icon spacing="spacious"> where Icon is not a known icon specifier
+			// but could be a re-assigned icon (heuristic: PascalCase identifier not in specifiers)
+			if (name.type === 'JSXIdentifier' && !iconSpecifiers.includes(name.name)) {
+				const n = name.name;
+				return n[0] === n[0].toUpperCase() && n !== 'Flex' && n !== 'Box' && n !== 'Inline';
+			}
+			return false;
+		})
+		.forEach((path) => {
+			if (file.path) {
+				const name = path.value.openingElement.name;
+				const nameStr =
+					name.type === 'JSXMemberExpression'
+						? `<${(name.object as any).name}.${(name.property as any).name}>`
+						: `<${(name as any).name}>`;
+				unresolvableIconFiles.push(`${file.path} — ${nameStr} (member expression or alias)`);
+			}
+		});
 
 	const iconJSXWithSpacing = source
 		.find(j.JSXElement)
@@ -360,6 +558,27 @@ export default function transformer(file: FileInfo, api: API): string {
 		return file.source;
 	}
 
+	// Warn if @atlaskit/css is not in the package's dependencies
+	if (!checkCssPackageDependency(file.path)) {
+		// Find the nearest package.json and record the package name
+		if (file.path) {
+			let dir = path.dirname(file.path);
+			while (dir !== path.dirname(dir)) {
+				const pkgPath = path.join(dir, 'package.json');
+				if (fs.existsSync(pkgPath)) {
+					try {
+						const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+						packagesNeedingCssDep.add(`${pkg.name ?? dir} (${pkgPath})`);
+					} catch {
+						packagesNeedingCssDep.add(dir);
+					}
+					break;
+				}
+				dir = path.dirname(dir);
+			}
+		}
+	}
+
 	const paddingTokensUsed = new Set<string>();
 	let needsFlexImport = false;
 
@@ -372,6 +591,9 @@ export default function transformer(file: FileInfo, api: API): string {
 				path,
 				'Manually migrate spacing prop to Flex primitive (spread props detected)',
 			);
+			if (file.path) {
+				dynamicSpacingFiles.push(`${file.path} — spread props`);
+			}
 			return;
 		}
 
@@ -381,6 +603,9 @@ export default function transformer(file: FileInfo, api: API): string {
 				path,
 				'Manually migrate spacing prop to Flex primitive (dynamic spacing value detected)',
 			);
+			if (file.path) {
+				dynamicSpacingFiles.push(`${file.path} — dynamic spacing value`);
+			}
 			return;
 		}
 

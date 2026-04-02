@@ -1,6 +1,8 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import CustomerIcon from '@atlaskit/icon/core/person';
+import { Flex } from '@atlaskit/primitives/compiled';
 import {
 	ButtonItem,
 	NavigationHeader,
@@ -11,9 +13,18 @@ import {
 	SkeletonHeadingItem,
 	SkeletonItem,
 } from '@atlaskit/side-navigation';
+import { token } from '@atlaskit/tokens';
+
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const BasicExample = (): React.JSX.Element => {
 	return (
@@ -28,7 +39,13 @@ const BasicExample = (): React.JSX.Element => {
 							<SkeletonHeadingItem />
 							<SkeletonItem hasAvatar />
 							<SkeletonItem hasIcon />
-							<ButtonItem iconBefore={<CustomerIcon spacing="spacious" label="" />}>
+							<ButtonItem
+								iconBefore={
+									<Flex xcss={iconSpacingStyles.space050}>
+										<CustomerIcon label="" />
+									</Flex>
+								}
+							>
 								Create
 							</ButtonItem>
 							<SkeletonItem width="100%" />

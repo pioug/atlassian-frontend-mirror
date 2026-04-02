@@ -17,7 +17,7 @@ import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { width } from '../src/internal/utils';
+import { width } from '../src/internal/width';
 
 const units = [420, '42%', '42em', '100%'];
 const sizes: (string | number)[] = width.values;

@@ -23,7 +23,7 @@ const animation = slideAndFade();
  * 2. `Popover` for top-layer visibility and animation
  * 3. Conditional rendering to keep the DOM lean (element only exists when open)
  */
-export default function StandalonePopoverContentExample() {
+export default function StandalonePopoverContentExample(): React.JSX.Element {
 	return (
 		<ForceFallbackToggle>
 			{(forceFallbackPositioning) => (

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "217.9.1",
+	"version": "217.10.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -58,6 +58,7 @@
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/media-card": "workspace:^",
@@ -301,9 +302,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_a11y_9262": {
-			"type": "boolean"
-		},
-		"platform_editor_max_width_mode_resize_fix": {
 			"type": "boolean"
 		},
 		"platform_editor_breakout_in_universal_preset": {

@@ -1,5 +1,28 @@
 # @atlaskit/renderer
 
+## 128.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.7.0
+
+### Minor Changes
+
+- [`8ba54e820b3bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ba54e820b3bb) -
+  Remove smartLinkDraggableChangeboardConfig, no longer used, will send changeboard via Post Office
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 128.6.4
 
 ### Patch Changes

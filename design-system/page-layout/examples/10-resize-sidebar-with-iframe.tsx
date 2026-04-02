@@ -71,7 +71,7 @@ const initialState = {
 };
 
 const iframeLabelStyles = css({
-	padding: token('space.050', '0'),
+	padding: token('space.050'),
 	position: 'absolute',
 	background: token('color.background.inverse.subtle'),
 	color: token('color.text.inverse'),

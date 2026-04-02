@@ -28,7 +28,7 @@ const styles = cssMap({
  * Test fixture for animation lifecycle.
  * Includes a status indicator that reflects whether the popover is open or closed.
  */
-export default function TestingPopoverAnimation() {
+export default function TestingPopoverAnimation(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

@@ -7,12 +7,19 @@ import Heading from '@atlaskit/heading';
 import InformationIcon from '@atlaskit/icon/core/status-information';
 import Image from '@atlaskit/image';
 import InteractionContext from '@atlaskit/interaction-context';
-import { Anchor, Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Anchor, Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import ButtonIcon from '../../images/button.png';
 import ThemesIcon from '../../images/themes.png';
 import WatermelonIcon from '../../images/watermelon.png';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const styles = cssMap({
 	anchor: {
@@ -68,11 +75,9 @@ const Projects = () => {
 						title: `Traced a press!`,
 						description: name,
 						icon: (
-							<InformationIcon
-								label="Info"
-								color={token('color.icon.information')}
-								spacing="spacious"
-							/>
+							<Flex xcss={iconSpacingStyles.space050}>
+								<InformationIcon label="Info" color={token('color.icon.information')} />
+							</Flex>
 						),
 						isAutoDismiss: true,
 					});

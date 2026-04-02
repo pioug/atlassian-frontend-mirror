@@ -39,10 +39,6 @@ export interface SmartLinksOptions {
 	 */
 	hideHoverPreview?: boolean;
 	/**
-	 * Changeboard configuration for Smart Link Draggable feature
-	 */
-	smartLinkDraggableChangeboardConfig?: { onClose: () => void; shouldShow: boolean };
-	/**
 	 * A flag to enable inline Smart Link to render without lazy loading.
 	 * Default is false.
 	 *

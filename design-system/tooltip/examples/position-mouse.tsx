@@ -10,22 +10,22 @@ import Tooltip from '@atlaskit/tooltip';
 
 const containerStyle = cssMap({
 	root: {
-		paddingBlockStart: token('space.500', '40px'),
-		paddingInlineEnd: token('space.500', '40px'),
-		paddingBlockEnd: token('space.500', '40px'),
-		paddingInlineStart: token('space.500', '40px'),
+		paddingBlockStart: token('space.500'),
+		paddingInlineEnd: token('space.500'),
+		paddingBlockEnd: token('space.500'),
+		paddingInlineStart: token('space.500'),
 		display: 'flex',
 		flexDirection: 'column',
-		gap: token('space.400', '32px'),
+		gap: token('space.400'),
 	},
 });
 
 const triggerStyle = cssMap({
 	root: {
-		paddingBlockStart: token('space.200', '16px'),
-		paddingInlineEnd: token('space.200', '16px'),
-		paddingBlockEnd: token('space.200', '16px'),
-		paddingInlineStart: token('space.200', '16px'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 		backgroundColor: token('color.background.accent.blue.subtler'),
 		borderColor: token('color.border'),
 		borderWidth: token('border.width'),

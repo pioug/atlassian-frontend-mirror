@@ -1,5 +1,28 @@
 # @atlaskit/side-navigation
 
+## 11.1.13
+
+### Patch Changes
+
+- [`c966e427a25c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c966e427a25c6) -
+  Removes internal barrel files and instead imports modules directly.
+
+## 11.1.12
+
+### Patch Changes
+
+- [`e2085d35701ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2085d35701ca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 11.1.11
+
+### Patch Changes
+
+- [`08170da1fbf62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08170da1fbf62) -
+  Migrate spacing prop usages on icons to Flex wrapper
+- Updated dependencies
+
 ## 11.1.10
 
 ### Patch Changes

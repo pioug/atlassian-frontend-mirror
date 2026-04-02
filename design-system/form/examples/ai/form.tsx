@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
-import Form, { CheckboxField, ErrorMessage, Field, FormFooter, FormHeader } from '@atlaskit/form';
+import Form, { CheckboxField, Field, FormFooter, FormHeader } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 
 const Example = (): React.JSX.Element => (
@@ -14,15 +14,11 @@ const Example = (): React.JSX.Element => (
 			name="username"
 			label="Username"
 			isRequired
-			validate={(value) => (value && value.length < 3 ? 'Too short' : undefined)}
-		>
-			{({ fieldProps, error }) => (
-				<>
-					<TextField {...fieldProps} />
-					{error && <ErrorMessage>Username must be at least 3 characters</ErrorMessage>}
-				</>
-			)}
-		</Field>
+			validate={(value) =>
+				value && value.length < 3 ? 'Username must be at least 3 characters' : undefined
+			}
+			component={({ fieldProps }) => <TextField {...fieldProps} />}
+		/>
 		<CheckboxField name="terms" value="terms">
 			{({ fieldProps }) => <Checkbox {...fieldProps} label="I accept the terms" />}
 		</CheckboxField>

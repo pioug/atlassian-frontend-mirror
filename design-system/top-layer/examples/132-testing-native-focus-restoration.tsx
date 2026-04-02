@@ -14,7 +14,7 @@ import { Popup } from '@atlaskit/top-layer/popup';
  * `previouslyFocusedElement` when the popover opens and restores it
  * synchronously during the hide algorithm.
  */
-export default function TestingNativeFocusRestoration() {
+export default function TestingNativeFocusRestoration(): React.JSX.Element {
 	return (
 		<div>
 			<PopoverAutoDialog />

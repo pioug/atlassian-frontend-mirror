@@ -5,6 +5,7 @@
 import { jsx } from '@compiled/react';
 
 import AKBadge from '@atlaskit/badge';
+import { cssMap } from '@atlaskit/css';
 import AtlassianIntelligenceIcon from '@atlaskit/icon/core/atlassian-intelligence';
 import SearchIcon from '@atlaskit/icon/core/search';
 import { ConfluenceIcon } from '@atlaskit/logo';
@@ -28,10 +29,18 @@ import {
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/example-utils';
 import { MockSearch } from './utils/mock-search';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const Badge = () => <AKBadge appearance="important">{5}</AKBadge>;
 
@@ -91,7 +100,11 @@ export const SearchRightElem: () => JSX.Element = () => (
 				<TopNavMiddle>
 					<Search
 						iconBefore={AtlassianIntelligenceIcon}
-						elemAfter={<SearchIcon spacing="spacious" color={token('color.icon')} label="" />}
+						elemAfter={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<SearchIcon color={token('color.icon')} label="" />
+							</Flex>
+						}
 						onClick={() => alert('mobile search')}
 						label="Search"
 					/>

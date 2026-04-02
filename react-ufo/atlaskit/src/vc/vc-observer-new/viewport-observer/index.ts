@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { SearchPageConfig } from '../../types';
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import isDnDStyleMutation from '../../vc-observer/observers/non-visual-styles/is-dnd-style-mutation';
@@ -617,8 +615,7 @@ export default class ViewportObserver {
 			this.searchPageConfig?.enableSmartAnswersMutations &&
 			this.searchPageConfig?.searchPageRoute &&
 			window?.location?.pathname &&
-			window.location.pathname === this.searchPageConfig.searchPageRoute &&
-			fg('rovo_search_page_ttvc_ignoring_smart_answers_fix')
+			window.location.pathname === this.searchPageConfig.searchPageRoute
 		);
 	};
 

@@ -1,7 +1,6 @@
 import React, { type PropsWithChildren } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
 
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
@@ -85,9 +84,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 						title: resolvedViewProps.title,
 						url,
 						aspectRatio: resolvedViewProps.preview?.aspectRatio,
-						...(fg('expose-product-details-from-smart-card') && {
-							extensionKey: details?.meta?.key,
-						}),
+						extensionKey: details?.meta?.key,
 					});
 				}
 
@@ -314,9 +311,7 @@ export const EmbedCardUpdated = React.forwardRef<HTMLIFrameElement, EmbedCardUpd
 						title: resolvedViewProps.title,
 						url,
 						aspectRatio: resolvedViewProps.preview?.aspectRatio,
-						...(fg('expose-product-details-from-smart-card') && {
-							extensionKey: details?.meta?.key,
-						}),
+						extensionKey: details?.meta?.key,
 					});
 				}
 

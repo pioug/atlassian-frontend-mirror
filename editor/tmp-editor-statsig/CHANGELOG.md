@@ -1,5 +1,67 @@
 # @atlaskit/editor-statsig-tmp
 
+## 54.0.0
+
+### Major Changes
+
+- [`65e300b324e87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65e300b324e87) -
+  Remove feature flag platform_editor_fix_advanced_codeblocks_crlf - CRLF line separator fix is now
+  always enabled
+
+### Minor Changes
+
+- [`22cc6940b4250`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22cc6940b4250) -
+  Add gated editor-core perf lint cleanup experiment support
+- [`59c51386456c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59c51386456c3) -
+  Convert platform_editor_ai_aifc_list_indentation_fix feature gate to
+  platform_editor_ai_aifc_listitem_indentation_fix experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 53.1.0
+
+### Minor Changes
+
+- [`f8922537e5ec8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8922537e5ec8) -
+  Preserve node referential identity in replaceDocument to prevent ProseMirror view reconciliation
+  from unnecessarily destroying and recreating mark wrappers (and their React nodeviews), which
+  caused visible flicker on sync blocks and other wrapped nodeviews during collab initialization.
+
+  Fixes EDITOR-5277.
+
+- [`1229e42f9f503`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1229e42f9f503) -
+  fix layout shift issue and initial size issue on legacy media
+
+## 53.0.0
+
+### Major Changes
+
+- [`93ba2d2f0eb22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93ba2d2f0eb22) -
+  Clean up experiment flag platform_editor_ai_fix_streaming_json_escape and to fix JSON escape on
+  the streaming parser for URL and path values
+
+## 52.2.0
+
+### Minor Changes
+
+- [`89c9f0b61cb49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89c9f0b61cb49) -
+  ENGHEALTH-49654 add aria label to rovo inline chat dialog
+
+## 52.1.0
+
+### Minor Changes
+
+- [`91f722df43475`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91f722df43475) -
+  [ux] [EDITOR-5815] the fix adds a check for column width changes so that we update the table on
+  click of 'distribute columns' button. this is gated behind the
+  `platform_editor_lovability_distribute_column_fix` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.0.0
 
 ### Major Changes

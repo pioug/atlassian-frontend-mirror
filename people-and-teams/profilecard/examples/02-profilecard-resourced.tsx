@@ -14,7 +14,7 @@ import { getMockProfileClient } from './helper/util';
 
 const styles = cssMap({
 	wrap: {
-		marginBottom: token('space.250', '20px'),
+		marginBottom: token('space.250'),
 	},
 });
 

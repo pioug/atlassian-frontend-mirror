@@ -1,5 +1,30 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.10.1
+
+### Patch Changes
+
+- [`aa4a7091a0794`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa4a7091a0794) -
+  Remove the rovo search smart answers TTVC cleanup gate
+
+## 5.10.0
+
+### Minor Changes
+
+- [`981c0330e867e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/981c0330e867e) -
+  Capture previousRect in raw TTVC observations for server-side layout shift offender analysis
+
+## 5.9.0
+
+### Minor Changes
+
+- [`48386f908b915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48386f908b915) -
+  Prepare for server-side FY26.04 TTVC calculation behind `platform_ufo_ttvc_server_side_sync`
+  feature gate. Extends the raw-handler to capture per-element labelStacks in a new `lbl` field for
+  server-side reconstruction. When the gate is enabled and `fy26.04` is removed from
+  `enabledVCRevisions`, raw data is automatically sent on every event so the server can recalculate
+  fy26.04 metrics (ssrRatio, labelStacks, speedIndex) from raw observations.
+
 ## 5.8.1
 
 ### Patch Changes

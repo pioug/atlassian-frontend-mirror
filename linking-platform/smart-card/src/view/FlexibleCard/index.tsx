@@ -134,9 +134,7 @@ const FlexibleCard = ({
 					onResolve({
 						title,
 						url,
-						...(fg('expose-product-details-from-smart-card') && {
-							extensionKey: details?.meta?.key,
-						}),
+						extensionKey: details?.meta?.key,
 					});
 				}
 				break;

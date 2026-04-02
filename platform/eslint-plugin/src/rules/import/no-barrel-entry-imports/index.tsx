@@ -310,6 +310,7 @@ function classifySpecifiers({
 
 		if (spec.type === 'ImportDefaultSpecifier') {
 			nameInSource = 'default';
+			kind = node.importKind === 'type' ? 'type' : 'value';
 		} else if (spec.type === 'ImportSpecifier') {
 			nameInSource = getImportedName(spec);
 			const parentImportKind = node.importKind;
@@ -745,7 +746,8 @@ function createBarrelImportFix({
 			}
 		} else {
 			// Create new import
-			const isTypeImport = node.importKind === 'type';
+			const allSpecsAreType = specsWithTarget.every((s) => s.kind === 'type');
+			const isTypeImport = node.importKind === 'type' || allSpecsAreType;
 			const importStatement = buildImportStatement({
 				specs,
 				path: newImportPath,
@@ -762,7 +764,8 @@ function createBarrelImportFix({
 	// Handle unmapped specifiers - they stay in the original import
 	if (unmappedSpecifiers.length > 0) {
 		const unmappedSpecs = unmappedSpecifiers.map((u) => u.spec);
-		const isTypeImport = node.importKind === 'type';
+		const allUnmappedAreType = unmappedSpecifiers.every((u) => u.kind === 'type');
+		const isTypeImport = node.importKind === 'type' || allUnmappedAreType;
 		const remainingImport = buildImportStatement({
 			specs: unmappedSpecs,
 			path: importPath,

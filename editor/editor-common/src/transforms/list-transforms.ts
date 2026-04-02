@@ -37,15 +37,26 @@ const getContentSupportChecker = (targetNodeType: NodeType): ((node: PMNode) => 
 	};
 };
 
-const createBlockTaskItemWithMarks = (
-	content: PMNode[],
-	marks: readonly Mark[],
-	schema: Schema,
-): PMNode => {
+export const createBlockTaskItem = ({
+	attrs,
+	content,
+	marks,
+	schema,
+}: {
+	attrs?: Record<string, unknown> | null;
+	content: PMNode[] | Fragment;
+	marks?: readonly Mark[];
+	schema: Schema;
+}): PMNode => {
 	const { blockTaskItem, paragraph } = schema.nodes;
-	const allowedMarks = marks.filter((mark) => blockTaskItem.allowsMarkType(mark.type));
-	const newParagraph = paragraph.create(null, content.length > 0 ? content : null, allowedMarks);
-	return blockTaskItem.create(null, newParagraph);
+
+	const newParagraph = paragraph.createChecked(
+		null,
+		content,
+		marks?.filter((mark) => blockTaskItem.allowsMarkType(mark.type)),
+	);
+
+	return blockTaskItem.create(attrs ?? null, newParagraph);
 };
 
 export const transformListRecursively = (
@@ -115,7 +126,9 @@ export const transformListRecursively = (
 				});
 
 				if (isBlockTaskEnabled && blockMarks.length > 0) {
-					transformedItems.push(createBlockTaskItemWithMarks(inlineContent, blockMarks, schema));
+					transformedItems.push(
+						createBlockTaskItem({ content: inlineContent, marks: blockMarks, schema }),
+					);
 				} else {
 					transformedItems.push(
 						taskItem.create(null, inlineContent.length > 0 ? inlineContent : null),
@@ -322,7 +335,12 @@ export const transformToTaskList = (
 				if (inlineContent.length > 0) {
 					if (isBlockTaskItemEnabled && node.type === paragraph && node.marks.length > 0) {
 						listItems.push(
-							createBlockTaskItemWithMarks(inlineContent, node.marks, tr.doc.type.schema),
+							createBlockTaskItem({
+								attrs: targetAttrs,
+								content: inlineContent,
+								marks: node.marks,
+								schema: tr.doc.type.schema,
+							}),
 						);
 					} else {
 						listItems.push(taskItem.create(targetAttrs, inlineContent));

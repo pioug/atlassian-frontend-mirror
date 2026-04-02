@@ -4,6 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
 import EmojiCustomIcon from '@atlaskit/icon/core/add';
 import StarIcon from '@atlaskit/icon/core/star-unstarred';
 import {
@@ -16,7 +17,15 @@ import {
 	SkeletonHeadingItem,
 	SkeletonItem,
 } from '@atlaskit/menu';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const overrideStyles = css({
 	paddingBlockEnd: token('space.150', '12px'),
@@ -35,7 +44,11 @@ const overrideStyles = css({
 
 // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 const Emphasis = (props: CustomItemComponentProps) => <em {...props} />;
-const Star = <StarIcon spacing="spacious" label="" />;
+const Star = (
+	<Flex xcss={iconSpacingStyles.space050}>
+		<StarIcon label="" />
+	</Flex>
+);
 
 const ItemVariants: () => JSX.Element = () => {
 	return (
@@ -62,8 +75,16 @@ const ItemVariants: () => JSX.Element = () => {
 				instrument.
 			</ButtonItem>
 			<ButtonItem
-				iconBefore={<StarIcon spacing="spacious" label="" />}
-				iconAfter={<StarIcon spacing="spacious" label="" />}
+				iconBefore={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<StarIcon label="" />
+					</Flex>
+				}
+				iconAfter={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<StarIcon label="" />
+					</Flex>
+				}
 				testId="item-button-at-scale-before-after"
 				description="The long title is intended to provide a summarised description of the purpose or scope of the instrument."
 			>
@@ -92,17 +113,36 @@ const ItemVariants: () => JSX.Element = () => {
 			</ButtonItem>
 			<ButtonItem
 				testId="item-button-before"
-				iconBefore={<EmojiCustomIcon spacing="spacious" label="" />}
+				iconBefore={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<EmojiCustomIcon label="" />
+					</Flex>
+				}
 			>
 				With iconBefore prop
 			</ButtonItem>
-			<ButtonItem testId="item-button-after" iconAfter={<StarIcon spacing="spacious" label="" />}>
+			<ButtonItem
+				testId="item-button-after"
+				iconAfter={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<StarIcon label="" />
+					</Flex>
+				}
+			>
 				With iconAfter prop
 			</ButtonItem>
 			<ButtonItem
 				testId="item-button-before-after"
-				iconBefore={<EmojiCustomIcon spacing="spacious" label="" />}
-				iconAfter={<StarIcon spacing="spacious" label="" />}
+				iconBefore={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<EmojiCustomIcon label="" />
+					</Flex>
+				}
+				iconAfter={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<StarIcon label="" />
+					</Flex>
+				}
 			>
 				With both iconAfter and iconBefore prop
 			</ButtonItem>
@@ -149,7 +189,6 @@ const ItemVariants: () => JSX.Element = () => {
 				Custom element using em tag, but with some extra text to make the content a bit longer than
 				usual.
 			</CustomItem>
-
 			<Section>
 				<SkeletonHeadingItem testId="skeleton-heading-item" />
 				<SkeletonItem testId="skeleton-item" />

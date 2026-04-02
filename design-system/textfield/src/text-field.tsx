@@ -65,7 +65,7 @@ const invalidStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&, &:hover': {
 		borderColor: token('color.border.danger'),
-		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.danger')}`,
+		boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.danger')}`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:has(input:focus)': {
@@ -79,7 +79,7 @@ const focusWithinStyle = cssMap({
 		'&&:has(input:focus)': {
 			backgroundColor: token('color.background.input.pressed'),
 			borderColor: token('color.border.focused'),
-			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused')}`,
+			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
 		},
 	},
 	subtle: {
@@ -87,7 +87,7 @@ const focusWithinStyle = cssMap({
 		'&&:has(input:focus)': {
 			backgroundColor: token('color.background.input.pressed'),
 			borderColor: token('color.border.focused'),
-			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused')}`,
+			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
 		},
 	},
 	none: {
@@ -95,7 +95,7 @@ const focusWithinStyle = cssMap({
 		'&&:has(input:focus)': {
 			backgroundColor: 'transparent',
 			borderColor: 'transparent',
-			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} transparent`,
+			boxShadow: `inset 0 0 0 ${token('border.width')} transparent`,
 		},
 	},
 });
@@ -209,7 +209,7 @@ const containerStyles = css({
 	alignItems: 'center',
 	justifyContent: 'space-between',
 	flex: '1 1 100%',
-	borderWidth: token('border.width', '1px'),
+	borderWidth: token('border.width'),
 	font: token('font.body'),
 	overflow: 'hidden',
 	pointerEvents: 'auto',

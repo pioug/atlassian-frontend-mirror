@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { type Context, createContext } from 'react';
 
 import type { CoercedMenuPlacement } from '../types';
 
@@ -13,6 +13,8 @@ import type { CoercedMenuPlacement } from '../types';
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const PortalPlacementContext = createContext<{
+export const PortalPlacementContext: Context<{
+    setPortalPlacement: (placement: CoercedMenuPlacement) => void;
+} | null> = createContext<{
 	setPortalPlacement: (placement: CoercedMenuPlacement) => void;
 } | null>(null);

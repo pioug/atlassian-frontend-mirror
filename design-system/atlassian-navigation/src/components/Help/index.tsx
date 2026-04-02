@@ -1,11 +1,22 @@
 import React, { forwardRef, type Ref } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
 
 import { BadgeContainer } from '../BadgeContainer';
 import { IconButton } from '../IconButton';
 
 import { type HelpProps } from './types';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const HELP_NOTIFICATION_BADGE_ID = 'atlassian-navigation-help-notification-count';
 
@@ -45,11 +56,12 @@ export const Help: React.ForwardRefExoticComponent<
 			component={component}
 			href={href}
 			icon={
-				<QuestionCircleIcon
-					label={typeof tooltip === 'string' ? tooltip : 'Help Icon'}
-					color="currentColor"
-					spacing="spacious"
-				/>
+				<Flex xcss={iconSpacingStyles.space050}>
+					<QuestionCircleIcon
+						label={typeof tooltip === 'string' ? tooltip : 'Help Icon'}
+						color="currentColor"
+					/>
+				</Flex>
 			}
 			id={id}
 			isDisabled={isDisabled}

@@ -1,6 +1,7 @@
 import React, { type ReactNode, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
 import InlineDialog from '@atlaskit/inline-dialog';
@@ -18,8 +19,16 @@ import {
 	SpotlightTarget,
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const TooltipButton = ({
 	children,
@@ -72,7 +81,7 @@ function ThreeStepSpotlight(props: SpotlightProps) {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					justifyContent: 'space-between',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					padding: token('space.300', '24px'),
+					padding: token('space.300'),
 				}}
 			>
 				<SpotlightTarget name="1">{stepOne}</SpotlightTarget>
@@ -157,7 +166,11 @@ function Modal(props: ModalProps) {
 					<Flag
 						id={id}
 						key={`${id}`}
-						icon={<EmojiIcon spacing="spacious" label="Smiley face" />}
+						icon={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<EmojiIcon label="Smiley face" />
+							</Flex>
+						}
 						title={`${id + 1}: Whoa a new flag!`}
 					/>
 				))}

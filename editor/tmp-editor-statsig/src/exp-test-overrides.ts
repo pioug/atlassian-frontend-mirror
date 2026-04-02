@@ -70,4 +70,5 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	confluence_compact_text_format: false,
 	platform_editor_paste_actions_menu: false,
 	platform_editor_diff_plugin_extended: false,
+	platform_editor_preserve_node_identity: false,
 };

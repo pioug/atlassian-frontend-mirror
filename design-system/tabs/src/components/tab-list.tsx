@@ -15,15 +15,15 @@ import useTabList from '../use-tab-list';
 const baseStyles = css({
 	display: 'flex',
 	position: 'relative',
-	paddingBlockEnd: token('space.0', '0px'),
-	paddingBlockStart: token('space.0', '0px'),
-	paddingInlineEnd: token('space.0', '0px'),
-	paddingInlineStart: token('space.0', '0px'),
+	paddingBlockEnd: token('space.0'),
+	paddingBlockStart: token('space.0'),
+	paddingInlineEnd: token('space.0'),
+	paddingInlineStart: token('space.0'),
 });
 
 const tabListStyles = css({
-	fontWeight: token('font.weight.medium', '500'),
-	marginInlineStart: token('space.negative.100', '-8px'),
+	fontWeight: token('font.weight.medium'),
+	marginInlineStart: token('space.negative.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'& [role="tab"]': {
 		margin: 0,
@@ -32,10 +32,10 @@ const tabListStyles = css({
 		color: token('color.text.subtle'),
 		cursor: 'pointer',
 		overflow: 'hidden',
-		paddingBlockEnd: token('space.075', '6px'),
-		paddingBlockStart: token('space.075', '6px'),
-		paddingInlineEnd: token('space.100', '8px'),
-		paddingInlineStart: token('space.100', '8px'),
+		paddingBlockEnd: token('space.075'),
+		paddingBlockStart: token('space.075'),
+		paddingInlineEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
 		'&:hover': {
@@ -49,8 +49,8 @@ const tabListStyles = css({
 				borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border')}`,
 				content: '""',
 				insetBlockEnd: 0,
-				insetInlineEnd: token('space.100', '8px'),
-				insetInlineStart: token('space.100', '8px'),
+				insetInlineEnd: token('space.100'),
+				insetInlineStart: token('space.100'),
 			},
 		},
 		'&:active': {
@@ -64,8 +64,8 @@ const tabListStyles = css({
 				borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border')}`,
 				content: '""',
 				insetBlockEnd: 0,
-				insetInlineEnd: token('space.100', '8px'),
-				insetInlineStart: token('space.100', '8px'),
+				insetInlineEnd: token('space.100'),
+				insetInlineStart: token('space.100'),
 			},
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
@@ -80,8 +80,8 @@ const tabListStyles = css({
 				borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border.selected')}`,
 				content: '""',
 				insetBlockEnd: 0,
-				insetInlineEnd: token('space.100', '8px'),
-				insetInlineStart: token('space.100', '8px'),
+				insetInlineEnd: token('space.100'),
+				insetInlineStart: token('space.100'),
 			},
 		},
 	},
@@ -95,7 +95,7 @@ const tabListStyles = css({
 		content: '""',
 		insetBlockEnd: 0,
 		insetInlineEnd: 0,
-		insetInlineStart: token('space.100', '8px'),
+		insetInlineStart: token('space.100'),
 	},
 });
 

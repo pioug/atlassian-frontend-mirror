@@ -11,8 +11,8 @@ import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Description = styled.p`
-	padding: ${token('space.100', '8px')};
-	margin: ${token('space.500', '40px')} 0 ${token('space.100', '8px')};
+	padding: ${token('space.100')};
+	margin: ${token('space.500')} 0 ${token('space.100')};
 	background-color: ${token('elevation.surface')};
 	color: ${token('color.text')};
 `;

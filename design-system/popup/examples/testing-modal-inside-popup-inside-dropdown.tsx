@@ -8,9 +8,16 @@ import Heading from '@atlaskit/heading';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import Modal, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space075: {
+		paddingBlock: token('space.075'),
+		paddingInline: token('space.075'),
+	},
+});
 
 const wrapperStyles = cssMap({
 	root: {
@@ -84,12 +91,9 @@ const PopupComponent = () => {
 					onClick={() => setIsOpen(!isOpen)}
 					isSelected={isOpen}
 					elemAfter={
-						<ChevronRightIcon
-							size="small"
-							spacing="spacious"
-							color={token('color.icon.subtle', '')}
-							label=""
-						/>
+						<Flex xcss={iconSpacingStyles.space075}>
+							<ChevronRightIcon size="small" color={token('color.icon.subtle')} label="" />
+						</Flex>
 					}
 				>
 					<Text>Open Popup</Text>

@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 217.10.0
+
+### Minor Changes
+
+- [`22cc6940b4250`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22cc6940b4250) -
+  Add gated editor-core perf lint cleanup experiment support
+
+### Patch Changes
+
+- [`d3fdb52a809c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3fdb52a809c9) -
+  clean up feature flag platform_editor_max_width_mode_resize_fix
+- Updated dependencies
+
+## 217.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.9.2
+
+### Patch Changes
+
+- [`4babe84074774`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4babe84074774) -
+  Updates lookup and identiier for gutter to use a data attribute
+- Updated dependencies
+
 ## 217.9.1
 
 ### Patch Changes

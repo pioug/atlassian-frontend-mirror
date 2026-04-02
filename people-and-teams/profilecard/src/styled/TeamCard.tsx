@@ -3,7 +3,6 @@ import React from 'react';
 import { cssMap, cx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
-import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -19,15 +18,15 @@ const styles = cssMap({
 		display: '-webkit-box',
 	},
 	membercount: {
-		color: token('color.text.subtlest', N200),
-		marginTop: token('space.050', '4px'),
+		color: token('color.text.subtlest'),
+		marginTop: token('space.050'),
 	},
 	avatarsection: {
-		marginTop: token('space.200', '16px'),
-		marginLeft: token('space.negative.025', '-2px'),
+		marginTop: token('space.200'),
+		marginLeft: token('space.negative.025'),
 	},
 	descriptionwrapper: {
-		marginTop: token('space.200', '16px'),
+		marginTop: token('space.200'),
 		alignItems: 'center',
 		display: 'flex',
 	},
@@ -40,24 +39,24 @@ const styles = cssMap({
 		width: '100%',
 		display: 'flex',
 		justifyContent: 'space-between',
-		marginTop: token('space.300', '24px'),
-		marginRight: token('space.negative.300', '-24px'),
+		marginTop: token('space.300'),
+		marginRight: token('space.negative.300'),
 		marginBottom: '0',
-		marginLeft: token('space.negative.100', '-8px'),
+		marginLeft: token('space.negative.100'),
 	},
 	wrappedbutton: {
 		flexBasis: 0,
 		flexGrow: 1,
-		marginLeft: token('space.100', '8px'),
+		marginLeft: token('space.100'),
 	},
 	morebutton: {
-		marginLeft: token('space.100', '8px'),
+		marginLeft: token('space.100'),
 	},
 	accesslocksvgwrapper: {
-		marginBottom: token('space.300', '24px'),
+		marginBottom: token('space.300'),
 	},
 	archiveLozengeWrapper: {
-		marginTop: token('space.050', '4px'),
+		marginTop: token('space.050'),
 	},
 });
 

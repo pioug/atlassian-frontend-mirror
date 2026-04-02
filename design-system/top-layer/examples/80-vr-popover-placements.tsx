@@ -63,47 +63,47 @@ function VrPopover({ placement }: { placement: TPlacementOptions }) {
 }
 
 // Single-axis placements
-export function VrBlockStart() {
+export function VrBlockStart(): JSX.Element {
 	return <VrPopover placement={{ axis: 'block', edge: 'start' }} />;
 }
-export function VrBlockEnd() {
+export function VrBlockEnd(): JSX.Element {
 	return <VrPopover placement={{ edge: 'end' }} />;
 }
-export function VrInlineStart() {
+export function VrInlineStart(): JSX.Element {
 	return <VrPopover placement={{ axis: 'inline', edge: 'start' }} />;
 }
-export function VrInlineEnd() {
+export function VrInlineEnd(): JSX.Element {
 	return <VrPopover placement={{ axis: 'inline', edge: 'end' }} />;
 }
 
 // Compound placements
 // Note: Function names preserved for VR snapshot references.
 // Old string names used CSS span-direction; new objects use visual alignment.
-export function VrBlockStartInlineStart() {
+export function VrBlockStartInlineStart(): JSX.Element {
 	return <VrPopover placement={{ axis: 'block', edge: 'start', align: 'end' }} />;
 }
-export function VrBlockStartInlineEnd() {
+export function VrBlockStartInlineEnd(): JSX.Element {
 	return <VrPopover placement={{ axis: 'block', edge: 'start', align: 'start' }} />;
 }
-export function VrBlockEndInlineStart() {
+export function VrBlockEndInlineStart(): JSX.Element {
 	return <VrPopover placement={{ axis: 'block', edge: 'end', align: 'end' }} />;
 }
-export function VrBlockEndInlineEnd() {
+export function VrBlockEndInlineEnd(): JSX.Element {
 	return <VrPopover placement={{ axis: 'block', edge: 'end', align: 'start' }} />;
 }
-export function VrInlineStartBlockStart() {
+export function VrInlineStartBlockStart(): JSX.Element {
 	return <VrPopover placement={{ axis: 'inline', edge: 'start', align: 'end' }} />;
 }
-export function VrInlineStartBlockEnd() {
+export function VrInlineStartBlockEnd(): JSX.Element {
 	return <VrPopover placement={{ axis: 'inline', edge: 'start', align: 'start' }} />;
 }
-export function VrInlineEndBlockStart() {
+export function VrInlineEndBlockStart(): JSX.Element {
 	return <VrPopover placement={{ axis: 'inline', edge: 'end', align: 'end' }} />;
 }
-export function VrInlineEndBlockEnd() {
+export function VrInlineEndBlockEnd(): JSX.Element {
 	return <VrPopover placement={{ axis: 'inline', edge: 'end', align: 'start' }} />;
 }
 
-export default function VrPopoverPlacements() {
+export default function VrPopoverPlacements(): JSX.Element {
 	return <VrBlockEnd />;
 }

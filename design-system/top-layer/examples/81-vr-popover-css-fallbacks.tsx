@@ -75,7 +75,7 @@ function PopupAtEdge({ placement }: { placement: TPlacementOptions; children?: R
  * Expected: position-try-fallbacks flip-block activates,
  * popover appears above the trigger instead of below.
  */
-export function VrFlipBlock() {
+export function VrFlipBlock(): JSX.Element {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipBlock]}>
@@ -90,7 +90,7 @@ export function VrFlipBlock() {
  * Expected: position-try-fallbacks flip-inline activates,
  * popover appears to the left of the trigger instead of right.
  */
-export function VrFlipInline() {
+export function VrFlipInline(): JSX.Element {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipInline]}>
@@ -105,7 +105,7 @@ export function VrFlipInline() {
  * Expected: position-try-fallbacks flip-block flip-inline activates,
  * popover flips on both axes.
  */
-export function VrFlipBoth() {
+export function VrFlipBoth(): JSX.Element {
 	return (
 		<div css={styles.container}>
 			<div css={[styles.inner, styles.flipBoth]}>
@@ -115,6 +115,6 @@ export function VrFlipBoth() {
 	);
 }
 
-export default function VrPopupCssFallbacks() {
+export default function VrPopupCssFallbacks(): JSX.Element {
 	return <VrFlipBlock />;
 }

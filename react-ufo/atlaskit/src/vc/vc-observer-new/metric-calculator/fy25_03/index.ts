@@ -17,7 +17,6 @@ import {
 	NON_VISUAL_ARIA_ATTRIBUTES,
 	THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
 } from '../utils/constants';
-import { isEntrySmartAnswersInSearch } from '../utils/is-entry-smart-answers-in-search';
 import isViewportEntryData from '../utils/is-viewport-entry-data';
 
 const ABORTING_WINDOW_EVENT = ['wheel', 'scroll', 'keydown', 'resize'] as const;
@@ -43,7 +42,7 @@ const getConsideredEntryTypes = (
 		entryTypes.push('mutation:third-party-attribute');
 	}
 
-	if (!excludeSmartAnswersInSearch && fg('rovo_search_page_ttvc_ignoring_smart_answers_fix')) {
+	if (!excludeSmartAnswersInSearch) {
 		entryTypes.push('mutation:smart-answers-element');
 		entryTypes.push('mutation:smart-answers-attribute');
 	}
@@ -73,14 +72,6 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 		}
 
 		if (entry.data.type === 'mutation:attribute:framework-routing') {
-			return false;
-		}
-
-		if (
-			excludeSmartAnswersInSearch &&
-			isEntrySmartAnswersInSearch(entry) &&
-			!fg('rovo_search_page_ttvc_ignoring_smart_answers_fix')
-		) {
 			return false;
 		}
 

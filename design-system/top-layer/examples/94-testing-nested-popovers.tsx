@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Popup } from '@atlaskit/top-layer/popup';
 
-export default function TestingNestedPopups() {
+export default function TestingNestedPopups(): React.JSX.Element {
 	return (
 		<div>
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>

@@ -6,8 +6,10 @@ import { forwardRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
 import NestIcon from '@atlaskit/icon/core/list-numbered';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
+import { Flex } from '@atlaskit/primitives/compiled';
 import {
 	ButtonItem,
 	GoBackItem,
@@ -21,6 +23,13 @@ import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const btnStyles = css({
 	position: 'relative',
@@ -80,7 +89,11 @@ const CustomisedExample: () => JSX.Element = () => {
 			id="1-1"
 			title={<div css={containerStyles}>Custom Title Component</div>}
 			css={customNestingItemStyles}
-			iconBefore={<NestIcon spacing="spacious" label="" />}
+			iconBefore={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<NestIcon label="" />
+				</Flex>
+			}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 			overrides={{
 				GoBackItem: {
@@ -96,7 +109,11 @@ const CustomisedExample: () => JSX.Element = () => {
 		<NestingItem
 			id="1"
 			title="Styled using className"
-			iconBefore={<NestIcon spacing="spacious" label="" />}
+			iconBefore={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<NestIcon label="" />
+				</Flex>
+			}
 			css={customNestingItemStyles}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 			overrides={{
@@ -130,19 +147,31 @@ const CustomisedExample: () => JSX.Element = () => {
 						title="NestingItem 2"
 						// @ts-expect-error - Added during @types/react@~18.3.24 upgrade.
 						component={CustomComponent}
-						iconBefore={<NestIcon spacing="spacious" label="" />}
+						iconBefore={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<NestIcon label="" />
+							</Flex>
+						}
 					>
 						<NestingItem
 							id="2-1"
 							title="NestingItem 2-1"
-							iconBefore={<NestIcon spacing="spacious" label="" />}
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<NestIcon label="" />
+								</Flex>
+							}
 						>
 							<ButtonItem>2-1-Leaf</ButtonItem>
 						</NestingItem>
 						<NestingItem
 							id="2-2"
 							title="NestingItem 2-2"
-							iconBefore={<NestIcon spacing="spacious" label="" />}
+							iconBefore={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<NestIcon label="" />
+								</Flex>
+							}
 						>
 							<ButtonItem>2-2-Leaf</ButtonItem>
 						</NestingItem>

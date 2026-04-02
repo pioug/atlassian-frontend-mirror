@@ -28,7 +28,7 @@ const presets = [
  * - **fade**: Simple opacity transition (no transform).
  * - **scaleAndFade**: Scale from 0.95 + opacity.
  */
-export default function AnimatedPopoverExample() {
+export default function AnimatedPopoverExample(): React.JSX.Element {
 	return (
 		<ForceFallbackToggle>
 			{(forceFallbackPositioning) => (

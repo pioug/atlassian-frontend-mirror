@@ -7,11 +7,18 @@ import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Popup from '@atlaskit/popup';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import ModalInsidePopup from './testing-modal';
 import { PopupDOM, PopupPortal } from './testing-nested';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const halfWidth = cssMap({
 	root: {
@@ -123,7 +130,11 @@ const ComponentInfo: FC<ComponentInfoProps> = ({
 							<Box paddingBlockStart="space.100">
 								<Banner
 									appearance="warning"
-									icon={<WarningIcon spacing="spacious" label="Warning" />}
+									icon={
+										<Flex xcss={iconSpacingStyles.space050}>
+											<WarningIcon label="Warning" />
+										</Flex>
+									}
 								>
 									{alerts?.leftSide}
 								</Banner>
@@ -150,7 +161,11 @@ const ComponentInfo: FC<ComponentInfoProps> = ({
 							<Box paddingBlockStart="space.100">
 								<Banner
 									appearance="warning"
-									icon={<WarningIcon spacing="spacious" label="Warning" />}
+									icon={
+										<Flex xcss={iconSpacingStyles.space050}>
+											<WarningIcon label="Warning" />
+										</Flex>
+									}
 								>
 									{alerts?.rightSide}
 								</Banner>
@@ -170,11 +185,31 @@ const ComponentInfo: FC<ComponentInfoProps> = ({
 const expectedPopupDialogMessage = `Clicking or pressing Space/Enter on the trigger should open Popup.  Focus should be trapped inside Popup.  Clicking outside or pressing Escape should close Popup.  If you click on a non-interactive item outside, the focus should move to the trigger.`;
 
 const expectedPopupDefaultMessage = (shouldRenderToParent?: boolean) => {
-	return `Clicking or pressing Space/Enter on trigger should open Popup.  Pressing Tab should move focus to the next interactive element inside Popup.  Pressing Shift + Tab should move focus to the previous interactive element inside Popup.  ${shouldRenderToParent ? 'Pressing Tab on the last element should close Popup and move focus to the next interactive element after trigger.' : 'Pressing Tab on the last element inside Popup will close Popup and move focus outside body.'}  ${shouldRenderToParent ? 'On the first interactive element inside Popup pressing Shift+Tab should close Popup and set focus to the previous interactive element before trigger.' : 'On the first interactive element inside Popup pressing Shift+Tab should close Popup and set focus to the trigger.'}  Clicking outside or pressing Escape should close Popup.  If you click on a non-interactive item outside, the focus moves to the trigger.`;
+	return `Clicking or pressing Space/Enter on trigger should open Popup.  Pressing Tab should move focus to the next interactive element inside Popup.  Pressing Shift + Tab should move focus to the previous interactive element inside Popup.  ${
+		shouldRenderToParent
+			? 'Pressing Tab on the last element should close Popup and move focus to the next interactive element after trigger.'
+			: 'Pressing Tab on the last element inside Popup will close Popup and move focus outside body.'
+	}  ${
+		shouldRenderToParent
+			? 'On the first interactive element inside Popup pressing Shift+Tab should close Popup and set focus to the previous interactive element before trigger.'
+			: 'On the first interactive element inside Popup pressing Shift+Tab should close Popup and set focus to the trigger.'
+	}  Clicking outside or pressing Escape should close Popup.  If you click on a non-interactive item outside, the focus moves to the trigger.`;
 };
 
 const expectedPopupNestedMessage = (shouldRenderToParent?: boolean) => {
-	return `Clicking or pressing Space/Enter on trigger should open Popup.  Pressing Tab should move focus to the next interactive element inside Popup.  Pressing Shift + Tab should move focus to the previous interactive element inside Popup.  ${shouldRenderToParent ? 'Pressing Tab on the last element should close Popup and move focus to the next interactive element after trigger.' : 'Pressing Tab on the last element inside Popup will close Popup and move focus outside body.'}  Clicking or pressing Space/Enter on the last element inside active Popup should open nested Popup.  ${shouldRenderToParent ? 'Pressing Tab on the last element should close Popup and move focus to the next interactive element after trigger.' : ''}  ${shouldRenderToParent ? 'On the first interactive element pressing Shift+Tab should close Popup and set focus to the previous interactive element before trigger.' : 'On the first interactive element pressing Shift+Tab should close Popup and set focus to the trigger.'}  Clicking outside should close all Popups.  Pressing Escape should close only active Popup.  If you click on a non-interactive item outside, the focus moves to the trigger.`;
+	return `Clicking or pressing Space/Enter on trigger should open Popup.  Pressing Tab should move focus to the next interactive element inside Popup.  Pressing Shift + Tab should move focus to the previous interactive element inside Popup.  ${
+		shouldRenderToParent
+			? 'Pressing Tab on the last element should close Popup and move focus to the next interactive element after trigger.'
+			: 'Pressing Tab on the last element inside Popup will close Popup and move focus outside body.'
+	}  Clicking or pressing Space/Enter on the last element inside active Popup should open nested Popup.  ${
+		shouldRenderToParent
+			? 'Pressing Tab on the last element should close Popup and move focus to the next interactive element after trigger.'
+			: ''
+	}  ${
+		shouldRenderToParent
+			? 'On the first interactive element pressing Shift+Tab should close Popup and set focus to the previous interactive element before trigger.'
+			: 'On the first interactive element pressing Shift+Tab should close Popup and set focus to the trigger.'
+	}  Clicking outside should close all Popups.  Pressing Escape should close only active Popup.  If you click on a non-interactive item outside, the focus moves to the trigger.`;
 };
 
 const expectedModalInsidePopupMessage = () => {

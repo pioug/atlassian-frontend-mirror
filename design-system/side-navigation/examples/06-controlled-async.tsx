@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form';
 import AsyncIcon from '@atlaskit/icon/core/clock';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 import {
 	HeadingItem,
@@ -19,9 +19,17 @@ import {
 	SideNavigation,
 	SkeletonItem,
 } from '@atlaskit/side-navigation';
+import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const styles = cssMap({
 	container: {
@@ -55,7 +63,15 @@ const DelayedComponent = ({ children, id }: PropsWithChildren<{ id: string }>) =
 	return showLoading ? (
 		<SkeletonItem isShimmering hasIcon />
 	) : (
-		<NestingItem title="Async Item" id={id} iconBefore={<AsyncIcon spacing="spacious" label="" />}>
+		<NestingItem
+			title="Async Item"
+			id={id}
+			iconBefore={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<AsyncIcon label="" />
+				</Flex>
+			}
+		>
 			<Section>{children}</Section>
 		</NestingItem>
 	);

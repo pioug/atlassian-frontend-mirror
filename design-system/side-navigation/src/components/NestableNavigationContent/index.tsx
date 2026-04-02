@@ -9,9 +9,9 @@ import { css, jsx } from '@compiled/react';
 import { ExitingPersistence } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { GoBackItem as GoBackButton } from '../Item';
+import useChildIds from '../../common/use-child-ids';
+import GoBackButton from '../Item/go-back-item';
 import { default as NestingItem } from '../NestingItem';
-import { useChildIds } from '../utils/hooks';
 
 import { NestedContext, type NestedContextValue } from './context';
 import { NestingMotion } from './nesting-motion';

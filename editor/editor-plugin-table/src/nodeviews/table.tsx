@@ -19,11 +19,12 @@ import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
-import { isTableNested } from '../pm-plugins/utils/nodes';
+import { isTableNested, tablesHaveDifferentColumnWidths } from '../pm-plugins/utils/nodes';
 import type { PluginInjectionAPI } from '../types';
 
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';
@@ -335,6 +336,14 @@ export default class TableView extends ReactNodeView<Props> {
 		if (typeof node.attrs !== typeof nextNode.attrs) {
 			return true;
 		}
+
+		if (
+			tablesHaveDifferentColumnWidths(node, nextNode) &&
+			expValEquals('platform_editor_lovability_distribute_column_fix', 'isEnabled', true)
+		) {
+			return true;
+		}
+
 		const attrKeys = Object.keys(node.attrs);
 		const nextAttrKeys = Object.keys(nextNode.attrs);
 		if (attrKeys.length !== nextAttrKeys.length) {
@@ -343,7 +352,6 @@ export default class TableView extends ReactNodeView<Props> {
 
 		const tableMap = TableMap.get(node);
 		const nextTableMap = TableMap.get(nextNode);
-
 		if (tableMap.width !== nextTableMap.width) {
 			return true;
 		}

@@ -1,13 +1,30 @@
 import React from 'react';
 
 import Banner from '@atlaskit/banner';
+import { cssMap } from '@atlaskit/css';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Link from '@atlaskit/link';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const PageBanner = () => {
 	return (
-		<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning" />}>
+		<Banner
+			appearance="warning"
+			icon={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<WarningIcon label="Warning" />
+				</Flex>
+			}
+		>
 			We are planning on deprecating Page component. We recommend using the Page layout component
 			instead.
 			<Link target="_blank" href="https://atlassian.design/components/page-layout">

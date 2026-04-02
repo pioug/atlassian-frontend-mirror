@@ -1,7 +1,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
-import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+
+// Copied from `@atlaskit/theme` to allow removal of that package
+const N200 = '#6B778C';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const ResultItemAfter = styled.div<{ shouldTakeSpace: boolean }>((props) => ({
@@ -18,7 +20,7 @@ export const ResultItemAfterWrapper = styled.div({
 export const ResultItemCaption = styled.span({
 	color: N200,
 	font: token('font.body.small'),
-	marginLeft: token('space.100', '8px'),
+	marginLeft: token('space.100'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -45,8 +47,8 @@ export const ResultItemIcon = styled.div({
     width / height 100% */
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> img': {
-		height: token('space.300', '24px'),
-		width: token('space.300', '24px'),
+		height: token('space.300'),
+		width: token('space.300'),
 	},
 });
 

@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import NotificationIcon from '@atlaskit/icon/core/notification';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Flex, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { DefaultCreate } from '../../../examples/shared/create';
 import { jiraPrimaryItems } from '../../../examples/shared/primary-items';
@@ -33,6 +35,13 @@ import {
 	SkeletonIconButton,
 	SkeletonPrimaryButton,
 } from '../../skeleton';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const NotificationsBadge = () => (
 	<NotificationIndicator
@@ -178,7 +187,9 @@ const ThemedSkeletonButtonsExample = (): React.JSX.Element => (
 		renderCreate={() => <SkeletonCreateButton text="Create"></SkeletonCreateButton>}
 		renderNotifications={() => (
 			<SkeletonIconButton>
-				<NotificationIcon color="currentColor" spacing="spacious" label="Notifications" />
+				<Flex xcss={iconSpacingStyles.space050}>
+					<NotificationIcon color="currentColor" label="Notifications" />
+				</Flex>
 			</SkeletonIconButton>
 		)}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides

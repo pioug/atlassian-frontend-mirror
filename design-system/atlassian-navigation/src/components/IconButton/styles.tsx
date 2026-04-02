@@ -13,9 +13,8 @@ export const getIconButtonTheme =
 				...buttonStyles,
 				borderRadius: token('radius.full', '100%'),
 				display: 'flex',
-				margin: `0 ${token('space.025', '2px')}`,
-				// TODO Delete this comment after verifying space token -> previous value `4`
-				padding: token('space.050', '4px'),
+				margin: `0 ${token('space.025')}`,
+				padding: token('space.050'),
 				height: 'auto',
 				fontWeight: token('font.weight.medium'),
 				...iconButton.default,

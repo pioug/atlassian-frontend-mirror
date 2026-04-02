@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { GoBackItem } from '../../index';
+import GoBackItem from '../../go-back-item';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<GoBackItem />', () => {

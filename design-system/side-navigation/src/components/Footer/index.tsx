@@ -9,8 +9,9 @@ import warnOnce from '@atlaskit/ds-lib/warn-once';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { Container, type HeaderProps } from '../Header';
-import { CustomItem } from '../Item';
+import { type HeaderProps } from '../Header';
+import HeaderContainer from '../Header/header-container';
+import CustomItem from '../Item/custom-item';
 
 const styles = cssMap({
 	iconContainer: {
@@ -27,8 +28,8 @@ const styles = cssMap({
 		width: '100%',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-item-elem-before]': {
-			marginInlineEnd: token('space.0', '0px'),
-			marginBlockEnd: token('space.100', '8px'),
+			marginInlineEnd: token('space.0'),
+			marginBlockEnd: token('space.100'),
 			display: 'inline-block',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -40,10 +41,10 @@ const styles = cssMap({
 		'[data-item-description]': {
 			textAlign: 'center',
 			display: 'inline-block',
-			marginBlockStart: token('space.075', '6px'),
-			marginInlineEnd: token('space.075', '6px'),
-			marginBlockEnd: token('space.075', '6px'),
-			marginInlineStart: token('space.075', '6px'),
+			marginBlockStart: token('space.075'),
+			marginInlineEnd: token('space.075'),
+			marginBlockEnd: token('space.075'),
+			marginInlineStart: token('space.075'),
 		},
 		// Will look interactive if the `component` is anything other than a div.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -97,7 +98,11 @@ const OldFooter = (props: HeaderProps) => {
 		testId,
 	}))(props);
 	return (
-		<CustomItem {...safeProps} component={props.component || Container} css={styles.oldFooter} />
+		<CustomItem
+			{...safeProps}
+			component={props.component || HeaderContainer}
+			css={styles.oldFooter}
+		/>
 	);
 };
 

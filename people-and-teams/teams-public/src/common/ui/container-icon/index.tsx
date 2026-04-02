@@ -12,10 +12,10 @@ import { LoomSpaceAvatar } from '../loom-avatar';
 
 const styles = cssMap({
 	linkIconWrapperSmall: {
-		marginTop: token('space.025', '2px'),
-		marginRight: token('space.025', '2px'),
-		marginBottom: token('space.025', '2px'),
-		marginLeft: token('space.025', '2px'),
+		marginTop: token('space.025'),
+		marginRight: token('space.025'),
+		marginBottom: token('space.025'),
+		marginLeft: token('space.025'),
 	},
 });
 export interface ContainerIconProps {

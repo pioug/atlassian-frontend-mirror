@@ -136,7 +136,7 @@ const App = () => <DropdownMenu iconAfter={<Flex xcss={iconSpacingStyles.space07
 		`import AddIcon from '@atlaskit/icon/core/add';
 const App = (props: any) => <AddIcon {...props} spacing="spacious" label="" />;`,
 		`import AddIcon from '@atlaskit/icon/core/add';
-const App = (props: any) => // eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Flex primitive (spread props detected)
+const App = (props: any) => /* eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Flex primitive (spread props detected) */
 <AddIcon {...props} spacing="spacious" label="" />;`,
 		'should add eslint-disable comment inline and skip when spread props are present',
 	);
@@ -147,9 +147,50 @@ const App = (props: any) => // eslint-disable-next-line @atlaskit/design-system/
 		`import AddIcon from '@atlaskit/icon/core/add';
 const App = ({ spacing }: any) => <AddIcon label="" spacing={spacing} />;`,
 		`import AddIcon from '@atlaskit/icon/core/add';
-const App = ({ spacing }: any) => // eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Flex primitive (dynamic spacing value detected)
+const App = ({ spacing }: any) => /* eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Flex primitive (dynamic spacing value detected) */
 <AddIcon label="" spacing={spacing} />;`,
 		'should add eslint-disable comment inline and skip when spacing is a dynamic expression',
+	);
+
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`import { css } from '@emotion/react';
+import AddIcon from '@atlaskit/icon/core/add';
+const App = () => <AddIcon label="" spacing="spacious" />;`,
+		`import { css } from '@emotion/react';
+import AddIcon from '@atlaskit/icon/core/add';
+const App = () => <AddIcon label="" spacing="spacious" />;`,
+		'should skip files that import from @emotion/react and leave them unchanged',
+	);
+
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`import styled from '@emotion/styled';
+import AddIcon from '@atlaskit/icon/core/add';
+const App = () => <AddIcon label="" spacing="spacious" />;`,
+		`import styled from '@emotion/styled';
+import AddIcon from '@atlaskit/icon/core/add';
+const App = () => <AddIcon label="" spacing="spacious" />;`,
+		'should skip files that import from @emotion/styled and leave them unchanged',
+	);
+
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`import { cssMap } from '@compiled/react';
+import AddIcon from '@atlaskit/icon/core/add';
+const App = () => <AddIcon label="" spacing="spacious" />;`,
+		`import { Flex } from "@atlaskit/primitives/compiled";
+import { token } from "@atlaskit/tokens";
+import { cssMap } from '@compiled/react';
+import AddIcon from '@atlaskit/icon/core/add';
+
+${space050Block}
+
+const App = () => <Flex xcss={iconSpacingStyles.space050}><AddIcon label="" /></Flex>;`,
+		'should not add duplicate cssMap import when cssMap already imported from @compiled/react',
 	);
 
 	defineInlineTest(
@@ -211,7 +252,7 @@ import AddIcon from '@atlaskit/icon/core/add';
 const App = () => <AddIcon label="" spacing="spacious" />;`,
 		`import { cssMap } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
-import { Inline, Flex } from '@atlaskit/primitives/compiled';
+import { Flex, Inline } from '@atlaskit/primitives/compiled';
 import AddIcon from '@atlaskit/icon/core/add';
 
 ${space050Block}
@@ -262,13 +303,33 @@ import AddIcon from '@atlaskit/icon/core/add';
 const App = () => <AddIcon label="" spacing="spacious" />;`,
 		`import { cssMap } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
-import { Inline, Flex } from "@atlaskit/primitives/compiled";
+import { Flex, Inline } from "@atlaskit/primitives/compiled";
 import AddIcon from '@atlaskit/icon/core/add';
 
 ${space050Block}
 
 const App = () => <Flex xcss={iconSpacingStyles.space050}><AddIcon label="" /></Flex>;`,
 		'should add Flex and update @atlaskit/primitives to @atlaskit/primitives/compiled',
+	);
+
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`import { Pressable, xcss } from '@atlaskit/primitives';
+import AddIcon from '@atlaskit/icon/core/add';
+const buttonStyles = xcss({ padding: 'space.100' });
+const App = () => <AddIcon label="" spacing="spacious" />;`,
+		`import { cssMap } from "@atlaskit/css";
+import { Flex } from "@atlaskit/primitives/compiled";
+import { token } from "@atlaskit/tokens";
+import { Pressable, xcss } from '@atlaskit/primitives';
+import AddIcon from '@atlaskit/icon/core/add';
+
+${space050Block}
+
+const buttonStyles = xcss({ padding: 'space.100' });
+const App = () => <Flex xcss={iconSpacingStyles.space050}><AddIcon label="" /></Flex>;`,
+		'should add new /compiled import when @atlaskit/primitives uses xcss (cannot rewrite)',
 	);
 
 	defineInlineTest(

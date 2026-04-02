@@ -19,7 +19,7 @@ const titleContainerStyles = css({
 	minWidth: 0,
 	maxWidth: '100%',
 	flex: '1 1 auto',
-	marginBlockEnd: token('space.100', '8px'),
+	marginBlockEnd: token('space.100'),
 	overflowWrap: 'break-word',
 });
 

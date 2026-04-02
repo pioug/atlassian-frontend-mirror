@@ -12,13 +12,13 @@ interface StageBarProps {
 }
 
 const spacing = {
-	comfortable: token('space.500', '40px'),
-	cosy: token('space.200', '16px'),
-	compact: token('space.050', '4px'),
+	comfortable: token('space.500'),
+	cosy: token('space.200'),
+	compact: token('space.050'),
 };
 
 const progressBarStyles = css({
-	height: token('space.100', '8px'),
+	height: token('space.100'),
 	position: 'absolute',
 	backgroundColor: token('color.background.brand.bold'),
 	borderEndEndRadius: token('radius.full', '8px'),
@@ -44,7 +44,7 @@ const ProgressBar: ({ percentageComplete, testId }: StageBarProps) => JSX.Elemen
 		style={{
 			width: `calc(${percentageComplete}% + ${
 				percentageComplete / 100
-			} * calc(var(--ds--pt--sp, ${spacing.cosy}) + ${token('space.050', '4px')}))`,
+			} * calc(var(--ds--pt--sp, ${spacing.cosy}) + ${token('space.050')}))`,
 		}}
 		css={progressBarStyles}
 	/>

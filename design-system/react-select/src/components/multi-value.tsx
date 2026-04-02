@@ -42,13 +42,13 @@ export interface MultiValueProps<
 }
 
 // Tag wrapper: Tag has built-in margin; cancel the inline margin so we control spacing
-const tagMarginToken = token('space.050', '4px');
+const tagMarginToken = token('space.050');
 const multiValueTagWrapperStyles = cssMap({
 	root: {
 		display: 'flex',
 		minWidth: token('space.0'),
 		marginBlockStart: token('space.025'),
-		marginInlineEnd: token('space.050', '4px'),
+		marginInlineEnd: token('space.050'),
 		marginBlockEnd: token('space.025'),
 		maxWidth: '100%',
 	},
@@ -135,12 +135,9 @@ const multiValueTagLikeStyles = cssMap({
 		backgroundColor: token('color.background.neutral'),
 	},
 	focused: {
-		color: token('color.text.selected', 'hsl(0, 0%, 20%)'),
+		color: token('color.text.selected'),
 		backgroundColor: token('color.background.neutral.subtle.hovered'),
-		boxShadow: `0 0 0 2px ${token(
-			'elevation.surface',
-			'transparent',
-		)}, 0 0 0 4px ${token('color.border.focused', 'transparent')}`,
+		boxShadow: `0 0 0 2px ${token('elevation.surface')}, 0 0 0 4px ${token('color.border.focused')}`,
 		'@media screen and (-ms-high-contrast: active)': {
 			borderWidth: token('border.width'),
 			borderColor: 'transparent',

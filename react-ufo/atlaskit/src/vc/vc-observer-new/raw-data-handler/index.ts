@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { RawObservation, RevisionPayloadEntry, VCAbortReason } from '../../../common/vc/types';
 import { getEarliestHiddenTiming } from '../../../hidden-timing';
 import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
@@ -5,6 +7,19 @@ import getViewportWidth from '../metric-calculator/utils/get-viewport-width';
 import type { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../types';
 const ABORTING_WINDOW_EVENT = ['wheel', 'scroll', 'keydown', 'resize'] as const;
 const MAX_OBSERVATIONS = 200;
+
+const encodeRect = (rect: DOMRect) =>
+	[
+		Math.round(rect.left * 10) / 10,
+		Math.round(rect.top * 10) / 10,
+		Math.round(rect.right * 10) / 10,
+		Math.round(rect.bottom * 10) / 10,
+	] as [number, number, number, number];
+
+const areRectsEqual = (
+	left: [number, number, number, number],
+	right: [number, number, number, number],
+) => left.every((value, index) => value === right[index]);
 
 function isWindowEventEntryData(
 	data: ViewportEntryData | WindowEventEntryData,
@@ -112,6 +127,8 @@ export default class RawDataHandler {
 		const eventTypeMap = new Map<string, number>();
 		const eventTypeMapEntriesMap: Record<number, string> = {};
 		let nextEventTypeId = 1;
+		const enableServerSideTTVCSync = fg('platform_ufo_ttvc_server_side_sync');
+		const labelStacksMap: Record<number, { s: string; l: string }> = {};
 
 		let rawObservations = viewportEntries.map((entry) => {
 			const viewportEntry = entry.data as ViewportEntryData;
@@ -126,6 +143,14 @@ export default class RawDataHandler {
 				nextElementId += 1;
 				targetNameToIdMap.set(targetName, eid);
 				elementMapEntriesMap[eid] = targetName;
+			}
+
+			// Capture labelStacks per element (only stored once per unique element)
+			if (enableServerSideTTVCSync && viewportEntry.labelStacks && !(eid in labelStacksMap)) {
+				labelStacksMap[eid] = {
+					s: viewportEntry.labelStacks.segment,
+					l: viewportEntry.labelStacks.labelStack,
+				};
 			}
 
 			let chg = typeMap.get(type || '') || 0;
@@ -146,14 +171,18 @@ export default class RawDataHandler {
 					attributeEntriesMap[att] = attributeName;
 				}
 			}
+			const encodedRect = encodeRect(rect);
+			const encodedPreviousRect = viewportEntry.previousRect
+				? encodeRect(viewportEntry.previousRect)
+				: null;
+			const shouldIncludePreviousRect =
+				enableServerSideTTVCSync &&
+				(encodedPreviousRect === null || !areRectsEqual(encodedRect, encodedPreviousRect));
+
 			const observation: RawObservation = {
 				t: Math.round(entry.time - startTime),
-				r: [
-					Math.round(rect.left * 10) / 10,
-					Math.round(rect.top * 10) / 10,
-					Math.round(rect.right * 10) / 10,
-					Math.round(rect.bottom * 10) / 10,
-				],
+				r: encodedRect,
+				...(shouldIncludePreviousRect ? { pr: encodedPreviousRect } : {}),
 				chg,
 				eid: eid || 0,
 				...(att > 0 ? { att } : {}),
@@ -225,6 +254,7 @@ export default class RawDataHandler {
 			for (const eid of Object.keys(elementMapEntriesMap).map(Number)) {
 				if (!referencedEids.has(eid)) {
 					delete elementMapEntriesMap[eid];
+					delete labelStacksMap[eid];
 				}
 			}
 
@@ -277,6 +307,7 @@ export default class RawDataHandler {
 				att: attributeEntriesMap ?? undefined,
 				evts: rawEventObservations.length > 0 ? rawEventObservations : undefined,
 				evt: Object.keys(eventTypeMapEntriesMap).length > 0 ? eventTypeMapEntriesMap : undefined,
+				lbl: Object.keys(labelStacksMap).length > 0 ? labelStacksMap : undefined,
 			},
 			abortReason: dirtyReason,
 			abortTimestamp: getVCCleanStatusResult.abortTimestamp,

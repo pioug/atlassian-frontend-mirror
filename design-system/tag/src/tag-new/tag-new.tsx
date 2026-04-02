@@ -127,20 +127,20 @@ const styles = cssMapUnbound({
 		height: '1.25rem',
 		position: 'relative',
 		alignItems: 'center',
-		gap: token('space.050', '4px'),
+		gap: token('space.050'),
 		borderRadius: token('radius.small', '4px'),
 		borderStyle: 'solid',
-		borderWidth: token('border.width', '1px'),
+		borderWidth: token('border.width'),
 		cursor: 'default',
-		marginBlock: token('space.050', '4px'),
-		marginInline: token('space.050', '4px'),
-		paddingBlock: token('space.025', '2px'),
+		marginBlock: token('space.050'),
+		marginInline: token('space.050'),
+		paddingBlock: token('space.025'),
 		paddingInline: '0.1875rem',
 		font: token('font.body.small'),
 		backgroundColor: token('color.background.neutral.subtle'),
 	},
 	removableStyles: {
-		gap: token('space.050', '4px'),
+		gap: token('space.050'),
 	},
 	beforeStyles: {
 		display: 'inline-flex',
@@ -170,16 +170,16 @@ const styles = cssMapUnbound({
 	focusRingStyles: {
 		// Only show focus ring when keyboard navigating (not mouse clicks)
 		'&:focus-visible': {
-			outline: `${token('border.width.focused', '2px')} solid ${token('color.border.focused')}`,
+			outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 			// @ts-ignore
-			outlineOffset: token('space.025', '2px'),
+			outlineOffset: token('space.025'),
 		},
 	},
 	// Show focus ring when child link is focused via keyboard (applied conditionally via JS)
 	childFocusRingStyles: {
-		outline: `${token('border.width.focused', '2px')} solid ${token('color.border.focused')}`,
+		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
 		// @ts-ignore
-		outlineOffset: token('space.025', '2px'),
+		outlineOffset: token('space.025'),
 	},
 	// Base interactive styles - always applied when link (cursor, link styling)
 	interactiveBaseStyles: {
@@ -189,7 +189,7 @@ const styles = cssMapUnbound({
 		'& > a': {
 			display: 'inline-flex',
 			alignItems: 'center',
-			gap: token('space.050', '4px'),
+			gap: token('space.050'),
 			textDecoration: 'none',
 			// Allow link to shrink and enable text truncation
 			minWidth: 0,

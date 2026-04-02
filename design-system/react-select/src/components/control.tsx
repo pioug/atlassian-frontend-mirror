@@ -64,9 +64,9 @@ const styles = cssMap({
 		borderColor: token('color.border.input'),
 		borderStyle: 'solid',
 		borderRadius: token('radius.small', '3px'),
-		borderWidth: token('border.width', '1px'),
+		borderWidth: token('border.width'),
 		'&:focus-within': {
-			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.input')}`,
+			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.input')}`,
 		},
 		minHeight: 40,
 		paddingBlockStart: token('space.0'),
@@ -107,12 +107,12 @@ border-color 200ms ease-in-out`,
 			borderColor: token('color.border.danger'),
 		},
 		'&:focus-within': {
-			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.danger')}`,
+			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.danger')}`,
 		},
-		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.danger')}`,
+		boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.danger')}`,
 	},
 	focusedInvalid: {
-		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused')}`,
+		boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
 	},
 	disabled: {
 		// Turn pointer events off when disabled - this makes it so hover etc don't work.
@@ -120,15 +120,15 @@ border-color 200ms ease-in-out`,
 		backgroundColor: token('color.background.disabled'),
 		borderColor: token('color.background.disabled'),
 		'&:focus-within': {
-			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.background.disabled')}`,
+			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.background.disabled')}`,
 		},
 	},
 	focused: {
 		backgroundColor: token('color.background.input.pressed'),
 		borderColor: token('color.border.focused'),
-		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused')}`,
+		boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
 		'&:focus-within': {
-			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused')}`,
+			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
 		},
 		'&:hover': {
 			backgroundColor: token('color.background.input.pressed'),
@@ -139,7 +139,7 @@ border-color 200ms ease-in-out`,
 		backgroundColor: 'transparent',
 		borderColor: 'transparent',
 		'&:focus-within': {
-			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} transparent`,
+			boxShadow: `inset 0 0 0 ${token('border.width')} transparent`,
 		},
 	},
 	subtleFocused: {
@@ -149,7 +149,7 @@ border-color 200ms ease-in-out`,
 		backgroundColor: 'transparent',
 		borderColor: 'transparent',
 		'&:focus-within': {
-			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} transparent`,
+			boxShadow: `inset 0 0 0 ${token('border.width')} transparent`,
 		},
 		'&:hover': {
 			backgroundColor: 'transparent',

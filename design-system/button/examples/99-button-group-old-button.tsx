@@ -7,8 +7,17 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
+import { cssMap } from '@atlaskit/css';
 import AudioIcon from '@atlaskit/icon/core/audio';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const rowStyles = css({
 	paddingBlockEnd: token('space.100', '8px'),
@@ -59,7 +68,13 @@ export default (): React.JSX.Element => (
 			<ButtonGroup>
 				<Button>Good times</Button>
 				<Button iconAfter={<AudioIcon label="" />}>Boogie</Button>
-				<Button iconAfter={<AudioIcon spacing="spacious" label="Boogie more" />} />
+				<Button
+					iconAfter={
+						<Flex xcss={iconSpacingStyles.space050}>
+							<AudioIcon label="Boogie more" />
+						</Flex>
+					}
+				/>
 			</ButtonGroup>
 		</ConstrainedRow>
 	</Row>

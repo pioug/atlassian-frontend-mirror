@@ -55,7 +55,6 @@
 		"@atlaskit/teams-app-internal-analytics": "workspace:^",
 		"@atlaskit/teams-app-internal-product-permissions": "workspace:^",
 		"@atlaskit/teams-client": "workspace:^",
-		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -119,7 +118,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.72.1",
+	"version": "0.72.2",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

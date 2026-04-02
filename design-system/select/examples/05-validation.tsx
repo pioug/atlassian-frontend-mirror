@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
-import Form, { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
+import Form, { Field } from '@atlaskit/form';
 import Select from '@atlaskit/select';
 
 import { cities } from './common/data';
 
-const validate = (value: any) => (!value ? 'EMPTY' : undefined);
+const validate = (value: any) => (!value ? 'This field is required.' : undefined);
 
 interface FormData {
 	'fail-city': string;
@@ -14,18 +14,13 @@ interface FormData {
 
 const ValidationExample = (): React.JSX.Element => (
 	<Form onSubmit={(data: FormData) => console.log(data)}>
-		<Field label="City" name="fail-city" validate={validate}>
-			{({ fieldProps: { isInvalid, ...props }, error }: any) => (
-				<Fragment>
-					{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
-					<Select {...props} options={cities} placeholder isInvalid={isInvalid} />
-					<HelperMessage>
-						Trigger a validation error by focusing on this field and pressing tab.
-					</HelperMessage>
-					{error === 'EMPTY' && <ErrorMessage>This field is required.</ErrorMessage>}
-				</Fragment>
-			)}
-		</Field>
+		<Field
+			label="City"
+			name="fail-city"
+			validate={validate}
+			helperMessage="Trigger a validation error by focusing on this field and pressing tab."
+			component={({ fieldProps }: any) => <Select {...fieldProps} options={cities} />}
+		/>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 		<hr role="presentation" style={{ border: 0, margin: '1em 0' }} />
 		<Field
@@ -34,19 +29,21 @@ const ValidationExample = (): React.JSX.Element => (
 			name="success-city"
 			defaultValue={cities[0]}
 			validate={validate}
-		>
-			{({ fieldProps: { isInvalid, ...props } }: any) => (
+			component={({ fieldProps: { isInvalid, ...props } }: any) => (
 				// eslint-disable-next-line @atlaskit/design-system/no-placeholder
 				<Select {...props} options={cities} placeholder="" isInvalid={isInvalid} />
 			)}
-		</Field>
+		/>
 
-		<Field label="City Invalid" id="invalid" name="invalid-city">
-			{({ fieldProps: props }: any) => (
+		<Field
+			label="City Invalid"
+			id="invalid"
+			name="invalid-city"
+			component={({ fieldProps: props }: any) => (
 				// eslint-disable-next-line @atlaskit/design-system/no-placeholder
 				<Select {...props} options={cities} placeholder="" isInvalid={true} />
 			)}
-		</Field>
+		/>
 	</Form>
 );
 

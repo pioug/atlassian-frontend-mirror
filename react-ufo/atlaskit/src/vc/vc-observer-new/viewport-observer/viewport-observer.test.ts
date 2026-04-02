@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { SearchPageConfig } from '../../types';
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
@@ -33,9 +31,6 @@ jest.mock('../../vc-observer/observers/rll-placeholders');
 jest.mock('./intersection-observer');
 jest.mock('./mutation-observer');
 jest.mock('./performance-observer');
-jest.mock('@atlaskit/platform-feature-flags');
-const mockFg = fg as jest.Mock;
-
 describe('ViewportObserver', () => {
 	let mockIntersectionObserver: jest.Mocked<VCIntersectionObserver>;
 	let mockMutationObserver: jest.Mocked<MutationObserver>;
@@ -141,7 +136,6 @@ describe('ViewportObserver', () => {
 	describe('Mutation Observer', () => {
 		beforeEach(() => {
 			(isContainedWithinMediaWrapper as jest.Mock).mockReset();
-			mockFg.mockReturnValue(true);
 		});
 		describe('onChildListMutation', () => {
 			it('should handle added node', () => {
@@ -565,18 +559,11 @@ describe('ViewportObserver', () => {
 		describe('smart answers mutations', () => {
 			beforeEach(() => {
 				isContainedWithinSmartAnswersMock.mockClear();
-
-				mockFg.mockImplementation(
-					(flag) => flag === 'rovo_search_page_ttvc_ignoring_smart_answers_fix',
-				);
-
 				searchPageConfigMock.enableSmartAnswersMutations = true;
 				searchPageConfigMock.searchPageRoute = '/search';
 			});
 
 			afterEach(() => {
-				mockFg.mockReset();
-
 				searchPageConfigMock.enableSmartAnswersMutations = false;
 				searchPageConfigMock.searchPageRoute = undefined;
 			});

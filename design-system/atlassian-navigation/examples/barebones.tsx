@@ -6,13 +6,22 @@ import {
 	PrimaryDropdownButton,
 	ProductHome,
 } from '@atlaskit/atlassian-navigation';
+import { cssMap } from '@atlaskit/css';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
 import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import appsSplash from './shared/assets/Apps4x.png';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const ProductHomeExample = () => <ProductHome icon={AtlassianIcon} logo={AtlassianLogo} />;
 
@@ -22,7 +31,9 @@ const PopupContents = () => (
 			<ButtonItem
 				description="But what is an Atlassian, anyway?"
 				iconBefore={
-					<QuestionCircleIcon color={token('color.icon.information')} label="" spacing="spacious" />
+					<Flex xcss={iconSpacingStyles.space050}>
+						<QuestionCircleIcon color={token('color.icon.information')} label="" />
+					</Flex>
 				}
 			>
 				About
@@ -58,7 +69,7 @@ export default (): React.JSX.Element => (
 	<div
 		style={{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			paddingBottom: token('space.100', '8px'),
+			paddingBottom: token('space.100'),
 			border: `${token('border.width')} solid ${token('color.border')}`,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			borderRadius: token('radius.small', '3px'),

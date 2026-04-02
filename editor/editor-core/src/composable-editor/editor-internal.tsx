@@ -61,6 +61,8 @@ const editorContainerStyles = css({
 	height: '100%',
 });
 
+const DEFAULT_VALUE_PROP_TO_IGNORE: Array<keyof EditorNextProps> = ['defaultValue'];
+
 /**
  * EditorInternalComponent is used to capture the common component
  * from the `render` method of `Editor` and share it with `EditorNext`.
@@ -96,7 +98,13 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 		const useShallow = false;
 		const [portalProviderAPI, PortalRenderer] = usePortalProvider();
 		const [nodeViewPortalProviderAPI, NodeViewPortalRenderer] = usePortalProvider();
-
+		const propsToIgnore: Array<keyof EditorNextProps> = expValEquals(
+			'platform_editor_perf_lint_cleanup',
+			'isEnabled',
+			true,
+		)
+			? DEFAULT_VALUE_PROP_TO_IGNORE
+			: ['defaultValue'];
 		return (
 			<Fragment>
 				{renderTrackingEnabled && (
@@ -105,8 +113,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 						action={ACTION.RE_RENDERED}
 						actionSubject={ACTION_SUBJECT.EDITOR}
 						handleAnalyticsEvent={handleAnalyticsEvent}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						propsToIgnore={['defaultValue']}
+						propsToIgnore={propsToIgnore}
 						useShallow={useShallow}
 					/>
 				)}
@@ -142,7 +149,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 										onEditorDestroyed={onEditorDestroyed}
 										disabled={props.disabled}
 										preset={preset}
-										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017: this callback closes over the full props object and derived featureFlags; memoization is ineffective because ReactEditorViewNext is not memo()'d and deps (props, featureFlags) change every render
 										render={({
 											editor,
 											view,

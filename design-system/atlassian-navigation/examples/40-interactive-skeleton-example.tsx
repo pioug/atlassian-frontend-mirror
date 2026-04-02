@@ -24,12 +24,12 @@ import { SwitcherPopup } from './shared/switcher-popup';
 
 const controlsStyles = css({
 	display: 'flex',
-	margin: token('space.200', '1rem'),
+	margin: token('space.200'),
 	alignItems: 'center',
 });
 
 const labelStyles = css({
-	margin: token('space.200', '1rem'),
+	margin: token('space.200'),
 });
 
 const inputStyles = css({

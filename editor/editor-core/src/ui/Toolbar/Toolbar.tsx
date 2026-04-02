@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -17,9 +17,16 @@ import {
 import type { ToolbarUIContextType } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolbar-model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarProps } from './toolbar-types';
 import { ToolbarInner } from './ToolbarInner';
+
+const TOOLBAR_FALLBACKS = {
+	group: ToolbarButtonGroup,
+	section: ToolbarSection,
+	menuSection: ToolbarDropdownItemSection,
+};
 
 /**
  * *Warning:* With `platform_editor_toolbar_aifc` enabled this component is no longer used and is replaced with `<ToolbarNext />`.
@@ -94,6 +101,22 @@ export const ToolbarNext = ({
 		usePluginState(editorAPI);
 	// remove offline check when patch6Enabled is cleaned up
 	const isOffline = isOfflineMode(connectivityStateMode);
+	const memoizedFireAnalyticsEvent = useCallback(
+		(payload: unknown) => {
+			editorAPI?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
+		},
+		[editorAPI],
+	);
+	const fireAnalyticsEvent = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? memoizedFireAnalyticsEvent
+		: (payload: unknown) => memoizedFireAnalyticsEvent(payload);
+	const fallbacks = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		? TOOLBAR_FALLBACKS
+		: {
+				group: ToolbarButtonGroup,
+				section: ToolbarSection,
+				menuSection: ToolbarDropdownItemSection,
+			};
 
 	return (
 		<EditorToolbarProvider
@@ -109,21 +132,9 @@ export const ToolbarNext = ({
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				fireAnalyticsEvent={(payload: unknown) => {
-					editorAPI?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
-				}}
+				fireAnalyticsEvent={fireAnalyticsEvent}
 			>
-				<ToolbarModelRenderer
-					toolbar={toolbar}
-					components={components}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					fallbacks={{
-						group: ToolbarButtonGroup,
-						section: ToolbarSection,
-						menuSection: ToolbarDropdownItemSection,
-					}}
-				/>
+				<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />
 			</EditorToolbarUIProvider>
 		</EditorToolbarProvider>
 	);

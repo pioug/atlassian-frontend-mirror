@@ -12,10 +12,17 @@ import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import InformationIcon from '@atlaskit/icon/core/status-information';
 import InteractionContext from '@atlaskit/interaction-context';
 import { ZoomIn } from '@atlaskit/motion';
-import { Box, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const styles = cssMap({
 	base: {
@@ -159,11 +166,9 @@ const ColorPaletteButtons = () => {
 						title: `Traced a press!`,
 						description: name,
 						icon: (
-							<InformationIcon
-								label="Info"
-								color={token('color.icon.information')}
-								spacing="spacious"
-							/>
+							<Flex xcss={iconSpacingStyles.space050}>
+								<InformationIcon label="Info" color={token('color.icon.information')} />
+							</Flex>
 						),
 						isAutoDismiss: true,
 					});

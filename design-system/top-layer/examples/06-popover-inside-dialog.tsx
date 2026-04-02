@@ -55,7 +55,7 @@ const styles = cssMap({
  * The popup renders in the top layer above the dialog.
  * Escape closes the popup first (if open), then the dialog.
  */
-export default function PopoverInsideDialogExample() {
+export default function PopoverInsideDialogExample(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleClose = useCallback(() => {

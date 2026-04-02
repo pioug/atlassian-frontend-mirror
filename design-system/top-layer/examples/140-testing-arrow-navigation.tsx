@@ -208,7 +208,7 @@ function MixedMenu() {
 	);
 }
 
-export default function ArrowNavigationExample() {
+export default function ArrowNavigationExample(): JSX.Element {
 	return (
 		<div css={styles.layout}>
 			<BasicMenu />

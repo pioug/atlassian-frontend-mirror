@@ -1,7 +1,7 @@
 import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema';
 import { uuid } from '@atlaskit/adf-schema';
 import { getBlockMarkAttrs, getFirstParagraphBlockMarkAttrs } from '@atlaskit/editor-common/lists';
-import { isTaskList } from '@atlaskit/editor-common/transforms';
+import { createBlockTaskItem, isTaskList } from '@atlaskit/editor-common/transforms';
 import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -74,13 +74,14 @@ const convertTaskItemToBlockTaskItem = (
 	schema: Schema,
 	smallTextAttrs: FontSizeMarkAttrs,
 ) => {
-	const { blockTaskItem, paragraph } = schema.nodes;
 	const { fontSize } = schema.marks;
 
-	return blockTaskItem.create(
-		node.attrs,
-		paragraph.createChecked({}, node.content, [fontSize.create(smallTextAttrs)]),
-	);
+	return createBlockTaskItem({
+		attrs: node.attrs,
+		content: node.content,
+		marks: [fontSize.create(smallTextAttrs)],
+		schema,
+	});
 };
 
 const addSmallTextToBlockTaskItem = (

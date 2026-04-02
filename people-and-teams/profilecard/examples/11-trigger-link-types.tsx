@@ -15,20 +15,20 @@ import ExampleWrapper from './helper/example-wrapper';
 
 const styles = cssMap({
 	table: {
-		borderWidth: token('border.width', '1px'),
+		borderWidth: token('border.width'),
 		borderStyle: 'solid',
-		borderColor: token('color.border', 'black'),
+		borderColor: token('color.border'),
 		borderCollapse: 'collapse',
 	},
 	head: {
-		borderWidth: token('border.width', '1px'),
+		borderWidth: token('border.width'),
 		borderStyle: 'solid',
-		borderColor: token('color.border', 'black'),
+		borderColor: token('color.border'),
 	},
 	cell: {
-		borderWidth: token('border.width', '1px'),
+		borderWidth: token('border.width'),
 		borderStyle: 'solid',
-		borderColor: token('color.border', 'black'),
+		borderColor: token('color.border'),
 	},
 
 	text: {
@@ -36,10 +36,10 @@ const styles = cssMap({
 	},
 	triggerText: {
 		borderRadius: token('radius.small', '3px'),
-		paddingTop: token('space.050', '4px'),
-		paddingRight: token('space.050', '4px'),
-		paddingBottom: token('space.050', '4px'),
-		paddingLeft: token('space.050', '4px'),
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
 	},
 });
 
@@ -109,10 +109,7 @@ const TriggerTypeTable = (): React.JSX.Element => (
 	<ExampleWrapper>
 		<div
 			style={{
-				padding: `${token('space.100', '8px')} ${token(
-					'space.100',
-					'8px',
-				)} ${token('space.600', '48px')}`,
+				padding: `${token('space.100')} ${token('space.100')} ${token('space.600')}`,
 			}}
 		>
 			<p>

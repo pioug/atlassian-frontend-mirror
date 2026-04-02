@@ -57,7 +57,7 @@ import {
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
 	ExpandableMenuItem,
@@ -80,6 +80,13 @@ import { token } from '@atlaskit/tokens';
 import dstLogo from './images/dst.png';
 import { WithResponsiveViewport } from './utils/example-utils';
 import { MockSearch } from './utils/mock-search';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const panelStyles = cssMap({
 	header: {
@@ -350,7 +357,9 @@ export default function ConfluenceMockExample(): JSX.Element {
 				<Panel>
 					<Inline xcss={panelStyles.header}>
 						<Inline space="space.050" alignBlock="center">
-							<ProjectIcon label="" spacing="spacious" color={token('color.icon.subtle')} />
+							<Flex xcss={iconSpacingStyles.space050}>
+								<ProjectIcon label="" color={token('color.icon.subtle')} />
+							</Flex>
 							<Text weight="bold" color="color.text.subtle">
 								Projects
 							</Text>

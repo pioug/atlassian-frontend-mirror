@@ -31,7 +31,7 @@ const styles = cssMap({
  * A manual popover that uses the hook for Escape and click-outside dismiss.
  * Displays the close reason when dismissed.
  */
-export default function TestingSimpleLightDismiss() {
+export default function TestingSimpleLightDismiss(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [closeReason, setCloseReason] = useState<string | null>(null);
 	const [closeCount, setCloseCount] = useState(0);

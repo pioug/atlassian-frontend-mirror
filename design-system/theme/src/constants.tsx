@@ -1,7 +1,6 @@
 import deprecationWarning from '@atlaskit/ds-lib/deprecation-warning';
 import { token } from '@atlaskit/tokens';
 
-import { B200, N20A, N30A } from './colors';
 import type { Layers } from './types';
 
 export const CHANNEL = '__ATLASKIT_THEME__';
@@ -13,7 +12,7 @@ export const THEME_MODES: string[] = ['light', 'dark'];
  * Please use `@atlaskit/focus-ring` instead.
  */
 export const focusRing = (
-	color: string = token('color.border.focused', B200),
+	color: string = token('color.border.focused'),
 	outlineWidth: number = 2,
 ) => {
 	deprecationWarning(
@@ -111,7 +110,7 @@ export const skeletonShimmer = (): {
 } =>
 	({
 		css: {
-			backgroundColor: token('color.skeleton', N20A),
+			backgroundColor: token('color.skeleton'),
 			animationDuration: '1.5s',
 			animationIterationCount: 'infinite',
 			animationTimingFunction: 'linear',
@@ -119,10 +118,10 @@ export const skeletonShimmer = (): {
 		},
 		keyframes: {
 			from: {
-				backgroundColor: token('color.skeleton', N20A),
+				backgroundColor: token('color.skeleton'),
 			},
 			to: {
-				backgroundColor: token('color.skeleton.subtle', N30A),
+				backgroundColor: token('color.skeleton.subtle'),
 			},
 		},
 	}) as const;

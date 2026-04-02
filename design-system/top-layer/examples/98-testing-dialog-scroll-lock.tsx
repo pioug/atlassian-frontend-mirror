@@ -20,7 +20,7 @@ const tallContentStyles = css({
  * Renders a tall page (scrollable body) with a dialog trigger.
  * When the dialog is open, DialogScrollLock should prevent body scrolling.
  */
-export default function TestingDialogScrollLock() {
+export default function TestingDialogScrollLock(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleClose = useCallback(() => {

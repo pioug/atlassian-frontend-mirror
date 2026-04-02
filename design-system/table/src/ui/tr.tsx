@@ -17,20 +17,20 @@ const styles = cssMap({
 		borderSpacing: 0,
 	},
 	selected: {
-		backgroundColor: token('color.background.selected', '#DEEBFF88'),
+		backgroundColor: token('color.background.selected'),
 		'&:hover': {
-			backgroundColor: token('color.background.selected.hovered', '#DEEBFF'), // B50
+			backgroundColor: token('color.background.selected.hovered'), // B50
 		},
 	},
 	subitem: {
-		backgroundColor: token('color.background.neutral', '#091E420F'),
+		backgroundColor: token('color.background.neutral'),
 	},
 	bodyRow: {
-		borderBlockEndWidth: token('border.width', '1px'),
+		borderBlockEndWidth: token('border.width'),
 		borderBlockEndStyle: 'solid',
-		borderBlockEndColor: token('color.border', '#eee'),
+		borderBlockEndColor: token('color.border'),
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered', '#f8f8f8'),
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
 	},
 });

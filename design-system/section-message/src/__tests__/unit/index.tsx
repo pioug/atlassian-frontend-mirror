@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, queryByAttribute, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import JiraLabsIcon from '@atlaskit/icon/core/flask';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
@@ -10,19 +11,49 @@ import ErrorIcon from '@atlaskit/icon/core/status-error';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import SectionMessage, { SectionMessageAction } from '../../index';
 import { type Appearance } from '../../types';
 
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
+
 const appearances: [Appearance, ({}) => JSX.Element][] = [
-	['information', (props: {}) => <InfoIcon {...props} spacing="spacious" label="information" />],
-	['warning', (props: {}) => <WarningIcon {...props} spacing="spacious" label="warning" />],
-	['error', (props: {}) => <ErrorIcon {...props} spacing="spacious" label="error" />],
-	['success', (props: {}) => <CheckCircleIcon {...props} spacing="spacious" label="success" />],
+	[
+		'information',
+		(
+			props: {} /* eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Flex primitive (spread props detected) */,
+		) => <InfoIcon {...props} spacing="spacious" label="information" />,
+	],
+	[
+		'warning',
+		(
+			props: {} /* eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Flex primitive (spread props detected) */,
+		) => <WarningIcon {...props} spacing="spacious" label="warning" />,
+	],
+	[
+		'error',
+		(
+			props: {} /* eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Flex primitive (spread props detected) */,
+		) => <ErrorIcon {...props} spacing="spacious" label="error" />,
+	],
+	[
+		'success',
+		(
+			props: {} /* eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Flex primitive (spread props detected) */,
+		) => <CheckCircleIcon {...props} spacing="spacious" label="success" />,
+	],
 	[
 		'discovery',
-		(props: {}) => <QuestionCircleIcon {...props} spacing="spacious" label="discovery" />,
+		(
+			props: {} /* eslint-disable-next-line @atlaskit/design-system/no-icon-spacing-prop -- TODO: Manually migrate spacing prop to Flex primitive (spread props detected) */,
+		) => <QuestionCircleIcon {...props} spacing="spacious" label="discovery" />,
 	],
 ];
 
@@ -54,7 +85,9 @@ describe('SectionMessage', () => {
 
 	it('should render a custom icon and label if one is given', () => {
 		const CustomIcon = () => (
-			<JiraLabsIcon spacing="spacious" label="some label" testId="custom-icon" />
+			<Flex xcss={iconSpacingStyles.space050}>
+				<JiraLabsIcon label="some label" testId="custom-icon" />
+			</Flex>
 		);
 		render(
 			<SectionMessage title="things" icon={CustomIcon}>

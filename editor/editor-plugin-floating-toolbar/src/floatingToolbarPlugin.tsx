@@ -43,7 +43,6 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { AllSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
@@ -489,7 +488,7 @@ export function ContentComponent({
 		>
 			<Popup
 				ariaLabel={title}
-				role={fg('platform_editor_a11y_add_role_to_popup') ? 'toolbar' : undefined}
+				role={'toolbar'}
 				offset={offset}
 				target={targetRef}
 				alignY="bottom"

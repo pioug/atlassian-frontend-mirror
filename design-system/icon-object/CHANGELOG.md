@@ -1,5 +1,11 @@
 # @atlaskit/icon-object
 
+## 7.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.5.1
 
 ### Patch Changes

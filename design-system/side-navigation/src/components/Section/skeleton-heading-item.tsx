@@ -13,7 +13,7 @@ export type { SkeletonHeadingItemProps } from '@atlaskit/menu';
 
 const styles = cssMap({
 	root: {
-		paddingInline: token('space.100', '8px'),
+		paddingInline: token('space.100'),
 	},
 });
 

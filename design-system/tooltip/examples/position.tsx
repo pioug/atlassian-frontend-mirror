@@ -25,7 +25,7 @@ export default function PositionExample({
 	return (
 		<div
 			style={{
-				padding: `${token('space.500', '40px')} ${token('space.500', '40px')}`,
+				padding: `${token('space.500')} ${token('space.500')}`,
 			}}
 			data-testid="position"
 		>

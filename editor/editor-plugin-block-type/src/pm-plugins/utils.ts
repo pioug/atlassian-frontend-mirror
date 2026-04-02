@@ -1,8 +1,10 @@
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
+import { createBlockTaskItem } from '@atlaskit/editor-common/transforms';
 import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types';
 import { createRule, createWrappingJoinRule } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -27,7 +29,7 @@ export const createJoinNodesRule = (match: RegExp, nodeType: NodeType): InputRul
 
 type WrappingTextRuleProps = {
 	getAttrs?: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-		| Record<string, any>
+	| Record<string, any>
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		| ((matchResult: RegExpExecArray) => Record<string, any>);
 	match: RegExp;
@@ -68,7 +70,7 @@ export const createWrappingTextBlockRule = ({
 function getSelectedWrapperNodes(state: EditorState): NodeType[] {
 	const nodes: Array<NodeType> = [];
 	if (state.selection) {
-		const { $from, $to } = state.selection;
+		const { $from, $to, empty } = state.selection;
 		const {
 			blockquote,
 			panel,
@@ -97,6 +99,17 @@ function getSelectedWrapperNodes(state: EditorState): NodeType[] {
 		];
 
 		wrapperNodes.push(caption);
+
+		if (empty && expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+			for (let depth = 0; depth <= $from.depth; depth++) {
+				const node = $from.node(depth);
+				if (node.isBlock && wrapperNodes.indexOf(node.type) >= 0) {
+					nodes.push(node.type);
+				}
+			}
+			return nodes;
+		}
+
 		state.doc.nodesBetween($from.pos, $to.pos, (node) => {
 			if (node.isBlock && wrapperNodes.indexOf(node.type) >= 0) {
 				nodes.push(node.type);
@@ -114,10 +127,25 @@ export function areBlockTypesDisabled(state: EditorState, allowFontSize = false)
 	const { panel, blockquote, bulletList, orderedList, listItem, taskList, taskItem } =
 		state.schema.nodes;
 
-	const excludedTypes: NodeType[] =
-		allowFontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true)
-			? [panel, bulletList, orderedList, listItem, taskList, taskItem]
-			: [panel];
+	const isSmallFontSizeEnabled =
+		allowFontSize && expValEquals('platform_editor_small_font_size', 'isEnabled', true);
+	const excludedTypes: NodeType[] = isSmallFontSizeEnabled
+		? [panel, bulletList, orderedList, listItem, taskList, taskItem]
+		: [panel];
+	const disallowedWrapperTypes = nodesTypes.filter((type) => !excludedTypes.includes(type));
+
+	if (isSmallFontSizeEnabled) {
+		const selectionInsideList = isSelectionInsideListNode(state);
+		const selectionInsideQuote = isSelectionInsideBlockquote(state);
+
+		// Inside a blockquote (but not a list nested within one): the blockquote itself isn't a
+		// disallowing wrapper, but anything else is.
+		if (selectionInsideQuote && !selectionInsideList) {
+			return disallowedWrapperTypes.some((type) => type !== blockquote);
+		}
+
+		return disallowedWrapperTypes.length > 0;
+	}
 
 	if (editorExperiment('platform_editor_blockquote_in_text_formatting_menu', true)) {
 		let hasQuote = false;
@@ -139,13 +167,10 @@ export function areBlockTypesDisabled(state: EditorState, allowFontSize = false)
 			return !hasNestedListInQuote;
 		});
 
-		return (
-			nodesTypes.filter((type) => !excludedTypes.includes(type)).length > 0 &&
-			(!hasQuote || hasNestedListInQuote)
-		);
+		return disallowedWrapperTypes.length > 0 && (!hasQuote || hasNestedListInQuote);
 	}
 
-	return nodesTypes.filter((type) => !excludedTypes.includes(type)).length > 0;
+	return disallowedWrapperTypes.length > 0;
 }
 
 /**
@@ -170,7 +195,34 @@ export function isSelectionInsideListNode(state: EditorState): boolean {
 		return true;
 	});
 
-	return insideList;
+	return insideList || listNodeTypes.some((nodeType) => hasParentNodeOfType(nodeType)(state.selection));
+}
+
+export function isSelectionInsideBlockquote(state: EditorState): boolean {
+	if (!state.selection) {
+		return false;
+	}
+
+	const { $from, $to } = state.selection;
+	const { blockquote } = state.schema.nodes;
+
+	// For collapsed selections, check if the cursor is inside a blockquote
+	if ($from.pos === $to.pos) {
+		return hasParentNodeOfType(blockquote)(state.selection);
+	}
+
+	// For range selections, check if any node in the range is a blockquote,
+	// or if the selection starts/ends inside a blockquote
+	let insideQuote = false;
+	state.doc.nodesBetween($from.pos, $to.pos, (node) => {
+		if (node.type === blockquote) {
+			insideQuote = true;
+			return false;
+		}
+		return true;
+	});
+
+	return insideQuote || hasParentNodeOfType(blockquote)(state.selection);
 }
 
 const blockStylingIsPresent = (state: EditorState): boolean => {
@@ -270,7 +322,7 @@ export function getSelectionRangeExpandedToLists(tr: Transaction): {
  */
 export function convertTaskItemsToBlockTaskItems(tr: Transaction, from: number, to: number): void {
 	const {
-		nodes: { taskItem, blockTaskItem, paragraph },
+		nodes: { taskItem, blockTaskItem },
 	} = tr.doc.type.schema;
 
 	if (!blockTaskItem || !taskItem) {
@@ -288,7 +340,11 @@ export function convertTaskItemsToBlockTaskItems(tr: Transaction, from: number, 
 	// Replace in reverse document order so earlier positions remain valid
 	for (let i = taskItemsToConvert.length - 1; i >= 0; i--) {
 		const { pos, node } = taskItemsToConvert[i];
-		const blockTaskNode = blockTaskItem.create(node.attrs, paragraph.create(null, node.content));
+		const blockTaskNode = createBlockTaskItem({
+			attrs: node.attrs,
+			content: node.content,
+			schema: tr.doc.type.schema,
+		});
 		tr.replaceWith(pos, pos + node.nodeSize, blockTaskNode);
 	}
 }

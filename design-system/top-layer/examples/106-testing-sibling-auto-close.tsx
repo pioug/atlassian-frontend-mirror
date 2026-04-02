@@ -21,7 +21,7 @@ const styles = cssMap({
  * auto-close. This is native popover="auto" behavior: only one
  * non-ancestor auto popover can be open at a time.
  */
-export default function TestingSiblingAutoClose() {
+export default function TestingSiblingAutoClose(): JSX.Element {
 	return (
 		<div css={styles.wrapper}>
 			<Popup placement={{ edge: 'end' }} onClose={() => {}}>

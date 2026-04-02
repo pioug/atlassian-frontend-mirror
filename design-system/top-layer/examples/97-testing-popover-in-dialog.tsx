@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { Dialog } from '@atlaskit/top-layer/dialog';
 import { Popup } from '@atlaskit/top-layer/popup';
 
-export default function TestingPopupInDialog() {
+export default function TestingPopupInDialog(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleClose = useCallback(() => {

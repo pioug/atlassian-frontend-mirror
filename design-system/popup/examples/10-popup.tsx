@@ -8,11 +8,20 @@ import { css, jsx } from '@compiled/react';
 
 import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Link from '@atlaskit/link';
 import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const spacerStyles = css({
 	margin: '250px',
@@ -92,7 +101,14 @@ const PopupPlacementExample = (): JSX.Element => {
 
 	return (
 		<Fragment>
-			<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning" />}>
+			<Banner
+				appearance="warning"
+				icon={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<WarningIcon label="Warning" />
+					</Flex>
+				}
+			>
 				This is an example for tests only -
 				<Link target="_blank" href="https://atlassian.design/components/popup/usage#accessibility">
 					{' '}

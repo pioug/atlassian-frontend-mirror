@@ -61,7 +61,7 @@ const reasonAppearance: Record<TDialogCloseReason, 'moved' | 'inprogress'> = {
  * - `'escape'`: user pressed Escape
  * - `'overlay-click'`: user clicked the backdrop
  */
-export default function BasicDialogExample() {
+export default function BasicDialogExample(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [closeLog, setCloseLog] = useState<TDialogCloseReason[]>([]);
 

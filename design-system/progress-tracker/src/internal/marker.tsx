@@ -13,10 +13,10 @@ import { token } from '@atlaskit/tokens';
 import type { Status } from '../types';
 
 const progressMarkerStyles = css({
-	width: token('space.100', '8px'),
-	height: token('space.100', '8px'),
+	width: token('space.100'),
+	height: token('space.100'),
 	position: 'absolute',
-	borderRadius: token('space.100', '8px'),
+	borderRadius: token('space.100'),
 	insetInlineStart: '50%',
 	transform: `translate(-50%, calc(-1 * ${token('space.250')}))`,
 	transition: `background-color var(--ds--pt--ts) var(--ds--pt--te)`,

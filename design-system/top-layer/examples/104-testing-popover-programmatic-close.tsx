@@ -5,7 +5,7 @@ import { Popup } from '@atlaskit/top-layer/popup';
 /**
  * Test fixture for programmatic popover close via `hidePopover()`.
  */
-export default function TestingPopoverProgrammaticClose() {
+export default function TestingPopoverProgrammaticClose(): React.JSX.Element {
 	const popoverRef = useRef<HTMLDivElement | null>(null);
 	const [closed, setClosed] = useState(false);
 

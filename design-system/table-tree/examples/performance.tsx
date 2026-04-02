@@ -52,12 +52,12 @@ const performanceTweakContainerStyles = css({
 	backgroundColor: token('elevation.surface'),
 	border: `5px solid ${token('color.border')}`,
 	borderWidth: '5px 0 0 5px',
-	insetBlockEnd: token('space.0', '0px'),
-	insetInlineEnd: token('space.0', '0px'),
-	paddingBlockEnd: token('space.250', '20px'),
-	paddingBlockStart: token('space.250', '20px'),
-	paddingInlineEnd: token('space.250', '20px'),
-	paddingInlineStart: token('space.250', '20px'),
+	insetBlockEnd: token('space.0'),
+	insetInlineEnd: token('space.0'),
+	paddingBlockEnd: token('space.250'),
+	paddingBlockStart: token('space.250'),
+	paddingInlineEnd: token('space.250'),
+	paddingInlineStart: token('space.250'),
 });
 
 const childCountPerItem = 100;
@@ -164,7 +164,7 @@ export default class extends PureComponent {
 							style={{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								width: '90px',
-								margin: `0 ${token('space.250', '20px')} 0 10px`,
+								margin: `0 ${token('space.250')} 0 10px`,
 							}}
 						>
 							<Select

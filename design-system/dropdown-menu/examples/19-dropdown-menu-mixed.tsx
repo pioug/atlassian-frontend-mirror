@@ -11,9 +11,16 @@ import EditorPeopleIcon from '@atlaskit/icon/core/people-group';
 import { ButtonItem, HeadingItem, MenuGroup } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 interface SearchDropdownItemProps {
 	setFilteredOptions: React.Dispatch<React.SetStateAction<{ label: string; value: string }[]>>;
@@ -129,10 +136,22 @@ const OptionsContent = () => (
 		</Box>
 		<Box role="menu" paddingBlock="space.200">
 			<HeadingItem>Your collaborators</HeadingItem>
-			<DropdownItem elemAfter={<EditorAddIcon spacing="spacious" label="" />}>
+			<DropdownItem
+				elemAfter={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<EditorAddIcon label="" />
+					</Flex>
+				}
+			>
 				Invite collaborator
 			</DropdownItem>
-			<DropdownItem elemAfter={<EditorPeopleIcon spacing="spacious" label="" />}>
+			<DropdownItem
+				elemAfter={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<EditorPeopleIcon label="" />
+					</Flex>
+				}
+			>
 				Create team
 			</DropdownItem>
 		</Box>

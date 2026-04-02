@@ -64,7 +64,7 @@ function ArrowDemo({ placement }: { placement: TPlacementOptions }) {
 	);
 }
 
-export default function PopoverWithArrowExample() {
+export default function PopoverWithArrowExample(): JSX.Element {
 	return (
 		<Box padding="space.600">
 			<div css={styles.grid}>

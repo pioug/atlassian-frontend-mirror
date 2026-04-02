@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import EmojiCustomIcon from '@atlaskit/icon/core/add';
 import UserAvatarCircleIcon from '@atlaskit/icon/core/person-avatar';
 import {
@@ -12,7 +13,15 @@ import {
 	SkeletonHeadingItem,
 	SkeletonItem,
 } from '@atlaskit/menu';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const Item = ({ isLoading, ...props }: any) => {
 	if (isLoading) {
@@ -23,7 +32,11 @@ const Item = ({ isLoading, ...props }: any) => {
 	let content;
 
 	if (props.hasIcon) {
-		icon = <EmojiCustomIcon spacing="spacious" label="" />;
+		icon = (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<EmojiCustomIcon label="" />
+			</Flex>
+		);
 		content = 'Create';
 	} else if (props.hasAvatar) {
 		icon = (
@@ -39,7 +52,9 @@ const Item = ({ isLoading, ...props }: any) => {
 					height: 24,
 				}}
 			>
-				<UserAvatarCircleIcon spacing="spacious" color={token('color.text.subtlest')} label="" />
+				<Flex xcss={iconSpacingStyles.space050}>
+					<UserAvatarCircleIcon color={token('color.text.subtlest')} label="" />
+				</Flex>
 			</span>
 		);
 		content = 'John Smith';

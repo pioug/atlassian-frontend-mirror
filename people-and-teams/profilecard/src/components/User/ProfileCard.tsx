@@ -10,7 +10,6 @@ import {
 	type AnalyticsEventAttributes,
 	useAnalyticsEvents,
 } from '@atlaskit/teams-app-internal-analytics';
-import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import messages from '../../messages';
@@ -177,7 +176,7 @@ export const ProfilecardInternal = (
 					<Avatar
 						size="xlarge"
 						src={status !== 'closed' ? props.avatarUrl : undefined}
-						borderColor={token('elevation.shadow.overlay', N0)}
+						borderColor={token('elevation.shadow.overlay')}
 					/>
 				</ProfileImage>
 				<CardContent>

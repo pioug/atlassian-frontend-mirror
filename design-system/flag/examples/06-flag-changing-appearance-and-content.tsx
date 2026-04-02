@@ -11,10 +11,17 @@ import { AppearanceArray, type AppearanceTypes } from '@atlaskit/flag/types';
 import Error from '@atlaskit/icon/core/status-error';
 import Tick from '@atlaskit/icon/core/status-success';
 import Warning from '@atlaskit/icon/core/status-warning';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 type Appearances<Keys extends AppearanceTypes> = {
 	[K in Keys]: { description?: string; title: string; actions?: any[] };
@@ -60,15 +67,31 @@ const appearanceOptions = appearanceTypes.map((appearance) => {
 
 const iconMap = (key: string) => {
 	const icons: { [key: string]: ReactElement } = {
-		normal: <Tick spacing="spacious" label="Success" color={token('color.icon.success')} />,
+		normal: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Tick label="Success" color={token('color.icon.success')} />
+			</Flex>
+		),
 		info: (
 			<Box xcss={styles.infoWrapper}>
 				<Spinner size="small" appearance="invert" />
 			</Box>
 		),
-		success: <Tick spacing="spacious" label="Success" />,
-		warning: <Warning spacing="spacious" label="Warning" />,
-		error: <Error spacing="spacious" label="Error" />,
+		success: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Tick label="Success" />
+			</Flex>
+		),
+		warning: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Warning label="Warning" />
+			</Flex>
+		),
+		error: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Error label="Error" />
+			</Flex>
+		),
 	};
 
 	return key ? icons[key] : icons;

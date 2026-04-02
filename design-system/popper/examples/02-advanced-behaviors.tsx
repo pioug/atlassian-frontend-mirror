@@ -28,10 +28,10 @@ const Popup = styled.div({
 	borderRadius: token('radius.small', '3px'),
 	maxWidth: '110px',
 	minHeight: `${POPUP_HEIGHT - 20}px`,
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.100', '8px'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 	textOverflow: 'ellipsis',
 	transition: 'opacity 200ms ease-in-out',
 	boxShadow: token('elevation.shadow.overlay'),
@@ -40,10 +40,10 @@ const Popup = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReferenceBox = styled.div({
 	backgroundColor: token('color.background.brand.bold'),
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.100', '8px'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
 	color: 'white',
@@ -58,10 +58,10 @@ const ReferenceBoundaries = styled.div({
 	background: 'lightblue',
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.100', '8px'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
@@ -160,10 +160,10 @@ const contentStyles = css({
 });
 
 const headingWrapperStyles = css({
-	paddingBlockEnd: token('space.250', '20px'),
-	paddingBlockStart: token('space.250', '20px'),
-	paddingInlineEnd: token('space.250', '20px'),
-	paddingInlineStart: token('space.250', '20px'),
+	paddingBlockEnd: token('space.250'),
+	paddingBlockStart: token('space.250'),
+	paddingInlineEnd: token('space.250'),
+	paddingInlineStart: token('space.250'),
 });
 
 const contentWrapperStyles = css({
@@ -173,7 +173,7 @@ const contentWrapperStyles = css({
 	borderStyle: 'solid',
 	borderWidth: token('border.width'),
 	boxShadow: 'inset 0px 0px 0px 10px lightgrey',
-	marginBlockStart: token('space.250', '20px'),
+	marginBlockStart: token('space.250'),
 	overflow: 'auto',
 });
 

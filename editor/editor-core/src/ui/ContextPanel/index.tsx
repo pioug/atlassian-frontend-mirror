@@ -23,6 +23,7 @@ import {
 	akEditorSwoopCubicBezier,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 export type Props = {
@@ -102,6 +103,11 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 	private unsetPluginContent() {
 		this.setState({ currentPluginContent: undefined });
 	}
+
+	private handleTransitionExited = () => {
+		this.unsetPluginContent();
+	};
+
 	focusEditor = () => {
 		const { editorAPI } = this.props;
 		editorAPI?.core?.actions.focus({ scrollIntoView: false });
@@ -124,14 +130,17 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 
 		const animSpeedMs = fg('platform_editor_disable_context_panel_animation') ? 0 : ANIM_SPEED_MS;
 
+		const onExited = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+			? this.handleTransitionExited
+			: () => this.unsetPluginContent();
+
 		return (
 			<Transition
 				timeout={this.state.mounted ? animSpeedMs : 0}
 				in={!!pluginContent}
 				mountOnEnter
 				unmountOnExit
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				onExited={() => this.unsetPluginContent()}
+				onExited={onExited}
 			>
 				{currentPluginContent}
 			</Transition>

@@ -1,5 +1,19 @@
 # @atlaskit/datetime-picker
 
+## 17.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.6.0
+
+### Minor Changes
+
+- [`ba0a6c6dbab67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba0a6c6dbab67) -
+  This makes a new change to datetime picker's value calculation behind a feature flag. If
+  successful, this wil be rolled out in future releases.
+
 ## 17.5.7
 
 ### Patch Changes

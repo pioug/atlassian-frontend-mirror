@@ -26,10 +26,10 @@ const relativeDivStyles = css({
 	position: 'relative',
 	backgroundColor: 'PaleVioletRed',
 	borderRadius: token('radius.small', '3px'),
-	insetBlockStart: token('space.500', '40px'),
-	insetInlineStart: token('space.500', '40px'),
-	marginBlockStart: token('space.100', '8px'),
-	marginInlineStart: token('space.100', '8px'),
+	insetBlockStart: token('space.500'),
+	insetInlineStart: token('space.500'),
+	marginBlockStart: token('space.100'),
+	marginInlineStart: token('space.100'),
 	transform: 'translate(10px, 10px)',
 });
 

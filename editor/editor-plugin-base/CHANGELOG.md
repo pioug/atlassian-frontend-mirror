@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-base
 
+## 9.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.20
+
+### Patch Changes
+
+- [`4babe84074774`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4babe84074774) -
+  Updates lookup and identiier for gutter to use a data attribute
+- Updated dependencies
+
 ## 9.0.19
 
 ### Patch Changes

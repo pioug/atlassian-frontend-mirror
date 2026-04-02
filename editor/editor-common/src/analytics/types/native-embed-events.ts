@@ -1,5 +1,5 @@
-import type { ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
-import type { InsertAEP } from './utils';
+import type { ACTION, ACTION_SUBJECT, INPUT_METHOD } from './enums';
+import type { TrackAEP } from './utils';
 
 export type InputMethodInsertNativeEmbed =
 	| INPUT_METHOD.CLIPBOARD
@@ -9,8 +9,10 @@ export type InputMethodInsertNativeEmbed =
 	| INPUT_METHOD.FORMATTING
 	| INPUT_METHOD.FLOATING_TB;
 
-export type InsertNativeEmbedAEP = InsertAEP<
-	ACTION_SUBJECT_ID.NATIVE_EMBED,
+export type InsertNativeEmbedAEP = TrackAEP<
+	ACTION.INSERTED,
+	ACTION_SUBJECT.NATIVE_EMBED,
+	undefined,
 	{
 		inputMethod: InputMethodInsertNativeEmbed;
 		insertedCount: number;

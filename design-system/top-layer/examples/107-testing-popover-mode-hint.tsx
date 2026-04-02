@@ -7,7 +7,7 @@ import { Popup } from '@atlaskit/top-layer/popup';
  * In browsers that do not support popover="hint" (e.g. Safari), the component
  * falls back to popover="auto". The test asserts that fallback in webkit.
  */
-export default function TestingPopupModeHint() {
+export default function TestingPopupModeHint(): React.JSX.Element {
 	return (
 		<Popup placement={{ edge: 'end' }} onClose={() => {}} mode="hint">
 			<Popup.Trigger>

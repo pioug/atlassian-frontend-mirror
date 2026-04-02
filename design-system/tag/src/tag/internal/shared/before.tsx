@@ -18,7 +18,7 @@ const beforeElementStyles = css({
 	height: '1rem',
 	alignItems: 'center',
 	justifyContent: 'center',
-	insetBlockStart: token('space.0', '0px'),
+	insetBlockStart: token('space.0'),
 });
 
 const Before: ({ elemBefore }: BeforeProps) => JSX.Element | null = ({

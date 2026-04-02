@@ -26,10 +26,10 @@ const InlineDialog = styled<TooltipPrimitiveProps>(TooltipPrimitive)({
 	color: token('color.text'),
 	maxHeight: '300px',
 	maxWidth: '300px',
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.150', '12px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.150', '12px'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.150'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.150'),
 });
 
 export default function RenderPropsExample(): React.JSX.Element {
@@ -60,7 +60,7 @@ export default function RenderPropsExample(): React.JSX.Element {
 			<p>Position</p>
 			<div
 				style={{
-					padding: `${token('space.500', '40px')} ${token('space.500', '40px')}`,
+					padding: `${token('space.500')} ${token('space.500')}`,
 				}}
 			>
 				<Tooltip content={positionText} position={positionText}>
@@ -75,7 +75,7 @@ export default function RenderPropsExample(): React.JSX.Element {
 			<p>Position without render props</p>
 			<div
 				style={{
-					padding: `${token('space.500', '40px')} ${token('space.500', '40px')}`,
+					padding: `${token('space.500')} ${token('space.500')}`,
 				}}
 			>
 				<Tooltip content={positionText} position={positionText}>

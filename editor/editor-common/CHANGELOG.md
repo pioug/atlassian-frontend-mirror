@@ -1,5 +1,51 @@
 # @atlaskit/editor-common
 
+## 112.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.16.0
+
+### Minor Changes
+
+- [`5421779d09855`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5421779d09855) -
+  [ux] Fix error state shown in the locations dropdown on a reference sync block when no references
+  are registered yet. When the block hasn't been saved, the dropdown now shows the source page and
+  the current page instead of an error. An 'Untitled' placeholder is shown when a page has no title.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.15.1
+
+### Patch Changes
+
+- [`3f10d190b50a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f10d190b50a6) -
+  Clean up platform_editor_a11y_add_role_to_popup
+- Updated dependencies
+
+## 112.15.0
+
+### Minor Changes
+
+- [`1c4534dc921e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c4534dc921e6) -
+  Preserve small text formatting when converting selections to task lists across block menu, block
+  type, and paste flows
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.14.0
+
+### Minor Changes
+
+- [`58bf406b50581`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58bf406b50581) -
+  Remove SmartLinkDraggableChangeboardPopover - changeboarding now handled via Post Office
+
 ## 112.13.9
 
 ### Patch Changes

@@ -1214,12 +1214,10 @@ export function addNewInteraction(
 
 	const config = getConfig();
 
-	const searchPageConfig = fg('rovo_search_page_ttvc_ignoring_smart_answers_fix')
-		? {
-				enableSmartAnswersMutations: config?.extraSearchPageInteraction?.enabled,
-				searchPageRoute: config?.extraSearchPageInteraction?.searchPageRoute,
-			}
-		: undefined;
+	const searchPageConfig = {
+		enableSmartAnswersMutations: config?.extraSearchPageInteraction?.enabled,
+		searchPageRoute: config?.extraSearchPageInteraction?.searchPageRoute,
+	};
 
 	if (config && config.vc) {
 		const vcOptions = {

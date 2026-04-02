@@ -34,7 +34,7 @@ describe('extractJsonldDataIcon', () => {
 				['schema:SpreadsheetDigitalDocument', IconType.Spreadsheet, 'spreadsheet'],
 				['atlassian:Template', IconType.Template, 'template'],
 				['atlassian:UndefinedLink', IconType.Document, 'document'],
-				['atlassian:Task', IconType.Task, 'Task'],
+				['atlassian:Task', IconType.Task, 'task'],
 				['atlassian:Project', IconType.Project, 'project'],
 				['atlassian:SourceCodeCommit', IconType.Commit, 'commit'],
 				['atlassian:SourceCodePullRequest', IconType.PullRequest, 'pull request'],

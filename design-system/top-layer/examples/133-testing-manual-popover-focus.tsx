@@ -47,7 +47,7 @@ const styles = cssMap({
  * 5. Manual, hide via hidePopover() → does focus restore?
  * 6. Auto, hide via Escape → does focus restore?
  */
-export default function TestingManualPopoverFocus() {
+export default function TestingManualPopoverFocus(): JSX.Element {
 	return (
 		<div css={styles.wrapper}>
 			<ManualNoAutofocus />

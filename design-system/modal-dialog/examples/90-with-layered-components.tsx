@@ -21,11 +21,18 @@ import ModalDialog, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import Select, { PopupSelect } from '@atlaskit/select';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const Break = () => <br />;
 
@@ -295,7 +302,11 @@ const FlagGroupExample = () => {
 const generateFlagData = (flags: FlagData[]): FlagData => ({
 	created: Date.now(),
 	description: 'Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod.',
-	icon: <Info spacing="spacious" label="Info icon" color={token('color.icon.discovery')} />,
+	icon: (
+		<Flex xcss={iconSpacingStyles.space050}>
+			<Info label="Info icon" color={token('color.icon.discovery')} />
+		</Flex>
+	),
 	id: flags.length,
 	key: flags.length,
 	title: `${flags.length + 1}: Whoa a new flag!`,

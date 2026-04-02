@@ -26,7 +26,7 @@ const styles = cssMap({
  * The open-count indicator tracks how many times the trigger has been clicked.
  * After rapid toggling, there should be at most one visible popover (or zero).
  */
-export default function TestingPopoverRapidToggle() {
+export default function TestingPopoverRapidToggle(): JSX.Element {
 	const [clickCount, setClickCount] = useState(0);
 
 	return (

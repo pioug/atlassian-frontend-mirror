@@ -13,9 +13,9 @@ import { token } from '@atlaskit/tokens';
 const actionStyles = css({
 	maxWidth: '100%',
 	flex: '0 0 auto',
-	marginBlockEnd: token('space.100', '8px'),
+	marginBlockEnd: token('space.100'),
 	marginInlineStart: 'auto',
-	paddingInlineStart: token('space.400', '32px'),
+	paddingInlineStart: token('space.400'),
 	whiteSpace: 'nowrap',
 });
 

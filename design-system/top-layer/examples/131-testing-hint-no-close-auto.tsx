@@ -34,7 +34,7 @@ const styles = cssMap({
  * Layout: An auto popup with a hint trigger inside it.
  * The hint opens on hover without closing the auto popup.
  */
-export default function TestingHintNoCloseAuto() {
+export default function TestingHintNoCloseAuto(): JSX.Element {
 	return (
 		<div css={styles.wrapper}>
 			{/* Auto popup */}

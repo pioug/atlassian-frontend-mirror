@@ -32,25 +32,25 @@ const commonStyles: any = cssMap({
 
 const colorBorderMap = cssMap({
 	default: {
-		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
+		border: `${token('border.width')} solid ${token('color.border.bold')}`,
 	},
 	help: {
-		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
+		border: `${token('border.width')} solid ${token('color.border.bold')}`,
 	},
 	inverted: {
-		border: `${token('border.width', '1px')} solid ${token('color.border.inverse')}`,
+		border: `${token('border.width')} solid ${token('color.border.inverse')}`,
 	},
 	primary: {
-		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
+		border: `${token('border.width')} solid ${token('color.border.bold')}`,
 	},
 });
 
 const buttonStyle = cssMap({
 	root: {
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
+		paddingBlockStart: token('space.0'),
+		paddingInlineEnd: token('space.0'),
+		paddingBlockEnd: token('space.0'),
+		paddingInlineStart: token('space.0'),
 		cursor: 'pointer',
 		outline: 0,
 	},

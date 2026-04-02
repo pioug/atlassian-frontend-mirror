@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-table
 
+## 18.1.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.20
+
+### Patch Changes
+
+- [`91f722df43475`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91f722df43475) -
+  [ux] [EDITOR-5815] the fix adds a check for column width changes so that we update the table on
+  click of 'distribute columns' button. this is gated behind the
+  `platform_editor_lovability_distribute_column_fix` experiment.
+- Updated dependencies
+
 ## 18.1.19
 
 ### Patch Changes

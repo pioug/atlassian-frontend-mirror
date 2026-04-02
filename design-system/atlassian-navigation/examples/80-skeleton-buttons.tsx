@@ -47,7 +47,7 @@ const drawerLabelText = {
 const { settings } = drawerLabelText;
 
 const paragraphStyles = css({
-	padding: `${token('space.100', '8px')} ${token('space.200', '16px')}`,
+	padding: `${token('space.100')} ${token('space.200')}`,
 });
 
 const SettingsDrawer = () => {

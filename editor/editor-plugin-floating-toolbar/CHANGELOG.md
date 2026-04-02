@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 10.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.22
+
+### Patch Changes
+
+- [`3f10d190b50a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f10d190b50a6) -
+  Clean up platform_editor_a11y_add_role_to_popup
+- Updated dependencies
+
 ## 10.0.21
 
 ### Patch Changes

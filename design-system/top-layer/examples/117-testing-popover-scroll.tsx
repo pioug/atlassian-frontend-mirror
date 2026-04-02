@@ -33,7 +33,7 @@ const styles = cssMap({
  * The popup is inside a scrollable container.
  * Scrolling should NOT close the popover.
  */
-export default function TestingPopoverScroll() {
+export default function TestingPopoverScroll(): JSX.Element {
 	return (
 		<div data-testid="scroll-container" css={styles.scrollContainer}>
 			<div css={styles.spacerSmall} />

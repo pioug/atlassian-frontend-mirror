@@ -13,7 +13,6 @@ import {
 	hasProductPermission,
 	useProductPermissions,
 } from '@atlaskit/teams-app-internal-product-permissions';
-import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes, type TeamContainer } from '../../common/types';
@@ -35,8 +34,8 @@ import { NoProductAccessState } from './no-product-access-empty-state';
 import { TeamLinkCard } from './team-link-card';
 import { type TeamContainerProps } from './types';
 
-export const ICON_BACKGROUND = token('color.icon.inverse', N0);
-export const ICON_COLOR = token('color.icon.subtle', N90);
+export const ICON_BACKGROUND = token('color.icon.inverse');
+export const ICON_COLOR = token('color.icon.subtle');
 export const MAX_NUMBER_OF_CONTAINERS_TO_SHOW = 4;
 
 interface SelectedContainerDetails {

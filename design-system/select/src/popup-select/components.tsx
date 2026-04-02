@@ -68,7 +68,7 @@ export const MenuDialog: React.ForwardRefExoticComponent<
 
 const dropdownStyles = css({
 	width: 32,
-	marginInlineEnd: token('space.025', '2px'),
+	marginInlineEnd: token('space.025'),
 	textAlign: 'center',
 });
 
@@ -79,10 +79,10 @@ const DropdownIndicator = (): JSX.Element => (
 );
 
 const controlStyles = css({
-	paddingBlockEnd: token('space.050', '4px'),
-	paddingBlockStart: token('space.100', '8px'),
-	paddingInlineEnd: token('space.100', '8px'),
-	paddingInlineStart: token('space.100', '8px'),
+	paddingBlockEnd: token('space.050'),
+	paddingBlockStart: token('space.100'),
+	paddingInlineEnd: token('space.100'),
+	paddingInlineStart: token('space.100'),
 });
 
 const Control = <Option, IsMulti extends boolean>({

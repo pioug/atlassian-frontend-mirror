@@ -18,7 +18,7 @@ export const Wrap = ({ children }: { children: React.ReactNode }): React.JSX.Ele
 
 const styles = cssMap({
 	wrap: {
-		marginBottom: token('space.250', '20px'),
+		marginBottom: token('space.250'),
 	},
 });
 

@@ -26,8 +26,8 @@ const containerStyles = css({
 	justifyContent: 'space-between',
 	flexShrink: 0,
 	borderBlockEnd: `${token('border.width')} solid ${token('color.border')}`,
-	paddingInlineEnd: token('space.150', '12px'),
-	paddingInlineStart: token('space.150', '12px'),
+	paddingInlineEnd: token('space.150'),
+	paddingInlineStart: token('space.150'),
 });
 
 const leftStyles = css({
@@ -49,7 +49,7 @@ const rightStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
 		flexShrink: 0,
-		marginInlineEnd: token('space.050', '4px'),
+		marginInlineEnd: token('space.050'),
 	},
 });
 

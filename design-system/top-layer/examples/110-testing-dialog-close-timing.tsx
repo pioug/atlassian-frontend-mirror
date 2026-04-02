@@ -6,7 +6,7 @@ import { Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
  * Test fixture: onClose runs synchronously; close is delayed 200ms so we can assert
  * close-reason is set while dialog is still visible (onClose before unmount/close).
  */
-export default function TestingDialogCloseTiming() {
+export default function TestingDialogCloseTiming(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [lastReason, setLastReason] = useState<TDialogCloseReason | null>(null);
 

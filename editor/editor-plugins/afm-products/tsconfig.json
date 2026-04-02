@@ -36,6 +36,9 @@
 			"path": "../../editor-plugin-annotation/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-autocomplete/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-avatar-group/afm-products/tsconfig.json"
 		},
 		{

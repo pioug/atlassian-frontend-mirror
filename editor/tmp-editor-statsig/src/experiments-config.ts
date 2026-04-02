@@ -623,6 +623,20 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-02
+	platform_editor_ai_aifc_listitem_indentation_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-31
+	platform_editor_lovability_distribute_column_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-10-13
 	platform_editor_media_error_analytics: {
 		defaultValue: boolean;
@@ -632,6 +646,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-11-12
 	platform_editor_media_vc_fixes: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-24
+	platform_editor_media_vc_fixes_patch1: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -996,13 +1017,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-15
-	platform_editor_fix_advanced_codeblocks_crlf: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-01-12
 	platform_editor_table_sticky_header_patch_11: {
 		defaultValue: boolean;
@@ -1068,13 +1082,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-16
 	platform_editor_ignore_metadata_connection_errors: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-01-26
-	platform_editor_ai_fix_streaming_json_escape: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1192,6 +1199,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-26
 	platform_editor_fix_comment_border: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-26
+	platform_editor_perf_lint_cleanup: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1489,6 +1503,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_rovo_inline_chat_aria_label: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-11
 	platform_editor_are_nodes_equal_ignore_mark_order: {
 		defaultValue: boolean;
@@ -1567,6 +1587,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-25
 	platform_editor_improve_preset_builder_logging: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-27
+	platform_editor_preserve_node_identity: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1750,6 +1777,15 @@ export const editorExperimentsConfig: {
 	platform_editor_media_vc_fixes: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_media_vc_fixes',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
+	// Added 2026-03-24
+	platform_editor_media_vc_fixes_patch1: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_media_vc_fixes_patch1',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2305,6 +2341,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-26
+	platform_editor_perf_lint_cleanup: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_perf_lint_cleanup',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-30
 	platform_editor_blocktaskitem_node_tenantid: createBooleanExperiment({
 		productKeys: {
@@ -2726,14 +2770,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-01-15
-	platform_editor_fix_advanced_codeblocks_crlf: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_advanced_codeblocks_crlf',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-01-08
 	platform_editor_focus_on_chromeless_editor: createBooleanExperiment({
 		productKeys: {
@@ -2804,14 +2840,6 @@ export const editorExperimentsConfig: {
 	platform_editor_ignore_metadata_connection_errors: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_collab_provider_suppress_metadata_errors',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-01-26
-	platform_editor_ai_fix_streaming_json_escape: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_fix_streaming_json_escape',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3278,6 +3306,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-01
+	platform_editor_rovo_inline_chat_aria_label: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_rovo_inline_chat_aria_label',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-11
 	platform_editor_are_nodes_equal_ignore_mark_order: createBooleanExperiment({
 		productKeys: {
@@ -3379,6 +3415,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-27
+	platform_editor_preserve_node_identity: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_preserve_node_identity',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-23
 	confluence_toc_nav_a11y: createBooleanExperiment({
 		productKeys: {
@@ -3407,6 +3451,22 @@ export const editorExperimentsConfig: {
 	platform_editor_dnd_accessibility_fixes_expand: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_dnd_accessibility_fixes_expand',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-31
+	platform_editor_lovability_distribute_column_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_lovability_distribute_column_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-02
+	platform_editor_ai_aifc_listitem_indentation_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_aifc_listitem_indentation_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

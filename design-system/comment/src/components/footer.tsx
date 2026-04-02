@@ -1,8 +1,17 @@
 import React, { type FC, type ReactNode } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
+import { Flex } from '@atlaskit/primitives/compiled';
 import Inline from '@atlaskit/primitives/inline';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 interface FooterProps {
 	actions?: Array<ReactNode>;
@@ -37,11 +46,12 @@ const Footer: FC<FooterProps> = ({
 	return (
 		<Inline alignBlock="center" shouldWrap testId={testId} space="space.100" separator="·">
 			{isError && (
-				<WarningIcon
-					spacing="spacious"
-					color={token('color.icon.warning')}
-					label={errorIconLabel ? errorIconLabel : ''}
-				/>
+				<Flex xcss={iconSpacingStyles.space050}>
+					<WarningIcon
+						color={token('color.icon.warning')}
+						label={errorIconLabel ? errorIconLabel : ''}
+					/>
+				</Flex>
 			)}
 			{items.map((item, key) => Object.assign({}, item, { key }))}
 		</Inline>

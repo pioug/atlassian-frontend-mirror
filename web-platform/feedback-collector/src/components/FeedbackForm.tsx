@@ -11,7 +11,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
-import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../messages';
@@ -222,9 +221,9 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 		<p
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				color: token('color.text.subtle', N300),
+				color: token('color.text.subtle'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				marginBottom: token('space.300', '24px'),
+				marginBottom: token('space.300'),
 			}}
 		>
 			{formatMessage(messages.requiredFieldsSummary)}

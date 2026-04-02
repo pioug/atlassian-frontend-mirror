@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { Popup } from '@atlaskit/top-layer/popup';
 
-export default function TestingClickOutsidePassthrough() {
+export default function TestingClickOutsidePassthrough(): React.JSX.Element {
 	const [closeCount, setCloseCount] = useState(0);
 	const [outsideClickCount, setOutsideClickCount] = useState(0);
 

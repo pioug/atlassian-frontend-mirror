@@ -1,10 +1,18 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import Link from '@atlaskit/link';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 export default (): React.JSX.Element => (
 	<>
@@ -18,7 +26,9 @@ export default (): React.JSX.Element => (
 					</Text>
 				}
 				icon={
-					<SuccessIcon spacing="spacious" color={token('color.icon.success')} label="Success" />
+					<Flex xcss={iconSpacingStyles.space050}>
+						<SuccessIcon color={token('color.icon.success')} label="Success" />
+					</Flex>
 				}
 				id="1"
 				key="1"

@@ -26,7 +26,7 @@ const styles = cssMap({
  * Trigger is centered in the viewport so there is space in all directions.
  * Query `?axis=inline&edge=start` to change the placement at runtime.
  */
-export default function TestingPopoverPositioning() {
+export default function TestingPopoverPositioning(): JSX.Element {
 	const params = new URLSearchParams(window.location.search);
 	const axis = (params.get('axis') ?? 'block') as 'block' | 'inline';
 	const edge = (params.get('edge') ?? 'end') as 'start' | 'end';

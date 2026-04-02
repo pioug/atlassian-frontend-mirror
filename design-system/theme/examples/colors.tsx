@@ -61,12 +61,12 @@ const colorPillStyles = css({
 	borderRadius: token('radius.small', '3px'),
 	fontSize: '12px',
 	fontWeight: token('font.weight.semibold'),
-	marginBlockEnd: token('space.050', '4px'),
-	marginInlineEnd: token('space.050', '4px'),
-	paddingBlockEnd: token('space.100', '8px'),
-	paddingBlockStart: token('space.100', '8px'),
-	paddingInlineEnd: token('space.100', '8px'),
-	paddingInlineStart: token('space.100', '8px'),
+	marginBlockEnd: token('space.050'),
+	marginInlineEnd: token('space.050'),
+	paddingBlockEnd: token('space.100'),
+	paddingBlockStart: token('space.100'),
+	paddingInlineEnd: token('space.100'),
+	paddingInlineStart: token('space.100'),
 });
 
 export const ColorPill = ({
@@ -97,8 +97,8 @@ const separateWords = (str: string) => {
 };
 
 const headingStyles = css({
-	marginBlockEnd: token('space.050', '4px'),
-	marginBlockStart: token('space.200', '16px'),
+	marginBlockEnd: token('space.050'),
+	marginBlockStart: token('space.200'),
 });
 
 const firstHeadingStyles = css({

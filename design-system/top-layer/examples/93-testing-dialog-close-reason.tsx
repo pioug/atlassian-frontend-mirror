@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 
-export default function TestingDialogCloseReason() {
+export default function TestingDialogCloseReason(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [lastReason, setLastReason] = useState<TDialogCloseReason | null>(null);
 

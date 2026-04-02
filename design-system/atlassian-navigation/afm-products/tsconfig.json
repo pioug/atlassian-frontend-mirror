@@ -30,6 +30,9 @@
 			"path": "../../button/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../css/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-products/tsconfig.json"
 		},
 		{

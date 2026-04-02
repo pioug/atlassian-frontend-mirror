@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 6.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.19.0
 
 ### Minor Changes

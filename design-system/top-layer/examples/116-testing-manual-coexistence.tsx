@@ -31,7 +31,7 @@ const styles = cssMap({
  * Layout is vertical with large spacing to prevent popovers
  * from overlapping each other's triggers.
  */
-export default function TestingManualCoexistence() {
+export default function TestingManualCoexistence(): JSX.Element {
 	const [openA, setOpenA] = useState(false);
 	const [openB, setOpenB] = useState(false);
 	const refA = useRef<HTMLDivElement>(null);

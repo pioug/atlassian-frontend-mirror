@@ -10,7 +10,7 @@ import { Dialog } from '@atlaskit/top-layer/dialog';
  * Contains three focusable elements inside the dialog and one outside.
  * Tab should cycle through dialog elements only; background should be inert.
  */
-export default function TestingDialogTabTrap() {
+export default function TestingDialogTabTrap(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleClose = useCallback(() => {

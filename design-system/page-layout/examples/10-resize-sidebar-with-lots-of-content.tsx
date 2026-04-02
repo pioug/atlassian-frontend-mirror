@@ -66,10 +66,10 @@ const initialState = {
 
 const elementStyles = css({
 	display: 'inline-block',
-	minWidth: token('space.1000', '0'),
-	minHeight: token('space.1000', '0'),
-	margin: token('space.025', '0'),
-	padding: token('space.100', '0'),
+	minWidth: token('space.1000'),
+	minHeight: token('space.1000'),
+	margin: token('space.025'),
+	padding: token('space.100'),
 	backgroundColor: 'var(--local-color)',
 	font: token('font.heading.small'),
 });

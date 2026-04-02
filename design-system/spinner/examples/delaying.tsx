@@ -26,14 +26,14 @@ const layoutStyles = css({
 	display: 'grid',
 	justifyContent: 'center',
 	gridTemplateColumns: 'repeat(auto-fit, minmax(0, 300px))',
-	marginBlockStart: token('space.400', '32px'),
+	marginBlockStart: token('space.400'),
 });
 
 const controlContainerStyles = css({
 	display: 'flex',
 	maxWidth: 300,
 	margin: '0 auto',
-	gap: token('space.100', '8px'),
+	gap: token('space.100'),
 	flexDirection: 'column',
 });
 

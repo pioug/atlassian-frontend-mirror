@@ -132,6 +132,15 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		}
 	}
 
+	hasPxWidthType(mediaSingleNode: PMNode): boolean {
+		const { width: widthAttr, widthType: widthTypeAttr } = mediaSingleNode.attrs;
+		// for extended mediaSingle nodes with width and widthType attributes ( default behaviour )
+		if (widthAttr && widthTypeAttr === 'pixel') {
+			return true;
+		}
+		return false;
+	}
+
 	hasResizedListener = (): void => {
 		if (!this.hasBeenResized) {
 			this.hasBeenResized = true;
@@ -220,8 +229,8 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 	};
 
 	getMaxCardDimensions = (): {
-		width: string;
 		height: string;
+		width: string;
 	} => {
 		const flexibleDimensions = { width: '100%', height: '100%' };
 
@@ -239,6 +248,16 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 
 			// If media parent not found, return default
 			if (!mediaSingleNodeParent) {
+				return flexibleDimensions;
+			}
+
+			if (expValEquals('platform_editor_media_vc_fixes_patch1', 'isEnabled', true)) {
+				if (this.hasPxWidthType(mediaSingleNodeParent)) {
+					return {
+						width: `${mediaSingleNodeParent.attrs.width}px`,
+						height: '100%',
+					};
+				}
 				return flexibleDimensions;
 			}
 

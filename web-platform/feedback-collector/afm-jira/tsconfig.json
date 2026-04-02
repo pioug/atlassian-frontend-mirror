@@ -57,9 +57,6 @@
 			"path": "../../../design-system/textarea/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/theme/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
 		}
 	]

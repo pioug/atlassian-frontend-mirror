@@ -2,25 +2,26 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import { TimePicker } from '@atlaskit/datetime-picker';
-import Form, { ErrorMessage, Field, FormFooter, ValidMessage } from '@atlaskit/form';
+import Form, { Field, FormFooter } from '@atlaskit/form';
 
 const validateField = (value?: string) => {
 	if (!value) {
-		return 'REQUIRED';
+		return 'This field is required.';
 	}
 };
 
 const TimePickerValidationExample = (): React.JSX.Element => (
 	<Form onSubmit={(formState) => console.log('form submitted', formState)}>
-		<Field name="datetime-picker" label="Scheduled run time" validate={validateField} isRequired>
-			{({ fieldProps, error, meta: { valid } }) => (
-				<>
-					<TimePicker clearControlLabel="Clear scheduled run time" {...fieldProps} />
-					{valid && <ValidMessage>You have entered a valid datetime</ValidMessage>}
-					{error === 'REQUIRED' && <ErrorMessage>This field is required</ErrorMessage>}
-				</>
+		<Field
+			name="datetime-picker"
+			label="Scheduled run time"
+			validate={validateField}
+			isRequired
+			helperMessage="You have entered a valid datetime."
+			component={({ fieldProps }) => (
+				<TimePicker clearControlLabel="Clear scheduled run time" {...fieldProps} />
 			)}
-		</Field>
+		/>
 		<FormFooter>
 			<Button type="submit" appearance="primary">
 				Submit

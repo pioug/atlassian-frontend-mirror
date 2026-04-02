@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "13.0.70",
+	"version": "13.0.76",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -31,6 +31,7 @@
 		"./alignment": "./src/alignment/index.ts",
 		"./analytics": "./src/analytics/index.ts",
 		"./annotation": "./src/annotation/index.ts",
+		"./autocomplete": "./src/autocomplete/index.ts",
 		"./avatar-group": "./src/avatar-group/index.ts",
 		"./base": "./src/base/index.ts",
 		"./batch-attribute-updates": "./src/batch-attribute-updates/index.ts",
@@ -142,6 +143,7 @@
 		"@atlaskit/editor-plugin-alignment": "workspace:*",
 		"@atlaskit/editor-plugin-analytics": "workspace:*",
 		"@atlaskit/editor-plugin-annotation": "workspace:*",
+		"@atlaskit/editor-plugin-autocomplete": "workspace:*",
 		"@atlaskit/editor-plugin-avatar-group": "workspace:*",
 		"@atlaskit/editor-plugin-base": "workspace:*",
 		"@atlaskit/editor-plugin-batch-attribute-updates": "workspace:*",

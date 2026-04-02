@@ -677,130 +677,134 @@ export const MediaSingleNodeNext = (
 		</figure>
 	);
 
-	if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
-		return mediaOptions.allowPixelResizing ? (
-			<ResizableMediaSingleNext
-				view={view}
-				getPos={getPos}
-				updateSize={updateSize}
-				gridSize={12}
-				viewMediaClientConfig={viewMediaClientConfig}
-				allowBreakoutSnapPoints={mediaOptions && mediaOptions.allowBreakoutSnapPoints}
-				selected={isSelected}
-				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-				pluginInjectionApi={pluginInjectionApi}
-				layout={layout}
-				width={width}
-				height={height}
-				containerWidth={containerWidth}
-				lineLength={contentWidth || FALLBACK_MOST_COMMON_WIDTH}
-				fullWidthMode={fullWidthMode}
-				hasFallbackContainer={false}
-				mediaSingleWidth={mediaSingleWidth}
-				editorAppearance={editorAppearance}
-				showLegacyNotification={widthType !== 'pixel'}
-				forceHandlePositioning={mediaOptions?.forceHandlePositioning}
-				disableHandles={!canResize}
-			>
-				{MediaChildren}
-			</ResizableMediaSingleNext>
-		) : (
-			<ResizableMediaSingle
-				view={view}
-				getPos={getPos}
-				updateSize={updateSize}
-				gridSize={12}
-				viewMediaClientConfig={viewMediaClientConfig}
-				allowBreakoutSnapPoints={mediaOptions && mediaOptions.allowBreakoutSnapPoints}
-				selected={isSelected}
-				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-				pluginInjectionApi={pluginInjectionApi}
-				layout={layout}
-				width={width}
-				height={height}
-				containerWidth={containerWidth}
-				fullWidthMode={fullWidthMode}
-				hasFallbackContainer={false}
-				mediaSingleWidth={mediaSingleWidth}
-				editorAppearance={editorAppearance}
-				lineLength={contentWidthForLegacyExperience || FALLBACK_MOST_COMMON_WIDTH}
-				pctWidth={mediaSingleWidthAttribute}
-				disableHandles={!canResize}
-			>
-				{MediaChildren}
-			</ResizableMediaSingle>
+	if (
+		!expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true) ||
+		(widthType !== 'pixel' &&
+			expValEquals('platform_editor_media_vc_fixes_patch1', 'isEnabled', true))
+	) {
+		return (
+			<Fragment>
+				{canResize ? (
+					mediaOptions.allowPixelResizing ? (
+						<ResizableMediaSingleNext
+							view={view}
+							getPos={getPos}
+							updateSize={updateSize}
+							gridSize={12}
+							viewMediaClientConfig={viewMediaClientConfig}
+							allowBreakoutSnapPoints={mediaOptions && mediaOptions.allowBreakoutSnapPoints}
+							selected={isSelected}
+							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+							pluginInjectionApi={pluginInjectionApi}
+							layout={layout}
+							width={width}
+							height={height}
+							containerWidth={containerWidth}
+							lineLength={contentWidth || FALLBACK_MOST_COMMON_WIDTH}
+							fullWidthMode={fullWidthMode}
+							hasFallbackContainer={false}
+							mediaSingleWidth={mediaSingleWidth}
+							editorAppearance={editorAppearance}
+							showLegacyNotification={widthType !== 'pixel'}
+							forceHandlePositioning={mediaOptions?.forceHandlePositioning}
+						>
+							{MediaChildren}
+						</ResizableMediaSingleNext>
+					) : (
+						<ResizableMediaSingle
+							view={view}
+							getPos={getPos}
+							updateSize={updateSize}
+							gridSize={12}
+							viewMediaClientConfig={viewMediaClientConfig}
+							allowBreakoutSnapPoints={mediaOptions && mediaOptions.allowBreakoutSnapPoints}
+							selected={isSelected}
+							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+							pluginInjectionApi={pluginInjectionApi}
+							layout={layout}
+							width={width}
+							height={height}
+							containerWidth={containerWidth}
+							fullWidthMode={fullWidthMode}
+							hasFallbackContainer={false}
+							mediaSingleWidth={mediaSingleWidth}
+							editorAppearance={editorAppearance}
+							lineLength={contentWidthForLegacyExperience || FALLBACK_MOST_COMMON_WIDTH}
+							pctWidth={mediaSingleWidthAttribute}
+						>
+							{MediaChildren}
+						</ResizableMediaSingle>
+					)
+				) : (
+					<MediaSingle
+						layout={layout}
+						width={width}
+						height={height}
+						containerWidth={containerWidth}
+						fullWidthMode={fullWidthMode}
+						hasFallbackContainer={false}
+						editorAppearance={editorAppearance}
+						pctWidth={mediaSingleWidthAttribute}
+						lineLength={lineLength || FALLBACK_MOST_COMMON_WIDTH}
+						size={legacySize}
+					>
+						{MediaChildren}
+					</MediaSingle>
+				)}
+			</Fragment>
 		);
 	}
 
-	return (
-		<Fragment>
-			{canResize ? (
-				mediaOptions.allowPixelResizing ? (
-					<ResizableMediaSingleNext
-						view={view}
-						getPos={getPos}
-						updateSize={updateSize}
-						gridSize={12}
-						viewMediaClientConfig={viewMediaClientConfig}
-						allowBreakoutSnapPoints={mediaOptions && mediaOptions.allowBreakoutSnapPoints}
-						selected={isSelected}
-						dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-						pluginInjectionApi={pluginInjectionApi}
-						layout={layout}
-						width={width}
-						height={height}
-						containerWidth={containerWidth}
-						lineLength={contentWidth || FALLBACK_MOST_COMMON_WIDTH}
-						fullWidthMode={fullWidthMode}
-						hasFallbackContainer={false}
-						mediaSingleWidth={mediaSingleWidth}
-						editorAppearance={editorAppearance}
-						showLegacyNotification={widthType !== 'pixel'}
-						forceHandlePositioning={mediaOptions?.forceHandlePositioning}
-					>
-						{MediaChildren}
-					</ResizableMediaSingleNext>
-				) : (
-					<ResizableMediaSingle
-						view={view}
-						getPos={getPos}
-						updateSize={updateSize}
-						gridSize={12}
-						viewMediaClientConfig={viewMediaClientConfig}
-						allowBreakoutSnapPoints={mediaOptions && mediaOptions.allowBreakoutSnapPoints}
-						selected={isSelected}
-						dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-						pluginInjectionApi={pluginInjectionApi}
-						layout={layout}
-						width={width}
-						height={height}
-						containerWidth={containerWidth}
-						fullWidthMode={fullWidthMode}
-						hasFallbackContainer={false}
-						mediaSingleWidth={mediaSingleWidth}
-						editorAppearance={editorAppearance}
-						lineLength={contentWidthForLegacyExperience || FALLBACK_MOST_COMMON_WIDTH}
-						pctWidth={mediaSingleWidthAttribute}
-					>
-						{MediaChildren}
-					</ResizableMediaSingle>
-				)
-			) : (
-				<MediaSingle
-					layout={layout}
-					width={width}
-					height={height}
-					containerWidth={containerWidth}
-					fullWidthMode={fullWidthMode}
-					hasFallbackContainer={false}
-					editorAppearance={editorAppearance}
-					pctWidth={mediaSingleWidthAttribute}
-					lineLength={lineLength || FALLBACK_MOST_COMMON_WIDTH}
-					size={legacySize}
-				>
-					{MediaChildren}
-				</MediaSingle>
-			)}
-		</Fragment>
+	return mediaOptions.allowPixelResizing ? (
+		<ResizableMediaSingleNext
+			view={view}
+			getPos={getPos}
+			updateSize={updateSize}
+			gridSize={12}
+			viewMediaClientConfig={viewMediaClientConfig}
+			allowBreakoutSnapPoints={mediaOptions && mediaOptions.allowBreakoutSnapPoints}
+			selected={isSelected}
+			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+			pluginInjectionApi={pluginInjectionApi}
+			layout={layout}
+			width={width}
+			height={height}
+			containerWidth={containerWidth}
+			lineLength={contentWidth || FALLBACK_MOST_COMMON_WIDTH}
+			fullWidthMode={fullWidthMode}
+			hasFallbackContainer={false}
+			mediaSingleWidth={mediaSingleWidth}
+			editorAppearance={editorAppearance}
+			showLegacyNotification={widthType !== 'pixel'}
+			forceHandlePositioning={mediaOptions?.forceHandlePositioning}
+			disableHandles={!canResize}
+		>
+			{MediaChildren}
+		</ResizableMediaSingleNext>
+	) : (
+		<ResizableMediaSingle
+			view={view}
+			getPos={getPos}
+			updateSize={updateSize}
+			gridSize={12}
+			viewMediaClientConfig={viewMediaClientConfig}
+			allowBreakoutSnapPoints={mediaOptions && mediaOptions.allowBreakoutSnapPoints}
+			selected={isSelected}
+			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+			pluginInjectionApi={pluginInjectionApi}
+			layout={layout}
+			width={width}
+			height={height}
+			containerWidth={containerWidth}
+			fullWidthMode={fullWidthMode}
+			hasFallbackContainer={false}
+			mediaSingleWidth={mediaSingleWidth}
+			editorAppearance={editorAppearance}
+			lineLength={contentWidthForLegacyExperience || FALLBACK_MOST_COMMON_WIDTH}
+			pctWidth={mediaSingleWidthAttribute}
+			disableHandles={!canResize}
+		>
+			{MediaChildren}
+		</ResizableMediaSingle>
 	);
 };

@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 14.6.21
+
+### Patch Changes
+
+- [`8f1a80e10b1d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f1a80e10b1d7) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 14.6.20
 
 ### Patch Changes

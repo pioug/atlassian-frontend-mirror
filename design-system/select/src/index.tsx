@@ -3,9 +3,9 @@ export {
 	createFilter,
 	mergeStyles,
 	type CSSObjectWithLabel,
-} from '@atlaskit/react-select';
-export { useAsync } from '@atlaskit/react-select/async';
-export { useCreatable } from '@atlaskit/react-select/creatable';
+} from './entry-points/react-select';
+export { useAsync } from './entry-points/use-async';
+export { useCreatable } from './entry-points/use-creatable';
 
 export { CheckboxOption, RadioOption } from './components/input-options';
 

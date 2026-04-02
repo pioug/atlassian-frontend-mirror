@@ -36,7 +36,7 @@ import {
 import type { RunMacroAutoConvert } from '@atlaskit/editor-plugin-extension';
 import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
 import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/types';
-import type { Mark, MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, MarkType, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -1204,29 +1204,31 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 		selection,
 		selection: { $from },
 	} = state;
-	const destinationListNode = findParentNodeOfType([
-		schema.nodes.bulletList,
-		schema.nodes.orderedList,
-	])(selection)?.node;
+	const { bulletList, orderedList, blockTaskItem, taskItem, paragraph, heading } = schema.nodes;
+	const { fontSize } = schema.marks;
+	const destinationListNode = findParentNodeOfType([bulletList, orderedList])(selection)?.node;
 	const currentNode = typeof $from.node === 'function' ? $from.node() : undefined;
-	const isInNormalTaskContext =
-		currentNode?.type === schema.nodes.taskItem || $from.parent.type === schema.nodes.taskItem;
+	const isInNormalTaskContext = currentNode?.type === taskItem || $from.parent.type === taskItem;
+
 	const isInSmallTaskContext =
-		(schema.nodes.blockTaskItem && currentNode?.type === schema.nodes.blockTaskItem) ||
-		(schema.nodes.blockTaskItem && $from.parent.type === schema.nodes.blockTaskItem) ||
-		(schema.nodes.blockTaskItem &&
-			$from.parent.type === schema.nodes.paragraph &&
-			$from.depth > 0 &&
-			$from.node($from.depth - 1).type === schema.nodes.blockTaskItem);
-	const destinationBlockMarkAttrs =
-		expValEquals('platform_editor_small_font_size', 'isEnabled', true) && schema.marks.fontSize
-			? destinationListNode
-				? getFirstParagraphBlockMarkAttrs(destinationListNode, schema.marks.fontSize)
-				: isInSmallTaskContext
-					? getBlockMarkAttrs($from.parent, schema.marks.fontSize) ||
-						getFirstParagraphBlockMarkAttrs(currentNode, schema.marks.fontSize)
-					: false
-			: false;
+		!!blockTaskItem &&
+		(currentNode?.type === blockTaskItem ||
+			$from.parent.type === blockTaskItem ||
+			($from.parent.type === paragraph &&
+				$from.depth > 0 &&
+				$from.node($from.depth - 1).type === blockTaskItem));
+
+	const isSmallFontSizeEnabled =
+		expValEquals('platform_editor_small_font_size', 'isEnabled', true) && !!fontSize;
+
+	const destinationBlockMarkAttrs = isSmallFontSizeEnabled
+		? destinationListNode
+			? getFirstParagraphBlockMarkAttrs(destinationListNode, fontSize)
+			: isInSmallTaskContext
+				? getBlockMarkAttrs($from.parent, fontSize) ||
+					getFirstParagraphBlockMarkAttrs(currentNode, fontSize)
+				: false
+		: false;
 
 	// If no paragraph in the slice contains marks, there's no need for special handling
 	// unless we're pasting into a small-text list and need to add the destination block mark.
@@ -1236,9 +1238,8 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 	}
 
 	const shouldNormalizeFontSizeForTarget =
-		expValEquals('platform_editor_small_font_size', 'isEnabled', true) &&
-		!!schema.marks.fontSize &&
-		(!!destinationListNode || isInNormalTaskContext || !!isInSmallTaskContext);
+		isSmallFontSizeEnabled &&
+		(!!destinationListNode || isInNormalTaskContext || isInSmallTaskContext);
 
 	// If pasting a single paragraph into pre-existing content, match destination formatting.
 	// For bullet/ordered lists under small-text, we still need to normalize the paragraph block mark
@@ -1263,24 +1264,24 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 		}
 	}
 
-	const fontSizeMarkType = shouldNormalizeFontSizeForTarget ? schema.marks.fontSize : undefined;
 	const normalizedContent = mapSlice(slice, (node) => {
-		if (node.type === schema.nodes.paragraph) {
+		if (node.type === paragraph) {
 			const paragraphMarks = node.marks.filter((mark) => !forbiddenMarkTypes.includes(mark.type));
-			const normalizedMarks = fontSizeMarkType
-				? paragraphMarks.filter((mark) => mark.type !== fontSizeMarkType)
-				: paragraphMarks;
 
-			return schema.nodes.paragraph.createChecked(
+			return paragraph.createChecked(
 				undefined,
 				node.content,
-				destinationBlockMarkAttrs && fontSizeMarkType
-					? normalizedMarks.concat(fontSizeMarkType.create(destinationBlockMarkAttrs))
-					: normalizedMarks,
+				destinationBlockMarkAttrs
+					? paragraphMarks
+							.filter((mark) => mark.type !== fontSize)
+							.concat(fontSize.create(destinationBlockMarkAttrs))
+					: shouldNormalizeFontSizeForTarget
+						? paragraphMarks.filter((mark) => mark.type !== fontSize)
+						: paragraphMarks,
 			);
-		} else if (node.type === schema.nodes.heading) {
+		} else if (node.type === heading) {
 			// Preserve heading attributes to keep formatting
-			return schema.nodes.heading.createChecked(
+			return heading.createChecked(
 				node.attrs,
 				node.content,
 				node.marks.filter((mark) => !forbiddenMarkTypes.includes(mark.type)),
@@ -1353,24 +1354,44 @@ export function flattenNestedListInSlice(slice: Slice): Slice {
 	return new Slice(contentWithFlattenedList, slice.openEnd, slice.openEnd);
 }
 
+const doesSliceContainBlockquoteListNodes = (slice: Slice, listContainerNodeTypes: NodeType[]) => {
+	const firstChildOfSlice = slice.content.firstChild;
+	const lastChildOfSlice = slice.content.lastChild;
+
+	const isFirstChildBlockquoteListNode =
+		firstChildOfSlice?.type?.name === 'blockquote' &&
+		listContainerNodeTypes.some(
+			(nodeType) => nodeType === firstChildOfSlice?.content.firstChild?.type,
+		);
+
+	const isLastChildBlockquoteListNode =
+		lastChildOfSlice?.type?.name === 'blockquote' &&
+		listContainerNodeTypes.some(
+			(nodeType) => nodeType === lastChildOfSlice?.content.firstChild?.type,
+		);
+
+	return isFirstChildBlockquoteListNode || isLastChildBlockquoteListNode;
+};
+
 export function handleRichText(
 	slice: Slice,
 	queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,
 ): Command {
 	return (state, dispatch) => {
-		const { codeBlock, heading, paragraph, panel } = state.schema.nodes;
+		const { codeBlock, heading, paragraph, panel, bulletList, orderedList } = state.schema.nodes;
+		const { fontSize } = state.schema.marks;
 		const { selection, schema } = state;
 		const firstChildOfSlice = slice.content?.firstChild;
 		const lastChildOfSlice = slice.content?.lastChild;
+		const listContainerNodeTypes = [bulletList, orderedList];
 		const destinationListFontSizeAttrs = expValEquals(
 			'platform_editor_small_font_size',
 			'isEnabled',
 			true,
 		)
 			? getFirstParagraphBlockMarkAttrs(
-					findParentNodeOfType([schema.nodes.bulletList, schema.nodes.orderedList])(selection)
-						?.node,
-					schema.marks.fontSize,
+					findParentNodeOfType(listContainerNodeTypes)(selection)?.node,
+					fontSize,
 				)
 			: false;
 
@@ -1394,6 +1415,11 @@ export function handleRichText(
 		const isFirstChildTaskListNode = firstChildOfSlice?.type?.name === 'taskList';
 		const isLastChildTaskListNode = lastChildOfSlice?.type?.name === 'taskList';
 		const isSliceContentTaskListNodes = isFirstChildTaskListNode || isLastChildTaskListNode;
+
+		const sliceContentBlockquoteListNodes = doesSliceContainBlockquoteListNodes(
+			slice,
+			listContainerNodeTypes,
+		);
 
 		// We want to use safeInsert to insert invalid content, as it inserts at the closest non schema violating position
 		// rather than spliting the selection parent node in half (which is what replaceSelection does)
@@ -1479,19 +1505,20 @@ export function handleRichText(
 		}
 
 		if (
-			expValEquals('platform_editor_small_font_size', 'isEnabled', true) &&
-			isSliceContentListNodes
+			(isSliceContentListNodes || sliceContentBlockquoteListNodes) &&
+			fontSize &&
+			expValEquals('platform_editor_small_font_size', 'isEnabled', true)
 		) {
 			const containingList = findParentNodeOfTypeClosestToPos(
-				tr.doc.resolve(tr.mapping.map(selection.from)),
-				[schema.nodes.bulletList, schema.nodes.orderedList],
+				tr.selection.$from,
+				listContainerNodeTypes,
 			);
 			if (containingList) {
 				reconcileBlockMarkForContainerAtPos(
 					tr,
 					containingList.pos,
-					schema.marks.fontSize,
-					destinationListFontSizeAttrs,
+					fontSize,
+					isSliceContentListNodes ? destinationListFontSizeAttrs : false,
 				);
 			}
 		}
@@ -1582,7 +1609,7 @@ export const handleSelectedTable =
 export function checkTaskListInList(state: EditorState, slice: Slice): boolean {
 	return Boolean(
 		isInListItem(state) &&
-		['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
+			['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
 	);
 }
 

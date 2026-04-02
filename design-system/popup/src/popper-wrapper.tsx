@@ -46,6 +46,9 @@ const wrapperStyles = cssMap({
 	},
 	rootLayer: {
 		zIndex: 400,
+	},
+	fullWidth: {
+		width: '100%',
 	}
 });
 
@@ -76,7 +79,7 @@ const newModalStyles = css({
 const focusRingStyles = cssMap({
 	root: {
 		'&:focus-visible': {
-			outlineColor: token('color.border.focused', '#2684ff'),
+			outlineColor: token('color.border.focused'),
 			// @ts-ignore
 			outlineOffset: token('border.width.focused'),
 			outlineStyle: 'solid',
@@ -321,7 +324,7 @@ function PopperWrapper({
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={style}
-						css={wrapperStyles.rootLayer}
+						css={[wrapperStyles.rootLayer, shouldFitContainer && wrapperStyles.fullWidth]}
 						// using tabIndex={-1} would cause a bug where Safari focuses
 						// first on the browser address bar when using keyboard
 						ref={(node: HTMLDivElement) => {

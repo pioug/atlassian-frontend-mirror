@@ -140,7 +140,7 @@ function TooltipPopup() {
 	);
 }
 
-export default function TestingPopoverInitialFocus() {
+export default function TestingPopoverInitialFocus(): React.JSX.Element {
 	return (
 		<div>
 			<input data-testid="external-input" placeholder="External focusable element" />

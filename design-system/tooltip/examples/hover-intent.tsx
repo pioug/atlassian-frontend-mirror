@@ -16,7 +16,7 @@ export default function HoverIntentExample(): React.JSX.Element {
 				Click a target to toggle the position of the tooltips between {`'bottom'`} and {`'mouse'`}.
 			</p>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ display: 'flex', marginTop: token('space.150', '12px') }}>
+			<div style={{ display: 'flex', marginTop: token('space.150') }}>
 				{colors.map((c, i) => (
 					<Tooltip key={c} content={`Content ${i + 1}`} position={position}>
 						{({ onClick, ...tooltipProps }) => (
@@ -24,7 +24,7 @@ export default function HoverIntentExample(): React.JSX.Element {
 								onClick={() => setPosition(position === 'bottom' ? 'mouse' : 'bottom')}
 								color={c}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								style={{ marginRight: token('space.100', '8px') }}
+								style={{ marginRight: token('space.100') }}
 								tabIndex={0}
 								{...tooltipProps}
 							>

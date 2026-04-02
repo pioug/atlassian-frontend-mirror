@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 8.0.21
+
+### Patch Changes
+
+- [`65e300b324e87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65e300b324e87) -
+  Remove feature flag platform_editor_fix_advanced_codeblocks_crlf - CRLF line separator fix is now
+  always enabled
+- Updated dependencies
+
+## 8.0.20
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.19
 
 ### Patch Changes

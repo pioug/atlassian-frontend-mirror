@@ -32,7 +32,7 @@ const barContent = (
 			<TextField isCompact placeholder="Filter" aria-label="Filter" />
 		</div>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-		<div style={{ flex: '0 0 200px', marginLeft: token('space.100', '8px') }}>
+		<div style={{ flex: '0 0 200px', marginLeft: token('space.100') }}>
 			<Select spacing="compact" placeholder="Choose an option" label="Choose an option" />
 		</div>
 	</div>

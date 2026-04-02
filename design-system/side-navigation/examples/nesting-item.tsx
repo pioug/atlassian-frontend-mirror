@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import {
 	type CustomItemComponentProps,
 	GoBackItem,
@@ -16,6 +16,14 @@ import {
 	NestingItem,
 	Section,
 } from '@atlaskit/side-navigation';
+import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const styles = cssMap({
 	container: {
@@ -60,7 +68,11 @@ const BasicExample: () => JSX.Element = () => {
 						testId="selected"
 						id="1"
 						isSelected
-						iconBefore={<SettingsIcon spacing="spacious" label="" />}
+						iconBefore={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<SettingsIcon label="" />
+							</Flex>
+						}
 						title="Settings"
 					>
 						<Fragment />
@@ -70,8 +82,16 @@ const BasicExample: () => JSX.Element = () => {
 					</NestingItem>
 					<NestingItem
 						id="3"
-						iconBefore={<SettingsIcon spacing="spacious" label="" />}
-						iconAfter={<StarStarredIcon label="" spacing="spacious" />}
+						iconBefore={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<SettingsIcon label="" />
+							</Flex>
+						}
+						iconAfter={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<StarStarredIcon label="" />
+							</Flex>
+						}
 						title="Settings"
 						description="I have a custom after element"
 					>
@@ -79,7 +99,11 @@ const BasicExample: () => JSX.Element = () => {
 					</NestingItem>
 					<NestingItem
 						id="4"
-						iconBefore={<SettingsIcon spacing="spacious" label="" />}
+						iconBefore={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<SettingsIcon label="" />
+							</Flex>
+						}
 						title="Settings"
 						description="I have a custom back button"
 						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
@@ -97,7 +121,11 @@ const BasicExample: () => JSX.Element = () => {
 					</NestingItem>
 					<NestingItem
 						id="5"
-						iconBefore={<SettingsIcon spacing="spacious" label="" />}
+						iconBefore={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<SettingsIcon label="" />
+							</Flex>
+						}
 						title="Settings"
 						description="I'm disabled"
 						isDisabled
@@ -107,7 +135,11 @@ const BasicExample: () => JSX.Element = () => {
 					<NestingItem
 						id="6"
 						href="/custom-link"
-						iconBefore={<SettingsIcon spacing="spacious" label="" />}
+						iconBefore={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<SettingsIcon label="" />
+							</Flex>
+						}
 						title="Settings"
 						css={styles.customItem}
 						description="I have a custom item"

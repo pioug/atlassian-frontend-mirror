@@ -1,5 +1,17 @@
 # @atlaskit/prosemirror-input-rules
 
+## 3.6.47
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.46
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.6.45
 
 ### Patch Changes

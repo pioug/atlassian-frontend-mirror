@@ -14,7 +14,16 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
+
 declare global {
 	interface Window {
 		AJS: any;
@@ -67,14 +76,20 @@ const OpenAuiFromModalExample = (): React.JSX.Element => {
 
 	return (
 		<>
-			<Banner icon={<ErrorIcon spacing="spacious" label="Error" />} testId="basicTestId">
+			<Banner
+				icon={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<ErrorIcon label="Error" />
+					</Flex>
+				}
+				testId="basicTestId"
+			>
 				This example is intended solely for testing purposes. Please refrain from implementing it in
 				any environments, as it may lead to unintended consequences or vulnerabilities.
 			</Banner>
 			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="ak-modal-trigger">
 				Open Modal
 			</Button>
-
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="ak-modal">

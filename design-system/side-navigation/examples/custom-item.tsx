@@ -1,9 +1,18 @@
 import React, { forwardRef, type MouseEvent } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import AddItemIcon from '@atlaskit/icon/core/shortcut';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { CustomItem, type CustomItemComponentProps } from '@atlaskit/side-navigation';
+import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 type CustomProps = CustomItemComponentProps & { href: string };
 
@@ -34,7 +43,11 @@ const Example = (): React.JSX.Element => (
 		<CustomItem
 			href="/create-article-4"
 			component={CustomLink}
-			iconAfter={<StarStarredIcon label="" spacing="spacious" />}
+			iconAfter={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<StarStarredIcon label="" />
+				</Flex>
+			}
 		>
 			Custom create article
 		</CustomItem>
@@ -48,15 +61,27 @@ const Example = (): React.JSX.Element => (
 		<CustomItem
 			href="/create-article-6"
 			component={CustomLink}
-			iconBefore={<AddItemIcon spacing="spacious" label="" />}
+			iconBefore={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<AddItemIcon label="" />
+				</Flex>
+			}
 		>
 			Custom create article
 		</CustomItem>
 		<CustomItem
 			href="/create-article-7"
 			component={CustomLink}
-			iconBefore={<AddItemIcon spacing="spacious" label="" />}
-			iconAfter={<StarStarredIcon label="" spacing="spacious" />}
+			iconBefore={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<AddItemIcon label="" />
+				</Flex>
+			}
+			iconAfter={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<StarStarredIcon label="" />
+				</Flex>
+			}
 		>
 			Custom create article
 		</CustomItem>
@@ -64,7 +89,11 @@ const Example = (): React.JSX.Element => (
 			href="/create-article-8"
 			component={CustomLink}
 			description="Will create an article"
-			iconBefore={<AddItemIcon spacing="spacious" label="" />}
+			iconBefore={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<AddItemIcon label="" />
+				</Flex>
+			}
 		>
 			Custom create article
 		</CustomItem>
@@ -72,8 +101,16 @@ const Example = (): React.JSX.Element => (
 			href="/create-article-9"
 			component={CustomLink}
 			description="Will create an article"
-			iconBefore={<AddItemIcon spacing="spacious" label="" />}
-			iconAfter={<StarStarredIcon label="" spacing="spacious" />}
+			iconBefore={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<AddItemIcon label="" />
+				</Flex>
+			}
+			iconAfter={
+				<Flex xcss={iconSpacingStyles.space050}>
+					<StarStarredIcon label="" />
+				</Flex>
+			}
 		>
 			Custom create article
 		</CustomItem>

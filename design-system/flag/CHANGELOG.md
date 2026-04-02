@@ -1,5 +1,19 @@
 # @atlaskit/flag
 
+## 17.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.9.2
+
+### Patch Changes
+
+- [`08170da1fbf62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08170da1fbf62) -
+  Migrate spacing prop usages on icons to Flex wrapper
+- Updated dependencies
+
 ## 17.9.1
 
 ### Patch Changes

@@ -34,9 +34,9 @@ const webkitStyles = css({
 		borderRadius: token('radius.full', '50%'),
 		boxShadow: 'var(--thumb-shadow)',
 		cursor: 'pointer',
-		marginBlockStart: token('space.negative.075', '-6px'),
+		marginBlockStart: token('space.negative.075'),
 		outline: `solid ${token('border.width.selected')} var(--thumb-border)`,
-		outlineOffset: token('space.025', '2px'),
+		outlineOffset: token('space.025'),
 		transition: 'background-color 0.2s ease-in-out',
 		WebkitAppearance: 'none',
 	},
@@ -79,7 +79,7 @@ const firefoxStyles = css({
 		boxShadow: 'var(--thumb-shadow)',
 		cursor: 'pointer',
 		outline: `solid ${token('border.width.selected')} var(--thumb-border)`,
-		outlineOffset: token('space.025', '2px'),
+		outlineOffset: token('space.025'),
 		transition: 'background-color 0.2s ease-in-out',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
@@ -123,7 +123,7 @@ const baseStyles = css({
 	},
 	'&:disabled': {
 		cursor: 'not-allowed',
-		opacity: token('opacity.disabled', '0.4'),
+		opacity: token('opacity.disabled'),
 	},
 });
 
@@ -165,7 +165,7 @@ const trackStyles = cssMap({
 	},
 	disabled: {
 		'&::after': {
-			opacity: token('opacity.disabled', '0.4'),
+			opacity: token('opacity.disabled'),
 		},
 	},
 });

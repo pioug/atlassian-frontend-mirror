@@ -1,3 +1,4 @@
+import { createToggleBlockMarkOnRangeNext } from '@atlaskit/editor-common/commands';
 import { isListNode } from '@atlaskit/editor-common/utils';
 import type { Slice as PMSlice, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
@@ -5,6 +6,7 @@ import type { TextSelection, Transaction } from '@atlaskit/editor-prosemirror/st
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isCursorSelectionAtTextStartOrEnd, isEmptyNode, isSelectionInsidePanel } from '../index';
 
@@ -76,6 +78,35 @@ export function insertSliceForLists({
 	tr.replaceSelection(slice);
 }
 
+const stripFontSizeInsideBlockquoteLists = (tr: Transaction, blockquotePos: number): void => {
+	const {
+		marks: { fontSize },
+		nodes: { paragraph, listItem, taskItem, blockTaskItem },
+	} = tr.doc.type.schema;
+	const listItemParentNodeTypes = [listItem, taskItem, blockTaskItem];
+
+	if (!fontSize || !expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+		return;
+	}
+
+	const containingBlockquote = tr.doc.nodeAt(blockquotePos);
+	if (!containingBlockquote) {
+		return;
+	}
+
+	const from = blockquotePos + 1;
+	const to = blockquotePos + containingBlockquote.nodeSize - 1;
+
+	createToggleBlockMarkOnRangeNext(
+		fontSize,
+		() => false,
+		(_schema, node, parent) =>
+			node.type === paragraph &&
+			!!parent &&
+			listItemParentNodeTypes.some((nodeType) => nodeType === parent.type),
+	)(from, to, tr);
+};
+
 export function insertSliceInsideBlockquote({
 	tr,
 	slice,
@@ -88,6 +119,14 @@ export function insertSliceInsideBlockquote({
 	tr.replaceSelection(new Slice(Fragment.from(schema.nodes.blockquote.createAndFill()), 0, 0));
 	updateSelectionAfterReplace({ tr });
 	tr.replaceSelection(slice);
+	if (expValEquals('platform_editor_small_font_size', 'isEnabled', true)) {
+		const insertedBlockquotePos = findParentNodeOfType(schema.nodes.blockquote)(tr.selection);
+		if (!insertedBlockquotePos) {
+			return;
+		}
+
+		stripFontSizeInsideBlockquoteLists(tr, insertedBlockquotePos.pos);
+	}
 }
 
 export function updateSelectionAfterReplace({ tr }: { tr: Transaction }): Transaction | undefined {

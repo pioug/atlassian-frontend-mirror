@@ -230,20 +230,26 @@ export function setUFOConfig(newConfig: Config): void {
 	if (enabledVCRevisions) {
 		const byExperience =
 			typeof enabledVCRevisions?.byExperience === 'object' ? enabledVCRevisions.byExperience : {};
+
+		const allRevisions = fg('platform_ufo_ttvc_server_side_sync')
+			? [
+					// When server-side TTVC is enabled, products control their own revisions
+					...(enabledVCRevisions?.all ?? []),
+					...Object.values(byExperience).flat(),
+				]
+			: [
+					// DEFAULT_TTVC_REVISION must always be present in `all`
+					getDefaultTTVCRevision(),
+					...(enabledVCRevisions?.all ?? []),
+					...Object.values(byExperience).flat(),
+				];
+
 		config = {
 			...newConfig,
 			vc: {
 				...newConfig.vc,
 				enabledVCRevisions: {
-					// enforce axiom about `enabledVCRevisions.all` config:
-					// DEFAULT_TTVC_REVISION must always be present in `all`
-					all: Array.from(
-						new Set([
-							getDefaultTTVCRevision(),
-							...(enabledVCRevisions?.all ?? []),
-							...Object.values(byExperience).flat(),
-						]),
-					),
+					all: Array.from(new Set(allRevisions)),
 					byExperience,
 				},
 			},

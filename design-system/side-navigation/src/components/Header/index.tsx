@@ -9,7 +9,9 @@ import { cssMap, jsx } from '@compiled/react';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
-import { CustomItem } from '../Item';
+import CustomItem from '../Item/custom-item';
+
+import HeaderContainer from './header-container';
 
 const styles = cssMap({
 	header: {
@@ -22,54 +24,16 @@ const styles = cssMap({
 		// Will look interactive if the `component` is anything other than a div.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'div&:hover': {
-			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+			backgroundColor: token('color.background.neutral.subtle'),
 			cursor: 'default',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'div&:active': {
-			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+			backgroundColor: token('color.background.neutral.subtle'),
 			color: token('color.text'),
 		},
 	},
 });
-
-/**
- * __Container__
- *
- * A container for Header and Footer that safely handles props to the child component
- */
-export const Container: (props: CustomItemComponentProps) => JSX.Element = ({
-	children,
-	'data-testid': testId,
-	...props
-}: CustomItemComponentProps) => {
-	// https://stackoverflow.com/a/39333479
-	const safeProps = (({
-		className,
-		onClick,
-		onMouseDown,
-		onDragStart,
-		draggable,
-		ref,
-		tabIndex,
-		disabled,
-	}) => ({
-		className,
-		onClick,
-		onMouseDown,
-		onDragStart,
-		draggable,
-		ref,
-		tabIndex,
-		disabled,
-	}))(props);
-	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-		<div data-testid={testId} style={{ position: 'relative' }} {...safeProps}>
-			{children}
-		</div>
-	);
-};
 
 export type HeaderProps = {
 	/**
@@ -124,7 +88,7 @@ const Header: React.ForwardRefExoticComponent<
 		<CustomItem
 			{...props}
 			ref={ref}
-			component={props.component || Container}
+			component={props.component || HeaderContainer}
 			css={styles.header}
 			isTitleHeading
 		/>

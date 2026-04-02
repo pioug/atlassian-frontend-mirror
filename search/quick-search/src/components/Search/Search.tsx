@@ -17,9 +17,9 @@ export const controlKeys: string[] = ['ArrowUp', 'ArrowDown', 'Enter', 'Tab', 'A
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const SpinnerParent = styled.div({
-	height: token('space.250', '20px'),
-	marginLeft: token('space.150', '12px'),
-	marginTop: token('space.150', '12px'),
+	height: token('space.250'),
+	marginLeft: token('space.150'),
+	marginTop: token('space.150'),
 });
 
 type Props = {

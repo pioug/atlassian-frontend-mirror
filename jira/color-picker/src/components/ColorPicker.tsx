@@ -47,6 +47,7 @@ export interface Props {
 	showDefaultSwatchColor?: boolean;
 	/** Test ID  */
 	testId?: string;
+	tooltipContent?: string;
 	/** trigger id for accessability labelling */
 	triggerId?: string;
 	/** Display filled or outline variant of the color */
@@ -123,6 +124,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 			cols,
 			popperProps = defaultPopperProps,
 			label = 'Color picker',
+			tooltipContent,
 			triggerId,
 			selectedColourSwatchSize,
 			showDefaultSwatchColor = true,
@@ -141,6 +143,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 						<Trigger
 							{...value}
 							label={fullLabel}
+							tooltipContent={tooltipContent}
 							expanded={isOpen}
 							swatchSize={selectedColourSwatchSize}
 							isDisabled={isDisabledSelectedSwatch}

@@ -84,13 +84,11 @@ const iconContainerStyles = cssMap({
 		overflow: 'hidden',
 		display: 'flex',
 		maxWidth: 24,
+		maxHeight: 24,
 	},
 	// Prevents the icon from getting squished
 	fullHeightSidebar: {
 		flexShrink: 0,
-	},
-	maxHeightStyles: {
-		maxHeight: 24,
 	},
 });
 
@@ -221,11 +219,7 @@ export const AppLogo: ({
 				xcss={cx(logoWrapperStyles.root, isFhsEnabled && logoWrapperStyles.fullHeightSidebar)}
 			>
 				<div
-					css={[
-						iconContainerStyles.root,
-						isFhsEnabled && iconContainerStyles.fullHeightSidebar,
-						fg('platform-dst-nav-app-icon-height-fix') && iconContainerStyles.maxHeightStyles,
-					]}
+					css={[iconContainerStyles.root, isFhsEnabled && iconContainerStyles.fullHeightSidebar]}
 				>
 					<LogoRenderer
 						// Top nav always uses the new logo design

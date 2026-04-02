@@ -1,5 +1,30 @@
 # @atlassian/navigation-system
 
+## 7.1.5
+
+### Patch Changes
+
+- [`f54d8707590da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f54d8707590da) -
+  The `platform-dst-nav-app-icon-height-fix` feature gate has been cleaned up. The app logo icon now
+  always has a maximum height of 24px applied to prevent custom App Logos from extending beyond the
+  edges of the container.
+
+## 7.1.4
+
+### Patch Changes
+
+- [`e2085d35701ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2085d35701ca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 7.1.3
+
+### Patch Changes
+
+- [`08170da1fbf62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08170da1fbf62) -
+  Migrate spacing prop usages on icons to Flex wrapper
+- Updated dependencies
+
 ## 7.1.2
 
 ### Patch Changes

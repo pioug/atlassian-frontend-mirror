@@ -1,5 +1,13 @@
 # @atlaskit/progress-bar
 
+## 4.1.8
+
+### Patch Changes
+
+- [`e2085d35701ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2085d35701ca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 4.1.7
 
 ### Patch Changes

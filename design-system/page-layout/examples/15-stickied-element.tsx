@@ -27,7 +27,7 @@ const topNavigationWrapperStyles = css({
 });
 
 const leftSidebarWrapperStyles = css({
-	padding: `0 ${token('space.250', '20px')}`,
+	padding: `0 ${token('space.250')}`,
 });
 
 const WithStickyElement = (): React.JSX.Element => {

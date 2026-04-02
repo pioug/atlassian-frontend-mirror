@@ -1,5 +1,12 @@
 # @atlaskit/editor-smart-link-draggable
 
+## 0.4.0
+
+### Minor Changes
+
+- [`58bf406b50581`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58bf406b50581) -
+  Remove SmartLinkDraggableChangeboardPopover - changeboarding now handled via Post Office
+
 ## 0.3.1
 
 ### Patch Changes

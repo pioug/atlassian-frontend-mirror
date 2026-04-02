@@ -45,7 +45,7 @@ const buttonStyles = css({
 	borderRadius: '0.2em',
 	color: 'inherit',
 	cursor: 'pointer',
-	marginInlineEnd: token('space.050', '4px'),
+	marginInlineEnd: token('space.050'),
 	opacity: 0.75,
 	'&:hover, &:focus': {
 		backgroundColor: 'rgba(255, 255, 255, 0.2)',

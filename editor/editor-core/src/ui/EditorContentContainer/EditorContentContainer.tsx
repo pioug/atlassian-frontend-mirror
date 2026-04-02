@@ -346,7 +346,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					baseStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('platform_editor_max_width_mode_resize_fix') && maxModeReizeFixStyles,
+					maxModeReizeFixStyles,
 					expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						baseStylesMaxContainerWidthFixes,
@@ -567,7 +567,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							taskItemStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				taskItemCheckboxStyles,
+					taskItemCheckboxStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					decisionIconWithVisualRefresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

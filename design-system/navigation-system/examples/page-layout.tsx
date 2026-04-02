@@ -40,7 +40,7 @@ import {
 	RIGHT_SIDEBAR_WIDTH,
 	TOP_NAVIGATION_HEIGHT,
 } from '@atlaskit/page-layout';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { Hide } from '@atlaskit/primitives/responsive';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
@@ -52,6 +52,13 @@ import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 import { token, useThemeObserver } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const styles = cssMap({
 	debugSlots: {
@@ -67,7 +74,7 @@ const styles = cssMap({
 	},
 	sticky: {
 		position: 'sticky',
-		insetBlockStart: token('space.150', '12px'),
+		insetBlockStart: token('space.150'),
 	},
 	legacyPositionedSibling: {
 		position: 'absolute',
@@ -78,7 +85,7 @@ const styles = cssMap({
 		insetInlineStart: `calc(${LEFT_PANEL_WIDTH} + ${LEFT_SIDEBAR_WIDTH})`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		insetInlineEnd: `calc(${RIGHT_PANEL_WIDTH} + ${RIGHT_SIDEBAR_WIDTH})`,
-		backgroundColor: token('color.background.neutral', ''),
+		backgroundColor: token('color.background.neutral'),
 		overflow: 'auto',
 	},
 	dangerouslyPositionedSibling: {
@@ -90,23 +97,23 @@ const styles = cssMap({
 		insetInlineStart: UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		insetInlineEnd: UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY,
-		backgroundColor: token('color.background.neutral', ''),
+		backgroundColor: token('color.background.neutral'),
 		overflow: 'auto',
 	},
 	main: {
-		backgroundColor: token('color.background.accent.blue.subtle', ''),
+		backgroundColor: token('color.background.accent.blue.subtle'),
 	},
 	aside: {
-		backgroundColor: token('color.background.accent.orange.subtle', ''),
+		backgroundColor: token('color.background.accent.orange.subtle'),
 	},
 	banner: {
-		backgroundColor: token('color.background.accent.lime.subtle', ''),
+		backgroundColor: token('color.background.accent.lime.subtle'),
 	},
 	panel: {
 		backgroundColor: token('elevation.surface'),
 	},
 	topBar: {
-		backgroundColor: token('color.background.accent.purple.subtle', ''),
+		backgroundColor: token('color.background.accent.purple.subtle'),
 	},
 	wide: {
 		width: '1000px',
@@ -135,7 +142,9 @@ function ScrollableContent({ children }: { children: React.ReactNode }) {
 function BoardMenuItem() {
 	return (
 		<Inline space="space.050" alignBlock="center">
-			<BoardIcon spacing="spacious" label="" />
+			<Flex xcss={iconSpacingStyles.space050}>
+				<BoardIcon label="" />
+			</Flex>
 			<span>Boards</span>
 		</Inline>
 	);
@@ -969,7 +978,11 @@ const actions = [
 		spacing="compact"
 	/>,
 ];
-const homeIcon = <HomeIcon label="" color="currentColor" spacing="spacious" />;
+const homeIcon = (
+	<Flex xcss={iconSpacingStyles.space050}>
+		<HomeIcon label="" color="currentColor" />
+	</Flex>
+);
 
 export const SideNavWithMenuItems: () => JSX.Element = () => (
 	<Root>

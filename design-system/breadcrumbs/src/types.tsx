@@ -53,18 +53,6 @@ export interface BreadcrumbsProps extends WithAnalyticsEventsProps {
 	ellipsisLabel?: string;
 }
 
-export interface EllipsisItemProps {
-	onClick?: (event: React.MouseEvent<Element>) => void;
-	/**
-	 * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
-	 */
-	testId?: string;
-	/**
-	 * A `label` prop is used as aria-label for ellipsis button.
-	 */
-	label: string;
-}
-
 export interface BreadcrumbsItemProps extends WithAnalyticsEventsProps {
 	/**
 	 * The url or path which the breadcrumb should act as a link to.

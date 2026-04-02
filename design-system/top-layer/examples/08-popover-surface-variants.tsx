@@ -37,7 +37,7 @@ const styles = cssMap({
  * - **Without Surface**: Fully custom-styled content in `Popup.Content`
  * - **With Surface**: Uses the default elevation treatment
  */
-export default function PopoverSurfaceVariantsExample() {
+export default function PopoverSurfaceVariantsExample(): JSX.Element {
 	return (
 		<ForceFallbackToggle>
 			{(forceFallbackPositioning) => (

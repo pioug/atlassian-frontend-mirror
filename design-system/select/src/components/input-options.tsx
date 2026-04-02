@@ -19,10 +19,10 @@ const optionStyles = cssMap({
 		userSelect: 'none',
 		WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
 		boxSizing: 'border-box',
-		paddingBlockEnd: token('space.050', '4px'),
-		paddingBlockStart: token('space.050', '4px'),
-		paddingInlineStart: token('space.200', '16px'),
-		paddingInlineEnd: token('space.150', '12px'),
+		paddingBlockEnd: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineStart: token('space.200'),
+		paddingInlineEnd: token('space.150'),
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
@@ -38,7 +38,7 @@ const optionStyles = cssMap({
 		},
 	},
 	disabled: {
-		color: token('color.text.disabled', 'inherit'),
+		color: token('color.text.disabled'),
 	},
 });
 
@@ -99,11 +99,11 @@ const baseIconStyles = css({
 	display: 'flex ',
 	alignItems: 'center',
 	flexShrink: 0,
-	paddingInlineEnd: token('space.050', '4px'),
+	paddingInlineEnd: token('space.050'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'& svg rect, & svg circle:first-of-type': {
 		strokeLinejoin: 'round',
-		strokeWidth: token('border.width', '1px'),
+		strokeWidth: token('border.width'),
 	},
 });
 

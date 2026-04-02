@@ -1,10 +1,21 @@
 import React, { forwardRef } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import SettingsIcon from '@atlaskit/icon/core/settings';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
 
 import { IconButton } from '../IconButton';
 
 import { type SettingsProps } from './types';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 /**
  * __Settings__
@@ -43,11 +54,12 @@ export const Settings: React.ForwardRefExoticComponent<
 				component={component}
 				href={href}
 				icon={
-					<SettingsIcon
-						color="currentColor"
-						spacing="spacious"
-						label={typeof tooltip === 'string' ? tooltip : 'Settings Icon'}
-					/>
+					<Flex xcss={iconSpacingStyles.space050}>
+						<SettingsIcon
+							color="currentColor"
+							label={typeof tooltip === 'string' ? tooltip : 'Settings Icon'}
+						/>
+					</Flex>
 				}
 				id={id}
 				isDisabled={isDisabled}

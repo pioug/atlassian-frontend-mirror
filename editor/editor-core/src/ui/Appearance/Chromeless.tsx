@@ -14,6 +14,7 @@ import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../types';
@@ -87,6 +88,10 @@ export default class Editor extends React.Component<AppearanceProps> {
 	private appearance: EditorAppearance = 'chromeless';
 	private containerElement: HTMLElement | null = null;
 
+	private setContainerElement = (ref: HTMLElement | null) => {
+		this.containerElement = ref;
+	};
+
 	private renderChrome = ({ maxContentSize }: { maxContentSize?: MaxContentSizePluginState }) => {
 		const {
 			editorDOMElement,
@@ -114,13 +119,16 @@ export default class Editor extends React.Component<AppearanceProps> {
 			(states) => states?.editorViewModeState?.mode,
 		);
 
+		const containerRef = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+			? this.setContainerElement
+			: (ref: HTMLElement | null) => (this.containerElement = ref);
+
 		return (
 			<WithFlash animate={maxContentSizeReached}>
 				<ChromelessEditorContainer
 					maxHeight={maxHeight}
 					minHeight={minHeight}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					containerRef={(ref: HTMLElement | null) => (this.containerElement = ref)}
+					containerRef={containerRef}
 				>
 					<EditorContentContainer
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

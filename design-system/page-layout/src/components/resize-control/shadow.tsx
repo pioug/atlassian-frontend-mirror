@@ -11,19 +11,12 @@ import { token } from '@atlaskit/tokens';
 
 import { useIsSidebarDragging } from '../../common/hooks';
 
-const colorStops = `
-    rgba(0, 0, 0, 0.2) 0px,
-    rgba(0, 0, 0, 0.2) 1px,
-    rgba(0, 0, 0, 0.1) 1px,
-    rgba(0, 0, 0, 0) 100%
-  `;
-const direction = 'to left';
 const transitionDuration = '0.22s';
 
 const shadowStyles = css({
 	width: 3,
 	position: 'absolute',
-	background: token('color.border', `linear-gradient(${direction}, ${colorStops})`),
+	background: token('color.border'),
 	insetBlockEnd: 0,
 	insetBlockStart: 0,
 	insetInlineStart: -1,
@@ -36,11 +29,8 @@ const shadowStyles = css({
 
 const draggingStyles = css({
 	width: 6,
-	background: token(
-		'color.background.neutral.subtle',
-		`linear-gradient(${direction}, ${colorStops})`,
-	),
-	insetInlineStart: token('space.negative.075', '-6px'),
+	background: token('color.background.neutral.subtle'),
+	insetInlineStart: token('space.negative.075'),
 	opacity: 0.8,
 });
 

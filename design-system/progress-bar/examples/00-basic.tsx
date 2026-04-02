@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 export const progress = 0.4;
 export const containerStyle: React.CSSProperties = {
 	boxSizing: 'border-box',
-	padding: token('space.250', '20px'),
+	padding: token('space.250'),
 	width: 600,
 };
 

@@ -158,6 +158,7 @@ export type CalculateTTVCResult = {
 export type RawObservation = {
 	t: number;
 	r: [number, number, number, number];
+	pr?: [number, number, number, number] | null;
 	chg: number | string;
 	eid: number;
 	att?: number;
@@ -210,6 +211,7 @@ export type RevisionPayloadEntry = {
 		att?: Record<number, string>;
 		evts?: Array<RawEventObservation>;
 		evt?: Record<number, string>;
+		lbl?: Record<number, { s: string; l: string }>;
 	};
 	viewport?: { w: number; h: number };
 	feVCTime?: number;

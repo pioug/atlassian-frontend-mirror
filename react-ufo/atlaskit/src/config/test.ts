@@ -40,7 +40,8 @@ describe('UFO Configuration Module', () => {
 			expect(getConfig()).toEqual(config);
 		});
 
-		it('should enforce default revision into enabledVCRevisions.all when byExperience is absent', () => {
+		it('should enforce default revision into enabledVCRevisions.all when server-side TTVC is disabled', () => {
+			(fg as jest.Mock).mockImplementation(() => false);
 			const config: Config = {
 				product: 'testProduct',
 				region: 'testRegion',
@@ -52,8 +53,27 @@ describe('UFO Configuration Module', () => {
 				},
 			};
 			setUFOConfig(config);
-			// Enforcement always applies - fy26.04 is forced in
+			// Enforcement applies when server-side TTVC is disabled - fy26.04 is forced in
 			expect(getConfig()?.vc?.enabledVCRevisions?.all).toEqual(['fy26.04', 'fy25.01']);
+		});
+
+		it('should not force DEFAULT_TTVC_REVISION when platform_ufo_ttvc_server_side_sync is enabled', () => {
+			(fg as jest.Mock).mockImplementation(
+				(flag: string) => flag === 'platform_ufo_ttvc_server_side_sync',
+			);
+			const config: Config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				vc: {
+					enabled: true,
+					enabledVCRevisions: {
+						all: ['fy25.01'],
+					},
+				},
+			};
+			setUFOConfig(config);
+			// Products control their own revisions when server-side TTVC is enabled
+			expect(getConfig()?.vc?.enabledVCRevisions?.all).toEqual(['fy25.01']);
 		});
 	});
 
@@ -113,6 +133,21 @@ describe('UFO Configuration Module', () => {
 
 	describe('getMostRecentVCRevision', () => {
 		it('should return the most recent VC revision', () => {
+			const config: Config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				vc: {
+					enabled: true,
+					enabledVCRevisions: {
+						all: ['fy25.01', 'fy25.03'],
+					},
+				},
+			};
+			setUFOConfig(config);
+			expect(getMostRecentVCRevision()).toBe('fy25.03');
+		});
+
+		it('should return the last enabled revision when fy26.04 is not in config', () => {
 			const config: Config = {
 				product: 'testProduct',
 				region: 'testRegion',

@@ -35,7 +35,7 @@ const styles = cssMap({
  * Uses `mousedown` (not `click`) for outside-click detection to avoid the race
  * condition where the trigger click immediately dismisses the popover.
  */
-export default function TestingManualPopoverA11y() {
+export default function TestingManualPopoverA11y(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [closeReason, setCloseReason] = useState<string | null>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);

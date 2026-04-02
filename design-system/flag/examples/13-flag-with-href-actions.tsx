@@ -1,11 +1,20 @@
 import React, { type ReactElement } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import Flag, { type AppearanceTypes } from '@atlaskit/flag';
 import Error from '@atlaskit/icon/core/status-error';
 import Info from '@atlaskit/icon/core/status-information';
 import Tick from '@atlaskit/icon/core/status-success';
 import Warning from '@atlaskit/icon/core/status-warning';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Flex, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 type FlagVariant = {
 	appearance: AppearanceTypes;
@@ -33,31 +42,51 @@ const flagVariants: Array<FlagVariant> = [
 		appearance: 'error',
 		description: 'You need to take action, something has gone terribly wrong!',
 		title: 'error flag',
-		icon: <Error spacing="spacious" label="Error" />,
+		icon: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Error label="Error" />
+			</Flex>
+		),
 	},
 	{
 		appearance: 'info',
 		description: "This alert needs your attention, but it's not super important.",
 		title: 'info flag',
-		icon: <Info spacing="spacious" label="Info" />,
+		icon: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Info label="Info" />
+			</Flex>
+		),
 	},
 	{
 		appearance: 'success',
 		description: 'Nothing to worry about, everything is going great!',
 		title: 'success flag',
-		icon: <Tick spacing="spacious" label="Success" />,
+		icon: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Tick label="Success" />
+			</Flex>
+		),
 	},
 	{
 		appearance: 'warning',
 		description: 'Pay attention to me, things are not going according to plan.',
 		title: 'warning flag',
-		icon: <Warning spacing="spacious" label="Warning" />,
+		icon: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Warning label="Warning" />
+			</Flex>
+		),
 	},
 	{
 		appearance: 'normal',
 		description: 'There is new update available',
 		title: 'normal flag',
-		icon: <Tick spacing="spacious" label="Success" />,
+		icon: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Tick label="Success" />
+			</Flex>
+		),
 	},
 ];
 

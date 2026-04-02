@@ -3,10 +3,20 @@ import React, { useState } from 'react';
 import Banner from '@atlaskit/banner';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { head, rows } from './content/sample-data';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 export default function TableControlled(): React.JSX.Element {
 	const [pageNumber, setPageNumber] = useState(3);
@@ -16,11 +26,17 @@ export default function TableControlled(): React.JSX.Element {
 
 	return (
 		<>
-			<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="" />}>
+			<Banner
+				appearance="warning"
+				icon={
+					<Flex xcss={iconSpacingStyles.space050}>
+						<WarningIcon label="" />
+					</Flex>
+				}
+			>
 				This is a stateless table example, which doesn't have pagination support. To navigate pages,
 				use the "Previous page" and "Next page" buttons.
 			</Banner>
-
 			<ButtonGroup label="Paging navigation">
 				<Button isDisabled={pageNumber === 1} onClick={() => navigateTo(pageNumber - 1)}>
 					Previous Page

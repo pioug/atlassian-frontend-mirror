@@ -1,5 +1,13 @@
 # @atlaskit/toggle
 
+## 15.2.16
+
+### Patch Changes
+
+- [`e2085d35701ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2085d35701ca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 15.2.15
 
 ### Patch Changes

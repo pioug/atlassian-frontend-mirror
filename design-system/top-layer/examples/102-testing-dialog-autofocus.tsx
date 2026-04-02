@@ -19,7 +19,7 @@ import { getFirstFocusable } from '@atlaskit/top-layer/focus';
  * to override the browser's autofocus behavior, explicitly moving focus to
  * the first focusable element even when another element has `autofocus`.
  */
-export default function TestingDialogAutofocus() {
+export default function TestingDialogAutofocus(): React.JSX.Element {
 	const [variant, setVariant] = useState<'default' | 'override' | null>(null);
 
 	return (

@@ -41,11 +41,8 @@ const menuStyles = cssMap({
 		borderRadius: token('radius.small'),
 		marginBlockEnd: token('space.100'),
 		marginBlockStart: token('space.100'),
-		backgroundColor: token('elevation.surface.overlay', 'white'),
-		boxShadow: token(
-			'elevation.shadow.overlay',
-			'0 0 0 1px hsl(0deg 0% 0% / 10%), 0 4px 11px hsl(0deg 0% 0% / 10%)',
-		),
+		backgroundColor: token('elevation.surface.overlay'),
+		boxShadow: token('elevation.shadow.overlay'),
 	},
 	rootT26Shape: {
 		borderRadius: token('radius.large'),

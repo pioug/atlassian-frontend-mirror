@@ -7,7 +7,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
-import { width } from '../../internal/utils';
+import { width } from '../../internal/width';
 import ModalBody from '../../modal-body';
 import ModalDialog from '../../modal-dialog';
 import ModalTransition from '../../modal-transition';

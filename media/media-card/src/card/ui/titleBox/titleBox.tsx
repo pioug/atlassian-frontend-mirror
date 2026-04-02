@@ -4,7 +4,6 @@ import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import LockFilledIcon from '@atlaskit/icon/core/lock-locked';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type TitleBoxProps } from './types';
 import {
@@ -36,7 +35,7 @@ export const TitleBox = injectIntl(
 				hasIconOverlap={!!titleBoxIcon}
 				// Suppressing it here because of a timezone mismatch in the createdAt text
 				// that can cause a late mutation in the attachments strip view
-				suppressHydrationWarning={fg('jfp-magma-fix-attachments-hydration-error') ? true : false}
+				suppressHydrationWarning
 			>
 				{createdAt !== undefined && isValidTimestamp(createdAt)
 					? formatDate(createdAt, intl?.locale ?? 'en')

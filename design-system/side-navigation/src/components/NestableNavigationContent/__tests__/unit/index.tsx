@@ -6,7 +6,8 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 
 import * as raf from '../../../../__tests__/unit/__utils__/raf';
-import { ButtonItem, GoBackItem } from '../../../Item';
+import ButtonItem from '../../../Item/button-item';
+import GoBackItem from '../../../Item/go-back-item';
 import { default as NestingItem } from '../../../NestingItem';
 import { default as NestingTransitionProvider } from '../../index';
 

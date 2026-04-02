@@ -18,7 +18,7 @@ type Phase = 'stopped' | 'loading' | 'ready';
 const layoutStyles = css({
 	display: 'flex',
 	justifyContent: 'center',
-	gap: token('space.200', '16px'),
+	gap: token('space.200'),
 });
 
 const columnStyles = css({
@@ -28,7 +28,7 @@ const columnStyles = css({
 });
 
 const headingStyles = css({
-	marginBlockEnd: token('space.200', '16px'),
+	marginBlockEnd: token('space.200'),
 });
 
 const loadingContainerStyles = css({

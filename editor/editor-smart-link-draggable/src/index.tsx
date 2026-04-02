@@ -21,9 +21,6 @@ import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/el
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { getObjectIconUrl } from '@atlaskit/smart-card';
 import { token } from '@atlaskit/tokens';
-import { PopoverProvider, PopoverTarget } from '@atlaskit/spotlight';
-
-import { SmartLinkDraggableChangeboardPopover } from './SmartLinkDraggableChangeboardPopover';
 
 /**
  * Shared constants, types, and utilities for smart link drag-and-drop
@@ -180,8 +177,6 @@ function SmartLinkDraggableInner({
 	const ref = useRef<HTMLElement>(null);
 	const { store } = useSmartLinkContext();
 	const [state, setState] = useState<DraggableState>(idleState);
-	// Changeboarding popover will always be hidden until visibility/targeting logic is implemented
-	const [showChangeboard, setShowChangeboard] = useState(false);
 
 	// Store the draggable config so we can re-register on different elements
 	// when the browser picks a child as the drag target.
@@ -308,8 +303,6 @@ function SmartLinkDraggableInner({
 		};
 	}, [url, propTitle, appearance, source, store, getDragConfig]);
 
-	const handleDismissChangeboard = () => setShowChangeboard(false);
-
 	const preview =
 		state.type === 'preview'
 			? ReactDOM.createPortal(
@@ -319,8 +312,6 @@ function SmartLinkDraggableInner({
 			: null;
 
 	// Use span with inline display for inline cards to preserve text flow.
-	// Avoid wrapping in PopoverProvider/PopoverTarget to minimize DOM changes
-	// that could affect ProseMirror's inline node selection calculations.
 	if (appearance === SMART_LINK_APPEARANCE.INLINE) {
 		return (
 			<>
@@ -333,18 +324,12 @@ function SmartLinkDraggableInner({
 	}
 
 	return (
-		<PopoverProvider>
-			<PopoverTarget>
-				<Box ref={ref} xcss={styles.draggableBlock} testId="smart-link-draggable-block">
-					{children}
-				</Box>
-			</PopoverTarget>
+		<>
+			<Box ref={ref} xcss={styles.draggableBlock} testId="smart-link-draggable-block">
+				{children}
+			</Box>
 			{preview}
-			<SmartLinkDraggableChangeboardPopover
-				isVisible={showChangeboard}
-				dismiss={handleDismissChangeboard}
-			/>
-		</PopoverProvider>
+		</>
 	);
 }
 

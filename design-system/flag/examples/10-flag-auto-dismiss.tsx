@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import { type AppearanceTypes } from '@atlaskit/flag/types';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const appearances: AppearanceTypes[] = ['error', 'info', 'normal', 'success', 'warning'];
 
@@ -39,7 +48,11 @@ const AutoDismissExample = (): React.JSX.Element => {
 						<AutoDismissFlag
 							appearance={appearance}
 							id={flagId}
-							icon={<SuccessIcon label="Success" spacing="spacious" />}
+							icon={
+								<Flex xcss={iconSpacingStyles.space050}>
+									<SuccessIcon label="Success" />
+								</Flex>
+							}
 							key={flagId}
 							title={`Flag #${flagId}`}
 							description="I will auto dismiss after 8 seconds"

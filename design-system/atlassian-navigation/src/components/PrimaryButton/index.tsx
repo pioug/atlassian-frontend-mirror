@@ -47,8 +47,8 @@ const buttonHighlightedStyles = css({
 		borderStartStartRadius: token('radius.xsmall', '1px'),
 		content: '""',
 		insetBlockEnd: 0,
-		insetInlineEnd: token('space.050', '4px'),
-		insetInlineStart: token('space.050', '4px'),
+		insetInlineEnd: token('space.050'),
+		insetInlineStart: token('space.050'),
 	},
 });
 

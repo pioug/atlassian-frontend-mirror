@@ -164,7 +164,7 @@ export default class BasicQuickSearch extends React.Component<Props, State> {
 					this.props.isAutocompleteEnabled ? this.state.autocompleteText : undefined
 				}
 			>
-				<div style={{ paddingLeft: `${token('space.150', '12px')}` }}>
+				<div style={{ paddingLeft: `${token('space.150')}` }}>
 					{mapResultsDataToComponents(this.state.results)}
 				</div>
 			</QuickSearch>

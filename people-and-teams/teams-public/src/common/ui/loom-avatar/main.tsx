@@ -21,10 +21,10 @@ const boxStyle = css({
 const smallBoxStyle = css({
 	height: '22px',
 	minWidth: '22px',
-	marginTop: token('space.025', '2px'),
-	marginRight: token('space.025', '2px'),
-	marginBottom: token('space.025', '2px'),
-	marginLeft: token('space.025', '2px'),
+	marginTop: token('space.025'),
+	marginRight: token('space.025'),
+	marginBottom: token('space.025'),
+	marginLeft: token('space.025'),
 	font: token('font.heading.xsmall'),
 });
 
@@ -32,7 +32,7 @@ const largeBoxStyle = css({
 	height: '32px',
 	width: '32px',
 	font: token('font.heading.medium'),
-	paddingInline: token('space.025', '2px'),
+	paddingInline: token('space.025'),
 });
 
 export function LoomSpaceAvatar({

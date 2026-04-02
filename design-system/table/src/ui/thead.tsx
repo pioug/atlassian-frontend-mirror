@@ -12,9 +12,9 @@ const baseStyles = css({
 	position: 'sticky',
 	zIndex: 1,
 	inset: 0,
-	backgroundColor: token('elevation.surface', 'white'),
+	backgroundColor: token('elevation.surface'),
 	border: 'none',
-	borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border', '#eee')}`,
+	borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border')}`,
 	borderBlockStart: `${token('border.width.selected')} solid transparent`,
 });
 

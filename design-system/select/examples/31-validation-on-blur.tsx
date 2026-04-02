@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
+import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
 import Select, { type ValueType } from '@atlaskit/select';
 
 interface Option {
@@ -30,7 +30,11 @@ export default function OnBlurValidationExample(): React.JSX.Element {
 	};
 
 	const handleSelectBlurEvent = () => {
-		selectValue ? setSelectHasError(false) : setSelectHasError(true);
+		if (selectValue) {
+			setSelectHasError(false);
+		} else {
+			setSelectHasError(true);
+		}
 	};
 
 	return (
@@ -71,11 +75,13 @@ export default function OnBlurValidationExample(): React.JSX.Element {
 									descriptionId={selectHasError ? `${id}-error` : undefined}
 									onBlur={handleSelectBlurEvent}
 								/>
-								{selectHasError && (
-									<div id={`${id}-error`}>
-										<ErrorMessage>Please select a color</ErrorMessage>
-									</div>
-								)}
+								<MessageWrapper>
+									{selectHasError && (
+										<div id={`${id}-error`}>
+											<ErrorMessage>Please select a color</ErrorMessage>
+										</div>
+									)}
+								</MessageWrapper>
 							</Fragment>
 						);
 					}}

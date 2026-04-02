@@ -105,6 +105,7 @@ export function upsertFlexImport(
 			.filter((s) => s.type === 'ImportSpecifier')
 			.map((s) => s.local.name);
 		specifiers.push('Flex');
+		specifiers.sort();
 		return fixer.replaceText(
 			decl,
 			`import { ${specifiers.join(', ')} } from '${FLEX_IMPORT_MODULE}';`,
@@ -120,6 +121,7 @@ export function upsertFlexImport(
 		if (!specifiers.includes('Flex')) {
 			specifiers.push('Flex');
 		}
+		specifiers.sort();
 		return fixer.replaceText(
 			decl,
 			`import { ${specifiers.join(', ')} } from '${FLEX_IMPORT_MODULE}';`,
@@ -161,14 +163,26 @@ export function upsertCssMapImport(
 		const specifiers = decl.specifiers
 			.filter((s) => s.type === 'ImportSpecifier')
 			.map((s) => s.local.name);
-		if (!hasCssMap) {
-			specifiers.push('cssMap');
-		}
+		specifiers.push('cssMap');
+		specifiers.sort();
 
 		return fixer.replaceText(
 			decl,
 			`import { ${specifiers.join(', ')} } from '${CSS_IMPORT_MODULE}';`,
 		);
+	}
+
+	// If cssMap is already imported from another package (e.g. @compiled/react), don't add a duplicate
+	const cssMapAlreadyImported = root.some(
+		(node) =>
+			node.type === 'ImportDeclaration' &&
+			(node as import('eslint-codemod-utils').ImportDeclaration).specifiers.some(
+				(s) => s.type === 'ImportSpecifier' && s.local.name === 'cssMap',
+			),
+	);
+
+	if (cssMapAlreadyImported) {
+		return undefined;
 	}
 
 	return ast.Root.upsertNamedImportDeclaration(
@@ -204,6 +218,7 @@ export function upsertTokenImport(
 			.filter((s) => s.type === 'ImportSpecifier')
 			.map((s) => s.local.name);
 		specifiers.push('token');
+		specifiers.sort();
 		return fixer.replaceText(
 			decl,
 			`import { ${specifiers.join(', ')} } from '${TOKEN_IMPORT_MODULE}';`,

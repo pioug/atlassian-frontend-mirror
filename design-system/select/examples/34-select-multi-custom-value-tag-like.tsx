@@ -47,7 +47,7 @@ const customJsx = (option: OptionType) => (
 		<span
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- example layout
-				paddingLeft: token('space.100', '8px'),
+				paddingLeft: token('space.100'),
 			}}
 		>
 			{option.label}

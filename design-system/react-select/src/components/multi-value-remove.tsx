@@ -40,7 +40,7 @@ const enabledStyles = css({
 const multiValueRemoveStyles = cssMap({
 	focused: {
 		backgroundColor: token('utility.UNSAFE.transparent'),
-		fill: token('color.text.selected', '#000'),
+		fill: token('color.text.selected'),
 	},
 	root: {
 		alignItems: 'center',
@@ -50,7 +50,7 @@ const multiValueRemoveStyles = cssMap({
 		backgroundColor: token('color.background.neutral.subtle'),
 		color: token('color.text'),
 		display: 'flex',
-		fill: token('color.text', '#000'),
+		fill: token('color.text'),
 		paddingBlockStart: token('space.025'),
 		paddingInlineEnd: token('space.025'),
 		paddingBlockEnd: token('space.025'),
@@ -62,11 +62,11 @@ const multiValueRemoveStyles = cssMap({
 		// DSP-6470 we should style like Tag once we have the :has selector
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
-			fill: token('color.text.danger', '#000'),
+			fill: token('color.text.danger'),
 		},
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
-			fill: token('color.text.danger', '#000'),
+			fill: token('color.text.danger'),
 		},
 		'&:focus-visible': {
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space

@@ -33,6 +33,7 @@ import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import { ConfluenceIcon, JiraIcon, AtlassianIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -264,7 +265,7 @@ export const processReferenceData = (
 		if (references.length > 1) {
 			references.forEach(
 				(reference, index) =>
-					(reference.title = `${reference.title}: ${formatMessage(
+					(reference.title = `${reference.title === '' && reference.hasAccess && fg('platform_synced_block_patch_8') ? formatMessage(messages.syncedLocationDropdownUntitledPage) : reference.title}: ${formatMessage(
 						messages.syncedLocationDropdownTitleBlockIndex,
 						{ index: index + 1 },
 					)}`),
@@ -394,30 +395,39 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 									count: `${referenceData.length > 99 ? '99+' : referenceData.length}`,
 								})}
 							>
-								{referenceData.map((reference) => (
-									<div key={reference.title} css={dropdownItemStyles}>
-										<Tooltip content={reference.title || reference.url || ''}>
-											<DropdownItem
-												elemBefore={<ItemIcon reference={reference} />}
-												href={reference.url}
-												target="_blank"
-												key={reference.title}
-												rel="noopener noreferrer"
-												// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-												onClick={() => handleLocationClick()}
-											>
-												<ItemTitle
-													title={reference.title || reference.url || ''}
-													formatMessage={formatMessage}
-													onSameDocument={reference.onSameDocument}
-													isSource={reference.isSource}
-													hasAccess={reference.hasAccess}
-													productType={reference.productType}
-												/>
-											</DropdownItem>
-										</Tooltip>
-									</div>
-								))}
+								{referenceData.map((reference) => {
+									const title =
+										reference.title === '' &&
+										reference.hasAccess &&
+										fg('platform_synced_block_patch_8')
+											? formatMessage(messages.syncedLocationDropdownUntitledPage)
+											: reference.title || reference.url || '';
+
+									return (
+										<div key={reference.title} css={dropdownItemStyles}>
+											<Tooltip content={title}>
+												<DropdownItem
+													elemBefore={<ItemIcon reference={reference} />}
+													href={reference.url}
+													target="_blank"
+													key={reference.title}
+													rel="noopener noreferrer"
+													// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+													onClick={() => handleLocationClick()}
+												>
+													<ItemTitle
+														title={title}
+														formatMessage={formatMessage}
+														onSameDocument={reference.onSameDocument}
+														isSource={reference.isSource}
+														hasAccess={reference.hasAccess}
+														productType={reference.productType}
+													/>
+												</DropdownItem>
+											</Tooltip>
+										</div>
+									);
+								})}
 							</DropdownItemGroup>
 						</div>
 					);

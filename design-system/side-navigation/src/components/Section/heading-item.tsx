@@ -13,7 +13,7 @@ export type { HeadingItemProps } from '@atlaskit/menu';
 
 const styles = cssMap({
 	headingItem: {
-		paddingInline: token('space.100', '8px'),
+		paddingInline: token('space.100'),
 	},
 });
 

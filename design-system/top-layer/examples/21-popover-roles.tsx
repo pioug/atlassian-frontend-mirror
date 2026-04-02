@@ -73,7 +73,7 @@ const roleDemos: Array<{
  * - `'dialog'`, `'alertdialog'`, `'menu'` — require `label` or `labelledBy`
  * - `'tooltip'`, `'listbox'`, `'tree'`, etc. — label is optional
  */
-export default function PopoverRolesExample() {
+export default function PopoverRolesExample(): React.JSX.Element {
 	const handleClose = useCallback(() => {}, []);
 
 	return (

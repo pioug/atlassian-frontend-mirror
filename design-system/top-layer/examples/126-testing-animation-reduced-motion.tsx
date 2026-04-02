@@ -29,7 +29,7 @@ const styles = cssMap({
  * Verifies that transition durations are disabled when the user prefers reduced motion.
  * Includes a status indicator that reflects whether the popover is open or closed.
  */
-export default function TestingAnimationReducedMotion() {
+export default function TestingAnimationReducedMotion(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

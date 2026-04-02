@@ -23,7 +23,7 @@ function handleOpenChange({ isOpen, element }: { isOpen: boolean; element: HTMLD
 	}
 }
 
-export default function NestedPopoversExample() {
+export default function NestedPopoversExample(): React.JSX.Element {
 	return (
 		<ForceFallbackToggle>
 			{(forceFallbackPositioning) => (

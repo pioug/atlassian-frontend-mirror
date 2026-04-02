@@ -35,7 +35,7 @@ const styles = cssMap({
  * When the viewport is scrolled so the trigger is near the bottom edge,
  * the popover should flip to appear above the trigger.
  */
-export default function TestingPopoverFlip() {
+export default function TestingPopoverFlip(): JSX.Element {
 	return (
 		<div css={styles.tall}>
 			<div css={styles.spacer} />

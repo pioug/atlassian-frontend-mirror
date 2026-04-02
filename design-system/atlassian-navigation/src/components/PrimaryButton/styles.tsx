@@ -14,7 +14,7 @@ export const getPrimaryButtonTheme =
 				...primaryButton.default,
 				...(props.isSelected && primaryButton.selected),
 				fontWeight: token('font.weight.medium'),
-				padding: `0 ${token('space.050', '4px')}`,
+				padding: `0 ${token('space.050')}`,
 				marginLeft: 0,
 				marginRight: 0,
 				':hover': props.isSelected ? primaryButton.selectedHover : primaryButton.hover,

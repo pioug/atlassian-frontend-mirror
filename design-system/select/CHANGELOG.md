@@ -1,5 +1,20 @@
 # @atlaskit/select
 
+## 21.10.1
+
+### Patch Changes
+
+- [`e2085d35701ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2085d35701ca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
+## 21.10.0
+
+### Minor Changes
+
+- [`c4633b96ea393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4633b96ea393) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 21.9.0
 
 ### Minor Changes

@@ -1,5 +1,38 @@
 # @atlaskit/icon
 
+## 34.0.0
+
+### Major Changes
+
+- [`af4d3f68227b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af4d3f68227b4) -
+  Removed the default export (Icon), `./base`, `./svg` entry-points, and SVG named export.
+
+  ```diff
+  - import Icon from `@atlaskit/icon`
+  - import Icon from `@atlaskit/icon/base`
+  - import SVG from `@atlaskit/icon/svg`
+  ```
+
+  ### Migration Path
+
+  Creating custom icons using icon base component or SVG component are no longer supported. Please
+  migrate to native `<svg />` or choose one of the icons from provided icon set (e.g.
+  `import AddIcon from "@atlaskit/icon/core/add"`)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.1.2
+
+### Patch Changes
+
+- [`08170da1fbf62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08170da1fbf62) -
+  Migrate spacing prop usages on icons to Flex wrapper
+- [`08170da1fbf62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08170da1fbf62) -
+  Update codemod and eslint to handle different scenarios to migrate spacing props
+- Updated dependencies
+
 ## 33.1.1
 
 ### Patch Changes

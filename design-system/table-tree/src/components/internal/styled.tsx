@@ -32,7 +32,7 @@ const commonCellElementStyles = css({
 	position: 'absolute',
 	alignItems: 'center',
 	// indentBase is re-used elsewhere and is primarily used as positive value; we need to negate it here
-	marginInlineStart: `calc(${token('space.300', '25px')} * -1)`,
+	marginInlineStart: `calc(${token('space.300')} * -1)`,
 });
 
 const commonChevronContainerStyles = css({

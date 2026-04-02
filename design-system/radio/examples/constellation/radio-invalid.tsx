@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
+import Form, { Field, FormFooter } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';
 import { type OptionsPropType } from '@atlaskit/radio/types';
 
@@ -37,14 +37,12 @@ export default function RadioInvalid(): React.JSX.Element {
 				return Promise.resolve(validateOnSubmit(data));
 			}}
 		>
-			<Field label="Radio group with validation" name="radio-group-invalid" defaultValue="valid">
-				{({ fieldProps, error }) => (
-					<Fragment>
-						<RadioGroup {...fieldProps} options={options} />
-						{error && <ErrorMessage>{error}</ErrorMessage>}
-					</Fragment>
-				)}
-			</Field>
+			<Field
+				label="Radio group with validation"
+				name="radio-group-invalid"
+				defaultValue="valid"
+				component={({ fieldProps }) => <RadioGroup {...fieldProps} options={options} />}
+			/>
 			<FormFooter>
 				<Button type="submit">Submit</Button>
 			</FormFooter>

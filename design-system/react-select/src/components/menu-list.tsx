@@ -41,8 +41,8 @@ export interface MenuListProps<
 const menuListStyles = css({
 	position: 'relative',
 	overflowY: 'auto',
-	paddingBlockEnd: token('space.100', '8px'),
-	paddingBlockStart: token('space.100', '8px'),
+	paddingBlockEnd: token('space.100'),
+	paddingBlockStart: token('space.100'),
 	WebkitOverflowScrolling: 'touch',
 });
 

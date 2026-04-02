@@ -44,7 +44,10 @@ const getPortalParent = (): Element => {
  *  @param {HTMLDivElement | undefined} container - portal container to be removed from portal parent container
  */
 export const removePortalContainer = (container: HTMLDivElement): void => {
-	getPortalParent().removeChild(container);
+	const parent = getPortalParent();
+	if (parent.contains(container)) {
+		parent.removeChild(container);
+	}
 };
 
 /**
@@ -88,4 +91,12 @@ export const createPortalParent = (): Element | undefined => {
 	}
 
 	return;
+};
+
+export const removePortalParent = (parentElement: Element): void => {
+	if (isDocumentDefined()) {
+		if (parentElement) {
+			getBody()?.removeChild(parentElement);
+		}
+	}
 };

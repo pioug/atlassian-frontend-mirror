@@ -1,5 +1,6 @@
 import React, { type ReactElement } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag';
 import { type AppearanceTypes } from '@atlaskit/flag/types';
@@ -7,8 +8,16 @@ import Error from '@atlaskit/icon/core/status-error';
 import Info from '@atlaskit/icon/core/status-information';
 import Tick from '@atlaskit/icon/core/status-success';
 import Warning from '@atlaskit/icon/core/status-warning';
+import { Flex } from '@atlaskit/primitives/compiled';
 import Stack from '@atlaskit/primitives/stack';
 import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
 
 const actions = [
 	{ content: 'Understood', onClick: noop },
@@ -39,11 +48,31 @@ const appearances: { [key: string]: { description: string; title: string } } = {
 
 const iconMap = (key: string) => {
 	const icons: { [key: string]: ReactElement } = {
-		normal: <Tick spacing="spacious" label="Normal success" color={token('color.icon.success')} />,
-		info: <Info spacing="spacious" label="Info" />,
-		success: <Tick spacing="spacious" label="Success" />,
-		warning: <Warning spacing="spacious" label="Warning" />,
-		error: <Error spacing="spacious" label="Error" />,
+		normal: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Tick label="Normal success" color={token('color.icon.success')} />
+			</Flex>
+		),
+		info: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Info label="Info" />
+			</Flex>
+		),
+		success: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Tick label="Success" />
+			</Flex>
+		),
+		warning: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Warning label="Warning" />
+			</Flex>
+		),
+		error: (
+			<Flex xcss={iconSpacingStyles.space050}>
+				<Error label="Error" />
+			</Flex>
+		),
 	};
 
 	return key ? icons[key] : icons;

@@ -1,392 +1,397 @@
 import { defineMessages } from 'react-intl-next';
 
 export const syncBlockMessages: {
-	copySyncBlockLabel: {
-		id: string;
+	accessRequested: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	CannotCreateSyncBlockDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cannotCreateSyncBlockTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cannotDeleteDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cannotDeleteTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cannotPasteSyncedBlockAction: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cannotPasteSyncedBlockDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cannotPasteSyncedBlockTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	copySyncBlockLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	copySyncedBlockTooltip: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	editSourceLabel: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	editSourceTooltip: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	editSourceTooltipDisabled: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	syncBlockGroup: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	syncedBlockLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	unsyncedBlockLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	permissionDeniedHeading: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	permissionDeniedDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	permissionDeniedAltText: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	requestAccessButton: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	accessRequested: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	requestAccessError: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	sourceSyncBlockTooltip: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	defaultSyncBlockTooltip: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	referenceSyncBlockTooltip: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	referenceSyncBlockLastEdited: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	taskInDestinationSyncedBlockTooltip: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	deletionConfirmationModalTitleSingle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	deleteConfirmationModalTitleMultiple: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	deleteConfirmationModalCancelButton: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	deleteConfirmationModalDeleteButton: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	deleteRetryButton: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	deletionConfirmationModalDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	deletionConfirmationModalDescriptionNoRef: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	createSyncBlockLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	defaultSyncBlockTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteConfirmationModalCancelButton: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteConfirmationModalDeleteButton: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteConfirmationModalTitleMultiple: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteConfirmationModalUnsyncButton: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deleteRetryButton: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deletionConfirmationModalDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deletionConfirmationModalDescriptionNoRef: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	deletionConfirmationModalTitleSingle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	editSourceLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	editSourceTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	editSourceTooltipDisabled: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	extensionInSyncBlockDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	extensionInSyncBlockTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	failToCreateTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	failToCreateWhenOfflineDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	failToDeleteTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	failToDeleteWhenOfflineDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	failToEditTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	failToEditWhenOfflineDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	generalErrorDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	genericNotFoundDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	inlineExtensionInSyncBlockDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	inlineExtensionInSyncBlockTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	loadingSyncedContent: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	newLozenge: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	notFoundAltText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	notFoundDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	offlineError: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	permissionDeniedAltText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	permissionDeniedDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	permissionDeniedHeading: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	referenceSyncBlockLastEdited: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	referenceSyncBlockTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	requestAccessButton: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	requestAccessError: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	retryButton: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	sourceDeletedDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	sourceSyncBlockTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	sourceUnsyncedDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncBlockCopiedAction: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncBlockCopiedDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncBlockCopiedTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncBlockGroup: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
 	// New message with updated wording. To clean up: remove old message and feature flag check when flag is removed.
 	syncBlockLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	newLozenge: {
-		id: string;
+	syncedBlockLabel: {
 		defaultMessage: string;
 		description: string;
-	};
-	failToDeleteTitle: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	failToDeleteWhenOfflineDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	cannotDeleteTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	cannotDeleteDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	failToEditTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	failToEditWhenOfflineDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	failToCreateTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	failToCreateWhenOfflineDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	loadingSyncedContent: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	generalErrorDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	notFoundAltText: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	notFoundDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	sourceUnsyncedDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	sourceDeletedDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	genericNotFoundDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	retryButton: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	offlineError: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	unpublishedError: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	syncBlockCopiedTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	syncBlockCopiedDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	syncBlockCopiedAction: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	syncedLocationDropdownTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	syncedLocationDropdownHeading: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	syncedLocationDropdownError: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	syncedLocationDropdownNoResults: {
-		id: string;
+	syncedLocationDropdownHeading: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	syncedLocationDropdownLearnMoreLink: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	syncedLocationDropdownSamePage: {
-		id: string;
+	syncedLocationDropdownNoResults: {
 		defaultMessage: string;
 		description: string;
-	};
-	syncedLocationDropdownTitleBlockIndex: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	syncedLocationDropdownTitleNoteForConfluencePage: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	syncedLocationDropdownTitleNoteForJiraWorkItem: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	syncedLocationDropdownSourceLozenge: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	syncedLocationDropdownRequestAccess: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	unpublishedSyncBlockPastedTitle: {
-		id: string;
+	syncedLocationDropdownSamePage: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	syncedLocationDropdownSourceLozenge: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownTitleBlockIndex: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownTitleNoteForConfluencePage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownTitleNoteForJiraWorkItem: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownUntitledPage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	taskInDestinationSyncedBlockTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	unpublishedError: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	unpublishedSyncBlockPastedDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	unpublishedSyncBlockPastedTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	unsyncButton: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	deleteConfirmationModalUnsyncButton: {
 		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	unsyncConfirmationModalTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	unsyncConfirmModalDescriptionSingle: {
 		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	unsyncConfirmModalDescriptionMultiple: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	cannotPasteSyncedBlockTitle: {
-		id: string;
+	unsyncConfirmModalDescriptionSingle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	cannotPasteSyncedBlockDescription: {
-		id: string;
+	unsyncedBlockLabel: {
 		defaultMessage: string;
 		description: string;
-	};
-	cannotPasteSyncedBlockAction: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	cannotCreateSyncBlockTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	CannotCreateSyncBlockDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	inlineExtensionInSyncBlockTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	inlineExtensionInSyncBlockDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	extensionInSyncBlockTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	extensionInSyncBlockDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 } = defineMessages({
 	copySyncBlockLabel: {
@@ -738,6 +743,12 @@ export const syncBlockMessages: {
 		defaultMessage: 'Request access',
 		description:
 			'Label shown in the synced location dropdown option when the sync block is not accessible to the user',
+	},
+	syncedLocationDropdownUntitledPage: {
+		id: 'fabric.editor.syncedLocationDropdownUntitledPage',
+		defaultMessage: 'Untitled',
+		description:
+			'Placeholder title shown in the synced location dropdown when a page has no title yet',
 	},
 	unpublishedSyncBlockPastedTitle: {
 		id: 'fabric.editor.unpublishedSyncBlockPastedTitle',

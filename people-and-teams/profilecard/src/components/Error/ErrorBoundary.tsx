@@ -11,7 +11,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, {}> {
 		this.props.onError();
 	}
 
-	render() {
+	render(): React.ReactNode {
 		return this.props.children;
 	}
 }

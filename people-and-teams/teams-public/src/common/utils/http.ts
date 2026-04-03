@@ -84,7 +84,7 @@ export function withExponentialBackoff<ResponseType>(
 	};
 }
 
-export const fetchWithExponentialBackoff = withExponentialBackoff<Response>(
+export const fetchWithExponentialBackoff: (...args: ToTryFunctionArgs) => Promise<Response> = withExponentialBackoff<Response>(
 	(url: Parameters<typeof fetch>[0], init: Parameters<typeof fetch>[1]) => fetch(url, init),
 	{
 		initial: EXPONENTIAL_BACKOFF_RETRY_POLICY.INITIAL_DELAY,

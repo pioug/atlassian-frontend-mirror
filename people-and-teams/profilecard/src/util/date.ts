@@ -1,6 +1,6 @@
 import { formatInTimeZone } from 'date-fns-tz';
 
-export const localTime = (timezone: string, format: string) => {
+export const localTime = (timezone: string, format: string): string | null => {
 	if (!timezone) {
 		return null;
 	}

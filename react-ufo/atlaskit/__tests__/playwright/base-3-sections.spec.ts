@@ -9,8 +9,11 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 	for (const featureFlags of featureFlagsCombos) {
 		test.describe(`with feature flags ${featureFlags.join(', ')}`, () => {
 			test.use({
-				examplePage: 'basic-three-sections',
 				featureFlags,
+			});
+
+			test.beforeEach(async ({ page }) => {
+				await page.visitExample<typeof import('../../examples/02-basic-three-sections.tsx')>('react-ufo', 'atlaskit', 'basic-three-sections');
 			});
 
 			for (const viewport of viewports) {
@@ -71,8 +74,6 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 
 					test('should capture and report a11y violations', async ({
 						page,
-						waitForReactUFOPayload,
-						getSectionDOMAddedAt,
 					}) => {
 						const mainDiv = page.locator('[data-testid="main"]');
 						await expect(mainDiv).toBeVisible();

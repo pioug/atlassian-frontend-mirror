@@ -189,7 +189,7 @@ export const TeamAvatarImage = ({
 	testId,
 	teamId,
 	compact = false,
-}: AvatarImageProps) => {
+}: AvatarImageProps): JSX.Element => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
 
 	const avatarSrc = getTeamAvatarSrc(src, teamId);

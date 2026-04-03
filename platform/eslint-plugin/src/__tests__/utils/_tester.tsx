@@ -17,7 +17,7 @@ import { RuleTester } from 'eslint';
 	});
 };
 
-export const tester = new RuleTester({
+export const tester: RuleTester = new RuleTester({
 	parser: require.resolve('@babel/eslint-parser'),
 	parserOptions: {
 		ecmaVersion: 6,

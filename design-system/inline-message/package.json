@@ -94,9 +94,6 @@
 	},
 	"homepage": "https://atlassian.design/components/inline-message/",
 	"platform-feature-flags": {
-		"dst-a11y__replace-anchor-with-link__design-system-": {
-			"type": "boolean"
-		},
 		"platform-dst-motion-uplift": {
 			"type": "boolean"
 		}

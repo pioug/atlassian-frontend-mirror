@@ -58,4 +58,5 @@ function determineReason(value: string): Reason {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default new MutabilityClient();
+const _default_1: MutabilityClient = new MutabilityClient();
+export default _default_1;

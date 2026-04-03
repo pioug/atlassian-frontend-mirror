@@ -6,8 +6,9 @@ const EXAMPLE = 'creatable-with-locale';
 test.describe('Creatable User Picker with Locale', () => {
 	test('should load user picker with allowEmail enabled and default locale', async ({
 		userPicker,
+		page,
 	}) => {
-		await userPicker.init(EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/12-creatable-with-locale.tsx')>('elements', 'user-picker', EXAMPLE);
 
 		// Check that the user picker is loaded
 		await expect(userPicker.placeholder).toBeVisible();
@@ -19,8 +20,8 @@ test.describe('Creatable User Picker with Locale', () => {
 		await expect(userPicker.firstOption).toBeVisible();
 	});
 
-	test('should create new email option when typing valid email', async ({ userPicker }) => {
-		await userPicker.init(EXAMPLE);
+	test('should create new email option when typing valid email', async ({ userPicker, page }) => {
+		await page.visitExample<typeof import('../../../examples/12-creatable-with-locale.tsx')>('elements', 'user-picker', EXAMPLE);
 
 		// Click input and type a valid email address
 		await userPicker.input.nth(1).click();
@@ -39,8 +40,8 @@ test.describe('Creatable User Picker with Locale', () => {
 		await expect(userPicker.selectedMultiValue).toContainText('integration_test@example.com');
 	});
 
-	test('should handle multiple email creations', async ({ userPicker }) => {
-		await userPicker.init(EXAMPLE);
+	test('should handle multiple email creations', async ({ userPicker, page }) => {
+		await page.visitExample<typeof import('../../../examples/12-creatable-with-locale.tsx')>('elements', 'user-picker', EXAMPLE);
 
 		// Add first email
 		await userPicker.input.nth(1).click();
@@ -63,8 +64,8 @@ test.describe('Creatable User Picker with Locale', () => {
 		);
 	});
 
-	test('should not create option for invalid email format', async ({ userPicker }) => {
-		await userPicker.init(EXAMPLE);
+	test('should not create option for invalid email format', async ({ userPicker, page }) => {
+		await page.visitExample<typeof import('../../../examples/12-creatable-with-locale.tsx')>('elements', 'user-picker', EXAMPLE);
 
 		// Type an invalid email address
 		await userPicker.input.nth(1).click();
@@ -76,8 +77,8 @@ test.describe('Creatable User Picker with Locale', () => {
 		await expect(userPicker.firstOption).toHaveAttribute('aria-disabled', 'true');
 	});
 
-	test('should remove created email option', async ({ userPicker }) => {
-		await userPicker.init(EXAMPLE);
+	test('should remove created email option', async ({ userPicker, page }) => {
+		await page.visitExample<typeof import('../../../examples/12-creatable-with-locale.tsx')>('elements', 'user-picker', EXAMPLE);
 
 		// Create and add an email
 		await userPicker.input.nth(1).click();

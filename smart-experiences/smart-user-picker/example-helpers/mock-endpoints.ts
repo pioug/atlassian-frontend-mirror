@@ -7,7 +7,153 @@ import { type LegionResponse } from '../src/service/teams-client';
 import { users } from './users';
 import { teams } from './teams';
 
-export const randomMentions = () => mentionsData.filter(() => Math.random() < 0.7);
+export const randomMentions = (): ({
+    id: string;
+    avatarUrl: string;
+    name: string;
+    mentionName: string;
+    lozenge: string;
+    accessLevel: string;
+    presence: {
+        status: string;
+        time: string;
+    };
+    nickname?: undefined;
+    nonLicensedUser?: undefined;
+    userType?: undefined;
+    context?: undefined;
+} | {
+    id: string;
+    avatarUrl: string;
+    name: string;
+    mentionName: string;
+    lozenge: string;
+    accessLevel: string;
+    presence: {
+        status: string;
+        time?: undefined;
+    };
+    nickname?: undefined;
+    nonLicensedUser?: undefined;
+    userType?: undefined;
+    context?: undefined;
+} | {
+    id: string;
+    avatarUrl: string;
+    name: string;
+    mentionName: string;
+    presence: {
+        status: string;
+        time: string;
+    };
+    lozenge?: undefined;
+    accessLevel?: undefined;
+    nickname?: undefined;
+    nonLicensedUser?: undefined;
+    userType?: undefined;
+    context?: undefined;
+} | {
+    id: string;
+    avatarUrl: string;
+    name: string;
+    mentionName: string;
+    nickname: string;
+    lozenge: string;
+    accessLevel: string;
+    presence: {
+        status: string;
+        time?: undefined;
+    };
+    nonLicensedUser?: undefined;
+    userType?: undefined;
+    context?: undefined;
+} | {
+    id: string;
+    avatarUrl: string;
+    name: string;
+    mentionName: string;
+    nickname: string;
+    accessLevel: string;
+    presence: {
+        status: string;
+        time?: undefined;
+    };
+    lozenge?: undefined;
+    nonLicensedUser?: undefined;
+    userType?: undefined;
+    context?: undefined;
+} | {
+    id: string;
+    avatarUrl: string;
+    name: string;
+    mentionName: string;
+    nickname: string;
+    lozenge?: undefined;
+    accessLevel?: undefined;
+    presence?: undefined;
+    nonLicensedUser?: undefined;
+    userType?: undefined;
+    context?: undefined;
+} | {
+    id: string;
+    name: string;
+    mentionName: string;
+    presence: {
+        time: string;
+        status?: undefined;
+    };
+    avatarUrl?: undefined;
+    lozenge?: undefined;
+    accessLevel?: undefined;
+    nickname?: undefined;
+    nonLicensedUser?: undefined;
+    userType?: undefined;
+    context?: undefined;
+} | {
+    id: string;
+    avatarUrl: string;
+    name: string;
+    mentionName: string;
+    nickname: string;
+    accessLevel: string;
+    presence: {
+        status: string;
+        time?: undefined;
+    };
+    nonLicensedUser: boolean;
+    lozenge?: undefined;
+    userType?: undefined;
+    context?: undefined;
+} | {
+    id: string;
+    avatarUrl: string;
+    name: string;
+    lozenge: string;
+    mentionName: string;
+    accessLevel?: undefined;
+    presence?: undefined;
+    nickname?: undefined;
+    nonLicensedUser?: undefined;
+    userType?: undefined;
+    context?: undefined;
+} | {
+    id: string;
+    avatarUrl: string;
+    name: string;
+    userType: string;
+    context: {
+        members: never[];
+        includesYou: boolean;
+        memberCount: number;
+        teamLink: string;
+    };
+    mentionName?: undefined;
+    lozenge?: undefined;
+    accessLevel?: undefined;
+    presence?: undefined;
+    nickname?: undefined;
+    nonLicensedUser?: undefined;
+})[] => mentionsData.filter(() => Math.random() < 0.7);
 
 const mockEndpoints = (failRecommendations: boolean) => {
 	// Unmatched routes will fallback to the network
@@ -129,7 +275,11 @@ const mockEndpoints = (failRecommendations: boolean) => {
 
 // Simple hook for using inside example pages, which sets up the mock API responses, and then
 // un-sets the mock API responses when the example is exited.
-export const useEndpointMocks = ({ failRecommendations = false } = {}) => {
+export const useEndpointMocks = ({ failRecommendations = false }: {
+    failRecommendations?: boolean | undefined;
+} = {}): {
+    ready: boolean;
+} => {
 	const [ready, setReady] = useState(false);
 
 	useEffect(() => {

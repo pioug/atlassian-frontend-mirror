@@ -520,6 +520,13 @@ type AskRovoButtonClickedAEP = ButtonAEP<
 	}
 >;
 
+type SmartLinkRovoButtonClickedAEP = ButtonAEP<ACTION_SUBJECT_ID.SMART_LINK_ROVO_BUTTON, undefined>;
+
+type SmartLinkSummarizeButtonClickedAEP = ButtonAEP<
+	ACTION_SUBJECT_ID.SMART_LINK_SUMMARIZE_BUTTON,
+	undefined
+>;
+
 type ChangeToneMenuItemClickedAEP = UIAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.TOOLBAR_DROPDOWN_MENU_ITEM,
@@ -590,6 +597,8 @@ export type GeneralEventPayload<T = void> =
 	| DockedPrimaryToolbarRenderedAEP
 	| RovoMoreOptionsClickedAEP
 	| AskRovoButtonClickedAEP
+	| SmartLinkRovoButtonClickedAEP
+	| SmartLinkSummarizeButtonClickedAEP
 	| ChangeToneMenuItemClickedAEP
 	| TranslateMenuItemClickedAEP
 	| MediaSingleWidthTransformedAEP;

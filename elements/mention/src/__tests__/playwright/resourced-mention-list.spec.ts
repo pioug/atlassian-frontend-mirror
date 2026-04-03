@@ -4,8 +4,8 @@ import { test } from './mention';
 const EXAMPLE = 'resourced-mention-list';
 
 test.describe('Resourced Mention List User Interactions', () => {
-	test('should filter mention items based on search query', async ({ mention }) => {
-		await mention.init(EXAMPLE);
+	test('should filter mention items based on search query', async ({ mention, page }) => {
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
 
 		const searchInput = mention.input.first();
 
@@ -24,8 +24,8 @@ test.describe('Resourced Mention List User Interactions', () => {
 		await expect(firstItem).toContainText('team', { ignoreCase: true });
 	});
 
-	test('should highlight first mention item by default', async ({ mention }) => {
-		await mention.init(EXAMPLE);
+	test('should highlight first mention item by default', async ({ mention, page }) => {
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
 
 		const searchInput = mention.input.first();
 
@@ -45,8 +45,8 @@ test.describe('Resourced Mention List User Interactions', () => {
 		await expect(firstItem).toHaveAttribute('data-selected', 'true');
 	});
 
-	test('should navigate through mentions with keyboard - arrow down', async ({ mention }) => {
-		await mention.init(EXAMPLE);
+	test('should navigate through mentions with keyboard - arrow down', async ({ mention, page }) => {
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
 
 		const searchInput = mention.input.first();
 
@@ -77,8 +77,8 @@ test.describe('Resourced Mention List User Interactions', () => {
 		await expect(mentionItems.nth(1)).toHaveAttribute('data-selected', 'true');
 	});
 
-	test('should navigate through mentions with keyboard - arrow up', async ({ mention }) => {
-		await mention.init(EXAMPLE);
+	test('should navigate through mentions with keyboard - arrow up', async ({ mention, page }) => {
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
 
 		const searchInput = mention.input.first();
 
@@ -108,8 +108,8 @@ test.describe('Resourced Mention List User Interactions', () => {
 		await expect(mentionItems.first()).toHaveAttribute('data-selected', 'false');
 	});
 
-	test('should update selection on mouse hover', async ({ mention }) => {
-		await mention.init(EXAMPLE);
+	test('should update selection on mouse hover', async ({ mention, page }) => {
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
 
 		await mention.input.click();
 
@@ -131,8 +131,8 @@ test.describe('Resourced Mention List User Interactions', () => {
 		await expect(mentionItems.first()).toHaveAttribute('data-selected', 'false');
 	});
 
-	test('should handle empty results gracefully', async ({ mention }) => {
-		await mention.init(EXAMPLE);
+	test('should handle empty results gracefully', async ({ mention, page }) => {
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
 
 		// Type query that returns no results
 		await mention.input.fill('definitely-nonexistent-user');
@@ -142,8 +142,8 @@ test.describe('Resourced Mention List User Interactions', () => {
 		await expect(mentionItems).toHaveCount(0);
 	});
 
-	test('should maintain focus on input during navigation', async ({ mention }) => {
-		await mention.init(EXAMPLE);
+	test('should maintain focus on input during navigation', async ({ mention, page }) => {
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
 
 		await mention.input.focus();
 
@@ -155,8 +155,8 @@ test.describe('Resourced Mention List User Interactions', () => {
 		await expect(mention.input).toBeFocused();
 	});
 
-	test('should handle search by mention name', async ({ mention }) => {
-		await mention.init(EXAMPLE);
+	test('should handle search by mention name', async ({ mention, page }) => {
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
 
 		// Type query to search by mention name
 		await mention.input.fill('carolyn');

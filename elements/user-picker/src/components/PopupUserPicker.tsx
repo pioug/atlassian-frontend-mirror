@@ -223,50 +223,33 @@ export const PopupUserPicker: React.ForwardRefExoticComponent<
 			>,
 			never
 		> & {
-			footer?: React.ReactNode;
-			header?: React.ReactNode;
-			search?: string | undefined;
-			appearance?: Appearance | undefined;
-			height?: number | string | undefined;
-			minHeight?: number | string | undefined;
-			width?: number | string | undefined;
-			offset?: [number, number] | undefined;
-			shouldFlip?: boolean | undefined;
-			boundariesElement?: BoundariesElement | undefined;
-			placement?: Placement | undefined;
-			anchor?: React.ComponentType<any> | undefined;
-			onInputChange?: OnInputChange | undefined;
-			onSelection?: OnOption | undefined;
-			options?: OptionData[] | undefined;
-			required?: boolean | undefined;
-			name?: string | undefined;
-			placeholder?: React.ReactNode;
-			value?: Value;
-			onChange?: OnChange | undefined;
-			defaultValue?: DefaultValue;
-			autoFocus?: boolean | undefined;
-			onFocus?: OnPicker | undefined;
-			onBlur?: OnPicker | undefined;
-			onKeyDown?: ((event: React.KeyboardEvent) => void) | undefined;
-			isDisabled?: boolean | undefined;
 			addMoreMessage?: string | undefined;
 			allowEmail?: boolean | undefined;
+			anchor?: React.ComponentType<any> | undefined;
+			appearance?: Appearance | undefined;
 			ariaDescribedBy?: string | undefined;
 			ariaLabel?: string | undefined;
 			ariaLabelledBy?: string | undefined;
 			ariaLive?: 'polite' | 'off' | 'assertive' | undefined;
+			autoFocus?: boolean | undefined;
+			boundariesElement?: BoundariesElement | undefined;
 			captureMenuScroll?: boolean | undefined;
 			clearValueLabel?: string | undefined;
 			closeMenuOnScroll?: (boolean | EventListener) | undefined;
 			components?: SelectComponentsConfig<OptionData, boolean> | undefined;
+			defaultValue?: DefaultValue;
 			disableInput?: boolean | undefined;
 			emailLabel?: string | undefined;
 			fieldId?: string | null | undefined;
+			footer?: React.ReactNode;
 			forwardedRef?: React.ForwardedRef<UserPickerRef> | undefined;
 			groupByTypeOrder?: NonNullable<OptionData['type']>[] | undefined;
+			header?: React.ReactNode;
+			height?: number | string | undefined;
 			includeTeamsUpdates?: boolean | undefined;
 			inputId?: string | undefined;
 			isClearable?: boolean | undefined;
+			isDisabled?: boolean | undefined;
 			isFooterFocused?: boolean | undefined;
 			isHeaderFocused?: boolean | undefined;
 			isInvalid?: boolean | undefined;
@@ -283,32 +266,49 @@ export const PopupUserPicker: React.ForwardRefExoticComponent<
 			menuPortalTarget?: HTMLElement | undefined;
 			menuPosition?: 'absolute' | 'fixed' | undefined;
 			menuShouldBlockScroll?: boolean | undefined;
+			minHeight?: number | string | undefined;
+			name?: string | undefined;
 			noBorder?: boolean | undefined;
 			noOptionsMessage?:
 				| React.ReactNode
 				| ((value: { inputValue: string }) => string | null | React.ReactNode);
+			offset?: [number, number] | undefined;
+			onBlur?: OnPicker | undefined;
+			onChange?: OnChange | undefined;
 			onClear?: OnPicker | undefined;
 			onClose?: OnPicker | undefined;
+			onFocus?: OnPicker | undefined;
+			onInputChange?: OnInputChange | undefined;
+			onKeyDown?: ((event: React.KeyboardEvent) => void) | undefined;
 			onOpen?: OnPicker | undefined;
+			onSelection?: OnOption | undefined;
 			open?: boolean | undefined;
 			openMenuOnClick?: boolean | undefined;
+			options?: OptionData[] | undefined;
+			placeholder?: React.ReactNode;
 			placeholderAvatar?: 'person' | 'team' | undefined;
+			placement?: Placement | undefined;
 			popupSelectProps?: PopupSelectProps<OptionData> | undefined;
+			popupTitle?: string | undefined;
+			required?: boolean | undefined;
+			rootBoundary?: RootBoundary | undefined;
+			search?: string | undefined;
 			setIsFooterFocused?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 			setIsHeaderFocused?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
+			shouldFlip?: boolean | undefined;
 			showClearIndicator?: boolean | undefined;
 			strategy?: 'fixed' | 'absolute' | undefined;
 			styles?: StylesConfig | undefined;
 			subtle?: boolean | undefined;
 			suggestEmailsForDomain?: string | undefined;
+			target?: Target | undefined;
 			textFieldBackgroundColor?: boolean | undefined;
 			UNSAFE_hasDraggableParentComponent?: boolean | undefined;
-			popupTitle?: string | undefined;
-			rootBoundary?: RootBoundary | undefined;
-			target?: Target | undefined;
+			value?: Value;
+			width?: number | string | undefined;
 		} & {
-			ref?: React.Ref<any> | undefined;
 			createAnalyticsEvent?: CreateUIAnalyticsEvent | undefined;
+			ref?: React.Ref<any> | undefined;
 		},
 		'ref'
 	> &

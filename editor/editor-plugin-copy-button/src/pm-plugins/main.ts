@@ -16,8 +16,8 @@ export function getMarkSelectionHelper({
 }):
 	| false
 	| {
-			start: number;
 			end: number;
+			start: number;
 	  } {
 	const hasMark = $pos.doc.rangeHasMark(
 		$pos.pos,

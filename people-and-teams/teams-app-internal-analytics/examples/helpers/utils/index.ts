@@ -60,7 +60,7 @@ function fireEvent(kind: 'operational' | 'screen' | 'track' | 'ui') {
 	};
 }
 
-export const fireOperationalEvent = fireEvent('operational');
-export const fireScreenEvent = fireEvent('screen');
-export const fireTrackEvent = fireEvent('track');
-export const fireUIEvent = fireEvent('ui');
+export const fireOperationalEvent: (createAnalyticsEvent: CreateUIAnalyticsEvent | undefined, body: AnalyticsEventPayload) => void = fireEvent('operational');
+export const fireScreenEvent: (createAnalyticsEvent: CreateUIAnalyticsEvent | undefined, body: AnalyticsScreenEventPayload) => void = fireEvent('screen');
+export const fireTrackEvent: (createAnalyticsEvent: CreateUIAnalyticsEvent | undefined, body: AnalyticsEventPayload) => void = fireEvent('track');
+export const fireUIEvent: (createAnalyticsEvent: CreateUIAnalyticsEvent | undefined, body: AnalyticsEventPayload) => void = fireEvent('ui');

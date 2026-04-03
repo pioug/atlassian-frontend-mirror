@@ -4,7 +4,7 @@ import type { Breadcrumb, Scope } from '@sentry/browser';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Severity, SeverityLevel } from '@sentry/types';
 
-import { type CreateErrorHandler, type SentryTags } from './types';
+import { type CreateErrorHandler, type ErrorHandler, type SentryTags } from './types';
 import { getSentryClient } from './utils/sentry-client';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -125,7 +125,7 @@ export const logInfoMessageWithPackageContext =
 
 export const createErrorHandlerWithPackageContext =
 	(packageContext: { packageName: string; packageVersion: string }) =>
-	(...args: Parameters<typeof createErrorHandler>) =>
+	(...args: Parameters<typeof createErrorHandler>): ErrorHandler =>
 		createErrorHandler({
 			...args[0],
 			packageName: packageContext.packageName,

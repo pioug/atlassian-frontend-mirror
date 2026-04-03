@@ -3,19 +3,32 @@
 /* eslint-disable no-unused-vars */
 import type { PlaywrightCoverageOptions } from 'build/test-tooling/integration-testing/src/fixtures';
 import type {
+	Page as PlaywrightCorePage,
 	PlaywrightTestArgs,
 	PlaywrightTestOptions,
 	PlaywrightWorkerArgs,
 	PlaywrightWorkerOptions,
 	TestType,
+	TestInfo,
 } from 'playwright/test';
 
 import {
 	test as base,
 	expect as baseExpect,
 	type Expect,
-	type Page,
 } from '@af/integration-testing';
+
+// Extend the Page interface to include visitExample for TypeScript
+declare module '@af/integration-testing' {
+	interface Page {
+		visitExample<T = any>(
+			groupId: string,
+			packageId: string,
+			exampleId?: string,
+			params?: Record<string, string | boolean>
+		): Promise<Response | null>;
+	}
+}
 
 import type {
 	PostInteractionLogPayload,
@@ -25,6 +38,9 @@ import { type CriticalMetricsPayload } from '../../src/create-payload/critical-m
 import type { TerminalErrorPayload } from '../../src/create-terminal-error-payload';
 
 import type { WindowWithReactUFOTestGlobals } from './window-type';
+
+type FixtureUse<T> = (value: T) => Promise<void>;
+type PageArg = { page: PlaywrightCorePage };
 
 const prepareParams = (params?: { [key: string]: string | boolean }) => {
 	if (!params) {
@@ -193,8 +209,23 @@ export const test: TestType<
 	},
 	featureFlags: [],
 	examplePage: 'basic',
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	page: async ({ browser, baseURL, viewport, examplePage, featureFlags }, use, testInfo) => {
+	page: async (
+		{
+			browser,
+			baseURL,
+			viewport,
+			examplePage,
+			featureFlags,
+		}: {
+			browser: PlaywrightWorkerArgs['browser'];
+			baseURL: PlaywrightTestOptions['baseURL'];
+			viewport: { width: number; height: number };
+			examplePage: string;
+			featureFlags: string[];
+		},
+		use: FixtureUse<PlaywrightCorePage>,
+		testInfo: TestInfo,
+	) => {
 		// For the tests work properly, it is really important the page isn't cached
 		const context = await browser.newContext();
 		const page = await context.newPage();
@@ -270,8 +301,7 @@ export const test: TestType<
 			});
 		});
 
-		// @ts-ignore
-		(page as unknown as Page).visitExample = (
+		(page as any).visitExample = (
 			groupId: string,
 			packageId: string,
 			exampleId?: string,
@@ -300,12 +330,11 @@ export const test: TestType<
 		if (featureFlags && featureFlags.length > 0) {
 			params.featureFlag = featureFlags.join(';');
 		}
-		// @ts-ignore
-		((await page) as unknown as Page).visitExample('react-ufo', 'atlaskit', examplePage, params);
+		await page.visitExample('react-ufo', 'atlaskit', examplePage, params);
 
 		await use(page);
 	},
-	waitForReactUFOPayload: async ({ page }, use) => {
+	waitForReactUFOPayload: async ({ page }: PageArg, use: FixtureUse<() => Promise<ReactUFOPayload | null>>) => {
 		const reset = async () => {
 			// THis is hardcoded applied when the `sendOperationalEvent` is called
 			// See: website/src/metrics.ts
@@ -344,7 +373,7 @@ export const test: TestType<
 
 		await use(reset);
 	},
-	waitForReactUFOInteractionPayload: async ({ page }, use) => {
+	waitForReactUFOInteractionPayload: async ({ page }: PageArg, use: FixtureUse<() => Promise<ReactUFOPayload | null>>) => {
 		const reset = async () => {
 			// THis is hardcoded applied when the `sendOperationalEvent` is called
 			// See: website/src/metrics.ts
@@ -385,7 +414,7 @@ export const test: TestType<
 
 		await use(reset);
 	},
-	waitForPostInteractionLogPayload: async ({ page }, use) => {
+	waitForPostInteractionLogPayload: async ({ page }: PageArg, use: FixtureUse<() => Promise<PostInteractionLogPayload | null>>) => {
 		const reset = async () => {
 			// This is hardcoded applied when the `sendOperationalEvent` is called
 			// See: website/src/metrics.ts
@@ -424,7 +453,7 @@ export const test: TestType<
 
 		await use(reset);
 	},
-	waitForReactUFOPayloadCriticalMetrics: async ({ page }, use) => {
+	waitForReactUFOPayloadCriticalMetrics: async ({ page }: PageArg, use: FixtureUse<() => Promise<CriticalMetricsPayload[] | null>>) => {
 		const reset = async () => {
 			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
 			await expect(mainDivAfterTTVCFinished).toBeVisible({ timeout: 20000 });
@@ -459,7 +488,7 @@ export const test: TestType<
 		};
 		await use(reset);
 	},
-	waitForInteractionExtraMetricsPayload: async ({ page }, use) => {
+	waitForInteractionExtraMetricsPayload: async ({ page }: PageArg, use: FixtureUse<() => Promise<ReactUFOPayload | null>>) => {
 		const reset = async () => {
 			// This is hardcoded applied when the `sendOperationalEvent` is called
 			// See: website/src/metrics.ts
@@ -498,7 +527,7 @@ export const test: TestType<
 
 		await use(reset);
 	},
-	waitForExtraSearchPageInteractionPayload: async ({ page }, use) => {
+	waitForExtraSearchPageInteractionPayload: async ({ page }: PageArg, use: FixtureUse<() => Promise<ReactUFOPayload | null>>) => {
 		const reset = async () => {
 			// This is hardcoded applied when the `sendOperationalEvent` is called
 			// See: website/src/metrics.ts
@@ -538,7 +567,7 @@ export const test: TestType<
 
 		await use(reset);
 	},
-	waitForAllTerminalErrorPayloads: async ({ page }, use) => {
+	waitForAllTerminalErrorPayloads: async ({ page }: PageArg, use: FixtureUse<(expectedCount: number) => Promise<TerminalErrorPayload[]>>) => {
 		const getPayloads = async (expectedCount: number) => {
 			// This is hardcoded applied when the `sendOperationalEvent` is called
 			// See: website/src/metrics.ts
@@ -573,13 +602,13 @@ export const test: TestType<
 
 		await use(getPayloads);
 	},
-	getSectionDOMAddedAt: async ({ page }, use) => {
+	getSectionDOMAddedAt: async ({ page }: PageArg, use: FixtureUse<(sectionTestId: string) => Promise<DOMHighResTimeStamp | null>>) => {
 		const getValue = async (sectionTestId: string) => {
 			let result: number | null = null;
 			await expect
 				.poll(
 					async () => {
-						const value = await page.evaluate((_sectionTestId) => {
+						const value = await page.evaluate((_sectionTestId: string) => {
 							const myMap = (window as WindowWithReactUFOTestGlobals).__sectionAddedAt;
 							return myMap.get(_sectionTestId) || null;
 						}, sectionTestId);
@@ -601,13 +630,13 @@ export const test: TestType<
 		await use(getValue);
 	},
 
-	getSectionVisibleAt: async ({ page }, use) => {
+	getSectionVisibleAt: async ({ page }: PageArg, use: FixtureUse<(sectionTestId: string) => Promise<DOMHighResTimeStamp | null>>) => {
 		const getValue = async (sectionTestId: string) => {
 			let result: number | null = null;
 			await expect
 				.poll(
 					async () => {
-						const value = await page.evaluate((_sectionTestId) => {
+						const value = await page.evaluate((_sectionTestId: string) => {
 							const myMap = (window as WindowWithReactUFOTestGlobals).__sectionVisibleAt;
 							return myMap.get(_sectionTestId) || null;
 						}, sectionTestId);
@@ -629,14 +658,14 @@ export const test: TestType<
 		await use(getValue);
 	},
 
-	getSectionAttributeNthChange: async ({ page }, use) => {
+	getSectionAttributeNthChange: async ({ page }: PageArg, use: FixtureUse<(sectionTestId: string, nthChange: number) => Promise<DOMHighResTimeStamp | null>>) => {
 		const getValue = async (sectionTestId: string, nthChange: number) => {
 			let result: number | null = null;
 			await expect
 				.poll(
 					async () => {
 						const value = await page.evaluate(
-							({ sectionTestId: _sectionTestId, nthChange: _nthChange }) => {
+							({ sectionTestId: _sectionTestId, nthChange: _nthChange }: { sectionTestId: string; nthChange: number }) => {
 								const myMap = (window as WindowWithReactUFOTestGlobals).__sectionAttributeChanges;
 								const changes = myMap.get(_sectionTestId) || [];
 								return changes[_nthChange] || null;
@@ -702,7 +731,6 @@ const customMatchers = {
 		};
 	},
 };
-// @ts-expect-error - customMatchers is not typed
 export const expect: Expect<
 	typeof baseExpect & {
 		/**
@@ -722,7 +750,7 @@ export const expect: Expect<
 			message: () => string;
 		};
 	}
-> = baseExpect.extend(customMatchers);
+> = baseExpect.extend(customMatchers) as any;
 
 /*
  *
@@ -781,7 +809,20 @@ export const testWithBackgroundTab: TestType<
 }>({
 	simulateBackgroundTab: false,
 	featureFlags: [],
-	page: async ({ browser, baseURL, simulateBackgroundTab, featureFlags }, use) => {
+	page: async (
+		{
+			browser,
+			baseURL,
+			simulateBackgroundTab,
+			featureFlags,
+		}: {
+			browser: PlaywrightWorkerArgs['browser'];
+			baseURL: PlaywrightTestOptions['baseURL'];
+			simulateBackgroundTab: boolean;
+			featureFlags: string[];
+		},
+		use: FixtureUse<PlaywrightCorePage>,
+	) => {
 		const context = await browser.newContext();
 		const page = await context.newPage();
 
@@ -844,7 +885,7 @@ export const testWithBackgroundTab: TestType<
 
 		await use(page);
 	},
-	waitForReactUFOPayload: async ({ page }, use) => {
+	waitForReactUFOPayload: async ({ page }: PageArg, use: FixtureUse<() => Promise<ReactUFOPayload | null>>) => {
 		const getPayload = async () => {
 			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
 			await expect(mainDivAfterTTVCFinished).toBeVisible({ timeout: 20000 });

@@ -6,11 +6,14 @@ import { expect, test } from './fixtures';
 test.describe('React UFO: pageVisibilityTimeline field', () => {
 	test.describe('when page stays visible', () => {
 		test.use({
-			examplePage: 'basic',
 			viewport: {
 				width: 1920,
 				height: 1080,
 			},
+		});
+
+		test.beforeEach(async ({ page }) => {
+			await page.visitExample<typeof import('../../examples/01-basic.tsx')>('react-ufo', 'atlaskit', 'basic');
 		});
 
 		test('should include pageVisibilityTimeline in payload with initial visible state', async ({
@@ -54,11 +57,14 @@ test.describe('React UFO: pageVisibilityTimeline field', () => {
 
 	test.describe('when page is backgrounded during interaction', () => {
 		test.use({
-			examplePage: 'interactions-simple-button',
 			viewport: {
 				width: 1920,
 				height: 1080,
 			},
+		});
+
+		test.beforeEach(async ({ page }) => {
+			await page.visitExample<typeof import('../../examples/23-interactions-simple-button.tsx')>('react-ufo', 'atlaskit', 'interactions-simple-button');
 		});
 
 		test('should capture visibility transitions in the timeline', async ({
@@ -126,11 +132,14 @@ test.describe('React UFO: pageVisibilityTimeline field', () => {
 
 	test.describe('press interaction', () => {
 		test.use({
-			examplePage: 'interactions-simple-button',
 			viewport: {
 				width: 1920,
 				height: 1080,
 			},
+		});
+
+		test.beforeEach(async ({ page }) => {
+			await page.visitExample<typeof import('../../examples/23-interactions-simple-button.tsx')>('react-ufo', 'atlaskit', 'interactions-simple-button');
 		});
 
 		test('should include pageVisibilityTimeline for press interactions', async ({

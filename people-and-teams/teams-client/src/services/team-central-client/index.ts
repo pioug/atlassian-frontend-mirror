@@ -248,6 +248,7 @@ export class TeamCentralClient extends BaseGraphQlClient {
 	}
 }
 
-export default new TeamCentralClient(DEFAULT_CONFIG.stargateRoot, {
-	logException,
+const _default_1: TeamCentralClient = new TeamCentralClient(DEFAULT_CONFIG.stargateRoot, {
+    logException,
 });
+export default _default_1;

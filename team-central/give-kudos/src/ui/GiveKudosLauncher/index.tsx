@@ -1,6 +1,8 @@
-import { lazy } from 'react';
+import { lazy, type LazyExoticComponent } from 'react';
 
-export const GiveKudosLauncherLazy = lazy(
+import type { GiveKudosDrawerProps } from '../../types';
+
+export const GiveKudosLauncherLazy: LazyExoticComponent<(props: GiveKudosDrawerProps) => JSX.Element> = lazy(
 	() =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_lazy-give-kudos" */

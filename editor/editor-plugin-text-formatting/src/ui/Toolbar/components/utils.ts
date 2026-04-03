@@ -86,13 +86,13 @@ export const useComponentInfo = ({
 	toggleMarkWithAnalyticsCallback,
 	parents,
 }: Omit<FormatComponentProps, 'icon' | 'ariaLabel' | 'groupLocation'>): {
-	formatTitle: string;
-	shortcutContent: string | undefined;
 	ariaLabel: string;
-	onClick: () => void;
+	formatTitle: string;
 	isActive: boolean;
 	isDisabled: boolean;
 	isHidden: boolean;
+	onClick: () => void;
+	shortcutContent: string | undefined;
 } => {
 	const { isActive, isDisabled, isHidden, isPluginInitialised } = useSharedPluginStateWithSelector(
 		api,

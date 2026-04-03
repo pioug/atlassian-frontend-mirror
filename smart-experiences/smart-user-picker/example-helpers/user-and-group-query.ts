@@ -1,6 +1,7 @@
+import type { DocumentNode } from 'graphql';
 import gql from 'graphql-tag';
 
-export const UserAndGroupSearchQuery = gql`
+export const UserAndGroupSearchQuery: DocumentNode = gql`
 	query UserAndGroupSearchQuery(
 		$searchTerm: String!
 		$maxResults: Int = 50

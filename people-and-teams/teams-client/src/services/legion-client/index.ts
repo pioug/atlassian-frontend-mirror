@@ -1006,4 +1006,4 @@ export class LegionClient extends RestClient implements LegionClient {
 	}
 }
 
-export const defaultLegionClient = new LegionClient(DEFAULT_CONFIG.stargateRoot);
+export const defaultLegionClient: LegionClient = new LegionClient(DEFAULT_CONFIG.stargateRoot);

@@ -26,8 +26,8 @@ export class DatasourceErrorBoundary extends React.Component<DatasourceErrorBoun
 	};
 
 	static getDerivedStateFromError(error: Error | APIError): {
-		isError: boolean;
 		error: Error | APIError;
+		isError: boolean;
 	} {
 		return { isError: true, error };
 	}

@@ -35,6 +35,7 @@ export interface Props {
 	handleMediaSingleRef?: React.RefObject<HTMLDivElement>;
 	hasFallbackContainer?: boolean;
 	height: number;
+	isInRenderer?: boolean;
 	isInsideOfInlineExtension?: boolean;
 	isLoading?: boolean;
 	layout: MediaSingleLayout;
@@ -47,7 +48,6 @@ export interface Props {
 	 */
 	pctWidth?: number;
 	size?: MediaSingleSize;
-	isInRenderer?: boolean;
 	width?: number;
 }
 

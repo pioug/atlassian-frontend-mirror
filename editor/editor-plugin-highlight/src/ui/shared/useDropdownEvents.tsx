@@ -18,10 +18,10 @@ export const useDropdownEvents = (
 	args: UseDropdownEventArgs,
 ): {
 	handleClick: () => void;
-	handleKeyDown: (event: React.KeyboardEvent) => void;
 	handleClickOutside: () => void;
-	handleEscapeKeydown: () => void;
 	handleColorChange: ({ color, inputMethod }: { color: string; inputMethod: INPUT_METHOD }) => void;
+	handleEscapeKeydown: () => void;
+	handleKeyDown: (event: React.KeyboardEvent) => void;
 	isOpenedByKeyboard: boolean;
 } => {
 	const { toolbarItemRef, setIsDropdownOpen, isDropdownOpen, pluginInjectionApi } = args;

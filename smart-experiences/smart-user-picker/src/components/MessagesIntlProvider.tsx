@@ -1,5 +1,5 @@
 import React, { type PropsWithChildren, useMemo } from 'react';
-import { IntlProvider, injectIntl, type IntlShape } from 'react-intl-next';
+import { IntlProvider, injectIntl, type IntlShape, type WithIntlProps } from 'react-intl-next';
 import { getMessagesForLocale } from '../util/i18n-util';
 
 export type MessagesIntlProviderProps = PropsWithChildren<{
@@ -50,4 +50,7 @@ const MessagesIntlProvider = (props: MessagesIntlProviderProps) => {
 	);
 };
 
-export default injectIntl(MessagesIntlProvider);
+const _default_1: React.FC<WithIntlProps<MessagesIntlProviderProps>> & {
+    WrappedComponent: React.ComponentType<MessagesIntlProviderProps>;
+} = injectIntl(MessagesIntlProvider);
+export default _default_1;

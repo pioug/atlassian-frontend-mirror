@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { createHook, createStore, type StoreActionApi } from 'react-sweet-state';
+import { createHook, createStore, type BoundActions, type HookFunction, type StoreActionApi } from 'react-sweet-state';
 
 type InjectedEventAttributes = { teamId?: string; consumer?: string };
 type InjectedEventAttributeKey = keyof InjectedEventAttributes;
@@ -15,7 +15,7 @@ const initialState = {
 
 const actions = {
 	setEventAttributes:
-		(eventAttributes?: Partial<InjectedEventAttributes>) =>
+		(eventAttributes?: Partial<InjectedEventAttributes>): ({ setState, getState }: StoreActionApi<PeopleTeamsAnalyticsSubcontextState>) => void =>
 		({ setState, getState }: StoreActionApi<PeopleTeamsAnalyticsSubcontextState>) => {
 			const existingEventAttributes = getState().eventAttributes;
 
@@ -46,7 +46,9 @@ const AnalyticsSubcontextStore = createStore<PeopleTeamsAnalyticsSubcontextState
  * @private
  * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
  */
-export const usePeopleTeamsAnalyticsSubcontext = createHook(AnalyticsSubcontextStore);
+export const usePeopleTeamsAnalyticsSubcontext: HookFunction<PeopleTeamsAnalyticsSubcontextState, BoundActions<PeopleTeamsAnalyticsSubcontextState, {
+    readonly setEventAttributes: (eventAttributes?: Partial<InjectedEventAttributes>) => ({ setState, getState }: StoreActionApi<PeopleTeamsAnalyticsSubcontextState>) => void;
+}>, void> = createHook(AnalyticsSubcontextStore);
 
 /**
  * @private

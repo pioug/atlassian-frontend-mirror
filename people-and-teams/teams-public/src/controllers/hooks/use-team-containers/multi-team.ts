@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
-import { type Action, createHook, createStore } from 'react-sweet-state';
+import { type Action, type BoundActions, createHook, createStore, type HookFunction } from 'react-sweet-state';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
@@ -522,9 +522,16 @@ const Store = createStore<State, Actions>({
 	name: 'multiTeamContainersStore',
 });
 
-export const useTeamContainersHook = createHook(Store);
+export const useTeamContainersHook: HookFunction<State, BoundActions<State, {
+    fetchTeamContainers: (teamId: string, fireAnalytics: (action: string, actionSubject: string, error?: Error) => void, fireAnalyticsNext: ReturnType<typeof useAnalyticsEventsNext>["fireEvent"]) => Action<State>;
+    refetchTeamContainers: (teamId: string, fireAnalytics: (action: string, actionSubject: string, error?: Error) => void, fireAnalyticsNext: ReturnType<typeof useAnalyticsEventsNext>["fireEvent"]) => Action<State>;
+    fetchNumberOfConnectedTeams: (teamId: string, containerId: string, fireAnalytics: (props: FireAnalyticsProps) => void, fireAnalyticsNext: ReturnType<typeof useAnalyticsEventsNext>["fireEvent"]) => Action<State>;
+    fetchConnectedTeams: (teamId: string, containerId: string, fireAnalytics: (props: FireAnalyticsProps) => void, fireAnalyticsNext: ReturnType<typeof useAnalyticsEventsNext>["fireEvent"]) => Action<State>;
+    unlinkTeamContainers: (teamId: string, containerId: string) => Action<State>;
+    addTeamContainer: (teamId: string, teamContainer: TeamContainer) => Action<State>;
+}>, void> = createHook(Store);
 
-export const useTeamContainers = (teamId: string, enable = true) => {
+export const useTeamContainers = (teamId: string, enable = true): { teamContainers: TeamContainers; loading: boolean; hasLoaded: boolean; error: Error | null; unlinkError: UnlinkContainerMutationError | null; teamId: string | null; connectedTeams: ConnectedTeams; addTeamContainer: (teamContainer: TeamContainer) => void | Promise<void>; unlinkTeamContainers: (containerId: string) => void | Promise<void>; refetchTeamContainers: () => Promise<void>; } => {
 	const [state, actions] = useTeamContainersHook();
 	const { fireOperationalEvent } = usePeopleAndTeamAnalytics();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -560,7 +567,7 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 	}, [teamId, enable]);
 
 	const refetchTeamContainers = useCallback(
-		async () => actions.refetchTeamContainers(teamId, fireOperationalAnalytics, fireEvent),
+		async (): Promise<void> => actions.refetchTeamContainers(teamId, fireOperationalAnalytics, fireEvent),
 		[teamId, actions, fireOperationalAnalytics, fireEvent],
 	);
 
@@ -575,15 +582,15 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 		unlinkError: teamState.unlinkError,
 		teamId: teamState.teamId,
 		connectedTeams: teamState.connectedTeams,
-		addTeamContainer: (teamContainer: TeamContainer) =>
+		addTeamContainer: (teamContainer: TeamContainer): void | Promise<void> =>
 			actions.addTeamContainer(teamId, teamContainer),
-		unlinkTeamContainers: (containerId: string) =>
+		unlinkTeamContainers: (containerId: string): void | Promise<void> =>
 			actions.unlinkTeamContainers(teamId, containerId),
 		refetchTeamContainers,
 	};
 };
 
-export const useConnectedTeams = (teamId: string) => {
+export const useConnectedTeams = (teamId: string): { fetchNumberOfConnectedTeams: (containerId: string) => void | Promise<void>; fetchConnectedTeams: (containerId: string) => void | Promise<void>; containerId: string | undefined; isLoading: boolean; hasLoaded: boolean; teams: TeamWithMemberships[] | undefined; error: Error | null; numberOfTeams: number | undefined; } => {
 	const [state, actions] = useTeamContainersHook();
 	const { fireOperationalEvent } = usePeopleAndTeamAnalytics();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -609,9 +616,9 @@ export const useConnectedTeams = (teamId: string) => {
 
 	return {
 		...teamState.connectedTeams,
-		fetchNumberOfConnectedTeams: (containerId: string) =>
+		fetchNumberOfConnectedTeams: (containerId: string): void | Promise<void> =>
 			actions.fetchNumberOfConnectedTeams(teamId, containerId, fireOperationalAnalytics, fireEvent),
-		fetchConnectedTeams: (containerId: string) =>
+		fetchConnectedTeams: (containerId: string): void | Promise<void> =>
 			actions.fetchConnectedTeams(teamId, containerId, fireOperationalAnalytics, fireEvent),
 	};
 };

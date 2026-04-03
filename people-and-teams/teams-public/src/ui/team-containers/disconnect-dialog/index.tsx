@@ -14,7 +14,38 @@ import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { type ContainerTypes } from '../../../common/types';
 
-export const messages = defineMessages({
+export const messages: {
+    disconnectDialogTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; disconnectDialogDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; disconnectDialogDisclaimer: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; disconnectDialogDisclaimerNew: {
+        id: string;
+        // eslint-disable-next-line @atlassian/i18n/no-complex-selectors
+        defaultMessage: string;
+        description: string;
+    }; disconnectDialogDisclaimerFallback: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; disconnectDialogCancelButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; disconnectDialogRemoveButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	disconnectDialogTitle: {
 		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.title',
 		defaultMessage: 'Disconnect place',

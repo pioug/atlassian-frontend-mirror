@@ -36,8 +36,8 @@ export const STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER = 24;
 export const QUICK_INSERT_HEIGHT = 24;
 export const QUICK_INSERT_WIDTH = 24;
 export const QUICK_INSERT_DIMENSIONS: {
-	width: number;
 	height: number;
+	width: number;
 } = { width: QUICK_INSERT_WIDTH, height: QUICK_INSERT_HEIGHT };
 export const QUICK_INSERT_LEFT_OFFSET = 16;
 

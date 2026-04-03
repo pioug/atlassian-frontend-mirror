@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export default print(gql`
+const _default_1: string = print(gql`
 	fragment ReportingLinesUserPII on UserPII {
 		name
 		picture
@@ -39,3 +39,4 @@ export default print(gql`
 		}
 	}
 `);
+export default _default_1;

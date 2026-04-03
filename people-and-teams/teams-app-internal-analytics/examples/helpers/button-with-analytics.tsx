@@ -36,4 +36,4 @@ const BasicButton = (props: Props): React.JSX.Element => {
 	);
 };
 
-export const ButtonWithAnalytics = BasicButton;
+export const ButtonWithAnalytics: (props: Props) => React.JSX.Element = BasicButton;

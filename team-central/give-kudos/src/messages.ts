@@ -1,6 +1,76 @@
 import { defineMessages } from 'react-intl-next';
 
-const messages = defineMessages({
+const messages: {
+    giveKudosButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; kudosCreatedFlag: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; kudosCreatedDescriptionFlag: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; kudosCreatedActionFlag: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; kudosCreationFailedFlag: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; kudosCreationFailedDescriptionFlag: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; JiraKudosCreatedFlag: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; JiraKudosCreatedDescriptionFlag: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; JiraKudosCreationFailedFlag: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; JiraKudosCreationFailedDescriptionFlag: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; unsavedKudosWarning: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; unsavedKudosWarningCancelButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; unsavedKudosWarningCloseButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; confirmCloseTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; closeDrawerButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; successIconLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; errorIconLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	giveKudosButton: {
 		id: 'team-central.give-kudos.button',
 		defaultMessage: 'Give kudos',

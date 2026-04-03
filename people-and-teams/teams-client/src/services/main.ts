@@ -1105,4 +1105,4 @@ export class TeamsClient {
 	}
 }
 
-export const teamsClient = new TeamsClient();
+export const teamsClient: TeamsClient = new TeamsClient();

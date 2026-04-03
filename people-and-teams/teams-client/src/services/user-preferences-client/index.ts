@@ -25,6 +25,7 @@ export class UserPreferencesClient extends RestClient {
 	}
 }
 
-export default new UserPreferencesClient({
-	serviceUrl: DEFAULT_CONFIG.stargateRoot,
+const _default_1: UserPreferencesClient = new UserPreferencesClient({
+    serviceUrl: DEFAULT_CONFIG.stargateRoot,
 });
+export default _default_1;

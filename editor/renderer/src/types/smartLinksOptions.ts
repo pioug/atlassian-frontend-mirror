@@ -25,13 +25,6 @@ export interface SmartLinksOptions {
 	 */
 	frameStyle?: CardProps['frameStyle'];
 	/**
-	 * Returns a placeholder string for an inline smart link while it is in a resolving state.
-	 * Used to show a preloaded title instead of the raw URL.
-	 *
-	 * Component: inline
-	 */
-	getResolvingPlaceholder?: (url: string) => string | undefined;
-	/**
 	 * A flag to disable hover preview on inline Smart Link.
 	 * Default is false.
 	 *

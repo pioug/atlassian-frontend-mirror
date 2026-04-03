@@ -4,8 +4,8 @@ import { test } from './user-picker';
 const EXAMPLE = 'modal';
 
 test.describe('User Picker Modal', () => {
-	test('should load modal example with table structure', async ({ userPicker }) => {
-		await userPicker.init(EXAMPLE);
+	test('should load modal example with table structure', async ({ userPicker, page }) => {
+		await page.visitExample<typeof import('../../../examples/13-modal.tsx')>('elements', 'user-picker', EXAMPLE);
 
 		// Verify the table headers are present
 		await expect(userPicker.page.getByText('Issue')).toBeVisible();
@@ -17,8 +17,8 @@ test.describe('User Picker Modal', () => {
 		await expect(userPicker.page.getByTestId('popup-button-2')).toBeVisible();
 	});
 
-	test('should open popup when target button is clicked', async ({ userPicker }) => {
-		await userPicker.init(EXAMPLE);
+	test('should open popup when target button is clicked', async ({ userPicker, page }) => {
+		await page.visitExample<typeof import('../../../examples/13-modal.tsx')>('elements', 'user-picker', EXAMPLE);
 
 		// Click the first popup button
 		await userPicker.page.getByTestId('popup-button-0').click();
@@ -30,8 +30,8 @@ test.describe('User Picker Modal', () => {
 		await expect(userPicker.input).toBeVisible();
 	});
 
-	test('should allow searching and selecting users in popup', async ({ userPicker }) => {
-		await userPicker.init(EXAMPLE);
+	test('should allow searching and selecting users in popup', async ({ userPicker, page }) => {
+		await page.visitExample<typeof import('../../../examples/13-modal.tsx')>('elements', 'user-picker', EXAMPLE);
 
 		// Click the first popup button to open the popup
 		await userPicker.page.getByTestId('popup-button-0').click();
@@ -52,8 +52,8 @@ test.describe('User Picker Modal', () => {
 		await expect(userPicker.input).toBeHidden();
 	});
 
-	test('should close popup with Escape key', async ({ userPicker }) => {
-		await userPicker.init(EXAMPLE);
+	test('should close popup with Escape key', async ({ userPicker, page }) => {
+		await page.visitExample<typeof import('../../../examples/13-modal.tsx')>('elements', 'user-picker', EXAMPLE);
 
 		// Click popup button to open
 		await userPicker.page.getByTestId('popup-button-0').click();
@@ -67,8 +67,8 @@ test.describe('User Picker Modal', () => {
 		await expect(userPicker.page.getByText('Assignee').first()).toBeHidden();
 	});
 
-	test('should handle keyboard navigation in popup', async ({ userPicker }) => {
-		await userPicker.init(EXAMPLE);
+	test('should handle keyboard navigation in popup', async ({ userPicker, page }) => {
+		await page.visitExample<typeof import('../../../examples/13-modal.tsx')>('elements', 'user-picker', EXAMPLE);
 
 		// Open popup
 		await userPicker.page.getByTestId('popup-button-0').click();

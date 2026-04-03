@@ -34,4 +34,5 @@ export class ReportingLinesClient extends BaseGraphQlClient {
 	}
 }
 
-export default new ReportingLinesClient({ logException });
+const _default_1: ReportingLinesClient = new ReportingLinesClient({ logException });
+export default _default_1;

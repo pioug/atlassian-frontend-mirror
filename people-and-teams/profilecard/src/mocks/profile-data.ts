@@ -14,7 +14,49 @@ export const avatarImages: string[] = [
 
 const getAvatar = () => sample(avatarImages) as string;
 
-const profiles = [
+const profiles: ({
+    User: {
+        avatarUrl: string;
+        fullName: string;
+        nickname: string;
+        email: string;
+        location: string;
+        meta: string;
+        remoteTimeString: string;
+        remoteWeekdayIndex: number;
+        remoteWeekdayString: string;
+        accountType: string;
+        status?: undefined;
+    };
+} | {
+    User: {
+        avatarUrl: string;
+        fullName: string;
+        nickname: string;
+        email: string;
+        location: string;
+        meta: string;
+        status: string;
+        remoteTimeString: string;
+        remoteWeekdayIndex: number;
+        remoteWeekdayString: string;
+        accountType: string;
+    };
+} | {
+    User: {
+        avatarUrl: string;
+        fullName: string;
+        nickname: string;
+        email: string;
+        meta: string;
+        accountType: string;
+        location?: undefined;
+        remoteTimeString?: undefined;
+        remoteWeekdayIndex?: undefined;
+        remoteWeekdayString?: undefined;
+        status?: undefined;
+    };
+})[] = [
 	{
 		User: {
 			avatarUrl: getAvatar(),

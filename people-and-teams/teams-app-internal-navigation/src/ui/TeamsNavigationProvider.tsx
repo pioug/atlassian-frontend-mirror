@@ -14,7 +14,7 @@ export interface TeamsNavigationProviderProps {
  *
  * This is a thin wrapper around the headless {@link NavigationContext}. It should not implement any logic beyond providing values to hooks.
  */
-export function TeamsNavigationProvider({ value, children }: TeamsNavigationProviderProps) {
+export function TeamsNavigationProvider({ value, children }: TeamsNavigationProviderProps): React.JSX.Element {
 	return (
 		<NavigationContextReact.Provider value={value}>{children}</NavigationContextReact.Provider>
 	);
@@ -25,7 +25,7 @@ export function TeamsNavigationProvider({ value, children }: TeamsNavigationProv
  *
  * Throws an error when no provider is present.
  */
-export function useTeamsNavigationContext() {
+export function useTeamsNavigationContext(): NavigationContext {
 	const context = useContext(NavigationContextReact);
 	if (!context) {
 		throw new Error('useTeamsNavigationContext must be used within a TeamsNavigationProvider');

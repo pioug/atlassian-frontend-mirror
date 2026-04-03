@@ -1,6 +1,160 @@
 import { defineMessages } from 'react-intl-next';
 
-export const messages = defineMessages({
+export const messages: {
+    feedbackTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; enrolInResearchLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; canBeContactedLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; canBeContactedLabelWithoutLink: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; privacyPolicy: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; summaryPlaceholder: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; formCommentLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; submitButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; cancelButtonLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; giveFeedback: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; formBugLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; formSuggestionLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; formQuestionLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; formEmptyLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; formNotRelevantLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; formNotAccurateLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; formTooSlowLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; formUnhelpfulLinksLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; formOtherLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; selectionOptionQuestionLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; selectionOptionCommentLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; selectionOptionBugLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; selectionOptionSuggestionLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; selectionOptionDefaultLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; selectionOptionDefaultPlaceholder: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; feedbackIconLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; feedbackSuccessFlagDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; feedbackSuccessFlagTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; feedbackIsAnonymousTitle: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; feedbackIsAnonymous: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; requiredFieldsSummary: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; defaultCustomTextAreaLabel: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; canBeContactedLabelAppify: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; canBeContactedLabelAppifyWithoutLink: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; feedbackSuccessFlagDescriptionAppify: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; validationErrorTypeRequired: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; validationErrorDescriptionRequired: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; optInOptionsLegend: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	feedbackTitle: {
 		id: 'feedback-collector.feedback-title',
 		defaultMessage: 'Share your thoughts',

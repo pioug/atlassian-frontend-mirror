@@ -9,8 +9,11 @@ test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 	for (const viewport of viewports) {
 		test.describe(`when view port is ${viewport.width}x${viewport.height}`, () => {
 			test.use({
-				examplePage: 'media-wrapper',
 				viewport,
+			});
+
+			test.beforeEach(async ({ page }) => {
+				await page.visitExample<typeof import('../../examples/12-media-wrapper.tsx')>('react-ufo', 'atlaskit', 'media-wrapper');
 			});
 
 			test(`VC90 should match when the [content-div] is first visible`, async ({

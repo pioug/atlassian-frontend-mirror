@@ -523,6 +523,8 @@ export enum ACTION_SUBJECT_ID {
 	SECTION = 'section',
 	SMART_LINK = 'smartLink',
 	SMART_LINK_TOOLBAR = 'smartLinkToolbar',
+	SMART_LINK_ROVO_BUTTON = 'smartLinkRovoButton',
+	SMART_LINK_SUMMARIZE_BUTTON = 'smartLinkSummarizeButton',
 	STATUS = 'status',
 	SYMBOL = 'symbol',
 	TABLE = 'table',

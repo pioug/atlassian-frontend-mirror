@@ -1,5 +1,59 @@
 // Mock data for tests
-export const MOCK_TEAM_CONTAINERS = {
+export const MOCK_TEAM_CONTAINERS: {
+    graphStore: {
+        cypherQuery: {
+            edges: ({
+                node: {
+                    from: {
+                        id: string;
+                    };
+                    to: {
+                        id: string;
+                        data: {
+                            __typename: string;
+                            confluenceSpaceName: string;
+                            type: string;
+                            createdDate: string;
+                            links: {
+                                webUi: string;
+                            };
+                            icon: {
+                                path: string;
+                            };
+                            jiraProjectName?: undefined;
+                            webUrl?: undefined;
+                            created?: undefined;
+                            avatar?: undefined;
+                        };
+                    };
+                };
+            } | {
+                node: {
+                    from: {
+                        id: string;
+                    };
+                    to: {
+                        id: string;
+                        data: {
+                            __typename: string;
+                            jiraProjectName: string;
+                            webUrl: string;
+                            created: string;
+                            avatar: {
+                                medium: string;
+                            };
+                            confluenceSpaceName?: undefined;
+                            type?: undefined;
+                            createdDate?: undefined;
+                            links?: undefined;
+                            icon?: undefined;
+                        };
+                    };
+                };
+            })[];
+        };
+    };
+} = {
 	graphStore: {
 		cypherQuery: {
 			edges: [
@@ -50,7 +104,55 @@ export const MOCK_TEAM_CONTAINERS = {
 	},
 };
 
-export const MOCK_TEAM_CONTAINERSV2 = {
+export const MOCK_TEAM_CONTAINERSV2: {
+    graphStore: {
+        cypherQueryV2: {
+            edges: ({
+                node: {
+                    columns: {
+                        key: string;
+                        value: {
+                            data: {
+                                __typename: string;
+                                id: string;
+                                confluenceSpaceName: string;
+                                type: string;
+                                createdDate: string;
+                                links: {
+                                    base: string;
+                                    webUi: string;
+                                };
+                                icon: {
+                                    path: string;
+                                };
+                            };
+                        };
+                    }[];
+                };
+            } | {
+                node: {
+                    columns: {
+                        key: string;
+                        value: {
+                            data: {
+                                __typename: string;
+                                id: string;
+                                jiraProjectName: string;
+                                webUrl: string;
+                                created: string;
+                                avatar: {
+                                    medium: string;
+                                };
+                                projectType: string;
+                                projectTypeName: string;
+                            };
+                        };
+                    }[];
+                };
+            })[];
+        };
+    };
+} = {
 	graphStore: {
 		cypherQueryV2: {
 			edges: [
@@ -108,7 +210,29 @@ export const MOCK_TEAM_CONTAINERSV2 = {
 	},
 };
 
-export const MOCK_CONNECTED_TEAMS_RESULT = [
+export const MOCK_CONNECTED_TEAMS_RESULT: {
+    id: string;
+    displayName: string;
+    description: string;
+    state: string;
+    membershipSettings: string;
+    organizationId: string;
+    creatorId: string;
+    isVerified: boolean;
+    members: {
+        id: string;
+        fullName: string;
+        avatarUrl: string;
+        status: string;
+    }[];
+    includesYou: boolean;
+    memberCount: number;
+    smallAvatarImageUrl: string;
+    smallHeaderImageUrl: string;
+    largeAvatarImageUrl: string;
+    largeHeaderImageUrl: string;
+    restriction: string;
+}[] = [
 	{
 		id: 'ari:cloud:identity::team/8ee37950-7de7-41ec-aee2-2c02c95949f4',
 		displayName: 'THE SUPER TEAM',

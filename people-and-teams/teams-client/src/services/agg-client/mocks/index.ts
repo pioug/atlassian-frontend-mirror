@@ -1,6 +1,32 @@
 import faker from 'faker';
 
-export const MOCK_TEAM = {
+export const MOCK_TEAM: {
+    team: {
+        teamV2: {
+            members: {
+                edges: {
+                    node: {
+                        member: {
+                            id: string;
+                            name: string;
+                            picture: string;
+                            accountStatus: string;
+                            extendedProfile: {
+                                jobTitle: string;
+                            };
+                        };
+                        state: string;
+                        role: string;
+                    };
+                }[];
+                pageInfo: {
+                    hasNextPage: boolean;
+                    endCursor: string;
+                };
+            };
+        };
+    };
+} = {
 	team: {
 		teamV2: {
 			members: {
@@ -45,7 +71,28 @@ export const MOCK_TEAM = {
 	},
 };
 
-export const MOCK_USER = {
+export const MOCK_USER: {
+    user: {
+        name: string;
+        picture: string;
+        accountStatus: string;
+        __typename: string;
+        email: string;
+        nickname: string;
+        locale: string;
+        zoneinfo: string;
+        extendedProfile: {
+            jobTitle: string;
+            organization: string;
+            department: string;
+            location: string;
+            phoneNumbers: string;
+            closedDate: Date;
+            inactiveDate: Date;
+        };
+        id: string;
+    };
+} = {
 	user: {
 		name: faker.name.findName(),
 		picture: faker.image.avatar(),

@@ -16,7 +16,11 @@ export class ReplinesClient extends RestClient {
 		super({ ...defaultConfig, ...config });
 	}
 
-	async getUserTenure(userId: string) {
+	async getUserTenure(userId: string): Promise<{
+        userHireDate: Date;
+        employeesHiredBefore: number;
+        employeesHiredAfter: number;
+    }> {
 		const orgId = this.getOrgId();
 		return this.getResource<UserTenureResponse>(`/${orgId}/${userId}`)
 			.then((response) => ({
@@ -29,4 +33,5 @@ export class ReplinesClient extends RestClient {
 	}
 }
 
-export default new ReplinesClient();
+const _default_1: ReplinesClient = new ReplinesClient();
+export default _default_1;

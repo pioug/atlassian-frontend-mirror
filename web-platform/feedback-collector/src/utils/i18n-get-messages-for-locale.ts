@@ -9,7 +9,7 @@
  * @param locale string specifying the locale like 'en_GB', or 'fr'.
  */
 
-export const getMessagesForLocale = async (locale: string) => {
+export const getMessagesForLocale = async (locale: string): Promise<any> => {
 	locale = locale.replace('-', '_');
 	try {
 		const messages = await import(

@@ -114,9 +114,9 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 	private fireCustomAnalytics?: FireAnalyticsCallback;
 	private errorsListRef;
 	state: {
+		lastValue: string | undefined;
 		showClearTextButton: boolean;
 		validationErrors: string[];
-		lastValue: string | undefined;
 	} = {
 		showClearTextButton: Boolean(this.props.value),
 		validationErrors: this.props.value ? this.getValidationErrors(this.props.value) : [],

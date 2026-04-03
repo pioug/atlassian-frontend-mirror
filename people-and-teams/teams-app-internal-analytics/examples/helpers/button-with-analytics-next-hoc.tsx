@@ -45,4 +45,6 @@ const BasicButton = (props: Props) => {
 	);
 };
 
-export const ButtonWithAnalytics = withAnalyticsEvents()(BasicButton);
+export const ButtonWithAnalytics: React.ForwardRefExoticComponent<Omit<{
+    eventType: EventType;
+}, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>> = withAnalyticsEvents()(BasicButton);

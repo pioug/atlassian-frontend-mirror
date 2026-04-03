@@ -41,11 +41,11 @@ export const useProfileCardState = ({
 	provider,
 }: ProfileCardStateProps): {
 	data: ProfileCardClientData | undefined;
+	hasError: boolean;
+	isLoading: boolean;
 	reportingLinesData: TeamCentralReportingLinesData | undefined;
 	shouldShowGiveKudos: boolean;
 	teamCentralBaseUrl: string | undefined;
-	isLoading: boolean;
-	hasError: boolean;
 } => {
 	const [data, setData] = useState<ProfileCardClientData | undefined>();
 	const [reportingLinesData, setReportingLinesData] = useState<

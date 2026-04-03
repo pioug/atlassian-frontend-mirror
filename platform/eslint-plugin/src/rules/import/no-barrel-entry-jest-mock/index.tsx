@@ -21,7 +21,11 @@ import {
 	resolveNewPathForRequireMock,
 } from '../shared/jest-utils';
 import { findPackageInRegistry, isPackageInApplyToImportsFrom } from '../shared/package-registry';
-import { findExportForSourceFile, parsePackageExports } from '../shared/package-resolution';
+import {
+	findCrossPackageBridgeExportPath,
+	findExportForSourceFile,
+	parsePackageExports,
+} from '../shared/package-resolution';
 import {
 	type CrossPackageSource,
 	type ExportInfo,
@@ -34,6 +38,7 @@ import {
  */
 interface RuleOptions {
 	applyToImportsFrom?: string[];
+	preferImportedPackageSubpath?: boolean;
 }
 
 /**
@@ -50,6 +55,8 @@ interface SymbolTraceResult {
 	isTypeOnly: boolean;
 	/** Information about cross-package re-export origin, if applicable */
 	crossPackageSource?: CrossPackageSource;
+	/** Set when preferImportedPackageSubpath resolved via a barrel package.json export subpath */
+	barrelBridgeExportPath?: string;
 }
 
 /**
@@ -630,12 +637,16 @@ function traceSymbolsToExports({
 	exportsMap,
 	currentExportPath,
 	fs,
+	barrelPackageName,
+	preferImportedPackageSubpath,
 }: {
 	symbolNames: string[];
 	exportMap: Map<string, ExportInfo>;
 	exportsMap: Map<string, string>;
 	currentExportPath: string;
 	fs: FileSystem;
+	barrelPackageName: string;
+	preferImportedPackageSubpath: boolean;
 }): {
 	groupedByExport: Map<string, SymbolTraceResult[]>;
 	crossPackageGroups: Map<string, SymbolTraceResult[]>;
@@ -655,16 +666,49 @@ function traceSymbolsToExports({
 
 		// Check for cross-package source first
 		if (exportInfo.crossPackageSource) {
-			const key = `${exportInfo.crossPackageSource.packageName}${exportInfo.crossPackageSource.exportPath === '.' ? '' : exportInfo.crossPackageSource.exportPath.slice(1)}`;
+			let key: string;
+			let tracedOriginalName = exportInfo.originalName;
+			let barrelBridgeExportPath: string | undefined;
+
+			if (preferImportedPackageSubpath) {
+				const bridge = findCrossPackageBridgeExportPath({
+					exportsMap,
+					crossPackageName: exportInfo.crossPackageSource.packageName,
+					exportedName: symbolName,
+					fs,
+				});
+				if (bridge) {
+					key = `${barrelPackageName}${bridge.exportPath.slice(1)}`;
+					barrelBridgeExportPath = bridge.exportPath;
+					if (bridge.entryPointExportName !== undefined) {
+						tracedOriginalName =
+							bridge.entryPointExportName === symbolName ? undefined : bridge.entryPointExportName;
+					}
+				} else {
+					key = `${exportInfo.crossPackageSource.packageName}${
+						exportInfo.crossPackageSource.exportPath === '.'
+							? ''
+							: exportInfo.crossPackageSource.exportPath.slice(1)
+					}`;
+				}
+			} else {
+				key = `${exportInfo.crossPackageSource.packageName}${
+					exportInfo.crossPackageSource.exportPath === '.'
+						? ''
+						: exportInfo.crossPackageSource.exportPath.slice(1)
+				}`;
+			}
+
 			if (!crossPackageGroups.has(key)) {
 				crossPackageGroups.set(key, []);
 			}
 			crossPackageGroups.get(key)!.push({
 				symbolName,
-				originalName: exportInfo.originalName,
+				originalName: tracedOriginalName,
 				sourceFilePath: exportInfo.path,
 				isTypeOnly: exportInfo.isTypeOnly,
 				crossPackageSource: exportInfo.crossPackageSource,
+				barrelBridgeExportPath,
 			});
 			continue;
 		}
@@ -1035,6 +1079,11 @@ const ruleMeta: Rule.RuleMetaData = {
 					description:
 						'The folder paths (relative to workspace root) containing packages whose imports will be checked and autofixed.',
 				},
+				preferImportedPackageSubpath: {
+					type: 'boolean',
+					description:
+						'Prefer subpaths on the mocked barrel package when they bridge to the dependency.',
+				},
 			},
 			additionalProperties: false,
 		},
@@ -1057,6 +1106,8 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 		create(context) {
 			const options = (context.options[0] || {}) as RuleOptions;
 			const applyToImportsFrom = options.applyToImportsFrom ?? DEFAULT_TARGET_FOLDERS;
+			const preferImportedPackageSubpath =
+				options.preferImportedPackageSubpath ?? false;
 			const workspaceRoot = findWorkspaceRoot({
 				startPath: dirname(context.filename),
 				fs,
@@ -1160,6 +1211,8 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 							exportsMap: raContext.exportsMap,
 							currentExportPath: raContext.currentExportPath,
 							fs,
+							barrelPackageName: raContext.packageName,
+							preferImportedPackageSubpath,
 						});
 
 						let newPath: string | null = null;
@@ -1260,6 +1313,8 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 						exportsMap: mockContext.exportsMap,
 						currentExportPath: mockContext.currentExportPath,
 						fs,
+						barrelPackageName: mockContext.packageName,
+						preferImportedPackageSubpath,
 					});
 
 					// If no symbols can be mapped to specific exports or cross-package sources,
@@ -1309,9 +1364,10 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 
 						// Get cross-package source info from the first symbol (all symbols in same group have same source)
 						const crossPackageSource = symbols[0].crossPackageSource!;
+						const bridgeExportPath = symbols[0].barrelBridgeExportPath;
 
 						crossPackageMockGroups.push({
-							exportPath: crossPackageSource.exportPath,
+							exportPath: bridgeExportPath ?? crossPackageSource.exportPath,
 							importPath,
 							propertyNames: symbols.map((s) => s.symbolName),
 							propertyTexts: new Map(

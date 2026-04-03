@@ -57,11 +57,11 @@ const args = {
 	url: '/graphql/directory',
 	gatewayGraphqlUrl: '/gateway/api/graphql',
 };
-export const simpleMockUserClient = new SimpleMockUserClient(args);
-export const simpleMockTeamClient = new SimpleMockTeamClient(args);
-export const simpleMockAgentClient = new SimpleMockAgentClient(args);
+export const simpleMockUserClient: SimpleMockUserClient = new SimpleMockUserClient(args);
+export const simpleMockTeamClient: SimpleMockTeamClient = new SimpleMockTeamClient(args);
+export const simpleMockAgentClient: SimpleMockAgentClient = new SimpleMockAgentClient(args);
 
-export const simpleProfileClient = new ProfileCardClient(args, {
+export const simpleProfileClient: ProfileCardClient = new ProfileCardClient(args, {
 	userClient: simpleMockUserClient,
 	teamClient: simpleMockTeamClient,
 	rovoAgentClient: simpleMockAgentClient,

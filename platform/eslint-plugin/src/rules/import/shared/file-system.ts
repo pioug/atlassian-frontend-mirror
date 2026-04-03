@@ -7,7 +7,7 @@ import type { FileSystem } from './types';
  * Only imports from packages within these folders will be checked.
  * This can be overridden via lint rule options.
  */
-export const DEFAULT_TARGET_FOLDERS = ['platform/packages/ai-mate', 'platform/packages/search'];
+export const DEFAULT_TARGET_FOLDERS: string[] = ['platform/packages/ai-mate', 'platform/packages/search'];
 
 /**
  * Try to read file contents with error handling.

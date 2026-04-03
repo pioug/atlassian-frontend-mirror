@@ -1,7 +1,9 @@
 import { expect, test } from './fixtures';
 
 test.describe('ReactUFO: abort by transition', () => {
-	test.use({ examplePage: 'basic-with-transition' });
+	test.beforeEach(async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/17-basic-with-transition.tsx')>('react-ufo', 'atlaskit', 'basic-with-transition');
+	});
 
 	test('interactionMetrics.abortReason should be `transition` when a transition occurs', async ({
 		waitForReactUFOPayload,

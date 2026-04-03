@@ -5,7 +5,7 @@ import { TeamsLink } from '../src/ui/TeamsLink';
 import { TeamsLinkButton } from '../src/ui/TeamsLinkButton';
 import { TeamsLinkItem } from '../src/ui/TeamsLinkItem';
 
-export default function Basic() {
+export default function Basic(): React.JSX.Element {
 	const context = {
 		forceExternalIntent: true,
 		navigate: () => {},

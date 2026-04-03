@@ -14,7 +14,7 @@ export const setSentryClient = (client: SentryClient): void => {
 	sentryClient = client;
 };
 
-export const getSentryClient = async () => {
+export const getSentryClient = async (): Promise<SentryClient | undefined> => {
 	if (!sentryClient) {
 		await setupSentryClient({});
 	}

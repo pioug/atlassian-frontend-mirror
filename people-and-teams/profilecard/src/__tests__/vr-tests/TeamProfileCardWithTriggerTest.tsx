@@ -66,7 +66,7 @@ const defaultProps = {
 	generateUserLink: (userId: string) => `/people/${userId}`,
 };
 
-export const TeamProfileCardWithTriggerTest = () => {
+export const TeamProfileCardWithTriggerTest = (): JSX.Element => {
 	return (
 		<Wrapper>
 			<span>
@@ -79,7 +79,7 @@ export const TeamProfileCardWithTriggerTest = () => {
 	);
 };
 
-export const TeamProfileCardWithDisbandedState = () => {
+export const TeamProfileCardWithDisbandedState = (): JSX.Element => {
 	const disbandedTeam: Team = {
 		...staticTeamData({
 			headerImage: 'Picture',

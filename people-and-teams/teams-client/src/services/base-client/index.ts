@@ -39,7 +39,7 @@ export class BaseClient {
 		};
 	}
 
-	getContext() {
+	getContext(): ClientContext {
 		return this.context;
 	}
 
@@ -87,7 +87,7 @@ export class BaseClient {
 		};
 	}
 
-	getCachedValue<T>(key: string) {
+	getCachedValue<T>(key: string): T | undefined {
 		const record = this.cache[this.keyWithContext(key)];
 		if (record && record.expiration > Date.now()) {
 			return record.data as T;

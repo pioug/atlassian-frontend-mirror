@@ -236,6 +236,80 @@ export function findExportForSourceFile({
 }
 
 /**
+ * When a symbol reaches the consumer through a barrel package that re-exports from
+ * `crossPackageName`, find a `package.json` export subpath of that barrel whose entry
+ * file directly re-exports the symbol from `crossPackageName` (named exports only).
+ *
+ * This enables rewriting imports to `@scope/barrel/subpath` instead of
+ * `@scope/cross-package/...` when the barrel exposes such a subpath (e.g. `@atlaskit/select/react-select`).
+ */
+export function findCrossPackageBridgeExportPath({
+	exportsMap,
+	crossPackageName,
+	exportedName,
+	fs,
+}: {
+	exportsMap: Map<string, string>;
+	crossPackageName: string;
+	exportedName: string;
+	fs: FileSystem;
+}): ExportMatchResult | null {
+	for (const [exportPath, resolvedPath] of exportsMap) {
+		const content = readFileContent({ filePath: resolvedPath, fs });
+		if (!content) {
+			continue;
+		}
+
+		try {
+			const sourceFile = ts.createSourceFile(
+				resolvedPath,
+				content,
+				ts.ScriptTarget.Latest,
+				true,
+			);
+
+			for (const statement of sourceFile.statements) {
+				if (!ts.isExportDeclaration(statement) || statement.isTypeOnly) {
+					continue;
+				}
+				if (!statement.moduleSpecifier || !ts.isStringLiteral(statement.moduleSpecifier)) {
+					continue;
+				}
+				if (statement.moduleSpecifier.text !== crossPackageName) {
+					continue;
+				}
+				if (!statement.exportClause || ts.isNamespaceExport(statement.exportClause)) {
+					continue;
+				}
+				if (!ts.isNamedExports(statement.exportClause)) {
+					continue;
+				}
+
+				for (const element of statement.exportClause.elements) {
+					if (element.isTypeOnly) {
+						continue;
+					}
+					const publicName = element.name.text;
+					if (publicName !== exportedName) {
+						continue;
+					}
+
+					const entryPointExportName = element.propertyName
+						? element.propertyName.text
+						: undefined;
+
+					return { exportPath, entryPointExportName };
+				}
+			}
+		} catch {
+			// Ignore parse errors for individual export entry files
+		}
+	}
+
+	return null;
+}
+
+/**
  * Extract the package name and subpath from an import specifier.
  * Returns null if the import is not a scoped package import.
  */

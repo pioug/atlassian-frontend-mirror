@@ -65,4 +65,5 @@ export class ObjectResolverClient extends RestClient {
 	}
 }
 
-export default new ObjectResolverClient();
+const _default_1: ObjectResolverClient = new ObjectResolverClient();
+export default _default_1;

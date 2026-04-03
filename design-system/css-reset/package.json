@@ -83,9 +83,5 @@
 		"./utils": "./src/utils.tsx"
 	},
 	"homepage": "https://atlassian.design/components/css-reset",
-	"platform-feature-flags": {
-		"dst-a11y__replace-anchor-with-link__design-system-": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

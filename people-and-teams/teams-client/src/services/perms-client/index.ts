@@ -26,6 +26,7 @@ export class PermsClient extends RestClient {
  * @type {RestClient}
  */
 // eslint-disable-next-line import/no-anonymous-default-export
-export default new PermsClient({
-	serviceUrl: DEFAULT_CONFIG.permsServiceUrl,
+const _default_1: PermsClient = new PermsClient({
+    serviceUrl: DEFAULT_CONFIG.permsServiceUrl,
 });
+export default _default_1;

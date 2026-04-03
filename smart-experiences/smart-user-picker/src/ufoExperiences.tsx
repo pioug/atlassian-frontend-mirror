@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 const COMPONENT_NAME = 'smart-user-picker';
 
-export const smartUserPickerRenderedUfoExperience = new ConcurrentExperience(
+export const smartUserPickerRenderedUfoExperience: ConcurrentExperience = new ConcurrentExperience(
 	'smart-user-picker-rendered',
 	{
 		platform: { component: COMPONENT_NAME },
@@ -18,7 +18,7 @@ export const smartUserPickerRenderedUfoExperience = new ConcurrentExperience(
 	},
 );
 
-export const smartUserPickerOptionsShownUfoExperience = new ConcurrentExperience(
+export const smartUserPickerOptionsShownUfoExperience: ConcurrentExperience = new ConcurrentExperience(
 	'smart-user-picker-options-shown',
 	{
 		platform: { component: COMPONENT_NAME },
@@ -61,7 +61,7 @@ export class UfoErrorBoundary extends React.Component<React.PropsWithChildren<{ 
 		smartUserPickerRenderedUfoExperience.getInstance(this.props.id).failure();
 	}
 
-	render() {
+	render(): React.ReactNode {
 		return this.props.children;
 	}
 }

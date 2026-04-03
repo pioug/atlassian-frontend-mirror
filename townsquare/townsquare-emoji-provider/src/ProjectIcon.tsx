@@ -34,7 +34,7 @@ export type Props = {
 	height?: number;
 };
 
-export const ProjectIcon = ({ emoji, isPrivate, height }: Props) => {
+export const ProjectIcon = ({ emoji, isPrivate, height }: Props): React.JSX.Element | null => {
 	const iconSize = height ?? 16;
 
 	const emojiProvider = useMemo<Promise<EmojiProvider> | undefined>(() => {

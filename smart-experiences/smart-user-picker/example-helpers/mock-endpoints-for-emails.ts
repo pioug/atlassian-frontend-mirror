@@ -11,11 +11,25 @@ const createUser = (id: string, name: string, email?: string) => ({
 	userType: UserEntityType.DEFAULT,
 });
 
-export const aliceOnly = [
+export const aliceOnly: {
+    userType: UserEntityType;
+    email?: string | undefined;
+    entityType: EntityType;
+    id: string;
+    name: string;
+    avatarUrl: string;
+}[] = [
 	createUser('1', 'Alice Johnson (email visible)', 'alicejohnson@gmail.com'),
 ];
 
-export const bothUsers = [
+export const bothUsers: {
+    userType: UserEntityType;
+    email?: string | undefined;
+    entityType: EntityType;
+    id: string;
+    name: string;
+    avatarUrl: string;
+}[] = [
 	createUser('1', 'Alice Johnson (email visible)', 'alicejohnson@gmail.com'),
 	createUser('2', 'Bob Smith (email hidden)'),
 ];
@@ -49,7 +63,9 @@ const mockEndpoints = () => {
 	);
 };
 
-export const useEndpointMocks = () => {
+export const useEndpointMocks = (): {
+    ready: boolean;
+} => {
 	const [ready, setReady] = useState(false);
 
 	useEffect(() => {

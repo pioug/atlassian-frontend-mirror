@@ -107,7 +107,7 @@ export const TeamProfileCard = ({
 	isVerified,
 	teamProfileUrl,
 	...props
-}: TeamProfileCardProps) => {
+}: TeamProfileCardProps): JSX.Element => {
 	const { teamContainers, loading } = useTeamContainers(teamId);
 	const { fireEvent } = useAnalyticsEvents();
 	// Ensure that the current container is not the only connection for this team before showing the "Where we work" section

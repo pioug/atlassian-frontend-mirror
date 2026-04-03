@@ -22,7 +22,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [flags, setFlags] = useState<Array<FlagProps>>([]);
 

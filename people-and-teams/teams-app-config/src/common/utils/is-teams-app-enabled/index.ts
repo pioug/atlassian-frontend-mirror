@@ -4,7 +4,7 @@ import { type NavigationActionCommon } from '../../types';
 
 export function isTeamsAppEnabled(
 	_config?: Pick<NavigationActionCommon, 'userHasNav4Enabled' | 'hostProduct'>,
-) {
+): boolean {
 	//  Hard kill switch for isolated cloud until Standalone directory is deployed
 	if (isIsolatedCloud()) {
 		return false;

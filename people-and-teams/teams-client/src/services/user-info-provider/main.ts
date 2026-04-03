@@ -59,4 +59,4 @@ export class UserInfoProvider {
 	}
 }
 
-export const userInfoProvider = new UserInfoProvider();
+export const userInfoProvider: UserInfoProvider = new UserInfoProvider();

@@ -52,7 +52,7 @@ export function createMouseEvent<T extends HTMLElement = HTMLElement>(
 /**
  * Asserts that the given link props describe an external link, ie. `target="_blank"` and `rel="noopener noreferrer"`.
  */
-export function expectExternalLinkBehaviour(props: { target?: string; rel?: string }) {
+export function expectExternalLinkBehaviour(props: { target?: string; rel?: string }): void {
 	expect(props.target).toBe('_blank');
 	expect(props.rel).toBe('noopener noreferrer');
 }
@@ -60,7 +60,7 @@ export function expectExternalLinkBehaviour(props: { target?: string; rel?: stri
 /**
  * Asserts that the given link props describe an internal same-tab link, ie. `target="_self"` and no `rel` attribute.
  */
-export function expectInternalLinkBehaviour(props: { target?: string; rel?: string }) {
+export function expectInternalLinkBehaviour(props: { target?: string; rel?: string }): void {
 	expect(props.target).toBe('_self');
 	expect(props.rel).toBeUndefined();
 }
@@ -72,7 +72,7 @@ export function expectRouterNavigationUsed<T extends HTMLElement = HTMLElement>(
 	onClick: ((e: React.MouseEvent<T>) => void) | undefined,
 	context: NavigationContext,
 	expectedPath: string,
-) {
+): void {
 	const event = createMouseEvent<T>();
 	onClick?.(event);
 	expect(context.navigate).toHaveBeenCalledWith(expectedPath);
@@ -85,7 +85,7 @@ export function expectRouterNavigationUsed<T extends HTMLElement = HTMLElement>(
 export function expectRouterNavigationNotUsed<T extends HTMLElement = HTMLElement>(
 	onClick: ((e: React.MouseEvent<T>) => void) | undefined,
 	context: NavigationContext,
-) {
+): void {
 	const event = createMouseEvent<T>();
 	onClick?.(event);
 	expect(context.navigate).not.toHaveBeenCalled();

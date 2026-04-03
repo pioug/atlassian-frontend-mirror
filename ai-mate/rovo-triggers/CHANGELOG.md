@@ -1,5 +1,30 @@
 # @atlaskit/rovo-triggers
 
+## 5.34.1
+
+### Patch Changes
+
+- [`5844c8aac60ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5844c8aac60ea) -
+  Added proactive connector recommendation banner to Rovo Chat for Confluence page view mode.
+
+  When a user adds a Confluence page as context in Rovo Chat, and that page contains Smart Links to
+  unconnected third-party apps (e.g. GitHub, Google Drive), a non-intrusive banner is shown inside
+  the context banner prompting the user to connect the relevant app.
+
+  Changes:
+  - `@confluence/content-smartlinks`: Added `RovoSmartLinksContextPublisher` — a subscription-driven
+    component that fetches SmartLink URLs via direct GraphQL (bypassing Apollo cache) and publishes
+    connector context. Scoped to view mode only; edit mode and Live page support deferred to
+    follow-up.
+  - `@atlaskit/rovo-triggers`: Added `SmartlinksSubscriptionChangedPayload` and
+    `SmartlinksContextPayload` types with `openChat: false` enforced to prevent chat from reopening.
+  - `@atlassian/conversation-assistant-store`: Added `pageSmartLinks` state, `setPageSmartLinks`
+    action, and `useChatContextPageSmartLinks` selector. `ChatContextSubscriber` now handles
+    `smartlinks-context-payload` events.
+  - `@atlassian/conversation-assistant-chat-prompt-input`: Added `useSmartLinkConnectionTip` hook
+    and `SmartLinkContextBanner` component. Banner renders inside the shared context banner wrapper
+    with CSS slide-in animation and uses `useAppOAuth` for the connect flow.
+
 ## 5.34.0
 
 ### Minor Changes

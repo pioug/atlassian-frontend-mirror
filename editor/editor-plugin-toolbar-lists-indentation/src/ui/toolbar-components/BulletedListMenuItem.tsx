@@ -29,9 +29,9 @@ export const useBulletedListInfo = ({
 	parents,
 }: BulletedListType): {
 	bulletMessage: string;
-	onClick: () => void;
 	isDisabled: boolean | undefined;
 	isSelected: boolean | undefined;
+	onClick: () => void;
 	shortcut: string | undefined;
 } => {
 	const { formatMessage } = useIntl();

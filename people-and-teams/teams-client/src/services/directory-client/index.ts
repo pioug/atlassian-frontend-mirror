@@ -188,6 +188,6 @@ export class DirectoryClient extends BaseGraphQlClient {
 /**
  * @deprecated As part of decommisioning pf-directoy
  */
-export const directoryClient = new DirectoryClient(DEFAULT_CONFIG.stargateRoot, {
+export const directoryClient: DirectoryClient = new DirectoryClient(DEFAULT_CONFIG.stargateRoot, {
 	logException,
 });

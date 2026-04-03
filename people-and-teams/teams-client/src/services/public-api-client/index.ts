@@ -169,4 +169,5 @@ export class PublicApiClient extends RestClient implements PublicApiClient {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default new PublicApiClient(DEFAULT_CONFIG.publicApiRoot);
+const _default_1: PublicApiClient = new PublicApiClient(DEFAULT_CONFIG.publicApiRoot);
+export default _default_1;

@@ -23,6 +23,12 @@ interface SubscribeAll {
 const ignoredTriggerLatestEvents = new Set<Payload['type']>([
 	'editor-context-payload',
 	'agent-changed',
+	// Internal signals that must never overwrite the publish queue — they would
+	// cause `triggerLatest` subscribers (e.g. PubSubListener) to replay them
+	// instead of the real action event (e.g. open-browse-agent-modal) that
+	// originally opened the chat.
+	'smartlinks-subscription-changed',
+	'smartlinks-context-payload',
 ]);
 
 const createPubSub = () => {

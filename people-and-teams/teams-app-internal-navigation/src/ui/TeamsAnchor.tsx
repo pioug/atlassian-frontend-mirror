@@ -15,7 +15,7 @@ export type TeamsAnchorProps = BaseAnchorProps & NavigationIntentProps;
 /**
  * Drop-in replacement for an ADS Anchor that uses the intent-based navigation system to resolve `target` and `rel` automatically.
  */
-export const TeamsAnchor = (props: TeamsAnchorProps) => {
+export const TeamsAnchor = (props: TeamsAnchorProps): React.JSX.Element => {
 	const { href, onClick, ...rest } = props;
 	const context = useTeamsNavigationContext();
 	const input = buildNavigationInput({ ...props, href: href ?? '', context, onBeforeNavigate: onClick });

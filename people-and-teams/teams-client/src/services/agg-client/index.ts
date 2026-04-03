@@ -176,7 +176,7 @@ export class AGGClient extends BaseGraphQlClient {
 		}));
 	}
 
-	async getTeamContainers(teamId: string) {
+	async getTeamContainers(teamId: string): Promise<TeamContainers> {
 		const teamAri = toTeamARI(teamId);
 		const cypherQuery = `MATCH (team:IdentityTeam {ari: '${teamAri}'})-[:team_connected_to_container]->(container) RETURN container`;
 
@@ -256,7 +256,7 @@ export class AGGClient extends BaseGraphQlClient {
 		return containersResult;
 	}
 
-	async unlinkTeamContainer(teamId: string, containerId: string) {
+	async unlinkTeamContainer(teamId: string, containerId: string): Promise<UnlinkContainerMutationResponse> {
 		const teamAri = toTeamARI(teamId);
 
 		const response = await this.makeGraphQLRequest<
@@ -343,6 +343,6 @@ export class AGGClient extends BaseGraphQlClient {
 	}
 }
 
-export const aggClient = new AGGClient(DEFAULT_CONFIG.stargateRoot, {
+export const aggClient: AGGClient = new AGGClient(DEFAULT_CONFIG.stargateRoot, {
 	logException,
 });

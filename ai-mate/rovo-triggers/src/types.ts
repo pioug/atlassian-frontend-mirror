@@ -506,6 +506,8 @@ export type OpenChatFeedbackModalPayload = PayloadCore<
 // Not using PayloadCore because `data: type | undefined` is necessary
 // but `| undefined` will cause `data` to be removed by PayloadCore
 export type SmartLinksContextPayload = PayloadCore<'smartlinks-context-payload'> & {
+	/** Never opens chat — internal signal only. */
+	openChat: false;
 	data?: Array<{
 		/**
 		 * ORS auth key from meta.auth[0].key (e.g. 'gdrive', 'notion', 'miro').
@@ -518,6 +520,14 @@ export type SmartLinksContextPayload = PayloadCore<'smartlinks-context-payload'>
 	}>;
 };
 
+/** Published by the consumer hook to notify the publisher whether it should fetch SmartLinks. */
+export type SmartlinksSubscriptionChangedPayload =
+	PayloadCore<'smartlinks-subscription-changed'> & {
+		/** Never opens chat — internal signal only. */
+		openChat: false;
+		isActive: boolean;
+	};
+
 export type Payload =
 	| MessageSendPayload
 	| ChatClosePayload
@@ -527,6 +537,7 @@ export type Payload =
 	| EditorContextPayload
 	| ChatOpenPayload
 	| OpenBrowseAgentPayload
+	| SmartlinksSubscriptionChangedPayload
 	| OpenBrowseAgentSidebarPayload
 	| EditorSuggestionPayload
 	| EditorAgentChangedPayload

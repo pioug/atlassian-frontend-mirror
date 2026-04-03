@@ -2,7 +2,7 @@ export function redirect(url: string): void {
 	window.location.href = url;
 }
 
-export const openInNewTab = (url: string | URL) =>
+export const openInNewTab = (url: string | URL): Window | null =>
 	window.open(url, '_blank', 'noopener noreferrer');
 
 export const hostname = (): string => globalThis.location?.hostname;

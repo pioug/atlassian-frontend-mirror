@@ -201,6 +201,9 @@ const _default_1: {
 		id: string,
 		supportedBlockNodes?: string[],
 	) => (transaction: Transaction, state: EditorState) => Transaction;
+	addDeleteAnalytics: (
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	) => (transaction: Transaction, state: EditorState) => Transaction;
 	addInlineComment: (
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 		editorAPI: ExtractInjectionAPI<AnnotationPlugin> | undefined,
@@ -208,11 +211,8 @@ const _default_1: {
 		id: string,
 		supportedBlockNodes?: string[],
 	) => (transaction: Transaction, state: EditorState) => Transaction;
-	handleDraftState: (
+	addInsertAnalytics: (
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	) => (
-		drafting: boolean,
-		method?: InlineCommentInputMethod,
 	) => (transaction: Transaction, state: EditorState) => Transaction;
 	addOpenCloseAnalytics: (
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -220,17 +220,17 @@ const _default_1: {
 		drafting: boolean,
 		method?: InlineCommentInputMethod,
 	) => (transaction: Transaction, state: EditorState) => Transaction;
-	addInsertAnalytics: (
-		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	) => (transaction: Transaction, state: EditorState) => Transaction;
-	addResolveAnalytics: (
-		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	) => (method?: RESOLVE_METHOD) => (transaction: Transaction, state: EditorState) => Transaction;
 	addPreemptiveGateErrorAnalytics: (
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	) => (errorReason?: string) => (transaction: Transaction, state: EditorState) => Transaction;
-	addDeleteAnalytics: (
+	addResolveAnalytics: (
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	) => (method?: RESOLVE_METHOD) => (transaction: Transaction, state: EditorState) => Transaction;
+	handleDraftState: (
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	) => (
+		drafting: boolean,
+		method?: InlineCommentInputMethod,
 	) => (transaction: Transaction, state: EditorState) => Transaction;
 } = {
 	addAnnotationMark,

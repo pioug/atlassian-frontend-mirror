@@ -48,7 +48,13 @@ export const vanityActions: TeamAction[] = [
 	'EDIT_TEAM_LINK',
 ];
 
-export const openPermissions = (permission: TeamPermission | undefined) => ({
+export const openPermissions = (permission: TeamPermission | undefined): {
+    JOIN_TEAM: boolean;
+    REQUEST_TO_JOIN: boolean;
+    CANCEL_JOIN_REQUEST: boolean;
+    APPROVE_JOIN_REQUEST: boolean;
+    REJECT_JOIN_REQUEST: boolean;
+} => ({
 	JOIN_TEAM: permission === 'FULL_READ' || permission === 'FULL_WRITE',
 	REQUEST_TO_JOIN: false,
 	CANCEL_JOIN_REQUEST: false,
@@ -56,7 +62,10 @@ export const openPermissions = (permission: TeamPermission | undefined) => ({
 	REJECT_JOIN_REQUEST: false,
 });
 
-export const inviteOnlyPermissions = (permission: TeamPermission | undefined) => ({
+export const inviteOnlyPermissions = (permission: TeamPermission | undefined): {
+    REQUEST_TO_JOIN: boolean;
+    CANCEL_JOIN_REQUEST: boolean;
+} => ({
 	REQUEST_TO_JOIN: permission === 'FULL_READ',
 	CANCEL_JOIN_REQUEST: permission === 'FULL_READ',
 });
@@ -65,7 +74,11 @@ export const SCIMSyncTeamPermissions = (
 	isMember: boolean,
 	isOrgAdmin: boolean,
 	source?: ExternalReferenceSource,
-) => ({
+): {
+        EDIT_DESCRIPTION: boolean; EDIT_TEAM_SETTINGS: boolean; EDIT_TEAM_LINK: boolean; EDIT_TEAM_NAME: boolean;
+        //Org admins should not be able to edit hierarchies of HRIS synced teams
+        CAN_EDIT_HIERARCHY: boolean;
+    } => ({
 	EDIT_DESCRIPTION: isMember || isOrgAdmin,
 	EDIT_TEAM_SETTINGS: isMember || isOrgAdmin,
 	EDIT_TEAM_LINK: isMember || isOrgAdmin,

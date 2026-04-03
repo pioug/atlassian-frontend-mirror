@@ -25,7 +25,7 @@ const messages = {
 } satisfies Record<string, string>;
 
 function isTargetFile(filename: string): boolean {
-	return filename.endsWith('.spec.tsx');
+	return filename.endsWith('.spec.tsx') || filename.endsWith('.spec.ts');
 }
 
 /**

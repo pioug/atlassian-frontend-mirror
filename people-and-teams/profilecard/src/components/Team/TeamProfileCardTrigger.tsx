@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 
-import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { FormattedMessage, injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -37,7 +37,13 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 	TeamProfileCardTriggerProps & AnalyticsProps & WrappedComponentProps,
 	TeamProfileCardTriggerState
 > {
-	static defaultProps = {
+	static defaultProps: {
+        actions: never[];
+        trigger: "hover";
+        position: "bottom-start";
+        triggerLinkType: "link";
+        shouldRenderToParent: boolean;
+    } = {
 		actions: [],
 		trigger: 'hover' as const,
 		position: 'bottom-start' as const,
@@ -196,13 +202,21 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		event.stopPropagation();
 	};
 
-	triggerListeners = {
+	triggerListeners: {
+        onClick: (event: React.MouseEvent<HTMLElement>) => void;
+        onMouseEnter: () => void;
+        onMouseLeave: () => void;
+    } = {
 		onClick: this.onClick,
 		onMouseEnter: this.onMouseEnter,
 		onMouseLeave: this.onMouseLeave,
 	};
 
-	cardListeners = {
+	cardListeners: {
+        onClick: (event: React.MouseEvent<HTMLElement>) => void;
+        onMouseEnter: () => void;
+        onMouseLeave: () => void;
+    } = {
 		onClick: this.stopPropagation,
 		onMouseEnter: this.onMouseEnter,
 		onMouseLeave: this.onMouseLeave,
@@ -284,7 +298,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		);
 	};
 
-	onErrorBoundary = () => {
+	onErrorBoundary = (): void => {
 		this.fireAnalytics('ui.teamProfileCard.rendered.errorBoundary', {
 			...PACKAGE_META_DATA,
 			firedAt: Math.round(getPageTime()),
@@ -376,7 +390,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		);
 	};
 
-	renderKudosLauncher = () => {
+	renderKudosLauncher = (): false | React.JSX.Element | undefined => {
 		return (
 			this.state.shouldShowGiveKudos && (
 				<Suspense fallback={null}>
@@ -441,7 +455,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		);
 	};
 
-	renderPopup() {
+	renderPopup(): string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined {
 		if (this.state.renderError) {
 			return this.props.children;
 		}
@@ -466,7 +480,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		);
 	}
 
-	render() {
+	render(): string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined {
 		if (this.props.children) {
 			return this.renderPopup();
 		} else {
@@ -488,4 +502,7 @@ const TeamProfileCardTrigger = (props: TeamProfileCardTriggerProps & WrappedComp
  * It now simply renders its children without any profile card behavior.
  * Please use `@atlassian/team-profilecard` instead for team profile card functionality.
  */
-export default injectIntl(TeamProfileCardTrigger);
+const _default_1: React.FC<WithIntlProps<TeamProfileCardTriggerProps & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<TeamProfileCardTriggerProps & WrappedComponentProps>;
+} = injectIntl(TeamProfileCardTrigger);
+export default _default_1;

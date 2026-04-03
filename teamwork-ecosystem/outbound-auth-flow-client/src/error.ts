@@ -3,7 +3,7 @@ import { type AuthErrorType } from './types';
 export class AuthError extends Error {
 	public constructor(
 		public readonly message: string,
-		public readonly type?: AuthErrorType,
+		public readonly type?: AuthErrorType | undefined,
 	) {
 		super(message);
 		this.name = 'AuthError';

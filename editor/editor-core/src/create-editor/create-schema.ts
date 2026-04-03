@@ -21,7 +21,7 @@ type toDOMType = (node: PMNode | PMMark) => DOMOutputSpec;
  * Adds generic metadata attributes to a DOMOutputSpec array based on the provided node or mark.
  * This function ensures that the DOMOutputSpec is annotated with ProseMirror-specific metadata.
  *
- * @param {Object} params - Parameters object.
+ * @param {object} params - Parameters object.
  * @param {PMNode | PMMark} params.nodeOrMark - The ProseMirror node or mark to extract metadata from.
  * @param {DOMOutputSpec} params.domSpec - The DOMOutputSpec to which attributes will be added.
  * @returns {DOMOutputSpec} The modified DOMOutputSpec with additional metadata.

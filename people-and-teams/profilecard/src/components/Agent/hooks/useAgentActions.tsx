@@ -25,7 +25,12 @@ const createRovoParams = (params: {
 	return rovoParams;
 };
 
-export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; source: string }) => {
+export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; source: string }): {
+    onEditAgent: (agentId: string) => void; onCopyAgent: (agentId: string) => void; onDuplicateAgent: (agentId: string) => void; onOpenChat: (agentId: string, agentName: string) => void; onConversationStarter: ({ agentId, prompt, }: {
+        agentId: string;
+        prompt: string;
+    }) => void; onViewFullProfile: (agentId: string) => void;
+} => {
 	const { publishWithPostMessage } = useRovoPostMessageToPubsub();
 	const { fireEvent } = useAnalyticsEvents();
 

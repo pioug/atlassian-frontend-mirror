@@ -84,7 +84,6 @@ declare global {
 export class CommentEditorWithFeedback extends React.Component<Props, State> {
 	state: {
 		hasJquery: boolean;
-		isExpanded: boolean;
 		intlState: {
 			locale: string;
 			messages: {
@@ -93,6 +92,7 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 				'fabric.editor.headingLink.toolbarHelpTitle': string;
 			};
 		};
+		isExpanded: boolean;
 	} = {
 		hasJquery: false,
 		isExpanded: false,

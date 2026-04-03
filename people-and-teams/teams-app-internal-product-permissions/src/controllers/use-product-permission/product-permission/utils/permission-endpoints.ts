@@ -136,7 +136,10 @@ export const fetchPermissionForProduct = async ({
 	};
 	cloudId: string;
 	userId: string;
-}) => {
+}): Promise<{
+        permissions: ProductPermissionsResponse[];
+        errors: Error[];
+    }> => {
 	const apiCallPromises: Promise<void>[] = [];
 	const permissions: ProductPermissionsResponse[] = [];
 	const productKeys = Object.keys(permissionsToCheck) as Array<keyof typeof permissionsToCheck>;

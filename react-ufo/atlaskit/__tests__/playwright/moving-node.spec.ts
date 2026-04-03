@@ -8,8 +8,9 @@ test.describe('ReactUFO: Revisions - moving-node', () => {
 		true,
 		'The chromium fork version in our current Playwrigth does not support LayoutShift api',
 	);
-	test.use({
-		examplePage: 'moving-node',
+	
+	test.beforeEach(async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/06-moving-node.tsx')>('react-ufo', 'atlaskit', 'moving-node');
 	});
 
 	for (const viewport of viewports) {

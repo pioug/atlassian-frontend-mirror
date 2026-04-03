@@ -3,7 +3,7 @@ import debounce from 'lodash/debounce';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidV4 } from 'uuid';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { type CustomData, type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import UserPicker, {
@@ -38,6 +38,7 @@ import {
 import { getUserRecommendations, hydrateDefaultValues } from '../service';
 import { smartUserPickerOptionsShownUfoExperience } from '../ufoExperiences';
 import { type SUPError } from '../service/recommendation-client';
+import type { DebouncedFunc } from 'lodash';
 
 const DEFAULT_DEBOUNCE_TIME_MS = 150;
 
@@ -105,7 +106,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
 	optionsShownUfoExperienceInstance: UFOExperience;
 
-	static defaultProps = {
+	static defaultProps: { baseUrl: string; includeUsers: boolean; includeGroups: boolean; includeTeams: boolean; includeTeamsUpdates: boolean; includeNonLicensedUsers: boolean; displayEmailInByline: boolean; prefetch: boolean; principalId: string; debounceTime: number; userResolvers: never[]; enableEmailSearch: boolean; allowEmailSelectionWhenEmailMatched: boolean; verifiedTeams: boolean; } = {
 		baseUrl: '',
 		includeUsers: true,
 		includeGroups: false,
@@ -208,12 +209,12 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		}
 	};
 
-	filterOptions = (users: OptionData[], query: string, propFilterOptions?: FilterOptions) =>
+	filterOptions = (users: OptionData[], query: string, propFilterOptions?: FilterOptions): OptionData[] =>
 		propFilterOptions ? propFilterOptions(users, query) : users;
 
-	memoizedFilterOptions = memoizeOne(this.filterOptions);
+	memoizedFilterOptions: MemoizedFn<(users: OptionData[], query: string, propFilterOptions?: FilterOptions) => OptionData[]> = memoizeOne(this.filterOptions);
 
-	getUsers = debounce(async (): Promise<void> => {
+	getUsers: DebouncedFunc<() => Promise<void>> = debounce(async (): Promise<void> => {
 		const { query, sessionId, closed } = this.state;
 
 		const {
@@ -450,7 +451,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		}
 	};
 
-	filterUsers = () => {
+	filterUsers = (): OptionData[] => {
 		const { loading, users, query } = this.state;
 		const filteredUsers = this.memoizedFilterOptions(users, query, this.props.filterOptions);
 		//If bootstrapOptions have been passed in and it is bootstrap

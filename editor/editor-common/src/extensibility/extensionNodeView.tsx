@@ -96,12 +96,12 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 
 	getContentDOM():
 		| {
-				dom: HTMLDivElement;
 				contentDOM: HTMLDivElement;
+				dom: HTMLDivElement;
 		  }
 		| {
-				dom: HTMLDivElement;
 				contentDOM?: undefined;
+				dom: HTMLDivElement;
 		  }
 		| undefined {
 		if (this.node.isInline) {

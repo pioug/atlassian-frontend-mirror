@@ -16,7 +16,7 @@ export const makeGraphqlRequest = ({
 	url: string;
 	query: string;
 	variables?: object;
-}) => {
+}): Promise<Response> => {
 	return fetch(url, {
 		method: 'POST',
 		credentials: 'include',
@@ -31,7 +31,7 @@ export const makeGraphqlRequest = ({
 	});
 };
 
-export const makeRestApiRequest = ({ url, body }: { url: string; body?: string }) => {
+export const makeRestApiRequest = ({ url, body }: { url: string; body?: string }): Promise<Response> => {
 	return fetch(url, {
 		method: 'POST',
 		credentials: 'include',

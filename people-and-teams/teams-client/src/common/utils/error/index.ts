@@ -160,7 +160,7 @@ export class GraphQLError extends CommonError {
 		}
 	}
 
-	static from = (rawErrors: ErrorData[]) => {
+	static from = (rawErrors: ErrorData[]): GraphQLError => {
 		const firstError = rawErrors[0];
 
 		const errorData: ResultErrorData = {

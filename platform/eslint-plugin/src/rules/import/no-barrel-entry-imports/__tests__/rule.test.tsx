@@ -1471,6 +1471,92 @@ describe('no-barrel-entry-imports', () => {
 			],
 		});
 
+		// Barrel package exposes a subpath entry that only re-exports from the dependency
+		const fsWithCrossPackageBridgeSubpath = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+			[`${PACKAGE_A_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-a',
+				exports: {
+					'.': './src/index.ts',
+					'./bridge': './src/bridge.ts',
+					'./local-component': './src/local-component.ts',
+				},
+			}),
+			[`${PACKAGE_A_DIR}/src/index.ts`]: outdent`
+				export { SomeComponent } from './bridge';
+				export { localThing } from './local-component';
+			`,
+			[`${PACKAGE_A_DIR}/src/bridge.ts`]: outdent`
+				export { SomeComponent } from '@atlassian/package-b';
+			`,
+			[`${PACKAGE_A_DIR}/src/local-component.ts`]: outdent`
+				export const localThing = 'local';
+			`,
+			[`${PACKAGE_B_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-b',
+				exports: {
+					'.': './src/index.ts',
+					'./ui/components': './src/ui/components/index.ts',
+					'./utils': './src/utils/index.ts',
+				},
+			}),
+			[`${PACKAGE_B_DIR}/src/index.ts`]: outdent`
+				export { SomeComponent } from './ui/components';
+				export { helperUtil } from './utils';
+			`,
+			[`${PACKAGE_B_DIR}/src/ui/components/index.ts`]: outdent`
+				export const SomeComponent = () => null;
+			`,
+			[`${PACKAGE_B_DIR}/src/utils/index.ts`]: outdent`
+				export const helperUtil = () => {};
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-imports - preferImportedPackageSubpath',
+			fsWithCrossPackageBridgeSubpath,
+			{
+				valid: [],
+				invalid: [
+					{
+						code: `import { SomeComponent } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { SomeComponent } from '@atlassian/package-a/bridge';`,
+					},
+					{
+						code: `import { SomeComponent, localThing } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: tabindent`
+							import { SomeComponent } from '@atlassian/package-a/bridge';
+							import { localThing } from '@atlassian/package-a/local-component';
+						`,
+					},
+				],
+			},
+		);
+
+		runWithFs(
+			'no-barrel-entry-imports - bridge layout without prefer still targets dependency package',
+			fsWithCrossPackageBridgeSubpath,
+			{
+				valid: [],
+				invalid: [
+					{
+						code: `import { SomeComponent } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { SomeComponent } from '@atlassian/package-b/ui/components';`,
+					},
+				],
+			},
+		);
+
 		// Test with aliased cross-package re-exports
 		const fsWithAliasedCrossPackageReexport = createMockFileSystem({
 			// Workspace markers

@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import type { SentryClient } from '../types';
+
 import { sentryClient, type SentryClientConfig, setupSentryClient } from './sentry-client';
 
-export const useTeamsSentryClientSetup = (isSentryEnabled: boolean, config: SentryClientConfig) => {
+export const useTeamsSentryClientSetup = (isSentryEnabled: boolean, config: SentryClientConfig): SentryClient | undefined => {
 	const [sentryInitialised, setSentryInitialised] = useState(false);
 
 	const setupSentry = useCallback(async () => {

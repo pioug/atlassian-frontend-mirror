@@ -194,8 +194,8 @@ export const getAwarenessProps = (
 	allowBlockCards?: boolean,
 	disableOverlay = false,
 ): {
-	isPulseEnabled: boolean;
 	isOverlayEnabled: boolean;
+	isPulseEnabled: boolean;
 	isSelected: boolean;
 } => {
 	const getPosFunction = typeof getPos !== 'boolean' ? getPos : undefined;

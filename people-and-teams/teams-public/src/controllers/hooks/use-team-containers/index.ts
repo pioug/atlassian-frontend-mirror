@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
-import { type Action, createHook, createStore } from 'react-sweet-state';
+import { type Action, type BoundActions, createHook, createStore, type HookFunction } from 'react-sweet-state';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
@@ -287,9 +287,25 @@ const Store = createStore<State, Actions>({
 	name: 'teamContainersStore',
 });
 
-export const useTeamContainersHook = createHook(Store);
+export const useTeamContainersHook: HookFunction<State, BoundActions<State, {
+    fetchTeamContainers: (teamId: string, fireAnalytics: ReturnType<typeof useAnalyticsEvents>["fireEvent"]) => Action<State>;
+    refetchTeamContainers: (fireAnalytics: ReturnType<typeof useAnalyticsEvents>["fireEvent"]) => Action<State>;
+    fetchNumberOfConnectedTeams: (containerId: string, fireAnalytics: ReturnType<typeof useAnalyticsEvents>["fireEvent"]) => Action<State>;
+    fetchConnectedTeams: (containerId: string, fireAnalytics: ReturnType<typeof useAnalyticsEvents>["fireEvent"]) => Action<State>;
+    unlinkTeamContainers: (teamId: string, containerId: string) => Action<State>;
+    addTeamContainer: (teamContainer: TeamContainer) => Action<State>;
+}>, void> = createHook(Store);
 
-export const useTeamContainers = (teamId: string, enable = true) => {
+export const useTeamContainers = (teamId: string, enable = true): {
+    teamContainers: TeamContainers; loading: boolean; hasLoaded: boolean; error: Error | null; unlinkError: UnlinkContainerMutationError | null; teamId: string | null; connectedTeams: {
+        containerId: string | undefined;
+        isLoading: boolean;
+        hasLoaded: boolean;
+        teams: TeamWithMemberships[] | undefined;
+        error: Error | null;
+        numberOfTeams: number | undefined;
+    }; addTeamContainer: (teamContainer: TeamContainer) => void | Promise<void>; unlinkTeamContainers: (containerId: string) => void | Promise<void>; refetchTeamContainers: () => Promise<void>;
+} => {
 	const [state, actions] = useTeamContainersHook();
 	const useMultiTeam = fg('enable_multi_team_containers_state');
 	const multiTeamResult = useTeamContainersMulti(teamId, useMultiTeam ? enable : false);
@@ -319,7 +335,7 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 	};
 };
 
-export const useConnectedTeams = (teamId?: string) => {
+export const useConnectedTeams = (teamId?: string): { fetchNumberOfConnectedTeams: (containerId: string) => void | Promise<void>; fetchConnectedTeams: (containerId: string) => void | Promise<void>; containerId: string | undefined; isLoading: boolean; hasLoaded: boolean; teams: TeamWithMemberships[] | undefined; error: Error | null; numberOfTeams: number | undefined; } => {
 	const [state, actions] = useTeamContainersHook();
 	const useMultiTeam = fg('enable_multi_team_containers_state');
 	const multiTeamResult = useConnectedTeamsMulti(useMultiTeam ? teamId || '' : '');

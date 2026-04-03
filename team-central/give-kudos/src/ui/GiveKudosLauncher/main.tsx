@@ -367,7 +367,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	);
 };
 
-const ComposedGiveKudosLauncher = (props: GiveKudosDrawerProps) => {
+const ComposedGiveKudosLauncher = (props: GiveKudosDrawerProps): JSX.Element => {
 	return (
 		<IntlMessagesProvider loaderFn={fetchMessagesForLocale} defaultMessages={i18nEN}>
 			<GiveKudosLauncher {...props} />

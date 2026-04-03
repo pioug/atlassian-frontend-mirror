@@ -4,7 +4,7 @@ export const hasProductPermission = (
 	permissions: UserProductPermissions,
 	product: keyof UserProductPermissions,
 	permissionIds?: Array<string>,
-) => {
+): boolean | undefined => {
 	if (!permissions[product]) {
 		return false;
 	}

@@ -17,7 +17,7 @@ import ProfileCardTrigger, { type ProfileCardHandle } from '../common/ProfileCar
 
 import { AgentProfileCardLazy } from './lazyAgentProfileCard';
 
-export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfileCardTriggerProps>(
+export const AgentProfileCardTrigger: React.ForwardRefExoticComponent<AgentProfileCardTriggerProps & React.RefAttributes<ProfileCardHandle>> = forwardRef<ProfileCardHandle, AgentProfileCardTriggerProps>(
 	({ ...props }, ref) => {
 		const { resourceClient, agentId: userId, cloudId } = props;
 

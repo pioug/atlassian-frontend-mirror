@@ -8,7 +8,12 @@ import { directoryGraphqlQuery } from './graphqlUtils';
 
 const UNSHARDED_PREFIX = '/gateway/api/watermelon';
 
-export const buildReportingLinesQuery = (aaid: string) => ({
+export const buildReportingLinesQuery = (aaid: string): {
+    query: string;
+    variables: {
+        aaid: string;
+    };
+} => ({
 	query: `
     fragment ReportingLinesUserPII on UserPII {
       name
@@ -83,7 +88,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		);
 	}
 
-	createOrgContainsAnyWorkspacePromise(config: TeamCentralCardClientOptions) {
+	createOrgContainsAnyWorkspacePromise(config: TeamCentralCardClientOptions): Promise<boolean> {
 		if (config.cloudId) {
 			let promise = orgContainsAnyWorkspacePromiseCache.get(config.cloudId);
 			if (!promise) {
@@ -148,7 +153,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	/**
 	 * `public` so that mock client can override it; do not use it otherwise!
 	 */
-	async makeRequest(userId: string) {
+	async makeRequest(userId: string): Promise<TeamCentralReportingLinesData> {
 		if (this.options.teamCentralDisabled === true) {
 			throw new Error('makeRequest cannot be called when the client has been disabled');
 		}
@@ -162,7 +167,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		return response.reportingLines;
 	}
 
-	async checkWorkspaceExists() {
+	async checkWorkspaceExists(): Promise<boolean> {
 		const workspaceExistsPromise = fg('enable_ptc_townsquare_reporting_lines_unsharded')
 			? this.workspaceExistsWithTypePromise.then(
 					(workspaceExistsWithType) => workspaceExistsWithType !== undefined,
@@ -179,15 +184,15 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		);
 	}
 
-	async getIsGlobalExperienceWorkspace() {
+	async getIsGlobalExperienceWorkspace(): Promise<boolean> {
 		return (await this.workspaceExistsWithTypePromise) === 'GLOBAL_EXPERIENCE';
 	}
 
-	getOrgId() {
+	getOrgId(): Promise<string | null> {
 		return this.orgIdPromise;
 	}
 
-	preloadWorkspaceExistsWithType(cloudId?: string) {
+	preloadWorkspaceExistsWithType(cloudId?: string): Promise<string | undefined> {
 		if (cloudId === undefined) {
 			return Promise.resolve(undefined);
 		}
@@ -238,7 +243,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		}
 	}
 
-	preloadOrgId(gatewayGraphqlUrl: string, cloudId?: string, orgId?: string) {
+	preloadOrgId(gatewayGraphqlUrl: string, cloudId?: string, orgId?: string): Promise<string | null> {
 		if (cloudId === undefined) {
 			return Promise.resolve(null);
 		}

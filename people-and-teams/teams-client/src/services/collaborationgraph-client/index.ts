@@ -110,6 +110,7 @@ export class CollaborationGraphClient extends RestClient {
 	}
 }
 
-export default new CollaborationGraphClient({
-	serviceUrl: DEFAULT_CONFIG.collaborationGraphUrl,
+const _default_1: CollaborationGraphClient = new CollaborationGraphClient({
+    serviceUrl: DEFAULT_CONFIG.collaborationGraphUrl,
 });
+export default _default_1;

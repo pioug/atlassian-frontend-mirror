@@ -1,6 +1,8 @@
-import { lazy } from 'react';
+import { lazy, type LazyExoticComponent } from 'react';
 
-export const TeamProfileCardLazy = lazy(
+import type { TeamProfilecardProps } from '../../types';
+
+export const TeamProfileCardLazy: LazyExoticComponent<(props: TeamProfilecardProps) => React.JSX.Element | null> = lazy(
 	() =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_lazy-team-profilecard" */

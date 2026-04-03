@@ -6,7 +6,11 @@ import type { Rule } from 'eslint';
 import { parseBarrelExports } from '../shared/barrel-parsing';
 import { DEFAULT_TARGET_FOLDERS, findWorkspaceRoot, isRelativeImport } from '../shared/file-system';
 import { findPackageInRegistry, isPackageInApplyToImportsFrom } from '../shared/package-registry';
-import { findExportForSourceFile, parsePackageExports } from '../shared/package-resolution';
+import {
+	findCrossPackageBridgeExportPath,
+	findExportForSourceFile,
+	parsePackageExports,
+} from '../shared/package-resolution';
 import { type ExportInfo, type FileSystem, realFileSystem } from '../shared/types';
 
 /**
@@ -14,6 +18,11 @@ import { type ExportInfo, type FileSystem, realFileSystem } from '../shared/type
  */
 interface RuleOptions {
 	applyToImportsFrom?: string[];
+	/**
+	 * When a barrel re-exports from another package, prefer `@scope/barrel/subpath` if that
+	 * subpath's entry file directly re-exports from the dependency, instead of importing the dependency package.
+	 */
+	preferImportedPackageSubpath?: boolean;
 }
 
 type ImportSpecifierNode =
@@ -53,6 +62,11 @@ const ruleMeta: Rule.RuleMetaData = {
 					items: { type: 'string' },
 					description:
 						'The folder paths (relative to workspace root) containing packages whose imports will be checked and autofixed.',
+				},
+				preferImportedPackageSubpath: {
+					type: 'boolean',
+					description:
+						'Prefer subpaths on the imported barrel package when they bridge to the dependency (e.g. @scope/pkg/subpath instead of @scope/dependency).',
 				},
 			},
 			additionalProperties: false,
@@ -283,13 +297,15 @@ function classifySpecifiers({
 	importContext,
 	workspaceRoot,
 	fs,
+	preferImportedPackageSubpath,
 }: {
 	node: ImportDeclarationNode;
 	importContext: ImportContext;
 	workspaceRoot: string;
 	fs: FileSystem;
+	preferImportedPackageSubpath: boolean;
 }): SpecifierClassification {
-	const { currentExportPath, exportsMap, exportMap } = importContext;
+	const { currentExportPath, exportsMap, exportMap, packageName: importedPackageName } = importContext;
 	const specifiers = node.specifiers;
 
 	const specifiersByTarget = new Map<string, SpecifierWithTarget[]>();
@@ -328,6 +344,38 @@ function classifySpecifiers({
 			// Check if this is a cross-package re-export
 			const sourcePackageName = exportInfo.crossPackageSource?.packageName;
 			if (sourcePackageName) {
+				let targetKey: string;
+				let resolvedOriginalName = exportInfo.originalName;
+
+				if (preferImportedPackageSubpath) {
+					const bridge = findCrossPackageBridgeExportPath({
+						exportsMap,
+						crossPackageName: sourcePackageName,
+						exportedName: nameInSource,
+						fs,
+					});
+					if (bridge) {
+						targetKey = importedPackageName + bridge.exportPath.slice(1);
+						if (bridge.entryPointExportName !== undefined) {
+							resolvedOriginalName =
+								bridge.entryPointExportName === nameInSource
+									? undefined
+									: bridge.entryPointExportName;
+						}
+						if (!specifiersByTarget.has(targetKey)) {
+							specifiersByTarget.set(targetKey, []);
+						}
+						specifiersByTarget.get(targetKey)!.push({
+							spec: { ...spec, importKind: effectiveKind } as AugmentedSpecifier,
+							originalName: resolvedOriginalName,
+							targetExportPath: targetKey,
+							kind: effectiveKind,
+							sourcePackageName,
+						});
+						continue;
+					}
+				}
+
 				// For cross-package re-exports, find the most specific subpath in the source package
 				// Note: Package resolution is not constrained by applyToImportsFrom - any package can be resolved
 				let sourcePackageExportsMap = sourcePackageExportsMaps.get(sourcePackageName);
@@ -345,7 +393,6 @@ function classifySpecifiers({
 
 				// Find the best export path in the source package
 				let targetExportPath: string | null = null;
-				let resolvedOriginalName = exportInfo.originalName;
 				if (sourcePackageExportsMap) {
 					const sourceExportName = exportInfo.originalName ?? nameInSource;
 					const matchResult = findExportForSourceFile({
@@ -364,7 +411,7 @@ function classifySpecifiers({
 				}
 
 				// Build the full import path: @package/subpath or just @package if no subpath found
-				const targetKey = targetExportPath
+				targetKey = targetExportPath
 					? sourcePackageName + targetExportPath.slice(1) // Remove leading '.' from subpath
 					: sourcePackageName;
 
@@ -926,12 +973,14 @@ function handleRequireMemberExpression({
 	workspaceRoot,
 	fs,
 	applyToImportsFrom,
+	preferImportedPackageSubpath,
 }: {
 	node: TSESTree.MemberExpression;
 	context: Rule.RuleContext;
 	workspaceRoot: string;
 	fs: FileSystem;
 	applyToImportsFrom: string[];
+	preferImportedPackageSubpath: boolean;
 }): void {
 	if (node.computed || node.property.type !== 'Identifier') {
 		return;
@@ -960,6 +1009,7 @@ function handleRequireMemberExpression({
 		importContext,
 		workspaceRoot,
 		fs,
+		preferImportedPackageSubpath,
 	});
 
 	if (hasNamespaceImport || specifiersByTarget.size === 0) {
@@ -1028,12 +1078,14 @@ function handleRequireDestructuringDeclarator({
 	workspaceRoot,
 	fs,
 	applyToImportsFrom,
+	preferImportedPackageSubpath,
 }: {
 	node: TSESTree.VariableDeclarator;
 	context: Rule.RuleContext;
 	workspaceRoot: string;
 	fs: FileSystem;
 	applyToImportsFrom: string[];
+	preferImportedPackageSubpath: boolean;
 }): void {
 	if (node.id.type !== 'ObjectPattern' || !node.init || node.init.type !== 'CallExpression') {
 		return;
@@ -1091,6 +1143,7 @@ function handleRequireDestructuringDeclarator({
 		importContext,
 		workspaceRoot,
 		fs,
+		preferImportedPackageSubpath,
 	});
 
 	if (hasNamespaceImport || specifiersByTarget.size === 0 || unmappedSpecifiers.length > 0) {
@@ -1181,12 +1234,14 @@ function handleImportDeclaration({
 	workspaceRoot,
 	fs,
 	applyToImportsFrom,
+	preferImportedPackageSubpath,
 }: {
 	node: ImportDeclarationNode;
 	context: Rule.RuleContext;
 	workspaceRoot: string;
 	fs: FileSystem;
 	applyToImportsFrom: string[];
+	preferImportedPackageSubpath: boolean;
 }): void {
 	// Resolve import context (validates and extracts package/export info)
 	// applyToImportsFrom is used here to filter which packages the rule applies to
@@ -1206,6 +1261,7 @@ function handleImportDeclaration({
 		importContext,
 		workspaceRoot,
 		fs,
+		preferImportedPackageSubpath,
 	});
 
 	// If namespace import, report without auto-fix if there are specific exports available
@@ -1253,6 +1309,8 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 		create(context) {
 			const options = (context.options[0] || {}) as RuleOptions;
 			const applyToImportsFrom = options.applyToImportsFrom ?? DEFAULT_TARGET_FOLDERS;
+			const preferImportedPackageSubpath =
+				options.preferImportedPackageSubpath ?? false;
 			const workspaceRoot = findWorkspaceRoot({
 				startPath: dirname(context.filename),
 				fs,
@@ -1263,7 +1321,14 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 				ImportDeclaration(rawNode) {
 					const node = rawNode as ImportDeclarationNode;
 
-					handleImportDeclaration({ node, context, workspaceRoot, fs, applyToImportsFrom });
+					handleImportDeclaration({
+						node,
+						context,
+						workspaceRoot,
+						fs,
+						applyToImportsFrom,
+						preferImportedPackageSubpath,
+					});
 				},
 				MemberExpression(rawNode) {
 					handleRequireMemberExpression({
@@ -1272,6 +1337,7 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 						workspaceRoot,
 						fs,
 						applyToImportsFrom,
+						preferImportedPackageSubpath,
 					});
 				},
 				VariableDeclarator(rawNode) {
@@ -1281,6 +1347,7 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 						workspaceRoot,
 						fs,
 						applyToImportsFrom,
+						preferImportedPackageSubpath,
 					});
 				},
 			};

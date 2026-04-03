@@ -110,6 +110,7 @@ export class InvitationsClient extends RestClient {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default new InvitationsClient(DEFAULT_CONFIG.invitationsServiceUrl, {
-	logException,
+const _default_1: InvitationsClient = new InvitationsClient(DEFAULT_CONFIG.invitationsServiceUrl, {
+    logException,
 });
+export default _default_1;

@@ -50,19 +50,16 @@ class CommentContainer extends React.Component<Props & { comments: CommentType[]
 const _default_1: ComponentClass<
 	Omit<
 		{
-			comments: CommentType[];
-			isHighlighted: boolean;
+			allowFeedbackAndHelpButtons?: boolean;
 			comment: CommentType;
+			comments: CommentType[];
 			containerId?: string;
 			conversationId: string;
-			objectId?: string;
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			renderComment: (props: any) => JSX.Element;
-			allowFeedbackAndHelpButtons?: boolean;
 			dataProviders?: ProviderFactory;
 			disableScrollTo?: boolean;
+			isHighlighted: boolean;
 			maxCommentNesting?: number;
+			objectId?: string;
 			onAddComment?: (
 				conversationId: string,
 				parentId: string,
@@ -111,6 +108,9 @@ const _default_1: ComponentClass<
 				comment: CommentType,
 			) => JSX.Element[];
 			renderAfterComment?: (comment: CommentType) => JSX.Element;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			renderComment: (props: any) => JSX.Element;
 			renderEditor?: RenderEditorWithComments;
 			sendAnalyticsEvent: SendAnalyticsEvent;
 			user?: User;
@@ -123,19 +123,16 @@ const _default_1: ComponentClass<
 > & {
 	WrappedComponent: Component<
 		{
-			comments: CommentType[];
-			isHighlighted: boolean;
+			allowFeedbackAndHelpButtons?: boolean;
 			comment: CommentType;
+			comments: CommentType[];
 			containerId?: string;
 			conversationId: string;
-			objectId?: string;
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			renderComment: (props: any) => JSX.Element;
-			allowFeedbackAndHelpButtons?: boolean;
 			dataProviders?: ProviderFactory;
 			disableScrollTo?: boolean;
+			isHighlighted: boolean;
 			maxCommentNesting?: number;
+			objectId?: string;
 			onAddComment?: (
 				conversationId: string,
 				parentId: string,
@@ -184,6 +181,9 @@ const _default_1: ComponentClass<
 				comment: CommentType,
 			) => JSX.Element[];
 			renderAfterComment?: (comment: CommentType) => JSX.Element;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			renderComment: (props: any) => JSX.Element;
 			renderEditor?: RenderEditorWithComments;
 			sendAnalyticsEvent: SendAnalyticsEvent;
 			user?: User;

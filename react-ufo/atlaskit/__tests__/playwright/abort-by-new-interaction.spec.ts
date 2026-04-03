@@ -1,7 +1,9 @@
 import { expect, test } from './fixtures';
 
 test.describe('ReactUFO: abort by new interaction', () => {
-	test.use({ examplePage: 'basic-three-sections-with-button' });
+	test.beforeEach(async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/14-basic-three-sections-with-button.tsx')>('react-ufo', 'atlaskit', 'basic-three-sections-with-button');
+	});
 
 	test('interactionMetrics.abortReason should be `new_interaction` when the user clicks a button', async ({
 		waitForReactUFOPayload,
@@ -24,7 +26,7 @@ test.describe('ReactUFO: abort by new interaction', () => {
 		expect(interactionMetrics.abortedByInteractionName).toBe('test-new-interaction');
 	});
 
-	test('should capture and report a11y violations', async ({ waitForReactUFOPayload, page }) => {
+	test('should capture and report a11y violations', async ({ page }) => {
 		const mainDiv = page.locator('[data-testid="main"]');
 		await expect(mainDiv).toBeVisible();
 

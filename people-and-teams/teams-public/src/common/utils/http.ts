@@ -84,12 +84,13 @@ export function withExponentialBackoff<ResponseType>(
 	};
 }
 
-export const fetchWithExponentialBackoff: (...args: ToTryFunctionArgs) => Promise<Response> = withExponentialBackoff<Response>(
-	(url: Parameters<typeof fetch>[0], init: Parameters<typeof fetch>[1]) => fetch(url, init),
-	{
-		initial: EXPONENTIAL_BACKOFF_RETRY_POLICY.INITIAL_DELAY,
-		jitter: EXPONENTIAL_BACKOFF_RETRY_POLICY.JITTER,
-		max: EXPONENTIAL_BACKOFF_RETRY_POLICY.MAX_RETRIES,
-		retryIf: (response: Response) => is5xx(response.status),
-	},
-);
+export const fetchWithExponentialBackoff: (...args: ToTryFunctionArgs) => Promise<Response> =
+	withExponentialBackoff<Response>(
+		(url: Parameters<typeof fetch>[0], init: Parameters<typeof fetch>[1]) => fetch(url, init),
+		{
+			initial: EXPONENTIAL_BACKOFF_RETRY_POLICY.INITIAL_DELAY,
+			jitter: EXPONENTIAL_BACKOFF_RETRY_POLICY.JITTER,
+			max: EXPONENTIAL_BACKOFF_RETRY_POLICY.MAX_RETRIES,
+			retryIf: (response: Response) => is5xx(response.status),
+		},
+	);

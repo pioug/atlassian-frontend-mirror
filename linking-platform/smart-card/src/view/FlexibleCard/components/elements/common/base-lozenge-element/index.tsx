@@ -94,10 +94,7 @@ const BaseLozengeElement = ({
 				: undefined)}
 		/>
 	) : isDateTag ? (
-		<Tag
-			text={text as string}
-			migration_fallback="lozenge"
-		/>
+		<Tag text={text as string} migration_fallback="lozenge" />
 	) : (
 		<AtlaskitLozenge
 			appearance={appearance}

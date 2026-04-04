@@ -16,9 +16,7 @@ export const isTeamsAppRoute = (url: string) => {
 		const path = getRoutePathFromUrl(url);
 		const hostname = new URL(url).hostname;
 		return (
-			(hostname.includes('home.atlassian') ||
-				isFedramp(hostname) ||
-				isIsolatedCloud(hostname)) &&
+			(hostname.includes('home.atlassian') || isFedramp(hostname) || isIsolatedCloud(hostname)) &&
 			path.includes('/people')
 		);
 	} catch {
@@ -49,7 +47,12 @@ type BuildNavigationInputArgs = NavigationIntentProps & {
 /**
  * Builds the input object for `getNavigationProps`, handling the intent props.
  */
-export function buildNavigationInput({ href, context, onBeforeNavigate, ...intentProps }: BuildNavigationInputArgs) {
+export function buildNavigationInput({
+	href,
+	context,
+	onBeforeNavigate,
+	...intentProps
+}: BuildNavigationInputArgs) {
 	return intentProps.intent === 'action'
 		? {
 				href,

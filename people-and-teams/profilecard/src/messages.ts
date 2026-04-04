@@ -1,193 +1,237 @@
 import { defineMessages } from 'react-intl-next';
 
 const messages: {
-    inactiveAccountMsg: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; generalDescMsgForDisabledUser: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inactiveAccountDescMsgNoDate: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inactiveAccountDescMsgHasDateThisWeek: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inactiveAccountDescMsgHasDateThisMonth: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inactiveAccountDescMsgHasDateLastMonth: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inactiveAccountDescMsgHasDateAFewMonths: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inactiveAccountDescMsgHasDateSeveralMonths: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; inactiveAccountDescMsgHasDateMoreThanAYear: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closedAccountMsg: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closedAccountDescMsgNoDate: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closedAccountDescMsgHasDateThisWeek: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closedAccountDescMsgHasDateThisMonth: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closedAccountDescMsgHasDateLastMonth: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closedAccountDescMsgHasDateAFewMonths: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closedAccountDescMsgHasDateSeveralMonths: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; closedAccountDescMsgHasDateMoreThanAYear: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; disabledAccountDefaultName: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; teamViewProfile: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; memberCount: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; memberCountIncludingYou: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; membersMoreThan50: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; membersMoreThan50IncludingYou: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; teamErrorTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; teamErrorText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; teamErrorButton: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; teamForbiddenErrorStateTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; teamForbiddenErrorStateDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; managerSectionHeading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; directReportsSectionHeading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; teamProfileCardAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; giveKudosButton: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
-    // Remove this as part of the FG Cleanup for jfp_a11y_team_profile_card_actions_label
-    profileCardMoreIconLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; profileCardMoreIconLabelWithName: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; profileCardMoreReportingLinesLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; profileCardMoreMembersLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; archivedLozenge: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; errorUserNotFound: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; errorGeneric: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; errorRetrySuggestion: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; errorTryAgain: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; errorDialogLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; loadingDialogLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; serviceAccountLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; botAccountLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; viewManagerProfile: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	inactiveAccountMsg: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	generalDescMsgForDisabledUser: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inactiveAccountDescMsgNoDate: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inactiveAccountDescMsgHasDateThisWeek: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inactiveAccountDescMsgHasDateThisMonth: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inactiveAccountDescMsgHasDateLastMonth: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inactiveAccountDescMsgHasDateAFewMonths: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inactiveAccountDescMsgHasDateSeveralMonths: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	inactiveAccountDescMsgHasDateMoreThanAYear: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closedAccountMsg: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closedAccountDescMsgNoDate: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closedAccountDescMsgHasDateThisWeek: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closedAccountDescMsgHasDateThisMonth: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closedAccountDescMsgHasDateLastMonth: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closedAccountDescMsgHasDateAFewMonths: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closedAccountDescMsgHasDateSeveralMonths: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	closedAccountDescMsgHasDateMoreThanAYear: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	disabledAccountDefaultName: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	teamViewProfile: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	memberCount: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	memberCountIncludingYou: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	membersMoreThan50: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	membersMoreThan50IncludingYou: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	teamErrorTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	teamErrorText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	teamErrorButton: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	teamForbiddenErrorStateTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	teamForbiddenErrorStateDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	managerSectionHeading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	directReportsSectionHeading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	teamProfileCardAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	giveKudosButton: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	// Remove this as part of the FG Cleanup for jfp_a11y_team_profile_card_actions_label
+	profileCardMoreIconLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	profileCardMoreIconLabelWithName: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	profileCardMoreReportingLinesLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	profileCardMoreMembersLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	archivedLozenge: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	errorUserNotFound: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	errorGeneric: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	errorRetrySuggestion: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	errorTryAgain: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	errorDialogLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	loadingDialogLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	serviceAccountLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	botAccountLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	viewManagerProfile: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	inactiveAccountMsg: {
 		id: 'pt.profile-card.inactive.account',

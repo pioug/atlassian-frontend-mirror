@@ -38,7 +38,10 @@ import {
 	slideAndFade,
 } from '../../src/entry-points/animations';
 import { arrow } from '../../src/entry-points/arrow';
-import { createCloseEvent, createPopoverCloseEvent } from '../../src/entry-points/create-close-event';
+import {
+	createCloseEvent,
+	createPopoverCloseEvent,
+} from '../../src/entry-points/create-close-event';
 import { Dialog } from '../../src/entry-points/dialog';
 import { DialogScrollLock } from '../../src/entry-points/dialog-scroll-lock';
 import {
@@ -51,7 +54,10 @@ import { Popover } from '../../src/entry-points/popover';
 import { Popup } from '../../src/entry-points/popup';
 import { PopupSurface } from '../../src/entry-points/popup-surface';
 import { useAnchorPosition } from '../../src/entry-points/use-anchor-position';
-import { isAtCurrentMenuLevel, useArrowNavigation } from '../../src/entry-points/use-arrow-navigation';
+import {
+	isAtCurrentMenuLevel,
+	useArrowNavigation,
+} from '../../src/entry-points/use-arrow-navigation';
 import { useSimpleLightDismiss } from '../../src/entry-points/use-simple-light-dismiss';
 
 // Polyfills are installed by build/configs/jest-config/setup/setup-top-layer.js.
@@ -250,9 +256,7 @@ describe('React 19 readiness (top-layer)', () => {
 					<button ref={anchorRef} type="button">
 						anchor
 					</button>
-					<div ref={popoverRef}>
-						popover
-					</div>
+					<div ref={popoverRef}>popover</div>
 				</>
 			);
 		}
@@ -753,11 +757,11 @@ describe('React 19 readiness (top-layer)', () => {
 			);
 
 			// While mounted, overflow should be hidden
-			expect(document.body).toHaveStyle({overflow:'hidden'});
+			expect(document.body).toHaveStyle({ overflow: 'hidden' });
 
 			// After unmount, overflow should be restored to original value
 			unmount();
-			expect(document.body).toHaveStyle({overflow:'auto'});
+			expect(document.body).toHaveStyle({ overflow: 'auto' });
 		});
 	});
 
@@ -790,13 +794,7 @@ describe('React 19 readiness (top-layer)', () => {
 		it('Popover with animation preset can be rendered on the server', async () => {
 			expect(
 				await doesRenderWithSsr(
-					<Popover
-						isOpen={false}
-						onClose={noop}
-						animate={fade()}
-						role="dialog"
-						label="ssr-anim"
-					>
+					<Popover isOpen={false} onClose={noop} animate={fade()} role="dialog" label="ssr-anim">
 						animated
 					</Popover>,
 				),
@@ -1081,7 +1079,9 @@ describe('React 19 readiness (top-layer)', () => {
 						)}
 					</Popup.TriggerFunction>
 					<Popup.Content role="listbox" label="fn-aria">
-						<div role="option" aria-selected="false">Opt</div>
+						<div role="option" aria-selected="false">
+							Opt
+						</div>
 					</Popup.Content>
 				</Popup>,
 			);
@@ -1101,10 +1101,10 @@ describe('React 19 readiness (top-layer)', () => {
 					<span>locked</span>
 				</Dialog>,
 			);
-			expect(document.body).toHaveStyle({overflow:'hidden'});
+			expect(document.body).toHaveStyle({ overflow: 'hidden' });
 
 			unmount();
-			expect(document.body).toHaveStyle({overflow:'scroll'});
+			expect(document.body).toHaveStyle({ overflow: 'scroll' });
 		});
 
 		it('does not set overflow when Dialog is closed', () => {
@@ -1116,18 +1116,12 @@ describe('React 19 readiness (top-layer)', () => {
 				</Dialog>,
 			);
 			// Children (including DialogScrollLock) don't mount when dialog is closed
-			expect(document.body).toHaveStyle({overflow:'visible'});
+			expect(document.body).toHaveStyle({ overflow: 'visible' });
 		});
 	});
 
 	describe('useSimpleLightDismiss: core behaviors', () => {
-		function LightDismissHarness({
-			isOpen,
-			onClose,
-		}: {
-			isOpen: boolean;
-			onClose: () => void;
-		}) {
+		function LightDismissHarness({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
 			const popoverRef = useRef<HTMLDivElement>(null);
 			useSimpleLightDismiss({ popoverRef, isOpen, onClose });
 			return (
@@ -1158,7 +1152,9 @@ describe('React 19 readiness (top-layer)', () => {
 			render(
 				<div>
 					<LightDismissHarness isOpen={true} onClose={onClose} />
-					<button type="button" data-testid="outside">outside</button>
+					<button type="button" data-testid="outside">
+						outside
+					</button>
 				</div>,
 			);
 

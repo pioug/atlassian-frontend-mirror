@@ -125,7 +125,6 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 			card.setRef(cardRef);
 		}, [card]);
 
-
 		if (fg('platform_spotlight_card_fit_content_anchor')) {
 			return (
 				<div css={styles.root} data-testid={testId} ref={ref}>
@@ -157,5 +156,3 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 		);
 	},
 );
-
-

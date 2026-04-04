@@ -7,6 +7,9 @@ import { type ReactNode } from 'react';
 import { css, jsx } from '@compiled/react';
 import { Transition } from 'react-transition-group';
 
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import SlideIn from '@atlaskit/motion/slide-in';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -58,8 +61,43 @@ const transitionBaseStyles = css({
 	transitionProperty: 'transform, opacity',
 });
 
-export default function SurveyMarshal(props: Props): JSX.Element {
+const marshalLayoutStyles = css({
+	position: 'fixed',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	right: surveyOffset,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	bottom: surveyOffset,
+});
+
+const marshalMotionLayerStyles = css({
+	zIndex: layers.flag(),
+});
+
+export default function SurveyMarshal(props: Props): React.JSX.Element {
 	const { children, shouldShow } = props;
+
+	if (fg('platform_contextual_survey_use_atlaskit_motion')) {
+		return (
+			<ExitingPersistence appear>
+				{shouldShow && (
+					<SlideIn key="contextual-survey-marshal" enterFrom="right" fade="inout" duration="medium">
+						{(motionProps) => (
+							<div
+								ref={motionProps.ref}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- motion keyframes
+								className={motionProps.className}
+								css={[marshalLayoutStyles, marshalMotionLayerStyles]}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- motion animation styles
+								style={motionProps.style}
+							>
+								{children()}
+							</div>
+						)}
+					</SlideIn>
+				)}
+			</ExitingPersistence>
+		);
+	}
 
 	return (
 		<Transition in={shouldShow} timeout={animationDuration} unmountOnExit>

@@ -29,7 +29,7 @@ export const createJoinNodesRule = (match: RegExp, nodeType: NodeType): InputRul
 
 type WrappingTextRuleProps = {
 	getAttrs?: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-	| Record<string, any>
+		| Record<string, any>
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		| ((matchResult: RegExpExecArray) => Record<string, any>);
 	match: RegExp;
@@ -195,7 +195,9 @@ export function isSelectionInsideListNode(state: EditorState): boolean {
 		return true;
 	});
 
-	return insideList || listNodeTypes.some((nodeType) => hasParentNodeOfType(nodeType)(state.selection));
+	return (
+		insideList || listNodeTypes.some((nodeType) => hasParentNodeOfType(nodeType)(state.selection))
+	);
 }
 
 export function isSelectionInsideBlockquote(state: EditorState): boolean {

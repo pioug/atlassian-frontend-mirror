@@ -13,7 +13,11 @@ test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 			});
 
 			test.beforeEach(async ({ page }) => {
-				await page.visitExample<typeof import('../../examples/12-media-wrapper.tsx')>('react-ufo', 'atlaskit', 'media-wrapper');
+				await page.visitExample<typeof import('../../examples/12-media-wrapper.tsx')>(
+					'react-ufo',
+					'atlaskit',
+					'media-wrapper',
+				);
 			});
 
 			test(`VC90 should match when the [content-div] is first visible`, async ({

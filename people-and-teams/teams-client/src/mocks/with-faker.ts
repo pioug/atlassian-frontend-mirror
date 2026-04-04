@@ -9,7 +9,14 @@ type MockConfig = {
 	faker: typeof FakerType;
 };
 
-export const teamsClientMocks = (config: MockConfig): { randomBasicTeam: (customProps?: {}) => Team; randomFullTeam: (customProps?: {}) => TeamWithImageUrls; randomTeamWithMemberships: (team: TeamWithImageUrls, customProps?: {}) => TeamWithMemberships; randomTeamLinks: (n?: number, customProps?: {}) => TeamLink[]; } => ({
+export const teamsClientMocks = (
+	config: MockConfig,
+): {
+	randomBasicTeam: (customProps?: {}) => Team;
+	randomFullTeam: (customProps?: {}) => TeamWithImageUrls;
+	randomTeamWithMemberships: (team: TeamWithImageUrls, customProps?: {}) => TeamWithMemberships;
+	randomTeamLinks: (n?: number, customProps?: {}) => TeamLink[];
+} => ({
 	randomBasicTeam: randomBasicTeam(config),
 	randomFullTeam: randomFullTeam(config),
 	randomTeamWithMemberships: randomTeamWithMemberships(config),

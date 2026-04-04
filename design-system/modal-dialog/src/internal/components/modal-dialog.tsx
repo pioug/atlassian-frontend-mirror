@@ -140,13 +140,13 @@ const dialogStyles = cssMap({
 			marginInlineEnd: 'inherit',
 			// @ts-expect-error
 			marginInlineStart: 'inherit',
-		}
+		},
 	},
 	fullscreen: {
 		'@media (min-width: 30rem)': {
 			height: '100%',
 		},
-	}
+	},
 });
 
 const viewportScrollStyles = css({
@@ -251,17 +251,57 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 		>
 			<ModalContext.Provider value={modalDialogContext}>
 				<ScrollContext.Provider value={shouldScrollInViewport}>
-					{
-						fg('platform-dst-motion-uplift') ? (
-							<Motion
-								enteringAnimation={token('motion.modal.enter')}
-								exitingAnimation={token('motion.modal.exit')}
-								onFinish={onMotionFinish}
-								xcss={cx(dialogStyles.motion, isFullScreen && dialogStyles.fullscreen)}
+					{fg('platform-dst-motion-uplift') ? (
+						<Motion
+							enteringAnimation={token('motion.modal.enter')}
+							exitingAnimation={token('motion.modal.exit')}
+							onFinish={onMotionFinish}
+							xcss={cx(dialogStyles.motion, isFullScreen && dialogStyles.fullscreen)}
+						>
+							<section
+								aria-label={label}
+								ref={motionRef}
+								style={
+									{
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+										'--modal-dialog-width': dialogWidth(width),
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+										'--modal-dialog-height': dialogHeight(height),
+									} as CSSProperties
+								}
+								css={[
+									dialogStyles.root,
+									!isFullScreen && dialogStyles.borderRadius,
+									!isFullScreen &&
+										fg('platform-dst-shape-theme-default') &&
+										dialogStyles.borderRadiusT26Shape,
+									shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
+								]}
+								role="dialog"
+								aria-labelledby={label ? undefined : titleId}
+								data-testid={defaultTestId}
+								data-modal-stack={stackIndex}
+								tabIndex={-1}
+								aria-modal={true}
+								data-ds--level={currentLevel}
 							>
+								{children}
+							</section>
+						</Motion>
+					) : (
+						<FadeIn
+							/**
+							 * We don't want a 'slide in' for the full screen modals.
+							 */
+							entranceDirection={isFullScreen ? undefined : 'bottom'}
+							onFinish={onMotionFinish}
+						>
+							{(bottomFadeInProps) => (
+								// TODO: Use `dialog` element instead of overriding section semantics (DSP-11588)
 								<section
+									{...bottomFadeInProps}
 									aria-label={label}
-									ref={motionRef}
+									ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
 									style={
 										{
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -278,6 +318,8 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 											dialogStyles.borderRadiusT26Shape,
 										shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
 									]}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+									className={bottomFadeInProps.className}
 									role="dialog"
 									aria-labelledby={label ? undefined : titleId}
 									data-testid={defaultTestId}
@@ -288,53 +330,9 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 								>
 									{children}
 								</section>
-							</Motion>
-						) : (
-							<FadeIn
-								/**
-								 * We don't want a 'slide in' for the full screen modals.
-								 */
-								entranceDirection={isFullScreen ? undefined : 'bottom'}
-								onFinish={onMotionFinish}
-							>
-								{(bottomFadeInProps) => (
-									// TODO: Use `dialog` element instead of overriding section semantics (DSP-11588)
-									<section
-										{...bottomFadeInProps}
-										aria-label={label}
-										ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
-										style={
-											{
-												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-												'--modal-dialog-width': dialogWidth(width),
-												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-												'--modal-dialog-height': dialogHeight(height),
-											} as CSSProperties
-										}
-										css={[
-											dialogStyles.root,
-											!isFullScreen && dialogStyles.borderRadius,
-											!isFullScreen &&
-												fg('platform-dst-shape-theme-default') &&
-												dialogStyles.borderRadiusT26Shape,
-											shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
-										]}
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-										className={bottomFadeInProps.className}
-										role="dialog"
-										aria-labelledby={label ? undefined : titleId}
-										data-testid={defaultTestId}
-										data-modal-stack={stackIndex}
-										tabIndex={-1}
-										aria-modal={true}
-										data-ds--level={currentLevel}
-									>
-										{children}
-									</section>
-								)}
-							</FadeIn>
-						)
-					}
+							)}
+						</FadeIn>
+					)}
 				</ScrollContext.Provider>
 			</ModalContext.Provider>
 		</Positioner>

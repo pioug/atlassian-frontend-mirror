@@ -4,7 +4,11 @@ import { MediaViewerPageObject } from '../utils/_mediaViewerPageObject';
 test.describe('MediaViewer', () => {
 	test('basic media viewer test', async ({ page }) => {
 		const viewer = new MediaViewerPageObject(page);
-		await page.visitExample<typeof import('../../../examples/5-vr-mocked-viewer.tsx')>('media', 'media-viewer', 'vr-mocked-viewer');
+		await page.visitExample<typeof import('../../../examples/5-vr-mocked-viewer.tsx')>(
+			'media',
+			'media-viewer',
+			'vr-mocked-viewer',
+		);
 		await expect(viewer.fileName).toContainText('media-test-file-2.jpg');
 		await expect(viewer.fileType).toContainText('image');
 		await expect(viewer.size).toContainText('16 KB');
@@ -33,21 +37,33 @@ test.describe('MediaViewer', () => {
 	// eslint-disable-next-line playwright/expect-expect
 	test('media-viewer-basic.ts: Should close on Close click', async ({ page }) => {
 		const viewer = new MediaViewerPageObject(page);
-		await page.visitExample<typeof import('../../../examples/5-vr-mocked-viewer.tsx')>('media', 'media-viewer', 'vr-mocked-viewer');
+		await page.visitExample<typeof import('../../../examples/5-vr-mocked-viewer.tsx')>(
+			'media',
+			'media-viewer',
+			'vr-mocked-viewer',
+		);
 		await viewer.closeMediaViewer(false);
 	});
 
 	// eslint-disable-next-line playwright/expect-expect
 	test('media-viewer-basic.ts: Should close on Escape press', async ({ page }) => {
 		const viewer = new MediaViewerPageObject(page);
-		await page.visitExample<typeof import('../../../examples/5-vr-mocked-viewer.tsx')>('media', 'media-viewer', 'vr-mocked-viewer');
+		await page.visitExample<typeof import('../../../examples/5-vr-mocked-viewer.tsx')>(
+			'media',
+			'media-viewer',
+			'vr-mocked-viewer',
+		);
 		await viewer.closeMediaViewer(true);
 		expect(await page.webdriverCompatUtils.isDetached('media-viewer-popup')).toBe(true);
 	});
 
 	test('media-viewer-basic.ts: Should open and close sidebar', async ({ page }) => {
 		const viewer = new MediaViewerPageObject(page);
-		await page.visitExample<typeof import('../../../examples/5-vr-mocked-viewer.tsx')>('media', 'media-viewer', 'vr-mocked-viewer');
+		await page.visitExample<typeof import('../../../examples/5-vr-mocked-viewer.tsx')>(
+			'media',
+			'media-viewer',
+			'vr-mocked-viewer',
+		);
 		await viewer.openSidebar();
 		await expect(viewer.sidepannelContent).toBeVisible();
 		await viewer.closeSidebar();
@@ -55,7 +71,11 @@ test.describe('MediaViewer', () => {
 
 	test('should capture and report a11y violations', async ({ page }) => {
 		const viewer = new MediaViewerPageObject(page);
-		await page.visitExample<typeof import('../../../examples/5-vr-mocked-viewer.tsx')>('media', 'media-viewer', 'vr-mocked-viewer');
+		await page.visitExample<typeof import('../../../examples/5-vr-mocked-viewer.tsx')>(
+			'media',
+			'media-viewer',
+			'vr-mocked-viewer',
+		);
 		await expect(viewer.fileName).toBeVisible();
 
 		await expect(page).toBeAccessible();

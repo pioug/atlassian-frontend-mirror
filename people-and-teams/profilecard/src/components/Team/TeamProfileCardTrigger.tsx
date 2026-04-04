@@ -1,6 +1,11 @@
 import React, { Suspense } from 'react';
 
-import { FormattedMessage, injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
+import {
+	FormattedMessage,
+	injectIntl,
+	type WithIntlProps,
+	type WrappedComponentProps,
+} from 'react-intl-next';
 
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -38,12 +43,12 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 	TeamProfileCardTriggerState
 > {
 	static defaultProps: {
-        actions: never[];
-        trigger: "hover";
-        position: "bottom-start";
-        triggerLinkType: "link";
-        shouldRenderToParent: boolean;
-    } = {
+		actions: never[];
+		trigger: 'hover';
+		position: 'bottom-start';
+		triggerLinkType: 'link';
+		shouldRenderToParent: boolean;
+	} = {
 		actions: [],
 		trigger: 'hover' as const,
 		position: 'bottom-start' as const,
@@ -203,20 +208,20 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 	};
 
 	triggerListeners: {
-        onClick: (event: React.MouseEvent<HTMLElement>) => void;
-        onMouseEnter: () => void;
-        onMouseLeave: () => void;
-    } = {
+		onClick: (event: React.MouseEvent<HTMLElement>) => void;
+		onMouseEnter: () => void;
+		onMouseLeave: () => void;
+	} = {
 		onClick: this.onClick,
 		onMouseEnter: this.onMouseEnter,
 		onMouseLeave: this.onMouseLeave,
 	};
 
 	cardListeners: {
-        onClick: (event: React.MouseEvent<HTMLElement>) => void;
-        onMouseEnter: () => void;
-        onMouseLeave: () => void;
-    } = {
+		onClick: (event: React.MouseEvent<HTMLElement>) => void;
+		onMouseEnter: () => void;
+		onMouseLeave: () => void;
+	} = {
 		onClick: this.stopPropagation,
 		onMouseEnter: this.onMouseEnter,
 		onMouseLeave: this.onMouseLeave,
@@ -455,7 +460,14 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		);
 	};
 
-	renderPopup(): string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined {
+	renderPopup():
+		| string
+		| number
+		| boolean
+		| Iterable<React.ReactNode>
+		| React.JSX.Element
+		| null
+		| undefined {
 		if (this.state.renderError) {
 			return this.props.children;
 		}
@@ -480,7 +492,14 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		);
 	}
 
-	render(): string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined {
+	render():
+		| string
+		| number
+		| boolean
+		| Iterable<React.ReactNode>
+		| React.JSX.Element
+		| null
+		| undefined {
 		if (this.props.children) {
 			return this.renderPopup();
 		} else {
@@ -503,6 +522,6 @@ const TeamProfileCardTrigger = (props: TeamProfileCardTriggerProps & WrappedComp
  * Please use `@atlassian/team-profilecard` instead for team profile card functionality.
  */
 const _default_1: React.FC<WithIntlProps<TeamProfileCardTriggerProps & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<TeamProfileCardTriggerProps & WrappedComponentProps>;
+	WrappedComponent: React.ComponentType<TeamProfileCardTriggerProps & WrappedComponentProps>;
 } = injectIntl(TeamProfileCardTrigger);
 export default _default_1;

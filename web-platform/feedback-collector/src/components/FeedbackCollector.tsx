@@ -146,26 +146,54 @@ export default class FeedbackCollector extends Component<Props> {
 	}
 
 	static defaultProps: {
-        locale: string; url: string; shouldGetEntitlementDetails: boolean; canBeContactedFieldId: string; canBeContactedAgreeValue: {
-            id: string;
-        }[]; canBeContactedDeclineValue: {
-            id: string;
-        }[]; additionalFields: never[]; customerNameFieldId: string; customerNameDefaultValue: string; descriptionFieldId: string; descriptionDefaultValue: string; enrollInResearchFieldId: string; enrollInResearchAgreeValue: {
-            id: string;
-        }[]; enrollInResearchDeclineValue: {
-            id: string;
-        }[]; summaryFieldId: string; summaryDefaultValue: string; summaryTruncateLength: number; timeoutOnSubmit: number; typeFieldId: string; typeBugDefaultValue: {
-            id: string;
-        }; typeCommentDefaultValue: {
-            id: string;
-        }; typeSuggestionDefaultValue: {
-            id: string;
-        }; typeQuestionDefaultValue: {
-            id: string;
-        }; typeEmptyDefaultValue: {
-            id: string;
-        }; showTypeField: boolean; showDefaultTextFields: boolean; anonymousFeedback: boolean; onClose: () => void; onSubmit: () => void;
-    } = {
+		locale: string;
+		url: string;
+		shouldGetEntitlementDetails: boolean;
+		canBeContactedFieldId: string;
+		canBeContactedAgreeValue: {
+			id: string;
+		}[];
+		canBeContactedDeclineValue: {
+			id: string;
+		}[];
+		additionalFields: never[];
+		customerNameFieldId: string;
+		customerNameDefaultValue: string;
+		descriptionFieldId: string;
+		descriptionDefaultValue: string;
+		enrollInResearchFieldId: string;
+		enrollInResearchAgreeValue: {
+			id: string;
+		}[];
+		enrollInResearchDeclineValue: {
+			id: string;
+		}[];
+		summaryFieldId: string;
+		summaryDefaultValue: string;
+		summaryTruncateLength: number;
+		timeoutOnSubmit: number;
+		typeFieldId: string;
+		typeBugDefaultValue: {
+			id: string;
+		};
+		typeCommentDefaultValue: {
+			id: string;
+		};
+		typeSuggestionDefaultValue: {
+			id: string;
+		};
+		typeQuestionDefaultValue: {
+			id: string;
+		};
+		typeEmptyDefaultValue: {
+			id: string;
+		};
+		showTypeField: boolean;
+		showDefaultTextFields: boolean;
+		anonymousFeedback: boolean;
+		onClose: () => void;
+		onSubmit: () => void;
+	} = {
 		locale: 'en',
 		url: '/gateway/api',
 		shouldGetEntitlementDetails: true,

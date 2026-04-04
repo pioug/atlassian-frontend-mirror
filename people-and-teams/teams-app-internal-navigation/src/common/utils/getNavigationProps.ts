@@ -79,19 +79,19 @@ type PreviewPanelOpenProps = {
 	url: string;
 };
 
-type NavigationByIntent = 
+type NavigationByIntent =
 	| {
-		href: string;
-		onClick?: (...args: any[]) => void;
-		target: '_self';
-		rel?: string;
-	}
+			href: string;
+			onClick?: (...args: any[]) => void;
+			target: '_self';
+			rel?: string;
+	  }
 	| {
-		href: string;
-		onClick?: (...args: any[]) => void;
-		target: '_blank';
-		rel: 'noopener noreferrer';
-	};
+			href: string;
+			onClick?: (...args: any[]) => void;
+			target: '_blank';
+			rel: 'noopener noreferrer';
+	  };
 
 /**
  * Headless, pure function that determines how a link should behave.

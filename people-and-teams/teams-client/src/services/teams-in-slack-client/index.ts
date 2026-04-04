@@ -17,13 +17,16 @@ export class TeamsInSlackClient extends RestClient {
 		super({ ...defaultConfig, ...config });
 	}
 
-	async getTeamInSlack(teamId: string, teamName: string): Promise<{
-        connected: boolean;
-        slackChannelId: string;
-        slackChannelName: string;
-        usergroupHandle: string;
-        id: string;
-    }> {
+	async getTeamInSlack(
+		teamId: string,
+		teamName: string,
+	): Promise<{
+		connected: boolean;
+		slackChannelId: string;
+		slackChannelName: string;
+		usergroupHandle: string;
+		id: string;
+	}> {
 		return this.getResource<TeamInSlackResponse>(
 			`/${teamId}?teamName=${encodeURIComponent(teamName)}`,
 		).then((response) => ({
@@ -32,25 +35,29 @@ export class TeamsInSlackClient extends RestClient {
 		}));
 	}
 	async disconnectTeamInSlack(teamId: string): Promise<{
-        connected: boolean;
-        slackChannelId: string;
-        slackChannelName: string;
-        usergroupHandle: string;
-        id: string;
-    }> {
+		connected: boolean;
+		slackChannelId: string;
+		slackChannelName: string;
+		usergroupHandle: string;
+		id: string;
+	}> {
 		return this.deleteResource<TeamInSlackResponse>(`/${teamId}`).then((response) => ({
 			id: teamId,
 			...response,
 		}));
 	}
 
-	async updateTeamInSlack(teamId: string, channelId: string, usergroupHandle: string): Promise<{
-        connected: boolean;
-        slackChannelId: string;
-        slackChannelName: string;
-        usergroupHandle: string;
-        id: string;
-    }> {
+	async updateTeamInSlack(
+		teamId: string,
+		channelId: string,
+		usergroupHandle: string,
+	): Promise<{
+		connected: boolean;
+		slackChannelId: string;
+		slackChannelName: string;
+		usergroupHandle: string;
+		id: string;
+	}> {
 		return this.postResource<TeamInSlackResponse>(
 			`/${teamId}?channel=${channelId}&groupName=${usergroupHandle}`,
 		).then((response) => ({

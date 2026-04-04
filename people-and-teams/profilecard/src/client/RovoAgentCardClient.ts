@@ -172,14 +172,14 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 		identityAccountId: string,
 		cloudId: string,
 	): Promise<RovoAgentAgg | null | undefined> {
-
-
 		const response = await AGGQuery<{
 			agentStudio_agentByIdentityAccountId: AgentAggResponse | null | undefined;
-		}>('/gateway/api/graphql',
-			fg('jira_ai_fix_agent_profile_card_flashing') ?
-	buildRovoAgentQueryByAccountId(identityAccountId, cloudId) : buildRovoAgentQueryByAccountIdOld(identityAccountId, cloudId)
-	);
+		}>(
+			'/gateway/api/graphql',
+			fg('jira_ai_fix_agent_profile_card_flashing')
+				? buildRovoAgentQueryByAccountId(identityAccountId, cloudId)
+				: buildRovoAgentQueryByAccountIdOld(identityAccountId, cloudId),
+		);
 
 		if (response.agentStudio_agentByIdentityAccountId?.__typename === 'QueryError') {
 			throw new Error(

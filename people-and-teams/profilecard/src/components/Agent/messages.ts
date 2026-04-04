@@ -1,27 +1,31 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    agentDeletedSuccessFlagTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; agentDeletedSuccessFlagDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; agentDeletedErrorFlagTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; agentDeletedErrorFlagDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; aiDisclaimer: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	agentDeletedSuccessFlagTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	agentDeletedSuccessFlagDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	agentDeletedErrorFlagTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	agentDeletedErrorFlagDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	aiDisclaimer: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	agentDeletedSuccessFlagTitle: {
 		id: 'profilecard.agent-profile-card.delete-agent-success-flag-title',

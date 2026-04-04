@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    showMoreIconLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	showMoreIconLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	showMoreIconLabel: {
 		id: 'team-profile-card.team-actions.more-actions.show-more-icon-label',

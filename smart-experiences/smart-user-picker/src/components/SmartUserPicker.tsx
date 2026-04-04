@@ -106,7 +106,22 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
 	optionsShownUfoExperienceInstance: UFOExperience;
 
-	static defaultProps: { baseUrl: string; includeUsers: boolean; includeGroups: boolean; includeTeams: boolean; includeTeamsUpdates: boolean; includeNonLicensedUsers: boolean; displayEmailInByline: boolean; prefetch: boolean; principalId: string; debounceTime: number; userResolvers: never[]; enableEmailSearch: boolean; allowEmailSelectionWhenEmailMatched: boolean; verifiedTeams: boolean; } = {
+	static defaultProps: {
+		baseUrl: string;
+		includeUsers: boolean;
+		includeGroups: boolean;
+		includeTeams: boolean;
+		includeTeamsUpdates: boolean;
+		includeNonLicensedUsers: boolean;
+		displayEmailInByline: boolean;
+		prefetch: boolean;
+		principalId: string;
+		debounceTime: number;
+		userResolvers: never[];
+		enableEmailSearch: boolean;
+		allowEmailSelectionWhenEmailMatched: boolean;
+		verifiedTeams: boolean;
+	} = {
 		baseUrl: '',
 		includeUsers: true,
 		includeGroups: false,
@@ -209,10 +224,15 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		}
 	};
 
-	filterOptions = (users: OptionData[], query: string, propFilterOptions?: FilterOptions): OptionData[] =>
-		propFilterOptions ? propFilterOptions(users, query) : users;
+	filterOptions = (
+		users: OptionData[],
+		query: string,
+		propFilterOptions?: FilterOptions,
+	): OptionData[] => (propFilterOptions ? propFilterOptions(users, query) : users);
 
-	memoizedFilterOptions: MemoizedFn<(users: OptionData[], query: string, propFilterOptions?: FilterOptions) => OptionData[]> = memoizeOne(this.filterOptions);
+	memoizedFilterOptions: MemoizedFn<
+		(users: OptionData[], query: string, propFilterOptions?: FilterOptions) => OptionData[]
+	> = memoizeOne(this.filterOptions);
 
 	getUsers: DebouncedFunc<() => Promise<void>> = debounce(async (): Promise<void> => {
 		const { query, sessionId, closed } = this.state;

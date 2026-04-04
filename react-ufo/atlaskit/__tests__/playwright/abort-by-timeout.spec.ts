@@ -2,7 +2,11 @@ import { expect, test } from './fixtures';
 
 test.describe('ReactUFO: abort by timeout', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/16-basic-with-changed-timeout.tsx')>('react-ufo', 'atlaskit', 'basic-with-changed-timeout');
+		await page.visitExample<typeof import('../../examples/16-basic-with-changed-timeout.tsx')>(
+			'react-ufo',
+			'atlaskit',
+			'basic-with-changed-timeout',
+		);
 	});
 
 	test('interactionMetrics.abortReason should be `timeout` when the page takes too long to load', async ({

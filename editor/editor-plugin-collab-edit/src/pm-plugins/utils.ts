@@ -24,10 +24,9 @@ import { preserveNodeIdentity } from './preserve-node-identity';
 export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
 	decorations
 		.find()
-		.reduce<Decoration[]>(
-			(arr, deco) => (deco.spec.pointer.presenceId === id ? arr.concat(deco) : arr),
-			[],
-		);
+		.reduce<
+			Decoration[]
+		>((arr, deco) => (deco.spec.pointer.presenceId === id ? arr.concat(deco) : arr), []);
 
 function style(options: { color: string }) {
 	const color = (options && options.color) || token('color.border');

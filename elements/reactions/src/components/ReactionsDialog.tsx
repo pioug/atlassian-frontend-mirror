@@ -129,11 +129,7 @@ export const ReactionsDialog = ({
 	);
 
 	return (
-		<Modal
-			onClose={handleCloseReactionsDialog}
-			height={600}
-			testId={RENDER_MODAL_TESTID}
-		>
+		<Modal onClose={handleCloseReactionsDialog} height={600} testId={RENDER_MODAL_TESTID}>
 			<Tabs id="reactions-dialog-tabs" onChange={onTabChange} selected={selectedIndex}>
 				<ReactionsDialogHeader
 					totalReactionsCount={totalReactionsCount}

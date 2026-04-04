@@ -49,7 +49,7 @@ const wrapperStyles = cssMap({
 	},
 	fullWidth: {
 		width: '100%',
-	}
+	},
 });
 
 const scrollableStyles = css({
@@ -95,56 +95,59 @@ const focusRingStyles = cssMap({
 	},
 });
 
-const placementMap: Record<Exclude<Placement, 'auto' | 'auto-start' | 'auto-end'>, { enter: MotionProps["enteringAnimation"], exit: MotionProps["exitingAnimation"] }> = {
-	'top': {
+const placementMap: Record<
+	Exclude<Placement, 'auto' | 'auto-start' | 'auto-end'>,
+	{ enter: MotionProps['enteringAnimation']; exit: MotionProps['exitingAnimation'] }
+> = {
+	top: {
 		enter: token('motion.popup.enter.top'),
-		exit: token('motion.popup.exit.top')
+		exit: token('motion.popup.exit.top'),
 	},
 	'top-start': {
 		enter: token('motion.popup.enter.top'),
-		exit: token('motion.popup.exit.top')
+		exit: token('motion.popup.exit.top'),
 	},
 	'top-end': {
 		enter: token('motion.popup.enter.top'),
-		exit: token('motion.popup.exit.top')
+		exit: token('motion.popup.exit.top'),
 	},
-	'bottom': {
+	bottom: {
 		enter: token('motion.popup.enter.bottom'),
-		exit: token('motion.popup.exit.bottom')
+		exit: token('motion.popup.exit.bottom'),
 	},
 	'bottom-start': {
 		enter: token('motion.popup.enter.bottom'),
-		exit: token('motion.popup.exit.bottom')
+		exit: token('motion.popup.exit.bottom'),
 	},
 	'bottom-end': {
 		enter: token('motion.popup.enter.bottom'),
-		exit: token('motion.popup.exit.bottom')
+		exit: token('motion.popup.exit.bottom'),
 	},
-	'left': {
+	left: {
 		enter: token('motion.popup.enter.left'),
-		exit: token('motion.popup.exit.left')
+		exit: token('motion.popup.exit.left'),
 	},
 	'left-start': {
 		enter: token('motion.popup.enter.left'),
-		exit: token('motion.popup.exit.left')
+		exit: token('motion.popup.exit.left'),
 	},
 	'left-end': {
 		enter: token('motion.popup.enter.left'),
-		exit: token('motion.popup.exit.left')
+		exit: token('motion.popup.exit.left'),
 	},
-	'right': {
+	right: {
 		enter: token('motion.popup.enter.right'),
-		exit: token('motion.popup.exit.right')
+		exit: token('motion.popup.exit.right'),
 	},
 	'right-start': {
 		enter: token('motion.popup.enter.right'),
-		exit: token('motion.popup.exit.right')
+		exit: token('motion.popup.exit.right'),
 	},
 	'right-end': {
 		enter: token('motion.popup.enter.right'),
-		exit: token('motion.popup.exit.right')
+		exit: token('motion.popup.exit.right'),
 	},
-}
+};
 
 const DefaultPopupComponent: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<PopupComponentProps> & React.RefAttributes<HTMLDivElement>
@@ -290,18 +293,26 @@ function PopperWrapper({
 						role={role}
 						aria-label={label}
 						aria-labelledby={titleId}
-						ref={!fg('platform-dst-motion-uplift') ? (node: HTMLDivElement) => {
-							if (node) {
-								if (typeof ref === 'function') {
-									ref(node);
-								} else {
-									(ref as React.MutableRefObject<HTMLElement>).current = node;
-								}
-								setPopupRef(node);
-							}
-						} : undefined}
+						ref={
+							!fg('platform-dst-motion-uplift')
+								? (node: HTMLDivElement) => {
+										if (node) {
+											if (typeof ref === 'function') {
+												ref(node);
+											} else {
+												(ref as React.MutableRefObject<HTMLElement>).current = node;
+											}
+											setPopupRef(node);
+										}
+									}
+								: undefined
+						}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={fg('platform-dst-motion-uplift') || appearance === 'UNSAFE_modal-below-sm' ? {} : style}
+						style={
+							fg('platform-dst-motion-uplift') || appearance === 'UNSAFE_modal-below-sm'
+								? {}
+								: style
+						}
 						// using tabIndex={-1} would cause a bug where Safari focuses
 						// first on the browser address bar when using keyboard
 						tabIndex={autoFocus ? 0 : undefined}
@@ -340,7 +351,9 @@ function PopperWrapper({
 						data-testid={`${testId}--container`}
 					>
 						{/* Don't apply motion to auto placements */}
-						{placement === 'auto' || placement === 'auto-start' || placement === 'auto-end' ? popupContainer : (
+						{placement === 'auto' || placement === 'auto-start' || placement === 'auto-end' ? (
+							popupContainer
+						) : (
 							<Motion
 								enteringAnimation={placementMap[placement].enter}
 								exitingAnimation={placementMap[placement].exit}

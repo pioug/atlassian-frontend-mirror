@@ -32,7 +32,11 @@ export function isAPIimport(
 }
 
 // returns the definition node of a variable if it's declared within the scope of the file
-export function getDef(name: string, context: Rule.RuleContext, node: EstreeNode): Scope.Definition | null | undefined {
+export function getDef(
+	name: string,
+	context: Rule.RuleContext,
+	node: EstreeNode,
+): Scope.Definition | null | undefined {
 	let scope: Scope.Scope | null = getScope(context, node);
 
 	while (scope && scope.type !== 'global') {

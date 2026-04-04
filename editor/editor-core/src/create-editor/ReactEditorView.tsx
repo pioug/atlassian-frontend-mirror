@@ -1159,8 +1159,8 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		},
 		[pluginInjectionAPI],
 	);
-	const memoizedReactEditorViewContext = useMemo(() => (
-		{
+	const memoizedReactEditorViewContext = useMemo(
+		() => ({
 			editorRef,
 			// Use a getter so that consumers always read the live viewRef.current at access
 			// time, not a stale snapshot captured when this memo was created.
@@ -1168,13 +1168,18 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				return viewRef.current;
 			},
 			popupsMountPoint: props.editorProps.popupsMountPoint,
-		}
+		}),
 		// viewRef is intentionally omitted from the deps array — it's a stable ref object; the getter reads
 		// .current lazily so there's no stale-closure risk.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	), [editorRef, props.editorProps.popupsMountPoint]);
+		[editorRef, props.editorProps.popupsMountPoint],
+	);
 	// eslint-disable-next-line @atlassian/perf-linting/no-inline-context-value, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017
-	const reactEditorViewContext = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const reactEditorViewContext = expValEquals(
+		'platform_editor_perf_lint_cleanup',
+		'isEnabled',
+		true,
+	)
 		? memoizedReactEditorViewContext
 		: {
 				editorRef,

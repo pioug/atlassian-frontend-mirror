@@ -147,10 +147,7 @@ interface IconInternalGlyphProps {
 export interface GlyphProps extends LegacyOtherGlyphProps, GlyphSizeProps, GlyphColorProps {}
 
 interface NewCoreGlyphProps
-	extends OtherGlyphProps,
-		NewCoreGlyphSpacingProps,
-		NewCoreGlyphSizeProps,
-		NewGlyphColorProps {}
+	extends OtherGlyphProps, NewCoreGlyphSpacingProps, NewCoreGlyphSizeProps, NewGlyphColorProps {}
 
 export interface IconProps extends GlyphProps, IconInternalGlyphProps {
 	/**

@@ -5,7 +5,11 @@ const EXAMPLE = 'resourced-mention-list';
 
 test.describe('Resourced Mention List User Interactions', () => {
 	test('should filter mention items based on search query', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>(
+			'elements',
+			'mention',
+			EXAMPLE,
+		);
 
 		const searchInput = mention.input.first();
 
@@ -25,7 +29,11 @@ test.describe('Resourced Mention List User Interactions', () => {
 	});
 
 	test('should highlight first mention item by default', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>(
+			'elements',
+			'mention',
+			EXAMPLE,
+		);
 
 		const searchInput = mention.input.first();
 
@@ -46,7 +54,11 @@ test.describe('Resourced Mention List User Interactions', () => {
 	});
 
 	test('should navigate through mentions with keyboard - arrow down', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>(
+			'elements',
+			'mention',
+			EXAMPLE,
+		);
 
 		const searchInput = mention.input.first();
 
@@ -78,7 +90,11 @@ test.describe('Resourced Mention List User Interactions', () => {
 	});
 
 	test('should navigate through mentions with keyboard - arrow up', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>(
+			'elements',
+			'mention',
+			EXAMPLE,
+		);
 
 		const searchInput = mention.input.first();
 
@@ -109,7 +125,11 @@ test.describe('Resourced Mention List User Interactions', () => {
 	});
 
 	test('should update selection on mouse hover', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>(
+			'elements',
+			'mention',
+			EXAMPLE,
+		);
 
 		await mention.input.click();
 
@@ -132,7 +152,11 @@ test.describe('Resourced Mention List User Interactions', () => {
 	});
 
 	test('should handle empty results gracefully', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>(
+			'elements',
+			'mention',
+			EXAMPLE,
+		);
 
 		// Type query that returns no results
 		await mention.input.fill('definitely-nonexistent-user');
@@ -143,7 +167,11 @@ test.describe('Resourced Mention List User Interactions', () => {
 	});
 
 	test('should maintain focus on input during navigation', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>(
+			'elements',
+			'mention',
+			EXAMPLE,
+		);
 
 		await mention.input.focus();
 
@@ -156,7 +184,11 @@ test.describe('Resourced Mention List User Interactions', () => {
 	});
 
 	test('should handle search by mention name', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/04-resourced-mention-list.tsx')>(
+			'elements',
+			'mention',
+			EXAMPLE,
+		);
 
 		// Type query to search by mention name
 		await mention.input.fill('carolyn');

@@ -1,4 +1,8 @@
-import { EmojiResource, type EmojiProvider, type EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import {
+	EmojiResource,
+	type EmojiProvider,
+	type EmojiResourceConfig,
+} from '@atlaskit/emoji/resource';
 
 import { withSelectedToneEmitter } from './withSelectedToneEmitter';
 
@@ -9,7 +13,9 @@ const DEFAULT_EMOJI_CONFIG: EmojiResourceConfig = {
 };
 
 export const emojiResource: EmojiResource = new EmojiResource(DEFAULT_EMOJI_CONFIG);
-export const emojiProvider: Promise<EmojiProvider> = withSelectedToneEmitter(emojiResource.getEmojiProvider());
+export const emojiProvider: Promise<EmojiProvider> = withSelectedToneEmitter(
+	emojiResource.getEmojiProvider(),
+);
 
 const resources = new Map<string, EmojiResource>();
 

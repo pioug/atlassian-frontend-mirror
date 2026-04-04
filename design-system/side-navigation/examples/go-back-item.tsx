@@ -6,7 +6,6 @@ import { Flex } from '@atlaskit/primitives/compiled';
 import { GoBackItem } from '@atlaskit/side-navigation';
 import { token } from '@atlaskit/tokens';
 
-
 const iconSpacingStyles = cssMap({
 	space050: {
 		paddingBlock: token('space.050'),

@@ -43,7 +43,10 @@ interface Props {
 
 type TransitionState = 'entering' | 'entered' | 'exiting' | 'exited' | 'unmounted';
 
-const getExpandedHeight = (ref: RefObject<HTMLDivElement>, state: TransitionState): string => {
+const getExpandedHeight = (
+	ref: RefObject<HTMLDivElement | null>,
+	state: TransitionState,
+): string => {
 	if (!ref.current) {
 		return '0';
 	}
@@ -59,9 +62,15 @@ const getExpandedHeight = (ref: RefObject<HTMLDivElement>, state: TransitionStat
 	}
 };
 
-const transitionDuration = 200;
+const TRANSITION_DURATION = 200;
 
-export default ({ question, statement, textLabel, scoreSubtext, onSubmit }: Props): JSX.Element => {
+export default ({
+	question,
+	statement,
+	textLabel,
+	scoreSubtext,
+	onSubmit,
+}: Props): React.JSX.Element => {
 	const [expanded, setExpanded] = useState(false);
 	const [canContactDefault, setCanContactDefault] = useState(false);
 	const hasAutoFilledCanContactRef = useRef(false);
@@ -110,12 +119,12 @@ export default ({ question, statement, textLabel, scoreSubtext, onSubmit }: Prop
 								/>
 							)}
 						</Field>
-						<Transition in={expanded} timeout={transitionDuration} mountOnEnter>
+						<Transition in={expanded} timeout={TRANSITION_DURATION} mountOnEnter>
 							{(state: TransitionState) => (
 								<div
 									css={transitionBaseStyles}
 									style={{
-										transition: `max-height ${transitionDuration}ms ease-in-out`,
+										transition: `max-height ${TRANSITION_DURATION}ms ease-in-out`,
 										maxHeight: getExpandedHeight(expandedAreaRef, state),
 									}}
 									ref={expandedAreaRef}

@@ -261,12 +261,7 @@ export function findCrossPackageBridgeExportPath({
 		}
 
 		try {
-			const sourceFile = ts.createSourceFile(
-				resolvedPath,
-				content,
-				ts.ScriptTarget.Latest,
-				true,
-			);
+			const sourceFile = ts.createSourceFile(resolvedPath, content, ts.ScriptTarget.Latest, true);
 
 			for (const statement of sourceFile.statements) {
 				if (!ts.isExportDeclaration(statement) || statement.isTypeOnly) {
@@ -294,9 +289,7 @@ export function findCrossPackageBridgeExportPath({
 						continue;
 					}
 
-					const entryPointExportName = element.propertyName
-						? element.propertyName.text
-						: undefined;
+					const entryPointExportName = element.propertyName ? element.propertyName.text : undefined;
 
 					return { exportPath, entryPointExportName };
 				}

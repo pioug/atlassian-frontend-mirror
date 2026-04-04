@@ -78,7 +78,7 @@ export interface PopupComponentProps {
 	 * Test ID passed through by the parent popup.
 	 */
 	'data-testid'?: string;
-		
+
 	/**
 	 * ID passed through by the parent popup.
 	 */

@@ -452,7 +452,7 @@ describe('Portal container', () => {
 });
 
 describe('new portal logic enable test', () => {
-		ffTest.on(
+	ffTest.on(
 		'platform_design_system_team_portal_logic_r18_fix',
 		'new portal logic enable test',
 		() => {

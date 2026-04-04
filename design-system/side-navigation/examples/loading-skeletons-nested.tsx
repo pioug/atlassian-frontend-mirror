@@ -15,7 +15,6 @@ import {
 } from '@atlaskit/side-navigation';
 import { token } from '@atlaskit/tokens';
 
-
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
 

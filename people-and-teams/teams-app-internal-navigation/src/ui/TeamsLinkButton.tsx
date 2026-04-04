@@ -18,7 +18,12 @@ export type TeamsLinkButtonProps = BaseLinkButtonProps & NavigationIntentProps;
 export const TeamsLinkButton = (props: TeamsLinkButtonProps) => {
 	const { href, onClick, ...rest } = props;
 	const context = useTeamsNavigationContext();
-	const input = buildNavigationInput({ ...props, href: href ?? '', context, onBeforeNavigate: onClick });
+	const input = buildNavigationInput({
+		...props,
+		href: href ?? '',
+		context,
+		onBeforeNavigate: onClick,
+	});
 	const navigationProps = getNavigationProps(input);
 
 	return <LinkButton {...rest} {...navigationProps} />;

@@ -98,7 +98,10 @@ class ProfileCardClient implements ProfileClient {
 		return this.tcClient.checkWorkspaceExists();
 	}
 
-	getRovoAgentProfile(id: AgentIdType, analytics?: FireEventType): Promise<RovoAgentCardClientResult> {
+	getRovoAgentProfile(
+		id: AgentIdType,
+		analytics?: FireEventType,
+	): Promise<RovoAgentCardClientResult> {
 		return this.rovoAgentClient?.getProfile(id, analytics);
 	}
 

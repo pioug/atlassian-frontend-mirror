@@ -1106,8 +1106,7 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 		create(context) {
 			const options = (context.options[0] || {}) as RuleOptions;
 			const applyToImportsFrom = options.applyToImportsFrom ?? DEFAULT_TARGET_FOLDERS;
-			const preferImportedPackageSubpath =
-				options.preferImportedPackageSubpath ?? false;
+			const preferImportedPackageSubpath = options.preferImportedPackageSubpath ?? false;
 			const workspaceRoot = findWorkspaceRoot({
 				startPath: dirname(context.filename),
 				fs,

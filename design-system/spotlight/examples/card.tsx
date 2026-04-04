@@ -78,7 +78,6 @@ export default (): JSX.Element => {
 };
 
 const Spotlight = ({ placement }: { placement: Placement }) => {
-
 	return (
 		<SpotlightCard placement={placement} testId="spotlight">
 			<SpotlightHeader>
@@ -96,6 +95,5 @@ const Spotlight = ({ placement }: { placement: Placement }) => {
 				</SpotlightActions>
 			</SpotlightFooter>
 		</SpotlightCard>
-
 	);
 };

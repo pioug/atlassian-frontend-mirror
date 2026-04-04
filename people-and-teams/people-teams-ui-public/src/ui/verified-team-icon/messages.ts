@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    verifiedIconDefaultTooltip: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	verifiedIconDefaultTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	verifiedIconDefaultTooltip: {
 		id: 'ptc-directory.team-profile-page.team-name.verified-team.icon.tooltip',

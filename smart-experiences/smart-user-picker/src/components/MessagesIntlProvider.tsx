@@ -51,6 +51,6 @@ const MessagesIntlProvider = (props: MessagesIntlProviderProps) => {
 };
 
 const _default_1: React.FC<WithIntlProps<MessagesIntlProviderProps>> & {
-    WrappedComponent: React.ComponentType<MessagesIntlProviderProps>;
+	WrappedComponent: React.ComponentType<MessagesIntlProviderProps>;
 } = injectIntl(MessagesIntlProvider);
 export default _default_1;

@@ -53,7 +53,7 @@ const descriptionWrapperStyles = css({
 	},
 });
 
-export default ({ onChange, value }: Props): JSX.Element => (
+export default ({ onChange, value }: Props): React.JSX.Element => (
 	<div>
 		<div css={buttonWrapperStyles}>
 			{Array.from({ length: 7 }, (_, i) => {

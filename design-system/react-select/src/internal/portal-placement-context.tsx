@@ -14,7 +14,7 @@ import type { CoercedMenuPlacement } from '../types';
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
 export const PortalPlacementContext: Context<{
-    setPortalPlacement: (placement: CoercedMenuPlacement) => void;
+	setPortalPlacement: (placement: CoercedMenuPlacement) => void;
 } | null> = createContext<{
 	setPortalPlacement: (placement: CoercedMenuPlacement) => void;
 } | null>(null);

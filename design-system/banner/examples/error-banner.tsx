@@ -6,7 +6,6 @@ import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-
 const iconSpacingStyles = cssMap({
 	space050: {
 		paddingBlock: token('space.050'),

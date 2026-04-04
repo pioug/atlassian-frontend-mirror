@@ -82,7 +82,9 @@ export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 			...(fg('platform_ufo_exclude_dark_reader_extension')
 				? DARK_READER_BROWSER_EXTENSION_ATTRIBUTES
 				: []),
-			...(fg('platform_ufo_exclude_fdprocessedid_attribute') ? MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES : []),
+			...(fg('platform_ufo_exclude_fdprocessedid_attribute')
+				? MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES
+				: []),
 		];
 
 		if (entryData.type === 'mutation:display-contents-children-attribute') {

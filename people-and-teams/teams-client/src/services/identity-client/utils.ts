@@ -243,11 +243,13 @@ const getMutabilityConstraintFor = (
 	};
 };
 
-export const transformUserManageConfig = (data: MutabilityContraints): {
-    mutabilityConstraints: {
-        field: FieldType;
-        reason: string | null;
-    }[];
+export const transformUserManageConfig = (
+	data: MutabilityContraints,
+): {
+	mutabilityConstraints: {
+		field: FieldType;
+		reason: string | null;
+	}[];
 } => ({
 	mutabilityConstraints: Object.keys(MUTABILITY_DETAILS_MAP)
 		.map((field) => getMutabilityConstraintFor(data, field as FieldKey))

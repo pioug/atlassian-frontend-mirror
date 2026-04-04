@@ -83,23 +83,11 @@ describe('isTeamsAppRoute', () => {
 			'https://home.atlassian-us-gov-mod.com/people/123',
 			true,
 		],
-		[
-			'people route on FedRAMP staging',
-			'https://home.atlassian-fex.com/people/123',
-			true,
-		],
-		[
-			'non-people route on FedRAMP',
-			'https://home.atlassian-us-gov-mod.com/project/abc',
-			false,
-		],
+		['people route on FedRAMP staging', 'https://home.atlassian-fex.com/people/123', true],
+		['non-people route on FedRAMP', 'https://home.atlassian-us-gov-mod.com/project/abc', false],
 
 		// Isolated Cloud domains
-		[
-			'people route on Isolated Cloud',
-			'https://apple.atlassian-isolated.net/people/123',
-			true,
-		],
+		['people route on Isolated Cloud', 'https://apple.atlassian-isolated.net/people/123', true],
 		[
 			'non-people route on Isolated Cloud',
 			'https://apple.atlassian-isolated.net/project/abc',

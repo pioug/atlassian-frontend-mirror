@@ -114,11 +114,13 @@ const aggUserQueryString = `query user($userId: ID!) {
 		}
 	}`;
 
-export const buildAggUserQuery = (userId: string): {
-    query: string;
-    variables: {
-        userId: string;
-    };
+export const buildAggUserQuery = (
+	userId: string,
+): {
+	query: string;
+	variables: {
+		userId: string;
+	};
 } => ({
 	query: fg('platform_agg_user_query_doc_change') ? print(aggUserQuery) : aggUserQueryString,
 	variables: {

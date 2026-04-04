@@ -5,7 +5,6 @@ import LogInIcon from '@atlaskit/icon/core/log-in';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-
 import { IconButton } from '../IconButton';
 
 import { type SignInProps } from './types';

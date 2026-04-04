@@ -12,23 +12,21 @@ const createUser = (id: string, name: string, email?: string) => ({
 });
 
 export const aliceOnly: {
-    userType: UserEntityType;
-    email?: string | undefined;
-    entityType: EntityType;
-    id: string;
-    name: string;
-    avatarUrl: string;
-}[] = [
-	createUser('1', 'Alice Johnson (email visible)', 'alicejohnson@gmail.com'),
-];
+	userType: UserEntityType;
+	email?: string | undefined;
+	entityType: EntityType;
+	id: string;
+	name: string;
+	avatarUrl: string;
+}[] = [createUser('1', 'Alice Johnson (email visible)', 'alicejohnson@gmail.com')];
 
 export const bothUsers: {
-    userType: UserEntityType;
-    email?: string | undefined;
-    entityType: EntityType;
-    id: string;
-    name: string;
-    avatarUrl: string;
+	userType: UserEntityType;
+	email?: string | undefined;
+	entityType: EntityType;
+	id: string;
+	name: string;
+	avatarUrl: string;
 }[] = [
 	createUser('1', 'Alice Johnson (email visible)', 'alicejohnson@gmail.com'),
 	createUser('2', 'Bob Smith (email hidden)'),
@@ -64,7 +62,7 @@ const mockEndpoints = () => {
 };
 
 export const useEndpointMocks = (): {
-    ready: boolean;
+	ready: boolean;
 } => {
 	const [ready, setReady] = useState(false);
 

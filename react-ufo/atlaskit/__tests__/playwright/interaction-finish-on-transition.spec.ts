@@ -5,7 +5,11 @@ import { expect, test } from './fixtures';
 
 test.describe('ReactUFO: Finish on transition', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/34-finish-interaction-transition.tsx')>('react-ufo', 'atlaskit', 'finish-interaction-transition');
+		await page.visitExample<typeof import('../../examples/34-finish-interaction-transition.tsx')>(
+			'react-ufo',
+			'atlaskit',
+			'finish-interaction-transition',
+		);
 	});
 	test('interaction is successful on transition', async ({
 		page,

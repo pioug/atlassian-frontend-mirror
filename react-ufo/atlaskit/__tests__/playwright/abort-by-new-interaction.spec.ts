@@ -2,7 +2,9 @@ import { expect, test } from './fixtures';
 
 test.describe('ReactUFO: abort by new interaction', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/14-basic-three-sections-with-button.tsx')>('react-ufo', 'atlaskit', 'basic-three-sections-with-button');
+		await page.visitExample<
+			typeof import('../../examples/14-basic-three-sections-with-button.tsx')
+		>('react-ufo', 'atlaskit', 'basic-three-sections-with-button');
 	});
 
 	test('interactionMetrics.abortReason should be `new_interaction` when the user clicks a button', async ({

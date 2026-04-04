@@ -5,7 +5,6 @@ import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-
 import { BadgeContainer } from '../BadgeContainer';
 import { IconButton } from '../IconButton';
 

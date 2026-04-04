@@ -1,7 +1,11 @@
 import { expect, test } from '@af/integration-testing';
 
 test('publish a pubsub event from iframe to parent, and acknowledged', async ({ page }) => {
-	await page.visitExample<typeof import('../../examples/05-iframe-to-pubsub-parent-content.tsx')>('ai-mate', 'rovo-triggers', 'iframe-to-pubsub-parent-content');
+	await page.visitExample<typeof import('../../examples/05-iframe-to-pubsub-parent-content.tsx')>(
+		'ai-mate',
+		'rovo-triggers',
+		'iframe-to-pubsub-parent-content',
+	);
 	const onAcknowledgeTimeoutSelector = '[data-testid="onAcknowledgeTimeout-happened"]';
 
 	// test publishing an event from the first iframe
@@ -42,7 +46,11 @@ test('publish a pubsub event from iframe to parent, and acknowledged', async ({ 
 test('publish a pubsub event that ack times out and calls onAcknowledgeTimeout', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../examples/05-iframe-to-pubsub-iframed-content.tsx')>('ai-mate', 'rovo-triggers', 'iframe-to-pubsub-iframed-content');
+	await page.visitExample<typeof import('../../examples/05-iframe-to-pubsub-iframed-content.tsx')>(
+		'ai-mate',
+		'rovo-triggers',
+		'iframe-to-pubsub-iframed-content',
+	);
 
 	const popupPromise = page.waitForEvent('popup');
 	const publishChatNewSelector = 'button[data-testid="publish-chat-new-to-parent-window"]';
@@ -53,7 +61,11 @@ test('publish a pubsub event that ack times out and calls onAcknowledgeTimeout',
 });
 
 test('should capture and report a11y violations', async ({ page }) => {
-	await page.visitExample<typeof import('../../examples/05-iframe-to-pubsub-parent-content.tsx')>('ai-mate', 'rovo-triggers', 'iframe-to-pubsub-parent-content');
+	await page.visitExample<typeof import('../../examples/05-iframe-to-pubsub-parent-content.tsx')>(
+		'ai-mate',
+		'rovo-triggers',
+		'iframe-to-pubsub-parent-content',
+	);
 	// test publishing an event from the first iframe
 	const iframeOneSelector = 'iframe[data-testid="test-embed-frame-1"]';
 	const publishChatNewSelector = 'button[data-testid="publish-chat-new-to-parent-window"]';

@@ -39,7 +39,7 @@ const styles = cssMap({
 	},
 });
 
-export default ({ children, onDismiss, headerImage }: Props): JSX.Element => {
+export default ({ children, onDismiss, headerImage }: Props): React.JSX.Element => {
 	return (
 		<div css={styles.root} style={{}}>
 			<div css={styles.buttonWrapperStyles}>

@@ -8,13 +8,17 @@ import { MockTopBar } from '../common/mock-top-bar';
 export function TopNavStartToggleExample(): React.JSX.Element {
 	return (
 		<MockTopBar>
-			<TopNavStart sideNavToggleButton={
-				<SideNavToggleButton
-					defaultCollapsed
-					collapseLabel="Collapse sidebar"
-					expandLabel="Expand sidebar"
-				/>
-				}> {null}
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton
+						defaultCollapsed
+						collapseLabel="Collapse sidebar"
+						expandLabel="Expand sidebar"
+					/>
+				}
+			>
+				{' '}
+				{null}
 			</TopNavStart>
 		</MockTopBar>
 	);

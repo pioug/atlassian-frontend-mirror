@@ -36,7 +36,7 @@ const wrapperStylesNew = css({
 	maxWidth: '100%',
 });
 
-const wrapperStylesNewLozenge= css({
+const wrapperStylesNewLozenge = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	marginRight: '1px',
 });
@@ -51,7 +51,10 @@ const InlineLozenge = (props: InlineLozengeProps) => {
 	if (fg('jfp-magma-platform-lozenge-jump-fix')) {
 		return (
 			<span
-				css={[wrapperStylesNew, fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? wrapperStylesNewLozenge : undefined]}
+				css={[
+					wrapperStylesNew,
+					fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? wrapperStylesNewLozenge : undefined,
+				]}
 				{...(shouldAddLozengeAttribute && { 'data-inline-card-lozenge': true })}
 			>
 				<Lozenge {...props} />
@@ -61,7 +64,10 @@ const InlineLozenge = (props: InlineLozengeProps) => {
 
 	return (
 		<span
-			css={[wrapperStylesOld, fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? wrapperStylesNewLozenge : undefined]}
+			css={[
+				wrapperStylesOld,
+				fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? wrapperStylesNewLozenge : undefined,
+			]}
 			{...(shouldAddLozengeAttribute && { 'data-inline-card-lozenge': true })}
 		>
 			<Lozenge {...props} />

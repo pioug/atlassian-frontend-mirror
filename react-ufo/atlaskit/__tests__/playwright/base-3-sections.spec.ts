@@ -13,7 +13,11 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 			});
 
 			test.beforeEach(async ({ page }) => {
-				await page.visitExample<typeof import('../../examples/02-basic-three-sections.tsx')>('react-ufo', 'atlaskit', 'basic-three-sections');
+				await page.visitExample<typeof import('../../examples/02-basic-three-sections.tsx')>(
+					'react-ufo',
+					'atlaskit',
+					'basic-three-sections',
+				);
 			});
 
 			for (const viewport of viewports) {
@@ -72,9 +76,7 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 						expect(vc90Result).toMatchTimestamp(sectionThreeVisibleAt);
 					});
 
-					test('should capture and report a11y violations', async ({
-						page,
-					}) => {
+					test('should capture and report a11y violations', async ({ page }) => {
 						const mainDiv = page.locator('[data-testid="main"]');
 						await expect(mainDiv).toBeVisible();
 

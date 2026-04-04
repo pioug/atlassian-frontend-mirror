@@ -132,26 +132,23 @@ export const Popup: FC<PopupProps> = memo(
 						});
 					}}
 				</Reference>
-				{
-					!fg('platform-dst-motion-uplift') && isOpen &&
+				{!fg('platform-dst-motion-uplift') &&
+					isOpen &&
 					(shouldRenderToParent || shouldFitContainer ? (
 						renderPopperWrapper
 					) : (
 						<Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
-					))
-				}
-				{
-					fg('platform-dst-motion-uplift') && (
-						<ExitingPersistence>
-							{isOpen &&
-								(shouldRenderToParent || shouldFitContainer ? (
-									renderPopperWrapper
-								) : (
-									<Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
-								))}
-						</ExitingPersistence>
-					)
-				}
+					))}
+				{fg('platform-dst-motion-uplift') && (
+					<ExitingPersistence>
+						{isOpen &&
+							(shouldRenderToParent || shouldFitContainer ? (
+								renderPopperWrapper
+							) : (
+								<Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
+							))}
+					</ExitingPersistence>
+				)}
 			</Manager>
 		);
 

@@ -39,7 +39,7 @@ export interface CardToNativeEmbedTransformOptions {
 	 * (e.g. datasource stash, analytics, link metadata).
 	 */
 	augmentTransaction?: (tr: Transaction, state: EditorState) => void;
-	editorAnalyticsApi?: EditorAnalyticsAPI,
+	editorAnalyticsApi?: EditorAnalyticsAPI;
 }
 
 /**

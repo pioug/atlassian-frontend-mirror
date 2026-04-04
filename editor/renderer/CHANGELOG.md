@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 128.8.0
+
+### Minor Changes
+
+- [`98c7243b47671`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98c7243b47671) -
+  adding resolving placeholder opt to inline card
+
 ## 128.7.2
 
 ### Patch Changes

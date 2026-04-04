@@ -1,13 +1,15 @@
 import { HttpError } from '../error';
 
-export const createErrorMetadata = (error: Error | HttpError): {
-    error: {
-        name: string;
-        message: string;
-        stack: string | undefined;
-        traceId: string | undefined;
-        status: number | undefined;
-    };
+export const createErrorMetadata = (
+	error: Error | HttpError,
+): {
+	error: {
+		name: string;
+		message: string;
+		stack: string | undefined;
+		traceId: string | undefined;
+		status: number | undefined;
+	};
 } => ({
 	error: {
 		name: error.name,

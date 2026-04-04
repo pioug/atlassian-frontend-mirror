@@ -147,10 +147,10 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 	};
 
 	actions: {
-        label: string;
-        id: string;
-        callback: () => void;
-    }[] = [
+		label: string;
+		id: string;
+		callback: () => void;
+	}[] = [
 		{
 			label: 'View profile',
 			id: 'view-profile',

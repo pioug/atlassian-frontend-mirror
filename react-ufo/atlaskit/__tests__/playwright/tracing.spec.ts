@@ -4,7 +4,11 @@ const fg_combinations = [[], ['platform_ufo_enable_otel_context_manager']];
 
 test.describe('ReactUFO: Tracing instrumentation', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/01-basic.tsx')>('react-ufo', 'atlaskit', 'basic');
+		await page.visitExample<typeof import('../../examples/01-basic.tsx')>(
+			'react-ufo',
+			'atlaskit',
+			'basic',
+		);
 	});
 
 	for (const fg_set of fg_combinations) {

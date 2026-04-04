@@ -5,7 +5,6 @@ import NotificationIcon from '@atlaskit/icon/core/notification';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-
 import { BadgeContainer } from '../BadgeContainer';
 import { IconButton } from '../IconButton';
 

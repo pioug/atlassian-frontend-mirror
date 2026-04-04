@@ -24,7 +24,7 @@ interface Props {
 	children: React.ReactNode;
 }
 
-export default ({ children }: Props): JSX.Element => (
+export default ({ children }: Props): React.JSX.Element => (
 	<Stack xcss={styles.container}>
 		<Image width="88px" height="88px" src={doneSvg} alt="Success" />
 		{children}

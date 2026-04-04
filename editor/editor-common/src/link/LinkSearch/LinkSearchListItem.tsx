@@ -179,10 +179,8 @@ const LinkSearchListItem = (
 			aria-selected={selected}
 			data-testid="link-search-list-item"
 			onBlur={
-        expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-            ? onBlur
-            : undefined
-    	}
+				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? onBlur : undefined
+			}
 			onFocus={onFocus}
 			onKeyDown={handleKeyDown}
 			onMouseMove={handleMouseMove}

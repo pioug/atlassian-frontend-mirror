@@ -5,7 +5,6 @@ import { di } from 'react-magnetic-di';
 import { HelperMessage } from '@atlaskit/form';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -77,27 +76,16 @@ export const useFormattedWarningMessage = (): ReactNode => {
 	} else if (epicLinkDeprecationTerm && parentLinkDeprecationTerm) {
 		return formatWarnings(
 			formatMessage(messages.deprecatedBothParentReplacementMessage, {
-				link: (chunks: React.ReactNode[]) =>
-					fg('dst-a11y__replace-anchor-with-link__jira-platform-') ? (
-						<Link
-							href={softDeprecateEpicParentDocsLink}
-							target="_blank"
-							rel="noopener noreferrer"
-							onClick={(e) => e.stopPropagation()}
-						>
-							{chunks}
-						</Link>
-					) : (
-						// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-						<a
-							href={softDeprecateEpicParentDocsLink}
-							target="_blank"
-							rel="noopener noreferrer"
-							onClick={(e) => e.stopPropagation()}
-						>
-							{chunks}
-						</a>
-					),
+				link: (chunks: React.ReactNode[]) => (
+					<Link
+						href={softDeprecateEpicParentDocsLink}
+						target="_blank"
+						rel="noopener noreferrer"
+						onClick={(e) => e.stopPropagation()}
+					>
+						{chunks}
+					</Link>
+				),
 				receivedFirst: epicLinkDeprecationTerm,
 				receivedSecond: parentLinkDeprecationTerm,
 				parentReplacement: 'Parent',
@@ -106,27 +94,16 @@ export const useFormattedWarningMessage = (): ReactNode => {
 	} else if (epicLinkDeprecationTerm || parentLinkDeprecationTerm) {
 		return formatWarnings(
 			formatMessage(messages.deprecatedParentReplacementMessage, {
-				link: (chunks: React.ReactNode[]) =>
-					fg('dst-a11y__replace-anchor-with-link__jira-platform-') ? (
-						<Link
-							href={softDeprecateEpicParentDocsLink}
-							target="_blank"
-							rel="noopener noreferrer"
-							onClick={(e) => e.stopPropagation()}
-						>
-							{chunks}
-						</Link>
-					) : (
-						// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-						<a
-							href={softDeprecateEpicParentDocsLink}
-							target="_blank"
-							rel="noopener noreferrer"
-							onClick={(e) => e.stopPropagation()}
-						>
-							{chunks}
-						</a>
-					),
+				link: (chunks: React.ReactNode[]) => (
+					<Link
+						href={softDeprecateEpicParentDocsLink}
+						target="_blank"
+						rel="noopener noreferrer"
+						onClick={(e) => e.stopPropagation()}
+					>
+						{chunks}
+					</Link>
+				),
 				deprecatedField: epicLinkDeprecationTerm
 					? epicLinkDeprecationTerm
 					: parentLinkDeprecationTerm,

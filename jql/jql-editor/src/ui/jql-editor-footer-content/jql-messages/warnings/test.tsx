@@ -116,7 +116,7 @@ describe('useFormattedWarningMessage', () => {
 		const { container, queryByText } = renderConsumer();
 		expect(queryByText('oh no')).not.toBeInTheDocument();
 		expect(container).toHaveTextContent(
-			`Epic Link will soon be replaced with Parent. Update to Parent to prepare for these changes.`,
+			/Epic Link will soon be replaced with Parent. Update to Parent.*to prepare for these changes./,
 		);
 	});
 
@@ -147,7 +147,7 @@ describe('useFormattedWarningMessage', () => {
 		useExternalMessagesMock.mockReturnValue([normalizedExternalMessages, {}]);
 		const { container } = renderConsumer();
 		expect(container).toHaveTextContent(
-			`Epic Link will soon be replaced with Parent. Update to Parent to prepare for these changes.oh no`,
+			/Epic Link will soon be replaced with Parent. Update to Parent.*to prepare for these changes.oh no/,
 		);
 	});
 

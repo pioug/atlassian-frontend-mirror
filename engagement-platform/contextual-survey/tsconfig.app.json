@@ -1,9 +1,6 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": [
-		"./src/**/*.ts",
-		"./src/**/*.tsx"
-	],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -58,6 +55,12 @@
 		},
 		{
 			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/motion/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

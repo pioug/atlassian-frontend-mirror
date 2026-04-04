@@ -15,7 +15,9 @@ test.describe('Search Page without smart answers', () => {
 			});
 
 			test.beforeEach(async ({ page }) => {
-				await page.visitExample<typeof import('../../examples/34-search-page-without-smart-answers.tsx')>('react-ufo', 'atlaskit', 'search-page-without-smart-answers');
+				await page.visitExample<
+					typeof import('../../examples/34-search-page-without-smart-answers.tsx')
+				>('react-ufo', 'atlaskit', 'search-page-without-smart-answers');
 			});
 
 			for (const viewport of viewports) {
@@ -79,7 +81,9 @@ test.describe('Search Page with smart answers', () => {
 			});
 
 			test.beforeEach(async ({ page }) => {
-				await page.visitExample<typeof import('../../examples/35-search-page-with-slower-smart-answers.tsx')>('react-ufo', 'atlaskit', 'search-page-with-slower-smart-answers');
+				await page.visitExample<
+					typeof import('../../examples/35-search-page-with-slower-smart-answers.tsx')
+				>('react-ufo', 'atlaskit', 'search-page-with-slower-smart-answers');
 			});
 
 			for (const viewport of viewports) {
@@ -128,7 +132,9 @@ test.describe('Search Page with smart answers', () => {
 			});
 
 			test.beforeEach(async ({ page }) => {
-				await page.visitExample<typeof import('../../examples/36-search-page-with-faster-smart-answers.tsx')>('react-ufo', 'atlaskit', 'search-page-with-faster-smart-answers');
+				await page.visitExample<
+					typeof import('../../examples/36-search-page-with-faster-smart-answers.tsx')
+				>('react-ufo', 'atlaskit', 'search-page-with-faster-smart-answers');
 			});
 
 			for (const viewport of viewports) {
@@ -182,7 +188,9 @@ test.describe('Search Page with smart answers', () => {
 			});
 
 			test.beforeEach(async ({ page }) => {
-				await page.visitExample<typeof import('../../examples/35-search-page-with-slower-smart-answers-class-change.tsx')>('react-ufo', 'atlaskit', 'search-page-with-slower-smart-answers-class-change');
+				await page.visitExample<
+					typeof import('../../examples/35-search-page-with-slower-smart-answers-class-change.tsx')
+				>('react-ufo', 'atlaskit', 'search-page-with-slower-smart-answers-class-change');
 			});
 
 			for (const viewport of viewports) {

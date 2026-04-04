@@ -5,7 +5,11 @@ import { expect, test } from './fixtures';
 
 test.describe('ReactUFO: RLL hydration simulation', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/22-rll-simulation.tsx')>('react-ufo', 'atlaskit', 'rll-simulation');
+		await page.visitExample<typeof import('../../examples/22-rll-simulation.tsx')>(
+			'react-ufo',
+			'atlaskit',
+			'rll-simulation',
+		);
 	});
 
 	test(`VC90 should match when the [content-div] is first visible`, async ({

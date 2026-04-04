@@ -11,7 +11,16 @@ export const VAR2 = 'variation_2';
 export const VAR3 = 'variation_3';
 export const VAR4 = 'variation_4';
 
-export const cohorts: { readonly NOT_ENROLLED: "not-enrolled"; readonly CONTROL: "control"; readonly EXPERIMENT: "experiment"; readonly VARIATION: "variation"; readonly VAR1: "variation_1"; readonly VAR2: "variation_2"; readonly VAR3: "variation_3"; readonly VAR4: "variation_4"; } = {
+export const cohorts: {
+	readonly NOT_ENROLLED: 'not-enrolled';
+	readonly CONTROL: 'control';
+	readonly EXPERIMENT: 'experiment';
+	readonly VARIATION: 'variation';
+	readonly VAR1: 'variation_1';
+	readonly VAR2: 'variation_2';
+	readonly VAR3: 'variation_3';
+	readonly VAR4: 'variation_4';
+} = {
 	NOT_ENROLLED,
 	CONTROL,
 	EXPERIMENT,
@@ -21,7 +30,16 @@ export const cohorts: { readonly NOT_ENROLLED: "not-enrolled"; readonly CONTROL:
 	VAR3,
 	VAR4,
 } as const;
-export const DEFAULT_VALID_EXPERIMENT_COHORTS: ("not-enrolled" | "control" | "experiment" | "variation" | "variation_1" | "variation_2" | "variation_3" | "variation_4")[] = Object.values(cohorts);
+export const DEFAULT_VALID_EXPERIMENT_COHORTS: (
+	| 'not-enrolled'
+	| 'control'
+	| 'experiment'
+	| 'variation'
+	| 'variation_1'
+	| 'variation_2'
+	| 'variation_3'
+	| 'variation_4'
+)[] = Object.values(cohorts);
 
 export type CohortKeys = keyof typeof cohorts;
 export type Cohort = (typeof cohorts)[CohortKeys];

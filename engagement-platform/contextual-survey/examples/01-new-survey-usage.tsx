@@ -11,7 +11,7 @@ import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { token } from '@atlaskit/tokens';
 
-import { ContextualSurvey, type OnDismissArgs, SurveyMarshal } from '../src/new';
+import { ContextualSurvey, DismissTrigger, type OnDismissArgs, SurveyMarshal } from '../src/new';
 
 import headerImage from './headerImage.svg';
 
@@ -19,7 +19,7 @@ const styles = css({
 	paddingTop: token('space.100'),
 	font: token('font.body.large'),
 });
-export default function BasicUsage(): JSX.Element {
+export default function BasicUsage(): React.JSX.Element {
 	const [showSurvey, setShowSurvey] = useState(false);
 	const [hasUserAnswered, setHasUserAnswered] = useState(false);
 	const onClick = useCallback(() => {
@@ -29,7 +29,10 @@ export default function BasicUsage(): JSX.Element {
 	const onDismiss = useCallback(
 		(args: OnDismissArgs) => {
 			console.log('dismiss called with', args);
-			setShowSurvey(false);
+			// Required due to double render in react strict mode
+			if (args.trigger !== DismissTrigger.Unmount) {
+				setShowSurvey(false);
+			}
 		},
 		[setShowSurvey],
 	);

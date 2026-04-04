@@ -305,7 +305,12 @@ function classifySpecifiers({
 	fs: FileSystem;
 	preferImportedPackageSubpath: boolean;
 }): SpecifierClassification {
-	const { currentExportPath, exportsMap, exportMap, packageName: importedPackageName } = importContext;
+	const {
+		currentExportPath,
+		exportsMap,
+		exportMap,
+		packageName: importedPackageName,
+	} = importContext;
 	const specifiers = node.specifiers;
 
 	const specifiersByTarget = new Map<string, SpecifierWithTarget[]>();
@@ -1309,8 +1314,7 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 		create(context) {
 			const options = (context.options[0] || {}) as RuleOptions;
 			const applyToImportsFrom = options.applyToImportsFrom ?? DEFAULT_TARGET_FOLDERS;
-			const preferImportedPackageSubpath =
-				options.preferImportedPackageSubpath ?? false;
+			const preferImportedPackageSubpath = options.preferImportedPackageSubpath ?? false;
 			const workspaceRoot = findWorkspaceRoot({
 				startPath: dirname(context.filename),
 				fs,

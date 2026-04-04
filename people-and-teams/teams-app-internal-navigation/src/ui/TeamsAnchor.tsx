@@ -18,8 +18,13 @@ export type TeamsAnchorProps = BaseAnchorProps & NavigationIntentProps;
 export const TeamsAnchor = (props: TeamsAnchorProps): React.JSX.Element => {
 	const { href, onClick, ...rest } = props;
 	const context = useTeamsNavigationContext();
-	const input = buildNavigationInput({ ...props, href: href ?? '', context, onBeforeNavigate: onClick });
+	const input = buildNavigationInput({
+		...props,
+		href: href ?? '',
+		context,
+		onBeforeNavigate: onClick,
+	});
 	const navigationProps = getNavigationProps(input);
-	
+
 	return <Anchor {...rest} {...navigationProps} />;
 };

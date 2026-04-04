@@ -18,7 +18,12 @@ export type TeamsLinkItemProps = BaseLinkItemProps & NavigationIntentProps;
 export const TeamsLinkItem = (props: TeamsLinkItemProps) => {
 	const { href, onClick, children, ...rest } = props;
 	const context = useTeamsNavigationContext();
-	const input = buildNavigationInput({ ...props, href: href ?? '', context, onBeforeNavigate: onClick });
+	const input = buildNavigationInput({
+		...props,
+		href: href ?? '',
+		context,
+		onBeforeNavigate: onClick,
+	});
 	const { onClick: composedOnClick, href: resolvedHref, target, rel } = getNavigationProps(input);
 
 	return (

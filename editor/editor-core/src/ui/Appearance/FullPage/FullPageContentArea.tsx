@@ -420,8 +420,12 @@ const Content = React.forwardRef<
 								{!!props.customContentComponents && 'after' in props.customContentComponents
 									? contentComponentClickWrapper(props.customContentComponents.after)
 									: null}
-								{allowScrollGutter && (
-									FeatureGates.getExperimentValue('cc_snippets_dogfooding_beta', 'isEnabled', false) ? (
+								{allowScrollGutter &&
+									(FeatureGates.getExperimentValue(
+										'cc_snippets_dogfooding_beta',
+										'isEnabled',
+										false,
+									) ? (
 										<div
 											id="editor-scroll-gutter"
 											style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
@@ -434,8 +438,7 @@ const Content = React.forwardRef<
 											style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
 											data-vc="scroll-gutter"
 										></div>
-									)
-								)}
+									))}
 							</div>
 						</div>
 					</ClickAreaBlock>

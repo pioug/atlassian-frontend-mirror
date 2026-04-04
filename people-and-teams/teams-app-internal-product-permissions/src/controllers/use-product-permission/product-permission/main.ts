@@ -81,4 +81,8 @@ const Store = createStore<ProductPermissionsStore, ProductPermissionsActions>({
 	name: 'product-permissions',
 });
 
-export const useProductPermissionsStore: HookFunction<ProductPermissionsStore, BoundActions<ProductPermissionsStore, ProductPermissionsActions>, void> = createHook(Store);
+export const useProductPermissionsStore: HookFunction<
+	ProductPermissionsStore,
+	BoundActions<ProductPermissionsStore, ProductPermissionsActions>,
+	void
+> = createHook(Store);

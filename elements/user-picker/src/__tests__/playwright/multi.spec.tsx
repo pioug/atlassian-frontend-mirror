@@ -5,12 +5,20 @@ const EXAMPLE = 'multi';
 
 test.describe('Multi User Picker', () => {
 	test('should load multi user picker with placeholder text', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>('elements', 'user-picker', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+			'elements',
+			'user-picker',
+			EXAMPLE,
+		);
 		await expect(userPicker.placeholder).toBeVisible();
 	});
 
 	test('should display options when clicking on input', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>('elements', 'user-picker', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+			'elements',
+			'user-picker',
+			EXAMPLE,
+		);
 		await userPicker.input.click();
 
 		// Wait for options to be visible
@@ -30,7 +38,11 @@ test.describe('Multi User Picker', () => {
 	});
 
 	test('should filter options when typing in input', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>('elements', 'user-picker', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+			'elements',
+			'user-picker',
+			EXAMPLE,
+		);
 		await userPicker.input.click();
 
 		// Type search text to filter options
@@ -43,8 +55,15 @@ test.describe('Multi User Picker', () => {
 		await expect(userPicker.firstOption).toContainText('team', { ignoreCase: true });
 	});
 
-	test('should remove selected option when clicking remove button', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>('elements', 'user-picker', EXAMPLE);
+	test('should remove selected option when clicking remove button', async ({
+		userPicker,
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+			'elements',
+			'user-picker',
+			EXAMPLE,
+		);
 		await userPicker.input.click();
 
 		// Fill and select an option
@@ -66,7 +85,11 @@ test.describe('Multi User Picker', () => {
 	});
 
 	test('should clear input after selecting an option', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>('elements', 'user-picker', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+			'elements',
+			'user-picker',
+			EXAMPLE,
+		);
 		await userPicker.input.click();
 
 		// Fill text and select option
@@ -79,7 +102,11 @@ test.describe('Multi User Picker', () => {
 	});
 
 	test('should maintain focus on input after making selections', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>('elements', 'user-picker', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+			'elements',
+			'user-picker',
+			EXAMPLE,
+		);
 		await userPicker.input.click();
 
 		// Make a selection
@@ -96,7 +123,11 @@ test.describe('Multi User Picker', () => {
 	});
 
 	test('should handle keyboard navigation in options menu', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>('elements', 'user-picker', EXAMPLE);
+		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+			'elements',
+			'user-picker',
+			EXAMPLE,
+		);
 		await userPicker.input.click();
 		await userPicker.input.fill('team');
 

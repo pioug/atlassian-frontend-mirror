@@ -19,10 +19,7 @@ type TitleBoxWrapperStyleArgs = {
 	display?: 'none' | 'flex';
 };
 
-export const titleBoxWrapperStyles = ({
-	breakpoint,
-	display = 'flex',
-}: TitleBoxWrapperStyleArgs) =>
+export const titleBoxWrapperStyles = ({ breakpoint, display = 'flex' }: TitleBoxWrapperStyleArgs) =>
 	css(
 		{
 			position: 'absolute',

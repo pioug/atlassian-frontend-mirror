@@ -181,7 +181,7 @@ export function isFedRampStaging(): boolean {
 	return false;
 }
 
-export function getHostProductFromPath(): "home" | "confluence" | "jira" | undefined {
+export function getHostProductFromPath(): 'home' | 'confluence' | 'jira' | undefined {
 	const path = pathname();
 	if (path.startsWith('/wiki')) {
 		return 'confluence';

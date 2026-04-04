@@ -1338,7 +1338,12 @@ describe('RawDataHandler', () => {
 				},
 			];
 
-			const result = await handler.getRawData({ entries, startTime, stopTime, isPageVisible: true });
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
 
 			expect(result?.rawData?.obs?.[0]).toMatchObject({
 				t: 100,
@@ -1361,7 +1366,12 @@ describe('RawDataHandler', () => {
 				},
 			];
 
-			const result = await handler.getRawData({ entries, startTime, stopTime, isPageVisible: true });
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
 
 			expect(result?.rawData?.obs?.[0]).toMatchObject({
 				r: [10, 20, 110, 220],
@@ -1383,7 +1393,12 @@ describe('RawDataHandler', () => {
 				},
 			];
 
-			const result = await handler.getRawData({ entries, startTime, stopTime, isPageVisible: true });
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
 
 			expect(result?.rawData?.obs?.[0]).toMatchObject({ r: [10, 20, 110, 220] });
 			expect(result?.rawData?.obs?.[0]).not.toHaveProperty('pr');
@@ -1404,7 +1419,12 @@ describe('RawDataHandler', () => {
 				},
 			];
 
-			const result = await handler.getRawData({ entries, startTime, stopTime, isPageVisible: true });
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
 
 			expect(result?.rawData?.obs?.[0]).not.toHaveProperty('pr');
 		});

@@ -17,10 +17,10 @@ export class ReplinesClient extends RestClient {
 	}
 
 	async getUserTenure(userId: string): Promise<{
-        userHireDate: Date;
-        employeesHiredBefore: number;
-        employeesHiredAfter: number;
-    }> {
+		userHireDate: Date;
+		employeesHiredBefore: number;
+		employeesHiredAfter: number;
+	}> {
 		const orgId = this.getOrgId();
 		return this.getResource<UserTenureResponse>(`/${orgId}/${userId}`)
 			.then((response) => ({

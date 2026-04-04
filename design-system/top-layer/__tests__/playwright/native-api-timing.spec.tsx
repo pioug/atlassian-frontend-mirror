@@ -513,9 +513,7 @@ test.describe('native popover and dialog API timing', () => {
 		expect(result).toEqual({ returnValue: false, isOpen: false });
 	});
 
-	test('togglePopover: should be a no-op when force=false and already closed', async ({
-		page,
-	}) => {
+	test('togglePopover: should be a no-op when force=false and already closed', async ({ page }) => {
 		const result = await page.evaluate(() => {
 			const element = document.createElement('div');
 			element.setAttribute('popover', 'manual');
@@ -645,9 +643,7 @@ test.describe('native popover and dialog API timing', () => {
 
 	// ─── dialog.show() ────────────────────────────────────────────────────
 
-	test('dialog show: should fire beforetoggle synchronously with closed→open', async ({
-		page,
-	}) => {
+	test('dialog show: should fire beforetoggle synchronously with closed→open', async ({ page }) => {
 		const log = await page.evaluate(() => {
 			const dialog = document.createElement('dialog');
 			document.body.appendChild(dialog);

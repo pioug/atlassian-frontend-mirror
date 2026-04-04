@@ -1,43 +1,51 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    externalUserSourcesHeading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; slackProvider: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; googleProvider: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; microsoftProvider: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; gitHubProvider: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; memberLozengeText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; guestLozengeText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; guestUserLozengeTooltip: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; guestGroupLozengeTooltip: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	externalUserSourcesHeading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	slackProvider: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	googleProvider: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	microsoftProvider: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	gitHubProvider: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	memberLozengeText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	guestLozengeText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	guestUserLozengeTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	guestGroupLozengeTooltip: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	externalUserSourcesHeading: {
 		id: 'fabric.elements.user-picker.external.sourced.from',

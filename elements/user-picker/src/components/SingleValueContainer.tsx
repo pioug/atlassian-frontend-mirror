@@ -62,9 +62,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 						iconColor={userData.iconColor}
 						type={placeholderAvatar}
 						src={userData.avatarUrl}
-						avatarAppearanceShape={
-							userData ? getAppearanceForAppType(userData.appType) : undefined
-						}
+						avatarAppearanceShape={userData ? getAppearanceForAppType(userData.appType) : undefined}
 					/>
 				);
 			}
@@ -74,9 +72,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 					appearance={appearance}
 					type={placeholderAvatar}
 					src={userData?.avatarUrl}
-					avatarAppearanceShape={
-						userData ? getAppearanceForAppType(userData.appType) : undefined
-					}
+					avatarAppearanceShape={userData ? getAppearanceForAppType(userData.appType) : undefined}
 				/>
 			);
 		}

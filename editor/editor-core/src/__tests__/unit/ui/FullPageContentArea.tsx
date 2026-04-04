@@ -88,7 +88,9 @@ const renderComponent = (props: Partial<typeof defaultProps> = {}) =>
 
 describe('accessibility', () => {
 	it('should be accessible', async () => {
-		const { container } = renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });
+		const { container } = renderComponent({
+			editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any,
+		});
 		await expect(container).toBeAccessible();
 	});
 });

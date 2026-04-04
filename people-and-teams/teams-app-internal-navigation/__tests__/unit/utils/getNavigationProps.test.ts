@@ -216,7 +216,12 @@ describe('onBeforeNavigate', () => {
 	test('is called before navigation onClick for internal links', () => {
 		const context = createMockContext();
 		const onBeforeNavigate = jest.fn();
-		const props = getNavigationProps({ href: TEAMS_APP_HREF, intent: 'navigation', context, onBeforeNavigate });
+		const props = getNavigationProps({
+			href: TEAMS_APP_HREF,
+			intent: 'navigation',
+			context,
+			onBeforeNavigate,
+		});
 		const event = createMouseEvent<HTMLAnchorElement>();
 		props.onClick?.(event);
 		expect(onBeforeNavigate).toHaveBeenCalledWith(event);
@@ -226,7 +231,12 @@ describe('onBeforeNavigate', () => {
 	test('is called before navigation onClick for external links', () => {
 		const context = createMockContext();
 		const onBeforeNavigate = jest.fn();
-		const props = getNavigationProps({ href: EXTERNAL_HREF, intent: 'external', context, onBeforeNavigate });
+		const props = getNavigationProps({
+			href: EXTERNAL_HREF,
+			intent: 'external',
+			context,
+			onBeforeNavigate,
+		});
 		const event = createMouseEvent<HTMLAnchorElement>();
 		props.onClick?.(event);
 		expect(onBeforeNavigate).toHaveBeenCalledWith(event);
@@ -238,7 +248,12 @@ describe('onBeforeNavigate', () => {
 		const onBeforeNavigate = jest.fn((e: { preventDefault: () => void }) => {
 			e.preventDefault();
 		});
-		const props = getNavigationProps({ href: TEAMS_APP_HREF, intent: 'navigation', context, onBeforeNavigate });
+		const props = getNavigationProps({
+			href: TEAMS_APP_HREF,
+			intent: 'navigation',
+			context,
+			onBeforeNavigate,
+		});
 		const event = createMouseEvent<HTMLAnchorElement>();
 		// Make preventDefault actually set defaultPrevented
 		event.preventDefault = jest.fn(() => {

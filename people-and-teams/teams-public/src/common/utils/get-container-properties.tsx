@@ -67,47 +67,56 @@ const styles = cssMap({
 });
 
 export const messages: {
-    addConfluenceContainerTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; confluenceContainerDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addLoomSpace: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addJiraProject: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; jiraProjectDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; loomSpaceDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; spaceContainerTextOverride: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; emptyLinkContainerDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; addLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkContainerDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	addConfluenceContainerTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	confluenceContainerDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addLoomSpace: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addJiraProject: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	jiraProjectDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	loomSpaceDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	spaceContainerTextOverride: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	emptyLinkContainerDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	addLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkContainerDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	addConfluenceContainerTitle: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-title',

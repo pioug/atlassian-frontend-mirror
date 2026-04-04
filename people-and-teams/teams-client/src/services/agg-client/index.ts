@@ -256,7 +256,10 @@ export class AGGClient extends BaseGraphQlClient {
 		return containersResult;
 	}
 
-	async unlinkTeamContainer(teamId: string, containerId: string): Promise<UnlinkContainerMutationResponse> {
+	async unlinkTeamContainer(
+		teamId: string,
+		containerId: string,
+	): Promise<UnlinkContainerMutationResponse> {
 		const teamAri = toTeamARI(teamId);
 
 		const response = await this.makeGraphQLRequest<

@@ -176,11 +176,11 @@ const calcBreakoutNodeWidth = (
 		return isFullWidthModeEnabled
 			? Math.min(containerWidth.lineLength as number, breakoutWidth)
 			: // container width minus breakout padding
-			// --ak-editor--breakout-full-page-guttering-padding = (--ak-editor--large-gutter-padding * 2) + --ak-editor--default-gutter-padding
-			Math.min(
-				containerWidth.width - (akEditorGutterPaddingDynamic() * 2 + akEditorGutterPadding),
-				breakoutWidth,
-			);
+				// --ak-editor--breakout-full-page-guttering-padding = (--ak-editor--large-gutter-padding * 2) + --ak-editor--default-gutter-padding
+				Math.min(
+					containerWidth.width - (akEditorGutterPaddingDynamic() * 2 + akEditorGutterPadding),
+					breakoutWidth,
+				);
 	}
 	return isFullWidthModeEnabled
 		? Math.min(containerWidth.lineLength as number, akEditorFullWidthLayoutWidth)

@@ -5,8 +5,8 @@ import { getPageTime } from './performance';
 type AnalyticsEventPayload = Record<string, any>;
 
 export const PACKAGE_META_DATA: {
-    packageName: string;
-    packageVersion: string;
+	packageName: string;
+	packageVersion: string;
 } = {
 	packageName: process.env._PACKAGE_NAME_,
 	packageVersion: process.env._PACKAGE_VERSION_,
@@ -41,7 +41,9 @@ const createEvent = (
 	},
 });
 
-export const getActionSubject = (type: string): "user" | "teamProfileCard" | "profilecard" | "rovoAgentProfilecard" => {
+export const getActionSubject = (
+	type: string,
+): 'user' | 'teamProfileCard' | 'profilecard' | 'rovoAgentProfilecard' => {
 	switch (type) {
 		case 'user':
 			return USER_SUBJECT;
@@ -58,7 +60,11 @@ export const getActionSubject = (type: string): "user" | "teamProfileCard" | "pr
  * @private
  * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
  */
-export const cardTriggered = (type: ProfileType, method: 'hover' | 'click', teamId?: string): AnalyticsEventPayload => {
+export const cardTriggered = (
+	type: ProfileType,
+	method: 'hover' | 'click',
+	teamId?: string,
+): AnalyticsEventPayload => {
 	return createEvent('ui', 'triggered', getActionSubject(type), undefined, {
 		method,
 		...(type === 'team' && teamId ? { teamId } : {}),
@@ -100,7 +106,8 @@ export const profileCardRendered = (
 		descriptionLength?: number;
 		titleLength?: number;
 	},
-): AnalyticsEventPayload => createEvent('ui', 'rendered', getActionSubject(type), actionSubjectId, attributes);
+): AnalyticsEventPayload =>
+	createEvent('ui', 'rendered', getActionSubject(type), actionSubjectId, attributes);
 
 /**
  * @private
@@ -115,7 +122,8 @@ export const actionClicked = (
 		index: number;
 		actionId: string;
 	},
-): AnalyticsEventPayload => createEvent('ui', 'clicked', getActionSubject(type), 'action', attributes);
+): AnalyticsEventPayload =>
+	createEvent('ui', 'clicked', getActionSubject(type), 'action', attributes);
 
 /**
  * @private
@@ -124,7 +132,8 @@ export const actionClicked = (
 export const reportingLinesClicked = (attributes: {
 	userType: 'manager' | 'direct-report';
 	duration: number;
-}): AnalyticsEventPayload => createEvent('ui', 'clicked', USER_SUBJECT, 'reportingLines', attributes);
+}): AnalyticsEventPayload =>
+	createEvent('ui', 'clicked', USER_SUBJECT, 'reportingLines', attributes);
 
 /**
  * @private
@@ -136,7 +145,8 @@ export const moreActionsClicked = (
 		duration: number;
 		numActions: number;
 	},
-): AnalyticsEventPayload => createEvent('ui', 'clicked', getActionSubject(type), 'moreActions', attributes);
+): AnalyticsEventPayload =>
+	createEvent('ui', 'clicked', getActionSubject(type), 'moreActions', attributes);
 
 /**
  * @private
@@ -153,8 +163,10 @@ export const teamAvatarClicked = (attributes: {
  * @private
  * @deprecated Analytics events should be fired using the `@atlaskit/teams-app-internal-analytics` package.
  */
-export const moreMembersClicked = (attributes: { duration: number; memberCount: number }): AnalyticsEventPayload =>
-	createEvent('ui', 'clicked', TEAM_SUBJECT, 'moreMembers', attributes);
+export const moreMembersClicked = (attributes: {
+	duration: number;
+	memberCount: number;
+}): AnalyticsEventPayload => createEvent('ui', 'clicked', TEAM_SUBJECT, 'moreMembers', attributes);
 
 /**
  * @private
@@ -171,4 +183,5 @@ export const agentRequestAnalytics = (
 	action: 'triggered' | 'succeeded' | 'failed',
 	actionSubjectId?: string,
 	attributes?: { duration: number } & GenericAttributes,
-): AnalyticsEventPayload => createEvent('operational', action, AGENT_SUBJECT, actionSubjectId || 'request', attributes);
+): AnalyticsEventPayload =>
+	createEvent('operational', action, AGENT_SUBJECT, actionSubjectId || 'request', attributes);

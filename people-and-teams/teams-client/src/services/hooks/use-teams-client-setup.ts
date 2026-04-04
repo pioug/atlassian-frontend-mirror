@@ -33,8 +33,8 @@ export const useTeamsClientSetupNext = ({
 	orgId,
 	principalUserId,
 }: TeamsClientSetupProps): {
-        isClientReady: boolean;
-    } => {
+	isClientReady: boolean;
+} => {
 	const [isClientReady, setIsClientReady] = useState(false);
 
 	useEffect(() => {

@@ -1,11 +1,19 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 export const mockProfileData: {
-    teamId: string; displayName: string; description: string; avatarImageUrl: string; headerImageUrl: string; memberAvatars: {
-        src: string;
-        name: string;
-        key: string;
-    }[]; memberCount: number; isVerified: boolean; teamProfileUrl: string;
+	teamId: string;
+	displayName: string;
+	description: string;
+	avatarImageUrl: string;
+	headerImageUrl: string;
+	memberAvatars: {
+		src: string;
+		name: string;
+		key: string;
+	}[];
+	memberCount: number;
+	isVerified: boolean;
+	teamProfileUrl: string;
 } = {
 	teamId: 'ari:cloud:identity::team/8ee37950-7de7-41ec-aee2-2c02c95949f4',
 	displayName: 'THE SUPER TEAM',

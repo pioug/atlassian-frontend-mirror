@@ -8,11 +8,13 @@ import { directoryGraphqlQuery } from './graphqlUtils';
 
 const UNSHARDED_PREFIX = '/gateway/api/watermelon';
 
-export const buildReportingLinesQuery = (aaid: string): {
-    query: string;
-    variables: {
-        aaid: string;
-    };
+export const buildReportingLinesQuery = (
+	aaid: string,
+): {
+	query: string;
+	variables: {
+		aaid: string;
+	};
 } => ({
 	query: `
     fragment ReportingLinesUserPII on UserPII {
@@ -243,7 +245,11 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		}
 	}
 
-	preloadOrgId(gatewayGraphqlUrl: string, cloudId?: string, orgId?: string): Promise<string | null> {
+	preloadOrgId(
+		gatewayGraphqlUrl: string,
+		cloudId?: string,
+		orgId?: string,
+	): Promise<string | null> {
 		if (cloudId === undefined) {
 			return Promise.resolve(null);
 		}

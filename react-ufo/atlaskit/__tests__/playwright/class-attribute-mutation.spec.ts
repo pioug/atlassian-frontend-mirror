@@ -13,7 +13,11 @@ test.describe('ReactUFO: class attribute mutation', () => {
 			});
 
 			test.beforeEach(async ({ page }) => {
-				await page.visitExample<typeof import('../../examples/13-class-attribute-mutation.tsx')>('react-ufo', 'atlaskit', 'class-attribute-mutation');
+				await page.visitExample<typeof import('../../examples/13-class-attribute-mutation.tsx')>(
+					'react-ufo',
+					'atlaskit',
+					'class-attribute-mutation',
+				);
 			});
 
 			test(`VC90 should match when the [content-div] class changed`, async ({
@@ -114,9 +118,7 @@ test.describe('ReactUFO: class attribute mutation', () => {
 				}
 			});
 
-			test('should capture and report a11y violations', async ({
-				page,
-			}) => {
+			test('should capture and report a11y violations', async ({ page }) => {
 				const mainDiv = page.locator('[data-testid="main"]');
 				await expect(mainDiv).toBeVisible();
 

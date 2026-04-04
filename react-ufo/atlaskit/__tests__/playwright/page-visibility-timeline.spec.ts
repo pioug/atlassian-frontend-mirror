@@ -13,7 +13,11 @@ test.describe('React UFO: pageVisibilityTimeline field', () => {
 		});
 
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample<typeof import('../../examples/01-basic.tsx')>('react-ufo', 'atlaskit', 'basic');
+			await page.visitExample<typeof import('../../examples/01-basic.tsx')>(
+				'react-ufo',
+				'atlaskit',
+				'basic',
+			);
 		});
 
 		test('should include pageVisibilityTimeline in payload with initial visible state', async ({
@@ -64,7 +68,11 @@ test.describe('React UFO: pageVisibilityTimeline field', () => {
 		});
 
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample<typeof import('../../examples/23-interactions-simple-button.tsx')>('react-ufo', 'atlaskit', 'interactions-simple-button');
+			await page.visitExample<typeof import('../../examples/23-interactions-simple-button.tsx')>(
+				'react-ufo',
+				'atlaskit',
+				'interactions-simple-button',
+			);
 		});
 
 		test('should capture visibility transitions in the timeline', async ({
@@ -139,7 +147,11 @@ test.describe('React UFO: pageVisibilityTimeline field', () => {
 		});
 
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample<typeof import('../../examples/23-interactions-simple-button.tsx')>('react-ufo', 'atlaskit', 'interactions-simple-button');
+			await page.visitExample<typeof import('../../examples/23-interactions-simple-button.tsx')>(
+				'react-ufo',
+				'atlaskit',
+				'interactions-simple-button',
+			);
 		});
 
 		test('should include pageVisibilityTimeline for press interactions', async ({

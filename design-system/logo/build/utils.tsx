@@ -34,33 +34,39 @@ const getLogoDesignCategory = (name: string) => {
  * SVGO optimisation configuration for logos.
  */
 export const baseSvgoConfig: {
-    multipass: boolean; plugins: ({
-        name: string;
-        params: {
-            overrides: {
-                removeViewBox: boolean;
-                removeUnknownsAndDefaults: boolean;
-                cleanupIds: {
-                    minify: boolean;
-                };
-                mergePaths: {
-                    floatPrecision: number;
-                };
-            };
-            removeAny?: undefined;
-        };
-    } | {
-        name: string;
-        params?: undefined;
-    } | {
-        name: string;
-        params: {
-            removeAny: boolean;
-            overrides?: undefined;
-        };
-    })[]; js2svg: {
-        pretty: boolean;
-    };
+	multipass: boolean;
+	plugins: (
+		| {
+				name: string;
+				params: {
+					overrides: {
+						removeViewBox: boolean;
+						removeUnknownsAndDefaults: boolean;
+						cleanupIds: {
+							minify: boolean;
+						};
+						mergePaths: {
+							floatPrecision: number;
+						};
+					};
+					removeAny?: undefined;
+				};
+		  }
+		| {
+				name: string;
+				params?: undefined;
+		  }
+		| {
+				name: string;
+				params: {
+					removeAny: boolean;
+					overrides?: undefined;
+				};
+		  }
+	)[];
+	js2svg: {
+		pretty: boolean;
+	};
 } = {
 	multipass: true,
 	plugins: [
@@ -82,33 +88,39 @@ export const baseSvgoConfig: {
 };
 
 export const svgoConfig: {
-    plugins: ({
-        name: string;
-        params: {
-            overrides: {
-                removeViewBox: boolean;
-                removeUnknownsAndDefaults: boolean;
-                cleanupIds: {
-                    minify: boolean;
-                };
-                mergePaths: {
-                    floatPrecision: number;
-                };
-            };
-            removeAny?: undefined;
-        };
-    } | {
-        name: string;
-        params?: undefined;
-    } | {
-        name: string;
-        params: {
-            removeAny: boolean;
-            overrides?: undefined;
-        };
-    })[]; multipass: boolean; js2svg: {
-        pretty: boolean;
-    };
+	plugins: (
+		| {
+				name: string;
+				params: {
+					overrides: {
+						removeViewBox: boolean;
+						removeUnknownsAndDefaults: boolean;
+						cleanupIds: {
+							minify: boolean;
+						};
+						mergePaths: {
+							floatPrecision: number;
+						};
+					};
+					removeAny?: undefined;
+				};
+		  }
+		| {
+				name: string;
+				params?: undefined;
+		  }
+		| {
+				name: string;
+				params: {
+					removeAny: boolean;
+					overrides?: undefined;
+				};
+		  }
+	)[];
+	multipass: boolean;
+	js2svg: {
+		pretty: boolean;
+	};
 } = {
 	...baseSvgoConfig,
 	plugins: [...baseSvgoConfig.plugins, { name: 'removeXMLNS' }, { name: 'removeXlink' }],

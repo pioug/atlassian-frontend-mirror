@@ -5,11 +5,11 @@ export const useProfileInfo = <T>({
 }: {
 	fetchUserProfile?: () => Promise<T>;
 }): {
-        profileData: T | undefined;
-        isLoading: boolean;
-        error: null;
-        getProfileData: () => Promise<void>;
-    } => {
+	profileData: T | undefined;
+	isLoading: boolean;
+	error: null;
+	getProfileData: () => Promise<void>;
+} => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState(null);
 	const [profileData, setProfileData] = useState<T>();

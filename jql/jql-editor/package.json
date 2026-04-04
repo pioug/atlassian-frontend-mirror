@@ -143,9 +143,6 @@
 		"add_nin_press_interactions": {
 			"type": "boolean"
 		},
-		"dst-a11y__replace-anchor-with-link__jira-platform-": {
-			"type": "boolean"
-		},
 		"should-render-to-parent-should-be-true-jira-platfo": {
 			"type": "boolean"
 		},

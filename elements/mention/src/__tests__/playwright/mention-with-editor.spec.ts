@@ -5,7 +5,9 @@ const EXAMPLE = 'mention-with-editor-extending-abstract-mention-resource';
 
 test.describe('Mention with Editor Extending Abstract Mention Resource', () => {
 	test('should render editor with mention functionality', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<
+			typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')
+		>('elements', 'mention', EXAMPLE);
 
 		// Verify the editor is present and focusable
 		const editorTextArea = mention.editClickWrapper;
@@ -13,7 +15,9 @@ test.describe('Mention with Editor Extending Abstract Mention Resource', () => {
 	});
 
 	test('should trigger mention picker when typing @ in editor', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<
+			typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')
+		>('elements', 'mention', EXAMPLE);
 
 		// Focus on the editor
 		const editorTextArea = mention.editClickWrapper;
@@ -28,7 +32,9 @@ test.describe('Mention with Editor Extending Abstract Mention Resource', () => {
 	});
 
 	test('should highlight first mention item', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<
+			typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')
+		>('elements', 'mention', EXAMPLE);
 
 		const editorTextArea = mention.editClickWrapper;
 		await expect(editorTextArea).toBeVisible();
@@ -45,7 +51,9 @@ test.describe('Mention with Editor Extending Abstract Mention Resource', () => {
 	});
 
 	test('should handle keyboard navigation in mention list', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<
+			typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')
+		>('elements', 'mention', EXAMPLE);
 
 		const editorTextArea = mention.editClickWrapper;
 		await expect(editorTextArea).toBeVisible();
@@ -68,7 +76,9 @@ test.describe('Mention with Editor Extending Abstract Mention Resource', () => {
 	});
 
 	test('should select mention item with mouse click', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<
+			typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')
+		>('elements', 'mention', EXAMPLE);
 
 		const editorTextArea = mention.editClickWrapper;
 		await expect(editorTextArea).toBeVisible();
@@ -96,7 +106,9 @@ test.describe('Mention with Editor Extending Abstract Mention Resource', () => {
 	});
 
 	test('should close mention picker with Escape key', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<
+			typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')
+		>('elements', 'mention', EXAMPLE);
 
 		const editorTextArea = mention.editClickWrapper;
 		await expect(editorTextArea).toBeVisible();
@@ -116,7 +128,9 @@ test.describe('Mention with Editor Extending Abstract Mention Resource', () => {
 	});
 
 	test('should support typing text before and after mentions', async ({ mention, page }) => {
-		await page.visitExample<typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')>('elements', 'mention', EXAMPLE);
+		await page.visitExample<
+			typeof import('../../../examples/14-mention-with-editor-extending-abstract-mention-resource.tsx')
+		>('elements', 'mention', EXAMPLE);
 
 		const editorTextArea = mention.editClickWrapper;
 		await expect(editorTextArea).toBeVisible();

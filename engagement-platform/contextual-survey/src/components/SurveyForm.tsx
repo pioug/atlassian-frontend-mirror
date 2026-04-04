@@ -7,16 +7,16 @@ import { type RefObject, useCallback, useRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { Transition } from 'react-transition-group';
 
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import Form, { CheckboxField, Field, FormFooter, type OnSubmitHandler } from '@atlaskit/form';
+import Form, { Field, type OnSubmitHandler } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
+import { useResizingHeight } from '@atlaskit/motion';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
-import Textarea from '@atlaskit/textarea';
 
 import { type FormValues } from '../types';
 
 import FeedbackScoreButtons from './FeedbackScoreButtons';
+import { SurveyFormExpandedFeedback } from './SurveyFormExpandedFeedback';
 
 const transitionBaseStyles = css({
 	overflow: 'hidden',
@@ -32,7 +32,10 @@ interface Props {
 
 type TransitionState = 'entering' | 'entered' | 'exiting' | 'exited' | 'unmounted';
 
-const getExpandedHeight = (ref: RefObject<HTMLDivElement>, state: TransitionState): string => {
+const getExpandedHeight = (
+	ref: RefObject<HTMLDivElement | null>,
+	state: TransitionState,
+): string => {
 	if (!ref.current) {
 		return '0';
 	}
@@ -48,7 +51,7 @@ const getExpandedHeight = (ref: RefObject<HTMLDivElement>, state: TransitionStat
 	}
 };
 
-const transitionDuration = 200;
+const TRANSITION_DURATION = 200;
 
 export default ({
 	question,
@@ -56,7 +59,7 @@ export default ({
 	textPlaceholder,
 	textLabel,
 	onSubmit,
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
 	const [expanded, setExpanded] = useState(false);
 	const [canContactDefault, setCanContactDefault] = useState(false);
 	const hasAutoFilledCanContactRef = useRef(false);
@@ -76,6 +79,11 @@ export default ({
 		hasAutoFilledCanContactRef.current = true;
 		setCanContactDefault(true);
 	}, []);
+
+	const resizingHeightProps = useResizingHeight({
+		duration: () => TRANSITION_DURATION,
+		timingFunction: () => 'ease-in-out',
+	});
 
 	return (
 		<section aria-labelledby="contextualSurveyQuestion">
@@ -104,53 +112,40 @@ export default ({
 								/>
 							)}
 						</Field>
-						<Transition in={expanded} timeout={transitionDuration} mountOnEnter>
-							{(state: TransitionState) => (
-								<div
-									css={transitionBaseStyles}
-									style={{
-										transition: `max-height ${transitionDuration}ms ease-in-out`,
-										maxHeight: getExpandedHeight(expandedAreaRef, state),
-									}}
-									ref={expandedAreaRef}
-								>
-									<Field<string, HTMLTextAreaElement>
-										name="writtenFeedback"
-										defaultValue=""
-										isDisabled={submitting}
+						{fg('platform_contextual_survey_use_atlaskit_motion') ? (
+							<div {...resizingHeightProps} css={transitionBaseStyles}>
+								{expanded ? (
+									<SurveyFormExpandedFeedback
+										canContactDefault={canContactDefault}
+										onFeedbackChange={onFeedbackChange}
+										submitting={submitting}
+										textLabel={textLabel}
+										textPlaceholder={textPlaceholder}
+									/>
+								) : null}
+							</div>
+						) : (
+							<Transition in={expanded} timeout={TRANSITION_DURATION} mountOnEnter>
+								{(state: TransitionState) => (
+									<div
+										css={transitionBaseStyles}
+										style={{
+											transition: `max-height ${TRANSITION_DURATION}ms ease-in-out`,
+											maxHeight: getExpandedHeight(expandedAreaRef, state),
+										}}
+										ref={expandedAreaRef}
 									>
-										{({ fieldProps }) => (
-											<Textarea
-												{...fieldProps}
-												aria-label={textLabel}
-												placeholder={textPlaceholder}
-												onChange={(event) => {
-													fieldProps.onChange(event);
-													onFeedbackChange();
-												}}
-											/>
-										)}
-									</Field>
-									<CheckboxField
-										name="canContact"
-										isDisabled={submitting}
-										defaultIsChecked={canContactDefault}
-									>
-										{({ fieldProps }) => (
-											<Checkbox
-												{...fieldProps}
-												label="Atlassian can contact me about this feedback"
-											/>
-										)}
-									</CheckboxField>
-									<FormFooter>
-										<Button type="submit" appearance="primary" isLoading={submitting}>
-											Submit
-										</Button>
-									</FormFooter>
-								</div>
-							)}
-						</Transition>
+										<SurveyFormExpandedFeedback
+											canContactDefault={canContactDefault}
+											onFeedbackChange={onFeedbackChange}
+											submitting={submitting}
+											textLabel={textLabel}
+											textPlaceholder={textPlaceholder}
+										/>
+									</div>
+								)}
+							</Transition>
+						)}
 					</form>
 				)}
 			</Form>

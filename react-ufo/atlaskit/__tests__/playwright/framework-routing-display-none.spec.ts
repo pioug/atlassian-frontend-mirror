@@ -14,7 +14,11 @@ import { expect, test, viewports } from './fixtures';
  */
 test.describe('ReactUFO: Framework routing display:none mutations', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/38-framework-routing-display-none.tsx')>('react-ufo', 'atlaskit', 'framework-routing-display-none');
+		await page.visitExample<typeof import('../../examples/38-framework-routing-display-none.tsx')>(
+			'react-ufo',
+			'atlaskit',
+			'framework-routing-display-none',
+		);
 	});
 
 	for (const viewport of viewports) {

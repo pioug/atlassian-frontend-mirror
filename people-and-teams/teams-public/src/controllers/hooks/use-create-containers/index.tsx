@@ -1,4 +1,10 @@
-import { createHook, createStore, type BoundActions, type HookFunction, type StoreActionApi } from 'react-sweet-state';
+import {
+	createHook,
+	createStore,
+	type BoundActions,
+	type HookFunction,
+	type StoreActionApi,
+} from 'react-sweet-state';
 
 type Product = 'Jira' | 'Confluence' | 'Loom' | 'WebLink';
 type AcceptedProduct = Exclude<Product, 'WebLink'>;
@@ -60,9 +66,22 @@ const store = createStore<State, Actions>({
  *
  * @returns {object} State and actions for managing container creation.
  */
-const useCreateContainers: HookFunction<State, BoundActions<State, {
-    updateContainerLoading: (product: Product, isLoading: boolean) => ({ setState, getState }: StoreAction) => void;
-    updateContainerCreated: (product: Product, isCreated: boolean) => ({ setState, getState }: StoreAction) => void;
-}>, void> = createHook(store);
+const useCreateContainers: HookFunction<
+	State,
+	BoundActions<
+		State,
+		{
+			updateContainerLoading: (
+				product: Product,
+				isLoading: boolean,
+			) => ({ setState, getState }: StoreAction) => void;
+			updateContainerCreated: (
+				product: Product,
+				isCreated: boolean,
+			) => ({ setState, getState }: StoreAction) => void;
+		}
+	>,
+	void
+> = createHook(store);
 
 export { useCreateContainers };

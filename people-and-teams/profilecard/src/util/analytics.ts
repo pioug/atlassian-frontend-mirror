@@ -8,8 +8,8 @@ export const PACKAGE_META_DATA: {
 	packageName: string;
 	packageVersion: string;
 } = {
-	packageName: process.env._PACKAGE_NAME_,
-	packageVersion: process.env._PACKAGE_VERSION_,
+	packageName: process.env._PACKAGE_NAME_ ?? '',
+	packageVersion: process.env._PACKAGE_VERSION_ ?? '',
 };
 
 type GenericAttributes = Record<string, string | number | boolean | undefined | string[]>;

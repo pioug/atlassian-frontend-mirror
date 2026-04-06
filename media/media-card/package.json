@@ -162,6 +162,9 @@
 		},
 		"platform_media_react19_support": {
 			"type": "boolean"
+		},
+		"platform_trace_id_tooltip_attachment_failures": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {

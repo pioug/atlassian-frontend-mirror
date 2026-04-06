@@ -191,6 +191,20 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			unregisterNodeDecoration: (type: string) => void;
 		};
 		commands: {
+			/**
+			 * Updates the transaction's selection based on the clicked drag handle position.
+			 *
+			 * - If the clicked handle is within an existing multi-block selection range, the selection
+			 *   is expanded to cover both the existing range and the clicked node's range.
+			 * - For tables, a table cell selection is used.
+			 * - Otherwise, selects the single node at the clicked handle position.
+			 */
+			expandAndUpdateSelection: (options: {
+				isShiftPressed: boolean;
+				nodeType: string;
+				selection: Selection;
+				startPos: number;
+			}) => EditorCommand;
 			handleKeyDownWithPreservedSelection: (event: KeyboardEvent) => EditorCommand;
 			mapPreservedSelection: (mapping: Mapping) => EditorCommand;
 			moveNode: MoveNode;

@@ -1371,6 +1371,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-02
+	platform_editor_ai_smartlink_toolbar_v2_exp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-11
 	platform_editor_renderer_error_boundary_stable_key: {
 		defaultValue: boolean;
@@ -3156,6 +3163,14 @@ export const editorExperimentsConfig: {
 	platform_editor_rovobutton_smartlink_toolbar_exp: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_rovobutton_smartlink_toolbar_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-02
+	platform_editor_ai_smartlink_toolbar_v2_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_smartlink_toolbar_v2_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -37,15 +37,10 @@ import {
 	TooltipContentWithMultipleShortcuts,
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
-import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/selection';
 import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { NodeRange, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import {
-	type Transaction,
-	TextSelection,
-	type Selection,
-} from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -53,7 +48,6 @@ import {
 	akEditorTableToolbarSize,
 	relativeSizeToBaseFontSize,
 } from '@atlaskit/editor-shared-styles/consts';
-import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -81,9 +75,9 @@ import {
 	shouldBeSticky,
 	shouldMaskNodeControls,
 } from '../pm-plugins/utils/drag-handle-positions';
+import { expandAndUpdateSelection } from '../pm-plugins/utils/expand-and-update-selection';
 import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
 import {
-	adjustSelectionBoundsForEdgePositions,
 	alignAnchorHeadInDirectionOfPos,
 	expandSelectionHeadToNodeAtPos,
 } from '../pm-plugins/utils/selection';
@@ -462,93 +456,6 @@ type DragHandleProps = {
 	view: EditorView;
 };
 
-const isPosWithinRange = (pos: number, range: NodeRange): boolean => {
-	return range.start <= pos && range.end >= pos + 1;
-};
-
-type CalculateSelectionBlockRangeOptions = {
-	doc: PMNode;
-	isShiftPressed: boolean;
-	resolvedStartPos: ResolvedPos;
-	selection: Selection;
-};
-
-/**
- * From the current selection and the position of the drag handle being clicked,
- * calculate the expanded block range up to the common ancestor.
- */
-const getExpandedSelectionRange = ({
-	selection,
-	doc,
-	resolvedStartPos,
-	isShiftPressed,
-}: CalculateSelectionBlockRangeOptions) => {
-	// When not pressing shift, expand the current selection
-	// When shift selecting upwards, expand from start of node to selection end
-	// When shift selecting downwards, expand from selection start to end of node
-	const selectUp = resolvedStartPos.pos < selection.from;
-	const $from = isShiftPressed && selectUp ? resolvedStartPos : selection.$from;
-	const $to = isShiftPressed && !selectUp ? doc.resolve(resolvedStartPos.pos + 1) : selection.$to;
-
-	const adjusted = isShiftPressed
-		? { $from, $to }
-		: adjustSelectionBoundsForEdgePositions($from, $to);
-
-	return expandToBlockRange(adjusted.$from, adjusted.$to);
-};
-
-type ExpandAndUpdateSelectionOptions = {
-	api: ExtractInjectionAPI<BlockControlsPlugin>;
-	isShiftPressed: boolean;
-	nodeType: string;
-	selection: Selection;
-	startPos: number;
-	tr: Transaction;
-};
-
-/**
- * Updates the transaction with preserved selection logic.
- * Sets selection to expanded selection range if it encompasses the clicked drag handle,
- * otherwise selects the clicked drag handle's node only.
- */
-const expandAndUpdateSelection = ({
-	tr,
-	selection,
-	startPos,
-	isShiftPressed,
-	nodeType,
-	api,
-}: ExpandAndUpdateSelectionOptions): void => {
-	const resolvedStartPos = tr.doc.resolve(startPos);
-
-	const expandedRange = getExpandedSelectionRange({
-		doc: tr.doc,
-		selection,
-		resolvedStartPos,
-		isShiftPressed,
-	});
-
-	// Set selection to expanded selection range if it encompases the clicked drag handle
-	if (
-		expandedRange.range &&
-		isPosWithinRange(startPos, expandedRange.range) &&
-		isMultiBlockRange(expandedRange.range)
-	) {
-		// Then create a selection from the start of the first node to the end of the last node
-		tr.setSelection(
-			TextSelection.create(
-				tr.doc,
-				Math.min(selection.from, expandedRange.$from.pos),
-				Math.max(selection.to, expandedRange.$to.pos),
-			),
-		);
-	} else if (nodeType === 'table') {
-		selectTableClosestToPos(tr, tr.doc.resolve(startPos + 1));
-	} else {
-		// Select the clicked drag handle's node only
-		selectNode(tr, startPos, nodeType, api);
-	}
-};
 
 export const DragHandle = ({
 	view,

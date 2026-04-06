@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 54.0.1
+
+### Patch Changes
+
+- [`cfd14d8f3b8df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfd14d8f3b8df) -
+  [ux] Hide unreleased changes behind new experiment as they have been cut from v1 experiment scope
+
 ## 54.0.0
 
 ### Major Changes

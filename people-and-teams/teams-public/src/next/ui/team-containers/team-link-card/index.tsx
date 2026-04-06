@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import { token } from '@atlaskit/tokens';
@@ -163,7 +162,7 @@ export const TeamLinkCard = ({
 		>
 			<Inline
 				space="space.100"
-				xcss={cx(styles.card, fg('enable-fix-team-container-height') ? styles.cardHeight : null)}
+				xcss={cx(styles.card, styles.cardHeight)}
 			>
 				<ContainerIcon
 					containerType={containerType}

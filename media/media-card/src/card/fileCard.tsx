@@ -964,6 +964,7 @@ export const FileCard = ({
 				onSvgLoad={onSvgLoad}
 				nativeLazyLoad={nativeLazyLoad}
 				forceSyncDisplay={forceSyncDisplay}
+				traceId={traceContext.traceId}
 				mediaCardCursor={mediaCardCursor}
 				shouldHideTooltip={shouldHideTooltip}
 				overriddenCreationDate={overridenDate}

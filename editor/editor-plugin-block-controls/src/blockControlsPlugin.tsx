@@ -2,7 +2,7 @@ import React from 'react';
 
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type { DIRECTION, PMPlugin } from '@atlaskit/editor-common/types';
+import type { DIRECTION, ExtractInjectionAPI, PMPlugin } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
@@ -35,6 +35,7 @@ import {
 } from './pm-plugins/selection-preservation/editor-commands';
 import { selectionPreservationPluginKey } from './pm-plugins/selection-preservation/plugin-key';
 import { createSelectionPreservationPlugin } from './pm-plugins/selection-preservation/pm-plugin';
+import { expandAndUpdateSelection } from './pm-plugins/utils/expand-and-update-selection';
 import { selectNode } from './pm-plugins/utils/getSelection';
 import { GlobalStylesWrapper } from './ui/global-styles';
 
@@ -100,6 +101,19 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 		},
 
 		commands: {
+			expandAndUpdateSelection:
+				({ startPos, selection, isShiftPressed, nodeType }) =>
+				({ tr }) => {
+					expandAndUpdateSelection({
+						tr,
+						selection,
+						startPos,
+						isShiftPressed,
+						nodeType,
+						api: api as ExtractInjectionAPI<BlockControlsPlugin>,
+					});
+					return tr;
+				},
 			moveNode: moveNode(api),
 			moveToLayout: moveToLayout(api),
 			showDragHandleAt:

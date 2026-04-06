@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.1.0
+
+### Minor Changes
+
+- [`81e6d01a5d2b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81e6d01a5d2b5) -
+  Expose expandAndUpdateSelection as a plugin command so other plugins can update the ProseMirror
+  selection using the same block-control click logic
+
 ## 9.0.33
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 import React, { type MouseEvent, useEffect, useState, useRef, useMemo } from 'react';
-import { type MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor, defineMessages, useIntl } from 'react-intl-next';
 
 import {
 	type MediaItemType,
@@ -55,6 +55,14 @@ import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { SvgView } from './svgView';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+const i18n = defineMessages({
+	traceIdTooltip: {
+		id: 'fabric.media.trace_id_tooltip',
+		defaultMessage: 'Use Trace ID {traceId} when reaching out to support.',
+		description: 'Tooltip content showing the trace identifier for troubleshooting file preview errors',
+	},
+});
+
 export interface CardViewProps {
 	readonly identifier: Identifier;
 	readonly disableOverlay?: boolean;
@@ -90,6 +98,7 @@ export interface CardViewProps {
 	readonly onSvgLoad?: () => void;
 	readonly nativeLazyLoad?: boolean;
 	readonly forceSyncDisplay?: boolean;
+	readonly traceId?: string;
 	// Used to disable animation for testing purposes
 	disableAnimation?: boolean;
 	shouldHideTooltip?: boolean;
@@ -97,6 +106,8 @@ export interface CardViewProps {
 }
 
 export type CardViewBaseProps = CardViewProps & WithAnalyticsEventsProps;
+
+type TraceTooltipVariant = 'preview-unavailable' | 'failed-to-load';
 
 export interface RenderConfigByStatus {
 	renderTypeIcon?: boolean;
@@ -112,6 +123,7 @@ export interface RenderConfigByStatus {
 	renderFailedTitleBox?: boolean;
 	renderTickBox?: boolean;
 	customTitleMessage?: MessageDescriptor;
+	traceTooltipVariant?: TraceTooltipVariant;
 }
 
 export const CardViewBase = ({
@@ -147,7 +159,9 @@ export const CardViewBase = ({
 	overriddenCreationDate,
 	onSvgError,
 	onSvgLoad,
+	traceId,
 }: CardViewBaseProps): React.JSX.Element => {
+	const intl = useIntl();
 	const [didSvgRender, setDidSvgRender] = useState<boolean>(false);
 	const [didImageRender, setDidImageRender] = useState<boolean>(false);
 	const divRef = useRef<HTMLDivElement>(null);
@@ -250,6 +264,7 @@ export const CardViewBase = ({
 
 				let iconMessage;
 				let customTitleMessage;
+				let traceTooltipVariant: TraceTooltipVariant | undefined;
 				if (isUploadError(error)) {
 					iconMessage = <FailedToUpload />;
 					customTitleMessage = messages.failed_to_upload;
@@ -258,8 +273,10 @@ export const CardViewBase = ({
 					customTitleMessage = messages.check_internet_connection;
 				} else if (!metadata) {
 					iconMessage = <FailedToLoad />;
+					traceTooltipVariant = 'failed-to-load';
 				} else {
 					iconMessage = <PreviewUnavailable />;
+					traceTooltipVariant = 'preview-unavailable';
 				}
 
 				if (!disableOverlay) {
@@ -270,11 +287,13 @@ export const CardViewBase = ({
 						renderFailedTitleBox,
 						iconMessage: !renderFailedTitleBox ? iconMessage : undefined,
 						customTitleMessage,
+						traceTooltipVariant,
 					};
 				}
 				return {
 					...baseErrorConfig,
 					iconMessage,
+					traceTooltipVariant,
 				};
 			case 'loading-preview':
 			case 'loading':
@@ -297,15 +316,23 @@ export const CardViewBase = ({
 		renderTickBox,
 		isFixedBlanket,
 		customTitleMessage,
+		traceTooltipVariant,
 	} = getRenderConfigByStatus();
 	const shouldDisplayBackground =
 		!cardPreview || !disableOverlay || status === 'error' || status === 'failed-processing';
 	const isPlayButtonClickable = shouldRenderPlayButton() && !!disableOverlay;
 	const isTickBoxSelectable = !disableOverlay && !!selectable && !selected;
-	// Disable tooltip for Media Single
-	const shouldDisplayTooltip = !disableOverlay && !shouldHideTooltip;
 
 	const { mediaType, mimeType, name, createdAt } = metadata || {};
+	const shouldShowTraceIdTooltip =
+		!!traceTooltipVariant &&
+		!!traceId &&
+		fg('platform_trace_id_tooltip_attachment_failures');
+	const tooltipContent = shouldShowTraceIdTooltip
+		? intl.formatMessage(i18n.traceIdTooltip, { traceId })
+		: name;
+	// Disable tooltip for Media Single
+	const shouldDisplayTooltip = !disableOverlay && !shouldHideTooltip;
 
 	const isTitleBoxVisible = renderTitleBox && name;
 	const hasVisibleTitleBox = !!(isTitleBoxVisible || renderFailedTitleBox);
@@ -445,7 +472,7 @@ export const CardViewBase = ({
 				shouldDisplayTooltip={shouldDisplayTooltip}
 			>
 				{shouldDisplayTooltip ? (
-					<Tooltip content={name} position="bottom" tag="div">
+					<Tooltip content={tooltipContent} position="bottom" tag="div">
 						{contents}
 					</Tooltip>
 				) : (

@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.73.0
+
+### Minor Changes
+
+- [`336c2e0b7bbff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/336c2e0b7bbff) -
+  Remove enable-fix-team-container-height feature gate and enable height fix permanently
+
 ## 0.72.2
 
 ### Patch Changes

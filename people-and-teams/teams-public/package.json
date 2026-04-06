@@ -118,7 +118,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.72.2",
+	"version": "0.73.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -140,9 +140,6 @@
 			"type": "boolean"
 		},
 		"enable_multi_team_containers_state": {
-			"type": "boolean"
-		},
-		"enable-fix-team-container-height": {
 			"type": "boolean"
 		},
 		"ptc-missed-analytics-migration-events": {

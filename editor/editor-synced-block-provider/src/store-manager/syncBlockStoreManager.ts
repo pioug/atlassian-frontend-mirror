@@ -3,6 +3,7 @@ import { useMemo, useRef } from 'react';
 import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
@@ -32,11 +33,14 @@ export class SyncBlockStoreManager {
 	private fetchReferencesExperience: Experience | undefined;
 	private fetchSourceInfoExperience: Experience | undefined;
 
-	constructor(dataProvider?: SyncBlockDataProviderInterface) {
+	constructor(dataProvider?: SyncBlockDataProviderInterface, viewMode?: ViewMode) {
 		// In future, if reference manager needs to reach to source manager and read its current in memory cache
 		// we can pass the source manager as a parameter to the reference manager constructor
-		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider);
-		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(dataProvider);
+		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider, viewMode);
+		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(
+			dataProvider,
+			viewMode,
+		);
 		this.dataProvider = dataProvider;
 		this.referenceSyncBlockStoreManager.setRealTimeSubscriptionsEnabled(true);
 	}
@@ -61,94 +65,7 @@ export class SyncBlockStoreManager {
 
 			if (!response.references || response.references?.length === 0) {
 				if (fg('platform_synced_block_patch_8')) {
-					// No reference found
-					if (isSourceSyncBlock) {
-						// Verify that a reference sync block for this specific source actually
-						// exists on the current page by checking if the reference manager has
-						// an active subscription for the derived reference resourceId.
-						const referenceResourceId =
-							this.referenceSyncBlockStoreManager.generateResourceIdForReference(resourceId);
-						const hasUnregisteredReferenceOnPage = this.referenceSyncBlockStoreManager
-							.getSubscribedResourceIds()
-							.includes(referenceResourceId);
-
-						if (hasUnregisteredReferenceOnPage) {
-							// This is current page data. It is the same for data for source and reference
-							const sourceSyncBlockData =
-								await this.sourceSyncBlockStoreManager.getSyncBlockSourceInfo(blockInstanceId);
-							const references: SyncBlockSourceInfo[] = [];
-
-							if (sourceSyncBlockData) {
-								references.push({
-									...sourceSyncBlockData,
-									onSameDocument: Boolean(sourceSyncBlockData?.onSameDocument),
-									hasAccess: true,
-									isSource: true,
-								});
-							}
-
-							const unregisteredReferenceData =
-								await this.referenceSyncBlockStoreManager.fetchSyncBlockSourceInfo(
-									referenceResourceId,
-								);
-							if (unregisteredReferenceData) {
-								references.push({
-									...unregisteredReferenceData,
-									onSameDocument: true,
-									hasAccess: true,
-									isSource: false,
-								});
-							}
-
-							this.fetchReferencesExperience?.success();
-							return { references };
-						}
-
-						// No remote or local reference exists — show info text with link to doco on how to use Synced Blocks
-						this.fetchReferencesExperience?.success();
-						return { references: [] };
-					}
-
-					if (!isSourceSyncBlock) {
-						// Though no references registered yet for this reference sync block,
-						// still show the source and the current page itself since they are known
-						// but not saved yet.
-						const references: SyncBlockSourceInfo[] = [];
-
-						const sourceSyncBlockData =
-							await this.referenceSyncBlockStoreManager.fetchSyncBlockSourceInfo(resourceId);
-						if (sourceSyncBlockData) {
-							references.push({
-								...sourceSyncBlockData,
-								onSameDocument: Boolean(sourceSyncBlockData?.onSameDocument),
-								hasAccess: true,
-								isSource: true,
-							});
-						}
-
-						const currentPageData =
-							await this.referenceSyncBlockStoreManager.fetchSyncBlockSourceInfoByLocalId(
-								blockInstanceId,
-							);
-						if (currentPageData) {
-							references.push({
-								...currentPageData,
-								onSameDocument: true,
-								hasAccess: true,
-								isSource: false,
-							});
-						}
-
-						if (references.length === 0) {
-							this.fetchReferencesExperience?.failure({
-								reason: 'No references found for reference synced block',
-							});
-							return { error: SyncBlockError.Errored };
-						}
-
-						this.fetchReferencesExperience?.success();
-						return { references };
-					}
+					return this.getUnregisteredReferences(resourceId, blockInstanceId, isSourceSyncBlock);
 				} else {
 					// No reference found
 					if (isSourceSyncBlock) {
@@ -237,6 +154,91 @@ export class SyncBlockStoreManager {
 
 		this.fetchReferencesExperience?.abort({ reason: 'editorDestroyed' });
 		this.fetchSourceInfoExperience?.abort({ reason: 'editorDestroyed' });
+	}
+
+	private async getUnregisteredReferences(
+		resourceId: ResourceId,
+		blockInstanceId: BlockInstanceId,
+		isSourceSyncBlock: boolean,
+	): Promise<ReferencesSourceInfo> {
+		// No reference found
+		if (isSourceSyncBlock) {
+			// Verify that a reference sync block for this specific source actually
+			// exists on the current page by checking if the reference manager has
+			// an active subscription for the derived reference resourceId.
+			const referenceResourceId =
+				this.referenceSyncBlockStoreManager.generateResourceIdForReference(resourceId);
+			const hasUnregisteredReferenceOnPage = this.referenceSyncBlockStoreManager
+				.getSubscribedResourceIds()
+				.includes(referenceResourceId);
+
+			if (hasUnregisteredReferenceOnPage) {
+				// This is current page data. It is the same for data for source and reference
+				const sourceSyncBlockData =
+					await this.sourceSyncBlockStoreManager.getSyncBlockSourceInfo(blockInstanceId);
+				const references: SyncBlockSourceInfo[] = [];
+
+				if (sourceSyncBlockData) {
+					const sourceSyncBlockReference = {
+						...sourceSyncBlockData,
+						onSameDocument: true,
+						hasAccess: true,
+						isSource: true,
+					};
+					const referenceSyncBlockReference = {
+						...sourceSyncBlockData,
+						onSameDocument: true,
+						hasAccess: true,
+						isSource: false,
+					};
+					references.push(sourceSyncBlockReference, referenceSyncBlockReference);
+				}
+
+				this.fetchReferencesExperience?.success();
+				return { references };
+			}
+
+			// No remote or local reference exists — show info text with link to doco on how to use Synced Blocks
+			this.fetchReferencesExperience?.success();
+			return { references: [] };
+		}
+
+		// Though no references registered yet for this reference sync block,
+		// still show the source and the current page itself since they are known
+		// but not saved yet.
+		const references: SyncBlockSourceInfo[] = [];
+
+		const sourceSyncBlockData =
+			await this.referenceSyncBlockStoreManager.fetchSyncBlockSourceInfo(resourceId);
+		if (sourceSyncBlockData) {
+			references.push({
+				...sourceSyncBlockData,
+				onSameDocument: Boolean(sourceSyncBlockData?.onSameDocument),
+				hasAccess: true,
+				isSource: true,
+			});
+		}
+
+		const currentPageData =
+			await this.referenceSyncBlockStoreManager.fetchSyncBlockSourceInfoByLocalId(blockInstanceId);
+		if (currentPageData) {
+			references.push({
+				...currentPageData,
+				onSameDocument: true,
+				hasAccess: true,
+				isSource: false,
+			});
+		}
+
+		if (references.length === 0) {
+			this.fetchReferencesExperience?.failure({
+				reason: 'No references found for reference synced block',
+			});
+			return { error: SyncBlockError.Errored };
+		}
+
+		this.fetchReferencesExperience?.success();
+		return { references };
 	}
 }
 

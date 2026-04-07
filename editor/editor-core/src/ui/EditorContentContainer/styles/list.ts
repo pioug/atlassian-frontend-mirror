@@ -251,13 +251,19 @@ export const listItemHiddenMarkerStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			marginTop: '0 !important',
 		},
-		// Collapse wrapper task items (empty task items followed by a sibling nested task list)
-		// Only hides empty task items that are actual wrappers, not regular empty task items being edited
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'[data-prosemirror-node-name="taskItem"]:has([data-empty="true"]):has(+ [data-node-type="actionList"])':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-				display: 'none !important',
-			},
+		// Remove top margin from nested taskLists not preceded by a sibling taskItem.
+		// The base rule (tasksAndDecisionsStyles) sets margin-top on all nested taskLists,
+		// but with flexible indentation a taskList can be the first child with no taskItem above.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'div[data-task-list-local-id] > div[data-task-list-local-id]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			marginTop: '0 !important',
+		},
+		// Restore margin when a nested taskList follows a taskItem
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'div[data-task-local-id] + div[data-task-list-local-id]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			marginTop: `${token('space.050')} !important`,
+		},
 	},
 });

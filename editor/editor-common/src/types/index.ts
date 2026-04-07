@@ -76,7 +76,6 @@ export type {
 	FloatingToolbarItem,
 	FloatingToolbarConfig,
 	FloatingToolbarHandler,
-	FloatingToolbarButtonSpotlightConfig,
 	typeOption,
 	FloatingToolbarOverflowDropdown,
 	FloatingToolbarOverflowDropdownOptions,

@@ -1,0 +1,44 @@
+import React from 'react';
+
+import { type LozengeProps } from '../../../types';
+import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
+import { type HoverPreviewOptions } from '../../HoverCard/types';
+
+export interface InlineCardResolvedViewFunctionalProps {
+	/** Configure visibility of server and client actions */
+	actionOptions?: CardActionOptions;
+	/**
+	 * When set to true, the loading skeleton for the image icon will be hidden,
+	 * the image will be rendered directly.
+	 */
+	hideIconLoadingSkeleton?: boolean;
+	hoverPreviewOptions?: HoverPreviewOptions;
+	/** The optional con of the service (e.g. Dropbox/Asana/Google/etc) to display */
+	icon?: React.ReactNode;
+	/** A unique ID for a Smart Link. */
+	id?: string;
+	/** A flag that determines whether a card is in hover state in edit mode. Currently used for inline only */
+	isHovered?: boolean;
+	/** A flag that determines whether the card is selected in edit mode. */
+	isSelected?: boolean;
+	/** The optional url */
+	link?: string;
+	/** The the optional lozenge that might represent the statux of the resource */
+	lozenge?: LozengeProps;
+	/** The optional click handler */
+	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	/** Enables showing a custom preview on hover of link */
+	showHoverPreview?: boolean;
+	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+	testId?: string;
+	/** The name of the resource */
+	title?: string;
+	/** The Emoji icon prefix that was added to the title text via Add emoji button */
+	titlePrefix?: React.ReactNode;
+	/** The color of the title text only (not including the icon) */
+	titleTextColor?: string;
+	/** Truncates the card to one line */
+	truncateInline?: boolean;
+	/** Type of inline card */
+	type?: string[];
+}

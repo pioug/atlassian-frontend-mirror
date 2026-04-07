@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useEffect, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect } from 'react';
 import type { Ref } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
@@ -10,10 +10,8 @@ import Tooltip from '@atlaskit/tooltip';
 import type { TooltipProps } from '@atlaskit/tooltip';
 
 import type { ButtonAppearance } from '../../types';
-import type { FloatingToolbarButtonSpotlightConfig } from '../../types/floating-toolbar';
 import { Pulse } from '../Pulse/Pulse';
 
-import { ButtonSpotlightCard } from './ButtonSpotlightCard';
 import { getButtonStyles, iconOnlySpacing } from './styles';
 
 const customSizeAndPadding = {
@@ -51,7 +49,6 @@ export interface Props {
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
 	selected?: boolean;
-	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
 	tabIndex?: number | null | undefined;
 	target?: string;
 	testId?: string;
@@ -93,7 +90,6 @@ const FloatingToolbarButton = (
 		ariaLabel,
 		isRadioButton,
 		pulse,
-		spotlightConfig,
 		areAnyNewToolbarFlagsEnabled,
 	}: Props,
 	forwardedRef?: Ref<HTMLElement>,
@@ -108,27 +104,18 @@ const FloatingToolbarButton = (
 	 */
 	const ariaChecked = isRadioButton ? Boolean(isButtonPressed) : undefined;
 	const ariaPressed = isRadioButton ? undefined : isButtonPressed;
-	const [spotlightReferenceElement, setSpotlightReferenceElement] = useState<HTMLElement | null>(
-		null,
-	);
-
 	useEffect(() => {
 		onMount?.();
 		return () => onUnmount?.();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const onSpotlightTargetClick = spotlightConfig?.isSpotlightOpen
-		? spotlightConfig?.onTargetClick
-		: undefined;
 	const handleOnClick = useCallback(
 		(event: React.MouseEvent) => {
-			// fire the spotlight onTargetClick callback if a spotlight is rendered and callback is provided
-			onSpotlightTargetClick?.();
 
 			onClick?.(event);
 		},
-		[onClick, onSpotlightTargetClick],
+		[onClick],
 	);
 
 	return (
@@ -158,15 +145,17 @@ const FloatingToolbarButton = (
 							: onMouseLeave
 					}
 				>
-					<Pulse pulse={pulse || spotlightConfig?.pulse}>
+					<Pulse
+						pulse={
+							!expValEquals('platform_editor_spotlight_migration', 'isEnabled', true) && pulse
+						}
+					>
 						{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
 						<Button
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 							className={className}
 							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							ref={(buttonElement) => {
-								setSpotlightReferenceElement(buttonElement);
-
 								if (forwardedRef && editorExperiment('platform_synced_block', true)) {
 									if (typeof forwardedRef === 'function') {
 										forwardedRef(buttonElement);
@@ -236,14 +225,6 @@ const FloatingToolbarButton = (
 					</Pulse>
 				</div>
 			</Tooltip>
-			{spotlightConfig?.isSpotlightOpen && spotlightReferenceElement && (
-				<ButtonSpotlightCard
-					referenceElement={spotlightReferenceElement}
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...spotlightConfig.spotlightCardOptions}
-				/>
-			)}
 		</>
 	);
 };

@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 import { head, rows } from './content/sample-data';
 
-const paddingStyle = { padding: `${token('space.100', '8px')} 0` };
+const paddingStyle = { padding: `${token('space.100')} 0` };
 
 const rowsWithTabIndex: Array<RowType> = rows.map((row) => ({
 	...row,

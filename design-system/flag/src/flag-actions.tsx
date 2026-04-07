@@ -29,15 +29,15 @@ const buttonStyles = css({
 		background: 'var(--bg-color)',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 		color: 'var(--color) !important',
-		fontWeight: token('font.weight.medium', '500'),
+		fontWeight: token('font.weight.medium'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 		paddingBlockEnd: '0 !important',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 		paddingBlockStart: '0 !important',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-		paddingInlineEnd: `${token('space.100', '8px')} !important`,
+		paddingInlineEnd: `${token('space.100')} !important`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-		paddingInlineStart: `${token('space.100', '8px')} !important`,
+		paddingInlineStart: `${token('space.100')} !important`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&:hover, &&:active, a&&:hover, a&&:active': {

@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 217.10.1
+
+### Patch Changes
+
+- [`3e18e5bea1aa1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e18e5bea1aa1) -
+  Fixed cursor placement when pressing Enter at the start of a nested task item. Fixed extra spacing
+  on nested task lists when flexible list indentation is enabled.
+- Updated dependencies
+
 ## 217.10.0
 
 ### Minor Changes

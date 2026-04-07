@@ -51,11 +51,11 @@ const styles = cssMap({
 	},
 	hideIconHeaderWrapper: {
 		opacity: 0,
-		marginLeft: token('space.negative.300', '-24px'),
+		marginLeft: token('space.negative.300'),
 	},
 	visibleHeaderWrapper: {
 		opacity: 1,
-		paddingRight: token('space.050', '4px'),
+		paddingRight: token('space.050'),
 	},
 });
 

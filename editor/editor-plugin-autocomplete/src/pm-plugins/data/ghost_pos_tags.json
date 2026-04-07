@@ -1,3 +1,43 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a8357bafa20d1c275be5190513664e221d9fe3c1cbdb300383017232e1dd7891
-size 2007
+{
+    "a": ["DET"], "an": ["DET"], "the": ["DET"], 
+    "this": ["DET", "PRON"], "that": ["DET", "PRON", "SCONJ"], 
+    "these": ["DET", "PRON"], "those": ["DET", "PRON"],
+
+    "my": ["DET"], "your": ["DET"], "his": ["DET"], "her": ["DET"], 
+    "its": ["DET"], "our": ["DET"], "their": ["DET"],
+
+    "in": ["ADP"], "on": ["ADP"], "at": ["ADP"], "for": ["ADP"], 
+    "with": ["ADP"], "about": ["ADP"], "of": ["ADP"], "by": ["ADP"], 
+    "from": ["ADP"], "as": ["ADP", "SCONJ"], "into": ["ADP"], 
+    "through": ["ADP"], "after": ["ADP"], "over": ["ADP"], 
+    "between": ["ADP"], "out": ["ADP"], "against": ["ADP"], 
+    "during": ["ADP"], "without": ["ADP"], "before": ["ADP"], 
+    "under": ["ADP"], "around": ["ADP"], "among": ["ADP"],
+
+    "to": ["PART", "ADP"],
+    "not": ["PART", "ADV"],
+
+    "i": ["PRON"], "you": ["PRON"], "he": ["PRON"], "she": ["PRON"], 
+    "it": ["PRON"], "we": ["PRON"], "they": ["PRON"],
+    "me": ["PRON"], "him": ["PRON"], "us": ["PRON"], "them": ["PRON"],
+    "what": ["PRON"], "who": ["PRON"], "which": ["PRON"], "whom": ["PRON"],
+
+    "and": ["CCONJ"], "or": ["CCONJ"], "but": ["CCONJ"], 
+    "so": ["ADV", "CCONJ"], "because": ["SCONJ"], "if": ["SCONJ"], 
+    "when": ["SCONJ", "ADV"], "while": ["SCONJ"], "although": ["SCONJ"], 
+    "though": ["SCONJ"], "since": ["SCONJ", "ADP"], "unless": ["SCONJ"],
+
+    "is": ["VERB"], "am": ["VERB"], "are": ["VERB"], "was": ["VERB"], 
+    "were": ["VERB"], "be": ["VERB"], "been": ["VERB"], 
+    "has": ["VERB"], "have": ["VERB"], "had": ["VERB"], 
+    "do": ["VERB"], "does": ["VERB"], "did": ["VERB"],
+
+    "can": ["VERB"], "could": ["VERB"], "will": ["VERB"], "would": ["VERB"], 
+    "shall": ["VERB"], "should": ["VERB"], "may": ["VERB"], "might": ["VERB"], 
+    "must": ["VERB"],
+
+    "very": ["ADV"], "too": ["ADV"], "always": ["ADV"], "never": ["ADV"],
+    "just": ["ADV"], "really": ["ADV"], "also": ["ADV"], "only": ["ADV"], 
+    "well": ["ADV"], "even": ["ADV"], "still": ["ADV"], "now": ["ADV"], 
+    "then": ["ADV"]
+}

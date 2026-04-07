@@ -19,9 +19,9 @@ const labelStyles = css({
 	display: 'inline-block',
 	color: token('color.text.subtlest'),
 	font: token('font.body.small'),
-	fontWeight: token('font.weight.semibold', '600'),
-	marginBlockEnd: token('space.050', '4px'),
-	marginBlockStart: token('space.0', '0px'),
+	fontWeight: token('font.weight.semibold'),
+	marginBlockEnd: token('space.050'),
+	marginBlockStart: token('space.0'),
 });
 
 const blanketStyles = cssMap({

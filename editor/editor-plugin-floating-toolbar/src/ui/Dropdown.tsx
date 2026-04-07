@@ -14,7 +14,6 @@ import type {
 	DropdownOptions,
 	DropdownOptionT,
 	ExtensionDropdownOptions,
-	FloatingToolbarButtonSpotlightConfig,
 	FloatingToolbarOverflowDropdownOptions,
 } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
@@ -91,7 +90,6 @@ export interface Props {
 	shouldFitContainer?: boolean;
 	// Show a check next to selected dropdown menu items (true by default)
 	showSelected?: boolean;
-	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
 	title: string;
 	tooltip?: string;
 }
@@ -127,7 +125,6 @@ export default class Dropdown extends Component<Props, State> {
 			footer,
 			onMount,
 			pulse,
-			spotlightConfig,
 			shouldFitContainer,
 			alignX,
 			areAnyNewToolbarFlagsEnabled,
@@ -149,7 +146,6 @@ export default class Dropdown extends Component<Props, State> {
 					ariaHasPopup={areAnyNewToolbarFlagsEnabled ? true : undefined}
 					onMount={onMount}
 					pulse={pulse}
-					spotlightConfig={spotlightConfig}
 					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
 			);
@@ -177,7 +173,6 @@ export default class Dropdown extends Component<Props, State> {
 					areaControls={dropdownListId}
 					onMount={onMount}
 					pulse={pulse}
-					spotlightConfig={spotlightConfig}
 					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				>
 					{title}

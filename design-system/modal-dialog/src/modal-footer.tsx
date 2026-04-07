@@ -16,7 +16,7 @@ const footerStyles = css({
 	position: 'relative',
 	alignItems: 'center',
 	justifyContent: 'flex-end',
-	gap: token('space.100', '8px'),
+	gap: token('space.100'),
 	marginBlockStart: token('space.negative.025'),
 	paddingBlockEnd: token('space.300'),
 	paddingBlockStart: token('space.200'),

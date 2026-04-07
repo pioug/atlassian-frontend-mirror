@@ -1,3 +1,14 @@
-// This file will contain the autocomplete plugin type definitions.
-// The full implementation will be added in a follow-up PR.
-export type AutocompletePlugin = () => { name: 'autocomplete' };
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+
+import type {
+	AutocompletePluginOptions,
+	AutocompletePluginState,
+} from './pm-plugins/autocomplete-plugin';
+
+export type AutocompletePlugin = NextEditorPlugin<
+	'autocomplete',
+	{
+		pluginConfiguration?: AutocompletePluginOptions | undefined;
+		sharedState: AutocompletePluginState | undefined;
+	}
+>;

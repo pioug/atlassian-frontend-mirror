@@ -28,7 +28,7 @@ const RIGHT_EDGE_SELECTOR = '[data-blocks-right-edge-button-container]';
 
 /**
  * Process hover position and set left/right side. Only invoked when right-side controls are
- * enabled (confluence_remix_icon_right_side); handleMouseMove returns early otherwise.
+ * enabled (confluence_remix_button_right_side_block_fg); handleMouseMove returns early otherwise.
  */
 const processHoverSide = (view: EditorView) => {
 	const event = pendingByView.get(view);
@@ -103,7 +103,7 @@ export const handleMouseMove = (
 		stopEditing(view);
 	}
 
-	// Only track hover side when right-side controls are enabled (single source: confluence_remix_icon_right_side via config)
+	// Only track hover side when right-side controls are enabled (single source: confluence_remix_button_right_side_block_fg via config)
 	if (!rightSideControlsEnabled) {
 		return false;
 	}

@@ -69,7 +69,7 @@ const headCellBaseStyles = css({
 	position: 'relative',
 	borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border')}`,
 	borderBlockStart: `none`,
-	color: token('color.text.subtle', `var(${CSS_VAR_TEXT_COLOR})`),
+	color: token('color.text.subtle'),
 	font: token('font.body.small'),
 	// eslint-disable-next-line @compiled/shorthand-property-sorting
 	fontWeight: token('font.weight.bold'),

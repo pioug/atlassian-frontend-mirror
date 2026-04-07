@@ -10,10 +10,10 @@ import { appearances, RANDOM_USERS } from '../examples-util/data';
 
 const styles = cssMap({
 	container: {
-		marginBlockStart: token('space.100', '8px'),
-		marginInlineEnd: token('space.100', '8px'),
-		marginBlockEnd: token('space.100', '8px'),
-		marginInlineStart: token('space.100', '8px'),
+		marginBlockStart: token('space.100'),
+		marginInlineEnd: token('space.100'),
+		marginBlockEnd: token('space.100'),
+		marginInlineStart: token('space.100'),
 		textAlign: 'center',
 	},
 });

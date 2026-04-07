@@ -25,7 +25,7 @@ const styles = cssMap({
 		borderColor: 'transparent',
 		borderRadius: token('radius.small', '3px'),
 		borderStyle: 'solid',
-		borderWidth: token('border.width.selected', '2px'),
+		borderWidth: token('border.width.selected'),
 		color: 'inherit',
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: 'inherit',
@@ -47,21 +47,21 @@ const styles = cssMap({
 	},
 	rootDisabled: {
 		cursor: 'not-allowed',
-		opacity: token('opacity.disabled', '0.5'),
+		opacity: token('opacity.disabled'),
 		pointerEvents: 'none',
 	},
 	rootInteractive: {
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered', '#EBECF0'),
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
 			cursor: 'pointer',
 			textDecoration: 'none',
 		},
 		'&:focus': {
-			borderColor: token('color.border.focused', '#2684FF'),
+			borderColor: token('color.border.focused'),
 			outline: 'none',
 		},
 		'&:active': {
-			backgroundColor: token('color.background.neutral.subtle.pressed', '#DEEBFF'),
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
 	},
 	avatarItem: {

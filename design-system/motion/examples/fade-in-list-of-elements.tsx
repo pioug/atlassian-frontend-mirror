@@ -22,8 +22,8 @@ import { Block, RetryContainer } from './utils';
 const ulStyles = css({
 	maxWidth: '474px',
 	padding: 0,
-	marginBlockEnd: token('space.200', '16px'),
-	marginBlockStart: token('space.200', '16px'),
+	marginBlockEnd: token('space.200'),
+	marginBlockStart: token('space.200'),
 	marginInlineEnd: 'auto',
 	marginInlineStart: 'auto',
 });
@@ -31,17 +31,17 @@ const ulStyles = css({
 const liStyles = css({
 	display: 'block',
 	padding: 0,
-	marginBlockEnd: token('space.100', '8px'),
-	marginBlockStart: token('space.100', '8px'),
-	marginInlineEnd: token('space.100', '8px'),
-	marginInlineStart: token('space.100', '8px'),
+	marginBlockEnd: token('space.100'),
+	marginBlockStart: token('space.100'),
+	marginInlineEnd: token('space.100'),
+	marginInlineStart: token('space.100'),
 });
 
 const innerDivStyles = css({
 	display: 'flex',
 	width: '100%',
 	alignItems: 'center',
-	paddingInlineStart: token('space.100', '8px'),
+	paddingInlineStart: token('space.100'),
 });
 
 const logos = [

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-autocomplete",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "Client-side text autocomplete plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,7 +27,10 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./src/pm-plugins/autocomplete-plugin": "./src/pm-plugins/autocomplete-plugin.ts",
+		"./src/pm-plugins/slow-lane-client": "./src/pm-plugins/slow-lane-client.ts",
+		"./src/pm-plugins/text-predictor": "./src/pm-plugins/text-predictor.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",

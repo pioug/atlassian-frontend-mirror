@@ -14,8 +14,8 @@ import { token } from '@atlaskit/tokens';
 
 const baseStyles = css({
 	display: 'block',
-	margin: `${token('space.150', '12px')} 0`,
-	padding: token('space.100', '8px'),
+	margin: `${token('space.150')} 0`,
+	padding: token('space.100'),
 	border: 'none',
 	borderRadius: token('radius.small', '3px'),
 	font: 'inherit',
@@ -24,8 +24,8 @@ const baseStyles = css({
 const stackStyles = css({
 	display: 'flex',
 	maxWidth: 300,
-	padding: token('space.100', '8px'),
-	gap: token('space.100', '8px'),
+	padding: token('space.100'),
+	gap: token('space.100'),
 	flexDirection: 'column',
 });
 

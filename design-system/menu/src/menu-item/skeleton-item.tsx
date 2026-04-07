@@ -11,20 +11,18 @@ import { token } from '@atlaskit/tokens';
 import type { SkeletonItemProps } from '../types';
 
 const skeletonItemElemSize = 20;
-const N20A = 'rgba(9, 30, 66, 0.04)';
-const N30A = 'rgba(9, 30, 66, 0.08)';
 
 const styles = cssMap({
 	root: {
 		display: 'flex',
 		minHeight: 40,
-		paddingBlock: token('space.0', '0'),
-		paddingInline: token('space.250', '20px'),
+		paddingBlock: token('space.0'),
+		paddingInline: token('space.250'),
 		alignItems: 'center',
 		pointerEvents: 'none',
 		'&::after': {
 			height: 9,
-			backgroundColor: token('color.skeleton', N20A),
+			backgroundColor: token('color.skeleton'),
 			borderRadius: 100,
 			content: '""',
 			// This is a little bespoke but we need to push everything down 1px
@@ -69,10 +67,10 @@ const styles = cssMap({
 			width: skeletonItemElemSize,
 			height: skeletonItemElemSize,
 			flexShrink: 0,
-			backgroundColor: token('color.skeleton', N20A),
+			backgroundColor: token('color.skeleton'),
 			content: '""',
 			marginInlineEnd: 14,
-			marginInlineStart: token('space.025', '2px'),
+			marginInlineStart: token('space.025'),
 		},
 	},
 	avatar: {
@@ -86,10 +84,10 @@ const styles = cssMap({
 		},
 	},
 	sideNavSkeleton: {
-		paddingInline: token('space.100', '8px'),
+		paddingInline: token('space.100'),
 		'&::before': {
 			height: '1.5rem',
-			marginInlineEnd: token('space.200', '16px'),
+			marginInlineEnd: token('space.200'),
 			width: '1.5rem',
 		},
 	},
@@ -104,10 +102,10 @@ const styles = cssMap({
  */
 const shimmerKeyframes = keyframes({
 	from: {
-		backgroundColor: token('color.skeleton', N20A),
+		backgroundColor: token('color.skeleton'),
 	},
 	to: {
-		backgroundColor: token('color.skeleton.subtle', N30A),
+		backgroundColor: token('color.skeleton.subtle'),
 	},
 });
 
@@ -122,7 +120,7 @@ const shimmerStyles = css({
 		animationIterationCount: 'infinite',
 		animationName: shimmerKeyframes,
 		animationTimingFunction: 'linear',
-		backgroundColor: token('color.skeleton', N20A),
+		backgroundColor: token('color.skeleton'),
 	},
 });
 

@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 const containerStyle = {
-	padding: token('space.250', '20px'),
+	padding: token('space.250'),
 };
 
 export default (): React.JSX.Element => (

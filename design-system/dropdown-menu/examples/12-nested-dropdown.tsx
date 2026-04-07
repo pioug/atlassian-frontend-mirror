@@ -24,7 +24,7 @@ const NestedDropdown = () => {
 					ref={triggerRef}
 					elemAfter={
 						<Flex xcss={iconSpacingStyles.space075}>
-							<ChevronRightIcon size="small" color={token('color.icon.subtle', '')} label="" />
+							<ChevronRightIcon size="small" color={token('color.icon.subtle')} label="" />
 						</Flex>
 					}
 				>

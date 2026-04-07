@@ -9,7 +9,6 @@ import { cssMap, jsx } from '@compiled/react';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import Popup, { type PopupProps } from '@atlaskit/popup';
 import { Box, Inline, Pressable, Text } from '@atlaskit/primitives/compiled';
-import { B300, G200, P200, R300, Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { IconAppearance, IconSpacing, PopupPlacement } from '../../types';
@@ -104,19 +103,19 @@ const styles = cssMap({
 
 const iconColor = cssMap({
 	connectivity: {
-		'--icon-accent-color': token('color.icon.brand', B300),
+		'--icon-accent-color': token('color.icon.brand'),
 	},
 	confirmation: {
-		'--icon-accent-color': token('color.icon.success', G200),
+		'--icon-accent-color': token('color.icon.success'),
 	},
 	info: {
-		'--icon-accent-color': token('color.icon.discovery', P200),
+		'--icon-accent-color': token('color.icon.discovery'),
 	},
 	warning: {
-		'--icon-accent-color': token('color.icon.warning', Y200),
+		'--icon-accent-color': token('color.icon.warning'),
 	},
 	error: {
-		'--icon-accent-color': token('color.icon.danger', R300),
+		'--icon-accent-color': token('color.icon.danger'),
 	},
 });
 

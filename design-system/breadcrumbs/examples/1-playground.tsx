@@ -65,7 +65,7 @@ export default function BreadcrumbsPlaygroundExample(): React.JSX.Element {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					display: 'inline-block',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					padding: token('space.250', '20px'),
+					padding: token('space.250'),
 				}}
 			>
 				<label htmlFor="how-many-breadcrumbs">How many breadcrumbs to show</label>
@@ -89,7 +89,7 @@ export default function BreadcrumbsPlaygroundExample(): React.JSX.Element {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					display: 'inline-block',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					padding: token('space.250', '20px'),
+					padding: token('space.250'),
 				}}
 			>
 				<label htmlFor="maxitems">maxItems</label>
@@ -113,7 +113,7 @@ export default function BreadcrumbsPlaygroundExample(): React.JSX.Element {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					display: 'inline-block',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					padding: token('space.250', '20px'),
+					padding: token('space.250'),
 				}}
 			>
 				<label htmlFor="items-before-collapse">itemsBeforeCollapse</label>
@@ -131,7 +131,7 @@ export default function BreadcrumbsPlaygroundExample(): React.JSX.Element {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					display: 'inline-block',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					padding: token('space.250', '20px'),
+					padding: token('space.250'),
 				}}
 			>
 				<label htmlFor="items-after-collapse">itemsAfterCollapse</label>

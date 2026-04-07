@@ -23,10 +23,10 @@ const iconSpacingStyles = cssMap({
 
 const styles = cssMap({
 	buttonOne: {
-		paddingBlockStart: token('space.150', '12px'),
-		paddingInlineEnd: token('space.250', '20px'),
-		paddingBlockEnd: token('space.150', '12px'),
-		paddingInlineStart: token('space.250', '20px'),
+		paddingBlockStart: token('space.150'),
+		paddingInlineEnd: token('space.250'),
+		paddingBlockEnd: token('space.150'),
+		paddingInlineStart: token('space.250'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width'),
 		borderColor: '#CDCDCD',

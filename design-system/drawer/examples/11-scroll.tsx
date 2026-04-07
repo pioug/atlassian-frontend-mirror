@@ -19,10 +19,10 @@ const containerStyles = css({
 	display: 'flex',
 	height: '200%',
 	justifyContent: 'flex-end',
-	paddingBlockEnd: token('space.200', '16px'),
-	paddingBlockStart: token('space.200', '16px'),
-	paddingInlineEnd: token('space.200', '16px'),
-	paddingInlineStart: token('space.200', '16px'),
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 });
 
 export default function DrawerExample(): JSX.Element {

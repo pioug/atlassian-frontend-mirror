@@ -1,5 +1,12 @@
 # @atlaskit/menu
 
+## 8.4.21
+
+### Patch Changes
+
+- [`22bf79dbdcdca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22bf79dbdcdca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 8.4.20
 
 ### Patch Changes

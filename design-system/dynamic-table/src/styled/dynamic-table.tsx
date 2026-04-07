@@ -66,7 +66,7 @@ export const Table: import('react').ForwardRefExoticComponent<
 
 const captionStyles = css({
 	font: token('font.heading.medium'),
-	marginBlockEnd: token('space.100', '8px'),
+	marginBlockEnd: token('space.100'),
 	marginBlockStart: token('space.300'),
 	willChange: 'transform',
 });

@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.30.0
+
+### Minor Changes
+
+- [`89dbf61281d0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89dbf61281d0a) -
+  Refactor InlineCardResolvedView from class to functional component, gated behind
+  smart-card-inline-resolved-view-refactor
+
 ## 43.29.3
 
 ### Patch Changes

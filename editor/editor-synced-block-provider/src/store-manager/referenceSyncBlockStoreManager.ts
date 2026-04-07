@@ -4,7 +4,9 @@ import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/anal
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncBlockError } from '../common/types';
 import type {
@@ -48,6 +50,7 @@ const CACHE_KEY_PREFIX = 'sync-block-data-';
 // Handles fetching source URL and title for sync blocks.
 // Can be used in both editor and renderer contexts.
 export class ReferenceSyncBlockStoreManager {
+	private viewMode?: ViewMode;
 	private dataProvider?: SyncBlockDataProviderInterface;
 	// Keeps track of addition and deletion of reference synced blocks on the document
 	// This starts as true to always flush the cache when document is saved for the first time
@@ -78,8 +81,9 @@ export class ReferenceSyncBlockStoreManager {
 	private _providerFactoryManager: SyncBlockProviderFactoryManager;
 	private _batchFetcher: SyncBlockBatchFetcher;
 
-	constructor(dataProvider?: SyncBlockDataProviderInterface) {
+	constructor(dataProvider?: SyncBlockDataProviderInterface, viewMode?: ViewMode) {
 		this.dataProvider = dataProvider;
+		this.viewMode = viewMode;
 		this.syncBlockFetchDataRequests = new Map();
 		this.syncBlockSourceInfoRequests = new Map();
 		this.newlyAddedSyncBlocks = new Set();
@@ -676,6 +680,10 @@ export class ReferenceSyncBlockStoreManager {
 	 * @returns true if the reference synced blocks are updated successfully, false otherwise
 	 */
 	public async flush(): Promise<boolean> {
+		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			return false;
+		}
+
 		if (!this.isCacheDirty) {
 			// we use the isCacheDirty flag as a quick check.
 			return true;

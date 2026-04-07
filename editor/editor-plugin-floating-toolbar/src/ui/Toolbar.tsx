@@ -242,7 +242,6 @@ const ToolbarItems = React.memo(
 									: undefined
 							}
 							pulse={item.pulse}
-							spotlightConfig={item.spotlightConfig}
 							interactionName={item.interactionName}
 							areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 						>

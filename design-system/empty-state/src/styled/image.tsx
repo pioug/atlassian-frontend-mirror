@@ -23,7 +23,7 @@ const imageStyles = css({
 	display: 'block',
 	maxWidth: `var(${CSS_VAR_MAX_WIDTH})`,
 	maxHeight: `var(${CSS_VAR_MAX_HEIGHT})`,
-	marginBlockEnd: token('space.300', '24px'),
+	marginBlockEnd: token('space.300'),
 	marginBlockStart: 0,
 	marginInlineEnd: 'auto',
 	marginInlineStart: 'auto',

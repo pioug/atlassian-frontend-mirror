@@ -1,6 +1,7 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"files": ["./build/url-module.d.ts"],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.json"],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -28,7 +29,15 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-autocomplete/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-autocomplete/app",
+		"resolveJsonModule": true
 	},
-	"references": []
+	"references": [
+		{
+			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		}
+	]
 }

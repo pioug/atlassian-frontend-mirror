@@ -1,5 +1,12 @@
 # @atlaskit/inline-dialog
 
+## 18.0.14
+
+### Patch Changes
+
+- [`22bf79dbdcdca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22bf79dbdcdca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 18.0.13
 
 ### Patch Changes

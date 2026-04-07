@@ -22,10 +22,10 @@ const styles = cssMap({
 		display: 'flex',
 		minWidth: '160px',
 		justifyContent: 'center',
-		paddingBlockStart: token('space.250', '20px'),
-		paddingInlineEnd: token('space.250', '20px'),
-		paddingBlockEnd: token('space.250', '20px'),
-		paddingInlineStart: token('space.250', '20px'),
+		paddingBlockStart: token('space.250'),
+		paddingInlineEnd: token('space.250'),
+		paddingBlockEnd: token('space.250'),
+		paddingInlineStart: token('space.250'),
 	},
 });
 

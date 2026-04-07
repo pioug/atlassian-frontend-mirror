@@ -143,8 +143,8 @@ const dismissAllowedStyles = css({
 const flagGroupContainerStyles = css({
 	position: 'fixed',
 	zIndex: 'flag',
-	insetBlockEnd: token('space.600', '48px'),
-	insetInlineStart: token('space.1000', '80px'),
+	insetBlockEnd: token('space.600'),
+	insetInlineStart: token('space.1000'),
 	// TODO: Use new breakpoints
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (max-width: 560px)': {

@@ -3,6 +3,7 @@ import isEqual from 'lodash/isEqual';
 import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -46,6 +47,11 @@ type OnCompletion = (success: boolean) => void;
 type DestroyCallback = () => void;
 type SyncBlockData = Data & {
 	/**
+	 * Cached PM Fragment reference for fast equality comparison via Fragment.eq()
+	 * Used when platform_synced_block_update_refactor fg is ON
+	 */
+	contentFragment?: Fragment;
+	/**
 	 * Whether the current changes have already been saved to the backend
 	 * Defaults to true, so we always flush data on the first save
 	 */
@@ -54,11 +60,6 @@ type SyncBlockData = Data & {
 	 * Whether the block is waiting to be deleted in backend
 	 */
 	pendingDeletion?: boolean;
-	/**
-	 * Cached PM Fragment reference for fast equality comparison via Fragment.eq()
-	 * Used when platform_synced_block_update_refactor fg is ON
-	 */
-	contentFragment?: Fragment;
 };
 
 // A store manager responsible for the lifecycle and state management of source sync blocks in an editor instance.
@@ -67,6 +68,7 @@ type SyncBlockData = Data & {
 // Handles caching, debouncing updates, and publish/subscribe for local changes.
 // Ensures consistency between local and remote state, and can be used in both editor and renderer contexts.
 export class SourceSyncBlockStoreManager {
+	private viewMode?: ViewMode;
 	private dataProvider?: SyncBlockDataProviderInterface;
 	private fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
 
@@ -90,8 +92,9 @@ export class SourceSyncBlockStoreManager {
 	private deleteExperience: Experience | undefined;
 	private fetchSourceInfoExperience: Experience | undefined;
 
-	constructor(dataProvider?: SyncBlockDataProviderInterface) {
+	constructor(dataProvider?: SyncBlockDataProviderInterface, viewMode?: ViewMode) {
 		this.dataProvider = dataProvider;
+		this.viewMode = viewMode;
 		this.syncBlockCache = new Map();
 		this.creationCompletionCallbacks = new Map();
 	}
@@ -126,6 +129,10 @@ export class SourceSyncBlockStoreManager {
 	 */
 	public updateSyncBlockData(syncBlockNode: PMNode): boolean {
 		try {
+			if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+				return false;
+			}
+
 			if (!this.isSourceBlock(syncBlockNode)) {
 				throw new Error('Invalid sync block node type provided for updateSyncBlockData');
 			}
@@ -186,6 +193,10 @@ export class SourceSyncBlockStoreManager {
 	 */
 	public async flush(): Promise<boolean> {
 		try {
+			if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+				return false;
+			}
+
 			const bodiedSyncBlockNodes: SyncBlockNode[] = [];
 			const bodiedSyncBlockData: SyncBlockData[] = [];
 
@@ -278,6 +289,10 @@ export class SourceSyncBlockStoreManager {
 	}
 
 	public hasUnsavedChanges(): boolean {
+		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			return false;
+		}
+
 		return (
 			this.hasReceivedContentChange &&
 			Array.from(this.syncBlockCache.values()).some((syncBlockData) => syncBlockData.isDirty)
@@ -293,6 +308,10 @@ export class SourceSyncBlockStoreManager {
 	 * @param success
 	 */
 	public commitPendingCreation(success: boolean, resourceId: ResourceId): void {
+		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			return;
+		}
+
 		const onCompletion = this.creationCompletionCallbacks.get(resourceId);
 		if (onCompletion) {
 			this.creationCompletionCallbacks.delete(resourceId);
@@ -351,6 +370,10 @@ export class SourceSyncBlockStoreManager {
 	 * @param attrs attributes Ids of the node
 	 */
 	public createBodiedSyncBlockNode(attrs: SyncBlockAttrs, onCompletion: OnCompletion): void {
+		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			return;
+		}
+
 		const { resourceId, localId: blockInstanceId } = attrs;
 		try {
 			if (!this.dataProvider) {
@@ -401,6 +424,10 @@ export class SourceSyncBlockStoreManager {
 	}
 
 	private setPendingDeletion = (Ids: SyncBlockAttrs, value: boolean) => {
+		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			return;
+		}
+
 		const syncBlock = this.syncBlockCache.get(Ids.resourceId);
 		if (syncBlock) {
 			syncBlock.pendingDeletion = value;
@@ -414,6 +441,10 @@ export class SourceSyncBlockStoreManager {
 		reason: DeletionReason,
 	): Promise<boolean> {
 		try {
+			if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+				return false;
+			}
+
 			if (!this.dataProvider) {
 				throw new Error('Data provider not set');
 			}
@@ -481,6 +512,10 @@ export class SourceSyncBlockStoreManager {
 	}
 
 	public async retryDeletion(): Promise<void> {
+		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			return Promise.resolve();
+		}
+
 		if (!this.deletionRetryInfo) {
 			return Promise.resolve();
 		}
@@ -510,6 +545,10 @@ export class SourceSyncBlockStoreManager {
 		onDeleteCompleted: OnCompletion,
 		destroyCallback: DestroyCallback,
 	): Promise<void> {
+		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			return Promise.resolve();
+		}
+
 		if (this.confirmationCallback) {
 			const confirmed = await this.confirmationCallback(syncBlockIds, deletionReason);
 			if (confirmed) {

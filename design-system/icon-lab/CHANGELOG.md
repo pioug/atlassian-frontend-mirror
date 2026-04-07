@@ -1,5 +1,28 @@
 # @atlaskit/icon-lab
 
+## 6.3.0
+
+### Minor Changes
+
+- [`0df4c28466a02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0df4c28466a02) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `person-assignee`
+  - `video-timeline-clip-insert-end`
+  - `video-timeline-clip-insert-playhead`
+  - `video-timeline-clip-insert-start`
+
+## 6.2.2
+
+### Patch Changes
+
+- [`22bf79dbdcdca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22bf79dbdcdca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+- Updated dependencies
+
 ## 6.2.1
 
 ### Patch Changes

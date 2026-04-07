@@ -19,7 +19,7 @@ const ancestorStyles = css({
 const inlineStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	gap: token('space.050', '4px'),
+	gap: token('space.050'),
 });
 
 const _default: () => JSX.Element = () => (

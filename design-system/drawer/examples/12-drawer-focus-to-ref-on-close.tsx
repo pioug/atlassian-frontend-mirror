@@ -13,10 +13,10 @@ import { token } from '@atlaskit/tokens';
 
 const containerStyles = cssMap({
 	root: {
-		paddingTop: token('space.200', '16px'),
-		paddingRight: token('space.200', '16px'),
-		paddingBottom: token('space.200', '16px'),
-		paddingLeft: token('space.200', '16px'),
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
 	},
 });
 

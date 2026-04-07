@@ -32,10 +32,10 @@ const blockStyles = css({
 	borderRadius: token('radius.xxlarge'),
 	boxShadow: token('elevation.shadow.overlay'),
 	cursor: 'default',
-	marginBlockEnd: token('space.200', '16px'),
-	marginBlockStart: token('space.200', '16px'),
-	marginInlineEnd: token('space.200', '16px'),
-	marginInlineStart: token('space.200', '16px'),
+	marginBlockEnd: token('space.200'),
+	marginBlockStart: token('space.200'),
+	marginInlineEnd: token('space.200'),
+	marginInlineStart: token('space.200'),
 });
 
 const interactiveStyles = css({

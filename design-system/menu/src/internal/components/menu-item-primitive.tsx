@@ -30,10 +30,10 @@ const styles = cssMap({
 		boxSizing: 'border-box',
 		width: '100%',
 		minHeight: 40,
-		marginBlockStart: token('space.0', '0px'),
-		marginInlineEnd: token('space.0', '0px'),
-		marginBlockEnd: token('space.0', '0px'),
-		marginInlineStart: token('space.0', '0px'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginBlockEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
 		alignItems: 'center',
 		border: 0,
 		outline: 0,
@@ -44,7 +44,7 @@ const styles = cssMap({
 			textDecoration: 'none',
 		},
 		'&:focus, &:focus-visible': {
-			outlineColor: token('color.border.focused', '#2684FF'),
+			outlineColor: token('color.border.focused'),
 			// @ts-ignore
 			outlineOffset: `calc(0px - ${token('border.width.focused')})`,
 			outlineStyle: 'solid',
@@ -92,95 +92,95 @@ const styles = cssMap({
 		wordBreak: 'break-word',
 	},
 	description: {
-		color: token('color.text.subtlest', '#6B778C'),
+		color: token('color.text.subtlest'),
 		font: token('font.body.small'),
 	},
 	disabledDescription: {
-		color: token('color.text.disabled', '#6B778C'),
+		color: token('color.text.disabled'),
 	},
 	unselected: {
-		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+		backgroundColor: token('color.background.neutral.subtle'),
 		color: 'currentColor',
 		'&:visited': {
 			color: 'currentColor',
 		},
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered', '#F4F5F7'),
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
 			color: 'currentColor',
 		},
 		'&:active': {
-			backgroundColor: token('color.background.neutral.subtle.hovered', '#F4F5F7'),
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
 			color: 'currentColor',
 		},
 	},
 	disabled: {
 		cursor: 'not-allowed',
-		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-		color: token('color.text.disabled', '#6B778C'),
+		backgroundColor: token('color.background.neutral.subtle'),
+		color: token('color.text.disabled'),
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-			color: token('color.text.disabled', '#6B778C'),
+			backgroundColor: token('color.background.neutral.subtle'),
+			color: token('color.text.disabled'),
 		},
 		'&:active': {
-			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-			color: token('color.text.disabled', '#6B778C'),
+			backgroundColor: token('color.background.neutral.subtle'),
+			color: token('color.text.disabled'),
 		},
 	},
 	selectedBorder: {
 		'&::before': {
 			width: 2,
 			position: 'absolute',
-			backgroundColor: token('color.border.selected', 'transparent'),
+			backgroundColor: token('color.border.selected'),
 			content: '""',
-			insetBlockEnd: token('space.0', '0px'),
-			insetBlockStart: token('space.0', '0px'),
-			insetInlineStart: token('space.0', '0px'),
+			insetBlockEnd: token('space.0'),
+			insetBlockStart: token('space.0'),
+			insetInlineStart: token('space.0'),
 		},
 	},
 	selectedNotch: {
 		'&::before': {
 			width: 4,
 			position: 'absolute',
-			backgroundColor: token('color.border.selected', 'transparent'),
+			backgroundColor: token('color.border.selected'),
 			borderRadius: `0 ${token('radius.small', '4px')} ${token('radius.small', '4px')} 0`,
 			content: '""',
-			insetBlockEnd: token('space.150', '12px'),
-			insetBlockStart: token('space.150', '12px'),
-			insetInlineStart: token('space.0', '0px'),
+			insetBlockEnd: token('space.150'),
+			insetBlockStart: token('space.150'),
+			insetInlineStart: token('space.0'),
 		},
 	},
 	selected: {
-		backgroundColor: token('color.background.selected', '#F4F5F7'),
+		backgroundColor: token('color.background.selected'),
 		// Fallback set as babel plugin inserts one otherwise
-		color: token('color.text.selected', 'currentColor'),
+		color: token('color.text.selected'),
 		'&:visited': {
-			color: token('color.text.selected', 'currentColor'),
+			color: token('color.text.selected'),
 		},
 		'&:hover': {
-			backgroundColor: token('color.background.selected.hovered', '#F4F5F7'),
-			color: token('color.text.accent.blue', 'currentColor'),
+			backgroundColor: token('color.background.selected.hovered'),
+			color: token('color.text.accent.blue'),
 		},
 		'&:active': {
-			backgroundColor: token('color.background.selected.pressed', '#EBECF0'),
-			color: token('color.text.selected', 'currentColor'),
+			backgroundColor: token('color.background.selected.pressed'),
+			color: token('color.text.selected'),
 		},
 	},
 	selectedOld: {
 		'&:hover': {
-			color: token('color.text.selected', 'currentColor'),
+			color: token('color.text.selected'),
 		},
 	},
 });
 
 const spacingMapStyles = cssMap({
 	cozy: {
-		paddingBlock: token('space.100', '8px'),
-		paddingInline: token('space.200', '16px'),
+		paddingBlock: token('space.100'),
+		paddingInline: token('space.200'),
 	},
 	compact: {
 		minHeight: 32,
-		paddingBlock: token('space.050', '4px'),
-		paddingInline: token('space.150', '12px'),
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.150'),
 	},
 });
 

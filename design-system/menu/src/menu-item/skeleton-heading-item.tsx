@@ -10,18 +10,15 @@ import { token } from '@atlaskit/tokens';
 
 import type { SkeletonHeadingItemProps } from '../types';
 
-const N20A = 'rgba(9, 30, 66, 0.04)';
-const N30A = 'rgba(9, 30, 66, 0.08)';
-
 const styles = cssMap({
 	skeleton: {
-		paddingBlock: token('space.0', '0px'),
-		paddingInline: token('space.200', '16px'),
+		paddingBlock: token('space.0'),
+		paddingInline: token('space.200'),
 		'&::after': {
 			display: 'block',
 			width: '30%',
-			height: token('space.100', '8px'),
-			backgroundColor: token('color.skeleton', N20A),
+			height: token('space.100'),
+			backgroundColor: token('color.skeleton'),
 			borderRadius: 100,
 			content: '""',
 		},
@@ -42,10 +39,10 @@ const styles = cssMap({
  */
 const shimmerKeyframes = keyframes({
 	from: {
-		backgroundColor: token('color.skeleton', N20A),
+		backgroundColor: token('color.skeleton'),
 	},
 	to: {
-		backgroundColor: token('color.skeleton.subtle', N30A),
+		backgroundColor: token('color.skeleton.subtle'),
 	},
 });
 
@@ -60,7 +57,7 @@ const shimmerStyles = css({
 		animationIterationCount: 'infinite',
 		animationName: shimmerKeyframes,
 		animationTimingFunction: 'linear',
-		backgroundColor: token('color.skeleton', N20A),
+		backgroundColor: token('color.skeleton'),
 	},
 });
 

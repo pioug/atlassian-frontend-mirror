@@ -16,9 +16,9 @@ import { FieldId } from './field-id-context';
 // Extracted styles for character counter message container
 const messageContainerStyles = cssMap({
 	root: {
-		color: token('color.text.danger', '#AE2A19'),
+		color: token('color.text.danger'),
 		font: token('font.body.small'),
-		marginBlockStart: token('space.050', '4px'),
+		marginBlockStart: token('space.050'),
 	},
 });
 

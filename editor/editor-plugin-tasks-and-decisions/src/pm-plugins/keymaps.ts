@@ -809,7 +809,22 @@ const enter = (
 								return tr.insert(blockTaskItemNode.pos, newTaskItem);
 							}
 							// Current position will point to text node, but we want to insert above the taskItem node
-							return tr.insert($from.pos - 1, newTask);
+							const insertPos = $from.pos - 1;
+							tr.insert(insertPos, newTask);
+							// Place cursor on the newly inserted empty task item above
+							// when nested inside another taskList.
+							if (expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)) {
+								const { taskList: taskListType } = schema.nodes;
+								const parentTaskList = $from.node($from.depth - 1);
+								const grandparent = $from.depth >= 3 ? $from.node($from.depth - 2) : null;
+								if (
+									parentTaskList?.type === taskListType &&
+									grandparent?.type === taskListType
+								) {
+									tr.setSelection(TextSelection.create(tr.doc, insertPos + 1));
+								}
+							}
+							return tr;
 						}
 					}
 					/**

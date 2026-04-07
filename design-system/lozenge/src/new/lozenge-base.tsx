@@ -627,7 +627,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 						style={{
 							maxWidth: maxWidthIsPc
 								? undefined
-								: `calc(${maxWidthValue} - ${token('space.100', '8px')})`,
+								: `calc(${maxWidthValue} - ${token('space.100')})`,
 							color: style?.color,
 						}}
 						data-testid={testId && `${testId}--text`}

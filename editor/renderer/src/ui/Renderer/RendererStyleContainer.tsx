@@ -375,6 +375,15 @@ const headingAnchorStyles = css({
 	},
 });
 
+const headingAnchorButtonFocusVisibleStyles = css({
+	[`.${HeadingAnchorWrapperClassName}`]: {
+		'button:focus-visible': {
+			outline: `2px solid ${token('color.border.focused')}`,
+			borderRadius: token('radius.small', '3px'),
+		},
+	},
+});
+
 const akEditorBreakpointForSmallDevice = '1266px';
 
 const responsiveBreakoutWidth = css({
@@ -980,13 +989,14 @@ const listItemHiddenMarkerStyles = css({
 	'li:has(> ul:only-child) > ul, li:has(> ol:only-child) > ol': {
 		marginTop: 0,
 	},
-	// Collapse wrapper task items (empty task items followed by a sibling nested task list)
-	// Only hides empty task items that are actual wrappers, not regular empty task items
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'div[data-task-local-id]:has([data-component="content"]:empty):has(+ div[data-node-type="actionList"])':
-		{
-			display: 'none',
-		},
+	// Remove top margin from nested taskLists not preceded by a sibling taskItem
+	'div[data-task-list-local-id] > div[data-task-list-local-id]': {
+		marginTop: 0,
+	},
+	// Restore margin when a nested taskList follows a taskItem
+	'div[data-task-local-id] + div[data-task-list-local-id]': {
+		marginTop: token('space.050'),
+	},
 });
 
 const indentationSharedStyles = css({
@@ -1197,7 +1207,9 @@ const shadowSharedStyle = css({
 	[`& .${shadowClassNames.LEFT_SHADOW}::before`]: {
 		background: `linear-gradient( to left, transparent 0, ${token(
 			'elevation.shadow.overflow.spread',
-		)} 140% ), linear-gradient( to right, ${token('elevation.shadow.overflow.perimeter')} 0px, transparent 1px )`,
+		)} 140% ), linear-gradient( to right, ${token(
+			'elevation.shadow.overflow.perimeter',
+		)} 0px, transparent 1px )`,
 		top: '0px',
 		left: 0,
 		display: 'block',
@@ -1206,7 +1218,9 @@ const shadowSharedStyle = css({
 	[`& .${shadowClassNames.RIGHT_SHADOW}::after`]: {
 		background: `linear-gradient( to right, transparent 0, ${token(
 			'elevation.shadow.overflow.spread',
-		)} 140% ), linear-gradient( to left, ${token('elevation.shadow.overflow.perimeter')} 0px, transparent 1px )`,
+		)} 140% ), linear-gradient( to left, ${token(
+			'elevation.shadow.overflow.perimeter',
+		)} 0px, transparent 1px )`,
 		right: '0px',
 		top: '0px',
 		display: 'block',
@@ -2637,7 +2651,9 @@ const rendererAnnotationStylesOld = css({
 	"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark], & [data-annotation-draft-mark][data-annotation-inline-node]":
 		{
 			background: token('color.background.accent.yellow.subtler'),
-			borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow')}`,
+			borderBottom: `${token('border.width.selected')} solid ${token(
+				'color.border.accent.yellow',
+			)}`,
 			boxShadow: token('elevation.shadow.overlay'),
 			cursor: 'pointer',
 			paddingTop: token('space.050'),
@@ -2946,6 +2962,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? headingAnchorStyles
 					: headingAnchorStylesDuplicateAnchor,
+				fg('ally_30945_accessibility_outline_fix') && headingAnchorButtonFocusVisibleStyles,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? hideHeadingCopyLinkWrapperStyles
 					: hideHeadingCopyLinkWrapperStylesDuplicateAnchor,
@@ -2985,8 +3002,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? paragraphStylesUGCScaledMargin
 						: paragraphSharedStylesWithEditorUGC
 					: isCompactModeSupported
-						? paragraphSharedStyleScaledMargin
-						: paragraphSharedStyles,
+					? paragraphSharedStyleScaledMargin
+					: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				expValEquals('platform_editor_flexible_list_schema', 'isEnabled', true) &&
@@ -3076,8 +3093,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? scaledDenseEmojiStyles
 						: scaledEmojiStyles
 					: isCompactModeEnabled
-						? denseStyles
-						: undefined,
+					? denseStyles
+					: undefined,
 				editorExperiment('platform_synced_block', true) && syncBlockStyles,
 				centerWrapperStyles,
 			]}

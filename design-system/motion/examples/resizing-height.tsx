@@ -32,17 +32,17 @@ const menuStyles = css({
 	borderRadius: token('radius.small', '3px'),
 	boxShadow: token('elevation.shadow.overlay'),
 	marginBlockEnd: '56px',
-	marginBlockStart: token('space.300', '24px'),
-	paddingBlockEnd: token('space.100', '8px'),
+	marginBlockStart: token('space.300'),
+	paddingBlockEnd: token('space.100'),
 });
 
 const itemStyles = css({
 	display: 'flex',
-	fontWeight: token('font.weight.medium', '500'),
-	paddingBlockEnd: token('space.200', '16px'),
-	paddingBlockStart: token('space.200', '16px'),
-	paddingInlineEnd: token('space.200', '16px'),
-	paddingInlineStart: token('space.200', '16px'),
+	fontWeight: token('font.weight.medium'),
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 	'&:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},

@@ -1,5 +1,12 @@
 # @atlaskit/motion
 
+## 5.5.1
+
+### Patch Changes
+
+- [`22bf79dbdcdca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22bf79dbdcdca) -
+  Internal changes to remove unnecessary token fallbacks and imports from `@atlaskit/theme`
+
 ## 5.5.0
 
 ### Minor Changes

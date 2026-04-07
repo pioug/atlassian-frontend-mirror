@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 
 const requiredIndicatorStyles = css({
 	color: token('color.text.danger'),
-	paddingInlineStart: token('space.025', '2px'),
+	paddingInlineStart: token('space.025'),
 });
 
 export default function RequiredIndicator(): JSX.Element {

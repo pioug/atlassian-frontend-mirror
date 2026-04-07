@@ -42,20 +42,20 @@ type MessageProps = Pick<InternalMessageProps, 'children' | 'testId'>;
 const messageStyles = css({
 	display: 'flex',
 	justifyContent: 'baseline',
-	gap: token('space.075', '6px'),
+	gap: token('space.075'),
 	font: token('font.body.small'),
-	marginBlockStart: token('space.050', '4px'),
+	marginBlockStart: token('space.050'),
 });
 
 const messageAppearanceStyles = cssMap({
 	default: {
-		color: token('color.text.subtlest', '#6B778C'),
+		color: token('color.text.subtlest'),
 	},
 	error: {
-		color: token('color.text.danger', '#AE2A19'),
+		color: token('color.text.danger'),
 	},
 	valid: {
-		color: token('color.text.success', '#216E4E'),
+		color: token('color.text.success'),
 	},
 });
 

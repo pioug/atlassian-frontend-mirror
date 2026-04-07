@@ -26,8 +26,8 @@ const styles = cssMap({
 	base: {
 		color: N100,
 		fontSize: '0.9rem',
-		marginBlockStart: token('space.050', '4px'),
-		marginBlockEnd: token('space.200', '16px'),
+		marginBlockStart: token('space.050'),
+		marginBlockEnd: token('space.200'),
 	},
 	large: {
 		fontSize: '1.15em',

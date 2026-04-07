@@ -21,7 +21,7 @@ interface FieldsetProps {
 }
 
 const fieldSetStyles = css({
-	marginBlockStart: token('space.100', '8px'),
+	marginBlockStart: token('space.100'),
 });
 
 /**

@@ -23,16 +23,16 @@ const dateCellSiblingStyle = css({
 
 const dateCellTodayStyle = css({
 	color: token('color.text.selected'),
-	fontWeight: token('font.weight.bold', 'bold'),
+	fontWeight: token('font.weight.bold'),
 	'&::after': {
 		display: 'block',
 		height: 2,
 		position: 'absolute',
 		backgroundColor: 'currentColor',
 		content: '""',
-		insetBlockEnd: token('space.025', '2px'),
-		insetInlineEnd: token('space.025', '2px'),
-		insetInlineStart: token('space.025', '2px'),
+		insetBlockEnd: token('space.025'),
+		insetInlineEnd: token('space.025'),
+		insetInlineStart: token('space.025'),
 	},
 });
 
@@ -75,8 +75,8 @@ const dateCellStyles = css({
 	color: token('color.text'),
 	cursor: 'pointer',
 	font: token('font.body'),
-	paddingBlockEnd: token('space.050', '4px'),
-	paddingBlockStart: token('space.050', '4px'),
+	paddingBlockEnd: token('space.050'),
+	paddingBlockStart: token('space.050'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingInlineEnd: '9px',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space

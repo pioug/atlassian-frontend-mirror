@@ -27,7 +27,7 @@ const Link = ({ children, href, className, onClick, tabIndex }: LinkProps) => {
 export default function Example(): React.JSX.Element {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div data-testid="example" style={{ padding: token('space.150', '12px') }}>
+		<div data-testid="example" style={{ padding: token('space.150') }}>
 			<MenuGroup maxWidth={300}>
 				<Section>
 					<ButtonItem isSelected>Button</ButtonItem>

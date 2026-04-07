@@ -28,7 +28,7 @@ const dividerStyles = cssMap({
 		zIndex: 1,
 	},
 	dividerDisabled: {
-		backgroundColor: token('color.border.disabled', '#091E4224'),
+		backgroundColor: token('color.border.disabled'),
 		cursor: 'not-allowed',
 	},
 	dividerOffset: {
@@ -39,18 +39,18 @@ const dividerStyles = cssMap({
 
 const dividerAppearanceStyles = cssMap({
 	default: {
-		backgroundColor: token('color.border', '#091E4224'),
+		backgroundColor: token('color.border'),
 	},
 	primary: {
-		backgroundColor: token('color.border.inverse', '#FFF'),
+		backgroundColor: token('color.border.inverse'),
 		opacity: 0.64,
 	},
 	navigation: {
 		height: '16px',
-		marginBlock: token('space.100', '8px'),
+		marginBlock: token('space.100'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		marginInline: '-0.03125rem', // -0.5px
-		backgroundColor: token('color.text.subtle', '#0052cc'),
+		backgroundColor: token('color.text.subtle'),
 		opacity: 0.62,
 	},
 });
@@ -69,10 +69,10 @@ const dividerHeightStyles = cssMap({
 // caused by overlapping alpha colors (color.border) at the intersection.
 const defaultDividerHeightStyles = cssMap({
 	default: {
-		height: `calc(2rem - ${token('border.width', '1px')} - ${token('border.width', '1px')})`,
+		height: `calc(2rem - ${token('border.width')} - ${token('border.width')})`,
 	},
 	compact: {
-		height: `calc(1.5rem - ${token('border.width', '1px')} - ${token('border.width', '1px')})`,
+		height: `calc(1.5rem - ${token('border.width')} - ${token('border.width')})`,
 	},
 });
 

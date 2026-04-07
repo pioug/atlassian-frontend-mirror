@@ -15,10 +15,10 @@ const Icon = <AtlassianIcon label="" size="small" />;
 
 const buttonWrapperStyles = css({
 	display: 'inline-block',
-	paddingBlockEnd: token('space.050', '4px'),
-	paddingBlockStart: token('space.050', '4px'),
-	paddingInlineEnd: token('space.050', '4px'),
-	paddingInlineStart: token('space.050', '4px'),
+	paddingBlockEnd: token('space.050'),
+	paddingBlockStart: token('space.050'),
+	paddingInlineEnd: token('space.050'),
+	paddingInlineStart: token('space.050'),
 });
 
 const blockStyles = css({

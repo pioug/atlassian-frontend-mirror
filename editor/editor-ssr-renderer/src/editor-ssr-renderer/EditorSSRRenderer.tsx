@@ -385,7 +385,14 @@ export function EditorSSRRenderer({
 				nodePositions.set(node, pos);
 			});
 
-			return serializer.serializeFragment(doc.content);
+			if (expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
+				const fragment = serializer.serializeFragment(doc.content);
+				const wrapper = document.createElement('div');
+				wrapper.appendChild(fragment);
+				return wrapper.innerHTML;
+			} else {
+				return serializer.serializeFragment(doc.content);
+			}
 		};
 
 		try {
@@ -403,9 +410,11 @@ export function EditorSSRRenderer({
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useLayoutEffect(() => {
-		if (containerRef.current && editorHTML) {
-			containerRef.current.innerHTML = '';
-			containerRef.current.appendChild(editorHTML);
+		if (!expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)) {
+			if (containerRef.current && editorHTML && typeof editorHTML !== 'string') {
+				containerRef.current.innerHTML = '';
+				containerRef.current.appendChild(editorHTML);
+			}
 		}
 	}, [editorHTML]);
 
@@ -416,8 +425,14 @@ export function EditorSSRRenderer({
 			onSSRMeasure={onSSRMeasure}
 		>
 			<div
-				ref={containerRef}
 				id={divProps.id}
+				// eslint-disable-next-line react/no-danger -- It's intentional by design
+				dangerouslySetInnerHTML={
+					typeof editorHTML === 'string' &&
+					expValEquals('platform_editor_editor_ssr_streaming', 'isEnabled', true)
+						? { __html: editorHTML }
+						: undefined
+				}
 				// For some reason on SSR, the result `class` has a trailing space, that broke UFO,
 				// because ReactEditorView produces a div with `class` without space.
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 112.17.0
+
+### Minor Changes
+
+- [`acf7e564adc80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acf7e564adc80) -
+  NO-ISSUE: Fix generate payload
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.16.2
+
+### Patch Changes
+
+- [`c120ecfaba934`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c120ecfaba934) -
+  [ux] Update delete and unsync modal text for source with multiple references.
+- Updated dependencies
+
 ## 112.16.1
 
 ### Patch Changes

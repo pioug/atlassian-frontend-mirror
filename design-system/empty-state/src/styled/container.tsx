@@ -10,8 +10,8 @@ import { token } from '@atlaskit/tokens';
 
 import type { Width } from '../index';
 const containerStyles = css({
-	marginBlockEnd: token('space.600', '48px'),
-	marginBlockStart: token('space.600', '48px'),
+	marginBlockEnd: token('space.600'),
+	marginBlockStart: token('space.600'),
 	marginInlineEnd: 'auto',
 	marginInlineStart: 'auto',
 	textAlign: 'center',

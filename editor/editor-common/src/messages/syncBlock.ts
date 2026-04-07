@@ -91,6 +91,11 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	deletionConfirmationModalDescriptionNew: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	deletionConfirmationModalDescriptionNoRef: {
 		defaultMessage: string;
 		description: string;
@@ -383,6 +388,11 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	unsyncConfirmModalDescriptionMultipleNew: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	unsyncConfirmModalDescriptionSingle: {
 		defaultMessage: string;
 		description: string;
@@ -532,6 +542,13 @@ export const syncBlockMessages: {
 			'If you delete this synced block, it will become an “Unsynced block” in other locations. This action is permanent and cannot be undone.',
 		description:
 			'Description of delete confirmation modal that appears when user tries to delete source synced block',
+	},
+	deletionConfirmationModalDescriptionNew: {
+		id: 'fabric.editor.deletionConfirmationModalDescriptionNew',
+		defaultMessage:
+			'If you delete this synced block, it will appear as an empty "Unsynced block" in {syncBlockCount, plural, one {1 other synced location} other {# locations}}. This action is permanent and cannot be undone.',
+		description:
+			'Description of delete confirmation modal that appears when user tries to delete source synced block with multiple references',
 	},
 	deletionConfirmationModalDescriptionNoRef: {
 		id: 'fabric.editor.deletionConfirmationModalDescriptionNoRef',
@@ -789,10 +806,18 @@ export const syncBlockMessages: {
 	unsyncConfirmModalDescriptionMultiple: {
 		id: 'fabric.editor.unsyncConfirmModalDescriptionMultiple',
 		defaultMessage:
-			'Your content will stay here. In {syncBlockCount, plural, one {1 other synced location} other {# other synced locations}} it will appear as an “Unsynced block”. This action is permanent and cannot be undone.',
+			'Your content will stay here. In {syncBlockCount, plural, one {1 other synced location} other {# other synced locations}} it will appear as an "Unsynced block". This action is permanent and cannot be undone.',
 		description:
 			'Description of unsync confirmation modal that appears when user tries to unsync source synced block with multiple references',
 	},
+	unsyncConfirmModalDescriptionMultipleNew: {
+		id: 'fabric.editor.unsyncConfirmModalDescriptionMultipleNew',
+		defaultMessage:
+			'Your content will stay here. In {syncBlockCount, plural, one {1 other synced location} other {# other synced locations}} it will appear as an empty "Unsynced block". This action is permanent and cannot be undone.',
+		description:
+			'Description of unsync confirmation modal that appears when user tries to unsync source synced block with multiple references',
+	},
+
 	cannotPasteSyncedBlockTitle: {
 		id: 'fabric.editor.cannotPasteSyncedBlockTitle',
 		defaultMessage: 'Unable to paste',

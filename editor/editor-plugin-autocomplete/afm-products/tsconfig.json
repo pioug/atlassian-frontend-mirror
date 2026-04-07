@@ -5,7 +5,8 @@
 		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-autocomplete/app",
 		"rootDir": "../",
 		"composite": true,
-		"noCheck": true
+		"noCheck": true,
+		"resolveJsonModule": true
 	},
 	"include": [
 		"../src/**/*.ts",

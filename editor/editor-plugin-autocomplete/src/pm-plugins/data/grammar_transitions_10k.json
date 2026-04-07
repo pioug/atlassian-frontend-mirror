@@ -1,3 +1,46 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0dec31b92f8621c1ffe36f2b21b56a8973e0b1a80c7a56498ad328bd022fd06c
-size 1660
+{
+  "transitions": {
+    "DET": {
+      "allowed": ["NOUN", "ADJ", "PROPN"],
+      "note": "Determiners (a, the) must be followed by a noun or an adjective describing a noun."
+    },
+    "ADP": {
+      "allowed": ["NOUN", "DET", "ADJ", "PROPN"],
+      "note": "Prepositions (of, in) usually lead to a noun phrase."
+    },
+    "VERB": {
+      "allowed": ["NOUN", "DET", "ADJ", "ADP", "ADV", "PROPN", "VERB"]
+    },
+    "ADV": {
+      "allowed": ["VERB", "ADJ", "ADV", "ADP"],
+      "note": "Adverbs modify verbs (quickly run), adjectives (so frustrating), or other adverbs."
+    },
+    "CCONJ": {
+      "allowed": ["NOUN", "VERB", "ADJ", "ADV", "PRON", "PROPN", "DET"],
+      "note": "Conjunctions (and, but, or) can join almost any parallel structures."
+    },
+    "ADJ": {
+      "allowed": ["NOUN", "ADJ"],
+      "note": "Adjectives should almost always stack or end in a noun."
+    },
+    "NOUN": {
+      "allowed": ["VERB", "ADP", "CCONJ", "PUNCT", "NOUN"],
+      "note": "Nouns are usually followed by an action (verb) or a relationship (preposition)."
+    },
+    "PROPN": {
+      "allowed": ["VERB", "ADP", "CCONJ", "PUNCT", "NOUN", "PART"]
+    },
+    "PRON": {
+      "allowed": ["VERB", "ADV"],
+      "note": "Pronouns (I, we, it) are almost always followed by a verb."
+    },
+    "PART": {
+      "allowed": ["VERB", "ADV"],
+      "note": "Particles like 'to' or 'not' usually lead directly into a base verb or adverb (to demonstrate, not typing)."
+    },
+    "SCONJ": {
+      "allowed": ["PRON", "DET", "NOUN", "PROPN", "ADJ"],
+      "note": "Subordinating conjunctions (because, if, while) start new clauses, usually followed by a subject."
+    }
+  }
+}

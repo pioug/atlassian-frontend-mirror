@@ -20,7 +20,7 @@ const styles = cssMap({
 	default: {
 		flex: 1,
 		overflow: 'auto',
-		marginTop: token('space.300', '24px'),
+		marginTop: token('space.300'),
 	},
 });
 

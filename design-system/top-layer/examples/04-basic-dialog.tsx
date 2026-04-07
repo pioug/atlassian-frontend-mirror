@@ -12,6 +12,7 @@ import Heading from '@atlaskit/heading';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+import { dialogSlideUpAndFade } from '@atlaskit/top-layer/animations';
 import { Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 
 const styles = cssMap({
@@ -97,7 +98,7 @@ export default function BasicDialogExample(): JSX.Element {
 					</Stack>
 				)}
 
-				<Dialog onClose={handleClose} isOpen={isOpen} label="Basic dialog">
+				<Dialog onClose={handleClose} isOpen={isOpen} label="Basic dialog" animate={dialogSlideUpAndFade()}>
 					<div css={styles.dialogCard}>
 						<div css={styles.dialogHeader}>
 							<Heading size="small">Dialog</Heading>

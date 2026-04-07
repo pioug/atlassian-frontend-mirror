@@ -12,7 +12,7 @@ const contentSlotStyles = cssMap({
 	root: {
 		minWidth: '0px',
 		gridArea: 'comment-area',
-		paddingBlockStart: token('space.025', '2px'),
+		paddingBlockStart: token('space.025'),
 		wordWrap: 'break-word',
 	},
 });

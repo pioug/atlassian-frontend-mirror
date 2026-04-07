@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 const styles: StylesConfig<OptionType> = {
 	container: (base) => ({
 		...base,
-		margin: token('space.100', '8px'),
+		margin: token('space.100'),
 		width: '160px',
 		display: 'inline-block',
 	}),

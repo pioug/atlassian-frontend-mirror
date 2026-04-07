@@ -20,10 +20,10 @@ const rowStyles = css({
 
 const cellStyles = css({
 	display: 'table-cell',
-	paddingBlockEnd: token('space.050', '4px'),
-	paddingBlockStart: token('space.050', '4px'),
-	paddingInlineEnd: token('space.050', '4px'),
-	paddingInlineStart: token('space.050', '4px'),
+	paddingBlockEnd: token('space.050'),
+	paddingBlockStart: token('space.050'),
+	paddingInlineEnd: token('space.050'),
+	paddingInlineStart: token('space.050'),
 });
 
 const Table = (props: React.HTMLProps<HTMLDivElement>) => (

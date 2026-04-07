@@ -134,7 +134,7 @@ export const createInteractionTrackingPlugin = (
 		view: editorExperiment('platform_editor_controls', 'variant1')
 			? (view: EditorView) => {
 					const editorContentArea = view.dom.closest('.ak-editor-content-area');
-					// rightSideControlsEnabled is the single source of truth (confluence_remix_icon_right_side from preset)
+					// rightSideControlsEnabled is the single source of truth (confluence_remix_button_right_side_block_fg from preset)
 
 					let unbindMouseEnter: UnbindFn;
 					let unbindMouseLeave: UnbindFn;

@@ -1,5 +1,27 @@
 # @atlaskit/editor-statsig-tmp
 
+## 54.2.0
+
+### Minor Changes
+
+- [`e26d5e2ad8468`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e26d5e2ad8468) -
+  [ux] ENGHEALTH-49543 use system color HighlightText for text color when background is set to
+  system color Highlight
+- [`e9ef7c6fc5370`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9ef7c6fc5370) -
+  EDITOR-6179: Enable SSR Streaming for Edit Page and Live Doc routes.
+  - Add `platform_editor_editor_ssr_streaming` experiment to `tmp-editor-statsig` experiments
+    config.
+  - `EditorSSRRenderer`: replace `useLayoutEffect`+`containerRef` DOM mutation with
+    `dangerouslySetInnerHTML` for rendering serialized editor HTML, enabling correct rendering in
+    `renderToPipeableStream` SSR streaming context.
+
+## 54.1.0
+
+### Minor Changes
+
+- [`24f029e3a215c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24f029e3a215c) -
+  Gate Ask Rovo MAUI edit UI behind cc-maui-experiment-phase-2
+
 ## 54.0.1
 
 ### Patch Changes

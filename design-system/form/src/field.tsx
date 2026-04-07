@@ -26,7 +26,7 @@ import { ErrorMessage, HelperMessage, MessageWrapper, ValidMessage } from './mes
 import RequiredAsterisk from './required-asterisk';
 
 const fieldWrapperStyles = css({
-	marginBlockStart: token('space.100', '8px'),
+	marginBlockStart: token('space.100'),
 });
 
 function isEvent(event: any): event is FormEvent<SupportedElements> {

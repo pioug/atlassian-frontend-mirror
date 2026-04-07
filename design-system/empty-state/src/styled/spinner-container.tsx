@@ -9,8 +9,8 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 const spinnerContainerStyles = css({
-	width: token('space.300', '24px'),
-	marginInlineStart: token('space.200', '16px'),
+	width: token('space.300'),
+	marginInlineStart: token('space.200'),
 });
 
 /**

@@ -25,15 +25,15 @@ const styles = cssMap({
 		alignContent: 'center',
 		borderRadius: token('radius.full', '50%'),
 		overflow: 'hidden',
-		borderWidth: token('border.width.selected', '2px'),
+		borderWidth: token('border.width.selected'),
 		borderStyle: 'solid',
-		backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
+		backgroundColor: token('elevation.surface.overlay'),
 	},
 });
 
 const unboundStyles = unboundCssMap({
 	root: {
-		borderColor: token('elevation.surface.overlay', '#FFFFFF'),
+		borderColor: token('elevation.surface.overlay'),
 	},
 });
 

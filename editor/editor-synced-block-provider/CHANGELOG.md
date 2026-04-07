@@ -1,5 +1,17 @@
 # @atlaskit/editor-synced-block-provider
 
+## 4.3.2
+
+### Patch Changes
+
+- [`eaeabd907b737`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eaeabd907b737) -
+  Move unregistered references logic into a separate method.
+- [`38e89dd6515da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38e89dd6515da) -
+  Disable synced block write operations (create, update, delete, flush) when the editor is in view
+  mode, gated behind platform_synced_block_patch_8. This prevents unintended block service mutations
+  (e.g. deletion modals, data loss) when the editor is used in read-only contexts such as Version
+  History.
+
 ## 4.3.1
 
 ### Patch Changes

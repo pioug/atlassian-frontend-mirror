@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::56cd4ea3b1b475cda5c7ea80cd5b9b14>>
+ * @codegen <<SignedSource::4ca2366054f60d0314820ab60017dc71>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -313,6 +313,7 @@ import PaintRollerIcon from '../../../../core/paint-roller';
 import PanelIcon from '../../../../core/panel';
 import PartyPopperIcon from '../../../../core/party-popper';
 import PencilIcon from '../../../../core/pencil';
+import PersonAssigneeIcon from '../../../../core/person-assignee';
 import PersonLockLockedIcon from '../../../../core/person-lock-locked';
 import PersonLockUnlockedIcon from '../../../../core/person-lock-unlocked';
 import PersonVoiceoverIcon from '../../../../core/person-voiceover';
@@ -452,6 +453,9 @@ import VideoSkipBackwardFiveIcon from '../../../../core/video-skip-backward-five
 import VideoSkipForwardFiveIcon from '../../../../core/video-skip-forward-five';
 import VideoStrikethroughIcon from '../../../../core/video-strikethrough';
 import VideoTheaterModeIcon from '../../../../core/video-theater-mode';
+import VideoTimelineClipInsertEndIcon from '../../../../core/video-timeline-clip-insert-end';
+import VideoTimelineClipInsertPlayheadIcon from '../../../../core/video-timeline-clip-insert-playhead';
+import VideoTimelineClipInsertStartIcon from '../../../../core/video-timeline-clip-insert-start';
 import VideoTimelineClipSplitIcon from '../../../../core/video-timeline-clip-split';
 import VideoTimelineEditorIcon from '../../../../core/video-timeline-editor';
 import VideoWatchLaterRemoveIcon from '../../../../core/video-watch-later-remove';
@@ -925,6 +929,10 @@ const Icons = [
 	RegistryServiceIcon,
 	AiGenerativeRemixIcon,
 	AiGenerativeSlidesIcon,
+	PersonAssigneeIcon,
+	VideoTimelineClipInsertEndIcon,
+	VideoTimelineClipInsertPlayheadIcon,
+	VideoTimelineClipInsertStartIcon,
 ];
 
 const groupSize = 50;

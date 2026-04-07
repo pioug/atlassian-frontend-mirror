@@ -41,11 +41,6 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
-	fetchFromSavedContent: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	fetchGenerateFromAdf: {
 		defaultMessage: string;
 		description: string;
@@ -182,11 +177,6 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.quickInsert.generateFromDocument.non-final',
 		defaultMessage: 'Suggested edits (generate)',
 		description: 'Quick insert: fetch AI suggestions by generating from the current document (ADF)',
-	},
-	fetchFromSavedContent: {
-		id: 'fabric.editor.ai.suggestions.quickInsert.fromSavedContent.non-final',
-		defaultMessage: 'Suggested edits (ERS)',
-		description: 'Quick insert: fetch AI suggestions using saved content (ERS)',
 	},
 	fetchGenerateFromAdf: {
 		id: 'fabric.editor.ai.suggestions.quickInsert.generateFromAdf.non-final',

@@ -23,22 +23,22 @@ const responsiveWidthSearchStyles = css({
 
 const dynamicSizedVerticalPaddingStyles = css({
 	justifyContent: 'center',
-	paddingBlock: `calc(${token('space.200', '16px')} * 2)`,
+	paddingBlock: `calc(${token('space.200')} * 2)`,
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 30rem)': {
-		paddingBlock: `calc(${token('space.300', '24px')} * 2)`,
+		paddingBlock: `calc(${token('space.300')} * 2)`,
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 48rem)': {
-		paddingBlock: `calc(${token('space.400', '32px')} * 2)`,
+		paddingBlock: `calc(${token('space.400')} * 2)`,
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 64rem)': {
-		paddingBlock: `calc(${token('space.400', '32px')} * 2)`,
+		paddingBlock: `calc(${token('space.400')} * 2)`,
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 90rem)': {
-		paddingBlock: `calc(${token('space.500', '40px')} * 2)`,
+		paddingBlock: `calc(${token('space.500')} * 2)`,
 	},
 });
 

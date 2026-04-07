@@ -60,8 +60,8 @@ const styles = cssMap({
 	},
 	closeButton: {
 		position: 'absolute',
-		insetBlockStart: token('space.200', '16px'),
-		insetInlineEnd: token('space.200', '16px'),
+		insetBlockStart: token('space.200'),
+		insetInlineEnd: token('space.200'),
 		zIndex: 1,
 	},
 	illustration: {

@@ -1,5 +1,21 @@
 # @atlaskit/editor-ssr-renderer
 
+## 3.2.0
+
+### Minor Changes
+
+- [`e9ef7c6fc5370`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9ef7c6fc5370) -
+  EDITOR-6179: Enable SSR Streaming for Edit Page and Live Doc routes.
+  - Add `platform_editor_editor_ssr_streaming` experiment to `tmp-editor-statsig` experiments
+    config.
+  - `EditorSSRRenderer`: replace `useLayoutEffect`+`containerRef` DOM mutation with
+    `dangerouslySetInnerHTML` for rendering serialized editor HTML, enabling correct rendering in
+    `renderToPipeableStream` SSR streaming context.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.12
 
 ### Patch Changes

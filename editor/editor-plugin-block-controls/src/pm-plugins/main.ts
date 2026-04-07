@@ -35,7 +35,6 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -640,7 +639,7 @@ export const apply = (
 			if (
 				rightSideControlsEnabled &&
 				isViewMode &&
-				expValEqualsNoExposure('confluence_remix_icon_right_side', 'isEnabled', true)
+				fg('confluence_remix_button_right_side_block_fg')
 			) {
 				for (const factory of nodeDecorationRegistry) {
 					if (factory.showInViewMode) {
@@ -792,7 +791,7 @@ export const apply = (
 		} else if (
 			isViewMode &&
 			rightSideControlsEnabled &&
-			expValEqualsNoExposure('confluence_remix_icon_right_side', 'isEnabled', true)
+			fg('confluence_remix_button_right_side_block_fg')
 		) {
 			// Remove view-mode right-side decorations when no active node
 			for (const factory of nodeDecorationRegistry) {
@@ -1077,7 +1076,7 @@ export const createPlugin = (
 				if (isDisabled) {
 					const remixRightSideEnabled =
 						rightSideControlsEnabled &&
-						expValEqualsNoExposure('confluence_remix_icon_right_side', 'isEnabled', true);
+						fg('confluence_remix_button_right_side_block_fg');
 					// Hide decorations when disabled, except in view mode when right-side controls are enabled
 					if (
 						!remixRightSideEnabled ||

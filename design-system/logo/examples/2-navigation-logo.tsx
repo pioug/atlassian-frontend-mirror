@@ -88,7 +88,7 @@ const wrapperDivStyles = css({
 	background: 'var(--background)',
 	borderRadius: token('radius.small', '4px'),
 	color: 'var(--color)',
-	marginInlineEnd: token('space.250', '20px'),
+	marginInlineEnd: token('space.250'),
 });
 
 const WrapperDiv = ({ color, background, children }: WrapperDivProps) => {
@@ -116,7 +116,7 @@ const _default: () => JSX.Element = () => (
 		{logoOptions.map((Child, index) => (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={{ display: 'flex', marginBottom: token('space.250', '20px') }}
+				style={{ display: 'flex', marginBottom: token('space.250') }}
 				key={index}
 			>
 				{iconVariants.map((pairing, index2) => (

@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 13.0.2
+
+### Patch Changes
+
+- [`83401665664f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83401665664f5) -
+  Fix failure to extract clientId when performing cross client copy/paste of rich text containing
+  media
+
 ## 13.0.1
 
 ### Patch Changes

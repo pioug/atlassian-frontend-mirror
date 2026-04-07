@@ -20,7 +20,7 @@ const widths: DrawerWidth[] = ['narrow', 'medium', 'wide', 'extended', 'full'];
 
 const buttonContainerStyles = css({
 	display: 'flex',
-	gap: token('space.200', '1rem'),
+	gap: token('space.200'),
 });
 
 const DrawersExample: () => JSX.Element = () => {

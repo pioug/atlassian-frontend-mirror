@@ -17,14 +17,14 @@ const iframeStyles = css({
 	borderStyle: 'dashed',
 	borderWidth: token('border.width', '1px'),
 	color: token('color.text.subtle'),
-	marginBlockEnd: token('space.100', '8px'),
-	marginBlockStart: token('space.100', '8px'),
-	marginInlineEnd: token('space.100', '8px'),
-	marginInlineStart: token('space.100', '8px'),
-	paddingBlockEnd: token('space.100', '8px'),
-	paddingBlockStart: token('space.100', '8px'),
-	paddingInlineEnd: token('space.100', '8px'),
-	paddingInlineStart: token('space.100', '8px'),
+	marginBlockEnd: token('space.100'),
+	marginBlockStart: token('space.100'),
+	marginInlineEnd: token('space.100'),
+	marginInlineStart: token('space.100'),
+	paddingBlockEnd: token('space.100'),
+	paddingBlockStart: token('space.100'),
+	paddingInlineEnd: token('space.100'),
+	paddingInlineStart: token('space.100'),
 });
 
 const styles = cssMap({

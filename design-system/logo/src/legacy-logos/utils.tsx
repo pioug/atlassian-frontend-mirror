@@ -1,4 +1,4 @@
-import { B200, B400, N0, N100, N400, N600, N800 } from '@atlaskit/theme/colors';
+import { B200, B400, N0, N100, N400, N600 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // TODO: This is where we need to add tokens for all appearance color values
@@ -19,7 +19,7 @@ export const getColorsFromAppearanceOldLogos = (
 			iconGradientStart = B400;
 			iconGradientStop = B200;
 			iconColor = B200;
-			textColor = token('color.text', N800);
+			textColor = token('color.text');
 			// This is only used for the top level Atlassian wordmark (see AtlassianLogo
 			// or AtlassianStartLogo for example), and is only different for the Brand
 			// appearance - a bold brand color. For other appearances,

@@ -6,6 +6,7 @@ import {
 	type CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 import { type Option, type OptionData, type UserPickerProps, type UserPickerState } from './types';
@@ -114,6 +115,18 @@ export interface EventCreator {
 	): AnalyticsEventPayload;
 }
 
+/**
+ * `customGroupLabels` values are React nodes; analytics only records that custom labels are in use.
+ */
+const customGroupLabelsAnalyticsAttributes = (
+	props: UserPickerProps,
+): { hasCustomGroupLabels?: true } => {
+	if (!props.customGroupLabels) {
+		return {};
+	}
+	return { hasCustomGroupLabels: true };
+};
+
 const createDefaultPickerAttributes = (
 	props: UserPickerProps,
 	session?: UserPickerSession,
@@ -123,6 +136,9 @@ const createDefaultPickerAttributes = (
 	sessionId: sessionId(session),
 	pickerType: pickerType(props),
 	journeyId,
+	...(fg('jsm-wfo-assignee-recommendation-on-queues')
+		? customGroupLabelsAnalyticsAttributes(props)
+		: {}),
 });
 
 export const focusEvent: EventCreator = (

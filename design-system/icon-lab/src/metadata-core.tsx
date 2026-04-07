@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::37ec7245f08b07b7d708acdd3c6c1a87>>
+ * @codegen <<SignedSource::0e1084de16143c52024155993edd3061>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -4961,6 +4961,23 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 		slackChannel: '#feedback-loom-vizrefresh',
 	},
+	'person-assignee': {
+		keywords: [
+			'person-assignee',
+			'personassignee',
+			'icon',
+			'icon-lab',
+			'person',
+			'assigned to me',
+			'assignee',
+		],
+		componentName: 'PersonAssigneeIcon',
+		package: '@atlaskit/icon-lab/core/person-assignee',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing assignees or assigning work to an individual.',
+		team: 'Jira UX Transformation',
+		status: 'published',
+	},
 	'person-lock-locked': {
 		keywords: [
 			'person-lock-locked',
@@ -7169,6 +7186,62 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon-lab/core/video-theater-mode',
 		categorization: 'single-purpose',
 		usage: 'Reserved for theater mode functionality within video player.',
+		team: 'Loom',
+		status: 'published',
+	},
+	'video-timeline-clip-insert-end': {
+		keywords: [
+			'video-timeline-clip-insert-end',
+			'videotimelineclipinsertend',
+			'icon',
+			'icon-lab',
+			'video',
+			'clip',
+			'timeline',
+			'end',
+		],
+		componentName: 'VideoTimelineClipInsertEndIcon',
+		package: '@atlaskit/icon-lab/core/video-timeline-clip-insert-end',
+		categorization: 'single-purpose',
+		usage: 'Reserved for inserting a clip at the end of the video timeline in Loom.',
+		team: 'Loom',
+		status: 'published',
+	},
+	'video-timeline-clip-insert-playhead': {
+		keywords: [
+			'video-timeline-clip-insert-playhead',
+			'videotimelineclipinsertplayhead',
+			'icon',
+			'icon-lab',
+			'video',
+			'clip',
+			'timeline',
+			'playhead',
+			'current position',
+		],
+		componentName: 'VideoTimelineClipInsertPlayheadIcon',
+		package: '@atlaskit/icon-lab/core/video-timeline-clip-insert-playhead',
+		categorization: 'single-purpose',
+		usage: 'Reserved for inserting a clip at the playhead position of the video timeline in Loom.',
+		team: 'Loom',
+		status: 'published',
+	},
+	'video-timeline-clip-insert-start': {
+		keywords: [
+			'video-timeline-clip-insert-start',
+			'videotimelineclipinsertstart',
+			'icon',
+			'icon-lab',
+			'video',
+			'clip',
+			'timeline',
+			'start',
+			'beginning',
+		],
+		componentName: 'VideoTimelineClipInsertStartIcon',
+		package: '@atlaskit/icon-lab/core/video-timeline-clip-insert-start',
+		categorization: 'single-purpose',
+		usage: 'Reserved for inserting a clip at the beginning of the video timeline in Loom.',
 		team: 'Loom',
 		status: 'published',
 	},

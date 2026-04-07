@@ -12,10 +12,10 @@ const styles = cssMap({
 	container: {
 		width: '12rem',
 		height: '12rem',
-		paddingBlockStart: token('space.100', '8px'),
-		paddingInlineEnd: token('space.100', '8px'),
-		paddingBlockEnd: token('space.100', '8px'),
-		paddingInlineStart: token('space.100', '8px'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 	},
 });
 

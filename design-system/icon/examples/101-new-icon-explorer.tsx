@@ -77,10 +77,10 @@ const iconExplorerGridStyles = css({
 });
 
 const noIconsStyles = css({
-	paddingBlockEnd: token('space.100', '10px'),
-	paddingBlockStart: token('space.100', '10px'),
-	paddingInlineEnd: token('space.100', '10px'),
-	paddingInlineStart: token('space.100', '10px'),
+	paddingBlockEnd: token('space.100'),
+	paddingBlockStart: token('space.100'),
+	paddingInlineEnd: token('space.100'),
+	paddingInlineStart: token('space.100'),
 });
 
 const filterIcons = (icons: IconsList, query: string) => {
@@ -157,6 +157,7 @@ const IconAllExample = (): JSX.Element => {
 				))}
 			</div>
 		) : (
+			// eslint-disable-next-line @atlaskit/design-system/use-primitives
 			<div css={noIconsStyles}>{`Sorry, we couldn't find any icons matching "${query}".`}</div>
 		);
 	};

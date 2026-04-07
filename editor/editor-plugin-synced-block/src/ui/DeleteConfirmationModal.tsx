@@ -21,6 +21,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 
@@ -35,7 +36,7 @@ type ModalContent = {
 	titleSingle: MessageDescriptor;
 };
 
-const modalContentMap: Record<
+const modalContentMapOld: Record<
 	'source-block-deleted' | 'source-block-unsynced' | 'source-block-unpublished',
 	ModalContent
 > = {
@@ -58,6 +59,33 @@ const modalContentMap: Record<
 		titleSingle: messages.unsyncConfirmationModalTitle,
 		descriptionSingle: messages.unsyncConfirmModalDescriptionSingle,
 		descriptionMultiple: messages.unsyncConfirmModalDescriptionMultiple,
+		confirmButtonLabel: messages.deleteConfirmationModalUnsyncButton,
+	},
+};
+
+const modalContentMap: Record<
+	'source-block-deleted' | 'source-block-unsynced' | 'source-block-unpublished',
+	ModalContent
+> = {
+	'source-block-deleted': {
+		titleMultiple: messages.deleteConfirmationModalTitleMultiple,
+		titleSingle: messages.deletionConfirmationModalTitleSingle,
+		descriptionSingle: messages.deletionConfirmationModalDescriptionNoRef,
+		descriptionMultiple: messages.deletionConfirmationModalDescriptionNew,
+		confirmButtonLabel: messages.deleteConfirmationModalDeleteButton,
+	},
+	'source-block-unpublished': {
+		titleMultiple: messages.deleteConfirmationModalTitleMultiple,
+		titleSingle: messages.deletionConfirmationModalTitleSingle,
+		descriptionSingle: messages.deletionConfirmationModalDescriptionNoRef,
+		descriptionMultiple: messages.deletionConfirmationModalDescriptionNew,
+		confirmButtonLabel: messages.deleteConfirmationModalDeleteButton,
+	},
+	'source-block-unsynced': {
+		titleMultiple: messages.unsyncConfirmationModalTitle,
+		titleSingle: messages.unsyncConfirmationModalTitle,
+		descriptionSingle: messages.unsyncConfirmModalDescriptionSingle,
+		descriptionMultiple: messages.unsyncConfirmModalDescriptionMultipleNew,
 		confirmButtonLabel: messages.deleteConfirmationModalUnsyncButton,
 	},
 };
@@ -212,7 +240,11 @@ export const DeleteConfirmationModal = ({
 							</Box>
 						) : (
 							<ModalContent
-								content={modalContentMap[deleteReason]}
+								content={
+									fg('platform_synced_block_patch_8')
+										? modalContentMap[deleteReason]
+										: modalContentMapOld[deleteReason]
+								}
 								referenceCount={referenceCount}
 								handleClick={handleClick}
 								formatMessage={formatMessage}

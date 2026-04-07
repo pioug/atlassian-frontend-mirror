@@ -19,7 +19,7 @@ const fieldWrapperStyles = cssMap({
 	root: {
 		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors
 		'& label[id$="-label"]': {
-			marginBlockEnd: token('space.0', '0px'),
+			marginBlockEnd: token('space.0'),
 		},
 	},
 });
@@ -27,10 +27,10 @@ const fieldWrapperStyles = cssMap({
 // Override helper message margins to fix inconsistent spacing issue
 const helperMessageWrapperStyles = cssMap({
 	root: {
-		marginBlockEnd: token('space.050', '4px'),
+		marginBlockEnd: token('space.050'),
 		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors
 		'& [id$="-helper"]': {
-			marginBlockStart: token('space.0', '0px'),
+			marginBlockStart: token('space.0'),
 		},
 	},
 });

@@ -12,8 +12,8 @@ const actionsStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
-	marginBlockEnd: token('space.100', '8px'),
-	paddingInlineStart: token('space.500', '40px'),
+	marginBlockEnd: token('space.100'),
+	paddingInlineStart: token('space.500'),
 });
 
 /**

@@ -16,7 +16,7 @@ const styles = cssMap({
 	presenceWrapper: {
 		height: '30px',
 		width: '30px',
-		marginRight: token('space.100', '8px'),
+		marginRight: token('space.100'),
 	},
 });
 

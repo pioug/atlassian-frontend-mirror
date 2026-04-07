@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 128.9.0
+
+### Minor Changes
+
+- [`02d2faaaf5bb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02d2faaaf5bb9) -
+  A11Y fixes
+
+### Patch Changes
+
+- [`3e18e5bea1aa1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e18e5bea1aa1) -
+  Fixed cursor placement when pressing Enter at the start of a nested task item. Fixed extra spacing
+  on nested task lists when flexible list indentation is enabled.
+- Updated dependencies
+
 ## 128.8.0
 
 ### Minor Changes

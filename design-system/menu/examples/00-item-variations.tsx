@@ -28,10 +28,10 @@ const iconSpacingStyles = cssMap({
 });
 
 const overrideStyles = css({
-	paddingBlockEnd: token('space.150', '12px'),
-	paddingBlockStart: token('space.150', '12px'),
-	paddingInlineEnd: token('space.250', '20px'),
-	paddingInlineStart: token('space.250', '20px'),
+	paddingBlockEnd: token('space.150'),
+	paddingBlockStart: token('space.150'),
+	paddingInlineEnd: token('space.250'),
+	paddingInlineStart: token('space.250'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'[data-item-elem-after]': {
 		opacity: 0,

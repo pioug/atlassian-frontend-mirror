@@ -8,10 +8,10 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	spacer: {
-		marginTop: token('space.800', '64px'),
-		marginRight: token('space.800', '64px'),
-		marginBottom: token('space.800', '64px'),
-		marginLeft: token('space.800', '64px'),
+		marginTop: token('space.800'),
+		marginRight: token('space.800'),
+		marginBottom: token('space.800'),
+		marginLeft: token('space.800'),
 	},
 });
 

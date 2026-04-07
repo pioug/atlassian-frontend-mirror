@@ -15,39 +15,39 @@ import BadgeNew from '../src/badge-new';
 
 const styles = cssMap({
 	container: {
-		paddingBlockStart: token('space.300', '24px'),
-		paddingInlineEnd: token('space.300', '24px'),
-		paddingBlockEnd: token('space.300', '24px'),
-		paddingInlineStart: token('space.300', '24px'),
+		paddingBlockStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		paddingBlockEnd: token('space.300'),
+		paddingInlineStart: token('space.300'),
 		maxWidth: '800px',
 	},
 	card: {
-		paddingBlockStart: token('space.200', '16px'),
-		paddingInlineEnd: token('space.200', '16px'),
-		paddingBlockEnd: token('space.200', '16px'),
-		paddingInlineStart: token('space.200', '16px'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 		backgroundColor: token('color.background.neutral.subtle'),
 		borderRadius: token('radius.small', '3px'),
-		marginBlockEnd: token('space.200', '16px'),
+		marginBlockEnd: token('space.200'),
 	},
 	title: {
 		fontWeight: token('font.weight.bold'),
 		fontSize: '16px',
-		marginBlockEnd: token('space.100', '8px'),
+		marginBlockEnd: token('space.100'),
 	},
 	grid: {
 		display: 'grid',
 		gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-		gap: token('space.200', '16px'),
+		gap: token('space.200'),
 	},
 	item: {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		paddingBlockStart: token('space.100', '8px'),
-		paddingInlineEnd: token('space.100', '8px'),
-		paddingBlockEnd: token('space.100', '8px'),
-		paddingInlineStart: token('space.100', '8px'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 		backgroundColor: token('color.background.neutral'),
 		borderRadius: token('radius.small', '3px'),
 	},
@@ -97,7 +97,7 @@ export default function BadgeVisualUplifts(): JSX.Element {
 
 				<div css={styles.card}>
 					<Heading size="medium">✨ New Appearances (Warning & Discovery)</Heading>
-					<p style={{ marginBottom: token('space.200', '16px') }}>
+					<p style={{ marginBottom: token('space.200') }}>
 						These appearances are only available in BadgeNew with the visual refresh.
 					</p>
 					<div css={styles.grid}>

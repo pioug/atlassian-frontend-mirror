@@ -6,9 +6,6 @@ import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji/types';
-// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import type { SpotlightCard } from '@atlaskit/onboarding';
-import type { Placement } from '@atlaskit/popper';
 import type { TooltipProps } from '@atlaskit/tooltip';
 
 import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
@@ -162,13 +159,6 @@ export type ConfirmationDialogProps = {
 	testId?: string;
 };
 
-export type FloatingToolbarButtonSpotlightConfig = {
-	isSpotlightOpen: boolean;
-	onTargetClick?: () => void;
-	pulse?: boolean;
-	spotlightCardOptions: React.ComponentProps<typeof SpotlightCard> & { placement?: Placement };
-};
-
 export type FloatingToolbarCopyButton = {
 	hidden?: boolean;
 	items: Array<FloatingToolbarSeparator | MarkOptions | NodeOptions>;
@@ -206,7 +196,6 @@ export type FloatingToolbarButton<T extends Object> = {
 	pulse?: boolean;
 	selected?: boolean;
 	showTitle?: boolean;
-	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
 	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
 	tabIndex?: number | null | undefined;
 	target?: string;

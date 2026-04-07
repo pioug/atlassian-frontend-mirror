@@ -22,10 +22,10 @@ const containerStyles = cssMap({
 // Mimics overrides in side-navigation
 const customItemStyles = cssMap({
 	root: {
-		paddingBlockStart: token('space.100', '8px'),
-		paddingInlineEnd: token('space.300', '24px'),
-		paddingBlockEnd: token('space.100', '8px'),
-		paddingInlineStart: token('space.300', '24px'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.300'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.300'),
 		borderRadius: token('radius.small'),
 		backgroundColor: N10,
 		color: N500,
@@ -46,7 +46,7 @@ const customItemStyles = cssMap({
 			width: 8 * 1.25,
 			alignItems: 'center',
 			justifyContent: 'center',
-			marginInlineEnd: token('space.200', '16px'),
+			marginInlineEnd: token('space.200'),
 		},
 	},
 	disabled: {

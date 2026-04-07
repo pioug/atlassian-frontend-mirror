@@ -28,7 +28,7 @@ const subtleBgStyles = css({
 	borderColor: 'transparent',
 });
 const subtleFocusedBgStyles = css({
-	backgroundColor: token('color.background.input.pressed', 'transparent'),
+	backgroundColor: token('color.background.input.pressed'),
 	borderColor: 'transparent',
 });
 const noBgStyles = css({
@@ -59,7 +59,7 @@ const isDisabledStyles = css({
 	},
 });
 const newBorderStyles = css({
-	border: `${token('border.width', '1px')} solid ${token('color.border.input')}`,
+	border: `${token('border.width')} solid ${token('color.border.input')}`,
 });
 const baseContainerStyles = css({
 	display: 'flex',

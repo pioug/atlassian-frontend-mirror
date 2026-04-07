@@ -86,7 +86,7 @@ export const VisibilityContainer = ({
 	);
 
 	const isViewMode = editorViewMode === 'view';
-	// rightSideControlsEnabled is the single source of truth (confluence_remix_icon_right_side from preset)
+	// rightSideControlsEnabled is the single source of truth (confluence_remix_button_right_side_block_fg from preset)
 	const shouldRestrictBySide = rightSideControlsEnabled && controlSide !== undefined && !isViewMode;
 	// Only restrict by side when hoverSide is known (after mousemove). When undefined, show both
 	// controls so drag handle is visible on load and for keyboard-only users.

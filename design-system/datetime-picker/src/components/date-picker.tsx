@@ -499,7 +499,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 	const disabledStyle: CSSProperties = isDisabled
 		? {
 				pointerEvents: 'none',
-				color: token('color.icon.disabled', 'inherit'),
+				color: token('color.icon.disabled'),
 			}
 		: {};
 
@@ -532,8 +532,8 @@ const DatePicker: React.ForwardRefExoticComponent<
 		}),
 		indicatorsContainer: (base) => ({
 			...base,
-			paddingLeft: token('space.025', '2px'), // ICON_PADDING = 2
-			paddingRight: token('space.075', '6px'), // 8 - ICON_PADDING = 6
+			paddingLeft: token('space.025'), // ICON_PADDING = 2
+			paddingRight: token('space.075'), // 8 - ICON_PADDING = 6
 		}),
 	});
 

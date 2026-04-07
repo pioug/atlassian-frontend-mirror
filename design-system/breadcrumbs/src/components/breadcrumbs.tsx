@@ -36,14 +36,14 @@ const breadcrumbStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',
 	color: token('color.text.subtlest'),
-	marginBlockEnd: token('space.0', '0px'),
-	marginBlockStart: token('space.0', '0px'),
-	marginInlineEnd: token('space.0', '0px'),
-	marginInlineStart: token('space.0', '0px'),
-	paddingBlockEnd: token('space.0', '0px'),
-	paddingBlockStart: token('space.0', '0px'),
-	paddingInlineEnd: token('space.0', '0px'),
-	paddingInlineStart: token('space.0', '0px'),
+	marginBlockEnd: token('space.0'),
+	marginBlockStart: token('space.0'),
+	marginInlineEnd: token('space.0'),
+	marginInlineStart: token('space.0'),
+	paddingBlockEnd: token('space.0'),
+	paddingBlockStart: token('space.0'),
+	paddingInlineEnd: token('space.0'),
+	paddingInlineStart: token('space.0'),
 });
 
 const InnerBreadcrumbs: React.ForwardRefExoticComponent<

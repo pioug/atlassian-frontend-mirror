@@ -50,14 +50,14 @@ const styles = cssMap({
 		},
 		'&:focus-visible': {
 			boxShadow: 'initial',
-			outlineColor: token('color.border.focused', '#2684FF'),
-			outlineOffset: token('space.025', '2px'),
+			outlineColor: token('color.border.focused'),
+			outlineOffset: token('space.025'),
 			outlineStyle: 'solid',
-			outlineWidth: token('border.width.focused', '2px'),
+			outlineWidth: token('border.width.focused'),
 		},
 		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 			'&:focus-visible': {
-				outlineWidth: token('border.width', '1px'),
+				outlineWidth: token('border.width'),
 			},
 		},
 	},
@@ -76,8 +76,8 @@ const styles = cssMap({
 	disabled: {
 		cursor: 'not-allowed',
 		'&::after': {
-			backgroundColor: token('elevation.surface', '#FFFFFF'),
-			opacity: token('opacity.disabled', '0.7'),
+			backgroundColor: token('elevation.surface'),
+			opacity: token('opacity.disabled'),
 		},
 	},
 });
@@ -166,11 +166,11 @@ const unboundStyles = unboundCssMap({
 	interactive: {
 		cursor: 'pointer',
 		'&:hover::after': {
-			backgroundColor: token('color.interaction.hovered', 'rgba(9, 30, 66, 0.36)'),
+			backgroundColor: token('color.interaction.hovered'),
 			opacity: '1',
 		},
 		'&:active::after': {
-			backgroundColor: token('color.interaction.pressed', 'rgba(9, 30, 66, 0.36)'),
+			backgroundColor: token('color.interaction.pressed'),
 			opacity: '1',
 		},
 		'@media screen and (forced-colors: active)': {

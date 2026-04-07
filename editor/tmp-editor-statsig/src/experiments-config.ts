@@ -298,6 +298,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_editor_ssr_streaming: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	confluence_remix_icon_right_side: {
 		defaultValue: boolean;
 		param: string;
@@ -1211,6 +1217,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-30
+	platform_editor_spotlight_migration: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-17
 	confluence_frontend_fix_date_hydration_error: {
 		defaultValue: boolean;
@@ -1227,6 +1240,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-23
 	'cc-maui-experiment': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-06
+	'cc-maui-experiment-phase-2': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1587,6 +1607,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-18
 	platform_editor_selection_toolbar_block_handle: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-04
+	platform_editor_user_highlight_contrast: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2012,6 +2039,14 @@ export const editorExperimentsConfig: {
 	platform_editor_element_drag_and_drop_multiselect: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_element_drag_and_drop_multiselect',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-30
+	platform_editor_editor_ssr_streaming: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_editor_ssr_streaming',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3003,6 +3038,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-06
+	'cc-maui-experiment-phase-2': createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc-maui-experiment-phase-2',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-05
 	'cc-mui-slides-experiment': createBooleanExperiment({
 		productKeys: {
@@ -3446,6 +3489,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-02-004
+	platform_editor_user_highlight_contrast: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_user_highlight_contrast',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-25
 	platform_editor_improve_preset_builder_logging: createBooleanExperiment({
 		productKeys: {
@@ -3458,6 +3509,14 @@ export const editorExperimentsConfig: {
 	platform_editor_fix_comment_border: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_fix_comment_border',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-30
+	platform_editor_spotlight_migration: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_spotlight_migration',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

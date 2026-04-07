@@ -32,15 +32,15 @@ export default (): any => md`
 			<div
 				css={css({
 					width: '158px',
-					marginBlockEnd: token('space.200', '16px'),
-					marginBlockStart: token('space.200', '16px'),
+					marginBlockEnd: token('space.200'),
+					marginBlockStart: token('space.200'),
 					marginInlineEnd: 'auto',
 					marginInlineStart: 'auto',
 					'> *': {
-						marginBlockEnd: token('space.100', '8px'),
-						marginBlockStart: token('space.100', '8px'),
-						marginInlineEnd: token('space.100', '8px'),
-						marginInlineStart: token('space.100', '8px'),
+						marginBlockEnd: token('space.100'),
+						marginBlockStart: token('space.100'),
+						marginInlineEnd: token('space.100'),
+						marginInlineStart: token('space.100'),
 					},
 				})}
 			>
@@ -63,15 +63,15 @@ export default (): any => md`
 					maxWidth: '474px',
 					justifyContent: 'flex-start',
 					flexWrap: 'wrap',
-					marginBlockEnd: token('space.200', '16px'),
-					marginBlockStart: token('space.200', '16px'),
+					marginBlockEnd: token('space.200'),
+					marginBlockStart: token('space.200'),
 					marginInlineEnd: 'auto',
 					marginInlineStart: 'auto',
 					'> *': {
-						marginBlockEnd: token('space.050', '4px'),
-						marginBlockStart: token('space.050', '4px'),
-						marginInlineEnd: token('space.050', '4px'),
-						marginInlineStart: token('space.050', '4px'),
+						marginBlockEnd: token('space.050'),
+						marginBlockStart: token('space.050'),
+						marginInlineEnd: token('space.050'),
+						marginInlineStart: token('space.050'),
 					},
 				})}
 			>
@@ -100,15 +100,15 @@ export default (): any => md`
 					display: 'flex',
 					width: '474px',
 					flexWrap: 'wrap',
-					marginBlockEnd: token('space.200', '16px'),
-					marginBlockStart: token('space.200', '16px'),
+					marginBlockEnd: token('space.200'),
+					marginBlockStart: token('space.200'),
 					marginInlineEnd: 'auto',
 					marginInlineStart: 'auto',
 					'> *': {
-						marginBlockEnd: token('space.050', '4px'),
-						marginBlockStart: token('space.050', '4px'),
-						marginInlineEnd: token('space.050', '4px'),
-						marginInlineStart: token('space.050', '4px'),
+						marginBlockEnd: token('space.050'),
+						marginBlockStart: token('space.050'),
+						marginInlineEnd: token('space.050'),
+						marginInlineStart: token('space.050'),
 					},
 				})}
 			>
@@ -137,22 +137,22 @@ export default (): any => md`
 					margin: '0 auto',
 					padding: '0',
 					flexWrap: 'wrap',
-					paddingBlockStart: token('space.200', '16px'),
+					paddingBlockStart: token('space.200'),
 					li: {
 						margin: 0,
 						listStyle: 'none',
 					},
 					div: {
-						marginBlockEnd: token('space.100', '8px'),
+						marginBlockEnd: token('space.100'),
 						marginBlockStart: 0,
 						marginInlineEnd: 0,
 						marginInlineStart: 0,
 					},
 					'> div': {
-						marginBlockEnd: token('space.050', '4px'),
-						marginBlockStart: token('space.050', '4px'),
-						marginInlineEnd: token('space.050', '4px'),
-						marginInlineStart: token('space.050', '4px'),
+						marginBlockEnd: token('space.050'),
+						marginBlockStart: token('space.050'),
+						marginInlineEnd: token('space.050'),
+						marginInlineStart: token('space.050'),
 					},
 				})}
 			>

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
 import { type LozengeProps } from '../../../types';
 import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
@@ -9,6 +10,8 @@ import { type HoverPreviewOptions } from '../../HoverCard/types';
 import InlineLozenge from '../common/inline-lozenge';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
+
+import { InlineCardResolvedViewFunctional } from './InlineCardResolvedViewFunctional';
 
 export interface InlineCardResolvedViewProps {
 	/** Configure visibility of server and client actions */
@@ -49,7 +52,7 @@ export interface InlineCardResolvedViewProps {
 	type?: string[];
 }
 
-export class InlineCardResolvedView extends React.Component<InlineCardResolvedViewProps> {
+class InlineCardResolvedViewClass extends React.Component<InlineCardResolvedViewProps> {
 	renderLozenge(): React.JSX.Element | null {
 		const { lozenge } = this.props;
 		if (!lozenge || !lozenge?.text) {
@@ -145,3 +148,9 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 		return inlineCardResolvedView;
 	}
 }
+
+export const InlineCardResolvedView = componentWithFG(
+	'smart-card-inline-resolved-view-refactor',
+	InlineCardResolvedViewFunctional,
+	InlineCardResolvedViewClass,
+);

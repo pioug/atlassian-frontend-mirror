@@ -49,7 +49,7 @@ const styles = cssMap({
 		},
 		'&:focus-visible': {
 			boxShadow: 'none',
-			outlineColor: token('color.border.focused', '#2684FF'),
+			outlineColor: token('color.border.focused'),
 			outlineStyle: 'solid',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 			outlineOffset: 2,
@@ -81,7 +81,7 @@ const styles = cssMap({
 	disabled: {
 		cursor: 'not-allowed',
 		'&::after': {
-			opacity: token('opacity.disabled', '0.7'),
+			opacity: token('opacity.disabled'),
 			backgroundColor: token('elevation.surface'),
 		},
 	},

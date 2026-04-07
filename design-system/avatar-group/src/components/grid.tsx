@@ -10,7 +10,7 @@ import { ExitingPersistence } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-const gutter = token('space.negative.050', '-4px');
+const gutter = token('space.negative.050');
 
 const listStyles = css({
 	display: 'flex',
@@ -21,29 +21,29 @@ const listStyles = css({
 	lineHeight: 1,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 	listStyleType: 'none !important',
-	marginBlockEnd: token('space.0', '0px'),
-	marginBlockStart: token('space.0', '0px'),
+	marginBlockEnd: token('space.0'),
+	marginBlockStart: token('space.0'),
 	marginInlineEnd: gutter,
 	marginInlineStart: gutter,
-	paddingBlockEnd: token('space.0', '0px'),
-	paddingBlockStart: token('space.0', '0px'),
-	paddingInlineEnd: token('space.0', '0px'),
-	paddingInlineStart: token('space.0', '0px'),
+	paddingBlockEnd: token('space.0'),
+	paddingBlockStart: token('space.0'),
+	paddingInlineEnd: token('space.0'),
+	paddingInlineStart: token('space.0'),
 });
 
 const listStylesFlagged = css({
-	marginBlockEnd: token('space.050', '4px'),
-	paddingInlineEnd: token('space.025', '2px'),
-	paddingInlineStart: token('space.025', '2px'),
+	marginBlockEnd: token('space.050'),
+	paddingInlineEnd: token('space.025'),
+	paddingInlineStart: token('space.025'),
 });
 
 const listItemStyles = css({
-	marginBlockEnd: token('space.100', '8px'),
-	marginBlockStart: token('space.0', '0px'),
-	marginInlineEnd: token('space.0', '0px'),
-	marginInlineStart: token('space.0', '0px'),
-	paddingInlineEnd: token('space.050', '4px'),
-	paddingInlineStart: token('space.050', '4px'),
+	marginBlockEnd: token('space.100'),
+	marginBlockStart: token('space.0'),
+	marginInlineEnd: token('space.0'),
+	marginInlineStart: token('space.0'),
+	paddingInlineEnd: token('space.050'),
+	paddingInlineStart: token('space.050'),
 });
 
 const Grid: FC<{

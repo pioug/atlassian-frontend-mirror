@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.29.3",
+	"version": "43.30.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -248,6 +248,9 @@
 			"type": "boolean"
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
+			"type": "boolean"
+		},
+		"smart-card-inline-resolved-view-refactor": {
 			"type": "boolean"
 		}
 	},

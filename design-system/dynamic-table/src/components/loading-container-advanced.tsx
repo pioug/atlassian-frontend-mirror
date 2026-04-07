@@ -4,7 +4,7 @@ import React from 'react';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
-import { LARGE, LOADING_CONTENTS_OPACITY } from '../internal/constants';
+import { LARGE } from '../internal/constants';
 import { Container, SpinnerBackdrop, SpinnerContainer } from '../styled/loading-container-advanced';
 import type { SpinnerSizeType } from '../types';
 
@@ -34,7 +34,7 @@ export default class LoadingContainerAdvanced extends React.Component<
 	} = {
 		isLoading: true,
 		spinnerSize: LARGE,
-		contentsOpacity: token('opacity.loading', `${LOADING_CONTENTS_OPACITY}`),
+		contentsOpacity: token('opacity.loading'),
 		loadingLabel: 'Loading table',
 	};
 

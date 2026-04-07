@@ -16,8 +16,8 @@ const tableStyles = css({
 
 const cellStyles = css({
 	width: '100px',
-	paddingBlockEnd: token('space.050', '4px'),
-	paddingBlockStart: token('space.050', '4px'),
+	paddingBlockEnd: token('space.050'),
+	paddingBlockStart: token('space.050'),
 	paddingInlineEnd: 0,
 	paddingInlineStart: 0,
 });

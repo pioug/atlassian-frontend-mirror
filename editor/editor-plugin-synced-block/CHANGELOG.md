@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 6.0.44
+
+### Patch Changes
+
+- [`38e89dd6515da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38e89dd6515da) -
+  Read viewMode from the editorViewMode plugin and pass it to SyncBlockStoreManager so that synced
+  block side effects are suppressed when the editor is in view mode (e.g. Version History).
+- Updated dependencies
+
+## 6.0.43
+
+### Patch Changes
+
+- [`c120ecfaba934`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c120ecfaba934) -
+  [ux] Update delete and unsync modal text for source with multiple references.
+- Updated dependencies
+
 ## 6.0.42
 
 ### Patch Changes

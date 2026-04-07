@@ -103,12 +103,12 @@ exports[`ArticleContent Match snapshot 1`] = `
 }
 
 .emotion-1:focus {
-  outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #2684FF);
+  outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #4688EC);
   outline-offset: 2px;
 }
 
 .emotion-1:focus-visible {
-  outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #2684FF);
+  outline: var(--ds-border-width-focused, 2px) solid var(--ds-border-focused, #4688EC);
   outline-offset: 2px;
 }
 

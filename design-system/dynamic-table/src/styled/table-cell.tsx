@@ -23,18 +23,18 @@ const truncationWidthStyles = css({ width: `var(--local-dynamic-table-width)` })
 
 const cellStyles = css({
 	border: 'none',
-	paddingBlockEnd: token('space.050', '4px'),
-	paddingBlockStart: token('space.050', '4px'),
-	paddingInlineEnd: token('space.100', '8px'),
-	paddingInlineStart: token('space.100', '8px'),
+	paddingBlockEnd: token('space.050'),
+	paddingBlockStart: token('space.050'),
+	paddingInlineEnd: token('space.100'),
+	paddingInlineStart: token('space.100'),
 	textAlign: 'left',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:first-of-type': {
-		paddingInlineStart: token('space.0', '0px'),
+		paddingInlineStart: token('space.0'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:last-child': {
-		paddingInlineEnd: token('space.0', '0px'),
+		paddingInlineEnd: token('space.0'),
 	},
 });
 

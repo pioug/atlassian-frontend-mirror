@@ -26,50 +26,50 @@ const baseStyles = css({
 });
 
 const gapMediaQueries = css({
-	gap: token('space.200', '16px'),
+	gap: token('space.200'),
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 30rem)': {
-		gap: token('space.200', '16px'),
+		gap: token('space.200'),
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 48rem)': {
-		gap: token('space.200', '16px'),
+		gap: token('space.200'),
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 64rem)': {
-		gap: token('space.300', '24px'),
+		gap: token('space.300'),
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 90rem)': {
-		gap: token('space.400', '32px'),
+		gap: token('space.400'),
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 110.5rem)': {
-		gap: token('space.400', '32px'),
+		gap: token('space.400'),
 	},
 });
 
 const inlinePaddingMediaQueries = css({
-	paddingInline: token('space.200', '16px'),
+	paddingInline: token('space.200'),
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 30rem)': {
-		paddingInline: token('space.200', '16px'),
+		paddingInline: token('space.200'),
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 48rem)': {
-		paddingInline: token('space.300', '24px'),
+		paddingInline: token('space.300'),
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 64rem)': {
-		paddingInline: token('space.400', '32px'),
+		paddingInline: token('space.400'),
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 90rem)': {
-		paddingInline: token('space.400', '32px'),
+		paddingInline: token('space.400'),
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 110.5rem)': {
-		paddingInline: token('space.500', '40px'),
+		paddingInline: token('space.500'),
 	},
 });
 

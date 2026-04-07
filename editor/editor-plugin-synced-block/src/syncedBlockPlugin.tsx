@@ -31,7 +31,8 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 		wrapperElement?: HTMLElement;
 	} = {};
 
-	const syncBlockStore = new SyncBlockStoreManager(config?.syncBlockDataProvider);
+	const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
+	const syncBlockStore = new SyncBlockStoreManager(config?.syncBlockDataProvider, viewMode);
 	syncBlockStore.setFireAnalyticsEvent(api?.analytics?.actions?.fireAnalyticsEvent);
 
 	api?.blockMenu?.actions.registerBlockMenuComponents(
@@ -54,7 +55,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 					name: 'bodiedSyncBlock',
 					node: !editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
 						? // delete bodiedSyncBlockNodeWithToDOMFixed when cleaning up platform_synced_block_patch_6
-							bodiedSyncBlockNodeWithToDOMFixed()
+						  bodiedSyncBlockNodeWithToDOMFixed()
 						: bodiedSyncBlock,
 				},
 			];

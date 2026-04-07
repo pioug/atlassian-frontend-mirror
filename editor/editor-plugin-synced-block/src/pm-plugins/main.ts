@@ -439,13 +439,13 @@ export const createPlugin = (
 							pmPluginFactoryParams,
 							api,
 							syncBlockStore,
-						})
+					  })
 					: bodiedSyncBlockNodeViewOld({
 							pluginOptions: options,
 							pmPluginFactoryParams,
 							api,
 							syncBlockStore,
-						}),
+					  }),
 			},
 			decorations: (state) => {
 				const currentPluginState = syncedBlockPluginKey.getState(state);
@@ -586,6 +586,11 @@ export const createPlugin = (
 			},
 		},
 		filterTransaction: (tr, state) => {
+			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
+			if (viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+				return true;
+			}
+
 			const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
 			const isConfirmedSyncBlockDeletion = Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'));
 
@@ -621,7 +626,7 @@ export const createPlugin = (
 						isConfirmedSyncBlockDeletion,
 						bodiedSyncBlockRemoved,
 						bodiedSyncBlockAdded,
-					})
+				  })
 				: filterTransactionOnline({
 						tr,
 						state,
@@ -631,9 +636,14 @@ export const createPlugin = (
 						bodiedSyncBlockRemoved,
 						bodiedSyncBlockAdded,
 						extensionFlagShown,
-					});
+				  });
 		},
 		appendTransaction: (trs, oldState, newState) => {
+			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
+			if (viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+				return null;
+			}
+
 			// Update source sync block cache for user-initiated changes only
 			// When fg is ON, cache updates are handled here instead of in the nodeview update()
 			if (fg('platform_synced_block_update_refactor')) {

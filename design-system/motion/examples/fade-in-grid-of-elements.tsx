@@ -33,8 +33,8 @@ const ulStyles = css({
 	padding: 0,
 	justifyContent: 'flex-start',
 	flexWrap: 'wrap',
-	marginBlockEnd: token('space.200', '16px'),
-	marginBlockStart: token('space.200', '16px'),
+	marginBlockEnd: token('space.200'),
+	marginBlockStart: token('space.200'),
 	marginInlineEnd: 'auto',
 	marginInlineStart: 'auto',
 });

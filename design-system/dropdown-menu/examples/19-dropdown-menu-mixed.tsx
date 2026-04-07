@@ -166,10 +166,10 @@ const styles = cssMap({
 	container: {
 		display: 'flex',
 		alignItems: 'flex-start',
-		paddingBlockStart: token('space.200', '16px'),
-		paddingInlineEnd: token('space.200', '16px'),
-		paddingBlockEnd: token('space.200', '16px'),
-		paddingInlineStart: token('space.200', '16px'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 	},
 });
 

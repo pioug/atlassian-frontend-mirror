@@ -8,8 +8,8 @@ const styles = cssMap({
 	heading: {
 		color: token('color.text.subtle'),
 		font: token('font.heading.xxsmall'),
-		paddingBlock: token('space.0', '0px'),
-		paddingInline: token('space.200', '16px'),
+		paddingBlock: token('space.0'),
+		paddingInline: token('space.200'),
 	},
 });
 

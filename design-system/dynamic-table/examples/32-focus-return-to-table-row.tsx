@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 
 import { head, rows } from './content/sample-data-numerical';
 
-const paddingStyle = { padding: `${token('space.100', '8px')} 0` };
+const paddingStyle = { padding: `${token('space.100')} 0` };
 
 const FocusReturnToTableRowExample = (): React.JSX.Element => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);

@@ -22,7 +22,7 @@ interface FormFooterProps {
 const formFooterWrapperStyles = css({
 	display: 'flex',
 	justifyContent: 'flex-end',
-	marginBlockStart: token('space.300', '24px'),
+	marginBlockStart: token('space.300'),
 });
 
 const justifyContentStyles = css({

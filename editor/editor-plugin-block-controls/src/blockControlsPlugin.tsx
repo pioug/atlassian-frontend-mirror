@@ -361,7 +361,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 			if (editorExperiment('platform_editor_controls', 'variant1')) {
 				sharedState.isMouseOut =
 					interactionTrackingPluginKey.getState(editorState)?.isMouseOut ?? false;
-				// rightSideControlsEnabled is the single source of truth (confluence_remix_icon_right_side from preset)
+				// rightSideControlsEnabled is the single source of truth (confluence_remix_button_right_side_block_fg from preset)
 				sharedState.rightSideControlsEnabled = rightSideControlsEnabled;
 				sharedState.hoverSide = rightSideControlsEnabled
 					? interactionTrackingPluginKey.getState(editorState)?.hoverSide

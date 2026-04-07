@@ -1436,7 +1436,7 @@ export const DragHandle = ({
 			disabled={dragHandleDisabled}
 			data-editor-block-ctrl-drag-handle
 			data-blocks-drag-handle={
-				expValEqualsNoExposure('confluence_remix_icon_right_side', 'isEnabled', true) || undefined
+				fg('confluence_remix_button_right_side_block_fg') || undefined
 			}
 			data-testid="block-ctrl-drag-handle"
 			aria-label={dragHandleAriaLabel}

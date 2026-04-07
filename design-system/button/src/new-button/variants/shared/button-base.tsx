@@ -148,14 +148,14 @@ const styles = cssMap({
 	},
 	// Shared diabled styles for primary, warning, danger, and discovery appearances
 	sharedDisabled: {
-		backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
+		backgroundColor: token('color.background.disabled'),
 		'&:hover': {
 			// @ts-expect-error
-			backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
+			backgroundColor: token('color.background.disabled'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
+			backgroundColor: token('color.background.disabled'),
 		},
 	},
 	spacingCompact: {
@@ -271,7 +271,7 @@ const defaultStyles = cssMap({
 
 const primaryStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.brand.bold', '#0052CC'),
+		backgroundColor: token('color.background.brand.bold'),
 		color: token('color.text.inverse'),
 		'&:visited': {
 			color: token('color.text.inverse'),
@@ -290,50 +290,50 @@ const primaryStyles = cssMap({
 	interactive: {
 		'&:hover': {
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.brand.bold.hovered', '#0065FF'),
+			backgroundColor: token('color.background.brand.bold.hovered'),
 		},
 		'&:active': {
 			// @ts-expect-error
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.brand.bold.pressed', '#0747A6'),
+			backgroundColor: token('color.background.brand.bold.pressed'),
 		},
 	},
 });
 
 const warningStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.warning.bold', '#FFAB00'),
-		color: token('color.text.warning.inverse', '#172B4D'),
+		backgroundColor: token('color.background.warning.bold'),
+		color: token('color.text.warning.inverse'),
 		'&:visited': {
-			color: token('color.text.warning.inverse', '#172B4D'),
+			color: token('color.text.warning.inverse'),
 		},
 		'&:hover': {
-			color: token('color.text.warning.inverse', '#172B4D'),
+			color: token('color.text.warning.inverse'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			color: token('color.text.warning.inverse', '#172B4D'),
+			color: token('color.text.warning.inverse'),
 		},
 		'&:focus': {
-			color: token('color.text.warning.inverse', '#172B4D'),
+			color: token('color.text.warning.inverse'),
 		},
 	},
 	interactive: {
 		'&:hover': {
-			color: token('color.text.warning.inverse', '#172B4D'),
-			backgroundColor: token('color.background.warning.bold.hovered', '#FFC400'),
+			color: token('color.text.warning.inverse'),
+			backgroundColor: token('color.background.warning.bold.hovered'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			color: token('color.text.warning.inverse', '#172B4D'),
-			backgroundColor: token('color.background.warning.bold.pressed', '#FF991F'),
+			color: token('color.text.warning.inverse'),
+			backgroundColor: token('color.background.warning.bold.pressed'),
 		},
 	},
 });
 
 const dangerStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.danger.bold', '#DE350B'),
+		backgroundColor: token('color.background.danger.bold'),
 		color: token('color.text.inverse'),
 		'&:visited': {
 			color: token('color.text.inverse'),
@@ -352,19 +352,19 @@ const dangerStyles = cssMap({
 	interactive: {
 		'&:hover': {
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.danger.bold.hovered', '#FF5630'),
+			backgroundColor: token('color.background.danger.bold.hovered'),
 		},
 		'&:active': {
 			// @ts-expect-error
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.danger.bold.pressed', '#BF2600'),
+			backgroundColor: token('color.background.danger.bold.pressed'),
 		},
 	},
 });
 
 const discoveryStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.discovery.bold', '#5243AA'),
+		backgroundColor: token('color.background.discovery.bold'),
 		color: token('color.text.inverse'),
 		'&:visited': {
 			color: token('color.text.inverse'),
@@ -383,19 +383,19 @@ const discoveryStyles = cssMap({
 	interactive: {
 		'&:hover': {
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.discovery.bold.hovered', '#8777D9'),
+			backgroundColor: token('color.background.discovery.bold.hovered'),
 		},
 		'&:active': {
 			// @ts-expect-error
 			color: token('color.text.inverse'),
-			backgroundColor: token('color.background.discovery.bold.pressed', '#5243AA'),
+			backgroundColor: token('color.background.discovery.bold.pressed'),
 		},
 	},
 });
 
 const subtleStyles = cssMap({
 	root: {
-		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+		backgroundColor: token('color.background.neutral.subtle'),
 		color: token('color.text.subtle'),
 		'&:visited': {
 			color: token('color.text.subtle'),
@@ -413,11 +413,11 @@ const subtleStyles = cssMap({
 	},
 	interactive: {
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered', '#091e4214'),
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
 			color: token('color.text.subtle'),
 		},
 		'&:active': {
-			backgroundColor: token('color.background.neutral.subtle.pressed', '#B3D4FF'),
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
 			// @ts-expect-error
 			color: token('color.text.subtle'),
 		},
@@ -441,23 +441,23 @@ const subtleStyles = cssMap({
 const selectedStyles = cssMap({
 	root: {
 		backgroundColor: token('color.background.selected'),
-		color: token('color.text.selected', '#0052cc'),
+		color: token('color.text.selected'),
 		'&::after': {
 			content: '""',
-			borderColor: token('color.border.selected', '#0052cc'),
+			borderColor: token('color.border.selected'),
 		},
 		'&:visited': {
-			color: token('color.text.selected', '#0052cc'),
+			color: token('color.text.selected'),
 		},
 		'&:hover': {
-			color: token('color.text.selected', '#0052cc'),
+			color: token('color.text.selected'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			color: token('color.text.selected', '#0052cc'),
+			color: token('color.text.selected'),
 		},
 		'&:focus': {
-			color: token('color.text.selected', '#0052cc'),
+			color: token('color.text.selected'),
 		},
 	},
 	insideSplitButton: {
@@ -469,61 +469,61 @@ const selectedStyles = cssMap({
 	},
 	interactive: {
 		'&:hover': {
-			backgroundColor: token('color.background.selected.hovered', '#253858'),
-			color: token('color.text.selected', '#F4F5F7'),
+			backgroundColor: token('color.background.selected.hovered'),
+			color: token('color.text.selected'),
 		},
 		'&:active': {
-			backgroundColor: token('color.background.selected.pressed', '#253858'),
+			backgroundColor: token('color.background.selected.pressed'),
 			// @ts-expect-error
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 		},
 	},
 	// TODO: Remove me once we kill color fallbacks
 	warning: {
-		backgroundColor: token('color.background.selected', '#FF991F'),
-		color: token('color.text.selected', '#172B4D'),
+		backgroundColor: token('color.background.selected'),
+		color: token('color.text.selected'),
 		'&:hover': {
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#FF991F'),
+			backgroundColor: token('color.background.selected'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#FF991F'),
+			backgroundColor: token('color.background.selected'),
 		},
 	},
 	// TODO: Remove me once we kill color fallbacks
 	danger: {
-		backgroundColor: token('color.background.selected', '#BF2600'),
-		color: token('color.text.selected', '#F4F5F7'),
+		backgroundColor: token('color.background.selected'),
+		color: token('color.text.selected'),
 		'&:hover': {
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#BF2600'),
+			backgroundColor: token('color.background.selected'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#BF2600'),
+			backgroundColor: token('color.background.selected'),
 		},
 	},
 	// TODO: Remove me once we kill color fallbacks
 	discovery: {
-		backgroundColor: token('color.background.selected', '#403294'),
-		color: token('color.text.selected', '#F4F5F7'),
+		backgroundColor: token('color.background.selected'),
+		color: token('color.text.selected'),
 		'&:hover': {
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#403294'),
+			backgroundColor: token('color.background.selected'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			color: token('color.text.selected', '#F4F5F7'),
+			color: token('color.text.selected'),
 			// @ts-expect-error
-			backgroundColor: token('color.background.selected', '#403294'),
+			backgroundColor: token('color.background.selected'),
 		},
 	},
 });

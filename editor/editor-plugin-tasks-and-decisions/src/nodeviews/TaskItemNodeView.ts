@@ -1,14 +1,13 @@
-import { bindAll } from 'bind-event-listener';
 import type { Listener, UnbindFn } from 'bind-event-listener';
+import { bindAll } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl-next';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI, getPosHandlerNode } from '@atlaskit/editor-common/types';
-import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { NodeView } from '@atlaskit/editor-prosemirror/view';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { openRequestEditPopupAt } from '../pm-plugins/helpers';
@@ -57,6 +56,7 @@ export class TaskItemNodeView implements NodeView {
 		this.dom = dom;
 		this.contentDOM = contentDOM;
 		this.domElement = this.dom instanceof HTMLElement ? this.dom : undefined;
+
 		if (this.domElement) {
 			this.input = this.domElement.querySelector('input[type="checkbox"]') as HTMLInputElement;
 			this.unbindInputDom = bindAll(this.input, [
@@ -66,6 +66,7 @@ export class TaskItemNodeView implements NodeView {
 					listener: this.handleOnChange,
 				},
 			]);
+
 		}
 	}
 
@@ -142,6 +143,7 @@ export class TaskItemNodeView implements NodeView {
 		if (expValEquals('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true)) {
 			currentIsContentEmpty = isContentEmpty(node);
 		}
+
 		if (currentIsContentEmpty !== this.emptyContent) {
 			this.emptyContent = currentIsContentEmpty;
 			this.contentDOM?.toggleAttribute('data-empty', currentIsContentEmpty);

@@ -46,7 +46,7 @@ const baseStyles = css({
 });
 
 const textLabelLayoutStyles = css({
-	gap: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
+	gap: `${token('space.0')} ${token('space.050')}`,
 	gridTemplateColumns: 'min-content auto',
 });
 
@@ -89,7 +89,7 @@ const invalidStyles = css({
 const disabledStyles = css({
 	'--checkbox-background-color': token('color.background.disabled'),
 	'--checkbox-border-color': token('color.background.disabled'),
-	color: token('color.text.disabled', '#97A0AF'),
+	color: token('color.text.disabled'),
 	cursor: 'not-allowed',
 	'&:hover': {
 		'--checkbox-background-color': token('color.background.disabled'),

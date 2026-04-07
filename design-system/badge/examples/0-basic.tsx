@@ -19,7 +19,7 @@ const styles = cssMap({
 		background: 'none',
 		borderRadius: token('radius.small', '3px'),
 		color: 'inherit',
-		marginBlockEnd: token('space.050', '4px'),
+		marginBlockEnd: token('space.050'),
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.hovered'),
 		},

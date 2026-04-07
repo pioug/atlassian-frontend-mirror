@@ -46,15 +46,15 @@ type ButtonBaseProps = BaseProps & {
  * and we bump Button to set padding based on the new icons.
  */
 const iconBeforeSpacingFixStyle = css({
-	'--ds--button--new-icon-padding-end': token('space.025', '2px'),
-	'--ds--button--new-icon-padding-start': token('space.050', '4px'),
-	marginInlineStart: token('space.negative.025', '-2px'),
+	'--ds--button--new-icon-padding-end': token('space.025'),
+	'--ds--button--new-icon-padding-start': token('space.050'),
+	marginInlineStart: token('space.negative.025'),
 });
 
 const iconAfterSpacingFixStyle = css({
-	'--ds--button--new-icon-padding-end': token('space.050', '4px'),
-	'--ds--button--new-icon-padding-start': token('space.025', '2px'),
-	marginInlineEnd: token('space.negative.025', '-2px'),
+	'--ds--button--new-icon-padding-end': token('space.050'),
+	'--ds--button--new-icon-padding-start': token('space.025'),
+	marginInlineEnd: token('space.negative.025'),
 });
 
 const getSpacingFix = (

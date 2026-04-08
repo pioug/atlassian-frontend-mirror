@@ -29,7 +29,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugins/dev"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugins/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

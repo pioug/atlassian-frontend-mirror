@@ -39,7 +39,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__emoji/dev"
+		"outDir": "../../../tsDist/@atlaskit__emoji/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

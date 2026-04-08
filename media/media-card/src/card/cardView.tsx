@@ -460,6 +460,7 @@ export const CardViewBase = ({
 				testId={testId || 'media-card-view'}
 				dimensions={dimensions}
 				onClick={onClick}
+				ariaLabel={name || 'Media Card'}
 				onMouseEnter={onMouseEnter}
 				innerRef={mergedRef}
 				breakpoint={breakpoint}

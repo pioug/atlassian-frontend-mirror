@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import Avatar, { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 
-import { RANDOM_USERS } from '../../../../examples-util/data';
+import { RANDOM_USERS } from '../../../../examples-util/random-users';
 import AvatarGroup, { type AvatarGroupProps } from '../../avatar-group';
 import { type AvatarProps } from '../../types';
 import { composeUniqueKey } from '../../utils';

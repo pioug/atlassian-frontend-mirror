@@ -1,7 +1,8 @@
 import type { CSSProperties } from 'react';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { tableCellBorderWidth, tableCellMinWidth } from '@atlaskit/editor-common/styles';
+import { WidthContext } from '@atlaskit/editor-common/ui';
 import {
 	akEditorTableNumberColumnWidth,
 	akEditorTableLegacyCellMinWidth,
@@ -32,10 +33,12 @@ const fixColumnWidth = ({
 	columnWidth,
 	zeroWidthColumnsCount,
 	scaleDownPercent,
+	skipMinWidth,
 }: {
 	columnWidth: number;
 	scaleDownPercent: number;
 	zeroWidthColumnsCount: number;
+	skipMinWidth?: boolean;
 }): number => {
 	if (columnWidth === 0) {
 		return columnWidth;
@@ -44,12 +47,16 @@ const fixColumnWidth = ({
 	// If the tables total width (including no zero widths col or cols without width) is less than the current layout
 	// We scale up the columns to meet the minimum of the table layout.
 	if (zeroWidthColumnsCount === 0 && scaleDownPercent) {
-		return Math.max(Math.floor((1 - scaleDownPercent) * columnWidth), tableCellMinWidth);
+		const scaled = Math.floor((1 - scaleDownPercent) * columnWidth);
+		return skipMinWidth ? scaled : Math.max(scaled, tableCellMinWidth);
 	}
 
+	const adjusted = columnWidth - tableCellBorderWidth;
+	if (skipMinWidth) {
+		return adjusted;
+	}
 	return Math.max(
-		// We need to take tableCellBorderWidth, to avoid unnecessary overflow.
-		columnWidth - tableCellBorderWidth,
+		adjusted,
 		zeroWidthColumnsCount ? akEditorTableLegacyCellMinWidth : tableCellMinWidth,
 	);
 };
@@ -83,11 +90,99 @@ const calcScalePercent = ({
 export const colWidthSum = (columnWidths: number[]) =>
 	columnWidths.reduce((prev, curr) => curr + prev, 0);
 
+/**
+ * Returns the data-column available width: total width minus the fixed number column if enabled.
+ */
+const getDataColumnWidth = (totalWidth: number, isNumberColumnEnabled: boolean): number =>
+	isNumberColumnEnabled ? totalWidth - akEditorTableNumberColumnWidth : totalWidth;
+
+/**
+ * Scales column widths proportionally to fit within availableWidth, matching the editor's
+ * scaleTableTo(): floors each column to the nearest pixel, then redistributes any rounding
+ * remainder to the first column that can absorb it without going below tableCellMinWidth.
+ */
+const scaleColumnsToWidth = (columnWidths: number[], availableWidth: number): CSSProperties[] => {
+	const rawTotalWidth = columnWidths.reduce((sum, w) => sum + w, 0);
+	const scaleFactor = availableWidth / rawTotalWidth;
+	const scaledWidths = columnWidths.map((colWidth) =>
+		Math.max(Math.floor(colWidth * scaleFactor), tableCellMinWidth),
+	);
+	const totalScaled = scaledWidths.reduce((sum, w) => sum + w, 0);
+	const diff = availableWidth - totalScaled;
+	if (diff !== 0 && Math.abs(diff) < tableCellMinWidth) {
+		for (let i = 0; i < scaledWidths.length; i++) {
+			if (scaledWidths[i] + diff > tableCellMinWidth) {
+				scaledWidths[i] += diff;
+				break;
+			}
+		}
+	}
+	return scaledWidths.map((width) => ({ width: `${width}px` }));
+};
+
+/**
+ * Computes column widths for tables inside sync blocks, matching the editor's scaleTableTo() exactly.
+ * Returns null if the flag is off or not inside a sync block.
+ *
+ * For nested tables (isInsideOfTable=true, gated by platform_synced_block_patch_9), we use
+ * getTableContainerWidth(tableNode) as the reference — the width the editor saved, which already
+ * accounts for the parent cell's available space (colwidth minus tableCellPadding * 2).
+ * This matches bodiedSyncBlock where isRendererNested=false, so renderScaleDownColgroup uses
+ * getTableContainerWidth(tableNode). For syncBlock the nested renderer has isRendererNested=true,
+ * which incorrectly overrides tableContainerWidth with renderWidth (the full container), causing
+ * overflow by 2 * tableCellPadding (16px).
+ */
+const renderSyncBlockColgroup = ({
+	isInsideOfSyncBlock,
+	isInsideOfTable,
+	tableNode,
+	columnWidths,
+	isNumberColumnEnabled,
+	renderWidth: renderWidthProp,
+	contextWidth,
+}: {
+	isInsideOfSyncBlock: boolean;
+	isInsideOfTable: boolean;
+	tableNode?: SharedTableProps['tableNode'];
+	columnWidths: number[];
+	isNumberColumnEnabled: boolean;
+	renderWidth: number;
+	contextWidth: number;
+}): CSSProperties[] | null => {
+	if (!isInsideOfSyncBlock || !fg('platform_synced_block_patch_9')) {
+		return null;
+	}
+
+	const rawTotalWidth = columnWidths.reduce((sum, w) => sum + w, 0);
+
+	if (isInsideOfTable) {
+		return null;
+	}
+
+	// SSR / first render before WidthContext measures. Output % of original ADF proportions so
+	// columns are stable — the CSS container query (100cqw) handles actual scaling width.
+	if (contextWidth <= 0 && renderWidthProp <= 0) {
+		const fullTableWidth = isNumberColumnEnabled
+			? rawTotalWidth + akEditorTableNumberColumnWidth
+			: rawTotalWidth;
+		return columnWidths.map((colWidth) => ({
+			width: `${(colWidth / fullTableWidth) * 100}%`,
+		}));
+	}
+
+	// contextWidth measures the sync block content area. Subtract 2 to match the editor's
+	// getParentNodeWidth() border offset. Fall back to renderWidthProp for the non-CSS path.
+	const effectiveRenderWidth = contextWidth > 0 ? contextWidth - 2 : renderWidthProp;
+	const availableWidth = getDataColumnWidth(effectiveRenderWidth, isNumberColumnEnabled);
+	return scaleColumnsToWidth(columnWidths, availableWidth);
+};
+
 const renderScaleDownColgroup = (
 	props: SharedTableProps & {
 		isTableFixedColumnWidthsOptionEnabled: boolean;
 		isTableScalingEnabled: boolean;
 		isTopLevelRenderer?: boolean;
+		isInsideOfSyncBlock?: boolean;
 	},
 ): CSSProperties[] | null => {
 	const {
@@ -103,7 +198,11 @@ const renderScaleDownColgroup = (
 		isTableFixedColumnWidthsOptionEnabled,
 		allowTableResizing,
 		isTopLevelRenderer,
+		isInsideOfSyncBlock,
 	} = props;
+
+	const skipMinWidth =
+		fg('platform_synced_block_patch_9') && !!(isInsideOfTable && isInsideOfSyncBlock);
 	if (
 		!columnWidths ||
 		(columnWidths.every((width) => width === 0) && fg('platform_editor_numbered_column_in_include'))
@@ -256,8 +355,12 @@ const renderScaleDownColgroup = (
 	if (isNumberColumnEnabled && (tableWidth < maxTableWidth || maxTableWidth === 0)) {
 		const fixedColWidths = targetWidths.map(
 			(width) =>
-				fixColumnWidth({ columnWidth: width, zeroWidthColumnsCount, scaleDownPercent }) ||
-				cellMinWidth,
+				fixColumnWidth({
+					columnWidth: width,
+					zeroWidthColumnsCount,
+					scaleDownPercent,
+					skipMinWidth,
+				}) || cellMinWidth,
 		);
 		const sumFixedColumnWidths = colWidthSum(fixedColWidths);
 
@@ -282,18 +385,22 @@ const renderScaleDownColgroup = (
 
 	return targetWidths.map((colWidth) => {
 		const width =
-			fixColumnWidth({ columnWidth: colWidth, zeroWidthColumnsCount, scaleDownPercent }) ||
-			cellMinWidth;
+			fixColumnWidth({
+				columnWidth: colWidth,
+				zeroWidthColumnsCount,
+				scaleDownPercent,
+				skipMinWidth,
+			}) || cellMinWidth;
 		const style = width ? { width: `${width}px` } : {};
 		return style;
 	});
 };
 
 export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
-	const { isTopLevelRenderer } = useRendererContext();
+	const { isTopLevelRenderer, nestedRendererType } = useRendererContext();
 	const { columnWidths, isNumberColumnEnabled } = props;
+	const { width: contextWidth } = useContext(WidthContext);
 	const flags = useFeatureFlags() as RendererContextProps['featureFlags'] | undefined;
-
 	if (!columnWidths) {
 		return null;
 	}
@@ -305,27 +412,45 @@ export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
 				'tableWithFixedColumnWidthsOption' in flags &&
 				flags.tableWithFixedColumnWidthsOption) ?? false;
 
-	const colStyles = renderScaleDownColgroup({
-		...props,
-		isTopLevelRenderer,
-		isTableScalingEnabled:
-			props.rendererAppearance === 'full-page' ||
-			props.rendererAppearance === 'full-width' ||
-			(props.rendererAppearance === 'max' &&
-				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))) ||
-			(props.rendererAppearance === 'comment' &&
-				editorExperiment('support_table_in_comment', true, { exposure: true })) ||
-			(props.rendererAppearance === 'comment' &&
-				editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
-		isTableFixedColumnWidthsOptionEnabled:
-			isTableFixedColumnWidthsOptionEnabled &&
-			(props.rendererAppearance === 'full-page' ||
+	// For referenced sync blocks, nestedRendererType='syncedBlock' is set via RendererContextProvider
+	// in AKRendererWrapper. ReactSerializer is a class and cannot read React context, so we detect
+	// it here in the Colgroup component via useRendererContext() instead of prop-drilling.
+	const isInsideOfSyncBlock = nestedRendererType === 'syncedBlock';
+
+	// renderSyncBlockColgroup returns null when not applicable (flag off, SSR, not a sync block),
+	// in which case ?? falls back to the standard renderScaleDownColgroup path.
+	const colStyles =
+		renderSyncBlockColgroup({
+			isInsideOfSyncBlock,
+			isInsideOfTable: !!props.isInsideOfTable,
+			tableNode: props.tableNode,
+			columnWidths,
+			isNumberColumnEnabled: !!isNumberColumnEnabled,
+			renderWidth: props.renderWidth,
+			contextWidth,
+		}) ??
+		renderScaleDownColgroup({
+			...props,
+			isTopLevelRenderer,
+			isInsideOfSyncBlock,
+			isTableScalingEnabled:
+				props.rendererAppearance === 'full-page' ||
 				props.rendererAppearance === 'full-width' ||
 				(props.rendererAppearance === 'max' &&
 					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))),
-	});
+						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))) ||
+				(props.rendererAppearance === 'comment' &&
+					editorExperiment('support_table_in_comment', true, { exposure: true })) ||
+				(props.rendererAppearance === 'comment' &&
+					editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
+			isTableFixedColumnWidthsOptionEnabled:
+				isTableFixedColumnWidthsOptionEnabled &&
+				(props.rendererAppearance === 'full-page' ||
+					props.rendererAppearance === 'full-width' ||
+					(props.rendererAppearance === 'max' &&
+						(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))),
+		});
 
 	if (!colStyles) {
 		return null;

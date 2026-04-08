@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media
 
+## 10.2.0
+
+### Minor Changes
+
+- [`3778325d7b086`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3778325d7b086) -
+  Fix save button disable in editor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.13
 
 ### Patch Changes

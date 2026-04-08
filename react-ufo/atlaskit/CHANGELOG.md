@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.11.0
+
+### Minor Changes
+
+- [`6817bff2f2c83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6817bff2f2c83) -
+  Increase UFO third-party DOM walk depth behind a feature flag.
+
 ## 5.10.1
 
 ### Patch Changes

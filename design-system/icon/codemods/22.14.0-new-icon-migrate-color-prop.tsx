@@ -5,6 +5,8 @@ import {
 } from '@codeshift/utils';
 import type { API, Collection, default as core, FileInfo } from 'jscodeshift';
 
+import { getPartialImportDeclaration } from './utils/get-partial-import-declaration';
+
 function insertTokenImport(j: core.JSCodeshift, source: Collection<any>) {
 	if (hasImportDeclaration(j, source, '@atlaskit/tokens')) {
 		return;
@@ -16,19 +18,6 @@ function insertTokenImport(j: core.JSCodeshift, source: Collection<any>) {
 	);
 
 	source.get().node.program.body.unshift(newImport);
-}
-
-export function getPartialImportDeclaration(
-	j: core.JSCodeshift,
-	source: Collection<any>,
-	sourcePath: string,
-): Collection<any> {
-	return source
-		.find(j.ImportDeclaration)
-		.filter(
-			(path) =>
-				typeof path.node.source.value === 'string' && path.node.source.value.includes(sourcePath),
-		);
 }
 
 function buildToken(j: core.JSCodeshift, tokenId: string = '', fallback: string) {

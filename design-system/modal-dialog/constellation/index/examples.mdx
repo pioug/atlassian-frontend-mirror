@@ -19,11 +19,22 @@ import ModalFooter from '../../examples/constellation/modal-footer-default';
 import ModalCustomFooter from '../../examples/constellation/modal-footer-custom';
 import ModalCurrentSurface from '../../examples/constellation/modal-current-surface';
 
+<SectionMessage
+	title="Motion in Early Access"
+	appearance="warning"
+>
+	Motion has been updated in Modal and is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+</SectionMessage>
+
 ## Default
 
 The default form of a modal dialog.
 
-<Example Component={ModalDefault} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalDefault}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Appearance
 
@@ -40,14 +51,22 @@ where possible.
 	Writing guidelines for warning messages
 </Link>
 
-<Example Component={ModalWarning} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalWarning}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ### Danger
 
 Use danger modals to alert people when something potentially destructive or irreversible will happen
 if they continue. Explain the problem and provide a next step or an alternative.
 
-<Example Component={ModalDanger} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalDanger}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Width
 
@@ -59,7 +78,11 @@ specify modal width.
 - If you provide a string including pixels or a percentage, the width will be directly applied as a
   style.
 
-<Example Component={ModalWidth} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalWidth}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Full screen
 
@@ -73,7 +96,11 @@ The `FullScreenModalDialog` component supports a subset of
 	case, reach out to us in #help-design-system (Atlassians only).
 </SectionMessage>
 
-<Example Component={ModalFullScreen} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalFullScreen}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Focus management
 
@@ -103,7 +130,11 @@ If you remove an element from the DOM and don't set the focus, it returns to the
 top of the page. And for people using assistive technology, this means they'll need to navigate
 through the entire page to return to where they originally were, which we don’t want.
 
-<Example Component={FocusSpecificElement} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={FocusSpecificElement}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Scrolling behavior
 
@@ -118,14 +149,22 @@ In either case, modals prevent the window from being scrolled both natively and 
 This will prevent browser issues such as `scrollIntoView` scrolling the window instead of only the
 closest scroll parent.
 
-<Example Component={ModalScroll} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalScroll}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Form
 
 These internal components can be wrapped in a `form` element to support having buttons of type
 `submit` in the footer.
 
-<Example Component={ModalForm} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalForm}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ### Select
 
@@ -136,7 +175,11 @@ Without this, it will not show up on top of the modal dialog and instead will re
 boundaries. In some cases, this causes the select to visually seem like it’s not opening at all when
 being interacted with.
 
-<Example Component={ModalSelect} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalSelect}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Modal header
 
@@ -145,7 +188,11 @@ You can use the modal header with the `hasCloseButton` prop to add a close butto
 Modal titles should be a level `h1` heading, as the modal is considered separate to the page it sits
 above.
 
-<Example Component={ModalHeader} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalHeader}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ### Custom modal header
 
@@ -157,20 +204,32 @@ there isn’t a title.
 
 To make sure the modal is accessible, call `useModal` and set `titleId` as the `id` on the heading.
 
-<Example Component={ModalCustomHeader} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalCustomHeader}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}	
+/>
 
 ## Modal footer
 
 The modal footer accepts any valid React element as children. For example, you can add an
 [avatar](/components/avatar/) in the footer.
 
-<Example Component={ModalFooter} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalFooter}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ### Custom modal footer
 
 For custom use cases, you can achieve the same thing without the modal footer.
 
-<Example Component={ModalCustomFooter} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalCustomFooter}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Surface detection
 
@@ -178,4 +237,8 @@ The [current surface CSS variable](/components/tokens/code#current-surface-color
 surface color of the modal. You can use the `utility.elevation.surface.current` design token to
 style children with the current surface color.
 
-<Example Component={ModalCurrentSurface} packageName="@atlaskit/modal-dialog" />
+<Example
+	Component={ModalCurrentSurface}
+	packageName="@atlaskit/modal-dialog"
+	featureFlagSwitchers={['motion']}
+/>

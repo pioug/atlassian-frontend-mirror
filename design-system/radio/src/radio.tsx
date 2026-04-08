@@ -10,7 +10,6 @@ import { css, jsx } from '@compiled/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type RadioProps } from './types';
@@ -33,15 +32,6 @@ const labelStyles = css({
 	alignItems: 'flex-start',
 	color: token('color.text'),
 	font: token('font.body'),
-});
-
-// These styles should be removed when the platform-radio-atomic-styles feature gate is cleaned up.
-const labelLegacyStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&[data-disabled]': {
-		color: token('color.text.disabled'),
-		cursor: 'not-allowed',
-	},
 });
 
 const labelDisabledStyles = css({
@@ -149,24 +139,6 @@ const radioDisabledCheckedStyles = css({
 	'--radio-dot-opacity': 1,
 });
 
-// These styles are applied when the platform-radio-atomic-styles feature gate is disabled.
-// When the feature gate is cleaned up, this style block can be removed.
-const radioLegacyStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&[data-invalid], &:checked[data-invalid]': {
-		'--radio-border-color': token('color.icon.danger'),
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&:disabled, &:disabled:hover, &:disabled:focus, &:disabled:active, &:disabled[data-invalid], &:disabled:checked, &:disabled:checked:hover, &:disabled:checked:focus, &:disabled:checked:active':
-		{
-			cursor: 'not-allowed',
-			'--radio-background-color': token('color.background.disabled'),
-			'--radio-border-color': token('color.border.disabled'),
-			'--radio-dot-color': token('color.icon.disabled'),
-		},
-});
-
 const radioInvalidStyles = css({
 	'--radio-border-color': token('color.icon.danger'),
 	'&:checked': {
@@ -208,11 +180,7 @@ const InnerRadio: React.ForwardRefExoticComponent<
 		<label
 			data-testid={testId && `${testId}--radio-label`}
 			data-disabled={isDisabled ? 'true' : undefined}
-			css={[
-				labelStyles,
-				!fg('platform-radio-atomic-styles') && labelLegacyStyles,
-				isDisabled && fg('platform-radio-atomic-styles') && labelDisabledStyles,
-			]}
+			css={[labelStyles, isDisabled && labelDisabledStyles]}
 		>
 			{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 			<input
@@ -235,17 +203,10 @@ const InnerRadio: React.ForwardRefExoticComponent<
 				data-invalid={isInvalid ? 'true' : undefined}
 				css={[
 					radioBaseStyles,
-					// Legacy path: always apply interactive styles + compound disabled/invalid selectors
-					!fg('platform-radio-atomic-styles') && radioInteractiveStyles,
-					!fg('platform-radio-atomic-styles') && radioLegacyStyles,
-					// New path: conditionally apply styles based on props
-					!isDisabled && fg('platform-radio-atomic-styles') && radioInteractiveStyles,
-					isDisabled && fg('platform-radio-atomic-styles') && radioDisabledStyles,
-					isDisabled &&
-						isChecked &&
-						fg('platform-radio-atomic-styles') &&
-						radioDisabledCheckedStyles,
-					isInvalid && !isDisabled && fg('platform-radio-atomic-styles') && radioInvalidStyles,
+					!isDisabled && radioInteractiveStyles,
+					isDisabled && radioDisabledStyles,
+					isDisabled && isChecked && radioDisabledCheckedStyles,
+					isInvalid && !isDisabled && radioInvalidStyles,
 				]}
 				ref={ref}
 			/>

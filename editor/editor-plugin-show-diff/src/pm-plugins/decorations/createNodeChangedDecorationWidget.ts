@@ -16,14 +16,12 @@ import {
 	deletedContentStyle,
 	deletedContentStyleActive,
 	deletedContentStyleNew,
-	deletedContentStyleNewActive,
 	deletedContentStyleUnbounded,
 } from './colorSchemes/standard';
 import {
 	traditionalInsertStyle,
 	traditionalInsertStyleActive,
-	deletedTraditionalContentStyle,
-	deletedTraditionalContentStyleActive,
+	getDeletedTraditionalInlineStyle,
 	deletedTraditionalContentStyleUnbounded,
 	deletedTraditionalContentStyleUnboundedActive,
 } from './colorSchemes/traditional';
@@ -57,12 +55,10 @@ const getInsertedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = 
 };
 const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = false): string => {
 	if (colorScheme === 'traditional') {
-		return isActive ? deletedTraditionalContentStyleActive : deletedTraditionalContentStyle;
+		return getDeletedTraditionalInlineStyle(isActive);
 	}
 	if (isActive) {
-		return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-			? deletedContentStyleNewActive
-			: deletedContentStyleActive;
+		return deletedContentStyleActive;
 	}
 	return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
 		? deletedContentStyleNew

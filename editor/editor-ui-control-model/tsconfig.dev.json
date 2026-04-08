@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-ui-control-model/dev"
+		"outDir": "../../../tsDist/@atlaskit__editor-ui-control-model/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

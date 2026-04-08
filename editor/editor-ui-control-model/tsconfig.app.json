@@ -34,7 +34,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-ui-control-model/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-ui-control-model/app",
+		"isolatedDeclarations": true
 	},
 	"references": [],
 	"files": []

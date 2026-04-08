@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import InlineMessageDefault from '../../examples/constellation/inline-message-default';
 import InlineMessageTitle from '../../examples/constellation/inline-message-title';
 import InlineMessageSecondaryText from '../../examples/constellation/inline-message-secondary-text';
@@ -12,32 +13,47 @@ import InlineMessageError from '../../examples/constellation/inline-message-erro
 import InlineMessageConfirmation from '../../examples/constellation/inline-message-confirmation';
 import InlineMessageConnectivity from '../../examples/constellation/inline-message-connectivity';
 
+<SectionMessage
+	title="Motion in Early Access"
+	appearance="warning"
+>
+	The motion added into Inline message is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+</SectionMessage>
+
 ## Default
 
 By default, inline messages contain an icon. Adding a `title` is recommended. You can also include
 `secondaryText` depending on the use case.
 
-<Example Component={InlineMessageDefault} packageName="@atlaskit/inline-message" />
+<Example Component={InlineMessageDefault} packageName="@atlaskit/inline-message"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Title
 
 This is the text to display first. It's bolded for emphasis.
 
-<Example Component={InlineMessageTitle} packageName="@atlaskit/inline-message" />
+<Example Component={InlineMessageTitle} packageName="@atlaskit/inline-message"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Secondary text
 
 Use secondary text if the title alone isn't enough to convey what the inline message is about. It
 appears after the title.
 
-<Example Component={InlineMessageSecondaryText} packageName="@atlaskit/inline-message" />
+<Example Component={InlineMessageSecondaryText} packageName="@atlaskit/inline-message"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Placement
 
 By default, the popup opens at the bottom at the beginning of the text. Use `placement` to open the
 dialog from a different place in relation to the text.
 
-<Example Component={InlineMessagePlacement} packageName="@atlaskit/inline-message" />
+<Example Component={InlineMessagePlacement} packageName="@atlaskit/inline-message"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Appearance
 
@@ -46,30 +62,40 @@ dialog from a different place in relation to the text.
 Warning messages appear before we ask people to take action. This is usually in anticipation of a
 significant change. Warnings should also be used for authentication issues.
 
-<Example Component={InlineMessageWarning} packageName="@atlaskit/inline-message" />
+<Example Component={InlineMessageWarning} packageName="@atlaskit/inline-message"
+	featureFlagSwitchers={['motion']}
+/>
 
 ### Error
 
 Error messages let people know that something has gone wrong after they've tried to do something.
 You can also use them to advise people of connectivity issues.
 
-<Example Component={InlineMessageError} packageName="@atlaskit/inline-message" />
+<Example Component={InlineMessageError} packageName="@atlaskit/inline-message"
+	featureFlagSwitchers={['motion']}
+/>
 
 ### Confirmation
 
 Confirmation messages let people know that they have completed an action.
 
-<Example Component={InlineMessageConfirmation} packageName="@atlaskit/inline-message" />
+<Example Component={InlineMessageConfirmation} packageName="@atlaskit/inline-message"
+	featureFlagSwitchers={['motion']}
+/>
 
 ### Info
 
 Info messages give people additional information without requiring an action.
 
-<Example Component={InlineMessageInfo} packageName="@atlaskit/inline-message" />
+<Example Component={InlineMessageInfo} packageName="@atlaskit/inline-message"
+	featureFlagSwitchers={['motion']}
+/>
 
 ### Connectivity
 
 Connectivity messages let people know that they will need to log in to get more information. Only
 use this when warning and error are not appropriate.
 
-<Example Component={InlineMessageConnectivity} packageName="@atlaskit/inline-message" />
+<Example Component={InlineMessageConnectivity} packageName="@atlaskit/inline-message"
+	featureFlagSwitchers={['motion']}
+/>

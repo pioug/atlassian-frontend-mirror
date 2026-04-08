@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "14.6.1",
+	"version": "14.7.0",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,6 +26,13 @@
 	"atlaskit:src": "src/index.tsx",
 	"homepage": "https://atlassian.design/components/tag/",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Design System Team",
 		"website": {
 			"name": "Tag",
@@ -54,6 +61,7 @@
 		"./simple-tag": "./src/tag/simple-tag.tsx",
 		"./removable-tag": "./src/tag/removable-tag.tsx",
 		"./avatar-tag": "./src/tag-new/avatar-tag.tsx",
+		"./tag-dropdown-trigger": "./src/tag-new/tag-dropdown-trigger.tsx",
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
@@ -67,6 +75,7 @@
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/teams-avatar": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -79,11 +88,13 @@
 		"@af/accessibility-testing": "workspace:^",
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/tag-group": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",

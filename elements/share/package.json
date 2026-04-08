@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "6.19.1",
+	"version": "6.19.2",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -122,9 +122,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"enable-appropriate-reading-order-in-share-dialog": {
-			"type": "boolean"
-		},
 		"jira-issue-terminology-refresh-m3": {
 			"type": "boolean"
 		},

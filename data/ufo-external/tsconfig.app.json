@@ -1,9 +1,6 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": [
-		"./src/**/*.ts",
-		"./src/**/*.tsx"
-	],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -34,10 +31,6 @@
 		"outDir": "../../../tsDist/@atlaskit__ufo/app",
 		"isolatedDeclarations": true
 	},
-	"references": [
-		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		}
-	],
+	"references": [],
 	"files": []
 }

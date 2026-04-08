@@ -9,7 +9,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 import useScrollbarWidth from '@atlaskit/ds-lib/use-scrollbar-width';
 import { token } from '@atlaskit/tokens';
 
-import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
+import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 
 export interface NavigationContentProps {
 	children: React.ReactNode;

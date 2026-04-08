@@ -16,7 +16,7 @@ import ArrowUp from '@atlaskit/icon/core/arrow-up';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 
-import { appearances } from '../examples-util/data';
+import { appearances } from '../examples-util/appearances';
 
 export const N100 = '#7A869A';
 export const R400 = '#DE350B';

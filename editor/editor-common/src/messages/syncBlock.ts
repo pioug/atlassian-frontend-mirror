@@ -106,6 +106,16 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	duplicateSourceSyncBlockDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	duplicateSourceSyncBlockTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	editSourceLabel: {
 		defaultMessage: string;
 		description: string;
@@ -868,5 +878,18 @@ export const syncBlockMessages: {
 			"This may happen if your synced block is used in places that don't support certain macros.",
 		description:
 			'Description in flag which appears when an extension is inserted into a synced block',
+	},
+	duplicateSourceSyncBlockTitle: {
+		id: 'fabric.editor.duplicateSourceSyncBlockTitle',
+		defaultMessage: 'Duplicate synced block removed',
+		description:
+			'Title in flag which appears when a duplicate source synced block is removed from the document',
+	},
+	duplicateSourceSyncBlockDescription: {
+		id: 'fabric.editor.duplicateSourceSyncBlockDescription',
+		defaultMessage:
+			'Only one source synced block per source is allowed on a page. Use a reference synced block to reuse this content.',
+		description:
+			'Description in flag which appears when a duplicate source synced block is removed from the document',
 	},
 });

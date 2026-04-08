@@ -5,8 +5,9 @@ import { cssMap, cx } from '@atlaskit/css';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { appearances, RANDOM_USERS } from '../examples-util/data';
+import { appearances } from '../examples-util/appearances';
 import { ExampleGroup } from '../examples-util/helpers';
+import { RANDOM_USERS } from '../examples-util/random-users';
 
 const styles = cssMap({
 	indicator: {

@@ -7,6 +7,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { datePlugin } from '@atlaskit/editor-plugin-date';
 import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
@@ -206,6 +207,7 @@ export default function FullPageDiffEditor(): React.JSX.Element {
 				.add(copyButtonPlugin)
 				.add(compositionPlugin)
 				.add(codeBlockPlugin)
+				.add(codeBlockAdvancedPlugin)
 				.add(blockControlsPlugin)
 				.add(breakoutPlugin)
 				.add(gridPlugin)

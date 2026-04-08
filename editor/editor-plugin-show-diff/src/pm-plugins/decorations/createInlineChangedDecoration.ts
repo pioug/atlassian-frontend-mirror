@@ -12,7 +12,7 @@ import {
 import {
 	traditionalInsertStyle,
 	traditionalInsertStyleActive,
-	deletedTraditionalContentStyle,
+	getDeletedTraditionalInlineStyle,
 } from './colorSchemes/traditional';
 
 /**
@@ -43,7 +43,7 @@ export const createInlineChangedDecoration = ({
 			}
 		} else {
 			if (colorScheme === 'traditional') {
-				style = deletedTraditionalContentStyle;
+				style = getDeletedTraditionalInlineStyle(false);
 			} else {
 				style = isActive ? deletedContentStyleActive : deletedContentStyle;
 			}

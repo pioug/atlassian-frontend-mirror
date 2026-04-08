@@ -133,7 +133,11 @@ function ElementSearch({
 					</div>
 				}
 				placeholder={formatMessage(commonMessages.placeHolderMessage)}
-				aria-label={formatMessage(commonMessages.searchAriaLabel)}
+				aria-label={formatMessage(
+					fg('ally_30205_accessibility_label_fix')
+						? commonMessages.searchAriaLabelNew
+						: commonMessages.searchAriaLabel,
+				)}
 				aria-labelledby={
 					fg('platform_editor_ally_remove_role_tabpanel') ? undefined : 'search-assistive'
 				}

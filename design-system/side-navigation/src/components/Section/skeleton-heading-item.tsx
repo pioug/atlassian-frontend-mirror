@@ -3,13 +3,11 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import {
 	SkeletonHeadingItem as MenuSkeletonHeadingItem,
-	type SkeletonHeadingItemProps,
+	type SkeletonHeadingItemProps as MenuSkeletonHeadingItemProps,
 } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
-import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
-
-export type { SkeletonHeadingItemProps } from '@atlaskit/menu';
+import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 
 const styles = cssMap({
 	root: {
@@ -17,6 +15,7 @@ const styles = cssMap({
 	},
 });
 
+export interface SkeletonHeadingItemProps extends MenuSkeletonHeadingItemProps {}
 /**
  * __Skeleton heading item__
  *

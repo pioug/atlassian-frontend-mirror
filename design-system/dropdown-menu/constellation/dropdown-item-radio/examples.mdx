@@ -4,19 +4,35 @@ description: A dropdown item radio lets users select one option from a list of o
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import DropdownItemRadioDefaultSelected from '../../examples/constellation/dropdown-item-radio-default-selected';
 import DropdownItemRadioSelected from '../../examples/constellation/dropdown-item-radio-selected';
+
+<SectionMessage
+	title="Motion in Early Access"
+	appearance="warning"
+>
+	The motion added into Dropdown menu is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+</SectionMessage>
 
 ## Default selected
 
 This makes the radio item selected when initially opened. Use `defaultSelected` when not controlling
 the radio item state.
 
-<Example Component={DropdownItemRadioDefaultSelected} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownItemRadioDefaultSelected}
+    packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Selected
 
 This makes the radio item selected when `true`. Use `isSelected` when controlling the radio item
 state.
 
-<Example Component={DropdownItemRadioSelected} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownItemRadioSelected}
+    packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motion']}
+/>

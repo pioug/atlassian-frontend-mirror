@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 8.1.0
+
+### Minor Changes
+
+- [`79d61c73ffcaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79d61c73ffcaa) -
+  Add expsoure for add CWR to quick insert menu experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.23
 
 ### Patch Changes

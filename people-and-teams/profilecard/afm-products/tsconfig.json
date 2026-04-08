@@ -93,6 +93,9 @@
 			"path": "../../teams-app-internal-analytics/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../teams-app-internal-navigation/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../teams-avatar/afm-products/tsconfig.json"
 		},
 		{

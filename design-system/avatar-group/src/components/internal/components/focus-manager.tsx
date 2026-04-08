@@ -1,40 +1,22 @@
-import React, {
-	createContext,
-	type FC,
-	type ReactNode,
-	useCallback,
-	useEffect,
-	useRef,
-} from 'react';
+import React, { type FC, type ReactNode, useCallback, useEffect, useRef } from 'react';
 
 import { bind, type UnbindFn } from 'bind-event-listener';
-
-import __noop from '@atlaskit/ds-lib/noop';
 
 import { type FocusableElement } from '../../types';
 import handleFocus from '../utiles/handle-focus';
 
-/**
- *
- *
- * Context provider which maintains the list of focusable elements and a method to
- * register new menu items.
- * This list drives the keyboard navgation of the menu.
- *
- */
-export const FocusManagerContext: React.Context<{
-	menuItemRefs: FocusableElement[];
-	registerRef: (ref: FocusableElement) => void;
-}> = createContext<{
-	menuItemRefs: FocusableElement[];
-	registerRef: (ref: FocusableElement) => void;
-}>({
-	menuItemRefs: [],
-	registerRef: __noop,
-});
+import { FocusManagerContext } from './focus-manager-context';
 
+// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
+// Remove links that the component does not have (such as usage). If there are no links remove them all.
 /**
- * Focus manager logic
+ * __Focus manager__
+ *
+ * A focus manager {description}.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
 const FocusManager: FC<{ children: ReactNode }> = ({ children }) => {
 	const menuItemRefs = useRef<FocusableElement[]>([]);

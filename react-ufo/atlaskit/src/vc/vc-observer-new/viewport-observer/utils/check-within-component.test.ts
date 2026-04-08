@@ -6,6 +6,11 @@ import checkWithinComponent from './check-within-component';
 jest.mock('@atlaskit/platform-feature-flags');
 const mockFg = fg as jest.Mock;
 
+beforeEach(() => {
+	mockFg.mockReset();
+	mockFg.mockReturnValue(false);
+});
+
 // Mock Fiber node structure
 type MockFiber = {
 	key: string | null;
@@ -255,5 +260,47 @@ describe('Using checkWithinComponent to check UFOThirdPartySegment', () => {
 
 		const result = checkWithinComponent(childElement, 'UFOThirdPartySegment', mapIs3pResult);
 		expect(result.isWithin).toBe(false);
+	});
+
+	it('should stop DOM walk after 20 levels when feature flag is disabled', () => {
+		let currentElement = createMockNode({
+			key: null,
+			type: { name: 'UFOThirdPartySegment' },
+			return: null,
+		});
+
+		for (let i = 0; i < 21; i++) {
+			const childElement = document.createElement('div') as HTMLElement;
+			Object.defineProperty(childElement, 'parentElement', {
+				value: currentElement,
+				writable: true,
+			});
+			currentElement = childElement;
+		}
+
+		const result = checkWithinComponent(currentElement, 'UFOThirdPartySegment', mapIs3pResult);
+		expect(result.isWithin).toBe(false);
+	});
+
+	it('should walk up to 40 DOM levels when feature flag is enabled', () => {
+		mockFg.mockReturnValue(true);
+
+		let currentElement = createMockNode({
+			key: null,
+			type: { name: 'UFOThirdPartySegment' },
+			return: null,
+		});
+
+		for (let i = 0; i < 39; i++) {
+			const childElement = document.createElement('div') as HTMLElement;
+			Object.defineProperty(childElement, 'parentElement', {
+				value: currentElement,
+				writable: true,
+			});
+			currentElement = childElement;
+		}
+
+		const result = checkWithinComponent(currentElement, 'UFOThirdPartySegment', mapIs3pResult);
+		expect(result.isWithin).toBe(true);
 	});
 });

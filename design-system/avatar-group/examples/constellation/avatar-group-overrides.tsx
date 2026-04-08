@@ -6,7 +6,8 @@ import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { appearances, RANDOM_USERS } from '../../examples-util/data';
+import { appearances } from '../../examples-util/appearances';
+import { RANDOM_USERS } from '../../examples-util/random-users';
 
 const styles = cssMap({
 	container: {

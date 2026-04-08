@@ -31,7 +31,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-smart-link-draggable/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-smart-link-draggable/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

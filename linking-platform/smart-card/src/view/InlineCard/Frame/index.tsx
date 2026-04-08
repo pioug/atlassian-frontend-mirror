@@ -4,7 +4,7 @@ import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 
 import { WrapperAnchor, WrapperSpan } from './styled';
 
-export type ViewType = 'default' | 'unauthorised' | 'errored';
+export type ViewType = 'default' | 'unauthorised' | 'errored' | 'action';
 
 export interface FrameViewProps {
 	children?: React.ReactNode;

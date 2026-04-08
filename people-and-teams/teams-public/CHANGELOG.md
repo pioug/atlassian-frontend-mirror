@@ -1,5 +1,16 @@
 # @atlaskit/teams-public
 
+## 0.74.0
+
+### Minor Changes
+
+- [`1368864a76f91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1368864a76f91) -
+  Remove dead code from teams-public package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.73.0
 
 ### Minor Changes

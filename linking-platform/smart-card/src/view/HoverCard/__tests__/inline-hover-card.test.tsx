@@ -1,9 +1,6 @@
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock('react-transition-group/Transition', () => (data: any) => data.children);
 jest.doMock('../../../utils/analytics/analytics');
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn().mockReturnValue(false),
-}));
 jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 	switch (src) {
 		case 'src-error':
@@ -22,6 +19,7 @@ import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -31,7 +29,12 @@ import * as useAISummary from '../../../state/hooks/use-ai-summary';
 import { fakeFactory } from '../../../utils/mocks';
 import { Card } from '../../Card';
 
-import { mockBaseResponse, mockConfluenceResponse, mockSSRResponse } from './__mocks__/mocks';
+import {
+	mockBaseResponse,
+	mockConfluenceResponse,
+	mockSSRResponse,
+	mockUnauthorisedResponse,
+} from './__mocks__/mocks';
 import { analyticsTests } from './common/analytics.test-utils';
 import {
 	forbiddenViewTests,
@@ -62,7 +65,11 @@ describe('HoverCard', () => {
 	});
 
 	afterEach(() => {
-		act(() => jest.runAllTimers()); // Suppress act errors after test ends
+		// Nested suites (e.g. analytics) may call `useRealTimers()` in their own afterEach first;
+		// `runAllTimers` then warns if fake timers are no longer active.
+		if (jest.isMockFunction(setTimeout)) {
+			act(() => jest.runAllTimers()); // Suppress act errors after test ends
+		}
 		jest.useRealTimers();
 		jest.restoreAllMocks();
 	});
@@ -275,73 +282,128 @@ describe('HoverCard', () => {
 			const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
 
 			ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
-				beforeEach(() => {
-					const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-					(expValEquals as jest.Mock).mockReturnValue(true);
+				eeTest
+					.describe('platform_sl_3p_auth_rovo_action', 'rovo chat on inline card')
+					.variant(true, () => {
+						it('should enable rovoChat experiment via actionOptions prop', async () => {
+							await setup({
+								extraCardProps: { actionOptions },
+								mock,
+								rovoOptions,
+							});
+
+							const actionBlock = await screen.findByTestId('smart-block-action');
+							const rovoChatAction = await within(actionBlock).findByTestId(
+								'smart-action-rovo-chat-action-1',
+							);
+							expect(rovoChatAction).toBeInTheDocument();
+						});
+
+						it('should enable rovoChat experiment via actionOptions prop with CardSSR', async () => {
+							await setup({
+								component: (
+									<CardSSR
+										actionOptions={actionOptions}
+										appearance="inline"
+										url={mockUrl}
+										showHoverPreview={true}
+									/>
+								),
+								mock,
+								rovoOptions,
+							});
+
+							const actionBlock = await screen.findByTestId('smart-block-action');
+							const rovoChatAction = await within(actionBlock).findByTestId(
+								'smart-action-rovo-chat-action-1',
+							);
+							expect(rovoChatAction).toBeInTheDocument();
+						});
+
+						it('should render Rovo AI summary on google-object-provider link', async () => {
+							jest.spyOn(useAISummary, 'useAISummary').mockReturnValue({
+								summariseUrl: jest.fn(),
+								state: { status: 'done', content: 'this is a summary' },
+							});
+
+							await setup({
+								extraCardProps: { actionOptions },
+								mock,
+								rovoOptions,
+							});
+
+							const aiSummaryBlock = await screen.findByTestId(
+								'smart-ai-summary-block-resolved-view',
+							);
+							expect(aiSummaryBlock).toBeInTheDocument();
+						});
+
+						it('should not render Rovo AI summary on none google-object-provider link ', async () => {
+							await setup({
+								extraCardProps: { actionOptions },
+								mock: mockConfluenceResponse,
+								rovoOptions,
+							});
+
+							await screen.findByTestId('smart-block-title-resolved-view');
+							const aiSummaryBlock = screen.queryByTestId('smart-ai-summary-block-placeholder');
+							expect(aiSummaryBlock).not.toBeInTheDocument();
+						});
+					});
+			});
+		});
+
+		describe('platform_sl_3p_preauth_better_hovercard (unauthorised hover card)', () => {
+			const assertUnauthorisedHoverPreviewWhenPreauthExperimentOn = async (
+				rovoOptions: { isRovoEnabled: boolean; isRovoLLMEnabled: boolean },
+				expectRovo: boolean,
+			) => {
+				await setup({
+					extraCardProps: { showHoverPreview: true },
+					mock: mockUnauthorisedResponse,
+					testId: 'inline-card-unauthorized-view',
+					rovoOptions,
 				});
 
-				it('should enable rovoChat experiment via actionOptions prop', async () => {
-					await setup({
-						extraCardProps: { actionOptions },
-						mock,
-						rovoOptions,
+				act(() => jest.runAllTimers());
+
+				if (expectRovo) {
+					expect(
+						await screen.findByTestId('hover-card-rovo-unauthorised-view'),
+					).toBeInTheDocument();
+					expect(
+						screen.getByTestId('hover-card-rovo-unauthorised-view-connect-account'),
+					).toBeInTheDocument();
+					expect(screen.queryByTestId('hover-card-unauthorised-view')).not.toBeInTheDocument();
+				} else {
+					expect(
+						await screen.findByTestId('hover-card-unauthorised-view'),
+					).toBeInTheDocument();
+					expect(screen.queryByTestId('hover-card-rovo-unauthorised-view')).not.toBeInTheDocument();
+				}
+			};
+
+			ffTest.on('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
+				eeTest
+					.describe(
+						'platform_sl_3p_preauth_better_hovercard',
+						'unauthorised hover card',
+					)
+					.variant(true, () => {
+						it('renders Rovo unauthorised hover when killswitch and experiment are on and Rovo is enabled', async () => {
+							await assertUnauthorisedHoverPreviewWhenPreauthExperimentOn(
+								{ isRovoEnabled: true, isRovoLLMEnabled: true },
+								true,
+							);
+						});
+
+						it('renders legacy unauthorised hover when killswitch and experiment are on but Rovo is disabled', async () => {
+							await assertUnauthorisedHoverPreviewWhenPreauthExperimentOn(
+								{ isRovoEnabled: false, isRovoLLMEnabled: true },
+								false,
+							);
+						});
 					});
-
-					const actionBlock = await screen.findByTestId('smart-block-action');
-					const rovoChatAction = await within(actionBlock).findByTestId(
-						'smart-action-rovo-chat-action-1',
-					);
-					expect(rovoChatAction).toBeInTheDocument();
-				});
-
-				it('should enable rovoChat experiment via actionOptions prop with CardSSR', async () => {
-					await setup({
-						component: (
-							<CardSSR
-								actionOptions={actionOptions}
-								appearance="inline"
-								url={mockUrl}
-								showHoverPreview={true}
-							/>
-						),
-						mock,
-						rovoOptions,
-					});
-
-					const actionBlock = await screen.findByTestId('smart-block-action');
-					const rovoChatAction = await within(actionBlock).findByTestId(
-						'smart-action-rovo-chat-action-1',
-					);
-					expect(rovoChatAction).toBeInTheDocument();
-				});
-
-				it('should render Rovo AI summary on google-object-provider link', async () => {
-					jest.spyOn(useAISummary, 'useAISummary').mockReturnValue({
-						summariseUrl: jest.fn(),
-						state: { status: 'done', content: 'this is a summary' },
-					});
-
-					await setup({
-						extraCardProps: { actionOptions },
-						mock,
-						rovoOptions,
-					});
-
-					const aiSummaryBlock = await screen.findByTestId('smart-ai-summary-block-resolved-view');
-					expect(aiSummaryBlock).toBeInTheDocument();
-				});
-
-				it('should not render Rovo AI summary on none google-object-provider link ', async () => {
-					await setup({
-						extraCardProps: { actionOptions },
-						mock: mockConfluenceResponse,
-						rovoOptions,
-					});
-
-					await screen.findByTestId('smart-block-title-resolved-view');
-					const aiSummaryBlock = screen.queryByTestId('smart-ai-summary-block-placeholder');
-					expect(aiSummaryBlock).not.toBeInTheDocument();
-				});
 			});
 		});
 	});

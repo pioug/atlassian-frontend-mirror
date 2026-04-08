@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 
 import { Section as MenuSection } from '@atlaskit/menu';
 
-import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
+import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 
 export interface SectionProps {
 	/**

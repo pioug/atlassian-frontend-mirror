@@ -1,11 +1,11 @@
 export { default as SideNavigation } from './components/SideNavigation';
 export type { SideNavigationProps } from './components/SideNavigation';
-export { Section, HeadingItem, SkeletonHeadingItem } from './components/Section';
-export type {
-	HeadingItemProps,
-	SectionProps,
-	SkeletonHeadingItemProps,
-} from './components/Section';
+export { default as Section } from './components/Section/section';
+export { default as HeadingItem } from './components/Section/heading-item';
+export { default as SkeletonHeadingItem } from './components/Section/skeleton-heading-item';
+export type { HeadingItemProps } from './components/Section/heading-item';
+export type { SectionProps } from './components/Section/section';
+export type { SkeletonHeadingItemProps } from './components/Section/skeleton-heading-item';
 export { default as NestingItem } from './components/NestingItem';
 export type { NestingItemProps } from './components/NestingItem';
 export { default as NavigationContent } from './components/NavigationContent';
@@ -15,11 +15,11 @@ export { default as GoBackItem } from './components/Item/go-back-item';
 export { default as LinkItem } from './components/Item/link-item';
 export { default as CustomItem } from './components/Item/custom-item';
 export { default as SkeletonItem } from './components/Item/skeleton-item';
-export type { CustomItemComponentProps, CustomItemProps } from './components/Item/custom-item';
-export type { ButtonItemProps } from './components/Item/button-item';
-export type { GoBackItemProps } from './components/Item/go-back-item';
-export type { LinkItemProps } from './components/Item/link-item';
-export type { SkeletonItemProps } from './components/Item/skeleton-item';
+export type { CustomItemComponentProps, CustomItemProps } from '@atlaskit/menu';
+export type { ButtonItemProps } from '@atlaskit/menu';
+export type { ButtonItemProps as GoBackItemProps } from '@atlaskit/menu';
+export type { LinkItemProps } from '@atlaskit/menu';
+export type { SkeletonItemProps } from '@atlaskit/menu';
 export { default as Footer } from './components/Footer';
 export type { FooterProps } from './components/Footer';
 export { default as Header } from './components/Header';
@@ -33,6 +33,6 @@ export type { LoadingItemsProps } from './components/LoadingItems';
 export { default as NestableNavigationContent } from './components/NestableNavigationContent';
 export type { NestableNavigationContentProps } from './components/NestableNavigationContent';
 
-export { useShouldNestedElementRender } from './components/NestableNavigationContent/context';
+export { useShouldNestedElementRender } from './components/NestableNavigationContent/use-should-nested-element-render';
 
 export { VAR_SCROLL_INDICATOR_COLOR, VAR_SEPARATOR_COLOR } from './common/constants';

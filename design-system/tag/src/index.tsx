@@ -4,11 +4,12 @@ export type { RemovableTagProps, SimpleTagProps } from './tag';
 export type { AppearanceType, MigrationFallback, TagColor } from './types';
 
 // Export new visual refresh components
-export { AvatarTag } from './tag-new';
+export { AvatarTag, TagDropdownTrigger } from './tag-new';
 export type {
 	AvatarTagProps,
 	AvatarRenderProps,
 	TypesOfAvatars,
 	NewTagColor,
 	TagNewProps,
+	TagDropdownTriggerProps,
 } from './tag-new';

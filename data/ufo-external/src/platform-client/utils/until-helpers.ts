@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { ufolog } from '../../logger';
 import { type ExperienceData } from '../../types';
 import { type UFOExperience, UFOExperienceState } from '../core';
@@ -47,10 +45,7 @@ export const untilAll = (deps: UntilAllArgs) => () => {
 			const priorityStateFound =
 				data.state === UFOExperienceState.ABORTED || data.state === UFOExperienceState.FAILED;
 
-			if (
-				priorityStateFound &&
-				(!fg('platform_ufo_enable_untilall_parent_fix') || doneIndexes.length > 0)
-			) {
+			if (priorityStateFound && doneIndexes.length > 0) {
 				notMet.length = 0;
 				return {
 					done: true,

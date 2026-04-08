@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-context
 
+## 0.7.0
+
+### Minor Changes
+
+- [`052b82d447d68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/052b82d447d68) -
+  TREX-1028: Replace barrel imports with direct subpath imports in search-page (debarel) + fix SSR
+  crash and atlassian-context optional chaining
+
 ## 0.6.1
 
 ### Patch Changes

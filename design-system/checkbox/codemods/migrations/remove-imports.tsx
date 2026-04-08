@@ -1,4 +1,4 @@
-import { createRemoveImportsFor } from '../utils';
+import { createRemoveImportsFor } from '../utils/create-remove-imports-for';
 
 export const removeThemeImports: (
 	j: import('jscodeshift/src/core').JSCodeshift,

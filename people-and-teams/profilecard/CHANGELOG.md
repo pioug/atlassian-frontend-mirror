@@ -1,5 +1,39 @@
 # @atlaskit/profilecard
 
+## 24.48.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.48.0
+
+### Minor Changes
+
+- [`ecc20e3c9d89b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecc20e3c9d89b) -
+  Migrate all ADS LinkButton components to TeamsLinkButton
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.47.0
+
+### Minor Changes
+
+- [`b3d4b6644638a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3d4b6644638a) -
+  Remove dead code from profilecard package
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.46.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.46.3
 
 ### Patch Changes

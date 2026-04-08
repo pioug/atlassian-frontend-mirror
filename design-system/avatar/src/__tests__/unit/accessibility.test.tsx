@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import { axe } from '@af/accessibility-testing';
 import __noop from '@atlaskit/ds-lib/noop';
 
-import { Block } from '../../../examples-util/helpers';
+import { Block } from '../../../examples-util/block';
 import Avatar, { AvatarItem } from '../../index';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage

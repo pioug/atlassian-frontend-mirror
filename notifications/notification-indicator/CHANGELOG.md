@@ -1,5 +1,12 @@
 # @atlaskit/notification-indicator
 
+## 10.1.2
+
+### Patch Changes
+
+- [`0a9bb1ad4261d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a9bb1ad4261d) -
+  Remove unused routingWorkspaceId prop in NotificationIndicator component.
+
 ## 10.1.1
 
 ### Patch Changes

@@ -39,14 +39,6 @@ export const deletedContentStyleNew: string = convertToInlineCss({
 	opacity: 0.8,
 });
 
-export const deletedContentStyleNewActive: string = convertToInlineCss({
-	color: token('color.text'),
-	textDecoration: 'line-through',
-	textDecorationColor: token('color.text.accent.gray'),
-	position: 'relative',
-	opacity: 1,
-});
-
 export const deletedContentStyleUnbounded: string = convertToInlineCss({
 	position: 'absolute',
 	top: '50%',
@@ -76,7 +68,7 @@ export const deletedStyleQuoteNodeWithLozengeActive: string = convertToInlineCss
 	paddingTop: token('space.025'),
 	paddingBottom: token('space.025'),
 	paddingLeft: token('space.025'),
-	boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+	boxShadow: `0 0 0 4px ${token('color.border.accent.red')}`,
 	borderRadius: token('radius.small'),
 });
 
@@ -86,7 +78,7 @@ export const deletedBlockOutline: string = convertToInlineCss({
 });
 
 export const deletedBlockOutlineActive: string = convertToInlineCss({
-	boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+	boxShadow: `0 0 0 4px ${token('color.border.accent.red')}`,
 	borderRadius: token('radius.small'),
 });
 
@@ -96,7 +88,7 @@ export const deletedBlockOutlineRounded: string = convertToInlineCss({
 });
 
 export const deletedBlockOutlineRoundedActive: string = convertToInlineCss({
-	boxShadow: `0 0 0 2px ${token('color.border.accent.red')}`,
+	boxShadow: `0 0 0 4px ${token('color.border.accent.red')}`,
 	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
 });
 
@@ -127,6 +119,7 @@ export const editingStyleCardBlockNode: string = convertToInlineCss({
 
 export const standardDecorationMarkerVariable: string = convertToInlineCss({
 	'--diff-decoration-marker-color': token('color.border.accent.purple'),
+	'--diff-decoration-marker-ring-width': '1px',
 });
 
 export const addedCellOverlayStyle = convertToInlineCss({

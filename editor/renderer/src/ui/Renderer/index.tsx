@@ -250,9 +250,14 @@ export const RendererFunctionalComponent = (
 				return {
 					featureFlags: normalizedFeatureFlags,
 					isTopLevelRenderer: isTopLevelRenderer === undefined,
+					// Propagate nestedRendererType into the inner RendererContextProvider so that
+					// React components inside the renderer (e.g. Colgroup) can read it via
+					// useRendererContext(). Without this, the inner provider overwrites the outer
+					// AKRendererWrapper context and nestedRendererType becomes undefined.
+					nestedRendererType,
 				};
 			},
-		[],
+		[nestedRendererType],
 	);
 
 	const fireAnalyticsEventOld: FireAnalyticsCallback = useCallback(
@@ -295,8 +300,8 @@ export const RendererFunctionalComponent = (
 			const { annotationProvider } = props;
 			const allowAnnotationsDraftMode = Boolean(
 				annotationProvider &&
-				annotationProvider.inlineComment &&
-				annotationProvider.inlineComment.allowDraftMode,
+					annotationProvider.inlineComment &&
+					annotationProvider.inlineComment.allowDraftMode,
 			);
 			const { featureFlags } = createRendererContext(props.featureFlags, props.isTopLevelRenderer);
 			return {
@@ -800,9 +805,9 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 		telepointer.id = TELEPOINTER_ID;
 		return telepointer;
 	};
-
 	const initialUpdate = React.useRef(true);
 
+	const { nestedRendererType } = useRendererContext();
 	useEffect(() => {
 		// We must check if window is defined, if it isn't we are in a SSR environment
 		// and we don't want to add the telepointer
@@ -918,6 +923,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 						allowAnnotations={props.allowAnnotations}
 						allowTableResizing={allowTableResizing}
 						allowRendererContainerStyles={allowRendererContainerStyles}
+						isInsideSyncBlock={nestedRendererType === 'syncedBlock'}
 					>
 						{children}
 					</RendererStyleContainer>

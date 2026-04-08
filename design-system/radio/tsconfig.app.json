@@ -38,9 +38,6 @@
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{

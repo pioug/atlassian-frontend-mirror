@@ -1,7 +1,7 @@
 # Forge React Types
 
 This package exposes a public npm package (`@atlaskit/forge-react-types`) that contains all
-necessary types for UIKit2 codegen components.
+necessary types for UIKit codegen components.
 
 The types are code generated from the `@atlassian/forge-ui` package and are guaranteed to be in sync
 with the source component implementation in the `@atlassian/forge-ui` package.

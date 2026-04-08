@@ -22,7 +22,7 @@ function generateContext<T extends object>(): Context<TableContext<T>> {
 	} as TableContext<T>);
 }
 
-const TableContext = generateContext();
+const TableContext: React.Context<TableContext<object, never>> = generateContext();
 
 /**
  * __Table state provider__

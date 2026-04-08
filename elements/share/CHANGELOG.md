@@ -1,5 +1,12 @@
 # @atlaskit/share
 
+## 6.19.2
+
+### Patch Changes
+
+- [`0e611e185c70f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e611e185c70f) -
+  PTC-14861: FG cleanup - remove enable-appropriate-reading-order-in-share-dialog gate
+
 ## 6.19.1
 
 ### Patch Changes

@@ -10,6 +10,7 @@ import {
 	type AnalyticsEventAttributes,
 	useAnalyticsEvents,
 } from '@atlaskit/teams-app-internal-analytics';
+import { TeamsLinkButton } from '@atlaskit/teams-app-internal-navigation/teams-link-button';
 import { token } from '@atlaskit/tokens';
 
 import messages from '../../messages';
@@ -261,7 +262,27 @@ const Actions = ({
 			{regularActions.map((action, index) => {
 				const isKudos = action.id === GIVE_KUDOS_ACTION_ID;
 
-				const button = (
+				const button = fg('ptc-links-migrate-atlaskit-link-button') ? (
+					<TeamsLinkButton
+						appearance="default"
+						key={action.id || index}
+						onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
+							onActionClick(action, args, event, index)
+						}
+						href={action.link || ''}
+						intent="action"
+						autoFocus={index === 0 && isTriggeredUsingKeyboard && !isRenderedInPortal}
+						id={`action-button-${action.id}`}
+						aria-labelledby={`action-button-${action.id} profilecard-name-label`}
+					>
+						{action.label}
+						{isKudos && (
+							<AnimationWrapper>
+								<KudosBlobAnimation />
+							</AnimationWrapper>
+						)}
+					</TeamsLinkButton>
+				) : (
 					<LinkButton
 						appearance="default"
 						key={action.id || index}

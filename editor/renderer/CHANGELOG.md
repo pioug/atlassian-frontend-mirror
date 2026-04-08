@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 128.9.1
+
+### Patch Changes
+
+- [`571ae3a14ac53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/571ae3a14ac53) -
+  Refresh cache for an inline smart card in renderer if it's not been fetched before
+- [`eaf073b7563c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eaf073b7563c8) -
+  Fix nested table column overflow in syncBlock by using saved table width as scaling target,
+  aligning with bodiedSyncBlock behaviour
+- Updated dependencies
+
 ## 128.9.0
 
 ### Minor Changes

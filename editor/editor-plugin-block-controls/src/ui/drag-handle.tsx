@@ -1581,8 +1581,16 @@ export const DragHandleWithVisibility = ({
 			rightSideControlsEnabled: states.blockControlsState?.rightSideControlsEnabled ?? false,
 		}),
 	).rightSideControlsEnabled;
+	// Layout column drag handles sit at the top-centre of each column, not on a left/right edge.
+	// Don't restrict by hoverSide for layout columns — the drag handle should always be visible
+	// when hovering anywhere over the column, regardless of which side of the layoutSection the
+	// column is on. (The right-side remix button is a separate node decoration and is unaffected.)
+	const isLayoutColumn = nodeType === 'layoutColumn';
 	return (
-		<VisibilityContainer api={api} controlSide={rightSideControlsEnabled ? 'left' : undefined}>
+		<VisibilityContainer
+			api={api}
+			controlSide={rightSideControlsEnabled && !isLayoutColumn ? 'left' : undefined}
+		>
 			<DragHandle
 				view={view}
 				api={api}

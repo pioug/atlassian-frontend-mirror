@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 6.0.47
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.46
+
+### Patch Changes
+
+- [`20b51bc2e61a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20b51bc2e61a4) -
+  Remove duplicate source synced blocks when inserting block templates with existing resourceIds and
+  show error flag
+- [`15deee785151b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15deee785151b) -
+  EDITOR-6174 Pass node to createBodiedSyncBlockNode to cache content on creation, preventing false
+  unsaved changes on page refresh
+- Updated dependencies
+
+## 6.0.45
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.44
 
 ### Patch Changes

@@ -31,7 +31,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__ufo-experience-key/app"
+		"outDir": "../../../tsDist/@atlaskit__ufo-experience-key/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

@@ -1,5 +1,14 @@
 # @atlaskit/media-filmstrip
 
+## 51.2.7
+
+### Patch Changes
+
+- [`9896ce8e69e57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9896ce8e69e57) -
+  Improve accessibility across media packages with semantic button elements and i18n support, all
+  changes are behind feature flag
+- Updated dependencies
+
 ## 51.2.6
 
 ### Patch Changes

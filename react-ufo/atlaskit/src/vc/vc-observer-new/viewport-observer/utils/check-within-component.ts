@@ -1,9 +1,18 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import coinflip from '../../../../coinflip';
 
 import checkFiberWithinComponent from './check-fiber-within-component';
 import findFiberWithCache from './find-fiber-with-cache';
 
 const DEFAULT_MAX_LEVEL = 20;
+const INCREASED_DOM_WALK_MAX_LEVEL = 40;
+
+function getDomWalkMaxLevel() {
+	return fg('platform_ufo_3p_detection_increase_dom_walk')
+		? INCREASED_DOM_WALK_MAX_LEVEL
+		: DEFAULT_MAX_LEVEL;
+}
 
 // Cache cleanup
 let callCount = 0;
@@ -37,9 +46,10 @@ export default function checkWithinComponent(
 	}
 	let fiber: any = null;
 	let checkedNodes: HTMLElement[] = [];
+	const domWalkMaxLevel = getDomWalkMaxLevel();
 
 	// Always use cached fiber strategy to handle non-React elements reliably
-	fiber = findFiberWithCache(node, DEFAULT_MAX_LEVEL, checkedNodes);
+	fiber = findFiberWithCache(node, domWalkMaxLevel, checkedNodes);
 
 	if (!fiber) {
 		checkedNodes.forEach((checkedNode) => {

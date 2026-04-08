@@ -1,5 +1,23 @@
 # @atlaskit/toggle
 
+## 15.3.0
+
+### Minor Changes
+
+- [`2fe4c35fe7ad6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fe4c35fe7ad6) -
+  Internal refactor to toggle to eliminate nested CSS selectors in favor of an atomic-friendly
+  styling approach using CSS custom properties. This change is behind the
+  `platform-toggle-atomic-styles` feature gate.
+
+## 15.2.17
+
+### Patch Changes
+
+- [`02483200273ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02483200273ec) -
+  Enrol all Design System UI packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+- Updated dependencies
+
 ## 15.2.16
 
 ### Patch Changes

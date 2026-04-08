@@ -9,19 +9,26 @@ import applyDevTools from 'prosemirror-dev-tools';
 
 import { PanelType } from '@atlaskit/adf-schema';
 import {
+	blockCard,
+	decisionItem,
+	decisionList,
 	doc,
 	expand,
 	layoutColumn,
 	layoutSection,
+	media,
+	mediaSingle,
 	panel,
 	p,
 	table,
 	td,
+	text,
 	th,
 	tr,
 } from '@atlaskit/adf-utils/builders';
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
@@ -67,23 +74,57 @@ import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import { ReplaceStep, type Step } from '@atlaskit/editor-prosemirror/transform';
+import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { ColorScheme, DiffType } from '../src/showDiffPluginType';
 
 const styles = cssMap({
-	container: {
+	toolbar: {
+		position: 'sticky',
+		top: token('space.100'),
+		zIndex: 800,
+		display: 'flex',
+		flexWrap: 'wrap',
+		gap: token('space.100'),
+		alignItems: 'center',
 		paddingTop: token('space.150'),
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.150'),
 		paddingRight: token('space.150'),
-		display: 'flex',
-		gap: token('space.100'),
+		backgroundColor: token('elevation.surface'),
+		borderBottomWidth: token('border.width'),
+		borderBottomStyle: 'solid',
+		borderBottomColor: token('color.border'),
 	},
 });
 
 const original = doc(
 	p('Intro: original paragraph before changes.'),
+	p(
+		'Below: decision list (two items — one will be edited, one removed), blockCard, mediaSingle, then table / panel / layout / expand. Scroll to exercise the sticky toolbar.',
+	),
+	decisionList({ localId: 'diff-adv-decisions' })(
+		decisionItem({ localId: 'diff-adv-di-a', state: 'DECIDED' })(
+			text('Decision A: original wording (will be updated).'),
+		),
+		decisionItem({ localId: 'diff-adv-di-b', state: 'DECIDED' })(
+			text('Decision B: this item is removed in the new document.'),
+		),
+	),
+	blockCard({
+		localId: 'diff-adv-block-card',
+		url: 'https://example.com/original-page',
+	}),
+	mediaSingle({ layout: 'center' })(
+		media({
+			id: '2aa22582-ca0e-4bd4-b1bc-9369d10a0719',
+			type: 'file',
+			collection: 'MediaServicesSample',
+			width: 5845,
+			height: 1243,
+		}),
+	),
 	table(tr([th()(p('Col A')), th()(p('Col B'))]), tr([td()(p('Cell 1')), td()(p('Cell 2'))])),
 	panel({ panelType: PanelType.INFO })(p('Original panel note: please review the draft.')),
 	layoutSection()([
@@ -93,10 +134,40 @@ const original = doc(
 	expand({ title: 'Original expand title', __expanded: true })(
 		p('Content inside the expand before edits.'),
 	),
+	p(
+		'Filler paragraphs so the page scrolls: the toolbar above stays sticky while you review diff decorations on decisions, cards, and media.',
+	),
+	p(
+		'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+	),
 ) as JSONDocNode;
 
 const defaultDoc = doc(
 	p('Intro: updated paragraph after changes.'),
+	p(
+		'Below: decision list (edited first item, removed second, added third), blockCard URL change, different mediaSingle asset, then table / panel / layout / expand.',
+	),
+	decisionList({ localId: 'diff-adv-decisions' })(
+		decisionItem({ localId: 'diff-adv-di-a', state: 'DECIDED' })(
+			text('Decision A: updated wording after review.'),
+		),
+		decisionItem({ localId: 'diff-adv-di-c', state: 'DECIDED' })(
+			text('Decision C: newly added decision item.'),
+		),
+	),
+	blockCard({
+		localId: 'diff-adv-block-card',
+		url: 'https://www.atlassian.com/software',
+	}),
+	mediaSingle({ layout: 'center' })(
+		media({
+			id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
+			type: 'file',
+			collection: 'MediaServicesSample',
+			width: 300,
+			height: 150,
+		}),
+	),
 	table(
 		tr([th()(p('Column 1')), th()(p('Column 2'))]),
 		tr([td()(p('Updated A')), td()(p('Updated B'))]),
@@ -108,6 +179,12 @@ const defaultDoc = doc(
 	]),
 	expand({ title: 'Updated expand title', __expanded: true })(
 		p('Content inside the expand after edits.'),
+	),
+	p(
+		'Filler paragraphs so the page scrolls: the toolbar above stays sticky while you review diff decorations on decisions, cards, and media.',
+	),
+	p(
+		'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
 	),
 ) as JSONDocNode;
 
@@ -205,6 +282,23 @@ export default function Editor(): React.JSX.Element {
 		[colorScheme],
 	);
 
+	const { numberOfChanges, activeIndex } = useSharedPluginStateWithSelector(
+		editorApi,
+		['showDiff'],
+		({ showDiffState }) => ({
+			numberOfChanges: showDiffState?.numberOfChanges ?? 0,
+			activeIndex: showDiffState?.activeIndex,
+		}),
+	);
+
+	const handleScrollToNext = useCallback(() => {
+		editorApi?.core?.actions.execute(editorApi?.showDiff?.commands.scrollToNext);
+	}, [editorApi]);
+
+	const handleScrollToPrevious = useCallback(() => {
+		editorApi?.core?.actions.execute(editorApi?.showDiff?.commands.scrollToPrevious);
+	}, [editorApi]);
+
 	const showDiff = useCallback(() => {
 		if (!editorApi) {
 			return;
@@ -245,7 +339,7 @@ export default function Editor(): React.JSX.Element {
 
 	return (
 		<>
-			<div css={styles.container}>
+			<div css={styles.toolbar}>
 				<Button
 					onClick={() => {
 						hideDiff();
@@ -277,6 +371,17 @@ export default function Editor(): React.JSX.Element {
 				>
 					{isShowingDiff ? 'Hide diff' : 'Show diff'}
 				</Button>
+				<Button onClick={handleScrollToPrevious} isDisabled={numberOfChanges === 0}>
+					Previous
+				</Button>
+				<Button onClick={handleScrollToNext} isDisabled={numberOfChanges === 0}>
+					Next
+				</Button>
+				<Text color="color.text.subtle">
+					{numberOfChanges > 0
+						? `Change ${(activeIndex ?? 0) + 1} of ${numberOfChanges}`
+						: 'No changes'}
+				</Text>
 			</div>
 			<ComposableEditor
 				appearance="full-page"

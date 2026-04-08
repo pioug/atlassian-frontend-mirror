@@ -5,6 +5,11 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { InteractiveImgComponent, type Props } from '../../../../../viewers/image/interactive-img';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn().mockReturnValue(false),
+}));
 
 interface ImageSize {
 	naturalWidth: number;
@@ -329,6 +334,162 @@ describe('InteractiveImg', () => {
 			}
 			await waitFor(() => {
 				expect(screen.getByLabelText('hd active')).toBeInTheDocument();
+			});
+		});
+	});
+});
+
+const buttonImageWrapperClassName = 'button.media-viewer-image-content';
+
+function setupWithFlag(props?: Partial<Props & ImageSize>) {
+	(fg as jest.Mock).mockImplementation((flag) => {
+		if (flag === 'platform_media_a11y_suppression_fixes') {
+			return true;
+		}
+		return false;
+	});
+
+	const onClose = jest.fn();
+	const onBlanketClicked = jest.fn();
+
+	const component = render(
+		<IntlProvider locale="en">
+			<InteractiveImgComponent
+				onLoad={jest.fn()}
+				onError={jest.fn()}
+				src={src}
+				alt="test"
+				onClose={onClose}
+				onBlanketClicked={onBlanketClicked}
+				{...props}
+			/>
+		</IntlProvider>,
+	);
+
+	const wrapper = component.container.querySelector(buttonImageWrapperClassName);
+	Object.defineProperty(wrapper, 'clientWidth', {
+		value: 400,
+	});
+	Object.defineProperty(wrapper, 'clientHeight', {
+		value: 300,
+	});
+
+	const img = screen.getByTestId('media-viewer-image');
+	Object.defineProperty(HTMLImageElement.prototype, 'naturalWidth', {
+		configurable: true,
+		value: props?.naturalWidth ?? MAX_RESOLUTION,
+	});
+
+	Object.defineProperty(HTMLImageElement.prototype, 'naturalHeight', {
+		configurable: true,
+		value: props?.naturalHeight ?? MAX_RESOLUTION * 0.75,
+	});
+
+	fireEvent.load(img);
+
+	return { component, onClose, onBlanketClicked };
+}
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+describe('InteractiveImg with platform_media_a11y_suppression_fixes enabled', () => {
+	afterEach(() => {
+		(fg as jest.Mock).mockReset();
+	});
+
+	it('should render ImageWrapper as a button element', () => {
+		(fg as jest.Mock).mockImplementation((flag) =>
+			flag === 'platform_media_a11y_suppression_fixes',
+		);
+
+		const { container } = render(
+			<IntlProvider locale="en">
+				<InteractiveImgComponent
+					onLoad={jest.fn()}
+					onError={jest.fn()}
+					src={src}
+					alt="test"
+					onClose={jest.fn()}
+					onBlanketClicked={jest.fn()}
+				/>
+			</IntlProvider>,
+		);
+
+		expect(container.querySelector(buttonImageWrapperClassName)).toBeInTheDocument();
+		expect(container.querySelector(imageWrapperClassName)).not.toBeInTheDocument();
+	});
+
+	it('should have image and overflow visible when camera is defined', async () => {
+		setupWithFlag();
+		await waitFor(() => {
+			expect(screen.getByTestId('media-viewer-image')).toBeVisible();
+		});
+
+		expect(
+			getComputedStyle(screen.getByTestId('media-viewer-image-content')).getPropertyValue(
+				'overflow',
+			),
+		).not.toBe('hidden');
+	});
+
+	it('should allow zooming', async () => {
+		setupWithFlag({
+			naturalWidth: 400,
+			naturalHeight: 300,
+		});
+		await waitFor(() => {
+			expect(screen.getByTestId('media-viewer-image')).toBeVisible();
+		});
+		const zoomIn = screen.getByLabelText('zoom in');
+		const zoomOut = screen.getByLabelText('zoom out');
+
+		fireEvent.click(zoomOut);
+		const zoomLevel = screen.getByTestId('zoom-level-indicator');
+		expect(parseInt(zoomLevel.innerText, 10)).toBeLessThan(100);
+		fireEvent.click(zoomIn);
+		expect(parseInt(zoomLevel.innerText, 10)).toBe(100);
+	});
+
+	it('should set the correct width and height on the Img element', async () => {
+		setupWithFlag();
+		await waitFor(() => {
+			expect(screen.getByTestId('media-viewer-image')).toBeVisible();
+		});
+
+		const img = screen.getByTestId('media-viewer-image');
+		expect(img.getAttribute('style')).toContain('width: 400px; height: 300px;');
+	});
+
+	describe('drag and drop', () => {
+		it('should move image after a mousedown event', async () => {
+			const { component } = setupWithFlag();
+			await waitFor(() => {
+				expect(screen.getByTestId('media-viewer-image')).toBeVisible();
+			});
+			fireEvent.mouseDown(screen.getByTestId('media-viewer-image'), { screenX: 100, screenY: 100 });
+
+			const wrapper = component.container.querySelector(buttonImageWrapperClassName)!;
+			const { scrollLeft: oldScrollLeft, scrollTop: oldScrollTop } = wrapper;
+
+			fireEvent.mouseMove(document, {
+				screenX: 300,
+				screenY: 200,
+			});
+
+			expect(wrapper.scrollLeft).not.toEqual(oldScrollLeft);
+			expect(wrapper.scrollTop).not.toEqual(oldScrollTop);
+		});
+
+		it('should make an image draggable when it is zoomed larger than the screen', async () => {
+			setupWithFlag();
+			await waitFor(() => {
+				expect(screen.getByTestId('media-viewer-image')).toBeVisible();
+			});
+			const zoomIn = screen.getByLabelText('zoom in');
+			fireEvent.click(zoomIn);
+
+			const imgStyles = getComputedStyle(screen.getByTestId('media-viewer-image'));
+			await waitFor(() => {
+				expect(imgStyles.cursor).toEqual('grab');
 			});
 		});
 	});

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 8.2.4
+
+### Patch Changes
+
+- [`27b688b4cb76f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27b688b4cb76f) -
+  Source code changes to enable compatibility with react-intl v6
+
 ## 8.2.3
 
 ### Patch Changes

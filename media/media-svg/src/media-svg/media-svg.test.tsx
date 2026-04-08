@@ -3,7 +3,6 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import * as svgRendererModule from '../media-svg/svgRenderer-compiled';
 import { failDataURIConversionOnce } from '../test-helpers';
@@ -16,7 +15,6 @@ import MediaSvg from './index';
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
 // the next line and associated import. For more information, see go/afm-a11y-tooling:jest
-skipAutoA11yFile();
 
 describe('MediaSvg', () => {
 	it('should capture and report a11y violations', async () => {

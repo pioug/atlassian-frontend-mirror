@@ -1,13 +1,13 @@
 jest.autoMockOff();
 
-import transformer, {
-	datePickerImportName,
-	dtpPropsToMoveIntoPickerProps,
-	selectPropsToMoveIntoProps,
-	timePickerImportName,
-} from '../14.0.0-remove-duplicate-and-unused-props';
+import transformer from '../14.0.0-remove-duplicate-and-unused-props';
+import { dtpPropsToMoveIntoPickerProps } from '../utils/dtp-props-to-move-into-picker-props';
+import { selectPropsToMoveIntoProps } from '../utils/select-props-to-move-into-props';
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
+
+const datePickerImportName = 'DatePicker';
+const timePickerImportName = 'TimePicker';
 
 defineInlineTest(
 	{ default: transformer, parser: 'tsx' },

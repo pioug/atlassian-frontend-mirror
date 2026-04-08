@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 8.0.22
+
+### Patch Changes
+
+- [`cdf5e30bb1541`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdf5e30bb1541) -
+  Fix for edge case in firefox with prosemirror decorations being unsorted, ensures they are sorted
+  for diff decorations.
+- Updated dependencies
+
 ## 8.0.21
 
 ### Patch Changes

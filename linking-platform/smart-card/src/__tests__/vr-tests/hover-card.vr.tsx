@@ -104,6 +104,10 @@ snapshot(HoverCardUnauthorised, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
+	featureFlags: {
+		platform_sl_3p_preauth_better_hovercard_killswitch: true,
+		platform_sl_3p_preauth_better_hovercard: [true, false],
+	},
 	waitForReactLazy: true,
 });
 

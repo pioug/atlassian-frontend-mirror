@@ -1,5 +1,21 @@
 # @atlaskit/radio
 
+## 8.5.0
+
+### Minor Changes
+
+- [`e1feac98875c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1feac98875c6) -
+  Internal only CSS refactor to eliminate nested CSS selectors in favor of an atomic-friendly
+  styling approach. This change was previously behind the `platform-radio-atomic-styles` feature
+  gate, which has now been removed.
+
+### Patch Changes
+
+- [`02483200273ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02483200273ec) -
+  Enrol all Design System UI packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+- Updated dependencies
+
 ## 8.4.7
 
 ### Patch Changes

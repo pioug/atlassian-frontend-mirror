@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 /* eslint-disable jsdoc/check-tag-names */
-import { Fragment, useState, useMemo } from 'react';
+import { Fragment, useState, useMemo, useEffect } from 'react';
 import type { Context, ErrorInfo, JSX, ReactInstance } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -31,6 +31,8 @@ import {
 	SMART_LINK_DRAG_TYPES,
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
+import { useProvider } from '@atlaskit/editor-common/provider-factory';
+import type { EditorCardProvider } from '@atlaskit/editor-card-provider';
 
 import { CardErrorBoundary } from './fallback';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
@@ -194,6 +196,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	} = props;
 	const portal = usePortal(props);
 	const cardContext = useSmartCardContext();
+	const provider = useProvider('cardProvider');
 	const SuspenseWrapperForUrl = smartLinks?.SuspenseWrapperForUrl;
 
 	// Helper fn to conditionally wrap cards when suspense boundary is passed in via product
@@ -238,6 +241,21 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 			throw err;
 		}
 	};
+
+	useEffect(() => {
+		if (expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true) && url) {
+			// Refresh cache in the background
+			provider?.then((providerInstance) => {
+				(providerInstance as EditorCardProvider).refreshCache?.({
+					// It's ok to cast any resourceUrl to inlineCard here, because only URL is important for the request.
+					type: 'inlineCard',
+					attrs: {
+						url,
+					},
+				});
+			});
+		}
+	}, [provider, url]);
 
 	const MaybeOverlay = cardContext?.value ? OverlayWithCardContext : HoverLinkOverlayNoop;
 
@@ -533,7 +551,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
+			| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,
@@ -638,7 +656,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
+			| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,

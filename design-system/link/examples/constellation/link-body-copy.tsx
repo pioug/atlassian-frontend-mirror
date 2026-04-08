@@ -6,16 +6,14 @@ import { Text } from '@atlaskit/primitives/compiled';
 export default function BodyCopy(): React.JSX.Element {
 	return (
 		<Text>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod{' '}
-			<Link href="/components/link/usage">tempor incididunt ut labore et dolore magna aliqua.</Link>{' '}
-			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-			commodo consequat.{' '}
-			<Link href="/components/link/usage">Duis aute irure dolor in reprehenderit</Link> in voluptate
-			velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in{' '}
+			When setting up a new project, start by reviewing the{' '}
+			<Link href="/components/link/usage">project configuration guide</Link>. Team members can then{' '}
+			<Link href="/components/link/usage">invite collaborators</Link> and set permissions from the
+			project settings page. For advanced configuration, refer to the{' '}
 			<Link href="/components/link/usage" target="_blank">
-				culpa qui officia deserunt mollit anim id est laborum.
-			</Link>
+				Confluence space admin documentation
+			</Link>{' '}
+			which opens in a new window.
 		</Text>
 	);
 }

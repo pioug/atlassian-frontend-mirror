@@ -10,6 +10,7 @@ import Heading from '@atlaskit/heading';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import Tag, { AvatarTag, RemovableTag, SimpleTag } from '@atlaskit/tag';
 import TeamAvatar from '@atlaskit/teams-avatar';
+import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import TagNew from '../src/tag-new/tag-new';
@@ -159,6 +160,65 @@ export default function TagVisualUplifts(): JSX.Element {
 								text="Non-removable"
 								isRemovable={false}
 								testId="tag-non-removable"
+							/>
+						</Inline>
+					</Stack>
+				</div>
+
+				{/* TagNew leading swatch */}
+				<div css={sectionStyles}>
+					<Stack space="space.200">
+						<Text weight="bold">Swatch Before</Text>
+						<Text size="small">
+							<code>swatchBefore</code> adds a 12×12px block before <code>elemBefore</code>. Use{' '}
+							<code>true</code> for the tag color&apos;s accent subtle background, or a design token
+							path string (resolved with <code>token()</code> inside the component).
+						</Text>
+						<Inline space="space.100" alignBlock="center" shouldWrap>
+							<TagNew
+								color="gray"
+								text="Tag"
+								swatchBefore
+								testId="tag-new-swatch-gray"
+								isRemovable={false}
+							/>
+							<TagNew
+								color="blue"
+								text="Tag"
+								swatchBefore
+								testId="tag-new-swatch-blue"
+								isRemovable={false}
+							/>
+							<TagNew
+								color="red"
+								text="Tag"
+								swatchBefore
+								testId="tag-new-swatch-red"
+								isRemovable={false}
+							/>
+							<TagNew
+								text="Tag link"
+								color="teal"
+								swatchBefore
+								testId="tag-new-swatch-teal"
+								href="https://atlassian.com"
+								isRemovable={false}
+							/>
+							<TagNew color="yellow" text="Tag" swatchBefore testId="tag-new-swatch-yellow" />
+							<TagNew
+								color="gray"
+								text="Custom token"
+								swatchBefore={token('color.background.accent.purple.subtle')}
+								testId="tag-new-swatch-custom-token"
+								isRemovable={false}
+							/>
+							<TagNew
+								color="teal"
+								text="Swatch + icon"
+								swatchBefore
+								elemBefore={<span>🚀</span>}
+								testId="tag-new-swatch-with-before"
+								isRemovable={false}
 							/>
 						</Inline>
 					</Stack>

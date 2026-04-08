@@ -30,7 +30,25 @@ import {
 
 import type { NodeTypeName } from '../../editor-commands/transform-node-utils/types';
 
-export const BLOCK_MENU_NODE_TYPES = {
+export const BLOCK_MENU_NODE_TYPES: {
+	readonly PARAGRAPH: NodeTypeName;
+	readonly EXPAND: NodeTypeName;
+	readonly BLOCKQUOTE: NodeTypeName;
+	readonly LAYOUT_SECTION: NodeTypeName;
+	readonly PANEL: NodeTypeName;
+	readonly CODE_BLOCK: NodeTypeName;
+	readonly DECISION: NodeTypeName;
+	readonly BULLET_LIST: NodeTypeName;
+	readonly ORDERED_LIST: NodeTypeName;
+	readonly HEADING: NodeTypeName;
+	readonly TASK_LIST: NodeTypeName;
+	readonly MEDIA_SINGLE: NodeTypeName;
+	readonly EXTENSION: NodeTypeName;
+	readonly BODIED_EXTENSION: NodeTypeName;
+	readonly BLOCK_CARD: NodeTypeName;
+	readonly EMBED_CARD: NodeTypeName;
+	readonly TABLE: NodeTypeName;
+} = {
 	PARAGRAPH: 'paragraph',
 	EXPAND: 'expand',
 	BLOCKQUOTE: 'blockquote',
@@ -48,7 +66,7 @@ export const BLOCK_MENU_NODE_TYPES = {
 	BLOCK_CARD: 'blockCard',
 	EMBED_CARD: 'embedCard',
 	TABLE: 'table',
-} as const satisfies Record<string, NodeTypeName>;
+};
 
 export type BlockMenuNodeType = (typeof BLOCK_MENU_NODE_TYPES)[keyof typeof BLOCK_MENU_NODE_TYPES];
 

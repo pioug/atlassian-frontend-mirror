@@ -25,7 +25,6 @@ import Link, { type LinkProps } from '@atlaskit/link';
 import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
 
 import RemoveButton from '../tag/internal/removable/remove-button';
-
 // CSS variable names for dynamic color values
 export const iconColorVar = '--ds-tag-icon';
 export const borderTokenVar = '--tag-border-token';

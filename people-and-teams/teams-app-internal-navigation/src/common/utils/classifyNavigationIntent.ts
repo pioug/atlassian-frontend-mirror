@@ -29,10 +29,25 @@ const ATLASSIAN_DOMAINS = [
 	'atlassian-isolated.net',
 ];
 
+/** Extra roots for staging links */
+const STAGING_SUFFIXES = [
+	'staging.atlassian.io',
+	'atl-test.space',
+	'jira-dev.com',
+	'stg-jira.com',
+	'staging.paas-inf.net',
+];
+
+function matchesDomainList(hostname: string, domains: readonly string[]): boolean {
+	const lower = hostname.toLowerCase();
+	return domains.some((domain) => lower === domain || lower.endsWith('.' + domain));
+}
+
 function isAtlassianDomain(hostname: string): boolean {
 	const lower = hostname.toLowerCase();
 	return (
-		ATLASSIAN_DOMAINS.some((domain) => lower === domain || lower.endsWith('.' + domain)) ||
+		matchesDomainList(hostname, ATLASSIAN_DOMAINS) ||
+		matchesDomainList(hostname, STAGING_SUFFIXES) ||
 		isFedramp(lower) ||
 		isIsolatedCloud(lower)
 	);
@@ -45,8 +60,7 @@ const REFERENCE_DOMAINS = [
 ];
 
 function isReferenceDomain(hostname: string): boolean {
-	const lower = hostname.toLowerCase();
-	return REFERENCE_DOMAINS.some((domain) => lower === domain || lower.endsWith('.' + domain));
+	return matchesDomainList(hostname, REFERENCE_DOMAINS);
 }
 
 /**

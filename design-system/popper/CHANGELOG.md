@@ -1,5 +1,13 @@
 # @atlaskit/popper
 
+## 7.1.10
+
+### Patch Changes
+
+- [`02483200273ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02483200273ec) -
+  Enrol all Design System UI packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+
 ## 7.1.9
 
 ### Patch Changes

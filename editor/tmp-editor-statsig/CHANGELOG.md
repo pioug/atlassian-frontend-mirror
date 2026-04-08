@@ -1,5 +1,48 @@
 # @atlaskit/editor-statsig-tmp
 
+## 54.5.0
+
+### Minor Changes
+
+- [`bd6a75f50c1e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd6a75f50c1e9) -
+  [ux] [EDITOR-6267] add support to SelectAll table keymap to first select the active table cell
+  behind experiment `platform_editor_lovability_select_all_shortcut`
+
+## 54.4.0
+
+### Minor Changes
+
+- [`fb96753c1753e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb96753c1753e) -
+  [ux] Introduce adjustable layout column drag handle and update logic behind
+  platform_editor_layout_column_resize_handle experiment
+- [`79d61c73ffcaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79d61c73ffcaa) -
+  Add expsoure for add CWR to quick insert menu experiment.
+- [`36aa4e6236ba8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36aa4e6236ba8) -
+  Migrate @atlaskit/onboarding to @atlaskit/spotlight, gate pulse removal behind
+  platform_editor_spotlight_migration experiment. Remove dead spotlight config code from floating
+  toolbar.
+- [`78762fbea5fd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78762fbea5fd4) -
+  Add platform_sl_3p_preauth_better_hovercard flag
+
+### Patch Changes
+
+- [`b5cff2f520366`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5cff2f520366) -
+  [EDITOR-6195] updated xstate migration feature gate to an experiment gate
+- Updated dependencies
+
+## 54.3.0
+
+### Minor Changes
+
+- [`2e8697decd076`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e8697decd076) -
+  Migrate @atlaskit/onboarding to @atlaskit/spotlight, gate pulse removal behind
+  platform_editor_spotlight_migration experiment. Remove dead spotlight config code from floating
+  toolbar.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.2.0
 
 ### Minor Changes

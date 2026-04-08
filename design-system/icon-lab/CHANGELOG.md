@@ -1,5 +1,25 @@
 # @atlaskit/icon-lab
 
+## 6.4.0
+
+### Minor Changes
+
+- [`bc0f40e9c0883`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc0f40e9c0883) -
+  This release updates icons in `@atlaskit/icon-lab`.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `video-timeline-clip-split`
+  - `video-timeline-editor`
+
+### Patch Changes
+
+- [`02483200273ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02483200273ec) -
+  Enrol all Design System UI packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+- Updated dependencies
+
 ## 6.3.0
 
 ### Minor Changes

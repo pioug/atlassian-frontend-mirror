@@ -1,5 +1,12 @@
 {
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Design System Team",
 		"website": {
 			"name": "Tile",
@@ -42,6 +49,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*"
@@ -84,7 +92,7 @@
 		}
 	},
 	"name": "@atlaskit/tile",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "A tile is a rounded square that takes an asset and represents a noun.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

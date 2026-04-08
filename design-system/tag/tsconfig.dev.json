@@ -56,6 +56,9 @@
 			"path": "../avatar/tsconfig.app.json"
 		},
 		{
+			"path": "../button/tsconfig.app.json"
+		},
+		{
 			"path": "../code/tsconfig.app.json"
 		},
 		{
@@ -75,6 +78,9 @@
 		},
 		{
 			"path": "../link/tsconfig.app.json"
+		},
+		{
+			"path": "../popup/tsconfig.app.json"
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"

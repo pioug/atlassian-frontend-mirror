@@ -9,6 +9,11 @@ import { fakeMediaClient, getDefaultMediaClientConfig } from '@atlaskit/media-te
 import { type ZipEntry } from 'unzipit';
 import { IntlProvider } from 'react-intl-next';
 import * as MediaCommon from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn().mockReturnValue(false),
+}));
 
 jest.spyOn(MediaCommon, 'downloadUrl');
 
@@ -497,5 +502,120 @@ describe('ArchiveSidebarFolderEntry', () => {
 		await user.click(downloadButtonWrapper);
 		expect(onErrorMock).toHaveBeenCalledWith(new Error(), entry);
 		expect(MediaCommon.downloadUrl).toHaveBeenCalledTimes(0);
+	});
+
+	describe('when platform_media_a11y_suppression_fixes is enabled', () => {
+		beforeEach(() => {
+			(fg as jest.Mock).mockImplementation((flag) =>
+				flag === 'platform_media_a11y_suppression_fixes',
+			);
+		});
+
+		afterEach(() => {
+			(fg as jest.Mock).mockReset();
+		});
+
+		it('should render download button as a button element', async () => {
+			const entry = {
+				name: 'root/entry1.jpg',
+				isDirectory: false,
+				blob: jest.fn().mockReturnValue(''),
+			} as unknown as ZipEntry;
+
+			const props: Partial<ArchiveSidebarFolderProps> = {
+				entries: { entry } as any,
+				root: 'root/',
+			};
+
+			render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+			const downloadButton = await screen.findByTestId('media-archiveDownloadButton');
+			expect(downloadButton.tagName).toBe('BUTTON');
+		});
+
+		it('should have aria-label on download button', async () => {
+			const entry = {
+				name: 'root/entry1.jpg',
+				isDirectory: false,
+				blob: jest.fn().mockReturnValue(''),
+			} as unknown as ZipEntry;
+
+			const props: Partial<ArchiveSidebarFolderProps> = {
+				entries: { entry } as any,
+				root: 'root/',
+			};
+
+			render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+			const downloadButton = await screen.findByTestId('media-archiveDownloadButton');
+			expect(downloadButton).toHaveAttribute('aria-label');
+		});
+
+		it('Clicking downloadButtonWrapper should download the entry', async () => {
+			const user = userEvent.setup();
+			const entry = {
+				name: 'root/entry1.jpg',
+				isDirectory: false,
+				blob: jest.fn().mockReturnValue(''),
+			} as unknown as ZipEntry;
+
+			const props: Partial<ArchiveSidebarFolderProps> = {
+				entries: { entry } as any,
+				root: 'root/',
+			};
+
+			render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+			const downloadButtonWrapper = await screen.findByTestId('media-archiveDownloadButton');
+			await user.click(downloadButtonWrapper);
+			await waitFor(() => expect(MediaCommon.downloadUrl).toHaveBeenCalled());
+		});
+
+		it('Clicking downloadButtonWrapper should open abuse modal if shouldRenderAbuseModal = true', async () => {
+			const user = userEvent.setup();
+			const entry = {
+				name: 'root/entry1.jpg',
+				isDirectory: false,
+				blob: jest.fn().mockReturnValue(''),
+			} as unknown as ZipEntry;
+
+			const props: Partial<ArchiveSidebarFolderProps> = {
+				entries: { entry } as any,
+				root: 'root/',
+				shouldRenderAbuseModal: true,
+			};
+
+			render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+			const downloadButtonWrapper = await screen.findByTestId('media-archiveDownloadButton');
+			await user.click(downloadButtonWrapper);
+
+			const warningMsg = await screen.findByTestId('mediaAbuseModal');
+			expect(warningMsg).toBeInTheDocument();
+
+			const proceed = await screen.findByText('Proceed with download');
+			await user.click(proceed);
+
+			await waitFor(() => expect(MediaCommon.downloadUrl).toHaveBeenCalled());
+		});
+
+		it('should call onError if rejectAfter throws an error', async () => {
+			const user = userEvent.setup();
+			const entry = {
+				name: 'root/entry1.jpg',
+				isDirectory: false,
+				blob: jest.fn().mockImplementation(() => {
+					throw new Error();
+				}),
+			} as unknown as ZipEntry;
+			const onErrorMock = jest.fn();
+			const props: Partial<ArchiveSidebarFolderProps> = {
+				entries: { entry } as any,
+				root: 'root/',
+				onError: onErrorMock,
+			};
+
+			render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+			const downloadButtonWrapper = await screen.findByTestId('media-archiveDownloadButton');
+			await user.click(downloadButtonWrapper);
+			expect(onErrorMock).toHaveBeenCalledWith(new Error(), entry);
+			expect(MediaCommon.downloadUrl).toHaveBeenCalledTimes(0);
+		});
 	});
 });

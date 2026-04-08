@@ -12,7 +12,7 @@ export const shouldIgnoreDomEvent = (
 	view: EditorView,
 	event: MouseEvent | PointerEvent,
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
-) => {
+): boolean | undefined => {
 	if (api?.connectivity?.sharedState.currentState()?.mode !== 'offline') {
 		return;
 	}

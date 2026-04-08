@@ -413,6 +413,9 @@ export const pragmaticResizerStyles: SerializedStyles = css({
 	'.pm-breakout-resize-handle-container--right': {
 		justifySelf: 'end',
 	},
+	// Rail and thumb styles intentionally mirror the layout column divider
+	// (see layoutColumnDividerRailClassName and layoutColumnDividerThumbClassName in layout.ts).
+	// If updating these styles, consider keeping both in sync.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.pm-breakout-resize-handle-rail': {
 		position: 'relative',

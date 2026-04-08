@@ -6,8 +6,9 @@ import AvatarGroup from '@atlaskit/avatar-group';
 import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
-import { appearances, RANDOM_USERS } from '../examples-util/data';
+import { appearances } from '../examples-util/appearances';
 import { ExampleGroup } from '../examples-util/helpers';
+import { RANDOM_USERS } from '../examples-util/random-users';
 
 const styles = cssMap({
 	container: { maxWidth: '270px', backgroundColor: token('elevation.surface.sunken') },

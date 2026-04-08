@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.30.0",
+	"version": "43.31.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,6 +46,7 @@
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-file-type": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/icon-object": "workspace:^",
 		"@atlaskit/image": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
@@ -239,6 +240,9 @@
 			"type": "boolean"
 		},
 		"fix_hover_card_on_focus_a11y": {
+			"type": "boolean"
+		},
+		"platform_sl_3p_preauth_better_hovercard_killswitch": {
 			"type": "boolean"
 		},
 		"platform_navx_smart_link_icon_label_a11y": {

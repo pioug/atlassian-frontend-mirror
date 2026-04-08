@@ -78,6 +78,9 @@
 			"path": "../teams-app-internal-analytics/tsconfig.app.json"
 		},
 		{
+			"path": "../teams-app-internal-navigation/tsconfig.app.json"
+		},
+		{
 			"path": "../teams-public/tsconfig.app.json"
 		},
 		{

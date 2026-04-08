@@ -298,12 +298,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_editor_ssr_streaming: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	confluence_remix_icon_right_side: {
 		defaultValue: boolean;
 		param: string;
@@ -897,6 +891,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-27 — Pre-auth inline smart link: improved unauthorised hover card (boolean: isEnabled)
+	platform_sl_3p_preauth_better_hovercard: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-08-10
 	platform_synced_block: {
 		defaultValue: boolean;
@@ -1154,6 +1155,14 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'new-description' | 'orig-description';
 		values: ('control' | 'new-description' | 'orig-description')[];
 	};
+	// Added 2026-04-02 - CFFD-2139
+	cc_fd_cwr_quick_insert: {
+		defaultValue: 'control' | 'slot-four' | 'slot-two';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'slot-four' | 'slot-two';
+		values: ('control' | 'slot-four' | 'slot-two')[];
+	};
 	// Added 2026-02-05 - A11Y-10416
 	editor_a11y_role_textbox: {
 		defaultValue: boolean;
@@ -1205,6 +1214,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-26
 	platform_editor_fix_comment_border: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-01
+	platform_editor_layout_column_resize_handle: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1640,8 +1656,22 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-30
+	platform_editor_ai_xstate_migration: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-31
 	platform_editor_dnd_accessibility_fixes_expand: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-07
+	platform_editor_lovability_select_all_shortcut: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2039,14 +2069,6 @@ export const editorExperimentsConfig: {
 	platform_editor_element_drag_and_drop_multiselect: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_element_drag_and_drop_multiselect',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-30
-	platform_editor_editor_ssr_streaming: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_editor_ssr_streaming',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2717,6 +2739,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-27 — Pre-auth unauthorised inline hover card UX
+	platform_sl_3p_preauth_better_hovercard: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_sl_3p_preauth_better_hovercard',
+			jira: 'platform_sl_3p_preauth_better_hovercard',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-01-23
 	platform_editor_to_use_pmr_for_collab_edit_none_ic: createBooleanExperiment({
 		productKeys: {
@@ -2955,6 +2986,15 @@ export const editorExperimentsConfig: {
 		},
 		param: 'cohort',
 		values: ['control', 'new-description', 'orig-description'],
+		defaultValue: 'control',
+	}),
+	// Added 2026-04-02 - CFFD-2139
+	cc_fd_cwr_quick_insert: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'cc_fd_cwr_quick_insert',
+		},
+		param: 'cohort',
+		values: ['control', 'slot-four', 'slot-two'],
 		defaultValue: 'control',
 	}),
 	// Added 2026-02-05 - A11Y-10416
@@ -3513,18 +3553,34 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-30
-	platform_editor_spotlight_migration: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_spotlight_migration',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
+		// Added 2026-03-30
+		platform_editor_spotlight_migration: createBooleanExperiment({
+			productKeys: {
+				confluence: 'platform_editor_spotlight_migration',
+			},
+			param: 'isEnabled',
+			defaultValue: false,
+		}),
+		// Added 2026-03-30
+		platform_editor_ai_xstate_migration: createBooleanExperiment({
+			productKeys: {
+				confluence: 'platform_editor_ai_xstate_migration',
+			},
+			param: 'isEnabled',
+			defaultValue: false,
+		}),
 	// Added 2026-03-31
 	platform_editor_dnd_accessibility_fixes_expand: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_dnd_accessibility_fixes_expand',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-01
+	platform_editor_layout_column_resize_handle: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_layout_column_resize_handle',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3541,6 +3597,15 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_aifc_listitem_indentation_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_aifc_listitem_indentation_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-07
+	platform_editor_lovability_select_all_shortcut: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_lovability_select_all_shortcut',
+			jira: 'platform_editor_lovability_select_all_shortcut',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -2,7 +2,7 @@
 import { useContext, useEffect, useRef, type RefObject } from 'react';
 
 import { type FocusableElement } from '../../types';
-import { FocusManagerContext } from '../components/focus-manager';
+import { FocusManagerContext } from '../components/focus-manager-context';
 
 // The refs stored in the context are used to programatically
 // control focus on a user navigates using the keyboard.

@@ -1,0 +1,18 @@
+export type {
+	AdditionalButtonVariantProps,
+	AdditionalDefaultLinkVariantProps,
+	Appearance,
+	ButtonAppearance,
+	ButtonSpacing,
+	CommonAnchorProps,
+	CommonBaseProps,
+	CommonButtonProps,
+	CommonButtonVariantProps,
+	CommonLinkVariantProps,
+	IconButtonAppearance,
+	IconButtonSpacing,
+	IconProp,
+	IconSize,
+	LinkButtonAppearance,
+	Spacing,
+} from '../new-button/variants/types';

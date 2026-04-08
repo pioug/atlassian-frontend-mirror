@@ -243,7 +243,7 @@ const generateComponentPropTypeCode = (
 	}
 
 	for (const propsName of allPropsNames) {
-		if (propsName !== interfaceName && generatedCode.includes(propsName)) {
+		if (propsName !== interfaceName && new RegExp(`\\b${propsName}\\b`).test(generatedCode)) {
 			importLines.push(`import type { ${propsName} } from './${propsName}.codegen';`);
 		}
 	}

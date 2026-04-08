@@ -15,15 +15,22 @@ import type { ContentContainerProps } from '../types';
 
 import { hoverCardClassName } from './HoverCardContent';
 
-const NEW_CARD_WIDTH_REM = 25;
-
 const HoverCardContainerStyle = css({
 	background: 'none',
 	borderWidth: '0',
 	boxSizing: 'border-box',
-	width: `${NEW_CARD_WIDTH_REM}rem`,
+});
 
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+const hoverCardShellWidthDefault = css({
+	width: '25rem',
+});
+
+const hoverCardShellWidthSlim = css({
+	width: '22rem',
+});
+
+const hoverCardShellHideLoadingPlaceholder = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- hide smart-link placeholder inside hover shell (descendant)
 	'.smart-link-loading-placeholder': {
 		display: 'none',
 	},
@@ -37,6 +44,7 @@ const popupContainerStyles = css({
 
 const ConnectedAIPrismContainer = ({
 	children,
+	widthAppearance,
 	isAIEnabled = false,
 	testId,
 	url,
@@ -54,11 +62,20 @@ const ConnectedAIPrismContainer = ({
 		setShowPrism(status === 'loading');
 	}, [status]);
 
+	const resolvedWidthAppearance = widthAppearance ?? 'default';
+
 	const container = (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={hoverCardClassName}
-			css={[HoverCardContainerStyle, !isAIEnabled ? popupContainerStyles : undefined]}
+			css={[
+				HoverCardContainerStyle,
+				resolvedWidthAppearance === 'slim'
+					? hoverCardShellWidthSlim
+					: hoverCardShellWidthDefault,
+				hoverCardShellHideLoadingPlaceholder,
+				!isAIEnabled ? popupContainerStyles : undefined,
+			]}
 			data-testid={testId}
 			{...props}
 		>
@@ -77,12 +94,19 @@ const ConnectedAIPrismContainer = ({
 
 const ContentContainer = ({
 	children,
+	widthAppearance,
 	isAIEnabled = false,
 	testId,
 	url,
 	...props
 }: ContentContainerProps): JSX.Element => (
-	<ConnectedAIPrismContainer isAIEnabled={isAIEnabled} url={url} testId={testId} {...props}>
+	<ConnectedAIPrismContainer
+		widthAppearance={widthAppearance}
+		isAIEnabled={isAIEnabled}
+		url={url}
+		testId={testId}
+		{...props}
+	>
 		{children}
 	</ConnectedAIPrismContainer>
 );

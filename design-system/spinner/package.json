@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/spinner",
-	"version": "19.0.13",
+	"version": "19.1.0",
 	"description": "A spinner is an animated spinning icon that lets users know content is being loaded.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,6 +17,13 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Design System Team",
 		"website": {
 			"name": "Spinner",
@@ -47,6 +54,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
@@ -82,9 +90,9 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./constants": "./src/constants.tsx",
-		"./spinner": "./src/spinner.tsx",
-		"./types": "./src/types.tsx"
+		"./constants": "./src/entry-points/constants.tsx",
+		"./spinner": "./src/entry-points/spinner.tsx",
+		"./types": "./src/entry-points/types.tsx"
 	},
 	"homepage": "https://atlassian.design/components/spinner/"
 }

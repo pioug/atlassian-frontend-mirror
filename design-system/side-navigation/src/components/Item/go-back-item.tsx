@@ -5,8 +5,6 @@ import type { ButtonItemProps } from '@atlaskit/menu';
 
 import ButtonItem from './button-item';
 
-export type { ButtonItemProps as GoBackItemProps } from '@atlaskit/menu';
-
 /**
  * __Go back item__
  *

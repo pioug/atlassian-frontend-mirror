@@ -1,5 +1,15 @@
 # @af/ufo-types
 
+## 0.4.3
+
+### Patch Changes
+
+- [`00ead4a808f68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00ead4a808f68) -
+  Remove the `platform_ufo_enable_untilall_parent_fix` rollout flag and keep the untilAll parent fix
+  enabled by default. The original bug caused `untilAll()` to incorrectly propagate FAILED/ABORTED
+  state from unrelated experiences, allowing experiences without matching untilAll dependencies to
+  transition to FAILED even when the failing experience was not an actual dependency.
+
 ## 0.4.2
 
 ### Patch Changes

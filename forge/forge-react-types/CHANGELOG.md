@@ -1,5 +1,18 @@
 # @atlaskit/forge-react-types
 
+## 0.66.0
+
+### Minor Changes
+
+- [`b6f594e629511`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6f594e629511) -
+  Add HelpLink component for Global Forge apps.
+
+### Patch Changes
+
+- [`c987593f0bbb5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c987593f0bbb5) -
+  Fix check-types script failing due to ts-node moduleResolution not supporting package.json exports
+  maps
+
 ## 0.65.3
 
 ### Patch Changes

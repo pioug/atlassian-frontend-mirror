@@ -31,7 +31,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__ufo-experience-key/dev"
+		"outDir": "../../../tsDist/@atlaskit__ufo-experience-key/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

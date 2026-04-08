@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 10.0.25
+
+### Patch Changes
+
+- [`36aa4e6236ba8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36aa4e6236ba8) -
+  Migrate @atlaskit/onboarding to @atlaskit/spotlight, gate pulse removal behind
+  platform_editor_spotlight_migration experiment. Remove dead spotlight config code from floating
+  toolbar.
+- Updated dependencies
+
+## 10.0.24
+
+### Patch Changes
+
+- [`2e8697decd076`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e8697decd076) -
+  Migrate @atlaskit/onboarding to @atlaskit/spotlight, gate pulse removal behind
+  platform_editor_spotlight_migration experiment. Remove dead spotlight config code from floating
+  toolbar.
+- Updated dependencies
+
 ## 10.0.23
 
 ### Patch Changes

@@ -16,7 +16,10 @@ type SelectionContext = [
 	),
 ];
 
-const SelectionContext = createContext<SelectionContext>([defaultSelectableState, {}]);
+const SelectionContext: React.Context<SelectionContext> = createContext<SelectionContext>([
+	defaultSelectableState,
+	{},
+]);
 
 /**
  * __Selection provider__

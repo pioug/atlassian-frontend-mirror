@@ -3,17 +3,18 @@
  *
  * Index file for generated Global component prop types
  *
- * @codegen <<SignedSource::86cea54045416a32c21b72b830c8288f>>
+ * @codegen <<SignedSource::9438d9a368d57446ac11e95a54eb2895>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::22a8bb81a36bca1a22c7a20a0fdb443f>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::aab578f2ba0895fc1b3cb93dbae44c0f>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 export type { GlobalProps, TGlobal } from './GlobalProps.codegen';
-export type { GlobalMainProps, TGlobalMain } from './GlobalMainProps.codegen';
-export type { GlobalSidebarProps, TGlobalSidebar } from './GlobalSidebarProps.codegen';
-export type { GlobalLinkMenuItemProps, TGlobalLinkMenuItem } from './GlobalLinkMenuItemProps.codegen';
-export type { GlobalExpandableMenuItemProps, TGlobalExpandableMenuItem } from './GlobalExpandableMenuItemProps.codegen';
-export type { GlobalCreateButtonProps, TGlobalCreateButton } from './GlobalCreateButtonProps.codegen';
-export type { GlobalCreateMenuItemProps, TGlobalCreateMenuItem } from './GlobalCreateMenuItemProps.codegen';
-export type { GlobalFlyOutMenuItemProps, TGlobalFlyOutMenuItem } from './GlobalFlyOutMenuItemProps.codegen';
+export type { MainProps, TMain } from './MainProps.codegen';
+export type { SidebarProps, TSidebar } from './SidebarProps.codegen';
+export type { LinkMenuItemProps, TLinkMenuItem } from './LinkMenuItemProps.codegen';
+export type { ExpandableMenuItemProps, TExpandableMenuItem } from './ExpandableMenuItemProps.codegen';
+export type { CreateButtonProps, TCreateButton } from './CreateButtonProps.codegen';
+export type { CreateMenuItemProps, TCreateMenuItem } from './CreateMenuItemProps.codegen';
+export type { FlyOutMenuItemProps, TFlyOutMenuItem } from './FlyOutMenuItemProps.codegen';
+export type { HelpLinkProps, THelpLink } from './HelpLinkProps.codegen';

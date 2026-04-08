@@ -1,76 +1,33 @@
 import { type API, type FileInfo, type JSCodeshift, type Options } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
+import { addJSXAttributeToJSXElement } from './utils/add-jsx-attribute-to-jsx-element';
 import {
-	addJSXAttributeToJSXElement,
-	getImportDeclarationCollection,
-	getImportSpecifierCollection,
-	getImportSpecifierName,
-	getJSXAttributeByName,
-	getJSXAttributesByName,
-	hasImportDeclaration,
-	removeJSXAttributeByName,
-	removeJSXAttributeObjectPropertyByName,
-} from './utils/helpers';
-
-type ToPickerFormula = {
-	oldPropName: string;
-	destination: string[];
-};
-
-type FromPickerFormula = {
-	source: string[];
-	newPropName: string;
-};
+	dtpPropsToMoveIntoPickerProps,
+	type ToPickerFormula,
+} from './utils/dtp-props-to-move-into-picker-props';
+import { getImportDeclarationCollection } from './utils/get-import-declaration-collection';
+import { getImportSpecifierCollection } from './utils/get-import-specifier-collection';
+import { getImportSpecifierName } from './utils/get-import-specifier-name';
+import { getJSXAttributeByName } from './utils/get-jsx-attribute-by-name';
+import { getJSXAttributesByName } from './utils/get-jsx-attributes-by-name';
+import { hasImportDeclaration } from './utils/has-import-declaration';
+import { removeJSXAttributeByName } from './utils/remove-jsx-attribute-by-name';
+import { removeJSXAttributeObjectPropertyByName } from './utils/remove-jsx-attribute-object-property-by-name';
+import {
+	type FromPickerFormula,
+	selectPropsToMoveIntoProps,
+} from './utils/select-props-to-move-into-props';
 
 const importPath = '@atlaskit/datetime-picker';
 
 const dateTimePickerImportName = 'DateTimePicker';
-export const datePickerImportName = 'DatePicker';
-export const timePickerImportName = 'TimePicker';
+const datePickerImportName = 'DatePicker';
+const timePickerImportName = 'TimePicker';
 
 const pickerAndSelectPropNames = [
 	['datePickerSelectProps', 'datePickerProps'],
 	['timePickerSelectProps', 'timePickerProps'],
-];
-
-export const dtpPropsToMoveIntoPickerProps: ToPickerFormula[] = [
-	{
-		oldPropName: 'dateFormat',
-		destination: ['datePickerProps', 'dateFormat'],
-	},
-	{
-		oldPropName: 'times',
-		destination: ['timePickerProps', 'times'],
-	},
-	{
-		oldPropName: 'timeFormat',
-		destination: ['timePickerProps', 'timeFormat'],
-	},
-	{
-		oldPropName: 'timeIsEditable',
-		destination: ['timePickerProps', 'timeIsEditable'],
-	},
-];
-
-// For the pickers, not for DTP
-export const selectPropsToMoveIntoProps: FromPickerFormula[] = [
-	{
-		source: ['selectProps', 'aria-describedby'],
-		newPropName: 'aria-describedby',
-	},
-	{
-		source: ['selectProps', 'aria-label'],
-		newPropName: 'label',
-	},
-	{
-		source: ['selectProps', 'inputId'],
-		newPropName: 'id',
-	},
-	{
-		source: ['selectProps', 'placeholder'],
-		newPropName: 'placeholder',
-	},
 ];
 
 /**

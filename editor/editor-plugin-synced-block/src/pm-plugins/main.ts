@@ -17,6 +17,7 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
 import {
 	convertPMNodesToSyncBlockNodes,
@@ -695,6 +696,83 @@ export const createPlugin = (
 
 						return tr;
 					}
+				}
+			}
+
+			// Detect and remove duplicate bodiedSyncBlock resourceIds.
+			// When a block template containing a source sync block is inserted into the
+			// same document, it creates a duplicate with the same resourceId. We keep the
+			// first occurrence and delete subsequent duplicates entirely (including their
+			// contents), since a document must not contain two source sync blocks with the
+			// same resourceId.
+			if (
+				trs.some((tr) => tr.docChanged && !tr.getMeta('isRemote')) &&
+				fg('platform_synced_block_patch_8')
+			) {
+				// Quick check: only walk the full document when at least one
+				// transaction inserted a source synced block. This avoids an
+				// expensive descendants() traversal on every local edit.
+				const hasInsertedSourceBlock = trs.some((tr) => {
+					if (!tr.docChanged || tr.getMeta('isRemote')) {
+						return false;
+					}
+					return tr.steps.some((step) => {
+						if (
+							!(step instanceof ReplaceStep || step instanceof ReplaceAroundStep) ||
+							!('slice' in step)
+						) {
+							return false;
+						}
+						const { slice } = step as ReplaceStep | ReplaceAroundStep;
+						let found = false;
+						slice.content.descendants((node) => {
+							if (syncBlockStore.sourceManager.isSourceBlock(node) && node.attrs.resourceId) {
+								found = true;
+							}
+							return false;
+						});
+						return found;
+					});
+				});
+
+				if (!hasInsertedSourceBlock) {
+					return null;
+				}
+
+				const seenResourceIds = new Set<string>();
+				const duplicates: Array<{ nodeSize: number; pos: number }> = [];
+
+				newState.doc.descendants((node, pos) => {
+					if (syncBlockStore.sourceManager.isSourceBlock(node) && node.attrs.resourceId) {
+						if (seenResourceIds.has(node.attrs.resourceId)) {
+							duplicates.push({ pos, nodeSize: node.nodeSize });
+						} else {
+							seenResourceIds.add(node.attrs.resourceId);
+						}
+						return false;
+					}
+				});
+
+				if (duplicates.length > 0) {
+					const { tr } = newState;
+
+					// Delete in reverse document order so positions remain valid
+					for (let i = duplicates.length - 1; i >= 0; i--) {
+						const dup = duplicates[i];
+						tr.delete(dup.pos, dup.pos + dup.nodeSize);
+					}
+
+					tr.setMeta('addToHistory', false);
+
+					deferDispatch(() => {
+						api?.core?.actions.execute(({ tr }) =>
+							tr.setMeta(syncedBlockPluginKey, {
+								activeFlag: { id: FLAG_ID.DUPLICATE_SOURCE_SYNC_BLOCK },
+							}),
+						);
+					});
+
+					return tr;
 				}
 			}
 

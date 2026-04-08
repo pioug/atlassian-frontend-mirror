@@ -1,5 +1,14 @@
 # @atlaskit/datetime-picker
 
+## 17.6.3
+
+### Patch Changes
+
+- [`02483200273ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02483200273ec) -
+  Enrol all Design System UI packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+- Updated dependencies
+
 ## 17.6.2
 
 ### Patch Changes

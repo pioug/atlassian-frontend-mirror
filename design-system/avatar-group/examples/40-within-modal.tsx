@@ -3,8 +3,9 @@ import React from 'react';
 import AvatarGroup from '@atlaskit/avatar-group';
 import Modal, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 
-import { appearances, RANDOM_USERS } from '../examples-util/data';
+import { appearances } from '../examples-util/appearances';
 import ExampleImage from '../examples-util/nucleus.png';
+import { RANDOM_USERS } from '../examples-util/random-users';
 
 const data = RANDOM_USERS.slice(0, 8).map((d, i) => ({
 	key: d.email,

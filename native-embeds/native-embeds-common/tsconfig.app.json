@@ -39,13 +39,28 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
 			"path": "../../editor/editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../../editor/editor-plugin-local-id/tsconfig.app.json"
 		},
 		{
 			"path": "../../editor/editor-prosemirror/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	],
 	"files": []

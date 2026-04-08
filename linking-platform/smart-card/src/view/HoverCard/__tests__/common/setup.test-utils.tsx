@@ -1,6 +1,6 @@
 import React, { type ReactElement } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, type Matcher } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
@@ -27,7 +27,7 @@ export type SetUpParams = {
 	product?: ProductType;
 	rovoOptions?: React.ComponentProps<typeof Provider>['rovoOptions'];
 	storeOptions?: React.ComponentProps<typeof Provider>['storeOptions'];
-	testId?: string;
+	testId?: Matcher;
 	userEventOptions?: {
 		advanceTimers?: typeof jest.advanceTimersByTime;
 		delay?: number | null;

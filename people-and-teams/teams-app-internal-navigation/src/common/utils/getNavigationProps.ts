@@ -45,8 +45,10 @@ export interface NavigationContext {
 	navigate: (url: string) => void;
 	openPreviewPanel?: (props: PreviewPanelOpenProps) => void;
 	/**
-	 * The context entry point for the current product
-	 * Used to prefix relative hrefs so they resolve correctly in each product context.
+	 * @deprecated This was previously used to prefix relative hrefs so they
+	 * resolved correctly in each product context (e.g. `/wiki/people`). When
+	 * providers were nested, the closest ancestor with a valid value took
+	 * priority, falling back to the nearest ancestor.
 	 */
 	contextEntryPoint?: string;
 }

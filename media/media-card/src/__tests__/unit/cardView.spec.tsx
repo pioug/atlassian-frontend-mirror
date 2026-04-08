@@ -1022,4 +1022,57 @@ describe('CardView', () => {
 			expect(screen.queryByText(/Use Trace ID/)).not.toBeInTheDocument();
 		});
 	});
+
+	describe('A11y Wrapper Button Feature Flag', () => {
+		beforeEach(() => {
+			(fg as jest.Mock).mockImplementation((flag: string) => {
+				if (flag === 'platform_media_a11y_suppression_fixes') {
+					return true;
+				}
+				return false;
+			});
+		});
+
+		afterEach(() => {
+			(fg as jest.Mock).mockReset();
+		});
+
+		it('should render wrapper as a button element', () => {
+			renderCardViewBase({
+				status: 'complete',
+				metadata: file,
+			});
+			const wrapper = screen.getByTestId(cardTestId);
+			expect(wrapper.tagName).toBe('BUTTON');
+			expect(wrapper).toHaveAttribute('type', 'button');
+		});
+
+		it('should capture and report a11y violations', async () => {
+			renderCardViewBase({
+				status: 'complete',
+				metadata: file,
+			});
+			const wrapper = screen.getByTestId(cardTestId);
+			await expect(wrapper).toBeAccessible();
+		});
+	});
+
+	describe('when platform_media_a11y_suppression_fixes is disabled', () => {
+		beforeEach(() => {
+			(fg as jest.Mock).mockReturnValue(false);
+		});
+
+		afterEach(() => {
+			(fg as jest.Mock).mockReset();
+		});
+
+		it('should render wrapper as a div element', () => {
+			renderCardViewBase({
+				status: 'complete',
+				metadata: file,
+			});
+			const wrapper = screen.getByTestId(cardTestId);
+			expect(wrapper.tagName).toBe('DIV');
+		});
+	});
 });

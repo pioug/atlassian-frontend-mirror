@@ -10,6 +10,11 @@ import {
 	FilmStripListItem,
 	FilmStripListWrapper,
 } from '../../filmstripView/wrappers';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn().mockReturnValue(false),
+}));
 
 const BUFFER_WIDTH = 100;
 const WINDOW_WIDTH = 10;
@@ -559,6 +564,131 @@ describe('FilmstripView', () => {
 			const spy = jest.spyOn(mutationObserver, 'disconnect');
 			element.unmount();
 			expect(spy).toBeCalled();
+		});
+	});
+
+	describe('when platform_media_a11y_suppression_fixes is enabled', () => {
+		beforeEach(() => {
+			(fg as jest.Mock).mockImplementation((flag) => {
+				if (flag === 'platform_media_a11y_suppression_fixes') {
+					return true;
+				}
+				return false;
+			});
+		});
+
+		afterEach(() => {
+			(fg as jest.Mock).mockReset();
+		});
+
+		describe('.handleLeftClick()', () => {
+			it('should call onScroll() with an updated offset on the previous page', () => {
+				const onScroll = jest.fn();
+				const element = shallow(
+					<FilmstripView offset={14} onScroll={onScroll}>
+						{['a', 'b', 'c']}
+					</FilmstripView>,
+				);
+				mockSizing(element);
+				element.find(LeftArrow).simulate('click', { stopPropagation() {} });
+				expect(onScroll).toBeCalledWith({
+					direction: 'left',
+					offset: 0,
+					animate: true,
+				});
+			});
+
+			it('should scroll left when the container is narrower than the child', () => {
+				const onScroll = jest.fn();
+				const element = shallow(
+					<FilmstripView offset={25} onScroll={onScroll}>
+						{['a', 'b', 'c']}
+					</FilmstripView>,
+				);
+				mockSizing(element, 100, 10, 15);
+				element.find(LeftArrow).simulate('click', { stopPropagation() {} });
+				expect(onScroll).toHaveBeenCalledWith({
+					direction: 'left',
+					offset: 15,
+					animate: true,
+				});
+			});
+		});
+
+		describe('.handleRightClick()', () => {
+			it('should call onScroll() with an updated offset on the next page', () => {
+				const onScroll = jest.fn();
+				const element = shallow(
+					<FilmstripView offset={4} onScroll={onScroll}>
+						{['a', 'b', 'c']}
+					</FilmstripView>,
+				);
+				mockSizing(element);
+				element.find(RightArrow).simulate('click', { stopPropagation() {} });
+				expect(onScroll).toBeCalledWith({
+					direction: 'right',
+					offset: 14,
+					animate: true,
+				});
+			});
+
+			it('should scroll right when the container is narrower than the child', () => {
+				const onScroll = jest.fn();
+				const element = shallow(
+					<FilmstripView offset={9} onScroll={onScroll}>
+						{['a', 'b', 'c']}
+					</FilmstripView>,
+				);
+				mockSizing(element, 100, 10, 15);
+				element.find(RightArrow).simulate('click', { stopPropagation() {} });
+				expect(onScroll).toHaveBeenCalledWith({
+					direction: 'right',
+					offset: 19,
+					animate: true,
+				});
+			});
+		});
+
+		describe('.render()', () => {
+			it('should capture and report a11y violations', async () => {
+				const { container } = render(
+					<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>,
+				);
+
+				await expect(container).toBeAccessible();
+			});
+
+			it('should not render the left arrow when offset is equal to minOffset', () => {
+				const element = shallow(
+					<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>,
+				);
+				mockSizing(element);
+				expect(element.find(LeftArrow).exists()).toBeFalsy();
+			});
+
+			it('should render the left arrow when offset is greater than minOffset', () => {
+				const element = shallow(
+					<FilmstripView offset={1}>{['a', 'b', 'c']}</FilmstripView>,
+				);
+				mockSizing(element);
+				expect(element.find(LeftArrow).exists()).toBeTruthy();
+			});
+
+			it('should not render the right arrow when offset is equal to maxOffset', () => {
+				const element = shallow(
+					<FilmstripView offset={900}>{['a', 'b', 'c']}</FilmstripView>,
+				);
+				mockSizing(element);
+				expect(element.find(RightArrow).exists()).toBeFalsy();
+			});
+
+			it('should render the right arrow when offset is less than maxOffset', () => {
+				const element = shallow(
+					<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>,
+				);
+				mockSizing(element);
+				expect(element.find(RightArrow).exists()).toBeTruthy();
+			});
 		});
 	});
 });

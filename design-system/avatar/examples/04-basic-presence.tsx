@@ -3,7 +3,8 @@ import React from 'react';
 import Avatar, { Presence } from '@atlaskit/avatar';
 import { Stack } from '@atlaskit/primitives/compiled';
 
-import { Block, ShrinkWrap } from '../examples-util/helpers';
+import { Block } from '../examples-util/block';
+import { ShrinkWrap } from '../examples-util/shrink-wrap';
 
 export default (): React.JSX.Element => (
 	<Stack space="space.200">

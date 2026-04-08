@@ -64,10 +64,32 @@ const styles = cssMap({
 		marginRight: '1px' as any,
 		fontWeight: token('font.weight.regular'),
 	},
+	action: {
+		color: token('color.text.inverse'),
+		cursor: 'pointer',
+		backgroundColor: token('color.background.selected.bold'),
+		'&:hover': {
+			backgroundColor: token('color.background.selected.bold.hovered'),
+			borderColor: token('color.border.selected'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.selected.bold.pressed'),
+		},
+		borderTopRightRadius: token('radius.xsmall'),
+		borderBottomRightRadius: token('radius.xsmall'),
+		borderTopLeftRadius: '0',
+		borderBottomLeftRadius: '0',
+		borderTop: `${token('border.width')} solid ${token('color.border')}`,
+		borderRight: `${token('border.width')} solid ${token('color.border')}`,
+		borderBottom: `${token('border.width')} solid ${token('color.border')}`,
+		marginRight: token('space.025'),
+		fontWeight: token('font.weight.regular'),
+		whiteSpace: 'nowrap',
+	},
 });
 
 type ActionButtonProps = ComponentPropsWithRef<typeof Pressable> & {
-	viewType?: 'default' | 'unauthorised';
+	viewType?: 'default' | 'unauthorised' | 'action';
 };
 
 /**

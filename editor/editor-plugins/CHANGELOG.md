@@ -1,5 +1,52 @@
 # @atlaskit/editor-plugins
 
+## 13.0.88
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.87
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.86
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.85
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.84
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.83
+
+### Patch Changes
+
+- [`ef40f467da8e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef40f467da8e6) -
+  Fix drag handle not appearing in last layout column and remix button not showing correctly when
+  confluence_remix_button_right_side_block_fg is enabled. Layout column drag handles now always show
+  regardless of hover side, remix button correctly shows on right-side hover only, and layoutSection
+  is always remixable regardless of content.
+- Updated dependencies
+
+## 13.0.82
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.81
 
 ### Patch Changes

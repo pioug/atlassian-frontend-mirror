@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/radio",
-	"version": "8.4.7",
+	"version": "8.5.0",
 	"description": "A radio input allows users to select only one option from a number of choices. Radio is generally displayed in a radio group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,6 +25,13 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Design System Team",
 		"website": {
 			"name": "Radio",
@@ -61,6 +68,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
@@ -94,9 +102,5 @@
 		}
 	},
 	"homepage": "https://atlassian.design/components/radio/",
-	"platform-feature-flags": {
-		"platform-radio-atomic-styles": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

@@ -16,12 +16,14 @@ import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
+	cellAround,
 	findTable,
 	isColumnSelected,
 	isRowSelected,
 	isTableSelected,
 	selectedRect,
 } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type tablePlugin from '../../tablePlugin';
 import { getClosestSelectionRect } from '../../ui/toolbar';
@@ -325,6 +327,24 @@ const arrowRightFromText =
 	};
 
 /**
+ * sets a cell selection over the table cell in which the selection is inside of
+ */
+const selectTableCell: Command =
+	(state, dispatch) => {
+		const $cell = cellAround(state.selection.$from);
+		if (!$cell) {
+			return false;
+		}
+
+		if (dispatch) {
+			dispatch(state.tr.setSelection(new CellSelection($cell)));
+			return true;
+		}
+
+		return false;
+	};
+
+/**
  * Sets a cell selection over all the cells in the table node
  * We use this instead of selectTable from prosemirror-utils so we can control which
  * cell is the anchor and which is the head, and also so we can set the relative selection
@@ -520,8 +540,14 @@ export const modASelectTable =
 		const { $from, $to } = selection;
 
 		const tableSelected = isTableSelected(selection);
-
-		if (
+		const isCellSelection = selection instanceof CellSelection;
+		
+		// if no cells are selected
+		if (!isCellSelection && expValEquals('platform_editor_lovability_select_all_shortcut', 'isEnabled', true)) {
+			return selectTableCell(state, dispatch);
+		}
+		// else if any number of cells are selected but not the full table
+		else if (
 			!tableSelected &&
 			$from.pos > table.start + 1 &&
 			$to.pos < table.start + table.node.nodeSize

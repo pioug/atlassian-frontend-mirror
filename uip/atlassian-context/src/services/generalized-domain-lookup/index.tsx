@@ -123,5 +123,5 @@ export function getUrlForDomainInContext(
 		console.warn(`Domain could not be determined for requested subdomain: ${subdomain}`);
 		return undefined;
 	}
-	return `${globalThis.location.protocol}//${domain}`;
+	return `${globalThis.location?.protocol ?? 'https:'}//${domain}`;
 }

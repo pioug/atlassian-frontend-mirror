@@ -3,9 +3,10 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { ROOT_ID } from '../../../NestableNavigationContent';
-import { NestedContext } from '../../../NestableNavigationContent/context';
+import { NestedContext } from '../../../NestableNavigationContent/nested-context';
 import { default as NestingItem } from '../../../NestingItem';
-import { HeadingItem, Section } from '../../index';
+import HeadingItem from '../../heading-item';
+import Section from '../../section';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Section', () => {

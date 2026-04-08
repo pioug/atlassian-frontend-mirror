@@ -4,19 +4,35 @@ description: A dropdown item checkbox lets users select items from a list of opt
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import DropdownItemCheckboxDefaultSelected from '../../examples/constellation/dropdown-item-checkbox-default-selected';
 import DropdownItemCheckboxSelected from '../../examples/constellation/dropdown-item-checkbox-selected';
+
+<SectionMessage
+	title="Motion in Early Access"
+	appearance="warning"
+>
+	The motion added into Dropdown menu is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+</SectionMessage>
 
 ## Default selected
 
 This makes the checkbox item selected when initially opened. Use `defaultSelected` when not
 controlling the checkbox item state.
 
-<Example Component={DropdownItemCheckboxDefaultSelected} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownItemCheckboxDefaultSelected}
+    packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Selected
 
 This makes the checkbox item selected when `true`. Use `isSelected` when controlling the checkbox
 item state.
 
-<Example Component={DropdownItemCheckboxSelected} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownItemCheckboxSelected}
+    packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motion']}
+/>

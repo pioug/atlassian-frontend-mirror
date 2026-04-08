@@ -46,15 +46,15 @@ export const SvgRenderer = forwardRef<HTMLImageElement, SvgRendererProps>(
 			onError,
 			alt,
 			onLoad,
-			onMouseDown,
 			style,
+			...rest
 		},
 		ref,
 	) => {
 		const { width, height } = dimensions || style || {};
 		return (
-			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 			<img
+				{...rest}
 				data-testid={testId}
 				data-fileid={id}
 				data-filecollection={collectionName}
@@ -69,7 +69,6 @@ export const SvgRenderer = forwardRef<HTMLImageElement, SvgRendererProps>(
 					height: dimensions?.height || style?.height,
 				}}
 				onLoad={onLoad}
-				onMouseDown={onMouseDown}
 				onError={() => {
 					onError && onError(new MediaSVGError('img-error'));
 				}}

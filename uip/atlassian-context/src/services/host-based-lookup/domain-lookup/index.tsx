@@ -68,7 +68,7 @@ export function getATLContextDomain(
 }
 
 export function getATLContextUrl(domain: DomainKey | string): string {
-	return `${globalThis.location.protocol}//${getATLContextDomain(domain)}`;
+	return `${globalThis.location?.protocol ?? 'https:'}//${getATLContextDomain(domain)}`;
 }
 
 export function _getEnvironmentFromDomain(): EnvironmentLookupResult {

@@ -223,7 +223,7 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 							this.renderTriggerButton(triggerProps)
 						)
 					}
-					shouldRenderToParent={fg('enable-appropriate-reading-order-in-share-dialog')}
+					shouldRenderToParent
 				/>
 			</React.Fragment>
 		);

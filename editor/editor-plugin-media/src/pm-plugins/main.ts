@@ -531,11 +531,24 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 				});
 			});
 
-			this.taskManager.addPendingTask(uploadingPromise, mediaStateWithContext.id).then(() => {
-				this.updateAndDispatch({
-					allUploadsFinished: true,
+			if (fg('platform_editor_media_disable_save_during_upload')) {
+				this.taskManager.addPendingTask(uploadingPromise, mediaStateWithContext.id).then(() => {
+					this.updateAndDispatch({ allUploadsFinished: true });
+					this.waitForPendingTasks().then(() => {
+						if (
+							this.uploadInProgressSubscriptions.length > 0 &&
+							this.uploadInProgressSubscriptionsNotified
+						) {
+							this.uploadInProgressSubscriptions.forEach((fn) => fn(false));
+							this.uploadInProgressSubscriptionsNotified = false;
+						}
+					});
 				});
-			});
+			} else {
+				this.taskManager.addPendingTask(uploadingPromise, mediaStateWithContext.id).then(() => {
+					this.updateAndDispatch({ allUploadsFinished: true });
+				});
+			}
 		}
 
 		// refocus the view
@@ -544,15 +557,20 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			view.focus();
 		}
 
-		this.waitForPendingTasks().then(() => {
-			if (
-				this.uploadInProgressSubscriptions.length > 0 &&
-				this.uploadInProgressSubscriptionsNotified
-			) {
-				this.uploadInProgressSubscriptions.forEach((fn) => fn(false));
-				this.uploadInProgressSubscriptionsNotified = false;
-			}
-		});
+		if (
+			isEndState(mediaStateWithContext) ||
+			!fg('platform_editor_media_disable_save_during_upload')
+		) {
+			this.waitForPendingTasks().then(() => {
+				if (
+					this.uploadInProgressSubscriptions.length > 0 &&
+					this.uploadInProgressSubscriptionsNotified
+				) {
+					this.uploadInProgressSubscriptions.forEach((fn) => fn(false));
+					this.uploadInProgressSubscriptionsNotified = false;
+				}
+			});
+		}
 
 		this.selectLastAddedMediaNode();
 	};

@@ -403,6 +403,10 @@ function forceColumnWidths(
 	);
 }
 
+/**
+ * Forces a layout section node to match the given preset layout by adjusting
+ * its column structure and widths, then restoring the original selection.
+ */
 export function forceSectionToPresetLayout(
 	state: EditorState,
 	node: Node,
@@ -472,6 +476,13 @@ export const setPresetLayout =
 
 function layoutNeedChanges(node: Node): boolean {
 	if (editorExperiment('advanced_layouts', true)) {
+		if (editorExperiment('platform_editor_layout_column_resize_handle', true)) {
+			// Custom widths that sum to 100% are valid and should not be forced back to presets
+			if (isValidLayoutWidthDistributions(node)) {
+				return false;
+			}
+			return true;
+		}
 		return !getPresetLayout(node) || !isValidLayoutWidthDistributions(node);
 	}
 
@@ -569,6 +580,15 @@ export const fixColumnStructure = (state: EditorState): Transaction | undefined 
 
 		if (node) {
 			if (node.childCount !== getWidthsForPreset(selectedLayout).length) {
+				// If the resize handle experiment is on and widths are valid, don't force preset
+				// (column count mismatch might be from a different preset being selected)
+				if (
+					editorExperiment('advanced_layouts', true) &&
+					editorExperiment('platform_editor_layout_column_resize_handle', true) &&
+					isValidLayoutWidthDistributions(node)
+				) {
+					return;
+				}
 				return forceSectionToPresetLayout(state, node, pos, selectedLayout);
 			}
 

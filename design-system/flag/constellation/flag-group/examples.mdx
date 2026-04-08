@@ -4,14 +4,26 @@ description: A flag group is used to group a set of related flags, with entry an
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import FlagGroup from '../../examples/constellation/flag-group';
 import FlagsInModalDialogExample from '../../examples/constellation/flag-group-in-modal-dialog';
+
+<SectionMessage
+	title="Motion in Early Access"
+	appearance="warning"
+>
+	Motion has been updated in Flag and is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+</SectionMessage>
 
 ## Default
 
 Use `FlagGroup` to group a set of related flags, with entry and exit animation.
 
-<Example Component={FlagGroup} packageName="@atlaskit/flag" />
+<Example
+	Component={FlagGroup}
+	packageName="@atlaskit/flag"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Using in modal components
 
@@ -21,4 +33,8 @@ assistive technology users if there is a modal component open, or an element wit
 To make it accessible, use the `shouldRenderToParent` prop to render the group in its direct parent
 instead of `React.Portal`.
 
-<Example Component={FlagsInModalDialogExample} packageName="@atlaskit/flag" />
+<Example
+	Component={FlagsInModalDialogExample}
+	packageName="@atlaskit/flag"
+	featureFlagSwitchers={['motion']}
+/>

@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 112.18.1
+
+### Patch Changes
+
+- [`20b51bc2e61a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20b51bc2e61a4) -
+  Remove duplicate source synced blocks when inserting block templates with existing resourceIds and
+  show error flag
+- [`36aa4e6236ba8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36aa4e6236ba8) -
+  Migrate @atlaskit/onboarding to @atlaskit/spotlight, gate pulse removal behind
+  platform_editor_spotlight_migration experiment. Remove dead spotlight config code from floating
+  toolbar.
+- Updated dependencies
+
+## 112.18.0
+
+### Minor Changes
+
+- [`4570b02f24b2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4570b02f24b2b) -
+  A11Y fixes to aria labels
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.17.1
+
+### Patch Changes
+
+- [`2e8697decd076`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e8697decd076) -
+  Migrate @atlaskit/onboarding to @atlaskit/spotlight, gate pulse removal behind
+  platform_editor_spotlight_migration experiment. Remove dead spotlight config code from floating
+  toolbar.
+- Updated dependencies
+
 ## 112.17.0
 
 ### Minor Changes

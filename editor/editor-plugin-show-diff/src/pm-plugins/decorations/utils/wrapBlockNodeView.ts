@@ -3,6 +3,7 @@ import type { IntlShape } from 'react-intl-next';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { trackChangesMessages } from '@atlaskit/editor-common/messages';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -15,7 +16,6 @@ import {
 	deletedContentStyle,
 	deletedContentStyleActive,
 	deletedContentStyleNew,
-	deletedContentStyleNewActive,
 	deletedStyleQuoteNodeWithLozenge,
 	deletedStyleQuoteNodeWithLozengeActive,
 	editingStyle,
@@ -27,16 +27,20 @@ import {
 import {
 	deletedTraditionalBlockOutline,
 	deletedTraditionalBlockOutlineActive,
+	deletedTraditionalBlockOutlineNew,
 	deletedTraditionalBlockOutlineRounded,
 	deletedTraditionalBlockOutlineRoundedActive,
-	deletedTraditionalContentStyle,
-	deletedTraditionalContentStyleActive,
+	deletedTraditionalBlockOutlineRoundedNew,
+	getDeletedTraditionalInlineStyle,
 	deletedTraditionalStyleQuoteNode,
 	deletedTraditionalStyleQuoteNodeActive,
 	traditionalInsertStyle,
 	traditionalInsertStyleActive,
 	traditionalStyleNode,
+	traditionalStyleNodeActive,
+	traditionalStyleNodeNew,
 	traditionalAddedCellOverlayStyle,
+	traditionalAddedCellOverlayStyleNew,
 	deletedTraditionalCellOverlayStyle,
 } from '../colorSchemes/traditional';
 
@@ -103,12 +107,10 @@ const getChangedContentStyle = (
 		return isActive ? editingStyleActive : editingStyle;
 	}
 	if (colorScheme === 'traditional') {
-		return isActive ? deletedTraditionalContentStyleActive : deletedTraditionalContentStyle;
+		return getDeletedTraditionalInlineStyle(isActive);
 	}
 	if (isActive) {
-		return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-			? deletedContentStyleNewActive
-			: deletedContentStyleActive;
+		return deletedContentStyleActive;
 	}
 	return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
 		? deletedContentStyleNew
@@ -128,7 +130,10 @@ const getChangedNodeStyle = (
 			return undefined;
 		}
 		if (isTraditional) {
-			return traditionalStyleNode;
+			if (fg('platform_editor_show_diff_scroll_navigation')) {
+				return isActive ? traditionalStyleNodeActive : traditionalStyleNodeNew;
+			}
+			return isActive ? traditionalStyleNodeActive : traditionalStyleNode;
 		}
 		return editingStyleNode;
 	}
@@ -142,7 +147,11 @@ const getChangedNodeStyle = (
 		case 'expand':
 		case 'decisionList':
 			if (isTraditional) {
-				return isActive ? deletedTraditionalBlockOutlineActive : deletedTraditionalBlockOutline;
+				return isActive
+					? deletedTraditionalBlockOutlineActive
+					: fg('platform_editor_show_diff_scroll_navigation')
+						? deletedTraditionalBlockOutlineNew
+						: deletedTraditionalBlockOutline;
 			}
 			return isActive ? deletedBlockOutlineActive : deletedBlockOutline;
 		case 'panel':
@@ -150,7 +159,9 @@ const getChangedNodeStyle = (
 			if (isTraditional) {
 				return isActive
 					? deletedTraditionalBlockOutlineRoundedActive
-					: deletedTraditionalBlockOutlineRounded;
+					: fg('platform_editor_show_diff_scroll_navigation')
+						? deletedTraditionalBlockOutlineRoundedNew
+						: deletedTraditionalBlockOutlineRounded;
 			}
 			return isActive ? deletedBlockOutlineRoundedActive : deletedBlockOutlineRounded;
 		default:
@@ -184,6 +195,31 @@ const shouldAddShowDiffDeletedNodeClass = (nodeName: string): boolean => {
 	}
 };
 
+/** Scroll-nav “new” ring (4px red subtlest) for media/embed; styled in editor-core smartCardStyles. */
+const maybeAddDeletedOutlineNewClass = ({
+	nodeView,
+	targetNode,
+	colorScheme,
+	isActive = false,
+}: {
+	colorScheme?: ColorScheme;
+	isActive?: boolean;
+	nodeView: HTMLElement;
+	targetNode: PMNode;
+}) => {
+	const name = targetNode.type.name;
+	if (name !== 'mediaSingle' && name !== 'embedCard') {
+		return;
+	}
+	if (
+		colorScheme === 'traditional' &&
+		!isActive &&
+		fg('platform_editor_show_diff_scroll_navigation')
+	) {
+		nodeView.classList.add('show-diff-deleted-outline-new');
+	}
+};
+
 /**
  * Checks if a node should apply deleted styles directly without wrapper
  * to preserve natural block-level margins
@@ -206,7 +242,9 @@ const applyCellOverlayStyles = ({
 		const overlayStyle =
 			colorScheme === 'traditional'
 				? isInserted
-					? traditionalAddedCellOverlayStyle
+					? fg('platform_editor_show_diff_scroll_navigation')
+						? traditionalAddedCellOverlayStyleNew
+						: traditionalAddedCellOverlayStyle
 					: deletedTraditionalCellOverlayStyle
 				: isInserted
 					? addedCellOverlayStyle
@@ -371,6 +409,7 @@ const handleEmbedCardWithLozenge = ({
 		if (isActive) {
 			nodeView.classList.add('show-diff-deleted-active');
 		}
+		maybeAddDeletedOutlineNewClass({ nodeView, targetNode, colorScheme, isActive });
 	}
 
 	dom.append(nodeView);
@@ -422,6 +461,7 @@ const handleMediaSingleWithLozenge = ({
 		if (isActive) {
 			nodeView.classList.add('show-diff-deleted-active');
 		}
+		maybeAddDeletedOutlineNewClass({ nodeView, targetNode, colorScheme, isActive });
 	}
 
 	dom.append(nodeView);
@@ -487,6 +527,7 @@ const wrapBlockNode = ({
 		if (isActive) {
 			nodeView.classList.add('show-diff-deleted-active');
 		}
+		maybeAddDeletedOutlineNewClass({ nodeView, targetNode, colorScheme, isActive });
 	}
 
 	dom.append(blockWrapper);

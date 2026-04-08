@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.46.3",
+	"version": "24.48.1",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -78,6 +78,7 @@
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/teams-app-config": "workspace:^",
 		"@atlaskit/teams-app-internal-analytics": "workspace:^",
+		"@atlaskit/teams-app-internal-navigation": "workspace:^",
 		"@atlaskit/teams-avatar": "workspace:^",
 		"@atlaskit/teams-public": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
@@ -135,6 +136,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"ptc-links-migrate-atlaskit-link-button": {
+			"type": "boolean"
+		},
 		"enable_appropriate_reading_order_in_profile_card": {
 			"type": "boolean"
 		},

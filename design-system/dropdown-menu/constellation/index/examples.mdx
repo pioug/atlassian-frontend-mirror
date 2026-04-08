@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import DropdownMenuDefault from '../../examples/constellation/dropdown-menu-default';
 import DropdownMenuTall from '../../examples/constellation/dropdown-menu-tall';
 import DropdownMenuCustomTrigger from '../../examples/constellation/dropdown-menu-custom-trigger';
@@ -18,6 +19,13 @@ import DropdownMenuWithoutPortal from '../../examples/constellation/dropdown-men
 import DropdownMenuFullWidth from '../../examples/constellation/dropdown-menu-full-width';
 import DropdownMenuLabel from '../../examples/constellation/dropdown-menu-label';
 
+<SectionMessage
+	title="Motion in Early Access"
+	appearance="warning"
+>
+	The motion added into Dropdown menu is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+</SectionMessage>
+
 ## Appearance
 
 ### Default
@@ -25,21 +33,33 @@ import DropdownMenuLabel from '../../examples/constellation/dropdown-menu-label'
 Use `default` for the default dropdown menu appearance. The default menu will scroll after its
 height exceeds the pre-defined amount.
 
-<Example Component={DropdownMenuDefault} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuDefault}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 ### Density
 
 Configure the density of the dropdown with the `spacing` prop. By default the spacing is `cozy`, but
 you can also apply `compact` depending on your use case.
 
-<Example Component={DropdownMenuDensity} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuDensity}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 ### Tall
 
 Use `tall` to control the height of the menu. The tall menu will not scroll until the height exceeds
 the height of the viewport.
 
-<Example Component={DropdownMenuTall} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuTall}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 ## Custom triggers
 
@@ -49,15 +69,27 @@ There are three recommended ways to customize a trigger.
 
 Set `trigger` to a custom react component which accepts the provided props.
 
-<Example Component={DropdownMenuCustomTriggerButton} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuCustomTriggerButton}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 Use the `trigger` prop and pass in an html element.
 
-<Example Component={DropdownMenuCustomTrigger} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuCustomTrigger}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}    
+/>
 
 Use the `trigger` prop and pass in a string.
 
-<Example Component={DropdownMenuDefault} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuDefault}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 ## Nested dropdown menu
 
@@ -66,7 +98,11 @@ You can nest dropdown menus inside other dropdown menus.
 However, be mindful that nested menus quickly become confusing, inaccessible, and difficult to
 navigate. We recommend limiting nesting to two layers only.
 
-<Example Component={DropdownMenuNested} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuNested}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 ## States
 
@@ -74,13 +110,21 @@ navigate. We recommend limiting nesting to two layers only.
 
 If `isLoading` is true, a spinner is rendered instead of the dropdown items.
 
-<Example Component={DropdownMenuLoading} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuLoading}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 ### Open
 
 Use `isOpen` to control the open state of the dropdown menu.
 
-<Example Component={DropdownMenuOpen} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuOpen}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}    
+/>
 
 ## Positioning
 
@@ -88,34 +132,54 @@ Use `isOpen` to control the open state of the dropdown menu.
 
 By default, the dropdown menu will be placed next to your trigger.
 
-<Example Component={DropdownMenuPlacementDefault} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuPlacementDefault}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 ### Placement
 
 Use `placement` to set the menu placement to the bottom end, for example.
 
-<Example Component={DropdownMenuPlacement} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuPlacement}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 ### Should flip
 
 If it doesn't fit in the viewport, use `shouldFlip` to place to the dropdown menu on the opposite
 side of its trigger.
 
-<Example Component={DropdownMenuShouldFlip} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuShouldFlip}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 ### Z-index
 
 Use `zIndex` to resolve clashes with other layered components with competing z-index values, such as
 popup.
 
-<Example Component={DropdownMenuZIndex} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuZIndex}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}    
+/>
 
 ## Content without portal
 
 By default, the dropdown menu content is rendered inside `React.Portal`. Use `shouldRenderToParent`
 prop to render the content directly after the trigger element.
 
-<Example Component={DropdownMenuWithoutPortal} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuWithoutPortal}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 ## Full width dropdown menu
 
@@ -123,7 +187,11 @@ Use `shouldFitContainer` to fit the dropdown menu width to its parent's width. W
 the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`. The
 dropdown menu will be rendered as a sibling to the trigger element, and will be full width.
 
-<Example Component={DropdownMenuFullWidth} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuFullWidth}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}
+/>
 
 ## Accessible labels
 
@@ -135,4 +203,8 @@ When providing the `aria-label` along with a visible label, make sure that the f
 the `aria-label` match the visible label. This is to support Voice Input users that use the visible
 label to interact with controls.
 
-<Example Component={DropdownMenuLabel} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownMenuLabel}
+    packageName="@atlaskit/dropdown-menu"
+    featureFlagSwitchers={['motion']}    
+/>

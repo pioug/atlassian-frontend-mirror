@@ -2,8 +2,9 @@ import React from 'react';
 
 import AvatarGroup from '@atlaskit/avatar-group';
 
-import { appearances, RANDOM_USERS } from '../examples-util/data';
+import { appearances } from '../examples-util/appearances';
 import { ExampleGroup } from '../examples-util/helpers';
+import { RANDOM_USERS } from '../examples-util/random-users';
 
 const makeColor = (num: number) => {
 	let hex = '#';

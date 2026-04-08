@@ -1,4 +1,4 @@
-import { createRenameFuncFor } from '../utils';
+import { createRenameFuncFor } from '../utils/create-rename-func-for';
 
 export const renameInputRef: (
 	j: import('jscodeshift/src/core').JSCodeshift,

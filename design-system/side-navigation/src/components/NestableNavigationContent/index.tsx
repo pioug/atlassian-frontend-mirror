@@ -13,7 +13,7 @@ import useChildIds from '../../common/use-child-ids';
 import GoBackButton from '../Item/go-back-item';
 import { default as NestingItem } from '../NestingItem';
 
-import { NestedContext, type NestedContextValue } from './context';
+import { NestedContext, type NestedContextValue } from './nested-context';
 import { NestingMotion } from './nesting-motion';
 // Named so ERT doesn't pick up the override name as a type.
 

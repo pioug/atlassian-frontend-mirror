@@ -9,9 +9,12 @@ import { type MediaType } from '@atlaskit/media-client';
 import { TouchScrollable } from 'react-scrolllock';
 import { useMergeRefs } from 'use-callback-ref';
 import { token } from '@atlaskit/tokens';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
+import { useIntl } from 'react-intl-next';
+import { messages } from '@atlaskit/media-ui';
 
 const blanketStyles = css({
 	position: 'fixed',
@@ -413,6 +416,11 @@ const spinnerWrapperStyles = css({
 	height: '100%',
 });
 
+const resetButtonStyle = css({
+	all: "unset",
+	display: "block"
+});
+
 const formattedMessageWrapperStyles = css({});
 
 type Children = {
@@ -636,21 +644,41 @@ export const ImageWrapper = forwardRef(
 			className,
 		}: ImageWrapperProps & ClassName,
 		ref,
-	) => (
-		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-		<div
-			data-testid={datatestId}
-			onClick={onClick}
-			ref={ref as React.RefObject<HTMLDivElement>}
-			css={imageWrapperStyles}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={style}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={className}
-		>
-			{children}
-		</div>
-	),
+	) => {
+		const intl = useIntl();
+		return (
+			fg('platform_media_a11y_suppression_fixes') ? (
+				<button
+					data-testid={datatestId}
+					onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
+					ref={ref as React.RefObject<HTMLButtonElement>}
+					css={[resetButtonStyle, imageWrapperStyles]}
+					aria-label={intl.formatMessage(messages.svg_image_preview_label_assistive_text)}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={style}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={className}
+				>
+					{children}
+				</button>
+			) : (
+				// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+				<div
+					data-testid={datatestId}
+					onClick={onClick}
+					ref={ref as React.RefObject<HTMLDivElement>}
+					css={imageWrapperStyles}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={style}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={className}
+				>
+					{children}
+				</div>
+
+			)
+		);
+	},
 );
 
 export const BaselineExtend = () => <div css={baselineExtendStyles} />;
@@ -677,9 +705,9 @@ export const Img = ({
 	style,
 	onLoad,
 	onError,
-	onMouseDown,
 	alt,
 	className,
+	onMouseDown
 }: ImgProps) => {
 	const cursor = useMemo(() => {
 		if (canDrag && isDragging) {
@@ -691,8 +719,13 @@ export const Img = ({
 		}
 	}, [canDrag, isDragging]);
 	return (
+		// onMouseDown enables drag-to-pan for zoomed images — a mouse-only gesture.
+		// Keyboard users can pan via native scroll (arrow keys) on the parent ImageWrapper container.
+		// No keyboard equivalent is needed since the functionality is already accessible.
+
 		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 		<img
+			onMouseDown={onMouseDown}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			css={[imgStyles, shouldPixelate && pixelatedImgStyles]}
@@ -703,7 +736,6 @@ export const Img = ({
 			style={{ cursor, ...style }}
 			onLoad={onLoad}
 			onError={onError}
-			onMouseDown={onMouseDown}
 		/>
 	);
 };

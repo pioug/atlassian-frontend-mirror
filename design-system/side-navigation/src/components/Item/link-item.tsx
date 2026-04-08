@@ -9,9 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { LinkItem as Link, type LinkItemProps } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
-import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
-
-export type { LinkItemProps } from '@atlaskit/menu';
+import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 
 const styles = cssMap({
 	root: {

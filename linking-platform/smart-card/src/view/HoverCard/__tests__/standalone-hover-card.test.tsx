@@ -81,7 +81,11 @@ describe('standalone hover card', () => {
 	});
 
 	afterEach(() => {
-		act(() => jest.runAllTimers()); // Suppress act errors after test ends
+		// Nested suites (e.g. analytics) may call `useRealTimers()` in their own afterEach first;
+		// `runAllTimers` then warns if fake timers are no longer active.
+		if (jest.isMockFunction(setTimeout)) {
+			act(() => jest.runAllTimers()); // Suppress act errors after test ends
+		}
 		jest.useRealTimers();
 		jest.restoreAllMocks();
 	});

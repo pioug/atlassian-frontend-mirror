@@ -16,15 +16,23 @@ import {
 import {
 	traditionalDecorationMarkerVariable,
 	traditionalDecorationMarkerVariableActive,
+	traditionalDecorationMarkerVariableNew,
+	traditionalDeletedDecorationMarkerVariable,
+	traditionalDeletedDecorationMarkerVariableActive,
+	traditionalDeletedDecorationMarkerVariableNew,
 	traditionalStyleQuoteNode,
 	traditionalStyleQuoteNodeActive,
+	traditionalStyleQuoteNodeNew,
 	traditionalStyleRuleNode,
 	traditionalStyleRuleNodeActive,
+	traditionalStyleRuleNodeNew,
 	traditionalStyleCardBlockNode,
 	traditionalStyleCardBlockNodeActive,
+	traditionalStyleCardBlockNodeNew,
 	traditionalStyleNode,
 	traditionalStyleNodeActive,
-	deletedTraditionalContentStyle,
+	traditionalStyleNodeNew,
+	getDeletedTraditionalInlineStyle,
 	deletedTraditionalStyleQuoteNode,
 } from './colorSchemes/traditional';
 
@@ -77,16 +85,26 @@ const getBlockNodeStyle = ({
 				return isTraditional && isActive
 					? traditionalDecorationMarkerVariableActive
 					: isTraditional
-						? traditionalDecorationMarkerVariable
+						? fg('platform_editor_show_diff_scroll_navigation')
+							? traditionalDecorationMarkerVariableNew
+							: traditionalDecorationMarkerVariable
 						: standardDecorationMarkerVariable;
 			} else {
-				return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
+				return isTraditional && isActive
+					? traditionalDeletedDecorationMarkerVariableActive
+					: isTraditional
+						? fg('platform_editor_show_diff_scroll_navigation')
+							? traditionalDeletedDecorationMarkerVariableNew
+							: traditionalDeletedDecorationMarkerVariable
+						: deletedContentStyleNew;
 			}
 		}
 		return isTraditional && isActive
 			? traditionalDecorationMarkerVariableActive
 			: isTraditional
-				? traditionalDecorationMarkerVariable
+				? fg('platform_editor_show_diff_scroll_navigation')
+					? traditionalDecorationMarkerVariableNew
+					: traditionalDecorationMarkerVariable
 				: standardDecorationMarkerVariable;
 	}
 	if (nodeName === 'blockquote') {
@@ -95,7 +113,9 @@ const getBlockNodeStyle = ({
 				return isTraditional
 					? isActive
 						? traditionalStyleQuoteNodeActive
-						: traditionalStyleQuoteNode
+						: fg('platform_editor_show_diff_scroll_navigation')
+							? traditionalStyleQuoteNodeNew
+							: traditionalStyleQuoteNode
 					: editingStyleQuoteNode;
 			} else {
 				return isTraditional ? deletedTraditionalStyleQuoteNode : deletedStyleQuoteNode;
@@ -104,7 +124,9 @@ const getBlockNodeStyle = ({
 		return isTraditional
 			? isActive
 				? traditionalStyleQuoteNodeActive
-				: traditionalStyleQuoteNode
+				: fg('platform_editor_show_diff_scroll_navigation')
+					? traditionalStyleQuoteNodeNew
+					: traditionalStyleQuoteNode
 			: editingStyleQuoteNode;
 	}
 	if (nodeName === 'rule') {
@@ -113,16 +135,20 @@ const getBlockNodeStyle = ({
 				return isTraditional
 					? isActive
 						? traditionalStyleRuleNodeActive
-						: traditionalStyleRuleNode
+						: fg('platform_editor_show_diff_scroll_navigation')
+							? traditionalStyleRuleNodeNew
+							: traditionalStyleRuleNode
 					: editingStyleRuleNode;
 			} else {
-				return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
+				return isTraditional ? getDeletedTraditionalInlineStyle(false) : deletedContentStyleNew;
 			}
 		}
 		return isTraditional
 			? isActive
 				? traditionalStyleRuleNodeActive
-				: traditionalStyleRuleNode
+				: fg('platform_editor_show_diff_scroll_navigation')
+					? traditionalStyleRuleNodeNew
+					: traditionalStyleRuleNode
 			: editingStyleRuleNode;
 	}
 	if (nodeName === 'blockCard') {
@@ -131,16 +157,20 @@ const getBlockNodeStyle = ({
 				return isTraditional
 					? isActive
 						? traditionalStyleCardBlockNodeActive
-						: traditionalStyleCardBlockNode
+						: fg('platform_editor_show_diff_scroll_navigation')
+							? traditionalStyleCardBlockNodeNew
+							: traditionalStyleCardBlockNode
 					: editingStyleCardBlockNode;
 			} else {
-				return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
+				return isTraditional ? getDeletedTraditionalInlineStyle(false) : deletedContentStyleNew;
 			}
 		}
 		return isTraditional
 			? isActive
 				? traditionalStyleCardBlockNodeActive
-				: traditionalStyleCardBlockNode
+				: fg('platform_editor_show_diff_scroll_navigation')
+					? traditionalStyleCardBlockNodeNew
+					: traditionalStyleCardBlockNode
 			: editingStyleCardBlockNode;
 	}
 	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
@@ -148,16 +178,20 @@ const getBlockNodeStyle = ({
 			return isTraditional
 				? isActive
 					? traditionalStyleNodeActive
-					: traditionalStyleNode
+					: fg('platform_editor_show_diff_scroll_navigation')
+						? traditionalStyleNodeNew
+						: traditionalStyleNode
 				: editingStyleNode;
 		} else {
-			return isTraditional ? deletedTraditionalContentStyle : deletedContentStyleNew;
+			return isTraditional ? getDeletedTraditionalInlineStyle(false) : deletedContentStyleNew;
 		}
 	}
 	return isTraditional
 		? isActive
 			? traditionalStyleNodeActive
-			: traditionalStyleNode
+			: fg('platform_editor_show_diff_scroll_navigation')
+				? traditionalStyleNodeNew
+				: traditionalStyleNode
 		: editingStyleNode;
 };
 

@@ -2299,6 +2299,7 @@ const rendererTableSortableColumnStyles = css({
 						width: '100%',
 						height: '100%',
 						padding: `${tableCellPadding}px`,
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-shape
 						borderWidth: '1.5px',
 						borderStyle: 'solid',
 						borderColor: `transparent`,
@@ -2850,6 +2851,12 @@ const denseStyles = css({
 	},
 });
 
+const syncBlockRendererStyles = css({
+	margin: 0,
+	maxWidth: 'none',
+	padding: 0,
+});
+
 const syncBlockStyles = css({
 	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]:
 		{
@@ -2897,7 +2904,9 @@ type RendererStyleContainerProps = Pick<
 	| 'children'
 	| 'allowRendererContainerStyles'
 > & {
+	isInsideSyncBlock?: boolean;
 	testId?: string;
+	isInsideOfSyncBlock?: boolean;
 };
 
 export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
@@ -2912,6 +2921,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 		children,
 		innerRef,
 		testId,
+		isInsideSyncBlock,
 	} = props;
 
 	const isAdvancedLayoutsOn = editorExperiment('advanced_layouts', true);
@@ -2986,6 +2996,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
 						? rendererMaxWidthStyles
 						: oldRendererMaxWidthStyles),
+
 				rovoTelepointerStyles,
 				whitespaceSharedStyles,
 				blockquoteSharedStyles,
@@ -3002,8 +3013,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? paragraphStylesUGCScaledMargin
 						: paragraphSharedStylesWithEditorUGC
 					: isCompactModeSupported
-					? paragraphSharedStyleScaledMargin
-					: paragraphSharedStyles,
+						? paragraphSharedStyleScaledMargin
+						: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				expValEquals('platform_editor_flexible_list_schema', 'isEnabled', true) &&
@@ -3093,10 +3104,15 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? scaledDenseEmojiStyles
 						: scaledEmojiStyles
 					: isCompactModeEnabled
-					? denseStyles
-					: undefined,
+						? denseStyles
+						: undefined,
 				editorExperiment('platform_synced_block', true) && syncBlockStyles,
 				centerWrapperStyles,
+				editorExperiment('platform_synced_block', true) &&
+				isInsideSyncBlock &&
+				fg('platform_synced_block_patch_9')
+					? syncBlockRendererStyles
+					: null,
 			]}
 			data-testid={testId}
 		>

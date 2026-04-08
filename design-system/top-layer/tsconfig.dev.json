@@ -30,7 +30,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__top-layer/dev"
+		"outDir": "../../../tsDist/@atlaskit__top-layer/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

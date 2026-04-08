@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 217.11.0
+
+### Minor Changes
+
+- [`fb96753c1753e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb96753c1753e) -
+  [ux] Introduce adjustable layout column drag handle and update logic behind
+  platform_editor_layout_column_resize_handle experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 217.10.1
 
 ### Patch Changes

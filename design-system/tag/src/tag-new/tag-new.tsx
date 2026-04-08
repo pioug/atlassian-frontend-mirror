@@ -2,11 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ComponentType, forwardRef, memo, type ReactNode } from 'react';
+import { forwardRef, memo } from 'react';
 
-import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
+import { cssMap as cssMapUnbound, cx, jsx } from '@compiled/react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import __noop from '@atlaskit/ds-lib/noop';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import { Pressable } from '@atlaskit/primitives/compiled';
+import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -17,80 +21,11 @@ import {
 	useRemoveButton,
 	useTagRemoval,
 } from './shared';
+import SwatchBefore from './swatch-before';
+import { type NewTagColor, type TagDropdownTriggerProps, type TagNewProps } from './types';
 
 // CSS variable name for icon color - must be used as literal string in cssMap due to Compiled CSS static analysis
 const iconColorVar = '--ds-tag-icon' as const;
-
-export type NewTagColor =
-	| 'gray'
-	| 'blue'
-	| 'red'
-	| 'yellow'
-	| 'green'
-	| 'teal'
-	| 'purple'
-	| 'lime'
-	| 'orange'
-	| 'magenta';
-
-export interface TagNewProps {
-	/**
-	 * The color theme to apply. This sets both the background and text color.
-	 */
-	color?: NewTagColor;
-	/**
-	 * The component to be rendered before the tag text (e.g., an icon).
-	 * For avatar/user representations, use `AvatarTag` instead.
-	 *
-	 * @see AvatarTag for avatar-based user tags
-	 */
-	elemBefore?: ReactNode;
-	/**
-	 * Text to be displayed in the tag.
-	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	text: string;
-	/**
-	 * URI or path. If provided, the tag will be a link.
-	 */
-	href?: string;
-	/**
-	 * A link component to be used instead of our standard link. The styling of
-	 * our link item will be applied to the link that is passed in.
-	 */
-	linkComponent?: ComponentType<any>;
-	/**
-	 * A `testId` prop is provided for specified elements.
-	 */
-	testId?: string;
-	/**
-	 * Flag to indicate if a tag is removable. Defaults to true.
-	 */
-	isRemovable?: boolean;
-	/**
-	 * Text rendered as the aria-label for remove button.
-	 */
-	removeButtonLabel?: string;
-	/**
-	 * Handler to be called before the tag is removed. If it does not return a
-	 * truthy value, the tag will not be removed.
-	 */
-	onBeforeRemoveAction?: () => boolean;
-	/**
-	 * Handler to be called after tag is removed.
-	 */
-	onAfterRemoveAction?: (text: string) => void;
-	/**
-	 * Maximum width of the tag. When exceeded, the text will be truncated with ellipsis.
-	 * Accepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').
-	 */
-	maxWidth?: string | number;
-	/**
-	 * Handler called when the tag is clicked. Only fires for link tags (when href is provided).
-	 * The second argument provides an Atlaskit UI analytics event.
-	 */
-	onClick?: (e: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => void;
-}
 
 // Color mapping from old color names to new color names
 export const colorMapping: Record<string, NewTagColor> = {
@@ -152,6 +87,9 @@ const styles = cssMapUnbound({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		color: `var(${iconColorVar})`,
 	},
+	beforeStylesSelected: {
+		color: token('color.icon.selected'),
+	},
 	textStyles: {
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
@@ -159,6 +97,9 @@ const styles = cssMapUnbound({
 		flexGrow: 1,
 		minWidth: 0,
 		color: token('color.text'),
+	},
+	textStylesSelected: {
+		color: token('color.text.selected'),
 	},
 	afterStyles: {
 		display: 'flex',
@@ -363,6 +304,57 @@ const borderIconInteractiveFilterStyles = cssMapUnbound({
 });
 /* eslint-enable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values */
 
+const dropdownStyles = cssMapUnbound({
+	interactive: {
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
+		},
+	},
+	selected: {
+		color: token('color.text.selected'),
+		borderColor: token('color.border.selected'),
+		backgroundColor: token('color.background.selected'),
+		'&:hover': {
+			backgroundColor: token('color.background.selected.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.selected.pressed'),
+		},
+	},
+	content: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		gap: token('space.050', '4px'),
+		// Allow shrinking below intrinsic content width so parent `maxWidth` can constrain and
+		// `textStyles` ellipsis applies (flex items default to min-width: auto).
+		flexGrow: 1,
+		flexShrink: 1,
+		minWidth: 0,
+		overflow: 'hidden',
+	},
+	loadingContent: {
+		opacity: 0,
+	},
+	loadingOverlay: {
+		display: 'flex',
+		position: 'absolute',
+		alignItems: 'center',
+		justifyContent: 'center',
+		overflow: 'hidden',
+		insetBlockEnd: token('space.0'),
+		insetBlockStart: token('space.0'),
+		insetInlineEnd: token('space.0'),
+		insetInlineStart: token('space.0'),
+		pointerEvents: 'none',
+		// Force Spinner to follow the lozenge icon color.
+	},
+});
+
+/* eslint-enable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values */
+
 /**
  * __TagNew__
  *
@@ -382,6 +374,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 		testId,
 		maxWidth,
 		onClick,
+		swatchBefore,
 		...other
 	},
 	ref,
@@ -441,8 +434,13 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 				LinkComponent={LinkComponent}
 				testId={testId}
 				linkHandlers={linkHandlers}
-				onClick={onClick}
+				onClick={
+					onClick as
+						| ((e: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => void)
+						| undefined
+				}
 			>
+				<SwatchBefore colorKey={color} swatchBefore={swatchBefore} />
 				{elemBefore && <span css={styles.beforeStyles}>{elemBefore}</span>}
 				<span css={styles.textStyles} data-tag-text>
 					{text}
@@ -457,6 +455,90 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 			{tagContent}
 		</RemovableWrapper>
 	);
+});
+
+// Put the tag dropdown trigger in this file to reuse the styles
+/**
+ * __Tag dropdown trigger__
+ *
+ * A tag-styled pressable button that acts as a dropdown trigger. Renders a chevron icon
+ * and supports selected/loading states. Use this when you need a tag that opens a popup
+ * or dropdown menu.
+ */
+export const TagDropdownTriggerComponent: import('react').ForwardRefExoticComponent<
+	TagDropdownTriggerProps & import('react').RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, TagDropdownTriggerProps>(function TagDropdownTrigger(
+		{
+			color = 'gray',
+			text,
+			elemBefore,
+			testId,
+			maxWidth,
+			onClick,
+			isSelected = false,
+			isLoading = false,
+			analyticsContext: _analyticsContext,
+			hasChevron = true,
+			swatchBefore,
+			...other
+		},
+		ref,
+	) {
+		const resolvedColor = colorMapping[color] || 'gray';
+		return (
+			<Pressable
+				ref={ref}
+				// @ts-expect-error paddingInline is 0.1875rem
+				// eslint-disable-next-line @compiled/no-suppress-xcss
+				xcss={cx(
+					styles.baseStyles,
+					colorStyles[resolvedColor as keyof typeof colorStyles],
+					dropdownStyles.interactive,
+					styles.focusRingStyles,
+					borderIconFilterStyles.root,
+					borderIconInteractiveFilterStyles.root,
+					isSelected && dropdownStyles.selected,
+				)}
+				onClick={isLoading ? undefined : onClick}
+				style={{
+					borderColor: isSelected ? token('color.border.selected') : undefined,
+					cursor: isLoading ? 'progress' : 'pointer',
+					maxWidth: maxWidth !== undefined ? maxWidth : undefined,
+				}}
+				{...(isLoading && { 'aria-busy': true, 'aria-disabled': true, isDisabled: true })}
+				data-testid={testId}
+				{...other}
+			>
+				<span css={[dropdownStyles.content, isLoading && dropdownStyles.loadingContent]}>
+					<SwatchBefore colorKey={resolvedColor} swatchBefore={swatchBefore} />
+					{elemBefore && (
+						<span css={[styles.beforeStyles, isSelected && styles.beforeStylesSelected]}>
+							{elemBefore}
+						</span>
+					)}
+					<span css={[styles.textStyles, isSelected && styles.textStylesSelected]} data-tag-text>
+						{text}
+					</span>
+					{hasChevron && (
+						<ChevronDownIcon
+							label=""
+							size="small"
+							color={'currentColor'}
+							testId={testId && `${testId}--chevron`}
+						/>
+					)}
+				</span>
+				{isLoading && (
+					<span css={dropdownStyles.loadingOverlay}>
+						<Spinner
+							size={'xsmall'}
+							label=", Loading"
+							testId={testId ? `${testId}--loading-spinner` : undefined}
+						/>
+					</span>
+				)}
+			</Pressable>
+		);
 });
 
 /**

@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-provider
 
+## 4.3.3
+
+### Patch Changes
+
+- [`15deee785151b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15deee785151b) -
+  EDITOR-6174 Pass node to createBodiedSyncBlockNode to cache content on creation, preventing false
+  unsaved changes on page refresh
+- Updated dependencies
+
 ## 4.3.2
 
 ### Patch Changes

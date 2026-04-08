@@ -3,5 +3,14 @@
 	"include": ["./src/**/*", "./scripts/*"],
 	"compilerOptions": {
 		"removeComments": false
+	},
+	"ts-node": {
+		"transpileOnly": true,
+		"files": true,
+		"compilerOptions": {
+			"module": "CommonJS",
+			"moduleResolution": "bundler",
+			"verbatimModuleSyntax": false
+		}
 	}
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-viewer",
-	"version": "52.9.2",
+	"version": "52.9.3",
 	"description": "MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -133,6 +133,9 @@
 			"type": "boolean"
 		},
 		"platform_media_react19_support": {
+			"type": "boolean"
+		},
+		"platform_media_a11y_suppression_fixes": {
 			"type": "boolean"
 		}
 	},

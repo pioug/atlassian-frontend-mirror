@@ -114,6 +114,10 @@ export type HoverCardContentProps = {
 	hoverPreviewOptions?: HoverPreviewOptions;
 	id?: string;
 	onActionClick: (actionId: string | ActionName) => void;
+	/**
+	 * Closes the hover card popup (e.g. secondary actions like "Maybe later").
+	 */
+	onDismiss?: () => void;
 	onMouseEnter?: MouseEventHandler;
 	onMouseLeave?: MouseEventHandler;
 	onResolve: () => void;
@@ -122,10 +126,16 @@ export type HoverCardContentProps = {
 	url: string;
 };
 
+export type ContentContainerWidthAppearance = 'default' | 'slim';
+
 export type ContentContainerProps = React.HTMLAttributes<HTMLDivElement> & {
 	isAIEnabled?: boolean;
 	testId?: string;
 	url: string;
+	/**
+	 * Visual width preset for the hover card shell. Omit or `undefined` uses `'default'`.
+	 */
+	widthAppearance?: ContentContainerWidthAppearance;
 };
 
 export type ImagePreviewProps = {

@@ -62,6 +62,9 @@
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../spinner/tsconfig.app.json"
+		},
+		{
 			"path": "../../people-and-teams/teams-avatar/tsconfig.app.json"
 		},
 		{

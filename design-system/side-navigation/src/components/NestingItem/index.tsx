@@ -19,8 +19,8 @@ import { ROOT_ID } from '../NestableNavigationContent';
 import {
 	NestedContext,
 	type NestedContextValue,
-	useNestedContext,
-} from '../NestableNavigationContent/context';
+} from '../NestableNavigationContent/nested-context';
+import { useNestedContext } from '../NestableNavigationContent/use-nested-context';
 
 const styles = cssMap({
 	iconContainer: {

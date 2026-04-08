@@ -14,3 +14,50 @@ snapshot(StatefulWithToggleEnabled, {
 		},
 	],
 });
+
+snapshot(Stateful, {
+	description: 'stateful - atomic',
+	featureFlags: {
+		'platform-toggle-atomic-styles': true,
+	},
+});
+
+snapshot(StatefulWithToggleEnabled, {
+	description: 'stateful with toggle enabled - atomic',
+	featureFlags: {
+		'platform-toggle-atomic-styles': true,
+	},
+});
+
+snapshot(StatefulWithToggleEnabled, {
+	description: 'stateful with toggle enabled - atomic - hovered checked',
+	featureFlags: {
+		'platform-toggle-atomic-styles': true,
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'toggle-button' },
+		},
+	],
+});
+
+snapshot(StatefulWithToggleEnabled, {
+	description: 'stateful with toggle enabled - atomic - focused',
+	featureFlags: {
+		'platform-toggle-atomic-styles': true,
+	},
+	states: [
+		{
+			state: 'focused',
+			selector: { byTestId: 'toggle-button' },
+		},
+	],
+});
+
+snapshot(Disabled, {
+	description: 'disabled - atomic',
+	featureFlags: {
+		'platform-toggle-atomic-styles': true,
+	},
+});

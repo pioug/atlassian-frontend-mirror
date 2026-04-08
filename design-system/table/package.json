@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/table",
-	"version": "0.14.7",
+	"version": "0.14.8",
 	"description": "A table is used to display data.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -9,6 +9,13 @@
 	},
 	"homepage": "https://atlassian.design/components/table",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Design System Team",
 		"website": {
 			"name": "Table",
@@ -66,6 +73,7 @@
 		"@atlaskit/dynamic-table": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"raw-loader": "root:*",

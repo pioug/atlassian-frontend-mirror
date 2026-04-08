@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link",
-	"version": "3.3.3",
+	"version": "3.4.0",
 	"description": "A link takes people to a new location in the app or another website.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,13 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Design System Team",
 		"website": {
 			"name": "Link",
@@ -32,7 +39,8 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./link": "./src/entry-points/link.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/css": "workspace:^",
@@ -54,6 +62,7 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*"

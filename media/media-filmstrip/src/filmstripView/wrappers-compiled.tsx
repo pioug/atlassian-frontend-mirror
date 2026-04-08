@@ -9,6 +9,7 @@ import ArrowRight from '@atlaskit/icon/core/arrow-right';
 import { MediaFilmStripListItemSelector } from '.';
 import { css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const filmStripViewStyles = css({
 	position: 'relative',
@@ -120,6 +121,11 @@ const shadowStyles = css({
 	backgroundColor: token('color.border'),
 });
 
+const resetButtonStyle = css({
+	all: "unset",
+	display: "block"
+});
+
 const shadowLeftStyles = css({
 	left: 0,
 });
@@ -141,12 +147,30 @@ export const ArrowLeftWrapper = ({
 	onClick,
 }: {
 	children: ReactNode;
-} & OnClick) => (
-	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/no-classname-prop, @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions -- Ignored via go/DSP-18766
-	<div css={[arrowWrapperStyles, arrowLeftWrapperStyles]} className="arrow" onClick={onClick}>
-		{children}
-	</div>
-);
+} & OnClick) => {
+	return (
+		fg('platform_media_a11y_suppression_fixes') ? (
+			<button
+				css={[resetButtonStyle, arrowWrapperStyles, arrowLeftWrapperStyles]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className="arrow"
+				onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
+			>
+				{children}
+			</button>
+		) : (
+			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+			<div
+				css={[arrowWrapperStyles, arrowLeftWrapperStyles]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className="arrow"
+				onClick={onClick}
+			>
+				{children}
+			</div>
+		)
+	)
+};
 
 export const ShadowRight = ({ children }: { children: ReactNode }) => (
 	<div css={[shadowStyles, shadowRightStyles]}>{children}</div>
@@ -157,12 +181,31 @@ export const ArrowRightWrapper = ({
 	onClick,
 }: {
 	children: ReactNode;
-} & OnClick) => (
-	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/no-classname-prop, @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions -- Ignored via go/DSP-18766
-	<div css={[arrowWrapperStyles, arrowRightWrapperStyles]} className="arrow" onClick={onClick}>
-		{children}
-	</div>
-);
+} & OnClick) => {
+
+	return (
+		fg('platform_media_a11y_suppression_fixes') ? (
+			<button
+				css={[resetButtonStyle, arrowWrapperStyles, arrowRightWrapperStyles]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className="arrow"
+				onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
+			>
+				{children}
+			</button>
+		) : (
+			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+			<div
+				css={[arrowWrapperStyles, arrowRightWrapperStyles]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className="arrow"
+				onClick={onClick}
+			>
+				{children}
+			</div>
+		)
+	)
+};
 
 export const LeftArrow: React.FC<OnClick> = ({ onClick }: OnClick) => (
 	<ShadowLeft>

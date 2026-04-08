@@ -13,9 +13,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Grid, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { avatarUrl } from '../examples-util/data';
 import loomCircleImage from '../examples-util/loom-circle.svg';
 import ExampleImg from '../examples-util/nucleus.png';
+
+const avatarUrl: string =
+	'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg';
 
 const exampleColors = [token('color.background.neutral'), token('color.background.input.pressed')];
 

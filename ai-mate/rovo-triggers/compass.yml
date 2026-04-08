@@ -1,0 +1,36 @@
+configVersion: 1
+id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/ca5b6629-85fe-442c-8946-01fc4e33a3d4'
+name: platform/conversation-assistant
+description: rovo-chat-fe
+ownerId: 'ari:cloud:identity::team/14c97034-d86b-45c9-8a6e-872e0cbbd69b'
+typeId: OTHER
+fields:
+  tier: 3
+  lifecycle: Active
+labels:
+  - ai-mate
+  - rovo-chat-fe
+  - conversation-assistant
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Rovo Chat
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(4)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Where to log bugs with template
+    type: PROJECT
+    url: 'https://product-fabric.atlassian.net/jira/software/projects/ROVOFE/boards/5135'
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: 'https://atlassian.enterprise.slack.com/archives/C0677M19GU9'

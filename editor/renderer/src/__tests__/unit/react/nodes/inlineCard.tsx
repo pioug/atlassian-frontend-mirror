@@ -9,6 +9,7 @@ import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/l
 import { Card } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { Pressable } from '@atlaskit/primitives/compiled';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import InlineCard from '../../../../react/nodes/inlineCard';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -22,6 +23,11 @@ jest.mock('@atlaskit/smart-card', () => {
 		Card: jest.fn((props) => <originalModule.Card {...props} />),
 	};
 });
+
+jest.mock('@atlaskit/editor-common/provider-factory', () => ({
+	...jest.requireActual('@atlaskit/editor-common/provider-factory'),
+	useProvider: jest.fn(),
+}));
 
 jest.mock('@atlaskit/smart-card/ssr', () => {
 	const originalModule = jest.requireActual('@atlaskit/smart-card/ssr');
@@ -286,4 +292,66 @@ describe('Renderer - React/Nodes/InlineCard - CompetitorPrompt', () => {
 		expect(competitorPrompt).toHaveTextContent('inline');
 		expect(MockCompetitorPrompt).toHaveBeenCalled();
 	});
+});
+
+describe('Renderer - React/Nodes/InlineCard - platform_editor_smartlink_local_cache useEffect', () => {
+	const mockRefreshCache = jest.fn();
+	const { useProvider } = require('@atlaskit/editor-common/provider-factory');
+
+	beforeEach(() => {
+		jest.clearAllMocks();
+		(useProvider as jest.Mock).mockReturnValue(
+			Promise.resolve({ refreshCache: mockRefreshCache }),
+		);
+	});
+
+	eeTest.describe('platform_editor_smartlink_local_cache', 'when experiment isEnabled').variant(
+		true,
+		() => {
+			it('should call refreshCache with the inlineCard type and url', async () => {
+				render(
+					<Provider client={new Client('staging')}>
+						<InlineCard url={url} />
+					</Provider>,
+				);
+
+				// Flush the provider.then() microtask inside the useEffect
+				await new Promise((resolve) => setTimeout(resolve, 0));
+
+				expect(mockRefreshCache).toHaveBeenCalledWith({
+					type: 'inlineCard',
+					attrs: { url },
+				});
+			});
+
+			it('should not call refreshCache when url is not provided', async () => {
+				render(
+					<Provider client={new Client('staging')}>
+						<InlineCard />
+					</Provider>,
+				);
+
+				await new Promise((resolve) => setTimeout(resolve, 0));
+
+				expect(mockRefreshCache).not.toHaveBeenCalled();
+			});
+		},
+	);
+
+	eeTest.describe('platform_editor_smartlink_local_cache', 'when experiment isEnabled').variant(
+		false,
+		() => {
+			it('should not call refreshCache', async () => {
+				render(
+					<Provider client={new Client('staging')}>
+						<InlineCard url={url} />
+					</Provider>,
+				);
+
+				await new Promise((resolve) => setTimeout(resolve, 0));
+
+				expect(mockRefreshCache).not.toHaveBeenCalled();
+			});
+		},
+	);
 });

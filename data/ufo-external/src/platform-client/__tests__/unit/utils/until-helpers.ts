@@ -6,13 +6,7 @@ import {
 } from '../../../core';
 import { untilAll } from '../../../utils/until-helpers';
 
-let mockFgEnabled = false;
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: (flag: string) => flag === 'platform_ufo_enable_untilall_parent_fix' && mockFgEnabled,
-}));
-
 describe('untilAll helper', () => {
-	beforeAll(() => {});
 
 	test('untilAll with 1 success experience', async () => {
 		const experience = new UFOExperience('test', {
@@ -150,16 +144,6 @@ describe('untilAll helper', () => {
 		expect(res1.state).toBe(UFOExperienceState.FAILED);
 		expect(res2.done).toBe(false);
 		expect(res2.state).toBe(undefined);
-	});
-});
-
-describe('untilAll helper with platform_ufo_enable_untilall_parent_fix enabled', () => {
-	beforeAll(() => {
-		mockFgEnabled = true;
-	});
-
-	afterAll(() => {
-		mockFgEnabled = false;
 	});
 
 	test('untilAll should ignore failures from unrelated experiences', async () => {

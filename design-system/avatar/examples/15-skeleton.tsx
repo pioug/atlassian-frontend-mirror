@@ -7,7 +7,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { Block } from '../examples-util/helpers';
+import { Block } from '../examples-util/block';
 
 const styles = cssMap({
 	textColor: {

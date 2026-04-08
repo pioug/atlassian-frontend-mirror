@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import PlacementsExample from '../../examples/constellation/placements';
 import SingleStepExample from '../../examples/constellation/single-step';
 import MultipleStepsExample from '../../examples/constellation/multiple-steps';
@@ -9,6 +10,13 @@ import MediaExample from '../../examples/constellation/media';
 import ControlsExample from '../../examples/constellation/controls';
 import MotionExample from '../../examples/constellation/motion';
 import ActionsExample from '../../examples/constellation/actions';
+
+<SectionMessage
+	title="Motion in Early Access"
+	appearance="warning"
+>
+	The motion added into Spotlight is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+</SectionMessage>
 
 ## Single step
 
@@ -22,7 +30,11 @@ To show/hide the `SpotlightCard`, simply use a `useState` to control the `isVisi
 `PopoverContent`. To position the `SpotlightCard`, use `PopoverProvider`, `PopoverTarget` and
 `PopoverContent` and set the `placement` prop.
 
-<Example Component={SingleStepExample} packageName="@atlaskit/spotlight" />
+<Example
+    Component={SingleStepExample}
+    packageName="@atlaskit/spotlight"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Multi-step tour
 
@@ -31,7 +43,11 @@ Multiple steps should be avoided if possible, but if they are required, manage t
 will often need to be wrapping the entire `App` and therefore will cause the entire `App` to
 re-render every time a new spotlight step is shown.
 
-<Example Component={MultipleStepsExample} packageName="@atlaskit/spotlight" />
+<Example
+    Component={MultipleStepsExample}
+    packageName="@atlaskit/spotlight"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Placements
 
@@ -39,7 +55,11 @@ Spotlight placements are static. They do not change as the user scrolls, or if t
 overflows out of the viewport. Make sure to choose a placement that ensures the `SpotlightCard` is
 displayed in full.
 
-<Example Component={PlacementsExample} packageName="@atlaskit/spotlight" />
+<Example
+    Component={PlacementsExample}
+    packageName="@atlaskit/spotlight"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Media
 
@@ -48,7 +68,11 @@ correct reflow on smaller viewports, media must be 295px width X 135px height.
 
 Media can be an image, gif, or video that helps communicate spotlight intent.
 
-<Example Component={MediaExample} packageName="@atlaskit/spotlight" />
+<Example
+    Component={MediaExample}
+    packageName="@atlaskit/spotlight"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Controls
 
@@ -60,7 +84,11 @@ focusable element on the `SpotlightCard` card to provide an accessible experienc
 `@atlaskit/spotlight` can be composed with `@atlaskit/motion` or other CSS animation packages to
 create smooth 'enter' or 'exit' transitions.
 
-<Example Component={MotionExample} packageName="@atlaskit/spotlight" />
+<Example
+    Component={MotionExample}
+    packageName="@atlaskit/spotlight"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Actions
 
@@ -77,4 +105,8 @@ When the primary or secondary control should navigate to a URL instead of perfor
 `SpotlightPrimaryAction` and `SpotlightSecondaryAction` but render as links (e.g. "Get started",
 "Learn more").
 
-<Example Component={ActionsExample} packageName="@atlaskit/spotlight" />
+<Example
+    Component={ActionsExample}
+    packageName="@atlaskit/spotlight"
+	featureFlagSwitchers={['motion']}
+/>

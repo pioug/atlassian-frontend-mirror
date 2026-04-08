@@ -1,5 +1,21 @@
 # @atlaskit/spinner
 
+## 19.1.0
+
+### Minor Changes
+
+- [`8fdea38bd31f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fdea38bd31f8) -
+  Autofix: add explicit package exports (barrel removal)
+
+## 19.0.14
+
+### Patch Changes
+
+- [`02483200273ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02483200273ec) -
+  Enrol all Design System UI packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+- Updated dependencies
+
 ## 19.0.13
 
 ### Patch Changes

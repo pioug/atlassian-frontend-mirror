@@ -368,8 +368,14 @@ export class SourceSyncBlockStoreManager {
 	/**
 	 * Create a bodiedSyncBlock node with empty content to backend
 	 * @param attrs attributes Ids of the node
+	 * @param node the ProseMirror node to cache
+	 * @param onCompletion callback invoked when creation completes
 	 */
-	public createBodiedSyncBlockNode(attrs: SyncBlockAttrs, onCompletion: OnCompletion): void {
+	public createBodiedSyncBlockNode(
+		attrs: SyncBlockAttrs,
+		node: PMNode,
+		onCompletion: OnCompletion,
+	): void {
 		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
 			return;
 		}
@@ -378,6 +384,11 @@ export class SourceSyncBlockStoreManager {
 		try {
 			if (!this.dataProvider) {
 				throw new Error('Data provider not set');
+			}
+
+			if (fg('platform_synced_block_update_refactor')) {
+				// add the node to the cache
+				this.updateSyncBlockData(node);
 			}
 
 			this.creationCompletionCallbacks.set(resourceId, onCompletion);

@@ -34,14 +34,22 @@ export function flattenTaskList(options: FlattenListOptions): FlattenListResult 
 // The root entry (depth -1) is special: its children become the content
 // of the outermost taskList directly (not wrapped in another taskList).
 // Entries at depth >= 0 each produce a nested taskList when popped.
-// listAttrs preserves the original parent's attributes when available.
-// sourceParentAttrs tracks the original parent taskList attrs of the items
-// in this entry, used to decide whether consecutive same-depth items
-// should share a wrapper or be separated.
 type StackEntry = {
+	// Accumulated child nodes for this wrapper level.
 	children: PMNode[];
+	// Nesting depth this entry represents (-1 = root, 0+ = nested levels).
 	depth: number;
+	// True once a selected (moved) item has been added to this entry.
+	// When set, the sourceParentAttrs split check is suppressed so that
+	// subsequent unselected siblings merge into the same wrapper rather
+	// than producing a separate sibling taskList.
+	hasSelectedItems: boolean;
+	// Original attrs of the parent taskList, used to preserve list identity
+	// when possible. Null for entries created for moved (selected) items.
 	listAttrs: Attrs | null;
+	// The parentListAttrs of the first item placed in this entry.
+	// Used to decide whether consecutive same-depth unselected items
+	// should share this wrapper or start a new one.
 	sourceParentAttrs: Attrs | null;
 };
 
@@ -84,6 +92,7 @@ export function rebuildTaskList(
 		{
 			depth: -1,
 			children: [],
+			hasSelectedItems: false,
 			listAttrs: items[0].parentListAttrs,
 			sourceParentAttrs: items[0].parentListAttrs,
 		},
@@ -109,9 +118,12 @@ export function rebuildTaskList(
 		// separate wrappers (preserving original nesting). Selected (moved)
 		// items always merge with whatever is already at the target depth,
 		// since they're being placed into a new structural context.
+		// However, if the current entry already contains selected (moved) items,
+		// we do NOT split — the unselected sibling should join the same wrapper
+		// because the selected item established the new structural context.
 		if (stack.length > 1 && stack[stack.length - 1].depth === targetDepth && !item.isSelected) {
 			const top = stack[stack.length - 1];
-			if (top.sourceParentAttrs !== item.parentListAttrs) {
+			if (top.sourceParentAttrs !== item.parentListAttrs && !top.hasSelectedItems) {
 				const popped = stack.pop();
 				if (!popped) {
 					break;
@@ -131,6 +143,7 @@ export function rebuildTaskList(
 			stack.push({
 				depth: nextDepth,
 				children: [],
+				hasSelectedItems: false,
 				listAttrs: item.isSelected ? null : item.parentListAttrs,
 				sourceParentAttrs: item.parentListAttrs,
 			});
@@ -140,17 +153,24 @@ export function rebuildTaskList(
 		if (targetDepth === 0) {
 			// Depth 0 items go directly into the root taskList
 			stack[0].children.push(item.node);
+			if (item.isSelected) {
+				stack[0].hasSelectedItems = true;
+			}
 		} else {
 			// Ensure there's a stack entry at depth targetDepth to hold this item
 			if (stack[stack.length - 1].depth < targetDepth) {
 				stack.push({
 					depth: targetDepth,
 					children: [],
+					hasSelectedItems: false,
 					listAttrs: item.isSelected ? null : item.parentListAttrs,
 					sourceParentAttrs: item.parentListAttrs,
 				});
 			}
 			stack[stack.length - 1].children.push(item.node);
+			if (item.isSelected) {
+				stack[stack.length - 1].hasSelectedItems = true;
+			}
 		}
 	}
 

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 11.4.8
+
+### Patch Changes
+
+- [`e3da94ed988bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3da94ed988bc) -
+  Fix task list indentation producing two sibling taskLists when indenting an item that has a nested
+  sibling. When a selected (moved) item establishes a wrapper at a given depth, subsequent
+  unselected items at the same depth now merge into that wrapper rather than creating a separate
+  sibling taskList.
+- Updated dependencies
+
 ## 11.4.7
 
 ### Patch Changes

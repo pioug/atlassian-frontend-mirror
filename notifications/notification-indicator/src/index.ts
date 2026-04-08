@@ -25,7 +25,6 @@ const NotificationIndicatorWithAnalytics: ForwardRefExoticComponent<
 		refreshOnHidden?: boolean | undefined;
 		refreshOnVisibilityChange?: boolean | undefined;
 		refreshRate?: number | undefined;
-		routingWorkspaceId?: string | undefined;
 		ssrInitialValue?: number | undefined;
 	} & {
 		createAnalyticsEvent?: any;

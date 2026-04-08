@@ -12,11 +12,13 @@ import {
 	findParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPluginOptions } from '../types';
 
 import { fixColumnSizes, fixColumnStructure, getSelectedLayout } from './actions';
+import { getColumnDividerDecorations } from './column-resize-divider';
 import { EVEN_DISTRIBUTED_COL_WIDTHS } from './consts';
 import { pluginKey } from './plugin-key';
 import type { Change, LayoutState } from './types';
@@ -128,9 +130,23 @@ const handleDeleteLayoutColumn: Command = (state, dispatch) => {
 	return false;
 };
 
-export default (options: LayoutPluginOptions): SafePlugin<LayoutState> =>
-	new SafePlugin<LayoutState>({
+export default (options: LayoutPluginOptions): SafePlugin<LayoutState> => {
+	// Store a reference to the EditorView so widget decorations can dispatch transactions
+	let editorViewRef: EditorView | undefined;
+
+	return new SafePlugin<LayoutState>({
 		key: pluginKey,
+		view(view) {
+			editorViewRef = view;
+			return {
+				update(updatedView) {
+					editorViewRef = updatedView;
+				},
+				destroy() {
+					editorViewRef = undefined;
+				},
+			};
+		},
 		state: {
 			init: (_, state): LayoutState => getInitialPluginState(options, state),
 
@@ -163,6 +179,23 @@ export default (options: LayoutPluginOptions): SafePlugin<LayoutState> =>
 		props: {
 			decorations(state) {
 				const layoutState = pluginKey.getState(state) as LayoutState;
+
+				if (
+					editorExperiment('advanced_layouts', true) &&
+					editorExperiment('platform_editor_layout_column_resize_handle', true)
+				) {
+					const dividerDecorations = getColumnDividerDecorations(state, editorViewRef);
+					const selectedDecorations =
+						layoutState.pos !== null
+							? getNodeDecoration(layoutState.pos, state.doc.nodeAt(layoutState.pos) as Node)
+							: [];
+					const allDecorations = [...selectedDecorations, ...dividerDecorations];
+					if (allDecorations.length > 0) {
+						return DecorationSet.create(state.doc, allDecorations);
+					}
+					return undefined;
+				}
+
 				if (layoutState.pos !== null) {
 					return DecorationSet.create(
 						state.doc,
@@ -203,6 +236,14 @@ export default (options: LayoutPluginOptions): SafePlugin<LayoutState> =>
 
 				// don't consider transactions that don't mutate
 				if (!prevTr.docChanged) {
+					return;
+				}
+
+				// Skip fixing column sizes for column resize drag transactions
+				if (
+					editorExperiment('platform_editor_layout_column_resize_handle', true) &&
+					prevTr.getMeta('layoutColumnResize')
+				) {
 					return;
 				}
 
@@ -250,3 +291,4 @@ export default (options: LayoutPluginOptions): SafePlugin<LayoutState> =>
 			return;
 		},
 	});
+};

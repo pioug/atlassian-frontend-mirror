@@ -108,6 +108,9 @@ import {
 	layoutBaseStylesFixesUnderNestedDnDFG,
 	layoutColumnMartinTopFixesNew,
 	layoutColumnMartinTopFixesOld,
+	layoutColumnDividerStyles,
+	layoutColumnDividerStylesNestedDnD,
+	layoutColumnResizeStyles,
 	layoutColumnResponsiveStyles,
 	layoutColumnStylesAdvanced,
 	layoutColumnStylesNotAdvanced,
@@ -645,11 +648,24 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							layoutSectionStylesAdvanced
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							layoutSectionStylesNotAdvanced,
+					editorExperiment('advanced_layouts', true) &&
+						editorExperiment('platform_editor_layout_column_resize_handle', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						layoutColumnDividerStyles,
+					editorExperiment('advanced_layouts', true) &&
+						editorExperiment('platform_editor_layout_column_resize_handle', true) &&
+						fg('platform_editor_nested_dnd_styles_changes') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						layoutColumnDividerStylesNestedDnD,
 					editorExperiment('advanced_layouts', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							layoutColumnStylesAdvanced
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							layoutColumnStylesNotAdvanced,
+					editorExperiment('advanced_layouts', true) &&
+						editorExperiment('platform_editor_layout_column_resize_handle', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						layoutColumnResizeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

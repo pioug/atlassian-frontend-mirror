@@ -5,7 +5,7 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar';
 import { type AppearanceType } from '@atlaskit/avatar/types';
 
-import { Block } from './helpers';
+import { Block } from './block';
 
 interface WithAllAvatarSizesProps {
 	presence?: JSX.Element;

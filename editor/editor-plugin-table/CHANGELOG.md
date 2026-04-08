@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 18.1.23
+
+### Patch Changes
+
+- [`bd6a75f50c1e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd6a75f50c1e9) -
+  [ux] [EDITOR-6267] add support to SelectAll table keymap to first select the active table cell
+  behind experiment `platform_editor_lovability_select_all_shortcut`
+- Updated dependencies
+
 ## 18.1.22
 
 ### Patch Changes

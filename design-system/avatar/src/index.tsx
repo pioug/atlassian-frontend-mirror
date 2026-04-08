@@ -11,7 +11,9 @@ export { default as Skeleton } from './skeleton';
 export type { SkeletonProps } from './skeleton';
 export { default as getAppearanceForAppType } from './get-appearance';
 
-export { AvatarContext, type AvatarContextProps, useAvatarContext } from './context';
+export { AvatarContext } from './avatar-context';
+export type { AvatarContextProps } from './avatar-context';
+export { useAvatarContext } from './use-avatar-context';
 
 export { AVATAR_SIZES, BORDER_WIDTH, AVATAR_RADIUS, ACTIVE_SCALE_FACTOR } from './constants';
 

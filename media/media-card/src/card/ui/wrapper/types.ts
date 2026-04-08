@@ -24,4 +24,5 @@ export interface WrapperProps {
 	shouldDisplayTooltip: boolean;
 	innerRef?: React.Ref<HTMLDivElement>;
 	children?: JSX.Element;
+	ariaLabel?: string;
 }

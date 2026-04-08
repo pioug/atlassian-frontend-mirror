@@ -7,7 +7,8 @@ import {
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+import { componentWithCondition, functionUnionWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
@@ -31,8 +32,33 @@ import HoverCardForbiddenView from './views/forbidden';
 import HoverCardResolvedView from './views/resolved';
 import HoverCardLoadingView from './views/resolving';
 import HoverCardUnauthorisedView from './views/unauthorised';
+import RovoUnauthorisedView from './views/unauthorised/RovoUnauthorisedView';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
+
+const useIsResolvedView = ({cardState, hoverPreviewOptions}: Pick<HoverCardContentProps, 'cardState' | 'hoverPreviewOptions'>): boolean => {
+	return !hoverPreviewOptions?.render?.() && cardState.status === 'resolved';
+}
+
+const useServices = ({url}: Pick<HoverCardContentProps, 'url'>) => {
+	const linkState = useSmartCardState(url);
+	const services = getServices(linkState.details);
+	return services;
+}
+
+const useIsUnauthorisedView = ({cardState, url, hoverPreviewOptions}: Pick<HoverCardContentProps, 'cardState' | 'url' | 'hoverPreviewOptions'>): boolean => {
+	const services = useServices({url});
+	return !hoverPreviewOptions?.render?.() && cardState.status === 'unauthorized' && Boolean(services?.length);
+}
+
+const useIsShowPreauthBetterHovercard = (props: Parameters<typeof useIsUnauthorisedView>[0]): boolean => {
+	const rovoConfig = useRovoConfig();
+	return Boolean(
+		useIsUnauthorisedView(props) &&
+		rovoConfig?.isRovoEnabled &&
+		expValEquals('platform_sl_3p_preauth_better_hovercard', 'isEnabled', true)
+	);
+}
 
 const HoverCardContent = ({
 	id = '',
@@ -43,6 +69,7 @@ const HoverCardContent = ({
 	url,
 	onMouseEnter,
 	onMouseLeave,
+	onDismiss,
 	actionOptions,
 	hoverPreviewOptions,
 	showRovoResolvedView,
@@ -151,101 +178,215 @@ const HoverCardContent = ({
 
 	const onClickStopPropagation = useCallback((e: any) => e.stopPropagation(), []);
 
-	const getCardView = (cardState: CardState) => {
-		const overrideView = hoverPreviewOptions?.render?.();
-		if (overrideView) {
-			return overrideView;
-		}
+	const useIsResolvedViewGated = functionUnionWithCondition(
+		() => fg('platform_sl_3p_preauth_better_hovercard_killswitch'),
+		useIsResolvedView,
+		() => undefined,
+	);
 
-		if (cardState.status === 'errored' && fg('navx-2478-sl-fix-hover-card-unresolved-view')) {
+	const useIsUnauthorisedViewGated = functionUnionWithCondition(
+		() => fg('platform_sl_3p_preauth_better_hovercard_killswitch'),
+		useIsUnauthorisedView,
+		() => undefined,
+	);
+
+	const useIsShowPreauthBetterHovercardGated = functionUnionWithCondition(
+		() => fg('platform_sl_3p_preauth_better_hovercard_killswitch'),
+		useIsShowPreauthBetterHovercard,
+		() => undefined,
+	);
+
+	const isResolved = useIsResolvedViewGated({ cardState, hoverPreviewOptions });
+	const isUnauthorised = useIsUnauthorisedViewGated({ cardState, url, hoverPreviewOptions });
+	const showPreauthBetterHovercard = useIsShowPreauthBetterHovercardGated({
+		cardState,
+		url,
+		hoverPreviewOptions,
+	});
+
+	if(fg('platform_sl_3p_preauth_better_hovercard_killswitch')) {
+		const cardView = ((): React.ReactNode | null => {
+			const overrideView = hoverPreviewOptions?.render?.();
+			if (overrideView) {
+				return overrideView;
+			}
+
+			if (cardState.status === 'errored' && fg('navx-2478-sl-fix-hover-card-unresolved-view')) {
+				return null;
+			}
+
+			if (
+				fg('navx-2478-sl-fix-hover-card-unresolved-view')
+					? cardState.status === 'resolving' || cardState.metadataStatus === 'pending'
+					: cardState.metadataStatus === 'pending'
+			) {
+				return (
+					<HoverCardLoadingView
+						flexibleCardProps={flexibleCardProps}
+						titleBlockProps={titleBlockProps}
+					/>
+				);
+			}
+
+			if (isUnauthorised) {
+				if (showPreauthBetterHovercard) {
+					return (
+						<RovoUnauthorisedView
+							extensionKey={extensionKey}
+							id={id}
+							flexibleCardProps={flexibleCardProps}
+							onDismiss={onDismiss}
+							url={url}
+						/>
+					);
+				}
+				return (
+					<HoverCardUnauthorisedView
+						extensionKey={extensionKey}
+						id={id}
+						flexibleCardProps={flexibleCardProps}
+						url={url}
+					/>
+				);
+			}
+
+			if (cardState.status === 'forbidden' || cardState.status === 'not_found') {
+				return <HoverCardForbiddenView flexibleCardProps={flexibleCardProps} />;
+			}
+
+			if (isResolved) {
+				return (
+					<HoverCardResolvedView
+						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+							? { actionOptions, showRovoResolvedView }
+							: undefined)}
+						cardState={cardState}
+						extensionKey={extensionKey}
+						flexibleCardProps={flexibleCardProps}
+						isAISummaryEnabled={isAISummaryEnabled}
+						onActionClick={onActionClick}
+						titleBlockProps={titleBlockProps}
+						url={url}
+					/>
+				);
+			}
 			return null;
-		}
+		})();
 
-		if (
-			fg('navx-2478-sl-fix-hover-card-unresolved-view')
-				? cardState.status === 'resolving' || cardState.metadataStatus === 'pending'
-				: cardState.metadataStatus === 'pending'
-		) {
-			return (
-				<HoverCardLoadingView
-					flexibleCardProps={flexibleCardProps}
-					titleBlockProps={titleBlockProps}
-				/>
-			);
-		}
-
-		if (cardState.status === 'unauthorized' && services?.length) {
-			return (
-				<HoverCardUnauthorisedView
-					extensionKey={extensionKey}
-					id={id}
-					flexibleCardProps={flexibleCardProps}
-					url={url}
-				/>
-			);
-		}
-
-		if (cardState.status === 'forbidden' || cardState.status === 'not_found') {
-			return <HoverCardForbiddenView flexibleCardProps={flexibleCardProps} />;
-		}
-
-		if (cardState.status === 'resolved') {
-			return (
-				<HoverCardResolvedView
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
-						? { actionOptions, showRovoResolvedView }
-						: undefined)}
-					cardState={cardState}
-					extensionKey={extensionKey}
-					flexibleCardProps={flexibleCardProps}
-					isAISummaryEnabled={isAISummaryEnabled}
-					onActionClick={onActionClick}
-					titleBlockProps={titleBlockProps}
-					url={url}
-				/>
-			);
-		}
-		return null;
-	};
-	const cardView = getCardView(cardState);
-	return cardView ? (
-		<ContentContainer
-			onMouseEnter={onMouseEnter}
-			onMouseLeave={onMouseLeave}
-			onClick={onClickStopPropagation}
-			isAIEnabled={isAISummaryEnabled}
-			url={url}
-		>
-			{cardView}
-		</ContentContainer>
-	) : null;
+		return cardView ? (
+			<ContentContainer
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
+				onClick={onClickStopPropagation}
+				widthAppearance={showPreauthBetterHovercard ? 'slim' : undefined}
+				isAIEnabled={isAISummaryEnabled}
+				url={url}
+			>
+				{cardView}
+			</ContentContainer>
+		) : null;
+	} else {
+		const getCardView = (cardState: CardState) => {
+			const overrideView = hoverPreviewOptions?.render?.();
+			if (overrideView) {
+				return overrideView;
+			}
+	
+			if (cardState.status === 'errored' && fg('navx-2478-sl-fix-hover-card-unresolved-view')) {
+				return null;
+			}
+	
+			if (
+				fg('navx-2478-sl-fix-hover-card-unresolved-view')
+					? cardState.status === 'resolving' || cardState.metadataStatus === 'pending'
+					: cardState.metadataStatus === 'pending'
+			) {
+				return (
+					<HoverCardLoadingView
+						flexibleCardProps={flexibleCardProps}
+						titleBlockProps={titleBlockProps}
+					/>
+				);
+			}
+	
+			if (cardState.status === 'unauthorized' && services?.length) {
+				return (
+					<HoverCardUnauthorisedView
+						extensionKey={extensionKey}
+						id={id}
+						flexibleCardProps={flexibleCardProps}
+						url={url}
+					/>
+				);
+			}
+	
+			if (cardState.status === 'forbidden' || cardState.status === 'not_found') {
+				return <HoverCardForbiddenView flexibleCardProps={flexibleCardProps} />;
+			}
+	
+			if (cardState.status === 'resolved') {
+				return (
+					<HoverCardResolvedView
+						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+							? { actionOptions, showRovoResolvedView }
+							: undefined)}
+						cardState={cardState}
+						extensionKey={extensionKey}
+						flexibleCardProps={flexibleCardProps}
+						isAISummaryEnabled={isAISummaryEnabled}
+						onActionClick={onActionClick}
+						titleBlockProps={titleBlockProps}
+						url={url}
+					/>
+				);
+			}
+			return null;
+		};
+		const cardView = getCardView(cardState);
+		return cardView ? (
+			<ContentContainer
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
+				onClick={onClickStopPropagation}
+				isAIEnabled={isAISummaryEnabled}
+				url={url}
+			>
+				{cardView}
+			</ContentContainer>
+		) : null;	
+	}
 };
 
 const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JSX.Element => {
+	const {cardState, actionOptions} = props
 	const rovoConfig = useRovoConfig();
+	const isResolved = useIsResolvedView(props);
+	const showPreauthBetterHovercard = useIsShowPreauthBetterHovercard(props);
+
 	const showRovoResolvedView = useMemo(
 		() =>
-			props?.cardState?.status === 'resolved' &&
-			props?.cardState.details &&
+			isResolved &&
+			cardState.details &&
 			extractRovoChatAction({
-				response: props?.cardState.details,
+				response: cardState.details,
 				rovoConfig,
-				actionOptions: props?.actionOptions,
+				actionOptions,
 			}) !== undefined,
-		[props?.actionOptions, props?.cardState?.details, props?.cardState?.status, rovoConfig],
+		[actionOptions, cardState.details, rovoConfig, isResolved],
 	);
 
 	const data = useMemo(() => {
-		const viewVariant =
-			showRovoResolvedView &&
-			expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true)
-				? 'rovo-resolved-view'
-				: 'default';
-
+		let viewVariant = 'default';
+		if( showRovoResolvedView &&
+			expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true)){
+			viewVariant = 'rovo-resolved-view';
+		}else if(showPreauthBetterHovercard){
+			viewVariant = 'rovo-unauthorised-view';
+		}
 		return {
 			attributes: { viewVariant },
 		};
-	}, [showRovoResolvedView]);
+	}, [showRovoResolvedView, showPreauthBetterHovercard]);
 
 	return (
 		<AnalyticsContext data={data}>
@@ -254,8 +395,13 @@ const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JS
 	);
 };
 
-export default componentWithFG(
-	'platform_sl_3p_auth_rovo_action_kill_switch',
+export default componentWithCondition(
+	() => {
+		// We need to read both of them to sutisfy some of the tests that expect both to be checked.
+		const flagA = fg('platform_sl_3p_preauth_better_hovercard_killswitch');
+		const flagB = fg('platform_sl_3p_auth_rovo_action_kill_switch');
+		return flagA || flagB;
+	},
 	HoverCardContentWithViewVariant,
 	HoverCardContent,
 );

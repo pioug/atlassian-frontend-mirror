@@ -1,6 +1,6 @@
-import React, { createContext, useContext, type ReactNode } from 'react';
+import React, { createContext, useContext, useMemo, type ReactNode } from 'react';
 
-import type { NavigationContext } from '../common/utils/getNavigationProps';
+import { type NavigationContext } from '../common/utils/getNavigationProps';
 
 const NavigationContextReact = createContext<NavigationContext | undefined>(undefined);
 
@@ -12,14 +12,28 @@ export interface TeamsNavigationProviderProps {
 /**
  * Provider for Teams internal navigation context.
  *
- * This is a thin wrapper around the headless {@link NavigationContext}. It should not implement any logic beyond providing values to hooks.
+ * Supplies a {@link NavigationContext} to all descendant Teams navigation
+ * components. When providers are nested, the closest ancestor with a valid
+ * `contextEntryPoint` is used.
  */
 export function TeamsNavigationProvider({
 	value,
 	children,
 }: TeamsNavigationProviderProps): React.JSX.Element {
+	const ancestorEntryPoint = useContext(NavigationContextReact)?.contextEntryPoint;
+
+	const contextValue = useMemo<NavigationContext>(
+		() =>
+			!value.contextEntryPoint && ancestorEntryPoint
+				? { ...value, contextEntryPoint: ancestorEntryPoint }
+				: value,
+		[ancestorEntryPoint, value],
+	);
+
 	return (
-		<NavigationContextReact.Provider value={value}>{children}</NavigationContextReact.Provider>
+		<NavigationContextReact.Provider value={contextValue}>
+			{children}
+		</NavigationContextReact.Provider>
 	);
 }
 

@@ -9,9 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { ButtonItem as Button, type ButtonItemProps } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
-import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
-
-export type { ButtonItemProps } from '@atlaskit/menu';
+import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 
 const styles = cssMap({
 	root: {

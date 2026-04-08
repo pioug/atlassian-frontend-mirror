@@ -164,16 +164,18 @@ export type { ChartColorTokens } from './types';
 export type { FrameProps } from './components/frame';
 
 export type {
-	GlobalSidebarProps,
-	TGlobalSidebar,
-	GlobalLinkMenuItemProps,
-	TGlobalLinkMenuItem,
-	GlobalExpandableMenuItemProps,
-	TGlobalExpandableMenuItem,
-	GlobalFlyOutMenuItemProps,
-	TGlobalFlyOutMenuItem,
 	GlobalProps,
 	TGlobal,
-	GlobalMainProps,
-	TGlobalMain,
+	SidebarProps,
+	TSidebar,
+	LinkMenuItemProps,
+	TLinkMenuItem,
+	ExpandableMenuItemProps,
+	TExpandableMenuItem,
+	FlyOutMenuItemProps,
+	TFlyOutMenuItem,
+	MainProps,
+	TMain,
+	HelpLinkProps,
+	THelpLink,
 } from './components/global/__generated__';

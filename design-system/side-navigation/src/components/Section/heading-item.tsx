@@ -4,18 +4,21 @@
  */
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { type HeadingItemProps, HeadingItem as MenuHeadingItem } from '@atlaskit/menu';
+import {
+	HeadingItem as MenuHeadingItem,
+	type HeadingItemProps as MenuHeadingItemProps,
+} from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
-import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
-
-export type { HeadingItemProps } from '@atlaskit/menu';
+import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 
 const styles = cssMap({
 	headingItem: {
 		paddingInline: token('space.100'),
 	},
 });
+
+export interface HeadingItemProps extends MenuHeadingItemProps {}
 
 /**
  * __Heading item__

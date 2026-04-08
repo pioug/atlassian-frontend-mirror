@@ -8,7 +8,7 @@ import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { Block } from '../examples-util/helpers';
+import { Block } from '../examples-util/block';
 
 const styles = {
 	custom: css({

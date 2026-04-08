@@ -1,5 +1,13 @@
 # @atlaskit/visually-hidden
 
+## 3.0.5
+
+### Patch Changes
+
+- [`02483200273ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02483200273ec) -
+  Enrol all Design System UI packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+
 ## 3.0.4
 
 ### Patch Changes

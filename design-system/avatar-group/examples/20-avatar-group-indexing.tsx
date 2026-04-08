@@ -6,7 +6,8 @@ import AvatarGroup from '@atlaskit/avatar-group';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 
-import { appearances, RANDOM_USERS } from '../examples-util/data';
+import { appearances } from '../examples-util/appearances';
+import { RANDOM_USERS } from '../examples-util/random-users';
 
 type State = {
 	avatarCount: number;

@@ -1,5 +1,18 @@
 # @atlaskit/teams-client
 
+## 4.31.0
+
+### Minor Changes
+
+- [`a8d191380f754`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8d191380f754) -
+  Remove dead code from teams-client package
+
+## 4.30.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.30.2
 
 ### Patch Changes

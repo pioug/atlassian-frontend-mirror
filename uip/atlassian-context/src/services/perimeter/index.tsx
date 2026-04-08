@@ -15,7 +15,7 @@ import { type AtlCtxCookieValues, parseAtlCtxCookies } from '../atl-cookies-look
 export function isIsolatedCloud(): boolean {
 	if (typeof document === 'undefined') {
 		// @ts-ignore
-		return globalThis.ssrContext.isInIC;
+		return globalThis.ssrContext?.isInIC ?? false;
 	}
 
 	const atlCtxCookieValues: AtlCtxCookieValues | undefined = parseAtlCtxCookies();
@@ -41,7 +41,7 @@ export function isIsolatedCloud(): boolean {
 export function isFedrampModerate(): boolean {
 	if (typeof document === 'undefined') {
 		// @ts-ignore
-		return globalThis.ssrContext.isInFedramp;
+		return globalThis.ssrContext?.isInFedramp ?? false;
 	}
 
 	const atlCtxCookieValues: AtlCtxCookieValues | undefined = parseAtlCtxCookies();
@@ -60,7 +60,7 @@ export function isFedrampModerate(): boolean {
  */
 export function isolatedCloudDomain(): string | undefined {
 	if (typeof document === 'undefined') {
-		return globalThis.location.hostname;
+		return globalThis.location?.hostname;
 	}
 	const atlCtxCookieValues: AtlCtxCookieValues | undefined = parseAtlCtxCookies();
 	return atlCtxCookieValues?.icDomain;
@@ -74,7 +74,7 @@ export function isolatedCloudDomain(): string | undefined {
 export function isolationContextId(): string | undefined {
 	if (typeof document === 'undefined') {
 		// @ts-ignore
-		return isIsolatedCloud() ? globalThis.ssrContext.icName : undefined;
+		return isIsolatedCloud() ? globalThis.ssrContext?.icName : undefined;
 	}
 
 	const atlCtxCookieValues: AtlCtxCookieValues | undefined = parseAtlCtxCookies();
@@ -94,14 +94,14 @@ export function cloudEnvironment(): CloudEnvironment | undefined {
 
 function cloudEnvironmentSsrLookup(): CloudEnvironment {
 	// @ts-ignore
-	if (globalThis.ssrContext.isInIC === true) {
+	if (globalThis.ssrContext?.isInIC === true) {
 		return {
 			type: 'isolated-cloud',
 			perimeter: COMMERCIAL,
 		};
 	}
 	// @ts-ignore
-	if (globalThis.ssrContext.isInFedramp === true) {
+	if (globalThis.ssrContext?.isInFedramp === true) {
 		return {
 			type: 'non-isolated-cloud',
 			perimeter: FEDRAMP_MODERATE,

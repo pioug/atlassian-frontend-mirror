@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
-import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
+import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 
 export interface LoadingItemsProps {
 	/**

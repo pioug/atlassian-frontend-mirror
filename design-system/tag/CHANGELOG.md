@@ -1,5 +1,27 @@
 # @atlaskit/tag
 
+## 14.7.0
+
+### Minor Changes
+
+- [`0b0079f9a87a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b0079f9a87a8) -
+  Introduced `TagDropdownTrigger` for Jira Epic workflows only. This component is deprecated and
+  intended strictly for migration/backward-compatibility use cases; do not adopt it for new product
+  experiences.
+
+  Added experimental `swatchBefore` support to new Tag component, which renders a 12x12 leading
+  color swatch before `elemBefore` (using either the tag color’s subtle accent token or a provided
+  token value). This API is experimental and not recommended for broad adoption yet.
+
+## 14.6.2
+
+### Patch Changes
+
+- [`02483200273ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02483200273ec) -
+  Enrol all Design System UI packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+- Updated dependencies
+
 ## 14.6.1
 
 ### Patch Changes

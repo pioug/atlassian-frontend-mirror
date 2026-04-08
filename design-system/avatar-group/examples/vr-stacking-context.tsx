@@ -7,7 +7,8 @@ import { css, jsx } from '@compiled/react';
 import AvatarGroup from '@atlaskit/avatar-group';
 import { token } from '@atlaskit/tokens';
 
-import { appearances, RANDOM_USERS } from '../examples-util/data';
+import { appearances } from '../examples-util/appearances';
+import { RANDOM_USERS } from '../examples-util/random-users';
 
 const containerStyles = css({
 	display: 'flex',

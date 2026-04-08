@@ -31,7 +31,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-ui-control-registry/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-ui-control-registry/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

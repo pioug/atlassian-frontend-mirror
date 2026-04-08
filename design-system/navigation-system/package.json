@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "7.1.5",
+	"version": "7.1.6",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -53,6 +53,13 @@
 	},
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "ADS: nav4",
 		"website": {
 			"name": "Navigation system",
@@ -143,6 +150,7 @@
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/search-dialog": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/test-utils": "workspace:^",

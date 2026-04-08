@@ -3,7 +3,10 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { type ReactNode, forwardRef } from 'react';
+import { messages } from '@atlaskit/media-ui';
+import React, { type ReactNode, forwardRef } from 'react';
+import { useIntl } from 'react-intl-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const imageWrapperStyles = css({
 	width: '100vw',
@@ -25,15 +28,30 @@ export type ImageWrapperProps = {
 };
 
 export const ImageWrapper = forwardRef<HTMLDivElement, ImageWrapperProps>(
-	({ children, onClick, isHidden }: ImageWrapperProps, ref) => (
-		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-		<div
-			data-testid="media-viewer-svg-wrapper"
-			onClick={onClick}
-			ref={ref}
-			css={[imageWrapperStyles, isHidden && dynamicImageWrapperStyles]}
-		>
-			{children}
-		</div>
-	),
+	({ children, onClick, isHidden }: ImageWrapperProps, ref) => {
+		const intl = useIntl();
+		return (
+			fg('platform_media_a11y_suppression_fixes') ? (
+				<button
+					data-testid="media-viewer-svg-wrapper"
+					onClick={onClick}
+					ref={ref as unknown as React.LegacyRef<HTMLButtonElement>}
+					aria-label={intl.formatMessage(messages.svg_image_preview_label_assistive_text)}
+					css={[imageWrapperStyles, isHidden && dynamicImageWrapperStyles]}
+				>
+					{children}
+				</button>
+			) : (
+				// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+				<div
+					data-testid="media-viewer-svg-wrapper"
+					onClick={onClick}
+					ref={ref}
+					css={[imageWrapperStyles, isHidden && dynamicImageWrapperStyles]}
+				>
+					{children}
+				</div>
+			)
+		)
+	},
 );

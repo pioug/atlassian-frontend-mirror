@@ -1,4 +1,4 @@
-import { createRemoveFuncIfBooleanFor } from '../utils';
+import { createRemoveFuncIfBooleanFor } from '../utils/create-remove-func-if-boolean-for';
 
 export const removeAutoFocus: (
 	j: import('jscodeshift/src/core').JSCodeshift,

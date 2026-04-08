@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import PopupDefaultExample from '../../examples/constellation/popup-default';
 import PopupCustomExample from '../../examples/constellation/popup-custom';
 import PopupPlacementExample from '../../examples/constellation/popup-placement/index';
@@ -15,11 +16,22 @@ import PopupContentWithoutPortalExample from '../../examples/constellation/popup
 import PopupWithRoleExample from '../../examples/constellation/popup-with-role';
 import PopupFullWidth from '../../examples/constellation/popup-full-width';
 
+<SectionMessage
+	title="Motion in Early Access"
+	appearance="warning"
+>
+	The motion added into Popup is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+</SectionMessage>
+
 ## Default
 
 This is the simplest form of a popup. The popup opens from a trigger element.
 
-<Example Component={PopupDefaultExample} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupDefaultExample}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Placement
 
@@ -28,13 +40,21 @@ The popup will move automatically if it's near the edge of the screen.
 
 Using the `auto` placement will place the popup on the side with the most space available.
 
-<Example Component={PopupPlacementExample} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupPlacementExample}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Multiple
 
 You can use popups multiple times on the same page.
 
-<Example Component={PopupMultipleExample} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupMultipleExample}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Nested
 
@@ -45,7 +65,11 @@ content, it’s time to move your experience to a new page instead.
 This example has additional code to prevent the parent popup closing when interacting with the child
 popup.
 
-<Example Component={PopupNestedExample} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupNestedExample}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Content updates
 
@@ -54,7 +78,11 @@ When changing the content inside the popup, call the `update()` function to repo
 Make sure to call this in the same callback or update step to ensure everything happens in the same
 animation frame.
 
-<Example Component={PopupContentUpdateExample} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupContentUpdateExample}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Customization
 
@@ -64,7 +92,11 @@ Make sure to
 [forward the ref to the underlying DOM node](https://reactjs.org/docs/forwarding-refs.html), or the
 positioning of the popup won't work correctly.
 
-<Example Component={PopupCustomExample} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupCustomExample}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Focus
 
@@ -79,14 +111,22 @@ otherwise it will not be focused upon. This means it will not work for content t
 popup content after it has already opened, such as async or lazy loaded content. In those cases, you
 will need to manually set focus on the content once it is rendered.
 
-<Example Component={PopupFocusExample} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupFocusExample}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>
 
 ### Disable autofocus
 
 If an element is focused, setting the `autofocus` prop to `false` will ensure it keeps focus when
 the popup is opened.
 
-<Example Component={PopupDisableAutofocusExample} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupDisableAutofocusExample}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Surface detection
 
@@ -94,14 +134,22 @@ The [current surface CSS variable](/components/tokens/code#current-surface-color
 surface color of the popup. You can use the `utility.elevation.surface.current` design token to
 style children with the current surface color.
 
-<Example Component={PopupSurfaceDetectionExample} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupSurfaceDetectionExample}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Content wrapping
 
 By default, the popup content is rendered inside `React.Portal`. Use `shouldRenderToParent` prop to
 render the content directly after the trigger element.
 
-<Example Component={PopupContentWithoutPortalExample} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupContentWithoutPortalExample}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Role
 
@@ -109,7 +157,11 @@ Use the `role` prop to set a role for the popup content. We do not forbid passin
 roles, but we strongly recommend using only `menu` or `dialog`. When the `role="dialog"` property is
 passed, one of the following properties must also be added: `label` or `titleId`.
 
-<Example Component={PopupWithRoleExample} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupWithRoleExample}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Full width
 
@@ -117,4 +169,8 @@ Use `shouldFitContainer` to fit the popup width to its parent's width. When set 
 trigger and popup elements will be wrapped in a `div` with `position: relative`. The popup will be
 rendered as a sibling to the trigger element, and will be full width.
 
-<Example Component={PopupFullWidth} packageName="@atlaskit/popup" />
+<Example
+	Component={PopupFullWidth}
+	packageName="@atlaskit/popup"
+	featureFlagSwitchers={['motion']}
+/>

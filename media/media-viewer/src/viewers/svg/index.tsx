@@ -6,7 +6,7 @@ import React, {
 	useCallback,
 	useLayoutEffect,
 } from 'react';
-import { Camera, Vector2 } from '@atlaskit/media-ui';
+import { Camera, messages, Vector2 } from '@atlaskit/media-ui';
 import { ANALYTICS_MEDIA_CHANNEL, type MediaTraceContext } from '@atlaskit/media-common';
 import { type FileIdentifier } from '@atlaskit/media-client';
 
@@ -22,6 +22,7 @@ import { MediaViewerError } from '../../errors';
 import { clientRectangle, naturalSizeRectangle, zoomLevelAfterResize } from './utils';
 import { ImageWrapper } from './ImageWrapper';
 import { getErrorReason } from './errors';
+import { useIntl } from 'react-intl-next';
 
 type WrapperScroll = {
 	scrollLeft: number;
@@ -50,6 +51,7 @@ const SvgViewerBase = ({
 	const [camera, setCamera] = useState<Camera>();
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const [wrapperScroll, setWrapperScroll] = useState<WrapperScroll>();
+	const intl = useIntl();
 
 	const onResize = useCallback(() => {
 		if (!wrapperRef.current || !camera) {
@@ -177,6 +179,7 @@ const SvgViewerBase = ({
 		<ImageWrapper onClick={onSvgClicked} ref={wrapperRef} isHidden={isHidden}>
 			<MediaSvg
 				testId={'media-viewer-svg'}
+				alt={intl.formatMessage(messages.svg_base_alt)}
 				identifier={identifier}
 				dimensions={imgDimensions}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

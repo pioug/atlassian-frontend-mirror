@@ -17,7 +17,6 @@ import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
 
 import { AvatarContent } from './avatar-content';
-import { useAvatarContext } from './context';
 import AvatarImage from './internal/avatar-image';
 import { AvatarContentContext } from './internal/content-context';
 import { EnsureIsInsideAvatarContext } from './internal/ensure-is-inside-avatar-context';
@@ -31,6 +30,7 @@ import {
 	type SizeType,
 	type Status,
 } from './types';
+import { useAvatarContext } from './use-avatar-context';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

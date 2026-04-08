@@ -54,6 +54,9 @@
 			"path": "../../primitives/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../spinner/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../people-and-teams/teams-avatar/afm-products/tsconfig.json"
 		},
 		{

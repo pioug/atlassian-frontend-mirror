@@ -3,6 +3,7 @@ import { ViewPlugin, WidgetType, Decoration as CodeMirrorDecoration } from '@cod
 import type { EditorView as CodeMirror, DecorationSet, ViewUpdate } from '@codemirror/view';
 
 import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 class PMWidget extends WidgetType {
 	constructor(readonly toDOMElement: HTMLElement) {
@@ -86,6 +87,11 @@ function isDefined<TValue>(value: TValue | undefined): value is TValue {
 	return value !== undefined;
 }
 
+export const sortDecorationsByPositionAndSide = (
+	a: { from: number; value: { startSide: number } },
+	b: { from: number; value: { startSide: number } },
+) => a.from - b.from || a.value.startSide - b.value.startSide;
+
 /**
  * Creates CodeMirror versions of the decorations provided by ProseMirror.
  *
@@ -134,7 +140,13 @@ export const prosemirrorDecorationPlugin = (
 					.map((decoration) => mapPMDecorationToCMDecoration(decoration, editorView, getPos))
 					.filter(isDefined);
 
-				return CodeMirrorDecoration.set(cmDecorations);
+				if (fg('platform_editor_fix_decoration_edge_case')) {
+					return CodeMirrorDecoration.set(
+						cmDecorations.sort(sortDecorationsByPositionAndSide),
+					);
+				} else {
+					return CodeMirrorDecoration.set(cmDecorations);
+				}
 			}
 			update(update: ViewUpdate) {
 				this.decorations = this.updateDecorations(update.view);

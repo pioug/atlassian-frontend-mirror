@@ -12,6 +12,85 @@ import {
 
 const gridMediumMaxWidth = 1024;
 const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
+
+// Class names for the column resize divider widget — must stay in sync with main.ts in editor-plugin-layout
+const layoutColumnDividerClassName = 'layout-column-divider';
+const layoutColumnDividerRailClassName = 'layout-column-divider-rail';
+const layoutColumnDividerThumbClassName = 'layout-column-divider-thumb';
+
+/**
+ * Styles for the column resize divider widget DOM elements.
+ * Mirrors the pm-breakout-resize-handle-* pattern from resizerStyles.ts.
+ * Applied only when advanced_layouts experiment is on.
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const layoutColumnDividerStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`.${layoutColumnDividerClassName}`]: {
+		// Negative margin removes the applied 'gap' from the parent's flex box
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginInline: '-15px 0px',
+		flexShrink: 0,
+		boxSizing: 'content-box',
+		cursor: 'col-resize',
+		position: 'relative',
+		zIndex: 2,
+		alignSelf: 'stretch',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&:hover .${layoutColumnDividerRailClassName}`]: {
+			background: token('color.background.selected'),
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&:hover .${layoutColumnDividerThumbClassName}`]: {
+			background: token('color.border.focused'),
+		},
+	},
+
+	// Rail and thumb styles intentionally mirror the breakout resize handle
+	// (see .pm-breakout-resize-handle-rail and .pm-breakout-resize-handle-thumb in resizerStyles.ts).
+	// If updating these styles, consider keeping both in sync.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`.${layoutColumnDividerRailClassName}`]: {
+		width: 7,
+		height: '100%',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: token('radius.small'),
+		transition: 'background-color 0.2s',
+		pointerEvents: 'none',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`.${layoutColumnDividerThumbClassName}`]: {
+		minWidth: 3,
+		height: 'clamp(27px, calc(100% - 32px), 96px)',
+		background: token('color.border'),
+		borderRadius: token('radius.medium'),
+		pointerEvents: 'none',
+		position: 'sticky',
+		top: token('space.150'),
+		bottom: token('space.150'),
+	},
+});
+/**
+ * Override divider marginInline when platform_editor_nested_dnd_styles_changes is on,
+ * since the layout section/column spacing changes.
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const layoutColumnDividerStylesNestedDnD: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`.${layoutColumnDividerClassName}`]: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginInline: '0 -7px',
+	},
+});
+
 const selectorForNotResizedLayoutInFulllWidthEditor =
 	'.fabric-editor--full-width-mode .ProseMirror > .layoutSectionView-content-wrap';
 const selectorForNotResizedLayoutInFixedWidthEditor =
@@ -66,6 +145,25 @@ export const layoutColumnStylesAdvanced: SerializedStyles = css({
 				},
 			},
 		],
+	},
+});
+
+/**
+ * Layout column resize styles for the platform_editor_layout_column_resize_handle experiment
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const layoutColumnResizeStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror [data-layout-section]': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> [data-layout-column][style*="--column-width"]': {
+			// Support CSS custom property for smooth resizing during drag
+			// When --column-resize-width is set, use it; otherwise fall back to the original flex-basis
+			// Using attribute selector for higher specificity than inline styles
+			flexBasis: 'var(--column-resize-width, var(--column-width))',
+			// Also ensure flex-grow and flex-shrink are reset when using custom width
+			flex: 'var(--column-resize-flex, 1)',
+		},
 	},
 });
 
@@ -153,6 +251,16 @@ export const layoutSectionStylesAdvanced: SerializedStyles = css({
 				},
 			},
 
+			// Column resize divider: always in DOM, hidden via opacity by default
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`&.${layoutColumnDividerClassName}`]: {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				display: 'block !important',
+				flex: 'none',
+				opacity: 0,
+				transition: 'opacity 0.2s',
+			},
+
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'& + [data-layout-column]': {
 				margin: 0,
@@ -164,6 +272,22 @@ export const layoutSectionStylesAdvanced: SerializedStyles = css({
 			margin: 0,
 		},
 	},
+
+	// On hover: fade in drag divider and hide the 1px separator
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`.ProseMirror .layoutSectionView-content-wrap:hover .layout-section-container [data-layout-section]`]:
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`> .ProseMirror-widget.${layoutColumnDividerClassName}`]: {
+				opacity: 1,
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`> .ProseMirror-widget.${layoutColumnDividerClassName} ~ [data-layout-column] [data-layout-content]::before`]:
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					display: 'none !important',
+				},
+		},
 });
 
 /**
@@ -186,6 +310,11 @@ export const layoutSectionStylesNotAdvanced: SerializedStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& > .unsupportedBlockView-content-wrap': {
 			minWidth: 'initial',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`& > .${layoutColumnDividerClassName}`]: {
+			flex: 'none',
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

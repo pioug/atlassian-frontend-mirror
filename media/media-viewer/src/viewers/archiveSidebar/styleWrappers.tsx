@@ -6,6 +6,9 @@ import { type ReactNode, type MouseEvent, type Key, forwardRef } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css, keyframes } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
+import { useIntl } from 'react-intl-next';
+import { messages } from '@atlaskit/media-ui';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const ARCHIVE_SIDE_BAR_WIDTH = 300;
 
@@ -192,21 +195,32 @@ export const ArchiveSidebarFolderWrapper = ({ children }: Children) => {
 };
 
 export const ArchiveDownloadButtonWrapper = ({ children, onClick }: Children & OnClick) => {
+	const intl = useIntl();
 	return (
-		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-		<div
-			css={archiveDownloadButtonWrapperStyles}
-			onClick={onClick}
-			data-testid="media-archiveDownloadButton"
-		>
-			{children}
-		</div>
+		fg('platform_media_a11y_suppression_fixes') ? (
+			<button
+				aria-label={intl.formatMessage(messages.archive_download_label_assistive_text)}
+				css={archiveDownloadButtonWrapperStyles}
+				onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
+				data-testid="media-archiveDownloadButton"
+			>
+				{children}
+			</button>
+		) : (
+			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+			<div
+				css={archiveDownloadButtonWrapperStyles}
+				onClick={onClick}
+				data-testid="media-archiveDownloadButton"
+			>
+				{children}
+			</div>
+		)
 	);
 };
 
 export const DisabledArchiveDownloadButtonWrapper = ({ children }: Children) => {
 	return (
-		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions
 		<div
 			css={disabledArchiveDownloadButtonWrapperStyles}
 			data-testid="media-disabledArchiveDownloadButton"

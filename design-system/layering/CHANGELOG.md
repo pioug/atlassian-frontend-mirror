@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 3.6.2
+
+### Patch Changes
+
+- [`02483200273ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02483200273ec) -
+  Enrol all Design System UI packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+
 ## 3.6.1
 
 ### Patch Changes

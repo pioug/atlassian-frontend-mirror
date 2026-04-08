@@ -2,6 +2,7 @@ import type { BlockContent } from './types/block-content';
 import { layoutColumn as layoutColumnFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 /**
  * @name layoutColumn_node
@@ -51,7 +52,11 @@ export const layoutColumn: NodeSpec = layoutColumnFactory({
 		};
 		const { width } = node.attrs;
 		if (width) {
-			attrs['style'] = `flex-basis: ${width}%`;
+			const baseStyle = `flex-basis: ${width}%`;
+			const columnWidthVar = editorExperiment('platform_editor_layout_column_resize_handle', true) 
+				? `; --column-width: ${width}%` 
+				: '';
+			attrs['style'] = baseStyle + columnWidthVar;
 			attrs['data-column-width'] = `${width}`;
 		}
 
@@ -93,7 +98,11 @@ export const layoutColumnWithLocalId: NodeSpec = layoutColumnFactory({
 		}
 		const { width } = node.attrs;
 		if (width) {
-			attrs['style'] = `flex-basis: ${width}%`;
+			const baseStyle = `flex-basis: ${width}%`;
+			const columnWidthVar = editorExperiment('platform_editor_layout_column_resize_handle', true) 
+				? `; --column-width: ${width}%` 
+				: '';
+			attrs['style'] = baseStyle + columnWidthVar;
 			attrs['data-column-width'] = `${width}`;
 		}
 

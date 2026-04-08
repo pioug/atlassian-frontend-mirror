@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 import Avatar from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 
-import { Block } from '../examples-util/helpers';
+import { Block } from '../examples-util/block';
 
 const styles = cssMap({
 	presence: {

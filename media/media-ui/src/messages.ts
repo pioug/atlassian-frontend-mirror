@@ -175,6 +175,10 @@ export type MessageKey =
 	| 'video_captions_delete_error_description'
 	| 'manage_captions'
 	| 'add_captions'
+	| 'svg_base_alt'
+	| 'svg_image_preview_label_assistive_text'
+	| 'archive_download_label_assistive_text'
+	| 'media_card_wrapper_label_assistive_text'
 	| RequestAccessMessageKey;
 
 type Messages = {
@@ -1081,5 +1085,25 @@ export const messages: Messages = defineMessages({
 		id: 'media.media-avatar-picker.image-placer.image-alt',
 		defaultMessage: 'Image preview',
 		description: 'Alt text for the image being positioned in the image placer',
+	},
+	svg_base_alt: {
+		id: 'media.media-viewer.base-svg.alt',
+		defaultMessage: 'Svg Image',
+		description: 'Alt text for the Svg image placer',
+	},
+	svg_image_preview_label_assistive_text: {
+		id: 'media.media-viewer.svg-wrapper.label_assistive_text',
+		defaultMessage: 'Close Image Preview',
+		description: 'Aria-label for SVG image wrapper',
+	},
+	archive_download_label_assistive_text: {
+		id: 'media.media-viewer.archive-sidebar.wrapper.label_assistive_text',
+		defaultMessage: 'Download Media',
+		description: 'Aria-label for media archive download button',
+	},
+	media_card_wrapper_label_assistive_text: {
+		id: 'media.media-card.wrapper.label_assistive_text',
+		defaultMessage: 'Media file card',
+		description: 'Aria-label for media card wrapper',
 	},
 });

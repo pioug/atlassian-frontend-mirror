@@ -74,6 +74,11 @@ const flagMap: Record<FLAG_ID, FlagConfig> = {
 		description: messages.inlineExtensionInSyncBlockDescription,
 		type: 'error',
 	},
+	[FLAG_ID.DUPLICATE_SOURCE_SYNC_BLOCK]: {
+		title: messages.duplicateSourceSyncBlockTitle,
+		description: messages.duplicateSourceSyncBlockDescription,
+		type: 'error',
+	},
 };
 
 export const Flag = ({ api }: Props): React.JSX.Element | undefined => {

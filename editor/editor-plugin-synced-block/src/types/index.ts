@@ -12,6 +12,7 @@ export enum FLAG_ID {
 	CANNOT_CREATE_SYNC_BLOCK = 'cannot-create-sync-block',
 	INLINE_EXTENSION_IN_SYNC_BLOCK = 'inline-extension-in-sync-block',
 	EXTENSION_IN_SYNC_BLOCK = 'extension-in-sync-block',
+	DUPLICATE_SOURCE_SYNC_BLOCK = 'duplicate-source-sync-block',
 }
 
 type FlagConfig = {

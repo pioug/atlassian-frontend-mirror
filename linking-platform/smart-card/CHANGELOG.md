@@ -1,5 +1,26 @@
 # @atlaskit/smart-card
 
+## 43.31.0
+
+### Minor Changes
+
+- [`78762fbea5fd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78762fbea5fd4) -
+  [ux] Show rovo-specific hover card for un-authenticated as part of
+  platform_sl_3p_preauth_better_hovercard experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.30.1
+
+### Patch Changes
+
+- [`3818980705c0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3818980705c0f) -
+  [ux] Adds an (unused) placeholder RovoActionsButton CTA component, as well as a
+  RovoPostAuthActionsModal placeholder component. These will be used as part of the experiment for
+  inline post-auth Rovo hovercard modal CTA
+
 ## 43.30.0
 
 ### Minor Changes

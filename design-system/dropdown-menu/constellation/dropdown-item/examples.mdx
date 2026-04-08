@@ -4,6 +4,7 @@ description: A dropdown item is an action a user can perform displayed in a grou
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import DropdownItemDescription from '../../examples/constellation/dropdown-item-description';
 import DropdownItemMultiline from '../../examples/constellation/dropdown-item-multiline';
 import DropdownItemDescriptionMultiline from '../../examples/constellation/dropdown-item-description-multiline';
@@ -12,11 +13,22 @@ import DropdownItemElementBefore from '../../examples/constellation/dropdown-ite
 import DropdownItemElementAfter from '../../examples/constellation/dropdown-item-elem-after';
 import DropdownItemCustomComponent from '../../examples/constellation/dropdown-item-custom-component';
 
+<SectionMessage
+	title="Motion in Early Access"
+	appearance="warning"
+>
+	The motion added into Dropdown menu is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+</SectionMessage>
+
 ## Description
 
 Use `description` to add supplementary text under the main action.
 
-<Example Component={DropdownItemDescription} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownItemDescription}
+    packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Multiline
 
@@ -24,12 +36,20 @@ Use `shouldTitleWrap` to let the dropdown item's visible label wrap over multipl
 is `true`. We recommend content wrapping over truncation, because truncation isn't usable or
 accessible.
 
-<Example Component={DropdownItemMultiline} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownItemMultiline}
+    packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motion']}
+/>
 
 Use `shouldDescriptionWrap` to let the description wrap over multiple lines. Defaults to `true`. We
 recommend content wrapping over truncation, because truncation isn't usable or accessible.
 
-<Example Component={DropdownItemDescriptionMultiline} packageName="@atlaskit/dropdown-menu" />
+<Example
+    Component={DropdownItemDescriptionMultiline}
+    packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## States
 
@@ -38,7 +58,11 @@ recommend content wrapping over truncation, because truncation isn't usable or a
 Use `isDisabled` to make the element appear disabled. This will remove interactivity and hide it
 from people who use assistive technology, so use this state with caution.
 
-<Example Component={DropdownItemDisabled} packageName="@atlaskit/dropdown-menu" />
+<Example 
+    Component={DropdownItemDisabled}
+    packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## With elements
 
@@ -47,17 +71,29 @@ from people who use assistive technology, so use this state with caution.
 Use `elemBefore` to show an element before the dropdown item text. Generally this is an
 [icon](/components/icon).
 
-<Example Component={DropdownItemElementBefore} packageName="@atlaskit/dropdown-menu" />
+<Example 
+    Component={DropdownItemElementBefore}
+    packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motion']}
+/>
 
 ### Elem after
 
 Use `elemAfter` to show an element after the dropdown item text. Generally this is an
 [icon](/components/icon).
 
-<Example Component={DropdownItemElementAfter} packageName="@atlaskit/dropdown-menu" />
+<Example 
+    Component={DropdownItemElementAfter}
+    packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Custom component
 
 Use `component` to pass the custom component.
 
-<Example Component={DropdownItemCustomComponent} packageName="@atlaskit/dropdown-menu" />
+<Example 
+    Component={DropdownItemCustomComponent}
+    packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motion']}
+/>

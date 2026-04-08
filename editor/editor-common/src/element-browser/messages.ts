@@ -1,29 +1,34 @@
 import { defineMessages } from 'react-intl-next';
 const _default_1: {
-	elementAfterInputMessage: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	placeHolderMessage: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	searchAriaLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	assistiveTextDefault: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	assistiveTextResult: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	elementAfterInputMessage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	placeHolderMessage: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	searchAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	searchAriaLabelNew: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	elementAfterInputMessage: {
@@ -43,6 +48,12 @@ const _default_1: {
 		defaultMessage: 'Search',
 		description:
 			'The text is used as an aria-label for the search input field in the element browser. It provides an accessible name for screen readers to identify the search field.',
+	},
+	searchAriaLabelNew: {
+		id: 'fabric.editor.elementbrowser.searchbar.ariaLabel.new',
+		defaultMessage: 'Search elements',
+		description:
+			'The updated text used as an aria-label for the search input field in the element browser. It provides a more descriptive accessible name for screen readers to identify the search field.',
 	},
 	assistiveTextDefault: {
 		id: 'fabric.editor.elementbrowser.searchbar.assistive.text.default',

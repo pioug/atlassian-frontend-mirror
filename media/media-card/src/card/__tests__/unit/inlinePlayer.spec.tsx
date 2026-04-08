@@ -584,4 +584,87 @@ describe('<InlinePlayer />', () => {
 			expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
 		});
 	});
+
+	describe('when platform_media_a11y_suppression_fixes is enabled', () => {
+		let fgSpy: jest.SpyInstance;
+
+		beforeEach(() => {
+			fgSpy = jest.spyOn(
+				require('@atlaskit/platform-feature-flags'),
+				'fg'
+			).mockImplementation((flag) => {
+				if (flag === 'platform_media_a11y_suppression_fixes') {
+					return true;
+				}
+				return false;
+			});
+		});
+
+		afterEach(() => {
+			fgSpy.mockRestore();
+		});
+
+		it('should set width/height according to dimensions in the wrapper element', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const dimensions = {
+				width: '80%',
+				height: '20px',
+			};
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InlinePlayer autoplay={true} identifier={identifier} dimensions={dimensions} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
+			const styles = getComputedStyle(inlinePlayer);
+
+			const width = styles.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+			const height = styles.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+			expect(width).toBe(dimensions.width);
+			expect(height).toBe(dimensions.height);
+		});
+
+		it('default to 100%/auto width/height if no dimensions given', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InlinePlayer autoplay={true} identifier={identifier} dimensions={{}} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+			const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
+			const styles = getComputedStyle(inlinePlayer);
+
+			const width = styles.getPropertyValue(LOCAL_WIDTH_VARIABLE);
+			const height = styles.getPropertyValue(LOCAL_HEIGHT_VARIABLE);
+			expect(width).toBe('100%');
+			expect(height).toBe('auto');
+		});
+
+		it('should have role="presentation" and tabIndex={-1}', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InlinePlayer autoplay={true} identifier={identifier} dimensions={{}} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
+			expect(inlinePlayer).toHaveAttribute('role', 'presentation');
+			expect(inlinePlayer).toHaveAttribute('tabindex', '-1');
+		});
+	});
 });

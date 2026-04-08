@@ -51,11 +51,18 @@ test('Content should be visible only on the focused tab', async ({ page }) => {
 	);
 
 	// Navigate between tab and check the selection, content and focus.
-	// Tab then use arrow right to navigate.
-	await page.webdriverCompatUtils.pressMultiple(['Tab', 'ArrowRight', 'ArrowRight', 'ArrowRight']);
+	// First focus on the first tab
+	await page.locator(tab1).first().focus();
+	await expect(page.locator(tab1).first()).toBeFocused();
 
-	// Tab 4 is in focus and it's content should be visible
+	// Use arrow keys to navigate to tab 4
+	await page.keyboard.press('ArrowRight');
+	await page.keyboard.press('ArrowRight');
+	await page.keyboard.press('ArrowRight');
+
+	// Wait for tab 4 to be focused and ensure it's selected
 	await expect(page.locator(tab4).first()).toBeFocused();
+	await expect(page.locator(tab4).first()).toHaveAttribute('aria-selected', 'true');
 	await expect(page.locator(tabPanel4)).toBeVisible();
 
 	// Content of rest of the three tab should not be visible

@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import AvatarApproved from '../../examples/constellation/avatar-status-approved';
 import AvatarBusy from '../../examples/constellation/avatar-presence-busy';
 import AvatarCircle from '../../examples/constellation/avatar-circle';
@@ -160,10 +161,19 @@ menus.
 
 ## Displaying a tooltip
 
+<SectionMessage
+	title="Motion in Early Access"
+	appearance="warning"
+>
+	The motion added into Avatar is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+</SectionMessage>
+
 You can display a tooltip with an avatar on focus or hover. The tooltip `content` should be set to
 the same value as the avatar `label`.
 
 Don't use a tooltip with an avatar unless it is interactive. For more information, see the
-[avatar component accessibilty guidelines](usage#accessibility).
+[avatar component accessibilty guidelines](/components/avatar/usage#accessibility).
 
-<Example Component={AvatarTooltip} packageName="@atlaskit/avatar" />
+<Example Component={AvatarTooltip} packageName="@atlaskit/avatar"
+	featureFlagSwitchers={['motion']}
+/>

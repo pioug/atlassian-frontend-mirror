@@ -8,6 +8,11 @@ import userEvent from '@testing-library/user-event';
 import { type CardAction } from '../../../actions';
 
 import { ActionsBar } from '../actionsBar';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn().mockReturnValue(false),
+}));
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ActionsBar', () => {
@@ -59,4 +64,52 @@ describe('ActionsBar', () => {
 
 		expect(onOuterClick).not.toHaveBeenCalled();
 	});
+
+	describe('when platform_media_a11y_suppression_fixes is enabled', () => {
+		beforeEach(() => {
+			(fg as jest.Mock).mockImplementation((flag: string) => {
+				if (flag === 'platform_media_a11y_suppression_fixes') {
+					return true;
+				}
+				return false;
+			});
+		});
+
+		afterEach(() => {
+			(fg as jest.Mock).mockReset();
+		});
+
+		it('will not render on empty actions', () => {
+			render(<ActionsBar actions={[]} />);
+			expect(screen.queryByTestId('actionsBarWrapper')).not.toBeInTheDocument();
+		});
+
+		it('will render if there are actions', async () => {
+			render(<ActionsBar actions={[deleteAction, downloadAction, replaceAction]} />);
+			expect(await screen.findByTestId('actionsBarWrapper')).toBeInTheDocument();
+		});
+
+		it('should prevent outer on click handler to be called', async () => {
+			const user = userEvent.setup();
+			const onOuterClick = jest.fn();
+
+			render(
+				<div id="outer" onClick={onOuterClick}>
+					<ActionsBar actions={[deleteAction, downloadAction, replaceAction]} />
+				</div>,
+			);
+
+			const actionsWrapper = await screen.findByTestId('actionsBarWrapper');
+			expect(await screen.findByTestId('actionsBarWrapper')).toBeInTheDocument();
+			const someAction = actionsWrapper.querySelector('button');
+
+			if (!someAction) {
+				throw new Error('Action Element not found (button)');
+			}
+
+			user.click(someAction);
+			expect(onOuterClick).not.toHaveBeenCalled();
+		});
+	});
+
 });

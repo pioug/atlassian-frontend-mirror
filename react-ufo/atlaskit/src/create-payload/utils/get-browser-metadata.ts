@@ -1,7 +1,5 @@
 import Bowser from 'bowser-ultralight';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export default function getBrowserMetadata(): {
 	browser?: {
 		name: string;
@@ -87,7 +85,7 @@ export default function getBrowserMetadata(): {
 		};
 	}
 
-	if (typeof navigator !== 'undefined' && fg('react_ufo_add_webdriver_info')) {
+	if (typeof navigator !== 'undefined') {
 		data.webdriver = Boolean((navigator as any).webdriver);
 	}
 

@@ -4,7 +4,7 @@ import Avatar from '@atlaskit/avatar';
 import { Stack } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
 
-import { Block } from '../examples-util/helpers';
+import { Block } from '../examples-util/block';
 
 export default (): React.JSX.Element => (
 	<Stack space="space.200">

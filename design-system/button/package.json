@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "23.10.9",
+	"version": "23.11.0",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -81,13 +81,22 @@
 		}
 	},
 	"exports": {
+		".": "./src/index.tsx",
 		"./button-group": "./src/entry-points/button-group.tsx",
+		"./button": "./src/entry-points/button.tsx",
+		"./containers/button-group": "./src/entry-points/containers-button-group.tsx",
 		"./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
+		"./default/button": "./src/entry-points/default-button.tsx",
+		"./icon/button": "./src/entry-points/icon-button.tsx",
+		"./icon/link": "./src/entry-points/icon-link.tsx",
+		"./link": "./src/entry-points/link.tsx",
 		"./loading-button": "./src/entry-points/loading-button.tsx",
-		"./standard-button": "./src/entry-points/standard-button.tsx",
 		"./new": "./src/entry-points/new.tsx",
+		"./old-button/types": "./src/entry-points/old-button-types.tsx",
+		"./split-button": "./src/entry-points/split-button.tsx",
+		"./standard-button": "./src/entry-points/standard-button.tsx",
 		"./types": "./src/entry-points/types.tsx",
-		".": "./src/index.tsx"
+		"./variants/types": "./src/entry-points/variants-types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

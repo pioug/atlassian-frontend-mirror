@@ -8,14 +8,14 @@ import { cssMap, jsx } from '@compiled/react';
 
 import {
 	CustomItem as Custom,
-	type CustomItemComponentProps,
 	type CustomItemProps,
+	type CustomItemComponentProps as MenuCustomItemComponentProps,
 } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
-import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
+import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 
-export type { CustomItemComponentProps, CustomItemProps } from '@atlaskit/menu';
+export interface CustomItemComponentProps extends MenuCustomItemComponentProps {}
 
 const styles = cssMap({
 	root: {

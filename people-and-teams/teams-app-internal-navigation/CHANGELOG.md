@@ -1,5 +1,28 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 1.7.0
+
+### Minor Changes
+
+- [`ac9844d3efdb0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac9844d3efdb0) -
+  Nested providers now resolve contextEntryPoint by using the closest ancestor with a valid value. A
+  provider's own contextEntryPoint takes priority; if absent, the nearest ancestor's value is
+  inherited.
+
+## 1.6.2
+
+### Patch Changes
+
+- [`73c1948914bd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c1948914bd5) -
+  Fixed staging links being treated as external and updated classifyNavigationIntent tests.
+
+## 1.6.1
+
+### Patch Changes
+
+- [`cc97d87696c48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc97d87696c48) -
+  Revamped examples file to better reflect component use
+
 ## 1.6.0
 
 ### Minor Changes

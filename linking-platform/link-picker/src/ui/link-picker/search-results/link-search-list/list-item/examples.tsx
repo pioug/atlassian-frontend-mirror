@@ -41,8 +41,8 @@ const createExample = (props: Partial<LinkSearchListItemProps> = {}) => {
 	};
 };
 
-export const DefaultExample = createExample();
+export const DefaultExample: () => React.JSX.Element = createExample();
 
-export const SelectedExample = createExample({
+export const SelectedExample: () => React.JSX.Element = createExample({
 	selected: true,
 });

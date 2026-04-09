@@ -29,7 +29,7 @@ const getMetadata = (accessType?: string) => {
 	};
 };
 
-export const BlockCardForbiddenViews = () => {
+export const BlockCardForbiddenViews = (): JSX.Element => {
 	const mockUrl = 'https://some-url.com';
 	const commonState: GetCardStateProps = {
 		data: { url: mockUrl, image: JiraPreviewImage },

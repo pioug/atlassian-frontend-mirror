@@ -33,7 +33,7 @@ const UserInteractionsProvider = ({ children }: PropsWithChildren<{}>): React.JS
  *
  * @returns an object that can track datasource actions and retrieve the actions that have been tracked.
  */
-const useUserInteractions = () => {
+const useUserInteractions = (): UserInteractions => {
 	const context = useContext(UserInteractionsContext);
 	if (!context) {
 		throw new Error('useUserInteractions() must be wrapped in <UserInteractionsProvider>');

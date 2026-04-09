@@ -12,7 +12,7 @@ const genericErrorStyles = css({
 	display: 'block',
 });
 
-export const GenericErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
+export const GenericErrorSVG = (props: React.SVGProps<SVGSVGElement>): JSX.Element => {
 	return (
 		<svg
 			viewBox="0 0 96 96"

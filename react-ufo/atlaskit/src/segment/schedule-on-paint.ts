@@ -1,20 +1,15 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export type OnPaintCallback = () => any;
 
 function scheduleOnPaint(callback: OnPaintCallback): void {
-	// Check if we're in SSR environment
-	if (fg('platform_ufo_ssr_render_profiler')) {
-		const isSSR =
-			typeof window === 'undefined' ||
-			Boolean((globalThis as any)?.__SERVER__) ||
-			(typeof process !== 'undefined' && Boolean(process?.env?.REACT_SSR));
+	const isSSR =
+		typeof window === 'undefined' ||
+		Boolean((globalThis as any)?.__SERVER__) ||
+		(typeof process !== 'undefined' && Boolean(process?.env?.REACT_SSR));
 
-		if (isSSR) {
-			// In SSR, execute callback immediately (no paint event exists)
-			callback();
-			return;
-		}
+	if (isSSR) {
+		// In SSR, execute callback immediately (no paint event exists)
+		callback();
+		return;
 	}
 
 	if (globalThis.document?.visibilityState !== 'visible') {

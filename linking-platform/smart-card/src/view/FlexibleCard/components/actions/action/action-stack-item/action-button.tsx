@@ -52,7 +52,7 @@ const ActionButton = ({
 	tooltipProps,
 	style,
 	ariaLabel,
-}: ActionStackItemProps & { tooltipProps?: TriggerProps }) => {
+}: ActionStackItemProps & { tooltipProps?: TriggerProps }): JSX.Element => {
 	const space = spaceOption ?? getPrimitivesInlineSpaceBySize(size);
 
 	const onClick = useCallback(() => {

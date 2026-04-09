@@ -31,7 +31,7 @@ mockAssetsClientFetchRequests();
 // forceCmdbBaseUrl('http://localhost:3000');
 forceCmdbBaseUrl('https://jsm-cmdb-dev1.jira-dev.com');
 
-export default () => {
+export default (): JSX.Element => {
 	const [generatedAdf, setGeneratedAdf] = useState<InlineCardAdf | AssetsDatasourceAdf | null>(
 		null,
 	);

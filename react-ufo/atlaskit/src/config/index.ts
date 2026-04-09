@@ -155,6 +155,9 @@ export type Config = {
 		readonly ssrWhitelist?: string[];
 		readonly ssrEnablePageLayoutPlaceholder?: boolean;
 		readonly includeSSRInV3?: boolean;
+		/**
+		 * @deprecated No longer has any effect. Kept as a compatibility no-op.
+		 */
 		readonly stopVCAtInteractionFinish?: boolean;
 		readonly includeSSRRatio?: boolean;
 		/**

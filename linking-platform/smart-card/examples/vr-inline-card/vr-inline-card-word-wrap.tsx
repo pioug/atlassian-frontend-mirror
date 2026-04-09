@@ -76,16 +76,16 @@ const Component = ({ client }: ComponentProps) => {
 	);
 };
 
-export const InlineCardWordWrapResolving = () => <Component client={new ResolvingClient()} />;
-export const InlineCardWordWrapResolved = () => <Component client={new ResolvedClient()} />;
-export const InlineCardWordWrapForbidden = () => <Component client={new ForbiddenClient()} />;
-export const InlineCardWordWrapForbiddenWithSiteRequestAccess = () => (
+export const InlineCardWordWrapResolving = (): JSX.Element => <Component client={new ResolvingClient()} />;
+export const InlineCardWordWrapResolved = (): JSX.Element => <Component client={new ResolvedClient()} />;
+export const InlineCardWordWrapForbidden = (): JSX.Element => <Component client={new ForbiddenClient()} />;
+export const InlineCardWordWrapForbiddenWithSiteRequestAccess = (): JSX.Element => (
 	<Component client={new ForbiddenWithSiteRequestAccessClient()} />
 );
-export const InlineCardWordWrapForbiddenWithSitePendingRequest = () => (
+export const InlineCardWordWrapForbiddenWithSitePendingRequest = (): JSX.Element => (
 	<Component client={new ForbiddenWithSitePendingRequestClient()} />
 );
-export const InlineCardWordWrapNotFoundWithSiteAccessExists = () => (
+export const InlineCardWordWrapNotFoundWithSiteAccessExists = (): JSX.Element => (
 	<Component client={new NotFoundWithSiteAccessExistsClient()} />
 );
-export const InlineCardWordWrapUnAuth = () => <Component client={new UnAuthClient()} />;
+export const InlineCardWordWrapUnAuth = (): JSX.Element => <Component client={new UnAuthClient()} />;

@@ -1,5 +1,18 @@
 # @atlaskit/teams-client
 
+## 4.32.0
+
+### Minor Changes
+
+- [`2f909e7624d7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f909e7624d7f) -
+  Align getAllTeams request with pagination parameter
+
+## 4.31.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.31.0
 
 ### Minor Changes

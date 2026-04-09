@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type MouseEvent } from 'react';
+import { type FC, type MouseEvent } from 'react';
 
 // eslint-disable-next-line no-unused-vars
 import { cssMap, jsx } from '@compiled/react';
@@ -399,7 +399,7 @@ const ExpandedFrameUpdated = ({
 	);
 };
 
-const ExpandedFrameWithFG = componentWithFG(
+const ExpandedFrameWithFG: FC<ExpandedFrameUpdatedProps & ExpandedFrameProps> = componentWithFG(
 	'rovo_chat_embed_card_dwell_and_hover_metrics',
 	ExpandedFrameUpdated,
 	ExpandedFrame,

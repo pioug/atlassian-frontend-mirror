@@ -1,4 +1,4 @@
-import { type Reducer, useReducer } from 'react';
+import { type Dispatch, type Reducer, useReducer } from 'react';
 
 import { type LinkSearchListItemData } from '../../common/types';
 
@@ -62,5 +62,8 @@ export function reducer(state: PluginState, action: ReducerAction): PluginState 
 	}
 }
 
-export const usePluginReducer = () =>
+export const usePluginReducer = (): [
+    PluginState,
+    Dispatch<ReducerAction>
+] =>
 	useReducer<Reducer<PluginState, ReducerAction>>(reducer, INITIAL_STATE);

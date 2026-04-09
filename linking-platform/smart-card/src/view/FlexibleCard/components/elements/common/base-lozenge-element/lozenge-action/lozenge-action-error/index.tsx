@@ -92,7 +92,7 @@ const LozengeActionError = ({
 	testId,
 	maxLineNumber = MAX_LINE_NUMBER,
 	invokePreviewAction,
-}: LozengeActionErrorProps) => {
+}: LozengeActionErrorProps): JSX.Element => {
 	const { fireEvent } = useAnalyticsEvents();
 	const invoke = useInvokeClientAction({});
 

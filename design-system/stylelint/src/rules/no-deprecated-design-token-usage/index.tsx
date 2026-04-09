@@ -4,7 +4,8 @@ import stylelint, { type Rule, type RuleBase } from 'stylelint';
 import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { getCSSCustomProperty } from '@atlaskit/tokens/token-ids';
 
-import { isFunction, isWord } from '../../utils/rules';
+import { isFunction } from '../../utils/is-function';
+import { isWord } from '../../utils/is-word';
 
 export const ruleName = 'design-system/no-deprecated-design-token-usage';
 export const messages: {

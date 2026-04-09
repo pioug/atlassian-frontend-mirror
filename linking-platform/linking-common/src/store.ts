@@ -16,7 +16,7 @@ export interface CardState {
 	status: CardType;
 }
 
-export const getUrl = (store: Store<CardStore>, url: string) => {
+export const getUrl = (store: Store<CardStore>, url: string): CardState => {
 	return (
 		store.getState()[url] || {
 			status: 'pending',

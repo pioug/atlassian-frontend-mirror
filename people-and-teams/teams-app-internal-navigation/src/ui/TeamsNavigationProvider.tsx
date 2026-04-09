@@ -40,12 +40,9 @@ export function TeamsNavigationProvider({
 /**
  * Read the current {@link NavigationContext} from the nearest {@link TeamsNavigationProvider}.
  *
- * Throws an error when no provider is present.
+ * When no provider is present, returns an empty object so link components can render without a wrapper.
  */
 export function useTeamsNavigationContext(): NavigationContext {
 	const context = useContext(NavigationContextReact);
-	if (!context) {
-		throw new Error('useTeamsNavigationContext must be used within a TeamsNavigationProvider');
-	}
-	return context;
+	return context ?? {};
 }

@@ -35,7 +35,7 @@ const spinnerContainerStyles = css({
 	flexGrow: 1,
 });
 
-export const testIds = {
+export const testIds: { tabsLoadingIndicator: string; tabList: string; tabItem: string; resultListTitle: string; searchResultList: string; searchResultLoadingIndicator: string; searchResultItem: string; searchResultIcon: string; emptyResultPage: string; searchError: string; } = {
 	...searchErrorTestIds,
 	...listTestIds,
 	tabsLoadingIndicator: 'link-picker.tabs-loading-indicator',

@@ -16,7 +16,7 @@ type ButtonProps = React.ComponentProps<typeof AkButton> & {
 	};
 };
 
-export const Button = forwardRef(
+export const Button: React.ForwardRefExoticComponent<Omit<ButtonProps, "ref"> & React.RefAttributes<HTMLButtonElement>> = forwardRef(
 	({ actionSubjectId, ...props }: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 

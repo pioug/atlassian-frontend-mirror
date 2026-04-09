@@ -107,7 +107,7 @@ const Block = ({
 	onTransitionEnd,
 	style,
 	placeholderId,
-}: BlockProps) => {
+}: BlockProps): JSX.Element => {
 	useEffect(() => {
 		onRender && onRender();
 	}, [onRender]);

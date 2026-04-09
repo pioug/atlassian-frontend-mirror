@@ -53,7 +53,7 @@ const TitleBlockResolvedView = ({
 	url,
 	hideIconLoadingSkeleton,
 	...blockProps
-}: TitleBlockViewProps) => {
+}: TitleBlockViewProps): JSX.Element => {
 	const { size } = blockProps;
 	const metadataElements = renderElementItems(metadata);
 	const subtitleElements = renderElementItems(subtitle);

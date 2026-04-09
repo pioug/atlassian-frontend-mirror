@@ -96,7 +96,7 @@ export const ProviderCard = ({
 	onCollapse,
 	onExpand,
 	config,
-}: ProviderCardProps) => {
+}: ProviderCardProps): JSX.Element => {
 	const handleClick = useCallback(() => {
 		if (expanded) {
 			onCollapse(resolver);

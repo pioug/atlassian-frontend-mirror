@@ -66,7 +66,7 @@ const UnresolvedView = ({
 	title,
 	url,
 	CompetitorPrompt,
-}: UnresolvedViewProps) => {
+}: UnresolvedViewProps): JSX.Element => {
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { safari = false } = useMemo(() => browser(), []);
 

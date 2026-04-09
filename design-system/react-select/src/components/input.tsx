@@ -153,7 +153,7 @@ const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	const dataId = testId ? `${testId}-select--input` : null;
 	const { css, className } = getStyleProps(props, 'input', { 'input-container': true });
 
-	if (fg('platform_do_not_clear_input_for_multiselect')) {
+	if (fg('platform_fix_input_component_styling')) {
 		return (
 			<div
 				css={[inputStyles.root, isDisabled && inputStyles.disabled]}

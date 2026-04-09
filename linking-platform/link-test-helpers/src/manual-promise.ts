@@ -18,17 +18,17 @@ class ManualPromise<T> extends Promise<T> {
 		this._reject = tmpReject;
 	}
 
-	resolve(value?: T) {
+	resolve(value?: T): this {
 		this._resolve(value ?? this.value);
 		return this;
 	}
 
-	reject(err?: unknown) {
+	reject(err?: unknown): this {
 		this._reject(err ?? new Error('Manually rejected'));
 		return this;
 	}
 
-	static get [Symbol.species]() {
+	static get [Symbol.species](): PromiseConstructor {
 		return Promise;
 	}
 

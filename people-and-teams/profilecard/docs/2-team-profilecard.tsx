@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
 import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
+import { TeamsLink } from '@atlaskit/teams-app-internal-navigation/teams-link';
 
 const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
@@ -50,14 +49,20 @@ const profileClient = new ProfileClient({
   ${(
 		<ul>
 			<li>
-				<Link to="/examples/people-and-teams/profilecard/trigger-link-types">
+				<TeamsLink
+					href="/examples/people-and-teams/profilecard/trigger-link-types"
+					intent="reference"
+				>
 					Trigger link types
-				</Link>
+				</TeamsLink>
 			</li>
 			<li>
-				<Link to="/examples/people-and-teams/profilecard/team-profilecard-trigger">
+				<TeamsLink
+					href="/examples/people-and-teams/profilecard/team-profilecard-trigger"
+					intent="reference"
+				>
 					Team profilecard trigger
-				</Link>
+				</TeamsLink>
 			</li>
 		</ul>
 	)}

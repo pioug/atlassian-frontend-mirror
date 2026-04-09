@@ -114,7 +114,7 @@ export const TextInput = ({
 	isRequired = false,
 	helperMessage,
 	...restProps
-}: TextInputProps) => {
+}: TextInputProps): JSX.Element => {
 	const inputRef: MutableRefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
 
 	const handleRef = useCallback(

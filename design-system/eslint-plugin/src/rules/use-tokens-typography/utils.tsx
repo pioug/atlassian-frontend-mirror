@@ -7,7 +7,6 @@ import {
 	type Expression,
 	type Identifier,
 	identifier,
-	type ImportDeclaration,
 	isNodeOfType,
 	literal,
 	type MemberExpression,
@@ -23,7 +22,7 @@ import {
 import { typographyPalette } from '@atlaskit/tokens/palettes-raw';
 import { typography as typographyTokens } from '@atlaskit/tokens/tokens-raw';
 
-import { Import, Root } from '../../ast-nodes';
+import { Root } from '../../ast-nodes';
 
 export const typographyProperties: string[] = [
 	'fontSize',
@@ -223,15 +222,6 @@ export type FontWeightMap = {
 
 export const defaultFontWeight: string = fontWeightMap.regular;
 
-export const fontFamilyTokens: typeof typographyTokens = typographyTokens.filter(
-	(token) => token.attributes.group === 'fontFamily',
-);
-
-export function findFontFamilyValueForToken(tokenName: string): string {
-	// Note this will only ever be undefined if the tokens get renamed, and should never happen.
-	return fontFamilyTokens.find((token) => token.cleanName === tokenName)?.value || '';
-}
-
 export function findFontFamilyTokenForValue(
 	value: string,
 ):
@@ -346,23 +336,3 @@ export function insertTokensImport(
 	);
 }
 
-export function insertFallbackImportFull(
-	root: (Directive | Statement | ModuleDeclaration)[],
-	fixer: Rule.RuleFixer,
-): Rule.Fix {
-	return Root.insertImport(
-		root,
-		{
-			module: '@atlaskit/theme/typography',
-			specifiers: ['fontFallback'],
-		},
-		fixer,
-	);
-}
-
-export function insertFallbackImportSpecifier(
-	fixer: Rule.RuleFixer,
-	themeImportNode: ImportDeclaration,
-): Rule.Fix | undefined {
-	return Import.insertNamedSpecifiers(themeImportNode, ['fontFallback'], fixer);
-}

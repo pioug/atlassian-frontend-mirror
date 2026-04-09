@@ -1,4 +1,5 @@
 // Import the ESLint plugin locally
+// eslint-disable-next-line import/no-extraneous-dependencies
 const tsParser = require('@typescript-eslint/parser');
 const warnSchemaEslintPlugin = require('./eslint-plugin-warn-schema');
 

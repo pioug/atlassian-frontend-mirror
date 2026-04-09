@@ -177,7 +177,57 @@ export const mockFieldValuesResponse: FieldValuesResponse = {
 	},
 };
 
-export const mockUserRecommendationsResponse = {
+export const mockUserRecommendationsResponse: {
+    recommendedUsers: ({
+        entityType: string;
+        id: string;
+        name: string;
+        avatarUrl: string;
+        nickname: string;
+        matchPositions: {};
+        accessLevel: string;
+        accountStatus: string;
+        notMentionable: boolean;
+        userType: string;
+        attributes: {
+            isConfluenceExternalCollaborator: boolean;
+        };
+        email?: undefined;
+        locale?: undefined;
+    } | {
+        entityType: string;
+        id: string;
+        name: string;
+        email: string;
+        avatarUrl: string;
+        nickname: string;
+        matchPositions: {};
+        accessLevel: string;
+        accountStatus: string;
+        notMentionable: boolean;
+        locale: string;
+        userType: string;
+        attributes: {
+            isConfluenceExternalCollaborator: boolean;
+        };
+    } | {
+        entityType: string;
+        id: string;
+        name: string;
+        avatarUrl: string;
+        nickname: string;
+        matchPositions: {};
+        accessLevel: string;
+        accountStatus: string;
+        notMentionable: boolean;
+        locale: string;
+        userType: string;
+        attributes: {
+            isConfluenceExternalCollaborator: boolean;
+        };
+        email?: undefined;
+    })[];
+} = {
 	recommendedUsers: [
 		{
 			entityType: 'USER',
@@ -340,7 +390,15 @@ export const mockUserRecommendationsResponse = {
 	],
 };
 
-export const mockUserHydrationResponse = {
+export const mockUserHydrationResponse: {
+    data: {
+        users: {
+            accountId: string;
+            name: string;
+            picture: string;
+        }[];
+    };
+} = {
 	data: {
 		users: [
 			{

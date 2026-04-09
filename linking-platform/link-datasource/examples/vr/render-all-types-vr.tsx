@@ -261,7 +261,7 @@ const items: Item[] = [
 	},
 ];
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<IntlProvider locale="en">
 			<SmartCardProvider client={new SmartLinkClient()}>

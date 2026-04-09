@@ -181,7 +181,7 @@ const i18n = defineMessages({
 
 const addReactionStyles = cssMap({
 	addReactionMessage: {
-		font: token('font.body.UNSAFE_small'),
+		font: token('font.body.small'),
 		color: token('color.text.subtle'),
 		marginLeft: token('space.050'),
 	},

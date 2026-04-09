@@ -62,24 +62,443 @@ const gebForbiddenBody = (definitionId: string) => ({
 	},
 });
 
-const responses = {
+const responses: {
+    'google.com': {
+        'google.com/doc/1': (((resourceUrl: string) => {
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@type': string[];
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+                name: string;
+                updated: string;
+                updatedBy: {
+                    '@type': string;
+                    name: string;
+                };
+            };
+        }) | {
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+            };
+        } | undefined)[];
+        'google.com/doc/2': ({
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+            };
+        } | ((resourceUrl: string) => {
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@type': string[];
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+                name: string;
+                updated: string;
+                updatedBy: {
+                    '@type': string;
+                    name: string;
+                };
+            };
+        }) | undefined)[];
+        'google.com/doc/3': ({
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+            };
+        } | ((resourceUrl: string) => {
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@type': string[];
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+                name: string;
+                updated: string;
+                updatedBy: {
+                    '@type': string;
+                    name: string;
+                };
+            };
+        }) | undefined)[];
+        'google.com/spreadshet/1': ({
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+            };
+        } | ((resourceUrl: string) => {
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@type': string[];
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+                name: string;
+                updated: string;
+                updatedBy: {
+                    '@type': string;
+                    name: string;
+                };
+            };
+        }) | undefined)[];
+        'google.com/spreadshet/2': ({
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+            };
+        } | ((resourceUrl: string) => {
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@type': string[];
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+                name: string;
+                updated: string;
+                updatedBy: {
+                    '@type': string;
+                    name: string;
+                };
+            };
+        }) | undefined)[];
+    }; 'trello.com': {
+        'trello.com/task/a': ({
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+            };
+        } | ((resourceUrl: string) => {
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@type': string[];
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+                name: string;
+                updated: string;
+                updatedBy: {
+                    '@type': string;
+                    name: string;
+                };
+            };
+        }))[];
+    }; 'dropbox.com': {
+        'dropbox.com/file/a': ({
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+            };
+        } | ((resourceUrl: string) => {
+            meta: {
+                visibility: string;
+                access: string;
+                auth: {
+                    key: string;
+                    displayName: string;
+                    url: string;
+                }[];
+                definitionId: string;
+            };
+            data: {
+                '@type': string[];
+                '@context': string;
+                generator: {
+                    name: string;
+                    icon: {
+                        url: string;
+                    };
+                };
+                name: string;
+                updated: string;
+                updatedBy: {
+                    '@type': string;
+                    name: string;
+                };
+            };
+        }) | undefined)[];
+    };
+} = {
 	'google.com': {
 		'google.com/doc/1': [
-			(resourceUrl: string) => genResolvedBody(googleDefinitionId, resourceUrl),
+			(resourceUrl: string): {
+                meta: {
+                    visibility: string;
+                    access: string;
+                    auth: {
+                        key: string;
+                        displayName: string;
+                        url: string;
+                    }[];
+                    definitionId: string;
+                }; data: {
+                    '@type': string[];
+                    '@context': string;
+                    generator: {
+                        name: string;
+                        icon: {
+                            url: string;
+                        };
+                    };
+                    name: string;
+                    updated: string;
+                    updatedBy: {
+                        '@type': string;
+                        name: string;
+                    };
+                };
+            } => genResolvedBody(googleDefinitionId, resourceUrl),
 			gebForbiddenBody(googleDefinitionId),
 			undefined,
 			genUnauthorisedBody(googleDefinitionId),
 			undefined,
 		],
 		'google.com/doc/2': [
-			(resourceUrl: string) => genResolvedBody(googleDefinitionId, resourceUrl),
+			(resourceUrl: string): {
+                meta: {
+                    visibility: string;
+                    access: string;
+                    auth: {
+                        key: string;
+                        displayName: string;
+                        url: string;
+                    }[];
+                    definitionId: string;
+                }; data: {
+                    '@type': string[];
+                    '@context': string;
+                    generator: {
+                        name: string;
+                        icon: {
+                            url: string;
+                        };
+                    };
+                    name: string;
+                    updated: string;
+                    updatedBy: {
+                        '@type': string;
+                        name: string;
+                    };
+                };
+            } => genResolvedBody(googleDefinitionId, resourceUrl),
 			gebForbiddenBody(googleDefinitionId),
 			undefined,
 			genUnauthorisedBody(googleDefinitionId),
 			undefined,
 		],
 		'google.com/doc/3': [
-			(resourceUrl: string) => genResolvedBody(googleDefinitionId, resourceUrl),
+			(resourceUrl: string): {
+                meta: {
+                    visibility: string;
+                    access: string;
+                    auth: {
+                        key: string;
+                        displayName: string;
+                        url: string;
+                    }[];
+                    definitionId: string;
+                }; data: {
+                    '@type': string[];
+                    '@context': string;
+                    generator: {
+                        name: string;
+                        icon: {
+                            url: string;
+                        };
+                    };
+                    name: string;
+                    updated: string;
+                    updatedBy: {
+                        '@type': string;
+                        name: string;
+                    };
+                };
+            } => genResolvedBody(googleDefinitionId, resourceUrl),
 			undefined,
 			gebForbiddenBody(googleDefinitionId),
 			gebForbiddenBody(googleDefinitionId),
@@ -88,14 +507,66 @@ const responses = {
 			undefined,
 		],
 		'google.com/spreadshet/1': [
-			(resourceUrl: string) => genResolvedBody(googleDefinitionId, resourceUrl),
+			(resourceUrl: string): {
+                meta: {
+                    visibility: string;
+                    access: string;
+                    auth: {
+                        key: string;
+                        displayName: string;
+                        url: string;
+                    }[];
+                    definitionId: string;
+                }; data: {
+                    '@type': string[];
+                    '@context': string;
+                    generator: {
+                        name: string;
+                        icon: {
+                            url: string;
+                        };
+                    };
+                    name: string;
+                    updated: string;
+                    updatedBy: {
+                        '@type': string;
+                        name: string;
+                    };
+                };
+            } => genResolvedBody(googleDefinitionId, resourceUrl),
 			gebForbiddenBody(googleDefinitionId),
 			undefined,
 			genUnauthorisedBody(googleDefinitionId),
 			undefined,
 		],
 		'google.com/spreadshet/2': [
-			(resourceUrl: string) => genResolvedBody(googleDefinitionId, resourceUrl),
+			(resourceUrl: string): {
+                meta: {
+                    visibility: string;
+                    access: string;
+                    auth: {
+                        key: string;
+                        displayName: string;
+                        url: string;
+                    }[];
+                    definitionId: string;
+                }; data: {
+                    '@type': string[];
+                    '@context': string;
+                    generator: {
+                        name: string;
+                        icon: {
+                            url: string;
+                        };
+                    };
+                    name: string;
+                    updated: string;
+                    updatedBy: {
+                        '@type': string;
+                        name: string;
+                    };
+                };
+            } => genResolvedBody(googleDefinitionId, resourceUrl),
 			gebForbiddenBody(googleDefinitionId),
 			undefined,
 			genUnauthorisedBody(googleDefinitionId),
@@ -104,14 +575,66 @@ const responses = {
 	},
 	'trello.com': {
 		'trello.com/task/a': [
-			(resourceUrl: string) => genResolvedBody(trelloDefinitionId, resourceUrl),
+			(resourceUrl: string): {
+                meta: {
+                    visibility: string;
+                    access: string;
+                    auth: {
+                        key: string;
+                        displayName: string;
+                        url: string;
+                    }[];
+                    definitionId: string;
+                }; data: {
+                    '@type': string[];
+                    '@context': string;
+                    generator: {
+                        name: string;
+                        icon: {
+                            url: string;
+                        };
+                    };
+                    name: string;
+                    updated: string;
+                    updatedBy: {
+                        '@type': string;
+                        name: string;
+                    };
+                };
+            } => genResolvedBody(trelloDefinitionId, resourceUrl),
 			gebForbiddenBody(trelloDefinitionId),
 			genUnauthorisedBody(trelloDefinitionId),
 		],
 	},
 	'dropbox.com': {
 		'dropbox.com/file/a': [
-			(resourceUrl: string) => genResolvedBody(dropboxDefinitionId, resourceUrl),
+			(resourceUrl: string): {
+                meta: {
+                    visibility: string;
+                    access: string;
+                    auth: {
+                        key: string;
+                        displayName: string;
+                        url: string;
+                    }[];
+                    definitionId: string;
+                }; data: {
+                    '@type': string[];
+                    '@context': string;
+                    generator: {
+                        name: string;
+                        icon: {
+                            url: string;
+                        };
+                    };
+                    name: string;
+                    updated: string;
+                    updatedBy: {
+                        '@type': string;
+                        name: string;
+                    };
+                };
+            } => genResolvedBody(dropboxDefinitionId, resourceUrl),
 			gebForbiddenBody(dropboxDefinitionId),
 			gebForbiddenBody(dropboxDefinitionId),
 			undefined,

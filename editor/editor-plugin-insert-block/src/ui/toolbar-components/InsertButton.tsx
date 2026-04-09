@@ -27,7 +27,6 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import type { Breakpoint } from '@atlaskit/editor-toolbar';
 import { ToolbarButton, ToolbarTooltip, AddIcon, useToolbarUI } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 import type { ToolbarInsertBlockButtonsConfig } from '../../types';
@@ -166,13 +165,9 @@ export const InsertButton = ({
 				break;
 			case 'media':
 				if (showMediaPicker) {
-					if (fg('platform_editor_media_insert_check')) {
-						api?.mediaInsert?.commands.showMediaInsertPopup
-							? api?.core?.actions.execute(api?.mediaInsert?.commands.showMediaInsertPopup())
-							: showMediaPicker?.();
-					} else {
-						api?.core?.actions.execute(api?.mediaInsert?.commands.showMediaInsertPopup());
-					}
+					api?.mediaInsert?.commands.showMediaInsertPopup
+						? api?.core?.actions.execute(api?.mediaInsert?.commands.showMediaInsertPopup())
+						: showMediaPicker?.();
 				}
 				break;
 			case 'mention':

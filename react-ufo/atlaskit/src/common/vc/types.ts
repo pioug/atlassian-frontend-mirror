@@ -211,7 +211,8 @@ export type RevisionPayloadEntry = {
 		att?: Record<number, string>;
 		evts?: Array<RawEventObservation>;
 		evt?: Record<number, string>;
-		lbl?: Record<number, { s: string; l: string }>;
+		lbl?: Record<number, { s: string; l: string } | 'u'>;
+		lblMode?: 'sentinel-v1';
 	};
 	viewport?: { w: number; h: number };
 	feVCTime?: number;

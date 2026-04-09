@@ -1,5 +1,11 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.5.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.5.10
 
 ### Patch Changes

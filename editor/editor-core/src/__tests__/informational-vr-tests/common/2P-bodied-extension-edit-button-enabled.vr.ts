@@ -19,9 +19,6 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
-	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
@@ -35,9 +32,6 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 	description: 'Block extension danger state',
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
-	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
 	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
@@ -55,9 +49,6 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
-	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
@@ -69,9 +60,6 @@ snapshotInformational(InlineExtensionWithSmartLink, {
 	description: 'Inline extension selected state',
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
-	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
 	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
@@ -86,9 +74,6 @@ snapshotInformational(InlineExtensionWithSmartLink, {
 	description: 'Inline extension danger state',
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
-	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
 	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
@@ -106,9 +91,6 @@ snapshotInformational(InlineExtensionWithSmartLink, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
-	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
@@ -120,9 +102,6 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 	description: 'Bodied extension selected state',
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
-	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
 	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
@@ -137,9 +116,6 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
-	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
@@ -151,9 +127,6 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 	description: 'Bodied extension danger state',
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
-	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
 	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
@@ -171,9 +144,6 @@ snapshotInformational(EmptyBodiedExtension, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
-	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
@@ -187,9 +157,6 @@ snapshotInformational(EmptyBodiedExtension, {
 	description: 'Empty bodied extension danger state',
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
-	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
 	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
@@ -206,9 +173,6 @@ snapshotInformational(EmptyBodiedExtension, {
 	description: 'Empty bodied extension hovered state',
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
-	},
-	featureFlags: {
-		platform_editor_extension_styles: true,
 	},
 	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });

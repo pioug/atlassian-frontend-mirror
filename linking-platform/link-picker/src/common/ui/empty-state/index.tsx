@@ -32,7 +32,7 @@ export const EmptyState = ({
 	description,
 	action,
 	renderImage,
-}: EmptyStateProps) => {
+}: EmptyStateProps): JSX.Element => {
 	return (
 		<Flex
 			xcss={styles.containerV2}

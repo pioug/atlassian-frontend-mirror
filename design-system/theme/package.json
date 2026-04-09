@@ -95,7 +95,6 @@
 		"./components": "./src/components.tsx",
 		"./constants": "./src/constants.tsx",
 		"./types": "./src/types.tsx",
-		"./typography": "./src/typography.tsx",
 		".": "./src/index.tsx"
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/design-system/eslint-plugin"

@@ -80,7 +80,7 @@ const MediaElement = ({
 	url,
 	onLoad,
 	onError,
-}: MediaElementProps) => {
+}: MediaElementProps): JSX.Element | null => {
 	const ui = useFlexibleUiOptionContext();
 
 	if (!type || !url) {

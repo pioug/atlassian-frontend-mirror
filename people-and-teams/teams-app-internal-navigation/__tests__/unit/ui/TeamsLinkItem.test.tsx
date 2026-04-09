@@ -54,14 +54,11 @@ test('renders target="_blank" and rel="noopener noreferrer" for any intent when 
 	expect(link).toHaveAttribute('rel', 'noopener noreferrer');
 });
 
-test('throws when rendered outside a TeamsNavigationProvider', () => {
-	const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-	expect(() =>
-		render(
-			<TeamsLinkItem href="https://home.atlassian.com/people/123" intent="navigation">
-				Link Item
-			</TeamsLinkItem>,
-		),
-	).toThrow('useTeamsNavigationContext must be used within a TeamsNavigationProvider');
-	consoleSpy.mockRestore();
+test('renders without a TeamsNavigationProvider', () => {
+	render(
+		<TeamsLinkItem href="https://home.atlassian.com/people/123" intent="navigation">
+			Link Item
+		</TeamsLinkItem>,
+	);
+	expect(screen.getByRole('link', { name: /Link Item/ })).toHaveAttribute('target', '_self');
 });

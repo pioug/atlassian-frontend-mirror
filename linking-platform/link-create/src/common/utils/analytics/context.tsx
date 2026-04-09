@@ -88,7 +88,7 @@ const contextAttributesFromInitialProps = <
 /**
  * Hook that exposes the context-level attribute getters and setters.
  */
-export const useLinkCreateAnalytics = () => useContext(LinkCreateAnalyticsContext);
+export const useLinkCreateAnalytics = (): AnalyticsContextType => useContext(LinkCreateAnalyticsContext);
 
 /**
  * Wrap component in "attributes" context store and initialise the initial context attributes from props.

@@ -7,7 +7,66 @@ const baseMetaData = {
 	key: 'trello-object-provider',
 };
 
-export const TrelloBoard = {
+export const TrelloBoard: {
+    meta: {
+        resourceType: string;
+        visibility: string;
+        access: string;
+        version: string;
+        key: string;
+    }; data: {
+        '@id': string;
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        '@type': string;
+        generator: {
+            '@type': string;
+            name: string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+        };
+        icon: {
+            '@type': string;
+            url: string;
+        };
+        url: string;
+        'atlassian:isDeleted': boolean;
+        'atlassian:member': {
+            items: {
+                '@type': string;
+                name: string;
+                icon: string;
+            }[];
+            totalItems: number;
+        };
+        name: string;
+        summary: string;
+        image: {
+            '@type': string;
+            url: string;
+        };
+        location: {
+            '@context': {
+                '@vocab': string;
+                atlassian: string;
+                schema: string;
+            };
+            '@type': string;
+            name: string;
+            url: string;
+        };
+        preview: {
+            '@type': string;
+            'atlassian:supportedPlatforms': string[];
+            href: string;
+        };
+    };
+} = {
 	meta: {
 		...baseMetaData,
 		resourceType: 'board',
@@ -69,7 +128,70 @@ export const TrelloBoard = {
 	},
 };
 
-export const TrelloCard = {
+export const TrelloCard: {
+    meta: {
+        resourceType: string;
+        visibility: string;
+        access: string;
+        version: string;
+        key: string;
+    }; data: {
+        '@id': string;
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        generator: {
+            '@type': string;
+            name: string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+        };
+        icon: {
+            '@type': string;
+            url: string;
+        };
+        '@type': string;
+        url: string;
+        'atlassian:attachmentCount': number;
+        location: {
+            '@context': {
+                '@vocab': string;
+                atlassian: string;
+                schema: string;
+            };
+            '@type': string;
+            name: string;
+            url: string;
+        };
+        'atlassian:isDeleted': boolean;
+        'atlassian:member': {
+            items: {
+                '@type': string;
+                name: string;
+                icon: string;
+            }[];
+            totalItems: number;
+        };
+        endTime: string;
+        name: string;
+        summary: string;
+        'atlassian:state': {
+            '@type': string;
+            name: string;
+            appearance: string;
+            accent: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        'schema:commentCount': number;
+    };
+} = {
 	meta: {
 		...baseMetaData,
 		resourceType: 'card',

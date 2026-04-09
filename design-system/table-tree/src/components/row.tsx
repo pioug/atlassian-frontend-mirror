@@ -11,7 +11,7 @@ import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/an
 import toItemId from '../utils/to-item-id';
 
 import Chevron from './internal/chevron';
-import { TreeRowContainer } from './internal/styled';
+import { TreeRowContainer } from './internal/tree-row-container';
 
 const treeRowClickableStyles = css({
 	cursor: 'pointer',

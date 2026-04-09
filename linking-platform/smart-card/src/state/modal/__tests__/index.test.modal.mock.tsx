@@ -10,6 +10,6 @@ export const Modal = ({ onClose }: { onClose: () => void }): React.JSX.Element =
 	);
 };
 
-export const ErrorModal = (_props: { onClose: () => void }) => {
+export const ErrorModal = (_props: { onClose: () => void }): never => {
 	throw new Error('Error on render.');
 };

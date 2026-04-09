@@ -1,5 +1,27 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.12.0
+
+### Minor Changes
+
+- [`793f7dc3f231f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/793f7dc3f231f) -
+  Compact raw lbl unknown entries behind a feature gate for TTVC server-side sync
+
+### Patch Changes
+
+- [`6cb3b52b44f41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cb3b52b44f41) -
+  Deprecate stopVCAtInteractionFinish as a compatibility no-op
+
+## 5.11.1
+
+### Patch Changes
+
+- [`cb0f154d31d82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb0f154d31d82) -
+  Clean up always-on SSR render profiler handling
+- [`d347b52cce4ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d347b52cce4ba) -
+  Clean up feature gate platform_ufo_send_extra_metrics_on_dirty_vc (always true): remove gate
+  guards, allow dirty VC payloads unconditionally, update tests
+
 ## 5.11.0
 
 ### Minor Changes

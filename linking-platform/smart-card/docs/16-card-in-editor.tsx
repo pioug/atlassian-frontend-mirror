@@ -5,8 +5,9 @@ import { TabName } from './utils';
 import ContentTabs from './utils/content-tabs';
 import customMd from './utils/custom-md';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ${(<ContentTabs showQuickLinks={true} tabs={[{ name: TabName.Overview, content: overview }]} />)}
 
 `;
+export default _default_1;

@@ -67,7 +67,10 @@ export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvide
 	};
 };
 
-export const extractEntityIcon = (response?: SmartLinkResponse) => {
+export const extractEntityIcon = (response?: SmartLinkResponse): {
+    url: string | undefined;
+    label: string | undefined;
+} => {
 	const entity = extractEntity(response);
 
 	let url: string | undefined;

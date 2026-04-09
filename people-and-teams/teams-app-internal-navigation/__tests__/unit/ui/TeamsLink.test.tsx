@@ -51,14 +51,11 @@ test('renders target="_blank" for any intent when forceExternalIntent is true', 
 	expect(link).toHaveAttribute('target', '_blank');
 });
 
-test('throws when rendered outside a TeamsNavigationProvider', () => {
-	const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-	expect(() =>
-		render(
-			<TeamsLink href="https://home.atlassian.com/people/123" intent="navigation">
-				Link
-			</TeamsLink>,
-		),
-	).toThrow('useTeamsNavigationContext must be used within a TeamsNavigationProvider');
-	consoleSpy.mockRestore();
+test('renders without a TeamsNavigationProvider', () => {
+	render(
+		<TeamsLink href="https://home.atlassian.com/people/123" intent="navigation">
+			Link
+		</TeamsLink>,
+	);
+	expect(screen.getByRole('link', { name: /Link/ })).toHaveAttribute('target', '_self');
 });

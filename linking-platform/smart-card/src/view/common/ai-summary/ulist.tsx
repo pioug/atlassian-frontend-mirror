@@ -13,7 +13,7 @@ const listStyles = css({
 	paddingInlineStart: token('space.250'),
 });
 
-const UList = ({ children, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
+const UList = ({ children, ...props }: React.HTMLAttributes<HTMLUListElement>): JSX.Element => (
 	<ul css={listStyles} {...props}>
 		{children}
 	</ul>

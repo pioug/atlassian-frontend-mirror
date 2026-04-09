@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 12.6.0
+
+### Minor Changes
+
+- [`7cd616cd9581c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cd616cd9581c) -
+  [ux] Removed the active scaling for the view more button to make it more consistent and resolve a
+  UX issue
+
 ## 12.5.2
 
 ### Patch Changes

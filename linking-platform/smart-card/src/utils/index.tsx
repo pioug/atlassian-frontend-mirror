@@ -285,7 +285,7 @@ const getTypeToIconMap = (fileFormat: string): IconLabelMap | IconLabelMapNew | 
 	}
 };
 
-export const getIframeSandboxAttribute = (isTrusted: boolean) => {
+export const getIframeSandboxAttribute = (isTrusted: boolean): "allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts" | undefined => {
 	if (isTrusted) {
 		return undefined;
 	}
@@ -380,7 +380,7 @@ export const getPreviewUrlWithTheme = (
 	}
 };
 
-export const isIconSizeLarge = (size?: SmartLinkSize) =>
+export const isIconSizeLarge = (size?: SmartLinkSize): boolean | undefined =>
 	size && [SmartLinkSize.Large, SmartLinkSize.XLarge].includes(size);
 
 export const isProfileType = (type?: string[]): boolean => !!(type && type.includes('Profile'));

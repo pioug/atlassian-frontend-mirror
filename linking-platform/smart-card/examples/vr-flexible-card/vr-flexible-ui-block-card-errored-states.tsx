@@ -16,7 +16,7 @@ const containerStyle = css({
 	width: '80%',
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

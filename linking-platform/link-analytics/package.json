@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-analytics",
-	"version": "11.0.2",
+	"version": "11.0.3",
 	"description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,6 +23,13 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Navigation Experiences - Linking Platform",
 		"website": {
 			"name": "LinkingAnalytics"
@@ -50,6 +57,7 @@
 		"@af/analytics-codegen": "workspace:^",
 		"@atlaskit/link-picker": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",

@@ -4,7 +4,7 @@ import { withWaitForItem } from '@atlaskit/link-test-helpers';
 
 import { VRIssueLikeTable } from './issue-like-table';
 
-export const VRIssueLikeTablePrioritiesLoading = withWaitForItem(
+export const VRIssueLikeTablePrioritiesLoading: React.ComponentType<object> = withWaitForItem(
 	(): JSX.Element => {
 		return (
 			<VRIssueLikeTable
@@ -20,7 +20,7 @@ export const VRIssueLikeTablePrioritiesLoading = withWaitForItem(
 	},
 );
 
-export const VRIssueLikeTablePriorities = withWaitForItem(
+export const VRIssueLikeTablePriorities: React.ComponentType<object> = withWaitForItem(
 	(): JSX.Element => {
 		return (
 			<VRIssueLikeTable visibleColumnKeys={['key', 'summary', 'status', 'assignee', 'priority']} />

@@ -55,7 +55,7 @@ const getIcon = (appearance?: ActionMessageAppearance) => {
 	}
 };
 
-export const ActionFooter = ({ message, testId }: ActionFooterProps) => {
+export const ActionFooter = ({ message, testId }: ActionFooterProps): JSX.Element | null => {
 	if (!message) {
 		return null;
 	}

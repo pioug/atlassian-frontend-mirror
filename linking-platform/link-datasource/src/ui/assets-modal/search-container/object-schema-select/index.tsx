@@ -70,7 +70,7 @@ export const AssetsObjectSchemaSelect = ({
 	initialObjectSchemas,
 	classNamePrefix: _classNamePrefix = 'assets-datasource-modal--object-schema-select',
 	testId = 'assets-datasource-modal--object-schema-select',
-}: AssetsObjectSchemaSelectProps) => {
+}: AssetsObjectSchemaSelectProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { fetchObjectSchemas, objectSchemasLoading } = useObjectSchemas(workspaceId);
 	const [searchTerm, setSearchTerm] = useState('');

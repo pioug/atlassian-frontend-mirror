@@ -1,6 +1,9 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-dynamic-styles */
+/* eslint-disable @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles */
 
-import { styled } from '@compiled/react';
+import type { ClassAttributes, ComponentType, HTMLAttributes, ImgHTMLAttributes } from 'react';
+
+import { styled, type StyledProps } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -55,7 +58,9 @@ const getSizeWithUnit = (value: string | number = '100%') => {
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles
-export const Image = styled.img({
+export const Image: ComponentType<
+	ImageProps & ClassAttributes<HTMLImageElement> & ImgHTMLAttributes<HTMLImageElement> & StyledProps
+> = styled.img({
 	borderRadius: token('radius.small', '3px'),
 	overflow: 'hidden',
 	width: (props: ImageProps) => getSizeWithUnit(props.size),
@@ -63,7 +68,9 @@ export const Image = styled.img({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles
-export const Thumbnail = styled.div({
+export const Thumbnail: ComponentType<
+	ThumbnailProps & ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyledProps
+> = styled.div({
 	borderRadius: token('radius.small', '3px'),
 	width: '48px',
 	height: '48px',

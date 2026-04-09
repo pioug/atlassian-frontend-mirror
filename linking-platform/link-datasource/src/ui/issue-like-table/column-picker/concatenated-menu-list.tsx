@@ -48,7 +48,7 @@ const listItemStyles = css({
 export const ConcatenatedMenuList = ({
 	children,
 	...props
-}: MenuListComponentProps<OptionType, true>) => {
+}: MenuListComponentProps<OptionType, true>): JSX.Element => {
 	const shouldUseDefaultMenuList =
 		!children || !Array.isArray(children) || children.length <= SELECT_ITEMS_MAXIMUM_THRESHOLD;
 
@@ -76,7 +76,7 @@ export const ConcatenatedMenuList = ({
 	);
 };
 
-export const MenuItem = ({ children, ...props }: OptionProps<OptionType, true>) => {
+export const MenuItem = ({ children, ...props }: OptionProps<OptionType, true>): JSX.Element => {
 	return (
 		<CheckboxOption css={[props.isSelected ? listItemStylesSelected : listItemStyles]} {...props}>
 			{children}

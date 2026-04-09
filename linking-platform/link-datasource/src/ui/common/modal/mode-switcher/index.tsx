@@ -114,7 +114,7 @@ const compactModeSwitcherLabelStyles = css({
 	paddingLeft: token('space.050'),
 });
 
-export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps<T>) => {
+export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps<T>): JSX.Element | null => {
 	const {
 		isCompact,
 		isDisabled,
@@ -173,7 +173,7 @@ export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps
 	) : null;
 };
 
-export const DatasourceViewModeDropDown = () => {
+export const DatasourceViewModeDropDown = (): JSX.Element | null => {
 	const userInteractions = useUserInteractions();
 	const { currentViewMode, setCurrentViewMode, disableDisplayDropdown } = useViewModeContext();
 	if (disableDisplayDropdown) {

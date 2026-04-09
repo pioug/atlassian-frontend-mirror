@@ -47,7 +47,7 @@ const isConfluenceSearch = (url: string) => !!url.match(/https:\/\/.*\/wiki\/sea
 
 const isJiraIssuesList = (url: string) => !!url.match(/https:\/\/.*\/issues\/?\?jql=/);
 
-export const LoadingError = ({ onRefresh, url }: LoadingErrorProps) => {
+export const LoadingError = ({ onRefresh, url }: LoadingErrorProps): JSX.Element => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	useEffect(() => {

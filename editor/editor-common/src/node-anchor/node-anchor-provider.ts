@@ -1,6 +1,5 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { isEmptyDocument } from '../utils';
@@ -204,18 +203,12 @@ const isLimitedModeEnabled = (editorView: EditorView): boolean => {
 // This allows access to the node ids anywhere.
 export const getNodeIdProvider: (editorView: EditorView) => NodeAnchorProvider = (editorView) => {
 	if (!nodeIdProviderMap.has(editorView)) {
-		if (fg('platform_editor_native_anchor_patch_2')) {
-			// if the limited mode flag is on, enable limited mode based on the threshold
-			// only for the first time
-			const limitedMode = isLimitedModeEnabled(editorView);
-			const isEmptyDoc = isEmptyDocument(editorView.state.doc);
+		// if the limited mode flag is on, enable limited mode based on the threshold
+		// only for the first time
+		const limitedMode = isLimitedModeEnabled(editorView);
+		const isEmptyDoc = isEmptyDocument(editorView.state.doc);
 
-			const provider = new NodeAnchorProvider(limitedMode, isEmptyDoc);
-			nodeIdProviderMap.set(editorView, provider);
-			return provider;
-		}
-
-		const provider = new NodeAnchorProvider();
+		const provider = new NodeAnchorProvider(limitedMode, isEmptyDoc);
 		nodeIdProviderMap.set(editorView, provider);
 		return provider;
 	}
@@ -227,8 +220,7 @@ export const getNodeIdProvider: (editorView: EditorView) => NodeAnchorProvider =
 	// so we need to check first time from an empty doc to a non-empty doc
 	if (
 		nodeIdProvider.isEmptyDoc() &&
-		!isEmptyDocument(editorView.state.doc) &&
-		fg('platform_editor_native_anchor_patch_2')
+		!isEmptyDocument(editorView.state.doc)
 	) {
 		// set empty doc to false regardless of limited mode state
 		nodeIdProvider.setEmptyDoc(false);

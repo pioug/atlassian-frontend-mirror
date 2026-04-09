@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { type Action, createActionsHook, createHook, createStore } from 'react-sweet-state';
+import { type Action, type BoundActions, createActionsHook, createHook, createStore, type HookFunction, type Store } from 'react-sweet-state';
 
 import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
 import type {
@@ -190,7 +190,9 @@ export const actions = {
 
 type Actions = typeof actions;
 
-export const ActionsStore = createStore<ActionsStoreState, Actions>({
+export const ActionsStore: Store<ActionsStoreState, {
+    discoverActions: (captureError: AnalyticsCaptureError, fireEvent: AnalyticsFireEvent, api: Client, request: ActionsDiscoveryRequest) => Action<ActionsStoreState>;
+}> = createStore<ActionsStoreState, Actions>({
 	name: 'actions-store',
 	initialState: getInitialState(),
 	actions,
@@ -198,7 +200,9 @@ export const ActionsStore = createStore<ActionsStoreState, Actions>({
 
 const useActionStoreActions = createActionsHook(ActionsStore);
 
-export const useDiscoverActions = ({ captureError, fireEvent }: UseDiscoverActionsProps) => {
+export const useDiscoverActions = ({ captureError, fireEvent }: UseDiscoverActionsProps): {
+    discoverActions: (request: ActionsDiscoveryRequest) => void | Promise<void>;
+} => {
 	const { getDatasourceActionsAndPermissions } = useDatasourceClientExtension();
 	const { discoverActions } = useActionStoreActions();
 
@@ -238,7 +242,21 @@ const getFieldUpdateActionByAri = (
 /**
  * Retrieves the action schema for a given ARI + fieldKey + integrationKey
  */
-export const useAtomicUpdateActionSchema = createHook(ActionsStore, {
+export const useAtomicUpdateActionSchema: HookFunction<{
+    schema?: undefined;
+    fetchSchema?: undefined;
+} | {
+    schema: Pick<AtomicActionInterface, "type" | "description" | "actionKey"> & {
+        fetchAction?: Pick<AtomicActionInterface, "actionKey" | "type" | "inputs">;
+    };
+    fetchSchema: Pick<AtomicActionInterface, "type" | "inputs" | "actionKey"> | undefined;
+}, BoundActions<ActionsStoreState, {
+    discoverActions: (captureError: AnalyticsCaptureError, fireEvent: AnalyticsFireEvent, api: Client, request: ActionsDiscoveryRequest) => Action<ActionsStoreState>;
+}>, {
+    ari: string;
+    fieldKey: string;
+    integrationKey: string;
+}> = createHook(ActionsStore, {
 	selector: getFieldUpdateActionByAri,
 });
 

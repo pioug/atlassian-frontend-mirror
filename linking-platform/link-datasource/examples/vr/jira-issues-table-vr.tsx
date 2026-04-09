@@ -13,7 +13,7 @@ export default function JiraIssuesTable(): React.JSX.Element {
 	);
 }
 
-export const JiraIssuesTableDaterange = () => {
+export const JiraIssuesTableDaterange = (): React.JSX.Element => {
 	return (
 		<HoverableContainer>
 			<ExampleJiraIssuesTableView visibleColumnKeys={['type', 'key', 'summary', 'daterange']} />
@@ -21,10 +21,10 @@ export const JiraIssuesTableDaterange = () => {
 	);
 };
 
-export const VRJiraIssueTableHoverable = withWaitForItem(JiraIssuesTable, () => {
+export const VRJiraIssueTableHoverable: React.ComponentType<object> = withWaitForItem(JiraIssuesTable, () => {
 	return document.body.querySelector('[data-testid="examples-hoverable-container"]') !== null;
 });
 
-export const VRJiraIssueTableDaterangeHoverable = withWaitForItem(JiraIssuesTableDaterange, () => {
+export const VRJiraIssueTableDaterangeHoverable: React.ComponentType<object> = withWaitForItem(JiraIssuesTableDaterange, () => {
 	return document.body.querySelector('[data-testid="examples-hoverable-container"]') !== null;
 });

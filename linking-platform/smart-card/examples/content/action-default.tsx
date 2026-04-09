@@ -18,7 +18,7 @@ const styles = css({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<ExampleContainer>
 		<TitleBlock
 			actions={[

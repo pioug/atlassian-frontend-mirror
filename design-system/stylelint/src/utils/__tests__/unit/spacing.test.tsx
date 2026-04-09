@@ -1,4 +1,5 @@
-import { getSpacingToken, isLengthOrPercentage } from '../../spacing';
+import { getSpacingToken } from '../../get-spacing-token';
+import { isLengthOrPercentage } from '../../is-length-or-percentage';
 
 describe('spacing', () => {
 	describe('isLengthOrPercentage()', () => {

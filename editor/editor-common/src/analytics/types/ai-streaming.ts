@@ -32,13 +32,19 @@ type AIStreamingInvalidCommandAEP = OperationalAEP<
 	ACTION_SUBJECT_ID.EXPERIENCE_APPLICATION,
 	{
 		ancestors?: string[];
+		anchorNodeType?: string;
 		// Disable for now #hot-122604
 		// command: Record<string, unknown>;
+		destinationParentNodeType?: string;
 		errorMessage?: string;
 		errorStack?: string;
 		fragments?: string[];
+		parentNodeType?: string;
 		repaired: boolean;
+		sourceNodeType?: string;
+		sourceParentNodeType?: string;
 		success: boolean;
+		validationReason?: string;
 	}
 >;
 

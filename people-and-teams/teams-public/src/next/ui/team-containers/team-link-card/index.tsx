@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
+import { TeamsAnchor } from '@atlaskit/teams-app-internal-navigation';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerSubTypes, type ContainerTypes } from '../../../../common/types';
@@ -158,10 +160,7 @@ export const TeamLinkCard = ({
 			onKeyDown={handleKeyDown}
 			testId="team-link-card-inner"
 		>
-			<Inline
-				space="space.100"
-				xcss={styles.card}
-			>
+			<Inline space="space.100" xcss={styles.card}>
 				<ContainerIcon
 					containerType={containerType}
 					title={title}
@@ -170,33 +169,64 @@ export const TeamLinkCard = ({
 					iconsLoading={iconsLoading}
 					iconHasLoaded={iconHasLoaded}
 				/>
-				<Anchor
-					xcss={styles.anchor}
-					href={link || '#'}
-					onClick={handleLinkClick}
-					testId="team-link-card-linkable-content"
-				>
-					<Stack space="space.025">
-						<Text maxLines={1} color="color.text">
-							{title}
-						</Text>
-						<Flex gap="space.050" alignItems="center">
-							<Inline space="space.050">
-								{containerTypeText && (
-									<Text size="small" color="color.text.subtle">
-										{containerTypeText}
-									</Text>
-								)}
-								{containerTypeText && description && <Separator />}
-								{description && (
-									<Text size="small" color="color.text.subtle">
-										{description}
-									</Text>
-								)}
-							</Inline>
-						</Flex>
-					</Stack>
-				</Anchor>
+				{fg('ptc-links-migrate-atlaskit-anchor-to-teams-anchor') ? (
+					<TeamsAnchor
+						xcss={styles.anchor}
+						href={link || '#'}
+						onClick={handleLinkClick}
+						testId="team-link-card-linkable-content"
+						intent="unknown" // because links can be internal or external 'unknown' is appropriate here
+					>
+						<Stack space="space.025">
+							<Text maxLines={1} color="color.text">
+								{title}
+							</Text>
+							<Flex gap="space.050" alignItems="center">
+								<Inline space="space.050">
+									{containerTypeText && (
+										<Text size="small" color="color.text.subtle">
+											{containerTypeText}
+										</Text>
+									)}
+									{containerTypeText && description && <Separator />}
+									{description && (
+										<Text size="small" color="color.text.subtle">
+											{description}
+										</Text>
+									)}
+								</Inline>
+							</Flex>
+						</Stack>
+					</TeamsAnchor>
+				) : (
+					<Anchor
+						xcss={styles.anchor}
+						href={link || '#'}
+						onClick={handleLinkClick}
+						testId="team-link-card-linkable-content"
+					>
+						<Stack space="space.025">
+							<Text maxLines={1} color="color.text">
+								{title}
+							</Text>
+							<Flex gap="space.050" alignItems="center">
+								<Inline space="space.050">
+									{containerTypeText && (
+										<Text size="small" color="color.text.subtle">
+											{containerTypeText}
+										</Text>
+									)}
+									{containerTypeText && description && <Separator />}
+									{description && (
+										<Text size="small" color="color.text.subtle">
+											{description}
+										</Text>
+									)}
+								</Inline>
+							</Flex>
+						</Stack>
+					</Anchor>
+				)}
 				{!isReadOnly && (
 					<TeamLinkCardActions
 						containerType={containerType}

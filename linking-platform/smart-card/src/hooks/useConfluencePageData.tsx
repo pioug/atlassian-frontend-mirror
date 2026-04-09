@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import { setGlobalTheme, type ThemeColorModes, themeStringToObject } from '@atlaskit/tokens';
+import { setGlobalTheme, type ThemeColorModes, type ThemeState, themeStringToObject } from '@atlaskit/tokens';
 
 export enum userType {
 	ATLASSIAN_ACCOUNT = 'atlassianAccount',
@@ -27,7 +27,26 @@ export enum CONFLUENCE_EXTENSION_KEYS {
 	CANVAS = 'canvas-native-object-provider',
 }
 
-export const useConfluencePageData = (url: string, extensionKey: string) => {
+export const useConfluencePageData = (url: string, extensionKey: string): {
+    hostname: string;
+    spaceKey: string;
+    contentId: string;
+    parentProduct: string;
+    userInfo: {
+        userId: string;
+        userIdType: userType;
+    } | undefined;
+    hash: string;
+    enableInlineComments: boolean;
+    enablePageComments: boolean;
+    themeStateObject: Partial<ThemeState> | undefined;
+    allowedFeatures: {
+        edit: string[];
+        view: string[];
+    };
+    mode: EMBEDDED_CONFLUENCE_MODE;
+    locale: string;
+} | undefined => {
 	const parsedData = useMemo(() => {
 		if (
 			!url ||

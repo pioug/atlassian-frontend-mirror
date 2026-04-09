@@ -74,7 +74,7 @@ const options: OptionsPropType = [
 	{ name: 'type', value: 'flexible', label: 'FlexibleCard with showHoverPreview' },
 ];
 
-export default () => {
+export default (): React.JSX.Element => {
 	const [type, setType] = useState('standalone');
 
 	const trigger = useMemo(() => {

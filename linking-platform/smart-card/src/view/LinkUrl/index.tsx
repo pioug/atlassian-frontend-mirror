@@ -2,9 +2,9 @@ import React from 'react';
 
 import { di } from 'react-magnetic-di';
 
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import { withAnalyticsContext, type WithContextProps } from '@atlaskit/analytics-next';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
-import AKLink from '@atlaskit/link';
+import AKLink, { type LinkProps } from '@atlaskit/link';
 
 import { withLinkClickedEvent } from '../../utils/analytics/click';
 import { LinkAnalyticsContext } from '../../utils/analytics/LinkAnalyticsContext';
@@ -21,7 +21,10 @@ const PACKAGE_DATA: PackageDataType = {
 };
 
 const Anchor = withLinkClickedEvent('a');
-export const LinkComponent = withLinkClickedEvent(AKLink);
+export const LinkComponent: {
+    (props: LinkProps): React.ReactElement<LinkProps, string | React.JSXElementConstructor<any>>;
+    displayName: string;
+} = withLinkClickedEvent(AKLink);
 
 const LinkUrl = ({
 	href,
@@ -102,4 +105,5 @@ const LinkUrl = ({
 	);
 };
 
-export default withAnalyticsContext(PACKAGE_DATA)(LinkUrl);
+const _default_1: React.ForwardRefExoticComponent<LinkUrlProps & WithContextProps & React.RefAttributes<any>> = withAnalyticsContext(PACKAGE_DATA)(LinkUrl);
+export default _default_1;

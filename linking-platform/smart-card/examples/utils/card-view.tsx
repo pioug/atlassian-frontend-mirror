@@ -49,7 +49,7 @@ const CardView = ({
 	truncateInline,
 	showHoverPreview,
 	CompetitorPrompt,
-}: MultiCardViewProps) => (
+}: MultiCardViewProps): JSX.Element => (
 	<SmartCardProvider client={client}>
 		<EmbedCardWrapper inheritDimensions={inheritDimensions}>
 			{(urls || [url]).map((currentUrl = defaultUrl) => (

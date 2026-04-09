@@ -12,7 +12,7 @@ const imageStyles = css({
 	marginBottom: token('space.200'),
 });
 
-export const ProviderAuthRequiredSVG = () => {
+export const ProviderAuthRequiredSVG = (): JSX.Element => {
 	return (
 		<svg
 			width="170"

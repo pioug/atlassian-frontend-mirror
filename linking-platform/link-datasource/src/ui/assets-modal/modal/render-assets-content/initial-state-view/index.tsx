@@ -40,7 +40,7 @@ const mainTextStyles = css({
 
 const AQLSupportDocumentLink =
 	'https://support.atlassian.com/jira-service-management-cloud/docs/use-assets-query-language-aql/';
-export const InitialStateView = () => {
+export const InitialStateView = (): JSX.Element => {
 	const { formatMessage } = useIntl();
 	return (
 		<div

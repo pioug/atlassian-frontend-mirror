@@ -3193,6 +3193,32 @@ events:
       type: screen
       description:
         fired when user profile working with me section is viewed (only when section has content)
+  - userProfileWorkingWithMeEmptyState viewed:
+      type: screen
+      description: fired when user profile working with me empty state is viewed (only when section has no content)
+  - workingWithMeEditButton clicked:
+      type: ui
+      description: fired when user clicks the edit button on the working with me section
+  - workingWithMe saved:
+      type: track
+      description: fired when user saves the working with me section
+      attributes:
+        isEmpty:
+          type: boolean
+          description: whether the saved content is empty
+  - addPronounsButton clicked:
+      type: ui
+      description: fired when user clicks the add pronouns button on the user profile header
+  - editPronounsButton clicked:
+      type: ui
+      description: fired when user clicks the edit pronouns button on the user profile header
+  - pronouns saved:
+      type: track
+      description: fired when user successfully saves pronouns
+      attributes:
+        isUpdate:
+          type: boolean
+          description: whether the action was an update to existing pronouns (true) or adding new pronouns (false)
   - teamAgentsPanel viewed:
       type: screen
       description: fired when team agents panel is viewed

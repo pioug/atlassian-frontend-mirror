@@ -8,7 +8,7 @@ import { SmartLinkStatus } from '../../../constants';
 import { addMetadataToExperience } from '../../analytics';
 import useResponse from '../use-response';
 
-const useResolve = () => {
+const useResolve = (): (url: string, isReloading?: boolean, isMetadataRequest?: boolean, id?: string) => Promise<void> => {
 	// Request JSON-LD data for the card from ORS, if it has extended
 	// its cache lifespan OR there is no data for it currently. Once the data
 	// has come back asynchronously, call the useResponse callback to

@@ -916,7 +916,7 @@ const flexStyles = css({
 	},
 });
 
-const FlexibleDataView = ({ url }: { url?: string }) => (
+const FlexibleDataView = ({ url }: { url?: string }): JSX.Element => (
 	<div css={flexStyles}>
 		<Card appearance="block" url={url}>
 			<TitleBlock />

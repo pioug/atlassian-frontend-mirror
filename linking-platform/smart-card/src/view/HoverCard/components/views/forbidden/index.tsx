@@ -29,7 +29,7 @@ const mainTextStyles = css({
 	display: 'inline',
 	justifyContent: 'center',
 	marginTop: token('space.0'),
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 	textAlign: 'center',
 });
 
@@ -47,7 +47,7 @@ const basePreviewStyles = css({
 const HoverCardForbiddenView = ({
 	flexibleCardProps,
 	testId = 'hover-card-forbidden-view',
-}: HoverCardForbiddenProps) => {
+}: HoverCardForbiddenProps): JSX.Element | null => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { cardState, url } = flexibleCardProps;
 	const meta = cardState.details?.meta as JsonLd.Meta.BaseMeta;

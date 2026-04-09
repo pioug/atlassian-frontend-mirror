@@ -1,5 +1,35 @@
 # @atlaskit/editor-synced-block-provider
 
+## 4.4.0
+
+### Minor Changes
+
+- [`dd9c0778c3832`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd9c0778c3832) -
+  Add \_\_livePage option to syncedBlock plugin and store managers. Add isReferenceBlock/isSyncBlock
+  methods. Use predicate functions instead of hardcoded node type names. Fix isDirty logic for
+  remote transactions. Fix flush() view-mode return value.
+
+## 4.3.6
+
+### Patch Changes
+
+- [`540d72eba7200`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/540d72eba7200) -
+  Editor-5503: Add connection diagnostics to GraphQL WebSocket errors for improved debugging of
+  opaque browser error events
+
+## 4.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.4
+
+### Patch Changes
+
+- [`ef5f5792a6aaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef5f5792a6aaf) -
+  Clean up platform_synced_block_patch_7 feature gate
+
 ## 4.3.3
 
 ### Patch Changes

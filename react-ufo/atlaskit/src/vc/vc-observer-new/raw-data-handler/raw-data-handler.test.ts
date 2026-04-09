@@ -1435,9 +1435,11 @@ describe('RawDataHandler', () => {
 		const stopTime = 2000;
 
 		beforeEach(() => {
-			// Enable the server-side TTVC feature gate for lbl tests
+			// Enable the server-side TTVC feature gate and lbl compaction gate for lbl tests
 			(fg as jest.Mock).mockImplementation(
-				(flag: string) => flag === 'platform_ufo_ttvc_server_side_sync',
+				(flag: string) =>
+					flag === 'platform_ufo_ttvc_server_side_sync' ||
+					flag === 'platform_ufo_raw_lbl_compaction',
 			);
 		});
 
@@ -1475,9 +1477,106 @@ describe('RawDataHandler', () => {
 				s: 'main-content',
 				l: 'App/MainContent/Header',
 			});
+			expect(result?.rawData?.lblMode).toBe('sentinel-v1');
 		});
 
-		it('should not include lbl field when feature gate is disabled', async () => {
+		it('should preserve explicit unknown lbl entries when compaction gate is disabled', async () => {
+			(fg as jest.Mock).mockImplementation(
+				(flag: string) => flag === 'platform_ufo_ttvc_server_side_sync',
+			);
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'element-unknown',
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+						labelStacks: {
+							segment: 'unknown',
+							labelStack: 'unknown',
+						},
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			const eid = Object.keys(result?.rawData?.eid || {}).find(
+				(key) => result?.rawData?.eid?.[Number(key)] === 'element-unknown',
+			);
+			expect(result?.rawData?.lbl?.[Number(eid!)]).toEqual({ s: 'unknown', l: 'unknown' });
+			expect(result?.rawData?.lblMode).toBeUndefined();
+		});
+
+		it('should encode unknown lbl entries with a compact sentinel when compaction gate is enabled', async () => {
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'element-unknown',
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+						labelStacks: {
+							segment: 'unknown',
+							labelStack: 'unknown',
+						},
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			const eid = Object.keys(result?.rawData?.eid || {}).find(
+				(key) => result?.rawData?.eid?.[Number(key)] === 'element-unknown',
+			);
+			expect(result?.rawData?.lbl?.[Number(eid!)]).toBe('u');
+			expect(result?.rawData?.lblMode).toBe('sentinel-v1');
+		});
+
+		it('should not emit compact lbl mode when server-side sync gate is disabled', async () => {
+			(fg as jest.Mock).mockImplementation(
+				(flag: string) => flag === 'platform_ufo_raw_lbl_compaction',
+			);
+			const entries: VCObserverEntry[] = [
+				{
+					time: 1100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'element-unknown',
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+						labelStacks: {
+							segment: 'unknown',
+							labelStack: 'unknown',
+						},
+					} as ViewportEntryData,
+				},
+			];
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			expect(result?.rawData?.lbl).toBeUndefined();
+			expect(result?.rawData?.lblMode).toBeUndefined();
+		});
+
+		it('should not include lbl field when feature gates are disabled', async () => {
 			(fg as jest.Mock).mockImplementation(() => false);
 			const entries: VCObserverEntry[] = [
 				{

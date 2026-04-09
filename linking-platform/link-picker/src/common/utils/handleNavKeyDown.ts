@@ -4,7 +4,7 @@ export const handleNavKeyDown = (
 	event: KeyboardEvent<HTMLElement>,
 	itemsLength: number,
 	activeIndex: number,
-) => {
+): number => {
 	let updatedIndex = activeIndex;
 	switch (event.key) {
 		case 'ArrowDown':

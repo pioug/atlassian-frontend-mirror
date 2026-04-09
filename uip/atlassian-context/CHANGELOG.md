@@ -1,5 +1,14 @@
 # @atlaskit/atlassian-context
 
+## 0.8.0
+
+### Minor Changes
+
+- [`6cedbecacab30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cedbecacab30) -
+  TREX-1028 Part 3a: Fix cross-package barrel imports in product-search-dialog and search-page. Add
+  displayNames to search-dialog components. Add defensive optional chaining in atlassian-context SSR
+  functions.
+
 ## 0.7.0
 
 ### Minor Changes

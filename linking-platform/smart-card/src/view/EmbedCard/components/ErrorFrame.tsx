@@ -29,7 +29,7 @@ export const Frame = (
 		isHoverable: false,
 		isFluidHeight: false,
 	},
-) => (props.compact ? <CompactFrame {...props} /> : <ExpandedFrame {...props} />);
+): JSX.Element => (props.compact ? <CompactFrame {...props} /> : <ExpandedFrame {...props} />);
 
 const sharedBaseFrameStyles = css({
 	width: '100%',
@@ -85,7 +85,7 @@ export const ExpandedFrame = ({
 	testId,
 	className,
 	isFluidHeight,
-}: FrameProps) => {
+}: FrameProps): JSX.Element => {
 	return (
 		<div
 			css={[
@@ -142,7 +142,7 @@ export const CompactFrame = ({
 	testId,
 	className,
 	inheritDimensions,
-}: FrameProps) => {
+}: FrameProps): JSX.Element => {
 	return (
 		<div
 			css={[

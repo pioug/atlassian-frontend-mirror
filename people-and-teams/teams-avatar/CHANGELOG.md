@@ -1,5 +1,12 @@
 # @atlaskit/teams-avatar
 
+## 2.4.13
+
+### Patch Changes
+
+- [`8f7ace8dafec7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f7ace8dafec7) -
+  Convert examples to use playground package
+
 ## 2.4.12
 
 ### Patch Changes

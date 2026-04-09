@@ -68,6 +68,7 @@ export const findChanged = (
 
 	const queuedForUpgrade = isTransactionQueuedForUpgrade(tr);
 	const isResolveReplace = isTransactionResolveReplace(tr);
+	const isAutoConvert = isAutoConvertTr(tr);
 
 	// History
 	const historyMeta: unknown = tr.getMeta(pmHistoryPluginKey);
@@ -163,9 +164,12 @@ export const findChanged = (
 		 * Skip "deletions" when the transaction is relating to
 		 * replacing links queued for upgrade to cards,
 		 * because the "deleted" link has not actually been
-		 * tracked as "created" yet
+		 * tracked as "created" yet.
+		 * Also skip when the transaction is an auto-convert
+		 * (e.g. a pasted link being converted to a native embed extension),
+		 * because the link is being converted, not deleted by the user.
 		 */
-		if (!isResolveReplace) {
+		if (!isResolveReplace && !isAutoConvert) {
 			removed.push(...removedInStep);
 		}
 		inserted.push(...omitRequestsForUpgrade(insertedInStep));
@@ -300,6 +304,20 @@ const isTransactionResolveReplace = (tr: Transaction | ReadonlyTransaction) => {
 	const pluginMeta = tr.getMeta(pluginKey);
 
 	return isMetadataResolve(pluginMeta);
+};
+
+/**
+ * Checks if the transaction is an auto-convert action
+ * (e.g. a pasted link being converted to a native embed extension node).
+ * In this case the link removal should not be tracked as a deletion.
+ */
+const isAutoConvertTr = (tr: Transaction | ReadonlyTransaction) => {
+	return !!tr.steps.find((step) => {
+		if (!(step instanceof LinkMetaStep)) {
+			return false;
+		}
+		return step.getMetadata().cardAction === 'AUTO_CONVERT';
+	});
 };
 
 const isMetadataResolve = (metaData: unknown): metaData is Resolve => {

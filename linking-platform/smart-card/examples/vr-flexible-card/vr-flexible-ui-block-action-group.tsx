@@ -26,7 +26,7 @@ const containerStyles = css({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<div css={containerStyles}>

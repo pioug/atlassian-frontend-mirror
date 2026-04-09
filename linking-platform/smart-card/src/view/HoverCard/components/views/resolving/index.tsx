@@ -47,7 +47,7 @@ const titleBlockStyles = css({
 	gap: token('space.100'),
 });
 
-const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) => {
+const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps): JSX.Element => {
 	const testId = 'hover-card-loading-view';
 	const lineHeightRem = 1.25;
 	const skeletonWidth = CARD_WIDTH_REM - 2;

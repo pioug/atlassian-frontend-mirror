@@ -46,7 +46,7 @@ export class EmbedResizeMessageListener extends React.Component<Props, State> {
 		onHeightUpdate(height);
 	};
 
-	render() {
+	render(): React.ReactNode {
 		return this.props.children;
 	}
 }

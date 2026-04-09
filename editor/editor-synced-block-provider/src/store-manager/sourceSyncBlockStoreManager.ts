@@ -69,7 +69,9 @@ type SyncBlockData = Data & {
 // Ensures consistency between local and remote state, and can be used in both editor and renderer contexts.
 export class SourceSyncBlockStoreManager {
 	private viewMode?: ViewMode;
+	private isLivePage?: boolean;
 	private dataProvider?: SyncBlockDataProviderInterface;
+
 	private fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
 
 	private syncBlockCache: Map<ResourceId, SyncBlockData>;
@@ -92,9 +94,14 @@ export class SourceSyncBlockStoreManager {
 	private deleteExperience: Experience | undefined;
 	private fetchSourceInfoExperience: Experience | undefined;
 
-	constructor(dataProvider?: SyncBlockDataProviderInterface, viewMode?: ViewMode) {
+	constructor(
+		dataProvider?: SyncBlockDataProviderInterface,
+		viewMode?: ViewMode,
+		isLivePage?: boolean,
+	) {
 		this.dataProvider = dataProvider;
 		this.viewMode = viewMode;
+		this.isLivePage = isLivePage;
 		this.syncBlockCache = new Map();
 		this.creationCompletionCallbacks = new Map();
 	}
@@ -127,7 +134,7 @@ export class SourceSyncBlockStoreManager {
 	 * Add/update a sync block node to/from the local cache
 	 * @param syncBlockNode - The sync block node to update
 	 */
-	public updateSyncBlockData(syncBlockNode: PMNode): boolean {
+	public updateSyncBlockData(syncBlockNode: PMNode, isRemote: boolean): boolean {
 		try {
 			if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
 				return false;
@@ -154,13 +161,14 @@ export class SourceSyncBlockStoreManager {
 
 				const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
 
-				if (cachedBlock) {
+				if (cachedBlock && !isRemote) {
 					this.hasReceivedContentChange = true;
 				}
 
+				const isDirty = !isRemote || !cachedBlock; // if the change is not remote, or the block is not in the cache yet, it's dirty
 				this.syncBlockCache.set(resourceId, {
 					...syncBlockData,
-					isDirty: true,
+					isDirty: isDirty, // if the change is from remote, it's not dirty
 					contentFragment: syncBlockNode.content,
 				});
 			} else {
@@ -194,7 +202,7 @@ export class SourceSyncBlockStoreManager {
 	public async flush(): Promise<boolean> {
 		try {
 			if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
-				return false;
+				return true;
 			}
 
 			const bodiedSyncBlockNodes: SyncBlockNode[] = [];
@@ -282,14 +290,19 @@ export class SourceSyncBlockStoreManager {
 
 			return false;
 		} finally {
-			if (fg('platform_synced_block_patch_7')) {
-				this.flushCompletionCallback?.();
-			}
+			this.flushCompletionCallback?.();
 		}
 	}
 
 	public hasUnsavedChanges(): boolean {
 		if (this.viewMode === 'view' && fg('platform_synced_block_patch_8')) {
+			return false;
+		}
+
+		// Only track unsaved changes in source synced block for live pages
+		// classic pages's draft don't publish synced block content to block service and the content itself is saved as part of the draft
+		// classic page's publish flow will trigger a flush which only uses the isDirty flag to determine if there are unsaved changes
+		if (!this.isLivePage) {
 			return false;
 		}
 
@@ -388,7 +401,7 @@ export class SourceSyncBlockStoreManager {
 
 			if (fg('platform_synced_block_update_refactor')) {
 				// add the node to the cache
-				this.updateSyncBlockData(node);
+				this.updateSyncBlockData(node, false);
 			}
 
 			this.creationCompletionCallbacks.set(resourceId, onCompletion);

@@ -33,7 +33,7 @@ export type LinkCommentType =
 	| JsonLd.Data.Project
 	| JsonLd.Data.SourceCodeCommit
 	| JsonLd.Data.TaskType;
-export const extractCommentCount = (data: JsonLd.Data.BaseData) =>
+export const extractCommentCount = (data: JsonLd.Data.BaseData): number | undefined =>
 	extractValue<LinkCommentType, number>(data, 'schema:commentCount');
 
 /**
@@ -54,14 +54,14 @@ export const extractSmartLinkCommentCount = (response?: SmartLinkResponse): numb
 	return response?.data && extractCommentCount(response?.data as JsonLd.Data.BaseData);
 };
 
-export const extractAppliedToComponentsCount = (data: JsonLd.Data.BaseData) =>
+export const extractAppliedToComponentsCount = (data: JsonLd.Data.BaseData): number | undefined =>
 	extractValue<JsonLd.Data.Project, number>(data, 'atlassian:appliedToComponentsCount');
 
-export const extractDueOn = (data: JsonLd.Data.BaseData) =>
+export const extractDueOn = (data: JsonLd.Data.BaseData): string | undefined =>
 	extractValue<JsonLd.Data.BaseData, string>(data, 'endTime');
 
 type LinkViewCountType = JsonLd.Data.Document | JsonLd.Data.SourceCodeRepository | JsonLd.Data.Task;
-export const extractViewCount = (data: JsonLd.Data.BaseData) =>
+export const extractViewCount = (data: JsonLd.Data.BaseData): number | undefined =>
 	extractValue<LinkViewCountType, number>(data, 'atlassian:viewCount');
 
 type LinkReactCountType =
@@ -69,7 +69,7 @@ type LinkReactCountType =
 	| JsonLd.Data.Message
 	| JsonLd.Data.Project
 	| JsonLd.Data.Task;
-export const extractReactCount = (data: JsonLd.Data.BaseData) =>
+export const extractReactCount = (data: JsonLd.Data.BaseData): number | undefined =>
 	extractValue<LinkReactCountType, number>(data, 'atlassian:reactCount');
 
 /**
@@ -97,7 +97,7 @@ type LinkVoteCountType =
 	| JsonLd.Data.SourceCodePullRequest
 	| JsonLd.Data.SourceCodeRepository
 	| JsonLd.Data.Task;
-export const extractVoteCount = (data: JsonLd.Data.BaseData) =>
+export const extractVoteCount = (data: JsonLd.Data.BaseData): number | undefined =>
 	extractValue<LinkVoteCountType, number>(data, 'atlassian:voteCount');
 
 export const extractOwnedBy = (data: JsonLd.Data.BaseData): string | undefined => {
@@ -141,7 +141,7 @@ export type LinkProgrammingLanguageType =
 	| JsonLd.Data.SourceCodePullRequest
 	| JsonLd.Data.SourceCodeReference
 	| JsonLd.Data.SourceCodeRepository;
-export const extractProgrammingLanguage = (data: JsonLd.Data.BaseData) =>
+export const extractProgrammingLanguage = (data: JsonLd.Data.BaseData): string | undefined =>
 	extractValue<LinkProgrammingLanguageType, string>(data, 'schema:programmingLanguage');
 
 export const extractSourceBranch = (data: JsonLd.Data.SourceCodePullRequest): string | undefined =>
@@ -151,10 +151,10 @@ export type LinkSubscriberType =
 	| JsonLd.Data.SourceCodeRepository
 	| JsonLd.Data.Task
 	| JsonLd.Data.TaskType;
-export const extractSubscriberCount = (data: JsonLd.Data.BaseData) =>
+export const extractSubscriberCount = (data: JsonLd.Data.BaseData): number | undefined =>
 	extractValue<LinkSubscriberType, number>(data, 'atlassian:subscriberCount');
 
-export const extractTeamMemberCount = (data: JsonLd.Data.BaseData) => {
+export const extractTeamMemberCount = (data: JsonLd.Data.BaseData): number => {
 	const val = data?.attributedTo
 		? Array.isArray(data?.attributedTo)
 			? data?.attributedTo.length
@@ -168,7 +168,7 @@ export type LinkAttachmentType =
 	| JsonLd.Data.Task
 	| JsonLd.Data.TaskType
 	| JsonLd.Data.Project;
-export const extractAttachmentCount = (data: JsonLd.Data.BaseData) =>
+export const extractAttachmentCount = (data: JsonLd.Data.BaseData): number | undefined =>
 	extractValue<LinkAttachmentType, number>(data, 'atlassian:attachmentCount');
 
 export const extractTargetBranch = (data: JsonLd.Data.SourceCodePullRequest): string | undefined =>
@@ -179,7 +179,7 @@ type LinkChecklistProgressType =
 	| JsonLd.Data.Task
 	| JsonLd.Data.TaskType
 	| JsonLd.Data.Project;
-export const extractChecklistProgress = (data: JsonLd.Data.BaseData) => {
+export const extractChecklistProgress = (data: JsonLd.Data.BaseData): string | undefined => {
 	const checkItemsObj = extractValue<
 		LinkChecklistProgressType,
 		LinkChecklistProgressType['atlassian:checkItems']

@@ -43,7 +43,7 @@ const AutomationMenuProvider = ({ children, value }: AutomationProviderProps) =>
 };
 
 // Hook that can be used anywhere under the AutomationMenuContextContainer to access the AutomationMenuContext values
-export const useAutomationMenu = () => {
+export const useAutomationMenu = (): MenuContext => {
 	const context = useContext(AutomationMenuContext);
 	if (context === undefined) {
 		throw new Error('useAutomationMenu must be used within a AutomationMenuProvider');

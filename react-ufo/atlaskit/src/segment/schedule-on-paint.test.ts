@@ -1,11 +1,5 @@
 // scheduleOnPaint.test.ts
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import scheduleOnPaint from './schedule-on-paint';
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(() => true), // Default to feature gate enabled
-}));
 
 describe('scheduleOnPaint', () => {
 	let originalScheduler: any;
@@ -23,8 +17,6 @@ describe('scheduleOnPaint', () => {
 		(window as any).requestAnimationFrame = jest.fn().mockImplementation((cb) => cb());
 		(window as any).setTimeout = jest.fn().mockImplementation((cb, _) => cb());
 
-		// Reset feature gate mock
-		(fg as jest.Mock).mockReturnValue(true);
 	});
 
 	afterEach(() => {
@@ -176,24 +168,5 @@ describe('scheduleOnPaint', () => {
 			delete (globalThis as any).__SERVER__;
 		});
 
-		it('should NOT use SSR detection when feature gate is disabled', () => {
-			// Disable the feature gate
-			(fg as jest.Mock).mockReturnValue(false);
-			(globalThis as any).__SERVER__ = true;
-
-			// Mock document.visibilityState to return 'hidden' to trigger setTimeout
-			jest.spyOn(document, 'visibilityState', 'get').mockReturnValue('hidden');
-
-			const callback = jest.fn();
-
-			scheduleOnPaint(callback);
-
-			// With feature gate disabled, SSR detection should be skipped
-			// Should fall through to normal browser logic (setTimeout in this case)
-			expect(window.setTimeout).toHaveBeenCalledWith(callback, 100);
-			expect(callback).toHaveBeenCalled(); // setTimeout mock executes immediately in test
-
-			delete (globalThis as any).__SERVER__;
-		});
 	});
 });

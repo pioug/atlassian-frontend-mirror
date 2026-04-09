@@ -1,10 +1,8 @@
 import { createCheck } from '../../../__tests__/test-utils';
 import transformer from '../codemods/migrate-to-link';
-import {
-	genericUnsupportedMigrationComment,
-	spreadPropsComment,
-	stylePropComment,
-} from '../utils/comments';
+import { spreadPropsComment } from '../utils/comments';
+import { genericUnsupportedMigrationComment } from '../utils/generic-unsupported-migration-comment';
+import { stylePropComment } from '../utils/style-prop-comment';
 
 const check = createCheck(transformer);
 

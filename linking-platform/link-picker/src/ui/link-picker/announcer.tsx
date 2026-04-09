@@ -40,7 +40,7 @@ type AnnouncerProps = {
 // https://github.com/nvaccess/nvda/labels/bug%2Fdouble-speaking
 
 let timer: ReturnType<typeof setTimeout>;
-export const Announcer = memo(
+export const Announcer: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<AnnouncerProps, "ref"> & React.RefAttributes<HTMLDivElement>>> = memo(
 	forwardRef<HTMLDivElement, AnnouncerProps>(
 		(
 			{

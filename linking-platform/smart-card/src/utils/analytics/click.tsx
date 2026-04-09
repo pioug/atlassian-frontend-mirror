@@ -13,14 +13,14 @@ import { type AnalyticsPayload } from '../types';
 import { ANALYTICS_CHANNEL } from './analytics';
 import { type ClickOutcome, type ClickType, type UiLinkClickedEventProps } from './types';
 
-export const buttonMap = new Map<number | undefined, 'none' | 'left' | 'middle' | 'right'>([
+export const buttonMap: Map<number | undefined, "middle" | "none" | "left" | "right"> = new Map<number | undefined, 'none' | 'left' | 'middle' | 'right'>([
 	[undefined, 'none'],
 	[0, 'left'],
 	[1, 'middle'],
 	[2, 'right'],
 ]);
 
-export const getKeys = (e: React.MouseEvent) => {
+export const getKeys = (e: React.MouseEvent): ("meta" | "alt" | "shift" | "ctrl")[] => {
 	return (['alt', 'ctrl', 'meta', 'shift'] as const).filter((key) => e[`${key}Key`] === true);
 };
 
@@ -125,7 +125,7 @@ const linkClickedEventWithShortLink = ({
 	},
 });
 
-export const createLinkClickedPayloadOld = (event: React.MouseEvent) => {
+export const createLinkClickedPayloadOld = (event: React.MouseEvent): AnalyticsPayload | undefined => {
 	// Through the `detail` property, we're able to determine if the event is (most likely) triggered via keyboard
 	// https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
 	const isKeyboard = event.nativeEvent.detail === 0;
@@ -160,7 +160,7 @@ export const createLinkClickedPayloadOld = (event: React.MouseEvent) => {
 	}
 };
 
-export const createLinkClickedPayloadNew = (event: React.MouseEvent) => {
+export const createLinkClickedPayloadNew = (event: React.MouseEvent): AnalyticsPayload | undefined => {
 	// Through the `detail` property, we're able to determine if the event is (most likely) triggered via keyboard
 	// https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
 	const isKeyboard = event.nativeEvent.detail === 0;
@@ -203,7 +203,7 @@ export const createLinkClickedPayloadNew = (event: React.MouseEvent) => {
 	}
 };
 
-export const createLinkClickedPayload = functionWithCondition(
+export const createLinkClickedPayload: (event: React.MouseEvent) => AnalyticsPayload | undefined = functionWithCondition(
 	() => expValEquals('smart_link_confluence_short_link_analytics', 'cohort', 'test'), // 12/17/2025: Clean up this feature gate once it's out in prod for 2 weeks - https://product-fabric.atlassian.net/browse/CCPERMS-5030
 	createLinkClickedPayloadNew,
 	createLinkClickedPayloadOld,
@@ -251,7 +251,10 @@ const getDisplayName = (WrappedComponent: React.ElementType<any> | string): stri
 
 export function withLinkClickedEvent<
 	Component extends Extract<React.ElementType, 'a'> | React.ComponentType<LinkProps>,
->(WrappedComponent: Component) {
+>(WrappedComponent: Component): {
+    (props: LinkProps): React.ReactElement<LinkProps, string | React.JSXElementConstructor<any>>;
+    displayName: string;
+} {
 	const Component = (props: LinkProps) => {
 		const onClick = useLinkClicked(props.onClick);
 		const onMouseDown = useMouseDownEvent(props.onMouseDown);

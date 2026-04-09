@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "217.11.0",
+	"version": "217.12.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -102,7 +102,9 @@
 		"@atlaskit/editor-plugin-card": "workspace:^",
 		"@atlaskit/editor-plugin-list": "workspace:^",
 		"@atlaskit/editor-plugin-paste": "workspace:^",
+		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlaskit/link-provider": "workspace:^",
+		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-integration-test-helpers": "workspace:^",
@@ -116,6 +118,7 @@
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/adf-schema-json": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/search-client": "workspace:^",
 		"@atlassian/search-provider": "workspace:^",
 		"@emotion/jest": "root:*",
 		"@testing-library/react": "root:*",
@@ -236,10 +239,6 @@
 		"platform_editor_quick_insert_placeholder": {
 			"type": "boolean"
 		},
-		"editor_a11y_remove_unwrap_button": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_comments_api_manager": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -278,9 +277,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_sentry_breadcrumbs": {
-			"type": "boolean"
-		},
-		"platform_editor_find_codeblock_color_contrast_fix": {
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_aifc_placement_overridden": {

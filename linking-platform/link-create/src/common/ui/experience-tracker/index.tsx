@@ -129,4 +129,4 @@ export const Experience = ({ children }: ExperienceProps): React.JSX.Element => 
 	return <ExperienceContext.Provider value={value}>{children}</ExperienceContext.Provider>;
 };
 
-export const useExperience = () => useContext(ExperienceContext);
+export const useExperience = (): ExperienceContextValue => useContext(ExperienceContext);

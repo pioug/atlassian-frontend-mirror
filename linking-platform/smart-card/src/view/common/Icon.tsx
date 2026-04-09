@@ -49,7 +49,7 @@ export const Icon = ({
 	defaultIcon,
 	testId = 'block-card-icon',
 	isFlexibleUi = false,
-}: IconProps) => {
+}: IconProps): JSX.Element => {
 	const placeholder = defaultIcon || (
 		<LinkIcon label="link" testId={`${testId}-default`} color="currentColor" />
 	);

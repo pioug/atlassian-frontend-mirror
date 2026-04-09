@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.8.29
+
+### Patch Changes
+
+- [`c3e8b437d0d8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3e8b437d0d8a) -
+  Replace deprecated `font.body.UNSAFE_small` token with `font.body.small`.
+
 ## 33.8.28
 
 ### Patch Changes

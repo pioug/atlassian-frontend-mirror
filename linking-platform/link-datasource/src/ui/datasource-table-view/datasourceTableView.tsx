@@ -2,12 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import { withAnalyticsContext, type WithContextProps } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import type { DatasourceParameters } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
@@ -32,6 +33,7 @@ import { NoResults } from '../common/error-state/no-results';
 import { ProviderAuthRequired } from '../common/error-state/provider-auth-required';
 import { IssueLikeDataTableView } from '../issue-like-table';
 import EmptyState from '../issue-like-table/empty-state';
+import type { IssueLikeDataTableViewProps } from '../issue-like-table/types';
 import { TableFooter } from '../table-footer';
 
 import { type DatasourceTableViewProps } from './types';
@@ -238,7 +240,11 @@ const DatasourceTableViewWithoutAnalytics = ({
 	);
 };
 
-export const DatasourceTableView = withAnalyticsContext(componentMetadata.tableView)(
+export const DatasourceTableView: ForwardRefExoticComponent<{
+    datasourceId: string;
+    parameters: DatasourceParameters;
+    url?: string;
+} & Partial<Pick<IssueLikeDataTableViewProps, "visibleColumnKeys" | "onVisibleColumnKeysChange" | "wrappedColumnKeys" | "onWrappedColumnChange" | "onColumnResize" | "columnCustomSizes" | "scrollableContainerHeight">> & WithContextProps & RefAttributes<any>> = withAnalyticsContext(componentMetadata.tableView)(
 	(props: DatasourceTableViewProps) => (
 		<StoreContainer>
 			<DatasourceExperienceIdProvider>
@@ -248,4 +254,8 @@ export const DatasourceTableView = withAnalyticsContext(componentMetadata.tableV
 	),
 );
 
-export const DataSourceTableViewNoSuspense = DatasourceTableView;
+export const DataSourceTableViewNoSuspense: ForwardRefExoticComponent<{
+    datasourceId: string;
+    parameters: DatasourceParameters;
+    url?: string;
+} & Partial<Pick<IssueLikeDataTableViewProps, "visibleColumnKeys" | "onVisibleColumnKeysChange" | "wrappedColumnKeys" | "onWrappedColumnChange" | "onColumnResize" | "columnCustomSizes" | "scrollableContainerHeight">> & WithContextProps & RefAttributes<any>> = DatasourceTableView;

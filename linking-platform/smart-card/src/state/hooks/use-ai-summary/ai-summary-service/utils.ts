@@ -40,7 +40,7 @@ const isJiraProduct = (product: ProductType | undefined): product is JiraProduct
  *
  * @see https://developer.atlassian.com/platform/assistance-service/security/entitlements/#approach
  */
-export const getXProductHeaderValue = (product: ProductType | undefined) => {
+export const getXProductHeaderValue = (product: ProductType | undefined): "CONFLUENCE" | "ATLAS" | "BITBUCKET" | "TRELLO" | "CSM" | "JSM" | "JPD" | "ELEVATE" | "JIRA-SOFTWARE" | "JIRA-CORE" | undefined => {
 	if (isJiraProduct(product)) {
 		return AiMateJiraXProduct[product];
 	}

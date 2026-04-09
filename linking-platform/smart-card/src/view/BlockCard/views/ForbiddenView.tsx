@@ -120,4 +120,5 @@ const ForbiddenView = ({
 	);
 };
 
-export default withFlexibleUIBlockCardStyle(ForbiddenView);
+const _default_1: (props: FlexibleBlockCardProps) => JSX.Element = withFlexibleUIBlockCardStyle(ForbiddenView);
+export default _default_1;

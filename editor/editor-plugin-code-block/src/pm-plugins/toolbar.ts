@@ -16,7 +16,6 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	changeLanguage,
@@ -198,11 +197,7 @@ export const getToolbarConfig =
 			icon: TextWrapIcon,
 			iconFallback: WrapIcon,
 			onClick: toggleWordWrapStateForCodeBlockNode(editorAnalyticsAPI),
-			title: fg('editor_a11y_remove_unwrap_button')
-				? formatMessage(codeBlockButtonMessages.wrapCode)
-				: isWrapped
-					? formatMessage(codeBlockButtonMessages.unwrapCode)
-					: formatMessage(codeBlockButtonMessages.wrapCode),
+			title: formatMessage(codeBlockButtonMessages.wrapCode),
 			tabIndex: null,
 			selected: isWrapped,
 		};

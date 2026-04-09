@@ -186,13 +186,13 @@ const Component = ({ appearance }: Props) => {
 		</VRTestWrapper>
 	);
 };
-export const FlexibleUiBlockActionDefault = () => <Component appearance="default" />;
-export const FlexibleUiBlockActionSubtle = () => <Component appearance="subtle" />;
-export const FlexibleUiBlockActionPrimary = () => <Component appearance="primary" />;
-export const FlexibleUiBlockActionWarning = () => <Component appearance="warning" />;
-export const FlexibleUiBlockActionDanger = () => <Component appearance="danger" />;
+export const FlexibleUiBlockActionDefault = (): JSX.Element => <Component appearance="default" />;
+export const FlexibleUiBlockActionSubtle = (): JSX.Element => <Component appearance="subtle" />;
+export const FlexibleUiBlockActionPrimary = (): JSX.Element => <Component appearance="primary" />;
+export const FlexibleUiBlockActionWarning = (): JSX.Element => <Component appearance="warning" />;
+export const FlexibleUiBlockActionDanger = (): JSX.Element => <Component appearance="danger" />;
 
-export const FlexibleUiBlockActionOverrideCSS = () => {
+export const FlexibleUiBlockActionOverrideCSS = (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<FlexibleCardContext.Provider value={{ data: context }}>
@@ -243,7 +243,7 @@ export const FlexibleUiBlockActionOverrideCSS = () => {
 	);
 };
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<React.Fragment>
 			<FlexibleUiBlockActionDefault />

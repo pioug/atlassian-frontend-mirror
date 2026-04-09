@@ -9,6 +9,7 @@ import { getPreviewUrlWithTheme } from '../../utils';
 import { BaseIconElement } from '../FlexibleCard/components/elements/common';
 
 import withAnalytics from './components/analytics';
+import type { WithAnalytics } from './components/analytics/types';
 import EmbedContent from './components/embed-content';
 import withErrorBoundary from './components/error-boundary';
 import LinkInfo from './components/link-info';
@@ -132,4 +133,5 @@ const EmbedModal = ({
 	);
 };
 
-export default withAnalytics(withErrorBoundary(EmbedModal));
+const _default_1: (props: EmbedModalProps & WithAnalytics) => React.JSX.Element = withAnalytics(withErrorBoundary(EmbedModal));
+export default _default_1;

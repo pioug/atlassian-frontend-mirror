@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 13.1.18
+
+### Patch Changes
+
+- [`82c0224977f47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82c0224977f47) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
+## 13.1.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.16
 
 ### Patch Changes

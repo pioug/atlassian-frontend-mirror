@@ -67,7 +67,7 @@ const getMaxUserCount = (_userCount: number, availableWidth: number) => {
 
 export const USER_TYPE_TEST_ID = 'link-datasource-render-type--user';
 
-const UserType = ({ users }: { users: UserProps[] }) => {
+const UserType = ({ users }: { users: UserProps[] }): JSX.Element => {
 	const [width, setWidth] = useState<number | null>(null);
 
 	if (users.length === 1) {

@@ -1,5 +1,27 @@
 # @atlaskit/editor-statsig-tmp
 
+## 55.0.0
+
+### Major Changes
+
+- [`0a265af52321f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a265af52321f) -
+  Remove stale experiment platform_editor_extension_styles from tmp-editor-statsig
+
+### Minor Changes
+
+- [`3f798d9934a76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f798d9934a76) -
+  [ux] EDITOR-5487 skip react portal initial render when hydration for toc extension node view
+- [`3e4e12085777f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e4e12085777f) -
+  Add the platform_editor_ai_fix_move_node experiment config for Confluence editor AI rollout.
+
+## 54.5.1
+
+### Patch Changes
+
+- [`8bfeeef7734ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bfeeef7734ca) -
+  Extending userflow analytics to have step where event is fired when user changes inline prompt
+  text
+
 ## 54.5.0
 
 ### Minor Changes

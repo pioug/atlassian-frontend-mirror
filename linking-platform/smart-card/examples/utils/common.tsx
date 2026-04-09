@@ -34,7 +34,7 @@ const divPadding = css({
 	padding: '30px',
 });
 
-export const VRTestCase = ({ title, children }: VRTestCaseOpts) => {
+export const VRTestCase = ({ title, children }: VRTestCaseOpts): JSX.Element => {
 	return (
 		<IntlProvider locale={'en'}>
 			<Page>

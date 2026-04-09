@@ -75,7 +75,7 @@ const animatedOpacity = css({
 	opacity: 0,
 });
 
-export const EllipsesAnimation = ({ isAnimated = true }: { isAnimated?: boolean }) => {
+export const EllipsesAnimation = ({ isAnimated = true }: { isAnimated?: boolean }): JSX.Element => {
 	return (
 		<svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path

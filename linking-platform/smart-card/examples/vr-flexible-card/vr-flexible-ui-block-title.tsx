@@ -104,7 +104,7 @@ const renderErroredView = (
 	);
 };
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

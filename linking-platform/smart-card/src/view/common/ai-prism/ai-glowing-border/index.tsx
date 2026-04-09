@@ -37,7 +37,7 @@ const AIGlowingBorder = ({
 	isGlowing,
 	testId,
 	className,
-}: AIGlowingBorderProps) => (
+}: AIGlowingBorderProps): JSX.Element => (
 	<div css={[borderContainerStyles]} data-testid={testId}>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop */}
 		<AnimatedSvgContainer palette={palette} isMoving={isMoving} className={className} />

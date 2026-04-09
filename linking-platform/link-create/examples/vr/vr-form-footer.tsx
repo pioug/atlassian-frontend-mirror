@@ -36,21 +36,21 @@ const createExample = (
 	};
 };
 
-export const CreateFormFooterWithErrorMessage = createExample(
+export const CreateFormFooterWithErrorMessage: React.ComponentType<{}> = createExample(
 	{
 		formErrorMessage: 'This is an error message',
 	},
 	() => {},
 );
 
-export const CreateFormFooterWithoutEdit = createExample(
+export const CreateFormFooterWithoutEdit: React.ComponentType<{}> = createExample(
 	{
 		formErrorMessage: undefined,
 	},
 	undefined,
 );
 
-export const CreateFormFooterDefault = createExample(
+export const CreateFormFooterDefault: React.ComponentType<{}> = createExample(
 	{
 		formErrorMessage: undefined,
 	},

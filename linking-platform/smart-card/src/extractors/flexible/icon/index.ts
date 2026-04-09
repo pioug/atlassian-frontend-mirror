@@ -9,14 +9,25 @@ import extractIconRenderer from './extract-icon-renderer';
 import extractJsonldDataIcon from './extract-jsonld-data-icon';
 import extractProviderIcon from './extract-provider-icon';
 
-export const extractLinkIcon = (response: JsonLd.Response, renderers?: CardProviderRenderers) => {
+export const extractLinkIcon = (response: JsonLd.Response, renderers?: CardProviderRenderers): {
+    render: (() => React.ReactNode) | undefined;
+    icon?: IconType;
+    label?: string;
+    url?: string;
+} => {
 	const data = response.data as JsonLd.Data.BaseData;
 	const render = extractIconRenderer(data, renderers);
 
 	return { ...extractJsonldDataIcon(data), render };
 };
 
-export const extractErrorIcon = (response?: JsonLd.Response, status?: SmartLinkStatus) => {
+export const extractErrorIcon = (response?: JsonLd.Response, status?: SmartLinkStatus): {
+    icon: IconType | undefined;
+    url: string | undefined;
+} | {
+    icon: IconType;
+    url?: undefined;
+} => {
 	// Try to get provider icon first.
 	if (response) {
 		const data = response.data as JsonLd.Data.BaseData;
@@ -47,7 +58,15 @@ export const extractErrorIcon = (response?: JsonLd.Response, status?: SmartLinkS
 export const extractSmartLinkIcon = (
 	response?: SmartLinkResponse,
 	renderers?: CardProviderRenderers,
-) => {
+): {
+        render: (() => React.ReactNode) | undefined;
+        icon?: IconType;
+        label?: string;
+        url?: string;
+    } | {
+        url: string | undefined;
+        label: string | undefined;
+    } | undefined => {
 	if (!response || !response?.data) {
 		return undefined;
 	}

@@ -49,6 +49,14 @@ describe('navigation intent with a Teams app route', () => {
 		expectRouterNavigationUsed(props.onClick, context, expectedRoutePath);
 	});
 
+	test('onClick does not use SPA navigation when navigate is omitted', () => {
+		const context = {};
+		const props = getNavigationProps({ href: TEAMS_APP_HREF, intent: 'navigation', context });
+		const event = createMouseEvent<HTMLAnchorElement>();
+		props.onClick?.(event);
+		expect(event.preventDefault).not.toHaveBeenCalled();
+	});
+
 	test('onClick lets browser handle modifier key clicks (no preventDefault, no SPA navigation)', () => {
 		const context = createMockContext();
 		const props = getNavigationProps({ href: TEAMS_APP_HREF, intent: 'navigation', context });

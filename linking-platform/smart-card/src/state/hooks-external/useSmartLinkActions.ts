@@ -75,7 +75,7 @@ export function useSmartLinkActions({
 	origin,
 	actionOptions,
 	prefetch,
-}: UseSmartLinkActionsOpts) {
+}: UseSmartLinkActionsOpts): LinkAction[] {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const id: string = useMemo(() => uuid(), []);
 

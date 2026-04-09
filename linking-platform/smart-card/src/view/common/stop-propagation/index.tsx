@@ -25,7 +25,7 @@ type StopPropagationProps = { children: ReactNode };
  * interactions with parent handlers when users interact with nested content.
  *
  */
-export const StopPropagation = ({ children }: StopPropagationProps) => {
+export const StopPropagation = ({ children }: StopPropagationProps): JSX.Element => {
 	const onClick = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
 		// Prevent click events from bubbling up
 		e.stopPropagation();

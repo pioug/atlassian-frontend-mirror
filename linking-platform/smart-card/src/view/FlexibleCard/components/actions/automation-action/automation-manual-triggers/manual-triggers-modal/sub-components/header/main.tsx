@@ -41,7 +41,7 @@ type AutomationModalHeaderProps = {
 export const AutomationModalHeader = ({
 	modalTitle,
 	modalDescription,
-}: AutomationModalHeaderProps) => {
+}: AutomationModalHeaderProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const { initialised, rules } = useAutomationMenu();

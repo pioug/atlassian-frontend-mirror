@@ -11,6 +11,7 @@ export const DRAG_HANDLE_ZINDEX: number = akRichMediaResizeZIndex + akEditorUnit
 export const DRAG_HANDLE_DEFAULT_GAP = 8;
 export const DRAG_HANDLE_NARROW_GAP = 4;
 export const DRAG_HANDLE_MAX_GAP = 12;
+export const DRAG_HANDLE_SYNCED_BLOCK_GAP = 2.5;
 export const DRAG_HANDLE_MAX_WIDTH_PLUS_GAP: number = DRAG_HANDLE_WIDTH + DRAG_HANDLE_MAX_GAP;
 
 export const DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT: number = 4 + 2; // 4px for the divider vertical padding and 2px for the divider height
@@ -45,6 +46,10 @@ const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 const breakoutResizableNodes = ['expand', 'layoutSection', 'codeBlock'];
 
 export const dragHandleGap = (nodeType: string, parentNodeType?: string): number => {
+	if (parentNodeType === 'syncBlock' || parentNodeType === 'bodiedSyncBlock') {
+		return DRAG_HANDLE_SYNCED_BLOCK_GAP;
+	}
+
 	if (parentNodeType && parentNodeType !== 'doc') {
 		return DRAG_HANDLE_NARROW_GAP;
 	}

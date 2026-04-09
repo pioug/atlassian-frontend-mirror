@@ -51,7 +51,7 @@ const styles = css({
  * @internal
  * @see `clickableContainer`
  */
-const LayeredLink = ({ onClick, target, testId, text, url }: LayeredLinkProps) => {
+const LayeredLink = ({ onClick, target, testId, text, url }: LayeredLinkProps): JSX.Element => {
 	const onMouseDown = useMouseDownEvent();
 
 	return (

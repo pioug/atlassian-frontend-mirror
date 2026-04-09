@@ -36,7 +36,7 @@ const generateFieldName = (): DatasourceResponseSchemaProperty => {
 	};
 };
 
-export default () => {
+export default (): JSX.Element => {
 	const [columns, setColumns] = useState<DatasourceResponseSchemaProperty[]>([]);
 	const [selectedColumnKeys, setSelectedColumnKeys] = useState<string[]>([]);
 	const [numberOfFields, setNumberOfFields] = useState<number>(1000);

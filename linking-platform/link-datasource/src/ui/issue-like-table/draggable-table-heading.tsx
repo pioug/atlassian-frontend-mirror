@@ -207,7 +207,7 @@ export const DraggableTableHeading = ({
 	onWidthChange,
 	isWrapped,
 	onIsWrappedChange,
-}: DraggableTableHeadingProps) => {
+}: DraggableTableHeadingProps): JSX.Element => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	const mainHeaderCellRef = useRef<HTMLTableCellElement>(null);

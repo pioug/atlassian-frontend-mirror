@@ -11,7 +11,11 @@ export enum BlockName {
 	ResolvedHoverCardFooterBlock = 'ResolvedHoverCardFooterBlock',
 }
 
-export const FlexibleDefaultTemplate = {
+export const FlexibleDefaultTemplate: {
+    blocks: {
+        name: BlockName;
+    }[];
+} = {
 	blocks: [{ name: BlockName.TitleBlock }],
 };
 

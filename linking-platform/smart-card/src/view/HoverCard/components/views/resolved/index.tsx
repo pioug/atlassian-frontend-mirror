@@ -67,7 +67,7 @@ const HoverCardResolvedView = ({
 	titleBlockProps,
 	id,
 	url,
-}: HoverCardResolvedProps) => {
+}: HoverCardResolvedProps): JSX.Element => {
 	di(useAISummaryAction);
 
 	const { fireEvent } = useAnalyticsEvents();

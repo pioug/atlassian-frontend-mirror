@@ -32,7 +32,6 @@
 		"./experimental/open-layer-observer": "./src/entry-points/experimental/open-layer-observer.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/ds-lib": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*",
 		"tiny-invariant": "root:*"

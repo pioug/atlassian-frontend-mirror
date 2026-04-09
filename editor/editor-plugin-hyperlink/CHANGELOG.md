@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 10.0.23
+
+### Patch Changes
+
+- [`8ebeaa8fb64ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ebeaa8fb64ac) -
+  Remove stale feature flag platform_editor_link_picker_width_fix (final value: true)
+- Updated dependencies
+
+## 10.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.21
 
 ### Patch Changes

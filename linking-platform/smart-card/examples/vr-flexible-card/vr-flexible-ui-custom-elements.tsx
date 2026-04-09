@@ -113,7 +113,7 @@ const clients = [
 	{ name: 'UnAuth Client with No Icon', client: new UnAuthClientWithNoIcon() },
 ];
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<Grid gap="space.100" templateColumns="1fr 1fr 1fr 1fr">

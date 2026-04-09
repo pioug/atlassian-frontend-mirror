@@ -2,7 +2,6 @@
 import type { Rule } from 'eslint';
 import {
 	type ImportDeclaration,
-	type ImportSpecifier,
 	isNodeOfType,
 	type ObjectExpression,
 	type Property,
@@ -22,15 +21,12 @@ import type { RuleConfig } from '../config';
 import {
 	convertPropertyNodeToStringableNode,
 	defaultFontWeight,
-	findFontFamilyValueForToken,
 	findFontWeightTokenForValue,
 	findTypographyTokenForValues,
 	type FontWeightMap,
 	fontWeightMap,
 	getLiteralProperty,
 	getTokenProperty,
-	insertFallbackImportFull,
-	insertFallbackImportSpecifier,
 	insertTokensImport,
 	isValidPropertyNode,
 	isValidTypographyToken,
@@ -47,9 +43,6 @@ interface Refs {
 	fontSizeNode: Property;
 	fontSizeRaw: string | number;
 	tokensImportNode: ImportDeclaration | undefined;
-	themeImportNode: ImportDeclaration | undefined;
-	shouldAddFallback: boolean;
-	shouldAddFallbackImport: 'full' | 'specifier' | false;
 }
 
 type Check = {
@@ -61,9 +54,6 @@ interface FixerRefs {
 	matchingToken: TokenValueMap;
 	nodesToReplace: Property[];
 	tokensImportNode: ImportDeclaration | undefined;
-	themeImportNode: ImportDeclaration | undefined;
-	shouldAddFallback: boolean;
-	shouldAddFallbackImport: Refs['shouldAddFallbackImport'];
 	fontWeightReplacement: StringableASTNode<Property> | undefined;
 	fontFamilyReplacement: StringableASTNode<Property> | undefined;
 	fontStyleReplacement: StringableASTNode<Property> | undefined;
@@ -96,9 +86,6 @@ export const StyleObject: {
 			fontSizeNode,
 			fontSizeRaw,
 			tokensImportNode,
-			themeImportNode,
-			shouldAddFallback,
-			shouldAddFallbackImport,
 		} = refs;
 
 		const fontSizeValue = normaliseValue('fontSize', fontSizeRaw);
@@ -256,7 +243,6 @@ export const StyleObject: {
 				getTokenProperty(
 					'fontWeight',
 					fontWeightReplacementToken.tokenName,
-					shouldAddFallback ? fontWeightValue : undefined,
 				);
 
 			const fontFamilyReplacement =
@@ -269,7 +255,6 @@ export const StyleObject: {
 					: getTokenProperty(
 							'fontFamily',
 							fontFamilyTokenName,
-							shouldAddFallback ? findFontFamilyValueForToken(fontFamilyTokenName) : undefined,
 						));
 
 			const fontStyleReplacement =
@@ -279,9 +264,6 @@ export const StyleObject: {
 				matchingToken,
 				nodesToReplace,
 				tokensImportNode,
-				themeImportNode,
-				shouldAddFallback,
-				shouldAddFallbackImport,
 				fontWeightReplacement,
 				fontFamilyReplacement,
 				fontStyleReplacement,
@@ -336,47 +318,12 @@ export const StyleObject: {
 			return { success: false };
 		}
 
-		const shouldAddFallback = Boolean(config.shouldEnforceFallbacks);
-		// This exists purely because we're not inlining the fallback values
-		// and instead referencing a `fontFallback` object that exists in @atlaskit/theme/typography.
-		// This is a temporary measure until fallbacks are no longer required
-		let shouldAddFallbackImport: Refs['shouldAddFallbackImport'] = shouldAddFallback && 'full';
-
-		const themeImportDeclaration = Root.findImportsByModule(
-			getSourceCode(context).ast.body,
-			'@atlaskit/theme/typography',
-		);
-
-		if (themeImportDeclaration.length && shouldAddFallback) {
-			// Import exists, check if specifier exists
-			shouldAddFallbackImport = 'specifier';
-
-			const fallbackImport = themeImportDeclaration[0].specifiers.find((specifier) => {
-				// @atlaskit/theme/typography has no default export so we can safely narrow this type
-				if (!isNodeOfType(specifier, 'ImportSpecifier')) {
-					return false;
-				}
-				if ('name' in specifier.imported && specifier.imported.name === 'fontFallback') {
-					return true;
-				}
-				return false;
-			}) as ImportSpecifier;
-
-			// Exact import already exists, no need to add
-			if (fallbackImport) {
-				shouldAddFallbackImport = false;
-			}
-		}
-
 		return {
 			success: true,
 			refs: {
 				fontSizeNode,
 				fontSizeRaw,
 				tokensImportNode: tokensImportDeclaration[0],
-				themeImportNode: themeImportDeclaration[0],
-				shouldAddFallback,
-				shouldAddFallbackImport,
 			},
 		};
 	},
@@ -387,9 +334,6 @@ export const StyleObject: {
 				matchingToken,
 				nodesToReplace,
 				tokensImportNode,
-				themeImportNode,
-				shouldAddFallback,
-				shouldAddFallbackImport,
 				fontWeightReplacement,
 				fontFamilyReplacement,
 				fontStyleReplacement,
@@ -398,19 +342,7 @@ export const StyleObject: {
 
 			const root = getSourceCode(context).ast.body;
 
-			let fallbackImport;
-			if (shouldAddFallbackImport === 'full') {
-				fallbackImport = insertFallbackImportFull(root, fixer);
-			} else if (shouldAddFallbackImport === 'specifier') {
-				fallbackImport = insertFallbackImportSpecifier(fixer, themeImportNode!);
-			}
-
-			const fallbackName = (
-				matchingToken.tokenName === 'font.body' ? 'font.body.medium' : matchingToken.tokenName
-			).replace('font', 'fontFallback');
-
 			return (!tokensImportNode ? [insertTokensImport(root, fixer)] : []).concat(
-				fallbackImport ? [fallbackImport] : [],
 				nodesToReplace.map((node, index) => {
 					// Replace first node with token, delete remaining nodes. Guaranteed to be fontSize
 					if (index === 0) {
@@ -419,7 +351,7 @@ export const StyleObject: {
 							`${getTokenProperty(
 								'font',
 								matchingToken.tokenName,
-								shouldAddFallback ? fallbackName : undefined,
+								undefined,
 								true,
 							)}`,
 						);

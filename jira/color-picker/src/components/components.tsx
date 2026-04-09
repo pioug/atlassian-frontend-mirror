@@ -12,7 +12,7 @@ import { COLOR_PICKER } from '../constants';
 import { useIntl } from 'react-intl-next';
 import messages from '../messages';
 
-export const MenuList = (props: MenuListComponentProps<Color>) => {
+export const MenuList = (props: MenuListComponentProps<Color>): JSX.Element => {
 	const {
 		//@ts-ignore react-select unsupported props
 		selectProps: { cols },
@@ -39,7 +39,7 @@ export const MenuList = (props: MenuListComponentProps<Color>) => {
 	);
 };
 
-export const Option = (props: OptionProps<Color>) => {
+export const Option = (props: OptionProps<Color>): JSX.Element => {
 	const {
 		data: { value, label },
 		//@ts-ignore react-select unsupported props

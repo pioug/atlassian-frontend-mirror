@@ -121,7 +121,7 @@ const MetadataBlock = ({
 	primary = [],
 	secondary = [],
 	...blockProps
-}: MetadataBlockProps) => {
+}: MetadataBlockProps): JSX.Element | null => {
 	const cardContext = useFlexibleCardContext();
 
 	if (

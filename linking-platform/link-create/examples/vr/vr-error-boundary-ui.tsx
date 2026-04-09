@@ -14,4 +14,4 @@ const createExample = (): React.ComponentType => {
 	};
 };
 
-export const DefaultErrorBoundary = createExample();
+export const DefaultErrorBoundary: React.ComponentType<{}> = createExample();

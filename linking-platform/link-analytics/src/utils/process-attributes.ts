@@ -88,7 +88,10 @@ const DEFAULT_ATTRIBUTES_MAP: {
 export const processAttributesFromBaseEvent = (
 	action: LifecycleAction,
 	event: UIAnalyticsEvent,
-) => {
+): {
+        [x: string]: string | null;
+        sourceEvent: string | null;
+    } => {
 	const sourceEvent = getSourceEvent(event.payload);
 	const [component] = extractFromEventContext(['component', 'componentName'], event);
 
@@ -112,7 +115,19 @@ export const mergeAttributes = (
 	details: LinkDetails,
 	event?: UIAnalyticsEvent | null,
 	attributes?: Record<string, unknown>,
-) => {
+): {
+        smartLinkId: string | undefined;
+        creationMethod: string;
+        sourceEvent: string | null;
+    } | {
+        smartLinkId: string | undefined;
+        deleteMethod: string;
+        sourceEvent: string | null;
+    } | {
+        smartLinkId: string | undefined;
+        sourceEvent: string | null;
+        updateMethod: string;
+    } => {
 	const defaultAttributes = DEFAULT_ATTRIBUTES_MAP[action];
 	const derivedAttributes = event ? processAttributesFromBaseEvent(action, event) : {};
 

@@ -1,4 +1,44 @@
-export const mockBaseResponse = {
+export const mockBaseResponse: {
+    meta: {
+        visibility: string;
+        access: string;
+        auth: never[];
+        definitionId: string;
+        key: string;
+    }; data: {
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        '@type': string[];
+        name: string;
+        summary: string;
+        'schema:potentialAction': {
+            '@id': string;
+            '@type': string;
+            identifier: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        preview: {
+            '@type': string;
+            href: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        url: string;
+    };
+} = {
 	meta: {
 		visibility: 'public',
 		access: 'granted',
@@ -41,7 +81,54 @@ export const mockBaseResponse = {
 	},
 };
 
-export const mockConfluenceResponse = {
+export const mockConfluenceResponse: {
+    meta: {
+        key: string;
+        visibility: string;
+        access: string;
+        auth: never[];
+        definitionId: string;
+    }; data: {
+        'schema:commentCount': number;
+        'atlassian:reactCount': number;
+        generator: {
+            '@type': string;
+            '@id': string;
+            name: string;
+        };
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        '@type': string[];
+        name: string;
+        summary: string;
+        'schema:potentialAction': {
+            '@id': string;
+            '@type': string;
+            identifier: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        preview: {
+            '@type': string;
+            href: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        url: string;
+    };
+} = {
 	meta: {
 		...mockBaseResponse.meta,
 		key: 'confluence-object-provider',
@@ -58,7 +145,62 @@ export const mockConfluenceResponse = {
 	},
 };
 
-export const mockConfluenceResponseWithOwnedBy = {
+export const mockConfluenceResponseWithOwnedBy: {
+    meta: {
+        key: string;
+        visibility: string;
+        access: string;
+        auth: never[];
+        definitionId: string;
+    }; data: {
+        'schema:commentCount': number;
+        'atlassian:reactCount': number;
+        'atlassian:ownedBy': {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        generator: {
+            '@type': string;
+            '@id': string;
+            name: string;
+        };
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        '@type': string[];
+        name: string;
+        summary: string;
+        'schema:potentialAction': {
+            '@id': string;
+            '@type': string;
+            identifier: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        preview: {
+            '@type': string;
+            href: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        url: string;
+    };
+} = {
 	meta: {
 		...mockBaseResponse.meta,
 		key: 'confluence-object-provider',
@@ -83,7 +225,47 @@ export const mockConfluenceResponseWithOwnedBy = {
 	},
 };
 
-export const mockCompassResponse = {
+export const mockCompassResponse: {
+    meta: {
+        key: string;
+        visibility: string;
+        access: string;
+        auth: never[];
+        definitionId: string;
+    }; data: {
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        '@type': string[];
+        name: string;
+        summary: string;
+        'schema:potentialAction': {
+            '@id': string;
+            '@type': string;
+            identifier: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        preview: {
+            '@type': string;
+            href: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        url: string;
+    };
+} = {
 	...mockBaseResponse,
 	meta: {
 		...mockBaseResponse.meta,
@@ -91,7 +273,52 @@ export const mockCompassResponse = {
 	},
 };
 
-export const mockCompassResponseWithOwnedBy = {
+export const mockCompassResponseWithOwnedBy: {
+    meta: {
+        key: string;
+        visibility: string;
+        access: string;
+        auth: never[];
+        definitionId: string;
+    }; data: {
+        'atlassian:ownedBy': {
+            '@type': string;
+            icon: string;
+            name: string;
+        };
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        '@type': string[];
+        name: string;
+        summary: string;
+        'schema:potentialAction': {
+            '@id': string;
+            '@type': string;
+            identifier: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        preview: {
+            '@type': string;
+            href: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        url: string;
+    };
+} = {
 	meta: {
 		...mockBaseResponse.meta,
 		key: 'dragonfruit-object-provider',
@@ -106,7 +333,47 @@ export const mockCompassResponseWithOwnedBy = {
 	},
 };
 
-export const mockPassionfruitResponse = {
+export const mockPassionfruitResponse: {
+    meta: {
+        key: string;
+        visibility: string;
+        access: string;
+        auth: never[];
+        definitionId: string;
+    }; data: {
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        '@type': string[];
+        name: string;
+        summary: string;
+        'schema:potentialAction': {
+            '@id': string;
+            '@type': string;
+            identifier: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        preview: {
+            '@type': string;
+            href: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        url: string;
+    };
+} = {
 	...mockBaseResponse,
 	meta: {
 		...mockBaseResponse.meta,
@@ -114,7 +381,52 @@ export const mockPassionfruitResponse = {
 	},
 };
 
-export const mockPassionfruitResponseWithOwnedBy = {
+export const mockPassionfruitResponseWithOwnedBy: {
+    meta: {
+        key: string;
+        visibility: string;
+        access: string;
+        auth: never[];
+        definitionId: string;
+    }; data: {
+        'atlassian:ownedBy': {
+            '@type': string;
+            icon: string;
+            name: string;
+        };
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        '@type': string[];
+        name: string;
+        summary: string;
+        'schema:potentialAction': {
+            '@id': string;
+            '@type': string;
+            identifier: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        preview: {
+            '@type': string;
+            href: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        url: string;
+    };
+} = {
 	meta: {
 		...mockBaseResponse.meta,
 		key: 'integration-passionfruit-object-provider',
@@ -129,7 +441,48 @@ export const mockPassionfruitResponseWithOwnedBy = {
 	},
 };
 
-export const mockCompassResponseWithAppliedToComponentsCount = {
+export const mockCompassResponseWithAppliedToComponentsCount: {
+    meta: {
+        key: string;
+        visibility: string;
+        access: string;
+        auth: never[];
+        definitionId: string;
+    }; data: {
+        'atlassian:appliedToComponentsCount': number;
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        '@type': string[];
+        name: string;
+        summary: string;
+        'schema:potentialAction': {
+            '@id': string;
+            '@type': string;
+            identifier: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        preview: {
+            '@type': string;
+            href: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        url: string;
+    };
+} = {
 	meta: {
 		...mockBaseResponse.meta,
 		key: 'dragonfruit-object-provider',
@@ -140,7 +493,74 @@ export const mockCompassResponseWithAppliedToComponentsCount = {
 	},
 };
 
-export const mockJiraResponse = {
+export const mockJiraResponse: {
+    meta: {
+        key: string;
+        visibility: string;
+        access: string;
+        auth: never[];
+        definitionId: string;
+    }; data: {
+        'atlassian:assignedTo': {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        updated: string;
+        tag: {
+            '@type': string;
+            appearance: string;
+            name: string;
+        };
+        '@type': string[];
+        'atlassian:priority': {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        generator: {
+            '@type': string;
+            '@id': string;
+            name: string;
+        };
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        name: string;
+        summary: string;
+        'schema:potentialAction': {
+            '@id': string;
+            '@type': string;
+            identifier: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        preview: {
+            '@type': string;
+            href: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        url: string;
+    };
+} = {
 	meta: {
 		...mockBaseResponse.meta,
 		key: 'jira-object-provider',
@@ -178,7 +598,61 @@ export const mockJiraResponse = {
 	},
 };
 
-export const mockBBFileResponse = {
+export const mockBBFileResponse: {
+    meta: {
+        key: string;
+        visibility: string;
+        access: string;
+        auth: never[];
+        definitionId: string;
+    }; data: {
+        '@type': string[];
+        'atlassian:updatedBy': {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        'atlassian:latestCommit': {
+            name: string;
+            '@type': string;
+            summary: string;
+        };
+        updated: string;
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        name: string;
+        summary: string;
+        'schema:potentialAction': {
+            '@id': string;
+            '@type': string;
+            identifier: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        preview: {
+            '@type': string;
+            href: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        url: string;
+    };
+} = {
 	meta: {
 		...mockBaseResponse.meta,
 		key: 'bitbucket-object-provider',

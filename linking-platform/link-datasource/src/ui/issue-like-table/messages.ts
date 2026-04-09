@@ -1,6 +1,44 @@
 import { defineMessages } from 'react-intl-next';
 
-export const issueLikeTableMessages = defineMessages({
+export const issueLikeTableMessages: {
+    updateError403Description: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; updateError403Title: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; updateErrorGenericDescription: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; updateErrorGenericTitle: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; fetchActionErrorGenericDescription: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; fetchActionErrorGenericTitle: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; wrapText: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; unwrapText: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; fetchActionErrorGenericDescriptionGalaxia: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    };
+} = defineMessages({
 	updateError403Description: {
 		id: 'linkDataSource.issue-line-table.error-403-description',
 		description:

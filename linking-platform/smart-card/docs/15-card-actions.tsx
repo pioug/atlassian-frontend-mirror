@@ -12,7 +12,7 @@ import ContentTable from './utils/content-table';
 import customMd from './utils/custom-md';
 import QuickLinks from './utils/quick-links';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ${(<QuickLinks />)}
 
@@ -22,18 +22,18 @@ See available actions below.
 &nbsp;
 
 ${(
-	<ContentTable
-		items={[
-			{ name: 'Preview action', content: preview },
-			{ name: 'Download action', content: download },
-			{ name: 'Copy link action', content: copy },
-			{ name: 'Jira status change action', content: status },
-			{ name: 'Follow project/goal action', content: follow },
-			{ name: 'AI summary action', content: aiSummary },
-			{ name: 'Automation action', content: automation },
-			{ name: 'Recent links action', content: recentLinks },
-		]}
-	/>
-)}
+        <ContentTable
+            items={[
+                { name: 'Preview action', content: preview },
+                { name: 'Download action', content: download },
+                { name: 'Copy link action', content: copy },
+                { name: 'Jira status change action', content: status },
+                { name: 'Follow project/goal action', content: follow },
+                { name: 'AI summary action', content: aiSummary },
+                { name: 'Automation action', content: automation },
+                { name: 'Recent links action', content: recentLinks },
+            ]} />
+    )}
 
 `;
+export default _default_1;

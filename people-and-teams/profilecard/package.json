@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.48.1",
+	"version": "24.49.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -115,7 +115,6 @@
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
 		"loader-utils": "root:*",
-		"react-router-dom": "root:*",
 		"sinon": "root:*",
 		"typescript": "root:*",
 		"uid": "root:*"
@@ -136,6 +135,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"ptc-links-migrate-atlaskit-link": {
+			"type": "boolean"
+		},
 		"ptc-links-migrate-atlaskit-link-button": {
 			"type": "boolean"
 		},
@@ -188,6 +190,9 @@
 			"type": "boolean"
 		},
 		"jira_ai_fix_agent_profile_card_flashing": {
+			"type": "boolean"
+		},
+		"teams-app_profilecard_add-onblur": {
 			"type": "boolean"
 		}
 	},

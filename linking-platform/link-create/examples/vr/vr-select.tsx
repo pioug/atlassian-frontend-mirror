@@ -23,8 +23,8 @@ const createExample = (props: Partial<SelectProps> = {}): React.ComponentType =>
 	};
 };
 
-export const DefaultSelect = createExample();
-export const SelectorAllProps = createExample({
+export const DefaultSelect: React.ComponentType<{}> = createExample();
+export const SelectorAllProps: React.ComponentType<{}> = createExample({
 	validationHelpText: 'this is a validation help text',
 	isRequired: true,
 });

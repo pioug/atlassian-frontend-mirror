@@ -17,7 +17,7 @@ export enum Errors {
 	INVALID_NUMBER = 'INVALID_NUMBER',
 }
 
-export const numberValidate = (isRequired: boolean, value?: string) => {
+export const numberValidate = (isRequired: boolean, value?: string): Errors | undefined => {
 	if (isRequired && !value) {
 		return Errors.EMPTY;
 	}

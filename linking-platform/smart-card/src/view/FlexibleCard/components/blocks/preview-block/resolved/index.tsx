@@ -50,7 +50,7 @@ const PreviewBlockResolvedView = ({
 	style,
 	className,
 	...blockProps
-}: PreviewBlockProps) => {
+}: PreviewBlockProps): JSX.Element => {
 	const [dynamicStyles, setDynamicStyles] = useState<React.CSSProperties>(style ?? {});
 
 	const updateStyles = useCallback(() => {

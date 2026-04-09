@@ -34,7 +34,7 @@ const lineStyles = css({
 	marginLeft: token('space.150'),
 });
 
-export default () => {
+export default (): JSX.Element => {
 	const [currentMode, setCurrentMode] = useState('basic');
 
 	const onModeChange = (selectedMode: string) => {

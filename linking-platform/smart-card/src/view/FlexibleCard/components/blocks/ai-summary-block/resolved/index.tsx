@@ -54,7 +54,7 @@ const newStyles = cssMap({
 	},
 });
 
-const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps) => {
+const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps): JSX.Element => {
 	di(useAISummaryAction, AISummary);
 
 	const { testId, aiSummaryMinHeight = 0, placeholder, url } = props;
@@ -95,7 +95,7 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps) => {
 	);
 };
 
-export const RovoSummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps) => {
+export const RovoSummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps): JSX.Element | null => {
 	di(useAISummaryAction, AISummary);
 
 	const { testId, aiSummaryMinHeight = 0, url } = props;

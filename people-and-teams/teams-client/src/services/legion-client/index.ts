@@ -76,6 +76,7 @@ export interface SortField {
  * @property {boolean} useDefaultSort - Whether to use the default sort order
  * @property {boolean} showEmptyTeams - Whether to return empty teams in the search
  * @property {string[]} teamTypeIdsFilter - List of team type IDs to filter teams
+ * @property {boolean} enablePagination - Whether the API should paginate the response
  */
 export interface AllTeamsQuery {
 	/**
@@ -91,6 +92,7 @@ export interface AllTeamsQuery {
 	showEmptyTeams?: boolean;
 	sortBy?: SortField[];
 	teamTypeIdsFilter?: string[];
+	enablePagination?: boolean;
 }
 
 /**
@@ -267,6 +269,7 @@ export class LegionClient extends RestClient implements LegionClient {
 		try {
 			const orgId = this.getOrgId(allTeamsQuery.orgId);
 			const siteId = this.getCloudId();
+			const enablePagination = allTeamsQuery.enablePagination ?? true;
 
 			const { entities, cursor } = await this.postResource<
 				LegionPaginatedResponse<LegionTeamSearchResponseV4>
@@ -275,7 +278,6 @@ export class LegionClient extends RestClient implements LegionClient {
 				siteId: siteId,
 				limit: allTeamsQuery.limit,
 				query: allTeamsQuery.searchQuery,
-				cursor: allTeamsQuery.cursor || '',
 				sortBy: allTeamsQuery.useDefaultSort
 					? null
 					: allTeamsQuery.sortBy && allTeamsQuery.sortBy.length > 0
@@ -284,6 +286,8 @@ export class LegionClient extends RestClient implements LegionClient {
 				membership: { memberAccountIds: allTeamsQuery.memberAccountIds },
 				showEmptyTeams: allTeamsQuery.showEmptyTeams,
 				teamTypeIdsFilter: allTeamsQuery.teamTypeIdsFilter,
+				enablePagination,
+				...(enablePagination && allTeamsQuery.cursor ? { cursor: allTeamsQuery.cursor } : {}),
 			});
 
 			const teams = entities.map((t) => this.mapTeamSearchResponseV4ToTeamWithMembership(t));

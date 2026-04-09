@@ -1,6 +1,40 @@
 import { defineMessages } from 'react-intl-next';
 
-export const asyncPopupSelectMessages = defineMessages({
+export const asyncPopupSelectMessages: {
+    loadingMessage: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; noOptionsMessage: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; noOptionsMessageOld: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; noOptionsDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; errorMessage: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; errorMessageOld: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; errorDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; showMoreMessage: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	loadingMessage: {
 		id: 'linkDataSource.basic-filter.loading-message',
 		defaultMessage: 'Loading...',

@@ -174,8 +174,6 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 		FeatureGates.getExperimentValue('cc_fd_db_quick_insert_options', 'isEnabled', false);
 		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-		FeatureGates.getExperimentValue('cc_fd_wb_jira_quick_insert_experiment', 'isEnabled', false);
-		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 		FeatureGates.getExperimentValue('cc_fd_cwr_quick_insert', 'cohort', 'control');
 
 		api?.analytics?.actions?.fireAnalyticsEvent({

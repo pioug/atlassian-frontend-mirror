@@ -41,7 +41,7 @@ const customDropdownItemNotSelectedStyles = css({
 
 export const CustomDropdownItem = (
 	props: React.PropsWithChildren<{ isSelected: boolean; onClick: () => void }>,
-) => (
+): JSX.Element => (
 	<div
 		{...props}
 		css={[

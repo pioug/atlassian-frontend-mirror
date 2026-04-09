@@ -1,46 +1,90 @@
-export default {
-	meta: {
-		access: 'granted',
-		visibility: 'public',
-		auth: [],
-		definitionId: 'dc00272f-0cdd-43e1-92a9-c0ab00807c1a',
-		key: 'iframely-object-provider',
-		objectId: 'video-id',
-		resourceType: 'youtube',
-		tenantId: 'youtube-tenant',
-	},
-	data: {
-		'@type': 'Object',
-		'@context': {
-			'@vocab': 'https://www.w3.org/ns/activitystreams#',
-			atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-			schema: 'http://schema.org/',
-		},
-		url: 'https://youtube-url/watch?v=video-id',
-		name: 'The Atlassian Business Model',
-		updated: '2015-12-10T14:30:00.000Z',
-		summary:
-			"Atlassian's product strategy, distribution model, and company culture work in concert to create unique value for its customers and a competitive advantage for the company.",
-		generator: {
-			'@type': 'Object',
-			name: 'YouTube',
-			icon: {
-				'@type': 'Image',
-				url: 'https://icon-url',
-			},
-		},
-		icon: {
-			'@type': 'Image',
-			url: 'https://icon-url',
-		},
-		image: {
-			'@type': 'Image',
-			url: 'https://image-url',
-		},
-		preview: {
-			'@type': 'Link',
-			href: 'https://preview-url',
-			'atlassian:aspectRatio': 1.7778,
-		},
-	},
+const _default_1: {
+    meta: {
+        access: string;
+        visibility: string;
+        auth: never[];
+        definitionId: string;
+        key: string;
+        objectId: string;
+        resourceType: string;
+        tenantId: string;
+    };
+    data: {
+        '@type': string;
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        url: string;
+        name: string;
+        updated: string;
+        summary: string;
+        generator: {
+            '@type': string;
+            name: string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+        };
+        icon: {
+            '@type': string;
+            url: string;
+        };
+        image: {
+            '@type': string;
+            url: string;
+        };
+        preview: {
+            '@type': string;
+            href: string;
+            'atlassian:aspectRatio': number;
+        };
+    };
+} = {
+    meta: {
+        access: 'granted',
+        visibility: 'public',
+        auth: [],
+        definitionId: 'dc00272f-0cdd-43e1-92a9-c0ab00807c1a',
+        key: 'iframely-object-provider',
+        objectId: 'video-id',
+        resourceType: 'youtube',
+        tenantId: 'youtube-tenant',
+    },
+    data: {
+        '@type': 'Object',
+        '@context': {
+            '@vocab': 'https://www.w3.org/ns/activitystreams#',
+            atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+            schema: 'http://schema.org/',
+        },
+        url: 'https://youtube-url/watch?v=video-id',
+        name: 'The Atlassian Business Model',
+        updated: '2015-12-10T14:30:00.000Z',
+        summary: "Atlassian's product strategy, distribution model, and company culture work in concert to create unique value for its customers and a competitive advantage for the company.",
+        generator: {
+            '@type': 'Object',
+            name: 'YouTube',
+            icon: {
+                '@type': 'Image',
+                url: 'https://icon-url',
+            },
+        },
+        icon: {
+            '@type': 'Image',
+            url: 'https://icon-url',
+        },
+        image: {
+            '@type': 'Image',
+            url: 'https://image-url',
+        },
+        preview: {
+            '@type': 'Link',
+            href: 'https://preview-url',
+            'atlassian:aspectRatio': 1.7778,
+        },
+    },
 };
+export default _default_1;

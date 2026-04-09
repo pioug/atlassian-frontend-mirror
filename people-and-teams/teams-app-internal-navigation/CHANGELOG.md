@@ -1,5 +1,17 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 1.8.0
+
+### Minor Changes
+
+- [`f2ae85938fde5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2ae85938fde5) -
+  Made the navigate prop optional and the whole TeamsNavigationProvider optional.
+
+### Patch Changes
+
+- [`bcca5482f4ea4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcca5482f4ea4) -
+  Add loom to atlassian domains
+
 ## 1.7.0
 
 ### Minor Changes

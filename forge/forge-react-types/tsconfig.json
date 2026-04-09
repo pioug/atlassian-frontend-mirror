@@ -8,8 +8,8 @@
 		"transpileOnly": true,
 		"files": true,
 		"compilerOptions": {
-			"module": "CommonJS",
-			"moduleResolution": "bundler",
+			"module": "Node16",
+			"moduleResolution": "node16",
 			"verbatimModuleSyntax": false
 		}
 	}

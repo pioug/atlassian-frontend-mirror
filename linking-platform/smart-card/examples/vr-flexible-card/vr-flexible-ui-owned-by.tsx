@@ -8,7 +8,7 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const context = getContext({ ownedBy: 'Angie' });
 
-export default () => {
+export default (): React.JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<FlexibleCardContext.Provider value={{ data: context }}>

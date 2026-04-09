@@ -92,7 +92,7 @@ export const AqlSearchInput = ({
 	workspaceId,
 	testId = 'assets-datasource-modal--aql-search-input',
 	isSearching,
-}: AqlSearchInputProps) => {
+}: AqlSearchInputProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const { debouncedValidation, lastValidationResult } = useValidateAqlText(workspaceId, value);

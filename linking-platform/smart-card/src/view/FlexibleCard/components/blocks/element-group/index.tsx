@@ -250,7 +250,7 @@ const ElementGroup = ({
 	width = SmartLinkWidth.FitToContent,
 	position = SmartLinkPosition.Center,
 	className,
-}: ElementGroupProps) => {
+}: ElementGroupProps): JSX.Element => {
 	const isHorizontal = direction === SmartLinkDirection.Horizontal;
 	return (
 		<div

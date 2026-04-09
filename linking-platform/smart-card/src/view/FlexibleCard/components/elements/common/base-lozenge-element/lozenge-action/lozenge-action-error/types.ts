@@ -1,3 +1,5 @@
+import type { MessageDescriptor } from 'react-intl-next';
+
 import { messages } from '../../../../../../../../messages';
 import { type InvokeClientActionProps } from '../../../../../../../../state/hooks/use-invoke-client-action/types';
 import { type MessageProps } from '../../../../../types';
@@ -29,7 +31,17 @@ export type LozengeActionErrorProps = {
 	url?: string;
 };
 
-export const LozengeActionErrorMessages = {
+export const LozengeActionErrorMessages: {
+    noData: {
+        descriptor: MessageDescriptor;
+    }; noDataIssueTermRefresh: {
+        descriptor: MessageDescriptor;
+    }; unknown: {
+        descriptor: MessageDescriptor;
+    }; updateFailed: {
+        descriptor: MessageDescriptor;
+    };
+} = {
 	noData: {
 		descriptor: messages['status_change_permission_error'],
 	},

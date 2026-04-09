@@ -1,6 +1,15 @@
 import { icon } from './icons';
 
-export const mockedAvailableSitesResult = {
+export const mockedAvailableSitesResult: {
+    sites: {
+        cloudId: string;
+        products: string[];
+        url: string;
+        displayName: string;
+        avatarUrl: string;
+        isVertigo: boolean;
+    }[];
+} = {
 	sites: [
 		{
 			cloudId: '0131afab-28cf-45ea-a211-963f638f99bc',
@@ -212,7 +221,16 @@ export const mockedAvailableSitesResult = {
 /**
  * Mock availableSites response for a specific gatewayBaseUrl
  */
-export const mockedAvailableSitesResultWithGatewayBaseUrl = {
+export const mockedAvailableSitesResultWithGatewayBaseUrl: {
+    sites: {
+        cloudId: string;
+        products: string[];
+        url: string;
+        displayName: string;
+        avatarUrl: string;
+        isVertigo: boolean;
+    }[];
+} = {
 	sites: [
 		...mockedAvailableSitesResult.sites,
 		{

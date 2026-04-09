@@ -23,7 +23,7 @@ import { type RelatedLinksBaseModalProps } from './types';
 
 const fixedWidth = 'small'; // pre-defined 400px by Atlaskit
 
-const RelatedLinksBaseModal = ({ onClose, showModal, children }: RelatedLinksBaseModalProps) => {
+const RelatedLinksBaseModal = ({ onClose, showModal, children }: RelatedLinksBaseModalProps): JSX.Element => {
 	const { fireEvent } = useAnalyticsEvents();
 	const modalOpenTimeRef = useRef<number>(Date.now());
 

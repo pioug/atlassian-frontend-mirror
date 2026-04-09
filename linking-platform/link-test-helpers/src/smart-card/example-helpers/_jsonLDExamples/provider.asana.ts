@@ -1,6 +1,90 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 
-export const AsanaTaskJson = {
+export const AsanaTaskJson: {
+    meta: {
+        visibility: string;
+        access: string;
+        resourceType: string;
+        key: string;
+    }; data: {
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        '@id': string;
+        '@type': string[];
+        'atlassian:assigned': string;
+        'atlassian:assignedBy': {
+            '@type': string;
+            icon: string;
+            name: string;
+        };
+        'atlassian:assignedTo': {
+            '@type': string;
+            icon: string;
+            name: string;
+        };
+        'atlassian:completed': undefined;
+        'atlassian:isCompleted': boolean;
+        'atlassian:isDeleted': boolean;
+        'atlassian:subscriber': {
+            '@type': string;
+            icon: string;
+            name: string;
+        };
+        'atlassian:subscriberCount': number;
+        'atlassian:taskStatus': {
+            '@type': string;
+            name: string;
+            url: string;
+        };
+        'atlassian:taskType': {
+            '@type': string;
+            id: string;
+            name: string;
+            url: string;
+        };
+        'atlassian:updatedBy': {
+            '@type': string;
+            icon: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: string;
+            name: string;
+        };
+        content: string;
+        context: {
+            '@type': string;
+            name: string;
+        };
+        endTime: string;
+        generator: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        mediaType: string;
+        name: string;
+        'schema:commentCount': number;
+        'schema:dateCreated': string;
+        startTime: undefined;
+        summary: string;
+        tags: {
+            '@type': string;
+            id: string;
+            name: string;
+            url: string;
+        }[];
+        updated: string;
+        url: string;
+    };
+} = {
 	meta: {
 		visibility: 'restricted',
 		access: 'granted',

@@ -40,7 +40,7 @@ export const infoWrapperStyles = css({
 	width: '160px',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- needs to be converted to tokens
 	color: 'black',
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 	top: '120px',
 	left: 0,
 	textAlign: 'center',

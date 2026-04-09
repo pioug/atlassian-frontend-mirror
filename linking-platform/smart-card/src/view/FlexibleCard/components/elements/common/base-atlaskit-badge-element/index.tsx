@@ -29,7 +29,7 @@ const BaseAtlaskitElementBadge = ({
 	name,
 	className,
 	testId = 'smart-element-atlaskit-badge',
-}: BaseAtlaskitBadgeElementProps) => {
+}: BaseAtlaskitBadgeElementProps): JSX.Element | null => {
 	if (!value) {
 		return null;
 	}

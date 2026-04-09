@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-client-extension",
-	"version": "6.0.0",
+	"version": "6.0.1",
 	"description": "Extension methods for linking platform client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,6 +8,13 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Navigation Experiences - Linking Platform",
 		"website": {
 			"name": "LinkClientExtension"
@@ -46,6 +53,7 @@
 	"devDependencies": {
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"

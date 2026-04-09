@@ -52,7 +52,7 @@ const LoadingStateAnimationWrapper = styled.div({
 	},
 });
 
-const PopupTrigger = forwardRef<HTMLButtonElement, PopupTriggerProps>(
+const PopupTrigger: React.ForwardRefExoticComponent<PopupTriggerProps & React.RefAttributes<HTMLButtonElement>> = forwardRef<HTMLButtonElement, PopupTriggerProps>(
 	(
 		{ isSelected, isDisabled, isLoading, selectedOptions, testId, label },
 		ref: React.Ref<HTMLButtonElement>,

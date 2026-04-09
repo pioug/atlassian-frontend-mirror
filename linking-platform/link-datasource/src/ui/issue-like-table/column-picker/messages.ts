@@ -1,6 +1,24 @@
 import { defineMessages } from 'react-intl-next';
 
-export const columnPickerMessages = defineMessages({
+export const columnPickerMessages: {
+    maximumItemsShownLine1: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; maximumItemsShownLine2: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; search: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; tooltip: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    };
+} = defineMessages({
 	maximumItemsShownLine1: {
 		id: 'linkDataSource.column-picker.no-all-items-shown-message.line-1',
 		description:

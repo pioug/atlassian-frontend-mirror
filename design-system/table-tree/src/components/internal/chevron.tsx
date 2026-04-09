@@ -6,7 +6,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 
-import { ChevronContainer } from './styled';
+import { ChevronContainer } from './chevron-container';
 
 interface ChevronProps {
 	/**

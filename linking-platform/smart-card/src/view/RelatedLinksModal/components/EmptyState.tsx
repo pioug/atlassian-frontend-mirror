@@ -33,7 +33,7 @@ type EmptyStateProps = {
 	testId?: string;
 };
 
-export const EmptyState = ({ testId, header, description, renderImage }: EmptyStateProps) => {
+export const EmptyState = ({ testId, header, description, renderImage }: EmptyStateProps): JSX.Element => {
 	return (
 		<Box xcss={styles.emptyState} testId={testId}>
 			{renderImage?.()}

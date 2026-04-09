@@ -115,7 +115,7 @@ const HyperlinkWithSmartLinkResolverInner = ({
 	return <Hyperlink {...props} onClick={onClick} />;
 };
 
-export const HyperlinkWithSmartLinkResolver = withReactErrorBoundary(
+export const HyperlinkWithSmartLinkResolver: React.ForwardRefExoticComponent<LinkUrlProps & React.RefAttributes<any>> = withReactErrorBoundary(
 	withValidator(
 		injectIntl(withIntlProvider(HyperlinkWithSmartLinkResolverInner), { enforceContext: false }),
 		Hyperlink,

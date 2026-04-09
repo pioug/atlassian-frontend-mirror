@@ -41,13 +41,13 @@ export const UrlIcon = ({ url, children }: UrlIconProps): JSX.Element => {
 	);
 };
 
-export const PageIcon = () => {
+export const PageIcon = (): JSX.Element => {
 	const intl = useIntl();
 
 	return <Document16Icon label={intl.formatMessage(iconLabelMessages.pageIconLabel)} />;
 };
 
-export const LiveDocIcon = () => {
+export const LiveDocIcon = (): JSX.Element => {
 	const intl = useIntl();
 
 	return <PageLiveDoc16Icon label={intl.formatMessage(iconLabelMessages.pageIconLabel)} />;

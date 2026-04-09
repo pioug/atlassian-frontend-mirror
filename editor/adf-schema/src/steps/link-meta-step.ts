@@ -14,8 +14,10 @@ export type LinkStepMetadata = {
 	/**
 	 * The applicable card action for this step
 	 * if is RESOLVE then the undo/redo steps should be considered "updates" of a link
+	 * if is AUTO_CONVERT then the transaction is converting a link to a non-link node (e.g. extension)
+	 * and the link removal should not be tracked as a deletion
 	 */
-	cardAction?: 'RESOLVE';
+	cardAction?: 'RESOLVE' | 'AUTO_CONVERT';
 	/**
 	 * Editor input method that triggered the transaction
 	 */

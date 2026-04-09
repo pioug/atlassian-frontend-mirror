@@ -49,9 +49,9 @@ mockDebounce.mockImplementation((fn) => {
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
 const mockIntl = { formatMessage: mockFormatMessage };
-jest.mock('react-intl-next', () => {
+jest.mock('react-intl', () => {
 	return {
-		...(jest.requireActual('react-intl-next') as any),
+		...(jest.requireActual('react-intl') as any),
 		FormattedMessage: ({ defaultMessage, children }: { children?: any; defaultMessage: string }) =>
 			children ? children(defaultMessage) : <span>{defaultMessage}</span>,
 		injectIntl: (Node: any) => (props: any) => <Node {...props} intl={mockIntl} />,

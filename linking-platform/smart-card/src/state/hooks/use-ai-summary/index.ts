@@ -10,7 +10,10 @@ import type { AISummaryServiceProps, AISummaryState } from './ai-summary-service
  * Stream AI summary for an url.
  * For hook specific to AI summary on as a smart link, please see useAISummaryAction.
  */
-export const useAISummary = (props: AISummaryServiceProps) => {
+export const useAISummary = (props: AISummaryServiceProps): {
+    summariseUrl: () => Promise<AISummaryState> | undefined;
+    state: AISummaryState;
+} => {
 	const { url, baseUrl, product, ari, envKey, onError, onStart, onSuccess } = props;
 	const [state, setState] = useState<AISummaryState>(
 		AISummariesStore.get(url)?.state || { status: 'ready', content: '' },
@@ -42,7 +45,7 @@ export const useAISummary = (props: AISummaryServiceProps) => {
 		return AISummariesStore.get(url)?.subscribe(setState);
 	}, [url, baseUrl, onError, onStart, onSuccess, product, ari, envKey, locale]);
 
-	const summariseUrl = () => {
+	const summariseUrl = (): Promise<AISummaryState> | undefined => {
 		return AISummariesStore.get(url)?.summariseUrl();
 	};
 

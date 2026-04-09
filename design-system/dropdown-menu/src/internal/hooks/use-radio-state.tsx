@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 
 import { RadioGroupContext } from '../../radio/radio-group-context';
-import { SelectionStoreContext } from '../context/selection-store';
+import { SelectionStoreContext } from '../context/selection-store-context';
 
 type RadioStateArgs = {
 	id: string;

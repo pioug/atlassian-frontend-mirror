@@ -26,7 +26,10 @@ const ImageLoaderMock = (props: ComponentPropsWithoutRef<typeof ImageLoader>) =>
 	<ImageLoader {...props} loaded={props.loading} />
 );
 
-const VRInlineCardAllExamplesInText = () => {
+const VRInlineCardAllExamplesInText: {
+    (): JSX.Element;
+    displayName: string;
+} = (): JSX.Element => {
 	return (
 		<IntlProvider locale="en">
 			<Box xcss={wrapperStyle}>

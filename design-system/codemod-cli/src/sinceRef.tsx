@@ -1,7 +1,8 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import simpleGit from 'simple-git';
 
-import { type ParsedPkg, ValidationError } from './types';
+import type { ParsedPkg } from './types';
+import { ValidationError } from './validation-error';
 
 const packageRegex = /"(@(?:atlaskit|atlassian|atlassiansox)\/.*)": "(.*)"/;
 

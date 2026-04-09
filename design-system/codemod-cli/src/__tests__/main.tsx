@@ -4,12 +4,8 @@ jest.mock('enquirer', () => ({
 	AutoComplete: jest.fn(),
 }));
 
-jest.mock('../transforms', () => ({
-	...jest.requireActual<Object>('../transforms'),
-	getTransforms: jest.fn().mockImplementation(() => []),
-	hasTransform: jest.fn().mockImplementation(() => false),
-}));
-
+jest.mock('../get-transforms', () => ({ getTransforms: jest.fn().mockImplementation(() => []) }));
+jest.mock('../has-transform', () => ({ hasTransform: jest.fn().mockImplementation(() => false) }));
 jest.mock('../sinceRef');
 
 import path from 'path';
@@ -17,10 +13,13 @@ import path from 'path';
 import { AutoComplete } from 'enquirer';
 import spawn from 'projector-spawn';
 
+import { getTransforms } from '../get-transforms';
+import { hasTransform } from '../has-transform';
 import main from '../main';
+import { NoTransformsExistError } from '../no-transforms-exist-error';
 import { getPackagesSinceRef } from '../sinceRef';
-import { getTransforms, hasTransform } from '../transforms';
-import { NoTransformsExistError, type ParsedPkg, ValidationError } from '../types';
+import type { ParsedPkg } from '../types';
+import { ValidationError } from '../validation-error';
 
 const codemods = [
 	path.parse('node_modules/@atlaskit/button/codemods/3.0.0-foo.ts'),

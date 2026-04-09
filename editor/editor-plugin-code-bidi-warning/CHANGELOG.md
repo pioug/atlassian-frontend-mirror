@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-bidi-warning
 
+## 8.0.22
+
+### Patch Changes
+
+- [`82c0224977f47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82c0224977f47) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
+## 8.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.20
 
 ### Patch Changes

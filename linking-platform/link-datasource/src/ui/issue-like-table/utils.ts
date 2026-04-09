@@ -1,3 +1,5 @@
+import type { FormEvent } from 'react';
+
 import { type FieldProps } from '@atlaskit/form';
 
 import { DatasourceAction } from '../../analytics/types';
@@ -14,7 +16,7 @@ const keyBasedMinWidthMap: Record<string, number> = {
 	assignee: COLUMN_BASE_WIDTH * 12.5,
 };
 
-export const getColumnMinWidth = (key: string) => {
+export const getColumnMinWidth = (key: string): number => {
 	return keyBasedMinWidthMap[key] || COLUMN_MIN_WIDTH;
 };
 
@@ -63,7 +65,7 @@ export const getColumnAction = (
 /**
  * Remove deprecated `aria-labelledby` prop from select component props.
  */
-export const getCleanedSelectProps = (props: Omit<FieldProps<string>, 'value'>) => {
+export const getCleanedSelectProps = (props: Omit<FieldProps<string>, 'value'>): { name: string; id: string; 'aria-describedby'?: string | undefined; 'aria-invalid': "true" | "false"; onFocus: () => void; onBlur: () => void; onChange: (value: string | FormEvent<HTMLInputElement>) => void; isRequired: boolean; isDisabled: boolean; isInvalid: boolean; } => {
 	// Component Field auto adds `aria-labelledby` prop, which is deprecated and should not be used - https://hello.jira.atlassian.cloud/browse/ENGHEALTH-14529
 	const { 'aria-labelledby': removedLabelByProps, ...selectProps } = props;
 	return selectProps;

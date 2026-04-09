@@ -41,7 +41,7 @@ export const transformTimeStamp = (
 	intl: IntlShape,
 	lastViewedDate?: Date,
 	lastUpdatedDate?: Date,
-) => {
+): string | undefined => {
 	if (lastViewedDate) {
 		return renderAbsoluteOrRelativeDate(lastViewedDate, 'viewed', intl);
 	}

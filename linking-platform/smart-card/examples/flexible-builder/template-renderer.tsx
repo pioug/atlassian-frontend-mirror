@@ -5,6 +5,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import type { JsonLd } from '@atlaskit/json-ld-types';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import Range from '@atlaskit/range/range';
@@ -119,4 +121,19 @@ const TemplateRenderer = ({ template, url }: { template: FlexibleTemplate; url?:
 	);
 };
 
-export default withJsonldEditorProvider(TemplateRenderer);
+const _default_1: (props: {
+    template: FlexibleTemplate;
+    url?: string;
+} & {
+    ari?: string;
+    branchDeploy?: string;
+    envKey?: EnvironmentsKeys;
+    json?: JsonLd.Response;
+    onError?: (error: Error) => void;
+    onFetch?: () => JsonLd.Response | undefined;
+    onResolve?: (json: JsonLd.Response) => void;
+    url: string;
+} & {
+    children?: React.ReactNode | undefined;
+}) => React.JSX.Element = withJsonldEditorProvider(TemplateRenderer);
+export default _default_1;

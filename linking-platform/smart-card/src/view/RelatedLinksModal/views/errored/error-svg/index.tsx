@@ -15,7 +15,7 @@ const errorStyles = css({
 	display: 'block',
 });
 
-export const ErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
+export const ErrorSVG = (props: React.SVGProps<SVGSVGElement>): JSX.Element => {
 	const id = 'related-links-error-svg';
 
 	return (

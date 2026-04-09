@@ -27,7 +27,7 @@ const blockOverrideCss = css({
 	paddingLeft: token('space.200'),
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

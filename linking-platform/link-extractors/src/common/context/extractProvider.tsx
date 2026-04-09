@@ -89,6 +89,6 @@ const extractProviderImage = (
 	return undefined;
 };
 
-export const isConfluenceGenerator = (id: string) => {
+export const isConfluenceGenerator = (id: string): id is "https://www.atlassian.com/#Confluence" => {
 	return id === CONFLUENCE_GENERATOR_ID;
 };

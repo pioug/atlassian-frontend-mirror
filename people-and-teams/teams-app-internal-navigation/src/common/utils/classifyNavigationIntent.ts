@@ -17,6 +17,7 @@ const ATLASSIAN_DOMAINS = [
 	'jira.com',
 	'bitbucket.org',
 	'trello.com',
+	'loom.com',
 	'atlassian-dev.net',
 	'atlassian-us-gov-mod.com',
 	'atlassian-us-gov-mod.net',

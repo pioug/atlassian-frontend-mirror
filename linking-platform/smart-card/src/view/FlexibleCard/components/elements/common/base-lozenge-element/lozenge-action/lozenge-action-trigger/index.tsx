@@ -95,7 +95,7 @@ const LozengeActionTrigger = ({
 	triggerRef,
 	trailingMetric,
 	...props
-}: LozengeActionTriggerProps) => {
+}: LozengeActionTriggerProps): JSX.Element => {
 	const intl = useIntl();
 	const [isPressing, setIsPressing] = useState(false);
 	const [lozengeBackgroundColor, setLozengeBackgroundColor] = useState<string | undefined>(

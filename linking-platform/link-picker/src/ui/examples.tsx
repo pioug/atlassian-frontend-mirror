@@ -51,7 +51,7 @@ const createExampleStyle = css({
 });
 
 const createExample = (props?: Partial<React.ComponentProps<typeof LinkPicker>>) => {
-	return () => (
+	return (): JSX.Element => (
 		<div css={createExampleStyle}>
 			<LinkPicker onSubmit={NOOP} {...props} />
 		</div>
@@ -66,29 +66,29 @@ const createWidthExampleStyle = css({
 });
 
 const createWidthExample = (props?: Partial<React.ComponentProps<typeof LinkPicker>>) => {
-	return () => (
+	return (): JSX.Element => (
 		<div css={createWidthExampleStyle}>
 			<LinkPicker onSubmit={NOOP} onCancel={NOOP} {...props} />
 		</div>
 	);
 };
 
-export const DefaultExample = createExample();
-export const WithCancelExample = createExample({
+export const DefaultExample: () => JSX.Element = createExample();
+export const WithCancelExample: () => JSX.Element = createExample({
 	onCancel: NOOP,
 });
 
-export const DisableWidthExample = createWidthExample({
+export const DisableWidthExample: () => JSX.Element = createWidthExample({
 	plugins: undefined,
 	disableWidth: true,
 });
 
-export const DisableWidthWithPluginsExample = createWidthExample({
+export const DisableWidthWithPluginsExample: () => JSX.Element = createWidthExample({
 	plugins,
 	disableWidth: true,
 });
 
-export const DisableWidth500Example = () => {
+export const DisableWidth500Example = (): JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ width: 500 }}>
@@ -99,7 +99,7 @@ export const DisableWidth500Example = () => {
 	);
 };
 
-export const DisableWidth500ExampleWithPlugins = () => {
+export const DisableWidth500ExampleWithPlugins = (): JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ width: 500 }}>
@@ -110,7 +110,7 @@ export const DisableWidth500ExampleWithPlugins = () => {
 	);
 };
 
-export const DisableWidth300Example = () => {
+export const DisableWidth300Example = (): JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ width: 300 }}>
@@ -121,7 +121,7 @@ export const DisableWidth300Example = () => {
 	);
 };
 
-export const DisableWidth300ExampleWithPlugins = () => {
+export const DisableWidth300ExampleWithPlugins = (): JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ width: 300 }}>
@@ -132,7 +132,7 @@ export const DisableWidth300ExampleWithPlugins = () => {
 	);
 };
 
-export const ZeroPaddingExample = createExample({
+export const ZeroPaddingExample: () => JSX.Element = createExample({
 	plugins,
 	paddingLeft: '0',
 	paddingRight: '0',
@@ -140,7 +140,7 @@ export const ZeroPaddingExample = createExample({
 	paddingTop: '0',
 });
 
-export const LargePaddingUsingTokensExample = createExample({
+export const LargePaddingUsingTokensExample: () => JSX.Element = createExample({
 	plugins,
 	paddingLeft: token('space.400'),
 	paddingRight: token('space.800'),
@@ -148,7 +148,7 @@ export const LargePaddingUsingTokensExample = createExample({
 	paddingBottom: token('space.300'),
 });
 
-export const VaryingPaddingsExample = createExample({
+export const VaryingPaddingsExample: () => JSX.Element = createExample({
 	plugins,
 	paddingLeft: '5rem',
 	paddingRight: '2rem',
@@ -156,11 +156,11 @@ export const VaryingPaddingsExample = createExample({
 	paddingBottom: '4rem',
 });
 
-export const ErrorBoundaryExample = createExample({
+export const ErrorBoundaryExample: () => JSX.Element = createExample({
 	url: 112323 as any, // typecast to trigger an error
 });
 
-export const PluginErrorExample = createExample({
+export const PluginErrorExample: () => JSX.Element = createExample({
 	plugins: [
 		new UnstableMockLinkPickerPlugin({
 			tabKey: 'tab2',
@@ -169,7 +169,7 @@ export const PluginErrorExample = createExample({
 	],
 });
 
-export const UnauthenticatedErrorExample = createExample({
+export const UnauthenticatedErrorExample: () => JSX.Element = createExample({
 	plugins: [
 		new UnstableMockLinkPickerPlugin({
 			tabKey: 'tab3',
@@ -179,7 +179,7 @@ export const UnauthenticatedErrorExample = createExample({
 	],
 });
 
-export const CustomEmptyStateExample = createExample({
+export const CustomEmptyStateExample: () => JSX.Element = createExample({
 	plugins: [
 		{
 			resolve: () =>
@@ -204,7 +204,7 @@ export const CustomEmptyStateExample = createExample({
 		},
 	],
 });
-export const CustomEmptyStateWithAdaptiveHeightExample = createExample({
+export const CustomEmptyStateWithAdaptiveHeightExample: () => JSX.Element = createExample({
 	adaptiveHeight: true,
 	plugins: [
 		{
@@ -231,7 +231,7 @@ export const CustomEmptyStateWithAdaptiveHeightExample = createExample({
 	],
 });
 
-export const VrWithoutEmptyResultsIllustrationExample = createExample({
+export const VrWithoutEmptyResultsIllustrationExample: () => JSX.Element = createExample({
 	shouldRenderNoResultsImage: false,
 	adaptiveHeight: true,
 	plugins: [
@@ -244,7 +244,7 @@ export const VrWithoutEmptyResultsIllustrationExample = createExample({
 	],
 });
 
-export const VrWithLimitedRecentSearchesExample = createExample({
+export const VrWithLimitedRecentSearchesExample: () => JSX.Element = createExample({
 	adaptiveHeight: true,
 	recentSearchListSize: 3,
 	plugins,

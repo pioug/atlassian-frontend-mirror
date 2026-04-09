@@ -42,7 +42,7 @@ const wrapperStylesNewLozenge = css({
 });
 
 type InlineLozengeProps = LozengeProps | NewLozengeProps;
-const InlineLozenge = (props: InlineLozengeProps) => {
+const InlineLozenge = (props: InlineLozengeProps): JSX.Element => {
 	const shouldAddLozengeAttribute =
 		expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&

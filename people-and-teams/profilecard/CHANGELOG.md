@@ -1,5 +1,34 @@
 # @atlaskit/profilecard
 
+## 24.49.0
+
+### Minor Changes
+
+- [`c94eb37b8ae2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c94eb37b8ae2e) -
+  Migrates all instances of ADS Link to use TeamsLink and adds TeamsNavigationProvider where needed
+- [`503f9e86537ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/503f9e86537ae) -
+  [ux] Migrated all react-router-dom links to @atlaskit/teams-app-internal-navigation
+
+### Patch Changes
+
+- [`4b2c758274578`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b2c758274578) -
+  Removed `TeamsNavigationProvider` wrapper from ProfileCard component and tests. The navigation
+  provider is now optional and no longer required for ProfileCard to render correctly.
+
+## 24.48.3
+
+### Patch Changes
+
+- [`2284894a2d150`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2284894a2d150) -
+  Add onBlur function for trigger component (a11y requirement)
+- Updated dependencies
+
+## 24.48.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.48.1
 
 ### Patch Changes

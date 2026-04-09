@@ -4,7 +4,15 @@ const devBaseUrl = 'https://api-private.dev.atlassian.com';
 const stgBaseUrl = 'https://pug.jira-dev.com/gateway/api';
 const prodBaseUrl = 'https://api-private.atlassian.com';
 
-export const BaseUrls = {
+export const BaseUrls: {
+    dev: string;
+    development: string;
+    stg: string;
+    staging: string;
+    prd: string;
+    prod: string;
+    production: string;
+} = {
 	dev: devBaseUrl,
 	development: devBaseUrl,
 

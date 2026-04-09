@@ -16,11 +16,7 @@ const TEAM_HREF = '/teams/my-team';
  * and menu actions (LinkItem inside a menu section).
  */
 export default function Basic(): React.JSX.Element {
-	const context = {
-		forceExternalIntent: true,
-		navigate: () => {},
-		openPreviewPanel: () => {},
-	};
+	const context = {};
 
 	return (
 		<TeamsNavigationProvider value={context}>

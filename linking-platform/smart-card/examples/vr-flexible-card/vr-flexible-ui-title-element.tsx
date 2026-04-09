@@ -13,7 +13,7 @@ import { SmartLinkInternalTheme } from '../../src/constants';
 import { SmartCardProvider } from '../../src/state';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider client={new UnicornResolvedClient()}>

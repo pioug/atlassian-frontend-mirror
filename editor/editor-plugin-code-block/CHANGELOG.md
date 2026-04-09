@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-code-block
 
+## 10.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.24
+
+### Patch Changes
+
+- [`ce68e4cf353de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce68e4cf353de) -
+  Clean up feature gate `editor_a11y_remove_unwrap_button` - always show 'Turn on wrap' as the wrap
+  button title (final value: true).
+- Updated dependencies
+
 ## 10.0.23
 
 ### Patch Changes

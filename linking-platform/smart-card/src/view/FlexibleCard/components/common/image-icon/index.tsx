@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl-next';
 import ImageLoader from 'react-render-image';
@@ -41,7 +41,7 @@ const ImageIcon = ({
 	onError,
 	onLoad,
 	hideLoadingSkeleton = false,
-}: ImageIconProps) => {
+}: ImageIconProps): string | number | boolean | Iterable<ReactNode> | JSX.Element | null | undefined => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
 	const { formatMessage } = useIntl();
 

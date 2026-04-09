@@ -1,5 +1,13 @@
 # @atlaskit/link-extractors
 
+## 2.4.7
+
+### Patch Changes
+
+- [`3b4f9743f0c18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b4f9743f0c18) -
+  Enrol navigation and linking-platform packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+
 ## 2.4.6
 
 ### Patch Changes

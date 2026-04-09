@@ -552,11 +552,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							findReplaceStyles,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-						fg('platform_editor_find_codeblock_color_contrast_fix') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						findReplaceStylesNewWithCodeblockColorContrastFix,
 					!expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-						fg('platform_editor_find_codeblock_color_contrast_fix') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						findReplaceStylesWithCodeblockColorContrastFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

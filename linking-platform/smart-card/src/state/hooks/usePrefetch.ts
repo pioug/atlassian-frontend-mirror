@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { ACTION_UPDATE_METADATA_STATUS, cardAction } from '@atlaskit/linking-common';
 
-export function usePrefetch(url: string) {
+export function usePrefetch(url: string): () => Promise<void> {
 	const { store, prefetchStore, connections } = useSmartLinkContext();
 	const { dispatch, getState } = store || {};
 	const { client } = connections || {};

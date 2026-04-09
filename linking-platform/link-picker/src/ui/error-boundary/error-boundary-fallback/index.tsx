@@ -29,7 +29,7 @@ const messages = defineMessages({
 	},
 });
 
-export const ErrorBoundaryFallback = () => {
+export const ErrorBoundaryFallback = (): JSX.Element => {
 	const intl = useIntl();
 	const header = intl.formatMessage(messages.heading);
 	const description = intl.formatMessage(messages.description);

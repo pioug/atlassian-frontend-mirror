@@ -19,7 +19,7 @@ const containerStyles = css({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<SmartCardProvider client={new ResolvedClient('stg')}>
 		<div css={containerStyles}>
 			<Card

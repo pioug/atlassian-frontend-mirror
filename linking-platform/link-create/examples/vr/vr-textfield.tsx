@@ -23,8 +23,8 @@ const createExample = (props: Partial<TextFieldProps> = {}): React.ComponentType
 	};
 };
 
-export const DefaultTextField = createExample();
-export const TextFieldWithMultiProps = createExample({
+export const DefaultTextField: React.ComponentType<{}> = createExample();
+export const TextFieldWithMultiProps: React.ComponentType<{}> = createExample({
 	label: 'This is a label',
 	validationHelpText: 'This is a validation help text',
 	value: 'hello, this is a value for the text field',

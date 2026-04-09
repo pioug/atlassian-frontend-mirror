@@ -3,7 +3,6 @@ import React, { Suspense } from 'react';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type FireEventType, useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
-import { TeamsNavigationProvider } from '@atlaskit/teams-app-internal-navigation';
 
 import filterActions from '../../internal/filterActions';
 import { CardWrapper } from '../../styled/UserTrigger';
@@ -229,18 +228,7 @@ class ProfileCardResourced extends React.PureComponent<
 							/>
 						</Suspense>
 					)}
-					{fg('ptc-links-migrate-atlaskit-link-button') ? (
-						<TeamsNavigationProvider
-							value={{
-								forceExternalIntent: false,
-								navigate: () => {},
-							}}
-						>
-							<ProfileCard {...newProps} actions={this.filterActions()} />
-						</TeamsNavigationProvider>
-					) : (
-						<ProfileCard {...newProps} actions={this.filterActions()} />
-					)}
+					<ProfileCard {...newProps} actions={this.filterActions()} />
 				</>
 			</CardWrapper>
 		);

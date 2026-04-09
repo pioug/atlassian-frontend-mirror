@@ -35,7 +35,7 @@ export const ImageIcon = ({
 	default: defaultIcon,
 	appearance = 'square',
 	hideLoadingSkeleton,
-}: ImageIconProps) => {
+}: ImageIconProps): JSX.Element | null | undefined => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
 
 	// If url changes, reset state

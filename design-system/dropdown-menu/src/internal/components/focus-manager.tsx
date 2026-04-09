@@ -1,12 +1,4 @@
-import React, {
-	createContext,
-	type FC,
-	type ReactNode,
-	useCallback,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import React, { type FC, type ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
@@ -16,24 +8,7 @@ import { useLayering } from '@atlaskit/layering';
 import { type FocusableElementRef } from '../../types';
 import handleFocus from '../utils/handle-focus';
 
-/**
- *
- *
- * Context provider which maintains the list of focusable elements and a method to
- * register new menu items.
- * This list drives the keyboard navigation of the menu.
- *
- */
-export const FocusManagerContext: React.Context<{
-	menuItemRefs: FocusableElementRef[];
-	registerRef(ref: FocusableElementRef): void;
-}> = createContext<{
-	menuItemRefs: FocusableElementRef[];
-	registerRef(ref: FocusableElementRef): void;
-}>({
-	menuItemRefs: [],
-	registerRef: __noop,
-});
+import { FocusManagerContext } from './focus-manager-context';
 
 /**
  * Focus manager logic.

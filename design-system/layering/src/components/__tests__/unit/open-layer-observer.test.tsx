@@ -1,15 +1,16 @@
+/* eslint-disable @repo/internal/react/use-noop */
 import React from 'react';
 
 import { render, renderHook } from '@testing-library/react';
 import invariant from 'tiny-invariant';
-
-import noop from '@atlaskit/ds-lib/noop';
 
 import { OpenLayerObserver } from '../../open-layer-observer/open-layer-observer';
 import { OpenLayerObserverNamespaceProvider } from '../../open-layer-observer/open-layer-observer-namespace-provider';
 import type { LayerType } from '../../open-layer-observer/types';
 import { useNotifyOpenLayerObserver } from '../../open-layer-observer/use-notify-open-layer-observer';
 import { useOpenLayerObserver } from '../../open-layer-observer/use-open-layer-observer';
+
+const noop = () => {};
 
 const MockLayerComponent = ({ type }: { type?: LayerType }) => {
 	useNotifyOpenLayerObserver({

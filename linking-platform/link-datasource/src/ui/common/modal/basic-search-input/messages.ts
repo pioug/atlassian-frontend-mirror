@@ -1,6 +1,24 @@
 import { defineMessages } from 'react-intl-next';
 
-export const basicSearchInputMessages = defineMessages({
+export const basicSearchInputMessages: {
+    basicTextSearchLabelDuplicate: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; basicTextSearchLabel: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; basicTextSearchLabelDuplicateIssueTermRefresh: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; basicTextSearchLabelIssueTermRefresh: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    };
+} = defineMessages({
 	basicTextSearchLabelDuplicate: {
 		id: 'linkDataSource.configmodal.basicTextSearchPlaceholder',
 		description: 'Placeholder text for the search input box',

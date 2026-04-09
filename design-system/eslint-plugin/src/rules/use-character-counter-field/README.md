@@ -104,4 +104,4 @@ Form) or `CharacterCounter` (standalone) for better accessibility.
 
 ## Related Rules
 
-- [use-correct-field](../use-correct-field/README.md)
+- [use-correct-field](/components/eslint-plugin-design-system/use-correct-field)

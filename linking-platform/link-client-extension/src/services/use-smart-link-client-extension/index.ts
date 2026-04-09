@@ -18,7 +18,9 @@ import { useResolverUrl } from '../use-resolver-url';
  *
  * @param cardClient
  */
-export const useSmartLinkClientExtension = (cardClient: CardClient) => {
+export const useSmartLinkClientExtension = (cardClient: CardClient): {
+    invoke: (data: InvokeRequest) => Promise<InvokeResponse>;
+} => {
 	const resolverUrl = useResolverUrl(cardClient);
 
 	const invoke = useCallback(

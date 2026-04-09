@@ -71,7 +71,7 @@ const ActionGroup = ({
 	appearance,
 	visibleButtonsNum = 2,
 	onDropdownOpenChange,
-}: ActionGroupProps) => {
+}: ActionGroupProps): JSX.Element | null => {
 	di(DropdownMenu);
 
 	const context = useFlexibleUiContext();

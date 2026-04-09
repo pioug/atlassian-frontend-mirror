@@ -1,7 +1,7 @@
 import { useCallback, useContext, useState } from 'react';
 
 import { CheckboxGroupContext } from '../context/checkbox-group-context';
-import { SelectionStoreContext } from '../context/selection-store';
+import { SelectionStoreContext } from '../context/selection-store-context';
 
 type CheckboxStateArgs = {
 	id: string;

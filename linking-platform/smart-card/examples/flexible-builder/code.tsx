@@ -42,6 +42,9 @@ const Code = ({ template }: { template: FlexibleTemplate }) => {
 	);
 };
 
-export default withErrorBoundary(Code, {
-	fallback: <CodeBlock language="jsx" text="// Error!" />,
+const _default_1: React.ForwardRefExoticComponent<{
+    template: FlexibleTemplate;
+} & React.RefAttributes<any>> = withErrorBoundary(Code, {
+    fallback: <CodeBlock language="jsx" text="// Error!" />,
 });
+export default _default_1;

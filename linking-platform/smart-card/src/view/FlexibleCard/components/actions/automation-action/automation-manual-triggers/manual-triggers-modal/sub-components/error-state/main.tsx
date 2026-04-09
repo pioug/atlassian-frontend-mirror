@@ -40,7 +40,7 @@ const i18n = defineMessages({
 	},
 });
 
-export const AutomationModalErrorState = () => {
+export const AutomationModalErrorState = (): JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	return (

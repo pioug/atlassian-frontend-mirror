@@ -16,7 +16,7 @@ const styles = cssMap({
 	},
 });
 
-const RelatedLinksResolvingView = () => (
+const RelatedLinksResolvingView = (): JSX.Element => (
 	<Box xcss={styles.style} testId="related-links-resolving-view">
 		<Spinner size="large" testId="related-links-resolving-view-spinner" />
 	</Box>

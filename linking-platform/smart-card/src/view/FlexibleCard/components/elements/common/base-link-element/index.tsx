@@ -236,7 +236,7 @@ const BaseLinkElement = ({
 	onClick,
 	target = '_blank',
 	anchorRef,
-}: BaseLinkElementProps) => {
+}: BaseLinkElementProps): JSX.Element => {
 	const onMouseDown = useMouseDownEvent();
 
 	const hasSpace = useMemo(() => (text ? hasWhiteSpace(text) : false), [text]);

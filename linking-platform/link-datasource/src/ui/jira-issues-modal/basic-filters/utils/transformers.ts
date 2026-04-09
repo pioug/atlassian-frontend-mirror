@@ -101,7 +101,7 @@ function mapNodeToOption({
 	}
 }
 
-export function mapHydrateResponseData({ data }: HydrateResponse) {
+export function mapHydrateResponseData({ data }: HydrateResponse): SelectedOptionsMap {
 	const transformedHydrateResponseData: SelectedOptionsMap = {};
 
 	data?.jira?.jqlBuilder?.hydrateJqlQuery?.fields?.forEach(({ jqlTerm, values = [] }) => {

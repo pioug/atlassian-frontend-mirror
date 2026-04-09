@@ -1,0 +1,40 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import type { FC, HTMLAttributes, ReactNode } from 'react';
+
+import { css, jsx } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
+
+const commonCellElementStyles = css({
+	display: 'flex',
+	position: 'absolute',
+	alignItems: 'center',
+	// indentBase is re-used elsewhere and is primarily used as positive value; we need to negate it here
+	marginInlineStart: `calc(${token('space.300')} * -1)`,
+});
+const commonChevronContainerStyles = css({
+	// Aligns position:absolute chevron button with the adjacent text. Any future visual breaking changes
+	// should consider setting this to `-2px` for better alignment, or refactor completely
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginBlockStart: -3,
+});
+
+type ChevronContainerProps = HTMLAttributes<HTMLSpanElement> & {
+	children: ReactNode;
+};
+
+/**
+ * __Chevron container__
+ *
+ * A wrapper container around the expand table tree button.
+ */
+export const ChevronContainer: FC<ChevronContainerProps> = (props) => (
+	<span
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+		css={[commonCellElementStyles, commonChevronContainerStyles]}
+	/>
+);

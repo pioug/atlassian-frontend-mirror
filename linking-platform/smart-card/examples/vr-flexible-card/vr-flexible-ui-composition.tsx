@@ -156,7 +156,7 @@ const renderPreview = (url: string) => {
 	);
 };
 
-export default () => (
+export default (): JSX.Element => (
 	<VRTestWrapper>
 		<IntlProvider locale="en">
 			<Provider client={new CustomClient('staging')}>

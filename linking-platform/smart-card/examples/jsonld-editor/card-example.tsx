@@ -3,7 +3,9 @@ import React, { useCallback, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { IntlProvider } from 'react-intl-next';
 
+import type { JsonLd } from '@atlaskit/json-ld-types';
 import Link from '@atlaskit/link';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
@@ -98,4 +100,19 @@ const CardExample = ({
 };
 
 // Not the most elegant implementation but this will do.
-export default withJsonldEditorProvider(CardExample);
+const _default_1: (props: {
+    isEmbedSupported?: boolean;
+    url?: string;
+} & {
+    ari?: string;
+    branchDeploy?: string;
+    envKey?: EnvironmentsKeys;
+    json?: JsonLd.Response;
+    onError?: (error: Error) => void;
+    onFetch?: () => JsonLd.Response | undefined;
+    onResolve?: (json: JsonLd.Response) => void;
+    url: string;
+} & {
+    children?: React.ReactNode | undefined;
+}) => React.JSX.Element = withJsonldEditorProvider(CardExample);
+export default _default_1;

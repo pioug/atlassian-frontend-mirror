@@ -72,6 +72,9 @@
 			"path": "../../teams-app-internal-analytics/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../teams-app-internal-navigation/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../teams-app-internal-product-permissions/afm-products/tsconfig.json"
 		},
 		{

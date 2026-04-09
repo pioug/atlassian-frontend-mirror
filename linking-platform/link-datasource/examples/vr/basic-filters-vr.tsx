@@ -68,7 +68,8 @@ const Component = () => {
 	);
 };
 
-export default withWaitForItem(Component, () => {
-	const buttons = document.body.querySelectorAll('button');
-	return buttons.length >= 4;
+const _default_1: React.ComponentType<object> = withWaitForItem(Component, () => {
+    const buttons = document.body.querySelectorAll('button');
+    return buttons.length >= 4;
 });
+export default _default_1;

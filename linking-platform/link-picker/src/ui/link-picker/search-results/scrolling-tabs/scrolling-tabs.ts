@@ -37,7 +37,7 @@ export const calculateConditionalButtons = (
 	};
 };
 
-export const createGhost = () => {
+export const createGhost = (): HTMLDivElement => {
 	const ghost = document.createElement('div');
 	ghost.setAttribute('id', 'scrolling-tabs-ghost');
 	ghost.style.minWidth = `${GHOST_WIDTH}px`;
@@ -70,10 +70,10 @@ const scrollTo = (container: HTMLElement, left: number): void => {
 	});
 };
 
-export const getTabList = (ref: RefObject<HTMLDivElement>) =>
+export const getTabList = (ref: RefObject<HTMLDivElement>): Element | null | undefined =>
 	ref.current?.querySelector('[role="tablist"]');
 
-export const getContainer = (ref: RefObject<HTMLDivElement>) => getTabList(ref)?.parentElement;
+export const getContainer = (ref: RefObject<HTMLDivElement>): HTMLElement | null | undefined => getTabList(ref)?.parentElement;
 
 type FindFn = (container: HTMLElement, tabs: HTMLElement[]) => HTMLElement | null | undefined;
 

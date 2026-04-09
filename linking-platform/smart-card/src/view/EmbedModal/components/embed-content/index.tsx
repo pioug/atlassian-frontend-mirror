@@ -15,7 +15,7 @@ const iframeCss = css({
 	height: 'calc(100vh - 208px)',
 });
 
-const EmbedContent = ({ isTrusted, name, src, testId, ariaLabel, extensionKey }: EmbedProps) => {
+const EmbedContent = ({ isTrusted, name, src, testId, ariaLabel, extensionKey }: EmbedProps): JSX.Element => {
 	di(IFrame);
 	const sandbox = getIframeSandboxAttribute(isTrusted);
 	const props = {

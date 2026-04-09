@@ -63,6 +63,14 @@ export type SyncedBlockRendererProps = {
 };
 
 export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOptions {
+	/**
+	 * Enables Live Page specific behaviour for the synced block plugin.
+	 *
+	 * It is only supported for use by Confluence.
+	 *
+	 * @default false
+	 */
+	__livePage?: boolean;
 	enableSourceCreation?: boolean;
 	syncBlockDataProvider: SyncBlockDataProviderInterface;
 	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;

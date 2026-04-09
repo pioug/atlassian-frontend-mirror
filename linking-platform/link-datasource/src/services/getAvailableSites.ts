@@ -1,4 +1,5 @@
 import { mapAccessibleProductsToAvailableSites } from '@atlaskit/linking-common/hooks';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Site } from '../common/types';
 
@@ -25,7 +26,11 @@ export const getAccessibleProducts = async (product: 'jira' | 'confluence'): Pro
 		}),
 	};
 
-	const response = await fetch(`/gateway/api/v2/accessible-products`, requestConfig);
+	const endpoint = fg('linking_platform_link_datasource_unit_compliant')
+		? '/gateway/api/experimental/v2/accessible-products'
+		: '/gateway/api/v2/accessible-products';
+
+	const response = await fetch(endpoint, requestConfig);
 
 	if (response.ok) {
 		const res = await response.json();

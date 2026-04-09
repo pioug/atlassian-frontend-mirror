@@ -45,7 +45,7 @@ export function SharedIconComponent({
 	label = '',
 	text,
 	testId,
-}: SharedIconComponentProps) {
+}: SharedIconComponentProps): JSX.Element {
 	return (
 		<Flex gap="space.100" alignItems="center" testId={testId}>
 			<Inline>

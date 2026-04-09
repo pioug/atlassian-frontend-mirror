@@ -18,7 +18,7 @@ const styles = cssMap({
 	},
 });
 
-const AIFooter = () => (
+const AIFooter = (): JSX.Element => (
 	<Inline alignBlock="center" space="space.050" xcss={styles.aiFooterWrapper}>
 		<InformationCircleIcon label="" color={token('color.text.subtle')} size="small" />
 		<Text size="small">

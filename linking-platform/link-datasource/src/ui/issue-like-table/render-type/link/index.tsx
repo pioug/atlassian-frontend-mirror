@@ -80,4 +80,5 @@ const LinkRenderType = ({
 	);
 };
 
-export default React.memo(LinkRenderType);
+const _default_1: React.MemoExoticComponent<({ style, url, text, testId, }: LinkProps) => React.JSX.Element | null> = React.memo(LinkRenderType);
+export default _default_1;

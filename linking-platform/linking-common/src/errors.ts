@@ -32,7 +32,7 @@ export class APIError extends Error {
 		public readonly kind: APIErrorKind,
 		public readonly hostname: string,
 		public readonly message: string,
-		public readonly type?: ErrorType,
+		public readonly type?: ErrorType | undefined,
 		public readonly extensionKey?: string,
 	) {
 		super(`${kind}: ${message}`);

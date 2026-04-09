@@ -36,7 +36,7 @@ export interface SiteSelectorProps {
 	testId: string;
 }
 
-export const SiteSelector = (props: SiteSelectorProps) => {
+export const SiteSelector = (props: SiteSelectorProps): JSX.Element => {
 	const { availableSites, disableSiteSelector, onSiteSelection, selectedSite, label, testId } =
 		props;
 

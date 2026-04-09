@@ -88,5 +88,7 @@ export function expectRouterNavigationNotUsed<T extends HTMLElement = HTMLElemen
 ): void {
 	const event = createMouseEvent<T>();
 	onClick?.(event);
-	expect(context.navigate).not.toHaveBeenCalled();
+	if (context.navigate) {
+		expect(context.navigate).not.toHaveBeenCalled();
+	}
 }

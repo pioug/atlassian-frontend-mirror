@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.74.1
+
+### Patch Changes
+
+- [`bcca5482f4ea4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcca5482f4ea4) -
+  Migrate links to teams anchor
+- Updated dependencies
+
 ## 0.74.0
 
 ### Minor Changes

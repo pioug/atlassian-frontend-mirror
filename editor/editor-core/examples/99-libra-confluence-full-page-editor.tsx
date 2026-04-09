@@ -28,7 +28,7 @@ import { getData } from '@atlaskit/media-integration-test-helpers/card-client';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { Scope } from '@atlassian/search-client';
+import { Scope } from '@atlassian/search-client/rest/types';
 import { createSearchProvider } from '@atlassian/search-provider';
 
 import type { EditorNextProps, EditorProps } from '../src/types/editor-props';

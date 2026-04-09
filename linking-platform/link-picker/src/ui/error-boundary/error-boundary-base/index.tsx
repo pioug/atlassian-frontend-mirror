@@ -27,7 +27,7 @@ export class BaseErrorBoundary extends Component<BaseErrorBoundaryProps, BaseErr
 		this.setState({ hasError: true });
 	}
 
-	render() {
+	render(): string | number | boolean | Iterable<React.ReactNode> | React.JSX.Element | null | undefined {
 		const { children, ErrorComponent } = this.props;
 		const { hasError } = this.state;
 

@@ -115,6 +115,7 @@ export interface LegionTeamSearchResponseV4 {
 	memberCount: number;
 	includesYou: boolean;
 	isVerified?: boolean;
+	enablePagination?: boolean;
 }
 
 export interface LegionPaginatedResponse<T> {

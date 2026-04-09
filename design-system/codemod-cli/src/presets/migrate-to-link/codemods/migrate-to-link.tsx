@@ -11,11 +11,7 @@ import {
 
 import { addCommentBefore } from '@atlaskit/codemod-utils';
 
-import {
-	genericUnsupportedMigrationComment,
-	spreadPropsComment,
-	stylePropComment,
-} from '../utils/comments';
+import { spreadPropsComment } from '../utils/comments';
 import {
 	LINK_ENTRY_POINT,
 	LINK_EXPORT_NAME,
@@ -23,6 +19,8 @@ import {
 	UNSUPPORTED_STYLE_PROPS,
 } from '../utils/constants';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
+import { genericUnsupportedMigrationComment } from '../utils/generic-unsupported-migration-comment';
+import { stylePropComment } from '../utils/style-prop-comment';
 
 type UnsupportedMigration = { name: string; reason: 'spreadProps' | 'styleProp' };
 

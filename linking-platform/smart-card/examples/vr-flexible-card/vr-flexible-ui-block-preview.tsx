@@ -80,20 +80,20 @@ const FlexibleUiBlockPreviewDefault = ({ size }: { size: SmartLinkSize }) => {
 	);
 };
 
-export const FlexibleUiBlockPreviewXLarge = () => (
+export const FlexibleUiBlockPreviewXLarge = (): JSX.Element => (
 	<FlexibleUiBlockPreviewDefault size={SmartLinkSize.XLarge} />
 );
-export const FlexibleUiBlockPreviewLarge = () => (
+export const FlexibleUiBlockPreviewLarge = (): JSX.Element => (
 	<FlexibleUiBlockPreviewDefault size={SmartLinkSize.Large} />
 );
-export const FlexibleUiBlockPreviewMedium = () => (
+export const FlexibleUiBlockPreviewMedium = (): JSX.Element => (
 	<FlexibleUiBlockPreviewDefault size={SmartLinkSize.Medium} />
 );
-export const FlexibleUiBlockPreviewSmall = () => (
+export const FlexibleUiBlockPreviewSmall = (): JSX.Element => (
 	<FlexibleUiBlockPreviewDefault size={SmartLinkSize.Small} />
 );
 
-export const FlexibleUiBlockPreviewMixedPadding = () => {
+export const FlexibleUiBlockPreviewMixedPadding = (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>
@@ -111,7 +111,7 @@ export const FlexibleUiBlockPreviewMixedPadding = () => {
 	);
 };
 
-export const FlexibleUiBlockPreviewOverrideCSS = () => {
+export const FlexibleUiBlockPreviewOverrideCSS = (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

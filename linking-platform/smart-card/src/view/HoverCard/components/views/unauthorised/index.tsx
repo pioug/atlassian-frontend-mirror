@@ -42,7 +42,7 @@ const titleBlockStyles = css({
 
 const mainTextStyles = css({
 	marginTop: token('space.100'),
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 });
 
 const HoverCardUnauthorisedView = ({
@@ -50,7 +50,7 @@ const HoverCardUnauthorisedView = ({
 	flexibleCardProps,
 	testId = 'hover-card-unauthorised-view',
 	url,
-}: HoverCardUnauthorisedProps) => {
+}: HoverCardUnauthorisedProps): JSX.Element => {
 	const { cardState } = flexibleCardProps;
 	const providerName = extractSmartLinkProvider(cardState.details)?.text;
 	const isProductIntegrationSupported = hasAuthScopeOverrides(cardState.details);

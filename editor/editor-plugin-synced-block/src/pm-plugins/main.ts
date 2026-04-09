@@ -166,7 +166,7 @@ const filterTransactionOnline = ({
 	extensionFlagShown,
 }: FilterTransactionOnlineParams): boolean => {
 	const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
-		(node) => node.type.name === 'syncBlock',
+		syncBlockStore.referenceManager.isReferenceBlock,
 		tr,
 		state,
 	);
@@ -230,19 +230,21 @@ type FilterTransactionOfflineParams = {
 	bodiedSyncBlockRemoved: ReturnType<typeof trackSyncBlocks>['removed'];
 	isConfirmedSyncBlockDeletion: boolean;
 	state: EditorState;
+	syncBlockStore: SyncBlockStoreManager;
 	tr: Transaction;
 };
 
 const filterTransactionOffline = ({
 	tr,
 	state,
+	syncBlockStore,
 	api,
 	isConfirmedSyncBlockDeletion,
 	bodiedSyncBlockRemoved,
 	bodiedSyncBlockAdded,
 }: FilterTransactionOfflineParams): boolean => {
 	const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
-		(node) => node.type.name === 'syncBlock',
+		syncBlockStore.referenceManager.isReferenceBlock,
 		tr,
 		state,
 	);
@@ -315,12 +317,11 @@ export const createPlugin = (
 	// Update plugin state post-flush to sync hasUnsavedBodiedSyncBlockChanges.
 	// It prevents false "Changes may not be saved" warnings when publishing
 	// Classic pages with sync blocks.
-	fg('platform_synced_block_patch_7') &&
-		syncBlockStore.sourceManager.registerFlushCompletionCallback(() => {
-			deferDispatch(() => {
-				api?.core.actions.execute(({ tr }) => tr);
-			});
+	syncBlockStore.sourceManager.registerFlushCompletionCallback(() => {
+		deferDispatch(() => {
+			api?.core.actions.execute(({ tr }) => tr);
 		});
+	});
 
 	// Set up callback to detect unpublished sync blocks when they're fetched
 	syncBlockStore.referenceManager.setOnUnpublishedSyncBlockDetected((resourceId: string) => {
@@ -342,7 +343,7 @@ export const createPlugin = (
 		state: {
 			init(_, instance: EditorState): SyncedBlockPluginState {
 				const syncBlockNodes = instance.doc.children.filter(
-					(node) => node.type.name === 'syncBlock',
+					syncBlockStore.referenceManager.isReferenceBlock,
 				);
 				syncBlockStore.referenceManager.fetchSyncBlocksData(
 					convertPMNodesToSyncBlockNodes(syncBlockNodes),
@@ -353,7 +354,7 @@ export const createPlugin = (
 				if (fg('platform_synced_block_update_refactor')) {
 					instance.doc.forEach((node) => {
 						if (syncBlockStore.sourceManager.isSourceBlock(node)) {
-							syncBlockStore.sourceManager.updateSyncBlockData(node);
+							syncBlockStore.sourceManager.updateSyncBlockData(node, false);
 						}
 					});
 				}
@@ -474,10 +475,7 @@ export const createPlugin = (
 						);
 					}
 
-					if (
-						(node.type.name === 'bodiedSyncBlock' || node.type.name === 'syncBlock') &&
-						isViewMode
-					) {
+					if (syncBlockStore.isSyncBlock(node) && isViewMode) {
 						viewModeDecorations.push(
 							Decoration.node(pos, pos + node.nodeSize, {
 								class: SyncBlockStateCssClassName.viewModeClassName,
@@ -497,10 +495,7 @@ export const createPlugin = (
 					}
 
 					// Show sync block border while the user is dragging
-					if (
-						isDragging &&
-						(node.type.name === 'bodiedSyncBlock' || node.type.name === 'syncBlock')
-					) {
+					if (isDragging && syncBlockStore.isSyncBlock(node)) {
 						dragDecorations.push(
 							Decoration.node(pos, pos + node.nodeSize, {
 								class: SyncBlockStateCssClassName.draggingClassName,
@@ -555,7 +550,7 @@ export const createPlugin = (
 				}
 
 				return mapSlice(slice, (node: Node) => {
-					if (node.type.name === 'syncBlock') {
+					if (syncBlockStore.referenceManager.isReferenceBlock(node)) {
 						showCopiedFlag(api);
 
 						return node;
@@ -597,12 +592,49 @@ export const createPlugin = (
 
 			// Track newly added reference sync blocks before processing the transaction
 			if (tr.docChanged && !tr.getMeta('isRemote')) {
-				const { added } = trackSyncBlocks((node) => node.type.name === 'syncBlock', tr, state);
+				const { added } = trackSyncBlocks(
+					syncBlockStore.referenceManager.isReferenceBlock,
+					tr,
+					state,
+				);
 				added.forEach((nodeInfo) => {
 					if (nodeInfo.attrs?.resourceId) {
 						syncBlockStore.referenceManager.markAsNewlyAdded(nodeInfo.attrs.resourceId);
 					}
 				});
+			}
+
+			if (fg('platform_synced_block_update_refactor')) {
+				// if doc changed and it's a remote transaction, check if any synced block were added,
+				// and if so, for source synced blocks, ensure we update the cache with them
+				// and for reference synced blocks, ensure we fetch the data from the server
+				if (tr.docChanged && tr.getMeta('isRemote')) {
+					const { added } = trackSyncBlocks((node) => syncBlockStore.isSyncBlock(node), tr, state);
+					const sourceSyncBlockNodes = added.filter(
+						(nodeInfo) =>
+							nodeInfo.node && syncBlockStore.sourceManager.isSourceBlock(nodeInfo.node),
+					);
+					const referenceSyncBlockNodes = added.filter(
+						(nodeInfo) =>
+							nodeInfo.node && syncBlockStore.referenceManager.isReferenceBlock(nodeInfo.node),
+					);
+
+					sourceSyncBlockNodes.forEach((nodeInfo) => {
+						if (nodeInfo.attrs?.resourceId && nodeInfo.node) {
+							syncBlockStore.sourceManager.updateSyncBlockData(
+								nodeInfo.node,
+								tr.getMeta('isRemote'),
+							);
+						}
+					});
+
+					const syncBlockNodes = referenceSyncBlockNodes
+						.map((nodeInfo) => nodeInfo.node)
+						.filter((node) => node !== undefined);
+					syncBlockStore.referenceManager.fetchSyncBlocksData(
+						convertPMNodesToSyncBlockNodes(syncBlockNodes),
+					);
+				}
 			}
 
 			if (
@@ -623,6 +655,7 @@ export const createPlugin = (
 				? filterTransactionOffline({
 						tr,
 						state,
+						syncBlockStore,
 						api,
 						isConfirmedSyncBlockDeletion,
 						bodiedSyncBlockRemoved,
@@ -658,7 +691,7 @@ export const createPlugin = (
 				if (hasSourceBlockEdit) {
 					newState.doc.forEach((node) => {
 						if (syncBlockStore.sourceManager.isSourceBlock(node)) {
-							syncBlockStore.sourceManager.updateSyncBlockData(node);
+							syncBlockStore.sourceManager.updateSyncBlockData(node, false);
 						}
 					});
 				}

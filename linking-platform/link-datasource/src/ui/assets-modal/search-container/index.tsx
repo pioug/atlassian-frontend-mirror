@@ -53,7 +53,7 @@ const FormContainer = styled.form({
 	width: '100%',
 });
 
-export const AssetsSearchContainer = (props: SearchContainerProps) => {
+export const AssetsSearchContainer = (props: SearchContainerProps): JSX.Element => {
 	const { onSearch, workspaceId, initialSearchData, modalTitle, isSearching, onCancel } = props;
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 

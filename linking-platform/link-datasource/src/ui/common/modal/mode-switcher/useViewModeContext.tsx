@@ -29,7 +29,7 @@ export const DatasourceViewModeProvider = ({
 	return <ViewModeContext.Provider value={value}>{children}</ViewModeContext.Provider>;
 };
 
-export const useViewModeContext = () => {
+export const useViewModeContext = (): ViewModeHookState => {
 	const value = useContext(ViewModeContext);
 	if (!value) {
 		throw new Error('useViewModeContext must be called within DatasourceViewModeProvider');

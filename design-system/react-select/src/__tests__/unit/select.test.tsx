@@ -3192,50 +3192,6 @@ test('UNSAFE_is_experimental_generic', () => {
 	expect(within(list).queryAllByRole('option')).toHaveLength(0);
 });
 
-describe('fg platform_do_not_clear_input_for_multiselect', () => {
-	ffTest.on('platform_do_not_clear_input_for_multiselect', 'with flag enabled', () => {
-		it('input value is not cleared for multi-select', async () => {
-			const onInputChangeSpy = jest.fn();
-			render(
-				<Select
-					{...BASIC_PROPS}
-					isMulti
-					shouldKeepInputOnSelect
-					onInputChange={onInputChangeSpy}
-					inputValue="1"
-					menuIsOpen
-				/>,
-			);
-			const user = userEvent.setup();
-			await user.click(screen.getByTestId(`${testId}-select--option-1`));
-
-			// The input value should not be cleared
-			expect(onInputChangeSpy).toHaveBeenCalledWith('1', expect.anything());
-		});
-	});
-
-	ffTest.off('platform_do_not_clear_input_for_multiselect', 'with flag disabled', () => {
-		it('input value is cleared for multi-select', async () => {
-			const onInputChangeSpy = jest.fn();
-			render(
-				<Select
-					{...BASIC_PROPS}
-					isMulti
-					shouldKeepInputOnSelect
-					onInputChange={onInputChangeSpy}
-					inputValue="1"
-					menuIsOpen
-				/>,
-			);
-			const user = userEvent.setup();
-			await user.click(screen.getByTestId(`${testId}-select--option-1`));
-
-			// The input value should be cleared
-			expect(onInputChangeSpy).toHaveBeenCalledWith('', expect.anything());
-		});
-	});
-});
-
 describe('accessibility > aria-autocomplete with platform_fix_autocomplete_aria_for_select feature flag', () => {
 	ffTest.on('platform_fix_autocomplete_aria_for_select', 'with flag enabled', () => {
 		it('does not render aria-autocomplete when isSearchable is false (single select)', () => {

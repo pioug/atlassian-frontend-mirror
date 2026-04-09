@@ -1,6 +1,5 @@
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
@@ -36,8 +35,7 @@ export const getActiveBlockMarks = (state: EditorState, pos: number): Mark[] => 
 	 */
 	if (
 		supportedMarks.length > 0 &&
-		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-		fg('platform_editor_native_anchor_patch_1')
+		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 	) {
 		const nextNodeMarks =
 			resolvedPos.nodeAfter?.marks.filter((mark) => mark.type === alignment) || [];

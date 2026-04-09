@@ -587,10 +587,6 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	// temp fix to support unofficial props.
 	[key: string]: any;
 	UNSAFE_is_experimental_generic?: boolean;
-	/**
-	 * If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.
-	 */
-	shouldKeepInputOnSelect?: boolean;
 }
 
 const elemBeforeCSS = css({
@@ -649,7 +645,6 @@ export const defaultProps: Omit<
 	tabIndex: 0,
 	tabSelectsValue: true,
 	UNSAFE_is_experimental_generic: false,
-	shouldKeepInputOnSelect: false,
 };
 
 interface State<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
@@ -1367,13 +1362,8 @@ export default class Select<
 		action: SetValueAction,
 		option?: Option,
 	): void => {
-		const { closeMenuOnSelect, isMulti, inputValue, shouldKeepInputOnSelect } = this.props;
-		// for multiple selection options, do not clear the search input value
-		if (isMulti && shouldKeepInputOnSelect && fg('platform_do_not_clear_input_for_multiselect')) {
-			this.onInputChange(inputValue, { action: 'set-value', prevInputValue: inputValue });
-		} else {
-			this.onInputChange('', { action: 'set-value', prevInputValue: inputValue });
-		}
+		const { closeMenuOnSelect, isMulti, inputValue } = this.props;
+		this.onInputChange('', { action: 'set-value', prevInputValue: inputValue });
 		if (closeMenuOnSelect) {
 			this.setState({
 				inputIsHiddenAfterUpdate: !isMulti,

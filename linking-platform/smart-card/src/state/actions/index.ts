@@ -19,7 +19,7 @@ import { getByDefinitionId, getDefinitionId, getExtensionKey, getServices } from
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
 import useResolve from '../hooks/use-resolve';
 
-export const useSmartCardActions = (id: string, url: string) => {
+export const useSmartCardActions = (id: string, url: string): { register: () => Promise<void>; reload: () => void; authorize: (appearance: CardInnerAppearance) => void; invoke: (opts: InvokeClientOpts | InvokeServerOpts, appearance: CardInnerAppearance) => Promise<JsonLd.Response | void>; loadMetadata: () => Promise<void> | undefined; } => {
 	const resolveUrl = useResolve();
 	const invokeClientAction = useInvokeClientAction({});
 	const { fireEvent } = useAnalyticsEvents();

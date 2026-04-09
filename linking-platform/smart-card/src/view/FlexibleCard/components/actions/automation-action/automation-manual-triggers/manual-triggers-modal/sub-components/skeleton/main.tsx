@@ -79,7 +79,7 @@ const getSkeletonLines = (lineCount: number) => {
 	return skeletonLines;
 };
 
-export const Skeleton = (props: SkeletonProps) => {
+export const Skeleton = (props: SkeletonProps): JSX.Element => {
 	const { lineCount = 5 } = props;
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/use-primitives

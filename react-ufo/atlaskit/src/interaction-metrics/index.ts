@@ -762,13 +762,6 @@ function finishInteraction(
 	clearActiveTrace();
 	callCleanUpCallbacks(data);
 	flushSsrRenderProfilerTraces();
-	if (getConfig()?.vc?.stopVCAtInteractionFinish) {
-		// Use per-interaction VC observer if available, otherwise fall back to global
-		const observer = data.vcObserver;
-		if (observer) {
-			data.vc = observer.getVCRawData();
-		}
-	}
 	if (data.type === 'page_load') {
 		data.hydration = getReactHydrationStats();
 	}

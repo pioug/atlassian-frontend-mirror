@@ -25,9 +25,9 @@ const mockLink = 'link';
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
 const mockIntl = { formatMessage: mockFormatMessage };
 
-jest.mock('react-intl-next', () => {
+jest.mock('react-intl', () => {
 	return {
-		...(jest.requireActual('react-intl-next') as any),
+		...(jest.requireActual('react-intl') as any),
 		FormattedMessage: (descriptor: any) => <span>{descriptor.defaultMessage}</span>,
 		injectIntl: (Node: any) => (props: any) => <Node {...props} intl={mockIntl} />,
 	};

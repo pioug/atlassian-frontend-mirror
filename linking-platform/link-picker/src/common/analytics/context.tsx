@@ -104,7 +104,7 @@ const LinkPickerAnalytics = ({
 /**
  * Hook that exposes the context-level attribute getters and setters.
  */
-export const useLinkPickerAnalytics = () => useContext(LinkPickerAnalyticsContext);
+export const useLinkPickerAnalytics = (): AnalyticsContextType => useContext(LinkPickerAnalyticsContext);
 
 /**
  * Wrap component in "attributes" context store and initialise the initial context attributes from props.

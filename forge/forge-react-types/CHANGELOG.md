@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.67.0
+
+### Minor Changes
+
+- [`fd70710159ab9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd70710159ab9) -
+  Add PersonalSettings component
+
 ## 0.66.0
 
 ### Minor Changes

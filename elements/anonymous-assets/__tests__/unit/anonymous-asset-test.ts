@@ -12,8 +12,8 @@ import {
 import { fetchWithRetry } from '../../src/common/utils/retry';
 
 jest.mock('../../src/common/utils/retry');
-jest.mock('react-intl-next', () => ({
-	...jest.requireActual('react-intl-next'),
+jest.mock('react-intl', () => ({
+	...jest.requireActual('react-intl'),
 	createIntl: () => ({
 		formatMessage: (descriptor: any) => descriptor.defaultMessage,
 	}),

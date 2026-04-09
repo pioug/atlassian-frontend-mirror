@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 // Type definitions for battery info
 export interface BatteryInfo {
 	level?: number;
@@ -13,10 +11,6 @@ export interface LegacyBatteryInfo {
 
 // Main function returns compact nested format
 export default async function getBatteryInfo(): Promise<BatteryInfo> {
-	if (!fg('react_ufo_battery_info')) {
-		return {};
-	}
-
 	if (typeof navigator === 'undefined') {
 		return {};
 	}

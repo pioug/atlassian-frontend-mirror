@@ -46,7 +46,7 @@ export const ProviderAuthRequired = ({
 	extensionKey,
 	providerName,
 	datasourceId,
-}: ProviderAuthRequiredProps) => {
+}: ProviderAuthRequiredProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { captureError } = useErrorLogger({ datasourceId });
 	const { fireEvent } = useDatasourceAnalyticsEvents();

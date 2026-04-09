@@ -11,7 +11,7 @@ const styles = css({
 	maxWidth: '50px',
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestCase title="Inline card text wrap">
 			{() => (

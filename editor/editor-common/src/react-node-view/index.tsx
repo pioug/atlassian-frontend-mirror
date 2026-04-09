@@ -100,7 +100,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	 * constructor, which leads to some methods being undefined during the
 	 * first render.
 	 */
-	init(): this {
+	init(shouldSkipInitRender = false): this {
 		this.domRef = this.createDomRef();
 		this.setDomAttrs(this.node, this.domRef);
 
@@ -125,7 +125,9 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 
 		trackingEnabled && startMeasureReactNodeViewRendered({ nodeTypeName: this.node.type.name });
 
-		this.renderReactComponent(() => this.render(this.reactComponentProps, this.handleRef));
+		if (!shouldSkipInitRender) {
+			this.renderReactComponent(() => this.render(this.reactComponentProps, this.handleRef));
+		}
 
 		trackingEnabled &&
 			stopMeasureReactNodeViewRendered({

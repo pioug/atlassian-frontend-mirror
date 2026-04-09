@@ -55,7 +55,7 @@ export const parseRichText = (value: RichText): string | null => {
 	}
 };
 
-const RichTextType = ({ value }: { value: RichText }) => {
+const RichTextType = ({ value }: { value: RichText }): JSX.Element => {
 	const adfPlainText = useMemo(() => parseRichText(value), [value]);
 
 	if (value.html && value.html.trim() !== '' && fg('platform_navx_jira_sllv_rich_text_gate')) {

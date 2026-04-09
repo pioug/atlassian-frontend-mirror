@@ -840,6 +840,7 @@ function insertAutoMacro(
 			.scrollIntoView();
 		addLinkMetadata(view.state.selection, macroTr, {
 			inputMethod: INPUT_METHOD.CLIPBOARD,
+			cardAction: 'AUTO_CONVERT',
 		});
 		view.dispatch(macroTr);
 		return true;

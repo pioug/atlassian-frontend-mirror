@@ -128,7 +128,7 @@ export const makeCustomActionItem = (
 	...options,
 });
 
-export const metadataElements = Object.values(ElementName).filter(
+export const metadataElements: ElementName[] = Object.values(ElementName).filter(
 	(name) =>
 		name !== ElementName.Title &&
 		name !== ElementName.LinkIcon &&

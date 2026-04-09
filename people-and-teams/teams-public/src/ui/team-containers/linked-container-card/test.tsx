@@ -17,9 +17,9 @@ jest.mock('../../../common/utils/get-container-properties', () => ({
 	getContainerProperties: jest.fn(),
 }));
 
-jest.mock('react-intl-next', () => {
+jest.mock('react-intl', () => {
 	return {
-		...jest.requireActual('react-intl-next'),
+		...jest.requireActual('react-intl'),
 		useIntl: jest.fn(() => ({
 			formatMessage: jest.fn(),
 		})),

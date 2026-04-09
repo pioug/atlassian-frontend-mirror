@@ -6,8 +6,8 @@ import type { MessageDescriptor } from 'react-intl-next';
 
 import { MoreActions } from './index';
 
-jest.mock('react-intl-next', () => ({
-	...jest.requireActual('react-intl-next'),
+jest.mock('react-intl', () => ({
+	...jest.requireActual('react-intl'),
 	useIntl: jest.fn().mockReturnValue({
 		formatMessage: ({ defaultMessage }: MessageDescriptor) => defaultMessage,
 	}),

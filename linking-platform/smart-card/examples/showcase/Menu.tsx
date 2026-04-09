@@ -81,7 +81,7 @@ export const ShowcaseMenu = ({
 	onEntityChange,
 	entities,
 	config,
-}: ShowcaseMenuProps) => {
+}: ShowcaseMenuProps): JSX.Element => {
 	return (
 		<div css={outerDivStyles}>
 			<div css={menuWrapperStyles}>

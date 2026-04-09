@@ -342,11 +342,11 @@ describe('legion-client', () => {
 			mockPostResource.mockReturnValue(Promise.resolve(sampleTeamCreateResponseV4));
 
 			const {
-				creatorDomain,
-				smallAvatarImageUrl,
-				smallHeaderImageUrl,
-				largeAvatarImageUrl,
-				largeHeaderImageUrl,
+				creatorDomain: _creatorDomain,
+				smallAvatarImageUrl: _smallAvatarImageUrl,
+				smallHeaderImageUrl: _smallHeaderImageUrl,
+				largeAvatarImageUrl: _largeAvatarImageUrl,
+				largeHeaderImageUrl: _largeHeaderImageUrl,
 				...expectedTeam
 			} = sampleCreatedTeam;
 
@@ -415,11 +415,11 @@ describe('legion-client', () => {
 			mockPostResource.mockReturnValue(Promise.resolve(externalTeamCreateResponse));
 
 			const {
-				creatorDomain,
-				smallAvatarImageUrl,
-				smallHeaderImageUrl,
-				largeAvatarImageUrl,
-				largeHeaderImageUrl,
+				creatorDomain: _creatorDomain,
+				smallAvatarImageUrl: _smallAvatarImageUrl,
+				smallHeaderImageUrl: _smallHeaderImageUrl,
+				largeAvatarImageUrl: _largeAvatarImageUrl,
+				largeHeaderImageUrl: _largeHeaderImageUrl,
 				...expectedTeam
 			} = sampleCreatedTeam;
 
@@ -477,7 +477,7 @@ describe('legion-client', () => {
 		it('should return team from team response', async () => {
 			mockGetResource.mockReturnValue(Promise.resolve(sampleTeamResponseV4));
 
-			const { creatorDomain, ...expectedTeam } = sampleTeam;
+			const { creatorDomain: _creatorDomain, ...expectedTeam } = sampleTeam;
 
 			// action
 			const team = await legionClient.getTeamById(expectedTeam.id);
@@ -486,7 +486,11 @@ describe('legion-client', () => {
 			expect(mockGetResource).toHaveBeenCalledWith(
 				`${v4UrlPath}/${expectedTeam.id}?siteId=${cloudId}`,
 			);
-			const { memberIds, membership, ...expectedFetchedTeam } = expectedTeam;
+			const {
+				memberIds: _memberIds,
+				membership: _membership,
+				...expectedFetchedTeam
+			} = expectedTeam;
 			// Deprecated field, override to default value
 			expectedFetchedTeam.restriction = 'ORG_MEMBERS';
 			expectedFetchedTeam.scopeMode = 'ORG_SCOPE_MODE';
@@ -516,7 +520,6 @@ describe('legion-client', () => {
 				limit: query.limit,
 				query: query.searchQuery,
 				showEmptyTeams: true,
-				cursor: query.cursor || '',
 				sortBy: query.useDefaultSort
 					? null
 					: [
@@ -526,6 +529,7 @@ describe('legion-client', () => {
 							},
 						],
 				membership: { memberAccountIds: query.memberAccountIds },
+				enablePagination: true,
 			});
 
 			// Deprecated field, override to default value
@@ -535,6 +539,129 @@ describe('legion-client', () => {
 			}));
 
 			expect(response).toEqual(expectedResponse);
+		});
+
+		it('should default enablePagination to true when not specified', async () => {
+			mockPostResource.mockReturnValue(Promise.resolve(sampleLegionTeamSearchPaginationResponseV4));
+
+			// omit enablePagination to test the default
+			const query: AllTeamsQuery = {
+				orgId: orgId,
+			};
+
+			await legionClient.getAllTeams(query);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/search`, {
+				organizationId: orgId,
+				siteId: cloudId,
+				limit: query.limit,
+				query: query.searchQuery,
+				sortBy: query.useDefaultSort
+					? null
+					: [
+							{
+								field: 'displayName',
+								order: 'asc',
+							},
+						],
+				membership: { memberAccountIds: query.memberAccountIds },
+				showEmptyTeams: query.showEmptyTeams,
+				teamTypeIdsFilter: query.teamTypeIdsFilter,
+				enablePagination: true,
+			});
+		});
+
+		it('should pass enablePagination=false without cursor', async () => {
+			mockPostResource.mockReturnValue(Promise.resolve(sampleLegionTeamSearchPaginationResponseV4));
+
+			const query: AllTeamsQuery = {
+				orgId: orgId,
+				enablePagination: false,
+			};
+
+			await legionClient.getAllTeams(query);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/search`, {
+				organizationId: orgId,
+				siteId: cloudId,
+				limit: query.limit,
+				query: query.searchQuery,
+				sortBy: query.useDefaultSort
+					? null
+					: [
+							{
+								field: 'displayName',
+								order: 'asc',
+							},
+						],
+				membership: { memberAccountIds: query.memberAccountIds },
+				showEmptyTeams: query.showEmptyTeams,
+				teamTypeIdsFilter: query.teamTypeIdsFilter,
+				enablePagination: false,
+			});
+		});
+
+		it('should omit cursor when pagination is disabled', async () => {
+			mockPostResource.mockReturnValue(Promise.resolve(sampleLegionTeamSearchPaginationResponseV4));
+
+			const query: AllTeamsQuery = {
+				orgId: orgId,
+				cursor: 'cursor-1',
+				enablePagination: false,
+			};
+
+			await legionClient.getAllTeams(query);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/search`, {
+				organizationId: orgId,
+				siteId: cloudId,
+				limit: query.limit,
+				query: query.searchQuery,
+				sortBy: query.useDefaultSort
+					? null
+					: [
+							{
+								field: 'displayName',
+								order: 'asc',
+							},
+						],
+				membership: { memberAccountIds: query.memberAccountIds },
+				showEmptyTeams: query.showEmptyTeams,
+				teamTypeIdsFilter: query.teamTypeIdsFilter,
+				enablePagination: false,
+			});
+		});
+
+		it('should include cursor when pagination is enabled', async () => {
+			mockPostResource.mockReturnValue(Promise.resolve(sampleLegionTeamSearchPaginationResponseV4));
+
+			const query: AllTeamsQuery = {
+				orgId: orgId,
+				cursor: 'cursor-1',
+				enablePagination: true,
+			};
+
+			await legionClient.getAllTeams(query);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/search`, {
+				organizationId: orgId,
+				siteId: cloudId,
+				limit: query.limit,
+				query: query.searchQuery,
+				sortBy: query.useDefaultSort
+					? null
+					: [
+							{
+								field: 'displayName',
+								order: 'asc',
+							},
+						],
+				membership: { memberAccountIds: query.memberAccountIds },
+				showEmptyTeams: query.showEmptyTeams,
+				teamTypeIdsFilter: query.teamTypeIdsFilter,
+				enablePagination: true,
+				cursor: 'cursor-1',
+			});
 		});
 	});
 
@@ -552,7 +679,7 @@ describe('legion-client', () => {
 				displayName: 'new team 2',
 				description: 'new description',
 			};
-			const { creatorDomain, ...expectedTeam } = newTeam;
+			const { creatorDomain: _creatorDomain, ...expectedTeam } = newTeam;
 
 			mockPatchResource.mockReturnValue(Promise.resolve(responseMock));
 
@@ -571,7 +698,11 @@ describe('legion-client', () => {
 			// assert
 			expect(mockPatchResource).toHaveBeenCalledWith(`${v4UrlPath}/${newTeam.id}`, newTeam);
 
-			const { memberIds, membership, ...expectedUpdatedTeam } = expectedTeam;
+			const {
+				memberIds: _memberIds,
+				membership: _membership,
+				...expectedUpdatedTeam
+			} = expectedTeam;
 
 			expect(team).toEqual(expectedUpdatedTeam);
 		});

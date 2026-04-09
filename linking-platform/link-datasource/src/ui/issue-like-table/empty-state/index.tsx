@@ -176,7 +176,7 @@ const TableHeading = styled.td({
 	},
 });
 
-const EmptyState = ({ isCompact, testId }: Props) => {
+const EmptyState = ({ isCompact, testId }: Props): JSX.Element => {
 	const columnsToRender = isCompact ? baseColumns.slice(0, 6) : baseColumns;
 	// if it is compact (non-modal), there is room for 14 rows
 	// if it is modal (not compact), there is only room for 10 rows

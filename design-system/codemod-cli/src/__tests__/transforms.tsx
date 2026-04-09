@@ -6,15 +6,13 @@ import path from 'path';
 
 import { globSync } from 'glob';
 
+import { getTransformModule } from '../get-transform-module';
+import { getTransformPath } from '../get-transform-path';
+import { getTransformVersion } from '../get-transform-version';
+import { getTransforms } from '../get-transforms';
+import { hasTransform } from '../has-transform';
+import { parseTransformPath } from '../parse-transform-path';
 import presets from '../presets';
-import {
-	getTransformModule,
-	getTransformPath,
-	getTransforms,
-	getTransformVersion,
-	hasTransform,
-	parseTransformPath,
-} from '../transforms';
 
 const codemodPaths = [
 	'node_modules/@atlaskit/button/codemods/5.0.0-foo.ts',

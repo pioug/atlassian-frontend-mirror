@@ -41,7 +41,7 @@ export type ColorCardRef = {
 	focus: () => void;
 };
 
-const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
+const ColorCard: React.ForwardRefExoticComponent<Props & React.RefAttributes<ColorCardRef>> = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 	const {
 		type,
 		autoFocus = true,

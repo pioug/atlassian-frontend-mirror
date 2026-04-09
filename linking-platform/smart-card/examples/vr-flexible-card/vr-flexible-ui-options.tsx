@@ -45,7 +45,7 @@ const render = (
 		<TitleBlock />
 	</FlexibleCard>
 );
-export default () => (
+export default (): JSX.Element => (
 	<VRTestWrapper>
 		<SmartCardProvider>
 			<h5>Hide background</h5>

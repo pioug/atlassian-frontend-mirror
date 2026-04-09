@@ -127,14 +127,14 @@ const ToolbarFormatting = ({
 	if (prevActiveItems && activeItems.length > prevActiveItems.length) {
 		comparedItems = compareItemsArrays(activeItems, prevActiveItems);
 		screenReaderMessage = intl.formatMessage(toolbarMessages.on, {
-			formattingType: comparedItems[0].content as unknown as string,
-		});
+			formattingType: comparedItems[0].content,
+		}) as string;
 	} else {
 		comparedItems = compareItemsArrays(prevActiveItems, activeItems);
 		if (comparedItems && comparedItems.length) {
 			screenReaderMessage = intl.formatMessage(toolbarMessages.off, {
-				formattingType: comparedItems[0].content as unknown as string,
-			});
+				formattingType: comparedItems[0].content,
+			}) as string;
 			if (activeItems[0]?.content === 'Code') {
 				screenReaderMessage = intl.formatMessage(toolbarMessages.codeOn, {
 					textFormattingOff:

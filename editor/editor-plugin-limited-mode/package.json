@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-limited-mode",
-	"version": "5.0.20",
+	"version": "5.0.22",
 	"description": "LimitedMode plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -81,9 +81,5 @@
 			]
 		}
 	},
-	"platform-feature-flags": {
-		"platform_editor_native_anchor_patch_2": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

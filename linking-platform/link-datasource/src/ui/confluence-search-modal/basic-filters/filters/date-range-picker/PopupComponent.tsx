@@ -20,7 +20,7 @@ const PopupComponentContainer = styled.div({
 	boxShadow: token('elevation.shadow.overlay'),
 });
 
-export const PopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>((props, ref) => (
+export const PopupComponent: React.ForwardRefExoticComponent<PopupComponentProps & React.RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, PopupComponentProps>((props, ref) => (
 	<PopupComponentContainer
 		{...props}
 		data-testId={'confluence-search-datasource-popup-container'}

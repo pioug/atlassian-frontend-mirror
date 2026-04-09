@@ -15,8 +15,9 @@ import { type CardProps } from '../Card/types';
 
 import { LoadingCardLink } from './component-lazy/LoadingCardLink';
 import { type CardWithUrlContentProps } from './types';
-
-export const LazyCardWithUrlContent = lazy(() =>
+export const LazyCardWithUrlContent: React.LazyExoticComponent<
+	typeof import('./component-lazy/index').default
+> = lazy(() =>
 	importWithRetry(
 		() =>
 			import(

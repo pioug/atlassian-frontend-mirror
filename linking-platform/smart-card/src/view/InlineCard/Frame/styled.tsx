@@ -20,7 +20,7 @@ export interface WrapperProps extends React.ComponentProps<any> {
 	withoutBackground?: boolean;
 }
 
-export const WrapperSpan = forwardRef<HTMLSpanElement, WrapperProps>(
+export const WrapperSpan: React.ForwardRefExoticComponent<Omit<WrapperProps, "ref"> & React.RefAttributes<HTMLSpanElement>> = forwardRef<HTMLSpanElement, WrapperProps>(
 	(
 		{
 			truncateInline,
@@ -53,7 +53,7 @@ export const WrapperSpan = forwardRef<HTMLSpanElement, WrapperProps>(
 	},
 );
 
-export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
+export const WrapperAnchor: React.ForwardRefExoticComponent<Omit<WrapperProps, "ref"> & React.RefAttributes<HTMLAnchorElement>> = forwardRef<HTMLAnchorElement, WrapperProps>(
 	(
 		{
 			truncateInline,

@@ -4,7 +4,8 @@ import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import CommonCell from './common-cell';
-import { LoaderItemContainer, TreeRowContainer } from './styled';
+import { LoaderItemContainer } from './loader-item-container';
+import { TreeRowContainer } from './tree-row-container';
 
 interface LoaderItemProps {
 	/**

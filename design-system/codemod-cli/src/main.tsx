@@ -8,22 +8,16 @@ import semver from 'semver';
 const jscodeshift = require.resolve('.bin/jscodeshift');
 
 import { findDependentPackagePaths } from './filepath';
+import { getTransformModule } from './get-transform-module';
+import { getTransformPath } from './get-transform-path';
+import { getTransforms } from './get-transforms';
+import { hasTransform } from './has-transform';
+import { NoTransformsExistError } from './no-transforms-exist-error';
+import { parseTransformPath } from './parse-transform-path';
 import { getPackagesSinceRef } from './sinceRef';
-import {
-	getTransformModule,
-	getTransformPath,
-	getTransforms,
-	hasTransform,
-	parseTransformPath,
-} from './transforms';
-import {
-	type Default,
-	type Flags,
-	NoTransformsExistError,
-	type ParsedPkg,
-	ValidationError,
-} from './types';
+import type { Default, Flags, ParsedPkg } from './types';
 import { fixLineEnding } from './utils';
+import { ValidationError } from './validation-error';
 
 interface TransformMeta extends ParsedPath {
 	id?: string;

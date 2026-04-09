@@ -1,5 +1,30 @@
 # @atlaskit/link-datasource
 
+## 4.34.9
+
+### Patch Changes
+
+- [`3b4f9743f0c18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b4f9743f0c18) -
+  Enrol navigation and linking-platform packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+- Updated dependencies
+
+## 4.34.8
+
+### Patch Changes
+
+- [`7f6cbe29c21d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f6cbe29c21d8) -
+  Switch /gateway/api/v2/accessible-products endpoints to unit-compliant path
+  /gateway/api/experimental/v2/accessible-products behind the
+  `linking_platform_link_datasource_unit_compliant` feature gate
+- Updated dependencies
+
+## 4.34.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.34.6
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, type Context } from 'react';
 
 import { type SmartLinkStatus } from '../../constants';
 import { type InternalFlexibleUiOptions } from '../../view/FlexibleCard/types';
@@ -14,9 +14,9 @@ export type FlexibleCardContextType = {
  * This provides the data that will be used by Smart Links Flexible UI to populate it's
  * underlying elements.
  */
-export const FlexibleCardContext = createContext<FlexibleCardContextType | undefined>(undefined);
-export const useFlexibleCardContext = () => useContext(FlexibleCardContext);
+export const FlexibleCardContext: Context<FlexibleCardContextType | undefined> = createContext<FlexibleCardContextType | undefined>(undefined);
+export const useFlexibleCardContext = (): FlexibleCardContextType | undefined => useContext(FlexibleCardContext);
 
-export const useFlexibleUiContext = () => useFlexibleCardContext()?.data;
+export const useFlexibleUiContext = (): FlexibleUiDataContext | undefined => useFlexibleCardContext()?.data;
 
-export const useFlexibleUiOptionContext = () => useFlexibleCardContext()?.ui;
+export const useFlexibleUiOptionContext = (): InternalFlexibleUiOptions | undefined => useFlexibleCardContext()?.ui;

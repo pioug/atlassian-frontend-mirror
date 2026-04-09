@@ -10,7 +10,10 @@ const SMART_LINK_TO_ROVO_SOURCE = 'smart-link';
 
 export type SendPromptMessageData = Partial<ChatNewPayload['data']>;
 
-const useRovoChat = () => {
+const useRovoChat = (): {
+    isRovoChatEnabled: boolean;
+    sendPromptMessage: (data: SendPromptMessageData) => void;
+} => {
 	const config = useRovoConfig();
 	const { publishWithPostMessage } = useRovoPostMessageToPubsub();
 

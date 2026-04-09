@@ -57,7 +57,7 @@ export const InitialStateView = ({
 	title,
 	description,
 	learnMoreLink,
-}: InitialStateViewProps) => {
+}: InitialStateViewProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 	return (
 		<div css={initialStateViewContainerStyles} data-testid="datasource-modal--initial-state-view">

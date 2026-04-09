@@ -5,11 +5,9 @@ import { createPortal } from 'react-dom';
 import { ThemeProvider, useColorMode } from '@atlaskit/app-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import {
-	appendPortalContainerIfNotAppended,
-	createContainer,
-	removePortalContainer,
-} from '../utils/portal-dom-utils';
+import { appendPortalContainerIfNotAppended } from '../utils/append-portal-container-if-not-appended';
+import { createContainer } from '../utils/create-container';
+import { removePortalContainer } from '../utils/remove-portal-container';
 
 interface InternalPortalProps {
 	children: React.ReactNode;

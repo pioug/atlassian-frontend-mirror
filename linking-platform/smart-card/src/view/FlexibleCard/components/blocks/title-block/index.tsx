@@ -76,7 +76,7 @@ const TitleBlock = ({
 	url,
 	hideIconLoadingSkeleton,
 	...props
-}: TitleBlockProps) => {
+}: TitleBlockProps): JSX.Element => {
 	const cardContext = useFlexibleCardContext();
 	const { status = SmartLinkStatus.Fallback, ui } = cardContext || {};
 

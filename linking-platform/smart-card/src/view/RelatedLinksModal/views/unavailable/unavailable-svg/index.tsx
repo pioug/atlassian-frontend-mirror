@@ -17,7 +17,7 @@ const unavailableStyles = css({
 
 const id = 'related-links-unavailable-svg';
 
-export const UnavailableSVG = (props: React.SVGProps<SVGSVGElement>) => {
+export const UnavailableSVG = (props: React.SVGProps<SVGSVGElement>): JSX.Element => {
 	return (
 		<svg
 			data-testid={id}

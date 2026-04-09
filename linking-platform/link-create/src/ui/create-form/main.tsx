@@ -40,7 +40,7 @@ type ReservedFields = {
 
 type WithReservedFields<T> = T & ReservedFields;
 
-const RESERVED_FIELDS = [LINK_CREATE_FORM_POST_CREATE_FIELD] as const;
+const RESERVED_FIELDS: readonly ["__post_create__"] = [LINK_CREATE_FORM_POST_CREATE_FIELD] as const;
 
 type DisallowReservedFields<T> = T & {
 	[Field in (typeof RESERVED_FIELDS)[number]]?: never;
@@ -98,7 +98,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
 	hideFooter,
 	hideRequiredFieldMessage,
 	initialValues,
-}: CreateFormProps<FormData>) => {
+}: CreateFormProps<FormData>): JSX.Element => {
 	const { setFormErrorMessage, formErrorMessage, enableEditView } = useFormContext();
 	const intl = useIntl();
 	const { setShouldShowWarning } = useExitWarningModal();

@@ -5,7 +5,7 @@ import { withWaitForItem } from '@atlaskit/link-test-helpers';
 import { ExampleJiraIssuesTableView } from '../../examples-helpers/buildJiraIssuesTable';
 import { HoverableContainer } from '../../examples-helpers/hoverableContainer';
 
-export const VRIssueLikeTableRichText = withWaitForItem(
+export const VRIssueLikeTableRichText: React.ComponentType<object> = withWaitForItem(
 	(): JSX.Element => {
 		return (
 			<HoverableContainer>

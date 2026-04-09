@@ -8,7 +8,17 @@ import { EmptyState } from '../../../../../common/ui/empty-state';
 
 import { NoResultsSVG } from './no-results-svg';
 
-export const messages = defineMessages({
+export const messages: {
+    noResults: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; noResultsDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	noResults: {
 		id: 'fabric.linkPicker.search.noResults.heading',
 		defaultMessage: 'We couldn’t find anything matching your search.',

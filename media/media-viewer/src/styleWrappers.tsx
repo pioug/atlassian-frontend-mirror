@@ -707,7 +707,7 @@ export const Img = ({
 	onError,
 	alt,
 	className,
-	onMouseDown
+	...rest
 }: ImgProps) => {
 	const cursor = useMemo(() => {
 		if (canDrag && isDragging) {
@@ -719,13 +719,8 @@ export const Img = ({
 		}
 	}, [canDrag, isDragging]);
 	return (
-		// onMouseDown enables drag-to-pan for zoomed images — a mouse-only gesture.
-		// Keyboard users can pan via native scroll (arrow keys) on the parent ImageWrapper container.
-		// No keyboard equivalent is needed since the functionality is already accessible.
-
-		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 		<img
-			onMouseDown={onMouseDown}
+			{...rest}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			css={[imgStyles, shouldPixelate && pixelatedImgStyles]}

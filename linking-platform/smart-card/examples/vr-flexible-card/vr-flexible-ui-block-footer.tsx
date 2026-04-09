@@ -52,7 +52,7 @@ const renderFooter = (size?: SmartLinkSize, actions?: ActionItem[]) => {
 
 const actions: ActionItem[] = [makeDeleteActionItem()];
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

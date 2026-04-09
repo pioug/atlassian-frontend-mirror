@@ -370,7 +370,56 @@ const resolveConfluenceSearch = {
 	status: 200,
 };
 
-export const generateResolveResponse = (resourceUrl: string) => {
+export const generateResolveResponse = (resourceUrl: string): {
+    body: {
+        meta: {
+            auth: never[];
+            definitionId: string;
+            product: string;
+            visibility: string;
+            access: string;
+            resourceType: string;
+            objectId: string;
+            tenantId: string;
+            category: string;
+            key: string;
+        };
+        data: {
+            '@context': {
+                '@vocab': string;
+                atlassian: string;
+                schema: string;
+            };
+            generator: {
+                '@type': string;
+                '@id': string;
+                name: string;
+                icon: {
+                    '@type': string;
+                    url: string;
+                };
+            };
+            '@type': string[];
+            url: string;
+            name: string;
+            'atlassian:titlePrefix': {
+                text: string;
+                '@type': string;
+            };
+        };
+        datasources: {
+            key: string;
+            parameters: {
+                searchString: string;
+            };
+            id: string;
+            ari: string;
+            description: string;
+            name: string;
+        }[];
+    };
+    status: number;
+} | undefined => {
 	const url = new URL(resourceUrl);
 	if (url.search.includes('wiki/')) {
 		return resolveConfluenceSearch;

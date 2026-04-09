@@ -41,13 +41,7 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/css/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/primitives/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/tokens/tsconfig.app.json"
+			"path": "../teams-app-internal-playground/tsconfig.app.json"
 		}
 	]
 }

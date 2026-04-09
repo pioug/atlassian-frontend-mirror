@@ -96,7 +96,7 @@ const withGeminiInteractionContext = <P extends object>(Component: React.Compone
 export const withWaitForItem = <P extends object>(
 	Component: React.ComponentType<P>,
 	getItem: () => unknown,
-) =>
+): React.ComponentType<P> =>
 	withGeminiInteractionContext((props: P) => {
 		const [error, setError] = useState(false);
 

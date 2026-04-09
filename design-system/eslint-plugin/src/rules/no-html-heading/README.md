@@ -2,7 +2,7 @@ Don't use native HTML headings. The Atlassian Design System provides a ready-mad
 that ensures accessible implementations, and provides access to ADS styling features like design
 tokens.
 
-Use the Atlassian Design System [Heading](/components/heading/) component when suitable.
+Use the Atlassian Design System [Heading](/components/heading) component when suitable.
 
 ## Examples
 

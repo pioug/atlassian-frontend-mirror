@@ -22,7 +22,6 @@ import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -46,7 +45,6 @@ import { browser as browserLegacy, getBrowserInfo } from '../../../utils/browser
 import LinkSearchList from '../../LinkSearch/LinkSearchList';
 import {
 	container,
-	containerWithProvider,
 	narrowContainerWidth,
 	inputWrapper,
 } from '../../LinkSearch/ToolbarComponents';
@@ -640,7 +638,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		const { items, isLoading, selectedIndex, displayUrl, displayText } = this.state;
 		const {
 			intl: { formatMessage },
-			activityProvider,
 		} = this.props;
 
 		const formatClearLinkText = formatMessage(messages.clearLink);
@@ -657,10 +654,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		// for details: https://a11y-internal.atlassian.net/browse/AK-740
 		const screenReaderText = browser.safari && this.getScreenReaderText();
 
-		const containerWidth = fg('platform_editor_link_picker_width_fix')
-			? narrowContainerWidth
-			: !!activityProvider && containerWithProvider;
-
 		const hyperlinkElement = (
 			<div
 				aria-label={formatMessage(messages.hyperlinkAriaLabel)}
@@ -670,7 +663,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css={[container, containerWidth, containerPadding]}
+					css={[container, narrowContainerWidth, containerPadding]}
 					ref={this.wrapperRef}
 				>
 					<label htmlFor={linkSearchInputId} css={inputLabel}>

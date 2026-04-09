@@ -53,7 +53,7 @@ export const importIcon = (importFn: () => Promise<any>): any => {
 	}) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
 };
 
-export const getMaxLineHeight = (size: SmartLinkSize) => {
+export const getMaxLineHeight = (size: SmartLinkSize): 1.75 | 1.5 => {
 	// The maximum line height based on all elements in specific size.
 	// These heights belongs to AvatarGroup.
 	switch (size) {
@@ -67,7 +67,7 @@ export const getMaxLineHeight = (size: SmartLinkSize) => {
 	}
 };
 
-export const getMaxLines = (value: number, defaultValue: number, max: number, min: number) => {
+export const getMaxLines = (value: number, defaultValue: number, max: number, min: number): number => {
 	if (value > max) {
 		return defaultValue;
 	}

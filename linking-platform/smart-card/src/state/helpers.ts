@@ -116,9 +116,9 @@ export const getSubproduct = (
 	details?: JsonLd.Response,
 ): DestinationSubproduct | string | undefined => details?.meta?.subproduct;
 
-export const getServices = (details?: JsonLd.Response) => (details && details.meta.auth) || [];
+export const getServices = (details?: JsonLd.Response): JsonLd.Primitives.AuthService[] => (details && details.meta.auth) || [];
 
-export const hasResolved = (details?: JsonLd.Response) =>
+export const hasResolved = (details?: JsonLd.Response): boolean | undefined =>
 	details && isAccessible(details) && isVisible(details);
 
 export const isAccessible = ({ meta: { access } }: JsonLd.Response): boolean =>

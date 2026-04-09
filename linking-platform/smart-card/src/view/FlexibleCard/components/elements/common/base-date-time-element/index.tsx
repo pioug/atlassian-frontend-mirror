@@ -56,9 +56,6 @@ const fontOverrideStyleMap = cssMap({
 	'font.body.small': {
 		font: token('font.body.small'),
 	},
-	'font.body.UNSAFE_small': {
-		font: token('font.body.UNSAFE_small'),
-	},
 });
 
 export type BaseDateTimeElementProps = ElementProps & {
@@ -76,7 +73,7 @@ export type BaseDateTimeElementProps = ElementProps & {
 	fontSize?: Prettify<
 		Extract<
 			Parameters<typeof token>[0],
-			'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small'
+			'font.body' | 'font.body.large' | 'font.body.small'
 		>
 	>;
 	/**
@@ -111,7 +108,7 @@ const BaseDateTimeElement = ({
 	hideDatePrefix = false,
 	color,
 	fontSize,
-}: BaseDateTimeElementProps) => {
+}: BaseDateTimeElementProps): JSX.Element | null => {
 	const { formatRelativeTime, formatDate } = useIntl();
 	if (!type || !date) {
 		return null;

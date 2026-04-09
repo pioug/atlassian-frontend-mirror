@@ -21,7 +21,17 @@ type LinkPickerButtonGroupProps = {
 	url: string;
 };
 
-export const messages = defineMessages({
+export const messages: {
+    saveButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; insertButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	saveButton: {
 		id: 'fabric.linkPicker.button.save',
 		defaultMessage: 'Save',

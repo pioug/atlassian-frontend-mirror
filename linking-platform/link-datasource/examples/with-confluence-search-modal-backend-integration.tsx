@@ -137,7 +137,7 @@ function DisableDisplayDropdownRadioToggle({
 	);
 }
 
-export default () => {
+export default (): JSX.Element => {
 	const [generatedAdf, setGeneratedAdf] = useState<
 		InlineCardAdf | ConfluenceSearchDatasourceAdf | DatasourceAdf | null
 	>(null);

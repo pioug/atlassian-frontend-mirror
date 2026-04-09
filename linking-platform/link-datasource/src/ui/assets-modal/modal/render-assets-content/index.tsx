@@ -108,7 +108,7 @@ const LoadingView = () => (
 	</div>
 );
 
-export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
+export const RenderAssetsContent = (props: RenderAssetsContentProps): JSX.Element => {
 	const {
 		status,
 		responseItems,

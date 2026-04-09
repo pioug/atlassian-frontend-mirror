@@ -7,6 +7,7 @@ import {
 	type FetchObjectSchemaResponse,
 	type FetchObjectSchemasResponse,
 	type GetWorkspaceDetailsResponse,
+    type ObjectSchema,
 } from '../types/assets/types';
 
 import {
@@ -20,7 +21,7 @@ type AnalyticsFireEvent = <K extends EventKey>(
 	...params: Parameters<typeof createEventPayload<K>>
 ) => void;
 
-export const getWorkspaceId = async (fireEvent?: AnalyticsFireEvent) => {
+export const getWorkspaceId = async (fireEvent?: AnalyticsFireEvent): Promise<string> => {
 	const url = '/rest/servicedesk/cmdb/latest/workspace';
 
 	try {
@@ -56,7 +57,7 @@ export const validateAql = async (
 	workspaceId: string,
 	data: { qlQuery: string },
 	fireEvent?: AnalyticsFireEvent,
-) => {
+): Promise<AqlValidateResponse> => {
 	const url = `/gateway/api/jsm/assets/workspace/${workspaceId}/v1/aql/validate`;
 	try {
 		const response = await request<AqlValidateResponse>(
@@ -90,7 +91,7 @@ export const fetchObjectSchema = async (
 	workspaceId: string,
 	schemaId: string,
 	fireEvent?: AnalyticsFireEvent,
-) => {
+): Promise<ObjectSchema> => {
 	const url = `/gateway/api/jsm/assets/workspace/${workspaceId}/v1/objectschema/${schemaId}`;
 	try {
 		const response = await request<FetchObjectSchemaResponse>(
@@ -121,7 +122,7 @@ export const fetchObjectSchemas = async (
 	workspaceId: string,
 	query?: string,
 	fireEvent?: AnalyticsFireEvent,
-) => {
+): Promise<FetchObjectSchemasResponse> => {
 	const queryParams = new URLSearchParams();
 	queryParams.set('maxResults', '20');
 	queryParams.set('includeCounts', 'false');

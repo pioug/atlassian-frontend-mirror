@@ -11,10 +11,14 @@ import {
 	type KeyboardEvent,
 	type MouseEvent,
 	type Ref,
+    type ForwardRefExoticComponent,
+    type RefAttributes,
 } from 'react';
 import { Mode, type Palette, type ColorCardVariant } from '../types';
 import {
 	type UIAnalyticsEvent,
+	type WithAnalyticsEventsProps,
+	type WithContextProps,
 	createAndFireEvent,
 	withAnalyticsContext,
 	withAnalyticsEvents,
@@ -79,7 +83,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 	mode = Mode.Standard,
 	initialFocusRef,
 	variant = 'fill',
-}: Props) => {
+}: Props): JSX.Element => {
 	const { options, value: selectedValue } = getOptions(palette, selectedColor);
 	const fullLabel = `${label}, ${selectedValue.label} selected`;
 	const selectedColorIndex = selectedValue.value
@@ -192,11 +196,12 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 	);
 };
 
-export default withAnalyticsContext({
-	componentName: 'color-picker',
-	packageName: process.env._PACKAGE_NAME_,
-	packageVersion: process.env._PACKAGE_VERSION_,
+const _default_1: ForwardRefExoticComponent<Omit<Omit<Props, keyof WithAnalyticsEventsProps> & RefAttributes<any> & WithContextProps, "ref"> & RefAttributes<any>> = withAnalyticsContext({
+    componentName: 'color-picker',
+    packageName: process.env._PACKAGE_NAME_,
+    packageVersion: process.env._PACKAGE_VERSION_,
 })(withAnalyticsEvents()(ColorPaletteMenuWithoutAnalytics));
+export default _default_1;
 
 const colorCardWrapperStyles = css({
 	display: 'flex',

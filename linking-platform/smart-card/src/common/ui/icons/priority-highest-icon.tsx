@@ -15,7 +15,10 @@ const style = cssMap({
 	svg: { verticalAlign: 'bottom', maxWidth: '100%', maxHeight: '100%' },
 });
 
-const PriorityHighestIcon = ({ label, testId, ...props }: PriorityIconProps) => (
+const PriorityHighestIcon: {
+    ({ label, testId, ...props }: PriorityIconProps): JSX.Element;
+    displayName: string;
+} = ({ label, testId, ...props }: PriorityIconProps): JSX.Element => (
 	<span
 		role={label ? 'img' : undefined}
 		aria-label={label}

@@ -526,13 +526,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	//Added 2025-07-25
-	platform_editor_extension_styles: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-06-26
 	platform_editor_feedback_mandatory_rating: {
 		defaultValue: boolean;
@@ -1120,6 +1113,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-07
+	platform_editor_ai_move_node: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	confluence_ttvc_inline_extensions: {
 		defaultValue: boolean;
 		param: string;
@@ -1672,6 +1672,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-07
 	platform_editor_lovability_select_all_shortcut: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-01
+	platform_editor_hydration_skip_react_portal: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2269,14 +2276,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	//Added 2025-07-25
-	platform_editor_extension_styles: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_extension_styles',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-06-24
 	platform_editor_find_and_replace_improvements: createBooleanExperiment({
 		productKeys: {
@@ -2839,6 +2838,14 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_fix_insert_after_selection: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_fix_insert_after_selection',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-07
+	platform_editor_ai_move_node: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_move_node',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3606,6 +3613,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_lovability_select_all_shortcut',
 			jira: 'platform_editor_lovability_select_all_shortcut',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-01
+	platform_editor_hydration_skip_react_portal: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_hydration_skip_react_portal',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

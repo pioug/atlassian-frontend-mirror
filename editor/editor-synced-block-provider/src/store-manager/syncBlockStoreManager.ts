@@ -4,6 +4,7 @@ import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
@@ -33,16 +34,31 @@ export class SyncBlockStoreManager {
 	private fetchReferencesExperience: Experience | undefined;
 	private fetchSourceInfoExperience: Experience | undefined;
 
-	constructor(dataProvider?: SyncBlockDataProviderInterface, viewMode?: ViewMode) {
+	constructor(
+		dataProvider?: SyncBlockDataProviderInterface,
+		viewMode?: ViewMode,
+		isLivePage?: boolean,
+	) {
 		// In future, if reference manager needs to reach to source manager and read its current in memory cache
 		// we can pass the source manager as a parameter to the reference manager constructor
-		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider, viewMode);
+		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(
+			dataProvider,
+			viewMode,
+			isLivePage,
+		);
 		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(
 			dataProvider,
 			viewMode,
 		);
 		this.dataProvider = dataProvider;
 		this.referenceSyncBlockStoreManager.setRealTimeSubscriptionsEnabled(true);
+	}
+
+	isSyncBlock(node: PMNode): boolean {
+		return (
+			this.sourceSyncBlockStoreManager.isSourceBlock(node) ||
+			this.referenceSyncBlockStoreManager.isReferenceBlock(node)
+		);
 	}
 
 	public async fetchReferencesSourceInfo(
@@ -174,8 +190,9 @@ export class SyncBlockStoreManager {
 
 			if (hasUnregisteredReferenceOnPage) {
 				// This is current page data. It is the same for data for source and reference
-				const sourceSyncBlockData =
-					await this.sourceSyncBlockStoreManager.getSyncBlockSourceInfo(blockInstanceId);
+				const sourceSyncBlockData = await this.sourceSyncBlockStoreManager.getSyncBlockSourceInfo(
+					blockInstanceId,
+				);
 				const references: SyncBlockSourceInfo[] = [];
 
 				if (sourceSyncBlockData) {
@@ -208,8 +225,9 @@ export class SyncBlockStoreManager {
 		// but not saved yet.
 		const references: SyncBlockSourceInfo[] = [];
 
-		const sourceSyncBlockData =
-			await this.referenceSyncBlockStoreManager.fetchSyncBlockSourceInfo(resourceId);
+		const sourceSyncBlockData = await this.referenceSyncBlockStoreManager.fetchSyncBlockSourceInfo(
+			resourceId,
+		);
 		if (sourceSyncBlockData) {
 			references.push({
 				...sourceSyncBlockData,

@@ -41,7 +41,7 @@ const renderErroredViewWithCompetitorPrompt = () => {
 	);
 };
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>{renderErroredViewWithCompetitorPrompt()}</SmartCardProvider>

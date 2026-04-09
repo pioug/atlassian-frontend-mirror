@@ -12,7 +12,7 @@ import {
 	PRINT_SETTINGS,
 } from '../utils/constants';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
-import { modifyLinkAttributes } from '../utils/generate-link-element';
+import { modifyLinkAttributes } from '../utils/modify-link-attributes';
 import moveIconValueFromLinkButtonPropsToLinkChildren from '../utils/move-icon-value-from-link-button-to-link-children';
 
 function transformer(file: FileInfo, api: API): string {

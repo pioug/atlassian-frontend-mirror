@@ -44,7 +44,7 @@ const AIPrism = ({
 	isMoving = true,
 	isVisible,
 	testId,
-}: AIPrismProps) => {
+}: AIPrismProps): JSX.Element => {
 	const { colorMode = 'light' } = useThemeObserver();
 
 	return (

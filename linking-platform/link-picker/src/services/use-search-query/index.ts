@@ -4,7 +4,7 @@ import { isSafeUrl } from '@atlaskit/linking-common/url';
 
 import { type LinkPickerState, type PickerState } from '../../common/types';
 
-export function useSearchQuery(state: PickerState) {
+export function useSearchQuery(state: PickerState): LinkPickerState | null {
 	const queryState = useRef<LinkPickerState | null>(null);
 
 	/*

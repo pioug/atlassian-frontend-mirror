@@ -6,7 +6,7 @@ import Menu from './content/menu';
 import customMd from './utils/custom-md';
 import QuickLinks from './utils/quick-links';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ${(<AtlassianInternalWarning />)}
 
@@ -22,3 +22,4 @@ To access the documentation, please click on the dropdown menu located on the ri
 ${(<Menu />)}
 
 `;
+export default _default_1;

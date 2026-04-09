@@ -264,7 +264,7 @@ const Container = ({
 	size = SmartLinkSize.Medium,
 	status,
 	testId = 'smart-links-container',
-}: ContainerProps) => {
+}: ContainerProps): JSX.Element => {
 	di(HoverCardControl);
 
 	const padding = hidePadding ? '0px' : getPadding(size);

@@ -253,7 +253,7 @@ export const mocks = {
 		status: 200,
 	},
 };
-export const fakeResponse = () => Promise.resolve(mocks.success);
+export const fakeResponse = (): Promise<JsonLd.Response<JsonLd.Data.BaseData>> => Promise.resolve(mocks.success);
 
 export const fakeFactory: any = (
 	implementation: () => Promise<JsonLd.Response>,
@@ -274,4 +274,4 @@ export const fakeFactory: any = (
 		}
 	};
 
-export const waitFor = (time = 1) => new Promise((res) => setTimeout(res, time));
+export const waitFor = (time = 1): Promise<void> => new Promise((res) => setTimeout(res, time));

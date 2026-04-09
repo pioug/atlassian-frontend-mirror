@@ -12,6 +12,6 @@ export const useHandleContentChanges = (
 	// node content is modified by a ProseMirror transaction, which is exactly
 	// when the source manager cache needs to be updated.
 	useEffect(() => {
-		manager.sourceManager.updateSyncBlockData(syncBlockNode);
+		manager.sourceManager.updateSyncBlockData(syncBlockNode, false);
 	}, [manager, syncBlockNode]);
 };

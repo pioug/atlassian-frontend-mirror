@@ -2,7 +2,9 @@ import { useCallback, useContext, useEffect, useRef } from 'react';
 
 import { bindAll } from 'bind-event-listener';
 
-import { LevelContext, LevelNodeContext, RootNodeContext } from '../components/layering-context';
+import { LevelContext } from '../components/level-context';
+import { LevelNodeContext } from '../components/level-node-context';
+import { RootNodeContext } from '../components/root-node-context';
 
 const ESCAPE = 'Escape';
 

@@ -17,9 +17,9 @@ const mockUseFormState = jest.fn().mockReturnValue({
 	},
 });
 
-jest.mock('react-intl-next', () => {
+jest.mock('react-intl', () => {
 	return {
-		...(jest.requireActual('react-intl-next') as any),
+		...(jest.requireActual('react-intl') as any),
 		useIntl: jest.fn().mockReturnValue({
 			formatMessage: (descriptor: any) => descriptor.defaultMessage,
 		}),

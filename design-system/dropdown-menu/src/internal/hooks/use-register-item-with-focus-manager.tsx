@@ -4,7 +4,7 @@ import { useContext, useEffect, useRef, type MutableRefObject } from 'react';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FocusableElementRef } from '../../types';
-import { FocusManagerContext } from '../components/focus-manager';
+import { FocusManagerContext } from '../components/focus-manager-context';
 
 type GetRef<R> = R extends { current: infer T } ? T : R extends (i: infer T) => void ? T : never;
 

@@ -20,7 +20,7 @@ const styles = css({
 	marginTop: 250,
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<VRTestWrapper>
 		<Provider client={new CustomClient('staging')}>
 			<div css={styles}>

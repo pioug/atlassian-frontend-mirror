@@ -26,7 +26,7 @@ export interface FrameViewProps {
 	withoutBackground?: boolean;
 }
 
-export const Frame = forwardRef<HTMLSpanElement & null, FrameViewProps>((props, ref) => {
+export const Frame: React.ForwardRefExoticComponent<FrameViewProps & React.RefAttributes<never>> = forwardRef<HTMLSpanElement & null, FrameViewProps>((props, ref) => {
 	const {
 		isSelected,
 		children,

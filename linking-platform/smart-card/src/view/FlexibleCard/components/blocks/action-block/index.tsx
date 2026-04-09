@@ -60,7 +60,7 @@ const sort = (a: FlexibleUiActionName, b: FlexibleUiActionName) => {
  * Get container padding based on smart link size
  * To replace container/index.tsx getPadding() with space token for primitives
  */
-export const getPrimitivesPaddingSpaceBySize = (size: SmartLinkSize) => {
+export const getPrimitivesPaddingSpaceBySize = (size: SmartLinkSize): "var(--ds-space-100)" | "var(--ds-space-200)" | "var(--ds-space-250)" | "var(--ds-space-300)" => {
 	switch (size) {
 		case SmartLinkSize.XLarge:
 			return token('space.300');
@@ -82,7 +82,7 @@ const ActionBlock = ({
 	className,
 	testId = 'smart-block-action',
 	is3PAuthRovoActionsExperimentOn,
-}: ActionBlockProps) => {
+}: ActionBlockProps): JSX.Element | null => {
 	di(ActionFooter);
 
 	const context = useFlexibleUiContext();

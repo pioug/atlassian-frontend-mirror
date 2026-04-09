@@ -71,14 +71,14 @@ const createExampleWithEdit = (
 	};
 };
 
-export const DefaultCreateWithModal = createExample();
-export const DefaultCreateWithModalTitle = createExample({
+export const DefaultCreateWithModal: React.ComponentType<{}> = createExample();
+export const DefaultCreateWithModalTitle: React.ComponentType<{}> = createExample({
 	modalTitle: 'Create custom title',
 });
 
-export const DefaultCreateWithModalHero = createExample({
+export const DefaultCreateWithModalHero: React.ComponentType<{}> = createExample({
 	modalHero: <img src={whiteboardSvg} alt="Whiteboard" />,
 });
-export const DefaultCreateWithEditButton = createExampleWithEdit({});
+export const DefaultCreateWithEditButton: React.ComponentType<{}> = createExampleWithEdit({});
 
 export default DefaultCreateWithModal;

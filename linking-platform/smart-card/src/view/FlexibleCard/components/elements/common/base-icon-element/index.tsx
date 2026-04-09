@@ -10,13 +10,15 @@ import { useMemo } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import LinkIcon from '@atlaskit/icon/core/link';
+import type { LinkPerson } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tile from '@atlaskit/tile';
 import { token } from '@atlaskit/tokens';
 
 import { type IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';
-import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
+import type { LinkLozenge } from '../../../../../../extractors/common/lozenge/types';
+import { type FlexibleUiActions, type FlexibleUiDataContext, type LinkLocation, type LinkTitle, type Media, type PreviewActionData } from '../../../../../../state/flexible-ui-context/types';
 import { isProfileType } from '../../../../../../utils';
 import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../../../../../utils/experiments';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
@@ -245,7 +247,7 @@ const IconElement = ({
 	appearance = 'square',
 	hideLoadingSkeleton,
 	isTiledIcon,
-}: BaseIconElementProps) => {
+}: BaseIconElementProps): JSX.Element => {
 	const label = fg('platform_navx_smart_link_icon_label_a11y')
 		? (labelProp ?? '')
 		: (labelProp ?? 'Link');
@@ -308,7 +310,22 @@ export default IconElement;
 export const toLinkIconProps = (
 	data: FlexibleUiDataContext[keyof FlexibleUiDataContext] | undefined,
 	type: FlexibleUiDataContext['type'],
-) => {
+): string[] | FlexibleUiActions | PreviewActionData | LinkPerson[] | LinkTitle | LinkLocation | {
+        accessType?: string;
+        objectId?: string;
+        resourceType?: string;
+        tenantId?: string;
+    } | Media | LinkLozenge | {
+        department?: string;
+        location?: string;
+        pronouns?: string;
+        role?: string;
+    } | {
+        appearance: string;
+        icon?: IconType;
+        label?: string;
+        url?: string;
+    } | undefined => {
 	const isDataLinkIcon = (_data: typeof data): _data is FlexibleUiDataContext['linkIcon'] => {
 		return typeof _data === 'object' && _data !== null && ('icon' in _data || 'url' in _data);
 	};

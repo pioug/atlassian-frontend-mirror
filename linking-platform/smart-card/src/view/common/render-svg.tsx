@@ -30,6 +30,6 @@ const imageSizeStyles = cssMap({
 	},
 });
 
-export const RenderSVG = ({ alt, size, src, srcDark }: RenderSVGInternalProps) => {
+export const RenderSVG = ({ alt, size, src, srcDark }: RenderSVGInternalProps): JSX.Element => {
 	return <Image src={src} srcDark={srcDark} alt={alt} css={[size && imageSizeStyles[size]]} />;
 };

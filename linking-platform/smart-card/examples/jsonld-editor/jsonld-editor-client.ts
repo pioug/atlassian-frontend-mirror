@@ -28,7 +28,7 @@ class JsonldEditorClient extends CardClient {
 		this.branchDeploy = branchDeploy;
 	}
 
-	async fetchData(url: string, force?: boolean) {
+	async fetchData(url: string, force?: boolean): Promise<JsonLd.Response<JsonLd.Data.BaseData>> {
 		// Return response from editor
 		if (this.onFetch) {
 			const response = this.onFetch();

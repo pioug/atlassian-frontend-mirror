@@ -46,7 +46,7 @@ const AnimatedSvgContainer = ({
 	isMoving,
 	isGlowing,
 	className,
-}: AnimatedSvgContainerProps) => {
+}: AnimatedSvgContainerProps): JSX.Element => {
 	const svgRef = useRef<SVGSVGElement>(null);
 	const namespaceId = useRef<number>();
 

@@ -43,7 +43,7 @@ const borderStyle = css({
 	},
 });
 
-export const BorderWrapper = ({ children }: { children: React.ReactNode }) => (
+export const BorderWrapper = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div
 		style={{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -56,7 +56,7 @@ export const BorderWrapper = ({ children }: { children: React.ReactNode }) => (
 	</div>
 );
 
-export const LazyLoadingWithoutDisplayTextExample = () => {
+export const LazyLoadingWithoutDisplayTextExample = (): JSX.Element => {
 	return (
 		<Box>
 			<Heading size="large">Without display text</Heading>
@@ -73,7 +73,7 @@ export const LazyLoadingWithoutDisplayTextExample = () => {
 	);
 };
 
-export const LazyLoadingWithDisplayTextExample = () => {
+export const LazyLoadingWithDisplayTextExample = (): JSX.Element => {
 	return (
 		<Box>
 			<Heading size="large">With display text</Heading>
@@ -90,7 +90,7 @@ export const LazyLoadingWithDisplayTextExample = () => {
 	);
 };
 
-export const LazyLoadingWithoutDisplayTextWithOnePluginExample = () => {
+export const LazyLoadingWithoutDisplayTextWithOnePluginExample = (): JSX.Element => {
 	return (
 		<Box>
 			<Heading size="large">Without display text, with one plugin</Heading>
@@ -112,7 +112,7 @@ export const LazyLoadingWithoutDisplayTextWithOnePluginExample = () => {
 	);
 };
 
-export const LazyLoadingWithDisplayTextWithOnePluginExample = () => {
+export const LazyLoadingWithDisplayTextWithOnePluginExample = (): JSX.Element => {
 	return (
 		<Box>
 			<Heading size="large">With display text, with one plugin</Heading>
@@ -129,7 +129,7 @@ export const LazyLoadingWithDisplayTextWithOnePluginExample = () => {
 	);
 };
 
-export const LazyLoadingWithoutDisplayTextWithPluginsExample = () => {
+export const LazyLoadingWithoutDisplayTextWithPluginsExample = (): JSX.Element => {
 	return (
 		<Box>
 			<Heading size="large">Without display text, with plugins</Heading>
@@ -152,7 +152,7 @@ export const LazyLoadingWithoutDisplayTextWithPluginsExample = () => {
 	);
 };
 
-export const LazyLoadingWithDisplayTextWithPluginsExample = () => {
+export const LazyLoadingWithDisplayTextWithPluginsExample = (): JSX.Element => {
 	return (
 		<Box>
 			<Heading size="large">With display text, with plugins</Heading>
@@ -174,7 +174,7 @@ export const LazyLoadingWithDisplayTextWithPluginsExample = () => {
 	);
 };
 
-export const LazyLoadingEditModeWithDisplayTextWithPluginsExample = () => {
+export const LazyLoadingEditModeWithDisplayTextWithPluginsExample = (): JSX.Element => {
 	return (
 		<Box>
 			<Heading size="large">

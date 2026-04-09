@@ -3,17 +3,29 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
+import type { JsonLd } from '@atlaskit/json-ld-types';
+import type { CardState } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
+import type { InvokeClientOpts, InvokeServerOpts } from '../../../model/invoke-opts';
 import * as measure from '../../../utils/performance';
+import type { CardInnerAppearance } from '../../../view/Card/types';
 import { useSmartCardActions } from '../../actions';
 import { getDefinitionId, getExtensionKey, getResourceType } from '../../helpers';
 import { useSmartCardState } from '../../store';
 
 import { useScheduledRegister } from './useScheduledRegister';
 
-const useResolveHyperlink = ({ href }: { href: string }) => {
+const useResolveHyperlink = ({ href }: { href: string }): {
+    state: CardState; actions: {
+        register: () => Promise<void>;
+        reload: () => void;
+        authorize: (appearance: CardInnerAppearance) => void;
+        invoke: (opts: InvokeClientOpts | InvokeServerOpts, appearance: CardInnerAppearance) => Promise<JsonLd.Response | void>;
+        loadMetadata: () => Promise<void> | undefined;
+    };
+} => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const [id] = useState(() => uuid() satisfies string);
 	const state = useSmartCardState(href);

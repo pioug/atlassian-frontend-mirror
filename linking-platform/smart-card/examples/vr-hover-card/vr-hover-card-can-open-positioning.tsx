@@ -38,7 +38,7 @@ const styles = css({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	const [canOpen, setCanOpen] = useState(true);
 
 	return (

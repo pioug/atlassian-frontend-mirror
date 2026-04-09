@@ -31,7 +31,7 @@ const safariStyles = css({
 	height: '100%',
 });
 
-const FooterBlockResolvedView = (props: FooterBlockProps) => {
+const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 	const {
 		actions,
 		testId,

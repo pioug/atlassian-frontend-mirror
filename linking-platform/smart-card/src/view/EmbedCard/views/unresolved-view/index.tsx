@@ -57,7 +57,7 @@ const UnresolvedView = ({
 	text,
 	title,
 	url,
-}: UnresolvedViewProps) => {
+}: UnresolvedViewProps): JSX.Element => {
 	const icon = useMemo(() => {
 		if (React.isValidElement(iconUrlOrElement)) {
 			return iconUrlOrElement;

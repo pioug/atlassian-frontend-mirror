@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.31.0",
+	"version": "43.31.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,6 +17,13 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Navigation Experiences - Linking Platform",
 		"website": {
 			"name": "Smart Card"
@@ -112,6 +119,7 @@
 		"@atlassian/analytics-tooling": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",

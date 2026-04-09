@@ -14,7 +14,22 @@ export interface MockIntersectionObserverOpts {
 // with the new values.
 export const MockIntersectionObserverFactory = (
 	mockIntersectionObserverOpts: MockIntersectionObserverOpts,
-) =>
+): {
+        new(callback: IntersectionObserverCallback): {
+            isDisconnected: boolean;
+            readonly root: Element | null;
+            readonly rootMargin: string;
+            readonly thresholds: ReadonlyArray<number>;
+            previousMockEntries: MockEntry[];
+            callback: IntersectionObserverCallback;
+            observe(_element: HTMLElement): void;
+            callIntersectionObserverCallback: () => void;
+            checkIntersection: () => void;
+            disconnect: () => void;
+            takeRecords: jest.Mock<any, any, any>;
+            unobserve: jest.Mock<any, any, any>;
+        };
+    } =>
 	class MockIntersectionObserver implements IntersectionObserver {
 		isDisconnected = false;
 		readonly root!: Element | null;

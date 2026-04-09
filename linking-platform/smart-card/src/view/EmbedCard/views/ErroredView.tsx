@@ -33,7 +33,7 @@ export const EmbedCardErroredView = ({
 	isSelected = false,
 	testId = 'embed-card-errored-view',
 	inheritDimensions,
-}: ErroredViewProps) => (
+}: ErroredViewProps): JSX.Element => (
 	<Frame
 		inheritDimensions={inheritDimensions}
 		compact={true}

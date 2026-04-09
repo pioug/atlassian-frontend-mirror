@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-limited-mode
 
+## 5.0.22
+
+### Patch Changes
+
+- [`d1a0ee6dbcefd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1a0ee6dbcefd) -
+  Clean up feature gate platform_editor_native_anchor_patch_2
+- Updated dependencies
+
+## 5.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.20
 
 ### Patch Changes

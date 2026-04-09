@@ -68,7 +68,7 @@ const multiLineElements: ElementItem[] = [
 	{ name: ElementName.ModifiedOn },
 ];
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

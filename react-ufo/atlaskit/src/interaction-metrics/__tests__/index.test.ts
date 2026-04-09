@@ -12,6 +12,7 @@ import {
 	addNewInteraction,
 	PreviousInteractionLog,
 	tryComplete,
+	sinkInteractionHandler,
 } from '../index';
 
 jest.mock('@atlaskit/platform-feature-flags');
@@ -575,5 +576,42 @@ describe('interaction-metrics timeout behavior', () => {
 			expect(PreviousInteractionLog.type).toBe('press');
 			expect(PreviousInteractionLog.timestamp).toBe(4000);
 		});
+	});
+});
+
+describe('deprecated stopVCAtInteractionFinish config', () => {
+	it('does not populate vc raw data when interactions finish', () => {
+		const sink = jest.fn();
+		sinkInteractionHandler(sink);
+		sink.mockClear();
+
+		setUFOConfig({
+			enabled: true,
+			product: 'test-product',
+			region: 'test-region',
+			vc: {
+				stopVCAtInteractionFinish: true,
+			},
+		});
+
+		const interactionId = 'deprecated-stop-vc-flag';
+		const startTime = 1000;
+		const getVCRawData = jest.fn(() => ({ some: 'vc-data' }));
+
+		addNewInteraction(interactionId, 'test-ufo-name', 'transition', startTime, 1, null, null, null);
+
+		const interaction = interactions.get(interactionId);
+		expect(interaction).toBeDefined();
+		interaction!.vcObserver = { getVCRawData } as any;
+
+		tryComplete(interactionId, 2000);
+
+		expect(getVCRawData).not.toHaveBeenCalled();
+		expect(sink).toHaveBeenCalledTimes(1);
+
+		const [, completedInteraction] = sink.mock.calls[0];
+		expect(completedInteraction.id).toBe(interactionId);
+		expect(completedInteraction.vc).toBeUndefined();
+		expect(Object.prototype.hasOwnProperty.call(completedInteraction, 'vc')).toBe(false);
 	});
 });

@@ -9,7 +9,7 @@ interface IconProps extends Icon {
 }
 
 export const ICON_TYPE_TEST_ID = 'link-datasource-render-type--icon';
-export const ICON_TYPE_TEXT_TEST_ID = `${ICON_TYPE_TEST_ID}-text`;
+export const ICON_TYPE_TEXT_TEST_ID: "link-datasource-render-type--icon-text" = `${ICON_TYPE_TEST_ID}-text`;
 
 const IconRenderType = ({
 	label,

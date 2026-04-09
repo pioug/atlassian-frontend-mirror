@@ -28,7 +28,7 @@ const LinkCreateWithAnalyticsContext = withLinkCreateAnalyticsContext(
 	}),
 );
 
-const ComposedLinkCreate = memo((props: LinkCreateWithModalProps): React.JSX.Element => {
+const ComposedLinkCreate: React.MemoExoticComponent<(props: LinkCreateWithModalProps) => React.JSX.Element> = memo((props: LinkCreateWithModalProps): React.JSX.Element => {
 	return (
 		<AnalyticsContext data={PACKAGE_DATA}>
 			<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>

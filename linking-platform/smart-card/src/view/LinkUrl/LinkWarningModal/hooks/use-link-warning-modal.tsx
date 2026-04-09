@@ -13,7 +13,7 @@ const toUrl = (url: string, base?: string): URL | undefined => {
 	}
 };
 
-export const useLinkWarningModal = () => {
+export const useLinkWarningModal = (): { isLinkSafe: (event: MouseEvent<HTMLAnchorElement>, href: string | undefined) => boolean; isOpen: boolean; onClose: () => void; onContinue: () => void; showSafetyWarningModal: (event: MouseEvent<HTMLAnchorElement>, href: string | undefined) => void; unsafeLinkText: string | null; url: string | null; } => {
 	const [unsafeLinkText, setUnsafeLinkText] = useState<string | null>(null);
 	const [url, setUrl] = useState<string | null>(null);
 	const [isOpen, setIsOpen] = useState<boolean>(false);

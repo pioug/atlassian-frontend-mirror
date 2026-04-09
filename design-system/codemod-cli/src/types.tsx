@@ -64,6 +64,3 @@ export type ValidateShape<T, Shape> = T extends Shape
 		? T
 		: never
 	: never;
-
-export class ValidationError extends Error {}
-export class NoTransformsExistError extends Error {}

@@ -50,7 +50,7 @@ export const BasicSearchInput = ({
 	fullWidth,
 	testId,
 	ariaLabel,
-}: BasicSearchInputProps) => {
+}: BasicSearchInputProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 

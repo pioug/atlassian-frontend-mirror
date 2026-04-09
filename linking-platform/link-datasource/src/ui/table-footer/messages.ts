@@ -1,6 +1,28 @@
 import { defineMessages } from 'react-intl-next';
 
-export const footerMessages = defineMessages({
+export const footerMessages: {
+    itemText: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; loadingText: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; refreshLabel: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; powerByJSM: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; poweredByAssets: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    };
+} = defineMessages({
 	itemText: {
 		id: 'linkDataSource.table-footer.item',
 		description: 'Text that appears after item count number.',

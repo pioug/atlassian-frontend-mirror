@@ -41,7 +41,7 @@ const AISummary = ({
 	className,
 	testId = 'ai-summary',
 	minHeight = 0,
-}: AISummaryProps) => {
+}: AISummaryProps): JSX.Element | null => {
 	if (!content && minHeight === 0) {
 		return null;
 	}

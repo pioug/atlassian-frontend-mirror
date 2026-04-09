@@ -42,7 +42,14 @@ export interface NavigationContext {
 	 * the link to know it is being rendered inside a preview panel and should open in a new tab.
 	 */
 	forceExternalIntent?: boolean;
-	navigate: (url: string) => void;
+	/**
+	 * SPA navigation for Teams app routes. When omitted, those routes use the browser's default
+	 * navigation (full page load).
+	 */
+	navigate?: (url: string) => void;
+	/**
+	 * Opens a preview panel for the given ARI and name.
+	 */
 	openPreviewPanel?: (props: PreviewPanelOpenProps) => void;
 	/**
 	 * @deprecated This was previously used to prefix relative hrefs so they
@@ -149,7 +156,8 @@ export function getNavigationProps(input: NavigationInput): NavigationByIntent {
 			if (
 				isTeamsAppRoute(href) && // only SPA navigate for townsquare routes
 				e.button === 0 && // only use navigate for left mouse button clicks
-				!isModified(e) // let browser handle clicks with modifier
+				!isModified(e) && // let browser handle clicks with modifier
+				context.navigate // only use navigate when a handler is provided
 			) {
 				e.preventDefault();
 				const routePath = getRoutePathFromUrl(href);

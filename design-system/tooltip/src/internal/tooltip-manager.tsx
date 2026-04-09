@@ -4,7 +4,23 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { FakeMouseElement } from '../types';
 
-import { clearScheduled, scheduleTimeout } from './shared-schedule';
+let delayId: number | null = null;
+
+function clearScheduled(): void {
+	if (delayId != null) {
+		window.clearTimeout(delayId);
+		delayId = null;
+	}
+}
+
+function scheduleTimeout(fn: () => void, delay: number): void {
+	clearScheduled();
+
+	delayId = window.setTimeout(() => {
+		delayId = null;
+		fn();
+	}, delay);
+}
 
 // This file is a singleton for managing tooltips
 

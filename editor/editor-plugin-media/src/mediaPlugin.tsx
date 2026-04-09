@@ -459,7 +459,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 		pluginsOptions: {
 			quickInsert: ({ formatMessage }) =>
-				!api?.mediaInsert && fg('platform_editor_media_insert_check')
+				!api?.mediaInsert
 					? [
 							{
 								id: 'media',

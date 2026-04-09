@@ -1,6 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
-export const searchInputMessages = defineMessages({
+export const searchInputMessages: {
+    placeholder: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    }; helpTooltipText: {
+        id: string;
+        description: string;
+        defaultMessage: string;
+    };
+} = defineMessages({
 	placeholder: {
 		id: 'linkDataSource.assets.configModal.aqlSearchInput.placeholder',
 		description: 'Display text for AQL search button',

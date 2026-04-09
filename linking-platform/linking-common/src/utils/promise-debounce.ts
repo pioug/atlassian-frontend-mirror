@@ -13,7 +13,7 @@ export function promiseDebounce<Args extends unknown[], ResolveType extends unkn
 
 	// Returns a promise that fires the debounce fn and pushes a resolver
 	// to have the debounced result resolved
-	return (...args: Args) => {
+	return (...args: Args): Promise<ResolveType> => {
 		timeoutId && clearTimeout(timeoutId);
 		return new Promise<ResolveType>((resolve, reject) => {
 			timeoutId = setTimeout(() => {

@@ -69,7 +69,7 @@ export const EditPostCreateModalProvider = ({
 	);
 };
 
-export const useEditPostCreateModal = () => {
+export const useEditPostCreateModal = (): EditPostCreateModalContextValue => {
 	const value = useContext(EditPostCreateModalContext);
 
 	if (!value) {

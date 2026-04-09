@@ -41,4 +41,5 @@ const ErroredView = ({ testId = 'smart-block-errored-view', ...props }: Flexible
 	);
 };
 
-export default withFlexibleUIBlockCardStyle(ErroredView);
+const _default_1: (props: FlexibleBlockCardProps) => JSX.Element = withFlexibleUIBlockCardStyle(ErroredView);
+export default _default_1;

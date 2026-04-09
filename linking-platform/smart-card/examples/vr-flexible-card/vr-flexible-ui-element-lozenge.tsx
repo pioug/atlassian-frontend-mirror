@@ -33,7 +33,7 @@ const overrideCss = css({
 });
 const widths = [50, '100px', 250];
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

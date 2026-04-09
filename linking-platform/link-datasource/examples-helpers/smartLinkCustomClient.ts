@@ -42,8 +42,8 @@ const mockedFetch = (url: string): Promise<JsonLd.Response> => {
 };
 
 class SmartLinkClient extends CardClient {
-	prefetchData = mockedFetch;
-	fetchData = mockedFetch;
+	prefetchData: (url: string) => Promise<JsonLd.Response> = mockedFetch;
+	fetchData: (url: string) => Promise<JsonLd.Response> = mockedFetch;
 }
 
 export default SmartLinkClient;

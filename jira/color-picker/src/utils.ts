@@ -1,15 +1,23 @@
 import { COLOR_CARD_SIZE } from './constants';
-import memoizeOne from 'memoize-one';
-import { Mode, type Palette } from './types';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
+import { Mode, type Color, type Palette } from './types';
 
-export const getWidth = (cols: number, mode?: Mode) => {
+export const getWidth = (cols: number, mode?: Mode): number => {
 	const width = cols * (COLOR_CARD_SIZE + 4);
 
 	return mode === Mode.Standard ? width + 8 : width;
 };
 
-export const getOptions = memoizeOne(
-	(palette: Palette, selectedColor?: string, showDefaultSwatchColor?: boolean) => {
+export const getOptions: MemoizedFn<(palette: Palette, selectedColor?: string, showDefaultSwatchColor?: boolean) => {
+    options: Palette;
+    value: Color;
+    focusedItemIndex: number;
+}> = memoizeOne(
+	(palette: Palette, selectedColor?: string, showDefaultSwatchColor?: boolean): {
+        options: Palette;
+        value: Color;
+        focusedItemIndex: number;
+    } => {
 		let focusedItemIndex = 0;
 		let defaultSelectedColor = palette[0];
 		if (!showDefaultSwatchColor) {

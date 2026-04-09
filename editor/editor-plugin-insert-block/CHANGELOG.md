@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 9.0.24
+
+### Patch Changes
+
+- [`b42704f7ca9d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b42704f7ca9d8) -
+  Clean up stale feature flag `platform_editor_media_insert_check` (final value: `true`). The
+  flag-gated code paths are now the default behaviour — media insert popup is shown via
+  `mediaInsert` plugin when available, falling back to the legacy `showMediaPicker`.
+- Updated dependencies
+
+## 9.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.22
 
 ### Patch Changes

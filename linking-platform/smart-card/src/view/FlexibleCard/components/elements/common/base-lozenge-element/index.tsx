@@ -74,7 +74,7 @@ const BaseLozengeElement = ({
 	testId = 'smart-element-lozenge',
 	isDateTag,
 	trailingMetric,
-}: BaseLozengeElementProps) => {
+}: BaseLozengeElementProps): JSX.Element | null => {
 	const ui = useFlexibleUiOptionContext();
 	if (!text) {
 		return null;

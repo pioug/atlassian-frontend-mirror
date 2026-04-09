@@ -35,7 +35,93 @@ export const GithubFile = {
 	},
 } as JsonLd.Response;
 
-export const GithubPullRequestJson = {
+export const GithubPullRequestJson: {
+    meta: {
+        visibility: string;
+        access: string;
+        resourceType: string;
+        key: string;
+    }; data: {
+        '@context': {
+            '@vocab': string;
+            atlassian: string;
+            schema: string;
+        };
+        '@id': string;
+        '@type': string[];
+        url: string;
+        'atlassian:isMerged': boolean;
+        'atlassian:mergeCommit': {
+            '@type': string;
+            href: string;
+        };
+        'atlassian:mergeDestination': {
+            '@type': string;
+            href: string;
+        };
+        'atlassian:mergeSource': {
+            '@type': string;
+            href: string;
+        };
+        'atlassian:mergeable': boolean;
+        'atlassian:mergedBy': undefined;
+        'atlassian:reviewedBy': {
+            '@type': string;
+            icon: string;
+            name: string;
+        }[];
+        'atlassian:reviewer': {
+            '@type': string;
+            icon: string;
+            name: string;
+        }[];
+        'atlassian:state': string;
+        'atlassian:updatedBy': {
+            '@type': string;
+            icon: string;
+            name: string;
+        };
+        attributedTo: {
+            '@type': string;
+            icon: string;
+            name: string;
+        };
+        audience: {
+            '@type': string;
+            icon: string;
+            name: string;
+        }[];
+        context: {
+            '@type': string;
+            name: string;
+            url: string;
+        };
+        generator: {
+            '@type': string;
+            icon: {
+                '@type': string;
+                url: string;
+            };
+            name: string;
+        };
+        icon: {
+            '@type': string;
+            url: string;
+        };
+        name: string;
+        'schema:dateCreated': string;
+        'schema:potentialAction': undefined;
+        'schema:programmingLanguage': string;
+        summary: string;
+        tags: {
+            '@type': string;
+            id: number;
+            name: string;
+            url: string;
+        }[];
+        updated: string;
+    };
+} = {
 	meta: {
 		visibility: 'restricted',
 		access: 'granted',

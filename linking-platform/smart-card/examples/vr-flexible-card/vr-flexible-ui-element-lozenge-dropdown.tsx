@@ -18,7 +18,7 @@ const context = getContext({
 	state: { text: 'State' },
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

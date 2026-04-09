@@ -6,11 +6,9 @@ import { ThemeProvider, useColorMode } from '@atlaskit/app-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useIsomorphicLayoutEffect } from '../hooks/use-isomorphic-layout-effect';
-import {
-	createAtlaskitPortal,
-	createPortalParent,
-	removePortalParent,
-} from '../utils/portal-dom-utils';
+import { createAtlaskitPortal } from '../utils/create-atlaskit-portal';
+import { createPortalParent } from '../utils/create-portal-parent';
+import { removePortalParent } from '../utils/remove-portal-parent';
 
 interface InternalPortalProps {
 	children: React.ReactNode;

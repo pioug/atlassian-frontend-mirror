@@ -19,7 +19,7 @@ interface FormContextType {
 	enableEditView?: ((editButtonClicked: boolean) => void) | undefined;
 }
 
-export const FormContext = createContext<FormContextType>({
+export const FormContext: React.Context<FormContextType> = createContext<FormContextType>({
 	setFormErrorMessage: () => {},
 	enableEditView: undefined,
 });
@@ -53,7 +53,7 @@ const FormContextProvider = ({
 	);
 };
 
-const useFormContext = () => useContext(FormContext);
+const useFormContext = (): FormContextType => useContext(FormContext);
 
 export { FormContextProvider, useFormContext };
 

@@ -23,8 +23,8 @@ const createExample = (props: Partial<AsyncSelectProps> = {}): React.ComponentTy
 	};
 };
 
-export const DefaultAsyncSelect = createExample();
-export const AsyncSelectorAllProps = createExample({
+export const DefaultAsyncSelect: React.ComponentType<{}> = createExample();
+export const AsyncSelectorAllProps: React.ComponentType<{}> = createExample({
 	validationHelpText: 'this is a validation help text',
 	isRequired: true,
 });

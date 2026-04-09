@@ -205,11 +205,6 @@ async function createInteractionExtraLogPayload(
 		return null;
 	}
 
-	if (hasMinorInteractions && !fg('platform_ufo_send_extra_metrics_on_dirty_vc')) {
-		// Not send if aborted by minor interaction, unless feature gate is on
-		return null;
-	}
-
 	const calculatePageVisibilityFromTheStartOfPageLoad =
 		config.enableBetterPageVisibilityApi && isPageLoad;
 
@@ -233,15 +228,8 @@ async function createInteractionExtraLogPayload(
 	const isVCCleanFor3p = effectiveVCRevisionPayload?.clean ?? false;
 	const vcAbortReasonFor3p = effectiveVCRevisionPayload?.abortReason ?? undefined;
 
-	const allowDirtyVC = fg('platform_ufo_send_extra_metrics_on_dirty_vc');
-
 	// Always require valid TTAI
 	if (extraTTAI === undefined || typeof extraTTAI !== 'number') {
-		return null;
-	}
-
-	// When feature gate is off, require no errors; when on, allow errors through
-	if (interaction.errors.length > 0 && !fg('platform_ufo_send_extra_metrics_on_dirty_vc')) {
 		return null;
 	}
 
@@ -253,11 +241,8 @@ async function createInteractionExtraLogPayload(
 		) {
 			return null;
 		}
-	} else if (!allowDirtyVC) {
-		// When VC is dirty and feature gate is off, preserve existing behavior
-		return null;
 	}
-	// When VC is dirty and feature gate is on, continue to send payload
+	// When VC is dirty, continue to send payload
 
 	// Get normal TTAI & VC90 for last finished interaction (without 3p)
 	if (
@@ -291,8 +276,6 @@ async function createInteractionExtraLogPayload(
 		if (lastInteractionFinishRevision?.clean) {
 			lastInteractionFinishVCClean = true;
 			lastInteractionFinishVC90 = lastInteractionFinishRevision['metric:vc90'];
-		} else if (!allowDirtyVC) {
-			return null;
 		}
 	} else if (
 		normalTTAI !== undefined &&

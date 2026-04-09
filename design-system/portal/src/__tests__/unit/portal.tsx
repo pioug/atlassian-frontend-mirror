@@ -10,7 +10,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '../../constants';
 import Portal from '../../index';
 import { portalParentSelector } from '../../internal/constants';
-import * as domUtils from '../../internal/utils/portal-dom-utils';
+import * as createContainerModule from '../../internal/utils/create-container';
 
 replaceRaf();
 
@@ -21,7 +21,7 @@ const zIndex = (elem: HTMLElement | void) =>
 
 const onMountListener = jest.fn();
 const onUnmountListener = jest.fn();
-const createContainerSpy = jest.spyOn(domUtils, 'createContainer');
+const createContainerSpy = jest.spyOn(createContainerModule, 'createContainer');
 const effectSpy = jest.spyOn(React, 'useEffect');
 
 const getElementByText = (text: string, elements: HTMLCollectionOf<Element>) =>

@@ -12,7 +12,6 @@ type Pattern =
 
 export type RuleConfig = {
 	failSilently: boolean;
-	shouldEnforceFallbacks: boolean;
 	enableUnsafeAutofix: boolean;
 	patterns: Pattern[];
 };
@@ -23,9 +22,6 @@ export const ruleSchema: JSONSchema4 = {
 		type: 'object',
 		properties: {
 			failSilently: {
-				type: 'boolean',
-			},
-			shouldEnforceFallbacks: {
 				type: 'boolean',
 			},
 			enableUnsafeAutofix: {
@@ -51,7 +47,6 @@ export const ruleSchema: JSONSchema4 = {
 
 const defaultConfig: RuleConfig = {
 	failSilently: false,
-	shouldEnforceFallbacks: false,
 	enableUnsafeAutofix: false,
 	patterns: [
 		'style-object',

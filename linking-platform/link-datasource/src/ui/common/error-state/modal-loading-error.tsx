@@ -44,7 +44,7 @@ interface ModalLoadingErrorProps {
 export const ModalLoadingError = ({
 	errorMessage = <FormattedMessage {...loadingErrorMessages.checkConnection} />,
 	onRefresh,
-}: ModalLoadingErrorProps) => {
+}: ModalLoadingErrorProps): JSX.Element => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	useEffect(() => {

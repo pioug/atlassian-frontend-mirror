@@ -28,6 +28,6 @@ export default function Component(): React.JSX.Element {
 	);
 }
 
-export const VREmptyStateHoverable = withWaitForItem(Component, () => {
+export const VREmptyStateHoverable: React.ComponentType<object> = withWaitForItem(Component, () => {
 	return document.body.querySelector('[data-testid="examples-hoverable-container"]') !== null;
 });

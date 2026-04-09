@@ -29,7 +29,6 @@ import { overlay } from '../styles';
 
 import { isEmptyBodiedMacro } from './extension-utils';
 import {
-	content,
 	contentWrapper,
 	extensionContent,
 	header,
@@ -223,10 +222,6 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		}
 	};
 
-	const extensionContentStyles = expValEquals('platform_editor_extension_styles', 'isEnabled', true)
-		? extensionContent
-		: content;
-
 	return (
 		<Fragment>
 			{!showLegacyContentHeader && showMacroInteractionDesignUpdates && !isLivePageViewMode && (
@@ -320,7 +315,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 								<div
 									data-testid="extension-content"
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-									css={extensionContentStyles}
+									css={extensionContent}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 									className={contentClassNames}
 								>

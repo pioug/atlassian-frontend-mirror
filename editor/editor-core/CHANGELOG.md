@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 217.12.2
+
+### Patch Changes
+
+- [`bdf26fccd150d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdf26fccd150d) -
+  Clean up feature flag platform_editor_find_codeblock_color_contrast_fix (permanently enabled)
+- Updated dependencies
+
+## 217.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 217.12.0
+
+### Minor Changes
+
+- [`a223340e9d81e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a223340e9d81e) -
+  Fix cross-package barrel imports from search packages
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 217.11.0
 
 ### Minor Changes

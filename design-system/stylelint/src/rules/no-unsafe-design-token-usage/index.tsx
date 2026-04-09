@@ -4,8 +4,11 @@ import stylelint, { type Rule, type RuleBase } from 'stylelint';
 import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { getCSSCustomProperty } from '@atlaskit/tokens/token-ids';
 
-import { isFunction, isVar, isWord } from '../../utils/rules';
-import { getDefaultTokenValue, isToken } from '../../utils/tokens';
+import { getDefaultTokenValue } from '../../utils/get-default-token-value';
+import { isFunction } from '../../utils/is-function';
+import { isToken } from '../../utils/is-token';
+import { isVar } from '../../utils/is-var';
+import { isWord } from '../../utils/is-word';
 
 type PluginFlags = {
 	shouldEnsureFallbackUsage: boolean;

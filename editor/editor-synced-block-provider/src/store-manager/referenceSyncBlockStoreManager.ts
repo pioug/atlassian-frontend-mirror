@@ -117,6 +117,10 @@ export class ReferenceSyncBlockStoreManager {
 		this.setSSRDataInSessionCache(this.dataProvider?.getNodeDataCacheKeys());
 	}
 
+	public isReferenceBlock(node: PMNode): boolean {
+		return node.type.name === 'syncBlock';
+	}
+
 	/**
 	 * Enables or disables real-time GraphQL subscriptions for block updates.
 	 * When enabled, the store manager will subscribe to real-time updates

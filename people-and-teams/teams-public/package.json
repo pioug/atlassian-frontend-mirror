@@ -53,6 +53,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/teams-app-internal-analytics": "workspace:^",
+		"@atlaskit/teams-app-internal-navigation": "workspace:^",
 		"@atlaskit/teams-app-internal-product-permissions": "workspace:^",
 		"@atlaskit/teams-client": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -118,7 +119,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.74.0",
+	"version": "0.74.1",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -149,6 +150,9 @@
 			"type": "boolean"
 		},
 		"workforce_optimization_team_modal_update": {
+			"type": "boolean"
+		},
+		"ptc-links-migrate-atlaskit-anchor-to-teams-anchor": {
 			"type": "boolean"
 		}
 	}

@@ -54,7 +54,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -370,10 +369,7 @@ export const getToolbarConfig =
 
 					// Removing popupWidth to ensure that we the popup always positions setting positon left instead of flipping to position right
 					// inside of a narrow space like Preview panel
-					const popupWidth =
-						!lpLinkPicker && fg('platform_editor_link_picker_width_fix')
-							? undefined
-							: RECENT_SEARCH_WIDTH_IN_PX;
+					const popupWidth = !lpLinkPicker ? undefined : RECENT_SEARCH_WIDTH_IN_PX;
 
 					return {
 						...hyperLinkToolbar,

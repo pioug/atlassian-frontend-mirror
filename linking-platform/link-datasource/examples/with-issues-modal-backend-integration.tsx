@@ -30,7 +30,7 @@ const tableContainerStyles = css({
 
 forceBaseUrl('https://pug.jira-dev.com');
 
-export default () => {
+export default (): JSX.Element => {
 	const [generatedAdf, setGeneratedAdf] = useState<
 		InlineCardAdf | JiraIssuesDatasourceAdf | DatasourceAdf | null
 	>(null);

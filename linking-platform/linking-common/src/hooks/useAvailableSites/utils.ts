@@ -8,7 +8,15 @@ const getUrlPath = (url: string) => {
 	}
 };
 
-export const getNetworkFields = (error: unknown) => {
+export const getNetworkFields = (error: unknown): {
+    traceId: string | null;
+    status: number;
+    path: string;
+} | {
+    traceId: null;
+    status: null;
+    path: null;
+} => {
 	if (error instanceof Response) {
 		return {
 			traceId: getTraceId(error),
@@ -30,7 +38,19 @@ export const getErrorType = (error: unknown): string => {
 	return typeof error;
 };
 
-export const getOperationFailedAttributes = (err: unknown) => {
+export const getOperationFailedAttributes = (err: unknown): {
+    traceId: string | null;
+    status: number;
+    path: string;
+    error: string;
+    errorType: string;
+} | {
+    traceId: null;
+    status: null;
+    path: null;
+    error: string;
+    errorType: string;
+} => {
 	if (err instanceof Response) {
 		return {
 			error: 'NetworkError',

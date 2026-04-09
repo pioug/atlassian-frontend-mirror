@@ -1,5 +1,20 @@
 # @atlaskit/link-picker
 
+## 4.2.22
+
+### Patch Changes
+
+- [`3b4f9743f0c18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b4f9743f0c18) -
+  Enrol navigation and linking-platform packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+- Updated dependencies
+
+## 4.2.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.20
 
 ### Patch Changes

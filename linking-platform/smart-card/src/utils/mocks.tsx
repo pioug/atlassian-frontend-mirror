@@ -108,7 +108,78 @@ const entityDataResponse = {
 	},
 };
 
-export const mocks = {
+export const mocks: {
+	success: JsonLd.Response; entityDataSuccess: SmartLinkResponse; notFound: JsonLd.Response; forbidden: JsonLd.Response; forbiddenWithNoAuth: JsonLd.Response; unauthorized: JsonLd.Response; unauthorizedWithNoAuth: JsonLd.Response; actionSuccess: {
+		meta: {
+			visibility: string;
+			access: string;
+			auth: never[];
+			definitionId: string;
+		};
+		data: {
+			status: string;
+		};
+	}; analytics: {
+		status: "resolved";
+		details: {
+			meta: {
+				visibility: "public";
+				access: "granted";
+				auth: never[];
+				definitionId: string;
+				key: string;
+				resourceType: string;
+				subproduct: string;
+				product: string;
+			};
+		};
+	}; withDatasource: {
+		meta: {
+			visibility: string;
+			access: string;
+			auth: never[];
+			definitionId: string;
+			key: string;
+		};
+		data: {
+			summary: string;
+			'schema:potentialAction': {
+				'@id': string;
+				'@type': string;
+				identifier: string;
+				name: string;
+			};
+			'atlassian:downloadUrl': string;
+			'atlassian:ari': string;
+			preview: {
+				href: string;
+			};
+			icon: {
+				'@type': string;
+				url: string;
+			};
+			'@context': {
+				'@vocab': string;
+				atlassian: string;
+				schema: string;
+			};
+			'@type': string;
+			name: string;
+			url: string;
+		};
+		datasources: {
+			key: string;
+			parameters: {
+				jql: string;
+				cloudId: string;
+			};
+			id: string;
+			ari: string;
+			description: string;
+			name: string;
+		}[];
+	};
+} = {
 	success: {
 		...jsonLdResponse,
 	} as JsonLd.Response,
@@ -248,7 +319,7 @@ export const mocks = {
 		],
 	},
 };
-export const fakeResponse = () => Promise.resolve(mocks.success);
+export const fakeResponse = (): Promise<JsonLd.Response<JsonLd.Data.BaseData>> => Promise.resolve(mocks.success);
 
 export const fakeFactory: any = (
 	implementation: (url: string) => Promise<JsonLd.Response>,
@@ -275,4 +346,4 @@ export const fakeFactory: any = (
 		}
 	};
 
-export const waitFor = (time = 1) => new Promise((res) => setTimeout(res, time));
+export const waitFor = (time = 1): Promise<void> => new Promise((res) => setTimeout(res, time));

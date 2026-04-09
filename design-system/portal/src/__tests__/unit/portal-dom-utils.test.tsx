@@ -1,4 +1,4 @@
-import { removePortalParent } from '../../internal/utils/portal-dom-utils';
+import { removePortalParent } from '../../internal/utils/remove-portal-parent';
 
 describe('portal-dom-utils', () => {
 	describe('removePortalParent', () => {

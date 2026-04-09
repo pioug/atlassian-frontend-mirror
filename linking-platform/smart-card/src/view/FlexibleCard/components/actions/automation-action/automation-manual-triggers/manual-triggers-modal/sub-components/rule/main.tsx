@@ -42,7 +42,7 @@ export const AutomationModalRule = ({
 	rule,
 	selectedRule,
 	setSelectedRule,
-}: AutomationModalRuleProps) => {
+}: AutomationModalRuleProps): JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const { analyticsSource, invokingRuleId } = useAutomationMenu();

@@ -22,7 +22,7 @@ const snippetBaseStyle = css({
 
 export type SnippetElementProps = BaseTextElementProps;
 
-const SnippetElement = (props: SnippetElementProps) => {
+const SnippetElement = (props: SnippetElementProps): JSX.Element => {
 	const {
 		content: overrideContent,
 		maxLines = SNIPPET_DEFAULT_MAX_LINES,

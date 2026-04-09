@@ -1,4 +1,4 @@
-import { colors, typography } from '@atlaskit/theme';
+import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 import evaluateInner from './utils/evaluate-inner';
@@ -213,7 +213,7 @@ const _default_1: string = evaluateInner`
 
   /* Other typographical elements */
   small {
-    font: ${token('font.body.small', typography.fontFallback.body.small)};
+    font: ${token('font.body.small', `normal 400 11px/16px ${fontFamily}`)};
   }
 
   code,

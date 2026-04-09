@@ -16,7 +16,7 @@ const genericErrorStyles = css({
 
 const id = 'related-links-unavailable-svg';
 
-export const SpotSearchNoResult = (props: React.SVGProps<SVGSVGElement>) => {
+export const SpotSearchNoResult = (props: React.SVGProps<SVGSVGElement>): JSX.Element => {
 	const { colorMode } = useThemeObserver();
 
 	return colorMode === 'dark' ? (

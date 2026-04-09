@@ -41,7 +41,7 @@ interface NoResultsProps {
 	onRefresh?: () => void;
 }
 
-export const NoResults = ({ onRefresh }: NoResultsProps) => {
+export const NoResults = ({ onRefresh }: NoResultsProps): JSX.Element => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	const { formatMessage } = useIntl();

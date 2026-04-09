@@ -3,9 +3,9 @@
  *
  * Generated prop types for Global component - Sidebar
  *
- * @codegen <<SignedSource::3bd4acf60ee712140979357d54211bc5>>
+ * @codegen <<SignedSource::feee23952eb932a49578c51095f16c74>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::aab578f2ba0895fc1b3cb93dbae44c0f>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::c749a1bc5e1017e1bcbe09febba5a9a3>>
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Sidebar.tsx <<SignedSource::f6abab9890c10249756d7e8f73e34e85>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

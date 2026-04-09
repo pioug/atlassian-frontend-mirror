@@ -28,7 +28,7 @@ const linkIconStyles = css({
 
 const context = getContext();
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<FlexibleCardContext.Provider value={{ data: context }}>

@@ -53,7 +53,7 @@ export const TableFooter = ({
 	onRefresh,
 	isLoading,
 	url,
-}: TableFooterProps) => {
+}: TableFooterProps): JSX.Element | null => {
 	const intl = useIntl();
 	const [lastSyncTime, setLastSyncTime] = useState(new Date());
 

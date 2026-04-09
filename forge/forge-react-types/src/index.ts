@@ -178,4 +178,8 @@ export type {
 	TMain,
 	HelpLinkProps,
 	THelpLink,
+	PersonalSettingsProps,
+	TPersonalSettings,
+	PersonalSettingsItemProps,
+	TPersonalSettingsItem,
 } from './components/global/__generated__';

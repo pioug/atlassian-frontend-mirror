@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::65bb623680260c7e030f7e50835c1813>>
+ * @codegen <<SignedSource::1de0ac3898ac4798bed5b01b0c1ec021>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1444,6 +1444,20 @@ export type UserProfileAboutTeamsViewedAttributesType = {
 	isNewUserProfile: boolean | null;
 };
 export type UserProfileWorkingWithMeViewedAttributesType = undefined;
+export type UserProfileWorkingWithMeEmptyStateViewedAttributesType = undefined;
+export type WorkingWithMeEditButtonClickedAttributesType = undefined;
+export type WorkingWithMeSavedAttributesType = {
+	isEmpty: boolean;
+};
+export type WorkingWithMeSaveFailedAttributesType = undefined;
+export type WorkingWithMeCancelButtonClickedAttributesType = undefined;
+export type AddPronounsButtonClickedAttributesType = undefined;
+export type EditPronounsButtonClickedAttributesType = undefined;
+export type PronounsModalCancelledAttributesType = undefined;
+export type PronounsSavedAttributesType = {
+	isUpdate: boolean;
+};
+export type PronounsSaveFailedAttributesType = undefined;
 export type TeamAgentsPanelViewedAttributesType = {
 	activeAgentsCount: number;
 };
@@ -2564,6 +2578,36 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when user profile working with me section is viewed (only when section has content) */
 	'screen.userProfileWorkingWithMe.viewed': UserProfileWorkingWithMeViewedAttributesType;
+	/**
+	 * fired when user profile working with me empty state is viewed (only when section has no content) */
+	'screen.userProfileWorkingWithMeEmptyState.viewed': UserProfileWorkingWithMeEmptyStateViewedAttributesType;
+	/**
+	 * fired when user clicks the edit button on the working with me section */
+	'ui.workingWithMeEditButton.clicked': WorkingWithMeEditButtonClickedAttributesType;
+	/**
+	 * fired when user saves the working with me section */
+	'track.workingWithMe.saved': WorkingWithMeSavedAttributesType;
+	/**
+	 * fired when saving the working with me section fails */
+	'track.workingWithMe.saveFailed': WorkingWithMeSaveFailedAttributesType;
+	/**
+	 * fired when user clicks the cancel button on the working with me section */
+	'ui.workingWithMeCancelButton.clicked': WorkingWithMeCancelButtonClickedAttributesType;
+	/**
+	 * fired when user clicks the add pronouns button on the user profile header */
+	'ui.addPronounsButton.clicked': AddPronounsButtonClickedAttributesType;
+	/**
+	 * fired when user clicks the edit pronouns button on the user profile header */
+	'ui.editPronounsButton.clicked': EditPronounsButtonClickedAttributesType;
+	/**
+	 * fired when user cancels or closes the add/edit pronouns modal */
+	'ui.pronounsModal.cancelled': PronounsModalCancelledAttributesType;
+	/**
+	 * fired when user successfully saves pronouns */
+	'track.pronouns.saved': PronounsSavedAttributesType;
+	/**
+	 * fired when saving pronouns fails */
+	'track.pronouns.saveFailed': PronounsSaveFailedAttributesType;
 	/**
 	 * fired when team agents panel is viewed */
 	'screen.teamAgentsPanel.viewed': TeamAgentsPanelViewedAttributesType;

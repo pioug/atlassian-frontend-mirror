@@ -40,7 +40,7 @@ export const extractCloudIdAndProductFromSite = (
  * model language is used here, even though for the meantime we only concern ourselves with alerts.
  *
  */
-export const getSearchUrl = async (site: Ari) => {
+export const getSearchUrl = async (site: Ari): Promise<string> => {
 	const { product, cloudId } = extractCloudIdAndProductFromSite(site);
 	// TODO in the unified API, GET requests as according to Atlassian API standards will destructure the whole query into
 	// query parameters as part of the URL. For now, this is considered a POST request instead and thus the query is used

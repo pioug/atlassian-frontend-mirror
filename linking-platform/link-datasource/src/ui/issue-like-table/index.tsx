@@ -30,7 +30,7 @@ import { useIsInPDFRender } from '../../hooks/useIsInPDFRender';
 import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
-import TableEmptyState from './empty-state';
+import TableEmptyState, { type Props } from './empty-state';
 import { renderType } from './render-type';
 import { TableCellContent } from './table-cell-content';
 import {
@@ -265,7 +265,7 @@ const sortColumns = (
 export const getOrderedColumns = (
 	columns: DatasourceResponseSchemaProperty[],
 	visibleColumnKeys: string[],
-) => {
+): DatasourceResponseSchemaProperty[] => {
 	const visibleColumns = columns
 		.filter((column) => visibleColumnKeys.includes(column.key))
 		.sort((a, b) => {
@@ -327,7 +327,7 @@ export const IssueLikeDataTableView = ({
 	hasNextPage,
 	scrollableContainerHeight,
 	extensionKey,
-}: IssueLikeDataTableViewProps) => {
+}: IssueLikeDataTableViewProps): JSX.Element => {
 	const tableId = useMemo(() => Symbol('unique-id'), []);
 
 	const experienceId = useDatasourceExperienceId();
@@ -744,4 +744,4 @@ export const IssueLikeDataTableView = ({
 	return <FlagsProvider>{view}</FlagsProvider>;
 };
 
-export const EmptyState = TableEmptyState;
+export const EmptyState: ({ isCompact, testId }: Props) => JSX.Element = TableEmptyState;

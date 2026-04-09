@@ -3,9 +3,9 @@
  *
  * Generated prop types for Global component - Main
  *
- * @codegen <<SignedSource::33ebf325eaa1b53499aec4588b3c3ba6>>
+ * @codegen <<SignedSource::652ff96cd8dd2ee0d20f7eb04a40843e>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::aab578f2ba0895fc1b3cb93dbae44c0f>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::c749a1bc5e1017e1bcbe09febba5a9a3>>
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Main.tsx <<SignedSource::bb974180859b074b1c9d5d968529207a>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

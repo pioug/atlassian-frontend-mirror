@@ -1,31 +1,10 @@
-import React, { createContext, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 
-import noop from '@atlaskit/ds-lib/noop';
-
-type OptionsInGroup = {
-	[key: string]: boolean | undefined;
-};
-
-type SelectionStoreContextProps = {
-	setItemState: (group: string, id: string, value: boolean | undefined) => void;
-	getItemState: (group: string, id: string) => boolean | undefined;
-	setGroupState: (group: string, value: OptionsInGroup) => void;
-	getGroupState: (group: string) => OptionsInGroup;
-};
-
-/**
- *
- * SelectionStoreContext maintains the state of the selected items
- * and getter setters.
- *
- */
-export const SelectionStoreContext: React.Context<SelectionStoreContextProps> =
-	createContext<SelectionStoreContextProps>({
-		setItemState: noop,
-		getItemState: () => undefined,
-		setGroupState: noop,
-		getGroupState: () => ({}),
-	});
+import {
+	type OptionsInGroup,
+	SelectionStoreContext,
+	type SelectionStoreContextProps,
+} from './selection-store-context';
 
 type SelectionStoreProps = {
 	children: React.ReactNode;

@@ -118,8 +118,7 @@ export const dragHandleDecoration = ({
 				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
 				marks: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
 					? []
-					: expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-						  fg('platform_editor_native_anchor_patch_1')
+					: expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 						? getActiveBlockMarks(editorState, pos)
 						: undefined,
 				destroy: (node: Node) => {

@@ -32,7 +32,7 @@ const loadingSkeletonStyle = css({
 	animationTimingFunction: 'linear',
 });
 
-export const LoadingSkeleton = ({ testId, width, height }: LoadingSkeletonProps) => {
+export const LoadingSkeleton = ({ testId, width, height }: LoadingSkeletonProps): JSX.Element => {
 	return (
 		<span
 			css={loadingSkeletonStyle}

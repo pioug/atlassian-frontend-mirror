@@ -74,7 +74,7 @@ export interface SearchContainerProps {
 	site?: Site;
 }
 
-export const JiraSearchContainer = (props: SearchContainerProps) => {
+export const JiraSearchContainer = (props: SearchContainerProps): JSX.Element => {
 	const {
 		isSearching,
 		parameters,

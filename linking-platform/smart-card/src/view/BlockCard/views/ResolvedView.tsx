@@ -135,4 +135,5 @@ const ResolvedView = ({
 	);
 };
 
-export default withFlexibleUIBlockCardStyle(ResolvedView);
+const _default_1: (props: FlexibleBlockCardProps) => JSX.Element = withFlexibleUIBlockCardStyle(ResolvedView);
+export default _default_1;

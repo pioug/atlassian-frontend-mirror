@@ -2,9 +2,9 @@ import React, { useContext, createContext, useMemo } from 'react';
 import { type CardContext } from './types';
 import { SmartCardProvider, type ProviderProps } from '../../provider';
 
-export const SmartCardContext = createContext<CardContext | undefined>(undefined);
+export const SmartCardContext: React.Context<CardContext | undefined> = createContext<CardContext | undefined>(undefined);
 
-export function useSmartLinkContext() {
+export function useSmartLinkContext(): CardContext {
 	const context = useContext(SmartCardContext);
 	if (!context) {
 		throw Error('useSmartCard() must be wrapped in <SmartCardProvider>');
@@ -13,7 +13,11 @@ export function useSmartLinkContext() {
 	return context;
 }
 
-export const useSmartCardContext = () => useContextMemoized(SmartCardContext);
+export const useSmartCardContext = (): {
+    Provider: React.Provider<CardContext | undefined>;
+    Consumer: React.Consumer<CardContext | undefined>;
+    value: CardContext | undefined;
+} => useContextMemoized(SmartCardContext);
 
 export const EditorSmartCardProviderValueGuard = ({
 	children,

@@ -31,4 +31,4 @@ const createExample = (): React.ComponentType => {
 	};
 };
 
-export const ErrorBoundary = createExample();
+export const ErrorBoundary: React.ComponentType<{}> = createExample();

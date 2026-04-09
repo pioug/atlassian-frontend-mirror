@@ -5,13 +5,20 @@ import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/u
 
 import type { SyncBlockAttrs, SyncBlockInfo, SyncBlockMap } from '../../types';
 
+/**
+ * Tracks changes to sync blocks in a transaction.
+ * @param predicate - A function that returns true if a node is a sync block (source or reference or both).
+ * @param tr - The transaction to track changes in.
+ * @param state - The editor state.
+ * @returns An object containing the removed and added sync blocks.
+ */
 export const trackSyncBlocks = (
 	predicate: (node: PMNode) => boolean,
 	tr: Transaction,
 	state: EditorState,
 ): {
-	removed: SyncBlockInfo[];
 	added: SyncBlockInfo[];
+	removed: SyncBlockInfo[];
 } => {
 	const removed: SyncBlockMap = {};
 	const added: SyncBlockMap = {};
@@ -28,8 +35,8 @@ export const trackSyncBlocks = (
 		(step) => step instanceof ReplaceStep || step instanceof ReplaceAroundStep,
 	) as (ReplaceStep | ReplaceAroundStep)[];
 
-	// this is a quick check to see if any insertion/deletion of bodiedSyncBlock happened
-	const hasBodiedSyncBlockChanges = replaceSteps.some((step) => {
+	// this is a quick check to see if any insertion/deletion of sync block happened
+	const hasSyncBlockChanges = replaceSteps.some((step) => {
 		const { from, to } = step;
 
 		const docAtStep = tr.docs[tr.steps.indexOf(step)];
@@ -68,7 +75,7 @@ export const trackSyncBlocks = (
 		return hasChange;
 	});
 
-	if (hasBodiedSyncBlockChanges) {
+	if (hasSyncBlockChanges) {
 		const oldDoc = state.doc;
 		const newDoc = tr.doc;
 

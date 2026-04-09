@@ -10,7 +10,7 @@ const stackItemIconStylesCompiled = css({
 	display: 'inline-block',
 });
 
-const ActionIcon = ({ testId, icon }: ActionIconProps) => {
+const ActionIcon = ({ testId, icon }: ActionIconProps): JSX.Element => {
 	return (
 		<span css={[stackItemIconStylesCompiled]} data-testid={`${testId}-icon`}>
 			{icon}

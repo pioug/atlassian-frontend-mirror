@@ -39,6 +39,10 @@ export type {
 
 export { BlockError, updateSyncedBlocks } from './clients/block-service/blockService';
 export {
+	extractGraphQLWSErrorMessage,
+	getConnectionDiagnosticsSummary,
+} from './clients/block-service/blockSubscription';
+export {
 	getConfluencePageAri,
 	getPageIdAndTypeFromConfluencePageAri,
 } from './clients/confluence/ari';

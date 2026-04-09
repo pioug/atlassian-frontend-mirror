@@ -5,6 +5,7 @@
  *
  * Support: p, ul, li, text, b, strong, code, inlineCard (replace a hyperlink)
  */
+import type { DocNode } from '@atlaskit/adf-schema';
 import { code, doc, inlineCard, p, b, ul, li, text } from '@atlaskit/adf-utils/builders';
 
 type HTMLToken =
@@ -164,7 +165,7 @@ const parseTokensToAdf = (tokens: HTMLToken[]) => {
  * This is a simplified version specific for RovoChatAction prompt message
  * and does not support all ADF offered via @atlaskit/adf-utils
  */
-const htmlToAdf = (html: string) => {
+const htmlToAdf = (html: string): string | DocNode => {
 	try {
 		const tokens = tokenizeHtml(html);
 		const adfContent = parseTokensToAdf(tokens);

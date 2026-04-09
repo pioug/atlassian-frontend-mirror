@@ -275,7 +275,7 @@ export class BodiedSyncBlock implements NodeView {
 		// update sync block data on initial creation
 		// When fg is ON, cache is populated in state.init() and updated in appendTransaction
 		if (!fg('platform_synced_block_update_refactor')) {
-			this.syncedBlockStore?.sourceManager.updateSyncBlockData(node);
+			this.syncedBlockStore?.sourceManager.updateSyncBlockData(node, false);
 		}
 	}
 
@@ -330,7 +330,7 @@ export class BodiedSyncBlock implements NodeView {
 			// When fg is ON, cache updates are handled in appendTransaction where we can
 			// filter out non-user changes (remote collab, table auto-scale, etc.)
 			if (!fg('platform_synced_block_update_refactor')) {
-				this.syncedBlockStore?.sourceManager.updateSyncBlockData(node);
+				this.syncedBlockStore?.sourceManager.updateSyncBlockData(node, false);
 			}
 		}
 		this.node = node;

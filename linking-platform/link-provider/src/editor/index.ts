@@ -286,5 +286,5 @@ export class EditorCardProvider implements CardProvider {
 }
 
 /** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-661 Internal documentation for deprecation (no external access)} */
-export const editorCardProvider = new EditorCardProvider();
+export const editorCardProvider: EditorCardProvider = new EditorCardProvider();
 export type { CardProvider, ORSCheckResponse } from './types';

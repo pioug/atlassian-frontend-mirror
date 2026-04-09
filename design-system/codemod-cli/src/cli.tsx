@@ -2,7 +2,9 @@ import chalk from 'chalk';
 import meow from 'meow';
 
 import main from './main';
-import { type CliFlags, NoTransformsExistError, ValidationError } from './types';
+import { NoTransformsExistError } from './no-transforms-exist-error';
+import type { CliFlags } from './types';
+import { ValidationError } from './validation-error';
 
 export async function run(): Promise<void> {
 	const cli = meow(

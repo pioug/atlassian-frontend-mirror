@@ -209,7 +209,37 @@ export const mocks = {
 			},
 		}) as JsonLd.Response,
 
-	unauthorized: (url: string) => {
+	unauthorized: (url: string): {
+        meta: {
+            access: string;
+            visibility: string;
+            auth: {
+                key: string;
+                displayName: string;
+                url: string;
+            }[];
+            definitionId: string;
+            key: string;
+            resourceType: string;
+        }; data: {
+            '@context': {
+                '@vocab': string;
+                atlassian: string;
+                schema: string;
+            };
+            '@type': string;
+            generator: {
+                icon?: {
+                    '@type': string;
+                    url: string;
+                } | undefined;
+                '@type': string;
+                name: string;
+            };
+            url: string;
+            image: any;
+        };
+    } => {
 		let key = 'google-object-provider';
 		let name = 'Google';
 		let icon = iconGoogleDrive;
@@ -280,15 +310,15 @@ const resolve = (
 		data: { ...response.data, ...overrideData, url },
 	} as JsonLd.Response<JsonLd.Data.BaseData>);
 
-export const ResolvedClientUrl = atlasProjectUrl;
-export const ResolvedClientUrlNoPreview = `${atlasProjectUrl}/no-preview`;
-export const ResolvedClientEmbedUrl = YouTubeVideoUrl;
-export const ResolvedClientEmbedInteractiveUrl = GoogleDocUrl;
-export const ResolvedClientWithLongTitleUrl = `${atlasProjectUrl}/long-title`;
-export const ResolvedClientWithTextHighlightInTitleUrl = `${atlasProjectUrl}/text-highlight-title`;
-export const ResolvedClientProfileUrl = `${atlasProjectUrl}/profile-url`;
+export const ResolvedClientUrl: "https://project-url" = atlasProjectUrl;
+export const ResolvedClientUrlNoPreview: "https://project-url/no-preview" = `${atlasProjectUrl}/no-preview`;
+export const ResolvedClientEmbedUrl: "https://www.youtube.com/watch?v=9tpySewzRG0" = YouTubeVideoUrl;
+export const ResolvedClientEmbedInteractiveUrl: "https://docs.google.com/document/d/1MbN3KKm5Ih6QDeejgrduvrXeadEQGcINPK8Vz3vgGlc/edit?usp=sharing" = GoogleDocUrl;
+export const ResolvedClientWithLongTitleUrl: "https://project-url/long-title" = `${atlasProjectUrl}/long-title`;
+export const ResolvedClientWithTextHighlightInTitleUrl: "https://project-url/text-highlight-title" = `${atlasProjectUrl}/text-highlight-title`;
+export const ResolvedClientProfileUrl: "https://project-url/profile-url" = `${atlasProjectUrl}/profile-url`;
 export class ResolvedClient extends MockCardClient {
-	fetchData(url: string) {
+	fetchData(url: string): Promise<JsonLd.Response<JsonLd.Data.BaseData>> {
 		switch (url) {
 			case ResolvedClientEmbedUrl:
 				return resolve(url, YouTubeVideo);

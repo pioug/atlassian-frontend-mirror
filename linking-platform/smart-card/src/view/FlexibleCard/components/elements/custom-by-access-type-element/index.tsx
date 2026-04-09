@@ -46,9 +46,6 @@ const fontOverrideStyleMap = cssMap({
 	'font.body.small': {
 		font: token('font.body.small'),
 	},
-	'font.body.UNSAFE_small': {
-		font: token('font.body.UNSAFE_small'),
-	},
 });
 
 export type CustomElementByAccessTypeProps = Prettify<

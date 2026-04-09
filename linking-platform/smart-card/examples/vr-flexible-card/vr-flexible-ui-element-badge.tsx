@@ -49,7 +49,7 @@ const context = getContext({
 	latestCommit: '1d2adc2',
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<FlexibleCardContext.Provider value={{ data: context }}>

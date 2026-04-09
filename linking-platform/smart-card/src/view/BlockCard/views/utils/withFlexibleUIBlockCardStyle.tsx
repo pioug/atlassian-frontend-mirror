@@ -18,7 +18,7 @@ const flexibleBlockCardStyle = css({
 
 export const withFlexibleUIBlockCardStyle =
 	(FlexibleBlockCardView: React.ComponentType<FlexibleBlockCardProps>) =>
-	(props: FlexibleBlockCardProps) => {
+	(props: FlexibleBlockCardProps): JSX.Element => {
 		return (
 			<div css={flexibleBlockCardStyle}>
 				<FlexibleBlockCardView {...props} />

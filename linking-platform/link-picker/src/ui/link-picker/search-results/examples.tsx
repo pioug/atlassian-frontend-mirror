@@ -59,44 +59,44 @@ const createExample = (props: Partial<SearchResultsProps> = {}): React.Component
 	};
 };
 
-export const DefaultExample = createExample();
+export const DefaultExample: React.ComponentType<{}> = createExample();
 
-export const DefaultAdaptiveHeightExample = createExample({
+export const DefaultAdaptiveHeightExample: React.ComponentType<{}> = createExample({
 	adaptiveHeight: true,
 });
 
-export const LoadingPlugins = createExample({
+export const LoadingPlugins: React.ComponentType<{}> = createExample({
 	isLoadingPlugins: true,
 });
 
-export const LoadingPluginsWithAdaptiveHeight = createExample({
+export const LoadingPluginsWithAdaptiveHeight: React.ComponentType<{}> = createExample({
 	isLoadingPlugins: true,
 	adaptiveHeight: true,
 });
 
-export const LoadingResultsWithTabs = createExample({
+export const LoadingResultsWithTabs: React.ComponentType<{}> = createExample({
 	isLoadingResults: true,
 	tabs,
 });
 
-export const LoadingResultsWithTabsAdaptive = createExample({
+export const LoadingResultsWithTabsAdaptive: React.ComponentType<{}> = createExample({
 	isLoadingResults: true,
 	tabs,
 	adaptiveHeight: true,
 });
 
-export const NoResults = createExample({
+export const NoResults: React.ComponentType<{}> = createExample({
 	tabs,
 	items: [],
 });
 
-export const NoResultsAdaptive = createExample({
+export const NoResultsAdaptive: React.ComponentType<{}> = createExample({
 	tabs,
 	items: [],
 	adaptiveHeight: true,
 });
 
-export const ErrorExample = createExample({
+export const ErrorExample: React.ComponentType<{}> = createExample({
 	error: new Error('Some error!'),
 });
 

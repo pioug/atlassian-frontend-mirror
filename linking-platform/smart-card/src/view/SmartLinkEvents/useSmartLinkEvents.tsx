@@ -4,7 +4,7 @@ import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytic
 
 import { SmartLinkEvents } from '../../utils/analytics/analytics';
 
-export function useSmartLinkEvents() {
+export function useSmartLinkEvents(): SmartLinkEvents {
 	/**
 	 * this utility maybe extended in the future to include
 	 * more contextual info about SLs

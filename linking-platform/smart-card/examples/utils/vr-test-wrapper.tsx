@@ -61,7 +61,7 @@ const globalStyles = css({
 	},
 });
 
-const VRTestWrapper = ({ children, style }: VRTestWrapperProps) => {
+const VRTestWrapper = ({ children, style }: VRTestWrapperProps): JSX.Element => {
 	return (
 		<DiProvider use={dependencies}>
 			<IntlProvider locale="en">

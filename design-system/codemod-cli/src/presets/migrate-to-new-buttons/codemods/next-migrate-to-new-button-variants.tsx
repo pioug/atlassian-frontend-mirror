@@ -11,6 +11,7 @@ import { addCommentBefore } from '@atlaskit/codemod-utils';
 
 import { addCommentForCustomThemeButtons } from '../utils/add-comment-for-custom-theme-buttons';
 import { addCommentForOverlayProp } from '../utils/add-comment-for-overlay-prop';
+import { checkIfVariantAlreadyImported } from '../utils/check-if-variant-already-imported';
 import {
 	buttonPropsNoLongerSupportedComment,
 	entryPointsMapping,
@@ -27,18 +28,15 @@ import {
 	unsupportedProps,
 } from '../utils/constants';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
-import { generateLinkComponent } from '../utils/generate-link-element';
-import {
-	generateNewElement,
-	handleIconAttributes,
-	modifyButtonAttributes,
-} from '../utils/generate-new-button-element';
+import { generateLinkComponent } from '../utils/generate-link-component';
+import { generateNewElement } from '../utils/generate-new-element';
 import getDefaultImports from '../utils/get-default-imports';
 import getSpecifierNames from '../utils/get-specifier-names';
+import { handleIconAttributes } from '../utils/handle-icon-attributes';
 import { ifHasUnsupportedProps } from '../utils/has-unsupported-props';
-import { checkIfVariantAlreadyImported } from '../utils/if-variant-already-imported';
 import { importTypesFromNewEntryPoint } from '../utils/import-types-from-new-entry-point';
 import { migrateFitContainerIconButton } from '../utils/migrate-fit-container-icon-button';
+import { modifyButtonAttributes } from '../utils/modify-button-attributes';
 import { renameDefaultButtonToLegacyButtonImport } from '../utils/rename-default-button-to-legacy-button';
 
 const transformer = (file: FileInfo, api: API): string => {

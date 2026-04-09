@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 4.3.1
+
+### Patch Changes
+
+- [`3b4f9743f0c18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b4f9743f0c18) -
+  Enrol navigation and linking-platform packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+- Updated dependencies
+
 ## 4.3.0
 
 ### Minor Changes

@@ -8,7 +8,7 @@ import { type DateRangeType } from '../../../../common/modal/popup-select/types'
 import { dateRangeMessages } from './messages';
 
 export const getDropdownLabel = (
-	option: DateRangeType = 'anyTime',
+	option: DateRangeType | undefined = 'anyTime',
 	formatMessage: IntlShape['formatMessage'],
 ): string => {
 	const mapping: {

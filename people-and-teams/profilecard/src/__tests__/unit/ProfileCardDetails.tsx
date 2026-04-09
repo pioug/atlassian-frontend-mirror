@@ -10,9 +10,9 @@ import { ProfileCardDetails } from '../../components/User/ProfileCardDetails';
 import { type ReportingLinesUser, type TeamCentralReportingLinesData } from '../../types';
 import { type LozengeProps } from '../../types';
 
-jest.mock('react-intl-next', () => {
+jest.mock('react-intl', () => {
 	return {
-		...(jest.requireActual('react-intl-next') as any),
+		...(jest.requireActual('react-intl') as any),
 		useIntl: jest.fn().mockReturnValue({
 			locale: 'en',
 			formatMessage: (descriptor: any) => descriptor.defaultMessage,

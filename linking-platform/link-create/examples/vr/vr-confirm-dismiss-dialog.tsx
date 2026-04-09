@@ -14,4 +14,4 @@ const createExample = (): React.ComponentType => {
 	};
 };
 
-export const DefaultConfirmDismissDialog = createExample();
+export const DefaultConfirmDismissDialog: React.ComponentType<{}> = createExample();

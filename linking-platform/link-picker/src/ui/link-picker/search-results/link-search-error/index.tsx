@@ -13,7 +13,21 @@ export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
 export const CONTACT_SUPPORT_LINK_FEDRAMP =
 	'https://gcs.atlassian-us-gov-mod.net/servicedesk/customer/portals';
 
-export const messages = defineMessages({
+export const messages: {
+    searchErrorHeader: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; searchErrorDescription: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; searchErrorAction: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	searchErrorHeader: {
 		id: 'fabric.linkPicker.search.error.heading',
 		defaultMessage: 'We’re having trouble loading data.',

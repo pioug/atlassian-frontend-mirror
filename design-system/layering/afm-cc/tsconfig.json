@@ -22,9 +22,5 @@
 		"../src/**/stories/*",
 		"../src/**/stories/**/*"
 	],
-	"references": [
-		{
-			"path": "../../ds-lib/afm-cc/tsconfig.json"
-		}
-	]
+	"references": []
 }

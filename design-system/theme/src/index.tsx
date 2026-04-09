@@ -1,8 +1,7 @@
 import * as colors from './colors';
-import * as typography from './typography';
 import getTheme from './utils/get-theme';
 
-export { colors, typography, getTheme };
+export { colors, getTheme };
 
 export {
 	CHANNEL,

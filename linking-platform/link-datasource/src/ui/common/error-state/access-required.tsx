@@ -56,7 +56,7 @@ interface AccessRequiredProps {
 	url?: string;
 }
 
-export const AccessRequired = ({ url }: AccessRequiredProps) => {
+export const AccessRequired = ({ url }: AccessRequiredProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 

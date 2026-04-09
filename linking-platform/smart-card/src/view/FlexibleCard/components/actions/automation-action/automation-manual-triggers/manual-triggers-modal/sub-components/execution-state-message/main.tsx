@@ -34,7 +34,7 @@ const i18n = defineMessages({
 	},
 });
 
-export const AutomationModalExecutionState = () => {
+export const AutomationModalExecutionState = (): JSX.Element | null => {
 	const { ruleExecutionState } = useAutomationMenu();
 
 	if (ruleExecutionState === 'FAILURE') {

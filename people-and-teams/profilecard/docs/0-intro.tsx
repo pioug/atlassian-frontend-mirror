@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
 import { AtlassianInternalWarning, md } from '@atlaskit/docs';
+import { TeamsLink } from '@atlaskit/teams-app-internal-navigation/teams-link';
 
 const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
@@ -14,15 +13,19 @@ const _default_1: any = md`
 ${(
 	<ul>
 		<li>
-			<Link to="profilecard/docs/profilecard-trigger">To display User profile cards</Link>
+			<TeamsLink href="profilecard/docs/profilecard-trigger" intent="reference">
+				To display User profile cards
+			</TeamsLink>
 		</li>
 		<li>
-			<Link to="profilecard/docs/team-profilecard">To display Team profile cards</Link>
+			<TeamsLink href="profilecard/docs/team-profilecard" intent="reference">
+				To display Team profile cards
+			</TeamsLink>
 		</li>
 		<li>
-			<Link to="profilecard/docs/profile-client">
+			<TeamsLink href="profilecard/docs/profile-client" intent="reference">
 				To customise the behaviour of the profile client, e.g. fetching data from a custom source.
-			</Link>
+			</TeamsLink>
 		</li>
 	</ul>
 )}

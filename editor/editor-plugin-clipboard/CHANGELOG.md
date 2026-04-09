@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-clipboard
 
+## 8.0.2
+
+### Patch Changes
+
+- [`82c0224977f47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82c0224977f47) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

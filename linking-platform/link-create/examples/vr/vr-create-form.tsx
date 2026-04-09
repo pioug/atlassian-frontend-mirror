@@ -73,13 +73,13 @@ const createFormWithRequiredFieldsExamples = (
 	};
 };
 
-export const CreateFormWithTextField = createTextFieldExample({});
-export const CreateFormWithAsyncSelect = createAsyncSelectExample({});
-export const DefaultCreateForm = createMultiChildrenExample({});
-export const CreateFormIsLoading = createMultiChildrenExample({
+export const CreateFormWithTextField: React.ComponentType<{}> = createTextFieldExample({});
+export const CreateFormWithAsyncSelect: React.ComponentType<{}> = createAsyncSelectExample({});
+export const DefaultCreateForm: React.ComponentType<{}> = createMultiChildrenExample({});
+export const CreateFormIsLoading: React.ComponentType<{}> = createMultiChildrenExample({
 	isLoading: true,
 });
-export const CreateFormHideFooter = createMultiChildrenExample({
+export const CreateFormHideFooter: React.ComponentType<{}> = createMultiChildrenExample({
 	hideFooter: true,
 });
-export const CreateFormWithRequiredFields = createFormWithRequiredFieldsExamples({});
+export const CreateFormWithRequiredFields: React.ComponentType<{}> = createFormWithRequiredFieldsExamples({});

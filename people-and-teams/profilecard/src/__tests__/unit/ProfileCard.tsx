@@ -5,7 +5,6 @@ import { mount } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { TeamsNavigationProvider } from '@atlaskit/teams-app-internal-navigation';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import ProfileCard from '../../components/User/ProfileCard';
@@ -14,11 +13,11 @@ import { moreActionsClicked, profileCardRendered } from '../../util/analytics';
 
 import { flexiTime } from './helper/_mock-analytics';
 
-jest.mock('react-intl-next', () => {
-	const reactIntl = jest.requireActual('react-intl-next');
+jest.mock('react-intl', () => {
+	const reactIntl = jest.requireActual('react-intl');
 	const intl = reactIntl.createIntl({ locale: 'en' });
 	return {
-		...(jest.requireActual('react-intl-next') as any),
+		...(jest.requireActual('react-intl') as any),
 		useIntl: () => intl,
 	};
 });
@@ -40,16 +39,9 @@ const defaultProps: Parameters<typeof ProfileCard>[0] = {
 
 const renderComponent = (props = {}) =>
 	render(
-		<TeamsNavigationProvider
-			value={{
-				forceExternalIntent: false,
-				navigate: () => {},
-			}}
-		>
-			<IntlProvider locale="en">
-				<ProfileCard {...defaultProps} {...props} />
-			</IntlProvider>
-		</TeamsNavigationProvider>,
+		<IntlProvider locale="en">
+			<ProfileCard {...defaultProps} {...props} />
+		</IntlProvider>,
 	);
 
 describe('ProfileCard', () => {
@@ -211,16 +203,9 @@ describe('ProfileCard', () => {
 		it('should have the proper label for actions button with fullName', () => {
 			(fg as jest.Mock).mockReturnValue(true);
 			const { getByRole } = render(
-				<TeamsNavigationProvider
-					value={{
-						forceExternalIntent: false,
-						navigate: () => {},
-					}}
-				>
-					<IntlProvider locale="en" defaultLocale="en-US">
-						<ProfileCard {...defaultProps} actions={actions} />
-					</IntlProvider>
-				</TeamsNavigationProvider>,
+				<IntlProvider locale="en" defaultLocale="en-US">
+					<ProfileCard {...defaultProps} actions={actions} />
+				</IntlProvider>,
 			);
 
 			const btn = getByRole('button', { name: 'More actions for full name test' });
@@ -229,17 +214,7 @@ describe('ProfileCard', () => {
 		});
 
 		describe('Click behaviour (cmd+click, ctrl+click, etc)', () => {
-			const ProfileCardWithProvider = (props: any) => (
-				<TeamsNavigationProvider
-					value={{
-						navigate: () => {},
-					}}
-				>
-					<ProfileCard {...props} />
-				</TeamsNavigationProvider>
-			);
-
-			const card = mount(<ProfileCardWithProvider fullName="name" actions={actions} />);
+			const card = mount(<ProfileCard fullName="name" actions={actions} />);
 
 			it('should call callback handler for basic click', () => {
 				const spy = jest.fn().mockImplementation(() => {});

@@ -1250,8 +1250,7 @@ export const createPlugin = (
 					// in case there are descripancies between getNodeIdProvider limited mode state
 					if (
 						getNodeIdProvider(view)?.isLimitedMode() &&
-						expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-						fg('platform_editor_native_anchor_patch_2')
+						expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 					) {
 						return;
 					}
@@ -1456,11 +1455,9 @@ export const createPlugin = (
 				}),
 			);
 
-			const shouldObserve =
-				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-				fg('platform_editor_native_anchor_patch_1')
-					? !isAnchorSupported()
-					: true;
+			const shouldObserve = expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+				? !isAnchorSupported()
+				: true;
 
 			if (editorContentArea && shouldObserve) {
 				resizeObserverWidth.observe(editorContentArea);

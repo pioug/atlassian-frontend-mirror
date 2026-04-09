@@ -1,5 +1,12 @@
 # @atlaskit/codemod-cli
 
+## 1.0.0
+
+### Major Changes
+
+- [`16367702dad7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16367702dad7e) -
+  Removes `codemod-cli/transforms` entry-point.
+
 ## 0.34.9
 
 ### Patch Changes

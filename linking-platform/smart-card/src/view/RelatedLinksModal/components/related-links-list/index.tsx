@@ -34,7 +34,7 @@ const RelatedLinksList = ({
 	testId,
 	selected,
 	handleSelectedUpdate,
-}: RelatedLinksListProp) => {
+}: RelatedLinksListProp): JSX.Element => {
 	return (
 		<Stack testId={testId}>
 			<Box xcss={styles.sectionTitle}>

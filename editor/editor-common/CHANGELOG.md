@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 112.18.4
+
+### Patch Changes
+
+- [`d1a0ee6dbcefd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1a0ee6dbcefd) -
+  Clean up feature gate platform_editor_native_anchor_patch_2
+- [`8ebeaa8fb64ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ebeaa8fb64ac) -
+  Remove stale feature flag platform_editor_link_picker_width_fix (final value: true)
+- [`fb317c7b6ef38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb317c7b6ef38) -
+  Add Autocomplete Conclusion user flow
+- Updated dependencies
+
+## 112.18.3
+
+### Patch Changes
+
+- [`0a265af52321f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a265af52321f) -
+  Clean up stale feature flag platform_editor_extension_styles, keeping the enabled code path
+- [`3f798d9934a76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f798d9934a76) -
+  [ux] EDITOR-5487 skip react portal initial render when hydration for toc extension node view
+- Updated dependencies
+
+## 112.18.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 112.18.1
 
 ### Patch Changes

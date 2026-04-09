@@ -6,7 +6,6 @@ import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { type FireEventType, useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
-import { TeamsNavigationProvider } from '@atlaskit/teams-app-internal-navigation';
 import { layers } from '@atlaskit/theme/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -103,18 +102,6 @@ function ProfileCardContent({
 				/>
 			</Suspense>
 		);
-
-		if (fg('ptc-links-migrate-atlaskit-link-button')) {
-			return (
-				<TeamsNavigationProvider
-					value={{
-						navigate: () => {},
-					}}
-				>
-					{profileCard}
-				</TeamsNavigationProvider>
-			);
-		}
 
 		return profileCard;
 	}

@@ -13,23 +13,23 @@ import UIOptionsDoc from './content/ui-options';
 import customMd from './utils/custom-md';
 import LinkTabs from './utils/link-tabs';
 
-export default customMd`
+const _default_1: JSX.Element = customMd`
 
 ${(
-	<LinkTabs
-		tabs={[
-			{ name: 'Overview', content: FlexibleCardDoc },
-			{ name: 'UI', content: UIOptionsDoc },
-			{ name: 'TitleBlock', content: TitleBlockDoc },
-			{ name: 'MetadataBlock', content: MetadataBlockDoc },
-			{ name: 'PreviewBlock', content: PreviewBlockDoc },
-			{ name: 'SnippetBlock', content: SnippetBlockDoc },
-			{ name: 'FooterBlock', content: FooterBlockDoc },
-			{ name: 'CustomBlock', content: CustomBlockDoc },
-			{ name: 'ElementItem', content: ElementItemDoc },
-			{ name: 'ActionItem', content: ActionItemDoc },
-		]}
-	/>
-)}
+        <LinkTabs
+            tabs={[
+                { name: 'Overview', content: FlexibleCardDoc },
+                { name: 'UI', content: UIOptionsDoc },
+                { name: 'TitleBlock', content: TitleBlockDoc },
+                { name: 'MetadataBlock', content: MetadataBlockDoc },
+                { name: 'PreviewBlock', content: PreviewBlockDoc },
+                { name: 'SnippetBlock', content: SnippetBlockDoc },
+                { name: 'FooterBlock', content: FooterBlockDoc },
+                { name: 'CustomBlock', content: CustomBlockDoc },
+                { name: 'ElementItem', content: ElementItemDoc },
+                { name: 'ActionItem', content: ActionItemDoc },
+            ]} />
+    )}
 
 `;
+export default _default_1;

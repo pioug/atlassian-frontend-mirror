@@ -98,7 +98,7 @@ export class AISummaryService implements AISummaryServiceInt {
 		}
 	};
 
-	public async summariseUrl() {
+	public async summariseUrl(): Promise<AISummaryState> {
 		this.state = {
 			status: 'loading',
 			content: '',

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo } from 'react';
+import { memo, type MemoExoticComponent } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next';
@@ -32,7 +32,17 @@ const formFooterActionStyles = css({
 	marginRight: 'auto',
 });
 
-export const messages = defineMessages({
+export const messages: {
+    cancelButton: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    }; submittingStatusMessage: {
+        id: string;
+        defaultMessage: string;
+        description: string;
+    };
+} = defineMessages({
 	cancelButton: {
 		id: 'fabric.linkPicker.button.cancel',
 		defaultMessage: 'Cancel',
@@ -70,7 +80,7 @@ interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
 	hideSubmitButton?: boolean;
 }
 
-export const FormFooter = memo(
+export const FormFooter: MemoExoticComponent<({ isLoading, isSubmitting, error, url, queryState, items, isEditing, onCancel, action, customSubmitButtonLabel, submitMessageId, hideSubmitButton, className, ...restProps }: FormFooterProps) => JSX.Element | null> = memo(
 	({
 		isLoading,
 		isSubmitting = false,
@@ -86,7 +96,7 @@ export const FormFooter = memo(
 		hideSubmitButton,
 		className,
 		...restProps
-	}: FormFooterProps) => {
+	}: FormFooterProps): JSX.Element | null => {
 		const intl = useIntl();
 
 		if (error && error instanceof UnauthenticatedError) {

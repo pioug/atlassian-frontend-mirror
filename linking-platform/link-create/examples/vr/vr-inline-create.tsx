@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { ComponentType } from 'react';
+
 import { IntlProvider } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
@@ -90,7 +92,7 @@ const createExampleWithEdit = (props: Partial<LinkCreateProps> = {}): React.Comp
 	};
 };
 
-export const DefaultInlineCreate = createExample();
-export const DefaultInlineCreateWithEditButton = createExampleWithEdit({});
+export const DefaultInlineCreate: ComponentType<{}> = createExample();
+export const DefaultInlineCreateWithEditButton: ComponentType<{}> = createExampleWithEdit({});
 
 export default DefaultInlineCreate;

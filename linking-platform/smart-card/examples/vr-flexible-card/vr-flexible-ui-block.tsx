@@ -48,7 +48,7 @@ const cardState = getCardState({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

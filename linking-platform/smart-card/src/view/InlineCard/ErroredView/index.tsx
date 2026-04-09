@@ -57,7 +57,7 @@ export const InlineCardErroredView = ({
 	onRetry,
 	truncateInline,
 	showHoverPreview,
-}: InlineCardErroredViewProps) => {
+}: InlineCardErroredViewProps): JSX.Element => {
 	const frameRef = React.useRef<HTMLSpanElement & null>(null);
 	const hashAction = !!onRetry;
 

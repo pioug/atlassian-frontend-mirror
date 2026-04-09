@@ -31,7 +31,7 @@ const ColorCard = ({
 	id,
 	tooltipContent,
 	variant = 'fill',
-}: Props) => {
+}: Props): JSX.Element => {
 	const handleMouseDown = useCallback((event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 	}, []);

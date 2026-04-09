@@ -46,15 +46,17 @@ export class UnstableMockLinkPickerPlugin implements LinkPickerPlugin {
 		return Promise.resolve(mockPluginData);
 	}
 
-	async resolve({ query }: LinkPickerState) {
+	async resolve({ query }: LinkPickerState): Promise<{
+        data: LinkSearchListItemData[];
+    }> {
 		return { data: await this.loadResults(query) };
 	}
 
-	get tabKey() {
+	get tabKey(): string | undefined {
 		return this._tabKey;
 	}
 
-	get tabTitle() {
+	get tabTitle(): string | undefined {
 		return this._tabTitle;
 	}
 }
@@ -83,19 +85,21 @@ export class MockLinkPickerPromisePlugin implements LinkPickerPlugin {
 		this._action = action;
 	}
 
-	async resolve({ query }: LinkPickerState) {
+	async resolve({ query }: LinkPickerState): Promise<{
+        data: LinkSearchListItemData[];
+    }> {
 		return { data: await this.result };
 	}
 
-	get tabKey() {
+	get tabKey(): string | undefined {
 		return this._tabKey;
 	}
 
-	get tabTitle() {
+	get tabTitle(): string | undefined {
 		return this._tabTitle;
 	}
 
-	get action() {
+	get action(): LinkPickerPluginAction | undefined {
 		return this._action;
 	}
 }
@@ -117,7 +121,7 @@ export class MockLinkPickerGeneratorPlugin implements LinkPickerPlugin {
 		return 2;
 	}
 
-	public resolve({ query }: LinkPickerState) {
+	public resolve({ query }: LinkPickerState): AsyncGenerator<any> {
 		return this.asyncGenerator;
 	}
 }
@@ -143,7 +147,11 @@ export class MockLinkPickerPlugin implements LinkPickerPlugin {
 		return this.loadResults(query);
 	}
 
-	async *resolve({ query }: LinkPickerState) {
+	async *resolve({ query }: LinkPickerState): AsyncGenerator<{
+        data: LinkSearchListItemData[];
+    }, {
+        data: LinkSearchListItemData[];
+    }, unknown> {
 		yield { data: await this.getInitialResults(query) };
 		return { data: await this.fetchUpdatedResults(query) };
 	}

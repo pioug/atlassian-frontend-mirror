@@ -23,7 +23,7 @@ const renderTitle = (maxLines = 2, size = SmartLinkSize.Medium, theme = SmartLin
 	<Title maxLines={maxLines} size={size} theme={theme} testId="vr-test-title" />
 );
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<FlexibleCardContext.Provider value={{ data: context, status: SmartLinkStatus.Resolved }}>

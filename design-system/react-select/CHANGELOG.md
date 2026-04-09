@@ -1,5 +1,12 @@
 # @atlaskit/react-select
 
+## 3.15.0
+
+### Minor Changes
+
+- [`31cb79d51457a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31cb79d51457a) -
+  Remove prop shouldKeepInputOnSelect to clean up stale flag
+
 ## 3.14.5
 
 ### Patch Changes

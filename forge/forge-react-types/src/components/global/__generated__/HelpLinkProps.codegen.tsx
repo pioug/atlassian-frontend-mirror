@@ -3,9 +3,9 @@
  *
  * Generated prop types for Global component - HelpLink
  *
- * @codegen <<SignedSource::7f8a5aa2f4e6c5d08ffea9f3d7127e82>>
+ * @codegen <<SignedSource::a155b0d8f06303a1f2a22b46f07b871f>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::aab578f2ba0895fc1b3cb93dbae44c0f>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::c749a1bc5e1017e1bcbe09febba5a9a3>>
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/HelpLink.tsx <<SignedSource::29aa1d2a5f3e491361497d3aa48fdade>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */

@@ -25,14 +25,14 @@ const context = getContext({
 	targetBranch: 'master',
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<VRTestWrapper>
 			<FlexibleCardContext.Provider value={{ data: context }}>
 				<ModifiedOnElement />
 				<ModifiedOnElement fontSize="font.body.large" />
 				<ModifiedOnElement fontSize="font.body.small" />
-				<ModifiedOnElement fontSize="font.body.UNSAFE_small" />
+				<ModifiedOnElement fontSize="font.body.small" />
 				<ModifiedOnElement fontSize="font.body" />
 			</FlexibleCardContext.Provider>
 		</VRTestWrapper>

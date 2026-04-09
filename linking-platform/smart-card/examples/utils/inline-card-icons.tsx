@@ -16,7 +16,7 @@ export class DynamicIconCard extends CardClient {
 		super();
 		this.context = context;
 	}
-	fetchData() {
+	fetchData(): Promise<JsonLd.Response<JsonLd.Data.BaseData>> {
 		const response = generateContext(this.context);
 		return Promise.resolve(response as JsonLd.Response);
 	}

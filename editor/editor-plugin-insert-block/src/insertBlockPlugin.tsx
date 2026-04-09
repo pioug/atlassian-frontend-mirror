@@ -402,17 +402,11 @@ function ToolbarInsertBlockWithInjectionApi({
 			return;
 		}
 
-		if (fg('platform_editor_media_insert_check')) {
-			pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup
-				? pluginInjectionApi?.core?.actions.execute(
-						pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo),
-					)
-				: showMediaPicker();
-		} else {
-			pluginInjectionApi?.core?.actions.execute(
-				pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo),
-			);
-		}
+		pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup
+			? pluginInjectionApi?.core?.actions.execute(
+					pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo),
+				)
+			: showMediaPicker();
 	};
 
 	return (

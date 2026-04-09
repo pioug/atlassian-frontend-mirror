@@ -15,7 +15,7 @@ const styles = css({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<ExampleContainer>
 		<FooterBlock
 			actions={[

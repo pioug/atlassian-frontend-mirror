@@ -2,12 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { type UIAnalyticsEvent, withAnalyticsContext } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, withAnalyticsContext, type WithContextProps } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { type Link } from '@atlaskit/linking-types';
@@ -490,7 +490,7 @@ const contextData = {
 	},
 };
 
-export const AssetsConfigModal = withAnalyticsContext(contextData)(
+export const AssetsConfigModal: ForwardRefExoticComponent<AssetsConfigModalProps & WithContextProps & RefAttributes<any>> = withAnalyticsContext(contextData)(
 	(props: AssetsConfigModalProps) => (
 		<StoreContainer>
 			<DatasourceExperienceIdProvider>

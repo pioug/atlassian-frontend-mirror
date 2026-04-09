@@ -32,7 +32,11 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 	} = {};
 
 	const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
-	const syncBlockStore = new SyncBlockStoreManager(config?.syncBlockDataProvider, viewMode);
+	const syncBlockStore = new SyncBlockStoreManager(
+		config?.syncBlockDataProvider,
+		viewMode,
+		config?.__livePage,
+	);
 	syncBlockStore.setFireAnalyticsEvent(api?.analytics?.actions?.fireAnalyticsEvent);
 
 	api?.blockMenu?.actions.registerBlockMenuComponents(

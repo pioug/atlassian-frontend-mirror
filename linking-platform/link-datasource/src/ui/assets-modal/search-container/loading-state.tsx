@@ -26,7 +26,7 @@ const FormContainer = styled.form({
 	width: '100%',
 });
 
-export const AssetsSearchContainerLoading = ({ modalTitle }: AssetsSearchConatinerLoadingProps) => {
+export const AssetsSearchContainerLoading = ({ modalTitle }: AssetsSearchConatinerLoadingProps): JSX.Element => {
 	return (
 		<FormContainer data-testid="assets-datasource-modal--search-container-skeleton">
 			<FormRowContainer isNarrowGap>

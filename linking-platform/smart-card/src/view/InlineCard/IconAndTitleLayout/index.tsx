@@ -110,7 +110,7 @@ export const IconAndTitleLayout = ({
 	testId = 'inline-card-icon-and-title',
 	type,
 	hideIconLoadingSkeleton,
-}: IconAndTitleLayoutProps) => {
+}: IconAndTitleLayoutProps): JSX.Element => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
 
 	const renderAtlaskitIcon = React.useCallback(() => {
@@ -266,6 +266,6 @@ export const IconAndTitleLayout = ({
 	);
 };
 
-export const IconTitleWrapper = (props: ComponentPropsWithoutRef<typeof Box>) => {
+export const IconTitleWrapper = (props: ComponentPropsWithoutRef<typeof Box>): JSX.Element => {
 	return <Box as="span" xcss={styles.iconTitleWrapperStyle} {...props} />;
 };

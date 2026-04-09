@@ -25,7 +25,7 @@ import {
 	ERROR_MESSAGE_OAUTH,
 } from '../../actions/constants';
 
-const useResponse = () => {
+const useResponse = (): { handleResolvedLinkError: (url: string, error: APIError, response?: JsonLd.Response, isMetadataRequest?: boolean) => void; handleResolvedLinkResponse: (resourceUrl: string, response: JsonLd.Response | undefined, isReloading?: boolean, isMetadataRequest?: boolean) => void; } => {
 	// Takes in the JSON-LD response and dispatch the resolved action for the card.
 	// It will dispatch a successful or error action
 	const { store, config } = useSmartLinkContext();

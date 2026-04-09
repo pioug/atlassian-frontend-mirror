@@ -59,7 +59,7 @@ const i18n = defineMessages({
 	},
 });
 
-export const AutomationModalEmptyState = () => {
+export const AutomationModalEmptyState = (): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const {

@@ -16,8 +16,6 @@ import {
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as createUUID } from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import coinflip from '../coinflip';
 import type { EnhancedUFOInteractionContextType } from '../common';
 import {
@@ -418,18 +416,14 @@ const UFOSegment: {
 		</UFOInteractionContext.Provider>
 	);
 
-	if (fg('platform_ufo_ssr_render_profiler')) {
-		return (
-			<SsrRenderProfiler
-				labelStack={labelStack}
-				onRender={(...args) => interactionContext.onRender.apply(interactionContext, args)}
-			>
-				{ufoSegment}
-			</SsrRenderProfiler>
-		);
-	}
-
-	return ufoSegment;
+	return (
+		<SsrRenderProfiler
+			labelStack={labelStack}
+			onRender={(...args) => interactionContext.onRender.apply(interactionContext, args)}
+		>
+			{ufoSegment}
+		</SsrRenderProfiler>
+	);
 };
 
 UFOSegment.displayName = 'UFOSegment';

@@ -2,11 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { ComponentType, FC } from 'react';
+
 import { css, jsx } from '@compiled/react';
 import {
 	FormattedMessage,
 	injectIntl,
 	IntlProvider,
+	type WithIntlProps,
 	type WrappedComponentProps,
 } from 'react-intl-next';
 
@@ -80,6 +83,9 @@ const WarningModal = (props: LinkWarningModalProps & WrappedComponentProps) => {
 	return intl ? content : <IntlProvider locale="en">{content}</IntlProvider>;
 };
 
-export default injectIntl(WarningModal, {
-	enforceContext: false,
+const _default_1: FC<WithIntlProps<LinkWarningModalProps & WrappedComponentProps>> & {
+    WrappedComponent: ComponentType<LinkWarningModalProps & WrappedComponentProps>;
+} = injectIntl(WarningModal, {
+    enforceContext: false,
 });
+export default _default_1;

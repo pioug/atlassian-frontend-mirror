@@ -11,7 +11,12 @@ export const TEST_LINK: JsonLd.Primitives.Link = {
 	href: TEST_URL,
 	name: TEST_NAME,
 };
-export const TEST_INTERACTIVE_HREF_LINK = {
+export const TEST_INTERACTIVE_HREF_LINK: {
+    '@type': string;
+    href: string;
+    interactiveHref: string;
+    name: string;
+} = {
 	'@type': 'Link',
 	href: TEST_URL,
 	interactiveHref: TEST_INTERACTIVE_HREF_URL,

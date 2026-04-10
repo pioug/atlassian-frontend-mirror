@@ -92,7 +92,7 @@ export class ObjectURLCache {
 		return !!this.cache.find(key);
 	}
 
-	get(key: string) {
+	get(key: string): MediaFilePreview | undefined {
 		return this.cache.get(key);
 	}
 
@@ -115,4 +115,4 @@ export class ObjectURLCache {
 	}
 }
 
-export const createObjectURLCache = () => new ObjectURLCache(PREVIEW_CACHE_LRU_SIZE);
+export const createObjectURLCache = (): ObjectURLCache => new ObjectURLCache(PREVIEW_CACHE_LRU_SIZE);

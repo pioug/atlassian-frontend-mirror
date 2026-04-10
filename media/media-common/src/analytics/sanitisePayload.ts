@@ -19,5 +19,5 @@ const hasFileAttributesWithFileId = (payload: Object): payload is PayloadWithFil
 	'fileId' in payload.attributes.fileAttributes &&
 	typeof payload.attributes.fileAttributes.fileId === 'string';
 
-export const sanitiseAnalyticsPayload = (payload: Object) =>
+export const sanitiseAnalyticsPayload = (payload: Object): Object =>
 	hasFileAttributesWithFileId(payload) ? produce(payload, sanitiseFileId) : payload;

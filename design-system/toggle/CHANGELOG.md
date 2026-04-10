@@ -1,5 +1,29 @@
 # @atlaskit/toggle
 
+## 15.5.0
+
+### Minor Changes
+
+- [`2fda175ca9266`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fda175ca9266) -
+  Removed `data-checked`, `data-disabled`, and `data-size` attributes from the Toggle component's
+  rendered output. These attributes are no longer set on the label element when the
+  `platform-toggle-atomic-styles` feature flag is enabled.
+
+## 15.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.4.0
+
+### Minor Changes
+
+- [`bc599e912cf4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc599e912cf4b) -
+  Removed `data-checked`, `data-disabled`, and `data-size` attributes from the Toggle component's
+  rendered output. These attributes are no longer set on the label element when the
+  `platform-toggle-atomic-styles` feature flag is enabled.
+
 ## 15.3.0
 
 ### Minor Changes

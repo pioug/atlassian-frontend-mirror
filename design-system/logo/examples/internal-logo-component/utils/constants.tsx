@@ -27,6 +27,7 @@ export const appOrder: string[] = [
 	'Opsgenie',
 	'Customer Service Management',
 	'Jira Product Discovery',
+	'Feedback',
 	'Trello',
 	'Guard',
 	'Guard Detect',

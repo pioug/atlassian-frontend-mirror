@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1264e71bd7b6f8e3a0287c7aa01c245d>>
+ * @codegen <<SignedSource::a727368cfb18b24d47310dc3c4008c75>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -29,11 +29,6 @@ import {
 	BitbucketDataCenterLogoCS,
 } from '../../../src/artifacts/logo-components/bitbucket-data-center';
 import { ChatIcon, ChatLogo, ChatLogoCS } from '../../../src/artifacts/logo-components/chat';
-import {
-	ChatNewIcon,
-	ChatNewLogo,
-	ChatNewLogoCS,
-} from '../../../src/artifacts/logo-components/chat-new';
 import { CompanyHubIcon, CompanyHubLogo } from '../../../src/artifacts/logo-components/company-hub';
 import {
 	CompassIcon,
@@ -57,6 +52,11 @@ import {
 	CustomerServiceManagementLogoCS,
 } from '../../../src/artifacts/logo-components/customer-service-management';
 import { DxIcon } from '../../../src/artifacts/logo-components/dx';
+import {
+	FeedbackIcon,
+	FeedbackLogo,
+	FeedbackLogoCS,
+} from '../../../src/artifacts/logo-components/feedback';
 import { FocusIcon, FocusLogo, FocusLogoCS } from '../../../src/artifacts/logo-components/focus';
 import { GoalsIcon, GoalsLogo, GoalsLogoCS } from '../../../src/artifacts/logo-components/goals';
 import { GuardIcon, GuardLogo, GuardLogoCS } from '../../../src/artifacts/logo-components/guard';
@@ -116,11 +116,6 @@ import {
 	SearchLogoCS,
 } from '../../../src/artifacts/logo-components/search';
 import {
-	SearchNewIcon,
-	SearchNewLogo,
-	SearchNewLogoCS,
-} from '../../../src/artifacts/logo-components/search-new';
-import {
 	StatuspageIcon,
 	StatuspageLogo,
 	StatuspageLogoCS,
@@ -130,11 +125,6 @@ import {
 	StudioLogo,
 	StudioLogoCS,
 } from '../../../src/artifacts/logo-components/studio';
-import {
-	StudioNewIcon,
-	StudioNewLogo,
-	StudioNewLogoCS,
-} from '../../../src/artifacts/logo-components/studio-new';
 import {
 	TalentIcon,
 	TalentLogo,
@@ -230,16 +220,6 @@ export const rows: Array<{
 		LogoCS: (props) => <BitbucketLogoCS {...props} />,
 	},
 	{
-		name: 'Chat New',
-		Icon12: (props) => <ChatNewIcon {...props} size="12" />,
-		Icon16: (props) => <ChatNewIcon {...props} size="16" />,
-		Icon20: (props) => <ChatNewIcon {...props} size="20" />,
-		Icon24: (props) => <ChatNewIcon {...props} size="24" />,
-		Icon32: (props) => <ChatNewIcon {...props} size="32" />,
-		Logo: (props) => <ChatNewLogo {...props} />,
-		LogoCS: (props) => <ChatNewLogoCS {...props} />,
-	},
-	{
 		name: 'Chat',
 		Icon12: (props) => <ChatIcon {...props} size="12" />,
 		Icon16: (props) => <ChatIcon {...props} size="16" />,
@@ -298,6 +278,16 @@ export const rows: Array<{
 		Icon32: (props) => <CustomerServiceManagementIcon {...props} size="32" />,
 		Logo: (props) => <CustomerServiceManagementLogo {...props} />,
 		LogoCS: (props) => <CustomerServiceManagementLogoCS {...props} />,
+	},
+	{
+		name: 'Feedback',
+		Icon12: (props) => <FeedbackIcon {...props} size="12" />,
+		Icon16: (props) => <FeedbackIcon {...props} size="16" />,
+		Icon20: (props) => <FeedbackIcon {...props} size="20" />,
+		Icon24: (props) => <FeedbackIcon {...props} size="24" />,
+		Icon32: (props) => <FeedbackIcon {...props} size="32" />,
+		Logo: (props) => <FeedbackLogo {...props} />,
+		LogoCS: (props) => <FeedbackLogoCS {...props} />,
 	},
 	{
 		name: 'Focus',
@@ -490,16 +480,6 @@ export const rows: Array<{
 		LogoCS: (props) => <RovoLogoCS {...props} />,
 	},
 	{
-		name: 'Search New',
-		Icon12: (props) => <SearchNewIcon {...props} size="12" />,
-		Icon16: (props) => <SearchNewIcon {...props} size="16" />,
-		Icon20: (props) => <SearchNewIcon {...props} size="20" />,
-		Icon24: (props) => <SearchNewIcon {...props} size="24" />,
-		Icon32: (props) => <SearchNewIcon {...props} size="32" />,
-		Logo: (props) => <SearchNewLogo {...props} />,
-		LogoCS: (props) => <SearchNewLogoCS {...props} />,
-	},
-	{
 		name: 'Search',
 		Icon12: (props) => <SearchIcon {...props} size="12" />,
 		Icon16: (props) => <SearchIcon {...props} size="16" />,
@@ -518,16 +498,6 @@ export const rows: Array<{
 		Icon32: (props) => <StatuspageIcon {...props} size="32" />,
 		Logo: (props) => <StatuspageLogo {...props} />,
 		LogoCS: (props) => <StatuspageLogoCS {...props} />,
-	},
-	{
-		name: 'Studio New',
-		Icon12: (props) => <StudioNewIcon {...props} size="12" />,
-		Icon16: (props) => <StudioNewIcon {...props} size="16" />,
-		Icon20: (props) => <StudioNewIcon {...props} size="20" />,
-		Icon24: (props) => <StudioNewIcon {...props} size="24" />,
-		Icon32: (props) => <StudioNewIcon {...props} size="32" />,
-		Logo: (props) => <StudioNewLogo {...props} />,
-		LogoCS: (props) => <StudioNewLogoCS {...props} />,
 	},
 	{
 		name: 'Studio',

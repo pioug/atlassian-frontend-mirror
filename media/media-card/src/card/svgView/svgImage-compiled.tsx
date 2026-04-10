@@ -40,7 +40,7 @@ export const SvgView = ({
 	onError,
 	wrapperRef,
 	alt,
-}: SvgViewProps) => {
+}: SvgViewProps): JSX.Element | null => {
 	const [didSvgRender, setDidSvgRender] = useState<boolean>(false);
 	const [svgDimensions, setSvgDimensions] = useState<React.CSSProperties>({});
 	const imgRef = useRef<HTMLImageElement>(null);

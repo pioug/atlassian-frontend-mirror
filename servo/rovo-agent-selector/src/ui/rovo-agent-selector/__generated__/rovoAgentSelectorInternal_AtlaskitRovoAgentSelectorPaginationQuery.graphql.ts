@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<884b7d8c83fb34333354f4627a67a4f5>>
+ * @generated SignedSource<<2d585f3ae5be298989545215bd25a826>>
  * @relayHash 10df1400fe5f08dbb71223dbeb55d5d0
  * @lightSyntaxTransform
  * @nogrep
@@ -12,7 +12,7 @@
 
 // @relayRequestID 7250b40e01559cc3a01468d2f306020d55d0c1feef70d34478073a59ab3f8154
 
-import type { ConcreteRequest, Query } from 'relay-runtime';
+import type { ConcreteRequest } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type AgentStudioAgentQueryInput = {
   includeDraftAgents?: boolean | null | undefined;

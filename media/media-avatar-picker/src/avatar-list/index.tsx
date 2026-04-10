@@ -61,7 +61,7 @@ export const AvatarList = ({
 	selectedAvatar,
 	onItemClick,
 	selectAvatarLabel,
-}: AvatarListProps) => {
+}: AvatarListProps): JSX.Element => {
 	const intl = useIntl();
 
 	const [isFocused, setIsFocused] = useState(

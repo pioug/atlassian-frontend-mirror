@@ -1,7 +1,7 @@
 import { token } from '@atlaskit/tokens';
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import Button from '@atlaskit/button/custom-theme-button';
 import { messages } from '@atlaskit/media-ui';
@@ -50,4 +50,7 @@ const MediaDownloadButton = (props: Props & WrappedComponentProps) => {
 	);
 };
 
-export default injectIntl(MediaDownloadButton);
+const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+} = injectIntl(MediaDownloadButton);
+export default _default_1;

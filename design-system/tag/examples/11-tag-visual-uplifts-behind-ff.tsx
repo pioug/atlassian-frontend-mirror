@@ -64,6 +64,8 @@ export default function TagVisualUplifts(): JSX.Element {
 							<SimpleTag text="Magenta" color="magenta" testId="tag-magenta" />
 							<SimpleTag text="Orange" color="orange" testId="tag-orange" />
 							<SimpleTag text="Teal" color="teal" testId="tag-teal" />
+							<SimpleTag text="Blue with swatch before" color="blue" testId="tag-blue-swatch" swatchBefore />
+							<SimpleTag text="Green with custom swatch" color="green" testId="tag-green-custom-swatch" swatchBefore={token('color.background.accent.orange.subtle')} />
 						</Inline>
 					</Stack>
 				</div>

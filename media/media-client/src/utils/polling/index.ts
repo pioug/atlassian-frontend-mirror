@@ -83,7 +83,7 @@ export class PollingFunction {
 		onError && onError(error);
 	}
 
-	getIntervalMsForIteration(iteration: number) {
+	getIntervalMsForIteration(iteration: number): number {
 		let poll_intervalMs = this.options.poll_intervalMs;
 		if (iteration === 1) {
 			return poll_intervalMs;

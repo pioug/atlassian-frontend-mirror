@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 0.4.0
+
+### Minor Changes
+
+- [`603cd44e7b8c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/603cd44e7b8c3) -
+  Fetch vectors through media client
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.0
 
 ### Minor Changes

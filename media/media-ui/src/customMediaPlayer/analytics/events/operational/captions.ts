@@ -34,7 +34,11 @@ export function generateBaseAttributes(
 	captionAttributes: CaptionAttributes,
 	fileId?: string,
 	traceContext?: MediaTraceContext,
-) {
+): {
+    traceContext: MediaTraceContext | undefined; fileAttributes?: {
+        fileId: string;
+    } | undefined; type: CustomMediaPlayerType; captionAttributes: CaptionAttributes;
+} {
 	return {
 		type,
 		captionAttributes,

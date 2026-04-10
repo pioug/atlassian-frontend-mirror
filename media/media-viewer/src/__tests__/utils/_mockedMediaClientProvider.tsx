@@ -21,7 +21,7 @@ import { type MediaStore, type Store, createMediaStore } from '@atlaskit/media-s
 
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 
-export const dataURItoBlob = (dataURI: string) => {
+export const dataURItoBlob = (dataURI: string): Blob => {
 	const byteString = atob(dataURI.split(',')[1]);
 	const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 	const ab = new ArrayBuffer(byteString.length);

@@ -7,7 +7,7 @@ export class MediaFileStateError extends Error {
 		readonly id: string,
 		readonly reason?: string,
 		readonly message: string = '',
-		readonly details?: Record<string, any>,
+		readonly details?: Record<string, any> | undefined,
 	) {
 		super(reason);
 		// https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-newtarget

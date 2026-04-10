@@ -34,7 +34,7 @@ export function mapToPathBasedUrl(url: string): string {
 	return url;
 }
 
-export function mapRetryUrlToPathBasedUrl(url: string) {
+export function mapRetryUrlToPathBasedUrl(url: string): URL {
 	const parsedUrl = new URL(url);
 	parsedUrl.host = getDocument()?.location.host ?? '';
 

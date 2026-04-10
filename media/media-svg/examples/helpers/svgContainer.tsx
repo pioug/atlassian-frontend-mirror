@@ -27,7 +27,7 @@ export const SvgContainer = ({
 	children: React.ReactNode;
 	width?: string;
 	height?: string;
-}) => {
+}): JSX.Element => {
 	return (
 		<Box xcss={containerStyles} style={{ width, height }}>
 			{children}

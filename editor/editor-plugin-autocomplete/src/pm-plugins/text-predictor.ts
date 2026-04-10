@@ -714,20 +714,31 @@ interface VocabularyJson {
 	>;
 }
 
-export const loadVectorsAsync = async (options?: { vectorsUrl?: string }): Promise<void> => {
+export const loadVectorsAsync = async (options?: {
+	getBinaryUrl?: () => Promise<string>;
+}): Promise<void> => {
 	if (vectorStore || vectorsLoadStarted) {
 		return;
 	}
-	if (!options?.vectorsUrl) {
+	if (!options?.getBinaryUrl) {
 		// eslint-disable-next-line no-console
 		console.warn(
-			'[text-predictor] loadVectorsAsync called without a vectorsUrl — vectors will not load. Pass vectorsUrl via plugin options.',
+			'[text-predictor] loadVectorsAsync called without a getBinaryUrl — vectors will not load. Pass getVectorsBinaryUrl via plugin options.',
 		);
 		return;
 	}
 	vectorsLoadStarted = true;
 
-	const url = options.vectorsUrl;
+	let url: string;
+	try {
+		url = await options.getBinaryUrl();
+	} catch (e) {
+		vectorsLoadStarted = false;
+		// eslint-disable-next-line no-console
+		console.warn('[text-predictor] Failed to resolve vectors URL:', e);
+		return;
+	}
+
 	try {
 		const res = await fetch(url);
 		if (!res.ok) {

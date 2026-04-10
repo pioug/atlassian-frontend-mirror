@@ -48,7 +48,7 @@ export type SsrPreviewPrimaryReason =
 export class MediaFilePreviewError extends Error {
 	constructor(
 		readonly primaryReason: MediaFilePreviewErrorPrimaryReason,
-		readonly secondaryError?: Error,
+		readonly secondaryError?: Error | undefined,
 	) {
 		super(primaryReason);
 		// https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-newtarget
@@ -63,7 +63,7 @@ export class MediaFilePreviewError extends Error {
 export class LocalPreviewError extends MediaFilePreviewError {
 	constructor(
 		readonly primaryReason: LocalPreviewPrimaryReason,
-		readonly secondaryError?: Error,
+		readonly secondaryError?: Error | undefined,
 	) {
 		super(primaryReason, secondaryError);
 	}
@@ -72,7 +72,7 @@ export class LocalPreviewError extends MediaFilePreviewError {
 export class RemotePreviewError extends MediaFilePreviewError {
 	constructor(
 		readonly primaryReason: RemotePreviewPrimaryReason,
-		readonly secondaryError?: Error,
+		readonly secondaryError?: Error | undefined,
 	) {
 		super(primaryReason, secondaryError);
 	}
@@ -81,7 +81,7 @@ export class RemotePreviewError extends MediaFilePreviewError {
 export class SsrPreviewError extends MediaFilePreviewError {
 	constructor(
 		readonly primaryReason: SsrPreviewPrimaryReason,
-		readonly secondaryError?: Error,
+		readonly secondaryError?: Error | undefined,
 	) {
 		super(primaryReason, secondaryError);
 	}
@@ -135,7 +135,7 @@ export const ensureMediaFilePreviewError = (
 	primaryReason: MediaFilePreviewErrorPrimaryReason,
 	error: Error,
 	updatePrimaryReason?: boolean,
-) => {
+): MediaFilePreviewError => {
 	if (isMediaFilePreviewError(error)) {
 		if (updatePrimaryReason && error.primaryReason !== primaryReason) {
 			return new MediaFilePreviewError(primaryReason, error.secondaryError);

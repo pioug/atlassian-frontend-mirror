@@ -1,5 +1,12 @@
 # @atlaskit/linking-types
 
+## 14.2.1
+
+### Patch Changes
+
+- [`bd00f39efe020`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd00f39efe020) -
+  NAVX-4513 Adding RovoActions to SupportedFeatures for SL Response
+
 ## 14.2.0
 
 ### Minor Changes

@@ -1,21 +1,46 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::921c184d9a6e3b52bd2ab053939ce9ad>>
+ * @codegen <<SignedSource::c7da53f7a9d4a33334530aad043ae18b>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
 	'motion.avatar.enter': '--ds-avatar-enter',
 	'motion.avatar.exit': '--ds-avatar-exit',
 	'motion.avatar.hovered': '--ds-avatar-hovered',
-	'motion.content.enter.long': '--ds-content-enter-long',
-	'motion.content.enter.medium': '--ds-content-enter-medium',
-	'motion.content.enter.short': '--ds-content-enter-short',
-	'motion.content.exit.long': '--ds-content-exit-long',
-	'motion.content.exit.medium': '--ds-content-exit-medium',
-	'motion.content.exit.short': '--ds-content-exit-short',
+	'motion.blanket.enter': '--ds-blanket-enter',
+	'motion.blanket.exit': '--ds-blanket-exit',
+	'motion.duration.instant': '--ds-duration-instant',
+	'motion.duration.long': '--ds-duration-long',
+	'motion.duration.medium': '--ds-duration-medium',
+	'motion.duration.short': '--ds-duration-short',
+	'motion.duration.xlong': '--ds-duration-xlong',
+	'motion.duration.xshort': '--ds-duration-xshort',
+	'motion.duration.xxlong': '--ds-duration-xxlong',
+	'motion.duration.xxshort': '--ds-duration-xxshort',
+	'motion.easing.in.practical': '--ds-easing-in-practical',
+	'motion.easing.inout.bold': '--ds-easing-inout-bold',
+	'motion.easing.out.practical': '--ds-easing-out-practical',
+	'motion.easing.out.bold': '--ds-easing-out-bold',
+	'motion.easing.spring': '--ds-easing-spring',
 	'motion.flag.enter': '--ds-flag-enter',
 	'motion.flag.exit': '--ds-flag-exit',
 	'motion.flag.reposition': '--ds-flag-reposition',
+	'motion.keyframe.fade.in': '--ds-keyframe-fade-in',
+	'motion.keyframe.fade.out': '--ds-keyframe-fade-out',
+	'motion.keyframe.scale.in.medium': '--ds-keyframe-scale-in-medium',
+	'motion.keyframe.scale.in.small': '--ds-keyframe-scale-in-small',
+	'motion.keyframe.scale.out.medium': '--ds-keyframe-scale-out-medium',
+	'motion.keyframe.scale.out.small': '--ds-keyframe-scale-out-small',
+	'motion.keyframe.slide.in.bottom.short': '--ds-keyframe-slide-in-bottom-short',
+	'motion.keyframe.slide.in.left.half': '--ds-keyframe-slide-in-left-half',
+	'motion.keyframe.slide.in.left.short': '--ds-keyframe-slide-in-left-short',
+	'motion.keyframe.slide.in.right.short': '--ds-keyframe-slide-in-right-short',
+	'motion.keyframe.slide.in.top.short': '--ds-keyframe-slide-in-top-short',
+	'motion.keyframe.slide.out.bottom.short': '--ds-keyframe-slide-out-bottom-short',
+	'motion.keyframe.slide.out.left.half': '--ds-keyframe-slide-out-left-half',
+	'motion.keyframe.slide.out.left.short': '--ds-keyframe-slide-out-left-short',
+	'motion.keyframe.slide.out.right.short': '--ds-keyframe-slide-out-right-short',
+	'motion.keyframe.slide.out.top.short': '--ds-keyframe-slide-out-top-short',
 	'motion.modal.enter': '--ds-modal-enter',
 	'motion.modal.exit': '--ds-modal-exit',
 	'motion.popup.enter.bottom': '--ds-popup-enter-bottom',
@@ -512,15 +537,40 @@ export type CSSTokenMap = {
 	'motion.avatar.enter': 'var(--ds-avatar-enter)';
 	'motion.avatar.exit': 'var(--ds-avatar-exit)';
 	'motion.avatar.hovered': 'var(--ds-avatar-hovered)';
-	'motion.content.enter.long': 'var(--ds-content-enter-long)';
-	'motion.content.enter.medium': 'var(--ds-content-enter-medium)';
-	'motion.content.enter.short': 'var(--ds-content-enter-short)';
-	'motion.content.exit.long': 'var(--ds-content-exit-long)';
-	'motion.content.exit.medium': 'var(--ds-content-exit-medium)';
-	'motion.content.exit.short': 'var(--ds-content-exit-short)';
+	'motion.blanket.enter': 'var(--ds-blanket-enter)';
+	'motion.blanket.exit': 'var(--ds-blanket-exit)';
+	'motion.duration.instant': 'var(--ds-duration-instant)';
+	'motion.duration.long': 'var(--ds-duration-long)';
+	'motion.duration.medium': 'var(--ds-duration-medium)';
+	'motion.duration.short': 'var(--ds-duration-short)';
+	'motion.duration.xlong': 'var(--ds-duration-xlong)';
+	'motion.duration.xshort': 'var(--ds-duration-xshort)';
+	'motion.duration.xxlong': 'var(--ds-duration-xxlong)';
+	'motion.duration.xxshort': 'var(--ds-duration-xxshort)';
+	'motion.easing.in.practical': 'var(--ds-easing-in-practical)';
+	'motion.easing.inout.bold': 'var(--ds-easing-inout-bold)';
+	'motion.easing.out.practical': 'var(--ds-easing-out-practical)';
+	'motion.easing.out.bold': 'var(--ds-easing-out-bold)';
+	'motion.easing.spring': 'var(--ds-easing-spring)';
 	'motion.flag.enter': 'var(--ds-flag-enter)';
 	'motion.flag.exit': 'var(--ds-flag-exit)';
 	'motion.flag.reposition': 'var(--ds-flag-reposition)';
+	'motion.keyframe.fade.in': 'var(--ds-keyframe-fade-in)';
+	'motion.keyframe.fade.out': 'var(--ds-keyframe-fade-out)';
+	'motion.keyframe.scale.in.medium': 'var(--ds-keyframe-scale-in-medium)';
+	'motion.keyframe.scale.in.small': 'var(--ds-keyframe-scale-in-small)';
+	'motion.keyframe.scale.out.medium': 'var(--ds-keyframe-scale-out-medium)';
+	'motion.keyframe.scale.out.small': 'var(--ds-keyframe-scale-out-small)';
+	'motion.keyframe.slide.in.bottom.short': 'var(--ds-keyframe-slide-in-bottom-short)';
+	'motion.keyframe.slide.in.left.half': 'var(--ds-keyframe-slide-in-left-half)';
+	'motion.keyframe.slide.in.left.short': 'var(--ds-keyframe-slide-in-left-short)';
+	'motion.keyframe.slide.in.right.short': 'var(--ds-keyframe-slide-in-right-short)';
+	'motion.keyframe.slide.in.top.short': 'var(--ds-keyframe-slide-in-top-short)';
+	'motion.keyframe.slide.out.bottom.short': 'var(--ds-keyframe-slide-out-bottom-short)';
+	'motion.keyframe.slide.out.left.half': 'var(--ds-keyframe-slide-out-left-half)';
+	'motion.keyframe.slide.out.left.short': 'var(--ds-keyframe-slide-out-left-short)';
+	'motion.keyframe.slide.out.right.short': 'var(--ds-keyframe-slide-out-right-short)';
+	'motion.keyframe.slide.out.top.short': 'var(--ds-keyframe-slide-out-top-short)';
 	'motion.modal.enter': 'var(--ds-modal-enter)';
 	'motion.modal.exit': 'var(--ds-modal-exit)';
 	'motion.popup.enter.bottom': 'var(--ds-popup-enter-bottom)';

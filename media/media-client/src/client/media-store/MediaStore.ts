@@ -867,11 +867,11 @@ export class MediaStore implements MediaApi {
 		});
 	}
 
-	resolveAuth = (authContext?: AuthContext) =>
+	resolveAuth = (authContext?: AuthContext): Promise<Auth> =>
 		resolveAuth(this.config.authProvider, authContext, this.config.authProviderTimeout);
 
-	resolveInitialAuth = () => resolveInitialAuth(this.config.initialAuth);
-	get chunkHashAlgorithm() {
+	resolveInitialAuth = (): Auth => resolveInitialAuth(this.config.initialAuth);
+	get chunkHashAlgorithm(): ChunkHashAlgorithm {
 		return this._chunkHashAlgorithm;
 	}
 }

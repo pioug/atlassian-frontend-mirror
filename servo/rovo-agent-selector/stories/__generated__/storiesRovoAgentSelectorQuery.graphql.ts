@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ad5ecf73aa3ef56b9e3310b57762dda2>>
+ * @generated SignedSource<<e3a159505a2f9718b729d0c79b18d9a5>>
  * @relayHash 7ae95a7e4fe23e258e2080855d674d01
  * @lightSyntaxTransform
  * @nogrep
@@ -12,7 +12,7 @@
 
 // @relayRequestID 6b659832e98f4f8fd0903b358e8e609b012739e585abb6cd20d788b560acffe2
 
-import type { ConcreteRequest, Query } from 'relay-runtime';
+import type { ConcreteRequest } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type storiesRovoAgentSelectorQuery$variables = {
   cloudIdString: string;

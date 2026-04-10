@@ -179,8 +179,8 @@ const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => 
 			<Portal zIndex={layers.modal()}>
 				{fg('platform-dst-motion-uplift') ? (
 					<Motion
-						enteringAnimation={token('motion.content.enter.medium')}
-						exitingAnimation={token('motion.content.exit.long')}
+						enteringAnimation={token('motion.blanket.enter')}
+						exitingAnimation={token('motion.blanket.exit')}
 					>
 						<div css={fillScreenStyles} aria-hidden={!isForeground}>
 							<FocusLock

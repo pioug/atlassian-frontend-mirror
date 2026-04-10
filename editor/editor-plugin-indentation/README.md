@@ -1,9 +1,22 @@
-# Editor plugin indentation
+# Editor Plugin Indentation
 
 Indentation plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Indentation plugin provides text indentation capabilities for paragraphs and headings in the Atlassian Editor. It allows users to increase or decrease indentation levels using keyboard shortcuts or toolbar actions, with built-in analytics tracking for indentation changes.
+
+## Key features
+
+- **Indent and outdent commands** - Increase or decrease indentation levels for paragraphs and headings
+- **Keyboard shortcuts** - Support for Tab/Shift+Tab shortcuts and backspace outdenting at cursor start
+- **Maximum indentation control** - Enforces a maximum indentation level to maintain readability
+- **Analytics integration** - Track indentation actions with detailed analytics events
+- **Mark-based implementation** - Uses ProseMirror marks for efficient indentation state management
+- **Alignment compatibility** - Prevents indentation on nodes with alignment marks to avoid conflicts
 
 ## Install
 ---

@@ -1,5 +1,5 @@
 import React from 'react';
-import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import Modal, {
@@ -17,7 +17,9 @@ export type AbuseModalProps = {
 	onClose: () => void;
 };
 
-export const AbuseModal = injectIntl<'intl', AbuseModalProps & WrappedComponentProps>(
+export const AbuseModal: React.FC<WithIntlProps<AbuseModalProps & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<AbuseModalProps & WrappedComponentProps>;
+} = injectIntl<'intl', AbuseModalProps & WrappedComponentProps>(
 	({ isOpen, onConfirm, onClose, intl: { formatMessage } }) => {
 		return (
 			<ModalTransition>

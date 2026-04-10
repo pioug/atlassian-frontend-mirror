@@ -31,8 +31,7 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type ClearMarksOnEmptyDocPlugin =
-  NextEditorPlugin<'clearMarksOnEmptyDoc'>;
+export type ClearMarksOnEmptyDocPlugin = NextEditorPlugin<'clearMarksOnEmptyDoc'>;
 `}
 
 

@@ -1,5 +1,20 @@
 # @atlaskit/css-reset
 
+## 7.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.4.2
+
+### Patch Changes
+
+- [`bc69c1d196bae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc69c1d196bae) -
+  Removed dependency on `typography` from `@atlaskit/theme`. The `font.body.small` token fallback
+  now uses the local `fontFamily` constant instead.
+- Updated dependencies
+
 ## 7.4.1
 
 ### Patch Changes

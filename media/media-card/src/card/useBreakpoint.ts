@@ -6,7 +6,7 @@ import { getElementDimension, isValidPercentageUnit, defaultImageCardDimensions 
 
 // Hook to calculate the breakpoint based on the width of the element
 export const useBreakpoint = (
-	dimensionWidth: CardDimensionValue = 0,
+	dimensionWidth: CardDimensionValue | undefined = 0,
 	divRef: React.RefObject<HTMLDivElement>,
 ): Breakpoint => {
 	const breakpoint = useMemo(() => {

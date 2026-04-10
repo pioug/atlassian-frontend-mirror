@@ -31,7 +31,16 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type CustomAutoformatPlugin = NextEditorPlugin<'customAutoformat'>;
+type CustomAutoformatPlugin = NextEditorPlugin<
+  'customAutoformat',
+  {
+    actions: {
+      setProvider: (provider: Promise<AutoformattingProvider>) => Promise<boolean>;
+    };
+    pluginConfiguration: CustomAutoformatPluginOptions;
+    sharedState: CustomAutoformatPluginSharedState | undefined;
+  }
+>;
 `}
 
 

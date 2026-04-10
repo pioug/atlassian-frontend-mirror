@@ -31,16 +31,28 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type LayoutPluginDependencies = [
+  DecorationsPlugin,
+  SelectionPlugin,
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<WidthPlugin>,
+  OptionalPlugin<EditorDisabledPlugin>,
+  OptionalPlugin<GuidelinePlugin>,
+  OptionalPlugin<InteractionPlugin>,
+  OptionalPlugin<BlockMenuPlugin>,
+  OptionalPlugin<ToolbarPlugin>,
+];
+
 type LayoutPlugin = NextEditorPlugin<
   'layout',
   {
-    pluginConfiguration: LayoutPluginOptions | undefined;
-    dependencies: [DecorationsPlugin, OptionalPlugin<AnalyticsPlugin>];
     actions: {
       insertLayoutColumns: ReturnType<typeof insertLayoutColumnsWithAnalytics>;
     };
+    dependencies: LayoutPluginDependencies;
+    pluginConfiguration: LayoutPluginOptions | undefined;
   }
->
+>;
 `}
 
 

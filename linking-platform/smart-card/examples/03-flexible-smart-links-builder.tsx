@@ -9,6 +9,7 @@ import TemplateRenderer from './flexible-builder/template-renderer';
 import { type FlexibleTemplate } from './flexible-builder/types';
 import { getExampleFromLocalStorage, setExampleToLocalStorage } from './flexible-builder/utils';
 import JsonldEditor from './jsonld-editor/jsonld-editor';
+import useFeatureGateOverrideConfig from './utils/use-feature-gate-override-config.ts';
 
 const gridStyles = cssMap({
 	root: {
@@ -17,12 +18,18 @@ const gridStyles = cssMap({
 });
 
 export default (): React.JSX.Element => {
+	const { ready } = useFeatureGateOverrideConfig();
+
 	const [template, setTemplate] = useState<FlexibleTemplate>(getExampleFromLocalStorage());
 
 	const onChange = useCallback((updatedTemplate: FlexibleTemplate) => {
 		setTemplate(updatedTemplate);
 		setExampleToLocalStorage(updatedTemplate);
 	}, []);
+
+	if (!ready) {
+		return <Box>Loading...</Box>;
+	}
 
 	return (
 		<Box padding="space.400">

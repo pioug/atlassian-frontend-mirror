@@ -1,5 +1,36 @@
 # @atlaskit/editor-statsig-tmp
 
+## 56.1.0
+
+### Minor Changes
+
+- [`cfc9d74ff4070`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfc9d74ff4070) -
+  Add experiment to changes for adding suggest reply markdown
+
+## 56.0.0
+
+### Major Changes
+
+- [`6bdbecda5afa7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bdbecda5afa7) -
+  Clean up experiment editor_fix_embed_width_expand
+
+## 55.2.0
+
+### Minor Changes
+
+- [`c82f7b4cbe1fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c82f7b4cbe1fd) -
+  Fix drag handle keyboard accessibility: Shift+Ctrl+H now correctly shows and focuses the drag
+  handle for keyboard users when mouse is outside the editor. Gated behind
+  platform_editor_drag_handle_keyboard_a11y experiment.
+
+## 55.1.0
+
+### Minor Changes
+
+- [`e3a3a549232de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3a3a549232de) -
+  [ux] Adds functionality to autoselect outcome type when clicking example / suggested prompts on
+  AIFC modal behind new experiment
+
 ## 55.0.0
 
 ### Major Changes

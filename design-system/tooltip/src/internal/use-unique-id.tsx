@@ -1,4 +1,4 @@
-import { useIdSeed } from '@atlaskit/ds-lib/use-id';
+import { useIdSeed } from '@atlaskit/ds-lib/use-id-seed';
 
 /**
  * Generates unique ID.

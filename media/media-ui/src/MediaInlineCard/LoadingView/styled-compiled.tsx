@@ -15,7 +15,7 @@ const spinnerWrapperStyles = css({
 export const SpinnerWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span css={spinnerWrapperStyles} {...props}>
 		{children}
 	</span>

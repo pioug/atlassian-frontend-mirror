@@ -2,11 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, memo, type Ref } from 'react';
+import { forwardRef, memo, type Ref, useLayoutEffect, useRef, useState } from 'react';
 
 import Badge, { type BadgeNewProps } from '@atlaskit/badge';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import { useResizingWidth } from '@atlaskit/motion/resizing-width';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Pressable from '@atlaskit/primitives/pressable';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -56,6 +58,11 @@ const styles = cssMap({
 		borderStyle: 'solid',
 		borderColor: 'transparent',
 	},
+	motionContainer: {
+		transitionProperty: 'background-color, border-color',
+		transitionDuration: token('motion.duration.medium'),
+		transitionTimingFunction: token('motion.easing.inout.bold'),
+	},
 	containerSpacious: {
 		minHeight: '2rem',
 		borderRadius: token('radius.medium', '6px'),
@@ -73,8 +80,11 @@ const styles = cssMap({
 		// eslint-disable-next-line @compiled/shorthand-property-sorting
 		font: token('font.body.small'),
 		overflow: 'hidden',
-		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
+		textOverflow: 'ellipsis',
+	},
+	textResizing: {
+		textOverflow: 'clip',
 	},
 	textSpacious: {
 		font: token('font.body'),
@@ -561,6 +571,11 @@ const LozengeBase: import('react').MemoExoticComponent<
 			},
 			ref,
 		) => {
+			const [resizing, setResizing] = useState<boolean>(false);
+			const onFinishMotion = () => setResizing(false);			
+			const resizingWidth = useResizingWidth({ duration: token('motion.duration.medium'), easing: token('motion.easing.inout.bold'), onFinishMotion });
+			const isInitialRender = useRef<boolean>(true);
+
 			const isInteractive = typeof onClick === 'function';
 
 			// Determine the effective color, with fallback logic for legacy appearances
@@ -601,6 +616,18 @@ const LozengeBase: import('react').MemoExoticComponent<
 			};
 			const hasTrailingMetric = trailingMetric != null && trailingMetric !== '';
 
+			const childrenKey = typeof children === 'string' ? children : undefined;
+			useLayoutEffect(() => {
+				// Ignore initial render
+				if(isInitialRender.current) {
+					isInitialRender.current = false;
+					return;
+				}
+				if(fg('platform-dst-motion-uplift')) {
+					setResizing(true);
+				}
+			}, [childrenKey])
+
 			const innerContent = (
 				<span
 					css={[
@@ -613,6 +640,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 						// so text truncation works correctly within the flex layout
 						maxWidth: maxWidthIsPc ? '100%' : undefined,
 					}}
+					{...fg('platform-dst-motion-uplift') ? resizingWidth : undefined}
 				>
 					{iconBefore && (
 						<IconRenderer
@@ -623,7 +651,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 						/>
 					)}
 					<span
-						css={[styles.text, spacing === 'spacious' && styles.textSpacious]}
+						css={[styles.text, resizing && styles.textResizing, spacing === 'spacious' && styles.textSpacious]}
 						style={{
 							maxWidth: maxWidthIsPc
 								? undefined
@@ -660,6 +688,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 						ref={ref as Ref<HTMLButtonElement>}
 						xcss={cx(
 							styles.container,
+							fg('platform-dst-motion-uplift') && styles.motionContainer,
 							spacing === 'spacious' && styles.containerSpacious,
 							!isSelected && styles.iconBorderFilter,
 							!isLoading && styles.iconBorderInteractiveFilter,

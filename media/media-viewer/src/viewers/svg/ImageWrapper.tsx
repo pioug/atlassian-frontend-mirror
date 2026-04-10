@@ -7,6 +7,6 @@ export type ImageWrapperProps = {
 	onClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
 };
 
-export const ImageWrapper = forwardRef<HTMLDivElement, ImageWrapperProps>((props, ref) => (
+export const ImageWrapper: React.ForwardRefExoticComponent<ImageWrapperProps & React.RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, ImageWrapperProps>((props, ref) => (
 	<CompiledImageWrapper {...props} ref={ref} />
 ));

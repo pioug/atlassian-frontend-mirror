@@ -1,11 +1,14 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type MutableRefObject } from 'react';
 
 import { useStaticCallback } from '@atlaskit/media-common';
 
 export const useIntersectionObserver = (
 	options: IntersectionObserverInit,
 	onVisible: () => void,
-) => {
+): {
+        observedRef: (node: HTMLElement | null) => void;
+        isVisibleRef: MutableRefObject<boolean>;
+    } => {
 	const staticOnVisible = useStaticCallback(onVisible);
 
 	const observerRef = useRef<IntersectionObserver | null>(null);

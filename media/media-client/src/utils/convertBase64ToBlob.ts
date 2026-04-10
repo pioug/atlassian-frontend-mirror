@@ -1,4 +1,4 @@
-export const convertBase64ToBlob = (base64: string) => {
+export const convertBase64ToBlob = (base64: string): Blob => {
 	const sliceSize = 512;
 	const base64Data = base64.split(',')[1];
 

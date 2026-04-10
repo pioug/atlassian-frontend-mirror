@@ -1,9 +1,22 @@
-# Editor plugin copy-button
+# Editor Plugin Copy Button
 
-Analytics plugin for @atlaskit/editor-core
+Copy Button plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Copy Button plugin provides toolbar button functionality for copying content within the Atlassian Editor. It integrates with the floating toolbar to display copy buttons for marks and nodes, offering visual feedback and accessibility features for copy operations.
+
+## Key features
+
+- **Copy button toolbar integration** - Seamlessly integrate copy buttons into the floating toolbar
+- **Mark and node support** - Support copying both marks and nodes with specific copy handlers
+- **Visual feedback** - Provide hover decoration and copied state indication to users
+- **Accessibility support** - Announce copy operations to users via aria notifications
+- **Analytics integration** - Track copy button interactions with analytics events
+- **Customizable handlers** - Configure custom mouse and focus event handlers for copy buttons
 
 ## Install
 ---

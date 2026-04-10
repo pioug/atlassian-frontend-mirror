@@ -977,7 +977,7 @@ const videoCaptions = createGenerator({
 	},
 });
 
-export const generateSampleFileItem = {
+export const generateSampleFileItem: { workingImgWithRemotePreview: FileItemGenerator; workingImgWithRemotePreviewInRecentsCollection: FileItemGenerator; workingPdfWithRemotePreview: FileItemGenerator; workingPdfWithoutRemotePreview: FileItemGenerator; workingPdfWithLocalPreview: FileItemGenerator; workingVideo: FileItemGenerator; workingJpegWithRemotePreview: FileItemGenerator; workingAudioWithoutRemotePreview: FileItemGenerator; workingArchive: FileItemGenerator; workingUnknown: FileItemGenerator; workingGif: FileItemGenerator; workingCode: FileItemGenerator; workingCodeLarge: FileItemGenerator; workingExcelWithLocalPreview: FileItemGenerator; processingPdf: FileItemGenerator; failedPdf: FileItemGenerator; failedDoc: FileItemGenerator; failedVideo: FileItemGenerator; passwordPdf: FileItemGenerator; svg: FileItemGenerator; svgWithoutPreview: FileItemGenerator; svgFailedProcessing: FileItemGenerator; abuseImage: FileItemGenerator; abuseSvg: FileItemGenerator; abuseFailedVideo: FileItemGenerator; abusePdfNoPreview: FileItemGenerator; csv: FileItemGenerator; spreadsheet: FileItemGenerator; videoCaptions: FileItemGenerator; } = {
 	workingImgWithRemotePreview,
 	workingImgWithRemotePreviewInRecentsCollection,
 	workingPdfWithRemotePreview,

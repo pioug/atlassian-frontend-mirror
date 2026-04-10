@@ -1,6 +1,6 @@
 import format from '@af/formatting/sync';
 
-import { capitalize } from './utils';
+import { capitalize } from './capitalize';
 
 const dimensionProperties = {
 	width: {

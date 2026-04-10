@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "0.67.0",
+	"version": "1.0.0",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -18,7 +18,8 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./global": "./src/components/global/__generated__/index.ts"
 	},
 	"atlassian": {
 		"team": "Forge UI"

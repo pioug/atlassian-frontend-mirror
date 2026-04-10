@@ -2,7 +2,7 @@ import React, { useContext, useMemo } from 'react';
 
 import { defaultGridColumns, defaultSpacing } from './constants';
 import { Grid } from './grid';
-import { GridColumnContext } from './grid-column';
+import { GridColumnContext } from './grid-column-context';
 import { GridContext } from './grid-context';
 import type { GridProps } from './types';
 

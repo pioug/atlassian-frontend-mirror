@@ -4,7 +4,6 @@
 		"paths": {},
 		"resolveJsonModule": true
 	},
-	"files": ["./url-module.d.ts"],
 	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
 	"exclude": [
 		"../src/**/__tests__/*",

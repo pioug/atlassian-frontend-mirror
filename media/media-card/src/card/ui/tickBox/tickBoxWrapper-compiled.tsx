@@ -30,7 +30,10 @@ const wrapperStyles = css({
 	transition: 'all .3s',
 });
 
-export const TickBoxWrapper = (props: TickBoxProps) => {
+export const TickBoxWrapper: {
+    (props: TickBoxProps): JSX.Element;
+    displayName: string;
+} = (props: TickBoxProps): JSX.Element => {
 	return (
 		<div
 			id="tickBoxWrapper"

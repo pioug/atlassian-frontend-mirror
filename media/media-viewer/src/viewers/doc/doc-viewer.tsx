@@ -120,7 +120,7 @@ export const DocViewer = ({
 	onError,
 	onSuccess,
 	traceContext,
-}: Props) => {
+}: Props): JSX.Element => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const getContent = useStaticCallback(async (pageStart: number, pageEnd: number) => {
 		try {

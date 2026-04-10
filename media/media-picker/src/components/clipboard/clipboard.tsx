@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type CreateUIAnalyticsEvent, withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type CreateUIAnalyticsEvent, withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 import {
 	ANALYTICS_MEDIA_CHANNEL,
@@ -12,12 +12,14 @@ import { LocalUploadComponentReact, type LocalUploadComponentBaseProps } from '.
 
 import { LocalFileSource, type LocalFileWithSource, type UploadService } from '../../service/types';
 
-import { type ClipboardPastePayload, type ClipboardConfig } from '../../types';
+import { type ClipboardPastePayload, type ClipboardConfig, type UploadEndEventPayload, type UploadErrorEventPayload, type UploadPreviewUpdateEventPayload, type UploadsStartEventPayload } from '../../types';
 import { getPackageAttributes } from '../../util/analytics';
 import { appendTimestamp } from '../../util/appendTimestamp';
 import ErrorFlagGroup from '../errorFlagGroup/ErrorFlagGroup';
+import type { MediaClient } from '@atlaskit/media-client';
+import type { LocalUploadConfig } from '../types';
 
-export const getFilesFromClipboard = (files: FileList) => {
+export const getFilesFromClipboard = (files: FileList): File[] => {
 	return Array.from(files).map((file) => {
 		if (file.type.indexOf('image/') === 0) {
 			const name = appendTimestamp(file.name, (file as any).lastModified);
@@ -46,10 +48,10 @@ class ClipboardImpl {
 
 	constructor(
 		private readonly uploadService: UploadService,
-		private container?: HTMLElement,
+		private container?: HTMLElement | undefined,
 		private onPaste?: (event: ClipboardEvent) => boolean | undefined,
-		private readonly createAnalyticsEvent?: CreateUIAnalyticsEvent,
-		public featureFlags?: MediaFeatureFlags,
+		private readonly createAnalyticsEvent?: CreateUIAnalyticsEvent | undefined,
+		public featureFlags?: MediaFeatureFlags | undefined,
 	) {}
 
 	static get latestInstance(): ClipboardImpl | undefined {
@@ -191,7 +193,9 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 		);
 	}
 
-	static defaultProps = {
+	static defaultProps: {
+        config: ClipboardConfig;
+    } = {
 		config: defaultConfig,
 	};
 
@@ -222,6 +226,18 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 
 export default ClipboardBase;
 
-export const Clipboard = withMediaAnalyticsContext(getPackageAttributes(COMPONENT_NAME))(
+export const Clipboard: React.ForwardRefExoticComponent<Omit<Pick<Omit<{
+    mediaClient: MediaClient;
+    config: LocalUploadConfig;
+    onUploadsStart?: (payload: UploadsStartEventPayload) => void;
+    onPreviewUpdate?: (payload: UploadPreviewUpdateEventPayload) => void;
+    onEnd?: (payload: UploadEndEventPayload) => void;
+    onError?: (payload: UploadErrorEventPayload) => void;
+    featureFlags?: MediaFeatureFlags;
+} & {
+    config: ClipboardConfig;
+}, keyof WithAnalyticsEventsProps>, "onError" | "mediaClient" | "onUploadsStart" | "onPreviewUpdate" | "onEnd" | "featureFlags"> & {
+    config?: (LocalUploadConfig & ClipboardConfig) | undefined;
+} & {} & React.RefAttributes<any>, "ref"> & React.RefAttributes<any>> = withMediaAnalyticsContext(getPackageAttributes(COMPONENT_NAME))(
 	withAnalyticsEvents()(ClipboardBase),
 );

@@ -1,9 +1,19 @@
-# Editor plugin clear marks on empty doc
+# Editor Plugin Clear Marks On Empty Doc
 
 Clear marks on empty doc plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Clear Marks On Empty Doc plugin automatically removes active text marks (such as bold, italic, and other formatting) from the editor when the document becomes empty. This ensures a clean state when users clear all content from the editor.
+
+## Key features
+
+- **Automatic mark clearing** - Removes active marks when the document becomes empty
+- **State management** - Ensures consistent editor state after content deletion
+- **Editor integration** - Seamlessly integrates with @atlaskit/editor-core
 
 ## Install
 

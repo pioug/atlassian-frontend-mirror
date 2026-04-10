@@ -18,7 +18,7 @@ const backgroundStyles = css({
 	borderRadius: token('radius.full'),
 });
 
-export const PlayButtonBackground = () => {
+export const PlayButtonBackground = (): JSX.Element => {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 	return <div css={backgroundStyles} className={bkgClassName} />;
 };

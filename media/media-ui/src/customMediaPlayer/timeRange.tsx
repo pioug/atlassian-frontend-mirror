@@ -32,8 +32,8 @@ export class TimeRangeBase extends Component<
 	TimeRangeProps & WrappedComponentProps<'intl'>,
 	TimeRangeState
 > {
-	thumbElement = React.createRef<HTMLDivElement>();
-	wrapperElement = React.createRef<HTMLDivElement>();
+	thumbElement: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
+	wrapperElement: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 
 	wrapperElementWidth: number = 0;
 

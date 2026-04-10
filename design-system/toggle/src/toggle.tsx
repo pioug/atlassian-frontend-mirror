@@ -360,13 +360,14 @@ const Toggle: React.MemoExoticComponent<
 
 		const shouldChecked = isControlled ? checked : isChecked;
 
-		// In the atomic styling path, data-* attributes are still set for
-		// external consumers who rely on them, but they no longer drive any
-		// internal CSS styling.
 		const controlProps = {
-			'data-checked': shouldChecked ? shouldChecked : undefined,
-			'data-disabled': isDisabled ? isDisabled : undefined,
-			'data-size': size,
+			// In the legacy styling path, data-* attributes drive CSS styling via
+			// attribute selectors. In the atomic path they are no longer needed.
+			...(!fg('platform-toggle-atomic-styles') && {
+				'data-checked': shouldChecked ? shouldChecked : undefined,
+				'data-disabled': isDisabled ? isDisabled : undefined,
+				'data-size': size,
+			}),
 			'data-testid': testId ? testId : undefined,
 		};
 

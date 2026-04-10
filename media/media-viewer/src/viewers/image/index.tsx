@@ -47,7 +47,9 @@ function processedFileStateToMediaItem(file: FileState): FileItem {
 }
 
 export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps> {
-	protected get initialState() {
+	protected get initialState(): {
+        content: Outcome<ImageViewerContent, MediaViewerError>;
+    } {
 		return { content: Outcome.pending<ImageViewerContent, MediaViewerError>() };
 	}
 

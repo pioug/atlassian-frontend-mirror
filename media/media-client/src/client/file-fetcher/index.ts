@@ -924,7 +924,7 @@ export class FileFetcherImpl implements FileFetcher {
 		return videoLength;
 	};
 
-	getVideoDurations = async (files: Array<{ id: string; collectionName?: string }>) => {
+	getVideoDurations = async (files: Array<{ id: string; collectionName?: string }>): Promise<Record<string, number>> => {
 		// get all the duration promises
 		const promises = files.map(async ({ id, collectionName }) => {
 			try {

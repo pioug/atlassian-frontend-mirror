@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode, type MouseEvent, type Key, forwardRef } from 'react';
+import { type ReactNode, type MouseEvent, type Key, forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css, keyframes } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
@@ -170,13 +170,13 @@ const fullHeightStyles = css({
 export const ArchiveItemViewerWrapper = ({
 	children,
 	fullHeight,
-}: Children & { fullHeight?: boolean }) => {
+}: Children & { fullHeight?: boolean }): JSX.Element => {
 	return (
 		<div css={[archiveItemViewerWrapperStyles, fullHeight && fullHeightStyles]}>{children}</div>
 	);
 };
 
-export const ArchiveSideBar = forwardRef(
+export const ArchiveSideBar: ForwardRefExoticComponent<Children & RefAttributes<HTMLDivElement>> = forwardRef(
 	({ children }: Children, ref: React.Ref<HTMLDivElement>) => {
 		return (
 			<div css={archiveSideBarStyles} ref={ref}>
@@ -186,7 +186,7 @@ export const ArchiveSideBar = forwardRef(
 	},
 );
 
-export const ArchiveSidebarFolderWrapper = ({ children }: Children) => {
+export const ArchiveSidebarFolderWrapper = ({ children }: Children): JSX.Element => {
 	return (
 		<div css={archiveSidebarFolderWrapperStyles} data-testid="archive-sidebar-folder-wrapper">
 			{children}
@@ -194,7 +194,7 @@ export const ArchiveSidebarFolderWrapper = ({ children }: Children) => {
 	);
 };
 
-export const ArchiveDownloadButtonWrapper = ({ children, onClick }: Children & OnClick) => {
+export const ArchiveDownloadButtonWrapper = ({ children, onClick }: Children & OnClick): JSX.Element => {
 	const intl = useIntl();
 	return (
 		fg('platform_media_a11y_suppression_fixes') ? (
@@ -219,7 +219,7 @@ export const ArchiveDownloadButtonWrapper = ({ children, onClick }: Children & O
 	);
 };
 
-export const DisabledArchiveDownloadButtonWrapper = ({ children }: Children) => {
+export const DisabledArchiveDownloadButtonWrapper = ({ children }: Children): JSX.Element => {
 	return (
 		<div
 			css={disabledArchiveDownloadButtonWrapperStyles}
@@ -230,11 +230,11 @@ export const DisabledArchiveDownloadButtonWrapper = ({ children }: Children) => 
 	);
 };
 
-export const SidebarItemWrapper = ({ children }: Children) => {
+export const SidebarItemWrapper = ({ children }: Children): JSX.Element => {
 	return <div css={sidebarItemWrapperStyles}>{children}</div>;
 };
 
-export const ArchiveSidebarFileEntryWrapper = ({ children, index }: { index: Key } & Children) => {
+export const ArchiveSidebarFileEntryWrapper = ({ children, index }: { index: Key } & Children): JSX.Element => {
 	return (
 		<div css={archiveSidebarFileEntryWrapperStyles} key={index}>
 			{children}
@@ -242,7 +242,7 @@ export const ArchiveSidebarFileEntryWrapper = ({ children, index }: { index: Key
 	);
 };
 
-export const ArchiveLayout = ({ children }: Children) => {
+export const ArchiveLayout = ({ children }: Children): JSX.Element => {
 	return (
 		<div css={archiveLayoutStyles} data-testid="archive-layout">
 			{children}
@@ -250,22 +250,22 @@ export const ArchiveLayout = ({ children }: Children) => {
 	);
 };
 
-export const ArchiveViewerWrapper = ({ children }: Children) => {
+export const ArchiveViewerWrapper = ({ children }: Children): JSX.Element => {
 	return <div css={archiveViewerWrapperStyles}>{children}</div>;
 };
 
-export const Separator = () => {
+export const Separator = (): JSX.Element => {
 	return <div css={separatorStyles} />;
 };
 
-export const SidebarHeaderWrapper = ({ children }: Children) => {
+export const SidebarHeaderWrapper = ({ children }: Children): JSX.Element => {
 	return <span css={sidebarHeaderWrapperStyles}>{children}</span>;
 };
 
-export const SidebarHeaderIcon = ({ children }: Children) => {
+export const SidebarHeaderIcon = ({ children }: Children): JSX.Element => {
 	return <div css={sidebarHeaderIconStyles}>{children}</div>;
 };
 
-export const SidebarHeaderEntry = ({ children }: Children) => {
+export const SidebarHeaderEntry = ({ children }: Children): JSX.Element => {
 	return <div css={sidebarHeaderEntryStyles}>{children}</div>;
 };

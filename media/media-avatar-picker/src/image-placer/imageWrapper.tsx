@@ -14,7 +14,7 @@ const imageWrapperStyles = css({
 	pointerEvents: 'none',
 });
 
-export const ImageWrapper = ({ x, y, width, height, transform, ...props }: any) => {
+export const ImageWrapper = ({ x, y, width, height, transform, ...props }: any): JSX.Element => {
 	const intl = useIntl();
 
 	return (

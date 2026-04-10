@@ -68,7 +68,7 @@ const wrapperStyles = css({
 // NB: `padding` consistent with @mentions.
 // NB: `display: inline` required for `box-decoration-break` to work.
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
-export const Wrapper = React.forwardRef<
+export const Wrapper: React.ForwardRefExoticComponent<Omit<WrapperProps & React.ClassAttributes<HTMLSpanElement> & React.HTMLAttributes<HTMLSpanElement>, "ref"> & React.RefAttributes<HTMLSpanElement>> = React.forwardRef<
 	HTMLSpanElement,
 	WrapperProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
 >(({ isSelected, isError, children, ...props }, ref) => (

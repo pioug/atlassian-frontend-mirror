@@ -1,7 +1,10 @@
 import format from '@af/formatting/sync';
 import { light as tokens } from '@atlaskit/tokens/tokens-raw';
 
-import { compose, isAccent, not, pick } from './utils';
+import { compose } from './compose';
+import { isAccent } from './is-accent';
+import { not } from './not';
+import { pick } from './pick';
 
 type Token = {
 	token: string;

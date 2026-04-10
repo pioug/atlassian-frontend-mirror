@@ -28,7 +28,10 @@ const iconWrapperStyles = css({
 	alignItems: 'center',
 });
 
-export const IconWrapper = (props: IconWrapperProps) => {
+export const IconWrapper: {
+    (props: IconWrapperProps): JSX.Element;
+    displayName: string;
+} = (props: IconWrapperProps): JSX.Element => {
 	const { breakpoint, hasTitleBox } = props;
 
 	return (

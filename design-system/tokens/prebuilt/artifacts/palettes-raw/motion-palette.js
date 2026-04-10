@@ -6,36 +6,21 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1825c86d6664e1366bcb1ab73b5d2a4a>>
+ * @codegen <<SignedSource::61e5f6306081ee114d542ad7b43b7e1c>>
  * @codegenCommand yarn build tokens
  */
 
 var tokens = [{
-  "value": "cubic-bezier(0.32, 0, 0.67, 0)",
-  "attributes": {
-    "group": "motion"
-  },
-  "filePath": "schema/palettes/motion-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": "cubic-bezier(0.32, 0, 0.67, 0)",
-    "attributes": {
-      "group": "motion"
-    }
-  },
-  "name": "motion.curve.Custom",
-  "path": ["motion", "curve", "Custom"]
-}, {
   "value": "cubic-bezier(0.4, 0, 0, 1)",
   "attributes": {
-    "group": "motion"
+    "group": "motionEasing"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
   "original": {
     "value": "cubic-bezier(0.4, 0, 0, 1)",
     "attributes": {
-      "group": "motion"
+      "group": "motionEasing"
     }
   },
   "name": "motion.curve.EaseBoldInOut",
@@ -43,14 +28,14 @@ var tokens = [{
 }, {
   "value": "cubic-bezier(0, 0.4, 0, 1)",
   "attributes": {
-    "group": "motion"
+    "group": "motionEasing"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
   "original": {
     "value": "cubic-bezier(0, 0.4, 0, 1)",
     "attributes": {
-      "group": "motion"
+      "group": "motionEasing"
     }
   },
   "name": "motion.curve.EaseBoldOut",
@@ -58,14 +43,14 @@ var tokens = [{
 }, {
   "value": "cubic-bezier(0.6, 0, 0.8, 0.6)",
   "attributes": {
-    "group": "motion"
+    "group": "motionEasing"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
   "original": {
     "value": "cubic-bezier(0.6, 0, 0.8, 0.6)",
     "attributes": {
-      "group": "motion"
+      "group": "motionEasing"
     }
   },
   "name": "motion.curve.EasePracticalIn",
@@ -73,29 +58,59 @@ var tokens = [{
 }, {
   "value": "cubic-bezier(0.4, 1, 0.6, 1)",
   "attributes": {
-    "group": "motion"
+    "group": "motionEasing"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
   "original": {
     "value": "cubic-bezier(0.4, 1, 0.6, 1)",
     "attributes": {
-      "group": "motion"
+      "group": "motionEasing"
     }
   },
   "name": "motion.curve.EasePracticalOut",
   "path": ["motion", "curve", "EasePracticalOut"]
 }, {
+  "value": "linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)",
+  "attributes": {
+    "group": "motionEasing"
+  },
+  "filePath": "schema/palettes/motion-palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)",
+    "attributes": {
+      "group": "motionEasing"
+    }
+  },
+  "name": "motion.curve.EaseSpring",
+  "path": ["motion", "curve", "EaseSpring"]
+}, {
+  "value": 0,
+  "attributes": {
+    "group": "motionDuration"
+  },
+  "filePath": "schema/palettes/motion-palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": 0,
+    "attributes": {
+      "group": "motionDuration"
+    }
+  },
+  "name": "motion.duration.Duration000",
+  "path": ["motion", "duration", "Duration000"]
+}, {
   "value": 50,
   "attributes": {
-    "group": "motion"
+    "group": "motionDuration"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
   "original": {
     "value": 50,
     "attributes": {
-      "group": "motion"
+      "group": "motionDuration"
     }
   },
   "name": "motion.duration.Duration050",
@@ -103,14 +118,14 @@ var tokens = [{
 }, {
   "value": 100,
   "attributes": {
-    "group": "motion"
+    "group": "motionDuration"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
   "original": {
     "value": 100,
     "attributes": {
-      "group": "motion"
+      "group": "motionDuration"
     }
   },
   "name": "motion.duration.Duration100",
@@ -118,14 +133,14 @@ var tokens = [{
 }, {
   "value": 150,
   "attributes": {
-    "group": "motion"
+    "group": "motionDuration"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
   "original": {
     "value": 150,
     "attributes": {
-      "group": "motion"
+      "group": "motionDuration"
     }
   },
   "name": "motion.duration.Duration150",
@@ -133,14 +148,14 @@ var tokens = [{
 }, {
   "value": 200,
   "attributes": {
-    "group": "motion"
+    "group": "motionDuration"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
   "original": {
     "value": 200,
     "attributes": {
-      "group": "motion"
+      "group": "motionDuration"
     }
   },
   "name": "motion.duration.Duration200",
@@ -148,64 +163,49 @@ var tokens = [{
 }, {
   "value": 250,
   "attributes": {
-    "group": "motion"
+    "group": "motionDuration"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
   "original": {
     "value": 250,
     "attributes": {
-      "group": "motion"
+      "group": "motionDuration"
     }
   },
   "name": "motion.duration.Duration250",
   "path": ["motion", "duration", "Duration250"]
 }, {
-  "value": 300,
-  "attributes": {
-    "group": "motion"
-  },
-  "filePath": "schema/palettes/motion-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": 300,
-    "attributes": {
-      "group": "motion"
-    }
-  },
-  "name": "motion.duration.Duration300",
-  "path": ["motion", "duration", "Duration300"]
-}, {
-  "value": 350,
-  "attributes": {
-    "group": "motion"
-  },
-  "filePath": "schema/palettes/motion-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": 350,
-    "attributes": {
-      "group": "motion"
-    }
-  },
-  "name": "motion.duration.Duration350",
-  "path": ["motion", "duration", "Duration350"]
-}, {
   "value": 400,
   "attributes": {
-    "group": "motion"
+    "group": "motionDuration"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
   "original": {
     "value": 400,
     "attributes": {
-      "group": "motion"
+      "group": "motionDuration"
     }
   },
   "name": "motion.duration.Duration400",
   "path": ["motion", "duration", "Duration400"]
 }, {
+  "value": 600,
+  "attributes": {
+    "group": "motionDuration"
+  },
+  "filePath": "schema/palettes/motion-palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": 600,
+    "attributes": {
+      "group": "motionDuration"
+    }
+  },
+  "name": "motion.duration.Duration600",
+  "path": ["motion", "duration", "Duration600"]
+}, {
   "value": {
     "0%": {
       "opacity": 0
@@ -215,7 +215,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -229,11 +229,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.FadeIn",
-  "path": ["motion", "keyframe", "FadeIn"]
+  "name": "motion.keyframe.FadeIn0to100",
+  "path": ["motion", "keyframe", "FadeIn0to100"]
 }, {
   "value": {
     "0%": {
@@ -244,7 +244,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -258,11 +258,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.FadeOut",
-  "path": ["motion", "keyframe", "FadeOut"]
+  "name": "motion.keyframe.FadeOut100to0",
+  "path": ["motion", "keyframe", "FadeOut100to0"]
 }, {
   "value": {
     "0%": {
@@ -273,7 +273,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -287,69 +287,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.ScaleIn80",
-  "path": ["motion", "keyframe", "ScaleIn80"]
-}, {
-  "value": {
-    "0%": {
-      "transform": "scale(0.85)"
-    },
-    "100%": {
-      "transform": "scale(1)"
-    }
-  },
-  "attributes": {
-    "group": "keyframe"
-  },
-  "filePath": "schema/palettes/motion-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": {
-      "0%": {
-        "transform": "scale(0.85)"
-      },
-      "100%": {
-        "transform": "scale(1)"
-      }
-    },
-    "attributes": {
-      "group": "keyframe"
-    }
-  },
-  "name": "motion.keyframe.ScaleIn85",
-  "path": ["motion", "keyframe", "ScaleIn85"]
-}, {
-  "value": {
-    "0%": {
-      "transform": "scale(0.9)"
-    },
-    "100%": {
-      "transform": "scale(1)"
-    }
-  },
-  "attributes": {
-    "group": "keyframe"
-  },
-  "filePath": "schema/palettes/motion-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": {
-      "0%": {
-        "transform": "scale(0.9)"
-      },
-      "100%": {
-        "transform": "scale(1)"
-      }
-    },
-    "attributes": {
-      "group": "keyframe"
-    }
-  },
-  "name": "motion.keyframe.ScaleIn90",
-  "path": ["motion", "keyframe", "ScaleIn90"]
+  "name": "motion.keyframe.ScaleIn80to100",
+  "path": ["motion", "keyframe", "ScaleIn80to100"]
 }, {
   "value": {
     "0%": {
@@ -360,7 +302,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -374,11 +316,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.ScaleIn95",
-  "path": ["motion", "keyframe", "ScaleIn95"]
+  "name": "motion.keyframe.ScaleIn95to100",
+  "path": ["motion", "keyframe", "ScaleIn95to100"]
 }, {
   "value": {
     "0%": {
@@ -389,7 +331,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -403,69 +345,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.ScaleOut80",
-  "path": ["motion", "keyframe", "ScaleOut80"]
-}, {
-  "value": {
-    "0%": {
-      "transform": "scale(1)"
-    },
-    "100%": {
-      "transform": "scale(0.85)"
-    }
-  },
-  "attributes": {
-    "group": "keyframe"
-  },
-  "filePath": "schema/palettes/motion-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": {
-      "0%": {
-        "transform": "scale(1)"
-      },
-      "100%": {
-        "transform": "scale(0.85)"
-      }
-    },
-    "attributes": {
-      "group": "keyframe"
-    }
-  },
-  "name": "motion.keyframe.ScaleOut85",
-  "path": ["motion", "keyframe", "ScaleOut85"]
-}, {
-  "value": {
-    "0%": {
-      "transform": "scale(1)"
-    },
-    "100%": {
-      "transform": "scale(0.9)"
-    }
-  },
-  "attributes": {
-    "group": "keyframe"
-  },
-  "filePath": "schema/palettes/motion-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": {
-      "0%": {
-        "transform": "scale(1)"
-      },
-      "100%": {
-        "transform": "scale(0.9)"
-      }
-    },
-    "attributes": {
-      "group": "keyframe"
-    }
-  },
-  "name": "motion.keyframe.ScaleOut90",
-  "path": ["motion", "keyframe", "ScaleOut90"]
+  "name": "motion.keyframe.ScaleOut100to80",
+  "path": ["motion", "keyframe", "ScaleOut100to80"]
 }, {
   "value": {
     "0%": {
@@ -476,7 +360,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -490,44 +374,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.ScaleOut95",
-  "path": ["motion", "keyframe", "ScaleOut95"]
-}, {
-  "value": {
-    "0%": {
-      "transform": "translateX(-15%)",
-      "transform-origin": "left"
-    },
-    "100%": {
-      "transform": "translateX(0px)",
-      "transform-origin": "left"
-    }
-  },
-  "attributes": {
-    "group": "keyframe"
-  },
-  "filePath": "schema/palettes/motion-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": {
-      "0%": {
-        "transform": "translateX(-15%)",
-        "transform-origin": "left"
-      },
-      "100%": {
-        "transform": "translateX(0px)",
-        "transform-origin": "left"
-      }
-    },
-    "attributes": {
-      "group": "keyframe"
-    }
-  },
-  "name": "motion.keyframe.SlideIn15PercentLeft",
-  "path": ["motion", "keyframe", "SlideIn15PercentLeft"]
+  "name": "motion.keyframe.ScaleOut100to95",
+  "path": ["motion", "keyframe", "ScaleOut100to95"]
 }, {
   "value": {
     "0%": {
@@ -540,7 +391,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -556,7 +407,7 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
   "name": "motion.keyframe.SlideIn50PercentLeft",
@@ -571,7 +422,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -585,11 +436,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.SlideInBottom",
-  "path": ["motion", "keyframe", "SlideInBottom"]
+  "name": "motion.keyframe.SlideInBottom8px",
+  "path": ["motion", "keyframe", "SlideInBottom8px"]
 }, {
   "value": {
     "0%": {
@@ -600,7 +451,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -614,11 +465,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.SlideInLeft",
-  "path": ["motion", "keyframe", "SlideInLeft"]
+  "name": "motion.keyframe.SlideInLeft8px",
+  "path": ["motion", "keyframe", "SlideInLeft8px"]
 }, {
   "value": {
     "0%": {
@@ -629,7 +480,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -643,11 +494,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.SlideInRight",
-  "path": ["motion", "keyframe", "SlideInRight"]
+  "name": "motion.keyframe.SlideInRight8px",
+  "path": ["motion", "keyframe", "SlideInRight8px"]
 }, {
   "value": {
     "0%": {
@@ -658,7 +509,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -672,11 +523,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.SlideInTop",
-  "path": ["motion", "keyframe", "SlideInTop"]
+  "name": "motion.keyframe.SlideInTop8px",
+  "path": ["motion", "keyframe", "SlideInTop8px"]
 }, {
   "value": {
     "0%": {
@@ -689,7 +540,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -705,44 +556,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
   "name": "motion.keyframe.SlideOut15PercentLeft",
   "path": ["motion", "keyframe", "SlideOut15PercentLeft"]
-}, {
-  "value": {
-    "0%": {
-      "transform": "translateX(0px)",
-      "transform-origin": "left"
-    },
-    "100%": {
-      "transform": "translateX(-50%)",
-      "transform-origin": "left"
-    }
-  },
-  "attributes": {
-    "group": "keyframe"
-  },
-  "filePath": "schema/palettes/motion-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": {
-      "0%": {
-        "transform": "translateX(0px)",
-        "transform-origin": "left"
-      },
-      "100%": {
-        "transform": "translateX(-50%)",
-        "transform-origin": "left"
-      }
-    },
-    "attributes": {
-      "group": "keyframe"
-    }
-  },
-  "name": "motion.keyframe.SlideOut50PercentLeft",
-  "path": ["motion", "keyframe", "SlideOut50PercentLeft"]
 }, {
   "value": {
     "0%": {
@@ -753,7 +571,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -767,11 +585,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.SlideOutBottom",
-  "path": ["motion", "keyframe", "SlideOutBottom"]
+  "name": "motion.keyframe.SlideOutBottom8px",
+  "path": ["motion", "keyframe", "SlideOutBottom8px"]
 }, {
   "value": {
     "0%": {
@@ -782,7 +600,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -796,11 +614,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.SlideOutLeft",
-  "path": ["motion", "keyframe", "SlideOutLeft"]
+  "name": "motion.keyframe.SlideOutLeft8px",
+  "path": ["motion", "keyframe", "SlideOutLeft8px"]
 }, {
   "value": {
     "0%": {
@@ -811,7 +629,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -825,11 +643,11 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.SlideOutRight",
-  "path": ["motion", "keyframe", "SlideOutRight"]
+  "name": "motion.keyframe.SlideOutRight8px",
+  "path": ["motion", "keyframe", "SlideOutRight8px"]
 }, {
   "value": {
     "0%": {
@@ -840,7 +658,7 @@ var tokens = [{
     }
   },
   "attributes": {
-    "group": "keyframe"
+    "group": "motionKeyframe"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
@@ -854,22 +672,22 @@ var tokens = [{
       }
     },
     "attributes": {
-      "group": "keyframe"
+      "group": "motionKeyframe"
     }
   },
-  "name": "motion.keyframe.SlideOutTop",
-  "path": ["motion", "keyframe", "SlideOutTop"]
+  "name": "motion.keyframe.SlideOutTop8px",
+  "path": ["motion", "keyframe", "SlideOutTop8px"]
 }, {
   "value": "transform",
   "attributes": {
-    "group": "motion"
+    "group": "motionProperty"
   },
   "filePath": "schema/palettes/motion-palette.tsx",
   "isSource": true,
   "original": {
     "value": "transform",
     "attributes": {
-      "group": "motion"
+      "group": "motionProperty"
     }
   },
   "name": "motion.properties.Transform",

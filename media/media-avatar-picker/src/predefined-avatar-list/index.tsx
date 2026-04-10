@@ -10,7 +10,7 @@ import EditorMoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Button from '@atlaskit/button/standard-button';
 import { useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
-import { forwardRef } from 'react';
+import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 const predefinedAvatarsWrapperStyles = css({
 	display: 'flex',
@@ -36,7 +36,7 @@ export interface PredefinedAvatarListProps {
 	showMoreAvatarsButtonLabel?: string;
 }
 
-export const PredefinedAvatarList = forwardRef<HTMLButtonElement, PredefinedAvatarListProps>(
+export const PredefinedAvatarList: ForwardRefExoticComponent<PredefinedAvatarListProps & RefAttributes<HTMLButtonElement>> = forwardRef<HTMLButtonElement, PredefinedAvatarListProps>(
 	(
 		{
 			avatars = [],

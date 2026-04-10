@@ -19,6 +19,7 @@ import {
 	FormattedMessage,
 	IntlProvider,
 	injectIntl,
+	type MessageDescriptor,
 	type WrappedComponentProps,
 } from 'react-intl-next';
 import { Field, HelperMessage } from '@atlaskit/form';
@@ -41,7 +42,11 @@ import { SubmitErrorDialog } from './SubmitErrorDialog';
 
 export const MAX_SIZE_MB = 10;
 
-export const ERROR = {
+export const ERROR: {
+    URL: MessageDescriptor;
+    FORMAT: MessageDescriptor;
+    SIZE: MessageDescriptor;
+} = {
 	URL: messages.image_url_invalid_error,
 	FORMAT: messages.image_format_invalid_error,
 	SIZE: messages.image_size_too_large_error,
@@ -95,7 +100,9 @@ export class AvatarPickerDialog extends PureComponent<
 	AvatarPickerDialogWithIntlProps,
 	AvatarPickerDialogState
 > {
-	static defaultProps = {
+	static defaultProps: {
+        avatars: never[];
+    } = {
 		avatars: [],
 	};
 
@@ -244,7 +251,7 @@ export class AvatarPickerDialog extends PureComponent<
 		this.setErrorState(errorMessage);
 	};
 
-	render() {
+	render(): JSX.Element {
 		const content = (
 			<ModalDialog
 				height={`${AVATAR_DIALOG_HEIGHT}px`}
@@ -275,7 +282,7 @@ export class AvatarPickerDialog extends PureComponent<
 		return this.props.intl ? content : <IntlProvider locale="en">{content}</IntlProvider>;
 	}
 
-	footerContent = () => {
+	footerContent = (): JSX.Element => {
 		const { primaryButtonText, onCancel, isLoading } = this.props;
 		return (
 			<ModalFooter testId="avatar-picker-dialog-footer">
@@ -301,7 +308,7 @@ export class AvatarPickerDialog extends PureComponent<
 		return avatarsSubset;
 	}
 
-	renderPredefinedAvatarList() {
+	renderPredefinedAvatarList(): JSX.Element | null {
 		const { isLoading, selectAvatarLabel, showMoreAvatarsButtonLabel } = this.props;
 		const { selectedAvatar, selectedImage, selectedImageSource } = this.state;
 		const avatars = this.getPredefinedAvatars();
@@ -355,7 +362,7 @@ export class AvatarPickerDialog extends PureComponent<
 		this.updatePrevAltText('');
 	}
 
-	renderAltTextField() {
+	renderAltTextField(): JSX.Element {
 		const { altText } = this.state;
 
 		return (
@@ -380,7 +387,7 @@ export class AvatarPickerDialog extends PureComponent<
 		);
 	}
 
-	renderBody() {
+	renderBody(): JSX.Element {
 		const { avatars, isLoading, predefinedAvatarsText, requireAltText } = this.props;
 		const { mode, selectedImageSource, selectedAvatar, errorMessage } = this.state;
 

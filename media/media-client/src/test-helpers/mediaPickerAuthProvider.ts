@@ -53,7 +53,7 @@ const requestAuthProvider = async (
 
 export const mediaPickerAuthProvider =
 	(authEnvironment: string = 'asap', env?: MediaEnv) =>
-	(context?: AuthContext) => {
+	(context?: AuthContext): Promise<Auth> => {
 		const collectionName = (context && context.collectionName) || defaultCollectionName;
 		authEnvironment = authEnvironment === 'asap' ? 'asap' : '';
 		const cacheKey = `${collectionName}:${authEnvironment}`;

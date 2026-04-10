@@ -162,6 +162,78 @@ export default function App() {
 		});
 	});
 
+	describe('already migrated values', () => {
+		check({
+			it: 'should not modify already-migrated semantic values',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return (
+		<div>
+			<Lozenge appearance="neutral">Neutral</Lozenge>
+			<Lozenge appearance="information">Information</Lozenge>
+			<Lozenge appearance="warning">Warning</Lozenge>
+			<Lozenge appearance="discovery">Discovery</Lozenge>
+			<Lozenge appearance="danger">Danger</Lozenge>
+			<Lozenge appearance="success">Success</Lozenge>
+		</div>
+	);
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return (
+		<div>
+			<Lozenge appearance="neutral">Neutral</Lozenge>
+			<Lozenge appearance="information">Information</Lozenge>
+			<Lozenge appearance="warning">Warning</Lozenge>
+			<Lozenge appearance="discovery">Discovery</Lozenge>
+			<Lozenge appearance="danger">Danger</Lozenge>
+			<Lozenge appearance="success">Success</Lozenge>
+		</div>
+	);
+}
+`,
+		});
+
+		check({
+			it: 'should be idempotent when run on output of a previous migration',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return (
+		<div>
+			<Lozenge appearance="neutral">Default</Lozenge>
+			<Lozenge appearance="information">In Progress</Lozenge>
+			<Lozenge appearance="warning">Moved</Lozenge>
+			<Lozenge appearance="discovery">New</Lozenge>
+			<Lozenge appearance="danger">Removed</Lozenge>
+		</div>
+	);
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return (
+		<div>
+			<Lozenge appearance="neutral">Default</Lozenge>
+			<Lozenge appearance="information">In Progress</Lozenge>
+			<Lozenge appearance="warning">Moved</Lozenge>
+			<Lozenge appearance="discovery">New</Lozenge>
+			<Lozenge appearance="danger">Removed</Lozenge>
+		</div>
+	);
+}
+`,
+		});
+	});
+
 	describe('edge cases', () => {
 		check({
 			it: 'should not transform non-Lozenge components',

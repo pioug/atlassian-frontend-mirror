@@ -1,5 +1,23 @@
 # @atlaskit/theme
 
+## 23.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.0
+
+### Major Changes
+
+- [`bc69c1d196bae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc69c1d196bae) -
+  Removed `typography` named export and `./typography` subpath export. The `fontFallback` object is
+  no longer exported from this package.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.4
 
 ### Patch Changes

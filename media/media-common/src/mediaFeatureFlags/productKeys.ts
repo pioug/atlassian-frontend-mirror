@@ -10,4 +10,4 @@ const productKeys: ProductKeys = {
 	},
 };
 
-export const getProductKeys = () => productKeys;
+export const getProductKeys = (): ProductKeys => productKeys;

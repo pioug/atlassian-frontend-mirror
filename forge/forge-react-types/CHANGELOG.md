@@ -1,5 +1,16 @@
 # @atlaskit/forge-react-types
 
+## 1.0.0
+
+### Major Changes
+
+- [`0fa33f0928bd7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fa33f0928bd7) -
+  Export global types from /global. Global types have been removed from the main entrypoint
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.67.0
 
 ### Minor Changes

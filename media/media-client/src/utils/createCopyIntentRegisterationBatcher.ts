@@ -85,7 +85,7 @@ function createBatchCopyIntentRegisterationFunc(mediaStore: MediaStore) {
 	};
 }
 
-export function createCopyIntentRegisterationBatcher(mediaStore: MediaStore) {
+export function createCopyIntentRegisterationBatcher(mediaStore: MediaStore): Dataloader<CopyIntentKey, Error | undefined, string> {
 	return new Dataloader<CopyIntentKey, Error | undefined, string>(
 		createBatchCopyIntentRegisterationFunc(mediaStore),
 		{

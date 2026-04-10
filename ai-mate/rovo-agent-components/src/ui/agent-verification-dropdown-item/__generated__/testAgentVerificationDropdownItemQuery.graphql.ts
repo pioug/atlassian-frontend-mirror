@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b3f6a07649eb82e75b49c0affe972388>>
+ * @generated SignedSource<<1eeebfa3261b48cdd20dc5ec23f13862>>
  * @relayHash c95a4b89f332b56ac41d44591442026c
  * @lightSyntaxTransform
  * @nogrep
@@ -12,7 +12,7 @@
 
 // @relayRequestID 8de69dcbcbaf21d9b6c334ea3f571232b1f22ba3798b5f801731c6faaf2bfb78
 
-import type { ConcreteRequest, Query } from 'relay-runtime';
+import type { ConcreteRequest } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type testAgentVerificationDropdownItemQuery$variables = Record<PropertyKey, never>;
 export type testAgentVerificationDropdownItemQuery$data = {

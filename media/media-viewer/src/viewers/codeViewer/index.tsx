@@ -37,7 +37,9 @@ export type Props = {
 export class CodeViewer extends BaseViewer<string, Props> {
 	static CodeViewerComponent: ComponentType<RendererProps>;
 
-	protected get initialState() {
+	protected get initialState(): {
+        content: Outcome<string, MediaViewerError>;
+    } {
 		return {
 			content: Outcome.pending<string, MediaViewerError>(),
 		};

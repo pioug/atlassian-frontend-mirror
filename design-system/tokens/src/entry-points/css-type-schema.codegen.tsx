@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::08c6f944d8c913dff7bdf4becc44b834>>
+ * @codegen <<SignedSource::f1569c36646168ca5c04a848525f2421>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -419,16 +419,44 @@ export type FontFamily =
 	| 'var(--ds-font-family-code)'
 	| 'var(--ds-font-family-brand-heading)'
 	| 'var(--ds-font-family-brand-body)';
+export type MotionDuration =
+	| 'var(--ds-duration-instant)'
+	| 'var(--ds-duration-long)'
+	| 'var(--ds-duration-medium)'
+	| 'var(--ds-duration-short)'
+	| 'var(--ds-duration-xlong)'
+	| 'var(--ds-duration-xshort)'
+	| 'var(--ds-duration-xxlong)'
+	| 'var(--ds-duration-xxshort)';
+export type MotionEasing =
+	| 'var(--ds-easing-in-practical)'
+	| 'var(--ds-easing-inout-bold)'
+	| 'var(--ds-easing-out-practical)'
+	| 'var(--ds-easing-out-bold)'
+	| 'var(--ds-easing-spring)';
+export type MotionKeyframes =
+	| 'var(--ds-keyframe-fade-in)'
+	| 'var(--ds-keyframe-fade-out)'
+	| 'var(--ds-keyframe-scale-in-medium)'
+	| 'var(--ds-keyframe-scale-in-small)'
+	| 'var(--ds-keyframe-scale-out-medium)'
+	| 'var(--ds-keyframe-scale-out-small)'
+	| 'var(--ds-keyframe-slide-in-bottom-short)'
+	| 'var(--ds-keyframe-slide-in-left-half)'
+	| 'var(--ds-keyframe-slide-in-left-short)'
+	| 'var(--ds-keyframe-slide-in-right-short)'
+	| 'var(--ds-keyframe-slide-in-top-short)'
+	| 'var(--ds-keyframe-slide-out-bottom-short)'
+	| 'var(--ds-keyframe-slide-out-left-half)'
+	| 'var(--ds-keyframe-slide-out-left-short)'
+	| 'var(--ds-keyframe-slide-out-right-short)'
+	| 'var(--ds-keyframe-slide-out-top-short)';
 export type Motion =
 	| 'var(--ds-avatar-enter)'
 	| 'var(--ds-avatar-exit)'
 	| 'var(--ds-avatar-hovered)'
-	| 'var(--ds-content-enter-long)'
-	| 'var(--ds-content-enter-medium)'
-	| 'var(--ds-content-enter-short)'
-	| 'var(--ds-content-exit-long)'
-	| 'var(--ds-content-exit-medium)'
-	| 'var(--ds-content-exit-short)'
+	| 'var(--ds-blanket-enter)'
+	| 'var(--ds-blanket-exit)'
 	| 'var(--ds-flag-enter)'
 	| 'var(--ds-flag-exit)'
 	| 'var(--ds-flag-reposition)'

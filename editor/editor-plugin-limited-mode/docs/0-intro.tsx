@@ -31,7 +31,26 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type LimitedModePlugin = NextEditorPlugin<'limitedMode'>
+export type LimitedModePluginState = {
+  documentSizeBreachesThreshold: boolean;
+};
+
+export type LimitedModePlugin = NextEditorPlugin<
+  'limitedMode',
+  {
+    pluginConfiguration: LimitedModePluginOptions | undefined;
+    sharedState: {
+      enabled: boolean;
+      limitedModePluginKey: PluginKey<LimitedModePluginState>;
+    };
+  }
+>;
+
+export type LimitedModePluginOptions = {
+  contentId?: string;
+  killSwitchEnabled?: boolean;
+  showFlag?: (props: { close: string; description: React.ReactNode; title: string }) => void;
+};
 `}
 
 

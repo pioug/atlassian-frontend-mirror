@@ -12,7 +12,7 @@ import { useMediaClient } from '@atlaskit/media-client-react';
 import { type MediaClient, type FileIdentifier } from '@atlaskit/media-client';
 import { parseError } from './artifactUploader/captions/util';
 import ApiFeedback, { type NotificationTypes } from './apiFeedback';
-import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages } from '../../../messages';
 import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
 
@@ -85,7 +85,10 @@ const CaptionDeleteConfirmationModal = ({
 	);
 };
 
-export default injectIntl(CaptionDeleteConfirmationModal);
+const _default_1: React.FC<WithIntlProps<CaptionDeleteConfirmationModalProps & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<CaptionDeleteConfirmationModalProps & WrappedComponentProps>;
+} = injectIntl(CaptionDeleteConfirmationModal);
+export default _default_1;
 
 const deleteCaption = async (
 	mediaClient: MediaClient,

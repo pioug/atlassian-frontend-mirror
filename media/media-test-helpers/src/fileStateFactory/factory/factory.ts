@@ -45,7 +45,7 @@ export class MediaClientMock extends MediaClient {
 		this.hasPreview = hasPreview;
 	};
 
-	public getImage = async () => {
+	public getImage = async (): Promise<Blob> => {
 		const { getImageDelay = 0 } = this.options;
 		if (!this.hasPreview) {
 			throw new Error('some error');
@@ -132,7 +132,7 @@ export class FileStateFactory {
 		},
 	};
 
-	public createFileState = (status: FileStateStatus, options?: CreateFileStateOptions) =>
+	public createFileState = (status: FileStateStatus, options?: CreateFileStateOptions): FileState =>
 		createFileState(this.identifier.id, status, {
 			...options,
 			fileDetails: options?.fileDetails || this.fileDetails,

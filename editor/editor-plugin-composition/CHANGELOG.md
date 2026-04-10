@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-composition
 
+## 7.0.3
+
+### Patch Changes
+
+- [`27529d2f5ddfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27529d2f5ddfe) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
 ## 7.0.2
 
 ### Patch Changes

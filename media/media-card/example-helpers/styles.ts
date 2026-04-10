@@ -1,16 +1,16 @@
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const editableCardOptionsStyles = css({
+export const editableCardOptionsStyles: SerializedStyles = css({
 	padding: token('space.250'),
 	borderBottom: `${token('border.width', '1px')} solid ${token('color.border')}`,
 	maxWidth: '700px',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const sliderWrapperStyles = css({
+export const sliderWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 	width: '50%',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -21,7 +21,7 @@ export const sliderWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const editableCardContentStyles = css({
+export const editableCardContentStyles: SerializedStyles = css({
 	padding: token('space.250'),
 	border: '2px dashed',
 	margin: `${token('space.0')} ${token('space.150')} ${token('space.600')} ${token('space.150')}`,
@@ -31,7 +31,7 @@ export const editableCardContentStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const optionsWrapperStyles = css({
+export const optionsWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
@@ -41,7 +41,7 @@ export const optionsWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const cardDimensionsWrapperStyles = css({
+export const cardDimensionsWrapperStyles: SerializedStyles = css({
 	margin: `${token('space.100')} ${token('space.100')} ${token('space.250')} ${token('space.100')}`,
 	display: 'flex',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -55,16 +55,16 @@ export const cardDimensionsWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const flexWrapperStyles = css({
+export const flexWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 });
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const cardPreviewWrapperStyles = css({
+export const cardPreviewWrapperStyles: SerializedStyles = css({
 	flex: 1,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const cardWrapperStyles = css({
+export const cardWrapperStyles: SerializedStyles = css({
 	border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
 	padding: token('space.150'),
 	margin: token('space.075'),
@@ -76,13 +76,13 @@ export const cardWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const cardFlowHeaderStyles = css({
+export const cardFlowHeaderStyles: SerializedStyles = css({
 	margin: `${token('space.250')} auto`,
 	padding: `${token('space.150')} ${token('space.0')}`,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const externalIdentifierWrapperStyles = css({
+export const externalIdentifierWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 	justifyContent: 'space-around',
 	margin: `${token('space.0')} auto`,
@@ -93,7 +93,7 @@ export const externalIdentifierWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const unhandledErrorCardWrapperStyles = css({
+export const unhandledErrorCardWrapperStyles: SerializedStyles = css({
 	padding: token('space.250'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'> div:first-child': {
@@ -107,24 +107,24 @@ export const unhandledErrorCardWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const inlineCardVideoWrapperItemStyles = css({
+export const inlineCardVideoWrapperItemStyles: SerializedStyles = css({
 	padding: token('space.150'),
 	border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
 	margin: token('space.150'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const mediaViewerExampleColumnStyles = css({
+export const mediaViewerExampleColumnStyles: SerializedStyles = css({
 	flex: 1,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const mediaViewerExampleWrapperStyles = css({
+export const mediaViewerExampleWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const mediaInlineWrapperStyles = css({
+export const mediaInlineWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	flexDirection: 'column',
@@ -132,7 +132,7 @@ export const mediaInlineWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const mediaInlineTableStyles = css({
+export const mediaInlineTableStyles: SerializedStyles = css({
 	width: '800px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'tr, td': {

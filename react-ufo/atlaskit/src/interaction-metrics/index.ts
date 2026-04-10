@@ -1475,10 +1475,8 @@ export function removeSegment(labelStack: LabelStack): void {
 	if (segmentInfo) {
 		segmentCache.delete(JSON.stringify(labelStack));
 
-		if (fg('platform_ufo_segment_unmount_count')) {
-			const cacheKey = stringifyLabelStackFully(labelStack);
-			segmentUnmountCache.set(cacheKey, (segmentUnmountCache.get(cacheKey) || 0) + 1);
-		}
+		const cacheKey = stringifyLabelStackFully(labelStack);
+		segmentUnmountCache.set(cacheKey, (segmentUnmountCache.get(cacheKey) || 0) + 1);
 
 		segmentObservers.forEach((observer) => {
 			observer.onRemove(segmentInfo);

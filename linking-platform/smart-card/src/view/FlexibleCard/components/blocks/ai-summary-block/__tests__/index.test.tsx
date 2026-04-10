@@ -11,8 +11,8 @@ import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils_
 import { SmartLinkStatus } from '../../../../../../constants';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
-import AISummaryBlock, { RovoSummaryBlock } from '../index';
-import { type AISummaryBlockProps, type RovoSummaryBlockProps } from '../types';
+import AISummaryBlock from '../index';
+import { type AISummaryBlockProps } from '../types';
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
 	useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
@@ -21,8 +21,8 @@ jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
 const TestComponent = ({
 	component: Component = AISummaryBlock,
 	...props
-}: Partial<AISummaryBlockProps | RovoSummaryBlockProps> & {
-	component?: typeof AISummaryBlock | typeof RovoSummaryBlock;
+}: Partial<AISummaryBlockProps> & {
+	component?: typeof AISummaryBlock;
 	spy: jest.Mock;
 }) => (
 	<AnalyticsListener onEvent={props.spy} channel={ANALYTICS_CHANNEL}>
@@ -60,7 +60,7 @@ describe('AISummaryBlock', () => {
 				});
 
 				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'done', content: '' },
+					state: { status: 'done', content: 'content' },
 					summariseUrl: jest.fn(),
 				});
 
@@ -96,7 +96,7 @@ describe('AISummaryBlock', () => {
 
 			it('fires expected events when the summary is cached', async () => {
 				jest.mocked(useAISummary).mockReturnValue({
-					state: { status: 'done', content: '' },
+					state: { status: 'done', content: 'content' },
 					summariseUrl: jest.fn(),
 				});
 
@@ -347,20 +347,13 @@ describe('AISummaryBlock', () => {
 			const spy = jest.fn();
 
 			const { rerender, ...result } = render(
-				<TestComponent component={RovoSummaryBlock} spy={spy} url="https://test-url" {...props} />,
+				<TestComponent is3PAuthRovoActionsExperimentOn={true} spy={spy} {...props} />,
 				{
 					wrapper: getFlexibleCardTestWrapper(context, undefined, status),
 				},
 			);
 			const rerenderTestComponent = () =>
-				rerender(
-					<TestComponent
-						component={RovoSummaryBlock}
-						spy={spy}
-						url="https://test-url"
-						{...props}
-					/>,
-				);
+				rerender(<TestComponent is3PAuthRovoActionsExperimentOn={true} spy={spy} {...props} />);
 
 			return {
 				...result,
@@ -370,17 +363,5 @@ describe('AISummaryBlock', () => {
 		};
 
 		commonTests(renderAISummaryBlock);
-
-		it('auto summarises when render', async () => {
-			const summariseUrlMock = jest.fn();
-			jest.mocked(useAISummary).mockReturnValue({
-				state: { status: 'ready', content: 'content' },
-				summariseUrl: summariseUrlMock,
-			});
-
-			renderAISummaryBlock();
-
-			expect(summariseUrlMock).toHaveBeenCalled();
-		});
 	});
 });

@@ -53,7 +53,7 @@ const fileStateFactory = new FileStateFactory(identifier, {
 });
 fileStateFactory.next('processed');
 
-export default () => {
+export default (): JSX.Element => {
 	const [clickCount, setClickCount] = useState(0);
 	const renderCardsAt = [0, 2, 4, 20, 24, 40, 42, 44];
 	const TestButton = ({ children }: { children: React.ReactNode }) => {

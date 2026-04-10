@@ -31,23 +31,31 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type CardPluginDependencies = [
+  OptionalPlugin<FeatureFlagsPlugin>,
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<EditorViewModePlugin>,
+  WidthPlugin,
+  DecorationsPlugin,
+  GridPlugin,
+  FloatingToolbarPlugin,
+  OptionalPlugin<EditorDisabledPlugin>,
+  OptionalPlugin<SelectionPlugin>,
+  OptionalPlugin<DummyAnnotationPlugin>,
+  OptionalPlugin<ConnectivityPlugin>,
+  OptionalPlugin<BasePlugin>,
+  OptionalPlugin<ToolbarPlugin>,
+];
+
 type CardPlugin = NextEditorPlugin<
   'card',
   {
-    pluginConfiguration: CardPluginOptions;
-    dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
-      OptionalPlugin<AnalyticsPlugin>,
-      WidthPlugin,
-      DecorationsPlugin,
-      GridPlugin,
-      FloatingToolbarPlugin,
-      HyperlinkPlugin,
-    ];
-    sharedState: CardPluginState | null;
     actions: CardPluginActions;
+    dependencies: CardPluginDependencies;
+    pluginConfiguration: CardPluginOptions | undefined;
+    sharedState: CardPluginState | null;
   }
->
+>;
 `}
 
 

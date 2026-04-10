@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 
 import LockFilledIcon from '@atlaskit/icon/core/lock-locked';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
@@ -17,7 +17,9 @@ const placeholderText = ' ';
 
 const isValidTimestamp = (timeStamp: number) => new Date(timeStamp).getTime() > 0;
 
-export const TitleBox = injectIntl(
+export const TitleBox: React.FC<WithIntlProps<TitleBoxProps & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<TitleBoxProps & WrappedComponentProps>;
+} = injectIntl(
 	({
 		name,
 		createdAt,

@@ -29,8 +29,33 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type CopyButtonPlugin = NextEditorPlugin<'copyButton'>;
+type CopyButtonPlugin = NextEditorPlugin<
+  'copyButton',
+  {
+    actions: {
+      afterCopy: (message: string) => void;
+      processCopyButtonItems: (
+        state: EditorState,
+      ) => (
+        items: Array<FloatingToolbarItem<Command>>,
+        hoverDecoration: HoverDecorationHandler | undefined,
+      ) => Array<FloatingToolbarItem<Command>>;
+    };
+    dependencies: [
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<AccessibilityUtilsPlugin>,
+    ];
+  }
 >;
+
+type CopyButtonPluginState = {
+  copied: boolean;
+  markSelection?: {
+    end: number;
+    markType: MarkType;
+    start: number;
+  };
+};
 `}
 
 

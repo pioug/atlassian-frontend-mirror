@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { responsiveSettings, getTitleBoxHeight, Breakpoint } from '../common';
 import { type TitleBoxFooterProps, type TitleBoxHeaderProps } from './types';
@@ -19,7 +19,7 @@ type TitleBoxWrapperStyleArgs = {
 	display?: 'none' | 'flex';
 };
 
-export const titleBoxWrapperStyles = ({ breakpoint, display = 'flex' }: TitleBoxWrapperStyleArgs) =>
+export const titleBoxWrapperStyles = ({ breakpoint, display = 'flex' }: TitleBoxWrapperStyleArgs): SerializedStyles =>
 	css(
 		{
 			position: 'absolute',
@@ -44,7 +44,10 @@ const infoStyles = `white-space: nowrap;overflow: hidden;`;
 
 const iconOverlapStyles = `padding-right: 10px;`;
 
-export const titleBoxHeaderStyles = ({ hasIconOverlap }: TitleBoxHeaderProps) =>
+export const titleBoxHeaderStyles: {
+    ({ hasIconOverlap }: TitleBoxHeaderProps): SerializedStyles;
+    displayName: string;
+} = ({ hasIconOverlap }: TitleBoxHeaderProps): SerializedStyles =>
 	css(
 		{
 			fontWeight: token('font.weight.semibold'),
@@ -57,7 +60,10 @@ export const titleBoxHeaderStyles = ({ hasIconOverlap }: TitleBoxHeaderProps) =>
 
 titleBoxHeaderStyles.displayName = 'FailedTitleBoxHeader';
 
-export const titleBoxFooterStyles = ({ hasIconOverlap }: TitleBoxFooterProps) =>
+export const titleBoxFooterStyles: {
+    ({ hasIconOverlap }: TitleBoxFooterProps): SerializedStyles;
+    displayName: string;
+} = ({ hasIconOverlap }: TitleBoxFooterProps): SerializedStyles =>
 	css(
 		{
 			textOverflow: 'ellipsis',
@@ -71,21 +77,21 @@ export const titleBoxFooterStyles = ({ hasIconOverlap }: TitleBoxFooterProps) =>
 titleBoxFooterStyles.displayName = 'TitleBoxFooter';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const titleBoxIconStyles = css({
+export const titleBoxIconStyles: SerializedStyles = css({
 	position: 'absolute',
 	right: token('space.050'),
 	bottom: '0px',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const newTitleBoxIconStyles = css({
+export const newTitleBoxIconStyles: SerializedStyles = css({
 	position: 'absolute',
 	right: token('space.050'),
 	bottom: token('space.050'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const errorMessageWrapperStyles = css({
+export const errorMessageWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'flex-start',

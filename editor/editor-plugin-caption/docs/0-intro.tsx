@@ -30,9 +30,16 @@ ${createEditorUseOnlyNotice('Editor Plugin Caption', [
 The \`dependencies\` of the plugin are defined below:
 
 ${code`
+export type CaptionPluginDependencies = [
+  typeof analyticsPlugin,
+  OptionalPlugin<EditorDisabledPlugin>,
+];
+
 export type CaptionPlugin = NextEditorPlugin<
   'caption',
-  { dependencies: [typeof analyticsPlugin] }
+  {
+    dependencies: CaptionPluginDependencies;
+  }
 >;
 `}
 

@@ -29,7 +29,7 @@ export const fireOperationalEvent = (
 	fileAttributes: FileAttributes,
 	performanceAttributes: PerformanceAttributes,
 	ssrReliability: SSRStatus,
-	error: MediaCardError = new MediaCardError('missing-error-data'),
+	error: MediaCardError | undefined = new MediaCardError('missing-error-data'),
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
 	processingFailReason?: ProcessingFailReason,
@@ -89,7 +89,7 @@ export const fireNonCriticalErrorEvent = (
 	cardStatus: CardStatus,
 	fileAttributes: FileAttributes,
 	ssrReliability: SSRStatus,
-	error: MediaCardError = new MediaCardError('missing-error-data'),
+	error: MediaCardError | undefined = new MediaCardError('missing-error-data'),
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
 ): void => {
@@ -123,7 +123,7 @@ export const fireDownloadSucceededEvent = (
 export const fireDownloadFailedEvent = (
 	createAnalyticsEvent: CreateUIAnalyticsEvent,
 	fileAttributes: FileAttributes,
-	error: MediaCardError = new MediaCardError('missing-error-data'),
+	error: MediaCardError | undefined = new MediaCardError('missing-error-data'),
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
 ): void => {

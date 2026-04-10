@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@compiled/react';
-import { type ReactNode, Component, forwardRef } from 'react';
+import { type ForwardRefExoticComponent, type ReactNode, type RefAttributes, Component, forwardRef } from 'react';
 import { type ErrorFileState, type FileState } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
 import { Spinner } from '../../loading';
@@ -50,7 +50,10 @@ const MAX_FORMATTED_LINES = 10000;
 // Required by https://product-fabric.atlassian.net/browse/MEX-1788
 const MAX_FILE_SIZE_USE_CODE_VIEWER = 5 * 1024 * 1024;
 
-export const CodeViewWrapper = forwardRef(
+export const CodeViewWrapper: ForwardRefExoticComponent<{
+    children: ReactNode;
+    'data-testid': string | undefined;
+} & RefAttributes<HTMLDivElement>> = forwardRef(
 	(
 		{
 			children,
@@ -69,7 +72,7 @@ export const CodeViewWrapper = forwardRef(
 	},
 );
 
-export const CodeViewerHeaderBar = () => {
+export const CodeViewerHeaderBar = (): JSX.Element => {
 	return <div css={codeViewerHeaderBarStyles}></div>;
 };
 export type Props = {
@@ -122,7 +125,7 @@ export class CodeViewRenderer extends Component<Props, State> {
 		}
 	}
 
-	render() {
+	render(): JSX.Element {
 		const { item, src, language, testId } = this.props;
 		//Use src to measure the real file size
 		//item.size is incorrect for archives with mutiple docs inside.

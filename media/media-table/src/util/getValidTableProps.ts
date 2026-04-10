@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { type ValidatedProps } from '../types';
 
 const DEFAULT_ITEMS_PER_PAGE = 6;
@@ -49,4 +49,5 @@ const getValidTableProps = (
 	};
 };
 
-export default memoizeOne(getValidTableProps);
+const _default_1: MemoizedFn<(itemsCount: number, itemsPerPage?: number, pageNumber?: number, totalItems?: number) => ValidatedProps> = memoizeOne(getValidTableProps);
+export default _default_1;

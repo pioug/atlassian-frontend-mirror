@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/media-ui';
 import { getCanvas } from '../util';
 
-export function radians(deg: number) {
+export function radians(deg: number): number {
 	return deg * (Math.PI / 180);
 }
 

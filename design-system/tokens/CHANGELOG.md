@@ -1,5 +1,63 @@
 # @atlaskit/tokens
 
+## 12.0.0
+
+### Major Changes
+
+- [`de60749da093b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de60749da093b) -
+  This releases introduces a new set of experimental semantic base tokens for Motion.
+
+  ### Added
+  - `motion.duration.instant`
+  - `motion.duration.xxshort`
+  - `motion.duration.xshort`
+  - `motion.duration.short`
+  - `motion.duration.medium`
+  - `motion.duration.long`
+  - `motion.duration.xlong`
+  - `motion.duration.xxlong`
+
+  - `motion.easing.in.practical`
+  - `motion.easing.inout.bold`
+  - `motion.easing.out.practical`
+  - `motion.easing.out.bold`
+  - `motion.easing.spring`
+
+  - `motion.keyframe.fade.in`
+  - `motion.keyframe.fade.out`
+  - `motion.keyframe.scale.in.medium`
+  - `motion.keyframe.scale.in.small`
+  - `motion.keyframe.scale.out.medium`
+  - `motion.keyframe.scale.out.small`
+  - `motion.keyframe.slide.in.bottom.short`
+  - `motion.keyframe.slide.in.left.half`
+  - `motion.keyframe.slide.in.left.short`
+  - `motion.keyframe.slide.in.right.short`
+  - `motion.keyframe.slide.in.top.short`
+  - `motion.keyframe.slide.out.bottom.short`
+  - `motion.keyframe.slide.out.left.half`
+  - `motion.keyframe.slide.out.left.short`
+  - `motion.keyframe.slide.out.right.short`
+  - `motion.keyframe.slide.out.top.short`
+
+  Added and removed experimental semantic tokens for Motion.
+
+  ### Added
+  - `motion.blanket.enter`
+  - `motion.blanket.exit`
+
+  ### Removed
+  - `motion.content.enter.short`
+  - `motion.content.enter.medium`
+  - `motion.content.enter.long`
+  - `motion.content.exit.short`
+  - `motion.content.exit.medium`
+  - `motion.content.exit.long`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.4.3
 
 ### Patch Changes

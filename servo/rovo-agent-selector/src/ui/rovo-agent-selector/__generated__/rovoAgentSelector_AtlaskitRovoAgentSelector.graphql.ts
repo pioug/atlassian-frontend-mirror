@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dee7b26f44d4075194487d9d4df0d837>>
+ * @generated SignedSource<<6d84c2ef6fe3d714ec9001eb7671b9ee>>
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -9,7 +9,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type rovoAgentSelector_AtlaskitRovoAgentSelector$data = {
   readonly agentStudio_getAgents: {

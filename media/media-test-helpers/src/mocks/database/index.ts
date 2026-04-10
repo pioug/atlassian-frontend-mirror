@@ -35,8 +35,8 @@ export const userAuth: ClientBasedAuth = {
 	baseUrl: defaultBaseUrl,
 };
 
-export const userAuthProvider = () => Promise.resolve(userAuth);
-export const tenantAuthProvider = () => Promise.resolve(tenantAuth);
+export const userAuthProvider = (): Promise<ClientBasedAuth> => Promise.resolve(userAuth);
+export const tenantAuthProvider = (): Promise<ClientBasedAuth> => Promise.resolve(tenantAuth);
 
 export type MediaDatabaseSchema = {
 	collection: MediaCollection;

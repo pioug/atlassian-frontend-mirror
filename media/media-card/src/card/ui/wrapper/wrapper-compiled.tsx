@@ -152,7 +152,10 @@ const getResponsiveStyles = (breakpoint: Breakpoint) => {
 		: { ['fontSize']: '14px', ['lineHeight']: '22px' };
 };
 
-export const Wrapper = (props: WrapperProps) => {
+export const Wrapper: {
+    (props: WrapperProps): JSX.Element;
+    displayName: string;
+} = (props: WrapperProps): JSX.Element => {
 	const {
 		testId,
 		dimensions,

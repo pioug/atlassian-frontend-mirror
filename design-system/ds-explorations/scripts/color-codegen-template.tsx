@@ -1,17 +1,15 @@
 import format from '@af/formatting/sync';
 import { light as tokens } from '@atlaskit/tokens/tokens-raw';
 
-import {
-	capitalize,
-	compose,
-	isAccent,
-	isHovered,
-	isPressed,
-	not,
-	pick,
-	type ShadowDefintion,
-	tokenToStyle,
-} from './utils';
+import { capitalize } from './capitalize';
+import { compose } from './compose';
+import { isAccent } from './is-accent';
+import { isHovered } from './is-hovered';
+import { isPressed } from './is-pressed';
+import { not } from './not';
+import { pick } from './pick';
+import { tokenToStyle } from './token-to-style';
+import type { ShadowDefintion } from './types';
 
 type Token = {
 	token: string;

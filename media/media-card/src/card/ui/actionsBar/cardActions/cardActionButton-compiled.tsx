@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef } from 'react';
+import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css, cssMap } from '@compiled/react';
 import { type CardActionButtonOwnProps } from './styles';
@@ -38,7 +38,7 @@ const cardActionButtonStyles = css({
 	},
 });
 
-export const CardActionButton = forwardRef<HTMLButtonElement, CardActionButtonOwnProps>(
+export const CardActionButton: ForwardRefExoticComponent<CardActionButtonOwnProps & RefAttributes<HTMLButtonElement>> = forwardRef<HTMLButtonElement, CardActionButtonOwnProps>(
 	(props, ref) => {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/no-html-button

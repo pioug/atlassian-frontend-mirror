@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 
@@ -68,6 +71,14 @@ const getIconColor = (color: LozengeColor | ThemeAppearance): IconColor => {
 	}
 };
 
+const styles = cssMap({
+	motion: {
+		transitionProperty: 'color',
+		transitionDuration: token('motion.duration.medium'),
+		transitionTimingFunction: token('motion.easing.inout.bold'),
+	},
+});
+
 /**
  * Icon renderer for lozenge components
  * Handles proper sizing and color theming for icons
@@ -80,7 +91,7 @@ export const IconRenderer: (props: IconRendererProps) => React.JSX.Element = ({
 }: IconRendererProps) => {
 	const iconColor = getIconColor(color);
 
-	return <Icon color={iconColor} label="" size={size} testId={testId} />;
+	return fg('platform-dst-motion-uplift') ? <Box xcss={styles.motion} style={{color: iconColor}}><Icon label="" size={size} testId={testId} /></Box> : <Icon color={iconColor} label="" size={size} testId={testId} />;
 };
 
 export default IconRenderer;

@@ -79,8 +79,8 @@ export interface TagNewProps {
 		| ((e: React.MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) => void);
 	/**
 	 * EXPERIMENTAL - Leading color swatch (12×12px), rendered before `elemBefore`.
-	 * - `true`: uses `color.background.accent.<color>.subtle` for the tag's `color`
-	 * - Pass a design token  (e.g. `token('color.background.accent.red.subtle')`)
+	 * - `true`: uses `color.background.accent.<color>.subtle` for swatch color
+	 * - Pass a design token (e.g. `token('color.background.accent.red.subtle')`)
 	 */
 	swatchBefore?: boolean | TagSwatchBeforeTokenName;
 }

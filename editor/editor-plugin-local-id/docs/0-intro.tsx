@@ -31,7 +31,61 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type LocalIdPlugin = NextEditorPlugin<'localId'>
+export type ActionProps = {
+	localId: string;
+};
+
+export type LocalIdStatusCode =
+	| 'current'
+	| 'localChangeByAttr'
+	| 'localChangeBySetAttrs'
+	| 'localChangeByBatchAttrs'
+	| 'localChangeByReplace'
+	| 'localChangeByDelete'
+	| 'localChangeByReplaceAround'
+	| 'localChangeByUnknown'
+	| 'remoteChangeByAttr'
+	| 'remoteChangeBySetAttrs'
+	| 'remoteChangeByBatchAttrs'
+	| 'remoteChangeByReplace'
+	| 'remoteChangeByDelete'
+	| 'remoteChangeByReplaceAround'
+	| 'remoteChangeByUnknown'
+	| 'AIChangeByAttr'
+	| 'AIChangeBySetAttrs'
+	| 'AIChangeByBatchAttrs'
+	| 'AIChangeByReplace'
+	| 'AIChangeByDelete'
+	| 'AIChangeByReplaceAround'
+	| 'AIChangeByUnknown'
+	| 'docChangeByAttr'
+	| 'docChangeBySetAttrs'
+	| 'docChangeByBatchAttrs'
+	| 'docChangeByReplace'
+	| 'docChangeByDelete'
+	| 'docChangeByReplaceAround'
+	| 'docChangeByUnknown';
+
+export interface LocalIdSharedState {
+	localIdStatus: Map<string, LocalIdStatusCode> | undefined;
+	localIdWatchmenEnabled: boolean | undefined;
+}
+
+export type LocalIdPlugin = NextEditorPlugin<
+	'localId',
+	{
+		actions: {
+			getNode: (props: ActionProps) => NodeWithPos | undefined;
+			replaceNode: (props: ActionProps & { value: Node }) => boolean;
+		};
+		dependencies: [
+			CompositionPlugin,
+			OptionalPlugin<CollabEditPlugin>,
+			OptionalPlugin<LimitedModePlugin>,
+		];
+		sharedState: LocalIdSharedState | undefined;
+	}
+>;
 `}
 
 

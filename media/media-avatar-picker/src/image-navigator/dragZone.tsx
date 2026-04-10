@@ -65,7 +65,7 @@ const noBorder = css({
 	},
 });
 
-export const DragZone = ({ showBorder, isDroppingFile, children, ...props }: any) => (
+export const DragZone = ({ showBorder, isDroppingFile, children, ...props }: any): JSX.Element => (
 	<div
 		data-testid="dragzone"
 		css={[

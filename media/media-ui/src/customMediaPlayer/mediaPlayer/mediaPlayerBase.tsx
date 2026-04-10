@@ -10,7 +10,7 @@ import FullScreenIconOn from '@atlaskit/icon/core/fullscreen-enter';
 import FullScreenIconOff from '@atlaskit/icon/core/shrink-diagonal';
 import SoundIcon from '@atlaskit/icon/core/volume-high';
 import DownloadIcon from '@atlaskit/icon/core/download';
-import { injectIntl } from 'react-intl-next';
+import { injectIntl, type WithIntlProps } from 'react-intl-next';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { cssMap } from '@atlaskit/css';
 import MediaButton from '../../MediaButton';
@@ -1071,4 +1071,6 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	}
 }
 
-export const MediaPlayerBase = injectIntl(_MediaPlayerBase);
+export const MediaPlayerBase: React.FC<WithIntlProps<MediaPlayerBaseOwnProps>> & {
+    WrappedComponent: React.ComponentType<MediaPlayerBaseOwnProps>;
+} = injectIntl(_MediaPlayerBase);

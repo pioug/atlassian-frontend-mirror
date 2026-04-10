@@ -2,7 +2,6 @@ import React from 'react';
 
 import Banner from '@atlaskit/banner';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import Link from '@atlaskit/link';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import { Card } from '../../src';
@@ -15,9 +14,6 @@ const FallbackComponent = (): JSX.Element => {
 			icon={<ErrorIcon color="currentColor" spacing="spacious" label="" />}
 		>
 			An unexpected error occurred and this is a custom fallback component.
-			<br />
-			{/* eslint-disable-next-line @atlassian/a11y/anchor-ambiguous-text -- See https://go/a11y-anchor-ambiguous-text for more details*/}
-			<Link href="/packages/linking-platform/smart-card/docs/handle-errors">Learn more</Link>
 		</Banner>
 	);
 };
@@ -45,7 +41,7 @@ export default (): JSX.Element => {
 				fallbackComponent={FallbackComponent}
 				onResolve={handleOnResolve}
 				url="https://www.atlassian.com/"
-				appearance="block"
+				appearance="inline"
 			/>
 			<br />
 			{data !== undefined && (

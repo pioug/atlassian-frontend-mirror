@@ -484,7 +484,7 @@ export const CardViewBase = ({
 	);
 };
 
-export const CardView = withAnalyticsEvents({
+export const CardView: React.ForwardRefExoticComponent<Omit<CardViewProps, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>> = withAnalyticsEvents({
 	onClick: createAndFireMediaCardEvent({
 		eventType: 'ui',
 		action: 'clicked',

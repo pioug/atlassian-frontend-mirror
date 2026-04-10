@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3ba8bcbc18cbb9766a1547794c6c98af>>
+ * @generated SignedSource<<e33eacf789c2eba52ca6f706d67fa268>>
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -9,7 +9,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { Fragment, ReaderFragment } from 'relay-runtime';
+import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type agentVerificationDropdownItem_AtlaskitRovoAgentComponents_userPermissionsRef$data = {
   readonly isAbleToGovernAgents: boolean | null | undefined;

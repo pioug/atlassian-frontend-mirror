@@ -15,7 +15,10 @@ export type Groups =
 	| 'lineHeight'
 	| 'letterSpacing'
 	| 'motion'
-	| 'keyframe';
+	| 'motionDuration'
+	| 'motionEasing'
+	| 'motionKeyframe'
+	| 'motionProperty';
 
 type ActiveTokenState = 'active';
 type DeprecatedTokenState = 'deprecated';
@@ -168,6 +171,10 @@ export type ShapeToken<BaseToken> = DesignToken<BaseToken, 'shape'>;
 export type FontWeightToken<BaseToken> = DesignToken<BaseToken, 'fontWeight'>;
 export type FontFamilyToken<BaseToken> = DesignToken<BaseToken, 'fontFamily'>;
 export type MotionToken<BaseToken> = DesignToken<BaseToken, 'motion'>;
+export type MotionDurationToken<BaseToken> = DesignToken<BaseToken, 'motionDuration'>;
+export type MotionEasingToken<BaseToken> = DesignToken<BaseToken, 'motionEasing'>;
+export type MotionKeyframeToken<BaseToken> = DesignToken<BaseToken, 'motionKeyframe'>;
+export type MotionPropertyToken<BaseToken> = DesignToken<BaseToken, 'motionProperty'>;
 
 export type DeprecatedTypographyToken<BaseToken> = DesignToken<
 	BaseToken,
@@ -210,10 +217,10 @@ export interface MotionScaleTokenSchema<
 	KeyframeScaleValues extends string,
 	TransitionPropertyScaleValues extends string,
 > {
-	duration: Record<DurationScaleValues, BaseToken<number, 'motion'>>;
-	curve: Record<BezierCurveScaleValues, BaseToken<string, 'motion'>>;
-	keyframe: Record<KeyframeScaleValues, BaseToken<Record<string, object>, 'keyframe'>>;
-	properties: Record<TransitionPropertyScaleValues, BaseToken<string, 'motion'>>;
+	duration: Record<DurationScaleValues, BaseToken<number, 'motionDuration'>>;
+	curve: Record<BezierCurveScaleValues, BaseToken<string, 'motionEasing'>>;
+	keyframe: Record<KeyframeScaleValues, BaseToken<Record<string, object>, 'motionKeyframe'>>;
+	properties: Record<TransitionPropertyScaleValues, BaseToken<string, 'motionProperty'>>;
 }
 
 export interface FontSizeScaleTokenSchema<ScaleValues extends string> {
@@ -1241,6 +1248,10 @@ export interface MotionTokenSchema<BaseToken> {
 			exit: MotionToken<BaseToken>;
 			hovered: MotionToken<BaseToken>;
 		};
+		blanket: {
+			enter: MotionToken<BaseToken>;
+			exit: MotionToken<BaseToken>;
+		};
 		flag: {
 			enter: MotionToken<BaseToken>;
 			exit: MotionToken<BaseToken>;
@@ -1268,17 +1279,91 @@ export interface MotionTokenSchema<BaseToken> {
 			enter: MotionToken<BaseToken>;
 			exit: MotionToken<BaseToken>;
 		};
-		content: {
-			enter: {
-				short: MotionToken<BaseToken>;
-				medium: MotionToken<BaseToken>;
-				long: MotionToken<BaseToken>;
-			};
-			exit: {
-				short: MotionToken<BaseToken>;
-				medium: MotionToken<BaseToken>;
-				long: MotionToken<BaseToken>;
-			};
-		};
+	};
+}
+
+export interface MotionDurationTokenSchema<BaseToken> {
+	motion: {
+		duration: {
+			instant: MotionDurationToken<BaseToken>;
+			xxshort: MotionDurationToken<BaseToken>;
+			xshort: MotionDurationToken<BaseToken>;
+			short: MotionDurationToken<BaseToken>;
+			medium: MotionDurationToken<BaseToken>;
+			long: MotionDurationToken<BaseToken>;
+			xlong: MotionDurationToken<BaseToken>;
+			xxlong: MotionDurationToken<BaseToken>;
+		},
+	};
+}
+
+export interface MotionEasingTokenSchema<BaseToken> {
+	motion: {
+		easing: {
+			out: {
+				bold: MotionEasingToken<BaseToken>;
+				practical: MotionEasingToken<BaseToken>;
+			},
+			in: {
+				practical: MotionEasingToken<BaseToken>;
+			},
+			inout: {
+				bold: MotionEasingToken<BaseToken>;
+			},
+			spring: MotionEasingToken<BaseToken>;
+		},
+	};
+}
+
+export interface MotionKeyframeTokenSchema<BaseToken> {
+	motion: {
+		keyframe: {
+			scale: {
+				in: {
+					small: MotionKeyframeToken<BaseToken>;
+					medium: MotionKeyframeToken<BaseToken>;
+				},
+				out: {
+					small: MotionKeyframeToken<BaseToken>;
+					medium: MotionKeyframeToken<BaseToken>;
+				}
+			},
+			fade: {
+				in: MotionKeyframeToken<BaseToken>;
+				out: MotionKeyframeToken<BaseToken>;
+			},
+			slide: {
+				in: {
+					top: {
+						short: MotionKeyframeToken<BaseToken>;
+					}
+					bottom: {
+						short: MotionKeyframeToken<BaseToken>;
+					}
+					left: {
+						short: MotionKeyframeToken<BaseToken>;
+						half: MotionKeyframeToken<BaseToken>;
+					}
+					right: {
+						short: MotionKeyframeToken<BaseToken>;
+					}
+				},
+				out: {
+					top: {
+						short: MotionKeyframeToken<BaseToken>;
+					}
+					bottom: {
+						short: MotionKeyframeToken<BaseToken>;
+					}
+					left: {
+						short: MotionKeyframeToken<BaseToken>;
+						half: MotionKeyframeToken<BaseToken>;
+					}
+					right: {
+						short: MotionKeyframeToken<BaseToken>;
+					}
+				}
+			}
+		}
 	};
 }

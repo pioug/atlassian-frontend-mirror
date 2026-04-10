@@ -39,6 +39,9 @@
 			"path": "../../icon/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../motion/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		},
 		{

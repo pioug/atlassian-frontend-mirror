@@ -104,7 +104,7 @@ const getTokenValueType = (tokens: any[], original = false) => {
 			matchCounter++;
 		}
 
-		if (token.attributes?.group === 'keyframe') {
+		if (token.attributes?.group === 'motionKeyframe') {
 			types.keyframe = true;
 			matchCounter++;
 		}

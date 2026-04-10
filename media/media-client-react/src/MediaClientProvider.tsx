@@ -4,7 +4,7 @@ import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client
 
 import { getMediaClient } from './getMediaClient';
 
-export const MediaClientContext = React.createContext<MediaClient | undefined>(undefined);
+export const MediaClientContext: React.Context<MediaClient | undefined> = React.createContext<MediaClient | undefined>(undefined);
 
 interface MediaClientProviderProp {
 	children: React.ReactNode;

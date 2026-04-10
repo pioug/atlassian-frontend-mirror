@@ -10,7 +10,7 @@ const getDefaultTimeLocalStorageKey = (id: string) => `time-saver-default-time-$
  * from where they left off.
  */
 export class TimeSaver {
-	constructor(readonly config?: TimeSaverConfig) {}
+	constructor(readonly config?: TimeSaverConfig | undefined) {}
 
 	get defaultTime(): number {
 		if (this.config && localStorage) {

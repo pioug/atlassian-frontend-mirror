@@ -8,10 +8,10 @@ import {
 	MAX_SCALE,
 } from '../../viewport';
 
-export const DEFAULT_ITEM_WIDTH = DEFAULT_WIDTH * 2;
-export const DEFAULT_ITEM_HEIGHT = DEFAULT_HEIGHT * 2;
-export const DEFAULT_MAX_ITEM_VIEW_WIDTH = DEFAULT_INNER_WIDTH * MAX_SCALE;
-export const DEFAULT_MAX_ITEM_VIEW_HEIGHT = DEFAULT_INNER_HEIGHT * MAX_SCALE;
+export const DEFAULT_ITEM_WIDTH: number = DEFAULT_WIDTH * 2;
+export const DEFAULT_ITEM_HEIGHT: number = DEFAULT_HEIGHT * 2;
+export const DEFAULT_MAX_ITEM_VIEW_WIDTH: number = DEFAULT_INNER_WIDTH * MAX_SCALE;
+export const DEFAULT_MAX_ITEM_VIEW_HEIGHT: number = DEFAULT_INNER_HEIGHT * MAX_SCALE;
 export const ZOOMED_OUT = 0;
 export const ZOOMED_HALF = 50;
 export const ZOOMED_IN = 100;
@@ -27,7 +27,7 @@ export const setup = (
 	dragY: number = 0,
 	itemWidth: number = DEFAULT_ITEM_WIDTH,
 	itemHeight: number = DEFAULT_ITEM_HEIGHT,
-) => {
+): Viewport => {
 	const viewport = new Viewport();
 	viewport.setItemSize(itemWidth, itemHeight).setScale(scale).dragBy(dragX, dragY);
 	return viewport;

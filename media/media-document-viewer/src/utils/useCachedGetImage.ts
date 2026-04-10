@@ -6,7 +6,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 export const useCachedGetImage = (
 	getPageImageUrl: (pageNumber: number, zoom: number) => Promise<string>,
 	maxPageImageZoom: number,
-) => {
+): (pageNumber: number, zoom: number) => Promise<string> => {
 	const imageUrlRefs = useRef<Record<string, string>>({});
 
 	useEffect(() => {
@@ -49,7 +49,7 @@ export const useCachedGetImage = (
  * We also reduce impact of excessively slow rendering by setting a max zoom level.
  * If the user is zoomed past this level, the image will just be scaled-up client side.
  */
-export function getImageZoom(zoom: number, maxPageImageZoom: number) {
+export function getImageZoom(zoom: number, maxPageImageZoom: number): number {
 	if (!fg('media-document-viewer-clear-render')) {
 		return zoom;
 	}

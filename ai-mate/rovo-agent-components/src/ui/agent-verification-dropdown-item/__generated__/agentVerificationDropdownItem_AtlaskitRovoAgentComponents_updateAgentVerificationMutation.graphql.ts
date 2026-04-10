@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e119306497999ac48bfef5821a96f2eb>>
+ * @generated SignedSource<<40be805679705c17d93b6a404d0208ac>>
  * @relayHash 426410e11638597e4a12069dd5a8be16
  * @lightSyntaxTransform
  * @nogrep
@@ -12,7 +12,7 @@
 
 // @relayRequestID e3ee432c0fc33e7c2f8bfeac0ba4eaedbab44694541de64c5219ab207398f3c0
 
-import type { ConcreteRequest, Mutation } from 'relay-runtime';
+import type { ConcreteRequest } from 'relay-runtime';
 export type agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation$variables = {
   id: string;
   verified: boolean;

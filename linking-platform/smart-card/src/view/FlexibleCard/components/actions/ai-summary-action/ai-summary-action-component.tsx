@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 
 import { di } from 'react-magnetic-di';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { AISummaryActionData } from '../../../../../state/flexible-ui-context/types';
 import useAISummaryAction from '../../../../../state/hooks/use-ai-summary-action';
 
 import { AISummariseAction } from './ai-summarise-action';
-import { CopySummaryAction } from './copy-summary-action';
+import { CopySummaryAction, CopySummaryActionNew } from './copy-summary-action';
 import type { AISummaryActionProps } from './types';
 
 export const AISummaryActionComponent = (
@@ -26,7 +28,11 @@ export const AISummaryActionComponent = (
 	}, [onLoadingChange, status]);
 
 	return status === 'done' ? (
-		<CopySummaryAction {...props} testId={testId} content={content} />
+		fg('platform_sl_3p_auth_rovo_action_kill_switch') ? (
+			<CopySummaryActionNew {...props} summary={content} testId={testId} />
+		) : (
+			<CopySummaryAction {...props} testId={testId} content={content} />
+		)
 	) : (
 		<AISummariseAction {...props} testId={testId} summariseUrl={summariseUrl} status={status} />
 	);

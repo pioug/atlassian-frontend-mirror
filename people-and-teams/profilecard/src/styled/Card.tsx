@@ -142,7 +142,7 @@ const styles = cssMap({
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		color: token('color.text'),
-		font: token('font.body.UNSAFE_small'),
+		font: token('font.body.small'),
 		marginTop: token('space.0'),
 		marginLeft: token('space.0'),
 	},

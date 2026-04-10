@@ -1,5 +1,33 @@
 # @atlaskit/emoji
 
+## 69.12.0
+
+### Minor Changes
+
+- [`084196ae38ba0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/084196ae38ba0) -
+  Fix noninteractive element interactions in emoji picker
+
+### Patch Changes
+
+- Updated dependencies
+
+## 69.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 69.11.0
+
+### Minor Changes
+
+- [`adc71fefc3966`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/adc71fefc3966) -
+  The emoji change button used in page title should have an accessible label
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 69.10.55
 
 ### Patch Changes

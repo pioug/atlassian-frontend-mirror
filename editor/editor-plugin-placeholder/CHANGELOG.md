@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 8.1.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.15
 
 ### Patch Changes

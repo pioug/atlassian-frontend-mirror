@@ -146,7 +146,7 @@ export const isExternalImageItem = (fileItem: FileItem): fileItem is 'external-i
 export const isFileStateItem = (fileItem: FileItem): fileItem is FileState =>
 	!isExternalImageItem(fileItem);
 
-export const MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER = 10 * 1024 * 1024;
+export const MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER: number = 10 * 1024 * 1024;
 
 /**
  * Determines if a file renders natively without backend processing artifacts.
@@ -579,4 +579,12 @@ const ViewerWithKey = (props: Props) => {
 	return <ItemViewerBase {...props} key={key} />;
 };
 
-export const ItemViewer = withAnalyticsEvents()(ViewerWithKey);
+export const ItemViewer: React.ForwardRefExoticComponent<Omit<Readonly<{
+    identifier: Identifier;
+    onClose?: () => void;
+    previewCount: number;
+    contextId?: string;
+    featureFlags?: MediaFeatureFlags;
+    viewerOptions?: ViewerOptionsProps;
+    traceContext: MediaTraceContext;
+}> & WithShowControlMethodProp, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>> = withAnalyticsEvents()(ViewerWithKey);

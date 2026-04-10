@@ -28,7 +28,10 @@ const MediaCardWithMediaClientLazy = React.lazy(() =>
 	loadCardWithMediaClient().then((mod) => ({ default: mod.CardWithMediaClient })),
 );
 
-const CardLoader = (props: CardWithMediaClientConfigProps) => {
+const CardLoader: {
+    (props: CardWithMediaClientConfigProps): React.JSX.Element;
+    preload(): void;
+} = (props: CardWithMediaClientConfigProps): React.JSX.Element => {
 	return (
 		<UFOSegment name="media-card" mode="list">
 			<MediaCardContext.Provider value={props}>
@@ -44,7 +47,7 @@ const CardLoader = (props: CardWithMediaClientConfigProps) => {
 	);
 };
 
-CardLoader.preload = () => {
+CardLoader.preload = (): void => {
 	if (fg('platform_media_react19_support')) {
 		loadCardWithMediaClient().then(() => {});
 	} else {

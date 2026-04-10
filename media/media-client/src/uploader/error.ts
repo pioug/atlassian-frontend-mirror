@@ -33,7 +33,12 @@ export class UploaderError extends BaseMediaClientError<
 
 	// TODO: Deprecate this getter https://product-fabric.atlassian.net/browse/CXP-4665
 	/** Will be deprecated. Use the properties `reason` and `metadata` instead */
-	get attributes() {
+	get attributes(): {
+        reason: "fileSizeExceedsLimit";
+        id: string;
+        collectionName: string | undefined;
+        occurrenceKey: string | undefined;
+    } {
 		const {
 			reason,
 			metadata: { id, collectionName, occurrenceKey },

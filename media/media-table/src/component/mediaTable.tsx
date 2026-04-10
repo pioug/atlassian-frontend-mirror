@@ -16,7 +16,7 @@ import {
 	type FileIdentifier,
 	type MediaSubscription,
 } from '@atlaskit/media-client';
-import { withMediaClient } from '@atlaskit/media-client-react';
+import { withMediaClient, type WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import { mediaTableWrapperStyles } from './styles';
 import DownloadButton from './downloadButton';
@@ -35,7 +35,7 @@ import {
 	CELL_KEY_PREVIEW,
 	ANALYTICS_MEDIA_CHANNEL,
 } from '../util';
-import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 export class MediaTable extends Component<
 	MediaTableProps & WrappedComponentProps,
@@ -295,6 +295,9 @@ export class MediaTable extends Component<
 	}
 }
 
-export default withMediaClient(
-	withAnalyticsEvents()(injectIntl(MediaTable, { enforceContext: false })),
+const _default_1: React.ComponentType<WithMediaClientConfigProps<Omit<Omit<MediaTableProps & WrappedComponentProps, "intl"> & {
+    forwardedRef?: React.Ref<any>;
+}, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>>> = withMediaClient(
+    withAnalyticsEvents()(injectIntl(MediaTable, { enforceContext: false }))
 );
+export default _default_1;

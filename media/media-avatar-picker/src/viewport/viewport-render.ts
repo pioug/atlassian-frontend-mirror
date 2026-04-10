@@ -1,13 +1,13 @@
 import { type Viewport } from './viewport';
 
-export const radians = (deg: number) => deg * (Math.PI / 180);
+export const radians = (deg: number): number => deg * (Math.PI / 180);
 
 export const renderViewport = (
 	viewport: Viewport,
 	image: HTMLImageElement,
 	canvas: HTMLCanvasElement = document.createElement('canvas'),
 	outputSize?: number,
-) => {
+): HTMLCanvasElement | null => {
 	const { visibleSourceBounds, innerBounds, itemSourceBounds } = viewport;
 	let sourceBounds = visibleSourceBounds;
 	const orientation = CSS.supports('image-orientation', 'from-image') ? 1 : viewport.orientation;

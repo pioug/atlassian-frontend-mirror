@@ -1,8 +1,15 @@
-import getJest from './getJest';
+import getJest, { type MockStub } from './getJest';
 
 const jestHelper = getJest();
 
-export function mockCanvas(width: number = 0, height: number = 0) {
+export function mockCanvas(width: number = 0, height: number = 0): {
+    canvas: {
+        width: number;
+        height: number;
+        toDataURL: jest.Mock<any, any, any> | MockStub<unknown, unknown>;
+        getContext: unknown;
+    }; context: Partial<CanvasRenderingContext2D>;
+} {
 	const context: Partial<CanvasRenderingContext2D> = {
 		translate: jestHelper.fn(),
 		rotate: jestHelper.fn(),

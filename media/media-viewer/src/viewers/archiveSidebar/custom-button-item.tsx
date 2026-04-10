@@ -21,7 +21,7 @@ const itemStyles = css({
 	},
 });
 
-export function CustomButtonItem({ children, onClick, ...rest }: ButtonItemProps) {
+export function CustomButtonItem({ children, onClick, ...rest }: ButtonItemProps): JSX.Element {
 	return (
 		<ButtonItem
 			onClick={onClick}

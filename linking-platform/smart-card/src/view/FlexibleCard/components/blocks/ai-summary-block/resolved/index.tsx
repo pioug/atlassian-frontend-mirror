@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useEffect, useRef } from 'react';
+import { Fragment, useRef } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
@@ -98,73 +98,71 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps): JSX
 export const RovoSummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps): JSX.Element | null => {
 	di(useAISummaryAction, AISummary);
 
-	const { testId, aiSummaryMinHeight = 0, url } = props;
+	const { testId, aiSummaryMinHeight = 0, placeholder, url } = props;
 
 	const {
 		state: { content, status },
-		summariseUrl,
 	} = useAISummaryAction(url);
-
-	const showAISummary =
-		status === 'done' ||
-		// We want to display the AI Summary component only when there is content available during the loading process.
-		(status === 'loading' && !!content);
 
 	const isSummarisedOnMountRef = useRef(status === 'done');
 
-	useEffect(() => {
-		if (status !== 'ready' || isSummarisedOnMountRef.current) {
-			return;
-		}
-		isSummarisedOnMountRef.current = true;
-		summariseUrl();
-	}, [status, summariseUrl]);
-
 	const minHeight = isSummarisedOnMountRef.current ? 0 : aiSummaryMinHeight;
-
 	if (status === 'error') {
 		return null;
 	}
 
-	if (!showAISummary) {
+	// Show summary when there is content to display
+	if (content && content !== '') {
 		return (
-			<Inline testId={`${testId}-placeholder`} xcss={newStyles.placeholderWrapper}>
-				<div css={newStyles.iconWrapper}>
-					<RovoIcon shouldUseHexLogo={true} size={'xxsmall'} />
-				</div>
-				<Text size="small" color="color.text">
-					<FormattedMessage {...messages.rovo_summary_loading} />
-				</Text>
-				<Box xcss={newStyles.ellipsesContainer}>
-					<EllipsesAnimation isAnimated={true} />
-				</Box>
-			</Inline>
+			<Block
+				{...props}
+				direction={SmartLinkDirection.Vertical}
+				testId={`${testId}-resolved-view`}
+				css={styles}
+			>
+				<Inline xcss={newStyles.summaryWrapper}>
+					<div css={newStyles.iconWrapper}>
+						<RovoIcon shouldUseHexLogo={true} size="xxsmall" />
+					</div>
+					{status === 'done' && <AIEventSummaryViewed fromCache={isSummarisedOnMountRef.current} />}
+					<MotionWrapper
+						minHeight={minHeight}
+						show={true}
+						showTransition={!isSummarisedOnMountRef.current}
+					>
+						<AISummary testId={`${testId}-ai-summary`} minHeight={minHeight} content={content} />
+						{status === 'done' && <AIFooter />}
+					</MotionWrapper>
+				</Inline>
+			</Block>
 		);
 	}
 
-	return (
-		<Block
-			{...props}
-			direction={SmartLinkDirection.Vertical}
-			testId={`${testId}-resolved-view`}
-			css={styles}
-		>
-			<Inline xcss={newStyles.summaryWrapper}>
-				<div css={newStyles.iconWrapper}>
-					<RovoIcon shouldUseHexLogo={true} size={'xxsmall'} />
-				</div>
-				{status === 'done' && <AIEventSummaryViewed fromCache={isSummarisedOnMountRef.current} />}
-				<MotionWrapper
-					minHeight={minHeight}
-					show={showAISummary}
-					showTransition={!isSummarisedOnMountRef.current}
-				>
-					<AISummary testId={`${testId}-ai-summary`} minHeight={minHeight} content={content} />
-					{status === 'done' && <AIFooter />}
-				</MotionWrapper>
-			</Inline>
-		</Block>
-	);
+	// Show loading state on initial request where content hasn't returned yet.
+	if (status === 'loading') {
+		return (
+			<MotionWrapper minHeight={minHeight} show={true} showTransition={true}>
+				<Inline testId={`${testId}-placeholder`} xcss={newStyles.placeholderWrapper}>
+					<div css={newStyles.iconWrapper}>
+						<RovoIcon shouldUseHexLogo={true} size={'xxsmall'} />
+					</div>
+					<Text size="small" color="color.text">
+						<FormattedMessage {...messages.rovo_summary_loading} />
+					</Text>
+					<Box xcss={newStyles.ellipsesContainer}>
+						<EllipsesAnimation isAnimated={true} />
+					</Box>
+				</Inline>
+			</MotionWrapper>
+		);
+	}
+
+	// Otherwise, show placeholder if provided
+	if (placeholder) {
+		return <Fragment>{placeholder}</Fragment>;
+	}
+
+	return null;
 };
 
 export default AISummaryBlockResolvedView;

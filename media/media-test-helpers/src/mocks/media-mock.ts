@@ -33,7 +33,7 @@ export class MediaMock {
 	private dbs: Database<MediaDatabaseSchema>[] = [];
 	private websockets: Array<WebSocketServer> = [];
 
-	constructor(readonly collections?: MockCollections) {}
+	constructor(readonly collections?: MockCollections | undefined) {}
 
 	enable(config: MediaMockConfig = {}): void {
 		const { isSlowServer, urlsReturnErrorsTo, mockRemoteUploadActivity } = config;
@@ -111,7 +111,7 @@ export function generateFilesFromTestData(files: MockFileInputParams[]): MockFil
 	});
 }
 
-export const mediaMock = new MediaMock();
+export const mediaMock: MediaMock = new MediaMock();
 
 export interface MediaMockControlsBackdoor {
 	resetMediaMock: (config?: MediaMockConfig) => void;

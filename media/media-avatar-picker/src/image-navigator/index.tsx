@@ -123,7 +123,7 @@ export interface LoadParameters {
 }
 export type OnLoadHandler = (params: LoadParameters) => void;
 
-export const viewport = new Viewport(CONTAINER_SIZE, CONTAINER_SIZE, CONTAINER_PADDING);
+export const viewport: Viewport = new Viewport(CONTAINER_SIZE, CONTAINER_SIZE, CONTAINER_PADDING);
 
 export interface CropProperties {
 	x: number;
@@ -392,7 +392,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		}
 	};
 
-	renderDragZone = () => {
+	renderDragZone = (): JSX.Element => {
 		const {
 			intl: { formatMessage },
 		} = this.props;
@@ -434,7 +434,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		);
 	};
 
-	renderImageUploader() {
+	renderImageUploader(): JSX.Element {
 		const { errorMessage, isLoading } = this.props;
 
 		return (
@@ -473,7 +473,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		this.props.onRemoveImage();
 	};
 
-	renderImageCropper(dataURI: string) {
+	renderImageCropper(dataURI: string): JSX.Element {
 		const { scale, isDragging, imageOrientation, viewport } = this.state;
 		const { onImageError } = this.props;
 		const { onDragStarted, onImageLoaded, onRemoveImage, moveImage } = this;
@@ -513,7 +513,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		return errorMessage ? undefined : imageSource || fileImageSource;
 	}
 
-	render() {
+	render(): JSX.Element {
 		const { isLoading } = this.props;
 		const { dataURI } = this;
 		const content =

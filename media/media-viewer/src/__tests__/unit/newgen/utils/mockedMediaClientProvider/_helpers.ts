@@ -1,7 +1,7 @@
 export const normaliseInput = <T>(input?: T | T[]): T[] =>
 	!input ? [] : input instanceof Array ? input : [input];
 
-export const dataURItoBlob = (dataURI: string) => {
+export const dataURItoBlob = (dataURI: string): Blob => {
 	const byteString = atob(dataURI.split(',')[1]);
 	const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 	const ab = new ArrayBuffer(byteString.length);

@@ -113,7 +113,10 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
 	});
 }
 
-export function readImageNaturalOrientationFromDOM(img: HTMLImageElement) {
+export function readImageNaturalOrientationFromDOM(img: HTMLImageElement): {
+    width: number;
+    height: number;
+} {
 	img.style.position = 'absolute';
 	img.style.visibility = 'hidden';
 	document.body.appendChild(img);
@@ -229,7 +232,10 @@ const mimeTypes: MimeTypesRepresentation[] = [
 /*
  * Returns a label and icon
  */
-export function getMimeIcon(mimeType: string, fileName: string) {
+export function getMimeIcon(mimeType: string, fileName: string): MimeTypesRepresentation | {
+    label: string;
+    icon: typeof SourceCodeIcon;
+} | undefined {
 	// based on the mimeType, determine the corresponding icon and label
 	const iconInfo = mimeTypes.find((file) => file.mimeTypes.indexOf(mimeType) > -1);
 

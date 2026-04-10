@@ -1,32 +1,32 @@
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 import { type FileStatus } from '../src';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const wrapperStyles = css({
+export const wrapperStyles: SerializedStyles = css({
 	display: 'flex',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const imagePreviewStyles = css({
+export const imagePreviewStyles: SerializedStyles = css({
 	width: '300px',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const previewWrapperStyles = css({
+export const previewWrapperStyles: SerializedStyles = css({
 	flex: 1,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const metadataWrapperStyles = css({
+export const metadataWrapperStyles: SerializedStyles = css({
 	width: '400px',
 	overflow: 'scroll',
 	flex: 1,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const fileInputStyles = css({
+export const fileInputStyles: SerializedStyles = css({
 	color: 'transparent',
 });
 
@@ -44,7 +44,7 @@ const statusColorMap: { [key in FileStatus]: string } = {
 };
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const fileWrapperStyles = (status: FileStatus) =>
+export const fileWrapperStyles = (status: FileStatus): SerializedStyles =>
 	css({
 		padding: '5px',
 		margin: '10px',
@@ -55,7 +55,7 @@ export const fileWrapperStyles = (status: FileStatus) =>
 	});
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const cardsWrapperStyles = css({
+export const cardsWrapperStyles: SerializedStyles = css({
 	width: '900px',
 	padding: '10px',
 	borderRight: `${token('border.width', '1px')} solid ${token('color.border')}`,
@@ -73,7 +73,7 @@ export const cardsWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const headerStyles = css({
+export const headerStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	button: {
 		margin: '5px',
@@ -81,7 +81,7 @@ export const headerStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const fileStateWrapperStyles = css({
+export const fileStateWrapperStyles: SerializedStyles = css({
 	border: `${token('border.width', '1px')} solid ${token('color.border')}`,
 	margin: '10px',
 	padding: '10px',
@@ -89,7 +89,7 @@ export const fileStateWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const uploadTouchWrapperStyles = css({
+export const uploadTouchWrapperStyles: SerializedStyles = css({
 	height: '100%',
 	width: '100%',
 	display: 'flex',
@@ -101,7 +101,7 @@ export const uploadTouchWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const rowStyles = css({
+export const rowStyles: SerializedStyles = css({
 	flexDirection: 'row',
 	justifyContent: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -111,7 +111,7 @@ export const rowStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const responseStyles = css({
+export const responseStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontFamily: 'monospace',
 	whiteSpace: 'pre',

@@ -1,6 +1,6 @@
 import { MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
 
-export const mediaClientsMap = new Map<MediaClientConfig, MediaClient>();
+export const mediaClientsMap: Map<MediaClientConfig, MediaClient> = new Map<MediaClientConfig, MediaClient>();
 
 export const getMediaClient = (mediaClientConfig: MediaClientConfig): MediaClient => {
 	// The Provider defines mediaClientConfig as required,

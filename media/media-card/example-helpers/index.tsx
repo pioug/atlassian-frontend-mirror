@@ -1,7 +1,7 @@
 // eslint-disable-line no-console
 
 import React, { type PropsWithChildren } from 'react';
-import { type FileItem, type Identifier } from '@atlaskit/media-client';
+import { type FileItem, type Identifier, type MediaClientConfig } from '@atlaskit/media-client';
 import {
 	createStorybookMediaClientConfig,
 	enableMediaUfoLogger,
@@ -100,7 +100,10 @@ export const annotateCardAction: CardAction = {
 	icon: <AnnotateIcon label="annotate" />,
 };
 
-export const actions = [openAction, closeAction, deleteAction, annotateCardAction];
+export const actions: ({
+    label: string;
+    handler: () => void;
+} | CardAction)[] = [openAction, closeAction, deleteAction, annotateCardAction];
 
 export const anotherAction: CardAction = {
 	label: 'Some other action',
@@ -116,8 +119,8 @@ export const annotateAction: CardAction = {
 	},
 };
 
-export const cardsActions = [anotherAction, annotateAction];
-export const wrongMediaClientConfig = createStorybookMediaClientConfig({
+export const cardsActions: CardAction[] = [anotherAction, annotateAction];
+export const wrongMediaClientConfig: MediaClientConfig = createStorybookMediaClientConfig({
 	authType: 'client',
 });
 export const wrongCollection = 'adfasdf';

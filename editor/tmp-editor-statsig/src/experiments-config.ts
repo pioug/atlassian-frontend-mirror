@@ -749,12 +749,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	editor_fix_embed_width_expand: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-01-27
 	platform_editor_table_excerpts_fix: {
 		defaultValue: boolean;
@@ -1163,6 +1157,13 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'slot-four' | 'slot-two';
 		values: ('control' | 'slot-four' | 'slot-two')[];
 	};
+	// Added 2026-04-08
+	cc_fd_wb_jira_quick_insert_experiment: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-05 - A11Y-10416
 	editor_a11y_role_textbox: {
 		defaultValue: boolean;
@@ -1277,6 +1278,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-27
 	confluence_frontend_cwr_outcome_type_picker: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-01
+	confluence_fe_cwr_outcome_picker_prompt_autoselect: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1684,6 +1692,20 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-08
+	platform_editor_drag_handle_keyboard_a11y: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-04-09
+	show_mentions_in_suggest_reply: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	}
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -2216,14 +2238,6 @@ export const editorExperimentsConfig: {
 	platform_editor_breakout_resizing: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_breakout_resizing',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-12-17
-	editor_fix_embed_width_expand: createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_fix_embed_width_expand',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3109,6 +3123,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-01
+	confluence_fe_cwr_outcome_picker_prompt_autoselect: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_fe_cwr_outcome_picker_prompt_autoselect',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-02-12
 	platform_editor_a11y_escape_link_dialog: createBooleanExperiment({
 		productKeys: {
@@ -3560,22 +3582,22 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-		// Added 2026-03-30
-		platform_editor_spotlight_migration: createBooleanExperiment({
-			productKeys: {
-				confluence: 'platform_editor_spotlight_migration',
-			},
-			param: 'isEnabled',
-			defaultValue: false,
-		}),
-		// Added 2026-03-30
-		platform_editor_ai_xstate_migration: createBooleanExperiment({
-			productKeys: {
-				confluence: 'platform_editor_ai_xstate_migration',
-			},
-			param: 'isEnabled',
-			defaultValue: false,
-		}),
+	// Added 2026-03-30
+	platform_editor_spotlight_migration: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_spotlight_migration',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-30
+	platform_editor_ai_xstate_migration: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_xstate_migration',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-31
 	platform_editor_dnd_accessibility_fixes_expand: createBooleanExperiment({
 		productKeys: {
@@ -3608,6 +3630,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-04-08
+	cc_fd_wb_jira_quick_insert_experiment: createBooleanExperiment({
+		productKeys: {
+			jira: 'cc_fd_wb_jira_quick_insert_experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-07
 	platform_editor_lovability_select_all_shortcut: createBooleanExperiment({
 		productKeys: {
@@ -3621,6 +3651,22 @@ export const editorExperimentsConfig: {
 	platform_editor_hydration_skip_react_portal: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_hydration_skip_react_portal',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-08
+	platform_editor_drag_handle_keyboard_a11y: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_drag_handle_keyboard_a11y',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-01
+	show_mentions_in_suggest_reply: createBooleanExperiment({
+		productKeys: {
+			jira: 'show_mentions_in_suggest_reply',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

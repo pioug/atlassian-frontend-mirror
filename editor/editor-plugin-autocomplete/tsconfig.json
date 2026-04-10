@@ -1,6 +1,5 @@
 {
 	"extends": "../../../tsconfig.json",
-	"files": ["./build/url-module.d.ts"],
 	"include": [
 		"src/**/*.ts",
 		"src/**/*.tsx"

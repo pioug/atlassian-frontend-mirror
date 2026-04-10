@@ -86,7 +86,6 @@ describe('HoverCardResolvedView', () => {
 				flexibleCardProps={{ cardState, children: null, url }}
 				onActionClick={jest.fn()}
 				cardState={cardState}
-				url={url}
 				titleBlockProps={titleBlockProps}
 				isAISummaryEnabled={isAISummaryEnabled}
 			/>

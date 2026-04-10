@@ -25,7 +25,7 @@ const iconStyles = css({
 export const Icon = ({
 	alt,
 	...props
-}: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => (
+}: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>): JSX.Element => (
 	<img css={iconStyles} alt={alt || 'icon'} {...props} />
 );
 
@@ -39,7 +39,7 @@ const akIconWrapperStyles = css({
 export const AKIconWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span css={akIconWrapperStyles} {...props}>
 		{children}
 	</span>

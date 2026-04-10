@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 import { type Breakpoint, getTitleBoxHeight } from '../common';
 import { type IconWrapperProps } from './types';
 
@@ -15,7 +15,10 @@ export function titleBoxHeight(hasTitleBox: boolean, breakpoint: Breakpoint): st
 	return `${marginBottom}px`;
 }
 
-export const iconWrapperStyles = ({ hasTitleBox, breakpoint }: IconWrapperProps) =>
+export const iconWrapperStyles: {
+    ({ hasTitleBox, breakpoint }: IconWrapperProps): SerializedStyles;
+    displayName: string;
+} = ({ hasTitleBox, breakpoint }: IconWrapperProps): SerializedStyles =>
 	css({
 		position: 'absolute',
 		width: '100%',

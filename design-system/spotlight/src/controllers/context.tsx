@@ -25,6 +25,8 @@ export interface SpotlightContextType {
 		setRef: Dispatch<SetStateAction<MutableRefObject<HTMLDivElement | null> | null>>;
 		placement: Placement;
 		setPlacement: Dispatch<SetStateAction<Placement>>;
+		motion: React.ComponentType<{ children: ReactNode }> | undefined;
+		setMotion: Dispatch<SetStateAction<React.ComponentType<{ children: ReactNode }> | undefined>>;
 	};
 	heading: {
 		id: string;
@@ -55,6 +57,8 @@ export const SpotlightContext: Context<SpotlightContextType> = createContext<Spo
 		setRef: () => undefined,
 		placement: 'bottom-end',
 		setPlacement: () => undefined,
+		motion: undefined,
+		setMotion: () => undefined
 	},
 	heading: {
 		id: '',
@@ -81,6 +85,7 @@ export const SpotlightContext: Context<SpotlightContextType> = createContext<Spo
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SpotlightContextProvider = ({ children }: { children: ReactNode }): JSX.Element => {
 	const id = useId();
+	const [motion, setMotion] = useState<React.ComponentType<{ children: ReactNode }>>();
 	const [placement, setPlacement] = useState<Placement>('bottom-end');
 	const [headingId, setHeadingId] = useState<string>(`${id}-heading`);
 	const [update, setUpdate] = useState<() => () => Promise<any>>(() => async () => undefined);
@@ -112,6 +117,8 @@ export const SpotlightContextProvider = ({ children }: { children: ReactNode }):
 					setRef: setCardRef,
 					placement,
 					setPlacement,
+					motion,
+					setMotion,
 				},
 				heading: {
 					id: headingId,

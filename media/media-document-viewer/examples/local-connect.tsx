@@ -21,7 +21,7 @@ const style = css({
 	boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
 });
 
-export default function Basic() {
+export default function Basic(): JSX.Element {
 	const [source, setSource] = useState(
 		'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 	);

@@ -1,9 +1,23 @@
-# Editor plugin collab-edit
+# Editor Plugin Collab Edit
 
 Collab Edit plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Collab Edit plugin provides real-time collaborative editing capabilities for the Atlassian Editor. It integrates with collaboration providers to manage document synchronization, track participant changes, and handle conflict resolution during concurrent editing sessions.
+
+## Key features
+
+- **Real-time synchronization** - Synchronize document changes across multiple concurrent editors
+- **Participant tracking** - Monitor active participants and their presence in the document
+- **Step management** - Handle document steps, transformations, and step validation
+- **Conflict resolution** - Manage and track reconnection conflicts during collaborative sessions
+- **Organic change tracking** - Monitor local and remote organic changes to the document
+- **Inline comments** - Support for collaborative inline commenting with marks
+- **Analytics integration** - Track collaboration metrics and error reporting
 
 ## Install
 ---

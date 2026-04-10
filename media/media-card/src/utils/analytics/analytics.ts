@@ -22,7 +22,7 @@ import {
 	sanitiseAnalyticsPayload,
 } from '@atlaskit/media-common/analytics';
 
-import { type CreateUIAnalyticsEvent, createAndFireEvent } from '@atlaskit/analytics-next';
+import { type CreateUIAnalyticsEvent, type UIAnalyticsEvent, createAndFireEvent } from '@atlaskit/analytics-next';
 import { type MediaCardError, type MediaCardErrorPrimaryReason } from '../../errors';
 import { type CardPreviewSource, type CardDimensions, type CardStatus } from '../../types';
 import { type SSR } from '@atlaskit/media-common';
@@ -585,6 +585,6 @@ export function fireMediaCardEvent(
 	}
 }
 
-export const createAndFireMediaCardEvent = (payload: MediaCardAnalyticsEventPayload) => {
+export const createAndFireMediaCardEvent = (payload: MediaCardAnalyticsEventPayload): (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent => {
 	return createAndFireEvent(ANALYTICS_MEDIA_CHANNEL)(sanitiseAnalyticsPayload(payload));
 };

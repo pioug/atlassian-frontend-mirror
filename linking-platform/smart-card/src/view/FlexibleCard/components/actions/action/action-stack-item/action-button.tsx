@@ -8,6 +8,7 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import type { TriggerProps } from '@atlaskit/tooltip';
 
@@ -38,6 +39,13 @@ const styles = cssMap({
 		color: token('color.text'),
 		font: token('font.body.small'),
 	},
+	spinner: {
+		width: '24px',
+		height: '24px',
+		display: 'inline-flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
 });
 
 const ActionButton = ({
@@ -63,7 +71,18 @@ const ActionButton = ({
 
 	const icon =
 		iconOption && isLoading ? (
-			<ActionIcon icon={<Spinner testId={`${testId}-loading`} />} />
+			<ActionIcon
+				icon={
+					expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true) &&
+					fg('platform_sl_3p_auth_rovo_action_kill_switch') ? (
+						<Box xcss={styles.spinner}>
+							<Spinner size={16} testId={`${testId}-loading`} />
+						</Box>
+					) : (
+						<Spinner testId={`${testId}-loading`} />
+					)
+				}
+			/>
 		) : (
 			iconOption
 		);

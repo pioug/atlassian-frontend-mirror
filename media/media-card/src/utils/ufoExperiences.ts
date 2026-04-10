@@ -534,7 +534,7 @@ const getExperience = (id: string) => {
 	return concurrentExperience.getInstance(id);
 };
 
-export const startUfoExperience = (id: string, startTime?: number) => {
+export const startUfoExperience = (id: string, startTime?: number): void => {
 	getExperience(id).start(startTime);
 };
 
@@ -546,7 +546,7 @@ export const completeUfoExperience = (
 	ssrReliability: SSRStatus,
 	error: MediaCardError = new MediaCardError('missing-error-data'),
 	ssrPreviewInfo?: SSRPreviewInfo,
-) => {
+): void => {
 	// Only complete for terminal statuses - ignore intermediate statuses like 'loading-preview'
 	if (!['complete', 'error', 'failed-processing'].includes(status)) {
 		return;
@@ -621,7 +621,7 @@ export const completeUfoExperience = (
 	}
 };
 
-export const abortUfoExperience = (id: string, properties?: Partial<SucceedUfoPayload>) => {
+export const abortUfoExperience = (id: string, properties?: Partial<SucceedUfoPayload>): void => {
 	const metadata: CustomData = { ...getBasePayloadAttributes() };
 
 	if (properties?.fileAttributes) {

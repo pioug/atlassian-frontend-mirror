@@ -20,24 +20,24 @@ export const getTextFileType = (): string =>
 export const getFakeFileName = (ext: string = imageFileTypes[Math.round(Math.random())]) =>
 	`${commonFileName[Math.floor(Math.random() * commonFileName.length)]}${ext}`;
 
-export const getFakeFileSize = (maxSize = 1e7) => Math.round(Math.random() * maxSize);
+export const getFakeFileSize = (maxSize = 1e7): number => Math.round(Math.random() * maxSize);
 
 // This fake image was generated using faker. It never changes so we are just
 // using the output exact call Faker.image.dataUri(320, 240)
 export const fakeImage =
 	'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIzMjAiIGhlaWdodD0iMjQwIj4gPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPiAgPHRleHQgeD0iMCIgeT0iMjAiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJzdGFydCIgZmlsbD0id2hpdGUiPjMyMHgyNDA8L3RleHQ+IDwvc3ZnPg==';
 
-export const getDateWithOffset = (offset: number) => {
+export const getDateWithOffset = (offset: number): Date => {
 	let time = new Date();
 	time.setTime(time.getTime() + offset);
 	return time;
 };
 
-export const getPastDate = () => {
+export const getPastDate = (): Date => {
 	let offset = 0 - Math.round(Math.random() * 10000);
 	return getDateWithOffset(offset);
 };
-export const getFutureDate = () => {
+export const getFutureDate = (): Date => {
 	let offset = 100000 + Math.round(Math.random() * 10000);
 	return getDateWithOffset(offset);
 };

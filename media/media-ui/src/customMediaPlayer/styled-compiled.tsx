@@ -47,7 +47,7 @@ export const VolumeWrapper = ({
 	children,
 	...props
 }: VolumeWrapperProps &
-	React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+	React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
 	<div css={[volumeStyles, showSlider && showSliderVolumeStyles]} {...props}>
 		{children}
 	</div>
@@ -63,7 +63,7 @@ const currentTimeStyles = css({
 export const CurrentTime = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
 	<div css={currentTimeStyles} {...props}>
 		{children}
 	</div>
@@ -79,7 +79,7 @@ const timelineStyles = css({
 	position: 'relative',
 });
 
-export const TimeLine = forwardRef(
+export const TimeLine: React.ForwardRefExoticComponent<Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<unknown>> = forwardRef(
 	(
 		{
 			children,
@@ -108,7 +108,7 @@ const currentTimeLineStyles = css({
 export const CurrentTimeLine = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
 	<div css={currentTimeLineStyles} {...props}>
 		{children}
 	</div>
@@ -134,7 +134,7 @@ const thumbStyles = css({
 export const Thumb = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
 	<div css={thumbStyles} {...props}>
 		{children}
 	</div>
@@ -160,7 +160,7 @@ const currentTimeLineThumbStyles = css({
 		opacity: '1',
 	},
 });
-export const CurrentTimeLineThumb = forwardRef(
+export const CurrentTimeLineThumb: React.ForwardRefExoticComponent<Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<unknown>> = forwardRef(
 	(
 		{
 			children,
@@ -187,7 +187,7 @@ const bufferedTimeStyles = css({
 export const BufferedTime = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
 	<div css={bufferedTimeStyles} {...props}>
 		{children}
 	</div>
@@ -201,7 +201,7 @@ const leftControlsStyles = css({
 export const LeftControls = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
 	<div css={leftControlsStyles} {...props}>
 		{children}
 	</div>
@@ -216,7 +216,7 @@ const rightControlStyles = css({
 export const RightControls = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
 	<div css={rightControlStyles} {...props}>
 		{children}
 	</div>
@@ -241,7 +241,7 @@ const hiddenControlsWrapperStyles = css({
 	},
 });
 
-export const ControlsWrapper = forwardRef(
+export const ControlsWrapper: React.ForwardRefExoticComponent<Omit<ControlsWrapperProps & React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<unknown>> = forwardRef(
 	(
 		{
 			children,
@@ -290,7 +290,7 @@ export const VolumeToggleWrapper = ({
 	children,
 	...props
 }: MutedIndicatorProps &
-	React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+	React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
 	<div css={[volumeToggleWrapperStyles, isMuted && mutedVolumeToggleWrapperStyles]} {...props}>
 		{children}
 	</div>
@@ -304,7 +304,7 @@ const volumeTimeRangeWrapperStyles = css({
 export const VolumeTimeRangeWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
 	<div css={volumeTimeRangeWrapperStyles} {...props}>
 		{children}
 	</div>
@@ -332,7 +332,7 @@ export const MutedIndicator = ({
 	children,
 	...props
 }: MutedIndicatorProps &
-	React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+	React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
 	<div css={[mutedIndicatorStyles, isMuted && isMutedStyles]} {...props}>
 		{children}
 	</div>
@@ -385,7 +385,7 @@ export const CurrentTimeTooltip = ({
 	children,
 	...props
 }: CurrentTimeTooltipProps &
-	React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => (
+	React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => (
 	<div
 		css={[
 			currentTimeTooltipStyles,
@@ -441,7 +441,7 @@ const timeRangeWrapperStyles = css({
 	},
 });
 
-export const TimeRangeWrapper = forwardRef(
+export const TimeRangeWrapper: React.ForwardRefExoticComponent<Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<unknown>> = forwardRef(
 	(
 		{
 			children,

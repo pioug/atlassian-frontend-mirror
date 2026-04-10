@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 import { getDimensionsWithDefault } from '../utils/lightCards/getDimensionsWithDefault';
 import { type InlinePlayerWrapperProps } from './types';
 import {
@@ -31,11 +31,14 @@ const getSelectedBorderStyle = ({ selected }: { selected?: boolean }) => `
 
 export const inlinePlayerClassName = 'media-card-inline-player';
 
-export const inlinePlayerWrapperStyles = ({
+export const inlinePlayerWrapperStyles: {
+    ({ dimensions, selected, }: InlinePlayerWrapperProps): SerializedStyles;
+    displayName: string;
+} = ({
 	dimensions,
 	selected,
 }: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-InlinePlayerWrapperProps) => css`
+InlinePlayerWrapperProps): SerializedStyles => css`
 	width: ${getDimensionsWithDefault(dimensions).width || '100%'};
 	height: ${getDimensionsWithDefault(dimensions).height || 'auto'};
 	overflow: hidden;

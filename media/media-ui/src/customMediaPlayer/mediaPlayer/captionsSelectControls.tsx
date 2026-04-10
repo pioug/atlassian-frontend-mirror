@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
 import { type VideoTextTracks } from '../react-video-renderer';
-import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import Tooltip from '@atlaskit/tooltip';
 import { SplitButton } from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
@@ -104,4 +104,6 @@ const CaptionsSelectControlsWithIntl = memo(
 	},
 );
 
-export const CaptionsSelectControls = injectIntl(CaptionsSelectControlsWithIntl);
+export const CaptionsSelectControls: React.FC<WithIntlProps<CaptionsSelectControlsProps & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<CaptionsSelectControlsProps & WrappedComponentProps>;
+} = injectIntl(CaptionsSelectControlsWithIntl);

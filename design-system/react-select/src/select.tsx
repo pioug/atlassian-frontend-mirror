@@ -16,7 +16,8 @@ import React, {
 
 import { css, jsx } from '@compiled/react';
 
-import { isAppleDevice, isSafari } from '@atlaskit/ds-lib/device-check';
+import { isAppleDevice } from '@atlaskit/ds-lib/device-check';
+import { isSafari } from '@atlaskit/ds-lib/is-safari';
 import __noop from '@atlaskit/ds-lib/noop';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';

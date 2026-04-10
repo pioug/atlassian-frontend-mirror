@@ -1,5 +1,17 @@
 # @atlaskit/button
 
+## 23.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.11.0
 
 ### Minor Changes

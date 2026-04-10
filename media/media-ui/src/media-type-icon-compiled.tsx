@@ -72,7 +72,7 @@ export class MediaTypeIcon extends React.Component<FileIconProps, {}> {
 		size: 'large',
 	};
 
-	render() {
+	render(): JSX.Element {
 		const { type, size, testId } = this.props;
 		const typeWithDefault = type || defaultType;
 		const icons = size === 'large' ? largeIcons : smallIcons;

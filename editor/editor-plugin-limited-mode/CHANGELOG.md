@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-limited-mode
 
+## 5.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.23
+
+### Patch Changes
+
+- [`14803a836f641`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14803a836f641) -
+  Update README.md and 0-intro.tsx
+
 ## 5.0.22
 
 ### Patch Changes

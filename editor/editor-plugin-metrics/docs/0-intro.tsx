@@ -22,25 +22,35 @@ ${createEditorUseOnlyNotice('Editor Plugin Analytics', [
 		)
 	}
 
-  This package includes the analytics plugin used by \`@atlaskit/editor-core\`.
+  This package includes the metrics plugin used by \`@atlaskit/editor-core\`.
 
   ## Usage
 ---
 
-The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\` of the plugin are defined
+The \`dependencies\`, \`configuration\`, \`state\`, and \`commands\` of the plugin are defined
 below:
 
 ${code`
-type AnalyticsPlugin = NextEditorPlugin<
-  'analytics',
+type MetricsPluginOptions = {
+  userPreferencesProvider?: UserPreferencesProvider;
+};
+
+type MetricsPlugin = NextEditorPlugin<
+  'metrics',
   {
-    pluginConfiguration: AnalyticsPluginOptions;
-    sharedState: {
-      createAnalyticsEvent: CreateUIAnalyticsEvent | null;
-      attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
+    commands: {
+      handleIntentToStartEdit: ({
+        newSelection,
+        shouldStartTimer,
+        shouldPersistActiveSession,
+      }: handleIntentToStartEditProps) => EditorCommand;
+      setContentMoved: () => EditorCommand;
+      startActiveSessionTimer: () => EditorCommand;
+      stopActiveSession: () => EditorCommand;
     };
-    dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
-    actions: EditorAnalyticsAPI;
+    dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<UserPreferencesPlugin>];
+    pluginConfiguration?: MetricsPluginOptions;
+    sharedState: MetricsState;
   }
 >;
 `}

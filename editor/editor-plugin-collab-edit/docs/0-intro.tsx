@@ -30,23 +30,40 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type CollabEditPluginDependencies = [
+  OptionalPlugin<FeatureFlagsPlugin>,
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<EditorViewModePlugin>,
+  OptionalPlugin<ConnectivityPlugin>,
+];
+
+type CollabEditPluginOptions = PrivateCollabEditOptions;
+
 type CollabEditPlugin = NextEditorPlugin<
   'collabEdit',
   {
-    pluginConfiguration: PrivateCollabEditOptions;
-    dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
-      OptionalPlugin<AnalyticsPlugin>,
-    ];
-    sharedState:
-      | {
-          activeParticipants: ReadOnlyParticipants | undefined;
-          sessionId: string | undefined;
-        }
-      | undefined;
     actions: {
-      getAvatarColor: (str: string) => { index: number; backgroundColor: string, textColor: string };
+      addInlineCommentMark: (props: { from: number; mark: Mark; to: number }) => boolean;
+      addInlineCommentNodeMark: (props: { mark: Mark; pos: number }) => boolean;
+      getAvatarColor: (str: string) => {
+        backgroundColor: string;
+        index: number;
+        textColor: string;
+      };
+      getCurrentCollabState: () => {
+        content: JSONNode | undefined;
+        sendableSteps: CollabSendableSteps | undefined | null;
+        version: number | undefined;
+      };
+      isRemoteReplaceDocumentTransaction: (tr: Transaction) => boolean;
+      validatePMJSONDocument: (doc: any) => boolean;
     };
+    commands: {
+      nudgeTelepointer: (sessionId: string) => EditorCommand;
+    };
+    dependencies: CollabEditPluginDependencies;
+    pluginConfiguration: CollabEditPluginOptions;
+    sharedState: CollabEditPluginSharedState;
   }
 >;
 `}

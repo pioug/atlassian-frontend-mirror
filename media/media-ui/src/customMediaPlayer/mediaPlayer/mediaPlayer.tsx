@@ -43,7 +43,7 @@ export const MediaPlayerWihtoutContext = ({
 	);
 };
 
-export const MediaPlayer = withMediaAnalyticsContext({
+export const MediaPlayer: React.ForwardRefExoticComponent<MediaPlayerProps & React.RefAttributes<any>> = withMediaAnalyticsContext({
 	packageVersion,
 	packageName,
 	componentName: 'MediaPlayer',

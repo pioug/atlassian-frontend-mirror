@@ -14,7 +14,7 @@ export type MediaClientAndSettings = {
 	settings?: MediaParsedSettings;
 };
 
-export const MediaContext = React.createContext<MediaClientAndSettings | undefined>(undefined);
+export const MediaContext: React.Context<MediaClientAndSettings | undefined> = React.createContext<MediaClientAndSettings | undefined>(undefined);
 
 interface MediaProviderProps {
 	children: React.ReactNode;

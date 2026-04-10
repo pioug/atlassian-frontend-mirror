@@ -8,7 +8,7 @@ export class MediaClient {
 		this.file = new FileFetcherImpl({} as any);
 	}
 
-	public getImage = jest.fn();
-	public getImageUrl = jest.fn();
-	public getImageMetadata = jest.fn();
+	public getImage: jest.Mock<any, any, any> = jest.fn();
+	public getImageUrl: jest.Mock<any, any, any> = jest.fn();
+	public getImageMetadata: jest.Mock<any, any, any> = jest.fn();
 }

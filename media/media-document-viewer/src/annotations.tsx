@@ -80,7 +80,7 @@ export const TextInputFormField = ({
 }: {
 	field: TextField;
 	dataTestId?: string;
-}) => {
+}): JSX.Element => {
 	const style: React.CSSProperties = { ['fontSize']: `${field.f}px` };
 
 	return (
@@ -116,7 +116,7 @@ export const ComboBoxFormField = ({
 }: {
 	field: ComboBoxField;
 	dataTestId?: string;
-}) => {
+}): JSX.Element => {
 	return (
 		<foreignObject
 			x={field.x}
@@ -144,7 +144,7 @@ export const ComboBoxFormField = ({
 	);
 };
 
-export const Annotations = ({ annotations }: { annotations: PageAnnotations }) => {
+export const Annotations = ({ annotations }: { annotations: PageAnnotations }): JSX.Element => {
 	return (
 		<React.Fragment>
 			{annotations.text_form_fields.map((field, i) => {

@@ -18,7 +18,7 @@ const avatarPickerErrorStyles = css({
 	marginBottom: token('space.200'),
 });
 
-export const SubmitErrorDialog = () => {
+export const SubmitErrorDialog = (): JSX.Element => {
 	const intl = useIntl();
 	const flagContainerRef: React.RefObject<HTMLDivElement> = useRef(null);
 

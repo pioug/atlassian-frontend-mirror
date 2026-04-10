@@ -66,6 +66,7 @@ const searchTerm: { [key: string]: string } = {
 
 export default (): JSX.Element => {
 	const [num, setNum] = useState(1);
+	const resizingHeightProps = useResizingHeight();
 
 	return (
 		<div>
@@ -85,7 +86,7 @@ export default (): JSX.Element => {
 			</div>
 
 			<Centered>
-				<div data-testid="menu" {...useResizingHeight()} css={menuStyles}>
+				<div data-testid="menu" {...resizingHeightProps} css={menuStyles}>
 					<Label htmlFor="resize-text">Resize</Label>
 					<Textfield id="resize-text" readOnly value={searchTerm[`s${num}`]} />
 					<StaggeredEntrance columns={1}>

@@ -5,7 +5,7 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import { messages } from '../../messages';
 import Tooltip from '@atlaskit/tooltip';
-import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { formatLocale } from './captions';
 import { token } from '@atlaskit/tokens';
 import MediaButton from '../../MediaButton';
@@ -93,4 +93,6 @@ export const _CaptionsAdminControls = ({
 	);
 };
 
-export const CaptionsAdminControls = injectIntl(_CaptionsAdminControls);
+export const CaptionsAdminControls: React.FC<WithIntlProps<CaptionsAdminControlsProps & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<CaptionsAdminControlsProps & WrappedComponentProps>;
+} = injectIntl(_CaptionsAdminControls);

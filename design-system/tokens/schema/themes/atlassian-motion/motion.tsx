@@ -11,21 +11,21 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			enter: {
 				value: {
 					duration: 'Duration150',
-					curve: 'EasePracticalIn',
-					keyframes: ['ScaleIn80', 'FadeIn'],
+					curve: 'EasePracticalOut',
+					keyframes: ['ScaleIn80to100', 'FadeIn0to100'],
 				},
 			},
 			exit: {
 				value: {
 					duration: 'Duration100',
-					curve: 'Custom',
-					keyframes: ['ScaleOut80', 'FadeOut'],
+					curve: 'EasePracticalIn',
+					keyframes: ['ScaleOut100to80', 'FadeOut100to0'],
 				},
 			},
 			hovered: {
 				value: {
-					duration: 'Duration100',
-					curve: 'Custom',
+					duration: 'Duration250',
+					curve: 'EaseSpring',
 					properties: ['Transform'],
 				},
 			},
@@ -35,19 +35,19 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				value: {
 					duration: 'Duration250',
 					curve: 'EaseBoldOut',
-					keyframes: ['SlideIn50PercentLeft', 'FadeIn'],
+					keyframes: ['SlideIn50PercentLeft', 'FadeIn0to100'],
 				},
 			},
 			exit: {
 				value: {
 					duration: 'Duration200',
 					curve: 'EasePracticalIn',
-					keyframes: ['SlideOut15PercentLeft', 'FadeOut'],
+					keyframes: ['SlideOut15PercentLeft', 'FadeOut100to0'],
 				},
 			},
 			reposition: {
 				value: {
-					duration: 'Duration300',
+					duration: 'Duration250',
 					curve: 'EaseBoldInOut',
 					properties: ['Transform'],
 				},
@@ -56,16 +56,32 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 		modal: {
 			enter: {
 				value: {
-					duration: 'Duration200',
+					duration: 'Duration250',
 					curve: 'EaseBoldInOut',
-					keyframes: ['ScaleIn95', 'FadeIn'],
+					keyframes: ['ScaleIn95to100'],
 				},
 			},
 			exit: {
 				value: {
 					duration: 'Duration200',
-					curve: 'EasePracticalOut',
-					keyframes: ['ScaleOut95', 'FadeOut'],
+					curve: 'EasePracticalIn',
+					keyframes: ['ScaleOut100to95'],
+				},
+			},
+		},
+		blanket: {
+			enter: {
+				value: {
+					duration: 'Duration250',
+					curve: 'EaseBoldInOut',
+					keyframes: ['FadeIn0to100'],
+				},
+			},
+			exit: {
+				value: {
+					duration: 'Duration200',
+					curve: 'EasePracticalIn',
+					keyframes: ['FadeOut100to0'],
 				},
 			},
 		},
@@ -75,28 +91,28 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					value: {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
-						keyframes: ['SlideInTop', 'FadeIn'],
+						keyframes: ['SlideInTop8px', 'FadeIn0to100'],
 					},
 				},
 				bottom: {
 					value: {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
-						keyframes: ['SlideInBottom', 'FadeIn'],
+						keyframes: ['SlideInBottom8px', 'FadeIn0to100'],
 					},
 				},
 				left: {
 					value: {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
-						keyframes: ['SlideInLeft', 'FadeIn'],
+						keyframes: ['SlideInLeft8px', 'FadeIn0to100'],
 					},
 				},
 				right: {
 					value: {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
-						keyframes: ['SlideInRight', 'FadeIn'],
+						keyframes: ['SlideInRight8px', 'FadeIn0to100'],
 					},
 				},
 			},
@@ -105,28 +121,28 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					value: {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
-						keyframes: ['SlideOutTop', 'FadeOut'],
+						keyframes: ['SlideOutTop8px', 'FadeOut100to0'],
 					},
 				},
 				bottom: {
 					value: {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
-						keyframes: ['SlideOutBottom', 'FadeOut'],
+						keyframes: ['SlideOutBottom8px', 'FadeOut100to0'],
 					},
 				},
 				left: {
 					value: {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
-						keyframes: ['SlideOutLeft', 'FadeOut'],
+						keyframes: ['SlideOutLeft8px', 'FadeOut100to0'],
 					},
 				},
 				right: {
 					value: {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
-						keyframes: ['SlideOutRight', 'FadeOut'],
+						keyframes: ['SlideOutRight8px', 'FadeOut100to0'],
 					},
 				},
 			},
@@ -136,62 +152,14 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				value: {
 					duration: 'Duration250',
 					curve: 'EaseBoldInOut',
-					keyframes: ['ScaleIn95', 'FadeIn'],
+					keyframes: ['ScaleIn95to100', 'FadeIn0to100'],
 				},
 			},
 			exit: {
 				value: {
 					duration: 'Duration200',
-					curve: 'EasePracticalOut',
-					keyframes: ['ScaleOut95', 'FadeOut'],
-				},
-			},
-		},
-		content: {
-			enter: {
-				short: {
-					value: {
-						duration: 'Duration100',
-						curve: 'EaseBoldInOut',
-						keyframes: ['FadeIn'],
-					},
-				},
-				medium: {
-					value: {
-						duration: 'Duration200',
-						curve: 'EaseBoldInOut',
-						keyframes: ['FadeIn'],
-					},
-				},
-				long: {
-					value: {
-						duration: 'Duration400',
-						curve: 'EaseBoldInOut',
-						keyframes: ['FadeIn'],
-					},
-				},
-			},
-			exit: {
-				short: {
-					value: {
-						duration: 'Duration050',
-						curve: 'EaseBoldInOut',
-						keyframes: ['FadeOut'],
-					},
-				},
-				medium: {
-					value: {
-						duration: 'Duration100',
-						curve: 'EaseBoldInOut',
-						keyframes: ['FadeOut'],
-					},
-				},
-				long: {
-					value: {
-						duration: 'Duration200',
-						curve: 'EaseBoldInOut',
-						keyframes: ['FadeOut'],
-					},
+					curve: 'EasePracticalIn',
+					keyframes: ['ScaleOut100to95', 'FadeOut100to0'],
 				},
 			},
 		},

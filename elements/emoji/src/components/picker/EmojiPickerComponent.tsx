@@ -14,6 +14,7 @@ import {
 	type MemoExoticComponent,
 } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
@@ -95,6 +96,15 @@ const emojiPicker = css({
 	width: `${emojiPickerWidth}px`,
 	minWidth: `${emojiPickerWidth}px`,
 	maxHeight: 'calc(80vh - 86px)', // ensure showing full picker in small device: mobile header is 40px (Jira) - 56px(Confluence and Atlas), reaction picker height is 24px with margin 6px,
+});
+
+const emojiPickerWrapper = css({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'space-between',
+	flex: 1,
+	minHeight: 0,
+	overflow: 'hidden',
 });
 
 const withPreviewHeight = cssMap({
@@ -644,6 +654,68 @@ const EmojiPickerComponent = ({
 	}, [emojiProvider, onProviderChange]);
 
 	const showPreview = selectedEmoji && !uploading;
+
+	if (fg('platform_no_noninteractive_emojis_reactions')) {
+		return (
+			<div
+				css={[
+					emojiPicker,
+					showPreview && withPreviewHeight[size],
+					!showPreview && withoutPreviewHeight[size],
+				]}
+				ref={onPickerRef}
+				data-emoji-picker-container
+				role="dialog"
+				aria-label={formatMessage(messages.emojiPickerTitle)}
+				aria-modal={true}
+			>
+				<div
+					role="presentation"
+					onKeyPress={suppressKeyPress}
+					onKeyUp={suppressKeyPress}
+					onKeyDown={suppressKeyPress}
+					css={emojiPickerWrapper}
+				>
+					<CategorySelector
+						activeCategoryId={activeCategory}
+						dynamicCategories={dynamicCategories}
+						disableCategories={disableCategories}
+						onCategorySelected={onCategorySelected}
+					/>
+					<EmojiPickerList
+						emojis={filteredEmojis}
+						currentUser={currentUser}
+						onEmojiSelected={recordUsageOnSelection}
+						onEmojiActive={onEmojiActive}
+						onEmojiDelete={onTriggerDelete}
+						onCategoryActivated={onCategoryActivated}
+						onSearch={onSearch}
+						query={query}
+						selectedTone={selectedTone}
+						loading={loading}
+						ref={emojiPickerList}
+						initialUploadName={query}
+						onToneSelected={onToneSelected}
+						onToneSelectorCancelled={onToneSelectorCancelled}
+						toneEmoji={toneEmoji}
+						uploading={uploading}
+						emojiToDelete={emojiToDelete}
+						uploadErrorMessage={formattedErrorMessage}
+						uploadEnabled={isUploadSupported && !uploading}
+						onUploadEmoji={onUploadEmoji}
+						onUploadCancelled={onUploadCancelled}
+						onDeleteEmoji={onDeleteEmoji}
+						onCloseDelete={onCloseDelete}
+						onFileChooserClicked={onFileChooserClicked}
+						onOpenUpload={onOpenUpload}
+						size={size}
+						activeCategoryId={activeCategory}
+					/>
+					{showPreview && <EmojiPickerFooter selectedEmoji={selectedEmoji} />}
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions

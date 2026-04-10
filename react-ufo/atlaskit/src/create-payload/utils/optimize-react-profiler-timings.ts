@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { InteractionMetrics } from '../../common';
 import { segmentUnmountCache } from '../../interaction-metrics';
 import { optimizeLabelStack, stringifyLabelStackFully } from '../common/utils';
@@ -39,7 +37,7 @@ export function optimizeReactProfilerTimings(
 				if (type === 'update') {
 					timing.rerenderCount += 1;
 				}
-				if (segmentUnmountCache.has(label) && fg('platform_ufo_segment_unmount_count')) {
+				if (segmentUnmountCache.has(label)) {
 					timing.unmountCount = segmentUnmountCache.get(label) || 0;
 					segmentUnmountCache.delete(label);
 				}

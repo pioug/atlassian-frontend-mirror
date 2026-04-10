@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { type MouseEvent, type HTMLAttributes } from 'react';
 import type React from 'react';
@@ -40,7 +40,7 @@ const getVariantStyles = (variant?: 'default' | 'filled'): string => {
   `;
 };
 
-export const cardActionButtonStyles = ({ variant }: CardActionButtonProps) =>
+export const cardActionButtonStyles = ({ variant }: CardActionButtonProps): SerializedStyles =>
 	css(
 		{
 			appearance: 'none',

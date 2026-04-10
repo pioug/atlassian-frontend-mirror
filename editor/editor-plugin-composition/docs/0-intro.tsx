@@ -31,12 +31,16 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type CompositionPlugin = NextEditorPlugin<
+export type CompositionState = {
+  isComposing: boolean;
+};
+
+export type CompositionPlugin = NextEditorPlugin<
   'composition',
   {
     sharedState: CompositionState;
   }
->
+>;
 `}
 
 

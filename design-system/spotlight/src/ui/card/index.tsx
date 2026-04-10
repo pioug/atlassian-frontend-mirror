@@ -125,24 +125,20 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 			card.setRef(cardRef);
 		}, [card]);
 
-		if (fg('platform_spotlight_card_fit_content_anchor')) {
-			return (
-				<div css={styles.root} data-testid={testId} ref={ref}>
-					<div css={styles.container}>
-						<Caret placement={placement || card.placement} />
-						<Box
-							ref={cardRef}
-							backgroundColor="color.background.neutral.bold"
-							xcss={cx(styles.card, placementStyles[placement || card.placement])}
-						>
-							{children}
-						</Box>
-					</div>
+		const content = (fg('platform_spotlight_card_fit_content_anchor')) ? (
+			<div css={styles.root} data-testid={testId} ref={ref}>
+				<div css={styles.container}>
+					<Caret placement={placement || card.placement} />
+					<Box
+						ref={cardRef}
+						backgroundColor="color.background.neutral.bold"
+						xcss={cx(styles.card, placementStyles[placement || card.placement])}
+					>
+						{children}
+					</Box>
 				</div>
-			);
-		}
-
-		return (
+			</div>
+		) : (
 			<div css={styles.container} data-testid={testId} ref={ref}>
 				<Caret placement={placement || card.placement} />
 				<Box
@@ -153,6 +149,21 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 					{children}
 				</Box>
 			</div>
-		);
+		)
+
+		if(fg('platform-dst-motion-uplift')) {
+			const Motion = card.motion;
+			if(Motion) {
+				return (
+					<Motion>
+						{content}
+					</Motion>
+				)
+			} else {
+				return content;
+			}
+		}
+
+		return content;
 	},
 );

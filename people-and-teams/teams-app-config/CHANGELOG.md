@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-config
 
+## 1.12.16
+
+### Patch Changes
+
+- [`95d59258aafb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95d59258aafb9) -
+  Cleanup teams-app-fedramp-stg-fedm-hostname-support
+
 ## 1.12.15
 
 ### Patch Changes

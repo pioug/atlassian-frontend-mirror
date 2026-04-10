@@ -32,6 +32,26 @@ ${createEditorUseOnlyNotice('Editor Plugin Content Format', [
 
   ## Usage
 
+The exported types and interfaces for this plugin are:
+
+${code`
+export type ContentFormatPluginOptions = {
+  initialContentMode: EditorContentMode;
+};
+
+export type ContentFormatPlugin = NextEditorPlugin<
+  'contentFormat',
+  {
+    commands: {
+      updateContentMode: (mode: EditorContentMode) => EditorCommand;
+    };
+    dependencies: [];
+    pluginConfiguration?: ContentFormatPluginOptions;
+    sharedState: ContentFormatPluginState | null;
+  }
+>;
+`}
+
   ### Accessing Content Mode State
 
   Add the plugin as an optional dependency in your plugin:

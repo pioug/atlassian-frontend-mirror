@@ -43,9 +43,6 @@
 		},
 		{
 			"path": "../../uip/atlassian-context/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]
 }

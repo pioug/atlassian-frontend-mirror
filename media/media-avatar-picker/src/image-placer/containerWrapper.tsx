@@ -30,7 +30,7 @@ export const ContainerWrapper = ({
 	margin,
 	children,
 	...props
-}: ContainerWrapperProps) => {
+}: ContainerWrapperProps): JSX.Element => {
 	return (
 		<Box
 			id={'container-wrapper'}

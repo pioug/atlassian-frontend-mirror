@@ -14,7 +14,7 @@ const createBoundedUseStore = ((store) => (selector, equals) =>
 	<T>(selector: (state: ExtractState<S>) => T, equals?: (a: T, b: T) => boolean): T;
 };
 
-export function useMediaStore<T>(selector: (state: Store) => T, equals?: (a: T, b: T) => boolean) {
+export function useMediaStore<T>(selector: (state: Store) => T, equals?: (a: T, b: T) => boolean): T {
 	const mediaClient = useMediaClient();
 	const store = mediaClient.__DO_NOT_USE__getMediaStore();
 	const useBoundStore = createBoundedUseStore(store);

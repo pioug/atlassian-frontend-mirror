@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.12.1
+
+### Patch Changes
+
+- [`5481f03a3e3f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5481f03a3e3f4) -
+  Remove the platform_ufo_segment_unmount_count feature gate and make segment unmount counting
+  always-on.
+
 ## 5.12.0
 
 ### Minor Changes

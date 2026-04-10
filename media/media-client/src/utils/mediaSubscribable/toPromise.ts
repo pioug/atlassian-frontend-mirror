@@ -10,7 +10,7 @@ import { type FileState } from '@atlaskit/media-state';
 
 export const toPromise = (
 	mediaSubscribable: MediaSubscribable,
-	subscription = new Subscription(),
+	subscription: Subscription = new Subscription(),
 ): Promise<FileState> =>
 	new Promise((resolve, reject) =>
 		subscription.add(

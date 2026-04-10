@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.7
+
+### Patch Changes
+
+- [`c82f7b4cbe1fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c82f7b4cbe1fd) -
+  Fix drag handle keyboard accessibility: Shift+Ctrl+H now correctly shows and focuses the drag
+  handle for keyboard users when mouse is outside the editor. Gated behind
+  platform_editor_drag_handle_keyboard_a11y experiment.
+- Updated dependencies
+
+## 9.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.5
+
+### Patch Changes
+
+- [`1e1ca592da4fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e1ca592da4fd) -
+  Clean up feature gate editor_native_anchor_remove_decoration_in_apply (gate is true)
+- Updated dependencies
+
+## 9.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.3
 
 ### Patch Changes

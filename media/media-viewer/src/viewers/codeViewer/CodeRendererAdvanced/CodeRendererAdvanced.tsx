@@ -39,7 +39,7 @@ const codeViewerHeaderBarStyles = css({
 	backgroundColor: '#1d2125',
 });
 
-export const CodeRendererAdvanced = (props: Props) => {
+export const CodeRendererAdvanced = (props: Props): JSX.Element => {
 	const nodeRef = useRef<React.RefCallback<HTMLDivElement>>((elem) => {
 		if (!elem) {
 			return;

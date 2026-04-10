@@ -15,7 +15,10 @@ export const createAuthSession = async (): Promise<AuthSessionHelper> => {
 	};
 };
 
-export const transformAuthHeaders = (auth: AuthSessionHelper) => {
+export const transformAuthHeaders = (auth: AuthSessionHelper): {
+    Authorization: string;
+    'X-Client-Id': string;
+} => {
 	return {
 		Authorization: `Bearer ${auth.token}`,
 		'X-Client-Id': auth.clientId,

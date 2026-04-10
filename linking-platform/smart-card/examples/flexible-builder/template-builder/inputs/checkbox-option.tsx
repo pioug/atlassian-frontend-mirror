@@ -6,7 +6,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 
 import { type ChangeParams, handleOnChange } from '../../utils';
 
-import Label from './label';
+import CustomLabel from './custom-label';
 
 type Props<T extends object> = {
 	defaultValue?: boolean;
@@ -42,8 +42,7 @@ const CheckboxOption = <T extends object>({
 					<Checkbox
 						{...fieldProps}
 						isChecked={template[propName] !== undefined ? !!template[propName] : defaultValue}
-						// eslint-disable-next-line @atlassian/a11y/label-has-associated-control -- See https://go/a11y-label-has-associated-control for more details
-						label={<Label content={label} exclude={exclude} />}
+						label={<CustomLabel content={label} exclude={exclude} />}
 						onChange={handleOnCheckboxChange(onChange, template, propName, defaultValue)}
 					/>
 				)}

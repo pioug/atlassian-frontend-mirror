@@ -58,6 +58,8 @@ import {
 	DeletableEmojiTooltipContentForScreenReader,
 } from './DeletableEmojiTooltipContent';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { messages } from '../i18n';
 
 const emojiSpriteContainer = css({
 	display: 'inline-block',
@@ -129,10 +131,8 @@ const emojiImageContainer = css({
 	},
 });
 
-export interface Props extends Omit<
-	React.HTMLAttributes<HTMLSpanElement>,
-	'onMouseMove' | 'onFocus'
-> {
+export interface Props
+	extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'onMouseMove' | 'onFocus'> {
 	/**
 	 * Auto Width takes the constraint of height and enables native scaling based on the emojis image.
 	 * This is primarily used when rendering emojis for SSR as the component does not know the width and height
@@ -537,10 +537,16 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 		...other
 	} = props;
 
+	const ariaLabel = fg('platform_change_emoji_button_label')
+		? messages.changeEmojiButtonLabel.defaultMessage
+		: editorEmoji
+			? undefined
+			: emoji.shortName;
+
 	return (
 		<span
 			role={editorEmoji ? undefined : shouldBeInteractive ? 'button' : 'img'}
-			aria-label={editorEmoji ? undefined : emoji.shortName}
+			aria-label={ariaLabel}
 			ref={ref}
 			data-testid={`${type}-emoji-${emoji.shortName}`}
 			data-emoji-type={type}

@@ -17,7 +17,7 @@ import { type ArchiveViewerError } from '../../errors';
 import { CustomButtonItem } from './custom-button-item';
 import { messages } from '@atlaskit/media-ui';
 import { ArchiveDownloadButton } from './archive-download-button';
-import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 type Entries = { [key: string]: ZipEntry };
 
@@ -149,4 +149,6 @@ class ArchiveSidebarFolderEntryBase extends React.Component<
 	}
 }
 
-export const ArchiveSidebarFolderEntry = injectIntl(ArchiveSidebarFolderEntryBase);
+export const ArchiveSidebarFolderEntry: React.FC<WithIntlProps<ArchiveSidebarFolderProps & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<ArchiveSidebarFolderProps & WrappedComponentProps>;
+} = injectIntl(ArchiveSidebarFolderEntryBase);

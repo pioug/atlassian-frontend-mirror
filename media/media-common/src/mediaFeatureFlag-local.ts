@@ -1,5 +1,5 @@
 // window.localStorage is easier to mock in tests if wrapped in this module
-export const getLocalMediaFeatureFlag = (key: string) => {
+export const getLocalMediaFeatureFlag = (key: string): string | null => {
 	try {
 		return typeof window !== 'undefined' && window.localStorage
 			? window.localStorage.getItem(key)

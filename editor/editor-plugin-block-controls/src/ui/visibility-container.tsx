@@ -22,6 +22,7 @@ interface VisibilityContainerProps {
 	api?: ExtractInjectionAPI<BlockControlsPlugin>;
 	children: React.ReactNode;
 	controlSide?: 'left' | 'right';
+	forceVisibleOnMouseOut?: boolean;
 }
 
 const baseStyles = xcss({
@@ -62,6 +63,7 @@ export const VisibilityContainer = ({
 	api,
 	children,
 	controlSide,
+	forceVisibleOnMouseOut,
 }: VisibilityContainerProps): jsx.JSX.Element => {
 	const {
 		isTypeAheadOpen,
@@ -96,8 +98,15 @@ export const VisibilityContainer = ({
 	// button stays visible when the user moves from the block toward the button (e.g. in edit/live
 	// pages), avoiding flicker as the mouse crosses boundaries.
 	const hideOnMouseOut = isMouseOut;
+	// When forceVisibleOnMouseOut is true (e.g. drag handle focused via keyboard Shift+Ctrl+H),
+	// override the mouse-out condition so the control stays visible regardless of mouse position.
+	const shouldHideWhenMouseOut = forceVisibleOnMouseOut ? false : hideOnMouseOut;
 	const shouldHideImmediate =
-		isTypeAheadOpen || isEditing || hideOnMouseOut || userIntent === 'aiStreaming' || sideHidden;
+		isTypeAheadOpen ||
+		isEditing ||
+		shouldHideWhenMouseOut ||
+		userIntent === 'aiStreaming' ||
+		sideHidden;
 
 	// Delay hiding the right control in view mode to reduce flickering when moving from block
 	// toward the right-edge button (avoids rapid show/hide as mouse crosses boundaries).

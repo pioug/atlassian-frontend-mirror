@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { type PastedImageStyleType } from './stylesWrapper';
 
@@ -8,14 +8,14 @@ interface DropzoneContainerProps {
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const popupContainerStyles = css({
+export const popupContainerStyles: SerializedStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	overflow: 'scroll',
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const popupHeaderStyles = css({
+export const popupHeaderStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- needs to be converted to tokens
 	borderBottom: '1px solid #ccc',
 	marginBottom: '15px',
@@ -29,13 +29,13 @@ export const popupHeaderStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const previewImageWrapperStyles = css({
+export const previewImageWrapperStyles: SerializedStyles = css({
 	position: 'relative',
 	marginRight: '15px',
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const infoWrapperStyles = css({
+export const infoWrapperStyles: SerializedStyles = css({
 	position: 'absolute',
 	width: '160px',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- needs to be converted to tokens
@@ -46,7 +46,7 @@ export const infoWrapperStyles = css({
 	textAlign: 'center',
 });
 
-export const dropzoneContainerStyles = ({ isActive }: DropzoneContainerProps) =>
+export const dropzoneContainerStyles = ({ isActive }: DropzoneContainerProps): SerializedStyles =>
 	css(
 		{
 			width: '600px',
@@ -58,18 +58,18 @@ export const dropzoneContainerStyles = ({ isActive }: DropzoneContainerProps) =>
 	);
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const dropzoneRootStyles = css({
+export const dropzoneRootStyles: SerializedStyles = css({
 	display: 'flex',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const dropzoneContentWrapperStyles = css({
+export const dropzoneContentWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 	minHeight: '200px',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const previewsWrapperStyles = css({
+export const previewsWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	overflow: 'visible',
@@ -78,19 +78,19 @@ export const previewsWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const previewsTitleStyles = css({
+export const previewsTitleStyles: SerializedStyles = css({
 	width: '100%',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const uploadPreviewsFlexRowStyles = css({
+export const uploadPreviewsFlexRowStyles: SerializedStyles = css({
 	display: 'flex',
 	flexDirection: 'row',
 	flexWrap: 'wrap',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const dropzoneItemsInfoStyles = css({
+export const dropzoneItemsInfoStyles: SerializedStyles = css({
 	flex: 1,
 	minWidth: '600px',
 	display: 'flex',
@@ -105,7 +105,7 @@ interface ClipboardContainerProps {
 export const clipboardContainerStyles = ({
 	isWindowFocused,
 }: // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-ClipboardContainerProps) =>
+ClipboardContainerProps): SerializedStyles =>
 	css({
 		padding: '10px',
 		minHeight: '400px',
@@ -114,7 +114,7 @@ ClipboardContainerProps) =>
 	});
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const infoContainerStyles = css({
+export const infoContainerStyles: SerializedStyles = css({
 	position: 'absolute',
 	top: 0,
 	left: 0,
@@ -144,7 +144,7 @@ export const infoContainerStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-export const pastedImageStyles = (style: PastedImageStyleType) => css`
+export const pastedImageStyles = (style: PastedImageStyleType): SerializedStyles => css`
 	width: ${style.width ? `${style.width}px` : '100%'};
 	${style.height ? `height: ${style.height}px` : ''};
 `;

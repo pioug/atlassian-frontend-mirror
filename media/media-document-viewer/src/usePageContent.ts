@@ -2,12 +2,23 @@ import { useMemo, useRef, useState } from 'react';
 
 import { useStaticCallback } from '@atlaskit/media-common';
 
-import type { PageRangeContent } from './types';
+import type { Font, PageContent, PageRangeContent } from './types';
 
 export function usePageContent(
 	getContent: (startIndex: number, endIndex: number) => Promise<PageRangeContent>,
 	paginationSize: number,
-) {
+): {
+    getPageContent: (pageInd: number) => {
+        page: PageContent;
+        fonts: readonly Font[];
+    }; loadPageContent: (pageInd: number) => Promise<void>; documentMetadata: {
+        defaultDimensions: {
+            height: number;
+            width: number;
+        } | undefined;
+        pageCount: number;
+    };
+} {
 	const [contentRanges, setContentRanges] = useState<PageRangeContent[]>([]);
 	const contentRangesRequestRef = useRef<Record<number, Promise<PageRangeContent>>>({});
 
@@ -32,7 +43,10 @@ export function usePageContent(
 		});
 	});
 
-	function getPageContent(pageInd: number) {
+	function getPageContent(pageInd: number): {
+        page: PageContent;
+        fonts: readonly Font[];
+    } {
 		const contentRangeInd = Math.floor(pageInd / paginationSize);
 		const page = contentRanges[contentRangeInd]?.pages[pageInd % paginationSize];
 		const fonts = contentRanges[contentRangeInd]?.fonts;

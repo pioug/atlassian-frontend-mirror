@@ -152,6 +152,21 @@ const transform = (palette: Record<string, any>): Transform => {
 					delay: palette.motion.duration?.[value.delay]?.value,
 				};
 			}
+
+			if (originalToken.attributes.group === 'motionDuration') {
+				const value = originalToken.value;
+				return `${palette.motion.duration?.[value]?.value}ms`;
+			}
+
+			if (originalToken.attributes.group === 'motionEasing') {
+				const value = originalToken.value;
+				return palette.motion.curve?.[value]?.value;
+			}
+
+			if (originalToken.attributes.group === 'motionKeyframe') {
+				const value = originalToken.value;
+				return value;
+			}
 		},
 	};
 };

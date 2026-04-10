@@ -52,7 +52,7 @@ export const DocumentViewer = ({
 	paginationSize = DEFAULT_PAGINATION_SIZE,
 	maxPageImageZoom = DEFAULT_MAX_PAGE_IMAGE_ZOOM,
 	zoom,
-}: DocumentViewerProps) => {
+}: DocumentViewerProps): JSX.Element => {
 	const { getPageContent, loadPageContent, documentMetadata } = usePageContent(
 		getContent,
 		paginationSize,

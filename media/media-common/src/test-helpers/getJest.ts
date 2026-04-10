@@ -40,4 +40,4 @@ const mockJest = <F, S>(): MockedJest<F, S> => {
 };
 
 // ED-15806 Required as some examples currently use test modules and complain about not having `jest`.
-export const getJest = <F, S>() => (typeof jest === 'undefined' ? mockJest<F, S>() : jest);
+export const getJest = <F, S>(): typeof jest | MockedJest<F, S> => (typeof jest === 'undefined' ? mockJest<F, S>() : jest);

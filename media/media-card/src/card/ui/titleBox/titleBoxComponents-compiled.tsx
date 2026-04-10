@@ -47,7 +47,10 @@ const titleBoxWrapperStyles = css({
 	justifyContent: 'center',
 });
 
-export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => {
+export const TitleBoxWrapper: {
+    (props: TitleBoxWrapperProps): JSX.Element;
+    displayName: string;
+} = (props: TitleBoxWrapperProps): JSX.Element => {
 	const { breakpoint, titleBoxBgColor, hidden } = props;
 	const color = titleBoxBgColor && rgba(HEX_REGEX.test(titleBoxBgColor) ? titleBoxBgColor : N0, 1);
 
@@ -84,7 +87,10 @@ const titleBoxHeaderStyles = css({
 	fontWeight: token('font.weight.semibold'),
 });
 
-export const TitleBoxHeader = (props: TitleBoxHeaderProps) => {
+export const TitleBoxHeader: {
+    (props: TitleBoxHeaderProps): JSX.Element;
+    displayName: string;
+} = (props: TitleBoxHeaderProps): JSX.Element => {
 	const { hasIconOverlap } = props;
 	return (
 		<div
@@ -104,7 +110,10 @@ const titleBoxFooterStyles = css({
 	textOverflow: 'ellipsis',
 });
 
-export const TitleBoxFooter = (props: TitleBoxFooterProps) => {
+export const TitleBoxFooter: {
+    (props: TitleBoxFooterProps): JSX.Element;
+    displayName: string;
+} = (props: TitleBoxFooterProps): JSX.Element => {
 	const { hasIconOverlap, suppressHydrationWarning } = props;
 	return (
 		<div
@@ -127,7 +136,7 @@ const titleBoxIconStyles = css({
 	bottom: token('space.050'),
 });
 
-export const TitleBoxIcon = (props: any) => {
+export const TitleBoxIcon = (props: any): JSX.Element => {
 	return (
 		<div id="titleBoxIcon" data-testid="title-box-icon" css={[titleBoxIconStyles]}>
 			{props.children}
@@ -143,7 +152,7 @@ const errorMessageWrapperStyles = css({
 	gap: token('space.025'),
 });
 
-export const ErrorMessageWrapper = (props: any) => {
+export const ErrorMessageWrapper = (props: any): JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={errorMessageWrapperStyles}>{props.children}</div>;
 };

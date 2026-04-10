@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-card
 
+## 14.0.0
+
+### Major Changes
+
+- [`6bdbecda5afa7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bdbecda5afa7) -
+  Clean up editor_fix_embed_width_expand
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.19
+
+### Patch Changes
+
+- [`27529d2f5ddfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27529d2f5ddfe) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
 ## 13.1.18
 
 ### Patch Changes

@@ -26,7 +26,6 @@ import type { ResolvedHoverCardFooterBlockProps } from './types';
  * @featureGate platform_sl_3p_auth_rovo_action_kill_switch
  */
 const HIDDEN_HOVER_CARD_FOOTER_ACTIONS: FlexibleUiActionName[] = [
-	InternalActionName.AISummaryAction,
 	InternalActionName.RovoChatAction,
 ];
 

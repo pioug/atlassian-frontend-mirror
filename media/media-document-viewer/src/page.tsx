@@ -210,7 +210,7 @@ export const Page = ({
 	defaultDimensions,
 	onVisible,
 	onLoad,
-}: PageProps) => {
+}: PageProps): JSX.Element => {
 	const [imageSrc, setImageSrc] = useState<string | undefined>();
 	const { observedRef, isVisibleRef } = useIntersectionObserver(
 		{

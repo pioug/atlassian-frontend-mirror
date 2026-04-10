@@ -29,6 +29,24 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				},
 			},
 		},
+		blanket: {
+			enter: {
+				attributes: {
+					group: 'motion',
+					state: 'experimental',
+					introduced: '11.5.0',
+					description: '',
+				},
+			},
+			exit: {
+				attributes: {
+					group: 'motion',
+					state: 'experimental',
+					introduced: '11.5.0',
+					description: '',
+				},
+			},
+		},
 		flag: {
 			enter: {
 				attributes: {
@@ -158,60 +176,6 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					state: 'experimental',
 					introduced: '11.2.0',
 					description: '',
-				},
-			},
-		},
-		content: {
-			enter: {
-				short: {
-					attributes: {
-						group: 'motion',
-						state: 'experimental',
-						introduced: '11.2.0',
-						description: '',
-					},
-				},
-				medium: {
-					attributes: {
-						group: 'motion',
-						state: 'experimental',
-						introduced: '11.2.0',
-						description: '',
-					},
-				},
-				long: {
-					attributes: {
-						group: 'motion',
-						state: 'experimental',
-						introduced: '11.2.0',
-						description: '',
-					},
-				},
-			},
-			exit: {
-				short: {
-					attributes: {
-						group: 'motion',
-						state: 'experimental',
-						introduced: '11.2.0',
-						description: '',
-					},
-				},
-				medium: {
-					attributes: {
-						group: 'motion',
-						state: 'experimental',
-						introduced: '11.2.0',
-						description: '',
-					},
-				},
-				long: {
-					attributes: {
-						group: 'motion',
-						state: 'experimental',
-						introduced: '11.2.0',
-						description: '',
-					},
 				},
 			},
 		},

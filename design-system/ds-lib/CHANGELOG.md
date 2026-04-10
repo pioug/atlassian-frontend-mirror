@@ -1,5 +1,14 @@
 # @atlaskit/ds-lib
 
+## 7.0.0
+
+### Major Changes
+
+- [`0e6981ca05eb0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e6981ca05eb0) -
+  Moves `useIdSeed`, `isSafari` and `IdProvider` into individual files now available via their
+  respective entrypoints at `@atlaskit/ds-lib/use-id-seed`, `@atlaskit/ds-lib/is-safari`, and
+  `@atlaskit/ds-lib/id-provider`.
+
 ## 6.0.0
 
 ### Major Changes

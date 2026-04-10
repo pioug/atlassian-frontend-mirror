@@ -1,5 +1,11 @@
 # @atlaskit/icon-file-type
 
+## 7.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.15
 
 ### Patch Changes

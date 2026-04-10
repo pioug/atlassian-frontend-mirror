@@ -1,5 +1,6 @@
 import { type ComponentType, type ReactNode } from 'react';
 
+import { type TagSwatchBeforeTokenName } from '../../../tag-new/types';
 import { type AppearanceType, type MigrationFallback, type TagColor } from '../../../types';
 
 export interface SimpleTagProps {
@@ -49,4 +50,15 @@ export interface SimpleTagProps {
 	 * Accepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').
 	 */
 	maxWidth?: string | number;
+
+	/**
+	*
+	 * @internal
+	 * **Temporary / Internal only for migration.**
+	 * 
+	 * EXPERIMENTAL - Leading color swatch (12×12px), rendered before `elemBefore`.
+	 * - `true`: uses `color.background.accent.<color>.subtle` for swatch color
+	 * - Pass a design token (e.g. `token('color.background.accent.red.subtle')`)
+	 */
+	swatchBefore?: boolean | TagSwatchBeforeTokenName;
 }

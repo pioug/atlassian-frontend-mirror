@@ -6,7 +6,7 @@ import { createUploadCaptionsFn, UploadCaptionsForm } from './captions';
 import ApiFeedback, { type NotificationTypes } from '../apiFeedback';
 import { type MediaItemDetails } from '@atlaskit/media-client';
 import { messages } from '../../../../messages';
-import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type CaptionsUploaderBrowserProps = ArtifactUploaderProps & {
@@ -75,4 +75,13 @@ const CaptionsUploaderBrowser = ({
 	);
 };
 
-export default injectIntl(CaptionsUploaderBrowser);
+const _default_1: React.FC<WithIntlProps<ArtifactUploaderProps & {
+    isOpen: boolean;
+    onClose: () => void;
+} & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<ArtifactUploaderProps & {
+        isOpen: boolean;
+        onClose: () => void;
+    } & WrappedComponentProps>;
+} = injectIntl(CaptionsUploaderBrowser);
+export default _default_1;

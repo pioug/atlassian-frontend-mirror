@@ -1,5 +1,23 @@
 # @atlaskit/motion
 
+## 5.6.0
+
+### Minor Changes
+
+- [`7b44d021342cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b44d021342cf) -
+  Added new experimental `useResizingWidth` hook and `ResizingWidth` component.
+
+  This hook and component can be consumed to enable an element to resize its `width` when it changes
+  after a state transition.
+
+  Usage of this component should be carefully considered as it can have a performance impact.
+
+## 5.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.5.2
 
 ### Patch Changes

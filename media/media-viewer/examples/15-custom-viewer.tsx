@@ -23,7 +23,7 @@ import { Spinner } from '../src/loading';
 const mediaClientConfig = createStorybookMediaClientConfig();
 const mediaClient = new MediaClient(mediaClientConfig);
 
-export default function () {
+export default function (): JSX.Element {
 	const [selectedIdentifier, setSelectedIdentifier] = useState(undefined as Identifier | undefined);
 	const createItem = (identifier: Identifier, title: string) => {
 		return (

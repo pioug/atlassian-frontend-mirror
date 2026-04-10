@@ -16,6 +16,9 @@ const OLD_TO_NEW_APPEARANCE_MAP: Record<string, string> = {
 	success: 'success',
 };
 
+// New semantic values that are already valid and should be left unchanged
+const NEW_SEMANTIC_VALUES = new Set(Object.values(OLD_TO_NEW_APPEARANCE_MAP));
+
 type LozengeElement = {
 	path: ASTPath<JSXElement>;
 	hasAppearanceProp: boolean;
@@ -127,13 +130,15 @@ export default function transformer(file: FileInfo, api: API): string {
 Please verify that the values being passed use the new semantic values: neutral, information, warning, discovery, danger, success.
 Old values mapping: default→neutral, inprogress→information, moved→warning, new→discovery, removed→danger, success→success.`,
 						);
+					} else if (appearanceValue && NEW_SEMANTIC_VALUES.has(appearanceValue)) {
+						// Already using new semantic values, skip
 					} else if (appearanceValue && !OLD_TO_NEW_APPEARANCE_MAP[appearanceValue]) {
 						// For invalid string values, add a warning comment
 						addCommentBefore(
 							j,
 							j(path),
 							`FIXME: This Lozenge component uses an unknown \`appearance\` value "${appearanceValue}".
-Valid new semantic appearance values are: ${Object.values(OLD_TO_NEW_APPEARANCE_MAP).join(', ')}.
+Valid new semantic appearance values are: ${[...NEW_SEMANTIC_VALUES].join(', ')}.
 Please update this value to a valid semantic appearance value.`,
 						);
 					} else if (appearanceValue && OLD_TO_NEW_APPEARANCE_MAP[appearanceValue]) {

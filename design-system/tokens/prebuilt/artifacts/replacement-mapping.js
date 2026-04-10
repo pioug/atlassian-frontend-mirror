@@ -18,7 +18,7 @@ exports.default = void 0;
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::e46353a7329c8e87640e1586a2ec2ce7>>
+ * @codegen <<SignedSource::26489b868b6a67a598f0fa4a421cae65>>
  * @codegenCommand yarn build tokens
  */
 
@@ -32,22 +32,49 @@ var replacementMapper = [{
   "path": "motion.avatar.hovered",
   "state": "experimental"
 }, {
-  "path": "motion.content.enter.long",
+  "path": "motion.blanket.enter",
   "state": "experimental"
 }, {
-  "path": "motion.content.enter.medium",
+  "path": "motion.blanket.exit",
   "state": "experimental"
 }, {
-  "path": "motion.content.enter.short",
+  "path": "motion.duration.instant",
   "state": "experimental"
 }, {
-  "path": "motion.content.exit.long",
+  "path": "motion.duration.long",
   "state": "experimental"
 }, {
-  "path": "motion.content.exit.medium",
+  "path": "motion.duration.medium",
   "state": "experimental"
 }, {
-  "path": "motion.content.exit.short",
+  "path": "motion.duration.short",
+  "state": "experimental"
+}, {
+  "path": "motion.duration.xlong",
+  "state": "experimental"
+}, {
+  "path": "motion.duration.xshort",
+  "state": "experimental"
+}, {
+  "path": "motion.duration.xxlong",
+  "state": "experimental"
+}, {
+  "path": "motion.duration.xxshort",
+  "state": "experimental"
+}, {
+  "path": "motion.easing.in.practical",
+  "state": "experimental"
+}, {
+  "path": "motion.easing.inout.bold",
+  "state": "experimental"
+}, {
+  "path": "motion.easing.out.practical",
+  "state": "experimental"
+}, {
+  "path": "motion.easing.out.bold",
+  "state": "experimental"
+}, {
+  "path": "motion.easing.spring",
   "state": "experimental"
 }, {
   "path": "motion.flag.enter",
@@ -57,6 +84,54 @@ var replacementMapper = [{
   "state": "experimental"
 }, {
   "path": "motion.flag.reposition",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.fade.in",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.fade.out",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.scale.in.medium",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.scale.in.small",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.scale.out.medium",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.scale.out.small",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.slide.in.bottom.short",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.slide.in.left.half",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.slide.in.left.short",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.slide.in.right.short",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.slide.in.top.short",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.slide.out.bottom.short",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.slide.out.left.half",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.slide.out.left.short",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.slide.out.right.short",
+  "state": "experimental"
+}, {
+  "path": "motion.keyframe.slide.out.top.short",
   "state": "experimental"
 }, {
   "path": "motion.modal.enter",

@@ -14,6 +14,7 @@ import {
 	type UploadsStartEventPayload,
 	type UploadParams,
 	type UploadRejectionData,
+    type UploadEventPayloadMap,
 } from '../types';
 import { UploadComponent } from './component';
 import { UploadServiceImpl } from '../service/uploadServiceImpl';
@@ -49,7 +50,7 @@ export class LocalUploadComponentReact<
 	Props extends LocalUploadComponentBaseProps,
 > extends Component<Props, LocalUploadComponentBaseState> {
 	protected readonly uploadService: UploadService;
-	protected uploadComponent = new UploadComponent();
+	protected uploadComponent: UploadComponent<UploadEventPayloadMap> = new UploadComponent();
 
 	state: LocalUploadComponentBaseState = {
 		errorFlags: [],

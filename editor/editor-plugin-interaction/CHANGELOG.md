@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-interaction
 
+## 16.0.1
+
+### Patch Changes
+
+- [`14803a836f641`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14803a836f641) -
+  Update README.md and 0-intro.tsx
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.0
 
 ### Patch Changes

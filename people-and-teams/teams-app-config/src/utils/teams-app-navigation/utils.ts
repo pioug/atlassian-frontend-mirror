@@ -77,32 +77,32 @@ export function generatePath(
 
 export const onNavigateBase =
 	(href: string, config: NavigationActionCommon) =>
-	(e?: React.MouseEvent | React.KeyboardEvent): void => {
-		if (e) {
-			e.preventDefault();
-		}
-
-		if (isTeamsAppEnabled(config)) {
-			if (config.shouldOpenInSameTab) {
-				redirect(href);
-				return;
+		(e?: React.MouseEvent | React.KeyboardEvent): void => {
+			if (e) {
+				e.preventDefault();
 			}
-			openInNewTab(href);
-			return;
-		} else {
-			if (config.shouldOpenInSameTab) {
-				if (config.push) {
-					config.push(href);
+
+			if (isTeamsAppEnabled(config)) {
+				if (config.shouldOpenInSameTab) {
+					redirect(href);
 					return;
 				}
-				redirect(href);
-				return;
-			} else {
 				openInNewTab(href);
 				return;
+			} else {
+				if (config.shouldOpenInSameTab) {
+					if (config.push) {
+						config.push(href);
+						return;
+					}
+					redirect(href);
+					return;
+				} else {
+					openInNewTab(href);
+					return;
+				}
 			}
-		}
-	};
+		};
 
 function stripAriFromId(id: string): string {
 	// Return everything after the last slash
@@ -174,7 +174,7 @@ export function isFedRampStaging(): boolean {
 	}
 
 	// *.atlassian-stg-fedm.net
-	if (host.match(/atlassian-stg-fedm\.net/) && fg('teams-app-fedramp-stg-fedm-hostname-support')) {
+	if (host.match(/atlassian-stg-fedm\.net/)) {
 		return true;
 	}
 

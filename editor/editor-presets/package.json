@@ -1,0 +1,203 @@
+{
+	"name": "@atlaskit/editor-presets",
+	"version": "0.1.2",
+	"license": "Apache-2.0",
+	"description": "Public editor presets for Atlassian Editor containing base configurations for Confluence and other products",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"author": "Atlassian Pty Ltd",
+	"atlassian": {
+		"team": "Editor: Lego",
+		"releaseModel": "continuous",
+		"singleton": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"exports": {
+		"./full-page": "./src/confluence-full-page-base/index.ts",
+		"./full-page/types": "./src/confluence-full-page-base/types.ts"
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/adf-utils": "workspace:^",
+		"@atlaskit/editor-plugin-accessibility-utils": "workspace:^",
+		"@atlaskit/editor-plugin-alignment": "workspace:^",
+		"@atlaskit/editor-plugin-analytics": "workspace:^",
+		"@atlaskit/editor-plugin-annotation": "workspace:^",
+		"@atlaskit/editor-plugin-avatar-group": "workspace:^",
+		"@atlaskit/editor-plugin-base": "workspace:^",
+		"@atlaskit/editor-plugin-batch-attribute-updates": "workspace:^",
+		"@atlaskit/editor-plugin-better-type-history": "workspace:^",
+		"@atlaskit/editor-plugin-block-controls": "workspace:^",
+		"@atlaskit/editor-plugin-block-menu": "workspace:^",
+		"@atlaskit/editor-plugin-block-type": "workspace:^",
+		"@atlaskit/editor-plugin-border": "workspace:^",
+		"@atlaskit/editor-plugin-breakout": "workspace:^",
+		"@atlaskit/editor-plugin-caption": "workspace:^",
+		"@atlaskit/editor-plugin-card": "workspace:^",
+		"@atlaskit/editor-plugin-clear-marks-on-empty-doc": "workspace:^",
+		"@atlaskit/editor-plugin-clipboard": "workspace:^",
+		"@atlaskit/editor-plugin-code-bidi-warning": "workspace:^",
+		"@atlaskit/editor-plugin-code-block": "workspace:^",
+		"@atlaskit/editor-plugin-code-block-advanced": "workspace:^",
+		"@atlaskit/editor-plugin-collab-edit": "workspace:^",
+		"@atlaskit/editor-plugin-composition": "workspace:^",
+		"@atlaskit/editor-plugin-connectivity": "workspace:^",
+		"@atlaskit/editor-plugin-content-format": "workspace:^",
+		"@atlaskit/editor-plugin-content-insertion": "workspace:^",
+		"@atlaskit/editor-plugin-context-identifier": "workspace:^",
+		"@atlaskit/editor-plugin-context-panel": "workspace:^",
+		"@atlaskit/editor-plugin-copy-button": "workspace:^",
+		"@atlaskit/editor-plugin-custom-autoformat": "workspace:^",
+		"@atlaskit/editor-plugin-data-consumer": "workspace:^",
+		"@atlaskit/editor-plugin-date": "workspace:^",
+		"@atlaskit/editor-plugin-decorations": "workspace:^",
+		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
+		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
+		"@atlaskit/editor-plugin-editor-viewmode-effects": "workspace:^",
+		"@atlaskit/editor-plugin-emoji": "workspace:^",
+		"@atlaskit/editor-plugin-expand": "workspace:^",
+		"@atlaskit/editor-plugin-extension": "workspace:^",
+		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
+		"@atlaskit/editor-plugin-find-replace": "workspace:^",
+		"@atlaskit/editor-plugin-floating-toolbar": "workspace:^",
+		"@atlaskit/editor-plugin-focus": "workspace:^",
+		"@atlaskit/editor-plugin-fragment": "workspace:^",
+		"@atlaskit/editor-plugin-grid": "workspace:^",
+		"@atlaskit/editor-plugin-guideline": "workspace:^",
+		"@atlaskit/editor-plugin-help-dialog": "workspace:^",
+		"@atlaskit/editor-plugin-highlight": "workspace:^",
+		"@atlaskit/editor-plugin-history": "workspace:^",
+		"@atlaskit/editor-plugin-hyperlink": "workspace:^",
+		"@atlaskit/editor-plugin-indentation": "workspace:^",
+		"@atlaskit/editor-plugin-insert-block": "workspace:^",
+		"@atlaskit/editor-plugin-interaction": "workspace:^",
+		"@atlaskit/editor-plugin-layout": "workspace:^",
+		"@atlaskit/editor-plugin-limited-mode": "workspace:^",
+		"@atlaskit/editor-plugin-list": "workspace:^",
+		"@atlaskit/editor-plugin-local-id": "workspace:^",
+		"@atlaskit/editor-plugin-loom": "workspace:^",
+		"@atlaskit/editor-plugin-media": "workspace:^",
+		"@atlaskit/editor-plugin-media-insert": "workspace:^",
+		"@atlaskit/editor-plugin-mentions": "workspace:^",
+		"@atlaskit/editor-plugin-metrics": "workspace:^",
+		"@atlaskit/editor-plugin-panel": "workspace:^",
+		"@atlaskit/editor-plugin-paste": "workspace:^",
+		"@atlaskit/editor-plugin-paste-options-toolbar": "workspace:^",
+		"@atlaskit/editor-plugin-placeholder": "workspace:^",
+		"@atlaskit/editor-plugin-placeholder-text": "workspace:^",
+		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
+		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
+		"@atlaskit/editor-plugin-rule": "workspace:^",
+		"@atlaskit/editor-plugin-scroll-into-view": "workspace:^",
+		"@atlaskit/editor-plugin-selection": "workspace:^",
+		"@atlaskit/editor-plugin-selection-extension": "workspace:^",
+		"@atlaskit/editor-plugin-selection-marker": "workspace:^",
+		"@atlaskit/editor-plugin-selection-toolbar": "workspace:^",
+		"@atlaskit/editor-plugin-show-diff": "workspace:^",
+		"@atlaskit/editor-plugin-status": "workspace:^",
+		"@atlaskit/editor-plugin-submit-editor": "workspace:^",
+		"@atlaskit/editor-plugin-synced-block": "workspace:^",
+		"@atlaskit/editor-plugin-table": "workspace:^",
+		"@atlaskit/editor-plugin-tasks-and-decisions": "workspace:^",
+		"@atlaskit/editor-plugin-text-color": "workspace:^",
+		"@atlaskit/editor-plugin-text-formatting": "workspace:^",
+		"@atlaskit/editor-plugin-toolbar": "workspace:^",
+		"@atlaskit/editor-plugin-toolbar-lists-indentation": "workspace:^",
+		"@atlaskit/editor-plugin-track-changes": "workspace:^",
+		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
+		"@atlaskit/editor-plugin-ufo": "workspace:^",
+		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
+		"@atlaskit/editor-plugin-undo-redo": "workspace:^",
+		"@atlaskit/editor-plugin-unsupported-content": "workspace:^",
+		"@atlaskit/editor-plugin-user-intent": "workspace:^",
+		"@atlaskit/editor-plugin-user-preferences": "workspace:^",
+		"@atlaskit/editor-plugin-width": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
+		"@babel/runtime": "root:*"
+	},
+	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
+		"react": "^18.2.0",
+		"react-intl-next": "*"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_comments_api_manager": {
+			"type": "boolean"
+		},
+		"platform_editor_ai_object_sidebar_injection": {
+			"type": "boolean"
+		},
+		"confluence_frontend_content_wrapper": {
+			"type": "boolean"
+		},
+		"platform_editor_content_mode_button_mvp": {
+			"type": "boolean"
+		},
+		"platform_editor_use_preferences_plugin": {
+			"type": "boolean"
+		},
+		"platform_editor_ai_aifc_adf_placeholder": {
+			"type": "boolean"
+		},
+		"platform_editor_ai_aifc_streaming": {
+			"type": "boolean"
+		},
+		"platform_editor_ai_aifc_space_shortcut": {
+			"type": "boolean"
+		},
+		"platform_editor_table_fixed_column_width_prop": {
+			"type": "boolean"
+		},
+		"confluence_remix_button_right_side_block_fg": {
+			"type": "boolean"
+		}
+	}
+}

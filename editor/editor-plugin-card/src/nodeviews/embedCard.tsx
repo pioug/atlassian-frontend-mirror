@@ -45,7 +45,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../index';
@@ -317,10 +316,7 @@ export class EmbedCardComponent extends React.PureComponent<
 
 			if (domNode instanceof HTMLElement) {
 				const measuredWidth = domNode.offsetWidth;
-				if (
-					measuredWidth <= 1 &&
-					expValEquals('editor_fix_embed_width_expand', 'isEnabled', true)
-				) {
+				if (measuredWidth <= 1) {
 					this.scheduleLineLengthRemeasureRaf(view);
 					return originalLineLength;
 				}

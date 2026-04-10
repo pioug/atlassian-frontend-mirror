@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef } from 'react';
+import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -35,7 +35,7 @@ export type SvgRendererProps = {
 	style: MediaSvgProps['style'];
 };
 
-export const SvgRenderer = forwardRef<HTMLImageElement, SvgRendererProps>(
+export const SvgRenderer: ForwardRefExoticComponent<SvgRendererProps & RefAttributes<HTMLImageElement>> = forwardRef<HTMLImageElement, SvgRendererProps>(
 	(
 		{
 			identifier: { id, collectionName },

@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import AiIcon from '@atlaskit/icon/core/atlassian-intelligence';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';
@@ -56,7 +57,14 @@ export function AISummariseAction({
 	return (
 		<Action
 			content={<FormattedMessage {...messages.ai_summary_action} />}
-			icon={<AiIcon spacing="spacious" color="currentColor" label="Summarise with AI" />}
+			icon={
+				<AiIcon
+					spacing="spacious"
+					color="currentColor"
+					label="Summarise with AI"
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { size: props.iconSize } : {})}
+				/>
+			}
 			onClick={handleActionClick}
 			testId={`${testId}-summarise-action`}
 			isLoading={status === 'loading'}

@@ -23,7 +23,7 @@ export function zoomLevelAfterResize(
 	newCamera: Camera,
 	oldCamera: Camera,
 	oldZoomLevel: ZoomLevel,
-) {
+): ZoomLevel {
 	const isImgScaledToFit = oldZoomLevel.value === oldCamera.scaleDownToFit;
 	const zoomLevelToRefit = new ZoomLevel(newCamera.scaleDownToFit);
 	return isImgScaledToFit ? zoomLevelToRefit : oldZoomLevel;
@@ -306,7 +306,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 	};
 }
 
-export const InteractiveImg = withAnalyticsEvents({
+export const InteractiveImg: React.ForwardRefExoticComponent<Omit<Props, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>> = withAnalyticsEvents({
 	onBlanketClicked: (createAnalyticsEvent) => {
 		const event = createAnalyticsEvent(createClosedEvent('blanket'));
 		event.fire(ANALYTICS_MEDIA_CHANNEL);

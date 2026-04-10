@@ -7,7 +7,7 @@ import { renderViewport } from '../../viewport/viewport-render';
 import { setup as setupViewport } from './viewportSpec';
 import { getCanvas } from '../../util';
 
-export const radians = (deg: number) => deg * (Math.PI / 180);
+export const radians = (deg: number): number => deg * (Math.PI / 180);
 
 const mockImage = {
 	naturalWidth: 1,

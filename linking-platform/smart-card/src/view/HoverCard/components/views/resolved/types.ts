@@ -14,5 +14,4 @@ export type HoverCardResolvedProps = {
 	isAISummaryEnabled?: boolean;
 	onActionClick: (actionId: string | ActionName) => void;
 	showRovoResolvedView?: boolean;
-	url: string;
 } & HoverCardLoadingViewProps;

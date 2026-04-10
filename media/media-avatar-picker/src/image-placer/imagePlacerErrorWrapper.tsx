@@ -15,6 +15,6 @@ const imagePlacerErrorWrapperStyles = css({
 	paddingTop: '45%',
 });
 
-export const ImagePlacerErrorWrapper = ({ children }: any) => (
+export const ImagePlacerErrorWrapper = ({ children }: any): JSX.Element => (
 	<div css={imagePlacerErrorWrapperStyles}>{children}</div>
 );

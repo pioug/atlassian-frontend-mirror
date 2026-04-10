@@ -303,4 +303,4 @@ class Example extends React.Component<object, ExampleState> {
 	}
 }
 
-export default () => <Example />;
+export default (): JSX.Element => <Example />;

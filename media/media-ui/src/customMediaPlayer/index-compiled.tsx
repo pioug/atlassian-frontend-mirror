@@ -140,7 +140,7 @@ export class CustomMediaPlayerBase extends Component<
 	CustomMediaPlayerProps & WrappedComponentProps & WithAnalyticsEventsProps,
 	CustomMediaPlayerState
 > {
-	videoWrapperRef = React.createRef<HTMLDivElement>();
+	videoWrapperRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 
 	private actions?: VideoActions;
 	private videoState: Partial<VideoState> = {

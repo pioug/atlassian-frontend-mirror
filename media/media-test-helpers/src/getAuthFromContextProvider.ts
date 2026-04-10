@@ -9,7 +9,7 @@ const access = {
 	'urn:filestore:collection:mediapicker-test': ['read', 'insert'],
 };
 
-export const getAuthFromContextProvider = async () => {
+export const getAuthFromContextProvider = async (): Promise<any> => {
 	const url = 'https://media-playground.dev.atl-paas.net/token/tenant?environment=asap';
 	const body = JSON.stringify({
 		access,

@@ -6,7 +6,11 @@ import { type MediaEnv, mediaPickerAuthProvider } from './mediaPickerAuthProvide
 
 export const defaultBaseUrl = 'https://media.staging.atl-paas.net';
 
-export const defaultParams = {
+export const defaultParams: {
+    clientId: string;
+    asapIssuer: string;
+    baseUrl: string;
+} = {
 	clientId: '5a9812fc-d029-4a39-8a46-d3cc36eed7ab',
 	asapIssuer: 'micros/media-playground',
 	baseUrl: defaultBaseUrl,
@@ -48,7 +52,7 @@ export const createStorybookMediaClientConfig = (
 	return { authProvider };
 };
 
-export const createUploadMediaClient = () => new MediaClient(createUploadMediaClientConfig());
+export const createUploadMediaClient = (): MediaClient => new MediaClient(createUploadMediaClientConfig());
 
 export const createUploadMediaClientConfig = (
 	stargateBaseUrl?: string,

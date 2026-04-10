@@ -36,7 +36,7 @@ export const ImageRenderer = ({
 	wrapperRef,
 	useWhiteBackground,
 	testId,
-}: ImageRendererProps) => {
+}: ImageRendererProps): JSX.Element | null => {
 	const onDisplayImageRef = useCurrentValueRef(onDisplayImage);
 	const ufoContext = useInteractionContext();
 

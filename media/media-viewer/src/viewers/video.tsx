@@ -37,7 +37,9 @@ export type State = BaseState<string> & {
 const hdArtifact = 'video_1280.mp4';
 
 export class VideoViewer extends BaseViewer<string, Props, State> {
-	protected get initialState() {
+	protected get initialState(): {
+        content: Outcome<string, MediaViewerError>;
+    } {
 		return {
 			content: Outcome.pending<string, MediaViewerError>(),
 		};

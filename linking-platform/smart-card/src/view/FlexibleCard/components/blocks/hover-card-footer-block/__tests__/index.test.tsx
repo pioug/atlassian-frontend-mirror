@@ -14,9 +14,9 @@ import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-
 import ResolvedHoverCardFooterBlock from '../index';
 import { type ResolvedHoverCardFooterBlockProps } from '../types';
 
-ffTest.both('navx-1895-new-logo-design', '', () => {
-	ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
-		describe('ResolvedHoverCardFooterBlock', () => {
+describe('ResolvedHoverCardFooterBlock', () => {
+	ffTest.both('navx-1895-new-logo-design', '', () => {
+		ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
 			const testIdBase = 'some-test-id';
 			const renderResolvedHoverCardFooterBlock = (
 				props?: ResolvedHoverCardFooterBlockProps,
@@ -62,7 +62,6 @@ ffTest.both('navx-1895-new-logo-design', '', () => {
 				const contextWithoutFooterActions: FlexibleUiDataContext = {
 					...context,
 					actions: {
-						AISummaryAction: context.actions!.AISummaryAction,
 						RovoChatAction: context.actions!.RovoChatAction,
 					},
 				};

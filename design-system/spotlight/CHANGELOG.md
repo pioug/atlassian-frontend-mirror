@@ -1,5 +1,18 @@
 # @atlaskit/spotlight
 
+## 0.12.0
+
+### Minor Changes
+
+- [`856de5254340b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/856de5254340b) -
+  [ux] Added motion on open and close of Spotlight behind fg platform-dst-motion-uplift
+
+## 0.11.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.11.2
 
 ### Patch Changes

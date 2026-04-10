@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { borderRadius } from '@atlaskit/media-ui';
 import { token } from '@atlaskit/tokens';
@@ -18,7 +18,7 @@ import {
 } from '../styles';
 import { type WrapperProps } from './types';
 
-export const wrapperStyles = ({
+export const wrapperStyles: { ({ breakpoint, dimensions, appearance, disableOverlay, displayBackground, selected, isPlayButtonClickable, isTickBoxSelectable, shouldDisplayTooltip, mediaCardCursor, }: WrapperProps): SerializedStyles; displayName: string; } = ({
 	breakpoint,
 	dimensions,
 	appearance,
@@ -30,7 +30,7 @@ export const wrapperStyles = ({
 	shouldDisplayTooltip,
 	mediaCardCursor,
 }: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-WrapperProps) => css`
+WrapperProps): SerializedStyles => css`
 	${transition()}
 	box-sizing: border-box;
 	* {

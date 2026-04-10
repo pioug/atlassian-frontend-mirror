@@ -8,6 +8,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getSelectionToolbarOpenExperiencePlugin } from './pm-plugins/experiences/selection-toolbar-open-experience';
@@ -132,6 +133,10 @@ export const toolbarPlugin: ToolbarPlugin = ({
 				{
 					name: 'editor-toolbar-selection',
 					plugin: () => {
+						// Tracks mouse-down state to prevent the focus event (first page load)
+						// from prematurely showing the toolbar mid-drag
+						const mouseState = { isMouseDown: false };
+
 						return new SafePlugin({
 							key: editorToolbarPluginKey,
 							state: {
@@ -177,6 +182,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 								const unbind = bind(view.root, {
 									type: 'mouseup',
 									listener: function (this: Document | ShadowRoot, ev: Event) {
+										mouseState.isMouseDown = false;
 										const event = ev as MouseEvent;
 										const isInToolbar = isEventInContainer(
 											event,
@@ -202,6 +208,14 @@ export const toolbarPlugin: ToolbarPlugin = ({
 								const unbindEditorViewFocus = bind(view.dom, {
 									type: 'focus',
 									listener: () => {
+										// On first page load, focus fires after mousedown — skip to
+										// avoid showing the toolbar mid-drag
+										if (
+											mouseState.isMouseDown &&
+											fg('platform_editor_fix_toolbar_on_first_highlight')
+										) {
+											return;
+										}
 										view.dispatch(
 											view.state.tr.setMeta(editorToolbarPluginKey, { shouldShowToolbar: true }),
 										);
@@ -218,6 +232,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 							props: {
 								handleDOMEvents: {
 									mousedown: (view) => {
+										mouseState.isMouseDown = true;
 										view.dispatch(
 											view.state.tr.setMeta(editorToolbarPluginKey, {
 												shouldShowToolbar: false,

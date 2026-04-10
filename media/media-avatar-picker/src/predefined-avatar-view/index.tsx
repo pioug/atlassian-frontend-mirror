@@ -11,7 +11,7 @@ import { type Avatar } from '../avatar-list';
 import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
 import Button from '@atlaskit/button/standard-button';
 
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 export interface PredefinedAvatarViewProps {
 	avatars: Array<Avatar>;
@@ -91,7 +91,7 @@ const backButtonStyles = css({
 	padding: 0,
 });
 
-export const PredefinedAvatarView = forwardRef<HTMLButtonElement, PredefinedAvatarViewProps>(
+export const PredefinedAvatarView: ForwardRefExoticComponent<PredefinedAvatarViewProps & RefAttributes<HTMLButtonElement>> = forwardRef<HTMLButtonElement, PredefinedAvatarViewProps>(
 	(
 		{
 			avatars = [],

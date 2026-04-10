@@ -45,7 +45,7 @@ export const ImageContainer = ({
 	source,
 	centerElements,
 	mediaCardCursor,
-}: ImageContainerProps) => (
+}: ImageContainerProps): JSX.Element => (
 	<div
 		css={[imageContainerStyles, centerElements && imageContainerCenterStyles]}
 		data-testid={fileCardImageViewSelector}

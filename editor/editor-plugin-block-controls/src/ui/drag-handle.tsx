@@ -40,7 +40,7 @@ import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -1440,9 +1440,28 @@ export const DragHandle = ({
 			}
 			data-testid="block-ctrl-drag-handle"
 			aria-label={dragHandleAriaLabel}
-			onBlur={
-				editorExperiment('platform_editor_block_menu', true) ? () => setIsFocused(false) : undefined
-			}
+			onBlur={() => {
+				if (editorExperiment('platform_editor_block_menu', true)) {
+					setIsFocused(false);
+				}
+				
+				if (expValEquals('platform_editor_drag_handle_keyboard_a11y', 'isEnabled', true)) {
+					const pos = getPos();
+					if (pos !== undefined) {
+						api?.core?.actions.execute(({ tr }: { tr: Transaction }) => {
+							tr.setMeta(key, {
+								activeNode: {
+									pos,
+									anchorName,
+									nodeType,
+									handleOptions: { isFocused: false },
+								},
+							});
+							return tr;
+						});
+					}
+				}
+			}}
 		>
 			<Box
 				xcss={iconWrapperStyles}
@@ -1590,6 +1609,10 @@ export const DragHandleWithVisibility = ({
 		<VisibilityContainer
 			api={api}
 			controlSide={rightSideControlsEnabled && !isLayoutColumn ? 'left' : undefined}
+			forceVisibleOnMouseOut={
+				expValEquals('platform_editor_drag_handle_keyboard_a11y', 'isEnabled', true) &&
+				!!handleOptions?.isFocused
+			}
 		>
 			<DragHandle
 				view={view}

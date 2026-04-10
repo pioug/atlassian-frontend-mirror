@@ -57,7 +57,7 @@ export const TruncateLeft = ({
 	children,
 	...props
 }: TruncateStyledProps &
-	React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+	React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span
 		css={[truncateCommonStyles, truncateLeftStyles]}
 		style={{
@@ -85,7 +85,7 @@ export const TruncateRight = ({
 	children,
 	...props
 }: TruncateStyledProps &
-	React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+	React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span
 		css={[truncateCommonStyles, truncateRightStyles]}
 		style={{

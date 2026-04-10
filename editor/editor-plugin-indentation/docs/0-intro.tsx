@@ -31,9 +31,26 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type IndentationPluginSharedState = {
+	indentDisabled: boolean;
+	isIndentationAllowed: boolean;
+	outdentDisabled: boolean;
+};
+
+type IndentationPluginDependencies = [OptionalPlugin<AnalyticsPlugin>];
+
+type IndentationPluginActions = {
+  indentParagraphOrHeading: (inputMethod: IndentationInputMethod) => Command;
+  outdentParagraphOrHeading: (inputMethod: IndentationInputMethod) => Command;
+};
+
 type IndentationPlugin = NextEditorPlugin<
   'indentation',
-  { dependencies: [OptionalPlugin<AnalyticsPlugin>] }
+  {
+    actions: IndentationPluginActions;
+    dependencies: IndentationPluginDependencies;
+    sharedState: IndentationPluginSharedState | undefined;
+  }
 >;
 `}
 

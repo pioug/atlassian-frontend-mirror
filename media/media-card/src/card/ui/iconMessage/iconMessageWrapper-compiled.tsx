@@ -38,7 +38,7 @@ const baseStyles = css({
 	paddingInline: token('space.100'),
 });
 
-export const IconMessageWrapper = (props: IconMessageWrapperProps) => {
+export const IconMessageWrapper = (props: IconMessageWrapperProps): JSX.Element => {
 	const { animated } = props;
 
 	return (

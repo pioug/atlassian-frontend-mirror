@@ -1,5 +1,23 @@
 # @atlaskit/modal-dialog
 
+## 14.15.0
+
+### Minor Changes
+
+- [`de60749da093b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de60749da093b) -
+  Removed usages of deleted `motion.content.*` tokens and replaced with `motion.blanket.enter` and
+  `motion.blanket.exit`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.14.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.14.5
 
 ### Patch Changes

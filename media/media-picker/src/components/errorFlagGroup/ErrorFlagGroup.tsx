@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 import { type UploadRejectionData } from '../../types';
 import { errorFlagMessages } from './messages';
-import { injectIntl, IntlProvider, useIntl, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, IntlProvider, useIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';
 
 export interface ErrorFlagGroupProps {
 	readonly flagData: UploadRejectionData[];
@@ -87,6 +87,9 @@ const ErrorFlagGroup = ({
 	);
 };
 
-export default injectIntl(ErrorFlagGroup, {
-	enforceContext: false,
+const _default_1: React.FC<WithIntlProps<ErrorFlagGroupProps & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<ErrorFlagGroupProps & WrappedComponentProps>;
+} = injectIntl(ErrorFlagGroup, {
+    enforceContext: false,
 });
+export default _default_1;

@@ -14,7 +14,7 @@ export function applyConstraints(
 	useConstraints: boolean,
 	imageBounds: Bounds,
 	visibleBounds: Bounds,
-) {
+): Vector2 {
 	if (useConstraints) {
 		/* stop imageBounds edges from going inside visibleBounds - this is when useConstraints is true */
 		return applyFullConstraints(imageBounds, visibleBounds);

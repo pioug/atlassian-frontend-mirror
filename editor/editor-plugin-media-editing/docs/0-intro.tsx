@@ -31,7 +31,17 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type MediaEditingPlugin = NextEditorPlugin<'mediaEditing'>
+type MediaEditingPlugin = NextEditorPlugin<
+  'mediaEditing',
+  {
+    commands: {
+      hideImageEditor: EditorCommand;
+      showImageEditor: (media: MediaADFAttrs) => EditorCommand;
+    };
+    dependencies: [OptionalPlugin<MediaPlugin>];
+    sharedState: MediaEditingPluginState | null;
+  }
+>;
 `}
 
 

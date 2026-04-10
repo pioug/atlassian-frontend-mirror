@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 5.1.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.21
+
+### Patch Changes
+
+- [`b9f9976c6adcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9f9976c6adcd) -
+  Fix selection toolbar appearing mid-drag on first page load by tracking mouse button state to
+  prevent the focus event from prematurely setting shouldShowToolbar to true
+
 ## 5.1.20
 
 ### Patch Changes

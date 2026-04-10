@@ -1,4 +1,5 @@
 import { isRequestError } from '@atlaskit/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common';
 
 const getRequestErrorDetails = (err: any) => {
 	if (isRequestError(err)) {
@@ -15,7 +16,20 @@ const getRequestErrorDetails = (err: any) => {
 	return undefined;
 };
 
-export const getCopyIntentErrorPayload = (error: any, fileId = '') => {
+export const getCopyIntentErrorPayload = (error: any, fileId = ''): {
+    eventType: string; action: string; actionSubject: string; failReason: string; attributes: {
+        request?: {
+            statusCode: number | undefined;
+            traceContext: MediaTraceContext | undefined;
+            mediaEnv: string | undefined;
+            mediaRegion: string | undefined;
+        } | undefined;
+        status: string;
+        fileAttributes: {
+            fileId: string;
+        };
+    };
+} => {
 	return {
 		eventType: 'operational',
 		action: 'failed',
@@ -31,7 +45,16 @@ export const getCopyIntentErrorPayload = (error: any, fileId = '') => {
 	};
 };
 
-export const getCopyIntentSuccessPayload = (fileId = '') => {
+export const getCopyIntentSuccessPayload = (fileId = ''): {
+    eventType: string;
+    action: string;
+    actionSubject: string;
+    attributes: {
+        fileAttributes: {
+            fileId: string;
+        };
+    };
+} => {
 	return {
 		eventType: 'operational',
 		action: 'succeeded',

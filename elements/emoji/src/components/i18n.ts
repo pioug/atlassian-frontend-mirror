@@ -226,6 +226,11 @@ export const messages: {
 		defaultMessage: string;
 		description: string;
 	};
+	changeEmojiButtonLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 	error: {
 		id: string;
 		defaultMessage: string;
@@ -459,6 +464,11 @@ export const messages: {
 		id: 'fabric.emoji.emojipicker.emoi.roledescription',
 		defaultMessage: 'emoji button',
 		description: `Aria roledescription for emoji button, used in emoji picker.`,
+	},
+	changeEmojiButtonLabel: {
+		id: 'fabric.emoji.change.button.label',
+		defaultMessage: 'Change emoji',
+		description: 'Aria label for the button in page title used to change emoji',
 	},
 	error: {
 		id: 'fabric.emoji.emojipicker.error',

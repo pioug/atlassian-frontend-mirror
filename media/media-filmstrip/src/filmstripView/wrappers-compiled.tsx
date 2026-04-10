@@ -147,7 +147,7 @@ export const ArrowLeftWrapper = ({
 	onClick,
 }: {
 	children: ReactNode;
-} & OnClick) => {
+} & OnClick): JSX.Element => {
 	return (
 		fg('platform_media_a11y_suppression_fixes') ? (
 			<button
@@ -172,7 +172,7 @@ export const ArrowLeftWrapper = ({
 	)
 };
 
-export const ShadowRight = ({ children }: { children: ReactNode }) => (
+export const ShadowRight = ({ children }: { children: ReactNode }): JSX.Element => (
 	<div css={[shadowStyles, shadowRightStyles]}>{children}</div>
 );
 
@@ -181,7 +181,7 @@ export const ArrowRightWrapper = ({
 	onClick,
 }: {
 	children: ReactNode;
-} & OnClick) => {
+} & OnClick): JSX.Element => {
 
 	return (
 		fg('platform_media_a11y_suppression_fixes') ? (
@@ -228,7 +228,7 @@ export const FilmStripViewWrapper = ({
 }: {
 	children: ReactNode;
 	'data-testid': string | undefined;
-}) => (
+}): JSX.Element => (
 	<div css={filmStripViewStyles} data-testid={dataTestId}>
 		{children}
 	</div>
@@ -243,7 +243,7 @@ export type FilmStripListWrapperProps = {
 	'data-testid': string | undefined;
 };
 
-export const FilmStripListWrapper = forwardRef<HTMLDivElement, FilmStripListWrapperProps>(
+export const FilmStripListWrapper: React.ForwardRefExoticComponent<FilmStripListWrapperProps & React.RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, FilmStripListWrapperProps>(
 	(
 		{ children, onWheel, onTouchStart, onTouchMove, onTouchEnd, 'data-testid': dataTestId },
 		ref,
@@ -271,7 +271,7 @@ export type FilmStripListProps = {
 	};
 };
 
-export const FilmStripList = React.forwardRef<HTMLUListElement, FilmStripListProps>(
+export const FilmStripList: React.ForwardRefExoticComponent<FilmStripListProps & React.RefAttributes<HTMLUListElement>> = React.forwardRef<HTMLUListElement, FilmStripListProps>(
 	({ children, style }, ref) => (
 		<ul
 			css={[filmStripListStyles]}
@@ -290,7 +290,7 @@ export const FilmStripListItem = ({
 }: {
 	children: ReactNode;
 	index: React.Key;
-}) => (
+}): JSX.Element => (
 	<li
 		css={filmStripListItemStyles}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

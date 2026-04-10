@@ -1,5 +1,23 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.44.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.44.0
+
+### Minor Changes
+
+- [`bc69c1d196bae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc69c1d196bae) -
+  Removed `shouldEnforceFallbacks` option from the `use-tokens-typography` rule. The auto-fixer no
+  longer adds `fontFallback` imports from `@atlaskit/theme/typography`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.43.2
 
 ### Patch Changes

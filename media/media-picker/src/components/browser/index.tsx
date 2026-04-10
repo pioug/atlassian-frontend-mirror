@@ -23,7 +23,9 @@ export class BrowserLoader extends React.PureComponent<BrowserWithMediaClientCon
 	static displayName = 'AsyncBrowser';
 	static Browser?: BrowserWithMediaClientConfigComponent;
 
-	state = {
+	state: {
+        Browser: BrowserWithMediaClientConfigComponent | undefined;
+    } = {
 		Browser: BrowserLoader.Browser,
 	};
 

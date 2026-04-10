@@ -15,7 +15,7 @@ const wrapperStyles = css({
 	alignItems: 'center',
 });
 
-export const ImageRendererWrapper = ({ children }: { children: ReactNode }) => (
+export const ImageRendererWrapper = ({ children }: { children: ReactNode }): JSX.Element => (
 	<div data-testid="ImageRendererWrapper" css={wrapperStyles}>
 		{children}
 	</div>

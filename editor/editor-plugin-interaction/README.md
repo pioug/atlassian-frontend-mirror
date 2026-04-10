@@ -5,6 +5,17 @@ Interaction plugin for @atlaskit/editor-core
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
 
+## Overview
+
+The Interaction plugin tracks user interactions with the Atlassian Editor. It monitors mouse clicks, keyboard input, drag-and-drop operations, and focus events to detect whether a user has interacted with the editor, providing state management for interaction detection across editor operations.
+
+## Key features
+
+- **Interaction tracking** - Detect and track user interactions including clicks, keyboard input, drag-and-drop, and focus events
+- **Interaction state management** - Maintain state indicating whether the editor has received any user interaction
+- **Event handling** - Handle multiple DOM event types through integrated ProseMirror plugins
+- **Command support** - Expose `handleInteraction` command for programmatic interaction state updates
+
 ## Install
 ---
 - **Install** - *yarn add @atlaskit/editor-plugin-interaction*

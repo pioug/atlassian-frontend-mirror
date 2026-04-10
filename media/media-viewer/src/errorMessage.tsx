@@ -19,8 +19,8 @@ import {
 	getPrimaryErrorReason,
 	getSecondaryErrorReason,
 } from './errors';
-import { createLoadFailedEvent } from './analytics/events/operational/loadFailed';
-import { createPreviewUnsupportedEvent } from './analytics/events/operational/previewUnsupported';
+import { createLoadFailedEvent, type LoadFailedEventPayload } from './analytics/events/operational/loadFailed';
+import { createPreviewUnsupportedEvent, type PreviewUnsupportedEventPayload } from './analytics/events/operational/previewUnsupported';
 import { failMediaFileUfoExperience, type UFOFailedEventPayload } from './analytics/ufoExperiences';
 import { type FileStateFlags } from './components/types';
 import { type MediaTraceContext } from '@atlaskit/media-common';
@@ -120,7 +120,7 @@ export class ErrorMessage extends React.Component<
 		fileId: string,
 		fileState?: FileState,
 		traceContext?: MediaTraceContext,
-	) {
+	): PreviewUnsupportedEventPayload | LoadFailedEventPayload {
 		if (fileState && getPrimaryErrorReason(error) === 'unsupported') {
 			// this is not an SLI, its just a useful metric for unsupported
 			return createPreviewUnsupportedEvent(fileState);

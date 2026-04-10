@@ -38,14 +38,27 @@ const transformNestedTablesWithAnalytics = (
 	try {
 		const { transformedAdf, isTransformed } = transformNestedTablesIncomingDocument(node);
 
-		if (isTransformed && dispatchAnalyticsEvent) {
-			dispatchAnalyticsEvent({
-				action: ACTION.NESTED_TABLE_TRANSFORMED,
-				actionSubject: ACTION_SUBJECT.EDITOR,
-				eventType: EVENT_TYPE.OPERATIONAL,
-			});
+		if (fg('platform_editor_show_diff_scroll_navigation')) {
+			if (isTransformed) {
+				if (dispatchAnalyticsEvent) {
+					dispatchAnalyticsEvent({
+						action: ACTION.NESTED_TABLE_TRANSFORMED,
+						actionSubject: ACTION_SUBJECT.EDITOR,
+						eventType: EVENT_TYPE.OPERATIONAL,
+					});
+				}
+				return { transformedAdf, isTransformed };
+			}
+		} else {
+			if (isTransformed && dispatchAnalyticsEvent) {
+				dispatchAnalyticsEvent({
+					action: ACTION.NESTED_TABLE_TRANSFORMED,
+					actionSubject: ACTION_SUBJECT.EDITOR,
+					eventType: EVENT_TYPE.OPERATIONAL,
+				});
 
-			return { transformedAdf, isTransformed };
+				return { transformedAdf, isTransformed };
+			}
 		}
 	} catch (e) {
 		// eslint-disable-next-line no-console

@@ -1,5 +1,24 @@
 # @atlaskit/lozenge
 
+## 13.6.0
+
+### Minor Changes
+
+- [`7b44d021342cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b44d021342cf) -
+  Added motion to lozenge dropdown to animate the width of the lozenge upon change. Includes
+  transitioning the background, border and text color using experimental motion design tokens. These
+  changes are behind the `platform-dst-motion-uplift` feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.5.6
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 24.49.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.49.2
+
+### Patch Changes
+
+- [`afcf6e8fbf63a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afcf6e8fbf63a) -
+  Replace deprecated `font.body.UNSAFE_small` token with `font.body.small`.
+- Updated dependencies
+
+## 24.49.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.49.0
 
 ### Minor Changes

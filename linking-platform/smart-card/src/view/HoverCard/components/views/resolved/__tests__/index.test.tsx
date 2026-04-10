@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render, type RenderOptions } from '@testing-library/react';
+import { act, fireEvent, render, screen, type RenderOptions, within } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -84,6 +84,7 @@ describe('HoverCardResolvedView', () => {
 		</IntlProvider>
 	);
 
+	const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
 	const TestComponent = ({
 		mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
 		isAISummaryEnabled,
@@ -97,13 +98,12 @@ describe('HoverCardResolvedView', () => {
 	}) => {
 		return (
 			<HoverCardResolvedView
-				actionOptions={{ hide: false, rovoChatAction: { optIn: true } }}
+				actionOptions={actionOptions}
 				extensionKey={mockResponse.meta.key}
 				id="123"
-				flexibleCardProps={{ cardState, children: null, ui: flexibleUiOptions, url }}
+				flexibleCardProps={{ actionOptions, cardState, children: null, ui: flexibleUiOptions, url }}
 				onActionClick={jest.fn()}
 				cardState={cardState}
-				url={url}
 				titleBlockProps={titleBlockProps}
 				isAISummaryEnabled={isAISummaryEnabled}
 				showRovoResolvedView={showRovoResolvedView}
@@ -392,18 +392,6 @@ describe('HoverCardResolvedView', () => {
 					(expValEquals as jest.Mock).mockReturnValue(true);
 				});
 
-				it('should renders Rovo AI summary', async () => {
-					jest.mocked(useAISummary).mockReturnValue({
-						state: { status: 'done', content: 'content' },
-						summariseUrl: jest.fn(),
-					});
-
-					const { findByTestId } = setup({ mockResponse: GoogleDoc, showRovoResolvedView: true });
-
-					const aiSummaryBlock = await findByTestId('smart-ai-summary-block-resolved-view');
-					expect(aiSummaryBlock).toBeInTheDocument();
-				});
-
 				it('should render ResolvedHoverCardFooterBlock instead of AIFooterBlock when Rovo is enabled', async () => {
 					const { findByTestId, queryByTestId } = setup({
 						mockResponse: GoogleDoc,
@@ -422,12 +410,26 @@ describe('HoverCardResolvedView', () => {
 					expect(footerBlock).toBeInTheDocument();
 				});
 
-				it('should hide AI summary action in ActionBlock when Rovo is enabled', async () => {
-					const { queryByTestId } = setup({ mockResponse: GoogleDoc, showRovoResolvedView: true });
+				it('should render AI summary action in ResolvedHoverCardFooterBlock when Rovo is enabled', async () => {
+					setup({
+						mockResponse: GoogleDoc,
+						showRovoResolvedView: true,
+						isAISummaryEnabled: true,
+					});
 
-					expect(
-						queryByTestId('smart-action-ai-summary-action-summarise-action'),
-					).not.toBeInTheDocument();
+					const actionBlock = await screen.findByTestId('smart-block-action');
+					const aiSummaryInActionBlock = within(actionBlock).queryByTestId(
+						'smart-action-ai-summary-action-summarise-action',
+					);
+					expect(aiSummaryInActionBlock).not.toBeInTheDocument();
+
+					const footerBlock = await screen.findByTestId(
+						'smart-hover-card-footer-block-resolved-view',
+					);
+					const aiSummaryInFooterBlock = within(footerBlock).queryByTestId(
+						'smart-action-ai-summary-action-summarise-action',
+					);
+					expect(aiSummaryInFooterBlock).toBeInTheDocument();
 				});
 
 				it('should render AI path when platform_sl_3p_auth_rovo_action experiment is off', async () => {

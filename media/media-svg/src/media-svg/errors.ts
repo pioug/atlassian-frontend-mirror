@@ -3,7 +3,7 @@ import { type MediaSvgProps } from './types';
 export class MediaSVGError extends Error {
 	constructor(
 		readonly primaryReason: MediaSVGErrorReason,
-		readonly secondaryError?: Error,
+		readonly secondaryError?: Error | undefined,
 	) {
 		super(primaryReason);
 

@@ -9,8 +9,8 @@ export const MAX_SCALE = 1.5;
 export const DEFAULT_WIDTH = 100;
 export const DEFAULT_HEIGHT = 100;
 export const DEFAULT_MARGIN = 10;
-export const DEFAULT_INNER_WIDTH = DEFAULT_WIDTH - DEFAULT_MARGIN * 2;
-export const DEFAULT_INNER_HEIGHT = DEFAULT_HEIGHT - DEFAULT_MARGIN * 2;
+export const DEFAULT_INNER_WIDTH: number = DEFAULT_WIDTH - DEFAULT_MARGIN * 2;
+export const DEFAULT_INNER_HEIGHT: number = DEFAULT_HEIGHT - DEFAULT_MARGIN * 2;
 
 /**
  * This class abstracts viewing an item within a container.
@@ -76,28 +76,28 @@ export class Viewport {
 		this.itemBounds = new Bounds(x, y, itemBounds.width, itemBounds.height);
 	}
 
-	get innerBounds() {
+	get innerBounds(): Bounds {
 		const { margin, width, height } = this;
 		return new Bounds(margin, margin, width - margin * 2, height - margin * 2);
 	}
 
-	get outerBounds() {
+	get outerBounds(): Bounds {
 		return new Bounds(0, 0, this.width, this.height);
 	}
 
-	get visibleSourceBounds() {
+	get visibleSourceBounds(): Bounds {
 		const { innerBounds } = this;
 		const origin = this.viewToLocalPoint(0, 0);
 		const corner = this.viewToLocalPoint(innerBounds.width, innerBounds.height);
 		return new Bounds(origin.x, origin.y, corner.x - origin.x, corner.y - origin.y);
 	}
 
-	get itemSourceBounds() {
+	get itemSourceBounds(): Bounds {
 		const { itemSourceRect } = this;
 		return new Bounds(0, 0, itemSourceRect.width, itemSourceRect.height);
 	}
 
-	get fittedItemBounds() {
+	get fittedItemBounds(): Bounds {
 		const { margin, itemSourceRect, innerBounds } = this;
 		const ratio = itemSourceRect.scaleToFitSmallestSide(innerBounds.rect);
 		const width = itemSourceRect.width * ratio;
@@ -111,7 +111,7 @@ export class Viewport {
 		return this.itemSourceRect.width <= 0 && this.itemSourceRect.height <= 0;
 	}
 
-	get maxScale() {
+	get maxScale(): number {
 		const { itemSourceBounds, innerBounds } = this;
 		const minSize = Math.min(itemSourceBounds.width, itemSourceBounds.height);
 		if (minSize <= innerBounds.width) {
@@ -121,7 +121,7 @@ export class Viewport {
 		}
 	}
 
-	get maxItemViewRect() {
+	get maxItemViewRect(): Rectangle {
 		const { fittedItemBounds, maxScale } = this;
 		const maxWidth = fittedItemBounds.width * maxScale;
 		const maxHeight = fittedItemBounds.height * maxScale;
@@ -134,18 +134,18 @@ export class Viewport {
 		delete this.item;
 	}
 
-	setItemSize(width: number, height: number) {
+	setItemSize(width: number, height: number): this {
 		this.itemSourceRect = new Rectangle(width, height);
 		this.zoomToFit();
 		return this;
 	}
 
-	setItem(item: any) {
+	setItem(item: any): this {
 		this.item = item;
 		return this;
 	}
 
-	setScale(scale: number) {
+	setScale(scale: number): this {
 		// number between 0 - 100
 		const { fittedItemBounds, maxItemViewRect, itemBounds, innerBounds } = this;
 		if (scale <= 1) {
@@ -180,16 +180,16 @@ export class Viewport {
 		return this;
 	}
 
-	startDrag() {
+	startDrag(): this {
 		this.dragStartPos = this.itemBounds.origin;
 		return this;
 	}
 
-	dragBy(xDelta: number, yDelta: number) {
+	dragBy(xDelta: number, yDelta: number): this {
 		return this.startDrag().dragMove(xDelta, yDelta);
 	}
 
-	dragMove(xDelta: number, yDelta: number) {
+	dragMove(xDelta: number, yDelta: number): this {
 		const { dragStartPos, itemBounds } = this;
 		const x = dragStartPos.x + xDelta;
 		const y = dragStartPos.y + yDelta;

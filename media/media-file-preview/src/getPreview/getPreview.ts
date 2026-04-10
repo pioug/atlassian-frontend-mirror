@@ -176,7 +176,7 @@ export const getAndCacheRemotePreview = async (
 	params: MediaStoreGetFileImageParams,
 	mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
 	traceContext?: MediaTraceContext,
-) => {
+): Promise<MediaFilePreview> => {
 	const [remotePreview, enrichedAttrs] = await Promise.all([
 		getRemotePreview(mediaClient, id, params, traceContext),
 		enrichAttrsWithClientId(mediaClient, id, mediaBlobUrlAttrs, params.collection),
@@ -193,7 +193,7 @@ export const getAndCacheLocalPreview = async (
 	mode: MediaStoreGetFileImageParams['mode'],
 	mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
 	collectionName?: string,
-) => {
+): Promise<MediaFilePreview> => {
 	const [localPreview, enrichedAttrs] = await Promise.all([
 		getLocalPreview(filePreview),
 		enrichAttrsWithClientId(mediaClient, id, mediaBlobUrlAttrs, collectionName),

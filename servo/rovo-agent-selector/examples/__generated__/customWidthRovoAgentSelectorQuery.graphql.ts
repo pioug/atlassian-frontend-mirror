@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<516890ec5b1b08adf75227f7c489080d>>
+ * @generated SignedSource<<dfb67616dd8c58ba80926d07cda1ebbb>>
  * @relayHash 0f8f6fe82cd8475bf0585cfa9b62665e
  * @lightSyntaxTransform
  * @nogrep
@@ -12,7 +12,7 @@
 
 // @relayRequestID 2b2b7ed0483046b5342a89369d7a1b2c06c4c4352cdcaf5eb3b0208ff30acf62
 
-import type { ConcreteRequest, Query } from 'relay-runtime';
+import type { ConcreteRequest } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type customWidthRovoAgentSelectorQuery$variables = {
   cloudIdString: string;

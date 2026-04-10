@@ -72,7 +72,9 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 		this.setState(this.initialState);
 	}
 
-	protected get initialState() {
+	protected get initialState(): {
+        content: Outcome<Content, ArchiveViewerError>;
+    } {
 		return {
 			content: Outcome.successful<Content, ArchiveViewerError>({
 				src: '',
@@ -389,4 +391,4 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 	}
 }
 
-export const ArchiveViewer = withAnalyticsEvents()(ArchiveViewerBase);
+export const ArchiveViewer: React.ForwardRefExoticComponent<Omit<ArchiveViewerProps, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>> = withAnalyticsEvents()(ArchiveViewerBase);

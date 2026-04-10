@@ -95,7 +95,7 @@ const updatedInlinePlayerWrapperStyles = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 
-export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
+export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps): JSX.Element => {
 	const { testId, selected, dimensions, onClick, innerRef } = props;
 	const a11yProps = fg('platform_media_a11y_suppression_fixes')
 		? {

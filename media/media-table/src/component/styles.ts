@@ -1,16 +1,16 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const nameCellWrapperStyles = css({
+export const nameCellWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 	alignContent: 'center',
 	alignItems: 'center',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const truncateWrapperStyles = css({
+export const truncateWrapperStyles: SerializedStyles = css({
 	minWidth: 0,
 	width: '100%',
 	marginLeft: token('space.050'),
@@ -23,7 +23,7 @@ export const truncateWrapperStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const mediaTableWrapperStyles = css({
+export const mediaTableWrapperStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	tr: {
 		cursor: 'pointer',

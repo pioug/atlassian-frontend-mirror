@@ -31,25 +31,34 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type ListPluginDependencies = [
+  OptionalPlugin<FeatureFlagsPlugin>,
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<BlockMenuPlugin>,
+  OptionalPlugin<ToolbarPlugin>,
+];
+
+type ListPluginActions = {
+  findRootParentListNode: FindRootParentListNode;
+  isInsideListItem: IsInsideListItem;
+};
+
+type ListPluginCommands = {
+  indentList: IndentList;
+  outdentList: OutdentList;
+  toggleBulletList: ToggleBulletList;
+  toggleOrderedList: ToggleOrderedList;
+};
+
+type ListPluginSharedState = ListState | undefined;
+
 type ListPlugin = NextEditorPlugin<
   'list',
   {
-    pluginConfiguration: ListPluginOptions | undefined;
-    dependencies: [
-      FeatureFlagsPlugin,
-      OptionalPlugin<AnalyticsPlugin>,
-    ];
-    actions: {
-      isInsideListItem: IsInsideListItem;
-      findRootParentListNode: FindRootParentListNode;
-    };
-    commands: {
-      indentList: IndentList;
-      outdentList: OutdentList;
-      toggleOrderedList: ToggleOrderedList;
-      toggleBulletList: ToggleBulletList;
-    };
-    sharedState: ListState | undefined;
+    actions: ListPluginActions;
+    commands: ListPluginCommands;
+    dependencies: ListPluginDependencies;
+    sharedState: ListPluginSharedState;
   }
 >;
 `}

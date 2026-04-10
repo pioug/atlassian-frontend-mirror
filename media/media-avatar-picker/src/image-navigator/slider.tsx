@@ -4,14 +4,14 @@
  */
 import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { Component } from 'react';
+import { Component, type ComponentType, type FC } from 'react';
 import FieldRange from '@atlaskit/range';
 import { messages } from '@atlaskit/media-ui';
 import ScaleLargeIcon from '@atlaskit/icon/core/image';
 import ScaleSmallIcon from '@atlaskit/icon/core/image';
 import Button from '@atlaskit/button/standard-button';
 import { injectIntl } from 'react-intl-next';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WithIntlProps, WrappedComponentProps } from 'react-intl-next';
 
 export interface SliderProps {
 	value: number;
@@ -34,9 +34,11 @@ const sliderWrapperStyles = css({
 });
 
 export class Slider extends Component<SliderProps & WrappedComponentProps, {}> {
-	static defaultProps = defaultProps;
+	static defaultProps: {
+        value: number;
+    } = defaultProps;
 
-	render() {
+	render(): JSX.Element {
 		const {
 			value,
 			onChange,
@@ -68,4 +70,7 @@ export class Slider extends Component<SliderProps & WrappedComponentProps, {}> {
 	}
 }
 
-export default injectIntl<'intl', SliderProps & WrappedComponentProps>(Slider);
+const _default_1: FC<WithIntlProps<SliderProps & WrappedComponentProps>> & {
+    WrappedComponent: ComponentType<SliderProps & WrappedComponentProps>;
+} = injectIntl<'intl', SliderProps & WrappedComponentProps>(Slider);
+export default _default_1;

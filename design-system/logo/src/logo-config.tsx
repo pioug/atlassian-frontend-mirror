@@ -124,21 +124,6 @@ export const tempSizeWrapper: (
 	};
 };
 
-export const teamEUFlaggedIcon: (
-	LegacyComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>,
-	NewComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>,
-) => (props: LogoProps) => React.JSX.Element = (
-	LegacyComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>,
-	NewComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>,
-) => {
-	return (props: LogoProps): React.JSX.Element => {
-		const Logo = fg('platform-logo-rebrand-team-eu')
-			? tempSizeWrapper(NewComponent)
-			: tempSizeWrapper(LegacyComponent);
-		return <Logo {...props} />;
-	};
-};
-
 type LogoDocsSchema = {
 	name: string;
 	type: 'legacy' | 'migration' | 'new' | 'rovo-hex';
@@ -186,6 +171,7 @@ export const logoDocsSchema: LogoDocsSchema[] = [
 	{ name: 'admin', type: 'new', category: 'app' },
 	{ name: 'analytics', type: 'new', category: 'app' },
 	{ name: 'chat', type: 'new', category: 'app' },
+	{ name: 'feedback', type: 'new', category: 'app' },
 	{ name: 'goals', type: 'new', category: 'app' },
 	{ name: 'guard', type: 'migration', category: 'app' },
 	{ name: 'projects', type: 'new', category: 'app' },

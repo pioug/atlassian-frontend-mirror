@@ -31,6 +31,16 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type ImageUploadActions = {
+  startUpload: () => Command;
+};
+
+type ImageUploadSharedState = {
+  active: boolean;
+  enabled: boolean;
+  hidden: boolean;
+};
+
 type ImageUploadPlugin = NextEditorPlugin<
   'imageUpload',
   {

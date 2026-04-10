@@ -126,7 +126,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		}
 	}
 
-	get offset() {
+	get offset(): number {
 		const { offset } = this.props;
 		if (!offset) {
 			return 0;
@@ -141,7 +141,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 	/**
 	 * The furthest we can scroll, where the end of the buffer is just in view
 	 */
-	get maxOffset() {
+	get maxOffset(): number {
 		const { bufferWidth, windowWidth } = this.state;
 		return Math.max(this.minOffset, bufferWidth - windowWidth - 1);
 	}
@@ -154,7 +154,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		return this.offset < this.maxOffset;
 	}
 
-	get transitionDuration() {
+	get transitionDuration(): number {
 		const { animate } = this.props;
 		const { windowWidth } = this.state;
 		if (!animate) {

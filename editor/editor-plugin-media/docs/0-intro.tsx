@@ -31,12 +31,52 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type MediaPlugin = NextEditorPlugin<
-  'media',
-  {
-    pluginConfiguration: MediaOptions | undefined;
-    commands: { };
-  }
+type MediaInsertPlugin = NextEditorPlugin<'mediaInsert', any>;
+
+export type MediaPluginDependencies = [
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<ContextIdentifierPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
+	OptionalPlugin<GuidelinePlugin>,
+	GridPlugin,
+	WidthPlugin,
+	DecorationsPlugin,
+	FloatingToolbarPlugin,
+	EditorDisabledPlugin,
+	FocusPlugin,
+	OptionalPlugin<MediaInsertPlugin>,
+	OptionalPlugin<InteractionPlugin>,
+	SelectionPlugin,
+	OptionalPlugin<AnnotationPlugin>,
+	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<ConnectivityPlugin>,
+	OptionalPlugin<InteractionPlugin>,
+	OptionalPlugin<ToolbarPlugin>,
+	OptionalPlugin<MediaEditingPlugin>,
+];
+
+export type MediaNextEditorPluginType = NextEditorPlugin<
+	'media',
+	{
+		actions: {
+			handleMediaNodeRenderError: (node: PMNode, reason: string, nestedUnder?: string) => void;
+			insertMediaAsMediaSingle: InsertMediaAsMediaSingle;
+			setProvider: (provider: Promise<MediaProvider>) => boolean;
+		};
+		commands: {
+			hideMediaViewer: EditorCommand;
+			insertMediaSingle: (
+				attrs: MediaADFAttrs,
+				inputMethod: InputMethodInsertMedia,
+				insertMediaVia?: InsertMediaVia,
+			) => EditorCommand;
+			showMediaViewer: (media: MediaADFAttrs) => EditorCommand;
+			trackMediaPaste: (attrs: MediaADFAttrs) => EditorCommand;
+		};
+		dependencies: MediaPluginDependencies;
+		pluginConfiguration: MediaOptions | undefined;
+		sharedState: MediaPluginState | null;
+	}
 >;
 `}
 

@@ -22,13 +22,6 @@ snapshot(Appearance, {
 snapshot(Sizes, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
 snapshot(DefensiveStyling, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
 
-const FlaggedPlatformLogos = Basic;
-snapshot(FlaggedPlatformLogos, {
-	featureFlags: {
-		'platform-logo-rebrand-team-eu': [true],
-	},
-});
-
 const BasicWithRovoHex = Basic;
 
 snapshot(BasicWithRovoHex, {

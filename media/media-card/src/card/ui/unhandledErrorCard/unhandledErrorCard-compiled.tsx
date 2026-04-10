@@ -69,7 +69,7 @@ const plainButtonStyle = css({
 })
 
 export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
-	render() {
+	render(): JSX.Element {
 		const { dimensions = defaultImageCardDimensions, onClick } = this.props;
 		const convertedDimensions = getConvertedDimension(dimensions);
 		const hideText = !shouldShowText(getConvertedDimension(dimensions));

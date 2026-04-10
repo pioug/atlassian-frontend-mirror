@@ -56,7 +56,7 @@ const MediaImageBase = ({ identifier, apiConfig = {}, children, ssr }: MediaImag
 	);
 };
 
-export const MediaImageWithMediaClient = (props: MediaImageWithMediaClientConfigProps) => {
+export const MediaImageWithMediaClient = (props: MediaImageWithMediaClientConfigProps): JSX.Element => {
 	const MediaImageComponent = useMemo(() => withMediaClient(MediaImageBase), []);
 	return <MediaImageComponent {...props} />;
 };

@@ -1,26 +1,30 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a05c62bc089a075de35d08a2570d9421>>
+ * @codegen <<SignedSource::148f2f6a72e79c38e027eeed3b58d3ac>>
  * @codegenCommand yarn build tokens
  */
 
 type TokenValue =
+	| string
 	| {
 		duration: number;
 		curve: string;
 		keyframes?: string[];
 		properties?: string[];
 		delay?: number;
-	};
+	}
+	| Record<string, any>;
 
 type TokenValueOriginal =
+	| string
 	| {
 		duration: string;
 		curve: string;
 		keyframes?: string[];
 		properties?: string[];
 		delay?: string;
-	};
+	}
+	| Record<string, any>;
 
 type TokenAttributes = {
 	group: string;
@@ -57,10 +61,10 @@ const tokens: Token[] = [
     },
     "value": {
       "duration": 150,
-      "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
+      "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
       "keyframes": [
-        "ScaleIn80",
-        "FadeIn"
+        "ScaleIn80to100",
+        "FadeIn0to100"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -74,10 +78,10 @@ const tokens: Token[] = [
       },
       "value": {
         "duration": "Duration150",
-        "curve": "EasePracticalIn",
+        "curve": "EasePracticalOut",
         "keyframes": [
-          "ScaleIn80",
-          "FadeIn"
+          "ScaleIn80to100",
+          "FadeIn0to100"
         ]
       }
     },
@@ -98,10 +102,10 @@ const tokens: Token[] = [
     },
     "value": {
       "duration": 100,
-      "curve": "cubic-bezier(0.32, 0, 0.67, 0)",
+      "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
-        "ScaleOut80",
-        "FadeOut"
+        "ScaleOut100to80",
+        "FadeOut100to0"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -115,10 +119,10 @@ const tokens: Token[] = [
       },
       "value": {
         "duration": "Duration100",
-        "curve": "Custom",
+        "curve": "EasePracticalIn",
         "keyframes": [
-          "ScaleOut80",
-          "FadeOut"
+          "ScaleOut100to80",
+          "FadeOut100to0"
         ]
       }
     },
@@ -138,8 +142,8 @@ const tokens: Token[] = [
       "description": ""
     },
     "value": {
-      "duration": 100,
-      "curve": "cubic-bezier(0.32, 0, 0.67, 0)",
+      "duration": 250,
+      "curve": "linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)",
       "properties": [
         "transform"
       ]
@@ -154,8 +158,8 @@ const tokens: Token[] = [
         "description": ""
       },
       "value": {
-        "duration": "Duration100",
-        "curve": "Custom",
+        "duration": "Duration250",
+        "curve": "EaseSpring",
         "properties": [
           "Transform"
         ]
@@ -173,14 +177,14 @@ const tokens: Token[] = [
     "attributes": {
       "group": "motion",
       "state": "experimental",
-      "introduced": "11.2.0",
+      "introduced": "11.5.0",
       "description": ""
     },
     "value": {
-      "duration": 400,
+      "duration": 250,
       "curve": "cubic-bezier(0.4, 0, 0, 1)",
       "keyframes": [
-        "FadeIn"
+        "FadeIn0to100"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -189,38 +193,37 @@ const tokens: Token[] = [
       "attributes": {
         "group": "motion",
         "state": "experimental",
-        "introduced": "11.2.0",
+        "introduced": "11.5.0",
         "description": ""
       },
       "value": {
-        "duration": "Duration400",
+        "duration": "Duration250",
         "curve": "EaseBoldInOut",
         "keyframes": [
-          "FadeIn"
+          "FadeIn0to100"
         ]
       }
     },
-    "name": "motion.content.enter.long",
+    "name": "motion.blanket.enter",
     "path": [
       "motion",
-      "content",
-      "enter",
-      "long"
+      "blanket",
+      "enter"
     ],
-    "cleanName": "motion.content.enter.long"
+    "cleanName": "motion.blanket.enter"
   },
   {
     "attributes": {
       "group": "motion",
       "state": "experimental",
-      "introduced": "11.2.0",
+      "introduced": "11.5.0",
       "description": ""
     },
     "value": {
       "duration": 200,
-      "curve": "cubic-bezier(0.4, 0, 0, 1)",
+      "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
-        "FadeIn"
+        "FadeOut100to0"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -229,185 +232,379 @@ const tokens: Token[] = [
       "attributes": {
         "group": "motion",
         "state": "experimental",
-        "introduced": "11.2.0",
+        "introduced": "11.5.0",
         "description": ""
       },
       "value": {
         "duration": "Duration200",
-        "curve": "EaseBoldInOut",
+        "curve": "EasePracticalIn",
         "keyframes": [
-          "FadeIn"
+          "FadeOut100to0"
         ]
       }
     },
-    "name": "motion.content.enter.medium",
+    "name": "motion.blanket.exit",
     "path": [
       "motion",
-      "content",
-      "enter",
-      "medium"
+      "blanket",
+      "exit"
     ],
-    "cleanName": "motion.content.enter.medium"
+    "cleanName": "motion.blanket.exit"
   },
   {
     "attributes": {
-      "group": "motion",
+      "group": "motionDuration",
       "state": "experimental",
-      "introduced": "11.2.0",
+      "introduced": "11.5.0",
       "description": ""
     },
-    "value": {
-      "duration": 100,
-      "curve": "cubic-bezier(0.4, 0, 0, 1)",
-      "keyframes": [
-        "FadeIn"
-      ]
-    },
-    "filePath": "schema/themes/atlassian-motion/motion.tsx",
+    "value": "0ms",
+    "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
     "isSource": true,
     "original": {
       "attributes": {
-        "group": "motion",
+        "group": "motionDuration",
         "state": "experimental",
-        "introduced": "11.2.0",
+        "introduced": "11.5.0",
         "description": ""
       },
-      "value": {
-        "duration": "Duration100",
-        "curve": "EaseBoldInOut",
-        "keyframes": [
-          "FadeIn"
-        ]
-      }
+      "value": "Duration000"
     },
-    "name": "motion.content.enter.short",
+    "name": "motion.duration.instant",
     "path": [
       "motion",
-      "content",
-      "enter",
-      "short"
+      "duration",
+      "instant"
     ],
-    "cleanName": "motion.content.enter.short"
+    "cleanName": "motion.duration.instant"
   },
   {
     "attributes": {
-      "group": "motion",
+      "group": "motionDuration",
       "state": "experimental",
-      "introduced": "11.2.0",
+      "introduced": "11.5.0",
       "description": ""
     },
-    "value": {
-      "duration": 200,
-      "curve": "cubic-bezier(0.4, 0, 0, 1)",
-      "keyframes": [
-        "FadeOut"
-      ]
-    },
-    "filePath": "schema/themes/atlassian-motion/motion.tsx",
+    "value": "250ms",
+    "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
     "isSource": true,
     "original": {
       "attributes": {
-        "group": "motion",
+        "group": "motionDuration",
         "state": "experimental",
-        "introduced": "11.2.0",
+        "introduced": "11.5.0",
         "description": ""
       },
-      "value": {
-        "duration": "Duration200",
-        "curve": "EaseBoldInOut",
-        "keyframes": [
-          "FadeOut"
-        ]
-      }
+      "value": "Duration250"
     },
-    "name": "motion.content.exit.long",
+    "name": "motion.duration.long",
     "path": [
       "motion",
-      "content",
-      "exit",
+      "duration",
       "long"
     ],
-    "cleanName": "motion.content.exit.long"
+    "cleanName": "motion.duration.long"
   },
   {
     "attributes": {
-      "group": "motion",
+      "group": "motionDuration",
       "state": "experimental",
-      "introduced": "11.2.0",
+      "introduced": "11.5.0",
       "description": ""
     },
-    "value": {
-      "duration": 100,
-      "curve": "cubic-bezier(0.4, 0, 0, 1)",
-      "keyframes": [
-        "FadeOut"
-      ]
-    },
-    "filePath": "schema/themes/atlassian-motion/motion.tsx",
+    "value": "200ms",
+    "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
     "isSource": true,
     "original": {
       "attributes": {
-        "group": "motion",
+        "group": "motionDuration",
         "state": "experimental",
-        "introduced": "11.2.0",
+        "introduced": "11.5.0",
         "description": ""
       },
-      "value": {
-        "duration": "Duration100",
-        "curve": "EaseBoldInOut",
-        "keyframes": [
-          "FadeOut"
-        ]
-      }
+      "value": "Duration200"
     },
-    "name": "motion.content.exit.medium",
+    "name": "motion.duration.medium",
     "path": [
       "motion",
-      "content",
-      "exit",
+      "duration",
       "medium"
     ],
-    "cleanName": "motion.content.exit.medium"
+    "cleanName": "motion.duration.medium"
   },
   {
     "attributes": {
-      "group": "motion",
+      "group": "motionDuration",
       "state": "experimental",
-      "introduced": "11.2.0",
+      "introduced": "11.5.0",
       "description": ""
     },
-    "value": {
-      "duration": 50,
-      "curve": "cubic-bezier(0.4, 0, 0, 1)",
-      "keyframes": [
-        "FadeOut"
-      ]
-    },
-    "filePath": "schema/themes/atlassian-motion/motion.tsx",
+    "value": "150ms",
+    "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
     "isSource": true,
     "original": {
       "attributes": {
-        "group": "motion",
+        "group": "motionDuration",
         "state": "experimental",
-        "introduced": "11.2.0",
+        "introduced": "11.5.0",
         "description": ""
       },
-      "value": {
-        "duration": "Duration050",
-        "curve": "EaseBoldInOut",
-        "keyframes": [
-          "FadeOut"
-        ]
-      }
+      "value": "Duration150"
     },
-    "name": "motion.content.exit.short",
+    "name": "motion.duration.short",
     "path": [
       "motion",
-      "content",
-      "exit",
+      "duration",
       "short"
     ],
-    "cleanName": "motion.content.exit.short"
+    "cleanName": "motion.duration.short"
+  },
+  {
+    "attributes": {
+      "group": "motionDuration",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "400ms",
+    "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionDuration",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "Duration400"
+    },
+    "name": "motion.duration.xlong",
+    "path": [
+      "motion",
+      "duration",
+      "xlong"
+    ],
+    "cleanName": "motion.duration.xlong"
+  },
+  {
+    "attributes": {
+      "group": "motionDuration",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "100ms",
+    "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionDuration",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "Duration100"
+    },
+    "name": "motion.duration.xshort",
+    "path": [
+      "motion",
+      "duration",
+      "xshort"
+    ],
+    "cleanName": "motion.duration.xshort"
+  },
+  {
+    "attributes": {
+      "group": "motionDuration",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "600ms",
+    "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionDuration",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "Duration600"
+    },
+    "name": "motion.duration.xxlong",
+    "path": [
+      "motion",
+      "duration",
+      "xxlong"
+    ],
+    "cleanName": "motion.duration.xxlong"
+  },
+  {
+    "attributes": {
+      "group": "motionDuration",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "50ms",
+    "filePath": "schema/themes/atlassian-motion/motion-duration.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionDuration",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "Duration050"
+    },
+    "name": "motion.duration.xxshort",
+    "path": [
+      "motion",
+      "duration",
+      "xxshort"
+    ],
+    "cleanName": "motion.duration.xxshort"
+  },
+  {
+    "attributes": {
+      "group": "motionEasing",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "cubic-bezier(0.6, 0, 0.8, 0.6)",
+    "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionEasing",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "EasePracticalIn"
+    },
+    "name": "motion.easing.in.practical",
+    "path": [
+      "motion",
+      "easing",
+      "in",
+      "practical"
+    ],
+    "cleanName": "motion.easing.in.practical"
+  },
+  {
+    "attributes": {
+      "group": "motionEasing",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "cubic-bezier(0.4, 0, 0, 1)",
+    "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionEasing",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "EaseBoldInOut"
+    },
+    "name": "motion.easing.inout.bold",
+    "path": [
+      "motion",
+      "easing",
+      "inout",
+      "bold"
+    ],
+    "cleanName": "motion.easing.inout.bold"
+  },
+  {
+    "attributes": {
+      "group": "motionEasing",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "cubic-bezier(0.4, 1, 0.6, 1)",
+    "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionEasing",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "EasePracticalOut"
+    },
+    "name": "motion.easing.out.practical",
+    "path": [
+      "motion",
+      "easing",
+      "out",
+      "practical"
+    ],
+    "cleanName": "motion.easing.out.practical"
+  },
+  {
+    "attributes": {
+      "group": "motionEasing",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "cubic-bezier(0, 0.4, 0, 1)",
+    "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionEasing",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "EaseBoldOut"
+    },
+    "name": "motion.easing.out.bold",
+    "path": [
+      "motion",
+      "easing",
+      "out",
+      "bold"
+    ],
+    "cleanName": "motion.easing.out.bold"
+  },
+  {
+    "attributes": {
+      "group": "motionEasing",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)",
+    "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionEasing",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "EaseSpring"
+    },
+    "name": "motion.easing.spring",
+    "path": [
+      "motion",
+      "easing",
+      "spring"
+    ],
+    "cleanName": "motion.easing.spring"
   },
   {
     "attributes": {
@@ -421,7 +618,7 @@ const tokens: Token[] = [
       "curve": "cubic-bezier(0, 0.4, 0, 1)",
       "keyframes": [
         "SlideIn50PercentLeft",
-        "FadeIn"
+        "FadeIn0to100"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -438,7 +635,7 @@ const tokens: Token[] = [
         "curve": "EaseBoldOut",
         "keyframes": [
           "SlideIn50PercentLeft",
-          "FadeIn"
+          "FadeIn0to100"
         ]
       }
     },
@@ -462,7 +659,7 @@ const tokens: Token[] = [
       "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
         "SlideOut15PercentLeft",
-        "FadeOut"
+        "FadeOut100to0"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -479,7 +676,7 @@ const tokens: Token[] = [
         "curve": "EasePracticalIn",
         "keyframes": [
           "SlideOut15PercentLeft",
-          "FadeOut"
+          "FadeOut100to0"
         ]
       }
     },
@@ -499,7 +696,7 @@ const tokens: Token[] = [
       "description": ""
     },
     "value": {
-      "duration": 300,
+      "duration": 250,
       "curve": "cubic-bezier(0.4, 0, 0, 1)",
       "properties": [
         "transform"
@@ -515,7 +712,7 @@ const tokens: Token[] = [
         "description": ""
       },
       "value": {
-        "duration": "Duration300",
+        "duration": "Duration250",
         "curve": "EaseBoldInOut",
         "properties": [
           "Transform"
@@ -532,17 +729,488 @@ const tokens: Token[] = [
   },
   {
     "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "FadeIn0to100",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "FadeIn0to100"
+    },
+    "name": "motion.keyframe.fade.in",
+    "path": [
+      "motion",
+      "keyframe",
+      "fade",
+      "in"
+    ],
+    "cleanName": "motion.keyframe.fade.in"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "FadeOut100to0",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "FadeOut100to0"
+    },
+    "name": "motion.keyframe.fade.out",
+    "path": [
+      "motion",
+      "keyframe",
+      "fade",
+      "out"
+    ],
+    "cleanName": "motion.keyframe.fade.out"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "ScaleIn80to100",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "ScaleIn80to100"
+    },
+    "name": "motion.keyframe.scale.in.medium",
+    "path": [
+      "motion",
+      "keyframe",
+      "scale",
+      "in",
+      "medium"
+    ],
+    "cleanName": "motion.keyframe.scale.in.medium"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "ScaleIn95to100",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "ScaleIn95to100"
+    },
+    "name": "motion.keyframe.scale.in.small",
+    "path": [
+      "motion",
+      "keyframe",
+      "scale",
+      "in",
+      "small"
+    ],
+    "cleanName": "motion.keyframe.scale.in.small"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "ScaleOut100to80",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "ScaleOut100to80"
+    },
+    "name": "motion.keyframe.scale.out.medium",
+    "path": [
+      "motion",
+      "keyframe",
+      "scale",
+      "out",
+      "medium"
+    ],
+    "cleanName": "motion.keyframe.scale.out.medium"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "ScaleOut100to95",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "ScaleOut100to95"
+    },
+    "name": "motion.keyframe.scale.out.small",
+    "path": [
+      "motion",
+      "keyframe",
+      "scale",
+      "out",
+      "small"
+    ],
+    "cleanName": "motion.keyframe.scale.out.small"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "SlideInBottom8px",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "SlideInBottom8px"
+    },
+    "name": "motion.keyframe.slide.in.bottom.short",
+    "path": [
+      "motion",
+      "keyframe",
+      "slide",
+      "in",
+      "bottom",
+      "short"
+    ],
+    "cleanName": "motion.keyframe.slide.in.bottom.short"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "SlideIn50PercentLeft",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "SlideIn50PercentLeft"
+    },
+    "name": "motion.keyframe.slide.in.left.half",
+    "path": [
+      "motion",
+      "keyframe",
+      "slide",
+      "in",
+      "left",
+      "half"
+    ],
+    "cleanName": "motion.keyframe.slide.in.left.half"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "SlideInLeft8px",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "SlideInLeft8px"
+    },
+    "name": "motion.keyframe.slide.in.left.short",
+    "path": [
+      "motion",
+      "keyframe",
+      "slide",
+      "in",
+      "left",
+      "short"
+    ],
+    "cleanName": "motion.keyframe.slide.in.left.short"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "SlideInRight8px",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "SlideInRight8px"
+    },
+    "name": "motion.keyframe.slide.in.right.short",
+    "path": [
+      "motion",
+      "keyframe",
+      "slide",
+      "in",
+      "right",
+      "short"
+    ],
+    "cleanName": "motion.keyframe.slide.in.right.short"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "SlideInTop8px",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "SlideInTop8px"
+    },
+    "name": "motion.keyframe.slide.in.top.short",
+    "path": [
+      "motion",
+      "keyframe",
+      "slide",
+      "in",
+      "top",
+      "short"
+    ],
+    "cleanName": "motion.keyframe.slide.in.top.short"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "SlideOutBottom8px",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "SlideOutBottom8px"
+    },
+    "name": "motion.keyframe.slide.out.bottom.short",
+    "path": [
+      "motion",
+      "keyframe",
+      "slide",
+      "out",
+      "bottom",
+      "short"
+    ],
+    "cleanName": "motion.keyframe.slide.out.bottom.short"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "SlideOut15PercentLeft",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "SlideOut15PercentLeft"
+    },
+    "name": "motion.keyframe.slide.out.left.half",
+    "path": [
+      "motion",
+      "keyframe",
+      "slide",
+      "out",
+      "left",
+      "half"
+    ],
+    "cleanName": "motion.keyframe.slide.out.left.half"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "SlideOutLeft8px",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "SlideOutLeft8px"
+    },
+    "name": "motion.keyframe.slide.out.left.short",
+    "path": [
+      "motion",
+      "keyframe",
+      "slide",
+      "out",
+      "left",
+      "short"
+    ],
+    "cleanName": "motion.keyframe.slide.out.left.short"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "SlideOutRight8px",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "SlideOutRight8px"
+    },
+    "name": "motion.keyframe.slide.out.right.short",
+    "path": [
+      "motion",
+      "keyframe",
+      "slide",
+      "out",
+      "right",
+      "short"
+    ],
+    "cleanName": "motion.keyframe.slide.out.right.short"
+  },
+  {
+    "attributes": {
+      "group": "motionKeyframe",
+      "state": "experimental",
+      "introduced": "11.5.0",
+      "description": ""
+    },
+    "value": "SlideOutTop8px",
+    "filePath": "schema/themes/atlassian-motion/motion-keyframe.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motionKeyframe",
+        "state": "experimental",
+        "introduced": "11.5.0",
+        "description": ""
+      },
+      "value": "SlideOutTop8px"
+    },
+    "name": "motion.keyframe.slide.out.top.short",
+    "path": [
+      "motion",
+      "keyframe",
+      "slide",
+      "out",
+      "top",
+      "short"
+    ],
+    "cleanName": "motion.keyframe.slide.out.top.short"
+  },
+  {
+    "attributes": {
       "group": "motion",
       "state": "experimental",
       "introduced": "11.2.0",
       "description": ""
     },
     "value": {
-      "duration": 200,
+      "duration": 250,
       "curve": "cubic-bezier(0.4, 0, 0, 1)",
       "keyframes": [
-        "ScaleIn95",
-        "FadeIn"
+        "ScaleIn95to100"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -555,11 +1223,10 @@ const tokens: Token[] = [
         "description": ""
       },
       "value": {
-        "duration": "Duration200",
+        "duration": "Duration250",
         "curve": "EaseBoldInOut",
         "keyframes": [
-          "ScaleIn95",
-          "FadeIn"
+          "ScaleIn95to100"
         ]
       }
     },
@@ -580,10 +1247,9 @@ const tokens: Token[] = [
     },
     "value": {
       "duration": 200,
-      "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+      "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
-        "ScaleOut95",
-        "FadeOut"
+        "ScaleOut100to95"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -597,10 +1263,9 @@ const tokens: Token[] = [
       },
       "value": {
         "duration": "Duration200",
-        "curve": "EasePracticalOut",
+        "curve": "EasePracticalIn",
         "keyframes": [
-          "ScaleOut95",
-          "FadeOut"
+          "ScaleOut100to95"
         ]
       }
     },
@@ -623,8 +1288,8 @@ const tokens: Token[] = [
       "duration": 150,
       "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
       "keyframes": [
-        "SlideInBottom",
-        "FadeIn"
+        "SlideInBottom8px",
+        "FadeIn0to100"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -640,8 +1305,8 @@ const tokens: Token[] = [
         "duration": "Duration150",
         "curve": "EasePracticalOut",
         "keyframes": [
-          "SlideInBottom",
-          "FadeIn"
+          "SlideInBottom8px",
+          "FadeIn0to100"
         ]
       }
     },
@@ -665,8 +1330,8 @@ const tokens: Token[] = [
       "duration": 150,
       "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
       "keyframes": [
-        "SlideInLeft",
-        "FadeIn"
+        "SlideInLeft8px",
+        "FadeIn0to100"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -682,8 +1347,8 @@ const tokens: Token[] = [
         "duration": "Duration150",
         "curve": "EasePracticalOut",
         "keyframes": [
-          "SlideInLeft",
-          "FadeIn"
+          "SlideInLeft8px",
+          "FadeIn0to100"
         ]
       }
     },
@@ -707,8 +1372,8 @@ const tokens: Token[] = [
       "duration": 150,
       "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
       "keyframes": [
-        "SlideInRight",
-        "FadeIn"
+        "SlideInRight8px",
+        "FadeIn0to100"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -724,8 +1389,8 @@ const tokens: Token[] = [
         "duration": "Duration150",
         "curve": "EasePracticalOut",
         "keyframes": [
-          "SlideInRight",
-          "FadeIn"
+          "SlideInRight8px",
+          "FadeIn0to100"
         ]
       }
     },
@@ -749,8 +1414,8 @@ const tokens: Token[] = [
       "duration": 150,
       "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
       "keyframes": [
-        "SlideInTop",
-        "FadeIn"
+        "SlideInTop8px",
+        "FadeIn0to100"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -766,8 +1431,8 @@ const tokens: Token[] = [
         "duration": "Duration150",
         "curve": "EasePracticalOut",
         "keyframes": [
-          "SlideInTop",
-          "FadeIn"
+          "SlideInTop8px",
+          "FadeIn0to100"
         ]
       }
     },
@@ -791,8 +1456,8 @@ const tokens: Token[] = [
       "duration": 100,
       "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
-        "SlideOutBottom",
-        "FadeOut"
+        "SlideOutBottom8px",
+        "FadeOut100to0"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -808,8 +1473,8 @@ const tokens: Token[] = [
         "duration": "Duration100",
         "curve": "EasePracticalIn",
         "keyframes": [
-          "SlideOutBottom",
-          "FadeOut"
+          "SlideOutBottom8px",
+          "FadeOut100to0"
         ]
       }
     },
@@ -833,8 +1498,8 @@ const tokens: Token[] = [
       "duration": 100,
       "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
-        "SlideOutLeft",
-        "FadeOut"
+        "SlideOutLeft8px",
+        "FadeOut100to0"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -850,8 +1515,8 @@ const tokens: Token[] = [
         "duration": "Duration100",
         "curve": "EasePracticalIn",
         "keyframes": [
-          "SlideOutLeft",
-          "FadeOut"
+          "SlideOutLeft8px",
+          "FadeOut100to0"
         ]
       }
     },
@@ -875,8 +1540,8 @@ const tokens: Token[] = [
       "duration": 100,
       "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
-        "SlideOutRight",
-        "FadeOut"
+        "SlideOutRight8px",
+        "FadeOut100to0"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -892,8 +1557,8 @@ const tokens: Token[] = [
         "duration": "Duration100",
         "curve": "EasePracticalIn",
         "keyframes": [
-          "SlideOutRight",
-          "FadeOut"
+          "SlideOutRight8px",
+          "FadeOut100to0"
         ]
       }
     },
@@ -917,8 +1582,8 @@ const tokens: Token[] = [
       "duration": 100,
       "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
-        "SlideOutTop",
-        "FadeOut"
+        "SlideOutTop8px",
+        "FadeOut100to0"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -934,8 +1599,8 @@ const tokens: Token[] = [
         "duration": "Duration100",
         "curve": "EasePracticalIn",
         "keyframes": [
-          "SlideOutTop",
-          "FadeOut"
+          "SlideOutTop8px",
+          "FadeOut100to0"
         ]
       }
     },
@@ -959,8 +1624,8 @@ const tokens: Token[] = [
       "duration": 250,
       "curve": "cubic-bezier(0.4, 0, 0, 1)",
       "keyframes": [
-        "ScaleIn95",
-        "FadeIn"
+        "ScaleIn95to100",
+        "FadeIn0to100"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -976,8 +1641,8 @@ const tokens: Token[] = [
         "duration": "Duration250",
         "curve": "EaseBoldInOut",
         "keyframes": [
-          "ScaleIn95",
-          "FadeIn"
+          "ScaleIn95to100",
+          "FadeIn0to100"
         ]
       }
     },
@@ -998,10 +1663,10 @@ const tokens: Token[] = [
     },
     "value": {
       "duration": 200,
-      "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+      "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
-        "ScaleOut95",
-        "FadeOut"
+        "ScaleOut100to95",
+        "FadeOut100to0"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -1015,10 +1680,10 @@ const tokens: Token[] = [
       },
       "value": {
         "duration": "Duration200",
-        "curve": "EasePracticalOut",
+        "curve": "EasePracticalIn",
         "keyframes": [
-          "ScaleOut95",
-          "FadeOut"
+          "ScaleOut100to95",
+          "FadeOut100to0"
         ]
       }
     },

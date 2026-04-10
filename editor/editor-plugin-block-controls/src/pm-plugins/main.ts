@@ -496,10 +496,7 @@ export const apply = (
 		!isResizerResizing &&
 		(isNodeDecsMissing || meta?.isDragging) &&
 		// Skip expensive anchor node decoration recalculations when native anchor support is enabled
-		!(
-			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-			fg('editor_native_anchor_remove_decoration_in_apply')
-		);
+		!expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true);
 
 	let isActiveNodeModified = false;
 

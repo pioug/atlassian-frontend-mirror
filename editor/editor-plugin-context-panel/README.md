@@ -1,9 +1,21 @@
-# Editor plugin context panel
+# Editor Plugin Context Panel
 
 Context panel plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Context Panel plugin provides UI panel management capabilities for the Atlassian Editor. It enables dynamic rendering of context-aware panels and object sidebars within the editor, supporting customizable panel layouts, multiple display behaviors, and integration with the editor's state management system.
+
+## Key features
+
+- **Dynamic panel rendering** - Render context panels dynamically based on editor state
+- **Object sidebar management** - Show, hide, and manage object sidebar panels with configurable IDs
+- **Flexible panel behaviors** - Support 'push' and 'cover' display behaviors for sidebar panels
+- **Customizable panel layouts** - Configure header, body, and footer components with custom styling
+- **State change handling** - Apply transformations to trigger panel content updates
 
 ## Install
 ---

@@ -11,7 +11,6 @@ ${createEditorUseOnlyNotice('Editor Plugin Context Panel', [
 	{ name: 'Editor Core', link: '/packages/editor/editor-core' },
 ])}
 
-
   ${
 		(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -30,12 +29,40 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type ContextPanelPluginOptions = {
+  objectSideBar: {
+    closePanel: HideObjectSidebar;
+    closePanelById: HideObjectSidebarById;
+    showPanel: ShowObjectSidebar;
+  };
+};
+
 type ContextPanelPlugin = NextEditorPlugin<
   'contextPanel',
-  { actions: { applyChange: typeof applyChange } }
+  {
+    actions: {
+      applyChange: typeof applyChange;
+      closePanel?: ContextPanelPluginOptions['objectSideBar']['closePanel'];
+      closePanelById?: ContextPanelPluginOptions['objectSideBar']['closePanelById'];
+      showPanel?: ContextPanelPluginOptions['objectSideBar']['showPanel'];
+    };
+    pluginConfiguration: ContextPanelPluginOptions | undefined;
+    sharedState: { contents: React.ReactNode[] | undefined } | undefined;
+  }
 >;
-`}
 
+type HideObjectSidebar = () => void;
+
+type HideObjectSidebarById = (id: string) => void;
+
+type ShowObjectSidebar = (
+  panel: ObjectSidebarPanel,
+  behavior?: ObjectSidebarBehavior,
+  panelWidth?: number,
+) => void;
+
+type ApplyChangeHandler = (tr: Transaction) => Transaction;
+`}
 
   ## Support
 ---

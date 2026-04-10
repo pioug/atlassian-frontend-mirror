@@ -4,7 +4,7 @@ import {
 	type ContentWrapperProps,
 } from './styled-compiled';
 
-export const InactivityDetectorWrapper = forwardRef(
+export const InactivityDetectorWrapper: React.ForwardRefExoticComponent<Omit<ContentWrapperProps & React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<unknown>> = forwardRef(
 	(
 		props: ContentWrapperProps &
 			React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> &

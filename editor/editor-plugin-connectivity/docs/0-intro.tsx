@@ -28,12 +28,25 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type Mode = 'offline' | 'online' | 'collab-offline' | 'internet-offline';
+
+type PublicPluginState = {
+	mode: Mode;
+};
+
 type ConnectivityPlugin = NextEditorPlugin<
 	'connectivity',
 	{
-		sharedState: { mode: 'offline' | 'online' };
+		commands: {
+			setMode: (mode: Mode | null) => EditorCommand;
+		};
+		sharedState: PublicPluginState;
 	}
->;;
+>;
+
+const isOfflineMode = (mode: Mode | undefined): boolean => {
+	return mode === 'offline' || mode === 'collab-offline' || mode === 'internet-offline';
+};
 `}
 
 ## Support

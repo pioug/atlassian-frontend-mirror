@@ -35,7 +35,7 @@ import {
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import { expVal, expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 import type { insertBlockPlugin } from '../../insertBlockPlugin';
@@ -47,21 +47,18 @@ export const DEFAULT_HEIGHT = 560;
 /**
  * Exported helper to allow testing of InsertMenu pinning logic.
  *
- * NOTE: this is *not* the ideal way to approach this. The quick insert plugin provides a
- * `getSuggestions` method that can be used to get suggestions. Once all experiments are cleaned up,
- * they should be unified through `pluginInjectionApi?.quickInsert?.actions.getSuggestions`.
- *
  * The `cc_fd_db_top_editor_toolbar` experiment adds new logic to sort elements by `priority`.
  * This newer implementation matches how the quick insert menu sorts elements.
  */
-export const sortPrioritizedElements = (
+export const sortFeaturedItems = (
 	featuredItems: QuickInsertItem[],
 	formatMessage: (msg: MessageDescriptor) => string,
 ): QuickInsertItem[] => {
 	if (
 		['new-description', 'orig-description'].includes(
 			expVal('cc_fd_db_top_editor_toolbar', 'cohort', 'control'),
-		)
+		) ||
+		expValNoExposure('cc_fd_wb_jira_quick_insert_experiment', 'isEnabled', false)
 	) {
 		// Sort by priority (lower first) on the concatenated list so items
 		// with "priority" are at the top (e.g. Whiteboard before Database)
@@ -73,7 +70,7 @@ export const sortPrioritizedElements = (
 			);
 	}
 
-	// old logic sort whiteboards to top
+	// NOTE: this is *not* the ideal way to approach this. Old logic sort whiteboards to top
 	const DIAGRAM_KEY = 'whiteboard-extension:create-diagram';
 	const isDiagram = (item: QuickInsertItem) => item.key === DIAGRAM_KEY;
 
@@ -224,7 +221,7 @@ const InsertMenu = ({
 					featuredQuickInsertSuggestions,
 				) as QuickInsertItem[];
 				// need to sort on the concatenated list so desired elements are at the top
-				result = sortPrioritizedElements(unfilteredResult, formatMessage);
+				result = sortFeaturedItems(unfilteredResult, formatMessage);
 			}
 			setItemCount(result.length);
 			return result;

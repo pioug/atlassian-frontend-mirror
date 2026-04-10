@@ -13,7 +13,7 @@ import { type MediaItemDetails } from '../models/media';
  *
  * Being encapsulated in this function, we can always improve the detection transparently.
  */
-export const EMPTY_FILE_HOURS_ELAPSED_TOLERANCE_MS = 12 * 1000 * 60 * 60; /* 12 hours */
+export const EMPTY_FILE_HOURS_ELAPSED_TOLERANCE_MS: number = 12 * 1000 * 60 * 60; /* 12 hours */
 
 export function isEmptyFile(fileDetails: MediaItemDetails, now: number = Date.now()): Boolean {
 	const {

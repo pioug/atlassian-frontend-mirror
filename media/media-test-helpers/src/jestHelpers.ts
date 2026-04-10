@@ -5,17 +5,17 @@ export const asMockFunction = <T extends (...args: any[]) => any>(fn: T): jest.M
 export const asMockReturnValue = <T extends (...args: any[]) => any>(
 	fn: T,
 	returnValue: ReturnType<T>,
-) => asMock(fn).mockReturnValue(returnValue);
+): jest.Mock => asMock(fn).mockReturnValue(returnValue);
 
 export const asMockFunctionReturnValue = <T extends (...args: any[]) => any>(
 	fn: T,
 	returnValue: ReturnType<T>,
-) => asMockFunction(fn).mockReturnValue(returnValue);
+): jest.MockedFunction<T> => asMockFunction(fn).mockReturnValue(returnValue);
 
 export const asMockFunctionResolvedValue = <T extends (...args: any[]) => any>(
 	fn: T,
 	resolveValue: jest.ResolvedValue<ReturnType<T>>,
-) => asMockFunction(fn).mockResolvedValue(resolveValue);
+): jest.MockedFunction<T> => asMockFunction(fn).mockResolvedValue(resolveValue);
 
 export const expectToEqual = <T>(actual: T, expected: T): void =>
 	// @ts-ignore TS2339: Property `toEqual` does not exist on `typeAssertion`

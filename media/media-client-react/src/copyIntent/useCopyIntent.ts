@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, type DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -16,7 +16,7 @@ function useCurrentValueRef<T>(value: T): React.MutableRefObject<T> {
 	ref.current = value;
 	return ref;
 }
-export const useCopyIntent = (id: string, options: UseCopyIntentOptions = {}) => {
+export const useCopyIntent = (id: string, options: UseCopyIntentOptions = {}): { copyNodeRef: (instance: HTMLDivElement | HTMLImageElement | null) => void | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]; } => {
 	const mediaClient = useMediaClient();
 	const innerRef = useRef<HTMLDivElement | HTMLImageElement | null>(null);
 	const clientIdRef = useRef<string | undefined>(undefined);

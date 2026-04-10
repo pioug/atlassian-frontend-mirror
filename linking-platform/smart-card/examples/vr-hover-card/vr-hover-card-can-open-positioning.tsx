@@ -41,6 +41,9 @@ const styles = css({
 export default (): JSX.Element => {
 	const [canOpen, setCanOpen] = useState(true);
 
+	const setCanOpenTrue = () => setCanOpen(true);
+	const setCanOpenFalse = () => setCanOpen(false);
+
 	return (
 		<VRTestWrapper>
 			<Provider client={new CustomClient('staging')}>
@@ -52,8 +55,8 @@ export default (): JSX.Element => {
 					<div css={styles}>
 						<div
 							data-testid="hover-test-can-open-left"
-							// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-							onMouseEnter={() => setCanOpen(true)}
+							onFocus={setCanOpenTrue}
+							onMouseEnter={setCanOpenTrue}
 							role="button"
 							tabIndex={0}
 						>
@@ -61,8 +64,8 @@ export default (): JSX.Element => {
 						</div>
 						<div
 							data-testid="hover-test-cannot-open"
-							// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-							onMouseEnter={() => setCanOpen(false)}
+							onFocus={setCanOpenFalse}
+							onMouseEnter={setCanOpenFalse}
 							role="button"
 							tabIndex={0}
 						>
@@ -70,8 +73,8 @@ export default (): JSX.Element => {
 						</div>
 						<div
 							data-testid="hover-test-can-open-right"
-							// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-							onMouseEnter={() => setCanOpen(true)}
+							onFocus={setCanOpenTrue}
+							onMouseEnter={setCanOpenTrue}
 							role="button"
 							tabIndex={0}
 						>

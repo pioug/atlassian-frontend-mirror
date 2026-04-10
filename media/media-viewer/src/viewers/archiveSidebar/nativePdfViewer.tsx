@@ -22,7 +22,7 @@ const headerStyles = css({
 	width: '100%',
 });
 
-export const NativePdfViewer = ({ src, children, onSuccess, onError }: Props) => {
+export const NativePdfViewer = ({ src, children, onSuccess, onError }: Props): JSX.Element => {
 	const ref = (element: HTMLDivElement | null) => {
 		if (!element) {
 			return;

@@ -58,12 +58,12 @@ describe('Toggle component', () => {
 
 		const labelElement = screen.getByLabelText(label);
 
-		expect(labelElement).not.toHaveAttribute('data-checked');
+		expect(labelElement).not.toBeChecked();
 
 		await user.click(labelElement);
 		expect(onChange).not.toHaveBeenCalled();
 
-		expect(labelElement).not.toHaveAttribute('data-checked');
+		expect(labelElement).not.toBeChecked();
 	});
 
 	it('should set received label to input', () => {

@@ -162,24 +162,3 @@ export type {
 export type { ChartColorTokens } from './types';
 
 export type { FrameProps } from './components/frame';
-
-export type {
-	GlobalProps,
-	TGlobal,
-	SidebarProps,
-	TSidebar,
-	LinkMenuItemProps,
-	TLinkMenuItem,
-	ExpandableMenuItemProps,
-	TExpandableMenuItem,
-	FlyOutMenuItemProps,
-	TFlyOutMenuItem,
-	MainProps,
-	TMain,
-	HelpLinkProps,
-	THelpLink,
-	PersonalSettingsProps,
-	TPersonalSettings,
-	PersonalSettingsItemProps,
-	TPersonalSettingsItem,
-} from './components/global/__generated__';

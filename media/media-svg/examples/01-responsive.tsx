@@ -83,7 +83,7 @@ function Resizable() {
 	);
 }
 
-export default function () {
+export default function (): JSX.Element {
 	return (
 		<MediaClientProvider clientConfig={mediaClientConfig}>
 			<Resizable />

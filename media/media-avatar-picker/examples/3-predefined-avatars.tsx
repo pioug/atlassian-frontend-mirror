@@ -22,7 +22,7 @@ const wrapperStyles = css({
 	marginLeft: token('space.100'),
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<IntlProvider locale="en">
 		<div>
 			<div>

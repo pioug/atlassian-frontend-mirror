@@ -7,7 +7,7 @@ import {
 } from '../../../../../state/flexible-ui-context';
 
 import AISummaryBlockResolvedView, { RovoSummaryBlockResolvedView } from './resolved';
-import { type AISummaryBlockProps, type RovoSummaryBlockProps } from './types';
+import { type AISummaryBlockProps } from './types';
 
 /**
  * Represents an AISummaryBlock, designed to summarising link resource
@@ -17,6 +17,7 @@ import { type AISummaryBlockProps, type RovoSummaryBlockProps } from './types';
  * @see Block
  */
 const AISummaryBlock = ({
+	is3PAuthRovoActionsExperimentOn,
 	testId = 'smart-ai-summary-block',
 	...props
 }: AISummaryBlockProps): React.JSX.Element | null => {
@@ -33,44 +34,23 @@ const AISummaryBlock = ({
 		return null;
 	}
 
+	if (is3PAuthRovoActionsExperimentOn) {
+		return (
+			<RovoSummaryBlockResolvedView
+				{...props}
+				size={props.size ?? cardContext?.ui?.size}
+				testId={testId}
+				url={actionData.url}
+			/>
+		);
+	}
+
 	return (
 		<AISummaryBlockResolvedView
 			{...props}
 			size={props.size ?? cardContext?.ui?.size}
 			testId={testId}
 			url={actionData.url}
-		/>
-	);
-};
-
-/**
- * Represents an AISummaryBlock, designed to summarising link resource
- * content using AI.
- * @public
- * @param {RovoSummaryBlockProps} RovoSummaryBlock
- * @see Block
- */
-export const RovoSummaryBlock = ({
-	testId = 'smart-ai-summary-block',
-	url,
-	...props
-}: RovoSummaryBlockProps): React.JSX.Element | null => {
-	const cardContext = useFlexibleCardContext();
-
-	if (cardContext?.status !== SmartLinkStatus.Resolved) {
-		return null;
-	}
-
-	if (!url) {
-		return null;
-	}
-
-	return (
-		<RovoSummaryBlockResolvedView
-			{...props}
-			size={props.size ?? cardContext?.ui?.size}
-			testId={testId}
-			url={url}
 		/>
 	);
 };

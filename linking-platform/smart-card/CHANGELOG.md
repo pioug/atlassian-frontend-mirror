@@ -1,5 +1,30 @@
 # @atlaskit/smart-card
 
+## 43.31.7
+
+### Patch Changes
+
+- [`cb48dc37bffa1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb48dc37bffa1) -
+  [ux] Remove auto generate AI summary for platform_sl_3p_auth_rovo_action experiment
+
+## 43.31.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.31.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.31.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.31.3
 
 ### Patch Changes

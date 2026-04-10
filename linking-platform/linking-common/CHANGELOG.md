@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 9.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.11.1
 
 ### Patch Changes

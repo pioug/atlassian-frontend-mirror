@@ -1,9 +1,22 @@
-# Editor plugin media insert
+# Editor Plugin Media Insert
 
-Media insert plugin for @atlaskit/editor-core
+Media Insert plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Media Insert plugin provides a user interface for inserting media into the Atlassian Editor. It offers flexible options for adding media through local file uploads or external URLs, with support for customizable validation and configuration.
+
+## Key features
+
+- **Local file uploads** - Upload media files from your local device through an integrated file picker
+- **External URL insertion** - Insert media using external URLs with optional upload to media service
+- **Quick insert integration** - Access media insertion via the quick insert menu with keyword search support
+- **Flexible configuration** - Configure URL-only mode, custom validation, and helper messages
+- **Analytics tracking** - Track media insertion events and user interactions with the picker
+- **Popup interface** - Intuitive tabbed interface for selecting insertion method
 
 ## Install
 ---
@@ -27,4 +40,4 @@ Please see [Atlaskit - Editor plugin media-insert](https://atlaskit.atlassian.co
 For internal Atlassian, visit the slack channel [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) for support or visit [go/editor-help](https://go/editor-help) to submit a bug.
 ## License
 ---
- Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#Platform-License) for more licensing information.
+ Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.

@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 112.18.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.18.8
+
+### Patch Changes
+
+- [`97524fe48311b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97524fe48311b) -
+  Add Autocomplete Next Steps user flow
+- Updated dependencies
+
+## 112.18.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.18.6
+
+### Patch Changes
+
+- [`2bf9cbc6623b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bf9cbc6623b7) -
+  Fix nested tables if analytics parameter is unavailable
+- Updated dependencies
+
+## 112.18.5
+
+### Patch Changes
+
+- [`868f927c1b8d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/868f927c1b8d3) -
+  add missing analytics attributes
+- Updated dependencies
+
 ## 112.18.4
 
 ### Patch Changes

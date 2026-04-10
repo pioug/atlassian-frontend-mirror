@@ -1,9 +1,3 @@
-// url: prefix is an Atlaspack/Parcel directive that resolves this file as an emitted
-// asset URL (content-hashed). For rspack, this is handled via staticAssetsLoader.
-// @ts-ignore - this is failing to resolve https://atlassian.slack.com/archives/CPUEVD9MY/p1775523351855799
-// eslint-disable-next-line @repo/internal/import/no-unresolved
-import wordVectorsUrl from 'url:./data/word-vectors_10k.bin';
-
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -172,6 +166,12 @@ export interface AutocompletePluginOptions {
 	 * word-frequency boosting. Called lazily so the preset can remain synchronous.
 	 */
 	getContext?: () => Promise<AutocompleteContext | undefined>;
+	/**
+	 * Async function that resolves to a URL for the word vectors binary file.
+	 * When provided, this takes precedence over the bundled asset URL.
+	 * Use this to serve vectors from a CDN or media service in production.
+	 */
+	getVectorsBinaryUrl?: () => Promise<string>;
 }
 
 /**
@@ -375,7 +375,7 @@ export const createAutocompletePlugin = (options?: AutocompletePluginOptions) =>
 				},
 				focus: () => {
 					loadDefaultVocabulary();
-					loadVectorsAsync({ vectorsUrl: wordVectorsUrl }).catch(() => {});
+					loadVectorsAsync({ getBinaryUrl: options?.getVectorsBinaryUrl }).catch(() => {});
 					if (!hasIngestedPage) {
 						hasIngestedPage = true;
 						if (options?.getContext) {

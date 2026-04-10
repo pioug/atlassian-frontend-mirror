@@ -3,6 +3,7 @@ import { EditorView as CodeMirror } from '@codemirror/view';
 import { HighlightStyle } from '@codemirror/language';
 import { token } from '@atlaskit/tokens';
 import { tags } from '@lezer/highlight';
+import type { Extension } from '@codemirror/state';
 
 /**
  * These styles are copied directly from
@@ -11,7 +12,7 @@ import { tags } from '@lezer/highlight';
 
 const LINE_HEIGHT = '1.5rem';
 
-export const cmTheme = CodeMirror.theme({
+export const cmTheme: Extension = CodeMirror.theme({
 	'&': {
 		backgroundColor: token('color.background.neutral'),
 		padding: '0',
@@ -129,7 +130,7 @@ function overflowShadow({
 }
 
 // Based on `platform/packages/design-system/code/src/internal/theme/styles.tsx`
-export const highlightStyle = HighlightStyle.define([
+export const highlightStyle: HighlightStyle = HighlightStyle.define([
 	{ tag: tags.meta, color: token('color.text') },
 	{ tag: tags.link, textDecoration: 'underline' },
 	{

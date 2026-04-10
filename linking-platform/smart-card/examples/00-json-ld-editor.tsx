@@ -10,9 +10,16 @@ import JsonldEditorInput from './jsonld-editor/jsonld-editor-input';
 import JsonldExample from './jsonld-editor/jsonld-example';
 import LoadLinkForm from './jsonld-editor/load-link-form';
 import JsonLdGenerator from './jsonld-generator';
+import useFeatureGateOverrideConfig from './utils/use-feature-gate-override-config.ts';
 
 const tabPanelStyles = xcss({ width: '100%' });
 const Example = (): React.JSX.Element => {
+	const { ready } = useFeatureGateOverrideConfig();
+
+	if (!ready) {
+		return <Box>Loading...</Box>;
+	}
+
 	return (
 		<JsonldEditor>
 			{({

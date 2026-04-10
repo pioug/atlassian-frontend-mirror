@@ -9,7 +9,7 @@ class MockFileReader {
 		this.result = result;
 	}
 
-	addEventListener = jest.fn().mockImplementation((eventName: string, fn: () => void): void => {
+	addEventListener: jest.Mock<any, any, any> = jest.fn().mockImplementation((eventName: string, fn: () => void): void => {
 		if (eventName === 'load') {
 			this.loadEvent = fn;
 		} else if (eventName === 'error') {
@@ -17,11 +17,11 @@ class MockFileReader {
 		}
 	});
 
-	readAsDataURL = jest.fn().mockImplementation((): void => {
+	readAsDataURL: jest.Mock<any, any, any> = jest.fn().mockImplementation((): void => {
 		this.loadEvent();
 	});
 
-	readAsArrayBuffer = jest.fn().mockImplementation((): void => {
+	readAsArrayBuffer: jest.Mock<any, any, any> = jest.fn().mockImplementation((): void => {
 		this.loadEvent();
 	});
 }
@@ -29,7 +29,7 @@ class MockFileReader {
 const mockFileReaderError = { message: 'error' };
 
 class MockFileReaderWithError extends MockFileReader {
-	readAsDataURL = jest.fn().mockImplementation((): void => {
+	readAsDataURL: jest.Mock<any, any, any> = jest.fn().mockImplementation((): void => {
 		this.errorEvent(mockFileReaderError);
 	});
 }
@@ -40,13 +40,13 @@ if (global.FileReader && typeof jest !== 'undefined') {
 	FileReader = jest.spyOn(global, 'FileReader').mockImplementation(() => new GlobalFileReader());
 }
 
-const mockFileReader = (result: string | null | ArrayBuffer) => {
+const mockFileReader = (result: string | null | ArrayBuffer): MockFileReader => {
 	const fileReader = new MockFileReader(result);
 	FileReader.mockImplementation(() => fileReader);
 	return fileReader;
 };
 
-const mockFileReaderWithError = () => {
+const mockFileReaderWithError = (): MockFileReaderWithError => {
 	const fileReader = new MockFileReaderWithError();
 	FileReader.mockImplementation(() => fileReader);
 	return fileReader;

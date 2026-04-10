@@ -25,7 +25,7 @@ export const CurrentTime = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 ): React.JSX.Element => <CompiledCurrentTime {...props} />;
 
-export const TimeLine = forwardRef(
+export const TimeLine: React.ForwardRefExoticComponent<Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<unknown>> = forwardRef(
 	(
 		props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> &
 			React.ClassAttributes<HTMLDivElement>,
@@ -43,7 +43,7 @@ export const Thumb = (
 	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 ): React.JSX.Element => <CompiledThumb {...props} />;
 
-export const CurrentTimeLineThumb = forwardRef(
+export const CurrentTimeLineThumb: React.ForwardRefExoticComponent<Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<unknown>> = forwardRef(
 	(
 		props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> &
 			React.ClassAttributes<HTMLDivElement>,

@@ -34,10 +34,40 @@ ${code`
 type ContentInsertionPlugin = NextEditorPlugin<
   'contentInsertion',
   {
-    actions: InsertNodeAPI;
-    dependencies: [AnalyticsPlugin];
-  }
+    dependencies: ContentInsertionDependencies;
+  } & InsertNodeAPI
 >;
+
+type ContentInsertionDependencies = [AnalyticsPlugin];
+
+type InsertNodeAPI = {
+  actions: {
+    insert: (props: InsertNodeActionConfig) => boolean;
+  };
+  commands: {
+    insert: (props: InsertNodeConfig) => EditorCommand;
+  };
+};
+
+type InsertNodeActionConfig = {
+  dispatch: CommandDispatch | undefined;
+  node: PMNode | Fragment;
+  options: {
+    analyticsPayload?: AnalyticsEventPayload;
+    insertAt?: Selection;
+    selectNodeInserted: boolean;
+  };
+  state: EditorState | undefined | null;
+};
+
+type InsertNodeConfig = {
+  node: PMNode | Fragment;
+  options: {
+    analyticsPayload?: AnalyticsEventPayload;
+    insertAt?: Selection;
+    selectNodeInserted: boolean;
+  };
+};
 `}
 
 

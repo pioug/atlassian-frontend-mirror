@@ -125,7 +125,7 @@ function transformReactProfilerTimings(
 				if (type === 'update') {
 					timing.rerenderCount += 1;
 				}
-				if (segmentUnmountCache.has(cacheKey) && fg('platform_ufo_segment_unmount_count')) {
+				if (segmentUnmountCache.has(cacheKey)) {
 					timing.unmountCount = segmentUnmountCache.get(cacheKey) || 0;
 					segmentUnmountCache.delete(cacheKey);
 				}

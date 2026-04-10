@@ -26,7 +26,9 @@ export class ClipboardLoader extends React.PureComponent<
 	static displayName = 'AsyncClipboard';
 	static Clipboard?: ClipboardWithMediaClientConfigComponent;
 
-	state = {
+	state: {
+        Clipboard: ClipboardWithMediaClientConfigComponent | undefined;
+    } = {
 		Clipboard: ClipboardLoader.Clipboard,
 	};
 

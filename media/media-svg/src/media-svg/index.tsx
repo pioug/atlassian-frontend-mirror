@@ -7,7 +7,7 @@ export type { MediaSvgProps } from './types';
 export { MediaSVGError } from './errors';
 export type { MediaSVGErrorReason } from './errors';
 
-const MediaSVG = forwardRef<HTMLImageElement, MediaSvgProps>((props, ref) => (
+const MediaSVG: React.ForwardRefExoticComponent<MediaSvgProps & React.RefAttributes<HTMLImageElement>> = forwardRef<HTMLImageElement, MediaSvgProps>((props, ref) => (
 	<CompiledMediaSVG {...props} ref={ref} />
 ));
 

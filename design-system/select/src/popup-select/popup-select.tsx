@@ -7,7 +7,7 @@ import FocusLock from 'react-focus-lock';
 import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
 import { shallowEqualObjects } from 'shallow-equal';
 
-import { IdProvider } from '@atlaskit/ds-lib/use-id';
+import { IdProvider } from '@atlaskit/ds-lib/id-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type GroupBase,

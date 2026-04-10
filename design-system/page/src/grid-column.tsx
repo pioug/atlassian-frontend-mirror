@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { createContext, useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
 import { defaultMedium } from './constants';
+import { GridColumnContext } from './grid-column-context';
 import { GridContext } from './grid-context';
 import type { GridColumnProps } from './types';
 
@@ -85,15 +86,6 @@ const getVariant = ({ medium, columns }: { medium: number; columns: number }): C
 	}
 	return ColumnVariant.FullWidth;
 };
-
-/**
- * __Grid column context__
- *
- * @internal
- */
-export const GridColumnContext: import('react').Context<{
-	medium: number;
-}> = createContext({ medium: defaultMedium });
 
 /**
  * __Grid column__

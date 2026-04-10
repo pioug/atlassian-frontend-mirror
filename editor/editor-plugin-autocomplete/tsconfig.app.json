@@ -1,6 +1,5 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"files": ["./build/url-module.d.ts"],
 	"include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.json"],
 	"exclude": [
 		"**/docs/**/*",

@@ -6,13 +6,18 @@ import { type ReactNode, useContext, useEffect, useLayoutEffect, useRef } from '
 
 import { cssMap, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { Motion } from '@atlaskit/motion';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Popper, type Placement as PopperPlacement } from '@atlaskit/popper';
+import { token } from '@atlaskit/tokens';
 
 import { SpotlightContext } from '../../controllers/context';
 import type { BackEvent, DismissEvent, DoneEvent, NextEvent, Placement } from '../../types';
 import { useFocusWithin } from '../../utils/use-focus-within';
 import { useOnClickOutside } from '../../utils/use-on-click-outside';
 import { useOnEscape } from '../../utils/use-on-escape';
+
+import ConditionalExitingPersistence from './conditional-exiting-persistence';
 
 const styles = cssMap({
 	root: {
@@ -95,6 +100,11 @@ interface BasePopoverContentProps {
 	 * The content to be rendered in `PopoverContent`. This is intended to be a `SpotlightCard`.
 	 */
 	children: ReactNode;
+
+	/**
+	 * The motion to be applied to the `SpotlightCard`.
+	 */
+	motion?: React.ComponentType<{ children: ReactNode }> | null;
 }
 
 export type PopoverContentProps = BasePopoverContentProps &
@@ -150,6 +160,9 @@ const popperPlacementMap: Record<
 	'left-end': 'left',
 };
 
+
+const DefaultMotion: PopoverContentProps['motion'] = ({ children }) => <Motion enteringAnimation={token('motion.spotlight.enter')} exitingAnimation={token('motion.spotlight.exit')}>{children}</Motion>
+
 /**
  * __PopoverContent__
  *
@@ -159,6 +172,7 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 	const {
 		children,
 		placement,
+		motion = DefaultMotion,
 		isVisible = true,
 		shouldDismissOnClickOutside = true,
 		dismiss,
@@ -213,7 +227,10 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 
 	useLayoutEffect(() => {
 		card.setPlacement(placement);
-	}, [placement, card]);
+		if(motion) {
+			card.setMotion(() => motion);
+		}
+	}, [placement, card, motion]);
 
 	useEffect(() => {
 		if (updateRef.current) {
@@ -240,23 +257,42 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 	return (
 		<Popper offset={offset} strategy={strategy} placement={popperPlacementMap[placement]}>
 			{({ ref: localRef, style, update }) => {
-				if (!isVisible) {
+				if (!isVisible && !fg('platform-dst-motion-uplift')) {
 					return;
 				}
 
 				updateRef.current = update;
 
 				return (
-					<div
-						role="dialog"
-						data-testid={testId}
-						aria-labelledby={heading.id}
-						ref={mergeRefs([ref, localRef])}
-						style={style}
-						css={styles.root}
-					>
-						{children}
-					</div>
+					fg('platform-dst-motion-uplift') ? (
+						<ConditionalExitingPersistence>
+							{
+								isVisible && (
+									<div
+										role="dialog"
+										data-testid={testId}
+										aria-labelledby={heading.id}
+										ref={mergeRefs([ref, localRef])}
+										style={style}
+										css={styles.root}
+									>
+										{children}
+									</div>
+								)
+							}
+						</ConditionalExitingPersistence>
+					) : (
+						<div
+							role="dialog"
+							data-testid={testId}
+							aria-labelledby={heading.id}
+							ref={mergeRefs([ref, localRef])}
+							style={style}
+							css={styles.root}
+						>
+							{children}
+						</div>
+					)
 				);
 			}}
 		</Popper>

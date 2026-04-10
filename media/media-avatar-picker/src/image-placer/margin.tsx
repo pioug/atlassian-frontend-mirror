@@ -39,7 +39,7 @@ const marginWrapperCircleAfterBaseStyles = css({
 });
 
 export class Margin extends React.Component<MarginProps, MarginState> {
-	render() {
+	render(): JSX.Element {
 		const { width, height, size, circular } = this.props;
 		const id = circular ? 'marginWrapperCircle' : 'marginWrapperSquare';
 

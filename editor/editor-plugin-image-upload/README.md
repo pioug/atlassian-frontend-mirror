@@ -1,9 +1,21 @@
-# Editor plugin image upload
+# Editor Plugin Image Upload
 
 Image upload plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Image Upload plugin provides image upload capabilities for the Atlassian Editor. It integrates with `@atlaskit/editor-core` to handle image insertion through multiple input methods and manages the upload workflow.
+
+## Key features
+
+- **Drag-and-drop upload** - Drag images directly into the editor
+- **Clipboard paste** - Paste images from clipboard with intelligent MS Office screenshot detection
+- **Markdown image syntax** - Convert markdown image syntax `![alt](url)` to media nodes
+- **Upload handler integration** - Configurable upload handlers for custom image processing
+- **Plugin state management** - Track upload state with enabled, active, and hidden states
 
 ## Install
 ---
@@ -25,6 +37,7 @@ Please see [Atlaskit - Editor plugin image upload](https://atlaskit.atlassian.co
 ## Support
 ---
 For internal Atlassian, visit the slack channel [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) for support or visit [go/editor-help](https://go/editor-help) to submit a bug.
+
 ## License
 ---
- Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.
+Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.

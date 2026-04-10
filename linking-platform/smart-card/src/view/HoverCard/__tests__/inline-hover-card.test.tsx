@@ -25,7 +25,6 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { CardSSR } from '../../../ssr';
 import * as useSmartCardActions from '../../../state/actions';
-import * as useAISummary from '../../../state/hooks/use-ai-summary';
 import { fakeFactory } from '../../../utils/mocks';
 import { Card } from '../../Card';
 
@@ -319,36 +318,6 @@ describe('HoverCard', () => {
 							);
 							expect(rovoChatAction).toBeInTheDocument();
 						});
-
-						it('should render Rovo AI summary on google-object-provider link', async () => {
-							jest.spyOn(useAISummary, 'useAISummary').mockReturnValue({
-								summariseUrl: jest.fn(),
-								state: { status: 'done', content: 'this is a summary' },
-							});
-
-							await setup({
-								extraCardProps: { actionOptions },
-								mock,
-								rovoOptions,
-							});
-
-							const aiSummaryBlock = await screen.findByTestId(
-								'smart-ai-summary-block-resolved-view',
-							);
-							expect(aiSummaryBlock).toBeInTheDocument();
-						});
-
-						it('should not render Rovo AI summary on none google-object-provider link ', async () => {
-							await setup({
-								extraCardProps: { actionOptions },
-								mock: mockConfluenceResponse,
-								rovoOptions,
-							});
-
-							await screen.findByTestId('smart-block-title-resolved-view');
-							const aiSummaryBlock = screen.queryByTestId('smart-ai-summary-block-placeholder');
-							expect(aiSummaryBlock).not.toBeInTheDocument();
-						});
 					});
 			});
 		});
@@ -376,19 +345,14 @@ describe('HoverCard', () => {
 					).toBeInTheDocument();
 					expect(screen.queryByTestId('hover-card-unauthorised-view')).not.toBeInTheDocument();
 				} else {
-					expect(
-						await screen.findByTestId('hover-card-unauthorised-view'),
-					).toBeInTheDocument();
+					expect(await screen.findByTestId('hover-card-unauthorised-view')).toBeInTheDocument();
 					expect(screen.queryByTestId('hover-card-rovo-unauthorised-view')).not.toBeInTheDocument();
 				}
 			};
 
 			ffTest.on('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
 				eeTest
-					.describe(
-						'platform_sl_3p_preauth_better_hovercard',
-						'unauthorised hover card',
-					)
+					.describe('platform_sl_3p_preauth_better_hovercard', 'unauthorised hover card')
 					.variant(true, () => {
 						it('renders Rovo unauthorised hover when killswitch and experiment are on and Rovo is enabled', async () => {
 							await assertUnauthorisedHoverPreviewWhenPreauthExperimentOn(

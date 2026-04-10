@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-local-id
 
+## 6.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.22
+
+### Patch Changes
+
+- [`14803a836f641`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14803a836f641) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
 ## 6.0.21
 
 ### Patch Changes

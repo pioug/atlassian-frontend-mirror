@@ -37,7 +37,7 @@ export class StreamsCache<T> {
 }
 
 let streamCache: StreamsCache<FileState>;
-export const getFileStreamsCache = () => {
+export const getFileStreamsCache = (): StreamsCache<FileState> => {
 	if (!streamCache) {
 		// TODO: we can move this into a static import like
 		// import {mediaState} from '@atlaskit/media-core'

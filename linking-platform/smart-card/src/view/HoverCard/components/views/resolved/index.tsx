@@ -25,7 +25,6 @@ import {
 	SnippetBlock,
 	TitleBlock,
 } from '../../../../FlexibleCard/components/blocks';
-import { RovoSummaryBlock } from '../../../../FlexibleCard/components/blocks/ai-summary-block';
 import { getMetadata } from '../../../utils';
 import ImagePreview from '../../ImagePreview';
 
@@ -66,7 +65,6 @@ const HoverCardResolvedView = ({
 	showRovoResolvedView,
 	titleBlockProps,
 	id,
-	url,
 }: HoverCardResolvedProps): JSX.Element => {
 	di(useAISummaryAction);
 
@@ -129,10 +127,12 @@ const HoverCardResolvedView = ({
 				maxLines={1}
 				size={SmartLinkSize.Medium}
 			/>
-			{is3PAuthRovoActionsExperimentOn ? (
-				<RovoSummaryBlock aiSummaryMinHeight={aiSummaryMinHeight} url={url} />
-			) : isAISummaryEnabled ? (
-				<AISummaryBlock aiSummaryMinHeight={aiSummaryMinHeight} placeholder={snippet} />
+			{isAISummaryEnabled ? (
+				<AISummaryBlock
+					aiSummaryMinHeight={aiSummaryMinHeight}
+					placeholder={snippet}
+					is3PAuthRovoActionsExperimentOn={is3PAuthRovoActionsExperimentOn}
+				/>
 			) : (
 				snippet
 			)}

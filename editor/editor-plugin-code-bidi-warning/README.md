@@ -1,22 +1,30 @@
-# Editor plugin code bidi warning
+# Editor Plugin Code Bidi Warning
 
 Code bidi warning plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
 
+## Overview
+
+The Code Bidi Warning plugin detects and highlights bidirectional text characters in code blocks that may cause readability issues or security concerns. It provides visual warnings to help users identify potentially problematic code patterns.
+
+## Key features
+
+- **Bidi character detection** - Automatically detect bidirectional text characters in code blocks
+- **Visual warnings** - Display decorations and tooltips for identified bidi characters
+- **Feature flag support** - Respect feature flags for enabling/disabling the warning functionality
+- **Limited mode compatibility** - Disable warnings when the editor is in limited mode
+- **Configurable appearance** - Support for different editor appearance modes
+
 ## Install
 
----
-
-- **Install** - _yarn add @atlaskit/editor-plugin-code-bidi-warning_
+- **Install** - *yarn add @atlaskit/editor-plugin-code-bidi-warning*
 - **npm** - [@atlaskit/editor-plugin-code-bidi-warning](https://www.npmjs.com/package/@atlaskit/editor-plugin-code-bidi-warning)
 - **Source** - [Bitbucket](https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/editor/editor-plugin-code-bidi-warning)
 - **Bundle** - [unpkg.com](https://unpkg.com/@atlaskit/editor-plugin-code-bidi-warning/dist/)
 
 ## Usage
-
----
 
 **Internal use only**
 
@@ -28,12 +36,8 @@ Please see [Atlaskit - Editor plugin code bidi warning](https://atlaskit.atlassi
 
 ## Support
 
----
-
 For internal Atlassian, visit the slack channel [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) for support or visit [go/editor-help](https://go/editor-help) to submit a bug.
 
 ## License
-
----
 
 Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.

@@ -39,6 +39,8 @@ export type TriggerType =
 	| 'summary-panel'
 	| 'conclusion-heading'
 	| 'conclusion-last-lines'
+	| 'next-steps-heading'
+	| 'next-steps-last-lines'
 	| 'cmd+shift+space';
 
 export type AiAutocompleteEventPayload =

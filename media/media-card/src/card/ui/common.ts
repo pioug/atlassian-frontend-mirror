@@ -3,7 +3,23 @@ export enum Breakpoint {
 	LARGE = 'large',
 }
 
-export const responsiveSettings = {
+export const responsiveSettings: {
+    small: {
+        fontSize: number;
+        lineHeight: number;
+        titleBox: {
+            verticalPadding: number;
+            horizontalPadding: number;
+        };
+    }; large: {
+        fontSize: number;
+        lineHeight: number;
+        titleBox: {
+            verticalPadding: number;
+            horizontalPadding: number;
+        };
+    };
+} = {
 	[Breakpoint.SMALL]: {
 		fontSize: 11,
 		lineHeight: 14,
@@ -22,7 +38,7 @@ export const responsiveSettings = {
 	},
 };
 
-export const getTitleBoxHeight = (breakpoint: Breakpoint) =>
+export const getTitleBoxHeight = (breakpoint: Breakpoint): number =>
 	(responsiveSettings[breakpoint].lineHeight +
 		responsiveSettings[breakpoint].titleBox.verticalPadding) *
 	2;

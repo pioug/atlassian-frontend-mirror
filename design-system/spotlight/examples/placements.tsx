@@ -114,7 +114,10 @@ export default (): JSX.Element => {
 				<DropdownMenu trigger={`Placement: ${placement}`} shouldRenderToParent>
 					<DropdownItemGroup>
 						{cardPlacements.map((placement) => (
-							<DropdownItem key={placement} onClick={() => setPlacement(placement)}>
+							<DropdownItem key={placement} onClick={() => {
+								setPlacement(placement)
+								setIsVisible(true)
+							}}>
 								{placement}
 							</DropdownItem>
 						))}

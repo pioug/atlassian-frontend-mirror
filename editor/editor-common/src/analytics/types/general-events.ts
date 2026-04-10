@@ -520,11 +520,20 @@ type AskRovoButtonClickedAEP = ButtonAEP<
 	}
 >;
 
-type SmartLinkRovoButtonClickedAEP = ButtonAEP<ACTION_SUBJECT_ID.SMART_LINK_ROVO_BUTTON, undefined>;
+type SmartLinkRovoButtonClickedAEP = ButtonAEP<
+	ACTION_SUBJECT_ID.SMART_LINK_ROVO_BUTTON,
+	{
+		has3pSources?: boolean;
+		sourceProducts?: string | null;
+	}
+>;
 
 type SmartLinkSummarizeButtonClickedAEP = ButtonAEP<
 	ACTION_SUBJECT_ID.SMART_LINK_SUMMARIZE_BUTTON,
-	undefined
+	{
+		has3pSources?: boolean;
+		sourceProducts?: string | null;
+	}
 >;
 
 type ChangeToneMenuItemClickedAEP = UIAEP<

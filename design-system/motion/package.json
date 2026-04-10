@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "5.5.2",
+	"version": "5.6.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,7 +35,8 @@
 		"./slide-in": "./src/entry-points/slide-in.tsx",
 		"./zoom-in": "./src/entry-points/zoom-in.tsx",
 		"./shrink-out": "./src/entry-points/shrink-out.tsx",
-		"./staggered-entrance": "./src/entry-points/staggered-entrance.tsx"
+		"./staggered-entrance": "./src/entry-points/staggered-entrance.tsx",
+		"./resizing-width": "./src/entry-points/resizing-width.tsx"
 	},
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {

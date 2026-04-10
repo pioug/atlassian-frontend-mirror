@@ -31,10 +31,15 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type CodeBidiWarningPluginOptions = {
+  appearance?: EditorAppearance;
+};
+
 type CodeBidiWarningPlugin = NextEditorPlugin<
   'codeBidiWarning',
   {
-    pluginConfiguration: Config;
+    dependencies: [OptionalPlugin<LimitedModePlugin>];
+    pluginConfiguration: CodeBidiWarningPluginOptions | undefined;
   }
 >;
 `}

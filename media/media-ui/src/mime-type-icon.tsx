@@ -39,7 +39,7 @@ export const MimeTypeIcon = ({
 	name = 'unknown',
 	testId,
 	size = 'large',
-}: MediaTypeProps) => {
+}: MediaTypeProps): JSX.Element => {
 	// retrieve mimetype icon and label
 	const iconInfo = getMimeIcon(mimeType, name);
 

@@ -18,7 +18,7 @@ export function getFormat(language: string, ext: string | undefined): string {
 	}
 }
 
-export const lineCount = (text: string) => normaliseLineBreaks(text).split(/\n/).length;
+export const lineCount = (text: string): number => normaliseLineBreaks(text).split(/\n/).length;
 
 export const normaliseLineBreaks = (text: string): string =>
 	text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');

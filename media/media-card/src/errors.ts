@@ -54,7 +54,7 @@ export type SvgPrimaryReason =
 export class MediaCardError extends Error {
 	constructor(
 		readonly primaryReason: MediaCardErrorPrimaryReason,
-		readonly secondaryError?: Error,
+		readonly secondaryError?: Error | undefined,
 	) {
 		super(primaryReason);
 		// https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-newtarget
@@ -69,7 +69,7 @@ export class MediaCardError extends Error {
 export class LocalPreviewError extends MediaCardError {
 	constructor(
 		readonly primaryReason: LocalPreviewPrimaryReason,
-		readonly secondaryError?: Error,
+		readonly secondaryError?: Error | undefined,
 	) {
 		super(primaryReason, secondaryError);
 	}
@@ -78,7 +78,7 @@ export class LocalPreviewError extends MediaCardError {
 export class RemotePreviewError extends MediaCardError {
 	constructor(
 		readonly primaryReason: RemotePreviewPrimaryReason,
-		readonly secondaryError?: Error,
+		readonly secondaryError?: Error | undefined,
 	) {
 		super(primaryReason, secondaryError);
 	}
@@ -87,7 +87,7 @@ export class RemotePreviewError extends MediaCardError {
 export class SsrPreviewError extends MediaCardError {
 	constructor(
 		readonly primaryReason: SsrPreviewPrimaryReason,
-		readonly secondaryError?: Error,
+		readonly secondaryError?: Error | undefined,
 	) {
 		super(primaryReason, secondaryError);
 	}
@@ -142,7 +142,7 @@ export const ensureMediaCardError = (
 	primaryReason: MediaCardErrorPrimaryReason,
 	error: Error,
 	updatePrimaryReason?: boolean,
-) => {
+): MediaCardError => {
 	if (isMediaCardError(error)) {
 		if (updatePrimaryReason && error.primaryReason !== primaryReason) {
 			return new MediaCardError(primaryReason, error.secondaryError);
@@ -152,4 +152,4 @@ export const ensureMediaCardError = (
 	return new MediaCardError(primaryReason, error);
 };
 
-export const isUploadError = (error?: MediaCardError) => error && error.primaryReason === 'upload';
+export const isUploadError = (error?: MediaCardError): boolean | undefined => error && error.primaryReason === 'upload';

@@ -7,7 +7,7 @@ import {
 	type StateMachineTypestate,
 } from './stateMachine/types';
 
-export function createServicesCache() {
+export function createServicesCache(): LRUMap<string, Interpreter<StateMachineContext, any, StateMachineEvent, StateMachineTypestate>> {
 	return new LRUMap<
 		string,
 		Interpreter<StateMachineContext, any, StateMachineEvent, StateMachineTypestate>

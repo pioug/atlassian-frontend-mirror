@@ -59,7 +59,7 @@ const iconWrapperStyles = css({
 export const IconWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span css={[iconWrapperStyles, iconObjectOverrideStyles, iconOverrideStyles]} {...props}>
 		{children}
 	</span>
@@ -75,7 +75,7 @@ const emojiWrapperStyles = css({
 export const EmojiWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span css={[emojiWrapperStyles, iconObjectOverrideStyles, iconOverrideStyles]} {...props}>
 		{children}
 	</span>
@@ -92,7 +92,7 @@ const iconTitleWrapperStyles = css({
 export const IconTitleWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span css={iconTitleWrapperStyles} {...props}>
 		{children}
 	</span>
@@ -115,7 +115,7 @@ const lozengeWrapperStyles = css({
 export const LozengeWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span css={lozengeWrapperStyles} {...props}>
 		{children}
 	</span>
@@ -136,7 +136,7 @@ const lozengeBlockWrapperStyles = css({
 export const LozengeBlockWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span css={lozengeBlockWrapperStyles} {...props}>
 		{children}
 	</span>
@@ -152,7 +152,7 @@ const rightIconPositionWrapperStyles = css({
 export const RightIconPositionWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span css={rightIconPositionWrapperStyles} {...props}>
 		{children}
 	</span>
@@ -170,7 +170,7 @@ const iconPositionWrapperStyles = css({
 export const IconPositionWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span css={iconPositionWrapperStyles} {...props}>
 		{children}
 	</span>
@@ -186,7 +186,7 @@ const iconEmptyWrapperStyles = css({
 export const IconEmptyWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
 	<span css={iconEmptyWrapperStyles} {...props}>
 		{children}
 	</span>

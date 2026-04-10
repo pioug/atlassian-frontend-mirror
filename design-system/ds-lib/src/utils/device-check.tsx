@@ -8,10 +8,6 @@ function isIPhone() {
 	return testPlatform(/^iPhone/i);
 }
 
-function isMac() {
-	return testPlatform(/^Mac/i);
-}
-
 function isIPad() {
 	return (
 		testPlatform(/^iPad/i) ||
@@ -20,16 +16,11 @@ function isIPad() {
 	);
 }
 
+function isMac() {
+	return testPlatform(/^Mac/i);
+}
 function isIOS() {
 	return isIPhone() || isIPad();
-}
-
-export function isSafari(): boolean {
-	if (typeof window !== 'undefined' && window.navigator != null) {
-		const ua = window.navigator.userAgent?.toLowerCase();
-		return ua ? ua.includes('safari') && !ua.includes('chrome') : false;
-	}
-	return false;
 }
 
 export function isAppleDevice(): boolean {

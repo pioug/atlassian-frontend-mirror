@@ -1,13 +1,16 @@
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 import { transition } from '../styles';
 
 export const blanketClassName = 'media-card-blanket';
 
 export const fixedBlanketStyles: string = `background-color: ${token('color.blanket')};`;
 
-export const blanketStyles = (isFixed?: boolean) =>
+export const blanketStyles: {
+    (isFixed?: boolean): SerializedStyles;
+    displayName: string;
+} = (isFixed?: boolean): SerializedStyles =>
 	css(
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		transition(),

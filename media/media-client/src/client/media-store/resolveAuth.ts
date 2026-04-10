@@ -9,7 +9,7 @@ export const DEFAULT_AUTH_PROVIDER_TIMEOUT = 10000;
 export const resolveAuth = async (
 	authProvider: AuthProvider,
 	authContext?: AuthContext,
-	authProviderTimeout = DEFAULT_AUTH_PROVIDER_TIMEOUT,
+	authProviderTimeout: number = DEFAULT_AUTH_PROVIDER_TIMEOUT,
 ): Promise<Auth> => {
 	const startTime = performance.now();
 	let eventEmitted = false;
@@ -84,7 +84,7 @@ export const resolveAuth = async (
 	return auth;
 };
 
-export const resolveInitialAuth = (auth?: Auth) => {
+export const resolveInitialAuth = (auth?: Auth): Auth => {
 	if (!auth) {
 		throw new MediaStoreError('missingInitialAuth');
 	}

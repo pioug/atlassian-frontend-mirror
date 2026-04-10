@@ -1,1 +1,1 @@
-export const performanceNow = () => performance.now();
+export const performanceNow = (): number => performance.now();

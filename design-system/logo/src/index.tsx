@@ -27,10 +27,9 @@ import {
 	BitbucketDataCenterLogoCS as NewBitbucketDataCenterLogo,
 } from './artifacts/logo-components/bitbucket-data-center';
 import {
-	ChatIcon as OldChatIcon,
-	ChatLogoCS as OldChatLogo,
+	ChatIcon as NewChatIcon,
+	ChatLogoCS as NewChatLogo,
 } from './artifacts/logo-components/chat';
-import { ChatNewIcon, ChatNewLogoCS } from './artifacts/logo-components/chat-new';
 import {
 	CompassIcon as NewCompassIcon,
 	CompassLogoCS as NewCompassLogo,
@@ -52,6 +51,10 @@ import {
 	CustomerServiceManagementLogoCS as NewCustomerServiceManagementLogo,
 } from './artifacts/logo-components/customer-service-management';
 import { DxIcon as NewDXIcon } from './artifacts/logo-components/dx';
+import {
+	FeedbackIcon as NewFeedbackIcon,
+	FeedbackLogoCS as NewFeedbackLogo,
+} from './artifacts/logo-components/feedback';
 import {
 	FocusIcon as NewFocusIcon,
 	FocusLogoCS as NewFocusLogo,
@@ -123,19 +126,17 @@ import {
 	RovoHexLogoCS as NewRovoHexLogo,
 } from './artifacts/logo-components/rovo-hex';
 import {
-	SearchIcon as OldSearchIcon,
-	SearchLogoCS as OldSearchLogo,
+	SearchIcon as SearchNewIcon,
+	SearchLogoCS as SearchNewLogoCS,
 } from './artifacts/logo-components/search';
-import { SearchNewIcon, SearchNewLogoCS } from './artifacts/logo-components/search-new';
 import {
 	StatuspageIcon as NewStatuspageIcon,
 	StatuspageLogoCS as NewStatuspageLogo,
 } from './artifacts/logo-components/statuspage';
 import {
-	StudioIcon as OldStudioIcon,
-	StudioLogoCS as OldStudioLogo,
+	StudioIcon as StudioNewIcon,
+	StudioLogoCS as StudioNewLogoCS,
 } from './artifacts/logo-components/studio';
-import { StudioNewIcon, StudioNewLogoCS } from './artifacts/logo-components/studio-new';
 import {
 	TalentIcon as NewTalentIcon,
 	TalentLogoCS as NewTalentLogo,
@@ -221,7 +222,6 @@ import {
 	createFeatureFlaggedComponent,
 	createFeatureFlaggedRovoComponent,
 	createFeatureFlaggedServiceCollectionComponent,
-	teamEUFlaggedIcon,
 	tempSizeWrapper,
 } from './logo-config';
 
@@ -302,8 +302,8 @@ export const AssetsLogo: ({ size, ...props }: import('./types').LogoProps) => Re
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const ChatIcon: (props: import('./types').LogoProps) => React.JSX.Element =
-	teamEUFlaggedIcon(OldChatIcon, ChatNewIcon);
+export const ChatIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewChatIcon);
 /**
  * __Chat logo__
  *
@@ -313,8 +313,8 @@ export const ChatIcon: (props: import('./types').LogoProps) => React.JSX.Element
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const ChatLogo: (props: import('./types').LogoProps) => React.JSX.Element =
-	teamEUFlaggedIcon(OldChatLogo, ChatNewLogoCS);
+export const ChatLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewChatLogo);
 /**
  * __Customer Service Management icon__
  *
@@ -345,6 +345,28 @@ export const CustomerServiceManagementLogo: ({
 }: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(
 	NewCustomerServiceManagementLogo,
 );
+/**
+ * __Feedback icon__
+ *
+ * The Feedback icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const FeedbackIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewFeedbackIcon);
+/**
+ * Feedback logo__
+ *
+ * The Feedback logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const FeedbackLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewFeedbackLogo);
 /**
  * __Goals icon__
  *
@@ -490,8 +512,8 @@ export const RovoDevAgentLogo: ({
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const SearchIcon: (props: import('./types').LogoProps) => React.JSX.Element =
-	teamEUFlaggedIcon(OldSearchIcon, SearchNewIcon);
+export const SearchIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(SearchNewIcon);
 /**
  * __Search logo__
  *
@@ -501,8 +523,8 @@ export const SearchIcon: (props: import('./types').LogoProps) => React.JSX.Eleme
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const SearchLogo: (props: import('./types').LogoProps) => React.JSX.Element =
-	teamEUFlaggedIcon(OldSearchLogo, SearchNewLogoCS);
+export const SearchLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(SearchNewLogoCS);
 /**
  * __Studio icon__
  *
@@ -512,8 +534,8 @@ export const SearchLogo: (props: import('./types').LogoProps) => React.JSX.Eleme
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const StudioIcon: (props: import('./types').LogoProps) => React.JSX.Element =
-	teamEUFlaggedIcon(OldStudioIcon, StudioNewIcon);
+export const StudioIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(StudioNewIcon);
 /**
  * __Studio logo__
  *
@@ -523,8 +545,8 @@ export const StudioIcon: (props: import('./types').LogoProps) => React.JSX.Eleme
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const StudioLogo: (props: import('./types').LogoProps) => React.JSX.Element =
-	teamEUFlaggedIcon(OldStudioLogo, StudioNewLogoCS);
+export const StudioLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(StudioNewLogoCS);
 /**
  * __Talent icon__
  *

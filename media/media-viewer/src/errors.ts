@@ -8,7 +8,7 @@ import { type ZipEntry } from 'unzipit';
 export class MediaViewerError extends Error {
 	constructor(
 		readonly primaryReason: MediaViewerErrorReason | ArchiveViewerErrorReason,
-		readonly secondaryError?: Error,
+		readonly secondaryError?: Error | undefined,
 	) {
 		super(primaryReason);
 
@@ -29,8 +29,8 @@ export function isMediaViewerError(err: Error): err is MediaViewerError {
 export class ArchiveViewerError extends MediaViewerError {
 	constructor(
 		readonly primaryReason: ArchiveViewerErrorReason,
-		readonly secondaryError?: Error,
-		readonly zipEntry?: ZipEntry,
+		readonly secondaryError?: Error | undefined,
+		readonly zipEntry?: ZipEntry | undefined,
 	) {
 		super(primaryReason, secondaryError);
 	}

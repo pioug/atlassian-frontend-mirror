@@ -1,6 +1,6 @@
 import { type RowType, type HeadCellType, type RowCellType } from '@atlaskit/dynamic-table/types';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 function generateEmptyRows(emptyCells: RowCellType[], length: number): RowType[] {
 	const itemsArray = Array.from({ length });
@@ -9,14 +9,14 @@ function generateEmptyRows(emptyCells: RowCellType[], length: number): RowType[]
 	}));
 }
 
-export const generateEmptyRow = memoizeOne((headerCells: HeadCellType[]): RowCellType[] => {
+export const generateEmptyRow: MemoizedFn<(headerCells: HeadCellType[]) => RowCellType[]> = memoizeOne((headerCells: HeadCellType[]): RowCellType[] => {
 	return headerCells.map((cell) => ({
 		key: cell.key,
 		content: '',
 	}));
 });
 
-export const prependRows = memoizeOne(
+export const prependRows: MemoizedFn<(emptyCells: RowCellType[], itemsPerPage?: number, pageNumber?: number) => RowType[]> = memoizeOne(
 	(emptyCells: RowCellType[], itemsPerPage?: number, pageNumber?: number): RowType[] => {
 		if (!itemsPerPage || !pageNumber) {
 			return [];
@@ -27,7 +27,7 @@ export const prependRows = memoizeOne(
 	},
 );
 
-export const appendRows = memoizeOne(
+export const appendRows: MemoizedFn<(emptyCells: RowCellType[], rowsLength: number, itemsPerPage?: number, pageNumber?: number, totalItems?: number) => RowType[]> = memoizeOne(
 	(
 		emptyCells: RowCellType[],
 		rowsLength: number,

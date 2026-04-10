@@ -1,5 +1,19 @@
 # @atlaskit/codemod-cli
 
+## 1.0.2
+
+### Patch Changes
+
+- [`dc456d412b841`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc456d412b841) -
+  Fixed lozenge-appearance-semantic-migration codemod incorrectly flagging already-migrated semantic
+  values as unknown.
+
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

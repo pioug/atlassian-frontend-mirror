@@ -3,7 +3,7 @@ import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { token } from '@atlaskit/tokens';
-import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages } from '../../../messages';
 
 export type NotificationTypes = 'success' | 'error' | null;
@@ -50,4 +50,7 @@ function ApiFeedback({
 	return <FlagGroup onDismissed={onDismissed}>{flag}</FlagGroup>;
 }
 
-export default injectIntl(ApiFeedback);
+const _default_1: React.FC<WithIntlProps<ApiFeedbackProps & WrappedComponentProps>> & {
+    WrappedComponent: React.ComponentType<ApiFeedbackProps & WrappedComponentProps>;
+} = injectIntl(ApiFeedback);
+export default _default_1;

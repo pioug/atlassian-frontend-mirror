@@ -204,7 +204,7 @@ const SvgViewerBase = ({
 	);
 };
 
-export const SvgViewer = withAnalyticsEvents({
+export const SvgViewer: React.ForwardRefExoticComponent<Omit<SvgViewerProps, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>> = withAnalyticsEvents({
 	onBlanketClicked: (createAnalyticsEvent) => {
 		const event = createAnalyticsEvent(createClosedEvent('blanket'));
 		event.fire(ANALYTICS_MEDIA_CHANNEL);

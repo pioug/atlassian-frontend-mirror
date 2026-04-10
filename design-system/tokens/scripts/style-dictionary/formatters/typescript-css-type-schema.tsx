@@ -37,6 +37,9 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 	const fontWeight: TransformedToken[] = [];
 	const fontFamily: TransformedToken[] = [];
 	const motion: TransformedToken[] = [];
+	const motionDuration: TransformedToken[] = [];
+	const motionEasing: TransformedToken[] = [];
+	const motionKeyframes: TransformedToken[] = [];
 
 	for (let i = 0; i < tokens.length; i++) {
 		const token = tokens[i];
@@ -116,7 +119,15 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 		}
 
 		if (token.path.includes('motion')) {
-			motion.push(token);
+			if(token.path.includes('duration')) {
+				motionDuration.push(token);
+			} else if(token.path.includes('easing')) {
+				motionEasing.push(token);
+			} else if(token.path.includes('keyframe')) {
+				motionKeyframes.push(token);
+			} else {
+				motion.push(token);
+			}
 		}
 
 		if (fontShorthandTokenMatcher.test(token.name)) {
@@ -147,6 +158,9 @@ export type TextColor = 'transparent' | TextColorPressed | ${mapToCssVar(textCol
 export type Opacity = ${mapToCssVar(opacity)} | 0 | 1 | '0' | '1';
 export type FontWeight = ${mapToCssVar(fontWeight)} | 'inherit' | 'initial' | 'unset';
 export type FontFamily = ${mapToCssVar(fontFamily)};
+export type MotionDuration = ${mapToCssVar(motionDuration)};
+export type MotionEasing = ${mapToCssVar(motionEasing)};
+export type MotionKeyframes = ${mapToCssVar(motionKeyframes)};
 export type Motion = ${mapToCssVar(motion)};
 
 export interface CSSPropertiesHovered {

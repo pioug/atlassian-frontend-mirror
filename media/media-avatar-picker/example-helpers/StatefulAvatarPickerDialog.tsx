@@ -109,7 +109,7 @@ export default class StatefulAvatarPickerDialog extends React.Component<
 		this.setState({ altText });
 	};
 
-	renderPicker() {
+	renderPicker(): JSX.Element {
 		const { isOpen, isLoading } = this.state;
 		const { requireAltText } = this.props;
 
@@ -166,7 +166,7 @@ export default class StatefulAvatarPickerDialog extends React.Component<
 		return <ModalTransition>{isOpen && avatarPickerDialog}</ModalTransition>;
 	}
 
-	render() {
+	render(): JSX.Element {
 		const { imagePreviewSourceViaDataURIAPI, imagePreviewSourceViaFileAPI, altText } = this.state;
 
 		const { requireAltText } = this.props;

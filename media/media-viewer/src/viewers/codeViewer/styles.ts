@@ -1,9 +1,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const codeViewWrapperStyles = css({
+export const codeViewWrapperStyles: SerializedStyles = css({
 	position: 'absolute',
 	left: 0,
 	top: 0,
@@ -16,13 +16,13 @@ export const codeViewWrapperStyles = css({
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const codeViewerHeaderBarStyles = css({
+export const codeViewerHeaderBarStyles: SerializedStyles = css({
 	height: '75px',
 	backgroundColor: '#1d2125',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const codeViewerHTMLStyles = css({
+export const codeViewerHTMLStyles: SerializedStyles = css({
 	display: 'flex',
 	overflowX: 'auto',
 	whiteSpace: 'pre',

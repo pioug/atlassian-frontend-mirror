@@ -1,5 +1,11 @@
 # @atlaskit/quick-search
 
+## 10.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.5.1
 
 ### Patch Changes

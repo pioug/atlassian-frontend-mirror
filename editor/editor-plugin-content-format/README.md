@@ -1,15 +1,32 @@
 # Editor Plugin Content Format
 
-A shared state management plugin for the Atlassian Editor that tracks the content mode/format of the editor. This plugin enables other editor plugins and products to be aware of the current editor content format state and update it as needed.
+ContentFormat plugin for @atlaskit/editor-core
+
+**Note:** This component is designed for internal Atlassian development.
+External contributors will be able to use this component but will not be able to submit issues.
 
 ## Overview
 
-The Content Format plugin is a dependency plugin that provides a centralized way to:
-- Track the current content mode of the editor (e.g., `standard`, `compact`, etc.)
-- Share this state with dependent plugins
-- Allow products and other plugins to update the content mode through a simple command API
+The Content Format plugin provides centralized state management for tracking the editor's content mode/format. It enables plugins and products to monitor and update the current editor content format state.
+
+## Key features
+
+- **Content mode tracking** - Maintains the current content mode of the editor (e.g., `standard`, `compact`, etc.)
+- **Shared state management** - Provides a centralized state accessible to all dependent plugins
+- **Command API** - Simple command interface for updating content mode
+- **Optimized updates** - Prevents unnecessary state updates when mode hasn't changed
+
+## Install
+---
+- **Install** - *yarn add @atlaskit/editor-plugin-content-format*
+- **npm** - [@atlaskit/editor-plugin-content-format](https://www.npmjs.com/package/@atlaskit/editor-plugin-content-format)
+- **Source** - [Bitbucket](https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/editor/editor-plugin-content-format)
+- **Bundle** - [unpkg.com](https://unpkg.com/@atlaskit/editor-plugin-content-format/dist/)
 
 ## Usage
+---
+**Internal use only**
+
 
 ### Accessing Content Mode State
 
@@ -111,10 +128,9 @@ Updates the current content mode. The command will:
 api.contentFormat?.commands.updateContentMode('dense');
 ```
 
-
 ## Support
-
-For issues, questions, or contributions:
-- **Slack**: [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E)
-- **Bug Reports**: [go/editor-help](https://go/editor-help)
-- **Team**: Editor: AI
+---
+For internal Atlassian, visit the slack channel [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) for support or visit [go/editor-help](https://go/editor-help) to submit a bug.
+## License
+---
+ Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.

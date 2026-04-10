@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 9.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.2
+
+### Patch Changes
+
+- [`14803a836f641`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14803a836f641) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
+## 9.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.0
+
+### Minor Changes
+
+- [`73ebf54808245`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73ebf54808245) -
+  [ux] Added featured sorting for whiteboard jira quick insert item to the insert menu
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.24
 
 ### Patch Changes

@@ -27,7 +27,7 @@ const errorTitleStyles = css({
 	color: token('color.text.danger'),
 });
 export class MediaInlineCardErroredView extends React.Component<MediaInlineCardErroredViewProps> {
-	render() {
+	render(): JSX.Element {
 		const {
 			onClick,
 			isSelected,

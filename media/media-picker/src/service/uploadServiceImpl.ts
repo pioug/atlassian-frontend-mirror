@@ -83,7 +83,7 @@ export class UploadServiceImpl implements UploadService {
 
 	async addFilesWithSource(
 		files: LocalFileWithSource[],
-		traceContext = generateTraceContext(),
+		traceContext: MediaTraceContext = generateTraceContext(),
 	): Promise<void> {
 		const batches: Promise<void>[] = [];
 		for (let iterator = 0; iterator < files.length; iterator += this.maxUploadBatchSize) {

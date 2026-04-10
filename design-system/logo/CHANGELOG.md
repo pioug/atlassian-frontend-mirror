@@ -1,5 +1,32 @@
 # @atlaskit/logo
 
+## 20.0.0
+
+### Major Changes
+
+- [`9ecd6968b11f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ecd6968b11f8) -
+  [ux] Cleans up `platform-logo-rebrand-team-eu` feature flag and add the Feedback logo to the
+  `@atlaskit/logo` library.
+
+  Removes exports:
+
+      - `chatNewIcon` (use `chatIcon` instead),
+      - `searchNewIcon` (use `searchIcon` instead),
+      - `studioNewIcon` (use `studioIcon` instead),
+      - `chatNewLogo` (use `chatLogo` instead),
+      - `searchNewLogo` (use `searchLogo` instead),
+      - `studioNewLogo` (use `studioLogo` instead),
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.10.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.10.6
 
 ### Patch Changes

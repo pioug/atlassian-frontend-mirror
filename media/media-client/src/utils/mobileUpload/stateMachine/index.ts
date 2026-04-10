@@ -23,7 +23,7 @@ export const createMobileUploadStateMachine = (
 	dataloader: DataLoader<DataloaderKey, DataloaderResult>,
 	initialState: UploadingFileState,
 	collectionName?: string,
-) =>
+): StateMachine<StateMachineContext, any, StateMachineEvent, StateMachineTypestate> =>
 	createMachine<StateMachineContext, StateMachineEvent, StateMachineTypestate>(
 		{
 			// Initial state

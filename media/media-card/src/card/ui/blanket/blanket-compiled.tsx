@@ -28,7 +28,10 @@ export interface BlanketProps {
 	isFixed?: boolean;
 }
 
-export const Blanket = (props: BlanketProps) => {
+export const Blanket: {
+    (props: BlanketProps): JSX.Element;
+    displayName: string;
+} = (props: BlanketProps): JSX.Element => {
 	const { isFixed } = props;
 
 	return (

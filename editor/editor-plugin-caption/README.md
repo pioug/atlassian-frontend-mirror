@@ -5,6 +5,18 @@ Caption plugin for @atlaskit/editor-core
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
 
+## Overview
+
+The Caption plugin provides support for adding captions to media elements in the Atlassian Editor. It enables users to attach descriptive text to media items, with built-in keyboard navigation, selection handling, and editor state management. The plugin integrates seamlessly with media single nodes and supports editor disabled states.
+
+## Key features
+
+- **Media captions** - Add descriptive text captions to media elements
+- **Keyboard navigation** - Full keyboard support for navigating in and out of captions (Enter, Arrow keys, Tab)
+- **Selection handling** - Automatic caption deletion when empty, with edit tracking via analytics
+- **Editor state integration** - Respects editor disabled states and prevents editing when appropriate
+- **Analytics tracking** - Built-in analytics for caption creation, editing, and deletion events
+
 ## Install
 ---
 - **Install** - *yarn add @atlaskit/editor-plugin-caption*
@@ -25,6 +37,7 @@ Please see [Atlaskit - Editor plugin Caption](https://atlaskit.atlassian.com/pac
 ## Support
 ---
 For internal Atlassian, visit the slack channel [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) for support or visit [go/editor-help](https://go/editor-help) to submit a bug.
+
 ## License
 ---
 Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.

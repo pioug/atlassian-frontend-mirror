@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef } from 'react';
+import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 import { jsx } from '@compiled/react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -13,7 +13,7 @@ import { SvgRenderer } from './svgRenderer-compiled';
 import type { MediaSvgProps } from './types';
 import { useResolveSvg } from './useResolveSvg';
 
-const MediaSvg = forwardRef<HTMLImageElement, MediaSvgProps>(
+const MediaSvg: ForwardRefExoticComponent<MediaSvgProps & RefAttributes<HTMLImageElement>> = forwardRef<HTMLImageElement, MediaSvgProps>(
 	(
 		{ testId, identifier, dimensions, onError, alt, onLoad, onMouseDown, style }: MediaSvgProps,
 		ref,

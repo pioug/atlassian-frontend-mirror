@@ -16,6 +16,8 @@ interface MotionTokenMeta {
 	delay?: number;
 }
 
+type MotionKeyframeMeta = Record<string, any>;
+
 interface TokenMeta {
 	value:
 		| string
@@ -34,7 +36,8 @@ interface TokenMeta {
 				fontStyle: string;
 				letterSpacing: string;
 		  }
-		| MotionTokenMeta;
+		| MotionTokenMeta
+		| MotionKeyframeMeta;
 	cleanName?: string;
 }
 

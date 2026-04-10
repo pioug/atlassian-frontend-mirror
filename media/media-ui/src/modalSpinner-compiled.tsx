@@ -32,7 +32,7 @@ const defaultProps: Props = {
 	invertSpinnerColor: false,
 };
 
-export default ({ blankedColor, invertSpinnerColor }: Props) => (
+export default ({ blankedColor, invertSpinnerColor }: Props): JSX.Element => (
 	<div
 		style={{ backgroundColor: blankedColor || defaultProps.blankedColor }}
 		css={blanketStyles}

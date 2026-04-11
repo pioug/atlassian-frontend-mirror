@@ -53,8 +53,8 @@ export const layoutColumn: NodeSpec = layoutColumnFactory({
 		const { width } = node.attrs;
 		if (width) {
 			const baseStyle = `flex-basis: ${width}%`;
-			const columnWidthVar = editorExperiment('platform_editor_layout_column_resize_handle', true) 
-				? `; --column-width: ${width}%` 
+			const columnWidthVar = editorExperiment('platform_editor_layout_column_resize_handle', true)
+				? `; --column-width: ${width}%`
 				: '';
 			attrs['style'] = baseStyle + columnWidthVar;
 			attrs['data-column-width'] = `${width}`;
@@ -99,8 +99,8 @@ export const layoutColumnWithLocalId: NodeSpec = layoutColumnFactory({
 		const { width } = node.attrs;
 		if (width) {
 			const baseStyle = `flex-basis: ${width}%`;
-			const columnWidthVar = editorExperiment('platform_editor_layout_column_resize_handle', true) 
-				? `; --column-width: ${width}%` 
+			const columnWidthVar = editorExperiment('platform_editor_layout_column_resize_handle', true)
+				? `; --column-width: ${width}%`
 				: '';
 			attrs['style'] = baseStyle + columnWidthVar;
 			attrs['data-column-width'] = `${width}`;

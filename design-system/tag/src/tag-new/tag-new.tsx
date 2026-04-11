@@ -468,77 +468,77 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 export const TagDropdownTriggerComponent: import('react').ForwardRefExoticComponent<
 	TagDropdownTriggerProps & import('react').RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, TagDropdownTriggerProps>(function TagDropdownTrigger(
-		{
-			color = 'gray',
-			text,
-			elemBefore,
-			testId,
-			maxWidth,
-			onClick,
-			isSelected = false,
-			isLoading = false,
-			analyticsContext: _analyticsContext,
-			hasChevron = true,
-			swatchBefore,
-			...other
-		},
-		ref,
-	) {
-		const resolvedColor = colorMapping[color] || 'gray';
-		return (
-			<Pressable
-				ref={ref}
-				// @ts-expect-error paddingInline is 0.1875rem
-				// eslint-disable-next-line @compiled/no-suppress-xcss
-				xcss={cx(
-					styles.baseStyles,
-					colorStyles[resolvedColor as keyof typeof colorStyles],
-					dropdownStyles.interactive,
-					styles.focusRingStyles,
-					borderIconFilterStyles.root,
-					borderIconInteractiveFilterStyles.root,
-					isSelected && dropdownStyles.selected,
-				)}
-				onClick={isLoading ? undefined : onClick}
-				style={{
-					borderColor: isSelected ? token('color.border.selected') : undefined,
-					cursor: isLoading ? 'progress' : 'pointer',
-					maxWidth: maxWidth !== undefined ? maxWidth : undefined,
-				}}
-				{...(isLoading && { 'aria-busy': true, 'aria-disabled': true, isDisabled: true })}
-				data-testid={testId}
-				{...other}
-			>
-				<span css={[dropdownStyles.content, isLoading && dropdownStyles.loadingContent]}>
-					<SwatchBefore colorKey={resolvedColor} swatchBefore={swatchBefore} />
-					{elemBefore && (
-						<span css={[styles.beforeStyles, isSelected && styles.beforeStylesSelected]}>
-							{elemBefore}
-						</span>
-					)}
-					<span css={[styles.textStyles, isSelected && styles.textStylesSelected]} data-tag-text>
-						{text}
+	{
+		color = 'gray',
+		text,
+		elemBefore,
+		testId,
+		maxWidth,
+		onClick,
+		isSelected = false,
+		isLoading = false,
+		analyticsContext: _analyticsContext,
+		hasChevron = true,
+		swatchBefore,
+		...other
+	},
+	ref,
+) {
+	const resolvedColor = colorMapping[color] || 'gray';
+	return (
+		<Pressable
+			ref={ref}
+			// @ts-expect-error paddingInline is 0.1875rem
+			// eslint-disable-next-line @compiled/no-suppress-xcss
+			xcss={cx(
+				styles.baseStyles,
+				colorStyles[resolvedColor as keyof typeof colorStyles],
+				dropdownStyles.interactive,
+				styles.focusRingStyles,
+				borderIconFilterStyles.root,
+				borderIconInteractiveFilterStyles.root,
+				isSelected && dropdownStyles.selected,
+			)}
+			onClick={isLoading ? undefined : onClick}
+			style={{
+				borderColor: isSelected ? token('color.border.selected') : undefined,
+				cursor: isLoading ? 'progress' : 'pointer',
+				maxWidth: maxWidth !== undefined ? maxWidth : undefined,
+			}}
+			{...(isLoading && { 'aria-busy': true, 'aria-disabled': true, isDisabled: true })}
+			data-testid={testId}
+			{...other}
+		>
+			<span css={[dropdownStyles.content, isLoading && dropdownStyles.loadingContent]}>
+				<SwatchBefore colorKey={resolvedColor} swatchBefore={swatchBefore} />
+				{elemBefore && (
+					<span css={[styles.beforeStyles, isSelected && styles.beforeStylesSelected]}>
+						{elemBefore}
 					</span>
-					{hasChevron && (
-						<ChevronDownIcon
-							label=""
-							size="small"
-							color={'currentColor'}
-							testId={testId && `${testId}--chevron`}
-						/>
-					)}
+				)}
+				<span css={[styles.textStyles, isSelected && styles.textStylesSelected]} data-tag-text>
+					{text}
 				</span>
-				{isLoading && (
-					<span css={dropdownStyles.loadingOverlay}>
-						<Spinner
-							size={'xsmall'}
-							label=", Loading"
-							testId={testId ? `${testId}--loading-spinner` : undefined}
-						/>
-					</span>
+				{hasChevron && (
+					<ChevronDownIcon
+						label=""
+						size="small"
+						color={'currentColor'}
+						testId={testId && `${testId}--chevron`}
+					/>
 				)}
-			</Pressable>
-		);
+			</span>
+			{isLoading && (
+				<span css={dropdownStyles.loadingOverlay}>
+					<Spinner
+						size={'xsmall'}
+						label=", Loading"
+						testId={testId ? `${testId}--loading-spinner` : undefined}
+					/>
+				</span>
+			)}
+		</Pressable>
+	);
 });
 
 /**

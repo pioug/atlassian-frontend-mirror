@@ -75,13 +75,19 @@ const CaptionsUploaderBrowser = ({
 	);
 };
 
-const _default_1: React.FC<WithIntlProps<ArtifactUploaderProps & {
-    isOpen: boolean;
-    onClose: () => void;
-} & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<ArtifactUploaderProps & {
-        isOpen: boolean;
-        onClose: () => void;
-    } & WrappedComponentProps>;
+const _default_1: React.FC<
+	WithIntlProps<
+		ArtifactUploaderProps & {
+			isOpen: boolean;
+			onClose: () => void;
+		} & WrappedComponentProps
+	>
+> & {
+	WrappedComponent: React.ComponentType<
+		ArtifactUploaderProps & {
+			isOpen: boolean;
+			onClose: () => void;
+		} & WrappedComponentProps
+	>;
 } = injectIntl(CaptionsUploaderBrowser);
 export default _default_1;

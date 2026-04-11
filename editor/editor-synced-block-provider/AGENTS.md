@@ -2,7 +2,8 @@
 
 > **Package**: `@atlaskit/editor-synced-block-provider`
 >
-> **For workflow guidance, debugging, and cross-package task guides, load the `synced-blocks` skill:**
+> **For workflow guidance, debugging, and cross-package task guides, load the `synced-blocks`
+> skill:**
 > `get_skill(skill_name_or_path="platform/packages/editor/.rovodev/skills/synced-blocks/SKILL.md")`
 
 ---
@@ -62,12 +63,12 @@ SyncBlockStoreManager (parent coordinator)
 
 ### ARI Utilities
 
-| Function                                                     | Purpose                    |
-| ------------------------------------------------------------ | -------------------------- |
-| `generateBlockAri({cloudId, parentId, product, resourceId})` | Generate source block ARI  |
-| `generateBlockAriFromReference({cloudId, resourceId})`       | Generate reference ARI     |
-| `getConfluencePageAri({pageId, cloudId, pageType})`          | Confluence page ARI        |
-| `getJiraWorkItemAri({cloudId, workItemId})`                  | Jira issue ARI             |
+| Function                                                     | Purpose                   |
+| ------------------------------------------------------------ | ------------------------- |
+| `generateBlockAri({cloudId, parentId, product, resourceId})` | Generate source block ARI |
+| `generateBlockAriFromReference({cloudId, resourceId})`       | Generate reference ARI    |
+| `getConfluencePageAri({pageId, cloudId, pageType})`          | Confluence page ARI       |
+| `getJiraWorkItemAri({cloudId, workItemId})`                  | Jira issue ARI            |
 
 ### Block Service API
 

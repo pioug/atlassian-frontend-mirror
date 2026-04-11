@@ -6,9 +6,9 @@ import { logToSentry } from '../../../hooks/useErrorLogger';
 import { componentMetadata } from '../../constants';
 import { useDatasourceAnalyticsEvents } from '../../index';
 
-const DatasourceRenderFailedAnalyticsWrapper: ForwardRefExoticComponent<Omit<any, "ref"> & RefAttributes<any>> = withAnalyticsContext(componentMetadata.generic)((
-	props: any,
-) => {
+const DatasourceRenderFailedAnalyticsWrapper: ForwardRefExoticComponent<
+	Omit<any, 'ref'> & RefAttributes<any>
+> = withAnalyticsContext(componentMetadata.generic)((props: any) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	useEffect(() => {

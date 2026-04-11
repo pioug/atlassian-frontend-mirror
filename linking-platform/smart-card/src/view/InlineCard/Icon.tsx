@@ -12,7 +12,9 @@ import { token } from '@atlaskit/tokens';
 // the smart card container (when set to 0). Offset this
 // to position it with appropriate whitespace from the top.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const Icon: React.ComponentType<React.ClassAttributes<HTMLImageElement> & React.ImgHTMLAttributes<HTMLImageElement> & StyledProps> = styled.img({
+export const Icon: React.ComponentType<
+	React.ClassAttributes<HTMLImageElement> & React.ImgHTMLAttributes<HTMLImageElement> & StyledProps
+> = styled.img({
 	height: '16px',
 	width: '16px',
 	marginRight: token('space.050'),

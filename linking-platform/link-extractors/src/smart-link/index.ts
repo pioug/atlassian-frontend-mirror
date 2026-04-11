@@ -67,7 +67,9 @@ export const extractSmartLinkEmbed = (
 	return extractPreview(response?.data as JsonLd.Data.BaseData, 'web', iframeUrlType);
 };
 
-export const extractSmartLinkProvider = (response?: SmartLinkResponse): LinkProvider | undefined => {
+export const extractSmartLinkProvider = (
+	response?: SmartLinkResponse,
+): LinkProvider | undefined => {
 	if (isEntityPresent(response)) {
 		return extractEntityProvider(response);
 	}

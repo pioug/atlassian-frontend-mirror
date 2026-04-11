@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.35.0
+
+### Minor Changes
+
+- [`f24d781a1e620`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f24d781a1e620) -
+  Create hierarchical menu for spaces in fullscreen side nav with dummy data
+
 ## 5.34.1
 
 ### Patch Changes

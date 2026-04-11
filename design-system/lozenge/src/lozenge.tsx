@@ -185,9 +185,7 @@ const LegacyLozenge = memo(
 					style={{
 						color: style?.color,
 						// to negate paddingInline specified on Box above
-						maxWidth: maxWidthIsPc
-							? '100%'
-							: `calc(${maxWidthValue} - ${token('space.100')})`,
+						maxWidth: maxWidthIsPc ? '100%' : `calc(${maxWidthValue} - ${token('space.100')})`,
 					}}
 					data-testid={testId && `${testId}--text`}
 				>

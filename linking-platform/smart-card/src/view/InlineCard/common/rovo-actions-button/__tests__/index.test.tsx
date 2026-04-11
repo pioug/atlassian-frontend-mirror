@@ -38,7 +38,12 @@ describe('RovoActionsButton', () => {
 		const onClick = jest.fn();
 		render(
 			<IntlProvider locale="en">
-				<RovoActionsButton testId="rovo-actions-button" title="My doc" url="https://example.com" onClick={onClick} />
+				<RovoActionsButton
+					testId="rovo-actions-button"
+					title="My doc"
+					url="https://example.com"
+					onClick={onClick}
+				/>
 			</IntlProvider>,
 		);
 		fireEvent.click(screen.getByTestId('rovo-actions-button'));

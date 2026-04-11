@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    createAndOpen: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	createAndOpen: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	createAndOpen: {
 		id: 'linkCreate.createForm.button.createAndOpen',

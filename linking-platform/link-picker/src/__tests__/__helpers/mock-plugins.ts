@@ -47,8 +47,8 @@ export class UnstableMockLinkPickerPlugin implements LinkPickerPlugin {
 	}
 
 	async resolve({ query }: LinkPickerState): Promise<{
-        data: LinkSearchListItemData[];
-    }> {
+		data: LinkSearchListItemData[];
+	}> {
 		return { data: await this.loadResults(query) };
 	}
 
@@ -86,8 +86,8 @@ export class MockLinkPickerPromisePlugin implements LinkPickerPlugin {
 	}
 
 	async resolve({ query }: LinkPickerState): Promise<{
-        data: LinkSearchListItemData[];
-    }> {
+		data: LinkSearchListItemData[];
+	}> {
 		return { data: await this.result };
 	}
 
@@ -147,11 +147,15 @@ export class MockLinkPickerPlugin implements LinkPickerPlugin {
 		return this.loadResults(query);
 	}
 
-	async *resolve({ query }: LinkPickerState): AsyncGenerator<{
-        data: LinkSearchListItemData[];
-    }, {
-        data: LinkSearchListItemData[];
-    }, unknown> {
+	async *resolve({ query }: LinkPickerState): AsyncGenerator<
+		{
+			data: LinkSearchListItemData[];
+		},
+		{
+			data: LinkSearchListItemData[];
+		},
+		unknown
+	> {
 		yield { data: await this.getInitialResults(query) };
 		return { data: await this.fetchUpdatedResults(query) };
 	}

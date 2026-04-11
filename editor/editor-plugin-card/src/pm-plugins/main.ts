@@ -94,6 +94,7 @@ export const createPlugin =
 						provider: null,
 						cards: [],
 						datasourceStash: {},
+						resolvedToolbarAttributesByUrl: {},
 						showLinkingToolbar: false,
 						smartLinkEvents: undefined,
 						editorAppearance,

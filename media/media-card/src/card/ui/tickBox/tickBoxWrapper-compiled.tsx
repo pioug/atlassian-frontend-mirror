@@ -31,8 +31,8 @@ const wrapperStyles = css({
 });
 
 export const TickBoxWrapper: {
-    (props: TickBoxProps): JSX.Element;
-    displayName: string;
+	(props: TickBoxProps): JSX.Element;
+	displayName: string;
 } = (props: TickBoxProps): JSX.Element => {
 	return (
 		<div

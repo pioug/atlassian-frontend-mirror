@@ -72,19 +72,21 @@ const listTitleStyles: CSSProperties = {
 };
 
 export const messages: {
-    titleRecentlyViewedFormatted: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; titleResults: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; searchLinkResults: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	titleRecentlyViewedFormatted: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	titleResults: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	searchLinkResults: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	titleRecentlyViewedFormatted: {
 		id: 'fabric.linkPicker.listTitle.recentlyViewedFormatted',
@@ -103,7 +105,15 @@ export const messages: {
 	},
 });
 
-export const testIds: { resultListTitle: string; searchResultList: string; searchResultLoadingIndicator: string; tabsLoadingIndicator: string; searchResultItem: string; searchResultIcon: string; emptyResultPage: string; } = {
+export const testIds: {
+	resultListTitle: string;
+	searchResultList: string;
+	searchResultLoadingIndicator: string;
+	tabsLoadingIndicator: string;
+	searchResultItem: string;
+	searchResultIcon: string;
+	emptyResultPage: string;
+} = {
 	...noResultsTestIds,
 	...searchResultItemTestIds,
 	resultListTitle: 'link-picker-list-title',
@@ -138,7 +148,9 @@ export interface LinkSearchListProps extends Omit<
 	shouldRenderNoResultsImage?: boolean;
 }
 
-export const LinkSearchList: ForwardRefExoticComponent<LinkSearchListProps & RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, LinkSearchListProps>(
+export const LinkSearchList: ForwardRefExoticComponent<
+	LinkSearchListProps & RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, LinkSearchListProps>(
 	(
 		{
 			onChange,

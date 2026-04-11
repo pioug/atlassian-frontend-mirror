@@ -17,9 +17,12 @@ import { composeLinkPicker } from './main';
  * import { LazyLinkPicker } from '@atlaskit/link-picker/lazy';
  * ```
  */
-export const DeprecatedLazyLinkPickerExport: MemoExoticComponent<(props: LinkPickerProps) => JSX.Element> = LazyLinkPicker;
+export const DeprecatedLazyLinkPickerExport: MemoExoticComponent<
+	(props: LinkPickerProps) => JSX.Element
+> = LazyLinkPicker;
 
 // Must be a default export to be able to support prop docs
 // eslint-disable-next-line import/no-default-export
-const _default_1: MemoExoticComponent<(props: LinkPickerProps) => JSX.Element> = composeLinkPicker(LinkPicker);
+const _default_1: MemoExoticComponent<(props: LinkPickerProps) => JSX.Element> =
+	composeLinkPicker(LinkPicker);
 export default _default_1;

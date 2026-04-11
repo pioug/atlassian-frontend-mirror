@@ -8,7 +8,11 @@ import {
 import { type MediaTraceContext, type SSR } from '@atlaskit/media-common';
 
 import type { MediaFilePreviewError } from './errors';
-import { type MediaFilePreviewDimensions, type MediaFilePreviewSource, type MediaFilePreviewStatus } from './types';
+import {
+	type MediaFilePreviewDimensions,
+	type MediaFilePreviewSource,
+	type MediaFilePreviewStatus,
+} from './types';
 import { useFilePreview } from './useFilePreview';
 
 export interface UseMediaImageParams {
@@ -52,16 +56,19 @@ export const useMediaImage = ({
 	onLoad: onLoadCallback,
 	onError: onErrorCallback,
 }: UseMediaImageParams): {
-        status: MediaFilePreviewStatus; error: MediaFilePreviewError | undefined; getImgProps: () => {
-            src: string | undefined;
-            onLoad: () => void;
-            onError: () => void;
-            alt: string;
-            'data-test-file-id': string;
-            'data-test-collection': string | undefined;
-            'data-test-preview-source': MediaFilePreviewSource | undefined;
-        }; getSsrScriptProps: (() => ScriptHTMLAttributes<HTMLScriptElement>) | undefined;
-    } => {
+	status: MediaFilePreviewStatus;
+	error: MediaFilePreviewError | undefined;
+	getImgProps: () => {
+		src: string | undefined;
+		onLoad: () => void;
+		onError: () => void;
+		alt: string;
+		'data-test-file-id': string;
+		'data-test-collection': string | undefined;
+		'data-test-preview-source': MediaFilePreviewSource | undefined;
+	};
+	getSsrScriptProps: (() => ScriptHTMLAttributes<HTMLScriptElement>) | undefined;
+} => {
 	const { preview, status, error, onImageError, onImageLoad, getSsrScriptProps } = useFilePreview({
 		identifier,
 		resizeMode,
@@ -86,7 +93,15 @@ export const useMediaImage = ({
 	}, [onErrorCallback, onImageError, preview]);
 
 	const getImgProps = useCallback(
-		(): { src: string | undefined; onLoad: () => void; onError: () => void; alt: string; 'data-test-file-id': string; 'data-test-collection': string | undefined; 'data-test-preview-source': MediaFilePreviewSource | undefined; } => ({
+		(): {
+			src: string | undefined;
+			onLoad: () => void;
+			onError: () => void;
+			alt: string;
+			'data-test-file-id': string;
+			'data-test-collection': string | undefined;
+			'data-test-preview-source': MediaFilePreviewSource | undefined;
+		} => ({
 			src: preview?.dataURI,
 			onLoad,
 			onError,

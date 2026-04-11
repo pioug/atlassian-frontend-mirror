@@ -7,8 +7,8 @@ import { type LinkUrlProps } from '../types';
 
 const Anchor = withLinkClickedEvent('a');
 export const LinkComponent: {
-    (props: LinkProps): React.ReactElement<LinkProps, string | React.JSXElementConstructor<any>>;
-    displayName: string;
+	(props: LinkProps): React.ReactElement<LinkProps, string | React.JSXElementConstructor<any>>;
+	displayName: string;
 } = withLinkClickedEvent(AKLink);
 
 const Hyperlink = ({

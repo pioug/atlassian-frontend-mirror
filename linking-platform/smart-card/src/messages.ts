@@ -814,7 +814,8 @@ export const messages: Messages = defineMessages({
 	rovo_actions_explore: {
 		id: 'fabric.linking.rovo_actions_explore-non-final',
 		defaultMessage: 'Explore',
-		description: 'Label for the Rovo Actions button that allows users to explore AI actions for a link',
+		description:
+			'Label for the Rovo Actions button that allows users to explore AI actions for a link',
 	},
 	unassigned: {
 		id: 'fabric.linking.unassigned',

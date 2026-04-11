@@ -38,7 +38,15 @@ const Container: React.ForwardRefExoticComponent<
 });
 
 const TestComponent = (props: { width: number; onFinishMotion?: () => void }) => (
-	<Container {...useResizingWidth({ duration: token('motion.duration.medium'), easing: token('motion.easing.inout.bold'), onFinishMotion: props.onFinishMotion })} width={props.width} id="element" />
+	<Container
+		{...useResizingWidth({
+			duration: token('motion.duration.medium'),
+			easing: token('motion.easing.inout.bold'),
+			onFinishMotion: props.onFinishMotion,
+		})}
+		width={props.width}
+		id="element"
+	/>
 );
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
@@ -155,7 +163,7 @@ describe('<ResizingWidth />', () => {
 		expect(onFinishMotion).not.toHaveBeenCalled();
 
 		jest.advanceTimersByTime(200);
-		
+
 		expect(onFinishMotion).toHaveBeenCalledTimes(1);
 
 		jest.useRealTimers();

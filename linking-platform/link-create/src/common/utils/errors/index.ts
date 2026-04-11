@@ -8,15 +8,19 @@ const getUrlPath = (url: string) => {
 	}
 };
 
-export const getNetworkFields = (error: unknown): {
-    traceId: string | null;
-    status: number;
-    path: string;
-} | {
-    traceId: null;
-    status: null;
-    path: null;
-} => {
+export const getNetworkFields = (
+	error: unknown,
+):
+	| {
+			traceId: string | null;
+			status: number;
+			path: string;
+	  }
+	| {
+			traceId: null;
+			status: null;
+			path: null;
+	  } => {
 	if (error instanceof Response) {
 		return {
 			traceId: getTraceId(error),

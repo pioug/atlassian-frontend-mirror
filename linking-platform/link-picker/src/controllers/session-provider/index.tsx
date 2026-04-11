@@ -13,7 +13,8 @@ export type LinkPickerSessionId = string;
 
 export const INIT_CONTEXT = 'SESSION_UNINITIALIZED';
 
-export const SessionContext: React.Context<string> = createContext<LinkPickerSessionId>(INIT_CONTEXT);
+export const SessionContext: React.Context<string> =
+	createContext<LinkPickerSessionId>(INIT_CONTEXT);
 
 interface SessionProviderProps {
 	children: ReactNode;

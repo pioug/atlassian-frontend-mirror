@@ -245,7 +245,10 @@ const EmbedCardResolvedViewUpdated = React.forwardRef<
 	},
 );
 
-const EmbedCardResolvedViewWithFG: React.FC<Omit<EmbedCardResolvedViewProps & React.RefAttributes<HTMLIFrameElement>, "ref"> & React.RefAttributes<HTMLIFrameElement>> = componentWithFG(
+const EmbedCardResolvedViewWithFG: React.FC<
+	Omit<EmbedCardResolvedViewProps & React.RefAttributes<HTMLIFrameElement>, 'ref'> &
+		React.RefAttributes<HTMLIFrameElement>
+> = componentWithFG(
 	'rovo_chat_embed_card_dwell_and_hover_metrics',
 	EmbedCardResolvedViewUpdated,
 	EmbedCardResolvedViewOld,

@@ -15,15 +15,17 @@ import { fg } from '@atlaskit/platform-feature-flags';
 const flexStyles = xcss({ marginBottom: 'space.300' });
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
-export const getVideoBreakpoints = (): {
-    small: number;
-    medium: number;
-    large: number;
-} | {
-    small: number;
-    medium: number;
-    large?: undefined;
-} =>
+export const getVideoBreakpoints = ():
+	| {
+			small: number;
+			medium: number;
+			large: number;
+	  }
+	| {
+			small: number;
+			medium: number;
+			large?: undefined;
+	  } =>
 	fg('platform_media_video_captions')
 		? {
 				small: 260,

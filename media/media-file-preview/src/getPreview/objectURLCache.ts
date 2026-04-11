@@ -115,4 +115,5 @@ export class ObjectURLCache {
 	}
 }
 
-export const createObjectURLCache = (): ObjectURLCache => new ObjectURLCache(PREVIEW_CACHE_LRU_SIZE);
+export const createObjectURLCache = (): ObjectURLCache =>
+	new ObjectURLCache(PREVIEW_CACHE_LRU_SIZE);

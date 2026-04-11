@@ -12,64 +12,69 @@ import {
 } from '../../images';
 
 export const hydrateJqlStandardResponse: {
-    data: {
-        jira: {
-            jqlBuilder: {
-                hydrateJqlQuery: {
-                    fields: ({
-                        jqlTerm: string;
-                        values: {
-                            values: {
-                                displayName: string;
-                                jqlTerm: string;
-                                issueTypes: {
-                                    avatar: {
-                                        small: string;
-                                    };
-                                }[];
-                            }[];
-                        }[];
-                    } | {
-                        jqlTerm: string;
-                        values: {
-                            values: {
-                                displayName: string;
-                                jqlTerm: string;
-                                project: {
-                                    avatar: {
-                                        small: string;
-                                    };
-                                };
-                            }[];
-                        }[];
-                    } | {
-                        jqlTerm: string;
-                        values: {
-                            values: {
-                                displayName: string;
-                                jqlTerm: string;
-                                user: {
-                                    picture: string;
-                                };
-                                isSquare: boolean;
-                            }[];
-                        }[];
-                    } | {
-                        jqlTerm: string;
-                        values: {
-                            values: {
-                                displayName: string;
-                                jqlTerm: string;
-                                statusCategory: {
-                                    colorName: string;
-                                };
-                            }[];
-                        }[];
-                    })[];
-                };
-            };
-        };
-    };
+	data: {
+		jira: {
+			jqlBuilder: {
+				hydrateJqlQuery: {
+					fields: (
+						| {
+								jqlTerm: string;
+								values: {
+									values: {
+										displayName: string;
+										jqlTerm: string;
+										issueTypes: {
+											avatar: {
+												small: string;
+											};
+										}[];
+									}[];
+								}[];
+						  }
+						| {
+								jqlTerm: string;
+								values: {
+									values: {
+										displayName: string;
+										jqlTerm: string;
+										project: {
+											avatar: {
+												small: string;
+											};
+										};
+									}[];
+								}[];
+						  }
+						| {
+								jqlTerm: string;
+								values: {
+									values: {
+										displayName: string;
+										jqlTerm: string;
+										user: {
+											picture: string;
+										};
+										isSquare: boolean;
+									}[];
+								}[];
+						  }
+						| {
+								jqlTerm: string;
+								values: {
+									values: {
+										displayName: string;
+										jqlTerm: string;
+										statusCategory: {
+											colorName: string;
+										};
+									}[];
+								}[];
+						  }
+					)[];
+				};
+			};
+		};
+	};
 } = {
 	data: {
 		jira: {
@@ -175,64 +180,69 @@ export const hydrateJqlStandardResponse: {
 };
 
 export const hydrateJqlStandardResponseForVRTesting: {
-    data: {
-        jira: {
-            jqlBuilder: {
-                hydrateJqlQuery: {
-                    fields: ({
-                        jqlTerm: string;
-                        values: {
-                            values: {
-                                displayName: string;
-                                jqlTerm: string;
-                                issueTypes: {
-                                    avatar: {
-                                        small: string;
-                                    };
-                                }[];
-                            }[];
-                        }[];
-                    } | {
-                        jqlTerm: string;
-                        values: {
-                            values: {
-                                jqlTerm: string;
-                                displayName: string;
-                                project: {
-                                    avatar: {
-                                        small: string;
-                                    };
-                                };
-                            }[];
-                        }[];
-                    } | {
-                        jqlTerm: string;
-                        values: {
-                            values: {
-                                displayName: string;
-                                jqlTerm: string;
-                                user: {
-                                    picture: string;
-                                };
-                                isSquare: boolean;
-                            }[];
-                        }[];
-                    } | {
-                        jqlTerm: string;
-                        values: {
-                            values: {
-                                displayName: string;
-                                jqlTerm: string;
-                                statusCategory: {
-                                    colorName: string;
-                                };
-                            }[];
-                        }[];
-                    })[];
-                };
-            };
-        };
-    };
+	data: {
+		jira: {
+			jqlBuilder: {
+				hydrateJqlQuery: {
+					fields: (
+						| {
+								jqlTerm: string;
+								values: {
+									values: {
+										displayName: string;
+										jqlTerm: string;
+										issueTypes: {
+											avatar: {
+												small: string;
+											};
+										}[];
+									}[];
+								}[];
+						  }
+						| {
+								jqlTerm: string;
+								values: {
+									values: {
+										jqlTerm: string;
+										displayName: string;
+										project: {
+											avatar: {
+												small: string;
+											};
+										};
+									}[];
+								}[];
+						  }
+						| {
+								jqlTerm: string;
+								values: {
+									values: {
+										displayName: string;
+										jqlTerm: string;
+										user: {
+											picture: string;
+										};
+										isSquare: boolean;
+									}[];
+								}[];
+						  }
+						| {
+								jqlTerm: string;
+								values: {
+									values: {
+										displayName: string;
+										jqlTerm: string;
+										statusCategory: {
+											colorName: string;
+										};
+									}[];
+								}[];
+						  }
+					)[];
+				};
+			};
+		};
+	};
 } = {
 	data: {
 		jira: {
@@ -362,28 +372,31 @@ export const hydrateJqlStandardResponseForVRTesting: {
 };
 
 export const hydrateJqlStandardResponseMapped: {
-    type: {
-        icon: string;
-        label: string;
-        optionType: string;
-        value: string;
-    }[]; project: {
-        icon: string;
-        label: string;
-        optionType: string;
-        value: string;
-    }[]; assignee: {
-        avatar: string;
-        isSquare: boolean;
-        label: string;
-        optionType: string;
-        value: string;
-    }[]; status: {
-        appearance: string;
-        label: string;
-        optionType: string;
-        value: string;
-    }[];
+	type: {
+		icon: string;
+		label: string;
+		optionType: string;
+		value: string;
+	}[];
+	project: {
+		icon: string;
+		label: string;
+		optionType: string;
+		value: string;
+	}[];
+	assignee: {
+		avatar: string;
+		isSquare: boolean;
+		label: string;
+		optionType: string;
+		value: string;
+	}[];
+	status: {
+		appearance: string;
+		label: string;
+		optionType: string;
+		value: string;
+	}[];
 } = {
 	type: [
 		{
@@ -427,15 +440,15 @@ export const hydrateJqlStandardResponseMapped: {
 };
 
 export const hydrateJqlEmptyResponse: {
-    data: {
-        jira: {
-            jqlBuilder: {
-                hydrateJqlQuery: {
-                    fields: never[];
-                };
-            };
-        };
-    };
+	data: {
+		jira: {
+			jqlBuilder: {
+				hydrateJqlQuery: {
+					fields: never[];
+				};
+			};
+		};
+	};
 } = {
 	data: {
 		jira: {
@@ -451,29 +464,29 @@ export const hydrateJqlEmptyResponse: {
 export const hydrateJqlEmptyResponseMapped = {};
 
 export const fieldValuesResponseForTypes: {
-    data: {
-        jira: {
-            jqlBuilder: {
-                fieldValues: {
-                    totalCount: number;
-                    pageInfo: {
-                        endCursor: string;
-                    };
-                    edges: {
-                        node: {
-                            jqlTerm: string;
-                            displayName: string;
-                            issueTypes: {
-                                avatar: {
-                                    small: string;
-                                };
-                            }[];
-                        };
-                    }[];
-                };
-            };
-        };
-    };
+	data: {
+		jira: {
+			jqlBuilder: {
+				fieldValues: {
+					totalCount: number;
+					pageInfo: {
+						endCursor: string;
+					};
+					edges: {
+						node: {
+							jqlTerm: string;
+							displayName: string;
+							issueTypes: {
+								avatar: {
+									small: string;
+								};
+							}[];
+						};
+					}[];
+				};
+			};
+		};
+	};
 } = {
 	data: {
 		jira: {
@@ -622,10 +635,10 @@ export const fieldValuesResponseForTypes: {
 };
 
 export const fieldValuesResponseForTypesMapped: {
-    icon: string;
-    label: string;
-    optionType: string;
-    value: string;
+	icon: string;
+	label: string;
+	optionType: string;
+	value: string;
 }[] = [
 	{
 		icon: alert,
@@ -690,29 +703,29 @@ export const fieldValuesResponseForTypesMapped: {
 ];
 
 export const fieldValuesResponseForTypesWithRelativeUrls: {
-    data: {
-        jira: {
-            jqlBuilder: {
-                fieldValues: {
-                    totalCount: number;
-                    pageInfo: {
-                        endCursor: string;
-                    };
-                    edges: {
-                        node: {
-                            jqlTerm: string;
-                            displayName: string;
-                            issueTypes: {
-                                avatar: {
-                                    small: string;
-                                };
-                            }[];
-                        };
-                    }[];
-                };
-            };
-        };
-    };
+	data: {
+		jira: {
+			jqlBuilder: {
+				fieldValues: {
+					totalCount: number;
+					pageInfo: {
+						endCursor: string;
+					};
+					edges: {
+						node: {
+							jqlTerm: string;
+							displayName: string;
+							issueTypes: {
+								avatar: {
+									small: string;
+								};
+							}[];
+						};
+					}[];
+				};
+			};
+		};
+	};
 } = {
 	data: {
 		jira: {
@@ -760,10 +773,10 @@ export const fieldValuesResponseForTypesWithRelativeUrls: {
 };
 
 export const fieldValuesResponseForTypesWithRelativeUrlsMapped: {
-    icon: string;
-    label: string;
-    optionType: string;
-    value: string;
+	icon: string;
+	label: string;
+	optionType: string;
+	value: string;
 }[] = [
 	{
 		icon: 'https://forge-smart-link-battleground.jira-dev.com/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium',
@@ -780,27 +793,27 @@ export const fieldValuesResponseForTypesWithRelativeUrlsMapped: {
 ];
 
 export const fieldValuesResponseForStatuses: {
-    data: {
-        jira: {
-            jqlBuilder: {
-                fieldValues: {
-                    totalCount: number;
-                    pageInfo: {
-                        endCursor: string;
-                    };
-                    edges: {
-                        node: {
-                            jqlTerm: string;
-                            displayName: string;
-                            statusCategory: {
-                                colorName: string;
-                            };
-                        };
-                    }[];
-                };
-            };
-        };
-    };
+	data: {
+		jira: {
+			jqlBuilder: {
+				fieldValues: {
+					totalCount: number;
+					pageInfo: {
+						endCursor: string;
+					};
+					edges: {
+						node: {
+							jqlTerm: string;
+							displayName: string;
+							statusCategory: {
+								colorName: string;
+							};
+						};
+					}[];
+				};
+			};
+		};
+	};
 } = {
 	data: {
 		jira: {
@@ -909,10 +922,10 @@ export const fieldValuesResponseForStatuses: {
 };
 
 export const fieldValuesResponseForStatusesMapped: {
-    appearance: string;
-    label: string;
-    optionType: string;
-    value: string;
+	appearance: string;
+	label: string;
+	optionType: string;
+	value: string;
 }[] = [
 	{
 		appearance: 'inprogress',
@@ -977,27 +990,27 @@ export const fieldValuesResponseForStatusesMapped: {
 ];
 
 export const fieldValuesResponseForStatusesSearched: {
-    data: {
-        jira: {
-            jqlBuilder: {
-                fieldValues: {
-                    totalCount: number;
-                    pageInfo: {
-                        endCursor: string;
-                    };
-                    edges: {
-                        node: {
-                            jqlTerm: string;
-                            displayName: string;
-                            statusCategory: {
-                                colorName: string;
-                            };
-                        };
-                    }[];
-                };
-            };
-        };
-    };
+	data: {
+		jira: {
+			jqlBuilder: {
+				fieldValues: {
+					totalCount: number;
+					pageInfo: {
+						endCursor: string;
+					};
+					edges: {
+						node: {
+							jqlTerm: string;
+							displayName: string;
+							statusCategory: {
+								colorName: string;
+							};
+						};
+					}[];
+				};
+			};
+		};
+	};
 } = {
 	data: {
 		jira: {
@@ -1043,29 +1056,29 @@ export const fieldValuesResponseForStatusesSearched: {
 };
 
 export const fieldValuesResponseForProjects: {
-    data: {
-        jira: {
-            jqlBuilder: {
-                fieldValues: {
-                    totalCount: number;
-                    pageInfo: {
-                        endCursor: string;
-                    };
-                    edges: {
-                        node: {
-                            jqlTerm: string;
-                            displayName: string;
-                            project: {
-                                avatar: {
-                                    small: string;
-                                };
-                            };
-                        };
-                    }[];
-                };
-            };
-        };
-    };
+	data: {
+		jira: {
+			jqlBuilder: {
+				fieldValues: {
+					totalCount: number;
+					pageInfo: {
+						endCursor: string;
+					};
+					edges: {
+						node: {
+							jqlTerm: string;
+							displayName: string;
+							project: {
+								avatar: {
+									small: string;
+								};
+							};
+						};
+					}[];
+				};
+			};
+		};
+	};
 } = {
 	data: {
 		jira: {
@@ -1194,10 +1207,10 @@ export const fieldValuesResponseForProjects: {
 };
 
 export const fieldValuesResponseForProjectsMapped: {
-    icon: string;
-    label: string;
-    optionType: string;
-    value: string;
+	icon: string;
+	label: string;
+	optionType: string;
+	value: string;
 }[] = [
 	{
 		icon: handshake,
@@ -1262,29 +1275,29 @@ export const fieldValuesResponseForProjectsMapped: {
 ];
 
 export const fieldValuesResponseForProjectsMoreData: {
-    data: {
-        jira: {
-            jqlBuilder: {
-                fieldValues: {
-                    totalCount: number;
-                    pageInfo: {
-                        endCursor: string;
-                    };
-                    edges: {
-                        node: {
-                            jqlTerm: string;
-                            displayName: string;
-                            project: {
-                                avatar: {
-                                    small: string;
-                                };
-                            };
-                        };
-                    }[];
-                };
-            };
-        };
-    };
+	data: {
+		jira: {
+			jqlBuilder: {
+				fieldValues: {
+					totalCount: number;
+					pageInfo: {
+						endCursor: string;
+					};
+					edges: {
+						node: {
+							jqlTerm: string;
+							displayName: string;
+							project: {
+								avatar: {
+									small: string;
+								};
+							};
+						};
+					}[];
+				};
+			};
+		};
+	};
 } = {
 	data: {
 		jira: {
@@ -1325,39 +1338,42 @@ export const fieldValuesResponseForProjectsMoreData: {
 };
 
 export const fieldValuesResponseForAssignees: {
-    data: {
-        jira: {
-            jqlBuilder: {
-                fieldValues: {
-                    totalCount: number;
-                    pageInfo: {
-                        endCursor: string;
-                    };
-                    edges: ({
-                        node: {
-                            jqlTerm: string;
-                            displayName: string;
-                            group: {
-                                name: string;
-                            };
-                            user?: undefined;
-                            isSquare?: undefined;
-                        };
-                    } | {
-                        node: {
-                            jqlTerm: string;
-                            displayName: string;
-                            user: {
-                                picture: string;
-                            };
-                            isSquare: boolean;
-                            group?: undefined;
-                        };
-                    })[];
-                };
-            };
-        };
-    };
+	data: {
+		jira: {
+			jqlBuilder: {
+				fieldValues: {
+					totalCount: number;
+					pageInfo: {
+						endCursor: string;
+					};
+					edges: (
+						| {
+								node: {
+									jqlTerm: string;
+									displayName: string;
+									group: {
+										name: string;
+									};
+									user?: undefined;
+									isSquare?: undefined;
+								};
+						  }
+						| {
+								node: {
+									jqlTerm: string;
+									displayName: string;
+									user: {
+										picture: string;
+									};
+									isSquare: boolean;
+									group?: undefined;
+								};
+						  }
+					)[];
+				};
+			};
+		};
+	};
 } = {
 	data: {
 		jira: {
@@ -1468,21 +1484,24 @@ export const fieldValuesResponseForAssignees: {
 	},
 };
 
-export const fieldValuesResponseForAssigneesMapped: ({
-    isGroup: boolean;
-    label: string;
-    optionType: string;
-    value: string;
-    avatar?: undefined;
-    isSquare?: undefined;
-} | {
-    avatar: string;
-    isSquare: boolean;
-    label: string;
-    optionType: string;
-    value: string;
-    isGroup?: undefined;
-})[] = [
+export const fieldValuesResponseForAssigneesMapped: (
+	| {
+			isGroup: boolean;
+			label: string;
+			optionType: string;
+			value: string;
+			avatar?: undefined;
+			isSquare?: undefined;
+	  }
+	| {
+			avatar: string;
+			isSquare: boolean;
+			label: string;
+			optionType: string;
+			value: string;
+			isGroup?: undefined;
+	  }
+)[] = [
 	{
 		isGroup: true,
 		label: 'administrators',
@@ -1549,17 +1568,17 @@ export const fieldValuesResponseForAssigneesMapped: ({
 ];
 
 export const fieldValuesEmptyResponse: {
-    data: {
-        jira: {
-            jqlBuilder: {
-                fieldValues: {
-                    totalCount: number;
-                    pageInfo: {};
-                    edges: never[];
-                };
-            };
-        };
-    };
+	data: {
+		jira: {
+			jqlBuilder: {
+				fieldValues: {
+					totalCount: number;
+					pageInfo: {};
+					edges: never[];
+				};
+			};
+		};
+	};
 } = {
 	data: {
 		jira: {
@@ -1575,18 +1594,19 @@ export const fieldValuesEmptyResponse: {
 };
 
 export const fieldValuesErrorResponse: {
-    errors: {
-        message: string;
-        locations: never[];
-        extensions: {
-            statusCode: number;
-            classification: string;
-            aggUgcPiiSafe: boolean;
-            errorSource: string;
-        };
-    }[]; data: {
-        jira: null;
-    };
+	errors: {
+		message: string;
+		locations: never[];
+		extensions: {
+			statusCode: number;
+			classification: string;
+			aggUgcPiiSafe: boolean;
+			errorSource: string;
+		};
+	}[];
+	data: {
+		jira: null;
+	};
 } = {
 	errors: [
 		{
@@ -1619,13 +1639,13 @@ export const successfulUserQueryResponse = {
 };
 
 export const successfuluserHydrationResponse: {
-    data: {
-        users: {
-            accountId: string;
-            name: string;
-            picture: string;
-        }[];
-    };
+	data: {
+		users: {
+			accountId: string;
+			name: string;
+			picture: string;
+		}[];
+	};
 } = {
 	data: {
 		users: [
@@ -1640,55 +1660,59 @@ export const successfuluserHydrationResponse: {
 };
 
 export const successfulRecommendationAPIResponse: {
-    recommendedUsers: ({
-        entityType: string;
-        id: string;
-        name: string;
-        avatarUrl: string;
-        nickname: string;
-        matchPositions: {};
-        accessLevel: string;
-        accountStatus: string;
-        notMentionable: boolean;
-        userType: string;
-        attributes: {
-            isConfluenceExternalCollaborator: boolean;
-        };
-        email?: undefined;
-        locale?: undefined;
-    } | {
-        entityType: string;
-        id: string;
-        name: string;
-        email: string;
-        avatarUrl: string;
-        nickname: string;
-        matchPositions: {};
-        accessLevel: string;
-        accountStatus: string;
-        notMentionable: boolean;
-        locale: string;
-        userType: string;
-        attributes: {
-            isConfluenceExternalCollaborator: boolean;
-        };
-    } | {
-        entityType: string;
-        id: string;
-        name: string;
-        avatarUrl: string;
-        nickname: string;
-        matchPositions: {};
-        accessLevel: string;
-        accountStatus: string;
-        notMentionable: boolean;
-        locale: string;
-        userType: string;
-        attributes: {
-            isConfluenceExternalCollaborator: boolean;
-        };
-        email?: undefined;
-    })[];
+	recommendedUsers: (
+		| {
+				entityType: string;
+				id: string;
+				name: string;
+				avatarUrl: string;
+				nickname: string;
+				matchPositions: {};
+				accessLevel: string;
+				accountStatus: string;
+				notMentionable: boolean;
+				userType: string;
+				attributes: {
+					isConfluenceExternalCollaborator: boolean;
+				};
+				email?: undefined;
+				locale?: undefined;
+		  }
+		| {
+				entityType: string;
+				id: string;
+				name: string;
+				email: string;
+				avatarUrl: string;
+				nickname: string;
+				matchPositions: {};
+				accessLevel: string;
+				accountStatus: string;
+				notMentionable: boolean;
+				locale: string;
+				userType: string;
+				attributes: {
+					isConfluenceExternalCollaborator: boolean;
+				};
+		  }
+		| {
+				entityType: string;
+				id: string;
+				name: string;
+				avatarUrl: string;
+				nickname: string;
+				matchPositions: {};
+				accessLevel: string;
+				accountStatus: string;
+				notMentionable: boolean;
+				locale: string;
+				userType: string;
+				attributes: {
+					isConfluenceExternalCollaborator: boolean;
+				};
+				email?: undefined;
+		  }
+	)[];
 } = {
 	recommendedUsers: [
 		{
@@ -1853,12 +1877,12 @@ export const successfulRecommendationAPIResponse: {
 };
 
 export const failedUserQueryResponse: {
-    errors: {
-        message: string;
-        locations: never[];
-        extensions: {};
-    }[];
-    extensions: {};
+	errors: {
+		message: string;
+		locations: never[];
+		extensions: {};
+	}[];
+	extensions: {};
 } = {
 	errors: [
 		{
@@ -1871,16 +1895,16 @@ export const failedUserQueryResponse: {
 };
 
 export const failedRecommendationAPIResponse: {
-    errors: never[];
+	errors: never[];
 } = {
 	errors: [],
 };
 
 export const transformedRecommendationMockFilterOptions: {
-    optionType: string;
-    label: string;
-    value: string;
-    avatar: string;
+	optionType: string;
+	label: string;
+	value: string;
+	avatar: string;
 }[] = [
 	{
 		optionType: 'avatarLabel',

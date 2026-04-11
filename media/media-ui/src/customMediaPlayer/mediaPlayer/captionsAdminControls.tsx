@@ -93,6 +93,8 @@ export const _CaptionsAdminControls = ({
 	);
 };
 
-export const CaptionsAdminControls: React.FC<WithIntlProps<CaptionsAdminControlsProps & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<CaptionsAdminControlsProps & WrappedComponentProps>;
+export const CaptionsAdminControls: React.FC<
+	WithIntlProps<CaptionsAdminControlsProps & WrappedComponentProps>
+> & {
+	WrappedComponent: React.ComponentType<CaptionsAdminControlsProps & WrappedComponentProps>;
 } = injectIntl(_CaptionsAdminControls);

@@ -5,7 +5,7 @@ import {
 	type RequestErrorReason,
 	type RequestErrorMetadata,
 	type RequestErrorAttributes,
-    type RequestMethod,
+	type RequestMethod,
 } from './types';
 
 export class RequestError extends BaseMediaClientError<
@@ -21,10 +21,19 @@ export class RequestError extends BaseMediaClientError<
 	// TODO: Deprecate this getter https://product-fabric.atlassian.net/browse/CXP-4665
 	/** Will be deprecated. Use the properties `reason` and `metadata` instead */
 	get attributes(): {
-        reason: RequestErrorReason; method: RequestMethod | undefined; endpoint: string | undefined; mediaRegion: string | undefined; mediaEnv: string | undefined; attempts: number | undefined; clientExhaustedRetries: boolean | undefined; statusCode: number | undefined; metadata: {
-            traceContext: MediaTraceContext | undefined;
-        }; innerError: Error | undefined;
-    } {
+		reason: RequestErrorReason;
+		method: RequestMethod | undefined;
+		endpoint: string | undefined;
+		mediaRegion: string | undefined;
+		mediaEnv: string | undefined;
+		attempts: number | undefined;
+		clientExhaustedRetries: boolean | undefined;
+		statusCode: number | undefined;
+		metadata: {
+			traceContext: MediaTraceContext | undefined;
+		};
+		innerError: Error | undefined;
+	} {
 		const {
 			reason,
 			metadata: {

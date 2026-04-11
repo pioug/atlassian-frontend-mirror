@@ -143,6 +143,10 @@ const titleWithLozengeStyle = css({
 	gap: `${token('space.050')}`,
 });
 
+const lozengeWrapperStyle = css({
+	flexShrink: 0,
+});
+
 const FallbackIcon = React.memo(() => {
 	return <IconFallback />;
 });
@@ -386,13 +390,11 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 										itemTitle,
 										moreElementsInQuickInsertViewEnabled && itemTitleOverride,
 										itemIsDisabled && disabledStyle,
-										item.lozenge &&
-											editorExperiment('platform_synced_block', true) &&
-											titleWithLozengeStyle,
+										item.lozenge && titleWithLozengeStyle,
 									]}
 								>
 									{item.title}
-									{editorExperiment('platform_synced_block', true) && item.lozenge}
+									{item.lozenge && <span css={lozengeWrapperStyle}>{item.lozenge}</span>}
 								</div>
 								<div css={itemAfter}>
 									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}

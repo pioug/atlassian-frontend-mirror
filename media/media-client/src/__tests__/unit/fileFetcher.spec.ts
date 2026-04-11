@@ -1,4 +1,5 @@
 import { authToOwner, type AuthProvider } from '@atlaskit/media-core';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import fetchMock from 'fetch-mock/cjs/client';
 import {
 	type ResponseFileItem,
@@ -1433,6 +1434,34 @@ describe('FileFetcher', () => {
 				}),
 			);
 		});
+
+		ffTest.on(
+			'platform_media_upload_external_anonymize_filename',
+			'when anonymize filename flag is enabled',
+			() => {
+				it('should use a UUID as the file name instead of extracting from the URL', async () => {
+					const { fileFetcher } = setup();
+
+					fileFetcher.uploadExternal('domain.com/path/file_name.mov');
+
+					const fileObservable = getFileStreamsCache().get('upfront-id');
+					if (!fileObservable) {
+						return expect(fileObservable).toBeDefined();
+					}
+
+					const fileState = await toPromise(fromObservable(fileObservable));
+					expect(fileState).toEqual(
+						expect.objectContaining({
+							name: expect.not.stringContaining('file_name.mov'),
+						}),
+					);
+					// Name should be a UUID format
+					expect((fileState as any).name).toMatch(
+						/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
+					);
+				});
+			},
+		);
 
 		it('should set the right mediaType', async () => {
 			const { fileFetcher } = setup();

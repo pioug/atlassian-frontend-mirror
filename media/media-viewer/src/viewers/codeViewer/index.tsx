@@ -38,8 +38,8 @@ export class CodeViewer extends BaseViewer<string, Props> {
 	static CodeViewerComponent: ComponentType<RendererProps>;
 
 	protected get initialState(): {
-        content: Outcome<string, MediaViewerError>;
-    } {
+		content: Outcome<string, MediaViewerError>;
+	} {
 		return {
 			content: Outcome.pending<string, MediaViewerError>(),
 		};

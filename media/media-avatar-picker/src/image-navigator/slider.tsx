@@ -35,8 +35,8 @@ const sliderWrapperStyles = css({
 
 export class Slider extends Component<SliderProps & WrappedComponentProps, {}> {
 	static defaultProps: {
-        value: number;
-    } = defaultProps;
+		value: number;
+	} = defaultProps;
 
 	render(): JSX.Element {
 		const {
@@ -71,6 +71,6 @@ export class Slider extends Component<SliderProps & WrappedComponentProps, {}> {
 }
 
 const _default_1: FC<WithIntlProps<SliderProps & WrappedComponentProps>> & {
-    WrappedComponent: ComponentType<SliderProps & WrappedComponentProps>;
+	WrappedComponent: ComponentType<SliderProps & WrappedComponentProps>;
 } = injectIntl<'intl', SliderProps & WrappedComponentProps>(Slider);
 export default _default_1;

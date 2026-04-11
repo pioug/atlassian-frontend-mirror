@@ -51,6 +51,6 @@ const MediaDownloadButton = (props: Props & WrappedComponentProps) => {
 };
 
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(MediaDownloadButton);
 export default _default_1;

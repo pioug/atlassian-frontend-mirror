@@ -37,8 +37,8 @@ rendered as non-interactive, or as interactive elements to support linking and r
 button. If you need to represent a status or state, for example "In progress", use a
 [lozenge](/components/lozenge/lozenge) instead.
 
-Tags are designed to be displayed within a [tag group](/components/tag-group). Use a tag
-group to control the layout and alignment for a collection of tags.
+Tags are designed to be displayed within a [tag group](/components/tag-group). Use a tag group to
+control the layout and alignment for a collection of tags.
 
 ## Anatomy
 
@@ -49,8 +49,14 @@ group to control the layout and alignment for a collection of tags.
 />
 
 1. **Label:** Text that describes the classification or category.
-2. **Leading swatch (optional):** Tags that use color as a wayfinding method (such as Jira epic or parent labels) can leverage the `swatchBefore` property to increase prominence of that color. **Note:** This prop is early access and may be changed in the future. If you work at Atlassian and are looking to use this prop, please reach out via [Slack](https://go.atlassian.com/labelling-channel-slack).
-3. **Leading element (optional):** Additional meaning can be added with an icon or another element by using the `elemBefore` property. If using an icon, make sure it has a clear and well-established meaning that relates to the tag label.
+2. **Leading swatch (optional):** Tags that use color as a wayfinding method (such as Jira epic or
+   parent labels) can leverage the `swatchBefore` property to increase prominence of that color.
+   **Note:** This prop is early access and may be changed in the future. If you work at Atlassian
+   and are looking to use this prop, please reach out via
+   [Slack](https://go.atlassian.com/labelling-channel-slack).
+3. **Leading element (optional):** Additional meaning can be added with an icon or another element
+   by using the `elemBefore` property. If using an icon, make sure it has a clear and
+   well-established meaning that relates to the tag label.
 4. **Close button (optional):** Enable the `isRemovable` property to allow customers to remove a tag
    by clicking the trailing close button.
 
@@ -172,7 +178,7 @@ long-form text or prompts, such as in editor.
 
 ### Don’t use the swatchBefore property to increase prominence
 
-The `swatchBefore` property is only used when the tag uses color as a wayfinding method. 
+The `swatchBefore` property is only used when the tag uses color as a wayfinding method.
 
 <DoDontGrid>
 	<DoDont
@@ -183,7 +189,8 @@ The `swatchBefore` property is only used when the tag uses color as a wayfinding
 			alt: 'Use swatchBefore when the color has meaning and is used for wayfinding such as for Jira epics or parents.',
 		}}
 	>
-		Use swatchBefore when the color has meaning and is used for wayfinding such as for Jira epics or parents.
+		Use swatchBefore when the color has meaning and is used for wayfinding such as for Jira epics or
+		parents.
 	</DoDont>
 	<DoDont
 		type="dont"

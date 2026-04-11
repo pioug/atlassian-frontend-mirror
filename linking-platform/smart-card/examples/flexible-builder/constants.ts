@@ -12,9 +12,9 @@ export enum BlockName {
 }
 
 export const FlexibleDefaultTemplate: {
-    blocks: {
-        name: BlockName;
-    }[];
+	blocks: {
+		name: BlockName;
+	}[];
 } = {
 	blocks: [{ name: BlockName.TitleBlock }],
 };

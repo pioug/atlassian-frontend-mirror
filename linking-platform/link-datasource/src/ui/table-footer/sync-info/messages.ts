@@ -1,15 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    underOneMinuteText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; overOneMinuteText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	underOneMinuteText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	overOneMinuteText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	underOneMinuteText: {
 		id: 'linkDataSource.table-footer.date_formatter.under_one_minute',

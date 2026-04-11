@@ -32,8 +32,8 @@ const getSelectedBorderStyle = ({ selected }: { selected?: boolean }) => `
 export const inlinePlayerClassName = 'media-card-inline-player';
 
 export const inlinePlayerWrapperStyles: {
-    ({ dimensions, selected, }: InlinePlayerWrapperProps): SerializedStyles;
-    displayName: string;
+	({ dimensions, selected }: InlinePlayerWrapperProps): SerializedStyles;
+	displayName: string;
 } = ({
 	dimensions,
 	selected,

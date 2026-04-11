@@ -1507,41 +1507,37 @@ describe('BaseUserPicker', () => {
 				await expect(document.body).toBeAccessible();
 			});
 
-			ffTest.on(
-				'jsm-wfo-assignee-recommendation-on-queues',
-				'custom group label analytics',
-				() => {
-					it('should include custom group label metadata when customGroupLabels is set', async () => {
-						component.setProps({
-							customGroupLabels: {
-								custom: <span>Suggested</span>,
-								user: <span>Other agents</span>,
-							},
-						});
-						const input = component.find('input');
-						input.simulate('focus');
-						component.setProps({ options });
-						input.simulate('keyDown', { keyCode: 40 });
-						component.find(Select).prop('onChange')(optionToSelectableOption(options[0]), {
-							action: 'select-option',
-						});
-						expect(onEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								payload: expect.objectContaining({
-									action: 'clicked',
-									actionSubject: 'userPicker',
-									attributes: expect.objectContaining({
-										hasCustomGroupLabels: true,
-									}),
+			ffTest.on('jsm-wfo-assignee-recommendation-on-queues', 'custom group label analytics', () => {
+				it('should include custom group label metadata when customGroupLabels is set', async () => {
+					component.setProps({
+						customGroupLabels: {
+							custom: <span>Suggested</span>,
+							user: <span>Other agents</span>,
+						},
+					});
+					const input = component.find('input');
+					input.simulate('focus');
+					component.setProps({ options });
+					input.simulate('keyDown', { keyCode: 40 });
+					component.find(Select).prop('onChange')(optionToSelectableOption(options[0]), {
+						action: 'select-option',
+					});
+					expect(onEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							payload: expect.objectContaining({
+								action: 'clicked',
+								actionSubject: 'userPicker',
+								attributes: expect.objectContaining({
+									hasCustomGroupLabels: true,
 								}),
 							}),
-							'fabric-elements',
-						);
+						}),
+						'fabric-elements',
+					);
 
-						await expect(document.body).toBeAccessible();
-					});
-				},
-			);
+					await expect(document.body).toBeAccessible();
+				});
+			});
 
 			it('should trigger clicked event for external user', async () => {
 				const input = component.find('input');

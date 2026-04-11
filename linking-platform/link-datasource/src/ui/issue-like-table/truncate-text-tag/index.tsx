@@ -12,14 +12,14 @@ const truncateTextStyles = css({
 	whiteSpace: 'nowrap',
 });
 
-export const TruncateTextTag: React.ForwardRefExoticComponent<{
-    children?: React.ReactNode | undefined;
-} & React.RefAttributes<HTMLElement>> = forwardRef(
-	(props: React.PropsWithChildren<unknown>, ref: React.Ref<HTMLElement>) => {
-		return (
-			<span css={truncateTextStyles} {...props} ref={ref}>
-				{props.children}
-			</span>
-		);
-	},
-);
+export const TruncateTextTag: React.ForwardRefExoticComponent<
+	{
+		children?: React.ReactNode | undefined;
+	} & React.RefAttributes<HTMLElement>
+> = forwardRef((props: React.PropsWithChildren<unknown>, ref: React.Ref<HTMLElement>) => {
+	return (
+		<span css={truncateTextStyles} {...props} ref={ref}>
+			{props.children}
+		</span>
+	);
+});

@@ -85,7 +85,9 @@ describe('RovoUnauthorisedView', () => {
 		expect(
 			screen.getByTestId('hover-card-rovo-unauthorised-view-feature-document-summaries'),
 		).toBeInTheDocument();
-		expect(screen.getByTestId('hover-card-rovo-unauthorised-view-connect-account')).toBeInTheDocument();
+		expect(
+			screen.getByTestId('hover-card-rovo-unauthorised-view-connect-account'),
+		).toBeInTheDocument();
 		expect(screen.getByTestId('hover-card-rovo-unauthorised-view-not-now')).toBeInTheDocument();
 	});
 

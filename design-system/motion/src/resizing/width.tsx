@@ -99,9 +99,7 @@ export const useResizingWidth = ({
 		};
 		Object.assign(element.style, newStyles);
 
-		const resolvedDuration = parseCSSTimeToMs(
-			getComputedStyle(element).transitionDuration,
-		);
+		const resolvedDuration = parseCSSTimeToMs(getComputedStyle(element).transitionDuration);
 
 		// We split this over two animation frames so the DOM has enough time to flush the changes.
 		// We are deliberately not skipping this frame if another render happens - if we do the motion doesn't finish properly.

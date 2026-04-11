@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const editedOrCreatedByMessage: {
-    buttonLabel: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	buttonLabel: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	buttonLabel: {
 		id: 'linkDataSource.clol-basic-filter.editedOrCreatedBy.label',

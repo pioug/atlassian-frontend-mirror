@@ -59,7 +59,12 @@ const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
 	valid: <SuccessIcon color={token('color.text.success')} label="success" size="small" />,
 };
 
-export const Message = ({ children, appearance = 'default', id, testId }: MessageProps): JSX.Element => {
+export const Message = ({
+	children,
+	appearance = 'default',
+	id,
+	testId,
+}: MessageProps): JSX.Element => {
 	const icon = messageIcons[appearance];
 
 	/**

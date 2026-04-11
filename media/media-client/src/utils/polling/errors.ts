@@ -18,9 +18,9 @@ export class PollingError extends BaseMediaClientError<
 	// TODO: Deprecate this getter https://product-fabric.atlassian.net/browse/CXP-4665
 	/** Will be deprecated. Use the properties `reason` and `metadata` instead */
 	get attributes(): {
-        reason: "pollingMaxAttemptsExceeded";
-        attempts: number;
-    } {
+		reason: 'pollingMaxAttemptsExceeded';
+		attempts: number;
+	} {
 		const {
 			reason,
 			metadata: { attempts },

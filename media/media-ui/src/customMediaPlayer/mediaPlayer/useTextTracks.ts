@@ -4,7 +4,15 @@ import {
 	type MediaUserArtifactCaptionKey,
 } from '@atlaskit/media-state';
 import { hasArtifacts } from '@atlaskit/media-client';
-import { useState, useEffect, useMemo, useCallback, useRef, type Dispatch, type SetStateAction } from 'react';
+import {
+	useState,
+	useEffect,
+	useMemo,
+	useCallback,
+	useRef,
+	type Dispatch,
+	type SetStateAction,
+} from 'react';
 import { type VideoTextTrack, type VideoTextTracks } from '../react-video-renderer';
 import { useMediaClient, useMediaSettings } from '@atlaskit/media-client-react';
 import {
@@ -48,7 +56,17 @@ type UseTextTracksProps = {
 	type: CustomMediaPlayerType;
 };
 
-export const useTextTracks = ({ fileState, collectionName, type }: UseTextTracksProps): { textTracks: VideoTextTracks; verifyUserCaptionsEnabled: () => void; areCaptionsEnabled: boolean; setSelectedTracksIndex: Dispatch<SetStateAction<number>>; setAreCaptionsEnabled: Dispatch<SetStateAction<boolean>>; } => {
+export const useTextTracks = ({
+	fileState,
+	collectionName,
+	type,
+}: UseTextTracksProps): {
+	textTracks: VideoTextTracks;
+	verifyUserCaptionsEnabled: () => void;
+	areCaptionsEnabled: boolean;
+	setSelectedTracksIndex: Dispatch<SetStateAction<number>>;
+	setAreCaptionsEnabled: Dispatch<SetStateAction<boolean>>;
+} => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const mediaClient = useMediaClient();
 	const captionsObjectURLsStatus = useRef<Map<string, 'loading' | 'loaded' | 'error' | undefined>>(

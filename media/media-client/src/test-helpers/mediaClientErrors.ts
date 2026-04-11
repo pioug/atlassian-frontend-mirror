@@ -18,10 +18,10 @@ const defaultMetadata: RequestErrorMetadata & MediaHeaders = {
 
 export const createServerUnauthorizedError = (
 	metadataAndHeaders: RequestMetadata & {
-        readonly attempts?: number;
-        readonly clientExhaustedRetries?: boolean;
-        readonly statusCode?: number;
-    } & MediaHeaders = defaultMetadata,
+		readonly attempts?: number;
+		readonly clientExhaustedRetries?: boolean;
+		readonly statusCode?: number;
+	} & MediaHeaders = defaultMetadata,
 	innerError?: Error,
 ): RequestError =>
 	new RequestError(
@@ -33,11 +33,13 @@ export const createServerUnauthorizedError = (
 		innerError || new Error('inner error message'),
 	);
 
-export const createRateLimitedError = (metadataAndHeaders: RequestMetadata & {
-    readonly attempts?: number;
-    readonly clientExhaustedRetries?: boolean;
-    readonly statusCode?: number;
-} & MediaHeaders = defaultMetadata): RequestError =>
+export const createRateLimitedError = (
+	metadataAndHeaders: RequestMetadata & {
+		readonly attempts?: number;
+		readonly clientExhaustedRetries?: boolean;
+		readonly statusCode?: number;
+	} & MediaHeaders = defaultMetadata,
+): RequestError =>
 	new RequestError('serverRateLimited', {
 		...metadataAndHeaders,
 		statusCode: 429,
@@ -46,4 +48,5 @@ export const createRateLimitedError = (metadataAndHeaders: RequestMetadata & {
 export const createPollingMaxAttemptsError = (attempts = 1): PollingError =>
 	new PollingError('pollingMaxAttemptsExceeded', { attempts });
 
-export const createMediaStoreError = (): MediaStoreError => new MediaStoreError('missingInitialAuth');
+export const createMediaStoreError = (): MediaStoreError =>
+	new MediaStoreError('missingInitialAuth');

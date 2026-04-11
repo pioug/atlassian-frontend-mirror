@@ -255,4 +255,6 @@ const InlinePlayerForwardRef = React.forwardRef<HTMLDivElement, InlinePlayerProp
 	return <InlinePlayerBase {...props} forwardRef={ref} />;
 });
 
-export const InlinePlayer: React.ForwardRefExoticComponent<Omit<InlinePlayerProps, "ref"> & React.RefAttributes<HTMLDivElement>> = InlinePlayerForwardRef;
+export const InlinePlayer: React.ForwardRefExoticComponent<
+	Omit<InlinePlayerProps, 'ref'> & React.RefAttributes<HTMLDivElement>
+> = InlinePlayerForwardRef;

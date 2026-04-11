@@ -13,7 +13,12 @@ import {
 } from '@atlaskit/link-datasource';
 import type { CardContext } from '@atlaskit/link-provider';
 
-import type { CardInfo, CardPluginState, DatasourceNode } from '../types';
+import type {
+	CardInfo,
+	CardPluginState,
+	DatasourceNode,
+	ToolbarResolvedAttributes,
+} from '../types';
 
 import { pluginKey } from './plugin-key';
 
@@ -111,8 +116,7 @@ export const getResolvedAttributesFromStore = (
 	url: string,
 	display: string | null,
 	store?: CardContext['store'],
-	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-): {} => {
+): Partial<ToolbarResolvedAttributes> => {
 	if (!store) {
 		return {};
 	}

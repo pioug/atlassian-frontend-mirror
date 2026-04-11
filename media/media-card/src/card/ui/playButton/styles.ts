@@ -9,7 +9,7 @@ export const bkgClassName = 'play-icon-background';
 const discSize = 48;
 const discSizeHover = 56;
 
-export const fixedPlayButtonStyles: "\n  .play-icon-background {\n    width: 56px;\n    height: 56px;\n  }\n" = `
+export const fixedPlayButtonStyles: '\n  .play-icon-background {\n    width: 56px;\n    height: 56px;\n  }\n' = `
   .${bkgClassName} {
     width: ${discSizeHover}px;
     height: ${discSizeHover}px;

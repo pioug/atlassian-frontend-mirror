@@ -5,12 +5,12 @@ import { collectionNames } from './collectionNames';
 import { type MediaEnv, mediaPickerAuthProvider } from './mediaPickerAuthProvider';
 import { MEDIA_BASE_URL } from './mediaBaseURLS';
 
-export const defaultBaseUrl: "https://media.staging.atl-paas.net" = MEDIA_BASE_URL;
+export const defaultBaseUrl: 'https://media.staging.atl-paas.net' = MEDIA_BASE_URL;
 
 export const defaultParams: {
-    clientId: string;
-    asapIssuer: string;
-    baseUrl: string;
+	clientId: string;
+	asapIssuer: string;
+	baseUrl: string;
 } = {
 	clientId: '5a9812fc-d029-4a39-8a46-d3cc36eed7ab',
 	asapIssuer: 'micros/media-playground',
@@ -53,7 +53,8 @@ export const createStorybookMediaClientConfig = (
 	return { authProvider };
 };
 
-export const createUploadMediaClient = (): MediaClient => new MediaClient(createUploadMediaClientConfig());
+export const createUploadMediaClient = (): MediaClient =>
+	new MediaClient(createUploadMediaClientConfig());
 
 export const createUploadMediaClientConfig = (
 	stargateBaseUrl?: string,

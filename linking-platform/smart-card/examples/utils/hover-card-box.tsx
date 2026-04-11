@@ -21,8 +21,8 @@ const boxStyles = xcss({
 	},
 });
 
-export default ({ content = 'Hover over me' }: {
-        content?: string | undefined;
-    }): React.JSX.Element => (
-	<Box xcss={boxStyles}>{content}</Box>
-);
+export default ({
+	content = 'Hover over me',
+}: {
+	content?: string | undefined;
+}): React.JSX.Element => <Box xcss={boxStyles}>{content}</Box>;

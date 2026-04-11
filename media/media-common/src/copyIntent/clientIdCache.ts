@@ -93,8 +93,7 @@ export const extractClientIdsFromHtml = (html: string): void => {
 	// Extract it once from either source:
 	//   - Editor-to-editor: present as data-client-id="..." attribute
 	//   - Renderer-to-editor: embedded in the blob URL hash as clientId=...
-	const clientId =
-		/data-client-id="([^"]*)"/.exec(html)?.[1] ?? extractClientIdFromBlobUrl(html);
+	const clientId = /data-client-id="([^"]*)"/.exec(html)?.[1] ?? extractClientIdFromBlobUrl(html);
 
 	if (!clientId) {
 		return;

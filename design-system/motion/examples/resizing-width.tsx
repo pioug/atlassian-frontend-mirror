@@ -21,32 +21,32 @@ import { token } from '@atlaskit/tokens';
 import { Centered } from './utils';
 
 const buttonContainerStyles = css({
-  marginBlockEnd: token('space.300'),
-  textAlign: 'center'
+	marginBlockEnd: token('space.300'),
+	textAlign: 'center',
 });
 
 const containerStyles = css({
-  display: 'inline-flex',
-  alignItems: 'center',
-  borderRadius: token('radius.small', '3px'),
-  boxShadow: token('elevation.shadow.overlay'),
-  overflow: 'hidden',
-  paddingBlockEnd: token('space.200'),
-  paddingBlockStart: token('space.200'),
-  paddingInlineEnd: token('space.200'),
-  paddingInlineStart: token('space.200')
+	display: 'inline-flex',
+	alignItems: 'center',
+	borderRadius: token('radius.small', '3px'),
+	boxShadow: token('elevation.shadow.overlay'),
+	overflow: 'hidden',
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 });
 
 const itemStyles = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  fontWeight: token('font.weight.medium'),
-  paddingBlockEnd: token('space.100'),
-  paddingBlockStart: token('space.100'),
-  paddingInlineEnd: token('space.200'),
-  paddingInlineStart: token('space.200')
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	flexDirection: 'column',
+	fontWeight: token('font.weight.medium'),
+	paddingBlockEnd: token('space.100'),
+	paddingBlockStart: token('space.100'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 });
 
 const logos = [
@@ -59,7 +59,10 @@ const logos = [
 
 export default (): JSX.Element => {
 	const [num, setNum] = useState(1);
-	const resizingWidthProps = useResizingWidth({ duration: token('motion.duration.short'), easing: token('motion.easing.out.practical') });
+	const resizingWidthProps = useResizingWidth({
+		duration: token('motion.duration.short'),
+		easing: token('motion.easing.out.practical'),
+	});
 
 	return (
 		<div>

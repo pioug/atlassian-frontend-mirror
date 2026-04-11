@@ -41,7 +41,14 @@ const ImageIcon = ({
 	onError,
 	onLoad,
 	hideLoadingSkeleton = false,
-}: ImageIconProps): string | number | boolean | Iterable<ReactNode> | JSX.Element | null | undefined => {
+}: ImageIconProps):
+	| string
+	| number
+	| boolean
+	| Iterable<ReactNode>
+	| JSX.Element
+	| null
+	| undefined => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
 	const { formatMessage } = useIntl();
 

@@ -624,7 +624,7 @@ const ItemContent = memo(
 					<div css={itemText}>
 						<Stack space="space.025">
 							<div css={itemTitleWrapper}>
-								{editorExperiment('platform_synced_block', true) ? (
+								{editorExperiment('platform_synced_block', true) || lozenge ? (
 									<Flex alignItems="center" gap="space.050">
 										<Text color={isDisabled ? 'color.text.disabled' : undefined} maxLines={1}>
 											{title}

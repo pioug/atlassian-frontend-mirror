@@ -77,7 +77,19 @@ export const DEFAULT_USE_CIRCULAR = false; /* whether or not to apply a circular
 export const DEFAULT_USE_CIRCULAR_CLIP_WITH_ACTIONS = false; /* whether or not to apply a circular clip when rendering via actions */
 export const DEFAULT_BACKGROUND_COLOR = 'transparent';
 
-export const defaultProps: { containerWidth: number; containerHeight: number; margin: number; zoom: number; maxZoom: number; originX: number; originY: number; useConstraints: boolean; isCircular: boolean; useCircularClipWithActions: boolean; backgroundColor: string; } = {
+export const defaultProps: {
+	containerWidth: number;
+	containerHeight: number;
+	margin: number;
+	zoom: number;
+	maxZoom: number;
+	originX: number;
+	originY: number;
+	useConstraints: boolean;
+	isCircular: boolean;
+	useCircularClipWithActions: boolean;
+	backgroundColor: string;
+} = {
 	containerWidth: DEFAULT_CONTAINER_SIZE,
 	containerHeight: DEFAULT_CONTAINER_SIZE,
 	margin: DEFAULT_MARGIN,
@@ -110,7 +122,19 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 	imageSourceRect: Rectangle = new Rectangle(0, 0); /* original size of image (un-scaled) */
 	imageElement?: HTMLImageElement; /* image element used to load */
 
-	static defaultProps: { containerWidth: number; containerHeight: number; margin: number; zoom: number; maxZoom: number; originX: number; originY: number; useConstraints: boolean; isCircular: boolean; useCircularClipWithActions: boolean; backgroundColor: string; } = defaultProps;
+	static defaultProps: {
+		containerWidth: number;
+		containerHeight: number;
+		margin: number;
+		zoom: number;
+		maxZoom: number;
+		originX: number;
+		originY: number;
+		useConstraints: boolean;
+		isCircular: boolean;
+		useCircularClipWithActions: boolean;
+		backgroundColor: string;
+	} = defaultProps;
 
 	state: ImagePlacerState = {
 		imageWidth: 0,

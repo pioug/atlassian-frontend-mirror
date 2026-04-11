@@ -134,7 +134,6 @@ describe('ResolvedView', () => {
 		expect(screen.queryByTestId('hover-card-trigger-wrapper')).not.toBeInTheDocument();
 	});
 
-
 	it('should forward a custom testId to the frame', () => {
 		render(<InlineCardResolvedView title="some text content" testId="my-custom-card" />);
 		expect(screen.getByTestId('my-custom-card')).toBeInTheDocument();
@@ -224,7 +223,9 @@ describe('ResolvedView', () => {
 						appearance: 'inprogress',
 					};
 					render(<InlineCardResolvedView title="some text" lozenge={lozengeProps} />);
-					expect(await screen.findByTestId('inline-card-resolved-view-lozenge')).toBeInTheDocument();
+					expect(
+						await screen.findByTestId('inline-card-resolved-view-lozenge'),
+					).toBeInTheDocument();
 				});
 
 				it('should render a hover preview when prop is enabled and link is included', async () => {
@@ -261,7 +262,9 @@ describe('ResolvedView', () => {
 						appearance: 'inprogress',
 					};
 					render(<InlineCardResolvedView title="some text" lozenge={lozengeProps} />);
-					expect(await screen.findByTestId('inline-card-resolved-view-lozenge')).toBeInTheDocument();
+					expect(
+						await screen.findByTestId('inline-card-resolved-view-lozenge'),
+					).toBeInTheDocument();
 				});
 
 				it('should render a hover preview when prop is enabled and link is included', async () => {

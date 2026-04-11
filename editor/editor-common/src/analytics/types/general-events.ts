@@ -524,7 +524,7 @@ type SmartLinkRovoButtonClickedAEP = ButtonAEP<
 	ACTION_SUBJECT_ID.SMART_LINK_ROVO_BUTTON,
 	{
 		has3pSources?: boolean;
-		sourceProducts?: string | null;
+		sourceProduct?: string | null;
 	}
 >;
 
@@ -532,7 +532,7 @@ type SmartLinkSummarizeButtonClickedAEP = ButtonAEP<
 	ACTION_SUBJECT_ID.SMART_LINK_SUMMARIZE_BUTTON,
 	{
 		has3pSources?: boolean;
-		sourceProducts?: string | null;
+		sourceProduct?: string | null;
 	}
 >;
 

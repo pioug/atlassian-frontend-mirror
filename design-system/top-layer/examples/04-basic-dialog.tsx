@@ -98,7 +98,12 @@ export default function BasicDialogExample(): JSX.Element {
 					</Stack>
 				)}
 
-				<Dialog onClose={handleClose} isOpen={isOpen} label="Basic dialog" animate={dialogSlideUpAndFade()}>
+				<Dialog
+					onClose={handleClose}
+					isOpen={isOpen}
+					label="Basic dialog"
+					animate={dialogSlideUpAndFade()}
+				>
 					<div css={styles.dialogCard}>
 						<div css={styles.dialogHeader}>
 							<Heading size="small">Dialog</Heading>

@@ -65,41 +65,39 @@ const wrapperStyle = css({
 
 const plainButtonStyle = css({
 	all: 'unset',
-	display: 'block'
-})
+	display: 'block',
+});
 
 export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
 	render(): JSX.Element {
 		const { dimensions = defaultImageCardDimensions, onClick } = this.props;
 		const convertedDimensions = getConvertedDimension(dimensions);
 		const hideText = !shouldShowText(getConvertedDimension(dimensions));
-		return (
-			fg('platform_media_a11y_suppression_fixes') ? (
-				<button
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={convertedDimensions}
-					css={[plainButtonStyle, wrapperStyle]}
-					onClick={onClick}
-					data-testid="unhandled-error-card"
-					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-					aria-label='Preview unavailable'
-				>
-					<WarningIcon label="Error" color={token('color.icon.warning')} spacing="spacious" />
-					<ContentLoadingErrorMessage isHidden={hideText} />
-				</button>
-			) : (
-				// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-				<div
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={convertedDimensions}
-					css={wrapperStyle}
-					onClick={onClick}
-					data-testid="unhandled-error-card"
-				>
-					<WarningIcon label="Error" color={token('color.icon.warning')} spacing="spacious" />
-					<ContentLoadingErrorMessage isHidden={hideText} />
-				</div>
-			)
+		return fg('platform_media_a11y_suppression_fixes') ? (
+			<button
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={convertedDimensions}
+				css={[plainButtonStyle, wrapperStyle]}
+				onClick={onClick}
+				data-testid="unhandled-error-card"
+				// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
+				aria-label="Preview unavailable"
+			>
+				<WarningIcon label="Error" color={token('color.icon.warning')} spacing="spacious" />
+				<ContentLoadingErrorMessage isHidden={hideText} />
+			</button>
+		) : (
+			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={convertedDimensions}
+				css={wrapperStyle}
+				onClick={onClick}
+				data-testid="unhandled-error-card"
+			>
+				<WarningIcon label="Error" color={token('color.icon.warning')} spacing="spacious" />
+				<ContentLoadingErrorMessage isHidden={hideText} />
+			</div>
 		);
 	}
 }

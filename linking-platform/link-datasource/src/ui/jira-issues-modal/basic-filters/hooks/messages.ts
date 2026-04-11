@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const filterOptionMessages: {
-    assigneeUnassignedFilterOption: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	assigneeUnassignedFilterOption: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	assigneeUnassignedFilterOption: {
 		id: 'linkDataSource.basic-filter.dropdown.select.assignee.unassigned',

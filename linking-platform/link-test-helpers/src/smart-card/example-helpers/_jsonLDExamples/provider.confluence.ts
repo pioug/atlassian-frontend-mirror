@@ -1,32 +1,33 @@
 import { avatar3 } from '../../images';
 
 export const ConfluenceBlogPost: {
-    meta: {
-        visibility: string;
-        access: string;
-        resourceType: string;
-        key: string;
-    }; data: {
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@type': string;
-        generator: {
-            '@type': string;
-            '@id': string;
-            name: string;
-        };
-        attributedTo: {
-            '@type': string;
-            name: string;
-            icon: string;
-        };
-        url: string;
-        name: string;
-        summary: string;
-    };
+	meta: {
+		visibility: string;
+		access: string;
+		resourceType: string;
+		key: string;
+	};
+	data: {
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string;
+		generator: {
+			'@type': string;
+			'@id': string;
+			name: string;
+		};
+		attributedTo: {
+			'@type': string;
+			name: string;
+			icon: string;
+		};
+		url: string;
+		name: string;
+		summary: string;
+	};
 } = {
 	meta: {
 		visibility: 'restricted',
@@ -58,35 +59,36 @@ export const ConfluenceBlogPost: {
 };
 
 export const ConfluencePage: {
-    meta: {
-        visibility: string;
-        access: string;
-        resourceType: string;
-        key: string;
-    }; data: {
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@type': string;
-        generator: {
-            '@type': string;
-            '@id': string;
-            name: string;
-        };
-        url: string;
-        name: string;
-        summary: string;
-        'atlassian:ownedBy': {
-            '@type': string;
-            name: string;
-            icon: string;
-        };
-        'atlassian:reactCount': number;
-        'schema:commentCount': number;
-        updated: string;
-    };
+	meta: {
+		visibility: string;
+		access: string;
+		resourceType: string;
+		key: string;
+	};
+	data: {
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string;
+		generator: {
+			'@type': string;
+			'@id': string;
+			name: string;
+		};
+		url: string;
+		name: string;
+		summary: string;
+		'atlassian:ownedBy': {
+			'@type': string;
+			name: string;
+			icon: string;
+		};
+		'atlassian:reactCount': number;
+		'schema:commentCount': number;
+		updated: string;
+	};
 } = {
 	meta: {
 		visibility: 'restricted',

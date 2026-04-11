@@ -48,8 +48,8 @@ const titleBoxWrapperStyles = css({
 });
 
 export const TitleBoxWrapper: {
-    (props: TitleBoxWrapperProps): JSX.Element;
-    displayName: string;
+	(props: TitleBoxWrapperProps): JSX.Element;
+	displayName: string;
 } = (props: TitleBoxWrapperProps): JSX.Element => {
 	const { breakpoint, titleBoxBgColor, hidden } = props;
 	const color = titleBoxBgColor && rgba(HEX_REGEX.test(titleBoxBgColor) ? titleBoxBgColor : N0, 1);
@@ -88,8 +88,8 @@ const titleBoxHeaderStyles = css({
 });
 
 export const TitleBoxHeader: {
-    (props: TitleBoxHeaderProps): JSX.Element;
-    displayName: string;
+	(props: TitleBoxHeaderProps): JSX.Element;
+	displayName: string;
 } = (props: TitleBoxHeaderProps): JSX.Element => {
 	const { hasIconOverlap } = props;
 	return (
@@ -111,8 +111,8 @@ const titleBoxFooterStyles = css({
 });
 
 export const TitleBoxFooter: {
-    (props: TitleBoxFooterProps): JSX.Element;
-    displayName: string;
+	(props: TitleBoxFooterProps): JSX.Element;
+	displayName: string;
 } = (props: TitleBoxFooterProps): JSX.Element => {
 	const { hasIconOverlap, suppressHydrationWarning } = props;
 	return (

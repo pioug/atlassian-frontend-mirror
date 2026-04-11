@@ -50,10 +50,10 @@ export const useLoadOptions = <T>({
 	executeFetch,
 	emptyOption,
 }: LoadOptionsProps<T>): {
-        options: T[];
-        isLoading: boolean;
-        hasFailed: boolean;
-    } => {
+	options: T[];
+	isLoading: boolean;
+	hasFailed: boolean;
+} => {
 	const [{ options, isLoading, hasFailed }, dispatch] = useReducer(reducer<T>, {
 		isLoading: true,
 		options: [],

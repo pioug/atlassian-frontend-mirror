@@ -121,19 +121,21 @@ const TemplateRenderer = ({ template, url }: { template: FlexibleTemplate; url?:
 	);
 };
 
-const _default_1: (props: {
-    template: FlexibleTemplate;
-    url?: string;
-} & {
-    ari?: string;
-    branchDeploy?: string;
-    envKey?: EnvironmentsKeys;
-    json?: JsonLd.Response;
-    onError?: (error: Error) => void;
-    onFetch?: () => JsonLd.Response | undefined;
-    onResolve?: (json: JsonLd.Response) => void;
-    url: string;
-} & {
-    children?: React.ReactNode | undefined;
-}) => React.JSX.Element = withJsonldEditorProvider(TemplateRenderer);
+const _default_1: (
+	props: {
+		template: FlexibleTemplate;
+		url?: string;
+	} & {
+		ari?: string;
+		branchDeploy?: string;
+		envKey?: EnvironmentsKeys;
+		json?: JsonLd.Response;
+		onError?: (error: Error) => void;
+		onFetch?: () => JsonLd.Response | undefined;
+		onResolve?: (json: JsonLd.Response) => void;
+		url: string;
+	} & {
+		children?: React.ReactNode | undefined;
+	},
+) => React.JSX.Element = withJsonldEditorProvider(TemplateRenderer);
 export default _default_1;

@@ -65,7 +65,20 @@ export const getColumnAction = (
 /**
  * Remove deprecated `aria-labelledby` prop from select component props.
  */
-export const getCleanedSelectProps = (props: Omit<FieldProps<string>, 'value'>): { name: string; id: string; 'aria-describedby'?: string | undefined; 'aria-invalid': "true" | "false"; onFocus: () => void; onBlur: () => void; onChange: (value: string | FormEvent<HTMLInputElement>) => void; isRequired: boolean; isDisabled: boolean; isInvalid: boolean; } => {
+export const getCleanedSelectProps = (
+	props: Omit<FieldProps<string>, 'value'>,
+): {
+	name: string;
+	id: string;
+	'aria-describedby'?: string | undefined;
+	'aria-invalid': 'true' | 'false';
+	onFocus: () => void;
+	onBlur: () => void;
+	onChange: (value: string | FormEvent<HTMLInputElement>) => void;
+	isRequired: boolean;
+	isDisabled: boolean;
+	isInvalid: boolean;
+} => {
 	// Component Field auto adds `aria-labelledby` prop, which is deprecated and should not be used - https://hello.jira.atlassian.cloud/browse/ENGHEALTH-14529
 	const { 'aria-labelledby': removedLabelByProps, ...selectProps } = props;
 	return selectProps;

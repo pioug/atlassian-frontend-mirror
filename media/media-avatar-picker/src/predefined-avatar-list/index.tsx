@@ -36,7 +36,9 @@ export interface PredefinedAvatarListProps {
 	showMoreAvatarsButtonLabel?: string;
 }
 
-export const PredefinedAvatarList: ForwardRefExoticComponent<PredefinedAvatarListProps & RefAttributes<HTMLButtonElement>> = forwardRef<HTMLButtonElement, PredefinedAvatarListProps>(
+export const PredefinedAvatarList: ForwardRefExoticComponent<
+	PredefinedAvatarListProps & RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, PredefinedAvatarListProps>(
 	(
 		{
 			avatars = [],

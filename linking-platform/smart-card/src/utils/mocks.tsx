@@ -109,7 +109,14 @@ const entityDataResponse = {
 };
 
 export const mocks: {
-	success: JsonLd.Response; entityDataSuccess: SmartLinkResponse; notFound: JsonLd.Response; forbidden: JsonLd.Response; forbiddenWithNoAuth: JsonLd.Response; unauthorized: JsonLd.Response; unauthorizedWithNoAuth: JsonLd.Response; actionSuccess: {
+	success: JsonLd.Response;
+	entityDataSuccess: SmartLinkResponse;
+	notFound: JsonLd.Response;
+	forbidden: JsonLd.Response;
+	forbiddenWithNoAuth: JsonLd.Response;
+	unauthorized: JsonLd.Response;
+	unauthorizedWithNoAuth: JsonLd.Response;
+	actionSuccess: {
 		meta: {
 			visibility: string;
 			access: string;
@@ -119,12 +126,13 @@ export const mocks: {
 		data: {
 			status: string;
 		};
-	}; analytics: {
-		status: "resolved";
+	};
+	analytics: {
+		status: 'resolved';
 		details: {
 			meta: {
-				visibility: "public";
-				access: "granted";
+				visibility: 'public';
+				access: 'granted';
 				auth: never[];
 				definitionId: string;
 				key: string;
@@ -133,7 +141,8 @@ export const mocks: {
 				product: string;
 			};
 		};
-	}; withDatasource: {
+	};
+	withDatasource: {
 		meta: {
 			visibility: string;
 			access: string;
@@ -319,7 +328,8 @@ export const mocks: {
 		],
 	},
 };
-export const fakeResponse = (): Promise<JsonLd.Response<JsonLd.Data.BaseData>> => Promise.resolve(mocks.success);
+export const fakeResponse = (): Promise<JsonLd.Response<JsonLd.Data.BaseData>> =>
+	Promise.resolve(mocks.success);
 
 export const fakeFactory: any = (
 	implementation: (url: string) => Promise<JsonLd.Response>,

@@ -43,10 +43,10 @@ export const useAvailableSites = ({
 }: {
 	gatewayBaseUrl?: string;
 } = {}): {
-        data: AvailableSite[];
-        error?: Error;
-        loading: boolean;
-    } => {
+	data: AvailableSite[];
+	error?: Error;
+	loading: boolean;
+} => {
 	const [state, setState] = useState<{
 		data: AvailableSite[];
 		error?: Error;
@@ -115,10 +115,14 @@ export const mapAccessibleProductsToAvailableSites = (data: AccessibleProduct): 
 	return sites;
 };
 
-export const useAvailableSitesV2 = ({ gatewayBaseUrl }: { gatewayBaseUrl?: string }): {
-    data: AvailableSite[];
-    error?: unknown;
-    loading: boolean;
+export const useAvailableSitesV2 = ({
+	gatewayBaseUrl,
+}: {
+	gatewayBaseUrl?: string;
+}): {
+	data: AvailableSite[];
+	error?: unknown;
+	loading: boolean;
 } => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const isMounted = useIsMounted();

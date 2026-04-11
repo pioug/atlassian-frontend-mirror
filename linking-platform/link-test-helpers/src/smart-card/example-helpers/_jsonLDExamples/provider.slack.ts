@@ -8,44 +8,45 @@ const baseMetaData = {
 };
 
 export const SlackMessage: {
-    meta: {
-        resourceType: string;
-        visibility: string;
-        access: string;
-        version: string;
-        key: string;
-    }; data: {
-        '@id': string;
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@type': string;
-        generator: {
-            '@type': string;
-            name: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-        };
-        icon: {
-            '@type': string;
-            url: string;
-        };
-        url: string;
-        name: string;
-        'schema:commentCount': number;
-        'atlassian:reactCount': number;
-        summary: string;
-        attributedTo: {
-            '@type': string;
-            icon: string;
-            name: string;
-        };
-        dateSent: string;
-    };
+	meta: {
+		resourceType: string;
+		visibility: string;
+		access: string;
+		version: string;
+		key: string;
+	};
+	data: {
+		'@id': string;
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string;
+		generator: {
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+		};
+		icon: {
+			'@type': string;
+			url: string;
+		};
+		url: string;
+		name: string;
+		'schema:commentCount': number;
+		'atlassian:reactCount': number;
+		summary: string;
+		attributedTo: {
+			'@type': string;
+			icon: string;
+			name: string;
+		};
+		dateSent: string;
+	};
 } = {
 	meta: {
 		...baseMetaData,
@@ -87,35 +88,36 @@ export const SlackMessage: {
 };
 
 export const SlackChannel: {
-    meta: {
-        resourceType: string;
-        visibility: string;
-        access: string;
-        version: string;
-        key: string;
-    }; data: {
-        '@id': string;
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@type': string;
-        generator: {
-            '@type': string;
-            name: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-        };
-        icon: {
-            '@type': string;
-            url: string;
-        };
-        url: string;
-        name: string;
-    };
+	meta: {
+		resourceType: string;
+		visibility: string;
+		access: string;
+		version: string;
+		key: string;
+	};
+	data: {
+		'@id': string;
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string;
+		generator: {
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+		};
+		icon: {
+			'@type': string;
+			url: string;
+		};
+		url: string;
+		name: string;
+	};
 } = {
 	meta: {
 		...baseMetaData,

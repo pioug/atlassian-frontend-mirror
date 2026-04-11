@@ -3,7 +3,13 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { forwardRef, type ClassAttributes, type ForwardRefExoticComponent, type HTMLAttributes, type RefAttributes } from 'react';
+import {
+	forwardRef,
+	type ClassAttributes,
+	type ForwardRefExoticComponent,
+	type HTMLAttributes,
+	type RefAttributes,
+} from 'react';
 export interface ContentWrapperProps {
 	controlsAreVisible: boolean;
 }
@@ -36,7 +42,13 @@ const inactivityDetectorControlsNotVisibleStyles = css({
 	},
 });
 
-export const InactivityDetectorWrapper: ForwardRefExoticComponent<Omit<ContentWrapperProps & ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>, "ref"> & RefAttributes<unknown>> = forwardRef(
+export const InactivityDetectorWrapper: ForwardRefExoticComponent<
+	Omit<
+		ContentWrapperProps & ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>,
+		'ref'
+	> &
+		RefAttributes<unknown>
+> = forwardRef(
 	(
 		{
 			controlsAreVisible,

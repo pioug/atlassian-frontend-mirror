@@ -125,7 +125,7 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 			card.setRef(cardRef);
 		}, [card]);
 
-		const content = (fg('platform_spotlight_card_fit_content_anchor')) ? (
+		const content = fg('platform_spotlight_card_fit_content_anchor') ? (
 			<div css={styles.root} data-testid={testId} ref={ref}>
 				<div css={styles.container}>
 					<Caret placement={placement || card.placement} />
@@ -149,16 +149,12 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 					{children}
 				</Box>
 			</div>
-		)
+		);
 
-		if(fg('platform-dst-motion-uplift')) {
+		if (fg('platform-dst-motion-uplift')) {
 			const Motion = card.motion;
-			if(Motion) {
-				return (
-					<Motion>
-						{content}
-					</Motion>
-				)
+			if (Motion) {
+				return <Motion>{content}</Motion>;
 			} else {
 				return content;
 			}

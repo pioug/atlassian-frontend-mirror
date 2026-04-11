@@ -54,6 +54,19 @@ if (typeof navigator !== 'undefined') {
 		typeof window !== 'undefined' && 'ResizeObserver' in window && 'ResizeObserverEntry' in window;
 }
 
-export function browser(): { mac: boolean; ie: boolean; ie_version: number; gecko: boolean; chrome: boolean; chrome_version: number; android: boolean; ios: boolean; webkit: boolean; safari: boolean; supportsIntersectionObserver: boolean; supportsResizeObserver: boolean; } {
+export function browser(): {
+	mac: boolean;
+	ie: boolean;
+	ie_version: number;
+	gecko: boolean;
+	chrome: boolean;
+	chrome_version: number;
+	android: boolean;
+	ios: boolean;
+	webkit: boolean;
+	safari: boolean;
+	supportsIntersectionObserver: boolean;
+	supportsResizeObserver: boolean;
+} {
 	return result;
 }

@@ -24,8 +24,8 @@ export class BrowserLoader extends React.PureComponent<BrowserWithMediaClientCon
 	static Browser?: BrowserWithMediaClientConfigComponent;
 
 	state: {
-        Browser: BrowserWithMediaClientConfigComponent | undefined;
-    } = {
+		Browser: BrowserWithMediaClientConfigComponent | undefined;
+	} = {
 		Browser: BrowserLoader.Browser,
 	};
 

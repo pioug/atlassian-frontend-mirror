@@ -100,10 +100,13 @@ export const annotateCardAction: CardAction = {
 	icon: <AnnotateIcon label="annotate" />,
 };
 
-export const actions: ({
-    label: string;
-    handler: () => void;
-} | CardAction)[] = [openAction, closeAction, deleteAction, annotateCardAction];
+export const actions: (
+	| {
+			label: string;
+			handler: () => void;
+	  }
+	| CardAction
+)[] = [openAction, closeAction, deleteAction, annotateCardAction];
 
 export const anotherAction: CardAction = {
 	label: 'Some other action',

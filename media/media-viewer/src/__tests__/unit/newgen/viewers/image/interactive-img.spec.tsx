@@ -397,8 +397,8 @@ describe('InteractiveImg with platform_media_a11y_suppression_fixes enabled', ()
 	});
 
 	it('should render ImageWrapper as a button element', () => {
-		(fg as jest.Mock).mockImplementation((flag) =>
-			flag === 'platform_media_a11y_suppression_fixes',
+		(fg as jest.Mock).mockImplementation(
+			(flag) => flag === 'platform_media_a11y_suppression_fixes',
 		);
 
 		const { container } = render(

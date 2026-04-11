@@ -8,22 +8,16 @@ import SectionMessage from '@atlaskit/section-message';
 import FlagGroup from '../../examples/constellation/flag-group';
 import FlagsInModalDialogExample from '../../examples/constellation/flag-group-in-modal-dialog';
 
-<SectionMessage
-	title="Motion in Early Access"
-	appearance="warning"
->
-	Motion has been updated in Flag and is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Flag and is in Early Access. The motion updates are currently behind
+	the feature flag: platform-dst-motion-uplift.
 </SectionMessage>
 
 ## Default
 
 Use `FlagGroup` to group a set of related flags, with entry and exit animation.
 
-<Example
-	Component={FlagGroup}
-	packageName="@atlaskit/flag"
-	featureFlagSwitchers={['motion']}
-/>
+<Example Component={FlagGroup} packageName="@atlaskit/flag" featureFlagSwitchers={['motion']} />
 
 ## Using in modal components
 

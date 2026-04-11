@@ -27,8 +27,8 @@ export class ClipboardLoader extends React.PureComponent<
 	static Clipboard?: ClipboardWithMediaClientConfigComponent;
 
 	state: {
-        Clipboard: ClipboardWithMediaClientConfigComponent | undefined;
-    } = {
+		Clipboard: ClipboardWithMediaClientConfigComponent | undefined;
+	} = {
 		Clipboard: ClipboardLoader.Clipboard,
 	};
 

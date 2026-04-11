@@ -28,11 +28,11 @@ export type State = {
 export class DocViewer extends BaseViewer<string, Props, State> {
 	private isObjectUrl = false;
 	protected get initialState(): {
-        content: Outcome<string, MediaViewerError>;
-        zoomLevel: ZoomLevel;
-        isPasswordProtected: boolean;
-        hasPasswordError: boolean;
-    } {
+		content: Outcome<string, MediaViewerError>;
+		zoomLevel: ZoomLevel;
+		isPasswordProtected: boolean;
+		hasPasswordError: boolean;
+	} {
 		return {
 			content: Outcome.pending<string, MediaViewerError>(),
 			zoomLevel: new ZoomLevel(1.75),

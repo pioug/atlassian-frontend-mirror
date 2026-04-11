@@ -625,4 +625,5 @@ export const JiraIssuesConfigModal = (props: JiraConfigModalProps): React.JSX.El
 	);
 };
 
-export const JiraIssuesConfigModalNoSuspense: (props: JiraConfigModalProps) => React.JSX.Element = JiraIssuesConfigModal;
+export const JiraIssuesConfigModalNoSuspense: (props: JiraConfigModalProps) => React.JSX.Element =
+	JiraIssuesConfigModal;

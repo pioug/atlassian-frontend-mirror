@@ -4,7 +4,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DatasourceAdfView } from '@atlaskit/linking-common';
 import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
-import type { CardInfo, CardPluginAction, Request } from '../types';
+import type { CardInfo, CardPluginAction, Request, ToolbarResolvedAttributes } from '../types';
 import type { DatasourceTableLayout } from '../ui/LayoutButton/types';
 
 import { pluginKey } from './plugin-key';
@@ -76,6 +76,15 @@ export const setDatasourceTableRef =
 		cardAction(tr, {
 			type: 'SET_DATASOURCE_TABLE_REF',
 			datasourceTableRef,
+		});
+
+export const setResolvedToolbarAttributes =
+	(url: string, attributes: ToolbarResolvedAttributes) =>
+	(tr: Transaction): Transaction =>
+		cardAction(tr, {
+			type: 'SET_RESOLVED_TOOLBAR_ATTRIBUTES',
+			url,
+			attributes,
 		});
 
 export const setCardLayout =

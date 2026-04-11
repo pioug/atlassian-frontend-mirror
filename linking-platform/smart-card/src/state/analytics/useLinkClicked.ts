@@ -20,7 +20,7 @@ export const useLinkClicked = <T extends Exclude<LinkProps['onClick'], undefined
 	 * Filter which mouse events should trigger the link clicked event
 	 */
 	predicate?: (event: React.MouseEvent) => boolean,
-): (...args: Parameters<T>) => void => {
+): ((...args: Parameters<T>) => void) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	return useCallback(
@@ -37,6 +37,8 @@ export const useLinkClicked = <T extends Exclude<LinkProps['onClick'], undefined
 
 const isNotLeftClick = (event: React.MouseEvent) => event.button !== 0;
 
-export const useMouseDownEvent = <T extends React.MouseEventHandler>(onMouseDown?: T): (...args: Parameters<T>) => void => {
+export const useMouseDownEvent = <T extends React.MouseEventHandler>(
+	onMouseDown?: T,
+): ((...args: Parameters<T>) => void) => {
 	return useLinkClicked(onMouseDown, isNotLeftClick);
 };

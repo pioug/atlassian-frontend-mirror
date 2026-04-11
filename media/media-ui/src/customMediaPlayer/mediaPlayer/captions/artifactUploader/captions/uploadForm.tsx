@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { type IntlShape, injectIntl, type WrappedComponentProps, type WithIntlProps } from 'react-intl-next';
+import {
+	type IntlShape,
+	injectIntl,
+	type WrappedComponentProps,
+	type WithIntlProps,
+} from 'react-intl-next';
 import Button from '@atlaskit/button/new';
 import Modal, {
 	ModalFooter,
@@ -134,6 +139,6 @@ function UploadCaptionsForm({
 	);
 }
 const _default_1: React.FC<WithIntlProps<UploadCaptionsFormProps & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<UploadCaptionsFormProps & WrappedComponentProps>;
+	WrappedComponent: React.ComponentType<UploadCaptionsFormProps & WrappedComponentProps>;
 } = injectIntl(UploadCaptionsForm);
 export default _default_1;

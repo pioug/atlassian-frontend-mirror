@@ -2,7 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode, type MouseEvent, type Key, forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
+import {
+	type ReactNode,
+	type MouseEvent,
+	type Key,
+	forwardRef,
+	type ForwardRefExoticComponent,
+	type RefAttributes,
+} from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css, keyframes } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
@@ -176,15 +183,14 @@ export const ArchiveItemViewerWrapper = ({
 	);
 };
 
-export const ArchiveSideBar: ForwardRefExoticComponent<Children & RefAttributes<HTMLDivElement>> = forwardRef(
-	({ children }: Children, ref: React.Ref<HTMLDivElement>) => {
+export const ArchiveSideBar: ForwardRefExoticComponent<Children & RefAttributes<HTMLDivElement>> =
+	forwardRef(({ children }: Children, ref: React.Ref<HTMLDivElement>) => {
 		return (
 			<div css={archiveSideBarStyles} ref={ref}>
 				{children}
 			</div>
 		);
-	},
-);
+	});
 
 export const ArchiveSidebarFolderWrapper = ({ children }: Children): JSX.Element => {
 	return (
@@ -194,28 +200,29 @@ export const ArchiveSidebarFolderWrapper = ({ children }: Children): JSX.Element
 	);
 };
 
-export const ArchiveDownloadButtonWrapper = ({ children, onClick }: Children & OnClick): JSX.Element => {
+export const ArchiveDownloadButtonWrapper = ({
+	children,
+	onClick,
+}: Children & OnClick): JSX.Element => {
 	const intl = useIntl();
-	return (
-		fg('platform_media_a11y_suppression_fixes') ? (
-			<button
-				aria-label={intl.formatMessage(messages.archive_download_label_assistive_text)}
-				css={archiveDownloadButtonWrapperStyles}
-				onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
-				data-testid="media-archiveDownloadButton"
-			>
-				{children}
-			</button>
-		) : (
-			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-			<div
-				css={archiveDownloadButtonWrapperStyles}
-				onClick={onClick}
-				data-testid="media-archiveDownloadButton"
-			>
-				{children}
-			</div>
-		)
+	return fg('platform_media_a11y_suppression_fixes') ? (
+		<button
+			aria-label={intl.formatMessage(messages.archive_download_label_assistive_text)}
+			css={archiveDownloadButtonWrapperStyles}
+			onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
+			data-testid="media-archiveDownloadButton"
+		>
+			{children}
+		</button>
+	) : (
+		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+		<div
+			css={archiveDownloadButtonWrapperStyles}
+			onClick={onClick}
+			data-testid="media-archiveDownloadButton"
+		>
+			{children}
+		</div>
 	);
 };
 
@@ -234,7 +241,10 @@ export const SidebarItemWrapper = ({ children }: Children): JSX.Element => {
 	return <div css={sidebarItemWrapperStyles}>{children}</div>;
 };
 
-export const ArchiveSidebarFileEntryWrapper = ({ children, index }: { index: Key } & Children): JSX.Element => {
+export const ArchiveSidebarFileEntryWrapper = ({
+	children,
+	index,
+}: { index: Key } & Children): JSX.Element => {
 	return (
 		<div css={archiveSidebarFileEntryWrapperStyles} key={index}>
 			{children}

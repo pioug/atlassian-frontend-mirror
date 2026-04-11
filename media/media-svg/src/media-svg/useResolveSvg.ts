@@ -54,9 +54,9 @@ export const useResolveSvg = (
 	identifier: FileIdentifier,
 	onError?: (error: MediaSVGError) => void,
 ): {
-        svgUrl: string | undefined;
-        source: ContentSource | undefined;
-    } => {
+	svgUrl: string | undefined;
+	source: ContentSource | undefined;
+} => {
 	const mediaClient = useMediaClient();
 	const { id, collectionName } = identifier;
 	const { id: prevId } = usePrevious(identifier) || identifier;

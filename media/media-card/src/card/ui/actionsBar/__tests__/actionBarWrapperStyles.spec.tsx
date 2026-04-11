@@ -63,5 +63,4 @@ describe('Actions Bar Styles', () => {
 			expect(wrapper).toHaveAttribute('tabindex', '-1');
 		});
 	});
-
 });

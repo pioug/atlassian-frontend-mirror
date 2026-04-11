@@ -4,21 +4,22 @@ export enum Breakpoint {
 }
 
 export const responsiveSettings: {
-    small: {
-        fontSize: number;
-        lineHeight: number;
-        titleBox: {
-            verticalPadding: number;
-            horizontalPadding: number;
-        };
-    }; large: {
-        fontSize: number;
-        lineHeight: number;
-        titleBox: {
-            verticalPadding: number;
-            horizontalPadding: number;
-        };
-    };
+	small: {
+		fontSize: number;
+		lineHeight: number;
+		titleBox: {
+			verticalPadding: number;
+			horizontalPadding: number;
+		};
+	};
+	large: {
+		fontSize: number;
+		lineHeight: number;
+		titleBox: {
+			verticalPadding: number;
+			horizontalPadding: number;
+		};
+	};
 } = {
 	[Breakpoint.SMALL]: {
 		fontSize: 11,

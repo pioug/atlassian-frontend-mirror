@@ -4,7 +4,15 @@
  * @jsx jsx
  */
 import { jsx, css } from '@compiled/react';
-import { type CSSProperties, forwardRef, type ForwardRefExoticComponent, type MouseEvent, type ReactNode, type RefAttributes, useMemo } from 'react';
+import {
+	type CSSProperties,
+	forwardRef,
+	type ForwardRefExoticComponent,
+	type MouseEvent,
+	type ReactNode,
+	type RefAttributes,
+	useMemo,
+} from 'react';
 import { type MediaType } from '@atlaskit/media-client';
 import { TouchScrollable } from 'react-scrolllock';
 import { useMergeRefs } from 'use-callback-ref';
@@ -417,8 +425,8 @@ const spinnerWrapperStyles = css({
 });
 
 const resetButtonStyle = css({
-	all: "unset",
-	display: "block"
+	all: 'unset',
+	display: 'block',
 });
 
 const formattedMessageWrapperStyles = css({});
@@ -436,7 +444,11 @@ type DataTestID = {
 
 type BlanketProps = DataTestID & Children & ClassName;
 // We are keeping this data-testid since JIRA is still using it in their codebase to perform checks. Before removing this, we need to ensure this 'media-viewer-popup' test id is not being used anywhere else in other codebases
-export const Blanket = ({ 'data-testid': datatestId, className, children }: BlanketProps): JSX.Element => (
+export const Blanket = ({
+	'data-testid': datatestId,
+	className,
+	children,
+}: BlanketProps): JSX.Element => (
 	<div
 		css={blanketStyles}
 		data-testid={datatestId}
@@ -455,8 +467,12 @@ type HeaderWrapperProps = {
 };
 
 export const HeaderWrapper: {
-    ({ className, children, isArchiveSideBarVisible, }: ClassName & Children & HeaderWrapperProps): JSX.Element;
-    displayName: string;
+	({
+		className,
+		children,
+		isArchiveSideBarVisible,
+	}: ClassName & Children & HeaderWrapperProps): JSX.Element;
+	displayName: string;
 } = ({
 	className,
 	children,
@@ -476,11 +492,9 @@ export const HeaderWrapper: {
 HeaderWrapper.displayName = 'HeaderWrapper';
 
 export const ListWrapper: {
-    ({ children }: Children): JSX.Element;
-    displayName: string;
-} = ({ children }: Children): JSX.Element => (
-	<div css={listWrapperStyles}>{children}</div>
-);
+	({ children }: Children): JSX.Element;
+	displayName: string;
+} = ({ children }: Children): JSX.Element => <div css={listWrapperStyles}>{children}</div>;
 ListWrapper.displayName = 'ListWrapper';
 
 export const ArrowsWrapper = ({ children }: Children): JSX.Element => (
@@ -500,7 +514,10 @@ type ContentWrapperProps = {
 	isSidebarVisible: boolean | undefined;
 } & Children;
 
-export const ContentWrapper = ({ isSidebarVisible, children }: ContentWrapperProps): JSX.Element => (
+export const ContentWrapper = ({
+	isSidebarVisible,
+	children,
+}: ContentWrapperProps): JSX.Element => (
 	<div css={[contentWrapperStyles, isSidebarVisible && contentWrapperStyleWithSideBar]}>
 		{children}
 	</div>
@@ -578,7 +595,9 @@ const PDFWrapperBody = forwardRef<
 });
 
 type PDFWrapperProps = DataTestID & Children;
-export const PDFWrapper: ForwardRefExoticComponent<DataTestID & Children & RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, PDFWrapperProps>((props, ref) => {
+export const PDFWrapper: ForwardRefExoticComponent<
+	DataTestID & Children & RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, PDFWrapperProps>((props, ref) => {
 	return (
 		<TouchScrollable>
 			<PDFWrapperBody innerRef={ref} {...props} />
@@ -597,7 +616,10 @@ export type LeftWrapperProps = {
 	isArchiveSideBarVisible: boolean;
 };
 
-export const LeftWrapper = ({ children, isArchiveSideBarVisible }: Children & LeftWrapperProps): JSX.Element => (
+export const LeftWrapper = ({
+	children,
+	isArchiveSideBarVisible,
+}: Children & LeftWrapperProps): JSX.Element => (
 	<div
 		css={[
 			arrowWrapperStyles,
@@ -632,7 +654,9 @@ export const Header = ({
 	</div>
 );
 
-export const LeftHeader = ({ children }: Children): JSX.Element => <div css={leftHeaderStyles}>{children}</div>;
+export const LeftHeader = ({ children }: Children): JSX.Element => (
+	<div css={leftHeaderStyles}>{children}</div>
+);
 
 export type ImageWrapperProps = {
 	onClick: (event: MouseEvent<HTMLDivElement>) => void;
@@ -640,10 +664,15 @@ export type ImageWrapperProps = {
 } & Children &
 	DataTestID;
 
-export const ImageWrapper: ForwardRefExoticComponent<{
-    onClick: (event: MouseEvent<HTMLDivElement>) => void;
-    style: CSSProperties;
-} & Children & DataTestID & ClassName & RefAttributes<unknown>> = forwardRef(
+export const ImageWrapper: ForwardRefExoticComponent<
+	{
+		onClick: (event: MouseEvent<HTMLDivElement>) => void;
+		style: CSSProperties;
+	} & Children &
+		DataTestID &
+		ClassName &
+		RefAttributes<unknown>
+> = forwardRef(
 	(
 		{
 			children,
@@ -655,37 +684,36 @@ export const ImageWrapper: ForwardRefExoticComponent<{
 		ref,
 	) => {
 		const intl = useIntl();
-		return (
-			fg('platform_media_a11y_suppression_fixes') ? (
-				<button
-					data-testid={datatestId}
-					onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
-					ref={ref as React.RefObject<HTMLButtonElement>}
-					css={[resetButtonStyle, imageWrapperStyles]}
-					aria-label={intl.formatMessage(messages.svg_image_preview_label_assistive_text)}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					style={style}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={className}
-				>
-					{children}
-				</button>
-			) : (
-				// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-				<div
-					data-testid={datatestId}
-					onClick={onClick}
-					ref={ref as React.RefObject<HTMLDivElement>}
-					css={imageWrapperStyles}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					style={style}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={className}
-				>
-					{children}
-				</div>
-
-			)
+		return fg('platform_media_a11y_suppression_fixes') ? (
+			<button
+				data-testid={datatestId}
+				onClick={(event) =>
+					onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)
+				}
+				ref={ref as React.RefObject<HTMLButtonElement>}
+				css={[resetButtonStyle, imageWrapperStyles]}
+				aria-label={intl.formatMessage(messages.svg_image_preview_label_assistive_text)}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={style}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={className}
+			>
+				{children}
+			</button>
+		) : (
+			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+			<div
+				data-testid={datatestId}
+				onClick={onClick}
+				ref={ref as React.RefObject<HTMLDivElement>}
+				css={imageWrapperStyles}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={style}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={className}
+			>
+				{children}
+			</div>
 		);
 	},
 );
@@ -767,7 +795,10 @@ export const MetadataFileName = ({
 
 type MetadataSubTextProps = DataTestID & Children;
 
-export const MetadataSubText = ({ 'data-testid': datatestId, children }: MetadataSubTextProps): JSX.Element => (
+export const MetadataSubText = ({
+	'data-testid': datatestId,
+	children,
+}: MetadataSubTextProps): JSX.Element => (
 	<div css={metadataSubTextStyles} data-testid={datatestId}>
 		{children}
 	</div>
@@ -792,8 +823,8 @@ export const CustomAudioPlayerWrapper = ({ children }: Children): JSX.Element =>
 type AudioPlayerProps = DataTestID & Children;
 
 export const AudioPlayer: {
-    (props: AudioPlayerProps): JSX.Element;
-    displayName: string;
+	(props: AudioPlayerProps): JSX.Element;
+	displayName: string;
 } = ({ 'data-testid': datatestId, children }: AudioPlayerProps): JSX.Element => (
 	<div css={audioPlayerStyles} data-testid={datatestId}>
 		{children}
@@ -809,8 +840,8 @@ type AudioProps = {
 	preload: string;
 };
 
-export const Audio: ForwardRefExoticComponent<AudioProps & RefAttributes<HTMLAudioElement>> = forwardRef<HTMLAudioElement, AudioProps>(
-	({ autoPlay, controls, src, preload }, ref) => (
+export const Audio: ForwardRefExoticComponent<AudioProps & RefAttributes<HTMLAudioElement>> =
+	forwardRef<HTMLAudioElement, AudioProps>(({ autoPlay, controls, src, preload }, ref) => (
 		// eslint-disable-next-line @atlassian/a11y/media-has-caption
 		<audio
 			css={audioStyles}
@@ -820,8 +851,7 @@ export const Audio: ForwardRefExoticComponent<AudioProps & RefAttributes<HTMLAud
 			src={src}
 			preload={preload}
 		/>
-	),
-);
+	));
 
 type AudioCoverProps = {
 	alt: string | undefined;
@@ -853,7 +883,10 @@ export const CustomVideoPlayerWrapper = ({
 
 type SidebarWrapperProps = DataTestID & Children;
 
-export const SidebarWrapper = ({ 'data-testid': datatestId, children }: SidebarWrapperProps): JSX.Element => (
+export const SidebarWrapper = ({
+	'data-testid': datatestId,
+	children,
+}: SidebarWrapperProps): JSX.Element => (
 	<div css={sidebarWrapperStyles} data-testid={datatestId}>
 		{children}
 	</div>

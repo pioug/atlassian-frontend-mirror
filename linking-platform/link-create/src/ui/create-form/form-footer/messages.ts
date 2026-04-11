@@ -1,15 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    close: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; create: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	close: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	create: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	close: {
 		id: 'linkCreate.createForm.button.close',

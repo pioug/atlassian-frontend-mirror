@@ -16,7 +16,6 @@ describe('scheduleOnPaint', () => {
 		(window as any).scheduler = { postTask: jest.fn() };
 		(window as any).requestAnimationFrame = jest.fn().mockImplementation((cb) => cb());
 		(window as any).setTimeout = jest.fn().mockImplementation((cb, _) => cb());
-
 	});
 
 	afterEach(() => {
@@ -167,6 +166,5 @@ describe('scheduleOnPaint', () => {
 			setTimeoutSpy.mockRestore();
 			delete (globalThis as any).__SERVER__;
 		});
-
 	});
 });

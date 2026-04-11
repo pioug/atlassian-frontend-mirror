@@ -331,5 +331,6 @@ const UnauthorisedView = ({
 	}
 };
 
-const _default_1: (props: FlexibleBlockCardProps) => JSX.Element = withFlexibleUIBlockCardStyle(UnauthorisedView);
+const _default_1: (props: FlexibleBlockCardProps) => JSX.Element =
+	withFlexibleUIBlockCardStyle(UnauthorisedView);
 export default _default_1;

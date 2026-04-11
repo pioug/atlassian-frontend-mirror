@@ -1,7 +1,8 @@
 import { type MediaUserPreferences } from '@atlaskit/media-client-react';
 
-export const getUserCaptionsLocale = (mediaUserPreferences: MediaUserPreferences): string | undefined =>
-	mediaUserPreferences.get('videoCaptionsPreferredLocale');
+export const getUserCaptionsLocale = (
+	mediaUserPreferences: MediaUserPreferences,
+): string | undefined => mediaUserPreferences.get('videoCaptionsPreferredLocale');
 
 export const setUserCaptionsLocale = (
 	mediaUserPreferences: MediaUserPreferences,

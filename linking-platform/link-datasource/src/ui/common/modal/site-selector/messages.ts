@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const siteSelectorMessages: {
-    chooseSite: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	chooseSite: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	chooseSite: {
 		id: 'linkDataSource.jira-issues.configmodal.chooseSite',

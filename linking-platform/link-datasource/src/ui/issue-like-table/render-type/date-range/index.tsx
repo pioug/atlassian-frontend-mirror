@@ -183,7 +183,10 @@ export function getFormattedDateRange(
 	}
 }
 
-const DateRangeRenderType = ({ value, testId = DATERANGE_TYPE_TEST_ID }: DateRangeProps): React.JSX.Element => {
+const DateRangeRenderType = ({
+	value,
+	testId = DATERANGE_TYPE_TEST_ID,
+}: DateRangeProps): React.JSX.Element => {
 	const { formatDate, formatMessage } = useIntl();
 	const formattedString = getFormattedDateRange(value.start, value.end, formatDate, formatMessage);
 	if (formattedString === '') {

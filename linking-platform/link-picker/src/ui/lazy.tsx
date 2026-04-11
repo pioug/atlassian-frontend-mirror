@@ -16,5 +16,6 @@ const LazyLinkPickerComponent = lazyForPaint(() =>
 
 // Must be a default export to be able to support prop docs
 // eslint-disable-next-line import/no-default-export
-const _default_1: MemoExoticComponent<(props: LinkPickerProps) => JSX.Element> = composeLinkPicker(LazyLinkPickerComponent);
+const _default_1: MemoExoticComponent<(props: LinkPickerProps) => JSX.Element> =
+	composeLinkPicker(LazyLinkPickerComponent);
 export default _default_1;

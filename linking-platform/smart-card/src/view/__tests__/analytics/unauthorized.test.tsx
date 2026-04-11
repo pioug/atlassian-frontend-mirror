@@ -216,10 +216,7 @@ describe('smart-card: unauthorized analytics', () => {
 
 		ffTest.on('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
 			eeTest
-				.describe(
-					'platform_sl_3p_preauth_better_hovercard',
-					'unauthorised hover learn more',
-				)
+				.describe('platform_sl_3p_preauth_better_hovercard', 'unauthorised hover learn more')
 				.variant(false, () => {
 					it('should fire learn more clicked on unauthorised hover when killswitch is on and experiment is off', async () => {
 						await expectUnauthorisedHoverLearnMoreClickFiresAnalytics();
@@ -227,10 +224,7 @@ describe('smart-card: unauthorized analytics', () => {
 				});
 
 			eeTest
-				.describe(
-					'platform_sl_3p_preauth_better_hovercard',
-					'unauthorised hover learn more',
-				)
+				.describe('platform_sl_3p_preauth_better_hovercard', 'unauthorised hover learn more')
 				.variant(true, () => {
 					it('should fire learn more clicked when experiment is on but Rovo is disabled', async () => {
 						await expectUnauthorisedHoverLearnMoreClickFiresAnalytics({

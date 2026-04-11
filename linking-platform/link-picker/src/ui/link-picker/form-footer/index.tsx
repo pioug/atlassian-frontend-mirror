@@ -33,15 +33,16 @@ const formFooterActionStyles = css({
 });
 
 export const messages: {
-    cancelButton: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; submittingStatusMessage: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	cancelButton: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	submittingStatusMessage: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	cancelButton: {
 		id: 'fabric.linkPicker.button.cancel',
@@ -80,7 +81,24 @@ interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
 	hideSubmitButton?: boolean;
 }
 
-export const FormFooter: MemoExoticComponent<({ isLoading, isSubmitting, error, url, queryState, items, isEditing, onCancel, action, customSubmitButtonLabel, submitMessageId, hideSubmitButton, className, ...restProps }: FormFooterProps) => JSX.Element | null> = memo(
+export const FormFooter: MemoExoticComponent<
+	({
+		isLoading,
+		isSubmitting,
+		error,
+		url,
+		queryState,
+		items,
+		isEditing,
+		onCancel,
+		action,
+		customSubmitButtonLabel,
+		submitMessageId,
+		hideSubmitButton,
+		className,
+		...restProps
+	}: FormFooterProps) => JSX.Element | null
+> = memo(
 	({
 		isLoading,
 		isSubmitting = false,

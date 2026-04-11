@@ -2,7 +2,8 @@
 
 > **Package**: `@atlaskit/editor-synced-block-renderer`
 >
-> **For workflow guidance, debugging, and cross-package task guides, load the `synced-blocks` skill:**
+> **For workflow guidance, debugging, and cross-package task guides, load the `synced-blocks`
+> skill:**
 > `get_skill(skill_name_or_path="platform/packages/editor/.rovodev/skills/synced-blocks/SKILL.md")`
 
 ---
@@ -32,10 +33,10 @@ src/
 ## Key Exports
 
 ```typescript
-getSyncBlockNodesFromDoc;              // Extract SyncBlockNode[] from a DocNode
-useMemoizedSyncedBlockNodeComponent;   // Returns memoized component for rendering reference blocks
-getSyncedBlockRenderer;                // Factory for editor-mode synced block renderer
-renderSyncedBlockContent;              // Shared render branching logic
+getSyncBlockNodesFromDoc; // Extract SyncBlockNode[] from a DocNode
+useMemoizedSyncedBlockNodeComponent; // Returns memoized component for rendering reference blocks
+getSyncedBlockRenderer; // Factory for editor-mode synced block renderer
+renderSyncedBlockContent; // Shared render branching logic
 ```
 
 ---

@@ -73,7 +73,8 @@ const scrollTo = (container: HTMLElement, left: number): void => {
 export const getTabList = (ref: RefObject<HTMLDivElement>): Element | null | undefined =>
 	ref.current?.querySelector('[role="tablist"]');
 
-export const getContainer = (ref: RefObject<HTMLDivElement>): HTMLElement | null | undefined => getTabList(ref)?.parentElement;
+export const getContainer = (ref: RefObject<HTMLDivElement>): HTMLElement | null | undefined =>
+	getTabList(ref)?.parentElement;
 
 type FindFn = (container: HTMLElement, tabs: HTMLElement[]) => HTMLElement | null | undefined;
 

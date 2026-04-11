@@ -60,8 +60,8 @@ ${generateResponsiveStyles(breakpoint, positionBottom, showOnTop)}
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 export const styledBarStyles: {
-    (props: StyledBarProps): SerializedStyles;
-    displayName: string;
+	(props: StyledBarProps): SerializedStyles;
+	displayName: string;
 } = (props: StyledBarProps): SerializedStyles => {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	return css(getStyledBarStylesBasedOnProps(props));

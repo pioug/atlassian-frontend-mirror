@@ -62,7 +62,7 @@ class LayoutColumnView implements NodeView {
 		}
 	}
 
-	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection'; }): boolean {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }): boolean {
 		// Ignore style attribute mutations — these are direct DOM writes during column drag
 		// (setting flex-basis for real-time resize feedback). Without this, PM's
 		// MutationObserver would immediately revert our style changes.

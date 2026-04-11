@@ -158,7 +158,11 @@ const RovoUnauthorisedView = ({
 							<Button appearance="subtle" onClick={onDismiss} testId={`${testId}-not-now`}>
 								<FormattedMessage {...messages.rovo_unauthorised_not_now} />
 							</Button>
-							<Button appearance="primary" onClick={handleAuthorize} testId={`${testId}-connect-account`}>
+							<Button
+								appearance="primary"
+								onClick={handleAuthorize}
+								testId={`${testId}-connect-account`}
+							>
 								<FormattedMessage {...messages.rovo_unauthorised_connect_account} />
 							</Button>
 						</Box>

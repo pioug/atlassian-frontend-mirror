@@ -15,6 +15,7 @@ import type {
 	SetDatasourceStash,
 	SetDatasourceTableRef,
 	SetProvider,
+	SetResolvedToolbarAttributes,
 	ShowDatasourceModal,
 	ShowLinkToolbar,
 } from '../types';
@@ -65,6 +66,19 @@ const setCardLayout = (state: CardPluginState, action: SetCardLayout) => {
 
 const setDatasourceTableRef = (state: CardPluginState, action: SetDatasourceTableRef) => {
 	return { ...state, datasourceTableRef: action.datasourceTableRef };
+};
+
+const setResolvedToolbarAttributes = (
+	state: CardPluginState,
+	action: SetResolvedToolbarAttributes,
+) => {
+	return {
+		...state,
+		resolvedToolbarAttributesByUrl: {
+			...state.resolvedToolbarAttributesByUrl,
+			[action.url]: action.attributes,
+		},
+	};
 };
 
 const setCardLayoutDatasourceTableRef = (
@@ -168,6 +182,8 @@ export default (state: CardPluginState, action: CardPluginAction): CardPluginSta
 			return registerEvents(state, action);
 		case 'SET_DATASOURCE_TABLE_REF':
 			return setDatasourceTableRef(state, action);
+		case 'SET_RESOLVED_TOOLBAR_ATTRIBUTES':
+			return setResolvedToolbarAttributes(state, action);
 		case 'SET_CARD_LAYOUT':
 			return setCardLayout(state, action);
 		case 'SET_CARD_LAYOUT_AND_DATASOURCE_TABLE_REF':

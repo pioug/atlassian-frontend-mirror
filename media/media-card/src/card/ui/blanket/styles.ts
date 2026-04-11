@@ -8,8 +8,8 @@ export const blanketClassName = 'media-card-blanket';
 export const fixedBlanketStyles: string = `background-color: ${token('color.blanket')};`;
 
 export const blanketStyles: {
-    (isFixed?: boolean): SerializedStyles;
-    displayName: string;
+	(isFixed?: boolean): SerializedStyles;
+	displayName: string;
 } = (isFixed?: boolean): SerializedStyles =>
 	css(
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

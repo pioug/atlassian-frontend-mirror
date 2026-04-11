@@ -25,9 +25,10 @@ const iconStyles = css({
 export const Icon = ({
 	alt,
 	...props
-}: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>): JSX.Element => (
-	<img css={iconStyles} alt={alt || 'icon'} {...props} />
-);
+}: React.DetailedHTMLProps<
+	React.ImgHTMLAttributes<HTMLImageElement>,
+	HTMLImageElement
+>): JSX.Element => <img css={iconStyles} alt={alt || 'icon'} {...props} />;
 
 // Used for 'untrue' icons which claim to be 16x16 but
 // are less than that in height/width.
@@ -39,7 +40,10 @@ const akIconWrapperStyles = css({
 export const AKIconWrapper = ({
 	children,
 	...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>): JSX.Element => (
+}: React.DetailedHTMLProps<
+	React.HTMLAttributes<HTMLSpanElement>,
+	HTMLSpanElement
+>): JSX.Element => (
 	<span css={akIconWrapperStyles} {...props}>
 		{children}
 	</span>

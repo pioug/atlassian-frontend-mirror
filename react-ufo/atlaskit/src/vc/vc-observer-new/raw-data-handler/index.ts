@@ -154,9 +154,7 @@ export default class RawDataHandler {
 				};
 
 				const shouldCompactImplicitUnknown =
-					enableRawLblCompaction &&
-					labelInfo.s === 'unknown' &&
-					labelInfo.l === 'unknown';
+					enableRawLblCompaction && labelInfo.s === 'unknown' && labelInfo.l === 'unknown';
 
 				labelStacksMap[eid] = shouldCompactImplicitUnknown ? ('u' as const) : labelInfo;
 			}
@@ -316,8 +314,7 @@ export default class RawDataHandler {
 				evts: rawEventObservations.length > 0 ? rawEventObservations : undefined,
 				evt: Object.keys(eventTypeMapEntriesMap).length > 0 ? eventTypeMapEntriesMap : undefined,
 				lbl: Object.keys(labelStacksMap).length > 0 ? labelStacksMap : undefined,
-				lblMode:
-					enableServerSideTTVCSync && enableRawLblCompaction ? 'sentinel-v1' : undefined,
+				lblMode: enableServerSideTTVCSync && enableRawLblCompaction ? 'sentinel-v1' : undefined,
 			},
 			abortReason: dirtyReason,
 			abortTimestamp: getVCCleanStatusResult.abortTimestamp,

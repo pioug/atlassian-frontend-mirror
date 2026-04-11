@@ -1,4 +1,8 @@
-import { type CreateUIAnalyticsEvent, type UIAnalyticsEvent, createAndFireEvent } from '@atlaskit/analytics-next';
+import {
+	type CreateUIAnalyticsEvent,
+	type UIAnalyticsEvent,
+	createAndFireEvent,
+} from '@atlaskit/analytics-next';
 
 import {
 	ANALYTICS_MEDIA_CHANNEL,
@@ -63,6 +67,6 @@ export function fireAnalyticsEvent(
 // can be used inside withAnalyticsEvents() hook
 export const createAndFireMediaCustomMediaPlayerEvent = (
 	payload: CustomMediaPlayerAnalyticsEventPayload,
-): (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent => {
+): ((createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent) => {
 	return createAndFireEvent(ANALYTICS_MEDIA_CHANNEL)(payload);
 };

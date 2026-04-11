@@ -160,8 +160,14 @@ const popperPlacementMap: Record<
 	'left-end': 'left',
 };
 
-
-const DefaultMotion: PopoverContentProps['motion'] = ({ children }) => <Motion enteringAnimation={token('motion.spotlight.enter')} exitingAnimation={token('motion.spotlight.exit')}>{children}</Motion>
+const DefaultMotion: PopoverContentProps['motion'] = ({ children }) => (
+	<Motion
+		enteringAnimation={token('motion.spotlight.enter')}
+		exitingAnimation={token('motion.spotlight.exit')}
+	>
+		{children}
+	</Motion>
+);
 
 /**
  * __PopoverContent__
@@ -227,7 +233,7 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 
 	useLayoutEffect(() => {
 		card.setPlacement(placement);
-		if(motion) {
+		if (motion) {
 			card.setMotion(() => motion);
 		}
 	}, [placement, card, motion]);
@@ -263,36 +269,32 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 
 				updateRef.current = update;
 
-				return (
-					fg('platform-dst-motion-uplift') ? (
-						<ConditionalExitingPersistence>
-							{
-								isVisible && (
-									<div
-										role="dialog"
-										data-testid={testId}
-										aria-labelledby={heading.id}
-										ref={mergeRefs([ref, localRef])}
-										style={style}
-										css={styles.root}
-									>
-										{children}
-									</div>
-								)
-							}
-						</ConditionalExitingPersistence>
-					) : (
-						<div
-							role="dialog"
-							data-testid={testId}
-							aria-labelledby={heading.id}
-							ref={mergeRefs([ref, localRef])}
-							style={style}
-							css={styles.root}
-						>
-							{children}
-						</div>
-					)
+				return fg('platform-dst-motion-uplift') ? (
+					<ConditionalExitingPersistence>
+						{isVisible && (
+							<div
+								role="dialog"
+								data-testid={testId}
+								aria-labelledby={heading.id}
+								ref={mergeRefs([ref, localRef])}
+								style={style}
+								css={styles.root}
+							>
+								{children}
+							</div>
+						)}
+					</ConditionalExitingPersistence>
+				) : (
+					<div
+						role="dialog"
+						data-testid={testId}
+						aria-labelledby={heading.id}
+						ref={mergeRefs([ref, localRef])}
+						style={style}
+						css={styles.root}
+					>
+						{children}
+					</div>
 				);
 			}}
 		</Popper>

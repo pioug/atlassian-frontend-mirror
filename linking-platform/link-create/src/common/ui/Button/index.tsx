@@ -16,22 +16,22 @@ type ButtonProps = React.ComponentProps<typeof AkButton> & {
 	};
 };
 
-export const Button: React.ForwardRefExoticComponent<Omit<ButtonProps, "ref"> & React.RefAttributes<HTMLButtonElement>> = forwardRef(
-	({ actionSubjectId, ...props }: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
-		const { createAnalyticsEvent } = useAnalyticsEvents();
+export const Button: React.ForwardRefExoticComponent<
+	Omit<ButtonProps, 'ref'> & React.RefAttributes<HTMLButtonElement>
+> = forwardRef(({ actionSubjectId, ...props }: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-		return (
-			<AkButton
-				{...props}
-				ref={ref}
-				onClick={(event) => {
-					const payload = createEventPayload(`ui.button.clicked.${actionSubjectId}`, {});
-					const analyticEvent = createAnalyticsEvent(payload);
-					const cloned = analyticEvent.clone();
-					analyticEvent.fire(ANALYTICS_CHANNEL);
-					props.onClick?.(event, cloned ?? new UIAnalyticsEvent({ payload }));
-				}}
-			/>
-		);
-	},
-);
+	return (
+		<AkButton
+			{...props}
+			ref={ref}
+			onClick={(event) => {
+				const payload = createEventPayload(`ui.button.clicked.${actionSubjectId}`, {});
+				const analyticEvent = createAnalyticsEvent(payload);
+				const cloned = analyticEvent.clone();
+				analyticEvent.fire(ANALYTICS_CHANNEL);
+				props.onClick?.(event, cloned ?? new UIAnalyticsEvent({ payload }));
+			}}
+		/>
+	);
+});

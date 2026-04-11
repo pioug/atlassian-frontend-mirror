@@ -70,5 +70,6 @@ const NotFoundView = ({
 	);
 };
 
-const _default_1: (props: FlexibleBlockCardProps) => JSX.Element = withFlexibleUIBlockCardStyle(NotFoundView);
+const _default_1: (props: FlexibleBlockCardProps) => JSX.Element =
+	withFlexibleUIBlockCardStyle(NotFoundView);
 export default _default_1;

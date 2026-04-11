@@ -1,6 +1,7 @@
 # Synced Blocks Plugin — Developer Agent Guide
 
-> **For workflow guidance, debugging, and cross-package task guides, load the `synced-blocks` skill:**
+> **For workflow guidance, debugging, and cross-package task guides, load the `synced-blocks`
+> skill:**
 > `get_skill(skill_name_or_path="platform/packages/editor/.rovodev/skills/synced-blocks/SKILL.md")`
 
 ---

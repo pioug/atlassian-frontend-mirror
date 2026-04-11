@@ -196,5 +196,6 @@ const LozengeAction = ({
 	);
 };
 
-const _default_1: (props: LozengeActionProps) => React.JSX.Element = withErrorBoundary(LozengeAction);
+const _default_1: (props: LozengeActionProps) => React.JSX.Element =
+	withErrorBoundary(LozengeAction);
 export default _default_1;

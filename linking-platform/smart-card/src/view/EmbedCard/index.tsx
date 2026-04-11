@@ -27,7 +27,9 @@ const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => (
 	</>
 );
 
-export const EmbedCard: React.ForwardRefExoticComponent<EmbedCardProps & React.RefAttributes<HTMLIFrameElement>> = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
+export const EmbedCard: React.ForwardRefExoticComponent<
+	EmbedCardProps & React.RefAttributes<HTMLIFrameElement>
+> = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 	(
 		{
 			url,
@@ -252,10 +254,12 @@ export const EmbedCard: React.ForwardRefExoticComponent<EmbedCardProps & React.R
 	},
 );
 
-export const EmbedCardUpdated: React.ForwardRefExoticComponent<EmbedCardProps & {
-    onIframeMouseEnter?: () => void;
-    onIframeMouseLeave?: () => void;
-} & React.RefAttributes<HTMLIFrameElement>> = React.forwardRef<HTMLIFrameElement, EmbedCardUpdatedProps>(
+export const EmbedCardUpdated: React.ForwardRefExoticComponent<
+	EmbedCardProps & {
+		onIframeMouseEnter?: () => void;
+		onIframeMouseLeave?: () => void;
+	} & React.RefAttributes<HTMLIFrameElement>
+> = React.forwardRef<HTMLIFrameElement, EmbedCardUpdatedProps>(
 	(
 		{
 			url,

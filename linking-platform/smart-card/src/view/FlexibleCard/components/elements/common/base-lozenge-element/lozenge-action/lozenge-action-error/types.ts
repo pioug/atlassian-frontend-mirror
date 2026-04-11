@@ -32,15 +32,18 @@ export type LozengeActionErrorProps = {
 };
 
 export const LozengeActionErrorMessages: {
-    noData: {
-        descriptor: MessageDescriptor;
-    }; noDataIssueTermRefresh: {
-        descriptor: MessageDescriptor;
-    }; unknown: {
-        descriptor: MessageDescriptor;
-    }; updateFailed: {
-        descriptor: MessageDescriptor;
-    };
+	noData: {
+		descriptor: MessageDescriptor;
+	};
+	noDataIssueTermRefresh: {
+		descriptor: MessageDescriptor;
+	};
+	unknown: {
+		descriptor: MessageDescriptor;
+	};
+	updateFailed: {
+		descriptor: MessageDescriptor;
+	};
 } = {
 	noData: {
 		descriptor: messages['status_change_permission_error'],

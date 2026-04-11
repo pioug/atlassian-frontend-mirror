@@ -2,7 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
+import {
+	useCallback,
+	useEffect,
+	useRef,
+	type ForwardRefExoticComponent,
+	type RefAttributes,
+} from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -240,22 +246,50 @@ const DatasourceTableViewWithoutAnalytics = ({
 	);
 };
 
-export const DatasourceTableView: ForwardRefExoticComponent<{
-    datasourceId: string;
-    parameters: DatasourceParameters;
-    url?: string;
-} & Partial<Pick<IssueLikeDataTableViewProps, "visibleColumnKeys" | "onVisibleColumnKeysChange" | "wrappedColumnKeys" | "onWrappedColumnChange" | "onColumnResize" | "columnCustomSizes" | "scrollableContainerHeight">> & WithContextProps & RefAttributes<any>> = withAnalyticsContext(componentMetadata.tableView)(
-	(props: DatasourceTableViewProps) => (
-		<StoreContainer>
-			<DatasourceExperienceIdProvider>
-				<DatasourceTableViewWithoutAnalytics {...props} />
-			</DatasourceExperienceIdProvider>
-		</StoreContainer>
-	),
-);
+export const DatasourceTableView: ForwardRefExoticComponent<
+	{
+		datasourceId: string;
+		parameters: DatasourceParameters;
+		url?: string;
+	} & Partial<
+		Pick<
+			IssueLikeDataTableViewProps,
+			| 'visibleColumnKeys'
+			| 'onVisibleColumnKeysChange'
+			| 'wrappedColumnKeys'
+			| 'onWrappedColumnChange'
+			| 'onColumnResize'
+			| 'columnCustomSizes'
+			| 'scrollableContainerHeight'
+		>
+	> &
+		WithContextProps &
+		RefAttributes<any>
+> = withAnalyticsContext(componentMetadata.tableView)((props: DatasourceTableViewProps) => (
+	<StoreContainer>
+		<DatasourceExperienceIdProvider>
+			<DatasourceTableViewWithoutAnalytics {...props} />
+		</DatasourceExperienceIdProvider>
+	</StoreContainer>
+));
 
-export const DataSourceTableViewNoSuspense: ForwardRefExoticComponent<{
-    datasourceId: string;
-    parameters: DatasourceParameters;
-    url?: string;
-} & Partial<Pick<IssueLikeDataTableViewProps, "visibleColumnKeys" | "onVisibleColumnKeysChange" | "wrappedColumnKeys" | "onWrappedColumnChange" | "onColumnResize" | "columnCustomSizes" | "scrollableContainerHeight">> & WithContextProps & RefAttributes<any>> = DatasourceTableView;
+export const DataSourceTableViewNoSuspense: ForwardRefExoticComponent<
+	{
+		datasourceId: string;
+		parameters: DatasourceParameters;
+		url?: string;
+	} & Partial<
+		Pick<
+			IssueLikeDataTableViewProps,
+			| 'visibleColumnKeys'
+			| 'onVisibleColumnKeysChange'
+			| 'wrappedColumnKeys'
+			| 'onWrappedColumnChange'
+			| 'onColumnResize'
+			| 'columnCustomSizes'
+			| 'scrollableContainerHeight'
+		>
+	> &
+		WithContextProps &
+		RefAttributes<any>
+> = DatasourceTableView;

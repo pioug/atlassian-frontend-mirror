@@ -8,16 +8,20 @@ export function usePageContent(
 	getContent: (startIndex: number, endIndex: number) => Promise<PageRangeContent>,
 	paginationSize: number,
 ): {
-    getPageContent: (pageInd: number) => {
-        page: PageContent;
-        fonts: readonly Font[];
-    }; loadPageContent: (pageInd: number) => Promise<void>; documentMetadata: {
-        defaultDimensions: {
-            height: number;
-            width: number;
-        } | undefined;
-        pageCount: number;
-    };
+	getPageContent: (pageInd: number) => {
+		page: PageContent;
+		fonts: readonly Font[];
+	};
+	loadPageContent: (pageInd: number) => Promise<void>;
+	documentMetadata: {
+		defaultDimensions:
+			| {
+					height: number;
+					width: number;
+			  }
+			| undefined;
+		pageCount: number;
+	};
 } {
 	const [contentRanges, setContentRanges] = useState<PageRangeContent[]>([]);
 	const contentRangesRequestRef = useRef<Record<number, Promise<PageRangeContent>>>({});
@@ -44,9 +48,9 @@ export function usePageContent(
 	});
 
 	function getPageContent(pageInd: number): {
-        page: PageContent;
-        fonts: readonly Font[];
-    } {
+		page: PageContent;
+		fonts: readonly Font[];
+	} {
 		const contentRangeInd = Math.floor(pageInd / paginationSize);
 		const page = contentRanges[contentRangeInd]?.pages[pageInd % paginationSize];
 		const fonts = contentRanges[contentRangeInd]?.fonts;

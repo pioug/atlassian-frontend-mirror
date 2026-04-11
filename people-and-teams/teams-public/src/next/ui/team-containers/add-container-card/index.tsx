@@ -48,11 +48,7 @@ const AddContainerCardWrapper = ({
 	isDisabled?: boolean;
 }) => {
 	return (
-		<Pressable
-			xcss={styles.container}
-			isDisabled={isDisabled}
-			onClick={onClick}
-		>
+		<Pressable xcss={styles.container} isDisabled={isDisabled} onClick={onClick}>
 			{children}
 		</Pressable>
 	);
@@ -75,10 +71,7 @@ export const AddContainerCard = ({
 
 	return (
 		<AddContainerCardWrapper onClick={onAddAContainerClick} isDisabled={isDisabled}>
-			<Inline
-				space="space.100"
-				xcss={styles.card}
-			>
+			<Inline space="space.100" xcss={styles.card}>
 				<Box xcss={styles.iconWrapper}>{icon}</Box>
 				<Text maxLines={1} color="color.text.subtlest">
 					{title}

@@ -85,7 +85,10 @@ export const isJSXElementNull = (children: JSX.Element): boolean => {
 const isElementOrElementGroup = (node: React.ReactNode) =>
 	React.isValidElement(node) && (isFlexibleUiElement(node) || node.type === ElementGroup);
 
-export const filterActionItems = (items: ActionItem[] = [], context?: FlexibleUiDataContext): ActionItem[] => {
+export const filterActionItems = (
+	items: ActionItem[] = [],
+	context?: FlexibleUiDataContext,
+): ActionItem[] => {
 	return items.filter((item) => {
 		switch (item.name) {
 			case ActionName.DeleteAction:

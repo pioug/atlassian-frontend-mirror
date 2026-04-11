@@ -8,17 +8,18 @@ import { css, jsx } from '@compiled/react';
 import { Transition } from 'react-transition-group';
 
 import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
 import { cssMap } from '@atlaskit/css';
-import Form, { CheckboxField, Field, type OnSubmitHandler } from '@atlaskit/form';
+import Form, { Field, type OnSubmitHandler } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
+import { useResizingHeight } from '@atlaskit/motion';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
-import Textarea from '@atlaskit/textarea';
 import { token } from '@atlaskit/tokens';
 
 import { type FormValues } from '../types';
 
 import FeedbackScoreButtons from './FeedbackScoreButtons';
+import { SurveyFormExpandedFeedback } from './SurveyFormExpandedFeedback';
 
 const transitionBaseStyles = css({
 	overflow: 'hidden',
@@ -91,6 +92,11 @@ export default ({
 		setCanContactDefault(true);
 	}, []);
 
+	const resizingHeightProps = useResizingHeight({
+		duration: () => TRANSITION_DURATION,
+		timingFunction: () => 'ease-in-out',
+	});
+
 	return (
 		<section aria-labelledby="contextualSurveyQuestion">
 			<Stack space="space.150" xcss={styles.questionContainer}>
@@ -119,48 +125,38 @@ export default ({
 								/>
 							)}
 						</Field>
-						<Transition in={expanded} timeout={TRANSITION_DURATION} mountOnEnter>
-							{(state: TransitionState) => (
-								<div
-									css={transitionBaseStyles}
-									style={{
-										transition: `max-height ${TRANSITION_DURATION}ms ease-in-out`,
-										maxHeight: getExpandedHeight(expandedAreaRef, state),
-									}}
-									ref={expandedAreaRef}
-								>
-									<Field<string, HTMLTextAreaElement>
-										name="writtenFeedback"
-										defaultValue=""
-										isDisabled={submitting}
-										label={textLabel}
+						{fg('platform_contextual_survey_use_atlaskit_motion') ? (
+							<div {...resizingHeightProps} css={transitionBaseStyles}>
+								{expanded ? (
+									<SurveyFormExpandedFeedback
+										canContactDefault={canContactDefault}
+										onFeedbackChange={onFeedbackChange}
+										submitting={submitting}
+										textLabel={textLabel}
+									/>
+								) : null}
+							</div>
+						) : (
+							<Transition in={expanded} timeout={TRANSITION_DURATION} mountOnEnter>
+								{(state: TransitionState) => (
+									<div
+										css={transitionBaseStyles}
+										style={{
+											transition: `max-height ${TRANSITION_DURATION}ms ease-in-out`,
+											maxHeight: getExpandedHeight(expandedAreaRef, state),
+										}}
+										ref={expandedAreaRef}
 									>
-										{({ fieldProps }) => (
-											<Textarea
-												{...fieldProps}
-												aria-label={textLabel}
-												onChange={(event) => {
-													fieldProps.onChange(event);
-													onFeedbackChange();
-												}}
-											/>
-										)}
-									</Field>
-									<CheckboxField
-										name="canContact"
-										isDisabled={submitting}
-										defaultIsChecked={canContactDefault}
-									>
-										{({ fieldProps }) => (
-											<Checkbox
-												{...fieldProps}
-												label="Atlassian can contact me about this feedback"
-											/>
-										)}
-									</CheckboxField>
-								</div>
-							)}
-						</Transition>
+										<SurveyFormExpandedFeedback
+											canContactDefault={canContactDefault}
+											onFeedbackChange={onFeedbackChange}
+											submitting={submitting}
+											textLabel={textLabel}
+										/>
+									</div>
+								)}
+							</Transition>
+						)}
 						<Box xcss={styles.buttonContainer}>
 							<Button
 								isDisabled={!expanded}

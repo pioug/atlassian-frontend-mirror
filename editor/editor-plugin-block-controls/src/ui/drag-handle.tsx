@@ -456,7 +456,6 @@ type DragHandleProps = {
 	view: EditorView;
 };
 
-
 export const DragHandle = ({
 	view,
 	api,
@@ -1435,16 +1434,14 @@ export const DragHandle = ({
 			onDrop={handleOnDrop}
 			disabled={dragHandleDisabled}
 			data-editor-block-ctrl-drag-handle
-			data-blocks-drag-handle={
-				fg('confluence_remix_button_right_side_block_fg') || undefined
-			}
+			data-blocks-drag-handle={fg('confluence_remix_button_right_side_block_fg') || undefined}
 			data-testid="block-ctrl-drag-handle"
 			aria-label={dragHandleAriaLabel}
 			onBlur={() => {
 				if (editorExperiment('platform_editor_block_menu', true)) {
 					setIsFocused(false);
 				}
-				
+
 				if (expValEquals('platform_editor_drag_handle_keyboard_a11y', 'isEnabled', true)) {
 					const pos = getPos();
 					if (pos !== undefined) {

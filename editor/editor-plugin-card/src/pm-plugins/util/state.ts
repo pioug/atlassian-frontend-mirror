@@ -7,7 +7,7 @@ import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemir
 import type { DatasourceAdfView } from '@atlaskit/linking-common';
 import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
-import type { CardPluginState, Request } from '../../types';
+import type { CardPluginState, Request, ToolbarResolvedAttributes } from '../../types';
 import type { DatasourceTableLayout } from '../../ui/LayoutButton/types';
 import { pluginKey } from '../plugin-key';
 
@@ -55,6 +55,7 @@ export const getPluginStateWithUpdatedPos = (
 		sourceEvent?: UIAnalyticsEvent | null | undefined;
 		url: string;
 	}[];
+	resolvedToolbarAttributesByUrl: Record<string, ToolbarResolvedAttributes>;
 	selectedInlineLinkPosition?: number;
 	showDatasourceModal: boolean;
 	showLinkingToolbar: boolean;

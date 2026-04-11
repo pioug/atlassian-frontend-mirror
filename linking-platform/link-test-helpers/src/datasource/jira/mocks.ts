@@ -211,39 +211,43 @@ const getDaterangeMock = (index: number): DatasourceDataResponseItem['daterange'
 	}
 };
 
-export const generateResolveResponse = (resourceUrl: string): {
-    body: {
-        meta: JsonLd.Meta.Granted;
-        data: {
-            '@context': {
-                '@vocab': string;
-                atlassian: string;
-                schema: string;
-            };
-            generator: {
-                '@type': string;
-                '@id': string;
-                name: string;
-            };
-            '@type': string[];
-            url: string;
-            name: string;
-            summary: string;
-        };
-        datasources: {
-            key: string;
-            parameters: {
-                jql: string;
-                cloudId: string;
-            };
-            id: string;
-            ari: string;
-            description: string;
-            name: string;
-        }[];
-    };
-    status: number;
-} | undefined => {
+export const generateResolveResponse = (
+	resourceUrl: string,
+):
+	| {
+			body: {
+				meta: JsonLd.Meta.Granted;
+				data: {
+					'@context': {
+						'@vocab': string;
+						atlassian: string;
+						schema: string;
+					};
+					generator: {
+						'@type': string;
+						'@id': string;
+						name: string;
+					};
+					'@type': string[];
+					url: string;
+					name: string;
+					summary: string;
+				};
+				datasources: {
+					key: string;
+					parameters: {
+						jql: string;
+						cloudId: string;
+					};
+					id: string;
+					ari: string;
+					description: string;
+					name: string;
+				}[];
+			};
+			status: number;
+	  }
+	| undefined => {
 	const url = new URL(resourceUrl);
 	if (url.search.includes('jql=')) {
 		return resolveJqlSuccess;

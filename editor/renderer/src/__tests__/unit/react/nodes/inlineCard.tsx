@@ -300,14 +300,12 @@ describe('Renderer - React/Nodes/InlineCard - platform_editor_smartlink_local_ca
 
 	beforeEach(() => {
 		jest.clearAllMocks();
-		(useProvider as jest.Mock).mockReturnValue(
-			Promise.resolve({ refreshCache: mockRefreshCache }),
-		);
+		(useProvider as jest.Mock).mockReturnValue(Promise.resolve({ refreshCache: mockRefreshCache }));
 	});
 
-	eeTest.describe('platform_editor_smartlink_local_cache', 'when experiment isEnabled').variant(
-		true,
-		() => {
+	eeTest
+		.describe('platform_editor_smartlink_local_cache', 'when experiment isEnabled')
+		.variant(true, () => {
 			it('should call refreshCache with the inlineCard type and url', async () => {
 				render(
 					<Provider client={new Client('staging')}>
@@ -335,12 +333,11 @@ describe('Renderer - React/Nodes/InlineCard - platform_editor_smartlink_local_ca
 
 				expect(mockRefreshCache).not.toHaveBeenCalled();
 			});
-		},
-	);
+		});
 
-	eeTest.describe('platform_editor_smartlink_local_cache', 'when experiment isEnabled').variant(
-		false,
-		() => {
+	eeTest
+		.describe('platform_editor_smartlink_local_cache', 'when experiment isEnabled')
+		.variant(false, () => {
 			it('should not call refreshCache', async () => {
 				render(
 					<Provider client={new Client('staging')}>
@@ -352,6 +349,5 @@ describe('Renderer - React/Nodes/InlineCard - platform_editor_smartlink_local_ca
 
 				expect(mockRefreshCache).not.toHaveBeenCalled();
 			});
-		},
-	);
+		});
 });

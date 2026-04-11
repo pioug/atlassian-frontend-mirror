@@ -82,11 +82,7 @@ export const StyleObject: {
 		if (!success || !refs) {
 			return;
 		}
-		const {
-			fontSizeNode,
-			fontSizeRaw,
-			tokensImportNode,
-		} = refs;
+		const { fontSizeNode, fontSizeRaw, tokensImportNode } = refs;
 
 		const fontSizeValue = normaliseValue('fontSize', fontSizeRaw);
 
@@ -240,10 +236,7 @@ export const StyleObject: {
 				: undefined;
 			const fontWeightReplacement =
 				fontWeightReplacementToken &&
-				getTokenProperty(
-					'fontWeight',
-					fontWeightReplacementToken.tokenName,
-				);
+				getTokenProperty('fontWeight', fontWeightReplacementToken.tokenName);
 
 			const fontFamilyReplacement =
 				fontFamilyToAdd &&
@@ -252,10 +245,7 @@ export const StyleObject: {
 							// This will always exist if fontFamilyToAdd === 'original', TS can't figure that out.
 							fontFamilyNode!,
 						)
-					: getTokenProperty(
-							'fontFamily',
-							fontFamilyTokenName,
-						));
+					: getTokenProperty('fontFamily', fontFamilyTokenName));
 
 			const fontStyleReplacement =
 				fontStyleToAdd && getLiteralProperty('fontStyle', fontStyleToAdd);
@@ -348,12 +338,7 @@ export const StyleObject: {
 					if (index === 0) {
 						return fixer.replaceText(
 							node,
-							`${getTokenProperty(
-								'font',
-								matchingToken.tokenName,
-								undefined,
-								true,
-							)}`,
+							`${getTokenProperty('font', matchingToken.tokenName, undefined, true)}`,
 						);
 					}
 

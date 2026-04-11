@@ -3,13 +3,17 @@ import type { MotionScaleTokenSchema } from '../../src/types';
 /**
  * Types are inferred from the base tokens below
  */
-export type MotionPaletteToken = {
-	duration: BaseDurationToken;
-	curve: BaseEasingToken;
-	keyframes?: BaseKeyframeToken[];
-	properties?: BaseTransitionPropertyToken[];
-	delay?: BaseDurationToken;
-} | BaseDurationToken | BaseEasingToken | BaseKeyframeToken;
+export type MotionPaletteToken =
+	| {
+			duration: BaseDurationToken;
+			curve: BaseEasingToken;
+			keyframes?: BaseKeyframeToken[];
+			properties?: BaseTransitionPropertyToken[];
+			delay?: BaseDurationToken;
+	  }
+	| BaseDurationToken
+	| BaseEasingToken
+	| BaseKeyframeToken;
 export type BaseDurationToken = keyof typeof baseDurationTokens;
 export type BaseEasingToken = keyof typeof baseBezierCurveTokens;
 export type BaseKeyframeToken = keyof typeof baseKeyframeTokens;
@@ -257,11 +261,12 @@ const baseBezierCurveTokens = {
 		},
 	},
 	EaseSpring: {
-		value: 'linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)',
+		value:
+			'linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)',
 		attributes: {
 			group: 'motionEasing',
 		},
-	}
+	},
 } as const;
 
 const motionPalette: MotionTokenSchema = {

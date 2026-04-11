@@ -119,11 +119,11 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 		}
 
 		if (token.path.includes('motion')) {
-			if(token.path.includes('duration')) {
+			if (token.path.includes('duration')) {
 				motionDuration.push(token);
-			} else if(token.path.includes('easing')) {
+			} else if (token.path.includes('easing')) {
 				motionEasing.push(token);
-			} else if(token.path.includes('keyframe')) {
+			} else if (token.path.includes('keyframe')) {
 				motionKeyframes.push(token);
 			} else {
 				motion.push(token);

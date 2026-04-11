@@ -441,13 +441,13 @@ export const createPlugin = (
 							pmPluginFactoryParams,
 							api,
 							syncBlockStore,
-					  })
+						})
 					: bodiedSyncBlockNodeViewOld({
 							pluginOptions: options,
 							pmPluginFactoryParams,
 							api,
 							syncBlockStore,
-					  }),
+						}),
 			},
 			decorations: (state) => {
 				const currentPluginState = syncedBlockPluginKey.getState(state);
@@ -660,7 +660,7 @@ export const createPlugin = (
 						isConfirmedSyncBlockDeletion,
 						bodiedSyncBlockRemoved,
 						bodiedSyncBlockAdded,
-				  })
+					})
 				: filterTransactionOnline({
 						tr,
 						state,
@@ -670,7 +670,7 @@ export const createPlugin = (
 						bodiedSyncBlockRemoved,
 						bodiedSyncBlockAdded,
 						extensionFlagShown,
-				  });
+					});
 		},
 		appendTransaction: (trs, oldState, newState) => {
 			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;

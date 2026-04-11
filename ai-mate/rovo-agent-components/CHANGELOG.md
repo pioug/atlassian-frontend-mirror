@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.49.0
+
+### Minor Changes
+
+- [`344cad68b44ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/344cad68b44ee) -
+  Clean up flag to improve accessibility of links.
+
 ## 3.48.2
 
 ### Patch Changes

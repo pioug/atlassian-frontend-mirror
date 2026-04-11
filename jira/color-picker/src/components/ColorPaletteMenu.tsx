@@ -11,8 +11,8 @@ import {
 	type KeyboardEvent,
 	type MouseEvent,
 	type Ref,
-    type ForwardRefExoticComponent,
-    type RefAttributes,
+	type ForwardRefExoticComponent,
+	type RefAttributes,
 } from 'react';
 import { Mode, type Palette, type ColorCardVariant } from '../types';
 import {
@@ -196,10 +196,13 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 	);
 };
 
-const _default_1: ForwardRefExoticComponent<Omit<Omit<Props, keyof WithAnalyticsEventsProps> & RefAttributes<any> & WithContextProps, "ref"> & RefAttributes<any>> = withAnalyticsContext({
-    componentName: 'color-picker',
-    packageName: process.env._PACKAGE_NAME_,
-    packageVersion: process.env._PACKAGE_VERSION_,
+const _default_1: ForwardRefExoticComponent<
+	Omit<Omit<Props, keyof WithAnalyticsEventsProps> & RefAttributes<any> & WithContextProps, 'ref'> &
+		RefAttributes<any>
+> = withAnalyticsContext({
+	componentName: 'color-picker',
+	packageName: process.env._PACKAGE_NAME_,
+	packageVersion: process.env._PACKAGE_VERSION_,
 })(withAnalyticsEvents()(ColorPaletteMenuWithoutAnalytics));
 export default _default_1;
 

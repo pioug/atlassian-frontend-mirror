@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 112.19.0
+
+### Minor Changes
+
+- [`aafeeed5d38f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aafeeed5d38f9) -
+  [ux] add beta lozenge to admin skills in editor popup menu
+
+## 112.18.10
+
+### Patch Changes
+
+- [`594c5e51522eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/594c5e51522eb) -
+  Update variable name and list of 1p products
+- [`1bd6f56c55358`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bd6f56c55358) -
+  Add gated analytics for Smart Link go-to-link actions, including extensionKey, status, and
+  statusDetails, with supporting editor/card test updates.
+- Updated dependencies
+
 ## 112.18.9
 
 ### Patch Changes

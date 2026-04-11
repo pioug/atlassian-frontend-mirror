@@ -506,8 +506,8 @@ describe('ArchiveSidebarFolderEntry', () => {
 
 	describe('when platform_media_a11y_suppression_fixes is enabled', () => {
 		beforeEach(() => {
-			(fg as jest.Mock).mockImplementation((flag) =>
-				flag === 'platform_media_a11y_suppression_fixes',
+			(fg as jest.Mock).mockImplementation(
+				(flag) => flag === 'platform_media_a11y_suppression_fixes',
 			);
 		});
 

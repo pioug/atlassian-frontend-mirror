@@ -23,7 +23,7 @@ const areFilesPotentiallyDuplicated = (
 	file1.id !== file2.id;
 
 export function useFileHashes(ids: FileIdentifier[]): {
-    [k: string]: string | undefined;
+	[k: string]: string | undefined;
 } {
 	const nonErrorFiles = useMediaStore((state) =>
 		Object.values(state.files).filter(isNonErrorFinalFileState),

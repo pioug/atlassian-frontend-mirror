@@ -48,7 +48,10 @@ const addToBatch = (hostname: string, item: BatchItem): void => {
 	);
 };
 
-export const useScheduledRegister = (href: string, register: (() => Promise<any>) | null): () => Promise<void> => {
+export const useScheduledRegister = (
+	href: string,
+	register: (() => Promise<any>) | null,
+): (() => Promise<void>) => {
 	const isScheduled = useRef(false);
 
 	const scheduledRegister = useCallback((): Promise<void> => {

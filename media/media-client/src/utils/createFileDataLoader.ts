@@ -162,7 +162,9 @@ export function createBatchLoadingFunc(mediaStore: MediaStore) {
 	};
 }
 
-export function createFileDataloader(mediaStore: MediaStore): Dataloader<DataloaderKey, DataloaderResult> {
+export function createFileDataloader(
+	mediaStore: MediaStore,
+): Dataloader<DataloaderKey, DataloaderResult> {
 	return new Dataloader<DataloaderKey, DataloaderResult>(createBatchLoadingFunc(mediaStore), {
 		maxBatchSize: MAX_BATCH_SIZE,
 	});

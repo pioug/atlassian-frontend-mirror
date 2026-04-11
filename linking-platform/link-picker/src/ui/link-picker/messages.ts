@@ -1,19 +1,21 @@
 import { defineMessages } from 'react-intl-next';
 
 export const searchMessages: {
-    linkLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkPlaceholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	linkLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	linkLabel: {
 		id: 'fabric.linkPicker.search.linkLabel',
@@ -33,19 +35,21 @@ export const searchMessages: {
 });
 
 export const linkMessages: {
-    linkLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkPlaceholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	linkLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	linkLabel: {
 		id: 'fabric.linkPicker.linkLabel',
@@ -65,19 +69,21 @@ export const linkMessages: {
 });
 
 export const formMessages: {
-    linkInvalid: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; clearLink: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; noEmbedAvailable: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	linkInvalid: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	clearLink: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	noEmbedAvailable: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	linkInvalid: {
 		id: 'fabric.linkPicker.linkInvalid',
@@ -98,31 +104,36 @@ export const formMessages: {
 });
 
 export const linkTextMessages: {
-    linkTextLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkTextAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkTextPlaceholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; clearLinkText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkHelperTextLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; linkHelperTextAriaLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	linkTextLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkTextAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkTextPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	clearLinkText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkHelperTextLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	linkHelperTextAriaLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	linkTextLabel: {
 		id: 'fabric.linkPicker.linkTextLabel',
@@ -157,15 +168,16 @@ export const linkTextMessages: {
 });
 
 export const timeMessages: {
-    updated: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; viewed: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	updated: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	viewed: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	updated: {
 		id: 'fabric.linkPicker.time.message.updated',

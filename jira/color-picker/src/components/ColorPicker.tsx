@@ -14,8 +14,8 @@ import {
 	createAndFireEvent,
 	withAnalyticsContext,
 	withAnalyticsEvents,
-    type WithAnalyticsEventsProps,
-    type WithContextProps,
+	type WithAnalyticsEventsProps,
+	type WithContextProps,
 } from '@atlaskit/analytics-next';
 import { getOptions } from '../utils';
 import { css, jsx } from '@atlaskit/css';
@@ -180,15 +180,26 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 }
 
 export const ColorPickerWithoutAnalytics: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(ColorPickerWithoutAnalyticsBase);
 
-const _default_1: React.ForwardRefExoticComponent<Omit<Omit<Omit<Props & WrappedComponentProps, "intl"> & {
-    forwardedRef?: React.Ref<any>;
-}, keyof WithAnalyticsEventsProps> & React.RefAttributes<any> & WithContextProps, "ref"> & React.RefAttributes<any>> = withAnalyticsContext({
-    componentName: 'color-picker',
-    packageName,
-    packageVersion,
+const _default_1: React.ForwardRefExoticComponent<
+	Omit<
+		Omit<
+			Omit<Props & WrappedComponentProps, 'intl'> & {
+				forwardedRef?: React.Ref<any>;
+			},
+			keyof WithAnalyticsEventsProps
+		> &
+			React.RefAttributes<any> &
+			WithContextProps,
+		'ref'
+	> &
+		React.RefAttributes<any>
+> = withAnalyticsContext({
+	componentName: 'color-picker',
+	packageName,
+	packageVersion,
 })(withAnalyticsEvents()(ColorPickerWithoutAnalytics));
 export default _default_1;
 

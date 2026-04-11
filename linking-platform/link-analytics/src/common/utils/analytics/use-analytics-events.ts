@@ -15,7 +15,9 @@ import { EVENT_CHANNEL } from '../constants';
 import type { EventKey } from './analytics.types';
 import createEventPayload, { type EventPayloadAttributes } from './create-event-payload';
 
-export const useAnalyticsEvents = (): { fireEvent: <K extends EventKey>(eventKey: K, ...params: EventPayloadAttributes<K>) => void; } => {
+export const useAnalyticsEvents = (): {
+	fireEvent: <K extends EventKey>(eventKey: K, ...params: EventPayloadAttributes<K>) => void;
+} => {
 	const { createAnalyticsEvent } = useAnalyticsNextEvents();
 	const fireEvent = useCallback(
 		<K extends EventKey>(eventKey: K, ...params: EventPayloadAttributes<K>): void => {

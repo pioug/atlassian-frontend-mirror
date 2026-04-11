@@ -7,7 +7,6 @@ import {
 import { untilAll } from '../../../utils/until-helpers';
 
 describe('untilAll helper', () => {
-
 	test('untilAll with 1 success experience', async () => {
 		const experience = new UFOExperience('test', {
 			type: ExperienceTypes.Load,

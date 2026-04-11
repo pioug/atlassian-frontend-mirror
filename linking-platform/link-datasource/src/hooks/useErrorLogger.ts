@@ -68,8 +68,13 @@ interface UseErrorLoggerPropsActions {
 
 export type UseErrorLoggerProps = UseErrorLoggerPropsDatasource | UseErrorLoggerPropsActions;
 
-const useErrorLogger = (loggerProps: UseErrorLoggerProps): {
-    captureError: (errorLocation: DatasourceOperationFailedAttributesType["errorLocation"], error: unknown) => void;
+const useErrorLogger = (
+	loggerProps: UseErrorLoggerProps,
+): {
+	captureError: (
+		errorLocation: DatasourceOperationFailedAttributesType['errorLocation'],
+		error: unknown,
+	) => void;
 } => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 

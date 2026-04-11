@@ -22,7 +22,6 @@ import {
 	SpotlightPrimaryAction,
 } from '@atlaskit/spotlight';
 
-
 const styles = cssMap({
 	root: {
 		height: '100vh',
@@ -45,7 +44,7 @@ export default (): JSX.Element => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
 	const dismiss = () => setIsVisible(false);
 	const done = () => setIsVisible(false);
-	
+
 	return (
 		<div css={styles.root}>
 			<div css={styles.content}>
@@ -53,7 +52,13 @@ export default (): JSX.Element => {
 					<PopoverTarget>
 						<Button onClick={() => setIsVisible(true)}>Show Spotlight</Button>
 					</PopoverTarget>
-					<PopoverContent done={done} dismiss={dismiss} placement="right-end" isVisible={isVisible} motion={null}>
+					<PopoverContent
+						done={done}
+						dismiss={dismiss}
+						placement="right-end"
+						isVisible={isVisible}
+						motion={null}
+					>
 						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>

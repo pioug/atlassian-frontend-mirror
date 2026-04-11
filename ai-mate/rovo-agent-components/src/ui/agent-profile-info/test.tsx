@@ -280,7 +280,7 @@ describe('AgentProfileCreator', () => {
 			{ wrapper },
 		);
 
-		expect(screen.getByRole('link', { name: 'John Doe' })).toBeInTheDocument();
+		expect(screen.getByRole('link', { name: /John Doe/ })).toBeInTheDocument();
 		expect(screen.queryByTestId('agent-profile-creator-skeleton')).not.toBeInTheDocument();
 	});
 
@@ -300,7 +300,7 @@ describe('AgentProfileCreator', () => {
 			{ wrapper },
 		);
 
-		expect(screen.getByRole('link', { name: 'John Doe (deactivated)' })).toBeInTheDocument();
+		expect(screen.getByRole('link', { name: /John Doe \(deactivated\)/ })).toBeInTheDocument();
 		expect(screen.queryByTestId('agent-profile-creator-skeleton')).not.toBeInTheDocument();
 	});
 

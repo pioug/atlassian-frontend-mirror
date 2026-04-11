@@ -18,7 +18,7 @@ const placeholderText = ' ';
 const isValidTimestamp = (timeStamp: number) => new Date(timeStamp).getTime() > 0;
 
 export const TitleBox: React.FC<WithIntlProps<TitleBoxProps & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<TitleBoxProps & WrappedComponentProps>;
+	WrappedComponent: React.ComponentType<TitleBoxProps & WrappedComponentProps>;
 } = injectIntl(
 	({
 		name,

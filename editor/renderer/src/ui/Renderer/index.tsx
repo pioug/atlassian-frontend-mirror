@@ -300,8 +300,8 @@ export const RendererFunctionalComponent = (
 			const { annotationProvider } = props;
 			const allowAnnotationsDraftMode = Boolean(
 				annotationProvider &&
-					annotationProvider.inlineComment &&
-					annotationProvider.inlineComment.allowDraftMode,
+				annotationProvider.inlineComment &&
+				annotationProvider.inlineComment.allowDraftMode,
 			);
 			const { featureFlags } = createRendererContext(props.featureFlags, props.isTopLevelRenderer);
 			return {

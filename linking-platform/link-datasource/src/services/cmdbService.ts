@@ -7,7 +7,7 @@ import {
 	type FetchObjectSchemaResponse,
 	type FetchObjectSchemasResponse,
 	type GetWorkspaceDetailsResponse,
-    type ObjectSchema,
+	type ObjectSchema,
 } from '../types/assets/types';
 
 import {

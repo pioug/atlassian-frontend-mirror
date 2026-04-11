@@ -579,12 +579,19 @@ const ViewerWithKey = (props: Props) => {
 	return <ItemViewerBase {...props} key={key} />;
 };
 
-export const ItemViewer: React.ForwardRefExoticComponent<Omit<Readonly<{
-    identifier: Identifier;
-    onClose?: () => void;
-    previewCount: number;
-    contextId?: string;
-    featureFlags?: MediaFeatureFlags;
-    viewerOptions?: ViewerOptionsProps;
-    traceContext: MediaTraceContext;
-}> & WithShowControlMethodProp, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>> = withAnalyticsEvents()(ViewerWithKey);
+export const ItemViewer: React.ForwardRefExoticComponent<
+	Omit<
+		Readonly<{
+			identifier: Identifier;
+			onClose?: () => void;
+			previewCount: number;
+			contextId?: string;
+			featureFlags?: MediaFeatureFlags;
+			viewerOptions?: ViewerOptionsProps;
+			traceContext: MediaTraceContext;
+		}> &
+			WithShowControlMethodProp,
+		keyof WithAnalyticsEventsProps
+	> &
+		React.RefAttributes<any>
+> = withAnalyticsEvents()(ViewerWithKey);

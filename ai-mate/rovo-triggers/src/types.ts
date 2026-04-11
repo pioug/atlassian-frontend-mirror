@@ -521,6 +521,18 @@ export type SmartLinksContextPayload = PayloadCore<'smartlinks-context-payload'>
 };
 
 /** Published by the consumer hook to notify the publisher whether it should fetch SmartLinks. */
+export type SpaceSelectedPayload = PayloadCore<
+	'space-selected',
+	{
+		spaceId: string;
+		title: string;
+		emoji: string;
+		description?: string;
+	}
+>;
+
+export type SpaceDeselectedPayload = PayloadCore<'space-deselected'>;
+
 export type SmartlinksSubscriptionChangedPayload =
 	PayloadCore<'smartlinks-subscription-changed'> & {
 		/** Never opens chat — internal signal only. */
@@ -566,7 +578,9 @@ export type Payload =
 	| UpdateAgentConfigurationPayload
 	| StudioLandingPageRedirectPayload
 	| UploadAndInsertMediaPayload
-	| SmartLinksContextPayload;
+	| SmartLinksContextPayload
+	| SpaceSelectedPayload
+	| SpaceDeselectedPayload;
 
 export type Callback = (payload: Payload) => void;
 

@@ -33,7 +33,7 @@ export type AIUnifiedCommonAttributes = {
 	/**
 	 * The source 3p product when user invokes AI action from smartlink toolbar.
 	 */
-	sourceProducts?: string | null;
+	sourceProduct?: string | null;
 	traceIds?: string[];
 	userGeneratedAI: 0 | 1;
 };

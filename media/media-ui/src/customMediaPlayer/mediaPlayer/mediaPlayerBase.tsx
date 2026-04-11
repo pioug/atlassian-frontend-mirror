@@ -1072,5 +1072,5 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 }
 
 export const MediaPlayerBase: React.FC<WithIntlProps<MediaPlayerBaseOwnProps>> & {
-    WrappedComponent: React.ComponentType<MediaPlayerBaseOwnProps>;
+	WrappedComponent: React.ComponentType<MediaPlayerBaseOwnProps>;
 } = injectIntl(_MediaPlayerBase);

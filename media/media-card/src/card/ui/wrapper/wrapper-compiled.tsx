@@ -56,18 +56,18 @@ const backgroundStyle = css({
 });
 
 const resetButtonStyle = css({
-	all: "unset",
-	display: "block"
+	all: 'unset',
+	display: 'block',
 });
 
 // Fix for Renderer context: editor-common's [data-node-type='media'] > div
 // selector doesn't match <button>, so we replicate those styles here.
 const rendererMediaButtonFix = css({
-    // eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-    '[data-node-type="media"] > &': {
-        position: 'absolute',
-        height: '100%',
-    },
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-node-type="media"] > &': {
+		position: 'absolute',
+		height: '100%',
+	},
 });
 
 const shadowStyleMap = cssMap({
@@ -153,8 +153,8 @@ const getResponsiveStyles = (breakpoint: Breakpoint) => {
 };
 
 export const Wrapper: {
-    (props: WrapperProps): JSX.Element;
-    displayName: string;
+	(props: WrapperProps): JSX.Element;
+	displayName: string;
 } = (props: WrapperProps): JSX.Element => {
 	const {
 		testId,
@@ -170,7 +170,7 @@ export const Wrapper: {
 		isPlayButtonClickable,
 		isTickBoxSelectable,
 		shouldDisplayTooltip,
-		ariaLabel
+		ariaLabel,
 	} = props;
 
 	const defaultImageCardDimensions = getDefaultCardDimensions(appearance);
@@ -180,45 +180,46 @@ export const Wrapper: {
 
 	const wrapperShadowKey = getShadowKey(disableOverlay, selected);
 
-	return (
-		fg('platform_media_a11y_suppression_fixes') ? (
-			<button
-				id="newFileExperienceWrapper"
-				type='button'
-				aria-label={ariaLabel}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={newFileExperienceClassName}
-				data-testid={testId}
-				style={
-					{
-						[LOCAL_WIDTH_VARIABLE]: width,
-						[LOCAL_HEIGHT_VARIABLE]: height,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-						...getResponsiveStyles(breakpoint),
-					} as React.CSSProperties
-				}
-				css={[
-					resetButtonStyle,
-					wrapperStyles.default,
-					rendererMediaButtonFix,
-					cursorStyle,
-					displayBackground && backgroundStyle,
-					wrapperShadowKey && shadowStyleMap[wrapperShadowKey],
-					selected && hideNativeBrowserTextSelectionStyles,
-					isPlayButtonClickable && clickableButtonPlayButtonStyles,
-					isTickBoxSelectable && selectableTickboxStyle,
-					shouldDisplayTooltip && tooltipStyle,
-				]}
-				ref={innerRef as any}
-				onClick={onClick as any}
-				onMouseEnter={onMouseEnter as any}
-				onFocus={(ev) => onMouseEnter && onMouseEnter(ev as unknown as React.MouseEvent<HTMLDivElement>)}
-				{...VcMediaWrapperProps}
-			>
-				<UFOCustomData data={{ hasMediaComponent: true }} />
-				{props.children}
-			</button>
-		) : (
+	return fg('platform_media_a11y_suppression_fixes') ? (
+		<button
+			id="newFileExperienceWrapper"
+			type="button"
+			aria-label={ariaLabel}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={newFileExperienceClassName}
+			data-testid={testId}
+			style={
+				{
+					[LOCAL_WIDTH_VARIABLE]: width,
+					[LOCAL_HEIGHT_VARIABLE]: height,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					...getResponsiveStyles(breakpoint),
+				} as React.CSSProperties
+			}
+			css={[
+				resetButtonStyle,
+				wrapperStyles.default,
+				rendererMediaButtonFix,
+				cursorStyle,
+				displayBackground && backgroundStyle,
+				wrapperShadowKey && shadowStyleMap[wrapperShadowKey],
+				selected && hideNativeBrowserTextSelectionStyles,
+				isPlayButtonClickable && clickableButtonPlayButtonStyles,
+				isTickBoxSelectable && selectableTickboxStyle,
+				shouldDisplayTooltip && tooltipStyle,
+			]}
+			ref={innerRef as any}
+			onClick={onClick as any}
+			onMouseEnter={onMouseEnter as any}
+			onFocus={(ev) =>
+				onMouseEnter && onMouseEnter(ev as unknown as React.MouseEvent<HTMLDivElement>)
+			}
+			{...VcMediaWrapperProps}
+		>
+			<UFOCustomData data={{ hasMediaComponent: true }} />
+			{props.children}
+		</button>
+	) : (
 		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 		<div
 			id="newFileExperienceWrapper"
@@ -252,11 +253,7 @@ export const Wrapper: {
 			<UFOCustomData data={{ hasMediaComponent: true }} />
 			{props.children}
 		</div>
-		)
 	);
 };
 
 Wrapper.displayName = 'NewFileExperienceWrapper';
-
-
-

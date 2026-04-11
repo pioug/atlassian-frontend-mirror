@@ -1072,8 +1072,7 @@ export const createPlugin = (
 				const isDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled;
 				if (isDisabled) {
 					const remixRightSideEnabled =
-						rightSideControlsEnabled &&
-						fg('confluence_remix_button_right_side_block_fg');
+						rightSideControlsEnabled && fg('confluence_remix_button_right_side_block_fg');
 					// Hide decorations when disabled, except in view mode when right-side controls are enabled
 					if (
 						!remixRightSideEnabled ||
@@ -1452,7 +1451,11 @@ export const createPlugin = (
 				}),
 			);
 
-			const shouldObserve = expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+			const shouldObserve = expValEquals(
+				'platform_editor_native_anchor_with_dnd',
+				'isEnabled',
+				true,
+			)
 				? !isAnchorSupported()
 				: true;
 

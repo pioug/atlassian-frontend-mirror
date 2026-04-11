@@ -19,8 +19,8 @@ const motion: ValueSchema<MotionEasingTokenSchema<BaseEasingToken>> = {
 				bold: { value: 'EaseBoldInOut' },
 			},
 			spring: {
-				value: 'EaseSpring'
-			}
+				value: 'EaseSpring',
+			},
 		},
 	},
 };

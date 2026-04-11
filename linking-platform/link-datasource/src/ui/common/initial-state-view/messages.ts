@@ -1,50 +1,58 @@
 import { defineMessages } from 'react-intl-next';
 
 export const initialStateViewMessages: {
-    jiraSearchTitle: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; beta: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    // everything below is a duplication from the work around EDM-9407
-    // needs to be cleaned up after that PR is merged
-    searchTitle: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; searchDescriptionForBasicSearch: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; searchDescriptionForJQLSearch: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; learnMoreLinkOld: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; learnMoreLink: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; searchDescriptionForJQLSearchIssueTermRefresh: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; searchDescriptionForBasicSearchIssueTermRefresh: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; searchDescriptionForBasicSearchSllv: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	jiraSearchTitle: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	beta: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	// everything below is a duplication from the work around EDM-9407
+	// needs to be cleaned up after that PR is merged
+	searchTitle: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	searchDescriptionForBasicSearch: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	searchDescriptionForJQLSearch: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	learnMoreLinkOld: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	learnMoreLink: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	searchDescriptionForJQLSearchIssueTermRefresh: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	searchDescriptionForBasicSearchIssueTermRefresh: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	searchDescriptionForBasicSearchSllv: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	jiraSearchTitle: {
 		id: 'linkDataSource.modal-initial-state.jiraSearchTitle',

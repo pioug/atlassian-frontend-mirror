@@ -89,31 +89,39 @@ export class MockDataTransfer implements DataTransfer {
 // so we've implemented it to make Typescript happy
 // see https://github.com/tmpvar/jsdom/issues/1568
 export const getMockClipboardEvent = (): {
-    new(event: string, files?: File[], types?: string[]): {
-        clipboardData: DataTransfer;
-        readonly bubbles: boolean;
-        cancelBubble: boolean;
-        readonly cancelable: boolean;
-        readonly composed: boolean;
-        readonly currentTarget: EventTarget | null;
-        readonly defaultPrevented: boolean;
-        readonly eventPhase: number;
-        readonly isTrusted: boolean;
-        returnValue: boolean;
-        readonly srcElement: EventTarget | null;
-        readonly target: EventTarget | null;
-        readonly timeStamp: DOMHighResTimeStamp;
-        readonly type: string;
-        composedPath(): EventTarget[];
-        initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
-        preventDefault(): void;
-        stopImmediatePropagation(): void;
-        stopPropagation(): void;
-        readonly NONE: 0;
-        readonly CAPTURING_PHASE: 1;
-        readonly AT_TARGET: 2;
-        readonly BUBBLING_PHASE: 3;
-    }; readonly NONE: 0; readonly CAPTURING_PHASE: 1; readonly AT_TARGET: 2; readonly BUBBLING_PHASE: 3;
+	new (
+		event: string,
+		files?: File[],
+		types?: string[],
+	): {
+		clipboardData: DataTransfer;
+		readonly bubbles: boolean;
+		cancelBubble: boolean;
+		readonly cancelable: boolean;
+		readonly composed: boolean;
+		readonly currentTarget: EventTarget | null;
+		readonly defaultPrevented: boolean;
+		readonly eventPhase: number;
+		readonly isTrusted: boolean;
+		returnValue: boolean;
+		readonly srcElement: EventTarget | null;
+		readonly target: EventTarget | null;
+		readonly timeStamp: DOMHighResTimeStamp;
+		readonly type: string;
+		composedPath(): EventTarget[];
+		initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
+		preventDefault(): void;
+		stopImmediatePropagation(): void;
+		stopPropagation(): void;
+		readonly NONE: 0;
+		readonly CAPTURING_PHASE: 1;
+		readonly AT_TARGET: 2;
+		readonly BUBBLING_PHASE: 3;
+	};
+	readonly NONE: 0;
+	readonly CAPTURING_PHASE: 1;
+	readonly AT_TARGET: 2;
+	readonly BUBBLING_PHASE: 3;
 } =>
 	class MockClipboardEvent extends Event implements ClipboardEvent {
 		clipboardData: DataTransfer;
@@ -124,60 +132,85 @@ export const getMockClipboardEvent = (): {
 	};
 
 export const MockDragEvent = (): {
-    new(event: string, files?: File[]): {
-        dataTransfer: DataTransfer;
-        initDragEvent(): void;
-        msConvertURL(): void;
-        readonly altKey: boolean;
-        readonly button: number;
-        readonly buttons: number;
-        readonly clientX: number;
-        readonly clientY: number;
-        readonly ctrlKey: boolean;
-        readonly layerX: number;
-        readonly layerY: number;
-        readonly metaKey: boolean;
-        readonly movementX: number;
-        readonly movementY: number;
-        readonly offsetX: number;
-        readonly offsetY: number;
-        readonly pageX: number;
-        readonly pageY: number;
-        readonly relatedTarget: EventTarget | null;
-        readonly screenX: number;
-        readonly screenY: number;
-        readonly shiftKey: boolean;
-        readonly x: number;
-        readonly y: number;
-        getModifierState(keyArg: string): boolean;
-        initMouseEvent(typeArg: string, canBubbleArg: boolean, cancelableArg: boolean, viewArg: Window, detailArg: number, screenXArg: number, screenYArg: number, clientXArg: number, clientYArg: number, ctrlKeyArg: boolean, altKeyArg: boolean, shiftKeyArg: boolean, metaKeyArg: boolean, buttonArg: number, relatedTargetArg: EventTarget | null): void;
-        readonly detail: number;
-        readonly view: Window | null;
-        readonly which: number;
-        initUIEvent(typeArg: string, bubblesArg?: boolean, cancelableArg?: boolean, viewArg?: Window | null, detailArg?: number): void;
-        readonly bubbles: boolean;
-        cancelBubble: boolean;
-        readonly cancelable: boolean;
-        readonly composed: boolean;
-        readonly currentTarget: EventTarget | null;
-        readonly defaultPrevented: boolean;
-        readonly eventPhase: number;
-        readonly isTrusted: boolean;
-        returnValue: boolean;
-        readonly srcElement: EventTarget | null;
-        readonly target: EventTarget | null;
-        readonly timeStamp: DOMHighResTimeStamp;
-        readonly type: string;
-        composedPath(): EventTarget[];
-        initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
-        preventDefault(): void;
-        stopImmediatePropagation(): void;
-        stopPropagation(): void;
-        readonly NONE: 0;
-        readonly CAPTURING_PHASE: 1;
-        readonly AT_TARGET: 2;
-        readonly BUBBLING_PHASE: 3;
-    };
+	new (
+		event: string,
+		files?: File[],
+	): {
+		dataTransfer: DataTransfer;
+		initDragEvent(): void;
+		msConvertURL(): void;
+		readonly altKey: boolean;
+		readonly button: number;
+		readonly buttons: number;
+		readonly clientX: number;
+		readonly clientY: number;
+		readonly ctrlKey: boolean;
+		readonly layerX: number;
+		readonly layerY: number;
+		readonly metaKey: boolean;
+		readonly movementX: number;
+		readonly movementY: number;
+		readonly offsetX: number;
+		readonly offsetY: number;
+		readonly pageX: number;
+		readonly pageY: number;
+		readonly relatedTarget: EventTarget | null;
+		readonly screenX: number;
+		readonly screenY: number;
+		readonly shiftKey: boolean;
+		readonly x: number;
+		readonly y: number;
+		getModifierState(keyArg: string): boolean;
+		initMouseEvent(
+			typeArg: string,
+			canBubbleArg: boolean,
+			cancelableArg: boolean,
+			viewArg: Window,
+			detailArg: number,
+			screenXArg: number,
+			screenYArg: number,
+			clientXArg: number,
+			clientYArg: number,
+			ctrlKeyArg: boolean,
+			altKeyArg: boolean,
+			shiftKeyArg: boolean,
+			metaKeyArg: boolean,
+			buttonArg: number,
+			relatedTargetArg: EventTarget | null,
+		): void;
+		readonly detail: number;
+		readonly view: Window | null;
+		readonly which: number;
+		initUIEvent(
+			typeArg: string,
+			bubblesArg?: boolean,
+			cancelableArg?: boolean,
+			viewArg?: Window | null,
+			detailArg?: number,
+		): void;
+		readonly bubbles: boolean;
+		cancelBubble: boolean;
+		readonly cancelable: boolean;
+		readonly composed: boolean;
+		readonly currentTarget: EventTarget | null;
+		readonly defaultPrevented: boolean;
+		readonly eventPhase: number;
+		readonly isTrusted: boolean;
+		returnValue: boolean;
+		readonly srcElement: EventTarget | null;
+		readonly target: EventTarget | null;
+		readonly timeStamp: DOMHighResTimeStamp;
+		readonly type: string;
+		composedPath(): EventTarget[];
+		initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
+		preventDefault(): void;
+		stopImmediatePropagation(): void;
+		stopPropagation(): void;
+		readonly NONE: 0;
+		readonly CAPTURING_PHASE: 1;
+		readonly AT_TARGET: 2;
+		readonly BUBBLING_PHASE: 3;
+	};
 } =>
 	class MockDragEvent extends MouseEvent implements DragEvent {
 		dataTransfer: DataTransfer;

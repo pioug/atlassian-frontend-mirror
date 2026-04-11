@@ -35,7 +35,9 @@ interface Dimensions {
 	height: number;
 }
 
-export const MediaImage: React.ForwardRefExoticComponent<Omit<MediaImageProps, "ref"> & React.RefAttributes<HTMLDivElement | HTMLImageElement>> = forwardRef(
+export const MediaImage: React.ForwardRefExoticComponent<
+	Omit<MediaImageProps, 'ref'> & React.RefAttributes<HTMLDivElement | HTMLImageElement>
+> = forwardRef(
 	(
 		{
 			dataURI,

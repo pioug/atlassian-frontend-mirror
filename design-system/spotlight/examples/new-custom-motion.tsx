@@ -25,7 +25,6 @@ import {
 } from '@atlaskit/spotlight';
 import { token } from '@atlaskit/tokens';
 
-
 const styles = cssMap({
 	root: {
 		height: '100vh',
@@ -57,7 +56,7 @@ export default (): JSX.Element => {
 			{children}
 		</Motion>
 	);
-	
+
 	return (
 		<div css={styles.root}>
 			<div css={styles.content}>
@@ -65,7 +64,13 @@ export default (): JSX.Element => {
 					<PopoverTarget>
 						<Button onClick={() => setIsVisible(true)}>Show Spotlight</Button>
 					</PopoverTarget>
-					<PopoverContent done={done} dismiss={dismiss} placement="right-end" isVisible={isVisible} motion={motion}>
+					<PopoverContent
+						done={done}
+						dismiss={dismiss}
+						placement="right-end"
+						isVisible={isVisible}
+						motion={motion}
+					>
 						<SpotlightCard testId="spotlight">
 							<SpotlightHeader>
 								<SpotlightHeadline>Headline</SpotlightHeadline>

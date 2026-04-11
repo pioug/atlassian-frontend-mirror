@@ -152,4 +152,5 @@ export const ensureMediaCardError = (
 	return new MediaCardError(primaryReason, error);
 };
 
-export const isUploadError = (error?: MediaCardError): boolean | undefined => error && error.primaryReason === 'upload';
+export const isUploadError = (error?: MediaCardError): boolean | undefined =>
+	error && error.primaryReason === 'upload';

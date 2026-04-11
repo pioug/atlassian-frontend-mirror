@@ -5,7 +5,7 @@ export const mapFetchErrors = (error: any): Error => {
 	return error;
 };
 
-export const getStatusCodeGroup = (error: Error): "unknown" | "1xx" | "3xx" | "4xx" | "5xx" => {
+export const getStatusCodeGroup = (error: Error): 'unknown' | '1xx' | '3xx' | '4xx' | '5xx' => {
 	if (error instanceof FetchError) {
 		const { statusCode } = error;
 		if (statusCode >= 100 && statusCode < 200) {

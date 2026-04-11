@@ -188,5 +188,4 @@ describe('<UnhandledErrorCard />', () => {
 			expect(styles.getPropertyValue('display')).toBe('none');
 		});
 	});
-
 });

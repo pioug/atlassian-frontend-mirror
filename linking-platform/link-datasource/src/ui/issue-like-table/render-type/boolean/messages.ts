@@ -1,15 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
 export const booleanTypeMessages: {
-    booleanTruthyValue: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; booleanFalsyValue: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	booleanTruthyValue: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	booleanFalsyValue: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	booleanTruthyValue: {
 		id: 'linkDataSource.render-type.boolean.true',

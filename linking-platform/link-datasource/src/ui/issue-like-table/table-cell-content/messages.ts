@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const tableCellMessages: {
-    editButtonLabel: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	editButtonLabel: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	editButtonLabel: {
 		id: 'linkDataSource.issue-line-table.edit-button-label.non-final',

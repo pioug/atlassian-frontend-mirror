@@ -10,14 +10,15 @@ import customMd from './utils/custom-md';
 const _default_1: JSX.Element = customMd`
 
 ${(
-        <ContentTabs
-            showQuickLinks={true}
-            tabs={[
-                { name: TabName.Overview, content: overview },
-                { name: TabName.Examples, content: examples },
-                { name: TabName.Reference, content: reference },
-            ]} />
-    )}
+	<ContentTabs
+		showQuickLinks={true}
+		tabs={[
+			{ name: TabName.Overview, content: overview },
+			{ name: TabName.Examples, content: examples },
+			{ name: TabName.Reference, content: reference },
+		]}
+	/>
+)}
 
 `;
 export default _default_1;

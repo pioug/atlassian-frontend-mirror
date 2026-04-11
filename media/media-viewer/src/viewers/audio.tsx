@@ -55,8 +55,8 @@ const getCoverUrl = (
 
 export class AudioViewer extends BaseViewer<string, Props, State> {
 	protected get initialState(): {
-        content: Outcome<string, MediaViewerError>;
-    } {
+		content: Outcome<string, MediaViewerError>;
+	} {
 		return {
 			content: Outcome.pending<string, MediaViewerError>(),
 		};

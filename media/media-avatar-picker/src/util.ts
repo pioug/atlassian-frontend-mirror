@@ -2,9 +2,12 @@ export function fileSizeMb(file: File): number {
 	return file.size / 1024 / 1024;
 }
 
-export function getCanvas(width: number, height: number): {
-    canvas: HTMLCanvasElement;
-    context: CanvasRenderingContext2D | null;
+export function getCanvas(
+	width: number,
+	height: number,
+): {
+	canvas: HTMLCanvasElement;
+	context: CanvasRenderingContext2D | null;
 } {
 	const canvas = document.createElement('canvas');
 	canvas.width = width;

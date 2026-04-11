@@ -2,7 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, Fragment, type ForwardRefExoticComponent, type KeyboardEvent, type RefAttributes } from 'react';
+import {
+	forwardRef,
+	Fragment,
+	type ForwardRefExoticComponent,
+	type KeyboardEvent,
+	type RefAttributes,
+} from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl-next';
@@ -176,7 +182,9 @@ const listItemFocusStyles = css({
 	},
 });
 
-export const LinkSearchListItem: ForwardRefExoticComponent<LinkSearchListItemProps & RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
+export const LinkSearchListItem: ForwardRefExoticComponent<
+	LinkSearchListItemProps & RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
 	(
 		{
 			item,

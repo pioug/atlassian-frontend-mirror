@@ -19,10 +19,10 @@ export interface MockedMediaClientProviderProps {
 
 export const mockedMediaClientConfig = {
 	authProvider: async (): Promise<{
-        clientId: string;
-        token: string;
-        baseUrl: string;
-    }> => {
+		clientId: string;
+		token: string;
+		baseUrl: string;
+	}> => {
 		return {
 			clientId: 'MockedMediaClientProvider-client-id',
 			token: 'MockedMediaClientProvider-token',

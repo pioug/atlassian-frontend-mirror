@@ -99,22 +99,38 @@ export const RovoPostAuthActionsModal = ({ title, url, testId }: RovoPostAuthAct
 			<Stack xcss={styles.actions} space="space.100" alignInline="start">
 				<Pressable xcss={styles.pressable}>
 					<span css={[styles.actionButtonBase, styles.actionButtonImproveDraft]}>
-						<AiGenerativeRemoveIcon label="Improve draft icon" color={token('color.icon.accent.purple')} size="small" />
+						<AiGenerativeRemoveIcon
+							label="Improve draft icon"
+							color={token('color.icon.accent.purple')}
+							size="small"
+						/>
 					</span>
 				</Pressable>
 				<Pressable xcss={styles.pressable}>
 					<span css={[styles.actionButtonBase, styles.actionButtonFindRelated]}>
-						<AiSearchIcon label="Find related icon" color={token('color.icon.accent.orange')} size="small" />
+						<AiSearchIcon
+							label="Find related icon"
+							color={token('color.icon.accent.orange')}
+							size="small"
+						/>
 					</span>
 				</Pressable>
 				<Pressable xcss={styles.pressable}>
 					<span css={[styles.actionButtonBase, styles.actionButtonCreateActions]}>
-						<AiGenerativeTextIcon label="Create actions icon" color={token('color.icon.accent.lime')} size="small" />
+						<AiGenerativeTextIcon
+							label="Create actions icon"
+							color={token('color.icon.accent.lime')}
+							size="small"
+						/>
 					</span>
 				</Pressable>
 				<Pressable xcss={styles.pressable}>
 					<span css={[styles.actionButtonBase, styles.actionButtonShowRelevance]}>
-						<AiGenerativeTextIcon label="Show relevance icon" color={token('color.icon.subtle')} size="small" />
+						<AiGenerativeTextIcon
+							label="Show relevance icon"
+							color={token('color.icon.subtle')}
+							size="small"
+						/>
 					</span>
 				</Pressable>
 			</Stack>

@@ -112,7 +112,6 @@ const FloatingToolbarButton = (
 
 	const handleOnClick = useCallback(
 		(event: React.MouseEvent) => {
-
 			onClick?.(event);
 		},
 		[onClick],
@@ -146,9 +145,7 @@ const FloatingToolbarButton = (
 					}
 				>
 					<Pulse
-						pulse={
-							!expValEquals('platform_editor_spotlight_migration', 'isEnabled', true) && pulse
-						}
+						pulse={!expValEquals('platform_editor_spotlight_migration', 'isEnabled', true) && pulse}
 					>
 						{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
 						<Button

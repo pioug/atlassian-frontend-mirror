@@ -95,6 +95,7 @@ const LinkCreateCallbackProvider = ({
 	);
 };
 
-const useLinkCreateCallback = (): LinkCreateCallbackProviderProps => useContext(LinkCreateCallbackContext);
+const useLinkCreateCallback = (): LinkCreateCallbackProviderProps =>
+	useContext(LinkCreateCallbackContext);
 
 export { LinkCreateCallbackProvider, useLinkCreateCallback };

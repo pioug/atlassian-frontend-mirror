@@ -141,7 +141,9 @@ describe('smart-card: unauthorized hover card (platform_sl_3p_preauth_better_hov
 
 	ffTest.off('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
 		it('should fire connect analytics when killswitch is off (legacy unauthorised hover)', async () => {
-			await expectConnectAccountClickedAnalyticsForUnauthorisedHover(legacyUnauthorisedHoverSelectors);
+			await expectConnectAccountClickedAnalyticsForUnauthorisedHover(
+				legacyUnauthorisedHoverSelectors,
+			);
 		});
 	});
 
@@ -152,10 +154,7 @@ describe('smart-card: unauthorized hover card (platform_sl_3p_preauth_better_hov
 
 	ffTest.on('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
 		eeTest
-			.describe(
-				'platform_sl_3p_preauth_better_hovercard',
-				'Rovo unauthorised hover card analytics',
-			)
+			.describe('platform_sl_3p_preauth_better_hovercard', 'Rovo unauthorised hover card analytics')
 			.variant(false, () => {
 				it('should fire connect analytics when experiment is off (legacy unauthorised hover)', async () => {
 					await expectConnectAccountClickedAnalyticsForUnauthorisedHover(
@@ -167,10 +166,7 @@ describe('smart-card: unauthorized hover card (platform_sl_3p_preauth_better_hov
 
 	ffTest.on('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
 		eeTest
-			.describe(
-				'platform_sl_3p_preauth_better_hovercard',
-				'Rovo unauthorised hover card analytics',
-			)
+			.describe('platform_sl_3p_preauth_better_hovercard', 'Rovo unauthorised hover card analytics')
 			.variant(true, () => {
 				it('should fire connect analytics when experiment is on and Rovo is enabled (Rovo unauthorised hover)', async () => {
 					await expectConnectAccountClickedAnalyticsForUnauthorisedHover(

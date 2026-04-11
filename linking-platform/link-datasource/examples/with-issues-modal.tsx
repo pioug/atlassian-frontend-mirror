@@ -142,7 +142,8 @@ export const WithIssueModalWithParameters = (props: Props): React.JSX.Element =>
 	/>
 );
 
-export const WithIssueModalWithParametersInformational: React.ComponentType<Props> = withWaitForItem(
-	WithIssueModalWithParameters,
-	() => document.body.querySelector('[data-testid="jira-datasource-table"]') !== null,
-);
+export const WithIssueModalWithParametersInformational: React.ComponentType<Props> =
+	withWaitForItem(
+		WithIssueModalWithParameters,
+		() => document.body.querySelector('[data-testid="jira-datasource-table"]') !== null,
+	);

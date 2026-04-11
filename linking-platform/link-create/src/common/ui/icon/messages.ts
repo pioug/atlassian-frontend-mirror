@@ -1,15 +1,16 @@
 import { defineMessages } from 'react-intl-next';
 
 export const iconLabelMessages: {
-    pageIconLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; liveDocIconLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	pageIconLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	liveDocIconLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	pageIconLabel: {
 		id: 'link-create.page-icon-label',

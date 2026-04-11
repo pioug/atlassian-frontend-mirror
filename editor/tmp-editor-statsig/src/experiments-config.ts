@@ -67,6 +67,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-08
+	cc_integrations_editor_open_link_click_analytics: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	cc_editor_insm_doc_size_stats: {
 		defaultValue: boolean;
 		param: string;
@@ -1636,6 +1643,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-04-06
+	confluence_fe_create_page_suggestion: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-04
 	platform_editor_user_highlight_contrast: {
 		defaultValue: boolean;
@@ -1705,7 +1719,7 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
-	}
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1845,6 +1859,14 @@ export const editorExperimentsConfig: {
 	cc_editor_hover_link_overlay_css_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_hover_link_overlay_css_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-08
+	cc_integrations_editor_open_link_click_analytics: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_integrations_editor_open_link_click_analytics',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3530,6 +3552,14 @@ export const editorExperimentsConfig: {
 	platform_editor_sync_block_ssr_config: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_sync_block_ssr_config',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-04-06
+	confluence_fe_create_page_suggestion: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_fe_create_page_suggestion',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

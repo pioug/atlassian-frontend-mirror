@@ -67,7 +67,12 @@ export const getMaxLineHeight = (size: SmartLinkSize): 1.75 | 1.5 => {
 	}
 };
 
-export const getMaxLines = (value: number, defaultValue: number, max: number, min: number): number => {
+export const getMaxLines = (
+	value: number,
+	defaultValue: number,
+	max: number,
+	min: number,
+): number => {
 	if (value > max) {
 		return defaultValue;
 	}

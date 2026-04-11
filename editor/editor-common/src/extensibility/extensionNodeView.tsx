@@ -80,7 +80,13 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 		if (!fg('confluence_connect_macro_preset_height')) {
 			// Try to reuse SSR'd DOM node on first init only
 			// This preserves SSR content and avoids TTVC mutations during hydration
-			if (!isSSR() && this.isFirstInit && this.node.type.name === 'extension' && this.node.attrs.extensionKey === 'toc' && expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)) {
+			if (
+				!isSSR() &&
+				this.isFirstInit &&
+				this.node.type.name === 'extension' &&
+				this.node.attrs.extensionKey === 'toc' &&
+				expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)
+			) {
 				const ssrElement = this.findSSRElement();
 				if (ssrElement) {
 					this.didReuseSsrDom = true;
@@ -146,7 +152,11 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 		if (!expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)) {
 			super.init();
 		} else {
-			if (!isSSR() && this.node.type.name === 'extension' && this.node.attrs.extensionKey === 'toc') {
+			if (
+				!isSSR() &&
+				this.node.type.name === 'extension' &&
+				this.node.attrs.extensionKey === 'toc'
+			) {
 				const ssrElement = this.findSSRElement();
 				const shouldSkipInitRender = ssrElement !== null;
 				super.init(shouldSkipInitRender);
@@ -169,10 +179,15 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	): boolean {
 		// Remove extensionNodeWrapper aka span.relative if we previously reused SSR DOM
 		// control is back to React afterwards
-		if (this.didReuseSsrDom && expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)) {
+		if (
+			this.didReuseSsrDom &&
+			expValEquals('platform_editor_hydration_skip_react_portal', 'isEnabled', true)
+		) {
 			const ssrElement = this.findSSRElement();
 			if (ssrElement) {
-				const extensionNodeWrapper = ssrElement.querySelector('[data-testId="extension-node-wrapper"]');
+				const extensionNodeWrapper = ssrElement.querySelector(
+					'[data-testId="extension-node-wrapper"]',
+				);
 				if (extensionNodeWrapper) {
 					extensionNodeWrapper.remove();
 				}

@@ -1293,7 +1293,7 @@ export interface MotionDurationTokenSchema<BaseToken> {
 			long: MotionDurationToken<BaseToken>;
 			xlong: MotionDurationToken<BaseToken>;
 			xxlong: MotionDurationToken<BaseToken>;
-		},
+		};
 	};
 }
 
@@ -1303,15 +1303,15 @@ export interface MotionEasingTokenSchema<BaseToken> {
 			out: {
 				bold: MotionEasingToken<BaseToken>;
 				practical: MotionEasingToken<BaseToken>;
-			},
+			};
 			in: {
 				practical: MotionEasingToken<BaseToken>;
-			},
+			};
 			inout: {
 				bold: MotionEasingToken<BaseToken>;
-			},
+			};
 			spring: MotionEasingToken<BaseToken>;
-		},
+		};
 	};
 }
 
@@ -1322,48 +1322,48 @@ export interface MotionKeyframeTokenSchema<BaseToken> {
 				in: {
 					small: MotionKeyframeToken<BaseToken>;
 					medium: MotionKeyframeToken<BaseToken>;
-				},
+				};
 				out: {
 					small: MotionKeyframeToken<BaseToken>;
 					medium: MotionKeyframeToken<BaseToken>;
-				}
-			},
+				};
+			};
 			fade: {
 				in: MotionKeyframeToken<BaseToken>;
 				out: MotionKeyframeToken<BaseToken>;
-			},
+			};
 			slide: {
 				in: {
 					top: {
 						short: MotionKeyframeToken<BaseToken>;
-					}
+					};
 					bottom: {
 						short: MotionKeyframeToken<BaseToken>;
-					}
+					};
 					left: {
 						short: MotionKeyframeToken<BaseToken>;
 						half: MotionKeyframeToken<BaseToken>;
-					}
+					};
 					right: {
 						short: MotionKeyframeToken<BaseToken>;
-					}
-				},
+					};
+				};
 				out: {
 					top: {
 						short: MotionKeyframeToken<BaseToken>;
-					}
+					};
 					bottom: {
 						short: MotionKeyframeToken<BaseToken>;
-					}
+					};
 					left: {
 						short: MotionKeyframeToken<BaseToken>;
 						half: MotionKeyframeToken<BaseToken>;
-					}
+					};
 					right: {
 						short: MotionKeyframeToken<BaseToken>;
-					}
-				}
-			}
-		}
+					};
+				};
+			};
+		};
 	};
 }

@@ -43,7 +43,10 @@ const checkboxFocusedStyles = css({
 	borderColor: token('color.border.focused'),
 });
 
-export const CustomCheckboxOption = ({ children, ...props }: OptionProps<SelectOption, true>): JSX.Element => (
+export const CustomCheckboxOption = ({
+	children,
+	...props
+}: OptionProps<SelectOption, true>): JSX.Element => (
 	<Tooltip content={props.label}>
 		<CheckboxOption
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides

@@ -1,31 +1,36 @@
 import { defineMessages } from 'react-intl-next';
 
 export const displayViewDropDownMessages: {
-    viewModeListLabel: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; viewModeListDescription: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; viewModeListDescriptionOld: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; viewModeInlineLinkLabel: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; viewModeInlineLinkDescription: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; viewModeInlineLinkDescriptionOld: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	viewModeListLabel: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	viewModeListDescription: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	viewModeListDescriptionOld: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	viewModeInlineLinkLabel: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	viewModeInlineLinkDescription: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	viewModeInlineLinkDescriptionOld: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	viewModeListLabel: {
 		id: 'linkDataSource.jira-issues.configmodal.viewModeListLabel',

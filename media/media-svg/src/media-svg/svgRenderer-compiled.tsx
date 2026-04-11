@@ -35,7 +35,9 @@ export type SvgRendererProps = {
 	style: MediaSvgProps['style'];
 };
 
-export const SvgRenderer: ForwardRefExoticComponent<SvgRendererProps & RefAttributes<HTMLImageElement>> = forwardRef<HTMLImageElement, SvgRendererProps>(
+export const SvgRenderer: ForwardRefExoticComponent<
+	SvgRendererProps & RefAttributes<HTMLImageElement>
+> = forwardRef<HTMLImageElement, SvgRendererProps>(
 	(
 		{
 			identifier: { id, collectionName },

@@ -2,7 +2,9 @@ import type { JiraSearchMethod } from '../common/types';
 
 import { DatasourceSearchMethod } from './types';
 
-export const mapSearchMethod = (searchMethod: JiraSearchMethod | null): DatasourceSearchMethod | null => {
+export const mapSearchMethod = (
+	searchMethod: JiraSearchMethod | null,
+): DatasourceSearchMethod | null => {
 	switch (searchMethod) {
 		case 'basic':
 			return DatasourceSearchMethod.DATASOURCE_BASIC_FILTER;

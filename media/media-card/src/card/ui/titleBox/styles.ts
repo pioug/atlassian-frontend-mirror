@@ -19,7 +19,10 @@ type TitleBoxWrapperStyleArgs = {
 	display?: 'none' | 'flex';
 };
 
-export const titleBoxWrapperStyles = ({ breakpoint, display = 'flex' }: TitleBoxWrapperStyleArgs): SerializedStyles =>
+export const titleBoxWrapperStyles = ({
+	breakpoint,
+	display = 'flex',
+}: TitleBoxWrapperStyleArgs): SerializedStyles =>
 	css(
 		{
 			position: 'absolute',
@@ -45,8 +48,8 @@ const infoStyles = `white-space: nowrap;overflow: hidden;`;
 const iconOverlapStyles = `padding-right: 10px;`;
 
 export const titleBoxHeaderStyles: {
-    ({ hasIconOverlap }: TitleBoxHeaderProps): SerializedStyles;
-    displayName: string;
+	({ hasIconOverlap }: TitleBoxHeaderProps): SerializedStyles;
+	displayName: string;
 } = ({ hasIconOverlap }: TitleBoxHeaderProps): SerializedStyles =>
 	css(
 		{
@@ -61,8 +64,8 @@ export const titleBoxHeaderStyles: {
 titleBoxHeaderStyles.displayName = 'FailedTitleBoxHeader';
 
 export const titleBoxFooterStyles: {
-    ({ hasIconOverlap }: TitleBoxFooterProps): SerializedStyles;
-    displayName: string;
+	({ hasIconOverlap }: TitleBoxFooterProps): SerializedStyles;
+	displayName: string;
 } = ({ hasIconOverlap }: TitleBoxFooterProps): SerializedStyles =>
 	css(
 		{

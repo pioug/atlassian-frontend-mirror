@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { type CreateUIAnalyticsEvent, withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import {
+	type CreateUIAnalyticsEvent,
+	withAnalyticsEvents,
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
 
 import {
 	ANALYTICS_MEDIA_CHANNEL,
@@ -12,7 +16,14 @@ import { LocalUploadComponentReact, type LocalUploadComponentBaseProps } from '.
 
 import { LocalFileSource, type LocalFileWithSource, type UploadService } from '../../service/types';
 
-import { type ClipboardPastePayload, type ClipboardConfig, type UploadEndEventPayload, type UploadErrorEventPayload, type UploadPreviewUpdateEventPayload, type UploadsStartEventPayload } from '../../types';
+import {
+	type ClipboardPastePayload,
+	type ClipboardConfig,
+	type UploadEndEventPayload,
+	type UploadErrorEventPayload,
+	type UploadPreviewUpdateEventPayload,
+	type UploadsStartEventPayload,
+} from '../../types';
 import { getPackageAttributes } from '../../util/analytics';
 import { appendTimestamp } from '../../util/appendTimestamp';
 import ErrorFlagGroup from '../errorFlagGroup/ErrorFlagGroup';
@@ -194,8 +205,8 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 	}
 
 	static defaultProps: {
-        config: ClipboardConfig;
-    } = {
+		config: ClipboardConfig;
+	} = {
 		config: defaultConfig,
 	};
 
@@ -226,18 +237,30 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 
 export default ClipboardBase;
 
-export const Clipboard: React.ForwardRefExoticComponent<Omit<Pick<Omit<{
-    mediaClient: MediaClient;
-    config: LocalUploadConfig;
-    onUploadsStart?: (payload: UploadsStartEventPayload) => void;
-    onPreviewUpdate?: (payload: UploadPreviewUpdateEventPayload) => void;
-    onEnd?: (payload: UploadEndEventPayload) => void;
-    onError?: (payload: UploadErrorEventPayload) => void;
-    featureFlags?: MediaFeatureFlags;
-} & {
-    config: ClipboardConfig;
-}, keyof WithAnalyticsEventsProps>, "onError" | "mediaClient" | "onUploadsStart" | "onPreviewUpdate" | "onEnd" | "featureFlags"> & {
-    config?: (LocalUploadConfig & ClipboardConfig) | undefined;
-} & {} & React.RefAttributes<any>, "ref"> & React.RefAttributes<any>> = withMediaAnalyticsContext(getPackageAttributes(COMPONENT_NAME))(
+export const Clipboard: React.ForwardRefExoticComponent<
+	Omit<
+		Pick<
+			Omit<
+				{
+					mediaClient: MediaClient;
+					config: LocalUploadConfig;
+					onUploadsStart?: (payload: UploadsStartEventPayload) => void;
+					onPreviewUpdate?: (payload: UploadPreviewUpdateEventPayload) => void;
+					onEnd?: (payload: UploadEndEventPayload) => void;
+					onError?: (payload: UploadErrorEventPayload) => void;
+					featureFlags?: MediaFeatureFlags;
+				} & {
+					config: ClipboardConfig;
+				},
+				keyof WithAnalyticsEventsProps
+			>,
+			'onError' | 'mediaClient' | 'onUploadsStart' | 'onPreviewUpdate' | 'onEnd' | 'featureFlags'
+		> & {
+			config?: (LocalUploadConfig & ClipboardConfig) | undefined;
+		} & {} & React.RefAttributes<any>,
+		'ref'
+	> &
+		React.RefAttributes<any>
+> = withMediaAnalyticsContext(getPackageAttributes(COMPONENT_NAME))(
 	withAnalyticsEvents()(ClipboardBase),
 );

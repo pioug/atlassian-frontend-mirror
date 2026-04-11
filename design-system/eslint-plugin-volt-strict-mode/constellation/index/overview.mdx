@@ -93,8 +93,7 @@ Additionally, modules cannot:
 
 - introduce **circular dependencies** or code cycles that prevent one-shot bundling
 - use **re-exports and barrelling** (or equivalent indirection) in disallowed ways—dependencies must
-  stay explicit and traceable (see
-  [`no-re-exports`](/components/css/overview))
+  stay explicit and traceable (see [`no-re-exports`](/components/css/overview))
 - rely on **dynamic imports** or **dynamic require** where static edges are required
 - depend on **resolution tricks or overrides** (including package export maps) that repoint
   first-party modules unpredictably

@@ -84,8 +84,8 @@ const WarningModal = (props: LinkWarningModalProps & WrappedComponentProps) => {
 };
 
 const _default_1: FC<WithIntlProps<LinkWarningModalProps & WrappedComponentProps>> & {
-    WrappedComponent: ComponentType<LinkWarningModalProps & WrappedComponentProps>;
+	WrappedComponent: ComponentType<LinkWarningModalProps & WrappedComponentProps>;
 } = injectIntl(WarningModal, {
-    enforceContext: false,
+	enforceContext: false,
 });
 export default _default_1;

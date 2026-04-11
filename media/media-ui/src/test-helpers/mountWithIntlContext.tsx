@@ -27,10 +27,14 @@ function nodeWithIntlProp(node: ReactElement<any>) {
  */
 export const mountWithIntlContext = <P, S, C extends Component<P, S> = Component<P, S>>(
 	node: ReactElement<P & WrappedComponentProps>,
-	{ context = {}, childContextTypes = {}, ...additionalOptions }: {
-        context?: {} | undefined;
-        childContextTypes?: {} | undefined;
-    } = {},
+	{
+		context = {},
+		childContextTypes = {},
+		...additionalOptions
+	}: {
+		context?: {} | undefined;
+		childContextTypes?: {} | undefined;
+	} = {},
 ): ReactWrapper<P & WrappedComponentProps, S, C> => {
 	const intl = !!node.props.intl ? node.props.intl : mockIntl;
 
@@ -42,9 +46,12 @@ export const mountWithIntlContext = <P, S, C extends Component<P, S> = Component
 
 export const shallowWithIntlContext = <P, S, C extends Component<P, S> = Component<P, S>>(
 	node: ReactElement<P & WrappedComponentProps>,
-	{ context = {}, ...additionalOptions }: {
-        context?: {} | undefined;
-    } = {},
+	{
+		context = {},
+		...additionalOptions
+	}: {
+		context?: {} | undefined;
+	} = {},
 ): ShallowWrapper<P & WrappedComponentProps, S, C> => {
 	const intl = !!node.props.intl ? node.props.intl : mockIntl;
 

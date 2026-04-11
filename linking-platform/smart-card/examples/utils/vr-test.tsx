@@ -39,25 +39,26 @@ export const HorizontalWrapper = ({ children }: HorizontalWrapperProps): JSX.Ele
 );
 
 export const LozengeActionExample: {
-    read: {
-        action: {
-            actionType: SmartLinkActionType;
-            resourceIdentifiers: {
-                issueKey: string;
-                hostname: string;
-            };
-        };
-        providerKey: string;
-    }; update: {
-        action: {
-            actionType: SmartLinkActionType;
-            resourceIdentifiers: {
-                issueKey: string;
-                hostname: string;
-            };
-        };
-        providerKey: string;
-    };
+	read: {
+		action: {
+			actionType: SmartLinkActionType;
+			resourceIdentifiers: {
+				issueKey: string;
+				hostname: string;
+			};
+		};
+		providerKey: string;
+	};
+	update: {
+		action: {
+			actionType: SmartLinkActionType;
+			resourceIdentifiers: {
+				issueKey: string;
+				hostname: string;
+			};
+		};
+		providerKey: string;
+	};
 } = {
 	read: {
 		action: {
@@ -82,35 +83,36 @@ export const LozengeActionExample: {
 };
 
 export const LozengeActionWithPreviewExample: {
-    read: {
-        action: {
-            actionType: SmartLinkActionType;
-            resourceIdentifiers: {
-                issueKey: string;
-                hostname: string;
-            };
-        };
-        providerKey: string;
-    }; update: {
-        action: {
-            actionType: SmartLinkActionType;
-            resourceIdentifiers: {
-                issueKey: string;
-                hostname: string;
-            };
-        };
-        providerKey: string;
-        details: {
-            id: string;
-            url: string;
-            previewData: {
-                providerName: string;
-                title: string;
-                src: string;
-                url: string;
-            };
-        };
-    };
+	read: {
+		action: {
+			actionType: SmartLinkActionType;
+			resourceIdentifiers: {
+				issueKey: string;
+				hostname: string;
+			};
+		};
+		providerKey: string;
+	};
+	update: {
+		action: {
+			actionType: SmartLinkActionType;
+			resourceIdentifiers: {
+				issueKey: string;
+				hostname: string;
+			};
+		};
+		providerKey: string;
+		details: {
+			id: string;
+			url: string;
+			previewData: {
+				providerName: string;
+				title: string;
+				src: string;
+				url: string;
+			};
+		};
+	};
 } = {
 	read: {
 		...LozengeActionExample.read,
@@ -132,38 +134,39 @@ export const LozengeActionWithPreviewExample: {
 };
 
 export const LozengeActionErrorExample: {
-    read: {
-        action: {
-            actionType: SmartLinkActionType;
-            resourceIdentifiers: {
-                issueKey: string;
-            };
-        };
-        providerKey: string;
-    }; update: {
-        action: {
-            actionType: SmartLinkActionType;
-            resourceIdentifiers: {
-                issueKey: string;
-                hostname: string;
-            };
-        };
-        providerKey: string;
-        details: {
-            invokePreviewAction: {
-                actionFn: () => Promise<void>;
-                actionType: string;
-            };
-            id: string;
-            url: string;
-            previewData: {
-                providerName: string;
-                title: string;
-                src: string;
-                url: string;
-            };
-        };
-    };
+	read: {
+		action: {
+			actionType: SmartLinkActionType;
+			resourceIdentifiers: {
+				issueKey: string;
+			};
+		};
+		providerKey: string;
+	};
+	update: {
+		action: {
+			actionType: SmartLinkActionType;
+			resourceIdentifiers: {
+				issueKey: string;
+				hostname: string;
+			};
+		};
+		providerKey: string;
+		details: {
+			invokePreviewAction: {
+				actionFn: () => Promise<void>;
+				actionType: string;
+			};
+			id: string;
+			url: string;
+			previewData: {
+				providerName: string;
+				title: string;
+				src: string;
+				url: string;
+			};
+		};
+	};
 } = {
 	read: {
 		action: {

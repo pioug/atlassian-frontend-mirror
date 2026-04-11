@@ -7,7 +7,7 @@ import { isIconSizeLarge } from '../../../utils';
 
 import type { AtlaskitIconTileProps } from './types';
 
-export const transformSmartLinkSizeToIconTileSize = (size?: SmartLinkSize): "24" | "16" => {
+export const transformSmartLinkSizeToIconTileSize = (size?: SmartLinkSize): '24' | '16' => {
 	switch (size) {
 		case SmartLinkSize.XLarge:
 		case SmartLinkSize.Large:

@@ -18,7 +18,21 @@ import {
 } from '../styles';
 import { type WrapperProps } from './types';
 
-export const wrapperStyles: { ({ breakpoint, dimensions, appearance, disableOverlay, displayBackground, selected, isPlayButtonClickable, isTickBoxSelectable, shouldDisplayTooltip, mediaCardCursor, }: WrapperProps): SerializedStyles; displayName: string; } = ({
+export const wrapperStyles: {
+	({
+		breakpoint,
+		dimensions,
+		appearance,
+		disableOverlay,
+		displayBackground,
+		selected,
+		isPlayButtonClickable,
+		isTickBoxSelectable,
+		shouldDisplayTooltip,
+		mediaCardCursor,
+	}: WrapperProps): SerializedStyles;
+	displayName: string;
+} = ({
 	breakpoint,
 	dimensions,
 	appearance,

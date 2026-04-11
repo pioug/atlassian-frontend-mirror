@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 14.0.1
+
+### Patch Changes
+
+- [`1bd6f56c55358`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bd6f56c55358) -
+  Add gated analytics for Smart Link go-to-link actions, including extensionKey, status, and
+  statusDetails, with supporting editor/card test updates.
+- Updated dependencies
+
 ## 14.0.0
 
 ### Major Changes

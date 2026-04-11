@@ -59,7 +59,8 @@ const i18n = defineMessages({
 	traceIdTooltip: {
 		id: 'fabric.media.trace_id_tooltip',
 		defaultMessage: 'Use Trace ID {traceId} when reaching out to support.',
-		description: 'Tooltip content showing the trace identifier for troubleshooting file preview errors',
+		description:
+			'Tooltip content showing the trace identifier for troubleshooting file preview errors',
 	},
 });
 
@@ -325,9 +326,7 @@ export const CardViewBase = ({
 
 	const { mediaType, mimeType, name, createdAt } = metadata || {};
 	const shouldShowTraceIdTooltip =
-		!!traceTooltipVariant &&
-		!!traceId &&
-		fg('platform_trace_id_tooltip_attachment_failures');
+		!!traceTooltipVariant && !!traceId && fg('platform_trace_id_tooltip_attachment_failures');
 	const tooltipContent = shouldShowTraceIdTooltip
 		? intl.formatMessage(i18n.traceIdTooltip, { traceId })
 		: name;
@@ -484,7 +483,9 @@ export const CardViewBase = ({
 	);
 };
 
-export const CardView: React.ForwardRefExoticComponent<Omit<CardViewProps, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>> = withAnalyticsEvents({
+export const CardView: React.ForwardRefExoticComponent<
+	Omit<CardViewProps, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
+> = withAnalyticsEvents({
 	onClick: createAndFireMediaCardEvent({
 		eventType: 'ui',
 		action: 'clicked',

@@ -1,30 +1,33 @@
 import { icon } from './icons';
 
 export const mockedAccessibleProductsResult: {
-    data: {
-        products: ({
-            productId: string;
-            productDisplayName: string;
-            workspaces: {
-                cloudId: string;
-                cloudUrl: string;
-                workspaceDisplayName: string;
-                workspaceAvatarUrl: string;
-                vortexMode: string;
-            }[];
-        } | {
-            productId: string;
-            productDisplayName: string;
-            workspaces: {
-                cloudId: string;
-                cloudUrl: string;
-                workspaceUrl: string;
-                workspaceDisplayName: string;
-                workspaceAvatarUrl: string;
-                vortexMode: string;
-            }[];
-        })[];
-    };
+	data: {
+		products: (
+			| {
+					productId: string;
+					productDisplayName: string;
+					workspaces: {
+						cloudId: string;
+						cloudUrl: string;
+						workspaceDisplayName: string;
+						workspaceAvatarUrl: string;
+						vortexMode: string;
+					}[];
+			  }
+			| {
+					productId: string;
+					productDisplayName: string;
+					workspaces: {
+						cloudId: string;
+						cloudUrl: string;
+						workspaceUrl: string;
+						workspaceDisplayName: string;
+						workspaceAvatarUrl: string;
+						vortexMode: string;
+					}[];
+			  }
+		)[];
+	};
 } = {
 	data: {
 		products: [
@@ -473,25 +476,28 @@ export const mockedAccessibleProductsResult: {
  * Mock availableSites response for a specific gatewayBaseUrl
  */
 export const mockedAccessibleResultWithGatewayBaseUrl: {
-    data: {
-        products: {
-            workspaces: ({
-                cloudId: string;
-                cloudUrl: string;
-                workspaceDisplayName: string;
-                workspaceAvatarUrl: string;
-                vortexMode: string;
-            } | {
-                cloudId: string;
-                workspaceUrl: string;
-                workspaceDisplayName: string;
-                workspaceAvatarUrl: string;
-                vortexMode: string;
-            })[];
-            productId: string;
-            productDisplayName: string;
-        }[];
-    };
+	data: {
+		products: {
+			workspaces: (
+				| {
+						cloudId: string;
+						cloudUrl: string;
+						workspaceDisplayName: string;
+						workspaceAvatarUrl: string;
+						vortexMode: string;
+				  }
+				| {
+						cloudId: string;
+						workspaceUrl: string;
+						workspaceDisplayName: string;
+						workspaceAvatarUrl: string;
+						vortexMode: string;
+				  }
+			)[];
+			productId: string;
+			productDisplayName: string;
+		}[];
+	};
 } = {
 	data: {
 		products: [

@@ -51,6 +51,6 @@ function ApiFeedback({
 }
 
 const _default_1: React.FC<WithIntlProps<ApiFeedbackProps & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<ApiFeedbackProps & WrappedComponentProps>;
+	WrappedComponent: React.ComponentType<ApiFeedbackProps & WrappedComponentProps>;
 } = injectIntl(ApiFeedback);
 export default _default_1;

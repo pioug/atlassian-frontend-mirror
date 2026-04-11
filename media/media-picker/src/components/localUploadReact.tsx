@@ -14,7 +14,7 @@ import {
 	type UploadsStartEventPayload,
 	type UploadParams,
 	type UploadRejectionData,
-    type UploadEventPayloadMap,
+	type UploadEventPayloadMap,
 } from '../types';
 import { UploadComponent } from './component';
 import { UploadServiceImpl } from '../service/uploadServiceImpl';

@@ -7,9 +7,9 @@ import {
 	createContainer,
 	createStateHook,
 	createStore,
-    type HookActionsFunction,
-    type HookStateFunction,
-    type Store as StoreType,
+	type HookActionsFunction,
+	type HookStateFunction,
+	type Store as StoreType,
 } from 'react-sweet-state';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
@@ -98,30 +98,44 @@ export const actions = {
 		},
 };
 
-export const Store: StoreType<State, {
-    onUpdateItem: (id: string, data: DatasourceDataResponseItem) => Action<State, void, void>;
-    onAddItems: (items: DatasourceDataResponseItem[], integrationKey: string | undefined, entityType: string | undefined) => Action<State, void, string[]>;
-}> = createStore<State, Actions>({
+export const Store: StoreType<
+	State,
+	{
+		onUpdateItem: (id: string, data: DatasourceDataResponseItem) => Action<State, void, void>;
+		onAddItems: (
+			items: DatasourceDataResponseItem[],
+			integrationKey: string | undefined,
+			entityType: string | undefined,
+		) => Action<State, void, string[]>;
+	}
+> = createStore<State, Actions>({
 	name: 'datasource-store',
 	initialState: getInitialState(),
 	actions,
 });
 
-export const useDatasourceItem: HookStateFunction<DatasourceItem | undefined, {
-    id: string;
-}> = createStateHook<
-	State,
-	Actions,
+export const useDatasourceItem: HookStateFunction<
 	DatasourceItem | undefined,
-	{ id: string }
->(Store, {
+	{
+		id: string;
+	}
+> = createStateHook<State, Actions, DatasourceItem | undefined, { id: string }>(Store, {
 	selector: (state, { id }) => state.items[id],
 });
 
-export const useDatasourceActions: HookActionsFunction<BoundActions<State, {
-    onUpdateItem: (id: string, data: DatasourceDataResponseItem) => Action<State, void, void>;
-    onAddItems: (items: DatasourceDataResponseItem[], integrationKey: string | undefined, entityType: string | undefined) => Action<State, void, string[]>;
-}>> = createActionsHook(Store);
+export const useDatasourceActions: HookActionsFunction<
+	BoundActions<
+		State,
+		{
+			onUpdateItem: (id: string, data: DatasourceDataResponseItem) => Action<State, void, void>;
+			onAddItems: (
+				items: DatasourceDataResponseItem[],
+				integrationKey: string | undefined,
+				entityType: string | undefined,
+			) => Action<State, void, string[]>;
+		}
+	>
+> = createActionsHook(Store);
 
 const Container = createContainer(Store);
 

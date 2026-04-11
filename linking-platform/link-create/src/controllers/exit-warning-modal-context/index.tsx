@@ -77,7 +77,7 @@ export const useExitWarningModal = (): ExitWarningModalContextValue => {
 	return value;
 };
 
-export const useWithExitWarning = (): (callback?: () => void) => () => boolean => {
+export const useWithExitWarning = (): ((callback?: () => void) => () => boolean) => {
 	const value = useContext(ExitWarningModalContext);
 
 	if (!value) {

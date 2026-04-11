@@ -159,9 +159,9 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 								description: '',
 							},
 						},
-					},	
-				}
-			}
+					},
+				},
+			},
 		},
 	},
 };

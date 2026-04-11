@@ -53,6 +53,7 @@ import type { VisitedLinkAEP } from './link-events';
 import type {
 	CreateLinkInlineDialogEventPayload,
 	EditLinkToolbarAEP,
+	OpenLinkToolbarAEP,
 	PreviewItemClickedAEP,
 	OpenSettingsToolbarAEP,
 	UnlinkToolbarAEP,
@@ -122,6 +123,7 @@ export type AnalyticsEventPayload<T = void> =
 	| UnlinkToolbarAEP
 	| EditLinkToolbarAEP
 	| PreviewItemClickedAEP
+	| OpenLinkToolbarAEP
 	| OpenSettingsToolbarAEP
 	| CustomPanelEventPayload
 	| FeatureExposureAEP

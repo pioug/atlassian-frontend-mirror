@@ -329,20 +329,19 @@ const arrowRightFromText =
 /**
  * sets a cell selection over the table cell in which the selection is inside of
  */
-const selectTableCell: Command =
-	(state, dispatch) => {
-		const $cell = cellAround(state.selection.$from);
-		if (!$cell) {
-			return false;
-		}
-
-		if (dispatch) {
-			dispatch(state.tr.setSelection(new CellSelection($cell)));
-			return true;
-		}
-
+const selectTableCell: Command = (state, dispatch) => {
+	const $cell = cellAround(state.selection.$from);
+	if (!$cell) {
 		return false;
-	};
+	}
+
+	if (dispatch) {
+		dispatch(state.tr.setSelection(new CellSelection($cell)));
+		return true;
+	}
+
+	return false;
+};
 
 /**
  * Sets a cell selection over all the cells in the table node
@@ -541,9 +540,12 @@ export const modASelectTable =
 
 		const tableSelected = isTableSelected(selection);
 		const isCellSelection = selection instanceof CellSelection;
-		
+
 		// if no cells are selected
-		if (!isCellSelection && expValEquals('platform_editor_lovability_select_all_shortcut', 'isEnabled', true)) {
+		if (
+			!isCellSelection &&
+			expValEquals('platform_editor_lovability_select_all_shortcut', 'isEnabled', true)
+		) {
 			return selectTableCell(state, dispatch);
 		}
 		// else if any number of cells are selected but not the full table

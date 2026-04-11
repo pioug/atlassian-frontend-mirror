@@ -16,46 +16,47 @@ export const generateContext = ({
 	metaAccess = 'granted',
 	metaVisibility = 'restricted',
 }: GenerateContextProp): {
-        meta: {
-            auth: never[];
-            definitionId: string;
-            visibility: string;
-            access: string;
-            key: string;
-        }; data: {
-            '@context': {
-                '@vocab': string;
-                atlassian: string;
-                schema: string;
-            };
-            generator: {
-                '@id': string | undefined;
-                '@type': string;
-                name: string;
-                icon: {
-                    '@type': string;
-                    url: null;
-                };
-            };
-            'atlassian:taskType': string | undefined;
-            '@type': string | string[] | undefined;
-            url: string;
-            name: string;
-            summary: string;
-            preview: {
-                '@type': string;
-                href: string;
-            };
-            'schema:fileFormat': string | undefined;
-            attributedTo: {
-                '@type': string;
-                icon: null;
-                name: string;
-            }[];
-            updated: string;
-            endTime: string;
-        };
-    } => ({
+	meta: {
+		auth: never[];
+		definitionId: string;
+		visibility: string;
+		access: string;
+		key: string;
+	};
+	data: {
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		generator: {
+			'@id': string | undefined;
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: null;
+			};
+		};
+		'atlassian:taskType': string | undefined;
+		'@type': string | string[] | undefined;
+		url: string;
+		name: string;
+		summary: string;
+		preview: {
+			'@type': string;
+			href: string;
+		};
+		'schema:fileFormat': string | undefined;
+		attributedTo: {
+			'@type': string;
+			icon: null;
+			name: string;
+		}[];
+		updated: string;
+		endTime: string;
+	};
+} => ({
 	meta: {
 		auth: [],
 		definitionId: 'watermelon-object-provider',

@@ -27,31 +27,21 @@ export default function Basic(): React.JSX.Element {
 				<Stack space="space.400">
 					<Text as="p">
 						Here is a TeamsAnchor link to{' '}
-						<TeamsAnchor
-							href={TEAM_HREF}
-							intent="navigation"
-						>
+						<TeamsAnchor href={TEAM_HREF} intent="navigation">
 							a team
 						</TeamsAnchor>
 						.
 					</Text>
 
 					<Text>
-						<TeamsLink
-							href={TEAM_HREF}
-							intent="navigation"
-						>
+						<TeamsLink href={TEAM_HREF} intent="navigation">
 							TeamsLink to a team
 						</TeamsLink>{' '}
 						in the directory.
 					</Text>
 
 					<Box>
-						<TeamsLinkButton
-							href={TEAM_HREF}
-							intent="navigation"
-							appearance="primary"
-						>
+						<TeamsLinkButton href={TEAM_HREF} intent="navigation" appearance="primary">
 							TeamsLinkButton to a team
 						</TeamsLinkButton>
 					</Box>
@@ -62,10 +52,7 @@ export default function Basic(): React.JSX.Element {
 						</Text>
 						<MenuGroup>
 							<Section title="Navigate">
-								<TeamsLinkItem
-									href={TEAM_HREF}
-									intent="navigation"
-								>
+								<TeamsLinkItem href={TEAM_HREF} intent="navigation">
 									Home
 								</TeamsLinkItem>
 								<TeamsLinkItem href={`${TEAM_HREF}/settings`} intent="navigation">

@@ -27,8 +27,8 @@ const ImageLoaderMock = (props: ComponentPropsWithoutRef<typeof ImageLoader>) =>
 );
 
 const VRInlineCardAllExamplesInText: {
-    (): JSX.Element;
-    displayName: string;
+	(): JSX.Element;
+	displayName: string;
 } = (): JSX.Element => {
 	return (
 		<IntlProvider locale="en">

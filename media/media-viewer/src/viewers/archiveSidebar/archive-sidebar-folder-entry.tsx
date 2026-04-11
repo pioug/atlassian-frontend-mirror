@@ -149,6 +149,8 @@ class ArchiveSidebarFolderEntryBase extends React.Component<
 	}
 }
 
-export const ArchiveSidebarFolderEntry: React.FC<WithIntlProps<ArchiveSidebarFolderProps & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<ArchiveSidebarFolderProps & WrappedComponentProps>;
+export const ArchiveSidebarFolderEntry: React.FC<
+	WithIntlProps<ArchiveSidebarFolderProps & WrappedComponentProps>
+> & {
+	WrappedComponent: React.ComponentType<ArchiveSidebarFolderProps & WrappedComponentProps>;
 } = injectIntl(ArchiveSidebarFolderEntryBase);

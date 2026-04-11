@@ -2,7 +2,9 @@ import { type InvokeError } from '@atlaskit/linking-types';
 
 import { TrackQuickActionFailureReason } from '../../../utils/analytics/analytics';
 
-export const getInvokeFailureReason = (err: InvokeError | Error): TrackQuickActionFailureReason.PermissionError | TrackQuickActionFailureReason.UnknownError => {
+export const getInvokeFailureReason = (
+	err: InvokeError | Error,
+): TrackQuickActionFailureReason.PermissionError | TrackQuickActionFailureReason.UnknownError => {
 	if (!isInvokeCustomError(err)) {
 		return TrackQuickActionFailureReason.UnknownError;
 	}

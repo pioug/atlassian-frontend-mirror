@@ -169,17 +169,11 @@ export const AgentProfileCreator = ({
 
 		if (creator.type === 'CUSTOMER') {
 			return formatMessage(messages.agentCreatedBy, {
-				creatorNameWithLink: fg('dst-a11y__replace-anchor-with-link__ai-mate') ? (
+				creatorNameWithLink: (
 					<Link href={creator.profileLink} onClick={() => onCreatorLinkClick()} target="_blank">
 						{creator.name}{' '}
 						{creator.status === 'inactive' && formatMessage(messages.agentDeactivated)}
 					</Link>
-				) : (
-					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-					<a href={creator.profileLink} onClick={() => onCreatorLinkClick()} target="_blank">
-						{creator.name}{' '}
-						{creator.status === 'inactive' && formatMessage(messages.agentDeactivated)}
-					</a>
 				),
 			});
 		}

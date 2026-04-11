@@ -1,51 +1,61 @@
 import { defineMessages } from 'react-intl-next';
 
 export const asyncPopupSelectMessages: {
-    projectLabel: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; statusLabel: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; typeLabel: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; typeLabelOld: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; assigneeLabel: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; projectSearchPlaceholder: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; statusSearchPlaceholder: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; typeSearchPlaceholder: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; assigneeSearchPlaceholder: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; projectLabelGalaxia: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; projectSearchPlaceholderGalaxia: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	projectLabel: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	statusLabel: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	typeLabel: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	typeLabelOld: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	assigneeLabel: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	projectSearchPlaceholder: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	statusSearchPlaceholder: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	typeSearchPlaceholder: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	assigneeSearchPlaceholder: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	projectLabelGalaxia: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	projectSearchPlaceholderGalaxia: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	projectLabel: {
 		id: 'linkDataSource.basic-filter.project.label',

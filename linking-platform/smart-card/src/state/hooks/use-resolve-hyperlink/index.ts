@@ -17,14 +17,22 @@ import { useSmartCardState } from '../../store';
 
 import { useScheduledRegister } from './useScheduledRegister';
 
-const useResolveHyperlink = ({ href }: { href: string }): {
-    state: CardState; actions: {
-        register: () => Promise<void>;
-        reload: () => void;
-        authorize: (appearance: CardInnerAppearance) => void;
-        invoke: (opts: InvokeClientOpts | InvokeServerOpts, appearance: CardInnerAppearance) => Promise<JsonLd.Response | void>;
-        loadMetadata: () => Promise<void> | undefined;
-    };
+const useResolveHyperlink = ({
+	href,
+}: {
+	href: string;
+}): {
+	state: CardState;
+	actions: {
+		register: () => Promise<void>;
+		reload: () => void;
+		authorize: (appearance: CardInnerAppearance) => void;
+		invoke: (
+			opts: InvokeClientOpts | InvokeServerOpts,
+			appearance: CardInnerAppearance,
+		) => Promise<JsonLd.Response | void>;
+		loadMetadata: () => Promise<void> | undefined;
+	};
 } => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const [id] = useState(() => uuid() satisfies string);

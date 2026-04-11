@@ -16,8 +16,8 @@ export function titleBoxHeight(hasTitleBox: boolean, breakpoint: Breakpoint): st
 }
 
 export const iconWrapperStyles: {
-    ({ hasTitleBox, breakpoint }: IconWrapperProps): SerializedStyles;
-    displayName: string;
+	({ hasTitleBox, breakpoint }: IconWrapperProps): SerializedStyles;
+	displayName: string;
 } = ({ hasTitleBox, breakpoint }: IconWrapperProps): SerializedStyles =>
 	css({
 		position: 'absolute',

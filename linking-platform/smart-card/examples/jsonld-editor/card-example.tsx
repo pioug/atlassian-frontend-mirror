@@ -100,19 +100,21 @@ const CardExample = ({
 };
 
 // Not the most elegant implementation but this will do.
-const _default_1: (props: {
-    isEmbedSupported?: boolean;
-    url?: string;
-} & {
-    ari?: string;
-    branchDeploy?: string;
-    envKey?: EnvironmentsKeys;
-    json?: JsonLd.Response;
-    onError?: (error: Error) => void;
-    onFetch?: () => JsonLd.Response | undefined;
-    onResolve?: (json: JsonLd.Response) => void;
-    url: string;
-} & {
-    children?: React.ReactNode | undefined;
-}) => React.JSX.Element = withJsonldEditorProvider(CardExample);
+const _default_1: (
+	props: {
+		isEmbedSupported?: boolean;
+		url?: string;
+	} & {
+		ari?: string;
+		branchDeploy?: string;
+		envKey?: EnvironmentsKeys;
+		json?: JsonLd.Response;
+		onError?: (error: Error) => void;
+		onFetch?: () => JsonLd.Response | undefined;
+		onResolve?: (json: JsonLd.Response) => void;
+		url: string;
+	} & {
+		children?: React.ReactNode | undefined;
+	},
+) => React.JSX.Element = withJsonldEditorProvider(CardExample);
 export default _default_1;

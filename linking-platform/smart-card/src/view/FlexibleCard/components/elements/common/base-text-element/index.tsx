@@ -49,10 +49,7 @@ export type BaseTextElementProps = ElementProps & {
 	 * Override the default font size.
 	 */
 	fontSize?: Prettify<
-		Extract<
-			Parameters<typeof token>[0],
-			'font.body' | 'font.body.large' | 'font.body.small'
-		>
+		Extract<Parameters<typeof token>[0], 'font.body' | 'font.body.large' | 'font.body.small'>
 	>;
 	/**
 	 * Determines whether the text formatting should be hidden when both message and content are provided.

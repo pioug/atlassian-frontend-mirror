@@ -641,7 +641,8 @@ export const analyticsTests = (
 											it('should fire hover card viewed with expected viewVariant', async () => {
 												const { mockAnalyticsClient } = await setup({
 													mock: partial.mock ?? mockUnauthorisedResponse,
-													testId: /^smart-block-title-errored-view$|^inline-card-unauthorized-view$|^hover-test-div$/,
+													testId:
+														/^smart-block-title-errored-view$|^inline-card-unauthorized-view$|^hover-test-div$/,
 													extraCardProps: {
 														showHoverPreview: true,
 														...partial.extraCardProps,

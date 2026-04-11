@@ -82,4 +82,5 @@ export const CreateFormIsLoading: React.ComponentType<{}> = createMultiChildrenE
 export const CreateFormHideFooter: React.ComponentType<{}> = createMultiChildrenExample({
 	hideFooter: true,
 });
-export const CreateFormWithRequiredFields: React.ComponentType<{}> = createFormWithRequiredFieldsExamples({});
+export const CreateFormWithRequiredFields: React.ComponentType<{}> =
+	createFormWithRequiredFieldsExamples({});

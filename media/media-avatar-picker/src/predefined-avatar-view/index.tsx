@@ -91,7 +91,9 @@ const backButtonStyles = css({
 	padding: 0,
 });
 
-export const PredefinedAvatarView: ForwardRefExoticComponent<PredefinedAvatarViewProps & RefAttributes<HTMLButtonElement>> = forwardRef<HTMLButtonElement, PredefinedAvatarViewProps>(
+export const PredefinedAvatarView: ForwardRefExoticComponent<
+	PredefinedAvatarViewProps & RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, PredefinedAvatarViewProps>(
 	(
 		{
 			avatars = [],

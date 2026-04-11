@@ -1,8 +1,5 @@
 import type { AutocompletePlugin } from './autocompletePluginType';
-import {
-	autocompletePluginKey,
-	createAutocompletePlugin,
-} from './pm-plugins/autocomplete-plugin';
+import { autocompletePluginKey, createAutocompletePlugin } from './pm-plugins/autocomplete-plugin';
 import type { AutocompletePluginState } from './pm-plugins/autocomplete-plugin';
 
 export const autocompletePlugin: AutocompletePlugin = ({ config: options }) => {

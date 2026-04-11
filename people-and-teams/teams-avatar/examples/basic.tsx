@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { selectField } from '@atlassian/teams-app-internal-playground/fields';
-import { Playground, type PlaygroundConfig } from '@atlassian/teams-app-internal-playground/playground';
+import {
+	Playground,
+	type PlaygroundConfig,
+} from '@atlassian/teams-app-internal-playground/playground';
 
 import TeamAvatar from '../src/ui/teams-avatar';
 
@@ -47,10 +50,7 @@ export default function TeamAvatarExample() {
 	return (
 		<Playground config={config}>
 			{({ size, imageSource }) => (
-				<TeamAvatar
-					size={size}
-					src={imageSource === '-' ? undefined : imageSource}
-				/>
+				<TeamAvatar size={size} src={imageSource === '-' ? undefined : imageSource} />
 			)}
 		</Playground>
 	);

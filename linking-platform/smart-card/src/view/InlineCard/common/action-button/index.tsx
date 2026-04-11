@@ -2,7 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ComponentPropsWithRef, forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
+import {
+	type ComponentPropsWithRef,
+	forwardRef,
+	type ForwardRefExoticComponent,
+	type RefAttributes,
+} from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Pressable } from '@atlaskit/primitives/compiled';
@@ -95,7 +100,9 @@ type ActionButtonProps = ComponentPropsWithRef<typeof Pressable> & {
 /**
  * Action button has to be a span for the overflow to work correctly
  */
-export const ActionButton: ForwardRefExoticComponent<Omit<ActionButtonProps, "ref"> & RefAttributes<HTMLButtonElement>> = forwardRef(
+export const ActionButton: ForwardRefExoticComponent<
+	Omit<ActionButtonProps, 'ref'> & RefAttributes<HTMLButtonElement>
+> = forwardRef(
 	(
 		{ children, isDisabled, viewType = 'default', ...props }: ActionButtonProps,
 		ref: ActionButtonProps['ref'],

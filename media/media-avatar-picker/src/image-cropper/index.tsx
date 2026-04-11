@@ -107,11 +107,11 @@ export interface ImageCropperProp {
 
 export class ImageCropper extends Component<ImageCropperProp & WrappedComponentProps, {}> {
 	static defaultProps: {
-        containerSize: number;
-        isCircleMask: boolean;
-        onDragStarted: () => void;
-        onImageSize: () => void;
-    } = {
+		containerSize: number;
+		isCircleMask: boolean;
+		onDragStarted: () => void;
+		onImageSize: () => void;
+	} = {
 		containerSize: CONTAINER_INNER_SIZE,
 		isCircleMask: false,
 		onDragStarted: (): void => {},

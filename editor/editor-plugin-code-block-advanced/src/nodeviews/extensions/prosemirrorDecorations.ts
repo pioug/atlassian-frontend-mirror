@@ -141,9 +141,7 @@ export const prosemirrorDecorationPlugin = (
 					.filter(isDefined);
 
 				if (fg('platform_editor_fix_decoration_edge_case')) {
-					return CodeMirrorDecoration.set(
-						cmDecorations.sort(sortDecorationsByPositionAndSide),
-					);
+					return CodeMirrorDecoration.set(cmDecorations.sort(sortDecorationsByPositionAndSide));
 				} else {
 					return CodeMirrorDecoration.set(cmDecorations);
 				}

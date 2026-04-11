@@ -50,20 +50,29 @@ export const resolveAttributes = async (
 	client: CardClient,
 	store: CardStore,
 ): Promise<{
-        canBeDatasource: boolean | null;
-        destinationActivationId: string | null;
-        destinationCategory: string | null;
-        destinationContainerId: string | null;
-        destinationObjectId: string | null;
-        destinationObjectType: string | null;
-        destinationProduct: string | null;
-        destinationSubproduct: string | null;
-        destinationTenantId: string | null;
-        displayCategory: "smartLink" | "link";
-        extensionKey: string | null;
-        status: "pending" | "resolving" | "resolved" | "errored" | "fallback" | "unauthorized" | "forbidden" | "not_found" | null;
-        statusDetails: string | null;
-    }> => {
+	canBeDatasource: boolean | null;
+	destinationActivationId: string | null;
+	destinationCategory: string | null;
+	destinationContainerId: string | null;
+	destinationObjectId: string | null;
+	destinationObjectType: string | null;
+	destinationProduct: string | null;
+	destinationSubproduct: string | null;
+	destinationTenantId: string | null;
+	displayCategory: 'smartLink' | 'link';
+	extensionKey: string | null;
+	status:
+		| 'pending'
+		| 'resolving'
+		| 'resolved'
+		| 'errored'
+		| 'fallback'
+		| 'unauthorized'
+		| 'forbidden'
+		| 'not_found'
+		| null;
+	statusDetails: string | null;
+}> => {
 	const [linkData, status] = await getLinkData(linkDetails, client, store);
 
 	return {

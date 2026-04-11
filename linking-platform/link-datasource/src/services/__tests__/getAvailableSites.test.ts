@@ -14,93 +14,92 @@ describe('getAvailableSites', () => {
 		fetchMock.restore();
 	});
 
-	ffTest.off(
-		'linking_platform_link_datasource_unit_compliant',
-		'when feature gate is OFF',
-		() => {
-			it('should return an array of jira sites using the v2 endpoint', async () => {
-				fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { data: { products: mockProductsData } });
+	ffTest.off('linking_platform_link_datasource_unit_compliant', 'when feature gate is OFF', () => {
+		it('should return an array of jira sites using the v2 endpoint', async () => {
+			fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { data: { products: mockProductsData } });
 
-				const jiraSites = await getAccessibleProducts('jira');
+			const jiraSites = await getAccessibleProducts('jira');
 
-				const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
-				expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
-				expect(requestInit?.body).toEqual(
-					'{"productIds":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
-				);
-				expect(jiraSites).toEqual(mockSiteData);
+			const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
+			expect(requestInit?.body).toEqual(
+				'{"productIds":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
+			);
+			expect(jiraSites).toEqual(mockSiteData);
+		});
+
+		it('should return an array of confluence sites using the v2 endpoint', async () => {
+			fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { data: { products: mockProductsData } });
+
+			await getAccessibleProducts('confluence');
+
+			const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
+			expect(requestInit?.body).toEqual('{"productIds":["confluence.ondemand"]}');
+		});
+
+		it('should throw with the error message if response is not ok', async () => {
+			fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { body: 'penguins jumping high', status: 500 });
+
+			await expect(getAccessibleProducts('jira')).rejects.toEqual(
+				new Error('penguins jumping high'),
+			);
+		});
+
+		it('should throw a generic message if response body is empty', async () => {
+			fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { body: '', status: 401 });
+
+			await expect(getAccessibleProducts('jira')).rejects.toEqual(
+				new Error('Something went wrong'),
+			);
+		});
+	});
+
+	ffTest.on('linking_platform_link_datasource_unit_compliant', 'when feature gate is ON', () => {
+		it('should return an array of jira sites using the experimental v2 endpoint', async () => {
+			fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, {
+				data: { products: mockProductsData },
 			});
 
-			it('should return an array of confluence sites using the v2 endpoint', async () => {
-				fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { data: { products: mockProductsData } });
+			const jiraSites = await getAccessibleProducts('jira');
 
-				await getAccessibleProducts('confluence');
+			const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
+			expect(requestInit?.body).toEqual(
+				'{"productIds":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
+			);
+			expect(jiraSites).toEqual(mockSiteData);
+		});
 
-				const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
-				expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
-				expect(requestInit?.body).toEqual('{"productIds":["confluence.ondemand"]}');
+		it('should return an array of confluence sites using the experimental v2 endpoint', async () => {
+			fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, {
+				data: { products: mockProductsData },
 			});
 
-			it('should throw with the error message if response is not ok', async () => {
-				fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { body: 'penguins jumping high', status: 500 });
+			await getAccessibleProducts('confluence');
 
-				await expect(getAccessibleProducts('jira')).rejects.toEqual(
-					new Error('penguins jumping high'),
-				);
+			const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
+			expect(requestInit?.body).toEqual('{"productIds":["confluence.ondemand"]}');
+		});
+
+		it('should throw with the error message if response is not ok', async () => {
+			fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, {
+				body: 'penguins jumping high',
+				status: 500,
 			});
 
-			it('should throw a generic message if response body is empty', async () => {
-				fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { body: '', status: 401 });
+			await expect(getAccessibleProducts('jira')).rejects.toEqual(
+				new Error('penguins jumping high'),
+			);
+		});
 
-				await expect(getAccessibleProducts('jira')).rejects.toEqual(
-					new Error('Something went wrong'),
-				);
-			});
-		},
-	);
+		it('should throw a generic message if response body is empty', async () => {
+			fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, { body: '', status: 401 });
 
-	ffTest.on(
-		'linking_platform_link_datasource_unit_compliant',
-		'when feature gate is ON',
-		() => {
-			it('should return an array of jira sites using the experimental v2 endpoint', async () => {
-				fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, { data: { products: mockProductsData } });
-
-				const jiraSites = await getAccessibleProducts('jira');
-
-				const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
-				expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
-				expect(requestInit?.body).toEqual(
-					'{"productIds":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
-				);
-				expect(jiraSites).toEqual(mockSiteData);
-			});
-
-			it('should return an array of confluence sites using the experimental v2 endpoint', async () => {
-				fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, { data: { products: mockProductsData } });
-
-				await getAccessibleProducts('confluence');
-
-				const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
-				expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
-				expect(requestInit?.body).toEqual('{"productIds":["confluence.ondemand"]}');
-			});
-
-			it('should throw with the error message if response is not ok', async () => {
-				fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, { body: 'penguins jumping high', status: 500 });
-
-				await expect(getAccessibleProducts('jira')).rejects.toEqual(
-					new Error('penguins jumping high'),
-				);
-			});
-
-			it('should throw a generic message if response body is empty', async () => {
-				fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, { body: '', status: 401 });
-
-				await expect(getAccessibleProducts('jira')).rejects.toEqual(
-					new Error('Something went wrong'),
-				);
-			});
-		},
-	);
+			await expect(getAccessibleProducts('jira')).rejects.toEqual(
+				new Error('Something went wrong'),
+			);
+		});
+	});
 });

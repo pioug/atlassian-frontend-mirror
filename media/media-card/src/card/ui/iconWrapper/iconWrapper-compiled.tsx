@@ -29,8 +29,8 @@ const iconWrapperStyles = css({
 });
 
 export const IconWrapper: {
-    (props: IconWrapperProps): JSX.Element;
-    displayName: string;
+	(props: IconWrapperProps): JSX.Element;
+	displayName: string;
 } = (props: IconWrapperProps): JSX.Element => {
 	const { breakpoint, hasTitleBox } = props;
 

@@ -572,8 +572,12 @@ const LozengeBase: import('react').MemoExoticComponent<
 			ref,
 		) => {
 			const [resizing, setResizing] = useState<boolean>(false);
-			const onFinishMotion = () => setResizing(false);			
-			const resizingWidth = useResizingWidth({ duration: token('motion.duration.medium'), easing: token('motion.easing.inout.bold'), onFinishMotion });
+			const onFinishMotion = () => setResizing(false);
+			const resizingWidth = useResizingWidth({
+				duration: token('motion.duration.medium'),
+				easing: token('motion.easing.inout.bold'),
+				onFinishMotion,
+			});
 			const isInitialRender = useRef<boolean>(true);
 
 			const isInteractive = typeof onClick === 'function';
@@ -619,14 +623,14 @@ const LozengeBase: import('react').MemoExoticComponent<
 			const childrenKey = typeof children === 'string' ? children : undefined;
 			useLayoutEffect(() => {
 				// Ignore initial render
-				if(isInitialRender.current) {
+				if (isInitialRender.current) {
 					isInitialRender.current = false;
 					return;
 				}
-				if(fg('platform-dst-motion-uplift')) {
+				if (fg('platform-dst-motion-uplift')) {
 					setResizing(true);
 				}
-			}, [childrenKey])
+			}, [childrenKey]);
 
 			const innerContent = (
 				<span
@@ -640,7 +644,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 						// so text truncation works correctly within the flex layout
 						maxWidth: maxWidthIsPc ? '100%' : undefined,
 					}}
-					{...fg('platform-dst-motion-uplift') ? resizingWidth : undefined}
+					{...(fg('platform-dst-motion-uplift') ? resizingWidth : undefined)}
 				>
 					{iconBefore && (
 						<IconRenderer
@@ -651,11 +655,13 @@ const LozengeBase: import('react').MemoExoticComponent<
 						/>
 					)}
 					<span
-						css={[styles.text, resizing && styles.textResizing, spacing === 'spacious' && styles.textSpacious]}
+						css={[
+							styles.text,
+							resizing && styles.textResizing,
+							spacing === 'spacious' && styles.textSpacious,
+						]}
 						style={{
-							maxWidth: maxWidthIsPc
-								? undefined
-								: `calc(${maxWidthValue} - ${token('space.100')})`,
+							maxWidth: maxWidthIsPc ? undefined : `calc(${maxWidthValue} - ${token('space.100')})`,
 							color: style?.color,
 						}}
 						data-testid={testId && `${testId}--text`}

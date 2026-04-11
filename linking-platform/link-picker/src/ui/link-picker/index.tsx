@@ -79,7 +79,29 @@ const formFooterMargin = css({
 	marginTop: token('space.200'),
 });
 
-export const testIds: { readonly urlError: string; readonly clearUrlButton: string; readonly linkHelperText: string; readonly insertButton: "link-picker-insert-button"; readonly cancelButton: "link-picker-cancel-button"; readonly actionButton: "link-picker-action-button"; readonly submitStatusA11yIndicator: "link-picker-submit-status-a11y-indicator"; readonly tabsLoadingIndicator: string; readonly tabList: string; readonly tabItem: string; readonly resultListTitle: string; readonly searchResultList: string; readonly searchResultLoadingIndicator: string; readonly searchResultItem: string; readonly searchResultIcon: string; readonly emptyResultPage: string; readonly searchError: string; readonly linkPickerRoot: "link-picker-root"; readonly linkPicker: "link-picker"; readonly urlInputField: "link-url"; readonly textInputField: "link-text"; } = {
+export const testIds: {
+	readonly urlError: string;
+	readonly clearUrlButton: string;
+	readonly linkHelperText: string;
+	readonly insertButton: 'link-picker-insert-button';
+	readonly cancelButton: 'link-picker-cancel-button';
+	readonly actionButton: 'link-picker-action-button';
+	readonly submitStatusA11yIndicator: 'link-picker-submit-status-a11y-indicator';
+	readonly tabsLoadingIndicator: string;
+	readonly tabList: string;
+	readonly tabItem: string;
+	readonly resultListTitle: string;
+	readonly searchResultList: string;
+	readonly searchResultLoadingIndicator: string;
+	readonly searchResultItem: string;
+	readonly searchResultIcon: string;
+	readonly emptyResultPage: string;
+	readonly searchError: string;
+	readonly linkPickerRoot: 'link-picker-root';
+	readonly linkPicker: 'link-picker';
+	readonly urlInputField: 'link-url';
+	readonly textInputField: 'link-text';
+} = {
 	linkPickerRoot: 'link-picker-root',
 	linkPicker: 'link-picker',
 	urlInputField: 'link-url',

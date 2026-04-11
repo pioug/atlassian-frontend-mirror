@@ -38,25 +38,25 @@ const cardActionButtonStyles = css({
 	},
 });
 
-export const CardActionButton: ForwardRefExoticComponent<CardActionButtonOwnProps & RefAttributes<HTMLButtonElement>> = forwardRef<HTMLButtonElement, CardActionButtonOwnProps>(
-	(props, ref) => {
-		return (
-			// eslint-disable-next-line @atlaskit/design-system/no-html-button
-			<button
-				{...props}
-				{...(fg('platform_media_card_action_button_type_fix') ? { type: 'button' } : {})}
-				id="cardActionButton"
-				data-testid="media-card-primary-action"
-				aria-label={props.label}
-				css={[cardActionButtonStyles, variantStyleMap[props.variant ?? 'default']]}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={{ ...props.style, cursor: props.disabled ? 'not-allowed' : 'default' }}
-				onClick={props.onClick}
-				onMouseDown={props.onMouseDown}
-				ref={ref}
-			>
-				{props.children}
-			</button>
-		);
-	},
-);
+export const CardActionButton: ForwardRefExoticComponent<
+	CardActionButtonOwnProps & RefAttributes<HTMLButtonElement>
+> = forwardRef<HTMLButtonElement, CardActionButtonOwnProps>((props, ref) => {
+	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-button
+		<button
+			{...props}
+			{...(fg('platform_media_card_action_button_type_fix') ? { type: 'button' } : {})}
+			id="cardActionButton"
+			data-testid="media-card-primary-action"
+			aria-label={props.label}
+			css={[cardActionButtonStyles, variantStyleMap[props.variant ?? 'default']]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={{ ...props.style, cursor: props.disabled ? 'not-allowed' : 'default' }}
+			onClick={props.onClick}
+			onMouseDown={props.onMouseDown}
+			ref={ref}
+		>
+			{props.children}
+		</button>
+	);
+});

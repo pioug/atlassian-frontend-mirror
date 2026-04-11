@@ -1,4 +1,13 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES, type ScriptHTMLAttributes } from 'react';
+import {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+	useState,
+	type DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES,
+	type ScriptHTMLAttributes,
+} from 'react';
 
 import {
 	type FileIdentifier,
@@ -87,7 +96,21 @@ export const useFilePreview = ({
 	upscale,
 	maxAge,
 	source,
-}: UseFilePreviewParams): { preview: MediaFilePreview | undefined; status: MediaFilePreviewStatus; error: MediaFilePreviewError | undefined; nonCriticalError: MediaFilePreviewError | undefined; ssrReliability: SSRStatus; onImageError: (failedPreview?: MediaFilePreview) => void; onImageLoad: (newPreview?: MediaFilePreview) => void; getSsrScriptProps: (() => ScriptHTMLAttributes<HTMLScriptElement>) | undefined; copyNodeRef: (instance: HTMLDivElement | HTMLImageElement | null) => void | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES]; } => {
+}: UseFilePreviewParams): {
+	preview: MediaFilePreview | undefined;
+	status: MediaFilePreviewStatus;
+	error: MediaFilePreviewError | undefined;
+	nonCriticalError: MediaFilePreviewError | undefined;
+	ssrReliability: SSRStatus;
+	onImageError: (failedPreview?: MediaFilePreview) => void;
+	onImageLoad: (newPreview?: MediaFilePreview) => void;
+	getSsrScriptProps: (() => ScriptHTMLAttributes<HTMLScriptElement>) | undefined;
+	copyNodeRef: (
+		instance: HTMLDivElement | HTMLImageElement | null,
+	) =>
+		| void
+		| DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES];
+} => {
 	const mediaClient = useMediaClient();
 	const [status, setStatus] = useState<MediaFilePreviewStatus>('loading');
 

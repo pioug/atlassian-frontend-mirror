@@ -190,9 +190,8 @@ export class SyncBlockStoreManager {
 
 			if (hasUnregisteredReferenceOnPage) {
 				// This is current page data. It is the same for data for source and reference
-				const sourceSyncBlockData = await this.sourceSyncBlockStoreManager.getSyncBlockSourceInfo(
-					blockInstanceId,
-				);
+				const sourceSyncBlockData =
+					await this.sourceSyncBlockStoreManager.getSyncBlockSourceInfo(blockInstanceId);
 				const references: SyncBlockSourceInfo[] = [];
 
 				if (sourceSyncBlockData) {
@@ -225,9 +224,8 @@ export class SyncBlockStoreManager {
 		// but not saved yet.
 		const references: SyncBlockSourceInfo[] = [];
 
-		const sourceSyncBlockData = await this.referenceSyncBlockStoreManager.fetchSyncBlockSourceInfo(
-			resourceId,
-		);
+		const sourceSyncBlockData =
+			await this.referenceSyncBlockStoreManager.fetchSyncBlockSourceInfo(resourceId);
 		if (sourceSyncBlockData) {
 			references.push({
 				...sourceSyncBlockData,

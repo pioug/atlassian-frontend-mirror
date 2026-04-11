@@ -223,12 +223,7 @@ const LoadingExample = () => {
 				</Button>
 			</Inline>
 			<Inline space="space.100">
-				<TagDropdownTrigger
-					text="Selected"
-					swatchBefore
-					color="red"
-					isLoading={isLoadingTrigger}
-				/>
+				<TagDropdownTrigger text="Selected" swatchBefore color="red" isLoading={isLoadingTrigger} />
 			</Inline>
 		</Stack>
 	);

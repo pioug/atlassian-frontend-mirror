@@ -43,11 +43,7 @@ import { Announcer, PanelTextInput } from '../../../ui';
 import { normalizeUrl } from '../../../utils';
 import { browser as browserLegacy, getBrowserInfo } from '../../../utils/browser';
 import LinkSearchList from '../../LinkSearch/LinkSearchList';
-import {
-	container,
-	narrowContainerWidth,
-	inputWrapper,
-} from '../../LinkSearch/ToolbarComponents';
+import { container, narrowContainerWidth, inputWrapper } from '../../LinkSearch/ToolbarComponents';
 import { transformTimeStamp } from '../../LinkSearch/transformTimeStamp';
 import type { LinkSearchListItemData } from '../../LinkSearch/types';
 

@@ -79,7 +79,10 @@ const timelineStyles = css({
 	position: 'relative',
 });
 
-export const TimeLine: React.ForwardRefExoticComponent<Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<unknown>> = forwardRef(
+export const TimeLine: React.ForwardRefExoticComponent<
+	Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, 'ref'> &
+		React.RefAttributes<unknown>
+> = forwardRef(
 	(
 		{
 			children,
@@ -160,7 +163,10 @@ const currentTimeLineThumbStyles = css({
 		opacity: '1',
 	},
 });
-export const CurrentTimeLineThumb: React.ForwardRefExoticComponent<Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<unknown>> = forwardRef(
+export const CurrentTimeLineThumb: React.ForwardRefExoticComponent<
+	Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, 'ref'> &
+		React.RefAttributes<unknown>
+> = forwardRef(
 	(
 		{
 			children,
@@ -241,7 +247,15 @@ const hiddenControlsWrapperStyles = css({
 	},
 });
 
-export const ControlsWrapper: React.ForwardRefExoticComponent<Omit<ControlsWrapperProps & React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<unknown>> = forwardRef(
+export const ControlsWrapper: React.ForwardRefExoticComponent<
+	Omit<
+		ControlsWrapperProps &
+			React.ClassAttributes<HTMLDivElement> &
+			React.HTMLAttributes<HTMLDivElement>,
+		'ref'
+	> &
+		React.RefAttributes<unknown>
+> = forwardRef(
 	(
 		{
 			children,
@@ -441,7 +455,10 @@ const timeRangeWrapperStyles = css({
 	},
 });
 
-export const TimeRangeWrapper: React.ForwardRefExoticComponent<Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<unknown>> = forwardRef(
+export const TimeRangeWrapper: React.ForwardRefExoticComponent<
+	Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, 'ref'> &
+		React.RefAttributes<unknown>
+> = forwardRef(
 	(
 		{
 			children,

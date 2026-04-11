@@ -62,8 +62,5 @@ export function reducer(state: PluginState, action: ReducerAction): PluginState 
 	}
 }
 
-export const usePluginReducer = (): [
-    PluginState,
-    Dispatch<ReducerAction>
-] =>
+export const usePluginReducer = (): [PluginState, Dispatch<ReducerAction>] =>
 	useReducer<Reducer<PluginState, ReducerAction>>(reducer, INITIAL_STATE);

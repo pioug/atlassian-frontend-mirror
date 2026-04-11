@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const userTypeMessages: {
-    userDefaultdisplayNameValue: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	userDefaultdisplayNameValue: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	userDefaultdisplayNameValue: {
 		id: 'linkDataSource.render-type.user.default.display.name',

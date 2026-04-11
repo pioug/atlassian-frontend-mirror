@@ -55,4 +55,6 @@ export class CardPreviewCacheImpl implements MediaFilePreviewCache {
 	};
 }
 
-export const mediaFilePreviewCache: CardPreviewCacheImpl = new CardPreviewCacheImpl(createObjectURLCache());
+export const mediaFilePreviewCache: CardPreviewCacheImpl = new CardPreviewCacheImpl(
+	createObjectURLCache(),
+);

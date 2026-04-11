@@ -6,7 +6,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 export const useCachedGetImage = (
 	getPageImageUrl: (pageNumber: number, zoom: number) => Promise<string>,
 	maxPageImageZoom: number,
-): (pageNumber: number, zoom: number) => Promise<string> => {
+): ((pageNumber: number, zoom: number) => Promise<string>) => {
 	const imageUrlRefs = useRef<Record<string, string>>({});
 
 	useEffect(() => {

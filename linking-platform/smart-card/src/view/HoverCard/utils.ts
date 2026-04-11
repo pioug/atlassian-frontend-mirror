@@ -120,10 +120,13 @@ const toElementItems = (elementNames: ElementName[]): ElementItem[] | undefined 
 	return elementNames.filter((name) => name in ElementName).map(toElementItem);
 };
 
-export const getMetadata = (extensionKey?: string, data?: JsonLd.Data.BaseData): {
-    subtitle: ElementItem[] | undefined;
-    primary: ElementItem[] | undefined;
-    secondary: ElementItem[] | undefined;
+export const getMetadata = (
+	extensionKey?: string,
+	data?: JsonLd.Data.BaseData,
+): {
+	subtitle: ElementItem[] | undefined;
+	primary: ElementItem[] | undefined;
+	secondary: ElementItem[] | undefined;
 } => {
 	const metadata = getSimulatedBetterMetadata(extensionKey, data);
 

@@ -29,8 +29,8 @@ const font: AttributeSchema<MotionEasingTokenSchema<BaseEasingToken>> = {
 						state: 'experimental',
 						introduced: '11.5.0',
 						description: '',
-					}
-				}
+					},
+				},
 			},
 			inout: {
 				bold: {
@@ -40,7 +40,7 @@ const font: AttributeSchema<MotionEasingTokenSchema<BaseEasingToken>> = {
 						introduced: '11.5.0',
 						description: '',
 					},
-				}
+				},
 			},
 			spring: {
 				attributes: {
@@ -49,7 +49,7 @@ const font: AttributeSchema<MotionEasingTokenSchema<BaseEasingToken>> = {
 					introduced: '11.5.0',
 					description: '',
 				},
-			}
+			},
 		},
 	},
 };

@@ -253,7 +253,8 @@ export const mocks = {
 		status: 200,
 	},
 };
-export const fakeResponse = (): Promise<JsonLd.Response<JsonLd.Data.BaseData>> => Promise.resolve(mocks.success);
+export const fakeResponse = (): Promise<JsonLd.Response<JsonLd.Data.BaseData>> =>
+	Promise.resolve(mocks.success);
 
 export const fakeFactory: any = (
 	implementation: () => Promise<JsonLd.Response>,

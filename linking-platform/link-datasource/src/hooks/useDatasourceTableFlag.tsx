@@ -52,8 +52,10 @@ const getFetchActionErrorMessage = (status?: number) => {
 	}
 };
 
-export const useDatasourceTableFlag = (options?: DatasourceTableFlagOptions): {
-    showErrorFlag: (args?: Partial<CreateFlagArgs> & { status?: number; }) => void;
+export const useDatasourceTableFlag = (
+	options?: DatasourceTableFlagOptions,
+): {
+	showErrorFlag: (args?: Partial<CreateFlagArgs> & { status?: number }) => void;
 } => {
 	const { showFlag } = useFlags();
 	const { fireEvent } = useDatasourceAnalyticsEvents();

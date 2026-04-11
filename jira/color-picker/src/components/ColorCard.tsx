@@ -41,143 +41,144 @@ export type ColorCardRef = {
 	focus: () => void;
 };
 
-const ColorCard: React.ForwardRefExoticComponent<Props & React.RefAttributes<ColorCardRef>> = forwardRef<ColorCardRef, Props>((props, componentRef) => {
-	const {
-		type,
-		autoFocus = true,
-		initialFocusRef,
-		isInsideMenu = true,
-		value,
-		label,
-		selected,
-		focused,
-		checkMarkColor = '#FFFFFF',
-		isTabbing,
-		onClick,
-		onKeyDown,
-		variant = 'fill',
-	} = props;
+const ColorCard: React.ForwardRefExoticComponent<Props & React.RefAttributes<ColorCardRef>> =
+	forwardRef<ColorCardRef, Props>((props, componentRef) => {
+		const {
+			type,
+			autoFocus = true,
+			initialFocusRef,
+			isInsideMenu = true,
+			value,
+			label,
+			selected,
+			focused,
+			checkMarkColor = '#FFFFFF',
+			isTabbing,
+			onClick,
+			onKeyDown,
+			variant = 'fill',
+		} = props;
 
-	const ref = useRef<HTMLDivElement | null>(null);
-	const isInitialFocus = useRef<boolean>(true);
-	const isColorPaletteMenu = type === COLOR_PALETTE_MENU;
+		const ref = useRef<HTMLDivElement | null>(null);
+		const isInitialFocus = useRef<boolean>(true);
+		const isColorPaletteMenu = type === COLOR_PALETTE_MENU;
 
-	const handleMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-		event.preventDefault();
-	}, []);
+		const handleMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+			event.preventDefault();
+		}, []);
 
-	const handleClick = useCallback(
-		(event: React.MouseEvent<HTMLDivElement>) => {
-			if (onClick) {
-				event.preventDefault();
-				onClick(event, value);
-			}
-		},
-		[onClick, value],
-	);
-
-	const handleKeyDown = useCallback(
-		(event: React.KeyboardEvent<HTMLDivElement>) => {
-			if (
-				(isColorPaletteMenu || isTabbing === undefined || isTabbing) &&
-				onClick &&
-				(event.key === KEY_ENTER || event.key === KEY_SPACE)
-			) {
-				event.preventDefault();
-
-				if (isTabbing) {
-					event.stopPropagation();
-				}
-
-				onClick(event, value);
-			}
-
-			if (isColorPaletteMenu) {
-				onKeyDown?.(event);
-			} else if (event.key === KEY_TAB) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
-		},
-		[isColorPaletteMenu, isTabbing, value, onClick, onKeyDown],
-	);
-
-	useImperativeHandle(
-		componentRef,
-		() => ({
-			focus: () => {
-				if (isColorPaletteMenu) {
-					if (isInitialFocus.current) {
-						autoFocus && !initialFocusRef && ref.current?.focus();
-						isInitialFocus.current = false;
-					} else {
-						ref.current?.focus();
-					}
+		const handleClick = useCallback(
+			(event: React.MouseEvent<HTMLDivElement>) => {
+				if (onClick) {
+					event.preventDefault();
+					onClick(event, value);
 				}
 			},
-		}),
-		[autoFocus, isColorPaletteMenu, initialFocusRef],
-	);
+			[onClick, value],
+		);
 
-	const isInsideMenuRole = isInsideMenu ? 'menuitemradio' : 'radio';
-	const role = isColorPaletteMenu ? isInsideMenuRole : 'presentation';
+		const handleKeyDown = useCallback(
+			(event: React.KeyboardEvent<HTMLDivElement>) => {
+				if (
+					(isColorPaletteMenu || isTabbing === undefined || isTabbing) &&
+					onClick &&
+					(event.key === KEY_ENTER || event.key === KEY_SPACE)
+				) {
+					event.preventDefault();
 
-	const ariaChecked = isColorPaletteMenu ? selected : undefined;
-	const ariaLabel = isColorPaletteMenu ? label : undefined;
-	const isOutlineVariant = variant === 'outline';
-	const newCheckmarkColor = isOutlineVariant ? token('color.icon') : checkMarkColor;
+					if (isTabbing) {
+						event.stopPropagation();
+					}
 
-	return (
-		<Tooltip content={label}>
-			{(tooltipProps) => {
-				delete tooltipProps['aria-describedby'];
-				return (
-					<div
-						{...tooltipProps}
-						ref={
-							initialFocusRef
-								? mergeRefs([ref, tooltipProps.ref, initialFocusRef])
-								: mergeRefs([ref, tooltipProps.ref])
+					onClick(event, value);
+				}
+
+				if (isColorPaletteMenu) {
+					onKeyDown?.(event);
+				} else if (event.key === KEY_TAB) {
+					event.preventDefault();
+					event.stopPropagation();
+				}
+			},
+			[isColorPaletteMenu, isTabbing, value, onClick, onKeyDown],
+		);
+
+		useImperativeHandle(
+			componentRef,
+			() => ({
+				focus: () => {
+					if (isColorPaletteMenu) {
+						if (isInitialFocus.current) {
+							autoFocus && !initialFocusRef && ref.current?.focus();
+							isInitialFocus.current = false;
+						} else {
+							ref.current?.focus();
 						}
-						role={role}
-						tabIndex={selected ? 0 : -1}
-						aria-checked={ariaChecked}
-						aria-label={ariaLabel}
-						css={[
-							sharedColorContainerStyles,
-							(isColorPaletteMenu || isTabbing === undefined || isTabbing) &&
-								colorCardOptionTabbingStyles,
-							focused && (isColorPaletteMenu || !isTabbing) && colorCardOptionFocusedStyles,
-						]}
-						onClick={handleClick}
-						onMouseDown={handleMouseDown}
-						onKeyDown={handleKeyDown}
-					>
-						<div css={colorCardWrapperStyles}>
-							<div
-								css={[colorCardContentStyles, isOutlineVariant && colorCardContentStylesOutline]}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-								style={
-									isOutlineVariant
-										? { borderColor: value || 'grey' }
-										: { backgroundColor: value || 'transparent' }
-								}
-							>
-								{selected && (
-									<EditorDoneIcon
-										color={newCheckmarkColor as IconColor}
-										label=""
-										spacing="spacious"
-									/>
-								)}
+					}
+				},
+			}),
+			[autoFocus, isColorPaletteMenu, initialFocusRef],
+		);
+
+		const isInsideMenuRole = isInsideMenu ? 'menuitemradio' : 'radio';
+		const role = isColorPaletteMenu ? isInsideMenuRole : 'presentation';
+
+		const ariaChecked = isColorPaletteMenu ? selected : undefined;
+		const ariaLabel = isColorPaletteMenu ? label : undefined;
+		const isOutlineVariant = variant === 'outline';
+		const newCheckmarkColor = isOutlineVariant ? token('color.icon') : checkMarkColor;
+
+		return (
+			<Tooltip content={label}>
+				{(tooltipProps) => {
+					delete tooltipProps['aria-describedby'];
+					return (
+						<div
+							{...tooltipProps}
+							ref={
+								initialFocusRef
+									? mergeRefs([ref, tooltipProps.ref, initialFocusRef])
+									: mergeRefs([ref, tooltipProps.ref])
+							}
+							role={role}
+							tabIndex={selected ? 0 : -1}
+							aria-checked={ariaChecked}
+							aria-label={ariaLabel}
+							css={[
+								sharedColorContainerStyles,
+								(isColorPaletteMenu || isTabbing === undefined || isTabbing) &&
+									colorCardOptionTabbingStyles,
+								focused && (isColorPaletteMenu || !isTabbing) && colorCardOptionFocusedStyles,
+							]}
+							onClick={handleClick}
+							onMouseDown={handleMouseDown}
+							onKeyDown={handleKeyDown}
+						>
+							<div css={colorCardWrapperStyles}>
+								<div
+									css={[colorCardContentStyles, isOutlineVariant && colorCardContentStylesOutline]}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+									style={
+										isOutlineVariant
+											? { borderColor: value || 'grey' }
+											: { backgroundColor: value || 'transparent' }
+									}
+								>
+									{selected && (
+										<EditorDoneIcon
+											color={newCheckmarkColor as IconColor}
+											label=""
+											spacing="spacious"
+										/>
+									)}
+								</div>
 							</div>
 						</div>
-					</div>
-				);
-			}}
-		</Tooltip>
-	);
-});
+					);
+				}}
+			</Tooltip>
+		);
+	});
 
 export default ColorCard;
 

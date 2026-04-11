@@ -589,15 +589,14 @@ describe('<InlinePlayer />', () => {
 		let fgSpy: jest.SpyInstance;
 
 		beforeEach(() => {
-			fgSpy = jest.spyOn(
-				require('@atlaskit/platform-feature-flags'),
-				'fg'
-			).mockImplementation((flag) => {
-				if (flag === 'platform_media_a11y_suppression_fixes') {
-					return true;
-				}
-				return false;
-			});
+			fgSpy = jest
+				.spyOn(require('@atlaskit/platform-feature-flags'), 'fg')
+				.mockImplementation((flag) => {
+					if (flag === 'platform_media_a11y_suppression_fixes') {
+						return true;
+					}
+					return false;
+				});
 		});
 
 		afterEach(() => {

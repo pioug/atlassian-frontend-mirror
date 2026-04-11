@@ -18,7 +18,7 @@ export type AbuseModalProps = {
 };
 
 export const AbuseModal: React.FC<WithIntlProps<AbuseModalProps & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<AbuseModalProps & WrappedComponentProps>;
+	WrappedComponent: React.ComponentType<AbuseModalProps & WrappedComponentProps>;
 } = injectIntl<'intl', AbuseModalProps & WrappedComponentProps>(
 	({ isOpen, onConfirm, onClose, intl: { formatMessage } }) => {
 		return (

@@ -1115,9 +1115,9 @@ const mockData: Array<DatasourceDataResponseItem> = [
 ];
 
 export const mockConfluenceData: {
-    nextPageCursor: string;
-    totalIssues: number;
-    data: DatasourceDataResponseItem[];
+	nextPageCursor: string;
+	totalIssues: number;
+	data: DatasourceDataResponseItem[];
 } = {
 	nextPageCursor: '_f_MjA=_sa_WyJkdW1teS1zb3J0LXZhbHVlcyJd',
 	totalIssues: 1357,

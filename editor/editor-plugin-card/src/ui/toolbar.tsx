@@ -61,6 +61,7 @@ import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import CogIcon from '@atlaskit/icon/core/settings';
 import type { CardAppearance } from '@atlaskit/smart-card';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../index';
@@ -73,7 +74,7 @@ import {
 	isDatasourceNode,
 	titleUrlPairFromNode,
 } from '../pm-plugins/utils';
-import type { CardPluginOptions, CardPluginState } from '../types';
+import type { CardPluginOptions, CardPluginState, ToolbarResolvedAttributes } from '../types';
 
 import { DatasourceAppearanceButton } from './DatasourceAppearanceButton';
 import {
@@ -149,6 +150,45 @@ export const visitCardLinkAnalytics =
 
 			dispatch(tr);
 		}
+		return true;
+	};
+
+const fireOpenLinkToolbarAnalytics =
+	(
+		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+		inputMethod:
+			| INPUT_METHOD.FLOATING_TB
+			| INPUT_METHOD.TOOLBAR
+			| INPUT_METHOD.BUTTON
+			| INPUT_METHOD.DOUBLE_CLICK
+			| INPUT_METHOD.META_CLICK,
+		resolvedAttributes: Partial<ToolbarResolvedAttributes> = {},
+	): Command =>
+	(state, dispatch) => {
+		const linkAnalyticsRecorded = visitCardLinkAnalytics(editorAnalyticsApi, inputMethod)(
+			state,
+			dispatch,
+		);
+
+		if (!linkAnalyticsRecorded) {
+			return false;
+		}
+
+		if (expValEquals('cc_integrations_editor_open_link_click_analytics', 'isEnabled', true)) {
+			editorAnalyticsApi?.fireAnalyticsEvent({
+				action: ACTION.CLICKED,
+				actionSubject: ACTION_SUBJECT.BUTTON,
+				actionSubjectId: ACTION_SUBJECTID.OPEN_LINK,
+				attributes: {
+					displayCategory: resolvedAttributes.displayCategory,
+					extensionKey: resolvedAttributes.extensionKey,
+					status: resolvedAttributes.status,
+					statusDetails: resolvedAttributes.statusDetails,
+				},
+				eventType: EVENT_TYPE.UI,
+			});
+		}
+
 		return true;
 	};
 
@@ -557,23 +597,33 @@ const generateToolbarItems =
 					]
 				: [];
 
+			const resolvedToolbarAttributes = url
+				? (pluginState?.resolvedToolbarAttributesByUrl[url] ?? {})
+				: {};
+
+			const openLinkToolbarItem: FloatingToolbarItem<Command> = {
+				id: 'editor.link.openLink',
+				type: 'button',
+				icon: LinkExternalIcon,
+				iconFallback: LinkExternalIcon,
+				metadata: metadata,
+				className: 'hyperlink-open-link',
+				title: intl.formatMessage(linkMessages.openLink),
+				onClick: fireOpenLinkToolbarAnalytics(
+					editorAnalyticsApi,
+					openLinkInputMethod,
+					resolvedToolbarAttributes,
+				),
+				href: url,
+				target: '_blank',
+			};
+
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = areAllNewToolbarFlagsDisabled
 				? [
 						...editItems,
 						...commentItems,
 						...openPreviewPanelItems,
-						{
-							id: 'editor.link.openLink',
-							type: 'button',
-							icon: LinkExternalIcon,
-							iconFallback: LinkExternalIcon,
-							metadata: metadata,
-							className: 'hyperlink-open-link',
-							title: intl.formatMessage(linkMessages.openLink),
-							onClick: visitCardLinkAnalytics(editorAnalyticsApi, openLinkInputMethod),
-							href: url,
-							target: '_blank',
-						},
+						openLinkToolbarItem,
 						{ type: 'separator' },
 						...getUnlinkButtonGroup(
 							state,
@@ -625,18 +675,7 @@ const generateToolbarItems =
 							{ type: 'separator', fullHeight: true },
 						] as FloatingToolbarItem<Command>[]),
 						...openPreviewPanelItems,
-						{
-							id: 'editor.link.openLink',
-							type: 'button',
-							icon: LinkExternalIcon,
-							iconFallback: LinkExternalIcon,
-							metadata: metadata,
-							className: 'hyperlink-open-link',
-							title: intl.formatMessage(linkMessages.openLink),
-							onClick: visitCardLinkAnalytics(editorAnalyticsApi, openLinkInputMethod),
-							href: url,
-							target: '_blank',
-						},
+						openLinkToolbarItem,
 						...(commentItems.length > 1
 							? [{ type: 'separator', fullHeight: true } as const, commentItems[0]]
 							: commentItems),
@@ -833,6 +872,7 @@ const getDatasourceButtonGroup = (
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 ): FloatingToolbarItem<Command>[] => {
 	const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
+	toolbarItems.push(...getToolbarViewedItem(node?.attrs?.url, currentAppearance ?? 'url'));
 	const areAllNewToolbarFlagsDisabled = !areToolbarFlagsEnabled(
 		Boolean(pluginInjectionApi?.toolbar),
 	);
@@ -919,6 +959,7 @@ const getDatasourceButtonGroup = (
 	}
 
 	const openLinkInputMethod = INPUT_METHOD.FLOATING_TB;
+	const pluginState = pluginKey.getState(state) as CardPluginState | undefined;
 
 	toolbarItems.push({
 		type: 'custom',
@@ -948,7 +989,11 @@ const getDatasourceButtonGroup = (
 			metadata: metadata,
 			className: 'hyperlink-open-link',
 			title: intl.formatMessage(linkMessages.openLink),
-			onClick: visitCardLinkAnalytics(editorAnalyticsApi, openLinkInputMethod),
+			onClick: fireOpenLinkToolbarAnalytics(
+				editorAnalyticsApi,
+				openLinkInputMethod,
+				pluginState?.resolvedToolbarAttributesByUrl[node.attrs.url] ?? {},
+			),
 			href: node.attrs.url,
 			target: '_blank',
 		});

@@ -10,7 +10,8 @@ import { type MockRequest, type MockResponse } from 'xhr-mock';
 import { files } from '../staticCommon';
 
 export const getFileImage =
-	(context: () => MockContext) => (req: MockRequest, res: MockResponse): MockResponse | undefined => {
+	(context: () => MockContext) =>
+	(req: MockRequest, res: MockResponse): MockResponse | undefined => {
 		const requestDataTemplate = (collectionName: string) => (file: MediaCollectionFile) => ({
 			method: 'GET',
 			url: {

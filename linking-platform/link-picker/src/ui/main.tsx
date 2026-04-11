@@ -53,7 +53,9 @@ const FixedWidthContainer = (props: React.HTMLAttributes<HTMLDivElement>) => {
 	);
 };
 
-export const composeLinkPicker = (Component: React.ComponentType<LinkPickerProps>): React.MemoExoticComponent<(props: LinkPickerProps) => JSX.Element> => {
+export const composeLinkPicker = (
+	Component: React.ComponentType<LinkPickerProps>,
+): React.MemoExoticComponent<(props: LinkPickerProps) => JSX.Element> => {
 	return memo((props: LinkPickerProps) => {
 		const { component } = props;
 		const RootComponent = component ?? DefaultRootComponent;

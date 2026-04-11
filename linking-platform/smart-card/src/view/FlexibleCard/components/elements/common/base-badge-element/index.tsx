@@ -187,41 +187,43 @@ const BaseBadgeRefreshNew = forwardRef(
 	},
 );
 
-const _default_1: (props: ElementProps & {
-    /**
-     * Badge appearances
-     */
-    appearance?: "default" | "subtle";
-    /**
-     * Color of the text and badge
-     */
-    color?: string;
-    /**
-     * Determines whether the badge icon should be hidden. When set to true,
-     * the badge will be displayed without the icon, showing only the label text.
-     */
-    hideIcon?: boolean;
-    /**
-     * When set to true, the loading skeleton for the image icon will be hidden,
-     * the image will be rendered directly.
-     */
-    hideIconLoadingSkeleton?: boolean;
-    /**
-     * The Atlaskit Icon to display next to the label. If this is not supplied,
-     * then the badge icon will fallback to the URL provided.
-     */
-    icon?: IconType;
-    /**
-     * The text to display for the badge.
-     */
-    label?: string;
-    /**
-     * The icon from this URL will be used for the badge if no Atlaskit Icon is provided.
-     */
-    url?: string;
-} & React.RefAttributes<HTMLElement> & {
-    className?: string;
-}) => React.JSX.Element = withOverrideCss(BaseBadgeRefreshNew);
+const _default_1: (
+	props: ElementProps & {
+		/**
+		 * Badge appearances
+		 */
+		appearance?: 'default' | 'subtle';
+		/**
+		 * Color of the text and badge
+		 */
+		color?: string;
+		/**
+		 * Determines whether the badge icon should be hidden. When set to true,
+		 * the badge will be displayed without the icon, showing only the label text.
+		 */
+		hideIcon?: boolean;
+		/**
+		 * When set to true, the loading skeleton for the image icon will be hidden,
+		 * the image will be rendered directly.
+		 */
+		hideIconLoadingSkeleton?: boolean;
+		/**
+		 * The Atlaskit Icon to display next to the label. If this is not supplied,
+		 * then the badge icon will fallback to the URL provided.
+		 */
+		icon?: IconType;
+		/**
+		 * The text to display for the badge.
+		 */
+		label?: string;
+		/**
+		 * The icon from this URL will be used for the badge if no Atlaskit Icon is provided.
+		 */
+		url?: string;
+	} & React.RefAttributes<HTMLElement> & {
+			className?: string;
+		},
+) => React.JSX.Element = withOverrideCss(BaseBadgeRefreshNew);
 export default _default_1;
 
 export const toBadgeProps = (label?: string): Partial<BaseBadgeElementProps> | undefined => {

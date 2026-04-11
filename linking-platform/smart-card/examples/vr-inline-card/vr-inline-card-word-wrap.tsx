@@ -76,9 +76,15 @@ const Component = ({ client }: ComponentProps) => {
 	);
 };
 
-export const InlineCardWordWrapResolving = (): JSX.Element => <Component client={new ResolvingClient()} />;
-export const InlineCardWordWrapResolved = (): JSX.Element => <Component client={new ResolvedClient()} />;
-export const InlineCardWordWrapForbidden = (): JSX.Element => <Component client={new ForbiddenClient()} />;
+export const InlineCardWordWrapResolving = (): JSX.Element => (
+	<Component client={new ResolvingClient()} />
+);
+export const InlineCardWordWrapResolved = (): JSX.Element => (
+	<Component client={new ResolvedClient()} />
+);
+export const InlineCardWordWrapForbidden = (): JSX.Element => (
+	<Component client={new ForbiddenClient()} />
+);
 export const InlineCardWordWrapForbiddenWithSiteRequestAccess = (): JSX.Element => (
 	<Component client={new ForbiddenWithSiteRequestAccessClient()} />
 );
@@ -88,4 +94,6 @@ export const InlineCardWordWrapForbiddenWithSitePendingRequest = (): JSX.Element
 export const InlineCardWordWrapNotFoundWithSiteAccessExists = (): JSX.Element => (
 	<Component client={new NotFoundWithSiteAccessExistsClient()} />
 );
-export const InlineCardWordWrapUnAuth = (): JSX.Element => <Component client={new UnAuthClient()} />;
+export const InlineCardWordWrapUnAuth = (): JSX.Element => (
+	<Component client={new UnAuthClient()} />
+);

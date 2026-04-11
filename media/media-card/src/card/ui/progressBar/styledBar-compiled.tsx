@@ -21,13 +21,15 @@ export function generateResponsiveStyles(
 	positionBottom: boolean,
 	showOnTop: boolean,
 	multiplier: number = 1,
-): {
-    top: string;
-    bottom?: undefined;
-} | {
-    bottom: string;
-    top?: undefined;
-} {
+):
+	| {
+			top: string;
+			bottom?: undefined;
+	  }
+	| {
+			bottom: string;
+			top?: undefined;
+	  } {
 	const setting = breakpoint === Breakpoint.SMALL ? smallSizeSettings : largeSizeSettings;
 	const marginPositionBottom = responsiveSettings[breakpoint].titleBox.verticalPadding;
 	const marginBottom =
@@ -62,8 +64,8 @@ const styleChild = css({
 });
 
 export const StyledBar: {
-    (props: StyledBarProps): JSX.Element;
-    displayName: string;
+	(props: StyledBarProps): JSX.Element;
+	displayName: string;
 } = (props: StyledBarProps): JSX.Element => {
 	const { progress, breakpoint, positionBottom, showOnTop, ariaLabel } = props;
 

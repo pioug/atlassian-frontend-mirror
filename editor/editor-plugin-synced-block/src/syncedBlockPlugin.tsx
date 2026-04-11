@@ -59,7 +59,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 					name: 'bodiedSyncBlock',
 					node: !editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
 						? // delete bodiedSyncBlockNodeWithToDOMFixed when cleaning up platform_synced_block_patch_6
-						  bodiedSyncBlockNodeWithToDOMFixed()
+							bodiedSyncBlockNodeWithToDOMFixed()
 						: bodiedSyncBlock,
 				},
 			];

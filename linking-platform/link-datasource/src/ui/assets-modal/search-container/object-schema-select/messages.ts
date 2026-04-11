@@ -1,19 +1,21 @@
 import { defineMessages } from 'react-intl-next';
 
 export const objectSchemaSelectMessages: {
-    label: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; placeholder: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; schemaRequired: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	label: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	placeholder: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	schemaRequired: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	label: {
 		id: 'linkDataSource.assets.configModal.objectSchemaSelect.label',

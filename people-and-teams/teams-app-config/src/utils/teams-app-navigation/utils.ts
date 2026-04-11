@@ -77,32 +77,32 @@ export function generatePath(
 
 export const onNavigateBase =
 	(href: string, config: NavigationActionCommon) =>
-		(e?: React.MouseEvent | React.KeyboardEvent): void => {
-			if (e) {
-				e.preventDefault();
-			}
+	(e?: React.MouseEvent | React.KeyboardEvent): void => {
+		if (e) {
+			e.preventDefault();
+		}
 
-			if (isTeamsAppEnabled(config)) {
-				if (config.shouldOpenInSameTab) {
-					redirect(href);
+		if (isTeamsAppEnabled(config)) {
+			if (config.shouldOpenInSameTab) {
+				redirect(href);
+				return;
+			}
+			openInNewTab(href);
+			return;
+		} else {
+			if (config.shouldOpenInSameTab) {
+				if (config.push) {
+					config.push(href);
 					return;
 				}
-				openInNewTab(href);
+				redirect(href);
 				return;
 			} else {
-				if (config.shouldOpenInSameTab) {
-					if (config.push) {
-						config.push(href);
-						return;
-					}
-					redirect(href);
-					return;
-				} else {
-					openInNewTab(href);
-					return;
-				}
+				openInNewTab(href);
+				return;
 			}
-		};
+		}
+	};
 
 function stripAriFromId(id: string): string {
 	// Return everything after the last slash

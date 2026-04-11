@@ -66,7 +66,6 @@ export class TaskItemNodeView implements NodeView {
 					listener: this.handleOnChange,
 				},
 			]);
-
 		}
 	}
 

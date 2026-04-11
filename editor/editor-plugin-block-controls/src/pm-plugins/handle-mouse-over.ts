@@ -93,10 +93,7 @@ export const handleMouseOver = (
 	if (
 		editorDisabled &&
 		(!isViewMode ||
-			!(
-				rightSideControlsEnabled &&
-				fg('confluence_remix_button_right_side_block_fg')
-			))
+			!(rightSideControlsEnabled && fg('confluence_remix_button_right_side_block_fg')))
 	) {
 		return false;
 	}

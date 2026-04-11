@@ -9,14 +9,17 @@ function generateEmptyRows(emptyCells: RowCellType[], length: number): RowType[]
 	}));
 }
 
-export const generateEmptyRow: MemoizedFn<(headerCells: HeadCellType[]) => RowCellType[]> = memoizeOne((headerCells: HeadCellType[]): RowCellType[] => {
-	return headerCells.map((cell) => ({
-		key: cell.key,
-		content: '',
-	}));
-});
+export const generateEmptyRow: MemoizedFn<(headerCells: HeadCellType[]) => RowCellType[]> =
+	memoizeOne((headerCells: HeadCellType[]): RowCellType[] => {
+		return headerCells.map((cell) => ({
+			key: cell.key,
+			content: '',
+		}));
+	});
 
-export const prependRows: MemoizedFn<(emptyCells: RowCellType[], itemsPerPage?: number, pageNumber?: number) => RowType[]> = memoizeOne(
+export const prependRows: MemoizedFn<
+	(emptyCells: RowCellType[], itemsPerPage?: number, pageNumber?: number) => RowType[]
+> = memoizeOne(
 	(emptyCells: RowCellType[], itemsPerPage?: number, pageNumber?: number): RowType[] => {
 		if (!itemsPerPage || !pageNumber) {
 			return [];
@@ -27,7 +30,15 @@ export const prependRows: MemoizedFn<(emptyCells: RowCellType[], itemsPerPage?: 
 	},
 );
 
-export const appendRows: MemoizedFn<(emptyCells: RowCellType[], rowsLength: number, itemsPerPage?: number, pageNumber?: number, totalItems?: number) => RowType[]> = memoizeOne(
+export const appendRows: MemoizedFn<
+	(
+		emptyCells: RowCellType[],
+		rowsLength: number,
+		itemsPerPage?: number,
+		pageNumber?: number,
+		totalItems?: number,
+	) => RowType[]
+> = memoizeOne(
 	(
 		emptyCells: RowCellType[],
 		rowsLength: number,

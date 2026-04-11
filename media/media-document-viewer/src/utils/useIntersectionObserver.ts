@@ -6,9 +6,9 @@ export const useIntersectionObserver = (
 	options: IntersectionObserverInit,
 	onVisible: () => void,
 ): {
-        observedRef: (node: HTMLElement | null) => void;
-        isVisibleRef: MutableRefObject<boolean>;
-    } => {
+	observedRef: (node: HTMLElement | null) => void;
+	isVisibleRef: MutableRefObject<boolean>;
+} => {
 	const staticOnVisible = useStaticCallback(onVisible);
 
 	const observerRef = useRef<IntersectionObserver | null>(null);

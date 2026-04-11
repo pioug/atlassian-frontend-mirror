@@ -24,15 +24,15 @@ const pdfAnatomyPreview = (): Promise<string> =>
 	);
 
 const jpgRotated = (): Promise<{
-    landscape0: string;
-    landscape1: string;
-    landscape2: string;
-    landscape3: string;
-    landscape4: string;
-    landscape5: string;
-    landscape6: string;
-    landscape7: string;
-    landscape8: string;
+	landscape0: string;
+	landscape1: string;
+	landscape2: string;
+	landscape3: string;
+	landscape4: string;
+	landscape5: string;
+	landscape6: string;
+	landscape7: string;
+	landscape8: string;
 }> =>
 	import(/* webpackChunkName: "@atlaskit-internal_rotatedImages" */ './rotatedImages').then(
 		(mod) => mod.default,
@@ -140,17 +140,43 @@ const jpgCat = (): Promise<string> =>
 	import(/* webpackChunkName: "@atlaskit-internal_jpgCat" */ './jpgCat').then((mod) => mod.default);
 
 export const sampleBinaries: {
-    jpgCat: () => Promise<string>; jpgCatPreview: () => Promise<string>; jpgRotated: () => Promise<{
-        landscape0: string;
-        landscape1: string;
-        landscape2: string;
-        landscape3: string;
-        landscape4: string;
-        landscape5: string;
-        landscape6: string;
-        landscape7: string;
-        landscape8: string;
-    }>; videoTeacup720p: () => Promise<string>; videoTeacupPreview: () => Promise<string>; videoFire1080p: () => Promise<string>; videoFirePreview: () => Promise<string>; pdfAnatomy: () => Promise<string>; pdfAnatomyPreview: () => Promise<string>; mp3Sonata: () => Promise<string>; passwordPdf: () => Promise<string>; svgCar: () => Promise<string>; svgCarPreview: () => Promise<string>; svgOpenWeb: () => Promise<string>; svgOpenWebPreview: () => Promise<string>; svgAjDigitalCamera: () => Promise<string>; svgAjDigitalCameraCorrupted: () => Promise<string>; svgAjDigitalCameraPreview: () => Promise<string>; svgAtom: () => Promise<string>; svgAtomPreview: () => Promise<string>; videoWithCaptions: () => Promise<string>; videoWithCaptionsPreview: () => Promise<string>; videoCaptionsEn: () => Promise<string>; videoCaptionsEs: () => Promise<string>; videoCaptionsFr: () => Promise<string>; videoCaptionsZh: () => Promise<string>; videoCaptionsEnCorrupted: () => Promise<string>;
+	jpgCat: () => Promise<string>;
+	jpgCatPreview: () => Promise<string>;
+	jpgRotated: () => Promise<{
+		landscape0: string;
+		landscape1: string;
+		landscape2: string;
+		landscape3: string;
+		landscape4: string;
+		landscape5: string;
+		landscape6: string;
+		landscape7: string;
+		landscape8: string;
+	}>;
+	videoTeacup720p: () => Promise<string>;
+	videoTeacupPreview: () => Promise<string>;
+	videoFire1080p: () => Promise<string>;
+	videoFirePreview: () => Promise<string>;
+	pdfAnatomy: () => Promise<string>;
+	pdfAnatomyPreview: () => Promise<string>;
+	mp3Sonata: () => Promise<string>;
+	passwordPdf: () => Promise<string>;
+	svgCar: () => Promise<string>;
+	svgCarPreview: () => Promise<string>;
+	svgOpenWeb: () => Promise<string>;
+	svgOpenWebPreview: () => Promise<string>;
+	svgAjDigitalCamera: () => Promise<string>;
+	svgAjDigitalCameraCorrupted: () => Promise<string>;
+	svgAjDigitalCameraPreview: () => Promise<string>;
+	svgAtom: () => Promise<string>;
+	svgAtomPreview: () => Promise<string>;
+	videoWithCaptions: () => Promise<string>;
+	videoWithCaptionsPreview: () => Promise<string>;
+	videoCaptionsEn: () => Promise<string>;
+	videoCaptionsEs: () => Promise<string>;
+	videoCaptionsFr: () => Promise<string>;
+	videoCaptionsZh: () => Promise<string>;
+	videoCaptionsEnCorrupted: () => Promise<string>;
 } = {
 	jpgCat,
 	jpgCatPreview,

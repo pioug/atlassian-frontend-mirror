@@ -114,7 +114,9 @@ const compactModeSwitcherLabelStyles = css({
 	paddingLeft: token('space.050'),
 });
 
-export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps<T>): JSX.Element | null => {
+export const ModeSwitcher = <T extends string = string>(
+	props: ModeSwitcherProps<T>,
+): JSX.Element | null => {
 	const {
 		isCompact,
 		isDisabled,

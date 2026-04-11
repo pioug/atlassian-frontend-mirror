@@ -34,6 +34,13 @@ export type CardInfo = {
 	url?: string;
 };
 
+export type ToolbarResolvedAttributes = {
+	displayCategory?: 'smartLink' | 'link';
+	extensionKey?: string | null;
+	status?: string | null;
+	statusDetails?: string | null;
+};
+
 export type Request = {
 	/**
 	 * Analytics action to be used when disaptching
@@ -109,6 +116,7 @@ export type CardPluginState = {
 	provider: CardProvider | null;
 	removeOverlay?: () => void;
 	requests: Request[];
+	resolvedToolbarAttributesByUrl: Record<string, ToolbarResolvedAttributes>;
 	selectedInlineLinkPosition?: number;
 	showDatasourceModal: boolean;
 	showLinkingToolbar: boolean;
@@ -181,6 +189,12 @@ export type SetDatasourceTableRef = {
 	type: 'SET_DATASOURCE_TABLE_REF';
 };
 
+export type SetResolvedToolbarAttributes = {
+	attributes: ToolbarResolvedAttributes;
+	type: 'SET_RESOLVED_TOOLBAR_ATTRIBUTES';
+	url: string;
+};
+
 export type SetCardLayout = {
 	layout: DatasourceTableLayout;
 	type: 'SET_CARD_LAYOUT';
@@ -224,6 +238,7 @@ export type CardPluginAction =
 	| HideDatasourceModal
 	| RegisterSmartCardEvents
 	| SetDatasourceTableRef
+	| SetResolvedToolbarAttributes
 	| SetCardLayout
 	| SetCardLayoutAndDatasourceTableRef
 	| ClearOverlayCandidate

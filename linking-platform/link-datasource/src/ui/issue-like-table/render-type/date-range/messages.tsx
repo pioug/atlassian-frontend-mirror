@@ -1,19 +1,21 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    quarterRange: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; quarterRangeOverYears: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; fullRange: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	quarterRange: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	quarterRangeOverYears: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	fullRange: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	quarterRange: {
 		id: 'linkDataSource.issueLikeTable.renderType.dateRange.quarterRange',

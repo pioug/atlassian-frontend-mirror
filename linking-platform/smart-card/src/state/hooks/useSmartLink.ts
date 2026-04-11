@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types';
-import { useSmartLinkContext, type CardAuthFlowOpts, type CardProviderRenderers } from '@atlaskit/link-provider';
+import {
+	useSmartLinkContext,
+	type CardAuthFlowOpts,
+	type CardProviderRenderers,
+} from '@atlaskit/link-provider';
 import type { CardState } from '@atlaskit/linking-common';
 
 import type { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';
@@ -11,24 +15,36 @@ import { useSmartLinkConfig } from '../config';
 import { useSmartLinkRenderers } from '../renderers';
 import { useSmartCardState as useSmartLinkState } from '../store';
 
-export function useSmartLink(id: string, url: string): {
-    state: CardState; actions: {
-        register: () => Promise<void>;
-        reload: () => void;
-        authorize: (appearance: CardInnerAppearance) => void;
-        invoke: (opts: InvokeClientOpts | InvokeServerOpts, appearance: CardInnerAppearance) => Promise<JsonLd.Response | void>;
-        loadMetadata: () => Promise<void> | undefined;
-    }; config: CardAuthFlowOpts | undefined; renderers: CardProviderRenderers | undefined; error: Error | null; isPreviewPanelAvailable: ((props: {
-        ari: string;
-    }) => boolean) | undefined; openPreviewPanel: ((props: {
-        ari: string;
-        iconUrl: string | undefined;
-        name: string;
-        panelData: {
-            embedUrl?: string;
-        };
-        url: string;
-    }) => void) | undefined;
+export function useSmartLink(
+	id: string,
+	url: string,
+): {
+	state: CardState;
+	actions: {
+		register: () => Promise<void>;
+		reload: () => void;
+		authorize: (appearance: CardInnerAppearance) => void;
+		invoke: (
+			opts: InvokeClientOpts | InvokeServerOpts,
+			appearance: CardInnerAppearance,
+		) => Promise<JsonLd.Response | void>;
+		loadMetadata: () => Promise<void> | undefined;
+	};
+	config: CardAuthFlowOpts | undefined;
+	renderers: CardProviderRenderers | undefined;
+	error: Error | null;
+	isPreviewPanelAvailable: ((props: { ari: string }) => boolean) | undefined;
+	openPreviewPanel:
+		| ((props: {
+				ari: string;
+				iconUrl: string | undefined;
+				name: string;
+				panelData: {
+					embedUrl?: string;
+				};
+				url: string;
+		  }) => void)
+		| undefined;
 } {
 	const state = useSmartLinkState(url);
 	const { store, isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();

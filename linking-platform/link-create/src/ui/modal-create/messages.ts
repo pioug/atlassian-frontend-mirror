@@ -1,11 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    heading: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	heading: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	heading: {
 		id: 'linkCreate.modal.heading',

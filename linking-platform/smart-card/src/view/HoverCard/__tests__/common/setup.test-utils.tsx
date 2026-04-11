@@ -1,6 +1,14 @@
 import React, { type ReactElement } from 'react';
 
-import { render, screen, type ByRoleMatcher, type ByRoleOptions, type Matcher, type MatcherOptions, type waitForOptions } from '@testing-library/react';
+import {
+	render,
+	screen,
+	type ByRoleMatcher,
+	type ByRoleOptions,
+	type Matcher,
+	type MatcherOptions,
+	type waitForOptions,
+} from '@testing-library/react';
 import userEvent, { type UserEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
@@ -37,7 +45,7 @@ export type SetUpParams = {
 const now = new Date('April 1, 2022 00:00:00').getTime();
 
 export const userEventOptionsWithAdvanceTimers: {
-    advanceTimers: typeof jest.advanceTimersByTime;
+	advanceTimers: typeof jest.advanceTimersByTime;
 } = {
 	advanceTimers: jest.advanceTimersByTime,
 };
@@ -53,23 +61,35 @@ export const setup = async ({
 	userEventOptions = { delay: null },
 	product,
 }: SetUpParams = {}): Promise<{
-        container: HTMLElement;
-        findAllByTestId: (id: Matcher, options?: MatcherOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement[]>;
-        findByTestId: (id: Matcher, options?: MatcherOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
-        queryByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement | null;
-        findByRole: (role: ByRoleMatcher, options?: ByRoleOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
-        queryByRole: (role: ByRoleMatcher, options?: ByRoleOptions | undefined) => HTMLElement | null;
-        element: HTMLElement;
-        analyticsSpy: jest.Mock<any, any, any>;
-        dateSpy: jest.SpyInstance<number, [], any>;
-        event: UserEvent;
-        mockAnalyticsClient: {
-            sendUIEvent: jest.Mock<any, any, any>;
-            sendOperationalEvent: jest.Mock<any, any, any>;
-            sendTrackEvent: jest.Mock<any, any, any>;
-            sendScreenEvent: jest.Mock<any, any, any>;
-        };
-    }> => {
+	container: HTMLElement;
+	findAllByTestId: (
+		id: Matcher,
+		options?: MatcherOptions | undefined,
+		waitForElementOptions?: waitForOptions | undefined,
+	) => Promise<HTMLElement[]>;
+	findByTestId: (
+		id: Matcher,
+		options?: MatcherOptions | undefined,
+		waitForElementOptions?: waitForOptions | undefined,
+	) => Promise<HTMLElement>;
+	queryByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement | null;
+	findByRole: (
+		role: ByRoleMatcher,
+		options?: ByRoleOptions | undefined,
+		waitForElementOptions?: waitForOptions | undefined,
+	) => Promise<HTMLElement>;
+	queryByRole: (role: ByRoleMatcher, options?: ByRoleOptions | undefined) => HTMLElement | null;
+	element: HTMLElement;
+	analyticsSpy: jest.Mock<any, any, any>;
+	dateSpy: jest.SpyInstance<number, [], any>;
+	event: UserEvent;
+	mockAnalyticsClient: {
+		sendUIEvent: jest.Mock<any, any, any>;
+		sendOperationalEvent: jest.Mock<any, any, any>;
+		sendTrackEvent: jest.Mock<any, any, any>;
+		sendScreenEvent: jest.Mock<any, any, any>;
+	};
+}> => {
 	const mockClient = new (fakeFactory(mockFetch))();
 	const analyticsSpy = jest.fn();
 	const mockAnalyticsClient = {

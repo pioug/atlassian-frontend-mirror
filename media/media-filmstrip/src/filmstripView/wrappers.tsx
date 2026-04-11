@@ -32,11 +32,15 @@ export const FilmStripViewWrapper: typeof CompiledFilmStripViewWrapper = (props)
 	<CompiledFilmStripViewWrapper {...props} />
 );
 
-export const FilmStripListWrapper: React.ForwardRefExoticComponent<FilmStripListWrapperProps & React.RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, FilmStripListWrapperProps>(
-	(props, ref) => <CompiledFilmStripListWrapper {...props} ref={ref} />,
-);
+export const FilmStripListWrapper: React.ForwardRefExoticComponent<
+	FilmStripListWrapperProps & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, FilmStripListWrapperProps>((props, ref) => (
+	<CompiledFilmStripListWrapper {...props} ref={ref} />
+));
 
-export const FilmStripList: React.ForwardRefExoticComponent<FilmStripListProps & React.RefAttributes<HTMLUListElement>> = forwardRef<HTMLUListElement, FilmStripListProps>((props, ref) => (
+export const FilmStripList: React.ForwardRefExoticComponent<
+	FilmStripListProps & React.RefAttributes<HTMLUListElement>
+> = forwardRef<HTMLUListElement, FilmStripListProps>((props, ref) => (
 	<CompiledFilmStripList {...props} ref={ref} />
 ));
 

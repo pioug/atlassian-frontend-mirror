@@ -33,6 +33,19 @@ export type OpenSettingsToolbarAEP = UIAEP<
 	undefined
 >;
 
+export type OpenLinkToolbarAEP = UIAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.BUTTON,
+	ACTION_SUBJECT_ID.OPEN_LINK,
+	{
+		displayCategory?: 'smartLink' | 'link';
+		extensionKey?: string | null;
+		status?: string | null;
+		statusDetails?: string | null;
+	},
+	undefined
+>;
+
 export type ViewedCreateLinkInlineDialogAEP = ScreenAEP<
 	ACTION.VIEWED,
 	ACTION_SUBJECT.CREATE_LINK_INLINE_DIALOG,

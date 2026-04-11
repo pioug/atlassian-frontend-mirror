@@ -651,41 +651,31 @@ describe('FilmstripView', () => {
 
 		describe('.render()', () => {
 			it('should capture and report a11y violations', async () => {
-				const { container } = render(
-					<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>,
-				);
+				const { container } = render(<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>);
 
 				await expect(container).toBeAccessible();
 			});
 
 			it('should not render the left arrow when offset is equal to minOffset', () => {
-				const element = shallow(
-					<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>,
-				);
+				const element = shallow(<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>);
 				mockSizing(element);
 				expect(element.find(LeftArrow).exists()).toBeFalsy();
 			});
 
 			it('should render the left arrow when offset is greater than minOffset', () => {
-				const element = shallow(
-					<FilmstripView offset={1}>{['a', 'b', 'c']}</FilmstripView>,
-				);
+				const element = shallow(<FilmstripView offset={1}>{['a', 'b', 'c']}</FilmstripView>);
 				mockSizing(element);
 				expect(element.find(LeftArrow).exists()).toBeTruthy();
 			});
 
 			it('should not render the right arrow when offset is equal to maxOffset', () => {
-				const element = shallow(
-					<FilmstripView offset={900}>{['a', 'b', 'c']}</FilmstripView>,
-				);
+				const element = shallow(<FilmstripView offset={900}>{['a', 'b', 'c']}</FilmstripView>);
 				mockSizing(element);
 				expect(element.find(RightArrow).exists()).toBeFalsy();
 			});
 
 			it('should render the right arrow when offset is less than maxOffset', () => {
-				const element = shallow(
-					<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>,
-				);
+				const element = shallow(<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>);
 				mockSizing(element);
 				expect(element.find(RightArrow).exists()).toBeTruthy();
 			});

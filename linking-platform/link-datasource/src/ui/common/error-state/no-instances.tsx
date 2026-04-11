@@ -29,7 +29,11 @@ interface NoInstanceViewProps {
 	title: MessageDescriptor;
 }
 
-export const NoInstancesView = ({ title, description, testId }: NoInstanceViewProps): JSX.Element => {
+export const NoInstancesView = ({
+	title,
+	description,
+	testId,
+}: NoInstanceViewProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 	return (
 		<Flex testId={testId} direction="column" alignItems="center" xcss={styles.containerStyles}>

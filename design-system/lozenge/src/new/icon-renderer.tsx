@@ -91,7 +91,13 @@ export const IconRenderer: (props: IconRendererProps) => React.JSX.Element = ({
 }: IconRendererProps) => {
 	const iconColor = getIconColor(color);
 
-	return fg('platform-dst-motion-uplift') ? <Box xcss={styles.motion} style={{color: iconColor}}><Icon label="" size={size} testId={testId} /></Box> : <Icon color={iconColor} label="" size={size} testId={testId} />;
+	return fg('platform-dst-motion-uplift') ? (
+		<Box xcss={styles.motion} style={{ color: iconColor }}>
+			<Icon label="" size={size} testId={testId} />
+		</Box>
+	) : (
+		<Icon color={iconColor} label="" size={size} testId={testId} />
+	);
 };
 
 export default IconRenderer;

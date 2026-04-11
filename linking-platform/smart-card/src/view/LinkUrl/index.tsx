@@ -22,8 +22,8 @@ const PACKAGE_DATA: PackageDataType = {
 
 const Anchor = withLinkClickedEvent('a');
 export const LinkComponent: {
-    (props: LinkProps): React.ReactElement<LinkProps, string | React.JSXElementConstructor<any>>;
-    displayName: string;
+	(props: LinkProps): React.ReactElement<LinkProps, string | React.JSXElementConstructor<any>>;
+	displayName: string;
 } = withLinkClickedEvent(AKLink);
 
 const LinkUrl = ({
@@ -105,5 +105,7 @@ const LinkUrl = ({
 	);
 };
 
-const _default_1: React.ForwardRefExoticComponent<LinkUrlProps & WithContextProps & React.RefAttributes<any>> = withAnalyticsContext(PACKAGE_DATA)(LinkUrl);
+const _default_1: React.ForwardRefExoticComponent<
+	LinkUrlProps & WithContextProps & React.RefAttributes<any>
+> = withAnalyticsContext(PACKAGE_DATA)(LinkUrl);
 export default _default_1;

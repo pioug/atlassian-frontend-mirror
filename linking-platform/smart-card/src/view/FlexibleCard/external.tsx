@@ -198,9 +198,11 @@ export const VoteCountElement = (): React.JSX.Element => <VoteCount />;
 
 // ---- EXPORTED ACTION COMPONENTS ---- //
 type BaseActionProps = { appearance?: 'default' | 'subtle' };
-export const toActionProps = (props?: BaseActionProps): {
-    appearance: "default" | "subtle";
-    icon: undefined;
+export const toActionProps = (
+	props?: BaseActionProps,
+): {
+	appearance: 'default' | 'subtle';
+	icon: undefined;
 } => ({
 	appearance: props?.appearance ?? 'default',
 	icon: undefined,

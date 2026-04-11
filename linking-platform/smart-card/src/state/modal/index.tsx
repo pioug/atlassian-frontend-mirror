@@ -16,7 +16,8 @@ import { type SmartLinkModalAPI, type SmartLinkModalProviderProps } from './type
 
 const FALLBACK_API = { open: () => {}, close: () => {} };
 
-export const SmartLinkModalContext: React.Context<SmartLinkModalAPI> = React.createContext<SmartLinkModalAPI>(FALLBACK_API);
+export const SmartLinkModalContext: React.Context<SmartLinkModalAPI> =
+	React.createContext<SmartLinkModalAPI>(FALLBACK_API);
 
 export const SmartLinkModalProvider = ({
 	children,

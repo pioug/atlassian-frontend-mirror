@@ -63,32 +63,41 @@ export const createMediaDurationMetrics = (
 	entry: ExperimentalPerformanceResourceTiming,
 	interactionStartTime: number,
 ): {
-        /**
-         * The user agent string for the current browser
-         * Read more: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent
-         */
-        userAgent: string;
-        /**
-         * Performance resource timing data sent by the server. This includes:
-         *
-         * `cdnCacheHit` is a boolean determining whether the CDN cache was hit or missed.
-         *
-         * `cdnDownstreamFBL` is the 'CDN Downstream First Byte Latency'. It represents
-         * how long the it took the CDN to respond to the frontend.
-         *
-         * `cdnUpstreamFBL` is the 'CDN Upstream First Byte Latency'. It represents the
-         * time the Media backend took to respond to the CDN, in the case that the CDN
-         * cache was a miss. Notably, this timing is a subset of the `cdnDownstreamFBL` timing.
-         */
-        cdnCacheHit: boolean; cdnDownstreamFBL: number | undefined; cdnUpstreamFBL: number | undefined; startedAt: number;
-        /**
-         * Performance resource timing data regarding the loading of an
-         * application's resources as described in
-         * https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming
-         */
-        transferSize: number; decodedBodySize: number; totalDuration: number; initiatorType: string; // value can be 'fetch' or 'img'
-        endedAt: number; responseEnd: number; browserCacheHit: boolean; nextHopProtocol: string;
-    } => {
+	/**
+	 * The user agent string for the current browser
+	 * Read more: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent
+	 */
+	userAgent: string;
+	/**
+	 * Performance resource timing data sent by the server. This includes:
+	 *
+	 * `cdnCacheHit` is a boolean determining whether the CDN cache was hit or missed.
+	 *
+	 * `cdnDownstreamFBL` is the 'CDN Downstream First Byte Latency'. It represents
+	 * how long the it took the CDN to respond to the frontend.
+	 *
+	 * `cdnUpstreamFBL` is the 'CDN Upstream First Byte Latency'. It represents the
+	 * time the Media backend took to respond to the CDN, in the case that the CDN
+	 * cache was a miss. Notably, this timing is a subset of the `cdnDownstreamFBL` timing.
+	 */
+	cdnCacheHit: boolean;
+	cdnDownstreamFBL: number | undefined;
+	cdnUpstreamFBL: number | undefined;
+	startedAt: number;
+	/**
+	 * Performance resource timing data regarding the loading of an
+	 * application's resources as described in
+	 * https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming
+	 */
+	transferSize: number;
+	decodedBodySize: number;
+	totalDuration: number;
+	initiatorType: string; // value can be 'fetch' or 'img'
+	endedAt: number;
+	responseEnd: number;
+	browserCacheHit: boolean;
+	nextHopProtocol: string;
+} => {
 	return {
 		startedAt: getStartedAt(entry, interactionStartTime),
 		/**

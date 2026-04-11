@@ -122,8 +122,8 @@ const shadowStyles = css({
 });
 
 const resetButtonStyle = css({
-	all: "unset",
-	display: "block"
+	all: 'unset',
+	display: 'block',
 });
 
 const shadowLeftStyles = css({
@@ -148,28 +148,26 @@ export const ArrowLeftWrapper = ({
 }: {
 	children: ReactNode;
 } & OnClick): JSX.Element => {
-	return (
-		fg('platform_media_a11y_suppression_fixes') ? (
-			<button
-				css={[resetButtonStyle, arrowWrapperStyles, arrowLeftWrapperStyles]}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className="arrow"
-				onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
-			>
-				{children}
-			</button>
-		) : (
-			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-			<div
-				css={[arrowWrapperStyles, arrowLeftWrapperStyles]}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className="arrow"
-				onClick={onClick}
-			>
-				{children}
-			</div>
-		)
-	)
+	return fg('platform_media_a11y_suppression_fixes') ? (
+		<button
+			css={[resetButtonStyle, arrowWrapperStyles, arrowLeftWrapperStyles]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className="arrow"
+			onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
+		>
+			{children}
+		</button>
+	) : (
+		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+		<div
+			css={[arrowWrapperStyles, arrowLeftWrapperStyles]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className="arrow"
+			onClick={onClick}
+		>
+			{children}
+		</div>
+	);
 };
 
 export const ShadowRight = ({ children }: { children: ReactNode }): JSX.Element => (
@@ -182,29 +180,26 @@ export const ArrowRightWrapper = ({
 }: {
 	children: ReactNode;
 } & OnClick): JSX.Element => {
-
-	return (
-		fg('platform_media_a11y_suppression_fixes') ? (
-			<button
-				css={[resetButtonStyle, arrowWrapperStyles, arrowRightWrapperStyles]}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className="arrow"
-				onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
-			>
-				{children}
-			</button>
-		) : (
-			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-			<div
-				css={[arrowWrapperStyles, arrowRightWrapperStyles]}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className="arrow"
-				onClick={onClick}
-			>
-				{children}
-			</div>
-		)
-	)
+	return fg('platform_media_a11y_suppression_fixes') ? (
+		<button
+			css={[resetButtonStyle, arrowWrapperStyles, arrowRightWrapperStyles]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className="arrow"
+			onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
+		>
+			{children}
+		</button>
+	) : (
+		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
+		<div
+			css={[arrowWrapperStyles, arrowRightWrapperStyles]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className="arrow"
+			onClick={onClick}
+		>
+			{children}
+		</div>
+	);
 };
 
 export const LeftArrow: React.FC<OnClick> = ({ onClick }: OnClick) => (
@@ -243,7 +238,9 @@ export type FilmStripListWrapperProps = {
 	'data-testid': string | undefined;
 };
 
-export const FilmStripListWrapper: React.ForwardRefExoticComponent<FilmStripListWrapperProps & React.RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, FilmStripListWrapperProps>(
+export const FilmStripListWrapper: React.ForwardRefExoticComponent<
+	FilmStripListWrapperProps & React.RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, FilmStripListWrapperProps>(
 	(
 		{ children, onWheel, onTouchStart, onTouchMove, onTouchEnd, 'data-testid': dataTestId },
 		ref,
@@ -271,18 +268,18 @@ export type FilmStripListProps = {
 	};
 };
 
-export const FilmStripList: React.ForwardRefExoticComponent<FilmStripListProps & React.RefAttributes<HTMLUListElement>> = React.forwardRef<HTMLUListElement, FilmStripListProps>(
-	({ children, style }, ref) => (
-		<ul
-			css={[filmStripListStyles]}
-			ref={ref as React.RefObject<HTMLUListElement>}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={style}
-		>
-			{children}
-		</ul>
-	),
-);
+export const FilmStripList: React.ForwardRefExoticComponent<
+	FilmStripListProps & React.RefAttributes<HTMLUListElement>
+> = React.forwardRef<HTMLUListElement, FilmStripListProps>(({ children, style }, ref) => (
+	<ul
+		css={[filmStripListStyles]}
+		ref={ref as React.RefObject<HTMLUListElement>}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		style={style}
+	>
+		{children}
+	</ul>
+));
 
 export const FilmStripListItem = ({
 	children,

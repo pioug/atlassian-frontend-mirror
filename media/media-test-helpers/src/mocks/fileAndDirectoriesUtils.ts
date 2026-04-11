@@ -77,7 +77,10 @@ export const createFileSystemFileEntry = (
 	file: (resolve: (file: File) => void) => resolve(imageFile),
 });
 
-export const createDropEventWithFiles = (fileSystemEntry: FileSystemEntry, files: File[]): DragEvent => {
+export const createDropEventWithFiles = (
+	fileSystemEntry: FileSystemEntry,
+	files: File[],
+): DragEvent => {
 	const dataTransferItem = createDataTransferItem(fileSystemEntry);
 	const fileList = createFileList(files);
 	const dataTransferItemList = createDataTransferItemList([dataTransferItem]);

@@ -7,12 +7,14 @@ import type { SmartLinkSize } from '../../../constants';
 
 import { renderIconPerSize } from './utils';
 
-const LiveDocumentIconWithColor: FC<{
-    label: string;
-    testId?: string;
-} & {
-    size?: SmartLinkSize;
-}> = renderIconPerSize(LiveDocIconSmall, LiveDocIconLarge);
+const LiveDocumentIconWithColor: FC<
+	{
+		label: string;
+		testId?: string;
+	} & {
+		size?: SmartLinkSize;
+	}
+> = renderIconPerSize(LiveDocIconSmall, LiveDocIconLarge);
 LiveDocumentIconWithColor.displayName = 'LiveDocumentIconWithColor';
 
 export default LiveDocumentIconWithColor;

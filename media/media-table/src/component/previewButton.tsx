@@ -42,6 +42,6 @@ const MediaPreviewButton = (props: Props & WrappedComponentProps) => {
 };
 
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
+	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(MediaPreviewButton);
 export default _default_1;

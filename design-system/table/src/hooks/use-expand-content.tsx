@@ -4,11 +4,10 @@ type ExpandContentContext = {
 	isExpandableContent: boolean;
 };
 
-const ExpandContentContext: React.Context<ExpandContentContext> = createContext<ExpandContentContext>(
-	{
+const ExpandContentContext: React.Context<ExpandContentContext> =
+	createContext<ExpandContentContext>({
 		isExpandableContent: false,
-	},
-);
+	});
 
 /**
  * __Expand content provider__

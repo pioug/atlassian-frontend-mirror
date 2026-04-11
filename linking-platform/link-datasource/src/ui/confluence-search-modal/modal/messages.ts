@@ -1,51 +1,61 @@
 import { defineMessages } from 'react-intl-next';
 
 export const confluenceSearchModalMessages: {
-    cancelButtonText: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; insertResultsButtonText: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; insertIssuesTitle: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; insertIssuesTitleManySites: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; initialViewSearchTitle: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; initialViewSearchDescription: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; noAccessToConfluenceSitesTitle: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; noAccessToConfluenceSitesDescription: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; resultsCountSmartCardPlaceholderText: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; checkConnectionWithSource: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; checkConnectionWithSourceGalaxia: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	cancelButtonText: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	insertResultsButtonText: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	insertIssuesTitle: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	insertIssuesTitleManySites: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	initialViewSearchTitle: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	initialViewSearchDescription: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	noAccessToConfluenceSitesTitle: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	noAccessToConfluenceSitesDescription: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	resultsCountSmartCardPlaceholderText: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	checkConnectionWithSource: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	checkConnectionWithSourceGalaxia: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	cancelButtonText: {
 		id: 'linkDataSource.confluence-search.configmodal.cancelButtonText',

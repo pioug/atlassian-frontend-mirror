@@ -106,7 +106,7 @@ const PopupPlacementExample = (): JSX.Element => {
 						placement={placement}
 						isOpen={isOpen}
 						onClose={() => {
-							setOpenPlacement((value) => value === placement ? null : value);
+							setOpenPlacement((value) => (value === placement ? null : value));
 						}}
 						content={() => (
 							<div css={contentStyles}>

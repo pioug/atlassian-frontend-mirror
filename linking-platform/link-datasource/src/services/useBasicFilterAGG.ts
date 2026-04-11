@@ -24,7 +24,18 @@ interface GetFieldValuesProps {
 
 const AGG_BASE_URL = '/gateway/api/graphql';
 
-export const useBasicFilterAGG = (): { getHydratedJQL: (cloudId: string, jql: string) => Promise<HydrateResponse>; getFieldValues: ({ cloudId, jql, jqlTerm, searchString, pageCursor }: GetFieldValuesProps) => Promise<FieldValuesResponse>; getCurrentUserInfo: () => Promise<UserInfoAGGResponse>; getUsersFromAccountIDs: (accountIds: string[]) => Promise<UserHydrationAGGResponse>; } => {
+export const useBasicFilterAGG = (): {
+	getHydratedJQL: (cloudId: string, jql: string) => Promise<HydrateResponse>;
+	getFieldValues: ({
+		cloudId,
+		jql,
+		jqlTerm,
+		searchString,
+		pageCursor,
+	}: GetFieldValuesProps) => Promise<FieldValuesResponse>;
+	getCurrentUserInfo: () => Promise<UserInfoAGGResponse>;
+	getUsersFromAccountIDs: (accountIds: string[]) => Promise<UserHydrationAGGResponse>;
+} => {
 	const requestCall = useCallback(
 		async <Response>(body: object, headers?: HeadersInit) =>
 			request<Response>('post', AGG_BASE_URL, body, headers, [200, 201, 202, 203, 204]),

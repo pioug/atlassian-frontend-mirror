@@ -2,7 +2,9 @@ import React, { useContext, createContext, useMemo } from 'react';
 import { type CardContext } from './types';
 import { SmartCardProvider, type ProviderProps } from '../../provider';
 
-export const SmartCardContext: React.Context<CardContext | undefined> = createContext<CardContext | undefined>(undefined);
+export const SmartCardContext: React.Context<CardContext | undefined> = createContext<
+	CardContext | undefined
+>(undefined);
 
 export function useSmartLinkContext(): CardContext {
 	const context = useContext(SmartCardContext);
@@ -14,9 +16,9 @@ export function useSmartLinkContext(): CardContext {
 }
 
 export const useSmartCardContext = (): {
-    Provider: React.Provider<CardContext | undefined>;
-    Consumer: React.Consumer<CardContext | undefined>;
-    value: CardContext | undefined;
+	Provider: React.Provider<CardContext | undefined>;
+	Consumer: React.Consumer<CardContext | undefined>;
+	value: CardContext | undefined;
 } => useContextMemoized(SmartCardContext);
 
 export const EditorSmartCardProviderValueGuard = ({

@@ -213,23 +213,26 @@ export const animatedFileId: FileIdentifier = {
 };
 
 export const svgFileIds: {
-    ajDigitalCamera: {
-        id: string;
-        mediaItemType: "file";
-        collectionName: string;
-    }; car: {
-        id: string;
-        mediaItemType: "file";
-        collectionName: string;
-    }; atom: {
-        id: string;
-        mediaItemType: "file";
-        collectionName: string;
-    }; openweb: {
-        id: string;
-        mediaItemType: "file";
-        collectionName: string;
-    };
+	ajDigitalCamera: {
+		id: string;
+		mediaItemType: 'file';
+		collectionName: string;
+	};
+	car: {
+		id: string;
+		mediaItemType: 'file';
+		collectionName: string;
+	};
+	atom: {
+		id: string;
+		mediaItemType: 'file';
+		collectionName: string;
+	};
+	openweb: {
+		id: string;
+		mediaItemType: 'file';
+		collectionName: string;
+	};
 } = {
 	ajDigitalCamera: {
 		id: '961e6894-88cd-4970-a0f5-4478910074dd',
@@ -347,12 +350,12 @@ export const genericDataURI =
 // === VR test ids ===
 
 export const vrVideoDetails: {
-    id: string;
-    name: string;
-    dataUri: string;
-    previewDataUri: string;
-    mediaType: MediaType;
-    mimeType: string;
+	id: string;
+	name: string;
+	dataUri: string;
+	previewDataUri: string;
+	mediaType: MediaType;
+	mimeType: string;
 } = {
 	id: '57b9af11-eead-4711-85fa-9d393278c314',
 	name: 'video.mp4',

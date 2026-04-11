@@ -50,7 +50,12 @@ const relatedLinkItemStyles = css({
 	font: token('font.body.small'),
 });
 
-const RelatedLinkItem = ({ url, testId, isSelected, onFocus }: RelatedLinkItemProp): JSX.Element => {
+const RelatedLinkItem = ({
+	url,
+	testId,
+	isSelected,
+	onFocus,
+}: RelatedLinkItemProp): JSX.Element => {
 	const subtitle: ElementItem[] = [{ name: ElementName.Provider, hideIcon: true }];
 
 	const ui: FlexibleUiOptions = {

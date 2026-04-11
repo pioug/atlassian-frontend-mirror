@@ -22,7 +22,7 @@ import {
 	isSuccessfulResponse,
 	isErrorResponse,
 	type SearchProviderInfoResponse,
-    type SearchProviderInfo,
+	type SearchProviderInfo,
 } from './types/responses';
 import { type ResourcePayload, type ResourceType, type InvokeRequest } from './types/requests';
 import { LRUMap } from 'lru_map';
@@ -35,9 +35,10 @@ const URL_RESPONSE_CACHE_SIZE = 100;
 
 // Contains cached mapping between url and a promise of a response.
 // Note that promise can be either unsettled/ongoing OR successfully resolved (not an error or non-resolved)
-export const urlResponsePromiseCache: LRUMap<string, Promise<SuccessResponse | ErrorResponse>> = new LRUMap<string, Promise<SuccessResponse | ErrorResponse>>(
-	URL_RESPONSE_CACHE_SIZE,
-);
+export const urlResponsePromiseCache: LRUMap<
+	string,
+	Promise<SuccessResponse | ErrorResponse>
+> = new LRUMap<string, Promise<SuccessResponse | ErrorResponse>>(URL_RESPONSE_CACHE_SIZE);
 
 export default class CardClient implements CardClientInterface {
 	private resolverUrl: string;

@@ -11,7 +11,8 @@ import * as uuid from 'uuid';
 import { files, fileUri } from '../staticCommon';
 
 export const copyWithToken =
-	(context: () => MockContext) => (req: MockRequest, res: MockResponse): MockResponse | undefined => {
+	(context: () => MockContext) =>
+	(req: MockRequest, res: MockResponse): MockResponse | undefined => {
 		const data: Array<any> = context().userContext.collection.map((item: any) => ({
 			method: 'POST',
 			url: {

@@ -1,107 +1,122 @@
 import { defineMessages } from 'react-intl-next';
 
 export const loadingErrorMessages: {
-    accessInstructionsDuplicate: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    //delete and remove duplicate from title above
-    accessInstructions: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; accessRequiredDuplicate: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    //delete and remove duplicate from title above
-    accessRequired: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; accessRequiredWithSite: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; checkConnectionDuplicate: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; checkConnectionConfluence: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; checkConnectionJira: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    //delete and remove duplicate from title above
-    checkConnection: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; noResultsFound: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; noResultsFoundDescription: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; refreshDuplicate: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    //delete and remove duplicate from title above
-    refresh: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; unableToLoadItemsDuplicate: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; unableToLoadResults: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    // delete once EDM-9407 is merged
-    noAccessToJiraSitesTitle: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    // delete once EDM-9407 is merged
-    noAccessToJiraSitesDescription: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; authScreenHeaderText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; authScreenDescriptionText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; learnMoreAboutSmartLinks: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; authConnectButtonText: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; authScreenDescriptionTextAppify: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	accessInstructionsDuplicate: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	//delete and remove duplicate from title above
+	accessInstructions: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	accessRequiredDuplicate: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	//delete and remove duplicate from title above
+	accessRequired: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	accessRequiredWithSite: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	checkConnectionDuplicate: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	checkConnectionConfluence: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	checkConnectionJira: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	//delete and remove duplicate from title above
+	checkConnection: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	noResultsFound: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	noResultsFoundDescription: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	refreshDuplicate: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	//delete and remove duplicate from title above
+	refresh: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	unableToLoadItemsDuplicate: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	unableToLoadResults: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	// delete once EDM-9407 is merged
+	noAccessToJiraSitesTitle: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	// delete once EDM-9407 is merged
+	noAccessToJiraSitesDescription: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	authScreenHeaderText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	authScreenDescriptionText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	learnMoreAboutSmartLinks: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	authConnectButtonText: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	authScreenDescriptionTextAppify: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	accessInstructionsDuplicate: {
 		id: 'linkDataSource.accessInstructions',

@@ -49,5 +49,12 @@ const getValidTableProps = (
 	};
 };
 
-const _default_1: MemoizedFn<(itemsCount: number, itemsPerPage?: number, pageNumber?: number, totalItems?: number) => ValidatedProps> = memoizeOne(getValidTableProps);
+const _default_1: MemoizedFn<
+	(
+		itemsCount: number,
+		itemsPerPage?: number,
+		pageNumber?: number,
+		totalItems?: number,
+	) => ValidatedProps
+> = memoizeOne(getValidTableProps);
 export default _default_1;

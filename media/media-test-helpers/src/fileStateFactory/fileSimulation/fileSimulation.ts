@@ -52,10 +52,16 @@ export const useRunSimulation = (
 	simulation: Simulation,
 	simulationSettings: SimulationSettings = {},
 ): {
-        identifier: FileIdentifier; fileStateFactory: FileStateFactory; fileState: FileState | {
-            status: string;
-        } | undefined; updateIdentifier: (newMediaType?: MediaType) => void;
-    } => {
+	identifier: FileIdentifier;
+	fileStateFactory: FileStateFactory;
+	fileState:
+		| FileState
+		| {
+				status: string;
+		  }
+		| undefined;
+	updateIdentifier: (newMediaType?: MediaType) => void;
+} => {
 	const { identifier, fileStateFactory, updateIdentifier } =
 		useSimulationSettings(simulationSettings);
 

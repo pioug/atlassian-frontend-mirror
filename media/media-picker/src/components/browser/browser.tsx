@@ -2,7 +2,13 @@ import React from 'react';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withMediaAnalyticsContext, type MediaFeatureFlags } from '@atlaskit/media-common';
 import isValidId from 'uuid-validate';
-import { type BrowserConfig, type UploadEndEventPayload, type UploadErrorEventPayload, type UploadPreviewUpdateEventPayload, type UploadsStartEventPayload } from '../../types';
+import {
+	type BrowserConfig,
+	type UploadEndEventPayload,
+	type UploadErrorEventPayload,
+	type UploadPreviewUpdateEventPayload,
+	type UploadsStartEventPayload,
+} from '../../types';
 import { LocalUploadComponentReact, type LocalUploadComponentBaseProps } from '../localUploadReact';
 import { getPackageAttributes } from '../../util/analytics';
 import ErrorFlagGroup from '../errorFlagGroup/ErrorFlagGroup';
@@ -69,8 +75,8 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 	}
 
 	static defaultProps: {
-        config: BrowserConfig;
-    } = {
+		config: BrowserConfig;
+	} = {
 		config: defaultConfig,
 	};
 
@@ -166,16 +172,38 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 }
 export default BrowserBase;
 
-export const Browser: React.ForwardRefExoticComponent<Omit<Pick<Omit<{
-    mediaClient: MediaClient;
-    config: LocalUploadConfig;
-    onUploadsStart?: (payload: UploadsStartEventPayload) => void;
-    onPreviewUpdate?: (payload: UploadPreviewUpdateEventPayload) => void;
-    onEnd?: (payload: UploadEndEventPayload) => void;
-    onError?: (payload: UploadErrorEventPayload) => void;
-    featureFlags?: MediaFeatureFlags;
-} & BrowserOwnProps, keyof WithAnalyticsEventsProps>, "children" | "onError" | "mediaClient" | "onUploadsStart" | "onPreviewUpdate" | "onEnd" | "featureFlags" | "isOpen" | "onClose" | "onBrowseFn" | "onCancelFn"> & {
-    config?: (LocalUploadConfig & BrowserConfig) | undefined;
-} & {} & React.RefAttributes<any>, "ref"> & React.RefAttributes<any>> = withMediaAnalyticsContext(getPackageAttributes(COMPONENT_NAME))(
+export const Browser: React.ForwardRefExoticComponent<
+	Omit<
+		Pick<
+			Omit<
+				{
+					mediaClient: MediaClient;
+					config: LocalUploadConfig;
+					onUploadsStart?: (payload: UploadsStartEventPayload) => void;
+					onPreviewUpdate?: (payload: UploadPreviewUpdateEventPayload) => void;
+					onEnd?: (payload: UploadEndEventPayload) => void;
+					onError?: (payload: UploadErrorEventPayload) => void;
+					featureFlags?: MediaFeatureFlags;
+				} & BrowserOwnProps,
+				keyof WithAnalyticsEventsProps
+			>,
+			| 'children'
+			| 'onError'
+			| 'mediaClient'
+			| 'onUploadsStart'
+			| 'onPreviewUpdate'
+			| 'onEnd'
+			| 'featureFlags'
+			| 'isOpen'
+			| 'onClose'
+			| 'onBrowseFn'
+			| 'onCancelFn'
+		> & {
+			config?: (LocalUploadConfig & BrowserConfig) | undefined;
+		} & {} & React.RefAttributes<any>,
+		'ref'
+	> &
+		React.RefAttributes<any>
+> = withMediaAnalyticsContext(getPackageAttributes(COMPONENT_NAME))(
 	withAnalyticsEvents()(BrowserBase),
 );

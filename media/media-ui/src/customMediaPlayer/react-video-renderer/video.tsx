@@ -126,12 +126,12 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 	};
 
 	static defaultProps: {
-        defaultTime: () => number;
-        sourceType: string;
-        autoPlay: boolean;
-        controls: boolean;
-        preload: string;
-    } = {
+		defaultTime: () => number;
+		sourceType: string;
+		autoPlay: boolean;
+		controls: boolean;
+		preload: string;
+	} = {
 		defaultTime: () => 0,
 		sourceType: 'video',
 		autoPlay: false,

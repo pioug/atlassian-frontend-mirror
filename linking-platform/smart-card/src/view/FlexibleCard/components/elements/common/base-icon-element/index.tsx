@@ -18,7 +18,14 @@ import { token } from '@atlaskit/tokens';
 
 import { type IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';
 import type { LinkLozenge } from '../../../../../../extractors/common/lozenge/types';
-import { type FlexibleUiActions, type FlexibleUiDataContext, type LinkLocation, type LinkTitle, type Media, type PreviewActionData } from '../../../../../../state/flexible-ui-context/types';
+import {
+	type FlexibleUiActions,
+	type FlexibleUiDataContext,
+	type LinkLocation,
+	type LinkTitle,
+	type Media,
+	type PreviewActionData,
+} from '../../../../../../state/flexible-ui-context/types';
 import { isProfileType } from '../../../../../../utils';
 import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../../../../../utils/experiments';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
@@ -310,22 +317,34 @@ export default IconElement;
 export const toLinkIconProps = (
 	data: FlexibleUiDataContext[keyof FlexibleUiDataContext] | undefined,
 	type: FlexibleUiDataContext['type'],
-): string[] | FlexibleUiActions | PreviewActionData | LinkPerson[] | LinkTitle | LinkLocation | {
-        accessType?: string;
-        objectId?: string;
-        resourceType?: string;
-        tenantId?: string;
-    } | Media | LinkLozenge | {
-        department?: string;
-        location?: string;
-        pronouns?: string;
-        role?: string;
-    } | {
-        appearance: string;
-        icon?: IconType;
-        label?: string;
-        url?: string;
-    } | undefined => {
+):
+	| string[]
+	| FlexibleUiActions
+	| PreviewActionData
+	| LinkPerson[]
+	| LinkTitle
+	| LinkLocation
+	| {
+			accessType?: string;
+			objectId?: string;
+			resourceType?: string;
+			tenantId?: string;
+	  }
+	| Media
+	| LinkLozenge
+	| {
+			department?: string;
+			location?: string;
+			pronouns?: string;
+			role?: string;
+	  }
+	| {
+			appearance: string;
+			icon?: IconType;
+			label?: string;
+			url?: string;
+	  }
+	| undefined => {
 	const isDataLinkIcon = (_data: typeof data): _data is FlexibleUiDataContext['linkIcon'] => {
 		return typeof _data === 'object' && _data !== null && ('icon' in _data || 'url' in _data);
 	};

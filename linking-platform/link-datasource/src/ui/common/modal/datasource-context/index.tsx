@@ -112,7 +112,9 @@ export const DatasourceContextProvider = <Parameters extends DatasourceParameter
 	return <DatasourceContext.Provider value={contextValue}>{children}</DatasourceContext.Provider>;
 };
 
-export const useDatasourceContext = <Parameters extends DatasourceParameters>(): DatasourceContextValue<Parameters> => {
+export const useDatasourceContext = <
+	Parameters extends DatasourceParameters,
+>(): DatasourceContextValue<Parameters> => {
 	const value = useContext(DatasourceContext) as DatasourceContextValue<Parameters> | null;
 	if (!value) {
 		throw new Error('useDatasourceStore must be used within DatasourceContextProvider');

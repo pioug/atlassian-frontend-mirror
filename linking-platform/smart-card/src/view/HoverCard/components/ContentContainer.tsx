@@ -70,9 +70,7 @@ const ConnectedAIPrismContainer = ({
 			className={hoverCardClassName}
 			css={[
 				HoverCardContainerStyle,
-				resolvedWidthAppearance === 'slim'
-					? hoverCardShellWidthSlim
-					: hoverCardShellWidthDefault,
+				resolvedWidthAppearance === 'slim' ? hoverCardShellWidthSlim : hoverCardShellWidthDefault,
 				hoverCardShellHideLoadingPlaceholder,
 				!isAIEnabled ? popupContainerStyles : undefined,
 			]}

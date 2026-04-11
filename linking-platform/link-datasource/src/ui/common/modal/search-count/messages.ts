@@ -1,23 +1,26 @@
 import { defineMessages } from 'react-intl-next';
 
 export const searchCountMessages: {
-    resultCountText: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; issueCountText: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; itemCountText: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; issueCountTextIssueTermRefresh: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	resultCountText: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	issueCountText: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	itemCountText: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	issueCountTextIssueTermRefresh: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	resultCountText: {
 		id: 'linkDataSource.search.configmodal.resultCountText',

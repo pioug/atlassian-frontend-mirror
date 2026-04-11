@@ -11,11 +11,9 @@ import ControlsExample from '../../examples/constellation/controls';
 import MotionExample from '../../examples/constellation/motion';
 import ActionsExample from '../../examples/constellation/actions';
 
-<SectionMessage
-	title="Motion in Early Access"
-	appearance="warning"
->
-	The motion added into Spotlight is in Early Access. The motion updates are currently behind the feature flag: platform-dst-motion-uplift.
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	The motion added into Spotlight is in Early Access. The motion updates are currently behind the
+	feature flag: platform-dst-motion-uplift.
 </SectionMessage>
 
 ## Single step
@@ -31,8 +29,8 @@ To show/hide the `SpotlightCard`, simply use a `useState` to control the `isVisi
 `PopoverContent` and set the `placement` prop.
 
 <Example
-    Component={SingleStepExample}
-    packageName="@atlaskit/spotlight"
+	Component={SingleStepExample}
+	packageName="@atlaskit/spotlight"
 	featureFlagSwitchers={['motion']}
 />
 
@@ -44,8 +42,8 @@ will often need to be wrapping the entire `App` and therefore will cause the ent
 re-render every time a new spotlight step is shown.
 
 <Example
-    Component={MultipleStepsExample}
-    packageName="@atlaskit/spotlight"
+	Component={MultipleStepsExample}
+	packageName="@atlaskit/spotlight"
 	featureFlagSwitchers={['motion']}
 />
 
@@ -56,8 +54,8 @@ overflows out of the viewport. Make sure to choose a placement that ensures the 
 displayed in full.
 
 <Example
-    Component={PlacementsExample}
-    packageName="@atlaskit/spotlight"
+	Component={PlacementsExample}
+	packageName="@atlaskit/spotlight"
 	featureFlagSwitchers={['motion']}
 />
 
@@ -69,8 +67,8 @@ correct reflow on smaller viewports, media must be 295px width X 135px height.
 Media can be an image, gif, or video that helps communicate spotlight intent.
 
 <Example
-    Component={MediaExample}
-    packageName="@atlaskit/spotlight"
+	Component={MediaExample}
+	packageName="@atlaskit/spotlight"
 	featureFlagSwitchers={['motion']}
 />
 
@@ -95,7 +93,7 @@ When the primary or secondary control should navigate to a URL instead of perfor
 "Learn more").
 
 <Example
-    Component={ActionsExample}
-    packageName="@atlaskit/spotlight"
+	Component={ActionsExample}
+	packageName="@atlaskit/spotlight"
 	featureFlagSwitchers={['motion']}
 />

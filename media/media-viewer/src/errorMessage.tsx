@@ -19,8 +19,14 @@ import {
 	getPrimaryErrorReason,
 	getSecondaryErrorReason,
 } from './errors';
-import { createLoadFailedEvent, type LoadFailedEventPayload } from './analytics/events/operational/loadFailed';
-import { createPreviewUnsupportedEvent, type PreviewUnsupportedEventPayload } from './analytics/events/operational/previewUnsupported';
+import {
+	createLoadFailedEvent,
+	type LoadFailedEventPayload,
+} from './analytics/events/operational/loadFailed';
+import {
+	createPreviewUnsupportedEvent,
+	type PreviewUnsupportedEventPayload,
+} from './analytics/events/operational/previewUnsupported';
 import { failMediaFileUfoExperience, type UFOFailedEventPayload } from './analytics/ufoExperiences';
 import { type FileStateFlags } from './components/types';
 import { type MediaTraceContext } from '@atlaskit/media-common';

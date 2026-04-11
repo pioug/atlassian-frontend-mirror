@@ -21,7 +21,9 @@ const formRowContainerWideGapStyles = css({
 	gap: token('space.200'),
 });
 
-export const FormRowContainer = (props: React.PropsWithChildren<{ isNarrowGap?: boolean }>): JSX.Element => (
+export const FormRowContainer = (
+	props: React.PropsWithChildren<{ isNarrowGap?: boolean }>,
+): JSX.Element => (
 	<div
 		css={[
 			formRowContainerBaseStyles,

@@ -294,8 +294,8 @@ export function createProcessFetchResponse(
 }
 
 export function extractMediaHeaders(response: Response): {
-    mediaRegion: string;
-    mediaEnv: string;
+	mediaRegion: string;
+	mediaEnv: string;
 } {
 	const { headers } = response;
 	const mediaRegion = headers.get('x-media-region') || 'unknown';

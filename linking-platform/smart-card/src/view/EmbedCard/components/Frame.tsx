@@ -69,7 +69,9 @@ const iframeStyles = css({
 	borderRadius: token('radius.small', '3px'),
 });
 
-export const Frame: React.ForwardRefExoticComponent<FrameProps & React.RefAttributes<HTMLIFrameElement>> = React.forwardRef<HTMLIFrameElement, FrameProps>(
+export const Frame: React.ForwardRefExoticComponent<
+	FrameProps & React.RefAttributes<HTMLIFrameElement>
+> = React.forwardRef<HTMLIFrameElement, FrameProps>(
 	(
 		{ url, isTrusted = false, testId, onIframeDwell, onIframeFocus, title, extensionKey },
 		iframeRef,
@@ -180,7 +182,9 @@ export const Frame: React.ForwardRefExoticComponent<FrameProps & React.RefAttrib
 	},
 );
 
-export const FrameUpdated: React.ForwardRefExoticComponent<FrameUpdatedProps & React.RefAttributes<HTMLIFrameElement>> = React.forwardRef<HTMLIFrameElement, FrameUpdatedProps>(
+export const FrameUpdated: React.ForwardRefExoticComponent<
+	FrameUpdatedProps & React.RefAttributes<HTMLIFrameElement>
+> = React.forwardRef<HTMLIFrameElement, FrameUpdatedProps>(
 	(
 		{
 			url,

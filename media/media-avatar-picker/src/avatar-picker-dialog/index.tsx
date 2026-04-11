@@ -43,9 +43,9 @@ import { SubmitErrorDialog } from './SubmitErrorDialog';
 export const MAX_SIZE_MB = 10;
 
 export const ERROR: {
-    URL: MessageDescriptor;
-    FORMAT: MessageDescriptor;
-    SIZE: MessageDescriptor;
+	URL: MessageDescriptor;
+	FORMAT: MessageDescriptor;
+	SIZE: MessageDescriptor;
 } = {
 	URL: messages.image_url_invalid_error,
 	FORMAT: messages.image_format_invalid_error,
@@ -101,8 +101,8 @@ export class AvatarPickerDialog extends PureComponent<
 	AvatarPickerDialogState
 > {
 	static defaultProps: {
-        avatars: never[];
-    } = {
+		avatars: never[];
+	} = {
 		avatars: [],
 	};
 

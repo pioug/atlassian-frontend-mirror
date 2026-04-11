@@ -295,9 +295,15 @@ export class MediaTable extends Component<
 	}
 }
 
-const _default_1: React.ComponentType<WithMediaClientConfigProps<Omit<Omit<MediaTableProps & WrappedComponentProps, "intl"> & {
-    forwardedRef?: React.Ref<any>;
-}, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>>> = withMediaClient(
-    withAnalyticsEvents()(injectIntl(MediaTable, { enforceContext: false }))
-);
+const _default_1: React.ComponentType<
+	WithMediaClientConfigProps<
+		Omit<
+			Omit<MediaTableProps & WrappedComponentProps, 'intl'> & {
+				forwardedRef?: React.Ref<any>;
+			},
+			keyof WithAnalyticsEventsProps
+		> &
+			React.RefAttributes<any>
+	>
+> = withMediaClient(withAnalyticsEvents()(injectIntl(MediaTable, { enforceContext: false })));
 export default _default_1;

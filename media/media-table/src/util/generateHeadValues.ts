@@ -12,5 +12,6 @@ const generateHeadValues = memoizeOne(
 	}),
 );
 
-const _default_1: MemoizedFn<MemoizedFn<(columns: HeadType) => HeadType>> = memoizeOne(generateHeadValues);
+const _default_1: MemoizedFn<MemoizedFn<(columns: HeadType) => HeadType>> =
+	memoizeOne(generateHeadValues);
 export default _default_1;

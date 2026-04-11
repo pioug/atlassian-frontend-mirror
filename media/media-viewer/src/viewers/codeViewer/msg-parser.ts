@@ -1,8 +1,10 @@
 import MsgReader from '@kenjiuno/msgreader';
 
-export function msgToText(buffer: ArrayBuffer): string | {
-    error: string | undefined;
-} {
+export function msgToText(buffer: ArrayBuffer):
+	| string
+	| {
+			error: string | undefined;
+	  } {
 	try {
 		const msgReader = new MsgReader(buffer);
 		const msg = msgReader.getFileData();
@@ -80,7 +82,7 @@ export function formatMessage(text: string): string {
 }
 
 export function parseHeaders(headers: string): {
-    [key: string]: string;
+	[key: string]: string;
 } {
 	const parsedHeaders: { [key: string]: string } = {};
 	if (!headers) {
@@ -94,7 +96,7 @@ export function parseHeaders(headers: string): {
 	return parsedHeaders;
 }
 
-export function getMsgDate(rawHeaders: string): Date | "-" {
+export function getMsgDate(rawHeaders: string): Date | '-' {
 	const headers = parseHeaders(rawHeaders);
 	if (!headers['Date']) {
 		return '-';

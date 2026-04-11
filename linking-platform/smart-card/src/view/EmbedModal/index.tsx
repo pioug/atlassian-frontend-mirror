@@ -133,5 +133,7 @@ const EmbedModal = ({
 	);
 };
 
-const _default_1: (props: EmbedModalProps & WithAnalytics) => React.JSX.Element = withAnalytics(withErrorBoundary(EmbedModal));
+const _default_1: (props: EmbedModalProps & WithAnalytics) => React.JSX.Element = withAnalytics(
+	withErrorBoundary(EmbedModal),
+);
 export default _default_1;

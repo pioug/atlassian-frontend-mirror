@@ -14,9 +14,14 @@ export type FlexibleCardContextType = {
  * This provides the data that will be used by Smart Links Flexible UI to populate it's
  * underlying elements.
  */
-export const FlexibleCardContext: Context<FlexibleCardContextType | undefined> = createContext<FlexibleCardContextType | undefined>(undefined);
-export const useFlexibleCardContext = (): FlexibleCardContextType | undefined => useContext(FlexibleCardContext);
+export const FlexibleCardContext: Context<FlexibleCardContextType | undefined> = createContext<
+	FlexibleCardContextType | undefined
+>(undefined);
+export const useFlexibleCardContext = (): FlexibleCardContextType | undefined =>
+	useContext(FlexibleCardContext);
 
-export const useFlexibleUiContext = (): FlexibleUiDataContext | undefined => useFlexibleCardContext()?.data;
+export const useFlexibleUiContext = (): FlexibleUiDataContext | undefined =>
+	useFlexibleCardContext()?.data;
 
-export const useFlexibleUiOptionContext = (): InternalFlexibleUiOptions | undefined => useFlexibleCardContext()?.ui;
+export const useFlexibleUiOptionContext = (): InternalFlexibleUiOptions | undefined =>
+	useFlexibleCardContext()?.ui;

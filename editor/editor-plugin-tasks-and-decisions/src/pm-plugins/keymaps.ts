@@ -817,10 +817,7 @@ const enter = (
 								const { taskList: taskListType } = schema.nodes;
 								const parentTaskList = $from.node($from.depth - 1);
 								const grandparent = $from.depth >= 3 ? $from.node($from.depth - 2) : null;
-								if (
-									parentTaskList?.type === taskListType &&
-									grandparent?.type === taskListType
-								) {
+								if (parentTaskList?.type === taskListType && grandparent?.type === taskListType) {
 									tr.setSelection(TextSelection.create(tr.doc, insertPos + 1));
 								}
 							}

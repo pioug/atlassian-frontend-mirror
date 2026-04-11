@@ -104,6 +104,8 @@ const CaptionsSelectControlsWithIntl = memo(
 	},
 );
 
-export const CaptionsSelectControls: React.FC<WithIntlProps<CaptionsSelectControlsProps & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<CaptionsSelectControlsProps & WrappedComponentProps>;
+export const CaptionsSelectControls: React.FC<
+	WithIntlProps<CaptionsSelectControlsProps & WrappedComponentProps>
+> & {
+	WrappedComponent: React.ComponentType<CaptionsSelectControlsProps & WrappedComponentProps>;
 } = injectIntl(CaptionsSelectControlsWithIntl);

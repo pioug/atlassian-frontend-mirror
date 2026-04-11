@@ -16,19 +16,28 @@ const getRequestErrorDetails = (err: any) => {
 	return undefined;
 };
 
-export const getCopyIntentErrorPayload = (error: any, fileId = ''): {
-    eventType: string; action: string; actionSubject: string; failReason: string; attributes: {
-        request?: {
-            statusCode: number | undefined;
-            traceContext: MediaTraceContext | undefined;
-            mediaEnv: string | undefined;
-            mediaRegion: string | undefined;
-        } | undefined;
-        status: string;
-        fileAttributes: {
-            fileId: string;
-        };
-    };
+export const getCopyIntentErrorPayload = (
+	error: any,
+	fileId = '',
+): {
+	eventType: string;
+	action: string;
+	actionSubject: string;
+	failReason: string;
+	attributes: {
+		request?:
+			| {
+					statusCode: number | undefined;
+					traceContext: MediaTraceContext | undefined;
+					mediaEnv: string | undefined;
+					mediaRegion: string | undefined;
+			  }
+			| undefined;
+		status: string;
+		fileAttributes: {
+			fileId: string;
+		};
+	};
 } => {
 	return {
 		eventType: 'operational',
@@ -45,15 +54,17 @@ export const getCopyIntentErrorPayload = (error: any, fileId = ''): {
 	};
 };
 
-export const getCopyIntentSuccessPayload = (fileId = ''): {
-    eventType: string;
-    action: string;
-    actionSubject: string;
-    attributes: {
-        fileAttributes: {
-            fileId: string;
-        };
-    };
+export const getCopyIntentSuccessPayload = (
+	fileId = '',
+): {
+	eventType: string;
+	action: string;
+	actionSubject: string;
+	attributes: {
+		fileAttributes: {
+			fileId: string;
+		};
+	};
 } => {
 	return {
 		eventType: 'operational',

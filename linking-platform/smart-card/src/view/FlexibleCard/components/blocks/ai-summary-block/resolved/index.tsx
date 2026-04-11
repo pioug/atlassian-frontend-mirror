@@ -95,7 +95,9 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps): JSX
 	);
 };
 
-export const RovoSummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps): JSX.Element | null => {
+export const RovoSummaryBlockResolvedView = (
+	props: AISummaryBlockResolvedViewProps,
+): JSX.Element | null => {
 	di(useAISummaryAction, AISummary);
 
 	const { testId, aiSummaryMinHeight = 0, placeholder, url } = props;

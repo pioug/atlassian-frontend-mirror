@@ -1,19 +1,21 @@
 import { defineMessages } from 'react-intl-next';
 
 export const errorFlagMessages: {
-    errorTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; uploadRejectionDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; fileEmptyDescription: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	errorTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	uploadRejectionDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	fileEmptyDescription: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	errorTitle: {
 		id: 'fabric.media.errorFlagTitle',

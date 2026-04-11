@@ -8,16 +8,26 @@ export const getWidth = (cols: number, mode?: Mode): number => {
 	return mode === Mode.Standard ? width + 8 : width;
 };
 
-export const getOptions: MemoizedFn<(palette: Palette, selectedColor?: string, showDefaultSwatchColor?: boolean) => {
-    options: Palette;
-    value: Color;
-    focusedItemIndex: number;
-}> = memoizeOne(
-	(palette: Palette, selectedColor?: string, showDefaultSwatchColor?: boolean): {
-        options: Palette;
-        value: Color;
-        focusedItemIndex: number;
-    } => {
+export const getOptions: MemoizedFn<
+	(
+		palette: Palette,
+		selectedColor?: string,
+		showDefaultSwatchColor?: boolean,
+	) => {
+		options: Palette;
+		value: Color;
+		focusedItemIndex: number;
+	}
+> = memoizeOne(
+	(
+		palette: Palette,
+		selectedColor?: string,
+		showDefaultSwatchColor?: boolean,
+	): {
+		options: Palette;
+		value: Color;
+		focusedItemIndex: number;
+	} => {
 		let focusedItemIndex = 0;
 		let defaultSelectedColor = palette[0];
 		if (!showDefaultSwatchColor) {

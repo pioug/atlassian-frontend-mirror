@@ -14,31 +14,43 @@ const errorMock = {
 };
 
 export const aiSummaryMocks = {
-	*readStreamSuccess(): Generator<{
-        type: string;
-        message: {
-            content: string;
-        };
-    }, void, unknown> {
+	*readStreamSuccess(): Generator<
+		{
+			type: string;
+			message: {
+				content: string;
+			};
+		},
+		void,
+		unknown
+	> {
 		yield successMock;
 	},
-	*readStreamError(): Generator<{
-        type: string;
-        message: {
-            message_template: string;
-            content: string;
-            status_code: number;
-            error: string;
-        };
-    }, void, unknown> {
+	*readStreamError(): Generator<
+		{
+			type: string;
+			message: {
+				message_template: string;
+				content: string;
+				status_code: number;
+				error: string;
+			};
+		},
+		void,
+		unknown
+	> {
 		yield errorMock;
 	},
-	*readStreamErrorMulti(): Generator<{
-        type: string;
-        message: {
-            content: string;
-        };
-    }, void, unknown> {
+	*readStreamErrorMulti(): Generator<
+		{
+			type: string;
+			message: {
+				content: string;
+			};
+		},
+		void,
+		unknown
+	> {
 		yield successMock;
 		yield errorMock;
 	},

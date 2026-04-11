@@ -24,7 +24,8 @@ import {
 } from '../../images';
 
 export const ORS_ACTIONS_DISCOVERY_ENDPOINT: RegExp = /\/gateway\/api\/object-resolver\/actions$/;
-export const ORS_ACTIONS_EXECUTION_ENDPOINT: RegExp = /\/gateway\/api\/object-resolver\/actions\/execute$/;
+export const ORS_ACTIONS_EXECUTION_ENDPOINT: RegExp =
+	/\/gateway\/api\/object-resolver\/actions\/execute$/;
 
 let numberOfLoads = 0;
 export const mockActionsDiscovery = (
@@ -201,12 +202,12 @@ export const mockActionsExecution = (mockExecutionDelay: number): void => {
 };
 
 export const cannedStatuses: {
-    id: string;
-    transitionId: string;
-    text: string;
-    style: {
-        appearance: string;
-    };
+	id: string;
+	transitionId: string;
+	text: string;
+	style: {
+		appearance: string;
+	};
 }[] = [
 	{
 		id: '11',
@@ -259,10 +260,10 @@ export const cannedStatuses: {
 ];
 
 export const cannedUsers: {
-    atlassianUserId: string;
-    displayName: string;
-    avatarSource: string;
-    url: string;
+	atlassianUserId: string;
+	displayName: string;
+	avatarSource: string;
+	url: string;
 }[] = [
 	{
 		atlassianUserId: '5b45501cfc9d8158972cdd2c',

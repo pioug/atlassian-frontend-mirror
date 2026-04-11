@@ -34,7 +34,11 @@ const dropdownItemGroupStyles = css({
 	},
 });
 
-const LozengeActionItemsGroup = ({ items, testId, onClick }: LozengeActionItemsGroupProps): JSX.Element => (
+const LozengeActionItemsGroup = ({
+	items,
+	testId,
+	onClick,
+}: LozengeActionItemsGroupProps): JSX.Element => (
 	<span css={dropdownItemGroupStyles} data-testid={`${testId}-item-group`}>
 		<DropdownItemGroup>
 			{items.map((item, idx) => (

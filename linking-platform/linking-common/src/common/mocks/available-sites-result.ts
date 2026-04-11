@@ -1,14 +1,14 @@
 import { icon } from './icons';
 
 export const mockedAvailableSitesResult: {
-    sites: {
-        cloudId: string;
-        products: string[];
-        url: string;
-        displayName: string;
-        avatarUrl: string;
-        isVertigo: boolean;
-    }[];
+	sites: {
+		cloudId: string;
+		products: string[];
+		url: string;
+		displayName: string;
+		avatarUrl: string;
+		isVertigo: boolean;
+	}[];
 } = {
 	sites: [
 		{
@@ -222,14 +222,14 @@ export const mockedAvailableSitesResult: {
  * Mock availableSites response for a specific gatewayBaseUrl
  */
 export const mockedAvailableSitesResultWithGatewayBaseUrl: {
-    sites: {
-        cloudId: string;
-        products: string[];
-        url: string;
-        displayName: string;
-        avatarUrl: string;
-        isVertigo: boolean;
-    }[];
+	sites: {
+		cloudId: string;
+		products: string[];
+		url: string;
+		displayName: string;
+		avatarUrl: string;
+		isVertigo: boolean;
+	}[];
 } = {
 	sites: [
 		...mockedAvailableSitesResult.sites,

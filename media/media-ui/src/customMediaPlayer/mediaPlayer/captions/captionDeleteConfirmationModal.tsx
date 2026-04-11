@@ -85,8 +85,12 @@ const CaptionDeleteConfirmationModal = ({
 	);
 };
 
-const _default_1: React.FC<WithIntlProps<CaptionDeleteConfirmationModalProps & WrappedComponentProps>> & {
-    WrappedComponent: React.ComponentType<CaptionDeleteConfirmationModalProps & WrappedComponentProps>;
+const _default_1: React.FC<
+	WithIntlProps<CaptionDeleteConfirmationModalProps & WrappedComponentProps>
+> & {
+	WrappedComponent: React.ComponentType<
+		CaptionDeleteConfirmationModalProps & WrappedComponentProps
+	>;
 } = injectIntl(CaptionDeleteConfirmationModal);
 export default _default_1;
 

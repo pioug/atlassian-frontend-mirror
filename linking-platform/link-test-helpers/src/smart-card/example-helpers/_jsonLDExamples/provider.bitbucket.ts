@@ -1,60 +1,61 @@
 import { avatar1, avatar2, avatar3, iconBitbucket, image2 } from '../../images';
 
 export const BitbucketBranch: {
-    meta: {
-        visibility: string;
-        access: string;
-        resourceType: string;
-        key: string;
-    }; data: {
-        '@id': string;
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@type': string;
-        url: string;
-        name: string;
-        icon: {
-            '@type': string;
-            url: string;
-        };
-        image: {
-            '@type': string;
-            url: string;
-        };
-        attributedTo: {
-            '@type': string;
-            name: string;
-            icon: string;
-        };
-        updated: string;
-        'atlassian:updatedBy': {
-            '@type': string;
-            name: string;
-            icon: string;
-        };
-        generator: {
-            '@type': string;
-            name: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-        };
-        summary: string;
-        'atlassian:commit': {
-            '@id': string;
-            '@type': string;
-            url: string;
-        };
-        context: {
-            '@type': string;
-            name: string;
-            url: string;
-        };
-    };
+	meta: {
+		visibility: string;
+		access: string;
+		resourceType: string;
+		key: string;
+	};
+	data: {
+		'@id': string;
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string;
+		url: string;
+		name: string;
+		icon: {
+			'@type': string;
+			url: string;
+		};
+		image: {
+			'@type': string;
+			url: string;
+		};
+		attributedTo: {
+			'@type': string;
+			name: string;
+			icon: string;
+		};
+		updated: string;
+		'atlassian:updatedBy': {
+			'@type': string;
+			name: string;
+			icon: string;
+		};
+		generator: {
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+		};
+		summary: string;
+		'atlassian:commit': {
+			'@id': string;
+			'@type': string;
+			url: string;
+		};
+		context: {
+			'@type': string;
+			name: string;
+			url: string;
+		};
+	};
 } = {
 	meta: {
 		visibility: 'restricted',
@@ -101,51 +102,52 @@ export const BitbucketBranch: {
 };
 
 export const BitbucketCommit: {
-    meta: {
-        visibility: string;
-        access: string;
-        resourceType: string;
-        key: string;
-    }; data: {
-        '@id': string;
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@type': string;
-        url: string;
-        name: string;
-        attributedTo: {
-            '@type': string;
-            name: string;
-            icon: string;
-        };
-        'atlassian:committedBy': {
-            '@type': string;
-            name: string;
-            icon: string;
-        };
-        context: {
-            '@type': string;
-            name: string;
-            url: string;
-        };
-        'schema:dateCreated': string;
-        generator: {
-            '@type': string;
-            name: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-        };
-        'atlassian:parent': {
-            '@type': string;
-            href: string;
-        }[];
-        'schema:commentCount': number;
-    };
+	meta: {
+		visibility: string;
+		access: string;
+		resourceType: string;
+		key: string;
+	};
+	data: {
+		'@id': string;
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string;
+		url: string;
+		name: string;
+		attributedTo: {
+			'@type': string;
+			name: string;
+			icon: string;
+		};
+		'atlassian:committedBy': {
+			'@type': string;
+			name: string;
+			icon: string;
+		};
+		context: {
+			'@type': string;
+			name: string;
+			url: string;
+		};
+		'schema:dateCreated': string;
+		generator: {
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+		};
+		'atlassian:parent': {
+			'@type': string;
+			href: string;
+		}[];
+		'schema:commentCount': number;
+	};
 } = {
 	meta: {
 		visibility: 'restricted',
@@ -186,37 +188,38 @@ export const BitbucketCommit: {
 };
 
 export const BitbucketFile1: {
-    meta: {
-        visibility: string;
-        access: string;
-        resourceType: string;
-        key: string;
-    }; data: {
-        '@id': string;
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@type': string[];
-        url: string;
-        'schema:fileFormat': null;
-        'atlassian:fileSize': number;
-        context: {
-            '@type': string;
-            name: string;
-        };
-        generator: {
-            '@type': string;
-            name: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-        };
-        'atlassian:isDeleted': boolean;
-        name: string;
-    };
+	meta: {
+		visibility: string;
+		access: string;
+		resourceType: string;
+		key: string;
+	};
+	data: {
+		'@id': string;
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string[];
+		url: string;
+		'schema:fileFormat': null;
+		'atlassian:fileSize': number;
+		context: {
+			'@type': string;
+			name: string;
+		};
+		generator: {
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+		};
+		'atlassian:isDeleted': boolean;
+		name: string;
+	};
 } = {
 	meta: {
 		visibility: 'restricted',
@@ -247,37 +250,38 @@ export const BitbucketFile1: {
 };
 
 export const BitbucketFile2: {
-    meta: {
-        visibility: string;
-        access: string;
-        resourceType: string;
-        key: string;
-    }; data: {
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@id': string;
-        '@type': string[];
-        url: string;
-        'atlassian:fileSize': number;
-        'atlassian:isDeleted': boolean;
-        context: {
-            '@type': string;
-            name: string;
-        };
-        fileFormat: string;
-        generator: {
-            '@type': string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-            name: string;
-        };
-        name: string;
-    };
+	meta: {
+		visibility: string;
+		access: string;
+		resourceType: string;
+		key: string;
+	};
+	data: {
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@id': string;
+		'@type': string[];
+		url: string;
+		'atlassian:fileSize': number;
+		'atlassian:isDeleted': boolean;
+		context: {
+			'@type': string;
+			name: string;
+		};
+		fileFormat: string;
+		generator: {
+			'@type': string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+			name: string;
+		};
+		name: string;
+	};
 } = {
 	meta: {
 		visibility: 'restricted',
@@ -314,61 +318,62 @@ export const BitbucketFile2: {
 };
 
 export const BitbucketProject: {
-    meta: {
-        visibility: string;
-        access: string;
-        resourceType: string;
-        key: string;
-    }; data: {
-        '@id': string;
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@type': string;
-        url: string;
-        name: string;
-        icon: {
-            '@type': string;
-            url: string;
-        };
-        image: {
-            '@type': string;
-            url: string;
-        };
-        attributedTo: {
-            '@type': string;
-            name: string;
-            icon: string;
-        };
-        'schema:dateCreated': string;
-        updated: string;
-        generator: {
-            '@type': string;
-            name: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-        };
-        'atlassian:isDeleted': boolean;
-        'atlassian:member': {
-            '@type': string;
-            totalItems: number;
-            items: {
-                '@type': string;
-                name: string;
-                icon: string;
-            }[];
-        };
-        summary: string;
-        context: {
-            '@type': string;
-            name: string;
-            url: string;
-        };
-    };
+	meta: {
+		visibility: string;
+		access: string;
+		resourceType: string;
+		key: string;
+	};
+	data: {
+		'@id': string;
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string;
+		url: string;
+		name: string;
+		icon: {
+			'@type': string;
+			url: string;
+		};
+		image: {
+			'@type': string;
+			url: string;
+		};
+		attributedTo: {
+			'@type': string;
+			name: string;
+			icon: string;
+		};
+		'schema:dateCreated': string;
+		updated: string;
+		generator: {
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+		};
+		'atlassian:isDeleted': boolean;
+		'atlassian:member': {
+			'@type': string;
+			totalItems: number;
+			items: {
+				'@type': string;
+				name: string;
+				icon: string;
+			}[];
+		};
+		summary: string;
+		context: {
+			'@type': string;
+			name: string;
+			url: string;
+		};
+	};
 } = {
 	meta: {
 		visibility: 'restricted',
@@ -420,76 +425,77 @@ export const BitbucketProject: {
 };
 
 export const BitbucketPullRequest1: {
-    meta: {
-        visibility: string;
-        access: string;
-        resourceType: string;
-        key: string;
-    }; data: {
-        '@id': string;
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@type': string[];
-        url: string;
-        attributedTo: {
-            '@type': string;
-            name: string;
-            icon: string;
-        };
-        'schema:dateCreated': string;
-        generator: {
-            '@type': string;
-            name: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-        };
-        icon: {
-            '@type': string;
-            url: string;
-        };
-        name: string;
-        summary: string;
-        'atlassian:mergeSource': {
-            '@type': string;
-            href: string;
-            name: string;
-        };
-        'atlassian:mergeDestination': {
-            '@type': string;
-            href: string;
-            name: string;
-        };
-        updated: string;
-        'atlassian:internalId': string;
-        'atlassian:isMerged': boolean;
-        'atlassian:state': string;
-        'atlassian:reviewer': {
-            '@type': string;
-            name: string;
-            icon: string;
-        }[];
-        'atlassian:subscriberCount': number;
-        'atlassian:updatedBy': {
-            '@type': string;
-            name: string;
-            icon: string;
-        };
-        audience: {
-            '@type': string;
-            name: string;
-            icon: string;
-        }[];
-        context: {
-            '@type': string;
-            name: string;
-            url: string;
-        };
-    };
+	meta: {
+		visibility: string;
+		access: string;
+		resourceType: string;
+		key: string;
+	};
+	data: {
+		'@id': string;
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string[];
+		url: string;
+		attributedTo: {
+			'@type': string;
+			name: string;
+			icon: string;
+		};
+		'schema:dateCreated': string;
+		generator: {
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+		};
+		icon: {
+			'@type': string;
+			url: string;
+		};
+		name: string;
+		summary: string;
+		'atlassian:mergeSource': {
+			'@type': string;
+			href: string;
+			name: string;
+		};
+		'atlassian:mergeDestination': {
+			'@type': string;
+			href: string;
+			name: string;
+		};
+		updated: string;
+		'atlassian:internalId': string;
+		'atlassian:isMerged': boolean;
+		'atlassian:state': string;
+		'atlassian:reviewer': {
+			'@type': string;
+			name: string;
+			icon: string;
+		}[];
+		'atlassian:subscriberCount': number;
+		'atlassian:updatedBy': {
+			'@type': string;
+			name: string;
+			icon: string;
+		};
+		audience: {
+			'@type': string;
+			name: string;
+			icon: string;
+		}[];
+		context: {
+			'@type': string;
+			name: string;
+			url: string;
+		};
+	};
 } = {
 	meta: {
 		visibility: 'restricted',
@@ -554,89 +560,90 @@ export const BitbucketPullRequest1: {
 };
 
 export const BitbucketPullRequest2: {
-    meta: {
-        visibility: string;
-        access: string;
-        resourceType: string;
-        key: string;
-    }; data: {
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@id': string;
-        '@type': string[];
-        url: string;
-        'atlassian:isMerged': boolean;
-        'atlassian:mergeCommit': {
-            '@type': string;
-            href: string;
-        };
-        'atlassian:mergeDestination': {
-            '@type': string;
-            href: string;
-        };
-        'atlassian:mergeSource': {
-            '@type': string;
-            href: string;
-        };
-        'atlassian:mergeable': undefined;
-        'atlassian:mergedBy': {
-            '@type': string;
-            icon: string;
-            name: string;
-        };
-        'atlassian:reviewedBy': {
-            '@type': string;
-            icon: string;
-            name: string;
-        }[];
-        'atlassian:reviewer': {
-            '@type': string;
-            icon: string;
-            name: string;
-        }[];
-        'atlassian:state': string;
-        'atlassian:updatedBy': {
-            '@type': string;
-            icon: string;
-            name: string;
-        };
-        attributedTo: {
-            '@type': string;
-            icon: string;
-            name: string;
-        };
-        audience: {
-            '@type': string;
-            icon: string;
-            name: string;
-        }[];
-        context: {
-            '@type': string;
-            name: string;
-            url: string;
-        };
-        generator: {
-            '@type': string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-            name: string;
-        };
-        icon: {
-            '@type': string;
-            url: string;
-        };
-        name: string;
-        'schema:dateCreated': string;
-        'schema:potentialAction': undefined;
-        'schema:programmingLanguage': undefined;
-        summary: string;
-        updated: string;
-    };
+	meta: {
+		visibility: string;
+		access: string;
+		resourceType: string;
+		key: string;
+	};
+	data: {
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@id': string;
+		'@type': string[];
+		url: string;
+		'atlassian:isMerged': boolean;
+		'atlassian:mergeCommit': {
+			'@type': string;
+			href: string;
+		};
+		'atlassian:mergeDestination': {
+			'@type': string;
+			href: string;
+		};
+		'atlassian:mergeSource': {
+			'@type': string;
+			href: string;
+		};
+		'atlassian:mergeable': undefined;
+		'atlassian:mergedBy': {
+			'@type': string;
+			icon: string;
+			name: string;
+		};
+		'atlassian:reviewedBy': {
+			'@type': string;
+			icon: string;
+			name: string;
+		}[];
+		'atlassian:reviewer': {
+			'@type': string;
+			icon: string;
+			name: string;
+		}[];
+		'atlassian:state': string;
+		'atlassian:updatedBy': {
+			'@type': string;
+			icon: string;
+			name: string;
+		};
+		attributedTo: {
+			'@type': string;
+			icon: string;
+			name: string;
+		};
+		audience: {
+			'@type': string;
+			icon: string;
+			name: string;
+		}[];
+		context: {
+			'@type': string;
+			name: string;
+			url: string;
+		};
+		generator: {
+			'@type': string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+			name: string;
+		};
+		icon: {
+			'@type': string;
+			url: string;
+		};
+		name: string;
+		'schema:dateCreated': string;
+		'schema:potentialAction': undefined;
+		'schema:programmingLanguage': undefined;
+		summary: string;
+		updated: string;
+	};
 } = {
 	meta: {
 		visibility: 'restricted',
@@ -736,75 +743,76 @@ export const BitbucketPullRequest2: {
 };
 
 export const BitbucketRepository1: {
-    meta: {
-        visibility: string;
-        access: string;
-        resourceType: string;
-        key: string;
-    }; data: {
-        '@id': string;
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@type': string;
-        url: string;
-        name: string;
-        icon: {
-            '@type': string;
-            url: string;
-        };
-        attributedTo: {
-            '@type': string;
-            name: string;
-            icon: string;
-        };
-        'schema:dateCreated': string;
-        updated: string;
-        generator: {
-            '@type': string;
-            name: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-        };
-        'schema:programmingLanguage': string;
-        'atlassian:subscriberCount': number;
-        context: {
-            '@type': string;
-            name: string;
-        };
-        'atlassian:latestCommit': {
-            url: string;
-            '@id': string;
-            '@type': string;
-            '@context': {
-                '@vocab': string;
-                atlassian: string;
-                schema: string;
-            };
-            name: string;
-            attributedTo: string;
-            'schema:dateCreated': string;
-            updated: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-            generator: {
-                '@type': string;
-                name: string;
-                icon: {
-                    '@type': string;
-                    url: string;
-                };
-            };
-            'atlassian:committedBy': string;
-            summary: string;
-        };
-    };
+	meta: {
+		visibility: string;
+		access: string;
+		resourceType: string;
+		key: string;
+	};
+	data: {
+		'@id': string;
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string;
+		url: string;
+		name: string;
+		icon: {
+			'@type': string;
+			url: string;
+		};
+		attributedTo: {
+			'@type': string;
+			name: string;
+			icon: string;
+		};
+		'schema:dateCreated': string;
+		updated: string;
+		generator: {
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+		};
+		'schema:programmingLanguage': string;
+		'atlassian:subscriberCount': number;
+		context: {
+			'@type': string;
+			name: string;
+		};
+		'atlassian:latestCommit': {
+			url: string;
+			'@id': string;
+			'@type': string;
+			'@context': {
+				'@vocab': string;
+				atlassian: string;
+				schema: string;
+			};
+			name: string;
+			attributedTo: string;
+			'schema:dateCreated': string;
+			updated: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+			generator: {
+				'@type': string;
+				name: string;
+				icon: {
+					'@type': string;
+					url: string;
+				};
+			};
+			'atlassian:committedBy': string;
+			summary: string;
+		};
+	};
 } = {
 	meta: {
 		visibility: 'restricted',
@@ -867,52 +875,53 @@ export const BitbucketRepository1: {
 };
 
 export const BitbucketRepository2: {
-    meta: {
-        visibility: string;
-        access: string;
-        resourceType: string;
-        key: string;
-    }; data: {
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        '@id': string;
-        '@type': string[];
-        url: string;
-        attributedTo: {
-            '@type': string;
-            icon: string;
-            name: string;
-        };
-        context: {
-            '@type': string;
-            name: string;
-        };
-        generator: {
-            '@type': string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-            name: string;
-        };
-        icon: {
-            '@type': string;
-            url: string;
-        };
-        image: {
-            url: string;
-        };
-        name: string;
-        'schema:dateCreated': string;
-        'schema:programmingLanguage': string;
-        summary: string;
-        updated: string;
-        'atlassian:subscribers': never[];
-        'atlassian:subscriberCount': string;
-    };
+	meta: {
+		visibility: string;
+		access: string;
+		resourceType: string;
+		key: string;
+	};
+	data: {
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@id': string;
+		'@type': string[];
+		url: string;
+		attributedTo: {
+			'@type': string;
+			icon: string;
+			name: string;
+		};
+		context: {
+			'@type': string;
+			name: string;
+		};
+		generator: {
+			'@type': string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+			name: string;
+		};
+		icon: {
+			'@type': string;
+			url: string;
+		};
+		image: {
+			url: string;
+		};
+		name: string;
+		'schema:dateCreated': string;
+		'schema:programmingLanguage': string;
+		summary: string;
+		updated: string;
+		'atlassian:subscribers': never[];
+		'atlassian:subscriberCount': string;
+	};
 } = {
 	meta: {
 		visibility: 'restricted',

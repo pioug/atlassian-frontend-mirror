@@ -42,7 +42,7 @@ export const LinkCreatePluginsProvider = ({
 };
 
 export const useLinkCreatePlugins = (): {
-    activePlugin: LinkCreatePlugin | null;
+	activePlugin: LinkCreatePlugin | null;
 } => {
 	const value = useContext(LinkCreatePluginsContext);
 

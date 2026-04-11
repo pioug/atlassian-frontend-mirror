@@ -6,51 +6,52 @@ import { avatar1, avatar3, iconAtlas } from '../../images';
 export const atlasProjectUrl = 'https://project-url';
 
 export const AtlasProject: {
-    meta: {
-        auth: never[];
-        definitionId: string;
-        visibility: string;
-        access: string;
-        key: string;
-    }; data: {
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        generator: {
-            '@type': string;
-            name: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-        };
-        '@type': string[];
-        url: string;
-        icon: {
-            '@type': string;
-            url: string;
-        };
-        name: string;
-        summary: string;
-        'atlassian:state': {
-            '@type': string;
-            name: string;
-            appearance: string;
-        };
-        preview: {
-            '@type': string;
-            href: string;
-        };
-        attributedTo: {
-            '@type': string;
-            icon: string;
-            name: string;
-        }[];
-        updated: string;
-        endTime: string;
-    };
+	meta: {
+		auth: never[];
+		definitionId: string;
+		visibility: string;
+		access: string;
+		key: string;
+	};
+	data: {
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		generator: {
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+		};
+		'@type': string[];
+		url: string;
+		icon: {
+			'@type': string;
+			url: string;
+		};
+		name: string;
+		summary: string;
+		'atlassian:state': {
+			'@type': string;
+			name: string;
+			appearance: string;
+		};
+		preview: {
+			'@type': string;
+			href: string;
+		};
+		attributedTo: {
+			'@type': string;
+			icon: string;
+			name: string;
+		}[];
+		updated: string;
+		endTime: string;
+	};
 } = {
 	meta: {
 		auth: [],
@@ -95,48 +96,49 @@ export const AtlasProject: {
 };
 
 export const AtlasProjectNoPreview: {
-    data: {
-        preview: undefined;
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        generator: {
-            '@type': string;
-            name: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-        };
-        '@type': string[];
-        url: string;
-        icon: {
-            '@type': string;
-            url: string;
-        };
-        name: string;
-        summary: string;
-        'atlassian:state': {
-            '@type': string;
-            name: string;
-            appearance: string;
-        };
-        attributedTo: {
-            '@type': string;
-            icon: string;
-            name: string;
-        }[];
-        updated: string;
-        endTime: string;
-    }; meta: {
-        auth: never[];
-        definitionId: string;
-        visibility: string;
-        access: string;
-        key: string;
-    };
+	data: {
+		preview: undefined;
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		generator: {
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+		};
+		'@type': string[];
+		url: string;
+		icon: {
+			'@type': string;
+			url: string;
+		};
+		name: string;
+		summary: string;
+		'atlassian:state': {
+			'@type': string;
+			name: string;
+			appearance: string;
+		};
+		attributedTo: {
+			'@type': string;
+			icon: string;
+			name: string;
+		}[];
+		updated: string;
+		endTime: string;
+	};
+	meta: {
+		auth: never[];
+		definitionId: string;
+		visibility: string;
+		access: string;
+		key: string;
+	};
 } = {
 	...AtlasProject,
 	data: {
@@ -146,51 +148,52 @@ export const AtlasProjectNoPreview: {
 };
 
 export const AtlasGoal: {
-    meta: {
-        auth: never[];
-        definitionId: string;
-        visibility: string;
-        access: string;
-        key: string;
-    }; data: {
-        '@context': {
-            '@vocab': string;
-            atlassian: string;
-            schema: string;
-        };
-        generator: {
-            '@type': string;
-            name: string;
-            icon: {
-                '@type': string;
-                url: string;
-            };
-        };
-        '@type': string[];
-        url: string;
-        icon: {
-            '@type': string;
-            url: string;
-        };
-        name: string;
-        summary: string;
-        'atlassian:state': {
-            '@type': string;
-            name: string;
-            appearance: string;
-        };
-        preview: {
-            '@type': string;
-            href: string;
-        };
-        attributedTo: {
-            '@type': string;
-            icon: string;
-            name: string;
-        }[];
-        updated: string;
-        endTime: string;
-    };
+	meta: {
+		auth: never[];
+		definitionId: string;
+		visibility: string;
+		access: string;
+		key: string;
+	};
+	data: {
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		generator: {
+			'@type': string;
+			name: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+		};
+		'@type': string[];
+		url: string;
+		icon: {
+			'@type': string;
+			url: string;
+		};
+		name: string;
+		summary: string;
+		'atlassian:state': {
+			'@type': string;
+			name: string;
+			appearance: string;
+		};
+		preview: {
+			'@type': string;
+			href: string;
+		};
+		attributedTo: {
+			'@type': string;
+			icon: string;
+			name: string;
+		}[];
+		updated: string;
+		endTime: string;
+	};
 } = {
 	meta: {
 		auth: [],

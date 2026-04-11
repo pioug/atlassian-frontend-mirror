@@ -247,17 +247,17 @@ const MoreIndicator: React.ForwardRefExoticComponent<
 				aria-haspopup={ariaHaspopup}
 				aria-label={ariaLabel}
 				style={{ [boxShadowCssVar]: `0 0 0 2px ${borderColor}` } as CSSProperties}
-			css={[
-				styles.root,
-				!fg('remove_scaling_from_avatar_stack') && styles.activeScale,
-				borderRadiusMap[size],
-				appearance === 'circle' && styles.circle,
-				appearance === 'hexagon' && fg('jira-ai-agent-stack') && styles.hexagon,
-				widthHeightMap[size],
-				fontMap[size],
-				isActive && styles.active,
-				isActive && !fg('remove_scaling_from_avatar_stack') && styles.activeStateScale,
-			]}
+				css={[
+					styles.root,
+					!fg('remove_scaling_from_avatar_stack') && styles.activeScale,
+					borderRadiusMap[size],
+					appearance === 'circle' && styles.circle,
+					appearance === 'hexagon' && fg('jira-ai-agent-stack') && styles.hexagon,
+					widthHeightMap[size],
+					fontMap[size],
+					isActive && styles.active,
+					isActive && !fg('remove_scaling_from_avatar_stack') && styles.activeStateScale,
+				]}
 			>
 				+{displayCount}
 			</button>

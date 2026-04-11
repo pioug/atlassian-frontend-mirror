@@ -111,5 +111,4 @@ describe('ActionsBar', () => {
 			expect(onOuterClick).not.toHaveBeenCalled();
 		});
 	});
-
 });

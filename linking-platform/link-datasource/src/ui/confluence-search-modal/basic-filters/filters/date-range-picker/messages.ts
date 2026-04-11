@@ -1,83 +1,101 @@
 import { defineMessages } from 'react-intl-next';
 
 export const dateRangeMessages: {
-    dateRangeTitle: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeAnyTime: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeToday: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeYesterday: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeLastWeek: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeLastMonth: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeLastYear: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeCustom: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeFrom: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeTo: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeDateInputPlaceholder: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeCustomInvalidDateAfterToday: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeCustomInvalidToDateAfterToday: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeCustomInvalidDateAfterEnd: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeToLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeUpdateButton: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeBeforeLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeAfterLabel: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    }; dateRangeError: {
-        id: string;
-        defaultMessage: string;
-        description: string;
-    };
+	dateRangeTitle: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeAnyTime: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeToday: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeYesterday: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeLastWeek: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeLastMonth: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeLastYear: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeCustom: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeFrom: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeTo: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeDateInputPlaceholder: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeCustomInvalidDateAfterToday: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeCustomInvalidToDateAfterToday: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeCustomInvalidDateAfterEnd: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeToLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeUpdateButton: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeBeforeLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeAfterLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
+	dateRangeError: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	dateRangeTitle: {
 		id: 'linkDataSource.confluence-search.configmodal.date.range.title',

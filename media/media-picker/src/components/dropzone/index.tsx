@@ -21,9 +21,9 @@ export class DropzoneLoader extends React.PureComponent<DropzoneWithMediaClientC
 	static MediaPickerErrorBoundary?: MediaPickerErrorBoundaryComponent;
 
 	state: {
-        Dropzone: DropzoneWithMediaClientConfigComponent | undefined;
-        MediaPickerErrorBoundary: MediaPickerErrorBoundaryComponent | undefined;
-    } = {
+		Dropzone: DropzoneWithMediaClientConfigComponent | undefined;
+		MediaPickerErrorBoundary: MediaPickerErrorBoundaryComponent | undefined;
+	} = {
 		Dropzone: DropzoneLoader.Dropzone,
 		MediaPickerErrorBoundary: DropzoneLoader.MediaPickerErrorBoundary,
 	};

@@ -138,9 +138,15 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 	}
 }
 
-export const Navigation: React.ForwardRefExoticComponent<Omit<Readonly<{
-    items: Identifier[];
-    selectedItem: Identifier;
-    onChange: (item: Identifier) => void;
-    isArchiveSideBarVisible?: boolean;
-}>, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>> = withAnalyticsEvents({})(NavigationBase);
+export const Navigation: React.ForwardRefExoticComponent<
+	Omit<
+		Readonly<{
+			items: Identifier[];
+			selectedItem: Identifier;
+			onChange: (item: Identifier) => void;
+			isArchiveSideBarVisible?: boolean;
+		}>,
+		keyof WithAnalyticsEventsProps
+	> &
+		React.RefAttributes<any>
+> = withAnalyticsEvents({})(NavigationBase);

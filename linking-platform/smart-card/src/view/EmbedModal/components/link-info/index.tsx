@@ -355,5 +355,9 @@ const LinkInfoNew = ({
 	);
 };
 
-const _default_1: React.FC<LinkInfoProps> = componentWithFG('platform_navx_sl_a11y_embed_modal', LinkInfoNew, LinkInfo);
+const _default_1: React.FC<LinkInfoProps> = componentWithFG(
+	'platform_navx_sl_a11y_embed_modal',
+	LinkInfoNew,
+	LinkInfo,
+);
 export default _default_1;

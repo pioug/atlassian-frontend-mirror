@@ -42,10 +42,16 @@ export class FileFetcherError extends BaseMediaClientError<
 	// TODO: Deprecate this getter https://product-fabric.atlassian.net/browse/CXP-4665
 	/** Will be deprecated. Use the properties `reason` and `metadata` instead */
 	get attributes(): {
-        metadata?: {
-            traceContext: MediaTraceContext;
-        } | undefined; reason: FileFetcherErrorReason; id: string; collectionName: string | undefined; occurrenceKey: string | undefined;
-    } {
+		metadata?:
+			| {
+					traceContext: MediaTraceContext;
+			  }
+			| undefined;
+		reason: FileFetcherErrorReason;
+		id: string;
+		collectionName: string | undefined;
+		occurrenceKey: string | undefined;
+	} {
 		const {
 			reason,
 			metadata: { id, collectionName, occurrenceKey, traceContext },

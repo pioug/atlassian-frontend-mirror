@@ -2,7 +2,7 @@ import { type FileIdentifier, type MediaItemDetails } from '@atlaskit/media-clie
 import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export const artifactUploadTypes: {
-    captions: string[];
+	captions: string[];
 } = {
 	captions: ['text/vtt'], // Probbly need to add '.vtt' to the list, but the content-type header is restricted to text/vtt anyway.
 };

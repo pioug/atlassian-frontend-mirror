@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 56.2.0
+
+### Minor Changes
+
+- [`1bd6f56c55358`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bd6f56c55358) -
+  Add gated analytics for Smart Link go-to-link actions, including extensionKey, status, and
+  statusDetails, with supporting editor/card test updates.
+
 ## 56.1.0
 
 ### Minor Changes

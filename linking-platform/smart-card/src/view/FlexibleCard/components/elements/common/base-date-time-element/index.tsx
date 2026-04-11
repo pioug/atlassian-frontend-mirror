@@ -71,10 +71,7 @@ export type BaseDateTimeElementProps = ElementProps & {
 	 * Override the default font size.
 	 */
 	fontSize?: Prettify<
-		Extract<
-			Parameters<typeof token>[0],
-			'font.body' | 'font.body.large' | 'font.body.small'
-		>
+		Extract<Parameters<typeof token>[0], 'font.body' | 'font.body.large' | 'font.body.small'>
 	>;
 	/**
 	 * Hide the date prefix (e.g. "Created on", "Modified on", "Sent on")

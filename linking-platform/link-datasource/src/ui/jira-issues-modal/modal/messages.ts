@@ -1,115 +1,132 @@
 import { defineMessages } from 'react-intl-next';
 
 export const modalMessages: {
-    insertIssuesButtonText: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; insertIssuesTitle: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; insertIssuesTitleManySites: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; issuesCountSmartCardPlaceholderText: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; searchJiraTitleDuplicate: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    // delete and remove duplicate from title above once EDM-9407 is merged
-    searchJiraTitle: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; searchDescriptionForJiraBasicSearchDuplicate: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    // delete and remove duplicate from title above once EDM-9407 is merged
-    searchDescriptionForJiraBasicSearch: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; searchDescriptionForJiraJQLSearchDuplicate: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    // delete and remove duplicate from title above once EDM-9407 is merged
-    searchDescriptionForJiraJQLSearch: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; learnMoreLinkDuplicate: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    // delete and remove duplicate from title above once EDM-9407 is merged
-    learnMoreLink: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; noAccessToJiraSitesTitleDuplicate: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    // delete and remove duplicate from title above once EDM-9407 is merged
-    noAccessToJiraSitesTitle: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; noAccessToJiraSitesDescriptionDuplicate: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
-    // delete and remove duplicate from title above once EDM-9407 is merged
-    noAccessToJiraSitesDescription: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; checkConnectionWithSource: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; checkConnectionWithSourceVisualRefreshSllv: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; insertIssuesButtonTextIssueTermSllv: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; insertIssuesTitleIssueTermRefresh: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; insertIssuesTitleManySitesIssueTermRefresh: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; issuesCountSmartCardPlaceholderTextIssueTermRefresh: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; searchJiraTitleIssueTermRefresh: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    }; checkConnectionWithSourceVisualRefreshSllvGalaxia: {
-        id: string;
-        description: string;
-        defaultMessage: string;
-    };
+	insertIssuesButtonText: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	insertIssuesTitle: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	insertIssuesTitleManySites: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	issuesCountSmartCardPlaceholderText: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	searchJiraTitleDuplicate: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	// delete and remove duplicate from title above once EDM-9407 is merged
+	searchJiraTitle: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	searchDescriptionForJiraBasicSearchDuplicate: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	// delete and remove duplicate from title above once EDM-9407 is merged
+	searchDescriptionForJiraBasicSearch: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	searchDescriptionForJiraJQLSearchDuplicate: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	// delete and remove duplicate from title above once EDM-9407 is merged
+	searchDescriptionForJiraJQLSearch: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	learnMoreLinkDuplicate: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	// delete and remove duplicate from title above once EDM-9407 is merged
+	learnMoreLink: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	noAccessToJiraSitesTitleDuplicate: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	// delete and remove duplicate from title above once EDM-9407 is merged
+	noAccessToJiraSitesTitle: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	noAccessToJiraSitesDescriptionDuplicate: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	// delete and remove duplicate from title above once EDM-9407 is merged
+	noAccessToJiraSitesDescription: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	checkConnectionWithSource: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	checkConnectionWithSourceVisualRefreshSllv: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	insertIssuesButtonTextIssueTermSllv: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	insertIssuesTitleIssueTermRefresh: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	insertIssuesTitleManySitesIssueTermRefresh: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	issuesCountSmartCardPlaceholderTextIssueTermRefresh: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	searchJiraTitleIssueTermRefresh: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
+	checkConnectionWithSourceVisualRefreshSllvGalaxia: {
+		id: string;
+		description: string;
+		defaultMessage: string;
+	};
 } = defineMessages({
 	insertIssuesButtonText: {
 		id: 'linkDataSource.jira-issues.configmodal.insertIssuesButtonText',

@@ -16,8 +16,8 @@ const style = cssMap({
 });
 
 const PriorityBlockerIcon: {
-    ({ label, testId, ...props }: PriorityIconProps): JSX.Element;
-    displayName: string;
+	({ label, testId, ...props }: PriorityIconProps): JSX.Element;
+	displayName: string;
 } = ({ label, testId, ...props }: PriorityIconProps): JSX.Element => (
 	<span
 		role={label ? 'img' : undefined}

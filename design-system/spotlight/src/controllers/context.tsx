@@ -58,7 +58,7 @@ export const SpotlightContext: Context<SpotlightContextType> = createContext<Spo
 		placement: 'bottom-end',
 		setPlacement: () => undefined,
 		motion: undefined,
-		setMotion: () => undefined
+		setMotion: () => undefined,
 	},
 	heading: {
 		id: '',

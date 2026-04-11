@@ -29,12 +29,30 @@ const generateBlockCardLazyIcons = (Component: React.ComponentType<any>, totalIt
 		return existingItem;
 	});
 
-export const BlockCardLazyIcon1: ComponentType<any> = generateBlockCardLazyIcons(BlockCardLazyIconsExample1, 4);
-export const BlockCardLazyIcon2: ComponentType<any> = generateBlockCardLazyIcons(BlockCardLazyIconsExample2, 4);
-export const BlockCardLazyIcon3: ComponentType<any> = generateBlockCardLazyIcons(BlockCardLazyIconsExample3, 4);
-export const BlockCardLazyIcon4: ComponentType<any> = generateBlockCardLazyIcons(BlockCardLazyIconsExample4, 4);
-export const BlockCardLazyIcon5: ComponentType<any> = generateBlockCardLazyIcons(BlockCardLazyIconsExample5, 4);
-export const BlockCardLazyIcon6: ComponentType<any> = generateBlockCardLazyIcons(BlockCardLazyIconsExample6, 2);
+export const BlockCardLazyIcon1: ComponentType<any> = generateBlockCardLazyIcons(
+	BlockCardLazyIconsExample1,
+	4,
+);
+export const BlockCardLazyIcon2: ComponentType<any> = generateBlockCardLazyIcons(
+	BlockCardLazyIconsExample2,
+	4,
+);
+export const BlockCardLazyIcon3: ComponentType<any> = generateBlockCardLazyIcons(
+	BlockCardLazyIconsExample3,
+	4,
+);
+export const BlockCardLazyIcon4: ComponentType<any> = generateBlockCardLazyIcons(
+	BlockCardLazyIconsExample4,
+	4,
+);
+export const BlockCardLazyIcon5: ComponentType<any> = generateBlockCardLazyIcons(
+	BlockCardLazyIconsExample5,
+	4,
+);
+export const BlockCardLazyIcon6: ComponentType<any> = generateBlockCardLazyIcons(
+	BlockCardLazyIconsExample6,
+	2,
+);
 export const BlockCardLazyIconsFileType1: ComponentType<any> = generateBlockCardLazyIcons(
 	BlockCardLazyIconsFileTypeExample1,
 	4,

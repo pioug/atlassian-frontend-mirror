@@ -69,7 +69,11 @@ const footerStyles = xcss({
 	justifyContent: 'center',
 });
 
-export const PasswordInput = ({ onSubmit, hasPasswordError, onRender }: PDFPasswordInputProps): JSX.Element => {
+export const PasswordInput = ({
+	onSubmit,
+	hasPasswordError,
+	onRender,
+}: PDFPasswordInputProps): JSX.Element => {
 	const passwordInputRef = useRef<HTMLInputElement>(null);
 	const onRenderRef = useRef(onRender);
 	const [formError, setFormError] = useState(hasPasswordError);

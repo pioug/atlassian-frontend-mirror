@@ -40,37 +40,40 @@ const linkPickerResults: LinkSearchListItemData[] = [
 	},
 ];
 
-export const generateResolvedLink = (resourceUrl: string): {
-    status: number; body: {
-        data: {
-            '@context': {
-                '@vocab': string;
-                atlassian: string;
-                schema: string;
-            };
-            '@type': string[];
-            'atlassian:priority': {
-                '@type': string;
-                name: string;
-            };
-            generator: {
-                '@id': string;
-                '@type': string;
-                name: string;
-            };
-            url: string;
-            name: string;
-            summary: string;
-        };
-        meta: {
-            access: string;
-            auth: never[];
-            definitionId: string;
-            key: string;
-            product: string;
-            resourceType: string;
-        };
-    };
+export const generateResolvedLink = (
+	resourceUrl: string,
+): {
+	status: number;
+	body: {
+		data: {
+			'@context': {
+				'@vocab': string;
+				atlassian: string;
+				schema: string;
+			};
+			'@type': string[];
+			'atlassian:priority': {
+				'@type': string;
+				name: string;
+			};
+			generator: {
+				'@id': string;
+				'@type': string;
+				name: string;
+			};
+			url: string;
+			name: string;
+			summary: string;
+		};
+		meta: {
+			access: string;
+			auth: never[];
+			definitionId: string;
+			key: string;
+			product: string;
+			resourceType: string;
+		};
+	};
 } => ({
 	status: 200,
 	body: {

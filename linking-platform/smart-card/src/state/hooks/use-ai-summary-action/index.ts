@@ -8,13 +8,18 @@ import { failUfoExperience, startUfoExperience, succeedUfoExperience } from '../
 import { useSmartCardState } from '../../store';
 import { useAISummary } from '../use-ai-summary';
 import { useAISummaryConfig } from '../use-ai-summary-config';
-import type { AISummaryServiceProps, AISummaryState } from '../use-ai-summary/ai-summary-service/types';
+import type {
+	AISummaryServiceProps,
+	AISummaryState,
+} from '../use-ai-summary/ai-summary-service/types';
 
 const EXPERIENCE_NAME = 'smart-link-ai-summary';
 
-const useAISummaryAction = (url: string): {
-    summariseUrl: () => Promise<AISummaryState> | undefined;
-    state: AISummaryState;
+const useAISummaryAction = (
+	url: string,
+): {
+	summariseUrl: () => Promise<AISummaryState> | undefined;
+	state: AISummaryState;
 } => {
 	const { baseUrl, envKey, product } = useAISummaryConfig();
 	const cardState = useSmartCardState(url);

@@ -51,7 +51,12 @@ export interface RovoActionsButtonProps {
 	url?: string;
 }
 
-export const RovoActionsButton = ({ onClick, testId, title = '', url = ''}: RovoActionsButtonProps) => {
+export const RovoActionsButton = ({
+	onClick,
+	testId,
+	title = '',
+	url = '',
+}: RovoActionsButtonProps) => {
 	const [isHovered, setIsHovered] = useState(false);
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const { formatMessage } = useIntl();
@@ -88,11 +93,7 @@ export const RovoActionsButton = ({ onClick, testId, title = '', url = ''}: Rovo
 							<Box xcss={cx(styles.expandedText, isHovered && styles.expandedTextVisible)}>
 								{formatMessage(messages.rovo_actions_explore)}
 							</Box>
-							<RovoChatIcon
-								label="Rovo"
-								color={token('color.icon.inverse')}
-								size="small"
-							/>
+							<RovoChatIcon label="Rovo" color={token('color.icon.inverse')} size="small" />
 						</ActionButton>
 					</Box>
 				</Box>

@@ -1,7 +1,11 @@
 import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { NodeRange, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { TextSelection, type Selection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import {
+	TextSelection,
+	type Selection,
+	type Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';

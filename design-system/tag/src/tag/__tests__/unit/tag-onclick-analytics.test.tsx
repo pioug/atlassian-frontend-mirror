@@ -113,7 +113,10 @@ describe('TagNew and AvatarTag onClick analytics', () => {
 						<TagNew
 							text="Link Tag"
 							href="https://example.com"
-							onClick={(_event: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => {
+							onClick={(
+								_event: React.MouseEvent<HTMLAnchorElement>,
+								analyticsEvent: UIAnalyticsEvent,
+							) => {
 								analyticsEvent.fire();
 							}}
 							isRemovable={false}
@@ -282,7 +285,10 @@ describe('TagNew and AvatarTag onClick analytics', () => {
 						<AvatarTag
 							text="Avatar Link"
 							href="https://example.com"
-							onClick={(_event: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => {
+							onClick={(
+								_event: React.MouseEvent<HTMLAnchorElement>,
+								analyticsEvent: UIAnalyticsEvent,
+							) => {
 								analyticsEvent.fire();
 							}}
 							isRemovable={false}
@@ -315,7 +321,10 @@ describe('TagNew and AvatarTag onClick analytics', () => {
 						<TagNew
 							text="Removable Link"
 							href="https://example.com"
-							onClick={(_event: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => {
+							onClick={(
+								_event: React.MouseEvent<HTMLAnchorElement>,
+								analyticsEvent: UIAnalyticsEvent,
+							) => {
 								analyticsEvent.fire();
 							}}
 							isRemovable={true}

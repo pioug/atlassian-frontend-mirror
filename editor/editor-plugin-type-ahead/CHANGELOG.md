@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 8.2.0
+
+### Minor Changes
+
+- [`aafeeed5d38f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aafeeed5d38f9) -
+  [ux] add beta lozenge to admin skills in editor popup menu
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.3
 
 ### Patch Changes

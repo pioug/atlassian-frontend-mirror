@@ -52,9 +52,9 @@ const motion: ValueSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 					right: {
 						short: { value: 'SlideOutRight8px' },
 					},
-				}
-			}
-		}
+				},
+			},
+		},
 	},
 };
 

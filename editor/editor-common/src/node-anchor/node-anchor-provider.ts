@@ -218,10 +218,7 @@ export const getNodeIdProvider: (editorView: EditorView) => NodeAnchorProvider =
 	// in some cases we need to re-check limited mode state
 	// Confluence editor can start with an empty doc and then load content later
 	// so we need to check first time from an empty doc to a non-empty doc
-	if (
-		nodeIdProvider.isEmptyDoc() &&
-		!isEmptyDocument(editorView.state.doc)
-	) {
+	if (nodeIdProvider.isEmptyDoc() && !isEmptyDocument(editorView.state.doc)) {
 		// set empty doc to false regardless of limited mode state
 		nodeIdProvider.setEmptyDoc(false);
 

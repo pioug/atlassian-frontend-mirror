@@ -303,4 +303,88 @@ describe('Using checkWithinComponent to check UFOThirdPartySegment', () => {
 		const result = checkWithinComponent(currentElement, 'UFOThirdPartySegment', mapIs3pResult);
 		expect(result.isWithin).toBe(true);
 	});
+
+	it('should stop fiber walk after 20 levels when platform_ufo_3p_forge_detection_fix is disabled', () => {
+		mockFg.mockImplementation((flag: string) => {
+			if (flag === 'platform_ufo_3p_forge_detection_fix') {
+				return false;
+			}
+			return false;
+		});
+
+		let topFiber: MockFiber = {
+			key: null,
+			type: { name: 'UFOThirdPartySegment' },
+			return: null,
+		};
+		let currentFiber: MockFiber = topFiber;
+		for (let i = 0; i < 21; i++) {
+			const childFiber: MockFiber = {
+				key: null,
+				type: { name: `Wrapper${i}` },
+				return: currentFiber,
+			};
+			currentFiber = childFiber;
+		}
+
+		const node = createMockNode(currentFiber);
+		const result = checkWithinComponent(node, 'UFOThirdPartySegment', new WeakMap());
+		expect(result.isWithin).toBe(false);
+	});
+
+	it('should walk up to 40 fiber levels when platform_ufo_3p_forge_detection_fix is enabled', () => {
+		mockFg.mockImplementation((flag: string) => {
+			if (flag === 'platform_ufo_3p_forge_detection_fix') {
+				return true;
+			}
+			return false;
+		});
+
+		let topFiber: MockFiber = {
+			key: null,
+			type: { name: 'UFOThirdPartySegment' },
+			return: null,
+		};
+		let currentFiber: MockFiber = topFiber;
+		for (let i = 0; i < 39; i++) {
+			const childFiber: MockFiber = {
+				key: null,
+				type: { name: `Wrapper${i}` },
+				return: currentFiber,
+			};
+			currentFiber = childFiber;
+		}
+
+		const node = createMockNode(currentFiber);
+		const result = checkWithinComponent(node, 'UFOThirdPartySegment', new WeakMap());
+		expect(result.isWithin).toBe(true);
+	});
+
+	it('should stop fiber walk after 40 levels even when platform_ufo_3p_forge_detection_fix is enabled', () => {
+		mockFg.mockImplementation((flag: string) => {
+			if (flag === 'platform_ufo_3p_forge_detection_fix') {
+				return true;
+			}
+			return false;
+		});
+
+		let topFiber: MockFiber = {
+			key: null,
+			type: { name: 'UFOThirdPartySegment' },
+			return: null,
+		};
+		let currentFiber: MockFiber = topFiber;
+		for (let i = 0; i < 41; i++) {
+			const childFiber: MockFiber = {
+				key: null,
+				type: { name: `Wrapper${i}` },
+				return: currentFiber,
+			};
+			currentFiber = childFiber;
+		}
+
+		const node = createMockNode(currentFiber);
+		const result = checkWithinComponent(node, 'UFOThirdPartySegment', new WeakMap());
+		expect(result.isWithin).toBe(false);
+	});
 });

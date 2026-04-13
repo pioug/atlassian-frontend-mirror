@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::1de0ac3898ac4798bed5b01b0c1ec021>>
+ * @codegen <<SignedSource::2317f0bdf5554824b2cfc647cb3497bb>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -102,9 +102,42 @@ export type InviteToSoftwareAndBusinessProjectsFailedAttributesType = {
 	newUsersCount: number;
 	existingUsersCount: number;
 };
-export type SendSpaceInviteFailedAttributesType = {
-	message: string;
+export type SendSpaceTeamInvitesScheduledAttributesType = {
 	spaceId: string;
+	teamId: string;
+};
+export type SendSpaceTeamInvitesSendingAttributesType = {
+	spaceId: string;
+	teamId: string;
+};
+export type ProjectUpdatedAttributesType = {
+	spaceId: string;
+	teamId: string;
+	teamInviteStatus: 'SUCCESS' | 'PARTIAL_SUCCESS' | 'FAILED' | 'SKIPPED';
+	totalTeamCount: number;
+	totalMemberCount: number;
+	failedTeamCount: number;
+	successTeamCount: number;
+	failedInviteCount: number;
+	successInviteCount: number;
+	touchpoint: 'teamProfileSpaceLinking' | 'spaceNavTeamLinking';
+};
+export type ProjectUpdateFailedAttributesType = {
+	message: string | null;
+	spaceId: string;
+	teamId: string | null;
+	teamInviteStatus: 'SUCCESS' | 'PARTIAL_SUCCESS' | 'FAILED' | 'SKIPPED' | null;
+	totalTeamCount: number | null;
+	totalMemberCount: number | null;
+	failedTeamCount: number | null;
+	successTeamCount: number | null;
+	failedInviteCount: number | null;
+	successInviteCount: number | null;
+	touchpoint: 'teamProfileSpaceLinking' | 'spaceNavTeamLinking';
+};
+export type SendSpaceTeamInvitesCancelledAttributesType = {
+	spaceId: string;
+	teamId: string;
 };
 export type ContainerPermissionsSucceededAttributesType = {
 	canCreateConfluenceContainer: boolean;
@@ -1449,15 +1482,11 @@ export type WorkingWithMeEditButtonClickedAttributesType = undefined;
 export type WorkingWithMeSavedAttributesType = {
 	isEmpty: boolean;
 };
-export type WorkingWithMeSaveFailedAttributesType = undefined;
-export type WorkingWithMeCancelButtonClickedAttributesType = undefined;
 export type AddPronounsButtonClickedAttributesType = undefined;
 export type EditPronounsButtonClickedAttributesType = undefined;
-export type PronounsModalCancelledAttributesType = undefined;
 export type PronounsSavedAttributesType = {
 	isUpdate: boolean;
 };
-export type PronounsSaveFailedAttributesType = undefined;
 export type TeamAgentsPanelViewedAttributesType = {
 	activeAgentsCount: number;
 };
@@ -1664,8 +1693,20 @@ export type AnalyticsEventAttributes = {
 	 * fired when inviting users to software and business projects failed */
 	'track.inviteToSoftwareAndBusinessProjects.failed': InviteToSoftwareAndBusinessProjectsFailedAttributesType;
 	/**
-	 * fired when scheduling a space invite for team members failed */
-	'track.sendSpaceInvite.failed': SendSpaceInviteFailedAttributesType;
+	 * fired when a space invite is scheduled (queued in the debounce window) */
+	'track.sendSpaceTeamInvites.scheduled': SendSpaceTeamInvitesScheduledAttributesType;
+	/**
+	 * fired when a scheduled space invite begins sending (debounce window elapsed) */
+	'track.sendSpaceTeamInvites.sending': SendSpaceTeamInvitesSendingAttributesType;
+	/**
+	 * fired when a space invite request completes successfully and the project membership is updated */
+	'track.project.updated': ProjectUpdatedAttributesType;
+	/**
+	 * fired when a space invite for team members failed */
+	'track.projectUpdate.failed': ProjectUpdateFailedAttributesType;
+	/**
+	 * fired when a pending space invite is cancelled before it was sent */
+	'track.sendSpaceTeamInvites.cancelled': SendSpaceTeamInvitesCancelledAttributesType;
 	/**
 	 * fired when the container permissions are succeeded */
 	'track.containerPermissions.succeeded': ContainerPermissionsSucceededAttributesType;
@@ -2588,26 +2629,14 @@ export type AnalyticsEventAttributes = {
 	 * fired when user saves the working with me section */
 	'track.workingWithMe.saved': WorkingWithMeSavedAttributesType;
 	/**
-	 * fired when saving the working with me section fails */
-	'track.workingWithMe.saveFailed': WorkingWithMeSaveFailedAttributesType;
-	/**
-	 * fired when user clicks the cancel button on the working with me section */
-	'ui.workingWithMeCancelButton.clicked': WorkingWithMeCancelButtonClickedAttributesType;
-	/**
 	 * fired when user clicks the add pronouns button on the user profile header */
 	'ui.addPronounsButton.clicked': AddPronounsButtonClickedAttributesType;
 	/**
 	 * fired when user clicks the edit pronouns button on the user profile header */
 	'ui.editPronounsButton.clicked': EditPronounsButtonClickedAttributesType;
 	/**
-	 * fired when user cancels or closes the add/edit pronouns modal */
-	'ui.pronounsModal.cancelled': PronounsModalCancelledAttributesType;
-	/**
 	 * fired when user successfully saves pronouns */
 	'track.pronouns.saved': PronounsSavedAttributesType;
-	/**
-	 * fired when saving pronouns fails */
-	'track.pronouns.saveFailed': PronounsSaveFailedAttributesType;
 	/**
 	 * fired when team agents panel is viewed */
 	'screen.teamAgentsPanel.viewed': TeamAgentsPanelViewedAttributesType;

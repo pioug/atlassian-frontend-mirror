@@ -1,6 +1,3 @@
-// AFP-2532 TODO: Fix automatic suppressions below
-import { colors } from '@atlaskit/theme';
-
 import evaluateInner from './utils/evaluate-inner';
 
 /**
@@ -49,16 +46,16 @@ export default evaluateInner`
     cursor: not-allowed;
   }
   .ak-button__appearance-default {
-    background: ${colors.N20A};
-    color: ${colors.N400};
+    background: ${'rgba(9, 30, 66, 0.04)'};
+    color: ${'#505F79'};
     text-decoration: none;
   }
   .ak-button__appearance-default:hover {
-    background: ${colors.N30A};
+    background: ${'rgba(9, 30, 66, 0.08)'};
   }
   .ak-button__appearance-default:active {
     background: ${colorB75A};
-    color: ${colors.B400};
+    color: ${'#0052CC'};
   }
   .ak-button__appearance-default:focus {
     box-shadow: 0 0 0 2px ${colorB200A};
@@ -66,8 +63,8 @@ export default evaluateInner`
   .ak-button__appearance-default[disabled],
   .ak-button__appearance-default[disabled]:active,
   .ak-button__appearance-default[disabled]:hover {
-    background: ${colors.N20A};
-    color: ${colors.N70};
+    background: ${'rgba(9, 30, 66, 0.04)'};
+    color: ${'#A5ADBA'};
     text-decoration: none;
   }
   .ak-button__appearance-default[disabled]:focus,
@@ -77,15 +74,15 @@ export default evaluateInner`
   }
   .ak-button__appearance-subtle {
     background: none;
-    color: ${colors.N400};
+    color: ${'#505F79'};
     text-decoration: none;
   }
   .ak-button__appearance-subtle:hover {
-    background: ${colors.N30A};
+    background: ${'rgba(9, 30, 66, 0.08)'};
   }
   .ak-button__appearance-subtle:active {
     background: ${colorB75A};
-    color: ${colors.B400};
+    color: ${'#0052CC'};
   }
   .ak-button__appearance-subtle:focus {
     box-shadow: 0 0 0 2px ${colorB200A};
@@ -93,8 +90,8 @@ export default evaluateInner`
   .ak-button__appearance-subtle[disabled],
   .ak-button__appearance-subtle[disabled]:active,
   .ak-button__appearance-subtle[disabled]:hover {
-    background: ${colors.N20A};
-    color: ${colors.N70};
+    background: ${'rgba(9, 30, 66, 0.04)'};
+    color: ${'#A5ADBA'};
     text-decoration: none;
   }
   .ak-button__appearance-subtle[disabled]:focus,
@@ -103,16 +100,16 @@ export default evaluateInner`
     box-shadow: 0 0 0 2px ${colorB200A};
   }
   .ak-button__appearance-primary {
-    background: ${colors.B400};
-    color: ${colors.N0};
+    background: ${'#0052CC'};
+    color: ${'#FFFFFF'};
     text-decoration: none;
   }
   .ak-button__appearance-primary:hover {
-    background: ${colors.B300};
+    background: ${'#0065FF'};
   }
   .ak-button__appearance-primary:active {
-    background: ${colors.B500};
-    color: ${colors.N0};
+    background: ${'#0747A6'};
+    color: ${'#FFFFFF'};
   }
   .ak-button__appearance-primary:focus {
     box-shadow: 0 0 0 2px ${colorB200A};
@@ -120,7 +117,7 @@ export default evaluateInner`
   .ak-button__appearance-primary[disabled],
   .ak-button__appearance-primary[disabled]:active,
   .ak-button__appearance-primary[disabled]:hover {
-    background: ${colors.B400};
+    background: ${'#0052CC'};
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
   }
@@ -131,18 +128,18 @@ export default evaluateInner`
   }
   .ak-button__appearance-link {
     background: none;
-    color: ${colors.B400};
+    color: ${'#0052CC'};
     text-decoration: none;
   }
   .ak-button__appearance-link:hover {
     background: none;
-    color: ${colors.B300};
+    color: ${'#0065FF'};
     text-decoration: underline;
   }
   .ak-button__appearance-link:active {
     text-decoration: none;
     background: none;
-    color: ${colors.B500};
+    color: ${'#0747A6'};
   }
   .ak-button__appearance-link:focus {
     box-shadow: 0 0 0 2px ${colorB200A};
@@ -151,7 +148,7 @@ export default evaluateInner`
   .ak-button__appearance-link[disabled]:active,
   .ak-button__appearance-link[disabled]:hover {
     background: none;
-    color: ${colors.N70};
+    color: ${'#A5ADBA'};
     text-decoration: none;
   }
   .ak-button__appearance-link[disabled]:focus,
@@ -161,18 +158,18 @@ export default evaluateInner`
   }
   .ak-button__appearance-subtle-link {
     background: none;
-    color: ${colors.N500};
+    color: ${'#42526E'};
     text-decoration: none;
   }
   .ak-button__appearance-subtle-link:hover {
     background: none;
-    color: ${colors.B300};
+    color: ${'#0065FF'};
     text-decoration: underline;
   }
   .ak-button__appearance-subtle-link:active {
     text-decoration: none;
     background: none;
-    color: ${colors.B500};
+    color: ${'#0747A6'};
   }
   .ak-button__appearance-subtle-link:focus {
     box-shadow: 0 0 0 2px ${colorB200A};
@@ -181,7 +178,7 @@ export default evaluateInner`
   .ak-button__appearance-subtle-link[disabled]:active,
   .ak-button__appearance-subtle-link[disabled]:focus {
     background: none;
-    color: ${colors.N70};
+    color: ${'#A5ADBA'};
     text-decoration: none;
   }
   .ak-button__appearance-subtle-link[disabled]:focus,

@@ -20,8 +20,11 @@ import { token } from '@atlaskit/tokens';
 import { type BaseProps } from '../types';
 
 import blockEvents from './block-events';
-import { getContentStyle, getFadingCss, getIconStyle, overlayCss } from './css';
+import { getContentStyle } from './get-content-style';
+import { getFadingCss } from './get-fading-css';
+import { getIconStyle } from './get-icon-style';
 import { getIfVisuallyHiddenChildren } from './get-if-visually-hidden-children';
+import { overlayCss } from './overlay-css';
 
 // Disabled buttons will still publish events for nested elements in webkit.
 // We are disabling pointer events on child elements so that

@@ -93,6 +93,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 			linkComponent,
 			migration_fallback,
 			maxWidth,
+			swatchBefore,
 			...rest
 		},
 		ref,
@@ -183,6 +184,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 					onBeforeRemoveAction={onBeforeRemoveAction}
 					onAfterRemoveAction={onAfterRemoveAction}
 					maxWidth={maxWidth}
+					swatchBefore={swatchBefore}
 				/>
 			);
 		}

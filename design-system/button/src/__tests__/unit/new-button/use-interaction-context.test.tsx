@@ -15,7 +15,7 @@ const context: InteractionContextType = {
 	tracePress: mockTraceInteraction,
 };
 
-variants.forEach(({ name, Component }) => {
+Object.values(variants).forEach(({ name, Component }) => {
 	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe(`${name} press-tracing`, () => {
 		afterEach(() => {

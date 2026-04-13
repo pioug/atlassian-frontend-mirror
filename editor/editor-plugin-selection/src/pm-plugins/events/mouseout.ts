@@ -1,5 +1,5 @@
 import { TextSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export function isValidSelection(selection: Selection): boolean {
 	if (selection.empty) {

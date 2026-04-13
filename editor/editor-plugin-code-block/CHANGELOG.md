@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 10.0.29
+
+### Patch Changes
+
+- [`48a64b7bbac82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48a64b7bbac82) -
+  Clean up stale experiment platform_editor_plain_text_support (always-enabled path)
+- Updated dependencies
+
+## 10.0.28
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.27
 
 ### Patch Changes

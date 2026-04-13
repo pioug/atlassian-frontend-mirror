@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { Skeleton } from '@atlaskit/avatar';
-import { Y500 } from '@atlaskit/theme/colors';
 
 const AvatarSkeletonWeightStrongExample = (): React.JSX.Element => {
-	return <Skeleton color={Y500} weight="strong" />;
+	return <Skeleton color="#FF8B00" weight="strong" />;
 };
 
 export default AvatarSkeletonWeightStrongExample;

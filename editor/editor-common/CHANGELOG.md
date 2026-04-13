@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 112.19.3
+
+### Patch Changes
+
+- [`e0d081a91e31c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0d081a91e31c) -
+  @atlaskit/editor-common Add findNodeByLocalId utility for plain JSON ADF node search.
+  @atlaskit/editor-plugin-local-id Export generateShortUUID as a reusable util via the ./utils
+  subpath. @atlassian/adf-semantic-toolcalls New package for structure-aware semantic tool calls.
+  Adds createEmptyTable with aligned backend contract (localId, command, flat
+  headerRow/headerColumn/numberedRows).
+- Updated dependencies
+
+## 112.19.2
+
+### Patch Changes
+
+- [`9e290511c0bea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e290511c0bea) -
+  Clean up stale experiment gate editor_enghealth_hyperlink_toolbar_aria_values, permanently
+  enabling the improved aria values behaviour
+- Updated dependencies
+
+## 112.19.1
+
+### Patch Changes
+
+- [`24dad72901730`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24dad72901730) -
+  Editor-6083: Fix border no shown when resize embed inside synced block
+
 ## 112.19.0
 
 ### Minor Changes

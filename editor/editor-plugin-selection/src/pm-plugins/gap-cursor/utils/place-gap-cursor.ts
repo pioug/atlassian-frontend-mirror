@@ -84,6 +84,25 @@ const mutateElementStyle = (element: HTMLElement, style: CSSStyleDeclaration, si
 	}
 };
 
+/**
+ * For nested elements (e.g. .extension-container inside
+ * .extensionView-content-wrap), use getBoundingClientRect to compute
+ * the exact pixel offset between the gap cursor's position in the
+ * flow and the inner element's visual position.
+ */
+const positionFromRect = (
+	gapCursor: HTMLElement,
+	cursorParent: HTMLElement,
+	nestedElement: Element,
+) => {
+	const cursorRect = cursorParent.getBoundingClientRect();
+	const innerRect = nestedElement.getBoundingClientRect();
+
+	gapCursor.style.marginTop = `${innerRect.top - cursorRect.top}px`;
+	gapCursor.style.left = `${innerRect.left - cursorRect.left}px`;
+	gapCursor.style.width = `${innerRect.width}px`;
+};
+
 export const toDOM = (view: EditorView, getPos: () => number | undefined): HTMLSpanElement => {
 	const selection = view.state.selection as GapCursorSelection;
 	const { $from, side } = selection;
@@ -113,6 +132,21 @@ export const toDOM = (view: EditorView, getPos: () => number | undefined): HTMLS
 			const dom = view.nodeDOM(nodeStart);
 
 			if (dom instanceof HTMLElement) {
+				// For native embed extensions only, use getBoundingClientRect
+				// to position the gap cursor precisely relative to the inner
+				// .extension-container
+				if (dom.classList.contains('extensionView-content-wrap')) {
+					const nativeEmbed = dom.querySelector(
+						'.extension-container:has([data-native-embed-alignment])',
+					);
+					if (nativeEmbed) {
+						const nativeEmbedStyle = window.getComputedStyle(nativeEmbed);
+						gapCursor.style.height = `${measureHeight(nativeEmbedStyle)}px`;
+						positionFromRect(gapCursor, element, nativeEmbed);
+						return;
+					}
+				}
+
 				const style = computeNestedStyle(dom) || window.getComputedStyle(dom);
 				gapCursor.style.height = `${measureHeight(style)}px`;
 

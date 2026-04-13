@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 
+import { closeEmbedModal } from '../../../__tests__/__utils__/unit-helpers';
 import { openEmbedModal } from '../utils';
 
 // Skipping due to test issue with modal not closing between runs https://atlassian.slack.com/archives/CFKGAQZRV/p1762903223827709
@@ -30,6 +32,9 @@ describe.skip('openEmbedModal', () => {
 		const mountPoint = await screen.findByTestId('preview-modal');
 		expect(mountPoint).toBeInTheDocument();
 		expect(mountPoint?.id).toBe('twp-editor-preview-iframe');
+
+		const event = userEvent.setup();
+		await closeEmbedModal(event);
 	});
 
 	it('should open embed modal with custom props', async () => {
@@ -53,6 +58,9 @@ describe.skip('openEmbedModal', () => {
 		// Check that custom title is rendered
 		const titleElement = await screen.findByTestId(`${testId}-title`);
 		expect(titleElement).toHaveTextContent('Custom Title');
+
+		const event = userEvent.setup();
+		await closeEmbedModal(event);
 	});
 
 	it('should create mount point if it does not exist', async () => {
@@ -77,5 +85,8 @@ describe.skip('openEmbedModal', () => {
 		const mountPoint = await screen.findByTestId('preview-modal');
 		expect(mountPoint).toBeInTheDocument();
 		expect(mountPoint?.id).toBe('twp-editor-preview-iframe');
+
+		const event = userEvent.setup();
+		await closeEmbedModal(event);
 	});
 });

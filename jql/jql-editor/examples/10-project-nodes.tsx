@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 
 import fetchMock from 'fetch-mock/cjs/client';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import {
 	type GetAutocompleteInitialData,
 	type GetAutocompleteSuggestions,
@@ -13,6 +14,19 @@ import { Container } from '../examples-utils/styled';
 import { type HydratedProject, type HydratedValues, JQLEditor } from '../src';
 
 import emojiMockData from './__mocks__/emojiData.json';
+
+const originalGetExperimentValue = FeatureGates.getExperimentValue.bind(FeatureGates);
+FeatureGates.getExperimentValue = ((
+	expName: string,
+	param: string,
+	defaultValue: unknown,
+	options?: unknown,
+) => {
+	if (expName === 'projects_in_jira_eap_drop2_fast_follow_filters' && param === 'isEnabled') {
+		return true;
+	}
+	return originalGetExperimentValue(expName, param, defaultValue as any, options as any) as any;
+}) as any;
 
 // Unmatched routes will fall back to the network
 fetchMock.config.fallbackToNetwork = true;
@@ -86,7 +100,9 @@ export default (): React.JSX.Element => {
 			<JQLEditor
 				analyticsSource={'my-app'}
 				autocompleteProvider={autocompleteProvider}
-				query={'Project[AtlassianProject] = "ari:cloud:townsquare:1111:project/1111"'}
+				query={
+					'Project[AtlassianProject] IN ("ari:cloud:townsquare:1111:project/1111", "ari:cloud:townsquare:3333:project/3333")'
+				}
 				locale={'en'}
 				onSearch={onSearch}
 				enableRichInlineNodes

@@ -1,4 +1,4 @@
-import { type ADFEntity } from '@atlaskit/adf-utils/types';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
@@ -17,7 +17,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { SelectionExtensionSelectionInfo } from '../../types';
-import { type SelectionRange } from '../../types';
+import type { SelectionRange } from '../../types';
 import { getBoundingBoxFromSelection } from '../../ui/getBoundingBoxFromSelection';
 
 import { getSelectionInfo, getSelectionInfoFromSameNode } from './selection-helpers';

@@ -4,9 +4,6 @@ import { rendererTestCase as test, expect } from './not-libra';
 test.describe('width-provider when table resizing is disabled', () => {
 	test.use({
 		adf: tableADF,
-		editorExperiments: {
-			platform_editor_a11y_table_wrapper_fix: true,
-		},
 		rendererProps: {
 			appearance: 'comment',
 		},

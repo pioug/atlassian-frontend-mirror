@@ -7,8 +7,8 @@ import { type CSSObject, jsx } from '@emotion/react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { CustomThemeButton, type InteractionState } from '../../../../index';
-import { getCustomCss } from '../../../../old-button/custom-theme-button/theme';
-import { getCss } from '../../../../old-button/shared/css';
+import { getCustomCss } from '../../../../old-button/custom-theme-button/get-custom-css';
+import { getCss } from '../../../../old-button/shared/get-css';
 
 type InteractionMap = {
 	[key in InteractionState]: string;

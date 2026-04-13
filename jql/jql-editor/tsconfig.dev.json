@@ -58,6 +58,9 @@
 			"path": "../../editor/editor-prosemirror/tsconfig.app.json"
 		},
 		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
+		},
+		{
 			"path": "../jql-ast/tsconfig.app.json"
 		},
 		{

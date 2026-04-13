@@ -1,35 +1,30 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { colors } from '@atlaskit/theme';
-
 export const simplePalette: {
 	label: string;
 	value: string;
 }[] = [
 	{
 		label: 'Purple',
-		value: colors.P200,
+		value: '#8777D9',
 	},
 	{
 		label: 'Blue',
-		value: colors.B200,
+		value: '#2684FF',
 	},
 	{
 		label: 'Green',
-		value: colors.G200,
+		value: '#57D9A3',
 	},
 	{
 		label: 'Teal',
-		value: colors.T200,
+		value: '#00C7E6',
 	},
 	{
 		label: 'Yellow',
-		value: colors.Y200,
+		value: '#FFC400',
 	},
 	{
 		label: 'Red',
-		value: colors.R200,
+		value: '#FF7452',
 	},
 ];
 
@@ -44,26 +39,26 @@ export const extendedPalette: {
 ).concat([
 	{
 		label: 'Dark Purple',
-		value: colors.P400,
+		value: '#5243AA',
 	},
 	{
 		label: 'Dark Blue',
-		value: colors.B400,
+		value: '#0052CC',
 	},
 	{
 		label: 'Dark Green',
-		value: colors.G400,
+		value: '#00875A',
 	},
 	{
 		label: 'Dark Teal',
-		value: colors.T400,
+		value: '#00A3BF',
 	},
 	{
 		label: 'Dark Yellow',
-		value: colors.Y400,
+		value: '#FF991F',
 	},
 	{
 		label: 'Dark Red',
-		value: colors.R400,
+		value: '#DE350B',
 	},
 ]);

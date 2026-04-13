@@ -66,11 +66,11 @@ describe('spaceInviteScheduler', () => {
 	});
 
 	describe('cancelInvite', () => {
-		it('should prevent the scheduled callback from firing', () => {
+		it('should prevent the scheduled callback from firing and return true', () => {
 			const callback = jest.fn();
 			scheduleInvite('team-1', 'container-1', callback);
 
-			cancelInvite('team-1', 'container-1');
+			expect(cancelInvite('team-1', 'container-1')).toBe(true);
 			jest.advanceTimersByTime(15_000);
 
 			expect(callback).not.toHaveBeenCalled();
@@ -90,8 +90,8 @@ describe('spaceInviteScheduler', () => {
 			expect(callback2).toHaveBeenCalledTimes(1);
 		});
 
-		it('should be a no-op when no invite is pending', () => {
-			expect(() => cancelInvite('team-1', 'container-1')).not.toThrow();
+		it('should return false when no invite is pending', () => {
+			expect(cancelInvite('team-1', 'container-1')).toBe(false);
 		});
 
 		it('should match when schedule uses full ARI and cancel uses bare ID', () => {
@@ -102,7 +102,7 @@ describe('spaceInviteScheduler', () => {
 				callback,
 			);
 
-			cancelInvite('abc-123', '10000');
+			expect(cancelInvite('abc-123', '10000')).toBe(true);
 			jest.advanceTimersByTime(15_000);
 
 			expect(callback).not.toHaveBeenCalled();
@@ -112,7 +112,9 @@ describe('spaceInviteScheduler', () => {
 			const callback = jest.fn();
 			scheduleInvite('abc-123', '10000', callback);
 
-			cancelInvite('ari:cloud:identity::team/abc-123', 'ari:cloud:jira:site-1:project/10000');
+			expect(
+				cancelInvite('ari:cloud:identity::team/abc-123', 'ari:cloud:jira:site-1:project/10000'),
+			).toBe(true);
 			jest.advanceTimersByTime(15_000);
 
 			expect(callback).not.toHaveBeenCalled();

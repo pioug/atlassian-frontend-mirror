@@ -1,5 +1,15 @@
 # @atlassian/smart-user-picker
 
+## 9.2.2
+
+### Patch Changes
+
+- [`2c91b4048c838`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c91b4048c838) -
+  Bump i18n packages
+- [`ddd049a745d38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddd049a745d38) -
+  Internal change to how legacy colors are applied. No visual changes.
+- Updated dependencies
+
 ## 9.2.1
 
 ### Patch Changes

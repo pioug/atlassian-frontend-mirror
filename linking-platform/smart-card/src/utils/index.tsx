@@ -388,3 +388,5 @@ export const isIconSizeLarge = (size?: SmartLinkSize): boolean | undefined =>
 	size && [SmartLinkSize.Large, SmartLinkSize.XLarge].includes(size);
 
 export const isProfileType = (type?: string[]): boolean => !!(type && type.includes('Profile'));
+
+export const noop = () => undefined;

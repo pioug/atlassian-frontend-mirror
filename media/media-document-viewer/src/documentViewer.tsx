@@ -43,21 +43,19 @@ const documentViewerStyles = css({
 });
 
 const DEFAULT_PAGINATION_SIZE = 50;
-const DEFAULT_MAX_PAGE_IMAGE_ZOOM = 6;
 
 export const DocumentViewer = ({
 	onSuccess,
 	getContent,
 	getPageImageUrl,
 	paginationSize = DEFAULT_PAGINATION_SIZE,
-	maxPageImageZoom = DEFAULT_MAX_PAGE_IMAGE_ZOOM,
 	zoom,
 }: DocumentViewerProps): JSX.Element => {
 	const { getPageContent, loadPageContent, documentMetadata } = usePageContent(
 		getContent,
 		paginationSize,
 	);
-	const getImageUrl = useCachedGetImage(getPageImageUrl, maxPageImageZoom);
+	const getImageUrl = useCachedGetImage(getPageImageUrl);
 
 	const style: Record<string, number> = {
 		'--document-viewer-zoom': zoom,
@@ -145,7 +143,6 @@ export const DocumentViewer = ({
 					<Page
 						key={i}
 						getPageSrc={getImageUrl}
-						maxPageImageZoom={maxPageImageZoom}
 						pageIndex={i}
 						zoom={zoom}
 						defaultDimensions={documentMetadata.defaultDimensions}

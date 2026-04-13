@@ -9,7 +9,7 @@ import variants from '../src/utils/variants';
 export default function ShouldFitContainerExample(): React.JSX.Element {
 	return (
 		<Stack space="space.100">
-			{variants.map(({ name, Component }) => (
+			{Object.values(variants).map(({ name, Component }) => (
 				<Box key={name}>
 					<Component key={name} shouldFitContainer>
 						{name}

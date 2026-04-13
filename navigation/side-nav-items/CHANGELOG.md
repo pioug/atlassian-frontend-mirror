@@ -1,5 +1,13 @@
 # @atlaskit/side-nav-items
 
+## 1.13.0
+
+### Minor Changes
+
+- [`a8f4489e99107`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8f4489e99107) -
+  Fixes the mobile max height of flyout menu popups to use the full available space, when the
+  `platform_dst_nav4_flyout_menu_slots_close_button` gate is enabled.
+
 ## 1.12.4
 
 ### Patch Changes

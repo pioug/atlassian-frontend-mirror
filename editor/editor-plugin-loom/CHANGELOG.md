@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-loom
 
+## 10.0.8
+
+### Patch Changes
+
+- [`7b7c52dff5d7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b7c52dff5d7d) -
+  Fix eslint violations for type import syntax
+- Updated dependencies
+
 ## 10.0.7
 
 ### Patch Changes

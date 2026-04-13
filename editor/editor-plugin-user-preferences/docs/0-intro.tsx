@@ -31,7 +31,40 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type UserPreferencesPlugin = NextEditorPlugin<'userPreferences'>
+type UserPreferencesPluginOptions = {
+  /**
+   * The initial user preferences to be used when the userPreferencesProvider is not available.
+   * Otherwise, will default to the userPreferencesProvider's initial preferences.
+   */
+  initialUserPreferences?: ResolvedUserPreferences;
+  /**
+   * The user preferences provider to be used to get and set user preferences.
+   * When not provided, user preferences will not be persisted.
+   */
+  userPreferencesProvider?: UserPreferencesProvider;
+};
+
+type PrefKey = keyof UserPreferences;
+type ResolvedPrefKey = keyof ResolvedUserPreferences;
+type UserPreferencesSharedState = {
+  preferences: ResolvedUserPreferences;
+};
+
+type UserPreferencesPlugin = NextEditorPlugin<
+  'userPreferences',
+  {
+    actions: {
+      getUserPreferences: () => ResolvedUserPreferences | undefined;
+      updateUserPreference: (
+        key: PrefKey,
+        value: ResolvedUserPreferences[PrefKey],
+      ) => EditorCommand;
+    };
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
+    pluginConfiguration: UserPreferencesPluginOptions;
+    sharedState: UserPreferencesSharedState;
+  }
+>;
 `}
 
 

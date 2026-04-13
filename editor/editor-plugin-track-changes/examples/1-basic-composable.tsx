@@ -79,7 +79,6 @@ const createPreset = () =>
 		.add(guidelinePlugin)
 		.add(selectionPlugin)
 		.add(decorationsPlugin)
-		.add([tablesPlugin, { dragAndDropEnabled: true, tableOptions: { advanced: true } }])
 		.add(hyperlinkPlugin)
 		.add(datePlugin)
 		.add(listPlugin)
@@ -103,6 +102,7 @@ const createPreset = () =>
 		.add(extensionPlugin)
 		.add(tasksAndDecisionsPlugin)
 		.add(textFormattingPlugin)
+		.add([tablesPlugin, { tableOptions: { advanced: true } }])
 		.add([
 			insertBlockPlugin,
 			{

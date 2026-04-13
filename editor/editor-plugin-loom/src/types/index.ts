@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import { type ButtonProps as AKButtonProps } from '@atlaskit/button';
+import type { ButtonProps as AKButtonProps } from '@atlaskit/button';
 
 export type VideoMeta = {
 	duration?: number;

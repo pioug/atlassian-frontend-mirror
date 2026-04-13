@@ -1,9 +1,24 @@
-# Editor plugin tasks and decisions
+# Editor Plugin Tasks and Decisions
 
 Tasks and decisions plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Tasks and Decisions plugin provides comprehensive functionality for creating and managing task lists and decision lists within the Atlassian Editor. It integrates seamlessly with the editor's toolbar, block menu, and type-ahead features to enable users to create, edit, and track tasks and decisions inline with their content.
+
+## Key features
+
+- **Task and decision lists** - Create and manage task lists and decision lists with full editing capabilities
+- **Nested tasks** - Support for nested task structures with configurable indentation levels
+- **Block task items** - Support for block-level task items that can contain extension nodes (useful for content migrations)
+- **Edit permissions** - Control edit permissions and request-to-edit functionality for tasks
+- **Provider integration** - Extensible provider-based architecture for custom task decision handling
+- **Toolbar integration** - Quick access to task and decision creation through the editor toolbar
+- **Block menu support** - Transform content into tasks and decisions through the block menu
+- **Type-ahead support** - Quick insert support for creating tasks and decisions
 
 ## Install
 ---

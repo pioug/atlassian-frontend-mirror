@@ -3,9 +3,6 @@ import { adf } from './breakout.spec.ts-fixtures';
 
 test.use({
 	adf,
-	editorExperiments: {
-		platform_editor_a11y_table_wrapper_fix: true,
-	},
 });
 
 const TABLE_CONTAINER_BUT_FULL_WIDTH = '.pm-table-container[data-layout="full-width"]';

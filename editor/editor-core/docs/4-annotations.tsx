@@ -3,7 +3,6 @@ import React from 'react';
 
 import { code, md } from '@atlaskit/docs';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { Editor } from '../src';
@@ -203,7 +202,7 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						padding: token('space.100'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						backgroundColor: N20,
+						backgroundColor: '#F4F5F7',
 						border: `${token('border.width')} solid ${token('color.border.accent.gray')}`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						flex: 1,
@@ -252,7 +251,7 @@ ${(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			padding: token('space.100'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			backgroundColor: N20,
+			backgroundColor: '#F4F5F7',
 			border: `${token('border.width')} solid ${token('color.border.accent.gray')}`,
 		}}
 	>

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-user-intent
 
+## 6.0.2
+
+### Patch Changes
+
+- [`9ff7d1c1aa288`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ff7d1c1aa288) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

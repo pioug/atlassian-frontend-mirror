@@ -8,11 +8,14 @@ import { cssMap, jsx } from '@compiled/react';
 
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/experimental/open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-context';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
+import { useHasCustomTheme } from '../../top-nav-items/themed/has-custom-theme-context';
+import { HasDefaultBackgroundColorContext } from '../../top-nav-items/themed/has-default-background-color-context';
 import { openLayerObserverTopNavStartNamespace } from '../constants';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 import { SideNavVisibilityState } from '../side-nav/visibility-context';
@@ -127,6 +130,16 @@ const wrapperStyles = cssMap({
 				transitionProperty: 'opacity',
 				transitionDuration: '0.2s',
 				transitionTimingFunction: 'ease-in',
+			},
+		},
+	},
+	fullHeightSidebarCustomTheming: {
+		'@media (min-width: 64rem)': {
+			// Use the themed top nav background color, instead of overlaying it
+			backgroundColor: 'revert',
+			'&::after': {
+				// Hide the border that makes the sidebar appear full height when a custom background color is used
+				display: 'none',
 			},
 		},
 	},
@@ -310,6 +323,9 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 		}
 	}, [sideNavState]);
 
+	const hasCustomTheme = useHasCustomTheme();
+	const hasDefaultBackgroundColor = useContext(HasDefaultBackgroundColorContext);
+
 	return (
 		<div
 			css={[
@@ -318,6 +334,10 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 				!isFirstRenderRef.current &&
 					isExpandedOnDesktop &&
 					wrapperStyles.fullHeightSidebarBorderTransition,
+				hasCustomTheme &&
+					!hasDefaultBackgroundColor &&
+					fg('platform_dst_nav4_custom_theming_fhs_1') &&
+					wrapperStyles.fullHeightSidebarCustomTheming,
 			]}
 		>
 			<div

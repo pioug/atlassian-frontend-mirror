@@ -1,5 +1,5 @@
 import { createPlugin } from './pm-plugins/main';
-import { type SubmitEditorPlugin } from './submitEditorPluginType';
+import type { SubmitEditorPlugin } from './submitEditorPluginType';
 
 export const submitEditorPlugin: SubmitEditorPlugin = ({ config: onSave, api }) => ({
 	name: 'submitEditor',

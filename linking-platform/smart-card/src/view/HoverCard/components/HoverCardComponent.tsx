@@ -8,6 +8,7 @@ import { ActionName, CardDisplay } from '../../../constants';
 import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
+import { noop } from '../../../utils';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import { createCustomPopupContainer } from '../components/CustomPopupContainer';
 import HoverCardContent from '../components/HoverCardContent';
@@ -293,6 +294,10 @@ export const HoverCardComponent = ({
 					{...(editorExperiment('platform_editor_preview_panel_linking_exp', true)
 						? { className: HOVER_CARD_TRIGGER_WRAPPER }
 						: {})}
+					// Keyboard navigation is handled on onKeyDown
+					{...(fg('platform_sl_a11y_enghealth_46829')
+						? { onFocus: noop, onBlur: noop, role: 'none' }
+						: undefined)}
 				>
 					{children}
 				</span>

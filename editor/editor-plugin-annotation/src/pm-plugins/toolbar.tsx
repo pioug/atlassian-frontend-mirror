@@ -27,7 +27,7 @@ import {
 } from '@atlaskit/editor-common/utils';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
-import { type SelectionBookmark, type EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { SelectionBookmark, EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';

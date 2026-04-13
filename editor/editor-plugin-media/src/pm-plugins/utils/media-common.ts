@@ -10,7 +10,7 @@ import {
 import { createNewParagraphBelow, createParagraphNear } from '@atlaskit/editor-common/utils';
 import { deleteSelection, splitBlock } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { type Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "7.1.7",
+	"version": "7.2.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -100,6 +100,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/app-provider": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
@@ -108,6 +109,7 @@
 		"@atlaskit/layering": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
@@ -129,7 +131,6 @@
 		"@af/accessibility-testing": "workspace:^",
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
-		"@atlaskit/app-provider": "workspace:^",
 		"@atlaskit/badge": "workspace:^",
 		"@atlaskit/banner": "workspace:^",
 		"@atlaskit/breadcrumbs": "workspace:^",
@@ -210,6 +211,9 @@
 			"type": "boolean"
 		},
 		"navx-4418-fix-effect-state-updates-in-gsn": {
+			"type": "boolean"
+		},
+		"platform_dst_nav4_custom_theming_fhs_1": {
 			"type": "boolean"
 		}
 	},

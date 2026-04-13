@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 1.0.1
+
+### Patch Changes
+
+- [`146a62c48848f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/146a62c48848f) -
+  Support global entry point for typescript versions 4.5-4.9
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

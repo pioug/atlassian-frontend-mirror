@@ -29,7 +29,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { createInsertItem, openElementBrowserModal } from './pm-plugins/commands';
 import { getQuickInsertOpenExperiencePlugin } from './pm-plugins/experiences/quick-insert-open-experience';
 import { pluginKey } from './pm-plugins/plugin-key';
-import { type QuickInsertPlugin } from './quickInsertPluginType';
+import type { QuickInsertPlugin } from './quickInsertPluginType';
 import ModalElementBrowser from './ui/ModalElementBrowser';
 import { getQuickInsertSuggestions } from './ui/search';
 

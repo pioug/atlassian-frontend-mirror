@@ -1,4 +1,4 @@
-import { type Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
 export class InvertableStep {
 	constructor(

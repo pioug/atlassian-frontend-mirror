@@ -1,5 +1,29 @@
 # @atlaskit/smart-card
 
+## 43.31.10
+
+### Patch Changes
+
+- [`b8367f49cec51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8367f49cec51) -
+  FG CLenup: platform_navx_sl_a11y_embed_modal
+- [`406acf65287f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/406acf65287f4) -
+  Fix accessibility ESLint suppressions
+- Updated dependencies
+
+## 43.31.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.31.8
+
+### Patch Changes
+
+- [`0d9bd70fe6d8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d9bd70fe6d8a) -
+  [ux] Change design of experimental un-authorised hover card
+- Updated dependencies
+
 ## 43.31.7
 
 ### Patch Changes

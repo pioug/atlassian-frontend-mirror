@@ -1,4 +1,4 @@
-import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
+import { Device, snapshot } from '@af/visual-regression';
 
 import {
 	FlyoutMenuItemDefaultOpenExample,
@@ -11,45 +11,50 @@ import {
 	FlyoutMenuItemWithNestedPopupDefaultOpenExample,
 } from '../../../../../examples/flyout-menu-item';
 
-const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
-	{
+const variants = {
+	desktop: {
 		environment: { colorScheme: 'light' },
 		name: 'default',
 	},
-];
+	mobile: {
+		device: Device.MOBILE_CHROME,
+		environment: { colorScheme: 'light' },
+		name: 'mobile',
+	},
+} as const;
 
 snapshot(FlyoutMenuItemExample, {
-	variants: lightModeVariant,
+	variants: [variants.desktop],
 });
 
 snapshot(FlyoutMenuItemDefaultOpenExample, {
-	variants: lightModeVariant,
+	variants: [variants.desktop],
 	drawsOutsideBounds: true,
 });
 
 snapshot(FlyoutMenuItemDefaultOpenSelectedVR, {
-	variants: lightModeVariant,
+	variants: [variants.desktop],
 	drawsOutsideBounds: true,
 });
 
 snapshot(FlyoutMenuItemRTL, {
-	variants: lightModeVariant,
+	variants: [variants.desktop],
 });
 
 snapshot(FlyoutMenuItemDefaultOpenRTL, {
-	variants: lightModeVariant,
+	variants: [variants.desktop],
 	drawsOutsideBounds: true,
 });
 
 snapshot(FlyoutMenuItemWithNestedPopupDefaultOpenExample, {
 	description: 'A flyout menu with a nested popup using `shouldRenderToParent`',
-	variants: lightModeVariant,
+	variants: [variants.desktop],
 	drawsOutsideBounds: true,
 });
 
 snapshot(FlyoutMenuItemSingleItemDefaultOpen, {
 	description: 'Flyout body item focus ring is not clipped',
-	variants: lightModeVariant,
+	variants: [variants.desktop],
 	drawsOutsideBounds: true,
 	states: [
 		{ state: 'focused', selector: { byRole: 'button', options: { name: 'Button menu item' } } },
@@ -59,7 +64,7 @@ snapshot(FlyoutMenuItemSingleItemDefaultOpen, {
 snapshot(FlyoutMenuItemSlotsManyDefaultOpen, {
 	description:
 		'A flyout menu with many items does not exceed the bounds of the window and should have a visible footer',
-	variants: lightModeVariant,
+	variants: [variants.desktop, variants.mobile],
 	drawsOutsideBounds: true,
 	featureFlags: {
 		platform_dst_nav4_flyout_menu_slots_close_button: [false, true],

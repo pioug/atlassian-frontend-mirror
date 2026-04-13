@@ -1,5 +1,17 @@
 # @atlassian/navigation-system
 
+## 7.2.0
+
+### Minor Changes
+
+- [`71834d94559e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71834d94559e2) -
+  Implements custom theming support when the full height sidebar is enabled. This change is behind
+  the `platform_dst_nav4_custom_theming_fhs_1` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.7
 
 ### Patch Changes

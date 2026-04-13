@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-extension
 
+## 11.0.30
+
+### Patch Changes
+
+- [`7b7c52dff5d7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b7c52dff5d7d) -
+  Fix eslint violations for type import syntax
+- Updated dependencies
+
+## 11.0.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.28
+
+### Patch Changes
+
+- [`ddd049a745d38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddd049a745d38) -
+  Internal change to how legacy colors are applied. No visual changes.
+- Updated dependencies
+
 ## 11.0.27
 
 ### Patch Changes

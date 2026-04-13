@@ -1,4 +1,3 @@
-import { B200, B400, N0, N100, N400, N600 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // TODO: This is where we need to add tokens for all appearance color values
@@ -16,22 +15,22 @@ export const getColorsFromAppearanceOldLogos = (
 
 	switch (appearance) {
 		case 'brand':
-			iconGradientStart = B400;
-			iconGradientStop = B200;
-			iconColor = B200;
+			iconGradientStart = '#0052CC';
+			iconGradientStop = '#2684FF';
+			iconColor = '#2684FF';
 			textColor = token('color.text');
 			// This is only used for the top level Atlassian wordmark (see AtlassianLogo
 			// or AtlassianStartLogo for example), and is only different for the Brand
 			// appearance - a bold brand color. For other appearances,
 			// atlassianLogoTextColor is the same as textColor.
-			atlassianLogoTextColor = B400;
+			atlassianLogoTextColor = '#0052CC';
 			break;
 		case 'neutral':
-			iconGradientStart = N600;
-			iconGradientStop = N100;
-			iconColor = N100;
-			textColor = N400;
-			atlassianLogoTextColor = N400;
+			iconGradientStart = '#344563';
+			iconGradientStop = '#7A869A';
+			iconColor = '#7A869A';
+			textColor = '#505F79';
+			atlassianLogoTextColor = '#505F79';
 			break;
 		case 'inverse':
 			iconGradientStart = '#FFFFFF66';
@@ -98,9 +97,9 @@ export const getColorsFromAppearance = (
 				atlassianLogoTextColor = '#6C6F77';
 				break;
 			case 'inverse':
-				iconColor = N0;
-				textColor = N0;
-				atlassianLogoTextColor = N0;
+				iconColor = '#FFFFFF';
+				textColor = '#FFFFFF';
+				atlassianLogoTextColor = '#FFFFFF';
 				break;
 		}
 	}

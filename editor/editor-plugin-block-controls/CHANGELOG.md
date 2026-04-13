@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.1.12
+
+### Patch Changes
+
+- [`38f6b2fea945a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38f6b2fea945a) -
+  Remove dragAndDropEnabled from test fixtures and audit false usages - prop is being deprecated
+
+## 9.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.9
+
+### Patch Changes
+
+- [`840d3970b9d8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/840d3970b9d8c) -
+  Fix paragraph spacing in panels for small font-size block marks
+
+  Fix drag handle positioning around small text
+
+  Fix drag handles not appearing on small text in panels
+
+- Updated dependencies
+
 ## 9.1.8
 
 ### Patch Changes

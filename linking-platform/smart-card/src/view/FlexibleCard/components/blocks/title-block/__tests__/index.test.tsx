@@ -561,10 +561,10 @@ describe('TitleBlock', () => {
 
 	describe('with loading skeleton', () => {
 		it.each<[SmartLinkSize, string]>([
-			[SmartLinkSize.XLarge, 'var(--ds-space-300)'],
-			[SmartLinkSize.Large, 'var(--ds-space-300)'],
-			[SmartLinkSize.Medium, 'var(--ds-space-200)'],
-			[SmartLinkSize.Small, 'var(--ds-space-200)'],
+			[SmartLinkSize.XLarge, 'var(--ds-space-300, 24px)'],
+			[SmartLinkSize.Large, 'var(--ds-space-300, 24px)'],
+			[SmartLinkSize.Medium, 'var(--ds-space-200, 16px)'],
+			[SmartLinkSize.Small, 'var(--ds-space-200, 16px)'],
 		])('renders by size %s', async (size: SmartLinkSize, dimension: string) => {
 			const LoadingSkeletonNewMock = jest.spyOn(LoadingSkeletonBundle, 'LoadingSkeleton');
 			LoadingSkeletonNewMock.mockClear();

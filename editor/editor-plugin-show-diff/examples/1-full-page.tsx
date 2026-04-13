@@ -189,7 +189,6 @@ export default function FullPageDiffEditor(): React.JSX.Element {
 							allowTableResizing: true,
 						},
 						isTableScalingEnabled: true,
-						dragAndDropEnabled: true,
 						allowContextualMenu: true,
 						fullWidthEnabled: true,
 					},

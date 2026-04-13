@@ -26,10 +26,11 @@ import {
 	ChatButton,
 	CreateButton,
 	Help,
+	Notifications,
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { setGlobalTheme } from '@atlaskit/tokens';
 
 // TODO: consider exposing this type properly, but it isn't needed for normal usage
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
@@ -109,8 +110,12 @@ const TopNavigation = ({ customTheme }: { customTheme?: CustomTheme }) => {
 	);
 };
 
-export const TopNavigationThemingWithPickerExample: () => JSX.Element = () => {
-	const [backgroundColor, setColor] = useState('#FFFFFF');
+export const TopNavigationThemingWithPickerExample: ({
+	initialBackgroundColor,
+}: {
+	initialBackgroundColor?: string;
+}) => JSX.Element = ({ initialBackgroundColor = '#FFFFFF' }) => {
+	const [backgroundColor, setColor] = useState(initialBackgroundColor);
 
 	return (
 		<WithResponsiveViewport>
@@ -128,6 +133,21 @@ export const TopNavigationThemingWithPickerExample: () => JSX.Element = () => {
 						value={backgroundColor}
 						onChange={(e) => setColor(e.currentTarget.value)}
 					/>
+					<button
+						onClick={() =>
+							setGlobalTheme((theme) => {
+								console.log(theme);
+								return {
+									...theme,
+									colorMode: theme.colorMode === 'light' ? 'dark' : 'light',
+									light: 'light',
+									dark: 'dark',
+								};
+							})
+						}
+					>
+						Toggle theme
+					</button>
 				</Main>
 			</Root>
 		</WithResponsiveViewport>
@@ -135,3 +155,7 @@ export const TopNavigationThemingWithPickerExample: () => JSX.Element = () => {
 };
 
 export default TopNavigationThemingWithPickerExample;
+
+export const TopNavigationThemingWithPickerExampleRed = (): JSX.Element => (
+	<TopNavigationThemingWithPickerExample initialBackgroundColor="#FF0000" />
+);

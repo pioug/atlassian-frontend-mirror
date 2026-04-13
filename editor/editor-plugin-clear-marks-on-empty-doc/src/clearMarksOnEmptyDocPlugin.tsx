@@ -3,7 +3,7 @@ import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-import { type ClearMarksOnEmptyDocPlugin } from './clearMarksOnEmptyDocPluginType';
+import type { ClearMarksOnEmptyDocPlugin } from './clearMarksOnEmptyDocPluginType';
 
 const pluginKey = new PluginKey('clearMarksOnChangeToEmptyDocumentPlugin');
 

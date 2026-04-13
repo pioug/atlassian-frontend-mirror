@@ -1,4 +1,4 @@
-import { type AutoformattingProvider } from '@atlaskit/editor-common/provider-factory';
+import type { AutoformattingProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Node as ProsemirrorNode } from '@atlaskit/editor-prosemirror/model';
 
 export type Reducer<ActionType> = (

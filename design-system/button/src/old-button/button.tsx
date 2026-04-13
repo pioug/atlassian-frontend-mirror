@@ -6,7 +6,7 @@ import { type CSSObject } from '@emotion/react';
 import noop from '@atlaskit/ds-lib/noop';
 
 import ButtonBase from './shared/button-base';
-import { getCss } from './shared/css';
+import { getCss } from './shared/get-css';
 import getIsOnlySingleIcon from './shared/get-is-only-single-icon';
 import { type BaseProps } from './types';
 

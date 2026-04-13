@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import variants from '../../../utils/variants';
 import testEventBlocking from '../_util/test-event-blocking';
 
-variants.forEach(({ name, Component, elementType }) => {
+Object.values(variants).forEach(({ name, Component, elementType }) => {
 	if (elementType === HTMLButtonElement) {
 		// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 		describe(`Loading ${name}`, () => {

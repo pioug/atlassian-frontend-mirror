@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent, { type UserEvent } from '@testing-library/user-event';
 
 import { type CommonButtonProps } from '../../../new-button/variants/types';
-import { type Variant } from '../../../utils/variants';
+import type { Variant } from '../../../utils/variants';
 
 const events: Array<keyof React.DOMAttributes<HTMLElement>> = [
 	'onMouseDown',
@@ -45,7 +45,7 @@ const fireButtonEvents = async (button: HTMLElement, user: UserEvent) => {
  * Tests button events do not fire given a set of provided props
  */
 export default function testEventBlocking<ButtonProps = CommonButtonProps<any>>(
-	Component: Variant['Component'],
+	Component: Variant[keyof Variant]['Component'],
 	props: ButtonProps,
 ): void {
 	events.forEach(async (eventName) => {

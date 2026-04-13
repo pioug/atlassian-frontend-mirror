@@ -39,7 +39,11 @@ export const AgentProfileCardResourced = (
 	props: AgentProfileCardResourcedProps,
 ): React.JSX.Element => {
 	const [agentData, setAgentData] = useState<RovoAgentProfileCardInfo>();
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+	// Initialize as true when fix is enabled since we fetch immediately on mount,
+	// avoiding a brief error screen flash before the useEffect fires.
+	const [isLoading, setIsLoading] = useState<boolean>(
+		fg('jira_ai_fix_agent_profile_card_flashing'),
+	);
 	const [error, setError] = useState();
 
 	const { fireEvent } = useAnalyticsEventsNext();
@@ -134,7 +138,24 @@ export const AgentProfileCardResourced = (
 		}
 	}, [fireEvent, getCreator, props.accountId, props.resourceClient]);
 
+	// Depend on accountId rather than fetchData to avoid a re-fetch loop:
+	// agentData changes → creatorUserId → getCreator → fetchData ref changes → useEffect re-fires.
+	// Reset state on accountId change so stale data from the previous agent isn't briefly shown.
 	useEffect(() => {
+		if (!fg('jira_ai_fix_agent_profile_card_flashing')) {
+			return;
+		}
+		setAgentData(undefined);
+		setError(undefined);
+		setIsLoading(true);
+		fetchData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [props.accountId]);
+
+	useEffect(() => {
+		if (fg('jira_ai_fix_agent_profile_card_flashing')) {
+			return;
+		}
 		fetchData();
 	}, [fetchData]);
 

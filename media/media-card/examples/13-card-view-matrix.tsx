@@ -17,7 +17,6 @@ import { type CardAction, type CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';
 import { type FileDetails, type MediaType } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl-next';
-import { Y75 } from '@atlaskit/theme/colors';
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
 import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
 
@@ -367,7 +366,7 @@ class Example extends React.Component<{}, State> {
 					actions={hasActions ? actions : []}
 					cardPreview={dataURI ? { dataURI, source: 'remote' } : undefined}
 					dimensions={dimensions}
-					titleBoxBgColor={withBgColorAndIcon ? Y75 : undefined}
+					titleBoxBgColor={withBgColorAndIcon ? '#FFF0B3' : undefined}
 					titleBoxIcon={withBgColorAndIcon ? 'LockFilledIcon' : undefined}
 					error={mediaCardErrorState(error)}
 					identifier={{

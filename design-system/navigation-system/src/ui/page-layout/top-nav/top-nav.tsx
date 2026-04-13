@@ -8,13 +8,15 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLink } from '../../../context/skip-links/skip-links-context';
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { type CustomTheme } from '../../top-nav-items/themed/get-custom-theme-styles';
 import { HasCustomThemeContext } from '../../top-nav-items/themed/has-custom-theme-context';
-import { useCustomTheme } from '../../top-nav-items/themed/use-custom-theme';
+import { HasDefaultBackgroundColorContext } from '../../top-nav-items/themed/has-default-background-color-context';
+import { useCustomTheme, useCustomThemeNew } from '../../top-nav-items/themed/use-custom-theme';
 import {
 	bannerMountedVar,
 	localSlotLayers,
@@ -118,20 +120,17 @@ const styles = cssMap({
 			gridTemplateColumns: '1fr minmax(min-content, max-content) 1fr',
 		},
 	},
+	fullHeightSidebarCustomTheming: {
+		'@media (min-width: 64rem)': {
+			'&::after': {
+				// Hide the top nav bottom borderwhen a custom background color is used
+				display: 'none',
+			},
+		},
+	},
 });
 
-/**
- * The top nav layout area. It will display at the top of the screen, below the banner if one is present.
- */
-export function TopNav({
-	children,
-	xcss,
-	height: heightProp,
-	skipLinkLabel = 'Top Bar',
-	testId,
-	id: providedId,
-	UNSAFE_theme,
-}: CommonSlotProps & {
+type TopNavProps = CommonSlotProps & {
 	/**
 	 * The content of the layout area.
 	 * Should include `TopNavStart`, `TopNavMiddle`, and `TopNavEnd`.
@@ -152,7 +151,20 @@ export function TopNav({
 	 * Feature is incomplete and API is subject to change at any time
 	 */
 	UNSAFE_theme?: CustomTheme;
-}): JSX.Element {
+};
+
+/**
+ * The top nav layout area. It will display at the top of the screen, below the banner if one is present.
+ */
+function TopNavOld({
+	children,
+	xcss,
+	height: heightProp,
+	skipLinkLabel = 'Top Bar',
+	testId,
+	id: providedId,
+	UNSAFE_theme,
+}: TopNavProps): JSX.Element {
 	const isFhsEnabled = useIsFhsEnabled();
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
@@ -193,3 +205,72 @@ export function TopNav({
 		</HasCustomThemeContext.Provider>
 	);
 }
+
+/**
+ * The top nav layout area. It will display at the top of the screen, below the banner if one is present.
+ */
+function TopNavNew({
+	children,
+	xcss,
+	height: heightProp,
+	skipLinkLabel = 'Top Bar',
+	testId,
+	id: providedId,
+	UNSAFE_theme,
+}: TopNavProps): JSX.Element {
+	const isFhsEnabled = useIsFhsEnabled();
+	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
+	const id = useLayoutId({ providedId });
+	useSkipLink(id, skipLinkLabel);
+
+	const hasIncreasedDefaultHeight = isFhsEnabled && fg('platform_dst_nav4_top_nav_increase_height');
+	const height = heightProp ?? (hasIncreasedDefaultHeight ? 56 : 48);
+
+	const customTheme = useCustomThemeNew(UNSAFE_theme);
+	const hasDefaultBackground = customTheme.isEnabled ? customTheme.hasDefaultBackground : true;
+
+	const { isExpandedOnDesktop } = useSideNavVisibility();
+
+	return (
+		<HasCustomThemeContext.Provider value={customTheme.isEnabled}>
+			<HasDefaultBackgroundColorContext.Provider value={hasDefaultBackground}>
+				<header
+					id={id}
+					data-layout-slot
+					css={[
+						styles.root,
+						isFhsEnabled && styles.fullHeightSidebar,
+						isExpandedOnDesktop && isFhsEnabled && styles.fullHeightSidebarExpanded,
+						customTheme.isEnabled &&
+							!hasDefaultBackground &&
+							fg('platform_dst_nav4_custom_theming_fhs_1') &&
+							styles.fullHeightSidebarCustomTheming,
+					]}
+					className={xcss}
+					data-testid={testId}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					style={customTheme.isEnabled ? customTheme.style : undefined}
+				>
+					<HoistCssVarToLocalGrid variableName={topNavMountedVar} value={height} />
+					{dangerouslyHoistSlotSizes && (
+						// ------ START UNSAFE STYLES ------
+						// These styles are only needed for the UNSAFE legacy use case for Jira + Confluence.
+						// When they aren't needed anymore we can delete them wholesale.
+						<DangerouslyHoistCssVarToDocumentRoot variableName={UNSAFE_topNavVar} value={height} />
+						// ------ END UNSAFE STYLES ------
+					)}
+					{children}
+				</header>
+			</HasDefaultBackgroundColorContext.Provider>
+		</HasCustomThemeContext.Provider>
+	);
+}
+
+/**
+ * The top nav layout area. It will display at the top of the screen, below the banner if one is present.
+ */
+export const TopNav: (props: TopNavProps) => React.ReactNode = componentWithFG(
+	'platform_dst_nav4_custom_theming_fhs_1',
+	TopNavNew,
+	TopNavOld,
+);

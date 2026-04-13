@@ -695,14 +695,11 @@ describe('VCObserverNew', () => {
 			expect(result.find((r) => r.revision === 'fy25.03')).toBeDefined();
 		});
 
-		it('should always include raw data when fy26.04 is not enabled and server-side TTVC gate is on', async () => {
+		it('should always include raw data when fy26.04 is not enabled', async () => {
 			// Only enable fy25.03
 			(isVCRevisionEnabled as jest.Mock).mockImplementation((revision: string) => {
 				return revision === 'fy25.03';
 			});
-			(fg as jest.Mock).mockImplementation(
-				(flag: string) => flag === 'platform_ufo_ttvc_server_side_sync',
-			);
 
 			const result = await vcObserver.getVCResult({
 				start: 0,
@@ -710,17 +707,17 @@ describe('VCObserverNew', () => {
 				interactionId: 'test-interaction-id',
 				interactionType: 'page_load',
 				isPageVisible: true,
-				includeRawData: false, // explicitly false, but should still include raw data
+				includeRawData: false,
 			});
 
 			expect(RawDataHandler.prototype.getRawData).toHaveBeenCalled();
 			expect(result.find((r) => r.revision === 'raw-handler')).toBeDefined();
 		});
 
-		it('should not auto-include raw data when server-side TTVC gate is off', async () => {
-			// Only enable fy25.03, but server-side TTVC gate is off
+		it('should not include raw data when fy26.04 is enabled and includeRawData is false', async () => {
+			// Only enable fy26.04
 			(isVCRevisionEnabled as jest.Mock).mockImplementation((revision: string) => {
-				return revision === 'fy25.03';
+				return revision === 'fy26.04';
 			});
 			(fg as jest.Mock).mockImplementation(() => false);
 

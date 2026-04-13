@@ -220,8 +220,8 @@ describe('hover card over flexible smart links', () => {
 			const metadataBlock = await screen.findAllByTestId('smart-block-metadata-resolved-view');
 			await event.click(metadataBlock[0]);
 
-			const previewButton = await screen.findByTestId('smart-action-preview-action');
-			await event.click(previewButton);
+			const copyLinkButton = await screen.findByTestId('smart-action-copy-link-action');
+			await event.click(copyLinkButton);
 
 			expect(mockOnClick).not.toHaveBeenCalled();
 		});

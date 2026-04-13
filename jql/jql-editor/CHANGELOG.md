@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 5.14.4
+
+### Patch Changes
+
+- [`6198f7a6a67fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6198f7a6a67fc) -
+  Handle the long project name and add a long-display-name sample project to example data.
+
 ## 5.14.3
 
 ### Patch Changes

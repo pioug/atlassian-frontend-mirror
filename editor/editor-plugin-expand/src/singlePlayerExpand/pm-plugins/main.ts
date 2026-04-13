@@ -1,7 +1,7 @@
 import type { IntlShape } from 'react-intl-next';
 
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
@@ -10,9 +10,9 @@ import {
 	transformSliceNestedExpandToExpand,
 } from '@atlaskit/editor-common/transforms';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { ExpandPlugin } from '../../types';
 // Ignored via go/ees005
@@ -72,7 +72,7 @@ export const createPlugin = (
 				(target) => target.classList.contains(expandClassNames.prefix),
 				{ useLongPressSelection },
 			),
-			handleDrop(view, event, slice, moved) {
+			handleDrop(view, event, slice, _moved) {
 				return handleExpandDrag(view, event, slice);
 			},
 		},

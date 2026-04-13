@@ -1,4 +1,3 @@
-import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 import evaluateInner from './utils/evaluate-inner';
@@ -17,7 +16,7 @@ const _default_1: string = evaluateInner`
   body,
 	[data-subtree-theme] {
 		background-color: ${token('elevation.surface', '#fff')};
-		color: ${token('color.text', colors.N800)};
+		color: ${token('color.text', '#172B4D')};
 		font: ${token('font.body', `normal 400 14px/1.42857142857143 ${fontFamily}`)};
 	}
 
@@ -46,20 +45,20 @@ const _default_1: string = evaluateInner`
 
   /* Links */
   a {
-    color: ${token('color.link', colors.B400)};
+    color: ${token('color.link', '#0052CC')};
     text-decoration: none;
   }
   a:hover {
-    color: ${token('color.link', colors.B300)};
+    color: ${token('color.link', '#0065FF')};
     text-decoration: underline;
   }
   a:active {
-    color: ${token('color.link.pressed', colors.B500)};
+    color: ${token('color.link.pressed', '#0747A6')};
   }
   a:focus-visible {
     outline: ${token('border.width.focused', '2px')} solid ${token(
 			'color.border.focused',
-			colors.B200,
+			'#2684FF',
 		)};
     outline-offset: ${token('space.025', '2px')};
   }
@@ -67,7 +66,7 @@ const _default_1: string = evaluateInner`
     a:focus {
       outline: ${token('border.width.focused', '2px')} solid ${token(
 				'color.border.focused',
-				colors.B100,
+				'#4C9AFF',
 			)};
       outline-offset: ${token('space.025', '2px')};
     }

@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import variants from '../../../utils/variants';
 
-variants.forEach(({ name, Component }) => {
+Object.values(variants).forEach(({ name, Component }) => {
 	it(`${name} should not add unnecessary \`tabIndex={0}\` to enable focus`, async () => {
 		render(<Component testId={name}>Button</Component>);
 

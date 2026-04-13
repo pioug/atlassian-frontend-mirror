@@ -1,7 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { type StylesConfig } from '@atlaskit/select';
-import * as colors from '@atlaskit/theme/colors';
 
 import SmartUserPicker from '../src';
 import { useEndpointMocks } from '../example-helpers/mock-endpoints';
@@ -18,7 +17,7 @@ const Example = (): React.JSX.Element => {
 		}),
 		input: (style) => ({
 			...style,
-			color: colors.N10,
+			color: '#FAFBFC',
 		}),
 	};
 

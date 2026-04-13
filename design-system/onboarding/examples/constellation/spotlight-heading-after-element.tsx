@@ -10,7 +10,6 @@ import {
 	SpotlightTarget,
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
-import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const SpotlightHeadingAfterElement = (): React.JSX.Element => {
@@ -49,7 +48,7 @@ const SpotlightHeadingAfterElement = (): React.JSX.Element => {
 						target="comment"
 						key="comment"
 						targetRadius={3}
-						targetBgColor={N0}
+						targetBgColor={'#FFFFFF'}
 					>
 						Quickly add a comment to the work item.
 					</Spotlight>

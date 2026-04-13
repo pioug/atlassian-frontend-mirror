@@ -6,14 +6,14 @@ import { axe } from '@af/accessibility-testing';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 
 import ButtonGroup from '../../../containers/button-group';
-import { SplitButton } from '../../../new-button/containers/split-button';
+import { SplitButton } from '../../../new-button/containers/split-button/split-button';
 import Button from '../../../new-button/variants/default/button';
 import LinkButton from '../../../new-button/variants/default/link';
 import IconButton from '../../../new-button/variants/icon/button';
 import LinkIconButton from '../../../new-button/variants/icon/link';
-import variants, { iconButtonVariants } from '../../../utils/variants';
+import variants from '../../../utils/variants';
 
-variants.forEach(({ name, Component, appearances }) =>
+Object.values(variants).forEach(({ name, Component, appearances }) =>
 	appearances.map((appearance) => {
 		// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 		describe(`${name}: '${appearance}' appearance accessibility`, () => {
@@ -114,7 +114,7 @@ describe('SplitButton: Accessibility', () => {
 });
 
 describe('Icon button: Accessibility', () => {
-	iconButtonVariants.forEach(({ name, Component }) => {
+	[variants.IconButton, variants.LinkIconButton].forEach(({ name, Component }) => {
 		const appearances: ComponentProps<typeof IconButton>['appearance'][] = [
 			'default',
 			'primary',
@@ -149,7 +149,7 @@ describe('Icon button: Accessibility', () => {
 
 		it(`${name}: should not allow 'aria-label' to be passed in order to prevent duplicate labels`, async () => {
 			render(
-				// @ts-expect-error
+				// @ts-expect-error - TS is unaware this isn't applying to IconButton
 				<Component
 					testId="icon-button"
 					aria-label="Settings"

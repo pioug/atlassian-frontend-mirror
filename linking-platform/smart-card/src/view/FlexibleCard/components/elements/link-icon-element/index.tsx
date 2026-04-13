@@ -10,7 +10,7 @@ import { resourceTypeToLabel } from './resourceTypeToLabel';
 
 export type LinkIconElementProps = BaseIconElementProps;
 
-const LinkIconElement = (props: LinkIconElementProps): JSX.Element | null => {
+const LinkIconElement: (props: LinkIconElementProps) => JSX.Element | null = (props) => {
 	const context = useFlexibleUiContext();
 
 	if (!context) {

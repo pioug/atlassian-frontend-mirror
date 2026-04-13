@@ -31,13 +31,50 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type TextColorPluginOptions = TextColorPluginConfig | boolean;
+
+type Dependencies = [
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<PrimaryToolbarPlugin>,
+  OptionalPlugin<SelectionToolbarPlugin>,
+  OptionalPlugin<ToolbarPlugin>,
+  OptionalPlugin<UserPreferencesPlugin>,
+  OptionalPlugin<HighlightPlugin>,
+];
+
 type TextColorPlugin = NextEditorPlugin<
   'textColor',
   {
-    pluginConfiguration: Config | undefined;
-    dependencies: [OptionalPlugin<AnalyticsPlugin>];
+    actions: {
+      changeColor: (color: string, inputMethod?: TextColorInputMethod) => Command;
+    };
+    commands: {
+      changeColor: (color: string, inputMethod?: TextColorInputMethod) => EditorCommand;
+      setPalette: (isPaletteOpen: boolean) => EditorCommand;
+    };
+    dependencies: Dependencies;
+    pluginConfiguration: TextColorPluginOptions | undefined;
+    sharedState: TextColorPluginState | undefined;
   }
 >;
+
+type TextColorInputMethod = INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
+
+type TextColorPluginState = {
+  color: string | null;
+  defaultColor: string;
+  disabled?: boolean;
+  isPaletteOpen?: boolean;
+  palette: Array<PaletteColor>;
+};
+
+interface TextColorPluginConfig {
+  defaultColor?: {
+    color: string;
+    label: string;
+  };
+  toolbarConfig?: Exclude<PluginToolbarComponentConfig, 'showAt'>;
+}
 `}
 
 

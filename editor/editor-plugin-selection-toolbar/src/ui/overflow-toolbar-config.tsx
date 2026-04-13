@@ -3,11 +3,11 @@
  * @jsx jsx
  * @jsxFrag
  */
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import { jsx } from '@atlaskit/css';
 import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import DockToolbarTopIcon from '@atlaskit/icon-lab/core/dock-toolbar-top';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';

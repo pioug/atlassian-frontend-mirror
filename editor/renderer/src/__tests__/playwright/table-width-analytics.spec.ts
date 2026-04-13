@@ -25,9 +25,6 @@ test.describe('table width information analytics', () => {
 		rendererProps: {
 			appearance: 'full-page',
 		},
-		editorExperiments: {
-			platform_editor_a11y_table_wrapper_fix: true,
-		},
 	});
 
 	test.describe('for a normal table', () => {

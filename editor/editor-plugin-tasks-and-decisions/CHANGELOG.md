@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 11.4.13
+
+### Patch Changes
+
+- [`9ff7d1c1aa288`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ff7d1c1aa288) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
+## 11.4.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.4.11
 
 ### Patch Changes

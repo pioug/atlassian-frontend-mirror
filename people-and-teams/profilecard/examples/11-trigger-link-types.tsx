@@ -2,7 +2,6 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
-import { G400, G75, R75, Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import ProfileCardClient from '../src/client/ProfileCardClient';
@@ -172,21 +171,21 @@ const TriggerTypeTable = (): React.JSX.Element => (
 						</Text>
 					</Head>
 					<Cell>
-						<Trigger trigger="hover" triggerLinkType="none" color={Y75} />
+						<Trigger trigger="hover" triggerLinkType="none" color={'#FFF0B3'} />
 						<p>
 							Only recommended for use cases where you are already wrapping the trigger in something
 							like a link.
 						</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="hover" triggerLinkType="link" color={Y75} />
+						<Trigger trigger="hover" triggerLinkType="link" color={'#FFF0B3'} />
 						<p>
 							This is confusing for screen-reader users. The trigger is a link that they cannot
 							click through. (They can still open in new tab)
 						</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="hover" triggerLinkType="clickable-link" color={G75} />
+						<Trigger trigger="hover" triggerLinkType="clickable-link" color={'#ABF5D1'} />
 						<p>
 							This is okay for use cases where the trigger is primarily a link to the team profile
 							and the card is secondary.
@@ -202,18 +201,18 @@ const TriggerTypeTable = (): React.JSX.Element => (
 						</Text>
 					</Head>
 					<Cell>
-						<Trigger trigger="click" triggerLinkType="none" color={R75} />
+						<Trigger trigger="click" triggerLinkType="none" color={'#FFBDAD'} />
 						<p>Confusing for screen reader users. No indication that this is interactible.</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="click" triggerLinkType="link" color={G400} whiteText />
+						<Trigger trigger="click" triggerLinkType="link" color={'#00875A'} whiteText />
 						<p>
 							The most highly recommended behaviour. Easy to interact with and suitable for mouse
 							and keyboard/screen-reader users. Link is also very useful.
 						</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="click" triggerLinkType="clickable-link" color={R75} />
+						<Trigger trigger="click" triggerLinkType="clickable-link" color={'#FFBDAD'} />
 						<p>
 							This behaviour doesn't make much sense, since trying to open the profile card by
 							clicking just navigates you away.
@@ -229,19 +228,19 @@ const TriggerTypeTable = (): React.JSX.Element => (
 						</Text>
 					</Head>
 					<Cell>
-						<Trigger trigger="hover-click" triggerLinkType="none" color={R75} />
+						<Trigger trigger="hover-click" triggerLinkType="none" color={'#FFBDAD'} />
 						<p>Not useful to keyboard/screen-reader users.</p>
 						<p>Either of the above combinations would be better than this.</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="hover-click" triggerLinkType="link" color={G75} />
+						<Trigger trigger="hover-click" triggerLinkType="link" color={'#ABF5D1'} />
 						<p>
 							The perfect scenario for when mouse users cannot click the trigger, e.g. in an inline
 							edit (like a Jira team field).
 						</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="hover-click" triggerLinkType="clickable-link" color={R75} />
+						<Trigger trigger="hover-click" triggerLinkType="clickable-link" color={'#FFBDAD'} />
 						<p>
 							Not substantially different from a hover-only clickable-link, as keyboard users cannot
 							reasonably open the profile card in either case.

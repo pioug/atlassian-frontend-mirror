@@ -1,6 +1,3 @@
-// AFP-2532 TODO: Fix automatic suppressions below
-import { colors } from '@atlaskit/theme';
-
 import dataUri from './utils/data-uri';
 import evaluateInner from './utils/evaluate-inner';
 
@@ -20,7 +17,7 @@ module.exports = evaluateInner`
   }
   .ak-field-group > label,
   .ak-field-group > legend {
-    color: ${colors.N200};
+    color: ${'#6B778C'};
     display: block;
     font-size: ${labelFontSize}px;
     font-weight: 600;
@@ -46,12 +43,12 @@ module.exports = evaluateInner`
   .ak-field-password,
   .ak-field-select,
   .ak-field-textarea {
-    background-color: ${colors.N10};
+    background-color: ${'#FAFBFC'};
     border-radius: ${baseBorderRadius};
-    border: 2px solid ${colors.N40};
+    border: 2px solid ${'#DFE1E6'};
     box-shadow: none;
     box-sizing: border-box;
-    color: ${colors.N800};
+    color: ${'#172B4D'};
     font-family: inherit;
     font-size: 14px;
     line-height: 20px;
@@ -75,8 +72,8 @@ module.exports = evaluateInner`
   .ak-field-password:hover,
   .ak-field-select:hover,
   .ak-field-textarea:hover {
-    background-color: ${colors.N30};
-    border-color: ${colors.N40};
+    background-color: ${'#EBECF0'};
+    border-color: ${'#DFE1E6'};
   }
   .ak-field-text:focus,
   .ak-field-date:focus,
@@ -92,8 +89,8 @@ module.exports = evaluateInner`
   .ak-field-password:focus,
   .ak-field-select:focus,
   .ak-field-textarea:focus {
-    background-color: ${colors.N0};
-    border-color: ${colors.B100};
+    background-color: ${'#FFFFFF'};
+    border-color: ${'#4C9AFF'};
   }
   .ak-field-text:focus:invalid,
   .ak-field-date:focus:invalid,
@@ -123,7 +120,7 @@ module.exports = evaluateInner`
   .ak-field-password:focus:out-of-range,
   .ak-field-select:focus:out-of-range,
   .ak-field-textarea:focus:out-of-range {
-    border-color: ${colors.R400};
+    border-color: ${'#DE350B'};
   }
   .ak-field-text[disabled],
   .ak-field-date[disabled],
@@ -153,9 +150,9 @@ module.exports = evaluateInner`
   .ak-field-password[disabled]:hover,
   .ak-field-select[disabled]:hover,
   .ak-field-textarea[disabled]:hover {
-    background-color: ${colors.N20};
+    background-color: ${'#F4F5F7'};
     border-color: transparent;
-    color: ${colors.N70};
+    color: ${'#A5ADBA'};
     cursor: not-allowed;
     resize: none;
   }
@@ -173,7 +170,7 @@ module.exports = evaluateInner`
   .ak-field-password::-webkit-input-placeholder,
   .ak-field-select::-webkit-input-placeholder,
   .ak-field-textarea::-webkit-input-placeholder {
-    color: ${colors.N100};
+    color: ${'#7A869A'};
   }
   .ak-field-text::-moz-placeholder,
   .ak-field-date::-moz-placeholder,
@@ -189,7 +186,7 @@ module.exports = evaluateInner`
   .ak-field-password::-moz-placeholder,
   .ak-field-select::-moz-placeholder,
   .ak-field-textarea::-moz-placeholder {
-    color: ${colors.N100};
+    color: ${'#7A869A'};
   }
   .ak-field-text:-ms-input-placeholder,
   .ak-field-date:-ms-input-placeholder,
@@ -205,7 +202,7 @@ module.exports = evaluateInner`
   .ak-field-password:-ms-input-placeholder,
   .ak-field-select:-ms-input-placeholder,
   .ak-field-textarea:-ms-input-placeholder {
-    color: ${colors.N100};
+    color: ${'#7A869A'};
   }
   .ak-field-text:-moz-placeholder,
   .ak-field-date:-moz-placeholder,
@@ -221,7 +218,7 @@ module.exports = evaluateInner`
   .ak-field-password:-moz-placeholder,
   .ak-field-select:-moz-placeholder,
   .ak-field-textarea:-moz-placeholder {
-    color: ${colors.N100};
+    color: ${'#7A869A'};
   }
   .ak-field-textarea {
     display: block;
@@ -245,21 +242,21 @@ module.exports = evaluateInner`
     -webkit-appearance: none;
   }
   .ak-field-color {
-    background-color: ${colors.N10};
+    background-color: ${'#FAFBFC'};
     border-radius: ${baseBorderRadius};
-    border: 2px solid ${colors.N40};
+    border: 2px solid ${'#DFE1E6'};
     box-sizing: border-box;
     height: 40px;
     padding: 6px 4px; /* special sizes just for color inputs */
     transition: border-color ${baseTransitionDuration} ease-in-out;
   }
   .ak-field-color:focus {
-    background-color: ${colors.N0};
-    border-color: ${colors.B100};
+    background-color: ${'#FFFFFF'};
+    border-color: ${'#4C9AFF'};
     outline: none;
   }
   .ak-field-color:focus:invalid {
-    border-color: ${colors.R400};
+    border-color: ${'#DE350B'};
   }
   .ak-field-select {
     -moz-appearance: none;
@@ -267,16 +264,16 @@ module.exports = evaluateInner`
     appearance: none;
   }
   .ak-field-select > optgroup[label] {
-    color: ${colors.N300};
+    color: ${'#5E6C84'};
     font-size: 14px;
     font-weight: normal;
     line-height: 1.42857143;
   }
   .ak-field-select > optgroup[label] > option {
-    color: ${colors.N800};
+    color: ${'#172B4D'};
   }
   .ak-field-select > option {
-    color: ${colors.N800};
+    color: ${'#172B4D'};
   }
   .ak-field-select:not([multiple]) {
     background-image: ${dataUri('icons/expand.svg')};
@@ -296,11 +293,11 @@ module.exports = evaluateInner`
     padding: 2px 6px;
   }
   .ak-field-select[multiple] > option:checked {
-    background-color: ${colors.N40};
+    background-color: ${'#DFE1E6'};
     color: inherit;
   }
   .ak-field-select[multiple]:focus > option:checked {
-    background-color: ${colors.B100};
+    background-color: ${'#4C9AFF'};
     color: white;
   }
   .ak-field-select:-moz-focusring {
@@ -334,7 +331,7 @@ module.exports = evaluateInner`
   .ak-field-checkbox > input[type='checkbox'] + label::after {
     background: ${dataUri('icons/checkbox-unchecked.svg')} no-repeat 50% 50%;
     border-radius: ${baseBorderRadius};
-    border: ${baseBorderWidth}px solid ${colors.N40};
+    border: ${baseBorderWidth}px solid ${'#DFE1E6'};
     box-sizing: border-box;
     content: '';
     height: 14px;
@@ -346,10 +343,10 @@ module.exports = evaluateInner`
   }
   .ak-field-checkbox > input[type='checkbox']:not([disabled]) + label:hover::after {
     background-image: ${dataUri('icons/checkbox-unchecked-hover.svg')};
-    border-color: ${colors.N40};
+    border-color: ${'#DFE1E6'};
   }
   .ak-field-checkbox > input[type='checkbox'][disabled] + label {
-    color: ${colors.N70};
+    color: ${'#A5ADBA'};
   }
   .ak-field-checkbox > input[type='checkbox'][disabled] + label::after {
     background-image: ${dataUri('icons/checkbox-unchecked-disabled.svg')};
@@ -367,7 +364,7 @@ module.exports = evaluateInner`
     background-image: ${dataUri('icons/checkbox-checked-disabled.svg')};
   }
   .ak-field-checkbox > input[type='checkbox']:focus + label::after {
-    border-color: ${colors.B100} !important;
+    border-color: ${'#4C9AFF'} !important;
   }
   .ak-field-radio {
     clear: both;
@@ -393,7 +390,7 @@ module.exports = evaluateInner`
   .ak-field-radio > input[type='radio'] + label::after {
     background: ${dataUri('icons/radio-unchecked.svg')} no-repeat 50% 50%;
     border-radius: 50%;
-    border: ${baseBorderWidth}px solid ${colors.N40};
+    border: ${baseBorderWidth}px solid ${'#DFE1E6'};
     box-sizing: border-box;
     content: '';
     height: 14px;
@@ -405,10 +402,10 @@ module.exports = evaluateInner`
   }
   .ak-field-radio > input[type='radio']:not([disabled]) + label:hover::after {
     background-image: ${dataUri('icons/radio-unchecked-hover.svg')};
-    border-color: ${colors.N40};
+    border-color: ${'#DFE1E6'};
   }
   .ak-field-radio > input[type='radio'][disabled] + label {
-    color: ${colors.N70};
+    color: ${'#A5ADBA'};
   }
   .ak-field-radio > input[type='radio'][disabled] + label::after {
     background-image: ${dataUri('icons/radio-unchecked-disabled.svg')};
@@ -428,7 +425,7 @@ module.exports = evaluateInner`
     background-image: ${dataUri('icons/radio-checked-disabled.svg')};
   }
   .ak-field-radio > input[type='radio']:focus + label::after {
-    border-color: ${colors.B100} !important;
+    border-color: ${'#4C9AFF'} !important;
   }
   .ak-field__width-xsmall {
     max-width: 80px;

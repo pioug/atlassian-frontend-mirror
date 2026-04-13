@@ -7,11 +7,12 @@ import LinkButton, { type LinkButtonProps } from '../new-button/variants/default
 import IconButton, { type IconButtonProps } from '../new-button/variants/icon/button';
 import LinkIconButton, { type LinkIconButtonProps } from '../new-button/variants/icon/link';
 
-import { buttonAppearances, iconButtonAppearances, linkButtonAppearances } from './appearances';
-import { buttonSpacing, iconButtonSpacing } from './spacing';
-
-type IconButtonShape = 'default' | 'circle';
-export const iconButtonShapes: IconButtonShape[] = ['default', 'circle'];
+import { buttonAppearances } from './button-appearances';
+import { buttonSpacing } from './button-spacing';
+import { iconButtonAppearances } from './icon-button-appearances';
+import { iconButtonShapes } from './icon-button-shapes';
+import { iconButtonSpacing } from './icon-button-spacing';
+import { linkButtonAppearances } from './link-button-appearances';
 
 type DefaultButtonVariant = {
 	name: 'Button';
@@ -44,15 +45,12 @@ type LinkIconButtonVariant = {
 	shape: typeof iconButtonShapes;
 };
 
-type DefaultButtonVariants = DefaultButtonVariant | LinkButtonVariant;
-type LinkButtonVariants = LinkButtonVariant | LinkIconButtonVariant;
-type IconButtonVariants = IconButtonVariant | LinkIconButtonVariant;
-
-export type Variant =
-	| DefaultButtonVariant
-	| LinkButtonVariant
-	| IconButtonVariant
-	| LinkIconButtonVariant;
+export type Variant = {
+	Button: DefaultButtonVariant;
+	LinkButton: LinkButtonVariant;
+	IconButton: IconButtonVariant;
+	LinkIconButton: LinkIconButtonVariant;
+};
 
 // Add required default props to variants
 const LinkButtonRender: React.ForwardRefExoticComponent<
@@ -122,22 +120,22 @@ const LinkIconButtonRender: React.ForwardRefExoticComponent<
 	) => <LinkIconButton ref={ref} href={href} icon={icon} label={label} {...rest} />,
 );
 
-const variants: Variant[] = [
-	{
+const variants: Variant = {
+	Button: {
 		name: 'Button',
 		Component: Button,
 		elementType: HTMLButtonElement,
 		appearances: buttonAppearances,
 		spacing: buttonSpacing,
 	},
-	{
+	LinkButton: {
 		name: 'LinkButton',
 		Component: LinkButtonRender,
 		elementType: HTMLAnchorElement,
 		appearances: linkButtonAppearances,
 		spacing: buttonSpacing,
 	},
-	{
+	IconButton: {
 		name: 'IconButton',
 		Component: IconButtonRender,
 		elementType: HTMLButtonElement,
@@ -145,7 +143,7 @@ const variants: Variant[] = [
 		spacing: iconButtonSpacing,
 		shape: iconButtonShapes,
 	},
-	{
+	LinkIconButton: {
 		name: 'LinkIconButton',
 		Component: LinkIconButtonRender,
 		elementType: HTMLAnchorElement,
@@ -153,18 +151,6 @@ const variants: Variant[] = [
 		spacing: iconButtonSpacing,
 		shape: iconButtonShapes,
 	},
-];
-
-export const defaultButtonVariants: DefaultButtonVariants[] = variants.filter(
-	({ name }) => name === 'Button' || name === 'LinkButton',
-) as DefaultButtonVariants[];
-
-export const linkButtonVariants: LinkButtonVariants[] = variants.filter(
-	({ name }) => name === 'LinkButton' || name === 'LinkIconButton',
-) as LinkButtonVariants[];
-
-export const iconButtonVariants: IconButtonVariants[] = variants.filter(
-	({ name }) => name === 'IconButton' || name === 'LinkIconButton',
-) as IconButtonVariants[];
+};
 
 export default variants;

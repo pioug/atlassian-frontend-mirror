@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 128.9.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.9.6
+
+### Patch Changes
+
+- [`eb7b15df32e03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb7b15df32e03) -
+  [FFCLEANUP-96830] Removed `platform_editor_a11y_table_wrapper_fix` experiment. Table wrapper is
+  now always rendered as a scrollable region when `tabIndex` is defined.
+- Updated dependencies
+
 ## 128.9.5
 
 ### Patch Changes

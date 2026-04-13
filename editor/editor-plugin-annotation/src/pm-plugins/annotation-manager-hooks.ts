@@ -13,7 +13,7 @@ import {
 	getRangeInlineNodeNames,
 } from '@atlaskit/editor-common/utils';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
 	setInlineCommentDraftState,
@@ -49,7 +49,7 @@ const domRefFromPos = (view: EditorView, position: number) => {
 };
 
 export const allowAnnotation =
-	(editorView: EditorView, options: InlineCommentPluginOptions) => (): boolean => {
+	(editorView: EditorView, _options: InlineCommentPluginOptions) => (): boolean => {
 		const { isDrafting, draftDecorationSet } =
 			inlineCommentPluginKey.getState(editorView.state) || {};
 
@@ -230,7 +230,7 @@ export const applyDraft =
 	};
 
 export const getDraft =
-	(editorView: EditorView, options: InlineCommentPluginOptions) => (): GetDraftResult => {
+	(editorView: EditorView, _options: InlineCommentPluginOptions) => (): GetDraftResult => {
 		const { isDrafting, draftDecorationSet } =
 			inlineCommentPluginKey.getState(editorView.state) || {};
 
@@ -343,7 +343,7 @@ export const setIsAnnotationSelected =
 	};
 
 export const setIsAnnotationHovered =
-	(editorView: EditorView, options: InlineCommentPluginOptions) =>
+	(editorView: EditorView, _options: InlineCommentPluginOptions) =>
 	(id: AnnotationId, isHovered: boolean): HoverAnnotationResult => {
 		const { annotations, hoveredAnnotations } =
 			inlineCommentPluginKey.getState(editorView.state) || {};

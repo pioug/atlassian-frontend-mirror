@@ -4,8 +4,8 @@ import { render } from 'react-dom';
 import { IntlProvider, type IntlShape } from 'react-intl-next';
 
 import { type HyperlinkState, LinkAction, OverlayButton } from '@atlaskit/editor-common/link';
-import { type PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export const ButtonWrapper = ({
 	editorView,

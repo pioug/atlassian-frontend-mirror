@@ -14,10 +14,8 @@ import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import {
-	SplitButtonContext,
-	useSplitButtonContext,
-} from '../../containers/split-button/split-button-context';
+import { SplitButtonContext } from '../../containers/split-button/split-button-context';
+import { useSplitButtonContext } from '../../containers/split-button/use-split-button-context';
 import {
 	type Appearance,
 	type CommonBaseProps,

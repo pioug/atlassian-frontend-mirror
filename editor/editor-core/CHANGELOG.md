@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 217.12.7
+
+### Patch Changes
+
+- [`48a64b7bbac82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48a64b7bbac82) -
+  Clean up stale experiment platform_editor_plain_text_support (always-enabled path)
+- Updated dependencies
+
+## 217.12.6
+
+### Patch Changes
+
+- [`ddd049a745d38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddd049a745d38) -
+  Internal change to how legacy colors are applied. No visual changes.
+- Updated dependencies
+
+## 217.12.5
+
+### Patch Changes
+
+- [`840d3970b9d8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/840d3970b9d8c) -
+  Fix paragraph spacing in panels for small font-size block marks
+
+  Fix drag handle positioning around small text
+
+  Fix drag handles not appearing on small text in panels
+
+- Updated dependencies
+
 ## 217.12.4
 
 ### Patch Changes

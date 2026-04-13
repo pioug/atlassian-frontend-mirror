@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 8.2.9
+
+### Patch Changes
+
+- [`9ff7d1c1aa288`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ff7d1c1aa288) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
+## 8.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.7
 
 ### Patch Changes

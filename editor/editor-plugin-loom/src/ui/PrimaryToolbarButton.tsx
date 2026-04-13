@@ -20,7 +20,7 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 
 import type { LoomPlugin } from '../loomPluginType';
 import { executeRecordVideo } from '../pm-plugins/commands';
-import { type ButtonComponentProps, type LoomPluginOptions } from '../types';
+import type { ButtonComponentProps, LoomPluginOptions } from '../types';
 
 import ToolbarButtonComponent from './ToolbarButtonComponent';
 

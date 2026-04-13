@@ -56,6 +56,14 @@ describe('ContentContainer', () => {
 		expect(contentContainer.classList.contains(hoverCardClassName)).toBe(true);
 	});
 
+	it('uses the slim shell width when requested', async () => {
+		setup({ widthAppearance: 'slim' });
+
+		const contentContainer = await screen.findByTestId(testId);
+
+		expect(contentContainer).toHaveCompiledCss('width', '20rem');
+	});
+
 	describe('when AI summary is enabled', () => {
 		it('wraps container in AI prism', async () => {
 			setup({ isAIEnabled: true });

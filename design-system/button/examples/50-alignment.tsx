@@ -15,7 +15,7 @@ import variants from '../src/utils/variants';
 export default function AlignmentExample(): React.JSX.Element {
 	return (
 		<Stack space="space.300">
-			{variants.map(({ name, Component, spacing }) => (
+			{Object.values(variants).map(({ name, Component, spacing }) => (
 				<Stack key={name} space="space.150">
 					<h2>{name}</h2>
 					{spacing.map((space) => (

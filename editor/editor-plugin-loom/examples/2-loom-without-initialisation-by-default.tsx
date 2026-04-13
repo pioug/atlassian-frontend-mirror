@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { ButtonGroup } from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
-import { type PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';

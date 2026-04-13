@@ -36,7 +36,6 @@ import {
 	SearchSort,
 } from '@atlaskit/emoji';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createEmojiFragment, insertEmoji } from './editor-commands/insert-emoji';
@@ -171,10 +170,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			// if the query has space at the end
 			// check the ascii map for emojis
 			if (
-				!(
-					options?.disableAutoformat &&
-					expValEquals('platform_editor_plain_text_support', 'isEnabled', true)
-				) &&
+				!options?.disableAutoformat &&
 				asciiMap &&
 				normalizedQuery.length >= 3 &&
 				normalizedQuery.endsWith(' ') &&
@@ -269,9 +265,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 							schema,
 							api?.analytics?.actions,
 							api,
-							expValEquals('platform_editor_plain_text_support', 'isEnabled', true)
-								? options?.disableAutoformat
-								: undefined,
+							options?.disableAutoformat,
 						),
 				},
 			];

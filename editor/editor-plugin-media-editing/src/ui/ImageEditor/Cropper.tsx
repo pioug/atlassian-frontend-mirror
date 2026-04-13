@@ -16,12 +16,12 @@ import React, {
 import { jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
-import {
-	type CropperCanvasElement,
-	type CropperSelectionElement,
-	type CropperEventHandler,
-	type CropperImageElement,
-	type CropperBounds,
+import type {
+	CropperCanvasElement,
+	CropperSelectionElement,
+	CropperEventHandler,
+	CropperImageElement,
+	CropperBounds,
 } from './types';
 
 const isSSRRender = (): boolean =>

@@ -234,18 +234,11 @@ export function setUFOConfig(newConfig: Config): void {
 		const byExperience =
 			typeof enabledVCRevisions?.byExperience === 'object' ? enabledVCRevisions.byExperience : {};
 
-		const allRevisions = fg('platform_ufo_ttvc_server_side_sync')
-			? [
-					// When server-side TTVC is enabled, products control their own revisions
-					...(enabledVCRevisions?.all ?? []),
-					...Object.values(byExperience).flat(),
-				]
-			: [
-					// DEFAULT_TTVC_REVISION must always be present in `all`
-					getDefaultTTVCRevision(),
-					...(enabledVCRevisions?.all ?? []),
-					...Object.values(byExperience).flat(),
-				];
+		const allRevisions = [
+			// Products control their own revisions.
+			...(enabledVCRevisions?.all ?? []),
+			...Object.values(byExperience).flat(),
+		];
 
 		config = {
 			...newConfig,

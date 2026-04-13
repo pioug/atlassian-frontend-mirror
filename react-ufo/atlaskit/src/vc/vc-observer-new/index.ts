@@ -366,11 +366,9 @@ export default class VCObserverNew {
 
 		const feVCCalculationEndTime = performance.now();
 
-		// When server-side TTVC is enabled and fy26.04 is not in the client config,
-		// always include raw data so the server can recalculate fy26.04 metrics
-		// (ssrRatio, labelStacks, speedIndex) from raw observations
-		const shouldIncludeRawData =
-			includeRawData || (!isFy2604Enabled && fg('platform_ufo_ttvc_server_side_sync'));
+		// Always include raw data when fy26.04 is not in the client config so the server
+		// can recalculate fy26.04 metrics (ssrRatio, labelStacks, speedIndex) from raw observations.
+		const shouldIncludeRawData = includeRawData || !isFy2604Enabled;
 
 		if (shouldIncludeRawData) {
 			const rawVCCalculationStartTime = performance.now();

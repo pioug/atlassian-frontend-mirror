@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 7.0.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.30
+
+### Patch Changes
+
+- [`91bf188b969b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91bf188b969b7) -
+  Fix empty row remaining selected after deleting a block via the Block Menu by calling
+  stopPreservingSelection before closing the menu
+- Updated dependencies
+
 ## 7.0.29
 
 ### Patch Changes

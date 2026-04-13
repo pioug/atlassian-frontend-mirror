@@ -26,6 +26,7 @@ import {
 	TopNavigationThemingSingleExampleCustomLogo,
 } from '../../../../../examples/top-navigation-theming';
 import { TopNavigationThemingLoggedOutExample } from '../../../../../examples/top-navigation-theming-logged-out';
+import { TopNavigationThemingWithPickerExampleRed } from '../../../../../examples/top-navigation-theming-with-picker';
 
 const variants = {
 	desktop: {
@@ -161,4 +162,13 @@ snapshot(TopNavigationThemedButtonsExample, {
 	description: 'themed link button focus state',
 	variants: lightModeVariant,
 	states: [{ selector: { byRole: 'link', options: { name: 'LinkButton' } }, state: 'focused' }],
+});
+
+snapshot(TopNavigationThemingWithPickerExampleRed, {
+	description: 'theming with side nav',
+	variants: lightModeVariant,
+	featureFlags: {
+		platform_dst_nav4_custom_theming_fhs_1: [true, false],
+		'navx-full-height-sidebar': true,
+	},
 });

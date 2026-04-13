@@ -38,7 +38,7 @@ const disableAnimationStyles = css({
 
 type ComponentVersion =
 	| {
-			component: Variant['Component'];
+			component: Variant[keyof Variant]['Component'];
 			version: 'new';
 	  }
 	| {
@@ -305,7 +305,7 @@ export default function AllCombinationsExample(): React.JSX.Element {
 					/>
 				</Inline>
 				<Stack space="space.200">
-					{variants.map(
+					{Object.values(variants).map(
 						({ name, elementType, Component: NewButtonComponent, appearances, spacing }) => {
 							const isIconOnly = ['IconButton', 'LinkIconButton'].includes(name);
 							return (

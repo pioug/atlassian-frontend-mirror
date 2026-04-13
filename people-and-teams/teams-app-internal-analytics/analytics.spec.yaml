@@ -411,17 +411,125 @@ events:
         existingUsersCount:
           type: number
           description: the number of existing users invited by account id
-  - sendSpaceInvite failed:
+  - sendSpaceTeamInvites scheduled:
       type: track
-      description: fired when scheduling a space invite for team members failed
+      description: fired when a space invite is scheduled (queued in the debounce window)
+      attributes:
+        <<: *PackageMetaDataContext
+        spaceId:
+          type: string
+          description: the space or project the invite was scheduled for
+        teamId:
+          type: string
+          description: the team whose members will be invited
+  - sendSpaceTeamInvites sending:
+      type: track
+      description: fired when a scheduled space invite begins sending (debounce window elapsed)
+      attributes:
+        <<: *PackageMetaDataContext
+        spaceId:
+          type: string
+          description: the space or project the invite is being sent to
+        teamId:
+          type: string
+          description: the team whose members are being invited
+  - project updated:
+      type: track
+      description:
+        fired when a space invite request completes successfully and the project membership is
+        updated
+      attributes:
+        <<: *PackageMetaDataContext
+        spaceId:
+          type: string
+          description: the space or project the invite was sent to
+        teamId:
+          type: string
+          description: the team whose members were invited
+        teamInviteStatus:
+          type: ['SUCCESS', 'PARTIAL_SUCCESS', 'FAILED', 'SKIPPED']
+          description: the outcome status of the invite (SUCCESS, PARTIAL_SUCCESS, FAILED, SKIPPED)
+        totalTeamCount:
+          type: number
+          description: total number of teams in the invite batch
+        totalMemberCount:
+          type: number
+          description: total number of members resolved across all teams
+        failedTeamCount:
+          type: number
+          description: number of teams where the invite was not fully successful
+        successTeamCount:
+          type: number
+          description: number of teams where at least some members were invited
+        failedInviteCount:
+          type: number
+          description: total number of members who failed to be invited
+        successInviteCount:
+          type: number
+          description: total number of members successfully invited
+        touchpoint:
+          type: ['teamProfileSpaceLinking', 'spaceNavTeamLinking']
+          description: identifies the UI touchpoint that triggered the invite
+  - projectUpdate failed:
+      type: track
+      description: fired when a space invite for team members failed
       attributes:
         <<: *PackageMetaDataContext
         message:
           type: string
-          description: the error message
+          required: false
+          description: the error message when a network or parsing error occurs
         spaceId:
           type: string
           description: the space or project the invite was attempted for
+        teamId:
+          type: string
+          required: false
+          description: the team whose members failed to be invited
+        teamInviteStatus:
+          type: ['SUCCESS', 'PARTIAL_SUCCESS', 'FAILED', 'SKIPPED']
+          required: false
+          description:
+            the outcome status from the API (FAILED, SKIPPED) when the request succeeded but no
+            members were invited
+        totalTeamCount:
+          type: number
+          required: false
+          description: total number of teams in the invite batch
+        totalMemberCount:
+          type: number
+          required: false
+          description: total number of members resolved across all teams
+        failedTeamCount:
+          type: number
+          required: false
+          description: number of teams where the invite was not fully successful
+        successTeamCount:
+          type: number
+          required: false
+          description: number of teams where at least some members were invited
+        failedInviteCount:
+          type: number
+          required: false
+          description: total number of members who failed to be invited
+        successInviteCount:
+          type: number
+          required: false
+          description: total number of members successfully invited
+        touchpoint:
+          type: ['teamProfileSpaceLinking', 'spaceNavTeamLinking']
+          description: identifies the UI touchpoint that triggered the invite
+  - sendSpaceTeamInvites cancelled:
+      type: track
+      description: fired when a pending space invite is cancelled before it was sent
+      attributes:
+        <<: *PackageMetaDataContext
+        spaceId:
+          type: string
+          description: the space or project the invite was cancelled for
+        teamId:
+          type: string
+          description: the team whose invite was cancelled
   - containerPermissions succeeded:
       type: track
       description: fired when the container permissions are succeeded
@@ -3195,7 +3303,9 @@ events:
         fired when user profile working with me section is viewed (only when section has content)
   - userProfileWorkingWithMeEmptyState viewed:
       type: screen
-      description: fired when user profile working with me empty state is viewed (only when section has no content)
+      description:
+        fired when user profile working with me empty state is viewed (only when section has no
+        content)
   - workingWithMeEditButton clicked:
       type: ui
       description: fired when user clicks the edit button on the working with me section
@@ -3218,7 +3328,9 @@ events:
       attributes:
         isUpdate:
           type: boolean
-          description: whether the action was an update to existing pronouns (true) or adding new pronouns (false)
+          description:
+            whether the action was an update to existing pronouns (true) or adding new pronouns
+            (false)
   - teamAgentsPanel viewed:
       type: screen
       description: fired when team agents panel is viewed

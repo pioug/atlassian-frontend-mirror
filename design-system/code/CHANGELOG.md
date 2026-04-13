@@ -1,5 +1,12 @@
 # @atlaskit/code
 
+## 17.4.7
+
+### Patch Changes
+
+- [`ddd049a745d38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddd049a745d38) -
+  Internal change to how legacy colors are applied. No visual changes.
+
 ## 17.4.6
 
 ### Patch Changes

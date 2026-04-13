@@ -11,7 +11,6 @@ import type { ExtensionManifest, ExtensionProvider } from '@atlaskit/editor-comm
 import Link from '@atlaskit/link';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { nativeFields } from '../example-utils/config-panel/fields';
@@ -35,7 +34,7 @@ const contextPanelWrapperStyles = xcss({
 // Adding border as 2px instead of 1px, since Design tokens supports space sizes in 2 multiples only
 // Ref: https://atlassian.design/components/tokens/all-tokens
 const contextPanelStyles = css({
-	border: `${token('border.width.selected')} solid ${N30}`,
+	border: `${token('border.width.selected')} solid ${'#EBECF0'}`,
 	width: '360px',
 	height: '450px',
 	padding: token('space.200'),

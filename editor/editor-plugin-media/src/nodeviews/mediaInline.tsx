@@ -14,7 +14,7 @@ import {
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
 import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
 	ContextIdentifierProvider,
@@ -103,8 +103,7 @@ const updateMediaNodeAttributes = async (
 			});
 			addPendingTask(copyNode);
 			await copyNode;
-		} catch (e) {
-			// eslint-disable-line no-unused-vars
+		} catch {
 			return;
 		}
 	}

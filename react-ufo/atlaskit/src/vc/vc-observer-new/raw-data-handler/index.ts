@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { RawObservation, RevisionPayloadEntry, VCAbortReason } from '../../../common/vc/types';
 import { getEarliestHiddenTiming } from '../../../hidden-timing';
 import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
@@ -127,8 +125,6 @@ export default class RawDataHandler {
 		const eventTypeMap = new Map<string, number>();
 		const eventTypeMapEntriesMap: Record<number, string> = {};
 		let nextEventTypeId = 1;
-		const enableServerSideTTVCSync = fg('platform_ufo_ttvc_server_side_sync');
-		const enableRawLblCompaction = fg('platform_ufo_raw_lbl_compaction');
 		const labelStacksMap: Record<number, { s: string; l: string } | 'u'> = {};
 
 		let rawObservations = viewportEntries.map((entry) => {
@@ -147,14 +143,14 @@ export default class RawDataHandler {
 			}
 
 			// Capture labelStacks per element (only stored once per unique element)
-			if (enableServerSideTTVCSync && viewportEntry.labelStacks && !(eid in labelStacksMap)) {
+			if (viewportEntry.labelStacks && !(eid in labelStacksMap)) {
 				const labelInfo = {
 					s: viewportEntry.labelStacks.segment,
 					l: viewportEntry.labelStacks.labelStack,
 				};
 
 				const shouldCompactImplicitUnknown =
-					enableRawLblCompaction && labelInfo.s === 'unknown' && labelInfo.l === 'unknown';
+					labelInfo.s === 'unknown' && labelInfo.l === 'unknown';
 
 				labelStacksMap[eid] = shouldCompactImplicitUnknown ? ('u' as const) : labelInfo;
 			}
@@ -182,8 +178,7 @@ export default class RawDataHandler {
 				? encodeRect(viewportEntry.previousRect)
 				: null;
 			const shouldIncludePreviousRect =
-				enableServerSideTTVCSync &&
-				(encodedPreviousRect === null || !areRectsEqual(encodedRect, encodedPreviousRect));
+				encodedPreviousRect === null || !areRectsEqual(encodedRect, encodedPreviousRect);
 
 			const observation: RawObservation = {
 				t: Math.round(entry.time - startTime),
@@ -314,7 +309,7 @@ export default class RawDataHandler {
 				evts: rawEventObservations.length > 0 ? rawEventObservations : undefined,
 				evt: Object.keys(eventTypeMapEntriesMap).length > 0 ? eventTypeMapEntriesMap : undefined,
 				lbl: Object.keys(labelStacksMap).length > 0 ? labelStacksMap : undefined,
-				lblMode: enableServerSideTTVCSync && enableRawLblCompaction ? 'sentinel-v1' : undefined,
+				lblMode: Object.keys(labelStacksMap).length > 0 ? 'sentinel-v1' : undefined,
 			},
 			abortReason: dirtyReason,
 			abortTimestamp: getVCCleanStatusResult.abortTimestamp,

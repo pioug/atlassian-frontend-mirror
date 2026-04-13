@@ -704,17 +704,9 @@ describe('FlyoutMenuItem', () => {
 						</FlyoutMenuItem>,
 					);
 
-					const computedMaxHeight = screen.getByTestId('content--container').style.maxHeight;
-
-					// Remove all whitespace (newlines, tabs, spaces) for comparison
-					const normalisedMaxHeight = computedMaxHeight.replace(/\s+/g, '');
-					const expectedMaxHeight =
-						`min(calc(100vh - 26px - var(--n_tNvM,0px) - var(--n_bnrM,0px)), ${customMaxHeight}px)`.replace(
-							/\s+/g,
-							'',
-						);
-
-					expect(normalisedMaxHeight).toBe(expectedMaxHeight);
+					expect(screen.getByTestId('content--container')).toHaveStyle({
+						'--max-height': `min(calc(100vh - 26px - var(--n_tNvM, 0px) - var(--n_bnrM, 0px)), ${customMaxHeight}px)`,
+					});
 				});
 
 				it('should use the default maxHeight value (760px) when maxHeight prop is not provided', () => {
@@ -734,17 +726,9 @@ describe('FlyoutMenuItem', () => {
 						</FlyoutMenuItem>,
 					);
 
-					const computedMaxHeight = screen.getByTestId('content--container').style.maxHeight;
-
-					// Remove all whitespace (newlines, tabs, spaces) for comparison
-					const normalisedMaxHeight = computedMaxHeight.replace(/\s+/g, '');
-					const expectedMaxHeight =
-						`min(calc(100vh - 26px - var(--n_tNvM,0px) - var(--n_bnrM,0px)), ${defaultMaxHeight}px)`.replace(
-							/\s+/g,
-							'',
-						);
-
-					expect(normalisedMaxHeight).toBe(expectedMaxHeight);
+					expect(screen.getByTestId('content--container')).toHaveStyle({
+						'--max-height': `min(calc(100vh - 26px - var(--n_tNvM, 0px) - var(--n_bnrM, 0px)), ${defaultMaxHeight}px)`,
+					});
 				});
 			});
 		},

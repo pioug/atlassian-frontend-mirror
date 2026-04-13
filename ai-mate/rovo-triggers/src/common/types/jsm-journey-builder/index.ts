@@ -10,6 +10,7 @@ export type JsmJourneyBuilderActionsPayload = PayloadCore<
 	'jsm-journey-builder-actions',
 	{
 		invocationId?: string;
+		conversationId?: string;
 		agentActions: JsmJourneyBuilderAgentAction[];
 	}
 >;

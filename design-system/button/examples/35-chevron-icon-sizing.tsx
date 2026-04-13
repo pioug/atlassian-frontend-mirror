@@ -12,7 +12,7 @@ import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { buttonSpacing } from '../src/utils/spacing';
+import { buttonSpacing } from '../src/utils/button-spacing';
 
 const icons = [ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon, ChevronUpIcon];
 

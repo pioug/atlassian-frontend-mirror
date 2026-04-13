@@ -17,7 +17,6 @@ import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import { IconCode } from '@atlaskit/editor-common/quick-insert';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CodeBlockPlugin } from './codeBlockPluginType';
@@ -145,13 +144,7 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 							actionSubject: ACTION_SUBJECT.DOCUMENT,
 							actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
 							attributes: {
-								inputMethod: expValEqualsNoExposure(
-									'platform_editor_plain_text_support',
-									'isEnabled',
-									true,
-								)
-									? source || INPUT_METHOD.QUICK_INSERT
-									: INPUT_METHOD.QUICK_INSERT,
+								inputMethod: source || INPUT_METHOD.QUICK_INSERT,
 							},
 							eventType: EVENT_TYPE.TRACK,
 						})(tr);

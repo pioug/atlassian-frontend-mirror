@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
 
 import getManifest from '../manifest';
-import { type DropboxFile } from '../types';
+import type { DropboxFile } from '../types';
 import { POPUP_MOUNTPOINT } from '../constants';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 

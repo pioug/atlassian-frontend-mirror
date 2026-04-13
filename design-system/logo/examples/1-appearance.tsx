@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Box } from '@atlaskit/primitives/compiled';
-import { P300, R300 } from '@atlaskit/theme/colors';
 
 import { appearances, logosAndIcons } from './utils/list';
 
@@ -30,10 +29,10 @@ export default (): React.JSX.Element => (
 					<tr>
 						<td>Custom colors</td>
 						<td>
-							<Logo textColor={R300} iconColor={P300} />
+							<Logo textColor={'#FF5630'} iconColor={'#6554C0'} />
 						</td>
 						<td>
-							<Icon textColor={R300} iconColor={P300} />
+							<Icon textColor={'#FF5630'} iconColor={'#6554C0'} />
 						</td>
 					</tr>
 					{appearances.map((appearance) => (

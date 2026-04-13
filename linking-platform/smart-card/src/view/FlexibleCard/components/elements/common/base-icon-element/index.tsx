@@ -207,6 +207,21 @@ const renderDefaultIcon = (label: string, testId: string): React.ReactNode => (
 	<LinkIcon label={label} testId={`${testId}-default`} color="currentColor" />
 );
 
+const widthFromSize = (size: SmartLinkSize, isTiledIcon: boolean) => {
+	switch (size) {
+		case SmartLinkSize.XLarge:
+			return token('space.300');
+		case SmartLinkSize.Large:
+			return token('space.300');
+		case SmartLinkSize.Medium:
+			return isTiledIcon ? token('space.250') : token('space.200');
+		case SmartLinkSize.Small:
+			return token('space.200');
+		default:
+			return token('space.200');
+	}
+};
+
 const renderImageIcon = (
 	defaultIcon: React.ReactNode,
 	url?: string,
@@ -234,6 +249,32 @@ const renderImageIcon = (
 	}
 };
 
+const renderImageIconNew = (
+	defaultIcon: React.ReactNode,
+	url?: string,
+	testId?: string,
+	size = SmartLinkSize.Medium,
+	appearance?: ImageIconProps['appearance'],
+	hideLoadingSkeleton?: boolean,
+	label?: string,
+	isTiledIcon: boolean = false,
+): React.ReactNode | undefined => {
+	const width = widthFromSize(size, isTiledIcon);
+	if (url) {
+		return (
+			<ImageIcon
+				{...(fg('platform_navx_smart_link_icon_label_a11y') ? { label } : {})}
+				defaultIcon={defaultIcon}
+				testId={testId}
+				url={url}
+				width={width}
+				height={width}
+				appearance={appearance}
+				hideLoadingSkeleton={hideLoadingSkeleton}
+			/>
+		);
+	}
+};
 /**
  * A base element that displays an Icon or favicon.
  * @internal
@@ -263,15 +304,26 @@ const IconElement = ({
 		return (
 			overrideIcon ||
 			render?.() ||
-			renderImageIcon(
-				defaultIcon,
-				url,
-				testId,
-				size,
-				appearance,
-				hideLoadingSkeleton,
-				fg('platform_navx_smart_link_icon_label_a11y') ? label : undefined,
-			) ||
+			(fg('platform_sl_3p_preauth_better_hovercard_killswitch')
+				? renderImageIconNew(
+						defaultIcon,
+						url,
+						testId,
+						size,
+						appearance,
+						hideLoadingSkeleton,
+						fg('platform_navx_smart_link_icon_label_a11y') ? label : undefined,
+						isTiledIcon,
+					)
+				: renderImageIcon(
+						defaultIcon,
+						url,
+						testId,
+						size,
+						appearance,
+						hideLoadingSkeleton,
+						fg('platform_navx_smart_link_icon_label_a11y') ? label : undefined,
+					)) ||
 			renderAtlaskitIcon(
 				icon,
 				testId,
@@ -280,7 +332,7 @@ const IconElement = ({
 			) ||
 			defaultIcon
 		);
-	}, [label, testId, overrideIcon, render, url, size, appearance, hideLoadingSkeleton, icon]);
+	}, [label, testId, overrideIcon, render, url, size, appearance, hideLoadingSkeleton, icon, isTiledIcon]);
 
 	const width = getIconWidth(size);
 
@@ -293,13 +345,16 @@ const IconElement = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 		>
-			{isTiledIcon && isNewBlockcardUnauthorizedRefreshExperimentEnabled() ? (
-				<Tile size={size} label={label}>
+			{isTiledIcon &&
+			(fg('platform_sl_3p_preauth_better_hovercard_killswitch') ||
+				isNewBlockcardUnauthorizedRefreshExperimentEnabled()) ? (
+				<Tile size={size} hasBorder backgroundColor="white" label={label} testId={`${testId}-tile`}>
 					{element}
 				</Tile>
 			) : (
 				<Box
 					xcss={styles.iconWrapperStyle}
+					testId={`${testId}-box`}
 					style={{
 						width,
 						height: width,

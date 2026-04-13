@@ -31,10 +31,26 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+interface TrackChangesPluginOptions {
+  /**
+   * Custom wrapper component for the track changes button.
+   */
+  ButtonWrapper?: React.ComponentType<{ children: React.ReactNode }>;
+  /**
+   * Whether the track changes button should be shown on the toolbar.
+   * Defaults to false.
+   */
+  showOnToolbar?: boolean;
+}
+
 type TrackChangesPlugin = NextEditorPlugin<
   'trackChanges',
   {
     commands: {
+      /**
+       * Resets the baseline used for tracking changes in the editor.
+       */
+      resetBaseline: EditorCommand;
       /**
        * Toggles the displaying of changes in the editor.
        */
@@ -46,17 +62,19 @@ type TrackChangesPlugin = NextEditorPlugin<
        */
       OptionalPlugin<PrimaryToolbarPlugin>,
       /**
+       * For ensuring the tracked changes align with the history
+       */
+      OptionalPlugin<HistoryPlugin>,
+      /**
        * Show diff plugin for showing the changes in a diff view.
        */
       ShowDiffPlugin,
-    ];
-    pluginConfiguration?: {
       /**
-       * Whether the track changes button should be shown on the toolbar.
-       * Defaults to false.
+       * Toolbar plugin for registering the track changes button. Will be replacing the Primary Toolbar Plugin
        */
-      showOnToolbar?: boolean;
-    };
+      OptionalPlugin<ToolbarPlugin>,
+    ];
+    pluginConfiguration?: TrackChangesPluginOptions;
     sharedState: {
       /**
        * Whether the track changes feature is currently displaying changes.

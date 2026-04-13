@@ -18,7 +18,7 @@ const gridStyles = cssMap({
 });
 
 export default (): React.JSX.Element => {
-	const { ready } = useFeatureGateOverrideConfig();
+	const gateRevision = useFeatureGateOverrideConfig();
 
 	const [template, setTemplate] = useState<FlexibleTemplate>(getExampleFromLocalStorage());
 
@@ -27,7 +27,7 @@ export default (): React.JSX.Element => {
 		setExampleToLocalStorage(updatedTemplate);
 	}, []);
 
-	if (!ready) {
+	if (!gateRevision) {
 		return <Box>Loading...</Box>;
 	}
 

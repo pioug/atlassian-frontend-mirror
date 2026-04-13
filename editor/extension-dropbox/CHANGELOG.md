@@ -1,5 +1,24 @@
 # @atlaskit/editor-extension-dropbox
 
+## 6.0.25
+
+### Patch Changes
+
+- [`7b7c52dff5d7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b7c52dff5d7d) -
+  Fix eslint violations for type import syntax
+
+## 6.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.22
 
 ### Patch Changes

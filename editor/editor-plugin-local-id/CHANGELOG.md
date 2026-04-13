@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-local-id
 
+## 6.1.0
+
+### Minor Changes
+
+- [`e0d081a91e31c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0d081a91e31c) -
+  @atlaskit/editor-common Add findNodeByLocalId utility for plain JSON ADF node search.
+  @atlaskit/editor-plugin-local-id Export generateShortUUID as a reusable util via the ./utils
+  subpath. @atlassian/adf-semantic-toolcalls New package for structure-aware semantic tool calls.
+  Adds createEmptyTable with aligned backend contract (localId, command, flat
+  headerRow/headerColumn/numberedRows).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.23
 
 ### Patch Changes

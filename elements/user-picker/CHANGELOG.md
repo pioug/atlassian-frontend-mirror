@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 11.25.9
+
+### Patch Changes
+
+- [`2c91b4048c838`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c91b4048c838) -
+  Bump i18n packages
+- Updated dependencies
+
 ## 11.25.8
 
 ### Patch Changes

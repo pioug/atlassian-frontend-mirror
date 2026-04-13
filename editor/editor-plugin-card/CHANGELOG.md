@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-card
 
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- [`24dad72901730`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24dad72901730) -
+  Editor-6083: Fix border no shown when resize embed inside synced block
+- Updated dependencies
+
 ## 14.0.1
 
 ### Patch Changes

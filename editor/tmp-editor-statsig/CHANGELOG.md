@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 58.0.0
+
+### Major Changes
+
+- [`48a64b7bbac82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48a64b7bbac82) -
+  Remove stale experiment platform_editor_plain_text_support
+
+## 57.0.0
+
+### Major Changes
+
+- [`9e290511c0bea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e290511c0bea) -
+  Remove stale experiment gate editor_enghealth_hyperlink_toolbar_aria_values
+- [`eb7b15df32e03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb7b15df32e03) -
+  [FFCLEANUP-96830] Removed `platform_editor_a11y_table_wrapper_fix` experiment. Table wrapper is
+  now always rendered as a scrollable region when `tabIndex` is defined.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 56.2.0
 
 ### Minor Changes

@@ -10,6 +10,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
+import { closeEmbedModal } from '../../../../../../__tests__/__utils__/unit-helpers';
 import * as flexibleUiContextModule from '../../../../../../state/flexible-ui-context';
 import * as useInvokeClientAction from '../../../../../../state/hooks/use-invoke-client-action';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
@@ -70,15 +71,18 @@ describe('PreviewAction', () => {
 	it('invokes action', async () => {
 		const invoke = jest.fn();
 		const spy = jest.spyOn(useInvokeClientAction, 'default').mockReturnValue(invoke);
+		const event = userEvent.setup();
 
 		setup();
 
 		const element = await screen.findByTestId(testId);
-		await userEvent.click(element);
+		await event.click(element);
 
 		expect(invoke).toHaveBeenCalledTimes(1);
 
 		spy.mockRestore();
+
+		await closeEmbedModal(event);
 	});
 
 	describe('with tooltip', () => {

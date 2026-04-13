@@ -5,6 +5,7 @@ import { mocks } from '@atlaskit/link-test-helpers';
 import type { CardStore, CardType } from '@atlaskit/linking-common';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
 
+import { closeEmbedModal } from '../../../../__tests__/__utils__/unit-helpers';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';
 import * as analytics from '../../../../utils/analytics/analytics';
 import {
@@ -480,9 +481,12 @@ export const runCommonHoverCardTests = (
 
 		it('should open preview modal after clicking preview button', async () => {
 			const { event } = await setup();
+			act(() => jest.runAllTimers());
 
 			const previewButton = await screen.findByTestId('smart-action-preview-action');
 			await event.click(previewButton);
+			act(() => jest.runAllTimers());
+
 			const previewModal = await screen.findByTestId('smart-embed-preview-modal');
 			expect(previewModal).toBeInTheDocument();
 
@@ -490,6 +494,8 @@ export const runCommonHoverCardTests = (
 
 			const hoverCard = screen.queryByTestId('hover-card');
 			expect(hoverCard).not.toBeInTheDocument();
+
+			await closeEmbedModal(event);
 		});
 
 		it('renders copy link action', async () => {
@@ -525,6 +531,11 @@ export const runCommonHoverCardTests = (
 
 					const previewButton = await screen.findByTestId('smart-action-preview-action');
 					await event.click(previewButton);
+					act(() => jest.runAllTimers());
+
+					const previewModal = await screen.findByTestId('smart-embed-preview-modal');
+					expect(previewModal).toBeInTheDocument();
+
 					const iframeEl = await screen.findByTestId(`smart-embed-preview-modal-embed`);
 					expect(iframeEl).toBeTruthy();
 
@@ -535,6 +546,8 @@ export const runCommonHoverCardTests = (
 					} else {
 						expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
 					}
+
+					await closeEmbedModal(event);
 				},
 			);
 		});

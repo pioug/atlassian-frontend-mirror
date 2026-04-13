@@ -262,14 +262,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-07-24
-	editor_enghealth_hyperlink_toolbar_aria_values: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-
 	// Added 2026-02-24
 	platform_editor_paste_actions_menu: {
 		defaultValue: boolean;
@@ -688,13 +680,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	}; //Added 2025-11-19
 	platform_editor_pasting_text_in_panel: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-10-07
-	platform_editor_plain_text_support: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1438,13 +1423,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-30
 	platform_editor_a11y_scrollable_region: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-02
-	platform_editor_a11y_table_wrapper_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2392,14 +2370,6 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2025-07-23
-	// Added 2025-07-24
-	editor_enghealth_hyperlink_toolbar_aria_values: createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_enghealth_hyperlink_toolbar_aria_values',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	//Added 2025-07-16
 	platform_editor_toolbar_aifc: createBooleanExperiment({
 		productKeys: {
@@ -2649,15 +2619,6 @@ export const editorExperimentsConfig: {
 	cc_editor_ttvc_release_bundle_one: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_ttvc_release_bundle_one',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-10-07
-	platform_editor_plain_text_support: createBooleanExperiment({
-		productKeys: {
-			jira: 'platform_editor_plain_text_support',
-			confluence: 'platform_editor_plain_text_support',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3313,14 +3274,6 @@ export const editorExperimentsConfig: {
 	platform_editor_a11y_scrollable_region: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_a11y_scrollable_region',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-02
-	platform_editor_a11y_table_wrapper_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_a11y_table_wrapper_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

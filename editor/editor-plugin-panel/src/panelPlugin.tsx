@@ -32,7 +32,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { T50 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PanelPlugin } from './panelPluginType';
@@ -228,7 +227,7 @@ const panelPlugin: PanelPlugin = ({
 									// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 									// TODO: https://product-fabric.atlassian.net/browse/DSP-7268
 									// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-									panelColor: T50,
+									panelColor: '#E6FCFF',
 								},
 								api,
 								typeAheadInsert,

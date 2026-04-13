@@ -2,7 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { type InteractionState } from '../types';
+import type { InteractionState } from '../types';
 
 export const key: PluginKey<InteractionState> = new PluginKey<InteractionState>(
 	'interactionPluginHandler',

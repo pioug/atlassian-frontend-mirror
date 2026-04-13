@@ -30,31 +30,6 @@ export const i18n = defineMessages({
 		description:
 			'The placeholder shown in empty document to help discover space shortcut to trigger Rovo, and slash shortcut to insert elements',
 	},
-	editorEmptyDocumentSpaceShortcutPlaceholderADFPrefix: {
-		id: 'editor-presets-confluence.placeholder.space-shortcut-adf-prefix',
-		defaultMessage: 'Press',
-		description: 'Text before keyboard shortcut in space shortcut ADF placeholder',
-	},
-	editorEmptyDocumentSpaceShortcutPlaceholderADFSpaceShortcut: {
-		id: 'editor-presets-confluence.placeholder.space-shortcut-adf-space-key',
-		defaultMessage: 'space',
-		description: 'Space key shortcut for triggering Rovo in ADF placeholder',
-	},
-	editorEmptyDocumentSpaceShortcutPlaceholderADFMiddle: {
-		id: 'editor-presets-confluence.placeholder.space-shortcut-adf-middle',
-		defaultMessage: 'to Ask Rovo or',
-		description: 'Text between space and slash shortcuts in ADF placeholder',
-	},
-	editorEmptyDocumentSpaceShortcutPlaceholderADFSlashShortcut: {
-		id: 'editor-presets-confluence.placeholder.space-shortcut-adf-slash-key',
-		defaultMessage: '/',
-		description: 'Slash key shortcut for inserting elements in space shortcut ADF placeholder',
-	},
-	editorEmptyDocumentSpaceShortcutPlaceholderADFSuffix: {
-		id: 'editor-presets-confluence.placeholder.space-shortcut-adf-suffix',
-		defaultMessage: 'to insert elements',
-		description: 'Text after slash shortcut in space shortcut ADF placeholder',
-	},
 	placeholderADF: {
 		id: 'editor-presets-confluence.placeholderADF',
 		defaultMessage: 'Press <code>space</code> to Ask Rovo or <code>/</code> to insert elements',

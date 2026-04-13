@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import type { IconButtonAppearance, LinkButtonAppearance } from '../src/new-button/variants/types';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { linkButtonVariants } from '../src/utils/variants';
+import variants from '../src/utils/variants';
 
 import GlobalStyleSimulator from './utils/global-style-simulator';
 
@@ -36,7 +36,7 @@ export default function LinkButtonGlobalStylesExample(): JSX.Element {
 					Ensures link buttons defend against global anchor styles from apps
 				</Heading>
 
-				{linkButtonVariants.map(({ name, Component, appearances }) => (
+				{[variants.LinkButton, variants.LinkIconButton].map(({ name, Component, appearances }) => (
 					<Stack space="space.150" key={name}>
 						<Heading size="medium">{name}</Heading>
 						<table>

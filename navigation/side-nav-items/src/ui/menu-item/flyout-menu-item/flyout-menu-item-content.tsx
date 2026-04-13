@@ -50,13 +50,22 @@ const FLYOUT_MENU_VERTICAL_OFFSET_PX = 26;
  */
 const FLYOUT_MENU_MAX_HEIGHT_PX = 760;
 
+const FLYOUT_MENU_PADDING = token('space.100');
+
+/**
+ * The margin around the flyout menu popup when it has its modal appearance on mobile screen sizes.
+ */
+const FLYOUT_MENU_MODAL_MARGIN = 4;
+
+const maxHeightCssVar = '--max-height';
+
 const flyoutMenuItemContentStyles = cssMap({
 	root: {
 		// Expanding `padding` shorthand for Compiled: see eslint rule @atlaskit/platform/expand-spacing-shorthand
-		paddingBlockStart: token('space.100'),
-		paddingBlockEnd: token('space.100'),
-		paddingInlineStart: token('space.100'),
-		paddingInlineEnd: token('space.100'),
+		paddingBlockStart: FLYOUT_MENU_PADDING,
+		paddingBlockEnd: FLYOUT_MENU_PADDING,
+		paddingInlineStart: FLYOUT_MENU_PADDING,
+		paddingInlineEnd: FLYOUT_MENU_PADDING,
 		'@media (min-width: 48rem)': {
 			width: '400px',
 		},
@@ -68,6 +77,11 @@ const flyoutMenuItemContentContainerStyles = cssMapUnbound({
 		display: 'flex',
 		height: '100%',
 		flexDirection: 'column',
+		// When the popup becomes a modal we want the content to take up all available space
+		maxHeight: `calc(100vh - 2 * ${FLYOUT_MENU_PADDING} - 2 * ${FLYOUT_MENU_MODAL_MARGIN}px)`,
+		'@media (min-width: 48rem)': {
+			maxHeight: `var(${maxHeightCssVar}, 760px)`,
+		},
 	},
 });
 
@@ -222,7 +236,7 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 							<TitleIdContextProvider value={titleId}>
 								<div
 									css={flyoutMenuItemContentContainerStyles.container}
-									style={{ maxHeight: computedMaxHeight }}
+									style={{ [maxHeightCssVar as keyof React.CSSProperties]: computedMaxHeight }}
 									data-testid={containerTestId ? `${containerTestId}--container` : undefined}
 								>
 									{children}

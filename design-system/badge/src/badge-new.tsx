@@ -9,78 +9,8 @@ import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { formatValue } from './internal/utils';
-import type { BadgeNewProps, NewAppearance } from './types';
-
-/**
- * Mapping from old appearance names to new appearance names for visual refresh.
- * Used when Badge component passes old prop names to BadgeNew.
- */
-export const appearanceMapping: Record<
-	| 'added'
-	| 'removed'
-	| 'default'
-	| 'primary'
-	| 'primaryInverted'
-	| 'important'
-	| 'warning'
-	| 'discovery'
-	| 'danger'
-	| 'success'
-	| 'information'
-	| 'inverse'
-	| 'neutral',
-	NewAppearance
-> = {
-	added: 'success',
-	removed: 'danger',
-	default: 'neutral',
-	primary: 'information',
-	primaryInverted: 'inverse',
-	important: 'danger',
-	warning: 'warning',
-	discovery: 'discovery',
-	danger: 'danger',
-	success: 'success',
-	information: 'information',
-	inverse: 'inverse',
-	neutral: 'neutral',
-};
-
-/**
- * Mapping from new appearance names to old appearance names for visual refresh.
- * Used when BadgeNew migration is done.
- */
-export const appearanceMappingToOld: Record<
-	| 'added'
-	| 'removed'
-	| 'default'
-	| 'primary'
-	| 'primaryInverted'
-	| 'important'
-	| 'warning'
-	| 'discovery'
-	| 'danger'
-	| 'success'
-	| 'information'
-	| 'inverse'
-	| 'neutral',
-	'added' | 'removed' | 'default' | 'primary' | 'primaryInverted' | 'important'
-> = {
-	added: 'added',
-	removed: 'removed',
-	default: 'default',
-	primary: 'primary',
-	primaryInverted: 'primaryInverted',
-	important: 'important',
-	danger: 'removed',
-	success: 'added',
-	information: 'primary',
-	inverse: 'primaryInverted',
-	neutral: 'default',
-	warning: 'default',
-	discovery: 'default',
-};
+import { formatValue } from './internal/format-value';
+import type { BadgeNewProps } from './types';
 
 /* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors */
 // Nested selectors with data attributes are required for theme switching

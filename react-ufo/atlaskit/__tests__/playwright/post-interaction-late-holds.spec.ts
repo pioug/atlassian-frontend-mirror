@@ -6,10 +6,9 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: post-interaction-log late holds', () => {
 	test.use({
 		examplePage: 'basic-with-late-hold',
-		featureFlags: ['platform_ufo_enable_late_holds_post_interaction'],
 	});
 
-	test('adds postInteractionHoldInfo when FG is enabled', async ({
+	test('adds postInteractionHoldInfo', async ({
 		page,
 		waitForPostInteractionLogPayload,
 	}) => {

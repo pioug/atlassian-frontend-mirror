@@ -1,4 +1,4 @@
-import { type AutoformattingProvider } from '@atlaskit/editor-common/provider-factory';
+import type { AutoformattingProvider } from '@atlaskit/editor-common/provider-factory';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 import type { CustomAutoformatPluginOptions, CustomAutoformatPluginSharedState } from './types';

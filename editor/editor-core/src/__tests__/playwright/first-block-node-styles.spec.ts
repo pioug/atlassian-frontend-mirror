@@ -16,6 +16,7 @@ import {
 	mediaGroupAdf,
 	mediaSingleAdf,
 	panelAdf,
+	panelWithSmallFontSizeAdf,
 	paragraphAdf,
 	ruleNodeAdf,
 	tableAdf,
@@ -41,6 +42,11 @@ test.describe('first block node styles', () => {
 				allowEmbeds: true,
 			},
 		},
+		initialPluginConfiguration: {
+			blockTypePlugin: {
+				allowFontSize: true,
+			},
+		},
 	});
 
 	test.describe('panel', () => {
@@ -61,6 +67,27 @@ test.describe('first block node styles', () => {
 			await expect(firstPanelNode).toBeVisible();
 
 			await expect(editor.page).toBeAccessible();
+		});
+	});
+
+	test.describe('panel with small font size block mark', () => {
+		test.use({
+			adf: panelWithSmallFontSizeAdf,
+			editorExperiments: {
+				platform_editor_small_font_size: true,
+			},
+		});
+
+		test('should preserve top margin on the second paragraph with small font size applied within a panel', async ({
+			editor,
+		}) => {
+			const nodes = EditorNodeContainerModel.from(editor);
+			const panelNode = nodes.panel.first();
+			const firstParagraph = panelNode.locator('p').first();
+			const secondParagraph = panelNode.locator('p').nth(1);
+
+			await expect(firstParagraph).toHaveCSS('margin-top', '0px');
+			await expect(secondParagraph).toHaveCSS('margin-top', '12px');
 		});
 	});
 

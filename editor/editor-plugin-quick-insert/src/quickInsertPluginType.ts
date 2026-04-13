@@ -12,8 +12,8 @@ import type {
 	TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { type ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
-import { type MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
+import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 export type QuickInsertSharedState = CommonQuickInsertSharedState & {

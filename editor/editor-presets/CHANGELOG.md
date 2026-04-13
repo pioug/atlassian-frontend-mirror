@@ -1,5 +1,21 @@
 # @atlaskit/editor-presets
 
+## 0.1.4
+
+### Patch Changes
+
+- [`aad55446552cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aad55446552cd) -
+  Cleaned up `platform_editor_ai_aifc_adf_placeholder` feature gate. The ADF placeholder is now
+  always used when applicable, without requiring a feature gate check. Removed unused imports and
+  dead code paths.
+- Updated dependencies
+
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.2
 
 ### Patch Changes

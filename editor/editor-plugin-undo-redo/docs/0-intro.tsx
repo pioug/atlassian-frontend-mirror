@@ -31,10 +31,32 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type UndoRedoPlugin = NextEditorPlugin<
+export type UndoRedoAction = (inputSource?: InputSource) => boolean;
+
+export type UndoRedoPlugin = NextEditorPlugin<
   'undoRedoPlugin',
   {
-    dependencies: [TypeAheadPlugin, HistoryPlugin];
+    actions: {
+      redo: UndoRedoAction;
+      undo: UndoRedoAction;
+    };
+    dependencies: [
+      TypeAheadPlugin,
+      HistoryPlugin,
+      OptionalPlugin<PrimaryToolbarPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<ToolbarPlugin>,
+    ];
+    pluginConfiguration:
+      | {
+          /**
+           * Determines whether or not to show the toolbar buttons
+           * If not it just allows use of the actions + keybindings + analytics etc.
+           * Defaults to true
+           */
+          showToolbarButton: boolean;
+        }
+      | undefined;
   }
 >;
 `}

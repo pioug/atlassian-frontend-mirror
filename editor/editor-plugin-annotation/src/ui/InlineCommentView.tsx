@@ -31,7 +31,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { type annotationPlugin } from '../annotationPlugin';
+import type { annotationPlugin } from '../annotationPlugin';
 import type { AnnotationPlugin } from '../annotationPluginType';
 import {
 	closeComponent,

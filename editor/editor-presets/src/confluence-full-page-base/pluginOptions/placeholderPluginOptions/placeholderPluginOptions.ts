@@ -1,9 +1,8 @@
 import type { IntlShape } from 'react-intl-next';
 
 import type { DocNode } from '@atlaskit/adf-schema';
-import { code, text } from '@atlaskit/adf-utils/builders';
 import { createADFFromHTML } from '@atlaskit/editor-common/utils/create-adf-from-html';
-import { type ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugin-placeholder';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -21,28 +20,6 @@ interface Props {
 		viewMode: ViewMode | undefined;
 	};
 }
-
-const createSpaceShortcutPlaceholderADF = ({ formatMessage }: IntlShape): DocNode =>
-	({
-		version: 1,
-		type: 'doc',
-		content: [
-			{
-				type: 'paragraph',
-				content: [
-					text(formatMessage(i18n.editorEmptyDocumentSpaceShortcutPlaceholderADFPrefix)),
-					text(' '),
-					code(formatMessage(i18n.editorEmptyDocumentSpaceShortcutPlaceholderADFSpaceShortcut)),
-					text(' '),
-					text(formatMessage(i18n.editorEmptyDocumentSpaceShortcutPlaceholderADFMiddle)),
-					text(' '),
-					code(formatMessage(i18n.editorEmptyDocumentSpaceShortcutPlaceholderADFSlashShortcut)),
-					text(' '),
-					text(formatMessage(i18n.editorEmptyDocumentSpaceShortcutPlaceholderADFSuffix)),
-				],
-			},
-		],
-	}) as DocNode;
 
 export function placeholderPluginOptions({ intl, options }: Props): PlaceholderPluginOptions {
 	const shouldShowSpaceShortcut = options.isAIEnabled && fg('platform_editor_ai_aifc_streaming');
@@ -82,13 +59,11 @@ export function placeholderPluginOptions({ intl, options }: Props): PlaceholderP
 		}
 
 		if (shouldShowSpaceShortcut && fg('platform_editor_ai_aifc_space_shortcut')) {
-			return fg('platform_editor_ai_aifc_adf_placeholder')
-				? createADFFromHTML(
-						intl.formatMessage(i18n.placeholderADF, {
-							code: (parts) => `<code>${parts}</code>`,
-						}),
-					)
-				: createSpaceShortcutPlaceholderADF(intl);
+			return createADFFromHTML(
+				intl.formatMessage(i18n.placeholderADF, {
+					code: (parts) => `<code>${parts}</code>`,
+				}),
+			);
 		}
 		return undefined;
 	})();

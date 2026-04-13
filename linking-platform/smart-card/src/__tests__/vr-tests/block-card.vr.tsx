@@ -80,6 +80,15 @@ snapshot(BlockCardUnauthorisedNewDesign, {
 	},
 	waitForReactLazy: true,
 });
+snapshot(BlockCardUnauthorisedNewDesign, {
+	description: 'block card unauthorised view better hovercard killswitch enabled',
+	featureFlags: {
+		platform_sl_3p_unauth_paste_as_block_card: 'card_by_default_and_new_design',
+		platform_sl_3p_preauth_better_hovercard_killswitch: true,
+		platform_sl_3p_preauth_better_hovercard: true,
+	},
+	waitForReactLazy: true,
+});
 snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 	featureFlags: {},
 	waitForReactLazy: true,

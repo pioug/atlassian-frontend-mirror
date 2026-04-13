@@ -3,7 +3,6 @@ import React, { Fragment, useState } from 'react';
 import { Checkbox } from '@atlaskit/checkbox';
 import { Label } from '@atlaskit/form';
 import Range from '@atlaskit/range';
-import { N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const initialState = {
@@ -45,7 +44,7 @@ function Playground(): React.JSX.Element {
 					height: '1px',
 
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					backgroundColor: N80,
+					backgroundColor: '#97A0AF',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					margin: token('space.250'),
 				}}

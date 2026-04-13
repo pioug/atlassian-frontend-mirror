@@ -11,8 +11,8 @@ import { mergeRefs } from 'use-callback-ref';
 
 import { token } from '@atlaskit/tokens';
 
-import { useEnsureIsInsideDrawer } from '../context';
 import { type DrawerContentProps } from '../types';
+import { useEnsureIsInsideDrawer } from '../use-ensure-is-inside-drawer';
 
 import usePreventProgrammaticScroll from './hooks/use-prevent-programmatic-scroll';
 
@@ -20,6 +20,7 @@ const styles = cssMap({
 	default: {
 		flex: 1,
 		overflow: 'auto',
+		// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
 		marginTop: token('space.300'),
 	},
 });

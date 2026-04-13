@@ -13,7 +13,6 @@ import {
 	SpotlightTransition,
 	useSpotlight,
 } from '@atlaskit/onboarding';
-import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const SpotlightWithConditionalTargets = () => {
@@ -47,7 +46,7 @@ const SpotlightWithConditionalTargets = () => {
 						target="comment"
 						key="comment"
 						targetRadius={3}
-						targetBgColor={N0}
+						targetBgColor={'#FFFFFF'}
 					>
 						Quickly add a comment to the work item.
 					</Spotlight>
@@ -66,7 +65,7 @@ const SpotlightWithConditionalTargets = () => {
 						target="copy"
 						key="copy"
 						targetRadius={3}
-						targetBgColor={N0}
+						targetBgColor={'#FFFFFF'}
 					>
 						Trying to bring one of our components into your project? Click to copy the example code,
 						then go ahead paste it in your editor.
@@ -85,7 +84,7 @@ const SpotlightWithConditionalTargets = () => {
 						target="expand"
 						key="expand"
 						targetRadius={3}
-						targetBgColor={N0}
+						targetBgColor={'#FFFFFF'}
 					>
 						For a focused view of the example, you can expand to full screen.
 					</Spotlight>

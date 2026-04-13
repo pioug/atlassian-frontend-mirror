@@ -2,9 +2,9 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { defaultButtonVariants } from '../../../utils/variants';
+import variants from '../../../utils/variants';
 
-defaultButtonVariants.forEach(({ name, Component }) => {
+[variants.Button, variants.LinkButton].forEach(({ name, Component }) => {
 	it(`${name}: should only render once on initial render`, () => {
 		const mock = jest.fn();
 		function App() {

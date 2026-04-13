@@ -5,9 +5,9 @@ import { act, type EventType, fireEvent, render, screen } from '@testing-library
 import SettingsIcon from '@atlaskit/icon/core/settings';
 
 import LinkIconButton from '../../../new-button/variants/icon/link';
-import { iconButtonVariants } from '../../../utils/variants';
+import variants from '../../../utils/variants';
 
-iconButtonVariants.forEach(({ name, Component }) => {
+[variants.IconButton, variants.LinkIconButton].forEach(({ name, Component }) => {
 	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe(name, () => {
 		describe('tooltips', () => {

@@ -1,5 +1,5 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	EditorCommand,
 	NextEditorPlugin,
@@ -10,7 +10,7 @@ import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
-import { type QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
+import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 

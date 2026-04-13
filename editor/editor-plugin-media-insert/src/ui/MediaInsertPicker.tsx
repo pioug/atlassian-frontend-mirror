@@ -22,7 +22,7 @@ import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
 
-import { type MediaInsertPickerProps } from '../types';
+import type { MediaInsertPickerProps } from '../types';
 
 import { useFocusEditor } from './hooks/use-focus-editor';
 import { useUnholyAutofocus } from './hooks/use-unholy-autofocus';

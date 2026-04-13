@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-media-editing
 
+## 2.0.6
+
+### Patch Changes
+
+- [`7b7c52dff5d7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b7c52dff5d7d) -
+  Fix eslint violations for type import syntax
+
 ## 2.0.5
 
 ### Patch Changes

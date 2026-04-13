@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 8.2.23
+
+### Patch Changes
+
+- [`7b7c52dff5d7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b7c52dff5d7d) -
+  Fix eslint violations for type import syntax
+- Updated dependencies
+
+## 8.2.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.20
 
 ### Patch Changes

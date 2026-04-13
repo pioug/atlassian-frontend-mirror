@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
-import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
+import { Box, Inline, Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { NodeViewProps } from '../../util/react-node-view';
@@ -18,7 +19,6 @@ const styles = cssMap({
 		border: `${token('border.width')} solid transparent`,
 		borderRadius: token('radius.small'),
 		backgroundColor: token('color.background.neutral'),
-		height: '20px',
 		paddingBlock: '0',
 		paddingInlineStart: token('space.025'),
 		paddingInlineEnd: token('space.050'),
@@ -26,6 +26,9 @@ const styles = cssMap({
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.hovered'),
 		},
+	},
+	nodeWrapperWithHeight: {
+		height: '20px',
 	},
 
 	nodeWrapperSelected: {
@@ -55,7 +58,6 @@ const styles = cssMap({
 	textWrapper: {
 		fontFamily: token('font.family.code'),
 	},
-
 	iconBeforeWrapper: {
 		display: 'flex',
 		height: '16px',
@@ -81,17 +83,33 @@ const styles = cssMap({
 export const NodeBase = (props: NodeViewProps<NodeBaseProps>) => {
 	const { iconBefore, text, isLocked, selected, error } = props;
 
+	const isNewExperienceEnabled = FeatureGates.getExperimentValue(
+		'projects_in_jira_eap_drop2_fast_follow_filters',
+		'isEnabled',
+		false,
+	);
+
 	return (
 		<Pressable
 			xcss={cx(
 				styles.nodeWrapper,
+				!isNewExperienceEnabled && styles.nodeWrapperWithHeight,
 				error && styles.nodeWrapperError,
 				selected && (error ? styles.nodeWrapperErrorSelected : styles.nodeWrapperSelected),
 			)}
+			{...(isNewExperienceEnabled ? { title: text } : {})}
 		>
 			<Inline space="space.050" alignBlock="center">
 				{iconBefore && <Box xcss={styles.iconBeforeWrapper}>{iconBefore}</Box>}
-				<Box xcss={styles.textWrapper}>{text}</Box>
+				{isNewExperienceEnabled ? (
+					<Text maxLines={2} align="start">
+						<Box as="span" xcss={styles.textWrapper}>
+							{text}
+						</Box>
+					</Text>
+				) : (
+					<Box xcss={styles.textWrapper}>{text}</Box>
+				)}
 				{isLocked && (
 					<Box xcss={styles.iconAfterWrapper}>
 						<LockLockedIcon size="small" color={token('color.icon.accent.red')} label="" />

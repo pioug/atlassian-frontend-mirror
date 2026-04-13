@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import variants from '../../../utils/variants';
 
-variants.forEach(({ name, Component, elementType }) => {
+Object.values(variants).forEach(({ name, Component, elementType }) => {
 	it(`${name}: should return a ${elementType.name} as it's ref`, () => {
 		const mock = jest.fn();
 		function App() {

@@ -12,7 +12,6 @@ import {
 	SpotlightTarget,
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
-import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const SpotlightTargetRadius = (): React.JSX.Element => {
@@ -35,7 +34,7 @@ const SpotlightTargetRadius = (): React.JSX.Element => {
 				heading="Add a comment"
 				target="comment"
 				key="comment"
-				targetBgColor={N0}
+				targetBgColor={'#FFFFFF'}
 			>
 				Quickly add a comment to the work item.
 			</Spotlight>,
@@ -49,7 +48,7 @@ const SpotlightTargetRadius = (): React.JSX.Element => {
 				heading="Copy code"
 				target="copy"
 				key="copy"
-				targetBgColor={N0}
+				targetBgColor={'#FFFFFF'}
 			>
 				Trying to bring one of our components into your project? Click to copy the example code,
 				then go ahead paste it in your editor.
@@ -63,7 +62,7 @@ const SpotlightTargetRadius = (): React.JSX.Element => {
 				heading="Upload a profile picture"
 				target="avatar"
 				key="avatar"
-				targetBgColor={N0}
+				targetBgColor={'#FFFFFF'}
 			>
 				Having a profile picture helps you and your team by making your contributions more
 				identifiable. If you'd rather remain mysterious, that's okay too! You do you.

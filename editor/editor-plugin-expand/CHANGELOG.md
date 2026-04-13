@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-expand
 
+## 9.1.26
+
+### Patch Changes
+
+- [`7b7c52dff5d7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b7c52dff5d7d) -
+  Fix eslint violations for type import syntax
+- Updated dependencies
+
+## 9.1.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.23
 
 ### Patch Changes

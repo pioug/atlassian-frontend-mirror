@@ -220,6 +220,7 @@ import {
 	tableContainerStyles,
 	tableEmptyRowStyles,
 	tableLayoutFixes,
+	tableLayoutFixesWithFontSize,
 } from './styles/tableStyles';
 import {
 	decisionDangerStyles,
@@ -815,8 +816,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					mediaGroupStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mediaAlignmentStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					tableLayoutFixes,
+					expValEquals('platform_editor_small_font_size', 'isEnabled', true) ?
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						tableLayoutFixesWithFontSize :
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						tableLayoutFixes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					tableContainerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

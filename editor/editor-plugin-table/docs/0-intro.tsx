@@ -31,19 +31,61 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type TablePluginOptions = {
+  allowContextualMenu?: boolean;
+  allowFixedColumnWidthOption?: boolean;
+  dragAndDropEnabled?: boolean;
+  fullWidthEnabled?: boolean;
+  getEditorFeatureFlags?: GetEditorFeatureFlags;
+  isChromelessEditor?: boolean;
+  isCommentEditor?: boolean;
+  isTableScalingEnabled?: boolean;
+  maxWidthEnabled?: boolean;
+  tableOptions: PluginConfig;
+  wasFullWidthEnabled?: boolean;
+  wasMaxWidthEnabled?: boolean;
+};
+
+type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
+
+type TablePluginActions = {
+  insertTable: InsertTableAction;
+};
+
+type TablePluginCommands = {
+  insertTableWithSize: (
+    rowsCount: number,
+    colsCount: number,
+    inputMethod?: INPUT_METHOD.PICKER,
+  ) => EditorCommand;
+};
+
+type TablePluginDependencies = [
+  AnalyticsPlugin,
+  ContentInsertionPlugin,
+  WidthPlugin,
+  SelectionPlugin,
+  OptionalPlugin<LimitedModePlugin>,
+  OptionalPlugin<GuidelinePlugin>,
+  OptionalPlugin<BatchAttributeUpdatesPlugin>,
+  OptionalPlugin<AccessibilityUtilsPlugin>,
+  OptionalPlugin<MediaPlugin>,
+  OptionalPlugin<EditorViewModePlugin>,
+  OptionalPlugin<FeatureFlagsPlugin>,
+  OptionalPlugin<ExtensionPlugin>,
+  OptionalPlugin<InteractionPlugin>,
+  OptionalPlugin<UserIntentPlugin>,
+  OptionalPlugin<ToolbarPlugin>,
+];
+
 type TablePlugin = NextEditorPlugin<
   'table',
   {
     pluginConfiguration: TablePluginOptions | undefined;
-    actions: {
-      insertTable: InsertTableAction;
-    };
-    dependencies: [
-      AnalyticsPlugin,
-      ContentInsertionPlugin,
-      WidthPlugin,
-      GuidelinePlugin,
-    ];
+    actions: TablePluginActions;
+    commands: TablePluginCommands;
+    dependencies: TablePluginDependencies;
+    sharedState?: TableSharedState;
   }
 >;
 `}

@@ -316,11 +316,15 @@ const withInlineNodeStyleSelectors = [
 const withFormatInLayoutStyleFixSelectors = [
 	`${dragHandleContainer}:first-child + .fabric-editor-indentation-mark > p:first-child`,
 	`${dragHandleContainer}:first-child + .fabric-editor-alignment > p:first-child`,
+	`${dragHandleContainer}:first-child + .fabric-editor-font-size > p:first-child`,
 	`${dragHandleContainer}:first-child + ${dropTargetContainer} + .fabric-editor-indentation-mark > p:first-child`,
 	`${dragHandleContainer}:first-child + ${dropTargetContainer} + .fabric-editor-alignment > p:first-child`,
+	`${dragHandleContainer}:first-child + ${dropTargetContainer} + .fabric-editor-font-size > p:first-child`,
 	`${dropTargetContainer}:first-child + .fabric-editor-alignment > p:first-child`,
 	`${dropTargetContainer}:first-child + .fabric-editor-indentation-mark > p:first-child`,
+	`${dropTargetContainer}:first-child + .fabric-editor-font-size > p:first-child`,
 	`${dragHandleContainer}:first-child + .fabric-editor-indentation-mark > :is(h1, h2, h3, h4, h5, h6):first-child`,
+	`${dragHandleContainer}:first-child + .fabric-editor-font-size > :is(h1, h2, h3, h4, h5, h6):first-child`,
 ].join(', ');
 
 /**
@@ -364,6 +368,13 @@ const globalStyles = () =>
 		'.ProseMirror-widget:first-child + *:not([data-panel-type], .code-block, [data-node-type="nestedExpand"], [data-node-type="expand"], [data-layout-section="true"], [data-prosemirror-node-name="bodiedSyncBlock"])':
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+				marginTop: '0 !important',
+			},
+		// Font-size wrapper is a div with no inherent margin — reach through to the content node inside.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror-widget:first-child + .fabric-editor-font-size > :is(p, h1, h2, h3, h4, h5, h6):first-child, .ProseMirror-widget:first-child + .ProseMirror-widget + .fabric-editor-font-size > :is(p, h1, h2, h3, h4, h5, h6):first-child':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 				marginTop: '0 !important',
 			},
 	});
@@ -460,6 +471,14 @@ const topLevelNodeMarginStyles = css({
 		'> .ProseMirror-widget:first-child + .ProseMirror-gapcursor + *:not([data-layout-section="true"], [data-prosemirror-node-name="bodiedSyncBlock"]), > .ProseMirror-widget:first-child + *:not([data-layout-section="true"], [data-prosemirror-node-name="bodiedSyncBlock"])':
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+				marginTop: '0 !important',
+			},
+		// When a drop target widget is inserted during drag, the font-size wrapper is no longer
+		// adjacent to the first widget. Reach through the wrapper to zero the inner content margin.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'> .ProseMirror-widget:first-child + .ProseMirror-widget + .fabric-editor-font-size > :is(p, h1, h2, h3, h4, h5, h6):first-child, > .ProseMirror-widget:first-child + .ProseMirror-gapcursor + .fabric-editor-font-size > :is(p, h1, h2, h3, h4, h5, h6):first-child':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 				marginTop: '0 !important',
 			},
 	},

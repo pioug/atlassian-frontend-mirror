@@ -9,6 +9,7 @@ import {
 	DRAG_HANDLE_H5_TOP_ADJUSTMENT,
 	DRAG_HANDLE_H6_TOP_ADJUSTMENT,
 	DRAG_HANDLE_HEIGHT,
+	DRAG_HANDLE_PARAGRAPH_SMALL_TOP_ADJUSTMENT,
 	DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT,
 	dragHandleGap,
 } from '../../ui/consts';
@@ -43,6 +44,8 @@ export const getTopPosition = (dom: HTMLElement | null, type?: string): string =
 		return `${dom.offsetTop - DRAG_HANDLE_H5_TOP_ADJUSTMENT}px`;
 	} else if (type === 'heading-6') {
 		return `${dom.offsetTop - DRAG_HANDLE_H6_TOP_ADJUSTMENT}px`;
+	} else if (type === 'paragraph-small') {
+		return `${dom.offsetTop + DRAG_HANDLE_PARAGRAPH_SMALL_TOP_ADJUSTMENT}px`;
 	} else if (type === 'paragraph') {
 		return `${dom.offsetTop + DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT}px`;
 	} else {

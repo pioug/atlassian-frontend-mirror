@@ -228,7 +228,6 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
  *
  * @param pos - The position of the node in the document
  * @param tr - The transaction to apply the change to
- * @param node - Node reference for integer ID generator
  */
 export const addLocalIdToNode = (pos: number, tr: Transaction): void => {
 	tr.setNodeAttribute(pos, 'localId', generateUUID());

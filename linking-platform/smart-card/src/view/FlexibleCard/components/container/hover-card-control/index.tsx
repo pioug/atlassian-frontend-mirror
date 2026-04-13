@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { ElementName } from '../../../../../constants';
+import { noop } from '../../../../../utils';
 import { HoverCard } from '../../../../HoverCard';
 
 import { type HoverCardDelayProps } from './types';
@@ -78,6 +81,7 @@ const HoverCardControl = ({
 			hoverPreviewOptions={hoverPreviewOptions}
 		>
 			<span
+				{...(fg('platform_sl_a11y_enghealth_46829') ? { onBlur: noop } : undefined)}
 				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseLeave={onMouseLeave}
 				onMouseMove={onMouseMove}

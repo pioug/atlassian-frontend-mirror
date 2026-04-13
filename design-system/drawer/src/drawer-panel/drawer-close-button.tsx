@@ -3,8 +3,9 @@ import React from 'react';
 import { IconButton } from '@atlaskit/button/new';
 import ArrowLeft from '@atlaskit/icon/core/arrow-left';
 
-import { useEnsureIsInsideDrawer, useOnClose } from '../context';
 import { type DrawerCloseButtonProps } from '../types';
+import { useEnsureIsInsideDrawer } from '../use-ensure-is-inside-drawer';
+import { useOnClose } from '../use-on-close';
 
 /**
  * __Drawer close button

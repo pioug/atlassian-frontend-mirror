@@ -22,6 +22,7 @@ import {
 	wrapperStyle,
 } from '@atlaskit/editor-common/ui';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	findParentNodeOfTypeClosestToPos,
 	hasParentNodeOfType,
@@ -34,6 +35,7 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { embedHeaderHeight } from '@atlaskit/smart-card';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -262,6 +264,18 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		return !!findParentNodeOfTypeClosestToPos($pos, [listItem]);
 	}
 
+	private handleResizeStart = () => {
+		const { view, getPos } = this.props;
+		if (typeof getPos === 'function') {
+			const pos = getPos();
+			if (typeof pos === 'number') {
+				const tr = view.state.tr.setSelection(NodeSelection.create(view.state.doc, pos));
+				tr.setMeta('scrollIntoView', false);
+				view.dispatch(tr);
+			}
+		}
+	};
+
 	highlights = (newWidth: number, snapPoints: number[]): string[] | number[] => {
 		const snapWidth = snapTo(newWidth, snapPoints);
 		const { layoutColumn, table, expand, nestedExpand, bodiedSyncBlock } =
@@ -430,6 +444,11 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 						scaleFactor={!this.wrappedLayout && !this.insideInlineLike ? 2 : 1}
 						highlights={this.highlights}
 						nodeType="embed"
+						onResizeStart={
+							editorExperiment('platform_synced_block', true) && fg('platform_synced_block_patch_9')
+								? this.handleResizeStart
+								: undefined
+						}
 						handleStyles={nestedInTableHandleStyles(this.isNestedInTable())}
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading

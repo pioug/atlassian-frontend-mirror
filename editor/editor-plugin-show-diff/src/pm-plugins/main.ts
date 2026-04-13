@@ -15,7 +15,7 @@ import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { type DiffParams, type DiffType, type ShowDiffPlugin } from '../showDiffPluginType';
+import type { DiffParams, DiffType, ShowDiffPlugin } from '../showDiffPluginType';
 
 import { calculateDiffDecorations } from './calculateDiff/calculateDiffDecorations';
 import { enforceCustomStepRegisters } from './enforceCustomStepRegisters';

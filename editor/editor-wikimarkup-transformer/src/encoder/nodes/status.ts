@@ -1,15 +1,14 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { NodeEncoder } from '..';
 import { textColor } from '../marks/color';
-import { N80, P300, T300, R300, Y400, G300 } from '@atlaskit/theme/colors';
 
 const color: { [key: string]: string } = {
-	grey: N80,
-	purple: P300,
-	blue: T300,
-	red: R300,
-	yellow: Y400,
-	green: G300,
+	grey: '#97A0AF',
+	purple: '#6554C0',
+	blue: '#00B8D9',
+	red: '#FF5630',
+	yellow: '#FF991F',
+	green: '#36B37E',
 };
 
 export const status: NodeEncoder = (node: PMNode): string => {

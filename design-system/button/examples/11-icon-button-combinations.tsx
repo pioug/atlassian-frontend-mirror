@@ -10,7 +10,9 @@ import { type IconSize } from '@atlaskit/icon/types';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { iconButtonShapes, iconButtonVariants } from '../src/utils/variants';
+import { iconButtonShapes } from '../src/utils/icon-button-shapes';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
+import variants from '../src/utils/variants';
 
 const iconSizes: IconSize[] = ['small', 'medium'];
 
@@ -25,7 +27,7 @@ export default function IconButtonExample(): React.JSX.Element {
 				onChange={() => setShowLegacyButton((value) => !value)}
 			/>
 			<Stack space="space.300" alignInline="start">
-				{iconButtonVariants.map(({ name, Component, appearances }) => {
+				{[variants.IconButton, variants.LinkIconButton].map(({ name, Component, appearances }) => {
 					return (
 						<Stack space="space.050" key={name}>
 							<h2>{name}</h2>

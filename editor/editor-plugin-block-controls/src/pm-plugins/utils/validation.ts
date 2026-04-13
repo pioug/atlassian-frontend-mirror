@@ -28,6 +28,10 @@ export const isNestedExpand = (nodeType: NodeType): Boolean => {
 	return nodeType === nodeType.schema.nodes.nestedExpand;
 };
 
+export const isFontSizeMarkActive = (node: PMNode): boolean => {
+	return node.type.name === 'paragraph' && node.marks.some((mark) => mark.type.name === 'fontSize');
+};
+
 export const isInSameLayout = ($from: ResolvedPos, $to: ResolvedPos): boolean => {
 	const fromNode = $from.nodeAfter;
 	const toNode = $to.nodeAfter;

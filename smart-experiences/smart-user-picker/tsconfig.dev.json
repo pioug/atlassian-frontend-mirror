@@ -60,9 +60,6 @@
 			"path": "../../design-system/textfield/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/theme/tsconfig.app.json"
-		},
-		{
 			"path": "../../data/ufo-external/tsconfig.app.json"
 		},
 		{

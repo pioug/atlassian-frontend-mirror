@@ -67,6 +67,21 @@ const getDefaultNodeSelector = memoizeOne(() => {
 	);
 });
 
+// Block marks (e.g. font-size) wrap paragraphs in an extra div, making parentRootElement
+// the mark wrapper instead of the panel content container. When that happens, recalculate
+// the index relative to the panel content so the first-child check stays accurate.
+const getBlockMarkPanelIndexAdjustment = (parentRootElement: HTMLElement, index: number) => {
+	if (
+		expValEquals('platform_editor_small_font_size', 'isEnabled', true) &&
+		parentRootElement.classList.contains('fabric-editor-block-mark') &&
+		parentRootElement.parentElement
+	) {
+		return Array.from(parentRootElement.parentElement.childNodes).indexOf(parentRootElement);
+	}
+
+	return index;
+};
+
 export const handleMouseOver = (
 	view: EditorView,
 	event: Event,
@@ -230,6 +245,7 @@ export const handleMouseOver = (
 			const index = childNodes.indexOf(rootElement);
 			pos = view.posAtDOM(parentRootElement, index);
 
+			const panelIndex = getBlockMarkPanelIndexAdjustment(parentRootElement, index);
 			// We want to exlude handles showing for first element in a Panel, ignoring widgets like gapcursor
 			const firstChildIsWidget =
 				parentRootElement?.children[0]?.classList.contains('ProseMirror-widget');
@@ -237,7 +253,7 @@ export const handleMouseOver = (
 				parentElement &&
 				parentElementType === 'panel' &&
 				!parentElement.classList.contains('ak-editor-panel__no-icon') &&
-				(index === 0 || (firstChildIsWidget && index === 1))
+				(panelIndex === 0 || (firstChildIsWidget && panelIndex === 1))
 			) {
 				return false;
 			}

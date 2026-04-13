@@ -30,7 +30,6 @@
 		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/media-common": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -49,11 +48,6 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*"
-	},
-	"platform-feature-flags": {
-		"media-document-viewer-clear-render": {
-			"type": "boolean"
-		}
 	},
 	"techstack": {
 		"@atlassian/frontend": {

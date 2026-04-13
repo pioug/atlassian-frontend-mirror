@@ -22,7 +22,7 @@ import {
 	CAPTION_PLACEHOLDER_ID,
 	getMaxWidthForNestedNodeNext,
 } from '@atlaskit/editor-common/media-single';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type {
 	ContextIdentifierProvider,
 	MediaProvider,
@@ -577,10 +577,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	private selectLastAddedMediaNode() {
 		// if preventAutoFocusOnUpload is enabled, skip auto-selection and just clear the tracking array
-		if (
-			this.mediaOptions?.preventAutoFocusOnUpload &&
-			fg('jira_kuro-jjj_disable_auto_focus_after_img_upload')
-		) {
+		if (this.mediaOptions?.preventAutoFocusOnUpload) {
 			this.lastAddedMediaSingleFileIds = [];
 			return;
 		}

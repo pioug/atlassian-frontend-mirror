@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 14.8.0
+
+### Minor Changes
+
+- [`564c0378f73b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/564c0378f73b5) -
+  Add a temporary migration prop `swatchBefore` to the old tag prop types, and pass it to the new
+  tag when `platform-dst-lozenge-tag-badge-visual-uplifts` is true
+
 ## 14.7.1
 
 ### Patch Changes

@@ -55,6 +55,7 @@ export type ResizerProps = Omit<ResizableMediaSingleProps, 'height' | 'width'> &
 	highlights: (width: number, snapPoints: number[]) => number[] | string[];
 	innerPadding?: number;
 	nodeType?: 'media' | 'embed';
+	onResizeStart?: () => void;
 	ratio?: string;
 	scaleFactor?: number;
 	selected?: boolean;
@@ -86,9 +87,20 @@ export default class Resizer extends React.Component<ResizerProps, ResizerState>
 	private handleResizeStart = (
 		event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
 	) => {
-		const { innerPadding = 0, highlights, displayGrid, layout, width, snapPoints } = this.props;
+		const {
+			innerPadding = 0,
+			highlights,
+			displayGrid,
+			layout,
+			width,
+			snapPoints,
+			onResizeStart,
+		} = this.props;
 		// prevent creating a drag event on Firefox
 		event.preventDefault();
+		if (onResizeStart) {
+			onResizeStart();
+		}
 		this.setState({ isResizing: true }, () => {
 			const newHighlights = highlights(width + innerPadding, snapPoints);
 			displayGrid?.(newHighlights.length > 0, gridTypeForLayout(layout), newHighlights);

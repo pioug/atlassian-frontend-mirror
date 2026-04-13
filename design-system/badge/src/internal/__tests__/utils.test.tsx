@@ -1,4 +1,5 @@
-import { formatValue, formatValueWithNegativeSupport } from '../utils';
+import { formatValue } from '../format-value';
+import { formatValueWithNegativeSupport } from '../format-value-with-negative-support';
 
 describe('#utils', () => {
 	describe('#formatValue', () => {

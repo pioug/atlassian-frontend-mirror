@@ -6,7 +6,7 @@ import uuid from 'uuid/v4';
 import CodeBidiWarning from '@atlaskit/code/bidi-warning';
 import codeBidiWarningDecorator from '@atlaskit/code/bidi-warning-decorator';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { Command } from '@atlaskit/editor-common/types';
 import { pluginFactory, stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -111,7 +111,7 @@ export function createBidiWarningsDecorationSetFromDoc({
 
 			return Decoration.widget(
 				position,
-				(el) =>
+				(_el) =>
 					renderDOM({
 						bidiCharacter,
 						codeBidiWarningLabel,
@@ -120,7 +120,7 @@ export function createBidiWarningsDecorationSetFromDoc({
 						renderKey,
 					}),
 				{
-					destroy: (el) => {
+					destroy: (_el) => {
 						// removing portalprovider clean up due to a rendering bug
 						// with this plugin under React 18. This matches the previous
 						// React 16 behaviour which never cleaned up rendering.

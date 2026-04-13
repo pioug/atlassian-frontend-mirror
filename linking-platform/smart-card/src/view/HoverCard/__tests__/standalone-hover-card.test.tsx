@@ -327,8 +327,8 @@ describe('standalone hover card', () => {
 			const link = await screen.findByTestId('smart-element-link');
 			await event.click(link);
 
-			const previewButton = await screen.findByTestId('smart-action-preview-action');
-			await event.click(previewButton);
+			const copyLinkButton = await screen.findByTestId('smart-action-copy-link-action');
+			await event.click(copyLinkButton);
 
 			expect(mockOnClick).not.toHaveBeenCalled();
 		});

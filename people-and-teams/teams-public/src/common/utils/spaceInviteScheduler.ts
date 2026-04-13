@@ -45,13 +45,15 @@ export const spaceInviteScheduler = {
 		});
 	},
 
-	cancelInvite: (teamId: string, containerId: string): void => {
+	cancelInvite: (teamId: string, containerId: string): boolean => {
 		const key = getKey(teamId, containerId);
 		const existing = pending.get(key);
 		if (existing) {
 			clearTimeout(existing.timeoutId);
 			pending.delete(key);
+			return true;
 		}
+		return false;
 	},
 
 	/**

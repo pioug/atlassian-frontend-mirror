@@ -2,7 +2,7 @@ import {
 	getFragmentsFromSelection,
 	getLocalIdsFromSelection,
 } from '@atlaskit/editor-common/selection';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { nodeToJSON, type JSONNode } from '@atlaskit/editor-json-transformer';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';

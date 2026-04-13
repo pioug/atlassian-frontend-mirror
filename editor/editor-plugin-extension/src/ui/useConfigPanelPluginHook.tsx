@@ -8,13 +8,13 @@ import {
 	useSharedPluginStateWithSelector,
 	type NamedPluginStatesFromInjectionAPI,
 } from '@atlaskit/editor-common/hooks';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { clearEditingContext, forceAutoSave } from '../editor-commands/commands';
-import { type ExtensionPlugin } from '../extensionPluginType';
+import type { ExtensionPlugin } from '../extensionPluginType';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { getSelectedExtension } from '../pm-plugins/utils';
 

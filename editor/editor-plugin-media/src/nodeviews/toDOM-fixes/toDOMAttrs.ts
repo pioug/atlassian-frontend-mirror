@@ -1,5 +1,4 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { N30 } from '@atlaskit/theme/colors';
 
 /**
  * Copied from `packages/adf-schema/src/schema/nodes/media.ts`
@@ -77,7 +76,7 @@ export const getMediaAttrs = (
 		title: 'Attachment',
 		// Manually kept in sync with the style of media cards. The goal is to render a plain gray
 		// rectangle that provides an affordance for media.
-		style: `display: inline-block; border-radius: 3px; background: ${N30}; box-shadow: 0 1px 1px rgba(9, 30, 66, 0.2), 0 0 1px 0 rgba(9, 30, 66, 0.24);`,
+		style: `display: inline-block; border-radius: 3px; background: #EBECF0; box-shadow: 0 1px 1px rgba(9, 30, 66, 0.2), 0 0 1px 0 rgba(9, 30, 66, 0.24);`,
 	};
 
 	copyPrivateAttributes(node.attrs, attrs, (key) => `data-${camelCaseToKebabCase(key.slice(2))}`);

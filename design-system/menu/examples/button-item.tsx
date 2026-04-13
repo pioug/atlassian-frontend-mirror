@@ -7,7 +7,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import UnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import { ButtonItem } from '@atlaskit/menu';
-import { B400, B50, N10, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import ImgIcon from './common/img-icon';
@@ -27,16 +26,16 @@ const customItemStyles = cssMap({
 		paddingBlockEnd: token('space.100'),
 		paddingInlineStart: token('space.300'),
 		borderRadius: token('radius.small'),
-		backgroundColor: N10,
-		color: N500,
+		backgroundColor: '#FAFBFC',
+		color: '#42526E',
 		'&:hover': {
-			backgroundColor: N30,
+			backgroundColor: '#EBECF0',
 			textDecoration: 'none',
-			color: N500,
+			color: '#42526E',
 		},
 		'&:active': {
-			color: B400,
-			backgroundColor: B50,
+			color: '#0052CC',
+			backgroundColor: '#DEEBFF',
 			boxShadow: 'none',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -51,9 +50,9 @@ const customItemStyles = cssMap({
 	},
 	disabled: {
 		color: token('color.text.disabled'),
-		backgroundColor: N10,
+		backgroundColor: '#FAFBFC',
 		'&:hover, &:active': {
-			backgroundColor: N10,
+			backgroundColor: '#FAFBFC',
 			color: token('color.text.disabled'),
 		},
 	},

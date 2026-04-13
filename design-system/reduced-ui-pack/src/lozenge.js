@@ -1,6 +1,3 @@
-// AFP-2532 TODO: Fix automatic suppressions below
-import { colors } from '@atlaskit/theme';
-
 import evaluateInner from './utils/evaluate-inner';
 
 const lozengeBorderRadius = '3px';
@@ -22,51 +19,51 @@ export default evaluateInner`
     white-space: nowrap;
   }
   .ak-lozenge__appearance-default {
-    background-color: ${colors.N40};
-    color: ${colors.N500};
+    background-color: ${'#DFE1E6'};
+    color: ${'#42526E'};
   }
   .ak-lozenge__appearance-default-bold {
-    background-color: ${colors.N500};
-    color: ${colors.N0};
+    background-color: ${'#42526E'};
+    color: ${'#FFFFFF'};
   }
   .ak-lozenge__appearance-inprogress {
-    background-color: ${colors.B50};
-    color: ${colors.B500};
+    background-color: ${'#DEEBFF'};
+    color: ${'#0747A6'};
   }
   .ak-lozenge__appearance-inprogress-bold {
-    background-color: ${colors.B400};
-    color: ${colors.N0};
+    background-color: ${'#0052CC'};
+    color: ${'#FFFFFF'};
   }
   .ak-lozenge__appearance-moved {
-    background-color: ${colors.Y75};
-    color: ${colors.N800};
+    background-color: ${'#FFF0B3'};
+    color: ${'#172B4D'};
   }
   .ak-lozenge__appearance-moved-bold {
-    background-color: ${colors.Y500};
-    color: ${colors.N800};
+    background-color: ${'#FF8B00'};
+    color: ${'#172B4D'};
   }
   .ak-lozenge__appearance-new {
-    background-color: ${colors.P50};
-    color: ${colors.P500};
+    background-color: ${'#EAE6FF'};
+    color: ${'#403294'};
   }
   .ak-lozenge__appearance-new-bold {
-    background-color: ${colors.P400};
-    color: ${colors.N0};
+    background-color: ${'#5243AA'};
+    color: ${'#FFFFFF'};
   }
   .ak-lozenge__appearance-removed {
-    background-color: ${colors.R50};
-    color: ${colors.R500};
+    background-color: ${'#FFEBE6'};
+    color: ${'#BF2600'};
   }
   .ak-lozenge__appearance-removed-bold {
-    background-color: ${colors.R400};
-    color: ${colors.N0};
+    background-color: ${'#DE350B'};
+    color: ${'#FFFFFF'};
   }
   .ak-lozenge__appearance-success {
-    background-color: ${colors.G50};
-    color: ${colors.G500};
+    background-color: ${'#E3FCEF'};
+    color: ${'#006644'};
   }
   .ak-lozenge__appearance-success-bold {
-    background-color: ${colors.G400};
-    color: ${colors.N0};
+    background-color: ${'#00875A'};
+    color: ${'#FFFFFF'};
   }
 `;

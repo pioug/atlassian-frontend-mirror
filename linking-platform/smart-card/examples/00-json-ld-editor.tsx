@@ -14,9 +14,9 @@ import useFeatureGateOverrideConfig from './utils/use-feature-gate-override-conf
 
 const tabPanelStyles = xcss({ width: '100%' });
 const Example = (): React.JSX.Element => {
-	const { ready } = useFeatureGateOverrideConfig();
+	const gateRevision = useFeatureGateOverrideConfig();
 
-	if (!ready) {
+	if (!gateRevision) {
 		return <Box>Loading...</Box>;
 	}
 

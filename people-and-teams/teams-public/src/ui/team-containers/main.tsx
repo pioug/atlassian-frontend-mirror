@@ -226,7 +226,13 @@ export const TeamContainers = ({
 				fireEvent('track.teamContainerUnlinked.failed', {});
 			} else {
 				if (fg('space-team_linking_invites_fg')) {
-					spaceInviteScheduler.cancelInvite(teamId, containerId);
+					const wasCancelled = spaceInviteScheduler.cancelInvite(teamId, containerId);
+					if (wasCancelled) {
+						fireEvent('track.sendSpaceTeamInvites.cancelled', {
+							spaceId: containerId,
+							teamId,
+						});
+					}
 				}
 				fireEvent('track.teamContainerUnlinked.succeeded', {
 					containerRemoved: {

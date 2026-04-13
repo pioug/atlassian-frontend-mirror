@@ -21,6 +21,22 @@ export const tableLayoutFixes: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const tableLayoutFixesWithFontSize: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.pm-table-header-content-wrap :not(.fabric-editor-alignment, .fabric-editor-font-size), .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark, .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'p:first-of-type': {
+				marginTop: 0,
+			},
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.pm-table-cell-content-wrap .mediaGroupView-content-wrap': {
+		clear: 'both',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const tableCommentEditorMarginOverride: SerializedStyles = css({
 	marginLeft: 0,
 	marginRight: 0,

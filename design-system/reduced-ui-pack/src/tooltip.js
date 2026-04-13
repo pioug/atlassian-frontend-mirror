@@ -1,6 +1,3 @@
-// AFP-2532 TODO: Fix automatic suppressions below
-import { colors } from '@atlaskit/theme';
-
 import evaluateInner from './utils/evaluate-inner';
 
 const grid = 4;
@@ -23,7 +20,7 @@ export default evaluateInner`
 	button[data-ak-tooltip]:hover::after,
 	a[href][data-ak-tooltip]:focus::after,
 	button[data-ak-tooltip]:focus::after {
-		background-color: ${colors.N900};
+		background-color: ${'#091E42'};
 		border-radius: ${borderRadius};
 		box-sizing: border-box;
 		color: ${fontColor};

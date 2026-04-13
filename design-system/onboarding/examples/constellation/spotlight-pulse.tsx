@@ -10,7 +10,6 @@ import {
 	SpotlightTarget,
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
-import { N0 } from '@atlaskit/theme/colors';
 
 const SpotlightPulseExample = (): React.JSX.Element => {
 	const [isSpotlightActive, setIsSpotlightActive] = useState(false);
@@ -28,7 +27,6 @@ const SpotlightPulseExample = (): React.JSX.Element => {
 					<Button>Existing feature</Button>
 				</SpotlightTarget>
 			</ButtonGroup>
-
 			<SpotlightTransition>
 				{isSpotlightActive && (
 					<Spotlight
@@ -42,7 +40,7 @@ const SpotlightPulseExample = (): React.JSX.Element => {
 						target="new"
 						key="new"
 						targetRadius={3}
-						targetBgColor={N0}
+						targetBgColor={'#FFFFFF'}
 					>
 						Announcing new features with a spotlight pulse is an onboarding pattern that you can
 						explore.

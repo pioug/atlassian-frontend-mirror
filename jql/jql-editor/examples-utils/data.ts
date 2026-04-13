@@ -1,13 +1,13 @@
 export const users: (
 	| {
+			appType: null;
 			displayName: string;
 			value: string;
-			appType: null;
 	  }
 	| {
+			appType: string;
 			displayName: string;
 			value: string;
-			appType: string;
 	  }
 )[] = [
 	{
@@ -53,15 +53,15 @@ export const teams: {
 export const projects: (
 	| {
 			displayName: string;
-			value: string;
 			iconName: string;
 			privateProject?: undefined;
+			value: string;
 	  }
 	| {
 			displayName: string;
-			value: string;
-			privateProject: boolean;
 			iconName?: undefined;
+			privateProject: boolean;
+			value: string;
 	  }
 )[] = [
 	{
@@ -73,6 +73,12 @@ export const projects: (
 		displayName: 'Private Project',
 		value: 'ari:cloud:townsquare:2222:project\/2222',
 		privateProject: true,
+	},
+	{
+		displayName:
+			'A project with super long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long  long long long long long long long long long long long long long long long long long long long long long long long name',
+		value: 'ari:cloud:townsquare:3333:project\/3333',
+		iconName: ':sparkles:',
 	},
 ];
 
@@ -199,64 +205,64 @@ const customFields = [
 
 export const jqlFieldsMock: (
 	| {
-			value: string;
-			displayName: string;
-			operators: string[];
-			searchable: string;
 			auto: string;
-			orderable: string;
-			types: string[];
+			cfid?: undefined;
 			deprecated?: undefined;
 			deprecatedSearcherKey?: undefined;
-			cfid?: undefined;
-	  }
-	| {
-			value: string;
 			displayName: string;
 			operators: string[];
-			searchable: string;
-			deprecated: string;
-			deprecatedSearcherKey: string;
-			auto: string;
 			orderable: string;
+			searchable: string;
 			types: string[];
-			cfid?: undefined;
+			value: string;
 	  }
 	| {
-			value: string;
+			auto: string;
+			cfid?: undefined;
+			deprecated: string;
+			deprecatedSearcherKey: string;
 			displayName: string;
+			operators: string[];
+			orderable: string;
+			searchable: string;
+			types: string[];
+			value: string;
+	  }
+	| {
+			auto: string;
 			cfid: string;
-			operators: string[];
-			searchable: string;
 			deprecated: string;
 			deprecatedSearcherKey: string;
-			auto: string;
+			displayName: string;
+			operators: string[];
 			orderable: string;
-			types: string[];
-	  }
-	| {
-			value: string;
-			displayName: string;
-			operators: string[];
-			types: string[];
-			searchable?: undefined;
-			auto?: undefined;
-			orderable?: undefined;
-			deprecated?: undefined;
-			deprecatedSearcherKey?: undefined;
-			cfid?: undefined;
-	  }
-	| {
-			value: string;
-			displayName: string;
-			auto: string;
 			searchable: string;
-			operators: string[];
 			types: string[];
-			orderable?: undefined;
+			value: string;
+	  }
+	| {
+			auto?: undefined;
+			cfid?: undefined;
 			deprecated?: undefined;
 			deprecatedSearcherKey?: undefined;
+			displayName: string;
+			operators: string[];
+			orderable?: undefined;
+			searchable?: undefined;
+			types: string[];
+			value: string;
+	  }
+	| {
+			auto: string;
 			cfid?: undefined;
+			deprecated?: undefined;
+			deprecatedSearcherKey?: undefined;
+			displayName: string;
+			operators: string[];
+			orderable?: undefined;
+			searchable: string;
+			types: string[];
+			value: string;
 	  }
 )[] = [
 	{
@@ -1384,25 +1390,25 @@ export const jqlFieldsMock: (
 
 export const jqlFunctionsMock: (
 	| {
-			value: string;
 			displayName: string;
-			types: string[];
 			isList?: undefined;
 			supportsListAndSingleValueOperators?: undefined;
+			types: string[];
+			value: string;
 	  }
 	| {
-			value: string;
 			displayName: string;
 			isList: string;
-			types: string[];
 			supportsListAndSingleValueOperators?: undefined;
+			types: string[];
+			value: string;
 	  }
 	| {
-			value: string;
 			displayName: string;
+			isList?: undefined;
 			supportsListAndSingleValueOperators: string;
 			types: string[];
-			isList?: undefined;
+			value: string;
 	  }
 )[] = [
 	{

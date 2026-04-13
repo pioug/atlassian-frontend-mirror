@@ -42,6 +42,13 @@ jest.mock('../../../../../../state/actions', () => ({
 	}),
 }));
 
+const mockFireEvent = jest.fn();
+jest.mock('../../../../../../common/analytics/generated/use-analytics-events', () => ({
+	useAnalyticsEvents: () => ({
+		fireEvent: mockFireEvent,
+	}),
+}));
+
 describe('RovoUnauthorisedView', () => {
 	const mockUrl = 'https://some-url.com';
 
@@ -71,6 +78,7 @@ describe('RovoUnauthorisedView', () => {
 
 	beforeEach(() => {
 		mockAuthorize.mockClear();
+		mockFireEvent.mockClear();
 	});
 
 	it('should capture and report a11y violations', async () => {
@@ -83,7 +91,22 @@ describe('RovoUnauthorisedView', () => {
 
 		expect(screen.getByTestId('hover-card-rovo-unauthorised-view')).toBeInTheDocument();
 		expect(
-			screen.getByTestId('hover-card-rovo-unauthorised-view-feature-document-summaries'),
+			screen.getByText('Get smarter workflows by connecting your Google account'),
+		).toBeInTheDocument();
+		expect(
+			screen.getByTestId('hover-card-rovo-unauthorised-view-feature-clear-link-names'),
+		).toBeInTheDocument();
+		expect(
+			screen.getByTestId('hover-card-rovo-unauthorised-view-feature-understand-linked-docs'),
+		).toBeInTheDocument();
+		expect(
+			screen.getByTestId('hover-card-rovo-unauthorised-view-feature-go-deeper-smart-suggestions'),
+		).toBeInTheDocument();
+		expect(screen.getByText('Turn long URL into clear link names')).toBeInTheDocument();
+		expect(screen.getByText('Understand linked docs in seconds')).toBeInTheDocument();
+		expect(screen.getByText('Go deeper with smart suggestions')).toBeInTheDocument();
+		expect(
+			screen.getByTestId('hover-card-rovo-unauthorised-view-connect-account'),
 		).toBeInTheDocument();
 		expect(
 			screen.getByTestId('hover-card-rovo-unauthorised-view-connect-account'),
@@ -91,22 +114,46 @@ describe('RovoUnauthorisedView', () => {
 		expect(screen.getByTestId('hover-card-rovo-unauthorised-view-not-now')).toBeInTheDocument();
 	});
 
-	it('invokes authorize when Connect is clicked', async () => {
+	it('renders the fallback title when provider name is unavailable', () => {
+		render(
+			<TestComponent
+				propOverrides={{
+					flexibleCardProps: {
+						cardState: getCardState({
+							data: { ...mockUnauthorisedResponse.data, url: mockUrl, generator: undefined },
+							meta: mockUnauthorisedResponse.meta,
+							status: 'unauthorized',
+						}),
+						children: null,
+						url: mockUrl,
+					},
+				}}
+			/>,
+		);
+
+		expect(
+			screen.getByText('Get smarter workflows by connecting your account'),
+		).toBeInTheDocument();
+	});
+
+	it('invokes authorize and fires authStarted analytics when Connect is clicked', async () => {
 		const user = userEvent.setup();
 		render(<TestComponent />);
 
 		await user.click(screen.getByTestId('hover-card-rovo-unauthorised-view-connect-account'));
 
+		expect(mockFireEvent).toHaveBeenCalledWith('track.applicationAccount.authStarted', {});
 		expect(mockAuthorize).toHaveBeenCalledWith(CardDisplay.HoverCardPreview);
 	});
 
-	it('calls onDismiss when Maybe later is clicked', async () => {
+	it('calls onDismiss and fires dismiss analytics when Maybe later is clicked', async () => {
 		const user = userEvent.setup();
 		const onDismiss = jest.fn();
 		render(<TestComponent propOverrides={{ onDismiss }} />);
 
 		await user.click(screen.getByTestId('hover-card-rovo-unauthorised-view-not-now'));
 
+		expect(mockFireEvent).toHaveBeenCalledWith('ui.button.clicked.dismiss', {});
 		expect(onDismiss).toHaveBeenCalled();
 	});
 });

@@ -1,9 +1,9 @@
-import { type ADFEntity } from '@atlaskit/adf-utils/types';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { CommandDispatch } from '@atlaskit/editor-common/types';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import { type InsertAdfAtEndOfDocResult } from '../../types';
+import type { InsertAdfAtEndOfDocResult } from '../../types';
 
 export const insertAdfAtEndOfDoc =
 	(nodeAdf: ADFEntity) =>
@@ -19,7 +19,7 @@ export const insertAdfAtEndOfDoc =
 			dispatch(tr);
 
 			return { status: 'success' };
-		} catch (error) {
+		} catch {
 			return { status: 'failed' };
 		}
 	};

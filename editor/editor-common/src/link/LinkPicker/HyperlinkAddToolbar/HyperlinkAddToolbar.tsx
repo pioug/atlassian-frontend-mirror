@@ -680,16 +680,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 						</div>
 						<PanelTextInput
 							role="combobox"
-							ariaExpanded={
-								expValEquals(
-									'editor_enghealth_hyperlink_toolbar_aria_values',
-									'isEnabled',
-									true,
-									false,
-								)
-									? items && items.length > 0 && !isLoading
-									: true
-							}
+							ariaExpanded={items && items.length > 0 && !isLoading}
 							ariaActiveDescendant={ariaActiveDescendant}
 							ariaControls={linkSearchListId}
 							ariaAutoComplete

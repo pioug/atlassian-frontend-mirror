@@ -6,7 +6,7 @@ import {
 	type Transform,
 } from '@atlaskit/editor-prosemirror/transform';
 
-import { type Rebaseable } from '../index';
+import type { Rebaseable } from '../index';
 import { isMoveSequence } from '../movedContent';
 
 const createRebaseableStep = (

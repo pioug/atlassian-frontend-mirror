@@ -7,7 +7,7 @@ import ChevronDown from '@atlaskit/icon/core/chevron-down';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { SplitButtonWithSlots } from '../src/new-button/containers/split-button';
+import SplitButtonWithSlots from '../src/new-button/containers/split-button/split-button-with-slots';
 
 export default (): React.JSX.Element => (
 	<Box padding="space.250">

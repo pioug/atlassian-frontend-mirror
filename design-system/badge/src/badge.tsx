@@ -10,8 +10,10 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import BadgeNew, { appearanceMapping, appearanceMappingToOld } from './badge-new';
-import { formatValueWithNegativeSupport } from './internal/utils';
+import { appearanceMapping } from './appearance-mapping';
+import { appearanceMappingToOld } from './appearance-mapping-to-old';
+import BadgeNew from './badge-new';
+import { formatValueWithNegativeSupport } from './internal/format-value-with-negative-support';
 import type { BadgeProps } from './types';
 
 /**

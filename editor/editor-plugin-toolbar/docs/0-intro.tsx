@@ -31,7 +31,37 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type ToolbarPlugin = NextEditorPlugin<'toolbar'>
+type EditorToolbarPluginState = {
+  selectedNode?: {
+    marks: string[];
+    node: PMNode;
+    nodeType: string;
+    pos: number;
+  };
+  shouldShowToolbar: boolean;
+};
+
+type ToolbarPlugin = NextEditorPlugin<
+  'toolbar',
+  {
+    actions: {
+      contextualFormattingMode: () => ContextualFormattingEnabledOptions;
+      getBreakpointPreset: () => BreakpointPreset | undefined;
+      getComponents: () => Array<RegisterComponent>;
+      registerComponents: RegisterComponentsAction;
+    };
+    dependencies: [
+      OptionalPlugin<UserIntentPlugin>,
+      OptionalPlugin<SelectionPlugin>,
+      OptionalPlugin<UserPreferencesPlugin>,
+      OptionalPlugin<EditorViewModePlugin>,
+      OptionalPlugin<ConnectivityPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
+    pluginConfiguration?: ToolbarPluginOptions;
+    sharedState: EditorToolbarPluginState;
+  }
+>;
 `}
 
 

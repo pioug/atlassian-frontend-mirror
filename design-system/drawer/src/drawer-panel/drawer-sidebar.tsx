@@ -7,8 +7,8 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { useEnsureIsInsideDrawer } from '../context';
 import { type DrawerSidebarProps } from '../types';
+import { useEnsureIsInsideDrawer } from '../use-ensure-is-inside-drawer';
 
 const styles = cssMap({
 	default: {
@@ -19,8 +19,8 @@ const styles = cssMap({
 		flexShrink: 0,
 		flexDirection: 'column',
 		height: '100vh',
-		paddingBottom: token('space.200'),
-		paddingTop: token('space.300'),
+		paddingBlockEnd: token('space.200'),
+		paddingBlockStart: token('space.300'),
 		width: token('space.800'),
 	},
 });

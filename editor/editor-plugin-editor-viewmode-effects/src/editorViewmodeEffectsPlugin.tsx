@@ -16,7 +16,7 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { type EditorViewModeEffectsPlugin } from './editorViewmodeEffectsPluginType';
+import type { EditorViewModeEffectsPlugin } from './editorViewmodeEffectsPluginType';
 import { ViewModeNodeStep, ViewModeStep } from './pm-plugins/viewModeStep';
 
 const createFilterStepsPlugin =

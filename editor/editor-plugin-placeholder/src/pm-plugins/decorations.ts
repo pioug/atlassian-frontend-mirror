@@ -4,7 +4,6 @@ import { browser, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -110,7 +109,7 @@ export function createPlaceholderDecoration(
 		placeholderDecoration.classList.add('placeholder-decoration-hide-overflow');
 	}
 
-	if (placeholderADF && browser.chrome && fg('platform_editor_ai_aifc_adf_placeholder')) {
+	if (placeholderADF && browser.chrome) {
 		const fragment = document.createDocumentFragment();
 		// An issue occurs with the caret where it gets bigger when it's next to a non-editable element like a decoration.
 		// See: https://discuss.prosemirror.net/t/chrome-caret-cursor-larger-than-the-text-with-inlined-items/5946/2

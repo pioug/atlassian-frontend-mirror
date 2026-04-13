@@ -31,15 +31,33 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type TasksAndDecisionsPluginDependencies = [
+  OptionalPlugin<TypeAheadPlugin>,
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<ContextIdentifierPlugin>,
+  OptionalPlugin<EditorViewModePlugin>,
+  OptionalPlugin<BlockMenuPlugin>,
+  OptionalPlugin<SelectionPlugin>,
+  OptionalPlugin<ToolbarPlugin>,
+];
+
 type TasksAndDecisionsPlugin = NextEditorPlugin<
   'taskDecision',
   {
-    pluginConfiguration: TaskDecisionPluginOptions | undefined;
+    actions: {
+      indentTaskList: ReturnType<typeof getIndentCommand>;
+      insertTaskDecision: ReturnType<typeof insertTaskDecisionCommand>;
+      outdentTaskList: ReturnType<typeof getUnindentCommand>;
+      setProvider: (provider: Promise<TaskDecisionProvider>) => Promise<boolean>;
+    };
+    commands: {
+      toggleTaskList: (targetType?: 'orderedList' | 'bulletList' | 'paragraph') => EditorCommand;
+      updateEditPermission: (hasEditPermission: boolean | undefined) => EditorCommand;
+      updateHasRequestedEditPermission: (hasRequestedEditPermission: boolean) => EditorCommand;
+    };
+    dependencies: TasksAndDecisionsPluginDependencies;
+    pluginConfiguration: TasksAndDecisionsPluginOptions | undefined;
     sharedState: TaskAndDecisionsSharedState | undefined;
-    dependencies: [
-      OptionalPlugin<TypeAheadPlugin>,
-      OptionalPlugin<AnalyticsPlugin>,
-    ];
   }
 >;
 `}

@@ -5,7 +5,6 @@ import { selectors } from '../__helpers/page-objects/_renderer';
 test.use({
 	editorExperiments: {
 		platform_renderer_table_sticky_scrollbar: true,
-		platform_editor_a11y_table_wrapper_fix: true,
 	},
 	adf: tableWith30rows5ColsWithNestedTable,
 	platformFeatureFlags: {

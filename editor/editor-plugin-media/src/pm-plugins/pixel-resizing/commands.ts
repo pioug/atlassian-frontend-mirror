@@ -1,5 +1,5 @@
 import type { Command } from '@atlaskit/editor-common/types';
-import { type Transaction, type EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction, EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import { createCommand } from './index';
 

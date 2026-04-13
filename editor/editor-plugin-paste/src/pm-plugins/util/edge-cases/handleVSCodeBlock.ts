@@ -1,6 +1,6 @@
 import { SUPPORTED_LANGUAGES } from '@atlaskit/code/constants';
 import { mapSlice } from '@atlaskit/editor-common/utils';
-import { type Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 interface VSCodeBlockParams {
@@ -14,7 +14,7 @@ function safelyGetVSCodeLanguage(editorData: string | undefined) {
 	try {
 		const vscodeData = editorData ? JSON.parse(editorData) : undefined;
 		return vscodeData?.mode;
-	} catch (_e) {}
+	} catch {}
 }
 
 export function handleVSCodeBlock({ state, slice, text, event }: VSCodeBlockParams): Slice {

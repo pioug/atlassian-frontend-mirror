@@ -180,6 +180,7 @@ export type ApplicationAccountConnectedAttributesType = {
 	definitionId: string | null;
 };
 export type ApplicationAccountAuthStartedAttributesType = {};
+export type ButtonClickedDismissAttributesType = {};
 export type SmartLinkQuickActionStartedAttributesType = {
 	smartLinkActionType:
 		| 'FollowEntityAction'
@@ -369,6 +370,9 @@ export type SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType = {
 };
 
 export type AnalyticsEventAttributes = {
+	/**
+	 * Fired when a button is clicked to dismiss a hover card */
+	'ui.button.clicked.dismiss': ButtonClickedDismissAttributesType;
 	/**
 	 * Fired when an copy link is clicked */
 	'ui.button.clicked.copyLink': ButtonClickedCopyLinkAttributesType;

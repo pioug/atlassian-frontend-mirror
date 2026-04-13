@@ -39,7 +39,7 @@ export default function DisabledExample(): React.JSX.Element {
 					isChecked={isDisabledTimer}
 					onChange={() => setIsDisabledTimer((value) => !value)}
 				/>
-				{variants.map(({ name, Component, appearances }) => {
+				{Object.values(variants).map(({ name, Component, appearances }) => {
 					const isIconButton = ['IconButton', 'LinkIconButton'].includes(name);
 
 					return (

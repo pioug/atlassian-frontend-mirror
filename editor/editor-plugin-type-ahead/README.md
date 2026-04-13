@@ -1,9 +1,22 @@
-# Editor plugin type ahead
+# Editor Plugin Type Ahead
 
 Type ahead plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Type Ahead plugin provides intelligent autocomplete and suggestion functionality for the Atlassian Editor. It enables users to quickly find and insert content through keyboard-triggered suggestions, supporting multiple input methods and handler registrations.
+
+## Key features
+
+- **Autocomplete suggestions** - Display intelligent suggestions based on user input with configurable handlers
+- **Multiple input methods** - Support for various trigger methods including keyboard, menu, quick insert, and toolbar
+- **Item selection and insertion** - Handle item selection with customizable insertion logic
+- **Error handling** - Graceful error handling with error fallback UI states
+- **Mobile support** - Optimized support for mobile environments with platform-specific features
+- **Performance monitoring** - Built-in statistics tracking for autocomplete interactions
 
 ## Install
 ---

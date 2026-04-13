@@ -4,6 +4,9 @@ import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import { isFontSizeMarkActive } from './utils/validation';
 
 export const TYPE_DROP_TARGET_DEC = 'drop-target-decoration';
 export const TYPE_HANDLE_DEC = 'drag-handle';
@@ -15,8 +18,23 @@ export const getNodeAnchor = (node: PMNode) => {
 	return `--node-anchor-${node.type.name}-${handleId}`;
 };
 
+const getSubType = (node: PMNode): string => {
+	if (node.attrs.level) {
+		return `-${node.attrs.level}`;
+	}
+	if (isFontSizeMarkActive(node)) {
+		return '-small';
+	}
+	return '';
+};
+
 export const getNodeTypeWithLevel = (node: PMNode): string => {
-	const subType = node.attrs.level ? `-${node.attrs.level}` : '';
+	const subType = expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+		? getSubType(node)
+		: node.attrs.level
+			? `-${node.attrs.level}`
+			: '';
+
 	return node.type.name + subType;
 };
 

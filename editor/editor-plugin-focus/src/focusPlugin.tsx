@@ -1,11 +1,11 @@
-import { type FocusPlugin } from './focusPluginType';
+import type { FocusPlugin } from './focusPluginType';
 import { createPlugin, key } from './pm-plugins/main';
 
 /**
  * Focus plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
  * from `@atlaskit/editor-core`.
  */
-export const focusPlugin: FocusPlugin = ({ api }) => {
+export const focusPlugin: FocusPlugin = ({ api: _api }) => {
 	return {
 		name: 'focus',
 

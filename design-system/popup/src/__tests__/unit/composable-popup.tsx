@@ -7,7 +7,9 @@ import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { Popup, PopupContent, PopupTrigger } from '../../compositional/popup';
+import { Popup } from '../../compositional/popup';
+import { PopupContent } from '../../compositional/popup-content';
+import { PopupTrigger } from '../../compositional/popup-trigger';
 import type { TriggerProps } from '../../types';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage

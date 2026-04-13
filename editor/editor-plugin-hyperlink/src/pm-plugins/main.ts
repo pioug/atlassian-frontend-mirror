@@ -1,8 +1,8 @@
-import { type IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
-import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { HyperlinkState, LinkToolbarState } from '@atlaskit/editor-common/link';
@@ -10,7 +10,7 @@ import { InsertStatus, LinkAction, getActiveLinkMark } from '@atlaskit/editor-co
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { canLinkBeCreatedInRange, shallowEqual } from '@atlaskit/editor-common/utils';
-import { type Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
 	EditorState,
@@ -149,8 +149,8 @@ export const plugin = (
 	dispatch: Dispatch,
 	intl: IntlShape,
 	editorAppearance?: EditorAppearance,
-	pluginInjectionApi?: ExtractInjectionAPI<HyperlinkPlugin> | undefined,
-	onClickCallback?: OnClickCallback,
+	_pluginInjectionApi?: ExtractInjectionAPI<HyperlinkPlugin> | undefined,
+	_onClickCallback?: OnClickCallback,
 	__livePage?: boolean,
 ): SafePlugin<HyperlinkState> =>
 	new SafePlugin({

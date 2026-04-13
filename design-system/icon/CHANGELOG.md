@@ -1,5 +1,12 @@
 # @atlaskit/icon
 
+## 34.0.4
+
+### Patch Changes
+
+- [`ddd049a745d38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddd049a745d38) -
+  Internal change to how legacy colors are applied. No visual changes.
+
 ## 34.0.3
 
 ### Patch Changes

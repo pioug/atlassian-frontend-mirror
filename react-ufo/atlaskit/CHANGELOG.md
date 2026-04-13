@@ -1,5 +1,47 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.12.5
+
+### Patch Changes
+
+- [`71d94036332a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71d94036332a6) -
+  Remove the platform_ufo_add_segments_count_threshold feature gate and make the threshold behavior
+  always-on.
+- [`05c074d900a78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05c074d900a78) -
+  Remove the platform_ufo_enable_late_holds_post_interaction feature gate and make late holds always
+  included in post-interaction logs.
+
+## 5.12.4
+
+### Patch Changes
+
+- [`50ff52fbb9bd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50ff52fbb9bd9) -
+  Refactor create-payload return types: replace ~87K lines of duplicated inline type annotations
+  with a named InteractionMetricsPayloadResult type alias
+
+## 5.12.3
+
+### Patch Changes
+
+- [`7186ab86a9c5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7186ab86a9c5f) -
+  Remove platform_ufo_raw_lbl_compaction and platform_ufo_ttvc_server_side_sync feature gates
+
+## 5.12.2
+
+### Patch Changes
+
+- [`638d0a6a42953`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/638d0a6a42953) -
+  Added `platform_ufo_3p_forge_detection_fix` feature flag that improves third-party detection for
+  Forge apps in two ways:
+  1. Increases the React fiber tree walk depth limit from 20 to 40 levels when detecting whether a
+     DOM element is inside a `UFOThirdPartySegment`. This addresses cases where deeply nested
+     component trees (e.g., Confluence Forge extensions) exceed the default 20-level limit, causing
+     third-party DOM mutations to incorrectly contribute to standard TTVC calculations.
+
+  2. Moves the `UFOThirdPartySegment` wrapper higher in the Forge editor extension component tree
+     (in `ForgeEditorExtension.tsx`) so that the `ForgeExtensionContainer` div is inside the
+     third-party segment boundary.
+
 ## 5.12.1
 
 ### Patch Changes

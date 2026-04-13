@@ -4,7 +4,6 @@
 // with the compiled react, we are leaving the static colors in tact for now.
 import React from 'react';
 import { type PopupSelect, type OptionType, type StylesConfig, components } from '@atlaskit/select';
-import { DN900 } from '@atlaskit/theme/colors';
 import { cssMap } from '@compiled/react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Flex } from '@atlaskit/primitives/compiled';
@@ -20,7 +19,7 @@ export const popupCustomStyles: StylesConfig<OptionType> = {
 	menuList: (styles) => ({ ...styles, padding: '4px 0px' }),
 	option: (styles, { isFocused, isSelected }) => ({
 		...styles,
-		color: isSelected ? '#579dff' : DN900,
+		color: isSelected ? '#579dff' : '#E6EDFA',
 		backgroundColor: isSelected ? '#082145' : isFocused ? '#a1bdd914' : '#22272b',
 		':active': {
 			backgroundColor: '#a6c5e229',

@@ -1,8 +1,8 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { atTheBeginningOfDoc } from '@atlaskit/editor-common/selection';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
-import { type EditorState } from '@atlaskit/editor-prosemirror/state';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 
 export const traceUFOInteractionOnFirstInteraction = (): SafePlugin => {

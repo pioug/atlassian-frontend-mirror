@@ -23,6 +23,7 @@ export const DRAG_HANDLE_H5_TOP_ADJUSTMENT = 3;
 export const DRAG_HANDLE_H6_TOP_ADJUSTMENT = 3;
 export const DRAG_HANDLE_LAYOUT_SECTION_TOP_ADJUSTMENT = 8;
 export const DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT = 2;
+export const DRAG_HANDLE_PARAGRAPH_SMALL_TOP_ADJUSTMENT = 0;
 
 /** We only want to shift-select nodes that are at the top level of a document.
  *  This is because funky things happen when selecting inside of tableCells, but we
@@ -141,6 +142,8 @@ export const topPositionAdjustment = (nodeType: string): number => {
 			return DRAG_HANDLE_HEIGHT;
 		case 'paragraph':
 			return DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT;
+		case 'paragraph-small':
+			return DRAG_HANDLE_PARAGRAPH_SMALL_TOP_ADJUSTMENT;
 		case 'heading-1':
 			return DRAG_HANDLE_H1_TOP_ADJUSTMENT;
 		case 'heading-2':

@@ -72,7 +72,11 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 			}
 
 			deleteSelectedRange(tr, preservedSelection);
+
 			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
+			if (preservedSelection && fg('platform_editor_block_menu_jira_patch_1')) {
+				api?.blockControls?.commands?.stopPreservingSelection()({ tr });
+			}
 			return tr;
 		});
 		api?.core.actions.focus();

@@ -11,7 +11,7 @@ import testEventBlocking from '../_util/test-event-blocking';
 
 const testId = 'button';
 
-variants.forEach(({ name, Component, elementType }) => {
+Object.values(variants).forEach(({ name, Component, elementType }) => {
 	describe(`Loading ${name}`, () => {
 		if (elementType === HTMLButtonElement) {
 			testEventBlocking<AdditionalButtonVariantProps>(Component, { isLoading: true });
@@ -213,10 +213,8 @@ variants.forEach(({ name, Component, elementType }) => {
 					// IconButton does not accept `aria-label`, it uses `label` instead
 					if (name !== 'IconButton') {
 						it('to `aria-label`', () => {
-							render(
-								// @ts-expect-error - TS is unaware this isn't applying to IconButton
-								<Component testId={testId} aria-label="Jira" />,
-							);
+							// @ts-expect-error - TS is unaware this isn't applying to IconButton
+							render(<Component testId={testId} aria-label="Jira" />);
 
 							const button = screen.getByTestId(testId);
 							expect(button).toHaveAccessibleName('Jira');

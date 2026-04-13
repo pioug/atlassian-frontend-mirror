@@ -27,20 +27,31 @@ ${createEditorUseOnlyNotice('Editor Plugin Toolbar Lists Indentation', [
   ## Usage
 ---
 
-The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\` of the plugin are defined
-below:
+The \`dependencies\` and \`configuration\` of the plugin are defined below:
 
 ${code`
+type ToolbarListsIndentationPluginOptions = {
+  allowHeadingAndParagraphIndentation: boolean;
+  showIndentationButtons: boolean;
+};
+
+type ToolbarListsIndentationPluginDependencies = [
+  OptionalPlugin<FeatureFlagsPlugin>,
+  ListPlugin,
+  OptionalPlugin<IndentationPlugin>,
+  OptionalPlugin<TasksAndDecisionsPlugin>,
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<PrimaryToolbarPlugin>,
+  OptionalPlugin<SelectionToolbarPlugin>,
+  OptionalPlugin<UserPreferencesPlugin>,
+  OptionalPlugin<ToolbarPlugin>,
+];
+
 type ToolbarListsIndentationPlugin = NextEditorPlugin<
   'toolbarListsIndentation',
   {
-    pluginConfiguration: Config;
-    dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
-      ListPlugin,
-      OptionalPlugin<AnalyticsPlugin>,
-    ];
-    sharedState: IndentationButtons | undefined;
+    dependencies: ToolbarListsIndentationPluginDependencies;
+    pluginConfiguration: ToolbarListsIndentationPluginOptions;
   }
 >
 `}

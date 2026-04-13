@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
-import { type EditorState, type SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnnotationPlugin } from '../../annotationPluginType';
 import { resolveDraftBookmark } from '../../pm-plugins/utils';
 import type { AnnotationSelectionType } from '../../types';
-import { type AnnotationProviders } from '../../types';
+import type { AnnotationProviders } from '../../types';
 
 import { fireCommentButtonViewedAnalyticsEvent } from './utils';
 

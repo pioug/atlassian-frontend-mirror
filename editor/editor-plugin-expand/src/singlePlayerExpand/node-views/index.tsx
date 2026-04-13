@@ -6,7 +6,7 @@ import uuid from 'uuid/v4';
 import { keyName } from 'w3c-keyname';
 
 import { expandedState, isExpandCollapsed } from '@atlaskit/editor-common/expand';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { GapCursorSelection, RelativeSelectionPos, Side } from '@atlaskit/editor-common/selection';
 import type {
 	SelectionSharedState,

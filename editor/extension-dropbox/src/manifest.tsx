@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createRoot, type Root } from 'react-dom/client';
 
-import { type ExtensionManifest } from '@atlaskit/editor-common/extensions';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import { inlineCard } from '@atlaskit/adf-utils/builders';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import enableDropbox from './enable-dropbox';
-import { type DropboxFile } from './types';
+import type { DropboxFile } from './types';
 import { POPUP_MOUNTPOINT, DROPBOX_IFRAME_NAME } from './constants';
 
 declare global {

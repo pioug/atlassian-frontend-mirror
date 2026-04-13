@@ -40,7 +40,7 @@ const ExampleRow = ({
 	spacing: Spacing;
 	isIconOnly: boolean;
 	isLoading: boolean;
-	component: Variant['Component'];
+	component: Variant[keyof Variant]['Component'];
 	version: 'new';
 }) => {
 	return (
@@ -116,56 +116,58 @@ export default function LoadingExample(): React.JSX.Element {
 					onChange={() => setAnimationsDisabled((value) => !value)}
 				/>
 				<Stack space="space.200">
-					{variants.map(({ name, Component: NewButtonComponent, appearances, spacing }) => {
-						const isIconOnly = ['IconButton', 'LinkIconButton'].includes(name);
-						const isLinkButton = ['LinkButton', 'LinkIconButton'].includes(name);
-						return (
-							<Stack space="space.100" key={name}>
-								<h2>{name}</h2>
-								{isLinkButton && (
-									<p>
-										<em>Link buttons should not support loading spinners</em>
-									</p>
-								)}
-								<table>
-									<thead>
-										<tr>
-											<th>Appearance</th>
-											<th>Loading</th>
-											<th>Loading + Disabled</th>
-											<th>Loading + Selected</th>
-											<th>Loading + Disabled + Selected</th>
-										</tr>
-									</thead>
-									<tbody>
-										{spacing.map((space) => (
-											<Fragment key={space}>
-												<tr>
-													<th colSpan={5}>
-														<Box paddingBlock="space.150">
-															<h3>{capitalize(space)} spacing</h3>
-														</Box>
-													</th>
-												</tr>
-												{appearances.map((appearance) => (
-													<Fragment key={appearance}>
-														<ExampleRow
-															appearance={appearance}
-															component={NewButtonComponent}
-															spacing={space}
-															version="new"
-															isIconOnly={isIconOnly}
-															isLoading={isLoading}
-														/>
-													</Fragment>
-												))}
-											</Fragment>
-										))}
-									</tbody>
-								</table>
-							</Stack>
-						);
-					})}
+					{Object.values(variants).map(
+						({ name, Component: NewButtonComponent, appearances, spacing }) => {
+							const isIconOnly = ['IconButton', 'LinkIconButton'].includes(name);
+							const isLinkButton = ['LinkButton', 'LinkIconButton'].includes(name);
+							return (
+								<Stack space="space.100" key={name}>
+									<h2>{name}</h2>
+									{isLinkButton && (
+										<p>
+											<em>Link buttons should not support loading spinners</em>
+										</p>
+									)}
+									<table>
+										<thead>
+											<tr>
+												<th>Appearance</th>
+												<th>Loading</th>
+												<th>Loading + Disabled</th>
+												<th>Loading + Selected</th>
+												<th>Loading + Disabled + Selected</th>
+											</tr>
+										</thead>
+										<tbody>
+											{spacing.map((space) => (
+												<Fragment key={space}>
+													<tr>
+														<th colSpan={5}>
+															<Box paddingBlock="space.150">
+																<h3>{capitalize(space)} spacing</h3>
+															</Box>
+														</th>
+													</tr>
+													{appearances.map((appearance) => (
+														<Fragment key={appearance}>
+															<ExampleRow
+																appearance={appearance}
+																component={NewButtonComponent}
+																spacing={space}
+																version="new"
+																isIconOnly={isIconOnly}
+																isLoading={isLoading}
+															/>
+														</Fragment>
+													))}
+												</Fragment>
+											))}
+										</tbody>
+									</table>
+								</Stack>
+							);
+						},
+					)}
 				</Stack>
 			</Box>
 		</div>

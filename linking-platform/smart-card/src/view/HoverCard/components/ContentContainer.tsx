@@ -26,7 +26,7 @@ const hoverCardShellWidthDefault = css({
 });
 
 const hoverCardShellWidthSlim = css({
-	width: '22rem',
+	width: '20rem',
 });
 
 const hoverCardShellHideLoadingPlaceholder = css({

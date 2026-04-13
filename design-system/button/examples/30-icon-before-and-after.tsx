@@ -17,7 +17,7 @@ import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { buttonSpacing } from '../src/utils/spacing';
+import { buttonSpacing } from '../src/utils/button-spacing';
 
 const icons = [
 	AddIcon,

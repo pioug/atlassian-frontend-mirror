@@ -31,9 +31,6 @@
 		},
 		{
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/theme/afm-products/tsconfig.json"
 		}
 	]
 }

@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 20.0.1
+
+### Patch Changes
+
+- [`ddd049a745d38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddd049a745d38) -
+  Internal change to how legacy colors are applied. No visual changes.
+- Updated dependencies
+
 ## 20.0.0
 
 ### Major Changes

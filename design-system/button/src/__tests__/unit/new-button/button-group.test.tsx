@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import ButtonGroup from '../../../containers/button-group';
-import Button from '../../../new';
+import Button from '../../../new-button/variants/default/button';
 
 const testId = 'button-group';
 

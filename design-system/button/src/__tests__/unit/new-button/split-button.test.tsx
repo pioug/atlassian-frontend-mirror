@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import SettingsIcon from '@atlaskit/icon/core/settings';
 
-import { SplitButton } from '../../../new-button/containers/split-button';
+import { SplitButton } from '../../../new-button/containers/split-button/split-button';
 import Button from '../../../new-button/variants/default/button';
 import IconButton from '../../../new-button/variants/icon/button';
 

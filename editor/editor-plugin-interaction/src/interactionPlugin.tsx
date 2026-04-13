@@ -1,4 +1,4 @@
-import { type InteractionPlugin } from './interactionPluginType';
+import type { InteractionPlugin } from './interactionPluginType';
 import { createPlugin, key } from './pm-plugins/main';
 
 export const interactionPlugin: InteractionPlugin = () => {

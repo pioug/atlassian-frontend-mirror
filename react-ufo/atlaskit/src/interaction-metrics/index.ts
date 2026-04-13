@@ -453,7 +453,7 @@ export function addHold(
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const id = createUUID();
 
-	if (!interaction && fg('platform_ufo_enable_late_holds_post_interaction')) {
+	if (!interaction) {
 		// add hold timestamp to post interaction log if interaction is complete
 		postInteractionLog.addHoldInfo(labelStack, name, performance.now());
 	}

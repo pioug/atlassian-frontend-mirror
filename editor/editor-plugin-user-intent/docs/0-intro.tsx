@@ -31,7 +31,29 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type EditorPluginUserIntentPlugin = NextEditorPlugin<'userIntent'>
+type UserIntentPlugin = NextEditorPlugin<
+  'userIntent',
+  {
+    commands: {
+      setCurrentUserIntent: (newCurrentUserIntent: UserIntent) => EditorCommand;
+    };
+    sharedState:
+      | {
+          currentUserIntent: UserIntent;
+        }
+      | undefined;
+  }
+>;
+
+type UserIntent =
+  | 'default'
+  | 'dragging'
+  | 'blockMenuOpen'
+  | 'resizing'
+  | 'commenting'
+  | 'aiStreaming'
+  | 'dragHandleSelected'
+  | PopupUserIntent;
 `}
 
 

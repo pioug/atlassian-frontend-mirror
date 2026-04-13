@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, type CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
@@ -8,19 +8,6 @@ import { type Appearance, type Spacing } from '../types';
 
 const gridSize: number = 8;
 const HAS_DISABLED_BACKGROUND = ['default', 'primary', 'danger', 'warning'];
-
-// ## Button layout
-//
-// /------------------------------------------------------------------------------------------------------------------\
-// |       →  |  ←      |          |      →  |  ←      |           |      →  |  ←      |         |      →  |  ←       |
-// |  10px →  |  ← 2px  |   icon   |  2px →  |  ← 2px  |           |  2px →  |  ← 2px  |  icon   |  2px →  |  ← 10px  |
-// |  padding |  margin |  before  |  margin |  margin |  content  |  margin |  margin |  after  |  margin |  padding |
-// |    (12px total)    |          |    (4px total)    |           |    (4px total)    |         |    (12px total)    |
-// |       →  |  ←      |          |      →  |  ←      |           |      →  |  ←      |         |      →  |  ←       |
-// \------------------------------------------------------------------------------------------------------------------/
-//                                           ↑                               ↑
-//                                        Margins don't collapse with inline-flex
-//
 const heights: { [key in Spacing]: string } = {
 	default: `${32 / 14}em`, // 32px
 	compact: `${24 / 14}em`,
@@ -43,18 +30,11 @@ const singleIconPadding: { [key in Spacing]: string } = {
 	default: `0 ${gridSize / 4}px`,
 	none: '0',
 };
-
 const verticalAlign: { [key in Spacing]: string } = {
 	default: 'middle',
 	compact: 'middle',
 	none: 'baseline',
 };
-
-const innerMargin = {
-	content: `0 ${gridSize / 4}px`,
-	icon: `0 ${gridSize / 4}px`,
-};
-
 const defaultAfterStyles: CSSObject = {
 	borderRadius: 'inherit',
 	inset: token('space.0'),
@@ -63,7 +43,6 @@ const defaultAfterStyles: CSSObject = {
 	pointerEvents: 'none',
 	position: 'absolute',
 };
-
 const defaultStyles: CSSObject = {
 	background: token('color.background.neutral.subtle'),
 	color: token('color.text'),
@@ -98,7 +77,6 @@ const defaultStyles: CSSObject = {
 		background: token('color.background.neutral.subtle'),
 	},
 };
-
 const primaryStyles: CSSObject = {
 	background: token('color.background.brand.bold'),
 	color: token('color.text.inverse'),
@@ -115,7 +93,6 @@ const primaryStyles: CSSObject = {
 		background: token('color.background.brand.bold'),
 	},
 };
-
 const linkStyles: CSSObject = {
 	background: 'transparent',
 	color: token('color.link'),
@@ -130,7 +107,6 @@ const linkStyles: CSSObject = {
 		textDecoration: 'underline',
 	},
 };
-
 const subtleStyles: CSSObject = {
 	background: 'transparent',
 	color: token('color.text.subtle'),
@@ -147,7 +123,6 @@ const subtleStyles: CSSObject = {
 		background: 'transparent',
 	},
 };
-
 const subtleLinkStyles: CSSObject = {
 	background: 'transparent',
 	color: token('color.text.subtle'),
@@ -164,7 +139,6 @@ const subtleLinkStyles: CSSObject = {
 		textDecoration: 'underline',
 	},
 };
-
 const warningStyles: CSSObject = {
 	background: token('color.background.warning.bold'),
 	color: token('color.text.warning.inverse'),
@@ -181,7 +155,6 @@ const warningStyles: CSSObject = {
 		background: token('color.background.warning.bold'),
 	},
 };
-
 const dangerStyles: CSSObject = {
 	background: token('color.background.danger.bold'),
 	color: token('color.text.inverse'),
@@ -198,7 +171,6 @@ const dangerStyles: CSSObject = {
 		background: token('color.background.danger.bold'),
 	},
 };
-
 const selectedStyles: CSSObject = {
 	background: token('color.background.selected'),
 	color: token('color.text.selected'),
@@ -209,7 +181,6 @@ const selectedStyles: CSSObject = {
 		borderColor: token('color.border.selected'),
 	},
 };
-
 const hasOverlayStyles: CSSObject = {
 	'&[data-has-overlay="true"]': {
 		cursor: 'default',
@@ -303,74 +274,3 @@ export function getCss({
 		},
 	};
 }
-
-// inline-flex child
-export function getIconStyle({
-	spacing,
-}: {
-	spacing: Spacing;
-}): import('@emotion/react').SerializedStyles {
-	return css({
-		display: 'flex',
-		// icon size cannot grow and shrink
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		margin: spacing === 'none' ? 0 : innerMargin.icon,
-		flexGrow: 0,
-		flexShrink: 0,
-		alignSelf: 'center',
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: 0,
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: 0,
-		userSelect: 'none',
-	});
-}
-
-// inline-flex child
-export function getContentStyle({
-	spacing,
-}: {
-	spacing: Spacing;
-}): import('@emotion/react').SerializedStyles {
-	return css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		margin: spacing === 'none' ? 0 : innerMargin.content,
-
-		// content can grow and shrink
-		flexGrow: 1,
-		flexShrink: 1,
-
-		// ellipsis for overflow text
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		whiteSpace: 'nowrap',
-	});
-}
-
-export function getFadingCss({
-	hasOverlay,
-}: {
-	hasOverlay: boolean;
-}): import('@emotion/react').SerializedStyles {
-	return css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		opacity: hasOverlay ? 0 : 1,
-		transition: 'opacity 0.3s',
-	});
-}
-
-export const overlayCss: CSSObject = {
-	// stretching to full width / height of button
-	// this is important as we need it to still block
-	// event if clicking in the button's own padding
-	position: 'absolute',
-	left: 0,
-	top: 0,
-	right: 0,
-	bottom: 0,
-
-	// Putting all children in the center
-	display: 'flex',
-	justifyContent: 'center',
-	alignItems: 'center',
-};

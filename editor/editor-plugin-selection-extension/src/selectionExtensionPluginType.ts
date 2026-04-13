@@ -1,4 +1,4 @@
-import { type ADFEntity } from '@atlaskit/adf-utils/types';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type {
 	EditorCommand,
 	NextEditorPlugin,

@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { EngagementPlatformPluginOptions } from '../../engagementPlatformPluginType';
 

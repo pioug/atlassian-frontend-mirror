@@ -11,7 +11,6 @@ import {
 	SpotlightTarget,
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
-import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const SpotlightTargetBackground = (): React.JSX.Element => {
@@ -40,7 +39,7 @@ const SpotlightTargetBackground = (): React.JSX.Element => {
 				out on the page.
 			</Spotlight>,
 			<Spotlight
-				targetBgColor={N0}
+				targetBgColor={'#FFFFFF'}
 				actions={[
 					{ onClick: () => end(), text: 'OK' },
 					{ onClick: () => back(), text: 'Go back', appearance: 'subtle' },

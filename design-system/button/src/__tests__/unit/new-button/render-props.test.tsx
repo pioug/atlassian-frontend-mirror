@@ -6,7 +6,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { type IconProps } from '@atlaskit/icon/types';
 
-import { IconButton } from '../../../new';
+import IconButton from '../../../new-button/variants/icon/button';
 
 async function assertDropdownIsVisible(icon: HTMLElement) {
 	fireEvent.click(icon);

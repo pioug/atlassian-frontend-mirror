@@ -1,9 +1,9 @@
 import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { UiComponentFactoryParams, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	type MediaState,
-	type MediaStateEventSubscriber,
+import type {
+	MediaState,
+	MediaStateEventSubscriber,
 } from '@atlaskit/editor-plugin-media/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

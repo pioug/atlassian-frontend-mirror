@@ -6,7 +6,7 @@ import Button from '@atlaskit/button/new';
 import { type DispatchAnalyticsEvent, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { type MediaState, type MediaStateEventListener } from '@atlaskit/editor-plugin-media/types';
+import type { MediaState, MediaStateEventListener } from '@atlaskit/editor-plugin-media/types';
 import UploadIcon from '@atlaskit/icon/core/upload';
 import {
 	Browser,
@@ -20,7 +20,7 @@ import {
 import { Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 
-import { type InsertFile } from '../types';
+import type { InsertFile } from '../types';
 
 import { useAnalyticsEvents } from './useAnalyticsEvents';
 

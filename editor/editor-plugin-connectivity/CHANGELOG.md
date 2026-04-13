@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-connectivity
 
+## 8.0.4
+
+### Patch Changes
+
+- [`7b7c52dff5d7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b7c52dff5d7d) -
+  Fix eslint violations for type import syntax
+
 ## 8.0.3
 
 ### Patch Changes

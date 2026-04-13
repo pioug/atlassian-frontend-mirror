@@ -30,11 +30,7 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": [
-		"./dist/**/*",
-		"./build/**/*",
-		"./node_modules/**/*"
-	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__menu/dev",
@@ -88,9 +84,6 @@
 		},
 		{
 			"path": "../section-message/tsconfig.app.json"
-		},
-		{
-			"path": "../theme/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

@@ -5,7 +5,6 @@
  */
 import React, { forwardRef } from 'react';
 import { css, jsx } from '@compiled/react';
-import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { getControlsWrapperClassName } from './getControlsWrapperClassName';
 
@@ -331,7 +330,7 @@ const mutedIndicatorStyles = css({
 	top: token('space.100'),
 	left: token('space.100'),
 	zIndex: 2,
-	background: R300,
+	background: '#FF5630',
 	transform: 'rotate(32deg) translateY(10px)',
 	opacity: 0,
 	pointerEvents: 'none',

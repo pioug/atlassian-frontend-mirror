@@ -4,8 +4,9 @@ import React from 'react';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render as rtlRender, screen } from '@atlassian/testing-library';
 
-import BadgeNew, { appearanceMapping } from '../../badge-new';
-import Badge from '../../index';
+import { appearanceMapping } from '../../appearance-mapping';
+import Badge from '../../badge';
+import BadgeNew from '../../badge-new';
 
 const render = (component: React.ReactNode) => {
 	return rtlRender(<React.StrictMode>{component}</React.StrictMode>);

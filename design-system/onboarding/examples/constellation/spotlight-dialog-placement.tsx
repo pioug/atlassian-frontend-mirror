@@ -9,7 +9,6 @@ import {
 	SpotlightTarget,
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
-import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type Placement = (typeof options)[number];
@@ -73,7 +72,7 @@ const SpotlightDialogPlacement = (): React.JSX.Element => {
 						target="placement"
 						key="placement"
 						targetRadius={3}
-						targetBgColor={N0}
+						targetBgColor={'#FFFFFF'}
 					>
 						You can set where the dialog should appear relative to the contents of the children. Try
 						out the options by clicking the action below.

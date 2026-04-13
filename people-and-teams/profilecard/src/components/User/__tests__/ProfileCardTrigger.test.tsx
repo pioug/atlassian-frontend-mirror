@@ -291,6 +291,53 @@ describe('Profile card trigger', () => {
 				});
 			});
 
+			ffTest.on(
+				'jira_ai_fix_agent_profile_card_flashing',
+				'flashing fix uses reduced delay for external control',
+				() => {
+					it('does not show immediately when isVisible overrides state', async () => {
+						const { rerender } = renderProfileCardTrigger({
+							trigger: 'hover',
+							isVisible: false,
+						});
+
+						expect(screen.queryByText(mockProfileCardLazyText)).toBeNull();
+
+						rerender(
+							<IntlProvider locale="en">
+								<ProfilecardTrigger {...mockDefaultProps} trigger="hover" isVisible={true}>
+									<div>{mockTriggerText}</div>
+								</ProfilecardTrigger>
+							</IntlProvider>,
+						);
+
+						// After 1ms the popup should NOT be visible yet (reduced delay is 100ms)
+						jest.advanceTimersByTime(1);
+						expect(screen.queryByText(mockProfileCardLazyText)).toBeNull();
+
+						// After 100ms it should appear
+						act(() => {
+							jest.advanceTimersByTime(100);
+						});
+
+						await waitFor(() => {
+							expect(screen.queryByText(mockProfileCardLazyText)).toBeVisible();
+						});
+					});
+
+					it('click trigger still uses immediate delay', async () => {
+						renderProfileCardTrigger({ trigger: 'click', isVisible: false });
+
+						await userForFakeTimers.click(screen.getByText(mockTriggerText));
+						jest.advanceTimersByTime(1);
+
+						await waitFor(() => {
+							expect(screen.queryByText(mockProfileCardLazyText)).toBeVisible();
+						});
+					});
+				},
+			);
+
 			it('click trigger always uses immediate delays regardless of isVisible', async () => {
 				const { rerender } = renderProfileCardTrigger({ trigger: 'click', isVisible: false });
 

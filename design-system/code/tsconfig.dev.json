@@ -71,9 +71,6 @@
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
-			"path": "../theme/tsconfig.app.json"
-		},
-		{
 			"path": "../toggle/tsconfig.app.json"
 		},
 		{

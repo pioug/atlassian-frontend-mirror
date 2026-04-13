@@ -1,4 +1,4 @@
-import { type Change } from 'prosemirror-changeset';
+import type { Change } from 'prosemirror-changeset';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 

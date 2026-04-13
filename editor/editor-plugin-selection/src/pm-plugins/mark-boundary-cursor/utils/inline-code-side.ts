@@ -1,4 +1,4 @@
-import { type Mark } from '@atlaskit/editor-prosemirror/model';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 
 import { MarksSide } from '../marks-side';
 

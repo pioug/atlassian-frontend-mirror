@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Skeleton } from '@atlaskit/icon';
-import * as colors from '@atlaskit/theme/colors';
 
 export default (): React.JSX.Element => (
 	<div>
@@ -13,7 +12,7 @@ export default (): React.JSX.Element => (
 
 		<p>Changing color via inheritance</p>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-		<div style={{ color: colors.P500 }}>
+		<div style={{ color: '#403294' }}>
 			<Skeleton size="small" />
 			<Skeleton size="medium" />
 			<Skeleton size="large" />
@@ -21,15 +20,15 @@ export default (): React.JSX.Element => (
 		</div>
 
 		<p>Changing color via props</p>
-		<Skeleton color={colors.G500} size="small" />
-		<Skeleton color={colors.B300} size="medium" />
-		<Skeleton color={colors.R500} size="large" />
-		<Skeleton color={colors.N200} size="xlarge" />
+		<Skeleton color={'#006644'} size="small" />
+		<Skeleton color={'#0065FF'} size="medium" />
+		<Skeleton color={'#BF2600'} size="large" />
+		<Skeleton color={'#6B778C'} size="xlarge" />
 
 		<p>With a strong weight</p>
-		<Skeleton weight="strong" color={colors.R500} size="small" />
-		<Skeleton weight="strong" color={colors.Y300} size="medium" />
-		<Skeleton weight="strong" color={colors.B500} size="large" />
+		<Skeleton weight="strong" color={'#BF2600'} size="small" />
+		<Skeleton weight="strong" color={'#FFAB00'} size="medium" />
+		<Skeleton weight="strong" color={'#0747A6'} size="large" />
 		<Skeleton weight="strong" size="xlarge" />
 	</div>
 );

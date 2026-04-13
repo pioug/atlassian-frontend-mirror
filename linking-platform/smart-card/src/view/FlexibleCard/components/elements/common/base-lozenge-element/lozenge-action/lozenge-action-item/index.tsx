@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { LozengeActionItemProps } from './types';
 
@@ -30,8 +31,12 @@ const LozengeActionItem = ({
 	}, []);
 
 	return (
-		// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-		<span onMouseEnter={handleMouseEnter} role="presentation">
+		<span
+			{...(fg('platform_sl_a11y_enghealth_46829') ? { onFocus: handleMouseEnter } : undefined)}
+			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
+			onMouseEnter={handleMouseEnter}
+			role="presentation"
+		>
 			<DropdownItem onClick={handleClick} testId={testId}>
 				<Lozenge appearance={appearance} isBold>
 					{text}

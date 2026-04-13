@@ -33,7 +33,7 @@ export default function TruncationExample(): React.JSX.Element {
 				</tr>
 			</thead>
 			<tbody>
-				{variants.map(({ name, Component }) => (
+				{Object.values(variants).map(({ name, Component }) => (
 					<tr key={name}>
 						<th>{name}</th>
 						<ContrainedWidthCell>

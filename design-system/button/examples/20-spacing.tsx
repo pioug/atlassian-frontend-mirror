@@ -11,7 +11,7 @@ import variants from '../src/utils/variants';
 export default function SpacingExample(): React.JSX.Element {
 	return (
 		<Stack space="space.200">
-			{variants.map(({ name, Component, spacing }) => {
+			{Object.values(variants).map(({ name, Component, spacing }) => {
 				const isIconButton = ['IconButton', 'LinkIconButton'].includes(name);
 
 				return (

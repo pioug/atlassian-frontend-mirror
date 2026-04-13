@@ -1,6 +1,3 @@
-// AFP-2532 TODO: Fix automatic suppressions below
-import { colors } from '@atlaskit/theme';
-
 import dataUri from './utils/data-uri';
 import evaluateInner from './utils/evaluate-inner';
 
@@ -28,7 +25,7 @@ export default evaluateInner`
   }
   .ak-field-toggle > label {
     background-clip: content-box;
-    background-color: ${colors.N80};
+    background-color: ${'#97A0AF'};
     background-image: ${dataUri(
 			'internal/toggle/check-enabled.svg',
 		)}, ${dataUri('internal/toggle/cross-enabled.svg')};
@@ -58,7 +55,7 @@ export default evaluateInner`
     top: 0;
   }
   .ak-field-toggle > input:checked + label {
-    background-color: ${colors.G300};
+    background-color: ${'#36B37E'};
   }
   .ak-field-toggle > input:disabled + label {
     background-color: ${toggleBgUncheckedDisabled};
@@ -81,7 +78,7 @@ export default evaluateInner`
     outline: none;
   }
   .ak-field-toggle > input:focus + label {
-    border-color: ${colors.B100};
+    border-color: ${'#4C9AFF'};
   }
   .ak-field-toggle__size-large > label {
     background-position: ${togglePadding * 2.5}px ${togglePadding * 2}px, ${

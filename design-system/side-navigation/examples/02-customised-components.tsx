@@ -18,7 +18,6 @@ import {
 	NestingItem,
 	SideNavigation,
 } from '@atlaskit/side-navigation';
-import { G400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
@@ -38,7 +37,7 @@ const btnStyles = css({
 	'&::before': {
 		width: 3,
 		position: 'absolute',
-		backgroundColor: G400,
+		backgroundColor: '#00875A',
 		content: '""',
 		insetBlockEnd: 0,
 		insetBlockStart: 0,
@@ -54,7 +53,7 @@ const btnStyles = css({
 
 const containerStyles = css({
 	width: '100%',
-	color: G400,
+	color: '#00875A',
 	fontWeight: token('font.weight.bold'),
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',

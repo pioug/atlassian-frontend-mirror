@@ -1,4 +1,4 @@
-import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	EditorAppearance,
 	EditorCommand,

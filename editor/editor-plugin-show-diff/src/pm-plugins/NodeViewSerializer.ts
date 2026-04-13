@@ -1,4 +1,4 @@
-import { type NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -131,7 +131,7 @@ export class NodeViewSerializer {
 			this.appendChildNodes(targetNode.children, contentDOM);
 
 			return dom;
-		} catch (e) {
+		} catch {
 			return null;
 		}
 	}
@@ -145,7 +145,7 @@ export class NodeViewSerializer {
 		}
 		try {
 			return this.serializer.serializeNode(node);
-		} catch (e) {
+		} catch {
 			return null;
 		}
 	}
@@ -159,7 +159,7 @@ export class NodeViewSerializer {
 		}
 		try {
 			return this.serializer.serializeFragment(fragment);
-		} catch (e) {
+		} catch {
 			return null;
 		}
 	}

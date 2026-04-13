@@ -1,4 +1,5 @@
-export { default, Theme } from '../old-button/custom-theme-button';
+export { default as Theme } from '../old-button/custom-theme-button/theme';
+export { default } from '../old-button/custom-theme-button/custom-theme-button';
 export type {
 	ThemeTokens,
 	ThemeProps,

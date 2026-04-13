@@ -4,7 +4,7 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { HistoryPlugin } from '@atlaskit/editor-plugin-history';
-import { type PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 

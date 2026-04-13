@@ -3,6 +3,13 @@
 import type { NavigationContext, NavigationIntentProps } from './getNavigationProps';
 
 /**
+ * Checks if a URL is absolute.
+ */
+export const isAbsoluteLink = (url: string): boolean => {
+	return url.startsWith('http') || url.startsWith('www');
+};
+
+/**
  * Checks if a mouse event is modified.
  */
 export const isModified = (event: React.MouseEvent<HTMLElement>) =>
@@ -22,6 +29,26 @@ export const isTeamsAppRoute = (url: string) => {
 	} catch {
 		return false;
 	}
+};
+
+/**
+ * For a given arbitrary path, prefix it with the context entry point of the current product.
+ * For example, in non teams app experiences where contextEntryPoint could be `/wiki/people`:
+ * - Input: `team/123` → Output: `/wiki/people/team/123`
+ * - Input: `https://example.com` → Output: `https://example.com` (absolute URLs are not prefixed)
+ * - Input: `/wiki/people/team/123` → Output: `/wiki/people/team/123` (already prefixed)
+ */
+export const prefixWithContextEntryPoint = (path: string, contextEntryPoint = ''): string => {
+	if (
+		isAbsoluteLink(path) ||
+		!contextEntryPoint ||
+		path.startsWith('/') ||
+		path.startsWith(contextEntryPoint)
+	) {
+		return path;
+	}
+
+	return `${contextEntryPoint}/${path}`;
 };
 
 /**
@@ -59,9 +86,9 @@ export function buildNavigationInput({
 				intent: intentProps.intent,
 				previewPanelProps: intentProps.previewPanelProps,
 				context,
-				onBeforeNavigate,
+				onClick: onBeforeNavigate,
 			}
-		: { href, intent: intentProps.intent, context, onBeforeNavigate };
+		: { href, intent: intentProps.intent, context, onClick: onBeforeNavigate };
 }
 
 // FedRAMP domain patterns used by Atlassian products

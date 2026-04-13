@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-menu",
-	"version": "7.0.29",
+	"version": "7.0.31",
 	"description": "BlockMenu plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -104,6 +104,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_block_menu_v2_patch_3": {
+			"type": "boolean"
+		},
+		"platform_editor_block_menu_jira_patch_1": {
 			"type": "boolean"
 		},
 		"platform_editor_block_menu_divider_patch": {

@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -40,7 +40,7 @@ export const getBaselineFromSteps = (doc: PMNode, steps: InvertableStep[]): PMNo
 			}
 		}
 		return doc;
-	} catch (e) {
+	} catch {
 		// Temporary - we need to understand how this happens - but we want to unblock issues where this crashes the editor
 		return undefined;
 	}

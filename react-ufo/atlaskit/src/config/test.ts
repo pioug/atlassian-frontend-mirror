@@ -40,8 +40,7 @@ describe('UFO Configuration Module', () => {
 			expect(getConfig()).toEqual(config);
 		});
 
-		it('should enforce default revision into enabledVCRevisions.all when server-side TTVC is disabled', () => {
-			(fg as jest.Mock).mockImplementation(() => false);
+		it('should preserve configured enabledVCRevisions.all values', () => {
 			const config: Config = {
 				product: 'testProduct',
 				region: 'testRegion',
@@ -53,14 +52,10 @@ describe('UFO Configuration Module', () => {
 				},
 			};
 			setUFOConfig(config);
-			// Enforcement applies when server-side TTVC is disabled - fy26.04 is forced in
-			expect(getConfig()?.vc?.enabledVCRevisions?.all).toEqual(['fy26.04', 'fy25.01']);
+			expect(getConfig()?.vc?.enabledVCRevisions?.all).toEqual(['fy25.01']);
 		});
 
-		it('should not force DEFAULT_TTVC_REVISION when platform_ufo_ttvc_server_side_sync is enabled', () => {
-			(fg as jest.Mock).mockImplementation(
-				(flag: string) => flag === 'platform_ufo_ttvc_server_side_sync',
-			);
+		it('should merge configured enabledVCRevisions from all and byExperience without duplicates', () => {
 			const config: Config = {
 				product: 'testProduct',
 				region: 'testRegion',
@@ -68,12 +63,14 @@ describe('UFO Configuration Module', () => {
 					enabled: true,
 					enabledVCRevisions: {
 						all: ['fy25.01'],
+						byExperience: {
+							exp1: ['fy25.01', 'fy25.03'],
+						},
 					},
 				},
 			};
 			setUFOConfig(config);
-			// Products control their own revisions when server-side TTVC is enabled
-			expect(getConfig()?.vc?.enabledVCRevisions?.all).toEqual(['fy25.01']);
+			expect(getConfig()?.vc?.enabledVCRevisions?.all).toEqual(['fy25.01', 'fy25.03']);
 		});
 	});
 

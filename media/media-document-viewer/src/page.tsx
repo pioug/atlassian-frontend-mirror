@@ -8,14 +8,12 @@ import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
 import { useStaticCallback } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 
 import { Annotations } from './annotations';
 import { DocumentLinks } from './documentLinks';
 import { type Font, type PageContent, type Span } from './types';
 import { getDocumentRoot } from './utils/getDocumentRoot';
-import { getImageZoom } from './utils/useCachedGetImage';
 import { useIntersectionObserver } from './utils/useIntersectionObserver';
 
 const Span = ({ span, font }: { span: Span; font: Font }) => {
@@ -109,7 +107,6 @@ const pageWrapperStyles = css({
 
 type PageProps = {
 	getPageSrc: (pageIndex: number, zoom: number) => Promise<string>;
-	maxPageImageZoom: number;
 	content?: PageContent;
 	fonts: readonly Font[];
 	pageIndex: number;
@@ -167,10 +164,7 @@ const PageView = forwardRef<HTMLDivElement, PageViewProps>(
 						data-testid={`page-${pageIndex}-image`}
 						data-zoom={zoom}
 						src={imageSrc}
-						css={[
-							pageImageStyles,
-							fg('media-document-viewer-clear-render') ? undefined : pixelatedImageRendering,
-						]}
+						css={[pageImageStyles, pixelatedImageRendering]}
 						alt=""
 						onLoad={onImageLoad}
 					/>
@@ -202,7 +196,6 @@ const PageView = forwardRef<HTMLDivElement, PageViewProps>(
 
 export const Page = ({
 	getPageSrc,
-	maxPageImageZoom,
 	content,
 	fonts,
 	pageIndex,
@@ -234,7 +227,7 @@ export const Page = ({
 
 		if (!content) {
 			const zoom = image.dataset.zoom ? Number(image.dataset.zoom) : 1;
-			const imageZoom = getImageZoom(zoom, maxPageImageZoom);
+			const imageZoom = zoom;
 			const contentWidth = image.naturalWidth / imageZoom;
 			const contentHeight = image.naturalHeight / imageZoom;
 			setDimensions({ width: contentWidth, height: contentHeight });

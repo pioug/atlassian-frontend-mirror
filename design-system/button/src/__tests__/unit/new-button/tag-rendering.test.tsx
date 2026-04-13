@@ -7,7 +7,7 @@ import variants from '../../../utils/variants';
 /**
  * Validate expected HTML element / tag rendering from Button variants
  */
-variants.forEach(({ name, Component, elementType }) => {
+Object.values(variants).forEach(({ name, Component, elementType }) => {
 	describe(name, () => {
 		if (elementType === HTMLButtonElement) {
 			it('should render a `<button>` tag`', () => {

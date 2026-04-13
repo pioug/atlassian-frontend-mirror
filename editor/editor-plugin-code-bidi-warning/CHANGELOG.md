@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-code-bidi-warning
 
+## 8.0.27
+
+### Patch Changes
+
+- [`7b7c52dff5d7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b7c52dff5d7d) -
+  Fix eslint violations for type import syntax
+
+## 8.0.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.24
 
 ### Patch Changes

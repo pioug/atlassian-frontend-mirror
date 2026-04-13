@@ -34,17 +34,24 @@ ${code`
 type TextFormattingPlugin = NextEditorPlugin<
   'textFormatting',
   {
-    pluginConfiguration: TextFormattingPluginOptions | undefined;
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
     commands: {
-      toggleSuperscript: ToggleMarkEditorCommand;
-      toggleSubscript: ToggleMarkEditorCommand;
-      toggleStrike: ToggleMarkEditorCommand;
       toggleCode: ToggleMarkEditorCommand;
-      toggleUnderline: ToggleMarkEditorCommand;
       toggleEm: ToggleMarkEditorCommand;
+      toggleStrike: ToggleMarkEditorCommand;
       toggleStrong: ToggleMarkEditorCommand;
+      toggleSubscript: ToggleMarkEditorCommand;
+      toggleSuperscript: ToggleMarkEditorCommand;
+      toggleUnderline: ToggleMarkEditorCommand;
     };
+    dependencies: [
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<PrimaryToolbarPlugin>,
+      OptionalPlugin<BasePlugin>,
+      OptionalPlugin<SelectionToolbarPlugin>,
+      OptionalPlugin<UserPreferencesPlugin>,
+      OptionalPlugin<ToolbarPlugin>,
+    ];
+    pluginConfiguration: TextFormattingPluginOptions | undefined;
     sharedState: TextFormattingState | undefined;
   }
 >;

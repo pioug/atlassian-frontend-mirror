@@ -1,7 +1,7 @@
 import type { Change } from 'prosemirror-changeset';
 
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';

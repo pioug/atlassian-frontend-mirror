@@ -147,14 +147,28 @@ export default function ProfilecardTriggerNext({
 	const hideTimer = useRef<number>(0);
 
 	const isExternalControl = propsIsVisible !== undefined && propsIsVisible !== visible;
-	const showDelay =
-		trigger === 'click' || (isExternalControl && fg('fix_profilecard_trigger_isvisible'))
-			? 0
-			: (customShowDelay ?? DELAY_MS_SHOW);
-	const hideDelay =
-		trigger === 'click' || (isExternalControl && fg('fix_profilecard_trigger_isvisible'))
-			? 0
-			: (customHideDelay ?? DELAY_MS_HIDE);
+	// Skip delay entirely for click triggers, or for externally controlled visibility
+	// when the flashing fix is not enabled (preserving the original 0ms behavior).
+	const shouldSkipDelay =
+		trigger === 'click' ||
+		(isExternalControl &&
+			!fg('jira_ai_fix_agent_profile_card_flashing') &&
+			fg('fix_profilecard_trigger_isvisible'));
+	// When externally controlled with the flashing fix enabled, use a short debounce
+	// to absorb rapid focus changes from dropdown options settling after async load.
+	const REDUCED_DELAY_MS = 100;
+	const shouldReduceDelay =
+		isExternalControl && fg('jira_ai_fix_agent_profile_card_flashing');
+
+	let showDelay = customShowDelay ?? DELAY_MS_SHOW;
+	let hideDelay = customHideDelay ?? DELAY_MS_HIDE;
+	if (shouldSkipDelay) {
+		showDelay = 0;
+		hideDelay = 0;
+	} else if (shouldReduceDelay) {
+		showDelay = REDUCED_DELAY_MS;
+		hideDelay = REDUCED_DELAY_MS;
+	}
 
 	const [isLoading, setIsLoading] = useState<boolean | undefined>(undefined);
 	const [hasError, setHasError] = useState<boolean>(false);

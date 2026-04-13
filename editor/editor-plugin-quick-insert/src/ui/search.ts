@@ -1,4 +1,4 @@
-import { type QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { find } from '@atlaskit/editor-common/quick-insert';
 import type { QuickInsertSearchOptions } from '@atlaskit/editor-common/types';
 import { dedupe } from '@atlaskit/editor-common/utils';

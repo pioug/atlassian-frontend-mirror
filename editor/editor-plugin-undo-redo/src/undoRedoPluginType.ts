@@ -5,7 +5,7 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolb
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
-import { type InputSource } from './pm-plugins/enums';
+import type { InputSource } from './pm-plugins/enums';
 
 export type UndoRedoAction = (inputSource?: InputSource) => boolean;
 

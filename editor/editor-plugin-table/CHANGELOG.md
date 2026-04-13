@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-table
 
+## 18.1.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.28
+
+### Patch Changes
+
+- [`9ff7d1c1aa288`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ff7d1c1aa288) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
+## 18.1.27
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.1.26
 
 ### Patch Changes

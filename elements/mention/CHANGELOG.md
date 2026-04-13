@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 24.6.4
+
+### Patch Changes
+
+- [`2c91b4048c838`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c91b4048c838) -
+  Bump i18n packages
+- Updated dependencies
+
 ## 24.6.3
 
 ### Patch Changes

@@ -1,37 +1,11 @@
 import type React from 'react';
 
-import { isModified, getRoutePathFromUrl, isTeamsAppRoute } from '../utils/utils';
+import { isModified, getRoutePathFromUrl, isTeamsAppRoute, prefixWithContextEntryPoint } from '../utils/utils';
 
 import { classifyNavigationIntent } from './classifyNavigationIntent';
 
-const isAbsoluteLink = (url: string): boolean => {
-	return url.startsWith('http') || url.startsWith('www');
-};
-
 /**
- * For a given arbitrary path, prefix it with the context entry point of the current product.
- * For example, in non teams app experiences where contextEntryPoint could be `/wiki/people`:
- * - Input: `team/123` → Output: `/wiki/people/team/123`
- * - Input: `https://example.com` → Output: `https://example.com` (absolute URLs are not prefixed)
- * - Input: `/wiki/people/team/123` → Output: `/wiki/people/team/123` (already prefixed)
- */
-const prefixWithContextEntryPoint = (path: string, contextEntryPoint = ''): string => {
-	if (
-		isAbsoluteLink(path) ||
-		!contextEntryPoint ||
-		path.startsWith('/') ||
-		path.startsWith(contextEntryPoint)
-	) {
-		return path;
-	}
-
-	return `${contextEntryPoint}/${path}`;
-};
-
-/**
- * Describes the type of link being created.
- *
- * Mapping reference: https://hello.atlassian.net/wiki/spaces/PTC/pages/6618450101/LDR+Link+Intent+Mapping
+ * Describes the type of link being created [(mapping reference)](https://hello.atlassian.net/wiki/spaces/PTC/pages/6618450101/LDR+Link+Intent+Mapping).
  */
 export type NavigationIntent = 'navigation' | 'reference' | 'action' | 'external' | 'unknown';
 
@@ -43,7 +17,7 @@ export interface NavigationContext {
 	 */
 	forceExternalIntent?: boolean;
 	/**
-	 * SPA navigation for Teams app routes. When omitted, those routes use the browser's default
+	 * Performs SPA navigation to the specified URL. When omitted, routes use the browser's default
 	 * navigation (full page load).
 	 */
 	navigate?: (url: string) => void;
@@ -60,6 +34,9 @@ export interface NavigationContext {
 	contextEntryPoint?: string;
 }
 
+/**
+ * Props passed to `getNavigationProps`.
+ */
 export type NavigationIntentProps =
 	| { intent: 'action'; previewPanelProps?: PreviewPanelProps }
 	| { intent: Exclude<NavigationIntent, 'action'> };
@@ -67,7 +44,7 @@ export type NavigationIntentProps =
 type NavigationInput = NavigationIntentProps & {
 	href: string;
 	context: NavigationContext;
-	onBeforeNavigate?: (...args: any[]) => void;
+	onClick?: (...args: any[]) => void;
 };
 
 /**
@@ -79,8 +56,7 @@ type PreviewPanelProps = {
 };
 
 /**
- * Props passed to the `openPreviewPanel` callback. `url` is always present,
- * falling back to the anchor's `href`.
+ * Props passed to the `openPreviewPanel` callback.
  */
 type PreviewPanelOpenProps = {
 	ari: string;
@@ -88,25 +64,28 @@ type PreviewPanelOpenProps = {
 	url: string;
 };
 
+/**
+ * Return type of `getNavigationProps`.
+ */
 type NavigationByIntent =
 	| {
 			href: string;
-			onClick?: (...args: any[]) => void;
 			target: '_self';
 			rel?: string;
+			onClick?: (...args: any[]) => void;
 	  }
 	| {
 			href: string;
-			onClick?: (...args: any[]) => void;
 			target: '_blank';
 			rel: 'noopener noreferrer';
+			onClick?: (...args: any[]) => void;
 	  };
 
 /**
  * Headless, pure function that determines how a link should behave.
  */
 export function getNavigationProps(input: NavigationInput): NavigationByIntent {
-	const { href: rawHref, intent, context, onBeforeNavigate } = input;
+	const { href: rawHref, intent, context, onClick: rawOnClick } = input;
 	const previewPanelProps = 'previewPanelProps' in input ? input.previewPanelProps : undefined;
 	const resolvedIntent = intent !== 'unknown' ? intent : classifyNavigationIntent(rawHref);
 
@@ -123,7 +102,7 @@ export function getNavigationProps(input: NavigationInput): NavigationByIntent {
 			rel: 'noopener noreferrer',
 			onClick: (...args: any[]) => {
 				const e = args[0] as React.MouseEvent<HTMLAnchorElement>;
-				onBeforeNavigate?.(...args);
+				rawOnClick?.(...args);
 				if (e.defaultPrevented) return;
 				e.preventDefault();
 				window.open(href, '_blank', 'noopener noreferrer');
@@ -136,7 +115,7 @@ export function getNavigationProps(input: NavigationInput): NavigationByIntent {
 		target: '_self',
 		onClick: (...args: any[]) => {
 			const e = args[0] as React.MouseEvent<HTMLAnchorElement>;
-			onBeforeNavigate?.(...args);
+			rawOnClick?.(...args);
 			if (e.defaultPrevented) return;
 
 			// Handle left-click with modifier keys (let browser handle it)
@@ -154,10 +133,10 @@ export function getNavigationProps(input: NavigationInput): NavigationByIntent {
 
 			// Handle left-clicks without modifier keys
 			if (
+				context.navigate && // only use navigate when a handler is provided
 				isTeamsAppRoute(href) && // only SPA navigate for townsquare routes
 				e.button === 0 && // only use navigate for left mouse button clicks
-				!isModified(e) && // let browser handle clicks with modifier
-				context.navigate // only use navigate when a handler is provided
+				!isModified(e) // let browser handle clicks with modifier
 			) {
 				e.preventDefault();
 				const routePath = getRoutePathFromUrl(href);

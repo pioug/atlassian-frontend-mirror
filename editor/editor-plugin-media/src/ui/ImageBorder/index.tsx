@@ -11,7 +11,7 @@ import type { IntlShape } from 'react-intl-next';
 import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
 import { imageBorderMessages as messages } from '@atlaskit/editor-common/media';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { type Icon } from '@atlaskit/editor-common/types';
+import type { Icon } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import {
 	borderColorPalette,

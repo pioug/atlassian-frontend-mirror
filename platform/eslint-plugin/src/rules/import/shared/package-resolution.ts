@@ -184,8 +184,53 @@ export interface ExportMatchResult {
 }
 
 /**
+ * Check whether a subpath export key (e.g. `"./checkbox-select"`) is kebab-case.
+ *
+ * A key is considered kebab-case when the portion after the leading `"./"` prefix
+ * consists only of lowercase letters, digits, hyphens, dots, and forward-slash
+ * separators — i.e. no uppercase letters, underscores, or camelCase humps.
+ */
+export function isKebabCaseExportKey(key: string): boolean {
+	const body = key.replace(/^\.\//, '');
+	if (body.length === 0) {
+		return false;
+	}
+	return /^[a-z0-9][a-z0-9\-./]*$/.test(body);
+}
+
+/**
+ * Given a list of candidate {@link ExportMatchResult}s that all resolve to the same
+ * source file, pick the best one.  When any candidate's export path is kebab-case
+ * and points to an entry-point file, prefer it over non-kebab-case alternatives.
+ * Falls back to the first candidate if no kebab-case entry-point candidate is found.
+ */
+function pickBestMatch(
+	candidates: ExportMatchResult[],
+	exportsMap: Map<string, string>,
+): ExportMatchResult {
+	if (candidates.length === 1) {
+		return candidates[0];
+	}
+
+	// Among candidates whose value is an entry-point file, prefer kebab-case keys.
+	const entryPointKebab = candidates.filter((c) => {
+		const resolved = exportsMap.get(c.exportPath);
+		return resolved && isInEntryPointsFolder(resolved) && isKebabCaseExportKey(c.exportPath);
+	});
+	if (entryPointKebab.length > 0) {
+		return entryPointKebab[0];
+	}
+
+	// Fall back to the first candidate (preserves previous behaviour).
+	return candidates[0];
+}
+
+/**
  * Find a matching export entry for a given source file path.
  * Returns the export path (e.g., "./controllers/analytics") or null if not found.
+ *
+ * When multiple export paths resolve to the same source file **and** point to an
+ * entry-point file, kebab-case keys are preferred over other casing styles.
  *
  * When `fs` is provided, also checks entry-point wrapper files. If an export resolves
  * to a file inside a recognized entry-points folder (entry-points, entrypoints, etc.),
@@ -206,13 +251,20 @@ export function findExportForSourceFile({
 	fs?: FileSystem;
 	sourceExportName?: string;
 }): ExportMatchResult | null {
+	// --- Phase 1: direct matches (export value === sourceFilePath) ---
+	const directMatches: ExportMatchResult[] = [];
 	for (const [exportPath, resolvedPath] of exportsMap) {
 		if (resolvedPath === sourceFilePath) {
-			return { exportPath };
+			directMatches.push({ exportPath });
 		}
 	}
+	if (directMatches.length > 0) {
+		return pickBestMatch(directMatches, exportsMap);
+	}
 
+	// --- Phase 2: entry-point wrapper re-export matches ---
 	if (fs) {
+		const entryPointMatches: ExportMatchResult[] = [];
 		for (const [exportPath, resolvedPath] of exportsMap) {
 			if (isInEntryPointsFolder(resolvedPath)) {
 				const reExports = resolveEntryPointReExports({
@@ -225,10 +277,13 @@ export function findExportForSourceFile({
 						if (sourceExportName !== undefined && reExport.nameMap.has(sourceExportName)) {
 							entryPointExportName = reExport.nameMap.get(sourceExportName);
 						}
-						return { exportPath, entryPointExportName };
+						entryPointMatches.push({ exportPath, entryPointExportName });
 					}
 				}
 			}
+		}
+		if (entryPointMatches.length > 0) {
+			return pickBestMatch(entryPointMatches, exportsMap);
 		}
 	}
 

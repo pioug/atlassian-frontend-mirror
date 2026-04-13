@@ -29,7 +29,7 @@ import {
 	ToolbarKeyboardShortcutHint,
 	ToolbarSection,
 } from '@atlaskit/editor-toolbar';
-import { type RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "34.0.3",
+	"version": "34.0.4",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

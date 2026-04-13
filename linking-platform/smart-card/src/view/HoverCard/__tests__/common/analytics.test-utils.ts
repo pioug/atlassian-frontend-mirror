@@ -6,6 +6,7 @@ import * as exp from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
+import { closeEmbedModal } from '../../../../__tests__/__utils__/unit-helpers';
 import * as analytics from '../../../../utils/analytics/analytics';
 import * as HoverCardComponent from '../../components/HoverCardComponent';
 import {
@@ -286,6 +287,8 @@ export const analyticsTests = (
 					}),
 				}),
 			);
+
+			await closeEmbedModal(event);
 		});
 
 		it('should fire clicked event when download button is clicked', async () => {
@@ -596,6 +599,8 @@ export const analyticsTests = (
 												}),
 											}),
 										);
+
+										await closeEmbedModal(event);
 									});
 								});
 							});

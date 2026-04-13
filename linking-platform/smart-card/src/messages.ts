@@ -192,14 +192,9 @@ export type MessageKey =
 	| 'ai_disclaimer'
 	| 'rovo_unauthorised_title'
 	| 'rovo_unauthorised_title_no_provider'
-	| 'rovo_unauthorised_feature_document_summaries_title'
-	| 'rovo_unauthorised_feature_document_summaries_desc'
-	| 'rovo_unauthorised_feature_smart_suggestions_title'
-	| 'rovo_unauthorised_feature_smart_suggestions_desc'
-	| 'rovo_unauthorised_feature_cross_reference_title'
-	| 'rovo_unauthorised_feature_cross_reference_desc'
-	| 'rovo_unauthorised_feature_related_content_title'
-	| 'rovo_unauthorised_feature_related_content_desc'
+	| 'rovo_unauthorised_feature_clear_link_names'
+	| 'rovo_unauthorised_feature_understand_linked_docs'
+	| 'rovo_unauthorised_feature_go_deeper_smart_suggestions'
 	| 'rovo_unauthorised_connect_account'
 	| 'rovo_unauthorised_not_now'
 	| RovoChatActionMessageKey;
@@ -1126,45 +1121,20 @@ export const messages: Messages = defineMessages({
 		description:
 			'Banner headline in Rovo unauthorised hover card header when the provider name is unknown.',
 	},
-	rovo_unauthorised_feature_document_summaries_title: {
-		id: 'fabric.linking.rovo_unauthorised.feature.document_summaries.title',
-		defaultMessage: 'Quick summaries',
-		description: 'Feature title in Rovo unauthorised view.',
+	rovo_unauthorised_feature_clear_link_names: {
+		id: 'fabric.linking.rovo_unauthorised.feature.clear_link_names',
+		defaultMessage: 'Turn long URL into clear link names',
+		description: 'First feature bullet in Rovo unauthorised hover card.',
 	},
-	rovo_unauthorised_feature_document_summaries_desc: {
-		id: 'fabric.linking.rovo_unauthorised.feature.document_summaries.desc',
-		defaultMessage: 'Understand long docs in seconds',
-		description: 'Feature description in Rovo unauthorised view.',
+	rovo_unauthorised_feature_understand_linked_docs: {
+		id: 'fabric.linking.rovo_unauthorised.feature.understand_linked_docs',
+		defaultMessage: 'Understand linked docs in seconds',
+		description: 'Second feature bullet in Rovo unauthorised hover card.',
 	},
-	rovo_unauthorised_feature_smart_suggestions_title: {
-		id: 'fabric.linking.rovo_unauthorised.feature.smart_suggestions.title',
-		defaultMessage: 'Smart suggestions',
-		description: 'Feature title in Rovo unauthorised view.',
-	},
-	rovo_unauthorised_feature_smart_suggestions_desc: {
-		id: 'fabric.linking.rovo_unauthorised.feature.smart_suggestions.desc',
-		defaultMessage: 'Strengthen your drafts with actionable feedback',
-		description: 'Feature description in Rovo unauthorised view.',
-	},
-	rovo_unauthorised_feature_cross_reference_title: {
-		id: 'fabric.linking.rovo_unauthorised.feature.cross_reference.title',
-		defaultMessage: 'Tracked link mentions',
-		description: 'Feature title in Rovo unauthorised view.',
-	},
-	rovo_unauthorised_feature_cross_reference_desc: {
-		id: 'fabric.linking.rovo_unauthorised.feature.cross_reference.desc',
-		defaultMessage: 'Never miss where your work is referenced',
-		description: 'Feature description in Rovo unauthorised view.',
-	},
-	rovo_unauthorised_feature_related_content_title: {
-		id: 'fabric.linking.rovo_unauthorised.feature.related_content.title',
-		defaultMessage: 'Related content',
-		description: 'Feature title in Rovo unauthorised view.',
-	},
-	rovo_unauthorised_feature_related_content_desc: {
-		id: 'fabric.linking.rovo_unauthorised.feature.related_content.desc',
-		defaultMessage: 'Find relevant work and why it matters',
-		description: 'Feature description in Rovo unauthorised view.',
+	rovo_unauthorised_feature_go_deeper_smart_suggestions: {
+		id: 'fabric.linking.rovo_unauthorised.feature.go_deeper_smart_suggestions',
+		defaultMessage: 'Go deeper with smart suggestions',
+		description: 'Third feature bullet in Rovo unauthorised hover card.',
 	},
 	rovo_unauthorised_connect_account: {
 		id: 'fabric.linking.rovo_unauthorised.connect_account',

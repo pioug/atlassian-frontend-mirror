@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { bindKeymapWithCommand, openHelp } from '@atlaskit/editor-common/keymaps';
-import { type SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
 import { openHelpCommand } from './commands';

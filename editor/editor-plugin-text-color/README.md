@@ -1,9 +1,22 @@
-# Editor plugin text color
+# Editor Plugin Text Color
 
 Text color plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Text Color plugin enables users to apply custom text colors to their content in the Atlassian Editor. It provides a color palette interface and integrates with the editor's toolbar and selection toolbar to offer intuitive color selection and application.
+
+## Key features
+
+- **Color palette** - Access a customizable palette of text colors with default and custom color options
+- **Toolbar integration** - Seamless integration with primary toolbar and floating selection toolbar
+- **Color state management** - Track and manage active text color state across the document
+- **Configurable defaults** - Configure default text color and toolbar component visibility
+- **Commands and actions** - Programmatic API to change colors and control palette visibility
+- **Keyboard support** - Keyboard shortcuts for color operations via keymap plugin
 
 ## Install
 ---

@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.36.0
+
+### Minor Changes
+
+- [`a18d71d5d732c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a18d71d5d732c) -
+  Event tracking improvement for AI assisted JSM Journey creation
+
 ## 5.35.0
 
 ### Minor Changes

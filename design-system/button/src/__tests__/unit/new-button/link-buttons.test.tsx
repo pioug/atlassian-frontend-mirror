@@ -6,7 +6,7 @@ import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provid
 import SettingsIcon from '@atlaskit/icon/core/settings';
 
 import LinkIconButton from '../../../new-button/variants/icon/link';
-import { linkButtonVariants } from '../../../utils/variants';
+import variants from '../../../utils/variants';
 
 type MyRouterLinkConfig = {
 	to: string;
@@ -130,7 +130,7 @@ const testCases: Array<{
 	},
 ];
 
-linkButtonVariants.forEach(({ name, Component }) => {
+[variants.LinkButton, variants.LinkIconButton].forEach(({ name, Component }) => {
 	describe(name, () => {
 		describe('should conditionally render router links or standard <a> anchors', () => {
 			describe('when links are used outside an AppProvider', () => {

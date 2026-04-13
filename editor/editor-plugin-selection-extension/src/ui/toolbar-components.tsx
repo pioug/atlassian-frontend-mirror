@@ -15,7 +15,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SelectionExtensionPlugin } from '../selectionExtensionPluginType';
 import type { ExtensionMenuItemConfiguration } from '../types';
-import { type SelectionExtensionPluginOptions } from '../types';
+import type { SelectionExtensionPluginOptions } from '../types';
 
 import { MenuItem } from './toolbar-components/MenuItem';
 import { registerInlineToolbar } from './toolbar-components/register-inline-toolbar';

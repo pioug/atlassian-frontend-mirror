@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -10,6 +10,9 @@
 	"types": "dist/types/index.d.ts",
 	"typesVersions": {
 		">=4.5 <4.9": {
+			"global": [
+				"dist/types-ts4.5/components/global/__generated__/index.d.ts"
+			],
 			"*": [
 				"dist/types-ts4.5/*",
 				"dist/types-ts4.5/index.d.ts"

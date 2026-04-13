@@ -1,56 +1,55 @@
 import { generateTheme, type NavigationTheme } from '@atlaskit/atlassian-navigation';
-import { B400, G300, N0, N800, P300, R300, T300, Y300 } from '@atlaskit/theme/colors';
 
 export const theme: NavigationTheme[] = [
 	generateTheme({
 		name: 'atlassian',
-		backgroundColor: B400,
-		highlightColor: N0,
+		backgroundColor: '#0052CC',
+		highlightColor: '#FFFFFF',
 	}),
 	generateTheme({
 		name: 'settings',
-		backgroundColor: N800,
-		highlightColor: N0,
+		backgroundColor: '#172B4D',
+		highlightColor: '#FFFFFF',
 	}),
 	generateTheme({
 		name: 'white',
-		backgroundColor: N0,
-		highlightColor: N800,
+		backgroundColor: '#FFFFFF',
+		highlightColor: '#172B4D',
 	}),
 	generateTheme({
 		name: 'red',
-		backgroundColor: R300,
-		highlightColor: N0,
+		backgroundColor: '#FF5630',
+		highlightColor: '#FFFFFF',
 	}),
 	generateTheme({
 		name: 'orange',
-		backgroundColor: Y300,
-		highlightColor: N800,
+		backgroundColor: '#FFAB00',
+		highlightColor: '#172B4D',
 	}),
 	generateTheme({
 		name: 'yellow',
 		backgroundColor: '#ffff00',
-		highlightColor: N800,
+		highlightColor: '#172B4D',
 	}),
 	generateTheme({
 		name: 'green',
-		backgroundColor: G300,
-		highlightColor: N800,
+		backgroundColor: '#36B37E',
+		highlightColor: '#172B4D',
 	}),
 	generateTheme({
 		name: 'blue',
-		backgroundColor: T300,
-		highlightColor: N800,
+		backgroundColor: '#00B8D9',
+		highlightColor: '#172B4D',
 	}),
 	generateTheme({
 		name: 'violet',
-		backgroundColor: P300,
-		highlightColor: N0,
+		backgroundColor: '#6554C0',
+		highlightColor: '#FFFFFF',
 	}),
 	generateTheme({
 		name: 'pink',
 		backgroundColor: '#fec8d8',
-		highlightColor: N800,
+		highlightColor: '#172B4D',
 	}),
 ];
 
@@ -83,7 +82,7 @@ export const themes: NavigationTheme[] = [
 	generateTheme({
 		// naming a theme "atlassian" forces the theme to be the default theme; the colors below aren't used
 		name: 'atlassian',
-		backgroundColor: B400,
-		highlightColor: N0,
+		backgroundColor: '#0052CC',
+		highlightColor: '#FFFFFF',
 	}),
 ];

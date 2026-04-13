@@ -1,8 +1,29 @@
-# Editor plugin track changes
+# Editor Plugin Track Changes
 
 Track changes plugin for @atlaskit/editor-core
 
+## Overview
+
+The Track Changes plugin enables tracking and display of document changes in the Atlassian Editor. It integrates with the Show Diff plugin to visualize content modifications and provides commands to toggle the display of changes and reset the baseline for comparison.
+
+## Key features
+
+- **Toggle change display** - Show or hide tracked changes in the editor using the `toggleChanges` command
+- **Baseline reset** - Reset the baseline used for tracking changes with the `resetBaseline` command
+- **Toolbar integration** - Optionally display a track changes button in the editor toolbar
+- **Shared state** - Access the state of change display and diff availability through shared plugin state
+- **Show Diff integration** - Works seamlessly with the Show Diff plugin for visual change representation
+
+## Install
+
+- **Install** - `yarn add @atlaskit/editor-plugin-track-changes`
+- **npm** - [@atlaskit/editor-plugin-track-changes](https://www.npmjs.com/package/@atlaskit/editor-plugin-track-changes)
+- **Source** - [Bitbucket](https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/editor/editor-plugin-track-changes)
+- **Bundle** - [unpkg.com](https://unpkg.com/@atlaskit/editor-plugin-track-changes/dist/)
+
 ## Usage
+
+### Import
 
 `import { trackChangesPlugin } from '@atlaskit/editor-plugin-track-changes';`
 
@@ -13,6 +34,7 @@ Track changes plugin for @atlaskit/editor-core
 
 **Optional:**
 - `PrimaryToolbarPlugin` - Required if using `showOnToolbar: true`
+- `ToolbarPlugin` - Alternative toolbar plugin for registering the track changes button
 
 ### Configuration
 
@@ -87,3 +109,11 @@ export default Editor;
 ```
 
 Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/editor/editor-plugin-track-changes).
+
+## Support
+
+For support, visit the [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) Slack channel or submit an issue via [go/editor-help](https://go/editor-help).
+
+## License
+
+Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.

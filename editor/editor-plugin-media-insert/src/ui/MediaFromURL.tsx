@@ -31,14 +31,14 @@ import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import TextField from '@atlaskit/textfield';
 
-import {
-	type CustomizedHelperMessage,
-	type InsertExternalMediaSingle,
-	type InsertMediaSingle,
+import type {
+	CustomizedHelperMessage,
+	InsertExternalMediaSingle,
+	InsertMediaSingle,
 } from '../types';
 
 import { MediaCard } from './MediaCard';
-import { type OnInsertAttrs } from './types';
+import type { OnInsertAttrs } from './types';
 import { useAnalyticsEvents } from './useAnalyticsEvents';
 
 const PreviewBoxStyles = xcss({
@@ -98,8 +98,7 @@ export const isValidUrl = (value: string): boolean => {
 			return false;
 		}
 		new URL(value);
-	} catch (e) {
-		// eslint-disable-line no-unused-vars
+	} catch {
 		return false;
 	}
 	return isSafeUrl(value);

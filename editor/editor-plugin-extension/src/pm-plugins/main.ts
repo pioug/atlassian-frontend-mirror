@@ -7,7 +7,7 @@ import type {
 	ExtensionProvider,
 	UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {

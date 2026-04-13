@@ -1,5 +1,26 @@
 # @atlaskit/profilecard
 
+## 24.49.6
+
+### Patch Changes
+
+- [`04db4a4ad0487`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04db4a4ad0487) -
+  fix the query
+
+## 24.49.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.49.4
+
+### Patch Changes
+
+- [`ddd049a745d38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddd049a745d38) -
+  Internal change to how legacy colors are applied. No visual changes.
+- Updated dependencies
+
 ## 24.49.3
 
 ### Patch Changes

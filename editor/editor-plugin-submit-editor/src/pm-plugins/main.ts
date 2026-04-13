@@ -15,7 +15,7 @@ import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { type SubmitEditorPlugin } from '../submitEditorPluginType';
+import type { SubmitEditorPlugin } from '../submitEditorPluginType';
 
 export function createPlugin(
 	eventDispatch: Dispatch,

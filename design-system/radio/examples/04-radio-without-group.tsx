@@ -7,7 +7,6 @@ import { type SyntheticEvent, useCallback, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { Radio } from '@atlaskit/radio';
-import { B50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 interface RadioOptions {
@@ -93,7 +92,7 @@ export default function RadioInputExample(): JSX.Element {
 							onClick={() => setValue(item.value)}
 							key={`${item.value}${item.name}${item.id}`}
 							style={{
-								backgroundColor: item.value === value ? B50 : 'transparent',
+								backgroundColor: item.value === value ? '#DEEBFF' : 'transparent',
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								transition: 'background-color 200ms ease-in-out',
 							}}

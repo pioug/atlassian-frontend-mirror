@@ -11,7 +11,7 @@ import { ToolbarDropdownItemSection, ToolbarNestedDropdownMenu } from '@atlaskit
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { type ExtensionNestedDropdownMenuConfiguration } from '../../types';
+import type { ExtensionNestedDropdownMenuConfiguration } from '../../types';
 import { useSelectionExtensionComponentContext } from '../SelectionExtensionComponentContext';
 
 import { SelectionExtensionDropdownItem } from './SelectionExtensionDropdownItem';

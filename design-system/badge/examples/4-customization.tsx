@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Badge from '@atlaskit/badge';
-import { N0, P500, P75, R400 } from '@atlaskit/theme/colors';
 
 export default (): React.JSX.Element => {
 	return (
@@ -10,13 +9,13 @@ export default (): React.JSX.Element => {
 				<Badge
 					max={1000}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					style={{ backgroundColor: R400, color: N0 }}
+					style={{ backgroundColor: '#DE350B', color: '#FFFFFF' }}
 					testId="badge"
 				>
 					{1001}
 				</Badge>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<Badge style={{ backgroundColor: P75, color: P500 }}>
+				<Badge style={{ backgroundColor: '#C0B6F2', color: '#403294' }}>
 					<strong>10</strong>
 				</Badge>
 				<Badge>{1}</Badge>

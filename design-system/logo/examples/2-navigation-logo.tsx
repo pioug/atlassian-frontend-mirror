@@ -35,7 +35,6 @@ import {
 	StatuspageIcon,
 	TrelloIcon,
 } from '@atlaskit/logo';
-import { B500, DN10, N40, P300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const logoOptions = [
@@ -68,9 +67,9 @@ const logoOptions = [
 ];
 
 const iconVariants = [
-	{ background: B500, color: 'white' },
-	{ background: N40, color: DN10 },
-	{ background: P300, color: Y300 },
+	{ background: '#0747A6', color: 'white' },
+	{ background: '#DFE1E6', color: '#0E1624' },
+	{ background: '#6554C0', color: '#FFAB00' },
 ];
 
 interface WrapperDivProps {

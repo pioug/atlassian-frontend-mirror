@@ -11,6 +11,7 @@ import type {
 } from '../types';
 import { PACKAGE_META_DATA } from '../util/analytics';
 import { getPageTime } from '../util/performance';
+import { USER_ARI_PREFIX } from '../util/rovoAgentUtils';
 
 import CachingClient from './CachingClient';
 import { getErrorAttributes } from './errorUtils';
@@ -94,7 +95,9 @@ const buildRovoAgentQueryByAccountId = (identityAccountId: string, cloudId: stri
 		}
 	`,
 	variables: {
-		id: identityAccountId,
+		id: identityAccountId.startsWith(USER_ARI_PREFIX)
+			? identityAccountId
+			: `${USER_ARI_PREFIX}${identityAccountId}`,
 		cloudId,
 	},
 });

@@ -1,9 +1,21 @@
-# Editor plugin width
+# Editor Plugin Width
 
 Width plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Width plugin tracks and manages the editor container width and line length dimensions. It monitors resize events and provides shared state for width-related information that other editor plugins can utilize.
+
+## Key features
+
+- **Container width tracking** - Monitor and track the editor container's width in real-time
+- **Line length tracking** - Track the content area's line length for layout calculations
+- **Resize observation** - Automatically detect and respond to container size changes using ResizeObserver
+- **Shared state** - Expose width and line length information through plugin shared state
+- **Transition handling** - Refresh width calculations on CSS transitions
 
 ## Install
 ---

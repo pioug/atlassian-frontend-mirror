@@ -5,7 +5,7 @@ export {
 	default as LinkIconButton,
 	type LinkIconButtonProps,
 } from '../new-button/variants/icon/link';
-export { SplitButton } from '../new-button/containers/split-button';
+export { SplitButton } from '../new-button/containers/split-button/split-button';
 
 export type {
 	Appearance,

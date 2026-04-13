@@ -16,7 +16,9 @@ import {
 	type InteractionState,
 	type CustomThemeButtonProps as Props,
 } from './custom-theme-button-types';
-import Theme, { defaultThemeFn, getSpecifiers } from './theme';
+import { defaultThemeFn } from './default-theme-fn';
+import { getSpecifiers } from './get-specifiers';
+import Theme from './theme';
 
 type State = {
 	isHover: boolean;

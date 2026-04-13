@@ -7,10 +7,17 @@ import findFiberWithCache from './find-fiber-with-cache';
 
 const DEFAULT_MAX_LEVEL = 20;
 const INCREASED_DOM_WALK_MAX_LEVEL = 40;
+const INCREASED_FIBER_WALK_MAX_LEVEL = 40;
 
 function getDomWalkMaxLevel() {
-	return fg('platform_ufo_3p_detection_increase_dom_walk')
+	return fg('platform_ufo_3p_forge_detection_fix')
 		? INCREASED_DOM_WALK_MAX_LEVEL
+		: DEFAULT_MAX_LEVEL;
+}
+
+function getFiberWalkMaxLevel() {
+	return fg('platform_ufo_3p_forge_detection_fix')
+		? INCREASED_FIBER_WALK_MAX_LEVEL
 		: DEFAULT_MAX_LEVEL;
 }
 
@@ -57,7 +64,7 @@ export default function checkWithinComponent(
 		});
 		return { isWithin: false };
 	}
-	const isWithin = checkFiberWithinComponent(fiber, targetComponentName, DEFAULT_MAX_LEVEL);
+	const isWithin = checkFiberWithinComponent(fiber, targetComponentName, getFiberWalkMaxLevel());
 
 	checkedNodes.forEach((checkedNode) => {
 		resultCache.set(checkedNode, isWithin);

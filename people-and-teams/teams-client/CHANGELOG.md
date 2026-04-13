@@ -1,5 +1,15 @@
 # @atlaskit/teams-client
 
+## 4.32.1
+
+### Patch Changes
+
+- [`a45dd5a6666e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a45dd5a6666e8) -
+  Fix invalid ARI being sent in X-Query-Context header when cloudId is unavailable. Previously, an
+  uninitialised cloudId defaulted to the string 'None', causing requests to include a malformed
+  header value of `ari:cloud:platform::site/None`. The client now defaults to an empty string so no
+  header is sent until a valid cloudId is set.
+
 ## 4.32.0
 
 ### Minor Changes

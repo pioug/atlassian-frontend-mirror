@@ -34,10 +34,24 @@ ${code`
 type TypeAheadPlugin = NextEditorPlugin<
   'typeAhead',
   {
-    pluginConfiguration: TypeAheadPluginOptions | undefined;
-    commands: {
-      openTypeAheadAtCursor: OpenTypeAheadAtCursorType;
+    actions: {
+      close: (props: CloseTypeAheadProps) => boolean;
+      findHandlerByTrigger: (trigger: string) => TypeAheadHandler | null;
+      insert: (props: InsertTypeAheadItemProps) => boolean;
+      isAllowed: (editorState: EditorState) => boolean;
+      isOpen: (editorState: EditorState) => boolean;
+      open: (props: OpenTypeAheadProps) => boolean;
+      openAtTransaction: (props: OpenTypeAheadProps) => (tr: Transaction) => boolean;
     };
+    dependencies: [
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<FeatureFlagsPlugin>,
+      OptionalPlugin<ConnectivityPlugin>,
+      OptionalPlugin<ContextPanelPlugin>,
+      OptionalPlugin<MetricsPlugin>,
+    ];
+    pluginConfiguration: TypeAheadPluginOptions | undefined;
+    sharedState: TypeAheadPluginSharedState;
   }
 >;
 `}

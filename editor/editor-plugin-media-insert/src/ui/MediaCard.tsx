@@ -7,7 +7,7 @@ import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { Card, CardLoading } from '@atlaskit/media-card';
 import type { Identifier } from '@atlaskit/media-client';
 
-import { type OnInsertAttrs } from './types';
+import type { OnInsertAttrs } from './types';
 const maxDimensions = {
 	width: '100%',
 	height: '100%',

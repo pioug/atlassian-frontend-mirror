@@ -11,7 +11,7 @@ import variants from '../src/utils/variants';
 export default function AppearancesExample(): React.JSX.Element {
 	return (
 		<Stack space="space.100" alignInline="start">
-			{variants.map(({ name, Component, appearances }) => (
+			{Object.values(variants).map(({ name, Component, appearances }) => (
 				<Stack space="space.150" key={name}>
 					<h2>{name}</h2>
 					<table>

@@ -19,22 +19,24 @@ const ExampleContainer = ({
 	children,
 	maxWidth = DEFAULT_MAX_WIDTH,
 	title,
+	withExperiments = true,
 }: {
 	children: React.ReactNode;
 	maxWidth?: string;
-	title: string;
+	title?: string;
+	withExperiments?: boolean;
 }): React.JSX.Element => {
-	const { ready } = useFeatureGateOverrideConfig();
+	const gateRevision = useFeatureGateOverrideConfig(withExperiments);
 
-	if (!ready) {
+	if (!gateRevision) {
 		return <div>Loading...</div>;
 	}
 
 	return (
 		<IntlProvider locale="en">
-			<Box paddingBlock="space.400" style={{ maxWidth }} xcss={boxStyles.root}>
+			<Box key={gateRevision} paddingBlock="space.400" style={{ maxWidth }} xcss={boxStyles.root}>
 				<Stack space="space.200">
-					<h1>{title}</h1>
+					{title && <h1>{title}</h1>}
 					{children}
 				</Stack>
 			</Box>

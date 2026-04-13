@@ -338,9 +338,7 @@ export default function createUniversalPresetInternal({
 				emojiPlugin,
 				{
 					emojiProvider: props.emojiProvider,
-					...(expValEquals('platform_editor_plain_text_support', 'isEnabled', true)
-						? initialPluginConfiguration?.emojiPlugin
-						: {}),
+					...initialPluginConfiguration?.emojiPlugin,
 				},
 			],
 			Boolean(props.emojiProvider),

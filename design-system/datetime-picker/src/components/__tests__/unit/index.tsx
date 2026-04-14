@@ -1,5 +1,7 @@
 import { formatDateTimeZoneIntoIso } from '../../../internal';
-import { convertTo24hrTime, isValid, removeSpacer } from '../../../internal/parse-time';
+import { convertTo24hrTime } from '../../../internal/convert-to24hr-time';
+import { isValid } from '../../../internal/is-valid';
+import { removeSpacer } from '../../../internal/remove-spacer';
 
 // ParseTime
 const correctTimes = [

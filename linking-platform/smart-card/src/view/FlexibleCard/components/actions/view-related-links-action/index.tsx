@@ -1,6 +1,6 @@
 import React, { lazy, useCallback } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 

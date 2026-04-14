@@ -1,5 +1,46 @@
 # @atlaskit/smart-card
 
+## 44.0.0
+
+### Major Changes
+
+- [`9f6bcd21611f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f6bcd21611f3) -
+  Removed `react-intl-next` alias and replaced all usages with `react-intl` directly.
+
+  What changed: The `react-intl-next` npm alias (which resolved to `react-intl@^5`) has been
+  removed. All imports now reference `react-intl` directly, and `peerDependencies` have been updated
+  to `"^5.25.1 || ^6.0.0 || ^7.0.0"`.
+
+  How consumer should update their code: Ensure `react-intl` is installed at a version satisfying
+  `^5.25.1 || ^6.0.0 || ^7.0.0`. If your application was using `react-intl-next` as an npm alias, it
+  can be safely removed. Replace any remaining `react-intl-next` imports with `react-intl`.
+
+### Patch Changes
+
+- [`be6cd35acc3ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be6cd35acc3ab) -
+  FG cleanup: platform_navx_lp_invalid_url_error, ignore invalid URL error
+- [`8f7575e82974c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f7575e82974c) -
+  Add gated analytics for embed modal on view action to capture extensionKey, status, and
+  statusDetails.
+- Updated dependencies
+
+## 43.32.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.32.0
+
+### Minor Changes
+
+- [`f5b6110e36e79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5b6110e36e79) -
+  [ux] Enables rovo actions post auth experiment ui and exposures
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.31.10
 
 ### Patch Changes

@@ -5,7 +5,7 @@
 import React from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import Document16Icon from '@atlaskit/icon-file-type/glyph/document/16';
 import PageLiveDoc16Icon from '@atlaskit/icon-object/glyph/page-live-doc/16';

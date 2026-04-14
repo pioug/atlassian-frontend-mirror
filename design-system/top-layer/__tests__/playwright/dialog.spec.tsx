@@ -144,8 +144,8 @@ test.describe('Dialog - focus', () => {
 		expect(isFocusInsideDialog).toBe(true);
 	});
 
-	// WCAG 2.4.3 Focus Order - focus returns to trigger on dismiss
-	test('focus returns to trigger on close', async ({ page }) => {
+	// WCAG 2.4.3 Focus Order - focus returns to trigger on Escape
+	test('focus returns to trigger on Escape', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/95-testing-focus-return.tsx')>(
 			'design-system',
 			'top-layer',
@@ -159,6 +159,52 @@ test.describe('Dialog - focus', () => {
 
 		await page.keyboard.press('Escape');
 
+		await expect(trigger).toBeFocused();
+	});
+
+	// WCAG 2.4.3 Focus Order - focus returns to trigger on backdrop click
+	// dialog.close() always restores focus, unlike Popover light dismiss
+	test('focus returns to trigger on backdrop click', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/95-testing-focus-return.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-focus-return',
+		);
+
+		const trigger = page.getByTestId('dialog-trigger');
+		await trigger.click();
+
+		await expect(page.getByTestId('dialog-button')).toBeVisible();
+
+		// Click the dialog element itself (the backdrop area outside child content).
+		// The dialog's click handler treats target===currentTarget as a backdrop click.
+		const dialog = page.locator('dialog');
+		const box = await dialog.boundingBox();
+		invariant(box, 'dialog bounding box should exist');
+		await page.mouse.click(box.x + 1, box.y + 1);
+
+		await expect(dialog).toBeHidden();
+		await expect(trigger).toBeFocused();
+	});
+
+	// WCAG 2.4.3 Focus Order - focus returns to trigger on programmatic close
+	// Verifies dialog.close() restores focus even when closed via an inner button
+	test('focus returns to trigger on programmatic close', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/95-testing-focus-return.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-focus-return',
+		);
+
+		const trigger = page.getByTestId('dialog-trigger');
+		await trigger.click();
+
+		await expect(page.getByTestId('dialog-button')).toBeVisible();
+
+		// Close via the close button inside the dialog (programmatic close path)
+		await page.locator('dialog button[aria-label="Close"]').click();
+
+		await expect(page.locator('dialog')).toBeHidden();
 		await expect(trigger).toBeFocused();
 	});
 

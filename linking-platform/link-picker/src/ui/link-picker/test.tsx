@@ -10,7 +10,7 @@ import {
 	within,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ManualPromise, renderWithIntl as render } from '@atlaskit/link-test-helpers';

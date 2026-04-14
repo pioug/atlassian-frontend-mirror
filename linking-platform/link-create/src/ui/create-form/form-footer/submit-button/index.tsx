@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useForm, useFormState } from 'react-final-form';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import LoadingButton from '@atlaskit/button/loading-button';

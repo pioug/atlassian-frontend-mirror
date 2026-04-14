@@ -1,7 +1,6 @@
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import Link from '@atlaskit/link';
 import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
-import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import { InlineCard } from './';
 
@@ -52,7 +51,7 @@ export class CardErrorBoundary extends React.PureComponent<
 			if (url) {
 				let actualTarget;
 
-				if (onSetLinkTarget && fg('rovo_chat_deep_linking_enabled')) {
+				if (onSetLinkTarget) {
 					try {
 						actualTarget = onSetLinkTarget(url);
 					} catch {

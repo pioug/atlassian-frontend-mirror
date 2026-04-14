@@ -5,7 +5,7 @@
 import React from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
-import { type MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor } from 'react-intl';
 
 import type { Prettify } from '@atlaskit/linking-common';
 import { token } from '@atlaskit/tokens';

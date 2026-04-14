@@ -10,7 +10,7 @@ import {
 import { type NoViableAltException } from 'antlr4ts/NoViableAltException';
 import { type RecognitionException } from 'antlr4ts/RecognitionException';
 import padStart from 'lodash/padStart';
-import { type IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl';
 
 import { normaliseJqlString } from '@atlaskit/jql-ast';
 import { JQLAutocomplete } from '@atlaskit/jql-autocomplete';

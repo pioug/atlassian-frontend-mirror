@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act, fireEvent, render, screen, type RenderOptions, within } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { type JsonLd } from '@atlaskit/json-ld-types';

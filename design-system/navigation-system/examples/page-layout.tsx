@@ -751,7 +751,7 @@ export const ResizableWithIframeContent: () => JSX.Element = () => {
 			return '';
 		}
 
-		const url = new URL('/examples.html', window.location.origin);
+		const url = new URL('/example', window.location.origin);
 		url.searchParams.set('groupId', 'design-system');
 		url.searchParams.set('packageId', 'navigation-system');
 		url.searchParams.set('exampleId', 'stand-alone-iframe');

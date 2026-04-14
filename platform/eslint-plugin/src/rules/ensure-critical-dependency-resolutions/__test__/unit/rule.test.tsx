@@ -14,7 +14,6 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
                 "typescript": "5.4.2",
 				"tslib": "2.6.3",
                 "react-relay": "npm:atl-react-relay@0.0.0-main-39e79f66",
-                "relay-compiler": "npm:atl-relay-compiler@0.0.0-main-39e79f66",
                 "relay-runtime": "npm:atl-relay-runtime@0.0.0-main-39e79f66",
                 "relay-test-utils": "npm:atl-relay-test-utils@0.0.0-main-39e79f66",
             }
@@ -29,7 +28,6 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
                       "typescript": "5.4.2",
 					  "tslib": "2.6.3",
                       "react-relay": "npm:atl-react-relay@0.0.0-main-39e79f66",
-                      "relay-compiler": "npm:atl-relay-compiler@0.0.0-main-39e79f66",
                       "relay-runtime": "npm:atl-relay-runtime@0.0.0-main-39e79f66",
                       "relay-test-utils": "npm:atl-relay-test-utils@0.0.0-main-39e79f66",
                   }
@@ -44,7 +42,6 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
                 "typescript": "~5.4.2",
                 "tslib": "~2.6.3",
                 "react-relay": "npm:atl-react-relay@0.0.0-main-39e79f66",
-                "relay-compiler": "npm:atl-relay-compiler@0.0.0-main-39e79f66",
                 "relay-runtime": "npm:atl-relay-runtime@0.0.0-main-39e79f66",
                 "relay-test-utils": "npm:atl-relay-test-utils@0.0.0-main-39e79f66",
             }

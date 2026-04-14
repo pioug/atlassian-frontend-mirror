@@ -26,9 +26,9 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-export type ScrollIntoView = NextEditorPlugin<'scrollIntoView'>;
+export type ScrollIntoViewPlugin = NextEditorPlugin<'scrollIntoView'>;
 
-export const scrollIntoViewPlugin: ScrollIntoView = () => ({
+export const scrollIntoViewPlugin: ScrollIntoViewPlugin = () => ({
   name: 'scrollIntoView',
   pmPlugins() {
     return [{ name: 'scrollIntoView', plugin: () => createPlugin() }];

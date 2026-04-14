@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { ActionName } from '../../../constants';
 import { type MessageKey, messages, type RequestAccessMessageKey } from '../../../messages';

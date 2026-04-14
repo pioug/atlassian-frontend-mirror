@@ -10,7 +10,7 @@ const _default_1: any = md`
   #### DISCLAIMER:
 
   Please consider using the smart-user-picker over user-picker if possible. This encourages consistency and monitoring.
-  If you cannot use smart-user-picker, please reach out to the our slack channels, #search-plex,
+  If you cannot use smart-user-picker, please reach out to the our slack channels, #help-search-plex,
   so that we can work with you.
 
   ## Usage

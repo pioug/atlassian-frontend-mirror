@@ -10,7 +10,7 @@ import isSameDay from 'date-fns/isSameDay';
 import isSameMonth from 'date-fns/isSameMonth';
 import isSameYear from 'date-fns/isSameYear';
 import startOfDay from 'date-fns/startOfDay';
-import { type FormatDateOptions, type IntlShape, useIntl } from 'react-intl-next';
+import { type FormatDateOptions, type IntlShape, useIntl } from 'react-intl';
 
 import { type DateRangeType } from '@atlaskit/linking-types';
 import { Text } from '@atlaskit/primitives/compiled';

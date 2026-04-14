@@ -6,7 +6,7 @@
 import React, { forwardRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
-import { type MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor } from 'react-intl';
 
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

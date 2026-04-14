@@ -34,6 +34,7 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		arrow,
 		mode,
 		width = 'content',
+		xcss,
 		isOpen: isOpenProp,
 		triggerRef: triggerRefProp,
 		placement: placementProp,
@@ -200,6 +201,7 @@ export const PopupContent = forwardRef<HTMLDivElement, TPopupContentProps>(funct
 		testId,
 		children,
 		id: ctx?.popoverId,
+		xcss,
 	};
 
 	return <Popover ref={combinedRef} {...popoverProps} />;

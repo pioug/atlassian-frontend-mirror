@@ -4,7 +4,7 @@
  */
 import { useCallback, useRef } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import { jsx } from '@atlaskit/css';

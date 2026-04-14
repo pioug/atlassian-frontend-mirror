@@ -4,7 +4,7 @@
  */
 
 import { css, cssMap, jsx } from '@compiled/react';
-import { type MessageDescriptor, useIntl } from 'react-intl-next';
+import { type MessageDescriptor, useIntl } from 'react-intl';
 
 import { IconButton } from '@atlaskit/button/new';
 import SearchIcon from '@atlaskit/icon/core/search';

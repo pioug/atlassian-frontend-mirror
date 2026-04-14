@@ -31,17 +31,32 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+interface PanelPluginOptions extends LongPressSelectionPluginOptions, PanelPluginConfig {}
+
+interface PanelPluginConfig {
+  allowCustomPanel?: boolean;
+  allowCustomPanelEdit?: boolean;
+}
+
+type PanelPluginDependencies = [
+  typeof decorationsPlugin,
+  OptionalPlugin<typeof analyticsPlugin>,
+  OptionalPlugin<ToolbarPlugin>,
+  EmojiPlugin,
+  OptionalPlugin<BlockMenuPlugin>,
+  OptionalPlugin<SelectionPlugin>,
+];
+
 type PanelPlugin = NextEditorPlugin<
   'panel',
   {
-    pluginConfiguration: PanelPluginOptions | undefined;
-    dependencies: [
-      typeof decorationsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-    ];
     actions: {
-      insertPanel: (inputMethod: INPUT_METHOD) => Command;
+      insertPanel: (
+        inputMethod: INPUT_METHOD.INSERT_MENU | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
+      ) => Command;
     };
+    dependencies: PanelPluginDependencies;
+    pluginConfiguration: PanelPluginOptions | undefined;
   }
 >;
 `}

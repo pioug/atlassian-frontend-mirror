@@ -5,7 +5,7 @@
 
 import { useEffect, useState, type ReactNode } from 'react';
 
-import { defineMessages, useIntl } from 'react-intl-next';
+import { defineMessages, useIntl } from 'react-intl';
 import ImageLoader from 'react-render-image';
 
 import { cssMap, jsx } from '@atlaskit/css';

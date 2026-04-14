@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
 import { Box } from '@atlaskit/primitives/compiled';

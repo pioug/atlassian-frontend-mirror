@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::deb6b7be7cc018d4dfc8cb7b1704bde5>>
+ * @codegen <<SignedSource::74e601b3ce776abbd8b70ea18be310cc>>
  * @codegenCommand yarn build tokens
  */
 
@@ -383,44 +383,6 @@ const tokens: Token[] = [
       "small"
     ],
     "cleanName": "font.body.small"
-  },
-  {
-    "attributes": {
-      "group": "typography",
-      "state": "deprecated",
-      "introduced": "1.14.0",
-      "deprecated": "10.1.0",
-      "description": "UNSAFE - Do not use. Temporary 12px fontsize token. Will be deprecated and replaced with stable small token",
-      "replacement": "font.body.small"
-    },
-    "value": "normal 400 12px/16px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
-    "filePath": "schema/themes/atlassian-typography/theme.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "typography",
-        "state": "deprecated",
-        "introduced": "1.14.0",
-        "deprecated": "10.1.0",
-        "description": "UNSAFE - Do not use. Temporary 12px fontsize token. Will be deprecated and replaced with stable small token",
-        "replacement": "font.body.small"
-      },
-      "value": {
-        "fontWeight": "FontWeight400",
-        "fontSize": "FontSize12",
-        "lineHeight": "LineHeight16",
-        "fontFamily": "FontFamilyWebSansRefreshed",
-        "fontStyle": "normal",
-        "letterSpacing": "LetterSpacing0"
-      }
-    },
-    "name": "font.body.UNSAFE_small",
-    "path": [
-      "font",
-      "body",
-      "UNSAFE_small"
-    ],
-    "cleanName": "font.body.UNSAFE_small"
   },
   {
     "attributes": {

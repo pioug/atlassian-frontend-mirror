@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 // eslint-disable-next-line no-restricted-imports
 import Button from '@atlaskit/button/new';

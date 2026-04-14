@@ -1,9 +1,16 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "3.49.0",
+	"version": "4.0.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Rovo Agents",
 		"website": {
 			"name": "RovoAgentComponents",
@@ -74,7 +81,6 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"react-dom": "root:*",
-		"react-intl-next": "root:*",
 		"react-magnetic-di": "root:*",
 		"react-relay": "root:*"
 	},
@@ -84,15 +90,18 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/agent-studio-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/relay-test-utils": "root:*",
+		"react-intl": "root:*",
 		"relay-test-utils": "^14.1.0",
 		"wait-for-expect": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

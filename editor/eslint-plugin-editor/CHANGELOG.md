@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-editor
 
+## 1.6.0
+
+### Minor Changes
+
+- [`90b759086522c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90b759086522c) -
+  Add withCompiledMigration HOC and enforce-compiled-migration-gate ESLint rule for feature-gated
+  Emotion to Compiled CSS-in-JS migration
+
 ## 1.5.3
 
 ### Patch Changes

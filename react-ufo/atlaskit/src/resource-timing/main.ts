@@ -1,3 +1,4 @@
+import { sanitizeTimingName } from '../common/utils/timing-name';
 import { getConfig as getConfigUFO } from '../config';
 import { roundEpsilon } from '../round-number';
 
@@ -171,9 +172,10 @@ export function getResourceTimings(
 			return;
 		}
 
-		const url = resourceTypes.includes(initiatorType)
+		const mappedUrl = resourceTypes.includes(initiatorType)
 			? sanitiseEndpoints(name)
 			: mapResources(name);
+		const url = mappedUrl ? sanitizeTimingName(mappedUrl) : mappedUrl;
 
 		if (!url) {
 			return;

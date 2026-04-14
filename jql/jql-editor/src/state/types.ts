@@ -6,7 +6,7 @@ import {
 	type ReactNode,
 } from 'react';
 
-import { type IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl';
 import { type Subscription } from 'rxjs/Subscription';
 
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';

@@ -21,28 +21,53 @@ const styles = cssMap({
 	inner: {
 		position: 'absolute',
 	},
-	flipBlock: {
+	// Trigger near bottom edge — block-end should flip to block-start
+	flipBlockEnd: {
 		insetBlockEnd: token('space.200'),
 		insetInlineStart: '50%',
 	},
-	flipInline: {
+	// Trigger near top edge — block-start should flip to block-end
+	flipBlockStart: {
+		insetBlockStart: token('space.200'),
+		insetInlineStart: '50%',
+	},
+	// Trigger near right edge — inline-end should flip to inline-start
+	flipInlineEnd: {
 		insetInlineEnd: token('space.200'),
 		insetBlockStart: '50%',
 	},
-	flipBoth: {
+	// Trigger near left edge — inline-start should flip to inline-end
+	flipInlineStart: {
+		insetInlineStart: token('space.200'),
+		insetBlockStart: '50%',
+	},
+	// Corner positions for compound flips
+	flipBottomRight: {
 		insetBlockEnd: token('space.200'),
 		insetInlineEnd: token('space.200'),
 	},
+	flipBottomLeft: {
+		insetBlockEnd: token('space.200'),
+		insetInlineStart: token('space.200'),
+	},
+	flipTopRight: {
+		insetBlockStart: token('space.200'),
+		insetInlineEnd: token('space.200'),
+	},
+	flipTopLeft: {
+		insetBlockStart: token('space.200'),
+		insetInlineStart: token('space.200'),
+	},
 });
 
-function placementLabel(p: TPlacementOptions): string {
-	const axis = p.axis ?? 'block';
-	const edge = p.edge ?? 'end';
-	const align = p.align ?? 'center';
+function placementLabel(placement: TPlacementOptions): string {
+	const axis = placement.axis ?? 'block';
+	const edge = placement.edge ?? 'end';
+	const align = placement.align ?? 'center';
 	return align === 'center' ? `${axis}-${edge}` : `${axis}-${edge} align-${align}`;
 }
 
-function PopupAtEdge({ placement }: { placement: TPlacementOptions; children?: React.ReactNode }) {
+function PopupAtEdge({ placement }: { placement: TPlacementOptions }) {
 	const label = placementLabel(placement);
 	const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -70,15 +95,15 @@ function PopupAtEdge({ placement }: { placement: TPlacementOptions; children?: R
 	);
 }
 
+// ── Single-axis flips ──
+
 /**
- * Trigger near bottom edge with block-end placement.
- * Expected: position-try-fallbacks flip-block activates,
- * popover appears above the trigger instead of below.
+ * block-end near bottom → flips above
  */
-export function VrFlipBlock(): JSX.Element {
+export function VrFlipBlockEnd(): JSX.Element {
 	return (
 		<div css={styles.container}>
-			<div css={[styles.inner, styles.flipBlock]}>
+			<div css={[styles.inner, styles.flipBlockEnd]}>
 				<PopupAtEdge placement={{ edge: 'end' }} />
 			</div>
 		</div>
@@ -86,14 +111,25 @@ export function VrFlipBlock(): JSX.Element {
 }
 
 /**
- * Trigger near right edge with inline-end placement.
- * Expected: position-try-fallbacks flip-inline activates,
- * popover appears to the left of the trigger instead of right.
+ * block-start near top → flips below
  */
-export function VrFlipInline(): JSX.Element {
+export function VrFlipBlockStart(): JSX.Element {
 	return (
 		<div css={styles.container}>
-			<div css={[styles.inner, styles.flipInline]}>
+			<div css={[styles.inner, styles.flipBlockStart]}>
+				<PopupAtEdge placement={{ edge: 'start' }} />
+			</div>
+		</div>
+	);
+}
+
+/**
+ * inline-end near right → flips left
+ */
+export function VrFlipInlineEnd(): JSX.Element {
+	return (
+		<div css={styles.container}>
+			<div css={[styles.inner, styles.flipInlineEnd]}>
 				<PopupAtEdge placement={{ axis: 'inline', edge: 'end' }} />
 			</div>
 		</div>
@@ -101,20 +137,103 @@ export function VrFlipInline(): JSX.Element {
 }
 
 /**
- * Trigger in bottom-right corner with compound placement.
- * Expected: position-try-fallbacks flip-block flip-inline activates,
- * popover flips on both axes.
+ * inline-start near left → flips right
  */
-export function VrFlipBoth(): JSX.Element {
+export function VrFlipInlineStart(): JSX.Element {
 	return (
 		<div css={styles.container}>
-			<div css={[styles.inner, styles.flipBoth]}>
+			<div css={[styles.inner, styles.flipInlineStart]}>
+				<PopupAtEdge placement={{ axis: 'inline', edge: 'start' }} />
+			</div>
+		</div>
+	);
+}
+
+// ── Compound flips (corner positions) ──
+
+/**
+ * block-end align-start in bottom-right corner
+ */
+export function VrFlipBlockEndAlignStart(): JSX.Element {
+	return (
+		<div css={styles.container}>
+			<div css={[styles.inner, styles.flipBottomRight]}>
 				<PopupAtEdge placement={{ axis: 'block', edge: 'end', align: 'start' }} />
 			</div>
 		</div>
 	);
 }
 
+/**
+ * block-end align-end in bottom-left corner
+ */
+export function VrFlipBlockEndAlignEnd(): JSX.Element {
+	return (
+		<div css={styles.container}>
+			<div css={[styles.inner, styles.flipBottomLeft]}>
+				<PopupAtEdge placement={{ axis: 'block', edge: 'end', align: 'end' }} />
+			</div>
+		</div>
+	);
+}
+
+/**
+ * block-start align-start in top-right corner
+ */
+export function VrFlipBlockStartAlignStart(): JSX.Element {
+	return (
+		<div css={styles.container}>
+			<div css={[styles.inner, styles.flipTopRight]}>
+				<PopupAtEdge placement={{ axis: 'block', edge: 'start', align: 'start' }} />
+			</div>
+		</div>
+	);
+}
+
+/**
+ * block-start align-end in top-left corner
+ */
+export function VrFlipBlockStartAlignEnd(): JSX.Element {
+	return (
+		<div css={styles.container}>
+			<div css={[styles.inner, styles.flipTopLeft]}>
+				<PopupAtEdge placement={{ axis: 'block', edge: 'start', align: 'end' }} />
+			</div>
+		</div>
+	);
+}
+
+/**
+ * inline-end align-start in bottom-right corner
+ */
+export function VrFlipInlineEndAlignStart(): JSX.Element {
+	return (
+		<div css={styles.container}>
+			<div css={[styles.inner, styles.flipBottomRight]}>
+				<PopupAtEdge placement={{ axis: 'inline', edge: 'end', align: 'start' }} />
+			</div>
+		</div>
+	);
+}
+
+/**
+ * inline-end align-end in top-right corner
+ */
+export function VrFlipInlineEndAlignEnd(): JSX.Element {
+	return (
+		<div css={styles.container}>
+			<div css={[styles.inner, styles.flipTopRight]}>
+				<PopupAtEdge placement={{ axis: 'inline', edge: 'end', align: 'end' }} />
+			</div>
+		</div>
+	);
+}
+
+// Legacy aliases for backward compatibility with existing VR snapshots
+export const VrFlipBlock: typeof VrFlipBlockEnd = VrFlipBlockEnd;
+export const VrFlipInline: typeof VrFlipInlineEnd = VrFlipInlineEnd;
+export const VrFlipBoth: typeof VrFlipBlockEndAlignStart = VrFlipBlockEndAlignStart;
+
 export default function VrPopupCssFallbacks(): JSX.Element {
-	return <VrFlipBlock />;
+	return <VrFlipBlockEnd />;
 }

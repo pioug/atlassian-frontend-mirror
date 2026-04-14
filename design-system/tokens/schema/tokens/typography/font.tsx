@@ -111,17 +111,6 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
 						'Use in secondary level content such as fine print or semantic messaging. Use sparingly. Migrate instances of Small text to Body S.',
 				},
 			},
-			UNSAFE_small: {
-				attributes: {
-					group: 'typography',
-					state: 'deprecated',
-					introduced: '1.14.0',
-					deprecated: '10.1.0',
-					description:
-						'UNSAFE - Do not use. Temporary 12px fontsize token. Will be deprecated and replaced with stable small token',
-					replacement: 'font.body.small',
-				},
-			},
 			'[default]': {
 				attributes: {
 					group: 'typography',

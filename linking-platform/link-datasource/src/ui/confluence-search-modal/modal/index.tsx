@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { cssMap } from '@compiled/react';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';

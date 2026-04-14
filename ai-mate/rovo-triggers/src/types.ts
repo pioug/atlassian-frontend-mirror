@@ -110,6 +110,13 @@ export type ChatNewPayload = PayloadCore<
 		// Each key-value pair is set via setAIFeatureContext. Stale entries for
 		// known keys (e.g. 'projectContext') are cleared before new values are applied.
 		aiFeatureContext?: Record<string, unknown>;
+		// Agent version info for testing a specific version of an agent in the chat.
+		// Used by Studio to pass the currently selected version when clicking Test.
+		agentVersion?: {
+			versionId?: string;
+			versionType?: string;
+			versionNumber?: number;
+		};
 	} & Partial<TargetAgentParam> &
 		PlaceholderParam
 >;

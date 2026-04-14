@@ -1,9 +1,20 @@
-# Editor plugin scroll-into-view
+# Editor Plugin Scroll Into View
 
 Scroll-into-view plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Scroll Into View plugin automatically scrolls the user's selection into view whenever the document is updated through user actions such as inserting, deleting, or formatting content. This ensures that the cursor and relevant content remain visible to the user during editing operations.
+
+## Key features
+
+- **Automatic scroll handling** - Scroll selection into view on document changes
+- **Smart filtering** - Ignores collaborative changes, appended transactions, and undo/redo operations
+- **Configurable behavior** - Can be disabled per transaction using metadata
+- **Input rule awareness** - Skips scrolling for input rule transactions to avoid unwanted behavior
 
 ## Install
 ---

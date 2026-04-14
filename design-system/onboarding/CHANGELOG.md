@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 14.5.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.5.11
 
 ### Patch Changes

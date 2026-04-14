@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, render, screen, waitFor, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
 import { type JQLEditorProps } from '@atlaskit/jql-editor';

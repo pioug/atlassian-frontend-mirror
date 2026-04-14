@@ -1,9 +1,23 @@
-# Editor plugin panel
+# Editor Plugin Panel
 
 Panel plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Panel plugin enables the creation and management of informational panel blocks within the Atlassian Editor. It provides various panel types for highlighting different kinds of content, with support for custom panels including configurable colors and emoji icons.
+
+## Key features
+
+- **Multiple panel types** - Support for info, note, warning, error, success, and tip panel types
+- **Custom panels** - Create custom panels with configurable background colors and emoji icons
+- **Floating toolbar** - Interactive toolbar for changing panel types and customizing appearance
+- **Quick insert integration** - Quick insert menu support for all panel types
+- **Block menu integration** - Transform structure menu integration for converting content to panels
+- **Keyboard shortcuts** - Backspace handling for panel navigation and content management
+- **Analytics integration** - Comprehensive event tracking for panel insertion and modifications
 
 ## Install
 ---

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next';
+import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 

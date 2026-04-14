@@ -106,31 +106,39 @@ ${(
 
   ## Onboarding
 
-  Used with [@atlaskit/onboarding](https://atlassian.design/components/onboarding/examples) to show a spotlight. Useful for onboarding customers to link-picker in a new product.
+  Used with [@atlaskit/spotlight](https://atlassian.design/components/spotlight/examples) to show a spotlight. Useful for onboarding customers to link-picker in a new product.
   The spotlight will appear wrapping the main search input.
 
+  Wrap the \`LinkPicker\` with a \`PopoverProvider\` and nest it inside a \`PopoverTarget\`. Place a \`PopoverContent\` (containing your \`SpotlightCard\`) as a sibling inside the same \`PopoverProvider\`:
 
   ${code`
   import { LinkPicker } from '@atlaskit/link-picker';
-  import { Spotlight, SpotlightManager, SpotlightTransition } from '@atlaskit/onboarding';
+  import {
+    PopoverProvider,
+    PopoverContent,
+    SpotlightCard,
+    SpotlightBody,
+  } from '@atlaskit/spotlight';
   ...
 
   const [isSpotlightActive, setIsSpotlightActive] = useState(true);
 
   return (
-    <SpotlightManager>
-      <LinkPicker
-        onSubmit={handleCreateLink}
-        onCancel={handleCancel}
-        onContentResize={}
-        {...}
-      />
-      <SpotlightTransition>
-      {isSpotlightActive &&
-        <Spotlight target="link-picker-search-field-spotlight-target">You can now link Confluence pages directly from Trello!</Spotlight>
-      }
-      </SpotlightTransition>
-    </SpotlightManager>
+    <PopoverProvider>
+        <LinkPicker
+          onSubmit={handleCreateLink}
+          onCancel={handleCancel}
+          spotlightTargetName="link-picker-search-field-spotlight-target"
+          {...}
+        />
+      {isSpotlightActive && (
+        <PopoverContent>
+          <SpotlightCard>
+            <SpotlightBody>You can now link Confluence pages directly from Trello!</SpotlightBody>
+          </SpotlightCard>
+        </PopoverContent>
+      )}
+    </PopoverProvider>
   )
   `}
 
@@ -140,7 +148,6 @@ ${(
   ${code`
   ...
 
-  const [isSpotlightActive, setIsSpotlightActive] = useState(true);
   const [linkPickerResized, setLinkPickerResized] = useState(0);
   const [linkPickerResizedDebounced] = useDebounce(linkPickerResized, 100);
   const [isSpotlightActive, setIsSpotlightActive] = useState(false);
@@ -150,25 +157,26 @@ ${(
   }, [])
 
   useEffect(() => {
-    if (
-      linkPickerResizedDebounced > 0 &&
-    ) {
+    if (linkPickerResizedDebounced > 0) {
       setIsSpotlightActive(true);
     }
-  }, [linkPickerResizedDebounced, isOneTimeMessageDismissed]);
+  }, [linkPickerResizedDebounced]);
 
   return (
-    <SpotlightManager>
-      <LinkPicker
-        onContentResize={onContentResize}
-        {...}
-      />
-      <SpotlightTransition>
-      {isSpotlightActive &&
-        <Spotlight target="link-picker-search-field-spotlight-target">You can now link Confluence pages directly from Trello!</Spotlight>
-      }
-      </SpotlightTransition>
-    </SpotlightManager>
+    <PopoverProvider>
+        <LinkPicker
+          onContentResize={onContentResize}
+          spotlightTargetName="link-picker-search-field-spotlight-target"
+          {...}
+        />
+      {isSpotlightActive && (
+        <PopoverContent>
+          <SpotlightCard>
+            <SpotlightBody>You can now link Confluence pages directly from Trello!</SpotlightBody>
+          </SpotlightCard>
+        </PopoverContent>
+      )}
+    </PopoverProvider>
   )
   `}
 

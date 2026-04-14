@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import debounce from 'debounce-promise';
 import { useForm } from 'react-final-form';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { AsyncSelect as AkAsyncSelect, type GroupType, type OptionType } from '@atlaskit/select';
 

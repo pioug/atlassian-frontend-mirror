@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';

@@ -24,6 +24,7 @@ import type {
 	Span,
 	SpanType,
 } from '../common';
+import { sanitizeTimingName } from '../common/utils/timing-name';
 import {
 	getAwaitBM3TTIList,
 	getCapabilityRate,
@@ -263,9 +264,12 @@ export function addCustomTiming(
 ): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
-		interaction.customTimings.push({ labelStack, data });
+		const sanitizedData = Object.fromEntries(
+			Object.entries(data).map(([key, timingData]) => [sanitizeTimingName(key), timingData]),
+		) as CustomTiming;
+		interaction.customTimings.push({ labelStack, data: sanitizedData });
 		if (isPerformanceTracingEnabled()) {
-			for (const [key, timingData] of Object.entries(data)) {
+			for (const [key, timingData] of Object.entries(sanitizedData)) {
 				const { startTime, endTime } = timingData;
 				try {
 					// for Firefox 102 and older

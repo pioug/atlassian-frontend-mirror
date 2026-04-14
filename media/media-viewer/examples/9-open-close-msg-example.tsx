@@ -20,7 +20,7 @@ const Example = (): React.JSX.Element => {
 			<iframe
 				name="Basic MediaViewer Example"
 				title="Basic MediaViewer Example"
-				src="./examples.html?groupId=media&packageId=media-viewer&exampleId=basic-example&mode=none"
+				src="./example?groupId=media&packageId=media-viewer&exampleId=basic-example&mode=none"
 				height="50%"
 				width="50%"
 			/>

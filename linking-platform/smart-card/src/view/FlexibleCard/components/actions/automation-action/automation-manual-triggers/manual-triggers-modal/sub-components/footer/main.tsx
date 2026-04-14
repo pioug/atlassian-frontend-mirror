@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { defineMessages, FormattedMessage } from 'react-intl-next';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button, { LinkButton } from '@atlaskit/button/new';

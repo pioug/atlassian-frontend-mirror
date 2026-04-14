@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-analytics
 
+## 1.1.1
+
+### Patch Changes
+
+- [`47b02f048ca4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47b02f048ca4a) -
+  Enrol search and ai-mate packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+
 ## 1.1.0
 
 ### Minor Changes

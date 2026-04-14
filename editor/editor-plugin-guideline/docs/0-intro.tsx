@@ -34,11 +34,11 @@ ${code`
 type GuidelinePlugin = NextEditorPlugin<
   'guideline',
   {
-    dependencies: [WidthPlugin];
-    sharedState: GuidelinePluginState | null;
     actions: {
       displayGuideline: DisplayGuideline;
     };
+    dependencies: [WidthPlugin];
+    sharedState: GuidelinePluginState | null;
   }
 >;
 `}

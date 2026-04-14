@@ -1,7 +1,7 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
 import { render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { NoResults } from './no-results';
 

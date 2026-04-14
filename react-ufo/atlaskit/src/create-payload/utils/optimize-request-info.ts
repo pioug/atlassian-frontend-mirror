@@ -1,6 +1,7 @@
 import { type InteractionMetrics } from '../../common';
 import { type OptimizedLabelStack } from '../common/types';
-import { optimizeLabelStack } from '../common/utils';
+import { optimizeLabelStackWithRegistry } from '../common/utils';
+import type { LabelStackRegistry } from '../common/utils/label-stack-registry';
 
 import type { getReactUFOPayloadVersion } from './get-react-ufo-payload-version';
 
@@ -8,6 +9,7 @@ export function optimizeRequestInfo(
 	requestInfo: InteractionMetrics['requestInfo'],
 	interactionStart: number,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
+	registry?: LabelStackRegistry,
 ): {
 	labelStack: OptimizedLabelStack;
 	startTime: number;
@@ -21,7 +23,11 @@ export function optimizeRequestInfo(
 
 			if (labelStack && start >= interactionStart && endTime) {
 				result.push({
-					labelStack: optimizeLabelStack([...labelStack, { name }], reactUFOVersion),
+					labelStack: optimizeLabelStackWithRegistry(
+						[...labelStack, { name }],
+						reactUFOVersion,
+						registry,
+					),
 					startTime: Math.round(startTime),
 					endTime: Math.round(endTime),
 				});

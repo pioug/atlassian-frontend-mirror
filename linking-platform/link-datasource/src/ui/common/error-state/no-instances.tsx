@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@compiled/react';
-import { type MessageDescriptor, useIntl } from 'react-intl-next';
+import { type MessageDescriptor, useIntl } from 'react-intl';
 
 import { Flex, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { FormattedMessage, injectIntl, IntlProvider } from 'react-intl-next';
+import { FormattedMessage, injectIntl, IntlProvider } from 'react-intl';
 
 import { messages } from '../../../../messages';
 import withIntlProvider from '../index';

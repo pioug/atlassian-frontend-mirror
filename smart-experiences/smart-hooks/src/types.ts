@@ -27,7 +27,7 @@ export type UseUserRecommendationsProps = {
 	 * generating suggestions.
 	 * All fieldId's will be bucketed into a model that provides generic smart results,
 	 * except "assignee", "mentions" which are specifically trained for Jira Assignee and
-	 * @Mentions. For specifically trained models, please contact #search-plex.
+	 * @Mentions. For specifically trained models, please contact #help-search-plex.
 	 */
 	fieldId: string;
 	/**
@@ -56,7 +56,7 @@ export type UseUserRecommendationsProps = {
 	 * the hook is used.
 	 * WARNING: please consider carefully before deciding to preload your suggestions
 	 * as this will increase the load on the recommendations services (has caused HOTs).
-	 * Please give #search-plex a ballpark on the expected request volume.
+	 * Please give #help-search-plex a ballpark on the expected request volume.
 	 * (@default: false)
 	 */
 	preload?: boolean;
@@ -86,7 +86,7 @@ export type UseUserRecommendationsProps = {
 	 * Identifier for the product's tenant, also known as siteId or cloudId.
 	 * If product is not tenanted, the convention is to provide the productKey
 	 * as the tenantId (e.g. "bitbucket") but this may vary across products.
-	 * Check with #search-plex.
+	 * Check with #help-search-plex.
 	 */
 	tenantId: string;
 };

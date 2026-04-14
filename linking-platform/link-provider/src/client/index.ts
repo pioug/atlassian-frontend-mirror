@@ -318,9 +318,7 @@ export default class CardClient implements CardClientInterface {
 	}
 
 	private async resolveUrl(url: string, force: boolean = false) {
-		const hostname = fg('platform_navx_lp_invalid_url_error')
-			? this.getHostName(url)
-			: new URL(url).hostname;
+		const hostname = this.getHostName(url);
 		const loader = this.getLoader(hostname);
 
 		let responsePromise: Promise<SuccessResponse | ErrorResponse> | undefined;

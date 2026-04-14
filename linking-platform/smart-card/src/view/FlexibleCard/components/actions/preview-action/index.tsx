@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import MediaServicesActualSizeIcon from '@atlaskit/icon/core/grow-diagonal';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';

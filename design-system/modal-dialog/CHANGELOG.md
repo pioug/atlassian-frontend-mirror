@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 14.15.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.15.0
 
 ### Minor Changes

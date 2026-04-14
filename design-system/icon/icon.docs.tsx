@@ -8,9 +8,9 @@ const documentation: ComponentStructuredContentSource[] = [
 		description: 'An icon is a symbol representing a command, device, directory, or common action.',
 		status: 'general-availability',
 		import: {
-			name: 'Icon',
+			name: 'IconNew',
 			package: '@atlaskit/icon',
-			type: 'default',
+			type: 'named',
 			packagePath: path.resolve(__dirname),
 			packageJson: require('./package.json'),
 		},

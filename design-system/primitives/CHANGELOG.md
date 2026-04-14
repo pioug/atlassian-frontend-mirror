@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 19.0.0
+
+### Major Changes
+
+- [`72017386a0120`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72017386a0120) -
+  Remove the deprecated `UNSAFE_small` size for the Text primitive. Please migrate any remaining
+  usages to `small`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.1.4
 
 ### Patch Changes

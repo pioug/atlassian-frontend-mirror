@@ -54,11 +54,19 @@ export const sortFeaturedItems = (
 	featuredItems: QuickInsertItem[],
 	formatMessage: (msg: MessageDescriptor) => string,
 ): QuickInsertItem[] => {
+	// temporary for A/A test
+	['slot-two', 'slot-four'].includes(
+		expValNoExposure('cc_fd_cwr_quick_insert_aa', 'cohort', 'control'),
+	);
+
 	if (
 		['new-description', 'orig-description'].includes(
 			expVal('cc_fd_db_top_editor_toolbar', 'cohort', 'control'),
 		) ||
-		expValNoExposure('cc_fd_wb_jira_quick_insert_experiment', 'isEnabled', false)
+		expValNoExposure('cc_fd_wb_jira_quick_insert_experiment', 'isEnabled', false) ||
+		['slot-two', 'slot-four'].includes(
+			expValNoExposure('cc_fd_cwr_quick_insert', 'cohort', 'control'),
+		)
 	) {
 		// Sort by priority (lower first) on the concatenated list so items
 		// with "priority" are at the top (e.g. Whiteboard before Database)

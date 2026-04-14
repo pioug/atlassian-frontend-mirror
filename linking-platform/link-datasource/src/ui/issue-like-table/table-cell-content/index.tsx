@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cssMap } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { type DatasourceDataResponseItem, type DatasourceType } from '@atlaskit/linking-types';
 import { Box } from '@atlaskit/primitives/compiled';

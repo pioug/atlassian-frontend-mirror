@@ -35,6 +35,8 @@ type FocusPlugin = NextEditorPlugin<
   'focus',
   { sharedState: FocusState }
 >;
+
+type FocusState = { hasFocus: boolean };
 `}
 
 

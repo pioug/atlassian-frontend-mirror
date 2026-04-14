@@ -1,6 +1,6 @@
 import React, { Fragment, type SyntheticEvent, useMemo, useState } from 'react';
 
-import { defineMessages } from 'react-intl-next';
+import { defineMessages } from 'react-intl';
 
 import Link from '@atlaskit/link';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';

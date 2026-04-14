@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { messages } from '../../../../messages';
 import { toMessage } from '../../../../utils/intl-utils';

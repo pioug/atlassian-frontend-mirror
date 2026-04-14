@@ -1,5 +1,17 @@
 # @atlaskit/editor-smart-link-draggable
 
+## 0.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.1
 
 ### Patch Changes

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { ffTest } from '@atlassian/feature-flags-test-utils';

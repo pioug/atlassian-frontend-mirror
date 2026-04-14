@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import DateTimeType, { type DateProps, DATETIME_TYPE_TEST_ID } from './index';
 

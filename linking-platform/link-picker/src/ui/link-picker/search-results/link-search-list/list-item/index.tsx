@@ -11,7 +11,7 @@ import {
 } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { type IntlShape, useIntl } from 'react-intl-next';
+import { type IntlShape, useIntl } from 'react-intl';
 
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

@@ -1,6 +1,6 @@
 import React, { type ReactNode, useCallback, useState } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { LocalePicker } from './locale-picker';
 import { type Locale, locales } from './locales';

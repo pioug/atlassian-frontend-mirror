@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::c219f53298a002dc5340fcc003a56953>>
+ * @codegen <<SignedSource::cc165f5e3a3a334da8899d36a5cd4535>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -4911,19 +4911,6 @@ export const tokens: Token[] = [
 		path: ['font', 'body', 'small'],
 		description:
 			'Use in secondary level content such as fine print or semantic messaging. Use sparingly. Migrate instances of Small text to Body S.',
-		exampleValue:
-			'normal 400 0.75rem/1rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-		usageGuidelines: {
-			usage:
-				'A composite token that applies all font properties for standard body text (e.g. font.body)',
-			cssProperties: ['font'],
-		},
-	},
-	{
-		name: 'font.body.UNSAFE_small',
-		path: ['font', 'body', 'UNSAFE_small'],
-		description:
-			'UNSAFE - Do not use. Temporary 12px fontsize token. Will be deprecated and replaced with stable small token',
 		exampleValue:
 			'normal 400 0.75rem/1rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 		usageGuidelines: {

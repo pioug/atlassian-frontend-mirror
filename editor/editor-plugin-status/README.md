@@ -1,9 +1,23 @@
-# Editor plugin status
+# Editor Plugin Status
 
 Status plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Status plugin provides functionality to insert and manage inline status elements within the Atlassian Editor. It enables users to add color-coded status lozenges with customizable text, integrated with a status picker UI for easy selection and editing.
+
+## Key features
+
+- **Status insertion** - Insert inline status elements with custom text and color
+- **Status picker** - Interactive UI for selecting and editing status properties
+- **Color customization** - Support for multiple color options via color attribute
+- **Analytics integration** - Built-in tracking of status actions and user interactions
+- **Toolbar integration** - Floating toolbar with annotation support in view mode
+- **Quick insert** - Insert status elements via quick insert menu
+- **State management** - Manage status picker visibility and input focus state
 
 ## Install
 ---

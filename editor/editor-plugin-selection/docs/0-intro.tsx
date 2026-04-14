@@ -33,11 +33,17 @@ ${code`
 export type SelectionPlugin = NextEditorPlugin<
   'selection',
   {
-    pluginConfiguration: SelectionPluginOptions | undefined;
-    actions: NextEditorSelectionAPI;
+    actions: EditorSelectionAPI;
     commands: {
+      clearBlockSelection: () => EditorCommand;
+      clearManualSelection: () => EditorCommand;
       displayGapCursor: (toggle: boolean) => EditorCommand;
+      hideCursor: (hide: boolean) => EditorCommand;
+      setBlockSelection: (selection: Selection) => EditorCommand;
+      setManualSelection: (anchor: number, head: number) => EditorCommand;
     };
+    dependencies: [OptionalPlugin<InteractionPlugin>];
+    pluginConfiguration: SelectionPluginOptions | undefined;
     sharedState: SelectionSharedState;
   }
 >;

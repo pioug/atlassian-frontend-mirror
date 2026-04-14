@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 
 import { ErrorBoundary } from 'react-error-boundary';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import Link from '@atlaskit/link';

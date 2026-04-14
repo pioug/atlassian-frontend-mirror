@@ -29,5 +29,7 @@ module.exports = {
 		// Ignored via go/ees005
 		// eslint-disable-next-line import/no-commonjs
 		'enforce-editor-view-state-scope': require('./rules/enforce-editor-view-state-scope').rule,
+		// eslint-disable-next-line import/no-commonjs
+		'enforce-compiled-migration-gate': require('./rules/enforce-compiled-migration-gate'),
 	},
 };

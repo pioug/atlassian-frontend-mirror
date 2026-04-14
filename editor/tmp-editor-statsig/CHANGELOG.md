@@ -1,5 +1,60 @@
 # @atlaskit/editor-statsig-tmp
 
+## 60.2.0
+
+### Minor Changes
+
+- [`375155c440374`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/375155c440374) -
+  Add FullPagePresetNext
+
+## 60.1.0
+
+### Minor Changes
+
+- [`8f7575e82974c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f7575e82974c) -
+  Add gated analytics for embed modal on view action to capture extensionKey, status, and
+  statusDetails.
+- [`505563ec74fe5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/505563ec74fe5) -
+  [ux] Add insert menu featured sorting for Create with Rovo via slash experiment.
+
+## 60.0.0
+
+### Major Changes
+
+- [`f9a2adc2e3045`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9a2adc2e3045) -
+  Clean up platform_editor_aifc_fix_button_viewed_analytics
+
+### Patch Changes
+
+- Updated dependencies
+
+## 59.1.0
+
+### Minor Changes
+
+- [`90b759086522c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90b759086522c) -
+  Add withCompiledMigration HOC and enforce-compiled-migration-gate ESLint rule for feature-gated
+  Emotion to Compiled CSS-in-JS migration
+
+### Patch Changes
+
+- Updated dependencies
+
+## 59.0.0
+
+### Major Changes
+
+- [`f4951e15e9432`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4951e15e9432) -
+  Removed `platform_editor_emoji_tooltips_on_hover` experiment. Emoji tooltips (title attribute) are
+  now always enabled permanently.
+
+### Minor Changes
+
+- [`f5b6110e36e79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5b6110e36e79) -
+  [ux] Enables rovo actions post auth experiment ui and exposures
+- [`3f28038f8be0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f28038f8be0f) -
+  Add support SSR streaming for SSREditorRenderer
+
 ## 58.0.0
 
 ### Major Changes

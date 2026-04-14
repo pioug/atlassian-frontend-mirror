@@ -38,7 +38,6 @@ import { optimizeRequestInfo } from '../create-payload/utils/optimize-request-in
 import { optimizeSpans } from '../create-payload/utils/optimize-spans';
 import type { LabelStack } from '../interaction-context';
 import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
-import type { UFOSegmentType } from '../segment/segment';
 
 async function createInteractionExtraLogPayload(
 	interactionId: string,
@@ -67,14 +66,7 @@ async function createInteractionExtraLogPayload(
 			'experience:name': string;
 			interactionMetrics: {
 				errors: {
-					labelStack:
-						| string
-						| {
-								t?: UFOSegmentType | undefined;
-								s?: string | undefined;
-								n: string;
-						  }[]
-						| null;
+					labelStack: OptimizedLabelStack | null;
 					name: string;
 					errorType: string;
 					errorMessage: string;
@@ -103,27 +95,13 @@ async function createInteractionExtraLogPayload(
 				}[];
 				segments: {};
 				marks: {
-					labelStack:
-						| string
-						| {
-								t?: UFOSegmentType | undefined;
-								s?: string | undefined;
-								n: string;
-						  }[]
-						| null;
+					labelStack: OptimizedLabelStack | null;
 					time: number;
 					type: MarkType;
 					name: string;
 				}[];
 				apdex: {
-					labelStack?:
-						| string
-						| {
-								t?: UFOSegmentType | undefined;
-								s?: string | undefined;
-								n: string;
-						  }[]
-						| undefined;
+					labelStack?: OptimizedLabelStack | undefined;
 					stopTime: number;
 					key: string;
 					startTime?: number;

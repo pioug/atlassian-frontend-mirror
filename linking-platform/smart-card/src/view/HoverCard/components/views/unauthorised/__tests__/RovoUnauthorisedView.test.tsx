@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { render, screen, userEvent } from '@atlassian/testing-library';

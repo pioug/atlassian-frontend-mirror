@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx, styled } from '@compiled/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type DatasourceType } from '@atlaskit/linking-types';

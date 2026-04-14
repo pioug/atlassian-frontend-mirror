@@ -9,7 +9,7 @@ import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/dom
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ManualPromise, renderWithIntl as render } from '@atlaskit/link-test-helpers';

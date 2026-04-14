@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import { SmartCardProvider } from '@atlaskit/link-provider';

@@ -19,7 +19,7 @@
 /// <reference types="react" />
 
 import { jsx } from '@compiled/react';
-import { MessageDescriptor } from 'react-intl-next';
+import { MessageDescriptor } from 'react-intl';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -153,7 +153,7 @@ export class UnauthenticatedError extends Error {
 ```json
 {
 	"react": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

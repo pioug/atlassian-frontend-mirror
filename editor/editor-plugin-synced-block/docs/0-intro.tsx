@@ -31,7 +31,97 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type SyncedBlockPlugin = NextEditorPlugin<'syncedBlock'>
+export type SyncedBlockEditorProps = {
+  defaultDocument: JSONDocNode;
+  onChange: (
+    editorView: EditorView,
+    meta: {
+      /**
+       * Indicates whether or not the change may be unnecessary to listen to (dirty
+       * changes can generally be ignored).
+       *
+       * This might be changes to media attributes for example when it gets updated
+       * due to initial setup.
+       *
+       * We still fire these events however to avoid a breaking change.
+       */
+      isDirtyChange: boolean;
+      source: 'local' | 'remote';
+    },
+  ) => void;
+  onEditorReady: ({
+    editorView,
+    eventDispatcher,
+  }: {
+    editorView: EditorView;
+    eventDispatcher: EventDispatcher;
+  }) => void;
+  popupsBoundariesElement: HTMLElement;
+  popupsMountPoint: HTMLElement;
+};
+
+export type SyncedBlockRendererProps = {
+  api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+  syncBlockFetchResult: UseFetchSyncBlockDataResult;
+};
+
+export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOptions {
+	/**
+	 * Enables Live Page specific behaviour for the synced block plugin.
+	 *
+	 * It is only supported for use by Confluence.
+	 *
+	 * @default false
+	 */
+	__livePage?: boolean;
+  enableSourceCreation?: boolean;
+  syncBlockDataProvider: SyncBlockDataProviderInterface;
+  syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
+}
+
+export type SyncedBlockPlugin = NextEditorPlugin<
+  'syncedBlock',
+  {
+    actions: {
+      /**
+       * Save content of bodiedSyncBlock nodes in local cache to backend.
+       * This action allows bodiedSyncBlock to be saved in sync with product saving experience
+       * as per {@link https://hello.atlassian.net/wiki/spaces/egcuc/pages/5932393240/Synced+Blocks+Save+refresh+principles}
+       *
+       * @returns true if saving all nodes successfully, false if fail to save some/all nodes
+       */
+      flushBodiedSyncBlocks: () => Promise<boolean>;
+      /**
+       * Save reference synced blocks on the document (tracked by local cache)to the backend.
+       * This action allows syncBlock on the document to be saved in sync with product saving experience
+       * as per {@link https://hello.atlassian.net/wiki/spaces/egcuc/pages/5932393240/Synced+Blocks+Save+refresh+principles}
+       *
+       * @returns true if flushing all syncBlocks successfully, false otherwise
+       */
+      flushSyncedBlocks: () => Promise<boolean>;
+    };
+    commands: {
+      copySyncedBlockReferenceToClipboard: (inputMethod: INPUT_METHOD) => EditorCommand;
+      insertSyncedBlock: () => EditorCommand;
+    };
+    dependencies: [
+      SelectionPlugin,
+      FloatingToolbarPlugin,
+      DecorationsPlugin,
+      OptionalPlugin<BlockControlsPlugin>,
+      OptionalPlugin<ToolbarPlugin>,
+      OptionalPlugin<BlockMenuPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<ConnectivityPlugin>,
+      OptionalPlugin<EditorViewModePlugin>,
+      OptionalPlugin<ContentFormatPlugin>,
+      OptionalPlugin<UserIntentPlugin>,
+      OptionalPlugin<FocusPlugin>,
+    ];
+    pluginConfiguration: SyncedBlockPluginOptions | undefined;
+    sharedState: SyncedBlockSharedState | undefined;
+  }
+>;
 `}
 
 

@@ -86,6 +86,7 @@ export const Popover: React.ForwardRefExoticComponent<
 		placement,
 		testId,
 		isOpen,
+		xcss: xcssFromProps,
 		// ARIA
 		role,
 		label,
@@ -256,6 +257,8 @@ export const Popover: React.ForwardRefExoticComponent<
 			aria-labelledby={labelledBy}
 			data-testid={testId}
 			{...(preset ? { [`data-ds-popover-${preset.name}`]: '' } : undefined)}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- xcss prop passes compiled atomic class names
+			className={xcssFromProps as string | undefined}
 			css={styles.root}
 		>
 			{showChildren ? children : null}

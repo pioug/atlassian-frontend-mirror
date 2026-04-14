@@ -12,7 +12,8 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import LocaleSelect, { defaultLocales, type Locale } from '@atlaskit/locale/LocaleSelect';
+import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
+import defaultLocales from '@atlaskit/locale/default-locales';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import FileIcon from '@atlaskit/icon/core/file';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aec1237f211398c8225cd256e75476ff>>
+ * @codegen <<SignedSource::9b32672dde773f9e75f0e548609ecb58>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -17,7 +17,6 @@ import lozengeBadgeTagLabellingSystemMigration from './lozenge-badge-tag-labelli
 import noBannedImports from './no-banned-imports';
 import noBooleanAutofocusOnModalDialog from './no-boolean-autofocus-on-modal-dialog';
 import noCssTaggedTemplateExpression from './no-css-tagged-template-expression';
-import noCustomIcons from './no-custom-icons';
 import noDarkThemeVrTests from './no-dark-theme-vr-tests';
 import noDeprecatedApis from './no-deprecated-apis';
 import noDeprecatedDesignTokenUsage from './no-deprecated-design-token-usage';
@@ -96,7 +95,6 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-banned-imports': noBannedImports,
 	'no-boolean-autofocus-on-modal-dialog': noBooleanAutofocusOnModalDialog,
 	'no-css-tagged-template-expression': noCssTaggedTemplateExpression,
-	'no-custom-icons': noCustomIcons,
 	'no-dark-theme-vr-tests': noDarkThemeVrTests,
 	'no-deprecated-apis': noDeprecatedApis,
 	'no-deprecated-design-token-usage': noDeprecatedDesignTokenUsage,

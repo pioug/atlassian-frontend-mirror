@@ -248,11 +248,17 @@ export function useAnchorPosition({
 				// Set the arrow size variable used by the injected arrow CSS
 				// and the @position-try rules for margin values.
 				popoverStyles.push({ property: '--ds-arrow-size', value: `${offset}px` });
+				// Mark the popover root as the arrow host. The ARROW_CSS targets
+				// [data-ds-popover-arrow] to apply clip-path: inset(0) margin-box
+				// and box-shadow: none. Must be on the popover root (not a child)
+				// because that's where useAnchorPosition sets the margin gap.
+				popover.setAttribute('data-ds-popover-arrow', '');
 			}
 
 			const undoPositioning = combine(
 				setStyle({ el: trigger, styles: [{ property: 'anchor-name', value: anchorName }] }),
 				setStyle({ el: popover, styles: popoverStyles }),
+				arrow ? () => popover.removeAttribute('data-ds-popover-arrow') : () => {},
 			);
 
 			return undoPositioning;

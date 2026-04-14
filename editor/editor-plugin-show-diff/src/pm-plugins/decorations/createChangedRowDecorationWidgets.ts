@@ -35,11 +35,15 @@ type SimpleChange = Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted'>;
 /**
  * Extracts information about deleted table rows from a change
  */
-const extractChangedRows = (
-	change: SimpleChange,
-	originalDoc: PMNode,
-	newDoc: PMNode,
-): RowInfo[] => {
+const extractChangedRows = ({
+	change,
+	originalDoc,
+	newDoc,
+}: {
+	change: SimpleChange;
+	newDoc: PMNode;
+	originalDoc: PMNode;
+}): RowInfo[] => {
 	const changedRows: RowInfo[] = [];
 
 	// Find the table in the original document
@@ -61,7 +65,6 @@ const extractChangedRows = (
 	}
 
 	const newTableMap = TableMap.get(tableNew.node);
-
 	// If no rows were changed, return empty
 	if (
 		oldTableMap.height <= newTableMap.height ||
@@ -88,7 +91,12 @@ const extractChangedRows = (
 			(rowEnd > changeStartInTable && rowEnd <= changeEndInTable) ||
 			(rowStart < changeStartInTable && rowEnd > changeEndInTable);
 
-		if (rowOverlapsChange && rowNode.type.name === 'tableRow' && !isEmptyRow(rowNode)) {
+		if (
+			rowOverlapsChange &&
+			rowNode.type.name === 'tableRow' &&
+			(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) ||
+				!isEmptyRow(rowNode))
+		) {
 			const startOfRow = newTableMap.mapByRow
 				.slice()
 				.reverse()
@@ -181,7 +189,6 @@ const createChangedRowDOM = (
 			const nodeView = nodeViewSerializer.tryCreateNodeView(cellNode);
 			if (nodeView) {
 				if (
-					isInserted &&
 					nodeView instanceof HTMLElement &&
 					expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
 				) {
@@ -215,15 +222,19 @@ const createChangedRowDOM = (
 /**
  * Expands a diff to include whole changed rows when table rows are affected
  */
-const expandDiffForChangedRows = (
-	changes: SimpleChange[],
-	originalDoc: PMNode,
-	newDoc: PMNode,
-): RowInfo[] => {
+const expandDiffForChangedRows = ({
+	changes,
+	originalDoc,
+	newDoc,
+}: {
+	changes: SimpleChange[];
+	newDoc: PMNode;
+	originalDoc: PMNode;
+}): RowInfo[] => {
 	const rowInfo: RowInfo[] = [];
 	for (const change of changes) {
 		// Check if this change affects table content
-		const changedRows = extractChangedRows(change, originalDoc, newDoc);
+		const changedRows = extractChangedRows({ change, originalDoc, newDoc });
 
 		if (changedRows.length > 0) {
 			rowInfo.push(...changedRows);
@@ -252,11 +263,11 @@ export const createChangedRowDecorationWidgets = ({
 	originalDoc: PMNode;
 }): Decoration[] => {
 	// First, expand the changes to include complete deleted rows
-	const changedRows = expandDiffForChangedRows(
-		changes.filter((change) => change.deleted.length > 0),
+	const changedRows = expandDiffForChangedRows({
+		changes: changes.filter((change) => change.deleted.length > 0),
 		originalDoc,
 		newDoc,
-	);
+	});
 
 	return changedRows.map((changedRow) => {
 		const rowDOM = createChangedRowDOM(

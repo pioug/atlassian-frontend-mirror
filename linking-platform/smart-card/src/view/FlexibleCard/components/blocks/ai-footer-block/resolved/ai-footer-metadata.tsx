@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { di } from 'react-magnetic-di';
 
 import AIIcon from '@atlaskit/icon/core/atlassian-intelligence';

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap, jsx } from '@atlaskit/css';

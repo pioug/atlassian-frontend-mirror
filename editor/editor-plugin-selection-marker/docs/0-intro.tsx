@@ -32,10 +32,27 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type ReleaseHiddenDecoration = () => boolean | undefined;
+
+type SelectionMarkerPluginOptions = { hideCursorOnInit?: boolean };
+
 type SelectionMarkerPlugin = NextEditorPlugin<
   'selectionMarker',
   {
-    dependencies: [FocusPlugin];
+    actions: {
+      hideDecoration: () => ReleaseHiddenDecoration | undefined;
+      queueHideDecoration: (setCleanup: (cb: ReleaseHiddenDecoration | undefined) => void) => (() => void) | undefined;
+    };
+    dependencies: [
+      FocusPlugin,
+      OptionalPlugin<TypeAheadPlugin>,
+      OptionalPlugin<EditorDisabledPlugin>,
+      OptionalPlugin<ToolbarPlugin>,
+      OptionalPlugin<DecorationsPlugin>,
+      OptionalPlugin<UserIntentPlugin>,
+    ];
+    pluginConfiguration?: SelectionMarkerPluginOptions;
+    sharedState: { isForcedHidden: boolean; isMarkerActive: boolean } | undefined;
   }
 >;
 `}

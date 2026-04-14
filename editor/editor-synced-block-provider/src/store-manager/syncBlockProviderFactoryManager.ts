@@ -101,7 +101,18 @@ export class SyncBlockProviderFactoryManager {
 			return null;
 		}
 
-		const { contentId, product: contentProduct } = parsedResourceId;
+		let { contentId, product: contentProduct } = parsedResourceId;
+		const syncBlock = this.deps.getFromCache(resourceId);
+		if (syncBlock?.data?.sourceAri && syncBlock.data.product) {
+			const parentInfo = dataProvider.retrieveSyncBlockParentInfo(
+				syncBlock.data.sourceAri,
+				syncBlock.data.product,
+			);
+			if (parentInfo) {
+				contentId = parentInfo.contentId;
+				contentProduct = parentInfo.contentProduct;
+			}
+		}
 
 		try {
 			const mediaProvider = providerCreator.createSSRMediaProvider({

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import { cssMap } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import AKInlineEdit from '@atlaskit/inline-edit';
 import { type AtomicActionExecuteResponse } from '@atlaskit/linking-types';

@@ -1,6 +1,6 @@
 import type { ReactNode, Ref } from 'react';
 
-import type { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 

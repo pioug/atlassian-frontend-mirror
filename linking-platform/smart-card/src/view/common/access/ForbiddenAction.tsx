@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor } from 'react-intl';
 
 import { type Appearance } from '@atlaskit/button/types';
 

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl';
 
 import Link from '@atlaskit/link';
 import Lozenge from '@atlaskit/lozenge';

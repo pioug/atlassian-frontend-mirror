@@ -12,50 +12,46 @@ import { arrow } from '@atlaskit/top-layer/arrow';
 import { Popup, type TPlacementOptions } from '@atlaskit/top-layer/popup';
 
 const styles = cssMap({
-	grid: {
+	root: {
+		height: '100vh',
+		width: '100vw',
 		display: 'flex',
-		flexWrap: 'wrap',
+		alignItems: 'center',
 		justifyContent: 'center',
-		gap: token('space.100'),
+	},
+	grid: {
+		display: 'grid',
+		width: '500px',
+		gridTemplateColumns: '1fr 1fr 1fr',
+		gap: token('space.1000'),
+	},
+	surface: {
+		backgroundColor: token('color.background.neutral.bold'),
 	},
 });
 
-function placementLabel(p: TPlacementOptions): string {
-	const axis = p.axis ?? 'block';
-	const edge = p.edge ?? 'end';
-	const align = p.align ?? 'center';
-	return align === 'center' ? `${axis}-${edge}` : `${axis}-${edge} align-${align}`;
-}
-
-const placements: TPlacementOptions[] = [
-	{ axis: 'block', edge: 'start' },
-	{ axis: 'block', edge: 'end' },
-	{ axis: 'inline', edge: 'start' },
-	{ axis: 'inline', edge: 'end' },
-	{ axis: 'block', edge: 'start', align: 'start' },
-	{ axis: 'block', edge: 'start', align: 'end' },
-	{ axis: 'block', edge: 'end', align: 'start' },
-	{ axis: 'block', edge: 'end', align: 'end' },
-];
-
 const popoverArrow = arrow();
 
-/**
- * Popup with a CSS arrow that auto-flips when the popup flips.
- *
- * Uses the `clip-path: inset() margin-box` technique via the `arrow()` preset.
- * Arrow pseudo-elements inherit their background from the popup element.
- */
-function ArrowDemo({ placement }: { placement: TPlacementOptions }) {
-	const label = placementLabel(placement);
+function ArrowPopup({
+	placement,
+	label,
+}: {
+	placement: TPlacementOptions;
+	label: string;
+}) {
 	return (
 		<Popup placement={placement} onClose={() => {}}>
 			<Popup.Trigger>
-				<Button>{label}</Button>
+				<Button shouldFitContainer>{label}</Button>
 			</Popup.Trigger>
-			<Popup.Content role="dialog" label={`Arrow popup at ${label}`} arrow={popoverArrow}>
+			<Popup.Content
+				role="dialog"
+				label={`Arrow popup: ${label}`}
+				arrow={popoverArrow}
+				xcss={styles.surface}
+			>
 				<Box padding="space.200">
-					<Text size="small" weight="medium">
+					<Text size="small" weight="medium" color="color.text.inverse">
 						{label}
 					</Text>
 				</Box>
@@ -64,14 +60,67 @@ function ArrowDemo({ placement }: { placement: TPlacementOptions }) {
 	);
 }
 
+/**
+ * Popup with a CSS arrow at every placement, arranged in a grid
+ * matching the visual position of each placement.
+ *
+ * Top row: block-start placements (above trigger).
+ * Middle row: inline placements (left/right of trigger).
+ * Bottom row: block-end placements (below trigger).
+ */
 export default function PopoverWithArrowExample(): JSX.Element {
 	return (
-		<Box padding="space.600">
+		<div css={styles.root}>
 			<div css={styles.grid}>
-				{placements.map((p, i) => (
-					<ArrowDemo key={i} placement={p} />
-				))}
+				{/* Top row: block-start (above) */}
+				<ArrowPopup
+					placement={{ axis: 'block', edge: 'start', align: 'end' }}
+					label="top-start"
+				/>
+				<ArrowPopup
+					placement={{ axis: 'block', edge: 'start' }}
+					label="top-center"
+				/>
+				<ArrowPopup
+					placement={{ axis: 'block', edge: 'start', align: 'start' }}
+					label="top-end"
+				/>
+
+				{/* Middle row: inline (left/right) */}
+				<ArrowPopup
+					placement={{ axis: 'inline', edge: 'start', align: 'end' }}
+					label="left-start"
+				/>
+				<div />
+				<ArrowPopup
+					placement={{ axis: 'inline', edge: 'end', align: 'end' }}
+					label="right-start"
+				/>
+
+				<ArrowPopup
+					placement={{ axis: 'inline', edge: 'start', align: 'start' }}
+					label="left-end"
+				/>
+				<div />
+				<ArrowPopup
+					placement={{ axis: 'inline', edge: 'end', align: 'start' }}
+					label="right-end"
+				/>
+
+				{/* Bottom row: block-end (below) */}
+				<ArrowPopup
+					placement={{ axis: 'block', edge: 'end', align: 'end' }}
+					label="bottom-start"
+				/>
+				<ArrowPopup
+					placement={{ axis: 'block', edge: 'end' }}
+					label="bottom-center"
+				/>
+				<ArrowPopup
+					placement={{ axis: 'block', edge: 'end', align: 'start' }}
+					label="bottom-end"
+				/>
 			</div>
-		</Box>
+		</div>
 	);
 }

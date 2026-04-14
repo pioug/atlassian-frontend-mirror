@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { default as whiteboardSvg } from '../../example-helpers/hero-image.svg';
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';

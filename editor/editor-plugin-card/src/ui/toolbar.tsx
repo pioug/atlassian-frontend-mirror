@@ -128,6 +128,7 @@ export const visitCardLinkAnalytics =
 			| INPUT_METHOD.BUTTON
 			| INPUT_METHOD.DOUBLE_CLICK
 			| INPUT_METHOD.META_CLICK,
+		resolvedAttributes?: Partial<ToolbarResolvedAttributes>,
 	): Command =>
 	(state, dispatch) => {
 		if (!(state.selection instanceof NodeSelection)) {
@@ -138,6 +139,11 @@ export const visitCardLinkAnalytics =
 
 		if (dispatch) {
 			const { tr } = state;
+			const shouldIncludeResolvedAttributes = expValEquals(
+				'cc_integrations_editor_open_link_click_analytics',
+				'isEnabled',
+				true,
+			);
 			editorAnalyticsApi?.attachAnalyticsEvent(
 				buildVisitedNonHyperLinkPayload(
 					type.name as
@@ -145,6 +151,7 @@ export const visitCardLinkAnalytics =
 						| ACTION_SUBJECT_ID.CARD_BLOCK
 						| ACTION_SUBJECT_ID.EMBEDS,
 					inputMethod,
+					shouldIncludeResolvedAttributes ? resolvedAttributes : undefined,
 				),
 			)(tr);
 
@@ -165,10 +172,11 @@ const fireOpenLinkToolbarAnalytics =
 		resolvedAttributes: Partial<ToolbarResolvedAttributes> = {},
 	): Command =>
 	(state, dispatch) => {
-		const linkAnalyticsRecorded = visitCardLinkAnalytics(editorAnalyticsApi, inputMethod)(
-			state,
-			dispatch,
-		);
+		const linkAnalyticsRecorded = visitCardLinkAnalytics(
+			editorAnalyticsApi,
+			inputMethod,
+			resolvedAttributes,
+		)(state, dispatch);
 
 		if (!linkAnalyticsRecorded) {
 			return false;

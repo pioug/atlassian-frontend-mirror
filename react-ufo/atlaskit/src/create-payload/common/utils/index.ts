@@ -4,6 +4,8 @@ import type { LabelStack, SegmentLabel } from '../../../interaction-context';
 import { type UFOSegmentType } from '../../../segment/segment';
 import type { getReactUFOPayloadVersion } from '../../utils/get-react-ufo-payload-version';
 
+import type { LabelStackRegistry } from './label-stack-registry';
+
 export type SegmentItem = {
 	n: string;
 	c?: Record<string, SegmentItem>;
@@ -111,6 +113,31 @@ export function optimizeLabelStack(
 				...((ls as SegmentLabel).segmentId ? { s: (ls as SegmentLabel).segmentId } : {}),
 				...((ls as SegmentLabel).type ? { t: (ls as SegmentLabel).type } : {}),
 			}));
+}
+
+/**
+ * Optimizes a labelStack with registry-based deduplication.
+ * When a registry is provided and the version is '2.0.0', the labelStack string
+ * is registered in the lookup table and a numeric index is returned instead of the full string.
+ * Falls back to regular optimizeLabelStack when no registry is provided.
+ */
+export function optimizeLabelStackWithRegistry(
+	labelStack: LabelStack,
+	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
+	registry: LabelStackRegistry | undefined,
+):
+	| string
+	| number
+	| {
+			t?: UFOSegmentType | undefined;
+			s?: string | undefined;
+			n: string;
+	  }[] {
+	if (registry && reactUFOVersion === '2.0.0') {
+		const ref = getLabelStackReference(labelStack);
+		return registry.register(ref);
+	}
+	return optimizeLabelStack(labelStack, reactUFOVersion);
 }
 
 export function getOldSegmentsLabelStack(

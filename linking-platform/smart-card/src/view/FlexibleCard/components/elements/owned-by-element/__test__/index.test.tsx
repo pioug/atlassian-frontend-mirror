@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { getContext } from '../../../../../../../examples/utils/flexible-ui';
 import { FlexibleCardContext } from '../../../../../../state/flexible-ui-context';

@@ -83,7 +83,5 @@
       "value": "\"Charlie Text\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif"
     }
   },
-  "renameMap": {
-    "Typography/font.body.UNSAFE_small": "Typography/font.body.small"
-  }
+  "renameMap": {}
 }

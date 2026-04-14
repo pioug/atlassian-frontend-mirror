@@ -1,13 +1,22 @@
-# EditorPluginSelectionToolbar
+# Editor Plugin Selection Toolbar
 
-@atlaskit/editor-plugin-selection-toolbar for @atlaskit/editor-core
-
-## Usage
-
-`import EditorPluginSelectionToolbar from '@atlaskit/editor-plugin-selection-toolbar';`
+Selection toolbar plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Selection Toolbar plugin provides a floating toolbar that appears when text is selected in the editor. It enables users to perform formatting actions and access contextual controls based on the current selection within the editor.
+
+## Key features
+
+- **Floating toolbar on selection** - Displays contextual formatting options when text is selected
+- **Toolbar positioning** - Supports multiple toolbar docking positions (top, bottom, none) with user preferences
+- **Configurable toolbar placement** - Option to prefer toolbar above or below the selection
+- **Toolbar state management** - Manages visibility and stability of the toolbar during editing
+- **Analytics integration** - Tracks toolbar interactions and user preferences through analytics events
+- **User preferences** - Respects user's toolbar docking preferences across sessions
 
 ## Install
 ---
@@ -29,6 +38,7 @@ Please see [Atlaskit - Editor plugin selection toolbar](https://atlaskit.atlassi
 ## Support
 ---
 For internal Atlassian, visit the slack channel [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) for support or visit [go/editor-help](https://go/editor-help) to submit a bug.
+
 ## License
 ---
- Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#Platform-License) for more licensing information.
+Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#Platform-License) for more licensing information.

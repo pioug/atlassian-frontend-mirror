@@ -7,7 +7,10 @@
 		"composite": true,
 		"noCheck": true
 	},
-	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -20,9 +23,6 @@
 		"../src/**/stories/**/*"
 	],
 	"references": [
-		{
-			"path": "../../theme/afm-cc/tsconfig.json"
-		},
 		{
 			"path": "../../css-reset/afm-cc/tsconfig.json"
 		}

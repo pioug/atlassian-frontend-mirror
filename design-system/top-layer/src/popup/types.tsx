@@ -1,5 +1,7 @@
 import { type ReactElement, type ReactNode, type Ref, type RefObject } from 'react';
 
+import { type StrictXCSSProp } from '@atlaskit/css';
+
 import { type TAnimationPreset } from '../animations/types';
 import { type TArrowPreset } from '../arrow/types';
 import { type TPlacement } from '../internal/resolve-placement';
@@ -140,6 +142,21 @@ type TPopupContentBaseProps = {
 	 *   Falls back to a one-off measurement of the trigger's width.
 	 */
 	width?: 'content' | 'trigger' | 'min-trigger';
+	/**
+	 * Applies additional CSS styles to the popover root element using
+	 * design-system-safe xcss.
+	 *
+	 * **Required when using `arrow`:** the arrow pseudo-elements use
+	 * `background: inherit` to pick up their color from the popover root.
+	 * Without setting `backgroundColor` here, the arrow tip will be transparent.
+	 *
+	 * @example
+	 * ```tsx
+	 * const styles = cssMap({ surface: { backgroundColor: token('elevation.surface.overlay') } });
+	 * <Popup.Content xcss={styles.surface} arrow={arrowPreset} ... />
+	 * ```
+	 */
+	xcss?: StrictXCSSProp<'backgroundColor', never>;
 
 	// ── Standalone props ──
 	// Used when PopupContent is rendered outside the <Popup> compound

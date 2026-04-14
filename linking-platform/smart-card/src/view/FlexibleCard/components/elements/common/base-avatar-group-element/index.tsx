@@ -5,7 +5,7 @@
 import { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { type IntlShape, useIntl } from 'react-intl-next';
+import { type IntlShape, useIntl } from 'react-intl';
 
 import AtlaskitAvatarGroup from '@atlaskit/avatar-group';
 import { token } from '@atlaskit/tokens';

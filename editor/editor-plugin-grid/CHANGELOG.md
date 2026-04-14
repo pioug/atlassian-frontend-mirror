@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-grid
 
+## 8.0.26
+
+### Patch Changes
+
+- [`3da5fc5ff18bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3da5fc5ff18bc) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
+## 8.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.24
 
 ### Patch Changes

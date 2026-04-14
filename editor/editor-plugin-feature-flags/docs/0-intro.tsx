@@ -31,10 +31,12 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type FeatureFlagsPlugin = NextEditorPlugin<
+export type FeatureFlagsPluginOptions = FeatureFlags;
+
+export type FeatureFlagsPlugin = NextEditorPlugin<
   'featureFlags',
   {
-    pluginConfiguration: FeatureFlags;
+    pluginConfiguration: FeatureFlagsPluginOptions;
     sharedState: FeatureFlags;
   }
 >;

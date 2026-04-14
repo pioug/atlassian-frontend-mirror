@@ -1,6 +1,6 @@
 import React, { type ComponentClass, type FunctionComponent } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 type WithIntlProviderProps = {
 	/**

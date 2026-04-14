@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { defineMessages, useIntl } from 'react-intl-next';
+import { defineMessages, useIntl } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 

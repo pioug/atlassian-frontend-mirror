@@ -31,11 +31,16 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type FeedbackDialogPlugin = NextEditorPlugin<
+export type FeedbackDialogPluginDependencies = [OptionalPlugin<AnalyticsPlugin>];
+
+export type FeedbackDialogPlugin = NextEditorPlugin<
   'feedbackDialog',
   {
+    actions: {
+      openFeedbackDialog: typeof openFeedbackDialog;
+    };
+    dependencies: FeedbackDialogPluginDependencies;
     pluginConfiguration: FeedbackInfo;
-    dependencies: [OptionalPlugin<AnalyticsPlugin>];
   }
 >;
 `}

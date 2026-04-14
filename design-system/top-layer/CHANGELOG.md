@@ -1,5 +1,26 @@
 # @atlaskit/top-layer
 
+## 0.1.5
+
+### Patch Changes
+
+- [`034e29787df79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/034e29787df79) -
+  Fix arrow tips being squared off instead of coming to a point by changing clip-path inset from 1px
+  to 0px
+
+## 0.1.4
+
+### Patch Changes
+
+- [`f4eca31807dcc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4eca31807dcc) -
+  Add new xcss on popover to support customize background color and address arrow style issue
+
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.2
 
 ### Patch Changes

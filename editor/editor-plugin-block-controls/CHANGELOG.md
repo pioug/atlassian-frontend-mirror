@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 9.1.15
+
+### Patch Changes
+
+- [`0eb1eed9871ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eb1eed9871ef) -
+  [ux] [EDITOR-6279] update the block menu experiment's code check to also check jira. this fixes
+  the transform behaviour on a moved node in jira.
+- Updated dependencies
+
+## 9.1.14
+
+### Patch Changes
+
+- [`7acd06d35fdd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7acd06d35fdd1) -
+  Editor-5933: Fixed unable to create synced block from embed
+- Updated dependencies
+
+## 9.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.12
 
 ### Patch Changes

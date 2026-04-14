@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 9.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.2.8
+
+### Patch Changes
+
+- [`fa146e17e08d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa146e17e08d6) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
 ## 9.2.7
 
 ### Patch Changes

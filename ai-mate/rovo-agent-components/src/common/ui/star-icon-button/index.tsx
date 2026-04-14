@@ -4,7 +4,7 @@
  */
 import { type KeyboardEvent, type MouseEvent, useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import StarIconMigration from '@atlaskit/icon/core/star-starred';

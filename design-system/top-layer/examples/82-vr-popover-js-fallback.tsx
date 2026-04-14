@@ -94,6 +94,22 @@ export function VrJsFallbackInlineEndAlignEnd(): JSX.Element {
 	return <VrPopupFallback placement={{ axis: 'inline', edge: 'end', align: 'end' }} />;
 }
 
+export function VrJsFallbackBlockStartAlignStart(): JSX.Element {
+	return <VrPopupFallback placement={{ axis: 'block', edge: 'start', align: 'start' }} />;
+}
+
+export function VrJsFallbackBlockStartAlignEnd(): JSX.Element {
+	return <VrPopupFallback placement={{ axis: 'block', edge: 'start', align: 'end' }} />;
+}
+
+export function VrJsFallbackInlineStartAlignStart(): JSX.Element {
+	return <VrPopupFallback placement={{ axis: 'inline', edge: 'start', align: 'start' }} />;
+}
+
+export function VrJsFallbackInlineStartAlignEnd(): JSX.Element {
+	return <VrPopupFallback placement={{ axis: 'inline', edge: 'start', align: 'end' }} />;
+}
+
 export default function VrPopupJsFallback(): JSX.Element {
 	return <VrJsFallbackBlockEnd />;
 }

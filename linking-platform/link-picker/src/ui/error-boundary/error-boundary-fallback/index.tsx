@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { defineMessages, useIntl } from 'react-intl-next';
+import { defineMessages, useIntl } from 'react-intl';
 
 import { token } from '@atlaskit/tokens';
 

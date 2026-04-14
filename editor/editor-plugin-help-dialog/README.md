@@ -1,9 +1,22 @@
-# Editor plugin help-dialog
+# Editor Plugin Help Dialog
 
 Help Dialog plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Help Dialog plugin provides an interactive modal interface that displays helpful information about editor features, keyboard shortcuts, and formatting options. It integrates with the editor's quick insert functionality and supports dynamic configuration based on available features like image uploads and AI capabilities.
+
+## Key features
+
+- **Help dialog modal** - Display a comprehensive help interface with formatting shortcuts and editor tips
+- **Keyboard shortcuts** - Open/close help dialog using keyboard shortcuts (?)
+- **Feature detection** - Dynamically adapt help content based on enabled features (image uploads, AI)
+- **Quick insert integration** - Access help dialog through the quick insert menu
+- **State management** - Track and manage the visibility state of the help dialog
+- **Keyboard navigation** - Close dialog with Escape key for better accessibility
 
 ## Install
 ---

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { isFedRamp } from '@atlaskit/atlassian-context';
 import EmptyState from '@atlaskit/empty-state';

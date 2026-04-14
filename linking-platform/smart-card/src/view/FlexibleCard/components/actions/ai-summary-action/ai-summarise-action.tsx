@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import AiIcon from '@atlaskit/icon/core/atlassian-intelligence';
 import { fg } from '@atlaskit/platform-feature-flags';

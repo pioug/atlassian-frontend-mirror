@@ -18,6 +18,7 @@ export type {
 	HydratedUser,
 	HydratedTeam,
 	HydratedProject,
+	HydratedGoal,
 	AutocompleteOption,
 	AutocompleteValueType,
 	AutocompleteOptions,

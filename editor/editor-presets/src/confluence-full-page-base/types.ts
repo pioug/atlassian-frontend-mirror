@@ -229,7 +229,7 @@ export type FullPageEditorAppearance = 'full-page' | 'full-width' | 'max';
  * NOTE: This does NOT include private plugins like AI, which are added
  * in the editor-presets-confluence package.
  */
-type ConfluenceFullPageBasePluginsReversed = [
+export type ConfluenceFullPageBasePluginsReversed = [
 	LocalIdPlugin | undefined,
 	TrackChangesPlugin | undefined,
 	ShowDiffPlugin | undefined,

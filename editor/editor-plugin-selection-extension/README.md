@@ -1,9 +1,21 @@
-# Editor plugin selection extension
+# Editor Plugin Selection Extension
 
 Selection Extension plugin for confluence
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Selection Extension plugin provides a framework for extending the Atlassian Editor with custom actions triggered by text and block selections. It enables the creation of custom menus, toolbars, and interactive components that respond to user selections within the editor.
+
+## Key features
+
+- **Custom selection extensions** - Register and manage custom extensions that respond to text and block selections
+- **Toolbar and menu integration** - Seamlessly integrate custom actions into editor toolbars and block menus
+- **Document manipulation** - Insert and replace content using ADF (Atlassian Document Format) at selected positions
+- **Selection tracking** - Track and access detailed selection information including coordinates and content
+- **Block menu support** - Extend block-level menus with custom actions and configurations
 
 ## Install
 ---

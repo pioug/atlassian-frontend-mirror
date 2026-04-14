@@ -24,8 +24,7 @@ function buildCombinedMap(...arrays: Token[][]): Record<string, string> {
 
 // Filter the typography tokens based on predefined groups and exclusions
 const typographyThemeFiltered = typographyTheme
-	.filter((token) => typographyGroups.includes(token.attributes.group))
-	.filter((token) => token.cleanName !== 'font.body.UNSAFE_small');
+	.filter((token) => typographyGroups.includes(token.attributes.group));
 
 // Cache array: [0] for light theme, [1] for legacy light theme
 const tokenMapCache: (Record<string, string> | null)[] = [null, null];

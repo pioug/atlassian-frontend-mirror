@@ -4,7 +4,7 @@ import { RovoPostMessagePubsubListener } from '../src/common/utils/post-message-
 import { Subscriber } from '../src/main';
 
 const siblingExampleUrl =
-	'/examples.html?groupId=ai-mate&packageId=rovo-triggers&exampleId=iframe-to-pubsub-iframed-content&mode=light';
+	'/example?groupId=ai-mate&packageId=rovo-triggers&exampleId=iframe-to-pubsub-iframed-content&mode=light';
 const embedOneFrameId = 'embed-one';
 const embedTwoFrameId = 'embed-two';
 

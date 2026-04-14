@@ -1,3 +1,4 @@
+import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -12,6 +13,8 @@ import {
 	editingStyleNode,
 	deletedContentStyleNew,
 	deletedStyleQuoteNode,
+	addedCellOverlayStyle,
+	deletedCellOverlayStyle,
 } from './colorSchemes/standard';
 import {
 	traditionalDecorationMarkerVariable,
@@ -34,6 +37,8 @@ import {
 	traditionalStyleNodeNew,
 	getDeletedTraditionalInlineStyle,
 	deletedTraditionalStyleQuoteNode,
+	traditionalAddedCellOverlayStyle,
+	deletedTraditionalCellOverlayStyle,
 } from './colorSchemes/traditional';
 
 const getNodeClass = (name: string) => {
@@ -63,8 +68,6 @@ const getBlockNodeStyle = ({
 			'mediaGroup',
 			'table', // Handle table separately to avoid border issues
 			'tableRow',
-			'tableCell',
-			'tableHeader',
 			'paragraph', // Paragraph and heading nodes do not need special styling
 			'heading',
 			'hardBreak',
@@ -77,6 +80,16 @@ const getBlockNodeStyle = ({
 		].includes(nodeName)
 	) {
 		// Layout nodes do not need special styling
+		return undefined;
+	}
+	if (['tableCell', 'tableHeader'].includes(nodeName)) {
+		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+			// This is used for positioning the cell overlay widget decorations
+			return convertToInlineCss({
+				position: 'relative',
+			});
+		}
+		// When gate is off, it should return undefined as above
 		return undefined;
 	}
 	if (['extension', 'embedCard', 'listItem'].includes(nodeName)) {
@@ -213,7 +226,28 @@ export const createBlockChangedDecoration = ({
 	colorScheme?: ColorScheme;
 	isActive?: boolean;
 	isInserted?: boolean;
-}): Decoration | undefined => {
+}): Decoration[] => {
+	const decorations: Decoration[] = [];
+	if (
+		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) &&
+		['tableCell', 'tableHeader'].includes(change.name)
+	) {
+		const cellOverlay = document.createElement('div');
+		const cellOverlayStyle = isInserted
+			? colorScheme === 'traditional'
+				? traditionalAddedCellOverlayStyle
+				: addedCellOverlayStyle
+			: colorScheme === 'traditional'
+				? deletedTraditionalCellOverlayStyle
+				: deletedCellOverlayStyle;
+		cellOverlay.setAttribute('style', cellOverlayStyle);
+		decorations.push(
+			// change.to - 1 to position the overlay inside the end of the cell
+			Decoration.widget(change.to - 1, cellOverlay, {
+				key: `diff-widget-cell-overlay-${change.to}`,
+			}),
+		);
+	}
 	let style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isActive });
 	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 		style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isInserted, isActive });
@@ -221,28 +255,33 @@ export const createBlockChangedDecoration = ({
 	const className = getNodeClass(change.name);
 	if (fg('platform_editor_show_diff_scroll_navigation')) {
 		if (style || className) {
-			return Decoration.node(
+			decorations.push(
+				Decoration.node(
+					change.from,
+					change.to,
+					{
+						style: style,
+						'data-testid': 'show-diff-changed-decoration-node',
+						class: className,
+					},
+					{ key: 'diff-block', nodeName: change.name },
+				),
+			);
+		}
+	} else {
+		decorations.push(
+			Decoration.node(
 				change.from,
 				change.to,
 				{
-					style: style,
+					style,
 					'data-testid': 'show-diff-changed-decoration-node',
 					class: className,
 				},
 				{ key: 'diff-block', nodeName: change.name },
-			);
-		} else {
-			return undefined;
-		}
+			),
+		);
 	}
-	return Decoration.node(
-		change.from,
-		change.to,
-		{
-			style,
-			'data-testid': 'show-diff-changed-decoration-node',
-			class: className,
-		},
-		{ key: 'diff-block', nodeName: change.name },
-	);
+
+	return decorations;
 };

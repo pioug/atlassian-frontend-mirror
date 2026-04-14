@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { type JsonLd } from '@atlaskit/json-ld-types';

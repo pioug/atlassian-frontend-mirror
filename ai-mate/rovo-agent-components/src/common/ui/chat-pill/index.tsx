@@ -5,7 +5,7 @@
 import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 import { cssMap as cssMapCompiled } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { type ButtonProps } from '@atlaskit/button';
 import { cssMap, cx, jsx } from '@atlaskit/css';

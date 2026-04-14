@@ -126,7 +126,6 @@ const styles = unboundedCssMap({
 
 const fontSizeMap = cssMap({
 	medium: { font: token('font.body') },
-	UNSAFE_small: { font: token('font.body.UNSAFE_small') },
 	large: { font: token('font.body.large') },
 	small: { font: token('font.body.small') },
 });

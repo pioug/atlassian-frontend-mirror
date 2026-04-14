@@ -65,7 +65,14 @@ algorithm:
 2. Otherwise, focus the first focusable descendant
 3. If no focusable descendants, focus the `<dialog>` element itself
 
-This covers every case. No custom code needed.
+This covers every case. No custom code needed. Validated as consistent across all three engines
+(April 2026, Playwright 1.57.0):
+
+| Engine   | Version        | `autofocus` respected | First focusable fallback |
+| -------- | -------------- | --------------------- | ------------------------ |
+| Chromium | 143.0.7499.4   | ✅                    | ✅                       |
+| Firefox  | 144.0.2        | ✅                    | ✅                       |
+| WebKit   | 26.0           | ✅                    | ✅                       |
 
 **`showPopover()` does NOT auto-focus the first focusable child.** The
 [popover focusing steps](https://html.spec.whatwg.org/multipage/popover.html#popover-focusing-steps)
@@ -144,8 +151,30 @@ dialog focusing steps look for the HTML `autofocus` attribute.
 
 ## Focus restoration
 
-Focus restoration is handled **natively by the browser's Popover API**. No custom hooks or manual
-`element.focus()` calls are needed for `popover="auto"` or `popover="hint"`.
+Focus restoration is handled **natively by both primitives** — no custom hooks or manual
+`element.focus()` calls are needed. However, the two primitives use different browser APIs with
+subtly different restoration behavior on light dismiss.
+
+### Dialog (`<dialog>.close()`) — always restores
+
+`<dialog>.close()` **unconditionally** restores focus to the element that was focused before
+`showModal()` was called — regardless of how the close was triggered:
+
+| Dismissal method      | Focus restored? |
+| --------------------- | --------------- |
+| **Escape**            | ✅ Yes          |
+| **Backdrop click**    | ✅ Yes          |
+| **Programmatic close** | ✅ Yes         |
+
+This is because all three paths end with `dialog.close()`, and the
+[dialog close algorithm](https://html.spec.whatwg.org/multipage/interactive-elements.html#close-the-dialog)
+always restores focus. Backdrop clicking a modal dialog is a "dismiss this overlay" gesture — the
+user didn't click on a specific element behind it (the backdrop blocks interaction), so restoring
+focus to the trigger is the correct behavior.
+
+### Popover (`hidePopover()`) — conditional restoration
+
+The Popover API's restoration depends on how the popover was hidden:
 
 ### Browser behavior by dismissal method
 
@@ -173,6 +202,18 @@ browser preserves the user's click context rather than yanking focus back to the
 
 This is the correct behavior per WCAG — the click event still fires on the clicked element, and
 focus stays where the user intended.
+
+### Why Dialog and Popover differ on light dismiss — and why that's correct
+
+This asymmetry is a deliberate platform decision that we lean into, not a bug:
+
+- **Dialog backdrop click**: The `::backdrop` is an opaque overlay that blocks interaction with the
+  page. Clicking it is a "dismiss this modal" gesture — the user didn't click on a specific element
+  behind the dialog. Restoring focus to the trigger preserves the user's context.
+
+- **Popover click-outside**: Popovers don't block the page. Clicking outside is an "I want to
+  interact with something else" gesture. The browser preserves the user's click target rather than
+  yanking focus back to the trigger, which respects the user's intent.
 
 ### What top-layer does (and doesn't do)
 
@@ -202,19 +243,42 @@ it.
 
 ## Role-to-behavior summary
 
-| Role                     | Initial Focus           | Focus Wrapping              | Focus Restoration           |
-| ------------------------ | ----------------------- | --------------------------- | --------------------------- |
-| `dialog` / `alertdialog` | First focusable element | Tab wraps within content    | ✅ Auto-restores to trigger |
-| `menu`                   | First menu item         | No Tab wrapping (Tab exits) | ✅ Auto-restores to trigger |
-| `listbox`                | First/selected option   | Tab wraps within content    | ✅ Auto-restores to trigger |
-| `tooltip`                | No focus change         | No wrapping                 | ❌ No restoration           |
+### By role (Popover primitive)
+
+| Role                     | Initial Focus           | Focus Wrapping              | Focus Restoration (Escape) | Focus Restoration (click-outside) |
+| ------------------------ | ----------------------- | --------------------------- | -------------------------- | --------------------------------- |
+| `dialog` / `alertdialog` | First focusable element | Tab wraps within content    | ✅ Restores to trigger     | ❌ No restoration                 |
+| `menu`                   | First menu item         | No Tab wrapping (Tab exits) | ✅ Restores to trigger     | ❌ No restoration                 |
+| `listbox`                | First/selected option   | No Tab wrapping (Tab exits) | ✅ Restores to trigger     | ❌ No restoration                 |
+| `tooltip`                | No focus change         | No wrapping                 | ❌ No restoration          | ❌ No restoration                 |
+
+### Dialog primitive (`<dialog>.showModal()`)
+
+| Concern            | Behavior                                                                    |
+| ------------------ | --------------------------------------------------------------------------- |
+| Initial focus      | Native `showModal()` algorithm: `[autofocus]` element, or first focusable   |
+| Focus wrapping     | `useFocusWrap` hook — Tab cycles within content (overrides native body hop) |
+| Focus restoration  | Always restores to trigger — Escape, backdrop click, and programmatic close |
 
 ---
 
-## Contrast: initial focus vs focus restoration
+## Contrast: Dialog vs Popover
 
-Unlike focus restoration (where we rely entirely on native browser behavior), initial focus is a
-real gap in the Popover API that requires our custom `useInitialFocus` hook.
+| Concern             | Dialog (`<dialog>`)                | Popover (`<div popover>`)                        |
+| ------------------- | ---------------------------------- | ------------------------------------------------ |
+| **Initial focus**   | Native `showModal()` — consistent  | `useInitialFocus` hook — fills a Popover API gap |
+| **Focus wrapping**  | `useFocusWrap` hook                | `useFocusWrap` hook (same)                       |
+| **Focus restore**   | Native `dialog.close()` — always   | Native Popover API — conditional on dismiss type |
+
+Initial focus is the only area where the two primitives use different strategies: Dialog relies on
+native `showModal()` (which is consistent across browsers), while Popover requires the custom
+`useInitialFocus` hook because `showPopover()` does not auto-focus without `autofocus`.
+
+Focus restoration differs in behavior on light dismiss: `dialog.close()` always restores (backdrop
+click is a dismiss gesture against an opaque overlay), while the Popover API deliberately does not
+restore on click-outside (the user clicked on something else). See
+[Why Dialog and Popover differ on light dismiss](#why-dialog-and-popover-differ-on-light-dismiss--and-why-thats-correct)
+above.
 
 ## Spec references
 

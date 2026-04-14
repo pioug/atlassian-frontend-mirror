@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AtlassianInternalWarning, md } from '@atlaskit/docs';
+import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
 import { token } from '@atlaskit/tokens';
@@ -26,21 +26,22 @@ ${createEditorUseOnlyNotice('Editor Plugin Submit Editor', [
 
 ## Usage
 ---
-// Add in info about plugin.
 
-### Plugin dependencies
+The \`dependencies\`, \`configuration\`, and \`options\` of the plugin are defined below:
 
+${code`
+export type SubmitEditorPluginOptions = (editorView: EditorView) => void;
 
-### Plugin configuration
+export type SubmitEditorPluginDependencies = [OptionalPlugin<MediaPlugin>];
 
-
-### Shared state
-
-
-### Actions
-
-
-### Commands
+export type SubmitEditorPlugin = NextEditorPlugin<
+  'submitEditor',
+  {
+    dependencies: SubmitEditorPluginDependencies;
+    pluginConfiguration: SubmitEditorPluginOptions | undefined;
+  }
+>;
+`}
 
 
   ## Support

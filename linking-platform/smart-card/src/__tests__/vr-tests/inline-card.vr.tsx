@@ -1,5 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
+import VRInlineCardResolvedRovoActions from '../../../examples/vr-inline-card-resolved-rovo-actions';
 import InlineCardWithStatus from '../../../examples/vr-inline-card-with-status';
 import VRInlineCardAllExamplesInText from '../../../examples/vr-inline-card/vr-inline-card-all-examples-in-text';
 import InlineCardDefaultWithEntities from '../../../examples/vr-inline-card/vr-inline-card-default-entities';
@@ -354,4 +355,12 @@ snapshot(VRInlineProfileCard, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
+});
+
+snapshot(VRInlineCardResolvedRovoActions, {
+	description: 'inline card resolved view with Rovo actions button (treatment)',
+	featureFlags: {
+		'smart-card-inline-resolved-view-refactor': true,
+		'rovogrowth-640-inline-action-nudge-fg': true,
+	},
 });

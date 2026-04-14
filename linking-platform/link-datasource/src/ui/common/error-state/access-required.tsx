@@ -5,7 +5,7 @@
 import { useEffect } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import EmptyState from '@atlaskit/empty-state';
 import { Box } from '@atlaskit/primitives/compiled';

@@ -1,7 +1,8 @@
 /* eslint-disable no-global-assign */
 
 import { createDateParser } from '../../index';
-import { toDate, toDateObj } from '../../utils';
+import { toDate } from '../../to-date';
+import { toDateObj } from '../../to-date-obj';
 
 const DATE_INVARIANT = new Date(2000, 7, 28);
 

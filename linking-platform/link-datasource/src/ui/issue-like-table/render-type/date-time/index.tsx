@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type FormatDateOptions, type IntlShape, useIntl } from 'react-intl-next';
+import { type FormatDateOptions, type IntlShape, useIntl } from 'react-intl';
 
 import { type DateTimeType, type DateType, type TimeType } from '@atlaskit/linking-types';
 import { Text } from '@atlaskit/primitives/compiled';

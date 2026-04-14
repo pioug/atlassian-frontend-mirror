@@ -5,7 +5,7 @@
 import { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';

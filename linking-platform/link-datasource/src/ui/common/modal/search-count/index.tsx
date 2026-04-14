@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cssMap } from '@compiled/react';
-import { FormattedMessage, FormattedNumber } from 'react-intl-next';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';

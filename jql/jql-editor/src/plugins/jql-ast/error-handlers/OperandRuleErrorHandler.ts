@@ -1,6 +1,6 @@
 import { type Token } from 'antlr4ts';
 import { type RecognitionException } from 'antlr4ts/RecognitionException';
-import { type IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl';
 
 import { type JQLRuleSuggestions } from '@atlaskit/jql-autocomplete';
 import { JQLLexer, type JQLParser } from '@atlaskit/jql-parser';

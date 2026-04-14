@@ -6,7 +6,7 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { faker } from '@faker-js/faker';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 

@@ -5,7 +5,7 @@
 import React, { type PropsWithChildren } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { IFrame } from '../../src/view/EmbedCard/components/IFrame';

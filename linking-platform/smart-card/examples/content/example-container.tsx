@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { avatar1, avatar2, avatar3, image1 as previewImage } from '@atlaskit/link-test-helpers';
 

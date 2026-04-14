@@ -5,7 +5,7 @@
 import React, { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import Heading from '@atlaskit/heading';
 import DownloadIcon from '@atlaskit/icon/core/download';

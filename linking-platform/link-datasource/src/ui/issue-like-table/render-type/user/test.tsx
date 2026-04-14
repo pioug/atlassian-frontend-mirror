@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act, render, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { type WidthObserver } from '@atlaskit/width-detector';
 

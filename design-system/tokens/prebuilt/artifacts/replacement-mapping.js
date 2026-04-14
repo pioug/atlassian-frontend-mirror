@@ -18,7 +18,7 @@ exports.default = void 0;
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::26489b868b6a67a598f0fa4a421cae65>>
+ * @codegen <<SignedSource::986b26dc28b6a7d1da0912b44171d859>>
  * @codegenCommand yarn build tokens
  */
 
@@ -169,9 +169,5 @@ var replacementMapper = [{
 }, {
   "path": "motion.spotlight.exit",
   "state": "experimental"
-}, {
-  "path": "font.body.UNSAFE_small",
-  "state": "deprecated",
-  "replacement": "font.body.small"
 }];
 var _default = exports.default = replacementMapper;

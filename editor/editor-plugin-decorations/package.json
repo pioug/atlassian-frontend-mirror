@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-decorations",
-	"version": "8.0.27",
+	"version": "8.0.29",
 	"description": "Decorations plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -24,6 +24,7 @@
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
@@ -67,6 +68,11 @@
 				"emotion",
 				"emotion"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_block_menu_jira_patch_1": {
+			"type": "boolean"
 		}
 	}
 }

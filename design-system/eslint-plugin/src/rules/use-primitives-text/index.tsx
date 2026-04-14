@@ -9,7 +9,6 @@ import {
 	ParagraphElements,
 	SpanElements,
 	StrongElements,
-	UnsafeSmallText,
 } from './transformers';
 
 const textDocsUrl = 'https://atlassian.design/components/primitives/text';
@@ -57,7 +56,6 @@ const rule: Rule.RuleModule = createLintRule({
 		messages: {
 			preferPrimitivesText: `This element can be replaced with a "Text" primitive. See ${textDocsUrl} for additional guidance.`,
 			preferPrimitivesStackedText: `These paragraphs can be replaced with a "Text" and "Stack" primitives. See ${textDocsUrl} for additional guidance.`,
-			noUnsafeSmallText: `Text size prop can be replaced with "small".`,
 		},
 	},
 	create(context) {
@@ -77,9 +75,6 @@ const rule: Rule.RuleModule = createLintRule({
 				},
 				'JSXElement[openingElement.name.name=em]': (node: Rule.Node) => {
 					return EmphasisElements.lint(node, { context, config });
-				},
-				'JSXElement[openingElement.name.name=Text]': (node: Rule.Node) => {
-					return UnsafeSmallText.lint(node, { context, config });
 				},
 			},
 			config,

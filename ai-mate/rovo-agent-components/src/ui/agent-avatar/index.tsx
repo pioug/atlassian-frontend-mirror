@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { cssMap as cssMapCompiled } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
 import { cssMap, jsx } from '@atlaskit/css';

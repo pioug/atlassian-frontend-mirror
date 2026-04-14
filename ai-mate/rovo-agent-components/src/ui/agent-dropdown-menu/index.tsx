@@ -4,7 +4,7 @@
  */
 import React, { useEffect, useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button, { type ButtonProps, IconButton } from '@atlaskit/button/new';

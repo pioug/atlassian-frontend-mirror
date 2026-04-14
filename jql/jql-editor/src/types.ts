@@ -8,6 +8,7 @@ export type {
 	HydratedUser,
 	HydratedTeam,
 	HydratedProject,
+	HydratedGoal,
 } from './ui/types';
 
 export type {

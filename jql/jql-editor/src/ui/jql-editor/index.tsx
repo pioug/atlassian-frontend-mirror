@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import { injectIntl, type IntlShape } from 'react-intl-next';
+import { injectIntl, type IntlShape } from 'react-intl';
 import { di } from 'react-magnetic-di';
 
 import { useJqlEditorAnalytics } from '../../analytics';

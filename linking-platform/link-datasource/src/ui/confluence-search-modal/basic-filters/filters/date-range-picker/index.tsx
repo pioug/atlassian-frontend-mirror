@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { styled } from '@compiled/react';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
 import ErrorIcon from '@atlaskit/icon/core/status-error';

@@ -5,7 +5,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';

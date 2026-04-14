@@ -15,6 +15,9 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	platform_sl_3p_auth_rovo_action: {
 		isEnabled: true,
 	},
+	rovogrowth_640_inline_action_nudge: {
+		isEnabled: true,
+	},
 };
 
 const enabledGates = ['platform_sl_3p_preauth_better_hovercard_killswitch'];

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, render, screen, waitFor } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { defaultRegistry } from 'react-sweet-state';
 
 import { mockActionsDiscoveryEmptyResponse } from '@atlaskit/link-client-extension';

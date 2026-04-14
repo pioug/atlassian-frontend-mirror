@@ -14,7 +14,7 @@ const _default_1: any = md`
 				@atlaskit/smart-user-picker
 			</Link>{' '}
 			instead. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact
-			#search-plex for further details.
+			#help-search-plex for further details.
 		</SectionMessage>
 	)}
 `;

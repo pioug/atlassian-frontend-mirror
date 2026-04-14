@@ -4,7 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import BaseDateTime from '../index';
 

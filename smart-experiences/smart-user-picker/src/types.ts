@@ -218,7 +218,7 @@ export interface SmartProps {
 	 * Prefetch the list of suggested assignees before the user picker is focused.
 	 * WARNING: please consider carefully before deciding to prefetch your suggestions
 	 * as this will increase the load on the recommendations services (has caused HOTs).
-	 * Please give #search-plex a ballpark on the expected request volume.
+	 * Please give #help-search-plex a ballpark on the expected request volume.
 	 */
 	prefetch?: boolean;
 	/**
@@ -329,7 +329,7 @@ export interface Props extends SmartProps, UserPickerProps, WithAnalyticsEventsP
 	 * generating suggestions.
 	 * All fieldId's will be bucketed into a model that provides generic smart results,
 	 * except "assignee", "mentions" which are specifically trained for Jira Assignee and
-	 * @Mentions. For specifically trained models, please contact #search-plex.
+	 * @Mentions. For specifically trained models, please contact #help-search-plex.
 	 */
 	fieldId: string;
 	/** Whether the menu is open or not. */

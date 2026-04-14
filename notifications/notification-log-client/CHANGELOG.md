@@ -1,5 +1,12 @@
 # @atlaskit/notification-log-service
 
+## 8.0.0
+
+### Major Changes
+
+- [`05ac5044f1fd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05ac5044f1fd1) -
+  Rename prop and usages of routingWorkspaceId to collabContextRoutingAri.
+
 ## 7.0.0
 
 ### Major Changes

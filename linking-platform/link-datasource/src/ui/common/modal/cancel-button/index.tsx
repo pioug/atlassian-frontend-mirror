@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/button/standard-button';
 

@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.13.0
+
+### Minor Changes
+
+- [`7b70f90175e38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b70f90175e38) -
+  Add labelStack deduplication table to reduce interaction-metrics payload size
+
+## 5.12.6
+
+### Patch Changes
+
+- [`4b4aae1a28777`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b4aae1a28777) -
+  Add gated validation to truncate overly long timing names to 255 characters for resource and
+  custom timings.
+
 ## 5.12.5
 
 ### Patch Changes

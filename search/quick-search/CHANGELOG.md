@@ -1,5 +1,19 @@
 # @atlaskit/quick-search
 
+## 10.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.5.3
+
+### Patch Changes
+
+- [`47b02f048ca4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47b02f048ca4a) -
+  Enrol search and ai-mate packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+
 ## 10.5.2
 
 ### Patch Changes

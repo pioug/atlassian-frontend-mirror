@@ -7,7 +7,6 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 import type { LinkAttributes } from '@atlaskit/adf-schema';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getEventHandler } from '../../utils';
 import { PLATFORM, MODE } from '../../analytics/events';
@@ -48,7 +47,7 @@ export default function Link(props: MarkProps<LinkProps>) {
 
 	let actualTarget = target;
 
-	if (onSetLinkTarget && href && fg('rovo_chat_deep_linking_enabled')) {
+	if (onSetLinkTarget && href) {
 		try {
 			actualTarget = onSetLinkTarget(href) ?? actualTarget;
 		} catch (error) {

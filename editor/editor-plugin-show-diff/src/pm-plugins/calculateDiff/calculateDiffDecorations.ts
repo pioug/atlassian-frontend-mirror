@@ -26,6 +26,7 @@ import { getMarkChangeRanges } from '../decorations/utils/getMarkChangeRanges';
 import type { ShowDiffPluginState } from '../main';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 
+import { diffBySteps } from './diffBySteps';
 import { groupChangesByBlock } from './groupChangesByBlock';
 import { optimizeChanges } from './optimizeChanges';
 import { simplifySteps } from './simplifySteps';
@@ -36,21 +37,26 @@ const getChanges = ({
 	steppedDoc,
 	diffType,
 	tr,
+	steps,
 }: {
 	changeset: ChangeSet;
 	diffType: DiffType;
 	originalDoc: PMNode;
 	steppedDoc: PMNode;
+	steps: ProseMirrorStep[];
 	tr: Transaction;
 }): Change[] => {
-	if (
-		diffType === 'block' &&
-		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-	) {
-		return groupChangesByBlock(changeset.changes, originalDoc, steppedDoc);
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (diffType === 'step') {
+			return diffBySteps(originalDoc, steps);
+		}
+		if (diffType === 'block') {
+			return groupChangesByBlock(changeset.changes, originalDoc, steppedDoc);
+		}
+		return simplifyChanges(changeset.changes, tr.doc);
 	}
-	const changes = simplifyChanges(changeset.changes, tr.doc);
 
+	const changes = simplifyChanges(changeset.changes, tr.doc);
 	return optimizeChanges(changes);
 };
 
@@ -82,14 +88,14 @@ const calculateNodesForBlockDecoration = ({
 			const isActive =
 				activeIndexPos && pos === activeIndexPos.from && nodeEnd === activeIndexPos.to;
 
-			const decoration = createBlockChangedDecoration({
+			const blockChangedDecorations = createBlockChangedDecoration({
 				change: { from: pos, to: nodeEnd, name: node.type.name },
 				colorScheme,
 				isInserted,
 				isActive,
 			});
-			if (decoration) {
-				decorations.push(decoration);
+			if (blockChangedDecorations.length) {
+				decorations.push(...blockChangedDecorations);
 			}
 		}
 	});
@@ -187,6 +193,7 @@ const calculateDiffDecorationsInner = ({
 		steppedDoc,
 		diffType,
 		tr,
+		steps,
 	});
 
 	const decorations: Decoration[] = [];
@@ -232,6 +239,7 @@ const calculateDiffDecorationsInner = ({
 				activeIndexPos,
 				...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
 					isInserted: !isInserted,
+					diffType,
 				}),
 			});
 			if (decoration) {

@@ -1373,7 +1373,7 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::64331f0b8b5e2f090a3aad153d92deb6>>
+ * @codegen <<SignedSource::6dffa08c1104af4093361cb0f7e37996>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
@@ -1382,7 +1382,6 @@ export type BorderRadius = keyof typeof borderRadiusMap;
  */
 export const fontMap: {
 	'font.body': 'var(--ds-font-body)';
-	'font.body.UNSAFE_small': 'var(--ds-font-body-UNSAFE_small)';
 	'font.body.large': 'var(--ds-font-body-large)';
 	'font.body.small': 'var(--ds-font-body-small)';
 	'font.code': 'var(--ds-font-code)';
@@ -1400,11 +1399,6 @@ export const fontMap: {
 	'font.body': token(
 		'font.body',
 		'normal 400 14px/20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-	),
-	// @deprecated
-	'font.body.UNSAFE_small': token(
-		'font.body.UNSAFE_small',
-		'normal 400 12px/16px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.body.large': token(
 		'font.body.large',
@@ -1513,7 +1507,7 @@ export type FontFamily = keyof typeof fontFamilyMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aeebc24b95e2189021f1d98f1715a6a0>>
+ * @codegen <<SignedSource::b67a50fa5abb078032598ba819a6f691>>
  * @codegenId text
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
@@ -1521,17 +1515,12 @@ export type FontFamily = keyof typeof fontFamilyMap;
  */
 export const textSizeMap: {
 	medium: 'var(--ds-font-body)';
-	UNSAFE_small: 'var(--ds-font-body-UNSAFE_small)';
 	large: 'var(--ds-font-body-large)';
 	small: 'var(--ds-font-body-small)';
 } = {
 	medium: token(
 		'font.body',
 		'normal 400 14px/20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-	),
-	UNSAFE_small: token(
-		'font.body.UNSAFE_small',
-		'normal 400 12px/16px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	large: token(
 		'font.body.large',

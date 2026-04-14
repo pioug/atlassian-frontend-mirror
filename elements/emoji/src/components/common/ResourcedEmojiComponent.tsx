@@ -229,6 +229,22 @@ export const ResourcedEmojiComponent = ({
 				},
 			};
 		}
+		// extend prevention to all surfaces
+		if (optimisticImageURL && fg('platform_emoji_prevent_img_src_changing_all')) {
+			return {
+				id,
+				shortName,
+				fallback,
+				type: '',
+				category: '',
+				searchable: true,
+				representation: {
+					height: fitToHeight || defaultEmojiHeight,
+					width: fitToHeight || defaultEmojiHeight,
+					imagePath: optimisticImageURL,
+				},
+			};
+		}
 		if (optimisticImageURL) {
 			if (
 				emoji &&

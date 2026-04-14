@@ -5,7 +5,7 @@
 import { Fragment, useCallback, useMemo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import ErrorIcon from '@atlaskit/icon/core/status-error';

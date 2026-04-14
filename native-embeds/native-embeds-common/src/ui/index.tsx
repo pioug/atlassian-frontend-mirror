@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { cssMap } from '@compiled/react';
-import { defineMessages, useIntl } from 'react-intl-next';
+import { defineMessages, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import type { CorePlugin } from '@atlaskit/editor-common/types';

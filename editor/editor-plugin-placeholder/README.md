@@ -1,9 +1,21 @@
-# Editor plugin placeholder
+# Editor Plugin Placeholder
 
 Placeholder plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Placeholder plugin provides customizable placeholder text and visual feedback for the Atlassian Editor. It enables dynamic placeholder content, animated prompts, and loading spinners to enhance the user experience in empty or loading states.
+
+## Key features
+
+- **Customizable placeholder text** - Set dynamic placeholder content for the editor
+- **Placeholder prompts** - Display animated placeholder prompts to guide users
+- **Loading spinner** - Show a loading indicator during content initialization and collaborative editing sync
+- **Flexible configuration** - Configure placeholder behavior, visibility, and content styling
+- **Empty line hints** - Display bracket hints on empty lines for better user guidance
 
 ## Install
 ---

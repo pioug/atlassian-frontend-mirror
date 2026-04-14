@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';

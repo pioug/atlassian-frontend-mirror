@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { graphql, useFragment, useMutation } from 'react-relay';
 
 import { DropdownItem } from '@atlaskit/dropdown-menu';

@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 112.20.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.20.1
+
+### Patch Changes
+
+- [`89e32bffb1383`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89e32bffb1383) -
+  [ux] Add support to consume the editor AI plugin summarise functionality in other editor plugins.
+- [`9534ff4c93c1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9534ff4c93c1d) -
+  Send error event when API fails
+- Updated dependencies
+
+## 112.20.0
+
+### Minor Changes
+
+- [`90b759086522c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90b759086522c) -
+  Add withCompiledMigration HOC and enforce-compiled-migration-gate ESLint rule for feature-gated
+  Emotion to Compiled CSS-in-JS migration
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.19.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 112.19.3
 
 ### Patch Changes

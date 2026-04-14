@@ -241,6 +241,10 @@ const ItemIcon = ({ reference }: { reference: SyncBlockSourceInfo }) => {
 		);
 	}
 
+	// For `jira-work-item` (and any future product), we fall back to the generic product logo icon.
+	// Jira issues don't have an equivalent page/blog subtype concept, so no rich IconTile is shown.
+	// Future enhancement: if Jira issue type icons are needed, add an `issueType` field to
+	// `SyncBlockSourceInfo` and fetch it in `fetchJiraWorkItemInfo` via the GraphQL query.
 	return <ProductIcon product={productType} />;
 };
 

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { renderHook } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import TestRenderer from 'react-test-renderer';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';

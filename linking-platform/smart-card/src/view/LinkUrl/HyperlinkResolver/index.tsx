@@ -1,7 +1,7 @@
 import React, { type ComponentType, useCallback } from 'react';
 
 import { withErrorBoundary as withReactErrorBoundary } from 'react-error-boundary';
-import { injectIntl } from 'react-intl-next';
+import { injectIntl } from 'react-intl';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';

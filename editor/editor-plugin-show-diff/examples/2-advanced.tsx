@@ -1,8 +1,8 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag React.Fragment
  */
-/** @jsxFrag */
 import React, { useCallback, useEffect, useState } from 'react';
 
 import applyDevTools from 'prosemirror-dev-tools';
@@ -78,6 +78,8 @@ import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { ColorScheme, DiffType } from '../src/showDiffPluginType';
+
+const diffTypes: DiffType[] = ['inline', 'block', 'step'];
 
 const styles = cssMap({
 	toolbar: {
@@ -358,7 +360,8 @@ export default function Editor(): React.JSX.Element {
 				<Button
 					onClick={() => {
 						hideDiff();
-						setDiffType(diffType === 'inline' ? 'block' : 'inline');
+						const nextIndex = (diffTypes.indexOf(diffType) + 1) % diffTypes.length;
+						setDiffType(diffTypes[nextIndex] ?? 'inline');
 					}}
 				>
 					Type: {diffType}

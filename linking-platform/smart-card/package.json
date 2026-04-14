@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.31.10",
+	"version": "44.0.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -105,7 +105,7 @@
 		"@atlaskit/link-provider": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
@@ -141,7 +141,7 @@
 		"react-ace": "root:*",
 		"react-beautiful-dnd": "root:*",
 		"react-dom": "root:*",
-		"react-intl-next": "root:*",
+		"react-intl": "root:*",
 		"react-test-renderer": "root:*",
 		"ts-jest": "root:*",
 		"xhr-mock": "root:*"
@@ -231,9 +231,6 @@
 		"platform_navx_flex_card_status_dropdown_a11y_fix": {
 			"type": "boolean"
 		},
-		"platform_navx_lp_invalid_url_error": {
-			"type": "boolean"
-		},
 		"platform_navx_send_context_to_ugs_for_rel_links": {
 			"type": "boolean"
 		},
@@ -262,6 +259,9 @@
 			"type": "boolean"
 		},
 		"smart-card-inline-resolved-view-refactor": {
+			"type": "boolean"
+		},
+		"rovogrowth-640-inline-action-nudge-fg": {
 			"type": "boolean"
 		}
 	},

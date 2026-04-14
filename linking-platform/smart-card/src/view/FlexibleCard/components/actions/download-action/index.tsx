@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import DownloadIcon from '@atlaskit/icon/core/download';
 

@@ -1,5 +1,11 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 1.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.1
 
 ### Patch Changes

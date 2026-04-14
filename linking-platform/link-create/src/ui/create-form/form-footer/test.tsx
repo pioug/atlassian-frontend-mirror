@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { type MutableState, type Tools } from 'final-form';
 import { Form } from 'react-final-form';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 

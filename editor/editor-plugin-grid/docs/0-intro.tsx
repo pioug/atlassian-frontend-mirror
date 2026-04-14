@@ -31,17 +31,39 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type GridPluginConfiguration = GridPluginOptions | undefined;
+
+type GridPluginDependencies = [WidthPlugin];
+
+type GridPluginSharedState = GridPluginState | null;
+
+type GridPluginActions = {
+  displayGrid: CreateDisplayGrid;
+};
+
 type GridPlugin = NextEditorPlugin<
   'grid',
   {
-    pluginConfiguration: GridPluginOptions | undefined;
-    dependencies: [WidthPlugin];
-    sharedState: GridPluginState | null;
-    actions: {
-      displayGrid: CreateDisplayGrid;
-    };
+    pluginConfiguration: GridPluginConfiguration;
+    dependencies: GridPluginDependencies;
+    sharedState: GridPluginSharedState;
+    actions: GridPluginActions;
   }
 >;
+
+interface GridPluginOptions {
+  shouldCalcBreakoutGridLines?: boolean;
+}
+
+type GridPluginState = {
+  gridType?: GridType;
+  highlight: Highlights;
+  visible: boolean;
+};
+
+type Highlights = Array<'wide' | 'full-width' | number>;
+
+type CreateDisplayGrid = (view: EditorView) => DisplayGrid;
 `}
 
 

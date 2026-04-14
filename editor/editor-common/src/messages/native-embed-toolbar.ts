@@ -12,6 +12,11 @@ export const nativeEmbedToolbarMessages = defineMessages({
 		defaultMessage: 'Refresh',
 		description: 'Label for the button to refresh the embedded link.',
 	},
+	summarise: {
+		id: 'fabric.editor.nativeEmbeds.summarise',
+		defaultMessage: 'Summarize',
+		description: 'Label for the button to summarize the content of the embedded link using AI.',
+	},
 	setEmbedType: {
 		id: 'fabric.editor.setEmbedType.non-final',
 		defaultMessage: 'Set embed type',

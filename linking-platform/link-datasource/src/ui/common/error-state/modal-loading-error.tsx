@@ -5,7 +5,7 @@
 import { useEffect } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import { Box, Text } from '@atlaskit/primitives/compiled';

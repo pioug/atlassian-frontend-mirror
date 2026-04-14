@@ -1,9 +1,21 @@
-# Editor plugin grid
+# Editor Plugin Grid
 
 Grid plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Grid plugin provides grid visualization and highlight capabilities for the Atlassian Editor. It enables displaying visual grid guides at various layout breakpoints (wide, full-width, or custom column widths) to help with content layout and alignment within the editor.
+
+## Key features
+
+- **Grid visualization** - Display grid guides for layout reference and alignment
+- **Flexible grid types** - Support for different grid types including wide and full-width layouts
+- **Breakout grid lines** - Optional calculation of grid lines for breakout content
+- **Configurable highlights** - Customize which grid columns and layout modes are highlighted
+- **Width plugin integration** - Integrates with the width plugin for responsive layout support
 
 ## Install
 ---

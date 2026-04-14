@@ -20,7 +20,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
@@ -816,11 +815,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					mediaGroupStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mediaAlignmentStyles,
-					expValEquals('platform_editor_small_font_size', 'isEnabled', true) ?
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						tableLayoutFixesWithFontSize :
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						tableLayoutFixes,
+					expValEquals('platform_editor_small_font_size', 'isEnabled', true)
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							tableLayoutFixesWithFontSize
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							tableLayoutFixes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					tableContainerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -832,7 +831,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					selectionToolbarAnimationStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					expValNoExposure('platform_editor_block_menu', 'isEnabled', false) && [
+					editorExperiment('platform_editor_block_menu', true) && [
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						blockquoteDangerStyles,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

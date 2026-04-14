@@ -1,6 +1,6 @@
 import React, { lazy, useCallback } from 'react';
 
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import AutomationIcon from '@atlaskit/icon/core/automation';
 import { fg } from '@atlaskit/platform-feature-flags';

@@ -5,7 +5,7 @@
 import { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';

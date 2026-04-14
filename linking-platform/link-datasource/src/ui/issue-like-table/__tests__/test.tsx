@@ -12,7 +12,7 @@ import {
 	waitForElementToBeRemoved,
 	within,
 } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { defaultRegistry } from 'react-sweet-state';
 import invariant from 'tiny-invariant';
 

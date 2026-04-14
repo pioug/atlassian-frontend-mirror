@@ -26,9 +26,9 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type Config = (editorView: EditorView) => void;
+export type Config = (editorView: EditorView) => void;
 
-export type SaveOnEnter = NextEditorPlugin<
+export type SaveOnEnterPlugin = NextEditorPlugin<
   'saveOnEnter',
   {
     pluginConfiguration: Config | undefined;

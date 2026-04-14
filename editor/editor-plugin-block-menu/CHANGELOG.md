@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 7.0.33
+
+### Patch Changes
+
+- [`a9fb116e4a8d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9fb116e4a8d8) -
+  fix(editor): fix paragraph nodes not highlighting on hover over block menu delete action
+
+  Two root causes fixed:
+  1. CSS danger styles were gated behind
+     `expValNoExposure('platform_editor_block_menu', 'isEnabled', false)`, meaning they were
+     excluded when the new block menu was enabled. Removed the gate so danger styles are always
+     injected.
+
+  2. `hoverDecorationCommand` used `tr.selection` directly, which for paragraphs is a collapsed
+     `TextSelection` (cursor inside text). This caused `getSourceNodesFromSelectionRange` to return
+     an empty array, so no decorations were created. Fixed by passing `preservedSelection` (a
+     `NodeSelection` pointing at the whole paragraph node) from `blockControls` shared state through
+     to `hoverDecoration`.
+
+- Updated dependencies
+
+## 7.0.32
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.31
 
 ### Patch Changes

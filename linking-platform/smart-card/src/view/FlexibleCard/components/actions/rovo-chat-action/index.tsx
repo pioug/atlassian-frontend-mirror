@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { type IntlShape, useIntl } from 'react-intl-next';
+import { type IntlShape, useIntl } from 'react-intl';
 
 import type { ProductType } from '@atlaskit/linking-common';
 

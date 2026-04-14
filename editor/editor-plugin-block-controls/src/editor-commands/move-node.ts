@@ -34,7 +34,6 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin, MoveNodeMethod } from '../blockControlsPluginType';
@@ -399,11 +398,7 @@ export const moveNode =
 			api?.metrics?.commands.setContentMoved()({ tr });
 		}
 
-		const preservedSelection = expValEqualsNoExposure(
-			'platform_editor_block_menu',
-			'isEnabled',
-			true,
-		)
+		const preservedSelection = editorExperiment('platform_editor_block_menu', true)
 			? api?.blockControls.sharedState.currentState()?.preservedSelection
 			: undefined;
 

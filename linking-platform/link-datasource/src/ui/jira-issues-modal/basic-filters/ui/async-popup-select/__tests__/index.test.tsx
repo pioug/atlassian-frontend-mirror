@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, waitFor, within } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';

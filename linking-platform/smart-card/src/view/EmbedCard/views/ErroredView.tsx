@@ -4,7 +4,7 @@
  */
 
 import { cssMap, jsx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import ErrorIcon from '@atlaskit/icon/core/status-error';

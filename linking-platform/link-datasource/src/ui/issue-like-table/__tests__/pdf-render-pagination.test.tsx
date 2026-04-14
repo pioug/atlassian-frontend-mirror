@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act, render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { defaultRegistry } from 'react-sweet-state';
 
 import { SmartCardProvider, useSmartCardContext } from '@atlaskit/link-provider';

@@ -2,7 +2,7 @@ import { type FocusEvent, type MouseEvent } from 'react';
 
 import clamp from 'lodash/clamp';
 import groupBy from 'lodash/groupBy';
-import { createIntl, type IntlShape } from 'react-intl-next';
+import { createIntl, type IntlShape } from 'react-intl';
 import {
 	type Action,
 	createContainer,

@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::25358e138280ef2e45273d04317a2c5d>>
+ * @codegen <<SignedSource::80e21582acfe238b3aab5d8c8d1ec831>>
  * @codegenCommand yarn build tokens
  */
+
 var tokens = [{
   "attributes": {
     "group": "raw",
@@ -36,7 +37,7 @@ var tokens = [{
     "group": "typography",
     "state": "active",
     "introduced": "1.14.0",
-    "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H900 to Heading XXL."
+    "description": "For overlapping brand with app promotions, such as marketplace content. Migrate instances of H900 to Heading XXL."
   },
   "value": "normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
@@ -46,7 +47,7 @@ var tokens = [{
       "group": "typography",
       "state": "active",
       "introduced": "1.14.0",
-      "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H900 to Heading XXL."
+      "description": "For overlapping brand with app promotions, such as marketplace content. Migrate instances of H900 to Heading XXL."
     },
     "value": {
       "fontWeight": "FontWeight500",
@@ -65,7 +66,7 @@ var tokens = [{
     "group": "typography",
     "state": "active",
     "introduced": "1.14.0",
-    "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H800 to Heading XL."
+    "description": "For overlapping brand with app promotions, such as marketplace content. Migrate instances of H800 to Heading XL."
   },
   "value": "normal 600 29px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
@@ -75,7 +76,7 @@ var tokens = [{
       "group": "typography",
       "state": "active",
       "introduced": "1.14.0",
-      "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H800 to Heading XL."
+      "description": "For overlapping brand with app promotions, such as marketplace content. Migrate instances of H800 to Heading XL."
     },
     "value": {
       "fontWeight": "FontWeight600",
@@ -94,7 +95,7 @@ var tokens = [{
     "group": "typography",
     "state": "active",
     "introduced": "1.14.0",
-    "description": "Product page titles, such as forms. Migrate instances of H700 to Heading L."
+    "description": "App page titles, such as forms. Migrate instances of H700 to Heading L."
   },
   "value": "normal 500 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
@@ -104,7 +105,7 @@ var tokens = [{
       "group": "typography",
       "state": "active",
       "introduced": "1.14.0",
-      "description": "Product page titles, such as forms. Migrate instances of H700 to Heading L."
+      "description": "App page titles, such as forms. Migrate instances of H700 to Heading L."
     },
     "value": {
       "fontWeight": "FontWeight500",
@@ -559,7 +560,7 @@ var tokens = [{
     "group": "fontFamily",
     "state": "active",
     "introduced": "1.14.0",
-    "description": "For our default product UI heading text."
+    "description": "For our default UI heading text."
   },
   "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
@@ -569,7 +570,7 @@ var tokens = [{
       "group": "fontFamily",
       "state": "active",
       "introduced": "1.14.0",
-      "description": "For our default product UI heading text."
+      "description": "For our default UI heading text."
     },
     "value": "FontFamilyWebSans"
   },
@@ -581,7 +582,7 @@ var tokens = [{
     "group": "fontFamily",
     "state": "active",
     "introduced": "1.14.0",
-    "description": "For our default product UI body text."
+    "description": "For our default UI body text."
   },
   "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
@@ -591,7 +592,7 @@ var tokens = [{
       "group": "fontFamily",
       "state": "active",
       "introduced": "1.14.0",
-      "description": "For our default product UI body text."
+      "description": "For our default UI body text."
     },
     "value": "FontFamilyWebSans"
   },

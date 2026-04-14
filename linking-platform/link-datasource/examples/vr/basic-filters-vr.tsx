@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import { cssMap } from '@compiled/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { withWaitForItem } from '@atlaskit/link-test-helpers';

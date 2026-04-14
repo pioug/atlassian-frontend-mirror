@@ -5,7 +5,7 @@
 import '@testing-library/jest-dom';
 import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 

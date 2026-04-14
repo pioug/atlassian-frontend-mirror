@@ -31,11 +31,31 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type FeedbackDialogPlugin = NextEditorPlugin<
+type FindReplacePluginOptions = {
+  takeFullWidth: boolean;
+  twoLineEditorToolbar: boolean;
+};
+
+type FindReplacePluginDependencies = [
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<PrimaryToolbarPlugin>,
+  OptionalPlugin<MentionsPlugin>,
+  OptionalPlugin<CardPlugin>,
+  OptionalPlugin<ExpandPlugin>,
+];
+
+type FindReplacePlugin = NextEditorPlugin<
   'findReplace',
   {
-    pluginConfiguration: Config;
-    dependencies: [OptionalPlugin<AnalyticsPlugin>];
+    actions: {
+      activateFindReplace: (
+        triggerMethod?: TRIGGER_METHOD.SHORTCUT | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.EXTERNAL,
+      ) => boolean;
+      registerToolbarButton: (params: FindReplaceToolbarButtonActionProps) => React.ReactNode;
+    };
+    dependencies: FindReplacePluginDependencies;
+    pluginConfiguration: FindReplacePluginOptions;
+    sharedState: FindReplacePluginState | undefined;
   }
 >;
 `}

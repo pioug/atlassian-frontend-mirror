@@ -394,11 +394,62 @@ events:
           type: []
           required: false
           description: the result
+  - inviteToSoftwareAndBusinessProjects succeeded:
+      type: track
+      description: fired when inviting users to software and business projects succeeded
+      attributes:
+        <<: *PackageMetaDataContext
+        touchpoint:
+          type: string
+          description: identifies the UI touchpoint that triggered the invite
+        spacesCount:
+          type: number
+          description: the number of spaces the invite was attempted for
+        newUsersCount:
+          type: number
+          description: the number of new users invited by email
+        existingUsersCount:
+          type: number
+          description: the number of existing users invited by account id
+        usersInvitedCount:
+          type: number
+          description: the number of users successfully invited with INVITED status
+        usersRequestedAccessCount:
+          type: number
+          description: the number of users with INVITED_PENDING_APPROVAL status
+        usersAlreadyExistsCount:
+          type: number
+          description: the number of invite results with USER_EXISTS status
+        usersPendingInviteCount:
+          type: number
+          description: the number of invite results with PENDING_INVITE_EXISTS status
+        invitesFailedCount:
+          type: number
+          description: the number of invite results with NOT_INVITED status
+        totalRequests:
+          type: number
+          description: the total number of invite results returned
+        projectAccessGrantedCount:
+          type: number
+          description: the number of invite results with GRANTED project access status
+        projectAccessPendingCount:
+          type: number
+          description: the number of invite results with PENDING project access status
+        projectAccessExistingCount:
+          type: number
+          description: the number of invite results with EXISTING project access status
+        projectAccessNotGrantedCount:
+          type: number
+          description: the number of invite results with NOT_GRANTED project access status
   - inviteToSoftwareAndBusinessProjects failed:
       type: track
       description: fired when inviting users to software and business projects failed
       attributes:
         <<: *PackageMetaDataContext
+        touchpoint:
+          type: string
+          required: false
+          description: identifies the UI touchpoint that triggered the invite
         message:
           type: string
           description: the error message
@@ -519,7 +570,61 @@ events:
         touchpoint:
           type: ['teamProfileSpaceLinking', 'spaceNavTeamLinking']
           description: identifies the UI touchpoint that triggered the invite
-  - sendSpaceTeamInvites cancelled:
+  - user invited:
+      type: track
+      description:
+        fired when a user is successfully invited to a project via the team profile add people to
+        project flow (INVITED or USER_EXISTS status)
+      attributes:
+        <<: *PackageMetaDataContext
+        userId:
+          type: string
+          required: false
+          description: the AAID or email of the invited user
+        inviteStatus:
+          type: string
+          description: the invite status returned by the API (INVITED, USER_EXISTS)
+        projectAccessStatus:
+          type: string
+          required: false
+          description: the project access status returned by the API (GRANTED, EXISTING)
+        projectId:
+          type: number
+          description: the project/space ID the user was invited to
+        touchpoint:
+          type: string
+          description: identifies the UI touchpoint that triggered the invite
+  - productAccess requested:
+      type: track
+      description:
+        fired when a product access request is submitted for a user via the team profile add people
+        to project flow (INVITED_PENDING_APPROVAL or PENDING_INVITE_EXISTS status)
+      attributes:
+        <<: *PackageMetaDataContext
+        requestedForUserId:
+          type: string
+          required: false
+          description: the AAID or email of the user whose access was requested
+        inviteStatus:
+          type: string
+          description:
+            the invite status returned by the API (INVITED_PENDING_APPROVAL, PENDING_INVITE_EXISTS)
+        projectAccessStatus:
+          type: string
+          required: false
+          description: the project access status returned by the API (PENDING)
+        projectId:
+          type: number
+          description: the project/space ID access was requested for
+        exists:
+          type: boolean
+          description:
+            whether the access request already existed (true for PENDING_INVITE_EXISTS, false for
+            INVITED_PENDING_APPROVAL)
+        touchpoint:
+          type: string
+          description: identifies the UI touchpoint that triggered the invite
+    - sendSpaceTeamInvites cancelled:
       type: track
       description: fired when a pending space invite is cancelled before it was sent
       attributes:

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { injectIntl, IntlProvider, type WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, IntlProvider, type WrappedComponentProps } from 'react-intl';
 
 import {
 	withAnalyticsContext,

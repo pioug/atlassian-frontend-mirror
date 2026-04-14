@@ -1,5 +1,26 @@
 # @atlaskit/emoji
 
+## 69.12.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 69.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 69.12.3
+
+### Patch Changes
+
+- [`dcc5e79fd2f9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcc5e79fd2f9d) -
+  Add platform_emoji_prevent_img_src_changing_all feature flag to prevent catalogue-arrival image
+  swap for all surfaces that provide optimisticImageURL, independently of the existing
+  platform_emoji_prevent_img_src_changing flag
+
 ## 69.12.2
 
 ### Patch Changes

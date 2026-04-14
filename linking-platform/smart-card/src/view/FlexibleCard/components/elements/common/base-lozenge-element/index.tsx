@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { FormattedDate } from 'react-intl-next';
+import { FormattedDate } from 'react-intl';
 
 import AtlaskitLozenge, { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';

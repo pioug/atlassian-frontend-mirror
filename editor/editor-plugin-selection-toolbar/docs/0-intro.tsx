@@ -31,7 +31,39 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type SelectionToolbarPlugin = NextEditorPlugin<'selection-toolbar'>;
+type SelectionToolbarPluginOptions = {
+  contextualFormattingEnabled?: boolean;
+  disablePin?: boolean;
+  preferenceToolbarAboveSelection?: boolean;
+  userPreferencesProvider?: UserPreferencesProvider;
+};
+
+type SelectionToolbarPlugin = NextEditorPlugin<
+  'selectionToolbar',
+  {
+    actions?: {
+      forceToolbarDockingWithoutAnalytics?: (toolbarDocking: ToolbarDocking) => boolean;
+      refreshToolbarDocking?: () => boolean;
+      setToolbarDocking?: (toolbarDocking: ToolbarDocking) => boolean;
+      suppressToolbar?: () => boolean;
+      unsuppressToolbar?: () => boolean;
+    };
+    dependencies: [
+      OptionalPlugin<EditorViewModePlugin>,
+      OptionalPlugin<PrimaryToolbarPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<BlockControlsPlugin>,
+      OptionalPlugin<ConnectivityPlugin>,
+      OptionalPlugin<UserPreferencesPlugin>,
+      OptionalPlugin<ToolbarPlugin>,
+      OptionalPlugin<UserIntentPlugin>,
+    ];
+    pluginConfiguration: SelectionToolbarPluginOptions;
+    sharedState: {
+      toolbarDocking: ToolbarDocking;
+    };
+  }
+>;
 `}
 
   ## Support

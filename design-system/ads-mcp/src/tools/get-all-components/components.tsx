@@ -5031,7 +5031,7 @@ export const components: Component[] = [
 			{
 				name: 'size',
 				description: 'Text size.',
-				type: '"small" | "large" | "medium" | "UNSAFE_small"',
+				type: '"small" | "large" | "medium"',
 			},
 			{
 				name: 'weight',

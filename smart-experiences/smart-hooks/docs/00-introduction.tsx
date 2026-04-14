@@ -11,7 +11,7 @@ const _default_1: any = md`
   Smart Experiences' services and capabilities. The library tries to have a minimal opinion on
   the UI experience, and instead focuses on data integrations and analytics.
 
-  For further information, contact #search-plex.
+  For further information, contact #help-search-plex.
 
   ## Hooks
 

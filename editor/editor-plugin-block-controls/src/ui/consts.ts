@@ -24,6 +24,7 @@ export const DRAG_HANDLE_H6_TOP_ADJUSTMENT = 3;
 export const DRAG_HANDLE_LAYOUT_SECTION_TOP_ADJUSTMENT = 8;
 export const DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT = 2;
 export const DRAG_HANDLE_PARAGRAPH_SMALL_TOP_ADJUSTMENT = 0;
+export const DRAG_HANDLE_WRAPPED_MEDIA_EMBED_TOP_ADJUSTMENT = 8;
 
 /** We only want to shift-select nodes that are at the top level of a document.
  *  This is because funky things happen when selecting inside of tableCells, but we
@@ -127,12 +128,21 @@ export const getNestedNodeLeftPaddingMargin = (
 	}
 };
 
-export const topPositionAdjustment = (nodeType: string): number => {
+export const topPositionAdjustment = (nodeType: string, layout?: string): number => {
 	if (editorExperiment('advanced_layouts', true)) {
 		switch (nodeType) {
 			case 'layoutSection':
 				return DRAG_HANDLE_LAYOUT_SECTION_TOP_ADJUSTMENT;
 		}
+	}
+
+	if (
+		(nodeType === 'mediaSingle' || nodeType === 'embedCard') &&
+		layout &&
+		['wrap-left', 'wrap-right'].includes(layout) &&
+		editorExperiment('platform_editor_fix_selection_wrapped_media_embed', true)
+	) {
+		return DRAG_HANDLE_WRAPPED_MEDIA_EMBED_TOP_ADJUSTMENT;
 	}
 
 	switch (nodeType) {

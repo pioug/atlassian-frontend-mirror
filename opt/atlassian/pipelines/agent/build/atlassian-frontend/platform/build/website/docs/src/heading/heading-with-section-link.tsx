@@ -9,11 +9,6 @@ import { cssMap, jsx } from '@compiled/react';
 import { CopyLinkToHeadingButton } from './copy-link-to-heading-button';
 import { token } from '@atlaskit/tokens';
 
-// This is a global variable provided by the rspack config.
-// For some reason this package is not automatically picking up the types from typings/atlaskit.d.ts
-// even though it's declared in the tsconfig
-declare const USE_HASH_ROUTER: boolean;
-
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
 const levelToSize: Record<HeadingLevel, HeadingProps['size']> = {
@@ -114,14 +109,9 @@ export function HeadingWithSectionLink({
 }) {
 	const headingId = getHeadingId(children);
 
-	// Only show the copy link icon if:
-	//  - the heading has a valid ID
-	//  - the hash router is not being used (e.g. on staging environments). It does not work with hash routing as the hashes conflict.
-	const showCopyLinkButton = headingId && !USE_HASH_ROUTER;
-
 	return (
 		<div css={[wrapperStyles.root, levelToSpace[level], wrapperStyles.reducedSpacingForFirstChild]}>
-			{showCopyLinkButton && <CopyLinkToHeadingButton headingId={headingId} />}
+			{headingId && <CopyLinkToHeadingButton headingId={headingId} />}
 
 			<Heading size={levelToSize[level]} id={headingId ?? undefined}>
 				{children}

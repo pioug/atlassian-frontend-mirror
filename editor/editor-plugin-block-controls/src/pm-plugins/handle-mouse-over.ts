@@ -211,6 +211,46 @@ export const handleMouseOver = (
 			}
 		}
 
+		// When platform_editor_fix_selection_wrapped_media_embed is enabled, a wrapped mediaSingle/embedCard and the
+		// paragraph(s) it floats next to both have anchor decorations. If the hovered rootElement
+		// is a paragraph whose adjacent DOM sibling is a wrapped mediaSingle/embedCard with an
+		// anchor, redirect the handle to the media node so only one handle shows (ED-26959).
+		// We check previousElementSibling (wrap-left: media precedes text in DOM) and
+		// nextElementSibling (wrap-right: media follows text in DOM).
+		// This must happen before anchorName is read so the correct node's handle is shown.
+		if (
+			editorExperiment('platform_editor_fix_selection_wrapped_media_embed', true, {
+				exposure: true,
+			})
+		) {
+			const rootNodeType = isNativeAnchorSupported
+				? getTypeNameFromDom(rootElement)
+				: rootElement.getAttribute('data-drag-handler-node-type');
+			if (rootNodeType === 'paragraph') {
+				const isWrappedMediaEmbedSibling = (sibling: Element | null): boolean => {
+					if (!sibling || !sibling.getAttribute(getAnchorAttrName())) {
+						return false;
+					}
+					const siblingType = isNativeAnchorSupported
+						? getTypeNameFromDom(sibling)
+						: sibling.getAttribute('data-drag-handler-node-type');
+					const siblingLayout = sibling.getAttribute('layout') || '';
+					return (
+						(siblingType === 'mediaSingle' || siblingType === 'embedCard') &&
+						['wrap-left', 'wrap-right'].includes(siblingLayout)
+					);
+				};
+
+				const prevSibling = rootElement.previousElementSibling;
+				const nextSibling = rootElement.nextElementSibling;
+				if (prevSibling && isWrappedMediaEmbedSibling(prevSibling)) {
+					rootElement = prevSibling;
+				} else if (nextSibling && isWrappedMediaEmbedSibling(nextSibling)) {
+					rootElement = nextSibling;
+				}
+			}
+		}
+
 		let anchorName;
 		if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 			anchorName = rootElement.getAttribute(getAnchorAttrName());
@@ -230,11 +270,17 @@ export const handleMouseOver = (
 			return false;
 		}
 
-		// We want to exlude handles from showing for wrapped nodes
-		// TODO: ED-26959 - We should be able remove these check if we decided to
-		// go we not decoration for wrapped image solution.
-		if (['wrap-right', 'wrap-left'].includes(rootElement.getAttribute('layout') || '')) {
-			return false;
+		if (
+			!editorExperiment('platform_editor_fix_selection_wrapped_media_embed', true, {
+				exposure: true,
+			})
+		) {
+			// We want to exclude handles from showing for wrapped nodes
+			// TODO: ED-26959 - We should be able remove these check if we decided to
+			// go we not decoration for wrapped image solution.
+			if (['wrap-right', 'wrap-left'].includes(rootElement.getAttribute('layout') || '')) {
+				return false;
+			}
 		}
 
 		const parentRootElement = rootElement.parentElement;

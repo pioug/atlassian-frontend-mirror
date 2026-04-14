@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-emoji
 
+## 9.0.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.29
+
+### Patch Changes
+
+- [`f4951e15e9432`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4951e15e9432) -
+  Removed `platform_editor_emoji_tooltips_on_hover` experiment. Emoji tooltips (title attribute) are
+  now always enabled permanently.
+- Updated dependencies
+
 ## 9.0.28
 
 ### Patch Changes

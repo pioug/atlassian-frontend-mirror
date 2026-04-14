@@ -12,7 +12,7 @@ import { UNSAFE_inverseColorMap } from '@atlaskit/primitives';
 import { UNSAFE_useSurface } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { useHeading } from './heading-context';
+import { useHeading } from './use-heading';
 
 type HeadingColor = 'color.text' | 'color.text.inverse' | 'color.text.warning.inverse';
 

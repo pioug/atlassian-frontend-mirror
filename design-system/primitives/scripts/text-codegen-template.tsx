@@ -38,7 +38,6 @@ const textProperties = [
 
 const sizeMap = {
 	'body.small': 'small',
-	'body.UNSAFE_small': 'UNSAFE_small',
 	body: 'medium',
 	'body.large': 'large',
 	'metric.small': 'small',

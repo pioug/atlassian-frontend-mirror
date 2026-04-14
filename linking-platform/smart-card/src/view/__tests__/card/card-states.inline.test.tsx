@@ -3,7 +3,7 @@ import './card-states.card.test.mock';
 import React, { type ReactNode, useEffect, useState } from 'react';
 
 import { act, render, screen, waitFor as waitForElement } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import {
@@ -12,12 +12,13 @@ import {
 	SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { fakeFactory, mocks, waitFor } from '../../../utils/mocks';
 import { Card } from '../../Card';
 import { InlineCardResolvingView } from '../../InlineCard';
 
-jest.mock('@atlaskit/platform-feature-flags');
 
 mockSimpleIntersectionObserver();
 
@@ -437,4 +438,83 @@ describe('smart-card: card states, inline', () => {
 			});
 		});
 	});
+
+	describe('rovogrowth-640-inline-action-nudge experiment', () => {
+		const rovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
+
+		ffTest.on(
+			'smart-card-inline-resolved-view-refactor',
+			'with functional resolved view',
+			() => {
+				ffTest.on(
+					'rovogrowth-640-inline-action-nudge-fg',
+					'with inline nudge fg on',
+					() => {
+						eeTest
+							.describe('rovogrowth_640_inline_action_nudge', 'inline action nudge experiment')
+							.variant(true, () => {
+								it('renders the rovo action button when experiment is enabled', async () => {
+									render(
+										<IntlProvider locale="en">
+											<Provider client={mockClient} rovoOptions={rovoOptions}>
+												<Card appearance="inline" url={mockUrl} />
+											</Provider>
+										</IntlProvider>,
+									);
+									expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
+									expect(await screen.findByTestId('inline-card-resolved-view-rovo-actions-button')).toBeInTheDocument();
+								});
+
+								it('does not render rovo action button when rovo is disabled', async () => {
+									render(
+										<IntlProvider locale="en">
+											<Provider client={mockClient} rovoOptions={{ isRovoEnabled: false, isRovoLLMEnabled: false }}>
+												<Card appearance="inline" url={mockUrl} />
+											</Provider>
+										</IntlProvider>,
+									);
+									expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
+									expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-button')).not.toBeInTheDocument();
+								});
+							});
+
+						eeTest
+							.describe('rovogrowth_640_inline_action_nudge', 'inline action nudge experiment off')
+							.variant(false, () => {
+								it('does not render rovo action button when experiment is off', async () => {
+									render(
+										<IntlProvider locale="en">
+											<Provider client={mockClient} rovoOptions={rovoOptions}>
+												<Card appearance="inline" url={mockUrl} />
+											</Provider>
+										</IntlProvider>,
+									);
+									expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
+									expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-button')).not.toBeInTheDocument();
+								});
+							});
+					},
+				);
+
+				ffTest.off(
+					'rovogrowth-640-inline-action-nudge-fg',
+					'with inline nudge fg off',
+					() => {
+						it('does not render rovo action button when fg is off', async () => {
+							render(
+								<IntlProvider locale="en">
+									<Provider client={mockClient} rovoOptions={rovoOptions}>
+										<Card appearance="inline" url={mockUrl} />
+									</Provider>
+								</IntlProvider>,
+							);
+							expect(await screen.findByTestId('inline-card-resolved-view')).toBeInTheDocument();
+							expect(screen.queryByTestId('inline-card-resolved-view-rovo-actions-button')).not.toBeInTheDocument();
+						});
+					},
+				);
+			},
+		);
+	});
+
 });

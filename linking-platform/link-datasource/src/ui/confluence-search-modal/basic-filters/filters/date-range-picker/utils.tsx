@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { FormattedMessage, type IntlShape } from 'react-intl-next';
+import { FormattedMessage, type IntlShape } from 'react-intl';
 
 import { getFormattedDate } from '../../../../../ui/issue-like-table/render-type/date-time';
 import { type DateRangeType } from '../../../../common/modal/popup-select/types';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.34.11",
+	"version": "5.0.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -112,7 +112,7 @@
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0",
 		"react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
-		"react-intl-next": "*"
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
@@ -130,6 +130,7 @@
 		"@types/debounce-promise": "root:*",
 		"fetch-mock": "root:*",
 		"jest-fetch-mock": "root:*",
+		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

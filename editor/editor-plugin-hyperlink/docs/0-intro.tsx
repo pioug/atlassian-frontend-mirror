@@ -31,31 +31,77 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+export type HyperlinkPluginDependencies = [
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<CardPlugin>,
+  OptionalPlugin<EditorViewModePlugin>,
+  OptionalPlugin<ConnectivityPlugin>,
+  OptionalPlugin<PrimaryToolbarPlugin>,
+  OptionalPlugin<SelectionToolbarPlugin>,
+  OptionalPlugin<UserPreferencesPlugin>,
+  OptionalPlugin<ToolbarPlugin>,
+  OptionalPlugin<UserIntentPlugin>,
+];
+
+export type HyperlinkPluginActions = {
+  hideLinkToolbar: HideLinkToolbar;
+  insertLink: InsertLink;
+  updateLink: UpdateLink;
+};
+
+export type HyperlinkPluginCommands = {
+  /**
+   * EditorCommand to remove the current active link.
+   *
+   * Example:
+   *
+   * \`\`\`
+   * api.core.actions.execute(
+   *   api.hyperlink.commands.removeLink()
+   * )
+   * \`\`\`
+   */
+  removeLink: () => EditorCommand;
+
+  /**
+   * EditorCommand to show link toolbar.
+   *
+   * Example:
+   *
+   * \`\`\`
+   * const newTr = pluginInjectionApi?.hyperlink.commands.showLinkToolbar(
+   *   inputMethod
+   * )({ tr })
+   * \`\`\`
+   */
+  showLinkToolbar: ShowLinkToolbar;
+
+  /**
+   * EditorCommand to edit the current active link.
+   *
+   * Example:
+   *
+   * \`\`\`
+   * api.core.actions.execute(
+   *   api.hyperlink.commands.updateLink(href, text)
+   * )
+   * \`\`\`
+   */
+  updateLink: (href: string, text: string) => EditorCommand;
+};
+
+export type HyperlinkPluginOptions = CommonHyperlinkPluginOptions;
+
+export type HyperlinkPluginSharedState = HyperlinkState | undefined;
+
 export type HyperlinkPlugin = NextEditorPlugin<
   'hyperlink',
   {
+    actions: HyperlinkPluginActions;
+    commands: HyperlinkPluginCommands;
+    dependencies: HyperlinkPluginDependencies;
     pluginConfiguration: HyperlinkPluginOptions | undefined;
-    dependencies: [
-      OptionalPlugin<AnalyticsPlugin>,
-    ];
-    actions: {
-      /**
-       * Add items to the left of the hyperlink floating toolbar
-       * @param props
-       * -
-       * - items: Retrieve floating toolbar items to add
-       * - onEscapeCallback (optional): To be called when the link picker is escaped.
-       * - onInsertLinkCallback (optional): To be called when a link is inserted and it can be changed into a card.
-       */
-      prependToolbarButtons: PrependToolbarButtons;
-      hideLinkToolbar: HideLinkToolbar;
-      insertLink: InsertLink;
-      updateLink: UpdateLink;
-    };
-    commands: {
-      showLinkToolbar: ShowLinkToolbar;
-    };
-    sharedState: HyperlinkState | undefined;
+    sharedState: HyperlinkPluginSharedState;
   }
 >;
 `}

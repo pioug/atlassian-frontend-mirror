@@ -10,7 +10,7 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as jestExtendedMatchers from 'jest-extended';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
@@ -50,6 +50,10 @@ jest.mock('@atlaskit/link-provider', () => ({
 			subscribe: jest.fn(),
 		},
 	}),
+}));
+
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn().mockReturnValue(false),
 }));
 
 expect.extend(jestExtendedMatchers);
@@ -474,6 +478,8 @@ describe('EmbedModal', () => {
 		});
 
 		it('dispatches analytics event on open url on a new tab', async () => {
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
 			const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
 			const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
 			uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
@@ -500,6 +506,21 @@ describe('EmbedModal', () => {
 						id,
 						actionType: 'ViewAction',
 						display: 'embedPreview',
+					}),
+					tags: ['media'],
+				}),
+			);
+
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'visited',
+					actionSubject: 'smartLink',
+					attributes: expect.objectContaining({
+						...EXPECTED_COMMON_ATTRIBUTES,
+						id,
+						display: 'embedPreview',
+						status: 'resolved',
+						statusDetails: null,
 					}),
 					tags: ['media'],
 				}),
@@ -531,6 +552,79 @@ describe('EmbedModal', () => {
 				EXPERIENCE_TEST_ID,
 			);
 			expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
+		});
+
+		it('dispatches ui.smartLink.visited event on resize when experiment is enabled', async () => {
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+
+			const onResize = jest.fn();
+			renderEmbedModal({
+				invokeViewAction,
+				onResize,
+				origin: 'smartLinkCard',
+			});
+
+			const button = await screen.findByTestId(`${testId}-resize-button`);
+			await user.click(button);
+
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'visited',
+					actionSubject: 'smartLink',
+					attributes: expect.objectContaining({
+						...EXPECTED_COMMON_ATTRIBUTES,
+						id,
+						display: 'embedPreview',
+						status: 'resolved',
+						statusDetails: null,
+					}),
+					tags: ['media'],
+				}),
+			);
+		});
+
+		it('does not dispatch ui.smartLink.visited event on resize when experiment is disabled', async () => {
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(false);
+
+			const onResize = jest.fn();
+			renderEmbedModal({
+				invokeViewAction,
+				onResize,
+				origin: 'smartLinkCard',
+			});
+
+			const button = await screen.findByTestId(`${testId}-resize-button`);
+			await user.click(button);
+
+			expect(mockAnalyticsClient.sendUIEvent).not.toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'visited',
+					actionSubject: 'smartLink',
+				}),
+			);
+		});
+
+		it('does not dispatch ui.smartLink.visited event on resize when invokeViewAction is not provided', async () => {
+			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+			expValEquals.mockReturnValue(true);
+
+			const onResize = jest.fn();
+			renderEmbedModal({
+				onResize,
+				origin: 'smartLinkCard',
+			});
+
+			const button = await screen.findByTestId(`${testId}-resize-button`);
+			await user.click(button);
+
+			expect(mockAnalyticsClient.sendUIEvent).not.toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'visited',
+					actionSubject: 'smartLink',
+				}),
+			);
 		});
 
 		it('dispatches analytics event on download url', async () => {

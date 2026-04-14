@@ -4,7 +4,7 @@
  */
 
 import { css, jsx } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import Link from '@atlaskit/link';
 import { token } from '@atlaskit/tokens';

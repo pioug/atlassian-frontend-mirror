@@ -1,6 +1,6 @@
 import { type MutableRefObject } from 'react';
 
-import { type IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl';
 
 import { type EditorState, Plugin, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { type Jast, JastBuilder } from '@atlaskit/jql-ast';

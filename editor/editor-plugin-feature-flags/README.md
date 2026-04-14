@@ -1,9 +1,20 @@
-# Editor plugin feature flags
+# Editor Plugin Feature Flags
 
 Feature flags plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Feature Flags plugin provides a configurable system for enabling and disabling editor features at runtime. It integrates with @atlaskit/editor-core to allow feature management and experimentation within the Atlassian Editor.
+
+## Key features
+
+- **Runtime feature control** - Enable or disable editor features dynamically
+- **Feature configuration** - Flexible configuration system for feature flags
+- **Editor integration** - Seamless integration with @atlaskit/editor-core
+- **Internal use** - Designed specifically for Atlassian's internal feature management
 
 ## Install
 ---

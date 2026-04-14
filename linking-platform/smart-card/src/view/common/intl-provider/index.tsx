@@ -1,6 +1,6 @@
 import React, { type ComponentType } from 'react';
 
-import { IntlProvider, type WrappedComponentProps } from 'react-intl-next';
+import { IntlProvider, type WrappedComponentProps } from 'react-intl';
 
 /**
  * HOC to wrap component with IntlProvider if not available

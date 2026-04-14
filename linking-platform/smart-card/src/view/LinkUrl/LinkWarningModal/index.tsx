@@ -11,7 +11,7 @@ import {
 	IntlProvider,
 	type WithIntlProps,
 	type WrappedComponentProps,
-} from 'react-intl-next';
+} from 'react-intl';
 
 import Button from '@atlaskit/button/standard-button';
 import Link from '@atlaskit/link';

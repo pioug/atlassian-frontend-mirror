@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/eslint-plugin-editor",
-	"version": "1.5.3",
+	"version": "1.6.0",
 	"description": "Custom ESLint plugin for Editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

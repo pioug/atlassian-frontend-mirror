@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 4.3.2
+
+### Patch Changes
+
+- [`be6cd35acc3ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be6cd35acc3ab) -
+  FG cleanup: platform_navx_lp_invalid_url_error, ignore invalid URL error
+- Updated dependencies
+
 ## 4.3.1
 
 ### Patch Changes

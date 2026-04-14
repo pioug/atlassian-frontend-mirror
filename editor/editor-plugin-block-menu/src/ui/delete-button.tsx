@@ -84,7 +84,18 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 
 	const onShowHoverDecoration = useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
-			api?.decorations?.commands?.hoverDecoration?.({ add: true })({ tr });
+			// [FEATURE FLAG: platform_editor_block_menu_jira_patch_1]
+			// Passes preservedSelection (NodeSelection) to hoverDecoration so paragraph nodes
+			// are correctly highlighted on hover over Delete. Without this, tr.selection is a
+			// collapsed TextSelection which produces no decorations for paragraphs.
+			// To clean up: always pass preservedSelection, remove the feature flag check.
+			const preservedSelection = fg('platform_editor_block_menu_jira_patch_1')
+				? api?.blockControls?.sharedState.currentState()?.preservedSelection
+				: undefined;
+			api?.decorations?.commands?.hoverDecoration?.({
+				add: true,
+				selection: preservedSelection,
+			})({ tr });
 
 			return tr;
 		});

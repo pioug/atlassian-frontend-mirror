@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 9.2.0
+
+### Minor Changes
+
+- [`505563ec74fe5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/505563ec74fe5) -
+  [ux] Add insert menu featured sorting for Create with Rovo via slash experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.5
 
 ### Patch Changes

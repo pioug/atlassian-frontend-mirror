@@ -3,7 +3,7 @@ import React from 'react';
 import { renderHook } from '@testing-library/react';
 import '@atlaskit/link-test-helpers/jest';
 import fetchMock from 'jest-fetch-mock';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import TestRenderer from 'react-test-renderer';
 
 import { aiSummaryMocks } from '../../__tests__/__mocks__/ai-summary-mocks';

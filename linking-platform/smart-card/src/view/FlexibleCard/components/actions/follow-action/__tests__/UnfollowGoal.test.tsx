@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { FormattedMessage, IntlProvider } from 'react-intl-next';
+import { FormattedMessage, IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 

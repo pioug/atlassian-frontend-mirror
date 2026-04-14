@@ -1,4 +1,4 @@
-import { defaultLocales } from '@atlaskit/locale/LocaleSelect';
+import defaultLocales from '@atlaskit/locale/default-locales';
 
 const normalize = (locale: string) => {
 	return locale.toLowerCase();
@@ -34,9 +34,9 @@ const detectVtt = (file: File, _content: string) => {
 	}
 
 	// Section results in a valid Intl.Locale
-	/* 
+	/*
 		new Intl.Locale is quite permisive with its input.
-		It allows several text that do not really represent a locale. This is why we prioritize the previous checks 
+		It allows several text that do not really represent a locale. This is why we prioritize the previous checks
 	*/
 	for (const section of sections) {
 		try {

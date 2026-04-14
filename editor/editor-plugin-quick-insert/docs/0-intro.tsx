@@ -34,17 +34,31 @@ ${code`
 type QuickInsertPlugin = NextEditorPlugin<
   'quickInsert',
   {
-    pluginConfiguration: QuickInsertPluginOptions | undefined;
-    sharedState: QuickInsertSharedState | null;
     actions: {
-      insertItem: (item: QuickInsertItem) => Command;
-      getSuggestions: (
-        searchOptions: QuickInsertSearchOptions,
-      ) => QuickInsertItem[];
+      getSuggestions: (searchOptions: QuickInsertSearchOptions) => QuickInsertItem[];
+      insertItem: (
+        item: QuickInsertItem,
+        source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR | INPUT_METHOD.ELEMENT_BROWSER,
+      ) => Command;
+      openTypeAhead: (
+        inputMethod: TypeAheadInputMethod,
+        removePrefixTriggerOnCancel?: boolean,
+      ) => boolean;
     };
     commands: {
+      addQuickInsertItem: (item: QuickInsertHandler) => EditorCommand;
       openElementBrowserModal: EditorCommand;
+      removeQuickInsertItem: (key: string) => EditorCommand;
+      updateQuickInsertItem: (key: string, item: QuickInsertHandler) => EditorCommand;
     };
+    dependencies: [
+      TypeAheadPlugin,
+      OptionalPlugin<ConnectivityPlugin>,
+      OptionalPlugin<MetricsPlugin>,
+      OptionalPlugin<AnalyticsPlugin>,
+    ];
+    pluginConfiguration: QuickInsertPluginOptions | undefined;
+    sharedState: QuickInsertSharedState | null;
   }
 >;
 `}

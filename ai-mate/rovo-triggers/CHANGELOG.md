@@ -1,5 +1,24 @@
 # @atlaskit/rovo-triggers
 
+## 5.37.0
+
+### Minor Changes
+
+- [`89f5adc3f5f35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89f5adc3f5f35) -
+  Add agent versioning support to ConversationAssistant behind fg('rovo_agent_versioning_enabled')
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.36.1
+
+### Patch Changes
+
+- [`47b02f048ca4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47b02f048ca4a) -
+  Enrol search and ai-mate packages into the React Compiler with platform gating via
+  isReactCompilerActivePlatform.
+
 ## 5.36.0
 
 ### Minor Changes

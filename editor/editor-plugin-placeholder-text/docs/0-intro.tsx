@@ -26,18 +26,30 @@ const _default_1: any = md`
   The \`dependencies\`, \`pluginConfiguration\`, \`sharedState\` and \`actions\` of the plugin are defined
   below:
   ${code`
+  export interface PlaceholderTextPluginOptions {
+    allowInserting?: boolean;
+  }
+
+  export interface PlaceholderTextPluginState {
+    // Enables the "Insert Placeholder Text" dropdown item
+    allowInserting: boolean;
+    showInsertPanelAt: number | null;
+  }
+
+  export type PlaceholderTextPluginDependencies = [
+    OptionalPlugin<typeof analyticsPlugin>,
+    OptionalPlugin<TypeAheadPlugin>,
+  ];
+
   export type PlaceholderTextPlugin = NextEditorPlugin<
   'placeholderText',
   {
-    dependencies: [
-      OptionalPlugin<typeof analyticsPlugin>,
-      OptionalPlugin<TypeAheadPlugin>,
-    ];
-    pluginConfiguration: PlaceholderTextOptions;
-    sharedState: PlaceholderTextPluginState | undefined;
     actions: {
-      showPlaceholderFloatingToolbar: typeof showPlaceholderFloatingToolbar
-    }
+      showPlaceholderFloatingToolbar: typeof showPlaceholderFloatingToolbar;
+    };
+    dependencies: PlaceholderTextPluginDependencies;
+    pluginConfiguration: PlaceholderTextPluginOptions;
+    sharedState: PlaceholderTextPluginState | undefined;
   }
 >;
   `}

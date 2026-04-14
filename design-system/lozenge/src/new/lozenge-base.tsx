@@ -81,9 +81,11 @@ const styles = cssMap({
 		font: token('font.body.small'),
 		overflow: 'hidden',
 		whiteSpace: 'nowrap',
+	},
+	textEllipsis: {
 		textOverflow: 'ellipsis',
 	},
-	textResizing: {
+	textClip: {
 		textOverflow: 'clip',
 	},
 	textSpacious: {
@@ -627,10 +629,10 @@ const LozengeBase: import('react').MemoExoticComponent<
 					isInitialRender.current = false;
 					return;
 				}
-				if (fg('platform-dst-motion-uplift')) {
-					setResizing(true);
-				}
+				setResizing(true);
 			}, [childrenKey]);
+
+			const enableMotionFG = fg('platform-dst-motion-uplift');
 
 			const innerContent = (
 				<span
@@ -644,7 +646,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 						// so text truncation works correctly within the flex layout
 						maxWidth: maxWidthIsPc ? '100%' : undefined,
 					}}
-					{...(fg('platform-dst-motion-uplift') ? resizingWidth : undefined)}
+					{...(enableMotionFG ? resizingWidth : undefined)}
 				>
 					{iconBefore && (
 						<IconRenderer
@@ -657,7 +659,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 					<span
 						css={[
 							styles.text,
-							resizing && styles.textResizing,
+							enableMotionFG && resizing ? styles.textClip : styles.textEllipsis,
 							spacing === 'spacious' && styles.textSpacious,
 						]}
 						style={{

@@ -573,6 +573,7 @@ export enum ACTION_SUBJECT_ID {
 	SYNCED_BLOCK_LABEL = 'syncedBlockLabel',
 	SYNCED_BLOCK_SSR_ERROR = 'syncedBlockSSRError',
 	TABLE_STICKY_HEADER = 'tableStickyHeader',
+	SNIPPET = 'snippet',
 }
 
 export enum FLOATING_CONTROLS_TITLE {

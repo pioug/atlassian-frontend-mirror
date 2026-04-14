@@ -34,12 +34,21 @@ ${code`
 type StatusPlugin = NextEditorPlugin<
   'status',
   {
-    dependencies: [OptionalPlugin<AnalyticsPlugin>];
-    pluginConfiguration: StatusPluginOptions | undefined;
     actions: {
       commitStatusPicker: typeof commitStatusPicker;
       updateStatus: UpdateStatus;
     };
+    commands: {
+      insertStatus: ReturnType<typeof insertStatus>;
+      removeStatus: typeof removeStatus;
+    };
+    dependencies: [
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<DummyAnnotationPlugin>,
+      OptionalPlugin<DummyEditorViewModePlugin>,
+    ];
+    pluginConfiguration: StatusPluginOptions | undefined;
+    sharedState: StatusState | undefined;
   }
 >;
 `}

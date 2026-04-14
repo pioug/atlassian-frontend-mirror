@@ -24,7 +24,9 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./fetchJiraMediaToken": "./src/clients/jira/fetchMediaToken.ts",
+		"./tokenRouting": "./src/clients/tokenRouting.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-utils": "workspace:^",
@@ -84,7 +86,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "4.4.3",
+	"version": "4.5.1",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

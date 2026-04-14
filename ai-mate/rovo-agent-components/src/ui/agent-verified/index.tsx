@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
 
 import { cssMap, cx } from '@atlaskit/css';

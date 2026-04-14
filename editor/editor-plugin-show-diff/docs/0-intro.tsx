@@ -31,7 +31,62 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type ShowDiffPlugin = NextEditorPlugin<'showDiff'>
+export type ColorScheme = 'standard' | 'traditional';
+export type DiffType = 'inline' | 'block';
+export type DiffParams = {
+	/**
+	 * Color scheme to use for displaying diffs.
+	 * 'standard' (default) uses purple for highlighting changes
+	 * 'traditional' uses green for additions and red for deletions
+	 */
+	colorScheme?: ColorScheme;
+	originalDoc: JSONDocNode;
+	/**
+	 * Prosemirror steps. This is used to calculate and show the diff in the editor
+	 */
+	steps: StepJson[];
+};
+
+export type PMDiffParams = {
+	diffType?: DiffType;
+	isInverted?: boolean;
+	originalDoc: Node;
+	/**
+	 * Prosemirror steps. This is used to calculate and show the diff in the editor
+	 */
+	steps: Step[];
+};
+
+type ACTION = 'SHOW_DIFF' | 'HIDE_DIFF' | 'SCROLL_TO_NEXT' | 'SCROLL_TO_PREVIOUS';
+
+type ShowDiffPlugin = NextEditorPlugin<
+  'showDiff',
+  {
+    commands: {
+      hideDiff: EditorCommand;
+      scrollToNext: EditorCommand;
+      scrollToPrevious: EditorCommand;
+      showDiff: (config: PMDiffParams) => EditorCommand;
+    };
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
+    pluginConfiguration: DiffParams | undefined;
+    sharedState: {
+      /**
+       * The index of the current diff being viewed.
+       */
+      activeIndex?: number;
+      /**
+       * Whether the show diff feature is currently displaying changes.
+       * Defaults to false.
+       */
+      isDisplayingChanges: boolean;
+      /**
+       * The number of changes being displayed
+       */
+      numberOfChanges?: number;
+    };
+  }
+>;
 `}
 
 

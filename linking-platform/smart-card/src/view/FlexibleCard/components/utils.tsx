@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage, type IntlShape, type MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, type IntlShape, type MessageDescriptor } from 'react-intl';
 import Loadable from 'react-loadable';
 
 import { type Spacing } from '@atlaskit/button';

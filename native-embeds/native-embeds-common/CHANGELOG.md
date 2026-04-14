@@ -1,5 +1,38 @@
 # @atlaskit/native-embeds-common
 
+## 1.0.0
+
+### Major Changes
+
+- [`4b920b03625a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b920b03625a1) -
+  Removed `react-intl-next` alias and replaced all usages with `react-intl` directly.
+
+  What changed: The `react-intl-next` npm alias (which resolved to `react-intl@^5`) has been
+  removed. All imports now reference `react-intl` directly, and `peerDependencies` have been updated
+  to `"^5.25.1 || ^6.0.0 || ^7.0.0"`.
+
+  How consumer should update their code: Ensure `react-intl` is installed at a version satisfying
+  `^5.25.1 || ^6.0.0 || ^7.0.0`. If your application was using `react-intl-next` as an npm alias, it
+  can be safely removed. Replace any remaining `react-intl-next` imports with `react-intl`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.4
+
+### Patch Changes
+
+- [`89e32bffb1383`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89e32bffb1383) -
+  [ux] Add support to consume the editor AI plugin summarise functionality in other editor plugins.
+- Updated dependencies
+
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.2
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 import { type MutableRefObject } from 'react';
 
 import mapValues from 'lodash/mapValues';
-import { type IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl';
 
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import { keydownHandler, keymap } from '@atlaskit/editor-prosemirror/keymap';

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box, Grid } from '@atlaskit/primitives/compiled';

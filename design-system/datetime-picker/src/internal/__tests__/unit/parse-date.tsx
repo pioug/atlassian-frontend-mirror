@@ -1,4 +1,5 @@
-import { getSafeCalendarValue, getShortISOString } from '../../parse-date';
+import { getSafeCalendarValue } from '../../get-safe-calendar-value';
+import { getShortISOString } from '../../get-short-iso-string';
 
 describe('getShortISOString', () => {
 	it('should return a string', () => {

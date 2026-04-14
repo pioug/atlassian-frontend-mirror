@@ -1,5 +1,29 @@
 # @atlaskit/locale
 
+## 4.0.0
+
+### Major Changes
+
+- [`b7844ba6c406f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7844ba6c406f) -
+  Moves defaultLocale out of the LocaleSelect entrypoint and into a dedicated entrypoint.
+
+  Before:
+
+  ```
+  import LocaleSelect, { type Locale, defaultLocales } from '@atlaskit/locale/LocaleSelect';
+  ```
+
+  After:
+
+  ```
+  import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
+  import defaultLocales from '@atlaskit/locale/default-locales';
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.4
 
 ### Patch Changes

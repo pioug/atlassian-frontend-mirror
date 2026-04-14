@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../constants';
@@ -72,14 +73,47 @@ const EmbedModal = ({
 		if (onResize) {
 			onResize({ size: toSize(newWidth) });
 		}
-	}, [onResize, width]);
+
+		if (invokeViewAction) {
+			const visitedDisplay =
+				invokeViewAction.display && invokeViewAction.display !== 'url'
+					? invokeViewAction.display
+					: null;
+			if (
+				visitedDisplay &&
+				expValEquals('cc_integrations_editor_open_link_click_analytics', 'isEnabled', true)
+			) {
+				fireEvent?.('ui.smartLink.visited', {
+					id: invokeViewAction.id ?? iframeName,
+					display: visitedDisplay,
+					definitionId: invokeViewAction.definitionId ?? null,
+				});
+			}
+		}
+	}, [fireEvent, iframeName, invokeViewAction, onResize, width]);
 
 	const themeState = useThemeObserver();
 	let previewUrl = src;
 
 	const handleOnViewActionClick = useCallback(() => {
-		invokeViewAction && invoke(invokeViewAction);
-	}, [invoke, invokeViewAction]);
+		if (invokeViewAction) {
+			invoke(invokeViewAction);
+			const visitedDisplay =
+				invokeViewAction.display && invokeViewAction.display !== 'url'
+					? invokeViewAction.display
+					: null;
+			if (
+				visitedDisplay &&
+				expValEquals('cc_integrations_editor_open_link_click_analytics', 'isEnabled', true)
+			) {
+				fireEvent?.('ui.smartLink.visited', {
+					id: invokeViewAction.id ?? iframeName,
+					display: visitedDisplay,
+					definitionId: invokeViewAction.definitionId ?? null,
+				});
+			}
+		}
+	}, [fireEvent, iframeName, invoke, invokeViewAction]);
 
 	const handleOnDownloadActionClick = useCallback(() => {
 		invokeDownloadAction && invoke(invokeDownloadAction);

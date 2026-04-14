@@ -123,7 +123,7 @@ export type TextColor =
 	| 'color.link.pressed'
 	| 'color.link.visited'
 	| 'color.link.visited.pressed';
-export type FontSize = 'small' | 'medium' | 'UNSAFE_small' | 'large';
+export type FontSize = 'small' | 'medium' | 'large';
 export type FontWeight = 'bold' | 'medium' | 'regular' | 'semibold';
 
 export type MetricTextFontSize = 'small' | 'medium' | 'large';

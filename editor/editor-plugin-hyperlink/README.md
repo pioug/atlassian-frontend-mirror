@@ -1,9 +1,23 @@
-# Editor plugin hyperlink
+# Editor Plugin Hyperlink
 
 Hyperlink plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Hyperlink plugin provides comprehensive hyperlink management capabilities for the Atlassian Editor. It integrates with `@atlaskit/editor-core` to enable inserting, editing, and managing links within editor content. The plugin includes toolbar integration, keyboard shortcuts, and input rules for efficient link manipulation.
+
+## Key features
+
+- **Link insertion** - Insert and create hyperlinks with custom text
+- **Link editing** - Edit existing hyperlinks and update URLs and link text
+- **Link removal** - Remove hyperlinks from selected content
+- **Toolbar integration** - Floating toolbar for easy link management and editing
+- **Keyboard shortcuts** - Support for keyboard shortcuts to insert and manage links
+- **Input rules** - Automatic link detection and creation from URL patterns
+- **Analytics integration** - Track link-related user actions and interactions
 
 ## Install
 ---
@@ -25,6 +39,7 @@ Please see [Atlaskit - Editor plugin hyperlink](https://atlaskit.atlassian.com/p
 ## Support
 ---
 For internal Atlassian, visit the slack channel [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) for support or visit [go/editor-help](https://go/editor-help) to submit a bug.
+
 ## License
 ---
- Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.
+Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.

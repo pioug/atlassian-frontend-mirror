@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';

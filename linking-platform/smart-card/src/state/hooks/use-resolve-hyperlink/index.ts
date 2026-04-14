@@ -5,7 +5,6 @@ import uuid from 'uuid';
 
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import type { CardState } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import type { InvokeClientOpts, InvokeServerOpts } from '../../../model/invoke-opts';
@@ -22,17 +21,17 @@ const useResolveHyperlink = ({
 }: {
 	href: string;
 }): {
-	state: CardState;
 	actions: {
-		register: () => Promise<void>;
-		reload: () => void;
 		authorize: (appearance: CardInnerAppearance) => void;
 		invoke: (
 			opts: InvokeClientOpts | InvokeServerOpts,
 			appearance: CardInnerAppearance,
 		) => Promise<JsonLd.Response | void>;
 		loadMetadata: () => Promise<void> | undefined;
+		register: () => Promise<void>;
+		reload: () => void;
 	};
+	state: CardState;
 } => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const [id] = useState(() => uuid() satisfies string);
@@ -65,12 +64,9 @@ const useResolveHyperlink = ({
 					duration: measure.getMeasure(id, state.status)?.duration ?? null,
 				});
 			} else if (
-				fg('platform_navx_lp_invalid_url_error')
-					? state.error?.type !== 'ResolveUnsupportedError' &&
-						state.error?.type !== 'UnsupportedError' &&
-						state.error?.name !== 'InvalidUrlError'
-					: state.error?.type !== 'ResolveUnsupportedError' &&
-						state.error?.type !== 'UnsupportedError'
+				state.error?.type !== 'ResolveUnsupportedError' &&
+				state.error?.type !== 'UnsupportedError' &&
+				state.error?.name !== 'InvalidUrlError'
 			) {
 				fireEvent('operational.hyperlink.unresolved', {
 					definitionId: definitionId ?? null,

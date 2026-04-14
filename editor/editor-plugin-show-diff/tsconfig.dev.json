@@ -65,12 +65,6 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-code-block-advanced/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-plugin-date/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugins/tsconfig.app.json"
 		},
 		{
@@ -90,6 +84,15 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-presets-confluence/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-ai-injected-editors/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-ai/tsconfig.app.json"
 		}
 	]
 }

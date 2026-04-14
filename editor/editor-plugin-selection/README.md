@@ -1,9 +1,22 @@
-# Editor plugin selection
+# Editor Plugin Selection
 
 Selection plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Selection plugin provides comprehensive selection and cursor management capabilities for the Atlassian Editor. It integrates with ProseMirror to handle text selection, cursor positioning, gap cursors for structural navigation, and mark boundary indicators for better visual feedback during editing.
+
+## Key features
+
+- **Text selection management** - Handle and manipulate text selections within the editor
+- **Gap cursor support** - Navigate between non-text blocks with visual indicators
+- **Mark boundary cursors** - Display cursor position indicators at mark boundaries (e.g., code, bold, italic)
+- **Auto-expand selection** - Automatically expand selection ranges when interacting with inline nodes
+- **Selection utilities** - Retrieve selection fragments and local IDs from the editor state
+- **Relative selection positioning** - Position selections relative to document nodes
 
 ## Install
 ---

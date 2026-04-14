@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 10.0.29
+
+### Patch Changes
+
+- [`3da5fc5ff18bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3da5fc5ff18bc) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
+## 10.0.28
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.27
 
 ### Patch Changes

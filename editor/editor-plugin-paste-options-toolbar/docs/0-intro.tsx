@@ -31,10 +31,28 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type PasteOptionsToolbarPluginDependencies = [
+  OptionalPlugin<AnalyticsPlugin>,
+  PastePlugin,
+  OptionalPlugin<UiControlRegistryPlugin>,
+];
+
+interface PasteOptionsToolbarSharedState {
+  isPlainText: boolean;
+  pasteAncestorNodeNames: string[];
+  pasteEndPos: number;
+  pasteStartPos: number;
+  plaintextLength: number;
+  selectedOption: ToolbarDropdownOption;
+  showLegacyOptions: boolean;
+  showToolbar: boolean;
+}
+
 type PasteOptionsToolbarPlugin = NextEditorPlugin<
   'pasteOptionsToolbarPlugin',
   {
-    dependencies: [OptionalPlugin<AnalyticsPlugin>, PastePlugin];
+    dependencies: PasteOptionsToolbarPluginDependencies;
+    sharedState: PasteOptionsToolbarSharedState;
   }
 >;
 `}

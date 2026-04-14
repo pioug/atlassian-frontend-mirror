@@ -28,6 +28,13 @@ export type HydratedProject = {
 	type: 'project';
 };
 
+export type HydratedGoal = {
+	id: string;
+	name: string;
+	status?: string | null | undefined;
+	type: 'goal';
+};
+
 export type HydratedDeprecatedField = {
 	deprecatedSearcherKey: string;
 	/**
@@ -37,7 +44,7 @@ export type HydratedDeprecatedField = {
 	type: 'deprecated-field';
 };
 
-export type HydratedValue = HydratedUser | HydratedTeam | HydratedProject | HydratedDeprecatedField;
+export type HydratedValue = HydratedUser | HydratedTeam | HydratedProject | HydratedGoal | HydratedDeprecatedField;
 
 export type HydratedValues = {
 	[fieldName: string]: HydratedValue[];

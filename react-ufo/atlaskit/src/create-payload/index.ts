@@ -47,10 +47,11 @@ import {
 	buildSegmentTree,
 	getOldSegmentsLabelStack,
 	labelStackStartWith,
-	optimizeLabelStack,
+	optimizeLabelStackWithRegistry,
 	sanitizeUfoName,
 	stringifyLabelStackFully,
 } from './common/utils';
+import { LabelStackRegistry } from './common/utils/label-stack-registry';
 import { createCriticalMetricsPayloads } from './critical-metrics-payload';
 import type { CriticalMetricsPayload } from './critical-metrics-payload/types';
 import { addPerformanceMeasures } from './utils/add-performance-measures';
@@ -264,14 +265,21 @@ function getTracingContextData(interaction: InteractionMetrics) {
 	return tracingContextData;
 }
 
-function optimizeCustomData(interaction: InteractionMetrics) {
+function optimizeCustomData(
+	interaction: InteractionMetrics,
+	registry?: LabelStackRegistry,
+) {
 	const { customData, cohortingCustomData, legacyMetrics } = interaction;
 	const customDataMap = customData.reduce((result, { labelStack, data }) => {
 		const label = stringifyLabelStackFully(labelStack);
 		const value = result.get(label)?.data ?? {};
 
 		result.set(label, {
-			labelStack: optimizeLabelStack(labelStack, getReactUFOPayloadVersion(interaction.type)),
+			labelStack: optimizeLabelStackWithRegistry(
+				labelStack,
+				getReactUFOPayloadVersion(interaction.type),
+				registry,
+			),
 			data: Object.assign(value, data),
 		});
 
@@ -284,9 +292,10 @@ function optimizeCustomData(interaction: InteractionMetrics) {
 		const value = customDataMap.get(label)?.data ?? {};
 
 		customDataMap.set(label, {
-			labelStack: optimizeLabelStack(
+			labelStack: optimizeLabelStackWithRegistry(
 				interaction.labelStack ?? [],
 				getReactUFOPayloadVersion(interaction.type),
+				registry,
 			),
 			data: Object.assign(value, Object.fromEntries(cohortingCustomData)),
 		});
@@ -300,7 +309,11 @@ function optimizeCustomData(interaction: InteractionMetrics) {
 					const label = stringifyLabelStackFully([]);
 					const labelValue = result.get(label)?.data ?? {};
 					result.set(label, {
-						labelStack: optimizeLabelStack([], getReactUFOPayloadVersion(interaction.type)),
+						labelStack: optimizeLabelStackWithRegistry(
+							[],
+							getReactUFOPayloadVersion(interaction.type),
+							registry,
+						),
 						data: Object.assign(labelValue, { [key]: value }),
 					});
 				}
@@ -497,12 +510,18 @@ async function createInteractionMetricsPayload(
 	const pageVisibilityAtTTI = getPageVisibilityUpToTTI(interaction);
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
 
+	const reactUFOVersion = getReactUFOPayloadVersion(interaction.type);
+	const registry =
+		reactUFOVersion === '2.0.0' && fg('platform_ufo_labelstack_dedup')
+			? new LabelStackRegistry()
+			: undefined;
+
 	const segments =
 		!fg('platform_ufo_remove_deprecated_config_fields') && config.killswitchNestedSegments
 			? []
 			: knownSegments;
 	const segmentTree =
-		getReactUFOPayloadVersion(interaction.type) === '2.0.0'
+		reactUFOVersion === '2.0.0'
 			? buildSegmentTree(segments.map((segment) => segment.labelStack))
 			: {};
 	const isDetailedPayload = pageVisibilityAtTTAI === 'visible';
@@ -522,9 +541,10 @@ async function createInteractionMetricsPayload(
 
 	const labelStack: { labelStack?: OptimizedLabelStack } = interaction.labelStack
 		? {
-				labelStack: optimizeLabelStack(
+				labelStack: optimizeLabelStackWithRegistry(
 					interaction.labelStack,
-					getReactUFOPayloadVersion(interaction.type),
+					reactUFOVersion,
+					registry,
 				),
 			}
 		: {};
@@ -582,20 +602,23 @@ async function createInteractionMetricsPayload(
 			errors: interaction.errors.map(({ labelStack, ...others }) => ({
 				...others,
 				labelStack:
-					labelStack && optimizeLabelStack(labelStack, getReactUFOPayloadVersion(interaction.type)),
+					labelStack &&
+					optimizeLabelStackWithRegistry(labelStack, reactUFOVersion, registry),
 			})),
 			holdActive: [...interaction.holdActive.values()],
 			redirects: optimizeRedirects(interaction.redirects, start),
 			holdInfo: optimizeHoldInfo(
 				experimental ? interaction.holdExpInfo : interaction.holdInfo,
 				start,
-				getReactUFOPayloadVersion(interaction.type),
+				reactUFOVersion,
+				registry,
 			),
-			spans: optimizeSpans(spans, start, getReactUFOPayloadVersion(interaction.type)),
+			spans: optimizeSpans(spans, start, reactUFOVersion, registry),
 			requestInfo: optimizeRequestInfo(
 				interaction.requestInfo,
 				start,
-				getReactUFOPayloadVersion(interaction.type),
+				reactUFOVersion,
+				registry,
 			),
 			customTimings: optimizeCustomTimings(interaction.customTimings, start),
 			bundleEvalTimings: objectToArray(getBundleEvalTimings(start)),
@@ -610,7 +633,8 @@ async function createInteractionMetricsPayload(
 				hold3pInfo: optimizeHoldInfo(
 					interaction.hold3pInfo ?? [],
 					start,
-					getReactUFOPayloadVersion(interaction.type),
+					reactUFOVersion,
+					registry,
 				),
 			};
 		}
@@ -682,7 +706,7 @@ async function createInteractionMetricsPayload(
 				'event:sizeInKb': 0,
 				'event:source': {
 					name: 'react-ufo/web',
-					version: getReactUFOPayloadVersion(interaction.type),
+					version: reactUFOVersion,
 				},
 				'event:region': config.region || 'unknown',
 				'experience:key': experimental
@@ -757,20 +781,21 @@ async function createInteractionMetricsPayload(
 					abortedByInteractionName,
 
 					// performance
-					apdex: optimizeApdex(interaction.apdex, getReactUFOPayloadVersion(interaction.type)),
+					apdex: optimizeApdex(interaction.apdex, reactUFOVersion, registry),
 					end: Math.round(end),
 					...(interaction.end3p ? { end3p: Math.round(interaction.end3p) } : {}),
 					start: Math.round(start),
 					segments:
-						getReactUFOPayloadVersion(interaction.type) === '2.0.0'
+						reactUFOVersion === '2.0.0'
 							? segmentTree
 							: getOldSegmentsLabelStack(segments, interaction.type),
-					marks: optimizeMarks(interaction.marks, getReactUFOPayloadVersion(interaction.type)),
-					customData: optimizeCustomData(interaction),
+					marks: optimizeMarks(interaction.marks, reactUFOVersion, registry),
+					customData: optimizeCustomData(interaction, registry),
 					reactProfilerTimings: optimizeReactProfilerTimings(
 						interaction.reactProfilerTimings,
 						start,
-						getReactUFOPayloadVersion(interaction.type),
+						reactUFOVersion,
+						registry,
 					),
 					minorInteractions: interaction.minorInteractions,
 					...(responsiveness ? { responsiveness } : {}),
@@ -783,6 +808,9 @@ async function createInteractionMetricsPayload(
 					'metric:experimental:ttai': expTTAI,
 					...(unknownElementName ? { unknownElementName } : {}),
 					...(unknownElementHierarchy ? { unknownElementHierarchy } : {}),
+					...(registry && registry.size > 0
+						? { _ls: registry.getLookupTable() }
+						: {}),
 				},
 				'ufo:payloadTime': roundEpsilon(performance.now() - interactionPayloadStart),
 			},

@@ -1,5 +1,7 @@
 import { type ReactNode } from 'react';
 
+import { type StrictXCSSProp } from '@atlaskit/css';
+
 import { type TAnimationPreset } from '../animations/types';
 import {
 	type TAriaRoleOptional,
@@ -46,6 +48,12 @@ export type TPopoverInternalProps = TPopoverForwardedProps;
 
 type TPopoverBaseProps = {
 	children: ReactNode;
+	/**
+	 * Additional CSS styles applied to the popover root element.
+	 * Use to set `backgroundColor` so arrow pseudo-elements (which use
+	 * `background: inherit`) match the popup surface colour.
+	 */
+	xcss?: StrictXCSSProp<'backgroundColor', never>;
 	/**
 	 * Animation preset for entry/exit transitions.
 	 *

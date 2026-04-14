@@ -4,7 +4,7 @@
  */
 import { css, cssMap, jsx } from '@compiled/react';
 import { selectUnit } from '@formatjs/intl-utils';
-import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl';
 
 import type { Prettify } from '@atlaskit/linking-common';
 import { token } from '@atlaskit/tokens';

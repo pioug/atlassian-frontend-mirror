@@ -11,7 +11,7 @@ import { type TArrowPreset } from './types';
  * How it works:
  * 1. Four arrow shapes exist simultaneously as `::before` (top/bottom) and
  *    `::after` (left/right) hexagonal pseudo-elements.
- * 2. `clip-path: inset(1px) margin-box` clips the popover to its margin-box.
+ * 2. `clip-path: inset(0) margin-box` clips the popover to its margin-box.
  * 3. Margin on the anchor-facing side pushes the popover away, creating space
  *    where one arrow "escapes" the clip boundary and becomes visible.
  * 4. `@position-try` rules change both `position-area` and `margin` when
@@ -26,7 +26,7 @@ import { type TArrowPreset } from './types';
  */
 const ARROW_CSS = `
 [data-ds-popover-arrow] {
-  clip-path: inset(var(--ds-arrow-offset, 1px)) margin-box;
+  clip-path: inset(var(--ds-arrow-offset, 0px)) margin-box;
   box-shadow: none;
 }
 

@@ -1,4 +1,4 @@
-import { type MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor } from 'react-intl';
 
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { type CardState, type ProductType } from '@atlaskit/linking-common';

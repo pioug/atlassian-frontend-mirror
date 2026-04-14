@@ -5,7 +5,7 @@
 import { useMemo } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
-import { type MessageDescriptor, useIntl } from 'react-intl-next';
+import { type MessageDescriptor, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { AISummaryService } from './ai-summary-service';
 import { AISummariesStore } from './ai-summary-service/store';

@@ -1,6 +1,9 @@
 import { normalizeLocale } from '../common';
 
-import { type DateObj, isValid, normalizeDate, toDate } from './utils';
+import { isValid } from './is-valid';
+import { normalizeDate } from './normalize-date';
+import { toDate } from './to-date';
+import type { DateObj } from './types';
 
 const INVALID_DATE: Date = new Date(NaN);
 const INVARIANT: DateObj = { year: 1993, month: 2, day: 18 };

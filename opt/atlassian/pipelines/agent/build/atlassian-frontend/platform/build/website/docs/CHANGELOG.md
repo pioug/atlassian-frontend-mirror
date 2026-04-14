@@ -1,5 +1,27 @@
 # @atlaskit/docs
 
+## 11.8.0
+
+### Minor Changes
+
+- [`23bd4ba0e8249`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23bd4ba0e8249) - -
+  The hash router has been removed from the Atlaskit website. All environments now use the browser
+  router.
+  - The Atlaskit website now uses SPA mode on Bifrost (isMultiHtml: false), with the `/example`
+    route handled client-side via lazy-loaded components.
+  - Added `--isolatedExamples` CLI flag for builds that require a standalone example iframe entry
+    point (used automatically by integration tests).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.7.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.7.5
 
 ### Patch Changes

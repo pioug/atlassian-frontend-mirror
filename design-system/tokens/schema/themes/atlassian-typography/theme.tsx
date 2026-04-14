@@ -132,16 +132,6 @@ const typography: ValueSchema<
 					letterSpacing: 'LetterSpacing0',
 				},
 			},
-			UNSAFE_small: {
-				value: {
-					fontWeight: 'FontWeight400',
-					fontSize: 'FontSize12',
-					lineHeight: 'LineHeight16',
-					fontFamily: 'FontFamilyWebSansRefreshed',
-					fontStyle: 'normal',
-					letterSpacing: 'LetterSpacing0',
-				},
-			},
 		},
 		metric: {
 			large: {

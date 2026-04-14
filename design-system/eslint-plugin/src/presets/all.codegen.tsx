@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9dbc4d90a7430699860bd67938cfd53b>>
+ * @codegen <<SignedSource::4a4e27095e18b4c1f42c12cbc9f4af5e>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -20,7 +20,6 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/no-banned-imports': 'error',
 		'@atlaskit/design-system/no-boolean-autofocus-on-modal-dialog': 'warn',
 		'@atlaskit/design-system/no-css-tagged-template-expression': 'error',
-		'@atlaskit/design-system/no-custom-icons': 'warn',
 		'@atlaskit/design-system/no-dark-theme-vr-tests': 'error',
 		'@atlaskit/design-system/no-deprecated-apis': 'error',
 		'@atlaskit/design-system/no-deprecated-design-token-usage': 'warn',

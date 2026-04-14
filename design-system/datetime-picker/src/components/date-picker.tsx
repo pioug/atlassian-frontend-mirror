@@ -36,16 +36,15 @@ import Select, {
 import { token } from '@atlaskit/tokens';
 
 import { EmptyComponent } from '../internal';
-import {
-	formatDate,
-	getParsedISO,
-	getPlaceholder,
-	isDateDisabled,
-	parseDate,
-} from '../internal/date-picker-migration';
+import { formatDate } from '../internal/format-date';
+import { getParsedISO } from '../internal/get-parsed-iso';
+import { getPlaceholder } from '../internal/get-placeholder';
+import { getSafeCalendarValue } from '../internal/get-safe-calendar-value';
+import { getShortISOString } from '../internal/get-short-iso-string';
 import { IndicatorsContainer } from '../internal/indicators-container';
+import { isDateDisabled } from '../internal/is-date-disabled';
 import { Menu } from '../internal/menu';
-import { getSafeCalendarValue, getShortISOString } from '../internal/parse-date';
+import { parseDate } from '../internal/parse-date';
 import { makeSingleValue } from '../internal/single-value';
 import {
 	type Appearance,

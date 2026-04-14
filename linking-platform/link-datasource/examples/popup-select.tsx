@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import { cssMap } from '@compiled/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import { type InputActionMeta, type ValueType } from '@atlaskit/select';

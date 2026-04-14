@@ -97,7 +97,11 @@ const shouldIgnoreNode = (
 		return true;
 	}
 
-	return (isEmbedCard || isMediaSingle) && ['wrap-right', 'wrap-left'].includes(node.attrs.layout)
+	return (isEmbedCard || isMediaSingle) &&
+		['wrap-right', 'wrap-left'].includes(node.attrs.layout) &&
+		!editorExperiment('platform_editor_fix_selection_wrapped_media_embed', true, {
+			exposure: true,
+		})
 		? true
 		: ignore_nodes.includes(node.type.name);
 };

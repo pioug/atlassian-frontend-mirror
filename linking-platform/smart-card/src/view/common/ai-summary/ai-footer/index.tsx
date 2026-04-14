@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 import Link from '@atlaskit/link';

@@ -438,17 +438,5 @@ ruleTester.run('use-primitives-text', rule, {
 				{ messageId: 'preferPrimitivesText' },
 			],
 		},
-		// it suggests to change UNSAFE_small to small Text
-		{
-			code: outdent`
-				import { Text } from '@atlaskit/primitives';
-				<Text size="UNSAFE_small">content</Text>
-			`,
-			errors: [{ messageId: 'noUnsafeSmallText' }],
-			output: outdent`
-				import { Text } from '@atlaskit/primitives';
-				<Text size="small">content</Text>
-			`,
-		},
 	],
 });

@@ -1,6 +1,6 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { DiProvider, type Injectable } from 'react-magnetic-di';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';

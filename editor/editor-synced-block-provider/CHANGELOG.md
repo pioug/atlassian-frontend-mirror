@@ -1,5 +1,23 @@
 # @atlaskit/editor-synced-block-provider
 
+## 4.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.5.0
+
+### Minor Changes
+
+- [`81ae8b16d6c35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81ae8b16d6c35) -
+  [ux] Allows reference sync blocks with media load it correctly in Confluence when source sync
+  block is in Jira.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.3
 
 ### Patch Changes

@@ -18,7 +18,7 @@ const styles = cssMap({
 	customSlashedZero: { fontVariantNumeric: 'slashed-zero' },
 });
 
-const sizes = ['small', 'UNSAFE_small', 'medium', 'large'] as const;
+const sizes = ['small', 'medium', 'large'] as const;
 const weights = ['regular', 'medium', 'semibold', 'bold'] as const;
 const alignments = ['start', 'center', 'end'] as const;
 

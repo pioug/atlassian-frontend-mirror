@@ -1,7 +1,7 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
 import { render, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { LoadingError } from './loading-error';
 import { loadingErrorMessages } from './messages';

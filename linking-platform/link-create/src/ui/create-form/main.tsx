@@ -7,7 +7,7 @@ import { type ReactNode, useCallback } from 'react';
 import { css, jsx } from '@compiled/react';
 import { FORM_ERROR, type MutableState, type Tools } from 'final-form';
 import { Form, FormSpy } from 'react-final-form';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { RequiredAsterisk } from '@atlaskit/form';
 import { Box, Text } from '@atlaskit/primitives/compiled';

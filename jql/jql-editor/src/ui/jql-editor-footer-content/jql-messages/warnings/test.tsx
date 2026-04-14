@@ -1,7 +1,7 @@
 import React, { type ReactNode } from 'react';
 
 import { render } from '@testing-library/react';
-import { type IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { mockIntl } from '../../../../../mocks';

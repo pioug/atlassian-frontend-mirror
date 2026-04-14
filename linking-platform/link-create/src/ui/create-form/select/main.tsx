@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { Inline } from '@atlaskit/primitives/compiled';
 import AkSelect, {

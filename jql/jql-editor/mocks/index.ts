@@ -1,4 +1,4 @@
-import { createIntl, type IntlShape } from 'react-intl-next';
+import { createIntl, type IntlShape } from 'react-intl';
 
 export const mockIntl: IntlShape = createIntl({ locale: 'en' });
 

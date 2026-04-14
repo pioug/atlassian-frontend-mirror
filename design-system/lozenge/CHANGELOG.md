@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 13.6.1
+
+### Patch Changes
+
+- [`82429debcd5e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82429debcd5e8) -
+  Fixed issue where with motion enabled the lozenge was displaying ellipsis on resize
+- Updated dependencies
+
 ## 13.6.0
 
 ### Minor Changes

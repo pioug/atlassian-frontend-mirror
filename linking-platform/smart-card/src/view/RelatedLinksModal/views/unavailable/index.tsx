@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { messages } from '../../../../messages';
 import { EmptyState } from '../../components/EmptyState';

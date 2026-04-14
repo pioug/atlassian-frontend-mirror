@@ -12,34 +12,37 @@ export default class NotificationLogClient implements NotificationLogProvider {
 	private graphQLBaseUrl: string;
 	private cloudId?: string;
 	private source: string;
-	private routingWorkspaceId?: string;
+	private collabContextRoutingAri?: string;
 
 	constructor({
 		graphQLBaseUrl = DEFAULT_GRAPHQL_BASE_URL,
 		cloudId,
 		source = DEFAULT_SOURCE,
-		routingWorkspaceId,
+		collabContextRoutingAri,
 	}: {
 		cloudId?: string;
+		collabContextRoutingAri?: string;
 		graphQLBaseUrl?: string;
-		routingWorkspaceId?: string;
 		source?: string;
 	} = {}) {
 		this.graphQLBaseUrl = graphQLBaseUrl;
 		this.cloudId = cloudId;
 		this.source = source;
-		this.routingWorkspaceId = routingWorkspaceId;
+		this.collabContextRoutingAri = collabContextRoutingAri;
 	}
 
 	public async countUnseenNotifications(
 		options: RequestServiceOptions = {},
 	): Promise<NotificationCountResponse> {
 		const query = /* GraphQL */ `
-			query NotificationLogClientUnseenCount($workspaceId: String, $routingWorkspaceId: String) {
+			query NotificationLogClientUnseenCount(
+				$workspaceId: String
+				$collabContextRoutingAri: String
+			) {
 				notifications {
 					unseenNotificationCount(
 						workspaceId: $workspaceId
-						routingWorkspaceId: $routingWorkspaceId
+						collabContextRoutingAri: $collabContextRoutingAri
 					)
 				}
 			}
@@ -67,7 +70,7 @@ export default class NotificationLogClient implements NotificationLogProvider {
 						query: query,
 						variables: {
 							workspaceId: this.cloudId,
-							routingWorkspaceId: this.routingWorkspaceId,
+							collabContextRoutingAri: this.collabContextRoutingAri,
 						},
 					}),
 					...options.requestInit,

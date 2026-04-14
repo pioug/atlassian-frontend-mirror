@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { jsx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';

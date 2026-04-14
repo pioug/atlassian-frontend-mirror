@@ -7,6 +7,7 @@ export type {
 	HydratedUser,
 	HydratedTeam,
 	HydratedProject,
+	HydratedGoal,
 } from './jql-editor/types';
 
 export type JQLEditorProps = JQLEditorUIProps & {

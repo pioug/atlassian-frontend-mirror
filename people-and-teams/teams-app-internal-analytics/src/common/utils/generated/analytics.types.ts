@@ -96,11 +96,69 @@ export type InviteToProductServiceFailedAttributesType = {
 	errors: unknown[] | null;
 	result: unknown[] | null;
 };
+export type InviteToSoftwareAndBusinessProjectsSucceededAttributesType = {
+	touchpoint: string;
+	spacesCount: number;
+	newUsersCount: number;
+	existingUsersCount: number;
+	usersInvitedCount: number;
+	usersRequestedAccessCount: number;
+	usersAlreadyExistsCount: number;
+	usersPendingInviteCount: number;
+	invitesFailedCount: number;
+	totalRequests: number;
+	projectAccessGrantedCount: number;
+	projectAccessPendingCount: number;
+	projectAccessExistingCount: number;
+	projectAccessNotGrantedCount: number;
+};
 export type InviteToSoftwareAndBusinessProjectsFailedAttributesType = {
+	touchpoint?: string | null;
 	message: string;
 	spacesCount: number;
 	newUsersCount: number;
 	existingUsersCount: number;
+	usersInvitedCount?: number | null;
+	usersRequestedAccessCount?: number | null;
+	usersAlreadyExistsCount?: number | null;
+	usersPendingInviteCount?: number | null;
+	invitesFailedCount?: number | null;
+	totalRequests?: number | null;
+	projectAccessGrantedCount?: number | null;
+	projectAccessPendingCount?: number | null;
+	projectAccessExistingCount?: number | null;
+	projectAccessNotGrantedCount?: number | null;
+};
+export type InviteToProjectUpdatedAttributesType = {
+	spaceId: number;
+	touchpoint: string;
+	numberOfUsersInvitedByEmail: number;
+	numberOfUsersRequestedAccess: number;
+	numberOfInvitesFailed: number;
+	totalRequests: number;
+};
+export type InviteToProjectUpdateFailedAttributesType = {
+	spaceId: number;
+	touchpoint: string;
+	numberOfUsersInvitedByEmail: number;
+	numberOfUsersRequestedAccess: number;
+	numberOfInvitesFailed: number;
+	totalRequests: number;
+};
+export type UserInvitedAttributesType = {
+	userId: string | null;
+	inviteStatus: string;
+	projectAccessStatus?: string | null;
+	projectId: number;
+	touchpoint: string;
+};
+export type ProductAccessRequestedAttributesType = {
+	requestedForUserId: string | null;
+	inviteStatus: string;
+	projectAccessStatus?: string | null;
+	projectId: number;
+	exists: boolean;
+	touchpoint: string;
 };
 export type SendSpaceTeamInvitesScheduledAttributesType = {
 	spaceId: string;
@@ -1690,6 +1748,9 @@ export type AnalyticsEventAttributes = {
 	 * fired when the invite to product service failed */
 	'track.inviteToProductService.failed': InviteToProductServiceFailedAttributesType;
 	/**
+	 * fired when inviting users to software and business projects succeeded */
+	'track.inviteToSoftwareAndBusinessProjects.succeeded': InviteToSoftwareAndBusinessProjectsSucceededAttributesType;
+	/**
 	 * fired when inviting users to software and business projects failed */
 	'track.inviteToSoftwareAndBusinessProjects.failed': InviteToSoftwareAndBusinessProjectsFailedAttributesType;
 	/**
@@ -1700,10 +1761,12 @@ export type AnalyticsEventAttributes = {
 	'track.sendSpaceTeamInvites.sending': SendSpaceTeamInvitesSendingAttributesType;
 	/**
 	 * fired when a space invite request completes successfully and the project membership is updated */
-	'track.project.updated': ProjectUpdatedAttributesType;
+	'track.project.updated': ProjectUpdatedAttributesType | InviteToProjectUpdatedAttributesType;
 	/**
 	 * fired when a space invite for team members failed */
-	'track.projectUpdate.failed': ProjectUpdateFailedAttributesType;
+	'track.projectUpdate.failed': ProjectUpdateFailedAttributesType | InviteToProjectUpdateFailedAttributesType;
+	'track.user.invited': UserInvitedAttributesType;
+	'track.productAccess.requested': ProductAccessRequestedAttributesType;
 	/**
 	 * fired when a pending space invite is cancelled before it was sent */
 	'track.sendSpaceTeamInvites.cancelled': SendSpaceTeamInvitesCancelledAttributesType;

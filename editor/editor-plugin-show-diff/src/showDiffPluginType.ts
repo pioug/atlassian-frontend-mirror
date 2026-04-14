@@ -10,7 +10,7 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
 export type ColorScheme = 'standard' | 'traditional';
-export type DiffType = 'inline' | 'block';
+export type DiffType = 'inline' | 'block' | 'step';
 export type DiffParams = {
 	/**
 	 * Color scheme to use for displaying diffs.

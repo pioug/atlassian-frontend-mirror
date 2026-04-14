@@ -5,7 +5,7 @@
 import { Fragment } from 'react';
 
 import { css, cssMap, jsx, styled } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { IconButton } from '@atlaskit/button/new';
 import { ErrorMessage, Field } from '@atlaskit/form';

@@ -5,7 +5,7 @@
 import { useEffect, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { IconButton } from '@atlaskit/button/new';
 import RefreshIcon from '@atlaskit/icon/core/refresh';

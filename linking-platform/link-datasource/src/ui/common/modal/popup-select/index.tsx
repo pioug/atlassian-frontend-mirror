@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import isEqual from 'lodash/isEqual';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type InputActionMeta, PopupSelect, type ValueType } from '@atlaskit/select';

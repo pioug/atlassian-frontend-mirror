@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';

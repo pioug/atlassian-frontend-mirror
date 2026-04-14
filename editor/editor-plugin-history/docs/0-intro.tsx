@@ -28,10 +28,29 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+interface HistoryPluginState {
+  canRedo: boolean;
+  canUndo: boolean;
+}
+
+interface HistoryPluginSharedState extends HistoryPluginState {
+  done: {
+    eventCount: number;
+  };
+  undone: {
+    eventCount: number;
+  };
+}
+
 type HistoryPlugin = NextEditorPlugin<
   'history',
   {
-    sharedState: HistoryPluginState | undefined;
+    commands: {
+      endHistorySlice: (id: string) => EditorCommand;
+      startHistorySlice: (id: string) => EditorCommand;
+      updatePluginState: EditorCommand;
+    };
+    sharedState: HistoryPluginSharedState | undefined;
   }
 >;
 `}

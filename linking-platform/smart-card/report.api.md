@@ -37,7 +37,7 @@ import { ErrorInfo } from 'react';
 import { GasPayload } from '@atlaskit/analytics-gas-types';
 import { InlineCardAdf } from '@atlaskit/linking-common';
 import { JsonLd } from '@atlaskit/json-ld-types';
-import { MessageDescriptor } from 'react-intl-next';
+import { MessageDescriptor } from 'react-intl';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { ProviderProps } from '@atlaskit/link-provider';
 import { default as React_2 } from 'react';
@@ -48,8 +48,8 @@ import { SmartCardContext } from '@atlaskit/link-provider';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithContextProps } from '@atlaskit/analytics-next';
-import { WithIntlProps } from 'react-intl-next';
-import { WrappedComponentProps } from 'react-intl-next';
+import { WithIntlProps } from 'react-intl';
+import { WrappedComponentProps } from 'react-intl';
 
 // @public (undocumented)
 export type ActionItem = CustomActionItem | NamedActionItem | NamedDataActionItem;
@@ -1345,7 +1345,7 @@ type VoteCount = {
 	"@atlaskit/link-provider": "^1.6.4",
 	"react": "^16.8.0",
 	"react-dom": "^16.8.0",
-	"react-intl-next": "npm:react-intl@^5.18.1"
+	"react-intl": "npm:react-intl@^5.18.1"
 }
 ```
 

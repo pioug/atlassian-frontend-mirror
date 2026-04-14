@@ -560,7 +560,7 @@ describe('RelatedLinksModal', () => {
 	it('satisifies testId API for Search Team', async () => {
 		setup({ ari });
 
-		// IF THIS TEST ID CHANGES PLS TAG !oncall of #search-plex in the PR
+		// IF THIS TEST ID CHANGES PLS TAG !oncall of #help-search-plex in the PR
 		const modal = await screen.getByTestId('related-links-modal');
 		expect(modal).toBeInTheDocument();
 	});

@@ -1,4 +1,4 @@
-import type { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl';
 
 import { messages } from '../../../../../../../../messages';
 import { type InvokeClientActionProps } from '../../../../../../../../state/hooks/use-invoke-client-action/types';

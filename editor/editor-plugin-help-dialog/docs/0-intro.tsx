@@ -31,17 +31,33 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+interface HelpDialogSharedState {
+  aiEnabled: boolean;
+  imageEnabled: boolean;
+  isVisible: boolean;
+}
+
+type HelpDialogDependencies = [
+  OptionalPlugin<AnalyticsPlugin>,
+  OptionalPlugin<QuickInsertPlugin>,
+];
+
+type HelpDialogPluginOptions =
+  | boolean
+  | { aiEnabled?: boolean; imageUploadProviderExists?: boolean };
+
 type HelpDialogPlugin = NextEditorPlugin<
   'helpDialog',
   {
-    dependencies: [
-      OptionalPlugin<AnalyticsPlugin>,
-      OptionalPlugin<QuickInsertPlugin>,
-    ];
-    pluginConfiguration: boolean;
+    actions: {
+      closeHelp(): void;
+      openHelp(): void;
+    };
+    dependencies: HelpDialogDependencies;
+    pluginConfiguration: HelpDialogPluginOptions;
     sharedState: HelpDialogSharedState | null;
   }
-  >
+>;
 `}
 
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-interaction",
-	"version": "16.0.2",
+	"version": "17.0.0",
 	"description": "Interaction plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-submit-editor
 
+## 8.0.3
+
+### Patch Changes
+
+- [`fa146e17e08d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa146e17e08d6) -
+  Update README.md and 0-intro.tsx
+
 ## 8.0.2
 
 ### Patch Changes

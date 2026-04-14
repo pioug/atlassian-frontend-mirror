@@ -292,6 +292,11 @@ export type SmartLinkClickedAttributesType = {
 	definitionId: string | null;
 	isModifierKeyPressed: boolean | null;
 };
+export type SmartLinkVisitedAttributesType = {
+	id: string;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	definitionId: string | null;
+};
 export type SmartLinkClickedTitleGoToLinkAttributesType = {
 	id: string;
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
@@ -487,6 +492,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires an event that represents when a user clicks on a Smart Link. */
 	'ui.smartLink.clicked': SmartLinkClickedAttributesType;
+	/**
+	 * fires an event that represents when a user visits a Smart Link target. */
+	'ui.smartLink.visited': SmartLinkVisitedAttributesType;
 	/**
 	 * fires an event that represents when a user clicks on a Smart Link. */
 	'ui.smartLink.clicked.titleGoToLink': SmartLinkClickedTitleGoToLinkAttributesType;

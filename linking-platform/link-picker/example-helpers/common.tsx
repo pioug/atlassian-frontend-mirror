@@ -4,7 +4,7 @@
  */
 import { type ReactNode, useContext } from 'react';
 
-import { createIntl, createIntlCache, IntlContext, IntlProvider } from 'react-intl-next';
+import { createIntl, createIntlCache, IntlContext, IntlProvider } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { SmartCardProvider } from '@atlaskit/link-provider';

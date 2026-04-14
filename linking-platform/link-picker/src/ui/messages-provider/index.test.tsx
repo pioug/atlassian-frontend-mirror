@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act, render, screen } from '@testing-library/react';
-import { defineMessages, IntlProvider, useIntl } from 'react-intl-next';
+import { defineMessages, IntlProvider, useIntl } from 'react-intl';
 
 import { ManualPromise } from '@atlaskit/link-test-helpers';
 

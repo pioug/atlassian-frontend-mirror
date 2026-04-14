@@ -1,5 +1,5 @@
 import type { ACTION, ACTION_SUBJECT } from './enums';
-import type { TrackAEP } from './utils';
+import type { OperationalAEP, TrackAEP } from './utils';
 
 type AiAutocompleteInvokedAEP = TrackAEP<
 	ACTION.INVOKED,
@@ -43,8 +43,16 @@ export type TriggerType =
 	| 'next-steps-last-lines'
 	| 'cmd+shift+space';
 
+type AiAutocompleteErroredAEP = OperationalAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.AI_AUTOCOMPLETE,
+	undefined,
+	{ errorMessage: string; statusCode?: number }
+>;
+
 export type AiAutocompleteEventPayload =
 	| AiAutocompleteInvokedAEP
 	| AiAutocompleteViewedAEP
 	| AiAutocompleteAcceptedAEP
-	| AiAutocompleteRejectedAEP;
+	| AiAutocompleteRejectedAEP
+	| AiAutocompleteErroredAEP;

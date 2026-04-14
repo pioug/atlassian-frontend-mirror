@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 21.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.1.5
 
 ### Patch Changes

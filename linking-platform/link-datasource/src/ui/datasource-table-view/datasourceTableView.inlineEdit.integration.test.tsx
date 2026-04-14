@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import type {

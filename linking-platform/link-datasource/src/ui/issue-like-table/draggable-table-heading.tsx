@@ -7,7 +7,7 @@ import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } fro
 
 import { css, jsx, styled } from '@compiled/react';
 import ReactDOM from 'react-dom';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import invariant from 'tiny-invariant';
 
 import Button from '@atlaskit/button/new';

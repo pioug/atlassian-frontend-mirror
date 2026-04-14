@@ -1,9 +1,21 @@
-# Editor plugin rule
+# Editor Plugin Rule
 
 Rule plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Rule plugin provides horizontal rule (divider) insertion capabilities for the Atlassian Editor. It enables users to insert horizontal rules within documents through multiple input methods including keyboard shortcuts, quick insert, and programmatic actions.
+
+## Key features
+
+- **Horizontal rule insertion** - Insert horizontal dividers into editor content
+- **Input rule support** - Use keyboard shortcut `---` to quickly insert a rule
+- **Quick insert integration** - Access horizontal rule from the quick insert menu
+- **Action API** - Programmatic insertion through `insertHorizontalRule` action
+- **Analytics tracking** - Track horizontal rule insertion events for analytics
 
 ## Install
 ---
@@ -25,6 +37,7 @@ Please see [Atlaskit - Editor plugin rule](https://atlaskit.atlassian.com/packag
 ## Support
 ---
 For internal Atlassian, visit the slack channel [#help-editor](https://atlassian.slack.com/archives/CFG3PSQ9E) for support or visit [go/editor-help](https://go/editor-help) to submit a bug.
+
 ## License
 ---
- Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.
+Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.

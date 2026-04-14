@@ -2,24 +2,16 @@ import React, { act } from 'react';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 import { HeadingWithSectionLink } from '../../heading/heading-with-section-link';
 
-declare var global: { USE_HASH_ROUTER: boolean };
-
 const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
 describe('HeadingWithSectionLink', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
-
-		// initialise the global mock
-		global.USE_HASH_ROUTER = false;
 	});
 
 	afterEach(() => {
 		jest.useRealTimers();
 		jest.clearAllMocks();
-
-		// reset the global mock
-		global.USE_HASH_ROUTER = false;
 	});
 
 	it('should capture and report a11y violations', async () => {
@@ -187,9 +179,4 @@ describe('HeadingWithSectionLink', () => {
 		);
 	});
 
-	it('should not show the copy link button when the hash router is being used', () => {
-		global.USE_HASH_ROUTER = true;
-		render(<HeadingWithSectionLink level={2}>Test heading</HeadingWithSectionLink>);
-		expect(screen.queryByRole('button', { name: 'Copy link to heading' })).not.toBeInTheDocument();
-	});
 });

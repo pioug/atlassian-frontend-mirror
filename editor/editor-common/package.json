@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "112.19.3",
+	"version": "112.20.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,6 +29,7 @@
 		"singleton": true
 	},
 	"exports": {
+		"./compiled-migration": "./src/compiled-migration/withCompiledMigration.tsx",
 		"./prosemirror-dom-metadata": "./src/prosemirror-dom-metadata/index.ts",
 		"./whitespace": "./src/whitespace/index.ts",
 		"./event-dispatcher": "./src/event-dispatcher/index.ts",

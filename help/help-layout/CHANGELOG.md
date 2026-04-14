@@ -1,5 +1,11 @@
 # @atlaskit/help-layout
 
+## 6.3.41
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.40
 
 ### Patch Changes

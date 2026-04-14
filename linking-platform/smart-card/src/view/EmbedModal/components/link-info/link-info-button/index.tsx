@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type MessageDescriptor, useIntl } from 'react-intl-next';
+import { type MessageDescriptor, useIntl } from 'react-intl';
 
 import { IconButton, type IconProp } from '@atlaskit/button/new';
 import Tooltip from '@atlaskit/tooltip';

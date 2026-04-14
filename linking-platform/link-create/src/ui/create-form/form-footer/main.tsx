@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { ButtonGroup } from '@atlaskit/button';
 import ErrorIcon from '@atlaskit/icon/core/status-error';

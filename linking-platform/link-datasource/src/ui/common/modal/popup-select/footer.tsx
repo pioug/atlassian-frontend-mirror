@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
 import { Flex, Inline } from '@atlaskit/primitives/compiled';

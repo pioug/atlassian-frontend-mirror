@@ -10,7 +10,7 @@ Please check our [package.json](https://bitbucket.org/atlassian/atlassian-fronte
 
 * \`react\`
 * \`react-dom\`
-* \`react-intl-next\`
+* \`react-intl\`
 * \`@atlaskit/link-provider\`
 
 `;

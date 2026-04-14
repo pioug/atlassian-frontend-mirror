@@ -1,56 +1,15 @@
 import React, { useCallback, useState } from 'react';
 
+import { IntlProvider, useIntl } from 'react-intl-next';
+
 import type { DocNode } from '@atlaskit/adf-schema';
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { processRawValueWithoutValidation } from '@atlaskit/editor-common/process-raw-value';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
-import { datePlugin } from '@atlaskit/editor-plugin-date';
-import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
-import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
-import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
-import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
-import { basePlugin } from '@atlaskit/editor-plugins/base';
-import { blockControlsPlugin } from '@atlaskit/editor-plugins/block-controls';
-import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
-import { breakoutPlugin } from '@atlaskit/editor-plugins/breakout';
-import { captionPlugin } from '@atlaskit/editor-plugins/caption';
-import { cardPlugin } from '@atlaskit/editor-plugins/card';
-import { codeBlockPlugin } from '@atlaskit/editor-plugins/code-block';
-import { compositionPlugin } from '@atlaskit/editor-plugins/composition';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';
-import { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';
-import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
-import { editorDisabledPlugin } from '@atlaskit/editor-plugins/editor-disabled';
-import { editorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
-import { emojiPlugin } from '@atlaskit/editor-plugins/emoji';
-import { expandPlugin } from '@atlaskit/editor-plugins/expand';
-import { extensionPlugin } from '@atlaskit/editor-plugins/extension';
-import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
-import { focusPlugin } from '@atlaskit/editor-plugins/focus';
-import { gridPlugin } from '@atlaskit/editor-plugins/grid';
-import { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';
-import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
-import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
-import { layoutPlugin } from '@atlaskit/editor-plugins/layout';
-import { listPlugin } from '@atlaskit/editor-plugins/list';
-import { mediaPlugin } from '@atlaskit/editor-plugins/media';
-import { mentionsPlugin } from '@atlaskit/editor-plugins/mentions';
-import { panelPlugin } from '@atlaskit/editor-plugins/panel';
-import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
-import { rulePlugin } from '@atlaskit/editor-plugins/rule';
-import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
-import { statusPlugin } from '@atlaskit/editor-plugins/status';
-import { tablesPlugin } from '@atlaskit/editor-plugins/table';
-import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
-import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
-import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
-import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
-import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
-import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Mapping, Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { Label } from '@atlaskit/form';
@@ -58,7 +17,10 @@ import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 import Textarea from '@atlaskit/textarea';
 import { token } from '@atlaskit/tokens';
+import { fullPagePreset } from '@atlassian/confluence-presets/full-page';
 import * as cljs from '@atlassian/content-reconciliation';
+import { createPromptEditor } from '@atlassian/editor-ai-injected-editors/prompt-editor';
+import { createPageEditorPluginAIOptions } from '@atlassian/editor-plugin-ai/ConfluencePrebuilt';
 
 const headerStyles = cssMap({
 	header: {
@@ -132,7 +94,13 @@ const removeFromStorage = (key: string) => {
 };
 
 const getStepsDiff = (originalDoc: DocNode, newDoc: DocNode, schema: Schema) => {
-	const steps = cljs.create_steps_via_diff(schema, originalDoc, newDoc);
+	const originalTransformed = processRawValueWithoutValidation(schema, originalDoc);
+	const newTransformed = processRawValueWithoutValidation(schema, newDoc);
+	const steps = cljs.create_steps_via_diff(
+		schema,
+		originalTransformed?.toJSON() ?? originalDoc,
+		newTransformed?.toJSON() ?? newDoc,
+	);
 	return mapSteps(steps, schema);
 };
 
@@ -153,7 +121,22 @@ const mapSteps = (steps: any[], schema: Schema) => {
 	return mappedSteps;
 };
 
-export default function FullPageDiffEditor(): React.JSX.Element {
+const editorPluginAIOptions = createPageEditorPluginAIOptions({
+	product: 'CONFLUENCE',
+	aiGlobalOptIn: { status: 'enabled', triggerOptInFlow: () => {} },
+	objectId: 'test-object-id',
+	PromptEditor: createPromptEditor({
+		linking: {
+			smartLinks: {},
+		},
+		featureFlags: {},
+	}),
+	isRovoEnabled: true,
+	onSubmit: () => {},
+});
+
+function FullPageDiffEditor(): React.JSX.Element {
+	const intl = useIntl();
 	const [originalDocText, setOriginalDocText] = useState(() =>
 		loadFromStorage(LS_KEY_ORIGINAL, defaultOriginalStr),
 	);
@@ -161,92 +144,197 @@ export default function FullPageDiffEditor(): React.JSX.Element {
 	const [error, setError] = useState<string | null>(null);
 
 	const { preset, editorApi } = usePreset(
-		(builder) =>
-			builder
-				.add(basePlugin)
-				.add(blockTypePlugin)
-				.add(focusPlugin)
-				.add(typeAheadPlugin)
-				.add(quickInsertPlugin)
-				.add(selectionPlugin)
-				.add(decorationsPlugin)
-				.add(layoutPlugin)
-				.add(listPlugin)
-				.add([analyticsPlugin, {}])
-				.add(contentInsertionPlugin)
-				.add(widthPlugin)
-				.add(statusPlugin)
-				.add(guidelinePlugin)
-				.add(textFormattingPlugin)
-				.add(textColorPlugin)
-				.add([
-					tablesPlugin,
-					{
-						tableOptions: {
-							advanced: true,
-							allowColumnResizing: true,
-							allowHeaderRow: true,
-							allowTableResizing: true,
+		() =>
+			fullPagePreset({
+				intl,
+				pluginOptions: {
+					base: {
+						__livePage: false,
+					},
+					hyperlink: {
+						editorAppearance: 'full-page',
+						linkPicker: undefined,
+						onClickCallback: undefined,
+					},
+					helpDialog: {
+						imageUploadProviderExists: false,
+						aiEnabled: false,
+					},
+					quickInsert: {
+						emptyStateHandler: undefined,
+					},
+					placeholder: {
+						viewMode: 'edit',
+						isAIEnabled: false,
+						isRovoLLMEnabled: false,
+					},
+					selection: {
+						__livePage: false,
+					},
+					breakout: {
+						editorAppearance: 'full-page',
+					},
+					expand: {
+						editorAppearance: 'full-page',
+						__livePage: false,
+					},
+					editorDisabled: {
+						disabled: undefined,
+					},
+					annotation: {
+						annotationManager: undefined,
+						createCommentExperience: undefined,
+						selectCommentExperience: undefined,
+						viewInlineCommentTraceUFOPress: undefined,
+					},
+					media: {
+						createCommentExperience: undefined,
+						editorAppearance: 'full-page',
+						mediaViewerExtensions: undefined,
+					},
+					mentions: {
+						handleMentionsChanged: () => {},
+					},
+					table: {
+						editorAppearance: 'full-page',
+						prevEditorAppearance: 'full-page',
+					},
+					tasksAndDecisions: {
+						hasEditPermission: true,
+						requestToEditContent: undefined,
+						hasRequestedEditPermission: undefined,
+					},
+					collabEdit: {
+						collabEdit: undefined,
+						__livePage: false,
+					},
+					contextPanel: undefined,
+					extension: {
+						editorAppearance: 'full-page',
+					},
+					layout: {
+						editorAppearance: 'full-page',
+					},
+					card: {
+						editorAppearance: 'full-page',
+						__livePage: false,
+						linkPicker: undefined,
+						onClickCallback: undefined,
+						CompetitorPrompt: undefined,
+					},
+					insertBlock: {
+						editorAppearance: 'full-page',
+						toolbarButtons: {
+							emoji: { enabled: true, showAt: 'lg' },
+							insert: { enabled: true, showAt: 'lg' },
+							layout: { enabled: true, showAt: 'lg' },
+							media: { enabled: true, showAt: 'lg' },
+							mention: { enabled: true, showAt: 'lg' },
+							table: { enabled: true, showAt: 'md' },
+							taskList: { enabled: true, showAt: 'lg' },
 						},
-						isTableScalingEnabled: true,
-						allowContextualMenu: true,
-						fullWidthEnabled: true,
 					},
-				])
-				.add(emojiPlugin)
-				.add(hyperlinkPlugin)
-				.add(unsupportedContentPlugin)
-				.add(mentionsPlugin)
-				.add(panelPlugin)
-				.add(rulePlugin)
-				.add(tasksAndDecisionsPlugin)
-				.add([expandPlugin, { allowInsertion: true, appearance: 'full-page' }])
-				.add(editorDisabledPlugin)
-				.add(datePlugin)
-				.add(copyButtonPlugin)
-				.add(compositionPlugin)
-				.add(codeBlockPlugin)
-				.add(codeBlockAdvancedPlugin)
-				.add(blockControlsPlugin)
-				.add(breakoutPlugin)
-				.add(gridPlugin)
-				.add(floatingToolbarPlugin)
-				.add([cardPlugin, { allowBlockCards: true, allowEmbeds: true }])
-				.add([editorViewModePlugin, { mode: 'view' }])
-				.add(highlightPlugin)
-				.add([
-					mediaPlugin,
-					{
-						allowMediaSingle: { disableLayout: false },
-						allowMediaGroup: true,
-						allowResizing: true,
-						isCopyPasteEnabled: true,
-						allowBreakoutSnapPoints: true,
-						allowAdvancedToolBarOptions: true,
-						allowDropzoneDropLine: true,
-						allowMediaSingleEditable: true,
-						allowImagePreview: true,
-						fullWidthEnabled: true,
-						waitForMediaUpload: true,
-						allowCaptions: true,
+					avatarGroup: {
+						collabEdit: undefined,
 					},
-				])
-				.add(captionPlugin)
-				.add([
-					annotationPlugin,
-					{
-						inlineComment: {},
-					} as AnnotationProviders,
-				])
-				.add(extensionPlugin)
-				.add([
-					showDiffPlugin,
-					{
+					codeBidiWarning: {
+						editorAppearance: 'full-page',
+					},
+					loom: {
+						renderButton: () => null,
+					},
+					editorViewMode: {
+						viewMode: 'edit',
+					},
+					limitedMode: {
+						killSwitchEnabled: true,
+					},
+					engagementPlatform: {
+						coordinationClient: {
+							start: () => Promise.resolve(false),
+							stop: () => Promise.resolve(false),
+						},
+					},
+					selectionExtension: {},
+					metrics: {},
+					primaryToolbar: {
+						contextualFormattingEnabled: true,
+					},
+					selectionToolbar: {
+						contextualFormattingEnabled: true,
+					},
+					selectionMarker: {
+						__livePage: false,
+					},
+					userPreferencesPlugin: {
+						initialToolbarDockingPosition: undefined,
+					},
+					ai: editorPluginAIOptions,
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					aiDefinitions: {} as any,
+					referentiality: {
+						referentialityContext: {
+							api: null,
+							options: {},
+						},
+					},
+					blockMenu: {
+						getLinkPath: () => '/some/path',
+						blockLinkHashPrefix: '',
+					},
+					contentFormat: undefined,
+					syncedBlock: undefined,
+					toolbar: {
+						contextualFormattingEnabled: 'controlled',
+					},
+					trackChanges: undefined,
+					showDiff: {
 						colorScheme: 'traditional',
 						originalDoc: { content: [], version: 1, type: 'doc' },
 						steps: [],
 					},
-				]),
+				},
+				providers: {
+					autoformattingProvider: undefined,
+					cardProvider: undefined,
+					collabEditProvider: undefined,
+					contextIdentifierProvider: undefined,
+					emojiNodeDataProvider: undefined,
+					emojiProvider: undefined,
+					inlineCommentAnnotationProvider: undefined,
+					mediaProvider: undefined,
+					mentionProvider: undefined,
+					profilecardProvider: undefined,
+					syncMediaProvider: undefined,
+					taskDecisionProvider: undefined,
+					userPreferencesProvider: undefined,
+				},
+				enabledOptionalPlugins: {
+					limitedMode: false,
+					findReplace: true,
+					referentiality: false,
+					loom: false,
+					aiExperience: false,
+					aiDefinitions: false,
+					connectivity: true,
+					metrics: false,
+					codeBlockAdvanced: true,
+					selectionExtension: false,
+					interaction: false,
+					floatingToolbar: true,
+					userPreferences: true,
+					showDiff: true,
+					trackChanges: true,
+					toolbar: true,
+					blockMenu: true,
+					localId: true,
+					aiStreamingOrchestrator: false,
+					syncedBlock: false,
+					codeBidiWarning: false,
+					contentFormat: false,
+					uiControlRegistry: true,
+				},
+			}),
 		[],
 	);
 
@@ -278,7 +366,7 @@ export default function FullPageDiffEditor(): React.JSX.Element {
 			const newDocJson: DocNode = JSON.parse(newDocText);
 
 			// Validate documents via JSONTransformer (throws if invalid ADF)
-			const originalNode = transformer.parse(originalDocJson);
+			const originalNode = processRawValueWithoutValidation(schema, originalDocJson)!;
 			transformer.parse(newDocJson);
 
 			// Update the editor document to the new doc before showing the diff
@@ -375,5 +463,13 @@ export default function FullPageDiffEditor(): React.JSX.Element {
 
 			<ComposableEditor appearance="full-page" preset={preset} defaultValue={DEFAULT_NEW_DOC} />
 		</Stack>
+	);
+}
+
+export default function FullPageDiffEditorExample(): React.JSX.Element {
+	return (
+		<IntlProvider locale="en">
+			<FullPageDiffEditor />
+		</IntlProvider>
 	);
 }

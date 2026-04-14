@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "128.9.7",
+	"version": "128.10.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -215,9 +215,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_ai_adf_prompts_in_all_products": {
-			"type": "boolean"
-		},
-		"rovo_chat_deep_linking_enabled": {
 			"type": "boolean"
 		},
 		"jfp-magma-ssr-iv-editor-codeblock": {

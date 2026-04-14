@@ -31,11 +31,27 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type PlaceholderPlugin = NextEditorPlugin<
+export interface PlaceholderPluginOptions {
+  emptyLinePlaceholder?: string;
+  enableLoadingSpinner?: boolean;
+  isPlaceholderHidden?: boolean;
+  placeholder?: string;
+  placeholderADF?: DocNode;
+  placeholderBracketHint?: string;
+  placeholderPrompts?: string[];
+  withEmptyParagraph?: boolean;
+}
+
+export type PlaceholderPlugin = NextEditorPlugin<
   'placeholder',
   {
+    commands: {
+      setAnimatingPlaceholderPrompts: (placeholderPrompts: string[]) => EditorCommand;
+      setPlaceholder: (placeholder: string) => EditorCommand;
+      setPlaceholderHidden: (isPlaceholderHidden: boolean) => EditorCommand;
+    };
+    dependencies: [FocusPlugin, CompositionPlugin, TypeAheadPlugin, OptionalPlugin<ShowDiffPlugin>];
     pluginConfiguration: PlaceholderPluginOptions | undefined;
-    dependencies: [FocusPlugin, CompositionPlugin, TypeAheadPlugin];
   }
 >;
 `}

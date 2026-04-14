@@ -206,7 +206,7 @@ events:
       type: ui
       description: Fired when sending prompt to RovoChat via click
       attributes:
-        <<: [ *PackageMetaDataContext, *ResolvedContext, *ClientActionAttributes ]
+        <<: [*PackageMetaDataContext, *ResolvedContext, *ClientActionAttributes]
         prompt:
           required: false
           type: string
@@ -607,6 +607,23 @@ events:
           required: false
           type: boolean
           description: Whether a modifier key was pressed when clicking the Smart Link.
+  - smartLink visited:
+      type: ui
+      description: fires an event that represents when a user visits a Smart Link target.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        id:
+          required: true
+          type: string
+          description: The unique ID for this Smart Link.
+        display:
+          required: true
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          description: Whether the card was an Inline, Block, Embed or Flexible UI
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
   - smartLink clicked (titleGoToLink):
       type: ui
       description: fires an event that represents when a user clicks on a Smart Link.

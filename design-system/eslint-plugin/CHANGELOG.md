@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 14.0.0
+
+### Major Changes
+
+- [`b1e060ffdd070`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1e060ffdd070) -
+  Remove no-custom-icons ESLint rule
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.44.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.44.1
 
 ### Patch Changes

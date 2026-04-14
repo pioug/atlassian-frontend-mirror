@@ -5,7 +5,7 @@
 import { Fragment, useRef } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { di } from 'react-magnetic-di';
 
 import { RovoIcon } from '@atlaskit/logo';

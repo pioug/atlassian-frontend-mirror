@@ -1,5 +1,29 @@
 # @atlaskit/renderer
 
+## 128.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 128.10.0
+
+### Minor Changes
+
+- [`8c4b93f5779f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c4b93f5779f8) -
+  [ux] This change removes the `rovo_chat_deep_linking_enabled` feature gate that was gating Rovo
+  chat deep linking functionality.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 128.9.7
 
 ### Patch Changes

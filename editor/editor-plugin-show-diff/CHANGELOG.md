@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 6.3.0
+
+### Minor Changes
+
+- [`5d32941f15d07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d32941f15d07) -
+  EDITOR-5949: Change diffing logic to support closest block diffs + preliminary support for row
+  diffs.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.18
+
+### Patch Changes
+
+- [`fa146e17e08d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa146e17e08d6) -
+  Update README.md and 0-intro.tsx
+
 ## 6.2.17
 
 ### Patch Changes

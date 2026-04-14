@@ -5,7 +5,7 @@
 import { memo, type MemoExoticComponent } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next';
+import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl';
 
 import { ButtonGroup } from '@atlaskit/button';
 import Button from '@atlaskit/button/new';

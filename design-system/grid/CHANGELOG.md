@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.18.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.18.23
 
 ### Patch Changes

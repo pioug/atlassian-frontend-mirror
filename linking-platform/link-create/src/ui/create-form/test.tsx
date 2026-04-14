@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { axe } from '@af/accessibility-testing';
 import { flushPromises } from '@atlaskit/link-test-helpers';

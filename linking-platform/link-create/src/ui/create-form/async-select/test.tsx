@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, render, screen } from '@testing-library/react';
 import { Form } from 'react-final-form';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { AsyncSelect as AkAsyncSelect } from '@atlaskit/select';

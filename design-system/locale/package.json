@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/locale",
-	"version": "3.0.4",
+	"version": "4.0.0",
 	"description": "Utility functions for handling localization",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,7 +26,8 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./LocaleSelect": "./src/locale-select.tsx"
+		"./LocaleSelect": "./src/locale-select.tsx",
+		"./default-locales": "./src/default-locales.tsx"
 	},
 	"atlassian": {
 		"team": "Design System Team",

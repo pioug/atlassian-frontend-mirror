@@ -1,5 +1,28 @@
 # @atlaskit/editor-presets
 
+## 0.2.0
+
+### Minor Changes
+
+- [`375155c440374`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/375155c440374) -
+  Add FullPagePresetNext
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.4
 
 ### Patch Changes

@@ -31,16 +31,14 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type RulePlugin = NextEditorPlugin<
+export type RulePlugin = NextEditorPlugin<
   'rule',
   {
-    pluginConfiguration: undefined;
-    dependencies: [
-      OptionalPlugin<AnalyticsPlugin>
-    ];
     actions: {
       insertHorizontalRule: ReturnType<typeof insertHorizontalRule>;
     };
+    dependencies: [OptionalPlugin<AnalyticsPlugin>];
+    pluginConfiguration: undefined;
   }
 >;
 `}

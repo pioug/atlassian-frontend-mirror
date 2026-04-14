@@ -265,7 +265,11 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 					productType: product,
 				};
 			}
-			case 'jira-work-item':
+			case 'jira-work-item': {
+				// Note: `subType`, archived URL handling, and `isUnpublished` are intentionally
+				// omitted here — Jira work items have no equivalent page subtype or archived state.
+				// The `localId` param is not forwarded because deep-linking to a specific block
+				// within a Jira issue description is working as intended without it.
 				const sourceInfo: SyncBlockSourceInfo | undefined = await fetchJiraWorkItemInfo(
 					ari,
 					hasAccess,
@@ -278,6 +282,7 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 					onSameDocument: this.writeProvider?.parentAri === ari,
 					productType: product,
 				};
+			}
 			default:
 				return Promise.reject(new Error(`${product} source product not supported`));
 		}
@@ -328,7 +333,10 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 					contentProduct: sourceProduct,
 				};
 			case 'jira-work-item':
-				throw new Error('Jira work item source product not supported');
+				return {
+					contentId: sourceAri,
+					contentProduct: sourceProduct,
+				};
 			default:
 				throw new Error(`${sourceProduct} source product not supported`);
 		}

@@ -1,9 +1,22 @@
-# Editor plugin feedback dialog
+# Editor Plugin Feedback Dialog
 
 Feedback dialog plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Feedback Dialog plugin provides a streamlined way to collect user feedback directly from within the Atlassian Editor. It integrates with the Jira Issue Collector to capture feature requests, bug reports, and general feedback, including relevant context about the editor environment, browser, and device information.
+
+## Key features
+
+- **Feedback collection** - Capture user feedback directly from the editor interface
+- **Contextual information** - Automatically include editor version, package name, and session details
+- **Environment details** - Collect browser and device information for better issue diagnosis
+- **Quick Insert integration** - Accessible through the editor's quick insert menu
+- **Analytics integration** - Track feedback dialog interactions and user engagement
+- **Customizable labels** - Support for custom tags to organize feedback by product or feature
 
 ## Install
 ---

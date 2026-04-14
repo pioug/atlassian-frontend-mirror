@@ -1,4 +1,4 @@
-import { type IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl';
 
 import { errorMessages } from '../messages';
 

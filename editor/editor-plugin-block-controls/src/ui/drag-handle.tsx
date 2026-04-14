@@ -1013,10 +1013,11 @@ export const DragHandle = ({
 				top:
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
-						: `calc(anchor(${safeAnchorName} start)+ ${topPositionAdjustment(
+						: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(
 								expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
 									: nodeType,
+								dom?.getAttribute('layout') || '',
 							)}px)`,
 
 				...bottom,
@@ -1117,6 +1118,7 @@ export const DragHandle = ({
 								expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
 									: nodeType,
+								dom?.getAttribute('layout') || '',
 							)}px)`,
 
 				...bottom,

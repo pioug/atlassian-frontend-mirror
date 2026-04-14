@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { getUserRecommendations, type OptionData } from '@atlaskit/smart-user-picker';
 

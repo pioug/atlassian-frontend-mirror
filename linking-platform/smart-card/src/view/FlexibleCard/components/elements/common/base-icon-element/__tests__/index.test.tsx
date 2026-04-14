@@ -5,7 +5,7 @@
 import { PureComponent } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';

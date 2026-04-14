@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::2ac59844fbf026b9d6d9f15c15b0635d>>
+ * @codegen <<SignedSource::18b8254ef184bd32e1ba88b25bbce029>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:structured-docs-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -381,7 +381,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['banner', 'message', 'notification', 'alert', 'prominent', 'top', 'screen'],
 		category: 'messaging',
 		examples: [
-			'import Banner from \'@atlaskit/banner\';\nimport WarningIcon from \'@atlaskit/icon/core/status-warning\';\nimport Box from \'@atlaskit/primitives/box\';\nexport default (): React.JSX.Element => (\n\t<Box>\n\t\t<Banner icon={<WarningIcon label="Warning" spacing="spacious" />} testId="basicTestId">\n\t\t\tYour license is about to expire. Please renew your license within the next week.\n\t\t</Banner>\n\t</Box>\n);',
+			"import Banner from '@atlaskit/banner';\nimport { cssMap } from '@atlaskit/css';\nimport WarningIcon from '@atlaskit/icon/core/status-warning';\nimport Box from '@atlaskit/primitives/box';\nimport { Flex } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nconst iconSpacingStyles = cssMap({\n\tspace050: {\n\t\tpaddingBlock: token('space.050'),\n\t\tpaddingInline: token('space.050'),\n\t},\n});\nexport default (): React.JSX.Element => (\n\t<Box>\n\t\t<Banner\n\t\t\ticon={\n\t\t\t\t<Flex xcss={iconSpacingStyles.space050}>\n\t\t\t\t\t<WarningIcon label=\"Warning\" />\n\t\t\t\t</Flex>\n\t\t\t}\n\t\t\ttestId=\"basicTestId\"\n\t\t>\n\t\t\tYour license is about to expire. Please renew your license within the next week.\n\t\t</Banner>\n\t</Box>\n);",
 		],
 		props: [
 			{
@@ -3301,7 +3301,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['form', 'validation', 'field', 'input', 'submit', 'state'],
 		category: 'form',
 		examples: [
-			'import Button from \'@atlaskit/button/new\';\nimport { Checkbox } from \'@atlaskit/checkbox\';\nimport Form, { CheckboxField, ErrorMessage, Field, FormFooter, FormHeader } from \'@atlaskit/form\';\nimport TextField from \'@atlaskit/textfield\';\nconst Example = (): React.JSX.Element => (\n\t<Form onSubmit={(data) => console.log(\'validated form\', data)}>\n\t\t<FormHeader title="Basic Form">\n\t\t\t<p>Fill out the form below</p>\n\t\t</FormHeader>\n\t\t<Field\n\t\t\tname="username"\n\t\t\tlabel="Username"\n\t\t\tisRequired\n\t\t\tvalidate={(value) => (value && value.length < 3 ? \'Too short\' : undefined)}\n\t\t>\n\t\t\t{({ fieldProps, error }) => (\n\t\t\t\t<>\n\t\t\t\t\t<TextField {...fieldProps} />\n\t\t\t\t\t{error && <ErrorMessage>Username must be at least 3 characters</ErrorMessage>}\n\t\t\t\t</>\n\t\t\t)}\n\t\t</Field>\n\t\t<CheckboxField name="terms" value="terms">\n\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="I accept the terms" />}\n\t\t</CheckboxField>\n\t\t<FormFooter>\n\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\tCreate Account\n\t\t\t</Button>\n\t\t</FormFooter>\n\t</Form>\n);\nexport default Example;',
+			'import Button from \'@atlaskit/button/new\';\nimport { Checkbox } from \'@atlaskit/checkbox\';\nimport Form, { CheckboxField, Field, FormFooter, FormHeader } from \'@atlaskit/form\';\nimport TextField from \'@atlaskit/textfield\';\nconst Example = (): React.JSX.Element => (\n\t<Form onSubmit={(data) => console.log(\'validated form\', data)}>\n\t\t<FormHeader title="Basic Form">\n\t\t\t<p>Fill out the form below</p>\n\t\t</FormHeader>\n\t\t<Field\n\t\t\tname="username"\n\t\t\tlabel="Username"\n\t\t\tisRequired\n\t\t\tvalidate={(value) =>\n\t\t\t\tvalue && value.length < 3 ? \'Username must be at least 3 characters\' : undefined\n\t\t\t}\n\t\t\tcomponent={({ fieldProps }) => <TextField {...fieldProps} />}\n\t\t/>\n\t\t<CheckboxField name="terms" value="terms">\n\t\t\t{({ fieldProps }) => <Checkbox {...fieldProps} label="I accept the terms" />}\n\t\t</CheckboxField>\n\t\t<FormFooter>\n\t\t\t<Button type="submit" appearance="primary">\n\t\t\t\tCreate Account\n\t\t\t</Button>\n\t\t</FormFooter>\n\t</Form>\n);\nexport default Example;',
 		],
 		props: [
 			{
@@ -3891,44 +3891,32 @@ export const components: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
-				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				name: 'color',
+				type: '"var(--ds-link-pressed)" | "var(--ds-link-visited-pressed)" | "var(--ds-link)" | "var(--ds-link-visited)" | "var(--ds-icon)" | "var(--ds-icon-accent-lime)" | "var(--ds-icon-accent-red)" | ... 58 more ... | "currentColor"',
 				description:
-					"The content to be rendered inside the glyph component.\nOnly for legacy icons that used R16's implicit children prop.\nIt doesn't actually serve any purpose, but is required to resolve R18 type errors\nwithout updating all the legacy icon usages.",
-			},
-			{
-				name: 'glyph',
-				type: 'ComponentClass<CustomGlyphProps, any> | FunctionComponent<CustomGlyphProps>',
-				description:
-					'Custom icon component that returns an SVG element with set `viewBox`,\n`width`, and `height` props.',
-			},
-			{
-				name: 'isFacadeDisabled',
-				type: 'boolean',
-				description: 'Used to opt out of the icon facade.',
+					"Color for the icon. Supports any icon or text design token, or 'currentColor' to inherit the current text color.\nDefaults to `currentColor`, inheriting the current text color.",
 			},
 			{
 				name: 'label',
 				type: 'string',
-				description: 'Text used to describe what the icon is in context.',
+				description:
+					'Text used to describe what the icon is in context.\nA label is needed when there is no pairing visible text next to the icon.\nAn empty string marks the icon as presentation only.',
 				isRequired: true,
 			},
 			{
-				name: 'primaryColor',
+				name: 'name',
 				type: 'string',
-				description: 'Primary color for the icon.\nInherits the current font color by default.',
+				description: 'Display name of the icon.',
 			},
 			{
-				name: 'secondaryColor',
-				type: 'string',
-				description:
-					'Secondary color for the icon.\nDefaults to the page background for an icon that supports two colors.',
+				name: 'shouldRecommendSmallIcon',
+				type: 'boolean',
 			},
 			{
 				name: 'size',
-				type: '"small" | "medium" | "large" | "xlarge"',
+				type: 'IconSize | ((iconName: string) => IconSize)',
 				description:
-					'There are three icon sizes – small (16px), medium (24px), and large (32px).\nThis pixel size refers to the canvas the icon sits on,\nnot the size of the icon shape itself.',
+					"There are two icon sizes available:\n- `medium` - 16px. (default).\n- `small` - 12px.\n\nAlternatively a function can be passed to determine the size\nbased on the icon's name, which can be useful for dynamic rendering.",
 			},
 		],
 	},
@@ -4668,7 +4656,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['menu', 'button', 'item', 'action'],
 		category: 'navigation',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@compiled/react';\nimport { ButtonItem } from '@atlaskit/menu';\nimport { B400, B50, N10, N30, N500 } from '@atlaskit/theme/colors';\nimport { token } from '@atlaskit/tokens';\nimport ImgIcon from '../common/img-icon';\nimport Yeti from '../icons/yeti.png';\n// Mimics overrides in side-navigation\nconst styles = cssMap({\n\troot: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.300'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.300'),\n\t\tborderRadius: token('radius.small'),\n\t\tbackgroundColor: N10,\n\t\tcolor: N500,\n\t\t'&:hover': {\n\t\t\tbackgroundColor: N30,\n\t\t\ttextDecoration: 'none',\n\t\t\tcolor: N500,\n\t\t},\n\t\t'&:active': {\n\t\t\tcolor: B400,\n\t\t\tbackgroundColor: B50,\n\t\t\tboxShadow: 'none',\n\t\t},\n\t\t'[data-item-elem-before]': {\n\t\t\tdisplay: 'flex',\n\t\t\theight: 8 * 1.25,\n\t\t\twidth: 8 * 1.25,\n\t\t\talignItems: 'center',\n\t\t\tjustifyContent: 'center',\n\t\t\tmarginRight: token('space.200'),\n\t\t},\n\t},\n\tdisabled: {\n\t\tcolor: token('color.text.disabled'),\n\t\tbackgroundColor: N10,\n\t\t'&:hover, &:active': {\n\t\t\tbackgroundColor: N10,\n\t\t\tcolor: token('color.text.disabled'),\n\t\t},\n\t},\n});\nconst _default: () => JSX.Element = () => (\n\t<div >\n\t\t<ButtonItem isSelected>Activate</ButtonItem>\n\t\t<ButtonItem isDisabled>Activate</ButtonItem>\n\t\t<ButtonItem>Activate</ButtonItem>\n\t\t<ButtonItem description=\"Next-gen software project\">Activate</ButtonItem>\n\t\t<ButtonItem description=\"Legacy software project\" isDisabled>\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem iconBefore={<ImgIcon src={Yeti} alt=\"\" />} description=\"Next-gen software project\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem css={styles.root} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem isDisabled css={[styles.root, styles.disabled]} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem css={styles.root} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t</div>\n);\nexport default _default;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@compiled/react';\nimport { ButtonItem } from '@atlaskit/menu';\nimport { token } from '@atlaskit/tokens';\nimport ImgIcon from '../common/img-icon';\nimport Yeti from '../icons/yeti.png';\n// Mimics overrides in side-navigation\nconst styles = cssMap({\n\troot: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.300'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.300'),\n\t\tborderRadius: token('radius.small'),\n\t\tbackgroundColor: '#FAFBFC',\n\t\tcolor: '#42526E',\n\t\t'&:hover': {\n\t\t\tbackgroundColor: '#EBECF0',\n\t\t\ttextDecoration: 'none',\n\t\t\tcolor: '#42526E',\n\t\t},\n\t\t'&:active': {\n\t\t\tcolor: '#0052CC',\n\t\t\tbackgroundColor: '#DEEBFF',\n\t\t\tboxShadow: 'none',\n\t\t},\n\t\t'[data-item-elem-before]': {\n\t\t\tdisplay: 'flex',\n\t\t\theight: 8 * 1.25,\n\t\t\twidth: 8 * 1.25,\n\t\t\talignItems: 'center',\n\t\t\tjustifyContent: 'center',\n\t\t\tmarginInlineEnd: token('space.200'),\n\t\t},\n\t},\n\tdisabled: {\n\t\tcolor: token('color.text.disabled'),\n\t\tbackgroundColor: '#FAFBFC',\n\t\t'&:hover, &:active': {\n\t\t\tbackgroundColor: '#FAFBFC',\n\t\t\tcolor: token('color.text.disabled'),\n\t\t},\n\t},\n});\nconst _default: () => JSX.Element = () => (\n\t<div >\n\t\t<ButtonItem isSelected>Activate</ButtonItem>\n\t\t<ButtonItem isDisabled>Activate</ButtonItem>\n\t\t<ButtonItem>Activate</ButtonItem>\n\t\t<ButtonItem description=\"Next-gen software project\">Activate</ButtonItem>\n\t\t<ButtonItem description=\"Legacy software project\" isDisabled>\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem iconBefore={<ImgIcon src={Yeti} alt=\"\" />} description=\"Next-gen software project\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem css={styles.root} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem isDisabled css={[styles.root, styles.disabled]} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem css={styles.root} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t</div>\n);\nexport default _default;",
 		],
 		props: [
 			{
@@ -4756,7 +4744,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['menu', 'custom', 'item', 'component'],
 		category: 'navigation',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@compiled/react';\nimport { CustomItem, type CustomItemComponentProps } from '@atlaskit/menu';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { B100 } from '@atlaskit/theme/colors';\nimport Slack from '../icons/slack';\ntype CustomComponentWithHrefProps = CustomItemComponentProps & {\n\thref: string;\n};\nconst CustomComponent = ({ children, href, ...props }: CustomComponentWithHrefProps) => {\n\treturn (\n\t\t<a href={href} {...props}>\n\t\t\t{children}\n\t\t</a>\n\t);\n};\nconst styles = cssMap({\n\troot: {\n\t\tposition: 'relative',\n\t\toverflow: 'hidden',\n\t\tuserSelect: 'none',\n\t},\n\tinteractive: {\n\t\t'&::before': {\n\t\t\tcontent: '\"\"',\n\t\t\tposition: 'absolute',\n\t\t\tleft: 0,\n\t\t\ttop: 0,\n\t\t\tbottom: 0,\n\t\t\twidth: 3,\n\t\t\ttransform: 'translateX(-1px)',\n\t\t\ttransition: 'transform 70ms ease-in-out',\n\t\t\tbackgroundColor: B100,\n\t\t},\n\t\t'&:hover::before': {\n\t\t\ttransform: 'translateX(0)',\n\t\t},\n\t},\n});\nconst _default: () => JSX.Element = () => (\n\t/**\n\t * It is not normally acceptable to add click handlers to non-interactive elements\n\t * as this is an accessibility anti-pattern. However, because this instance is\n\t * for performance reasons (to avoid multiple click handlers) and not creating an\n\t * inaccessible custom element, we can add role=\"presentation\" so that there is\n\t * no negative impacts to assistive technologies.\n\t */\n\t<Box onClick={(e: React.MouseEvent) => e.preventDefault()} role=\"presentation\">\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system\"\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\tCustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-1\"\n\t\t\tisSelected\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\tisSelected CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-2\"\n\t\t\tisDisabled\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={styles.root}\n\t\t>\n\t\t\tisDisabled CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-3\"\n\t\t\tcomponent={CustomComponent}\n\t\t\ticonBefore={<Slack aria-label=\"\" />}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\ticonBefore CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-4\"\n\t\t\tcomponent={CustomComponent}\n\t\t\ticonBefore={<Slack aria-label=\"\" />}\n\t\t\tdescription=\"Next-gen software project\"\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\ticonBefore and description CustomItem\n\t\t</CustomItem>\n\t</Box>\n);\nexport default _default;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@compiled/react';\nimport { CustomItem, type CustomItemComponentProps } from '@atlaskit/menu';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport Slack from '../icons/slack';\ntype CustomComponentWithHrefProps = CustomItemComponentProps & {\n\thref: string;\n};\nconst CustomComponent = ({ children, href, ...props }: CustomComponentWithHrefProps) => {\n\treturn (\n\t\t<a href={href} {...props}>\n\t\t\t{children}\n\t\t</a>\n\t);\n};\nconst styles = cssMap({\n\troot: {\n\t\tposition: 'relative',\n\t\toverflow: 'hidden',\n\t\tuserSelect: 'none',\n\t},\n\tinteractive: {\n\t\t'&::before': {\n\t\t\tcontent: '\"\"',\n\t\t\tposition: 'absolute',\n\t\t\tinsetInlineStart: 0,\n\t\t\tinsetBlockStart: 0,\n\t\t\tinsetBlockEnd: 0,\n\t\t\twidth: 3,\n\t\t\ttransform: 'translateX(-1px)',\n\t\t\ttransition: 'transform 70ms ease-in-out',\n\t\t\tbackgroundColor: '#4C9AFF',\n\t\t},\n\t\t'&:hover::before': {\n\t\t\ttransform: 'translateX(0)',\n\t\t},\n\t},\n});\nconst _default: () => JSX.Element = () => (\n\t/**\n\t * It is not normally acceptable to add click handlers to non-interactive elements\n\t * as this is an accessibility anti-pattern. However, because this instance is\n\t * for performance reasons (to avoid multiple click handlers) and not creating an\n\t * inaccessible custom element, we can add role=\"presentation\" so that there is\n\t * no negative impacts to assistive technologies.\n\t */\n\t<Box onClick={(e: React.MouseEvent) => e.preventDefault()} role=\"presentation\">\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system\"\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\tCustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-1\"\n\t\t\tisSelected\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\tisSelected CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-2\"\n\t\t\tisDisabled\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={styles.root}\n\t\t>\n\t\t\tisDisabled CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-3\"\n\t\t\tcomponent={CustomComponent}\n\t\t\ticonBefore={<Slack aria-label=\"\" />}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\ticonBefore CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-4\"\n\t\t\tcomponent={CustomComponent}\n\t\t\ticonBefore={<Slack aria-label=\"\" />}\n\t\t\tdescription=\"Next-gen software project\"\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\ticonBefore and description CustomItem\n\t\t</CustomItem>\n\t</Box>\n);\nexport default _default;",
 		],
 		props: [
 			{
@@ -5853,7 +5841,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'popupComponent',
-				type: 'ComponentType<PopupComponentProps> | ForwardRefExoticComponent<Omit<PopupComponentProps, "ref"> & RefAttributes<HTMLDivElement>>',
+				type: 'ComponentType<PopupComponentProps> | ForwardRefExoticComponent<PopupComponentProps & RefAttributes<HTMLDivElement>>',
 				description:
 					'The element that is shown when `isOpen` prop is `true`.\nThe result of the `content` prop will be placed as children here.\nThe default is an element with an elevation of `e200` with _no padding_.',
 			},
@@ -5975,6 +5963,12 @@ export const components: ComponentMcpPayload[] = [
 				name: 'children',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				isRequired: true,
+			},
+			{
+				name: 'isClosed',
+				type: 'boolean',
+				description: 'Whether the portal is closed.',
+				defaultValue: 'false',
 			},
 			{
 				name: 'mountStrategy',
@@ -6711,7 +6705,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"small" | "large" | "medium" | "UNSAFE_small"',
+				type: '"small" | "large" | "medium"',
 				description: 'Text size.',
 			},
 			{
@@ -7686,12 +7680,6 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Placeholder for the select value',
 			},
 			{
-				name: 'shouldKeepInputOnSelect',
-				type: 'boolean',
-				description:
-					'If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.',
-			},
-			{
 				name: 'shouldPreventEscapePropagation',
 				type: 'boolean',
 				description: 'Prevents "Escape" keydown event propagation',
@@ -8019,12 +8007,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				description: 'Placeholder for the select value',
-			},
-			{
-				name: 'shouldKeepInputOnSelect',
-				type: 'boolean',
-				description:
-					'If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.',
 			},
 			{
 				name: 'shouldPreventEscapePropagation',
@@ -8356,12 +8338,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				description: 'Placeholder for the select value',
-			},
-			{
-				name: 'shouldKeepInputOnSelect',
-				type: 'boolean',
-				description:
-					'If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.',
 			},
 			{
 				name: 'shouldPreventEscapePropagation',
@@ -8751,12 +8727,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				description: 'Placeholder for the select value',
-			},
-			{
-				name: 'shouldKeepInputOnSelect',
-				type: 'boolean',
-				description:
-					'If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.',
 			},
 			{
 				name: 'shouldPreventEscapePropagation',
@@ -9475,12 +9445,6 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Placeholder for the select value',
 			},
 			{
-				name: 'shouldKeepInputOnSelect',
-				type: 'boolean',
-				description:
-					'If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.',
-			},
-			{
 				name: 'shouldPreventEscapePropagation',
 				type: 'boolean',
 				description: 'Prevents "Escape" keydown event propagation',
@@ -9888,12 +9852,6 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Placeholder for the select value',
 			},
 			{
-				name: 'shouldKeepInputOnSelect',
-				type: 'boolean',
-				description:
-					'If `true`, the input value will be kept when an option is selected and isMulti is `true`. The default is `false`.',
-			},
-			{
 				name: 'shouldPreventEscapePropagation',
 				type: 'boolean',
 				description: 'Prevents "Escape" keydown event propagation',
@@ -10194,6 +10152,12 @@ export const components: ComponentMcpPayload[] = [
 					'Handler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.\nHandler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.\nHandler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.',
 			},
 			{
+				name: 'onClick',
+				type: '(e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				description:
+					'Handler called when the tag is clicked. Only fires for link tags (when href is provided).\nThe second argument provides an Atlaskit UI analytics event.\nHandler called when the tag is clicked. Only fires for link tags (when href is provided).\nThe second argument provides an Atlaskit UI analytics event.\nHandler called when the tag is clicked. Only fires for link tags (when href is provided).\nThe second argument provides an Atlaskit UI analytics event.',
+			},
+			{
 				name: 'removeButtonLabel',
 				type: 'string',
 				description:
@@ -10298,6 +10262,12 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Text rendered as the aria-label for remove button.',
 			},
 			{
+				name: 'swatchBefore',
+				type: 'boolean | TagSwatchBeforeTokenName',
+				description:
+					"@internal\n**Temporary / Internal only for migration.**\n\nEXPERIMENTAL - Leading color swatch (12×12px), rendered before `elemBefore`.\n- `true`: uses `color.background.accent.<color>.subtle` for swatch color\n- Pass a design token (e.g. `token('color.background.accent.red.subtle')`)",
+			},
+			{
 				name: 'text',
 				type: 'string',
 				description: 'Text to be displayed in the tag.',
@@ -10362,6 +10332,12 @@ export const components: ComponentMcpPayload[] = [
 				type: 'string',
 				description:
 					"@internal\n**Temporary / Internal only for migration.**\n\nWhen set to `'lozenge'` and the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts`\nis OFF, renders as a Lozenge component instead of Tag. This enables safe, staged migration\nfrom Lozenge to Tag for large consumers.\n\nThis prop will be removed via codemod after migration is complete.",
+			},
+			{
+				name: 'swatchBefore',
+				type: 'boolean | TagSwatchBeforeTokenName',
+				description:
+					"@internal\n**Temporary / Internal only for migration.**\n\nEXPERIMENTAL - Leading color swatch (12×12px), rendered before `elemBefore`.\n- `true`: uses `color.background.accent.<color>.subtle` for swatch color\n- Pass a design token (e.g. `token('color.background.accent.red.subtle')`)",
 			},
 			{
 				name: 'text',
@@ -10459,6 +10435,12 @@ export const components: ComponentMcpPayload[] = [
 				name: 'removeButtonLabel',
 				type: 'string',
 				description: 'Text rendered as the aria-label for remove button.',
+			},
+			{
+				name: 'swatchBefore',
+				type: 'boolean | TagSwatchBeforeTokenName',
+				description:
+					"@internal\n**Temporary / Internal only for migration.**\n\nEXPERIMENTAL - Leading color swatch (12×12px), rendered before `elemBefore`.\n- `true`: uses `color.background.accent.<color>.subtle` for swatch color\n- Pass a design token (e.g. `token('color.background.accent.red.subtle')`)",
 			},
 			{
 				name: 'text',

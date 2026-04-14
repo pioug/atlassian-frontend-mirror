@@ -12,7 +12,6 @@ const DESIRED_PKG_VERSIONS: Record<string, string[]> = {
 	tslib: ['2.6', '2.8'],
 	'@types/react': ['16.14', '18.2', '18.3'],
 	'react-relay': ['npm:atl-react-relay@0.0.0-main-39e79f66'],
-	'relay-compiler': ['npm:atl-relay-compiler@0.0.0-main-39e79f66'],
 	'relay-runtime': ['npm:atl-relay-runtime@0.0.0-main-39e79f66'],
 	'relay-test-utils': ['npm:atl-relay-test-utils@0.0.0-main-39e79f66'],
 };

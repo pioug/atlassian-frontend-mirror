@@ -377,6 +377,19 @@ export type InsertSourceSyncedBlockPayload = InsertAEP<
 	undefined
 >;
 
+type InsertSnippetAEP = InsertAEP<
+	ACTION_SUBJECT_ID.SNIPPET,
+	{ inputMethod: INPUT_METHOD.QUICK_INSERT; snippetId: string },
+	undefined
+>;
+
+type FailedToInsertSnippetAEP = OperationalAEP<
+	ACTION.FAILED_TO_INSERT,
+	ACTION_SUBJECT.DOCUMENT,
+	ACTION_SUBJECT_ID.SNIPPET,
+	{ reason: 'emptyBody' | 'parseError'; snippetId: string }
+>;
+
 export type InsertEventPayload =
 	| InsertDividerAEP
 	| InsertLineBreakAEP
@@ -402,4 +415,6 @@ export type InsertEventPayload =
 	| InsertNativeEmbedAEP
 	| FailedToInsertMediaPayload
 	| InsertReferenceSyncedBlockPayload
-	| InsertSourceSyncedBlockPayload;
+	| InsertSourceSyncedBlockPayload
+	| InsertSnippetAEP
+	| FailedToInsertSnippetAEP;

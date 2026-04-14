@@ -5,7 +5,7 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { DiProvider, injectable } from 'react-magnetic-di';
 import ImageLoader from 'react-render-image';
 

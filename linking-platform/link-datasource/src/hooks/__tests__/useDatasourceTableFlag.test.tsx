@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, renderHook, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';

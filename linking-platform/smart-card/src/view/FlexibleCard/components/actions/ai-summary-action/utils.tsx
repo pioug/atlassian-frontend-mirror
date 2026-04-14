@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { getAISummaryErrorMessage } from '../../../../../utils/ai-summary';
 import AIEventErrorViewed from '../../common/ai-summary/ai-event-error-viewed';

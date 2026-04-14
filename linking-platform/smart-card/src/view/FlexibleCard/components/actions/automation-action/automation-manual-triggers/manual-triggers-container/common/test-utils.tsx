@@ -2,7 +2,7 @@ import React, { Component, type ComponentProps, Fragment, type ReactElement } fr
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, type RenderOptions, type RenderResult } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 import { DiProvider } from 'react-magnetic-di';
 
 import type { Ari, Environment, InvocationResponse, InvocationResult, UserInputs } from './types';

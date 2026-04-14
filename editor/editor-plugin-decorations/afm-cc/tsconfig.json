@@ -30,6 +30,9 @@
 			"path": "../../editor-tables/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
 		},
 		{

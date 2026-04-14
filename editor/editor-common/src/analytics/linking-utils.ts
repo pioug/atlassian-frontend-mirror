@@ -70,6 +70,12 @@ export const buildVisitedNonHyperLinkPayload = (
 		| INPUT_METHOD.DOUBLE_CLICK
 		| INPUT_METHOD.FLOATING_TB
 		| INPUT_METHOD.META_CLICK,
+	resolvedAttributes?: {
+		displayCategory?: string | null;
+		extensionKey?: string | null;
+		status?: string | null;
+		statusDetails?: string | null;
+	},
 ): AnalyticsEventPayload => {
 	return {
 		action: ACTION.VISITED,
@@ -77,6 +83,12 @@ export const buildVisitedNonHyperLinkPayload = (
 		actionSubjectId: type as ACTION_SUBJECT_ID.CARD_INLINE | ACTION_SUBJECT_ID.CARD_BLOCK,
 		attributes: {
 			inputMethod: inputMethod,
+			...(resolvedAttributes && {
+				displayCategory: resolvedAttributes.displayCategory,
+				extensionKey: resolvedAttributes.extensionKey,
+				status: resolvedAttributes.status,
+				statusDetails: resolvedAttributes.statusDetails,
+			}),
 		},
 		eventType: EVENT_TYPE.TRACK,
 	};

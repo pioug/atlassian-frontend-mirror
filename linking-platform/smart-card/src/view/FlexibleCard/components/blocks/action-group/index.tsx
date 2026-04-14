@@ -6,7 +6,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 import { di } from 'react-magnetic-di';
 
 import { type Appearance } from '@atlaskit/button';

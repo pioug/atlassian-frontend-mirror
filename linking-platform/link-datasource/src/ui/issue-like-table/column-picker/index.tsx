@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { cssMap } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';

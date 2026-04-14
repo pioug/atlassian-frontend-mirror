@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
-import LocaleSelect, { type Locale, defaultLocales } from '@atlaskit/locale/LocaleSelect';
+import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
+import defaultLocales from '@atlaskit/locale/default-locales';
 import { locales } from '@atlaskit/media-ui/locales';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

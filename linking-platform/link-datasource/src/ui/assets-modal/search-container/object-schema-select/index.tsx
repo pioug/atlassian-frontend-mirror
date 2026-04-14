@@ -7,7 +7,7 @@ import { useCallback, useRef, useState } from 'react';
 
 import { jsx, styled } from '@compiled/react';
 import debounce from 'debounce-promise';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';

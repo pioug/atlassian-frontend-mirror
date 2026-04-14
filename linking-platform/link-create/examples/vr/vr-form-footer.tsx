@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Form } from 'react-final-form';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { FormContextProvider } from '../../src/controllers/form-context';
 import {

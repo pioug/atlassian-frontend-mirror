@@ -5,7 +5,7 @@
 import { useCallback, useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { token } from '@atlaskit/tokens';

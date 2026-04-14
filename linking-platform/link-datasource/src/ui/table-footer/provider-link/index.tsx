@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { cssMap } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl';
 
 import { AssetsIcon } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';

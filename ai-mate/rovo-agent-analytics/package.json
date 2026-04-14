@@ -1,9 +1,16 @@
 {
 	"name": "@atlaskit/rovo-agent-analytics",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Rovo Agents analytics",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
+		"react-compiler": {
+			"enabled": true,
+			"gating": {
+				"source": "@atlassian/react-compiler-gating",
+				"importSpecifierName": "isReactCompilerActivePlatform"
+			}
+		},
 		"team": "Rovo Agents",
 		"website": {
 			"name": "RovoAgentAnalytics",
@@ -46,6 +53,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react-dom": "root:*"
 	},

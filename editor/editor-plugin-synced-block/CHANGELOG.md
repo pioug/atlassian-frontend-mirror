@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 6.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.8
+
+### Patch Changes
+
+- [`fa146e17e08d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa146e17e08d6) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
 ## 6.1.7
 
 ### Patch Changes

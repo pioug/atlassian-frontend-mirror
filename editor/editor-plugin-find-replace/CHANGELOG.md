@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 8.2.25
+
+### Patch Changes
+
+- [`3da5fc5ff18bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3da5fc5ff18bc) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
+## 8.2.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.23
 
 ### Patch Changes

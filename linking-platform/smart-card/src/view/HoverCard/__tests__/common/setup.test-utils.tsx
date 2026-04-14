@@ -10,7 +10,7 @@ import {
 	type waitForOptions,
 } from '@testing-library/react';
 import userEvent, { type UserEvent } from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';

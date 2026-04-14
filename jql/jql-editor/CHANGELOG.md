@@ -1,5 +1,38 @@
 # @atlaskit/jql-editor
 
+## 6.1.0
+
+### Minor Changes
+
+- [`354bbafb6a1e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/354bbafb6a1e9) -
+  Add HydratedGoal type
+
+## 6.0.0
+
+### Major Changes
+
+- [`4b920b03625a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b920b03625a1) -
+  Removed `react-intl-next` alias and replaced all usages with `react-intl` directly.
+
+  What changed: The `react-intl-next` npm alias (which resolved to `react-intl@^5`) has been
+  removed. All imports now reference `react-intl` directly, and `peerDependencies` have been updated
+  to `"^5.25.1 || ^6.0.0 || ^7.0.0"`.
+
+  How consumer should update their code: Ensure `react-intl` is installed at a version satisfying
+  `^5.25.1 || ^6.0.0 || ^7.0.0`. If your application was using `react-intl-next` as an npm alias, it
+  can be safely removed. Replace any remaining `react-intl-next` imports with `react-intl`.
+
+### Patch Changes
+
+- [`7f43a9c7d5dec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f43a9c7d5dec) -
+  [ux] fixed up the scroll issue in JQL autocomplete if the option name is too long
+
+## 5.14.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.14.4
 
 ### Patch Changes

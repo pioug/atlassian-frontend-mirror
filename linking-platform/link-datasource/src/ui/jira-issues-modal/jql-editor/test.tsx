@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { JQLEditor, type JQLEditorProps } from '@atlaskit/jql-editor';
 import {

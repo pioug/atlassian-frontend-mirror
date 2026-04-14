@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
-import { createIsFromImportSourceFor } from '../no-custom-icons/checks/is-from-import-source';
+import { createIsFromImportSourceFor } from '../../common/is-from-import-source';
 import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 

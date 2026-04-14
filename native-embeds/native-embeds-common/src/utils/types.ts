@@ -126,6 +126,10 @@ export type EditorToolbarHandlers = Partial<{
 	onRefreshClick: EditorToolbarHandler;
 	onSetEmbedTypeClick: EditorToolbarHandler;
 	onShowTitleClick: EditorToolbarHandler;
+	onSummariseClick: (
+		parameters: NativeEmbedParameterValues,
+		context?: EditorToolbarHandlerContext,
+	) => void;
 }>;
 
 /** Base handler signature for contexts that don't have action-specific context. */

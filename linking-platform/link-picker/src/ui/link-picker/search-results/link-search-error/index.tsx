@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
 import { isFedRamp } from '@atlaskit/atlassian-context';
 import Button from '@atlaskit/button/new';

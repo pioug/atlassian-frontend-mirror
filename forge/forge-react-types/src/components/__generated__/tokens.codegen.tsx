@@ -3,9 +3,9 @@
  *
  * Shared tokens file for UI Kit components. Contains design token maps for xcss support. Source: `packages/forge/forge-ui/src/components/UIKit/tokens.partial.tsx`
  *
- * @codegen <<SignedSource::3ccd9b53fdc2907a6eda6b72e159d9c6>>
+ * @codegen <<SignedSource::2d545474244f6e14ab62c6522ff615b2>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::e30166598bcdedb0a9ec62bfb3712257>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::28733842ae37652d2a6f2ecdaa801d9c>>
  */
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */
@@ -27,7 +27,7 @@ import type { SerializedStyles } from '@emotion/serialize';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::457e16d67f12c48bba8b2c36b755de56>>
+ * @codegen <<SignedSource::cca172e91b088c7d75272f9a1cc0a52f>>
  * @codegenId forge-tokens
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
@@ -1278,7 +1278,6 @@ export type Layer = keyof typeof layerMap;
 
 export const fontMap: {
 	'font.body': 'var(--ds-font-body)';
-	'font.body.UNSAFE_small': 'var(--ds-font-body-UNSAFE_small)';
 	'font.body.large': 'var(--ds-font-body-large)';
 	'font.body.small': 'var(--ds-font-body-small)';
 	'font.code': 'var(--ds-font-code)';
@@ -1296,11 +1295,6 @@ export const fontMap: {
 	'font.body': token(
 		'font.body',
 		'normal 400 14px/20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-	),
-	// @deprecated
-	'font.body.UNSAFE_small': token(
-		'font.body.UNSAFE_small',
-		'normal 400 12px/16px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.body.large': token(
 		'font.body.large',
@@ -1406,17 +1400,12 @@ export type FontFamily = keyof typeof fontFamilyMap;
 
 export const textSizeMap: {
 	medium: 'var(--ds-font-body)';
-	UNSAFE_small: 'var(--ds-font-body-UNSAFE_small)';
 	large: 'var(--ds-font-body-large)';
 	small: 'var(--ds-font-body-small)';
 } = {
 	medium: token(
 		'font.body',
 		'normal 400 14px/20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-	),
-	UNSAFE_small: token(
-		'font.body.UNSAFE_small',
-		'normal 400 12px/16px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	large: token(
 		'font.body.large',

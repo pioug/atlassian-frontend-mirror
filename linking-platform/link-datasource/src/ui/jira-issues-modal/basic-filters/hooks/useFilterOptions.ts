@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { type IntlShape, useIntl } from 'react-intl-next';
+import { type IntlShape, useIntl } from 'react-intl';
 
 import type { Site } from '../../../../common/types';
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';

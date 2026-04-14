@@ -75,6 +75,9 @@
 			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/spotlight/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tabs/afm-products/tsconfig.json"
 		},
 		{

@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 
 import { css, cssMap, jsx, styled } from '@compiled/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl';
 
 import Avatar, { type SizeType } from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarProps } from '@atlaskit/avatar-group';

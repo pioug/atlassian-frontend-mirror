@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 9.0.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.30
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.29
 
 ### Patch Changes

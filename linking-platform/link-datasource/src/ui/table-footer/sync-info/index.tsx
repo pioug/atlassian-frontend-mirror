@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { FormattedDate, FormattedMessage, FormattedRelativeTime } from 'react-intl-next';
+import { FormattedDate, FormattedMessage, FormattedRelativeTime } from 'react-intl';
 
 import { messages } from './messages';
 

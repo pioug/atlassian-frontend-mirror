@@ -352,29 +352,15 @@ describe('Smart Card: Client', () => {
 		});
 	});
 
-	ffTest.off('platform_navx_lp_invalid_url_error', '', () => {
-		it('should return TypeError error when url is invalid url', async () => {
-			const client = new SmartCardClient();
-			const invalidUrl = 'https://';
-			try {
-				await client.fetchData(invalidUrl);
-			} catch (error: any) {
-				expect(error.name).toEqual('TypeError');
-			}
-		});
-	});
-
-	ffTest.on('platform_navx_lp_invalid_url_error', '', () => {
-		it('should return InvalidUrlError error when url is invalid url', async () => {
-			const client = new SmartCardClient();
-			const invalidUrl = 'https://';
-			try {
-				await client.fetchData(invalidUrl);
-			} catch (error: any) {
-				expect(error).toBeInstanceOf(InvalidUrlError);
-				expect(error.name).toEqual('InvalidUrlError');
-			}
-		});
+	it('should return InvalidUrlError error when url is invalid url', async () => {
+		const client = new SmartCardClient();
+		const invalidUrl = 'https://';
+		try {
+			await client.fetchData(invalidUrl);
+		} catch (error: any) {
+			expect(error).toBeInstanceOf(InvalidUrlError);
+			expect(error.name).toEqual('InvalidUrlError');
+		}
 	});
 
 	it('postData()', async () => {

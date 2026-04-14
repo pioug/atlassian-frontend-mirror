@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 8.0.31
+
+### Patch Changes
+
+- [`3da5fc5ff18bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3da5fc5ff18bc) -
+  Update README.md and 0-intro.tsx
+- Updated dependencies
+
+## 8.0.30
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.29
 
 ### Patch Changes

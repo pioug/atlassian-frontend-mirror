@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
